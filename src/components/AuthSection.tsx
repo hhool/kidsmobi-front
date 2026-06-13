@@ -57,7 +57,7 @@ export default function AuthSection({
   // Auth state
   const [isRegistered, setIsRegistered] = useState<boolean>(!!userEmail);
   const [authMode, setAuthMode] = useState<"login" | "register">("login");
-  const [emailInput, setEmailInput] = useState<string>("").toLowerCase();
+  const [emailInput, setEmailInput] = useState<string>("");
   const [passwordInput, setPasswordInput] = useState<string>("");
   const [repeatPassword, setRepeatPassword] = useState<string>("");
   const [verifyCode, setVerifyCode] = useState<string>("");
