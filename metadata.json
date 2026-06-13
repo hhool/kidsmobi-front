@@ -1,0 +1,6 @@
+{
+  "name": "全球专业童车第三方评测与选购决策官网",
+  "description": "全球领先的儿童自行车、滑板车、平衡车与婴儿推车第三方权威评测、科学选购决策与智能尺码计算平台，配备专家级AI重力与刹车安全顾问。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
