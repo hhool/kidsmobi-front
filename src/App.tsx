@@ -118,6 +118,7 @@ export default function App() {
 
   // 4. Modal detail overlays
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [activeStandardDimension, setActiveStandardDimension] = useState<string | null>(null);
 
   // 5. Drawer AI consultation controls
   const [showAiDrawer, setShowAiDrawer] = useState<boolean>(false);
@@ -589,6 +590,54 @@ Do you have any specific inquiries regarding materials, pneumatic dampening, car
           ];
         })();
 
+        const scoringStandards = [
+          {
+            key: "safety",
+            nameZh: "🛡️ 安全性 (Safety)",
+            nameEn: "🛡️ Safety Rating",
+            formulaZh: "测算公式：50% 紧急刹车制动减速度 + 30% 车架应力屈服变形极限 + 20% 重心防侧翻临界极限角",
+            formulaEn: "Formula: 50% Emergency Brake G-deceleration + 30% Frame Yield Stress limit + 20% Anti-rollover limit angle",
+            descZh: "选用安全研究所高速电子滑轨测定干/湿地最快制动响应，辅以液压屈服测试系统压载车架材料，极限倾斜冲击不凹折不侧翻，留足全天候骑行的防护安全冗余。",
+            descEn: "Calculated by testing optimal dry/wet stopping distance with visual high-frequency G-force sensors, and loading structural tube frames via micro-meters to ensure no deflection under impact."
+          },
+          {
+            key: "comfort",
+            nameZh: "🛋️ 舒适度 (Comfort)",
+            nameEn: "🛋️ Ergonomic Comfort",
+            formulaZh: "测算公式：40% 骨盆宽Q-Factor匹配度 + 40% 车梁应力吸震波衰减比 + 20% 鞍座重分配负载应力差",
+            formulaEn: "Formula: 40% Pelvic Q-Factor adaptation + 40% Dampening attenuation coefficient + 20% Saddle weight displacement",
+            descZh: "拒绝儿童踩踏‘外八字’损伤膝盖！精密测度五通曲柄宽度，结合特种车梁结构对15Hz以上高频颠簸的衰减能力，配合鞍座微孔发泡均匀应力点分配，杜绝幼童脊椎受损。",
+            descEn: "Designed strictly around pelvic development by keeping Q-Factor under maximum pediatric tolerances. Tests dynamic structural dampening vibration attenuation ratios to protect developing spines."
+          },
+          {
+            key: "portability",
+            nameZh: "🎒 便携性 (Portability)",
+            nameEn: "🎒 Portability & Mass Ratio",
+            formulaZh: "测算公式：60% 重力自重比系数 (重/儿童平均体重) + 25% 折叠物理空间占比 + 15% 杠杆搬运平衡重力矩",
+            formulaEn: "Formula: 60% Child-to-Bike weight mass ratio + 25% Folding storage footprint + 15% Lever lifting pivot angle",
+            descZh: "研究所牢守‘整车不可超儿童自重30%’红线。测定收纳容积与单手解锁效率，考核老年人或女性在狭小后备箱、防盗网电梯间抬升时的瞬态腰椎应力，体验轻便省力。",
+            descEn: "Adheres to the 30% child body mass safety ceiling. Evaluates one-touch folding speed, and physical carry balance vector point to ensure low-impact loading into trunks and tight storage."
+          },
+          {
+            key: "functionality",
+            nameZh: "🔧 功能性 (Functionality)",
+            nameEn: "🔧 Adaptability & Expansion",
+            formulaZh: "测算公式：40% 鞍座车把多维调节跨度 + 30% 全地形外胎摩擦系数(胎壁胎冠) + 30% 模块化零配增容深度",
+            formulaEn: "Formula: 40% Vertical range adjustments (saddle/bars) + 30% Terrain friction tread coefficient + 30% Modular component support",
+            descZh: "童车不仅能骑，更能随身体成长。本维度精密实测鞍座/把套上下及后移位移极限值，实测低滚阻花纹胎抓地摩擦曲线，以及加装撑地轮、置物货架或变速器无缝扩展力。",
+            descEn: "Evaluates standard size adaptation lifespan over rapid growth phases of arms and inseams. Rates terrain friction performance across gravel/mud surfaces and easy toolless modular adjustments."
+          },
+          {
+            key: "value",
+            nameZh: "💰 性价比 (Value Score)",
+            nameEn: "💰 Cost-Effectiveness Index",
+            formulaZh: "测算公式：(学术总得分 + 实测材质分) / 对应车型板块公认合理市售均值曲线偏差比率",
+            formulaEn: "Formula: (Biomechanical score + Material points) / Category price-distribution normalization curve",
+            descZh: "破除虚高大溢价和贴牌贴纸智商税！由精密机械评测总合与用料真实度（如全铝合金、防尘密封培林花鼓）和其官方建议 retail 售价做拟合算得，客观展现其纯正硬件含金量。",
+            descEn: "Removes markups and pseudo-imported premiums. Compares real physical material quality with direct consumer retail price curves to report absolute dollar-for-dollar performance."
+          }
+        ];
+
         return (
           <div id="detail_modal" className="fixed inset-0 bg-slate-950/85 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
             <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative">
@@ -682,6 +731,81 @@ Do you have any specific inquiries regarding materials, pneumatic dampening, car
                     </div>
                   </div>
 
+                </div>
+
+                {/* 5-Dimension Evaluation Criteria Accordion List */}
+                <div className="space-y-2 animate-fade-in">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1">
+                    <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
+                      <Scale className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
+                      {lang === "en" ? "📋 5-Dimension Scoring Standards" : "📋 五维数据评分标准与算法解析"}
+                    </h4>
+                    <span className="text-[10px] text-slate-500 font-medium">
+                      {lang === "en" ? "(Click dimension title to expand metric logic)" : "（点击维度名称可展开查看具体测算逻辑）"}
+                    </span>
+                  </div>
+
+                  <div className="bg-slate-950 p-2 sm:p-3 rounded-2xl border border-slate-850 space-y-1.5">
+                    {scoringStandards.map((std) => {
+                      const isExpanded = activeStandardDimension === std.key;
+                      const title = lang === "en" ? std.nameEn : std.nameZh;
+                      const formula = lang === "en" ? std.formulaEn : std.formulaZh;
+                      const desc = lang === "en" ? std.descEn : std.descZh;
+
+                      return (
+                        <div 
+                          key={std.key} 
+                          className={`rounded-xl border transition-all duration-200 overflow-hidden ${
+                            isExpanded 
+                              ? "bg-slate-900/60 border-amber-500/35 shadow-sm" 
+                              : "bg-slate-950/40 border-slate-900/60 hover:border-slate-800"
+                          }`}
+                        >
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setActiveStandardDimension(isExpanded ? null : std.key);
+                            }}
+                            className="w-full px-3.5 py-2 flex items-center justify-between text-left text-xs font-bold text-slate-300 hover:text-white transition-colors animate-fade-in"
+                          >
+                            <span className="flex items-center gap-2 py-1">{title}</span>
+                            <div className="flex items-center gap-2">
+                              <span className="text-[10px] text-amber-500/80 font-mono font-medium hidden sm:inline">
+                                {isExpanded ? (lang === "en" ? "COLLAPSE" : "收起指标") : (lang === "en" ? "EXPAND LOGIC" : "测算公式")}
+                              </span>
+                              <div className={`transition-transform duration-200 text-slate-500 ${isExpanded ? "rotate-90 text-amber-500" : ""}`}>
+                                <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+                              </div>
+                            </div>
+                          </button>
+
+                          {isExpanded && (
+                            <div className="px-3.5 pb-3.5 pt-1 space-y-3 border-t border-slate-850/60 bg-slate-950/45 animate-fade-in">
+                              {/* Formula description bar */}
+                              <div className="space-y-1 text-[11px]">
+                                <span className="text-[9px] font-black tracking-wider text-amber-500 uppercase block font-mono">
+                                  {lang === "en" ? "🔬 METROLOGY FORMULATION" : "🔬 核心加权计算公式"}
+                                </span>
+                                <div className="bg-slate-950/80 border border-slate-900 p-2 rounded-lg font-mono text-[10px] text-slate-300 leading-relaxed">
+                                  {formula}
+                                </div>
+                              </div>
+
+                              {/* Practical evaluation detail */}
+                              <div className="space-y-1">
+                                <span className="text-[9px] font-black tracking-wider text-slate-500 uppercase block">
+                                  {lang === "en" ? "🔍 LABORATORY MEASUREMENT LOGIC" : "🔍 物理实验室测度细节"}
+                                </span>
+                                <p className="text-[11px] text-slate-400 leading-relaxed font-normal">
+                                  {desc}
+                                </p>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
 
                 {/* Specs detailed table */}
