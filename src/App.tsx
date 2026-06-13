@@ -4,6 +4,8 @@ import {
   ShieldCheck,
   Send,
   ArrowRight,
+  TrendingDown,
+  TrendingUp,
   RefreshCw,
   MessageSquare,
   Globe,
@@ -648,15 +650,17 @@ Do you have any specific inquiries regarding materials, pneumatic dampening, car
                         {lang === "en" ? "VS Comparison:" : "对比偏差值:"}
                       </span>
                       {diff > 0 ? (
-                        <span className="text-green-400 font-black flex items-center gap-0.5">
-                          ▲ +{diff} (+{percent}%)
+                        <span className="text-green-400 font-black flex items-center gap-1">
+                          <TrendingUp className="w-3 h-3" />
+                          <span>+{diff} (+{percent}%)</span>
                         </span>
                       ) : diff < 0 ? (
-                        <span className="text-rose-400 font-black flex items-center gap-0.5">
-                          ▼ {diff} ({percent}%)
+                        <span className="text-rose-400 font-black flex items-center gap-1">
+                          <TrendingDown className="w-3 h-3" />
+                          <span>{diff} ({percent}%)</span>
                         </span>
                       ) : (
-                        <span className="text-slate-400 font-black flex items-center gap-0.5">
+                        <span className="text-slate-400 font-black flex items-center gap-1">
                           ■ 0.0 (0%)
                         </span>
                       )}
@@ -924,13 +928,46 @@ Do you have any specific inquiries regarding materials, pneumatic dampening, car
                               <span className="text-slate-300 font-extrabold">{item.subject}</span>
                               <div className="flex items-center gap-1.5 font-mono text-[9px]">
                                 <span className="text-white bg-slate-950 px-1.5 py-0.5 rounded border border-slate-850/80">
-                                  {selectedProduct.brand === "Woom" || selectedProduct.brand === "Puky" ? selectedProduct.brand : selectedProduct.brand.slice(0, 4)}: <strong className="text-amber-500">{item.scoreA}</strong>
+                                  {lang === "en" ? translateProduct(selectedProduct, "en").brand.slice(0, 6) : (selectedProduct.brand === "Woom" || selectedProduct.brand === "Puky" ? selectedProduct.brand : selectedProduct.brand.slice(0, 4))}: <strong className="text-amber-500">{item.scoreA}</strong>
                                 </span>
                                 {comparedProduct && item.scoreB !== undefined && (
                                   <>
                                     <span className="text-slate-600 text-[8px] font-bold">VS</span>
                                     <span className="text-white bg-slate-950 px-1.5 py-0.5 rounded border border-slate-850/80">
-                                      {comparedProduct.brand === "Woom" || comparedProduct.brand === "Puky" ? comparedProduct.brand : comparedProduct.brand.slice(0, 4)}: <strong className="text-blue-400">{item.scoreB}</strong>
+                                      {lang === "en" ? translateProduct(comparedProduct, "en").brand.slice(0, 6) : (comparedProduct.brand === "Woom" || comparedProduct.brand === "Puky" ? comparedProduct.brand : comparedProduct.brand.slice(0, 4))}: <strong className="text-blue-400">{item.scoreB}</strong>
+                                    </span>
+                                    {/* Delta Indicator (Task A extension) */}
+                                    <span className={`px-1.5 py-0.5 rounded border flex items-center gap-1.5 ${
+                                      item.scoreA > item.scoreB ? "text-green-400 border-green-500/30 bg-green-500/5" : 
+                                      item.scoreA < item.scoreB ? "text-rose-400 border-rose-500/30 bg-rose-500/5" : 
+                                      "text-slate-400 border-slate-700 bg-slate-800/10"
+                                    }`}>
+                                      {item.scoreA > item.scoreB ? (
+                                        <>
+                                          <TrendingUp className="w-2.5 h-2.5" />
+                                          <span>+{(item.scoreA - item.scoreB).toFixed(1)}</span>
+                                        </>
+                                      ) : item.scoreA < item.scoreB ? (
+                                        <>
+                                          <TrendingDown className="w-2.5 h-2.5" />
+                                          <span>{(item.scoreA - item.scoreB).toFixed(1)}</span>
+                                        </>
+                                      ) : (
+                                        <span>■ 0.0</span>
+                                      )}
+                                      {item.scoreB > 0 && Math.abs(item.scoreA - item.scoreB) > 0 && (
+                                        <span className="opacity-60 text-[7px] font-bold">
+                                          ({Math.round(((item.scoreA - item.scoreB) / item.scoreB) * 100)}%)
+                                        </span>
+                                      )}
+                                    </span>
+                                    {/* Grade Badge (Task C) */}
+                                    <span className={`px-1 rounded text-[8px] font-black ${
+                                      item.scoreA >= 9.5 ? "bg-amber-500/20 text-amber-500 border border-amber-500/30" :
+                                      item.scoreA >= 9.0 ? "bg-slate-500/20 text-slate-300 border border-slate-700" :
+                                      "bg-slate-800/40 text-slate-500 border border-slate-800"
+                                    }`}>
+                                      {item.scoreA >= 9.5 ? "S" : item.scoreA >= 9.0 ? "A" : "B"}
                                     </span>
                                   </>
                                 )}
