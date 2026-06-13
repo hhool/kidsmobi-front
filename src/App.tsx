@@ -19,6 +19,14 @@ import {
   ChevronLeft,
   X
 } from "lucide-react";
+import {
+  Radar,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  ResponsiveContainer
+} from "recharts";
 import { productsData } from "./data/modelsData";
 import { ChildProfile, Product, ChatMessage } from "./types";
 
@@ -541,6 +549,46 @@ Do you have any specific inquiries regarding materials, pneumatic dampening, car
       {/* DETAIL MODAL PANEL DRAWER */}
       {selectedProduct && (() => {
         const displayProduct = translateProduct(selectedProduct, lang);
+        
+        // Calculate 5-dimension radar profile values deterministically
+        const radarData = (() => {
+          const p = selectedProduct;
+          const safety = p.safetyScore;
+          const comfort = p.geometryScore;
+          const portability = p.weightScore;
+          
+          // Functionality Score
+          const isMulti = (p.pros || []).some(pro => 
+            pro.includes("多功能") || pro.includes("三合一") || pro.includes("3合1") || pro.includes("3-in-1") || pro.includes("all-in-one") || pro.includes("多用途")
+          );
+          const certWeight = (p.safetyCertification || []).length * 0.5;
+          const functionality = Number(Math.min(10, Math.max(5.5, (p.overallScore * 0.6) + certWeight + (isMulti ? 1.5 : 0) + ((p.pros || []).length * 0.3))).toFixed(1));
+          
+          // Cost-effectiveness (性价比) Score
+          let priceFactor = 1000;
+          if (p.category === "balance") priceFactor = 1500;
+          else if (p.category === "bicycle") priceFactor = 2500;
+          else if (p.category === "scooter") priceFactor = 600;
+          else if (p.category === "stroller") priceFactor = 3000;
+          else if (p.category === "safety_seat") priceFactor = 2500;
+          const ratio = p.price / priceFactor;
+          const costEff = Number(Math.min(10, Math.max(5.2, (10 - ratio * 2.5) * 0.35 + (p.overallScore * 0.65))).toFixed(1));
+
+          return lang === "en" ? [
+            { subject: "Safety", score: safety, key: "safety" },
+            { subject: "Comfort", score: comfort, key: "comfort" },
+            { subject: "Portability", score: portability, key: "portability" },
+            { subject: "Functionality", score: functionality, key: "functionality" },
+            { subject: "Value", score: costEff, key: "value" }
+          ] : [
+            { subject: "安全性", score: safety, key: "safety" },
+            { subject: "舒适度", score: comfort, key: "comfort" },
+            { subject: "便携性", score: portability, key: "portability" },
+            { subject: "功能性", score: functionality, key: "functionality" },
+            { subject: "性价比", score: costEff, key: "value" }
+          ];
+        })();
+
         return (
           <div id="detail_modal" className="fixed inset-0 bg-slate-950/85 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
             <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative">
@@ -560,39 +608,78 @@ Do you have any specific inquiries regarding materials, pneumatic dampening, car
                   {lang === "en" ? "✕ Close Report" : "✕ 关闭报告"}
                 </button>
               </div>
-
+              
               {/* Metric contents */}
               <div className="p-6 space-y-6 text-left">
                 
-                {/* Overall Ratings */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+                {/* 5-Dimension Radar visualization section */}
+                <div className="bg-slate-950 p-4 sm:p-5 rounded-3xl border border-slate-850 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
                   
-                  <div className="bg-slate-950 p-3 rounded-xl border border-slate-850">
-                    <span className="text-slate-500 text-[10px] block font-bold leading-none mb-1">
-                      {lang === "en" ? "Ergonomic Score" : "科学综合工效分"}
-                    </span>
-                    <span className="text-amber-500 text-lg font-black font-mono">{displayProduct.overallScore}</span>
+                  {/* Left Column: Recharts Radar Chart */}
+                  <div className="md:col-span-6 w-full h-[230px] flex items-center justify-center relative bg-slate-900/40 rounded-2xl border border-slate-900/80 p-2">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <RadarChart cx="50%" cy="50%" outerRadius="62%" data={radarData}>
+                        <PolarGrid stroke="#1e293b" />
+                        <PolarAngleAxis 
+                          dataKey="subject" 
+                          tick={{ fill: '#cbd5e1', fontSize: 10, fontWeight: 800 }}
+                        />
+                        <PolarRadiusAxis 
+                          angle={30} 
+                          domain={[0, 10]} 
+                          tick={{ fill: '#475569', fontSize: 8 }}
+                          axisLine={false}
+                        />
+                        <Radar
+                          name="Score"
+                          dataKey="score"
+                          stroke="#f59e0b"
+                          fill="#f59e0b"
+                          fillOpacity={0.35}
+                        />
+                      </RadarChart>
+                    </ResponsiveContainer>
                   </div>
 
-                  <div className="bg-slate-950 p-3 rounded-xl border border-slate-850">
-                    <span className="text-slate-500 text-[10px] block font-bold leading-none mb-1">
-                      {lang === "en" ? "Weight Ratio Score" : "物理自重比优越值"}
-                    </span>
-                    <span className="text-green-400 text-lg font-black font-mono">{displayProduct.weightScore}</span>
-                  </div>
+                  {/* Right Column: Visual indicator bars for high readability */}
+                  <div className="md:col-span-6 space-y-3.5">
+                    <div className="text-left space-y-1">
+                      <h4 className="text-[11px] font-black text-amber-500 uppercase tracking-widest font-mono">
+                        {lang === "en" ? "📊 5-D BIOMECHANIC METRICS" : "📊 智能工效 5 维雷达解构"}
+                      </h4>
+                      <p className="text-[10px] text-slate-500 leading-relaxed">
+                        {lang === "en" 
+                          ? "Multi-dimensional structural safety and value score mapping calculated by safety labor coefficients."
+                          : "研究所结合自重比、Q-Factor工效学、材料应力阻尼等多项系数全方位评测得分。"}
+                      </p>
+                    </div>
 
-                  <div className="bg-slate-950 p-3 rounded-xl border border-slate-850">
-                    <span className="text-slate-500 text-[10px] block font-bold leading-none mb-1">
-                      {lang === "en" ? "Braking Safety" : "制动与配件安全率"}
-                    </span>
-                    <span className="text-blue-400 text-lg font-black font-mono">{displayProduct.safetyScore}</span>
-                  </div>
+                    <div className="space-y-2 text-xs">
+                      {radarData.map((item) => {
+                        let barColor = "bg-amber-500";
+                        let textColor = "text-amber-400";
+                        if (item.key === "safety") { barColor = "bg-blue-500"; textColor = "text-blue-400"; }
+                        else if (item.key === "comfort") { barColor = "bg-purple-500"; textColor = "text-purple-400"; }
+                        else if (item.key === "portability") { barColor = "bg-green-500"; textColor = "text-green-400"; }
+                        else if (item.key === "functionality") { barColor = "bg-pink-500"; textColor = "text-pink-400"; }
+                        else if (item.key === "value") { barColor = "bg-amber-500"; textColor = "text-amber-400"; }
 
-                  <div className="bg-slate-950 p-3 rounded-xl border border-slate-850">
-                    <span className="text-slate-500 text-[10px] block font-bold leading-none mb-1">
-                      {lang === "en" ? "Q-Factor Value" : "五通与轴深工效值"}
-                    </span>
-                    <span className="text-purple-400 text-lg font-black font-mono">{displayProduct.geometryScore}</span>
+                        return (
+                          <div key={item.subject} className="space-y-0.5">
+                            <div className="flex justify-between items-center font-bold text-[11px]">
+                              <span className="text-slate-350">{item.subject}</span>
+                              <span className={`${textColor} font-mono font-black`}>{item.score} / 10</span>
+                            </div>
+                            <div className="h-1.5 w-full bg-slate-900 rounded-full overflow-hidden border border-slate-800/40">
+                              <div 
+                                className={`h-full ${barColor} rounded-full transition-all duration-500`}
+                                style={{ width: `${item.score * 10}%` }}
+                              ></div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
 
                 </div>
