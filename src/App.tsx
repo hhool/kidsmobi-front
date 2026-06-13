@@ -617,12 +617,13 @@ Do you have any specific inquiries regarding materials, pneumatic dampening, car
         const CustomRadarTooltip = ({ active, payload }: any) => {
           if (active && payload && payload.length) {
             const data = payload[0].payload;
+            const hasComparison = data.scoreB !== undefined && data.scoreB !== null;
             return (
               <div className="bg-slate-950 border border-slate-800 p-3 rounded-xl shadow-xl space-y-1.5 text-[11px] pointer-events-none z-50">
                 <div className="font-extrabold text-slate-350 border-b border-slate-850 pb-1 font-mono uppercase tracking-wider text-[10px]">
                   {data.subject} {lang === "en" ? "DIMENSION" : "评估指标"}
                 </div>
-                <div className="space-y-1 font-mono">
+                <div className="space-y-1.5 font-mono">
                   {payload.map((item: any, idx: number) => {
                     const isA = item.dataKey === "scoreA";
                     const colorClass = isA ? "text-amber-400" : "text-blue-400";
@@ -634,7 +635,36 @@ Do you have any specific inquiries regarding materials, pneumatic dampening, car
                     );
                   })}
                 </div>
-                <div className="text-[9px] text-slate-500 italic pt-0.5 border-t border-slate-900 leading-none">
+
+                {hasComparison && (() => {
+                  const valA = data.scoreA || 0;
+                  const valB = data.scoreB || 0;
+                  const diff = Number((valA - valB).toFixed(1));
+                  const percent = valB > 0 ? Math.round((diff / valB) * 100) : 0;
+                  
+                  return (
+                    <div className="pt-2 border-t border-slate-850 flex items-center justify-between text-[10px] gap-4 font-mono">
+                      <span className="text-slate-500 font-bold">
+                        {lang === "en" ? "VS Comparison:" : "对比偏差值:"}
+                      </span>
+                      {diff > 0 ? (
+                        <span className="text-green-400 font-black flex items-center gap-0.5">
+                          ▲ +{diff} (+{percent}%)
+                        </span>
+                      ) : diff < 0 ? (
+                        <span className="text-rose-400 font-black flex items-center gap-0.5">
+                          ▼ {diff} ({percent}%)
+                        </span>
+                      ) : (
+                        <span className="text-slate-400 font-black flex items-center gap-0.5">
+                          ■ 0.0 (0%)
+                        </span>
+                      )}
+                    </div>
+                  );
+                })()}
+
+                <div className="text-[9px] text-slate-500 italic pt-1.5 border-t border-slate-900 leading-none">
                   {lang === "en" ? "Click label to view standard logic" : "点击雷达轴标签查看指标算法测度"}
                 </div>
               </div>
@@ -820,6 +850,9 @@ Do you have any specific inquiries regarding materials, pneumatic dampening, car
                             stroke="#f59e0b"
                             fill="#f59e0b"
                             fillOpacity={0.25}
+                            isAnimationActive={true}
+                            animationDuration={600}
+                            animationEasing="ease-out"
                           />
 
                           {/* Contrast Product (Blue Color) */}
@@ -830,6 +863,9 @@ Do you have any specific inquiries regarding materials, pneumatic dampening, car
                               stroke="#3b82f6"
                               fill="#3b82f6"
                               fillOpacity={0.25}
+                              isAnimationActive={true}
+                              animationDuration={600}
+                              animationEasing="ease-out"
                             />
                           )}
 
