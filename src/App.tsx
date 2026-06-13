@@ -25,7 +25,8 @@ import {
   PolarGrid,
   PolarAngleAxis,
   PolarRadiusAxis,
-  ResponsiveContainer
+  ResponsiveContainer,
+  Legend
 } from "recharts";
 import { productsData } from "./data/modelsData";
 import { ChildProfile, Product, ChatMessage } from "./types";
@@ -118,7 +119,12 @@ export default function App() {
 
   // 4. Modal detail overlays
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [comparedProduct, setComparedProduct] = useState<Product | null>(null);
   const [activeStandardDimension, setActiveStandardDimension] = useState<string | null>(null);
+
+  useEffect(() => {
+    setComparedProduct(null);
+  }, [selectedProduct]);
 
   // 5. Drawer AI consultation controls
   const [showAiDrawer, setShowAiDrawer] = useState<boolean>(false);
@@ -551,9 +557,8 @@ Do you have any specific inquiries regarding materials, pneumatic dampening, car
       {selectedProduct && (() => {
         const displayProduct = translateProduct(selectedProduct, lang);
         
-        // Calculate 5-dimension radar profile values deterministically
-        const radarData = (() => {
-          const p = selectedProduct;
+        // Function to extract 5-dimension scores for any product dynamically
+        const getProductScores = (p: Product) => {
           const safety = p.safetyScore;
           const comfort = p.geometryScore;
           const portability = p.weightScore;
@@ -575,20 +580,26 @@ Do you have any specific inquiries regarding materials, pneumatic dampening, car
           const ratio = p.price / priceFactor;
           const costEff = Number(Math.min(10, Math.max(5.2, (10 - ratio * 2.5) * 0.35 + (p.overallScore * 0.65))).toFixed(1));
 
-          return lang === "en" ? [
-            { subject: "Safety", score: safety, key: "safety" },
-            { subject: "Comfort", score: comfort, key: "comfort" },
-            { subject: "Portability", score: portability, key: "portability" },
-            { subject: "Functionality", score: functionality, key: "functionality" },
-            { subject: "Value", score: costEff, key: "value" }
-          ] : [
-            { subject: "安全性", score: safety, key: "safety" },
-            { subject: "舒适度", score: comfort, key: "comfort" },
-            { subject: "便携性", score: portability, key: "portability" },
-            { subject: "功能性", score: functionality, key: "functionality" },
-            { subject: "性价比", score: costEff, key: "value" }
-          ];
-        })();
+          return { safety, comfort, portability, functionality, costEff };
+        };
+
+        const scoresA = getProductScores(selectedProduct);
+        const scoresB = comparedProduct ? getProductScores(comparedProduct) : null;
+
+        // Calculate 5-dimension radar profile values deterministically
+        const radarData = lang === "en" ? [
+          { subject: "Safety", scoreA: scoresA.safety, scoreB: scoresB?.safety, key: "safety" },
+          { subject: "Comfort", scoreA: scoresA.comfort, scoreB: scoresB?.comfort, key: "comfort" },
+          { subject: "Portability", scoreA: scoresA.portability, scoreB: scoresB?.portability, key: "portability" },
+          { subject: "Functionality", scoreA: scoresA.functionality, scoreB: scoresB?.functionality, key: "functionality" },
+          { subject: "Value", scoreA: scoresA.costEff, scoreB: scoresB?.costEff, key: "value" }
+        ] : [
+          { subject: "安全性", scoreA: scoresA.safety, scoreB: scoresB?.safety, key: "safety" },
+          { subject: "舒适度", scoreA: scoresA.comfort, scoreB: scoresB?.comfort, key: "comfort" },
+          { subject: "便携性", scoreA: scoresA.portability, scoreB: scoresB?.portability, key: "portability" },
+          { subject: "功能性", scoreA: scoresA.functionality, scoreB: scoresB?.functionality, key: "functionality" },
+          { subject: "性价比", scoreA: scoresA.costEff, scoreB: scoresB?.costEff, key: "value" }
+        ];
 
         const scoringStandards = [
           {
@@ -662,68 +673,180 @@ Do you have any specific inquiries regarding materials, pneumatic dampening, car
               <div className="p-6 space-y-6 text-left">
                 
                 {/* 5-Dimension Radar visualization section */}
-                <div className="bg-slate-950 p-4 sm:p-5 rounded-3xl border border-slate-850 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                <div id="radar_comparison_wrapper" className="bg-slate-950 p-4 sm:p-5 rounded-3xl border border-slate-850 flex flex-col lg:flex-row gap-6 lg:items-stretch">
                   
-                  {/* Left Column: Recharts Radar Chart */}
-                  <div className="md:col-span-6 w-full h-[230px] flex items-center justify-center relative bg-slate-900/40 rounded-2xl border border-slate-900/80 p-2">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <RadarChart cx="50%" cy="50%" outerRadius="62%" data={radarData}>
-                        <PolarGrid stroke="#1e293b" />
-                        <PolarAngleAxis 
-                          dataKey="subject" 
-                          tick={{ fill: '#cbd5e1', fontSize: 10, fontWeight: 800 }}
-                        />
-                        <PolarRadiusAxis 
-                          angle={30} 
-                          domain={[0, 10]} 
-                          tick={{ fill: '#475569', fontSize: 8 }}
-                          axisLine={false}
-                        />
-                        <Radar
-                          name="Score"
-                          dataKey="score"
-                          stroke="#f59e0b"
-                          fill="#f59e0b"
-                          fillOpacity={0.35}
-                        />
-                      </RadarChart>
-                    </ResponsiveContainer>
+                  {/* Left Column: Recharts Radar Chart & Multi-Product Selector */}
+                  <div className="flex-1 flex flex-col space-y-4 bg-slate-900/40 rounded-2xl border border-slate-900/80 p-4 justify-between">
+                    
+                    {/* Top bar with Product Selection Select */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-850/80 pb-3">
+                      <div className="text-left">
+                        <span className="text-[9px] font-black tracking-widest text-amber-500 uppercase block font-mono">
+                          {lang === "en" ? "🔬 COMPARE TO ANOTHER PRODUCT" : "🔬 叠加对比另一款产品"}
+                        </span>
+                        <p className="text-[10px] text-slate-500">
+                          {lang === "en" ? "Select a product to view score overlays" : "选择一款产品在雷达图上叠加波形对齐分析"}
+                        </p>
+                      </div>
+                      
+                      {/* Premium Dropdown Select with categoric optgroup categorization */}
+                      <select
+                        id="compare-product-id-select"
+                        value={comparedProduct?.id || ""}
+                        onChange={(e) => {
+                          const found = productsData.find(p => p.id === e.target.value);
+                          setComparedProduct(found || null);
+                        }}
+                        className="bg-slate-950 border border-slate-800 rounded-lg text-[114x] text-xs text-slate-200 px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-amber-500 max-w-full sm:max-w-[210px] cursor-pointer"
+                      >
+                        <option value="">
+                          {lang === "en" ? "-- Choose Product to Compare --" : "-- 选择对比产品 --"}
+                        </option>
+                        {/* Same Category group */}
+                        <optgroup label={lang === "en" ? "Same Category Recommendation" : "同类精品推荐对比"}>
+                          {productsData
+                            .filter(p => p.id !== selectedProduct.id && p.category === selectedProduct.category)
+                            .map(p => (
+                              <option key={p.id} value={p.id}>
+                                {p.brand} {p.name}
+                              </option>
+                            ))}
+                        </optgroup>
+                        {/* Other Categories group */}
+                        <optgroup label={lang === "en" ? "Other Categories Reference" : "跨类车型参考对比"}>
+                          {productsData
+                            .filter(p => p.id !== selectedProduct.id && p.category !== selectedProduct.category)
+                            .map(p => (
+                              <option key={p.id} value={p.id}>
+                                [{p.category}] {p.brand} {p.name}
+                              </option>
+                            ))}
+                        </optgroup>
+                      </select>
+                    </div>
+
+                    {/* Interactive Radar Chart component */}
+                    <div className="w-full h-[240px] flex items-center justify-center relative my-auto">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <RadarChart cx="50%" cy="50%" outerRadius="62%" data={radarData}>
+                          <PolarGrid stroke="#1e293b" />
+                          <PolarAngleAxis 
+                            dataKey="subject" 
+                            tick={{ fill: '#cbd5e1', fontSize: 10, fontWeight: 900 }}
+                          />
+                          <PolarRadiusAxis 
+                            angle={30} 
+                            domain={[0, 10]} 
+                            tick={{ fill: '#475569', fontSize: 8 }}
+                            axisLine={false}
+                          />
+                          
+                          {/* Anchor Product (Amber Color) */}
+                          <Radar
+                            name={selectedProduct.brand + " " + selectedProduct.name}
+                            dataKey="scoreA"
+                            stroke="#f59e0b"
+                            fill="#f59e0b"
+                            fillOpacity={0.25}
+                          />
+
+                          {/* Contrast Product (Blue Color) */}
+                          {comparedProduct && (
+                            <Radar
+                              name={comparedProduct.brand + " " + comparedProduct.name}
+                              dataKey="scoreB"
+                              stroke="#3b82f6"
+                              fill="#3b82f6"
+                              fillOpacity={0.25}
+                            />
+                          )}
+
+                          <Legend 
+                            verticalAlign="bottom" 
+                            height={32}
+                            content={({ payload }) => {
+                              if (!payload) return null;
+                              return (
+                                <div className="flex justify-center flex-wrap items-center gap-4 text-[10px] mt-2 font-black tracking-wide font-mono">
+                                  {payload.map((entry: any, index: number) => {
+                                    const isA = index === 0;
+                                    const dotColor = isA ? "bg-amber-500" : "bg-blue-500";
+                                    const textColor = isA ? "text-amber-500/90" : "text-blue-400/90";
+                                    return (
+                                      <div key={`legend-item-${index}`} className="flex items-center gap-1.5 bg-slate-950/60 px-2 py-0.5 rounded border border-slate-850">
+                                        <span className={`w-1.5 h-1.5 rounded-full ${dotColor}`}></span>
+                                        <span className={`${textColor}`}>{entry.value}</span>
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              );
+                            }}
+                          />
+                        </RadarChart>
+                      </ResponsiveContainer>
+                    </div>
                   </div>
 
                   {/* Right Column: Visual indicator bars for high readability */}
-                  <div className="md:col-span-6 space-y-3.5">
+                  <div className="flex-1 flex flex-col justify-between space-y-4">
                     <div className="text-left space-y-1">
                       <h4 className="text-[11px] font-black text-amber-500 uppercase tracking-widest font-mono">
-                        {lang === "en" ? "📊 5-D BIOMECHANIC METRICS" : "📊 智能工效 5 维雷达解构"}
+                        {lang === "en" ? "📊 5-D BIOMECHANIC COMPARATIVE METRICS" : "📊 智能工效 5 维雷达极值对照"}
                       </h4>
                       <p className="text-[10px] text-slate-500 leading-relaxed">
                         {lang === "en" 
-                          ? "Multi-dimensional structural safety and value score mapping calculated by safety labor coefficients."
-                          : "研究所结合自重比、Q-Factor工效学、材料应力阻尼等多项系数全方位评测得分。"}
+                          ? "Comparative multi-dimensional biomechanical structural testing calculated based on pelvic adaptation safety index."
+                          : "结合骨盆宽、Q-Factor、车架材料抗弯压折极限、刚度阻尼比等多项物理力学测试指标全方位对照结果。"}
                       </p>
                     </div>
 
-                    <div className="space-y-2 text-xs">
+                    <div className="space-y-2.5 text-xs">
                       {radarData.map((item) => {
-                        let barColor = "bg-amber-500";
-                        let textColor = "text-amber-400";
-                        if (item.key === "safety") { barColor = "bg-blue-500"; textColor = "text-blue-400"; }
-                        else if (item.key === "comfort") { barColor = "bg-purple-500"; textColor = "text-purple-400"; }
-                        else if (item.key === "portability") { barColor = "bg-green-500"; textColor = "text-green-400"; }
-                        else if (item.key === "functionality") { barColor = "bg-pink-500"; textColor = "text-pink-400"; }
-                        else if (item.key === "value") { barColor = "bg-amber-500"; textColor = "text-amber-400"; }
+                        let barColorA = "bg-amber-500";
+                        if (item.key === "safety") { barColorA = "bg-blue-500"; }
+                        else if (item.key === "comfort") { barColorA = "bg-purple-500"; }
+                        else if (item.key === "portability") { barColorA = "bg-green-500"; }
+                        else if (item.key === "functionality") { barColorA = "bg-pink-500"; }
+                        else if (item.key === "value") { barColorA = "bg-amber-500"; }
 
                         return (
-                          <div key={item.subject} className="space-y-0.5">
+                          <div key={item.subject} className="space-y-1.5 bg-slate-900/35 p-2 rounded-xl border border-slate-850/30">
                             <div className="flex justify-between items-center font-bold text-[11px]">
-                              <span className="text-slate-350">{item.subject}</span>
-                              <span className={`${textColor} font-mono font-black`}>{item.score} / 10</span>
+                              <span className="text-slate-300 font-extrabold">{item.subject}</span>
+                              <div className="flex items-center gap-1.5 font-mono text-[9px]">
+                                <span className="text-white bg-slate-950 px-1.5 py-0.5 rounded border border-slate-850/80">
+                                  {selectedProduct.brand === "Woom" || selectedProduct.brand === "Puky" ? selectedProduct.brand : selectedProduct.brand.slice(0, 4)}: <strong className="text-amber-500">{item.scoreA}</strong>
+                                </span>
+                                {comparedProduct && item.scoreB !== undefined && (
+                                  <>
+                                    <span className="text-slate-600 text-[8px] font-bold">VS</span>
+                                    <span className="text-white bg-slate-950 px-1.5 py-0.5 rounded border border-slate-850/80">
+                                      {comparedProduct.brand === "Woom" || comparedProduct.brand === "Puky" ? comparedProduct.brand : comparedProduct.brand.slice(0, 4)}: <strong className="text-blue-400">{item.scoreB}</strong>
+                                    </span>
+                                  </>
+                                )}
+                              </div>
                             </div>
-                            <div className="h-1.5 w-full bg-slate-900 rounded-full overflow-hidden border border-slate-800/40">
-                              <div 
-                                className={`h-full ${barColor} rounded-full transition-all duration-500`}
-                                style={{ width: `${item.score * 10}%` }}
-                              ></div>
+
+                            <div className="space-y-1">
+                              {/* Anchor Product A progress bar */}
+                              <div className="h-1.5 w-full bg-slate-950 rounded-full overflow-hidden border border-slate-900">
+                                <div 
+                                  className={`h-full ${barColorA} rounded-full transition-all duration-500`}
+                                  style={{ width: `${item.scoreA * 10}%` }}
+                                ></div>
+                              </div>
+                              
+                              {/* Comparison Contrast Product B progress bar */}
+                              {comparedProduct && item.scoreB !== undefined && (
+                                <div className="h-1.5 w-full bg-slate-950 rounded-full overflow-hidden border border-slate-900">
+                                  <div 
+                                    className="h-full bg-blue-500 rounded-full transition-all duration-500"
+                                    style={{ width: `${item.scoreB * 10}%` }}
+                                  ></div>
+                                </div>
+                              )}
                             </div>
                           </div>
                         );
