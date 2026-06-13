@@ -140,7 +140,7 @@ export default function GuidesSection({
 }: GuidesSectionProps) {
   const [selectedGuideState, setSelectedGuideState] = useState<any | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [searchQuery, setSearchQuery] = useState<string>("").toLowerCase();
+  const [searchQuery, setSearchQuery] = useState<string>("");
   
   // Accordion state
   const [openFaqId, setOpenFaqId] = useState<string | null>("faq_1");
@@ -160,10 +160,11 @@ export default function GuidesSection({
       .map(art => translateGuideArticle(art, lang))
       .filter((art) => {
         const matchesCat = selectedCategory === "all" || art.category === selectedCategory;
-        const matchesSearch = searchQuery.trim() === "" ||
-          art.title.toLowerCase().includes(searchQuery) ||
-          art.summary.toLowerCase().includes(searchQuery) ||
-          art.content.toLowerCase().includes(searchQuery);
+        const query = searchQuery.toLowerCase().trim();
+        const matchesSearch = query === "" ||
+          art.title.toLowerCase().includes(query) ||
+          art.summary.toLowerCase().includes(query) ||
+          art.content.toLowerCase().includes(query);
         return matchesCat && matchesSearch;
       });
   }, [selectedCategory, searchQuery, lang]);
