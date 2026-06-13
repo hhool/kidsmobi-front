@@ -26,7 +26,8 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
   ResponsiveContainer,
-  Legend
+  Legend,
+  Tooltip
 } from "recharts";
 import { productsData } from "./data/modelsData";
 import { ChildProfile, Product, ChatMessage } from "./types";
@@ -125,6 +126,17 @@ export default function App() {
   useEffect(() => {
     setComparedProduct(null);
   }, [selectedProduct]);
+
+  const handleAxisLabelClick = (key: string) => {
+    if (!key) return;
+    setActiveStandardDimension(key);
+    setTimeout(() => {
+      const element = document.getElementById(`std-accordion-${key}`);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 120);
+  };
 
   // 5. Drawer AI consultation controls
   const [showAiDrawer, setShowAiDrawer] = useState<boolean>(false);
@@ -601,6 +613,36 @@ Do you have any specific inquiries regarding materials, pneumatic dampening, car
           { subject: "性价比", scoreA: scoresA.costEff, scoreB: scoresB?.costEff, key: "value" }
         ];
 
+        // Custom Tooltip component for hover state on Radar Chart
+        const CustomRadarTooltip = ({ active, payload }: any) => {
+          if (active && payload && payload.length) {
+            const data = payload[0].payload;
+            return (
+              <div className="bg-slate-950 border border-slate-800 p-3 rounded-xl shadow-xl space-y-1.5 text-[11px] pointer-events-none z-50">
+                <div className="font-extrabold text-slate-350 border-b border-slate-850 pb-1 font-mono uppercase tracking-wider text-[10px]">
+                  {data.subject} {lang === "en" ? "DIMENSION" : "评估指标"}
+                </div>
+                <div className="space-y-1 font-mono">
+                  {payload.map((item: any, idx: number) => {
+                    const isA = item.dataKey === "scoreA";
+                    const colorClass = isA ? "text-amber-400" : "text-blue-400";
+                    return (
+                      <div key={idx} className="flex items-center justify-between gap-6">
+                        <span className="text-slate-400 font-bold">{item.name}:</span>
+                        <span className={`${colorClass} font-black text-right`}>{item.value} / 10</span>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="text-[9px] text-slate-500 italic pt-0.5 border-t border-slate-900 leading-none">
+                  {lang === "en" ? "Click label to view standard logic" : "点击雷达轴标签查看指标算法测度"}
+                </div>
+              </div>
+            );
+          }
+          return null;
+        };
+
         const scoringStandards = [
           {
             key: "safety",
@@ -732,7 +774,35 @@ Do you have any specific inquiries regarding materials, pneumatic dampening, car
                           <PolarGrid stroke="#1e293b" />
                           <PolarAngleAxis 
                             dataKey="subject" 
-                            tick={{ fill: '#cbd5e1', fontSize: 10, fontWeight: 900 }}
+                            tick={(props: any) => {
+                              const { payload, x, y, textAnchor, stroke, radius, ...rest } = props;
+                              const index = props.index;
+                              const item = radarData[index];
+                              const key = item?.key;
+                              const isActive = activeStandardDimension === key;
+                              
+                              return (
+                                <g className="recharts-polar-angle-axis-tick">
+                                  <text
+                                    {...rest}
+                                    x={x}
+                                    y={y}
+                                    textAnchor={textAnchor}
+                                    className={`cursor-pointer font-extrabold text-[10px] select-none transition-all duration-150 ${
+                                      isActive 
+                                        ? "fill-amber-400 font-mono font-black drop-shadow-[0_0_2px_rgba(245,158,11,0.6)]" 
+                                        : "fill-slate-300 hover:fill-amber-400"
+                                    }`}
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      if (key) handleAxisLabelClick(key);
+                                    }}
+                                  >
+                                    {payload.value}
+                                  </text>
+                                </g>
+                              );
+                            }}
                           />
                           <PolarRadiusAxis 
                             angle={30} 
@@ -740,6 +810,8 @@ Do you have any specific inquiries regarding materials, pneumatic dampening, car
                             tick={{ fill: '#475569', fontSize: 8 }}
                             axisLine={false}
                           />
+                          
+                          <Tooltip content={<CustomRadarTooltip />} />
                           
                           {/* Anchor Product (Amber Color) */}
                           <Radar
@@ -878,6 +950,7 @@ Do you have any specific inquiries regarding materials, pneumatic dampening, car
                       return (
                         <div 
                           key={std.key} 
+                          id={`std-accordion-${std.key}`}
                           className={`rounded-xl border transition-all duration-200 overflow-hidden ${
                             isExpanded 
                               ? "bg-slate-900/60 border-amber-500/35 shadow-sm" 
