@@ -90,7 +90,7 @@ Please reply strictly in clear English. Deliver answers formatted in structured,
     }));
 
     const response = await client.models.generateContent({
-      model: "gemini-3.5-flash",
+      model: "gemini-3.1-flash-lite",
       contents: chatContents,
       config: {
         systemInstruction,
