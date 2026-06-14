@@ -68,11 +68,34 @@ export default function App() {
   // Admin access state
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
+  // 2. Active Tab Router: home, news, products, evaluations, guides, about, auth
+  const [activeTab, setActiveTab] = useState<string>("home");
+
   useEffect(() => {
-    if (window.location.hash === "#cms") {
-      setActiveTab("admin");
-    }
+    const handleHash = () => {
+      if (window.location.hash === "#cms") {
+        setActiveTab("admin");
+      } else if (!window.location.hash) {
+        setActiveTab(current => current === "admin" ? "home" : current);
+      }
+    };
+    
+    handleHash();
+    window.addEventListener("hashchange", handleHash);
+    return () => window.removeEventListener("hashchange", handleHash);
   }, []);
+
+  useEffect(() => {
+    if (activeTab === "admin") {
+      if (window.location.hash !== "#cms") {
+        window.location.hash = "cms";
+      }
+    } else {
+      if (window.location.hash === "#cms") {
+        window.history.replaceState(null, "", window.location.pathname + window.location.search);
+      }
+    }
+  }, [activeTab]);
 
   // Country & Currency State
   const [countryCode, setCountryCode] = useState<string>(() => {
@@ -106,9 +129,6 @@ export default function App() {
     weight: 16,
     experience: "beginner",
   });
-
-  // 2. Active Tab Router: home, news, products, evaluations, guides, about, auth
-  const [activeTab, setActiveTab] = useState<string>("home");
 
   // 3. User local bookmarks, up to 3 compares, and session login email
   const [savedProducts, setSavedProducts] = useState<Product[]>([]);
@@ -639,6 +659,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
         {activeTab === "admin" && (
           <AdminPanel 
             onClose={() => setActiveTab("home")} 
+            onRedirectAuth={() => setActiveTab("auth")}
             lang={lang} 
           />
         )}

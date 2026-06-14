@@ -27,7 +27,7 @@ import {
 } from "../lib/cmsService";
 import { CMSProduct, CMSContent, CMSSettings } from "../types";
 
-export default function AdminPanel({ onClose, lang }: { onClose: () => void, lang: "zh" | "en" }) {
+export default function AdminPanel({ onClose, onRedirectAuth, lang }: { onClose: () => void, onRedirectAuth: () => void, lang: "zh" | "en" }) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
   const [activeMenu, setActiveMenu] = useState<"dashboard" | "products" | "content" | "settings">("dashboard");
@@ -38,18 +38,19 @@ export default function AdminPanel({ onClose, lang }: { onClose: () => void, lan
   const [settings, setSettings] = useState<CMSSettings | null>(null);
 
   useEffect(() => {
-    const check = async () => {
-      const user = auth.currentUser;
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const admin = await checkIsAdmin(user.uid);
         setIsAdmin(admin);
         if (admin) {
           fetchData();
         }
+      } else {
+        setIsAdmin(false);
       }
       setLoading(false);
-    };
-    check();
+    });
+    return () => unsubscribe();
   }, []);
 
   const fetchData = async () => {
@@ -68,6 +69,25 @@ export default function AdminPanel({ onClose, lang }: { onClose: () => void, lan
   };
 
   if (loading) return <div className="fixed inset-0 bg-white/80 backdrop-blur-md z-[100] flex items-center justify-center font-black">AUTHENTICATING...</div>;
+  
+  if (!auth.currentUser) return <div className="fixed inset-0 bg-white z-[100] flex flex-col items-center justify-center p-8 text-center">
+    <Globe className="w-16 h-16 text-orange-500 mb-4 animate-pulse" />
+    <h2 className="text-2xl font-black mb-2 uppercase">{lang === "zh" ? "需要管理员登录" : "Admin Login Required"}</h2>
+    <p className="text-slate-500 mb-8 max-w-xs">{lang === "zh" ? "请先登录您的管理员账号以访问此控制台。" : "Please sign in with your administrator account to access this console."}</p>
+    <div className="flex gap-4">
+      <button onClick={onClose} className="px-8 py-3 bg-slate-100 text-slate-600 rounded-2xl font-bold">{lang === "zh" ? "回到首页" : "Back to Home"}</button>
+      <button 
+        onClick={() => {
+          onClose();
+          onRedirectAuth();
+        }} 
+        className="px-8 py-3 bg-orange-500 text-white rounded-2xl font-bold shadow-lg shadow-orange-500/20"
+      >
+        {lang === "zh" ? "立即登录" : "Login Now"}
+      </button>
+    </div>
+  </div>;
+
   if (!isAdmin) return <div className="fixed inset-0 bg-white z-[100] flex flex-col items-center justify-center p-8 text-center">
     <AlertCircle className="w-16 h-16 text-red-500 mb-4" />
     <h2 className="text-2xl font-black mb-2 uppercase">Access Denied</h2>
