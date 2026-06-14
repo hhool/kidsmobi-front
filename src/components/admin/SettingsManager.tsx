@@ -5,7 +5,8 @@ import {
   Trash2, 
   Plus, 
   ArrowRight,
-  Monitor
+  Monitor,
+  Globe
 } from "lucide-react";
 import { getCMSSettings, saveCMSSettings, getCMSProducts, getCMSEvaluations, getCMSGuides } from "../../lib/cmsService";
 import { CMSSettings, HomeSlot } from "../../types";
@@ -13,6 +14,7 @@ import { CMSSettings, HomeSlot } from "../../types";
 export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
   const [settings, setSettings] = useState<CMSSettings | null>(null);
   const [pool, setPool] = useState<{ id: string; name: string; type: string }[]>([]);
+  const [selectedSeoPage, setSelectedSeoPage] = useState<string>("home");
 
   useEffect(() => {
     fetchData();
@@ -26,14 +28,32 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
       getCMSGuides()
     ]);
     
-    setSettings(s || {
+    const defaultSeo = {
+      home: { zh: { title: "", description: "", keywords: [] }, en: { title: "", description: "", keywords: [] } },
+      news: { zh: { title: "", description: "", keywords: [] }, en: { title: "", description: "", keywords: [] } },
+      products: { zh: { title: "", description: "", keywords: [] }, en: { title: "", description: "", keywords: [] } },
+      evaluations: { zh: { title: "", description: "", keywords: [] }, en: { title: "", description: "", keywords: [] } },
+      guides: { zh: { title: "", description: "", keywords: [] }, en: { title: "", description: "", keywords: [] } },
+      about: { zh: { title: "", description: "", keywords: [] }, en: { title: "", description: "", keywords: [] } }
+    };
+
+    const initialSettings: CMSSettings = s ? {
+      ...s,
+      seo: {
+        ...defaultSeo,
+        ...(s.seo || {})
+      }
+    } : {
       id: "global",
       hero: {
         zh: { title: "全球专业童车评测与选购决策平台", subtitle: "权威实测 | 科学选购 | 全球资讯" },
         en: { title: "Global Kids Mobility Evaluation & Decision Platform", subtitle: "Authority Review | Scientific Guide | Global Trends" }
       },
-      homeSlots: []
-    });
+      homeSlots: [],
+      seo: defaultSeo
+    };
+
+    setSettings(initialSettings);
 
     const combinedPool = [
       ...p.map(x => ({ id: x.id, name: x.zh.name || x.en.name, type: "product" })),
@@ -77,10 +97,42 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
     }
   };
 
+  const updateSeoValue = (pageKey: string, langKey: "zh" | "en", field: "title" | "description" | "keywords", value: any) => {
+    if (!settings) return;
+    
+    const currentSeo = settings.seo || {};
+    const pageSeo = currentSeo[pageKey] || { 
+      zh: { title: "", description: "", keywords: [] }, 
+      en: { title: "", description: "", keywords: [] } 
+    };
+    const langSeo = pageSeo[langKey] || { title: "", description: "", keywords: [] };
+    
+    let finalVal = value;
+    if (field === "keywords" && typeof value === "string") {
+      finalVal = value.split(/[,，]/).map(k => k.trim()).filter(Boolean);
+    }
+    
+    const updatedSeo = {
+      ...currentSeo,
+      [pageKey]: {
+        ...pageSeo,
+        [langKey]: {
+          ...langSeo,
+          [field]: finalVal
+        }
+      }
+    };
+    
+    setSettings({
+      ...settings,
+      seo: updatedSeo
+    });
+  };
+
   if (!settings) return null;
 
   return (
-    <div className="space-y-12 animate-in fade-in duration-500">
+    <div className="space-y-12 animate-in fade-in duration-500 pb-16">
       <header className="flex items-center justify-between">
         <div>
           <h2 className="text-3xl font-black text-slate-900 tracking-tighter uppercase">{lang === "zh" ? "首页与全局配置" : "Home & Config"}</h2>
@@ -99,7 +151,7 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
           <h3 className="font-black text-lg uppercase tracking-tight">Main Hero Configuration</h3>
         </div>
         
-        <div className="grid grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           <div className="bg-white p-10 rounded-[40px] border border-slate-100 shadow-sm space-y-6">
             <h4 className="text-[10px] font-black text-orange-500 uppercase">Chinese (ZH) Hero</h4>
             <Field label="Hero Slogan" value={settings.hero.zh.title} onChange={(v: string) => setSettings({...settings, hero: {...settings.hero, zh: {...settings.hero.zh, title: v}}})} />
@@ -178,15 +230,121 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
           )}
         </div>
       </section>
+
+      {/* SEO Controller Section */}
+      <section className="space-y-8 border-t border-slate-100 pt-12">
+        <div className="flex items-center gap-3">
+          <Globe className="w-6 h-6 text-slate-900" />
+          <h3 className="font-black text-lg uppercase tracking-tight">
+            {lang === "zh" ? "全局页面 SEO 与头标签配置" : "Global SEO & Title Configurations"}
+          </h3>
+        </div>
+
+        {/* Page selector Tabs */}
+        <div className="flex flex-wrap gap-2 bg-slate-50 p-2 rounded-3xl max-w-fit border border-slate-100">
+          {[
+            { id: "home", labelZh: "首页", labelEn: "Home" },
+            { id: "news", labelZh: "资讯/行业前沿", labelEn: "News" },
+            { id: "products", labelZh: "参数矩阵", labelEn: "Products" },
+            { id: "evaluations", labelZh: "深度实测报告", labelEn: "Evaluations" },
+            { id: "guides", labelZh: "选型指南", labelEn: "Guides" },
+            { id: "about", labelZh: "关于/科研愿景", labelEn: "About" }
+          ].map(p => (
+            <button
+              key={p.id}
+              onClick={() => setSelectedSeoPage(p.id)}
+              className={`px-5 py-2.5 rounded-2xl text-xs font-black uppercase transition-all duration-300 ${
+                selectedSeoPage === p.id
+                  ? "bg-slate-900 text-white shadow-md"
+                  : "text-slate-500 hover:text-slate-900"
+              }`}
+            >
+              {lang === "zh" ? p.labelZh : p.labelEn}
+            </button>
+          ))}
+        </div>
+
+        {/* Dual columns for ZH and EN SEO parameters */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          {/* Chinese Column */}
+          <div className="bg-white p-10 rounded-[40px] border border-slate-100 shadow-sm space-y-6">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+              <span className="text-xs font-black text-orange-500 uppercase tracking-widest">Chinese (ZH) Metadata</span>
+              <span className="text-[10px] text-slate-400 font-bold">🎯 Will display in Chinese rendering</span>
+            </div>
+            
+            <Field 
+              label="Page Head Title (浏览器标题)" 
+              value={settings.seo?.[selectedSeoPage]?.zh?.title || ""} 
+              onChange={(v: string) => updateSeoValue(selectedSeoPage, "zh", "title", v)} 
+              placeholder="请输入中文标题"
+            />
+            
+            <Field 
+              label="Keywords (关键字 - 用英文逗号隔开)" 
+              value={settings.seo?.[selectedSeoPage]?.zh?.keywords?.join(", ") || ""} 
+              onChange={(v: string) => updateSeoValue(selectedSeoPage, "zh", "keywords", v)} 
+              placeholder="例如: 童车评测, 选购指南, 安全座椅"
+            />
+            
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Page Description (中文网页描述)</label>
+              <textarea 
+                className="w-full bg-slate-50 border border-slate-100 py-4 px-6 rounded-2xl font-bold text-slate-900 text-sm outline-none focus:ring-4 focus:ring-slate-900/5 focus:bg-white transition-all min-h-[120px] resize-none"
+                value={settings.seo?.[selectedSeoPage]?.zh?.description || ""} 
+                onChange={(e) => updateSeoValue(selectedSeoPage, "zh", "description", e.target.value)}
+                placeholder="请输入网页核心描述，利于百度谷歌等搜索引擎收录..."
+              />
+            </div>
+          </div>
+
+          {/* English Column */}
+          <div className="bg-white p-10 rounded-[40px] border border-slate-100 shadow-sm space-y-6">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+              <span className="text-xs font-black text-blue-500 uppercase tracking-widest">English (EN) Metadata</span>
+              <span className="text-[10px] text-slate-400 font-bold">🎯 Will display in English rendering</span>
+            </div>
+            
+            <Field 
+              label="Page Head Title (Browser Title)" 
+              value={settings.seo?.[selectedSeoPage]?.en?.title || ""} 
+              onChange={(v: string) => updateSeoValue(selectedSeoPage, "en", "title", v)} 
+              placeholder="Enter page browser title"
+            />
+            
+            <Field 
+              label="Keywords (Keywords - Split by Comma)" 
+              value={settings.seo?.[selectedSeoPage]?.en?.keywords?.join(", ") || ""} 
+              onChange={(v: string) => updateSeoValue(selectedSeoPage, "en", "keywords", v)} 
+              placeholder="e.g. kid bicycles, safety test, ratings, kidsmobi"
+            />
+            
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Page Description (English Page Description)</label>
+              <textarea 
+                className="w-full bg-slate-50 border border-slate-100 py-4 px-6 rounded-2xl font-bold text-slate-900 text-sm outline-none focus:ring-4 focus:ring-slate-900/5 focus:bg-white transition-all min-h-[120px] resize-none"
+                value={settings.seo?.[selectedSeoPage]?.en?.description || ""} 
+                onChange={(e) => updateSeoValue(selectedSeoPage, "en", "description", e.target.value)}
+                placeholder="Enter full English page description for global indexing..."
+              />
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
 
-function Field({ label, value, onChange }: any) {
+function Field({ label, value, onChange, placeholder }: any) {
   return (
     <div className="space-y-2">
       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{label}</label>
-      <input className="w-full bg-slate-50 border border-slate-100 py-4 px-6 rounded-2xl font-black text-slate-900 outline-none focus:ring-4 focus:ring-slate-900/5 focus:bg-white transition-all" value={value} onChange={(e) => onChange(e.target.value)} />
+      <input 
+        className="w-full bg-slate-50 border border-slate-100 py-4 px-6 rounded-2xl font-bold text-slate-900 outline-none focus:ring-4 focus:ring-slate-900/5 focus:bg-white transition-all text-sm" 
+        value={value} 
+        onChange={(e) => onChange(e.target.value)} 
+        placeholder={placeholder}
+      />
     </div>
   );
 }

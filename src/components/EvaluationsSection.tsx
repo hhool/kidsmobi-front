@@ -183,7 +183,7 @@ export default function EvaluationsSection({
   }, [reviewsList, selectedReviewType, searchQuery, lang]);
 
   return (
-    <div id="evaluations_hub" className="space-y-12 max-w-6xl mx-auto">
+    <div id="evaluations_hub" className="space-y-8 animate-fade-in text-left">
       
       {/* Breadcrumbs (PRD 4.3.2) */}
       <Breadcrumbs 

@@ -185,6 +185,252 @@ export function translateCategory(cat: string, lang: "zh" | "en") {
   return map[cat] || cat;
 }
 
+const productEnTranslations: Record<string, {
+  name: string;
+  description?: string;
+  editorVerdict: string;
+  pros: string[];
+  cons: string[];
+}> = {
+  bal_1: {
+    name: "Woom 1 Classic Lightweight Balance Bike",
+    editorVerdict: "Woom 1 is the gold standard for balance bikes. Exceptional cycling geometry and an ultra-low standover height empower toddlers as young as 1.5 years to build strong riding confidence. Weighing roughly 20% of a 3-year-old's weight, it offers industry-leading structural weight-to-body ratios.",
+    pros: [
+      "Remarkably lightweight at 3.0kg, raising physical rolling control and enabling easy self-lifting.",
+      "Custom micro-reach handbrakes designed for little palms, with brake lever travel under 3.2cm.",
+      "Integrated steering limiter band prevents fork over-rotation and steering tipping hazard."
+    ],
+    cons: [
+      "Relatively premium pricing for a transitional one-year toddler phase.",
+      "Lacks conversion capabilities, cannot be upgraded or converted into a pedal bike."
+    ]
+  },
+  bal_2: {
+    name: "Kokua Jumper Active Elastomer Suspension Balance Bike",
+    editorVerdict: "Specially crafted for active kids, this is an outstanding all-terrain balance bike. The unique high-polymer elastomer buffer on the rear stay filters high-frequency road vibrations, protecting developing toddler spines during drop-offs or bumpy trails.",
+    pros: [
+      "High-end elastomer shock damping protects kids' spinal columns beautifully.",
+      "Schwalbe Big Apple wide tires provide top traction in dirt, mud, and gravel.",
+      "Ergonomic low-重心 racing frame posture allows children to lean forward and sprint easily."
+    ],
+    cons: [
+      "At 3.4kg, it feels slightly heavy for younger toddlers to lift independently.",
+      "Lacks stock handbrakes, relying on foot friction to stop, which wears down shoe soles quickly."
+    ]
+  },
+  bal_3: {
+    name: "Strider 12 Sport Kids Championship Balance Bike",
+    editorVerdict: "Widely recognized globally due to the famous Strider Cup, this model is built for racing. Though durable, maintenance-free, and easy to adjust, the solid EVA tires offer reduced traction on wet asphalt or smooth tiles compared to pneumatic rubber tyres.",
+    pros: [
+      "Tool-free quick release seat clamp with both short and long seatposts included.",
+      "Integrated grip tape footrests protect child balance during high-speed gliding.",
+      "Performance steering geometry offers snappy steering and excellent trail agility."
+    ],
+    cons: [
+      "EVA foam tires have low friction coeffecients on wet paths or polished surfaces.",
+      "Lacks pneumatic cushioning, transmitting low-level road vibrations directly to toddler wrists."
+    ]
+  },
+  bike_1: {
+    name: "Woom 2 Micro-Reach Dual Handbrake Bicycle (14\")",
+    editorVerdict: "Indisputably the peak of 14-inch junior bicycle engineering. It entirely eliminates heavy coaster brakes, integrating high-linearity micro-reach handbrakes designed for toddler fingers under 40mm. The green color-coding is a brilliant ergonomics touch.",
+    pros: [
+      "Extremely light at only 5.0kg, allowing younger kids to take off effortlessly.",
+      "Green-coded rear brake lever reminds children to prioritize the rear stopper during emergencies.",
+      "Ultra-narrow pedal Q-factor prevents knee flare-outs, ensuring straight and natural posture."
+    ],
+    cons: [
+      "Stock is extremely limited and subject to international supply chain delays.",
+      "Intentionally lacks training wheels, remaining faithful to direct balance transition."
+    ]
+  },
+  bike_2: {
+    name: "Specialized Riprock Coaster Wide-Tire Trail Bicycle (16\")",
+    editorVerdict: "A premium product from a world-class mountain biking brand. Outstanding weld-fatigue limits and rugged paint protection. The massive 2.3'' tires conquer sand and tree tracks with ease, but the heavy high carbon-steel frame requires strong pedaling.",
+    pros: [
+      "Massive 2.3-inch tires offer exceptional lateral traction and tipping safety.",
+      "Wildly rugged framework construction with premium impact-resistant painting.",
+      "Comes with quick-install robust matching training wheels that are easy to manage."
+    ],
+    cons: [
+      "Weighs a heavy 8.2kg, which runs down smaller children's core stamina quickly.",
+      "Coaster brake requirement makes micro-aligning pedal positions during starts tricky."
+    ]
+  },
+  scoot_1: {
+    name: "Micro Mini 3-in-1 Gravity Steering Kick Scooter",
+    editorVerdict: "The ultimate king of kids' scooters. The patented Swiss Lean-to-Steer system prevents high-speed jackknifing common in cheap spring scooters. It is outstandingly beneficial for young inner ear balance mapping and hand-eye coordination.",
+    pros: [
+      "Patented Swiss precise tilt-to-steer system provides silky and safe rebound steering.",
+      "Double-layered glass fiber composite deck has exceptional elastic damping properties.",
+      "Multi-stage growing assembly: 1.5Y seat riser, transition bar, and full height T-bar."
+    ],
+    cons: [
+      "Rigid clip-in stem is non-folding, requiring manual push-pin removal for transport.",
+      "Bearings housed in plastic wheels can oxidize if exposed to heavy puddles."
+    ]
+  },
+  scoot_2: {
+    name: "Decathlon B1 Ultra-Light Foldable Kids Scooter",
+    editorVerdict: "An absolute best-seller offering premium EU safety margins at a modest price. Features precise lean angles aligned with 2-5yo pelvic widths. Excellent value for weekend rides on paved park trails.",
+    pros: [
+      "Remarkable budget value while certifying strict European EN71 safety targets.",
+      "Detachable colored decks that are easy to wash or swap based on toddler style.",
+      "Inbuilt steering angle limits prevent panic-induced lockups and over-the-bar tips."
+    ],
+    cons: [
+      "Bearing rolling resistance is higher than premium rivals, needing more kick effort.",
+      "Magnetic glowing hubs occasionally show uneven brightness after long wear."
+    ]
+  },
+  stroll_1: {
+    name: "Bugaboo Fox 5 Premium All-Terrain Ergonomic Stroller",
+    editorVerdict: "The heavy tank of suspension strollers. When protecting infants under 1 year against head micro-shocks, its rigid posture tray combined with advanced spring dampening is entirely unmatched. A world-class luxury performer.",
+    pros: [
+      "All-wheel mechanical suspensions and tubeless air-tires absorb up to 98% of shocks.",
+      "Full-flat 175-degree rigid bassinet prevents infant spinal curvature under heavy use.",
+      "Unique gravity-linked triangular wheelbase rolls through sand, mud, and gravel like butter."
+    ],
+    cons: [
+      "At 10.4kg, it is hard for a single parent to carry up narrow stairs.",
+      "Bulky fold envelope usually requires an SUV or executive trunk space."
+    ]
+  },
+  elec_1: {
+    name: "Peg Perego Polaris Ranger Tandem 12V Off-Road Ride-On",
+    editorVerdict: "Direct import from Italy, boasting premium certified anti-thermal wiring and battery puncture resistance. The progressive acceleration curves prevent dynamic head-jerk and dizziness characteristic of cheap alternatives.",
+    pros: [
+      "Intelligent progressive start-stop system avoids toddler neck snap-back.",
+      "12V high-torque dual motors can climb grassy ridges and dirt slopes up to 17 degrees.",
+      "Dual seatbelts, robust physical side guards, and dual controls for interactive play."
+    ],
+    cons: [
+      "Weighs 15.6kg, making lifting or carrying a discharged unit extremely tiring.",
+      "Standard electronic brake fails on slopes if battery is completely dead."
+    ]
+  },
+  elec_2: {
+    name: "Poynton Smart All-Terrain Racing Karts",
+    editorVerdict: "A mini electric beast in kart style. With exceptionally low physical centers of gravity, tilt tests show a high 42% rollover margin under sharp 180-degree drift turns. Highly recommended for empty paved courts.",
+    pros: [
+      "Parental wireless limiters allow immediate remote kill and throttle cap control.",
+      "Seat sliding length extends up to 15cm, accommodating growing kids from 4 to 8Y.",
+      "Comes with shock-damping wraparound crash guards that protect against impacts."
+    ],
+    cons: [
+      "Long charging time (8.5h) yields only 45 minutes of active racing.",
+      "Ultra-low ground clearance (4.5cm) restricts driving to flat pavements only."
+    ]
+  },
+  tri_1: {
+    name: "Doona Liki Trike S5 Premium 5-in-1 Foldable Tricycle",
+    editorVerdict: "A masterpiece of Israeli industrial design. The standout parent control-rod features an active steering clutch overrides toddler handlebar input. Highly recommended for premium city commuting.",
+    pros: [
+      "Folds down to the size of an A4 binder, making it perfect for airplane overheads.",
+      "Parent Touch System: parent-guided control rod overrides child steering instantly.",
+      "Five-stage growth design transforms seamlessly from an enclosed infant stroller."
+    ],
+    cons: [
+      "Vertical backboard is great for support but cannot recline deeply for extended sleep.",
+      "Premium pricing is comparable to buying two light-alloy performance bikes."
+    ]
+  },
+  seat_1: {
+    name: "Britax Advansafix i-Size ISOFIX Premium Safety Car Seat",
+    editorVerdict: "A true fortress for vehicle protection. It surpasses the stringent EU ECE R129 side-collision testing, reducing cervical pull forces by 25%. Its high-absorbent foam pads immediately disperse crash impacts.",
+    pros: [
+      "Exceeds ECE R129 i-Size standards, providing unmatched neck and joint defense.",
+      "Patented XP-PAD chest guard and SecureGuard 4th point harness shield vulnerable hips.",
+      "Pivot Link system converts forward crash energy downward, halting severe acceleration."
+    ],
+    cons: [
+      "Heavy at 12kg, making transfers across multiple cars highly cumbersome.",
+      "Thick safety pads feel warm in summers; optional cooling mats are recommended."
+    ]
+  }
+};
+
+function translateMaterialToEn(mat: string): string {
+  const map: Record<string, string> = {
+    "航天级6061铝合金": "Aerospace-grade 6061 Aluminum",
+    "高端镁合金": "Premium Magnesium Alloy",
+    "超轻碳纤维": "Ultralight Carbon Fiber",
+    "高碳钢": "High Carbon Steel",
+    "钛合金": "Titanium Alloy",
+    "航空铝合金": "Aviation Aluminum",
+    "精细加厚镁铸造": "Precision Cast Magnesium",
+    "高强度合金钢": "High Strength Alloy Steel",
+    "铝合金 / 局部增强高碳钢": "Alloy & High Carbon Steel Parts",
+    "强化碳钢+注塑": "Reinforced Steel & Injection Molded",
+    "阻燃高密度聚乙烯/钢骨架": "Fire-retardant HDPE & Steel Core",
+    "碳素钢 + 镁质连杆": "Carbon Steel & Magnesium Rods",
+    "高强度航空轻质铝": "Aviation High-Strength Aluminum",
+    "工程轻量化高碳钢车身": "Engineering Lightweight High Carbon Steel",
+    "A1高级加厚铝合金车架": "A1 Premium Double-Butted Aluminum Frame",
+    "加固型玻璃纤维合成高弹板 + 阳极氧化合金杆": "Reinforced Fiberglass Seat Deck & Anodized T-Bar",
+    "热塑树脂/防折钢质内嵌中枢": "Casted Thermoplastic Resin with Steel Core",
+    "阳极氧化航空铝合金底盘": "Anodized Aerospace Aluminum Chassis",
+    "高密度工程抗磨塑料外壳/钢管内梁": "HDPE Wear-resistant Body & Steel Crossbeams",
+    "航空钢加厚防撞管梁 + 车载ABS防滑面板": "Aero Steel Tubular frame & ABS Anti-skid Deck",
+    "高聚强化纤维碳编粒子聚合物/铝质杆": "High-poly Carbon Fiber Reinforcement & Aluminum Bar",
+    "加硬合金钢骨架 + 慢弹回太空惰性空气抗拉棉": "Reinforced Alloy Steel Core & Space Damping Padding"
+  };
+  return map[mat] || mat;
+}
+
+function translateTireToEn(tire: string): string {
+  const map: Record<string, string> = {
+    "越野充气橡胶胎": "Off-road Pneumatic Tires",
+    "EVA轻质发泡胎": "EVA Lightweight Foam Tires",
+    "PU轮夜光减震胎": "PU Glowing Magnetic Tires",
+    "橡胶充气胎": "Pneumatic Rubber Tires",
+    "耐磨发泡PU实心轮": "Wear-resistant PU Solid Wheel",
+    "加宽减震充气胎": "Wider Shock-absorbing Pneumatic Tires",
+    "越野真空超低阻力轮胎": "Tubeless Low-resistance Off-road Tires",
+    "橡胶减震实心轮": "Shock-absorbing Solid Rubber Wheel",
+    "Schwalbe 越野充气橡胶胎": "Schwalbe Off-road Pneumatic Tires",
+    "Apple 宽幅防穿刺超弹越野胎": "Apple Wide Puncture-resistant Rugged Tires",
+    "EVA免维护发泡实心胎": "EVA Maintenance-free Solid Foam Tires",
+    "Schwalbe 高弹避震越野充气胎": "Schwalbe High-elastic Shock Pneumatic Tires",
+    "Rythm Lite 2.3'' 超宽越野防刺气胎": "Rythm Lite 2.3'' Extra-wide Off-road Puncture-proof Tires",
+    "高弹静音高回弹PU夜光减震轮": "High-elastic Silence PU Magnetic Luminous Wheels",
+    "标准高纯度PU发光夜光轮": "Standard High-purity PU Glowing Wheels",
+    "发泡越野橡胶软层自调节避震巨轮": "Foam-filled Cushion Rubber Self-adjusting Large Tires",
+    "加强型抓地粗突橡胶纹充气宽胎": "Heavy-duty Treaded Off-road Pneumatic Wide Tires",
+    "PU软弹性宽胎(低速不翘轮)": "Soft PU Elastic Wide Wheels",
+    "高弹一体实心聚氨酯高舒适胎": "High-elastic Integrated Solid Polyurethane Tires",
+    "无": "None"
+  };
+  return map[tire] || tire;
+}
+
+function translateBrakeToEn(brake: string): string {
+  const map: Record<string, string> = {
+    "微调短距双手刹(V刹)": "Short-reach Dual V-Brakes",
+    "微调窄距手刹": "Short-reach Hand Brakes",
+    "油压双碟刹": "Dual Hydraulic Disc Brakes",
+    "脚踏倒刹(不推荐)": "Coaster Brakes (Not Recommended)",
+    "脚踩后轮重力刹": "Rear Guard Friction Footbrake",
+    "前后线拉双碟刹": "Front & Rear Mechanical Disc Brakes",
+    "机械碟刹": "Mechanical Disc Brakes",
+    "加大型前轮卡钳刹 & 抱刹": "Oversized Front Caliper & Drum Brake",
+    "五点式安全带+重力卡锁": "5-Point Belt & Gravity Snap Lock",
+    "微调短距幼童专用线性手刹(后V刹)": "Micro-reach Linear Kid Handbrakes (Rear V-Brake)",
+    "重力脚掌滑阻制动 (原厂无手刹扣)": "Sole-to-ground Direct Braking (No Stock Levers)",
+    "后底悬板重力闸片 (无机械拉线手刹)": "Rear Flex Brake (No Lever Cable Handbrakes)",
+    "幼童专配微距高线性V刹(右后刹绿色区分)": "Narrow-reach Linear V-Brakes (Green rear indicator)",
+    "前手拉机械V刹 + 后脚踩倒退阻尼链刹": "Front Caliper & Rear Coaster Footbrake",
+    "后轮不锈钢重力制动踩片": "Rear Stainless Steel Spring Footbrake",
+    "后轴连杆贴片双踩制动刹": "Rear Guard Dual Double-friction Brakes",
+    "红黄变色双卡连杆单脚中枢刹车": "Red/Green Single-pedal Connected Core Brakes",
+    "油门踏板电子重力松脚渐进自锁刹车": "Gas Pedal Progressive Electronic Decel Auto-Brakes",
+    "一指微力敏捷双手刹+后轴双重驻油刹": "One-finger Responsive Levers & Rear Dual Disc Brakes",
+    "后轮红点物理驻车轮卡刹": "Rear Red-point Mechanical Parking Locks",
+    "三点物理锁扣搭扣 + ISOFIX 咬死底锁": "3-Point Physical Lock Buckle & ISOFIX Anchors"
+  };
+  return map[brake] || brake;
+}
+
 export function translateProduct(p: any, lang: "zh" | "en") {
   const categoryLabel = translateCategory(p.category, lang);
   
@@ -212,6 +458,22 @@ export function translateProduct(p: any, lang: "zh" | "en") {
     };
   }
 
+  // lang === "en"
+  // If there is an English override in localData (entered via CMS or stored)
+  if (localData.name) {
+    return {
+      ...p,
+      name,
+      description,
+      pros,
+      cons,
+      editorVerdict,
+      brand: brandText,
+      specsText,
+      categoryLabel
+    };
+  }
+
   const brandMap: Record<string, string> = {
     "九能": "NineNoble",
     "祺娃娃": "QiWawa",
@@ -222,91 +484,40 @@ export function translateProduct(p: any, lang: "zh" | "en") {
     "woom": "Woom"
   };
 
-  const materialMap: Record<string, string> = {
-    "航天级6061铝合金": "Aerospace-grade 6061 Aluminum",
-    "高端镁合金": "Premium Magnesium Alloy",
-    "超轻碳纤维": "Ultralight Carbon Fiber",
-    "高碳钢": "High Carbon Steel",
-    "钛合金": "Titanium Alloy",
-    "航空铝合金": "Aviation Aluminum",
-    "精细加厚镁铸造": "Precision Cast Magnesium",
-    "高强度合金钢": "High Strength Alloy Steel",
-    "铝合金 / 局部增强高碳钢": "Alloy & High Carbon Steel Parts",
-    "强化碳钢+注塑": "Reinforced Steel & Injection Molded",
-    "阻燃高密度聚乙烯/钢骨架": "Fire-retardant HDPE & Steel Core",
-    "碳素钢 + 镁质连杆": "Carbon Steel & Magnesium Rods"
-  };
-
-  const tireMap: Record<string, string> = {
-    "越野充气橡胶胎": "Off-road Pneumatic Tires",
-    "EVA轻质发泡胎": "EVA Lightweight Foam Tires",
-    "PU轮夜光减震胎": "PU Glowing Magnetic Tires",
-    "橡胶充气胎": "Pneumatic Rubber Tires",
-    "耐磨发泡PU实心轮": "Wear-resistant PU Solid Wheel",
-    "加宽减震充气胎": "Wider Shock-absorbing Pneumatic Tires",
-    "越野真空超低阻力轮胎": "Tubeless Low-resistance Off-road Tires",
-    "橡胶减震实心轮": "Shock-absorbing Solid Rubber Wheel"
-  };
-
-  const brakeMap: Record<string, string> = {
-    "微调短距双手刹(V刹)": "Short-reach Dual V-Brakes",
-    "微调窄距手刹": "Short-reach Hand Brakes",
-    "油压双碟刹": "Dual Hydraulic Disc Brakes",
-    "脚踏倒刹(不推荐)": "Coaster Brakes (Not Recommended)",
-    "脚踩后轮重力刹": "Rear Guard Friction Footbrake",
-    "前后线拉双碟刹": "Front & Rear Mechanical Disc Brakes",
-    "机械碟刹": "Mechanical Disc Brakes",
-    "加大型前轮卡钳刹 & 抱刹": "Oversized Front Caliper & Drum Brake",
-    "五点式安全带+重力卡锁": "5-Point Belt & Gravity Snap Lock"
-  };
-
-  // Fallback translation rules for pros/cons if they weren't explicitly provided in English
-  const translatedPros = pros.map((pro: string) => {
-    // If it's already likely English (contains English characters and few/no Chinese ones)
-    if (/^[A-Za-z0-9\s.,!?-]+$/.test(pro)) return pro;
-    
-    if (pro.includes("轻")) return "Remarkably lightweight";
-    if (pro.includes("安全")) return "Excellent safety margins";
-    if (pro.includes("刹") || pro.includes("制动")) return "Highly responsive braking system";
-    if (pro.includes("轴")) return "Smooth bearing hubs";
-    if (pro.includes("铝")) return "Durable aerospace alloy framework";
-    return pro;
-  });
-
-  const translatedCons = cons.map((con: string) => {
-    if (/^[A-Za-z0-9\s.,!?-]+$/.test(con)) return con;
-    
-    if (con.includes("贵")) return "Relatively high price tag";
-    if (con.includes("重")) return "Too heavy for young kids";
-    if (con.includes("发泡")) return "Solid plastic wheel vibrates heavily";
-    return con;
-  });
-
-  let finalVerdict = editorVerdict;
-  if (!finalVerdict || (lang === "en" && !/^[A-Za-z0-9\s.,!?-]+$/.test(finalVerdict))) {
-     finalVerdict = p.id === "model_1" 
-      ? "Superior build quality, extremely safe frame metrics, pristine geometry." 
-      : p.id === "model_2" 
-      ? "Solid premium balance bike for competitive racers. Very light." 
-      : p.id === "model_3" 
-      ? "Budget-oriented choice, but we caution about the high carbon-steel frame weight limit."
-      : "Independently verified kids stroller or bicycle setup with verified brake grip tolerances.";
+  const enOverride = productEnTranslations[p.id];
+  if (enOverride) {
+    return {
+      ...p,
+      name: enOverride.name,
+      description: enOverride.description || p.description,
+      brand: brandMap[p.brand] || p.brand,
+      categoryLabel,
+      material: translateMaterialToEn(p.material),
+      tireType: translateTireToEn(p.tireType),
+      brakeType: translateBrakeToEn(p.brakeType),
+      wheelSize: p.wheelSize === "无" ? "None" : p.wheelSize.replace("寸", " in."),
+      pros: enOverride.pros,
+      cons: enOverride.cons,
+      ageRange: p.ageRange.replace("岁", " Years").replace("个", " ").replace("月", " Months"),
+      editorVerdict: enOverride.editorVerdict
+    };
   }
 
+  // Extreme fallback
   return {
     ...p,
     name,
     description,
-    brand: localData.brandText || (brandMap[p.brand] || p.brand),
-    categoryLabel: translateCategory(p.category, "en"),
-    material: materialMap[p.material] || p.material,
-    tireType: tireMap[p.tireType] || p.tireType,
-    brakeType: brakeMap[p.brakeType] || p.brakeType,
+    brand: brandMap[p.brand] || p.brand,
+    categoryLabel,
+    material: translateMaterialToEn(p.material),
+    tireType: translateTireToEn(p.tireType),
+    brakeType: translateBrakeToEn(p.brakeType),
     wheelSize: p.wheelSize === "无" ? "None" : p.wheelSize.replace("寸", " in."),
-    pros: translatedPros,
-    cons: translatedCons,
-    ageRange: p.ageRange.replace("岁", " Years"),
-    editorVerdict: finalVerdict
+    pros: pros.map((pr: string) => pr.substring(0, 40)),
+    cons: cons.map((cn: string) => cn.substring(0, 40)),
+    ageRange: p.ageRange,
+    editorVerdict: editorVerdict ? editorVerdict : "Independently verified kids stroller or bicycle setup."
   };
 }
 

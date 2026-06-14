@@ -11,7 +11,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
 
   if (isEn) {
     return (
-      <div id="about_main" className="space-y-12 text-left max-w-6xl mx-auto animate-fade-in">
+      <div id="about_main" className="space-y-8 animate-fade-in text-left">
         
         {/* Breadcrumbs (PRD 4.6.2) */}
         <Breadcrumbs 
@@ -192,7 +192,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
   }
 
   return (
-    <div id="about_main" className="space-y-12 text-left max-w-6xl mx-auto animate-fade-in">
+    <div id="about_main" className="space-y-8 animate-fade-in text-left">
       
     {/* Breadcrumbs (PRD 4.6.2) */}
     <Breadcrumbs 
@@ -350,7 +350,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
           <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg shadow-orange-500/10">
               <Handshake className="w-8 h-8 text-orange-500" />
           </div>
-          <h3 className="text-3xl font-black text-slate-900">商务合作与媒体联动</h3>
+          <h3 className="text-3xl font-black text-slate-900">评测合作与媒体联动</h3>
           <p className="text-slate-500 text-sm font-medium max-w-xl leading-relaxed">
               我们欢迎任何以“守护儿童骑行安全”为前提的共建合作。包括实验室认证互认、行业报告联合发布以及媒体专项评测。
           </p>

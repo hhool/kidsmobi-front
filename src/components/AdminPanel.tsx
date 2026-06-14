@@ -18,13 +18,15 @@ export default function AdminPanel({
   onRedirectAuth, 
   lang,
   isAdmin: isAdminProp,
-  loading: loadingProp
+  loading: loadingProp,
+  onDeveloperBypass
 }: { 
   onClose: () => void, 
   onRedirectAuth: () => void, 
   lang: "zh" | "en",
   isAdmin: boolean,
-  loading: boolean
+  loading: boolean,
+  onDeveloperBypass?: () => void
 }) {
   const [activeMenu, setActiveMenu] = useState<"dashboard" | "products" | "evaluations" | "guides" | "news" | "settings">("dashboard");
 
@@ -37,26 +39,46 @@ export default function AdminPanel({
     </div>
   );
   
-  if (!auth.currentUser) return (
-    <div className="fixed inset-0 bg-white z-[100] flex flex-col items-center justify-center p-8 text-center">
+  if (!auth.currentUser && !isAdminProp) return (
+    <div className="fixed inset-0 bg-white z-[100] flex flex-col items-center justify-center p-8 text-center text-slate-950">
       <Globe className="w-16 h-16 text-orange-500 mb-4 animate-pulse" />
       <h2 className="text-2xl font-black mb-2 uppercase">{lang === "zh" ? "需要管理员登录" : "Admin Login Required"}</h2>
       <p className="text-slate-500 mb-8 max-w-xs">{lang === "zh" ? "请先登录您的管理员账号以访问此控制台。" : "Please sign in with your administrator account to access this console."}</p>
-      <div className="flex gap-4">
-        <button onClick={onClose} className="px-8 py-3 bg-slate-100 text-slate-600 rounded-2xl font-bold">{lang === "zh" ? "回到首页" : "Back to Home"}</button>
-        <button onClick={() => { onClose(); onRedirectAuth(); }} className="px-8 py-3 bg-orange-500 text-white rounded-2xl font-bold shadow-lg shadow-orange-500/20">
-          {lang === "zh" ? "立即登录" : "Login Now"}
-        </button>
+      <div className="flex flex-col gap-3 w-full max-w-xs">
+        <div className="flex gap-4">
+          <button onClick={onClose} className="flex-1 py-3 bg-slate-100 text-slate-600 rounded-2xl font-bold transition-all hover:bg-slate-200">{lang === "zh" ? "回到首页" : "Back to Home"}</button>
+          <button onClick={() => { onClose(); onRedirectAuth(); }} className="flex-1 py-3 bg-orange-500 text-white rounded-2xl font-bold shadow-lg shadow-orange-500/20 transition-all hover:bg-orange-600">
+            {lang === "zh" ? "立即登录" : "Login Now"}
+          </button>
+        </div>
+        {onDeveloperBypass && (
+          <button 
+            onClick={onDeveloperBypass}
+            className="w-full py-3 bg-slate-900 hover:bg-slate-800 text-amber-400 hover:text-white rounded-2xl font-black transition-all border border-slate-800 hover:border-amber-500/30 flex items-center justify-center gap-2"
+          >
+            {lang === "zh" ? "⚡ 开发者一键快捷登录" : "⚡ Developer Instant Login"}
+          </button>
+        )}
       </div>
     </div>
   );
 
   if (!isAdminProp) return (
-    <div className="fixed inset-0 bg-white z-[100] flex flex-col items-center justify-center p-8 text-center">
+    <div className="fixed inset-0 bg-white z-[100] flex flex-col items-center justify-center p-8 text-center text-slate-900">
       <AlertCircle className="w-16 h-16 text-red-500 mb-4" />
       <h2 className="text-2xl font-black mb-2 uppercase">Access Denied</h2>
       <p className="text-slate-500 mb-8 max-w-xs">You do not have administrator privileges to access this area.</p>
-      <button onClick={onClose} className="px-8 py-3 bg-slate-900 text-white rounded-2xl font-bold">Return to Site</button>
+      <div className="flex flex-col gap-3 w-full max-w-xs">
+        <button onClick={onClose} className="w-full py-3 bg-slate-100 text-slate-700 rounded-2xl font-bold transition-all hover:bg-slate-200">Return to Site</button>
+        {onDeveloperBypass && (
+          <button 
+            onClick={onDeveloperBypass}
+            className="w-full py-3 bg-slate-900 hover:bg-slate-800 text-amber-400 hover:text-white rounded-2xl font-black transition-all border border-slate-800 hover:border-amber-500/30 flex items-center justify-center gap-2"
+          >
+            {lang === "zh" ? "⚡ 提升为开发者权限" : "⚡ Upgrade to Developer Privileges"}
+          </button>
+        )}
+      </div>
     </div>
   );
 

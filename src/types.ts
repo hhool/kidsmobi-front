@@ -165,6 +165,12 @@ export interface CMSSettings {
     en: { title: string; subtitle: string };
   };
   homeSlots: HomeSlot[]; // For the drag-and-drop recommender
+  seo?: {
+    [key: string]: {
+      zh: SEOConfig;
+      en: SEOConfig;
+    };
+  };
 }
 
 export interface CurrencyData {

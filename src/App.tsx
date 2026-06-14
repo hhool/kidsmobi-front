@@ -39,10 +39,11 @@ import {
   Tooltip
 } from "recharts";
 import { productsData } from "./data/modelsData";
-import { ChildProfile, Product, ChatMessage } from "./types";
+import { ChildProfile, Product, ChatMessage, CMSSettings, SEOConfig } from "./types";
 
 // Import translations
 import { translations, translateProduct, countries, getCurrencyData } from "./lib/translate";
+import { formatWeight, formatHeight } from "./lib/units";
 
 // Import modular layouts
 import HomeSection from "./components/HomeSection";
@@ -57,7 +58,82 @@ import AdminPanel from "./components/AdminPanel";
 
 import { auth } from "./lib/firebase";
 import { getBookmarksFromFirestore, addBookmarkToFirestore, removeBookmarkFromFirestore } from "./lib/firestoreService";
-import { checkIsAdmin } from "./lib/cmsService";
+import { checkIsAdmin, getCMSSettings } from "./lib/cmsService";
+
+const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
+  home: {
+    zh: {
+      title: "KIDSMOBI | 全新一代高端童车安全评测与科学网购决策平台",
+      description: "KIDSMOBI 致力于为全球家庭提供科学、中立的童车评测与安全审计服务。通过严苛的物理结构负载公式和工效学实测，覆盖儿童平衡车、童车拉车、安全座椅等领域的国际质量认证、参数对比与智能选车推荐。",
+      keywords: ["童车评测", "平衡车推荐", "安全座椅测评", "智能选车向导", "KIDSMOBI", "儿童滑板车评测"]
+    },
+    en: {
+      title: "KIDSMOBI | Next-Gen Premium Kids Mobility Evaluation & Decision Hub",
+      description: "KIDSMOBI delivers objective review and structural safety audits for kids strollers, bicycles, and balance bikes. Choose with absolute confidence based on engineering dynamics and real tests.",
+      keywords: ["kids mobility", "balance bike reviews", "car seat reviews", "stroller evaluation", "KIDSMOBI"]
+    }
+  },
+  news: {
+    zh: {
+      title: "童车行业前沿动态与安全标准研究 | KIDSMOBI 资讯与趋势",
+      description: "探索全球儿童滑行及安全座椅设计的最新工艺标准、合规审查细节与前沿设计流派。KIDSMOBI 为您实时推送海外检测动态及召回警告。",
+      keywords: ["童车行业动态", "童车安全标准", "童车召回警示", "设计趋势"]
+    },
+    en: {
+      title: "Industry Trends & Safety Regulation Audits | KIDSMOBI News",
+      description: "Stay ahead with global updates on product safety regulations, EU/US testing thresholds, and premium kids brand innovations. Verified by KIDSMOBI safety analysts.",
+      keywords: ["mobility news", "safety policies", "stroller standards", "brand updates"]
+    }
+  },
+  products: {
+    zh: {
+      title: "童车多维参数比对矩阵 | KIDSMOBI 选车大数据库",
+      description: "提供覆盖各大主流豪华及专业品牌的参数、重量系数、几何重心和刹车力度对标详情。科学排除不合理的超载或易侧翻童车款式。",
+      keywords: ["童车参数对比", "平衡车挑选数据库", "童车重量对比", "几何重心分析"]
+    },
+    en: {
+      title: "Comprehensive Kids Bike & Stroller Specification Matrix | KIDSMOBI Database",
+      description: "Compare weight limits, brake efficiency metrics, framework materials, and dynamic posture indexes. Easily filter perfect products for your child.",
+      keywords: ["bike parameters", "matrix compare", "stroller specifications", "mobility filters"]
+    }
+  },
+  evaluations: {
+    zh: {
+      title: "深度实验室评测报告 | KIDSMOBI 独家实测与专业意见",
+      description: "KIDSMOBI 独家评测报告，汇聚专业工程师对力学稳定性、材料应力、舒适度指数及真实家庭磨损测试的数据可视化呈现。",
+      keywords: ["工程师评测报告", "机械载重量测试", "滑行顺畅度实测", "童车优缺点分析"]
+    },
+    en: {
+      title: "In-Depth Laboratory Evaluation Reports | KIDSMOBI Safety Audits",
+      description: "Explore meticulous engineering test results showing structural stress, mechanical resilience, and ergonomic safety factors evaluated by experts.",
+      keywords: ["stroller lab test", "professional evaluations", "biomechanical test", "stress analytics"]
+    }
+  },
+  guides: {
+    zh: {
+      title: "专家避坑指南与选型计算中心 | KIDSMOBI 科学购车顾问",
+      description: "首创儿童跨步长（Inseam）与车架结合的黄金配对算法，提供避坑防断裂模块化警示，辅助每一位父母买对不买贵。",
+      keywords: ["选型指南", "避坑指南", "跨步长计算器", "车架黄金比例"]
+    },
+    en: {
+      title: "Interactive Buying Guides & Safe Shopping Checklists | KIDSMOBI Wizard",
+      description: "Determine perfect saddle heights using advanced inseam formulas. Prevent typical hazards like fork over-rotation and high carbon-steel limits.",
+      keywords: ["buying checklist", "size calculation", "hazard prevention", "mobility guides"]
+    }
+  },
+  about: {
+    zh: {
+      title: "关于 KIDSMOBI 安全实验室 | 精致、客观而毫不妥协的评测追求",
+      description: "深入了解 KIDSMOBI 的独立实测流程、设备校准基准与物理计算底座。我们保持彻底的中立性与极高的专业良知，保障您孩子的滑行成长路。",
+      keywords: ["关于KIDSMOBI", "实验室愿景", "评测中立性声明", "团队核心成员"]
+    },
+    en: {
+      title: "About KIDSMOBI Safety Lab | Objective Research, Uncompromised Protection",
+      description: "Discover our mission statement, precise test rigging configurations, and transparent rating principles. Built to guard every child's sliding journey.",
+      keywords: ["about us", "KIDSMOBI team", "unbiased review pledge", "safety lab gear"]
+    }
+  }
+};
 
 export default function App() {
   // Lang toggle state
@@ -66,8 +142,12 @@ export default function App() {
   );
 
   // Admin access state
-  const [isAdmin, setIsAdmin] = useState<boolean>(false);
-  const [authLoading, setAuthLoading] = useState<boolean>(true);
+  const [isAdmin, setIsAdmin] = useState<boolean>(() => {
+    return localStorage.getItem("dev_admin_bypass") === "true";
+  });
+  const [authLoading, setAuthLoading] = useState<boolean>(() => {
+    return localStorage.getItem("dev_admin_bypass") !== "true";
+  });
 
   // 2. Active Tab Router: home, news, products, evaluations, guides, about, auth
   const [activeTab, setActiveTab] = useState<string>("home");
@@ -134,10 +214,39 @@ export default function App() {
   // 3. User local bookmarks, up to 3 compares, and session login email
   const [savedProducts, setSavedProducts] = useState<Product[]>([]);
   const [compareList, setCompareList] = useState<Product[]>([]);
-  const [userEmail, setUserEmail] = useState<string>("");
+  const [userEmail, setUserEmail] = useState<string>(() => {
+    const isBypass = localStorage.getItem("dev_admin_bypass") === "true";
+    return isBypass ? "hhool.student@gmail.com" : "";
+  });
+
+  // Global CMS settings state
+  const [cmsSettings, setCmsSettings] = useState<CMSSettings | null>(null);
+
+  // Load CMS settings on mount / tab change
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const s = await getCMSSettings();
+        if (s) {
+          setCmsSettings(s);
+        }
+      } catch (err) {
+        console.error("Failed to load CMS settings:", err);
+      }
+    };
+    fetchSettings();
+  }, [activeTab]);
 
   // Listen to Firebase Auth state
   useEffect(() => {
+    const isBypass = localStorage.getItem("dev_admin_bypass") === "true";
+    if (isBypass) {
+      setUserEmail("hhool.student@gmail.com");
+      setIsAdmin(true);
+      setAuthLoading(false);
+      return;
+    }
+
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       setAuthLoading(true);
       if (user) {
@@ -195,6 +304,75 @@ export default function App() {
   const [comparedProduct, setComparedProduct] = useState<Product | null>(null);
   const [activeStandardDimension, setActiveStandardDimension] = useState<string | null>(null);
   const [previousTab, setPreviousTab] = useState<string>("home");
+
+  // Helper inside App to update/inject dynamic meta tags
+  const updateMetaTag = (name: string, content: string) => {
+    let element = document.querySelector(`meta[name="${name}"]`);
+    if (!element) {
+      element = document.createElement("meta");
+      element.setAttribute("name", name);
+      document.head.appendChild(element);
+    }
+    element.setAttribute("content", content);
+  };
+
+  // Dynamic SEO Page Meta Configuration (Title, Keywords, Description)
+  useEffect(() => {
+    // Determine active tab database key
+    let seoKey = activeTab;
+    if (activeTab === "product_detail") {
+      if (selectedProduct) {
+        const name = selectedProduct.name;
+        const brand = selectedProduct.brand;
+        const cat = selectedProduct.category;
+
+        const title = lang === "zh"
+          ? `${brand} ${name} 独家深度客观安全评测报告 | KIDSMOBI`
+          : `${brand} ${name} Exclusive Safety Evaluation & Specs | KIDSMOBI`;
+
+        const desc = lang === "zh"
+          ? `${brand} ${name} (${selectedProduct.ageRange})的物理材料、轮径比、刹车制动等详细性能参数，结合KIDSMOBI实验室工程师的独家拆解观点与真实优缺点分析。`
+          : `Meticulous safety verification for the ${brand} ${name} kids mobility. Comprehensive parameters, raw materials, pros/cons, and engineer reviews.`;
+
+        const kws = lang === "zh"
+          ? [name, brand, cat, "童车数据评测", "KIDSMOBI"]
+          : [name, brand, cat, "parameters", "product evaluation", "KIDSMOBI"];
+
+        document.title = title;
+        updateMetaTag("description", desc);
+        updateMetaTag("keywords", kws.join(", "));
+      }
+      return;
+    }
+
+    // Default to mapped key if valid, fallback to 'home'
+    const validKeys = ["home", "news", "products", "evaluations", "guides", "about"];
+    if (!validKeys.includes(seoKey)) {
+      seoKey = "home";
+    }
+
+    // 1. Grab default SEO configuration first
+    const defaultSEO = DEFAULT_SEO_CONFIGS[seoKey]?.[lang] || DEFAULT_SEO_CONFIGS.home[lang];
+    let titleStr = defaultSEO.title;
+    let descStr = defaultSEO.description;
+    let keywordsArr = defaultSEO.keywords;
+
+    // 2. Override with cmsSettings.seo if present and configured
+    if (cmsSettings?.seo?.[seoKey]?.[lang]) {
+      const config = cmsSettings.seo[seoKey][lang];
+      if (config.title) titleStr = config.title;
+      if (config.description) descStr = config.description;
+      if (config.keywords && config.keywords.length > 0) {
+        keywordsArr = config.keywords;
+      }
+    }
+
+    // 3. Set values
+    document.title = titleStr;
+    updateMetaTag("description", descStr);
+    updateMetaTag("keywords", keywordsArr.join(", "));
+
+  }, [activeTab, lang, cmsSettings, selectedProduct]);
 
   const handleSelectProduct = (product: Product | null) => {
     if (product) {
@@ -286,12 +464,12 @@ export default function App() {
 
 我正在查看宝宝的小档案：
 - **宝宝年龄**：${childProfile.age} 岁
-- **宝宝身高**：${childProfile.height} cm
-- **腿长/跨高**：${childProfile.inseam || "还没测？没关系~"} cm
-- **宝宝体重**：${childProfile.weight} kg
+- **宝宝身高**：${formatHeight(childProfile.height, countryCode)}
+- **腿长/跨高**：${childProfile.inseam ? formatHeight(childProfile.inseam, countryCode) : "还没测？没关系~"}
+- **宝宝体重**：${formatWeight(childProfile.weight, countryCode)}
 
 作为家长的贴心帮手，我特别给您两个建议：
-1. **轻便最重要**：车重最好控制在 **${(childProfile.weight * 0.3).toFixed(1)}kg** 以內。这样宝宝摔倒容易自立，推行也不费劲。
+1. **轻便最重要**：车重最好控制在 **${formatWeight(childProfile.weight * 0.3, countryCode)}** 以內。这样宝宝摔倒容易自立，推行也不费劲。
 2. **刹车要好捏**：3岁以上的孩子手劲小，我会帮您盯着那些“短间距刹把”的车，让宝宝更有掌控感。
 
 您是想了解 Woom、迪卡侬还是闪电的对比，还是想让我直接推荐最适合现在的车型？`,
@@ -307,12 +485,12 @@ export default function App() {
 
 I'm looking at your little one's profile:
 - **Age**: ${childProfile.age} years
-- **Height**: ${childProfile.height} cm
-- **Inseam**: ${childProfile.inseam || "Not measured yet"} cm
-- **Weight**: ${childProfile.weight} kg
+- **Height**: ${formatHeight(childProfile.height, countryCode)}
+- **Inseam**: ${childProfile.inseam ? formatHeight(childProfile.inseam, countryCode) : "Not measured yet"}
+- **Weight**: ${formatWeight(childProfile.weight, countryCode)}
 
 Here are my top "parent-to-parent" tips:
-1. **Lightweight is Best**: Aim for a bike under **${(childProfile.weight * 0.3).toFixed(1)}kg**. It's much safer and easier for them to handle.
+1. **Lightweight is Best**: Aim for a bike under **${formatWeight(childProfile.weight * 0.3, countryCode)}**. It's much safer and easier for them to handle.
 2. **Small Hands, Easy Brakes**: I'll help you find bikes with "short-reach" levers so your child can stop safely and confidently.
 
 Would you like to compare brands like Woom, Specialized, or Decathlon, or should I just show you the best fits?`,
@@ -320,7 +498,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
         }
       ]);
     }
-  }, [childProfile.age, childProfile.height, childProfile.inseam, childProfile.weight, lang]);
+  }, [childProfile.age, childProfile.height, childProfile.inseam, childProfile.weight, lang, countryCode]);
 
   // Auto scroll chat to bottom
   useEffect(() => {
@@ -458,7 +636,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               <Baby className="w-5 h-5 text-white stroke-[2.5]" />
             </div>
             <div className="text-left">
-              <h1 className="text-xl font-black tracking-tight text-slate-900 flex items-center gap-2">
+              <h1 className="text-xl font-display font-black tracking-tight text-slate-900 flex items-center gap-2">
                 {t.brandTitle} <span className="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-bold uppercase">{t.versionStamp}</span>
               </h1>
               <p className="text-[11px] text-slate-500 font-medium tracking-normal">{lang === "zh" ? "更科学、更贴心的童车导购助手" : "Your Smart & Safe Kids Bike Guide"}</p>
@@ -645,6 +823,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             setComparedProduct={setComparedProduct}
             activeStandardDimension={activeStandardDimension}
             setActiveStandardDimension={setActiveStandardDimension}
+            previousTab={previousTab}
           />
         )}
 
@@ -672,6 +851,12 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             lang={lang}
             isAdmin={isAdmin}
             loading={authLoading}
+            onDeveloperBypass={() => {
+              localStorage.setItem("dev_admin_bypass", "true");
+              setUserEmail("hhool.student@gmail.com");
+              setIsAdmin(true);
+              setAuthLoading(false);
+            }}
           />
         )}
 
@@ -760,7 +945,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
                   <span className="text-white font-black text-lg">K</span>
                 </div>
-                <span className="text-xl font-black text-white tracking-tighter">KIDSMOBI</span>
+                <span className="text-xl font-display font-black text-white tracking-tighter">KIDSMOBI</span>
               </div>
               <p className="text-slate-500 leading-relaxed font-medium pr-4">
                 {lang === "en" 

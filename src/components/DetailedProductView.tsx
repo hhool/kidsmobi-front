@@ -25,6 +25,7 @@ import {
 } from "recharts";
 import { Product, CurrencyData } from "../types";
 import { translateProduct } from "../lib/translate";
+import { formatWeight } from "../lib/units";
 import { productsData } from "../data/modelsData";
 import ProductCarousel from "./ProductCarousel";
 
@@ -37,6 +38,7 @@ interface DetailedProductViewProps {
   setComparedProduct: (p: Product | null) => void;
   activeStandardDimension: string | null;
   setActiveStandardDimension: (dim: string | null) => void;
+  previousTab?: string;
 }
 
 export default function DetailedProductView({
@@ -47,10 +49,45 @@ export default function DetailedProductView({
   comparedProduct,
   setComparedProduct,
   activeStandardDimension,
-  setActiveStandardDimension
+  setActiveStandardDimension,
+  previousTab
 }: DetailedProductViewProps) {
   const displayProduct = translateProduct(product, lang);
   const [activeMediaTab, setActiveMediaTab] = useState<"gallery" | "video">("gallery");
+
+  const getBackLabel = () => {
+    if (lang === "zh") {
+      switch (previousTab) {
+        case "products":
+          return "返回产品中心";
+        case "evaluations":
+          return "返回评测中心";
+        case "guides":
+          return "返回选购指南";
+        case "news":
+          return "返回全球资讯";
+        case "home":
+          return "返回首页";
+        default:
+          return "返回产品中心";
+      }
+    } else {
+      switch (previousTab) {
+        case "products":
+          return "Back to Product Center";
+        case "evaluations":
+          return "Back to Evaluations";
+        case "guides":
+          return "Back to Buyer's Guide";
+        case "news":
+          return "Back to Global News";
+        case "home":
+          return "Back to Home";
+        default:
+          return "Back to Product Center";
+      }
+    }
+  };
 
   React.useEffect(() => {
     setActiveMediaTab("gallery");
@@ -172,7 +209,7 @@ export default function DetailedProductView({
             className="flex items-center gap-2 text-xs text-orange-500 hover:text-orange-600 font-black uppercase mb-4"
           >
             <ArrowLeft className="w-4 h-4" />
-            {lang === "en" ? "Back to Products" : "返回产品大厅"}
+            {getBackLabel()}
           </button>
           <div className="flex items-center gap-3">
             <span className="text-[10px] bg-orange-50 text-orange-600 font-bold px-3 py-1 rounded-full uppercase border border-orange-100">
@@ -379,7 +416,7 @@ export default function DetailedProductView({
 
               <div className="space-y-5">
                  {[
-                   { label: lang === "en" ? "Weight" : "整车自重", val: `${displayProduct.weight} kg`, highlight: displayProduct.weight < 6 },
+                   { label: lang === "en" ? "Weight" : "整车自重", val: formatWeight(displayProduct.weight, currencyData.code), highlight: displayProduct.weight < 6 },
                    { label: lang === "en" ? "Tires" : "轮胎材质", val: displayProduct.tireType },
                    { label: lang === "en" ? "Frame" : "主要架构", val: displayProduct.material },
                    { label: lang === "en" ? "Wheel Size" : "轮毂规格", val: displayProduct.wheelSize },

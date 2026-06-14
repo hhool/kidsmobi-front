@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { Product, ProductCategory, CurrencyData } from "../types";
 import { translateProduct, translateCategory } from "../lib/translate";
+import { formatWeight } from "../lib/units";
 import Breadcrumbs from "./Breadcrumbs";
 import ComparisonDashboard from "./ComparisonDashboard";
 
@@ -175,7 +176,7 @@ export default function ProductsSection({
       <Breadcrumbs 
         lang={lang} 
         onHomeClick={() => (window as any).setActiveTab?.("home")}
-        items={[{ label: lang === "zh" ? "产品大全" : "PRODUCT DATABASE", active: true }]} 
+        items={[{ label: lang === "zh" ? "产品中心" : "PRODUCT CENTER", active: true }]} 
       />
 
       {/* Upper description */}
@@ -345,7 +346,7 @@ export default function ProductsSection({
                         {lang === "en" ? "MASS" : "自重"}
                       </span>
                       <strong className={`text-lg font-black tracking-tighter ${isWeightOver ? "text-orange-500" : "text-emerald-500"}`}>
-                        {diProduct.weight} kg
+                        {formatWeight(diProduct.weight, currencyData.code)}
                       </strong>
                     </div>
                     <div className="space-y-1">

@@ -22,6 +22,7 @@ import {
 import { GuideArticle, guideArticles } from "../data/guidesData";
 import { Product, CurrencyData } from "../types";
 import { translateProduct, translateGuideArticle } from "../lib/translate";
+import { formatWeight, formatHeight } from "../lib/units";
 import Breadcrumbs from "./Breadcrumbs";
 
 const faqData = [
@@ -286,7 +287,7 @@ export default function GuidesSection({
   ];
 
   return (
-    <div id="guides_container" className="space-y-8 text-left">
+    <div id="guides_container" className="space-y-8 animate-fade-in text-left">
       
       {/* Breadcrumbs (PRD 4.4.2) */}
       <Breadcrumbs 
@@ -349,8 +350,8 @@ export default function GuidesSection({
               </div>
 
               <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center text-green-400 text-lg font-black shrink-0">
-                  {matchRecommendations.perfectWeightLimit}kg
+                <div className="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center text-green-400 text-sm font-black shrink-0 whitespace-nowrap">
+                  {formatWeight(matchRecommendations.perfectWeightLimit, currencyData.code)}
                 </div>
                 <div className="space-y-0.5">
                   <span className="text-[10px] text-slate-500 font-bold block uppercase">
@@ -363,8 +364,8 @@ export default function GuidesSection({
               </div>
 
               <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-red-400/10 flex items-center justify-center text-red-400 text-lg font-black shrink-0">
-                  {matchRecommendations.dangerWeightLimit}kg
+                <div className="w-10 h-10 rounded-lg bg-red-400/10 flex items-center justify-center text-red-400 text-sm font-black shrink-0 whitespace-nowrap">
+                  {formatWeight(matchRecommendations.dangerWeightLimit, currencyData.code)}
                 </div>
                 <div className="space-y-0.5">
                   <span className="text-[10px] text-slate-500 font-bold block uppercase">
@@ -425,7 +426,7 @@ export default function GuidesSection({
                         <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-[11px] space-y-1.5">
                           <div className="flex justify-between items-center">
                             <span className="text-slate-400 font-bold">{lang === "en" ? "Weight" : "产品自重"}</span>
-                            <strong className={isPerfectWeight ? "text-emerald-500" : "text-orange-500"}>{dispProduct.weight} kg</strong>
+                            <strong className={isPerfectWeight ? "text-emerald-500" : "text-orange-500"}>{formatWeight(dispProduct.weight, currencyData.code)}</strong>
                           </div>
                           <div className="flex justify-between items-center">
                             <span className="text-slate-400 font-bold">{lang === "en" ? "Price" : "参考售价"}</span>
@@ -488,7 +489,7 @@ export default function GuidesSection({
             <div className="bg-slate-50 p-6 rounded-[32px] border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
               <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
                 <span>{lang === "en" ? "2. Height" : "2. 身高 (Height)"}</span>
-                <span className="text-orange-500 text-sm">{wizardHeight} cm</span>
+                <span className="text-orange-500 text-sm">{formatHeight(wizardHeight, currencyData.code)}</span>
               </label>
               <input
                 type="range"
@@ -509,7 +510,7 @@ export default function GuidesSection({
             <div className="bg-slate-50 p-6 rounded-[32px] border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
               <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
                 <span>{lang === "en" ? "3. Inseam" : "3. 跨高 (Inseam)"}</span>
-                <span className="text-orange-500 text-sm">{wizardInseam} cm</span>
+                <span className="text-orange-500 text-sm">{formatHeight(wizardInseam, currencyData.code)}</span>
               </label>
               <input
                 type="range"
@@ -526,7 +527,7 @@ export default function GuidesSection({
             <div className="bg-slate-50 p-6 rounded-[32px] border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
               <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
                 <span>{lang === "en" ? "4. Weight" : "4. 体重 (Weight)"}</span>
-                <span className="text-rose-500 text-sm font-black">{wizardWeight} kg</span>
+                <span className="text-rose-500 text-sm font-black">{formatWeight(wizardWeight, currencyData.code)}</span>
               </label>
               <input
                 type="range"

@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Product, CurrencyData } from "../types";
 import { translateProduct } from "../lib/translate";
+import { convertWeightNum, getWeightUnit } from "../lib/units";
 
 interface ComparisonDashboardProps {
   compareList: Product[];
@@ -124,10 +125,15 @@ export default function ComparisonDashboard({
                   </td>
                   {compareList.map((p) => {
                     const disp = translateProduct(p, lang);
-                    const val = (disp as any)[m.key];
+                    let val = (disp as any)[m.key];
+                    let suffix = m.suffix;
+                    if (m.key === "weight") {
+                      val = convertWeightNum(Number(val), currencyData.code).toFixed(1);
+                      suffix = " " + getWeightUnit(currencyData.code);
+                    }
                     return (
                       <td key={p.id} className="p-8 px-10 border-l border-white/5 font-black text-white text-base">
-                        {m.prefix}{val}{m.suffix}
+                        {m.prefix}{val}{suffix}
                       </td>
                     );
                   })}

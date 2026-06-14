@@ -28,6 +28,7 @@ import {
 import { auth } from "../lib/firebase";
 import { ensureUserProfileInFirestore } from "../lib/firestoreService";
 import { translateProduct } from "../lib/translate";
+import { formatWeight } from "../lib/units";
 
 interface AuthSectionProps {
   userEmail: string;
@@ -458,7 +459,7 @@ export default function AuthSection({
                           </div>
                           <h4 className="text-sm font-extrabold text-white mt-1">{dispProd.name}</h4>
                           <div className="grid grid-cols-2 gap-1 text-[10px] text-slate-400 mt-2">
-                            <span>{isEn ? "Weight:" : "自重："}{dispProd.weight}kg</span>
+                            <span>{isEn ? "Weight: " : "自重："}{formatWeight(dispProd.weight, currencyData.code)}</span>
                             <span>{isEn ? "Evals:" : "工效分："}{dispProd.overallScore}</span>
                           </div>
                         </div>
