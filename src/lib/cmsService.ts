@@ -52,8 +52,13 @@ export async function checkIsAdmin(uid: string, user?: User | null): Promise<boo
 }
 
 // Product Management
-export async function getCMSProducts(): Promise<CMSProduct[]> {
-  const q = query(collection(db, "products"), orderBy("updatedAt", "desc"));
+export async function getCMSProducts(onlyPublished = false): Promise<CMSProduct[]> {
+  let q;
+  if (onlyPublished) {
+    q = query(collection(db, "products"), where("status", "==", "published"));
+  } else {
+    q = query(collection(db, "products"), orderBy("updatedAt", "desc"));
+  }
   const snap = await getDocs(q);
   return snap.docs.map(d => d.data() as CMSProduct);
 }
@@ -67,8 +72,13 @@ export async function saveCMSProduct(product: CMSProduct) {
 }
 
 // Evaluation Management
-export async function getCMSEvaluations(): Promise<Evaluation[]> {
-  const q = query(collection(db, "evaluations"), orderBy("updatedAt", "desc"));
+export async function getCMSEvaluations(onlyPublished = false): Promise<Evaluation[]> {
+  let q;
+  if (onlyPublished) {
+    q = query(collection(db, "evaluations"), where("status", "==", "published"));
+  } else {
+    q = query(collection(db, "evaluations"), orderBy("updatedAt", "desc"));
+  }
   const snap = await getDocs(q);
   return snap.docs.map(d => d.data() as Evaluation);
 }
@@ -82,8 +92,13 @@ export async function saveCMSEvaluation(ev: Evaluation) {
 }
 
 // Guide Management
-export async function getCMSGuides(): Promise<Guide[]> {
-  const q = query(collection(db, "guides"), orderBy("updatedAt", "desc"));
+export async function getCMSGuides(onlyPublished = false): Promise<Guide[]> {
+  let q;
+  if (onlyPublished) {
+    q = query(collection(db, "guides"), where("status", "==", "published"));
+  } else {
+    q = query(collection(db, "guides"), orderBy("updatedAt", "desc"));
+  }
   const snap = await getDocs(q);
   return snap.docs.map(d => d.data() as Guide);
 }
@@ -97,8 +112,13 @@ export async function saveCMSGuide(guide: Guide) {
 }
 
 // News Management
-export async function getCMSNews(): Promise<News[]> {
-  const q = query(collection(db, "news"), orderBy("updatedAt", "desc"));
+export async function getCMSNews(onlyPublished = false): Promise<News[]> {
+  let q;
+  if (onlyPublished) {
+    q = query(collection(db, "news"), where("status", "==", "published"));
+  } else {
+    q = query(collection(db, "news"), orderBy("updatedAt", "desc"));
+  }
   const snap = await getDocs(q);
   return snap.docs.map(d => d.data() as News);
 }

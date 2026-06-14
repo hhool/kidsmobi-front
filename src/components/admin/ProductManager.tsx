@@ -12,6 +12,8 @@ import {
 import { motion, AnimatePresence } from "motion/react";
 import { getCMSProducts, saveCMSProduct } from "../../lib/cmsService";
 import { CMSProduct, ComplianceTag, ProductCategory } from "../../types";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../../lib/firebase";
 
 export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
   const [products, setProducts] = useState<CMSProduct[]>([]);
@@ -64,8 +66,6 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
 
   const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this product?")) {
-      const { deleteDoc, doc } = await import("firebase/firestore");
-      const { db } = await import("../../lib/firebase");
       await deleteDoc(doc(db, "products", id));
       fetchProducts();
     }

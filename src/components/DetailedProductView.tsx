@@ -26,11 +26,11 @@ import {
 import { Product, CurrencyData } from "../types";
 import { translateProduct } from "../lib/translate";
 import { formatWeight } from "../lib/units";
-import { productsData } from "../data/modelsData";
 import ProductCarousel from "./ProductCarousel";
 
 interface DetailedProductViewProps {
   product: Product;
+  allProducts: Product[];
   onClose: () => void;
   lang: "zh" | "en";
   currencyData: CurrencyData;
@@ -43,6 +43,7 @@ interface DetailedProductViewProps {
 
 export default function DetailedProductView({
   product,
+  allProducts,
   onClose,
   lang,
   currencyData,
@@ -279,11 +280,11 @@ export default function DetailedProductView({
                 <div className="flex items-center gap-2">
                   <select
                     value={comparedProduct?.id || ""}
-                    onChange={(e) => setComparedProduct(productsData.find(p => p.id === e.target.value) || null)}
+                    onChange={(e) => setComparedProduct(allProducts.find(p => p.id === e.target.value) || null)}
                     className="bg-slate-50 border border-slate-100 rounded-xl text-[10px] font-black uppercase px-4 py-2 cursor-pointer focus:ring-2 focus:ring-orange-500/20"
                   >
                     <option value="">{lang === "en" ? "Compare With..." : "选择对比型号..."}</option>
-                    {productsData.filter(p => p.id !== product.id && p.category === product.category).map(p => (
+                    {allProducts.filter(p => p.id !== product.id && p.category === product.category).map(p => (
                       <option key={p.id} value={p.id}>{p.brand} {p.name}</option>
                     ))}
                   </select>

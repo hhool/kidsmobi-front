@@ -38,7 +38,7 @@ import {
   Legend,
   Tooltip
 } from "recharts";
-import { productsData } from "./data/modelsData";
+import { productsData as defaultProductsData } from "./data/modelsData";
 import { ChildProfile, Product, ChatMessage, CMSSettings, SEOConfig } from "./types";
 
 // Import translations
@@ -58,7 +58,7 @@ import AdminPanel from "./components/AdminPanel";
 
 import { auth } from "./lib/firebase";
 import { getBookmarksFromFirestore, addBookmarkToFirestore, removeBookmarkFromFirestore } from "./lib/firestoreService";
-import { checkIsAdmin, getCMSSettings } from "./lib/cmsService";
+import { checkIsAdmin, getCMSSettings, getCMSProducts } from "./lib/cmsService";
 
 const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
   home: {
@@ -219,22 +219,41 @@ export default function App() {
     return isBypass ? "hhool.student@gmail.com" : "";
   });
 
-  // Global CMS settings state
+  // Global CMS settings and Products state
   const [cmsSettings, setCmsSettings] = useState<CMSSettings | null>(null);
+  const [productsData, setProductsData] = useState<Product[]>(defaultProductsData);
 
-  // Load CMS settings on mount / tab change
+  // Load CMS settings and Products on mount / tab change
   useEffect(() => {
-    const fetchSettings = async () => {
+    const fetchData = async () => {
       try {
         const s = await getCMSSettings();
         if (s) {
           setCmsSettings(s);
         }
+        const p = await getCMSProducts(true);
+        if (p && p.length > 0) {
+          const publishedCMS = p;
+          
+          // Merge logic: CMS published overrides default, plus all default that aren't in CMS
+          const merged = [...defaultProductsData];
+          publishedCMS.forEach(cmsProd => {
+            const extIdx = merged.findIndex(dp => dp.id === cmsProd.id);
+            if (extIdx >= 0) {
+              merged[extIdx] = cmsProd;
+            } else {
+              merged.push(cmsProd);
+            }
+          });
+          setProductsData(merged);
+        } else {
+          setProductsData(defaultProductsData);
+        }
       } catch (err) {
-        console.error("Failed to load CMS settings:", err);
+        console.error("Failed to load CMS data:", err);
       }
     };
-    fetchSettings();
+    fetchData();
   }, [activeTab]);
 
   // Listen to Firebase Auth state
@@ -816,6 +835,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
         {activeTab === "product_detail" && selectedProduct && (
           <DetailedProductView
             product={selectedProduct}
+            allProducts={productsData}
             onClose={() => handleSelectProduct(null)}
             lang={lang}
             currencyData={currencyData}

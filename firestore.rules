@@ -28,25 +28,25 @@ service cloud.firestore {
 
     // Products
     match /products/{productId} {
-      allow read: if isPublished() || isAdmin();
+      allow read: if true;
       allow write: if isAdmin();
     }
 
     // Evaluations
     match /evaluations/{evalId} {
-      allow read: if isPublished() || isAdmin();
+      allow read: if true;
       allow write: if isAdmin();
     }
 
     // Guides
     match /guides/{guideId} {
-      allow read: if isPublished() || isAdmin();
+      allow read: if true;
       allow write: if isAdmin();
     }
 
     // News
     match /news/{newsId} {
-      allow read: if isPublished() || isAdmin();
+      allow read: if true;
       allow write: if isAdmin();
     }
 
