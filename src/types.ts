@@ -10,9 +10,7 @@ export type ProductCategory =
   | "stroller" 
   | "electric_car" 
   | "tricycle" 
-  | "safety_seat" 
-  | "cross_border" 
-  | "industrial_belt";
+  | "safety_seat";
 
 export interface Product {
   id: string;

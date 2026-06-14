@@ -16,18 +16,20 @@ import {
   ChevronUp,
   HelpCircle,
   Award,
-  MessageSquare
+  MessageSquare,
+  ChevronRight
 } from "lucide-react";
 import { GuideArticle, guideArticles } from "../data/guidesData";
 import { Product } from "../types";
 import { translateProduct, translateGuideArticle } from "../lib/translate";
+import Breadcrumbs from "./Breadcrumbs";
 
 const faqData = [
   {
     id: "faq_1",
     questionZh: "1. 童车车重到底有什么安全死线？为什么超重车辆是侧翻的罪魁祸首？",
     questionEn: "1. What is the safety threshold for kids' bike weight? Why are heavy bikes the primary cause of tipping?",
-    answerZh: `根据全球儿科力学会（Pediatric Biomechanics Council）和安全工效研究室的统一规约：
+    answerZh: `根据全球儿科力学会（Pediatric Biomechanics Council）和 KIDSMOBI 安全实验室的统一规约：
     
 *   **黄金车重比例限制**：一款童车的整车重量（尤指自行车）**决不可以超过儿童体重的 30%**。
 *   **侧翻致伤原理**：如果车重超出儿童自重的 40% 以上（等同于让一个成年人操控一辆重达 60-70 公斤的重型机车），在紧急转弯、重心偏移或车辆失衡跌倒时，孩子薄弱的腕关节和肱骨根本无法支撑倾倒的车重。此时重力矩瞬间偏大，倾覆动能转化为致命的剪切力，孩子无法及时“弃车跳开”，极易发生大腿、手臂折叠式压折和骨折。因此，在童车选购中，轻量化（铝合金/高聚镁合金/碳纤维车架）是绝对的第一安全红线，重钢车架应当列为回避款。`,
@@ -109,7 +111,7 @@ const faqData = [
     questionZh: "6. 新生儿推车避震和 170°-175° 纯平睡眠面有什么要害？那些大倾角推车有危险吗？",
     questionEn: "6. Why are stroller suspension and 170°-175° flat sleep surfaces critical for newborn spinal development?",
     answerZh: `*   **脊椎物理弯曲保护**：新生婴儿在 6 个月以前，其脊椎处于极度脆弱的单一后凸弧度（C字形曲线），尚无形成成人的S型生理弯曲。
-*   **175° 黄金平躺角度**：部分伞车为了节约收拢体积，只能支持 135°-145° 倾角。婴儿如果被硬性斜放其上，重力线会全部汇集在脆弱的下端骶尾骨区域，压迫未发育成熟前端的椎骨，极易引发生理性倾斜或者脊柱变形弯曲。真正符合安全研究所规范的是 **170°-175° 的卧篮面（保留 5° 的防溢奶安全回落倾角，而非死板纯平）**，将上半身和骨盆的承接重力均匀分散至背脊全区。
+*   **175° 黄金平躺角度**：部分伞车为了节约收拢体积，只能支持 135°-145° 倾角。婴儿如果被硬性斜放其上，重力线会全部汇集在脆弱的下端骶尾骨区域，压迫未发育成熟前端的椎骨，极易引发生理性倾斜或者脊柱变形弯曲。真正符合 KIDSMOBI 规范的是 **170°-175° 的卧篮面（保留 5° 的防溢奶安全回落倾角，而非死板纯平）**，将上半身和骨盆的承接重力均匀分散至背脊全区。
 *   **路面震波屏障**：由于新生儿脑部组织呈“嫩豆腐状”果冻黏性自流，头颈肌肉控制力约等于零。如果推车缺少中枢弹簧或充气式有源空气避震，推过非平滑盲道或不平水泥道时产生的高频共振（震波传递超 2.2G），会由婴儿娇嫩的前庭半规管放大，造成潜在的大脑、眼底毛细剥离（即摇晃婴儿综合征伤害），物理空气避震以及 175° 睡篮是全地形推车不可妥协的核心配置。`,
     answerEn: `*   **Spinal Curvature Safeguard**: Prior to 6 months of age, a newborn's spine exhibits a singular, C-shaped convex curvature. It possesses none of the adult-like S-shaped structural curves.
 *   **The 170°-175° Lay-Flat Standard**: Cheap compact strollers often slope only to 135°-145°. Placing a newborn on such inclines channels the entire gravitational load straight into the immature coccyx and lower lumbar vertebrae. This risks skeletal deformation. A true medical-grade stroller utilizes a **170° to 175° layflat bassinet envelope (yielding a gentle 5-degree head elevation to mitigate milk reflux, rather than a perfect 180° flat surface)**, distributing spinal weight uniformly.
@@ -263,51 +265,65 @@ export default function GuidesSection({
 
   const categories = lang === "en" ? [
     { id: "all", label: "📁 All Guides" },
-    { id: "beginner", label: "🔰 For Beginners" },
-    { id: "risk", label: "☠️ Sizing Pitfalls" },
-    { id: "export", label: "⚖️ Standard Audits" },
-    { id: "maintenance", label: "🔧 Maintenance" },
-    { id: "scenario", label: "🏞️ Scenario Sizing" }
+    { id: "beginner", label: "🔰 Beginner Entry" },
+    { id: "scenario", label: "🏞️ Scenario Guide" },
+    { id: "budget", label: "💰 Budget Guide" },
+    { id: "risk", label: "⚖️ Risk ID Guide" },
+    { id: "export", label: "⚖️ Cross-border" },
+    { id: "special", label: "🚲 Category Special" },
+    { id: "maintenance", label: "🔧 Maintenance" }
   ] : [
     { id: "all", label: "📁 全部指南目录" },
-    { id: "beginner", label: "🔰 选车新手册" },
-    { id: "risk", label: "☠️ 车款避坑死线" },
-    { id: "export", label: "⚖️ 跨境合规认证" },
-    { id: "maintenance", label: "🔧 车辆保养知识" },
-    { id: "scenario", label: "🏞️ 场景化量身置" }
+    { id: "beginner", label: "🔰 新手入门指南" },
+    { id: "scenario", label: "🏞️ 场景化选购" },
+    { id: "budget", label: "💰 预算分级指南" },
+    { id: "risk", label: "⚖️ 风险甄别指南" },
+    { id: "export", label: "⚖️ 跨境选购指南" },
+    { id: "special", label: "🚲 品类专项指南" },
+    { id: "maintenance", label: "🔧 养护使用指南" }
   ];
 
   return (
-    <div id="guides_container" className="space-y-12">
+    <div id="guides_container" className="space-y-8 text-left">
       
+      {/* Breadcrumbs (PRD 4.4.2) */}
+      <Breadcrumbs 
+        lang={lang} 
+        onHomeClick={() => (window as any).setActiveTab?.("home")}
+        items={[{ label: lang === "zh" ? "选购指南" : "BUYING GUIDES", active: true }]} 
+      />
+
       {/* ========================================================
           Part 1: 智能选购匹配工效算力工具 (Interactive Match Wizard)
           ======================================================== */}
-      <section className="bg-gradient-to-br from-slate-900 to-slate-950 border border-amber-500/10 rounded-3xl p-6 sm:p-8 shadow-xl text-left">
+      <section className="bg-white border border-slate-100 rounded-[40px] p-8 sm:p-10 shadow-xl shadow-slate-200/50 text-left relative overflow-hidden">
         
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800/60 pb-6 mb-6">
-          <div className="space-y-1.5 text-left">
-            <span className="px-2.5 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-black rounded-lg uppercase tracking-wider block w-max">
-              {lang === "en" ? "WIZARD · SMART ERGONOMICS" : "WIZARD · 工效智能匹配"}
+        {/* Background blobs for B2C feel */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-orange-100/30 rounded-full blur-3xl -mr-32 -mt-32"></div>
+
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-b border-slate-50 pb-8 mb-8 relative z-10">
+          <div className="space-y-2 text-left">
+            <span className="px-3 py-1 bg-orange-100 text-orange-600 text-[10px] font-black rounded-full uppercase tracking-widest border border-orange-200 inline-block">
+              {lang === "en" ? "Smart Wizard" : "智能选车助手"}
             </span>
-            <h3 className="text-xl font-extrabold text-white flex items-center gap-2">
-              <Calculator className="w-5 h-5 text-amber-500" />
-              {lang === "en" ? "Interactive Child Mobility Sizing Wizard" : "童车参数匹配智敏算力箱"}
+            <h3 className="text-2xl font-black text-slate-900 flex items-center gap-2">
+              <Calculator className="w-6 h-6 text-orange-500" />
+              {lang === "en" ? "Find the Perfect Match" : "帮宝宝选出真爱座驾"}
             </h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-sm text-slate-500 font-medium">
               {lang === "en" 
-                ? "Enter baby physical attributes to dynamically calculate biomechanical wheel dimensions, posture requirements, and weight thresholds." 
-                : "输入您家宝宝的真实身体特征值，我们将自动计算符合医学规范的安全轮径与最高车重死线"}
+                ? "Enter your child's measurements to find the safest, most comfortable ride." 
+                : "输入宝宝的身高体重，我们将通过科学算法为您匹配最合适的轮径与型号。"}
             </p>
           </div>
           <button 
             type="button" 
             onClick={() => setShowWizardResults(!showWizardResults)}
-            className="px-4 py-2 bg-amber-500 text-slate-950 font-black text-xs rounded-xl hover:bg-amber-600 transition flex items-center gap-1.5"
+            className="px-6 py-3 bg-orange-500 text-white font-black text-sm rounded-2xl hover:bg-orange-600 transition shadow-lg shadow-orange-500/20 active:scale-95 flex items-center gap-2"
           >
             {showWizardResults 
-              ? (lang === "en" ? "⚙️ Back to Adjustable Sliders" : "⚙️ 返回调整参数")
-              : (lang === "en" ? "⚡ Compute Advice & Sift Inventory" : "⚡ 立即计算推荐 & 筛选在库产品")}
+              ? (lang === "en" ? "⚙️ Change Specs" : "⚙️ 调整参数")
+              : (lang === "en" ? "⚡ View Recommendations" : "⚡ 查看推荐好车")}
           </button>
         </div>
 
@@ -361,67 +377,65 @@ export default function GuidesSection({
             </div>
 
             {/* Simulated logic matching results list */}
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <h4 className="text-xs font-black text-slate-300 uppercase tracking-widest">
+            <div className="space-y-3 relative z-10">
+              <div className="flex justify-between items-center px-2">
+                <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">
                   {lang === "en" 
-                    ? `📋 Rigid Safety Recs Filtered (${matchRecommendations.matches.length} matches)` 
-                    : `📋 为您严格筛选出的安全车型 (在库推荐数: ${matchRecommendations.matches.length})`}
+                    ? `Matching Models (${matchRecommendations.matches.length})` 
+                    : `为您精准推荐 (${matchRecommendations.matches.length})`}
                 </h4>
                 <button 
                   onClick={handleApplyWizardToProfile} 
-                  className="text-[10px] text-amber-500 hover:underline hover:text-amber-400 font-bold"
+                  className="text-[11px] text-orange-500 hover:text-orange-600 font-black flex items-center gap-1 transition-all hover:gap-2"
                 >
-                  {lang === "en" ? "Sync and Apply to Full Site →" : "同步并应用于全站 →"}
+                  {lang === "en" ? "Apply to Profile" : "同步参数并应用"} <ChevronRight className="w-3 h-3" />
                 </button>
               </div>
 
               {matchRecommendations.matches.length === 0 ? (
-                <div className="p-8 text-center bg-slate-950 rounded-xl border border-slate-850">
-                  <AlertTriangle className="w-10 h-10 text-amber-500 mx-auto mb-2" />
-                  <span className="text-xs text-slate-300 inline-block">
-                    {lang === "en" ? "Apologies, no models currently match all physical limits." : "很抱歉，在库车型中暂时没有完全匹配您当下限制的产品。"}
+                <div className="p-12 text-center bg-slate-50 rounded-[32px] border border-slate-100 shadow-inner">
+                  <AlertTriangle className="w-12 h-12 text-orange-500 mx-auto mb-4 animate-bounce" />
+                  <span className="text-slate-900 font-black block text-lg mb-2">
+                    {lang === "en" ? "No matches found" : "哎呀，没找到完美匹配"}
                   </span>
-                  <p className="text-[10px] text-slate-500 mt-1">
+                  <p className="text-sm text-slate-500 max-w-sm mx-auto leading-relaxed">
                     {lang === "en" 
-                      ? "You may increase budget bounds or scale accepted frame tare allowances." 
-                      : "您可以试着增加预算（当前：￥3000）或调增可接受车自重后重新检视。"}
+                      ? "Try adjusting the budget or weight limits slightly to see more options." 
+                      : "建议试着放宽一点点预算（当前￥3000）或者自重限制，或许会有特别的惊喜。"}
                   </p>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                   {matchRecommendations.matches.map((p) => {
                     const dispProduct = translateProduct(p, lang);
                     const isPerfectWeight = p.weight <= matchRecommendations.perfectWeightLimit;
                     return (
-                      <div key={dispProduct.id} className="bg-slate-950 p-4 rounded-xl border border-slate-850 hover:border-slate-800 flex flex-col justify-between space-y-3 transition group">
-                        <div>
-                          <div className="flex justify-between items-start text-[9px]">
-                            <span className="bg-slate-900 border border-slate-850 text-amber-500 p-1 rounded font-bold uppercase leading-none">{dispProduct.brand}</span>
-                            <span className="text-slate-500 font-mono">ID: {dispProduct.id}</span>
+                      <div key={dispProduct.id} className="bg-white p-6 rounded-[32px] border border-slate-100 hover:border-orange-100 flex flex-col justify-between space-y-4 shadow-sm hover:shadow-xl hover:shadow-orange-500/5 transition-all group">
+                        <div className="space-y-2">
+                          <div className="flex justify-between items-center">
+                            <span className="bg-orange-50 text-orange-600 px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase border border-orange-100">{dispProduct.brand}</span>
                           </div>
                           
-                          <h4 className="text-xs sm:text-sm font-black text-white mt-1.5 truncate group-hover:text-amber-400 transition-colors">{dispProduct.name}</h4>
-                          <p className="text-[10px] text-slate-500 line-clamp-2 mt-1 leading-relaxed italic">“{dispProduct.editorVerdict}”</p>
+                          <h4 className="text-base font-black text-slate-900 truncate group-hover:text-orange-500 transition-colors">{dispProduct.name}</h4>
+                          <p className="text-[11px] text-slate-500 line-clamp-2 leading-relaxed font-medium">“{dispProduct.editorVerdict}”</p>
                         </div>
 
-                        {/* Metric block inside wizard matches */}
-                        <div className="border-t border-slate-900/80 pt-2.5 text-[10px] text-slate-400 space-y-1">
-                          <div className="flex justify-between">
-                            <span>{lang === "en" ? "Measured Weight:" : "车身净重："}</span>
-                            <strong className={isPerfectWeight ? "text-green-400" : "text-amber-500"}>{dispProduct.weight} kg</strong>
+                        <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-[11px] space-y-1.5">
+                          <div className="flex justify-between items-center">
+                            <span className="text-slate-400 font-bold">{lang === "en" ? "Weight" : "产品自重"}</span>
+                            <strong className={isPerfectWeight ? "text-emerald-500" : "text-orange-500"}>{dispProduct.weight} kg</strong>
                           </div>
-                          <div className="flex justify-between">
-                            <span>{lang === "en" ? "Reference Price:" : "参考市价："}</span>
-                            <strong className="text-amber-500 font-mono">{lang === "en" ? "$" : "￥"}{dispProduct.price}</strong>
+                          <div className="flex justify-between items-center">
+                            <span className="text-slate-400 font-bold">{lang === "en" ? "Price" : "参考售价"}</span>
+                            <strong className="text-slate-900 font-black">{lang === "en" ? "$" : "￥"}{dispProduct.price}</strong>
                           </div>
                         </div>
 
                         <button
                           onClick={() => onSelectProduct(p)}
-                          className="w-full py-1.5 bg-slate-900 hover:bg-slate-850 text-slate-300 font-bold text-[10px] uppercase rounded border border-slate-850 hover:border-slate-800 transition-all"
+                          className="w-full py-2.5 bg-white border border-slate-100 hover:border-orange-200 text-slate-600 hover:text-orange-500 font-black text-[11px] uppercase rounded-2xl transition-all shadow-sm active:scale-95"
                         >
-                          {lang === "en" ? "Analyze Report Details →" : "深入研析这份检测书 →"}
+                          {lang === "en" ? "View Report" : "查看详情"}
                         </button>
                       </div>
                     );
@@ -443,13 +457,13 @@ export default function GuidesSection({
           </div>
         ) : (
           // Input Fields Form View
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs text-slate-300 text-left">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-xs text-slate-600 text-left relative z-10">
             
             {/* Input 1: Age */}
-            <div className="bg-slate-950 p-4 rounded-xl border border-slate-850 space-y-2">
-              <label className="text-slate-400 font-bold flex items-center justify-between">
-                <span>{lang === "en" ? "1. Age Limit" : "1. 宝宝周岁 (Age)"}</span>
-                <span className="font-mono text-amber-500">{wizardAge} {lang === "en" ? "yrs" : "岁"}</span>
+            <div className="bg-slate-50 p-6 rounded-[32px] border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
+              <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
+                <span>{lang === "en" ? "1. Age" : "1. 宝宝岁数"}</span>
+                <span className="text-orange-500 text-sm">{wizardAge} {lang === "en" ? "yrs" : "岁"}</span>
               </label>
               <input
                 type="range"
@@ -461,18 +475,18 @@ export default function GuidesSection({
                   const val = parseFloat(e.target.value);
                   setWizardAge(val);
                 }}
-                className="w-full accent-amber-500 bg-slate-900"
+                className="w-full accent-orange-500 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer"
               />
-              <span className="text-[10px] text-slate-500 block">
-                {lang === "en" ? "Determines bone density and wheel scaling" : "用于判定骨盆发育及适配轮型"}
+              <span className="text-[10px] text-slate-400 font-medium block">
+                {lang === "en" ? "Calculates bone density limits" : "用于测算宝宝体格发育限制"}
               </span>
             </div>
 
             {/* Input 2: Height */}
-            <div className="bg-slate-950 p-4 rounded-xl border border-slate-850 space-y-2">
-              <label className="text-slate-400 font-bold flex items-center justify-between">
-                <span>{lang === "en" ? "2. Total Height" : "2. 宝宝净身高 (Height)"}</span>
-                <span className="font-mono text-amber-500">{wizardHeight} cm</span>
+            <div className="bg-slate-50 p-6 rounded-[32px] border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
+              <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
+                <span>{lang === "en" ? "2. Height" : "2. 身高 (Height)"}</span>
+                <span className="text-orange-500 text-sm">{wizardHeight} cm</span>
               </label>
               <input
                 type="range"
@@ -485,18 +499,15 @@ export default function GuidesSection({
                   setWizardHeight(val);
                   setWizardInseam(Math.floor(val * 0.38)); // Default estimation
                 }}
-                className="w-full accent-amber-500 bg-slate-900"
+                className="w-full accent-orange-500 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer"
               />
-              <span className="text-[10px] text-slate-500 block">
-                {lang === "en" ? "Sets height reach tolerances" : "基础身高比例测定限制"}
-              </span>
             </div>
 
-            {/* Input 3: Inseam/Leg heights */}
-            <div className="bg-slate-950 p-4 rounded-xl border border-slate-850 space-y-2">
-              <label className="text-slate-400 font-bold flex items-center justify-between">
-                <span>{lang === "en" ? "3. Crotch-Inseam" : "3. 脱鞋腿内侧跨高"}</span>
-                <span className="font-mono text-amber-400 font-black">{wizardInseam} cm</span>
+            {/* Input 3: Inseam */}
+            <div className="bg-slate-50 p-6 rounded-[32px] border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
+              <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
+                <span>{lang === "en" ? "3. Inseam" : "3. 跨高 (Inseam)"}</span>
+                <span className="text-orange-500 text-sm">{wizardInseam} cm</span>
               </label>
               <input
                 type="range"
@@ -505,18 +516,15 @@ export default function GuidesSection({
                 step="1"
                 value={wizardInseam}
                 onChange={(e) => setWizardInseam(parseInt(e.target.value))}
-                className="w-full accent-amber-500 bg-slate-900"
+                className="w-full accent-orange-500 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer"
               />
-              <span className="text-[10px] text-slate-500 block">
-                {lang === "en" ? "Guarantees foot-plant safety margin" : "底座座椅支撑重心线检测要害"}
-              </span>
             </div>
 
             {/* Input 4: Weight */}
-            <div className="bg-slate-950 p-4 rounded-xl border border-slate-850 space-y-2">
-              <label className="text-slate-400 font-bold flex items-center justify-between">
-                <span>{lang === "en" ? "4. Child Weight" : "4. 宝宝重 (Weight)"}</span>
-                <span className="font-mono text-red-400 font-black">{wizardWeight} kg</span>
+            <div className="bg-slate-50 p-6 rounded-[32px] border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
+              <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
+                <span>{lang === "en" ? "4. Weight" : "4. 体重 (Weight)"}</span>
+                <span className="text-rose-500 text-sm font-black">{wizardWeight} kg</span>
               </label>
               <input
                 type="range"
@@ -528,18 +536,18 @@ export default function GuidesSection({
                   const val = parseFloat(e.target.value);
                   setWizardWeight(val);
                 }}
-                className="w-full accent-amber-500 bg-slate-900"
+                className="w-full accent-orange-500 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer"
               />
-              <span className="text-[10px] text-slate-500 block">
-                {lang === "en" ? "Calculates the strict 30% weight limit" : "力学重心核验，防沉重钢铁侧摔"}
+              <span className="text-[10px] text-slate-400 font-medium block">
+                {lang === "en" ? "Calculates 30% safety threshold" : "用于实时更新安全称重死线"}
               </span>
             </div>
 
             {/* Input 5: Budget */}
-            <div className="bg-slate-950 p-4 rounded-xl border border-slate-850 space-y-2 sm:col-span-2">
-              <label className="text-slate-400 font-bold flex items-center justify-between">
-                <span>{lang === "en" ? "5. Max Purchase Budget" : "5. 我的买车预算"}</span>
-                <span className="font-mono text-green-400 font-black">
+            <div className="bg-slate-50 p-6 rounded-[32px] border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow sm:col-span-2">
+              <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
+                <span>{lang === "en" ? "5. Purchase Budget" : "5. 购车预算上限"}</span>
+                <span className="text-emerald-500 text-sm font-black">
                   {lang === "en" ? `$ ${wizardBudget}` : `￥ ${wizardBudget}`}
                 </span>
               </label>
@@ -550,30 +558,24 @@ export default function GuidesSection({
                 step="50"
                 value={wizardBudget}
                 onChange={(e) => setWizardBudget(parseInt(e.target.value))}
-                className="w-full accent-amber-500 bg-slate-900"
+                className="w-full accent-emerald-500 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer"
               />
-              <span className="text-[10px] text-slate-500 block">
-                {lang === "en" ? "Filter in-stock configurations" : "一键排除超荷高估溢价车型"}
-              </span>
             </div>
 
-            {/* Input 6: Scenario Choice */}
-            <div className="bg-slate-950 p-4 rounded-xl border border-slate-850 space-y-2 sm:col-span-2">
-              <label className="text-slate-400 font-bold block text-left">
-                {lang === "en" ? "6. Physical Travel Road constraints" : "6. 主要出行道路场景特征"}
+            {/* Input 6: Scenario */}
+            <div className="bg-slate-50 p-6 rounded-[32px] border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow sm:col-span-2">
+              <label className="text-slate-400 font-black uppercase tracking-wider block text-[10px]">
+                {lang === "en" ? "6. Primary Usage Scenario" : "6. 主要使用场景"}
               </label>
               <select
                 value={wizardScenario}
                 onChange={(e) => setWizardScenario(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-850 rounded p-2 text-slate-300 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                className="w-full bg-white border border-slate-100 rounded-2xl p-3 text-sm text-slate-700 font-bold focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 cursor-pointer"
               >
-                <option value="all">{lang === "en" ? "🌐 Standard Pavement / Mall Slabs" : "🌐 全部道路 (多场景覆盖)"}</option>
-                <option value="tight">{lang === "en" ? "🚇 Urban Subways / Tiny Apartments (Requires lightweight)" : "🚇 城市地铁高密通勤 (偏重超轻轻便款)"}</option>
-                <option value="rough">{lang === "en" ? "🏞️ Rough Muddy Tracks & Wet Slopes (Pneumatic tires rule)" : "🏞️ 硬核户外泥沙颠地 (偏向气减震防爆轮)"}</option>
+                <option value="all">{lang === "en" ? "🌐 Standard / City Paths" : "🌐 全部道路 (多场景)"}</option>
+                <option value="tight">{lang === "en" ? "🚇 Light & Portable (Urban)" : "🚇 极致便携 (高密城市通勤)"}</option>
+                <option value="rough">{lang === "en" ? "🏞️ Rough / Adventure Tracks" : "🏞️ 硬核户外 (泥沙/颠簸路面)"}</option>
               </select>
-              <span className="text-[10px] text-slate-500 block">
-                {lang === "en" ? "Aligns tyre tread and weight tolerances" : "根据场景自动调配适格阻尼度"}
-              </span>
             </div>
 
           </div>
@@ -589,118 +591,117 @@ export default function GuidesSection({
           const guide = translateGuideArticle(selectedGuideState, lang);
           return (
             // Read detail mode view container
-            <div className="max-w-3xl mx-auto bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-10 space-y-6 shadow-2xl relative animate-fade-in text-left">
+            <div className="max-w-3xl mx-auto bg-white border border-slate-100 rounded-[40px] p-8 sm:p-12 space-y-8 shadow-2xl relative animate-fade-in text-left">
               <button
                 onClick={() => setSelectedGuideState(null)}
-                className="flex items-center gap-1.5 text-xs text-amber-500 hover:text-amber-400 font-bold uppercase pb-4 border-b border-slate-800/80 mb-4"
+                className="flex items-center gap-2 text-xs text-orange-500 hover:text-orange-600 font-black uppercase pb-6 border-b border-slate-50 mb-6"
               >
                 <ArrowLeft className="w-4 h-4" />
-                {lang === "en" ? "Back to Guides List" : "返回安全指南库"}
+                {lang === "en" ? "Back to Guides" : "返回指南目录"}
               </button>
 
               <div className="space-y-4">
-                <span className="px-3 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-black rounded-lg uppercase">
+                <span className="px-3 py-1 bg-orange-100 text-orange-600 text-[10px] font-black rounded-full uppercase border border-orange-200">
                   {guide.categoryLabel}
                 </span>
 
-                <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-white leading-tight">
+                <h2 className="text-3xl font-black text-slate-900 leading-tight">
                   {guide.title}
                 </h2>
 
-                <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500 font-medium">
-                  <span className="flex items-center gap-1">
-                    <Briefcase className="w-3.5 h-3.5 text-amber-500" />
+                <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400 font-bold">
+                  <span className="flex items-center gap-1.5">
+                    <Briefcase className="w-4 h-4 text-orange-500" />
                     {guide.author}
                   </span>
-                  <span className="flex items-center gap-1">
-                    <Calendar className="w-3.5 h-3.5 text-amber-500" />
+                  <span className="flex items-center gap-1.5">
+                    <Calendar className="w-4 h-4 text-orange-500" />
                     {guide.publishDate}
                   </span>
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5 text-amber-500" />
+                  <span className="flex items-center gap-1.5">
+                    <Clock className="w-4 h-4 text-orange-500" />
                     {guide.readTime}
                   </span>
                 </div>
               </div>
 
-              {/* Summary card description box */}
-              <div className="bg-slate-950 p-4 rounded-xl border-l-4 border-amber-500 text-slate-300 text-xs sm:text-sm leading-relaxed italic">
-                <strong>{lang === "en" ? "Brief Summary: " : "概要："}</strong> {guide.summary}
+              <div className="bg-orange-50/50 p-6 rounded-3xl border border-orange-100 text-slate-700 text-sm leading-relaxed font-medium italic relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-1 h-full bg-orange-400"></div>
+                <strong>{lang === "en" ? "Summary: " : "概要："}</strong> {guide.summary}
               </div>
 
-              {/* Split paragraph parsing markdown code */}
-              <div className="whitespace-pre-wrap text-slate-300 text-xs sm:text-sm leading-8 space-y-6 border-t border-slate-800/80 pt-6">
+              <div className="text-slate-600 text-sm sm:text-base leading-8 space-y-6 border-t border-slate-50 pt-8">
                 {guide.content.split("\n\n").map((para: string, ip: number) => {
                   if (para.startsWith("### ")) {
-                    return <h3 key={ip} className="text-lg font-bold text-white mt-6 mb-2">{para.replace("### ", "")}</h3>;
+                    return <h3 key={ip} className="text-xl font-black text-slate-900 mt-10 mb-4">{para.replace("### ", "")}</h3>;
                   }
                   if (para.startsWith("#### ")) {
-                    return <h4 key={ip} className="text-base font-bold text-amber-400 mt-4 mb-2">{para.replace("#### ", "")}</h4>;
+                    return <h4 key={ip} className="text-lg font-bold text-orange-500 mt-8 mb-4">{para.replace("#### ", "")}</h4>;
                   }
                   if (para.startsWith("* ") || para.startsWith("- ")) {
                     return (
-                      <ul key={ip} className="list-disc list-inside space-y-1 text-slate-400 pl-2">
+                      <ul key={ip} className="list-disc list-inside space-y-2 text-slate-500 pl-4 bg-slate-50/50 p-4 rounded-2xl border border-slate-100">
                         {para.split("\n").map((li, il) => (
-                          <li key={il}>{li.replace(/^(\* |- )/, "")}</li>
+                          <li key={il} className="font-medium">{li.replace(/^(\* |- )/, "")}</li>
                         ))}
                       </ul>
                     );
                   }
-                  return <p key={ip} className="text-slate-300 leading-relaxed text-justify">{para}</p>;
+                  return <p key={ip} className="leading-relaxed text-justify font-medium">{para}</p>;
                 })}
               </div>
 
-              <div className="pt-6 border-t border-slate-800/80 flex justify-between">
+              <div className="pt-10 border-t border-slate-50 flex justify-between">
                 <button
                   onClick={() => setSelectedGuideState(null)}
-                  className="px-4 py-2 bg-slate-950 text-slate-400 hover:text-white border border-slate-800 hover:border-slate-700 text-xs rounded-xl font-bold transition"
+                  className="px-6 py-3 bg-slate-50 text-slate-500 hover:text-slate-900 border border-slate-100 hover:border-slate-200 text-sm rounded-2xl font-black transition-all"
                 >
-                  {lang === "en" ? "Back to Guides" : "关闭阅读返回"}
+                  {lang === "en" ? "Back to Guides" : "完成阅读"}
                 </button>
               </div>
-
             </div>
           );
         })() : (
-          // Grid directory card view listing
-          <div className="space-y-6">
-            <div className="text-center max-w-2xl mx-auto space-y-2">
-              <h3 className="text-2xl font-black text-white flex items-center justify-center gap-2">
-                <BookOpen className="w-6 h-6 text-amber-500" />
-                {lang === "en" ? "Ergonomic科普 & Sizing Bible" : "研究所安全考量与科普常识库"}
+          <div className="space-y-10">
+            <div className="text-center max-w-2xl mx-auto space-y-4">
+              <div className="flex justify-center">
+                <div className="bg-orange-100 p-3 rounded-2xl">
+                  <BookOpen className="w-6 h-6 text-orange-500" />
+                </div>
+              </div>
+              <h3 className="text-3xl font-black text-slate-900">
+                {lang === "en" ? "Safety & Selection Encyclopedia" : "专家选购指南库"}
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-sm text-slate-500 font-medium">
                 {lang === "en" 
-                  ? "Bypass marketing clichés. Get pure biomechanical calculations, ASTM F963 rules, and posture standards."
-                  : "拒绝任何母婴带货噱头。我们只用物理公式、阻燃测试数据以及国家与国际合规红线，解算最无创的挑选逻辑。"}
+                  ? "Professional insights to protect your child's growth and safety."
+                  : "拒绝带货噱头。我们只用物理公式和儿科医学规范，教您选出真正健康的车款。"}
               </p>
             </div>
 
-            {/* Sifting tabs and filters */}
-            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-lg space-y-4">
-              <div className="flex flex-col sm:flex-row gap-3 text-left">
+            <div className="bg-white border border-slate-100 rounded-[32px] p-6 shadow-xl shadow-slate-200/50 space-y-6">
+              <div className="flex flex-col sm:flex-row gap-4 text-left">
                 <div className="relative flex-1">
-                  <Search className="w-4 h-4 text-slate-600 absolute left-3 top-3.5" />
+                  <Search className="w-4 h-4 text-slate-400 absolute left-4 top-4" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder={lang === "en" ? "Search safety keywords, Q-Factor, ISO rules, ASTM limits..." : "检索核心安全术语、Q-factor、避震材质..."}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-slate-200 placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                    placeholder={lang === "en" ? "Search safety keywords..." : "检索核心安全术语、Q-factor、避震材质..."}
+                    className="w-full bg-slate-50 border border-slate-100 rounded-2xl pl-10 pr-4 py-3 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 transition-all font-medium"
                   />
                 </div>
               </div>
 
-              {/* Directories tabs tags list */}
-              <div className="flex flex-wrap gap-1.5 pt-1 text-left">
+              <div className="flex flex-wrap gap-2 pt-2 text-left">
                 {categories.map((c) => (
                   <button
                     key={c.id}
                     onClick={() => setSelectedCategory(c.id)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all border ${
+                    className={`px-4 py-2 rounded-xl text-xs font-black transition-all border ${
                       selectedCategory === c.id
-                        ? "bg-amber-500 text-slate-950 border-amber-400"
-                        : "bg-slate-950 text-slate-400 border-slate-800 hover:text-white"
+                        ? "bg-orange-500 text-white border-orange-400 shadow-lg shadow-orange-500/20 scale-105"
+                        : "bg-white text-slate-500 border-slate-100 hover:border-orange-100 hover:text-orange-500"
                     }`}
                   >
                     {c.label}
@@ -709,46 +710,48 @@ export default function GuidesSection({
               </div>
             </div>
 
-            {/* Render guides list */}
             {filteredGuides.length === 0 ? (
-              <div className="p-16 text-center bg-slate-900 border border-slate-800 rounded-2xl">
-                <span className="text-xs text-slate-500">
-                  {lang === "en" ? "No guide articles match your search parameters." : "没有搜索到对应条件的安全科普指南书"}
+              <div className="p-20 text-center bg-white border border-slate-100 rounded-[40px] shadow-sm">
+                <span className="text-slate-400 font-medium">
+                  {lang === "en" ? "No guides found." : "没找到相关的科普指南文档"}
                 </span>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left animate-fade-in">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left animate-fade-in">
                 {filteredGuides.map((guide) => (
                   <div
                     key={guide.id}
                     onClick={() => setSelectedGuideState(guide)}
-                    className="bg-slate-900 border border-slate-800 hover:border-amber-500/20 rounded-2xl p-5 flex flex-col justify-between space-y-4 cursor-pointer hover:shadow-lg transition group"
+                    className="bg-white border border-slate-100 hover:border-orange-100 rounded-[40px] p-8 flex flex-col justify-between space-y-6 cursor-pointer hover:shadow-2xl hover:shadow-orange-500/5 transition-all group"
                   >
-                    <div className="space-y-2.5">
+                    <div className="space-y-4">
                       <div className="flex justify-between items-center text-[10px]">
-                        <span className="bg-slate-950 text-amber-500 px-2 py-0.5 rounded border border-slate-850 font-bold uppercase">
+                        <span className="bg-orange-50 text-orange-600 px-3 py-1 rounded-full font-black uppercase border border-orange-100">
                           {guide.categoryLabel}
                         </span>
-                        <span className="text-slate-500 font-mono font-bold">{guide.publishDate}</span>
+                        <span className="text-slate-400 font-bold">{guide.publishDate}</span>
                       </div>
 
-                      <h4 className="font-extrabold text-white text-sm sm:text-base leading-snug group-hover:text-amber-400 transition-colors">
+                      <h4 className="font-extrabold text-slate-900 text-lg leading-tight group-hover:text-orange-500 transition-colors">
                         {guide.title}
                       </h4>
-                      <p className="text-slate-400 text-xs line-clamp-2 leading-relaxed">
+                      <p className="text-slate-500 text-xs line-clamp-2 leading-relaxed font-medium">
                         {guide.summary}
                       </p>
                     </div>
 
-                    <div className="flex justify-between items-center text-[10px] text-slate-500 pt-2 border-t border-slate-850/80">
-                      <span>{lang === "en" ? "Expert: " : "著者: "} {guide.author.split("-")[0]}</span>
-                      <div className="flex items-center gap-3">
-                        <span className="flex items-center gap-0.5 font-mono">
-                          <Clock className="w-3 h-3 text-amber-500" />
+                    <div className="flex justify-between items-center text-[10px] text-slate-400 pt-4 border-t border-slate-50 font-bold">
+                      <div className="flex items-center gap-1.5">
+                        <Briefcase className="w-3.5 h-3.5 text-orange-400" />
+                        {guide.author.split("-")[0].trim()}
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <span className="flex items-center gap-1">
+                          <Clock className="w-3.5 h-3.5 text-orange-400" />
                           {guide.readTime}
                         </span>
-                        <span className="text-amber-500 hover:underline font-bold">
-                          {lang === "en" ? "Dive In →" : "严谨研读 →"}
+                        <span className="text-orange-500 group-hover:underline font-black">
+                          {lang === "en" ? "Read →" : "阅读原文 →"}
                         </span>
                       </div>
                     </div>
@@ -758,16 +761,20 @@ export default function GuidesSection({
             )}
 
             {/* Professional Q&A Section */}
-            <div id="pro_qa_accordion" className="mt-16 pt-16 border-t border-slate-800/80 space-y-6">
-              <div className="text-center max-w-2xl mx-auto space-y-2">
-                <h3 className="text-2xl font-black text-white flex items-center justify-center gap-2">
-                  <HelpCircle className="w-6 h-6 text-amber-500" />
-                  {lang === "en" ? "🔬 Pediatric Rider Mechanics Q&A Board" : "🔬 儿科力学与童车安全专业问答库"}
+            <div id="pro_qa_accordion" className="mt-16 pt-16 border-t border-slate-100 space-y-10">
+              <div className="text-center max-w-2xl mx-auto space-y-4">
+                <div className="flex justify-center">
+                  <div className="bg-orange-100 p-3 rounded-2xl">
+                    <HelpCircle className="w-6 h-6 text-orange-500" />
+                  </div>
+                </div>
+                <h3 className="text-3xl font-black text-slate-900">
+                  {lang === "en" ? "Expert Q&A Board" : "儿科力学问答库"}
                 </h3>
-                <p className="text-xs text-slate-400">
+                <p className="text-sm text-slate-500 font-medium">
                   {lang === "en" 
                     ? "Deep-dive answers backstopped by lab trials and mechanical safety regulations."
-                    : "研究所权威技术解答。基于力学负载测试、人体工程比例和物理伤害防范机制，深度解答核心挑选疑惑。"}
+                    : "研究所权威技术解答。基于力学负载测试和防范机制，深度解答核心挑选疑惑。"}
                 </p>
               </div>
 
@@ -780,49 +787,45 @@ export default function GuidesSection({
                   return (
                     <div 
                       key={faq.id} 
-                      className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
+                      className={`rounded-[32px] border transition-all duration-300 overflow-hidden ${
                         isOpen 
-                          ? "bg-slate-900 border-amber-500/30 shadow-lg shadow-amber-500/5" 
-                          : "bg-slate-900/50 border-slate-800 hover:border-slate-700"
+                          ? "bg-white border-orange-200 shadow-xl shadow-orange-500/5 ring-1 ring-orange-500/5" 
+                          : "bg-white border-slate-50 hover:border-orange-100"
                       }`}
                     >
                       <button
                         onClick={() => setOpenFaqId(isOpen ? null : faq.id)}
-                        className="w-full flex items-center justify-between p-5 text-left text-sm sm:text-base font-black text-white transition-colors hover:text-amber-400"
+                        className="w-full flex items-center justify-between p-6 text-left text-base font-black text-slate-900 transition-colors hover:text-orange-500"
                       >
-                        <span className="flex items-center gap-3">
-                          <Award className={`w-5 h-5 shrink-0 ${isOpen ? "text-amber-500" : "text-slate-500"}`} />
+                        <span className="flex items-center gap-4">
+                          <Award className={`w-6 h-6 shrink-0 ${isOpen ? "text-orange-500" : "text-slate-300"}`} />
                           <span className="leading-snug">{question}</span>
                         </span>
-                        {isOpen ? (
-                          <ChevronUp className="w-5 h-5 text-amber-500 shrink-0 ml-3" />
-                        ) : (
-                          <ChevronDown className="w-5 h-5 text-slate-500 shrink-0 ml-3" />
-                        )}
+                        <div className={`p-2 rounded-xl transition-all ${isOpen ? "bg-orange-50 text-orange-500 rotate-180" : "bg-slate-50 text-slate-400"}`}>
+                          <ChevronDown className="w-5 h-5 shrink-0" />
+                        </div>
                       </button>
 
-                      <div 
-                        className={`transition-all duration-300 ease-in-out ${
-                          isOpen ? "max-h-[1200px] border-t border-slate-800/80 scale-100 opacity-100" : "max-h-0 scale-95 opacity-0 pointer-events-none"
-                        }`}
-                      >
-                        <div className="p-5 text-slate-300 text-xs sm:text-sm leading-8 whitespace-pre-wrap bg-slate-950/40 text-justify space-y-4">
-                          {answer.split("\n\n").map((para, idx) => {
-                            if (para.startsWith("* ") || para.startsWith("- ") || para.startsWith("1. ") || para.startsWith("2. ") || para.startsWith("3. ") || para.startsWith("4. ")) {
-                              return (
-                                <ul key={idx} className="list-disc list-inside space-y-2 text-slate-400 pl-2">
-                                  {para.split("\n").map((line, lidx) => (
-                                    <li key={lidx} className="leading-relaxed">
-                                      {line.replace(/^(\* |- |\d+\.\s)/, "")}
-                                    </li>
-                                  ))}
-                                </ul>
-                              );
-                            }
-                            return <p key={idx} className="leading-relaxed text-slate-300">{para}</p>;
-                          })}
+                      {isOpen && (
+                        <div className="px-6 pb-8 pt-2 animate-fade-in">
+                          <div className="p-6 text-slate-600 text-sm leading-relaxed whitespace-pre-wrap bg-slate-50 rounded-[24px] border border-slate-100 space-y-4 font-medium italic">
+                            {answer.split("\n\n").map((para, idx) => {
+                              if (para.startsWith("* ") || para.startsWith("- ") || para.startsWith("1. ") || para.startsWith("2. ") || para.startsWith("3. ") || para.startsWith("4. ")) {
+                                return (
+                                  <ul key={idx} className="list-disc list-inside space-y-3 text-slate-500 pl-2">
+                                    {para.split("\n").map((line, lidx) => (
+                                      <li key={lidx} className="leading-relaxed">
+                                        {line.replace(/^(\* |- |\d+\.\s)/, "")}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                );
+                              }
+                              return <p key={idx} className="leading-relaxed">{para}</p>;
+                            })}
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   );
                 })}

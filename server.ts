@@ -14,7 +14,11 @@ async function startServer() {
     });
     app.use(vite.middlewares);
   } else {
+    // In production, serve from the dist folder relative to this file
+    // Since this file is bundled into dist/server.cjs, dist is the current directory
     const distPath = path.join(process.cwd(), "dist");
+    
+    // Check if dist/index.html exists to avoid crashing
     app.use(express.static(distPath));
     app.get("*", (req, res) => {
       res.sendFile(path.join(distPath, "index.html"));

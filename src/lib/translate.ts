@@ -6,41 +6,41 @@
 export const translations = {
   zh: {
     // Nav & Common Headers
-    topBanner: "全球专业童车第三方实测决策平台 · 遵循 ISO 8098 制动与重力工效规范 · 自费自购 0 赞助",
-    brandTitle: "童车评测实验室",
-    versionStamp: "2026 官方",
-    subTitle: "KidBikeLab · 全球选购决策官网",
+    topBanner: "KIDSMOBI · 全球高端童车品牌垂直导购平台 · 专注安全、工效与健康骑行",
+    brandTitle: "KIDSMOBI",
+    versionStamp: "2026 PREMIUM",
+    subTitle: "高端垂直童车评测平台",
     navHome: "首页",
-    navProducts: "产品大全",
+    navProducts: "产品中心",
     navEvaluations: "评测中心",
     navGuides: "选购指南",
     navNews: "全球资讯",
     navAbout: "关于我们",
     navLanguage: "🌐 简体中文",
-    closeAdvisor: "关闭智能顾问",
-    connectAdvisor: "连线AI顾问",
-    advisorTitle: "物理学安全重力 AI 专线顾问",
-    advisorLoading: "正在深度解算多重物理工工力学公称公差...",
+    closeAdvisor: "关闭顾问",
+    connectAdvisor: "连线专家",
+    advisorTitle: "KIDSMOBI 高端童车安全顾问",
+    advisorLoading: "正在为您进行多维度工效匹配...",
 
     // Button Labels
-    viewDetails: "点击查看细节 →",
-    moreReports: "评测中心全部报告 🔍",
-    seeFullReport: "查看完整无痛防震报告 →",
-    seeFlawsReport: "查看一车多用物理缺陷研制论 →",
-    getMatchedSpecs: "立即匹配宝宝黄金规格",
-    applySpecs: "应用宝宝身体规格",
+    viewDetails: "产品详情 →",
+    moreReports: "查看全部评测报告 🔍",
+    seeFullReport: "查看完整安全报告 →",
+    seeFlawsReport: "查看物理结构评估 →",
+    getMatchedSpecs: "获取专属选车方案",
+    applySpecs: "应用宝宝身体参数",
     clearBookmarks: "清空收藏夹",
     backToHome: "返回首页",
     closeBtn: "关闭",
 
     // Home Section Texts
-    sloganBadge: "全球专业母婴测试标准 · ISO 8098 制动校准",
-    sloganHeading1: "全球专业童车",
-    sloganHeading2: "第三方实测与选购",
-    sloganHeading3: "官网",
-    sloganDesc: "对标全球高标准测试体系（BabyGearLab），提供多维物理Q值、安全握距、制动自锁等硬核工效参数评级。自费自购、零排名公关，捍卫千万宝宝的脊髓骨体健康与骑行防线！",
-    btnWizard: "智能安全算力箱 🔬",
-    btnDatabase: "在库全量数据库 📂",
+    sloganBadge: "高端童车甄选标准 · 儿科医生推荐推荐准则",
+    sloganHeading1: "高端垂直",
+    sloganHeading2: "童车评测",
+    sloganHeading3: "平台",
+    sloganDesc: "KIDSMOBI 致力于通过严苛的儿科医学参数、力学安全评估与智能工效匹配，在海量冗余信息中，为精英家庭选出更健康、更安全的专业座驾。拒绝平庸，只为成长。",
+    btnWizard: "智能选车助手 🔬",
+    btnDatabase: "品牌全系列库 📂",
     radarTitle: "物理安全雷达公示区",
     radarWeight: "1. 全自研称重设备精密：",
     radarShock: "2. 避震颠震疲劳测试：",
@@ -58,9 +58,9 @@ export const translations = {
     promoItem1Tag: "实测甄别亮点",
     promoItem1Title: "儿童前庭颈椎安全：为什么我们坚决抵制发泡实心轮胎？",
     promoItem1Desc: "在我们使用台式超高频颠震滚筒仪测量中，EVA实心发泡车胎的颠阻过滤率不足橡胶打气胎的 20%。多余的颤动震力将直接沿龙头骨架钻入幼童娇嫩的在耳蜗前庭系统，引发眩晕和抗拒骑车行为。",
-    promoItem2Tag: "避坑警示亮点",
-    promoItem2Title: "解密拼贴式「多合一变形滑滑车」的隐匿倾覆大坑",
-    promoItem2Desc: "多功能拼接变形车存在着大量快速装配插销，在使用3个月后空滑公差会严重松脱，公厘偏转大于 12mm。重心设置过于迁就，过弯拐角极容易让人仰马翻直接侧翻。",
+    promoItem2Tag: "选购评估要点",
+    promoItem2Title: "解密拼贴式「多合一变形滑滑车」的结构性平衡隐患",
+    promoItem2Desc: "多功能拼接变形车存在着大量快速装配插销，在使用3个月后空滑公差会严重松脱，公厘偏转大于 12mm。重心设置过于迁就，过弯拐角极容易发生失稳侧翻。",
 
     // Other Sections Shared
     childProfileTitle: "宝宝当前物理特征值 (Active Child Target Profile)",
@@ -128,9 +128,9 @@ export const translations = {
     promoItem1Tag: "Lab Insight",
     promoItem1Title: "Spine & Senses Protection: Why We Decidedly Object to Solid EVA Foam Tires?",
     promoItem1Desc: "In high-frequency vibration rig tests, solid EVA foam tires filtered out less than 20% of the micro-vibrations filtered by pneumatic rubber tires. Extra shock translates directly into child's neck and vestibular nerves, causing dizziness and aversion.",
-    promoItem2Tag: "Hazard Alert",
-    promoItem2Title: "Debunking the 'All-in-One Multi-functional Scooter / Walker'",
-    promoItem2Desc: "Multi-functional transformer bikes rely on high-clearance quick-release pins. After 3 months, clearances expand over 12mm, causing loose steering, off-center weight gravity blocks, and violent tip-overs.",
+    promoItem2Tag: "Technical Alert",
+    promoItem2Title: "Analyzing the 'All-in-One Multi-functional Scooter / Walker'",
+    promoItem2Desc: "Multi-functional transformer bikes rely on high-clearance quick-release pins. After 3 months, clearances expand over 12mm, causing loose steering, off-center weight gravity blocks, and potential tip-overs.",
 
     // Other Sections Shared
     childProfileTitle: "Active Child Target Profile",
@@ -157,8 +157,6 @@ export function translateCategory(cat: string, lang: "zh" | "en") {
       case "electric_car": return "电动越野车";
       case "tricycle": return "多功能三轮车";
       case "safety_seat": return "儿童安全座椅";
-      case "cross_border": return "跨境宽胎车";
-      case "industrial_belt": return "工业装配带";
       default: return cat;
     }
   }
@@ -170,9 +168,7 @@ export function translateCategory(cat: string, lang: "zh" | "en") {
     stroller: "Baby Stroller",
     electric_car: "Electric Off-Road Car",
     tricycle: "Multifuel Tricycle",
-    safety_seat: "Car Safety Seat",
-    cross_border: "Cross Border Custom",
-    industrial_belt: "Industrial Belt"
+    safety_seat: "Car Safety Seat"
   };
   return map[cat] || cat;
 }

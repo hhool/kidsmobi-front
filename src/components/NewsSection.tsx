@@ -2,6 +2,7 @@ import React, { useState, useMemo } from "react";
 import { Search, Calendar, User, Eye, BookOpen, Clock, ArrowLeft, Heart, Share2 } from "lucide-react";
 import { NewsArticle, newsArticles } from "../data/newsData";
 import { translateNewsArticle } from "../lib/translate";
+import Breadcrumbs from "./Breadcrumbs";
 
 interface NewsSectionProps {
   lang?: "zh" | "en";
@@ -53,44 +54,52 @@ export default function NewsSection({ lang = "zh" }: NewsSectionProps) {
   }, [searchQuery, selectedCategory, sortBy, lang]);
 
   return (
-    <div id="news_hub" className="space-y-8">
+    <div id="news_hub" className="space-y-8 animate-fade-in text-left">
+      
+      {/* Breadcrumbs (PRD 4.5.2) */}
+      <Breadcrumbs 
+        lang={lang} 
+        onHomeClick={() => (window as any).setActiveTab?.("home")}
+        items={[{ label: lang === "zh" ? "全球资讯" : "GLOBAL NEWS", active: true }]} 
+      />
+
       {selectedArticleState ? (() => {
         const article = translateNewsArticle(selectedArticleState, lang);
         return (
           // Detailed Article Post Reader View
-          <div className="max-w-3xl mx-auto bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-10 space-y-6 shadow-2xl relative animate-fade-in text-left">
+          <div className="max-w-3xl mx-auto bg-white border border-slate-100 rounded-[40px] p-8 sm:p-12 space-y-8 shadow-2xl relative animate-fade-in text-left">
             <button
               onClick={() => setSelectedArticleState(null)}
-              className="flex items-center gap-1.5 text-xs text-amber-500 hover:text-amber-400 font-bold uppercase pb-4 border-b border-slate-800/80 mb-4"
+              className="flex items-center gap-2 text-xs text-orange-500 hover:text-orange-600 font-black uppercase pb-6 border-b border-slate-50 mb-6"
             >
               <ArrowLeft className="w-4 h-4" />
-              {lang === "en" ? "Back to News List" : "返回全球资讯目录"}
+              {lang === "en" ? "Back to News" : "返回资讯目录"}
             </button>
 
             <div className="space-y-4">
-              <span className="px-3 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-black rounded-lg uppercase">
+              <span className="px-3 py-1 bg-orange-100 text-orange-600 text-[10px] font-black rounded-full uppercase border border-orange-200">
                 {article.categoryLabel}
               </span>
-              <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-white leading-tight">
+              <h2 className="text-3xl font-black text-slate-900 leading-tight">
                 {article.title}
               </h2>
 
               {/* Author Metadata bar */}
-              <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400 font-medium">
-                <span className="flex items-center gap-1">
-                  <User className="w-3.5 h-3.5 text-amber-500" />
+              <div className="flex flex-wrap items-center gap-6 text-xs text-slate-400 font-bold">
+                <span className="flex items-center gap-1.5">
+                  <User className="w-4 h-4 text-orange-500" />
                   {article.author}
                 </span>
-                <span className="flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5 text-amber-500" />
+                <span className="flex items-center gap-1.5">
+                  <Calendar className="w-4 h-4 text-orange-500" />
                   {article.publishDate}
                 </span>
-                <span className="flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5 text-amber-500" />
-                  {lang === "en" ? article.readTime : `阅读需 ${article.readTime}`}
+                <span className="flex items-center gap-1.5">
+                  <Clock className="w-4 h-4 text-orange-500" />
+                  {lang === "en" ? article.readTime : `阅读约 ${article.readTime}`}
                 </span>
-                <span className="flex items-center gap-1">
-                  <Eye className="w-3.5 h-3.5 text-amber-500" />
+                <span className="flex items-center gap-1.5">
+                  <Eye className="w-4 h-4 text-orange-500" />
                   {lang === "en" 
                     ? `Views: ${article.views + (likedList.includes(article.id) ? 1 : 0)}` 
                     : `累计浏览 ${article.views + (likedList.includes(article.id) ? 1 : 0)} 次`}
@@ -99,57 +108,57 @@ export default function NewsSection({ lang = "zh" }: NewsSectionProps) {
             </div>
 
             {/* Article Summary Quote */}
-            <div className="bg-slate-950 p-4 rounded-xl border-l-4 border-amber-500 text-slate-300 text-xs sm:text-sm leading-relaxed italic">
-              <strong>{lang === "en" ? "Summary: " : "摘要："}</strong> {article.summary}
+            <div className="bg-orange-50/50 p-6 rounded-3xl border border-orange-100 text-slate-700 text-sm leading-relaxed font-medium italic relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-1 h-full bg-orange-400"></div>
+                <strong>{lang === "en" ? "Summary: " : "摘要："}</strong> {article.summary}
             </div>
 
             {/* Article Editorial Markdown content body renderer */}
-            <div className="whitespace-pre-wrap text-slate-300 text-xs sm:text-sm leading-8 space-y-6 border-t border-slate-800/80 pt-6">
+            <div className="text-slate-600 text-sm sm:text-base leading-8 space-y-6 border-t border-slate-50 pt-8">
               {article.content.split("\n\n").map((para: string, ip: number) => {
-                // Custom format headings inside paragraph split block to look stunning
                 if (para.startsWith("### ")) {
-                  return <h3 key={ip} className="text-lg font-bold text-white mt-6 mb-2">{para.replace("### ", "")}</h3>;
+                  return <h3 key={ip} className="text-xl font-black text-slate-900 mt-10 mb-4">{para.replace("### ", "")}</h3>;
                 }
                 if (para.startsWith("#### ")) {
-                  return <h4 key={ip} className="text-base font-bold text-amber-400 mt-4 mb-2">{para.replace("#### ", "")}</h4>;
+                  return <h4 key={ip} className="text-lg font-bold text-orange-500 mt-8 mb-4">{para.replace("#### ", "")}</h4>;
                 }
                 if (para.startsWith("* ")) {
                   return (
-                    <ul key={ip} className="list-disc list-inside space-y-1 text-slate-400 pl-2">
+                    <ul key={ip} className="list-disc list-inside space-y-2 text-slate-500 pl-4 bg-slate-50/50 p-4 rounded-2xl border border-slate-100">
                       {para.split("\n").map((li, il) => (
-                        <li key={il}>{li.replace("* ", "")}</li>
+                        <li key={il} className="font-medium">{li.replace("* ", "")}</li>
                       ))}
                     </ul>
                   );
                 }
-                return <p key={ip} className="text-slate-300 leading-relaxed text-justify">{para}</p>;
+                return <p key={ip} className="leading-relaxed text-justify font-medium">{para}</p>;
               })}
             </div>
 
             {/* Footer of article with like and shares */}
-            <div className="flex justify-between items-center pt-6 border-t border-slate-800/80">
+            <div className="flex justify-between items-center pt-8 border-t border-slate-50">
               <button
                 onClick={() => setSelectedArticleState(null)}
-                className="px-4 py-2 bg-slate-950 text-slate-400 hover:text-white border border-slate-800 hover:border-slate-700 text-xs rounded-xl font-bold transition"
+                className="px-6 py-3 bg-slate-50 text-slate-500 hover:text-slate-900 border border-slate-100 hover:border-slate-200 text-sm rounded-2xl font-black transition-all"
               >
                 {lang === "en" ? "Close Reading" : "关闭阅读"}
               </button>
-              <div className="flex gap-2">
+              <div className="flex gap-3">
                 <button
                   onClick={(e) => handleToggleLike(article.id, e)}
-                  className={`p-2.5 rounded-xl border transition ${
+                  className={`p-3 rounded-2xl border transition-all active:scale-95 ${
                     likedList.includes(article.id)
-                      ? "bg-red-500/10 border-red-500/30 text-red-500"
-                      : "bg-slate-950 border-slate-800 text-slate-400 hover:text-white"
+                      ? "bg-rose-50 border-rose-100 text-rose-500"
+                      : "bg-white border-slate-100 text-slate-400 hover:text-rose-500 hover:border-rose-100"
                   }`}
                 >
-                  <Heart className="w-4 h-4 fill-current" />
+                  <Heart className={`w-5 h-5 ${likedList.includes(article.id) ? "fill-current" : ""}`} />
                 </button>
                 <button
                   onClick={(e) => handleShare(article.title, e)}
-                  className="p-2.5 bg-slate-950 border border-slate-800 text-slate-400 hover:text-white rounded-xl transition"
+                  className="p-3 bg-white border border-slate-100 text-slate-400 hover:text-orange-500 hover:border-orange-100 rounded-2xl transition-all active:scale-95"
                 >
-                  <Share2 className="w-4 h-4" />
+                  <Share2 className="w-5 h-5" />
                 </button>
               </div>
             </div>
@@ -157,149 +166,115 @@ export default function NewsSection({ lang = "zh" }: NewsSectionProps) {
         );
       })() : (
         // Standard Grid card library list view
-        <div className="space-y-6">
-          <div className="text-center max-w-2xl mx-auto space-y-2">
-            <h2 className="text-2xl font-black text-white flex items-center justify-center gap-2">
-              <BookOpen className="w-6 h-6 text-amber-500" />
-              {lang === "en" ? "Global Kids Bike Dynamics & Regulation Directory" : "全球童车动态资讯与合规政策库"}
-            </h2>
-            <p className="text-xs text-slate-400">
-              {lang === "en" 
-                ? "Synchronized with EU EN, US CPSC safety alerts and pediatrician insights." 
-                : "专注同步欧盟、美国最新召回、产业镁压铸动态，以及积水潭儿童创伤科等权威科普干货。"}
-            </p>
+        <div className="space-y-10">
+          <div className="text-center max-w-2xl mx-auto space-y-4">
+              <div className="flex justify-center">
+                <div className="bg-orange-100 p-3 rounded-2xl">
+                  <BookOpen className="w-6 h-6 text-orange-500" />
+                </div>
+              </div>
+              <h2 className="text-3xl font-black text-slate-900">
+                {lang === "en" ? "Global Kids Bike Insights" : "全球童车资讯库"}
+              </h2>
+              <p className="text-sm text-slate-500 font-medium">
+                {lang === "en" 
+                    ? "Synchronized with international safety alerts and professional industry trends." 
+                    : "专注同步全球安全召回、产业动态，以及最硬核的一线科普。"}
+              </p>
           </div>
 
           {/* Searching and Categorizing Tags */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-4">
-            <div className="flex flex-col sm:flex-row gap-3">
+          <div className="bg-white border border-slate-100 rounded-[32px] p-6 shadow-xl shadow-slate-200/50 space-y-6">
+            <div className="flex flex-col sm:flex-row gap-4">
               <div className="relative flex-1">
-                <Search className="w-4 h-4 text-slate-600 absolute left-3 top-3.5" />
+                <Search className="w-4 h-4 text-slate-400 absolute left-4 top-4" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder={lang === "en" ? "Search news keyword, ISO standard, frame material..." : "检索资讯关键字、材料、合规标准国标等..."}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-slate-200 placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                  placeholder={lang === "en" ? "Search news keyword..." : "检索核心安全术语、合规标准、品牌动态..."}
+                  className="w-full bg-slate-50 border border-slate-100 rounded-2xl pl-10 pr-4 py-3 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 transition-all font-medium"
                 />
               </div>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                className="bg-white border border-slate-100 rounded-2xl px-4 py-3 text-sm text-slate-700 font-bold focus:outline-none focus:border-orange-500 transition-all cursor-pointer"
               >
-                <option value="date">{lang === "en" ? "📅 Newest Release" : "📅 最新发布优先"}</option>
-                <option value="views">{lang === "en" ? "🔥 Most Popular" : "🔥 最多点击量热门"}</option>
+                <option value="date">{lang === "en" ? "📅 Newest" : "📅 最新发布"}</option>
+                <option value="views">{lang === "en" ? "🔥 Popular" : "🔥 最热门"}</option>
               </select>
             </div>
 
             {/* Categorization dynamic tabs bar */}
-            <div className="flex flex-wrap gap-1.5 pt-1">
-              <button
-                onClick={() => setSelectedCategory("all")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all border ${
-                  selectedCategory === "all"
-                    ? "bg-amber-500 text-slate-950 border-amber-400"
-                    : "bg-slate-950 text-slate-400 border-slate-800 hover:text-white"
-                }`}
-              >
-                📁 {lang === "en" ? "All News" : "全部资讯"}
-              </button>
-              <button
-                onClick={() => setSelectedCategory("regulation")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all border ${
-                  selectedCategory === "regulation"
-                    ? "bg-amber-500 text-slate-950 border-amber-400"
-                    : "bg-slate-950 text-slate-400 border-slate-800 hover:text-white"
-                }`}
-              >
-                ⚖️ {lang === "en" ? "Regulations" : "合规政策"}
-              </button>
-              <button
-                onClick={() => setSelectedCategory("recall")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all border ${
-                  selectedCategory === "recall"
-                    ? "bg-amber-500 text-slate-950 border-amber-400"
-                    : "bg-slate-950 text-slate-400 border-slate-800 hover:text-white"
-                }`}
-              >
-                ☠️ {lang === "en" ? "Safety Warnings" : "安全预警"}
-              </button>
-              <button
-                onClick={() => setSelectedCategory("new_product")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all border ${
-                  selectedCategory === "new_product"
-                    ? "bg-amber-500 text-slate-950 border-amber-400"
-                    : "bg-slate-950 text-slate-400 border-slate-800 hover:text-white"
-                }`}
-              >
-                🆕 {lang === "en" ? "Technology Launch" : "新品发布"}
-              </button>
-              <button
-                onClick={() => setSelectedCategory("brand_trend")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all border ${
-                  selectedCategory === "brand_trend"
-                    ? "bg-amber-500 text-slate-950 border-amber-400"
-                    : "bg-slate-950 text-slate-400 border-slate-800 hover:text-white"
-                }`}
-              >
-                🏭 {lang === "en" ? "Brand & Supply Chain" : "品牌与产业带"}
-              </button>
-              <button
-                onClick={() => setSelectedCategory("science")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all border ${
-                  selectedCategory === "science"
-                    ? "bg-amber-500 text-slate-950 border-amber-400"
-                    : "bg-slate-950 text-slate-400 border-slate-800 hover:text-white"
-                }`}
-              >
-                🔬 {lang === "en" ? "Scientific Guides" : "理性科普干货"}
-              </button>
+            <div className="flex flex-wrap gap-2 pt-2">
+              {[
+                { id: "all", label: lang === "en" ? "All News" : "全部资讯", icon: "📁" },
+                { id: "brand_trend", label: lang === "en" ? "Industry Trends" : "行业动态", icon: "🏭" },
+                { id: "new_product", label: lang === "en" ? "New Launches" : "新品发布", icon: "🆕" },
+                { id: "regulation", label: lang === "en" ? "Regulations" : "合规政策", icon: "⚖️" },
+                { id: "recall", label: lang === "en" ? "Safety Alerts" : "安全预警", icon: "⚠️" },
+                { id: "brand_dynamics", label: lang === "en" ? "Brand News" : "品牌动态", icon: "🏢" },
+                { id: "science", label: lang === "en" ? "Science & Tips" : "科普干货", icon: "🔬" },
+              ].map((c) => (
+                <button
+                  key={c.id}
+                  onClick={() => setSelectedCategory(c.id)}
+                  className={`px-4 py-2 rounded-xl text-xs font-black transition-all border ${
+                    selectedCategory === c.id
+                      ? "bg-orange-500 text-white border-orange-400 shadow-lg shadow-orange-500/20 scale-105"
+                      : "bg-white text-slate-500 border-slate-100 hover:border-orange-100 hover:text-orange-500"
+                  }`}
+                >
+                  {c.icon} {c.label}
+                </button>
+              ))}
             </div>
           </div>
 
           {/* Cards Render */}
           {filteredNews.length === 0 ? (
-            <div className="p-16 text-center bg-slate-900 border border-slate-800 rounded-2xl">
-              <span className="text-xs text-slate-500">
-                {lang === "en" ? "No matches found for your search query." : "在这个资讯分类下暂未搜到完全吻合的文章"}
-              </span>
+            <div className="p-20 text-center bg-white border border-slate-100 rounded-[40px] shadow-sm">
+                <span className="text-slate-400 font-medium">
+                  {lang === "en" ? "No matches found." : "没找到相关的资讯文章"}
+                </span>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left animate-fade-in">
               {filteredNews.map((art) => (
                 <div
                   key={art.id}
                   onClick={() => setSelectedArticleState(art)}
-                  className="bg-slate-900 border border-slate-800 hover:border-amber-500/20 rounded-2xl p-5 flex flex-col justify-between space-y-4 cursor-pointer hover:shadow-lg transition group"
+                  className="bg-white border border-slate-100 hover:border-orange-100 rounded-[40px] p-8 flex flex-col justify-between space-y-6 cursor-pointer hover:shadow-2xl hover:shadow-orange-500/5 transition-all group"
                 >
-                  <div className="space-y-2.5">
+                  <div className="space-y-4">
                     <div className="flex justify-between items-center text-[10px]">
-                      <span className="bg-slate-950 text-amber-500 px-2 py-0.5 rounded border border-slate-850 font-bold uppercase">
+                      <span className="bg-orange-50 text-orange-600 px-3 py-1 rounded-full font-black uppercase border border-orange-100">
                         {art.categoryLabel}
                       </span>
-                      <span className="text-slate-500 font-mono">{art.publishDate}</span>
+                      <span className="text-slate-400 font-bold">{art.publishDate}</span>
                     </div>
 
-                    <h3 className="font-extrabold text-white text-sm sm:text-base leading-snug group-hover:text-amber-400 transition-colors">
+                    <h3 className="font-extrabold text-slate-900 text-lg leading-tight group-hover:text-orange-500 transition-colors">
                       {art.title}
                     </h3>
-                    <p className="text-slate-400 text-xs line-clamp-2 leading-relaxed">
+                    <p className="text-slate-500 text-xs line-clamp-2 leading-relaxed font-medium">
                       {art.summary}
                     </p>
                   </div>
 
-                  <div className="flex justify-between items-center text-[10px] text-slate-500 pt-2 border-t border-slate-850/80">
-                    <span>
-                      {lang === "en" ? "Author:" : "作者:"} {art.author.split("-")[0].split(" ")[0]}
-                    </span>
-                    <div className="flex items-center gap-3">
-                      <span className="flex items-center gap-0.5">
-                        <Eye className="w-3 h-3 text-amber-500" />
+                  <div className="flex justify-between items-center text-[10px] text-slate-400 pt-4 border-t border-slate-50 font-bold">
+                    <div className="flex items-center gap-1.5">
+                      <User className="w-3.5 h-3.5 text-orange-400" />
+                      {art.author.split("-")[0].split(" ")[0]}
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <span className="flex items-center gap-1">
+                        <Eye className="w-3.5 h-3.5 text-orange-400" />
                         {art.views + (likedList.includes(art.id) ? 1 : 0)}
                       </span>
-                      <span className="text-amber-500 group-hover:underline font-bold">
-                        {lang === "en" ? "Read →" : "阅读全文 →"}
+                      <span className="text-orange-500 group-hover:underline font-black">
+                        {lang === "en" ? "Read More →" : "阅读原文 →"}
                       </span>
                     </div>
                   </div>

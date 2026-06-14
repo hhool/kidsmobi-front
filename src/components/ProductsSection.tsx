@@ -11,10 +11,14 @@ import {
   Bookmark, 
   BookOpen, 
   Info,
-  DollarSign
+  DollarSign,
+  ChevronRight,
+  Star,
+  ShieldCheck
 } from "lucide-react";
 import { Product, ProductCategory } from "../types";
 import { translateProduct, translateCategory } from "../lib/translate";
+import Breadcrumbs from "./Breadcrumbs";
 
 interface ProductsSectionProps {
   productsData: Product[];
@@ -43,6 +47,10 @@ export default function ProductsSection({
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [sortBy, setSortBy] = useState<string>("overallScore");
   const [showCompareDrawer, setShowCompareDrawer] = useState<boolean>(false);
+  
+  // Extra filters for PRD compliance
+  const [selectedAge, setSelectedAge] = useState<string>("all"); // 'all', 'baby', 'toddler', 'child'
+  const [selectedPrice, setSelectedPrice] = useState<string>("all"); // 'all', 'budget', 'mid', 'premium'
 
   // Dynamic filter label helper
   const getCategoryLabel = (cat: ProductCategory) => {
@@ -57,20 +65,16 @@ export default function ProductsSection({
     { id: "stroller", label: "👶 Baby Strollers" },
     { id: "electric_car", label: "⚡ Kids Electric Cars" },
     { id: "tricycle", label: "🧸 Tricycles" },
-    { id: "safety_seat", label: "🛡️ Safety Seats" },
-    { id: "cross_border", label: "✈️ Cross-Border Custom" },
-    { id: "industrial_belt", label: "🏭 Industrial Brands" }
+    { id: "safety_seat", label: "🛡️ Safety Seats" }
   ] : [
-    { id: "all", label: "📁 全部类目数据库" },
-    { id: "balance", label: "🚲 儿童平衡车" },
-    { id: "bicycle", label: "🚴 儿童自行车" },
-    { id: "scooter", label: "🛹 儿童滑板车" },
-    { id: "stroller", label: "👶 婴儿推车" },
-    { id: "electric_car", label: "⚡ 儿童电动车" },
-    { id: "tricycle", label: "🧸 儿童三轮车" },
-    { id: "safety_seat", label: "🛡️ 安全座椅" },
-    { id: "cross_border", label: "✈️ 跨境专属款" },
-    { id: "industrial_belt", label: "🏭 产业带品牌" }
+    { id: "all", label: "📁 全部产品" },
+    { id: "balance", label: "🚲 平衡车" },
+    { id: "bicycle", label: "🚴 自行车" },
+    { id: "scooter", label: "🛹 滑板车" },
+    { id: "stroller", label: "👶 推车" },
+    { id: "electric_car", label: "⚡ 电动车" },
+    { id: "tricycle", label: "🧸 三轮车" },
+    { id: "safety_seat", label: "🛡️ 安全座椅" }
   ];
 
   // Filtering and sorting math
@@ -84,7 +88,23 @@ export default function ProductsSection({
           p.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
           p.material.toLowerCase().includes(searchQuery.toLowerCase()) ||
           p.tireType.toLowerCase().includes(searchQuery.toLowerCase());
-        return matchesCategory && matchesSearch;
+          
+        let matchesAge = true;
+        if (selectedAge !== "all") {
+           const ageNum = parseFloat(p.ageRange.split("-")[0]);
+           if (selectedAge === "baby") matchesAge = ageNum < 2;
+           else if (selectedAge === "toddler") matchesAge = ageNum >= 2 && ageNum < 5;
+           else if (selectedAge === "child") matchesAge = ageNum >= 5;
+        }
+
+        let matchesPrice = true;
+        if (selectedPrice !== "all") {
+           if (selectedPrice === "budget") matchesPrice = p.price < 500;
+           else if (selectedPrice === "mid") matchesPrice = p.price >= 500 && p.price < 2000;
+           else if (selectedPrice === "premium") matchesPrice = p.price >= 2000;
+        }
+
+        return matchesCategory && matchesSearch && matchesAge && matchesPrice;
       })
       .sort((a, b) => {
         if (sortBy === "overallScore") return b.overallScore - a.overallScore;
@@ -147,34 +167,46 @@ export default function ProductsSection({
   };
 
   return (
-    <div id="product_library" className="space-y-8">
+    <div id="product_library" className="space-y-8 animate-fade-in text-left">
       
+      {/* Breadcrumbs (PRD 4.2.2) */}
+      <Breadcrumbs 
+        lang={lang} 
+        onHomeClick={() => (window as any).setActiveTab?.("home")}
+        items={[{ label: lang === "zh" ? "产品大全" : "PRODUCT DATABASE", active: true }]} 
+      />
+
       {/* Upper description */}
-      <section className="text-center max-w-2xl mx-auto space-y-2">
-        <h2 className="text-2xl font-black text-white flex items-center justify-center gap-2">
-          <BookOpen className="w-6 h-6 text-amber-500" />
-          {lang === "en" ? "Comprehensive Product Metrics Database" : "全品类精密实体数据库 (Database)"}
+      <section className="text-center max-w-2xl mx-auto space-y-4">
+        <div className="flex justify-center">
+          <div className="bg-orange-100 p-3 rounded-2xl">
+            <BookOpen className="w-6 h-6 text-orange-500" />
+          </div>
+        </div>
+        <h2 className="text-3xl font-black text-slate-900">
+          {lang === "en" ? "Explore the Best Rides" : "好车发现大厅"}
         </h2>
-        <p className="text-xs text-slate-400">
+        <p className="text-sm text-slate-500 font-medium">
           {lang === "en" 
-            ? "Rigid metrology laboratory testing results of global models and magnesium alloy foundries." 
-            : "包含主流大牌及中国新派极轻压铸镁合金产业带红利国货。每款均上物理台车经过实际测定。"}
+            ? "We've hand-picked and tested the safest models for your little one." 
+            : "每一款入库产品都经过专人实测，只为给宝宝选择最合适的那一辆。"}
         </p>
       </section>
 
       {/* Control panel */}
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-lg space-y-4 text-left">
+      <div className="bg-white border border-slate-100 rounded-[48px] p-10 shadow-2xl shadow-orange-500/5 space-y-8 text-left relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-bl-full -mr-16 -mt-16 opacity-50"></div>
         
-        <div className="flex flex-col sm:flex-row gap-3">
+        <div className="flex flex-col lg:flex-row gap-6 relative z-10">
           {/* Search */}
           <div className="relative flex-1">
-            <Search className="w-4 h-4 text-slate-600 absolute left-3 top-3.5" />
+            <Search className="w-5 h-5 text-slate-400 absolute left-5 top-5" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={lang === "en" ? "Search name, alloy / carbon materials, tire grip types..." : "搜产品名 (Woom/闪电/迪卡侬等)、材料特性 (镁合金/碳钢)、胎阻..."}
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-slate-200 placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-amber-500"
+              placeholder={lang === "en" ? "SEARCH GLOBAL DATABASE..." : "搜索全球高端数据库..."}
+              className="w-full bg-slate-50 border border-slate-100 rounded-[28px] pl-14 pr-6 py-4.5 text-sm text-slate-900 font-bold placeholder:text-slate-400 focus:outline-none focus:ring-4 focus:ring-orange-500/10 focus:bg-white transition-all uppercase tracking-tighter"
             />
           </div>
 
@@ -182,156 +214,182 @@ export default function ProductsSection({
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none focus:ring-1 focus:ring-amber-500"
+            className="bg-slate-50 border border-slate-100 rounded-[28px] px-8 py-4.5 text-[10px] text-slate-900 font-black uppercase tracking-widest focus:outline-none focus:ring-4 focus:ring-orange-500/10 cursor-pointer appearance-none"
           >
-            <option value="overallScore">{lang === "en" ? "🏆 Platform Overall Score" : "🏆 平台工效大分优先"}</option>
-            <option value="weightAsc">{lang === "en" ? "⚖️ Lightest Net Weight" : "⚖️ 自重最轻优先"}</option>
-            <option value="priceDesc">{lang === "en" ? "💰 Price: High to Low" : "💰 市场售价最高"}</option>
-            <option value="priceAsc">{lang === "en" ? "💎 Price: Low to High" : "💎 亲民平价优先"}</option>
+            <option value="overallScore">{lang === "en" ? "🏆 TOP RATED" : "🏆 专家综合推荐"}</option>
+            <option value="weightAsc">{lang === "en" ? "⚖️ LIGHTWEIGHT" : "⚖️ 极轻量优先"}</option>
+            <option value="priceDesc">{lang === "en" ? "💰 LUXURY FIRST" : "💰 顶级奢选"}</option>
+            <option value="priceAsc">{lang === "en" ? "💎 BEST VALUE" : "💎 卓越性价比"}</option>
           </select>
         </div>
 
         {/* Categories tags list */}
-        <div className="flex flex-wrap gap-1.5 pt-1">
-          {categories.map((c) => (
-            <button
-              key={c.id}
-              onClick={() => setSelectedCategory(c.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all border ${
-                selectedCategory === c.id
-                  ? "bg-amber-500 text-slate-950 border-amber-400 animate-pulse"
-                  : "bg-slate-950 text-slate-400 border-slate-800 hover:text-white"
-              }`}
-            >
-              {c.label}
-            </button>
-          ))}
+        <div className="space-y-6 relative z-10">
+          <div className="flex flex-wrap gap-2">
+            {categories.map((c) => (
+              <button
+                key={c.id}
+                onClick={() => setSelectedCategory(c.id)}
+                className={`px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${
+                  selectedCategory === c.id
+                    ? "bg-orange-500 text-white border-orange-400 shadow-lg shadow-orange-500/20"
+                    : "bg-white text-slate-400 border-slate-100 hover:border-slate-300 hover:text-slate-900"
+                }`}
+              >
+                {c.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex flex-wrap gap-4 pt-2 border-t border-slate-50 pt-6">
+             <div className="space-y-2">
+                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{lang === "zh" ? "适龄跨度" : "Age Bridge"}</span>
+                <div className="flex gap-2">
+                  {[
+                    { id: "all", label: lang === "zh" ? "全部" : "ALL" },
+                    { id: "baby", label: lang === "zh" ? "婴幼儿(0-2岁)" : "BABY" },
+                    { id: "toddler", label: lang === "zh" ? "小童(2-5岁)" : "TODDLER" },
+                    { id: "child", label: lang === "zh" ? "中大童(5岁+)" : "CHILD" },
+                  ].map(age => (
+                    <button 
+                      key={age.id}
+                      onClick={() => setSelectedAge(age.id)}
+                      className={`px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border transition-all ${
+                        selectedAge === age.id ? "bg-slate-900 text-white border-slate-900" : "bg-white text-slate-400 border-slate-100 hover:border-slate-200"
+                      }`}
+                    >
+                      {age.label}
+                    </button>
+                  ))}
+                </div>
+             </div>
+
+             <div className="space-y-2">
+                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{lang === "zh" ? "预算区间" : "Price Filter"}</span>
+                <div className="flex gap-2">
+                  {[
+                    { id: "all", label: lang === "zh" ? "全部" : "ALL" },
+                    { id: "budget", label: lang === "zh" ? "大众之选" : "BUDGET" },
+                    { id: "mid", label: lang === "zh" ? "中端进阶" : "MID-RANGE" },
+                    { id: "premium", label: lang === "zh" ? "极致奢选" : "PREMIUM" },
+                  ].map(p => (
+                    <button 
+                      key={p.id}
+                      onClick={() => setSelectedPrice(p.id)}
+                      className={`px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border transition-all ${
+                        selectedPrice === p.id ? "bg-slate-900 text-white border-slate-900" : "bg-white text-slate-400 border-slate-100 hover:border-slate-200"
+                      }`}
+                    >
+                      {p.label}
+                    </button>
+                  ))}
+                </div>
+             </div>
+          </div>
         </div>
 
       </div>
 
       {/* Side-by-Side Comparison Drawer/Box (Up to 3 items) */}
       {showCompareDrawer && compareList.length > 0 && (
-        <div className="bg-slate-900 border border-amber-500/20 rounded-3xl p-6 shadow-2xl space-y-6 text-left animate-fade-in relative max-w-5xl mx-auto">
+        <div className="bg-slate-900 border border-slate-800 rounded-[56px] p-12 shadow-[0_64px_128px_-32px_rgba(0,0,0,0.5)] space-y-10 text-left animate-fade-in relative max-w-6xl mx-auto overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-transparent"></div>
           
           <button 
             onClick={() => setShowCompareDrawer(false)}
-            className="absolute right-4 top-4 p-1.5 bg-slate-950 text-slate-400 hover:text-white rounded-lg border border-slate-800 hover:border-slate-700"
+            className="absolute right-10 top-10 p-3 bg-white/5 text-slate-400 hover:text-white rounded-2xl border border-white/10 transition-all active:scale-90"
           >
-            <X className="w-4 h-4" />
+            <X className="w-6 h-6" />
           </button>
 
-          <div className="flex items-center gap-2">
-            <Scale className="w-5 h-5 text-amber-500" />
-            <h3 className="text-sm font-black text-white uppercase tracking-wider">
-              {lang === "en" ? `⚖️ Horizontal Biomechanical Comparison (${compareList.length}/3)` : `⚖️ 实验室中立横向参数大对比 (${compareList.length}/3 款同台)`}
-            </h3>
+          <div className="flex items-center gap-4">
+            <div className="bg-orange-500 p-3 rounded-2xl">
+              <Scale className="w-6 h-6 text-white" />
+            </div>
+            <div>
+               <h3 className="text-2xl font-black text-white tracking-tight uppercase">
+                {lang === "en" ? "Comparison Matrix" : "力学参数对照棋盘"}
+              </h3>
+              <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mt-1">
+                {compareList.length}/3 Models Locked
+              </p>
+            </div>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-xs text-slate-300 border-collapse">
+          <div className="overflow-x-auto custom-scrollbar">
+            <table className="w-full text-sm border-collapse">
               <thead>
-                <tr className="border-b border-slate-800">
-                  <th className="py-2.5 text-slate-500 font-bold text-left w-1/4">
-                    {lang === "en" ? "Physical Metrics" : "物理指标"}
+                <tr className="border-b border-white/5">
+                  <th className="py-6 text-slate-500 font-black text-[10px] uppercase tracking-[0.2em] text-left w-1/4">
+                    {lang === "en" ? "METRICS" : "专业维度"}
                   </th>
                   {compareList.map((p) => {
                     const disp = translateProduct(p, lang);
                     return (
-                      <th key={disp.id} className="py-2.5 px-4 text-white font-extrabold text-left bg-slate-950/40 border-l border-slate-800/80">
-                        <div className="flex justify-between items-start gap-2">
-                          <span className="truncate max-w-[130px] inline-block">{disp.name}</span>
+                      <th key={disp.id} className="py-6 px-8 text-white font-black text-left bg-white/5 first:rounded-tl-[32px] last:rounded-tr-[32px] border-l border-white/5">
+                        <div className="flex justify-between items-center gap-4">
+                          <span className="truncate max-w-[160px] inline-block uppercase tracking-tighter text-base">{disp.name}</span>
                           <button 
                             onClick={(e) => handleToggleCompare(p, e)} 
-                            className="text-red-400 hover:text-red-300 p-0.5 rounded hover:bg-red-950/20"
+                            className="text-white/20 hover:text-rose-500 transition-colors"
                           >
-                            ✕
+                            <X className="w-4 h-4" />
                           </button>
                         </div>
                       </th>
                     );
                   })}
-                  {/* Empty headers to keep width unified */}
                   {Array.from({ length: 3 - compareList.length }).map((_, idx) => (
-                    <th key={idx} className="py-2.5 px-4 text-slate-600 font-medium text-center border-l border-slate-800/80 italic">
-                      {lang === "en" ? "+ Add comparison" : "+ 待添加对比车款"}
+                    <th key={idx} className="py-6 px-8 text-white/10 font-black text-center border-l border-white/5 italic text-[10px] uppercase tracking-widest bg-black/20">
+                      {lang === "en" ? "+ Add Slot" : "+ 待位"}
                     </th>
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-900">
+              <tbody className="divide-y divide-white/5">
                 {/* 1. Brand */}
-                <tr>
-                  <td className="py-2 text-slate-500 font-bold">{lang === "en" ? "Brand" : "品牌与原产港口"}</td>
+                <tr className="hover:bg-white/5 transition-colors">
+                  <td className="py-5 text-slate-500 font-bold text-xs uppercase tracking-widest">{lang === "en" ? "Manufacturer" : "制造商"}</td>
                   {compareList.map(p => {
                     const disp = translateProduct(p, lang);
-                    return <td key={disp.id} className="py-2 px-4 border-l border-slate-800/60 font-semibold">{disp.brand}</td>;
+                    return <td key={disp.id} className="py-5 px-8 border-l border-white/5 font-black text-white text-base">{disp.brand}</td>;
                   })}
-                  {Array.from({ length: 3 - compareList.length }).map((_, i) => <td key={i} className="py-2 px-4 border-l border-slate-800/60 text-slate-700">-</td>)}
+                  {Array.from({ length: 3 - compareList.length }).map((_, i) => <td key={i} className="py-5 px-8 border-l border-white/5 text-white/5">-</td>)}
                 </tr>
                 {/* 2. Weight */}
-                <tr>
-                  <td className="py-2 text-slate-500 font-bold">{lang === "en" ? "Weight Scale" : "车辆实测净重量"}</td>
+                <tr className="hover:bg-white/5 transition-colors">
+                  <td className="py-5 text-slate-500 font-bold text-xs uppercase tracking-widest">{lang === "en" ? "Lab Weight" : "实验室实测重量"}</td>
                   {compareList.map(p => {
                     const disp = translateProduct(p, lang);
                     const isOver = disp.weight > childProfile.weight * 0.3 && (disp.category === "bicycle" || disp.category === "balance");
                     return (
-                      <td key={disp.id} className="py-2 px-4 border-l border-slate-800/60 font-mono font-black">
-                        <span className={isOver ? "text-amber-500" : "text-green-400"}>{disp.weight} kg</span>
-                        {isOver && (
-                          <span className="text-[9px] text-amber-500/60 block font-sans">
-                            {lang === "en" ? "Too heavy! (Exceeds 30% limit)" : "超出宝宝30%车重比线!"}
-                          </span>
-                        )}
+                      <td key={disp.id} className="py-5 px-8 border-l border-white/5 font-black text-lg">
+                        <span className={isOver ? "text-orange-500" : "text-emerald-400"}>{disp.weight} kg</span>
+                        {isOver && <span className="ml-2 px-2 py-0.5 bg-orange-500/10 text-orange-500 rounded text-[9px] uppercase">Overweight</span>}
                       </td>
                     );
                   })}
-                  {Array.from({ length: 3 - compareList.length }).map((_, i) => <td key={i} className="py-2 px-4 border-l border-slate-800/60 text-slate-700">-</td>)}
+                  {Array.from({ length: 3 - compareList.length }).map((_, i) => <td key={i} className="py-5 px-8 border-l border-white/5 text-white/5">-</td>)}
                 </tr>
-                {/* 3. Materials */}
-                <tr>
-                  <td className="py-2 text-slate-500 font-bold">{lang === "en" ? "Materials & Overcoats" : "车架主体及车漆工艺"}</td>
+                {/* 3. Overall Score */}
+                <tr className="hover:bg-white/5 transition-colors">
+                  <td className="py-5 text-slate-500 font-bold text-xs uppercase tracking-widest">{lang === "en" ? "Safety Rating" : "安全评级"}</td>
                   {compareList.map(p => {
                     const disp = translateProduct(p, lang);
-                    return <td key={disp.id} className="py-2 px-4 border-l border-slate-800/60">{disp.material}</td>;
+                    return (
+                      <td key={disp.id} className="py-5 px-8 border-l border-white/5">
+                        <div className="flex items-center gap-2">
+                           <div className="flex">
+                              {[...Array(5)].map((_, i) => (
+                                <Star key={i} className={`w-3.5 h-3.5 ${i < Math.round(disp.overallScore / 2) ? 'fill-orange-500 text-orange-500' : 'text-white/10'}`} />
+                              ))}
+                           </div>
+                           <span className="text-white font-black text-xl ml-2">{disp.overallScore}</span>
+                        </div>
+                      </td>
+                    );
                   })}
-                  {Array.from({ length: 3 - compareList.length }).map((_, i) => <td key={i} className="py-2 px-4 border-l border-slate-800/60 text-slate-700">-</td>)}
-                </tr>
-                {/* 4. Overall Score */}
-                <tr>
-                  <td className="py-2 text-slate-500 font-bold">{lang === "en" ? "Product Overall Score" : "物理安全工效大分"}</td>
-                  {compareList.map(p => {
-                    const disp = translateProduct(p, lang);
-                    return <td key={disp.id} className="py-2 px-4 border-l border-slate-800/60 font-mono text-amber-400 font-black">{disp.overallScore} / 10</td>;
-                  })}
-                  {Array.from({ length: 3 - compareList.length }).map((_, i) => <td key={i} className="py-2 px-4 border-l border-slate-800/60 text-slate-700">-</td>)}
-                </tr>
-                {/* 5. Brake style */}
-                <tr>
-                  <td className="py-2 text-slate-500 font-bold">{lang === "en" ? "Braking System Setup" : "制动器形式(手刹)"}</td>
-                  {compareList.map(p => {
-                    const disp = translateProduct(p, lang);
-                    return <td key={disp.id} className="py-2 px-4 border-l border-slate-800/60 text-[11px] leading-relaxed">{disp.brakeType}</td>;
-                  })}
-                  {Array.from({ length: 3 - compareList.length }).map((_, i) => <td key={i} className="py-2 px-4 border-l border-slate-800/60 text-slate-700">-</td>)}
-                </tr>
-                {/* 6. Tire style */}
-                <tr>
-                  <td className="py-2 text-slate-500 font-bold">{lang === "en" ? "Friction & Road Grip" : "外胎摩擦力与避震抓地"}</td>
-                  {compareList.map(p => {
-                    const disp = translateProduct(p, lang);
-                    return <td key={disp.id} className="py-2 px-4 border-l border-slate-800/60 text-[11px] leading-relaxed">{disp.tireType}</td>;
-                  })}
-                  {Array.from({ length: 3 - compareList.length }).map((_, i) => <td key={i} className="py-2 px-4 border-l border-slate-800/60 text-slate-700">-</td>)}
-                </tr>
-                {/* 7. Reference Price */}
-                <tr>
-                  <td className="py-2 text-slate-500 font-bold">{lang === "en" ? "Estimated Price" : "参考公开市价"}</td>
-                  {compareList.map(p => {
-                    const disp = translateProduct(p, lang);
-                    return <td key={disp.id} className="py-2 px-4 border-l border-slate-800/60 font-mono text-amber-500 font-extrabold">{lang === "en" ? "$" : "￥"}{disp.price}</td>;
-                  })}
-                  {Array.from({ length: 3 - compareList.length }).map((_, i) => <td key={i} className="py-2 px-4 border-l border-slate-800/60 text-slate-700">-</td>)}
+                  {Array.from({ length: 3 - compareList.length }).map((_, i) => <td key={i} className="py-5 px-8 border-l border-white/5 text-white/5">-</td>)}
                 </tr>
               </tbody>
             </table>
@@ -341,13 +399,13 @@ export default function ProductsSection({
 
       {/* Grid listing */}
       {filteredProducts.length === 0 ? (
-        <div className="p-16 text-center bg-slate-900 border border-slate-800 rounded-2xl">
-          <span className="text-xs text-slate-500">
-            {lang === "en" ? "No matches found in full digital database." : "在库数据库中暂时没有与该检索条件匹配的车款"}
-          </span>
+        <div className="p-24 text-center bg-white border border-slate-100 rounded-[56px] shadow-sm">
+          <p className="text-slate-400 font-black uppercase tracking-widest text-xs">
+            {lang === "en" ? "No matches in global database" : "全球数据库中暂无匹配项"}
+          </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {filteredProducts.map((p) => {
             const diProduct = translateProduct(p, lang);
             const isWeightOver = (diProduct.category === "bicycle" || diProduct.category === "balance")
@@ -361,76 +419,72 @@ export default function ProductsSection({
               <div
                 key={diProduct.id}
                 onClick={() => onSelectProduct(p)}
-                className="bg-slate-900 border border-slate-800/80 hover:border-amber-500/20 rounded-3xl p-5 flex flex-col justify-between space-y-4 hover:shadow-xl transition group text-left cursor-pointer relative animate-fade-in"
+                className="bg-white border border-slate-100 hover:border-orange-100 rounded-[56px] p-8 flex flex-col justify-between space-y-8 hover:shadow-[0_48px_80px_-24px_rgba(249,115,22,0.12)] transition-all duration-500 group text-left cursor-pointer relative animate-fade-in overflow-hidden"
               >
-                <div className="space-y-2.5">
-                  <div className="flex justify-between items-center text-[10px]">
-                    <span className="bg-slate-950 text-amber-500 px-2 py-0.5 rounded border border-slate-850 font-bold uppercase shrink-0">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-orange-50 rounded-bl-[60px] opacity-0 group-hover:opacity-100 transition-opacity translate-x-4 -translate-y-4"></div>
+                
+                <div className="space-y-6 relative z-10">
+                  <div className="flex justify-between items-center">
+                    <span className="bg-orange-50 text-orange-600 px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-orange-100">
                       {getCategoryLabel(diProduct.category)}
                     </span>
-                    <span className="text-slate-500 font-mono truncate max-w-[100px]">{diProduct.brand.split(" ")[0]}</span>
+                    <span className="text-slate-400 text-[10px] font-black uppercase tracking-widest">{diProduct.brand}</span>
                   </div>
 
-                  <h3 className="font-extrabold text-white text-sm sm:text-base leading-snug group-hover:text-amber-400 transition-colors">
+                  <h3 className="font-black text-slate-900 text-xl leading-tight group-hover:text-orange-500 transition-colors uppercase">
                     {diProduct.name}
                   </h3>
 
-                  <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-400 bg-slate-950/60 p-3 rounded-xl border border-slate-900">
-                    <div className="space-y-0.5">
-                      <span className="text-slate-600 block text-[9px] font-bold">
-                        {lang === "en" ? "Measured Weight" : "自重实测"}
+                  <div className="grid grid-cols-2 gap-6 bg-slate-50/50 p-6 rounded-[32px] border border-slate-50 mt-2 group-hover:bg-white group-hover:shadow-lg group-hover:shadow-slate-200/50 transition-all">
+                    <div className="space-y-1">
+                      <span className="text-slate-400 block text-[9px] font-black uppercase tracking-widest">
+                        {lang === "en" ? "MASS" : "自重"}
                       </span>
-                      <strong className={isWeightOver ? "text-amber-500 font-extrabold" : "text-green-400 font-bold"}>
+                      <strong className={`text-lg font-black tracking-tighter ${isWeightOver ? "text-orange-500" : "text-emerald-500"}`}>
                         {diProduct.weight} kg
                       </strong>
                     </div>
-                    <div className="space-y-0.5">
-                      <span className="text-slate-600 block text-[9px] font-bold">
-                        {lang === "en" ? "Reference Price" : "参考公开价"}
+                    <div className="space-y-1">
+                      <span className="text-slate-400 block text-[9px] font-black uppercase tracking-widest">
+                        {lang === "en" ? "EST. PRICE" : "参考"}
                       </span>
-                      <strong className="text-amber-500 font-mono font-black">
+                      <strong className="text-lg text-slate-900 font-black tracking-tighter">
                         {lang === "en" ? "$" : "￥"}{diProduct.price}
                       </strong>
                     </div>
                   </div>
 
-                  <p className="text-slate-400 text-xs line-clamp-2 leading-relaxed italic">
+                  <p className="text-slate-500 text-xs line-clamp-2 leading-relaxed font-bold italic">
                     “{diProduct.editorVerdict}”
                   </p>
                 </div>
 
-                {/* Card actions footprint */}
-                <div className="flex justify-between items-center gap-1.5 pt-3.5 border-t border-slate-850 text-[10px] text-slate-400">
-                  <div className="flex gap-2">
+                {/* Card actions */}
+                <div className="flex justify-between items-center gap-4 pt-6 border-t border-slate-50 relative z-10">
+                  <div className="flex gap-3">
                     <button
                       onClick={(e) => handleToggleCompare(p, e)}
-                      className={`px-2.5 py-1.5 rounded-lg border font-bold transition flex items-center gap-1 ${
+                      className={`p-3.5 rounded-2xl border transition-all active:scale-90 ${
                         isAlreadyCompared 
-                          ? "bg-amber-500/15 border-amber-500/45 text-amber-400"
-                          : "bg-slate-950 border-slate-850 text-slate-400 hover:text-white"
+                          ? "bg-orange-500 border-orange-400 text-white shadow-xl shadow-orange-500/20"
+                          : "bg-white border-slate-100 text-slate-400 hover:text-orange-500 hover:border-orange-200"
                       }`}
                     >
-                      <Scale className="w-3 h-3" />
-                      {isAlreadyCompared 
-                        ? (lang === "en" ? "In Compare" : "已在对比")
-                        : (lang === "en" ? "Compare" : "横评对比")}
+                      <Scale className="w-5 h-5" />
                     </button>
                     <button
                       onClick={(e) => handleToggleSave(p, e)}
-                      className={`px-2.5 py-1.5 rounded-lg border font-bold transition flex items-center gap-1 ${
+                      className={`p-3.5 rounded-2xl border transition-all active:scale-90 ${
                         isAlreadySaved
-                          ? "bg-amber-500/15 border-amber-500/45 text-amber-400"
-                          : "bg-slate-950 border-slate-850 text-slate-400 hover:text-white"
+                          ? "bg-rose-500 border-rose-400 text-white shadow-xl shadow-rose-500/20"
+                          : "bg-white border-slate-100 text-slate-400 hover:text-rose-500 hover:border-rose-200"
                       }`}
                     >
-                      <Bookmark className="w-3 h-3 fill-current" />
-                      {isAlreadySaved 
-                        ? (lang === "en" ? "Saved" : "已存个人库")
-                        : (lang === "en" ? "Save Model" : "存个人库")}
+                      <Bookmark className="w-5 h-5 fill-current" />
                     </button>
                   </div>
-                  <span className="text-amber-500 hover:underline font-bold group-hover:translate-x-0.5 transition-all">
-                    {lang === "en" ? "Analyze Details →" : "极细研析 →"}
+                  <span className="text-[10px] font-black text-orange-500 uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all">
+                    {lang === "en" ? "Full Metrics" : "完整参数"} <ChevronRight className="w-4 h-4" />
                   </span>
                 </div>
 
@@ -439,6 +493,7 @@ export default function ProductsSection({
           })}
         </div>
       )}
+
 
     </div>
   );
