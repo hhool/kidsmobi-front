@@ -67,6 +67,7 @@ export default function App() {
 
   // Admin access state
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [authLoading, setAuthLoading] = useState<boolean>(true);
 
   // 2. Active Tab Router: home, news, products, evaluations, guides, about, auth
   const [activeTab, setActiveTab] = useState<string>("home");
@@ -138,6 +139,7 @@ export default function App() {
   // Listen to Firebase Auth state
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      setAuthLoading(true);
       if (user) {
         setUserEmail(user.email || "");
         try {
@@ -150,7 +152,7 @@ export default function App() {
 
         // Admin verification logic
         try {
-          const adminStatus = await checkIsAdmin(user.uid);
+          const adminStatus = await checkIsAdmin(user.uid, user);
           setIsAdmin(adminStatus);
         } catch (error) {
           console.error("Admin check failed:", error);
@@ -161,6 +163,7 @@ export default function App() {
         setSavedProducts([]);
         setIsAdmin(false);
       }
+      setAuthLoading(false);
     });
     return () => unsubscribe();
   }, []);
@@ -666,7 +669,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           <AdminPanel 
             onClose={() => setActiveTab("home")} 
             onRedirectAuth={() => setActiveTab("auth")}
-            lang={lang} 
+            lang={lang}
+            isAdmin={isAdmin}
+            loading={authLoading}
           />
         )}
 

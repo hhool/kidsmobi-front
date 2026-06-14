@@ -13,31 +13,22 @@ import GuideManager from "./admin/GuideManager";
 import NewsManager from "./admin/NewsManager";
 import SettingsManager from "./admin/SettingsManager";
 
-export default function AdminPanel({ onClose, onRedirectAuth, lang }: { onClose: () => void, onRedirectAuth: () => void, lang: "zh" | "en" }) {
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [loading, setLoading] = useState(true);
+export default function AdminPanel({ 
+  onClose, 
+  onRedirectAuth, 
+  lang,
+  isAdmin: isAdminProp,
+  loading: loadingProp
+}: { 
+  onClose: () => void, 
+  onRedirectAuth: () => void, 
+  lang: "zh" | "en",
+  isAdmin: boolean,
+  loading: boolean
+}) {
   const [activeMenu, setActiveMenu] = useState<"dashboard" | "products" | "evaluations" | "guides" | "news" | "settings">("dashboard");
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      try {
-        if (user) {
-          const admin = await checkIsAdmin(user.uid);
-          setIsAdmin(admin);
-        } else {
-          setIsAdmin(false);
-        }
-      } catch (error) {
-        console.error("Admin verification failed:", error);
-        setIsAdmin(false);
-      } finally {
-        setLoading(false);
-      }
-    });
-    return () => unsubscribe();
-  }, []);
-
-  if (loading) return (
+  if (loadingProp) return (
     <div className="fixed inset-0 bg-white/80 backdrop-blur-md z-[100] flex items-center justify-center">
       <div className="flex flex-col items-center gap-4">
         <div className="w-12 h-12 border-4 border-slate-900 border-t-orange-500 rounded-full animate-spin" />
@@ -60,7 +51,7 @@ export default function AdminPanel({ onClose, onRedirectAuth, lang }: { onClose:
     </div>
   );
 
-  if (!isAdmin) return (
+  if (!isAdminProp) return (
     <div className="fixed inset-0 bg-white z-[100] flex flex-col items-center justify-center p-8 text-center">
       <AlertCircle className="w-16 h-16 text-red-500 mb-4" />
       <h2 className="text-2xl font-black mb-2 uppercase">Access Denied</h2>

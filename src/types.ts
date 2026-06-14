@@ -63,12 +63,18 @@ export interface CMSProduct extends Product {
     description: string;
     brandText?: string;
     specsText?: string;
+    pros?: string[];
+    cons?: string[];
+    editorVerdict?: string;
   };
   en: {
     name: string;
     description: string;
     brandText?: string;
     specsText?: string;
+    pros?: string[];
+    cons?: string[];
+    editorVerdict?: string;
   };
   updatedAt: any;
 }

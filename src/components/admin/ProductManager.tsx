@@ -42,9 +42,11 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
       heightRange: [70, 120],
       compliance: [],
       imageUrl: "",
+      galleryUrls: [],
+      videoUrl: "",
       status: "draft",
-      zh: { name: "", description: "", brandText: "", specsText: "" },
-      en: { name: "", description: "", brandText: "", specsText: "" },
+      zh: { name: "", description: "", brandText: "", specsText: "", pros: [], cons: [], editorVerdict: "" },
+      en: { name: "", description: "", brandText: "", specsText: "", pros: [], cons: [], editorVerdict: "" },
       updatedAt: null
     });
   };
@@ -58,6 +60,15 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
     await saveCMSProduct(p);
     setEditingProduct(null);
     fetchProducts();
+  };
+
+  const handleDelete = async (id: string) => {
+    if (confirm("Are you sure you want to delete this product?")) {
+      const { deleteDoc, doc } = await import("firebase/firestore");
+      const { db } = await import("../../lib/firebase");
+      await deleteDoc(doc(db, "products", id));
+      fetchProducts();
+    }
   };
 
   const filtered = products.filter(p => 
@@ -118,6 +129,12 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
               >
                 <FileText className="w-4 h-4" />
                 Edit
+              </button>
+              <button 
+                onClick={() => handleDelete(p.id)}
+                className="p-4 hover:bg-red-50 rounded-2xl text-red-400 transition-all font-bold"
+              >
+                <Trash2 className="w-4 h-4" />
               </button>
             </div>
           </div>
@@ -242,6 +259,15 @@ function ProductEditor({ product, onSave, onCancel, lang }: any) {
                 </div>
               </Section>
 
+              <Section title="Evaluation Summary Scores (0-10)">
+                <div className="grid grid-cols-4 gap-6">
+                  <Field label="Overall Score" type="number" value={formData.overallScore || 0} onChange={(v) => setFormData({...formData, overallScore: parseFloat(v) || 0})} />
+                  <Field label="Safety Score" type="number" value={formData.safetyScore || 0} onChange={(v) => setFormData({...formData, safetyScore: parseFloat(v) || 0})} />
+                  <Field label="Weight Score" type="number" value={formData.weightScore || 0} onChange={(v) => setFormData({...formData, weightScore: parseFloat(v) || 0})} />
+                  <Field label="Geometry Score" type="number" value={formData.geometryScore || 0} onChange={(v) => setFormData({...formData, geometryScore: parseFloat(v) || 0})} />
+                </div>
+              </Section>
+
               <Section title="Compliance & Safety Standards">
                  <div className="flex flex-wrap gap-4">
                    {complianceOptions.map(tag => (
@@ -256,8 +282,48 @@ function ProductEditor({ product, onSave, onCancel, lang }: any) {
                  </div>
               </Section>
 
-              <Section title="Visual Assets">
-                <Field label="Primary Hero Image URL" value={formData.imageUrl} onChange={(v) => setFormData({...formData, imageUrl: v})} />
+              <Section title="Visual & Media Assets">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-6">
+                    <Field label="Primary Hero Image URL" value={formData.imageUrl} onChange={(v) => setFormData({...formData, imageUrl: v})} />
+                    <Field label="Video showcase URL (YouTube/Direct)" value={formData.videoUrl || ""} onChange={(v) => setFormData({...formData, videoUrl: v})} />
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Image Gallery (Sub-views)</label>
+                    <div className="space-y-2">
+                      {(formData.galleryUrls || []).map((url, idx) => (
+                        <div key={idx} className="flex gap-2">
+                          <input 
+                            className="flex-1 bg-slate-50 py-3 px-4 rounded-xl font-bold text-xs outline-none border border-transparent focus:border-orange-500 focus:bg-white transition-all"
+                            value={url}
+                            onChange={(e) => {
+                              const next = [...(formData.galleryUrls || [])];
+                              next[idx] = e.target.value;
+                              setFormData({...formData, galleryUrls: next});
+                            }}
+                          />
+                          <button 
+                            onClick={() => {
+                              const next = (formData.galleryUrls || []).filter((_, i) => i !== idx);
+                              setFormData({...formData, galleryUrls: next});
+                            }}
+                            className="p-3 bg-red-50 text-red-400 rounded-xl hover:bg-red-100 transition-all"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      ))}
+                      <button 
+                        onClick={() => setFormData({...formData, galleryUrls: [...(formData.galleryUrls || []), ""]})}
+                        className="w-full py-3 border-2 border-dashed border-slate-200 rounded-xl text-slate-400 text-xs font-black hover:border-orange-500 hover:text-orange-500 transition-all flex items-center justify-center gap-2"
+                      >
+                        <Plus className="w-4 h-4" />
+                        Add Gallery Image
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </Section>
             </div>
           )}
@@ -326,10 +392,69 @@ function LangSector({ lang, title, data, onChange }: any) {
         <div className="space-y-2">
           <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Marketing Copy / Description</label>
           <textarea 
-            className="w-full bg-white border border-slate-200 py-4 px-6 rounded-2xl font-bold text-slate-600 outline-none focus:border-orange-500 transition-all shadow-sm min-h-[160px]"
+            className="w-full bg-white border border-slate-200 py-4 px-6 rounded-2xl font-bold text-slate-600 outline-none focus:border-orange-500 transition-all shadow-sm min-h-[120px]"
             value={data.description}
             onChange={(e) => onChange({...data, description: e.target.value})}
           />
+        </div>
+
+        <div className="space-y-2">
+          <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Editor Verdict (Short)</label>
+          <textarea 
+            className="w-full bg-white border border-slate-200 py-4 px-6 rounded-2xl font-bold text-slate-600 outline-none focus:border-orange-500 transition-all shadow-sm min-h-[80px]"
+            value={data.editorVerdict}
+            onChange={(e) => onChange({...data, editorVerdict: e.target.value})}
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-6">
+          <div className="space-y-4">
+            <label className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Pros List</label>
+            <div className="space-y-2">
+              {(data.pros || []).map((pro: string, idx: number) => (
+                <div key={idx} className="flex gap-2">
+                  <input 
+                    className="flex-1 bg-white border border-slate-200 py-2 px-4 rounded-xl font-bold text-xs"
+                    value={pro}
+                    onChange={(e) => {
+                      const next = [...(data.pros || [])];
+                      next[idx] = e.target.value;
+                      onChange({...data, pros: next});
+                    }}
+                  />
+                  <button onClick={() => {
+                    const next = (data.pros || []).filter((_: any, i: number) => i !== idx);
+                    onChange({...data, pros: next});
+                  }} className="text-red-400"><Trash2 className="w-4 h-4" /></button>
+                </div>
+              ))}
+              <button onClick={() => onChange({...data, pros: [...(data.pros || []), ""]})} className="text-[10px] font-black text-emerald-600 uppercase">+ Add Pro</button>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <label className="text-[10px] font-black text-rose-500 uppercase tracking-widest">Cons List</label>
+            <div className="space-y-2">
+              {(data.cons || []).map((con: string, idx: number) => (
+                <div key={idx} className="flex gap-2">
+                  <input 
+                    className="flex-1 bg-white border border-slate-200 py-2 px-4 rounded-xl font-bold text-xs"
+                    value={con}
+                    onChange={(e) => {
+                      const next = [...(data.cons || [])];
+                      next[idx] = e.target.value;
+                      onChange({...data, cons: next});
+                    }}
+                  />
+                  <button onClick={() => {
+                    const next = (data.cons || []).filter((_: any, i: number) => i !== idx);
+                    onChange({...data, cons: next});
+                  }} className="text-red-400"><Trash2 className="w-4 h-4" /></button>
+                </div>
+              ))}
+              <button onClick={() => onChange({...data, cons: [...(data.cons || []), ""]})} className="text-[10px] font-black text-rose-600 uppercase">+ Add Con</button>
+            </div>
+          </div>
         </div>
 
         <div className="space-y-2">

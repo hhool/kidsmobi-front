@@ -14,21 +14,41 @@ import {
 import { db, auth } from "./firebase";
 import { CMSProduct, Evaluation, Guide, News, CMSSettings } from "../types";
 
-export async function checkIsAdmin(uid: string): Promise<boolean> {
+import { User } from "firebase/auth";
+
+export async function checkIsAdmin(uid: string, user?: User | null): Promise<boolean> {
   if (!uid) return false;
-  const currentUser = auth.currentUser;
-  if (currentUser?.email === "hhool.student@gmail.com") {
-    const adminDoc = doc(db, "admins", uid);
-    const snap = await getDoc(adminDoc);
-    if (!snap.exists()) {
-      await setDoc(adminDoc, { userId: uid, email: currentUser.email, role: "superadmin" });
+  
+  const targetUser = user || auth.currentUser;
+  
+  if (targetUser?.email === "hhool.student@gmail.com") {
+    try {
+      const adminDoc = doc(db, "admins", uid);
+      const snap = await getDoc(adminDoc);
+      if (!snap.exists()) {
+        await setDoc(adminDoc, { 
+          userId: uid, 
+          email: targetUser.email, 
+          role: "superadmin",
+          createdAt: serverTimestamp() 
+        });
+      }
+      return true;
+    } catch (err) {
+      console.error("Superadmin bootstrap failed:", err);
+      // Fallback: if we are the superadmin but can't write to DB yet, still allow entry
+      return true;
     }
-    return true;
   }
   
-  const adminDoc = doc(db, "admins", uid);
-  const snap = await getDoc(adminDoc);
-  return snap.exists();
+  try {
+    const adminDoc = doc(db, "admins", uid);
+    const snap = await getDoc(adminDoc);
+    return snap.exists();
+  } catch (err) {
+    console.error("Admin check failed:", err);
+    return false;
+  }
 }
 
 // Product Management

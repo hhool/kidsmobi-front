@@ -187,7 +187,30 @@ export function translateCategory(cat: string, lang: "zh" | "en") {
 
 export function translateProduct(p: any, lang: "zh" | "en") {
   const categoryLabel = translateCategory(p.category, lang);
-  if (lang === "zh") return { ...p, categoryLabel };
+  
+  // Use localized data from CMS if available
+  const localData = p[lang] || {};
+  const name = localData.name || p.name;
+  const description = localData.description || p.description;
+  const pros = localData.pros || p.pros || [];
+  const cons = localData.cons || p.cons || [];
+  const editorVerdict = localData.editorVerdict || p.editorVerdict || "";
+  const brandText = localData.brandText || p.brand;
+  const specsText = localData.specsText || "";
+
+  if (lang === "zh") {
+    return { 
+      ...p, 
+      name,
+      description,
+      pros,
+      cons,
+      editorVerdict,
+      brand: brandText,
+      specsText,
+      categoryLabel 
+    };
+  }
 
   const brandMap: Record<string, string> = {
     "九能": "NineNoble",
@@ -237,37 +260,53 @@ export function translateProduct(p: any, lang: "zh" | "en") {
     "五点式安全带+重力卡锁": "5-Point Belt & Gravity Snap Lock"
   };
 
-  return {
-    ...p,
-    brand: brandMap[p.brand] || p.brand,
-    categoryLabel: translateCategory(p.category, "en"),
-    material: materialMap[p.material] || p.material,
-    tireType: tireMap[p.tireType] || p.tireType,
-    brakeType: brakeMap[p.brakeType] || p.brakeType,
-    wheelSize: p.wheelSize === "无" ? "None" : p.wheelSize.replace("寸", " in."),
-    pros: p.pros.map((pro: string) => {
-      // Simple translation heuristics
-      if (pro.includes("轻")) return "Remarkably lightweight";
-      if (pro.includes("安全")) return "Excellent safety margins";
-      if (pro.includes("刹") || pro.includes("制动")) return "Highly responsive braking system";
-      if (pro.includes("轴")) return "Smooth bearing hubs";
-      if (pro.includes("铝")) return "Durable aerospace alloy framework";
-      return pro;
-    }),
-    cons: p.cons.map((con: string) => {
-      if (con.includes("贵")) return "Relatively high price tag";
-      if (con.includes("重")) return "Too heavy for young kids";
-      if (con.includes("发泡")) return "Solid plastic wheel vibrates heavily";
-      return con;
-    }),
-    ageRange: p.ageRange.replace("岁", " Years"),
-    editorVerdict: p.id === "model_1" 
+  // Fallback translation rules for pros/cons if they weren't explicitly provided in English
+  const translatedPros = pros.map((pro: string) => {
+    // If it's already likely English (contains English characters and few/no Chinese ones)
+    if (/^[A-Za-z0-9\s.,!?-]+$/.test(pro)) return pro;
+    
+    if (pro.includes("轻")) return "Remarkably lightweight";
+    if (pro.includes("安全")) return "Excellent safety margins";
+    if (pro.includes("刹") || pro.includes("制动")) return "Highly responsive braking system";
+    if (pro.includes("轴")) return "Smooth bearing hubs";
+    if (pro.includes("铝")) return "Durable aerospace alloy framework";
+    return pro;
+  });
+
+  const translatedCons = cons.map((con: string) => {
+    if (/^[A-Za-z0-9\s.,!?-]+$/.test(con)) return con;
+    
+    if (con.includes("贵")) return "Relatively high price tag";
+    if (con.includes("重")) return "Too heavy for young kids";
+    if (con.includes("发泡")) return "Solid plastic wheel vibrates heavily";
+    return con;
+  });
+
+  let finalVerdict = editorVerdict;
+  if (!finalVerdict || (lang === "en" && !/^[A-Za-z0-9\s.,!?-]+$/.test(finalVerdict))) {
+     finalVerdict = p.id === "model_1" 
       ? "Superior build quality, extremely safe frame metrics, pristine geometry." 
       : p.id === "model_2" 
       ? "Solid premium balance bike for competitive racers. Very light." 
       : p.id === "model_3" 
       ? "Budget-oriented choice, but we caution about the high carbon-steel frame weight limit."
-      : "Independently verified kids stroller or bicycle setup with verified brake grip tolerances."
+      : "Independently verified kids stroller or bicycle setup with verified brake grip tolerances.";
+  }
+
+  return {
+    ...p,
+    name,
+    description,
+    brand: localData.brandText || (brandMap[p.brand] || p.brand),
+    categoryLabel: translateCategory(p.category, "en"),
+    material: materialMap[p.material] || p.material,
+    tireType: tireMap[p.tireType] || p.tireType,
+    brakeType: brakeMap[p.brakeType] || p.brakeType,
+    wheelSize: p.wheelSize === "无" ? "None" : p.wheelSize.replace("寸", " in."),
+    pros: translatedPros,
+    cons: translatedCons,
+    ageRange: p.ageRange.replace("岁", " Years"),
+    editorVerdict: finalVerdict
   };
 }
 
