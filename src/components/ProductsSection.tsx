@@ -19,6 +19,7 @@ import {
 import { Product, ProductCategory } from "../types";
 import { translateProduct, translateCategory } from "../lib/translate";
 import Breadcrumbs from "./Breadcrumbs";
+import ComparisonDashboard from "./ComparisonDashboard";
 
 interface ProductsSectionProps {
   productsData: Product[];
@@ -133,7 +134,6 @@ export default function ProductsSection({
       newList = [...compareList, product];
     }
     setCompareList(newList);
-    setShowCompareDrawer(true);
   };
 
   // Saved / Bookmark toggles
@@ -290,112 +290,13 @@ export default function ProductsSection({
 
       </div>
 
-      {/* Side-by-Side Comparison Drawer/Box (Up to 3 items) */}
-      {showCompareDrawer && compareList.length > 0 && (
-        <div className="bg-slate-900 border border-slate-800 rounded-[56px] p-12 shadow-[0_64px_128px_-32px_rgba(0,0,0,0.5)] space-y-10 text-left animate-fade-in relative max-w-6xl mx-auto overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-transparent"></div>
-          
-          <button 
-            onClick={() => setShowCompareDrawer(false)}
-            className="absolute right-10 top-10 p-3 bg-white/5 text-slate-400 hover:text-white rounded-2xl border border-white/10 transition-all active:scale-90"
-          >
-            <X className="w-6 h-6" />
-          </button>
-
-          <div className="flex items-center gap-4">
-            <div className="bg-orange-500 p-3 rounded-2xl">
-              <Scale className="w-6 h-6 text-white" />
-            </div>
-            <div>
-               <h3 className="text-2xl font-black text-white tracking-tight uppercase">
-                {lang === "en" ? "Comparison Matrix" : "力学参数对照棋盘"}
-              </h3>
-              <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mt-1">
-                {compareList.length}/3 Models Locked
-              </p>
-            </div>
-          </div>
-
-          <div className="overflow-x-auto custom-scrollbar">
-            <table className="w-full text-sm border-collapse">
-              <thead>
-                <tr className="border-b border-white/5">
-                  <th className="py-6 text-slate-500 font-black text-[10px] uppercase tracking-[0.2em] text-left w-1/4">
-                    {lang === "en" ? "METRICS" : "专业维度"}
-                  </th>
-                  {compareList.map((p) => {
-                    const disp = translateProduct(p, lang);
-                    return (
-                      <th key={disp.id} className="py-6 px-8 text-white font-black text-left bg-white/5 first:rounded-tl-[32px] last:rounded-tr-[32px] border-l border-white/5">
-                        <div className="flex justify-between items-center gap-4">
-                          <span className="truncate max-w-[160px] inline-block uppercase tracking-tighter text-base">{disp.name}</span>
-                          <button 
-                            onClick={(e) => handleToggleCompare(p, e)} 
-                            className="text-white/20 hover:text-rose-500 transition-colors"
-                          >
-                            <X className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </th>
-                    );
-                  })}
-                  {Array.from({ length: 3 - compareList.length }).map((_, idx) => (
-                    <th key={idx} className="py-6 px-8 text-white/10 font-black text-center border-l border-white/5 italic text-[10px] uppercase tracking-widest bg-black/20">
-                      {lang === "en" ? "+ Add Slot" : "+ 待位"}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/5">
-                {/* 1. Brand */}
-                <tr className="hover:bg-white/5 transition-colors">
-                  <td className="py-5 text-slate-500 font-bold text-xs uppercase tracking-widest">{lang === "en" ? "Manufacturer" : "制造商"}</td>
-                  {compareList.map(p => {
-                    const disp = translateProduct(p, lang);
-                    return <td key={disp.id} className="py-5 px-8 border-l border-white/5 font-black text-white text-base">{disp.brand}</td>;
-                  })}
-                  {Array.from({ length: 3 - compareList.length }).map((_, i) => <td key={i} className="py-5 px-8 border-l border-white/5 text-white/5">-</td>)}
-                </tr>
-                {/* 2. Weight */}
-                <tr className="hover:bg-white/5 transition-colors">
-                  <td className="py-5 text-slate-500 font-bold text-xs uppercase tracking-widest">{lang === "en" ? "Lab Weight" : "实验室实测重量"}</td>
-                  {compareList.map(p => {
-                    const disp = translateProduct(p, lang);
-                    const isOver = disp.weight > childProfile.weight * 0.3 && (disp.category === "bicycle" || disp.category === "balance");
-                    return (
-                      <td key={disp.id} className="py-5 px-8 border-l border-white/5 font-black text-lg">
-                        <span className={isOver ? "text-orange-500" : "text-emerald-400"}>{disp.weight} kg</span>
-                        {isOver && <span className="ml-2 px-2 py-0.5 bg-orange-500/10 text-orange-500 rounded text-[9px] uppercase">Overweight</span>}
-                      </td>
-                    );
-                  })}
-                  {Array.from({ length: 3 - compareList.length }).map((_, i) => <td key={i} className="py-5 px-8 border-l border-white/5 text-white/5">-</td>)}
-                </tr>
-                {/* 3. Overall Score */}
-                <tr className="hover:bg-white/5 transition-colors">
-                  <td className="py-5 text-slate-500 font-bold text-xs uppercase tracking-widest">{lang === "en" ? "Safety Rating" : "安全评级"}</td>
-                  {compareList.map(p => {
-                    const disp = translateProduct(p, lang);
-                    return (
-                      <td key={disp.id} className="py-5 px-8 border-l border-white/5">
-                        <div className="flex items-center gap-2">
-                           <div className="flex">
-                              {[...Array(5)].map((_, i) => (
-                                <Star key={i} className={`w-3.5 h-3.5 ${i < Math.round(disp.overallScore / 2) ? 'fill-orange-500 text-orange-500' : 'text-white/10'}`} />
-                              ))}
-                           </div>
-                           <span className="text-white font-black text-xl ml-2">{disp.overallScore}</span>
-                        </div>
-                      </td>
-                    );
-                  })}
-                  {Array.from({ length: 3 - compareList.length }).map((_, i) => <td key={i} className="py-5 px-8 border-l border-white/5 text-white/5">-</td>)}
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
+      {/* Comparison Dashboard (PRD Requirement: Automatic Detection) */}
+      <ComparisonDashboard 
+        compareList={compareList}
+        lang={lang}
+        onRemove={(id) => setCompareList(compareList.filter(p => p.id !== id))}
+        onClear={() => setCompareList([])}
+      />
 
       {/* Grid listing */}
       {filteredProducts.length === 0 ? (

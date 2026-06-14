@@ -174,7 +174,8 @@ export function translateCategory(cat: string, lang: "zh" | "en") {
 }
 
 export function translateProduct(p: any, lang: "zh" | "en") {
-  if (lang === "zh") return p;
+  const categoryLabel = translateCategory(p.category, lang);
+  if (lang === "zh") return { ...p, categoryLabel };
 
   const brandMap: Record<string, string> = {
     "九能": "NineNoble",
@@ -247,6 +248,7 @@ export function translateProduct(p: any, lang: "zh" | "en") {
       if (con.includes("发泡")) return "Solid plastic wheel vibrates heavily";
       return con;
     }),
+    ageRange: p.ageRange.replace("岁", " Years"),
     editorVerdict: p.id === "model_1" 
       ? "Superior build quality, extremely safe frame metrics, pristine geometry." 
       : p.id === "model_2" 
