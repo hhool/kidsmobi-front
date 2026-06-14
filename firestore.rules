@@ -19,6 +19,10 @@ service cloud.firestore {
       return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
     }
 
+    function isAdmin() {
+      return isSignedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
     // Entity validator: User Profile
     function isValidUser(user) {
       return user.keys().hasAll(['userId', 'email'])
@@ -28,14 +32,26 @@ service cloud.firestore {
           && user.email.size() <= 256;
     }
 
-    // Entity validator: Bookmark
-    function isValidBookmark(bookmark) {
-      return bookmark.keys().hasAll(['productId', 'userId', 'createdAt'])
-          && bookmark.keys().size() == 3
-          && bookmark.userId == request.auth.uid
-          && bookmark.productId is string
-          && bookmark.productId.size() <= 128
-          && bookmark.createdAt == request.time;
+    // Entity validator: CMS Product
+    function isValidCMSProduct(product) {
+       return product.keys().hasAll(['id', 'category', 'status', 'zh', 'en', 'updatedAt'])
+           && product.id is string
+           && product.category is string
+           && product.status in ['draft', 'published', 'archived']
+           && product.zh is map
+           && product.en is map
+           && product.updatedAt == request.time;
+    }
+
+    // Entity validator: CMS Content
+    function isValidCMSContent(content) {
+       return content.keys().hasAll(['id', 'type', 'status', 'zh', 'en', 'updatedAt'])
+           && content.id is string
+           && content.type in ['news', 'guide']
+           && content.status in ['draft', 'published', 'archived']
+           && content.zh is map
+           && content.en is map
+           && content.updatedAt == request.time;
     }
 
     // Match rules for user accounts and subcollections
@@ -51,6 +67,29 @@ service cloud.firestore {
         allow delete: if isOwner(userId) && isValidId(bookmarkId);
         allow update: if false;
       }
+    }
+
+    // CMS Collections
+    match /products/{productId} {
+      allow list, get: if isAdmin() || (resource != null && resource.data.status == 'published');
+      allow create, update: if isAdmin() && isValidId(productId) && isValidCMSProduct(request.resource.data);
+      allow delete: if false; // SEO Protection: Use logic delete (status = archived)
+    }
+
+    match /content/{contentId} {
+      allow list, get: if isAdmin() || (resource != null && resource.data.status == 'published');
+      allow create, update: if isAdmin() && isValidId(contentId) && isValidCMSContent(request.resource.data);
+      allow delete: if false; // SEO Protection
+    }
+
+    match /settings/{settingId} {
+      allow get: if true;
+      allow create, update: if isAdmin();
+    }
+
+    match /admins/{adminId} {
+      allow get: if isSignedIn();
+      allow write: if false; // Managed via console or CLI for security
     }
   }
 }

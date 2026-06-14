@@ -15,6 +15,7 @@ import {
   Search,
   Scale,
   LogOut,
+  Settings as SettingsIcon,
   Maximize2,
   ThumbsUp,
   ThumbsDown,
@@ -52,15 +53,26 @@ import GuidesSection from "./components/GuidesSection";
 import AboutSection from "./components/AboutSection";
 import AuthSection from "./components/AuthSection";
 import DetailedProductView from "./components/DetailedProductView";
+import AdminPanel from "./components/AdminPanel";
 
 import { auth } from "./lib/firebase";
 import { getBookmarksFromFirestore, addBookmarkToFirestore, removeBookmarkFromFirestore } from "./lib/firestoreService";
+import { checkIsAdmin } from "./lib/cmsService";
 
 export default function App() {
   // Lang toggle state
   const [lang, setLang] = useState<"zh" | "en">(
     () => (localStorage.getItem("app_lang") as "zh" | "en") || "zh"
   );
+
+  // Admin access state
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (window.location.hash === "#cms") {
+      setActiveTab("admin");
+    }
+  }, []);
 
   // Country & Currency State
   const [countryCode, setCountryCode] = useState<string>(() => {
@@ -115,9 +127,14 @@ export default function App() {
         } catch (error) {
           console.error("加载云端收藏夹失败:", error);
         }
+
+        // Admin verification logic
+        const adminStatus = await checkIsAdmin(user.uid);
+        setIsAdmin(adminStatus);
       } else {
         setUserEmail("");
         setSavedProducts([]);
+        setIsAdmin(false);
       }
     });
     return () => unsubscribe();
@@ -619,6 +636,13 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           />
         )}
 
+        {activeTab === "admin" && (
+          <AdminPanel 
+            onClose={() => setActiveTab("home")} 
+            lang={lang} 
+          />
+        )}
+
       </main>
 
       {/* FLOAT DRAWER FOR AI ASSISTANT (B2C Friendly) */}
@@ -838,6 +862,15 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <p className="text-[10px] text-slate-600">
                   {lang === "en" ? "Automated 24h testing telemetry lab servers active" : "KIDSMOBI 全球安全实验室系统备案：322407969155-AIS-K2"}
                 </p>
+                {isAdmin && (
+                  <button 
+                    onClick={() => setActiveTab("admin")}
+                    className="flex items-center gap-2 mt-2 px-3 py-1 bg-slate-800 text-slate-400 hover:text-white border border-slate-700 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all w-fit"
+                  >
+                    <SettingsIcon className="w-3 h-3 text-orange-500" />
+                    {lang === "en" ? "Admin Console" : "管理后台"}
+                  </button>
+                )}
               </div>
 
               {/* Country & Currency Selector */}

@@ -16,18 +16,53 @@
       "description": "Product bookmarked by user",
       "type": "object",
       "properties": {
-        "productId": {
-          "type": "string"
-        },
-        "userId": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        }
+        "productId": { "type": "string" },
+        "userId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
       },
       "required": ["productId", "userId", "createdAt"]
+    },
+    "CMSProduct": {
+      "title": "CMS Product",
+      "description": "Multilingual structured product data",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "brand": { "type": "string" },
+        "category": { "type": "string" },
+        "price": { "type": "number" },
+        "weight": { "type": "number" },
+        "imageUrl": { "type": "string" },
+        "status": { "type": "string" },
+        "zh": { "type": "object" },
+        "en": { "type": "object" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "category", "status", "zh", "en", "updatedAt"]
+    },
+    "CMSContent": {
+      "title": "CMS Content",
+      "description": "News or Guide multilingual content",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "category": { "type": "string" },
+        "status": { "type": "string" },
+        "zh": { "type": "object" },
+        "en": { "type": "object" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "type", "status", "zh", "en", "updatedAt"]
+    },
+    "CMSSettings": {
+      "title": "CMS Global Settings",
+      "description": "Global multilingual site settings",
+      "type": "object",
+      "properties": {
+        "heroZh": { "type": "object" },
+        "heroEn": { "type": "object" }
+      }
     }
   },
   "firestore": {
@@ -38,6 +73,22 @@
     "/users/{userId}/bookmarks/{bookmarkId}": {
       "schema": "Bookmark",
       "description": "Saved products for the user"
+    },
+    "/products/{productId}": {
+      "schema": "CMSProduct",
+      "description": "Global products managed via CMS"
+    },
+    "/content/{contentId}": {
+      "schema": "CMSContent",
+      "description": "News and Guides managed via CMS"
+    },
+    "/settings/{settingId}": {
+      "schema": "CMSSettings",
+      "description": "Global app settings"
+    },
+    "/admins/{adminId}": {
+      "schema": "User",
+      "description": "Whitelisted admin users"
     }
   }
 }

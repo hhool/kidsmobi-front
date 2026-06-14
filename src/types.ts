@@ -36,6 +36,53 @@ export interface Product {
   imageUrl: string;
   galleryUrls?: string[];
   videoUrl?: string; // YouTube or direct MP4 URL
+  status?: "draft" | "published" | "archived";
+}
+
+export interface CMSProduct extends Omit<Product, "name" | "description" | "pros" | "cons" | "editorVerdict"> {
+  zh: {
+    name: string;
+    description: string;
+    pros: string[];
+    cons: string[];
+    editorVerdict: string;
+    brandText?: string;
+  };
+  en: {
+    name: string;
+    description: string;
+    pros: string[];
+    cons: string[];
+    editorVerdict: string;
+    brandText?: string;
+  };
+}
+
+export interface CMSContent {
+  id: string;
+  type: "news" | "guide";
+  category: string;
+  status: "draft" | "published" | "archived";
+  imageUrl?: string;
+  date: string;
+  zh: {
+    title: string;
+    content: string;
+    author?: string;
+  };
+  en: {
+    title: string;
+    content: string;
+    author?: string;
+  };
+  updatedAt: any;
+}
+
+export interface CMSSettings {
+  id: "global";
+  heroZh: { title: string; subtitle: string };
+  heroEn: { title: string; subtitle: string };
+  announcement?: { zh: string; en: string };
 }
 
 export interface CurrencyData {
