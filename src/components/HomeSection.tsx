@@ -16,7 +16,7 @@ import {
   Target
 } from "lucide-react";
 import { useState } from "react";
-import { Product } from "../types";
+import { Product, CurrencyData } from "../types";
 import { translations, translateProduct } from "../lib/translate";
 import MatchingWizard from "./MatchingWizard";
 
@@ -27,6 +27,7 @@ interface HomeSectionProps {
   childProfile: any;
   setChildProfile: (p: any) => void;
   lang?: "zh" | "en";
+  currencyData: CurrencyData;
 }
 
 export default function HomeSection({
@@ -35,7 +36,8 @@ export default function HomeSection({
   setActiveTab,
   childProfile,
   setChildProfile,
-  lang = "zh"
+  lang = "zh",
+  currencyData
 }: HomeSectionProps) {
   
   const t = translations[lang];
@@ -300,6 +302,7 @@ export default function HomeSection({
           onSelectProduct(p);
         }}
         lang={lang}
+        currencyData={currencyData}
       />
     </div>
   );

@@ -3,6 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+export const countries = [
+  { code: "CN", name: "中国", nameEn: "China", currency: "CNY", symbol: "￥" },
+  { code: "US", name: "美国", nameEn: "United States", currency: "USD", symbol: "$" },
+  { code: "GB", name: "英国", nameEn: "United Kingdom", currency: "GBP", symbol: "£" },
+  { code: "EU", name: "欧元区", nameEn: "Eurozone", currency: "EUR", symbol: "€" },
+  { code: "JP", name: "日本", nameEn: "Japan", currency: "JPY", symbol: "¥" },
+];
+
+export function getCurrencyData(countryCode: string) {
+  return countries.find(c => c.code === countryCode) || countries[0];
+}
+
 export const translations = {
   zh: {
     // Nav & Common Headers

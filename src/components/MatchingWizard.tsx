@@ -11,7 +11,7 @@ import {
   CheckCircle2,
   Sparkles
 } from "lucide-react";
-import { Product } from "../types";
+import { Product, CurrencyData } from "../types";
 import { translateProduct } from "../lib/translate";
 
 interface MatchingWizardProps {
@@ -20,6 +20,7 @@ interface MatchingWizardProps {
   productsData: Product[];
   onSelectProduct: (p: Product) => void;
   lang?: "zh" | "en";
+  currencyData: CurrencyData;
 }
 
 type WizardStep = "age" | "environment" | "budget" | "results";
@@ -29,7 +30,8 @@ export default function MatchingWizard({
   onClose,
   productsData,
   onSelectProduct,
-  lang = "zh"
+  lang = "zh",
+  currencyData
 }: MatchingWizardProps) {
   const [step, setStep] = useState<WizardStep>("age");
   const [selections, setSelections] = useState({

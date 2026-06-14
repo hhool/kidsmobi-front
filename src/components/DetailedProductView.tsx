@@ -21,7 +21,7 @@ import {
   ResponsiveContainer, 
   Tooltip 
 } from "recharts";
-import { Product } from "../types";
+import { Product, CurrencyData } from "../types";
 import { translateProduct } from "../lib/translate";
 import { productsData } from "../data/modelsData";
 
@@ -29,6 +29,7 @@ interface DetailedProductViewProps {
   product: Product;
   onClose: () => void;
   lang: "zh" | "en";
+  currencyData: CurrencyData;
   comparedProduct: Product | null;
   setComparedProduct: (p: Product | null) => void;
   activeStandardDimension: string | null;
@@ -39,6 +40,7 @@ export default function DetailedProductView({
   product,
   onClose,
   lang,
+  currencyData,
   comparedProduct,
   setComparedProduct,
   activeStandardDimension,
@@ -333,7 +335,8 @@ export default function DetailedProductView({
                    { label: lang === "en" ? "Frame" : "主要架构", val: displayProduct.material },
                    { label: lang === "en" ? "Wheel Size" : "轮毂规格", val: displayProduct.wheelSize },
                    { label: lang === "en" ? "Brakes" : "制动系统", val: displayProduct.brakes },
-                   { label: lang === "en" ? "Saddle Height" : "鞍座范围", val: displayProduct.saddleHeightRange }
+                   { label: lang === "en" ? "Saddle Height" : "鞍座范围", val: displayProduct.saddleHeightRange },
+                   { label: lang === "en" ? "MSRP" : "参考售价", val: `${currencyData.symbol}${displayProduct.price}` }
                  ].map((item, i) => (
                    <div key={i} className="flex justify-between items-center text-xs border-b border-white/5 pb-3 last:border-0">
                       <span className="text-slate-500 font-bold">{item.label}</span>

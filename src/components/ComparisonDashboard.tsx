@@ -12,7 +12,7 @@ import {
   Layers,
   CircleEqual
 } from "lucide-react";
-import { Product } from "../types";
+import { Product, CurrencyData } from "../types";
 import { translateProduct } from "../lib/translate";
 
 interface ComparisonDashboardProps {
@@ -20,13 +20,15 @@ interface ComparisonDashboardProps {
   onRemove: (id: string) => void;
   onClear: () => void;
   lang?: "zh" | "en";
+  currencyData: CurrencyData;
 }
 
 export default function ComparisonDashboard({
   compareList,
   onRemove,
   onClear,
-  lang = "zh"
+  lang = "zh",
+  currencyData
 }: ComparisonDashboardProps) {
   if (compareList.length === 0) return null;
 
@@ -36,7 +38,7 @@ export default function ComparisonDashboard({
     { key: "material", label: lang === "en" ? "Frame Material" : "车架材质", icon: Settings },
     { key: "weight", label: lang === "en" ? "Lab Weight" : "实测净重", suffix: " kg", icon: Scale },
     { key: "wheelSize", label: lang === "en" ? "Wheel Size" : "轮组尺寸", icon: CircleEqual },
-    { key: "price", label: lang === "en" ? "MSRP" : "参考售价", prefix: lang === "en" ? "$" : "￥", icon: Zap },
+    { key: "price", label: lang === "en" ? "MSRP" : "参考售价", prefix: currencyData.symbol, icon: Zap },
     { key: "brakeType", label: lang === "en" ? "Braking System" : "刹车类型", icon: ShieldCheck },
     { key: "tireType", label: lang === "en" ? "Tire Tech" : "轮胎技术", icon: TrendingUp },
     { key: "ageRange", label: lang === "en" ? "Age Group" : "推荐年龄", icon: Star },

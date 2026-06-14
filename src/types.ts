@@ -36,6 +36,14 @@ export interface Product {
   imageUrl: string;
 }
 
+export interface CurrencyData {
+  code: string;
+  name: string;
+  nameEn: string;
+  currency: string;
+  symbol: string;
+}
+
 export interface ChildProfile {
   age: number;
   height: number;

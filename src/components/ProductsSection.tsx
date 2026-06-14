@@ -16,7 +16,7 @@ import {
   Star,
   ShieldCheck
 } from "lucide-react";
-import { Product, ProductCategory } from "../types";
+import { Product, ProductCategory, CurrencyData } from "../types";
 import { translateProduct, translateCategory } from "../lib/translate";
 import Breadcrumbs from "./Breadcrumbs";
 import ComparisonDashboard from "./ComparisonDashboard";
@@ -31,6 +31,7 @@ interface ProductsSectionProps {
   childProfile: any;
   userEmail: string;
   lang?: "zh" | "en";
+  currencyData: CurrencyData;
 }
 
 export default function ProductsSection({
@@ -42,7 +43,8 @@ export default function ProductsSection({
   setSavedProducts,
   childProfile,
   userEmail,
-  lang = "zh"
+  lang = "zh",
+  currencyData
 }: ProductsSectionProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -294,6 +296,7 @@ export default function ProductsSection({
       <ComparisonDashboard 
         compareList={compareList}
         lang={lang}
+        currencyData={currencyData}
         onRemove={(id) => setCompareList(compareList.filter(p => p.id !== id))}
         onClear={() => setCompareList([])}
       />
@@ -350,7 +353,7 @@ export default function ProductsSection({
                         {lang === "en" ? "EST. PRICE" : "参考"}
                       </span>
                       <strong className="text-lg text-slate-900 font-black tracking-tighter">
-                        {lang === "en" ? "$" : "￥"}{diProduct.price}
+                        {currencyData.symbol}{diProduct.price}
                       </strong>
                     </div>
                   </div>

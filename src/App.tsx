@@ -39,7 +39,7 @@ import { productsData } from "./data/modelsData";
 import { ChildProfile, Product, ChatMessage } from "./types";
 
 // Import translations
-import { translations, translateProduct } from "./lib/translate";
+import { translations, translateProduct, countries, getCurrencyData } from "./lib/translate";
 
 // Import modular layouts
 import HomeSection from "./components/HomeSection";
@@ -60,11 +60,29 @@ export default function App() {
     () => (localStorage.getItem("app_lang") as "zh" | "en") || "zh"
   );
 
+  // Country & Currency State
+  const [countryCode, setCountryCode] = useState<string>(() => {
+    const saved = localStorage.getItem("app_country");
+    if (saved) return saved;
+    try {
+      const locale = Intl.DateTimeFormat().resolvedOptions().locale;
+      const detected = locale.split("-")[1]?.toUpperCase();
+      return countries.some(c => c.code === detected) ? detected : "CN";
+    } catch {
+      return "CN";
+    }
+  });
+
   useEffect(() => {
     localStorage.setItem("app_lang", lang);
   }, [lang]);
 
+  useEffect(() => {
+    localStorage.setItem("app_country", countryCode);
+  }, [countryCode]);
+
   const t = translations[lang];
+  const currencyData = getCurrencyData(countryCode);
 
   // 1. Core child mechanics states
   const [childProfile, setChildProfile] = useState<ChildProfile>({
@@ -511,6 +529,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             childProfile={childProfile}
             setChildProfile={setChildProfile}
             lang={lang}
+            currencyData={currencyData}
           />
         )}
 
@@ -529,6 +548,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             childProfile={childProfile}
             userEmail={userEmail}
             lang={lang}
+            currencyData={currencyData}
           />
         )}
 
@@ -548,6 +568,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             childProfile={childProfile}
             setChildProfile={setChildProfile}
             lang={lang}
+            currencyData={currencyData}
           />
         )}
 
@@ -556,6 +577,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             product={selectedProduct}
             onClose={() => handleSelectProduct(null)}
             lang={lang}
+            currencyData={currencyData}
             comparedProduct={comparedProduct}
             setComparedProduct={setComparedProduct}
             activeStandardDimension={activeStandardDimension}
@@ -576,6 +598,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             onClearSaved={clearSavedBookmarks}
             productsData={productsData}
             lang={lang}
+            currencyData={currencyData}
           />
         )}
 
@@ -788,15 +811,38 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           </div>
 
           <div className="pt-10 border-t border-slate-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-            <div className="space-y-1">
-              <span className="font-extrabold text-slate-400 block">
-                {lang === "en" 
-                  ? "© 2026 KIDSMOBI Global Safety Lab & Buyer's Decision Advisory Portal, Inc."
-                  : "© 2026 KIDSMOBI · 全球高端垂直童车评测决策平台 · 版权所有"}
-              </span>
-              <p className="text-[10px] text-slate-600">
-                {lang === "en" ? "Automated 24h testing telemetry lab servers active" : "KIDSMOBI 全球安全实验室系统备案：322407969155-AIS-K2"}
-              </p>
+            <div className="space-y-4">
+              <div className="flex flex-col gap-1">
+                <span className="font-extrabold text-slate-400 block">
+                  {lang === "en" 
+                    ? "© 2026 KIDSMOBI Global Safety Lab & Buyer's Decision Advisory Portal, Inc."
+                    : "© 2026 KIDSMOBI · 全球高端垂直童车评测决策平台 · 版权所有"}
+                </span>
+                <p className="text-[10px] text-slate-600">
+                  {lang === "en" ? "Automated 24h testing telemetry lab servers active" : "KIDSMOBI 全球安全实验室系统备案：322407969155-AIS-K2"}
+                </p>
+              </div>
+
+              {/* Country & Currency Selector */}
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-xl">
+                  <Globe className="w-3.5 h-3.5 text-slate-400" />
+                  <select 
+                    value={countryCode}
+                    onChange={(e) => setCountryCode(e.target.value)}
+                    className="bg-transparent text-slate-300 font-bold outline-none cursor-pointer hover:text-white transition-colors"
+                  >
+                    {countries.map(c => (
+                      <option key={c.code} value={c.code} className="bg-slate-900">
+                        {lang === "zh" ? c.name : c.nameEn} ({c.currency})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest bg-slate-800/50 px-3 py-1.5 rounded-lg border border-slate-800">
+                  {lang === "zh" ? "结算货币：" : "Currency:"} <span className="text-orange-500">{currencyData.symbol} {currencyData.currency}</span>
+                </div>
+              </div>
             </div>
             
             <p className="max-w-2xl text-[10px] text-slate-600 leading-relaxed text-left md:text-right italic">

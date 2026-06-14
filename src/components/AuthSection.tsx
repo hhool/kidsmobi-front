@@ -16,7 +16,7 @@ import {
   Sparkles,
   Trash2
 } from "lucide-react";
-import { Product } from "../types";
+import { Product, CurrencyData } from "../types";
 import { 
   signInWithPopup, 
   GoogleAuthProvider, 
@@ -36,6 +36,7 @@ interface AuthSectionProps {
   onClearSaved: () => void;
   productsData: Product[];
   lang?: "zh" | "en";
+  currencyData: CurrencyData;
 }
 
 export default function AuthSection({
@@ -45,7 +46,8 @@ export default function AuthSection({
   setSavedProducts,
   onClearSaved,
   productsData,
-  lang = "zh"
+  lang = "zh",
+  currencyData
 }: AuthSectionProps) {
   const isEn = lang === "en";
 
@@ -434,7 +436,7 @@ export default function AuthSection({
                           <div className="flex justify-between">
                             <span className="text-[9px] bg-slate-900 text-amber-500 p-1 rounded font-bold uppercase">{dispProd.brand}</span>
                             <span className="text-xs font-mono font-bold text-amber-400">
-                              {isEn ? `$` : `￥`}{dispProd.price}
+                              {currencyData.symbol}{dispProd.price}
                             </span>
                           </div>
                           <h4 className="text-sm font-extrabold text-white mt-1">{dispProd.name}</h4>
