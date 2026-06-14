@@ -93,7 +93,7 @@ export const translations = {
     versionStamp: "2026 OFFICIAL",
     subTitle: "KIDSMOBI · Global Buyer's Decision Portal",
     navHome: "Home",
-    navProducts: "Database",
+    navProducts: "Products",
     navEvaluations: "Reviews",
     navGuides: "Buyer's Guide",
     navNews: "Global News",
@@ -122,7 +122,7 @@ export const translations = {
     sloganHeading3: "Portal",
     sloganDesc: "Conforming to strict safety frameworks (BabyGearLab), providing hardcore multi-dimensional metrics such as brake reach, Q-factor, and frame structural fatigue. Unbiased, unsponsored testing to protect your child's spinal health and safe riding!",
     btnWizard: "Smart Wizard 🔬",
-    btnDatabase: "Full Database 📂",
+    btnDatabase: "All Products 📂",
     radarTitle: "Safety Metrics Live",
     radarWeight: "1. Precision Weighting Tech:",
     radarShock: "2. Vibration Rig Fatigue Test:",
@@ -431,6 +431,21 @@ function translateBrakeToEn(brake: string): string {
   return map[brake] || brake;
 }
 
+function translateSafetyCertificationToEn(certifications: string[]): string[] {
+  if (!certifications) return [];
+  return certifications.map(cert => {
+    return cert
+      .replace("(美标)", "(US Standard)")
+      .replace("(欧标)", "(EU Standard)")
+      .replace("(国标)", "(CN Standard)")
+      .replace("(美标电摩安全)", "(US E-Moto Safety)")
+      .replace("(欧标电能性)", "(EU Electrical)")
+      .replace("(中国强制玩具等效等规)", "(CN Toy Equiv.)")
+      .replace("(欧盟最新i-Size高标认证)", "(EU i-Size latest)")
+      .replace("(欧标顶级)", "(EU Top Standard)");
+  });
+}
+
 export function translateProduct(p: any, lang: "zh" | "en") {
   const categoryLabel = translateCategory(p.category, lang);
   
@@ -459,21 +474,6 @@ export function translateProduct(p: any, lang: "zh" | "en") {
   }
 
   // lang === "en"
-  // If there is an English override in localData (entered via CMS or stored)
-  if (localData.name) {
-    return {
-      ...p,
-      name,
-      description,
-      pros,
-      cons,
-      editorVerdict,
-      brand: brandText,
-      specsText,
-      categoryLabel
-    };
-  }
-
   const brandMap: Record<string, string> = {
     "九能": "NineNoble",
     "祺娃娃": "QiWawa",
@@ -481,7 +481,17 @@ export function translateProduct(p: any, lang: "zh" | "en") {
     "闪电": "Specialized",
     "迪卡侬": "Decathlon",
     "捷安特": "Giant",
-    "woom": "Woom"
+    "woom": "Woom",
+    "Woom (奥地利)": "Woom (Austria)",
+    "Kokua (德国)": "Kokua (Germany)",
+    "Strider (美国)": "Strider (USA)",
+    "Specialized (美国)": "Specialized (USA)",
+    "m-cro (瑞士)": "m-cro (Switzerland)",
+    "Decathlon (法国)": "Decathlon (France)",
+    "Bugaboo (荷兰)": "Bugaboo (Netherlands)",
+    "Peg Perego (意大利)": "Peg Perego (Italy)",
+    "Doona (以色列)": "Doona (Israel)",
+    "Britax (宝得适)": "Britax"
   };
 
   const enOverride = productEnTranslations[p.id];
@@ -489,17 +499,39 @@ export function translateProduct(p: any, lang: "zh" | "en") {
     return {
       ...p,
       name: enOverride.name,
-      description: enOverride.description || p.description,
-      brand: brandMap[p.brand] || p.brand,
+      description: enOverride.description || description || p.description,
+      brand: brandMap[p.brand] || brandText || p.brand,
       categoryLabel,
       material: translateMaterialToEn(p.material),
       tireType: translateTireToEn(p.tireType),
       brakeType: translateBrakeToEn(p.brakeType),
       wheelSize: p.wheelSize === "无" ? "None" : p.wheelSize.replace("寸", " in."),
+      safetyCertification: translateSafetyCertificationToEn(p.safetyCertification),
       pros: enOverride.pros,
       cons: enOverride.cons,
       ageRange: p.ageRange.replace("岁", " Years").replace("个", " ").replace("月", " Months"),
       editorVerdict: enOverride.editorVerdict
+    };
+  }
+
+  // If there is an English override in localData (entered via CMS or stored)
+  if (localData.name && !/[\u4e00-\u9fa5]/.test(localData.name)) {
+    return {
+      ...p,
+      name: localData.name,
+      description: localData.description || description || p.description,
+      pros: localData.pros || pros || [],
+      cons: localData.cons || cons || [],
+      editorVerdict: localData.editorVerdict || editorVerdict || "",
+      brand: brandMap[p.brand] || brandText || p.brand,
+      specsText: localData.specsText || specsText || "",
+      categoryLabel,
+      material: translateMaterialToEn(p.material),
+      tireType: translateTireToEn(p.tireType),
+      brakeType: translateBrakeToEn(p.brakeType),
+      wheelSize: p.wheelSize === "无" ? "None" : p.wheelSize.replace("寸", " in."),
+      safetyCertification: translateSafetyCertificationToEn(p.safetyCertification),
+      ageRange: p.ageRange.replace("岁", " Years").replace("个", " ").replace("月", " Months")
     };
   }
 
@@ -514,6 +546,7 @@ export function translateProduct(p: any, lang: "zh" | "en") {
     tireType: translateTireToEn(p.tireType),
     brakeType: translateBrakeToEn(p.brakeType),
     wheelSize: p.wheelSize === "无" ? "None" : p.wheelSize.replace("寸", " in."),
+    safetyCertification: translateSafetyCertificationToEn(p.safetyCertification),
     pros: pros.map((pr: string) => pr.substring(0, 40)),
     cons: cons.map((cn: string) => cn.substring(0, 40)),
     ageRange: p.ageRange,

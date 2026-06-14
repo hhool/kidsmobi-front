@@ -92,7 +92,7 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
       keywords: ["童车参数对比", "平衡车挑选数据库", "童车重量对比", "几何重心分析"]
     },
     en: {
-      title: "Comprehensive Kids Bike & Stroller Specification Matrix | KIDSMOBI Database",
+      title: "Comprehensive Kids Bike & Stroller Specification Matrix | KIDSMOBI Products",
       description: "Compare weight limits, brake efficiency metrics, framework materials, and dynamic posture indexes. Easily filter perfect products for your child.",
       keywords: ["bike parameters", "matrix compare", "stroller specifications", "mobility filters"]
     }

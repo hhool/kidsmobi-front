@@ -182,7 +182,7 @@ export default function HomeSection({
             onClick={() => setActiveTab("products")}
             className="flex items-center gap-2 text-sm font-black text-slate-400 hover:text-orange-500 transition-colors uppercase tracking-widest"
           >
-            {lang === "zh" ? "进入数据库" : "View Database"} <ArrowRight className="w-4 h-4" />
+            {lang === "zh" ? "进入库" : "View Products"} <ArrowRight className="w-4 h-4" />
           </button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

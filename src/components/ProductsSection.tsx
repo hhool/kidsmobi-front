@@ -62,7 +62,7 @@ export default function ProductsSection({
   };
 
   const categories = lang === "en" ? [
-    { id: "all", label: "📁 All Database" },
+    { id: "all", label: "📁 All Products" },
     { id: "balance", label: "🚲 Balance Bikes" },
     { id: "bicycle", label: "🚴 Pedal Bikes" },
     { id: "scooter", label: "🛹 Kick Scooters" },
