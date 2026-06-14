@@ -128,10 +128,16 @@ export default function AuthSection({
       }
     } catch (error: any) {
       console.error(error);
+      let msg = error.message;
+      if (error.code === "auth/unauthorized-domain") {
+        msg = isEn 
+          ? "Unauthorized Domain: Please add this URL to your Firebase Console > Authentication > Settings > Authorized domains list."
+          : "域名未授权：请将当前网址添加到 Firebase 控制台的“Authentication (身份验证) > Settings (设置) > 已授权域名”列表中。";
+      }
       setErrorMessage(
         isEn 
-          ? "Google signing portal block: " + error.message 
-          : "Google 快速登录遇到问题: " + error.message
+          ? "Google signing portal block: " + msg 
+          : "Google 快速登录遇到问题: " + msg
       );
     }
   };
