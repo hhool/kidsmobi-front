@@ -184,7 +184,7 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
                 {index + 1}
               </div>
               
-              <div className="flex-1 grid grid-cols-2 gap-6">
+              <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-6">
                  <div className="space-y-1">
                     <label className="text-[8px] font-black text-slate-400 uppercase">Slot Type</label>
                     <select 

@@ -150,9 +150,9 @@ function GuideEditor({ guide, onSave, onCancel, lang }: any) {
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto flex">
+        <div className="flex-1 overflow-y-auto flex flex-col sm:flex-row">
           {/* Navigation */}
-          <aside className="w-64 border-r border-slate-100 p-8 flex flex-col gap-2">
+          <aside className="w-full sm:w-64 shrink-0 border-r border-slate-100 p-8 flex flex-col gap-2">
             <NavBtn active={activeTab === "content"} onClick={() => setActiveTab("content")} label="Main Content" icon={<FileText className="w-4 h-4" />} />
             <NavBtn active={activeTab === "risk"} onClick={() => setActiveTab("risk")} label="Risk Modules" icon={<AlertTriangle className="w-4 h-4" />} />
             <NavBtn active={activeTab === "seo"} onClick={() => setActiveTab("seo")} label="SEO Controller" icon={<SearchIcon className="w-4 h-4" />} />
@@ -164,7 +164,7 @@ function GuideEditor({ guide, onSave, onCancel, lang }: any) {
           </aside>
 
           {/* Main Workspace */}
-          <div className="flex-1 p-16 overflow-y-auto bg-slate-50/20">
+          <div className="flex-1 p-6 md:p-16 overflow-y-auto bg-slate-50/20">
             {activeTab === "content" && (
               <div className="max-w-3xl mx-auto space-y-10">
                 <Field label="Post Title" value={formData[activeLang].title} onChange={(v: string) => {
@@ -204,7 +204,7 @@ function GuideEditor({ guide, onSave, onCancel, lang }: any) {
                   {formData.riskCards.map((card, i) => (
                     <div key={i} className="bg-white p-10 rounded-[40px] border border-slate-100 shadow-sm space-y-6">
                        <Field label="Module Title / Core Scam" value={card.title} onChange={(v: string) => updateRiskCard(i, {...card, title: v})} />
-                       <div className="grid grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <textarea className="w-full bg-slate-50 p-4 rounded-xl text-xs font-bold outline-none border border-transparent focus:bg-white focus:border-blue-500 min-h-[100px]" placeholder="Pattern of deception..." value={card.pattern} onChange={(e) => updateRiskCard(i, {...card, pattern: e.target.value})} />
                           <textarea className="w-full bg-slate-50 p-4 rounded-xl text-xs font-bold outline-none border border-transparent focus:bg-white focus:border-blue-500 min-h-[100px]" placeholder="Real-world detection method..." value={card.detection} onChange={(e) => updateRiskCard(i, {...card, detection: e.target.value})} />
                        </div>

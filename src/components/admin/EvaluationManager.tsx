@@ -142,9 +142,9 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang }: any) {
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto flex">
+        <div className="flex-1 overflow-y-auto flex flex-col lg:flex-row">
           {/* Controls Sidebar */}
-          <div className="w-[480px] border-r border-slate-100 p-10 space-y-12">
+          <div className="w-full lg:w-[480px] shrink-0 border-r border-slate-100 p-10 space-y-12">
             <div className="space-y-2">
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
                 <LinkIcon className="w-3 h-3" />

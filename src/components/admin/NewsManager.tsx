@@ -139,7 +139,7 @@ function NewsEditor({ news, onSave, onCancel, lang }: any) {
 
         <div className="flex-1 overflow-y-auto px-12 py-10 space-y-12">
           {/* Metadata Section */}
-          <section className="grid grid-cols-3 gap-8">
+          <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="space-y-2">
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
                 <MessageSquare className="w-3 h-3" />
@@ -210,7 +210,7 @@ function NewsEditor({ news, onSave, onCancel, lang }: any) {
                <h4 className="text-sm font-black uppercase text-slate-900 tracking-wide">SEO TDK Controller</h4>
              </div>
              
-             <div className="grid grid-cols-2 gap-10">
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div className="space-y-6">
                   <Field label="Search Title (Meta Title)" value={formData.seo[activeLang].title} onChange={(v: string) => {
                     const next = {...formData};

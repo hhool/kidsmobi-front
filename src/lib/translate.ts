@@ -89,9 +89,9 @@ export const translations = {
   en: {
     // Nav & Common Headers
     topBanner: "Global Kids Bike Testing Platform · Based on ISO 8098 Braking & Gravity Standards · 100% Self-funded & Unbiased",
-    brandTitle: "KidBikeLab",
+    brandTitle: "KIDSMOBI",
     versionStamp: "2026 OFFICIAL",
-    subTitle: "KidBikeLab · Global Buyer's Decision Portal",
+    subTitle: "KIDSMOBI · Global Buyer's Decision Portal",
     navHome: "Home",
     navProducts: "Database",
     navEvaluations: "Reviews",

@@ -649,22 +649,52 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
       <header id="core_header" className="border-b border-slate-200 bg-white/95 backdrop-blur sticky top-0 z-30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
           
-          {/* Brand Logo and custom version stamp */}
-          <div className="flex items-center gap-3 cursor-pointer select-none" onClick={() => setActiveTab("home")}>
-            <div className="bg-orange-500 p-2.5 rounded-2xl shadow-lg shadow-orange-500/20">
-              <Baby className="w-5 h-5 text-white stroke-[2.5]" />
+          <div className="flex w-full md:w-auto items-center justify-between">
+            {/* Brand Logo and custom version stamp */}
+            <div className="flex items-center gap-3 cursor-pointer select-none shrink-0" onClick={() => setActiveTab("home")}>
+              <div className="bg-orange-500 p-2 sm:p-2.5 rounded-2xl shadow-lg shadow-orange-500/20">
+                <Baby className="w-4 h-4 sm:w-5 sm:h-5 text-white stroke-[2.5]" />
+              </div>
+              <div className="text-left">
+                <h1 className="text-lg sm:text-xl font-display font-black tracking-tight text-slate-900 flex items-center gap-2">
+                  {t.brandTitle} <span className="hidden sm:inline-block text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-bold uppercase">{t.versionStamp}</span>
+                </h1>
+                <p className="hidden sm:block text-[11px] text-slate-500 font-medium tracking-normal">{lang === "zh" ? "更科学、更贴心的童车导购助手" : "Your Smart & Safe Kids Bike Guide"}</p>
+              </div>
             </div>
-            <div className="text-left">
-              <h1 className="text-xl font-display font-black tracking-tight text-slate-900 flex items-center gap-2">
-                {t.brandTitle} <span className="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-bold uppercase">{t.versionStamp}</span>
-              </h1>
-              <p className="text-[11px] text-slate-500 font-medium tracking-normal">{lang === "zh" ? "更科学、更贴心的童车导购助手" : "Your Smart & Safe Kids Bike Guide"}</p>
+
+            {/* Mobile Actions */}
+            <div className="flex md:hidden items-center gap-2 shrink-0">
+              <button 
+                onClick={() => setLang(prev => prev === "zh" ? "en" : "zh")} 
+                className="p-2 bg-slate-50 hover:bg-slate-100 rounded-xl text-slate-600 font-bold border border-slate-200 active:scale-95 transition-all flex items-center justify-center w-10 h-10"
+              >
+                <span className="text-[10px] uppercase font-black">{lang === "zh" ? "EN" : "ZH"}</span>
+              </button>
+              <button
+                onClick={() => setActiveTab("auth")}
+                className={`p-2 rounded-xl transition-all border w-10 h-10 flex items-center justify-center ${
+                  activeTab === "auth" 
+                    ? "bg-orange-500 text-white border-orange-400" 
+                    : userEmail 
+                      ? "text-emerald-600 border-emerald-100 bg-emerald-50"
+                      : "text-slate-500 border-slate-200 hover:text-slate-900 bg-white"
+                }`}
+              >
+                <Award className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() => setShowAiDrawer(!showAiDrawer)}
+                className="bg-slate-900 text-white p-2 rounded-xl flex items-center justify-center w-10 h-10 transition-all shadow-lg"
+              >
+                <MessageSquare className="w-5 h-5" />
+              </button>
             </div>
           </div>
 
-          {/* Navigation Tabs (B2C Friendly) */}
-          <div className="flex items-center gap-4 lg:gap-6 w-full lg:w-auto overflow-x-auto lg:overflow-visible no-scrollbar">
-            <nav className="flex items-center bg-slate-100 p-1.5 rounded-2xl gap-1 text-xs shrink-0 whitespace-nowrap">
+          {/* Navigation Tabs & Desktop Actions */}
+          <div className="flex items-center gap-4 lg:gap-6 w-full md:w-auto overflow-x-auto no-scrollbar pb-1 md:pb-0 justify-start md:justify-end relative">
+            <nav className="flex items-center bg-slate-100 p-1 rounded-2xl gap-1 text-xs shrink-0 whitespace-nowrap overflow-x-auto mx-auto md:mx-0">
               {[
                 { id: "home", label: t.navHome },
                 { id: "products", label: t.navProducts },
@@ -686,8 +716,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               ))}
             </nav>
 
-            {/* Header Search & Auth & Lang */}
-            <div className="flex items-center gap-3 shrink-0">
+            {/* Header Search & Auth & Lang (Desktop) */}
+            <div className="hidden md:flex items-center gap-3 shrink-0">
               <div className="relative group hidden md:block">
                 <Search className={`absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 transition-colors z-10 pointer-events-none ${isSearchFocused ? "text-orange-500" : "text-slate-400"}`} />
                 <input 

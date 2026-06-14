@@ -158,7 +158,7 @@ export default function MatchingWizard({
                 <h4 className="text-2xl font-black text-slate-900 leading-tight">{lang === "zh" ? "宝宝现在多大？" : "How old is your child?"}</h4>
                 <p className="text-sm text-slate-500 font-medium">{lang === "zh" ? "年龄决定了合适的骑行姿态与轮距标准" : "Age determines the riding posture and wheel size."}</p>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {ageOptions.map(opt => (
                   <button
                     key={opt.id}

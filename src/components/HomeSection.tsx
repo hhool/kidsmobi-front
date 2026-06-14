@@ -76,8 +76,8 @@ export default function HomeSection({
             {lang === "zh" ? "全链路安全实验室审计" : "END-TO-END SAFETY AUDIT"}
           </div>
           <h2 className="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
-            {lang === "zh" ? "客观科学评测" : "Objective Science,"} <br />
-            <span className="text-orange-500">{lang === "zh" ? "您的信心之选" : "Parental Confidence"}</span>
+            {lang === "zh" ? "客观科学评测" : "Objective & Scientific Reviews,"} <br />
+            <span className="text-orange-500">{lang === "zh" ? "您的信心之选" : "Your Confident Choice"}</span>
           </h2>
           <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed font-medium">
             {lang === "zh" 

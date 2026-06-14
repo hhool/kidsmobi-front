@@ -203,7 +203,7 @@ function ProductEditor({ product, onSave, onCancel, lang }: any) {
           </div>
 
           {activeTab === "compare" && (
-            <div className="grid grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
               <LangSector 
                 lang="zh" 
                 title="中文物理绑定" 
@@ -222,7 +222,7 @@ function ProductEditor({ product, onSave, onCancel, lang }: any) {
           {activeTab === "base" && (
             <div className="space-y-12">
               <Section title="Physical Specs (Base Info)">
-                <div className="grid grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   <Field label="Global Model UID" value={formData.id} disabled />
                   <Field label="Brand Name" value={formData.brand} onChange={(v) => setFormData({...formData, brand: v})} />
                   <div className="space-y-2">
@@ -251,7 +251,7 @@ function ProductEditor({ product, onSave, onCancel, lang }: any) {
               </Section>
 
               <Section title="Technical parameters">
-                <div className="grid grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   <Field label="Net Weight (kg)" type="number" value={formData.weight} onChange={(v) => setFormData({...formData, weight: parseFloat(v) || 0})} />
                   <Field label="Wheel Size / Config" value={formData.wheelSize} onChange={(v) => setFormData({...formData, wheelSize: v})} />
                   <Field label="Material / Chassis" value={formData.material} onChange={(v) => setFormData({...formData, material: v})} />
@@ -260,7 +260,7 @@ function ProductEditor({ product, onSave, onCancel, lang }: any) {
               </Section>
 
               <Section title="Evaluation Summary Scores (0-10)">
-                <div className="grid grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   <Field label="Overall Score" type="number" value={formData.overallScore || 0} onChange={(v) => setFormData({...formData, overallScore: parseFloat(v) || 0})} />
                   <Field label="Safety Score" type="number" value={formData.safetyScore || 0} onChange={(v) => setFormData({...formData, safetyScore: parseFloat(v) || 0})} />
                   <Field label="Weight Score" type="number" value={formData.weightScore || 0} onChange={(v) => setFormData({...formData, weightScore: parseFloat(v) || 0})} />
@@ -407,7 +407,7 @@ function LangSector({ lang, title, data, onChange }: any) {
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-4">
             <label className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Pros List</label>
             <div className="space-y-2">
