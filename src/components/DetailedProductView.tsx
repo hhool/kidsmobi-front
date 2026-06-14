@@ -284,9 +284,10 @@ export default function DetailedProductView({
                     className="bg-slate-50 border border-slate-100 rounded-xl text-[10px] font-black uppercase px-4 py-2 cursor-pointer focus:ring-2 focus:ring-orange-500/20"
                   >
                     <option value="">{lang === "en" ? "Compare With..." : "选择对比型号..."}</option>
-                    {allProducts.filter(p => p.id !== product.id && p.category === product.category).map(p => (
-                      <option key={p.id} value={p.id}>{p.brand} {p.name}</option>
-                    ))}
+                    {allProducts.filter(p => p.id !== product.id && p.category === product.category).map(p => {
+                      const dp = translateProduct(p, lang);
+                      return <option key={p.id} value={p.id}>{dp.brand} {dp.name}</option>;
+                    })}
                   </select>
                 </div>
              </div>

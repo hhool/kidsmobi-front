@@ -128,7 +128,7 @@ export default function HomeSection({
               </div>
               <div className="space-y-2">
                 <h4 className="text-slate-400 font-bold text-[10px] uppercase tracking-widest">{award.label}</h4>
-                <p className="text-xl font-black text-slate-900 group-hover:text-orange-500 transition-colors">{award.winner?.name || "Evaluating..."}</p>
+                <p className="text-xl font-black text-slate-900 group-hover:text-orange-500 transition-colors">{award.winner ? translateProduct(award.winner, lang).name : "Evaluating..."}</p>
               </div>
               <button 
                 onClick={() => award.winner && onSelectProduct(award.winner)}

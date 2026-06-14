@@ -337,11 +337,11 @@ export default function EvaluationsSection({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs pt-2">
             <div className="bg-white p-5 rounded-3xl border border-orange-100 shadow-sm">
               <strong className="text-orange-600 block mb-1 font-black">🏆 {lang === "en" ? "Best Balance Bike" : "最佳平衡车"}</strong>
-              <span className="text-slate-500 font-medium">Woom 1 (仅重 3kg，宝宝一眼爱上)</span>
+              <span className="text-slate-500 font-medium">{lang === "en" ? "Woom 1 (Only 3kg, toddlers love it)" : "Woom 1 (仅重 3kg，宝宝一眼爱上)"}</span>
             </div>
             <div className="bg-white p-5 rounded-3xl border border-orange-100 shadow-sm">
               <strong className="text-orange-600 block mb-1 font-black">🏆 {lang === "en" ? "Best Kid Bicycle" : "最佳自行车"}</strong>
-              <span className="text-slate-500 font-medium">Woom 2 (超短握距手刹，安全感拉满)</span>
+              <span className="text-slate-500 font-medium">{lang === "en" ? "Woom 2 (Micro-reach brakes for maximum safety)" : "Woom 2 (超短握距手刹，安全感拉满)"}</span>
             </div>
           </div>
         </div>

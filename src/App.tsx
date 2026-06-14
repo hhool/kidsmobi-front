@@ -760,8 +760,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                           <img src={p.imageUrl} alt={p.name} className="w-6 h-6 object-contain" referrerPolicy="no-referrer" />
                         </div>
                         <div className="overflow-hidden">
-                          <p className="text-[11px] font-black text-slate-900 truncate uppercase">{p.brand}</p>
-                          <p className="text-[10px] text-slate-500 truncate">{p.name}</p>
+                          <p className="text-[11px] font-black text-slate-900 truncate uppercase">{translateProduct(p, lang).brand}</p>
+                          <p className="text-[10px] text-slate-500 truncate">{translateProduct(p, lang).name}</p>
                         </div>
                       </button>
                     ))}
