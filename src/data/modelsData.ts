@@ -30,7 +30,13 @@ export const productsData: Product[] = [
       "产品拓展性弱，无法作为两轮带踏板自行车使用"
     ],
     editorVerdict: "Woom 1 是平衡车领域的黄金标准。极佳的骑行几何与极低跨点，能让1.5岁以上的幼童建立无感操控自信。其轻车比控制在3岁幼儿体重的20%左右，安全掌控的皇冠选手。",
-    imageUrl: ""
+    imageUrl: "https://images.unsplash.com/photo-1596417601242-658249673967?auto=format&fit=crop&q=80&w=800",
+    galleryUrls: [
+      "https://images.unsplash.com/photo-1601362840469-51e4d8d59085?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1582234372722-50d7ccc30ebd?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1594738596001-3e0e18dbcfce?auto=format&fit=crop&q=80&w=800"
+    ],
+    videoUrl: "https://www.youtube.com/embed/S_8qM8Q77H0"
   },
   {
     id: "bal_2",
@@ -60,7 +66,7 @@ export const productsData: Product[] = [
       "未配原厂手刹，高速俯冲时必须耗尽孩子的鞋底进行人工摩擦，雨天极易打滑"
     ],
     editorVerdict: "专门为了运动派活泼调皮孩子打造的全地形神器。后轮轴处独特的阻尼避震块是其灵魂，可以有效滤去台阶跌落或盲道过障对儿童骨架椎体的瞬间高频压迫。",
-    imageUrl: ""
+    imageUrl: "https://images.unsplash.com/photo-1596417601138-095904f58c7e?auto=format&fit=crop&q=80&w=800"
   },
   {
     id: "bal_3",
@@ -90,7 +96,12 @@ export const productsData: Product[] = [
       "缺乏气胎的形变微细吸震，颠簸感知会100%硬反馈至幼童双手"
     ],
     editorVerdict: "因风靡全球的Strider杯竞技赛而成为大部分家庭眼中的熟面孔。虽然极其经骑耐磨且无需气筒，但也需关注EVA胎在某些路面（如湿滑沥青、商场瓷砖）的抓地力限制，建议在晴天且平滑干燥的塑胶道使用。",
-    imageUrl: ""
+    imageUrl: "https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=800",
+    galleryUrls: [
+      "https://images.unsplash.com/photo-1510200871549-96de23219fdf?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&q=80&w=800"
+    ],
+    videoUrl: "https://www.youtube.com/embed/yF8f_m1aGzQ"
   },
 
   // ==================== Bicycles (儿童自行车) ====================
@@ -122,7 +133,12 @@ export const productsData: Product[] = [
       "原厂不设计任何辅助侧轮，贯彻无侧轮直接过渡骑行的理念"
     ],
     editorVerdict: "无庸置疑的14寸童车工业顶峰。它不仅彻底抛弃了不属于现代交通安全的‘倒脚刹’，更为幼儿的小手提供低于40mm间距的微型刹手柄。绿色标志是人类安全工学设计的杰出注脚。",
-    imageUrl: ""
+    imageUrl: "https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&q=80&w=800",
+    galleryUrls: [
+      "https://images.unsplash.com/photo-1571333250630-f0230c320b6d?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&q=80&w=800"
+    ],
+    videoUrl: "https://www.youtube.com/embed/S_8qM8Q77H0"
   },
   {
     id: "bike_2",
@@ -152,7 +168,7 @@ export const productsData: Product[] = [
       "后轮由于美强制脚踏倒刹设计，宝宝在单车静止起跑时，脚掌倒拨曲柄极难调整位置"
     ],
     editorVerdict: "美国顶级山地车大牌出品，做工与抗摔度都是世界顶尖。2.3英寸的大轮宽让孩子能在泥沙林道里找到冲坡乐趣。但由于法律导致的Coaster倒踩刹锁死以及自重偏高，需要强壮的小车手来驭动。",
-    imageUrl: ""
+    imageUrl: "https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&q=80&w=800"
   },
 
   // ==================== Scooters (滑板车) ====================
@@ -184,7 +200,7 @@ export const productsData: Product[] = [
       "塑料轮毂中的轴承一旦长期涉水（如带孩子过喷水泉），极易氧化生涩"
     ],
     editorVerdict: "滑板车界当之无愧的皇冠。物理重力倾斜转向机制（Lean-to-Steer）不仅杜绝了低端弹簧滑退车发生的“高速摆动翻车”，更对幼龄儿童小脑动作调谐和肢体配合有非常重要的医疗康复级提升作用。",
-    imageUrl: ""
+    imageUrl: "https://images.unsplash.com/photo-1596417601242-658249673967?auto=format&fit=crop&q=80&w=800"
   },
   {
     id: "scoot_2",
@@ -214,7 +230,7 @@ export const productsData: Product[] = [
       "发光由于需要磁感铜线，摩擦损耗后偶尔发光亮度有不均匀死灯现象"
     ],
     editorVerdict: "迪卡侬的经典儿童运动成果。极具安全防倾倾斜角，底盘宽窄完全符合2-5岁大骨盆间距。性价比高得无可挑剔，适合周末去公园草坪边缘水泥路的初学者。",
-    imageUrl: ""
+    imageUrl: "https://images.unsplash.com/photo-1594738596001-3e0e18dbcfce?auto=format&fit=crop&q=80&w=800"
   },
 
   // ==================== Strollers (婴儿推车) ====================
@@ -246,7 +262,7 @@ export const productsData: Product[] = [
       "装载睡篮后整体收折体积庞大，通常需要SUV或者行政座驾宽深后备箱方可平整塞入"
     ],
     editorVerdict: "避震界的重装坦克。在针对1岁以内脆弱婴儿头部与眼底视网膜避震伤害防护上，它的硬底托板与阻尼弹簧结合是无可替代的高墙，当之无愧的奢华中立高分选手。",
-    imageUrl: ""
+    imageUrl: "https://images.unsplash.com/photo-1601362840469-51e4d8d59085?auto=format&fit=crop&q=80&w=800"
   },
 
   // ==================== Kids Electric Cars (儿童电动车) ====================
@@ -277,8 +293,8 @@ export const productsData: Product[] = [
       "自重达15.6kg。任何小区上楼如果断电会变成地狱级别的沉重死铁",
       "电子自锁系统在彻底断电时若处于下坡，手刹物理连杆稍短，对人工驻车提防不足"
     ],
-    editorVerdict: "来自意大利大牌原装，通过最严苛的儿童电学防发热和电池阻抗穿刺认证。其起步的重力缓扭曲线极富工效学，有效降低了低端车型‘瞬时加速度过大导致幼童颈部不适’的潜在风险。",
-    imageUrl: ""
+    editorVerdict: "来自意大利大牌原装，通过最严苛的儿童电学防发热 and 电池阻抗穿刺认证。其起步的重力缓扭曲线极富工效学，有效降低了低端车型‘瞬时加速度过大导致幼童颈部不适’的潜在风险。",
+    imageUrl: "https://images.unsplash.com/photo-1596417601138-095904f58c7e?auto=format&fit=crop&q=80&w=800"
   },
   {
     id: "elec_2",

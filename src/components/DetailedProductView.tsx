@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { 
   X, 
   ArrowLeft, 
@@ -10,7 +10,9 @@ import {
   CheckCircle2, 
   ThumbsUp, 
   ThumbsDown,
-  Maximize2
+  Maximize2,
+  Play,
+  Image as ImageIcon
 } from "lucide-react";
 import { 
   Radar, 
@@ -24,6 +26,7 @@ import {
 import { Product, CurrencyData } from "../types";
 import { translateProduct } from "../lib/translate";
 import { productsData } from "../data/modelsData";
+import ProductCarousel from "./ProductCarousel";
 
 interface DetailedProductViewProps {
   product: Product;
@@ -47,6 +50,11 @@ export default function DetailedProductView({
   setActiveStandardDimension
 }: DetailedProductViewProps) {
   const displayProduct = translateProduct(product, lang);
+  const [activeMediaTab, setActiveMediaTab] = useState<"gallery" | "video">("gallery");
+
+  React.useEffect(() => {
+    setActiveMediaTab("gallery");
+  }, [product.id]);
   
   // Function to extract 5-dimension scores
   const getProductScores = (p: Product) => {
@@ -179,6 +187,47 @@ export default function DetailedProductView({
              <span className="text-[10px] text-slate-400 font-bold block uppercase mb-1">{lang === "en" ? "Overall Score" : "综合评分"}</span>
              <strong className="text-2xl font-black text-orange-500">{displayProduct.overallScore}</strong>
           </div>
+        </div>
+      </div>
+      
+      {/* Media Gallery & Video Showcase */}
+      <div className="bg-white border border-slate-100 rounded-[40px] overflow-hidden shadow-sm">
+        <div className="flex border-b border-slate-100">
+          <button 
+            onClick={() => setActiveMediaTab("gallery")}
+            className={`flex-1 flex items-center justify-center gap-2 py-4 text-xs font-black uppercase transition-all ${activeMediaTab === "gallery" ? "bg-orange-50 text-orange-600 border-b-2 border-orange-500" : "text-slate-400 hover:bg-slate-50"}`}
+          >
+            <ImageIcon className="w-4 h-4" />
+            {lang === "en" ? "Image Gallery" : "产品实拍图库"}
+          </button>
+          {product.videoUrl && (
+            <button 
+              onClick={() => setActiveMediaTab("video")}
+              className={`flex-1 flex items-center justify-center gap-2 py-4 text-xs font-black uppercase transition-all ${activeMediaTab === "video" ? "bg-orange-50 text-orange-600 border-b-2 border-orange-500" : "text-slate-400 hover:bg-slate-50"}`}
+            >
+              <Play className="w-4 h-4" />
+              {lang === "en" ? "Product Video" : "实物演示视频"}
+            </button>
+          )}
+        </div>
+
+        <div className="p-1 min-h-[400px] bg-slate-50">
+          {activeMediaTab === "gallery" ? (
+            <ProductCarousel 
+              images={[product.imageUrl, ...(product.galleryUrls || [])].filter(Boolean)} 
+              lang={lang} 
+            />
+          ) : (
+            <div className="aspect-video w-full">
+              <iframe 
+                src={product.videoUrl} 
+                className="w-full h-full rounded-2xl"
+                title={`${product.name} Video`}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowFullScreen
+              />
+            </div>
+          )}
         </div>
       </div>
 

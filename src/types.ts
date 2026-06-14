@@ -34,6 +34,8 @@ export interface Product {
   cons: string[];
   editorVerdict: string; // Final word from third-party experts
   imageUrl: string;
+  galleryUrls?: string[];
+  videoUrl?: string; // YouTube or direct MP4 URL
 }
 
 export interface CurrencyData {
