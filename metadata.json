@@ -1,6 +1,6 @@
 {
-  "name": "KIDSMOBI - 高端垂直童车评测平台",
-  "description": "全球高端童车品牌垂直导购平台。通过严苛的儿科医学参数、力学安全评估与智能工效匹配，为您的孩子选出更健康、更安全的专业座驾。",
+  "name": "KIDSMOBI",
+  "description": "Premium Children's Bike Evaluation Platform",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
