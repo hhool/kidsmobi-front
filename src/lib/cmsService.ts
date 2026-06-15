@@ -63,12 +63,39 @@ export async function getCMSProducts(onlyPublished = false): Promise<CMSProduct[
   return snap.docs.map(d => d.data() as CMSProduct);
 }
 
+function cleanUndefinedValues(obj: any): any {
+  if (obj === null || obj === undefined) {
+    return null;
+  }
+  if (Array.isArray(obj)) {
+    return obj.map(item => cleanUndefinedValues(item));
+  }
+  if (typeof obj === "object") {
+    // Keep specialized objects like Date, Firestore FieldValues, etc. intact
+    if (obj.constructor && obj.constructor !== Object) {
+      return obj;
+    }
+    const res: any = {};
+    for (const key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        const val = obj[key];
+        if (val !== undefined) {
+          res[key] = cleanUndefinedValues(val);
+        }
+      }
+    }
+    return res;
+  }
+  return obj;
+}
+
 export async function saveCMSProduct(product: CMSProduct) {
   const pDoc = doc(db, "products", product.id);
-  await setDoc(pDoc, {
+  const purified = cleanUndefinedValues({
     ...product,
     updatedAt: serverTimestamp()
   });
+  await setDoc(pDoc, purified);
 }
 
 export async function seedProductsToFirestore(productsData: any[], translateProductFn: any) {
@@ -100,7 +127,8 @@ export async function seedProductsToFirestore(productsData: any[], translateProd
         },
         updatedAt: serverTimestamp()
       };
-      await setDoc(doc(db, "products", cmsProd.id), cmsProd);
+      const purified = cleanUndefinedValues(cmsProd);
+      await setDoc(doc(db, "products", cmsProd.id), purified);
     }
     console.log("Seeding of productsData to Firestore completed successfully.");
     return true;
@@ -124,10 +152,11 @@ export async function getCMSEvaluations(onlyPublished = false): Promise<Evaluati
 
 export async function saveCMSEvaluation(ev: Evaluation) {
   const eDoc = doc(db, "evaluations", ev.id);
-  await setDoc(eDoc, {
+  const purified = cleanUndefinedValues({
     ...ev,
     updatedAt: serverTimestamp()
   });
+  await setDoc(eDoc, purified);
 }
 
 // Guide Management
@@ -144,10 +173,11 @@ export async function getCMSGuides(onlyPublished = false): Promise<Guide[]> {
 
 export async function saveCMSGuide(guide: Guide) {
   const gDoc = doc(db, "guides", guide.id);
-  await setDoc(gDoc, {
+  const purified = cleanUndefinedValues({
     ...guide,
     updatedAt: serverTimestamp()
   });
+  await setDoc(gDoc, purified);
 }
 
 // News Management
@@ -164,10 +194,11 @@ export async function getCMSNews(onlyPublished = false): Promise<News[]> {
 
 export async function saveCMSNews(news: News) {
   const nDoc = doc(db, "news", news.id);
-  await setDoc(nDoc, {
+  const purified = cleanUndefinedValues({
     ...news,
     updatedAt: serverTimestamp()
   });
+  await setDoc(nDoc, purified);
 }
 
 // Global Settings
@@ -179,5 +210,6 @@ export async function getCMSSettings(): Promise<CMSSettings | null> {
 
 export async function saveCMSSettings(settings: CMSSettings) {
   const sDoc = doc(db, "settings", "global");
-  await setDoc(sDoc, settings);
+  const purified = cleanUndefinedValues(settings);
+  await setDoc(sDoc, purified);
 }
