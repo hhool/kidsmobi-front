@@ -180,13 +180,10 @@ export default function AuthSection({
       }
     } catch (authError: any) {
       if (authError.code === "auth/operation-not-allowed") {
-        console.warn("Email/Password auth fallback to local credentials.", authError);
-        setUserEmail(emailInput);
-        setIsRegistered(true);
-        setSuccessMessage(
+        setErrorMessage(
           isEn
-            ? "Welcome! Entered successfully under local simulated credentials."
-            : "欢迎回来！您已成功登录（本地仿真认证已通过）。"
+            ? "Email/Password auth is not enabled in Firebase. Please enable it in the Firebase Console > Authentication > Sign-in method."
+            : "Firebase 未开启邮箱/密码登录功能。请在 Firebase 控制台的“Authentication > Sign-in method”中开启。"
         );
       } else {
         setErrorMessage(
@@ -262,13 +259,10 @@ export default function AuthSection({
       }
     } catch (authError: any) {
       if (authError.code === "auth/operation-not-allowed") {
-        console.warn("Email/Password auth not enabled in Firebase, falling back to local credentials.", authError);
-        setUserEmail(emailInput);
-        setIsRegistered(true);
-        setSuccessMessage(
+        setErrorMessage(
           isEn 
-            ? "Congratulations! Activated successfully under local credentials. Cloud-saving can also be achieved by using the Google Sign-in above." 
-            : "恭喜您！注册成功（本地哈希安全沙盒已启动）。您已成功激活“全球童车尊享终身免费订阅会员”！五大特权已解锁（如需云同步，推荐使用上方 Google 账号快捷登录）。"
+            ? "Email/Password auth is not enabled in Firebase. Please enable it in the Firebase Console > Authentication > Sign-in method." 
+            : "由于 Firebase 安全设置，邮箱注册目前被拦截。请在 Firebase 控制台的“Authentication”中开启邮箱/密码提供商。"
         );
       } else if (authError.code === "auth/email-already-in-use") {
         try {
