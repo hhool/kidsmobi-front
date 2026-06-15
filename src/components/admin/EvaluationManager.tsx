@@ -6,7 +6,8 @@ import {
   Star, 
   History, 
   Link as LinkIcon, 
-  Triangle 
+  Triangle,
+  AlertTriangle
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { getCMSEvaluations, saveCMSEvaluation, getCMSProducts } from "../../lib/cmsService";
@@ -45,10 +46,12 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
   };
 
   const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
 
   const handleSave = async (ev: Evaluation) => {
     if (!ev.productId) return alert("Please link a product first.");
     setSaving(true);
+    setSaveError(null);
     try {
       await saveCMSEvaluation(ev);
       setEditingEv(null);
@@ -56,17 +59,20 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
     } catch (e: any) {
       console.error(e);
       let errorMsg = e.message || String(e);
+      let niceError = errorMsg;
       if (errorMsg.includes("Missing or insufficient permissions")) {
-        alert(
-          lang === "zh"
-            ? "❌ 保存失败：您当前可能没有在 Firebase Auth 进行真实安全登录（请确保您在“我的账户”进行了 Google 账号登录）。本地开发者 bypass 模式仅用于浏览，无法直接对云数据库进行写操作。"
-            : "❌ Save failed: You might not be securely signed in to Firebase Auth. Check your profile in the Account section and authenticate via Google popup. Developer bypass is read-only on the cloud DB."
-        );
-      } else {
-        alert(
-          (lang === "zh" ? "❌ 保存出错: " : "❌ Save Error: ") + errorMsg
-        );
+        niceError = lang === "zh"
+          ? "权限不足 (Permission Denied)：您当前没有在 Firebase Auth 进行真实登录。本地 Bypass 模式仅有只读权限。请点击右上角「我的账户」使用 Google 账号进行登录后再试。"
+          : "Permission Denied: You are not security-authenticated on the Firebase Auth backend. Developer Bypass session is read-only. Please authenticate via Google popup under the 'Account' section first.";
+      } else if (errorMsg.includes("Operation timed out")) {
+        niceError = lang === "zh"
+          ? "网络超时：无法连接到 Firestore 数据库。请检查您的网络连接、代理，或重新登录过期的账户 session 后尝试。"
+          : "Operation Timed Out: Failed to reach Firestore database. Please verify your connection/proxy settings, or re-authenticate your expired session.";
       }
+      setSaveError(niceError);
+      try {
+        alert(niceError);
+      } catch (_) {}
     } finally {
       setSaving(false);
     }
@@ -123,6 +129,7 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
             products={products}
             onSave={handleSave} 
             saving={saving}
+            error={saveError}
             onCancel={() => setEditingEv(null)} 
             lang={lang} 
           />
@@ -132,7 +139,7 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
   );
 }
 
-function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving }: any) {
+function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error }: any) {
   const [formData, setFormData] = useState<Evaluation>(ev);
   const [activeTab, setActiveTab] = useState<"base" | "zh" | "en">("base");
 
@@ -177,6 +184,30 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving }: any)
         <div className="flex-1 overflow-y-auto flex flex-col lg:flex-row">
           {/* Controls Sidebar */}
           <div className="w-full lg:w-[480px] shrink-0 border-r border-slate-100 p-10 space-y-12">
+            {error && (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="p-6 bg-rose-50 border border-rose-150 rounded-[24px] flex items-start gap-4 text-rose-900 text-sm leading-relaxed shadow-sm block"
+              >
+                <AlertTriangle className="w-6 h-6 text-rose-500 shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-black uppercase tracking-tight text-rose-900 mb-1">
+                    {lang === "zh" ? "更新云端数据库出错 / Cloud Update Blocked" : "Cloud Sync Blocked"}
+                  </p>
+                  <p className="font-medium text-rose-800 text-xs">{error}</p>
+                  <div className="mt-3.5 pt-3.5 border-t border-rose-100 flex flex-col gap-1.5 text-[11px] text-rose-600 font-bold uppercase tracking-wider">
+                    <p>💡 {lang === "zh" ? "如何在 iframe 预览中发布修改？" : "How to publish successfully inside this preview?"}</p>
+                    <p className="normal-case text-rose-500 font-medium tracking-normal leading-normal">
+                      {lang === "zh"
+                        ? "1. 请点击预览窗口右上角的「在新标签页中打开」按钮（以绕过跨域 iframe 的安全限制）。\n2. 在新标签页点击「账户」进行 Google 真实登录，即可顺利向云数据库发布更新。"
+                        : "1. Click 'Open in New Tab' at the top-right of your preview frame (to bypass iframe sandboxing limits).\n2. Navigate to 'Account' on your tab, sign in securely with Google, and try editing again."}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
             <div className="space-y-2">
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
                 <LinkIcon className="w-3 h-3" />
