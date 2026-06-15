@@ -71,6 +71,45 @@ export async function saveCMSProduct(product: CMSProduct) {
   });
 }
 
+export async function seedProductsToFirestore(productsData: any[], translateProductFn: any) {
+  try {
+    for (const p of productsData) {
+      const pZh = translateProductFn(p, "zh");
+      const pEn = translateProductFn(p, "en");
+
+      const cmsProd: CMSProduct = {
+        ...p,
+        status: "published",
+        zh: {
+          name: pZh.name || "",
+          description: pZh.description || "",
+          brandText: pZh.brand || "",
+          specsText: "",
+          pros: pZh.pros || [],
+          cons: pZh.cons || [],
+          editorVerdict: pZh.editorVerdict || "",
+        },
+        en: {
+          name: pEn.name || "",
+          description: pEn.description || "",
+          brandText: pEn.brand || "",
+          specsText: "",
+          pros: pEn.pros || [],
+          cons: pEn.cons || [],
+          editorVerdict: pEn.editorVerdict || "",
+        },
+        updatedAt: serverTimestamp()
+      };
+      await setDoc(doc(db, "products", cmsProd.id), cmsProd);
+    }
+    console.log("Seeding of productsData to Firestore completed successfully.");
+    return true;
+  } catch (error) {
+    console.error("Auto seeding products failed:", error);
+    return false;
+  }
+}
+
 // Evaluation Management
 export async function getCMSEvaluations(onlyPublished = false): Promise<Evaluation[]> {
   let q;

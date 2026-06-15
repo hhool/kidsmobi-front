@@ -58,7 +58,7 @@ import AdminPanel from "./components/AdminPanel";
 
 import { auth } from "./lib/firebase";
 import { getBookmarksFromFirestore, addBookmarkToFirestore, removeBookmarkFromFirestore } from "./lib/firestoreService";
-import { checkIsAdmin, getCMSSettings, getCMSProducts } from "./lib/cmsService";
+import { checkIsAdmin, getCMSSettings, getCMSProducts, seedProductsToFirestore } from "./lib/cmsService";
 
 const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
   home: {
@@ -233,19 +233,7 @@ export default function App() {
         }
         const p = await getCMSProducts(true);
         if (p && p.length > 0) {
-          const publishedCMS = p;
-          
-          // Merge logic: CMS published overrides default, plus all default that aren't in CMS
-          const merged = [...defaultProductsData];
-          publishedCMS.forEach(cmsProd => {
-            const extIdx = merged.findIndex(dp => dp.id === cmsProd.id);
-            if (extIdx >= 0) {
-              merged[extIdx] = cmsProd;
-            } else {
-              merged.push(cmsProd);
-            }
-          });
-          setProductsData(merged);
+          setProductsData(p);
         } else {
           setProductsData(defaultProductsData);
         }
@@ -255,6 +243,51 @@ export default function App() {
     };
     fetchData();
   }, [activeTab]);
+
+  // Synchronize bookmarked products whenever productsData or login state changes
+  useEffect(() => {
+    const syncBookmarks = async () => {
+      const currentUser = auth.currentUser;
+      if (currentUser && productsData.length > 0) {
+        try {
+          const bookmarkedIds = await getBookmarksFromFirestore(currentUser.uid);
+          const mappedProducts = productsData.filter((p) => bookmarkedIds.includes(p.id));
+          setSavedProducts(mappedProducts);
+        } catch (error) {
+          console.error("加载云端收藏夹失败:", error);
+        }
+      } else {
+        const isBypass = localStorage.getItem("dev_admin_bypass") === "true";
+        if (!currentUser && !isBypass) {
+          setSavedProducts([]);
+        }
+      }
+    };
+    syncBookmarks();
+  }, [productsData, userEmail]);
+
+  // Auto-seed if database is empty of products and currently logged-in as admin
+  useEffect(() => {
+    const autoSeedIfEmpty = async () => {
+      if (!isAdmin) return;
+      try {
+        const allProducts = await getCMSProducts(false); // get ALL including drafts
+        if (allProducts.length === 0) {
+          console.log("Admin logged in & Firestore is empty. Auto-seeding from modelsData.ts...");
+          const success = await seedProductsToFirestore(defaultProductsData, translateProduct);
+          if (success) {
+            const freshProducts = await getCMSProducts(true);
+            if (freshProducts && freshProducts.length > 0) {
+              setProductsData(freshProducts);
+            }
+          }
+        }
+      } catch (err) {
+        console.error("Failed to auto-seed products:", err);
+      }
+    };
+    autoSeedIfEmpty();
+  }, [isAdmin]);
 
   // Listen to Firebase Auth state
   useEffect(() => {
@@ -270,13 +303,6 @@ export default function App() {
       setAuthLoading(true);
       if (user) {
         setUserEmail(user.email || "");
-        try {
-          const bookmarkedIds = await getBookmarksFromFirestore(user.uid);
-          const mappedProducts = productsData.filter((p) => bookmarkedIds.includes(p.id));
-          setSavedProducts(mappedProducts);
-        } catch (error) {
-          console.error("加载云端收藏夹失败:", error);
-        }
 
         // Admin verification logic
         try {
@@ -288,7 +314,6 @@ export default function App() {
         }
       } else {
         setUserEmail("");
-        setSavedProducts([]);
         setIsAdmin(false);
       }
       setAuthLoading(false);
