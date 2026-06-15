@@ -15,6 +15,14 @@ service cloud.firestore {
       return isSignedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
     }
 
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
     function isPublished() {
       return resource.data.status == "published";
     }
@@ -54,6 +62,25 @@ service cloud.firestore {
     match /settings/{settingId} {
       allow read: if true;
       allow write: if isAdmin();
+    }
+
+    // Users and User Bookmarks
+    match /users/{userId} {
+      allow get: if isOwner(userId) || isAdmin();
+      allow create, update: if isOwner(userId) 
+        && request.resource.data.userId == userId 
+        && request.resource.data.email is string 
+        && request.resource.data.email.size() <= 200;
+      allow delete: if isOwner(userId);
+
+      match /bookmarks/{productId} {
+        allow read, list: if isOwner(userId);
+        allow create: if isOwner(userId) 
+          && request.resource.data.userId == userId 
+          && request.resource.data.productId == productId 
+          && (request.resource.data.createdAt == request.time || request.resource.data.createdAt == null);
+        allow delete: if isOwner(userId);
+      }
     }
   }
 }

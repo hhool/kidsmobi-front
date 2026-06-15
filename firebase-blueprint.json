@@ -85,6 +85,27 @@
         "homeSlots": { "type": "array" }
       },
       "required": ["id"]
+    },
+    "User": {
+      "title": "User Profile",
+      "description": "Basic user profile document",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "email": { "type": "string" }
+      },
+      "required": ["userId", "email"]
+    },
+    "Bookmark": {
+      "title": "User Bookmark",
+      "description": "Bookmark reference of a product added by a user",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "productId": { "type": "string" },
+        "createdAt": { "type": "object" }
+      },
+      "required": ["productId", "userId"]
     }
   },
   "firestore": {
@@ -93,6 +114,8 @@
     "/evaluations/{evalId}": { "schema": "Evaluation", "description": "Evaluation reports" },
     "/guides/{guideId}": { "schema": "Guide", "description": "Buying guides" },
     "/news/{newsId}": { "schema": "News", "description": "Press releases and news" },
-    "/settings/{settingId}": { "schema": "Settings", "description": "Global application configuration" }
+    "/settings/{settingId}": { "schema": "Settings", "description": "Global application configuration" },
+    "/users/{userId}": { "schema": "User", "description": "User profiles" },
+    "/users/{userId}/bookmarks/{productId}": { "schema": "Bookmark", "description": "User saved products bookmarks collection" }
   }
 }
