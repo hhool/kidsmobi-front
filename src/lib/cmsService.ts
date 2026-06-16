@@ -184,6 +184,25 @@ export async function saveCMSEvaluation(ev: Evaluation) {
   }
 }
 
+export async function seedEvaluationsToFirestore(evaluationsData: Evaluation[]): Promise<boolean> {
+  const path = "evaluations";
+  try {
+    for (const ev of evaluationsData) {
+      const purified = cleanUndefinedValues({
+        ...ev,
+        updatedAt: serverTimestamp()
+      });
+      await withTimeout(setDoc(doc(db, "evaluations", ev.id), purified), 5000);
+    }
+    console.log("Seeding of evaluations to Firestore completed successfully.");
+    return true;
+  } catch (error) {
+    console.error("Auto seeding evaluations failed:", error);
+    handleFirestoreError(error, OperationType.WRITE, path);
+    return false;
+  }
+}
+
 // Guide Management
 export async function getCMSGuides(onlyPublished = false): Promise<Guide[]> {
   const path = "guides";

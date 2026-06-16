@@ -39,6 +39,9 @@ import {
   Tooltip
 } from "recharts";
 import { productsData as defaultProductsData } from "./data/modelsData";
+import { guideArticles } from "./data/guidesData";
+import { newsArticles } from "./data/newsData";
+import { initialEvaluationsData } from "./data/evaluationsData";
 import { ChildProfile, Product, ChatMessage, CMSSettings, SEOConfig, Evaluation } from "./types";
 
 // Import translations
@@ -58,7 +61,7 @@ import AdminPanel from "./components/AdminPanel";
 
 import { auth } from "./lib/firebase";
 import { getBookmarksFromFirestore, addBookmarkToFirestore, removeBookmarkFromFirestore } from "./lib/firestoreService";
-import { checkIsAdmin, getCMSSettings, getCMSProducts, getCMSEvaluations, seedProductsToFirestore } from "./lib/cmsService";
+import { checkIsAdmin, getCMSSettings, getCMSProducts, getCMSEvaluations, seedProductsToFirestore, seedEvaluationsToFirestore, seedGuidesToFirestore, seedNewsToFirestore } from "./lib/cmsService";
 
 const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
   home: {
@@ -364,17 +367,27 @@ export default function App() {
       try {
         const allProducts = await getCMSProducts(false); // get ALL including drafts
         if (allProducts.length === 0) {
-          console.log("Admin logged in & Firestore is empty. Auto-seeding from modelsData.ts...");
-          const success = await seedProductsToFirestore(defaultProductsData, translateProduct);
-          if (success) {
+          console.log("Admin logged in & Firestore is empty. Auto-seeding comprehensive dataset...");
+          // Seed Products
+          const successProd = await seedProductsToFirestore(defaultProductsData, translateProduct);
+          if (successProd) {
             const freshProducts = await getCMSProducts(true);
             if (freshProducts && freshProducts.length > 0) {
               setProductsData(freshProducts);
             }
           }
+          // Seed Evaluations
+          await seedEvaluationsToFirestore(initialEvaluationsData);
+          const freshEvs = await getCMSEvaluations(true);
+          if (freshEvs && freshEvs.length > 0) {
+            setEvaluationsData(freshEvs);
+          }
+          // Seed Guides and News
+          await seedGuidesToFirestore(guideArticles);
+          await seedNewsToFirestore(newsArticles);
         }
       } catch (err) {
-        console.error("Failed to auto-seed products:", err);
+        console.error("Failed to auto-seed comprehensive dataset:", err);
       }
     };
     autoSeedIfEmpty();

@@ -8,10 +8,11 @@ import {
   ShieldCheck,
   Database
 } from "lucide-react";
-import { getCMSProducts, getCMSEvaluations, getCMSGuides, getCMSNews, saveCMSProduct, seedProductsToFirestore, seedGuidesToFirestore, seedNewsToFirestore } from "../../lib/cmsService";
+import { getCMSProducts, getCMSEvaluations, getCMSGuides, getCMSNews, saveCMSProduct, seedProductsToFirestore, seedGuidesToFirestore, seedNewsToFirestore, seedEvaluationsToFirestore } from "../../lib/cmsService";
 import { productsData as defaultProductsData } from "../../data/modelsData";
 import { guideArticles } from "../../data/guidesData";
 import { newsArticles } from "../../data/newsData";
+import { initialEvaluationsData } from "../../data/evaluationsData";
 import { translateProduct } from "../../lib/translate";
 import { CMSProduct } from "../../types";
 
@@ -145,6 +146,26 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
     }
   };
 
+  const handleSyncEvaluations = async () => {
+    const confirm = window.confirm(lang === "zh" ? "您确定要将评测中心的初始展示数据同步至云端 Firestore 数据库中吗？这会覆盖或初始化云端评测报告资源。" : "Are you sure you want to sync initial evaluation data directly to your Firestore project? Existing evaluations with the same IDs will be updated.");
+    if (!confirm) return;
+    setMigrating(true);
+    try {
+      const success = await seedEvaluationsToFirestore(initialEvaluationsData);
+      if (success) {
+        alert(lang === "zh" ? "评测数据同步成功！" : "Evaluation data sync completed successfully!");
+      } else {
+        alert(lang === "zh" ? "评测数据同步发生网络错误，请登录授权后重试。" : "Evaluation data sync failed. Please make sure you are authenticated and try again.");
+      }
+    } catch (e: any) {
+      console.error("Evaluation sync failed:", e);
+      alert((lang === "zh" ? "同步评测出错: " : "Evaluation Sync Error: ") + (e.message || e));
+    } finally {
+      setMigrating(false);
+      fetchStats();
+    }
+  };
+
   const cards = [
     { label: lang === "zh" ? "产品库" : "Products", value: stats.products, icon: <Package className="w-5 h-5 text-blue-500" />, color: "blue" },
     { label: lang === "zh" ? "实测报告" : "Reviews", value: stats.evaluations, icon: <FileText className="w-5 h-5 text-emerald-500" />, color: "emerald" },
@@ -197,6 +218,14 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
               >
                 <Database className="w-3 h-3" />
                 {migrating ? (lang === "zh" ? "资讯同步中..." : "Syncing...") : (lang === "zh" ? "同步资讯数据" : "Sync News Data")}
+              </button>
+              <button
+                onClick={handleSyncEvaluations}
+                disabled={migrating}
+                className="text-[10px] bg-purple-600 hover:bg-purple-700 text-white px-3 py-1.5 rounded-full font-black uppercase hover:shadow-md disabled:opacity-50 flex items-center gap-1 cursor-pointer transition"
+              >
+                <Database className="w-3 h-3" />
+                {migrating ? (lang === "zh" ? "评测同步中..." : "Syncing...") : (lang === "zh" ? "同步评测数据" : "Sync Evaluations")}
               </button>
               <button
                 onClick={handleForceSync}
