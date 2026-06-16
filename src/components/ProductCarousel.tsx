@@ -42,7 +42,7 @@ export default function ProductCarousel({ images, lang }: ProductCarouselProps) 
         <AnimatePresence initial={false} custom={direction}>
           <motion.img
             key={currentIndex}
-            src={images[currentIndex]}
+            src={images[currentIndex] || undefined}
             custom={direction}
             variants={slideVariants}
             initial="enter"
@@ -91,7 +91,7 @@ export default function ProductCarousel({ images, lang }: ProductCarouselProps) 
               currentIndex === idx ? "border-orange-500 scale-110 shadow-md" : "border-transparent opacity-50 hover:opacity-100"
             }`}
           >
-            <img src={img} alt={`Thumb ${idx}`} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+            <img src={img || undefined} alt={`Thumb ${idx}`} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
           </button>
         ))}
       </div>

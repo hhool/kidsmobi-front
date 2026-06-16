@@ -139,7 +139,7 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
           <div key={p.id} className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm flex items-center justify-between group hover:border-orange-200 transition-all">
             <div className="flex items-center gap-6">
               <div className="w-20 h-20 bg-slate-50 rounded-2xl p-2 shrink-0">
-                <img src={p.imageUrl} alt={p.zh.name} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+                <img src={p.imageUrl || undefined} alt={p.zh.name} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
               </div>
               <div>
                 <div className="flex items-center gap-2 mb-1.5">

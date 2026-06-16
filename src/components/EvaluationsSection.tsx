@@ -6,7 +6,7 @@ import Breadcrumbs from "./Breadcrumbs";
 
 interface EvaluationsSectionProps {
   productsData: Product[];
-  onSelectProduct: (p: Product) => void;
+  onSelectProduct: (p: Product, compareWith?: Product) => void;
   childProfile: any;
   lang?: "zh" | "en";
 }
@@ -315,10 +315,10 @@ export default function EvaluationsSection({
                                   <p className="text-[13px] text-slate-300 font-bold leading-relaxed italic">“{diProduct.editorVerdict}”</p>
                                 </div>
                                 <button
-                                  onClick={() => onSelectProduct(product)}
+                                  onClick={() => onSelectProduct(product, block.items.find((i: any) => i.product.id !== product.id)?.product)}
                                   className="w-full relative z-10 py-4.5 bg-white hover:bg-orange-500 text-slate-900 hover:text-white font-black text-[10px] uppercase tracking-widest rounded-2xl transition-all shadow-md flex items-center justify-center gap-2"
                                 >
-                                  {lang === "en" ? "VIEW DOSSIER" : "独立档案"}
+                                  {lang === "en" ? "VIEW MULTI-COMPARE" : "进入多品横评"}
                                   <ArrowRight className="w-4 h-4" />
                                 </button>
                             </div>

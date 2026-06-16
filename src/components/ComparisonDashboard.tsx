@@ -96,7 +96,7 @@ export default function ComparisonDashboard({
                       <div className="flex flex-col gap-6">
                         <div className="relative group">
                           <div className="w-32 h-32 bg-white rounded-3xl p-4 flex items-center justify-center">
-                            <img src={p.imageUrl} alt={p.name} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+                            <img src={p.imageUrl || undefined} alt={p.name} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
                           </div>
                           <button 
                             onClick={() => onRemove(p.id)}

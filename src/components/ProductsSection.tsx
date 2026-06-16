@@ -426,7 +426,7 @@ export default function ProductsSection({
                   className="bg-white border border-slate-100 hover:border-orange-200 rounded-[32px] p-5 flex items-center gap-4 cursor-pointer hover:shadow-xl transition duration-300 group"
                 >
                   <div className="w-16 h-16 bg-slate-50 border border-slate-100/50 rounded-2xl flex items-center justify-center p-2 shrink-0 group-hover:bg-orange-50/50 transition">
-                    <img src={p.imageUrl} alt={p.name} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+                    <img src={p.imageUrl || undefined} alt={p.name} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
                   </div>
                   <div className="min-w-0">
                     <h5 className="font-extrabold text-slate-900 group-hover:text-orange-500 transition truncate text-sm">

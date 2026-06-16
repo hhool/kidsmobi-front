@@ -257,13 +257,19 @@ export default function DetailedProductView({
             />
           ) : (
             <div className="aspect-video w-full">
-              <iframe 
-                src={product.videoUrl} 
-                className="w-full h-full rounded-2xl"
-                title={`${product.name} Video`}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowFullScreen
-              />
+              {product.videoUrl ? (
+                <iframe 
+                  src={product.videoUrl} 
+                  className="w-full h-full rounded-2xl"
+                  title={`${product.name} Video`}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowFullScreen
+                />
+              ) : (
+                <div className="w-full h-full bg-slate-100 flex items-center justify-center rounded-2xl text-slate-400 font-medium">
+                  {lang === "en" ? "No video available" : "暂无视频"}
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -369,6 +375,42 @@ export default function DetailedProductView({
                   </ul>
                 </div>
              </div>
+             
+             {comparedProduct && (
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-slate-50 relative mt-4">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -mt-3 text-[10px] font-black tracking-widest uppercase bg-slate-100 text-slate-400 px-3 py-1 rounded-full whitespace-nowrap">
+                    {lang === "en" ? `COMPARED WITH: ${comparedProduct.name}` : `对比机型优势与不足: ${comparedProduct.name}`}
+                  </div>
+                  <div className="space-y-4 pt-4 md:pt-0">
+                    <h4 className="flex items-center gap-2 text-xs font-black text-indigo-500 uppercase">
+                      <ThumbsUp className="w-4 h-4" />
+                      {lang === "en" ? "Compared Pros" : "对比款亮点"}
+                    </h4>
+                    <ul className="space-y-2 opacity-80">
+                      {translateProduct(comparedProduct, lang).pros?.map((pro, i) => (
+                        <li key={i} className="flex gap-3 text-sm text-slate-600 font-medium bg-indigo-50/50 p-3 rounded-2xl border border-indigo-50">
+                          <CheckCircle2 className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
+                          {pro}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="space-y-4 pt-4 md:pt-0">
+                    <h4 className="flex items-center gap-2 text-xs font-black text-rose-400 uppercase">
+                      <ThumbsDown className="w-4 h-4" />
+                      {lang === "en" ? "Compared Cons" : "对比款不足"}
+                    </h4>
+                    <ul className="space-y-2 opacity-80">
+                      {translateProduct(comparedProduct, lang).cons?.map((con, i) => (
+                        <li key={i} className="flex gap-3 text-sm text-slate-600 font-medium bg-rose-50/30 p-3 rounded-2xl border border-rose-50">
+                          <X className="w-4 h-4 text-rose-300 shrink-0 mt-0.5" />
+                          {con}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+               </div>
+             )}
           </div>
 
           {/* Standards Accordion */}
@@ -418,17 +460,20 @@ export default function DetailedProductView({
 
               <div className="space-y-5">
                  {[
-                   { label: lang === "en" ? "Weight" : "整车自重", val: formatWeight(displayProduct.weight, currencyData.code), highlight: displayProduct.weight < 6 },
-                   { label: lang === "en" ? "Tires" : "轮胎材质", val: displayProduct.tireType },
-                   { label: lang === "en" ? "Frame" : "主要架构", val: displayProduct.material },
-                   { label: lang === "en" ? "Wheel Size" : "轮毂规格", val: displayProduct.wheelSize },
-                   { label: lang === "en" ? "Brakes" : "制动系统", val: displayProduct.brakes },
-                   { label: lang === "en" ? "Saddle Height" : "鞍座范围", val: displayProduct.saddleHeightRange },
-                   { label: lang === "en" ? "MSRP" : "参考售价", val: `${currencyData.symbol}${displayProduct.price}` }
+                   { label: lang === "en" ? "Weight" : "整车自重", val1: formatWeight(displayProduct.weight, currencyData.code), val2: comparedProduct ? formatWeight(comparedProduct.weight, currencyData.code) : null, highlight1: displayProduct.weight < (comparedProduct?.weight || 6), highlight2: comparedProduct ? comparedProduct.weight < displayProduct.weight : false },
+                   { label: lang === "en" ? "Tires" : "轮胎材质", val1: displayProduct.tireType, val2: comparedProduct?.tireType },
+                   { label: lang === "en" ? "Frame" : "主要架构", val1: displayProduct.material, val2: comparedProduct?.material },
+                   { label: lang === "en" ? "Wheel Size" : "轮毂规格", val1: displayProduct.wheelSize, val2: comparedProduct?.wheelSize },
+                   { label: lang === "en" ? "Brakes" : "制动系统", val1: displayProduct.brakes, val2: comparedProduct?.brakes },
+                   { label: lang === "en" ? "Saddle Height" : "鞍座范围", val1: displayProduct.saddleHeightRange, val2: comparedProduct?.saddleHeightRange },
+                   { label: lang === "en" ? "MSRP" : "参考售价", val1: `${currencyData.symbol}${displayProduct.price}`, val2: comparedProduct ? `${currencyData.symbol}${comparedProduct.price}` : null }
                  ].map((item, i) => (
                    <div key={i} className="flex justify-between items-center text-xs border-b border-white/5 pb-3 last:border-0">
                       <span className="text-slate-500 font-bold">{item.label}</span>
-                      <strong className={`font-mono ${item.highlight ? "text-emerald-400" : "text-white"}`}>{item.val}</strong>
+                      <div className="flex flex-col items-end gap-1">
+                        <strong className={`font-mono ${item.highlight1 ? "text-emerald-400" : "text-white"}`}>{item.val1}</strong>
+                        {item.val2 && <span className={`font-mono text-[10px] ${item.highlight2 ? "text-emerald-400" : "text-slate-400"}`}>VS. {item.val2}</span>}
+                      </div>
                    </div>
                  ))}
               </div>

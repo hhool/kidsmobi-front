@@ -261,7 +261,7 @@ export default function MatchingWizard({
                         className="p-4 bg-white border border-slate-100 rounded-3xl hover:border-orange-500 transition-all cursor-pointer flex items-center gap-4 group hover:shadow-xl shadow-sm"
                       >
                         <div className="w-20 h-20 bg-slate-50 rounded-2xl flex items-center justify-center p-4 group-hover:bg-orange-50 transition-colors">
-                          <img src={p.imageUrl} alt={p.name} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+                          <img src={p.imageUrl || undefined} alt={p.name} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
                         </div>
                         <div className="flex-1 space-y-1">
                           <div className="flex justify-between items-center">

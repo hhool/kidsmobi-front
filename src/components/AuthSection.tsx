@@ -788,7 +788,7 @@ export default function AuthSection({
                          <div key={p.id} className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center justify-between gap-3">
                            <div className="flex items-center gap-3 min-w-0 cursor-pointer" onClick={() => onSelectProduct && onSelectProduct(p)}>
                              <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center p-1 shrink-0">
-                               <img src={p.imageUrl} alt={p.name} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+                               <img src={p.imageUrl || undefined} alt={p.name} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
                              </div>
                              <div className="min-w-0">
                                <h5 className="text-xs font-extrabold text-white truncate">{disp.name}</h5>
@@ -826,7 +826,7 @@ export default function AuthSection({
                            className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center gap-3 hover:border-slate-700 hover:bg-slate-900/40 transition cursor-pointer"
                          >
                            <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center p-1 shrink-0">
-                             <img src={p.imageUrl} alt={p.name} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+                             <img src={p.imageUrl || undefined} alt={p.name} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
                            </div>
                            <div className="min-w-0">
                              <h5 className="text-xs font-extrabold text-white truncate">{disp.name}</h5>

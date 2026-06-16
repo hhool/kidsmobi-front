@@ -488,10 +488,11 @@ export default function App() {
 
   }, [activeTab, lang, cmsSettings, selectedProduct]);
 
-  const handleSelectProduct = (product: Product | null) => {
+  const handleSelectProduct = (product: Product | null, compareWith?: Product) => {
     if (product) {
       setPreviousTab(activeTab);
       setSelectedProduct(product);
+      setComparedProduct(compareWith || null);
       setActiveTab("product_detail");
       window.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -502,13 +503,13 @@ export default function App() {
       });
     } else {
       setSelectedProduct(null);
+      setComparedProduct(null);
       setActiveTab(previousTab);
     }
   };
 
-  useEffect(() => {
-    setComparedProduct(null);
-  }, [selectedProduct]);
+  // Removing the useEffect that clears comparedProduct when selectedProduct changes,,
+  // Since we are setting it in handleSelectProduct now.
 
   const handleAxisLabelClick = (key: string) => {
     if (!key) return;
@@ -858,7 +859,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                         className={`w-full px-4 py-3 text-left flex items-center gap-3 transition-colors border-b border-slate-50 last:border-0 ${highlightedIndex === idx ? "bg-orange-50" : "hover:bg-slate-50"}`}
                       >
                         <div className="w-8 h-8 bg-slate-50 rounded-lg flex items-center justify-center shrink-0">
-                          <img src={p.imageUrl} alt={p.name} className="w-6 h-6 object-contain" referrerPolicy="no-referrer" />
+                          <img src={p.imageUrl || undefined} alt={p.name} className="w-6 h-6 object-contain" referrerPolicy="no-referrer" />
                         </div>
                         <div className="overflow-hidden">
                           <p className="text-[11px] font-black text-slate-900 truncate uppercase">{translateProduct(p, lang).brand}</p>
