@@ -131,7 +131,7 @@
     "/news/{newsId}": { "schema": "News", "description": "Press releases and news" },
     "/settings/{settingId}": { "schema": "Settings", "description": "Global application configuration" },
     "/users/{userId}": { "schema": "User", "description": "User profiles" },
-    "/users/{userId}/childProfile": { "schema": "ChildProfile", "description": "Child physical profile for matching" },
+    "/users/{userId}/childProfile/{id}": { "schema": "ChildProfile", "description": "Child physical profile for matching" },
     "/users/{userId}/bookmarks/{productId}": { "schema": "Bookmark", "description": "User saved products bookmarks collection" }
   }
 }

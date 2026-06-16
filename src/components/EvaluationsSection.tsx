@@ -4,28 +4,44 @@ import { Product } from "../types";
 import { translateProduct } from "../lib/translate";
 import Breadcrumbs from "./Breadcrumbs";
 
+import MultiCompareView from "./MultiCompareView";
+import { Evaluation } from "../types";
+
 interface EvaluationsSectionProps {
+  evaluationsData?: Evaluation[];
   productsData: Product[];
   onSelectProduct: (p: Product, compareWith?: Product) => void;
   childProfile: any;
+  cmsSettings?: any;
+  setActiveTab?: (tab: string) => void;
   lang?: "zh" | "en";
 }
 
 // Custom SVG Radar Polygon Chart
-function SafetyRadarChart({ product, lang = "zh", isDark = false }: { product: Product; lang: "zh" | "en", isDark?: boolean }) {
+function SafetyRadarChart({ product, evaluation, lang = "zh", isDark = false }: { product?: Product; evaluation?: Evaluation; lang: "zh" | "en", isDark?: boolean }) {
   const scores = useMemo(() => {
     // Standardize scores to 0-10 bounds
-    const comfort = product.category === "stroller" ? 10.0 : product.category === "scooter" ? 8.5 : product.tireType?.includes("充气") ? 9.5 : 6.0;
-    const value = product.price < 600 ? 10.0 : product.price < 2000 ? 8.5 : product.price < 4000 ? 7.0 : 5.0;
-    
-    return [
-      { name: lang === "en" ? "Safety" : "安全保障", val: product.safetyScore },
-      { name: lang === "en" ? "Comfort" : "舒适减震", val: comfort },
-      { name: lang === "en" ? "Weight" : "省力指数", val: product.weightScore },
-      { name: lang === "en" ? "Fit" : "成长匹配", val: product.geometryScore },
-      { name: lang === "en" ? "Value" : "性价比", val: value }
-    ];
-  }, [product, lang]);
+    if (evaluation && evaluation.scores) {
+      return [
+        { name: lang === "en" ? "Safety" : "安全保障", val: evaluation.scores.safety },
+        { name: lang === "en" ? "Comfort" : "舒适减震", val: evaluation.scores.comfort },
+        { name: lang === "en" ? "Portability" : "省力便携", val: evaluation.scores.portability },
+        { name: lang === "en" ? "Features" : "功能拓展", val: evaluation.scores.features },
+        { name: lang === "en" ? "Value" : "性价比", val: evaluation.scores.valueForMoney }
+      ];
+    } else if (product) {
+      const comfort = product.category === "stroller" ? 10.0 : product.category === "scooter" ? 8.5 : product.tireType?.includes("充气") ? 9.5 : 6.0;
+      const value = product.price < 600 ? 10.0 : product.price < 2000 ? 8.5 : product.price < 4000 ? 7.0 : 5.0;
+      return [
+        { name: lang === "en" ? "Safety" : "安全保障", val: product.safetyScore },
+        { name: lang === "en" ? "Comfort" : "舒适减震", val: comfort },
+        { name: lang === "en" ? "Weight" : "省力指数", val: product.weightScore },
+        { name: lang === "en" ? "Fit" : "成长匹配", val: product.geometryScore },
+        { name: lang === "en" ? "Value" : "性价比", val: value }
+      ];
+    }
+    return [];
+  }, [product, evaluation, lang]);
 
   const size = 180;
   const center = size / 2;
@@ -121,83 +137,95 @@ function SafetyRadarChart({ product, lang = "zh", isDark = false }: { product: P
 }
 
 export default function EvaluationsSection({ 
+  evaluationsData = [],
   productsData, 
   onSelectProduct,
   childProfile,
+  cmsSettings,
+  setActiveTab,
   lang = "zh"
 }: EvaluationsSectionProps) {
   const [selectedReviewType, setSelectedReviewType] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [selectedEvaluation, setSelectedEvaluation] = useState<Evaluation | null>(null);
 
   const reviewTypes = lang === "en" ? [
     { id: "all", label: "📁 ALL REPORTS" },
     { id: "single", label: "🔬 SINGLE TEST" },
-    { id: "cross", label: "⚖️ CROSS COMPARE" },
-    { id: "new", label: "🆕 FIRST LOOK" },
+    { id: "compare", label: "⚖️ CROSS COMPARE" },
     { id: "value", label: "💰 VALUE RANK" },
-    { id: "annual", label: "🏆 ANNUAL TOP" }
+    { id: "ranking", label: "🏆 ANNUAL TOP" }
   ] : [
     { id: "all", label: "📁 全部评估" },
     { id: "single", label: "🔬 单品实测" },
-    { id: "cross", label: "⚖️ 多品横评" },
-    { id: "new", label: "🆕 新品首发" },
+    { id: "compare", label: "⚖️ 多品横评" },
     { id: "value", label: "💰 性价比测评" },
-    { id: "annual", label: "🏆 年度榜单" }
+    { id: "ranking", label: "🏆 年度榜单" }
   ];
 
-  // Map products of the DB dynamically to these review types to simulate rich reviews
+  // Map real evaluations instead of products
   const reviewsList = useMemo(() => {
-    return productsData.map((p) => {
-      // Dynamic mapping logic
-      let reviewType = "single";
-      let reviewBadge = lang === "en" ? "EXPERT REPORT" : "深度专家报告";
+    return evaluationsData.filter(ev => ev.status === "published").map((ev) => {
+      let badge = "REPORT";
+      if (ev.type === "compare") badge = lang === "en" ? "COMPARISON" : "横品对比";
+      if (ev.type === "value") badge = lang === "en" ? "VALUE PICK" : "性价比之选";
+      if (ev.type === "ranking") badge = lang === "en" ? "TOP RANKING" : "年度排行";
+      if (ev.type === "single" || !ev.type) badge = lang === "en" ? "EXPERT REPORT" : "深度专家报告";
       
-      if (p.id === "bal_2" || p.id === "bike_2") {
-        reviewType = "cross";
-        reviewBadge = lang === "en" ? "COMPARISON" : "横向力学对比";
-      } else if (p.id === "bal_1" || p.id === "scoot_1") {
-        reviewType = "new";
-        reviewBadge = lang === "en" ? "NEW ARRIVAL" : "新品首发评估";
-      }
-
       return {
-        product: p,
-        reviewType,
-        reviewBadge
+        evaluation: ev,
+        reviewType: ev.type || "single",
+        reviewBadge: badge
       };
     });
-  }, [productsData, lang]);
+  }, [evaluationsData, lang]);
 
   const filteredReviews = useMemo(() => {
     return reviewsList.filter((r) => {
-      const pTrans = translateProduct(r.product, lang);
+      const evLang = lang === "zh" ? r.evaluation.zh : r.evaluation.en;
       const matchesType = selectedReviewType === "all" || r.reviewType === selectedReviewType;
       const matchesSearch = searchQuery.trim() === "" ||
-        pTrans.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        pTrans.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        pTrans.editorVerdict.toLowerCase().includes(searchQuery.toLowerCase());
+        evLang.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        evLang.verdict.toLowerCase().includes(searchQuery.toLowerCase());
       return matchesType && matchesSearch;
     });
   }, [reviewsList, selectedReviewType, searchQuery, lang]);
 
   const renderList = useMemo(() => {
-    const list: any[] = [];
-    const crossProducts: any[] = [];
-
-    filteredReviews.forEach((r) => {
-      if (r.reviewType === "cross") {
-        crossProducts.push(r);
+    return filteredReviews.map(r => {
+      if (r.reviewType === "single") {
+        const product = productsData.find(p => p.id === r.evaluation.productId);
+        return {
+          type: "single",
+          evaluation: r.evaluation,
+          product,
+          reviewBadge: r.reviewBadge
+        };
       } else {
-        list.push({ type: "single", data: r });
+        const products = (r.evaluation.productIds || [])
+          .map(id => productsData.find(p => p.id === id))
+          .filter(Boolean) as Product[];
+        return {
+          type: "multi",
+          evaluation: r.evaluation,
+          products,
+          reviewBadge: r.reviewBadge
+        };
       }
     });
+  }, [filteredReviews, productsData]);
 
-    if (crossProducts.length > 0) {
-      list.unshift({ type: "cross", items: crossProducts });
-    }
-
-    return list;
-  }, [filteredReviews]);
+  if (selectedEvaluation && selectedEvaluation.type && selectedEvaluation.type !== "single") {
+    return (
+      <MultiCompareView 
+        evaluation={selectedEvaluation}
+        productsData={productsData}
+        lang={lang}
+        onBack={() => setSelectedEvaluation(null)}
+        onSelectProduct={onSelectProduct}
+      />
+    );
+  }
 
   return (
     <div id="evaluations_hub" className="space-y-8 animate-fade-in text-left">
@@ -205,7 +233,7 @@ export default function EvaluationsSection({
       {/* Breadcrumbs (PRD 4.3.2) */}
       <Breadcrumbs 
         lang={lang} 
-        onHomeClick={() => (window as any).setActiveTab?.("home")}
+        onHomeClick={() => setActiveTab?.("home")}
         items={[{ label: lang === "zh" ? "评测中心" : "EVALUATION CENTER", active: true }]} 
       />
 
@@ -280,60 +308,66 @@ export default function EvaluationsSection({
         </div>
       ) : (
         <div className="flex flex-col gap-12 text-left animate-fade-in">
-          {renderList.map((block, idx) => {
-            if (block.type === "cross") {
-               return (
-                <div key={`cross-${idx}`} className="bg-slate-900 border border-slate-800 rounded-[56px] p-8 md:p-12 flex flex-col gap-10 justify-between transition-all group shadow-2xl relative overflow-hidden text-white">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-slate-800 rounded-bl-full -mr-24 -mt-24 opacity-50"></div>
+          {renderList.map((block) => {
+            if (block.type === "multi") {
+              const { evaluation, products, reviewBadge } = block;
+              const tEv = lang === "zh" ? evaluation.zh : evaluation.en;
+              return (
+                <div
+                  key={evaluation.id}
+                  className="bg-slate-900 border border-slate-800 rounded-[56px] p-8 md:p-12 flex flex-col gap-10 justify-between transition-all group shadow-2xl relative overflow-hidden text-white"
+                >
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-slate-800 rounded-bl-full -mr-24 -mt-24 opacity-50"></div>
                  
-                    <div className="relative z-10 text-center mb-2">
-                       <span className="bg-orange-500 text-white font-black px-4 py-1.5 rounded-full text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-orange-500/20">
-                          {lang === "en" ? "CROSS COMPARE" : "多品横向力学评测"}
-                       </span>
-                       <h3 className="text-3xl md:text-4xl mt-6 font-black tracking-tight text-white leading-tight">
-                          {lang === "en" ? "Side-by-Side Analysis" : "横向力学与设计对比"}
-                       </h3>
-                       <p className="text-slate-400 mt-3 text-sm max-w-lg mx-auto leading-relaxed">
-                          {lang === "en" ? "Review and evaluate multiple units back-to-back to reveal hidden trade-offs." : "将参数放上天平，多维度直观对比隐藏在车身几何背后的设计博弈。"}
-                       </p>
-                    </div>
+                  <div className="relative z-10 text-center mb-2">
+                    <span className="bg-orange-500 text-white font-black px-4 py-1.5 rounded-full text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-orange-500/20">
+                      {reviewBadge}
+                    </span>
+                    <h3 className="text-3xl md:text-5xl mt-6 font-black tracking-tight text-white leading-tight">
+                      {tEv.title}
+                    </h3>
+                    <p className="text-slate-400 mt-3 text-sm max-w-lg mx-auto leading-relaxed">
+                      {tEv.verdict}
+                    </p>
+                  </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 relative z-10 w-full mt-4">
-                       {block.items.map(({ product }: any) => {
-                          const diProduct = translateProduct(product, lang);
-                          return (
-                            <div key={diProduct.id} className="bg-slate-800/80 backdrop-blur-sm rounded-[40px] p-8 border border-slate-700/80 flex flex-col gap-6 hover:border-slate-500 hover:bg-slate-800 transition-colors duration-300 w-full relative">
-                                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-white/[0.02] to-transparent rounded-[40px] pointer-events-none"></div>
-                                <div className="relative z-10">
-                                   <span className="text-[10px] text-slate-400 font-black uppercase tracking-widest">{diProduct.brand}</span>
-                                   <h4 className="font-black text-white text-2xl leading-tight uppercase">{diProduct.name}</h4>
-                                </div>
-                                <div className="flex justify-center -my-2 relative z-10">
-                                   <SafetyRadarChart product={product} lang={lang} isDark={true} />
-                                </div>
-                                <div className="bg-slate-900/60 shadow-inner p-6 rounded-[24px] border border-slate-700 flex-grow relative z-10">
-                                  <p className="text-[13px] text-slate-300 font-bold leading-relaxed italic">“{diProduct.editorVerdict}”</p>
-                                </div>
-                                <button
-                                  onClick={() => onSelectProduct(product, block.items.find((i: any) => i.product.id !== product.id)?.product)}
-                                  className="w-full relative z-10 py-4.5 bg-white hover:bg-orange-500 text-slate-900 hover:text-white font-black text-[10px] uppercase tracking-widest rounded-2xl transition-all shadow-md flex items-center justify-center gap-2"
-                                >
-                                  {lang === "en" ? "VIEW MULTI-COMPARE" : "进入多品横评"}
-                                  <ArrowRight className="w-4 h-4" />
-                                </button>
-                            </div>
-                          )
-                       })}
-                    </div>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 relative z-10 w-full mt-4">
+                    {products.map((product) => {
+                      const diProduct = translateProduct(product, lang);
+                      return (
+                        <div key={product.id} className="bg-slate-800/80 backdrop-blur-sm rounded-[32px] p-6 border border-slate-700/80 flex flex-col items-center gap-4 hover:border-slate-500 transition-colors duration-300">
+                          <div className="w-20 h-20 bg-white rounded-2xl p-2 flex items-center justify-center">
+                            <img src={product.imageUrl || undefined} alt={diProduct.name} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+                          </div>
+                          <div className="text-center">
+                            <span className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">{diProduct.brand}</span>
+                            <h4 className="font-extrabold text-white text-xs leading-snug uppercase line-clamp-1">{diProduct.name}</h4>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <div className="flex justify-center relative z-10">
+                    <button
+                      onClick={() => setSelectedEvaluation(evaluation)}
+                      className="px-8 py-4.5 bg-white hover:bg-orange-500 text-slate-900 hover:text-white font-black text-xs uppercase tracking-widest rounded-2xl transition-all shadow-md flex items-center gap-2"
+                    >
+                      {lang === "en" ? "OPEN DIRECT REALTIME COMPARISON" : "进入多品实时对比"}
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
-               );
+              );
             }
 
-            const { product, reviewBadge } = block.data;
+            const { product, reviewBadge, evaluation } = block;
+            if (!product) return null;
             const diProduct = translateProduct(product, lang);
+            const tEv = lang === "zh" ? evaluation.zh : evaluation.en;
             return (
               <div
-                key={diProduct.id}
+                key={evaluation.id}
                 className="bg-white border border-slate-100 rounded-[56px] p-10 flex flex-col md:flex-row gap-10 justify-between transition-all group hover:shadow-[0_48px_80px_-24px_rgba(249,115,22,0.12)] shadow-sm relative overflow-hidden"
               >
                 <div className="absolute bottom-0 right-0 w-48 h-48 bg-orange-50/30 blur-[64px] rounded-full -mb-24 -mr-24 group-hover:bg-orange-100/50 transition-colors"></div>
@@ -350,12 +384,12 @@ export default function EvaluationsSection({
                     <div className="space-y-2">
                       <span className="text-[10px] text-slate-400 font-black uppercase tracking-widest">{diProduct.brand}</span>
                       <h3 className="font-black text-slate-900 text-3xl md:text-2xl lg:text-3xl leading-tight group-hover:text-orange-500 transition-colors uppercase">
-                        {diProduct.name}
+                        {tEv.title || diProduct.name}
                       </h3>
                     </div>
 
                     <div className="bg-slate-50/50 p-6 rounded-[32px] border border-slate-50">
-                       <p className="text-[15px] sm:text-sm text-slate-600 leading-relaxed font-bold italic">“{diProduct.editorVerdict}”</p>
+                       <p className="text-[15px] sm:text-sm text-slate-600 leading-relaxed font-bold italic">“{tEv.verdict || diProduct.editorVerdict}”</p>
                     </div>
                   </div>
 
@@ -370,7 +404,7 @@ export default function EvaluationsSection({
 
                 {/* Column Right: Live Interactive Vector Radar Component */}
                 <div className="md:w-1/2 flex items-center justify-center relative z-10">
-                  <SafetyRadarChart product={product} lang={lang} />
+                  <SafetyRadarChart product={product} evaluation={evaluation} lang={lang} />
                 </div>
                 
               </div>

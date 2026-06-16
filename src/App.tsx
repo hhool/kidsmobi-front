@@ -39,7 +39,7 @@ import {
   Tooltip
 } from "recharts";
 import { productsData as defaultProductsData } from "./data/modelsData";
-import { ChildProfile, Product, ChatMessage, CMSSettings, SEOConfig } from "./types";
+import { ChildProfile, Product, ChatMessage, CMSSettings, SEOConfig, Evaluation } from "./types";
 
 // Import translations
 import { translations, translateProduct, countries, getCurrencyData } from "./lib/translate";
@@ -58,7 +58,7 @@ import AdminPanel from "./components/AdminPanel";
 
 import { auth } from "./lib/firebase";
 import { getBookmarksFromFirestore, addBookmarkToFirestore, removeBookmarkFromFirestore } from "./lib/firestoreService";
-import { checkIsAdmin, getCMSSettings, getCMSProducts, seedProductsToFirestore } from "./lib/cmsService";
+import { checkIsAdmin, getCMSSettings, getCMSProducts, getCMSEvaluations, seedProductsToFirestore } from "./lib/cmsService";
 
 const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
   home: {
@@ -259,9 +259,10 @@ export default function App() {
     return isBypass ? "hhool.student@gmail.com" : "";
   });
 
-  // Global CMS settings and Products state
+  // Global CMS settings, Products, and Evaluations state
   const [cmsSettings, setCmsSettings] = useState<CMSSettings | null>(null);
   const [productsData, setProductsData] = useState<Product[]>(defaultProductsData);
+  const [evaluationsData, setEvaluationsData] = useState<Evaluation[]>([]);
 
   // Cache compareList and viewHistory on change and keep them fresh relative to database updates
   useEffect(() => {
@@ -310,7 +311,7 @@ export default function App() {
     }
   }, [productsData]);
 
-  // Load CMS settings and Products on mount / tab change
+  // Load CMS settings, Products, and Evaluations on mount / tab change
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -324,6 +325,9 @@ export default function App() {
         } else {
           setProductsData(defaultProductsData);
         }
+        
+        const evs = await getCMSEvaluations(true);
+        setEvaluationsData(evs);
       } catch (err) {
         console.error("Failed to load CMS data:", err);
       }
@@ -975,10 +979,13 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
         {activeTab === "evaluations" && (
           <EvaluationsSection 
+            evaluationsData={evaluationsData}
             productsData={productsData}
             onSelectProduct={handleSelectProduct}
             childProfile={childProfile}
             lang={lang}
+            cmsSettings={cmsSettings}
+            setActiveTab={setActiveTab}
           />
         )}
 

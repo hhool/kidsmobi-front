@@ -34,7 +34,9 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
   const handleNew = () => {
     setEditingEv({
       id: `ev_${Date.now()}`,
+      type: "single",
       productId: "",
+      productIds: [],
       status: "draft",
       version: "V1.0",
       imageUrl: "",
@@ -49,7 +51,10 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
   const [saveError, setSaveError] = useState<string | null>(null);
 
   const handleSave = async (ev: Evaluation) => {
-    if (!ev.productId) return alert("Please link a product first.");
+    if (ev.type === 'single' && !ev.productId) return alert("Please link a product first.");
+    if (ev.type !== 'single' && (!ev.productIds || ev.productIds.length < 2)) return alert("Please select at least 2 products for a comparison evaluation.");
+    if (ev.type !== 'single' && ev.productIds && ev.productIds.length > 4) return alert("You can only compare up to 4 products.");
+    
     setSaving(true);
     setSaveError(null);
     try {
@@ -205,32 +210,92 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
               </motion.div>
             )}
 
-            <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                <LinkIcon className="w-3 h-3" />
-                Bind Global Product ID
-              </label>
-              <select 
-                className="w-full bg-slate-100 py-4 px-6 rounded-2xl font-black text-sm outline-none focus:bg-white border-2 border-transparent focus:border-emerald-500 transition-all"
-                value={formData.productId}
-                onChange={(e) => setFormData({...formData, productId: e.target.value})}
-              >
-                <option value="">-- SELECT PRODUCT --</option>
-                {products.map((p: CMSProduct) => <option key={p.id} value={p.id}>{p.zh.name}</option>)}
-              </select>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                  <LinkIcon className="w-3 h-3" />
+                  Evaluation Type
+                </label>
+                <select 
+                  className="w-full bg-slate-100 py-4 px-6 rounded-2xl font-black text-sm outline-none focus:bg-white border-2 border-transparent focus:border-emerald-500 transition-all"
+                  value={formData.type || "single"}
+                  onChange={(e) => {
+                    const newType = e.target.value as any;
+                    setFormData({...formData, type: newType, productIds: formData.productIds || []});
+                  }}
+                >
+                  <option value="single">Single Product (单品评测)</option>
+                  <option value="compare">Multi-Product Compare (多品横评)</option>
+                  <option value="value">Cost-Effectiveness (性价比评测)</option>
+                  <option value="ranking">Annual Ranking (年度排行榜评测)</option>
+                </select>
+              </div>
+
+              {(!formData.type || formData.type === "single") ? (
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                    <LinkIcon className="w-3 h-3" />
+                    Bind Global Product ID
+                  </label>
+                  <select 
+                    className="w-full bg-slate-100 py-4 px-6 rounded-2xl font-black text-sm outline-none focus:bg-white border-2 border-transparent focus:border-emerald-500 transition-all"
+                    value={formData.productId}
+                    onChange={(e) => setFormData({...formData, productId: e.target.value})}
+                  >
+                    <option value="">-- SELECT PRODUCT --</option>
+                    {products.map((p: CMSProduct) => <option key={p.id} value={p.id}>{p.zh.name}</option>)}
+                  </select>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                    <LinkIcon className="w-3 h-3" />
+                    Bind Multiple Products (Max 4)
+                  </label>
+                  <div className="flex flex-col gap-2 max-h-48 overflow-y-auto bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                    {products.map((p: CMSProduct) => {
+                      const isChecked = (formData.productIds || []).includes(p.id);
+                      return (
+                        <label key={p.id} className="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-100 rounded-lg transition-colors">
+                          <input 
+                            type="checkbox" 
+                            className="w-4 h-4 text-emerald-500 rounded border-slate-300 focus:ring-emerald-500"
+                            checked={isChecked}
+                            onChange={(e) => {
+                              const currentIds = formData.productIds || [];
+                              if (e.target.checked) {
+                                if (currentIds.length >= 4) {
+                                  alert("You can only compare up to 4 products.");
+                                  return;
+                                }
+                                setFormData({...formData, productIds: [...currentIds, p.id]});
+                              } else {
+                                setFormData({...formData, productIds: currentIds.filter(id => id !== p.id)});
+                              }
+                            }}
+                          />
+                          <span className="text-xs font-black text-slate-700">{p.zh.name}</span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
 
-            <div className="space-y-8">
-              <div className="flex items-center justify-between">
-                <h4 className="text-sm font-black uppercase text-slate-900 tracking-wide">5D Radar Metrics</h4>
-                <span className="text-[10px] text-slate-400 font-bold italic">Scale 1.0 - 10.0</span>
+            {(!formData.type || formData.type === "single") && (
+              <div className="space-y-8">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-sm font-black uppercase text-slate-900 tracking-wide">5D Radar Metrics</h4>
+                  <span className="text-[10px] text-slate-400 font-bold italic">Scale 1.0 - 10.0</span>
+                </div>
+                <ScoreSlider label="Safety & Compliance" value={formData.scores.safety} onChange={(v) => setFormData({...formData, scores: {...formData.scores, safety: v}})} />
+                <ScoreSlider label="Ergonomic Comfort" value={formData.scores.comfort} onChange={(v) => setFormData({...formData, scores: {...formData.scores, comfort: v}})} />
+                <ScoreSlider label="Portability Index" value={formData.scores.portability} onChange={(v) => setFormData({...formData, scores: {...formData.scores, portability: v}})} />
+                <ScoreSlider label="Feature Versatility" value={formData.scores.features} onChange={(v) => setFormData({...formData, scores: {...formData.scores, features: v}})} />
+                <ScoreSlider label="Value Projection" value={formData.scores.valueForMoney} onChange={(v) => setFormData({...formData, scores: {...formData.scores, valueForMoney: v}})} />
               </div>
-              <ScoreSlider label="Safety & Compliance" value={formData.scores.safety} onChange={(v) => setFormData({...formData, scores: {...formData.scores, safety: v}})} />
-              <ScoreSlider label="Ergonomic Comfort" value={formData.scores.comfort} onChange={(v) => setFormData({...formData, scores: {...formData.scores, comfort: v}})} />
-              <ScoreSlider label="Portability Index" value={formData.scores.portability} onChange={(v) => setFormData({...formData, scores: {...formData.scores, portability: v}})} />
-              <ScoreSlider label="Feature Versatility" value={formData.scores.features} onChange={(v) => setFormData({...formData, scores: {...formData.scores, features: v}})} />
-              <ScoreSlider label="Value Projection" value={formData.scores.valueForMoney} onChange={(v) => setFormData({...formData, scores: {...formData.scores, valueForMoney: v}})} />
-            </div>
+            )}
 
             <div className="p-8 bg-slate-900 rounded-[32px] text-white">
                <div className="flex items-center gap-3 mb-4">

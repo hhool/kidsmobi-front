@@ -24,9 +24,9 @@ export async function ensureUserProfileInFirestore(userId: string, email: string
 }
 
 export async function getChildProfileFromFirestore(userId: string): Promise<ChildProfile | null> {
-  const path = `users/${userId}/childProfile`;
+  const path = `users/${userId}/childProfile/main`;
   try {
-    const pDoc = await getDoc(doc(db, "users", userId, "childProfile"));
+    const pDoc = await getDoc(doc(db, "users", userId, "childProfile", "main"));
     if (pDoc.exists()) {
       return pDoc.data() as ChildProfile;
     }
@@ -38,9 +38,9 @@ export async function getChildProfileFromFirestore(userId: string): Promise<Chil
 }
 
 export async function saveChildProfileToFirestore(userId: string, profile: ChildProfile) {
-  const path = `users/${userId}/childProfile`;
+  const path = `users/${userId}/childProfile/main`;
   try {
-    await withTimeout(setDoc(doc(db, "users", userId, "childProfile"), {
+    await withTimeout(setDoc(doc(db, "users", userId, "childProfile", "main"), {
       ...profile,
       userId,
       updatedAt: serverTimestamp()

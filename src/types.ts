@@ -81,7 +81,9 @@ export interface CMSProduct extends Product {
 
 export interface Evaluation {
   id: string;
-  productId: string; // Mandatory link
+  type?: "single" | "compare" | "value" | "ranking";
+  productIds?: string[];
+  productId: string; // Maintain for backward compatibility
   status: "draft" | "published" | "archived";
   version: string; // e.g. "V1.1"
   scores: RadarScores;
