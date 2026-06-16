@@ -69,15 +69,15 @@ service cloud.firestore {
 
     // Users & Bookmarks
     match /users/{userId} {
-      allow read, write: if isOwner(userId) || isAdmin();
+      allow read, write: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+    }
 
-      match /childProfile/{id} {
-        allow read, write: if isOwner(userId) || isAdmin();
-      }
+    match /users/{userId}/childProfile/{id} {
+      allow read, write: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+    }
 
-      match /bookmarks/{productId} {
-        allow read, write: if isOwner(userId) || isAdmin();
-      }
+    match /users/{userId}/bookmarks/{productId} {
+      allow read, write: if isSignedIn() && (request.auth.uid == userId || isAdmin());
     }
   }
 }
