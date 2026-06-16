@@ -12,7 +12,7 @@ interface EvaluationsSectionProps {
 }
 
 // Custom SVG Radar Polygon Chart
-function SafetyRadarChart({ product, lang = "zh" }: { product: Product; lang: "zh" | "en" }) {
+function SafetyRadarChart({ product, lang = "zh", isDark = false }: { product: Product; lang: "zh" | "en", isDark?: boolean }) {
   const scores = useMemo(() => {
     // Standardize scores to 0-10 bounds
     const comfort = product.category === "stroller" ? 10.0 : product.category === "scooter" ? 8.5 : product.tireType?.includes("充气") ? 9.5 : 6.0;
@@ -60,7 +60,7 @@ function SafetyRadarChart({ product, lang = "zh" }: { product: Product; lang: "z
   }, [scores, radius, center]);
 
   return (
-    <div className="flex flex-col items-center bg-white p-8 rounded-[48px] border border-slate-100 shadow-xl shadow-orange-500/5 relative overflow-hidden w-full max-w-[280px] mx-auto transition-transform hover:scale-[1.02] duration-500">
+    <div className={`flex flex-col items-center p-8 rounded-[48px] border relative overflow-hidden w-full max-w-[280px] mx-auto transition-transform hover:scale-[1.02] duration-500 ${isDark ? "bg-slate-800/50 border-slate-700 shadow-none text-white" : "bg-white border-slate-100 shadow-xl shadow-orange-500/5"}`}>
       <span className="text-[10px] text-orange-500 uppercase font-black tracking-[0.2em] mb-6 leading-none text-center">
         {lang === "en" ? "Performance Matrix" : "五维度综合考量"}
       </span>
@@ -72,7 +72,7 @@ function SafetyRadarChart({ product, lang = "zh" }: { product: Product; lang: "z
             key={i}
             points={p}
             fill="none"
-            stroke="#f8fafc"
+            stroke={isDark ? "#334155" : "#f8fafc"}
             strokeWidth="1.5"
           />
         ))}
@@ -105,7 +105,7 @@ function SafetyRadarChart({ product, lang = "zh" }: { product: Product; lang: "z
               key={i}
               x={x}
               y={y + 3}
-              fill="#64748b"
+              fill={isDark ? "#94a3b8" : "#64748b"}
               fontSize="11"
               fontWeight="900"
               textAnchor={textAnchor}
@@ -134,7 +134,6 @@ export default function EvaluationsSection({
     { id: "single", label: "🔬 SINGLE TEST" },
     { id: "cross", label: "⚖️ CROSS COMPARE" },
     { id: "new", label: "🆕 FIRST LOOK" },
-    { id: "global", label: "🌍 EXPORT SPEC" },
     { id: "value", label: "💰 VALUE RANK" },
     { id: "annual", label: "🏆 ANNUAL TOP" }
   ] : [
@@ -142,7 +141,6 @@ export default function EvaluationsSection({
     { id: "single", label: "🔬 单品实测" },
     { id: "cross", label: "⚖️ 多品横评" },
     { id: "new", label: "🆕 新品首发" },
-    { id: "global", label: "🌍 跨境专项" },
     { id: "value", label: "💰 性价比测评" },
     { id: "annual", label: "🏆 年度榜单" }
   ];
@@ -181,6 +179,25 @@ export default function EvaluationsSection({
       return matchesType && matchesSearch;
     });
   }, [reviewsList, selectedReviewType, searchQuery, lang]);
+
+  const renderList = useMemo(() => {
+    const list: any[] = [];
+    const crossProducts: any[] = [];
+
+    filteredReviews.forEach((r) => {
+      if (r.reviewType === "cross") {
+        crossProducts.push(r);
+      } else {
+        list.push({ type: "single", data: r });
+      }
+    });
+
+    if (crossProducts.length > 0) {
+      list.unshift({ type: "cross", items: crossProducts });
+    }
+
+    return list;
+  }, [filteredReviews]);
 
   return (
     <div id="evaluations_hub" className="space-y-8 animate-fade-in text-left">
@@ -254,7 +271,7 @@ export default function EvaluationsSection({
       </div>
 
       {/* Grid listing */}
-      {filteredReviews.length === 0 ? (
+      {renderList.length === 0 ? (
         <div className="p-24 text-center bg-white border border-slate-100 rounded-[56px] shadow-sm">
           <img src="https://api.dicebear.com/7.x/bottts/svg?seed=empty&backgroundColor=f8fafc" alt="Empty" className="w-24 h-24 mx-auto mb-6 opacity-20" />
           <p className="text-slate-400 font-black uppercase tracking-widest text-xs">
@@ -262,10 +279,58 @@ export default function EvaluationsSection({
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 text-left animate-fade-in">
-          {filteredReviews.map(({ product, reviewBadge }) => {
-            const diProduct = translateProduct(product, lang);
+        <div className="flex flex-col gap-12 text-left animate-fade-in">
+          {renderList.map((block, idx) => {
+            if (block.type === "cross") {
+               return (
+                <div key={`cross-${idx}`} className="bg-slate-900 border border-slate-800 rounded-[56px] p-8 md:p-12 flex flex-col gap-10 justify-between transition-all group shadow-2xl relative overflow-hidden text-white">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-slate-800 rounded-bl-full -mr-24 -mt-24 opacity-50"></div>
+                 
+                    <div className="relative z-10 text-center mb-2">
+                       <span className="bg-orange-500 text-white font-black px-4 py-1.5 rounded-full text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-orange-500/20">
+                          {lang === "en" ? "CROSS COMPARE" : "多品横向力学评测"}
+                       </span>
+                       <h3 className="text-3xl md:text-4xl mt-6 font-black tracking-tight text-white leading-tight">
+                          {lang === "en" ? "Side-by-Side Analysis" : "横向力学与设计对比"}
+                       </h3>
+                       <p className="text-slate-400 mt-3 text-sm max-w-lg mx-auto leading-relaxed">
+                          {lang === "en" ? "Review and evaluate multiple units back-to-back to reveal hidden trade-offs." : "将参数放上天平，多维度直观对比隐藏在车身几何背后的设计博弈。"}
+                       </p>
+                    </div>
 
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 relative z-10 w-full mt-4">
+                       {block.items.map(({ product }: any) => {
+                          const diProduct = translateProduct(product, lang);
+                          return (
+                            <div key={diProduct.id} className="bg-slate-800/80 backdrop-blur-sm rounded-[40px] p-8 border border-slate-700/80 flex flex-col gap-6 hover:border-slate-500 hover:bg-slate-800 transition-colors duration-300 w-full relative">
+                                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-white/[0.02] to-transparent rounded-[40px] pointer-events-none"></div>
+                                <div className="relative z-10">
+                                   <span className="text-[10px] text-slate-400 font-black uppercase tracking-widest">{diProduct.brand}</span>
+                                   <h4 className="font-black text-white text-2xl leading-tight uppercase">{diProduct.name}</h4>
+                                </div>
+                                <div className="flex justify-center -my-2 relative z-10">
+                                   <SafetyRadarChart product={product} lang={lang} isDark={true} />
+                                </div>
+                                <div className="bg-slate-900/60 shadow-inner p-6 rounded-[24px] border border-slate-700 flex-grow relative z-10">
+                                  <p className="text-[13px] text-slate-300 font-bold leading-relaxed italic">“{diProduct.editorVerdict}”</p>
+                                </div>
+                                <button
+                                  onClick={() => onSelectProduct(product)}
+                                  className="w-full relative z-10 py-4.5 bg-white hover:bg-orange-500 text-slate-900 hover:text-white font-black text-[10px] uppercase tracking-widest rounded-2xl transition-all shadow-md flex items-center justify-center gap-2"
+                                >
+                                  {lang === "en" ? "VIEW DOSSIER" : "独立档案"}
+                                  <ArrowRight className="w-4 h-4" />
+                                </button>
+                            </div>
+                          )
+                       })}
+                    </div>
+                </div>
+               );
+            }
+
+            const { product, reviewBadge } = block.data;
+            const diProduct = translateProduct(product, lang);
             return (
               <div
                 key={diProduct.id}
@@ -284,13 +349,13 @@ export default function EvaluationsSection({
 
                     <div className="space-y-2">
                       <span className="text-[10px] text-slate-400 font-black uppercase tracking-widest">{diProduct.brand}</span>
-                      <h3 className="font-black text-slate-900 text-2xl leading-tight group-hover:text-orange-500 transition-colors uppercase">
+                      <h3 className="font-black text-slate-900 text-3xl md:text-2xl lg:text-3xl leading-tight group-hover:text-orange-500 transition-colors uppercase">
                         {diProduct.name}
                       </h3>
                     </div>
 
                     <div className="bg-slate-50/50 p-6 rounded-[32px] border border-slate-50">
-                       <p className="text-sm text-slate-600 leading-relaxed font-bold italic">“{diProduct.editorVerdict}”</p>
+                       <p className="text-[15px] sm:text-sm text-slate-600 leading-relaxed font-bold italic">“{diProduct.editorVerdict}”</p>
                     </div>
                   </div>
 

@@ -28,7 +28,6 @@ function translateCategoryLabel(cat: string): string {
   const labels: Record<string, string> = {
     beginner: "新手入门指南",
     risk: "风险甄别指南",
-    export: "跨境选购指南",
     maintenance: "养护使用指南",
     scenario: "场景化选购指南"
   };
@@ -333,7 +332,6 @@ export default function GuidesSection({
     { id: "scenario", label: "🏞️ Scenario Guide" },
     { id: "budget", label: "💰 Budget Guide" },
     { id: "risk", label: "⚖️ Risk ID Guide" },
-    { id: "export", label: "⚖️ Cross-border" },
     { id: "special", label: "🚲 Category Special" },
     { id: "maintenance", label: "🔧 Maintenance" }
   ] : [
@@ -342,7 +340,6 @@ export default function GuidesSection({
     { id: "scenario", label: "🏞️ 场景化选购" },
     { id: "budget", label: "💰 预算分级指南" },
     { id: "risk", label: "⚖️ 风险甄别指南" },
-    { id: "export", label: "⚖️ 跨境选购指南" },
     { id: "special", label: "🚲 品类专项指南" },
     { id: "maintenance", label: "🔧 养护使用指南" }
   ];
