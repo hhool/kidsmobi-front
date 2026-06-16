@@ -7,10 +7,12 @@ import {
   History, 
   Link as LinkIcon, 
   Triangle,
-  AlertTriangle
+  AlertTriangle,
+  Trash2,
+  FileText
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { getCMSEvaluations, saveCMSEvaluation, getCMSProducts } from "../../lib/cmsService";
+import { getCMSEvaluations, saveCMSEvaluation, getCMSProducts, deleteCMSEvaluation } from "../../lib/cmsService";
 import { Evaluation, CMSProduct, RadarScores } from "../../types";
 
 export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
@@ -29,6 +31,27 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
     ]);
     setEvaluations(evs);
     setProducts(prods);
+  };
+
+  const handleDelete = async (id: string) => {
+    const isZh = lang === "zh";
+    const confirmMsg = isZh 
+      ? "您确定要彻底删除该评测报告吗？此操作不可逆。" 
+      : "Are you sure you want to permanently delete this evaluation report? This action cannot be undone.";
+
+    if (window.confirm(confirmMsg)) {
+      try {
+        const success = await deleteCMSEvaluation(id);
+        if (success) {
+          fetchData();
+        } else {
+          alert(isZh ? "删除失败，这通常是因为权限不足或网络异常。" : "Deletion failed. This is usually due to permission deniability or network issues.");
+        }
+      } catch (e: any) {
+        console.error(e);
+        alert(e.message || String(e));
+      }
+    }
   };
 
   const handleNew = () => {
@@ -113,12 +136,21 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
                   <p className="text-xs text-slate-400 font-bold uppercase tracking-tight mt-0.5">Linked: {product?.zh.name || ev.productId}</p>
                 </div>
               </div>
+            <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
               <button 
                 onClick={() => setEditingEv(ev)}
-                className="opacity-0 group-hover:opacity-100 p-4 hover:bg-slate-100 rounded-2xl text-slate-600 transition-all text-xs font-black uppercase tracking-widest"
+                className="p-4 hover:bg-slate-100 rounded-2xl text-slate-600 transition-all text-xs font-black uppercase tracking-widest flex items-center gap-1.5"
               >
+                <FileText className="w-4 h-4 text-emerald-500" />
                 Modify Report
               </button>
+              <button 
+                onClick={() => handleDelete(ev.id)}
+                className="p-4 hover:bg-red-50 rounded-2xl text-red-400 transition-all font-bold"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            </div>
             </div>
           );
         })}

@@ -10,10 +10,8 @@ import {
   AlertTriangle
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { getCMSProducts, saveCMSProduct } from "../../lib/cmsService";
+import { getCMSProducts, saveCMSProduct, deleteCMSProduct } from "../../lib/cmsService";
 import { CMSProduct, ComplianceTag, ProductCategory } from "../../types";
-import { deleteDoc, doc } from "firebase/firestore";
-import { db } from "../../lib/firebase";
 
 export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
   const [products, setProducts] = useState<CMSProduct[]>([]);
@@ -88,16 +86,22 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
   };
 
   const handleDelete = async (id: string) => {
-    if (confirm("Are you sure you want to delete this product?")) {
+    const isZh = lang === "zh";
+    const confirmMsg = isZh 
+      ? "您确定要彻底删除该产品吗？此操作不可逆。" 
+      : "Are you sure you want to permanently delete this product? This action cannot be undone.";
+    
+    if (window.confirm(confirmMsg)) {
       try {
-        await Promise.race([
-          deleteDoc(doc(db, "products", id)),
-          new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout deleting item.")), 5000))
-        ]);
-        fetchProducts();
+        const success = await deleteCMSProduct(id);
+        if (success) {
+          fetchProducts();
+        } else {
+          alert(isZh ? "删除失败，这通常是因为权限不足或网络异常。" : "Deletion failed. This is usually due to permission deniability or network issues.");
+        }
       } catch (e: any) {
         console.error(e);
-        alert("Failed to delete: " + (e.message || String(e)));
+        alert(e.message || String(e));
       }
     }
   };

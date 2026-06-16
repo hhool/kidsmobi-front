@@ -377,3 +377,53 @@ export async function saveCMSSettings(settings: CMSSettings) {
     handleFirestoreError(error, OperationType.WRITE, path);
   }
 }
+
+// Deletion Operations using unified Firestore schema paths
+export async function deleteCMSProduct(id: string): Promise<boolean> {
+  const path = `products/${id}`;
+  try {
+    const pDoc = doc(db, "products", id);
+    await withTimeout(deleteDoc(pDoc), 5000);
+    return true;
+  } catch (error) {
+    handleFirestoreError(error, OperationType.DELETE, path);
+    return false;
+  }
+}
+
+export async function deleteCMSEvaluation(id: string): Promise<boolean> {
+  const path = `evaluations/${id}`;
+  try {
+    const eDoc = doc(db, "evaluations", id);
+    await withTimeout(deleteDoc(eDoc), 5000);
+    return true;
+  } catch (error) {
+    handleFirestoreError(error, OperationType.DELETE, path);
+    return false;
+  }
+}
+
+export async function deleteCMSGuide(id: string): Promise<boolean> {
+  const path = `guides/${id}`;
+  try {
+    const gDoc = doc(db, "guides", id);
+    await withTimeout(deleteDoc(gDoc), 5000);
+    return true;
+  } catch (error) {
+    handleFirestoreError(error, OperationType.DELETE, path);
+    return false;
+  }
+}
+
+export async function deleteCMSNews(id: string): Promise<boolean> {
+  const path = `news/${id}`;
+  try {
+    const nDoc = doc(db, "news", id);
+    await withTimeout(deleteDoc(nDoc), 5000);
+    return true;
+  } catch (error) {
+    handleFirestoreError(error, OperationType.DELETE, path);
+    return false;
+  }
+}
+

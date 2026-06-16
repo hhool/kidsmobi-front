@@ -7,10 +7,11 @@ import {
   AlertTriangle, 
   ListOrdered,
   Layout,
-  Search as SearchIcon
+  Search as SearchIcon,
+  Trash2
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { getCMSGuides, saveCMSGuide } from "../../lib/cmsService";
+import { getCMSGuides, saveCMSGuide, deleteCMSGuide } from "../../lib/cmsService";
 import { Guide, RiskCard, SEOConfig } from "../../types";
 
 export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
@@ -24,6 +25,27 @@ export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
   const fetchData = async () => {
     const data = await getCMSGuides();
     setGuides(data);
+  };
+
+  const handleDelete = async (id: string) => {
+    const isZh = lang === "zh";
+    const confirmMsg = isZh 
+      ? "您确定要彻底删除该指南吗？此操作不可逆。" 
+      : "Are you sure you want to permanently delete this guide? This action cannot be undone.";
+
+    if (window.confirm(confirmMsg)) {
+      try {
+        const success = await deleteCMSGuide(id);
+        if (success) {
+          fetchData();
+        } else {
+          alert(isZh ? "删除失败，这通常是因为权限不足或网络异常。" : "Deletion failed. This is usually due to permission deniability or network issues.");
+        }
+      } catch (e: any) {
+        console.error(e);
+        alert(e.message || String(e));
+      }
+    }
   };
 
   const handleNew = () => {
@@ -103,12 +125,21 @@ export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
                 <p className="text-xs text-slate-400 font-bold uppercase tracking-tight mt-0.5">{g.riskCards.length} Risk Cards Active</p>
               </div>
             </div>
-            <button 
-              onClick={() => setEditingGuide(g)}
-              className="opacity-0 group-hover:opacity-100 p-4 hover:bg-slate-100 rounded-2xl text-slate-600 transition-all text-xs font-black uppercase tracking-widest"
-            >
-              Open Editor
-            </button>
+            <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+              <button 
+                onClick={() => setEditingGuide(g)}
+                className="p-4 hover:bg-slate-100 rounded-2xl text-slate-600 transition-all text-xs font-black uppercase tracking-widest flex items-center gap-1.5"
+              >
+                <FileText className="w-4 h-4 text-blue-500" />
+                Open Editor
+              </button>
+              <button 
+                onClick={() => handleDelete(g.id)}
+                className="p-4 hover:bg-red-50 rounded-2xl text-red-400 transition-all font-bold"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         ))}
       </div>
