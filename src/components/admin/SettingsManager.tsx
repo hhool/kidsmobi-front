@@ -7,7 +7,8 @@ import {
   ArrowRight,
   Monitor,
   Globe,
-  AlertTriangle
+  AlertTriangle,
+  CheckCircle2
 } from "lucide-react";
 import { motion } from "motion/react";
 import { getCMSSettings, saveCMSSettings, getCMSProducts, getCMSEvaluations, getCMSGuides } from "../../lib/cmsService";
@@ -67,14 +68,17 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
 
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [saveSuccess, setSaveSuccess] = useState<string | null>(null);
 
   const handleSave = async () => {
     if (settings) {
       setSaving(true);
       setSaveError(null);
+      setSaveSuccess(null);
       try {
         await saveCMSSettings(settings);
-        alert(lang === "zh" ? "店铺配置更新成功！" : "Store updated successfully.");
+        setSaveSuccess(lang === "zh" ? "店铺配置更新成功！已成功同步持久化至云端 Firestore。" : "Store configuration updated successfully and deployed to Cloud Firestore.");
+        setTimeout(() => setSaveSuccess(null), 4000);
       } catch (e: any) {
         console.error(e);
         let errorMsg = e.message || String(e);
@@ -89,9 +93,6 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
             : "Operation Timed Out: Failed to reach Firestore database. Please verify your connection/proxy settings, or re-authenticate your expired session.";
         }
         setSaveError(niceError);
-        try {
-          alert(niceError);
-        } catch (_) {}
       } finally {
         setSaving(false);
       }
@@ -184,6 +185,22 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
           )}
         </button>
       </header>
+
+      {saveSuccess && (
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="p-6 bg-emerald-50 border border-emerald-150 rounded-[24px] flex items-start gap-4 text-emerald-950 text-sm leading-relaxed shadow-sm max-w-5xl"
+        >
+          <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-0.5" />
+          <div>
+            <p className="font-black uppercase tracking-tight text-emerald-950 mb-1">
+              {lang === "zh" ? "部署成功 / Cloud Deploy Succeeded" : "Cloud Deploy Succeeded"}
+            </p>
+            <p className="font-semibold text-emerald-800 text-xs">{saveSuccess}</p>
+          </div>
+        </motion.div>
+      )}
 
       {saveError && (
         <motion.div 

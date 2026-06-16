@@ -65,9 +65,6 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
           : "Operation Timed Out: Failed to reach Firestore database. Please verify your connection/proxy settings, or re-authenticate your expired session.";
       }
       setSaveError(niceError);
-      try {
-        alert(niceError);
-      } catch (_) {}
     } finally {
       setSaving(false);
     }
