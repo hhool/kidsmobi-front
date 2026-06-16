@@ -1,6 +1,7 @@
 import { db } from "./firebase";
 import { 
   doc, 
+  getDoc,
   setDoc, 
   deleteDoc, 
   getDocs, 
@@ -8,6 +9,7 @@ import {
   serverTimestamp 
 } from "firebase/firestore";
 import { handleFirestoreError, OperationType, withTimeout } from "./firestoreHelper";
+import { ChildProfile } from "../types";
 
 export async function ensureUserProfileInFirestore(userId: string, email: string) {
   const path = `users/${userId}`;
@@ -16,6 +18,33 @@ export async function ensureUserProfileInFirestore(userId: string, email: string
       userId,
       email,
     }, { merge: true }));
+  } catch (error) {
+    handleFirestoreError(error, OperationType.WRITE, path);
+  }
+}
+
+export async function getChildProfileFromFirestore(userId: string): Promise<ChildProfile | null> {
+  const path = `users/${userId}/childProfile`;
+  try {
+    const pDoc = await getDoc(doc(db, "users", userId, "childProfile"));
+    if (pDoc.exists()) {
+      return pDoc.data() as ChildProfile;
+    }
+    return null;
+  } catch (error) {
+    handleFirestoreError(error, OperationType.GET, path);
+    return null;
+  }
+}
+
+export async function saveChildProfileToFirestore(userId: string, profile: ChildProfile) {
+  const path = `users/${userId}/childProfile`;
+  try {
+    await withTimeout(setDoc(doc(db, "users", userId, "childProfile"), {
+      ...profile,
+      userId,
+      updatedAt: serverTimestamp()
+    }));
   } catch (error) {
     handleFirestoreError(error, OperationType.WRITE, path);
   }

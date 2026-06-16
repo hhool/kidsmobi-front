@@ -96,6 +96,21 @@
       },
       "required": ["userId", "email"]
     },
+    "ChildProfile": {
+      "title": "Child Profile",
+      "description": "Child's physical metrics for recommendation matching",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "age": { "type": "number" },
+        "height": { "type": "number" },
+        "inseam": { "type": "number" },
+        "weight": { "type": "number" },
+        "experience": { "type": "string", "enum": ["beginner", "intermediate", "advanced"] },
+        "updatedAt": { "type": "object" }
+      },
+      "required": ["userId", "age", "height", "weight"]
+    },
     "Bookmark": {
       "title": "User Bookmark",
       "description": "Bookmark reference of a product added by a user",
@@ -116,6 +131,7 @@
     "/news/{newsId}": { "schema": "News", "description": "Press releases and news" },
     "/settings/{settingId}": { "schema": "Settings", "description": "Global application configuration" },
     "/users/{userId}": { "schema": "User", "description": "User profiles" },
+    "/users/{userId}/childProfile": { "schema": "ChildProfile", "description": "Child physical profile for matching" },
     "/users/{userId}/bookmarks/{productId}": { "schema": "Bookmark", "description": "User saved products bookmarks collection" }
   }
 }

@@ -23,7 +23,7 @@ import {
   ResponsiveContainer, 
   Tooltip 
 } from "recharts";
-import { Product, CurrencyData } from "../types";
+import { Product, CurrencyData, CMSSettings } from "../types";
 import { translateProduct } from "../lib/translate";
 import { formatWeight } from "../lib/units";
 import ProductCarousel from "./ProductCarousel";
@@ -39,6 +39,7 @@ interface DetailedProductViewProps {
   activeStandardDimension: string | null;
   setActiveStandardDimension: (dim: string | null) => void;
   previousTab?: string;
+  cmsSettings?: CMSSettings | null;
 }
 
 export default function DetailedProductView({
@@ -51,7 +52,8 @@ export default function DetailedProductView({
   setComparedProduct,
   activeStandardDimension,
   setActiveStandardDimension,
-  previousTab
+  previousTab,
+  cmsSettings
 }: DetailedProductViewProps) {
   const displayProduct = translateProduct(product, lang);
   const [activeMediaTab, setActiveMediaTab] = useState<"gallery" | "video">("gallery");
@@ -169,7 +171,7 @@ export default function DetailedProductView({
     return null;
   };
 
-  const scoringStandards = [
+  const defaultScoringStandards = [
     {
       key: "safety",
       nameZh: "🛡️ 安全防护 (更省心)",
@@ -198,6 +200,18 @@ export default function DetailedProductView({
        descEn: "Built with lightweight materials so anyone can easily carry it upstairs or store it."
     }
   ];
+
+  const scoringStandards = cmsSettings?.scoringStandards && cmsSettings.scoringStandards.length > 0 
+    ? cmsSettings.scoringStandards.map(s => ({
+        key: s.id,
+        nameZh: s.icon + " " + s.labelZh,
+        nameEn: s.icon + " " + s.labelEn,
+        formulaZh: "给家长的总结：" + s.descriptionZh,
+        formulaEn: "Parent's Tip: " + s.descriptionEn,
+        descZh: s.descriptionZh,
+        descEn: s.descriptionEn
+      }))
+    : defaultScoringStandards;
 
   return (
     <div id="detailed_product_view" className="max-w-4xl mx-auto space-y-8 animate-fade-in text-left">
@@ -464,8 +478,8 @@ export default function DetailedProductView({
                    { label: lang === "en" ? "Tires" : "轮胎材质", val1: displayProduct.tireType, val2: comparedProduct?.tireType },
                    { label: lang === "en" ? "Frame" : "主要架构", val1: displayProduct.material, val2: comparedProduct?.material },
                    { label: lang === "en" ? "Wheel Size" : "轮毂规格", val1: displayProduct.wheelSize, val2: comparedProduct?.wheelSize },
-                   { label: lang === "en" ? "Brakes" : "制动系统", val1: displayProduct.brakes, val2: comparedProduct?.brakes },
-                   { label: lang === "en" ? "Saddle Height" : "鞍座范围", val1: displayProduct.saddleHeightRange, val2: comparedProduct?.saddleHeightRange },
+                   { label: lang === "en" ? "Brakes" : "制动系统", val1: displayProduct.brakeType, val2: comparedProduct?.brakeType },
+                   { label: lang === "en" ? "Height Range" : "适配身高范围", val1: displayProduct.heightRange ? `${displayProduct.heightRange[0]}-${displayProduct.heightRange[1]}cm` : "", val2: comparedProduct?.heightRange ? `${comparedProduct.heightRange[0]}-${comparedProduct.heightRange[1]}cm` : null },
                    { label: lang === "en" ? "MSRP" : "参考售价", val1: `${currencyData.symbol}${displayProduct.price}`, val2: comparedProduct ? `${currencyData.symbol}${comparedProduct.price}` : null }
                  ].map((item, i) => (
                    <div key={i} className="flex justify-between items-center text-xs border-b border-white/5 pb-3 last:border-0">

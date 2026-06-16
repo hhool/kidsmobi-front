@@ -165,6 +165,14 @@ export interface CMSSettings {
     en: { title: string; subtitle: string };
   };
   homeSlots: HomeSlot[]; // For the drag-and-drop recommender
+  scoringStandards?: {
+    id: string;
+    labelZh: string;
+    labelEn: string;
+    descriptionZh: string;
+    descriptionEn: string;
+    icon: string;
+  }[];
   seo?: {
     [key: string]: {
       zh: SEOConfig;

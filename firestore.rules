@@ -71,6 +71,10 @@ service cloud.firestore {
     match /users/{userId} {
       allow read, write: if isOwner(userId) || isAdmin();
 
+      match /childProfile {
+        allow read, write: if isOwner(userId) || isAdmin();
+      }
+
       match /bookmarks/{productId} {
         allow read, write: if isOwner(userId) || isAdmin();
       }

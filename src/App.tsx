@@ -203,13 +203,30 @@ export default function App() {
   const currencyData = getCurrencyData(countryCode);
 
   // 1. Core child mechanics states
-  const [childProfile, setChildProfile] = useState<ChildProfile>({
+  const [childProfile, setChildProfileState] = useState<ChildProfile>({
     age: 4,
     height: 102,
     inseam: 38,
     weight: 16,
     experience: "beginner",
   });
+
+  const setChildProfile = (profileOrUpdater: ChildProfile | ((prev: ChildProfile) => ChildProfile)) => {
+    setChildProfileState(prev => {
+      const newProfile = typeof profileOrUpdater === 'function' ? profileOrUpdater(prev) : profileOrUpdater;
+      
+      const currentUser = auth.currentUser;
+      const isBypass = localStorage.getItem("dev_admin_bypass") === "true";
+      if (currentUser && !isBypass) {
+        // Asynchronously save to Firebase
+        import("./lib/firestoreService").then(({ saveChildProfileToFirestore }) => {
+          saveChildProfileToFirestore(currentUser.uid, newProfile);
+        }).catch(err => console.error("Dynamic import failed", err));
+      }
+      
+      return newProfile;
+    });
+  };
 
   // 3. User local bookmarks, up to 3 compares, and session login email
   const [savedProducts, setSavedProducts] = useState<Product[]>([]);
@@ -381,6 +398,17 @@ export default function App() {
         } catch (error) {
           console.error("Admin check failed:", error);
           setIsAdmin(false);
+        }
+
+        // Fetch user's child profile
+        try {
+          const { getChildProfileFromFirestore } = await import("./lib/firestoreService");
+          const profile = await getChildProfileFromFirestore(user.uid);
+          if (profile) {
+            setChildProfileState(profile); // Bypass the save logic since we just fetched it
+          }
+        } catch (err) {
+          console.error("Failed to load child profile:", err);
         }
       } else {
         setUserEmail("");
@@ -977,6 +1005,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             activeStandardDimension={activeStandardDimension}
             setActiveStandardDimension={setActiveStandardDimension}
             previousTab={previousTab}
+            cmsSettings={cmsSettings}
           />
         )}
 
