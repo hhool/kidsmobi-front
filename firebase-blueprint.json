@@ -35,9 +35,7 @@
       "type": "object",
       "properties": {
         "id": { "type": "string" },
-        "type": { "type": "string", "enum": ["single", "compare", "value", "ranking", "safety", "durability", "ergonomics"] },
         "productId": { "type": "string" },
-        "productIds": { "type": "array", "items": { "type": "string" } },
         "status": { "type": "string" },
         "version": { "type": "string" },
         "scores": { "type": "object" },
