@@ -3,6 +3,12 @@ import { GoogleGenAI } from "@google/genai";
 import { guideArticles } from "./data/guidesData";
 import { newsArticles } from "./data/newsData";
 import dotenv from "dotenv";
+import {
+  getPresignedUploadUrl,
+  getPresignedGetUrl,
+  fetchObjectBuffer,
+  getObjectUrl,
+} from "./lib/storage/r2Adapter";
 
 // Load environment variables
 dotenv.config();
@@ -12,6 +18,27 @@ const app = express();
 // Middleware to parse requests
 app.use(express.json());
 
+// ---------------------------------------------------------------------------
+// Shared helpers
+// ---------------------------------------------------------------------------
+
+/**
+ * Validates an R2 object key to prevent path-traversal and SSRF.
+ * Allowed: printable ASCII excluding control chars, no ".." segments,
+ * no leading slash.
+ */
+function isValidR2Key(key: unknown): key is string {
+  if (typeof key !== "string" || key.length === 0 || key.length > 1024) {
+    return false;
+  }
+  // No leading slash, no ".." segments, no null bytes
+  if (key.startsWith("/") || key.includes("..") || key.includes("\0")) {
+    return false;
+  }
+  // Only allow safe path characters
+  return /^[\w\-./]+$/.test(key);
+}
+
 // GET endpoint to retrieve guides data from the server
 app.get("/api/guides", (req, res) => {
   res.json(guideArticles);
@@ -20,6 +47,128 @@ app.get("/api/guides", (req, res) => {
 // GET endpoint to retrieve news data from the server
 app.get("/api/news", (req, res) => {
   res.json(newsArticles);
+});
+
+// ---------------------------------------------------------------------------
+// Asset / R2 Storage endpoints
+// ---------------------------------------------------------------------------
+
+/** Maps a file extension to its MIME type for the proxy response. */
+function extToMime(key: string): string {
+  const ext = key.split(".").pop()?.toLowerCase() ?? "";
+  const mimeMap: Record<string, string> = {
+    jpg: "image/jpeg",
+    jpeg: "image/jpeg",
+    png: "image/png",
+    gif: "image/gif",
+    webp: "image/webp",
+    svg: "image/svg+xml",
+    avif: "image/avif",
+    mp4: "video/mp4",
+    webm: "video/webm",
+  };
+  return mimeMap[ext] ?? "application/octet-stream";
+}
+
+/**
+ * POST /api/assets/presign
+ * Body: { key: string, contentType: string }
+ * Returns: { uploadUrl: string, getUrl: string }
+ *
+ * Generates a presigned PUT URL for direct browser-to-R2 upload and a
+ * presigned GET URL the client can use to preview the object after upload.
+ */
+app.post("/api/assets/presign", async (req, res) => {
+  try {
+    const { key, contentType } = req.body as { key?: string; contentType?: string };
+    if (!isValidR2Key(key)) {
+      res.status(400).json({ error: "key is missing or contains invalid characters" });
+      return;
+    }
+    if (!contentType || typeof contentType !== "string") {
+      res.status(400).json({ error: "contentType is required" });
+      return;
+    }
+
+    const [uploadUrl, getUrl] = await Promise.all([
+      getPresignedUploadUrl(key, contentType),
+      getPresignedGetUrl(key),
+    ]);
+
+    res.json({ uploadUrl, getUrl });
+  } catch (error: any) {
+    console.error("[R2] /api/assets/presign error:", error);
+    res.status(500).json({ error: error.message || "Failed to generate presigned URL" });
+  }
+});
+
+/**
+ * GET /api/assets/fetch?key=<objectKey>
+ * Server-side proxy that streams an R2 object back to the browser.
+ * Useful in dev/staging when the bucket has no public access enabled —
+ * the browser never needs a direct presigned URL to render a preview.
+ */
+app.get("/api/assets/fetch", async (req, res) => {
+  try {
+    const { key } = req.query;
+    if (!isValidR2Key(key)) {
+      res.status(400).json({ error: "key is missing or contains invalid characters" });
+      return;
+    }
+
+    const buffer = await fetchObjectBuffer(key);
+
+    res.set("Content-Type", extToMime(key));
+    res.set("Cache-Control", "public, max-age=3600");
+    res.send(buffer);
+  } catch (error: any) {
+    console.error("[R2] /api/assets/fetch error:", error);
+    res.status(502).json({ error: error.message || "Failed to proxy object from R2" });
+  }
+});
+
+/**
+ * POST /api/assets/complete
+ * Body: { key: string }
+ * Returns: { publicUrl: string }
+ *
+ * Verifies the object was successfully uploaded to R2 (HEAD check) and
+ * returns the permanent public URL.  Any optional side-effects (e.g. writing
+ * metadata to Firestore) are attempted but never cause this endpoint to fail.
+ */
+app.post("/api/assets/complete", async (req, res) => {
+  try {
+    const { key } = req.body as { key?: string };
+    if (!isValidR2Key(key)) {
+      res.status(400).json({ error: "key is missing or contains invalid characters" });
+      return;
+    }
+
+    // Verify the object exists in R2 via a presigned HEAD-equivalent GET
+    const presignedGetUrl = await getPresignedGetUrl(key, 60);
+    const headRes = await fetch(presignedGetUrl, { method: "HEAD" });
+    if (!headRes.ok) {
+      res.status(404).json({
+        error: `Object "${key}" not found in R2 (status ${headRes.status})`,
+      });
+      return;
+    }
+
+    const publicUrl = getObjectUrl(key);
+
+    // Optional: persist metadata to Firestore.  Wrapped so a Firestore failure
+    // never prevents the client from receiving the public URL.
+    try {
+      // Future hook: await saveAssetMetadata(key, publicUrl);
+    } catch (firestoreErr) {
+      console.warn("[R2] Firestore metadata write failed (non-fatal):", firestoreErr);
+    }
+
+    res.json({ publicUrl });
+  } catch (error: any) {
+    console.error("[R2] /api/assets/complete error:", error);
+    res.status(500).json({ error: error.message || "Failed to complete asset upload" });
+  }
 });
 
 // Lazy initialize Gemini clients

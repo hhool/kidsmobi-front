@@ -12,6 +12,7 @@ import {
 import { motion, AnimatePresence } from "motion/react";
 import { getCMSProducts, saveCMSProduct, deleteCMSProduct } from "../../lib/cmsService";
 import { CMSProduct, ComplianceTag, ProductCategory } from "../../types";
+import AssetUploader from "./AssetUploader";
 
 export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
   const [products, setProducts] = useState<CMSProduct[]>([]);
@@ -357,32 +358,39 @@ function ProductEditor({ product, onSave, onCancel, lang, saving, error }: any) 
               <Section title="Visual & Media Assets">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-6">
-                    <Field label="Primary Hero Image URL" value={formData.imageUrl} onChange={(v) => setFormData({...formData, imageUrl: v})} />
+                    <AssetUploader
+                      label="Primary Hero Image"
+                      value={formData.imageUrl}
+                      onChange={(url) => setFormData({ ...formData, imageUrl: url })}
+                      keyPrefix="products/hero/"
+                    />
                     <Field label="Video showcase URL (YouTube/Direct)" value={formData.videoUrl || ""} onChange={(v) => setFormData({...formData, videoUrl: v})} />
                   </div>
                   
                   <div className="space-y-4">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Image Gallery (Sub-views)</label>
-                    <div className="space-y-2">
+                    <div className="space-y-4">
                       {(formData.galleryUrls || []).map((url, idx) => (
-                        <div key={idx} className="flex gap-2">
-                          <input 
-                            className="flex-1 bg-slate-50 py-3 px-4 rounded-xl font-bold text-xs outline-none border border-transparent focus:border-orange-500 focus:bg-white transition-all"
+                        <div key={idx} className="relative">
+                          <AssetUploader
+                            label={`Gallery Image ${idx + 1}`}
                             value={url}
-                            onChange={(e) => {
+                            onChange={(newUrl) => {
                               const next = [...(formData.galleryUrls || [])];
-                              next[idx] = e.target.value;
-                              setFormData({...formData, galleryUrls: next});
+                              next[idx] = newUrl;
+                              setFormData({ ...formData, galleryUrls: next });
                             }}
+                            keyPrefix="products/gallery/"
                           />
-                          <button 
+                          <button
                             onClick={() => {
                               const next = (formData.galleryUrls || []).filter((_, i) => i !== idx);
-                              setFormData({...formData, galleryUrls: next});
+                              setFormData({ ...formData, galleryUrls: next });
                             }}
-                            className="p-3 bg-red-50 text-red-400 rounded-xl hover:bg-red-100 transition-all"
+                            className="absolute top-0 right-0 p-1.5 bg-red-50 text-red-400 rounded-full hover:bg-red-100 transition-all"
+                            title="Remove gallery image"
                           >
-                            <Trash2 className="w-4 h-4" />
+                            <Trash2 className="w-3.5 h-3.5" />
                           </button>
                         </div>
                       ))}
