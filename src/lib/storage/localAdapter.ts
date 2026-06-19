@@ -2,9 +2,16 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const UPLOADS_DIR = path.join(__dirname, "../../../uploads");
+const getDirname = () => {
+  try {
+    if (typeof __dirname !== 'undefined') return __dirname;
+    // @ts-ignore
+    return path.dirname(fileURLToPath(import.meta.url));
+  } catch (e) {
+    return process.cwd();
+  }
+};
+const UPLOADS_DIR = path.join(getDirname(), "../../../uploads");
 
 // Ensure root directory exists
 if (!fs.existsSync(UPLOADS_DIR)) {

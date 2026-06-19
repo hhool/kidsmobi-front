@@ -168,9 +168,16 @@ import fs from "fs";
 import { fileURLToPath } from "url";
 
 // Local storage upload handling
-const __filenamePath = fileURLToPath(import.meta.url);
-const __dirnamePath = path.dirname(__filenamePath);
-const UPLOADS_DIR = path.join(__dirnamePath, "../../uploads");
+const getDirname = () => {
+  try {
+    if (typeof __dirname !== 'undefined') return __dirname;
+    // @ts-ignore
+    return path.dirname(fileURLToPath(import.meta.url));
+  } catch (e) {
+    return process.cwd();
+  }
+};
+const UPLOADS_DIR = path.join(getDirname(), "../../uploads");
 
 const upload = multer({
   storage: multer.diskStorage({
