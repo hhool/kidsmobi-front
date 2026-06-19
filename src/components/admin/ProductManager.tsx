@@ -12,8 +12,6 @@ import {
 import { motion, AnimatePresence } from "motion/react";
 import { getCMSProducts, saveCMSProduct, deleteCMSProduct } from "../../lib/cmsService";
 import { CMSProduct, ComplianceTag, ProductCategory } from "../../types";
-import { uploadAssetFile } from "../../lib/upload";
-import AssetUploader from "./AssetUploader";
 
 export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
   const [products, setProducts] = useState<CMSProduct[]>([]);
@@ -197,23 +195,6 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
 function ProductEditor({ product, onSave, onCancel, lang, saving, error }: any) {
   const [formData, setFormData] = useState<CMSProduct>(product);
   const [activeTab, setActiveTab] = useState<"base" | "zh" | "en" | "compare">("compare");
-  const fileInputRef = React.useRef<HTMLInputElement | null>(null);
-
-  const uploadFile = async (file: File) => {
-    const key = `products/${formData.category}/${formData.brand || 'unknown'}/${formData.id}/${Date.now()}-${file.name}`;
-    return await uploadAssetFile(file, key);
-  };
-
-  const onFileSelected = async (e: React.ChangeEvent<HTMLInputElement>, addToGallery = false) => {
-    const f = e.target.files?.[0];
-    if (!f) return;
-    const url = await uploadFile(f);
-    if (addToGallery) {
-      setFormData({ ...formData, galleryUrls: [...(formData.galleryUrls || []), url] });
-    } else {
-      setFormData({ ...formData, imageUrl: url });
-    }
-  };
 
   const categories: ProductCategory[] = ["balance", "bicycle", "scooter", "stroller", "electric_car", "tricycle", "safety_seat"];
   const complianceOptions: ComplianceTag[] = ["CCC", "EN1888", "ASTM", "GS"];
@@ -376,43 +357,14 @@ function ProductEditor({ product, onSave, onCancel, lang, saving, error }: any) 
               <Section title="Visual & Media Assets">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-6">
-                        <div className="flex gap-3 items-center">
-                          <div className="flex-1">
-                            <Field label="Primary Hero Image URL" value={formData.imageUrl} onChange={(v) => setFormData({...formData, imageUrl: v})} />
-                          </div>
-                          <div className="flex flex-col gap-2">
-                            <button onClick={() => fileInputRef.current?.click()} className="px-4 py-3 bg-slate-900 text-white rounded-2xl font-black">Upload</button>
-                            <AssetUploader defaultKeyPrefix={`products/${formData.category}/${formData.brand || 'unknown'}/${formData.id}/`} onUploaded={(url: string) => setFormData({...formData, imageUrl: url})} />
-                          </div>
-                        </div>
-                        <input ref={fileInputRef} type="file" accept="image/*" onChange={(e) => onFileSelected(e, false)} className="hidden" />
-                        {formData.imageUrl ? (
-                          <div className="mt-4 w-48 h-36 bg-white rounded-2xl border border-slate-100 p-2 flex items-center justify-center">
-                            <img src={formData.imageUrl} alt="preview" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
-                          </div>
-                        ) : null}
-                        <div className="space-y-2">
-                          <Field label="Video showcase URL (YouTube/Direct)" value={formData.videoUrl || ""} onChange={(v) => setFormData({...formData, videoUrl: v})} />
-                          <div className="flex items-center gap-2">
-                            <AssetUploader defaultKeyPrefix={`products/${formData.category}/${formData.brand || 'unknown'}/${formData.id}/videos/`} onUploaded={(url: string) => setFormData({...formData, videoUrl: url})} />
-                            <div className="text-xs text-slate-400">Or paste a YouTube / external video link above.</div>
-                          </div>
-                        </div>
-                      </div>
+                    <Field label="Primary Hero Image URL" value={formData.imageUrl} onChange={(v) => setFormData({...formData, imageUrl: v})} />
+                    <Field label="Video showcase URL (YouTube/Direct)" value={formData.videoUrl || ""} onChange={(v) => setFormData({...formData, videoUrl: v})} />
+                  </div>
                   
                   <div className="space-y-4">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Image Gallery (Sub-views)</label>
                     <div className="space-y-2">
-                          {/* Gallery thumbnails */}
-                          <div className="flex gap-2 flex-wrap">
-                            {(formData.galleryUrls || []).map((url, idx) => (
-                              <div key={idx} className="w-24 h-16 bg-white rounded-xl border border-slate-100 overflow-hidden relative">
-                                {url ? <img src={url} className="w-full h-full object-cover" referrerPolicy="no-referrer" /> : <div className="w-full h-full flex items-center justify-center text-xs text-slate-300">No image</div>}
-                              </div>
-                            ))}
-                          </div>
-
-                          {(formData.galleryUrls || []).map((url, idx) => (
+                      {(formData.galleryUrls || []).map((url, idx) => (
                         <div key={idx} className="flex gap-2">
                           <input 
                             className="flex-1 bg-slate-50 py-3 px-4 rounded-xl font-bold text-xs outline-none border border-transparent focus:border-orange-500 focus:bg-white transition-all"
@@ -434,16 +386,13 @@ function ProductEditor({ product, onSave, onCancel, lang, saving, error }: any) 
                           </button>
                         </div>
                       ))}
-                      <div className="flex gap-2">
-                        <button 
-                          onClick={() => setFormData({...formData, galleryUrls: [...(formData.galleryUrls || []), ""]})}
-                          className="flex-1 py-3 border-2 border-dashed border-slate-200 rounded-xl text-slate-400 text-xs font-black hover:border-orange-500 hover:text-orange-500 transition-all flex items-center justify-center gap-2"
-                        >
-                          <Plus className="w-4 h-4" />
-                          Add Gallery Image
-                        </button>
-                        <AssetUploader defaultKeyPrefix={`products/${formData.category}/${formData.brand || 'unknown'}/${formData.id}/gallery/`} onUploaded={(url: string) => setFormData({...formData, galleryUrls: [...(formData.galleryUrls || []), url]})} />
-                      </div>
+                      <button 
+                        onClick={() => setFormData({...formData, galleryUrls: [...(formData.galleryUrls || []), ""]})}
+                        className="w-full py-3 border-2 border-dashed border-slate-200 rounded-xl text-slate-400 text-xs font-black hover:border-orange-500 hover:text-orange-500 transition-all flex items-center justify-center gap-2"
+                      >
+                        <Plus className="w-4 h-4" />
+                        Add Gallery Image
+                      </button>
                     </div>
                   </div>
                 </div>

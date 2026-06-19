@@ -13,7 +13,6 @@ import {
 import { motion, AnimatePresence } from "motion/react";
 import { getCMSGuides, saveCMSGuide, deleteCMSGuide } from "../../lib/cmsService";
 import { Guide, RiskCard, SEOConfig } from "../../types";
-import { uploadAssetFile } from "../../lib/upload";
 
 export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
   const [guides, setGuides] = useState<Guide[]>([]);
@@ -173,20 +172,6 @@ function GuideEditor({ guide, onSave, onCancel, lang, saving, error }: any) {
     });
   };
 
-  const fileInputRef = React.useRef<HTMLInputElement | null>(null);
-  const onFileSelected = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const f = e.target.files?.[0];
-    if (!f) return;
-    try {
-      const key = `guides/${formData.category}/${formData.id}/${Date.now()}-${f.name}`;
-      const url = await uploadAssetFile(f, key);
-      setFormData({ ...formData, imageUrl: url });
-    } catch (err) {
-      console.error('Guide image upload failed', err);
-      alert('上传失败，请查看控制台日志');
-    }
-  };
-
   const updateRiskCard = (index: number, card: RiskCard) => {
     const next = [...formData.riskCards];
     next[index] = card;
@@ -277,17 +262,6 @@ function GuideEditor({ guide, onSave, onCancel, lang, saving, error }: any) {
                   next[activeLang].title = v;
                   setFormData(next);
                 }} />
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Hero Image</label>
-                  <div className="flex items-center gap-4">
-                    <div className="w-28 h-20 bg-white rounded-lg border border-slate-100 flex items-center justify-center overflow-hidden">
-                      {formData.imageUrl ? <img src={formData.imageUrl} alt="hero" className="w-full h-full object-cover" referrerPolicy="no-referrer" /> : <span className="text-xs text-slate-400">No Image</span>}
-                    </div>
-                    <div>
-                      <input ref={fileInputRef} type="file" accept="image/*" onChange={onFileSelected} />
-                    </div>
-                  </div>
-                </div>
                 
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">

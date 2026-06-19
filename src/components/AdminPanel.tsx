@@ -16,8 +16,6 @@ import { checkIsAdmin, seedProductsToFirestore } from "../lib/cmsService";
 import { productsData as defaultProductsData } from "../data/modelsData";
 import { translateProduct } from "../lib/translate";
 import Sidebar from "./admin/Sidebar";
-const AssetUploader = React.lazy(() => import("./admin/AssetUploader"));
-const AssetsSync = React.lazy(() => import("./admin/AssetsSync"));
 import Dashboard from "./admin/Dashboard";
 import ProductManager from "./admin/ProductManager";
 import EvaluationManager from "./admin/EvaluationManager";
@@ -40,7 +38,7 @@ export default function AdminPanel({
   loading: boolean,
   onDeveloperBypass?: () => void
 }) {
-  const [activeMenu, setActiveMenu] = useState<"dashboard" | "products" | "evaluations" | "guides" | "news" | "settings" | "assets" | "assets-sync">("dashboard");
+  const [activeMenu, setActiveMenu] = useState<"dashboard" | "products" | "evaluations" | "guides" | "news" | "settings">("dashboard");
   const [syncing, setSyncing] = useState(false);
   const [showHelpTip, setShowHelpTip] = useState(false);
   const [copiedField, setCopiedField] = useState<string | null>(null);
@@ -206,26 +204,6 @@ export default function AdminPanel({
            {activeMenu === "guides" && <GuideManager lang={lang} />}
            {activeMenu === "news" && <NewsManager lang={lang} />}
            {activeMenu === "settings" && <SettingsManager lang={lang} />}
-           {activeMenu === "assets" && (
-             <div className="p-6 bg-white rounded-2xl shadow-sm">
-               <h3 className="font-black mb-4">{lang === "zh" ? "资源上传" : "Assets Upload"}</h3>
-               <div>
-                 {/* Lazy load to avoid import cycles */}
-                 <React.Suspense fallback={<div>Loading uploader...</div>}>
-                   {/* @ts-ignore */}
-                   <AssetUploader onUploaded={(url: string, key: string) => console.log('uploaded', url, key)} />
-                 </React.Suspense>
-               </div>
-             </div>
-           )}
-           {activeMenu === "assets-sync" && (
-             <div className="p-6">
-               <React.Suspense fallback={<div>Loading sync...</div>}>
-                 {/* @ts-ignore */}
-                 <AssetsSync lang={lang} />
-               </React.Suspense>
-             </div>
-           )}
         </div>
       </main>
 

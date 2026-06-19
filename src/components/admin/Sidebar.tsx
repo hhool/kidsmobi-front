@@ -6,8 +6,7 @@ import {
   BookOpen, 
   Globe, 
   Settings as SettingsIcon, 
-  X,
-  Database
+  X 
 } from "lucide-react";
 import { auth } from "../../lib/firebase";
 
@@ -67,18 +66,6 @@ export default function Sidebar({ activeMenu, setActiveMenu, lang, onClose }: Si
           onClick={() => setActiveMenu("settings")} 
           icon={<SettingsIcon className="w-5 h-5" />} 
           label={lang === "zh" ? "首页与配置" : "Home & Config"} 
-        />
-        <MenuItem 
-          active={activeMenu === "assets"} 
-          onClick={() => setActiveMenu("assets")} 
-          icon={<Package className="w-5 h-5" />} 
-          label={lang === "zh" ? "资源上传" : "Assets"} 
-        />
-        <MenuItem 
-          active={activeMenu === "assets-sync"} 
-          onClick={() => setActiveMenu("assets-sync")} 
-          icon={<Database className="w-5 h-5" />} 
-          label={lang === "zh" ? "批量同步" : "Bulk Sync"} 
         />
       </nav>
 

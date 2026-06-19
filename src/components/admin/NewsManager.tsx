@@ -13,7 +13,6 @@ import {
 import { motion, AnimatePresence } from "motion/react";
 import { getCMSNews, saveCMSNews, deleteCMSNews } from "../../lib/cmsService";
 import { News } from "../../types";
-import { uploadAssetFile } from "../../lib/upload";
 
 export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
   const [news, setNews] = useState<News[]>([]);
@@ -269,28 +268,6 @@ function NewsEditor({ news, onSave, onCancel, lang, saving, error }: any) {
                <div className="flex bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
                   <button onClick={() => setActiveLang("zh")} className={`flex-1 py-3 rounded-xl text-[10px] font-black transition-all ${activeLang === "zh" ? "bg-white shadow-sm text-slate-900" : "text-slate-400"}`}>Chinese</button>
                   <button onClick={() => setActiveLang("en")} className={`flex-1 py-3 rounded-xl text-[10px] font-black transition-all ${activeLang === "en" ? "bg-white shadow-sm text-slate-900" : "text-slate-400"}`}>English</button>
-               </div>
-            </div>
-            <div className="space-y-2">
-               <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">News Hero Image</label>
-               <div className="flex items-center gap-4">
-                 <div className="w-28 h-20 bg-white rounded-lg border border-slate-100 flex items-center justify-center overflow-hidden">
-                   {formData.imageUrl ? <img src={formData.imageUrl} alt="news" className="w-full h-full object-cover" referrerPolicy="no-referrer" /> : <span className="text-xs text-slate-400">No Image</span>}
-                 </div>
-                 <div>
-                   <input type="file" accept="image/*" onChange={async (e) => {
-                     const f = e.target.files?.[0];
-                     if (!f) return;
-                     try {
-                       const key = `news/${formData.category}/${formData.id}/${Date.now()}-${f.name}`;
-                       const url = await uploadAssetFile(f, key);
-                       setFormData({ ...formData, imageUrl: url });
-                     } catch (err) {
-                       console.error('News image upload failed', err);
-                       alert('上传失败，请查看控制台日志');
-                     }
-                   }} />
-                 </div>
                </div>
             </div>
           </section>
