@@ -1,7 +1,5 @@
-import { getFirestore, doc, setDoc, getDocs, collection, deleteDoc, query, orderBy } from "firebase/firestore";
-import { app } from "./firebase";
-
-const db = getFirestore(app);
+import { doc, setDoc, getDocs, collection, deleteDoc, query, orderBy } from "firebase/firestore";
+import { db } from "./firebase";
 
 export interface AssetMetadata {
   key: string;

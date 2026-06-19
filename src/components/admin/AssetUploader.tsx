@@ -72,7 +72,7 @@ export default function AssetUploader({ lang = "zh", onUploaded }: { lang?: "zh"
       prefix = `reports/${reportLang}/`;
     }
     // Remove double slashes just in case
-    return prefix.replace(/\\/\\//g, '/');
+    return prefix.replace(/\/\//g, '/');
   };
 
   const currentComputedPath = buildUploadPath();
