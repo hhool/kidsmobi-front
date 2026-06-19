@@ -18,6 +18,27 @@ const app = express();
 // Middleware to parse requests
 app.use(express.json());
 
+// ---------------------------------------------------------------------------
+// Shared helpers
+// ---------------------------------------------------------------------------
+
+/**
+ * Validates an R2 object key to prevent path-traversal and SSRF.
+ * Allowed: printable ASCII excluding control chars, no ".." segments,
+ * no leading slash.
+ */
+function isValidR2Key(key: unknown): key is string {
+  if (typeof key !== "string" || key.length === 0 || key.length > 1024) {
+    return false;
+  }
+  // No leading slash, no ".." segments, no null bytes
+  if (key.startsWith("/") || key.includes("..") || key.includes("\0")) {
+    return false;
+  }
+  // Only allow safe path characters
+  return /^[\w\-./]+$/.test(key);
+}
+
 // GET endpoint to retrieve guides data from the server
 app.get("/api/guides", (req, res) => {
   res.json(guideArticles);
@@ -32,6 +53,23 @@ app.get("/api/news", (req, res) => {
 // Asset / R2 Storage endpoints
 // ---------------------------------------------------------------------------
 
+/** Maps a file extension to its MIME type for the proxy response. */
+function extToMime(key: string): string {
+  const ext = key.split(".").pop()?.toLowerCase() ?? "";
+  const mimeMap: Record<string, string> = {
+    jpg: "image/jpeg",
+    jpeg: "image/jpeg",
+    png: "image/png",
+    gif: "image/gif",
+    webp: "image/webp",
+    svg: "image/svg+xml",
+    avif: "image/avif",
+    mp4: "video/mp4",
+    webm: "video/webm",
+  };
+  return mimeMap[ext] ?? "application/octet-stream";
+}
+
 /**
  * POST /api/assets/presign
  * Body: { key: string, contentType: string }
@@ -43,8 +81,12 @@ app.get("/api/news", (req, res) => {
 app.post("/api/assets/presign", async (req, res) => {
   try {
     const { key, contentType } = req.body as { key?: string; contentType?: string };
-    if (!key || !contentType) {
-      res.status(400).json({ error: "key and contentType are required" });
+    if (!isValidR2Key(key)) {
+      res.status(400).json({ error: "key is missing or contains invalid characters" });
+      return;
+    }
+    if (!contentType || typeof contentType !== "string") {
+      res.status(400).json({ error: "contentType is required" });
       return;
     }
 
@@ -68,29 +110,15 @@ app.post("/api/assets/presign", async (req, res) => {
  */
 app.get("/api/assets/fetch", async (req, res) => {
   try {
-    const key = req.query.key;
-    if (!key || typeof key !== "string") {
-      res.status(400).json({ error: "key query parameter is required" });
+    const { key } = req.query;
+    if (!isValidR2Key(key)) {
+      res.status(400).json({ error: "key is missing or contains invalid characters" });
       return;
     }
 
     const buffer = await fetchObjectBuffer(key);
 
-    const ext = key.split(".").pop()?.toLowerCase() ?? "";
-    const mimeMap: Record<string, string> = {
-      jpg: "image/jpeg",
-      jpeg: "image/jpeg",
-      png: "image/png",
-      gif: "image/gif",
-      webp: "image/webp",
-      svg: "image/svg+xml",
-      avif: "image/avif",
-      mp4: "video/mp4",
-      webm: "video/webm",
-    };
-    const contentType = mimeMap[ext] ?? "application/octet-stream";
-
-    res.set("Content-Type", contentType);
+    res.set("Content-Type", extToMime(key));
     res.set("Cache-Control", "public, max-age=3600");
     res.send(buffer);
   } catch (error: any) {
@@ -111,8 +139,8 @@ app.get("/api/assets/fetch", async (req, res) => {
 app.post("/api/assets/complete", async (req, res) => {
   try {
     const { key } = req.body as { key?: string };
-    if (!key) {
-      res.status(400).json({ error: "key is required" });
+    if (!isValidR2Key(key)) {
+      res.status(400).json({ error: "key is missing or contains invalid characters" });
       return;
     }
 

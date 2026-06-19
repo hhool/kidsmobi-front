@@ -35,8 +35,12 @@ export async function uploadAsset(
   keyPrefix = "uploads/"
 ): Promise<UploadResult> {
   const ext = (file.name.split(".").pop() ?? "bin").toLowerCase();
-  const uniqueId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  // Use crypto.randomUUID() for collision-resistant unique IDs
+  const uniqueId = crypto.randomUUID();
   const key = `${keyPrefix}${uniqueId}.${ext}`;
+
+  interface PresignErrorBody { error?: string }
+  interface PresignSuccessBody { uploadUrl: string; getUrl: string }
 
   // --- Step 1: Obtain presigned URLs ---
   const presignRes = await fetch("/api/assets/presign", {
@@ -45,13 +49,10 @@ export async function uploadAsset(
     body: JSON.stringify({ key, contentType: file.type || "application/octet-stream" }),
   });
   if (!presignRes.ok) {
-    const body = await presignRes.json().catch(() => ({}));
-    throw new Error((body as any).error || `Presign failed (${presignRes.status})`);
+    const body: PresignErrorBody = await presignRes.json().catch(() => ({}));
+    throw new Error(body.error || `Presign failed (${presignRes.status})`);
   }
-  const { uploadUrl, getUrl } = (await presignRes.json()) as {
-    uploadUrl: string;
-    getUrl: string;
-  };
+  const { uploadUrl, getUrl } = (await presignRes.json()) as PresignSuccessBody;
 
   // --- Step 2: Upload directly to R2 ---
   const uploadRes = await fetch(uploadUrl, {

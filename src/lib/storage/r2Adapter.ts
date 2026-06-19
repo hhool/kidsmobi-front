@@ -58,6 +58,24 @@ function formatDate(d: Date): { dateStamp: string; amzDate: string } {
 // Core presigned URL builder
 // ---------------------------------------------------------------------------
 
+/**
+ * Validates that a key is safe to embed in an R2 URL.
+ * Prevents path traversal and ensures the generated URL stays within the
+ * configured bucket on R2_HOST.
+ */
+function assertSafeKey(key: string): void {
+  if (
+    !key ||
+    key.length > 1024 ||
+    key.startsWith("/") ||
+    key.includes("..") ||
+    key.includes("\0") ||
+    !/^[\w\-./]+$/.test(key)
+  ) {
+    throw new Error(`Invalid R2 object key: "${key}"`);
+  }
+}
+
 async function buildPresignedUrl(
   method: "GET" | "PUT",
   key: string,
@@ -70,10 +88,15 @@ async function buildPresignedUrl(
     );
   }
 
+  // Validate key before embedding it in the URL
+  assertSafeKey(key);
+
   const { dateStamp, amzDate } = formatDate(new Date());
   const region = "auto";
   const service = "s3";
-  const canonicalUri = `/${BUCKET_NAME}/${key}`;
+  // Each key segment is percent-encoded individually so forward slashes remain
+  const encodedKey = key.split("/").map(encodeURIComponent).join("/");
+  const canonicalUri = `/${BUCKET_NAME}/${encodedKey}`;
   const credentialScope = `${dateStamp}/${region}/${service}/aws4_request`;
 
   const queryParams: Record<string, string> = {
@@ -124,11 +147,13 @@ async function buildPresignedUrl(
  * bucket-subdomain URL (requires the bucket to have public access enabled).
  */
 export function getObjectUrl(key: string): string {
+  assertSafeKey(key);
+  const encodedKey = key.split("/").map(encodeURIComponent).join("/");
   if (PUBLIC_URL) {
-    return `${PUBLIC_URL}/${key}`;
+    return `${PUBLIC_URL}/${encodedKey}`;
   }
   // Bucket-subdomain format: https://<bucket>.<accountId>.r2.dev/<key>
-  return `https://${BUCKET_NAME}.${ACCOUNT_ID}.r2.dev/${key}`;
+  return `https://${BUCKET_NAME}.${ACCOUNT_ID}.r2.dev/${encodedKey}`;
 }
 
 /**

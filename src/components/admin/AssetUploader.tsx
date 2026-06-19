@@ -16,6 +16,18 @@ interface AssetUploaderProps {
 }
 
 /**
+ * Allow only safe URL schemes for image previews to prevent XSS via
+ * javascript: or data: URIs that are not images.
+ */
+function isSafePreviewUrl(url: string): boolean {
+  return (
+    url.startsWith("blob:") ||
+    url.startsWith("https://") ||
+    url.startsWith("http://")
+  );
+}
+
+/**
  * Drag-and-drop / click-to-upload component for Cloudflare R2 assets.
  *
  * - Shows an immediate preview using a browser ObjectURL in dev (no public
@@ -77,6 +89,8 @@ export default function AssetUploader({
   };
 
   const displayUrl = previewUrl || value;
+  // Only render URLs with safe schemes to prevent XSS
+  const safeDisplayUrl = displayUrl && isSafePreviewUrl(displayUrl) ? displayUrl : "";
 
   return (
     <div className="space-y-2">
@@ -88,6 +102,7 @@ export default function AssetUploader({
 
       <div
         role="button"
+        aria-label={label ? `Upload ${label}` : "Upload asset"}
         tabIndex={0}
         className={`relative rounded-2xl border-2 border-dashed cursor-pointer transition-all outline-none
           focus:ring-4 focus:ring-orange-500/20
@@ -108,10 +123,10 @@ export default function AssetUploader({
           onChange={handleInputChange}
         />
 
-        {displayUrl ? (
+        {safeDisplayUrl ? (
           <div className="relative group p-2">
             <img
-              src={displayUrl}
+              src={safeDisplayUrl}
               alt="Asset preview"
               className="w-full h-32 object-contain rounded-xl"
               referrerPolicy="no-referrer"
