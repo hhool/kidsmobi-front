@@ -101,14 +101,54 @@ Please reply strictly in clear English. Deliver answers formatted in structured,
       parts: [{ text: m.content }],
     }));
 
-    const response = await client.models.generateContent({
-      model: "gemini-3.5-flash",
-      contents: chatContents,
-      config: {
+    // Helper function to query Gemini with retry and fallback model capability
+    const generateWithRetryAndFallback = async (
+      ai: GoogleGenAI,
+      primaryModel: string,
+      contents: any,
+      config: any,
+      maxRetries = 2
+    ) => {
+      let lastError: any = null;
+      const modelsToTry = [primaryModel, "gemini-3.1-flash-lite"];
+
+      for (const modelName of modelsToTry) {
+        for (let attempt = 0; attempt <= maxRetries; attempt++) {
+          try {
+            console.log(`[AI Chat] Contacting model ${modelName} on attempt ${attempt + 1}/${maxRetries + 1}...`);
+            const res = await ai.models.generateContent({
+              model: modelName,
+              contents,
+              config,
+            });
+            if (res) {
+              console.log(`[AI Chat] Successfully received response from ${modelName}`);
+              return res;
+            }
+          } catch (err: any) {
+            lastError = err;
+            console.warn(`[AI Chat Warning] Attempt ${attempt + 1} of ${modelName} failed:`, err?.message || err);
+            
+            if (attempt < maxRetries) {
+              const delay = Math.pow(2, attempt) * 1000;
+              await new Promise((resolve) => setTimeout(resolve, delay));
+            }
+          }
+        }
+        console.warn(`[AI Chat Warning] All attempts failed for ${modelName}. Trying next model in fallback list if available...`);
+      }
+      throw lastError;
+    };
+
+    const response = await generateWithRetryAndFallback(
+      client,
+      "gemini-3.5-flash",
+      chatContents,
+      {
         systemInstruction,
         temperature: 0.7,
-      },
-    });
+      }
+    );
 
     const replyText = response.text || (isEn ? "Apologies, the safety advisors are currently reviewing. Failed to generate context." : "抱歉，专家顾问正在审查中，未能生成回复。");
     res.json({ reply: replyText });
