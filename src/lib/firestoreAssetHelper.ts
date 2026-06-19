@@ -1,4 +1,4 @@
-import { collection, addDoc, doc, setDoc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, doc, setDoc, getDoc, getDocs, updateDoc, serverTimestamp, query, orderBy } from "firebase/firestore";
 import { db } from "./firebase";
 
 const assetsColl = collection(db, "assets");
@@ -29,4 +29,10 @@ export async function updateAssetMetadata(key: string, patch: any) {
   await updateDoc(docRef, { ...patch, updatedAt: serverTimestamp() });
 }
 
-export default { createAssetMetadata, getAssetMetadata, updateAssetMetadata };
+export async function listAssetMetadata() {
+  const q = query(assetsColl, orderBy("createdAt", "desc"));
+  const snap = await getDocs(q);
+  return snap.docs.map(doc => doc.data());
+}
+
+export default { createAssetMetadata, getAssetMetadata, updateAssetMetadata, listAssetMetadata };

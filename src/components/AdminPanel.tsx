@@ -207,15 +207,10 @@ export default function AdminPanel({
            {activeMenu === "news" && <NewsManager lang={lang} />}
            {activeMenu === "settings" && <SettingsManager lang={lang} />}
            {activeMenu === "assets" && (
-             <div className="p-6 bg-white rounded-2xl shadow-sm">
-               <h3 className="font-black mb-4">{lang === "zh" ? "资源上传" : "Assets Upload"}</h3>
-               <div>
-                 {/* Lazy load to avoid import cycles */}
-                 <React.Suspense fallback={<div>Loading uploader...</div>}>
-                   {/* @ts-ignore */}
-                   <AssetUploader onUploaded={(url: string, key: string) => console.log('uploaded', url, key)} />
-                 </React.Suspense>
-               </div>
+             <div className="p-6">
+               <React.Suspense fallback={<div className="animate-pulse">Loading Asset Manager...</div>}>
+                 <AssetUploader lang={lang} />
+               </React.Suspense>
              </div>
            )}
            {activeMenu === "assets-sync" && (
