@@ -14,6 +14,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { getCMSNews, saveCMSNews, deleteCMSNews, getCMSProducts, getCMSScenarios } from "../../lib/cmsService";
 import { News } from "../../types";
 import { CMSProduct, CMSScenario } from "../../types";
+import BackendResourcePicker from "./BackendResourcePicker";
 
 export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
   const [news, setNews] = useState<News[]>([]);
@@ -175,6 +176,20 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
 function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving, error }: any) {
   const [formData, setFormData] = useState<News>(news);
   const [activeLang, setActiveLang] = useState<"zh" | "en">("zh");
+  const [pickerMode, setPickerMode] = useState<"cover" | "related" | null>(null);
+
+  const applyResourceSelection = (selection: { imageUrls: string[]; videoUrls: string[]; relatedProductIds: string[] }) => {
+    if (pickerMode === "cover") {
+      setFormData((prev) => ({ ...prev, imageUrl: selection.imageUrls[0] || prev.imageUrl || "" }));
+      return;
+    }
+    if (pickerMode === "related") {
+      setFormData((prev) => ({
+        ...prev,
+        relatedProductIds: Array.from(new Set([...(prev.relatedProductIds || []), ...selection.relatedProductIds].filter(Boolean))),
+      }));
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[110] flex items-center justify-end">
@@ -247,6 +262,12 @@ function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving,
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Related Products</label>
+                <button
+                  onClick={() => setPickerMode("related")}
+                  className="w-full py-2.5 border border-sky-200 bg-sky-50 text-sky-700 rounded-xl text-[11px] font-black hover:bg-sky-100 transition-all"
+                >
+                  {lang === "zh" ? "从 backend 资源选择产品" : "Pick Related Products From Backend"}
+                </button>
                 <select
                   className="w-full bg-white border border-slate-200 py-3 px-4 rounded-xl text-xs font-bold"
                   value=""
@@ -306,6 +327,22 @@ function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving,
                   ))}
                 </div>
               </div>
+            </div>
+
+            <div className="space-y-2 pt-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">News Cover Image URL</label>
+              <button
+                onClick={() => setPickerMode("cover")}
+                className="w-full py-2.5 border border-orange-200 bg-orange-50 text-orange-700 rounded-xl text-[11px] font-black hover:bg-orange-100 transition-all"
+              >
+                {lang === "zh" ? "从 backend 资源选择封面图" : "Pick Cover Image From Backend"}
+              </button>
+              <input
+                className="w-full bg-white border border-slate-200 py-3 px-4 rounded-xl text-xs font-bold"
+                value={formData.imageUrl || ""}
+                onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+                placeholder={lang === "zh" ? "输入封面图 URL" : "Enter cover image URL"}
+              />
             </div>
           </section>
 
@@ -416,6 +453,14 @@ function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving,
           </section>
         </div>
       </motion.div>
+
+      <BackendResourcePicker
+        open={pickerMode !== null}
+        mode={(pickerMode || "cover") as "cover" | "related"}
+        lang={lang}
+        onClose={() => setPickerMode(null)}
+        onApply={applyResourceSelection}
+      />
     </div>
   );
 }

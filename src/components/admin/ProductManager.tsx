@@ -17,6 +17,7 @@ import { CMSProduct, ComplianceTag, ProductCategory, CMSScenario } from "../../t
 import { FALLBACK_PRODUCT_IMAGE, resolveProductImages } from "../../lib/productImages";
 import { validateCMSProduct } from "../../lib/productValidation";
 import SmartImage from "../common/SmartImage";
+import BackendResourcePicker from "./BackendResourcePicker";
 
 function normalizeProductImagesForSave(product: CMSProduct): CMSProduct {
   const imageSet = resolveProductImages(product);
@@ -333,6 +334,7 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
 function ProductEditor({ product, allProducts, scenarios, onSave, onCancel, lang, saving, error }: any) {
   const [formData, setFormData] = useState<CMSProduct>(product);
   const [activeTab, setActiveTab] = useState<"base" | "zh" | "en" | "compare">("compare");
+  const [pickerMode, setPickerMode] = useState<"cover" | "gallery" | "videos" | "related" | null>(null);
 
   const categories: ProductCategory[] = ["balance", "bicycle", "scooter", "stroller", "electric_car", "tricycle", "safety_seat"];
   const complianceOptions: ComplianceTag[] = ["CCC", "EN1888", "ASTM", "GS"];
@@ -343,6 +345,51 @@ function ProductEditor({ product, allProducts, scenarios, onSave, onCancel, lang
       ? complianceList.filter(t => t !== tag)
       : [...complianceList, tag];
     setFormData({ ...formData, compliance: next });
+  };
+
+  const applyResourceSelection = (selection: { imageUrls: string[]; videoUrls: string[]; relatedProductIds: string[] }) => {
+    if (pickerMode === "cover") {
+      const cover = selection.imageUrls[0] || "";
+      setFormData((prev) => normalizeProductImagesForSave({ ...prev, imageUrl: cover }));
+      return;
+    }
+
+    if (pickerMode === "gallery") {
+      setFormData((prev) => {
+        const current = prev.galleryUrls || [];
+        const next = Array.from(new Set([...current, ...selection.imageUrls].filter(Boolean)));
+        return normalizeProductImagesForSave({ ...prev, galleryUrls: next });
+      });
+      return;
+    }
+
+    if (pickerMode === "videos") {
+      setFormData((prev) => {
+        const currentVideos = prev.videos || [];
+        const existing = new Set(currentVideos.map((item) => (item.url || "").trim()).filter(Boolean));
+        const appended = selection.videoUrls
+          .filter((url) => !existing.has(url))
+          .map((url) => ({ url, title: "", source: "worker" as const }));
+        const videos = [...currentVideos, ...appended].map((item, idx) => ({ ...item, order: idx }));
+        return {
+          ...prev,
+          videos,
+          videoUrl: videos[0]?.url || prev.videoUrl || "",
+        };
+      });
+      return;
+    }
+
+    if (pickerMode === "related") {
+      setFormData((prev) => {
+        const current = prev.relatedProductIds || [];
+        const next = Array.from(new Set([...current, ...selection.relatedProductIds].filter(Boolean)));
+        return {
+          ...prev,
+          relatedProductIds: next,
+        };
+      });
+    }
   };
 
   return (
@@ -489,6 +536,12 @@ function ProductEditor({ product, allProducts, scenarios, onSave, onCancel, lang
                   />
                   <div className="space-y-3">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Similar Products (Manual)</label>
+                    <button
+                      onClick={() => setPickerMode("related")}
+                      className="w-full py-2.5 border border-sky-200 bg-sky-50 text-sky-700 rounded-xl text-[11px] font-black hover:bg-sky-100 transition-all"
+                    >
+                      {lang === "zh" ? "从 backend 资源选择" : "Pick From Backend Resources"}
+                    </button>
                     <div className="max-h-64 overflow-y-auto border border-slate-100 rounded-2xl p-3 bg-slate-50/50 space-y-2">
                       {allProducts
                         .filter((p: CMSProduct) => p.id !== formData.id)
@@ -551,9 +604,21 @@ function ProductEditor({ product, allProducts, scenarios, onSave, onCancel, lang
                         setFormData(normalizeProductImagesForSave(next));
                       }}
                     />
+                    <button
+                      onClick={() => setPickerMode("cover")}
+                      className="w-full py-2.5 border border-orange-200 bg-orange-50 text-orange-700 rounded-xl text-[11px] font-black hover:bg-orange-100 transition-all"
+                    >
+                      {lang === "zh" ? "从 backend 资源选择封面" : "Pick Cover From Backend Resources"}
+                    </button>
                     <Field label="Video showcase URL (YouTube/Direct)" value={formData.videoUrl || ""} onChange={(v) => setFormData({...formData, videoUrl: v})} />
                     <div className="space-y-2">
                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Video List (Structured)</label>
+                      <button
+                        onClick={() => setPickerMode("videos")}
+                        className="w-full py-2.5 border border-sky-200 bg-sky-50 text-sky-700 rounded-xl text-[11px] font-black hover:bg-sky-100 transition-all"
+                      >
+                        {lang === "zh" ? "从 backend 资源选择视频" : "Pick Videos From Backend Resources"}
+                      </button>
                       {(formData.videos || []).map((video, idx) => (
                         <div key={idx} className="grid grid-cols-1 sm:grid-cols-[1fr_180px_auto] gap-2">
                           <input
@@ -615,6 +680,12 @@ function ProductEditor({ product, allProducts, scenarios, onSave, onCancel, lang
                   
                   <div className="space-y-4">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Image Gallery (Sub-views)</label>
+                    <button
+                      onClick={() => setPickerMode("gallery")}
+                      className="w-full py-2.5 border border-orange-200 bg-orange-50 text-orange-700 rounded-xl text-[11px] font-black hover:bg-orange-100 transition-all"
+                    >
+                      {lang === "zh" ? "从 backend 资源选择图库" : "Pick Gallery From Backend Resources"}
+                    </button>
                     <div className="space-y-2">
                       {(formData.galleryUrls || []).map((url, idx) => (
                         <div key={idx} className="flex gap-2">
@@ -653,6 +724,15 @@ function ProductEditor({ product, allProducts, scenarios, onSave, onCancel, lang
           )}
         </div>
       </motion.div>
+
+      <BackendResourcePicker
+        open={pickerMode !== null}
+        mode={(pickerMode || "cover") as "cover" | "gallery" | "videos" | "related"}
+        lang={lang}
+        defaultCategoryId={formData.category}
+        onClose={() => setPickerMode(null)}
+        onApply={applyResourceSelection}
+      />
     </div>
   );
 }

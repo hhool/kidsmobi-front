@@ -68,6 +68,16 @@ interface WorkerResource {
   scoringBreakdown?: { docs?: number; videos?: number; hasFeatures?: boolean };
 }
 
+interface AdminResourceProduct {
+  id: string;
+  categoryId: string;
+  title: string;
+  brand: string;
+  coverImage?: string;
+  galleryImages: string[];
+  videoUrls: string[];
+}
+
 interface WorkerDiscoveryHome {
   data?: {
     featuredCategories?: Array<{ categoryId: string; name: string }>;
@@ -83,6 +93,16 @@ function getScrapeApiBaseUrl() {
 
 function buildWorkerUrl(pathname: string) {
   return `${getScrapeApiBaseUrl()}${pathname.startsWith("/") ? pathname : `/${pathname}`}`;
+}
+
+function isHttpUrl(value?: string) {
+  if (!value) return false;
+  try {
+    const url = new URL(value);
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
 }
 
 async function fetchWorkerJson<T>(pathname: string): Promise<T> {
@@ -525,6 +545,104 @@ app.get("/api/content/bundle", async (req, res) => {
     console.error("Failed to load upstream content bundle:", error);
     res.status(502).json({
       error: error.message || "Failed to load upstream content bundle",
+    });
+  }
+});
+
+app.get("/api/content/resources", async (req, res) => {
+  try {
+    const requestedCategory = typeof req.query.categoryId === "string" ? req.query.categoryId.trim() : "";
+    const query = typeof req.query.q === "string" ? req.query.q.trim().toLowerCase() : "";
+
+    const categoriesResponse = await fetchWorkerJson<{ data: WorkerCategory[] }>("/api/v1/catalog/categories");
+    const categories = Array.isArray(categoriesResponse.data) ? categoriesResponse.data : [];
+    if (categories.length === 0) {
+      res.json({ data: { categories: [], products: [] } });
+      return;
+    }
+
+    const selectedCategories = requestedCategory
+      ? categories.filter((item) => item.categoryId === requestedCategory)
+      : categories.slice(0, 5);
+
+    const payloads = await Promise.all(
+      selectedCategories.map(async (category) => {
+        const [productsResponse, resourcesResponse] = await Promise.all([
+          fetchWorkerJson<{ data: WorkerProduct[] }>(
+            `/api/v1/products?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=40`
+          ),
+          fetchWorkerJson<{ data: WorkerResource[] }>(
+            `/api/v1/resources?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=60`
+          ),
+        ]);
+        return {
+          category,
+          products: Array.isArray(productsResponse.data) ? productsResponse.data : [],
+          resources: Array.isArray(resourcesResponse.data) ? resourcesResponse.data : [],
+        };
+      })
+    );
+
+    const resultProducts: AdminResourceProduct[] = [];
+
+    for (const payload of payloads) {
+      const videoMap = new Map<string, string[]>();
+
+      for (const resource of payload.resources) {
+        const isVideo = (resource.resourceType || "").toLowerCase().includes("video");
+        const source = resource.source?.trim();
+        if (!isVideo || !isHttpUrl(source)) {
+          continue;
+        }
+        const current = videoMap.get(resource.productId) || [];
+        if (!current.includes(source!)) {
+          current.push(source!);
+        }
+        videoMap.set(resource.productId, current);
+      }
+
+      for (const product of payload.products) {
+        const coverImage = (product.images?.cover?.url || product.coverImage || "").trim();
+        const galleryImages = [
+          ...(product.images?.gallery || []).map((item) => (item.url || "").trim()),
+        ].filter((item) => isHttpUrl(item));
+
+        const videoUrls = videoMap.get(product.productId) || [];
+
+        const row: AdminResourceProduct = {
+          id: product.productId,
+          categoryId: product.categoryId,
+          title: product.title,
+          brand: product.brand,
+          coverImage: isHttpUrl(coverImage) ? coverImage : undefined,
+          galleryImages,
+          videoUrls,
+        };
+
+        if (query) {
+          const text = `${row.title} ${row.brand} ${row.id}`.toLowerCase();
+          if (!text.includes(query)) {
+            continue;
+          }
+        }
+
+        resultProducts.push(row);
+      }
+    }
+
+    res.json({
+      data: {
+        categories: selectedCategories.map((item) => ({
+          categoryId: item.categoryId,
+          name: item.name,
+        })),
+        products: resultProducts,
+      },
+    });
+  } catch (error: any) {
+    console.error("Failed to load admin resource picker payload:", error);
+    res.status(502).json({
+      error: error.message || "Failed to load resource picker payload",
     });
   }
 });
