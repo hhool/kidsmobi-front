@@ -18,6 +18,7 @@
 - Worker API: Pass
 - CMS Read Capability: Pass
 4. If not Pass, click Recheck.
+5. Click Export Demo Snapshot to download a Markdown status record for sharing/archive.
 
 ## Demo Script (8-12 minutes)
 

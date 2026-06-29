@@ -8,7 +8,8 @@ import {
   ShieldCheck,
   Database,
   RefreshCw,
-  Wifi
+  Wifi,
+  Download
 } from "lucide-react";
 import { getCMSProducts, getCMSEvaluations, getCMSGuides, getCMSNews, saveCMSProduct, seedProductsToFirestore, seedGuidesToFirestore, seedNewsToFirestore, seedEvaluationsToFirestore } from "../../lib/cmsService";
 import { productsData as defaultProductsData } from "../../data/modelsData";
@@ -98,6 +99,38 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
 
     setHealth(next);
     setCheckingHealth(false);
+  };
+
+  const handleExportHealthSnapshot = () => {
+    const nowIso = new Date().toISOString();
+    const nowLocal = new Date().toLocaleString();
+    const statusText = (value: "pass" | "warn") => (value === "pass" ? "PASS" : "WARN");
+    const lines = [
+      "# Admin Demo Health Snapshot",
+      "",
+      `- Generated At: ${nowIso}`,
+      `- Generated At (Local): ${nowLocal}`,
+      `- Environment Origin: ${window.location.origin}`,
+      `- Site Reachability: ${statusText(health.site)}`,
+      `- Worker API Availability: ${statusText(health.worker)}`,
+      `- CMS Read Capability: ${statusText(health.cms)}`,
+      `- Health Last Checked: ${health.updatedAt}`,
+      "",
+      "## Demo Entry Links",
+      "",
+      "- Production: https://kidsmobi.pages.dev",
+      "- Worker Categories API: https://kidsmobi-api-v1.seaman-player.workers.dev/api/v1/catalog/categories",
+      "- Admin Panel: open the production site and enter admin mode",
+      "",
+    ];
+
+    const blob = new Blob([lines.join("\n")], { type: "text/markdown;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `admin-demo-health-${Date.now()}.md`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   const handleMigrate = async () => {
@@ -258,14 +291,23 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
               {lang === "zh" ? "用于演示前快速确认关键链路可用性" : "Quick pre-demo checks for critical online dependencies"}
             </p>
           </div>
-          <button
-            onClick={checkIntegrations}
-            disabled={checkingHealth}
-            className="px-4 py-2 rounded-xl bg-slate-900 text-white text-xs font-black flex items-center gap-2 disabled:bg-slate-300"
-          >
-            <RefreshCw className={`w-3.5 h-3.5 ${checkingHealth ? "animate-spin" : ""}`} />
-            {checkingHealth ? (lang === "zh" ? "检查中..." : "Checking...") : (lang === "zh" ? "重新检查" : "Recheck")}
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleExportHealthSnapshot}
+              className="px-4 py-2 rounded-xl bg-slate-100 text-slate-700 text-xs font-black flex items-center gap-2 hover:bg-slate-200"
+            >
+              <Download className="w-3.5 h-3.5" />
+              {lang === "zh" ? "导出演示快照" : "Export Demo Snapshot"}
+            </button>
+            <button
+              onClick={checkIntegrations}
+              disabled={checkingHealth}
+              className="px-4 py-2 rounded-xl bg-slate-900 text-white text-xs font-black flex items-center gap-2 disabled:bg-slate-300"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${checkingHealth ? "animate-spin" : ""}`} />
+              {checkingHealth ? (lang === "zh" ? "检查中..." : "Checking...") : (lang === "zh" ? "重新检查" : "Recheck")}
+            </button>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
