@@ -29,6 +29,8 @@ import { auth } from "../lib/firebase";
 import { ensureUserProfileInFirestore } from "../lib/firestoreService";
 import { translateProduct } from "../lib/translate";
 import { formatWeight } from "../lib/units";
+import { resolveProductImages } from "../lib/productImages";
+import SmartImage from "./common/SmartImage";
 
 interface AuthSectionProps {
   userEmail: string;
@@ -784,11 +786,19 @@ export default function AuthSection({
                   <div className="space-y-2">
                      {compareList.map(p => {
                        const disp = translateProduct(p, lang);
+                       const imageSet = resolveProductImages(p);
                        return (
                          <div key={p.id} className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center justify-between gap-3">
                            <div className="flex items-center gap-3 min-w-0 cursor-pointer" onClick={() => onSelectProduct && onSelectProduct(p)}>
                              <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center p-1 shrink-0">
-                               <img src={p.imageUrl || undefined} alt={p.name} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+                               <SmartImage
+                                 src={imageSet.coverUrl || undefined}
+                                 alt={p.name}
+                                 className="w-full h-full object-contain"
+                                 wrapperClassName="w-full h-full"
+                                 width={80}
+                                 height={80}
+                               />
                              </div>
                              <div className="min-w-0">
                                <h5 className="text-xs font-extrabold text-white truncate">{disp.name}</h5>
@@ -819,6 +829,7 @@ export default function AuthSection({
                   <div className="space-y-2 max-h-[300px] overflow-y-auto custom-scrollbar">
                      {viewHistory.map(p => {
                        const disp = translateProduct(p, lang);
+                       const imageSet = resolveProductImages(p);
                        return (
                          <div 
                            key={p.id} 
@@ -826,7 +837,14 @@ export default function AuthSection({
                            className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center gap-3 hover:border-slate-700 hover:bg-slate-900/40 transition cursor-pointer"
                          >
                            <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center p-1 shrink-0">
-                             <img src={p.imageUrl || undefined} alt={p.name} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+                             <SmartImage
+                               src={imageSet.coverUrl || undefined}
+                               alt={p.name}
+                               className="w-full h-full object-contain"
+                               wrapperClassName="w-full h-full"
+                               width={80}
+                               height={80}
+                             />
                            </div>
                            <div className="min-w-0">
                              <h5 className="text-xs font-extrabold text-white truncate">{disp.name}</h5>

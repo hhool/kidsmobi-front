@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { withImageFallback } from "../lib/productImages";
 
 interface ProductCarouselProps {
   images: string[];
@@ -54,6 +55,8 @@ export default function ProductCarousel({ images, lang }: ProductCarouselProps) 
             }}
             className="absolute max-w-full max-h-[340px] object-contain cursor-zoom-in"
             referrerPolicy="no-referrer"
+            loading="lazy"
+            onError={withImageFallback}
           />
         </AnimatePresence>
       </div>
@@ -91,7 +94,14 @@ export default function ProductCarousel({ images, lang }: ProductCarouselProps) 
               currentIndex === idx ? "border-orange-500 scale-110 shadow-md" : "border-transparent opacity-50 hover:opacity-100"
             }`}
           >
-            <img src={img || undefined} alt={`Thumb ${idx}`} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+            <img
+              src={img || undefined}
+              alt={`Thumb ${idx}`}
+              className="w-full h-full object-contain"
+              referrerPolicy="no-referrer"
+              loading="lazy"
+              onError={withImageFallback}
+            />
           </button>
         ))}
       </div>

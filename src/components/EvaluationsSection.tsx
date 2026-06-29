@@ -2,6 +2,8 @@ import { useState, useMemo } from "react";
 import { Award, Filter, ShieldCheck, Scale, Search, CheckCircle, Flame, Star, Sparkles, BookOpen, ArrowRight } from "lucide-react";
 import { Product } from "../types";
 import { translateProduct } from "../lib/translate";
+import { resolveProductImages } from "../lib/productImages";
+import SmartImage from "./common/SmartImage";
 import Breadcrumbs from "./Breadcrumbs";
 
 import MultiCompareView from "./MultiCompareView";
@@ -349,12 +351,21 @@ export default function EvaluationsSection({
                   </div>
 
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-6 relative z-10 w-full mt-4">
-                    {products.map((product) => {
+                    {products.map((product, idx) => {
                       const diProduct = translateProduct(product, lang);
+                      const imageSet = resolveProductImages(product);
                       return (
                         <div key={product.id} className="bg-slate-800/80 backdrop-blur-sm rounded-[32px] p-6 border border-slate-700/80 flex flex-col items-center gap-4 hover:border-slate-500 transition-colors duration-300">
                           <div className="w-20 h-20 bg-white rounded-2xl p-2 flex items-center justify-center">
-                            <img src={product.imageUrl || undefined} alt={diProduct.name} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+                            <SmartImage
+                              src={imageSet.coverUrl || undefined}
+                              alt={diProduct.name}
+                              className="w-full h-full object-contain"
+                              wrapperClassName="w-full h-full"
+                              width={160}
+                              height={160}
+                              priority={idx < 2}
+                            />
                           </div>
                           <div className="text-center">
                             <span className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">{diProduct.brand}</span>

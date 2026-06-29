@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import { Product, CurrencyData } from "../types";
 import { translateProduct } from "../lib/translate";
+import { resolveProductImages } from "../lib/productImages";
+import SmartImage from "./common/SmartImage";
 
 interface MatchingWizardProps {
   isOpen: boolean;
@@ -252,8 +254,9 @@ export default function MatchingWizard({
               
               <div className="space-y-4">
                 {filteredResults.length > 0 ? (
-                  filteredResults.map(p => {
+                  filteredResults.map((p, idx) => {
                     const dp = translateProduct(p, lang);
+                    const imageSet = resolveProductImages(p);
                     return (
                       <div 
                         key={p.id}
@@ -261,7 +264,15 @@ export default function MatchingWizard({
                         className="p-4 bg-white border border-slate-100 rounded-3xl hover:border-orange-500 transition-all cursor-pointer flex items-center gap-4 group hover:shadow-xl shadow-sm"
                       >
                         <div className="w-20 h-20 bg-slate-50 rounded-2xl flex items-center justify-center p-4 group-hover:bg-orange-50 transition-colors">
-                          <img src={p.imageUrl || undefined} alt={p.name} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+                          <SmartImage
+                            src={imageSet.coverUrl || undefined}
+                            alt={p.name}
+                            className="w-full h-full object-contain"
+                            wrapperClassName="w-full h-full"
+                            width={160}
+                            height={160}
+                            priority={idx < 2}
+                          />
                         </div>
                         <div className="flex-1 space-y-1">
                           <div className="flex justify-between items-center">

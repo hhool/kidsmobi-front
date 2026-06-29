@@ -26,6 +26,7 @@ import {
 import { Product, CurrencyData, CMSSettings } from "../types";
 import { translateProduct } from "../lib/translate";
 import { formatWeight } from "../lib/units";
+import { resolveProductImages } from "../lib/productImages";
 import ProductCarousel from "./ProductCarousel";
 
 interface DetailedProductViewProps {
@@ -56,6 +57,7 @@ export default function DetailedProductView({
   cmsSettings
 }: DetailedProductViewProps) {
   const displayProduct = translateProduct(product, lang);
+  const imageSet = resolveProductImages(displayProduct);
   const [activeMediaTab, setActiveMediaTab] = useState<"gallery" | "video">("gallery");
 
   const getBackLabel = () => {
@@ -266,7 +268,7 @@ export default function DetailedProductView({
         <div className="p-1 min-h-[400px] bg-slate-50">
           {activeMediaTab === "gallery" ? (
             <ProductCarousel 
-              images={[product.imageUrl, ...(product.galleryUrls || [])].filter(Boolean)} 
+              images={[imageSet.coverUrl, ...imageSet.galleryUrls].filter(Boolean)} 
               lang={lang} 
             />
           ) : (

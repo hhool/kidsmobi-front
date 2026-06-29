@@ -47,6 +47,7 @@ import { ChildProfile, Product, ChatMessage, CMSSettings, SEOConfig, Evaluation 
 // Import translations
 import { translations, translateProduct, countries, getCurrencyData } from "./lib/translate";
 import { formatWeight, formatHeight } from "./lib/units";
+import { resolveProductImages } from "./lib/productImages";
 
 // Import modular layouts
 import HomeSection from "./components/HomeSection";
@@ -58,6 +59,7 @@ import AboutSection from "./components/AboutSection";
 import AuthSection from "./components/AuthSection";
 import DetailedProductView from "./components/DetailedProductView";
 import AdminPanel from "./components/AdminPanel";
+import SmartImage from "./components/common/SmartImage";
 
 import { auth } from "./lib/firebase";
 import { getBookmarksFromFirestore, addBookmarkToFirestore, removeBookmarkFromFirestore } from "./lib/firestoreService";
@@ -942,7 +944,14 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                         className={`w-full px-4 py-3 text-left flex items-center gap-3 transition-colors border-b border-slate-50 last:border-0 ${highlightedIndex === idx ? "bg-orange-50" : "hover:bg-slate-50"}`}
                       >
                         <div className="w-8 h-8 bg-slate-50 rounded-lg flex items-center justify-center shrink-0">
-                          <img src={p.imageUrl || undefined} alt={p.name} className="w-6 h-6 object-contain" referrerPolicy="no-referrer" />
+                          <SmartImage
+                            src={resolveProductImages(p).coverUrl || undefined}
+                            alt={p.name}
+                            className="w-6 h-6 object-contain"
+                            wrapperClassName="w-6 h-6"
+                            width={24}
+                            height={24}
+                          />
                         </div>
                         <div className="overflow-hidden">
                           <p className="text-[11px] font-black text-slate-900 truncate uppercase">{translateProduct(p, lang).brand}</p>

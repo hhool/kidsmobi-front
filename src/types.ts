@@ -28,6 +28,17 @@ export interface RadarScores {
   valueForMoney: number;
 }
 
+export interface ProductImageAsset {
+  url: string;
+  source?: "cms" | "scraped" | "unknown";
+  order?: number;
+}
+
+export interface ProductImages {
+  cover?: ProductImageAsset;
+  gallery?: ProductImageAsset[];
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -42,6 +53,7 @@ export interface Product {
   ageRange: string;
   heightRange: [number, number];
   compliance?: ComplianceTag[];
+  images?: ProductImages;
   imageUrl: string;
   galleryUrls?: string[];
   videoUrl?: string;

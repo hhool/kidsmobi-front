@@ -15,6 +15,8 @@ import {
 import { Product, CurrencyData } from "../types";
 import { translateProduct } from "../lib/translate";
 import { convertWeightNum, getWeightUnit } from "../lib/units";
+import { resolveProductImages } from "../lib/productImages";
+import SmartImage from "./common/SmartImage";
 
 interface ComparisonDashboardProps {
   compareList: Product[];
@@ -89,14 +91,23 @@ export default function ComparisonDashboard({
                 <th className="p-10 text-slate-500 font-black text-[11px] uppercase tracking-[0.3em] text-left w-1/4 align-top">
                   {lang === "en" ? "Mechanical Matrix" : "力学参数矩阵"}
                 </th>
-                {compareList.map((p) => {
+                {compareList.map((p, idx) => {
                   const disp = translateProduct(p, lang);
+                  const imageSet = resolveProductImages(p);
                   return (
                     <th key={p.id} className="p-8 text-white font-black text-left bg-white/[0.02] border-l border-white/5">
                       <div className="flex flex-col gap-6">
                         <div className="relative group">
                           <div className="w-32 h-32 bg-white rounded-3xl p-4 flex items-center justify-center">
-                            <img src={p.imageUrl || undefined} alt={p.name} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+                            <SmartImage
+                              src={imageSet.coverUrl || undefined}
+                              alt={p.name}
+                              className="w-full h-full object-contain"
+                              wrapperClassName="w-full h-full"
+                              width={256}
+                              height={256}
+                              priority={idx < 2}
+                            />
                           </div>
                           <button 
                             onClick={() => onRemove(p.id)}

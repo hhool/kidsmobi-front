@@ -3,6 +3,8 @@ import { ArrowLeft, ArrowRight, CheckCircle2, ShieldCheck, Scale, Star, X } from
 import { Product, Evaluation, CMSSettings } from "../types";
 import { translateProduct } from "../lib/translate";
 import { formatWeight } from "../lib/units";
+import { resolveProductImages } from "../lib/productImages";
+import SmartImage from "./common/SmartImage";
 import Breadcrumbs from "./Breadcrumbs";
 
 export default function MultiCompareView({
@@ -58,13 +60,22 @@ export default function MultiCompareView({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {compProducts.map((p, idx) => {
             const pt = translateProduct(p, lang);
+            const imageSet = resolveProductImages(p);
             return (
               <div key={p.id} className="bg-slate-50 border border-slate-100 rounded-[32px] p-6 relative flex flex-col group hover:border-emerald-500 transition-colors">
                 <div className="w-10 h-10 bg-slate-900 text-white rounded-full flex items-center justify-center font-black absolute -top-4 -left-4 border-4 border-white shadow-sm z-10">
                   {idx + 1}
                 </div>
                 <div className="w-32 h-32 mx-auto bg-white rounded-3xl p-4 mb-6 shadow-sm group-hover:scale-105 transition-transform">
-                  <img src={p.imageUrl || undefined} alt={pt.name} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+                  <SmartImage
+                    src={imageSet.coverUrl || undefined}
+                    alt={pt.name}
+                    className="w-full h-full object-contain"
+                    wrapperClassName="w-full h-full"
+                    width={256}
+                    height={256}
+                    priority={idx < 2}
+                  />
                 </div>
                 <div className="text-center mb-6">
                   <h4 className="text-[10px] uppercase font-black text-slate-400 tracking-widest">{pt.brand}</h4>

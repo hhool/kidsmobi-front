@@ -19,6 +19,8 @@ import {
 import { Product, ProductCategory, CurrencyData } from "../types";
 import { translateProduct, translateCategory } from "../lib/translate";
 import { formatWeight } from "../lib/units";
+import { resolveProductImages } from "../lib/productImages";
+import SmartImage from "./common/SmartImage";
 import Breadcrumbs from "./Breadcrumbs";
 import ComparisonDashboard from "./ComparisonDashboard";
 
@@ -313,8 +315,9 @@ export default function ProductsSection({
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-          {filteredProducts.map((p) => {
+          {filteredProducts.map((p, idx) => {
             const diProduct = translateProduct(p, lang);
+            const imageSet = resolveProductImages(diProduct);
             const isWeightOver = (diProduct.category === "bicycle" || diProduct.category === "balance")
               ? diProduct.weight > childProfile.weight * 0.3
               : false;
@@ -331,6 +334,18 @@ export default function ProductsSection({
                 <div className="absolute top-0 right-0 w-24 h-24 bg-orange-50 rounded-bl-[60px] opacity-0 group-hover:opacity-100 transition-opacity translate-x-4 -translate-y-4"></div>
                 
                 <div className="space-y-6 relative z-10">
+                  <div className="w-full h-52 bg-slate-50 border border-slate-100 rounded-[28px] p-4 flex items-center justify-center overflow-hidden">
+                    <SmartImage
+                      src={imageSet.coverUrl || undefined}
+                      alt={diProduct.name}
+                      className="w-full h-full object-contain"
+                      wrapperClassName="w-full h-full"
+                      width={640}
+                      height={416}
+                      priority={idx < 3}
+                    />
+                  </div>
+
                   <div className="flex justify-between items-center">
                     <span className="bg-orange-50 text-orange-600 px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-orange-100">
                       {getCategoryLabel(diProduct.category)}
@@ -419,6 +434,7 @@ export default function ProductsSection({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {viewHistory.slice(0, 4).map(p => {
               const dp = translateProduct(p, lang);
+              const imageSet = resolveProductImages(dp);
               return (
                 <div 
                   key={p.id}
@@ -426,7 +442,14 @@ export default function ProductsSection({
                   className="bg-white border border-slate-100 hover:border-orange-200 rounded-[32px] p-5 flex items-center gap-4 cursor-pointer hover:shadow-xl transition duration-300 group"
                 >
                   <div className="w-16 h-16 bg-slate-50 border border-slate-100/50 rounded-2xl flex items-center justify-center p-2 shrink-0 group-hover:bg-orange-50/50 transition">
-                    <img src={p.imageUrl || undefined} alt={p.name} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+                    <SmartImage
+                      src={imageSet.coverUrl || undefined}
+                      alt={dp.name}
+                      className="w-full h-full object-contain"
+                      wrapperClassName="w-full h-full"
+                      width={128}
+                      height={128}
+                    />
                   </div>
                   <div className="min-w-0">
                     <h5 className="font-extrabold text-slate-900 group-hover:text-orange-500 transition truncate text-sm">

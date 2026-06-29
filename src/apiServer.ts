@@ -47,6 +47,10 @@ interface WorkerProduct {
   classification?: Record<string, string>;
   availability?: string;
   coverImage?: string;
+  images?: {
+    cover?: { url?: string; source?: string; order?: number };
+    gallery?: Array<{ url?: string; source?: string; order?: number }>;
+  };
   resourceStats?: { videos?: number; similarItems?: number };
 }
 
@@ -268,9 +272,58 @@ function buildLocalizedText(product: WorkerProduct, resource?: WorkerResource) {
   };
 }
 
+function dedupeUrls(urls: string[]) {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const url of urls) {
+    const normalized = (url || "").trim();
+    if (!normalized || seen.has(normalized)) {
+      continue;
+    }
+    seen.add(normalized);
+    out.push(normalized);
+  }
+  return out;
+}
+
+function normalizeWorkerImages(product: WorkerProduct) {
+  const coverCandidates = [
+    product.images?.cover?.url || "",
+    product.coverImage || "",
+  ].map((item) => item.trim()).filter(Boolean);
+
+  const galleryCandidates = dedupeUrls([
+    ...(product.images?.gallery || []).map((item) => (item.url || "").trim()),
+    product.coverImage || "",
+  ]);
+
+  const coverUrl = coverCandidates[0] || galleryCandidates[0] || "";
+  const galleryUrls = dedupeUrls(galleryCandidates.filter((url) => url !== coverUrl));
+
+  return {
+    coverUrl,
+    galleryUrls,
+    images: {
+      cover: coverUrl
+        ? {
+            url: coverUrl,
+            source: product.images?.cover?.source || "scraped",
+            order: 0,
+          }
+        : undefined,
+      gallery: galleryUrls.map((url, index) => ({
+        url,
+        source: product.images?.gallery?.find((item) => (item.url || "").trim() === url)?.source || "scraped",
+        order: index + 1,
+      })),
+    },
+  };
+}
+
 function convertWorkerProduct(product: WorkerProduct, resource?: WorkerResource): CMSProduct {
   const localized = buildLocalizedText(product, resource);
   const weight = product.weight?.lbs ?? 0;
+  const normalizedImages = normalizeWorkerImages(product);
 
   return {
     id: product.productId,
@@ -285,8 +338,9 @@ function convertWorkerProduct(product: WorkerProduct, resource?: WorkerResource)
     price: product.price?.value ?? 0,
     ageRange: mapCategoryToAgeRange(product.categoryId),
     heightRange: mapCategoryToHeightRange(product.categoryId),
-    imageUrl: product.coverImage || "",
-    galleryUrls: product.coverImage ? [product.coverImage] : [],
+    images: normalizedImages.images,
+    imageUrl: normalizedImages.coverUrl,
+    galleryUrls: normalizedImages.galleryUrls,
     status: "published",
     overallScore: computeOverallScore(
       computeSafetyScore(product, resource),

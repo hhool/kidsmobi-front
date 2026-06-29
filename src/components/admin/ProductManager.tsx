@@ -12,6 +12,23 @@ import {
 import { motion, AnimatePresence } from "motion/react";
 import { getCMSProducts, saveCMSProduct, deleteCMSProduct } from "../../lib/cmsService";
 import { CMSProduct, ComplianceTag, ProductCategory } from "../../types";
+import { FALLBACK_PRODUCT_IMAGE, resolveProductImages } from "../../lib/productImages";
+import SmartImage from "../common/SmartImage";
+
+function normalizeProductImagesForSave(product: CMSProduct): CMSProduct {
+  const imageSet = resolveProductImages(product);
+  const hasRealCover = imageSet.coverUrl && imageSet.coverUrl !== FALLBACK_PRODUCT_IMAGE;
+
+  return {
+    ...product,
+    images: {
+      cover: hasRealCover ? imageSet.images.cover : undefined,
+      gallery: imageSet.images.gallery,
+    },
+    imageUrl: hasRealCover ? imageSet.coverUrl : "",
+    galleryUrls: imageSet.galleryUrls,
+  };
+}
 
 export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
   const [products, setProducts] = useState<CMSProduct[]>([]);
@@ -41,6 +58,10 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
       ageRange: "",
       heightRange: [70, 120],
       compliance: [],
+      images: {
+        cover: undefined,
+        gallery: [],
+      },
       imageUrl: "",
       galleryUrls: [],
       videoUrl: "",
@@ -63,7 +84,7 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
     setSaving(true);
     setSaveError(null);
     try {
-      await saveCMSProduct(p);
+      await saveCMSProduct(normalizeProductImagesForSave(p));
       setEditingProduct(null);
       fetchProducts();
     } catch (e: any) {
@@ -143,7 +164,14 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
           <div key={p.id} className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm flex items-center justify-between group hover:border-orange-200 transition-all">
             <div className="flex items-center gap-6">
               <div className="w-20 h-20 bg-slate-50 rounded-2xl p-2 shrink-0">
-                <img src={p.imageUrl || undefined} alt={p.zh.name} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+                <SmartImage
+                  src={resolveProductImages(p).coverUrl || undefined}
+                  alt={p.zh.name}
+                  className="w-full h-full object-contain"
+                  wrapperClassName="w-full h-full"
+                  width={160}
+                  height={160}
+                />
               </div>
               <div>
                 <div className="flex items-center gap-2 mb-1.5">
@@ -357,8 +385,28 @@ function ProductEditor({ product, onSave, onCancel, lang, saving, error }: any) 
               <Section title="Visual & Media Assets">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-6">
-                    <Field label="Primary Hero Image URL" value={formData.imageUrl} onChange={(v) => setFormData({...formData, imageUrl: v})} />
+                    <Field
+                      label="Primary Hero Image URL"
+                      value={formData.imageUrl}
+                      onChange={(v) => {
+                        const next = { ...formData, imageUrl: v };
+                        setFormData(normalizeProductImagesForSave(next));
+                      }}
+                    />
                     <Field label="Video showcase URL (YouTube/Direct)" value={formData.videoUrl || ""} onChange={(v) => setFormData({...formData, videoUrl: v})} />
+                    <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4">
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Asset Preview</p>
+                      <div className="w-full h-36 bg-white rounded-xl border border-slate-100 p-3 flex items-center justify-center">
+                        <SmartImage
+                          src={resolveProductImages(formData).coverUrl || undefined}
+                          alt={formData.zh.name || formData.en.name || "product"}
+                          className="w-full h-full object-contain"
+                          wrapperClassName="w-full h-full"
+                          width={640}
+                          height={360}
+                        />
+                      </div>
+                    </div>
                   </div>
                   
                   <div className="space-y-4">
@@ -372,13 +420,13 @@ function ProductEditor({ product, onSave, onCancel, lang, saving, error }: any) 
                             onChange={(e) => {
                               const next = [...(formData.galleryUrls || [])];
                               next[idx] = e.target.value;
-                              setFormData({...formData, galleryUrls: next});
+                              setFormData(normalizeProductImagesForSave({ ...formData, galleryUrls: next }));
                             }}
                           />
                           <button 
                             onClick={() => {
                               const next = (formData.galleryUrls || []).filter((_, i) => i !== idx);
-                              setFormData({...formData, galleryUrls: next});
+                              setFormData(normalizeProductImagesForSave({ ...formData, galleryUrls: next }));
                             }}
                             className="p-3 bg-red-50 text-red-400 rounded-xl hover:bg-red-100 transition-all"
                           >
@@ -387,7 +435,7 @@ function ProductEditor({ product, onSave, onCancel, lang, saving, error }: any) 
                         </div>
                       ))}
                       <button 
-                        onClick={() => setFormData({...formData, galleryUrls: [...(formData.galleryUrls || []), ""]})}
+                        onClick={() => setFormData(normalizeProductImagesForSave({ ...formData, galleryUrls: [...(formData.galleryUrls || []), ""] }))}
                         className="w-full py-3 border-2 border-dashed border-slate-200 rounded-xl text-slate-400 text-xs font-black hover:border-orange-500 hover:text-orange-500 transition-all flex items-center justify-center gap-2"
                       >
                         <Plus className="w-4 h-4" />
