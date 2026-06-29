@@ -6,7 +6,9 @@ import {
   FileText, 
   Package, 
   ShieldCheck,
-  Database
+  Database,
+  RefreshCw,
+  Wifi
 } from "lucide-react";
 import { getCMSProducts, getCMSEvaluations, getCMSGuides, getCMSNews, saveCMSProduct, seedProductsToFirestore, seedGuidesToFirestore, seedNewsToFirestore, seedEvaluationsToFirestore } from "../../lib/cmsService";
 import { productsData as defaultProductsData } from "../../data/modelsData";
@@ -26,6 +28,18 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
   });
 
   const [migrating, setMigrating] = useState(false);
+  const [checkingHealth, setCheckingHealth] = useState(false);
+  const [health, setHealth] = useState<{
+    site: "pass" | "warn";
+    worker: "pass" | "warn";
+    cms: "pass" | "warn";
+    updatedAt: string;
+  }>({
+    site: "warn",
+    worker: "warn",
+    cms: "warn",
+    updatedAt: "-",
+  });
 
   const fetchStats = async () => {
     const [p, e, g, n] = await Promise.all([
@@ -46,7 +60,45 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
 
   useEffect(() => {
     fetchStats();
+    checkIntegrations();
   }, []);
+
+  const checkIntegrations = async () => {
+    setCheckingHealth(true);
+    const next = {
+      site: "warn" as "pass" | "warn",
+      worker: "warn" as "pass" | "warn",
+      cms: "warn" as "pass" | "warn",
+      updatedAt: new Date().toLocaleString(),
+    };
+
+    try {
+      const siteResponse = await fetch(window.location.origin, { method: "GET" });
+      next.site = siteResponse.ok ? "pass" : "warn";
+    } catch {
+      next.site = "warn";
+    }
+
+    try {
+      const workerResponse = await fetch("https://kidsmobi-api-v1.seaman-player.workers.dev/api/v1/catalog/categories", {
+        headers: { Accept: "application/json" },
+      });
+      const contentType = workerResponse.headers.get("content-type") || "";
+      next.worker = workerResponse.ok && contentType.toLowerCase().includes("application/json") ? "pass" : "warn";
+    } catch {
+      next.worker = "warn";
+    }
+
+    try {
+      const products = await getCMSProducts();
+      next.cms = Array.isArray(products) ? "pass" : "warn";
+    } catch {
+      next.cms = "warn";
+    }
+
+    setHealth(next);
+    setCheckingHealth(false);
+  };
 
   const handleMigrate = async () => {
     const confirm = window.confirm("Are you sure you want to push modelsData into Firestore? Existing records with the same ID will be overwritten.");
@@ -195,6 +247,49 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
         ))}
       </div>
 
+      <div className="bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h3 className="text-lg font-black text-slate-900 uppercase tracking-tight flex items-center gap-2">
+              <Wifi className="w-5 h-5 text-sky-500" />
+              {lang === "zh" ? "线上依赖健康检查" : "Online Integration Health"}
+            </h3>
+            <p className="text-xs text-slate-500 font-bold mt-1">
+              {lang === "zh" ? "用于演示前快速确认关键链路可用性" : "Quick pre-demo checks for critical online dependencies"}
+            </p>
+          </div>
+          <button
+            onClick={checkIntegrations}
+            disabled={checkingHealth}
+            className="px-4 py-2 rounded-xl bg-slate-900 text-white text-xs font-black flex items-center gap-2 disabled:bg-slate-300"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${checkingHealth ? "animate-spin" : ""}`} />
+            {checkingHealth ? (lang === "zh" ? "检查中..." : "Checking...") : (lang === "zh" ? "重新检查" : "Recheck")}
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <HealthItem
+            label={lang === "zh" ? "站点可访问" : "Site Reachability"}
+            status={health.site}
+            detail={lang === "zh" ? "生产页面可响应" : "Production page responds"}
+          />
+          <HealthItem
+            label={lang === "zh" ? "Worker API" : "Worker API"}
+            status={health.worker}
+            detail={lang === "zh" ? "分类接口返回 JSON" : "Category endpoint returns JSON"}
+          />
+          <HealthItem
+            label={lang === "zh" ? "CMS 读能力" : "CMS Read Capability"}
+            status={health.cms}
+            detail={lang === "zh" ? "后台读取产品列表可用" : "Admin can read product list"}
+          />
+        </div>
+        <p className="text-[10px] text-slate-400 font-bold mt-4 uppercase tracking-wider">
+          {lang === "zh" ? "上次检查" : "Last Checked"}: {health.updatedAt}
+        </p>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="bg-white p-10 rounded-[40px] border border-slate-100 shadow-sm">
           <div className="flex items-center justify-between mb-8">
@@ -289,6 +384,21 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
           </ul>
         </div>
       </div>
+    </div>
+  );
+}
+
+function HealthItem({ label, status, detail }: { label: string; status: "pass" | "warn"; detail: string }) {
+  const isPass = status === "pass";
+  return (
+    <div className="p-4 rounded-2xl border border-slate-100 bg-slate-50/60">
+      <div className="flex items-center justify-between">
+        <span className="text-xs font-black text-slate-800 uppercase tracking-wide">{label}</span>
+        <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-full ${isPass ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}`}>
+          {isPass ? "Pass" : "Warn"}
+        </span>
+      </div>
+      <p className="text-xs text-slate-500 mt-2">{detail}</p>
     </div>
   );
 }
