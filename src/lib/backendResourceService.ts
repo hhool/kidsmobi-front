@@ -29,6 +29,8 @@ type WorkerProduct = {
   title: string;
   brand: string;
   coverImage?: string;
+  galleryUrls?: string[];
+  videoUrls?: string[];
   images?: {
     cover?: { url?: string };
     gallery?: Array<{ url?: string }>;
@@ -39,6 +41,8 @@ type WorkerResource = {
   productId: string;
   resourceType: string;
   source?: string;
+  resourceUrl?: string;
+  videoUrls?: string[];
 };
 
 const DEFAULT_WORKER_BASE_URL = "https://kidsmobi-api-v1.seaman-player.workers.dev";
@@ -64,6 +68,20 @@ function isHttpUrl(value?: string) {
   } catch {
     return false;
   }
+}
+
+function dedupeUrls(urls: string[]) {
+  const seen = new Set<string>();
+  const result: string[] = [];
+  for (const item of urls) {
+    const url = (item || "").trim();
+    if (!url || seen.has(url)) {
+      continue;
+    }
+    seen.add(url);
+    result.push(url);
+  }
+  return result;
 }
 
 async function fetchWorkerJson<T>(path: string): Promise<T> {
@@ -157,19 +175,29 @@ async function getWorkerResourcePayload(params?: { categoryId?: string; q?: stri
   for (const payload of payloads) {
     const videosByProduct = new Map<string, string[]>();
     for (const resource of payload.resources) {
-      const isVideo = (resource.resourceType || "").toLowerCase().includes("video");
-      const source = (resource.source || "").trim();
-      if (!isVideo || !isHttpUrl(source)) continue;
+      const resourceVideoUrls = (resource.videoUrls || []).filter((item) => isHttpUrl(item));
+      const fallbackSource = (resource.resourceUrl || resource.source || "").trim();
+      const sourceUrls = [
+        ...resourceVideoUrls,
+        ...(isHttpUrl(fallbackSource) ? [fallbackSource] : []),
+      ];
+      const isVideo = (resource.resourceType || "").toLowerCase().includes("video") || sourceUrls.length > 0;
+      if (!isVideo) continue;
       const current = videosByProduct.get(resource.productId) || [];
-      if (!current.includes(source)) current.push(source);
-      videosByProduct.set(resource.productId, current);
+      videosByProduct.set(resource.productId, dedupeUrls([...current, ...sourceUrls]));
     }
 
     for (const item of payload.products) {
       const coverImage = (item.images?.cover?.url || item.coverImage || "").trim();
-      const galleryImages = (item.images?.gallery || [])
-        .map((img) => (img.url || "").trim())
-        .filter((url) => isHttpUrl(url));
+      const galleryImages = dedupeUrls(
+        [
+          ...(item.galleryUrls || []),
+          ...(item.images?.gallery || []).map((img) => (img.url || "").trim()),
+        ].filter((url) => isHttpUrl(url))
+      );
+
+      const productVideos = (item.videoUrls || []).filter((url) => isHttpUrl(url));
+      const resourceVideos = videosByProduct.get(item.productId) || [];
 
       const row: BackendPickerProduct = {
         id: item.productId,
@@ -178,7 +206,7 @@ async function getWorkerResourcePayload(params?: { categoryId?: string; q?: stri
         brand: item.brand,
         coverImage: isHttpUrl(coverImage) ? coverImage : undefined,
         galleryImages,
-        videoUrls: videosByProduct.get(item.productId) || [],
+        videoUrls: dedupeUrls([...productVideos, ...resourceVideos]),
       };
 
       if (keyword) {

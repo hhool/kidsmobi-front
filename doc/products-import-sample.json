@@ -20,7 +20,7 @@
     ],
     "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/81kpc-E8trL._AC_UL300_SR300,200_.jpg",
     "galleryUrls": [],
-    "videoUrl": "",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fbb4d711-8d87-4dda-b96a-05d1de922770/default.jobtemplate.hls.m3u8",
     "features": [
       "backend-imported",
       "cms-bulk-ready"
@@ -31,7 +31,50 @@
     "relatedProductIds": [
       "B0CXXRN2QS"
     ],
-    "videos": [],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fbb4d711-8d87-4dda-b96a-05d1de922770/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-1",
+        "source": "scraped",
+        "order": 0
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fd014a41-1919-417b-8aff-9bc8ae61c57f/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-2",
+        "source": "scraped",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/503ecace-12fc-4ab4-8892-6b91d1e46436/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-3",
+        "source": "scraped",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/30da419d-4eb1-4a93-894b-1b68b21e7a14/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-4",
+        "source": "scraped",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/20e34b93-be3e-440d-b133-2ffddc797328/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-5",
+        "source": "scraped",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d438accf-1ad5-4f01-802b-2d917037d1e3/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-6",
+        "source": "scraped",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8b9dfbfc-d466-41b3-926a-f63734bde824/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-7",
+        "source": "scraped",
+        "order": 6
+      }
+    ],
     "status": "draft",
     "zh": {
       "name": "Graco Modes Pramette Travel System, Car Seat and Stroller Combo, Includes SnugRide LX Infant Car Seat and Baby Stroller, 3 Mo",
@@ -84,7 +127,7 @@
     ],
     "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/71d4RVIyyUL._AC_UL300_SR300,200_.jpg",
     "galleryUrls": [],
-    "videoUrl": "",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3e952392-410d-4d14-aa58-139b976f14f2/default.jobtemplate.hls.m3u8",
     "features": [
       "backend-imported",
       "cms-bulk-ready"
@@ -95,7 +138,62 @@
     "relatedProductIds": [
       "B08316HK9P"
     ],
-    "videos": [],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3e952392-410d-4d14-aa58-139b976f14f2/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-1",
+        "source": "scraped",
+        "order": 0
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3f13abdb-fa1a-4862-8ac2-8dac1af825af/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-2",
+        "source": "scraped",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/93b2bdce-2491-417b-9aba-2aa0e62e9cc2/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-3",
+        "source": "scraped",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62457925-bd8b-492d-beb0-aa2bfcfbda00/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-4",
+        "source": "scraped",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7469cfed-70cc-478e-bd1e-0b8722b414dd/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-5",
+        "source": "scraped",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/05ea39a6-bd26-416d-9b5e-3a891595d600/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-6",
+        "source": "scraped",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/691c33e8-b2f1-4724-aef6-2c6507f7f674/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-7",
+        "source": "scraped",
+        "order": 6
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c218e939-3f24-4d38-b340-f798d939c476/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-8",
+        "source": "scraped",
+        "order": 7
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/978b418b-de83-4aa8-b2f6-3fb4f717251d/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-9",
+        "source": "scraped",
+        "order": 8
+      }
+    ],
     "status": "draft",
     "zh": {
       "name": "MAMAZING Ultra Air Lightweight Baby Travel Stroller with Carbon Fiber Frame, Compact & Airplane-Friendly, One-Handed Fold, 11",
@@ -148,7 +246,7 @@
     ],
     "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/61T9IVI+g6L._AC_UL300_SR300,200_.jpg",
     "galleryUrls": [],
-    "videoUrl": "",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dbd6378d-a587-49e6-90e4-00bcba3898fd/default.jobtemplate.hls.m3u8",
     "features": [
       "backend-imported",
       "cms-bulk-ready"
@@ -159,7 +257,38 @@
     "relatedProductIds": [
       "B07P1YSC18"
     ],
-    "videos": [],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dbd6378d-a587-49e6-90e4-00bcba3898fd/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-1",
+        "source": "scraped",
+        "order": 0
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b8a6df73-210d-4d1f-8e0b-dea775481bd0/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-2",
+        "source": "scraped",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e0936744-0d59-4484-a64c-4fcb5b14a2c6/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-3",
+        "source": "scraped",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3dc16919-914b-4bce-9fb6-5ffc1b4b0f8b/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-4",
+        "source": "scraped",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/067fc869-e45e-40ae-9d84-2fde43a9d174/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-5",
+        "source": "scraped",
+        "order": 4
+      }
+    ],
     "status": "draft",
     "zh": {
       "name": "Evenflo Pivot NXT Travel System with LiteMax NXT Infant Car Seat (Latte Tan)",
@@ -212,7 +341,7 @@
     ],
     "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/71C2681bJkL._AC_UL300_SR300,200_.jpg",
     "galleryUrls": [],
-    "videoUrl": "",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8a8e3efc-edc4-4f48-b4c7-7cbc69850fa8/default.jobtemplate.hls.m3u8",
     "features": [
       "backend-imported",
       "cms-bulk-ready"
@@ -223,7 +352,44 @@
     "relatedProductIds": [
       "B08K2YFNDW"
     ],
-    "videos": [],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8a8e3efc-edc4-4f48-b4c7-7cbc69850fa8/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-1",
+        "source": "scraped",
+        "order": 0
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/44491e8a-e786-4d9d-ae5d-a28a8a0c00c7/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-2",
+        "source": "scraped",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3ddd74eb-c254-4adf-a148-07a7e84fd3ba/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-3",
+        "source": "scraped",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1898849a-ad5a-4ee1-b16e-cc9591e2df6a/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-4",
+        "source": "scraped",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c873bfd7-af61-4800-8b4f-7b15cf2a42cd/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-5",
+        "source": "scraped",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/76f0005c-5345-4b8a-9409-ec40cbfd6266/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-6",
+        "source": "scraped",
+        "order": 5
+      }
+    ],
     "status": "draft",
     "zh": {
       "name": "Ingenuity 3D Mini Convenience Stroller – Lightweight Stroller with Compact Fold, Multi-Position Recline, Canopy with Pop Out",
@@ -276,7 +442,7 @@
     ],
     "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/81t37GPlaML._AC_UL300_SR300,200_.jpg",
     "galleryUrls": [],
-    "videoUrl": "",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/db91b9b3-0feb-4317-ab0d-b792f31b8a5a/default.jobtemplate.hls.m3u8",
     "features": [
       "backend-imported",
       "cms-bulk-ready"
@@ -287,7 +453,44 @@
     "relatedProductIds": [
       "B0D2LXK44T"
     ],
-    "videos": [],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/db91b9b3-0feb-4317-ab0d-b792f31b8a5a/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-1",
+        "source": "scraped",
+        "order": 0
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/20fcd0b5-1145-4dca-b9bd-a84704232c10/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-2",
+        "source": "scraped",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ecaf7403-d99d-4984-bc6d-dd25627aeca9/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-3",
+        "source": "scraped",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8a2e687d-3362-494a-9cbf-82aff01ec0b6/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-4",
+        "source": "scraped",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4cf85d6c-112b-446d-81af-0fbef87bf4cf/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-5",
+        "source": "scraped",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4ba9f6aa-dce5-43f8-9e7c-938e326bd466/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-6",
+        "source": "scraped",
+        "order": 5
+      }
+    ],
     "status": "draft",
     "zh": {
       "name": "Graco Ready2Grow LX 2.0 Double Stroller, Twin Baby Stroller Features Bench Seat and Standing Platform Options, Compact Fold P",
@@ -340,7 +543,7 @@
     ],
     "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/714WAYwO95L._AC_UL300_SR300,200_.jpg",
     "galleryUrls": [],
-    "videoUrl": "",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d6fcd5b7-af2f-4641-a355-b1d93f00036a/default.jobtemplate.hls.m3u8",
     "features": [
       "backend-imported",
       "cms-bulk-ready"
@@ -351,7 +554,44 @@
     "relatedProductIds": [
       "B0DC5GGJRP"
     ],
-    "videos": [],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d6fcd5b7-af2f-4641-a355-b1d93f00036a/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-1",
+        "source": "scraped",
+        "order": 0
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64d825a0-16a4-403a-a5d9-cc831af8a108/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-2",
+        "source": "scraped",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f6effd1f-9e71-4105-8d75-464733a72085/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-3",
+        "source": "scraped",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7088850f-3adc-4631-bd69-50501e6111ba/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-4",
+        "source": "scraped",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a8599b64-a0eb-421f-9004-be5c2512dc80/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-5",
+        "source": "scraped",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e142e660-fd66-44a7-8ff3-fbc1e70f4792/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-6",
+        "source": "scraped",
+        "order": 5
+      }
+    ],
     "status": "draft",
     "zh": {
       "name": "Graco Ready2Jet Compact Stroller Overhead Friendly Compact Travel Stroller with Automatic Fold, Kingston",
@@ -404,7 +644,7 @@
     ],
     "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/71J1ckKnTuL._AC_UL300_SR300,200_.jpg",
     "galleryUrls": [],
-    "videoUrl": "",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/87de57a0-2529-4268-86c3-a6277181db46/default.vertical.jobtemplate.hls.m3u8",
     "features": [
       "backend-imported",
       "cms-bulk-ready"
@@ -415,7 +655,44 @@
     "relatedProductIds": [
       "B08VPVLF95"
     ],
-    "videos": [],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/87de57a0-2529-4268-86c3-a6277181db46/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-1",
+        "source": "scraped",
+        "order": 0
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0bd18be6-b6ce-41c7-8a4e-fb76a7a48d4a/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-2",
+        "source": "scraped",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/de4eb06f-eb3f-4ab2-8291-5d1490b3ca7b/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-3",
+        "source": "scraped",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/57a451d0-8353-407e-b893-c463009d8067/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-4",
+        "source": "scraped",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64ad2298-c4fa-43c9-869f-cd6df6afe722/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-5",
+        "source": "scraped",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/85b5b306-67c2-411f-8fa1-65839dc84688/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-6",
+        "source": "scraped",
+        "order": 5
+      }
+    ],
     "status": "draft",
     "zh": {
       "name": "Dream On Me Aero Travel Umbrella Stroller, One-Hand Quick Fold, 3-Point Safety Harness, Dual Brakes, Adjustable Removable Can",
@@ -468,7 +745,7 @@
     ],
     "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/71ueoZZjEjL._AC_UL300_SR300,200_.jpg",
     "galleryUrls": [],
-    "videoUrl": "",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c88bbe50-1ede-41cf-b92c-57df0e655a43/default.jobtemplate.hls.m3u8",
     "features": [
       "backend-imported",
       "cms-bulk-ready"
@@ -479,7 +756,56 @@
     "relatedProductIds": [
       "B0FPFYG1BS"
     ],
-    "videos": [],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c88bbe50-1ede-41cf-b92c-57df0e655a43/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-1",
+        "source": "scraped",
+        "order": 0
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1937bc4e-e273-4a52-b7cc-f0fe8dce8654/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-2",
+        "source": "scraped",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3ac4da2b-743f-4ef5-a6dd-24e6fb814d48/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-3",
+        "source": "scraped",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4f43011b-6f2c-4a28-b29d-618363efbfa5/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-4",
+        "source": "scraped",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b85bc8ab-3487-4c67-8f2c-427dd4383074/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-5",
+        "source": "scraped",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/88004f97-f69e-48c5-9f4a-96459b8908a9/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-6",
+        "source": "scraped",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3d2f099c-07e6-4d0b-8b17-6504564808f4/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-7",
+        "source": "scraped",
+        "order": 6
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fbf3a716-3855-4400-801d-846b046d46ad/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-8",
+        "source": "scraped",
+        "order": 7
+      }
+    ],
     "status": "draft",
     "zh": {
       "name": "Chicco Bravo 3-in-1 Trio Travel System, Bravo Quick-Fold Stroller with KeyFit 30 Infant Car Seat and Base, Camden/Black",
@@ -532,7 +858,7 @@
     ],
     "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/71gNA9B06vL._AC_UL300_SR300,200_.jpg",
     "galleryUrls": [],
-    "videoUrl": "",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ab546842-269b-43a3-9781-868c5dede2a2/default.jobtemplate.hls.m3u8",
     "features": [
       "backend-imported",
       "cms-bulk-ready"
@@ -543,7 +869,68 @@
     "relatedProductIds": [
       "B019DHBCXE"
     ],
-    "videos": [],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ab546842-269b-43a3-9781-868c5dede2a2/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-1",
+        "source": "scraped",
+        "order": 0
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/80eceaa7-b353-4422-b960-1b515f3a357a/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-2",
+        "source": "scraped",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5aaaf4fb-25c6-4c83-8a81-dc73b6dc6703/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-3",
+        "source": "scraped",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/820e4352-3d7c-4985-bf18-768876363b65/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-4",
+        "source": "scraped",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4502f31e-4d4e-4b05-a445-3b95cfd6b281/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-5",
+        "source": "scraped",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1c26f113-d60c-4bda-919e-d93279727209/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-6",
+        "source": "scraped",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d29c2df2-f776-4e38-91c7-7eaf65c13f7e/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-7",
+        "source": "scraped",
+        "order": 6
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a3c849b6-2866-4aa7-a3d7-c2cde724b747/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-8",
+        "source": "scraped",
+        "order": 7
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/280d5762-b6f4-4a49-a25e-738751a16071/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-9",
+        "source": "scraped",
+        "order": 8
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0ffb9ea5-0b8d-40dc-a511-7664ab44677b/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-10",
+        "source": "scraped",
+        "order": 9
+      }
+    ],
     "status": "draft",
     "zh": {
       "name": "Mompush Nexis Carbon Travel Stroller, Ultra-Lightweight 11.5 lbs, Compact & Airplane Carry-On Approved, One-Second Auto-Fold,",
@@ -596,7 +983,7 @@
     ],
     "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/71RLZKHo-YL._AC_UL300_SR300,200_.jpg",
     "galleryUrls": [],
-    "videoUrl": "",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/92efd0e8-f11a-4e15-9150-2ff9e92d1c0f/default.vertical.jobtemplate.hls.m3u8",
     "features": [
       "backend-imported",
       "cms-bulk-ready"
@@ -607,7 +994,44 @@
     "relatedProductIds": [
       "B07Y5VQYFW"
     ],
-    "videos": [],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/92efd0e8-f11a-4e15-9150-2ff9e92d1c0f/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-1",
+        "source": "scraped",
+        "order": 0
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cc7f682b-2ad5-4a71-bf18-a319c15f338f/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-2",
+        "source": "scraped",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/630b7d7d-d61e-4dcf-87e0-d041da3b91c3/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-3",
+        "source": "scraped",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7d97a564-eba9-4012-acde-1dd1bfd153a0/default.jobtemplate.hls.m3u8",
+        "title": "backend-video-4",
+        "source": "scraped",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4170e06a-5be6-4599-9743-286facb41c8d/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-5",
+        "source": "scraped",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c0fb7b01-8b11-4940-aab2-13825e6fdc7e/default.vertical.jobtemplate.hls.m3u8",
+        "title": "backend-video-6",
+        "source": "scraped",
+        "order": 5
+      }
+    ],
     "status": "draft",
     "zh": {
       "name": "Kolcraft Cloud Plus Lightweight Umbrella Stroller for Toddlers with Reclining Seat, Large Storage Basket, Canopy, Infant & Pa",

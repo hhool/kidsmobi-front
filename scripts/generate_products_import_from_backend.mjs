@@ -33,9 +33,10 @@ function slugifyScenario(categoryId) {
 function buildImportRow(product, relatedProductId, videoUrls = []) {
   const title = product.title || product.productId || "Unnamed Product";
   const cover = toHttpUrl(product?.images?.cover?.url) || toHttpUrl(product.coverImage);
-  const gallery = (product?.images?.gallery || [])
-    .map((item) => toHttpUrl(item?.url))
-    .filter(Boolean);
+  const gallery = [
+    ...(Array.isArray(product?.galleryUrls) ? product.galleryUrls.map((item) => toHttpUrl(item)) : []),
+    ...(product?.images?.gallery || []).map((item) => toHttpUrl(item?.url)),
+  ].filter(Boolean).filter((item, idx, arr) => arr.indexOf(item) === idx);
 
   const price = Number(product?.price?.value || 0);
   const weightLbs = Number(product?.weight?.lbs || 0);
@@ -123,17 +124,24 @@ async function main() {
   const videoMap = new Map();
   for (const item of resources) {
     const type = (item?.resourceType || "").toLowerCase();
-    const source = toHttpUrl(item?.source || "");
-    if (!source) continue;
-    if (!type.includes("video")) continue;
+    const urls = [
+      ...(Array.isArray(item?.videoUrls) ? item.videoUrls.map((url) => toHttpUrl(url)) : []),
+      toHttpUrl(item?.resourceUrl || ""),
+      toHttpUrl(item?.source || ""),
+    ].filter(Boolean).filter((value, idx, arr) => arr.indexOf(value) === idx);
+    if (!type.includes("video") && urls.length === 0) continue;
     const current = videoMap.get(item.productId) || [];
-    if (!current.includes(source)) current.push(source);
-    videoMap.set(item.productId, current);
+    videoMap.set(item.productId, [...current, ...urls].filter((value, idx, arr) => arr.indexOf(value) === idx));
   }
 
   const rows = products.map((product, idx) => {
     const related = products[(idx + 1) % products.length]?.productId;
-    return buildImportRow(product, related, videoMap.get(product.productId) || []);
+    const productVideos = Array.isArray(product?.videoUrls)
+      ? product.videoUrls.map((url) => toHttpUrl(url)).filter(Boolean)
+      : [];
+    const resourceVideos = videoMap.get(product.productId) || [];
+    const mergedVideos = [...productVideos, ...resourceVideos].filter((value, index, arr) => arr.indexOf(value) === index);
+    return buildImportRow(product, related, mergedVideos);
   });
 
   const absoluteOutput = path.resolve(process.cwd(), output);

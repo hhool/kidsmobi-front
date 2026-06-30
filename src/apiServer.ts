@@ -47,6 +47,8 @@ interface WorkerProduct {
   classification?: Record<string, string>;
   availability?: string;
   coverImage?: string;
+  galleryUrls?: string[];
+  videoUrls?: string[];
   images?: {
     cover?: { url?: string; source?: string; order?: number };
     gallery?: Array<{ url?: string; source?: string; order?: number }>;
@@ -63,6 +65,8 @@ interface WorkerResource {
   summary: string;
   publishTime: string | null;
   source: string;
+  resourceUrl?: string;
+  videoUrls?: string[];
   credibilityScore: number;
   credibilityLevel: string;
   scoringBreakdown?: { docs?: number; videos?: number; hasFeatures?: boolean };
@@ -589,25 +593,30 @@ app.get("/api/content/resources", async (req, res) => {
       const videoMap = new Map<string, string[]>();
 
       for (const resource of payload.resources) {
-        const isVideo = (resource.resourceType || "").toLowerCase().includes("video");
-        const source = resource.source?.trim();
-        if (!isVideo || !isHttpUrl(source)) {
+        const urls = dedupeUrls([
+          ...((resource.videoUrls || []).filter((item) => isHttpUrl(item))),
+          resource.resourceUrl || "",
+          resource.source || "",
+        ]);
+        const isVideo = (resource.resourceType || "").toLowerCase().includes("video") || urls.length > 0;
+        if (!isVideo) {
           continue;
         }
         const current = videoMap.get(resource.productId) || [];
-        if (!current.includes(source!)) {
-          current.push(source!);
-        }
-        videoMap.set(resource.productId, current);
+        videoMap.set(resource.productId, dedupeUrls([...current, ...urls]));
       }
 
       for (const product of payload.products) {
         const coverImage = (product.images?.cover?.url || product.coverImage || "").trim();
-        const galleryImages = [
+        const galleryImages = dedupeUrls([
+          ...(product.galleryUrls || []),
           ...(product.images?.gallery || []).map((item) => (item.url || "").trim()),
-        ].filter((item) => isHttpUrl(item));
+        ].filter((item) => isHttpUrl(item)));
 
-        const videoUrls = videoMap.get(product.productId) || [];
+        const videoUrls = dedupeUrls([
+          ...((product.videoUrls || []).filter((item) => isHttpUrl(item))),
+          ...(videoMap.get(product.productId) || []),
+        ]);
 
         const row: AdminResourceProduct = {
           id: product.productId,
