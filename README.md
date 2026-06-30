@@ -45,3 +45,16 @@ Use Product Center -> `Import JSON` with an array payload.
 
 - Ready sample file: `doc/products-import-sample.json`
 - Import behavior: per-row validation + upsert by `id` (partial success supported)
+
+Generate a fresh import array from backend APIs:
+
+```bash
+npm run import:generate -- --base=https://kidsmobi-api-v1.seaman-player.workers.dev --category=stroller --limit=20 --output=doc/products-import-sample.json
+```
+
+Parameters:
+
+- `--base`: backend API base URL
+- `--category`: category id (for example `stroller`)
+- `--limit`: max products to include
+- `--output`: output JSON path for Product Center import

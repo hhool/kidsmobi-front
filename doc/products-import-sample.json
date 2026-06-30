@@ -1,7 +1,7 @@
 [
   {
     "id": "B07Y5VQYFW",
-    "name": "Graco Modes Pramette Travel System",
+    "name": "Graco Modes Pramette Travel System, Car Seat and Stroller Combo, Includes SnugRide LX Infant Car Seat and Baby Stroller, 3 Mo",
     "brand": "Graco",
     "category": "stroller",
     "wheelSize": "N/A",
@@ -11,75 +11,631 @@
     "tireType": "N/A",
     "price": 273.59,
     "ageRange": "0-4y",
-    "heightRange": [65, 120],
-    "compliance": ["EN1888"],
+    "heightRange": [
+      65,
+      120
+    ],
+    "compliance": [
+      "EN1888"
+    ],
     "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/81kpc-E8trL._AC_UL300_SR300,200_.jpg",
     "galleryUrls": [],
     "videoUrl": "",
-    "features": ["travel-system", "car-seat-compatible"],
-    "scenarios": ["city-commute"],
-    "relatedProductIds": ["B0CXXRN2QS"],
+    "features": [
+      "backend-imported",
+      "cms-bulk-ready"
+    ],
+    "scenarios": [
+      "city-commute"
+    ],
+    "relatedProductIds": [
+      "B0CXXRN2QS"
+    ],
     "videos": [],
     "status": "draft",
     "zh": {
-      "name": "Graco Modes Pramette 旅行系统",
-      "description": "来自 backend 产品接口的样例，图片链接为 backend 产品主图地址。",
+      "name": "Graco Modes Pramette Travel System, Car Seat and Stroller Combo, Includes SnugRide LX Infant Car Seat and Baby Stroller, 3 Mo",
+      "description": "由 backend 接口自动生成的批量导入记录。",
       "brandText": "Graco",
-      "specsText": "weight: 20.9 lbs",
-      "pros": ["兼容婴儿安全座椅", "适合通勤"],
-      "cons": ["车重偏高"],
-      "editorVerdict": "适合需要旅行系统的一体化家庭。"
+      "specsText": "price: $273.59; weight: 20.9 Pounds",
+      "pros": [
+        "来自 backend 产品接口",
+        "图片资源来自 backend"
+      ],
+      "cons": [
+        "请按业务补充人工编辑字段"
+      ],
+      "editorVerdict": "导入后建议人工复核描述与打分字段。"
     },
     "en": {
-      "name": "Graco Modes Pramette Travel System",
-      "description": "Backend-sourced sample with backend product cover image URL.",
+      "name": "Graco Modes Pramette Travel System, Car Seat and Stroller Combo, Includes SnugRide LX Infant Car Seat and Baby Stroller, 3 Mo",
+      "description": "Auto-generated import payload from backend APIs.",
       "brandText": "Graco",
-      "specsText": "weight: 20.9 lbs",
-      "pros": ["car seat compatible", "good for commute"],
-      "cons": ["heavier frame"],
-      "editorVerdict": "A practical integrated travel-system option."
+      "specsText": "price: $273.59; weight: 20.9 Pounds",
+      "pros": [
+        "backend sourced",
+        "backend image URLs"
+      ],
+      "cons": [
+        "manual curation still recommended"
+      ],
+      "editorVerdict": "Review and enrich editorial fields after import."
     },
     "updatedAt": null
   },
   {
     "id": "B0CXXRN2QS",
-    "name": "MAMAZING Ultra Air Lightweight Baby Travel Stroller",
+    "name": "MAMAZING Ultra Air Lightweight Baby Travel Stroller with Carbon Fiber Frame, Compact & Airplane-Friendly, One-Handed Fold, 11",
     "brand": "MAMAZING",
     "category": "stroller",
     "wheelSize": "N/A",
     "weight": 11.6,
-    "material": "Carbon Fiber Frame",
+    "material": "N/A",
     "brakeType": "N/A",
     "tireType": "N/A",
     "price": 179.99,
-    "ageRange": "0-3y",
-    "heightRange": [65, 115],
-    "compliance": ["EN1888"],
+    "ageRange": "0-4y",
+    "heightRange": [
+      65,
+      120
+    ],
+    "compliance": [
+      "EN1888"
+    ],
     "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/71d4RVIyyUL._AC_UL300_SR300,200_.jpg",
     "galleryUrls": [],
     "videoUrl": "",
-    "features": ["lightweight", "one-handed-fold"],
-    "scenarios": ["travel"],
-    "relatedProductIds": ["B07Y5VQYFW"],
+    "features": [
+      "backend-imported",
+      "cms-bulk-ready"
+    ],
+    "scenarios": [
+      "city-commute"
+    ],
+    "relatedProductIds": [
+      "B08316HK9P"
+    ],
     "videos": [],
     "status": "draft",
     "zh": {
-      "name": "MAMAZING Ultra Air 轻量旅行推车",
-      "description": "来自 backend 产品接口的样例，图片链接为 backend 产品主图地址。",
+      "name": "MAMAZING Ultra Air Lightweight Baby Travel Stroller with Carbon Fiber Frame, Compact & Airplane-Friendly, One-Handed Fold, 11",
+      "description": "由 backend 接口自动生成的批量导入记录。",
       "brandText": "MAMAZING",
-      "specsText": "weight: 11.6 lbs",
-      "pros": ["超轻量", "可单手折叠"],
-      "cons": ["高阶路况能力一般"],
-      "editorVerdict": "适合轻出行与飞机友好需求。"
+      "specsText": "price: $179.99; weight: 11.6 Pounds",
+      "pros": [
+        "来自 backend 产品接口",
+        "图片资源来自 backend"
+      ],
+      "cons": [
+        "请按业务补充人工编辑字段"
+      ],
+      "editorVerdict": "导入后建议人工复核描述与打分字段。"
     },
     "en": {
-      "name": "MAMAZING Ultra Air Lightweight Baby Travel Stroller",
-      "description": "Backend-sourced sample with backend product cover image URL.",
+      "name": "MAMAZING Ultra Air Lightweight Baby Travel Stroller with Carbon Fiber Frame, Compact & Airplane-Friendly, One-Handed Fold, 11",
+      "description": "Auto-generated import payload from backend APIs.",
       "brandText": "MAMAZING",
-      "specsText": "weight: 11.6 lbs",
-      "pros": ["ultra lightweight", "one-hand fold"],
-      "cons": ["limited rough-terrain capability"],
-      "editorVerdict": "Strong fit for travel-first families."
+      "specsText": "price: $179.99; weight: 11.6 Pounds",
+      "pros": [
+        "backend sourced",
+        "backend image URLs"
+      ],
+      "cons": [
+        "manual curation still recommended"
+      ],
+      "editorVerdict": "Review and enrich editorial fields after import."
+    },
+    "updatedAt": null
+  },
+  {
+    "id": "B08316HK9P",
+    "name": "Evenflo Pivot NXT Travel System with LiteMax NXT Infant Car Seat (Latte Tan)",
+    "brand": "Evenflo",
+    "category": "stroller",
+    "wheelSize": "N/A",
+    "weight": 21.9,
+    "material": "N/A",
+    "brakeType": "N/A",
+    "tireType": "N/A",
+    "price": 296.99,
+    "ageRange": "0-4y",
+    "heightRange": [
+      65,
+      120
+    ],
+    "compliance": [
+      "EN1888"
+    ],
+    "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/61T9IVI+g6L._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "videoUrl": "",
+    "features": [
+      "backend-imported",
+      "cms-bulk-ready"
+    ],
+    "scenarios": [
+      "city-commute"
+    ],
+    "relatedProductIds": [
+      "B07P1YSC18"
+    ],
+    "videos": [],
+    "status": "draft",
+    "zh": {
+      "name": "Evenflo Pivot NXT Travel System with LiteMax NXT Infant Car Seat (Latte Tan)",
+      "description": "由 backend 接口自动生成的批量导入记录。",
+      "brandText": "Evenflo",
+      "specsText": "price: $296.99; weight: 21.9 Pounds",
+      "pros": [
+        "来自 backend 产品接口",
+        "图片资源来自 backend"
+      ],
+      "cons": [
+        "请按业务补充人工编辑字段"
+      ],
+      "editorVerdict": "导入后建议人工复核描述与打分字段。"
+    },
+    "en": {
+      "name": "Evenflo Pivot NXT Travel System with LiteMax NXT Infant Car Seat (Latte Tan)",
+      "description": "Auto-generated import payload from backend APIs.",
+      "brandText": "Evenflo",
+      "specsText": "price: $296.99; weight: 21.9 Pounds",
+      "pros": [
+        "backend sourced",
+        "backend image URLs"
+      ],
+      "cons": [
+        "manual curation still recommended"
+      ],
+      "editorVerdict": "Review and enrich editorial fields after import."
+    },
+    "updatedAt": null
+  },
+  {
+    "id": "B07P1YSC18",
+    "name": "Ingenuity 3D Mini Convenience Stroller – Lightweight Stroller with Compact Fold, Multi-Position Recline, Canopy with Pop Out",
+    "brand": "Ingenuity",
+    "category": "stroller",
+    "wheelSize": "N/A",
+    "weight": 10.58,
+    "material": "N/A",
+    "brakeType": "N/A",
+    "tireType": "N/A",
+    "price": 69.88,
+    "ageRange": "0-4y",
+    "heightRange": [
+      65,
+      120
+    ],
+    "compliance": [
+      "EN1888"
+    ],
+    "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/71C2681bJkL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "videoUrl": "",
+    "features": [
+      "backend-imported",
+      "cms-bulk-ready"
+    ],
+    "scenarios": [
+      "city-commute"
+    ],
+    "relatedProductIds": [
+      "B08K2YFNDW"
+    ],
+    "videos": [],
+    "status": "draft",
+    "zh": {
+      "name": "Ingenuity 3D Mini Convenience Stroller – Lightweight Stroller with Compact Fold, Multi-Position Recline, Canopy with Pop Out",
+      "description": "由 backend 接口自动生成的批量导入记录。",
+      "brandText": "Ingenuity",
+      "specsText": "price: $69.88; weight: 10.58 Pounds",
+      "pros": [
+        "来自 backend 产品接口",
+        "图片资源来自 backend"
+      ],
+      "cons": [
+        "请按业务补充人工编辑字段"
+      ],
+      "editorVerdict": "导入后建议人工复核描述与打分字段。"
+    },
+    "en": {
+      "name": "Ingenuity 3D Mini Convenience Stroller – Lightweight Stroller with Compact Fold, Multi-Position Recline, Canopy with Pop Out",
+      "description": "Auto-generated import payload from backend APIs.",
+      "brandText": "Ingenuity",
+      "specsText": "price: $69.88; weight: 10.58 Pounds",
+      "pros": [
+        "backend sourced",
+        "backend image URLs"
+      ],
+      "cons": [
+        "manual curation still recommended"
+      ],
+      "editorVerdict": "Review and enrich editorial fields after import."
+    },
+    "updatedAt": null
+  },
+  {
+    "id": "B08K2YFNDW",
+    "name": "Graco Ready2Grow LX 2.0 Double Stroller, Twin Baby Stroller Features Bench Seat and Standing Platform Options, Compact Fold P",
+    "brand": "Graco",
+    "category": "stroller",
+    "wheelSize": "N/A",
+    "weight": 32.9,
+    "material": "N/A",
+    "brakeType": "N/A",
+    "tireType": "N/A",
+    "price": 250.79,
+    "ageRange": "0-4y",
+    "heightRange": [
+      65,
+      120
+    ],
+    "compliance": [
+      "EN1888"
+    ],
+    "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/81t37GPlaML._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "videoUrl": "",
+    "features": [
+      "backend-imported",
+      "cms-bulk-ready"
+    ],
+    "scenarios": [
+      "city-commute"
+    ],
+    "relatedProductIds": [
+      "B0D2LXK44T"
+    ],
+    "videos": [],
+    "status": "draft",
+    "zh": {
+      "name": "Graco Ready2Grow LX 2.0 Double Stroller, Twin Baby Stroller Features Bench Seat and Standing Platform Options, Compact Fold P",
+      "description": "由 backend 接口自动生成的批量导入记录。",
+      "brandText": "Graco",
+      "specsText": "price: $250.79; weight: 32.9 Pounds",
+      "pros": [
+        "来自 backend 产品接口",
+        "图片资源来自 backend"
+      ],
+      "cons": [
+        "请按业务补充人工编辑字段"
+      ],
+      "editorVerdict": "导入后建议人工复核描述与打分字段。"
+    },
+    "en": {
+      "name": "Graco Ready2Grow LX 2.0 Double Stroller, Twin Baby Stroller Features Bench Seat and Standing Platform Options, Compact Fold P",
+      "description": "Auto-generated import payload from backend APIs.",
+      "brandText": "Graco",
+      "specsText": "price: $250.79; weight: 32.9 Pounds",
+      "pros": [
+        "backend sourced",
+        "backend image URLs"
+      ],
+      "cons": [
+        "manual curation still recommended"
+      ],
+      "editorVerdict": "Review and enrich editorial fields after import."
+    },
+    "updatedAt": null
+  },
+  {
+    "id": "B0D2LXK44T",
+    "name": "Graco Ready2Jet Compact Stroller Overhead Friendly Compact Travel Stroller with Automatic Fold, Kingston",
+    "brand": "Graco",
+    "category": "stroller",
+    "wheelSize": "N/A",
+    "weight": 13.2,
+    "material": "N/A",
+    "brakeType": "N/A",
+    "tireType": "N/A",
+    "price": 144.39,
+    "ageRange": "0-4y",
+    "heightRange": [
+      65,
+      120
+    ],
+    "compliance": [
+      "EN1888"
+    ],
+    "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/714WAYwO95L._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "videoUrl": "",
+    "features": [
+      "backend-imported",
+      "cms-bulk-ready"
+    ],
+    "scenarios": [
+      "city-commute"
+    ],
+    "relatedProductIds": [
+      "B0DC5GGJRP"
+    ],
+    "videos": [],
+    "status": "draft",
+    "zh": {
+      "name": "Graco Ready2Jet Compact Stroller Overhead Friendly Compact Travel Stroller with Automatic Fold, Kingston",
+      "description": "由 backend 接口自动生成的批量导入记录。",
+      "brandText": "Graco",
+      "specsText": "price: $144.39; weight: 13.2 Pounds",
+      "pros": [
+        "来自 backend 产品接口",
+        "图片资源来自 backend"
+      ],
+      "cons": [
+        "请按业务补充人工编辑字段"
+      ],
+      "editorVerdict": "导入后建议人工复核描述与打分字段。"
+    },
+    "en": {
+      "name": "Graco Ready2Jet Compact Stroller Overhead Friendly Compact Travel Stroller with Automatic Fold, Kingston",
+      "description": "Auto-generated import payload from backend APIs.",
+      "brandText": "Graco",
+      "specsText": "price: $144.39; weight: 13.2 Pounds",
+      "pros": [
+        "backend sourced",
+        "backend image URLs"
+      ],
+      "cons": [
+        "manual curation still recommended"
+      ],
+      "editorVerdict": "Review and enrich editorial fields after import."
+    },
+    "updatedAt": null
+  },
+  {
+    "id": "B0DC5GGJRP",
+    "name": "Dream On Me Aero Travel Umbrella Stroller, One-Hand Quick Fold, 3-Point Safety Harness, Dual Brakes, Adjustable Removable Can",
+    "brand": "Dream",
+    "category": "stroller",
+    "wheelSize": "N/A",
+    "weight": 7.4,
+    "material": "N/A",
+    "brakeType": "N/A",
+    "tireType": "N/A",
+    "price": 33.99,
+    "ageRange": "0-4y",
+    "heightRange": [
+      65,
+      120
+    ],
+    "compliance": [
+      "EN1888"
+    ],
+    "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/71J1ckKnTuL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "videoUrl": "",
+    "features": [
+      "backend-imported",
+      "cms-bulk-ready"
+    ],
+    "scenarios": [
+      "city-commute"
+    ],
+    "relatedProductIds": [
+      "B08VPVLF95"
+    ],
+    "videos": [],
+    "status": "draft",
+    "zh": {
+      "name": "Dream On Me Aero Travel Umbrella Stroller, One-Hand Quick Fold, 3-Point Safety Harness, Dual Brakes, Adjustable Removable Can",
+      "description": "由 backend 接口自动生成的批量导入记录。",
+      "brandText": "Dream",
+      "specsText": "price: $33.99; weight: 7.4 Pounds",
+      "pros": [
+        "来自 backend 产品接口",
+        "图片资源来自 backend"
+      ],
+      "cons": [
+        "请按业务补充人工编辑字段"
+      ],
+      "editorVerdict": "导入后建议人工复核描述与打分字段。"
+    },
+    "en": {
+      "name": "Dream On Me Aero Travel Umbrella Stroller, One-Hand Quick Fold, 3-Point Safety Harness, Dual Brakes, Adjustable Removable Can",
+      "description": "Auto-generated import payload from backend APIs.",
+      "brandText": "Dream",
+      "specsText": "price: $33.99; weight: 7.4 Pounds",
+      "pros": [
+        "backend sourced",
+        "backend image URLs"
+      ],
+      "cons": [
+        "manual curation still recommended"
+      ],
+      "editorVerdict": "Review and enrich editorial fields after import."
+    },
+    "updatedAt": null
+  },
+  {
+    "id": "B08VPVLF95",
+    "name": "Chicco Bravo 3-in-1 Trio Travel System, Bravo Quick-Fold Stroller with KeyFit 30 Infant Car Seat and Base, Camden/Black",
+    "brand": "Chicco",
+    "category": "stroller",
+    "wheelSize": "N/A",
+    "weight": 24.9,
+    "material": "N/A",
+    "brakeType": "N/A",
+    "tireType": "N/A",
+    "price": 359.99,
+    "ageRange": "0-4y",
+    "heightRange": [
+      65,
+      120
+    ],
+    "compliance": [
+      "EN1888"
+    ],
+    "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/71ueoZZjEjL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "videoUrl": "",
+    "features": [
+      "backend-imported",
+      "cms-bulk-ready"
+    ],
+    "scenarios": [
+      "city-commute"
+    ],
+    "relatedProductIds": [
+      "B0FPFYG1BS"
+    ],
+    "videos": [],
+    "status": "draft",
+    "zh": {
+      "name": "Chicco Bravo 3-in-1 Trio Travel System, Bravo Quick-Fold Stroller with KeyFit 30 Infant Car Seat and Base, Camden/Black",
+      "description": "由 backend 接口自动生成的批量导入记录。",
+      "brandText": "Chicco",
+      "specsText": "price: $359.99; weight: 24.9 Pounds",
+      "pros": [
+        "来自 backend 产品接口",
+        "图片资源来自 backend"
+      ],
+      "cons": [
+        "请按业务补充人工编辑字段"
+      ],
+      "editorVerdict": "导入后建议人工复核描述与打分字段。"
+    },
+    "en": {
+      "name": "Chicco Bravo 3-in-1 Trio Travel System, Bravo Quick-Fold Stroller with KeyFit 30 Infant Car Seat and Base, Camden/Black",
+      "description": "Auto-generated import payload from backend APIs.",
+      "brandText": "Chicco",
+      "specsText": "price: $359.99; weight: 24.9 Pounds",
+      "pros": [
+        "backend sourced",
+        "backend image URLs"
+      ],
+      "cons": [
+        "manual curation still recommended"
+      ],
+      "editorVerdict": "Review and enrich editorial fields after import."
+    },
+    "updatedAt": null
+  },
+  {
+    "id": "B0FPFYG1BS",
+    "name": "Mompush Nexis Carbon Travel Stroller, Ultra-Lightweight 11.5 lbs, Compact & Airplane Carry-On Approved, One-Second Auto-Fold,",
+    "brand": "Mompush",
+    "category": "stroller",
+    "wheelSize": "N/A",
+    "weight": 13.89,
+    "material": "N/A",
+    "brakeType": "N/A",
+    "tireType": "N/A",
+    "price": 169.99,
+    "ageRange": "0-4y",
+    "heightRange": [
+      65,
+      120
+    ],
+    "compliance": [
+      "EN1888"
+    ],
+    "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/71gNA9B06vL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "videoUrl": "",
+    "features": [
+      "backend-imported",
+      "cms-bulk-ready"
+    ],
+    "scenarios": [
+      "city-commute"
+    ],
+    "relatedProductIds": [
+      "B019DHBCXE"
+    ],
+    "videos": [],
+    "status": "draft",
+    "zh": {
+      "name": "Mompush Nexis Carbon Travel Stroller, Ultra-Lightweight 11.5 lbs, Compact & Airplane Carry-On Approved, One-Second Auto-Fold,",
+      "description": "由 backend 接口自动生成的批量导入记录。",
+      "brandText": "Mompush",
+      "specsText": "price: $169.99; weight: 13.89 Pounds",
+      "pros": [
+        "来自 backend 产品接口",
+        "图片资源来自 backend"
+      ],
+      "cons": [
+        "请按业务补充人工编辑字段"
+      ],
+      "editorVerdict": "导入后建议人工复核描述与打分字段。"
+    },
+    "en": {
+      "name": "Mompush Nexis Carbon Travel Stroller, Ultra-Lightweight 11.5 lbs, Compact & Airplane Carry-On Approved, One-Second Auto-Fold,",
+      "description": "Auto-generated import payload from backend APIs.",
+      "brandText": "Mompush",
+      "specsText": "price: $169.99; weight: 13.89 Pounds",
+      "pros": [
+        "backend sourced",
+        "backend image URLs"
+      ],
+      "cons": [
+        "manual curation still recommended"
+      ],
+      "editorVerdict": "Review and enrich editorial fields after import."
+    },
+    "updatedAt": null
+  },
+  {
+    "id": "B019DHBCXE",
+    "name": "Kolcraft Cloud Plus Lightweight Umbrella Stroller for Toddlers with Reclining Seat, Large Storage Basket, Canopy, Infant & Pa",
+    "brand": "Kolcraft",
+    "category": "stroller",
+    "wheelSize": "N/A",
+    "weight": 11.8,
+    "material": "N/A",
+    "brakeType": "N/A",
+    "tireType": "N/A",
+    "price": 76.49,
+    "ageRange": "0-4y",
+    "heightRange": [
+      65,
+      120
+    ],
+    "compliance": [
+      "EN1888"
+    ],
+    "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/71RLZKHo-YL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "videoUrl": "",
+    "features": [
+      "backend-imported",
+      "cms-bulk-ready"
+    ],
+    "scenarios": [
+      "city-commute"
+    ],
+    "relatedProductIds": [
+      "B07Y5VQYFW"
+    ],
+    "videos": [],
+    "status": "draft",
+    "zh": {
+      "name": "Kolcraft Cloud Plus Lightweight Umbrella Stroller for Toddlers with Reclining Seat, Large Storage Basket, Canopy, Infant & Pa",
+      "description": "由 backend 接口自动生成的批量导入记录。",
+      "brandText": "Kolcraft",
+      "specsText": "price: $76.49; weight: 11.8 Pounds",
+      "pros": [
+        "来自 backend 产品接口",
+        "图片资源来自 backend"
+      ],
+      "cons": [
+        "请按业务补充人工编辑字段"
+      ],
+      "editorVerdict": "导入后建议人工复核描述与打分字段。"
+    },
+    "en": {
+      "name": "Kolcraft Cloud Plus Lightweight Umbrella Stroller for Toddlers with Reclining Seat, Large Storage Basket, Canopy, Infant & Pa",
+      "description": "Auto-generated import payload from backend APIs.",
+      "brandText": "Kolcraft",
+      "specsText": "price: $76.49; weight: 11.8 Pounds",
+      "pros": [
+        "backend sourced",
+        "backend image URLs"
+      ],
+      "cons": [
+        "manual curation still recommended"
+      ],
+      "editorVerdict": "Review and enrich editorial fields after import."
     },
     "updatedAt": null
   }
