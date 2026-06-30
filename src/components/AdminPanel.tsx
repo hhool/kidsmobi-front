@@ -24,6 +24,7 @@ import EvaluationManager from "./admin/EvaluationManager";
 import GuideManager from "./admin/GuideManager";
 import NewsManager from "./admin/NewsManager";
 import SettingsManager from "./admin/SettingsManager";
+import { getD1Health } from "../lib/cmsD1Service";
 const AssetUploader = React.lazy(() => import("./admin/AssetUploader"));
 
 export default function AdminPanel({ 
@@ -45,6 +46,24 @@ export default function AdminPanel({
   const [syncing, setSyncing] = useState(false);
   const [showHelpTip, setShowHelpTip] = useState(false);
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [d1Status, setD1Status] = useState<"unknown" | "healthy" | "down">("unknown");
+
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      try {
+        const health = await getD1Health();
+        if (!mounted) return;
+        setD1Status(health.configured && health.healthy ? "healthy" : "down");
+      } catch {
+        if (!mounted) return;
+        setD1Status("down");
+      }
+    })();
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   const handleCopy = (text: string, fieldName: string) => {
     try {
@@ -150,6 +169,25 @@ export default function AdminPanel({
             </span>
             <span className="text-xs bg-emerald-100 text-emerald-600 px-3 py-1.5 rounded-full font-black uppercase tracking-wider">
               {lang === "zh" ? "权限: 管理员" : "Role: Admin"}
+            </span>
+            <span
+              className={`text-xs px-3 py-1.5 rounded-full font-black uppercase tracking-wider ${
+                d1Status === "healthy"
+                  ? "bg-emerald-100 text-emerald-700"
+                  : d1Status === "down"
+                    ? "bg-amber-100 text-amber-700"
+                    : "bg-slate-100 text-slate-600"
+              }`}
+            >
+              {d1Status === "healthy"
+                ? lang === "zh"
+                  ? "D1: 已连接"
+                  : "D1: Connected"
+                : d1Status === "down"
+                  ? lang === "zh"
+                    ? "D1: 未就绪"
+                    : "D1: Unavailable"
+                  : "D1: Checking"}
             </span>
           </div>
           <div className="flex items-center gap-2">

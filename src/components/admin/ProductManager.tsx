@@ -20,7 +20,7 @@ import SmartImage from "../common/SmartImage";
 import BackendResourcePicker from "./BackendResourcePicker";
 import { auth } from "../../lib/firebase";
 import { getBackendPickerPayload } from "../../lib/backendResourceService";
-import { getD1CMSProducts, initD1CMSProducts } from "../../lib/cmsD1Service";
+import { deleteD1CMSProduct, getD1CMSProducts, initD1CMSProducts, saveD1CMSProduct } from "../../lib/cmsD1Service";
 
 function normalizeCMSProductForList(item: CMSProduct): CMSProduct {
   const zhName = item?.zh?.name || item.name || item.brand || "";
@@ -359,7 +359,14 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
     setSaving(true);
     setSaveError(null);
     try {
-      await saveCMSProduct(normalized);
+      try {
+        const saved = await saveD1CMSProduct(normalized);
+        if (!saved) {
+          throw new Error("D1 save failed");
+        }
+      } catch {
+        await saveCMSProduct(normalized);
+      }
       setEditingProduct(null);
       fetchProducts();
     } catch (e: any) {
@@ -389,7 +396,15 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
     
     if (window.confirm(confirmMsg)) {
       try {
-        const success = await deleteCMSProduct(id);
+        let success = false;
+        try {
+          success = await deleteD1CMSProduct(id);
+          if (!success) {
+            throw new Error("D1 delete failed");
+          }
+        } catch {
+          success = await deleteCMSProduct(id);
+        }
         if (success) {
           fetchProducts();
         } else {

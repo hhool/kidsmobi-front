@@ -50,3 +50,43 @@ export async function initD1CMSProducts(): Promise<{ total: number; success: num
     success: response?.data?.success || 0,
   };
 }
+
+export async function saveD1CMSCategory(category: CMSCategory): Promise<boolean> {
+  const response = await requestJson<{ data?: { saved?: boolean } }>("/api/cms/categories/save", {
+    method: "POST",
+    body: JSON.stringify(category),
+  });
+  return Boolean(response?.data?.saved);
+}
+
+export async function deleteD1CMSCategory(id: string): Promise<boolean> {
+  const response = await requestJson<{ data?: { deleted?: boolean } }>("/api/cms/categories/delete", {
+    method: "POST",
+    body: JSON.stringify({ id }),
+  });
+  return Boolean(response?.data?.deleted);
+}
+
+export async function saveD1CMSProduct(product: CMSProduct): Promise<boolean> {
+  const response = await requestJson<{ data?: { saved?: boolean } }>("/api/cms/products/save", {
+    method: "POST",
+    body: JSON.stringify(product),
+  });
+  return Boolean(response?.data?.saved);
+}
+
+export async function deleteD1CMSProduct(id: string): Promise<boolean> {
+  const response = await requestJson<{ data?: { deleted?: boolean } }>("/api/cms/products/delete", {
+    method: "POST",
+    body: JSON.stringify({ id }),
+  });
+  return Boolean(response?.data?.deleted);
+}
+
+export async function getD1Health(): Promise<{ configured: boolean; healthy: boolean }> {
+  const response = await requestJson<{ data?: { configured?: boolean; healthy?: boolean } }>("/api/cms/d1/health");
+  return {
+    configured: Boolean(response?.data?.configured),
+    healthy: Boolean(response?.data?.healthy),
+  };
+}

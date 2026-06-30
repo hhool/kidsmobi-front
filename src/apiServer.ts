@@ -197,6 +197,10 @@ async function upsertD1CMSRecord(collectionName: "products" | "categories", id: 
   );
 }
 
+async function deleteD1CMSRecord(collectionName: "products" | "categories", id: string) {
+  await d1Query(`DELETE FROM cms_records WHERE collection = ? AND id = ?`, [collectionName, id]);
+}
+
 async function listD1CMSRecords<T>(collectionName: "products" | "categories"): Promise<T[]> {
   const rows = await d1Query(
     `SELECT payload FROM cms_records WHERE collection = ? ORDER BY updated_at DESC`,
@@ -843,6 +847,38 @@ app.get("/api/cms/categories", async (req, res) => {
   }
 });
 
+app.get("/api/cms/d1/health", async (_req, res) => {
+  const configured = hasD1Config();
+  if (!configured) {
+    res.status(503).json({
+      data: {
+        configured: false,
+        healthy: false,
+      },
+    });
+    return;
+  }
+
+  try {
+    await ensureD1Schema();
+    await d1Query("SELECT 1 as ok");
+    res.json({
+      data: {
+        configured: true,
+        healthy: true,
+      },
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      data: {
+        configured: true,
+        healthy: false,
+      },
+      error: error?.message || "D1 health check failed",
+    });
+  }
+});
+
 app.get("/api/cms/products", async (req, res) => {
   try {
     if (!hasD1Config()) {
@@ -896,6 +932,63 @@ app.post("/api/cms/init/categories", async (_req, res) => {
   }
 });
 
+app.post("/api/cms/categories/save", async (req, res) => {
+  try {
+    if (!hasD1Config()) {
+      res.status(503).json({ error: "D1 is not configured." });
+      return;
+    }
+    const payload = (req.body || {}) as CMSCategory;
+    if (!payload?.id) {
+      res.status(400).json({ error: "Category payload with id is required." });
+      return;
+    }
+
+    await ensureD1Schema();
+    await upsertD1CMSRecord("categories", payload.id, {
+      ...payload,
+      updatedAt: new Date().toISOString(),
+    });
+
+    res.json({
+      data: {
+        id: payload.id,
+        saved: true,
+      },
+    });
+  } catch (error: any) {
+    console.error("Failed to save D1 category:", error);
+    res.status(500).json({ error: error.message || "Failed to save D1 category" });
+  }
+});
+
+app.post("/api/cms/categories/delete", async (req, res) => {
+  try {
+    if (!hasD1Config()) {
+      res.status(503).json({ error: "D1 is not configured." });
+      return;
+    }
+    const id = String(req.body?.id || "").trim();
+    if (!id) {
+      res.status(400).json({ error: "Category id is required." });
+      return;
+    }
+
+    await ensureD1Schema();
+    await deleteD1CMSRecord("categories", id);
+
+    res.json({
+      data: {
+        id,
+        deleted: true,
+      },
+    });
+  } catch (error: any) {
+    console.error("Failed to delete D1 category:", error);
+    res.status(500).json({ error: error.message || "Failed to delete D1 category" });
+  }
+});
+
 app.post("/api/cms/init/products", async (_req, res) => {
   try {
     if (!hasD1Config()) {
@@ -923,6 +1016,63 @@ app.post("/api/cms/init/products", async (_req, res) => {
   } catch (error: any) {
     console.error("Failed to initialize D1 products:", error);
     res.status(500).json({ error: error.message || "Failed to initialize D1 products" });
+  }
+});
+
+app.post("/api/cms/products/save", async (req, res) => {
+  try {
+    if (!hasD1Config()) {
+      res.status(503).json({ error: "D1 is not configured." });
+      return;
+    }
+    const payload = (req.body || {}) as CMSProduct;
+    if (!payload?.id) {
+      res.status(400).json({ error: "Product payload with id is required." });
+      return;
+    }
+
+    await ensureD1Schema();
+    await upsertD1CMSRecord("products", payload.id, {
+      ...payload,
+      updatedAt: new Date().toISOString(),
+    });
+
+    res.json({
+      data: {
+        id: payload.id,
+        saved: true,
+      },
+    });
+  } catch (error: any) {
+    console.error("Failed to save D1 product:", error);
+    res.status(500).json({ error: error.message || "Failed to save D1 product" });
+  }
+});
+
+app.post("/api/cms/products/delete", async (req, res) => {
+  try {
+    if (!hasD1Config()) {
+      res.status(503).json({ error: "D1 is not configured." });
+      return;
+    }
+    const id = String(req.body?.id || "").trim();
+    if (!id) {
+      res.status(400).json({ error: "Product id is required." });
+      return;
+    }
+
+    await ensureD1Schema();
+    await deleteD1CMSRecord("products", id);
+
+    res.json({
+      data: {
+        id,
+        deleted: true,
+      },
+    });
+  } catch (error: any) {
+    console.error("Failed to delete D1 product:", error);
+    res.status(500).json({ error: error.message || "Failed to delete D1 product" });
   }
 });
 

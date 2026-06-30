@@ -3,7 +3,7 @@ import { Plus, Save, Trash2 } from "lucide-react";
 import { CMSCategory, ProductCategory } from "../../types";
 import { deleteCMSCategory, getCMSCategories, saveCMSCategory } from "../../lib/cmsService";
 import { getBackendPickerPayload } from "../../lib/backendResourceService";
-import { getD1CMSCategories, initD1CMSCategories } from "../../lib/cmsD1Service";
+import { deleteD1CMSCategory, getD1CMSCategories, initD1CMSCategories, saveD1CMSCategory } from "../../lib/cmsD1Service";
 
 const categoryCodes: ProductCategory[] = [
   "balance",
@@ -81,7 +81,14 @@ export default function CategoryManager({ lang }: { lang: "zh" | "en" }) {
     }
     setSaving(true);
     try {
-      await saveCMSCategory(editing);
+      try {
+        const saved = await saveD1CMSCategory(editing);
+        if (!saved) {
+          throw new Error("D1 save failed");
+        }
+      } catch {
+        await saveCMSCategory(editing);
+      }
       setEditing(null);
       await refresh();
     } finally {
@@ -92,7 +99,14 @@ export default function CategoryManager({ lang }: { lang: "zh" | "en" }) {
   async function handleDelete(id: string) {
     const ok = window.confirm(lang === "zh" ? "确认删除该品类？" : "Delete this category?");
     if (!ok) return;
-    await deleteCMSCategory(id);
+    try {
+      const deleted = await deleteD1CMSCategory(id);
+      if (!deleted) {
+        throw new Error("D1 delete failed");
+      }
+    } catch {
+      await deleteCMSCategory(id);
+    }
     if (editing?.id === id) setEditing(null);
     await refresh();
   }
