@@ -11,6 +11,7 @@
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit",
     "import:generate": "node scripts/generate_products_import_from_backend.mjs",
+    "cms:smoke": "node scripts/smoke_cms_d1_endpoints.mjs",
     "perf:sample": "node scripts/sample_web_vitals.mjs",
     "perf:sample:desktop": "node scripts/sample_web_vitals.mjs --strategy=desktop",
     "perf:trend": "node scripts/compare_web_vitals_trend.mjs",

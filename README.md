@@ -81,6 +81,14 @@ Main D1-backed endpoints:
    - `/api/cms/guides/save|delete`
    - `/api/cms/news/save|delete`
 
+Smoke check command:
+
+```bash
+npm run cms:smoke -- --base=https://your-cms-api.example.com
+```
+
+The command verifies `/api/cms/d1/health` and six list endpoints, and fails fast when an endpoint returns non-JSON (for example static HTML fallback).
+
 ## Product Bulk Import JSON
 
 Use Product Center -> `Import JSON` with an array payload.
