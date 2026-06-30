@@ -20,6 +20,8 @@ import {
 import { Product, CurrencyData } from "../types";
 import { 
   signInWithPopup, 
+  signInWithRedirect,
+  getRedirectResult,
   GoogleAuthProvider, 
   signOut,
   createUserWithEmailAndPassword,
@@ -96,6 +98,40 @@ export default function AuthSection({
     return () => clearTimeout(timer);
   }, [counter]);
 
+  // Handle Google redirect callback in environments where popup login is blocked.
+  useEffect(() => {
+    const syncRedirectResult = async () => {
+      try {
+        const redirectResult = await getRedirectResult(auth);
+        if (redirectResult?.user) {
+          await ensureUserProfileInFirestore(redirectResult.user.uid, redirectResult.user.email || "");
+          setUserEmail(redirectResult.user.email || "");
+          setIsRegistered(true);
+          setSuccessMessage(
+            isEn
+              ? "🎉 Google sign-in completed via redirect." 
+              : "🎉 已通过页面跳转完成 Google 登录。"
+          );
+        }
+      } catch (redirectError: any) {
+        console.error(redirectError);
+        let msg = redirectError.message || String(redirectError);
+        if (redirectError.code === "auth/unauthorized-domain") {
+          msg = isEn
+            ? "Unauthorized Domain: Please add this URL to your Firebase Console > Authentication > Settings > Authorized domains list."
+            : "域名未授权：请将当前网址添加到 Firebase 控制台的“Authentication (身份验证) > Settings (设置) > 已授权域名”列表中。";
+        }
+        setErrorMessage(
+          isEn
+            ? "Google redirect sign-in failed: " + msg
+            : "Google 跳转登录失败: " + msg
+        );
+      }
+    };
+
+    syncRedirectResult();
+  }, [isEn, setUserEmail]);
+
   const handleSendCode = () => {
     if (!emailInput.trim() || !emailInput.includes("@")) {
       setErrorMessage(
@@ -125,8 +161,9 @@ export default function AuthSection({
   const handleGoogleSignIn = async () => {
     setErrorMessage("");
     setSuccessMessage("");
+    const provider = new GoogleAuthProvider();
+
     try {
-      const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       if (result.user) {
         await ensureUserProfileInFirestore(result.user.uid, result.user.email || "");
@@ -140,15 +177,45 @@ export default function AuthSection({
       }
     } catch (error: any) {
       console.error(error);
-      let msg = error.message || String(error);
+      const rawMsg = error.message || String(error);
+      const lowerMsg = rawMsg.toLowerCase();
+
+      if (
+        error.code === "auth/popup-blocked" ||
+        error.code === "auth/popup-closed-by-user" ||
+        error.code === "auth/cancelled-popup-request" ||
+        lowerMsg.includes("cross-origin") ||
+        lowerMsg.includes("popup")
+      ) {
+        try {
+          await signInWithRedirect(auth, provider);
+          setSuccessMessage(
+            isEn
+              ? "Redirecting to Google sign-in (popup blocked)."
+              : "弹窗受限，正在切换为 Google 跳转登录。"
+          );
+          return;
+        } catch (redirectStartError: any) {
+          console.error(redirectStartError);
+          const redirectMsg = redirectStartError.message || String(redirectStartError);
+          setErrorMessage(
+            isEn
+              ? "Google sign-in failed to start redirect: " + redirectMsg
+              : "Google 登录无法启动跳转流程: " + redirectMsg
+          );
+          return;
+        }
+      }
+
+      let msg = rawMsg;
       if (error.code === "auth/unauthorized-domain") {
         msg = isEn 
           ? "Unauthorized Domain: Please add this URL to your Firebase Console > Authentication > Settings > Authorized domains list."
           : "域名未授权：请将当前网址添加到 Firebase 控制台的“Authentication (身份验证) > Settings (设置) > 已授权域名”列表中。";
-      } else if (msg.toLowerCase().includes("cross-origin") || msg.toLowerCase().includes("popup") || error.code === "auth/popup-closed-by-user") {
+      } else if (lowerMsg.includes("cross-origin") || lowerMsg.includes("popup") || error.code === "auth/popup-closed-by-user") {
         msg = isEn 
-          ? "Popup blocked or closed by iframe security. **Please click the top-right button to Open in New Tab** to sign in." 
-          : "嵌入安全策略拦截了弹窗，或弹窗被关闭。**强烈建议：请点击屏幕右上角「在新标签页中打开」按钮继续登录。**";
+          ? "Popup blocked by iframe/security policy. Redirect fallback is unavailable; please open in a normal browser tab and retry."
+          : "嵌入安全策略拦截了弹窗，且无法切换跳转登录；请在普通浏览器标签页重试。";
       }
       setErrorMessage(
         isEn 

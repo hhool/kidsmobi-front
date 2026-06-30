@@ -1,167 +1,97 @@
-import { 
-  collection, 
-  doc, 
-  getDoc, 
-  getDocs, 
-  setDoc, 
-  updateDoc, 
-  query, 
-  where, 
-  orderBy, 
-  serverTimestamp,
-  deleteDoc
-} from "firebase/firestore";
-import { db, dbDefault, auth } from "./firebase";
-import { CMSProduct, Evaluation, Guide, News, CMSSettings, CMSCategory, CMSScenario } from "../types";
-import { handleFirestoreError, OperationType, withTimeout } from "./firestoreHelper";
-
 import { User } from "firebase/auth";
+import { auth } from "./firebase";
+import { CMSCategory, CMSProduct, CMSScenario, CMSSettings, Evaluation, Guide, News } from "../types";
 
-export async function checkIsAdmin(uid: string, user?: User | null): Promise<boolean> {
-  if (!uid) return false;
-  
+const CMS_API_BASE = (
+  import.meta.env.VITE_CMS_API_BASE_URL || import.meta.env.VITE_CMS_BACKEND_BASE_URL || ""
+).replace(/\/$/, "");
+
+function resolveCMSApiPath(path: string): string {
+  if (/^https?:\/\//i.test(path)) return path;
+  return CMS_API_BASE ? `${CMS_API_BASE}${path}` : path;
+}
+
+async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
+  const requestUrl = resolveCMSApiPath(path);
+  const response = await fetch(requestUrl, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      ...(init?.headers || {}),
+    },
+    ...init,
+  });
+
+  if (!response.ok) {
+    const details = await response.text().catch(() => "");
+    throw new Error(details || `Request failed: ${response.status}`);
+  }
+
+  const contentType = String(response.headers.get("content-type") || "").toLowerCase();
+  if (!contentType.includes("application/json")) {
+    const bodyPreview = (await response.text().catch(() => "")).slice(0, 120).replace(/\s+/g, " ");
+    throw new Error(
+      `Expected JSON response from ${requestUrl}, got '${contentType || "unknown"}'. Preview: ${bodyPreview}`,
+    );
+  }
+
+  return (await response.json()) as T;
+}
+
+function cleanUndefinedValues<T>(value: T): T {
+  if (value === null || value === undefined) return value;
+  if (Array.isArray(value)) {
+    return value.map((item) => cleanUndefinedValues(item)) as T;
+  }
+  if (typeof value === "object") {
+    const out: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
+      if (v !== undefined) out[k] = cleanUndefinedValues(v);
+    }
+    return out as T;
+  }
+  return value;
+}
+
+function normalizeText(value: unknown): string {
+  return String(value || "").trim().toLowerCase();
+}
+
+function getAllowedAdminEmails(): string[] {
+  const configured = String(import.meta.env.VITE_ADMIN_EMAIL_ALLOWLIST || "")
+    .split(",")
+    .map((item) => item.trim().toLowerCase())
+    .filter(Boolean);
+
+  if (configured.length > 0) return configured;
+  return ["hhool.student@gmail.com"];
+}
+
+export async function checkIsAdmin(_uid: string, user?: User | null): Promise<boolean> {
   const targetUser = user || auth.currentUser;
-  
-  if (targetUser?.email === "hhool.student@gmail.com") {
-    try {
-      const adminDoc = doc(db, "admins", uid);
-      const snap = await getDoc(adminDoc);
-      if (!snap.exists()) {
-        await setDoc(adminDoc, { 
-          userId: uid, 
-          email: targetUser.email, 
-          role: "superadmin",
-          createdAt: serverTimestamp() 
-        });
-      }
-      return true;
-    } catch (err) {
-      console.error("Superadmin bootstrap failed:", err);
-      // Fallback: if we are the superadmin but can't write to DB yet, still allow entry
-      return true;
-    }
-  }
-  
-  try {
-    const adminDoc = doc(db, "admins", uid);
-    const snap = await getDoc(adminDoc);
-    return snap.exists();
-  } catch (err) {
-    console.error("Admin check failed:", err);
-    return false;
-  }
+  const email = String(targetUser?.email || "").trim().toLowerCase();
+  if (!email) return false;
+  return getAllowedAdminEmails().includes(email);
 }
 
-// Product Management
 export async function getCMSProducts(onlyPublished = false): Promise<CMSProduct[]> {
-  const path = "products";
-
-  const sortRows = (rows: CMSProduct[]) => {
-    const next = [...rows];
-    next.sort((a, b) => {
-      const aTime = Number((a as any)?.updatedAt?.seconds || 0);
-      const bTime = Number((b as any)?.updatedAt?.seconds || 0);
-      return bTime - aTime;
-    });
-    return next;
-  };
-
-  const runPlainReadFallback = async (targetDb = db) => {
-    const snap = await withTimeout(getDocs(collection(targetDb, "products")), 8000);
-    let rows = snap.docs.map((d) => d.data() as CMSProduct);
-    if (onlyPublished) {
-      rows = rows.filter((item) => item?.status === "published");
-    }
-    return sortRows(rows);
-  };
-
-  const runDefaultDbFallbackIfNeeded = async (currentRows: CMSProduct[]) => {
-    if (currentRows.length > 0 || db === dbDefault) {
-      return currentRows;
-    }
-    try {
-      return await runPlainReadFallback(dbDefault);
-    } catch {
-      return currentRows;
-    }
-  };
-
-  try {
-    let q;
-    if (onlyPublished) {
-      q = query(collection(db, "products"), where("status", "==", "published"));
-    } else {
-      q = query(collection(db, "products"), orderBy("updatedAt", "desc"));
-    }
-    const snap = await withTimeout(getDocs(q), 5000);
-    const rows = snap.docs.map((d) => d.data() as CMSProduct);
-
-    // Some legacy docs may not have updatedAt and can be omitted by orderBy queries.
-    if (!onlyPublished && rows.length === 0) {
-      const fallbackRows = await runPlainReadFallback();
-      return runDefaultDbFallbackIfNeeded(fallbackRows);
-    }
-
-    return runDefaultDbFallbackIfNeeded(rows);
-  } catch (error) {
-    // Fallback path: if ordered query fails (index/schema/network jitter), still try plain read.
-    try {
-      const fallbackRows = await runPlainReadFallback();
-      return runDefaultDbFallbackIfNeeded(fallbackRows);
-    } catch (fallbackError) {
-      handleFirestoreError(fallbackError, OperationType.LIST, path);
-      return [];
-    }
-  }
-}
-
-function cleanUndefinedValues(obj: any): any {
-  if (obj === null || obj === undefined) {
-    return null;
-  }
-  if (Array.isArray(obj)) {
-    return obj.map(item => cleanUndefinedValues(item));
-  }
-  if (typeof obj === "object") {
-    // Keep specialized objects like Date, Firestore FieldValues, etc. intact
-    if (obj.constructor && obj.constructor !== Object) {
-      return obj;
-    }
-    const res: any = {};
-    for (const key in obj) {
-      if (Object.prototype.hasOwnProperty.call(obj, key)) {
-        const val = obj[key];
-        if (val !== undefined) {
-          res[key] = cleanUndefinedValues(val);
-        }
-      }
-    }
-    return res;
-  }
-  return obj;
+  const query = onlyPublished ? "?onlyPublished=1" : "";
+  const response = await requestJson<{ data?: CMSProduct[] }>(`/api/cms/products${query}`);
+  return response?.data || [];
 }
 
 export async function saveCMSProduct(product: CMSProduct) {
-  const path = `products/${product.id}`;
-  try {
-    const pDoc = doc(db, "products", product.id);
-    const purified = cleanUndefinedValues({
-      ...product,
-      updatedAt: serverTimestamp()
-    });
-    await withTimeout(setDoc(pDoc, purified));
-  } catch (error) {
-    handleFirestoreError(error, OperationType.WRITE, path);
-  }
+  await requestJson<{ data?: { saved?: boolean } }>("/api/cms/products/save", {
+    method: "POST",
+    body: JSON.stringify(cleanUndefinedValues({ ...product, updatedAt: new Date().toISOString() })),
+  });
 }
 
-export async function seedProductsToFirestore(productsData: any[], translateProductFn: any) {
-  const path = "products";
+export async function seedProductsToFirestore(productsData: any[], translateProductFn: any): Promise<boolean> {
   try {
     for (const p of productsData) {
       const pZh = translateProductFn(p, "zh");
       const pEn = translateProductFn(p, "en");
-
       const cmsProd: CMSProduct = {
         ...p,
         status: "published",
@@ -183,105 +113,56 @@ export async function seedProductsToFirestore(productsData: any[], translateProd
           cons: pEn.cons || [],
           editorVerdict: pEn.editorVerdict || "",
         },
-        updatedAt: serverTimestamp()
+        updatedAt: new Date().toISOString(),
       };
-      const purified = cleanUndefinedValues(cmsProd);
-      await withTimeout(setDoc(doc(db, "products", cmsProd.id), purified), 5000);
+      await saveCMSProduct(cmsProd);
     }
-    console.log("Seeding of productsData to Firestore completed successfully.");
     return true;
   } catch (error) {
-    console.error("Auto seeding products failed:", error);
-    handleFirestoreError(error, OperationType.WRITE, path);
+    console.error("Cloudflare D1 seed products failed:", error);
     return false;
   }
 }
 
-// Evaluation Management
 export async function getCMSEvaluations(onlyPublished = false): Promise<Evaluation[]> {
-  const path = "evaluations";
-  try {
-    let q;
-    if (onlyPublished) {
-      q = query(collection(db, "evaluations"), where("status", "==", "published"));
-    } else {
-      q = query(collection(db, "evaluations"), orderBy("updatedAt", "desc"));
-    }
-    const snap = await withTimeout(getDocs(q), 5000);
-    return snap.docs.map(d => d.data() as Evaluation);
-  } catch (error) {
-    handleFirestoreError(error, OperationType.LIST, path);
-    return [];
-  }
+  const query = onlyPublished ? "?onlyPublished=1" : "";
+  const response = await requestJson<{ data?: Evaluation[] }>(`/api/cms/evaluations${query}`);
+  return response?.data || [];
 }
 
 export async function saveCMSEvaluation(ev: Evaluation) {
-  const path = `evaluations/${ev.id}`;
-  try {
-    const eDoc = doc(db, "evaluations", ev.id);
-    const purified = cleanUndefinedValues({
-      ...ev,
-      updatedAt: serverTimestamp()
-    });
-    await withTimeout(setDoc(eDoc, purified));
-  } catch (error) {
-    handleFirestoreError(error, OperationType.WRITE, path);
-  }
+  await requestJson<{ data?: { saved?: boolean } }>("/api/cms/evaluations/save", {
+    method: "POST",
+    body: JSON.stringify(cleanUndefinedValues({ ...ev, updatedAt: new Date().toISOString() })),
+  });
 }
 
 export async function seedEvaluationsToFirestore(evaluationsData: Evaluation[]): Promise<boolean> {
-  const path = "evaluations";
   try {
     for (const ev of evaluationsData) {
-      const purified = cleanUndefinedValues({
-        ...ev,
-        updatedAt: serverTimestamp()
-      });
-      await withTimeout(setDoc(doc(db, "evaluations", ev.id), purified), 5000);
+      await saveCMSEvaluation({ ...ev, updatedAt: new Date().toISOString() } as Evaluation);
     }
-    console.log("Seeding of evaluations to Firestore completed successfully.");
     return true;
   } catch (error) {
-    console.error("Auto seeding evaluations failed:", error);
-    handleFirestoreError(error, OperationType.WRITE, path);
+    console.error("Cloudflare D1 seed evaluations failed:", error);
     return false;
   }
 }
 
-// Guide Management
 export async function getCMSGuides(onlyPublished = false): Promise<Guide[]> {
-  const path = "guides";
-  try {
-    let q;
-    if (onlyPublished) {
-      q = query(collection(db, "guides"), where("status", "==", "published"));
-    } else {
-      q = query(collection(db, "guides"), orderBy("updatedAt", "desc"));
-    }
-    const snap = await withTimeout(getDocs(q), 5000);
-    return snap.docs.map(d => d.data() as Guide);
-  } catch (error) {
-    handleFirestoreError(error, OperationType.LIST, path);
-    return [];
-  }
+  const query = onlyPublished ? "?onlyPublished=1" : "";
+  const response = await requestJson<{ data?: Guide[] }>(`/api/cms/guides${query}`);
+  return response?.data || [];
 }
 
 export async function saveCMSGuide(guide: Guide) {
-  const path = `guides/${guide.id}`;
-  try {
-    const gDoc = doc(db, "guides", guide.id);
-    const purified = cleanUndefinedValues({
-      ...guide,
-      updatedAt: serverTimestamp()
-    });
-    await withTimeout(setDoc(gDoc, purified));
-  } catch (error) {
-    handleFirestoreError(error, OperationType.WRITE, path);
-  }
+  await requestJson<{ data?: { saved?: boolean } }>("/api/cms/guides/save", {
+    method: "POST",
+    body: JSON.stringify(cleanUndefinedValues({ ...guide, updatedAt: new Date().toISOString() })),
+  });
 }
 
 export async function seedGuidesToFirestore(guidesData: any[]): Promise<boolean> {
-  const path = "guides";
   try {
     for (const g of guidesData) {
       const cmsGuide: Guide = {
@@ -294,13 +175,13 @@ export async function seedGuidesToFirestore(guidesData: any[]): Promise<boolean>
           zh: {
             title: g.title,
             description: g.summary,
-            keywords: [g.categoryLabel || "指南"]
+            keywords: [g.categoryLabel || "指南"],
           },
           en: {
             title: g.title,
             description: g.summary,
-            keywords: [g.categoryLabel || "Guide"]
-          }
+            keywords: [g.categoryLabel || "Guide"],
+          },
         },
         zh: {
           title: g.title,
@@ -310,22 +191,18 @@ export async function seedGuidesToFirestore(guidesData: any[]): Promise<boolean>
           title: g.title,
           content: g.content,
         },
-        updatedAt: serverTimestamp()
+        updatedAt: new Date().toISOString(),
       };
-      const purified = cleanUndefinedValues(cmsGuide);
-      await withTimeout(setDoc(doc(db, "guides", cmsGuide.id), purified), 5000);
+      await saveCMSGuide(cmsGuide);
     }
-    console.log("Seeding of guidesDoc to Firestore completed successfully.");
     return true;
   } catch (error) {
-    console.error("Auto seeding guides failed:", error);
-    handleFirestoreError(error, OperationType.WRITE, path);
+    console.error("Cloudflare D1 seed guides failed:", error);
     return false;
   }
 }
 
 export async function seedNewsToFirestore(newsData: any[]): Promise<boolean> {
-  const path = "news";
   try {
     for (const n of newsData) {
       const cmsNews: News = {
@@ -337,13 +214,13 @@ export async function seedNewsToFirestore(newsData: any[]): Promise<boolean> {
           zh: {
             title: n.title,
             description: n.summary,
-            keywords: [n.categoryLabel || "资讯"]
+            keywords: [n.categoryLabel || "资讯"],
           },
           en: {
             title: n.title,
             description: n.summary,
-            keywords: [n.categoryLabel || "News"]
-          }
+            keywords: [n.categoryLabel || "News"],
+          },
         },
         zh: {
           title: n.title,
@@ -353,210 +230,161 @@ export async function seedNewsToFirestore(newsData: any[]): Promise<boolean> {
           title: n.title,
           content: n.content,
         },
-        updatedAt: serverTimestamp()
+        updatedAt: new Date().toISOString(),
       };
-      const purified = cleanUndefinedValues(cmsNews);
-      await withTimeout(setDoc(doc(db, "news", cmsNews.id), purified), 5000);
+      await saveCMSNews(cmsNews);
     }
-    console.log("Seeding of news to Firestore completed successfully.");
     return true;
   } catch (error) {
-    console.error("Auto seeding news failed:", error);
-    handleFirestoreError(error, OperationType.WRITE, path);
+    console.error("Cloudflare D1 seed news failed:", error);
     return false;
   }
 }
 
-// News Management
 export async function getCMSNews(onlyPublished = false): Promise<News[]> {
-  const path = "news";
-  try {
-    let q;
-    if (onlyPublished) {
-      q = query(collection(db, "news"), where("status", "==", "published"));
-    } else {
-      q = query(collection(db, "news"), orderBy("updatedAt", "desc"));
-    }
-    const snap = await withTimeout(getDocs(q), 5000);
-    return snap.docs.map(d => d.data() as News);
-  } catch (error) {
-    handleFirestoreError(error, OperationType.LIST, path);
-    return [];
-  }
+  const query = onlyPublished ? "?onlyPublished=1" : "";
+  const response = await requestJson<{ data?: News[] }>(`/api/cms/news${query}`);
+  return response?.data || [];
 }
 
 export async function saveCMSNews(news: News) {
-  const path = `news/${news.id}`;
-  try {
-    const nDoc = doc(db, "news", news.id);
-    const purified = cleanUndefinedValues({
-      ...news,
-      updatedAt: serverTimestamp()
-    });
-    await withTimeout(setDoc(nDoc, purified));
-  } catch (error) {
-    handleFirestoreError(error, OperationType.WRITE, path);
-  }
+  await requestJson<{ data?: { saved?: boolean } }>("/api/cms/news/save", {
+    method: "POST",
+    body: JSON.stringify(cleanUndefinedValues({ ...news, updatedAt: new Date().toISOString() })),
+  });
 }
 
-// Category Management
 export async function getCMSCategories(onlyPublished = false): Promise<CMSCategory[]> {
-  const path = "categories";
-  try {
-    let q;
-    if (onlyPublished) {
-      q = query(collection(db, "categories"), where("status", "==", "published"), orderBy("sortOrder", "asc"));
-    } else {
-      q = query(collection(db, "categories"), orderBy("sortOrder", "asc"));
-    }
-    const snap = await withTimeout(getDocs(q), 5000);
-    return snap.docs.map((d) => d.data() as CMSCategory);
-  } catch (error) {
-    handleFirestoreError(error, OperationType.LIST, path);
-    return [];
-  }
+  const query = onlyPublished ? "?onlyPublished=1" : "";
+  const response = await requestJson<{ data?: CMSCategory[] }>(`/api/cms/categories${query}`);
+  return response?.data || [];
 }
 
 export async function saveCMSCategory(category: CMSCategory) {
-  const path = `categories/${category.id}`;
-  try {
-    const cDoc = doc(db, "categories", category.id);
-    const purified = cleanUndefinedValues({
-      ...category,
-      updatedAt: serverTimestamp(),
-    });
-    await withTimeout(setDoc(cDoc, purified));
-  } catch (error) {
-    handleFirestoreError(error, OperationType.WRITE, path);
-  }
+  await requestJson<{ data?: { saved?: boolean } }>("/api/cms/categories/save", {
+    method: "POST",
+    body: JSON.stringify(cleanUndefinedValues({ ...category, updatedAt: new Date().toISOString() })),
+  });
 }
 
-// Scenario Management
 export async function getCMSScenarios(onlyPublished = false): Promise<CMSScenario[]> {
-  const path = "scenarios";
-  try {
-    let q;
-    if (onlyPublished) {
-      q = query(collection(db, "scenarios"), where("status", "==", "published"), orderBy("sortOrder", "asc"));
-    } else {
-      q = query(collection(db, "scenarios"), orderBy("sortOrder", "asc"));
-    }
-    const snap = await withTimeout(getDocs(q), 5000);
-    return snap.docs.map((d) => d.data() as CMSScenario);
-  } catch (error) {
-    handleFirestoreError(error, OperationType.LIST, path);
-    return [];
-  }
+  const query = onlyPublished ? "?onlyPublished=1" : "";
+  const response = await requestJson<{ data?: CMSScenario[] }>(`/api/cms/scenarios${query}`);
+  return response?.data || [];
 }
 
 export async function saveCMSScenario(scenario: CMSScenario) {
-  const path = `scenarios/${scenario.id}`;
-  try {
-    const sDoc = doc(db, "scenarios", scenario.id);
-    const purified = cleanUndefinedValues({
-      ...scenario,
-      updatedAt: serverTimestamp(),
-    });
-    await withTimeout(setDoc(sDoc, purified));
-  } catch (error) {
-    handleFirestoreError(error, OperationType.WRITE, path);
-  }
+  await requestJson<{ data?: { saved?: boolean } }>("/api/cms/scenarios/save", {
+    method: "POST",
+    body: JSON.stringify(cleanUndefinedValues({ ...scenario, updatedAt: new Date().toISOString() })),
+  });
 }
 
-// Global Settings
 export async function getCMSSettings(): Promise<CMSSettings | null> {
-  const path = "settings/global";
-  try {
-    const sDoc = doc(db, "settings", "global");
-    const snap = await getDoc(sDoc);
-    return snap.exists() ? (snap.data() as CMSSettings) : null;
-  } catch (error) {
-    handleFirestoreError(error, OperationType.GET, path);
-    return null;
+  const response = await requestJson<{ data?: CMSSettings | CMSSettings[] | null }>("/api/cms/settings");
+  if (Array.isArray(response?.data)) {
+    return (response.data[0] as CMSSettings) || null;
   }
+  return (response?.data as CMSSettings | null) || null;
 }
 
 export async function saveCMSSettings(settings: CMSSettings) {
-  const path = "settings/global";
-  try {
-    const sDoc = doc(db, "settings", "global");
-    const purified = cleanUndefinedValues(settings);
-    await withTimeout(setDoc(sDoc, purified));
-  } catch (error) {
-    handleFirestoreError(error, OperationType.WRITE, path);
-  }
+  await requestJson<{ data?: { saved?: boolean } }>("/api/cms/settings/save", {
+    method: "POST",
+    body: JSON.stringify(cleanUndefinedValues(settings)),
+  });
 }
 
-// Deletion Operations using unified Firestore schema paths
 export async function deleteCMSProduct(id: string): Promise<boolean> {
-  const path = `products/${id}`;
-  try {
-    const pDoc = doc(db, "products", id);
-    await withTimeout(deleteDoc(pDoc), 5000);
-    return true;
-  } catch (error) {
-    handleFirestoreError(error, OperationType.DELETE, path);
-    return false;
-  }
+  const response = await requestJson<{ data?: { deleted?: boolean } }>("/api/cms/products/delete", {
+    method: "POST",
+    body: JSON.stringify({ id }),
+  });
+  return Boolean(response?.data?.deleted);
 }
 
 export async function deleteCMSEvaluation(id: string): Promise<boolean> {
-  const path = `evaluations/${id}`;
-  try {
-    const eDoc = doc(db, "evaluations", id);
-    await withTimeout(deleteDoc(eDoc), 5000);
-    return true;
-  } catch (error) {
-    handleFirestoreError(error, OperationType.DELETE, path);
-    return false;
-  }
+  const response = await requestJson<{ data?: { deleted?: boolean } }>("/api/cms/evaluations/delete", {
+    method: "POST",
+    body: JSON.stringify({ id }),
+  });
+  return Boolean(response?.data?.deleted);
 }
 
 export async function deleteCMSGuide(id: string): Promise<boolean> {
-  const path = `guides/${id}`;
-  try {
-    const gDoc = doc(db, "guides", id);
-    await withTimeout(deleteDoc(gDoc), 5000);
-    return true;
-  } catch (error) {
-    handleFirestoreError(error, OperationType.DELETE, path);
-    return false;
-  }
+  const response = await requestJson<{ data?: { deleted?: boolean } }>("/api/cms/guides/delete", {
+    method: "POST",
+    body: JSON.stringify({ id }),
+  });
+  return Boolean(response?.data?.deleted);
 }
 
 export async function deleteCMSNews(id: string): Promise<boolean> {
-  const path = `news/${id}`;
-  try {
-    const nDoc = doc(db, "news", id);
-    await withTimeout(deleteDoc(nDoc), 5000);
-    return true;
-  } catch (error) {
-    handleFirestoreError(error, OperationType.DELETE, path);
-    return false;
-  }
+  const response = await requestJson<{ data?: { deleted?: boolean } }>("/api/cms/news/delete", {
+    method: "POST",
+    body: JSON.stringify({ id }),
+  });
+  return Boolean(response?.data?.deleted);
 }
 
 export async function deleteCMSCategory(id: string): Promise<boolean> {
-  const path = `categories/${id}`;
-  try {
-    const cDoc = doc(db, "categories", id);
-    await withTimeout(deleteDoc(cDoc), 5000);
-    return true;
-  } catch (error) {
-    handleFirestoreError(error, OperationType.DELETE, path);
-    return false;
-  }
+  const response = await requestJson<{ data?: { deleted?: boolean } }>("/api/cms/categories/delete", {
+    method: "POST",
+    body: JSON.stringify({ id }),
+  });
+  return Boolean(response?.data?.deleted);
 }
 
 export async function deleteCMSScenario(id: string): Promise<boolean> {
-  const path = `scenarios/${id}`;
-  try {
-    const sDoc = doc(db, "scenarios", id);
-    await withTimeout(deleteDoc(sDoc), 5000);
-    return true;
-  } catch (error) {
-    handleFirestoreError(error, OperationType.DELETE, path);
-    return false;
-  }
+  const response = await requestJson<{ data?: { deleted?: boolean } }>("/api/cms/scenarios/delete", {
+    method: "POST",
+    body: JSON.stringify({ id }),
+  });
+  return Boolean(response?.data?.deleted);
 }
 
+export async function dedupeCMSCategoriesByCode(): Promise<{ removed: number; remaining: number }> {
+  try {
+    const response = await requestJson<{ data?: { removed?: number; remaining?: number } }>("/api/cms/categories/dedupe", {
+      method: "POST",
+      body: JSON.stringify({}),
+    });
+    if (response?.data) {
+      return {
+        removed: Number(response.data.removed || 0),
+        remaining: Number(response.data.remaining || 0),
+      };
+    }
+  } catch {
+    // Fallback for environments where backend dedupe endpoint is unavailable.
+  }
+
+  const rows = await getCMSCategories(false);
+  const groups = new Map<string, CMSCategory[]>();
+
+  for (const row of rows) {
+    const key = normalizeText(row.code);
+    if (!key) continue;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key)!.push(row);
+  }
+
+  let removed = 0;
+  for (const [code, items] of groups.entries()) {
+    if (items.length <= 1) continue;
+
+    const keep =
+      items.find((it) => it.id === `cat_${code}`) ||
+      items.find((it) => it.status === "published") ||
+      [...items].sort((a, b) => Number(a.sortOrder || 0) - Number(b.sortOrder || 0))[0];
+
+    for (const item of items) {
+      if (item.id === keep.id) continue;
+      const ok = await deleteCMSCategory(item.id);
+      if (ok) removed += 1;
+    }
+  }
+
+  const remainingRows = await getCMSCategories(false);
+  return { removed, remaining: remainingRows.length };
+}

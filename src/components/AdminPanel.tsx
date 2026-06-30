@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { auth } from "../lib/firebase";
-import { checkIsAdmin, seedProductsToFirestore } from "../lib/cmsService";
+import { checkIsAdmin, dedupeCMSCategoriesByCode, seedProductsToFirestore } from "../lib/cmsService";
 import { productsData as defaultProductsData } from "../data/modelsData";
 import { translateProduct } from "../lib/translate";
 import Sidebar from "./admin/Sidebar";
@@ -26,6 +26,21 @@ import NewsManager from "./admin/NewsManager";
 import SettingsManager from "./admin/SettingsManager";
 import { getD1Health } from "../lib/cmsD1Service";
 const AssetUploader = React.lazy(() => import("./admin/AssetUploader"));
+
+type CategoryDedupeAudit = {
+  executedAt: string;
+  actor: string;
+  removed: number;
+  remaining: number;
+};
+
+type OperationNotice = {
+  kind: "success" | "error";
+  title: string;
+  message: string;
+};
+
+const CATEGORY_DEDUPE_AUDIT_KEY = "cms_last_category_dedupe_audit";
 
 export default function AdminPanel({ 
   onClose, 
@@ -44,6 +59,9 @@ export default function AdminPanel({
 }) {
   const [activeMenu, setActiveMenu] = useState<"dashboard" | "categories" | "scenarios" | "products" | "evaluations" | "guides" | "news" | "settings" | "assets">("dashboard");
   const [syncing, setSyncing] = useState(false);
+  const [deduping, setDeduping] = useState(false);
+  const [operationNotice, setOperationNotice] = useState<OperationNotice | null>(null);
+  const [lastDedupeAudit, setLastDedupeAudit] = useState<CategoryDedupeAudit | null>(null);
   const [showHelpTip, setShowHelpTip] = useState(false);
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [d1Status, setD1Status] = useState<"unknown" | "healthy" | "down">("unknown");
@@ -65,6 +83,18 @@ export default function AdminPanel({
     };
   }, []);
 
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(CATEGORY_DEDUPE_AUDIT_KEY);
+      if (!raw) return;
+      const parsed = JSON.parse(raw) as CategoryDedupeAudit;
+      if (!parsed?.executedAt) return;
+      setLastDedupeAudit(parsed);
+    } catch {
+      // Ignore local parse errors and continue with empty audit state.
+    }
+  }, []);
+
   const handleCopy = (text: string, fieldName: string) => {
     try {
       navigator.clipboard.writeText(text);
@@ -76,13 +106,18 @@ export default function AdminPanel({
   };
 
   const handleForceSync = async () => {
-    const confirm = window.confirm(lang === "zh" ? "您确定要强制同步数据到 Firestore 吗？这将会使用默认车型数据重新初始化并清空不兼容格式的数据。" : "Are you sure you want to force sync products to Firestore? This will serialize correct default stroller structures directly into your Firestore project.");
+    const confirm = window.confirm(lang === "zh" ? "您确定要强制同步数据到 Cloudflare D1 吗？这将会使用默认车型数据重新初始化并清空不兼容格式的数据。" : "Are you sure you want to force sync products to Cloudflare D1? This will serialize correct default stroller structures into your D1-backed CMS.");
     if (!confirm) return;
     setSyncing(true);
     try {
+      const dedupe = await dedupeCMSCategoriesByCode();
       const success = await seedProductsToFirestore(defaultProductsData, translateProduct);
       if (success) {
-        alert(lang === "zh" ? "数据强制同步成功！" : "Database force-sync completed successfully!");
+        alert(
+          lang === "zh"
+            ? `数据强制同步成功！已自动去重品类 ${dedupe.removed} 条，当前品类总数 ${dedupe.remaining}。`
+            : `Force sync completed. Category dedupe removed ${dedupe.removed} duplicates, ${dedupe.remaining} categories remain.`,
+        );
         window.location.reload();
       } else {
         alert(lang === "zh" ? "同步失败，请检查控制台。" : "Sync failed, please consult console logs.");
@@ -93,14 +128,53 @@ export default function AdminPanel({
       if (errorMsg.includes("Missing or insufficient permissions")) {
         alert(
           lang === "zh"
-            ? "❌ 同步失败（权限不足）：您当前可能没有在 Firebase Auth 进行真实安全登录（请确保您在“我的账户”进行了 Google 账号登录）。本地开发者 bypass 模式仅用于浏览，无法直接对云数据库进行写操作。建议您退出并使用 real hhool.student@gmail.com 谷歌账号登录。"
-            : "❌ Sync failed (Missing or insufficient permissions): You might not be securely signed in to Firebase Auth. Check your profile in the Account section and authenticate via Google popup. Developer bypass is read-only on the cloud DB."
+            ? "❌ 同步失败（权限不足）：当前会话缺少云端写入权限。请使用 Google 账号正常登录后重试；开发者 bypass 仅用于本地浏览。"
+            : "❌ Sync failed (Missing or insufficient permissions): Current session lacks write permission to cloud data. Please sign in with Google and retry; developer bypass is read-only."
         );
       } else {
         alert((lang === "zh" ? "同步出错: " : "Sync Error: ") + errorMsg);
       }
     } finally {
       setSyncing(false);
+    }
+  };
+
+  const handleManualCategoryDedupe = async () => {
+    const confirm = window.confirm(
+      lang === "zh"
+        ? "确认立即执行品类去重吗？系统将按 code 清理重复品类，并保留标准记录。"
+        : "Run category dedupe now? Duplicates will be removed by code while keeping canonical records.",
+    );
+    if (!confirm) return;
+
+    setDeduping(true);
+    try {
+      const result = await dedupeCMSCategoriesByCode();
+      const audit: CategoryDedupeAudit = {
+        executedAt: new Date().toISOString(),
+        actor: String(auth.currentUser?.email || "unknown").trim() || "unknown",
+        removed: result.removed,
+        remaining: result.remaining,
+      };
+      setLastDedupeAudit(audit);
+      localStorage.setItem(CATEGORY_DEDUPE_AUDIT_KEY, JSON.stringify(audit));
+      setOperationNotice({
+        kind: "success",
+        title: lang === "zh" ? "品类去重已完成" : "Category dedupe completed",
+        message:
+          lang === "zh"
+            ? `删除 ${result.removed} 条重复项，当前品类总数 ${result.remaining}。`
+            : `Removed ${result.removed} duplicates, ${result.remaining} categories remain.`,
+      });
+    } catch (e: any) {
+      console.error("Category dedupe failed:", e);
+      setOperationNotice({
+        kind: "error",
+        title: lang === "zh" ? "品类去重失败" : "Category dedupe failed",
+        message: (e?.message || String(e)),
+      });
+    } finally {
+      setDeduping(false);
     }
   };
 
@@ -199,8 +273,16 @@ export default function AdminPanel({
               {lang === "zh" ? "权限说明与排错" : "Permissions Guide"}
             </button>
             <button
+              onClick={handleManualCategoryDedupe}
+              disabled={deduping || syncing}
+              className="text-[11px] bg-emerald-500 hover:bg-emerald-600 disabled:bg-emerald-100 text-white disabled:text-emerald-500 px-4 py-2 rounded-xl font-black uppercase tracking-wide hover:shadow-md disabled:hover:shadow-none disabled:opacity-70 flex items-center gap-1.5 cursor-pointer transition active:scale-95"
+            >
+              <ShieldAlert className="w-3.5 h-3.5 animate-pulse" />
+              {deduping ? (lang === "zh" ? "去重中..." : "Deduping...") : (lang === "zh" ? "品类去重" : "Dedupe Categories")}
+            </button>
+            <button
               onClick={handleForceSync}
-              disabled={syncing}
+              disabled={syncing || deduping}
               className="text-[11px] bg-amber-500 hover:bg-amber-600 disabled:bg-amber-100 text-slate-950 disabled:text-slate-400 px-4 py-2 rounded-xl font-black uppercase tracking-wide hover:shadow-md disabled:hover:shadow-none disabled:opacity-70 flex items-center gap-1.5 cursor-pointer transition active:scale-95"
             >
               <Database className="w-3.5 h-3.5 animate-pulse" />
@@ -210,6 +292,61 @@ export default function AdminPanel({
         </div>
 
         <div className="p-10 max-w-7xl mx-auto w-full flex-1">
+          {operationNotice && (
+            <div
+              className={`mb-5 p-4 rounded-2xl border flex items-start justify-between gap-3 ${
+                operationNotice.kind === "success"
+                  ? "bg-emerald-50 border-emerald-200 text-emerald-900"
+                  : "bg-rose-50 border-rose-200 text-rose-900"
+              }`}
+            >
+              <div>
+                <h4 className="font-black text-sm">{operationNotice.title}</h4>
+                <p className="text-xs mt-1 opacity-90 break-words">{operationNotice.message}</p>
+              </div>
+              <button
+                onClick={() => setOperationNotice(null)}
+                title={lang === "zh" ? "关闭通知" : "Dismiss notification"}
+                className="p-1 rounded-lg hover:bg-black/5 transition shrink-0 cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+
+          {lastDedupeAudit && (
+            <div className="mb-5 p-4 rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <h4 className="font-black text-sm text-slate-900">
+                    {lang === "zh" ? "最近一次品类去重记录" : "Latest category dedupe audit"}
+                  </h4>
+                  <p className="text-xs text-slate-500 mt-1">
+                    {lang === "zh" ? "用于运维留档与复盘" : "For operations evidence and post-check"}
+                  </p>
+                </div>
+              </div>
+              <div className="mt-3 grid grid-cols-1 md:grid-cols-4 gap-2 text-xs">
+                <div className="rounded-xl bg-slate-50 border border-slate-100 p-3">
+                  <div className="text-slate-500">{lang === "zh" ? "执行时间" : "Executed at"}</div>
+                  <div className="font-bold text-slate-800 mt-1">{new Date(lastDedupeAudit.executedAt).toLocaleString()}</div>
+                </div>
+                <div className="rounded-xl bg-slate-50 border border-slate-100 p-3">
+                  <div className="text-slate-500">{lang === "zh" ? "执行人" : "Operator"}</div>
+                  <div className="font-bold text-slate-800 mt-1 break-all">{lastDedupeAudit.actor}</div>
+                </div>
+                <div className="rounded-xl bg-slate-50 border border-slate-100 p-3">
+                  <div className="text-slate-500">{lang === "zh" ? "删除重复" : "Removed"}</div>
+                  <div className="font-bold text-slate-800 mt-1">{lastDedupeAudit.removed}</div>
+                </div>
+                <div className="rounded-xl bg-slate-50 border border-slate-100 p-3">
+                  <div className="text-slate-500">{lang === "zh" ? "剩余品类" : "Remaining"}</div>
+                  <div className="font-bold text-slate-800 mt-1">{lastDedupeAudit.remaining}</div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {localStorage.getItem("dev_admin_bypass") === "true" && (
             <div className="mb-8 p-6 bg-amber-50 border border-amber-200 rounded-[28px] shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4 animate-in fade-in slide-in-from-top-4 duration-500">
               <div className="flex gap-4">
@@ -222,8 +359,8 @@ export default function AdminPanel({
                   </h4>
                   <p className="text-xs text-amber-700/80 mt-1 leading-relaxed max-w-2xl">
                     {lang === "zh" 
-                      ? "您当前正在使用本地开发者影子账户进行离线预览和浏览。由于未在 Firebase Auth 云端服务中完成 Google 真实鉴权，所有发布和强制同步操作都将被 Firestore 安全规则拒绝。若需持久化发布和同步，请回到首页使用 real hhool.student@gmail.com 谷歌账号登录。"
-                      : "You are active via developer bypass. Since this session is not securely authenticated on the real Firebase Auth backend, database modifications or synces will fail due to Firestore Security Rules. Authenticate via Google profile from Account section to publish edits sustainably."}
+                      ? "您当前正在使用本地开发者影子账户进行离线预览和浏览。由于未完成云端真实鉴权，发布和强制同步操作会被 Cloudflare D1 权限策略拒绝。若需持久化发布，请回到首页使用 Google 账号登录。"
+                      : "You are active via developer bypass. Since this session is not securely authenticated for cloud access, publish/force-sync operations can be blocked by Cloudflare D1 access policy. Sign in with Google from Account section for persistent publish."}
                   </p>
                 </div>
               </div>
@@ -288,6 +425,8 @@ export default function AdminPanel({
                 </div>
                 <button
                   onClick={() => setShowHelpTip(false)}
+                  title={lang === "zh" ? "关闭面板" : "Close panel"}
+                  aria-label={lang === "zh" ? "关闭面板" : "Close panel"}
                   className="p-1.5 rounded-full hover:bg-slate-250 text-slate-400 hover:text-slate-700 transition cursor-pointer"
                 >
                   <X className="w-4 h-4" />
@@ -305,8 +444,8 @@ export default function AdminPanel({
                   </h4>
                   <p className="text-amber-805 text-xs text-amber-800">
                     {lang === "zh" ? 
-                      "当您（在控制台或自动脚本中）读取或写入数据时，若操作违反了根目录 firestore.rules 里的安全保护限制，Firestore 就会拒绝该请求。您需要更新控制规则来给当前管理员授权。" : 
-                      "This occurs when your database request (read/write/update) violates the access constraints configured in your 'firestore.rules' file. Granting read/write access to your logged-in administrator resolves this immediately."}
+                      "当您读取或写入数据时，若操作违反了 Cloudflare D1 的访问控制策略，系统会拒绝该请求。请确保当前管理员身份具备写入权限。" : 
+                      "This occurs when your database request violates Cloudflare D1 access policy. Ensure the signed-in administrator identity has write permission."}
                   </p>
                 </div>
 
@@ -358,15 +497,17 @@ export default function AdminPanel({
 
                   <div className="bg-slate-900 text-slate-200 p-4 rounded-xl font-mono text-[11px] space-y-3 relative overflow-hidden group">
                     <div className="flex justify-between items-center text-[10px] text-slate-400 uppercase font-bold border-b border-slate-800 pb-2">
-                      <span>Option A: Edit firestore.rules</span>
+                      <span>Option A: Verify D1 credentials</span>
                       <button
                         onClick={() => handleCopy(
-`function isAdmin() {
-  return isSignedIn() && (
-    exists(/databases/\$(database)/documents/admins/\$(request.auth.uid)) ||
-    request.auth.token.email == "${auth.currentUser?.email || "your-email@gmail.com"}"
-  );
-}`, "rules-code")}
+`Check env for D1:
+- CLOUDFLARE_ACCOUNT_ID
+- CLOUDFLARE_D1_DATABASE_ID
+- CLOUDFLARE_API_TOKEN
+
+Then sign in with Google admin email:
+${auth.currentUser?.email || "your-email@gmail.com"}`,
+"rules-code")}
                         className="text-slate-500 hover:text-slate-300 flex items-center gap-1 transition cursor-pointer"
                       >
                         {copiedField === "rules-code" ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
@@ -376,16 +517,16 @@ export default function AdminPanel({
                     <div>
                       <p className="text-[10px] text-slate-400 mb-2 leading-relaxed">
                         {lang === "zh" ? 
-                          "在项目根目录找到 firestore.rules 文件，找到 `isAdmin()` 辅助函数，在其中加入基于 token 的邮箱验证：" : 
-                          "Locate firestore.rules in the workspace, inspect `isAdmin()`, and add a verification check matching your admin identity email directly:"}
+                          "确认 D1 环境变量已配置，并使用管理员 Google 账号登录后再执行同步。" : 
+                          "Verify D1 environment variables and sign in with an admin Google account before syncing."}
                       </p>
                       <pre className="text-emerald-400 overflow-x-auto p-1 leading-normal">
-{`function isAdmin() {
-  return isSignedIn() && (
-    exists(/databases/$(database)...) ||
-    request.auth.token.email == "${auth.currentUser?.email || "your-email@gmail.com"}"
-  );
-}`}
+{`D1 env checklist:
+- CLOUDFLARE_ACCOUNT_ID
+- CLOUDFLARE_D1_DATABASE_ID
+- CLOUDFLARE_API_TOKEN
+
+Signed-in admin: ${auth.currentUser?.email || "your-email@gmail.com"}`}
                       </pre>
                     </div>
                   </div>
@@ -397,8 +538,8 @@ export default function AdminPanel({
                     </h5>
                     <p className="text-[11px] text-slate-500 mt-2">
                       {lang === "zh" ? 
-                        "直接在您的 Firestore 数据库中，添加名为 `admins` 的集合。并在其中创建以您 UID (见上方凭证) 为文档 ID (ID) 的空文档。该账户便将获得全组安全访问权限。" : 
-                        "Inside your Firestore dashboard, create a collection named 'admins'. Insert an empty document with its Document-ID explicitly set to your UID. The system will recognize your auth context in real-time."}
+                        "确认当前 Cloudflare D1 数据库可写，并在运维配置中允许当前管理员身份进行内容写入。" : 
+                        "Ensure the current Cloudflare D1 database is writable and your administrator identity is allowed to write CMS data."}
                     </p>
                   </div>
                 </div>
@@ -410,8 +551,8 @@ export default function AdminPanel({
                   </h4>
                   <p className="text-blue-800 text-xs leading-relaxed">
                     {lang === "zh" ? 
-                      "我们自带高效的自动引擎。一旦您检测并修改完毕根目录的 firestore.rules 文件并保存，系统会自动检测该更动并立即为您的 Firestore 执行规则部署。在此之后点击上面的 '强制同步数据' 即可顺利写库。" : 
-                      "The platform deploys rules dynamically. Once you modify the local 'firestore.rules' file, our background build automatically compiles and performs a firebase deployment to your live cloud database instance."}
+                      "系统数据层已切换到 Cloudflare。完成 D1 凭据与管理员登录校验后，点击上方“强制同步数据”即可将默认内容写入 D1。" : 
+                      "The data layer is now Cloudflare-based. After validating D1 credentials and admin sign-in, click 'Force Sync Data' to write default content into D1."}
                   </p>
                 </div>
 

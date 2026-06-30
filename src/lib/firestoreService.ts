@@ -1,91 +1,52 @@
-import { db } from "./firebase";
-import { 
-  doc, 
-  getDoc,
-  setDoc, 
-  deleteDoc, 
-  getDocs, 
-  collection, 
-  serverTimestamp 
-} from "firebase/firestore";
-import { handleFirestoreError, OperationType, withTimeout } from "./firestoreHelper";
 import { ChildProfile } from "../types";
 
-export async function ensureUserProfileInFirestore(userId: string, email: string) {
-  const path = `users/${userId}`;
-  try {
-    await withTimeout(setDoc(doc(db, "users", userId), {
-      userId,
-      email,
-    }, { merge: true }));
-  } catch (error) {
-    handleFirestoreError(error, OperationType.WRITE, path);
-  }
+function getProfileKey(userId: string) {
+  return `kidsmobi:user:${userId}:childProfile`;
+}
+
+function getBookmarksKey(userId: string) {
+  return `kidsmobi:user:${userId}:bookmarks`;
+}
+
+export async function ensureUserProfileInFirestore(_userId: string, _email: string) {
+  return;
 }
 
 export async function getChildProfileFromFirestore(userId: string): Promise<ChildProfile | null> {
-  const path = `users/${userId}/childProfile/main`;
   try {
-    const pDoc = await getDoc(doc(db, "users", userId, "childProfile", "main"));
-    if (pDoc.exists()) {
-      return pDoc.data() as ChildProfile;
-    }
-    return null;
-  } catch (error) {
-    handleFirestoreError(error, OperationType.GET, path);
+    const raw = localStorage.getItem(getProfileKey(userId));
+    if (!raw) return null;
+    return JSON.parse(raw) as ChildProfile;
+  } catch {
     return null;
   }
 }
 
 export async function saveChildProfileToFirestore(userId: string, profile: ChildProfile) {
-  const path = `users/${userId}/childProfile/main`;
-  try {
-    await withTimeout(setDoc(doc(db, "users", userId, "childProfile", "main"), {
-      ...profile,
-      userId,
-      updatedAt: serverTimestamp()
-    }));
-  } catch (error) {
-    handleFirestoreError(error, OperationType.WRITE, path);
-  }
+  localStorage.setItem(getProfileKey(userId), JSON.stringify(profile));
 }
 
 export async function addBookmarkToFirestore(userId: string, productId: string) {
-  const path = `users/${userId}/bookmarks/${productId}`;
-  try {
-    await withTimeout(setDoc(doc(db, "users", userId, "bookmarks", productId), {
-      productId,
-      userId,
-      createdAt: serverTimestamp(),
-    }));
-  } catch (error) {
-    handleFirestoreError(error, OperationType.WRITE, path);
-  }
+  const key = getBookmarksKey(userId);
+  const current = new Set(await getBookmarksFromFirestore(userId));
+  current.add(productId);
+  localStorage.setItem(key, JSON.stringify(Array.from(current)));
 }
 
 export async function removeBookmarkFromFirestore(userId: string, productId: string) {
-  const path = `users/${userId}/bookmarks/${productId}`;
-  try {
-    await withTimeout(deleteDoc(doc(db, "users", userId, "bookmarks", productId)));
-  } catch (error) {
-    handleFirestoreError(error, OperationType.DELETE, path);
-  }
+  const key = getBookmarksKey(userId);
+  const current = new Set(await getBookmarksFromFirestore(userId));
+  current.delete(productId);
+  localStorage.setItem(key, JSON.stringify(Array.from(current)));
 }
 
 export async function getBookmarksFromFirestore(userId: string): Promise<string[]> {
-  const path = `users/${userId}/bookmarks`;
   try {
-    const querySnapshot = await getDocs(collection(db, "users", userId, "bookmarks"));
-    const productIds: string[] = [];
-    querySnapshot.forEach((doc) => {
-      const data = doc.data();
-      if (data && data.productId) {
-        productIds.push(data.productId);
-      }
-    });
-    return productIds;
-  } catch (error) {
-    handleFirestoreError(error, OperationType.LIST, path);
+    const raw = localStorage.getItem(getBookmarksKey(userId));
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.filter((v) => typeof v === "string") : [];
+  } catch {
     return [];
   }
 }

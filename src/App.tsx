@@ -407,7 +407,7 @@ export default function App() {
       try {
         const allProducts = await getCMSProducts(false); // get ALL including drafts
         if (allProducts.length === 0) {
-          console.log("Admin logged in & Firestore is empty. Auto-seeding comprehensive dataset...");
+          console.log("Admin logged in & D1 content is empty. Auto-seeding comprehensive dataset...");
           // Seed Products
           const successProd = await seedProductsToFirestore(defaultProductsData, translateProduct);
           if (successProd) {
@@ -762,7 +762,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 *   **Short Reach Lever**: Choose dual hand V-brakes or discs with reaches of approx. **48mm**, instead of Coaster rear-pedal hub brakes brakes.
 *   **Pneumatic Tires**: Pressure dampening on air-elastic tires is 80% more efficient than solid PVC/EVA foam tires. Protects the delicate spine & inner vestibular nerves of young toddlers.
 
-*You may configure your GEMINI_API_KEY in the right panel Secrets section to activate advanced AI discussion.*`,
+*Cloud AI endpoint is currently disabled. Core recommendations remain available in local fallback mode.*`,
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
           }
         ]);
@@ -781,7 +781,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 *   **短距刹把**：选择手刹连杆在 **40mm 左右**的手拉V刹，而非Coaster脚倒刹。
 *   **气橡胶胎**：橡胶轮胎因富弹性，泄压缓冲比PVC发泡胎好80%以上，更利于支撑小屁股并降低前庭震荡。
 
-*您可以在右手Secrets面板配置 GEMINI_API_KEY，解锁无阻多轮AI高级专线咨询。*`,
+*当前已关闭 Google AI 接口，系统继续提供本地安全建议兜底能力。*`,
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
           }
         ]);

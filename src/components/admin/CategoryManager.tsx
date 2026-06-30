@@ -36,6 +36,30 @@ function mapBackendCategoryIdToProductCategory(categoryId: string): ProductCateg
   }
 }
 
+function normalizeText(value: unknown): string {
+  return String(value || "").trim().toLowerCase();
+}
+
+function findDuplicateCategory(list: CMSCategory[], editing: CMSCategory): { reason: "code" | "zh" | "en"; item: CMSCategory } | null {
+  const code = normalizeText(editing.code);
+  const zhName = normalizeText(editing.zh?.name);
+  const enName = normalizeText(editing.en?.name);
+
+  for (const item of list) {
+    if (item.id === editing.id) continue;
+    if (code && normalizeText(item.code) === code) {
+      return { reason: "code", item };
+    }
+    if (zhName && normalizeText(item.zh?.name) === zhName) {
+      return { reason: "zh", item };
+    }
+    if (enName && normalizeText(item.en?.name) === enName) {
+      return { reason: "en", item };
+    }
+  }
+  return null;
+}
+
 export default function CategoryManager({ lang }: { lang: "zh" | "en" }) {
   const [items, setItems] = useState<CMSCategory[]>([]);
   const [editing, setEditing] = useState<CMSCategory | null>(null);
@@ -79,6 +103,32 @@ export default function CategoryManager({ lang }: { lang: "zh" | "en" }) {
       alert(lang === "zh" ? "请填写中英文品类名称" : "Please fill both ZH/EN category names.");
       return;
     }
+
+    const duplicate = findDuplicateCategory(items, editing);
+    if (duplicate) {
+      const duplicateName = duplicate.item.zh?.name || duplicate.item.en?.name || duplicate.item.code;
+      if (duplicate.reason === "code") {
+        alert(
+          lang === "zh"
+            ? `品类编码重复：${editing.code}（已存在：${duplicateName}）`
+            : `Duplicate category code: ${editing.code} (existing: ${duplicateName})`,
+        );
+      } else if (duplicate.reason === "zh") {
+        alert(
+          lang === "zh"
+            ? `中文名称重复：${editing.zh.name}（已存在编码：${duplicate.item.code}）`
+            : `Duplicate Chinese name: ${editing.zh.name} (existing code: ${duplicate.item.code})`,
+        );
+      } else {
+        alert(
+          lang === "zh"
+            ? `英文名称重复：${editing.en.name}（已存在编码：${duplicate.item.code}）`
+            : `Duplicate English name: ${editing.en.name} (existing code: ${duplicate.item.code})`,
+        );
+      }
+      return;
+    }
+
     setSaving(true);
     try {
       try {
@@ -91,6 +141,13 @@ export default function CategoryManager({ lang }: { lang: "zh" | "en" }) {
       }
       setEditing(null);
       await refresh();
+    } catch (error: any) {
+      const message = String(error?.message || error || "");
+      if (message.includes("CMSCategoryDuplicate") || message.includes("Duplicate")) {
+        alert(lang === "zh" ? "保存失败：检测到重复品类（编码或名称）。" : "Save failed: duplicate category detected.");
+      } else {
+        alert((lang === "zh" ? "保存失败：" : "Save failed: ") + message);
+      }
     } finally {
       setSaving(false);
     }
