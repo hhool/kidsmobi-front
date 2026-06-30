@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Plus, Save, Trash2 } from "lucide-react";
 import { CMSCategory, ProductCategory } from "../../types";
 import { deleteCMSCategory, getCMSCategories, saveCMSCategory } from "../../lib/cmsService";
+import { getBackendPickerPayload } from "../../lib/backendResourceService";
 
 const categoryCodes: ProductCategory[] = [
   "balance",
@@ -13,63 +14,26 @@ const categoryCodes: ProductCategory[] = [
   "safety_seat",
 ];
 
-const defaultCategoryTemplates: Array<{
-  code: ProductCategory;
-  zhName: string;
-  enName: string;
-  zhDescription: string;
-  enDescription: string;
-}> = [
-  {
-    code: "stroller",
-    zhName: "婴儿推车",
-    enName: "Stroller",
-    zhDescription: "婴幼儿日常出行推车。",
-    enDescription: "Daily mobility strollers for infants and toddlers.",
-  },
-  {
-    code: "balance",
-    zhName: "平衡车",
-    enName: "Balance Bike",
-    zhDescription: "无脚踏平衡训练车。",
-    enDescription: "Pedal-free balance training bikes.",
-  },
-  {
-    code: "bicycle",
-    zhName: "儿童自行车",
-    enName: "Kids Bicycle",
-    zhDescription: "适合儿童骑行的脚踏自行车。",
-    enDescription: "Pedal bicycles designed for children.",
-  },
-  {
-    code: "scooter",
-    zhName: "滑板车",
-    enName: "Scooter",
-    zhDescription: "儿童滑行与通勤滑板车。",
-    enDescription: "Kids scooters for glide and commute use.",
-  },
-  {
-    code: "tricycle",
-    zhName: "三轮车",
-    enName: "Tricycle",
-    zhDescription: "低龄儿童三轮启蒙车型。",
-    enDescription: "Three-wheel beginner vehicles for younger kids.",
-  },
-  {
-    code: "electric_car",
-    zhName: "电动童车",
-    enName: "Electric Ride-on",
-    zhDescription: "儿童电动乘坐类车型。",
-    enDescription: "Electric ride-on vehicles for children.",
-  },
-  {
-    code: "safety_seat",
-    zhName: "安全座椅",
-    enName: "Safety Seat",
-    zhDescription: "儿童汽车安全座椅。",
-    enDescription: "Child safety seats for car travel.",
-  },
-];
+function mapBackendCategoryIdToProductCategory(categoryId: string): ProductCategory {
+  switch (categoryId) {
+    case "balance_bike":
+      return "balance";
+    case "scooters":
+      return "scooter";
+    case "electric_vehicles":
+      return "electric_car";
+    case "kids_bikes":
+      return "bicycle";
+    case "kids_tricycles":
+    case "kids_push_ride_ons":
+    case "kids_pull_along_wagons":
+      return "tricycle";
+    case "car_seat":
+      return "safety_seat";
+    default:
+      return "stroller";
+  }
+}
 
 export default function CategoryManager({ lang }: { lang: "zh" | "en" }) {
   const [items, setItems] = useState<CMSCategory[]>([]);
@@ -133,10 +97,29 @@ export default function CategoryManager({ lang }: { lang: "zh" | "en" }) {
 
     setInitializing(true);
     try {
+      const backendPayload = await getBackendPickerPayload({ includeAll: true });
+      const backendCategories = backendPayload.categories || [];
       const existing = await getCMSCategories(false);
       const byCode = new Map(existing.map((item) => [item.code, item]));
 
-      for (const [idx, template] of defaultCategoryTemplates.entries()) {
+      const mappedByCode = new Map<ProductCategory, { code: ProductCategory; zhName: string; enName: string }>();
+      for (const item of backendCategories) {
+        const code = mapBackendCategoryIdToProductCategory(item.categoryId);
+        if (!mappedByCode.has(code)) {
+          mappedByCode.set(code, {
+            code,
+            zhName: item.name || code,
+            enName: item.name || code,
+          });
+        }
+      }
+
+      const templates = Array.from(mappedByCode.values());
+      if (templates.length === 0) {
+        throw new Error(lang === "zh" ? "未获取到 backend 品类数据。" : "No backend categories fetched.");
+      }
+
+      for (const [idx, template] of templates.entries()) {
         const hit = byCode.get(template.code);
         const payload: CMSCategory = {
           id: hit?.id || `cat_${template.code}`,
@@ -146,11 +129,11 @@ export default function CategoryManager({ lang }: { lang: "zh" | "en" }) {
           icon: hit?.icon || "",
           zh: {
             name: template.zhName,
-            description: template.zhDescription,
+            description: hit?.zh?.description || `backend:${template.code}`,
           },
           en: {
             name: template.enName,
-            description: template.enDescription,
+            description: hit?.en?.description || `backend:${template.code}`,
           },
           updatedAt: null,
         };

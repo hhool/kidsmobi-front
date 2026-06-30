@@ -78,17 +78,29 @@ function normalizeProductImagesForSave(product: CMSProduct): CMSProduct {
 
 function buildCMSProductFromBackendPreview(item: {
   id: string;
+  categoryId: string;
   title: string;
   brand: string;
   coverImage?: string;
   galleryImages: string[];
   videoUrls: string[];
 }): CMSProduct {
+  const categoryMap: Record<string, ProductCategory> = {
+    balance_bike: "balance",
+    scooters: "scooter",
+    electric_vehicles: "electric_car",
+    kids_bikes: "bicycle",
+    kids_tricycles: "tricycle",
+    kids_push_ride_ons: "tricycle",
+    kids_pull_along_wagons: "tricycle",
+    car_seat: "safety_seat",
+  };
+
   return {
     id: item.id,
     name: item.title,
     brand: item.brand || "Unknown",
-    category: "stroller",
+    category: categoryMap[item.categoryId] || "stroller",
     wheelSize: "N/A",
     weight: 0,
     material: "N/A",
@@ -270,7 +282,7 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
 
     setInitializingProducts(true);
     try {
-      const payload = await getBackendPickerPayload();
+      const payload = await getBackendPickerPayload({ includeAll: true });
       const sourceRows = (payload.products || []).slice(0, 120);
       let success = 0;
       const errors: string[] = [];

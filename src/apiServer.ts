@@ -557,6 +557,7 @@ app.get("/api/content/resources", async (req, res) => {
   try {
     const requestedCategory = typeof req.query.categoryId === "string" ? req.query.categoryId.trim() : "";
     const query = typeof req.query.q === "string" ? req.query.q.trim().toLowerCase() : "";
+    const includeAllCategories = String(req.query.all || "").toLowerCase() === "1" || String(req.query.all || "").toLowerCase() === "true";
 
     const categoriesResponse = await fetchWorkerJson<{ data: WorkerCategory[] }>("/api/v1/catalog/categories");
     const categories = Array.isArray(categoriesResponse.data) ? categoriesResponse.data : [];
@@ -567,7 +568,9 @@ app.get("/api/content/resources", async (req, res) => {
 
     const selectedCategories = requestedCategory
       ? categories.filter((item) => item.categoryId === requestedCategory)
-      : categories.slice(0, 5);
+      : includeAllCategories
+        ? categories
+        : categories.slice(0, 5);
 
     const payloads = await Promise.all(
       selectedCategories.map(async (category) => {

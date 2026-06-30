@@ -131,17 +131,18 @@ async function fetchBackendJson<T>(path: string): Promise<T> {
   return response.json();
 }
 
-async function getBackendResourcePayload(params?: { categoryId?: string; q?: string }): Promise<BackendPickerPayload> {
+async function getBackendResourcePayload(params?: { categoryId?: string; q?: string; includeAll?: boolean }): Promise<BackendPickerPayload> {
   const search = new URLSearchParams();
   if (params?.categoryId) search.set("categoryId", params.categoryId);
   if (params?.q) search.set("q", params.q);
+  if (params?.includeAll) search.set("all", "1");
   const query = search.toString();
   const path = `/api/content/resources${query ? `?${query}` : ""}`;
   const response = await fetchBackendJson<{ data?: BackendPickerPayload }>(path);
   return response?.data || { categories: [], products: [] };
 }
 
-async function getWorkerResourcePayload(params?: { categoryId?: string; q?: string }): Promise<BackendPickerPayload> {
+async function getWorkerResourcePayload(params?: { categoryId?: string; q?: string; includeAll?: boolean }): Promise<BackendPickerPayload> {
   const requestedCategory = (params?.categoryId || "").trim();
   const keyword = (params?.q || "").trim().toLowerCase();
 
@@ -150,7 +151,9 @@ async function getWorkerResourcePayload(params?: { categoryId?: string; q?: stri
 
   const categories = requestedCategory
     ? allCategories.filter((item) => item.categoryId === requestedCategory)
-    : allCategories.slice(0, 6);
+    : params?.includeAll
+      ? allCategories
+      : allCategories.slice(0, 6);
 
   const payloads = await Promise.all(
     categories.map(async (category) => {
@@ -224,7 +227,7 @@ async function getWorkerResourcePayload(params?: { categoryId?: string; q?: stri
   };
 }
 
-export async function getBackendPickerPayload(params?: { categoryId?: string; q?: string }): Promise<BackendPickerPayload> {
+export async function getBackendPickerPayload(params?: { categoryId?: string; q?: string; includeAll?: boolean }): Promise<BackendPickerPayload> {
   try {
     // Prefer backend API for CMS resource loading when configured.
     if (getBackendApiBaseUrl()) {
