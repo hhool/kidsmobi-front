@@ -1,6 +1,8 @@
 import { CMSCategory, CMSProduct, CMSScenario, Evaluation, Guide, News } from "../types";
 
-const CMS_API_BASE = (import.meta.env.VITE_CMS_BACKEND_BASE_URL || "").replace(/\/$/, "");
+const CMS_API_BASE = (
+  import.meta.env.VITE_CMS_API_BASE_URL || import.meta.env.VITE_CMS_BACKEND_BASE_URL || ""
+).replace(/\/$/, "");
 
 function resolveCMSApiPath(path: string): string {
   if (/^https?:\/\//i.test(path)) {

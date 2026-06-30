@@ -43,10 +43,17 @@ Admin CMS resource picker (cover/gallery/video/related product) supports backend
 
 Admin CMS pages now prefer D1-backed endpoints for read/write and automatically fall back to the previous CMS channel when D1 is unavailable.
 
-For static-domain deployments (for example Cloudflare Pages static hosting), set `VITE_CMS_BACKEND_BASE_URL` to an API host that serves `/api/cms/*`. The D1 client will use this base instead of relative `/api/cms/*` paths, preventing HTML fallback from static route rewrites.
+For static-domain deployments (for example Cloudflare Pages static hosting), set `VITE_CMS_API_BASE_URL` to an API host that serves `/api/cms/*`. The D1 client will use this base instead of relative `/api/cms/*` paths, preventing HTML fallback from static route rewrites.
+
+Base URL precedence for D1 client:
+
+1. `VITE_CMS_API_BASE_URL` (recommended for `/api/cms/*`)
+2. `VITE_CMS_BACKEND_BASE_URL` (fallback)
+3. Relative `/api/cms/*` on current origin
 
 1. Set the following values in `.env.local`:
-   - `VITE_CMS_BACKEND_BASE_URL` (when frontend host cannot serve `/api/cms/*` directly)
+   - `VITE_CMS_API_BASE_URL` (recommended when frontend host cannot serve `/api/cms/*` directly)
+   - `VITE_CMS_BACKEND_BASE_URL` (optional fallback/shared base)
     - `CLOUDFLARE_ACCOUNT_ID`
     - `CLOUDFLARE_D1_DATABASE_ID`
     - `CLOUDFLARE_API_TOKEN`
