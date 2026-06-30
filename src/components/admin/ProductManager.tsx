@@ -76,6 +76,63 @@ function normalizeProductImagesForSave(product: CMSProduct): CMSProduct {
   };
 }
 
+function buildCMSProductFromBackendPreview(item: {
+  id: string;
+  title: string;
+  brand: string;
+  coverImage?: string;
+  galleryImages: string[];
+  videoUrls: string[];
+}): CMSProduct {
+  return {
+    id: item.id,
+    name: item.title,
+    brand: item.brand || "Unknown",
+    category: "stroller",
+    wheelSize: "N/A",
+    weight: 0,
+    material: "N/A",
+    brakeType: "N/A",
+    tireType: "N/A",
+    price: 0,
+    ageRange: "0-4y",
+    heightRange: [65, 120],
+    compliance: ["EN1888"],
+    imageUrl: item.coverImage || "",
+    galleryUrls: item.galleryImages || [],
+    videoUrl: item.videoUrls?.[0] || "",
+    features: ["backend-imported", "cms-init"],
+    scenarios: ["city-commute"],
+    relatedProductIds: [],
+    videos: (item.videoUrls || []).map((url, idx) => ({
+      url,
+      title: `init-video-${idx + 1}`,
+      source: "scraped",
+      order: idx,
+    })),
+    status: "draft",
+    zh: {
+      name: item.title,
+      description: "由后台一键初始化写入 CMS 的产品条目。",
+      brandText: item.brand || "Unknown",
+      specsText: "Initialized from backend resources.",
+      pros: ["backend source"],
+      cons: ["needs editorial enrichment"],
+      editorVerdict: "建议补充评测文案后再发布。",
+    },
+    en: {
+      name: item.title,
+      description: "Product entry initialized into CMS from backend resources.",
+      brandText: item.brand || "Unknown",
+      specsText: "Initialized from backend resources.",
+      pros: ["backend source"],
+      cons: ["needs editorial enrichment"],
+      editorVerdict: "Please enrich editorial content before publishing.",
+    },
+    updatedAt: null,
+  };
+}
+
 export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
   const [products, setProducts] = useState<CMSProduct[]>([]);
   const [scenarios, setScenarios] = useState<CMSScenario[]>([]);
@@ -190,6 +247,66 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
 
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [initializingProducts, setInitializingProducts] = useState(false);
+
+  const handleInitializeProducts = async () => {
+    const ok = window.confirm(
+      lang === "zh"
+        ? "将从 backend 初始化产品到当前 CMS 库（存在同 ID 会覆盖）。继续？"
+        : "Initialize products from backend into current CMS database now? Existing IDs will be overwritten."
+    );
+    if (!ok) return;
+
+    const user = auth.currentUser;
+    const isAdmin = user ? await checkIsAdmin(user.uid, user) : false;
+    if (!isAdmin) {
+      alert(
+        lang === "zh"
+          ? "初始化失败：当前账号无写入权限。请先登录管理员账号。"
+          : "Initialization failed: current account has no write permission. Please sign in as admin first."
+      );
+      return;
+    }
+
+    setInitializingProducts(true);
+    try {
+      const payload = await getBackendPickerPayload();
+      const sourceRows = (payload.products || []).slice(0, 120);
+      let success = 0;
+      const errors: string[] = [];
+
+      for (const row of sourceRows) {
+        const candidate = normalizeProductImagesForSave(buildCMSProductFromBackendPreview(row));
+        const result = validateCMSProduct(candidate);
+        if (!result.valid) {
+          errors.push(`${candidate.id}: ${result.errors.join("; ")}`);
+          continue;
+        }
+        try {
+          await saveCMSProduct(candidate);
+          success += 1;
+        } catch (error: any) {
+          errors.push(`${candidate.id}: ${error?.message || String(error)}`);
+        }
+      }
+
+      await fetchProducts();
+      if (errors.length > 0) {
+        alert(
+          (lang === "zh"
+            ? `初始化完成：成功 ${success} 条，失败 ${errors.length} 条。\n`
+            : `Initialization done: ${success} succeeded, ${errors.length} failed.\n`) +
+            errors.slice(0, 8).map((e) => `- ${e}`).join("\n")
+        );
+      } else {
+        alert(lang === "zh" ? `初始化成功，共 ${success} 条。` : `Initialization succeeded: ${success} products.`);
+      }
+    } catch (error: any) {
+      alert((lang === "zh" ? "初始化失败：" : "Initialization failed: ") + (error?.message || String(error)));
+    } finally {
+      setInitializingProducts(false);
+    }
+  };
 
   const handleSave = async (p: CMSProduct) => {
     // Basic Quality Check
@@ -330,6 +447,19 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
           <p className="text-slate-500 font-medium mt-1">Structured repository for global stroller database.</p>
         </div>
         <div className="flex items-center gap-3">
+          <button
+            onClick={handleInitializeProducts}
+            disabled={initializingProducts}
+            className="flex items-center gap-2 bg-white border border-slate-200 text-slate-700 px-5 py-3 rounded-2xl font-black text-xs hover:border-fuchsia-400 hover:text-fuchsia-600 transition-all disabled:opacity-60"
+          >
+            {initializingProducts
+              ? lang === "zh"
+                ? "初始化中..."
+                : "Initializing..."
+              : lang === "zh"
+                ? "初始化产品"
+                : "Initialize Products"}
+          </button>
           <input
             ref={importRef}
             type="file"
