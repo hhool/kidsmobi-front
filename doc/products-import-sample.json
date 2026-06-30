@@ -1,0 +1,105 @@
+[
+  {
+    "id": "prod_demo_001",
+    "name": "Demo Stroller One",
+    "brand": "DemoBrand",
+    "category": "stroller",
+    "wheelSize": "8/10 inch",
+    "weight": 8.2,
+    "material": "Aluminum",
+    "brakeType": "Rear Brake",
+    "tireType": "Rubber",
+    "price": 1999,
+    "ageRange": "0-4y",
+    "heightRange": [70, 120],
+    "compliance": ["EN1888"],
+    "imageUrl": "https://images.unsplash.com/photo-1522770179533-24471fcdba45?auto=format&fit=crop&w=1200&q=80",
+    "galleryUrls": [
+      "https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "videoUrl": "https://cdn.coverr.co/videos/coverr-baby-in-a-stroller-1571/1080p.mp4",
+    "features": ["lightweight", "one-hand-fold"],
+    "scenarios": ["city-commute"],
+    "relatedProductIds": ["prod_demo_002"],
+    "videos": [
+      {
+        "url": "https://cdn.coverr.co/videos/coverr-baby-in-a-stroller-1571/1080p.mp4",
+        "title": "Demo Showcase 1",
+        "source": "cms",
+        "order": 0
+      }
+    ],
+    "status": "draft",
+    "zh": {
+      "name": "演示推车一号",
+      "description": "用于后台批量导入演示的产品样例。",
+      "brandText": "品牌说明",
+      "specsText": "规格说明",
+      "pros": ["轻量", "可单手折叠"],
+      "cons": ["高配版本价格偏高"],
+      "editorVerdict": "适合城市通勤家庭。"
+    },
+    "en": {
+      "name": "Demo Stroller One",
+      "description": "Sample product used for CMS bulk import demonstration.",
+      "brandText": "Brand summary",
+      "specsText": "Specs summary",
+      "pros": ["Lightweight", "One-hand folding"],
+      "cons": ["Premium trim is pricey"],
+      "editorVerdict": "Good fit for urban commuting families."
+    },
+    "updatedAt": null
+  },
+  {
+    "id": "prod_demo_002",
+    "name": "Demo Stroller Two",
+    "brand": "DemoBrand",
+    "category": "stroller",
+    "wheelSize": "7/9 inch",
+    "weight": 7.4,
+    "material": "Magnesium Alloy",
+    "brakeType": "Linked Brake",
+    "tireType": "PU",
+    "price": 1699,
+    "ageRange": "0-3y",
+    "heightRange": [65, 115],
+    "compliance": ["EN1888", "CCC"],
+    "imageUrl": "https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=1200&q=80",
+    "galleryUrls": [
+      "https://images.unsplash.com/photo-1485546246426-74dc88dec4d9?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "videoUrl": "https://cdn.coverr.co/videos/coverr-mother-with-baby-stroller-9727/1080p.mp4",
+    "features": ["compact", "travel-friendly"],
+    "scenarios": ["travel"],
+    "relatedProductIds": ["prod_demo_001"],
+    "videos": [
+      {
+        "url": "https://cdn.coverr.co/videos/coverr-mother-with-baby-stroller-9727/1080p.mp4",
+        "title": "Demo Showcase 2",
+        "source": "cms",
+        "order": 0
+      }
+    ],
+    "status": "draft",
+    "zh": {
+      "name": "演示推车二号",
+      "description": "用于批量导入测试的第二条样例。",
+      "brandText": "品牌说明",
+      "specsText": "规格说明",
+      "pros": ["紧凑", "便携"],
+      "cons": ["储物空间一般"],
+      "editorVerdict": "适合轻出行与短途使用。"
+    },
+    "en": {
+      "name": "Demo Stroller Two",
+      "description": "Second sample row for CMS bulk import test.",
+      "brandText": "Brand summary",
+      "specsText": "Specs summary",
+      "pros": ["Compact", "Travel friendly"],
+      "cons": ["Average storage capacity"],
+      "editorVerdict": "Suitable for light travel and short trips."
+    },
+    "updatedAt": null
+  }
+]

@@ -30,3 +30,18 @@ To switch the main product and evaluation load path to the scraped content bundl
 3. Restart the app so the server can aggregate the worker's `/api/v1/*` endpoints into `/api/content/bundle`
 
 If the bundle request fails or returns incomplete data, the app falls back to the existing CMS / local-data path.
+
+## CMS Resource API (Backend First)
+
+Admin CMS resource picker (cover/gallery/video/related product) supports backend-first mode.
+
+1. Set `VITE_CMS_BACKEND_BASE_URL` in `.env.local` (for example: `https://your-backend.example.com`)
+2. The picker will prefer `${VITE_CMS_BACKEND_BASE_URL}/api/content/resources`
+3. If backend is unavailable or non-JSON, it automatically falls back to worker aggregation (`/api/v1/catalog/categories`, `/api/v1/products`, `/api/v1/resources`)
+
+## Product Bulk Import JSON
+
+Use Product Center -> `Import JSON` with an array payload.
+
+- Ready sample file: `doc/products-import-sample.json`
+- Import behavior: per-row validation + upsert by `id` (partial success supported)

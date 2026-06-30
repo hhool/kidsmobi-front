@@ -49,6 +49,13 @@ function getWorkerBaseUrl() {
   return value.replace(/\/+$/, "");
 }
 
+function getBackendApiBaseUrl() {
+  const env = (import.meta as any)?.env?.VITE_CMS_BACKEND_BASE_URL;
+  if (typeof env !== "string") return "";
+  const value = env.trim();
+  return value.length > 0 ? value.replace(/\/+$/, "") : "";
+}
+
 function isHttpUrl(value?: string) {
   if (!value) return false;
   try {
@@ -80,7 +87,43 @@ async function fetchWorkerJson<T>(path: string): Promise<T> {
   return response.json();
 }
 
-export async function getBackendPickerPayload(params?: { categoryId?: string; q?: string }): Promise<BackendPickerPayload> {
+async function fetchBackendJson<T>(path: string): Promise<T> {
+  const base = getBackendApiBaseUrl();
+  if (!base) {
+    throw new Error("VITE_CMS_BACKEND_BASE_URL is not configured.");
+  }
+
+  const response = await fetch(`${base}${path}`, {
+    headers: {
+      Accept: "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    const details = await response.text().catch(() => "");
+    throw new Error(`Backend request failed (${response.status})${details ? `: ${details}` : ""}`);
+  }
+
+  const contentType = response.headers.get("content-type") || "";
+  if (!contentType.toLowerCase().includes("application/json")) {
+    const details = await response.text().catch(() => "");
+    throw new Error(`Backend returned non-JSON response: ${details.slice(0, 120)}`);
+  }
+
+  return response.json();
+}
+
+async function getBackendResourcePayload(params?: { categoryId?: string; q?: string }): Promise<BackendPickerPayload> {
+  const search = new URLSearchParams();
+  if (params?.categoryId) search.set("categoryId", params.categoryId);
+  if (params?.q) search.set("q", params.q);
+  const query = search.toString();
+  const path = `/api/content/resources${query ? `?${query}` : ""}`;
+  const response = await fetchBackendJson<{ data?: BackendPickerPayload }>(path);
+  return response?.data || { categories: [], products: [] };
+}
+
+async function getWorkerResourcePayload(params?: { categoryId?: string; q?: string }): Promise<BackendPickerPayload> {
   const requestedCategory = (params?.categoryId || "").trim();
   const keyword = (params?.q || "").trim().toLowerCase();
 
@@ -151,4 +194,17 @@ export async function getBackendPickerPayload(params?: { categoryId?: string; q?
     categories: categories.map((item) => ({ categoryId: item.categoryId, name: item.name })),
     products,
   };
+}
+
+export async function getBackendPickerPayload(params?: { categoryId?: string; q?: string }): Promise<BackendPickerPayload> {
+  try {
+    // Prefer backend API for CMS resource loading when configured.
+    if (getBackendApiBaseUrl()) {
+      return await getBackendResourcePayload(params);
+    }
+  } catch (error) {
+    console.warn("Backend resource endpoint failed, fallback to worker aggregation:", error);
+  }
+
+  return getWorkerResourcePayload(params);
 }
