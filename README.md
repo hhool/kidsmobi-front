@@ -89,6 +89,14 @@ npm run cms:smoke -- --base=https://your-cms-api.example.com
 
 The command verifies `/api/cms/d1/health` and six list endpoints, and fails fast when an endpoint returns non-JSON (for example static HTML fallback).
 
+CRUD regression command:
+
+```bash
+npm run cms:regress -- --base=https://your-cms-api.example.com
+```
+
+The command validates full write/read/delete cycles (`save -> list -> delete -> list`) across all six CMS collections.
+
 ## Product Bulk Import JSON
 
 Use Product Center -> `Import JSON` with an array payload.
