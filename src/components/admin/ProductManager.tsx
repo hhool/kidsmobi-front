@@ -12,12 +12,13 @@ import {
   Upload
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { getCMSProducts, saveCMSProduct, deleteCMSProduct, getCMSScenarios } from "../../lib/cmsService";
+import { getCMSProducts, saveCMSProduct, deleteCMSProduct, getCMSScenarios, checkIsAdmin } from "../../lib/cmsService";
 import { CMSProduct, ComplianceTag, ProductCategory, CMSScenario } from "../../types";
 import { FALLBACK_PRODUCT_IMAGE, resolveProductImages } from "../../lib/productImages";
 import { validateCMSProduct } from "../../lib/productValidation";
 import SmartImage from "../common/SmartImage";
 import BackendResourcePicker from "./BackendResourcePicker";
+import { auth } from "../../lib/firebase";
 
 function normalizeProductImagesForSave(product: CMSProduct): CMSProduct {
   const imageSet = resolveProductImages(product);
@@ -190,6 +191,17 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
         return;
       }
 
+      const user = auth.currentUser;
+      const isAdmin = user ? await checkIsAdmin(user.uid, user) : false;
+      if (!isAdmin) {
+        alert(
+          lang === "zh"
+            ? "导入失败：当前账号无写入权限。请先在右上角“账户”完成 Google 登录，并确认账号已加入 admins 集合后重试。"
+            : "Import failed: current account does not have write permission. Please sign in via Google under Account and ensure your user exists in the admins collection."
+        );
+        return;
+      }
+
       const errors: string[] = [];
       let count = 0;
       for (const item of parsed) {
@@ -199,8 +211,12 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
           errors.push(`${candidate.id || "unknown"}: ${result.errors.join("; ")}`);
           continue;
         }
-        await saveCMSProduct(candidate);
-        count += 1;
+        try {
+          await saveCMSProduct(candidate);
+          count += 1;
+        } catch (error: any) {
+          errors.push(`${candidate.id || "unknown"}: ${error?.message || String(error)}`);
+        }
       }
 
       await fetchProducts();
