@@ -1,7 +1,17 @@
 import { CMSCategory, CMSProduct, CMSScenario, Evaluation, Guide, News } from "../types";
 
+const CMS_API_BASE = (import.meta.env.VITE_CMS_BACKEND_BASE_URL || "").replace(/\/$/, "");
+
+function resolveCMSApiPath(path: string): string {
+  if (/^https?:\/\//i.test(path)) {
+    return path;
+  }
+  return CMS_API_BASE ? `${CMS_API_BASE}${path}` : path;
+}
+
 async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(path, {
+  const requestUrl = resolveCMSApiPath(path);
+  const response = await fetch(requestUrl, {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
@@ -13,6 +23,14 @@ async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
   if (!response.ok) {
     const details = await response.text().catch(() => "");
     throw new Error(details || `Request failed: ${response.status}`);
+  }
+
+  const contentType = String(response.headers.get("content-type") || "").toLowerCase();
+  if (!contentType.includes("application/json")) {
+    const bodyPreview = (await response.text().catch(() => "")).slice(0, 120).replace(/\s+/g, " ");
+    throw new Error(
+      `Expected JSON response from ${requestUrl}, got '${contentType || "unknown"}'. Preview: ${bodyPreview}`,
+    );
   }
 
   return (await response.json()) as T;
