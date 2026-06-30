@@ -39,6 +39,38 @@ Admin CMS resource picker (cover/gallery/video/related product) supports backend
 2. The picker will prefer `${VITE_CMS_BACKEND_BASE_URL}/api/content/resources`
 3. If backend is unavailable or non-JSON, it automatically falls back to worker aggregation (`/api/v1/catalog/categories`, `/api/v1/products`, `/api/v1/resources`)
 
+## CMS D1 Configuration (Admin D1-First)
+
+Admin CMS pages now prefer D1-backed endpoints for read/write and automatically fall back to the previous CMS channel when D1 is unavailable.
+
+1. Set the following values in `.env.local`:
+    - `CLOUDFLARE_ACCOUNT_ID`
+    - `CLOUDFLARE_D1_DATABASE_ID`
+    - `CLOUDFLARE_API_TOKEN`
+2. Restart the local server after updating env variables.
+3. Optional health check endpoint:
+    - `/api/cms/d1/health`
+
+Main D1-backed endpoints:
+
+- List:
+   - `/api/cms/categories`
+   - `/api/cms/products`
+   - `/api/cms/scenarios`
+   - `/api/cms/evaluations`
+   - `/api/cms/guides`
+   - `/api/cms/news`
+- Initialize:
+   - `/api/cms/init/categories`
+   - `/api/cms/init/products`
+- Save/Delete:
+   - `/api/cms/categories/save|delete`
+   - `/api/cms/products/save|delete`
+   - `/api/cms/scenarios/save|delete`
+   - `/api/cms/evaluations/save|delete`
+   - `/api/cms/guides/save|delete`
+   - `/api/cms/news/save|delete`
+
 ## Product Bulk Import JSON
 
 Use Product Center -> `Import JSON` with an array payload.
