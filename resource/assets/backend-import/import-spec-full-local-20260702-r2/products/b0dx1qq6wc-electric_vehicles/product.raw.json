@@ -1,0 +1,474 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "electric_vehicles",
+  "categoryCode": "electric_car",
+  "fetchedAt": "2026-07-01T20:06:13.045Z",
+  "data": {
+    "productId": "B0DX1QQ6WC",
+    "categoryId": "electric_vehicles",
+    "rank": 8,
+    "title": "LIGIANT 24V Ride on Toys for Big Kids, 4-Seater Kids' Car, Golf Cart Max. Capacity: 264 Lbs(4 Kids), 4WD Ride on Car w/Remote",
+    "brand": "LIGIANT",
+    "price": {
+      "display": "$319.97",
+      "value": 319.97,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.2  243",
+      "value": 4.2
+    },
+    "weight": {
+      "display": "70 Pounds",
+      "lbs": 70
+    },
+    "classification": {
+      "Brand": "LIGIANT",
+      "Vehicle_Type": "Sport",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Heavy Duty",
+      "Price_Tier": ">200"
+    },
+    "categoryAttributes": {
+      "categoryId": "electric_vehicles",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "Spacious with 4-Seats Design: Designed with a spacious 4-seat layout",
+        "it’s ideal for larger families. All 4-seats are equipped with seat belts",
+        "and the 2 rear seats feature footrests",
+        "providing a comfortable ride for siblings or friends. Dimensions: 51.4 x 28.3 x 45.1 inches.",
+        "Safety is Priority: The remote control design gives parents peace of mind",
+        "while kids can also drive using the foot pedal for a hands-on experience. With 4 seat belts",
+        "2 rear anti-roll wheels and spring suspension",
+        "it provides extra stability and protection on any terrain",
+        "ensuring a smooth and safe ride.",
+        "High Performance: Our 4WD kids' golf cart is equipped with a powerful 24V 7AH battery",
+        "providing ample power. It offers two speed options ranging from 1.86 to 4.35 mph",
+        "making it perfect for children aged 3-8. It’s the ideal companion for your child's adventures.",
+        "Spark Joyful Adventures: Multimedia features add unique fun to this 4-seater toddler golf cart. Enjoy music",
+        "stories",
+        "and radio via Bluetooth or USB",
+        "while the built-in speakers and volume control knob enhance the interactive experience. The battery display screen keeps you informed of the battery level",
+        "ensuring timely charging so your kids can have endless fun!",
+        "1:1 Replica of a Real Golf Cart: Detachable Awning",
+        "a 1:1 replica of a real golf cart",
+        "with an appearance that mirrors an actual golf cart. Let kids experience the thrill of driving on the grass just like adults.",
+        "Tips: The maximum weight capacity of this product is 264 lbs",
+        "which refers to the total weight when four children are riding simultaneously. The width of each seat is 9.5 inches. Please consider your child's height before purchasing."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "Spacious with 4-Seats Design: Designed with a spacious 4-seat layout",
+        "featureLabel": "Spacious With 4 Seats Design: Designed With A Spacious 4 Seat Layout",
+        "featureValue": "Spacious with 4-Seats Design: Designed with a spacious 4-seat layout",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "it’s ideal for larger families. All 4-seats are equipped with seat belts",
+        "featureLabel": "It’s Ideal For Larger Families. All 4 Seats Are Equipped With Seat Belts",
+        "featureValue": "it’s ideal for larger families. All 4-seats are equipped with seat belts",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "and the 2 rear seats feature footrests",
+        "featureLabel": "And The 2 Rear Seats Feature Footrests",
+        "featureValue": "and the 2 rear seats feature footrests",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "providing a comfortable ride for siblings or friends. Dimensions: 51.4 x 28.3 x 45.1 inches.",
+        "featureLabel": "Providing A Comfortable Ride For Siblings Or Friends. Dimensions: 51.4 X 28.3 X 45.1 Inches.",
+        "featureValue": "providing a comfortable ride for siblings or friends. Dimensions: 51.4 x 28.3 x 45.1 inches.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "Safety is Priority: The remote control design gives parents peace of mind",
+        "featureLabel": "Safety Is Priority: The Remote Control Design Gives Parents Peace Of Mind",
+        "featureValue": "Safety is Priority: The remote control design gives parents peace of mind",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "while kids can also drive using the foot pedal for a hands-on experience. With 4 seat belts",
+        "featureLabel": "While Kids Can Also Drive Using The Foot Pedal For A Hands On Experience. With 4 Seat Belts",
+        "featureValue": "while kids can also drive using the foot pedal for a hands-on experience. With 4 seat belts",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "Spacious with 4-Seats Design: Designed with a spacious 4-seat layout",
+        "it’s ideal for larger families. All 4-seats are equipped with seat belts",
+        "and the 2 rear seats feature footrests",
+        "providing a comfortable ride for siblings or friends. Dimensions: 51.4 x 28.3 x 45.1 inches."
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+          "source": "local",
+          "order": 10
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_1.jpg",
+      "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_2.jpg",
+      "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_3.jpg",
+      "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_4.jpg",
+      "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_5.jpg",
+      "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_6.jpg",
+      "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_7.jpg",
+      "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_8.jpg",
+      "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_9.jpg",
+      "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png"
+    ],
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/803df68d-b62b-44e5-9306-7581ff887459/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a970c28c-ce02-4d9d-934b-4181d7e3d611/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b91c8bbc-7b6e-40cc-9329-9491b9998667/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bd404d8d-88c9-4c78-b6af-8ee582684055/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e93e6b65-5043-4920-af5d-99feb258d09d/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f6ae34aa-076d-4df8-9f27-27e660fe99a9/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/04c416ea-5edf-4666-add0-95d7ff628f5b/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/10e9784d-ee58-4828-bbc9-0af7a5d66197/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ee9ee904-d0af-4b75-9d6b-848c4492d895/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b9ae77f3-c665-4b12-9f4f-8bab4721c42c/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/803df68d-b62b-44e5-9306-7581ff887459/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Golf carts offer the advantage of having four seats",
+        "thumbnail": "https://m.media-amazon.com/images/I/61AFOsL9A2L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a970c28c-ce02-4d9d-934b-4181d7e3d611/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "The Product Promotional Video of R9 Kids Golf Cart",
+        "thumbnail": "https://m.media-amazon.com/images/I/518zHOY9ECL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b91c8bbc-7b6e-40cc-9329-9491b9998667/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Play with Our R9 Kids Golf Cart",
+        "thumbnail": "https://m.media-amazon.com/images/I/51kIFkIKDSL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bd404d8d-88c9-4c78-b6af-8ee582684055/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Play with Our LIGIANT Golf Cart",
+        "thumbnail": "https://m.media-amazon.com/images/I/81jMZp76vRL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e93e6b65-5043-4920-af5d-99feb258d09d/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "R8 Apex Kids Electric Car Assembly Demonstration",
+        "thumbnail": "https://m.media-amazon.com/images/I/51+N-EszOKL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f6ae34aa-076d-4df8-9f27-27e660fe99a9/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Get Your Kids their own 24V Golf Cart!",
+        "thumbnail": "https://m.media-amazon.com/images/I/81YOUdJ9IwL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 6
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/04c416ea-5edf-4666-add0-95d7ff628f5b/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Customer review - Gift Idea for kids",
+        "thumbnail": "https://m.media-amazon.com/images/I/71QA4oXIfVL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 7
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/10e9784d-ee58-4828-bbc9-0af7a5d66197/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Ride on car for big kids",
+        "thumbnail": "https://m.media-amazon.com/images/I/81ots-nVm1L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 8
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ee9ee904-d0af-4b75-9d6b-848c4492d895/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Kids will love this car",
+        "thumbnail": "https://m.media-amazon.com/images/I/71dwBoaE0oL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 9
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b9ae77f3-c665-4b12-9f4f-8bab4721c42c/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Detailed Review-Watch this before buying!",
+        "thumbnail": "https://m.media-amazon.com/images/I/71OFBBkcwuL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 10
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/electric_vehicles/index.html",
+      "categoryPages": "/scrape_store/electric_vehicles/pages/index.html",
+      "detailPage": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/index.html"
+    },
+    "resourceStats": {
+      "videos": 10,
+      "similarItems": 0
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/713pagF74gL._AC_UL300_SR300,200_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 12
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/electric_vehicles/LIGIANT/Rank_8_ASIN_B0DX1QQ6WC_LIGIANT 24V Ride on Toys for Big Kids 4-Seater Kid/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/803df68d-b62b-44e5-9306-7581ff887459/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61AFOsL9A2L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Golf carts offer the advantage of having four seats",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a970c28c-ce02-4d9d-934b-4181d7e3d611/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/518zHOY9ECL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "The Product Promotional Video of R9 Kids Golf Cart",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b91c8bbc-7b6e-40cc-9329-9491b9998667/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51kIFkIKDSL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Play with Our R9 Kids Golf Cart",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bd404d8d-88c9-4c78-b6af-8ee582684055/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81jMZp76vRL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Play with Our LIGIANT Golf Cart",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e93e6b65-5043-4920-af5d-99feb258d09d/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51+N-EszOKL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "R8 Apex Kids Electric Car Assembly Demonstration",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f6ae34aa-076d-4df8-9f27-27e660fe99a9/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81YOUdJ9IwL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Get Your Kids their own 24V Golf Cart!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/04c416ea-5edf-4666-add0-95d7ff628f5b/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71QA4oXIfVL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Customer review - Gift Idea for kids",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/10e9784d-ee58-4828-bbc9-0af7a5d66197/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81ots-nVm1L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Ride on car for big kids",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ee9ee904-d0af-4b75-9d6b-848c4492d895/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71dwBoaE0oL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Kids will love this car",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b9ae77f3-c665-4b12-9f4f-8bab4721c42c/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71OFBBkcwuL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Detailed Review-Watch this before buying!",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

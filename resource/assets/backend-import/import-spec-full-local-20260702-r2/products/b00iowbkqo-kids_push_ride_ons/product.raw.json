@@ -1,0 +1,674 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T20:06:15.167Z",
+  "data": {
+    "productId": "B00IOWBKQO",
+    "categoryId": "kids_push_ride_ons",
+    "rank": 4,
+    "title": "Wiggle Car - Ride on Toy for Ages 3 and Up - Toddler Ride on Toys with no Batteries, Gears, or Pedals Just Twist, Wiggle, and",
+    "brand": "Wiggle",
+    "price": {
+      "display": "$38.59",
+      "value": 38.59,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.3  7,784",
+      "value": 4.3
+    },
+    "weight": {
+      "display": "8.68 Pounds",
+      "lbs": 8.68
+    },
+    "classification": {
+      "Brand": "Wiggle",
+      "Stroller_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_push_ride_ons",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "WIGGLE CAR RIDE ON - Kids can simply twist",
+        "wiggle",
+        "and go in this toddler car that has no gears",
+        "batteries",
+        "or pedals for a quiet and entertaining activity year-round. The riding toys are designed to stimulate your child's imagination and creativity.",
+        "DEVELOPS MOTOR SKILLS - The ride on car helps your child develop and refine motor skills like balancing",
+        "coordination",
+        "and steering. The Lil’ Rider kids ride on toys are made with a low base with a double triangle structure for secure riding.",
+        "INDOOR OR OUTDOOR - Suitable for both indoor and outdoor use",
+        "just find a smooth",
+        "flat surface like linoleum",
+        "concrete",
+        "asphalt",
+        "or tile for hours of outdoor or indoor play. Note",
+        "cars for kids are not recommended for use on wood floors.",
+        "PRODUCT DETAILS - Materials: Plastic. Dimensions: (L) 30\" x (W) 13.5\" x (H) 16\". Weight Capacity: 110lbs. For Children 3 Years and up. Intended to be Used under Direct Supervision of an Adult. Do not Use on Wood Floors. Color: Blue and Black."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "WIGGLE CAR RIDE ON - Kids can simply twist",
+        "featureLabel": "Wiggle Car Ride On Kids Can Simply Twist",
+        "featureValue": "WIGGLE CAR RIDE ON - Kids can simply twist",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "wiggle",
+        "featureLabel": "Wiggle",
+        "featureValue": "wiggle",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "and go in this toddler car that has no gears",
+        "featureLabel": "And Go In This Toddler Car That Has No Gears",
+        "featureValue": "and go in this toddler car that has no gears",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "batteries",
+        "featureLabel": "Batteries",
+        "featureValue": "batteries",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "or pedals for a quiet and entertaining activity year-round. The riding toys are designed to stimulate your child's imagination and creativity.",
+        "featureLabel": "Or Pedals For A Quiet And Entertaining Activity Year Round. The Riding Toys Are Designed To Stimulate Your Child's Imagination And Creativity.",
+        "featureValue": "or pedals for a quiet and entertaining activity year-round. The riding toys are designed to stimulate your child's imagination and creativity.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "DEVELOPS MOTOR SKILLS - The ride on car helps your child develop and refine motor skills like balancing",
+        "featureLabel": "Develops Motor Skills The Ride On Car Helps Your Child Develop And Refine Motor Skills Like Balancing",
+        "featureValue": "DEVELOPS MOTOR SKILLS - The ride on car helps your child develop and refine motor skills like balancing",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "WIGGLE CAR RIDE ON - Kids can simply twist",
+        "wiggle",
+        "and go in this toddler car that has no gears",
+        "batteries"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+          "source": "local",
+          "order": 10
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+          "source": "local",
+          "order": 11
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+          "source": "local",
+          "order": 12
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+          "source": "local",
+          "order": 13
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_1.jpg",
+      "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_2.jpg",
+      "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_3.jpg",
+      "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_4.jpg",
+      "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_5.jpg",
+      "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_6.jpg",
+      "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_7.jpg",
+      "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_8.jpg",
+      "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_9.jpg",
+      "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg"
+    ],
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/887f38e9-ecdf-4f91-98c1-ac7ac95b9175/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e84cf2c6-5b89-4f3d-a0a2-5e1fab618917/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e423331f-a4bb-4a40-ba22-a6b2a55d16e1/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/132ad105-456b-491d-b565-7cb80ea1309f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b7e50428-2daf-4244-bdd4-fb3bd426ffa3/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/60e8d860-ec9b-4d72-aa54-6e8d33809866/default.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/887f38e9-ecdf-4f91-98c1-ac7ac95b9175/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Lil\\u2019 Rider Wiggle Car for Ages 3 and Up",
+        "thumbnail": "https://m.media-amazon.com/images/I/61ynHm3a-nL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e84cf2c6-5b89-4f3d-a0a2-5e1fab618917/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Honest review of wiggle car",
+        "thumbnail": "https://m.media-amazon.com/images/I/B1AfYcHKNdL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e423331f-a4bb-4a40-ba22-a6b2a55d16e1/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Lil\\u2019 Rider Wiggle Car Ride On Toy Review",
+        "thumbnail": "https://m.media-amazon.com/images/I/71mOEecDbML.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/132ad105-456b-491d-b565-7cb80ea1309f/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "These Get Rode Almost Everyday!",
+        "thumbnail": "https://m.media-amazon.com/images/I/A1En12gDwsL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b7e50428-2daf-4244-bdd4-fb3bd426ffa3/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "3 reasons this toy is the BEST for kids of all ages!",
+        "thumbnail": "https://m.media-amazon.com/images/I/A1y-eKDGpDL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/60e8d860-ec9b-4d72-aa54-6e8d33809866/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Review for Lil Rider Wiggle car ride on toy",
+        "thumbnail": "https://m.media-amazon.com/images/I/91LKTXfXHBL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 6
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/kids_push_ride_ons/index.html",
+      "categoryPages": "/scrape_store/kids_push_ride_ons/pages/index.html",
+      "detailPage": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/index.html"
+    },
+    "resourceStats": {
+      "videos": 6,
+      "similarItems": 1
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/51PoDvo94jL._AC_UL300_SR300,200_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 15
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 12
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 13
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 14
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/887f38e9-ecdf-4f91-98c1-ac7ac95b9175/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61ynHm3a-nL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Lil\\u2019 Rider Wiggle Car for Ages 3 and Up",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e84cf2c6-5b89-4f3d-a0a2-5e1fab618917/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1AfYcHKNdL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Honest review of wiggle car",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e423331f-a4bb-4a40-ba22-a6b2a55d16e1/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71mOEecDbML.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Lil\\u2019 Rider Wiggle Car Ride On Toy Review",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/132ad105-456b-491d-b565-7cb80ea1309f/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1En12gDwsL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "These Get Rode Almost Everyday!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b7e50428-2daf-4244-bdd4-fb3bd426ffa3/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1y-eKDGpDL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "3 reasons this toy is the BEST for kids of all ages!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/60e8d860-ec9b-4d72-aa54-6e8d33809866/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91LKTXfXHBL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Review for Lil Rider Wiggle car ride on toy",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "Radio",
+        "Title": "Radio Flyer Cyclone, For Ages 3-7, Arm-Powered Ride On, 16\" Wheels, 360-degree Spins, Forward/Reverse Action, Ergonomic Seat",
+        "Price": "$69.00",
+        "Rating": "4.4",
+        "Reviews": "1,104",
+        "URL": "https://www.amazon.com/Radio-Flyer-640-Cyclone/dp/B00J405VH4/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_3/135-4916506-8269033?pd_rd_w=vTsml&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=FQ9W5BGNQCV4PQYMKE5F&pd_rd_wg=3sdDS&pd_rd_r=110868be-e7b1-4375-aaaa-cfaa673a3435&pd_rd_i=B00J405VH4&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/81XRQGbaw8L._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B00J405VH4",
+        "Features": "ARM-POWERED ACTION: Kids control the fun on the Radio Flyer Cyclone using comfort hand grips to zoom forward, roll in reverse, and spin 360 degrees - building coordination and gross motor skills. | SMOOTH, SPINNING FUN: Large 16\" wheels deliver a smooth ride on sidewalks, driveways, and indoor or outdoor surfaces, while the rear caster unlocks easy spin action for nonstop thrills on flat, smooth surfaces. | COMFORT THAT LASTS: The ergonomic seat and frame support kids rides, while comfort hand grips guide every twist, turn, and spin. Perfect for long days of play. | BUILT FOR ADVENTURE: A solid steel frame delivers durability for years of classic Radio Flyer fun. Recommended for ages 3-7. 69 lb maximum weight capacity. | BELOVED ICON OF PLAY: For over a century, Radio Flyer has inspired joyful play with wagons, trikes, and more. As a Certified B Corp, we create lasting products that spark imagination while caring for future generations.",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/d281a647-aff5-55ca-9081-94077bc5b3ae/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/d281a647-aff5-55ca-9081-94077bc5b3ae/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61K3M-rte1L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Radio Flyer Cyclone",
+            "Author": "N/A",
+            "Is_MP4": true
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5e128465-c346-4b84-941e-567ea7de7ae3/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/81+LTXjrYmL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+            "Title": "Why Do Kids LOVE This Thing?! | Radio Flyer Cyclone Review",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/de2d7948-ecd9-467b-98e8-2343ca055786/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71nWfqNfxzL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Cool tricks on the radio flyer cyclone",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/744a7c8e-db93-4d19-9024-00526aa6581f/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/81yfQOX1epL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "What makes it so fun?",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64a981cd-897c-457a-87e2-a09e55582119/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71hjo7ZRElL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "So much fun!! ",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a474171d-7d4b-4c1e-b524-d8001128ac8e/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/81ZXAxUGa5L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Really fun cyclone ride on toy",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/d281a647-aff5-55ca-9081-94077bc5b3ae/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5e128465-c346-4b84-941e-567ea7de7ae3/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/de2d7948-ecd9-467b-98e8-2343ca055786/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/744a7c8e-db93-4d19-9024-00526aa6581f/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64a981cd-897c-457a-87e2-a09e55582119/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a474171d-7d4b-4c1e-b524-d8001128ac8e/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/d281a647-aff5-55ca-9081-94077bc5b3ae/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4"
+        ],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5e128465-c346-4b84-941e-567ea7de7ae3/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/de2d7948-ecd9-467b-98e8-2343ca055786/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/744a7c8e-db93-4d19-9024-00526aa6581f/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64a981cd-897c-457a-87e2-a09e55582119/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a474171d-7d4b-4c1e-b524-d8001128ac8e/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "Shop baby toys",
+              "Texts": [
+                "Shop baby toys Visit the Store",
+                "Shop toddler toys Visit the Store",
+                "Shop preschool toys Visit the Store",
+                "Shop big kid toys Visit the Store",
+                "Shop accessories Visit the Store"
+              ],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2042b54b-dafc-4546-95f8-985f055b76c3.__CR0,0,1464,625_PT0_SX1464_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2042b54b-dafc-4546-95f8-985f055b76c3.__CR0,0,1464,625_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "Radio Flyer has been bringing the world out to play since 1917",
+                  "Image_Alt": "Radio Flyer has been bringing the world out to play since 1917"
+                }
+              ],
+              "Comparison_Table": {},
+              "Block_Types": [
+                "text",
+                "image"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "Shop baby toys"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2042b54b-dafc-4546-95f8-985f055b76c3.__CR0,0,1464,625_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "Radio Flyer has been bringing the world out to play since 1917",
+                    "Image_Alt": "Radio Flyer has been bringing the world out to play since 1917"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Shop baby toys Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Shop toddler toys Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Shop preschool toys Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Shop big kid toys Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Shop accessories Visit the Store"
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2042b54b-dafc-4546-95f8-985f055b76c3.__CR0,0,1464,625_PT0_SX1464_V1___.jpg"
+            ],
+            "Local_Images": [
+              "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B00J405VH4_Radio Flyer Cyclone For Ages 3-7 Arm-Powered Ride/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [
+            {
+              "Title": "User Manual (PDF)",
+              "URL": "https://m.media-amazon.com/images/I/B1SOVBMuLAL.pdf",
+              "Type": "PDF",
+              "Source": "Product guides and documents",
+              "Category": "manual",
+              "Local_Path": "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B00J405VH4_Radio Flyer Cyclone For Ages 3-7 Arm-Powered Ride/guides/manual/doc_00_User_Manual_PDF.pdf"
+            }
+          ],
+          "Summary": {
+            "Count": 1
+          },
+          "Local_Paths": [
+            "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B00J405VH4_Radio Flyer Cyclone For Ages 3-7 Arm-Powered Ride/guides/manual/doc_00_User_Manual_PDF.pdf"
+          ]
+        },
+        "Product_Description": "Meet the Radio Flyer Cyclone - an arm-powered ride on toy that lets kids control the fun. Using the comfort hand grips, riders control every move, building coordination and confidence with each spin. Big 16\" wheels keep the ride smooth on sidewalks and driveways, and the rear caster adds easy 360-degree spin action. Zoom forward, roll in reverse, and whirl around for endless thrills on flat, smooth surfaces. Designed for comfort and built to last, the Cyclone features an ergonomic seat and frame with a solid steel build. Recommended for ages 3-7 with a 69 lb maximum weight capacity. As a Certified B Corp, Radio Flyer is proud to create products that spark imagination while helping preserve the planet for future generations.",
+        "Product_Specifications": {
+          "Measurements": {
+            "Size": "Large",
+            "Item Weight": "10.1 Pounds",
+            "Item Dimensions L x W x H": "29.6\"L x 25.85\"W x 15.95\"H",
+            "Weight Capacity Maximum": "69 Pounds",
+            "Item Dimensions": "29.6 x 25.85 x 15.95 inches"
+          },
+          "Features_Specs": {
+            "Age Range Description": "3-7 Years",
+            "UPC": "042385110882 795418245449 787718936684",
+            "Item Type Name": "Radio Flyer Cyclone",
+            "Theme": "Ride On"
+          },
+          "Materials_Care": {
+            "Material Type": "Alloy Steel, Plastic"
+          },
+          "Item_Details": {
+            "Brand Name": "Radio Flyer",
+            "Sub Brand": "radio,radio flyer",
+            "Manufacturer Warranty Description": "The product warranty is good within one year from the date of purchase. A dated sales receipt for proof of purchase is required. A two year warranty policy will be provided to all customers who register their product at radioflyer.com.",
+            "Global Trade Identification Number": "00042385110882",
+            "Manufacturer Part Number": "640",
+            "Model Number": "640",
+            "Manufacturer": "Radio Flyer",
+            "Unit Count": "1.0 Count",
+            "Included Components": "Ride-on",
+            "Best Sellers Rank": "#55,650 in Toys & Games (See Top 100 in Toys & Games) #100 in Kids' Push Ride-Ons",
+            "ASIN": "B00J405VH4",
+            "Customer Reviews": "4.4  4.4 out of 5 stars   \n    (1,104)   \n\n\n 4.4 out of 5 stars"
+          },
+          "User_Guide": {
+            "Manufacturer Minimum Age (MONTHS)": "36.0",
+            "Manufacturer Maximum Age (MONTHS)": "84.0",
+            "Is Assembly Required": "Yes"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+          "Availability": "N/A",
+          "Delivery_Promise": "FREE delivery July 9 - 15 Or fastest delivery July 9 - 13",
+          "Specifications": {}
+        },
+        "Local_Image_Paths": [
+          "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B00J405VH4_Radio Flyer Cyclone For Ages 3-7 Arm-Powered Ride/images/primary.jpg",
+          "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B00J405VH4_Radio Flyer Cyclone For Ages 3-7 Arm-Powered Ride/images/alt_1.jpg",
+          "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B00J405VH4_Radio Flyer Cyclone For Ages 3-7 Arm-Powered Ride/images/alt_2.jpg",
+          "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B00J405VH4_Radio Flyer Cyclone For Ages 3-7 Arm-Powered Ride/images/alt_3.jpg",
+          "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B00J405VH4_Radio Flyer Cyclone For Ages 3-7 Arm-Powered Ride/images/alt_4.jpg",
+          "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B00J405VH4_Radio Flyer Cyclone For Ages 3-7 Arm-Powered Ride/images/alt_5.jpg",
+          "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B00J405VH4_Radio Flyer Cyclone For Ages 3-7 Arm-Powered Ride/images/alt_6.jpg",
+          "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B00J405VH4_Radio Flyer Cyclone For Ages 3-7 Arm-Powered Ride/images/alt_7.jpg",
+          "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B00J405VH4_Radio Flyer Cyclone For Ages 3-7 Arm-Powered Ride/images/alt_8.jpg",
+          "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B00J405VH4_Radio Flyer Cyclone For Ages 3-7 Arm-Powered Ride/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B00J405VH4_Radio Flyer Cyclone For Ages 3-7 Arm-Powered Ride/images/primary.jpg",
+        "Local_Video_Paths": []
+      }
+    ]
+  }
+}

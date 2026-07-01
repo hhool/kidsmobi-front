@@ -1,0 +1,153 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0D8SD9WZH",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "images": [
+    {
+      "productId": "B0D8SD9WZH",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8SD9WZH:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/primary.jpg",
+      "targetPathKeep": "resources/b0d8sd9wzh-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8sd9wzh/cover/primary.jpg"
+    },
+    {
+      "productId": "B0D8SD9WZH",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8SD9WZH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0d8sd9wzh-overview/alt_1.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8sd9wzh/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0D8SD9WZH",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8SD9WZH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0d8sd9wzh-overview/alt_2.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8sd9wzh/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0D8SD9WZH",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8SD9WZH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0d8sd9wzh-overview/alt_3.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8sd9wzh/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0D8SD9WZH",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8SD9WZH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0d8sd9wzh-overview/alt_4.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8sd9wzh/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0D8SD9WZH",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8SD9WZH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0d8sd9wzh-overview/alt_5.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8sd9wzh/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0D8SD9WZH",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8SD9WZH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0d8sd9wzh-overview/alt_6.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8sd9wzh/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0D8SD9WZH",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8SD9WZH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0d8sd9wzh-overview/alt_7.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8sd9wzh/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0D8SD9WZH",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8SD9WZH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0d8sd9wzh-overview/alt_8.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8sd9wzh/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0D8SD9WZH",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8SD9WZH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0d8sd9wzh-overview/alt_9.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8sd9wzh/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0D8SD9WZH",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8SD9WZH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0d8sd9wzh-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8sd9wzh/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0D8SD9WZH",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8SD9WZH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "targetPathKeep": "resources/b0d8sd9wzh-overview/aplus_01.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8sd9wzh/gallery/aplus_01.jpg"
+    },
+    {
+      "productId": "B0D8SD9WZH",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8SD9WZH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "targetPathKeep": "resources/b0d8sd9wzh-overview/aplus_02.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8sd9wzh/gallery/aplus_02.jpg"
+    },
+    {
+      "productId": "B0D8SD9WZH",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8SD9WZH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/primary.jpg",
+      "targetPathKeep": "resources/b0d8sd9wzh-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8sd9wzh/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0D8SD9WZH",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8SD9WZH:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/61DYRTL9w7L._AC_UL165_SR165,165_.jpg",
+      "targetPathKeep": "resources/b0d8sd9wzh-overview/61dyrtl9w7l._ac_ul165_sr165-165_.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8sd9wzh/gallery/61dyrtl9w7l._ac_ul165_sr165-165_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fa010915-0629-4284-a2d3-79986e480e03/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9c0ce93f-a9c2-4f1d-8dac-e67c05191a65/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1c686135-e312-4a07-badb-4144069f0d3c/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4e5765b2-338a-42d5-8fbe-21e0e8898b09/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cb823cd0-3a21-477a-9493-1fd49c66e048/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bfa6c011-895f-4b0b-bfff-c57f3bb8c7ed/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cfc13d0d-15b2-4372-a75f-cea535dc8862/default.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/index.html"
+  ]
+}

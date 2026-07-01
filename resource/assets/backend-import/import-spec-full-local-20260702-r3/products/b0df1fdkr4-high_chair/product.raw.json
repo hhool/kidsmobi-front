@@ -1,0 +1,194 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "high_chair",
+  "categoryCode": "stroller",
+  "fetchedAt": "2026-07-01T21:38:29.924Z",
+  "data": {
+    "productId": "B0DF1FDKR4",
+    "categoryId": "high_chair",
+    "rank": 1,
+    "title": "Momcozy Official Washing Block for Momcozy KleanPal Pro Baby Bottle Washer, 120 Detergent Tablets",
+    "brand": "Momcozy",
+    "price": {
+      "display": "$16.99",
+      "value": 16.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.9  3,163",
+      "value": 4.9
+    },
+    "weight": {
+      "display": "‎5.6 ounces",
+      "lbs": 0.35
+    },
+    "classification": {
+      "Brand": "Momcozy",
+      "High_Chair_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "high_chair",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "Note: Made for KleanPal Pro",
+        "for best results",
+        "we recommend Momcozy Official Washing Tablets. Formulas from others may differ in foaming and rinsing behavior.",
+        "Strong Cleaning Power: These are specially designed to remove stubborn milk residue and odor.",
+        "Compatible: Designed to work seamlessly with the Momcozy KleanPal Pro baby bottle washer.",
+        "Safe: Rest assured that these washing block tablets are baby-safe",
+        "providing you with peace of mind when it comes to your baby's health and safety.",
+        "Momcozy Washing Block: Pairing with a Momcozy KleanPal Pro baby bottle washer can safe and powerful cleaning for their baby's bottles",
+        "pump parts",
+        "and baby product.",
+        "Specification: Each box contains 120 tablets",
+        "with 4 bags of 30 tablets each.",
+        "Note：The date on the packaging is the manufacturing date",
+        "and the shelf life is 2 years."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "Note: Made for KleanPal Pro",
+        "featureLabel": "Note: Made For KleanPal Pro",
+        "featureValue": "Note: Made for KleanPal Pro",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from high_chair classification data"
+      },
+      {
+        "featureKey": "for best results",
+        "featureLabel": "For Best Results",
+        "featureValue": "for best results",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from high_chair classification data"
+      },
+      {
+        "featureKey": "we recommend Momcozy Official Washing Tablets. Formulas from others may differ in foaming and rinsing behavior.",
+        "featureLabel": "We Recommend Momcozy Official Washing Tablets. Formulas From Others May Differ In Foaming And Rinsing Behavior.",
+        "featureValue": "we recommend Momcozy Official Washing Tablets. Formulas from others may differ in foaming and rinsing behavior.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from high_chair classification data"
+      },
+      {
+        "featureKey": "Strong Cleaning Power: These are specially designed to remove stubborn milk residue and odor.",
+        "featureLabel": "Strong Cleaning Power: These Are Specially Designed To Remove Stubborn Milk Residue And Odor.",
+        "featureValue": "Strong Cleaning Power: These are specially designed to remove stubborn milk residue and odor.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from high_chair classification data"
+      },
+      {
+        "featureKey": "Compatible: Designed to work seamlessly with the Momcozy KleanPal Pro baby bottle washer.",
+        "featureLabel": "Compatible: Designed To Work Seamlessly With The Momcozy KleanPal Pro Baby Bottle Washer.",
+        "featureValue": "Compatible: Designed to work seamlessly with the Momcozy KleanPal Pro baby bottle washer.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from high_chair classification data"
+      },
+      {
+        "featureKey": "Safe: Rest assured that these washing block tablets are baby-safe",
+        "featureLabel": "Safe: Rest Assured That These Washing Block Tablets Are Baby Safe",
+        "featureValue": "Safe: Rest assured that these washing block tablets are baby-safe",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from high_chair classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "Note: Made for KleanPal Pro",
+        "for best results",
+        "we recommend Momcozy Official Washing Tablets. Formulas from others may differ in foaming and rinsing behavior.",
+        "Strong Cleaning Power: These are specially designed to remove stubborn milk residue and odor."
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/614C96nCLoL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/614C96nCLoL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8b4fc472-8dc2-471f-a166-5cdcec975b31.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/85e80b02-fa78-4277-99fc-a0617bf9b753.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/82ae0a33-4a54-4bad-9683-2136d47a4086.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/3b884b1e-2f3e-488d-a6e7-6534e1f6bab9.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/b42cf8fc-d316-43d8-9825-c7f83b99e1f5.mp4/productVideoOptimized.mp4"
+    ],
+    "resourceStats": {
+      "videos": 5,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8b4fc472-8dc2-471f-a166-5cdcec975b31.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/high_chair/Momcozy/Rank_1_ASIN_B0DF1FDKR4_Momcozy Official Washing Block for Momcozy KleanPa/videos/video_0.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/85e80b02-fa78-4277-99fc-a0617bf9b753.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/high_chair/Momcozy/Rank_1_ASIN_B0DF1FDKR4_Momcozy Official Washing Block for Momcozy KleanPa/videos/video_1.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/82ae0a33-4a54-4bad-9683-2136d47a4086.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/high_chair/Momcozy/Rank_1_ASIN_B0DF1FDKR4_Momcozy Official Washing Block for Momcozy KleanPa/videos/video_2.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/3b884b1e-2f3e-488d-a6e7-6534e1f6bab9.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/high_chair/Momcozy/Rank_1_ASIN_B0DF1FDKR4_Momcozy Official Washing Block for Momcozy KleanPa/videos/video_3.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/b42cf8fc-d316-43d8-9825-c7f83b99e1f5.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/high_chair/Momcozy/Rank_1_ASIN_B0DF1FDKR4_Momcozy Official Washing Block for Momcozy KleanPa/videos/video_4.mp4"
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

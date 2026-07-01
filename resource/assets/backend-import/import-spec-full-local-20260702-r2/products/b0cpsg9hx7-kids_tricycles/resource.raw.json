@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_tricycles",
+  "fetchedAt": "2026-07-01T20:06:14.727Z",
+  "data": {
+    "resourceId": "B0CPSG9HX7:overview",
+    "categoryId": "kids_tricycles",
+    "productId": "B0CPSG9HX7",
+    "resourceType": "product_overview",
+    "title": "besrey Toddler Tricycle with Bell, Kids Tricycle Age 18 Months to 5 Years, Kids Trike, Toddler Bike for 1.5-5 Year Olds, Baby",
+    "summary": "First Toddler Tricycle: This tricycle for toddlers is great for beginner riders, designed for 18 months to 5 year old toddler girls & boys who are curious and excited to explore the world, to develop kids' steering skills and coordination at an early age | 2-IN-1 Thoughtful Desig",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_tricycles/besrey/Rank_8_ASIN_B0CPSG9HX7_besrey Toddler Tricycle with Bell Kids Tricycle Ag/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/851142d4-46a4-4a8a-a501-1f69cdf4b7cb/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7129aa54-461a-4ef3-87fd-e37433519561/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5d32e9ee-5e69-4fb3-a02f-833d2145633c/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f66f0b31-3f3b-4e81-ac51-d14c95a322f8/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/edefce21-0b5c-4ac9-aeb6-e2df72308f24/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0bf840ac-5c1d-4ce8-af11-b29f20445d66/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/345bd219-f53a-4829-b9fb-b88cbc952667/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/98f3da0d-bd23-4c40-9793-e20be07d0480/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d2d81896-f9c1-41d4-9c46-e39d4bfe6921/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0c60e003-1f7e-423f-b7fd-0e4b9f019ea6/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.95,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 10,
+      "hasFeatures": true
+    }
+  }
+}

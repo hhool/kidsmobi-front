@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "scooters",
+  "fetchedAt": "2026-07-01T20:06:12.512Z",
+  "data": {
+    "resourceId": "B0DZG137KT:overview",
+    "categoryId": "scooters",
+    "productId": "B0DZG137KT",
+    "resourceType": "product_overview",
+    "title": "Blue Mini 3 Wheel Scooter for Kids – Lean-to-Steer with LED Light-Up Wheels, Adjustable Handlebar, Wide Anti-Slip Deck, Smoot",
+    "summary": "LED WHEELS FOR MAGICAL RIDES – Watch your child's face light up as they ride. The motion-activated LED wheels flash bright colors with every turn, making every scooting adventure extra fun. Plus, they add visibility for a safer ride in low light. | LEAN-TO-STEER CONTROL – No comp",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/77eed8fe-21a1-4c8d-b168-948bab3f413f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/57f739ec-4e37-4a36-8469-42993e44dacb/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c42903f3-6824-4ec4-8ddf-13074f8cad08/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e718c946-4807-4ae3-bec5-19986e03a37b/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/54d13592-9812-491a-9042-8439f1caafd3/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/54b88496-986b-4a84-966a-d6bf84f06237/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.79,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

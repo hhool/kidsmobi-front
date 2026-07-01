@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "fetchedAt": "2026-07-01T21:39:11.971Z",
+  "data": {
+    "resourceId": "B0GQXF73JZ:video",
+    "categoryId": "kids_pull_along_wagons",
+    "productId": "B0GQXF73JZ",
+    "resourceType": "product_video",
+    "title": "ELEMARA All-Terrain Stroller Wagon for 2 Kids, Foldable Kids Wagon Stroller Includes Removable Canopy,Mosquito net, Adjustabl • Video preview",
+    "summary": "Video preview asset set for ELEMARA in kids_pull_along_wagons.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/835263aa-300e-4115-9c92-77a1c44672e2/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/835263aa-300e-4115-9c92-77a1c44672e2/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e1b8e38e-e8e3-4ed2-88c1-5c15ab27406e/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6dca2ccf-004d-40fe-870b-a4996fca5da3/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4ab932d4-8cd3-4d26-80c5-a5849e11e85a/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.86,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 4,
+      "hasFeatures": true
+    }
+  }
+}

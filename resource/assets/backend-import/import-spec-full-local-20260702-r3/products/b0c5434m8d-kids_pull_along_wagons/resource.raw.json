@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "fetchedAt": "2026-07-01T21:39:16.070Z",
+  "data": {
+    "resourceId": "B0C5434M8D:video",
+    "categoryId": "kids_pull_along_wagons",
+    "productId": "B0C5434M8D",
+    "resourceType": "product_video",
+    "title": "Jeep Sport All-Terrain Stroller Wagon by Delta Children - Includes Canopy, Parent Organizer, Adjustable Handlebar, Snack Tray & Cup Holders, Grey/Olive Green • Video preview",
+    "summary": "Video preview asset set for Jeep in kids_pull_along_wagons.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/70fcb8fb-f243-492c-91b7-e8905b4a6023/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/70fcb8fb-f243-492c-91b7-e8905b4a6023/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2ba8bd13-373e-4e98-b73e-7a8a9d1ebe64/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4cfa9c08-90b9-45cf-95e7-24767334075a/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2199cfc2-63a3-4e71-aefb-256793c026bb/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/89d048ea-a972-416c-8fdc-886dd630b906/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9da8c294-2aaf-4ae0-845b-1754ec24f54d/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d4499cad-1dbd-4772-8695-3fb1584347cf/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.98,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 7,
+      "hasFeatures": true
+    }
+  }
+}

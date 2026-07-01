@@ -1,0 +1,543 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "playard",
+  "categoryCode": "stroller",
+  "fetchedAt": "2026-07-01T20:06:11.291Z",
+  "data": {
+    "productId": "B00GUN43AY",
+    "categoryId": "playard",
+    "rank": 1,
+    "title": "Delta Children Infant Changing Table with Pad, White",
+    "brand": "Delta",
+    "price": {
+      "display": "$89.99",
+      "value": 89.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.7  7,277",
+      "value": 4.7
+    },
+    "weight": {
+      "display": "33 Pounds",
+      "lbs": 33
+    },
+    "classification": {
+      "Brand": "Delta",
+      "Playard_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Heavy Duty",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "playard",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "Strong and sturdy wood construction",
+        "Includes water resistant changing pad with safety strap",
+        "Includes two fixed shelves for open storage",
+        "Safety rails enclose all four sides around the top of the table",
+        "Non toxic finish tested for lead and other toxic elements to meet or exceed government and ASTM safety standards",
+        "Made of solid wood and wood composites",
+        "Easy Assembly.This item is eligible for free replacement parts. Contact Amazon Customer Service for more information"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "Strong and sturdy wood construction",
+        "featureLabel": "Strong And Sturdy Wood Construction",
+        "featureValue": "Strong and sturdy wood construction",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from playard classification data"
+      },
+      {
+        "featureKey": "Includes water resistant changing pad with safety strap",
+        "featureLabel": "Includes Water Resistant Changing Pad With Safety Strap",
+        "featureValue": "Includes water resistant changing pad with safety strap",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from playard classification data"
+      },
+      {
+        "featureKey": "Includes two fixed shelves for open storage",
+        "featureLabel": "Includes Two Fixed Shelves For Open Storage",
+        "featureValue": "Includes two fixed shelves for open storage",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from playard classification data"
+      },
+      {
+        "featureKey": "Safety rails enclose all four sides around the top of the table",
+        "featureLabel": "Safety Rails Enclose All Four Sides Around The Top Of The Table",
+        "featureValue": "Safety rails enclose all four sides around the top of the table",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from playard classification data"
+      },
+      {
+        "featureKey": "Non toxic finish tested for lead and other toxic elements to meet or exceed government and ASTM safety standards",
+        "featureLabel": "Non Toxic Finish Tested For Lead And Other Toxic Elements To Meet Or Exceed Government And Astm Safety Standards",
+        "featureValue": "Non toxic finish tested for lead and other toxic elements to meet or exceed government and ASTM safety standards",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from playard classification data"
+      },
+      {
+        "featureKey": "Made of solid wood and wood composites",
+        "featureLabel": "Made Of Solid Wood And Wood Composites",
+        "featureValue": "Made of solid wood and wood composites",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from playard classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "Strong and sturdy wood construction",
+        "Includes water resistant changing pad with safety strap",
+        "Includes two fixed shelves for open storage",
+        "Safety rails enclose all four sides around the top of the table"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+          "source": "local",
+          "order": 10
+        },
+        {
+          "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+          "source": "local",
+          "order": 11
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_1.jpg",
+      "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_2.jpg",
+      "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_3.jpg",
+      "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_4.jpg",
+      "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_5.jpg",
+      "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_6.jpg",
+      "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_7.jpg",
+      "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_8.jpg",
+      "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg"
+    ],
+    "videoUrls": [
+      "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/videos/video_0.mp4",
+      "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/videos/video_1.mp4",
+      "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/videos/video_2.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/e31dad11-1895-4959-bdcd-9f7ed57532f5.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/139e0efb-bd7d-4cda-919d-54006de4fa6a.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/c8c97f1b-5ee2-4810-8acb-aed807343a14.mov/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f50a6ad8-18ba-44b3-8ca5-8cdbcd666764/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dde4085b-112d-43f1-9ebf-3d77fed6f64e/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e8eed328-d3c0-42bd-8e8c-2bbd96b0cb1f/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2b2e5cd6-4aeb-4c03-8634-01e813f56ed8/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/31207034-ca40-4151-bd4e-072b78239f60/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/69bbce1b-1d93-4225-a7cb-f42ac175e209/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/72a53062-73bb-4d00-9cbf-328cdbca1b16/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d02e9118-1523-4748-a114-ccb384017a40/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ff2ea158-31fa-40f9-873a-d052db6d39d3/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/93644f35-f602-49f4-a1e4-e4871614d5bd/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/85932339-37b8-4bea-85a0-942064d713d9/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b28eef0f-9a9b-4cac-a29f-5cec15d45f47/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/53304dd0-5820-4d33-87f5-e99141d624e0/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1d103415-d564-4fc3-a3ad-ade55a937871/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/359c54a8-e64b-4ff7-bc91-73cf4dd942a0/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f8668151-b15b-4719-9e0e-7efb19e36bca/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8fa3d740-0d71-48eb-a9c1-dfc4690b7f10/embedded.cc.default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/videos/video_0.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/videos/video_1.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/videos/video_2.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/e31dad11-1895-4959-bdcd-9f7ed57532f5.mp4/productVideoOptimized.mp4",
+        "source": "scraped",
+        "type": "mp4",
+        "title": "N/A",
+        "thumbnail": "N/A",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/139e0efb-bd7d-4cda-919d-54006de4fa6a.mp4/productVideoOptimized.mp4",
+        "source": "scraped",
+        "type": "mp4",
+        "title": "N/A",
+        "thumbnail": "N/A",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/c8c97f1b-5ee2-4810-8acb-aed807343a14.mov/productVideoOptimized.mp4",
+        "source": "scraped",
+        "type": "mp4",
+        "title": "N/A",
+        "thumbnail": "N/A",
+        "order": 6
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f50a6ad8-18ba-44b3-8ca5-8cdbcd666764/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 7
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dde4085b-112d-43f1-9ebf-3d77fed6f64e/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 8
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e8eed328-d3c0-42bd-8e8c-2bbd96b0cb1f/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 9
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2b2e5cd6-4aeb-4c03-8634-01e813f56ed8/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 10
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/31207034-ca40-4151-bd4e-072b78239f60/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 11
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/69bbce1b-1d93-4225-a7cb-f42ac175e209/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 12
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/72a53062-73bb-4d00-9cbf-328cdbca1b16/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 13
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d02e9118-1523-4748-a114-ccb384017a40/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 14
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ff2ea158-31fa-40f9-873a-d052db6d39d3/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 15
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/93644f35-f602-49f4-a1e4-e4871614d5bd/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 16
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/85932339-37b8-4bea-85a0-942064d713d9/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 17
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b28eef0f-9a9b-4cac-a29f-5cec15d45f47/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 18
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/53304dd0-5820-4d33-87f5-e99141d624e0/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 19
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1d103415-d564-4fc3-a3ad-ade55a937871/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 20
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/359c54a8-e64b-4ff7-bc91-73cf4dd942a0/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 21
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f8668151-b15b-4719-9e0e-7efb19e36bca/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 22
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8fa3d740-0d71-48eb-a9c1-dfc4690b7f10/embedded.cc.default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 23
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/playard/index.html",
+      "categoryPages": "/scrape_store/playard/pages/index.html",
+      "detailPage": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/index.html"
+    },
+    "resourceStats": {
+      "videos": 23,
+      "similarItems": 0
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71rucbKgpuL._AC_UL300_SR300,200_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 13
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 10
+      },
+      {
+        "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      },
+      {
+        "url": "/scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 12
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/e31dad11-1895-4959-bdcd-9f7ed57532f5.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/videos/video_0.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/139e0efb-bd7d-4cda-919d-54006de4fa6a.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/videos/video_1.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/c8c97f1b-5ee2-4810-8acb-aed807343a14.mov/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/videos/video_2.mp4"
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

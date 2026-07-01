@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "scooters",
+  "fetchedAt": "2026-07-01T20:06:12.467Z",
+  "data": {
+    "resourceId": "B0GR4L2L28:overview",
+    "categoryId": "scooters",
+    "productId": "B0GR4L2L28",
+    "resourceType": "product_overview",
+    "title": "VOLPAM Electric Scooter, 350W/500W/800W/1000W/250W Powerful Motor & 19/22/ 9 MPH Top Speed, 16-28-10 Miles Long Range, Foldin",
+    "summary": "Powerful Performance & 3 Speeds: Dominate your city commute with a high-torque 500W motor that reaches a top speed of 22 MPH. Featuring three adjustable 3 speed modes, this electric scooter for adults allows you to seamlessly transition between crowded sidewalks and open bike lan",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/index.html",
+    "videoUrls": [
+      "/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/videos/video_0.mp4",
+      "/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/videos/video_1.mp4",
+      "/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/videos/video_2.mp4",
+      "/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/videos/video_3.mp4",
+      "/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/videos/video_4.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/cf1bc629-eb22-4402-8541-948db9087be9.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/32165a30-f74b-4b24-837e-60ed7874ee31.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/137faf0a-83ad-4dc5-8247-348c3e975b03.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/4d08cbda-f8d3-4a91-948a-f8f953190921.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/1379832e-2949-4ae3-8711-5333a1f9445d.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/36986bb7-28b0-4226-8077-e390e86ca78e/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fcd67e37-baa1-4de6-a7db-365e31673e48/embedded.cc.default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a6de5042-9b54-42ca-bcda-4b426f65c3dc/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/361d97c6-3904-49c5-b0e7-d466ba7f4bfc/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8ebee35a-a7b2-474f-9c7e-812f52b7afde/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2e2e9c56-1e9f-4688-adf9-3cb7dec42388/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8d908beb-1a51-4e82-a59f-be415c058999/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1de3ab0c-6281-4fcc-b487-0aa8f6be3813/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3100f417-fdb5-4f49-9912-d8f908f75f97/embedded.cc.default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 1,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 19,
+      "hasFeatures": true
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "electric_vehicles",
+  "fetchedAt": "2026-07-01T20:06:12.807Z",
+  "data": {
+    "resourceId": "B017HHKGIE:overview",
+    "categoryId": "electric_vehicles",
+    "productId": "B017HHKGIE",
+    "resourceType": "product_overview",
+    "title": "Kids Motorcycle - 3-Wheel Ride on Toy with Police Decals, Reverse, and Headlights - 6V Electric Motorcycle for Kids Ages 3 to",
+    "summary": "MOTORCYCLE FOR KIDS - Satisfy your child's need for imaginative play with this electric bike for kids. Perfect for indoors and outdoors, the toddler motorcycle works on any hard, flat surface and has a compact, lightweight design for easy transport | REALISTIC FEATURES - The kid’",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/electric_vehicles/Kids/Rank_3_ASIN_B017HHKGIE_Kids Motorcycle - 3-Wheel Ride on Toy with Police/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/546fa99c-ae6b-4d99-a883-2d97d1ad6028/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.59,
+    "credibilityLevel": "low",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 1,
+      "hasFeatures": true
+    }
+  }
+}

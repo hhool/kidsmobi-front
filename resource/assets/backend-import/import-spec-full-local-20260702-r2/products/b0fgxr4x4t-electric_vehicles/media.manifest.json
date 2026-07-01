@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0FGXR4X4T",
+  "sourceCategoryId": "electric_vehicles",
+  "images": [
+    {
+      "productId": "B0FGXR4X4T",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FGXR4X4T:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Winado/Rank_9_ASIN_B0FGXR4X4T_Winado Licensed Chevrolet Colorado Electric Car fo/images/primary.jpg",
+      "targetPathKeep": "resources/b0fgxr4x4t-overview/primary.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fgxr4x4t/cover/primary.jpg"
+    },
+    {
+      "productId": "B0FGXR4X4T",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FGXR4X4T:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Winado/Rank_9_ASIN_B0FGXR4X4T_Winado Licensed Chevrolet Colorado Electric Car fo/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0fgxr4x4t-overview/alt_1.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fgxr4x4t/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0FGXR4X4T",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FGXR4X4T:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Winado/Rank_9_ASIN_B0FGXR4X4T_Winado Licensed Chevrolet Colorado Electric Car fo/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0fgxr4x4t-overview/alt_2.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fgxr4x4t/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0FGXR4X4T",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FGXR4X4T:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Winado/Rank_9_ASIN_B0FGXR4X4T_Winado Licensed Chevrolet Colorado Electric Car fo/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0fgxr4x4t-overview/alt_3.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fgxr4x4t/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0FGXR4X4T",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FGXR4X4T:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Winado/Rank_9_ASIN_B0FGXR4X4T_Winado Licensed Chevrolet Colorado Electric Car fo/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0fgxr4x4t-overview/alt_4.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fgxr4x4t/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0FGXR4X4T",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FGXR4X4T:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Winado/Rank_9_ASIN_B0FGXR4X4T_Winado Licensed Chevrolet Colorado Electric Car fo/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0fgxr4x4t-overview/alt_5.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fgxr4x4t/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0FGXR4X4T",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FGXR4X4T:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Winado/Rank_9_ASIN_B0FGXR4X4T_Winado Licensed Chevrolet Colorado Electric Car fo/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0fgxr4x4t-overview/alt_6.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fgxr4x4t/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0FGXR4X4T",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FGXR4X4T:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Winado/Rank_9_ASIN_B0FGXR4X4T_Winado Licensed Chevrolet Colorado Electric Car fo/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0fgxr4x4t-overview/alt_7.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fgxr4x4t/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0FGXR4X4T",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FGXR4X4T:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Winado/Rank_9_ASIN_B0FGXR4X4T_Winado Licensed Chevrolet Colorado Electric Car fo/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0fgxr4x4t-overview/alt_8.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fgxr4x4t/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0FGXR4X4T",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FGXR4X4T:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Winado/Rank_9_ASIN_B0FGXR4X4T_Winado Licensed Chevrolet Colorado Electric Car fo/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0fgxr4x4t-overview/alt_9.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fgxr4x4t/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0FGXR4X4T",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FGXR4X4T:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Winado/Rank_9_ASIN_B0FGXR4X4T_Winado Licensed Chevrolet Colorado Electric Car fo/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+      "targetPathKeep": "resources/b0fgxr4x4t-overview/aplus_00.png",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fgxr4x4t/gallery/aplus_00.png"
+    },
+    {
+      "productId": "B0FGXR4X4T",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FGXR4X4T:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Winado/Rank_9_ASIN_B0FGXR4X4T_Winado Licensed Chevrolet Colorado Electric Car fo/images/primary.jpg",
+      "targetPathKeep": "resources/b0fgxr4x4t-overview/primary.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fgxr4x4t/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0FGXR4X4T",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FGXR4X4T:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/71iyhXxrXWL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0fgxr4x4t-overview/71iyhxxrxwl._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fgxr4x4t/gallery/71iyhxxrxwl._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3c7c4fea-9f3d-4be2-9155-80cfa973a4f8/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a99aa116-9da9-48d1-8ee6-674f000b435e/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1109591d-f92c-49cc-99cf-ab270445be02/default.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/electric_vehicles/Winado/Rank_9_ASIN_B0FGXR4X4T_Winado Licensed Chevrolet Colorado Electric Car fo/index.html"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "balance_bike",
+  "fetchedAt": "2026-07-01T20:06:11.701Z",
+  "data": {
+    "resourceId": "B0DDQ4FQHK:overview",
+    "categoryId": "balance_bike",
+    "productId": "B0DDQ4FQHK",
+    "resourceType": "product_overview",
+    "title": "SEREED Toddler Balance Bike 2 Year Old, No Pedal Kids Toy Bike for 2-5 Years Old, Tool-Free Adjustment, Gift for 2-3 Boys Gir",
+    "summary": "STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame, supports up to 110 lbs, safe footrest pad, rubber grips, soft saddle and a 12.6 inch starting seat height, let your little one enjoy cycling at an early age!",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6da144cb-0125-492b-9b5a-cc38c91aee94/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5cf49f00-c58e-4cc1-9dc6-28bbff762424/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/70138f9b-b376-4893-b692-716d9d695955/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1065f161-7551-44cc-80e9-dfc88494ba4f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/062b730f-e4cf-407e-81e4-d584fcd5c7d2/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/80a334bd-1bc0-40b0-950e-30089791b50e/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.79,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

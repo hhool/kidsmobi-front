@@ -1,0 +1,241 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_tricycles",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T21:39:01.639Z",
+  "data": {
+    "productId": "B0BQQBDGPJ",
+    "categoryId": "kids_tricycles",
+    "rank": 11,
+    "title": "JMMD 8 in 1 Tricycle Stroller with Push Handle, Foldable Trike with 360° Swivel Seat, Reclining Backrest, All-Terrain Wheels,",
+    "brand": "JMMD",
+    "price": {
+      "display": "$135.95",
+      "value": 135.95,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.7  712",
+      "value": 4.7
+    },
+    "weight": {
+      "display": "4.54 Pounds",
+      "lbs": 4.54
+    },
+    "classification": {
+      "Brand": "JMMD",
+      "Tricycle_Type": "Sport",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "100-200"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_tricycles",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "GROWS WITH YOUR CHILD — FROM 6 MONTHS TO 5 YEARS: Designed to grow alongside your child",
+        "JMMD 8-in-1 tricycle stroller supports every stage from 6 months to 5 years. Easily converts from parent-push stroller mode to toddler trike",
+        "steering trike",
+        "learn-to-ride trike and classic trike—one smart investment that replaces multiple toddler vehicles.",
+        "FOLDABLE & TRAVEL-FRIENDLY — PERFECT FOR APARTMENTS: The toddler stroller folds down quickly for compact storage and fits easily in a standard car trunk",
+        "making it ideal for apartment living",
+        "road trips",
+        "and everyday outings. Store it neatly when not in use—no bulky gear taking over your space.",
+        "SAFE",
+        "STURDY & BUILT TO LAST: Built with a reinforced steel frame (supports up to 55 lbs) for long-term durability and stability",
+        "this push stroller tricycle is designed to safely support your child through every growth stage. Features a 3-point safety harness",
+        "detachable safety bar",
+        "rear dual brakes",
+        "and is ASTM F963 & CPSIA certified",
+        "giving parents confidence at every stage.",
+        "COMFORTABLE RIDE — INDOORS & OUTDOORS: Designed as a versatile stroller bike for toddler",
+        "the 360° swivel seat with lockable",
+        "multi-position recline keeps younger babies comfortable while allowing interaction as they grow. Equipped with maintenance-free EVA all-terrain wheels that roll smoothly on sidewalks",
+        "parks",
+        "and rough surfaces—no inflation needed. Includes an adjustable canopy",
+        "storage basket",
+        "cup holder",
+        "and parent pockets for everyday convenience.",
+        "TOOL-FREE SETUP IN ABOUT 5 MINUTES — ONE-PERSON FRIENDLY: No tools",
+        "no frustration. The JMMD toddler tricycle is mostly pre-assembled and can be set up in about 5 minutes by one person",
+        "making it ideal for busy parents who want to spend time with their child—not with instructions."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "GROWS WITH YOUR CHILD — FROM 6 MONTHS TO 5 YEARS: Designed to grow alongside your child",
+        "featureLabel": "GROWS WITH YOUR CHILD — FROM 6 MONTHS TO 5 YEARS: Designed To Grow Alongside Your Child",
+        "featureValue": "GROWS WITH YOUR CHILD — FROM 6 MONTHS TO 5 YEARS: Designed to grow alongside your child",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "JMMD 8-in-1 tricycle stroller supports every stage from 6 months to 5 years. Easily converts from parent-push stroller mode to toddler trike",
+        "featureLabel": "JMMD 8 In 1 Tricycle Stroller Supports Every Stage From 6 Months To 5 Years. Easily Converts From Parent Push Stroller Mode To Toddler Trike",
+        "featureValue": "JMMD 8-in-1 tricycle stroller supports every stage from 6 months to 5 years. Easily converts from parent-push stroller mode to toddler trike",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "steering trike",
+        "featureLabel": "Steering Trike",
+        "featureValue": "steering trike",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "learn-to-ride trike and classic trike—one smart investment that replaces multiple toddler vehicles.",
+        "featureLabel": "Learn To Ride Trike And Classic Trike—One Smart Investment That Replaces Multiple Toddler Vehicles.",
+        "featureValue": "learn-to-ride trike and classic trike—one smart investment that replaces multiple toddler vehicles.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "FOLDABLE & TRAVEL-FRIENDLY — PERFECT FOR APARTMENTS: The toddler stroller folds down quickly for compact storage and fits easily in a standard car trunk",
+        "featureLabel": "FOLDABLE & TRAVEL FRIENDLY — PERFECT FOR APARTMENTS: The Toddler Stroller Folds Down Quickly For Compact Storage And Fits Easily In A Standard Car Trunk",
+        "featureValue": "FOLDABLE & TRAVEL-FRIENDLY — PERFECT FOR APARTMENTS: The toddler stroller folds down quickly for compact storage and fits easily in a standard car trunk",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "making it ideal for apartment living",
+        "featureLabel": "Making It Ideal For Apartment Living",
+        "featureValue": "making it ideal for apartment living",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "GROWS WITH YOUR CHILD — FROM 6 MONTHS TO 5 YEARS: Designed to grow alongside your child",
+        "JMMD 8-in-1 tricycle stroller supports every stage from 6 months to 5 years. Easily converts from parent-push stroller mode to toddler trike",
+        "steering trike",
+        "learn-to-ride trike and classic trike—one smart investment that replaces multiple toddler vehicles."
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/71u02veZBML._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71u02veZBML._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/86b3b158-08f5-4692-916a-38ddb44989fc/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fe4b7237-2fe8-42b7-ae70-583afe94ba6b/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/32940782-af68-4cdd-9bd9-943a4b09822a/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f4b3006d-f3ff-44ea-9e05-4832f99b91a1/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/69ef10de-b8ff-4c4f-82d4-5af7f602d7e6/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2386150a-95dd-46e1-ae35-a7cb7ff1c396/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c3fbaf63-295c-4064-9c54-89f1127c47d7/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d947a3b3-5cbe-481f-a2ba-e804b59abca6/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/45a9bc8e-e192-416e-af7f-173c3302328b/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1275c57e-9cbc-4d67-93dc-a38b089cb36d/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 10,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/86b3b158-08f5-4692-916a-38ddb44989fc/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61nBJ-p6OkL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "JMMD 8-in-1 Tricycle Stroller Real-Life Usage Showcase",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fe4b7237-2fe8-42b7-ae70-583afe94ba6b/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51uPkO2Oa1L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "JMMD All in One Stroller Push Bike Test",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/32940782-af68-4cdd-9bd9-943a4b09822a/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51M4-DjCVuL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "7-in-1 Folding Kids Trike, Immersive Ride",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f4b3006d-f3ff-44ea-9e05-4832f99b91a1/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51E6OlF3bAL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Baby 7-in-1 Folding Tricycle",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/69ef10de-b8ff-4c4f-82d4-5af7f602d7e6/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51zM2SA01FL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "JMMD folding tricycle push handle upgrade",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2386150a-95dd-46e1-ae35-a7cb7ff1c396/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/917Lx1H7YjL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Key Facts Before Ordering Baby Trike",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c3fbaf63-295c-4064-9c54-89f1127c47d7/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1OP36lcWSL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "My honest review of trike stroller ",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d947a3b3-5cbe-481f-a2ba-e804b59abca6/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91t6aVnZ0HL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "New ride for the kiddos! JMMD tricycle is a hit. Thumbnail Oink",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/45a9bc8e-e192-416e-af7f-173c3302328b/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71NufyltOgL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Toddler Tricyle Stroller",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1275c57e-9cbc-4d67-93dc-a38b089cb36d/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1m+tEjN2WL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "High quality, great on all terrain",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0FJY2XC2D",
+  "sourceCategoryId": "scooters",
+  "images": [
+    {
+      "productId": "B0FJY2XC2D",
+      "categoryId": "scooters",
+      "resourceId": "B0FJY2XC2D:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/primary.jpg",
+      "targetPathKeep": "resources/b0fjy2xc2d-overview/primary.jpg",
+      "targetPathCpk": "categories/scooters/products/b0fjy2xc2d/cover/primary.jpg"
+    },
+    {
+      "productId": "B0FJY2XC2D",
+      "categoryId": "scooters",
+      "resourceId": "B0FJY2XC2D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0fjy2xc2d-overview/alt_1.jpg",
+      "targetPathCpk": "categories/scooters/products/b0fjy2xc2d/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0FJY2XC2D",
+      "categoryId": "scooters",
+      "resourceId": "B0FJY2XC2D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0fjy2xc2d-overview/alt_2.jpg",
+      "targetPathCpk": "categories/scooters/products/b0fjy2xc2d/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0FJY2XC2D",
+      "categoryId": "scooters",
+      "resourceId": "B0FJY2XC2D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0fjy2xc2d-overview/alt_3.jpg",
+      "targetPathCpk": "categories/scooters/products/b0fjy2xc2d/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0FJY2XC2D",
+      "categoryId": "scooters",
+      "resourceId": "B0FJY2XC2D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0fjy2xc2d-overview/alt_4.jpg",
+      "targetPathCpk": "categories/scooters/products/b0fjy2xc2d/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0FJY2XC2D",
+      "categoryId": "scooters",
+      "resourceId": "B0FJY2XC2D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0fjy2xc2d-overview/alt_5.jpg",
+      "targetPathCpk": "categories/scooters/products/b0fjy2xc2d/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0FJY2XC2D",
+      "categoryId": "scooters",
+      "resourceId": "B0FJY2XC2D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0fjy2xc2d-overview/alt_6.jpg",
+      "targetPathCpk": "categories/scooters/products/b0fjy2xc2d/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0FJY2XC2D",
+      "categoryId": "scooters",
+      "resourceId": "B0FJY2XC2D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0fjy2xc2d-overview/alt_7.jpg",
+      "targetPathCpk": "categories/scooters/products/b0fjy2xc2d/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0FJY2XC2D",
+      "categoryId": "scooters",
+      "resourceId": "B0FJY2XC2D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0fjy2xc2d-overview/alt_8.jpg",
+      "targetPathCpk": "categories/scooters/products/b0fjy2xc2d/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0FJY2XC2D",
+      "categoryId": "scooters",
+      "resourceId": "B0FJY2XC2D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0fjy2xc2d-overview/alt_9.jpg",
+      "targetPathCpk": "categories/scooters/products/b0fjy2xc2d/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0FJY2XC2D",
+      "categoryId": "scooters",
+      "resourceId": "B0FJY2XC2D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0fjy2xc2d-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/scooters/products/b0fjy2xc2d/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0FJY2XC2D",
+      "categoryId": "scooters",
+      "resourceId": "B0FJY2XC2D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/primary.jpg",
+      "targetPathKeep": "resources/b0fjy2xc2d-overview/primary.jpg",
+      "targetPathCpk": "categories/scooters/products/b0fjy2xc2d/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0FJY2XC2D",
+      "categoryId": "scooters",
+      "resourceId": "B0FJY2XC2D:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/510JvgA+mmL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0fjy2xc2d-overview/510jvga-mml._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/scooters/products/b0fjy2xc2d/gallery/510jvga-mml._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c3398023-4f48-4de3-ac76-c69fc8fb2f48/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c0749b91-6a8f-4b2c-9ea7-4ece4080b1b9/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/03f99817-f512-4903-9cbb-8b0ca102794c/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a0af9ad2-66a7-4244-8b7e-899a12a2cc4b/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/20ebb053-3805-4756-97b7-abd877730d54/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/58848f5a-c596-4998-936b-aea463583267/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/50b5166f-9f01-45be-9973-d271a16286af/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/34c4467e-8e6e-4622-b363-627b6e32eccf/default.vertical.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/index.html"
+  ]
+}

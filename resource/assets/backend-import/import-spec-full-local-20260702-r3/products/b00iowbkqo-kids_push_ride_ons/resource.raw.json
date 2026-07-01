@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "fetchedAt": "2026-07-01T21:39:04.801Z",
+  "data": {
+    "resourceId": "B00IOWBKQO:video",
+    "categoryId": "kids_push_ride_ons",
+    "productId": "B00IOWBKQO",
+    "resourceType": "product_video",
+    "title": "Wiggle Car - Ride on Toy for Ages 3 and Up - Toddler Ride on Toys with no Batteries, Gears, or Pedals Just Twist, Wiggle, and • Video preview",
+    "summary": "Video preview asset set for Wiggle in kids_push_ride_ons.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/887f38e9-ecdf-4f91-98c1-ac7ac95b9175/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/887f38e9-ecdf-4f91-98c1-ac7ac95b9175/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e84cf2c6-5b89-4f3d-a0a2-5e1fab618917/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e423331f-a4bb-4a40-ba22-a6b2a55d16e1/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/132ad105-456b-491d-b565-7cb80ea1309f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b7e50428-2daf-4244-bdd4-fb3bd426ffa3/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/60e8d860-ec9b-4d72-aa54-6e8d33809866/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.94,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

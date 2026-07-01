@@ -1,0 +1,156 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B001NQHN7S",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "images": [
+    {
+      "productId": "B001NQHN7S",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B001NQHN7S:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_10_ASIN_B001NQHN7S_Little Tikes Cozy Coupe 30th Anniversary Car/images/primary.jpg",
+      "targetPathKeep": "resources/b001nqhn7s-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b001nqhn7s/cover/primary.jpg"
+    },
+    {
+      "productId": "B001NQHN7S",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B001NQHN7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_10_ASIN_B001NQHN7S_Little Tikes Cozy Coupe 30th Anniversary Car/images/alt_1.jpg",
+      "targetPathKeep": "resources/b001nqhn7s-overview/alt_1.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b001nqhn7s/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B001NQHN7S",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B001NQHN7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_10_ASIN_B001NQHN7S_Little Tikes Cozy Coupe 30th Anniversary Car/images/alt_2.jpg",
+      "targetPathKeep": "resources/b001nqhn7s-overview/alt_2.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b001nqhn7s/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B001NQHN7S",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B001NQHN7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_10_ASIN_B001NQHN7S_Little Tikes Cozy Coupe 30th Anniversary Car/images/alt_3.jpg",
+      "targetPathKeep": "resources/b001nqhn7s-overview/alt_3.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b001nqhn7s/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B001NQHN7S",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B001NQHN7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_10_ASIN_B001NQHN7S_Little Tikes Cozy Coupe 30th Anniversary Car/images/alt_4.jpg",
+      "targetPathKeep": "resources/b001nqhn7s-overview/alt_4.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b001nqhn7s/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B001NQHN7S",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B001NQHN7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_10_ASIN_B001NQHN7S_Little Tikes Cozy Coupe 30th Anniversary Car/images/alt_5.jpg",
+      "targetPathKeep": "resources/b001nqhn7s-overview/alt_5.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b001nqhn7s/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B001NQHN7S",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B001NQHN7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_10_ASIN_B001NQHN7S_Little Tikes Cozy Coupe 30th Anniversary Car/images/alt_6.jpg",
+      "targetPathKeep": "resources/b001nqhn7s-overview/alt_6.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b001nqhn7s/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B001NQHN7S",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B001NQHN7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_10_ASIN_B001NQHN7S_Little Tikes Cozy Coupe 30th Anniversary Car/images/alt_7.jpg",
+      "targetPathKeep": "resources/b001nqhn7s-overview/alt_7.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b001nqhn7s/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B001NQHN7S",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B001NQHN7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_10_ASIN_B001NQHN7S_Little Tikes Cozy Coupe 30th Anniversary Car/images/alt_8.jpg",
+      "targetPathKeep": "resources/b001nqhn7s-overview/alt_8.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b001nqhn7s/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B001NQHN7S",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B001NQHN7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_10_ASIN_B001NQHN7S_Little Tikes Cozy Coupe 30th Anniversary Car/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b001nqhn7s-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b001nqhn7s/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B001NQHN7S",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B001NQHN7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_10_ASIN_B001NQHN7S_Little Tikes Cozy Coupe 30th Anniversary Car/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "targetPathKeep": "resources/b001nqhn7s-overview/aplus_01.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b001nqhn7s/gallery/aplus_01.jpg"
+    },
+    {
+      "productId": "B001NQHN7S",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B001NQHN7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_10_ASIN_B001NQHN7S_Little Tikes Cozy Coupe 30th Anniversary Car/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "targetPathKeep": "resources/b001nqhn7s-overview/aplus_02.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b001nqhn7s/gallery/aplus_02.jpg"
+    },
+    {
+      "productId": "B001NQHN7S",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B001NQHN7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_10_ASIN_B001NQHN7S_Little Tikes Cozy Coupe 30th Anniversary Car/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.png",
+      "targetPathKeep": "resources/b001nqhn7s-overview/aplus_03.png",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b001nqhn7s/gallery/aplus_03.png"
+    },
+    {
+      "productId": "B001NQHN7S",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B001NQHN7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_10_ASIN_B001NQHN7S_Little Tikes Cozy Coupe 30th Anniversary Car/images/primary.jpg",
+      "targetPathKeep": "resources/b001nqhn7s-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b001nqhn7s/gallery/primary.jpg"
+    },
+    {
+      "productId": "B001NQHN7S",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B001NQHN7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/51KQC8H1QaL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b001nqhn7s-overview/51kqc8h1qal._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b001nqhn7s/gallery/51kqc8h1qal._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_10_ASIN_B001NQHN7S_Little Tikes Cozy Coupe 30th Anniversary Car/videos/video_3.mp4",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/f27294d8-db7b-5366-b2d9-b0cda1a73aca/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d9643aa3-1857-401b-a200-3305958f8adf/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9c0ce93f-a9c2-4f1d-8dac-e67c05191a65/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b2fdd0e2-071d-4651-ab00-70d3b980a26f/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a3982dec-c379-44ce-9d8a-d2ce9fbfb62b/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9dc9ef43-3a43-4c12-9ed6-c1a75427a453/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/77aaa777-bd4b-4c4e-bd09-3db5133a5561/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/195d59b4-03d8-44db-b405-ee2bc6fe8f37/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0ff1c544-6530-4f2e-8281-61726592b5bb/default.vertical.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Little/Rank_10_ASIN_B001NQHN7S_Little Tikes Cozy Coupe 30th Anniversary Car/index.html"
+  ]
+}

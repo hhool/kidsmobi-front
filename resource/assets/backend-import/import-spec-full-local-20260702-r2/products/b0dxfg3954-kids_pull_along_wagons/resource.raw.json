@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "fetchedAt": "2026-07-01T20:06:16.068Z",
+  "data": {
+    "resourceId": "B0DXFG3954:overview",
+    "categoryId": "kids_pull_along_wagons",
+    "productId": "B0DXFG3954",
+    "resourceType": "product_overview",
+    "title": "Rovique Wagon Stroller for 2 Kids,Premium Wagon for Kids with Removable Canopy, Snack Tray, Convertible Baby Bassinet, 5-Poin",
+    "summary": "Convertible Baby Cradle Mode: Unlike traditional stroller wagons, this wagon stroller for 2 kids features a unique convertible baby cradle mode, allowing your child to rest comfortably during outdoor adventures. Whether you're strolling through the park or traveling long distance",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_pull_along_wagons/Rovique/Rank_8_ASIN_B0DXFG3954_Rovique Wagon Stroller for 2 KidsPremium Wagon for/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c7b80b87-0ee7-429f-ab24-105c885baf12/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6008e009-c7cf-4841-a6f0-79a7d2317a0b/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e1409626-f587-495f-93cb-bf344daf436d/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e46f64e6-07fd-402c-bfd6-bea30cb1dc43/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b34b565d-a9b5-4ab9-9063-4c312c2fe592/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.75,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 5,
+      "hasFeatures": true
+    }
+  }
+}

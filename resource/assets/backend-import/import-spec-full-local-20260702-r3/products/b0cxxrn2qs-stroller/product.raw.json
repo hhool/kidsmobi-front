@@ -1,0 +1,2260 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "stroller",
+  "categoryCode": "stroller",
+  "fetchedAt": "2026-07-01T21:38:26.423Z",
+  "data": {
+    "productId": "B0CXXRN2QS",
+    "categoryId": "stroller",
+    "rank": 2,
+    "title": "MAMAZING Ultra Air Lightweight Baby Travel Stroller with Carbon Fiber Frame, Compact & Airplane-Friendly, One-Handed Fold, 11",
+    "brand": "MAMAZING",
+    "price": {
+      "display": "$179.99",
+      "value": 179.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.6  1,890",
+      "value": 4.6
+    },
+    "weight": {
+      "display": "11.6 Pounds",
+      "lbs": 11.6
+    },
+    "classification": {
+      "Brand": "MAMAZING",
+      "Stroller_Type": "Standard Stroller",
+      "Travel_System_Ready": "No",
+      "Seating_Capacity": "1",
+      "Wheel_Configuration": "4",
+      "Harness_Type": "5 Point",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "100-200"
+    },
+    "categoryAttributes": {
+      "categoryId": "stroller",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "Carbon Fiber",
+        "Imported",
+        "Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. Weighing in at just 11.6 pounds",
+        "thanks to its advanced carbon fiber frame",
+        "ensuring a hassle-free experience wherever you go. This innovative material not only provides exceptional durability but also allows for an incredibly lightweight construction",
+        "making it a breeze to store in trunks or overhead bins on airplanes.",
+        "User-Friendly Fold & Unfold: Gone are the days of struggling with complex folding mechanisms. Our lightweight travel stroller features a user-friendly fold-and-unfold system that can be mastered in seconds. This makes transitioning from strolling to storing a seamless process",
+        "allowing you to focus on creating memories with your loved ones.",
+        "Sun Protection and Comfort: Your child's comfort and safety are our top priorities. The Ultra Air Stroller features a UV-protective canopy that shields your little one from harmful sun rays",
+        "providing a cool and shaded haven for them to relax in. The adjustable UPF 50+ canopy can be easily positioned to cater to different sun angles",
+        "allowing you to create the perfect shady spot as you explore outdoor locales.",
+        "Ample Storage Space: No need to worry about leaving essentials behind! This compact toddler stroller comes with ample storage options",
+        "including a spacious under-seat basket that can easily accommodate diaper bags",
+        "toys",
+        "snacks",
+        "and more. Keep your hands free and your child's necessities within reach as you embark on your adventures.",
+        "Safety First: We prioritize your child's safety. Our infant stroller features a 5-point harness and foot-operated brake system for maximum security. Suitable for babies aged 6 months up to 50 pounds (maximum height of 39.4 inches). Ultra Air meets or exceeds the highest safety standards set by the CPSC and ASTM."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "Carbon Fiber",
+        "featureLabel": "Carbon Fiber",
+        "featureValue": "Carbon Fiber",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "Imported",
+        "featureLabel": "Imported",
+        "featureValue": "Imported",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. Weighing in at just 11.6 pounds",
+        "featureLabel": "Compact & Lightweight Design: Say Goodbye To Bulky Strollers That Make Travel A Hassle. Our Baby Stroller Boasts Compact Design That Effortlessly Folds Down Into A Compact Size. Weighing In At Just 11.6 Pounds",
+        "featureValue": "Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. Weighing in at just 11.6 pounds",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "thanks to its advanced carbon fiber frame",
+        "featureLabel": "Thanks To Its Advanced Carbon Fiber Frame",
+        "featureValue": "thanks to its advanced carbon fiber frame",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "ensuring a hassle-free experience wherever you go. This innovative material not only provides exceptional durability but also allows for an incredibly lightweight construction",
+        "featureLabel": "Ensuring A Hassle Free Experience Wherever You Go. This Innovative Material Not Only Provides Exceptional Durability But Also Allows For An Incredibly Lightweight Construction",
+        "featureValue": "ensuring a hassle-free experience wherever you go. This innovative material not only provides exceptional durability but also allows for an incredibly lightweight construction",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "making it a breeze to store in trunks or overhead bins on airplanes.",
+        "featureLabel": "Making It A Breeze To Store In Trunks Or Overhead Bins On Airplanes.",
+        "featureValue": "making it a breeze to store in trunks or overhead bins on airplanes.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from stroller classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "Carbon Fiber",
+        "Imported",
+        "Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. Weighing in at just 11.6 pounds",
+        "thanks to its advanced carbon fiber frame"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/71d4RVIyyUL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71d4RVIyyUL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3e952392-410d-4d14-aa58-139b976f14f2/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3f13abdb-fa1a-4862-8ac2-8dac1af825af/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/93b2bdce-2491-417b-9aba-2aa0e62e9cc2/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62457925-bd8b-492d-beb0-aa2bfcfbda00/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c218e939-3f24-4d38-b340-f798d939c476/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/05ea39a6-bd26-416d-9b5e-3a891595d600/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7469cfed-70cc-478e-bd1e-0b8722b414dd/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/978b418b-de83-4aa8-b2f6-3fb4f717251d/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b9856f0e-45f6-4140-80dd-91b9aacf0785/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 9,
+      "similarItems": 2
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3e952392-410d-4d14-aa58-139b976f14f2/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81M+OPVsg-L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "User Guide for Mamazing Ultra Air",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3f13abdb-fa1a-4862-8ac2-8dac1af825af/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1lnYPe9AiL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "MAMAZING Ultra Air fits in trunk, closet, or bin easily.",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/93b2bdce-2491-417b-9aba-2aa0e62e9cc2/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/714BOobzVgL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Amazing Carbon Fiber Baby Stroller, too too light : )",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62457925-bd8b-492d-beb0-aa2bfcfbda00/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1p3FFo2SGL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "MAMAZING Ultra Air, amazing ultra light!:)",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c218e939-3f24-4d38-b340-f798d939c476/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81ufjOSG3yL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Soo COMPACT!! MY Review of THIS Stroller!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/05ea39a6-bd26-416d-9b5e-3a891595d600/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/813FweeIjvL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Why You Need This Mamazing Stroller",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7469cfed-70cc-478e-bd1e-0b8722b414dd/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A14JBggM14L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Great travel and everyday stroller for toddler",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/978b418b-de83-4aa8-b2f6-3fb4f717251d/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71v2VYemArL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Baby Must Have #babiesandtoddlers",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b9856f0e-45f6-4140-80dd-91b9aacf0785/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1EmF8doCSL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Fits in Airplane Top Storage + Lays flat for Newborn!",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "Mompush",
+        "Title": "Mompush Nexis Carbon Travel Stroller, Ultra-Lightweight 11.5 lbs, Compact & Airplane Carry-On Approved, One-Second Auto-Fold,",
+        "Price": "$199.99",
+        "Rating": "4.5",
+        "Reviews": "182",
+        "URL": "https://www.amazon.com/Stroller-Ultra-Lightweight-One-Second-Auto-Fold-Certified/dp/B0FPFZ9YQL/ref=bmx_dp_d_sccl_1_3/136-2208227-9597738?pd_rd_w=FkD0g&content-id=amzn1.sym.c952656f-2e08-43b8-b699-3c3bba430c7f&pf_rd_p=c952656f-2e08-43b8-b699-3c3bba430c7f&pf_rd_r=FQAHE4JA8GRYPJAAHNWM&pd_rd_wg=8sDDZ&pd_rd_r=b1ecce8e-23b6-4a7e-8dcd-87e4cf96faad&pd_rd_i=B0FPFZ9YQL&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/7114aqk68OL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B0FPFZ9YQL",
+        "Features": "Polyester | Lightness for World Travel: Jet-set effortlessly. Nexis carbon fiber frame weighs at 11.5 lbs—carry-on compliant and overhead bin ready. Stow in seconds for seamless flights, and it handles and maneuvers like a dream ‒ yet more ease for you. | One-Hand Freedom: Master on-the-go parenting with effortless one-hand mastery across every feature: auto-fold self-standing in seconds (shoulder strap included for free hands); adjust the no-rethread harness in a snap; and recline smoothly for undisturbed naps. | Upright Sitting, Flat Reclining: Elevate journeys with one-touch, multi-angle adjustments—ditching cumbersome webbing for sleek mechanical precision. Recline near-90° upright for views, or 170° flat for restorative naps. Includes adjustable footrest and newborn foot barrier for from-birth safety. | Enhanced Comfort: Enjoy sun-soaked strolls under the XL Canopy—50+ UV protection with a breezy mesh window for instant shade. Includes rain cover for dry, safe adventures in any weather. Spacious ergonomic seat with breathable 3D mesh lining for all-day comfort. | Smoother Strolls Ahead: Conquer every path with full suspension and larger wheels for an ultra-smooth ride—effortless gliding for both baby and caregiver on endless travel days. High-strength, high-modulus carbon fiber frame delivers lightweight sturdiness without compromise. Plus, the quick-to-secure harness system and removable bumper bar ensures all-around safety and protection.",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ab546842-269b-43a3-9781-868c5dede2a2/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ab546842-269b-43a3-9781-868c5dede2a2/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/712Vp7FECgL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Mompush Nexis Carbon Lightweight Stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/057a55aa-c6a8-4ed5-96ca-45db8c28ac1c/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71mjboNtVzL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Mompush Nexis Carbon Lightweight Stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/aa5380b2-fe4c-4fac-9023-71f7edcf0493/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/619GSYq2JDL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Mompush Nexis Carbon Lightweight Stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/92b696fd-c0cf-4633-9dff-714457bce19f/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71Ro4zxSZYL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Mompush Nexis Carbon Lightweight Travel Stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/936ba899-c27b-4253-801c-9675040404a9/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71UqRtJ9jfL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Mompush Nexis Carbon Lightweight Stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1c26f113-d60c-4bda-919e-d93279727209/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71blZiDrYpL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Tested and tried- How easy is this to use with full hands",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d29c2df2-f776-4e38-91c7-7eaf65c13f7e/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71GWWDVWG3L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "the truth about the Mompush Nexis Carbon Travel Stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/34c3f206-5473-4597-bb5a-b0115ae3d2c8/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1ASSkX4ZfL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+            "Title": "Honest Review Mompush Nexis Carbon Stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a3c849b6-2866-4aa7-a3d7-c2cde724b747/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/716r38yMJNL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "A thorough Review of Mompush Nova Baby Stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0ffb9ea5-0b8d-40dc-a511-7664ab44677b/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61PXES7l0bL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "3 Reasons Why We Chose This Travel Stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ab546842-269b-43a3-9781-868c5dede2a2/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/057a55aa-c6a8-4ed5-96ca-45db8c28ac1c/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/aa5380b2-fe4c-4fac-9023-71f7edcf0493/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/92b696fd-c0cf-4633-9dff-714457bce19f/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/936ba899-c27b-4253-801c-9675040404a9/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1c26f113-d60c-4bda-919e-d93279727209/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d29c2df2-f776-4e38-91c7-7eaf65c13f7e/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/34c3f206-5473-4597-bb5a-b0115ae3d2c8/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a3c849b6-2866-4aa7-a3d7-c2cde724b747/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0ffb9ea5-0b8d-40dc-a511-7664ab44677b/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ab546842-269b-43a3-9781-868c5dede2a2/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/057a55aa-c6a8-4ed5-96ca-45db8c28ac1c/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/aa5380b2-fe4c-4fac-9023-71f7edcf0493/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/92b696fd-c0cf-4633-9dff-714457bce19f/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/936ba899-c27b-4253-801c-9675040404a9/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1c26f113-d60c-4bda-919e-d93279727209/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d29c2df2-f776-4e38-91c7-7eaf65c13f7e/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/34c3f206-5473-4597-bb5a-b0115ae3d2c8/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a3c849b6-2866-4aa7-a3d7-c2cde724b747/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0ffb9ea5-0b8d-40dc-a511-7664ab44677b/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "Easy Storage",
+              "Texts": [
+                "Easy Storage Includes a protective storage bag. Keeps your stroller clean, organized, and ready for the next adventure.",
+                "A Color for Every Style Choose from four thoughtfully curated shades. From timeless neutrals to modern tones, find the perfect match for your family's lifestyle.",
+                "Carbon Fiber Frame Ultra-lightweight at just 11.5 lbs. Engineered for exceptional strength, durability, and stability without added weight.",
+                "All-Weather Accessories Includes a rain cover and cup holder. Stay prepared for changing weather and keep essentials within easy reach.",
+                "Endure Eco-conscious Nexis Crafted with sustainable bio-based carbon fiber frame, OEKO-TEX certified fabrics, and 100% PU-based synthetic vegan leather handlebar grips—for a gentler environmental footprint. Built to endure, rigorously tested beyond industry standards for generations of adventures."
+              ],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/6f497e2d-330a-48fb-b540-4cd36d7d7f47.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/4b8d1042-b086-4bfa-be36-33ef66509fea.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/6f497e2d-330a-48fb-b540-4cd36d7d7f47.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "lightweight travel stroller",
+                  "Image_Alt": "lightweight travel stroller"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/4b8d1042-b086-4bfa-be36-33ef66509fea.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 2,
+                  "Image_Title": "antofold",
+                  "Image_Alt": "antofold"
+                }
+              ],
+              "Comparison_Table": {
+                "Headers": [
+                  "Mompush Nexis Carbon Add to Cart",
+                  "Mompush Velo Buying Options",
+                  "Mompush Lithe V2 Add to Cart",
+                  "Mompush Jeto Add to Cart",
+                  "Mompush Ultimate 2 Buying Options",
+                  "Mompush Wiz Add to Cart",
+                  "Mompush Lithe Double Buying Options"
+                ],
+                "Rows": [
+                  [
+                    "Customer Reviews",
+                    "4.5 out of 5 stars 182",
+                    "4.6 out of 5 stars 227",
+                    "4.6 out of 5 stars 1,865",
+                    "4.8 out of 5 stars 121",
+                    "4.7 out of 5 stars 823",
+                    "4.6 out of 5 stars 3,520",
+                    "4.6 out of 5 stars 562"
+                  ],
+                  [
+                    "Price",
+                    "$199.99 $ 199 . 99",
+                    "—",
+                    "$179.99 $ 179 . 99",
+                    "$79.99 $ 79 . 99",
+                    "—",
+                    "$167.88 $ 167 . 88",
+                    "—"
+                  ],
+                  [
+                    "Key Features",
+                    "Ultra-lightweight carbon fiber",
+                    "Premium lightweight stroller",
+                    "Lightweight with snack tray",
+                    "Grab-and-go travel stroller",
+                    "Ultimate comfort for growth",
+                    "Compact 2-in-1 stroller",
+                    "Side-by-side"
+                  ],
+                  [
+                    "Age Range",
+                    "0-36 Months+",
+                    "0-36 Months+",
+                    "0-36 Months+",
+                    "6-36 Months+",
+                    "0-36 Months+",
+                    "0-36 Months+",
+                    "6-36 Months+"
+                  ],
+                  [
+                    "Suitable from Birth",
+                    "Yes",
+                    "Yes",
+                    "Yes",
+                    "No",
+                    "Yes",
+                    "Yes",
+                    "No"
+                  ],
+                  [
+                    "Foldable",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔"
+                  ],
+                  [
+                    "Seating Options",
+                    "Front-facing + recline options",
+                    "Front-facing + recline options",
+                    "Front-facing + recline options",
+                    "Front-facing",
+                    "Parent- and world facing",
+                    "Parent- and world facing",
+                    "Front-facing + recline options"
+                  ],
+                  [
+                    "Flat Lying Position",
+                    "Almost fully flat",
+                    "Almost fully flat",
+                    "Almost fully flat",
+                    "Semi-reclining",
+                    "Almost fully flat",
+                    "Almost fully flat",
+                    "Semi-reclining"
+                  ],
+                  [
+                    "Car Seat Compatible",
+                    "No",
+                    "Yes - adapter sold separately",
+                    "No",
+                    "No",
+                    "Yes - adapter included",
+                    "Yes - adapter sold separately",
+                    "No"
+                  ],
+                  [
+                    "Tray Option",
+                    "✘",
+                    "Sold seperately",
+                    "Yes, snack tray included",
+                    "✘",
+                    "Sold seperately",
+                    "Sold seperately",
+                    "✘"
+                  ]
+                ]
+              },
+              "Block_Types": [
+                "text",
+                "image",
+                "table"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "Easy Storage"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/6f497e2d-330a-48fb-b540-4cd36d7d7f47.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "lightweight travel stroller",
+                    "Image_Alt": "lightweight travel stroller"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/4b8d1042-b086-4bfa-be36-33ef66509fea.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 2,
+                    "Image_Title": "antofold",
+                    "Image_Alt": "antofold"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Easy Storage Includes a protective storage bag. Keeps your stroller clean, organized, and ready for the next adventure."
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "A Color for Every Style Choose from four thoughtfully curated shades. From timeless neutrals to modern tones, find the perfect match for your family's lifestyle."
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Carbon Fiber Frame Ultra-lightweight at just 11.5 lbs. Engineered for exceptional strength, durability, and stability without added weight."
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "All-Weather Accessories Includes a rain cover and cup holder. Stay prepared for changing weather and keep essentials within easy reach."
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Endure Eco-conscious Nexis Crafted with sustainable bio-based carbon fiber frame, OEKO-TEX certified fabrics, and 100% PU-based synthetic vegan leather handlebar grips—for a gentler environmental footprint. Built to endure, rigorously tested beyond industry standards for generations of adventures."
+                },
+                {
+                  "Block_Type": "table",
+                  "Table": {
+                    "Headers": [
+                      "Mompush Nexis Carbon Add to Cart",
+                      "Mompush Velo Buying Options",
+                      "Mompush Lithe V2 Add to Cart",
+                      "Mompush Jeto Add to Cart",
+                      "Mompush Ultimate 2 Buying Options",
+                      "Mompush Wiz Add to Cart",
+                      "Mompush Lithe Double Buying Options"
+                    ],
+                    "Rows": [
+                      [
+                        "Customer Reviews",
+                        "4.5 out of 5 stars 182",
+                        "4.6 out of 5 stars 227",
+                        "4.6 out of 5 stars 1,865",
+                        "4.8 out of 5 stars 121",
+                        "4.7 out of 5 stars 823",
+                        "4.6 out of 5 stars 3,520",
+                        "4.6 out of 5 stars 562"
+                      ],
+                      [
+                        "Price",
+                        "$199.99 $ 199 . 99",
+                        "—",
+                        "$179.99 $ 179 . 99",
+                        "$79.99 $ 79 . 99",
+                        "—",
+                        "$167.88 $ 167 . 88",
+                        "—"
+                      ],
+                      [
+                        "Key Features",
+                        "Ultra-lightweight carbon fiber",
+                        "Premium lightweight stroller",
+                        "Lightweight with snack tray",
+                        "Grab-and-go travel stroller",
+                        "Ultimate comfort for growth",
+                        "Compact 2-in-1 stroller",
+                        "Side-by-side"
+                      ],
+                      [
+                        "Age Range",
+                        "0-36 Months+",
+                        "0-36 Months+",
+                        "0-36 Months+",
+                        "6-36 Months+",
+                        "0-36 Months+",
+                        "0-36 Months+",
+                        "6-36 Months+"
+                      ],
+                      [
+                        "Suitable from Birth",
+                        "Yes",
+                        "Yes",
+                        "Yes",
+                        "No",
+                        "Yes",
+                        "Yes",
+                        "No"
+                      ],
+                      [
+                        "Foldable",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔"
+                      ],
+                      [
+                        "Seating Options",
+                        "Front-facing + recline options",
+                        "Front-facing + recline options",
+                        "Front-facing + recline options",
+                        "Front-facing",
+                        "Parent- and world facing",
+                        "Parent- and world facing",
+                        "Front-facing + recline options"
+                      ],
+                      [
+                        "Flat Lying Position",
+                        "Almost fully flat",
+                        "Almost fully flat",
+                        "Almost fully flat",
+                        "Semi-reclining",
+                        "Almost fully flat",
+                        "Almost fully flat",
+                        "Semi-reclining"
+                      ],
+                      [
+                        "Car Seat Compatible",
+                        "No",
+                        "Yes - adapter sold separately",
+                        "No",
+                        "No",
+                        "Yes - adapter included",
+                        "Yes - adapter sold separately",
+                        "No"
+                      ],
+                      [
+                        "Tray Option",
+                        "✘",
+                        "Sold seperately",
+                        "Yes, snack tray included",
+                        "✘",
+                        "Sold seperately",
+                        "Sold seperately",
+                        "✘"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/6f497e2d-330a-48fb-b540-4cd36d7d7f47.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/4b8d1042-b086-4bfa-be36-33ef66509fea.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+            ],
+            "Local_Images": [
+              "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B0FPFZ9YQL_Mompush Nexis Carbon Travel Stroller Ultra-Lightwe/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+              "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B0FPFZ9YQL_Mompush Nexis Carbon Travel Stroller Ultra-Lightwe/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [],
+          "Summary": {
+            "Count": 0
+          },
+          "Local_Paths": []
+        },
+        "Product_Description": "N/A",
+        "Product_Specifications": {
+          "Measurements": {
+            "Item Weight": "13.9 Pounds",
+            "Folded Size": "19.88\"L x18.11\"W x 7.87\"H",
+            "Item Dimensions L x W x H": "40.94\"L x 33.86\"W x 18.11\"H",
+            "Back Wheel Diameter": "5.31 Inches",
+            "Front Wheel Diameter": "4.92 Inches"
+          },
+          "Features_Specs": {
+            "Stroller Type": "Umbrella Stroller",
+            "Is Car Seat Compatible": "No",
+            "Seating Capacity": "1",
+            "Additional Features": "5-Point Safety Harness, Adjustable Canopy, Cup Holder, Foldable",
+            "Has Stroller Brake System": "No"
+          },
+          "Materials_Care": {},
+          "Item_Details": {
+            "Number of Wheels": "4"
+          },
+          "User_Guide": {
+            "Harness Type": "5 Point",
+            "Harness Feature": "5 Point, No-Rethread, Quick-Release Buckle"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
+          "Sold_By": "Amazon Export Sales LLC \n  Amazon Export Sales LLC      Sold by   Amazon Export Sales LLC",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery Friday, July 10 to Hong Kong. Order within 14 hrs 15 mins Or fastest delivery Wednesday, July 8",
+          "Specifications": {
+            "Item Weight": "13.9 Pounds",
+            "Folded Size": "19.88\"L x18.11\"W x 7.87\"H",
+            "Item Dimensions L x W x H": "40.94\"L x 33.86\"W x 18.11\"H",
+            "Back Wheel Diameter": "5.31 Inches",
+            "Front Wheel Diameter": "4.92 Inches"
+          }
+        },
+        "Category_Attributes": {
+          "categoryId": "stroller",
+          "ageGroup": [],
+          "structure": [
+            "Umbrella Stroller"
+          ],
+          "scenario": [],
+          "features": [
+            "Polyester",
+            "Lightness for World Travel: Jet-set effortlessly. Nexis carbon fiber frame weighs at 11.5 lbs—carry-on compliant and overhead bin ready. Stow in seconds for seamless flights",
+            "and it handles and maneuvers like a dream ‒ yet more ease for you.",
+            "One-Hand Freedom: Master on-the-go parenting with effortless one-hand mastery across every feature: auto-fold self-standing in seconds (shoulder strap included for free hands)",
+            "adjust the no-rethread harness in a snap",
+            "and recline smoothly for undisturbed naps.",
+            "Upright Sitting",
+            "Flat Reclining: Elevate journeys with one-touch",
+            "multi-angle adjustments—ditching cumbersome webbing for sleek mechanical precision. Recline near-90° upright for views",
+            "or 170° flat for restorative naps. Includes adjustable footrest and newborn foot barrier for from-birth safety.",
+            "Enhanced Comfort: Enjoy sun-soaked strolls under the XL Canopy—50+ UV protection with a breezy mesh window for instant shade. Includes rain cover for dry",
+            "safe adventures in any weather. Spacious ergonomic seat with breathable 3D mesh lining for all-day comfort.",
+            "Smoother Strolls Ahead: Conquer every path with full suspension and larger wheels for an ultra-smooth ride—effortless gliding for both baby and caregiver on endless travel days. High-strength",
+            "high-modulus carbon fiber frame delivers lightweight sturdiness without compromise. Plus",
+            "the quick-to-secure harness system and removable bumper bar ensures all-around safety and protection.",
+            "Umbrella Stroller",
+            "No",
+            "1",
+            "5-Point Safety Harness",
+            "Adjustable Canopy",
+            "Cup Holder",
+            "Foldable"
+          ],
+          "materialClass": [],
+          "wheelSize": [],
+          "powerLevel": []
+        },
+        "Feature_Cards": [
+          {
+            "featureKey": "Polyester",
+            "featureLabel": "Polyester",
+            "featureValue": "Polyester",
+            "featureEvidence": "Features",
+            "featureRank": 1,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "Lightness for World Travel: Jet-set effortlessly. Nexis carbon fiber frame weighs at 11.5 lbs—carry-on compliant and overhead bin ready. Stow in seconds for seamless flights",
+            "featureLabel": "Lightness For World Travel: Jet Set Effortlessly. Nexis Carbon Fiber Frame Weighs At 11.5 Lbs—carry On Compliant And Overhead Bin Ready. Stow In Seconds For Seamless Flights",
+            "featureValue": "Lightness for World Travel: Jet-set effortlessly. Nexis carbon fiber frame weighs at 11.5 lbs—carry-on compliant and overhead bin ready. Stow in seconds for seamless flights",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 2,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "and it handles and maneuvers like a dream ‒ yet more ease for you.",
+            "featureLabel": "And It Handles And Maneuvers Like A Dream ‒ Yet More Ease For You.",
+            "featureValue": "and it handles and maneuvers like a dream ‒ yet more ease for you.",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 3,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "One-Hand Freedom: Master on-the-go parenting with effortless one-hand mastery across every feature: auto-fold self-standing in seconds (shoulder strap included for free hands)",
+            "featureLabel": "One Hand Freedom: Master On The Go Parenting With Effortless One Hand Mastery Across Every Feature: Auto Fold Self Standing In Seconds (shoulder Strap Included For Free Hands)",
+            "featureValue": "One-Hand Freedom: Master on-the-go parenting with effortless one-hand mastery across every feature: auto-fold self-standing in seconds (shoulder strap included for free hands)",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 4,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "adjust the no-rethread harness in a snap",
+            "featureLabel": "Adjust The No Rethread Harness In A Snap",
+            "featureValue": "adjust the no-rethread harness in a snap",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 5,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "and recline smoothly for undisturbed naps.",
+            "featureLabel": "And Recline Smoothly For Undisturbed Naps.",
+            "featureValue": "and recline smoothly for undisturbed naps.",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 6,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          }
+        ],
+        "Decision_Signals": {
+          "ranking": [
+            "Polyester",
+            "Lightness for World Travel: Jet-set effortlessly. Nexis carbon fiber frame weighs at 11.5 lbs—carry-on compliant and overhead bin ready. Stow in seconds for seamless flights",
+            "and it handles and maneuvers like a dream ‒ yet more ease for you.",
+            "One-Hand Freedom: Master on-the-go parenting with effortless one-hand mastery across every feature: auto-fold self-standing in seconds (shoulder strap included for free hands)"
+          ],
+          "safety": [],
+          "fit": [
+            "Umbrella Stroller"
+          ]
+        },
+        "Evidence_Refs": [
+          "Product_Specifications.Features_Specs.Stroller Type",
+          "Features"
+        ],
+        "Local_Image_Paths": [
+          "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B0FPFZ9YQL_Mompush Nexis Carbon Travel Stroller Ultra-Lightwe/images/primary.jpg",
+          "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B0FPFZ9YQL_Mompush Nexis Carbon Travel Stroller Ultra-Lightwe/images/alt_1.jpg",
+          "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B0FPFZ9YQL_Mompush Nexis Carbon Travel Stroller Ultra-Lightwe/images/alt_2.jpg",
+          "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B0FPFZ9YQL_Mompush Nexis Carbon Travel Stroller Ultra-Lightwe/images/alt_3.jpg",
+          "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B0FPFZ9YQL_Mompush Nexis Carbon Travel Stroller Ultra-Lightwe/images/alt_4.jpg",
+          "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B0FPFZ9YQL_Mompush Nexis Carbon Travel Stroller Ultra-Lightwe/images/alt_5.jpg",
+          "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B0FPFZ9YQL_Mompush Nexis Carbon Travel Stroller Ultra-Lightwe/images/alt_6.jpg",
+          "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B0FPFZ9YQL_Mompush Nexis Carbon Travel Stroller Ultra-Lightwe/images/alt_7.jpg",
+          "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B0FPFZ9YQL_Mompush Nexis Carbon Travel Stroller Ultra-Lightwe/images/alt_8.jpg",
+          "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B0FPFZ9YQL_Mompush Nexis Carbon Travel Stroller Ultra-Lightwe/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B0FPFZ9YQL_Mompush Nexis Carbon Travel Stroller Ultra-Lightwe/images/primary.jpg",
+        "Local_Video_Paths": []
+      },
+      {
+        "Rank": "6",
+        "Brand": "Graco",
+        "Title": "Graco Ready2Jet Compact Stroller Overhead Friendly Compact Travel Stroller with Automatic Fold, Kingston",
+        "Price": "$144.39",
+        "Rating": "4.7  793",
+        "Reviews": "793",
+        "URL": "https://www.amazon.com/Graco-Ready2Jet-Compact-Stroller-Automatic/dp/B0D2LXK44T/ref=zg_bs_g_166842011_d_sccl_6/137-9351632-4157947?psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/714WAYwO95L._AC_UL300_SR300,200_.jpg",
+        "ASIN": "B0D2LXK44T",
+        "Source_Page": 1,
+        "Source_URL": "https://www.amazon.com/Best-Sellers-Baby-Strollers/zgbs/baby-products/166842011",
+        "Source_Position": 6,
+        "Source_Type": "Best Sellers",
+        "Features": "Automatically folds to a compact size with one-hand activation for multi-tasking families | Travel stroller is overhead friendly* so you can go more places together *We recommend checking with your local airline prior to departure for specific carry-on requirements | Self-standing compact fold and ultra-lightweight at 13.2 lb, making this fully featured stroller easy to store and transport | Removable belly bar that doubles as a carry handle, stylish leatherette handle, UV 50 canopy, storage basket, and parent cup holder for easy, convenient strolling | All-wheel suspension, multi-position reclining seat, convertible 3- or 5-point harness with ultra-soft webbing and harness covers, and adjustable calf support for a smooth, comfortable ride for baby | Accepts all Graco SnugRide ICSs to become a travel system | Single-action, one-foot tap brake makes parking a breeze",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d6fcd5b7-af2f-4641-a355-b1d93f00036a/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d6fcd5b7-af2f-4641-a355-b1d93f00036a/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/611mrJhaV8L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Graco Ready2Jet Stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64d825a0-16a4-403a-a5d9-cc831af8a108/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/91GFmKZQXSL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+            "Title": "Best Features - Graco Ready2Jet Compact Stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f6effd1f-9e71-4105-8d75-464733a72085/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1cDnp7SUWL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+            "Title": "Honest MOM review of the Graco Ready2Jet Compact Stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a8599b64-a0eb-421f-9004-be5c2512dc80/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71M-Z6a1KYL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "My favorite stroller!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f39ff235-cfad-4760-b0b1-61fd971a7e7d/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/711hQgvyJNL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "This might make you buy this stroller! ",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7088850f-3adc-4631-bd69-50501e6111ba/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/91vSQZnJ9wL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Folds small but is bumpy.. Pros and Cons of this stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d6fcd5b7-af2f-4641-a355-b1d93f00036a/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64d825a0-16a4-403a-a5d9-cc831af8a108/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f6effd1f-9e71-4105-8d75-464733a72085/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a8599b64-a0eb-421f-9004-be5c2512dc80/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f39ff235-cfad-4760-b0b1-61fd971a7e7d/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7088850f-3adc-4631-bd69-50501e6111ba/default.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d6fcd5b7-af2f-4641-a355-b1d93f00036a/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64d825a0-16a4-403a-a5d9-cc831af8a108/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f6effd1f-9e71-4105-8d75-464733a72085/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a8599b64-a0eb-421f-9004-be5c2512dc80/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f39ff235-cfad-4760-b0b1-61fd971a7e7d/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7088850f-3adc-4631-bd69-50501e6111ba/default.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "Graco Ready2Jet Compact Stroller",
+              "Texts": [
+                "Experience the convenience of the Graco Ready2Jet Compact Stroller, that automatically self-folds with one-hand activation. Weighing just 13.2 lb—this travel stroller is fully featured and ultra-lightweight!",
+                "Modes Pramette Learn More",
+                "Outpace LX Learn More",
+                "GoMax Learn More"
+              ],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/ec6b7698-3b7b-46d8-8361-da5c1cd6e8b5.__CR0,0,1464,600_PT0_SX1464_V1___.png",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1325060d-7297-4b62-a0bd-6d517626578f.__CR0,0,1464,600_PT0_SX1464_V1___.png"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/ec6b7698-3b7b-46d8-8361-da5c1cd6e8b5.__CR0,0,1464,600_PT0_SX1464_V1___.png",
+                  "Image_Order": 1,
+                  "Image_Title": "",
+                  "Image_Alt": ""
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1325060d-7297-4b62-a0bd-6d517626578f.__CR0,0,1464,600_PT0_SX1464_V1___.png",
+                  "Image_Order": 2,
+                  "Image_Title": "Graco baby infant toddler turning car seat highchair stroller bassinet safe reliable durable trusted",
+                  "Image_Alt": "Graco baby infant toddler turning car seat highchair stroller bassinet safe reliable durable trusted"
+                }
+              ],
+              "Comparison_Table": {
+                "Headers": [],
+                "Rows": [
+                  [
+                    "Automatic Fold"
+                  ],
+                  [
+                    "Overhead Friendly"
+                  ],
+                  [
+                    "Suspension"
+                  ],
+                  [
+                    "Ultra-Lightweight"
+                  ],
+                  [
+                    "Reversible Seat"
+                  ],
+                  [
+                    "Pramette Mode"
+                  ],
+                  [
+                    "All-Terrain Wheels"
+                  ]
+                ]
+              },
+              "Block_Types": [
+                "text",
+                "image",
+                "table"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "Graco Ready2Jet Compact Stroller"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Experience the convenience of the Graco Ready2Jet Compact Stroller, that automatically self-folds with one-hand activation. Weighing just 13.2 lb—this travel stroller is fully featured and ultra-lightweight!"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/ec6b7698-3b7b-46d8-8361-da5c1cd6e8b5.__CR0,0,1464,600_PT0_SX1464_V1___.png",
+                    "Image_Order": 1,
+                    "Image_Title": "",
+                    "Image_Alt": ""
+                  }
+                },
+                {
+                  "Block_Type": "table",
+                  "Table": {
+                    "Headers": [],
+                    "Rows": [
+                      [
+                        "Automatic Fold"
+                      ],
+                      [
+                        "Overhead Friendly"
+                      ],
+                      [
+                        "Suspension"
+                      ],
+                      [
+                        "Ultra-Lightweight"
+                      ],
+                      [
+                        "Reversible Seat"
+                      ],
+                      [
+                        "Pramette Mode"
+                      ],
+                      [
+                        "All-Terrain Wheels"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Modes Pramette Learn More"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Outpace LX Learn More"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "GoMax Learn More"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1325060d-7297-4b62-a0bd-6d517626578f.__CR0,0,1464,600_PT0_SX1464_V1___.png",
+                    "Image_Order": 2,
+                    "Image_Title": "Graco baby infant toddler turning car seat highchair stroller bassinet safe reliable durable trusted",
+                    "Image_Alt": "Graco baby infant toddler turning car seat highchair stroller bassinet safe reliable durable trusted"
+                  }
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/ec6b7698-3b7b-46d8-8361-da5c1cd6e8b5.__CR0,0,1464,600_PT0_SX1464_V1___.png",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1325060d-7297-4b62-a0bd-6d517626578f.__CR0,0,1464,600_PT0_SX1464_V1___.png"
+            ],
+            "Local_Images": [
+              "../scrape_store/stroller/Graco/Rank_6_ASIN_B0D2LXK44T_Graco Ready2Jet Compact Stroller Overhead Friendly/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+              "../scrape_store/stroller/Graco/Rank_6_ASIN_B0D2LXK44T_Graco Ready2Jet Compact Stroller Overhead Friendly/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.png"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [],
+          "Summary": {
+            "Count": 0
+          },
+          "Local_Paths": []
+        },
+        "Product_Description": "The Graco Ready2Jet Compact Stroller features an automatic, self-fold with one-hand activation that makes it easy to fold and unfold, while its self-standing fold keeps your hands free. Weighing just 13.2 lb—less than two gallons of milk—this compact stroller is fully-featured and ultra lightweight! Experience the added convenience of a collapsible travel stroller that's overhead friendly* for ultimate portability, making it the perfect airport companion. Your child will ride in comfort with a multi-position reclining seat and adjustable calf support under a UV 50 oversized canopy with visor, while the easy-access storage basket helps keep parent and baby travel essentials in a one safe place. All-wheel suspension ensures a smooth ride. Parents will love the included parent cup holder and stylish leatherette stroller handle. The removable belly bar doubles as a carry handle for even more convenience. *We recommend checking with your local airline prior to departure for specific carry-on requirements.",
+        "Product_Specifications": {
+          "Measurements": {
+            "Item Weight": "13.2 Pounds",
+            "Folded Size": "Less than 43.5*12.0*8.0 Inches",
+            "Rear Facing Stroller Maximum Height": "43 Inches",
+            "Item Dimensions L x W x H": "27\"L x 20.5\"W x 43\"H",
+            "Car Seat Weight Capacity Maximum": "50 Pounds"
+          },
+          "Features_Specs": {
+            "Stroller Type": "Standard Stroller",
+            "Is Car Seat Compatible": "Yes",
+            "Seating Capacity": "1",
+            "Additional Features": "automatic fold mechanism, lightweight, all-wheel suspension, compatible with all Graco SnugRide infant car seats",
+            "Built-in Light": "No",
+            "Has Stroller Brake System": "Yes"
+          },
+          "Materials_Care": {},
+          "Item_Details": {
+            "Number of Cup Holders": "1",
+            "Number of Wheels": "4"
+          },
+          "User_Guide": {
+            "Harness Type": "5 Point",
+            "Harness Feature": "adjustable straps, padded for comfort"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+          "Availability": "Only 9 left in stock (more on the way).",
+          "Delivery_Promise": "FREE delivery Tuesday, July 7 Or fastest delivery Monday, July 6",
+          "Specifications": {
+            "Item Weight": "13.2 Pounds",
+            "Folded Size": "Less than 43.5*12.0*8.0 Inches",
+            "Rear Facing Stroller Maximum Height": "43 Inches",
+            "Item Dimensions L x W x H": "27\"L x 20.5\"W x 43\"H",
+            "Car Seat Weight Capacity Maximum": "50 Pounds"
+          }
+        },
+        "Local_Image_Paths": [
+          "../scrape_store/stroller/Graco/Rank_6_ASIN_B0D2LXK44T_Graco Ready2Jet Compact Stroller Overhead Friendly/images/primary.jpg",
+          "../scrape_store/stroller/Graco/Rank_6_ASIN_B0D2LXK44T_Graco Ready2Jet Compact Stroller Overhead Friendly/images/alt_1.jpg",
+          "../scrape_store/stroller/Graco/Rank_6_ASIN_B0D2LXK44T_Graco Ready2Jet Compact Stroller Overhead Friendly/images/alt_2.jpg",
+          "../scrape_store/stroller/Graco/Rank_6_ASIN_B0D2LXK44T_Graco Ready2Jet Compact Stroller Overhead Friendly/images/alt_3.jpg",
+          "../scrape_store/stroller/Graco/Rank_6_ASIN_B0D2LXK44T_Graco Ready2Jet Compact Stroller Overhead Friendly/images/alt_4.jpg",
+          "../scrape_store/stroller/Graco/Rank_6_ASIN_B0D2LXK44T_Graco Ready2Jet Compact Stroller Overhead Friendly/images/alt_5.jpg",
+          "../scrape_store/stroller/Graco/Rank_6_ASIN_B0D2LXK44T_Graco Ready2Jet Compact Stroller Overhead Friendly/images/alt_6.jpg",
+          "../scrape_store/stroller/Graco/Rank_6_ASIN_B0D2LXK44T_Graco Ready2Jet Compact Stroller Overhead Friendly/images/alt_7.jpg",
+          "../scrape_store/stroller/Graco/Rank_6_ASIN_B0D2LXK44T_Graco Ready2Jet Compact Stroller Overhead Friendly/images/alt_8.jpg",
+          "../scrape_store/stroller/Graco/Rank_6_ASIN_B0D2LXK44T_Graco Ready2Jet Compact Stroller Overhead Friendly/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "../scrape_store/stroller/Graco/Rank_6_ASIN_B0D2LXK44T_Graco Ready2Jet Compact Stroller Overhead Friendly/images/primary.jpg",
+        "Local_Video_Paths": [],
+        "Last_Updated": "2026-07-01T02:19:46.122907",
+        "Similar_Items_Quick_Delivery": [
+          {
+            "Rank": "Similar",
+            "Brand": "Ingenuity",
+            "Title": "Ingenuity 3Dquickclose CS+ Compact Fold Stroller – Lightweight Stroller with Oversized Canopy, Extra-Large Storage and Compact Fold, Gray",
+            "Price": "$119.00",
+            "Rating": "4.6",
+            "Reviews": "1,500",
+            "URL": "https://www.amazon.com/3Dquickclose-Compact-Fold-Stroller-Lightweight/dp/B0BSP4K34F/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_1/147-2461909-0452969?pd_rd_w=dGlg1&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=VQ1D1ZJQ8TM0DE34PJSS&pd_rd_wg=hySmv&pd_rd_r=76677cb4-be9e-4e7c-bdc7-15018936dcd4&pd_rd_i=B0BSP4K34F&psc=1",
+            "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/81Y1JTRLrmL._AC_UL165_SR165,165_.jpg",
+            "ASIN": "B0BSP4K34F",
+            "Features": "The Ingenuity 3Dquickclose CS+ Compact Fold Stroller is lightweight and easy to maneuver, making it the perfect stroller for on the go or as your little one’s everyday ride | Fold this compact stroller in seconds with one hand thanks to unique “quick close” technology | *Compatible with a variety of carseats, including the Ingenuity Affirm 335, Graco SnugRide Click Connect 35, Graco SnugRide SnugLock 35, Chicco Keyfit 30, Chicco Fit2 and Baby Trend Secure Snap Gear 35 | Keep baby safe and comfortable with a five-point safety harness and an adjustable seat that can be reclined to the perfect position | Store all your gear (both large and small) with a sizable basket underneath the seat, as well as smaller storage solutions like a back pocket and cell phone holder",
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e77700c7-3fe3-4e0f-9b35-fd345cab16b8/default.jobtemplate.hls.m3u8",
+            "Product_Videos_Detail": [
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e77700c7-3fe3-4e0f-9b35-fd345cab16b8/default.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/A19WH7KwAiL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+                "Title": "Summer by Ingenuity 3Dquickclose CS+ Compact Fold Stroller",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c7e28776-dce8-4b0e-958a-ab0cf308f63f/default.vertical.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/719IkgUyX4L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+                "Title": "My favorite travel stroller!",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dd87fcc6-5e36-4c5a-af42-720c02773cbb/default.vertical.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/91H7hhbMLCL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+                "Title": "Review of Summer 3Dquickclose CS+ Compact Fold Stroller",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3ac748fc-8f68-48a1-876d-d96170c9d6bc/default.vertical.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/91DNob7+qKL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+                "Title": "Absolute travel essential for parents!!",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/32dade95-a640-4c49-88b0-5641a399ad12/default.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1PIO0l+UVL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+                "Title": "The Only Stroller My 7 Month Old Will Use - Worth It?",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c6ed1d87-1c33-4dc4-a458-34cec4affd44/default.vertical.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/91+fA5yfhzL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+                "Title": "Honest review of compact folding stroller",
+                "Author": "N/A",
+                "Is_MP4": false
+              }
+            ],
+            "Product_Videos": [
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e77700c7-3fe3-4e0f-9b35-fd345cab16b8/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c7e28776-dce8-4b0e-958a-ab0cf308f63f/default.vertical.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dd87fcc6-5e36-4c5a-af42-720c02773cbb/default.vertical.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3ac748fc-8f68-48a1-876d-d96170c9d6bc/default.vertical.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/32dade95-a640-4c49-88b0-5641a399ad12/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c6ed1d87-1c33-4dc4-a458-34cec4affd44/default.vertical.jobtemplate.hls.m3u8"
+            ],
+            "Product_Videos_MP4": [],
+            "Product_Videos_M3U8": [
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e77700c7-3fe3-4e0f-9b35-fd345cab16b8/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c7e28776-dce8-4b0e-958a-ab0cf308f63f/default.vertical.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dd87fcc6-5e36-4c5a-af42-720c02773cbb/default.vertical.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3ac748fc-8f68-48a1-876d-d96170c9d6bc/default.vertical.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/32dade95-a640-4c49-88b0-5641a399ad12/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c6ed1d87-1c33-4dc4-a458-34cec4affd44/default.vertical.jobtemplate.hls.m3u8"
+            ],
+            "From_The_Manufacturer": {
+              "Model_Version": "2.0",
+              "Sections": [
+                {
+                  "Section_Id": "section_01",
+                  "Display_Order": 1,
+                  "Title": "From the manufacturer",
+                  "Texts": [
+                    "Compact size with premium features for everyday & travel",
+                    "One-handed quick fold to take on the go or store in seconds",
+                    "Compatible with a variety of car seats for newborn use",
+                    "Added storage so you don’t have to leave anything at home",
+                    "At just 17 pounds, the 3Dquickclose Stroller is compact, yet mighty. Designed to make life easier during strolls and for storage, this stroller is packed with exciting features. From “quick close” technology to a reclinable seat and extra-large canopy, the 3Dquickclose will be your go-to stroller for on the go and everyday walks.",
+                    "Made with a durable, lightweight frame, this stroller weighs only 17 pounds and is designed to be compact while offering premium features, like a peek-a-boo canopy window, removable bumper bar, and car seat compatibility. Compatible car seats include: Graco SnugRide Click Connect 35, Graco SnugRide SnugLock 35, Chicco Keyfit 30, Chicco Fit2 and Baby Trend Secure Snap Gear 35.",
+                    "Leave no essentials behind! This stroller offers tons of storage to accommodate your day and anything it might bring. Convenient cargo features include a large storage basket, adult and child cup holders, cell phone holder, and rear pocket.",
+                    "Keep your little one cozy and happy during your stroll with the 3Dquickclose. The padded, full-size seat can be adjusted and reclined with multiple position options, so that you can find the perfect spot, whether it’s nap time or just relaxation time. Plus, shield your baby from the sun’s rays with the extra-large canopy and keep them safe with the 5-point safety harness.",
+                    "Fold this stroller up in a flash, thanks to our innovative “quick close” auto fold technology. Designed for one-handed folding, storing and traveling with a stroller has never been easier. To close the stroller, simply slide the trigger and squeeze the handle. One-handed for convenience, two-step activation for safety!  The self-standing fold makes storage and travel a breeze.",
+                    "Many strollers can be too bulky, heavy and inconvenient for travel. That’s why we created the 3Dquickclose. Highly durable, this stroller is suitable for long-term use as your everyday stroller or your preferred on the go option. Easily fits in car trunks and takes up minimal space when stored. Dimensions: 41.25 (H) x 20.5 (W) x 36.22 (L)” assembled and 26.5 (H) x 20.5 (W) x 16.5 (L).”",
+                    "Ingenuity is a Top Manufacturer of Umbrella Strollers. We’re experts at making compact and lightweight strollers to maximize reliability and our little one’s safety while minimizing stress and inconvenience. Enjoy premium features without the bulkiness of standard strollers."
+                  ],
+                  "Images": [
+                    "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0c92da2f-3ef5-4853-bbcd-6e2cd7bea85a.__CR0,3,1921,594_PT0_SX970_V1___.png",
+                    "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3ca47f37-ae77-42e4-946a-3d834db85735.__CR273,229,2727,2727_PT0_SX300_V1___.jpg"
+                  ],
+                  "Images_Detail": [
+                    {
+                      "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0c92da2f-3ef5-4853-bbcd-6e2cd7bea85a.__CR0,3,1921,594_PT0_SX970_V1___.png",
+                      "Image_Order": 1,
+                      "Image_Title": "ingenuity",
+                      "Image_Alt": "ingenuity"
+                    },
+                    {
+                      "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3ca47f37-ae77-42e4-946a-3d834db85735.__CR273,229,2727,2727_PT0_SX300_V1___.jpg",
+                      "Image_Order": 2,
+                      "Image_Title": "3Dquickclose CS+ Compact Fold Stroller",
+                      "Image_Alt": "3Dquickclose CS+ Compact Fold Stroller"
+                    }
+                  ],
+                  "Comparison_Table": {
+                    "Headers": [
+                      "Ingenuity 3Dquickclose CS+ Compact Fold Stroller",
+                      "Ingenuity 3D Mini Lightweight Umbrella Stroller",
+                      "Ingenuity 3Dlite Convenience Stroller",
+                      "Customer Reviews",
+                      "Price",
+                      "Grows With Baby",
+                      "Lightweight Factor",
+                      "On-the-Go Fold",
+                      "Sun & Shade",
+                      "Safety & Comfort"
+                    ],
+                    "Rows": [
+                      [
+                        "Add to Cart",
+                        "Add to Cart",
+                        "Add to Cart"
+                      ],
+                      [
+                        "4.6 out of 5 stars 1,500",
+                        "4.3 out of 5 stars 23,237",
+                        "4.5 out of 5 stars 2,396"
+                      ],
+                      [
+                        "$119.00 $ 119 . 00",
+                        "$69.88 $ 69 . 88",
+                        "$109.99 $ 109 . 99"
+                      ],
+                      [
+                        "Car Seat Compatible - (6 months - 5 years)  or holds up to 50 lbs",
+                        "Everyday Ready - (6 months - 2 years)  or holds up to 45 lbs",
+                        "Easy Fold for Travel - (6 months - 2 years) or holds up to 50 lbs"
+                      ],
+                      [
+                        "Lightweight & compact - perfect for everyday errands or travel",
+                        "Ultra light - durable steel frame, just 11 lbs",
+                        "Durable & lightweight - sturdy aluminum frame, just 14 lbs"
+                      ],
+                      [
+                        "Quick Close fold - one-hand, folds in seconds",
+                        "Easy-to-fold compact frame",
+                        "Compact umbrella fold - auto-lock keeps stroller contained for travel & storage"
+                      ],
+                      [
+                        "Extra-large adjustable canopy - with peek-a-boo window​",
+                        "Sun protection - canopy with flip-out visor",
+                        "UPF 50+ protection - oversized canopy in recycled fabrics"
+                      ],
+                      [
+                        "Five-point harness - keeps baby safe and secure",
+                        "Secure fit - 5-point harness with adjustable straps",
+                        "Spacious seat - padded with multi-position recline for comfort"
+                      ]
+                    ]
+                  },
+                  "Block_Types": [
+                    "text",
+                    "image",
+                    "table"
+                  ],
+                  "Layout_Blocks": [
+                    {
+                      "Block_Type": "title",
+                      "Text": "From the manufacturer"
+                    },
+                    {
+                      "Block_Type": "image",
+                      "Image": {
+                        "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0c92da2f-3ef5-4853-bbcd-6e2cd7bea85a.__CR0,3,1921,594_PT0_SX970_V1___.png",
+                        "Image_Order": 1,
+                        "Image_Title": "ingenuity",
+                        "Image_Alt": "ingenuity"
+                      }
+                    },
+                    {
+                      "Block_Type": "image",
+                      "Image": {
+                        "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3ca47f37-ae77-42e4-946a-3d834db85735.__CR273,229,2727,2727_PT0_SX300_V1___.jpg",
+                        "Image_Order": 2,
+                        "Image_Title": "3Dquickclose CS+ Compact Fold Stroller",
+                        "Image_Alt": "3Dquickclose CS+ Compact Fold Stroller"
+                      }
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "Compact size with premium features for everyday & travel"
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "One-handed quick fold to take on the go or store in seconds"
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "Compatible with a variety of car seats for newborn use"
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "Added storage so you don’t have to leave anything at home"
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "At just 17 pounds, the 3Dquickclose Stroller is compact, yet mighty. Designed to make life easier during strolls and for storage, this stroller is packed with exciting features. From “quick close” technology to a reclinable seat and extra-large canopy, the 3Dquickclose will be your go-to stroller for on the go and everyday walks."
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "Made with a durable, lightweight frame, this stroller weighs only 17 pounds and is designed to be compact while offering premium features, like a peek-a-boo canopy window, removable bumper bar, and car seat compatibility. Compatible car seats include: Graco SnugRide Click Connect 35, Graco SnugRide SnugLock 35, Chicco Keyfit 30, Chicco Fit2 and Baby Trend Secure Snap Gear 35."
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "Leave no essentials behind! This stroller offers tons of storage to accommodate your day and anything it might bring. Convenient cargo features include a large storage basket, adult and child cup holders, cell phone holder, and rear pocket."
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "Keep your little one cozy and happy during your stroll with the 3Dquickclose. The padded, full-size seat can be adjusted and reclined with multiple position options, so that you can find the perfect spot, whether it’s nap time or just relaxation time. Plus, shield your baby from the sun’s rays with the extra-large canopy and keep them safe with the 5-point safety harness."
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "Fold this stroller up in a flash, thanks to our innovative “quick close” auto fold technology. Designed for one-handed folding, storing and traveling with a stroller has never been easier. To close the stroller, simply slide the trigger and squeeze the handle. One-handed for convenience, two-step activation for safety!  The self-standing fold makes storage and travel a breeze."
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "Many strollers can be too bulky, heavy and inconvenient for travel. That’s why we created the 3Dquickclose. Highly durable, this stroller is suitable for long-term use as your everyday stroller or your preferred on the go option. Easily fits in car trunks and takes up minimal space when stored. Dimensions: 41.25 (H) x 20.5 (W) x 36.22 (L)” assembled and 26.5 (H) x 20.5 (W) x 16.5 (L).”"
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "Ingenuity is a Top Manufacturer of Umbrella Strollers. We’re experts at making compact and lightweight strollers to maximize reliability and our little one’s safety while minimizing stress and inconvenience. Enjoy premium features without the bulkiness of standard strollers."
+                    },
+                    {
+                      "Block_Type": "table",
+                      "Table": {
+                        "Headers": [
+                          "Ingenuity 3Dquickclose CS+ Compact Fold Stroller",
+                          "Ingenuity 3D Mini Lightweight Umbrella Stroller",
+                          "Ingenuity 3Dlite Convenience Stroller",
+                          "Customer Reviews",
+                          "Price",
+                          "Grows With Baby",
+                          "Lightweight Factor",
+                          "On-the-Go Fold",
+                          "Sun & Shade",
+                          "Safety & Comfort"
+                        ],
+                        "Rows": [
+                          [
+                            "Add to Cart",
+                            "Add to Cart",
+                            "Add to Cart"
+                          ],
+                          [
+                            "4.6 out of 5 stars 1,500",
+                            "4.3 out of 5 stars 23,237",
+                            "4.5 out of 5 stars 2,396"
+                          ],
+                          [
+                            "$119.00 $ 119 . 00",
+                            "$69.88 $ 69 . 88",
+                            "$109.99 $ 109 . 99"
+                          ],
+                          [
+                            "Car Seat Compatible - (6 months - 5 years)  or holds up to 50 lbs",
+                            "Everyday Ready - (6 months - 2 years)  or holds up to 45 lbs",
+                            "Easy Fold for Travel - (6 months - 2 years) or holds up to 50 lbs"
+                          ],
+                          [
+                            "Lightweight & compact - perfect for everyday errands or travel",
+                            "Ultra light - durable steel frame, just 11 lbs",
+                            "Durable & lightweight - sturdy aluminum frame, just 14 lbs"
+                          ],
+                          [
+                            "Quick Close fold - one-hand, folds in seconds",
+                            "Easy-to-fold compact frame",
+                            "Compact umbrella fold - auto-lock keeps stroller contained for travel & storage"
+                          ],
+                          [
+                            "Extra-large adjustable canopy - with peek-a-boo window​",
+                            "Sun protection - canopy with flip-out visor",
+                            "UPF 50+ protection - oversized canopy in recycled fabrics"
+                          ],
+                          [
+                            "Five-point harness - keeps baby safe and secure",
+                            "Secure fit - 5-point harness with adjustable straps",
+                            "Spacious seat - padded with multi-position recline for comfort"
+                          ]
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ],
+              "Assets": {
+                "Remote_Images": [
+                  "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0c92da2f-3ef5-4853-bbcd-6e2cd7bea85a.__CR0,3,1921,594_PT0_SX970_V1___.png",
+                  "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3ca47f37-ae77-42e4-946a-3d834db85735.__CR273,229,2727,2727_PT0_SX300_V1___.jpg"
+                ],
+                "Local_Images": [
+                  "../scrape_store/stroller/Ingenuity/Rank_Similar_ASIN_B0BSP4K34F_Ingenuity 3Dquickclose CS Compact Fold Stroller  L/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+                  "../scrape_store/stroller/Ingenuity/Rank_Similar_ASIN_B0BSP4K34F_Ingenuity 3Dquickclose CS Compact Fold Stroller  L/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg"
+                ]
+              }
+            },
+            "Product_Guides_And_Documents": {
+              "Model_Version": "1.0",
+              "Items": [
+                {
+                  "Title": "User Manual (PDF)",
+                  "URL": "https://m.media-amazon.com/images/I/C186ZSlforL.pdf",
+                  "Type": "PDF",
+                  "Source": "Product guides and documents",
+                  "Category": "manual",
+                  "Local_Path": "../scrape_store/stroller/Ingenuity/Rank_Similar_ASIN_B0BSP4K34F_Ingenuity 3Dquickclose CS Compact Fold Stroller  L/guides/manual/doc_00_User_Manual_PDF.pdf"
+                }
+              ],
+              "Summary": {
+                "Count": 1
+              },
+              "Local_Paths": [
+                "../scrape_store/stroller/Ingenuity/Rank_Similar_ASIN_B0BSP4K34F_Ingenuity 3Dquickclose CS Compact Fold Stroller  L/guides/manual/doc_00_User_Manual_PDF.pdf"
+              ]
+            },
+            "Product_Description": "Keep things light without sacrificing safety (or style!) with the Summer by Ingenuity 3Dquickclose CS+ Compact Fold Stroller. Designed by a Top Manufacturer of Umbrella Strollers*, this lightweight stroller is a parent must-have that’s perfect for quick trips or long vacations. It offers a “quick close” feature that allows the user to fold it in seconds – with just one hand! The sleek design offers all the features of a full-size stroller including a five-point safety harness, large storage basket, a multi-position recline, a child’s cup holder, extra-large canopy, and a removable bumper bar for easily getting your little one in and out of. Adults will enjoy a cup holder and a cell phone holder, a peek-a-boo window so you can check in on your little one through the canopy, and a storage pocket. At only seventeen pounds, it’s convenient for travel or everyday use and is compatible with select infant car seats, so you can start using it as soon as your baby comes home! *(Circana, Retailer Tracking Service, U.S., Strollers-Umbrella, Ranked #2, dollar sales, YTD November 2023)",
+            "Product_Specifications": {
+              "Measurements": {
+                "Item Weight": "17 Pounds",
+                "Folded Size": "20.5*17.3*7.1 Inches",
+                "Rear Facing Stroller Maximum Height": "40 Inches",
+                "Item Dimensions L x W x H": "36.22\"L x 20.5\"W x 41.25\"H",
+                "Frame Weight": "17 Pounds",
+                "Back Wheel Diameter": "14 Inches",
+                "Front Wheel Diameter": "5.5 Inches",
+                "Car Seat Weight Capacity Maximum": "50 Pounds"
+              },
+              "Features_Specs": {
+                "Stroller Type": "Umbrella Stroller",
+                "Is Car Seat Compatible": "Yes",
+                "Seating Capacity": "1",
+                "Additional Features": "Quick Close Technology, One-Handed Compact Fold, Car Seat Compatibility",
+                "Built-in Light": "No",
+                "Has Stroller Brake System": "No",
+                "Is Electric": "No"
+              },
+              "Materials_Care": {},
+              "Item_Details": {
+                "Number of Cup Holders": "2",
+                "Number of Wheels": "4",
+                "Compatible Car Seat Models": "Baby Trend Secure Snap Gear 35, Chicco KeyFit 30, Graco SnugRide SnugLock 35"
+              },
+              "User_Guide": {
+                "Harness Type": "5 Point",
+                "Harness Feature": "Standard Five-Point Harness"
+              },
+              "Additional_Details": {}
+            },
+            "Right_Panel_Details": {
+              "Ships_From": "N/A",
+              "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+              "Availability": "In Stock",
+              "Delivery_Promise": "FREE delivery Wednesday, July 1 Or Prime members get FREE delivery Tomorrow, June 27. Order within 10 hrs 28 mins. Join Prime",
+              "Specifications": {
+                "Item Weight": "17 Pounds",
+                "Folded Size": "20.5*17.3*7.1 Inches",
+                "Rear Facing Stroller Maximum Height": "40 Inches",
+                "Item Dimensions L x W x H": "36.22\"L x 20.5\"W x 41.25\"H",
+                "Frame Weight": "17 Pounds",
+                "Back Wheel Diameter": "14 Inches",
+                "Front Wheel Diameter": "5.5 Inches",
+                "Car Seat Weight Capacity Maximum": "50 Pounds"
+              }
+            },
+            "Local_Image_Paths": [
+              "../scrape_store/stroller/Ingenuity/Rank_Similar_ASIN_B0BSP4K34F_Ingenuity 3Dquickclose CS Compact Fold Stroller  L/images/primary.jpg",
+              "../scrape_store/stroller/Ingenuity/Rank_Similar_ASIN_B0BSP4K34F_Ingenuity 3Dquickclose CS Compact Fold Stroller  L/images/alt_1.jpg",
+              "../scrape_store/stroller/Ingenuity/Rank_Similar_ASIN_B0BSP4K34F_Ingenuity 3Dquickclose CS Compact Fold Stroller  L/images/alt_2.jpg",
+              "../scrape_store/stroller/Ingenuity/Rank_Similar_ASIN_B0BSP4K34F_Ingenuity 3Dquickclose CS Compact Fold Stroller  L/images/alt_3.jpg",
+              "../scrape_store/stroller/Ingenuity/Rank_Similar_ASIN_B0BSP4K34F_Ingenuity 3Dquickclose CS Compact Fold Stroller  L/images/alt_4.jpg",
+              "../scrape_store/stroller/Ingenuity/Rank_Similar_ASIN_B0BSP4K34F_Ingenuity 3Dquickclose CS Compact Fold Stroller  L/images/alt_5.jpg",
+              "../scrape_store/stroller/Ingenuity/Rank_Similar_ASIN_B0BSP4K34F_Ingenuity 3Dquickclose CS Compact Fold Stroller  L/images/alt_6.jpg",
+              "../scrape_store/stroller/Ingenuity/Rank_Similar_ASIN_B0BSP4K34F_Ingenuity 3Dquickclose CS Compact Fold Stroller  L/images/alt_7.jpg",
+              "../scrape_store/stroller/Ingenuity/Rank_Similar_ASIN_B0BSP4K34F_Ingenuity 3Dquickclose CS Compact Fold Stroller  L/images/alt_8.jpg",
+              "../scrape_store/stroller/Ingenuity/Rank_Similar_ASIN_B0BSP4K34F_Ingenuity 3Dquickclose CS Compact Fold Stroller  L/images/alt_9.jpg"
+            ],
+            "Local_Image_Path": "../scrape_store/stroller/Ingenuity/Rank_Similar_ASIN_B0BSP4K34F_Ingenuity 3Dquickclose CS Compact Fold Stroller  L/images/primary.jpg",
+            "Local_Video_Paths": [],
+            "Category_Attributes": {
+              "categoryId": "stroller",
+              "ageGroup": [],
+              "structure": [
+                "Umbrella Stroller"
+              ],
+              "scenario": [],
+              "features": [
+                "The Ingenuity 3Dquickclose CS+ Compact Fold Stroller is lightweight and easy to maneuver",
+                "making it the perfect stroller for on the go or as your little one’s everyday ride",
+                "Fold this compact stroller in seconds with one hand thanks to unique “quick close” technology",
+                "*Compatible with a variety of carseats",
+                "including the Ingenuity Affirm 335",
+                "Graco SnugRide Click Connect 35",
+                "Graco SnugRide SnugLock 35",
+                "Chicco Keyfit 30",
+                "Chicco Fit2 and Baby Trend Secure Snap Gear 35",
+                "Keep baby safe and comfortable with a five-point safety harness and an adjustable seat that can be reclined to the perfect position",
+                "Store all your gear (both large and small) with a sizable basket underneath the seat",
+                "as well as smaller storage solutions like a back pocket and cell phone holder",
+                "Umbrella Stroller",
+                "Yes",
+                "1",
+                "Quick Close Technology",
+                "One-Handed Compact Fold",
+                "Car Seat Compatibility",
+                "No"
+              ],
+              "materialClass": [],
+              "wheelSize": [],
+              "powerLevel": []
+            },
+            "Feature_Cards": [
+              {
+                "featureKey": "The Ingenuity 3Dquickclose CS+ Compact Fold Stroller is lightweight and easy to maneuver",
+                "featureLabel": "The Ingenuity 3dquickclose Cs+ Compact Fold Stroller Is Lightweight And Easy To Maneuver",
+                "featureValue": "The Ingenuity 3Dquickclose CS+ Compact Fold Stroller is lightweight and easy to maneuver",
+                "featureEvidence": "Features",
+                "featureRank": 1,
+                "featureNotes": "Derived from stroller scrape-time evidence"
+              },
+              {
+                "featureKey": "making it the perfect stroller for on the go or as your little one’s everyday ride",
+                "featureLabel": "Making It The Perfect Stroller For On The Go Or As Your Little One’s Everyday Ride",
+                "featureValue": "making it the perfect stroller for on the go or as your little one’s everyday ride",
+                "featureEvidence": "Product_Specifications.Features_Specs",
+                "featureRank": 2,
+                "featureNotes": "Derived from stroller scrape-time evidence"
+              },
+              {
+                "featureKey": "Fold this compact stroller in seconds with one hand thanks to unique “quick close” technology",
+                "featureLabel": "Fold This Compact Stroller In Seconds With One Hand Thanks To Unique “quick Close” Technology",
+                "featureValue": "Fold this compact stroller in seconds with one hand thanks to unique “quick close” technology",
+                "featureEvidence": "Product_Specifications.Features_Specs",
+                "featureRank": 3,
+                "featureNotes": "Derived from stroller scrape-time evidence"
+              },
+              {
+                "featureKey": "*Compatible with a variety of carseats",
+                "featureLabel": "*compatible With A Variety Of Carseats",
+                "featureValue": "*Compatible with a variety of carseats",
+                "featureEvidence": "Product_Specifications.Features_Specs",
+                "featureRank": 4,
+                "featureNotes": "Derived from stroller scrape-time evidence"
+              },
+              {
+                "featureKey": "including the Ingenuity Affirm 335",
+                "featureLabel": "Including The Ingenuity Affirm 335",
+                "featureValue": "including the Ingenuity Affirm 335",
+                "featureEvidence": "Product_Specifications.Features_Specs",
+                "featureRank": 5,
+                "featureNotes": "Derived from stroller scrape-time evidence"
+              },
+              {
+                "featureKey": "Graco SnugRide Click Connect 35",
+                "featureLabel": "Graco Snugride Click Connect 35",
+                "featureValue": "Graco SnugRide Click Connect 35",
+                "featureEvidence": "Product_Specifications.Features_Specs",
+                "featureRank": 6,
+                "featureNotes": "Derived from stroller scrape-time evidence"
+              }
+            ],
+            "Decision_Signals": {
+              "ranking": [
+                "The Ingenuity 3Dquickclose CS+ Compact Fold Stroller is lightweight and easy to maneuver",
+                "making it the perfect stroller for on the go or as your little one’s everyday ride",
+                "Fold this compact stroller in seconds with one hand thanks to unique “quick close” technology",
+                "*Compatible with a variety of carseats"
+              ],
+              "safety": [],
+              "fit": [
+                "Umbrella Stroller"
+              ]
+            },
+            "Evidence_Refs": [
+              "Product_Specifications.Features_Specs.Stroller Type",
+              "Features"
+            ]
+          },
+          {
+            "Rank": "Similar",
+            "Brand": "Mompush",
+            "Title": "Mompush Wiz 2 in 1 Baby Stroller with Infant Pramette Mode, One Hand Fold Convertible Newborn to Toddler Stroller with Revers",
+            "Price": "$149.99",
+            "Rating": "4.6",
+            "Reviews": "3,511",
+            "URL": "https://www.amazon.com/Stroller-Bassinet-Convertible-Carriage-Reversible/dp/B09FL7LV9W/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_2/147-2461909-0452969?pd_rd_w=dGlg1&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=VQ1D1ZJQ8TM0DE34PJSS&pd_rd_wg=hySmv&pd_rd_r=76677cb4-be9e-4e7c-bdc7-15018936dcd4&pd_rd_i=B09FL7LV9W&psc=1",
+            "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/81mebRDVJVL._AC_UL165_SR165,165_.jpg",
+            "ASIN": "B09FL7LV9W",
+            "Features": "Room to Grow: Use from birth as a newborn stroller with easy conversion to infant pramette mode, allowing your baby to sleep comfortably on the go. This stroller adapts as your child grows, providing a secure ride from newborn to toddler stages. Compatible with Maxi-Cosi and Nuna car seats (car seat adapter sold separately). | Open Up to the World: Customize the seat orientation to suit your baby's mood. Parent-facing provides extra reassurance, while outward-facing offers visual stimulation. This modern infant stroller allows you to adjust for optimal comfort during outings. | Smooth Strolling: Omnidirectional luxury stroller wheels enable effortless 360° maneuvering, paired with a sturdy advanced suspension system for exceptional cushioning. The faux leather handle provides extra grip for a smooth ride for both newborns and toddlers. | For On-the-Go Families: This toddler stroller combo features a compact design with maximum storage capability and a convenient one-hand fold for easy storage and transport. Keep all essentials under the seat for all-day outings and fold it easily for stress-free loading and unloading—perfect for busy parents. | Shielded & Safe: Enjoy sunny days with confidence using this stroller for newborns, featuring a zip-out UPF 50+ canopy for maximum coverage. Ventilation panels provide optimal airflow and natural light, while the included foot cover protects against harsh weather, making this a versatile infant stroller.",
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bfe2bc36-388f-4c00-99ad-3703fddbb0dd/default.jobtemplate.hls.m3u8",
+            "Product_Videos_Detail": [
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bfe2bc36-388f-4c00-99ad-3703fddbb0dd/default.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/7112i6PIn6L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+                "Title": "Mompush Wiz 2 in 1 Baby Stroller with Bassinet Mode",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5e194961-d773-49cc-bf14-52f96b820ba3/default.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/81g4PgDnFoL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+                "Title": "Mompush Wiz Baby Stroller User Guide",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/47306bed-e14d-4968-b646-6dfe5dad214f/default.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1RdGTXP2+L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+                "Title": "Mompush Wiz 2 in 1 Bassinet Stroller",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ab9f570d-5eb7-48cf-b340-2b39843a3455/default.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/71WoS5mtzyL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+                "Title": "mompush Wiz baby stroller demo",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/66d2118b-a513-4091-bba5-1c6bf6620d0f/default.vertical.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1bMzT+vPKL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+                "Title": "Mompush 2 in 1 Baby Stroller",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6096f667-b75e-48ac-a0b3-f94ba2a8627f/default.vertical.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/71BESdMcChL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+                "Title": "The only stroller you will need! Baby through toddler",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/447e61c6-2365-44c7-80cc-596bde38a478/default.vertical.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/71n3kTBAkjL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+                "Title": "Love my new stroller . Highly recommend",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d7b3728a-77d3-4069-b8a7-75649b94eafc/default.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1ZBH64GFsL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+                "Title": "Watch BEFORE you buy! Mompush stroller honest review!",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e7268d40-0372-48f3-a823-2a7921a72cd8/default.vertical.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/918xnaUOzyL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+                "Title": "Must Have Stroller for New Moms!",
+                "Author": "N/A",
+                "Is_MP4": false
+              }
+            ],
+            "Product_Videos": [
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bfe2bc36-388f-4c00-99ad-3703fddbb0dd/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5e194961-d773-49cc-bf14-52f96b820ba3/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/47306bed-e14d-4968-b646-6dfe5dad214f/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ab9f570d-5eb7-48cf-b340-2b39843a3455/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/66d2118b-a513-4091-bba5-1c6bf6620d0f/default.vertical.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6096f667-b75e-48ac-a0b3-f94ba2a8627f/default.vertical.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/447e61c6-2365-44c7-80cc-596bde38a478/default.vertical.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d7b3728a-77d3-4069-b8a7-75649b94eafc/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e7268d40-0372-48f3-a823-2a7921a72cd8/default.vertical.jobtemplate.hls.m3u8"
+            ],
+            "Product_Videos_MP4": [],
+            "Product_Videos_M3U8": [
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bfe2bc36-388f-4c00-99ad-3703fddbb0dd/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5e194961-d773-49cc-bf14-52f96b820ba3/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/47306bed-e14d-4968-b646-6dfe5dad214f/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ab9f570d-5eb7-48cf-b340-2b39843a3455/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/66d2118b-a513-4091-bba5-1c6bf6620d0f/default.vertical.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6096f667-b75e-48ac-a0b3-f94ba2a8627f/default.vertical.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/447e61c6-2365-44c7-80cc-596bde38a478/default.vertical.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d7b3728a-77d3-4069-b8a7-75649b94eafc/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e7268d40-0372-48f3-a823-2a7921a72cd8/default.vertical.jobtemplate.hls.m3u8"
+            ],
+            "From_The_Manufacturer": {
+              "Model_Version": "2.0",
+              "Sections": [
+                {
+                  "Section_Id": "section_01",
+                  "Display_Order": 1,
+                  "Title": "Our Products",
+                  "Texts": [],
+                  "Images": [
+                    "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1b6314bc-bfdc-435c-8222-8528529eb8d4.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "https://m.media-amazon.com/images/S/aplus-media-library-service-media/660a2ae3-e1bf-4169-9666-f555f02f6399.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0111641b-f6cb-4bd0-99c2-bf1675ffebe1.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "https://m.media-amazon.com/images/S/aplus-media-library-service-media/809b7975-789b-498d-b991-82d1943d14b4.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+                  ],
+                  "Images_Detail": [
+                    {
+                      "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1b6314bc-bfdc-435c-8222-8528529eb8d4.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                      "Image_Order": 1,
+                      "Image_Title": "Thoughtfully chosen materials for everyday peace of mind",
+                      "Image_Alt": "Thoughtfully chosen materials for everyday peace of mind"
+                    },
+                    {
+                      "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/660a2ae3-e1bf-4169-9666-f555f02f6399.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                      "Image_Order": 2,
+                      "Image_Title": "newborn to toddler",
+                      "Image_Alt": "newborn to toddler"
+                    },
+                    {
+                      "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0111641b-f6cb-4bd0-99c2-bf1675ffebe1.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                      "Image_Order": 3,
+                      "Image_Title": "newborn to toddler stroller",
+                      "Image_Alt": "newborn to toddler stroller"
+                    },
+                    {
+                      "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/809b7975-789b-498d-b991-82d1943d14b4.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                      "Image_Order": 4,
+                      "Image_Title": "comfort seat",
+                      "Image_Alt": "comfort seat"
+                    }
+                  ],
+                  "Comparison_Table": {
+                    "Headers": [
+                      "Mompush Wiz Add to Cart",
+                      "Mompush Lithe V2 Add to Cart",
+                      "Mompush Nexis Buying Options",
+                      "Mompush Lithe Double Add to Cart",
+                      "Mompush Velo Buying Options",
+                      "Mompush Ultimate 3 Add to Cart",
+                      "Mompush Olli Buying Options"
+                    ],
+                    "Rows": [
+                      [
+                        "Customer Reviews",
+                        "4.6 out of 5 stars 3,511",
+                        "4.6 out of 5 stars 1,863",
+                        "4.5 out of 5 stars 181",
+                        "4.6 out of 5 stars 559",
+                        "4.6 out of 5 stars 226",
+                        "—",
+                        "4.5 out of 5 stars 139"
+                      ],
+                      [
+                        "Price",
+                        "$149.99 $ 149 . 99",
+                        "$169.99 $ 169 . 99",
+                        "$169.99 $ 169 . 99",
+                        "$203.99 $ 203 . 99",
+                        "$249.99 $ 249 . 99",
+                        "$599.99 $ 599 . 99",
+                        "$76.49 $ 76 . 49"
+                      ],
+                      [
+                        "Age Range",
+                        "0 month - 50 lbs",
+                        "0 month - 50 lbs",
+                        "0 month - 50 lbs",
+                        "6 month - 40 lbs",
+                        "0 month - 50 lbs",
+                        "0 month - 50 lbs",
+                        "6 month - 50 lbs"
+                      ],
+                      [
+                        "Key Features",
+                        "2-in-1 mode",
+                        "Snack tray & lightweight",
+                        "Ultra-lightweight carbon fiber",
+                        "Double lightweight",
+                        "Premium & lightweight",
+                        "Ultimate comfort for growth",
+                        "7 in 1 high chair"
+                      ],
+                      [
+                        "Flat Lying Position",
+                        "Bassinet mode",
+                        "Almost fully flat",
+                        "Almost fully flat",
+                        "Semi-reclining",
+                        "Almost fully flat",
+                        "Bassinet + almost fully flat",
+                        "Multi-mode seating"
+                      ],
+                      [
+                        "Car Seat Compatible",
+                        "Adapter sold separately",
+                        "No",
+                        "No",
+                        "No",
+                        "Adapter sold separately",
+                        "Adapter sold separately",
+                        "No"
+                      ],
+                      [
+                        "Tray Option",
+                        "Snack tray sold separately",
+                        "Snack tray included",
+                        "No",
+                        "No",
+                        "Snack tray sold separately",
+                        "No",
+                        "Snack tray included"
+                      ]
+                    ]
+                  },
+                  "Block_Types": [
+                    "image",
+                    "table"
+                  ],
+                  "Layout_Blocks": [
+                    {
+                      "Block_Type": "title",
+                      "Text": "Our Products"
+                    },
+                    {
+                      "Block_Type": "image",
+                      "Image": {
+                        "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1b6314bc-bfdc-435c-8222-8528529eb8d4.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                        "Image_Order": 1,
+                        "Image_Title": "Thoughtfully chosen materials for everyday peace of mind",
+                        "Image_Alt": "Thoughtfully chosen materials for everyday peace of mind"
+                      }
+                    },
+                    {
+                      "Block_Type": "image",
+                      "Image": {
+                        "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/660a2ae3-e1bf-4169-9666-f555f02f6399.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                        "Image_Order": 2,
+                        "Image_Title": "newborn to toddler",
+                        "Image_Alt": "newborn to toddler"
+                      }
+                    },
+                    {
+                      "Block_Type": "image",
+                      "Image": {
+                        "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0111641b-f6cb-4bd0-99c2-bf1675ffebe1.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                        "Image_Order": 3,
+                        "Image_Title": "newborn to toddler stroller",
+                        "Image_Alt": "newborn to toddler stroller"
+                      }
+                    },
+                    {
+                      "Block_Type": "image",
+                      "Image": {
+                        "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/809b7975-789b-498d-b991-82d1943d14b4.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                        "Image_Order": 4,
+                        "Image_Title": "comfort seat",
+                        "Image_Alt": "comfort seat"
+                      }
+                    },
+                    {
+                      "Block_Type": "table",
+                      "Table": {
+                        "Headers": [
+                          "Mompush Wiz Add to Cart",
+                          "Mompush Lithe V2 Add to Cart",
+                          "Mompush Nexis Buying Options",
+                          "Mompush Lithe Double Add to Cart",
+                          "Mompush Velo Buying Options",
+                          "Mompush Ultimate 3 Add to Cart",
+                          "Mompush Olli Buying Options"
+                        ],
+                        "Rows": [
+                          [
+                            "Customer Reviews",
+                            "4.6 out of 5 stars 3,511",
+                            "4.6 out of 5 stars 1,863",
+                            "4.5 out of 5 stars 181",
+                            "4.6 out of 5 stars 559",
+                            "4.6 out of 5 stars 226",
+                            "—",
+                            "4.5 out of 5 stars 139"
+                          ],
+                          [
+                            "Price",
+                            "$149.99 $ 149 . 99",
+                            "$169.99 $ 169 . 99",
+                            "$169.99 $ 169 . 99",
+                            "$203.99 $ 203 . 99",
+                            "$249.99 $ 249 . 99",
+                            "$599.99 $ 599 . 99",
+                            "$76.49 $ 76 . 49"
+                          ],
+                          [
+                            "Age Range",
+                            "0 month - 50 lbs",
+                            "0 month - 50 lbs",
+                            "0 month - 50 lbs",
+                            "6 month - 40 lbs",
+                            "0 month - 50 lbs",
+                            "0 month - 50 lbs",
+                            "6 month - 50 lbs"
+                          ],
+                          [
+                            "Key Features",
+                            "2-in-1 mode",
+                            "Snack tray & lightweight",
+                            "Ultra-lightweight carbon fiber",
+                            "Double lightweight",
+                            "Premium & lightweight",
+                            "Ultimate comfort for growth",
+                            "7 in 1 high chair"
+                          ],
+                          [
+                            "Flat Lying Position",
+                            "Bassinet mode",
+                            "Almost fully flat",
+                            "Almost fully flat",
+                            "Semi-reclining",
+                            "Almost fully flat",
+                            "Bassinet + almost fully flat",
+                            "Multi-mode seating"
+                          ],
+                          [
+                            "Car Seat Compatible",
+                            "Adapter sold separately",
+                            "No",
+                            "No",
+                            "No",
+                            "Adapter sold separately",
+                            "Adapter sold separately",
+                            "No"
+                          ],
+                          [
+                            "Tray Option",
+                            "Snack tray sold separately",
+                            "Snack tray included",
+                            "No",
+                            "No",
+                            "Snack tray sold separately",
+                            "No",
+                            "Snack tray included"
+                          ]
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ],
+              "Assets": {
+                "Remote_Images": [
+                  "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1b6314bc-bfdc-435c-8222-8528529eb8d4.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "https://m.media-amazon.com/images/S/aplus-media-library-service-media/660a2ae3-e1bf-4169-9666-f555f02f6399.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0111641b-f6cb-4bd0-99c2-bf1675ffebe1.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "https://m.media-amazon.com/images/S/aplus-media-library-service-media/809b7975-789b-498d-b991-82d1943d14b4.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+                ],
+                "Local_Images": [
+                  "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B09FL7LV9W_Mompush Wiz 2 in 1 Baby Stroller with Infant Prame/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+                  "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B09FL7LV9W_Mompush Wiz 2 in 1 Baby Stroller with Infant Prame/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+                  "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B09FL7LV9W_Mompush Wiz 2 in 1 Baby Stroller with Infant Prame/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+                  "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B09FL7LV9W_Mompush Wiz 2 in 1 Baby Stroller with Infant Prame/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg"
+                ]
+              }
+            },
+            "Product_Guides_And_Documents": {
+              "Model_Version": "1.0",
+              "Items": [
+                {
+                  "Title": "User Guide (PDF)",
+                  "URL": "https://m.media-amazon.com/images/I/C1Gaso9weAL.pdf",
+                  "Type": "PDF",
+                  "Source": "Product guides and documents",
+                  "Category": "manual",
+                  "Local_Path": "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B09FL7LV9W_Mompush Wiz 2 in 1 Baby Stroller with Infant Prame/guides/manual/doc_00_User_Guide_PDF.pdf"
+                }
+              ],
+              "Summary": {
+                "Count": 1
+              },
+              "Local_Paths": [
+                "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B09FL7LV9W_Mompush Wiz 2 in 1 Baby Stroller with Infant Prame/guides/manual/doc_00_User_Guide_PDF.pdf"
+              ]
+            },
+            "Product_Description": "N/A",
+            "Product_Specifications": {
+              "Measurements": {
+                "Item Weight": "23.1 Pounds",
+                "Folded Size": "43.4\" L X 24.4\" W X 14.2\" H",
+                "Rear Facing Stroller Maximum Height": "42.9 Inches",
+                "Item Dimensions L x W x H": "36.8\"L x 24\"W x 41.3\"H",
+                "Basket Weight Capacity Maximum": "10 Pounds",
+                "Back Wheel Diameter": "9.4 Inches",
+                "Front Wheel Diameter": "6.3 Inches",
+                "Car Seat Weight Capacity Maximum": "50 Pounds"
+              },
+              "Features_Specs": {
+                "Stroller Type": "Standard Stroller",
+                "Is Car Seat Compatible": "No",
+                "Seating Capacity": "1",
+                "Additional Features": "5-Point Safety Harness, Adjustable Canopy, Reversible Seat, Storage Basket, Swivel Wheels",
+                "Built-in Light": "No",
+                "Has Stroller Brake System": "Yes"
+              },
+              "Materials_Care": {},
+              "Item_Details": {
+                "Number of Cup Holders": "1",
+                "Number of Wheels": "4",
+                "Compatible Car Seat Models": "Maxi-Cosi Mico AP Infant Car Seat, Maxi-Cosi Mico Luxe, Maxi-Cosi Mico Max 30"
+              },
+              "User_Guide": {
+                "Harness Type": "5 Point",
+                "Harness Feature": "5 Point Safety"
+              },
+              "Additional_Details": {}
+            },
+            "Right_Panel_Details": {
+              "Ships_From": "N/A",
+              "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+              "Availability": "In Stock",
+              "Delivery_Promise": "FREE delivery Wednesday, July 1",
+              "Specifications": {
+                "Item Weight": "23.1 Pounds",
+                "Folded Size": "43.4\" L X 24.4\" W X 14.2\" H",
+                "Rear Facing Stroller Maximum Height": "42.9 Inches",
+                "Item Dimensions L x W x H": "36.8\"L x 24\"W x 41.3\"H",
+                "Basket Weight Capacity Maximum": "10 Pounds",
+                "Back Wheel Diameter": "9.4 Inches",
+                "Front Wheel Diameter": "6.3 Inches",
+                "Car Seat Weight Capacity Maximum": "50 Pounds"
+              }
+            },
+            "Local_Image_Paths": [
+              "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B09FL7LV9W_Mompush Wiz 2 in 1 Baby Stroller with Infant Prame/images/primary.jpg",
+              "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B09FL7LV9W_Mompush Wiz 2 in 1 Baby Stroller with Infant Prame/images/alt_1.jpg",
+              "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B09FL7LV9W_Mompush Wiz 2 in 1 Baby Stroller with Infant Prame/images/alt_2.jpg",
+              "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B09FL7LV9W_Mompush Wiz 2 in 1 Baby Stroller with Infant Prame/images/alt_3.jpg",
+              "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B09FL7LV9W_Mompush Wiz 2 in 1 Baby Stroller with Infant Prame/images/alt_4.jpg",
+              "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B09FL7LV9W_Mompush Wiz 2 in 1 Baby Stroller with Infant Prame/images/alt_5.jpg",
+              "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B09FL7LV9W_Mompush Wiz 2 in 1 Baby Stroller with Infant Prame/images/alt_6.jpg",
+              "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B09FL7LV9W_Mompush Wiz 2 in 1 Baby Stroller with Infant Prame/images/alt_7.jpg",
+              "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B09FL7LV9W_Mompush Wiz 2 in 1 Baby Stroller with Infant Prame/images/alt_8.jpg",
+              "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B09FL7LV9W_Mompush Wiz 2 in 1 Baby Stroller with Infant Prame/images/alt_9.jpg"
+            ],
+            "Local_Image_Path": "../scrape_store/stroller/Mompush/Rank_Similar_ASIN_B09FL7LV9W_Mompush Wiz 2 in 1 Baby Stroller with Infant Prame/images/primary.jpg",
+            "Local_Video_Paths": [],
+            "Category_Attributes": {
+              "categoryId": "stroller",
+              "ageGroup": [],
+              "structure": [
+                "Standard Stroller"
+              ],
+              "scenario": [],
+              "features": [
+                "Room to Grow: Use from birth as a newborn stroller with easy conversion to infant pramette mode",
+                "allowing your baby to sleep comfortably on the go. This stroller adapts as your child grows",
+                "providing a secure ride from newborn to toddler stages. Compatible with Maxi-Cosi and Nuna car seats (car seat adapter sold separately).",
+                "Open Up to the World: Customize the seat orientation to suit your baby's mood. Parent-facing provides extra reassurance",
+                "while outward-facing offers visual stimulation. This modern infant stroller allows you to adjust for optimal comfort during outings.",
+                "Smooth Strolling: Omnidirectional luxury stroller wheels enable effortless 360° maneuvering",
+                "paired with a sturdy advanced suspension system for exceptional cushioning. The faux leather handle provides extra grip for a smooth ride for both newborns and toddlers.",
+                "For On-the-Go Families: This toddler stroller combo features a compact design with maximum storage capability and a convenient one-hand fold for easy storage and transport. Keep all essentials under the seat for all-day outings and fold it easily for stress-free loading and unloading—perfect for busy parents.",
+                "Shielded & Safe: Enjoy sunny days with confidence using this stroller for newborns",
+                "featuring a zip-out UPF 50+ canopy for maximum coverage. Ventilation panels provide optimal airflow and natural light",
+                "while the included foot cover protects against harsh weather",
+                "making this a versatile infant stroller.",
+                "Standard Stroller",
+                "No",
+                "1",
+                "5-Point Safety Harness",
+                "Adjustable Canopy",
+                "Reversible Seat",
+                "Storage Basket",
+                "Swivel Wheels",
+                "Yes"
+              ],
+              "materialClass": [],
+              "wheelSize": [],
+              "powerLevel": []
+            },
+            "Feature_Cards": [
+              {
+                "featureKey": "Room to Grow: Use from birth as a newborn stroller with easy conversion to infant pramette mode",
+                "featureLabel": "Room To Grow: Use From Birth As A Newborn Stroller With Easy Conversion To Infant Pramette Mode",
+                "featureValue": "Room to Grow: Use from birth as a newborn stroller with easy conversion to infant pramette mode",
+                "featureEvidence": "Features",
+                "featureRank": 1,
+                "featureNotes": "Derived from stroller scrape-time evidence"
+              },
+              {
+                "featureKey": "allowing your baby to sleep comfortably on the go. This stroller adapts as your child grows",
+                "featureLabel": "Allowing Your Baby To Sleep Comfortably On The Go. This Stroller Adapts As Your Child Grows",
+                "featureValue": "allowing your baby to sleep comfortably on the go. This stroller adapts as your child grows",
+                "featureEvidence": "Product_Specifications.Features_Specs",
+                "featureRank": 2,
+                "featureNotes": "Derived from stroller scrape-time evidence"
+              },
+              {
+                "featureKey": "providing a secure ride from newborn to toddler stages. Compatible with Maxi-Cosi and Nuna car seats (car seat adapter sold separately).",
+                "featureLabel": "Providing A Secure Ride From Newborn To Toddler Stages. Compatible With Maxi Cosi And Nuna Car Seats (car Seat Adapter Sold Separately).",
+                "featureValue": "providing a secure ride from newborn to toddler stages. Compatible with Maxi-Cosi and Nuna car seats (car seat adapter sold separately).",
+                "featureEvidence": "Product_Specifications.Features_Specs",
+                "featureRank": 3,
+                "featureNotes": "Derived from stroller scrape-time evidence"
+              },
+              {
+                "featureKey": "Open Up to the World: Customize the seat orientation to suit your baby's mood. Parent-facing provides extra reassurance",
+                "featureLabel": "Open Up To The World: Customize The Seat Orientation To Suit Your Baby's Mood. Parent Facing Provides Extra Reassurance",
+                "featureValue": "Open Up to the World: Customize the seat orientation to suit your baby's mood. Parent-facing provides extra reassurance",
+                "featureEvidence": "Product_Specifications.Features_Specs",
+                "featureRank": 4,
+                "featureNotes": "Derived from stroller scrape-time evidence"
+              },
+              {
+                "featureKey": "while outward-facing offers visual stimulation. This modern infant stroller allows you to adjust for optimal comfort during outings.",
+                "featureLabel": "While Outward Facing Offers Visual Stimulation. This Modern Infant Stroller Allows You To Adjust For Optimal Comfort During Outings.",
+                "featureValue": "while outward-facing offers visual stimulation. This modern infant stroller allows you to adjust for optimal comfort during outings.",
+                "featureEvidence": "Product_Specifications.Features_Specs",
+                "featureRank": 5,
+                "featureNotes": "Derived from stroller scrape-time evidence"
+              },
+              {
+                "featureKey": "Smooth Strolling: Omnidirectional luxury stroller wheels enable effortless 360° maneuvering",
+                "featureLabel": "Smooth Strolling: Omnidirectional Luxury Stroller Wheels Enable Effortless 360° Maneuvering",
+                "featureValue": "Smooth Strolling: Omnidirectional luxury stroller wheels enable effortless 360° maneuvering",
+                "featureEvidence": "Product_Specifications.Features_Specs",
+                "featureRank": 6,
+                "featureNotes": "Derived from stroller scrape-time evidence"
+              }
+            ],
+            "Decision_Signals": {
+              "ranking": [
+                "Room to Grow: Use from birth as a newborn stroller with easy conversion to infant pramette mode",
+                "allowing your baby to sleep comfortably on the go. This stroller adapts as your child grows",
+                "providing a secure ride from newborn to toddler stages. Compatible with Maxi-Cosi and Nuna car seats (car seat adapter sold separately).",
+                "Open Up to the World: Customize the seat orientation to suit your baby's mood. Parent-facing provides extra reassurance"
+              ],
+              "safety": [],
+              "fit": [
+                "Standard Stroller"
+              ]
+            },
+            "Evidence_Refs": [
+              "Product_Specifications.Features_Specs.Stroller Type",
+              "Features"
+            ]
+          }
+        ],
+        "Category_Attributes": {
+          "categoryId": "stroller",
+          "ageGroup": [],
+          "structure": [
+            "Standard Stroller"
+          ],
+          "scenario": [],
+          "features": [
+            "Automatically folds to a compact size with one-hand activation for multi-tasking families",
+            "Travel stroller is overhead friendly* so you can go more places together *We recommend checking with your local airline prior to departure for specific carry-on requirements",
+            "Self-standing compact fold and ultra-lightweight at 13.2 lb",
+            "making this fully featured stroller easy to store and transport",
+            "Removable belly bar that doubles as a carry handle",
+            "stylish leatherette handle",
+            "UV 50 canopy",
+            "storage basket",
+            "and parent cup holder for easy",
+            "convenient strolling",
+            "All-wheel suspension",
+            "multi-position reclining seat",
+            "convertible 3- or 5-point harness with ultra-soft webbing and harness covers",
+            "and adjustable calf support for a smooth",
+            "comfortable ride for baby",
+            "Accepts all Graco SnugRide ICSs to become a travel system",
+            "Single-action",
+            "one-foot tap brake makes parking a breeze",
+            "Standard Stroller",
+            "Yes",
+            "1",
+            "automatic fold mechanism",
+            "lightweight",
+            "all-wheel suspension",
+            "compatible with all Graco SnugRide infant car seats",
+            "No"
+          ],
+          "materialClass": [],
+          "wheelSize": [],
+          "powerLevel": []
+        },
+        "Feature_Cards": [
+          {
+            "featureKey": "Automatically folds to a compact size with one-hand activation for multi-tasking families",
+            "featureLabel": "Automatically Folds To A Compact Size With One Hand Activation For Multi Tasking Families",
+            "featureValue": "Automatically folds to a compact size with one-hand activation for multi-tasking families",
+            "featureEvidence": "Features",
+            "featureRank": 1,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "Travel stroller is overhead friendly* so you can go more places together *We recommend checking with your local airline prior to departure for specific carry-on requirements",
+            "featureLabel": "Travel Stroller Is Overhead Friendly* So You Can Go More Places Together *we Recommend Checking With Your Local Airline Prior To Departure For Specific Carry On Requirements",
+            "featureValue": "Travel stroller is overhead friendly* so you can go more places together *We recommend checking with your local airline prior to departure for specific carry-on requirements",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 2,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "Self-standing compact fold and ultra-lightweight at 13.2 lb",
+            "featureLabel": "Self Standing Compact Fold And Ultra Lightweight At 13.2 Lb",
+            "featureValue": "Self-standing compact fold and ultra-lightweight at 13.2 lb",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 3,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "making this fully featured stroller easy to store and transport",
+            "featureLabel": "Making This Fully Featured Stroller Easy To Store And Transport",
+            "featureValue": "making this fully featured stroller easy to store and transport",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 4,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "Removable belly bar that doubles as a carry handle",
+            "featureLabel": "Removable Belly Bar That Doubles As A Carry Handle",
+            "featureValue": "Removable belly bar that doubles as a carry handle",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 5,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "stylish leatherette handle",
+            "featureLabel": "Stylish Leatherette Handle",
+            "featureValue": "stylish leatherette handle",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 6,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          }
+        ],
+        "Decision_Signals": {
+          "ranking": [
+            "Automatically folds to a compact size with one-hand activation for multi-tasking families",
+            "Travel stroller is overhead friendly* so you can go more places together *We recommend checking with your local airline prior to departure for specific carry-on requirements",
+            "Self-standing compact fold and ultra-lightweight at 13.2 lb",
+            "making this fully featured stroller easy to store and transport"
+          ],
+          "safety": [],
+          "fit": [
+            "Standard Stroller"
+          ]
+        },
+        "Evidence_Refs": [
+          "Product_Specifications.Features_Specs.Stroller Type",
+          "Features"
+        ]
+      }
+    ]
+  }
+}

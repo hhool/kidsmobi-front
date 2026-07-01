@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B07P1YSC18",
+  "sourceCategoryId": "stroller",
+  "images": [
+    {
+      "productId": "B07P1YSC18",
+      "categoryId": "stroller",
+      "resourceId": "B07P1YSC18:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/primary.jpg",
+      "targetPathKeep": "resources/b07p1ysc18-overview/primary.jpg",
+      "targetPathCpk": "categories/stroller/products/b07p1ysc18/cover/primary.jpg"
+    },
+    {
+      "productId": "B07P1YSC18",
+      "categoryId": "stroller",
+      "resourceId": "B07P1YSC18:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_1.jpg",
+      "targetPathKeep": "resources/b07p1ysc18-overview/alt_1.jpg",
+      "targetPathCpk": "categories/stroller/products/b07p1ysc18/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B07P1YSC18",
+      "categoryId": "stroller",
+      "resourceId": "B07P1YSC18:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_2.jpg",
+      "targetPathKeep": "resources/b07p1ysc18-overview/alt_2.jpg",
+      "targetPathCpk": "categories/stroller/products/b07p1ysc18/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B07P1YSC18",
+      "categoryId": "stroller",
+      "resourceId": "B07P1YSC18:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_3.jpg",
+      "targetPathKeep": "resources/b07p1ysc18-overview/alt_3.jpg",
+      "targetPathCpk": "categories/stroller/products/b07p1ysc18/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B07P1YSC18",
+      "categoryId": "stroller",
+      "resourceId": "B07P1YSC18:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_4.jpg",
+      "targetPathKeep": "resources/b07p1ysc18-overview/alt_4.jpg",
+      "targetPathCpk": "categories/stroller/products/b07p1ysc18/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B07P1YSC18",
+      "categoryId": "stroller",
+      "resourceId": "B07P1YSC18:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_5.jpg",
+      "targetPathKeep": "resources/b07p1ysc18-overview/alt_5.jpg",
+      "targetPathCpk": "categories/stroller/products/b07p1ysc18/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B07P1YSC18",
+      "categoryId": "stroller",
+      "resourceId": "B07P1YSC18:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_6.jpg",
+      "targetPathKeep": "resources/b07p1ysc18-overview/alt_6.jpg",
+      "targetPathCpk": "categories/stroller/products/b07p1ysc18/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B07P1YSC18",
+      "categoryId": "stroller",
+      "resourceId": "B07P1YSC18:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_7.jpg",
+      "targetPathKeep": "resources/b07p1ysc18-overview/alt_7.jpg",
+      "targetPathCpk": "categories/stroller/products/b07p1ysc18/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B07P1YSC18",
+      "categoryId": "stroller",
+      "resourceId": "B07P1YSC18:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_8.jpg",
+      "targetPathKeep": "resources/b07p1ysc18-overview/alt_8.jpg",
+      "targetPathCpk": "categories/stroller/products/b07p1ysc18/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B07P1YSC18",
+      "categoryId": "stroller",
+      "resourceId": "B07P1YSC18:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_9.jpg",
+      "targetPathKeep": "resources/b07p1ysc18-overview/alt_9.jpg",
+      "targetPathCpk": "categories/stroller/products/b07p1ysc18/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B07P1YSC18",
+      "categoryId": "stroller",
+      "resourceId": "B07P1YSC18:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b07p1ysc18-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/stroller/products/b07p1ysc18/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B07P1YSC18",
+      "categoryId": "stroller",
+      "resourceId": "B07P1YSC18:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "targetPathKeep": "resources/b07p1ysc18-overview/aplus_01.jpg",
+      "targetPathCpk": "categories/stroller/products/b07p1ysc18/gallery/aplus_01.jpg"
+    },
+    {
+      "productId": "B07P1YSC18",
+      "categoryId": "stroller",
+      "resourceId": "B07P1YSC18:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "targetPathKeep": "resources/b07p1ysc18-overview/aplus_02.jpg",
+      "targetPathCpk": "categories/stroller/products/b07p1ysc18/gallery/aplus_02.jpg"
+    },
+    {
+      "productId": "B07P1YSC18",
+      "categoryId": "stroller",
+      "resourceId": "B07P1YSC18:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+      "targetPathKeep": "resources/b07p1ysc18-overview/aplus_03.jpg",
+      "targetPathCpk": "categories/stroller/products/b07p1ysc18/gallery/aplus_03.jpg"
+    },
+    {
+      "productId": "B07P1YSC18",
+      "categoryId": "stroller",
+      "resourceId": "B07P1YSC18:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg",
+      "targetPathKeep": "resources/b07p1ysc18-overview/aplus_04.jpg",
+      "targetPathCpk": "categories/stroller/products/b07p1ysc18/gallery/aplus_04.jpg"
+    },
+    {
+      "productId": "B07P1YSC18",
+      "categoryId": "stroller",
+      "resourceId": "B07P1YSC18:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_05.jpg",
+      "targetPathKeep": "resources/b07p1ysc18-overview/aplus_05.jpg",
+      "targetPathCpk": "categories/stroller/products/b07p1ysc18/gallery/aplus_05.jpg"
+    },
+    {
+      "productId": "B07P1YSC18",
+      "categoryId": "stroller",
+      "resourceId": "B07P1YSC18:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/primary.jpg",
+      "targetPathKeep": "resources/b07p1ysc18-overview/primary.jpg",
+      "targetPathCpk": "categories/stroller/products/b07p1ysc18/gallery/primary.jpg"
+    }
+  ],
+  "videos": [
+    "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_0.mp4",
+    "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_1.mp4",
+    "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_2.mp4",
+    "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_3.mp4",
+    "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_4.mp4",
+    "http://127.0.0.1:8010/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/index.html"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "fetchedAt": "2026-07-01T21:39:09.947Z",
+  "data": {
+    "resourceId": "B0DJY3JH8D:video",
+    "categoryId": "kids_pull_along_wagons",
+    "productId": "B0DJY3JH8D",
+    "resourceType": "product_video",
+    "title": "ELEMARA Foldable Wagon Stroller, Stroller Wagon for 2 Kids, Premium All Terrain Wagon for Kids with Removable Canopy, Adjusta • Video preview",
+    "summary": "Video preview asset set for ELEMARA in kids_pull_along_wagons.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8c561752-2f09-4055-a642-3d21d738a0ff.mp4/productVideoOptimized.mp4",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8c561752-2f09-4055-a642-3d21d738a0ff.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5197f176-7d6e-420f-af9b-c2b3d5c93c7c.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/67e86294-4490-41d1-a6e3-93b079ff909f.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a61ba6f2-a986-4e57-965d-b75543e70dcc.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a79fe938-77d7-452f-bb6b-008a7685e366.mp4/productVideoOptimized.mp4"
+    ],
+    "credibilityScore": 0.9,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 5,
+      "hasFeatures": true
+    }
+  }
+}

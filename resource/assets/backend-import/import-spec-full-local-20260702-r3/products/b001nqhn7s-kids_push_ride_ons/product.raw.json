@@ -1,0 +1,217 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T21:39:07.296Z",
+  "data": {
+    "productId": "B001NQHN7S",
+    "categoryId": "kids_push_ride_ons",
+    "rank": 10,
+    "title": "Little Tikes Cozy Coupe 30th Anniversary Car",
+    "brand": "Little",
+    "price": {
+      "display": "$54.99",
+      "value": 54.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.6  16,216",
+      "value": 4.6
+    },
+    "weight": {
+      "display": "17.8 Pounds",
+      "lbs": 17.8
+    },
+    "classification": {
+      "Brand": "Little",
+      "Stroller_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Standard",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_push_ride_ons",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "For generations - 30 years - children have been taking adventure and imagination on the road with one of the original ride on toys-the COZY COUPE",
+        "New features include removable floor and handle on back for parent controlled push rides",
+        "Designed with a high seat back and storage in the rear",
+        "Includes special features like an \"ignition switch\" and an open-and-close gas cap",
+        "Cozy rolls on rugged",
+        "durable tires",
+        "front wheels spin 360 degrees",
+        "Made in USA"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "For generations - 30 years - children have been taking adventure and imagination on the road with one of the original ride on toys-the COZY COUPE",
+        "featureLabel": "For Generations   30 Years   Children Have Been Taking Adventure And Imagination On The Road With One Of The Original Ride On Toys The COZY COUPE",
+        "featureValue": "For generations - 30 years - children have been taking adventure and imagination on the road with one of the original ride on toys-the COZY COUPE",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "New features include removable floor and handle on back for parent controlled push rides",
+        "featureLabel": "New Features Include Removable Floor And Handle On Back For Parent Controlled Push Rides",
+        "featureValue": "New features include removable floor and handle on back for parent controlled push rides",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "Designed with a high seat back and storage in the rear",
+        "featureLabel": "Designed With A High Seat Back And Storage In The Rear",
+        "featureValue": "Designed with a high seat back and storage in the rear",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "Includes special features like an \"ignition switch\" and an open-and-close gas cap",
+        "featureLabel": "Includes Special Features Like An \"Ignition Switch\" And An Open And Close Gas Cap",
+        "featureValue": "Includes special features like an \"ignition switch\" and an open-and-close gas cap",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "Cozy rolls on rugged",
+        "featureLabel": "Cozy Rolls On Rugged",
+        "featureValue": "Cozy rolls on rugged",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "durable tires",
+        "featureLabel": "Durable Tires",
+        "featureValue": "durable tires",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "For generations - 30 years - children have been taking adventure and imagination on the road with one of the original ride on toys-the COZY COUPE",
+        "New features include removable floor and handle on back for parent controlled push rides",
+        "Designed with a high seat back and storage in the rear",
+        "Includes special features like an \"ignition switch\" and an open-and-close gas cap"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/51KQC8H1QaL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/51KQC8H1QaL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d9643aa3-1857-401b-a200-3305958f8adf/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9c0ce93f-a9c2-4f1d-8dac-e67c05191a65/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b2fdd0e2-071d-4651-ab00-70d3b980a26f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/f27294d8-db7b-5366-b2d9-b0cda1a73aca/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a3982dec-c379-44ce-9d8a-d2ce9fbfb62b/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9dc9ef43-3a43-4c12-9ed6-c1a75427a453/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/77aaa777-bd4b-4c4e-bd09-3db5133a5561/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/195d59b4-03d8-44db-b405-ee2bc6fe8f37/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0ff1c544-6530-4f2e-8281-61726592b5bb/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 9,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d9643aa3-1857-401b-a200-3305958f8adf/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51mi9nPSwPL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Little Tikes Classics",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9c0ce93f-a9c2-4f1d-8dac-e67c05191a65/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71DiSe4PhgL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Little Tikes Firsts",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b2fdd0e2-071d-4651-ab00-70d3b980a26f/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/41xdvmb-cNL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Cozy Coupe Ride On",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/f27294d8-db7b-5366-b2d9-b0cda1a73aca/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/516YeTpLQ3L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Little Tikes Cozy Coupe 30th Anniversary Car, Non-Assembled, Standard Packaging",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_push_ride_ons/Little/Rank_10_ASIN_B001NQHN7S_Little Tikes Cozy Coupe 30th Anniversary Car/videos/video_3.mp4",
+          "Local_Thumbnail_Path": "scrape_store/kids_push_ride_ons/Little/Rank_10_ASIN_B001NQHN7S_Little Tikes Cozy Coupe 30th Anniversary Car/videos/video_3_thumb.jpg"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a3982dec-c379-44ce-9d8a-d2ce9fbfb62b/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1-b1HIC4oL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "A Closer Look at the Little Tikes Cozy Coupe Car",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9dc9ef43-3a43-4c12-9ed6-c1a75427a453/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61a7gvHCGLL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Ride in style with this cozy coupe 30 year edition!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/77aaa777-bd4b-4c4e-bd09-3db5133a5561/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51lBswmCD3L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Watch before you buy this cozy coop car for you kids ",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/195d59b4-03d8-44db-b405-ee2bc6fe8f37/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81u9uEcmlfL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "WATCH BEFORE BUYING- review of little tikes car!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0ff1c544-6530-4f2e-8281-61726592b5bb/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71vbJz7a39L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Ride in style with this classic toy car!",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

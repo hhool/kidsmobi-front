@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "fetchedAt": "2026-07-01T20:06:16.262Z",
+  "data": {
+    "resourceId": "B0G2YVKS6M:overview",
+    "categoryId": "kids_pull_along_wagons",
+    "productId": "B0G2YVKS6M",
+    "resourceType": "product_overview",
+    "title": "Harppa Remy Wagon Stroller for 4 Kids, Foldable 4-Seater Stroller Wagon with Mosquito Net Canopy,Snack Tray, All-Terrain 11.5",
+    "summary": "Double Stroller Wagon: Assembled dimensions: 31” L x 26” W x 45” H; Compact fold 31” L x 28” W x 15.7” H. Seats up to 4 kids ages 6–36 months, 70 lbs each (280 lbs total). Ideal for daily use, parks, family trips | Push & Pull Mode with All-Terrain Wheels: Adjustable PU leather h",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_pull_along_wagons/Harppa/Rank_12_ASIN_B0G2YVKS6M_Harppa Remy Wagon Stroller for 4 Kids Foldable 4-S/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6c8b9819-8521-4787-a1ce-aee71627f5a8/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6bea57ea-ff9d-4ea8-85f5-c722231a59e5/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/53403741-9eb5-439b-a184-5be160e74ea6/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ecb94c71-cd32-44dc-a3af-754c2224a556/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2e965eb5-bf1a-475a-8e93-4ebd2d8374ef/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.75,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 5,
+      "hasFeatures": true
+    }
+  }
+}

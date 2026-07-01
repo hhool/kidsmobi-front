@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_tricycles",
+  "fetchedAt": "2026-07-01T20:06:14.669Z",
+  "data": {
+    "resourceId": "B0FMY5PJ7S:overview",
+    "categoryId": "kids_tricycles",
+    "productId": "B0FMY5PJ7S",
+    "resourceType": "product_overview",
+    "title": "Umatoll Toddler Tricycle for 18 Month to 4 Year Old Boys Girls,Toddler Bike Toys with Adjustable Seat&Light-Up Wheels,Birthda",
+    "summary": "CLASSIC RIDE: This toddler toy tricycle is great for beginner riders. It helps develop balance, steering and coordination, builds muscle strength and gives toddlers confidence from an early age. | SAFETY AND DURABILITY: Sturdy carbon steel frame with wide wheelbase prevents tippi",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_tricycles/Umatoll/Rank_6_ASIN_B0FMY5PJ7S_Umatoll Toddler Tricycle for 18 Month to 4 Year Ol/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/17ed0175-43dc-4d87-8ab2-4190170958f0/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2b17f52d-6da8-4fbd-a304-06f1d9e9e81a/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2e59a0d2-bf62-47c9-9e0b-1d753cd47ca2/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.67,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 3,
+      "hasFeatures": true
+    }
+  }
+}

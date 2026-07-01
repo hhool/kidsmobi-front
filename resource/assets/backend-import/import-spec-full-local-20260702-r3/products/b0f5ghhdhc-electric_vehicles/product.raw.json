@@ -1,0 +1,198 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "electric_vehicles",
+  "categoryCode": "electric_car",
+  "fetchedAt": "2026-07-01T21:38:47.731Z",
+  "data": {
+    "productId": "B0F5GHHDHC",
+    "categoryId": "electric_vehicles",
+    "rank": 11,
+    "title": "Gotrax RT1 Ride on Toys for Toddlers 1.5-4, Safe 12V Lead-acid Battery up to 80 Minutes, Forward/Reverse 2 Gears, Max 1.5MPH",
+    "brand": "Gotrax",
+    "price": {
+      "display": "$75.99",
+      "value": 75.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.2  139",
+      "value": 4.2
+    },
+    "weight": {
+      "display": "12.5 Pounds",
+      "lbs": 12.5
+    },
+    "classification": {
+      "Brand": "Gotrax",
+      "Vehicle_Type": "Sport",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "electric_vehicles",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "Power&Long-Lasting Play: Powered by a 12V 4.5Ah rechargeable battery",
+        "this ride on offers up to 80 minutes of continuous fun per full charge. Great for extended outdoor without frequent recharging.",
+        "8\" Big Wheel: 8\" tires glide smoothly over paved roads",
+        "Powerful high-speed motor ensures max speed of 1.5mph",
+        "a very safe and fun speed for toddlers.",
+        "Anti-Rollover Safety: Engineered with stability features to prevent tipping on slopes or bumpy terrain",
+        "keeping little ones secure during every drive.",
+        "Easy Control: Push-Button Accelerator is very easy to control. forward and reverse driving modes button",
+        "helping kids build confidence while maneuvering",
+        "1 Year Quality Assurance: Gotrax has a 1 year limited assurance for different parts",
+        "buy in confidence! If you have any problem",
+        "pls contact us. Whether it's for graduation",
+        "birthday",
+        "or Christmas",
+        "it will be a surprise present for your kids."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "Power&Long-Lasting Play: Powered by a 12V 4.5Ah rechargeable battery",
+        "featureLabel": "Power&Long Lasting Play: Powered By A 12V 4.5Ah Rechargeable Battery",
+        "featureValue": "Power&Long-Lasting Play: Powered by a 12V 4.5Ah rechargeable battery",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "this ride on offers up to 80 minutes of continuous fun per full charge. Great for extended outdoor without frequent recharging.",
+        "featureLabel": "This Ride On Offers Up To 80 Minutes Of Continuous Fun Per Full Charge. Great For Extended Outdoor Without Frequent Recharging.",
+        "featureValue": "this ride on offers up to 80 minutes of continuous fun per full charge. Great for extended outdoor without frequent recharging.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "8\" Big Wheel: 8\" tires glide smoothly over paved roads",
+        "featureLabel": "8\" Big Wheel: 8\" Tires Glide Smoothly Over Paved Roads",
+        "featureValue": "8\" Big Wheel: 8\" tires glide smoothly over paved roads",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "Powerful high-speed motor ensures max speed of 1.5mph",
+        "featureLabel": "Powerful High Speed Motor Ensures Max Speed Of 1.5mph",
+        "featureValue": "Powerful high-speed motor ensures max speed of 1.5mph",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "a very safe and fun speed for toddlers.",
+        "featureLabel": "A Very Safe And Fun Speed For Toddlers.",
+        "featureValue": "a very safe and fun speed for toddlers.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "Anti-Rollover Safety: Engineered with stability features to prevent tipping on slopes or bumpy terrain",
+        "featureLabel": "Anti Rollover Safety: Engineered With Stability Features To Prevent Tipping On Slopes Or Bumpy Terrain",
+        "featureValue": "Anti-Rollover Safety: Engineered with stability features to prevent tipping on slopes or bumpy terrain",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "Power&Long-Lasting Play: Powered by a 12V 4.5Ah rechargeable battery",
+        "this ride on offers up to 80 minutes of continuous fun per full charge. Great for extended outdoor without frequent recharging.",
+        "8\" Big Wheel: 8\" tires glide smoothly over paved roads",
+        "Powerful high-speed motor ensures max speed of 1.5mph"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/61DjDn1sqxL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/61DjDn1sqxL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62c4152e-204f-467e-bfe1-b0b2e66f692c/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9ea3012f-ff41-4701-90af-1255295087a8/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0b8c3a14-a23e-43eb-b5f6-ec6561469e65/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f5432382-012d-4b7e-9141-ab4d316a9321/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d2d15e30-5d20-4a4f-a9c5-d10892d7940c/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8186064b-2ebf-4055-a8f5-adcc0afcb8ec/default.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 6,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62c4152e-204f-467e-bfe1-b0b2e66f692c/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1tdh3ITvgL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Gotrax RT1 Ride on Toys for Toddlers 1.5-4",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9ea3012f-ff41-4701-90af-1255295087a8/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/819nEz-nGtL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "LOVE this tiny four wheeler. So much better on concrete! ",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0b8c3a14-a23e-43eb-b5f6-ec6561469e65/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71iijz5SBoL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Tiny wheels, big adventures!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f5432382-012d-4b7e-9141-ab4d316a9321/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71IWhVZa5QL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Toddler's Ride On Toy Adventure",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d2d15e30-5d20-4a4f-a9c5-d10892d7940c/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91x6ylGKBJL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "My TODDLER loves to drive this ATV!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8186064b-2ebf-4055-a8f5-adcc0afcb8ec/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1lZTHg7B+L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Review of Gotrax RT1 Ride on Toys",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

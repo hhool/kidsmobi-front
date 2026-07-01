@@ -1,0 +1,134 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0FMNWHRMX",
+  "sourceCategoryId": "balance_bike",
+  "images": [
+    {
+      "productId": "B0FMNWHRMX",
+      "categoryId": "balance_bike",
+      "resourceId": "B0FMNWHRMX:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_9_ASIN_B0FMNWHRMX_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/primary.jpg",
+      "targetPathKeep": "resources/b0fmnwhrmx-overview/primary.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0fmnwhrmx/cover/primary.jpg"
+    },
+    {
+      "productId": "B0FMNWHRMX",
+      "categoryId": "balance_bike",
+      "resourceId": "B0FMNWHRMX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_9_ASIN_B0FMNWHRMX_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0fmnwhrmx-overview/alt_1.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0fmnwhrmx/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0FMNWHRMX",
+      "categoryId": "balance_bike",
+      "resourceId": "B0FMNWHRMX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_9_ASIN_B0FMNWHRMX_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0fmnwhrmx-overview/alt_2.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0fmnwhrmx/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0FMNWHRMX",
+      "categoryId": "balance_bike",
+      "resourceId": "B0FMNWHRMX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_9_ASIN_B0FMNWHRMX_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0fmnwhrmx-overview/alt_3.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0fmnwhrmx/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0FMNWHRMX",
+      "categoryId": "balance_bike",
+      "resourceId": "B0FMNWHRMX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_9_ASIN_B0FMNWHRMX_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0fmnwhrmx-overview/alt_4.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0fmnwhrmx/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0FMNWHRMX",
+      "categoryId": "balance_bike",
+      "resourceId": "B0FMNWHRMX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_9_ASIN_B0FMNWHRMX_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0fmnwhrmx-overview/alt_5.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0fmnwhrmx/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0FMNWHRMX",
+      "categoryId": "balance_bike",
+      "resourceId": "B0FMNWHRMX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_9_ASIN_B0FMNWHRMX_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0fmnwhrmx-overview/alt_6.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0fmnwhrmx/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0FMNWHRMX",
+      "categoryId": "balance_bike",
+      "resourceId": "B0FMNWHRMX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_9_ASIN_B0FMNWHRMX_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0fmnwhrmx-overview/alt_7.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0fmnwhrmx/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0FMNWHRMX",
+      "categoryId": "balance_bike",
+      "resourceId": "B0FMNWHRMX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_9_ASIN_B0FMNWHRMX_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0fmnwhrmx-overview/alt_8.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0fmnwhrmx/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0FMNWHRMX",
+      "categoryId": "balance_bike",
+      "resourceId": "B0FMNWHRMX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_9_ASIN_B0FMNWHRMX_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0fmnwhrmx-overview/alt_9.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0fmnwhrmx/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0FMNWHRMX",
+      "categoryId": "balance_bike",
+      "resourceId": "B0FMNWHRMX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_9_ASIN_B0FMNWHRMX_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0fmnwhrmx-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0fmnwhrmx/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0FMNWHRMX",
+      "categoryId": "balance_bike",
+      "resourceId": "B0FMNWHRMX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_9_ASIN_B0FMNWHRMX_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/primary.jpg",
+      "targetPathKeep": "resources/b0fmnwhrmx-overview/primary.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0fmnwhrmx/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0FMNWHRMX",
+      "categoryId": "balance_bike",
+      "resourceId": "B0FMNWHRMX:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/71ujvfWSZ5L._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0fmnwhrmx-overview/71ujvfwsz5l._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0fmnwhrmx/gallery/71ujvfwsz5l._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5b0528c5-b9f3-49d7-8bff-286ce95d9ba2/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7ad39484-a0d9-47bd-941c-1dd610d35d44/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3f653f1c-5359-498c-a116-f555c0762be7/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/689b7bc7-035e-410f-9534-708978b5d8b9/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c53877d8-f4b1-4a32-9a38-a2ea8ed53964/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fd671b21-9692-4b12-8abd-c059259fab1f/default.vertical.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_9_ASIN_B0FMNWHRMX_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/index.html"
+  ]
+}

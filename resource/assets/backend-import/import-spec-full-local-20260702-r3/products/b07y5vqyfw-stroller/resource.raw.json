@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "stroller",
+  "fetchedAt": "2026-07-01T21:38:25.834Z",
+  "data": {
+    "resourceId": "B07Y5VQYFW:video",
+    "categoryId": "stroller",
+    "productId": "B07Y5VQYFW",
+    "resourceType": "product_video",
+    "title": "Graco Modes Pramette Travel System, Car Seat and Stroller Combo, Includes SnugRide LX Infant Car Seat and Baby Stroller, 3 Mo • Video preview",
+    "summary": "Video preview asset set for Graco in stroller.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fbb4d711-8d87-4dda-b96a-05d1de922770/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fbb4d711-8d87-4dda-b96a-05d1de922770/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fd014a41-1919-417b-8aff-9bc8ae61c57f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/503ecace-12fc-4ab4-8892-6b91d1e46436/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c333bf16-95e6-4570-af31-c3989ff3050e/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e2c9d17b-bb19-40dd-963b-55cc23d6d6a1/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/30da419d-4eb1-4a93-894b-1b68b21e7a14/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d438accf-1ad5-4f01-802b-2d917037d1e3/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.98,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 7,
+      "hasFeatures": true
+    }
+  }
+}

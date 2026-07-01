@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_bikes",
+  "categoryCode": "bicycle",
+  "fetchedAt": "2026-07-01T21:38:51.831Z",
+  "data": {
+    "productId": "B0GS4QQ8FY",
+    "categoryId": "kids_bikes",
+    "rank": 6,
+    "title": "WEIZE Kids Bikes,Boy's Bike for Kids,BMX Style Bicycle for Boys Girls Ages 4-12 Years Old,Kids Bicycle with Adjustable Seat,T",
+    "brand": "WEIZE",
+    "price": {
+      "display": "$84.99",
+      "value": 84.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.1  101",
+      "value": 4.1
+    },
+    "weight": {
+      "display": "N/A",
+      "lbs": 0
+    },
+    "classification": {
+      "Brand": "WEIZE",
+      "Bike_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Unknown",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_bikes",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "Safe Riding Guarantee:The kid bike is designed with a dual system of handbrake and foot brake for children",
+        "and even young or weak children can use the foot brake to brake smoothly. Fully enclosed chain guard",
+        "effectively preventing pants legs and skirts from being caught up",
+        "making cycling more reassuring.",
+        "Durable And Easy To Maintain:The bicycle for boys girls adopts a high carbon steel frame",
+        "which is sturdy",
+        "resistant to bumps",
+        "and long-lasting. The front and rear fenders are fully protected",
+        "preventing mud and water from splashing and dirtying clothes",
+        "making daily maintenance worry free and effortless.",
+        "Accompanying Children's Growth:The 16 inch kid bicycle comes standard with detachable auxiliary wheels",
+        "which are more stable during the beginner stage and can be removed after proficiency. Adjustable seats without tools and manually adjustable height",
+        "easily adapting to the cycling needs of children of different ages.",
+        "Scientific Age Matching:We offer boy bikes in two sizes: 16 inches and 20 inches. 16 inches are suitable for 4-6 years old (height 43-49 inches)",
+        "20 inches are suitable for 6-12 years old (height 46-56 inches)",
+        "and there are three color options for bicycles to meet individual preferences.",
+        "Quick Installation Experience:This children's bike is 85% pre installed and comes with clear instructions and online assembly video guidance. It can be easily installed in about 20 minutes",
+        "saving time and effort."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "Safe Riding Guarantee:The kid bike is designed with a dual system of handbrake and foot brake for children",
+        "featureLabel": "Safe Riding Guarantee:The Kid Bike Is Designed With A Dual System Of Handbrake And Foot Brake For Children",
+        "featureValue": "Safe Riding Guarantee:The kid bike is designed with a dual system of handbrake and foot brake for children",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "and even young or weak children can use the foot brake to brake smoothly. Fully enclosed chain guard",
+        "featureLabel": "And Even Young Or Weak Children Can Use The Foot Brake To Brake Smoothly. Fully Enclosed Chain Guard",
+        "featureValue": "and even young or weak children can use the foot brake to brake smoothly. Fully enclosed chain guard",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "effectively preventing pants legs and skirts from being caught up",
+        "featureLabel": "Effectively Preventing Pants Legs And Skirts From Being Caught Up",
+        "featureValue": "effectively preventing pants legs and skirts from being caught up",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "making cycling more reassuring.",
+        "featureLabel": "Making Cycling More Reassuring.",
+        "featureValue": "making cycling more reassuring.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "Durable And Easy To Maintain:The bicycle for boys girls adopts a high carbon steel frame",
+        "featureLabel": "Durable And Easy To Maintain:The Bicycle For Boys Girls Adopts A High Carbon Steel Frame",
+        "featureValue": "Durable And Easy To Maintain:The bicycle for boys girls adopts a high carbon steel frame",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "which is sturdy",
+        "featureLabel": "Which Is Sturdy",
+        "featureValue": "which is sturdy",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_bikes classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "Safe Riding Guarantee:The kid bike is designed with a dual system of handbrake and foot brake for children",
+        "and even young or weak children can use the foot brake to brake smoothly. Fully enclosed chain guard",
+        "effectively preventing pants legs and skirts from being caught up",
+        "making cycling more reassuring."
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/7142a7QLdcL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/7142a7QLdcL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/773fb11e-25f3-4e3a-8d02-e7643c7d26de/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/435a7a61-5421-49ef-b149-7398f6b22b78/default.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 2,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/773fb11e-25f3-4e3a-8d02-e7643c7d26de/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/512J9z3epML.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "WEIZE Kids Bike Display Video",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/435a7a61-5421-49ef-b149-7398f6b22b78/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91AYfe30W-L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "WEIZE Kids Bike Installation Video",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

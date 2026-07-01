@@ -1,0 +1,161 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B00IOWBKQO",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "images": [
+    {
+      "productId": "B00IOWBKQO",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B00IOWBKQO:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/primary.jpg",
+      "targetPathKeep": "resources/b00iowbkqo-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b00iowbkqo/cover/primary.jpg"
+    },
+    {
+      "productId": "B00IOWBKQO",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B00IOWBKQO:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_1.jpg",
+      "targetPathKeep": "resources/b00iowbkqo-overview/alt_1.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b00iowbkqo/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B00IOWBKQO",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B00IOWBKQO:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_2.jpg",
+      "targetPathKeep": "resources/b00iowbkqo-overview/alt_2.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b00iowbkqo/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B00IOWBKQO",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B00IOWBKQO:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_3.jpg",
+      "targetPathKeep": "resources/b00iowbkqo-overview/alt_3.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b00iowbkqo/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B00IOWBKQO",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B00IOWBKQO:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_4.jpg",
+      "targetPathKeep": "resources/b00iowbkqo-overview/alt_4.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b00iowbkqo/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B00IOWBKQO",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B00IOWBKQO:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_5.jpg",
+      "targetPathKeep": "resources/b00iowbkqo-overview/alt_5.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b00iowbkqo/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B00IOWBKQO",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B00IOWBKQO:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_6.jpg",
+      "targetPathKeep": "resources/b00iowbkqo-overview/alt_6.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b00iowbkqo/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B00IOWBKQO",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B00IOWBKQO:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_7.jpg",
+      "targetPathKeep": "resources/b00iowbkqo-overview/alt_7.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b00iowbkqo/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B00IOWBKQO",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B00IOWBKQO:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_8.jpg",
+      "targetPathKeep": "resources/b00iowbkqo-overview/alt_8.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b00iowbkqo/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B00IOWBKQO",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B00IOWBKQO:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/alt_9.jpg",
+      "targetPathKeep": "resources/b00iowbkqo-overview/alt_9.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b00iowbkqo/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B00IOWBKQO",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B00IOWBKQO:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b00iowbkqo-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b00iowbkqo/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B00IOWBKQO",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B00IOWBKQO:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "targetPathKeep": "resources/b00iowbkqo-overview/aplus_01.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b00iowbkqo/gallery/aplus_01.jpg"
+    },
+    {
+      "productId": "B00IOWBKQO",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B00IOWBKQO:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "targetPathKeep": "resources/b00iowbkqo-overview/aplus_02.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b00iowbkqo/gallery/aplus_02.jpg"
+    },
+    {
+      "productId": "B00IOWBKQO",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B00IOWBKQO:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+      "targetPathKeep": "resources/b00iowbkqo-overview/aplus_03.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b00iowbkqo/gallery/aplus_03.jpg"
+    },
+    {
+      "productId": "B00IOWBKQO",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B00IOWBKQO:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/images/primary.jpg",
+      "targetPathKeep": "resources/b00iowbkqo-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b00iowbkqo/gallery/primary.jpg"
+    },
+    {
+      "productId": "B00IOWBKQO",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B00IOWBKQO:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/51PoDvo94jL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b00iowbkqo-overview/51podvo94jl._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b00iowbkqo/gallery/51podvo94jl._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/887f38e9-ecdf-4f91-98c1-ac7ac95b9175/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e84cf2c6-5b89-4f3d-a0a2-5e1fab618917/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e423331f-a4bb-4a40-ba22-a6b2a55d16e1/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/132ad105-456b-491d-b565-7cb80ea1309f/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b7e50428-2daf-4244-bdd4-fb3bd426ffa3/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/60e8d860-ec9b-4d72-aa54-6e8d33809866/default.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/index.html"
+  ]
+}

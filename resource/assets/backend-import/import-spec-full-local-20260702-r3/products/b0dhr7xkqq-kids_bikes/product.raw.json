@@ -1,0 +1,754 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_bikes",
+  "categoryCode": "bicycle",
+  "fetchedAt": "2026-07-01T21:38:51.356Z",
+  "data": {
+    "productId": "B0DHR7XKQQ",
+    "categoryId": "kids_bikes",
+    "rank": 5,
+    "title": "Glerc 20 24 26 Inch Kids Bike, Kids Mountain Bike for Boys and Girls Ages 6+, 21-Speed Skyline Bicycle with Front Suspension",
+    "brand": "Glerc",
+    "price": {
+      "display": "$199.99",
+      "value": 199.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.5  497",
+      "value": 4.5
+    },
+    "weight": {
+      "display": "N/A",
+      "lbs": 0
+    },
+    "classification": {
+      "Brand": "Glerc",
+      "Bike_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Unknown",
+      "Price_Tier": "100-200"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_bikes",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "【Sturdy Frame】The kids mountain bike is made of high carbon steel frame",
+        "which can easily handle the challenges of off-road adventures",
+        "providing a reliable foundation for your child's adventures.",
+        "【Ride Anytime】This mountain bike is equipped with a 21-speed drivetrain",
+        "offering versatile speed options to tackle diverse terrains",
+        "while its smooth and efficient gear shifting further elevates the riding experience.",
+        "【Easy Distance Control】This kids bicycle features responsive disc brakes that provide more precise braking control and maintain excellent performance in adverse conditions",
+        "allowing your child to ride with confidence.",
+        "【Safer Adventure】The suspension fork of the kids bike absorbs shock and vibration from rough terrain",
+        "greatly improving comfort and maneuverability during riding.",
+        "【Size Information】This 20 inch bike is suitable for children ages 6-12",
+        "45\"-55\" tall",
+        "with an inseam height of 21\"-25\". The bike weighs 30 lbs. Please focus on your child's height and inseam to choose the size."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "【Sturdy Frame】The kids mountain bike is made of high carbon steel frame",
+        "featureLabel": "【Sturdy Frame】The Kids Mountain Bike Is Made Of High Carbon Steel Frame",
+        "featureValue": "【Sturdy Frame】The kids mountain bike is made of high carbon steel frame",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "which can easily handle the challenges of off-road adventures",
+        "featureLabel": "Which Can Easily Handle The Challenges Of Off Road Adventures",
+        "featureValue": "which can easily handle the challenges of off-road adventures",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "providing a reliable foundation for your child's adventures.",
+        "featureLabel": "Providing A Reliable Foundation For Your Child'S Adventures.",
+        "featureValue": "providing a reliable foundation for your child's adventures.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "【Ride Anytime】This mountain bike is equipped with a 21-speed drivetrain",
+        "featureLabel": "【Ride Anytime】This Mountain Bike Is Equipped With A 21 Speed Drivetrain",
+        "featureValue": "【Ride Anytime】This mountain bike is equipped with a 21-speed drivetrain",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "offering versatile speed options to tackle diverse terrains",
+        "featureLabel": "Offering Versatile Speed Options To Tackle Diverse Terrains",
+        "featureValue": "offering versatile speed options to tackle diverse terrains",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "while its smooth and efficient gear shifting further elevates the riding experience.",
+        "featureLabel": "While Its Smooth And Efficient Gear Shifting Further Elevates The Riding Experience.",
+        "featureValue": "while its smooth and efficient gear shifting further elevates the riding experience.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_bikes classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "【Sturdy Frame】The kids mountain bike is made of high carbon steel frame",
+        "which can easily handle the challenges of off-road adventures",
+        "providing a reliable foundation for your child's adventures.",
+        "【Ride Anytime】This mountain bike is equipped with a 21-speed drivetrain"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/71f1WfCydAL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71f1WfCydAL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [],
+    "resourceStats": {
+      "videos": 0,
+      "similarItems": 2
+    },
+    "relatedResources": {
+      "videos": [],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "WEIZE",
+        "Title": "WEIZE Kids Mountain Bike 20 24 inch Kids' Bicycles for 8-14 Years Old Boys Girls with Dual Full Suspension, 6 Speeds Drivetrain, High-Carbon Steel Frame",
+        "Price": "$135.99",
+        "Rating": "4.4",
+        "Reviews": "154",
+        "URL": "https://www.amazon.com/WEIZE-Suspension-Drivetrain-High-Carbon-Adventurers/dp/B0F7XMJ87Q/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_1/140-2210926-6766925?pd_rd_w=L0H0x&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=T82BBD6VE9DGZ0WD5X2A&pd_rd_wg=xQx0b&pd_rd_r=5e15f1b3-fc5a-49a2-88a5-cdd0a9491e92&pd_rd_i=B0F7XMJ87Q&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/71y14BvwU3L._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B0F7XMJ87Q",
+        "Features": "Ergonomic Durable Steel Frame - - WEIZE Kids' Bicycles are suitable for ages 6-13 or a rider height of 4'-4'7\"(42-55 inches). Durable yet ergonomic 14 inch height carbon steel frame guarantees kids safety during riding. Lower standover height improves alignment between body and bike, making it easier for young riders to mount and dismount | 20*2.125\" Tires - - The WEZE Kids' Bicycle tires are made of high-quality rubber and have a strong puncture and abrasion resistance, 20\"*2.125\" tires are easier to get on and allow children to focus on having fun without fear of falling! | Safe and Reliable Handbrake - - Our mountain bike has dual braking system. The front and rear V-brakes are easy to operate, ensuring smooth and efficient braking, giving children enhanced safety and control during their rides. | 6-Speed Drivetrain - - Classic 6 speeds rear derailleur creates the perfect bike to allow riders to easily tackle climbs. It is truly the perfect bike to inspire young riders to climb higher and tackle the downhills freely. | Comfortable Design for Long Rides: Featuring a soft, padded seat, these kids' bicycles ensure that children can enjoy extended rides without discomfort, promoting a fun and enjoyable experience.",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c494bbe2-f52b-4a70-ab8c-f593d480863c/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c494bbe2-f52b-4a70-ab8c-f593d480863c/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/281362a6-ddf1-4557-a38a-2b97ec64cded/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9cf1452f-fd78-4954-9a00-3872a456aad6/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/0b436a33-5645-4107-83c2-724ccde971fc.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/3d069527-1b39-415c-aa7d-77446b4ddd1f.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/2592bfad-c0e4-4bd2-98fb-42ef0edcc133.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/cefccc03-186a-4633-8c61-3a8f52b0515d.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/748aacfe-24ac-4f37-adf3-87708d0ee86e.mp4/productVideoOptimized.mp4"
+        ],
+        "Product_Videos_MP4": [
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/0b436a33-5645-4107-83c2-724ccde971fc.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/3d069527-1b39-415c-aa7d-77446b4ddd1f.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/2592bfad-c0e4-4bd2-98fb-42ef0edcc133.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/cefccc03-186a-4633-8c61-3a8f52b0515d.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/748aacfe-24ac-4f37-adf3-87708d0ee86e.mp4/productVideoOptimized.mp4"
+        ],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c494bbe2-f52b-4a70-ab8c-f593d480863c/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/281362a6-ddf1-4557-a38a-2b97ec64cded/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9cf1452f-fd78-4954-9a00-3872a456aad6/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "",
+              "Texts": [],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/4cbb4d55-608f-403d-a8e2-4762831e4201.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/faa76969-aad9-4c2f-b3f1-e2c30e3f9f53.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3d01cb20-715e-4d6e-b246-e008b2193fda.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/4cbb4d55-608f-403d-a8e2-4762831e4201.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "00",
+                  "Image_Alt": "00"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/faa76969-aad9-4c2f-b3f1-e2c30e3f9f53.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 2,
+                  "Image_Title": "13",
+                  "Image_Alt": "13"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3d01cb20-715e-4d6e-b246-e008b2193fda.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 3,
+                  "Image_Title": "003",
+                  "Image_Alt": "003"
+                }
+              ],
+              "Comparison_Table": {},
+              "Block_Types": [
+                "image"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/4cbb4d55-608f-403d-a8e2-4762831e4201.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "00",
+                    "Image_Alt": "00"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/faa76969-aad9-4c2f-b3f1-e2c30e3f9f53.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 2,
+                    "Image_Title": "13",
+                    "Image_Alt": "13"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3d01cb20-715e-4d6e-b246-e008b2193fda.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 3,
+                    "Image_Title": "003",
+                    "Image_Alt": "003"
+                  }
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/4cbb4d55-608f-403d-a8e2-4762831e4201.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/faa76969-aad9-4c2f-b3f1-e2c30e3f9f53.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3d01cb20-715e-4d6e-b246-e008b2193fda.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+            ],
+            "Local_Images": [
+              "scrape_store/kids_bikes/WEIZE/Rank_Similar_ASIN_B0F7XMJ87Q_WEIZE Kids Mountain Bike 20 24 inch Kids Bicycles/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+              "scrape_store/kids_bikes/WEIZE/Rank_Similar_ASIN_B0F7XMJ87Q_WEIZE Kids Mountain Bike 20 24 inch Kids Bicycles/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+              "scrape_store/kids_bikes/WEIZE/Rank_Similar_ASIN_B0F7XMJ87Q_WEIZE Kids Mountain Bike 20 24 inch Kids Bicycles/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [],
+          "Summary": {
+            "Count": 0
+          },
+          "Local_Paths": []
+        },
+        "Product_Description": "Safe and Reliable Handbrake - - Our mountain bike has dual braking system. The front and rear V-brakes are easy to operate, ensuring smooth and efficient braking, giving children enhanced safety and control during their rides.",
+        "Product_Specifications": {
+          "Measurements": {
+            "Wheel Size": "20 Inches",
+            "Size": "20 inch",
+            "Minimum User Height": "42 Inches"
+          },
+          "Features_Specs": {
+            "Bike Type": "Kids Bike",
+            "Age Range (Description)": "Big Kid",
+            "Suspension Type": "Dual",
+            "Special Feature": "Adjustable Seat",
+            "Additional Features": "Adjustable Seat",
+            "Specific Uses For Product": "Trail",
+            "Power Source": "Pedal power",
+            "Bicycle Gear Shifter Type": "Trigger",
+            "Intended Riding Terrain": "Mountain Terrain",
+            "Derailleur Configuration": "Rear",
+            "Bicycle Drivetrain Type": "Derailleur",
+            "Age Range Description": "Big Kid",
+            "Warranty Description": "‎Limited 1 Year Warranty",
+            "Warranty Type": "Limited"
+          },
+          "Materials_Care": {
+            "Frame Material": "High Carbon Steel",
+            "Frame Material Type": "High Carbon Steel",
+            "Wheel Material": "Rubber"
+          },
+          "Item_Details": {
+            "Brand": "WEIZE",
+            "Number of Speeds": "6",
+            "Included Components": "Kickstand",
+            "Number Of Speeds": "6",
+            "Brand Name": "WEIZE",
+            "Model Name": "KBB-6020",
+            "Manufacturer": "WEIZE",
+            "Unit Count": "1.0 Count",
+            "Best Sellers Rank": "#12,509 in Sports & Outdoors (See Top 100 in Sports & Outdoors) #28 in Kids' Bicycles",
+            "ASIN": "B0F7XMJ87Q",
+            "Customer Reviews": "4.4  4.4 out of 5 stars   \n    (154)   \n\n\n 4.4 out of 5 stars"
+          },
+          "User_Guide": {
+            "Is Assembly Required": "No"
+          },
+          "Additional_Details": {
+            "Color": "Black",
+            "Brake Style": "V Brake",
+            "Style Name": "Mountain"
+          }
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "ZELANG \n  ZELANG      Shipper / Seller   ZELANG",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery July 1 - 3",
+          "Specifications": {
+            "Bike Type": "Kids Bike",
+            "Age Range (Description)": "Big Kid",
+            "Brand": "WEIZE",
+            "Number of Speeds": "6",
+            "Color": "Black",
+            "Wheel Size": "20 Inches",
+            "Frame Material": "High Carbon Steel",
+            "Suspension Type": "Dual",
+            "Special Feature": "Adjustable Seat",
+            "Included Components": "Kickstand"
+          }
+        },
+        "Local_Image_Paths": [
+          "scrape_store/kids_bikes/WEIZE/Rank_Similar_ASIN_B0F7XMJ87Q_WEIZE Kids Mountain Bike 20 24 inch Kids Bicycles/images/primary.jpg",
+          "scrape_store/kids_bikes/WEIZE/Rank_Similar_ASIN_B0F7XMJ87Q_WEIZE Kids Mountain Bike 20 24 inch Kids Bicycles/images/alt_1.jpg",
+          "scrape_store/kids_bikes/WEIZE/Rank_Similar_ASIN_B0F7XMJ87Q_WEIZE Kids Mountain Bike 20 24 inch Kids Bicycles/images/alt_2.jpg",
+          "scrape_store/kids_bikes/WEIZE/Rank_Similar_ASIN_B0F7XMJ87Q_WEIZE Kids Mountain Bike 20 24 inch Kids Bicycles/images/alt_3.jpg",
+          "scrape_store/kids_bikes/WEIZE/Rank_Similar_ASIN_B0F7XMJ87Q_WEIZE Kids Mountain Bike 20 24 inch Kids Bicycles/images/alt_4.jpg",
+          "scrape_store/kids_bikes/WEIZE/Rank_Similar_ASIN_B0F7XMJ87Q_WEIZE Kids Mountain Bike 20 24 inch Kids Bicycles/images/alt_5.jpg",
+          "scrape_store/kids_bikes/WEIZE/Rank_Similar_ASIN_B0F7XMJ87Q_WEIZE Kids Mountain Bike 20 24 inch Kids Bicycles/images/alt_6.jpg",
+          "scrape_store/kids_bikes/WEIZE/Rank_Similar_ASIN_B0F7XMJ87Q_WEIZE Kids Mountain Bike 20 24 inch Kids Bicycles/images/alt_7.jpg",
+          "scrape_store/kids_bikes/WEIZE/Rank_Similar_ASIN_B0F7XMJ87Q_WEIZE Kids Mountain Bike 20 24 inch Kids Bicycles/images/alt_8.jpg",
+          "scrape_store/kids_bikes/WEIZE/Rank_Similar_ASIN_B0F7XMJ87Q_WEIZE Kids Mountain Bike 20 24 inch Kids Bicycles/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/kids_bikes/WEIZE/Rank_Similar_ASIN_B0F7XMJ87Q_WEIZE Kids Mountain Bike 20 24 inch Kids Bicycles/images/primary.jpg",
+        "Local_Video_Paths": []
+      },
+      {
+        "Rank": "Similar",
+        "Brand": "RoyalBaby",
+        "Title": "RoyalBaby Kids Mountain Bike for Boys and Girls, Ultra-Light Aluminum 20-26 Inch Wheel Bicycle for 6-14 Years Old Children, 7/21-Speeds Drivetrain",
+        "Price": "$305.99",
+        "Rating": "4.6",
+        "Reviews": "87",
+        "URL": "https://www.amazon.com/RoyalBaby-Mountain-Lightweight-Aluminum-Suspension/dp/B0FKF8NL11/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_4/140-2210926-6766925?pd_rd_w=L0H0x&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=T82BBD6VE9DGZ0WD5X2A&pd_rd_wg=xQx0b&pd_rd_r=5e15f1b3-fc5a-49a2-88a5-cdd0a9491e92&pd_rd_i=B0FKF8NL11&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/71VjuIvnrdL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B0FKF8NL11",
+        "Features": "FRAME MATERIAL & LIGHTWEIGHT DESIGN – High-strength aluminum alloy frame, lightweight yet durable, with strong corrosion resistance, suitable for riding on various terrains. | PRECISION GEARING & BRAKES – This mountain bike features 7-speed drivetrain with front/rear disc brakes ensures effortless climbing and reliable stopping power. | SHOCK-ABSORBING FORK - High-response suspension fork absorbs bumps and vibrations for smoother rides on rough terrain. | KNOBBY MTB TIRES – Wide knobby tread provides superior traction on mud/gravel, with puncture-resistant layer to prevent flats. | ALWAYS RELIABLE – RoyalBaby bike complies with the CPSC and EN-71 standards, and is trusted by millions of families from over 80 countries. Customers will be provided with high level warranty and local 24 hours service when contacting RoyalBaby for any queries.",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6085dbde-a529-4c34-a41f-7f70c76076e9/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6085dbde-a529-4c34-a41f-7f70c76076e9/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61IJKv5uVgL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "EDGE Install videos",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6085dbde-a529-4c34-a41f-7f70c76076e9/default.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6085dbde-a529-4c34-a41f-7f70c76076e9/default.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "Their First Bike, Their Greatest Adventures.",
+              "Texts": [],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/aa3c07bb-ea01-4aae-a0fd-8928157d8e87.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/cbd44183-ccaa-4b5e-8c1d-c8e919d1c3f1.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/4623b8d5-7734-4ce4-8f84-30b37f12973c.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f57c615b-c59f-4c1e-b699-1a47c566ea13.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/aa3c07bb-ea01-4aae-a0fd-8928157d8e87.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "mountain bike",
+                  "Image_Alt": "mountain bike"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/cbd44183-ccaa-4b5e-8c1d-c8e919d1c3f1.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 2,
+                  "Image_Title": "20 inch mountain bike",
+                  "Image_Alt": "20 inch mountain bike"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/4623b8d5-7734-4ce4-8f84-30b37f12973c.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 3,
+                  "Image_Title": "kids bikes",
+                  "Image_Alt": "kids bikes"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f57c615b-c59f-4c1e-b699-1a47c566ea13.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 4,
+                  "Image_Title": "",
+                  "Image_Alt": ""
+                }
+              ],
+              "Comparison_Table": {
+                "Headers": [
+                  "Mountain bike - Edge Buying Options",
+                  "Mountain bike - KING plus Add to Cart",
+                  "Mountain bike - Jouaney Buying Options",
+                  "Mountain bike - X9 Add to Cart",
+                  "Freestyle Dual Handbrakes Add to Cart",
+                  "EZ Freestyle Add to Cart",
+                  "EZ SHARK Add to Cart"
+                ],
+                "Rows": [
+                  [
+                    "Customer Reviews",
+                    "4.6 out of 5 stars 87",
+                    "4.6 out of 5 stars 87",
+                    "4.6 out of 5 stars 87",
+                    "4.6 out of 5 stars 87",
+                    "4.5 out of 5 stars 2,474",
+                    "4.6 out of 5 stars 1,765",
+                    "4.7 out of 5 stars 47"
+                  ],
+                  [
+                    "Price",
+                    "$305.99 $ 305 . 99",
+                    "$429.99 $ 429 . 99",
+                    "—",
+                    "$387.76 $ 387 . 76",
+                    "$219.99 $ 219 . 99",
+                    "$239.99 $ 239 . 99",
+                    "$289.65 $ 289 . 65"
+                  ],
+                  [
+                    "Key Feature",
+                    "Mountain bike 7 speeds",
+                    "Mountain bike 7 speeds",
+                    "Mountain bike 7 speeds",
+                    "Mountain bike 7 speeds",
+                    "#1 top rated, most popular",
+                    "Balance and pedal 2-in-1",
+                    "Ultra lightweight"
+                  ],
+                  [
+                    "Frame Material",
+                    "Aluminum Alloy",
+                    "Aluminum Alloy",
+                    "Aluminum Alloy",
+                    "Aluminum Alloy",
+                    "Carbon Steel",
+                    "Carbon Steel",
+                    "Magnesium Alloy"
+                  ],
+                  [
+                    "Weight (for 16 Inch)",
+                    "20\"  weight 24.6 lb",
+                    "20\"  weight 25.6 lb",
+                    "20\"  weight 25.8 lb",
+                    "20\"  weight 28 lb",
+                    "20\"  weight 26.6 lb",
+                    "16\"  weight 19 lb",
+                    "16\"  weight 13 lb"
+                  ],
+                  [
+                    "Available Sizes",
+                    "20",
+                    "20/24",
+                    "20",
+                    "20/24",
+                    "12/14/16/18/20",
+                    "12/14/16/18",
+                    "16"
+                  ],
+                  [
+                    "Available Colors",
+                    "Blue",
+                    "2 colors",
+                    "White",
+                    "Green",
+                    "8 colors",
+                    "7 colors",
+                    "3 colors"
+                  ]
+                ]
+              },
+              "Block_Types": [
+                "image",
+                "table"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "Their First Bike, Their Greatest Adventures."
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/aa3c07bb-ea01-4aae-a0fd-8928157d8e87.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "mountain bike",
+                    "Image_Alt": "mountain bike"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/cbd44183-ccaa-4b5e-8c1d-c8e919d1c3f1.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 2,
+                    "Image_Title": "20 inch mountain bike",
+                    "Image_Alt": "20 inch mountain bike"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/4623b8d5-7734-4ce4-8f84-30b37f12973c.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 3,
+                    "Image_Title": "kids bikes",
+                    "Image_Alt": "kids bikes"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f57c615b-c59f-4c1e-b699-1a47c566ea13.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 4,
+                    "Image_Title": "",
+                    "Image_Alt": ""
+                  }
+                },
+                {
+                  "Block_Type": "table",
+                  "Table": {
+                    "Headers": [
+                      "Mountain bike - Edge Buying Options",
+                      "Mountain bike - KING plus Add to Cart",
+                      "Mountain bike - Jouaney Buying Options",
+                      "Mountain bike - X9 Add to Cart",
+                      "Freestyle Dual Handbrakes Add to Cart",
+                      "EZ Freestyle Add to Cart",
+                      "EZ SHARK Add to Cart"
+                    ],
+                    "Rows": [
+                      [
+                        "Customer Reviews",
+                        "4.6 out of 5 stars 87",
+                        "4.6 out of 5 stars 87",
+                        "4.6 out of 5 stars 87",
+                        "4.6 out of 5 stars 87",
+                        "4.5 out of 5 stars 2,474",
+                        "4.6 out of 5 stars 1,765",
+                        "4.7 out of 5 stars 47"
+                      ],
+                      [
+                        "Price",
+                        "$305.99 $ 305 . 99",
+                        "$429.99 $ 429 . 99",
+                        "—",
+                        "$387.76 $ 387 . 76",
+                        "$219.99 $ 219 . 99",
+                        "$239.99 $ 239 . 99",
+                        "$289.65 $ 289 . 65"
+                      ],
+                      [
+                        "Key Feature",
+                        "Mountain bike 7 speeds",
+                        "Mountain bike 7 speeds",
+                        "Mountain bike 7 speeds",
+                        "Mountain bike 7 speeds",
+                        "#1 top rated, most popular",
+                        "Balance and pedal 2-in-1",
+                        "Ultra lightweight"
+                      ],
+                      [
+                        "Frame Material",
+                        "Aluminum Alloy",
+                        "Aluminum Alloy",
+                        "Aluminum Alloy",
+                        "Aluminum Alloy",
+                        "Carbon Steel",
+                        "Carbon Steel",
+                        "Magnesium Alloy"
+                      ],
+                      [
+                        "Weight (for 16 Inch)",
+                        "20\"  weight 24.6 lb",
+                        "20\"  weight 25.6 lb",
+                        "20\"  weight 25.8 lb",
+                        "20\"  weight 28 lb",
+                        "20\"  weight 26.6 lb",
+                        "16\"  weight 19 lb",
+                        "16\"  weight 13 lb"
+                      ],
+                      [
+                        "Available Sizes",
+                        "20",
+                        "20/24",
+                        "20",
+                        "20/24",
+                        "12/14/16/18/20",
+                        "12/14/16/18",
+                        "16"
+                      ],
+                      [
+                        "Available Colors",
+                        "Blue",
+                        "2 colors",
+                        "White",
+                        "Green",
+                        "8 colors",
+                        "7 colors",
+                        "3 colors"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/aa3c07bb-ea01-4aae-a0fd-8928157d8e87.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/cbd44183-ccaa-4b5e-8c1d-c8e919d1c3f1.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/4623b8d5-7734-4ce4-8f84-30b37f12973c.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f57c615b-c59f-4c1e-b699-1a47c566ea13.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+            ],
+            "Local_Images": [
+              "scrape_store/kids_bikes/RoyalBaby/Rank_Similar_ASIN_B0FKF8NL11_RoyalBaby Kids Mountain Bike for Boys and Girls Ul/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+              "scrape_store/kids_bikes/RoyalBaby/Rank_Similar_ASIN_B0FKF8NL11_RoyalBaby Kids Mountain Bike for Boys and Girls Ul/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+              "scrape_store/kids_bikes/RoyalBaby/Rank_Similar_ASIN_B0FKF8NL11_RoyalBaby Kids Mountain Bike for Boys and Girls Ul/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+              "scrape_store/kids_bikes/RoyalBaby/Rank_Similar_ASIN_B0FKF8NL11_RoyalBaby Kids Mountain Bike for Boys and Girls Ul/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [],
+          "Summary": {
+            "Count": 0
+          },
+          "Local_Paths": []
+        },
+        "Product_Description": "The RoyalBaby 20\"24\" 26\" kids mountain bike combines performance and safety with its ultra-light aluminum frame that's lighter than steel yet durable enough for bumps and jumps. Featuring a smooth-shifting 21-speed Shimano-style drivetrain, young riders can easily tackle hills and flat roads while developing cycling skills. The shock-absorbing suspension fork minimizes bumps for comfortable rides on rough terrain, gravel paths, or sidewalks, while all-terrain knobby tires provide excellent traction on various surfaces. Safety comes first with reliable front and rear hand brakes featuring easy-to-squeeze levers for confident stopping power. The adjustable seat and handlebars grow with your child, while non-slip pedals and ergonomic grips ensure comfort on longer rides. Finished in a vibrant green with a sleek, modern design, this bike is as stylish as it is functional - perfect for young adventurers ages 10-14 to explore their surroundings with confidence and ease.",
+        "Product_Specifications": {
+          "Measurements": {
+            "Wheel Size": "20 Inches",
+            "Size": "20 Inch",
+            "Wheel Width": "2.35 Inches",
+            "Item Weight": "27.12 Pounds",
+            "Maximum Weight Recommendation": "100 Kilograms"
+          },
+          "Features_Specs": {
+            "Bike Type": "Kids Bike, Mountain Bike",
+            "Age Range (Description)": "6-10 Years",
+            "Suspension Type": "Front",
+            "Special Feature": "7-Speed Drivetrain, Adjustable Seat, Front and Rear Disc Brakes, Lightweight, Suspension Fork",
+            "Additional Features": "7-Speed Drivetrain, Adjustable Seat, Front and Rear Disc Brakes, Lightweight, Suspension Fork",
+            "Specific Uses For Product": "Cycling, Gift, Gravel, Riding, Road",
+            "Power Source": "Pedal power",
+            "Bicycle Gear Shifter Type": "Trigger",
+            "Skill Level": "Intermediate",
+            "Intended Riding Terrain": "Mountain Terrain, Unpaved Trails",
+            "Derailleur Configuration": "Front and Rear",
+            "Bicycle Drivetrain Type": "Chain drive",
+            "Theme": "Confidence, Growth, Health, Mountain, Sport",
+            "Age Range Description": "6-10 Years",
+            "Warranty Description": "‎RoyalBaby provide lifetime warranty for bike frames and front forks, and free replacement for easy-wearing parts within 6 months. If you have issues such as missing parts, defects or damages, please feel free to contact RoyalBaby service. You can send an email to [service@royal-bike.com] and a specialist will come to help you out, or leave a message by WhatsApp to +1 (626) 628-4176, we will reply in 6 hours. You can also call 888-881-2453 on Mon – Fri, 9:00AM – 5:00PM CST.",
+            "Item Type Name": "Kids Bike",
+            "Warranty Type": "Limited"
+          },
+          "Materials_Care": {
+            "Frame Material": "Aluminum",
+            "Frame Material Type": "Aluminum",
+            "Wheel Material": "Aluminum",
+            "Seat Material": "Polyurethane (PU)"
+          },
+          "Item_Details": {
+            "Brand": "RoyalBaby",
+            "Number of Speeds": "7",
+            "Included Components": "Bell, Kickstand, Mudguard, Pump, Reflectors",
+            "Number Of Speeds": "7",
+            "Number of Handles": "1",
+            "Brand Name": "RoyalBaby",
+            "Model Number": "RB20-48B",
+            "Model Name": "RB20-48B",
+            "Model Year": "2025",
+            "Manufacturer": "RoyalBaby Cycle",
+            "Unit Count": "1.0 Count",
+            "Best Sellers Rank": "#60,253 in Sports & Outdoors (See Top 100 in Sports & Outdoors) #127 in Kids' Bicycles",
+            "ASIN": "B0FKF8NL11",
+            "Customer Reviews": "4.6  4.6 out of 5 stars   \n    (87)   \n\n\n 4.6 out of 5 stars"
+          },
+          "User_Guide": {
+            "Is Assembly Required": "Yes"
+          },
+          "Additional_Details": {
+            "Color": "Blue",
+            "Brake Style": "Disc, Rear Disc Brakes",
+            "Style Name": "20 Inch"
+          }
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+          "Availability": "Only 6 left in stock - order soon.",
+          "Delivery_Promise": "FREE delivery July 1 - 3",
+          "Specifications": {
+            "Bike Type": "Kids Bike, Mountain Bike",
+            "Age Range (Description)": "6-10 Years",
+            "Brand": "RoyalBaby",
+            "Number of Speeds": "7",
+            "Color": "Blue",
+            "Wheel Size": "20 Inches",
+            "Frame Material": "Aluminum",
+            "Suspension Type": "Front",
+            "Special Feature": "7-Speed Drivetrain, Adjustable Seat, Front and Rear Disc Brakes, Lightweight, Suspension Fork",
+            "Included Components": "Bell, Kickstand, Mudguard, Pump, Reflectors"
+          }
+        },
+        "Local_Image_Paths": [
+          "scrape_store/kids_bikes/RoyalBaby/Rank_Similar_ASIN_B0FKF8NL11_RoyalBaby Kids Mountain Bike for Boys and Girls Ul/images/primary.jpg",
+          "scrape_store/kids_bikes/RoyalBaby/Rank_Similar_ASIN_B0FKF8NL11_RoyalBaby Kids Mountain Bike for Boys and Girls Ul/images/alt_1.jpg",
+          "scrape_store/kids_bikes/RoyalBaby/Rank_Similar_ASIN_B0FKF8NL11_RoyalBaby Kids Mountain Bike for Boys and Girls Ul/images/alt_2.jpg",
+          "scrape_store/kids_bikes/RoyalBaby/Rank_Similar_ASIN_B0FKF8NL11_RoyalBaby Kids Mountain Bike for Boys and Girls Ul/images/alt_3.jpg",
+          "scrape_store/kids_bikes/RoyalBaby/Rank_Similar_ASIN_B0FKF8NL11_RoyalBaby Kids Mountain Bike for Boys and Girls Ul/images/alt_4.jpg",
+          "scrape_store/kids_bikes/RoyalBaby/Rank_Similar_ASIN_B0FKF8NL11_RoyalBaby Kids Mountain Bike for Boys and Girls Ul/images/alt_5.jpg",
+          "scrape_store/kids_bikes/RoyalBaby/Rank_Similar_ASIN_B0FKF8NL11_RoyalBaby Kids Mountain Bike for Boys and Girls Ul/images/alt_6.jpg",
+          "scrape_store/kids_bikes/RoyalBaby/Rank_Similar_ASIN_B0FKF8NL11_RoyalBaby Kids Mountain Bike for Boys and Girls Ul/images/alt_7.jpg",
+          "scrape_store/kids_bikes/RoyalBaby/Rank_Similar_ASIN_B0FKF8NL11_RoyalBaby Kids Mountain Bike for Boys and Girls Ul/images/alt_8.jpg",
+          "scrape_store/kids_bikes/RoyalBaby/Rank_Similar_ASIN_B0FKF8NL11_RoyalBaby Kids Mountain Bike for Boys and Girls Ul/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/kids_bikes/RoyalBaby/Rank_Similar_ASIN_B0FKF8NL11_RoyalBaby Kids Mountain Bike for Boys and Girls Ul/images/primary.jpg",
+        "Local_Video_Paths": []
+      }
+    ]
+  }
+}

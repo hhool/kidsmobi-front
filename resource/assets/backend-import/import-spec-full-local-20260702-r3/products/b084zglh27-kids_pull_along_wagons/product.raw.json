@@ -1,0 +1,212 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T21:39:11.464Z",
+  "data": {
+    "productId": "B084ZGLH27",
+    "categoryId": "kids_pull_along_wagons",
+    "rank": 5,
+    "title": "Radio Flyer Mini Classic Red Wagon for Kids, 16.5\" Toy Wagon for Kids Aged 1.5+, Play-Size Version of the Classic, Durable Wh",
+    "brand": "Radio",
+    "price": {
+      "display": "$26.44",
+      "value": 26.44,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.4  14,471",
+      "value": 4.4
+    },
+    "weight": {
+      "display": "3.3 Pounds",
+      "lbs": 3.3
+    },
+    "classification": {
+      "Brand": "Radio",
+      "Wagon_Type": "Wagon",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "4",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_pull_along_wagons",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "MINI CLASSIC WAGON: A kid-sized version of the iconic red wagon",
+        "the Radio Flyer Mini Classic Wagon for toddlers is designed for imaginative play",
+        "hauling small toys",
+        "and everyday fun.",
+        "CLASSIC DETAILS: Features a seamless steel body",
+        "durable molded wheels",
+        "and a real working handle-designed to mirror the look and feel of the iconic Radio Flyer wagon.",
+        "PLAYTIME FAVORITE: This toddler wagon is ideal for carrying dolls",
+        "stuffed animals",
+        "blocks",
+        "and tiny treasures",
+        "encouraging open-ended play indoors or outdoors. Recommended for kids ages 1.5+.",
+        "CREATIVE USES: Also loved as a gift basket base",
+        "party decoration",
+        "or seasonal display",
+        "this toy wagon is a playful piece that grows beyond playtime. Body Dimensions: 16.5\" L x 7.5\" W.",
+        "BELOVED ICON OF PLAY: For over a century",
+        "Radio Flyer has inspired joyful play with wagons",
+        "trikes",
+        "and more. As a Certified B Corp",
+        "we create lasting products that spark imagination while caring for future generations."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "MINI CLASSIC WAGON: A kid-sized version of the iconic red wagon",
+        "featureLabel": "MINI CLASSIC WAGON: A Kid Sized Version Of The Iconic Red Wagon",
+        "featureValue": "MINI CLASSIC WAGON: A kid-sized version of the iconic red wagon",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "the Radio Flyer Mini Classic Wagon for toddlers is designed for imaginative play",
+        "featureLabel": "The Radio Flyer Mini Classic Wagon For Toddlers Is Designed For Imaginative Play",
+        "featureValue": "the Radio Flyer Mini Classic Wagon for toddlers is designed for imaginative play",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "hauling small toys",
+        "featureLabel": "Hauling Small Toys",
+        "featureValue": "hauling small toys",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "and everyday fun.",
+        "featureLabel": "And Everyday Fun.",
+        "featureValue": "and everyday fun.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "CLASSIC DETAILS: Features a seamless steel body",
+        "featureLabel": "CLASSIC DETAILS: Features A Seamless Steel Body",
+        "featureValue": "CLASSIC DETAILS: Features a seamless steel body",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "durable molded wheels",
+        "featureLabel": "Durable Molded Wheels",
+        "featureValue": "durable molded wheels",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "MINI CLASSIC WAGON: A kid-sized version of the iconic red wagon",
+        "the Radio Flyer Mini Classic Wagon for toddlers is designed for imaginative play",
+        "hauling small toys",
+        "and everyday fun."
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/813jqye+32L._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/813jqye+32L._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fe793a46-8057-4d85-b5c5-893da6829791/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f6dd83a4-066e-4753-b0ef-f5c0b8cff4d7/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c3a3886f-94c6-45ca-9278-ad40584accef/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/af9577eb-e3cb-4979-8a56-8f7c78e792d6/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e4cf7897-1539-4344-8b56-027dadc54fee/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/504a78ad-94c6-49b6-9476-b091314e7307/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d3d1d82c-4927-4872-ae89-592437516ef8/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 7,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fe793a46-8057-4d85-b5c5-893da6829791/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/41rcH-tguVL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Radio Flyer Retro Mini Toy Wagon",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f6dd83a4-066e-4753-b0ef-f5c0b8cff4d7/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/41dOmNJAqDL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Radio Flyer Retro Toy Wagon",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c3a3886f-94c6-45ca-9278-ad40584accef/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51EW5REqejL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Super cute mini wagon",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/af9577eb-e3cb-4979-8a56-8f7c78e792d6/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71mh9bPq0dL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Retro Radio Flyer Wagon for Kids",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e4cf7897-1539-4344-8b56-027dadc54fee/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81XQLkeO4iL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Review of 12.5 inch Retro Radio Flyer Wagon",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/504a78ad-94c6-49b6-9476-b091314e7307/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/819-9zeXVaL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Perfect toddler wagon!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d3d1d82c-4927-4872-ae89-592437516ef8/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91xYfEJjDuL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "A mini wagon for your kids!",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

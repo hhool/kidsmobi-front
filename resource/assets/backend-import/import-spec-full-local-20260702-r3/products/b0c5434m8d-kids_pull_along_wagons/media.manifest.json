@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "productId": "B0C5434M8D",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "images": [
+    {
+      "productId": "B0C5434M8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0C5434M8D:video",
+      "kind": "cover",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/71yYeqcWKpL._AC_UL165_SR165,165_.jpg",
+      "targetPathKeep": "resources/b0c5434m8d-video/71yyeqcwkpl._ac_ul165_sr165-165_.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0c5434m8d/cover/71yyeqcwkpl._ac_ul165_sr165-165_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/70fcb8fb-f243-492c-91b7-e8905b4a6023/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2ba8bd13-373e-4e98-b73e-7a8a9d1ebe64/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4cfa9c08-90b9-45cf-95e7-24767334075a/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2199cfc2-63a3-4e71-aefb-256793c026bb/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/89d048ea-a972-416c-8fdc-886dd630b906/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9da8c294-2aaf-4ae0-845b-1754ec24f54d/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d4499cad-1dbd-4772-8695-3fb1584347cf/default.jobtemplate.hls.m3u8"
+  ]
+}

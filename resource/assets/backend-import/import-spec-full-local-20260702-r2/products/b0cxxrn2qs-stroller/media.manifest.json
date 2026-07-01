@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0CXXRN2QS",
+  "sourceCategoryId": "stroller",
+  "images": [
+    {
+      "productId": "B0CXXRN2QS",
+      "categoryId": "stroller",
+      "resourceId": "B0CXXRN2QS:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/MAMAZING/Rank_2_ASIN_B0CXXRN2QS_MAMAZING Ultra Air Lightweight Baby Travel Strolle/images/primary.jpg",
+      "targetPathKeep": "resources/b0cxxrn2qs-overview/primary.jpg",
+      "targetPathCpk": "categories/stroller/products/b0cxxrn2qs/cover/primary.jpg"
+    },
+    {
+      "productId": "B0CXXRN2QS",
+      "categoryId": "stroller",
+      "resourceId": "B0CXXRN2QS:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/MAMAZING/Rank_2_ASIN_B0CXXRN2QS_MAMAZING Ultra Air Lightweight Baby Travel Strolle/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0cxxrn2qs-overview/alt_1.jpg",
+      "targetPathCpk": "categories/stroller/products/b0cxxrn2qs/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0CXXRN2QS",
+      "categoryId": "stroller",
+      "resourceId": "B0CXXRN2QS:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/MAMAZING/Rank_2_ASIN_B0CXXRN2QS_MAMAZING Ultra Air Lightweight Baby Travel Strolle/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0cxxrn2qs-overview/alt_2.jpg",
+      "targetPathCpk": "categories/stroller/products/b0cxxrn2qs/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0CXXRN2QS",
+      "categoryId": "stroller",
+      "resourceId": "B0CXXRN2QS:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/MAMAZING/Rank_2_ASIN_B0CXXRN2QS_MAMAZING Ultra Air Lightweight Baby Travel Strolle/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0cxxrn2qs-overview/alt_3.jpg",
+      "targetPathCpk": "categories/stroller/products/b0cxxrn2qs/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0CXXRN2QS",
+      "categoryId": "stroller",
+      "resourceId": "B0CXXRN2QS:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/MAMAZING/Rank_2_ASIN_B0CXXRN2QS_MAMAZING Ultra Air Lightweight Baby Travel Strolle/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0cxxrn2qs-overview/alt_4.jpg",
+      "targetPathCpk": "categories/stroller/products/b0cxxrn2qs/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0CXXRN2QS",
+      "categoryId": "stroller",
+      "resourceId": "B0CXXRN2QS:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/MAMAZING/Rank_2_ASIN_B0CXXRN2QS_MAMAZING Ultra Air Lightweight Baby Travel Strolle/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0cxxrn2qs-overview/alt_5.jpg",
+      "targetPathCpk": "categories/stroller/products/b0cxxrn2qs/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0CXXRN2QS",
+      "categoryId": "stroller",
+      "resourceId": "B0CXXRN2QS:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/MAMAZING/Rank_2_ASIN_B0CXXRN2QS_MAMAZING Ultra Air Lightweight Baby Travel Strolle/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0cxxrn2qs-overview/alt_6.jpg",
+      "targetPathCpk": "categories/stroller/products/b0cxxrn2qs/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0CXXRN2QS",
+      "categoryId": "stroller",
+      "resourceId": "B0CXXRN2QS:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/MAMAZING/Rank_2_ASIN_B0CXXRN2QS_MAMAZING Ultra Air Lightweight Baby Travel Strolle/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0cxxrn2qs-overview/alt_7.jpg",
+      "targetPathCpk": "categories/stroller/products/b0cxxrn2qs/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0CXXRN2QS",
+      "categoryId": "stroller",
+      "resourceId": "B0CXXRN2QS:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/MAMAZING/Rank_2_ASIN_B0CXXRN2QS_MAMAZING Ultra Air Lightweight Baby Travel Strolle/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0cxxrn2qs-overview/alt_8.jpg",
+      "targetPathCpk": "categories/stroller/products/b0cxxrn2qs/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0CXXRN2QS",
+      "categoryId": "stroller",
+      "resourceId": "B0CXXRN2QS:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/MAMAZING/Rank_2_ASIN_B0CXXRN2QS_MAMAZING Ultra Air Lightweight Baby Travel Strolle/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0cxxrn2qs-overview/alt_9.jpg",
+      "targetPathCpk": "categories/stroller/products/b0cxxrn2qs/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0CXXRN2QS",
+      "categoryId": "stroller",
+      "resourceId": "B0CXXRN2QS:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/MAMAZING/Rank_2_ASIN_B0CXXRN2QS_MAMAZING Ultra Air Lightweight Baby Travel Strolle/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+      "targetPathKeep": "resources/b0cxxrn2qs-overview/aplus_00.png",
+      "targetPathCpk": "categories/stroller/products/b0cxxrn2qs/gallery/aplus_00.png"
+    },
+    {
+      "productId": "B0CXXRN2QS",
+      "categoryId": "stroller",
+      "resourceId": "B0CXXRN2QS:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/MAMAZING/Rank_2_ASIN_B0CXXRN2QS_MAMAZING Ultra Air Lightweight Baby Travel Strolle/images/primary.jpg",
+      "targetPathKeep": "resources/b0cxxrn2qs-overview/primary.jpg",
+      "targetPathCpk": "categories/stroller/products/b0cxxrn2qs/gallery/primary.jpg"
+    }
+  ],
+  "videos": [
+    "http://127.0.0.1:8010/scrape_store/stroller/MAMAZING/Rank_2_ASIN_B0CXXRN2QS_MAMAZING Ultra Air Lightweight Baby Travel Strolle/index.html"
+  ]
+}

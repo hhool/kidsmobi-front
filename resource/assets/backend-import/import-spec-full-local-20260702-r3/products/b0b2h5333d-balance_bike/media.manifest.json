@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "productId": "B0B2H5333D",
+  "sourceCategoryId": "balance_bike",
+  "images": [
+    {
+      "productId": "B0B2H5333D",
+      "categoryId": "balance_bike",
+      "resourceId": "B0B2H5333D:video",
+      "kind": "cover",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/717QQJexroL._AC_UL165_SR165,165_.jpg",
+      "targetPathKeep": "resources/b0b2h5333d-video/717qqjexrol._ac_ul165_sr165-165_.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0b2h5333d/cover/717qqjexrol._ac_ul165_sr165-165_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ee5e973a-36fe-471d-8a96-04f60c2e7e2a/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1d51cbc9-9647-416a-8c64-a11c3d0418b5/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/736743ce-c1fe-409c-bf7d-2d1fe3808b82/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bfc2deed-e4c8-4b12-b165-bc6a13f9de09/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/09b104dd-225f-4dd4-bca3-c5d41876e05a/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/42ab564b-90c0-4fdb-9dbc-82850609b02e/default.vertical.jobtemplate.hls.m3u8"
+  ]
+}

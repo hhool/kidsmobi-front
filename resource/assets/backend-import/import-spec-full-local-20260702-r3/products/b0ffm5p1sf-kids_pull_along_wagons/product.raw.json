@@ -1,0 +1,599 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T21:39:13.755Z",
+  "data": {
+    "productId": "B0FFM5P1SF",
+    "categoryId": "kids_pull_along_wagons",
+    "rank": 10,
+    "title": "Touheart JML002 Wagon Stroller for 2 Kids - Double Seater Push Stroller with Canopy | Collapsible Foldable Wagon for Kids Tod",
+    "brand": "Touheart",
+    "price": {
+      "display": "$169.99",
+      "value": 169.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.6  54",
+      "value": 4.6
+    },
+    "weight": {
+      "display": "N/A",
+      "lbs": 0
+    },
+    "classification": {
+      "Brand": "Touheart",
+      "Wagon_Type": "Wagon Stroller",
+      "Travel_System_Ready": "No",
+      "Seating_Capacity": "2",
+      "Wheel_Configuration": "4",
+      "Harness_Type": "3 Point",
+      "Weight_Class": "Unknown",
+      "Price_Tier": "100-200"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_pull_along_wagons",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "carbon steel frame",
+        "✅Dual-Seat All-Terrain Shock-Absorbing Wheels: This 2-kid wagon stroller comes with upgraded shock-absorbing big tires",
+        "adapting perfectly to grass",
+        "gravel",
+        "pavement",
+        "sand and bumpy paths for a bump-free comfortable ride",
+        "offered in two neutral colors: Black and Gray to match different preferences.",
+        "✅Reliable 5-Point Safety Harness for Double Seats: Every child seat is equipped with an independent adjustable 5-point safety harness",
+        "firmly securing infants and toddlers to avoid sliding or falling while moving",
+        "greatly boosting travel safety for little ones.",
+        "✅Removable Sun Canopy & Large Storage Bag: The full-size canopy can be quickly attached or detached to shield kids from strong UV rays and light drizzle",
+        "a detachable storage bag provides ample room to hold baby essentials",
+        "snacks and outdoor gear.",
+        "✅Push & Pull Portable Foldable Design: Features dual push and pull handles for flexible operation",
+        "quick fold construction enables compact storage",
+        "easily fitting into most car trunks",
+        "small home storage spaces",
+        "convenient for road trips and daily errands.",
+        "✅【Durable & User-Friendly】 Built with a heavy-duty steel frame and tear-resistant Oxford fabric. Includes removable",
+        "washable seat covers",
+        "wheel brakes",
+        "and 360° front swivel wheels. The trusted Touheart kids",
+        "baby wagon."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "carbon steel frame",
+        "featureLabel": "Carbon Steel Frame",
+        "featureValue": "carbon steel frame",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "✅Dual-Seat All-Terrain Shock-Absorbing Wheels: This 2-kid wagon stroller comes with upgraded shock-absorbing big tires",
+        "featureLabel": "✅Dual Seat All Terrain Shock Absorbing Wheels: This 2 Kid Wagon Stroller Comes With Upgraded Shock Absorbing Big Tires",
+        "featureValue": "✅Dual-Seat All-Terrain Shock-Absorbing Wheels: This 2-kid wagon stroller comes with upgraded shock-absorbing big tires",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "adapting perfectly to grass",
+        "featureLabel": "Adapting Perfectly To Grass",
+        "featureValue": "adapting perfectly to grass",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "gravel",
+        "featureLabel": "Gravel",
+        "featureValue": "gravel",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "pavement",
+        "featureLabel": "Pavement",
+        "featureValue": "pavement",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "sand and bumpy paths for a bump-free comfortable ride",
+        "featureLabel": "Sand And Bumpy Paths For A Bump Free Comfortable Ride",
+        "featureValue": "sand and bumpy paths for a bump-free comfortable ride",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "carbon steel frame",
+        "✅Dual-Seat All-Terrain Shock-Absorbing Wheels: This 2-kid wagon stroller comes with upgraded shock-absorbing big tires",
+        "adapting perfectly to grass",
+        "gravel"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/81X1ROANeGL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/81X1ROANeGL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ad09a56d-a1c0-474c-a0dc-6b3ab9fb7eab/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/08cba32a-cc4d-4980-813f-9534e95d975b/default.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 2,
+      "similarItems": 1
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ad09a56d-a1c0-474c-a0dc-6b3ab9fb7eab/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51veoKBX+kL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Touheart wagon stroller for 2 kids double seater",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/08cba32a-cc4d-4980-813f-9534e95d975b/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/C1pNY5P8F8L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Stroller wagon for two kids - review",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "Jeep",
+        "Title": "Jeep Aries Stroller Wagon by Delta Children Premium Wagon for 2 Kids with Convertible Seats, Adjustable Push/Pull Handles, Re",
+        "Price": "$344.99",
+        "Rating": "4.7",
+        "Reviews": "393",
+        "URL": "https://www.amazon.com/Aries-Stroller-Wagon-Delta-Children/dp/B0CLWWPDML/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_6/137-2374200-4980340?pd_rd_w=QiWZs&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=FPP2E1V5D0Q6W440SBAR&pd_rd_wg=azOYE&pd_rd_r=2a18f6d1-45f9-4c9c-8ea1-265ec7a2315c&pd_rd_i=B0CLWWPDML&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/61I1lmRMxiL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B0CLWWPDML",
+        "Features": "Polyester | Imported | CONVERTIBLE 2-SEATER STROLLER WAGON: This two-seater wagon features 5 seating options | Seats can face forward, backwards, inwards, outwards in different directions or be removed to carry gear | Outward facing seats with footrests ideal for older kids | TONS OF STORAGE: Zip off front and rear storage pockets, storage under the seats, kids snack tray, plus two parent cup holders | Removable canopy provides UV protection, roll down mesh screens and black out screens offer ventilation and privacy | EASY TO MANEUVER: Two adjustable leatherette handlebars for parents of all heights | Rust-resistant steel frame for long-lasting use | Shock absorbing puncture-proof 7-inch front wheels and 10-inch back wheels | One-step back brake for ultimate control | FOLDS FLAT: Flat fold for easy transport/storage | Size: 38.75\"L x 24.25\"W x 47\"H | Folded: 25.6\"L x 24.25\"W x 41.14\"H | Weighs 47.23 lbs. | For kids up to 42” tall; Holds up to 200 lbs. | JPMA and GREENGUARD Gold certified | 5-point safety harnesses | CAR SEAT COMPATIBILITY: Easily modify this wagon by adding your car seat and car seat adapter for flexible seating arrangements (both sold separately) | See the Product Description for complete list of compatible car seats",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c748c58a-130d-4a50-bb00-610090f3288a/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c748c58a-130d-4a50-bb00-610090f3288a/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/91T8tRqjhOL.SS125_PKplay-button-mb-image-grid-small_.png",
+            "Title": "Delta Children Kids Furniture",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/24b8a444-d818-4bd0-8ac0-48e441dc7641/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/7186-WGF4OL.SS125_PKplay-button-mb-image-grid-small_.jpg",
+            "Title": "Replaced my stroller with this! My toddler is beyond happy!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64672ca5-5a20-476a-bfae-82bce67b22cf/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61mw1TccwLL.SS125_PKplay-button-mb-image-grid-small_.jpg",
+            "Title": "Watch for all the details to know!!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/edeebff8-2d11-48e5-a2fc-2e5be014b470/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/81BCNDcLRVL.SS125_PKplay-button-mb-image-grid-small_.png",
+            "Title": "Honest Review of Aries Stroller Wagon",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b2c9af79-f430-4db0-97cf-98d755a363ca/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61iWJ6y1B+L.SS125_PKplay-button-mb-image-grid-small_.jpg",
+            "Title": "Before you buy! Step by step tutorial of build and breakdown!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8927e1fd-cb68-401b-aa68-959aa8d21a97/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61oa0X38E+L.SS125_PKplay-button-mb-image-grid-small_.jpg",
+            "Title": "The Wagon That Thought of Everything!",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c748c58a-130d-4a50-bb00-610090f3288a/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/24b8a444-d818-4bd0-8ac0-48e441dc7641/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64672ca5-5a20-476a-bfae-82bce67b22cf/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/edeebff8-2d11-48e5-a2fc-2e5be014b470/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b2c9af79-f430-4db0-97cf-98d755a363ca/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8927e1fd-cb68-401b-aa68-959aa8d21a97/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c748c58a-130d-4a50-bb00-610090f3288a/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/24b8a444-d818-4bd0-8ac0-48e441dc7641/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64672ca5-5a20-476a-bfae-82bce67b22cf/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/edeebff8-2d11-48e5-a2fc-2e5be014b470/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b2c9af79-f430-4db0-97cf-98d755a363ca/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8927e1fd-cb68-401b-aa68-959aa8d21a97/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "Delta Children Epic Glider",
+              "Texts": [],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1f18d13b-2a83-45f2-9c1c-6ff15642b3a3.__CR0,2,2000,820_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/40c079e9-3d19-41a4-8bae-01d070a09351.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/cc6ace52-ae05-4d85-9f1f-8b5b4dc7ee6b.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1f18d13b-2a83-45f2-9c1c-6ff15642b3a3.__CR0,2,2000,820_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "72977-931 Upholstered Glider, Charcoal Desktop-1",
+                  "Image_Alt": "72977-931 Upholstered Glider, Charcoal Desktop-1"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/40c079e9-3d19-41a4-8bae-01d070a09351.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 2,
+                  "Image_Title": "13275-001_Jeep-Altitude-Compact-Travel-Stroller_Amazon_Template_Mobile-03",
+                  "Image_Alt": "13275-001_Jeep-Altitude-Compact-Travel-Stroller_Amazon_Template_Mobile-03"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/cc6ace52-ae05-4d85-9f1f-8b5b4dc7ee6b.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 3,
+                  "Image_Title": "11508-2013_Jeep-Destination-Ultralight-Side-x-Side-Double-Stroller_Amazon_Template_Mobile-05",
+                  "Image_Alt": "11508-2013_Jeep-Destination-Ultralight-Side-x-Side-Double-Stroller_Amazon_Template_Mobile-05"
+                }
+              ],
+              "Comparison_Table": {
+                "Headers": [
+                  "Aries Wagon Add to Cart",
+                  "Classic 2-in-1 High Chair Add to Cart",
+                  "Horizon Travel Play Yard Add to Cart",
+                  "4 Person Tent Add to Cart",
+                  "Classic Wrangler Walker Add to Cart",
+                  "Milestone High Chair Add to Cart",
+                  "Altitude Stroller Add to Cart"
+                ],
+                "Rows": [
+                  [
+                    "Customer Reviews",
+                    "4.7 out of 5 stars 393",
+                    "4.7 out of 5 stars 399",
+                    "4.4 out of 5 stars 59",
+                    "4.8 out of 5 stars 21",
+                    "4.7 out of 5 stars 6,762",
+                    "4.7 out of 5 stars 728",
+                    "4.6 out of 5 stars 359"
+                  ],
+                  [
+                    "Price",
+                    "$344.99 $ 344 . 99",
+                    "$92.99 $ 92 . 99",
+                    "$109.99 $ 109 . 99",
+                    "$125.09 $ 125 . 09",
+                    "$73.99 $ 73 . 99",
+                    "$99.99 $ 99 . 99",
+                    "$129.00 $ 129 . 00"
+                  ],
+                  [
+                    "Brand",
+                    "Jeep",
+                    "Delta Children",
+                    "Jeep",
+                    "Jeep",
+                    "Jeep",
+                    "Delta Children",
+                    "Delta Children"
+                  ],
+                  [
+                    "Color",
+                    "Black",
+                    "White/Acorn",
+                    "Tan/Black",
+                    "Olive Green",
+                    "Green",
+                    "Oatmeal",
+                    "Olive Green"
+                  ],
+                  [
+                    "Tested Above & Beyond",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔"
+                  ],
+                  [
+                    "Perfect For Your Nursery",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔"
+                  ],
+                  [
+                    "Healhty Materials",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔"
+                  ]
+                ]
+              },
+              "Block_Types": [
+                "image",
+                "table"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "Delta Children Epic Glider"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1f18d13b-2a83-45f2-9c1c-6ff15642b3a3.__CR0,2,2000,820_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "72977-931 Upholstered Glider, Charcoal Desktop-1",
+                    "Image_Alt": "72977-931 Upholstered Glider, Charcoal Desktop-1"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/40c079e9-3d19-41a4-8bae-01d070a09351.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 2,
+                    "Image_Title": "13275-001_Jeep-Altitude-Compact-Travel-Stroller_Amazon_Template_Mobile-03",
+                    "Image_Alt": "13275-001_Jeep-Altitude-Compact-Travel-Stroller_Amazon_Template_Mobile-03"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/cc6ace52-ae05-4d85-9f1f-8b5b4dc7ee6b.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 3,
+                    "Image_Title": "11508-2013_Jeep-Destination-Ultralight-Side-x-Side-Double-Stroller_Amazon_Template_Mobile-05",
+                    "Image_Alt": "11508-2013_Jeep-Destination-Ultralight-Side-x-Side-Double-Stroller_Amazon_Template_Mobile-05"
+                  }
+                },
+                {
+                  "Block_Type": "table",
+                  "Table": {
+                    "Headers": [
+                      "Aries Wagon Add to Cart",
+                      "Classic 2-in-1 High Chair Add to Cart",
+                      "Horizon Travel Play Yard Add to Cart",
+                      "4 Person Tent Add to Cart",
+                      "Classic Wrangler Walker Add to Cart",
+                      "Milestone High Chair Add to Cart",
+                      "Altitude Stroller Add to Cart"
+                    ],
+                    "Rows": [
+                      [
+                        "Customer Reviews",
+                        "4.7 out of 5 stars 393",
+                        "4.7 out of 5 stars 399",
+                        "4.4 out of 5 stars 59",
+                        "4.8 out of 5 stars 21",
+                        "4.7 out of 5 stars 6,762",
+                        "4.7 out of 5 stars 728",
+                        "4.6 out of 5 stars 359"
+                      ],
+                      [
+                        "Price",
+                        "$344.99 $ 344 . 99",
+                        "$92.99 $ 92 . 99",
+                        "$109.99 $ 109 . 99",
+                        "$125.09 $ 125 . 09",
+                        "$73.99 $ 73 . 99",
+                        "$99.99 $ 99 . 99",
+                        "$129.00 $ 129 . 00"
+                      ],
+                      [
+                        "Brand",
+                        "Jeep",
+                        "Delta Children",
+                        "Jeep",
+                        "Jeep",
+                        "Jeep",
+                        "Delta Children",
+                        "Delta Children"
+                      ],
+                      [
+                        "Color",
+                        "Black",
+                        "White/Acorn",
+                        "Tan/Black",
+                        "Olive Green",
+                        "Green",
+                        "Oatmeal",
+                        "Olive Green"
+                      ],
+                      [
+                        "Tested Above & Beyond",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔"
+                      ],
+                      [
+                        "Perfect For Your Nursery",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔"
+                      ],
+                      [
+                        "Healhty Materials",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1f18d13b-2a83-45f2-9c1c-6ff15642b3a3.__CR0,2,2000,820_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/40c079e9-3d19-41a4-8bae-01d070a09351.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/cc6ace52-ae05-4d85-9f1f-8b5b4dc7ee6b.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+            ],
+            "Local_Images": [
+              "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0CLWWPDML_Jeep Aries Stroller Wagon by Delta Children Premiu/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+              "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0CLWWPDML_Jeep Aries Stroller Wagon by Delta Children Premiu/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+              "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0CLWWPDML_Jeep Aries Stroller Wagon by Delta Children Premiu/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [],
+          "Summary": {
+            "Count": 0
+          },
+          "Local_Paths": []
+        },
+        "Product_Description": "From park strolls to grocery store runs, the Jeep Aries 2-Seater Stroller Wagon by Delta Children makes any outing an adventure. Designed with today's families in mind, this versatile stroller wagon incorporates features to encourage autonomy, self-discovery, imaginative play, and sensory development. This convertible wagon offers a range of seating options to accommodate two children—both seats can face forward, both can face backwards, both can face inwards, both can face out in different directions, or you can remove the seats completely and use the wagon to carry all your gear. The built-in footrests make facing outwards comfortable for kids of all ages. The wagon’s removable canopy has roll down mesh screens for ventilation or black out privacy screens for on-the-go naps. Take advantage of the wagon’s expansive storage. The wagon features front and rear storage pockets, zippered storage compartments under the seats, kids snack tray, plus two parent cup holders. Two adjustable leatherette handlebars ensure a comfortable grip for parents of all heights, while the large, puncture-proof tires with suspension provide a smooth ride on any terrain. The wagon’s flat fold makes it easy to store and transport. It’s the perfect all-in-one solution for growing families.Easily modify this wagon by adding your car seat and car seat adapter for flexible seating arrangements (both sold separately):A1970 Adapter for Graco SnugRide (30,35,40), Evenflo Embrace, Evenflo Nurture, Chicco Keyfit 30, Britax B-Safe 35A1971 Adapter for Maxi-Cosi Mico 30, Cybex Cloud Q, Nuna PIPA lite rx, Nuna PIPA lite lx, Nuna PIPA lite r, Nuna PIPA lite, Nuna PIPAA1972 Adapter for UPPAbaby MESAA1973 Adapter for Clek LiingA1974 Adapter for Baby Trend EZ Flex-LocA1986 Adapter for Maxi-Cosi Mico 30, Mico 30 Infant, Mico Luxe, Coral 360",
+        "Product_Specifications": {
+          "Measurements": {
+            "Item Weight": "47.74 Pounds",
+            "Folded Size": "25.6\"L x 24.25\"W x 41.14\"H",
+            "Rear Facing Stroller Maximum Height": "42 Inches",
+            "Item Dimensions L x W x H": "38.75\"L x 24.25\"W x 47\"H",
+            "Frame Weight": "47.23 Pounds",
+            "Back Wheel Diameter": "10 Inches",
+            "Front Wheel Diameter": "7 Inches",
+            "Maximum Weight Recommendation": "200 Pounds",
+            "Item Width": "24.25 Inches"
+          },
+          "Features_Specs": {
+            "Age Range (Description)": "Infant",
+            "Stroller Type": "Wagon Stroller",
+            "Is Car Seat Compatible": "Yes",
+            "Seating Capacity": "2",
+            "Additional Features": "Adjustable Handle, Canopy, Convertible 2-Seater Wagon, Folts Flat, Tons of Storage",
+            "Has Stroller Brake System": "Yes",
+            "Age Range Description": "Infant",
+            "Import Designation": "Imported",
+            "UPC": "080213130992"
+          },
+          "Materials_Care": {
+            "Material": "Metal",
+            "Frame Material": "Metal",
+            "Material Type": "Metal",
+            "Canopy Material": "Polyester",
+            "Care Instructions": "Spot clean",
+            "Seat Material": "leatherette",
+            "Tire Material": "Rubber",
+            "Fabric Type": "Polyester"
+          },
+          "Item_Details": {
+            "Brand": "Delta Children",
+            "Number of Cup Holders": "2",
+            "Number of Wheels": "4",
+            "Compatible Car Seat Models": "Baby Trend EZ Flex-Loc, Chicco KeyFit 30",
+            "Included Components": "Removable canopy, zip off front and rear storage pockets, kids snack tray, two parent cup holders, 5-point safety harnesses, adjustable leatherette handlebars, front and rear storage pockets, zippered storage compartments under the seats, shock absorbing puncture-proof 7-inch front wheels and 10-inch back wheels, one-step back brake, footrests",
+            "Model Number": "60014-2378",
+            "Manufacturer Warranty Description": "90 days",
+            "Global Trade Identification Number": "00080213130992",
+            "Part Number": "60014-2378",
+            "Manufacturer": "Delta Children",
+            "Unit Count": "1.0 Count",
+            "Best Sellers Rank": "#21,183 in Toys & Games (See Top 100 in Toys & Games) #26 in Kids' Pull-Along Wagons",
+            "ASIN": "B0CLWWPDML",
+            "Customer Reviews": "4.7  4.7 out of 5 stars   \n    (393)   \n\n\n 4.7 out of 5 stars"
+          },
+          "User_Guide": {
+            "Specification Met": "JPMA",
+            "Assembly Instructions Description": "Ready to use out of the box",
+            "Harness Type": "5 Point",
+            "Harness Feature": "5-point"
+          },
+          "Additional_Details": {
+            "Color": "Black/Green",
+            "Frame Color": "Black/Green"
+          }
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery Wednesday, July 1 Or Prime members get FREE delivery Sunday, June 28. Order within 5 hrs 38 mins. Join Prime",
+          "Specifications": {
+            "Brand": "Delta Children",
+            "Color": "Black/Green",
+            "Material": "Metal",
+            "Frame Material": "Metal",
+            "Age Range (Description)": "Infant"
+          }
+        },
+        "Local_Image_Paths": [
+          "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0CLWWPDML_Jeep Aries Stroller Wagon by Delta Children Premiu/images/primary.jpg",
+          "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0CLWWPDML_Jeep Aries Stroller Wagon by Delta Children Premiu/images/alt_1.jpg",
+          "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0CLWWPDML_Jeep Aries Stroller Wagon by Delta Children Premiu/images/alt_2.jpg",
+          "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0CLWWPDML_Jeep Aries Stroller Wagon by Delta Children Premiu/images/alt_3.jpg",
+          "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0CLWWPDML_Jeep Aries Stroller Wagon by Delta Children Premiu/images/alt_4.jpg",
+          "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0CLWWPDML_Jeep Aries Stroller Wagon by Delta Children Premiu/images/alt_5.jpg",
+          "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0CLWWPDML_Jeep Aries Stroller Wagon by Delta Children Premiu/images/alt_6.jpg",
+          "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0CLWWPDML_Jeep Aries Stroller Wagon by Delta Children Premiu/images/alt_7.jpg",
+          "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0CLWWPDML_Jeep Aries Stroller Wagon by Delta Children Premiu/images/alt_8.jpg",
+          "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0CLWWPDML_Jeep Aries Stroller Wagon by Delta Children Premiu/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0CLWWPDML_Jeep Aries Stroller Wagon by Delta Children Premiu/images/primary.jpg",
+        "Local_Video_Paths": []
+      }
+    ]
+  }
+}

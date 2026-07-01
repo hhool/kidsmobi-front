@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "fetchedAt": "2026-07-01T20:06:16.235Z",
+  "data": {
+    "resourceId": "B0FCY4WM8M:overview",
+    "categoryId": "kids_pull_along_wagons",
+    "productId": "B0FCY4WM8M",
+    "resourceType": "product_overview",
+    "title": "TODEFULL Wagon Stroller for 2 Kids, Foldable Kids Wagon Cart Featuring with Harnesses, Adjustable Double Push Handle, Removab",
+    "summary": "DOUBLE WAGON STROLLER: Heavy steel frame for 2 passengers (55 LBS per seat); This cleverly designed station wagon stroller is easy to fold for storage, is also capable of transporting oversized loads and fits in the trunk for easy transportation | ADJUSTABLE DOUBLE PUSH BAR: the ",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/index.html",
+    "videoUrls": [
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/videos/video_0.mp4",
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/videos/video_1.mp4",
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/videos/video_2.mp4",
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/videos/video_3.mp4",
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/videos/video_4.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8c561752-2f09-4055-a642-3d21d738a0ff.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/771d9bdd-1f1c-43d5-85cb-f43ef60ba442.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a79fe938-77d7-452f-bb6b-008a7685e366.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/2bfe5214-ddfd-47c9-9ff2-b9dc1b210e32.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/162657f0-bf29-448c-aa86-42b3ef53cafd.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b9a4d32e-f442-4c9a-b9cf-5b57b514cced/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/25b2968a-c023-4598-b79c-153fe6050b8b/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 1,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 12,
+      "hasFeatures": true
+    }
+  }
+}

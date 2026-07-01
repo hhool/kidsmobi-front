@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0CY5HRL3K",
+  "sourceCategoryId": "electric_vehicles",
+  "images": [
+    {
+      "productId": "B0CY5HRL3K",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0CY5HRL3K:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/primary.jpg",
+      "targetPathKeep": "resources/b0cy5hrl3k-overview/primary.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0cy5hrl3k/cover/primary.jpg"
+    },
+    {
+      "productId": "B0CY5HRL3K",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0CY5HRL3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0cy5hrl3k-overview/alt_1.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0cy5hrl3k/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0CY5HRL3K",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0CY5HRL3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0cy5hrl3k-overview/alt_2.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0cy5hrl3k/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0CY5HRL3K",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0CY5HRL3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0cy5hrl3k-overview/alt_3.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0cy5hrl3k/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0CY5HRL3K",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0CY5HRL3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0cy5hrl3k-overview/alt_4.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0cy5hrl3k/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0CY5HRL3K",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0CY5HRL3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0cy5hrl3k-overview/alt_5.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0cy5hrl3k/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0CY5HRL3K",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0CY5HRL3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0cy5hrl3k-overview/alt_6.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0cy5hrl3k/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0CY5HRL3K",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0CY5HRL3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0cy5hrl3k-overview/alt_7.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0cy5hrl3k/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0CY5HRL3K",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0CY5HRL3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0cy5hrl3k-overview/alt_8.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0cy5hrl3k/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0CY5HRL3K",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0CY5HRL3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0cy5hrl3k-overview/alt_9.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0cy5hrl3k/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0CY5HRL3K",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0CY5HRL3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0cy5hrl3k-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0cy5hrl3k/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0CY5HRL3K",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0CY5HRL3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/primary.jpg",
+      "targetPathKeep": "resources/b0cy5hrl3k-overview/primary.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0cy5hrl3k/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0CY5HRL3K",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0CY5HRL3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/71xx05YS06L._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0cy5hrl3k-overview/71xx05ys06l._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0cy5hrl3k/gallery/71xx05ys06l._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f5fa3322-4bd6-4b4f-a50a-e4192b076ac2/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62c84305-d958-4ba8-9ef1-315ebbb86af3/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/147f0005-9cf3-4e2c-ad00-3e1cf52430a1/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8ce2e489-4ea1-4c98-92b7-36b5f56a7b63/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f2989d71-cd7e-4b26-af3b-063635bb85a2/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/416907b4-3518-4b61-9887-4bc97a435ed8/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3376f82a-a9bd-4a48-91d2-2e5c3c2fa9eb/default.vertical.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/index.html"
+  ]
+}

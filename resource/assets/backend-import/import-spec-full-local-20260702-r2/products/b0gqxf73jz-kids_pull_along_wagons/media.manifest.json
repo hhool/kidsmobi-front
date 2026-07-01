@@ -1,0 +1,141 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0GQXF73JZ",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "images": [
+    {
+      "productId": "B0GQXF73JZ",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0GQXF73JZ:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_7_ASIN_B0GQXF73JZ_ELEMARA All-Terrain Stroller Wagon for 2 Kids Fold/images/primary.jpg",
+      "targetPathKeep": "resources/b0gqxf73jz-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0gqxf73jz/cover/primary.jpg"
+    },
+    {
+      "productId": "B0GQXF73JZ",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0GQXF73JZ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_7_ASIN_B0GQXF73JZ_ELEMARA All-Terrain Stroller Wagon for 2 Kids Fold/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0gqxf73jz-overview/alt_1.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0gqxf73jz/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0GQXF73JZ",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0GQXF73JZ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_7_ASIN_B0GQXF73JZ_ELEMARA All-Terrain Stroller Wagon for 2 Kids Fold/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0gqxf73jz-overview/alt_2.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0gqxf73jz/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0GQXF73JZ",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0GQXF73JZ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_7_ASIN_B0GQXF73JZ_ELEMARA All-Terrain Stroller Wagon for 2 Kids Fold/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0gqxf73jz-overview/alt_3.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0gqxf73jz/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0GQXF73JZ",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0GQXF73JZ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_7_ASIN_B0GQXF73JZ_ELEMARA All-Terrain Stroller Wagon for 2 Kids Fold/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0gqxf73jz-overview/alt_4.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0gqxf73jz/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0GQXF73JZ",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0GQXF73JZ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_7_ASIN_B0GQXF73JZ_ELEMARA All-Terrain Stroller Wagon for 2 Kids Fold/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0gqxf73jz-overview/alt_5.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0gqxf73jz/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0GQXF73JZ",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0GQXF73JZ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_7_ASIN_B0GQXF73JZ_ELEMARA All-Terrain Stroller Wagon for 2 Kids Fold/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0gqxf73jz-overview/alt_6.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0gqxf73jz/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0GQXF73JZ",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0GQXF73JZ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_7_ASIN_B0GQXF73JZ_ELEMARA All-Terrain Stroller Wagon for 2 Kids Fold/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0gqxf73jz-overview/alt_7.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0gqxf73jz/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0GQXF73JZ",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0GQXF73JZ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_7_ASIN_B0GQXF73JZ_ELEMARA All-Terrain Stroller Wagon for 2 Kids Fold/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0gqxf73jz-overview/alt_8.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0gqxf73jz/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0GQXF73JZ",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0GQXF73JZ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_7_ASIN_B0GQXF73JZ_ELEMARA All-Terrain Stroller Wagon for 2 Kids Fold/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0gqxf73jz-overview/alt_9.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0gqxf73jz/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0GQXF73JZ",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0GQXF73JZ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_7_ASIN_B0GQXF73JZ_ELEMARA All-Terrain Stroller Wagon for 2 Kids Fold/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0gqxf73jz-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0gqxf73jz/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0GQXF73JZ",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0GQXF73JZ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_7_ASIN_B0GQXF73JZ_ELEMARA All-Terrain Stroller Wagon for 2 Kids Fold/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "targetPathKeep": "resources/b0gqxf73jz-overview/aplus_01.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0gqxf73jz/gallery/aplus_01.jpg"
+    },
+    {
+      "productId": "B0GQXF73JZ",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0GQXF73JZ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_7_ASIN_B0GQXF73JZ_ELEMARA All-Terrain Stroller Wagon for 2 Kids Fold/images/primary.jpg",
+      "targetPathKeep": "resources/b0gqxf73jz-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0gqxf73jz/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0GQXF73JZ",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0GQXF73JZ:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/8134wsJZZSL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0gqxf73jz-overview/8134wsjzzsl._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0gqxf73jz/gallery/8134wsjzzsl._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/835263aa-300e-4115-9c92-77a1c44672e2/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e1b8e38e-e8e3-4ed2-88c1-5c15ab27406e/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6dca2ccf-004d-40fe-870b-a4996fca5da3/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4ab932d4-8cd3-4d26-80c5-a5849e11e85a/default.vertical.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_7_ASIN_B0GQXF73JZ_ELEMARA All-Terrain Stroller Wagon for 2 Kids Fold/index.html"
+  ]
+}

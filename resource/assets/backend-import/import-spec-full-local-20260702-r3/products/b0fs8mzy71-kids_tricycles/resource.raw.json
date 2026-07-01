@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_tricycles",
+  "fetchedAt": "2026-07-01T21:38:58.046Z",
+  "data": {
+    "resourceId": "B0FS8MZY71:video",
+    "categoryId": "kids_tricycles",
+    "productId": "B0FS8MZY71",
+    "resourceType": "product_video",
+    "title": "Radio Flyer City 4-in-1 Stroll 'N Trike, Teal, for Riders 1-5 Years Old, 4 Riding Modes, 3 Point Harness with Comfort Pad, Pa • Video preview",
+    "summary": "Video preview asset set for Radio in kids_tricycles.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/74a6fd34-31f1-429b-849a-d434bee9bf5d.mp4/productVideoOptimized.mp4",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/74a6fd34-31f1-429b-849a-d434bee9bf5d.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/982d3285-0451-41bd-b0da-5d11b4aa35ab.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/50fb81f8-0182-4ee6-a93e-543320901851.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/fc301be0-7169-4114-bca3-1e3ea91bb85d.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/2a1e0ac3-5774-400e-8d7c-0f1fc59f036a.mp4/productVideoOptimized.mp4"
+    ],
+    "credibilityScore": 0.9,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 5,
+      "hasFeatures": true
+    }
+  }
+}

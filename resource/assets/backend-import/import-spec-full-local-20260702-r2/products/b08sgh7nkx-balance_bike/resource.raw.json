@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "balance_bike",
+  "fetchedAt": "2026-07-01T20:06:11.621Z",
+  "data": {
+    "resourceId": "B08SGH7NKX:overview",
+    "categoryId": "balance_bike",
+    "productId": "B08SGH7NKX",
+    "resourceType": "product_overview",
+    "title": "SEREED Baby Balance Bike for 1 Year Old Boys Girls 12-24 Month Toddler Balance Bike, 4 Wheels Toddler First Bike, First Birth",
+    "summary": "GROW IN FUN: Recommended ages for 12-24 months. The infant balance bike is the best birthday gift for toddlers to learn walking and riding. It helps to develop babies' balance, steering, coordination, and gain confidence at an early age. | SAFELY RIDE: No pedal and fully widened ",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/balance_bike/SEREED/Rank_1_ASIN_B08SGH7NKX_SEREED Baby Balance Bike for 1 Year Old Boys Girls/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/52b608da-19a3-440d-9368-7773ae593785/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7acca5e2-cb06-45ec-9e45-b1180c6c7cfa/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b27aa405-fd0a-4a64-90d0-8479312be85a/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/39cc0b28-04fc-4b54-8e80-51f728c178be/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cedf217a-767c-4956-aaf3-15bca5098a40/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b9189800-c678-4d7b-8331-8b0d0d0c0c26/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e66afb55-ae8a-49e6-8bfe-1db855e7d4e7/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c56d1cdc-1664-4199-a048-24664126229b/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9e1bb11f-6eb2-45cb-838f-1da8d8368fff/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.91,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 9,
+      "hasFeatures": true
+    }
+  }
+}

@@ -1,0 +1,440 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "electric_vehicles",
+  "categoryCode": "electric_car",
+  "fetchedAt": "2026-07-01T21:38:48.269Z",
+  "data": {
+    "productId": "B07YC4VCYH",
+    "categoryId": "electric_vehicles",
+    "rank": 0,
+    "title": "Best Choice Products 12V Kids Electric Vehicle Toy Ride On Car with Parent Remote Control for Toddlers, Seat Harness, 61 lbs",
+    "brand": "Best",
+    "price": {
+      "display": "$169.99",
+      "value": 169.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.3",
+      "value": 4.3
+    },
+    "weight": {
+      "display": "32 Pounds",
+      "lbs": 32
+    },
+    "classification": {
+      "Brand": "Best",
+      "Vehicle_Type": "Sport",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Heavy Duty",
+      "Price_Tier": "100-200"
+    },
+    "categoryAttributes": {
+      "categoryId": "electric_vehicles",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "FOR KIDS 3 YEARS & OLDER: This small yet powerful ride-on is perfect for your little racers who want to start driving like the grownups do!",
+        "POWERFUL 12V & REALISTIC DESIGN: Adjustable seatbelt",
+        "bright LED headlights",
+        "lockable doors",
+        "and grid windshield for off-road style",
+        "with a 12V motor and traction tires to ride on different terrains",
+        "MANUAL AND PARENT CONTROL: Let your child drive manually or use the remote control to safely guide them yourself",
+        "remote has forward",
+        "reverse controls",
+        "SAFE & DURABLE: Includes plastic wheels that will never deflate",
+        "plus a spring suspension system and safe",
+        "2.8mph max speed for smooth rides on outdoor adventures",
+        "CONNECT YOUR MUSIC: A built-in AUX outlet allows kids to plug in media devices to drive while jamming to their own selection of music",
+        "OVERALL DIMENSIONS: 39.25\"(L) x 26\"(W) x 26\"(H)",
+        "Weight Capacity: 61 lbs."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "FOR KIDS 3 YEARS & OLDER: This small yet powerful ride-on is perfect for your little racers who want to start driving like the grownups do!",
+        "featureLabel": "FOR KIDS 3 YEARS & OLDER: This Small Yet Powerful Ride On Is Perfect For Your Little Racers Who Want To Start Driving Like The Grownups Do!",
+        "featureValue": "FOR KIDS 3 YEARS & OLDER: This small yet powerful ride-on is perfect for your little racers who want to start driving like the grownups do!",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "POWERFUL 12V & REALISTIC DESIGN: Adjustable seatbelt",
+        "featureLabel": "POWERFUL 12V & REALISTIC DESIGN: Adjustable Seatbelt",
+        "featureValue": "POWERFUL 12V & REALISTIC DESIGN: Adjustable seatbelt",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "bright LED headlights",
+        "featureLabel": "Bright LED Headlights",
+        "featureValue": "bright LED headlights",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "lockable doors",
+        "featureLabel": "Lockable Doors",
+        "featureValue": "lockable doors",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "and grid windshield for off-road style",
+        "featureLabel": "And Grid Windshield For Off Road Style",
+        "featureValue": "and grid windshield for off-road style",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "with a 12V motor and traction tires to ride on different terrains",
+        "featureLabel": "With A 12V Motor And Traction Tires To Ride On Different Terrains",
+        "featureValue": "with a 12V motor and traction tires to ride on different terrains",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "FOR KIDS 3 YEARS & OLDER: This small yet powerful ride-on is perfect for your little racers who want to start driving like the grownups do!",
+        "POWERFUL 12V & REALISTIC DESIGN: Adjustable seatbelt",
+        "bright LED headlights",
+        "lockable doors"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/819EixX48RS._AC_UL165_SR165,165_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/819EixX48RS._AC_UL165_SR165,165_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d864eefa-be6d-46ab-8030-8859827c6a61/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bc4606b8-66e5-4f5f-9211-733ff2763d85/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/87442e49-1797-4ee4-8a2d-760803dd19db/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/05422e8c-2471-409a-97ca-aa2da89fcb0b/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c73d8407-61ca-484f-a4b8-249cbe37ff4a/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f27621b3-9339-47c9-8ff1-5bd4ba23e766/default.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 6,
+      "similarItems": 1
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d864eefa-be6d-46ab-8030-8859827c6a61/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1ZNfkvQQ4L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "12v Ride-On Truck Toy",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bc4606b8-66e5-4f5f-9211-733ff2763d85/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51rNecSt0-L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Honest Review Best Choice Products 12V Kids RideON w Remote",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/87442e49-1797-4ee4-8a2d-760803dd19db/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1eGfNvwGfL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Watch This Before Your Buy!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/05422e8c-2471-409a-97ca-aa2da89fcb0b/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1VbTHPUWeL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Every detail you should know about this fun ride-on truck!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c73d8407-61ca-484f-a4b8-249cbe37ff4a/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1UaAvm932L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "MUST WATCH BEFORE you buy this jeep",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f27621b3-9339-47c9-8ff1-5bd4ba23e766/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A16LIG+48nL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Watch This Before You Buy This Electric Kids Car!",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "Kids",
+        "Title": "Kids Helmet, Exclusky Kids Bike Helmet Adjustable Safety Lightweight Children Bicycle Helmet for Kids Skating Cycling Scooter Boys and Girls Bicycle Helmets Ages 5-8-14",
+        "Price": "$23.98",
+        "Rating": "4.6",
+        "Reviews": "3,495",
+        "URL": "https://www.amazon.com/EXCLUSKY-Adjustable-Lightweight-Children-Bicycle/dp/B07CJV1975/ref=slmt_fabric_cml_detail_d_d_sccl_1_6/133-6154805-9280358?pd_rd_w=GhzX7&content-id=amzn1.sym.b445bfb9-712c-45d1-a72a-63721cb24e3c&pf_rd_p=b445bfb9-712c-45d1-a72a-63721cb24e3c&pf_rd_r=3CZN3DDWMEBFA5FWBRZA&pd_rd_wg=R93Yd&pd_rd_r=98010ce6-e1d7-4b6a-b4ed-1000fc71e0d3&pd_rd_i=B07CJV1975&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/61RJtOYbMJL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B07CJV1975",
+        "Features": "【Safety Kids Bike Helmet 】 The high density EPS foam liner helps to absorb shock to minimize impact harms to kid’s head. The thickened soft heat-sealed lining and chin pad avoid children’ heads from abrasions effectively. The helmet has passed CE+CPSC dual certification, providing the best protection for children's safety. | 【Comfortable Kids Youth Bike Helmet】 This kids' bike helmets made of lightweight material, the inner pad use of breathable material to wear comfortably. The adoption of specialized aerodynamic and ventilation design allow air go through the boy bicycle helmet help increase the speed and keep stay cool. | 【Visor and Adjustment System】Single-Hand dial retention system is easy to adjust and make the cycling helmet perfect fit on your head, The detachable visor on the boys bike helmet prevents the sun from shining directly into the child's eyes providing more shade. | 【Applicable Scenarios】Girls and boys bike helmet as an essential protective gear for boys and girls in sports, We recommend using childrens bicycle helmet when children ride bicycles, trikes, ride-on cars, scooters, bike trailers and other activities like these. | 【Bike helmet】Exclusky team fully stand behind all Exclusky girls and boys bicycle helmet, if you are not satisfied with our product for any reason at any time, please contact our Exclusky team timely and we will make it right.",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/eb5bd2b2-2073-433d-a670-a4b27a96d176/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/eb5bd2b2-2073-433d-a670-a4b27a96d176/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/518h+NZ8jpL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "kids bike helmet",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/672b81ba-2dd2-486b-aa36-af565affdcfe/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/51loHC9bIBL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Exclusky Kids Bike Helmet",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/df130b05-b066-496a-b099-3a7ec7bd31f7/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1qrzxrgrZL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Stylish & Safe Helmets for Our Adventures! Look up Close!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/06ded6c1-8b93-47c2-85fe-30f385abaff4/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/81mc-98EEpL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Reviews Highlight Reel",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f3505b6f-1344-4ca6-9923-1156e2a90d01/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61yHzQQlAXL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Testing the Fit of This Lightweight Bike Helmet! KIDS LOVE",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/28ea6a0a-504f-41b7-8664-7eb0ee9a059c/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71Q6ddkjG1L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Great design and cool kids helmet!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/04a6719d-15de-4f34-891a-cb46e5864d79/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1wwrrVI+WL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Does this helmet stay on their head?",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/eb5bd2b2-2073-433d-a670-a4b27a96d176/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/672b81ba-2dd2-486b-aa36-af565affdcfe/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/df130b05-b066-496a-b099-3a7ec7bd31f7/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/06ded6c1-8b93-47c2-85fe-30f385abaff4/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f3505b6f-1344-4ca6-9923-1156e2a90d01/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/28ea6a0a-504f-41b7-8664-7eb0ee9a059c/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/04a6719d-15de-4f34-891a-cb46e5864d79/default.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/eb5bd2b2-2073-433d-a670-a4b27a96d176/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/672b81ba-2dd2-486b-aa36-af565affdcfe/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/df130b05-b066-496a-b099-3a7ec7bd31f7/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/06ded6c1-8b93-47c2-85fe-30f385abaff4/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f3505b6f-1344-4ca6-9923-1156e2a90d01/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/28ea6a0a-504f-41b7-8664-7eb0ee9a059c/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/04a6719d-15de-4f34-891a-cb46e5864d79/default.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "Children's helmet with brim",
+              "Texts": [
+                "We have been engaged in the helmet industry for more than ten years, starting from zero, and now we have our own brand (Exclusky), helmets have passed the CPSP/CPC and other certificates, and helmets are also protected by patents, all of these are showing that we have the most professional team, and we have the best factories, so please believe in our helmets, which can completely protect your helmets.",
+                "Children's helmet with brim",
+                "Children's helmet with lights",
+                "Children helmets"
+              ],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/6d2fd0e6-c9d0-4d84-b84b-781619204705.__CR0,0,1464,625_PT0_SX1464_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/6d2fd0e6-c9d0-4d84-b84b-781619204705.__CR0,0,1464,625_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "Kids Helmet",
+                  "Image_Alt": "Kids Helmet"
+                }
+              ],
+              "Comparison_Table": {},
+              "Block_Types": [
+                "text",
+                "image"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "Children's helmet with brim"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/6d2fd0e6-c9d0-4d84-b84b-781619204705.__CR0,0,1464,625_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "Kids Helmet",
+                    "Image_Alt": "Kids Helmet"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "We have been engaged in the helmet industry for more than ten years, starting from zero, and now we have our own brand (Exclusky), helmets have passed the CPSP/CPC and other certificates, and helmets are also protected by patents, all of these are showing that we have the most professional team, and we have the best factories, so please believe in our helmets, which can completely protect your helmets."
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Children's helmet with brim"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Children's helmet with lights"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Children helmets"
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/6d2fd0e6-c9d0-4d84-b84b-781619204705.__CR0,0,1464,625_PT0_SX1464_V1___.jpg"
+            ],
+            "Local_Images": [
+              "scrape_store/electric_vehicles/Kids/Rank_Similar_ASIN_B07CJV1975_Kids Helmet Exclusky Kids Bike Helmet Adjustable S/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [
+            {
+              "Title": "Safety Information (PDF)",
+              "URL": "https://m.media-amazon.com/images/I/91idgkPiWRL.pdf",
+              "Type": "PDF",
+              "Source": "Product guides and documents",
+              "Category": "warranty",
+              "Local_Path": "scrape_store/electric_vehicles/Kids/Rank_Similar_ASIN_B07CJV1975_Kids Helmet Exclusky Kids Bike Helmet Adjustable S/guides/warranty/doc_00_Safety_Information_PDF.pdf"
+            }
+          ],
+          "Summary": {
+            "Count": 1
+          },
+          "Local_Paths": [
+            "scrape_store/electric_vehicles/Kids/Rank_Similar_ASIN_B07CJV1975_Kids Helmet Exclusky Kids Bike Helmet Adjustable S/guides/warranty/doc_00_Safety_Information_PDF.pdf"
+          ]
+        },
+        "Product_Description": "Kids Helmet, Exclusky Kids Bike Helmet Adjustable Safety Lightweight Children Bicycle Helmet for Kids Skating Cycling Scooter Boys and Girls Bicycle Helmets Ages 5-14",
+        "Product_Specifications": {
+          "Measurements": {
+            "Size": "Small (50-57 cm / 19.7-22.4 inch)",
+            "Item Dimensions": "7.87 x 7.09 x 7.09 inches",
+            "Item Weight": "6.4 ounces"
+          },
+          "Features_Specs": {
+            "Age Range (Description)": "age 5+",
+            "Special Feature": "adjustable",
+            "Age Range Description": "age 5+",
+            "Athlete": "cycling",
+            "UPC": "645656855835",
+            "Warranty Description": "1 years",
+            "Item Type Name": "bike helmet",
+            "Recommended Uses For Product": "Cycling",
+            "Additional Features": "adjustable"
+          },
+          "Materials_Care": {
+            "Outer Material": "Polycarbonate (PC)",
+            "Inner Material": "Expanded Polystyrene"
+          },
+          "Item_Details": {
+            "Brand": "EXCLUSKY",
+            "Brand Name": "EXCLUSKY",
+            "Model Name": "EXBHKID40",
+            "Manufacturer Part Number": "EXCLU0CBH2",
+            "Model Number": "EXCLU0CBH2",
+            "Unit Count": "1.0 Count",
+            "Included Components": "bike helmet",
+            "Manufacturer": "Exclusky",
+            "Best Sellers Rank": "#11,581 in Sports & Outdoors (See Top 100 in Sports & Outdoors) #65 in Kids' Bike Helmets",
+            "ASIN": "B07CJV1975",
+            "Customer Reviews": "4.6  4.6 out of 5 stars   \n    (3,495)   \n\n\n 4.6 out of 5 stars"
+          },
+          "User_Guide": {},
+          "Additional_Details": {
+            "Color": "Black",
+            "Product Style": "sporty"
+          }
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery Wednesday, July 1 on orders shipped by Amazon over $35 Or Prime members get FREE delivery Tomorrow, June 27. Order within 6 hrs. Join Prime",
+          "Specifications": {
+            "Brand": "EXCLUSKY",
+            "Color": "Black",
+            "Age Range (Description)": "age 5+",
+            "Size": "Small (50-57 cm / 19.7-22.4 inch)",
+            "Special Feature": "adjustable"
+          }
+        },
+        "Local_Image_Paths": [
+          "scrape_store/electric_vehicles/Kids/Rank_Similar_ASIN_B07CJV1975_Kids Helmet Exclusky Kids Bike Helmet Adjustable S/images/primary.jpg",
+          "scrape_store/electric_vehicles/Kids/Rank_Similar_ASIN_B07CJV1975_Kids Helmet Exclusky Kids Bike Helmet Adjustable S/images/alt_1.jpg",
+          "scrape_store/electric_vehicles/Kids/Rank_Similar_ASIN_B07CJV1975_Kids Helmet Exclusky Kids Bike Helmet Adjustable S/images/alt_2.jpg",
+          "scrape_store/electric_vehicles/Kids/Rank_Similar_ASIN_B07CJV1975_Kids Helmet Exclusky Kids Bike Helmet Adjustable S/images/alt_3.jpg",
+          "scrape_store/electric_vehicles/Kids/Rank_Similar_ASIN_B07CJV1975_Kids Helmet Exclusky Kids Bike Helmet Adjustable S/images/alt_4.jpg",
+          "scrape_store/electric_vehicles/Kids/Rank_Similar_ASIN_B07CJV1975_Kids Helmet Exclusky Kids Bike Helmet Adjustable S/images/alt_5.jpg",
+          "scrape_store/electric_vehicles/Kids/Rank_Similar_ASIN_B07CJV1975_Kids Helmet Exclusky Kids Bike Helmet Adjustable S/images/alt_6.jpg",
+          "scrape_store/electric_vehicles/Kids/Rank_Similar_ASIN_B07CJV1975_Kids Helmet Exclusky Kids Bike Helmet Adjustable S/images/alt_7.jpg",
+          "scrape_store/electric_vehicles/Kids/Rank_Similar_ASIN_B07CJV1975_Kids Helmet Exclusky Kids Bike Helmet Adjustable S/images/alt_8.jpg",
+          "scrape_store/electric_vehicles/Kids/Rank_Similar_ASIN_B07CJV1975_Kids Helmet Exclusky Kids Bike Helmet Adjustable S/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/electric_vehicles/Kids/Rank_Similar_ASIN_B07CJV1975_Kids Helmet Exclusky Kids Bike Helmet Adjustable S/images/primary.jpg",
+        "Local_Video_Paths": []
+      }
+    ]
+  }
+}

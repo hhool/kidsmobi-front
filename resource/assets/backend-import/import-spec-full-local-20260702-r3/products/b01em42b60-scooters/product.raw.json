@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "scooters",
+  "categoryCode": "scooter",
+  "fetchedAt": "2026-07-01T21:38:41.661Z",
+  "data": {
+    "productId": "B01EM42B60",
+    "categoryId": "scooters",
+    "rank": 5,
+    "title": "Razor A5 Lux Kick Scooter for Kids Ages 8+ - 8\" Urethane Wheels, Anodized Finish Featuring Bold Colors and Graphics, for Ride",
+    "brand": "Razor",
+    "price": {
+      "display": "$79.99",
+      "value": 79.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "N/A",
+      "value": 0
+    },
+    "weight": {
+      "display": "9.4 Pounds",
+      "lbs": 9.4
+    },
+    "classification": {
+      "Brand": "Razor",
+      "Scooter_Type": "A5 Lux Scooter - Blue - FFP",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "2",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "scooters",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [],
+    "decisionSignals": {
+      "ranking": [],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [],
+    "availability": "AVAILABLE",
+    "coverImage": null,
+    "galleryUrls": [],
+    "images": {
+      "cover": null,
+      "gallery": []
+    },
+    "videoUrls": [],
+    "resourceStats": {
+      "videos": 0,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

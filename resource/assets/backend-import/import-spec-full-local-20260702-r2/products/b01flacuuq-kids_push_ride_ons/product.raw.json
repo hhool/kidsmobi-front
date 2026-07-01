@@ -1,0 +1,414 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T20:06:15.263Z",
+  "data": {
+    "productId": "B01FLACUUQ",
+    "categoryId": "kids_push_ride_ons",
+    "rank": 7,
+    "title": "Radio Flyer Scoot 2 Scooter, Blue/Red/Pink, for Kids Ages 1-4, Ride On Toy or 4-Wheel Kids Scooter, Durable Wheels and Frame,",
+    "brand": "Radio",
+    "price": {
+      "display": "$31.49",
+      "value": 31.49,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.6  6,892",
+      "value": 4.6
+    },
+    "weight": {
+      "display": "5.5 Pounds",
+      "lbs": 5.5
+    },
+    "classification": {
+      "Brand": "Radio",
+      "Stroller_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "4",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_push_ride_ons",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "2 RIDES IN 1: The Scoot 2 Scooter grows with your child. Start in ride-on mode for seated scooting",
+        "then flip the base to convert into a 4-wheel scooter when they're ready - no tools required. Great for backyard",
+        "sidewalk or neighborhood rides.",
+        "STABLE AND DURABLE: Built with a sturdy frame and a 4-wheel base",
+        "this scooter for toddlers provides extra stability for beginner riders. Kids build balance and confidence while parents enjoy lasting quality that provides years of fun.",
+        "GREAT BEGINNER RIDE: Designed for toddlers ages 1-4",
+        "this versatile scooter is the perfect first ride-on and scooter combo",
+        "providing active play and an easy transition from seated scooting to big-kid riding.",
+        "GROWS WITH YOUR CHILD: Adjustable handlebars and built-in toy storage in ride-on mode make this toddler scooter a fun",
+        "practical choice through early milestones.",
+        "BELOVED ICON OF PLAY: For over a century",
+        "Radio Flyer has inspired joyful play with wagons",
+        "trikes",
+        "and more. As a Certified B Corp",
+        "we create lasting products that spark imagination while caring for future generations."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "2 RIDES IN 1: The Scoot 2 Scooter grows with your child. Start in ride-on mode for seated scooting",
+        "featureLabel": "2 Rides In 1: The Scoot 2 Scooter Grows With Your Child. Start In Ride On Mode For Seated Scooting",
+        "featureValue": "2 RIDES IN 1: The Scoot 2 Scooter grows with your child. Start in ride-on mode for seated scooting",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "then flip the base to convert into a 4-wheel scooter when they're ready - no tools required. Great for backyard",
+        "featureLabel": "Then Flip The Base To Convert Into A 4 Wheel Scooter When They're Ready No Tools Required. Great For Backyard",
+        "featureValue": "then flip the base to convert into a 4-wheel scooter when they're ready - no tools required. Great for backyard",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "sidewalk or neighborhood rides.",
+        "featureLabel": "Sidewalk Or Neighborhood Rides.",
+        "featureValue": "sidewalk or neighborhood rides.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "STABLE AND DURABLE: Built with a sturdy frame and a 4-wheel base",
+        "featureLabel": "Stable And Durable: Built With A Sturdy Frame And A 4 Wheel Base",
+        "featureValue": "STABLE AND DURABLE: Built with a sturdy frame and a 4-wheel base",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "this scooter for toddlers provides extra stability for beginner riders. Kids build balance and confidence while parents enjoy lasting quality that provides years of fun.",
+        "featureLabel": "This Scooter For Toddlers Provides Extra Stability For Beginner Riders. Kids Build Balance And Confidence While Parents Enjoy Lasting Quality That Provides Years Of Fun.",
+        "featureValue": "this scooter for toddlers provides extra stability for beginner riders. Kids build balance and confidence while parents enjoy lasting quality that provides years of fun.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "GREAT BEGINNER RIDE: Designed for toddlers ages 1-4",
+        "featureLabel": "Great Beginner Ride: Designed For Toddlers Ages 1 4",
+        "featureValue": "GREAT BEGINNER RIDE: Designed for toddlers ages 1-4",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "2 RIDES IN 1: The Scoot 2 Scooter grows with your child. Start in ride-on mode for seated scooting",
+        "then flip the base to convert into a 4-wheel scooter when they're ready - no tools required. Great for backyard",
+        "sidewalk or neighborhood rides.",
+        "STABLE AND DURABLE: Built with a sturdy frame and a 4-wheel base"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+          "source": "local",
+          "order": 10
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_1.jpg",
+      "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_2.jpg",
+      "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_3.jpg",
+      "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_4.jpg",
+      "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_5.jpg",
+      "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_6.jpg",
+      "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_7.jpg",
+      "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_8.jpg",
+      "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_9.jpg",
+      "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg"
+    ],
+    "videoUrls": [
+      "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/videos/video_0.mp4",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/89192b85-0ae1-568b-a695-40558bcc0769/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f892437e-88a7-4212-b942-8b714fa27453/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/aaa52c68-deda-4074-9dd1-7681f84e6590/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/79afb089-d46f-4068-8c1b-9fe10678ba06/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/94e2ab06-9dc7-4ef9-a73f-fd68f2dc3092/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/318c8338-14a3-4ff8-978a-2f30a727214b/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/videos/video_0.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/89192b85-0ae1-568b-a695-40558bcc0769/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+        "source": "scraped",
+        "type": "mp4",
+        "title": "Radio Flyer Scoot 2 Scooter Ride On",
+        "thumbnail": "https://m.media-amazon.com/images/I/71DziWvfhzL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f892437e-88a7-4212-b942-8b714fa27453/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Best Toddler Scooter That Grows With Your Child 1 to 4 Years!",
+        "thumbnail": "https://m.media-amazon.com/images/I/81KrbeCZ+fL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/aaa52c68-deda-4074-9dd1-7681f84e6590/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Review - Radio Flyer Scoot 2 Scooter",
+        "thumbnail": "https://m.media-amazon.com/images/I/A1TBvpLp+SL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/79afb089-d46f-4068-8c1b-9fe10678ba06/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Is the Radio Flyer Scoot 2 Scooter a Must-Have for Kids?",
+        "thumbnail": "https://m.media-amazon.com/images/I/71Jg+SZyNzL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/94e2ab06-9dc7-4ef9-a73f-fd68f2dc3092/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Honest Review of the Radio Flyer Scooter- It is a 2 for 1",
+        "thumbnail": "https://m.media-amazon.com/images/I/B1teF6fYmAL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 6
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/318c8338-14a3-4ff8-978a-2f30a727214b/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Scoot to Scooter | What you need to know before you buy.MOV",
+        "thumbnail": "https://m.media-amazon.com/images/I/81HzIzvqhgL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 7
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/kids_push_ride_ons/index.html",
+      "categoryPages": "/scrape_store/kids_push_ride_ons/pages/index.html",
+      "detailPage": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/index.html"
+    },
+    "resourceStats": {
+      "videos": 7,
+      "similarItems": 0
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71vJjl8ROwL._AC_UL300_SR300,200_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 12
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/89192b85-0ae1-568b-a695-40558bcc0769/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71DziWvfhzL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Radio Flyer Scoot 2 Scooter Ride On",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/videos/video_0.mp4",
+          "Local_Thumbnail_Path": "scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/videos/video_0_thumb.jpg"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f892437e-88a7-4212-b942-8b714fa27453/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81KrbeCZ+fL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Best Toddler Scooter That Grows With Your Child 1 to 4 Years!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/aaa52c68-deda-4074-9dd1-7681f84e6590/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1TBvpLp+SL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Review - Radio Flyer Scoot 2 Scooter",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/79afb089-d46f-4068-8c1b-9fe10678ba06/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71Jg+SZyNzL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Is the Radio Flyer Scoot 2 Scooter a Must-Have for Kids?",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/94e2ab06-9dc7-4ef9-a73f-fd68f2dc3092/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1teF6fYmAL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Honest Review of the Radio Flyer Scooter- It is a 2 for 1",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/318c8338-14a3-4ff8-978a-2f30a727214b/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81HzIzvqhgL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Scoot to Scooter | What you need to know before you buy.MOV",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

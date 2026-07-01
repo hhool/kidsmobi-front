@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "productId": "B08M5CG126",
+  "sourceCategoryId": "kids_tricycles",
+  "images": [
+    {
+      "productId": "B08M5CG126",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B08M5CG126:video",
+      "kind": "cover",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/6173gnLlOHL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b08m5cg126-video/6173gnllohl._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b08m5cg126/cover/6173gnllohl._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8386c261-00ae-40d8-a121-a940f05cd8b5/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/15cfc9f5-ad90-47f4-a15a-d799f5445887/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9183cc9b-817a-4f38-834b-f704e2699045/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a96c8390-d7a6-40ea-ad3a-61c4ef626579/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/777396e0-82ce-4b30-9b65-64860b4d53bd/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/28091f74-4878-4cba-973f-669ab46d806e/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5bb057c0-bf8c-46d2-870a-9014a3765973/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/47a2c70a-12d5-42f2-bba0-f4d9ae2d1f5b/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7be5795d-51bb-4a8e-8dc5-7872a48fd0e9/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/76af0e6d-ec02-470d-865a-66405e47a8fc/default.jobtemplate.hls.m3u8"
+  ]
+}

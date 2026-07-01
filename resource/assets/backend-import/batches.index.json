@@ -1,0 +1,55 @@
+{
+  "batches": [
+    {
+      "importBatchId": "import-spec-full-local-20260702-r3",
+      "generatedAt": "2026-07-01T21:38:24.633Z",
+      "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+      "totalProducts": 86,
+      "writtenProducts": 86,
+      "failedProducts": 0,
+      "categories": [
+        "stroller",
+        "car_seat",
+        "high_chair",
+        "playard",
+        "baby_carrier",
+        "balance_bike",
+        "scooters",
+        "electric_vehicles",
+        "kids_bikes",
+        "kids_tricycles",
+        "kids_push_ride_ons",
+        "kids_pull_along_wagons"
+      ],
+      "duplicateProductCount": 1,
+      "mediaIssueCount": 8,
+      "editorialIncompleteCount": 86,
+      "blockedProductCount": 8,
+      "batchDecision": "hold",
+      "batchIndexPath": "./resource/assets/backend-import/import-spec-full-local-20260702-r3/batch.index.json"
+    },
+    {
+      "importBatchId": "import-spec-full-local-20260702-r2",
+      "generatedAt": "2026-07-01T20:06:10.737Z",
+      "sourceBase": "http://127.0.0.1:8010",
+      "totalProducts": 86,
+      "writtenProducts": 86,
+      "failedProducts": 0,
+      "categories": [
+        "stroller",
+        "car_seat",
+        "high_chair",
+        "playard",
+        "baby_carrier",
+        "balance_bike",
+        "scooters",
+        "electric_vehicles",
+        "kids_bikes",
+        "kids_tricycles",
+        "kids_push_ride_ons",
+        "kids_pull_along_wagons"
+      ],
+      "batchIndexPath": "./resource/assets/backend-import/import-spec-full-local-20260702-r2/batch.index.json"
+    }
+  ]
+}

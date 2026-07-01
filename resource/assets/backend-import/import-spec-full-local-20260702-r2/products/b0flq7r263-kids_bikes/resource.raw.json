@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_bikes",
+  "fetchedAt": "2026-07-01T20:06:14.153Z",
+  "data": {
+    "resourceId": "B0FLQ7R263:overview",
+    "categoryId": "kids_bikes",
+    "productId": "B0FLQ7R263",
+    "resourceType": "product_overview",
+    "title": "WEIZE Kids Bike, 14 16 20 Inch Children Bicycle for Boys & Girls Youth Ages 4-12 Years Old, Rider Height 41-62 Inch, Adjustab",
+    "summary": "Size Guide - - 20 inch bike for 6-12 years (48\"-62\") boys & girls. Note: Measure kid’s INSEAM and compare with SADDLE HEIGHT to check if the rider can touch the ground. | PERFECT FOR BEGINNERS - - Our bicycle are engineered specifically for a kid's proportions, smaller grips, and",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_bikes/WEIZE/Rank_Similar_ASIN_B0FLQ7R263_WEIZE Kids Bike 14 16 20 Inch Children Bicycle for/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/47bede3f-44cf-4a0f-8ef7-0c1cdac70a2e/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/69a97ea9-b2ee-4a2d-a115-0c240b22b3a9/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.63,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 2,
+      "hasFeatures": true
+    }
+  }
+}

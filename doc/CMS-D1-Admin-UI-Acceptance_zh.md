@@ -12,6 +12,11 @@
 2. 逐个点击左侧六个业务模块。
 3. 在产品中心执行一次“新增 -> 保存”触发写入前置校验。
 
+部署说明：
+
+1. 验收时请将 `VITE_CMS_API_BASE_URL` 固定到已部署的 Worker CMS API。
+2. 若需要后端资源检查，请将 `VITE_SCRAPE_API_BASE_URL` 或 `SCRAPE_KIDSMOBILE_API_BASE_URL` 固定到已部署的 Worker API。
+
 ## 1. 模块可达性
 
 结果：六模块均可进入，标题与主操作按钮均出现。
@@ -59,5 +64,5 @@
 ## 5. 后续建议
 
 1. 使用真实管理员账号进行二次人工验收（重点：新增/编辑/删除成功提示与列表刷新）。
-2. 在前端部署平台固化 `VITE_CMS_API_BASE_URL=https://kidsmobi-api-v1.seaman-player.workers.dev`。
+2. 在前端部署平台固化对应的 API 基址变量，不要依赖示例域名。
 3. 验收完成后，补充一版“真实管理员态 UI 验收”文档作为发布门禁。

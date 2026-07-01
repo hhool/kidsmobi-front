@@ -1,0 +1,583 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "balance_bike",
+  "categoryCode": "balance",
+  "fetchedAt": "2026-07-01T21:38:33.413Z",
+  "data": {
+    "productId": "B0BLMF98S8",
+    "categoryId": "balance_bike",
+    "rank": 2,
+    "title": "Gamfeiny Colorful Lighting Baby Balance Bike Toys for 1 Year Old Boy Girl Gifts, 10-36 Month Toddler Balance Bike, No Pedal 4",
+    "brand": "Gamfeiny",
+    "price": {
+      "display": "$29.98",
+      "value": 29.98,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.8  6,086",
+      "value": 4.8
+    },
+    "weight": {
+      "display": "4.6 Pounds",
+      "lbs": 4.6
+    },
+    "classification": {
+      "Brand": "Gamfeiny",
+      "Bike_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "balance_bike",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "【COLORFUL LIGHTING DESIGN】 To enhance children's fun",
+        "we have specially designed the colorful lighting rear wheel. No batteries are required",
+        "just spin the wheels to glow. Greatly increases the fun for children.",
+        "【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can help enhance the baby's balance",
+        "steering",
+        "coordination",
+        "and increase self-confidence.",
+        "【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part",
+        "safer for your baby.",
+        "【STURDY & COMFORTABLE DESIGN】 This balance bike 1 year old is made of sturdy carbon steel",
+        "soft non-slip EVA handle",
+        "and a soft seat made of PU material. Provide your baby with a stable and comfortable riding environment",
+        "your child will enjoy the fun of riding every day.",
+        "【EASY TO ASSEMBLE & CARRY】 Our baby balance bike is built in Buckle design",
+        "no tools are required to install",
+        "easy to install in 3 minutes. With only 4.6lbs of weight",
+        "both you and your children can easily carry it around to play.WETIFY"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "【COLORFUL LIGHTING DESIGN】 To enhance children's fun",
+        "featureLabel": "【COLORFUL LIGHTING DESIGN】 To Enhance Children'S Fun",
+        "featureValue": "【COLORFUL LIGHTING DESIGN】 To enhance children's fun",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "we have specially designed the colorful lighting rear wheel. No batteries are required",
+        "featureLabel": "We Have Specially Designed The Colorful Lighting Rear Wheel. No Batteries Are Required",
+        "featureValue": "we have specially designed the colorful lighting rear wheel. No batteries are required",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "just spin the wheels to glow. Greatly increases the fun for children.",
+        "featureLabel": "Just Spin The Wheels To Glow. Greatly Increases The Fun For Children.",
+        "featureValue": "just spin the wheels to glow. Greatly increases the fun for children.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can help enhance the baby's balance",
+        "featureLabel": "【THE BEST PARTNER FOR KIDS】 Recommended Ages For 10 36 Months. Baby Balance Bike Can Bring Fun And Joy To Children. It'S A Great Gift For Toddlers To Learn To Walk And Ride. Can Help Enhance The Baby'S Balance",
+        "featureValue": "【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can help enhance the baby's balance",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "steering",
+        "featureLabel": "Steering",
+        "featureValue": "steering",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "coordination",
+        "featureLabel": "Coordination",
+        "featureValue": "coordination",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from balance_bike classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "【COLORFUL LIGHTING DESIGN】 To enhance children's fun",
+        "we have specially designed the colorful lighting rear wheel. No batteries are required",
+        "just spin the wheels to glow. Greatly increases the fun for children.",
+        "【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can help enhance the baby's balance"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/618n4Z3xj7L._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/618n4Z3xj7L._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c44d6194-8f09-4035-bda9-92bf6cdf1091/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/93315bcf-8cde-4b98-a6f2-c4b139c55890/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6e06d634-41af-4087-9d86-0278c6de801d/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9d4d8997-d2ad-4b94-854c-9fc0fed9fde5/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/da184c14-fca5-4591-87d1-98833f08646f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/169f051d-4a17-44bb-9dc5-a7844f6d6aec/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0d9139b1-73fb-4fa6-b6aa-6d1d68d88744/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 7,
+      "similarItems": 1
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c44d6194-8f09-4035-bda9-92bf6cdf1091/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81TjPYAQW0L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": " Colorful Lighting Toys for 1 Year Old Girl Gifts",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/93315bcf-8cde-4b98-a6f2-c4b139c55890/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/711SyzROGfL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Toys for 1 Year Old Boy 1 Year Old Boy Gifts",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6e06d634-41af-4087-9d86-0278c6de801d/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71NUMufro1L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Balance Bike You Need",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9d4d8997-d2ad-4b94-854c-9fc0fed9fde5/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51vUbToM7eL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "The best gift for your 1 year old!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/da184c14-fca5-4591-87d1-98833f08646f/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1zFlfDkV0L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Age Appropriate for a 2-Year Old? Honest Review",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/169f051d-4a17-44bb-9dc5-a7844f6d6aec/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81hNX4kc5DL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "DEMONSTRATION and HONEST REVIEW",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0d9139b1-73fb-4fa6-b6aa-6d1d68d88744/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61Qbi1RJiiL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Balance Pink Bike",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "Umatoll",
+        "Title": "Umatoll Colorful Lighting Baby Balance Bike Toys for 1 Year Old Girl Gifts, Adjustable Seat, First Birthday Gifts, 12-24 Months Toddler Bike, New Pink",
+        "Price": "$28.99",
+        "Rating": "4.8",
+        "Reviews": "2,508",
+        "URL": "https://www.amazon.com/Umatoll-Colorful-Lighting-Adjustable-Birthday/dp/B0FZVLG7YQ/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_2/140-4492632-4360860?pd_rd_w=oLMGO&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=JBE9ZG17NPM622J6ZSR4&pd_rd_wg=XjEtJ&pd_rd_r=253c15a8-c95e-418d-a692-234c27bcee17&pd_rd_i=B0FZVLG7YQ&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/714Ofg6b0qL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B0FZVLG7YQ",
+        "Features": "GLOW REAR WHEEL: Colorful lighted rear wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No batteries required, just spin the wheels to glow. | SAFETY FIRST: 135° steering limiter effectively prevents the baby from turning over. Fully enclosed wheels to avoid clamping baby's feet. TPU handle makes baby's grip firm and hard to get off. No sharp parts, making your baby safer. | ADJUSTABLE SEAT: The 3-position adjustable seat is more suitable for babies aged 12-24 months. Note: After adjusting the seat to hear the seat \"click\" to be considered successfully fixed seat. | HIGH-QUANLITY MATERIAL: The aluminum main frame is lighter and stronger, weighing only 1.5 kg (3.3 lbs), making it easy for your baby to ride and stride. EVA wheels are quiet and non-slip, perfect for baby to ride indoors and outdoors. | PERFECT GIFT for 1-2 Year Old: The toddler pink bike brings babies fun and joy, while helps develop their balance, control and leg strength. Removable baskets can hold baby's beloved small toys. No need tools, it only takes a few minutes to complete the installation. Perfect first birthday gifts for girls!",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fb5e859d-aab7-4f82-927e-758389fdc25f/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fb5e859d-aab7-4f82-927e-758389fdc25f/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1c0crGYSCL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+            "Title": "Colorful lighting baby bike, perfect 1 year old gifts",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4a19e011-2ac5-45f5-b20f-f2f2f4750329/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61LprYhnn4L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Perfect balance bike with led wheels",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/903d77b4-f9af-4b14-b21f-64a5b3e34e42/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61cupT8xHUL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Balance bike for the little ones in the house",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a1f9b934-d51f-4365-9e82-351ca1ded298/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71r-FRh8F0L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "#AD Toddler Tested, Parent Approved!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dd68b0b5-3f7e-4c94-a916-b9481d3405d9/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71DmcyQx8BL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Great for the on the go young toddler!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/da184c14-fca5-4591-87d1-98833f08646f/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1zFlfDkV0L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+            "Title": "Age Appropriate for a 2-Year Old? Honest Review",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fb5e859d-aab7-4f82-927e-758389fdc25f/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4a19e011-2ac5-45f5-b20f-f2f2f4750329/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/903d77b4-f9af-4b14-b21f-64a5b3e34e42/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a1f9b934-d51f-4365-9e82-351ca1ded298/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dd68b0b5-3f7e-4c94-a916-b9481d3405d9/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/da184c14-fca5-4591-87d1-98833f08646f/default.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fb5e859d-aab7-4f82-927e-758389fdc25f/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4a19e011-2ac5-45f5-b20f-f2f2f4750329/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/903d77b4-f9af-4b14-b21f-64a5b3e34e42/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a1f9b934-d51f-4365-9e82-351ca1ded298/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dd68b0b5-3f7e-4c94-a916-b9481d3405d9/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/da184c14-fca5-4591-87d1-98833f08646f/default.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "",
+              "Texts": [],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0f8a78a8-427e-420e-9783-5b149895b9ae.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/7bb277ce-c01a-4bc7-8be0-3a000bd17f5c.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/361a90c9-c8bb-435b-80af-51a3e07dfc97.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/da3dcace-06b5-4e58-994a-f56b321974ea.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/ea551037-48ce-49d2-881c-9fd2710a8ff0.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/9bb15e0b-5fc3-4ea2-b3dd-f48d792e2a85.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/8d2601b9-7604-4fc1-8b22-c82910fde509.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0f8a78a8-427e-420e-9783-5b149895b9ae.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "balance bike 1 year old",
+                  "Image_Alt": "balance bike 1 year old"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/7bb277ce-c01a-4bc7-8be0-3a000bd17f5c.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 2,
+                  "Image_Title": "baby balance bike",
+                  "Image_Alt": "baby balance bike"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/361a90c9-c8bb-435b-80af-51a3e07dfc97.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 3,
+                  "Image_Title": "baby bike",
+                  "Image_Alt": "baby bike"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/da3dcace-06b5-4e58-994a-f56b321974ea.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 4,
+                  "Image_Title": "1 year old gift girl",
+                  "Image_Alt": "1 year old gift girl"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/ea551037-48ce-49d2-881c-9fd2710a8ff0.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 5,
+                  "Image_Title": "1st birthday gift girl",
+                  "Image_Alt": "1st birthday gift girl"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/9bb15e0b-5fc3-4ea2-b3dd-f48d792e2a85.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 6,
+                  "Image_Title": "1 year old birthday girls gift",
+                  "Image_Alt": "1 year old birthday girls gift"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/8d2601b9-7604-4fc1-8b22-c82910fde509.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 7,
+                  "Image_Title": "gifts for 1 year old girl",
+                  "Image_Alt": "gifts for 1 year old girl"
+                }
+              ],
+              "Comparison_Table": {},
+              "Block_Types": [
+                "image"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0f8a78a8-427e-420e-9783-5b149895b9ae.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "balance bike 1 year old",
+                    "Image_Alt": "balance bike 1 year old"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/7bb277ce-c01a-4bc7-8be0-3a000bd17f5c.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 2,
+                    "Image_Title": "baby balance bike",
+                    "Image_Alt": "baby balance bike"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/361a90c9-c8bb-435b-80af-51a3e07dfc97.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 3,
+                    "Image_Title": "baby bike",
+                    "Image_Alt": "baby bike"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/da3dcace-06b5-4e58-994a-f56b321974ea.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 4,
+                    "Image_Title": "1 year old gift girl",
+                    "Image_Alt": "1 year old gift girl"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/ea551037-48ce-49d2-881c-9fd2710a8ff0.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 5,
+                    "Image_Title": "1st birthday gift girl",
+                    "Image_Alt": "1st birthday gift girl"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/9bb15e0b-5fc3-4ea2-b3dd-f48d792e2a85.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 6,
+                    "Image_Title": "1 year old birthday girls gift",
+                    "Image_Alt": "1 year old birthday girls gift"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/8d2601b9-7604-4fc1-8b22-c82910fde509.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 7,
+                    "Image_Title": "gifts for 1 year old girl",
+                    "Image_Alt": "gifts for 1 year old girl"
+                  }
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0f8a78a8-427e-420e-9783-5b149895b9ae.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/7bb277ce-c01a-4bc7-8be0-3a000bd17f5c.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/361a90c9-c8bb-435b-80af-51a3e07dfc97.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/da3dcace-06b5-4e58-994a-f56b321974ea.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/ea551037-48ce-49d2-881c-9fd2710a8ff0.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/9bb15e0b-5fc3-4ea2-b3dd-f48d792e2a85.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/8d2601b9-7604-4fc1-8b22-c82910fde509.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+            ],
+            "Local_Images": [
+              "../scrape_store/balance_bike/Umatoll/Rank_Similar_ASIN_B0FZVLG7YQ_Umatoll Colorful Lighting Baby Balance Bike Toys f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+              "../scrape_store/balance_bike/Umatoll/Rank_Similar_ASIN_B0FZVLG7YQ_Umatoll Colorful Lighting Baby Balance Bike Toys f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+              "../scrape_store/balance_bike/Umatoll/Rank_Similar_ASIN_B0FZVLG7YQ_Umatoll Colorful Lighting Baby Balance Bike Toys f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+              "../scrape_store/balance_bike/Umatoll/Rank_Similar_ASIN_B0FZVLG7YQ_Umatoll Colorful Lighting Baby Balance Bike Toys f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+              "../scrape_store/balance_bike/Umatoll/Rank_Similar_ASIN_B0FZVLG7YQ_Umatoll Colorful Lighting Baby Balance Bike Toys f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg",
+              "../scrape_store/balance_bike/Umatoll/Rank_Similar_ASIN_B0FZVLG7YQ_Umatoll Colorful Lighting Baby Balance Bike Toys f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_05.jpg",
+              "../scrape_store/balance_bike/Umatoll/Rank_Similar_ASIN_B0FZVLG7YQ_Umatoll Colorful Lighting Baby Balance Bike Toys f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_06.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [],
+          "Summary": {
+            "Count": 0
+          },
+          "Local_Paths": []
+        },
+        "Product_Description": "N/A",
+        "Product_Specifications": {
+          "Measurements": {
+            "Size": "Small",
+            "Item Weight": "3.6 Pounds",
+            "Item Dimensions": "21.5 x 7.9 x 14 inches"
+          },
+          "Features_Specs": {
+            "Age Range Description": "Toddler"
+          },
+          "Materials_Care": {
+            "Material Type": "Aluminum"
+          },
+          "Item_Details": {
+            "Brand Name": "Umatoll",
+            "Manufacturer Warranty Description": "No",
+            "Manufacturer Part Number": "B402",
+            "Model Number": "B402",
+            "Manufacturer": "Ningbo Boso Kids Products Co.,Ltd",
+            "Included Components": "Balance Bike, Instruction manual",
+            "Best Sellers Rank": "#1,456 in Toys & Games (See Top 100 in Toys & Games) #6 in Kids' Balance Bikes #1,163 in Cycling Equipment",
+            "ASIN": "B0FZVLG7YQ",
+            "Customer Reviews": "4.8  4.8 out of 5 stars   \n    (2,508)   \n\n\n 4.8 out of 5 stars"
+          },
+          "User_Guide": {
+            "Is Assembly Required": "Yes"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
+          "Sold_By": "Umatoll Store \n  Umatoll Store      Sold by   Umatoll Store",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery Sunday, July 5 on orders shipped by Amazon over $35",
+          "Specifications": {}
+        },
+        "Category_Attributes": {
+          "categoryId": "balance_bike",
+          "ageGroup": [],
+          "structure": [],
+          "scenario": [],
+          "features": [
+            "GLOW REAR WHEEL: Colorful lighted rear wheels are more eye-catching to make babies more interested",
+            "inspires their curiosity. Bring more fun to your baby. No batteries required",
+            "just spin the wheels to glow.",
+            "SAFETY FIRST: 135° steering limiter effectively prevents the baby from turning over. Fully enclosed wheels to avoid clamping baby's feet. TPU handle makes baby's grip firm and hard to get off. No sharp parts",
+            "making your baby safer.",
+            "ADJUSTABLE SEAT: The 3-position adjustable seat is more suitable for babies aged 12-24 months. Note: After adjusting the seat to hear the seat \"click\" to be considered successfully fixed seat.",
+            "HIGH-QUANLITY MATERIAL: The aluminum main frame is lighter and stronger",
+            "weighing only 1.5 kg (3.3 lbs)",
+            "making it easy for your baby to ride and stride. EVA wheels are quiet and non-slip",
+            "perfect for baby to ride indoors and outdoors.",
+            "PERFECT GIFT for 1-2 Year Old: The toddler pink bike brings babies fun and joy",
+            "while helps develop their balance",
+            "control and leg strength. Removable baskets can hold baby's beloved small toys. No need tools",
+            "it only takes a few minutes to complete the installation. Perfect first birthday gifts for girls!",
+            "Toddler"
+          ],
+          "materialClass": [],
+          "wheelSize": [],
+          "powerLevel": []
+        },
+        "Feature_Cards": [
+          {
+            "featureKey": "GLOW REAR WHEEL: Colorful lighted rear wheels are more eye-catching to make babies more interested",
+            "featureLabel": "Glow Rear Wheel: Colorful Lighted Rear Wheels Are More Eye Catching To Make Babies More Interested",
+            "featureValue": "GLOW REAR WHEEL: Colorful lighted rear wheels are more eye-catching to make babies more interested",
+            "featureEvidence": "Features",
+            "featureRank": 1,
+            "featureNotes": "Derived from balance_bike scrape-time evidence"
+          },
+          {
+            "featureKey": "inspires their curiosity. Bring more fun to your baby. No batteries required",
+            "featureLabel": "Inspires Their Curiosity. Bring More Fun To Your Baby. No Batteries Required",
+            "featureValue": "inspires their curiosity. Bring more fun to your baby. No batteries required",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 2,
+            "featureNotes": "Derived from balance_bike scrape-time evidence"
+          },
+          {
+            "featureKey": "just spin the wheels to glow.",
+            "featureLabel": "Just Spin The Wheels To Glow.",
+            "featureValue": "just spin the wheels to glow.",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 3,
+            "featureNotes": "Derived from balance_bike scrape-time evidence"
+          },
+          {
+            "featureKey": "SAFETY FIRST: 135° steering limiter effectively prevents the baby from turning over. Fully enclosed wheels to avoid clamping baby's feet. TPU handle makes baby's grip firm and hard to get off. No sharp parts",
+            "featureLabel": "Safety First: 135° Steering Limiter Effectively Prevents The Baby From Turning Over. Fully Enclosed Wheels To Avoid Clamping Baby's Feet. Tpu Handle Makes Baby's Grip Firm And Hard To Get Off. No Sharp Parts",
+            "featureValue": "SAFETY FIRST: 135° steering limiter effectively prevents the baby from turning over. Fully enclosed wheels to avoid clamping baby's feet. TPU handle makes baby's grip firm and hard to get off. No sharp parts",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 4,
+            "featureNotes": "Derived from balance_bike scrape-time evidence"
+          },
+          {
+            "featureKey": "making your baby safer.",
+            "featureLabel": "Making Your Baby Safer.",
+            "featureValue": "making your baby safer.",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 5,
+            "featureNotes": "Derived from balance_bike scrape-time evidence"
+          },
+          {
+            "featureKey": "ADJUSTABLE SEAT: The 3-position adjustable seat is more suitable for babies aged 12-24 months. Note: After adjusting the seat to hear the seat \"click\" to be considered successfully fixed seat.",
+            "featureLabel": "Adjustable Seat: The 3 Position Adjustable Seat Is More Suitable For Babies Aged 12 24 Months. Note: After Adjusting The Seat To Hear The Seat \"click\" To Be Considered Successfully Fixed Seat.",
+            "featureValue": "ADJUSTABLE SEAT: The 3-position adjustable seat is more suitable for babies aged 12-24 months. Note: After adjusting the seat to hear the seat \"click\" to be considered successfully fixed seat.",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 6,
+            "featureNotes": "Derived from balance_bike scrape-time evidence"
+          }
+        ],
+        "Decision_Signals": {
+          "ranking": [
+            "GLOW REAR WHEEL: Colorful lighted rear wheels are more eye-catching to make babies more interested",
+            "inspires their curiosity. Bring more fun to your baby. No batteries required",
+            "just spin the wheels to glow.",
+            "SAFETY FIRST: 135° steering limiter effectively prevents the baby from turning over. Fully enclosed wheels to avoid clamping baby's feet. TPU handle makes baby's grip firm and hard to get off. No sharp parts"
+          ],
+          "safety": [],
+          "fit": []
+        },
+        "Evidence_Refs": [
+          "Features"
+        ],
+        "Local_Image_Paths": [
+          "../scrape_store/balance_bike/Umatoll/Rank_Similar_ASIN_B0FZVLG7YQ_Umatoll Colorful Lighting Baby Balance Bike Toys f/images/primary.jpg",
+          "../scrape_store/balance_bike/Umatoll/Rank_Similar_ASIN_B0FZVLG7YQ_Umatoll Colorful Lighting Baby Balance Bike Toys f/images/alt_1.jpg",
+          "../scrape_store/balance_bike/Umatoll/Rank_Similar_ASIN_B0FZVLG7YQ_Umatoll Colorful Lighting Baby Balance Bike Toys f/images/alt_2.jpg",
+          "../scrape_store/balance_bike/Umatoll/Rank_Similar_ASIN_B0FZVLG7YQ_Umatoll Colorful Lighting Baby Balance Bike Toys f/images/alt_3.jpg",
+          "../scrape_store/balance_bike/Umatoll/Rank_Similar_ASIN_B0FZVLG7YQ_Umatoll Colorful Lighting Baby Balance Bike Toys f/images/alt_4.jpg",
+          "../scrape_store/balance_bike/Umatoll/Rank_Similar_ASIN_B0FZVLG7YQ_Umatoll Colorful Lighting Baby Balance Bike Toys f/images/alt_5.jpg",
+          "../scrape_store/balance_bike/Umatoll/Rank_Similar_ASIN_B0FZVLG7YQ_Umatoll Colorful Lighting Baby Balance Bike Toys f/images/alt_6.jpg",
+          "../scrape_store/balance_bike/Umatoll/Rank_Similar_ASIN_B0FZVLG7YQ_Umatoll Colorful Lighting Baby Balance Bike Toys f/images/alt_7.jpg",
+          "../scrape_store/balance_bike/Umatoll/Rank_Similar_ASIN_B0FZVLG7YQ_Umatoll Colorful Lighting Baby Balance Bike Toys f/images/alt_8.jpg",
+          "../scrape_store/balance_bike/Umatoll/Rank_Similar_ASIN_B0FZVLG7YQ_Umatoll Colorful Lighting Baby Balance Bike Toys f/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "../scrape_store/balance_bike/Umatoll/Rank_Similar_ASIN_B0FZVLG7YQ_Umatoll Colorful Lighting Baby Balance Bike Toys f/images/primary.jpg",
+        "Local_Video_Paths": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "fetchedAt": "2026-07-01T20:06:15.263Z",
+  "data": {
+    "resourceId": "B01FLACUUQ:overview",
+    "categoryId": "kids_push_ride_ons",
+    "productId": "B01FLACUUQ",
+    "resourceType": "product_overview",
+    "title": "Radio Flyer Scoot 2 Scooter, Blue/Red/Pink, for Kids Ages 1-4, Ride On Toy or 4-Wheel Kids Scooter, Durable Wheels and Frame,",
+    "summary": "2 RIDES IN 1: The Scoot 2 Scooter grows with your child. Start in ride-on mode for seated scooting, then flip the base to convert into a 4-wheel scooter when they're ready - no tools required. Great for backyard, sidewalk or neighborhood rides. | STABLE AND DURABLE: Built with a ",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/index.html",
+    "videoUrls": [
+      "/scrape_store/kids_push_ride_ons/Radio/Rank_7_ASIN_B01FLACUUQ_Radio Flyer Scoot 2 Scooter BlueRedPink for Kids A/videos/video_0.mp4",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/89192b85-0ae1-568b-a695-40558bcc0769/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f892437e-88a7-4212-b942-8b714fa27453/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/aaa52c68-deda-4074-9dd1-7681f84e6590/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/79afb089-d46f-4068-8c1b-9fe10678ba06/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/94e2ab06-9dc7-4ef9-a73f-fd68f2dc3092/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/318c8338-14a3-4ff8-978a-2f30a727214b/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.83,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 7,
+      "hasFeatures": true
+    }
+  }
+}

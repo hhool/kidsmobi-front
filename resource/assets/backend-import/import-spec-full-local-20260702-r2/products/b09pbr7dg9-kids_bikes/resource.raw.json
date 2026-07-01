@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_bikes",
+  "fetchedAt": "2026-07-01T20:06:13.839Z",
+  "data": {
+    "resourceId": "B09PBR7DG9:overview",
+    "categoryId": "kids_bikes",
+    "productId": "B09PBR7DG9",
+    "resourceType": "product_overview",
+    "title": "JOYSTAR Fantasy Girls Bike for 2-12 Years Old Toddlers and Kids, 12\" 14\" 16\" 18“ 20\" Retro Style Kids Bike with Training Whee",
+    "summary": "1, Retro Design and Colors! JOYSTAR Fantasy Princess 20 Inch Girls bike with bright colors, stylish and charming. DIY decals and beautiful basket add extra fun to the ride. Soft seat offers more comfort in riding. | 2, Easier to Ride! Your little ones will enjoy a smoother ride w",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_bikes/JOYSTAR/Rank_7_ASIN_B09PBR7DG9_JOYSTAR Fantasy Girls Bike for 2-12 Years Old Todd/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b042e86f-0031-4a39-b573-d04d34084726/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bf6c4042-d59e-4037-8065-4447f0dfc107/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/14afea8a-fd98-4020-a03a-31ab0d83de86/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/069dd512-2078-46fe-a492-d75be81d4561/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/434f104a-caa2-4a0b-b3a1-fadf6f7234fb/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.75,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 5,
+      "hasFeatures": true
+    }
+  }
+}

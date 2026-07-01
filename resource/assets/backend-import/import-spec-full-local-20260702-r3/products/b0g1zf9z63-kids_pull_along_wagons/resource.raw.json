@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "fetchedAt": "2026-07-01T21:39:10.436Z",
+  "data": {
+    "resourceId": "B0G1ZF9Z63:video",
+    "categoryId": "kids_pull_along_wagons",
+    "productId": "B0G1ZF9Z63",
+    "resourceType": "product_video",
+    "title": "Baby Trend Navigator 2-in-1 Stroller Wagon, Desert Tan • Video preview",
+    "summary": "Video preview asset set for Baby in kids_pull_along_wagons.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0912b6f8-0b61-446d-824b-bb838636a6e1/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0912b6f8-0b61-446d-824b-bb838636a6e1/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bbae8e70-ad9a-49d9-bb9a-d3f87ff8ecc1/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1318b01d-a2cd-40c0-85f0-82178754ce97/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d34acce5-03f3-4792-ae60-d6078f7a0bd9/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ea9532ec-e5de-48ca-bf19-7fe60f5607ea/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3dbc3d74-3705-476d-bb40-c512db34e63d/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6256c059-d4f9-4e4c-bb4e-a64806edb3fc/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.98,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 7,
+      "hasFeatures": true
+    }
+  }
+}

@@ -1,0 +1,402 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T20:06:16.107Z",
+  "data": {
+    "productId": "B08VF98FSS",
+    "categoryId": "kids_pull_along_wagons",
+    "rank": 9,
+    "title": "Radio Flyer Push & Pull Walker Wagon, Red, for Kids 1-4 Years Old, Locking Handle for Stability, Baby Push Walker Converts to",
+    "brand": "Radio",
+    "price": {
+      "display": "$29.44",
+      "value": 29.44,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.7  5,280",
+      "value": 4.7
+    },
+    "weight": {
+      "display": "4.5 Pounds",
+      "lbs": 4.5
+    },
+    "classification": {
+      "Brand": "Radio",
+      "Wagon_Type": "Toddler Wagon",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "4",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_pull_along_wagons",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "BEGINNER WALKER: Designed as a supportive companion for your child's first steps",
+        "the Radio Flyer Push & Pull Walker Wagon helps toddlers build confidence as they begin to learn and explore movement at their own pace.",
+        "STABLE DESIGN: These baby walkers feature a four-wheel base with smooth-rolling wheels to keep early walkers steady as they practice balance and coordination.",
+        "2-IN-1 WAGON: Starts as a push walker for babies with a locking handle for added support",
+        "then converts into a pull wagon as your child grows-giving them space to store favorite toys or bring stuffed friends along for a ride.",
+        "STURDY & FUN DESIGN: Built with durable materials for everyday use",
+        "this baby activity walker wagon is suitable for indoor play and outdoor activities on pavement",
+        "sidewalks",
+        "or grass. Maximum Capacity: 35 lb.",
+        "BELOVED ICON OF PLAY: For over a century",
+        "Radio Flyer has inspired joyful play with wagons",
+        "trikes",
+        "and more. As a Certified B Corp",
+        "we create lasting products that spark imagination while caring for future generations."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "BEGINNER WALKER: Designed as a supportive companion for your child's first steps",
+        "featureLabel": "Beginner Walker: Designed As A Supportive Companion For Your Child's First Steps",
+        "featureValue": "BEGINNER WALKER: Designed as a supportive companion for your child's first steps",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "the Radio Flyer Push & Pull Walker Wagon helps toddlers build confidence as they begin to learn and explore movement at their own pace.",
+        "featureLabel": "The Radio Flyer Push & Pull Walker Wagon Helps Toddlers Build Confidence As They Begin To Learn And Explore Movement At Their Own Pace.",
+        "featureValue": "the Radio Flyer Push & Pull Walker Wagon helps toddlers build confidence as they begin to learn and explore movement at their own pace.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "STABLE DESIGN: These baby walkers feature a four-wheel base with smooth-rolling wheels to keep early walkers steady as they practice balance and coordination.",
+        "featureLabel": "Stable Design: These Baby Walkers Feature A Four Wheel Base With Smooth Rolling Wheels To Keep Early Walkers Steady As They Practice Balance And Coordination.",
+        "featureValue": "STABLE DESIGN: These baby walkers feature a four-wheel base with smooth-rolling wheels to keep early walkers steady as they practice balance and coordination.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "2-IN-1 WAGON: Starts as a push walker for babies with a locking handle for added support",
+        "featureLabel": "2 In 1 Wagon: Starts As A Push Walker For Babies With A Locking Handle For Added Support",
+        "featureValue": "2-IN-1 WAGON: Starts as a push walker for babies with a locking handle for added support",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "then converts into a pull wagon as your child grows-giving them space to store favorite toys or bring stuffed friends along for a ride.",
+        "featureLabel": "Then Converts Into A Pull Wagon As Your Child Grows Giving Them Space To Store Favorite Toys Or Bring Stuffed Friends Along For A Ride.",
+        "featureValue": "then converts into a pull wagon as your child grows-giving them space to store favorite toys or bring stuffed friends along for a ride.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "STURDY & FUN DESIGN: Built with durable materials for everyday use",
+        "featureLabel": "Sturdy & Fun Design: Built With Durable Materials For Everyday Use",
+        "featureValue": "STURDY & FUN DESIGN: Built with durable materials for everyday use",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "BEGINNER WALKER: Designed as a supportive companion for your child's first steps",
+        "the Radio Flyer Push & Pull Walker Wagon helps toddlers build confidence as they begin to learn and explore movement at their own pace.",
+        "STABLE DESIGN: These baby walkers feature a four-wheel base with smooth-rolling wheels to keep early walkers steady as they practice balance and coordination.",
+        "2-IN-1 WAGON: Starts as a push walker for babies with a locking handle for added support"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+          "source": "local",
+          "order": 10
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_1.jpg",
+      "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_2.jpg",
+      "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_3.jpg",
+      "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_4.jpg",
+      "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_5.jpg",
+      "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_6.jpg",
+      "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_7.jpg",
+      "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_8.jpg",
+      "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_9.jpg",
+      "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg"
+    ],
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/04b05370-ea68-45af-81a2-4bdb2a7b7412/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0823220d-c908-4aec-bdac-45700ac04451/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2a9812e9-e746-491c-adb0-6acb1ce0be19/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a9bed89e-ebd6-41f6-86f1-e683e059d8db/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2d0b8194-5e92-43af-a448-29409f75b0f3/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/00b220d0-807f-411e-95ea-391d94c241f8/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/04b05370-ea68-45af-81a2-4bdb2a7b7412/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Radio Flyer Push & Pull Walker Wagon",
+        "thumbnail": "https://m.media-amazon.com/images/I/51Gx2uIV4wL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0823220d-c908-4aec-bdac-45700ac04451/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "My kids use this ALL the time!",
+        "thumbnail": "https://m.media-amazon.com/images/I/61DtfhaMezL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2a9812e9-e746-491c-adb0-6acb1ce0be19/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Watching my little boy in his red Radio Flyer wagon. It's a must!",
+        "thumbnail": "https://m.media-amazon.com/images/I/71h7eHGqcUL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a9bed89e-ebd6-41f6-86f1-e683e059d8db/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Baby\\/toddler wagon - personal review!",
+        "thumbnail": "https://m.media-amazon.com/images/I/A1s0fQgzz-L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2d0b8194-5e92-43af-a448-29409f75b0f3/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Honest Review of Radio Flyer Toddler Wagon",
+        "thumbnail": "https://m.media-amazon.com/images/I/91YhAc9d37L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/00b220d0-807f-411e-95ea-391d94c241f8/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Great, long lasting gift for any toddler!!",
+        "thumbnail": "https://m.media-amazon.com/images/I/71MABE+90CL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 6
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/kids_pull_along_wagons/index.html",
+      "categoryPages": "/scrape_store/kids_pull_along_wagons/pages/index.html",
+      "detailPage": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/index.html"
+    },
+    "resourceStats": {
+      "videos": 6,
+      "similarItems": 0
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71oVwuPwtlL._AC_UL300_SR300,200_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 12
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/04b05370-ea68-45af-81a2-4bdb2a7b7412/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51Gx2uIV4wL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Radio Flyer Push & Pull Walker Wagon",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0823220d-c908-4aec-bdac-45700ac04451/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61DtfhaMezL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "My kids use this ALL the time!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2a9812e9-e746-491c-adb0-6acb1ce0be19/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71h7eHGqcUL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Watching my little boy in his red Radio Flyer wagon. It's a must!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a9bed89e-ebd6-41f6-86f1-e683e059d8db/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1s0fQgzz-L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Baby\\/toddler wagon - personal review!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2d0b8194-5e92-43af-a448-29409f75b0f3/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91YhAc9d37L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Honest Review of Radio Flyer Toddler Wagon",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/00b220d0-807f-411e-95ea-391d94c241f8/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71MABE+90CL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Great, long lasting gift for any toddler!!",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0DJY3JH8D",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "images": [
+    {
+      "productId": "B0DJY3JH8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0DJY3JH8D:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/images/primary.jpg",
+      "targetPathKeep": "resources/b0djy3jh8d-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0djy3jh8d/cover/primary.jpg"
+    },
+    {
+      "productId": "B0DJY3JH8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0DJY3JH8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0djy3jh8d-overview/alt_1.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0djy3jh8d/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0DJY3JH8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0DJY3JH8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0djy3jh8d-overview/alt_2.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0djy3jh8d/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0DJY3JH8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0DJY3JH8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0djy3jh8d-overview/alt_3.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0djy3jh8d/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0DJY3JH8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0DJY3JH8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0djy3jh8d-overview/alt_4.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0djy3jh8d/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0DJY3JH8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0DJY3JH8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0djy3jh8d-overview/alt_5.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0djy3jh8d/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0DJY3JH8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0DJY3JH8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0djy3jh8d-overview/alt_6.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0djy3jh8d/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0DJY3JH8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0DJY3JH8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0djy3jh8d-overview/alt_7.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0djy3jh8d/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0DJY3JH8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0DJY3JH8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0djy3jh8d-overview/alt_8.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0djy3jh8d/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0DJY3JH8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0DJY3JH8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0djy3jh8d-overview/alt_9.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0djy3jh8d/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0DJY3JH8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0DJY3JH8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0djy3jh8d-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0djy3jh8d/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0DJY3JH8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0DJY3JH8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/images/primary.jpg",
+      "targetPathKeep": "resources/b0djy3jh8d-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0djy3jh8d/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0DJY3JH8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0DJY3JH8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/81FuObGY6LL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0djy3jh8d-overview/81fuobgy6ll._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0djy3jh8d/gallery/81fuobgy6ll._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8c561752-2f09-4055-a642-3d21d738a0ff.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5197f176-7d6e-420f-af9b-c2b3d5c93c7c.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/67e86294-4490-41d1-a6e3-93b079ff909f.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a61ba6f2-a986-4e57-965d-b75543e70dcc.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a79fe938-77d7-452f-bb6b-008a7685e366.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cee88b45-e5ba-4485-bc57-ae6418305e6e/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/df5c2e68-f2d3-4d7e-9014-899b91cbf991/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/75316088-022a-40b6-b0d6-113cda499015/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c7b1678-a916-443d-8077-6d606e5e08d5/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0d65a07c-0d9f-4a55-98e8-f9acdc537db0/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6a54c365-1a11-4338-ba64-5bd7663af979/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/872ec1c4-4ebd-47b5-8675-738cf2681b9c/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d1735d68-8d50-4330-a79a-58876b7d0731/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/adb98479-df52-4549-ac95-3e11e2ac5e4e/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/427ddb58-2fc9-4140-9867-e2fd713978d7/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/397088de-775e-4d85-9648-60f13bcdcee4/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/26b38948-a5d8-45da-8fda-bf32431682b6/embedded.cc.default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1a2ee81c-fc6e-4180-acac-d08dfde5d026/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f317c343-cf2b-4bfd-941b-14f79f861355/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c7524b5a-fbee-4dc7-b354-3d1166a43fb9/default.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/index.html"
+  ]
+}

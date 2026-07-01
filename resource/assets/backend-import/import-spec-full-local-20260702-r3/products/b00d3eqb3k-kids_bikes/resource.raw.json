@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_bikes",
+  "fetchedAt": "2026-07-01T21:38:50.376Z",
+  "data": {
+    "resourceId": "B00D3EQB3K:video",
+    "categoryId": "kids_bikes",
+    "productId": "B00D3EQB3K",
+    "resourceType": "product_video",
+    "title": "RoyalBaby Freestyle Kids Bike 12 14 16 Inch with Training Wheels, 18 Inch with Kickstand, Bicycle for Ages 3-10 Years Boys Gi • Video preview",
+    "summary": "Video preview asset set for RoyalBaby in kids_bikes.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62187cdc-d3e5-4567-a621-0dcf0a28750a/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62187cdc-d3e5-4567-a621-0dcf0a28750a/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/61064a3b-5ce3-4f37-93c4-e4555c4e1276/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1a0ce2da-edfe-4af2-8bdc-32106646648a/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/459ee2d9-d5a6-456e-b42e-07657cedac45/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9335da7c-7af8-420f-ba71-f38ef4723811/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e61b2448-8383-4e26-8e93-31fb9466d0fa/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9aa6c66a-b35a-4667-abb8-21ba2eb28cd9/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/97c550b7-a67c-4ee1-8edd-ecc6cfa31a5b/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/142ed454-c025-4a43-9abd-d2c5e75e6817/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/df4c9acf-7fa6-4c0e-9a56-b10d767494fc/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 1,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 10,
+      "hasFeatures": true
+    }
+  }
+}

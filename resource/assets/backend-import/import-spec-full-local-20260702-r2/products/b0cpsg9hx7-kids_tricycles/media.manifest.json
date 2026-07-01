@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0CPSG9HX7",
+  "sourceCategoryId": "kids_tricycles",
+  "images": [
+    {
+      "productId": "B0CPSG9HX7",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0CPSG9HX7:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/besrey/Rank_8_ASIN_B0CPSG9HX7_besrey Toddler Tricycle with Bell Kids Tricycle Ag/images/primary.jpg",
+      "targetPathKeep": "resources/b0cpsg9hx7-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0cpsg9hx7/cover/primary.jpg"
+    },
+    {
+      "productId": "B0CPSG9HX7",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0CPSG9HX7:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/besrey/Rank_8_ASIN_B0CPSG9HX7_besrey Toddler Tricycle with Bell Kids Tricycle Ag/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0cpsg9hx7-overview/alt_1.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0cpsg9hx7/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0CPSG9HX7",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0CPSG9HX7:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/besrey/Rank_8_ASIN_B0CPSG9HX7_besrey Toddler Tricycle with Bell Kids Tricycle Ag/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0cpsg9hx7-overview/alt_2.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0cpsg9hx7/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0CPSG9HX7",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0CPSG9HX7:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/besrey/Rank_8_ASIN_B0CPSG9HX7_besrey Toddler Tricycle with Bell Kids Tricycle Ag/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0cpsg9hx7-overview/alt_3.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0cpsg9hx7/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0CPSG9HX7",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0CPSG9HX7:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/besrey/Rank_8_ASIN_B0CPSG9HX7_besrey Toddler Tricycle with Bell Kids Tricycle Ag/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0cpsg9hx7-overview/alt_4.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0cpsg9hx7/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0CPSG9HX7",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0CPSG9HX7:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/besrey/Rank_8_ASIN_B0CPSG9HX7_besrey Toddler Tricycle with Bell Kids Tricycle Ag/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0cpsg9hx7-overview/alt_5.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0cpsg9hx7/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0CPSG9HX7",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0CPSG9HX7:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/besrey/Rank_8_ASIN_B0CPSG9HX7_besrey Toddler Tricycle with Bell Kids Tricycle Ag/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0cpsg9hx7-overview/alt_6.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0cpsg9hx7/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0CPSG9HX7",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0CPSG9HX7:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/besrey/Rank_8_ASIN_B0CPSG9HX7_besrey Toddler Tricycle with Bell Kids Tricycle Ag/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0cpsg9hx7-overview/alt_7.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0cpsg9hx7/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0CPSG9HX7",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0CPSG9HX7:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/besrey/Rank_8_ASIN_B0CPSG9HX7_besrey Toddler Tricycle with Bell Kids Tricycle Ag/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0cpsg9hx7-overview/alt_8.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0cpsg9hx7/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0CPSG9HX7",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0CPSG9HX7:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/besrey/Rank_8_ASIN_B0CPSG9HX7_besrey Toddler Tricycle with Bell Kids Tricycle Ag/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0cpsg9hx7-overview/alt_9.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0cpsg9hx7/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0CPSG9HX7",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0CPSG9HX7:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/besrey/Rank_8_ASIN_B0CPSG9HX7_besrey Toddler Tricycle with Bell Kids Tricycle Ag/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0cpsg9hx7-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0cpsg9hx7/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0CPSG9HX7",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0CPSG9HX7:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/besrey/Rank_8_ASIN_B0CPSG9HX7_besrey Toddler Tricycle with Bell Kids Tricycle Ag/images/primary.jpg",
+      "targetPathKeep": "resources/b0cpsg9hx7-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0cpsg9hx7/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0CPSG9HX7",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0CPSG9HX7:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/71ZsisQKJ1L._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0cpsg9hx7-overview/71zsisqkj1l._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0cpsg9hx7/gallery/71zsisqkj1l._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/851142d4-46a4-4a8a-a501-1f69cdf4b7cb/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7129aa54-461a-4ef3-87fd-e37433519561/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5d32e9ee-5e69-4fb3-a02f-833d2145633c/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f66f0b31-3f3b-4e81-ac51-d14c95a322f8/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/edefce21-0b5c-4ac9-aeb6-e2df72308f24/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0bf840ac-5c1d-4ce8-af11-b29f20445d66/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/345bd219-f53a-4829-b9fb-b88cbc952667/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/98f3da0d-bd23-4c40-9793-e20be07d0480/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d2d81896-f9c1-41d4-9c46-e39d4bfe6921/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0c60e003-1f7e-423f-b7fd-0e4b9f019ea6/default.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/kids_tricycles/besrey/Rank_8_ASIN_B0CPSG9HX7_besrey Toddler Tricycle with Bell Kids Tricycle Ag/index.html"
+  ]
+}

@@ -1,0 +1,228 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_tricycles",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T21:38:56.510Z",
+  "data": {
+    "productId": "B0CWLTLC2F",
+    "categoryId": "kids_tricycles",
+    "rank": 1,
+    "title": "newyoo Toddler Tricycle with Push Handle for 1-3 Year Old, Toddler Bike, Birthday Gift and Toy for Boys and Girls, 5 in 1 Kid",
+    "brand": "newyoo",
+    "price": {
+      "display": "$72.67",
+      "value": 72.67,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.6  4,740",
+      "value": 4.6
+    },
+    "weight": {
+      "display": "4.4 Kilograms",
+      "lbs": 4.4
+    },
+    "classification": {
+      "Brand": "newyoo",
+      "Tricycle_Type": "Sport",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_tricycles",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "5 Modes: Push Tricycle Mode",
+        "Push Balance Bike Mode",
+        "Tricycle Mode",
+        "Balance Bike Mode and Bike Mode. Multifunctional tricycle is suitable for 1",
+        "2",
+        "3 years old boys and girls.",
+        "Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjusted according parents’ height so that dad and mom can accompanied to practice with your little.",
+        "Adjustable Handlebar",
+        "Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes.",
+        "Carbon Steel Frame & EVA Wheels: EN188 & ASTM Approved. Made of high-quality carbon steel",
+        "EVA solid shock-absorbing wheels and environment-friendly PP seat. Long-lasting life",
+        "durable and stylish design.",
+        "Easy Access to Use: Much easier to assemble handlebar and wheels. Press buttons to convert it into different modes. Suitable for 1-3 years kids under 43.3 inches(110 cm)."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "5 Modes: Push Tricycle Mode",
+        "featureLabel": "5 Modes: Push Tricycle Mode",
+        "featureValue": "5 Modes: Push Tricycle Mode",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "Push Balance Bike Mode",
+        "featureLabel": "Push Balance Bike Mode",
+        "featureValue": "Push Balance Bike Mode",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "Tricycle Mode",
+        "featureLabel": "Tricycle Mode",
+        "featureValue": "Tricycle Mode",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "Balance Bike Mode and Bike Mode. Multifunctional tricycle is suitable for 1",
+        "featureLabel": "Balance Bike Mode And Bike Mode. Multifunctional Tricycle Is Suitable For 1",
+        "featureValue": "Balance Bike Mode and Bike Mode. Multifunctional tricycle is suitable for 1",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "2",
+        "featureLabel": "2",
+        "featureValue": "2",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "3 years old boys and girls.",
+        "featureLabel": "3 Years Old Boys And Girls.",
+        "featureValue": "3 years old boys and girls.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "5 Modes: Push Tricycle Mode",
+        "Push Balance Bike Mode",
+        "Tricycle Mode",
+        "Balance Bike Mode and Bike Mode. Multifunctional tricycle is suitable for 1"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/61CgwpTg2NL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/61CgwpTg2NL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3d3136e2-3eeb-4143-9b5d-0982659bc09c/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/12b3baaa-4800-4514-a488-81c30082f15d/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/aed507b0-b614-4a86-8bee-632b5d5b0217/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/609e829d-5019-4f82-951f-fd1fd66832e7/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6d22f786-af75-404d-be6f-1f5442b7ca7e/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3f7af774-99c3-4d09-a1af-64db1dad30a7/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/da0868fb-a71c-4718-b19e-b90f41411b03/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1db292fa-e592-4437-b211-139de0f1fdfa/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7ef22a6d-cf73-4bc5-8d6e-934b386b9ce3/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b1bfc24b-e862-40ea-a4d5-30032f7bce65/default.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 10,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3d3136e2-3eeb-4143-9b5d-0982659bc09c/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61dBGiTsoWL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "His First Reaction to the 5-in-1 Trike!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/12b3baaa-4800-4514-a488-81c30082f15d/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61lF-Ek6CSL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "5-in-1 Grow-with-Me Kids Tricycle",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/aed507b0-b614-4a86-8bee-632b5d5b0217/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71nUYh6FCtL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "5-in-1 Multifunctional Grow-with-Me Kids Tricycle",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/609e829d-5019-4f82-951f-fd1fd66832e7/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61fA-5hQAdL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Watch It Transform: From Trike to Balance Bike in Seconds!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6d22f786-af75-404d-be6f-1f5442b7ca7e/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/619UMuqXKEL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "5-in-1 Kids Tricycle",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3f7af774-99c3-4d09-a1af-64db1dad30a7/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81x6Mle+sCL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Watch to see different modes of newyoo tricycle for toddler",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/da0868fb-a71c-4718-b19e-b90f41411b03/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1iIe0nLIEL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Newyoo Tricycle Unboxing & First Look",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1db292fa-e592-4437-b211-139de0f1fdfa/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71sCEG2gDvL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Tricycle Updated Review",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7ef22a6d-cf73-4bc5-8d6e-934b386b9ce3/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51AovA0UHPL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Newyoo Toddler Bike ",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b1bfc24b-e862-40ea-a4d5-30032f7bce65/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91G9Mq63KgL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Honest Review - The Best Toddler Tricycle!",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

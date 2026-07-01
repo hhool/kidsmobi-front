@@ -1,0 +1,125 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B01GFZT4AK",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "images": [
+    {
+      "productId": "B01GFZT4AK",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B01GFZT4AK:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/John/Rank_6_ASIN_B01GFZT4AK_John Deere Ride On Toys Sit N Scoot Activity Tract/images/primary.jpg",
+      "targetPathKeep": "resources/b01gfzt4ak-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b01gfzt4ak/cover/primary.jpg"
+    },
+    {
+      "productId": "B01GFZT4AK",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B01GFZT4AK:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/John/Rank_6_ASIN_B01GFZT4AK_John Deere Ride On Toys Sit N Scoot Activity Tract/images/alt_1.jpg",
+      "targetPathKeep": "resources/b01gfzt4ak-overview/alt_1.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b01gfzt4ak/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B01GFZT4AK",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B01GFZT4AK:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/John/Rank_6_ASIN_B01GFZT4AK_John Deere Ride On Toys Sit N Scoot Activity Tract/images/alt_2.jpg",
+      "targetPathKeep": "resources/b01gfzt4ak-overview/alt_2.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b01gfzt4ak/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B01GFZT4AK",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B01GFZT4AK:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/John/Rank_6_ASIN_B01GFZT4AK_John Deere Ride On Toys Sit N Scoot Activity Tract/images/alt_3.jpg",
+      "targetPathKeep": "resources/b01gfzt4ak-overview/alt_3.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b01gfzt4ak/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B01GFZT4AK",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B01GFZT4AK:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/John/Rank_6_ASIN_B01GFZT4AK_John Deere Ride On Toys Sit N Scoot Activity Tract/images/alt_4.jpg",
+      "targetPathKeep": "resources/b01gfzt4ak-overview/alt_4.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b01gfzt4ak/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B01GFZT4AK",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B01GFZT4AK:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/John/Rank_6_ASIN_B01GFZT4AK_John Deere Ride On Toys Sit N Scoot Activity Tract/images/alt_5.jpg",
+      "targetPathKeep": "resources/b01gfzt4ak-overview/alt_5.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b01gfzt4ak/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B01GFZT4AK",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B01GFZT4AK:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/John/Rank_6_ASIN_B01GFZT4AK_John Deere Ride On Toys Sit N Scoot Activity Tract/images/alt_6.jpg",
+      "targetPathKeep": "resources/b01gfzt4ak-overview/alt_6.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b01gfzt4ak/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B01GFZT4AK",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B01GFZT4AK:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/John/Rank_6_ASIN_B01GFZT4AK_John Deere Ride On Toys Sit N Scoot Activity Tract/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b01gfzt4ak-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b01gfzt4ak/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B01GFZT4AK",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B01GFZT4AK:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/John/Rank_6_ASIN_B01GFZT4AK_John Deere Ride On Toys Sit N Scoot Activity Tract/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "targetPathKeep": "resources/b01gfzt4ak-overview/aplus_01.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b01gfzt4ak/gallery/aplus_01.jpg"
+    },
+    {
+      "productId": "B01GFZT4AK",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B01GFZT4AK:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/John/Rank_6_ASIN_B01GFZT4AK_John Deere Ride On Toys Sit N Scoot Activity Tract/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "targetPathKeep": "resources/b01gfzt4ak-overview/aplus_02.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b01gfzt4ak/gallery/aplus_02.jpg"
+    },
+    {
+      "productId": "B01GFZT4AK",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B01GFZT4AK:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/John/Rank_6_ASIN_B01GFZT4AK_John Deere Ride On Toys Sit N Scoot Activity Tract/images/primary.jpg",
+      "targetPathKeep": "resources/b01gfzt4ak-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b01gfzt4ak/gallery/primary.jpg"
+    },
+    {
+      "productId": "B01GFZT4AK",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B01GFZT4AK:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/715ZtziGaVL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b01gfzt4ak-overview/715ztzigavl._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b01gfzt4ak/gallery/715ztzigavl._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0d509975-e911-456e-ad65-a22db43bc334/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/48ca8242-d12d-4227-9c39-1b1ebf218965/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/422e37e0-293e-47be-960b-ee4e97c3aa09/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4890c90c-26df-433f-9b9a-1aa7c9df9d09/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5b93a99e-6747-499f-993f-f39612749d09/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/58849f11-5798-42a7-8792-f94160be609d/default.vertical.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/John/Rank_6_ASIN_B01GFZT4AK_John Deere Ride On Toys Sit N Scoot Activity Tract/index.html"
+  ]
+}

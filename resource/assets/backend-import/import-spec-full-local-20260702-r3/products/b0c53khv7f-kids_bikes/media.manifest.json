@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "productId": "B0C53KHV7F",
+  "sourceCategoryId": "kids_bikes",
+  "images": [
+    {
+      "productId": "B0C53KHV7F",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0C53KHV7F:video",
+      "kind": "cover",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/61uF3UcPoVL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0c53khv7f-video/61uf3ucpovl._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0c53khv7f/cover/61uf3ucpovl._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6f180431-4de9-4be2-b9af-9fc4562d7b20/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9a02ff54-7281-4e8b-9c7e-ee476ffc51e8/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/242e4707-e9e0-4255-8de2-d71a80ec630e/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8305badf-04cc-4a8b-b47c-32aad2afd840/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/79905842-ac96-4153-9dbc-0035d523e0e3/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/72235ec4-ad06-4767-a0f4-6780acf61d15/default.jobtemplate.hls.m3u8"
+  ]
+}

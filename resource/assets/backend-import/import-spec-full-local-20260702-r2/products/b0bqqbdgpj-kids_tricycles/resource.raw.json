@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_tricycles",
+  "fetchedAt": "2026-07-01T20:06:14.837Z",
+  "data": {
+    "resourceId": "B0BQQBDGPJ:overview",
+    "categoryId": "kids_tricycles",
+    "productId": "B0BQQBDGPJ",
+    "resourceType": "product_overview",
+    "title": "JMMD 8 in 1 Tricycle Stroller with Push Handle, Foldable Trike with 360° Swivel Seat, Reclining Backrest, All-Terrain Wheels,",
+    "summary": "GROWS WITH YOUR CHILD — FROM 6 MONTHS TO 5 YEARS: Designed to grow alongside your child, JMMD 8-in-1 tricycle stroller supports every stage from 6 months to 5 years. Easily converts from parent-push stroller mode to toddler trike, steering trike, learn-to-ride trike and classic t",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_tricycles/JMMD/Rank_11_ASIN_B0BQQBDGPJ_JMMD 8 in 1 Tricycle Stroller with Push Handle Fol/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/86b3b158-08f5-4692-916a-38ddb44989fc/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fe4b7237-2fe8-42b7-ae70-583afe94ba6b/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/32940782-af68-4cdd-9bd9-943a4b09822a/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f4b3006d-f3ff-44ea-9e05-4832f99b91a1/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/69ef10de-b8ff-4c4f-82d4-5af7f602d7e6/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2386150a-95dd-46e1-ae35-a7cb7ff1c396/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c3fbaf63-295c-4064-9c54-89f1127c47d7/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d947a3b3-5cbe-481f-a2ba-e804b59abca6/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/45a9bc8e-e192-416e-af7f-173c3302328b/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1275c57e-9cbc-4d67-93dc-a38b089cb36d/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.95,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 10,
+      "hasFeatures": true
+    }
+  }
+}

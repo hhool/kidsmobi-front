@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_bikes",
+  "fetchedAt": "2026-07-01T21:38:55.351Z",
+  "data": {
+    "resourceId": "B0FLQ7R263:video",
+    "categoryId": "kids_bikes",
+    "productId": "B0FLQ7R263",
+    "resourceType": "product_video",
+    "title": "WEIZE Kids Bike, 14 16 20 Inch Children Bicycle for Boys & Girls Youth Ages 4-12 Years Old, Rider Height 41-62 Inch, Adjustab • Video preview",
+    "summary": "Video preview asset set for WEIZE in kids_bikes.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/47bede3f-44cf-4a0f-8ef7-0c1cdac70a2e/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/47bede3f-44cf-4a0f-8ef7-0c1cdac70a2e/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/69a97ea9-b2ee-4a2d-a115-0c240b22b3a9/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.78,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 2,
+      "hasFeatures": true
+    }
+  }
+}

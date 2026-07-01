@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "fetchedAt": "2026-07-01T20:06:16.107Z",
+  "data": {
+    "resourceId": "B08VF98FSS:overview",
+    "categoryId": "kids_pull_along_wagons",
+    "productId": "B08VF98FSS",
+    "resourceType": "product_overview",
+    "title": "Radio Flyer Push & Pull Walker Wagon, Red, for Kids 1-4 Years Old, Locking Handle for Stability, Baby Push Walker Converts to",
+    "summary": "BEGINNER WALKER: Designed as a supportive companion for your child's first steps, the Radio Flyer Push & Pull Walker Wagon helps toddlers build confidence as they begin to learn and explore movement at their own pace. | STABLE DESIGN: These baby walkers feature a four-wheel base ",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio Flyer Push  Pull Walker Wagon Red for Kids 1/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/04b05370-ea68-45af-81a2-4bdb2a7b7412/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0823220d-c908-4aec-bdac-45700ac04451/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2a9812e9-e746-491c-adb0-6acb1ce0be19/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a9bed89e-ebd6-41f6-86f1-e683e059d8db/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2d0b8194-5e92-43af-a448-29409f75b0f3/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/00b220d0-807f-411e-95ea-391d94c241f8/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.79,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

@@ -8,7 +8,7 @@
 ## Demo Environment
 - Production site: https://kidsmobi.pages.dev
 - Latest preview site: https://e7661ce7.kidsmobi.pages.dev
-- Worker API: https://kidsmobi-api-v1.seaman-player.workers.dev
+- Worker API: use the configured base URL from `VITE_SCRAPE_API_BASE_URL` or `SCRAPE_KIDSMOBILE_API_BASE_URL`
 
 ## Pre-demo Check (1 minute)
 1. Open Admin panel.

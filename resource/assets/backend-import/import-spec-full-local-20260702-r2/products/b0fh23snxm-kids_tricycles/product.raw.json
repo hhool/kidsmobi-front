@@ -1,0 +1,395 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_tricycles",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T20:06:14.809Z",
+  "data": {
+    "productId": "B0FH23SNXM",
+    "categoryId": "kids_tricycles",
+    "rank": 10,
+    "title": "Kkdi Toddler Tricycle for 1-3 3-5 Year Olds, 2 3 4 5 Year Old Girl Birthday Gifts, Purple Toddler Baby Bike, 4-Level Adjustab",
+    "brand": "Kkdi",
+    "price": {
+      "display": "$46.74",
+      "value": 46.74,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.5  623",
+      "value": 4.5
+    },
+    "weight": {
+      "display": "16 ounces",
+      "lbs": 1
+    },
+    "classification": {
+      "Brand": "Kkdi",
+      "Tricycle_Type": "Sport",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_tricycles",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "🌟【Multiple Safety Designs】: Peace of Mind",
+        "Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame",
+        "supports 1.7x the weight of other kids bikes. ➌ Glowing wheels for visible night rides.➍ CPC Certified & Tested(ASTM F963",
+        "CPSIA).",
+        "🌟【Light-Up Fun】: No batteries needed! Wheels magically glow with every spin for exciting and safer dark rides. Pure magic kids adore! Our toddler tricycle is the ideal ride on toys for ages 2-4 kids.",
+        "🌟【Grows With Your Child】: With 4-level adjustable seat & ergonomic backrest",
+        "our tricycle for 1.5-5 year old kids sensure a perfect",
+        "comfy fit. For years of joyful riding.",
+        "🌟【2 Storage Baskets】: Our bike for toddlers 2-4 comes with 2 storage. Kids can pack their own treasures and snacks",
+        "fostering independence while keeping outings organized and fun.",
+        "🌟【Indoor & Outdoor Toy】: EVA silent wheels for quiet",
+        "scratch-free floors indoors",
+        "reduce vibration outdoors. Non-slip handlebars ensure tiny hands have total control. It's the confidence-boosting toy for 2 3 4 5 year old girls.",
+        "🎁【Ideal Gifts for Age 1.5-5】: Tricycle for toddlers builds balance",
+        "coordination and motor skills through play. Easy assemblely",
+        "get ready for fun in minutes! An investment in growth and the perfect birthday gift for 2 3 4 5 year old girl."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "🌟【Multiple Safety Designs】: Peace of Mind",
+        "featureLabel": "🌟【multiple Safety Designs】: Peace Of Mind",
+        "featureValue": "🌟【Multiple Safety Designs】: Peace of Mind",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame",
+        "featureLabel": "Engineered In. Our Toddler Bike Features: ➊ 135°steering Limit & Widened Wheels To Prevent Tipping. ➋ Ultra Sturdy Frame",
+        "featureValue": "Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "supports 1.7x the weight of other kids bikes. ➌ Glowing wheels for visible night rides.➍ CPC Certified & Tested(ASTM F963",
+        "featureLabel": "Supports 1.7x The Weight Of Other Kids Bikes. ➌ Glowing Wheels For Visible Night Rides.➍ Cpc Certified & Tested(astm F963",
+        "featureValue": "supports 1.7x the weight of other kids bikes. ➌ Glowing wheels for visible night rides.➍ CPC Certified & Tested(ASTM F963",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "CPSIA).",
+        "featureLabel": "Cpsia).",
+        "featureValue": "CPSIA).",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "🌟【Light-Up Fun】: No batteries needed! Wheels magically glow with every spin for exciting and safer dark rides. Pure magic kids adore! Our toddler tricycle is the ideal ride on toys for ages 2-4 kids.",
+        "featureLabel": "🌟【light Up Fun】: No Batteries Needed! Wheels Magically Glow With Every Spin For Exciting And Safer Dark Rides. Pure Magic Kids Adore! Our Toddler Tricycle Is The Ideal Ride On Toys For Ages 2 4 Kids.",
+        "featureValue": "🌟【Light-Up Fun】: No batteries needed! Wheels magically glow with every spin for exciting and safer dark rides. Pure magic kids adore! Our toddler tricycle is the ideal ride on toys for ages 2-4 kids.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "🌟【Grows With Your Child】: With 4-level adjustable seat & ergonomic backrest",
+        "featureLabel": "🌟【grows With Your Child】: With 4 Level Adjustable Seat & Ergonomic Backrest",
+        "featureValue": "🌟【Grows With Your Child】: With 4-level adjustable seat & ergonomic backrest",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "🌟【Multiple Safety Designs】: Peace of Mind",
+        "Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame",
+        "supports 1.7x the weight of other kids bikes. ➌ Glowing wheels for visible night rides.➍ CPC Certified & Tested(ASTM F963",
+        "CPSIA)."
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+          "source": "local",
+          "order": 10
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+          "source": "local",
+          "order": 11
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+          "source": "local",
+          "order": 12
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+          "source": "local",
+          "order": 13
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_1.jpg",
+      "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_2.jpg",
+      "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_3.jpg",
+      "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_4.jpg",
+      "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_5.jpg",
+      "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_6.jpg",
+      "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_7.jpg",
+      "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_8.jpg",
+      "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_9.jpg",
+      "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg"
+    ],
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/17b47d42-c6c4-456d-aabe-c3f867fcbb3c/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/63dac5b5-3197-4be8-bfc0-7d4564acce3f/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c291fedb-e549-4057-938a-cd2dcc03c892/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/17b47d42-c6c4-456d-aabe-c3f867fcbb3c/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Indoor, Outdoor Toy for Toddler",
+        "thumbnail": "https://m.media-amazon.com/images/I/A1Cn2dchvcL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/63dac5b5-3197-4be8-bfc0-7d4564acce3f/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Great gift! Perfect for training!!",
+        "thumbnail": "https://m.media-amazon.com/images/I/51wlcpjGIWL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c291fedb-e549-4057-938a-cd2dcc03c892/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "3T toddler bike",
+        "thumbnail": "https://m.media-amazon.com/images/I/61qEC2mkTGL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 3
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/kids_tricycles/index.html",
+      "categoryPages": "/scrape_store/kids_tricycles/pages/index.html",
+      "detailPage": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/index.html"
+    },
+    "resourceStats": {
+      "videos": 3,
+      "similarItems": 0
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71FxGDDhIDL._AC_UL300_SR300,200_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 15
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 12
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 13
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/Kkdi/Rank_10_ASIN_B0FH23SNXM_Kkdi Toddler Tricycle for 1-3 3-5 Year Olds 2 3 4/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 14
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/17b47d42-c6c4-456d-aabe-c3f867fcbb3c/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1Cn2dchvcL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Indoor, Outdoor Toy for Toddler",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/63dac5b5-3197-4be8-bfc0-7d4564acce3f/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51wlcpjGIWL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Great gift! Perfect for training!!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c291fedb-e549-4057-938a-cd2dcc03c892/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61qEC2mkTGL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "3T toddler bike",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

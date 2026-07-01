@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_tricycles",
+  "fetchedAt": "2026-07-01T20:06:14.698Z",
+  "data": {
+    "resourceId": "B08M5CG126:overview",
+    "categoryId": "kids_tricycles",
+    "productId": "B08M5CG126",
+    "resourceType": "product_overview",
+    "title": "besrey 5 in 1 Toddler Bike for 1 Year to 4 Years Old Kids, Toddler Tricycle Kids Trikes Tricycle, Toys for Boy & Girl, Balanc",
+    "summary": "Wider Use Ages: This upgraded kids tricycle has an enlarged body size so that can be used for a wider range of ages. One besrey toddler bike can meet your kid's all requirements at different ages, help your baby quickly learn to ride. The best first bike for your baby | Double Ca",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_tricycles/besrey/Rank_7_ASIN_B08M5CG126_besrey 5 in 1 Toddler Bike for 1 Year to 4 Years O/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8386c261-00ae-40d8-a121-a940f05cd8b5/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/15cfc9f5-ad90-47f4-a15a-d799f5445887/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9183cc9b-817a-4f38-834b-f704e2699045/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a96c8390-d7a6-40ea-ad3a-61c4ef626579/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/777396e0-82ce-4b30-9b65-64860b4d53bd/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/28091f74-4878-4cba-973f-669ab46d806e/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5bb057c0-bf8c-46d2-870a-9014a3765973/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/47a2c70a-12d5-42f2-bba0-f4d9ae2d1f5b/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7be5795d-51bb-4a8e-8dc5-7872a48fd0e9/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/76af0e6d-ec02-470d-865a-66405e47a8fc/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.95,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 10,
+      "hasFeatures": true
+    }
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0C5434M8D",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "images": [
+    {
+      "productId": "B0C5434M8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0C5434M8D:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5434M8D_Jeep Sport All-Terrain Stroller Wagon by Delta Chi/images/primary.jpg",
+      "targetPathKeep": "resources/b0c5434m8d-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0c5434m8d/cover/primary.jpg"
+    },
+    {
+      "productId": "B0C5434M8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0C5434M8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5434M8D_Jeep Sport All-Terrain Stroller Wagon by Delta Chi/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0c5434m8d-overview/alt_1.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0c5434m8d/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0C5434M8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0C5434M8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5434M8D_Jeep Sport All-Terrain Stroller Wagon by Delta Chi/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0c5434m8d-overview/alt_2.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0c5434m8d/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0C5434M8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0C5434M8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5434M8D_Jeep Sport All-Terrain Stroller Wagon by Delta Chi/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0c5434m8d-overview/alt_3.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0c5434m8d/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0C5434M8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0C5434M8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5434M8D_Jeep Sport All-Terrain Stroller Wagon by Delta Chi/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0c5434m8d-overview/alt_4.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0c5434m8d/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0C5434M8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0C5434M8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5434M8D_Jeep Sport All-Terrain Stroller Wagon by Delta Chi/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0c5434m8d-overview/alt_5.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0c5434m8d/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0C5434M8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0C5434M8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5434M8D_Jeep Sport All-Terrain Stroller Wagon by Delta Chi/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0c5434m8d-overview/alt_6.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0c5434m8d/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0C5434M8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0C5434M8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5434M8D_Jeep Sport All-Terrain Stroller Wagon by Delta Chi/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0c5434m8d-overview/alt_7.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0c5434m8d/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0C5434M8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0C5434M8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5434M8D_Jeep Sport All-Terrain Stroller Wagon by Delta Chi/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0c5434m8d-overview/alt_8.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0c5434m8d/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0C5434M8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0C5434M8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5434M8D_Jeep Sport All-Terrain Stroller Wagon by Delta Chi/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0c5434m8d-overview/alt_9.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0c5434m8d/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0C5434M8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0C5434M8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5434M8D_Jeep Sport All-Terrain Stroller Wagon by Delta Chi/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0c5434m8d-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0c5434m8d/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0C5434M8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0C5434M8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5434M8D_Jeep Sport All-Terrain Stroller Wagon by Delta Chi/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "targetPathKeep": "resources/b0c5434m8d-overview/aplus_01.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0c5434m8d/gallery/aplus_01.jpg"
+    },
+    {
+      "productId": "B0C5434M8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0C5434M8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5434M8D_Jeep Sport All-Terrain Stroller Wagon by Delta Chi/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "targetPathKeep": "resources/b0c5434m8d-overview/aplus_02.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0c5434m8d/gallery/aplus_02.jpg"
+    },
+    {
+      "productId": "B0C5434M8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0C5434M8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5434M8D_Jeep Sport All-Terrain Stroller Wagon by Delta Chi/images/primary.jpg",
+      "targetPathKeep": "resources/b0c5434m8d-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0c5434m8d/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0C5434M8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0C5434M8D:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/71yYeqcWKpL._AC_UL165_SR165,165_.jpg",
+      "targetPathKeep": "resources/b0c5434m8d-overview/71yyeqcwkpl._ac_ul165_sr165-165_.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0c5434m8d/gallery/71yyeqcwkpl._ac_ul165_sr165-165_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/70fcb8fb-f243-492c-91b7-e8905b4a6023/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2ba8bd13-373e-4e98-b73e-7a8a9d1ebe64/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4cfa9c08-90b9-45cf-95e7-24767334075a/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2199cfc2-63a3-4e71-aefb-256793c026bb/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/89d048ea-a972-416c-8fdc-886dd630b906/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9da8c294-2aaf-4ae0-845b-1754ec24f54d/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d4499cad-1dbd-4772-8695-3fb1584347cf/default.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5434M8D_Jeep Sport All-Terrain Stroller Wagon by Delta Chi/index.html"
+  ]
+}

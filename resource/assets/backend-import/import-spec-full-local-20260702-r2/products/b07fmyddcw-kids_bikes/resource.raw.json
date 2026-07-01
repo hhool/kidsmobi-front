@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_bikes",
+  "fetchedAt": "2026-07-01T20:06:13.640Z",
+  "data": {
+    "resourceId": "B07FMYDDCW:overview",
+    "categoryId": "kids_bikes",
+    "productId": "B07FMYDDCW",
+    "resourceType": "product_overview",
+    "title": "JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Girls, 12-20 Inch BMX Style Kid's Bikes with Training Wheels, Children Bicycle",
+    "summary": "DESIGN FOR KIDS - 1. This Kids bike comes with stable training wheel early rider. 2.Quick release seat simplify the height adjustment. 3.Saddle with holder to learn riding when the training wheel is off. 4.Foot brake suitable for young rider don't have enough power to manipulate ",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_bikes/JOYSTAR/Rank_2_ASIN_B07FMYDDCW_JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Gir/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e0d33a3f-655a-4aae-8c6a-16cb96af07f1/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3d012fdd-1854-4969-9218-efda110c317a/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/864887a8-6d2b-4082-bd01-3a68db641706/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e359c994-fe5e-4837-95b6-883aca58dc40/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/415a5d5b-5e55-455b-b519-f3e328efd0b5/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0b4205cd-380c-4061-966b-33f5794e7765/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1b5f882f-db6f-44a6-ac91-0af03bd2a35d/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c24c7b89-fab7-4261-a557-de06b9697b17/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d298d869-3a89-43a7-8570-f962e43b678f/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/857d7a93-8415-453f-9580-b4082c182923/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.95,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 10,
+      "hasFeatures": true
+    }
+  }
+}

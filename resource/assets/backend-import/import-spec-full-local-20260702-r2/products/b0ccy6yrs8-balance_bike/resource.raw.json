@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "balance_bike",
+  "fetchedAt": "2026-07-01T20:06:12.021Z",
+  "data": {
+    "resourceId": "B0CCY6YRS8:overview",
+    "categoryId": "balance_bike",
+    "productId": "B0CCY6YRS8",
+    "resourceType": "product_overview",
+    "title": "Colorful Lighting Baby Balance Bike Toys for 1 Year Old Boy Gifts, 10-36 Month Toddler Balance Bike, No Pedal 4 Silence Wheels & Soft Seat First Bike, One Year Old Boy Birthday Gift.",
+    "summary": "【COLORFUL LIGHTING DESIGN】 To enhance children's fun, we have specially designed the colorful lighting rear wheel. No batteries are required, just spin the wheels to glow. Greatly increases the fun for children. | 【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. bab",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/balance_bike/Colorful/Rank_Similar_ASIN_B0CCY6YRS8_Colorful Lighting Baby Balance Bike Toys for 1 Yea/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f203090c-a9b1-4705-9e45-01b807cf04ad/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/aca88729-37af-4055-8010-678a1872cd02/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e61a0830-6a74-41ba-8dc1-f35349133997/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/83c3efda-b183-4cd0-87ae-bf051afc3ed5/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8ea7b3c6-36fe-404f-ac55-e5f69695090c/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/74086608-c694-4119-be9b-9d0f88dc8dc6/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.79,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

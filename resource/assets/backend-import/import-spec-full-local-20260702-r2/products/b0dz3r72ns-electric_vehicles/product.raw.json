@@ -1,0 +1,754 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "electric_vehicles",
+  "categoryCode": "electric_car",
+  "fetchedAt": "2026-07-01T20:06:12.734Z",
+  "data": {
+    "productId": "B0DZ3R72NS",
+    "categoryId": "electric_vehicles",
+    "rank": 1,
+    "title": "Best Choice Products Kids 24V 2-Seater Electric Ride On Car Truck w/ 132lb Weight Capacity, Parent Control, Bluetooth, LED Li",
+    "brand": "Best",
+    "price": {
+      "display": "$284.98",
+      "value": 284.98,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.5  16,728",
+      "value": 4.5
+    },
+    "weight": {
+      "display": "54.6 Pounds",
+      "lbs": 54.6
+    },
+    "classification": {
+      "Brand": "Best",
+      "Vehicle_Type": "Vehicle",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Heavy Duty",
+      "Price_Tier": ">200"
+    },
+    "categoryAttributes": {
+      "categoryId": "electric_vehicles",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "2-SEATER RIDE-ON TRUCK: Built for double the fun",
+        "this ride-on supports up to 132 pounds",
+        "making it great for your children and their friends",
+        "90-MINUTE RUN TIME: A fully rechargeable 24V battery allows your child to enjoy this ride-on toy for well over an hour on just one charge",
+        "PARENTAL REMOTE CONTROL: Let your child take the wheel or use the included remote to join the fun as you guide them on their adventure",
+        "while a built-in Bluetooth sound system lets your child enjoy their favorite playtime songs",
+        "FOR AGES 3-7: Built with your child's protection in mind",
+        "this ride on features an adjustable seat harness to secure them when in motion",
+        "treaded plastic wheel",
+        "LED headlights and 2-wheel suspension for smooth riding",
+        "POWERFUL PERFORMANCE: Small yet powerful with a set of two 24V electric motors for 2-wheel drive",
+        "this ride-on is built to support two children with two preset speeds: 2 mph & 4mph",
+        "OVERALL DIMENSIONS: 45.3\"(L) x 31.7\"(W) x 30.7\"(H)",
+        "WEIGHT CAPACITY: 132 lbs."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "2-SEATER RIDE-ON TRUCK: Built for double the fun",
+        "featureLabel": "2 Seater Ride On Truck: Built For Double The Fun",
+        "featureValue": "2-SEATER RIDE-ON TRUCK: Built for double the fun",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "this ride-on supports up to 132 pounds",
+        "featureLabel": "This Ride On Supports Up To 132 Pounds",
+        "featureValue": "this ride-on supports up to 132 pounds",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "making it great for your children and their friends",
+        "featureLabel": "Making It Great For Your Children And Their Friends",
+        "featureValue": "making it great for your children and their friends",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "90-MINUTE RUN TIME: A fully rechargeable 24V battery allows your child to enjoy this ride-on toy for well over an hour on just one charge",
+        "featureLabel": "90 Minute Run Time: A Fully Rechargeable 24v Battery Allows Your Child To Enjoy This Ride On Toy For Well Over An Hour On Just One Charge",
+        "featureValue": "90-MINUTE RUN TIME: A fully rechargeable 24V battery allows your child to enjoy this ride-on toy for well over an hour on just one charge",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "PARENTAL REMOTE CONTROL: Let your child take the wheel or use the included remote to join the fun as you guide them on their adventure",
+        "featureLabel": "Parental Remote Control: Let Your Child Take The Wheel Or Use The Included Remote To Join The Fun As You Guide Them On Their Adventure",
+        "featureValue": "PARENTAL REMOTE CONTROL: Let your child take the wheel or use the included remote to join the fun as you guide them on their adventure",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "while a built-in Bluetooth sound system lets your child enjoy their favorite playtime songs",
+        "featureLabel": "While A Built In Bluetooth Sound System Lets Your Child Enjoy Their Favorite Playtime Songs",
+        "featureValue": "while a built-in Bluetooth sound system lets your child enjoy their favorite playtime songs",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "2-SEATER RIDE-ON TRUCK: Built for double the fun",
+        "this ride-on supports up to 132 pounds",
+        "making it great for your children and their friends",
+        "90-MINUTE RUN TIME: A fully rechargeable 24V battery allows your child to enjoy this ride-on toy for well over an hour on just one charge"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+          "source": "local",
+          "order": 10
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+          "source": "local",
+          "order": 11
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+          "source": "local",
+          "order": 12
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+          "source": "local",
+          "order": 13
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg",
+          "source": "local",
+          "order": 14
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_1.jpg",
+      "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_2.jpg",
+      "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_3.jpg",
+      "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_4.jpg",
+      "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_5.jpg",
+      "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_6.jpg",
+      "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_7.jpg",
+      "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_8.jpg",
+      "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_9.jpg",
+      "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+      "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg"
+    ],
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/97791350-cb41-4cde-bcab-896975808f14/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/de15886d-8f82-4378-90ae-97b01faa7e75/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cabe89b8-5a88-4ad4-99ea-dd228ebb974b/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/07aa14fd-31c8-49ca-8053-c447382002ad/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2b44904d-6eb6-4128-aa0a-0ca1bf49af10/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c4599407-1b62-470a-a88d-52191bfc1ef8/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/97791350-cb41-4cde-bcab-896975808f14/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Best Choice 24V 2-Seater Ride On",
+        "thumbnail": "https://m.media-amazon.com/images/I/81Vgati9eKL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/de15886d-8f82-4378-90ae-97b01faa7e75/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Watch This Before You Buy Your Ride On Car!",
+        "thumbnail": "https://m.media-amazon.com/images/I/C1yZ3798u0L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cabe89b8-5a88-4ad4-99ea-dd228ebb974b/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "My Son Has Loved It Since He Was One",
+        "thumbnail": "https://m.media-amazon.com/images/I/B1txIbHRPAL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/07aa14fd-31c8-49ca-8053-c447382002ad/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "4 year owner review. Love that the parent can control it! ",
+        "thumbnail": "https://m.media-amazon.com/images/I/71rlPpw+a7L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2b44904d-6eb6-4128-aa0a-0ca1bf49af10/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "12V Kids Ride On Truck Car w\\/Parent Remote Control #toys #eletriccar",
+        "thumbnail": "https://m.media-amazon.com/images/I/91goRZdAAlL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c4599407-1b62-470a-a88d-52191bfc1ef8/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Entertain your kids for hours with this jeep!",
+        "thumbnail": "https://m.media-amazon.com/images/I/71fBX99dFzL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 6
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/electric_vehicles/index.html",
+      "categoryPages": "/scrape_store/electric_vehicles/pages/index.html",
+      "detailPage": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/index.html"
+    },
+    "resourceStats": {
+      "videos": 6,
+      "similarItems": 1
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/81s41OVbqSL._AC_UL300_SR300,200_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 16
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 12
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 13
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 14
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 15
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/97791350-cb41-4cde-bcab-896975808f14/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81Vgati9eKL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Best Choice 24V 2-Seater Ride On",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/de15886d-8f82-4378-90ae-97b01faa7e75/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/C1yZ3798u0L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Watch This Before You Buy Your Ride On Car!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cabe89b8-5a88-4ad4-99ea-dd228ebb974b/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1txIbHRPAL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "My Son Has Loved It Since He Was One",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/07aa14fd-31c8-49ca-8053-c447382002ad/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71rlPpw+a7L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "4 year owner review. Love that the parent can control it! ",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2b44904d-6eb6-4128-aa0a-0ca1bf49af10/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91goRZdAAlL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "12V Kids Ride On Truck Car w\\/Parent Remote Control #toys #eletriccar",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c4599407-1b62-470a-a88d-52191bfc1ef8/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71fBX99dFzL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Entertain your kids for hours with this jeep!",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "First",
+        "Title": "First Ride On Ford Bronco 24V Ride on Toys for Boys & Girls, 2 Seater Kids Electric Car with Remote Control, Kids Ride on Truck with Rear Wheels Suspension, Led Lights, Safety Belt (24V, Red)",
+        "Price": "$319.99",
+        "Rating": "4.5",
+        "Reviews": "948",
+        "URL": "https://www.amazon.com/First-Ride-Electric-Control-Suspension/dp/B0DB4WXZ36/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_1/141-9995103-0702149?pd_rd_w=rqQWR&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=3BEKQVEHD0T32K83KVQ1&pd_rd_wg=vYqaZ&pd_rd_r=5479ff4a-ded0-481b-bbed-94ab88fa655e&pd_rd_i=B0DB4WXZ36&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/71sxzLzFJzL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B0DB4WXZ36",
+        "Features": "OFFICIALLY LICENSED BY FORD BRONCO RAPTOR: This 24v ride on toys for big kids delivers an authentic driving experience | Spacious Dual-Seater Fun: Featuring a 21-inch dual seat, this 24v kids ride on car is perfect for siblings or friends to enjoy together. It is ideal for a larger child, offering comfortable seating with left-side driving and two-seat driving for a more realistic car experience | Ultimate Safety Features: Equipped with two individual 3-point seat belts and anti-slip seats, this ride on cars for kids ages 3-8 prioritizes safety with parental remote control, soft start, and rear shock function. It ensures a secure and smooth ride, allowing parents to confidently let their children drive and explore | Endless Entertainment: Packed with music, Bluetooth, and a built-in radio, this 24V ride-on car creates a fun-filled world for kids. They can sing along, enjoy stories, and cruise with joy. Plus, the volume is fully adjustable—turn it up to enjoy loud, clear sound even while driving. It offers an immersive space for little riders and a bit of peace for parents too | Superior Performance: Powered by a 24v battery with dual drive, this kids ride on toys offers three-speed options: 2.0, 2.7, and 4.3 mph. The battery life ranges from 50 minutes to 2 hours, varying based on usage and speed. The three-speed settings cater to different age groups, making it suitable for various driving scenarios. Enjoy safe outdoor fun with a 98ft remote control range for worry-free play! | Creating Unforgettable Memories: Perfect for milestone celebrations, this kids ride on toy with parent remote brings joy and creates lasting memories. It offers an excellent opportunity for parent-child interaction and helps kids develop cognitive, coordination, and driving skills, making it a cherished present that children will treasure and enjoy for years to come",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a4930289-4b52-4ffc-b8f5-12752c160757/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a4930289-4b52-4ffc-b8f5-12752c160757/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71te-ceD4OL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Best Gift for Kids - Ford Bronco 24V Ride on Toys",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a7cadea2-6fff-4ecd-ac38-d10ea096d75c/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/81batFO481L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "24V Ford Bronco Raptor Kids Ride on Car Installation Video",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a84b6809-6543-4f2f-afeb-330912600d02/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1C0b9x57IL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+            "Title": "24V Ford Bronco Raptor Customer Experience Video",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/171815e7-1f34-41d6-8bd0-f0f039a3bee3/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71ImnN+1R+L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Ford Bronco 24V Ride on Toys",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c6d49f6-a27c-4f97-b334-04a8f2f5b102/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/91YVvzE2yuL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "What makes this ride on bronco unique??",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2e9b0ce5-540c-479d-8431-163b6819c60c/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1NY87dbraL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "My girls love taking their Bronco for a ride!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e1309c0a-9754-4846-b201-ec17a767da56/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/81KdXit86SL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Quality, Fast Bronco!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4f529eb0-6ee3-447d-a636-cb44c77db462/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/81WYqRweorL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "24V Electric Car for Kids",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/74b6e049-8514-4fdb-8ac1-26ede5f0c2dc/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/81tZ3r6yXYL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+            "Title": "What You Should Know Before Buying",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a4930289-4b52-4ffc-b8f5-12752c160757/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a7cadea2-6fff-4ecd-ac38-d10ea096d75c/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a84b6809-6543-4f2f-afeb-330912600d02/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/171815e7-1f34-41d6-8bd0-f0f039a3bee3/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c6d49f6-a27c-4f97-b334-04a8f2f5b102/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2e9b0ce5-540c-479d-8431-163b6819c60c/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e1309c0a-9754-4846-b201-ec17a767da56/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4f529eb0-6ee3-447d-a636-cb44c77db462/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/74b6e049-8514-4fdb-8ac1-26ede5f0c2dc/default.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a4930289-4b52-4ffc-b8f5-12752c160757/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a7cadea2-6fff-4ecd-ac38-d10ea096d75c/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a84b6809-6543-4f2f-afeb-330912600d02/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/171815e7-1f34-41d6-8bd0-f0f039a3bee3/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c6d49f6-a27c-4f97-b334-04a8f2f5b102/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2e9b0ce5-540c-479d-8431-163b6819c60c/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e1309c0a-9754-4846-b201-ec17a767da56/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4f529eb0-6ee3-447d-a636-cb44c77db462/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/74b6e049-8514-4fdb-8ac1-26ede5f0c2dc/default.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "First Ride On",
+              "Texts": [
+                "First Ride On First Ride On, Love at First Ride We want kids to fall in love with outdoor play the moment they see our officially licensed, highly realistic ride-on that looks and feels like a real car made just for them. Each model goes beyond bringing car dreams to life. With smooth comfort, thoughtful safety details, and parent-trusted quality, it lets kids enjoy outdoor adventures while families share joyful moments that grow into unforgettable memories.",
+                "24V Ford Bronco Base Visit the Store",
+                "12V Ford F-150 Raptor Visit the Store",
+                "24V Ford F-150 Raptor Visit the Store",
+                "24V Ram 1500 RHO Truck Visit the Store",
+                "24V Chevrolet Silverado Visit the Store",
+                "McLaren Go Kart Visit the Store",
+                "48v McLaren Go Kart Visit the Store",
+                "JCB 3CX Excavator Visit the Store",
+                "24V Ram 1500 RHO Police Car Visit the Store",
+                "24V Ram 1500 RHO Fire Truck Visit the Store",
+                "12V Ram 1500 RHO Police Car Visit the Store",
+                "12V Ram 1500 RHO Fire Truck Visit the Store",
+                "24V Ford Bronco Raptor Visit the Store",
+                "12V Porsche 718 Spyder Visit the Store",
+                "12V Ram 1500 RHO Visit the Store",
+                "12V Ford Bronco Raptor Visit the Store"
+              ],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/27ac8593-c394-4567-b741-1e17c05ff9e1.__CR0,0,1464,625_PT0_SX1464_V1___.png"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/27ac8593-c394-4567-b741-1e17c05ff9e1.__CR0,0,1464,625_PT0_SX1464_V1___.png",
+                  "Image_Order": 1,
+                  "Image_Title": "1",
+                  "Image_Alt": "1"
+                }
+              ],
+              "Comparison_Table": {},
+              "Block_Types": [
+                "text",
+                "image"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "First Ride On"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/27ac8593-c394-4567-b741-1e17c05ff9e1.__CR0,0,1464,625_PT0_SX1464_V1___.png",
+                    "Image_Order": 1,
+                    "Image_Title": "1",
+                    "Image_Alt": "1"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "First Ride On First Ride On, Love at First Ride We want kids to fall in love with outdoor play the moment they see our officially licensed, highly realistic ride-on that looks and feels like a real car made just for them. Each model goes beyond bringing car dreams to life. With smooth comfort, thoughtful safety details, and parent-trusted quality, it lets kids enjoy outdoor adventures while families share joyful moments that grow into unforgettable memories."
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "24V Ford Bronco Base Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "12V Ford F-150 Raptor Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "24V Ford F-150 Raptor Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "24V Ram 1500 RHO Truck Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "24V Chevrolet Silverado Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "McLaren Go Kart Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "48v McLaren Go Kart Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "JCB 3CX Excavator Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "24V Ram 1500 RHO Police Car Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "24V Ram 1500 RHO Fire Truck Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "12V Ram 1500 RHO Police Car Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "12V Ram 1500 RHO Fire Truck Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "24V Ford Bronco Raptor Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "12V Porsche 718 Spyder Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "12V Ram 1500 RHO Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "12V Ford Bronco Raptor Visit the Store"
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/27ac8593-c394-4567-b741-1e17c05ff9e1.__CR0,0,1464,625_PT0_SX1464_V1___.png"
+            ],
+            "Local_Images": [
+              "scrape_store/electric_vehicles/First/Rank_Similar_ASIN_B0DB4WXZ36_First Ride On Ford Bronco 24V Ride on Toys for Boy/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [],
+          "Summary": {
+            "Count": 0
+          },
+          "Local_Paths": []
+        },
+        "Product_Description": "N/A",
+        "Product_Specifications": {
+          "Measurements": {
+            "Size": "Large",
+            "Item Weight": "56 Pounds",
+            "Item Dimensions L x W x H": "44\"L x 31.7\"W x 30.7\"H",
+            "Weight Capacity Maximum": "132 Pounds",
+            "Item Dimensions": "44 x 31.7 x 30.7 inches"
+          },
+          "Features_Specs": {
+            "Subject Character": "Ford Bronco Raptor",
+            "Theme": "Music"
+          },
+          "Materials_Care": {
+            "Material Type": "Metal, PP Plastic"
+          },
+          "Item_Details": {
+            "Brand Name": "First Ride On",
+            "Manufacturer Part Number": "FB001",
+            "Model Number": "FB001",
+            "Manufacturer": "First Ride On",
+            "Unit Count": "1.0 Count",
+            "Included Components": "Car Body, Charging Box, Instruction Manual",
+            "Best Sellers Rank": "#3,602 in Toys & Games (See Top 100 in Toys & Games) #4 in Kids' Electric Vehicles",
+            "ASIN": "B0DB4WXZ36",
+            "Customer Reviews": "4.5  4.5 out of 5 stars   \n    (948)   \n\n\n 4.5 out of 5 stars"
+          },
+          "User_Guide": {
+            "Manufacturer Minimum Age (MONTHS)": "36",
+            "Is Assembly Required": "Yes"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "First Ride On \n  First Ride On      Shipper / Seller   First Ride On",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery Wednesday, July 1. Details",
+          "Specifications": {}
+        },
+        "Local_Image_Paths": [
+          "scrape_store/electric_vehicles/First/Rank_Similar_ASIN_B0DB4WXZ36_First Ride On Ford Bronco 24V Ride on Toys for Boy/images/primary.jpg",
+          "scrape_store/electric_vehicles/First/Rank_Similar_ASIN_B0DB4WXZ36_First Ride On Ford Bronco 24V Ride on Toys for Boy/images/alt_1.jpg",
+          "scrape_store/electric_vehicles/First/Rank_Similar_ASIN_B0DB4WXZ36_First Ride On Ford Bronco 24V Ride on Toys for Boy/images/alt_2.jpg",
+          "scrape_store/electric_vehicles/First/Rank_Similar_ASIN_B0DB4WXZ36_First Ride On Ford Bronco 24V Ride on Toys for Boy/images/alt_3.jpg",
+          "scrape_store/electric_vehicles/First/Rank_Similar_ASIN_B0DB4WXZ36_First Ride On Ford Bronco 24V Ride on Toys for Boy/images/alt_4.jpg",
+          "scrape_store/electric_vehicles/First/Rank_Similar_ASIN_B0DB4WXZ36_First Ride On Ford Bronco 24V Ride on Toys for Boy/images/alt_5.jpg",
+          "scrape_store/electric_vehicles/First/Rank_Similar_ASIN_B0DB4WXZ36_First Ride On Ford Bronco 24V Ride on Toys for Boy/images/alt_6.jpg",
+          "scrape_store/electric_vehicles/First/Rank_Similar_ASIN_B0DB4WXZ36_First Ride On Ford Bronco 24V Ride on Toys for Boy/images/alt_7.jpg",
+          "scrape_store/electric_vehicles/First/Rank_Similar_ASIN_B0DB4WXZ36_First Ride On Ford Bronco 24V Ride on Toys for Boy/images/alt_8.jpg",
+          "scrape_store/electric_vehicles/First/Rank_Similar_ASIN_B0DB4WXZ36_First Ride On Ford Bronco 24V Ride on Toys for Boy/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/electric_vehicles/First/Rank_Similar_ASIN_B0DB4WXZ36_First Ride On Ford Bronco 24V Ride on Toys for Boy/images/primary.jpg",
+        "Local_Video_Paths": []
+      }
+    ]
+  }
+}

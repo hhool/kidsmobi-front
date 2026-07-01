@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "balance_bike",
+  "fetchedAt": "2026-07-01T21:38:38.500Z",
+  "data": {
+    "resourceId": "B0B2H5333D:video",
+    "categoryId": "balance_bike",
+    "productId": "B0B2H5333D",
+    "resourceType": "product_video",
+    "title": "Retrospec Cricket Baby Balance Bike, 4-Wheel Ride-On Toy for Ages 12-24 Months – First Bike & Toddler Bike for 1 Year Old Boy • Video preview",
+    "summary": "Video preview asset set for Retrospec in balance_bike.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ee5e973a-36fe-471d-8a96-04f60c2e7e2a/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ee5e973a-36fe-471d-8a96-04f60c2e7e2a/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1d51cbc9-9647-416a-8c64-a11c3d0418b5/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/736743ce-c1fe-409c-bf7d-2d1fe3808b82/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bfc2deed-e4c8-4b12-b165-bc6a13f9de09/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/09b104dd-225f-4dd4-bca3-c5d41876e05a/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/42ab564b-90c0-4fdb-9dbc-82850609b02e/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.94,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

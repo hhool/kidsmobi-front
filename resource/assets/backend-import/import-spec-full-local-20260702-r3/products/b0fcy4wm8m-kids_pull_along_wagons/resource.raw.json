@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "fetchedAt": "2026-07-01T21:39:14.297Z",
+  "data": {
+    "resourceId": "B0FCY4WM8M:video",
+    "categoryId": "kids_pull_along_wagons",
+    "productId": "B0FCY4WM8M",
+    "resourceType": "product_video",
+    "title": "TODEFULL Wagon Stroller for 2 Kids, Foldable Kids Wagon Cart Featuring with Harnesses, Adjustable Double Push Handle, Removab • Video preview",
+    "summary": "Video preview asset set for TODEFULL in kids_pull_along_wagons.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8c561752-2f09-4055-a642-3d21d738a0ff.mp4/productVideoOptimized.mp4",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8c561752-2f09-4055-a642-3d21d738a0ff.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/771d9bdd-1f1c-43d5-85cb-f43ef60ba442.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a79fe938-77d7-452f-bb6b-008a7685e366.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/2bfe5214-ddfd-47c9-9ff2-b9dc1b210e32.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/162657f0-bf29-448c-aa86-42b3ef53cafd.mp4/productVideoOptimized.mp4"
+    ],
+    "credibilityScore": 0.9,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 5,
+      "hasFeatures": true
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "high_chair",
+  "fetchedAt": "2026-07-01T20:06:11.228Z",
+  "data": {
+    "resourceId": "B0DF1FDKR4:overview",
+    "categoryId": "high_chair",
+    "productId": "B0DF1FDKR4",
+    "resourceType": "product_overview",
+    "title": "Momcozy Official Washing Block for Momcozy KleanPal Pro Baby Bottle Washer, 120 Detergent Tablets",
+    "summary": "Note: Made for KleanPal Pro, for best results, we recommend Momcozy Official Washing Tablets. Formulas from others may differ in foaming and rinsing behavior. | Strong Cleaning Power: These are specially designed to remove stubborn milk residue and odor. | Compatible: Designed to",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/high_chair/Momcozy/Rank_1_ASIN_B0DF1FDKR4_Momcozy Official Washing Block for Momcozy KleanPa/index.html",
+    "videoUrls": [
+      "/scrape_store/high_chair/Momcozy/Rank_1_ASIN_B0DF1FDKR4_Momcozy Official Washing Block for Momcozy KleanPa/videos/video_0.mp4",
+      "/scrape_store/high_chair/Momcozy/Rank_1_ASIN_B0DF1FDKR4_Momcozy Official Washing Block for Momcozy KleanPa/videos/video_1.mp4",
+      "/scrape_store/high_chair/Momcozy/Rank_1_ASIN_B0DF1FDKR4_Momcozy Official Washing Block for Momcozy KleanPa/videos/video_2.mp4",
+      "/scrape_store/high_chair/Momcozy/Rank_1_ASIN_B0DF1FDKR4_Momcozy Official Washing Block for Momcozy KleanPa/videos/video_3.mp4",
+      "/scrape_store/high_chair/Momcozy/Rank_1_ASIN_B0DF1FDKR4_Momcozy Official Washing Block for Momcozy KleanPa/videos/video_4.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8b4fc472-8dc2-471f-a166-5cdcec975b31.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/85e80b02-fa78-4277-99fc-a0617bf9b753.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/82ae0a33-4a54-4bad-9683-2136d47a4086.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/3b884b1e-2f3e-488d-a6e7-6534e1f6bab9.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/b42cf8fc-d316-43d8-9825-c7f83b99e1f5.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fae2e2e7-89bb-4764-b0eb-22494086e021/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/df38888d-137a-4f63-8ed8-5572c91e4336/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bdd593d9-e69c-4765-b439-f54539a17996/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7da5f957-49ec-4da2-aaf3-b54bca37e9f5/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3c7511a0-0a3c-42ce-9dd6-8c883f9e0254/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e6c3c294-94c5-4052-8080-bd0a2e0d6b2f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1c4b17cc-7610-46db-9894-1365ca931ac5/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5b60bac8-21bb-4982-bc2a-ee1fbaf21104/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e6c95970-bff7-4d7f-9fa9-0e1d818bfc6d/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9f8d2320-9d68-4809-9ecc-a67a7f45da6f/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4c58c333-5c99-4395-8f7a-0520100fa8f6/embedded.cc.default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 1,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 21,
+      "hasFeatures": true
+    }
+  }
+}

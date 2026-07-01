@@ -1,0 +1,161 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B08Q1SVPRP",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "images": [
+    {
+      "productId": "B08Q1SVPRP",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B08Q1SVPRP:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Green/Rank_4_ASIN_B08Q1SVPRP_Green Toys Wagon Orange CB - Pretend Play Motor Sk/images/primary.jpg",
+      "targetPathKeep": "resources/b08q1svprp-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b08q1svprp/cover/primary.jpg"
+    },
+    {
+      "productId": "B08Q1SVPRP",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B08Q1SVPRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Green/Rank_4_ASIN_B08Q1SVPRP_Green Toys Wagon Orange CB - Pretend Play Motor Sk/images/alt_1.jpg",
+      "targetPathKeep": "resources/b08q1svprp-overview/alt_1.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b08q1svprp/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B08Q1SVPRP",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B08Q1SVPRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Green/Rank_4_ASIN_B08Q1SVPRP_Green Toys Wagon Orange CB - Pretend Play Motor Sk/images/alt_2.jpg",
+      "targetPathKeep": "resources/b08q1svprp-overview/alt_2.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b08q1svprp/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B08Q1SVPRP",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B08Q1SVPRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Green/Rank_4_ASIN_B08Q1SVPRP_Green Toys Wagon Orange CB - Pretend Play Motor Sk/images/alt_3.jpg",
+      "targetPathKeep": "resources/b08q1svprp-overview/alt_3.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b08q1svprp/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B08Q1SVPRP",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B08Q1SVPRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Green/Rank_4_ASIN_B08Q1SVPRP_Green Toys Wagon Orange CB - Pretend Play Motor Sk/images/alt_4.jpg",
+      "targetPathKeep": "resources/b08q1svprp-overview/alt_4.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b08q1svprp/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B08Q1SVPRP",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B08Q1SVPRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Green/Rank_4_ASIN_B08Q1SVPRP_Green Toys Wagon Orange CB - Pretend Play Motor Sk/images/alt_5.jpg",
+      "targetPathKeep": "resources/b08q1svprp-overview/alt_5.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b08q1svprp/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B08Q1SVPRP",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B08Q1SVPRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Green/Rank_4_ASIN_B08Q1SVPRP_Green Toys Wagon Orange CB - Pretend Play Motor Sk/images/alt_6.jpg",
+      "targetPathKeep": "resources/b08q1svprp-overview/alt_6.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b08q1svprp/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B08Q1SVPRP",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B08Q1SVPRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Green/Rank_4_ASIN_B08Q1SVPRP_Green Toys Wagon Orange CB - Pretend Play Motor Sk/images/alt_7.jpg",
+      "targetPathKeep": "resources/b08q1svprp-overview/alt_7.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b08q1svprp/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B08Q1SVPRP",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B08Q1SVPRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Green/Rank_4_ASIN_B08Q1SVPRP_Green Toys Wagon Orange CB - Pretend Play Motor Sk/images/alt_8.jpg",
+      "targetPathKeep": "resources/b08q1svprp-overview/alt_8.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b08q1svprp/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B08Q1SVPRP",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B08Q1SVPRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Green/Rank_4_ASIN_B08Q1SVPRP_Green Toys Wagon Orange CB - Pretend Play Motor Sk/images/alt_9.jpg",
+      "targetPathKeep": "resources/b08q1svprp-overview/alt_9.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b08q1svprp/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B08Q1SVPRP",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B08Q1SVPRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Green/Rank_4_ASIN_B08Q1SVPRP_Green Toys Wagon Orange CB - Pretend Play Motor Sk/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b08q1svprp-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b08q1svprp/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B08Q1SVPRP",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B08Q1SVPRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Green/Rank_4_ASIN_B08Q1SVPRP_Green Toys Wagon Orange CB - Pretend Play Motor Sk/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "targetPathKeep": "resources/b08q1svprp-overview/aplus_01.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b08q1svprp/gallery/aplus_01.jpg"
+    },
+    {
+      "productId": "B08Q1SVPRP",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B08Q1SVPRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Green/Rank_4_ASIN_B08Q1SVPRP_Green Toys Wagon Orange CB - Pretend Play Motor Sk/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "targetPathKeep": "resources/b08q1svprp-overview/aplus_02.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b08q1svprp/gallery/aplus_02.jpg"
+    },
+    {
+      "productId": "B08Q1SVPRP",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B08Q1SVPRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Green/Rank_4_ASIN_B08Q1SVPRP_Green Toys Wagon Orange CB - Pretend Play Motor Sk/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+      "targetPathKeep": "resources/b08q1svprp-overview/aplus_03.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b08q1svprp/gallery/aplus_03.jpg"
+    },
+    {
+      "productId": "B08Q1SVPRP",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B08Q1SVPRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Green/Rank_4_ASIN_B08Q1SVPRP_Green Toys Wagon Orange CB - Pretend Play Motor Sk/images/primary.jpg",
+      "targetPathKeep": "resources/b08q1svprp-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b08q1svprp/gallery/primary.jpg"
+    },
+    {
+      "productId": "B08Q1SVPRP",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B08Q1SVPRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/61fTwVwULpL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b08q1svprp-overview/61ftwvwulpl._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b08q1svprp/gallery/61ftwvwulpl._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ebf97aa4-331e-4942-8647-e45412434e6d/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8868b360-b31a-4c7d-8b30-e38f1504be77/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c71e0013-84e6-49a0-a13d-fa0f5c8c5c3e/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/15169ca6-65e2-41da-958f-218eff9bb651/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6cfb4f17-253c-44c2-b0a8-69aff5ac6104/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/418e8cde-f89f-4500-858a-6bb2362055a7/default.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Green/Rank_4_ASIN_B08Q1SVPRP_Green Toys Wagon Orange CB - Pretend Play Motor Sk/index.html"
+  ]
+}

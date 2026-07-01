@@ -1,0 +1,461 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T20:06:15.484Z",
+  "data": {
+    "productId": "B01C967BQS",
+    "categoryId": "kids_push_ride_ons",
+    "rank": 0,
+    "title": "Little Tikes Fairy Cozy Coupe (Amazon Exclusive) Large",
+    "brand": "Little",
+    "price": {
+      "display": "$64.99",
+      "value": 64.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.6",
+      "value": 4.6
+    },
+    "weight": {
+      "display": "2 Pounds",
+      "lbs": 2
+    },
+    "classification": {
+      "Brand": "Little",
+      "Stroller_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_push_ride_ons",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "Made in the USA. The Little Tikes Company is located in the heartland of America.",
+        "The cozy Coupe fairy has a fun design",
+        "A parent push handle and a removable floorboard. Parents and kids will both love the ride!",
+        "Designed with a high Seat back and cup holders in the rear (cup not included). working horn. Moving",
+        "clicking ignition switch. Gas cap open and closes",
+        "Cozy rolls on rugged",
+        "durable tires. Front wheels spin 360 degrees. Weight limit up to 50 lbs. Assembly required",
+        "The Cozy Coupe Fairy has a fun design",
+        "a parent push handle and a removable floorboard. Parents and kids will both love the ride!"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "Made in the USA. The Little Tikes Company is located in the heartland of America.",
+        "featureLabel": "Made In The Usa. The Little Tikes Company Is Located In The Heartland Of America.",
+        "featureValue": "Made in the USA. The Little Tikes Company is located in the heartland of America.",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "The cozy Coupe fairy has a fun design",
+        "featureLabel": "The Cozy Coupe Fairy Has A Fun Design",
+        "featureValue": "The cozy Coupe fairy has a fun design",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "A parent push handle and a removable floorboard. Parents and kids will both love the ride!",
+        "featureLabel": "A Parent Push Handle And A Removable Floorboard. Parents And Kids Will Both Love The Ride!",
+        "featureValue": "A parent push handle and a removable floorboard. Parents and kids will both love the ride!",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "Designed with a high Seat back and cup holders in the rear (cup not included). working horn. Moving",
+        "featureLabel": "Designed With A High Seat Back And Cup Holders In The Rear (cup Not Included). Working Horn. Moving",
+        "featureValue": "Designed with a high Seat back and cup holders in the rear (cup not included). working horn. Moving",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "clicking ignition switch. Gas cap open and closes",
+        "featureLabel": "Clicking Ignition Switch. Gas Cap Open And Closes",
+        "featureValue": "clicking ignition switch. Gas cap open and closes",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "Cozy rolls on rugged",
+        "featureLabel": "Cozy Rolls On Rugged",
+        "featureValue": "Cozy rolls on rugged",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "Made in the USA. The Little Tikes Company is located in the heartland of America.",
+        "The cozy Coupe fairy has a fun design",
+        "A parent push handle and a removable floorboard. Parents and kids will both love the ride!",
+        "Designed with a high Seat back and cup holders in the rear (cup not included). working horn. Moving"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+          "source": "local",
+          "order": 10
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_1.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_2.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_3.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_4.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_5.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_6.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_7.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_8.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_9.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg"
+    ],
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d9643aa3-1857-401b-a200-3305958f8adf/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9c0ce93f-a9c2-4f1d-8dac-e67c05191a65/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b2fdd0e2-071d-4651-ab00-70d3b980a26f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64ecad94-d407-4f81-915e-4ddae77524cb/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e4e58ace-d962-486e-937b-0457f81f0500/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/09c32374-6acf-4ea7-a779-9d858b59c972/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c7d632c-0dbb-40cb-ac69-3584591b8aaa/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0df6b2f0-d1c5-4f10-a3c2-cc73137331d9/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1ff7ae82-93b9-41bb-925c-f7905f98f824/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e82dbbf7-398d-45b3-897b-94c2c0ef7d52/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d9643aa3-1857-401b-a200-3305958f8adf/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Little Tikes Classics",
+        "thumbnail": "https://m.media-amazon.com/images/I/51mi9nPSwPL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9c0ce93f-a9c2-4f1d-8dac-e67c05191a65/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Little Tikes Firsts",
+        "thumbnail": "https://m.media-amazon.com/images/I/71DiSe4PhgL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b2fdd0e2-071d-4651-ab00-70d3b980a26f/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Cozy Coupe Ride On",
+        "thumbnail": "https://m.media-amazon.com/images/I/41xdvmb-cNL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64ecad94-d407-4f81-915e-4ddae77524cb/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Little Tikes Princess Cozy Coupe",
+        "thumbnail": "https://m.media-amazon.com/images/I/61AEpkhmKJL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e4e58ace-d962-486e-937b-0457f81f0500/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Little Tikes Ride Ons",
+        "thumbnail": "https://m.media-amazon.com/images/I/61IinzWtoML.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/09c32374-6acf-4ea7-a779-9d858b59c972/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "My kids love this car and yours will too!",
+        "thumbnail": "https://m.media-amazon.com/images/I/91o-g-7bGuL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 6
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c7d632c-0dbb-40cb-ac69-3584591b8aaa/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Fun Kid Powered Coupe for years of imaginative active play",
+        "thumbnail": "https://m.media-amazon.com/images/I/61PVnKUqBOL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 7
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0df6b2f0-d1c5-4f10-a3c2-cc73137331d9/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Kids Toy Car ",
+        "thumbnail": "https://m.media-amazon.com/images/I/71OTcD4pw9L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 8
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1ff7ae82-93b9-41bb-925c-f7905f98f824/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Honest Review of Little Tikes Cozy Coupe Car",
+        "thumbnail": "https://m.media-amazon.com/images/I/C1Gn3aHgqJL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 9
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e82dbbf7-398d-45b3-897b-94c2c0ef7d52/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Honest review of the Little Tikes Cozy Coupe",
+        "thumbnail": "https://m.media-amazon.com/images/I/A191DZH3yuL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 10
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/kids_push_ride_ons/index.html",
+      "categoryPages": "/scrape_store/kids_push_ride_ons/pages/index.html",
+      "detailPage": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/index.html"
+    },
+    "resourceStats": {
+      "videos": 10,
+      "similarItems": 0
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71PLoffE8VL._AC_UL165_SR165,165_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 12
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d9643aa3-1857-401b-a200-3305958f8adf/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51mi9nPSwPL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Little Tikes Classics",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9c0ce93f-a9c2-4f1d-8dac-e67c05191a65/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71DiSe4PhgL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Little Tikes Firsts",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b2fdd0e2-071d-4651-ab00-70d3b980a26f/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/41xdvmb-cNL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Cozy Coupe Ride On",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64ecad94-d407-4f81-915e-4ddae77524cb/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61AEpkhmKJL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Little Tikes Princess Cozy Coupe",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e4e58ace-d962-486e-937b-0457f81f0500/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61IinzWtoML.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Little Tikes Ride Ons",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/09c32374-6acf-4ea7-a779-9d858b59c972/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91o-g-7bGuL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "My kids love this car and yours will too!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c7d632c-0dbb-40cb-ac69-3584591b8aaa/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61PVnKUqBOL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Fun Kid Powered Coupe for years of imaginative active play",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0df6b2f0-d1c5-4f10-a3c2-cc73137331d9/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71OTcD4pw9L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Kids Toy Car ",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1ff7ae82-93b9-41bb-925c-f7905f98f824/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/C1Gn3aHgqJL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Honest Review of Little Tikes Cozy Coupe Car",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e82dbbf7-398d-45b3-897b-94c2c0ef7d52/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A191DZH3yuL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Honest review of the Little Tikes Cozy Coupe",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

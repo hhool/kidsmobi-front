@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "productId": "B001NQHN7S",
+  "productDirName": "b001nqhn7s-kids_push_ride_ons",
+  "outputDir": "/Users/yanmenghou/Desktop/cbike/kidsmobi/front/resource/assets/backend-import/import-spec-full-local-20260702-r2/products/b001nqhn7s-kids_push_ride_ons",
+  "files": [
+    "product.raw.json",
+    "resource.raw.json",
+    "product.editable.json",
+    "product.publish.json",
+    "media.manifest.json",
+    "ingest.meta.json"
+  ],
+  "generatedAt": "2026-07-01T20:06:15.425Z"
+}

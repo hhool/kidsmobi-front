@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "electric_vehicles",
+  "fetchedAt": "2026-07-01T20:06:12.843Z",
+  "data": {
+    "resourceId": "B0DB5K3JF4:overview",
+    "categoryId": "electric_vehicles",
+    "productId": "B0DB5K3JF4",
+    "resourceType": "product_overview",
+    "title": "First Ride On 24V Ride on Toys for Big Kids, Licensed Ford Bronco Raptor 2 Seater Ride on Cars with Remote Control, Ride on T",
+    "summary": "OFFICIALLY LICENSED BY FORD BRONCO RAPTOR: This 24v ride on toys for big kids delivers an authentic driving experience | Spacious Dual-Seater Fun: Featuring a 21-inch dual seat, this 24v kids ride on car is perfect for siblings or friends to enjoy together. It is ideal for a larg",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a4930289-4b52-4ffc-b8f5-12752c160757/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a7cadea2-6fff-4ecd-ac38-d10ea096d75c/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a84b6809-6543-4f2f-afeb-330912600d02/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/171815e7-1f34-41d6-8bd0-f0f039a3bee3/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2e9b0ce5-540c-479d-8431-163b6819c60c/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e1309c0a-9754-4846-b201-ec17a767da56/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8a150ed1-0732-426e-b405-9b826dcf7ff0/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4f529eb0-6ee3-447d-a636-cb44c77db462/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c6d49f6-a27c-4f97-b334-04a8f2f5b102/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.91,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 9,
+      "hasFeatures": true
+    }
+  }
+}

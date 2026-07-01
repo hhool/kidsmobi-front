@@ -1,0 +1,179 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0F5GHHDHC",
+  "sourceCategoryId": "electric_vehicles",
+  "images": [
+    {
+      "productId": "B0F5GHHDHC",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F5GHHDHC:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Gotrax/Rank_11_ASIN_B0F5GHHDHC_Gotrax RT1 Ride on Toys for Toddlers 1.5-4 Safe 12/images/primary.jpg",
+      "targetPathKeep": "resources/b0f5ghhdhc-overview/primary.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f5ghhdhc/cover/primary.jpg"
+    },
+    {
+      "productId": "B0F5GHHDHC",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F5GHHDHC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Gotrax/Rank_11_ASIN_B0F5GHHDHC_Gotrax RT1 Ride on Toys for Toddlers 1.5-4 Safe 12/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0f5ghhdhc-overview/alt_1.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f5ghhdhc/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0F5GHHDHC",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F5GHHDHC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Gotrax/Rank_11_ASIN_B0F5GHHDHC_Gotrax RT1 Ride on Toys for Toddlers 1.5-4 Safe 12/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0f5ghhdhc-overview/alt_2.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f5ghhdhc/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0F5GHHDHC",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F5GHHDHC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Gotrax/Rank_11_ASIN_B0F5GHHDHC_Gotrax RT1 Ride on Toys for Toddlers 1.5-4 Safe 12/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0f5ghhdhc-overview/alt_3.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f5ghhdhc/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0F5GHHDHC",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F5GHHDHC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Gotrax/Rank_11_ASIN_B0F5GHHDHC_Gotrax RT1 Ride on Toys for Toddlers 1.5-4 Safe 12/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0f5ghhdhc-overview/alt_4.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f5ghhdhc/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0F5GHHDHC",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F5GHHDHC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Gotrax/Rank_11_ASIN_B0F5GHHDHC_Gotrax RT1 Ride on Toys for Toddlers 1.5-4 Safe 12/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0f5ghhdhc-overview/alt_5.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f5ghhdhc/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0F5GHHDHC",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F5GHHDHC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Gotrax/Rank_11_ASIN_B0F5GHHDHC_Gotrax RT1 Ride on Toys for Toddlers 1.5-4 Safe 12/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0f5ghhdhc-overview/alt_6.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f5ghhdhc/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0F5GHHDHC",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F5GHHDHC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Gotrax/Rank_11_ASIN_B0F5GHHDHC_Gotrax RT1 Ride on Toys for Toddlers 1.5-4 Safe 12/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0f5ghhdhc-overview/alt_7.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f5ghhdhc/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0F5GHHDHC",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F5GHHDHC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Gotrax/Rank_11_ASIN_B0F5GHHDHC_Gotrax RT1 Ride on Toys for Toddlers 1.5-4 Safe 12/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0f5ghhdhc-overview/alt_8.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f5ghhdhc/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0F5GHHDHC",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F5GHHDHC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Gotrax/Rank_11_ASIN_B0F5GHHDHC_Gotrax RT1 Ride on Toys for Toddlers 1.5-4 Safe 12/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0f5ghhdhc-overview/alt_9.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f5ghhdhc/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0F5GHHDHC",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F5GHHDHC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Gotrax/Rank_11_ASIN_B0F5GHHDHC_Gotrax RT1 Ride on Toys for Toddlers 1.5-4 Safe 12/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0f5ghhdhc-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f5ghhdhc/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0F5GHHDHC",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F5GHHDHC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Gotrax/Rank_11_ASIN_B0F5GHHDHC_Gotrax RT1 Ride on Toys for Toddlers 1.5-4 Safe 12/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "targetPathKeep": "resources/b0f5ghhdhc-overview/aplus_01.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f5ghhdhc/gallery/aplus_01.jpg"
+    },
+    {
+      "productId": "B0F5GHHDHC",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F5GHHDHC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Gotrax/Rank_11_ASIN_B0F5GHHDHC_Gotrax RT1 Ride on Toys for Toddlers 1.5-4 Safe 12/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "targetPathKeep": "resources/b0f5ghhdhc-overview/aplus_02.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f5ghhdhc/gallery/aplus_02.jpg"
+    },
+    {
+      "productId": "B0F5GHHDHC",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F5GHHDHC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Gotrax/Rank_11_ASIN_B0F5GHHDHC_Gotrax RT1 Ride on Toys for Toddlers 1.5-4 Safe 12/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+      "targetPathKeep": "resources/b0f5ghhdhc-overview/aplus_03.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f5ghhdhc/gallery/aplus_03.jpg"
+    },
+    {
+      "productId": "B0F5GHHDHC",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F5GHHDHC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Gotrax/Rank_11_ASIN_B0F5GHHDHC_Gotrax RT1 Ride on Toys for Toddlers 1.5-4 Safe 12/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg",
+      "targetPathKeep": "resources/b0f5ghhdhc-overview/aplus_04.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f5ghhdhc/gallery/aplus_04.jpg"
+    },
+    {
+      "productId": "B0F5GHHDHC",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F5GHHDHC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Gotrax/Rank_11_ASIN_B0F5GHHDHC_Gotrax RT1 Ride on Toys for Toddlers 1.5-4 Safe 12/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_05.jpg",
+      "targetPathKeep": "resources/b0f5ghhdhc-overview/aplus_05.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f5ghhdhc/gallery/aplus_05.jpg"
+    },
+    {
+      "productId": "B0F5GHHDHC",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F5GHHDHC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Gotrax/Rank_11_ASIN_B0F5GHHDHC_Gotrax RT1 Ride on Toys for Toddlers 1.5-4 Safe 12/images/primary.jpg",
+      "targetPathKeep": "resources/b0f5ghhdhc-overview/primary.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f5ghhdhc/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0F5GHHDHC",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F5GHHDHC:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/61DjDn1sqxL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0f5ghhdhc-overview/61djdn1sqxl._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f5ghhdhc/gallery/61djdn1sqxl._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62c4152e-204f-467e-bfe1-b0b2e66f692c/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9ea3012f-ff41-4701-90af-1255295087a8/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0b8c3a14-a23e-43eb-b5f6-ec6561469e65/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f5432382-012d-4b7e-9141-ab4d316a9321/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d2d15e30-5d20-4a4f-a9c5-d10892d7940c/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8186064b-2ebf-4055-a8f5-adcc0afcb8ec/default.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/electric_vehicles/Gotrax/Rank_11_ASIN_B0F5GHHDHC_Gotrax RT1 Ride on Toys for Toddlers 1.5-4 Safe 12/index.html"
+  ]
+}

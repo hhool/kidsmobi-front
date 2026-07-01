@@ -1,0 +1,645 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "scooters",
+  "categoryCode": "scooter",
+  "fetchedAt": "2026-07-01T20:06:12.512Z",
+  "data": {
+    "productId": "B0DZG137KT",
+    "categoryId": "scooters",
+    "rank": 4,
+    "title": "Blue Mini 3 Wheel Scooter for Kids – Lean-to-Steer with LED Light-Up Wheels, Adjustable Handlebar, Wide Anti-Slip Deck, Smoot",
+    "brand": "Blue",
+    "price": {
+      "display": "$20.02",
+      "value": 20.02,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.5  997",
+      "value": 4.5
+    },
+    "weight": {
+      "display": "2.93 Kilograms",
+      "lbs": 2.93
+    },
+    "classification": {
+      "Brand": "Blue",
+      "Scooter_Type": "Kick Scooter",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "scooters",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "LED WHEELS FOR MAGICAL RIDES – Watch your child's face light up as they ride. The motion-activated LED wheels flash bright colors with every turn",
+        "making every scooting adventure extra fun. Plus",
+        "they add visibility for a safer ride in low light.",
+        "LEAN-TO-STEER CONTROL – No complicated turns or tricky maneuvers—just lean and go. This intuitive steering technology helps kids develop balance and coordination while making riding feel natural and effortless.",
+        "GROWS WITH YOUR CHILD – The adjustable T-bar handlebar offers four height settings (21.65’’",
+        "23.62’’",
+        "25.59’’",
+        "and 27.56’’ inches)",
+        "making this scooter the perfect ride for as young as 2 years old and growing kids up to 110 lbs.",
+        "WIDE AND SLIP-RESISTANT DECK – The anti-slip foot deck provides a secure grip",
+        "while the 3 wheel scooter design adds extra stability. Built with a durable and premium materials",
+        "it's made to withstand endless adventures.",
+        "SUPER SMOOTH WHEELS – The premium engineered polyurethane wheels ensure a smooth glide on both indoor and outdoor surfaces. The large 120mm front wheels and 80mm rear wheel absorb shocks",
+        "making every ride steady and enjoyable."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "LED WHEELS FOR MAGICAL RIDES – Watch your child's face light up as they ride. The motion-activated LED wheels flash bright colors with every turn",
+        "featureLabel": "Led Wheels For Magical Rides – Watch Your Child's Face Light Up As They Ride. The Motion Activated Led Wheels Flash Bright Colors With Every Turn",
+        "featureValue": "LED WHEELS FOR MAGICAL RIDES – Watch your child's face light up as they ride. The motion-activated LED wheels flash bright colors with every turn",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from scooters classification data"
+      },
+      {
+        "featureKey": "making every scooting adventure extra fun. Plus",
+        "featureLabel": "Making Every Scooting Adventure Extra Fun. Plus",
+        "featureValue": "making every scooting adventure extra fun. Plus",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from scooters classification data"
+      },
+      {
+        "featureKey": "they add visibility for a safer ride in low light.",
+        "featureLabel": "They Add Visibility For A Safer Ride In Low Light.",
+        "featureValue": "they add visibility for a safer ride in low light.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from scooters classification data"
+      },
+      {
+        "featureKey": "LEAN-TO-STEER CONTROL – No complicated turns or tricky maneuvers—just lean and go. This intuitive steering technology helps kids develop balance and coordination while making riding feel natural and effortless.",
+        "featureLabel": "Lean To Steer Control – No Complicated Turns Or Tricky Maneuvers—just Lean And Go. This Intuitive Steering Technology Helps Kids Develop Balance And Coordination While Making Riding Feel Natural And Effortless.",
+        "featureValue": "LEAN-TO-STEER CONTROL – No complicated turns or tricky maneuvers—just lean and go. This intuitive steering technology helps kids develop balance and coordination while making riding feel natural and effortless.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from scooters classification data"
+      },
+      {
+        "featureKey": "GROWS WITH YOUR CHILD – The adjustable T-bar handlebar offers four height settings (21.65’’",
+        "featureLabel": "Grows With Your Child – The Adjustable T Bar Handlebar Offers Four Height Settings (21.65’’",
+        "featureValue": "GROWS WITH YOUR CHILD – The adjustable T-bar handlebar offers four height settings (21.65’’",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from scooters classification data"
+      },
+      {
+        "featureKey": "23.62’’",
+        "featureLabel": "23.62’’",
+        "featureValue": "23.62’’",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from scooters classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "LED WHEELS FOR MAGICAL RIDES – Watch your child's face light up as they ride. The motion-activated LED wheels flash bright colors with every turn",
+        "making every scooting adventure extra fun. Plus",
+        "they add visibility for a safer ride in low light.",
+        "LEAN-TO-STEER CONTROL – No complicated turns or tricky maneuvers—just lean and go. This intuitive steering technology helps kids develop balance and coordination while making riding feel natural and effortless."
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+          "source": "local",
+          "order": 10
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_1.jpg",
+      "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_2.jpg",
+      "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_3.jpg",
+      "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_4.jpg",
+      "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_5.jpg",
+      "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_6.jpg",
+      "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_7.jpg",
+      "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_8.jpg",
+      "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_9.jpg",
+      "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg"
+    ],
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/77eed8fe-21a1-4c8d-b168-948bab3f413f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/57f739ec-4e37-4a36-8469-42993e44dacb/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c42903f3-6824-4ec4-8ddf-13074f8cad08/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e718c946-4807-4ae3-bec5-19986e03a37b/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/54d13592-9812-491a-9042-8439f1caafd3/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/54b88496-986b-4a84-966a-d6bf84f06237/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/77eed8fe-21a1-4c8d-b168-948bab3f413f/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "campior kids scooter full video ",
+        "thumbnail": "https://m.media-amazon.com/images/I/51TYwXiDoVL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/57f739ec-4e37-4a36-8469-42993e44dacb/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Fun Scooter for Toddlers",
+        "thumbnail": "https://m.media-amazon.com/images/I/61ELDESzPIL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c42903f3-6824-4ec4-8ddf-13074f8cad08/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Only took a few tries before my girl was riding like a pro!",
+        "thumbnail": "https://m.media-amazon.com/images/I/81E+NCTXwTL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e718c946-4807-4ae3-bec5-19986e03a37b/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Loving our little scooter",
+        "thumbnail": "https://m.media-amazon.com/images/I/71oPqnoHyOL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/54d13592-9812-491a-9042-8439f1caafd3/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Great scooter for toddlers",
+        "thumbnail": "https://m.media-amazon.com/images/I/6130i7E5Y6L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/54b88496-986b-4a84-966a-d6bf84f06237/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Everything you need to know about the 3 wheel scooter",
+        "thumbnail": "https://m.media-amazon.com/images/I/91Nh-TgMtLL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 6
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/scooters/index.html",
+      "categoryPages": "/scrape_store/scooters/pages/index.html",
+      "detailPage": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/index.html"
+    },
+    "resourceStats": {
+      "videos": 6,
+      "similarItems": 1
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71qT7bT-KKL._AC_UL300_SR300,200_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 12
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/scooters/Blue/Rank_4_ASIN_B0DZG137KT_Blue Mini 3 Wheel Scooter for Kids  Lean-to-Steer/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/77eed8fe-21a1-4c8d-b168-948bab3f413f/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51TYwXiDoVL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "campior kids scooter full video ",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/57f739ec-4e37-4a36-8469-42993e44dacb/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61ELDESzPIL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Fun Scooter for Toddlers",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c42903f3-6824-4ec4-8ddf-13074f8cad08/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81E+NCTXwTL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Only took a few tries before my girl was riding like a pro!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e718c946-4807-4ae3-bec5-19986e03a37b/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71oPqnoHyOL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Loving our little scooter",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/54d13592-9812-491a-9042-8439f1caafd3/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/6130i7E5Y6L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Great scooter for toddlers",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/54b88496-986b-4a84-966a-d6bf84f06237/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91Nh-TgMtLL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Everything you need to know about the 3 wheel scooter",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "Gotrax",
+        "Title": "Gotrax KS3 Pro Folding Kick Scooter for Kids, One Key Removable Seat & 3 Extra Wide PU Light-Up Wheels and Anti-Slip Deck, Ad",
+        "Price": "$54.99",
+        "Rating": "4.4",
+        "Reviews": "636",
+        "URL": "https://www.amazon.com/Gotrax-Removable-Anti-Slip-Adjustable-Handlebar/dp/B0CRGS6WW7/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_1/137-9498835-9827549?pd_rd_w=qbDm3&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=QM03J3S0YVE0DD06GS2J&pd_rd_wg=z01iO&pd_rd_r=2e89123b-c35c-41ef-b1ee-b68369006f63&pd_rd_i=B0CRGS6WW7&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/615GuybWGYL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B0CRGS6WW7",
+        "Features": "EXCITING LIGHT-UP WHEELS: This KS3 PRO kick scooter is equipped with 3 extra wide bright LED wheels. The wheels illuminate as kids scoot, creating a super cool light effect day or night. This feature not only adds an extra layer of fun but also boosts safety and security. | GREAT SCOOTER FOR KIDS: The KS3 PRO scooter features Lean-to-Steer technology, promoting balance and coordination as kids turn by leaning. With one key removable seat, children can seamlessly transition between sitting and standing modes, ensuring a versatile riding experience. The handlebars can be set to 4 different heights (25.5/27.5/29.5/31.5 inches), making it perfect for children aged 2 years and above. | SMOOTH RIDE: Featuring front 5inch rear 3inch PU extra wide wheels, high-quality ABEC-7 Bearings, comfortable rubber handle grips, and an extra-wide non-slip deck(6 inches), the toddler scooter ensures exceptional stability and a smooth riding experience. The wide deck is complemented by a wide-foot brake allows for more steady stopping for kids. | FOLDABLE & PORTABLE: Designed with kids in mind, this compact scooter boasts a one-step fold mechanism for effortless storage and portability. The scooter is lightweight at just 8 pounds yet sturdy enough to hold riders up to 110 pounds. | EXCELLENT SERVICE: Gotrax offers a 1-year manufacturer's assurance, assuring that your kid's 3-wheel scooter is built to last. Any questions, please contact us at any time and we're happy to help!",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6c31927b-0c2d-4366-b667-8585fd962f16/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6c31927b-0c2d-4366-b667-8585fd962f16/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1KLegIF61L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Gotrax KS3 Pro Kick Scooter",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ac6ddcc1-d7b8-45b1-9417-dbef7e160fbc/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61bUY8eAESL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Best Scooter for little ones!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/80b3e9f2-a1c1-4a1b-b409-fbe6135e3107/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/811GSjyYj5L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Gotrax KS3 Pro Folding Kick Scooter for Kids",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/02987008-fb21-4950-acdf-6fb207150cac/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/81ngp0f+i5L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Removable seat, light up wheels, easy rolling, great scooter",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5e87745a-a077-494b-b579-f033f03e5836/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1Tx9Q2uuzL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Looking for a FUN light up scooter?! Look no further!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3aa0dacd-45b3-4cef-983c-419ec44e8dab/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/41cIV2-VkrL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "My daughter loves this scooter! The lights and seat are great",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6c31927b-0c2d-4366-b667-8585fd962f16/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ac6ddcc1-d7b8-45b1-9417-dbef7e160fbc/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/80b3e9f2-a1c1-4a1b-b409-fbe6135e3107/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/02987008-fb21-4950-acdf-6fb207150cac/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5e87745a-a077-494b-b579-f033f03e5836/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3aa0dacd-45b3-4cef-983c-419ec44e8dab/default.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6c31927b-0c2d-4366-b667-8585fd962f16/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ac6ddcc1-d7b8-45b1-9417-dbef7e160fbc/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/80b3e9f2-a1c1-4a1b-b409-fbe6135e3107/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/02987008-fb21-4950-acdf-6fb207150cac/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5e87745a-a077-494b-b579-f033f03e5836/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3aa0dacd-45b3-4cef-983c-419ec44e8dab/default.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "2-Wheel Kick Scooter",
+              "Texts": [
+                "2-Wheel Kick Scooter Visit the Store",
+                "3-Wheel Kick Scooter Visit the Store",
+                "Balance Bike for Toddlers Visit the Store"
+              ],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/28c7bc6e-aae9-46c0-bf4e-6d64f174127b.__CR0,0,1464,625_PT0_SX1464_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/28c7bc6e-aae9-46c0-bf4e-6d64f174127b.__CR0,0,1464,625_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "kick scooter for kids",
+                  "Image_Alt": "kick scooter for kids"
+                }
+              ],
+              "Comparison_Table": {},
+              "Block_Types": [
+                "text",
+                "image"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "2-Wheel Kick Scooter"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/28c7bc6e-aae9-46c0-bf4e-6d64f174127b.__CR0,0,1464,625_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "kick scooter for kids",
+                    "Image_Alt": "kick scooter for kids"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "2-Wheel Kick Scooter Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "3-Wheel Kick Scooter Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Balance Bike for Toddlers Visit the Store"
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/28c7bc6e-aae9-46c0-bf4e-6d64f174127b.__CR0,0,1464,625_PT0_SX1464_V1___.jpg"
+            ],
+            "Local_Images": [
+              "scrape_store/scooters/Gotrax/Rank_Similar_ASIN_B0CRGS6WW7_Gotrax KS3 Pro Folding Kick Scooter for Kids One K/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [
+            {
+              "Title": "User Manual (PDF)",
+              "URL": "https://m.media-amazon.com/images/I/D1yp-iorbfL.pdf",
+              "Type": "PDF",
+              "Source": "Product guides and documents",
+              "Category": "manual",
+              "Local_Path": "scrape_store/scooters/Gotrax/Rank_Similar_ASIN_B0CRGS6WW7_Gotrax KS3 Pro Folding Kick Scooter for Kids One K/guides/manual/doc_00_User_Manual_PDF.pdf"
+            }
+          ],
+          "Summary": {
+            "Count": 1
+          },
+          "Local_Paths": [
+            "scrape_store/scooters/Gotrax/Rank_Similar_ASIN_B0CRGS6WW7_Gotrax KS3 Pro Folding Kick Scooter for Kids One K/guides/manual/doc_00_User_Manual_PDF.pdf"
+          ]
+        },
+        "Product_Description": "N/A",
+        "Product_Specifications": {
+          "Measurements": {
+            "Weight Limit": "110 Pounds",
+            "Product Dimensions": "23\"L x 11\"W x 29\"H",
+            "Weight Capacity Maximum": "110 Pounds",
+            "Item Dimensions L x W x H": "23\"L x 11\"W x 29\"H",
+            "Item Weight": "9 Pounds",
+            "Wheel Size": "5 Inches"
+          },
+          "Features_Specs": {
+            "Age Range (Description)": "Kids aged 2+",
+            "Special Feature": "Adjustable Handlebar Height, Foldable, Light Up Wheels, Non Slip Deck",
+            "Other Special Features of the Product": "Adjustable Handlebar Height, Foldable, Light Up Wheels, Non Slip Deck",
+            "Handlebar Type": "Adjustable",
+            "Wheel Type": "Solid",
+            "Suspension Type": "Rigid",
+            "Grip Type": "rubber",
+            "Warranty Type": "Limited",
+            "Age Range Description": "Kids aged 2+",
+            "Recommended Uses For Product": "Kid's transportation, recreational riding",
+            "UPC": "810132396977",
+            "Item Type Name": "kick scooter",
+            "Warranty Description": "1 year warranty"
+          },
+          "Materials_Care": {
+            "Wheel Material": "Polyurethane",
+            "Frame Material": "Aluminum",
+            "Frame Material Type": "Aluminum"
+          },
+          "Item_Details": {
+            "Brand": "Gotrax",
+            "Number of Wheels": "3",
+            "Model Name": "KS3PRO",
+            "Brand Name": "Gotrax",
+            "Manufacturer": "SHENZHEN BAIKE NEW ENERGY CO., LTD.",
+            "Model Number": "KS3PRO",
+            "Manufacturer Part Number": "KS3PRO",
+            "Unit Count": "1.0 Count",
+            "Included Components": "Scooter, Screws, User Manual",
+            "Best Sellers Rank": "#25,385 in Sports & Outdoors (See Top 100 in Sports & Outdoors) #84 in Kick Scooters",
+            "ASIN": "B0CRGS6WW7",
+            "Customer Reviews": "4.4  4.4 out of 5 stars   \n    (636)   \n\n\n 4.4 out of 5 stars"
+          },
+          "User_Guide": {
+            "Maximum Age Recommendation": "8"
+          },
+          "Additional_Details": {
+            "Color": "Blue",
+            "Brake Style": "Rear Braking"
+          }
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery Friday, July 3",
+          "Specifications": {
+            "Brand": "Gotrax",
+            "Color": "Blue",
+            "Age Range (Description)": "Kids aged 2+",
+            "Special Feature": "Adjustable Handlebar Height, Foldable, Light Up Wheels, Non Slip Deck",
+            "Weight Limit": "110 Pounds",
+            "Product Dimensions": "23\"L x 11\"W x 29\"H",
+            "Number of Wheels": "3",
+            "Model Name": "KS3PRO",
+            "Wheel Material": "Polyurethane",
+            "Frame Material": "Aluminum"
+          }
+        },
+        "Local_Image_Paths": [
+          "scrape_store/scooters/Gotrax/Rank_Similar_ASIN_B0CRGS6WW7_Gotrax KS3 Pro Folding Kick Scooter for Kids One K/images/primary.jpg",
+          "scrape_store/scooters/Gotrax/Rank_Similar_ASIN_B0CRGS6WW7_Gotrax KS3 Pro Folding Kick Scooter for Kids One K/images/alt_1.jpg",
+          "scrape_store/scooters/Gotrax/Rank_Similar_ASIN_B0CRGS6WW7_Gotrax KS3 Pro Folding Kick Scooter for Kids One K/images/alt_2.jpg",
+          "scrape_store/scooters/Gotrax/Rank_Similar_ASIN_B0CRGS6WW7_Gotrax KS3 Pro Folding Kick Scooter for Kids One K/images/alt_3.jpg",
+          "scrape_store/scooters/Gotrax/Rank_Similar_ASIN_B0CRGS6WW7_Gotrax KS3 Pro Folding Kick Scooter for Kids One K/images/alt_4.jpg",
+          "scrape_store/scooters/Gotrax/Rank_Similar_ASIN_B0CRGS6WW7_Gotrax KS3 Pro Folding Kick Scooter for Kids One K/images/alt_5.jpg",
+          "scrape_store/scooters/Gotrax/Rank_Similar_ASIN_B0CRGS6WW7_Gotrax KS3 Pro Folding Kick Scooter for Kids One K/images/alt_6.jpg",
+          "scrape_store/scooters/Gotrax/Rank_Similar_ASIN_B0CRGS6WW7_Gotrax KS3 Pro Folding Kick Scooter for Kids One K/images/alt_7.jpg",
+          "scrape_store/scooters/Gotrax/Rank_Similar_ASIN_B0CRGS6WW7_Gotrax KS3 Pro Folding Kick Scooter for Kids One K/images/alt_8.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/scooters/Gotrax/Rank_Similar_ASIN_B0CRGS6WW7_Gotrax KS3 Pro Folding Kick Scooter for Kids One K/images/primary.jpg",
+        "Local_Video_Paths": []
+      }
+    ]
+  }
+}

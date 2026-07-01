@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "productId": "B0DJY3JH8D",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "images": [
+    {
+      "productId": "B0DJY3JH8D",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0DJY3JH8D:video",
+      "kind": "cover",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/81FuObGY6LL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0djy3jh8d-video/81fuobgy6ll._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0djy3jh8d/cover/81fuobgy6ll._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8c561752-2f09-4055-a642-3d21d738a0ff.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5197f176-7d6e-420f-af9b-c2b3d5c93c7c.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/67e86294-4490-41d1-a6e3-93b079ff909f.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a61ba6f2-a986-4e57-965d-b75543e70dcc.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a79fe938-77d7-452f-bb6b-008a7685e366.mp4/productVideoOptimized.mp4"
+  ]
+}

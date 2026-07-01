@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "electric_vehicles",
+  "fetchedAt": "2026-07-01T20:06:13.168Z",
+  "data": {
+    "resourceId": "B0F5GHHDHC:overview",
+    "categoryId": "electric_vehicles",
+    "productId": "B0F5GHHDHC",
+    "resourceType": "product_overview",
+    "title": "Gotrax RT1 Ride on Toys for Toddlers 1.5-4, Safe 12V Lead-acid Battery up to 80 Minutes, Forward/Reverse 2 Gears, Max 1.5MPH",
+    "summary": "Power&Long-Lasting Play: Powered by a 12V 4.5Ah rechargeable battery, this ride on offers up to 80 minutes of continuous fun per full charge. Great for extended outdoor without frequent recharging. | 8\" Big Wheel: 8\" tires glide smoothly over paved roads; Powerful high-speed moto",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/electric_vehicles/Gotrax/Rank_11_ASIN_B0F5GHHDHC_Gotrax RT1 Ride on Toys for Toddlers 1.5-4 Safe 12/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62c4152e-204f-467e-bfe1-b0b2e66f692c/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9ea3012f-ff41-4701-90af-1255295087a8/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0b8c3a14-a23e-43eb-b5f6-ec6561469e65/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f5432382-012d-4b7e-9141-ab4d316a9321/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d2d15e30-5d20-4a4f-a9c5-d10892d7940c/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8186064b-2ebf-4055-a8f5-adcc0afcb8ec/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.79,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

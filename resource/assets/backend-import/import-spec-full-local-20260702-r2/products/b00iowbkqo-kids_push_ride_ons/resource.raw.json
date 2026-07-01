@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "fetchedAt": "2026-07-01T20:06:15.167Z",
+  "data": {
+    "resourceId": "B00IOWBKQO:overview",
+    "categoryId": "kids_push_ride_ons",
+    "productId": "B00IOWBKQO",
+    "resourceType": "product_overview",
+    "title": "Wiggle Car - Ride on Toy for Ages 3 and Up - Toddler Ride on Toys with no Batteries, Gears, or Pedals Just Twist, Wiggle, and",
+    "summary": "WIGGLE CAR RIDE ON - Kids can simply twist, wiggle, and go in this toddler car that has no gears, batteries, or pedals for a quiet and entertaining activity year-round. The riding toys are designed to stimulate your child's imagination and creativity. | DEVELOPS MOTOR SKILLS - Th",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle Car - Ride on Toy for Ages 3 and Up - Toddl/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/887f38e9-ecdf-4f91-98c1-ac7ac95b9175/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e84cf2c6-5b89-4f3d-a0a2-5e1fab618917/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e423331f-a4bb-4a40-ba22-a6b2a55d16e1/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/132ad105-456b-491d-b565-7cb80ea1309f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b7e50428-2daf-4244-bdd4-fb3bd426ffa3/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/60e8d860-ec9b-4d72-aa54-6e8d33809866/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.79,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

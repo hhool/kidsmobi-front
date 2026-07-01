@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "productId": "B0FGXR4X4T",
+  "sourceCategoryId": "electric_vehicles",
+  "images": [
+    {
+      "productId": "B0FGXR4X4T",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FGXR4X4T:video",
+      "kind": "cover",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/71iyhXxrXWL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0fgxr4x4t-video/71iyhxxrxwl._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fgxr4x4t/cover/71iyhxxrxwl._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3c7c4fea-9f3d-4be2-9155-80cfa973a4f8/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a99aa116-9da9-48d1-8ee6-674f000b435e/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1109591d-f92c-49cc-99cf-ab270445be02/default.jobtemplate.hls.m3u8"
+  ]
+}

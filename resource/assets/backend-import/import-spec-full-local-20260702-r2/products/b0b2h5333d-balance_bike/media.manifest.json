@@ -1,0 +1,134 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0B2H5333D",
+  "sourceCategoryId": "balance_bike",
+  "images": [
+    {
+      "productId": "B0B2H5333D",
+      "categoryId": "balance_bike",
+      "resourceId": "B0B2H5333D:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/primary.jpg",
+      "targetPathKeep": "resources/b0b2h5333d-overview/primary.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0b2h5333d/cover/primary.jpg"
+    },
+    {
+      "productId": "B0B2H5333D",
+      "categoryId": "balance_bike",
+      "resourceId": "B0B2H5333D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0b2h5333d-overview/alt_1.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0b2h5333d/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0B2H5333D",
+      "categoryId": "balance_bike",
+      "resourceId": "B0B2H5333D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0b2h5333d-overview/alt_2.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0b2h5333d/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0B2H5333D",
+      "categoryId": "balance_bike",
+      "resourceId": "B0B2H5333D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0b2h5333d-overview/alt_3.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0b2h5333d/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0B2H5333D",
+      "categoryId": "balance_bike",
+      "resourceId": "B0B2H5333D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0b2h5333d-overview/alt_4.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0b2h5333d/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0B2H5333D",
+      "categoryId": "balance_bike",
+      "resourceId": "B0B2H5333D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0b2h5333d-overview/alt_5.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0b2h5333d/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0B2H5333D",
+      "categoryId": "balance_bike",
+      "resourceId": "B0B2H5333D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0b2h5333d-overview/alt_6.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0b2h5333d/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0B2H5333D",
+      "categoryId": "balance_bike",
+      "resourceId": "B0B2H5333D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0b2h5333d-overview/alt_7.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0b2h5333d/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0B2H5333D",
+      "categoryId": "balance_bike",
+      "resourceId": "B0B2H5333D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0b2h5333d-overview/alt_8.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0b2h5333d/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0B2H5333D",
+      "categoryId": "balance_bike",
+      "resourceId": "B0B2H5333D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0b2h5333d-overview/alt_9.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0b2h5333d/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0B2H5333D",
+      "categoryId": "balance_bike",
+      "resourceId": "B0B2H5333D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0b2h5333d-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0b2h5333d/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0B2H5333D",
+      "categoryId": "balance_bike",
+      "resourceId": "B0B2H5333D:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/primary.jpg",
+      "targetPathKeep": "resources/b0b2h5333d-overview/primary.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0b2h5333d/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0B2H5333D",
+      "categoryId": "balance_bike",
+      "resourceId": "B0B2H5333D:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/717QQJexroL._AC_UL165_SR165,165_.jpg",
+      "targetPathKeep": "resources/b0b2h5333d-overview/717qqjexrol._ac_ul165_sr165-165_.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0b2h5333d/gallery/717qqjexrol._ac_ul165_sr165-165_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ee5e973a-36fe-471d-8a96-04f60c2e7e2a/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1d51cbc9-9647-416a-8c64-a11c3d0418b5/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/736743ce-c1fe-409c-bf7d-2d1fe3808b82/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bfc2deed-e4c8-4b12-b165-bc6a13f9de09/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/09b104dd-225f-4dd4-bca3-c5d41876e05a/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/42ab564b-90c0-4fdb-9dbc-82850609b02e/default.vertical.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/index.html"
+  ]
+}

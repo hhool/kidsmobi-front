@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_bikes",
+  "fetchedAt": "2026-07-01T21:38:53.436Z",
+  "data": {
+    "resourceId": "B0C53KHV7F:video",
+    "categoryId": "kids_bikes",
+    "productId": "B0C53KHV7F",
+    "resourceType": "product_video",
+    "title": "Bixike Girls Bike with Basket for Toddlers and Kids Aged 3-14 Years Old, 12 14 16 18 Inch with Training Wheels & Doll Seat, 2 • Video preview",
+    "summary": "Video preview asset set for Bixike in kids_bikes.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6f180431-4de9-4be2-b9af-9fc4562d7b20/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6f180431-4de9-4be2-b9af-9fc4562d7b20/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9a02ff54-7281-4e8b-9c7e-ee476ffc51e8/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/242e4707-e9e0-4255-8de2-d71a80ec630e/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8305badf-04cc-4a8b-b47c-32aad2afd840/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/79905842-ac96-4153-9dbc-0035d523e0e3/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/72235ec4-ad06-4767-a0f4-6780acf61d15/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.94,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

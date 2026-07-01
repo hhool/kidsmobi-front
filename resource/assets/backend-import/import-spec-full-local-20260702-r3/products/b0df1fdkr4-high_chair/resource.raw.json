@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "high_chair",
+  "fetchedAt": "2026-07-01T21:38:29.924Z",
+  "data": {
+    "resourceId": "B0DF1FDKR4:video",
+    "categoryId": "high_chair",
+    "productId": "B0DF1FDKR4",
+    "resourceType": "product_video",
+    "title": "Momcozy Official Washing Block for Momcozy KleanPal Pro Baby Bottle Washer, 120 Detergent Tablets • Video preview",
+    "summary": "Video preview asset set for Momcozy in high_chair.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8b4fc472-8dc2-471f-a166-5cdcec975b31.mp4/productVideoOptimized.mp4",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8b4fc472-8dc2-471f-a166-5cdcec975b31.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/85e80b02-fa78-4277-99fc-a0617bf9b753.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/82ae0a33-4a54-4bad-9683-2136d47a4086.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/3b884b1e-2f3e-488d-a6e7-6534e1f6bab9.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/b42cf8fc-d316-43d8-9825-c7f83b99e1f5.mp4/productVideoOptimized.mp4"
+    ],
+    "credibilityScore": 0.9,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 5,
+      "hasFeatures": true
+    }
+  }
+}

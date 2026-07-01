@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_tricycles",
+  "fetchedAt": "2026-07-01T21:38:59.068Z",
+  "data": {
+    "resourceId": "B0FMY5PJ7S:video",
+    "categoryId": "kids_tricycles",
+    "productId": "B0FMY5PJ7S",
+    "resourceType": "product_video",
+    "title": "Umatoll Toddler Tricycle for 18 Month to 4 Year Old Boys Girls,Toddler Bike Toys with Adjustable Seat&Light-Up Wheels,Birthda • Video preview",
+    "summary": "Video preview asset set for Umatoll in kids_tricycles.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/17ed0175-43dc-4d87-8ab2-4190170958f0/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/17ed0175-43dc-4d87-8ab2-4190170958f0/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2b17f52d-6da8-4fbd-a304-06f1d9e9e81a/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2e59a0d2-bf62-47c9-9e0b-1d753cd47ca2/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.82,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 3,
+      "hasFeatures": true
+    }
+  }
+}

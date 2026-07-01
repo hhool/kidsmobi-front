@@ -1,0 +1,1749 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "stroller",
+  "categoryCode": "stroller",
+  "fetchedAt": "2026-07-01T21:38:26.935Z",
+  "data": {
+    "productId": "B07P1YSC18",
+    "categoryId": "stroller",
+    "rank": 4,
+    "title": "Ingenuity 3D Mini Convenience Stroller – Lightweight Stroller with Compact Fold, Multi-Position Recline, Canopy with Pop Out",
+    "brand": "Ingenuity",
+    "price": {
+      "display": "$69.88",
+      "value": 69.88,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.3  23,237",
+      "value": 4.3
+    },
+    "weight": {
+      "display": "10.58 Pounds",
+      "lbs": 10.58
+    },
+    "classification": {
+      "Brand": "Ingenuity",
+      "Stroller_Type": "Umbrella Stroller",
+      "Travel_System_Ready": "No",
+      "Seating_Capacity": "1",
+      "Wheel_Configuration": "4",
+      "Harness_Type": "5 Point",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "stroller",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "100% polyester",
+        "Imported",
+        "LIGHTWEIGHT - A lightweight stroller makes any outing a little easier",
+        "The Ingenuity 3D Mini Convenience Stroller has a durable steel frame that weighs 11 pounds and has a full-sized seat",
+        "plus auto-lock",
+        "anti-shock front wheels and lockable rear wheels",
+        "FOR TRAVEL AND EVERYDAY - Whether youre traveling or just on the go running everyday errands",
+        "having a lightweight",
+        "compact stroller is a must! Its mini",
+        "but mighty for long-term use and offers both an everyday and travel stroller option",
+        "MULTI-POSITION RECLINE - Keep your little one comfortable with multi-position recline",
+        "padded seat back and padded 5-point safety harness",
+        "Its perfect for nap time strolls and edge-of-the-seat travels",
+        "Maximum weight for this toddler stroller: 45 pounds",
+        "COMPACT FOLD - The easy",
+        "compact fold makes it simple to store this lightweight umbrella stroller and bring it with you on the go",
+        "Plus",
+        "it has a hassle-free canopy with flip out sun visor that is perfect for sunny days",
+        "EXTRA STORAGE - With plenty of storage in this stroller",
+        "you wont have to leave anything at home",
+        "It includes a storage basket",
+        "rear storage pocket and two cup holders"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "100% polyester",
+        "featureLabel": "100% Polyester",
+        "featureValue": "100% polyester",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "Imported",
+        "featureLabel": "Imported",
+        "featureValue": "Imported",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "LIGHTWEIGHT - A lightweight stroller makes any outing a little easier",
+        "featureLabel": "LIGHTWEIGHT   A Lightweight Stroller Makes Any Outing A Little Easier",
+        "featureValue": "LIGHTWEIGHT - A lightweight stroller makes any outing a little easier",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "The Ingenuity 3D Mini Convenience Stroller has a durable steel frame that weighs 11 pounds and has a full-sized seat",
+        "featureLabel": "The Ingenuity 3D Mini Convenience Stroller Has A Durable Steel Frame That Weighs 11 Pounds And Has A Full Sized Seat",
+        "featureValue": "The Ingenuity 3D Mini Convenience Stroller has a durable steel frame that weighs 11 pounds and has a full-sized seat",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "plus auto-lock",
+        "featureLabel": "Plus Auto Lock",
+        "featureValue": "plus auto-lock",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "anti-shock front wheels and lockable rear wheels",
+        "featureLabel": "Anti Shock Front Wheels And Lockable Rear Wheels",
+        "featureValue": "anti-shock front wheels and lockable rear wheels",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from stroller classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "100% polyester",
+        "Imported",
+        "LIGHTWEIGHT - A lightweight stroller makes any outing a little easier",
+        "The Ingenuity 3D Mini Convenience Stroller has a durable steel frame that weighs 11 pounds and has a full-sized seat"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/71C2681bJkL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71C2681bJkL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/e07dabda-b5d3-4884-9266-8409f75a356d.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/1c6a574b-02a0-449d-82b7-3b602f4783c0.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a9f91319-9e27-4339-acca-c7f61f85f802.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/b80f1d10-0e3f-417a-bd0c-bf2861a01ab2.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/269a921e-bd2b-456b-9d7d-456a63f37223.mp4/productVideoOptimized.mp4"
+    ],
+    "resourceStats": {
+      "videos": 5,
+      "similarItems": 3
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/e07dabda-b5d3-4884-9266-8409f75a356d.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "../scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_0.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/1c6a574b-02a0-449d-82b7-3b602f4783c0.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "../scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_1.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a9f91319-9e27-4339-acca-c7f61f85f802.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "../scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_2.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/b80f1d10-0e3f-417a-bd0c-bf2861a01ab2.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "../scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_3.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/269a921e-bd2b-456b-9d7d-456a63f37223.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "../scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_4.mp4"
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "10",
+        "Brand": "Kolcraft",
+        "Title": "Kolcraft Cloud Plus Lightweight Umbrella Stroller for Toddlers with Reclining Seat, Large Storage Basket, Canopy, Infant & Pa",
+        "Price": "$76.49",
+        "Rating": "4.4  12,465",
+        "Reviews": "12,465",
+        "URL": "https://www.amazon.com/Kolcraft-Lightweight-Stroller-Multi-Position-Reclining/dp/B019DHBCXE/ref=zg_bs_g_166842011_d_sccl_10/137-9351632-4157947?psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/71RLZKHo-YL._AC_UL300_SR300,200_.jpg",
+        "ASIN": "B019DHBCXE",
+        "Source_Page": 1,
+        "Source_URL": "https://www.amazon.com/Best-Sellers-Baby-Strollers/zgbs/baby-products/166842011",
+        "Source_Position": 10,
+        "Source_Type": "Best Sellers",
+        "Features": "ULTRA LIGHTWEIGHT TRAVEL DESIGN: Weighs only 13 lb, making it easy to lift, carry, and store. Perfect lightweight umbrella stroller for summer travel, vacations, and everyday errands. Compact enough for car trunks and convenient on-the-go portability for busy parents. | COMPACT SELF-STANDING FOLD: One-hand steer design creates a slim 18 x 12 x 34 in profile that stands on its own. Ideal compact stroller for airports, road trips, and quick storage at home. Designed for easy travel transitions and hassle-free portability. | EXTENDED 3-TIER SUN CANOPY: Large multi-panel canopy provides enhanced sun coverage for hot summer days with a peek-a-boo window for easy check-ins. Designed for toddler comfort and UV protection during outdoor walks, travel, and everyday adventures. | RECLINING SEAT & SAFETY HARNESS: Multi-position reclining seat supports growing toddlers up to 50 lb. Secure 5-point harness with adjustable straps keeps your child safe and supported. Comfortable everyday stroller for toddlers ages 1–3 (not for newborns). | SMART STORAGE & PARENT CONVENIENCE: Includes large easy-access storage basket for diaper bags and travel essentials, removable child tray with cup holder, and parent tray with dual bottle holders. Designed for organized, stress-free outings with kids.",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/92efd0e8-f11a-4e15-9150-2ff9e92d1c0f/default.vertical.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/92efd0e8-f11a-4e15-9150-2ff9e92d1c0f/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71D4vqyQchL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Kolcraft Cloud Plus Stroller Roomy Storage Basket!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cc7f682b-2ad5-4a71-bf18-a319c15f338f/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61Y81B+eIxL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Assembled in about 7min without any tools",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c0fb7b01-8b11-4940-aab2-13825e6fdc7e/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1iZhX6COHL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "My honest review on the Kolcraft Stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/630b7d7d-d61e-4dcf-87e0-d041da3b91c3/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61Wx+0LTFyL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "What You Need To Know Before You Buy This Stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5ce1a0fc-f4f3-499d-a7bf-6bcd6e887823/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1sY+aH0TML.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Son picks this over expensive stroller! Better than we expected ",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d972f983-7da9-4940-889c-55a499c3f5fe/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61aNhyHVj+L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Kolcraft stroller - ideal for travel",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/92efd0e8-f11a-4e15-9150-2ff9e92d1c0f/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cc7f682b-2ad5-4a71-bf18-a319c15f338f/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c0fb7b01-8b11-4940-aab2-13825e6fdc7e/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/630b7d7d-d61e-4dcf-87e0-d041da3b91c3/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5ce1a0fc-f4f3-499d-a7bf-6bcd6e887823/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d972f983-7da9-4940-889c-55a499c3f5fe/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/92efd0e8-f11a-4e15-9150-2ff9e92d1c0f/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cc7f682b-2ad5-4a71-bf18-a319c15f338f/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c0fb7b01-8b11-4940-aab2-13825e6fdc7e/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/630b7d7d-d61e-4dcf-87e0-d041da3b91c3/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5ce1a0fc-f4f3-499d-a7bf-6bcd6e887823/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d972f983-7da9-4940-889c-55a499c3f5fe/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "Lightweight, Easy-to-Carry, Travel-Ready Baby Stroller",
+              "Texts": [
+                "Kolcraft’s lightweight stroller is built for everyday parenting on the go. Easy to carry, steer, and store, it’s designed to keep things light without sacrificing comfort or safety. Suitable for errands, walks, and travel, it features smooth handling, ample storage, and theme park-friendly sizing—offering great value for busy families.",
+                "The Kolcraft Cloud Plus weighs just 13 lbs., making it lightweight and easy to carry. It's built for comfort with a seat that reclines to multiple angles—designed for naps, rest, or upright riding. Its 3-tier extendable canopy provides sun protection and includes a peek-a-boo window for quick check-ins on the go. Designed to accommodate children up to 50 lbs or 40 inches tall, making it a great fit for everyday errands, travel, and growing toddlers.",
+                "From quick errands to all-day adventures, the Kolcraft Cloud Plus Stroller includes thoughtful details for everyday use. Features include a large easy-access storage basket, padded one-hand steering, parent organizer with cup holders, removable child tray, swivel wheels for smooth turning, and a 3-tier peek-a-boo canopy with mesh airflow for added comfort.",
+                "The Kolcraft Cloud Plus folds down to just 12\" x 34\", making it easy to store in car trunks, train compartments, or travel with on flights. Weighing only 12.87 lbs, it’s a great companion for families on the go—light enough to lift, slim enough to pack, and perfectly sized for everyday trips, family vacations, theme parks, or big adventures.",
+                "Kolcraft strollers are built for real-life outings, from daily walks to weekend trips. Designed to simplify everyday outings, they’re durable, lightweight, and sturdy enough for daily use. Road-tested wheels, weather-resistant materials, and a compact fold make them easy to pack and carry. Every detail supports growing children and reflects feedback from families who use them daily."
+              ],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/090a744c-d27b-4ec5-9395-dfd36e22abf8.__CR0,0,970,600_PT0_SX970_V1___.png",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/701ec35b-4538-441b-8677-1a745b0d7975.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/4adf2aa0-ae23-44db-b968-5f15122fcafc.__CR0,0,970,600_PT0_SX970_V1___.png",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/826ae380-9ea6-4459-a1ca-a0fbf8f3ee05.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2e9696b6-3789-4c02-b88f-ca1e446220d8.__CR0,0,970,600_PT0_SX970_V1___.png"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/090a744c-d27b-4ec5-9395-dfd36e22abf8.__CR0,0,970,600_PT0_SX970_V1___.png",
+                  "Image_Order": 1,
+                  "Image_Title": "stroller coches bebes modernos baby travel systems carriolas plane airplane black canopy compact",
+                  "Image_Alt": "stroller coches bebes modernos baby travel systems carriolas plane airplane black canopy compact"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/701ec35b-4538-441b-8677-1a745b0d7975.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                  "Image_Order": 2,
+                  "Image_Title": "kl029",
+                  "Image_Alt": "kl029"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/4adf2aa0-ae23-44db-b968-5f15122fcafc.__CR0,0,970,600_PT0_SX970_V1___.png",
+                  "Image_Order": 3,
+                  "Image_Title": "terrain summer infant click connect kids cozy modes special needs girls facing convenience sit car",
+                  "Image_Alt": "terrain summer infant click connect kids cozy modes special needs girls facing convenience sit car"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/826ae380-9ea6-4459-a1ca-a0fbf8f3ee05.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                  "Image_Order": 4,
+                  "Image_Title": "kl029 travel ready design",
+                  "Image_Alt": "kl029 travel ready design"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2e9696b6-3789-4c02-b88f-ca1e446220d8.__CR0,0,970,600_PT0_SX970_V1___.png",
+                  "Image_Order": 5,
+                  "Image_Title": "recien nacidos carreolas modernas reversible cup holder silver side bassinet two basket pocket",
+                  "Image_Alt": "recien nacidos carreolas modernas reversible cup holder silver side bassinet two basket pocket"
+                }
+              ],
+              "Comparison_Table": {},
+              "Block_Types": [
+                "text",
+                "image"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "Lightweight, Easy-to-Carry, Travel-Ready Baby Stroller"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/090a744c-d27b-4ec5-9395-dfd36e22abf8.__CR0,0,970,600_PT0_SX970_V1___.png",
+                    "Image_Order": 1,
+                    "Image_Title": "stroller coches bebes modernos baby travel systems carriolas plane airplane black canopy compact",
+                    "Image_Alt": "stroller coches bebes modernos baby travel systems carriolas plane airplane black canopy compact"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Kolcraft’s lightweight stroller is built for everyday parenting on the go. Easy to carry, steer, and store, it’s designed to keep things light without sacrificing comfort or safety. Suitable for errands, walks, and travel, it features smooth handling, ample storage, and theme park-friendly sizing—offering great value for busy families."
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/701ec35b-4538-441b-8677-1a745b0d7975.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                    "Image_Order": 2,
+                    "Image_Title": "kl029",
+                    "Image_Alt": "kl029"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "The Kolcraft Cloud Plus weighs just 13 lbs., making it lightweight and easy to carry. It's built for comfort with a seat that reclines to multiple angles—designed for naps, rest, or upright riding. Its 3-tier extendable canopy provides sun protection and includes a peek-a-boo window for quick check-ins on the go. Designed to accommodate children up to 50 lbs or 40 inches tall, making it a great fit for everyday errands, travel, and growing toddlers."
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/4adf2aa0-ae23-44db-b968-5f15122fcafc.__CR0,0,970,600_PT0_SX970_V1___.png",
+                    "Image_Order": 3,
+                    "Image_Title": "terrain summer infant click connect kids cozy modes special needs girls facing convenience sit car",
+                    "Image_Alt": "terrain summer infant click connect kids cozy modes special needs girls facing convenience sit car"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "From quick errands to all-day adventures, the Kolcraft Cloud Plus Stroller includes thoughtful details for everyday use. Features include a large easy-access storage basket, padded one-hand steering, parent organizer with cup holders, removable child tray, swivel wheels for smooth turning, and a 3-tier peek-a-boo canopy with mesh airflow for added comfort."
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/826ae380-9ea6-4459-a1ca-a0fbf8f3ee05.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                    "Image_Order": 4,
+                    "Image_Title": "kl029 travel ready design",
+                    "Image_Alt": "kl029 travel ready design"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "The Kolcraft Cloud Plus folds down to just 12\" x 34\", making it easy to store in car trunks, train compartments, or travel with on flights. Weighing only 12.87 lbs, it’s a great companion for families on the go—light enough to lift, slim enough to pack, and perfectly sized for everyday trips, family vacations, theme parks, or big adventures."
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2e9696b6-3789-4c02-b88f-ca1e446220d8.__CR0,0,970,600_PT0_SX970_V1___.png",
+                    "Image_Order": 5,
+                    "Image_Title": "recien nacidos carreolas modernas reversible cup holder silver side bassinet two basket pocket",
+                    "Image_Alt": "recien nacidos carreolas modernas reversible cup holder silver side bassinet two basket pocket"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Kolcraft strollers are built for real-life outings, from daily walks to weekend trips. Designed to simplify everyday outings, they’re durable, lightweight, and sturdy enough for daily use. Road-tested wheels, weather-resistant materials, and a compact fold make them easy to pack and carry. Every detail supports growing children and reflects feedback from families who use them daily."
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/090a744c-d27b-4ec5-9395-dfd36e22abf8.__CR0,0,970,600_PT0_SX970_V1___.png",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/701ec35b-4538-441b-8677-1a745b0d7975.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/4adf2aa0-ae23-44db-b968-5f15122fcafc.__CR0,0,970,600_PT0_SX970_V1___.png",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/826ae380-9ea6-4459-a1ca-a0fbf8f3ee05.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2e9696b6-3789-4c02-b88f-ca1e446220d8.__CR0,0,970,600_PT0_SX970_V1___.png"
+            ],
+            "Local_Images": [
+              "../scrape_store/stroller/Kolcraft/Rank_10_ASIN_B019DHBCXE_Kolcraft Cloud Plus Lightweight Umbrella Stroller/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+              "../scrape_store/stroller/Kolcraft/Rank_10_ASIN_B019DHBCXE_Kolcraft Cloud Plus Lightweight Umbrella Stroller/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+              "../scrape_store/stroller/Kolcraft/Rank_10_ASIN_B019DHBCXE_Kolcraft Cloud Plus Lightweight Umbrella Stroller/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.png",
+              "../scrape_store/stroller/Kolcraft/Rank_10_ASIN_B019DHBCXE_Kolcraft Cloud Plus Lightweight Umbrella Stroller/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+              "../scrape_store/stroller/Kolcraft/Rank_10_ASIN_B019DHBCXE_Kolcraft Cloud Plus Lightweight Umbrella Stroller/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.png"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [
+            {
+              "Title": "User Guide (PDF)",
+              "URL": "https://m.media-amazon.com/images/I/A1UIIZoxtvL.pdf",
+              "Type": "PDF",
+              "Source": "Product guides and documents",
+              "Category": "manual",
+              "Local_Path": "../scrape_store/stroller/Kolcraft/Rank_10_ASIN_B019DHBCXE_Kolcraft Cloud Plus Lightweight Umbrella Stroller/guides/manual/doc_00_User_Guide_PDF.pdf"
+            }
+          ],
+          "Summary": {
+            "Count": 1
+          },
+          "Local_Paths": [
+            "../scrape_store/stroller/Kolcraft/Rank_10_ASIN_B019DHBCXE_Kolcraft Cloud Plus Lightweight Umbrella Stroller/guides/manual/doc_00_User_Guide_PDF.pdf"
+          ]
+        },
+        "Product_Description": "This best-selling Kolcraft light weight and compact stroller for travel is designed for families on the go and is only 13 lbs which makes it perfect for travel around your neighborhood, across town, or while on vacation with your child Parents love the multi-position reclining seat so baby stays comfortable during day trips or while traveling. Plus, a large, easy-access storage basket keeps all of babys necessities nearby, and the parent tray includes two drink holders and a separate roomy storage area for your items. The three-tier, extended canopy provides extra sun coverage and a peek-a-boo window let's you easily check on your child while on the go. All-terrain wheels and front suspension give your little toddler a smooth ride and the 5-point safety harness can be adjusted as your child grows. The small collapsible foldable stroller features a convenient child tray with drink holder is removable for easy access to the seat. One-Year Manufacturer Warranty included. Maximum child weight recommended for this umbrella stroller is 50 lbs. Disney Size Approved and a perfect stroller for airplane travel (Though we do recommend always checking with your airline first). The best stroller for toddlers 1-3 - Use only once the child is able to sit up unassisted & has full head and neck control. Toddler stroller NOT compatible with Infant Car Seats. Affordable without Compromising Quality - a Baby Registry Must Have. Voted Best Lightweight Stroller for Traveling!",
+        "Product_Specifications": {
+          "Measurements": {
+            "Item Weight": "11.8 Pounds",
+            "Folded Size": "18\" w x 12\" d x 34\" h",
+            "Rear Facing Stroller Maximum Height": "3.63 Feet",
+            "Item Dimensions L x W x H": "31\"L x 18\"W x 39\"H",
+            "Stroller Seat Weight": "50 Pounds"
+          },
+          "Features_Specs": {
+            "Stroller Type": "Umbrella Stroller",
+            "Is Car Seat Compatible": "No",
+            "Seating Capacity": "1.0",
+            "Additional Features": "5-Point Safety Harness, Adjustable Canopy, Cup Holder, Disney & Theme Park Size Approved, Lightweight, Multi-Position Reclining Seat, One Hand Steer, Storage Basket, Ultra Lightweight",
+            "Built-in Light": "No",
+            "Has Stroller Brake System": "No"
+          },
+          "Materials_Care": {},
+          "Item_Details": {
+            "Number of Cup Holders": "3",
+            "Number of Wheels": "4"
+          },
+          "User_Guide": {
+            "Harness Type": "5 Point",
+            "Harness Feature": "Adjustable straps"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery Sunday, July 5 Or Prime members get FREE delivery Tomorrow, July 1. Order within 8 hrs 59 mins. Join Prime",
+          "Specifications": {
+            "Item Weight": "11.8 Pounds",
+            "Folded Size": "18\" w x 12\" d x 34\" h",
+            "Rear Facing Stroller Maximum Height": "3.63 Feet",
+            "Item Dimensions L x W x H": "31\"L x 18\"W x 39\"H",
+            "Stroller Seat Weight": "50 Pounds"
+          }
+        },
+        "Local_Image_Paths": [
+          "../scrape_store/stroller/Kolcraft/Rank_10_ASIN_B019DHBCXE_Kolcraft Cloud Plus Lightweight Umbrella Stroller/images/primary.jpg",
+          "../scrape_store/stroller/Kolcraft/Rank_10_ASIN_B019DHBCXE_Kolcraft Cloud Plus Lightweight Umbrella Stroller/images/alt_1.jpg",
+          "../scrape_store/stroller/Kolcraft/Rank_10_ASIN_B019DHBCXE_Kolcraft Cloud Plus Lightweight Umbrella Stroller/images/alt_2.jpg",
+          "../scrape_store/stroller/Kolcraft/Rank_10_ASIN_B019DHBCXE_Kolcraft Cloud Plus Lightweight Umbrella Stroller/images/alt_3.jpg",
+          "../scrape_store/stroller/Kolcraft/Rank_10_ASIN_B019DHBCXE_Kolcraft Cloud Plus Lightweight Umbrella Stroller/images/alt_4.jpg",
+          "../scrape_store/stroller/Kolcraft/Rank_10_ASIN_B019DHBCXE_Kolcraft Cloud Plus Lightweight Umbrella Stroller/images/alt_5.jpg",
+          "../scrape_store/stroller/Kolcraft/Rank_10_ASIN_B019DHBCXE_Kolcraft Cloud Plus Lightweight Umbrella Stroller/images/alt_6.jpg",
+          "../scrape_store/stroller/Kolcraft/Rank_10_ASIN_B019DHBCXE_Kolcraft Cloud Plus Lightweight Umbrella Stroller/images/alt_7.jpg",
+          "../scrape_store/stroller/Kolcraft/Rank_10_ASIN_B019DHBCXE_Kolcraft Cloud Plus Lightweight Umbrella Stroller/images/alt_8.jpg",
+          "../scrape_store/stroller/Kolcraft/Rank_10_ASIN_B019DHBCXE_Kolcraft Cloud Plus Lightweight Umbrella Stroller/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "../scrape_store/stroller/Kolcraft/Rank_10_ASIN_B019DHBCXE_Kolcraft Cloud Plus Lightweight Umbrella Stroller/images/primary.jpg",
+        "Local_Video_Paths": [],
+        "Last_Updated": "2026-07-01T02:26:24.625709",
+        "Similar_Items_Quick_Delivery": [
+          {
+            "Rank": "Similar",
+            "Brand": "Baby",
+            "Title": "Baby Delight | Swerve Stroller | Lightweight | for Travel & Everyday | Multi-Position Recline | Compact Fold | Extra Storage",
+            "Price": "$75.92",
+            "Rating": "4.2",
+            "Reviews": "93",
+            "URL": "https://www.amazon.com/Baby-Delight-Stroller-Lightweight-Multi-Position/dp/B0F1Z2YW1X/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_4/145-9777221-3074203?pd_rd_w=pLXRN&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=XM39BKZ9ARBFXFMMGE33&pd_rd_wg=TUwTv&pd_rd_r=3496e1f0-e4fa-4f2c-a8ff-8d5a816aa59a&pd_rd_i=B0F1Z2YW1X&psc=1",
+            "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/71+7-U+wC+L._AC_UL165_SR165,165_.jpg",
+            "ASIN": "B0F1Z2YW1X",
+            "Features": "100% Polyester | LIGHTWEIGHT - A lightweight stroller to make any outing a little easier! The Baby Delight Swerve Convenience Stroller has a robust & durable aluminum frame clothed in 100% polyester fabric, weighing just 14.8 pounds. | FOR TRAVEL AND EVERYDAY - Running errands, meeting for a playdate, or traveling? This lightweight, compact stroller has you covered! With a roomy reclining seat, adjustable harness, oversized canopy, cup holder, extra storage, quick fold, and smooth-rolling lockable wheels, it’s designed for comfort and convenience on the go. | MULTI-POSITION RECLINE - Your little one will stay comfortable, safe and contained with the multi-position recline and 5-point safety harness. Maximum weight and height of a child for this baby to toddler stroller is 50 pounds and 43 inches. | COMPACT FOLD - This lightweight umbrella stroller is designed for easy adventures! With a quick, compact fold and an auto-lock feature, storing and taking it on the go is a breeze. Plus, the adjustable, removable canopy with flip-out sun visor and UPF50+ coating keeps your little one shaded and protected on sunny days. | EXTRA STORAGE - No need to leave anything behind—this stroller has plenty of storage for all your essentials! It features an extra-large storage basket, a convenient rear pocket, and a handy cup holder. Just be sure to keep the storage basket under 10 lbs for a smooth ride.",
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/341f5eaa-2c8e-4190-80f4-15ad004f3478/default.jobtemplate.hls.m3u8",
+            "Product_Videos_Detail": [
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/341f5eaa-2c8e-4190-80f4-15ad004f3478/default.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/614d+Hi0gGL._SX35_SY46._CR0,0,35,46_PImini-player-shuttle-50px,BottomLeft,-7,12_.jpg",
+                "Title": "Baby Delight - Swerve Stroller | Features",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6650ffe3-22b1-4774-bd93-ea2b31f4fc0e/default.vertical.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/71XE4sbJSYL._SX35_SY46._CR0,0,35,46_PImini-player-shuttle-50px,BottomLeft,-7,12_.jpg",
+                "Title": "Travel-friendly stroller and perfect for every day!",
+                "Author": "N/A",
+                "Is_MP4": false
+              }
+            ],
+            "Product_Videos": [
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/341f5eaa-2c8e-4190-80f4-15ad004f3478/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6650ffe3-22b1-4774-bd93-ea2b31f4fc0e/default.vertical.jobtemplate.hls.m3u8"
+            ],
+            "Product_Videos_MP4": [],
+            "Product_Videos_M3U8": [
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/341f5eaa-2c8e-4190-80f4-15ad004f3478/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6650ffe3-22b1-4774-bd93-ea2b31f4fc0e/default.vertical.jobtemplate.hls.m3u8"
+            ],
+            "From_The_Manufacturer": {
+              "Model_Version": "2.0",
+              "Sections": [
+                {
+                  "Section_Id": "section_01",
+                  "Display_Order": 1,
+                  "Title": "Shop the Baby Delight Dewdrop",
+                  "Texts": [
+                    "Shop the Baby Delight Dewdrop Visit the Store",
+                    "The New Dewdrop Sound Machine Helping you create the perfect sleep environment for your little one, at home or on the go.",
+                    "30 Soothing Sounds Provide various white noises, lullabies, nature sounds, and even custom voice recording to help baby sleep through the night.",
+                    "Designed for Travel With 17 hours of battery life, this rechargeable soother meets baby's needs, whether in the car, on the go, or staying at grandma's.",
+                    "Adjustable Lighting & Ambience With 3 brightness levels and 8 colors, the Baby Delight Dewdrop is the all-in-one sleep soother for your little one.",
+                    "Convenient Controls The Dewdrop Sound Machine provides easy control buttons, a portable travel clip, sleep timer options, and much more!"
+                  ],
+                  "Images": [
+                    "https://m.media-amazon.com/images/S/aplus-media-library-service-media/d8613091-8cfe-4b5d-91ae-045dd260e77b.__CR1185,0,2342,1000_PT0_SX1464_V1___.png"
+                  ],
+                  "Images_Detail": [
+                    {
+                      "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/d8613091-8cfe-4b5d-91ae-045dd260e77b.__CR1185,0,2342,1000_PT0_SX1464_V1___.png",
+                      "Image_Order": 1,
+                      "Image_Title": "",
+                      "Image_Alt": ""
+                    }
+                  ],
+                  "Comparison_Table": {},
+                  "Block_Types": [
+                    "text",
+                    "image"
+                  ],
+                  "Layout_Blocks": [
+                    {
+                      "Block_Type": "title",
+                      "Text": "Shop the Baby Delight Dewdrop"
+                    },
+                    {
+                      "Block_Type": "image",
+                      "Image": {
+                        "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/d8613091-8cfe-4b5d-91ae-045dd260e77b.__CR1185,0,2342,1000_PT0_SX1464_V1___.png",
+                        "Image_Order": 1,
+                        "Image_Title": "",
+                        "Image_Alt": ""
+                      }
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "Shop the Baby Delight Dewdrop Visit the Store"
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "The New Dewdrop Sound Machine Helping you create the perfect sleep environment for your little one, at home or on the go."
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "30 Soothing Sounds Provide various white noises, lullabies, nature sounds, and even custom voice recording to help baby sleep through the night."
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "Designed for Travel With 17 hours of battery life, this rechargeable soother meets baby's needs, whether in the car, on the go, or staying at grandma's."
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "Adjustable Lighting & Ambience With 3 brightness levels and 8 colors, the Baby Delight Dewdrop is the all-in-one sleep soother for your little one."
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "Convenient Controls The Dewdrop Sound Machine provides easy control buttons, a portable travel clip, sleep timer options, and much more!"
+                    }
+                  ]
+                }
+              ],
+              "Assets": {
+                "Remote_Images": [
+                  "https://m.media-amazon.com/images/S/aplus-media-library-service-media/d8613091-8cfe-4b5d-91ae-045dd260e77b.__CR1185,0,2342,1000_PT0_SX1464_V1___.png"
+                ],
+                "Local_Images": [
+                  "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0F1Z2YW1X_Baby Delight  Swerve Stroller  Lightweight  for Tr/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png"
+                ]
+              }
+            },
+            "Product_Guides_And_Documents": {
+              "Model_Version": "1.0",
+              "Items": [],
+              "Summary": {
+                "Count": 0
+              },
+              "Local_Paths": []
+            },
+            "Product_Description": "LIGHTWEIGHT ONLY 14.8 POUNDS OVERSIZED, ADJUSTABLE SUNSHADE WITH PEEK-A-BOO WINDOW CANOPY WITH POP OUT SUN VISOR BACK OF CANOPY STORAGE POCKET FOR CELL PHONES CUP HOLDER FOR BEVERAGES 5-POINT ADJUSTABLE SAFETY HARNESS MULTI-POSITION RECLINE FOR COMFORT LARGE STORAGE BASKET UNDER THE SEAT FRONT SWIVEL WHEELS, WITH LOCKING FUNCTION, FOR SMOOTH STROLLING LOCKABLE REAR WHEELS EASY COMPACT FOLD WITH AUTO LOCK FOR STORAGE & TRAVEL SIDE LOCKING MECHANISM TO KEEP STROLLER FOLDED ROBUST & DURABLE ALUMINUM FRAME THAT WEIGHS ONLY 17 POUNDS MULTIPLE FASHION FORWARD FASHIONS TO FIT YOUR STYLE",
+            "Product_Specifications": {
+              "Measurements": {
+                "Item Weight": "14.8 Pounds",
+                "Rear Facing Stroller Maximum Height": "43 Inches",
+                "Item Dimensions L x W x H": "31.5\"L x 19\"W x 43.5\"H",
+                "Frame Weight": "14.8 Pounds"
+              },
+              "Features_Specs": {
+                "Stroller Type": "Umbrella Stroller",
+                "Seating Capacity": "1",
+                "Has Stroller Brake System": "No"
+              },
+              "Materials_Care": {},
+              "Item_Details": {
+                "Number of Wheels": "8"
+              },
+              "User_Guide": {
+                "Harness Type": "5 Point"
+              },
+              "Additional_Details": {}
+            },
+            "Right_Panel_Details": {
+              "Ships_From": "N/A",
+              "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+              "Availability": "In Stock",
+              "Delivery_Promise": "FREE delivery Sunday, July 5 Or Prime members get FREE delivery Thursday, July 2. Order within 11 hrs 17 mins. Join Prime",
+              "Specifications": {
+                "Item Weight": "14.8 Pounds",
+                "Rear Facing Stroller Maximum Height": "43 Inches",
+                "Item Dimensions L x W x H": "31.5\"L x 19\"W x 43.5\"H",
+                "Frame Weight": "14.8 Pounds"
+              }
+            },
+            "Category_Attributes": {
+              "categoryId": "stroller",
+              "ageGroup": [],
+              "structure": [
+                "Umbrella Stroller"
+              ],
+              "scenario": [
+                "Lightweight"
+              ],
+              "features": [
+                "100% Polyester",
+                "LIGHTWEIGHT - A lightweight stroller to make any outing a little easier! The Baby Delight Swerve Convenience Stroller has a robust & durable aluminum frame clothed in 100% polyester fabric",
+                "weighing just 14.8 pounds.",
+                "FOR TRAVEL AND EVERYDAY - Running errands",
+                "meeting for a playdate",
+                "or traveling? This lightweight",
+                "compact stroller has you covered! With a roomy reclining seat",
+                "adjustable harness",
+                "oversized canopy",
+                "cup holder",
+                "extra storage",
+                "quick fold",
+                "and smooth-rolling lockable wheels",
+                "it’s designed for comfort and convenience on the go.",
+                "MULTI-POSITION RECLINE - Your little one will stay comfortable",
+                "safe and contained with the multi-position recline and 5-point safety harness. Maximum weight and height of a child for this baby to toddler stroller is 50 pounds and 43 inches.",
+                "COMPACT FOLD - This lightweight umbrella stroller is designed for easy adventures! With a quick",
+                "compact fold and an auto-lock feature",
+                "storing and taking it on the go is a breeze. Plus",
+                "the adjustable",
+                "removable canopy with flip-out sun visor and UPF50+ coating keeps your little one shaded and protected on sunny days.",
+                "EXTRA STORAGE - No need to leave anything behind—this stroller has plenty of storage for all your essentials! It features an extra-large storage basket",
+                "a convenient rear pocket",
+                "and a handy cup holder. Just be sure to keep the storage basket under 10 lbs for a smooth ride.",
+                "Umbrella Stroller",
+                "1",
+                "No"
+              ],
+              "materialClass": [],
+              "wheelSize": [],
+              "powerLevel": []
+            },
+            "Feature_Cards": [
+              {
+                "featureKey": "100% Polyester",
+                "featureLabel": "100% Polyester",
+                "featureValue": "100% Polyester",
+                "featureEvidence": "Features",
+                "featureRank": 1,
+                "featureNotes": "Derived from stroller scrape-time evidence"
+              },
+              {
+                "featureKey": "LIGHTWEIGHT - A lightweight stroller to make any outing a little easier! The Baby Delight Swerve Convenience Stroller has a robust & durable aluminum frame clothed in 100% polyester fabric",
+                "featureLabel": "Lightweight A Lightweight Stroller To Make Any Outing A Little Easier! The Baby Delight Swerve Convenience Stroller Has A Robust & Durable Aluminum Frame Clothed In 100% Polyester Fabric",
+                "featureValue": "LIGHTWEIGHT - A lightweight stroller to make any outing a little easier! The Baby Delight Swerve Convenience Stroller has a robust & durable aluminum frame clothed in 100% polyester fabric",
+                "featureEvidence": "Product_Specifications.Features_Specs",
+                "featureRank": 2,
+                "featureNotes": "Derived from stroller scrape-time evidence"
+              },
+              {
+                "featureKey": "weighing just 14.8 pounds.",
+                "featureLabel": "Weighing Just 14.8 Pounds.",
+                "featureValue": "weighing just 14.8 pounds.",
+                "featureEvidence": "Product_Specifications.Features_Specs",
+                "featureRank": 3,
+                "featureNotes": "Derived from stroller scrape-time evidence"
+              },
+              {
+                "featureKey": "FOR TRAVEL AND EVERYDAY - Running errands",
+                "featureLabel": "For Travel And Everyday Running Errands",
+                "featureValue": "FOR TRAVEL AND EVERYDAY - Running errands",
+                "featureEvidence": "Product_Specifications.Features_Specs",
+                "featureRank": 4,
+                "featureNotes": "Derived from stroller scrape-time evidence"
+              },
+              {
+                "featureKey": "meeting for a playdate",
+                "featureLabel": "Meeting For A Playdate",
+                "featureValue": "meeting for a playdate",
+                "featureEvidence": "Product_Specifications.Features_Specs",
+                "featureRank": 5,
+                "featureNotes": "Derived from stroller scrape-time evidence"
+              },
+              {
+                "featureKey": "or traveling? This lightweight",
+                "featureLabel": "Or Traveling? This Lightweight",
+                "featureValue": "or traveling? This lightweight",
+                "featureEvidence": "Product_Specifications.Features_Specs",
+                "featureRank": 6,
+                "featureNotes": "Derived from stroller scrape-time evidence"
+              }
+            ],
+            "Decision_Signals": {
+              "ranking": [
+                "100% Polyester",
+                "LIGHTWEIGHT - A lightweight stroller to make any outing a little easier! The Baby Delight Swerve Convenience Stroller has a robust & durable aluminum frame clothed in 100% polyester fabric",
+                "weighing just 14.8 pounds.",
+                "FOR TRAVEL AND EVERYDAY - Running errands"
+              ],
+              "safety": [],
+              "fit": [
+                "Umbrella Stroller"
+              ]
+            },
+            "Evidence_Refs": [
+              "Product_Specifications.Features_Specs.Stroller Type",
+              "Features"
+            ],
+            "Local_Image_Paths": [
+              "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0F1Z2YW1X_Baby Delight  Swerve Stroller  Lightweight  for Tr/images/primary.jpg",
+              "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0F1Z2YW1X_Baby Delight  Swerve Stroller  Lightweight  for Tr/images/alt_1.jpg",
+              "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0F1Z2YW1X_Baby Delight  Swerve Stroller  Lightweight  for Tr/images/alt_2.jpg",
+              "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0F1Z2YW1X_Baby Delight  Swerve Stroller  Lightweight  for Tr/images/alt_3.jpg",
+              "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0F1Z2YW1X_Baby Delight  Swerve Stroller  Lightweight  for Tr/images/alt_4.jpg",
+              "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0F1Z2YW1X_Baby Delight  Swerve Stroller  Lightweight  for Tr/images/alt_5.jpg",
+              "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0F1Z2YW1X_Baby Delight  Swerve Stroller  Lightweight  for Tr/images/alt_6.jpg",
+              "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0F1Z2YW1X_Baby Delight  Swerve Stroller  Lightweight  for Tr/images/alt_7.jpg",
+              "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0F1Z2YW1X_Baby Delight  Swerve Stroller  Lightweight  for Tr/images/alt_8.jpg",
+              "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0F1Z2YW1X_Baby Delight  Swerve Stroller  Lightweight  for Tr/images/alt_9.jpg"
+            ],
+            "Local_Image_Path": "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0F1Z2YW1X_Baby Delight  Swerve Stroller  Lightweight  for Tr/images/primary.jpg",
+            "Local_Video_Paths": []
+          }
+        ],
+        "Category_Attributes": {
+          "categoryId": "stroller",
+          "ageGroup": [],
+          "structure": [
+            "Umbrella Stroller"
+          ],
+          "scenario": [
+            "travel"
+          ],
+          "features": [
+            "ULTRA LIGHTWEIGHT TRAVEL DESIGN: Weighs only 13 lb",
+            "making it easy to lift",
+            "carry",
+            "and store. Perfect lightweight umbrella stroller for summer travel",
+            "vacations",
+            "and everyday errands. Compact enough for car trunks and convenient on-the-go portability for busy parents.",
+            "COMPACT SELF-STANDING FOLD: One-hand steer design creates a slim 18 x 12 x 34 in profile that stands on its own. Ideal compact stroller for airports",
+            "road trips",
+            "and quick storage at home. Designed for easy travel transitions and hassle-free portability.",
+            "EXTENDED 3-TIER SUN CANOPY: Large multi-panel canopy provides enhanced sun coverage for hot summer days with a peek-a-boo window for easy check-ins. Designed for toddler comfort and UV protection during outdoor walks",
+            "travel",
+            "and everyday adventures.",
+            "RECLINING SEAT & SAFETY HARNESS: Multi-position reclining seat supports growing toddlers up to 50 lb. Secure 5-point harness with adjustable straps keeps your child safe and supported. Comfortable everyday stroller for toddlers ages 1–3 (not for newborns).",
+            "SMART STORAGE & PARENT CONVENIENCE: Includes large easy-access storage basket for diaper bags and travel essentials",
+            "removable child tray with cup holder",
+            "and parent tray with dual bottle holders. Designed for organized",
+            "stress-free outings with kids.",
+            "Umbrella Stroller",
+            "No",
+            "1.0",
+            "5-Point Safety Harness",
+            "Adjustable Canopy",
+            "Cup Holder",
+            "Disney & Theme Park Size Approved",
+            "Lightweight",
+            "Multi-Position Reclining Seat",
+            "One Hand Steer",
+            "Storage Basket",
+            "Ultra Lightweight"
+          ],
+          "materialClass": [],
+          "wheelSize": [],
+          "powerLevel": []
+        },
+        "Feature_Cards": [
+          {
+            "featureKey": "ULTRA LIGHTWEIGHT TRAVEL DESIGN: Weighs only 13 lb",
+            "featureLabel": "Ultra Lightweight Travel Design: Weighs Only 13 Lb",
+            "featureValue": "ULTRA LIGHTWEIGHT TRAVEL DESIGN: Weighs only 13 lb",
+            "featureEvidence": "Features",
+            "featureRank": 1,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "making it easy to lift",
+            "featureLabel": "Making It Easy To Lift",
+            "featureValue": "making it easy to lift",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 2,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "carry",
+            "featureLabel": "Carry",
+            "featureValue": "carry",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 3,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "and store. Perfect lightweight umbrella stroller for summer travel",
+            "featureLabel": "And Store. Perfect Lightweight Umbrella Stroller For Summer Travel",
+            "featureValue": "and store. Perfect lightweight umbrella stroller for summer travel",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 4,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "vacations",
+            "featureLabel": "Vacations",
+            "featureValue": "vacations",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 5,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "and everyday errands. Compact enough for car trunks and convenient on-the-go portability for busy parents.",
+            "featureLabel": "And Everyday Errands. Compact Enough For Car Trunks And Convenient On The Go Portability For Busy Parents.",
+            "featureValue": "and everyday errands. Compact enough for car trunks and convenient on-the-go portability for busy parents.",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 6,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          }
+        ],
+        "Decision_Signals": {
+          "ranking": [
+            "ULTRA LIGHTWEIGHT TRAVEL DESIGN: Weighs only 13 lb",
+            "making it easy to lift",
+            "carry",
+            "and store. Perfect lightweight umbrella stroller for summer travel"
+          ],
+          "safety": [],
+          "fit": [
+            "Umbrella Stroller"
+          ]
+        },
+        "Evidence_Refs": [
+          "Product_Specifications.Features_Specs.Stroller Type",
+          "Features"
+        ]
+      },
+      {
+        "Rank": "Similar",
+        "Brand": "Dream",
+        "Title": "Dream On Me Volgo Twin Baby Stroller, Compact Side-by-Side Double Umbrella Stroller, 5-Point Safety Harness, Adjustable Canop",
+        "Price": "$109.81",
+        "Rating": "4.4",
+        "Reviews": "2,532",
+        "URL": "https://www.amazon.com/Dream-Me-Umbrella-Stroller-446-BLK/dp/B089TVHV1X/ref=bmx_dp_d_sccl_1_5/147-2271281-0753021?pd_rd_w=c7JSZ&content-id=amzn1.sym.c952656f-2e08-43b8-b699-3c3bba430c7f&pf_rd_p=c952656f-2e08-43b8-b699-3c3bba430c7f&pf_rd_r=0BM1HSHM7FTK7MK6603X&pd_rd_wg=DZDFY&pd_rd_r=14c65d67-3071-407e-968c-adc01a6086f3&pd_rd_i=B089TVHV1X&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/71MpjKBKsaL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B089TVHV1X",
+        "Features": "Mesh | Imported | TWIN UMBRELLA STROLLER AT 29.5 INCHES WIDE FOR NARROW SPACES AND TRAVEL: Side-by-side seating for twins or siblings, sized to fit through doorways and fold flat with one hand for car trunks and storage. Each seat holds children from 6 months up to 40 lbs. | UMBRELLA FOLD FOR REAL-WORLD TRAVEL: The Volgo folds into a slim, travel-ready profile that fits car trunks and tight storage spaces. Its lightweight frame makes lifting easy, making it a practical double stroller for everyday travel and family outings. | INDEPENDENT 5-POINT SAFETY HARNESS FOR EACH CHILD: Both seats feature a dedicated 5-point harness with adjustable shoulder straps, waist belt, crotch strap to keep babies and toddlers secure. Adjust each harness independently for a secure, comfortable fit | FRONT SWIVEL WHEELS FOR SMOOTH URBAN NAVIGATION: Front swivel wheels glide smoothly on sidewalks, malls, airports, and indoor spaces, making turns easy. Designed for flat, smooth surfaces. Not intended for gravel, rough terrain, or off-road use. | DUAL ADJUSTABLE CANOPIES + UNDER-SEAT STORAGE BASKET: Each child has an adjustable canopy for sun and light-weather coverage; see images for coverage details. A roomy under-seat basket keeps diaper bags, snacks, and essentials close at hand.",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/374df266-1a53-4793-8952-89f930675348/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/374df266-1a53-4793-8952-89f930675348/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/51FRMsT9KaL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "446 -Volgo Twin Stroller  Canopy Installation",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/27c2c183-fee8-4b45-9471-5c8ba64ae3f9/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/81plTqCgETL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Dream On Me Volgo Twin Umbrella Stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b0d2684b-9017-490f-a98c-9b6fd5ddda3d/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61ABRxWd0wL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Need a double umbrella stroller?Checkout theDream on Me Twin",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/310c22ed-8860-471f-a783-d04ca78319a7/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71FzhB8FSEL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Disney approved set up for success",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cec6dc4e-f0eb-43c4-9ad1-43195064e39e/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/717ZQ7JL6lL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+            "Title": "WATCH BEFORE BUYING Dream On Me Twin Umbrella Stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/268f79fa-dc87-49ab-9fa9-5ad1fda01b3c/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1dUgbcPjCL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Dream On Me Twin Volgo Double Stroller ",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/41cccf69-5d8e-423d-892b-85a8aa0408c3/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61w7DvrdPTL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Let me show you why after 2 yrs I still use this stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/374df266-1a53-4793-8952-89f930675348/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/27c2c183-fee8-4b45-9471-5c8ba64ae3f9/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b0d2684b-9017-490f-a98c-9b6fd5ddda3d/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/310c22ed-8860-471f-a783-d04ca78319a7/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cec6dc4e-f0eb-43c4-9ad1-43195064e39e/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/268f79fa-dc87-49ab-9fa9-5ad1fda01b3c/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/41cccf69-5d8e-423d-892b-85a8aa0408c3/default.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/374df266-1a53-4793-8952-89f930675348/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/27c2c183-fee8-4b45-9471-5c8ba64ae3f9/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b0d2684b-9017-490f-a98c-9b6fd5ddda3d/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/310c22ed-8860-471f-a783-d04ca78319a7/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cec6dc4e-f0eb-43c4-9ad1-43195064e39e/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/268f79fa-dc87-49ab-9fa9-5ad1fda01b3c/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/41cccf69-5d8e-423d-892b-85a8aa0408c3/default.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "Easy Steps for Canopy Installation",
+              "Texts": [],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/cb33fed9-0604-4d5f-8bdf-91c13df340a3.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/9634246b-4c07-4356-b0b5-2a07fc98a96f.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/d5152837-d048-4782-b00f-f06c9d7bda1b.__CR0,13,4000,2474_PT0_SX970_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/902b213e-d64a-46ef-ae81-411784fbfbc2.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/c85de40b-a117-4a96-b81b-3b9bdad67244.__CR0,0,970,600_PT0_SX970_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/cb33fed9-0604-4d5f-8bdf-91c13df340a3.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "twin stroller, baby stroller, double stroller",
+                  "Image_Alt": "twin stroller, baby stroller, double stroller"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/9634246b-4c07-4356-b0b5-2a07fc98a96f.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                  "Image_Order": 2,
+                  "Image_Title": "twin stroller, baby stroller, double stroller, light weight stroller, tandem stroller",
+                  "Image_Alt": "twin stroller, baby stroller, double stroller, light weight stroller, tandem stroller"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/d5152837-d048-4782-b00f-f06c9d7bda1b.__CR0,13,4000,2474_PT0_SX970_V1___.jpg",
+                  "Image_Order": 3,
+                  "Image_Title": "C",
+                  "Image_Alt": "C"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/902b213e-d64a-46ef-ae81-411784fbfbc2.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                  "Image_Order": 4,
+                  "Image_Title": "Easy to fold twin stroller",
+                  "Image_Alt": "Easy to fold twin stroller"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/c85de40b-a117-4a96-b81b-3b9bdad67244.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                  "Image_Order": 5,
+                  "Image_Title": "variations of twin stroller",
+                  "Image_Alt": "variations of twin stroller"
+                }
+              ],
+              "Comparison_Table": {},
+              "Block_Types": [
+                "image"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "Easy Steps for Canopy Installation"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/cb33fed9-0604-4d5f-8bdf-91c13df340a3.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "twin stroller, baby stroller, double stroller",
+                    "Image_Alt": "twin stroller, baby stroller, double stroller"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/9634246b-4c07-4356-b0b5-2a07fc98a96f.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                    "Image_Order": 2,
+                    "Image_Title": "twin stroller, baby stroller, double stroller, light weight stroller, tandem stroller",
+                    "Image_Alt": "twin stroller, baby stroller, double stroller, light weight stroller, tandem stroller"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/d5152837-d048-4782-b00f-f06c9d7bda1b.__CR0,13,4000,2474_PT0_SX970_V1___.jpg",
+                    "Image_Order": 3,
+                    "Image_Title": "C",
+                    "Image_Alt": "C"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/902b213e-d64a-46ef-ae81-411784fbfbc2.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                    "Image_Order": 4,
+                    "Image_Title": "Easy to fold twin stroller",
+                    "Image_Alt": "Easy to fold twin stroller"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/c85de40b-a117-4a96-b81b-3b9bdad67244.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                    "Image_Order": 5,
+                    "Image_Title": "variations of twin stroller",
+                    "Image_Alt": "variations of twin stroller"
+                  }
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/cb33fed9-0604-4d5f-8bdf-91c13df340a3.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/9634246b-4c07-4356-b0b5-2a07fc98a96f.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/d5152837-d048-4782-b00f-f06c9d7bda1b.__CR0,13,4000,2474_PT0_SX970_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/902b213e-d64a-46ef-ae81-411784fbfbc2.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/c85de40b-a117-4a96-b81b-3b9bdad67244.__CR0,0,970,600_PT0_SX970_V1___.jpg"
+            ],
+            "Local_Images": [
+              "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+              "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+              "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+              "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+              "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [
+            {
+              "Title": "User Guide (PDF)",
+              "URL": "https://m.media-amazon.com/images/I/B1MqhTvME-L.pdf",
+              "Type": "PDF",
+              "Source": "Product guides and documents",
+              "Category": "manual",
+              "Local_Path": "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/guides/manual/doc_00_User_Guide_PDF.pdf"
+            }
+          ],
+          "Summary": {
+            "Count": 1
+          },
+          "Local_Paths": [
+            "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/guides/manual/doc_00_User_Guide_PDF.pdf"
+          ]
+        },
+        "Product_Description": "The Dream On Me Volgo Twin Baby Stroller keeps outings with twins or siblings manageable for daily errands, family trips, or anything in between. At 29.9\" wide, this narrow double stroller fits through standard doorways and moves easily through stores and sidewalks. Reclining seats with adjustable footrests fit children 6 to 36 months, up to 40 lbs per seat. Soft Ride wheels, 360° swivel front wheels, and lockable rear wheels keep on-the-go parents in control. The stroller measures L 31.8\" x W 29.9\" x H 39.3\", 22.57 lbs weight when fully assembled, offering a compact footprint for everyday use. Adjustable mesh canopies and large storage pockets handle sun coverage and everyday carry. Padded 5-point harnesses and an ASTM-tested frame built for real family life.",
+        "Product_Specifications": {
+          "Measurements": {
+            "Item Weight": "22.57 Pounds",
+            "Folded Size": "32 L x 26 W x 40 H (inches)",
+            "Rear Facing Stroller Maximum Height": "40 Inches",
+            "Item Dimensions L x W x H": "31.8\"L x 29.9\"W x 39.3\"H",
+            "Stroller Seat Weight": "40 Pounds",
+            "Basket Weight Capacity Maximum": "80 Pounds",
+            "Back Wheel Diameter": "5.5 Inches",
+            "Front Wheel Diameter": "5.5 Inches"
+          },
+          "Features_Specs": {
+            "Stroller Type": "Umbrella Stroller",
+            "Is Car Seat Compatible": "No",
+            "Seating Capacity": "2",
+            "Additional Features": "360° Maneuverability, Adjustable Hoods with Mesh Inserts, Compact Design, Large Storage Pockets",
+            "Built-in Light": "No",
+            "Has Stroller Brake System": "Yes"
+          },
+          "Materials_Care": {},
+          "Item_Details": {
+            "Number of Wheels": "4"
+          },
+          "User_Guide": {
+            "Harness Type": "5 Point",
+            "Harness Feature": "adjustable, padded comfort strap"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+          "Availability": "In Stock",
+          "Delivery_Promise": "$46.01 delivery Thursday, July 9. Order within 11 hrs 24 mins Or fastest delivery Wednesday, July 8",
+          "Specifications": {
+            "Item Weight": "22.57 Pounds",
+            "Folded Size": "32 L x 26 W x 40 H (inches)",
+            "Rear Facing Stroller Maximum Height": "40 Inches",
+            "Item Dimensions L x W x H": "31.8\"L x 29.9\"W x 39.3\"H",
+            "Stroller Seat Weight": "40 Pounds",
+            "Basket Weight Capacity Maximum": "80 Pounds",
+            "Back Wheel Diameter": "5.5 Inches",
+            "Front Wheel Diameter": "5.5 Inches"
+          }
+        },
+        "Category_Attributes": {
+          "categoryId": "stroller",
+          "ageGroup": [],
+          "structure": [
+            "Umbrella Stroller"
+          ],
+          "scenario": [],
+          "features": [
+            "Mesh",
+            "Imported",
+            "TWIN UMBRELLA STROLLER AT 29.5 INCHES WIDE FOR NARROW SPACES AND TRAVEL: Side-by-side seating for twins or siblings",
+            "sized to fit through doorways and fold flat with one hand for car trunks and storage. Each seat holds children from 6 months up to 40 lbs.",
+            "UMBRELLA FOLD FOR REAL-WORLD TRAVEL: The Volgo folds into a slim",
+            "travel-ready profile that fits car trunks and tight storage spaces. Its lightweight frame makes lifting easy",
+            "making it a practical double stroller for everyday travel and family outings.",
+            "INDEPENDENT 5-POINT SAFETY HARNESS FOR EACH CHILD: Both seats feature a dedicated 5-point harness with adjustable shoulder straps",
+            "waist belt",
+            "crotch strap to keep babies and toddlers secure. Adjust each harness independently for a secure",
+            "comfortable fit",
+            "FRONT SWIVEL WHEELS FOR SMOOTH URBAN NAVIGATION: Front swivel wheels glide smoothly on sidewalks",
+            "malls",
+            "airports",
+            "and indoor spaces",
+            "making turns easy. Designed for flat",
+            "smooth surfaces. Not intended for gravel",
+            "rough terrain",
+            "or off-road use.",
+            "DUAL ADJUSTABLE CANOPIES + UNDER-SEAT STORAGE BASKET: Each child has an adjustable canopy for sun and light-weather coverage",
+            "see images for coverage details. A roomy under-seat basket keeps diaper bags",
+            "snacks",
+            "and essentials close at hand.",
+            "Umbrella Stroller",
+            "No",
+            "2",
+            "360° Maneuverability",
+            "Adjustable Hoods with Mesh Inserts",
+            "Compact Design",
+            "Large Storage Pockets",
+            "Yes"
+          ],
+          "materialClass": [],
+          "wheelSize": [],
+          "powerLevel": []
+        },
+        "Feature_Cards": [
+          {
+            "featureKey": "Mesh",
+            "featureLabel": "Mesh",
+            "featureValue": "Mesh",
+            "featureEvidence": "Features",
+            "featureRank": 1,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "Imported",
+            "featureLabel": "Imported",
+            "featureValue": "Imported",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 2,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "TWIN UMBRELLA STROLLER AT 29.5 INCHES WIDE FOR NARROW SPACES AND TRAVEL: Side-by-side seating for twins or siblings",
+            "featureLabel": "Twin Umbrella Stroller At 29.5 Inches Wide For Narrow Spaces And Travel: Side By Side Seating For Twins Or Siblings",
+            "featureValue": "TWIN UMBRELLA STROLLER AT 29.5 INCHES WIDE FOR NARROW SPACES AND TRAVEL: Side-by-side seating for twins or siblings",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 3,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "sized to fit through doorways and fold flat with one hand for car trunks and storage. Each seat holds children from 6 months up to 40 lbs.",
+            "featureLabel": "Sized To Fit Through Doorways And Fold Flat With One Hand For Car Trunks And Storage. Each Seat Holds Children From 6 Months Up To 40 Lbs.",
+            "featureValue": "sized to fit through doorways and fold flat with one hand for car trunks and storage. Each seat holds children from 6 months up to 40 lbs.",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 4,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "UMBRELLA FOLD FOR REAL-WORLD TRAVEL: The Volgo folds into a slim",
+            "featureLabel": "Umbrella Fold For Real World Travel: The Volgo Folds Into A Slim",
+            "featureValue": "UMBRELLA FOLD FOR REAL-WORLD TRAVEL: The Volgo folds into a slim",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 5,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "travel-ready profile that fits car trunks and tight storage spaces. Its lightweight frame makes lifting easy",
+            "featureLabel": "Travel Ready Profile That Fits Car Trunks And Tight Storage Spaces. Its Lightweight Frame Makes Lifting Easy",
+            "featureValue": "travel-ready profile that fits car trunks and tight storage spaces. Its lightweight frame makes lifting easy",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 6,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          }
+        ],
+        "Decision_Signals": {
+          "ranking": [
+            "Mesh",
+            "Imported",
+            "TWIN UMBRELLA STROLLER AT 29.5 INCHES WIDE FOR NARROW SPACES AND TRAVEL: Side-by-side seating for twins or siblings",
+            "sized to fit through doorways and fold flat with one hand for car trunks and storage. Each seat holds children from 6 months up to 40 lbs."
+          ],
+          "safety": [],
+          "fit": [
+            "Umbrella Stroller"
+          ]
+        },
+        "Evidence_Refs": [
+          "Product_Specifications.Features_Specs.Stroller Type",
+          "Features"
+        ],
+        "Local_Image_Paths": [
+          "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/images/primary.jpg",
+          "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/images/alt_1.jpg",
+          "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/images/alt_2.jpg",
+          "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/images/alt_3.jpg",
+          "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/images/alt_4.jpg",
+          "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/images/alt_5.jpg",
+          "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/images/alt_6.jpg",
+          "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/images/alt_7.jpg",
+          "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/images/alt_8.jpg",
+          "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/images/primary.jpg",
+        "Local_Video_Paths": []
+      },
+      {
+        "Rank": "Similar",
+        "Brand": "MAMAZING",
+        "Title": "MAMAZING Ultra Air Lightweight Baby Travel Stroller with Carbon Fiber Frame, Compact & Airplane-Friendly, One-Handed Fold, 11",
+        "Price": "$209.99",
+        "Rating": "4.6",
+        "Reviews": "1,895",
+        "URL": "https://www.amazon.com/MAMAZING-Stroller-Organizer-Airplane-Friendly-One-Handed/dp/B0CXXDTS5V/ref=bmx_dp_d_sccl_1_6/147-2271281-0753021?pd_rd_w=c7JSZ&content-id=amzn1.sym.c952656f-2e08-43b8-b699-3c3bba430c7f&pf_rd_p=c952656f-2e08-43b8-b699-3c3bba430c7f&pf_rd_r=0BM1HSHM7FTK7MK6603X&pd_rd_wg=DZDFY&pd_rd_r=14c65d67-3071-407e-968c-adc01a6086f3&pd_rd_i=B0CXXDTS5V&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/714S+B1YkFL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B0CXXDTS5V",
+        "Features": "Carbon Fiber | Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. Weighing in at just 11.6 pounds, thanks to its advanced carbon fiber frame, ensuring a hassle-free experience wherever you go. This innovative material not only provides exceptional durability but also allows for an incredibly lightweight construction, making it a breeze to store in trunks or overhead bins on airplanes. | User-Friendly Fold & Unfold: Gone are the days of struggling with complex folding mechanisms. Our lightweight travel stroller features a user-friendly fold-and-unfold system that can be mastered in seconds. This makes transitioning from strolling to storing a seamless process, allowing you to focus on creating memories with your loved ones. | Sun Protection and Comfort: Your child's comfort and safety are our top priorities. The Ultra Air Stroller features a UV-protective canopy that shields your little one from harmful sun rays, providing a cool and shaded haven for them to relax in. The adjustable UPF 50+ canopy can be easily positioned to cater to different sun angles, allowing you to create the perfect shady spot as you explore outdoor locales. | Ample Storage Space: No need to worry about leaving essentials behind! This compact toddler stroller comes with ample storage options, including a spacious under-seat basket that can easily accommodate diaper bags, toys, snacks, and more. In addition, it also includes universal organizer with insulated cup holder, removable cell phone pocket and shoulder strap. Keep your hands free and your child's necessities within reach as you embark on your adventures. | Safety First: We prioritize your child's safety. Our infant stroller features a 5-point harness and foot-operated brake system for maximum security. Suitable for babies aged 6 months up to 50 pounds (maximum height of 39.4 inches). Ultra Air meets or exceeds the highest safety standards set by the CPSC and ASTM.",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3e952392-410d-4d14-aa58-139b976f14f2/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3e952392-410d-4d14-aa58-139b976f14f2/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/81M+OPVsg-L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "User Guide for Mamazing Ultra Air",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3f13abdb-fa1a-4862-8ac2-8dac1af825af/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1lnYPe9AiL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "MAMAZING Ultra Air fits in trunk, closet, or bin easily.",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/93b2bdce-2491-417b-9aba-2aa0e62e9cc2/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/714BOobzVgL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Amazing Carbon Fiber Baby Stroller, too too light : )",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62457925-bd8b-492d-beb0-aa2bfcfbda00/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1p3FFo2SGL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "MAMAZING Ultra Air, amazing ultra light!:)",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c218e939-3f24-4d38-b340-f798d939c476/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/81ufjOSG3yL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Soo COMPACT!! MY Review of THIS Stroller!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/05ea39a6-bd26-416d-9b5e-3a891595d600/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/813FweeIjvL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Why You Need This Mamazing Stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7469cfed-70cc-478e-bd1e-0b8722b414dd/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A14JBggM14L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+            "Title": "Great travel and everyday stroller for toddler",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/978b418b-de83-4aa8-b2f6-3fb4f717251d/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71v2VYemArL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Baby Must Have #babiesandtoddlers",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b9856f0e-45f6-4140-80dd-91b9aacf0785/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1EmF8doCSL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Fits in Airplane Top Storage + Lays flat for Newborn!",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3e952392-410d-4d14-aa58-139b976f14f2/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3f13abdb-fa1a-4862-8ac2-8dac1af825af/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/93b2bdce-2491-417b-9aba-2aa0e62e9cc2/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62457925-bd8b-492d-beb0-aa2bfcfbda00/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c218e939-3f24-4d38-b340-f798d939c476/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/05ea39a6-bd26-416d-9b5e-3a891595d600/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7469cfed-70cc-478e-bd1e-0b8722b414dd/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/978b418b-de83-4aa8-b2f6-3fb4f717251d/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b9856f0e-45f6-4140-80dd-91b9aacf0785/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3e952392-410d-4d14-aa58-139b976f14f2/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3f13abdb-fa1a-4862-8ac2-8dac1af825af/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/93b2bdce-2491-417b-9aba-2aa0e62e9cc2/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62457925-bd8b-492d-beb0-aa2bfcfbda00/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c218e939-3f24-4d38-b340-f798d939c476/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/05ea39a6-bd26-416d-9b5e-3a891595d600/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7469cfed-70cc-478e-bd1e-0b8722b414dd/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/978b418b-de83-4aa8-b2f6-3fb4f717251d/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b9856f0e-45f6-4140-80dd-91b9aacf0785/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "MAMAZING Family - Designed to Grow with Your Baby",
+              "Texts": [],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/b957d061-54c8-4721-8592-4067917027cb.__CR0,0,1464,600_PT0_SX1464_V1___.png"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/b957d061-54c8-4721-8592-4067917027cb.__CR0,0,1464,600_PT0_SX1464_V1___.png",
+                  "Image_Order": 1,
+                  "Image_Title": "lightweight stroller",
+                  "Image_Alt": "lightweight stroller"
+                }
+              ],
+              "Comparison_Table": {
+                "Headers": [
+                  "Ultra Air Travel Stroller Buying Options",
+                  "Air Lux Bassinet Stroller Buying Options",
+                  "Air X Travel Strolle Buying Options",
+                  "Portable Stroller Fan Buying Options",
+                  "Stroller Snack Tray Buying Options",
+                  "Baby Ear Muffs Buying Options"
+                ],
+                "Rows": [
+                  [
+                    "Customer Reviews",
+                    "4.6 out of 5 stars 1,895",
+                    "4.2 out of 5 stars 105",
+                    "4.5 out of 5 stars 203",
+                    "4.3 out of 5 stars 37",
+                    "4.1 out of 5 stars 37",
+                    "4.7 out of 5 stars 218"
+                  ],
+                  [
+                    "Key Feature",
+                    "Light Carbon Frame",
+                    "Light Carbon Frame",
+                    "Light Carbon Frame",
+                    "Oscillating & Long-Lasting",
+                    "3-in-1 Universal Design",
+                    "Soft Noise Shield"
+                  ],
+                  [
+                    "Age Range",
+                    "6-36 Months",
+                    "0-36 Months",
+                    "6-36 Months",
+                    "All Ages",
+                    "6-36 Months",
+                    "3-48 Months"
+                  ],
+                  [
+                    "Function",
+                    "IATA Approved",
+                    "Newborn Mode & Seat Mode",
+                    "Ultra Lightweight Only 9.9lbs",
+                    "5 Speed & LED Display",
+                    "3-in-1 Baby Travel Hub",
+                    "Ear Protection"
+                  ],
+                  [
+                    "Signature Technology",
+                    "AirFrame Technology",
+                    "LuxRide System",
+                    "AirFrame Technology",
+                    "Powerful Motor",
+                    "SmartSnap Modular",
+                    "QuietShield"
+                  ],
+                  [
+                    "Benefit",
+                    "Easy Fold, Smooth Ride",
+                    "Comfort & Elegance",
+                    "Safer, Softer Travel",
+                    "Multifunctional & Portable",
+                    "On-the-go Snack & Play Station",
+                    "Blocks Loud Sounds"
+                  ]
+                ]
+              },
+              "Block_Types": [
+                "image",
+                "table"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "MAMAZING Family - Designed to Grow with Your Baby"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/b957d061-54c8-4721-8592-4067917027cb.__CR0,0,1464,600_PT0_SX1464_V1___.png",
+                    "Image_Order": 1,
+                    "Image_Title": "lightweight stroller",
+                    "Image_Alt": "lightweight stroller"
+                  }
+                },
+                {
+                  "Block_Type": "table",
+                  "Table": {
+                    "Headers": [
+                      "Ultra Air Travel Stroller Buying Options",
+                      "Air Lux Bassinet Stroller Buying Options",
+                      "Air X Travel Strolle Buying Options",
+                      "Portable Stroller Fan Buying Options",
+                      "Stroller Snack Tray Buying Options",
+                      "Baby Ear Muffs Buying Options"
+                    ],
+                    "Rows": [
+                      [
+                        "Customer Reviews",
+                        "4.6 out of 5 stars 1,895",
+                        "4.2 out of 5 stars 105",
+                        "4.5 out of 5 stars 203",
+                        "4.3 out of 5 stars 37",
+                        "4.1 out of 5 stars 37",
+                        "4.7 out of 5 stars 218"
+                      ],
+                      [
+                        "Key Feature",
+                        "Light Carbon Frame",
+                        "Light Carbon Frame",
+                        "Light Carbon Frame",
+                        "Oscillating & Long-Lasting",
+                        "3-in-1 Universal Design",
+                        "Soft Noise Shield"
+                      ],
+                      [
+                        "Age Range",
+                        "6-36 Months",
+                        "0-36 Months",
+                        "6-36 Months",
+                        "All Ages",
+                        "6-36 Months",
+                        "3-48 Months"
+                      ],
+                      [
+                        "Function",
+                        "IATA Approved",
+                        "Newborn Mode & Seat Mode",
+                        "Ultra Lightweight Only 9.9lbs",
+                        "5 Speed & LED Display",
+                        "3-in-1 Baby Travel Hub",
+                        "Ear Protection"
+                      ],
+                      [
+                        "Signature Technology",
+                        "AirFrame Technology",
+                        "LuxRide System",
+                        "AirFrame Technology",
+                        "Powerful Motor",
+                        "SmartSnap Modular",
+                        "QuietShield"
+                      ],
+                      [
+                        "Benefit",
+                        "Easy Fold, Smooth Ride",
+                        "Comfort & Elegance",
+                        "Safer, Softer Travel",
+                        "Multifunctional & Portable",
+                        "On-the-go Snack & Play Station",
+                        "Blocks Loud Sounds"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/b957d061-54c8-4721-8592-4067917027cb.__CR0,0,1464,600_PT0_SX1464_V1___.png"
+            ],
+            "Local_Images": [
+              "../scrape_store/stroller/MAMAZING/Rank_Similar_ASIN_B0CXXDTS5V_MAMAZING Ultra Air Lightweight Baby Travel Strolle/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [],
+          "Summary": {
+            "Count": 0
+          },
+          "Local_Paths": []
+        },
+        "Product_Description": "N/A",
+        "Product_Specifications": {
+          "Measurements": {
+            "Item Weight": "11.6 Pounds",
+            "Folded Size": "H22 x W19.3x D11 inch",
+            "Rear Facing Stroller Maximum Height": "39.4 Inches",
+            "Item Dimensions L x W x H": "29.9\"L x 19.3\"W x 39.4\"H",
+            "Frame Weight": "9 Pounds",
+            "Basket Weight Capacity Maximum": "22 Pounds",
+            "Back Wheel Diameter": "6 Inches",
+            "Front Wheel Diameter": "5.5 Inches"
+          },
+          "Features_Specs": {
+            "Stroller Type": "Standard Stroller",
+            "Is Car Seat Compatible": "No",
+            "Seating Capacity": "1.0",
+            "Additional Features": "Compact size, Lightweight, One-handed folding mechanism, Storage Basket, UV-protective canopy",
+            "Built-in Light": "No"
+          },
+          "Materials_Care": {},
+          "Item_Details": {
+            "Number of Wheels": "4"
+          },
+          "User_Guide": {
+            "Harness Type": "5 Point",
+            "Harness Feature": "No-Rethread"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "N/A",
+          "Availability": "This item cannot be shipped to your selected delivery location. Please choose a different delivery location.",
+          "Delivery_Promise": "N/A",
+          "Specifications": {
+            "Item Weight": "11.6 Pounds",
+            "Folded Size": "H22 x W19.3x D11 inch",
+            "Rear Facing Stroller Maximum Height": "39.4 Inches",
+            "Item Dimensions L x W x H": "29.9\"L x 19.3\"W x 39.4\"H",
+            "Frame Weight": "9 Pounds",
+            "Basket Weight Capacity Maximum": "22 Pounds",
+            "Back Wheel Diameter": "6 Inches",
+            "Front Wheel Diameter": "5.5 Inches"
+          }
+        },
+        "Category_Attributes": {
+          "categoryId": "stroller",
+          "ageGroup": [],
+          "structure": [
+            "Standard Stroller"
+          ],
+          "scenario": [],
+          "features": [
+            "Carbon Fiber",
+            "Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. Weighing in at just 11.6 pounds",
+            "thanks to its advanced carbon fiber frame",
+            "ensuring a hassle-free experience wherever you go. This innovative material not only provides exceptional durability but also allows for an incredibly lightweight construction",
+            "making it a breeze to store in trunks or overhead bins on airplanes.",
+            "User-Friendly Fold & Unfold: Gone are the days of struggling with complex folding mechanisms. Our lightweight travel stroller features a user-friendly fold-and-unfold system that can be mastered in seconds. This makes transitioning from strolling to storing a seamless process",
+            "allowing you to focus on creating memories with your loved ones.",
+            "Sun Protection and Comfort: Your child's comfort and safety are our top priorities. The Ultra Air Stroller features a UV-protective canopy that shields your little one from harmful sun rays",
+            "providing a cool and shaded haven for them to relax in. The adjustable UPF 50+ canopy can be easily positioned to cater to different sun angles",
+            "allowing you to create the perfect shady spot as you explore outdoor locales.",
+            "Ample Storage Space: No need to worry about leaving essentials behind! This compact toddler stroller comes with ample storage options",
+            "including a spacious under-seat basket that can easily accommodate diaper bags",
+            "toys",
+            "snacks",
+            "and more. In addition",
+            "it also includes universal organizer with insulated cup holder",
+            "removable cell phone pocket and shoulder strap. Keep your hands free and your child's necessities within reach as you embark on your adventures.",
+            "Safety First: We prioritize your child's safety. Our infant stroller features a 5-point harness and foot-operated brake system for maximum security. Suitable for babies aged 6 months up to 50 pounds (maximum height of 39.4 inches). Ultra Air meets or exceeds the highest safety standards set by the CPSC and ASTM.",
+            "Standard Stroller",
+            "No",
+            "1.0",
+            "Compact size",
+            "Lightweight",
+            "One-handed folding mechanism",
+            "Storage Basket",
+            "UV-protective canopy"
+          ],
+          "materialClass": [],
+          "wheelSize": [],
+          "powerLevel": []
+        },
+        "Feature_Cards": [
+          {
+            "featureKey": "Carbon Fiber",
+            "featureLabel": "Carbon Fiber",
+            "featureValue": "Carbon Fiber",
+            "featureEvidence": "Features",
+            "featureRank": 1,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. Weighing in at just 11.6 pounds",
+            "featureLabel": "Compact & Lightweight Design: Say Goodbye To Bulky Strollers That Make Travel A Hassle. Our Baby Stroller Boasts Compact Design That Effortlessly Folds Down Into A Compact Size. Weighing In At Just 11.6 Pounds",
+            "featureValue": "Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. Weighing in at just 11.6 pounds",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 2,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "thanks to its advanced carbon fiber frame",
+            "featureLabel": "Thanks To Its Advanced Carbon Fiber Frame",
+            "featureValue": "thanks to its advanced carbon fiber frame",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 3,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "ensuring a hassle-free experience wherever you go. This innovative material not only provides exceptional durability but also allows for an incredibly lightweight construction",
+            "featureLabel": "Ensuring A Hassle Free Experience Wherever You Go. This Innovative Material Not Only Provides Exceptional Durability But Also Allows For An Incredibly Lightweight Construction",
+            "featureValue": "ensuring a hassle-free experience wherever you go. This innovative material not only provides exceptional durability but also allows for an incredibly lightweight construction",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 4,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "making it a breeze to store in trunks or overhead bins on airplanes.",
+            "featureLabel": "Making It A Breeze To Store In Trunks Or Overhead Bins On Airplanes.",
+            "featureValue": "making it a breeze to store in trunks or overhead bins on airplanes.",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 5,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "User-Friendly Fold & Unfold: Gone are the days of struggling with complex folding mechanisms. Our lightweight travel stroller features a user-friendly fold-and-unfold system that can be mastered in seconds. This makes transitioning from strolling to storing a seamless process",
+            "featureLabel": "User Friendly Fold & Unfold: Gone Are The Days Of Struggling With Complex Folding Mechanisms. Our Lightweight Travel Stroller Features A User Friendly Fold And Unfold System That Can Be Mastered In Seconds. This Makes Transitioning From Strolling To Storing A Seamless Process",
+            "featureValue": "User-Friendly Fold & Unfold: Gone are the days of struggling with complex folding mechanisms. Our lightweight travel stroller features a user-friendly fold-and-unfold system that can be mastered in seconds. This makes transitioning from strolling to storing a seamless process",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 6,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          }
+        ],
+        "Decision_Signals": {
+          "ranking": [
+            "Carbon Fiber",
+            "Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. Weighing in at just 11.6 pounds",
+            "thanks to its advanced carbon fiber frame",
+            "ensuring a hassle-free experience wherever you go. This innovative material not only provides exceptional durability but also allows for an incredibly lightweight construction"
+          ],
+          "safety": [],
+          "fit": [
+            "Standard Stroller"
+          ]
+        },
+        "Evidence_Refs": [
+          "Product_Specifications.Features_Specs.Stroller Type",
+          "Features"
+        ],
+        "Local_Image_Paths": [
+          "../scrape_store/stroller/MAMAZING/Rank_Similar_ASIN_B0CXXDTS5V_MAMAZING Ultra Air Lightweight Baby Travel Strolle/images/primary.jpg",
+          "../scrape_store/stroller/MAMAZING/Rank_Similar_ASIN_B0CXXDTS5V_MAMAZING Ultra Air Lightweight Baby Travel Strolle/images/alt_1.jpg",
+          "../scrape_store/stroller/MAMAZING/Rank_Similar_ASIN_B0CXXDTS5V_MAMAZING Ultra Air Lightweight Baby Travel Strolle/images/alt_2.jpg",
+          "../scrape_store/stroller/MAMAZING/Rank_Similar_ASIN_B0CXXDTS5V_MAMAZING Ultra Air Lightweight Baby Travel Strolle/images/alt_3.jpg",
+          "../scrape_store/stroller/MAMAZING/Rank_Similar_ASIN_B0CXXDTS5V_MAMAZING Ultra Air Lightweight Baby Travel Strolle/images/alt_4.jpg",
+          "../scrape_store/stroller/MAMAZING/Rank_Similar_ASIN_B0CXXDTS5V_MAMAZING Ultra Air Lightweight Baby Travel Strolle/images/alt_5.jpg",
+          "../scrape_store/stroller/MAMAZING/Rank_Similar_ASIN_B0CXXDTS5V_MAMAZING Ultra Air Lightweight Baby Travel Strolle/images/alt_6.jpg",
+          "../scrape_store/stroller/MAMAZING/Rank_Similar_ASIN_B0CXXDTS5V_MAMAZING Ultra Air Lightweight Baby Travel Strolle/images/alt_7.jpg",
+          "../scrape_store/stroller/MAMAZING/Rank_Similar_ASIN_B0CXXDTS5V_MAMAZING Ultra Air Lightweight Baby Travel Strolle/images/alt_8.jpg",
+          "../scrape_store/stroller/MAMAZING/Rank_Similar_ASIN_B0CXXDTS5V_MAMAZING Ultra Air Lightweight Baby Travel Strolle/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "../scrape_store/stroller/MAMAZING/Rank_Similar_ASIN_B0CXXDTS5V_MAMAZING Ultra Air Lightweight Baby Travel Strolle/images/primary.jpg",
+        "Local_Video_Paths": []
+      }
+    ]
+  }
+}

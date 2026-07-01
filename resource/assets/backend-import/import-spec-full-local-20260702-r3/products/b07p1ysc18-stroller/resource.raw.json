@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "stroller",
+  "fetchedAt": "2026-07-01T21:38:26.935Z",
+  "data": {
+    "resourceId": "B07P1YSC18:video",
+    "categoryId": "stroller",
+    "productId": "B07P1YSC18",
+    "resourceType": "product_video",
+    "title": "Ingenuity 3D Mini Convenience Stroller – Lightweight Stroller with Compact Fold, Multi-Position Recline, Canopy with Pop Out • Video preview",
+    "summary": "Video preview asset set for Ingenuity in stroller.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/e07dabda-b5d3-4884-9266-8409f75a356d.mp4/productVideoOptimized.mp4",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/e07dabda-b5d3-4884-9266-8409f75a356d.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/1c6a574b-02a0-449d-82b7-3b602f4783c0.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a9f91319-9e27-4339-acca-c7f61f85f802.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/b80f1d10-0e3f-417a-bd0c-bf2861a01ab2.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/269a921e-bd2b-456b-9d7d-456a63f37223.mp4/productVideoOptimized.mp4"
+    ],
+    "credibilityScore": 0.9,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 5,
+      "hasFeatures": true
+    }
+  }
+}

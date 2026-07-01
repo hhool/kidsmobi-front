@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "fetchedAt": "2026-07-01T20:06:16.302Z",
+  "data": {
+    "resourceId": "B0FQTZTC84:overview",
+    "categoryId": "kids_pull_along_wagons",
+    "productId": "B0FQTZTC84",
+    "resourceType": "product_overview",
+    "title": "BabyVista Stroller Wagon for Kids, One-Hand Adjustable Push/Pull Handle, Spacious Storage, 8\"/12\" All-Terrain Wheels, Canopy with Bug Net, Wagon Stroller for Daily Walks, Short Trips & Grocery Runs",
+    "summary": "Alloy Steel Frame, Rubber Wheels | ONE-HAND ADJUSTABLE PUSH/PULL HANDLE: Easily adjust the handle height with one hand to fit your comfort. Push your wagon stroller on smooth paths or pull it over sand, grass, or slopes—it’s easy to steer and comfy to handle wherever you go | SPA",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7dfc322b-36cf-49e3-a22b-c60060fb9f7f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b570bd9a-69ac-4899-9b03-ad07988e332f/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.63,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 2,
+      "hasFeatures": true
+    }
+  }
+}

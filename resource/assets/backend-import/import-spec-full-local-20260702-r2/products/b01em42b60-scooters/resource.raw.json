@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "scooters",
+  "fetchedAt": "2026-07-01T20:06:12.545Z",
+  "data": {
+    "resourceId": "B01EM42B60:overview",
+    "categoryId": "scooters",
+    "productId": "B01EM42B60",
+    "resourceType": "product_overview",
+    "title": "Razor A5 Lux Kick Scooter for Kids Ages 8+ - 8\" Urethane Wheels, Anodized Finish Featuring Bold Colors and Graphics, for Ride",
+    "summary": "Extra-large, urethane wheels provide a super-smooth and comfortable ride | Super-strong, height adjustable, aluminum T-tube and larger deck supports taller riders | Anodized finish features bold colors and attention-grabbing graphics | Easy-adjust handlebars include soft foam gri",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/scooters/Razor/Rank_5_ASIN_B01EM42B60_Razor A5 Lux Kick Scooter for Kids Ages 8 - 8 Uret/index.html",
+    "videoUrls": [
+      "/scrape_store/scooters/Razor/Rank_5_ASIN_B01EM42B60_Razor A5 Lux Kick Scooter for Kids Ages 8 - 8 Uret/videos/video_0.mp4",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/fe888540-1797-583d-b2c0-de15a9b7b3bd/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e64d8f98-0cc6-4915-bc25-dcb5a4439321/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ef73c4aa-ee2a-4226-b69d-99af03470d45/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7cea21d3-c609-4b27-a2b1-c249b8723377/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2d1088c6-4052-4d4b-a50c-c27c88defc74/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4a6b7232-9910-42a4-93b9-9e637ccd4271/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6cec340c-7c9a-4de8-9c64-734af93f2879/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.87,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 8,
+      "hasFeatures": true
+    }
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0F9PS1L56",
+  "sourceCategoryId": "electric_vehicles",
+  "images": [
+    {
+      "productId": "B0F9PS1L56",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F9PS1L56:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/primary.jpg",
+      "targetPathKeep": "resources/b0f9ps1l56-overview/primary.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f9ps1l56/cover/primary.jpg"
+    },
+    {
+      "productId": "B0F9PS1L56",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F9PS1L56:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0f9ps1l56-overview/alt_1.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f9ps1l56/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0F9PS1L56",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F9PS1L56:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0f9ps1l56-overview/alt_2.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f9ps1l56/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0F9PS1L56",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F9PS1L56:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0f9ps1l56-overview/alt_3.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f9ps1l56/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0F9PS1L56",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F9PS1L56:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0f9ps1l56-overview/alt_4.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f9ps1l56/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0F9PS1L56",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F9PS1L56:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0f9ps1l56-overview/alt_5.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f9ps1l56/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0F9PS1L56",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F9PS1L56:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0f9ps1l56-overview/alt_6.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f9ps1l56/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0F9PS1L56",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F9PS1L56:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0f9ps1l56-overview/alt_7.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f9ps1l56/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0F9PS1L56",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F9PS1L56:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0f9ps1l56-overview/alt_8.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f9ps1l56/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0F9PS1L56",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F9PS1L56:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0f9ps1l56-overview/alt_9.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f9ps1l56/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0F9PS1L56",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F9PS1L56:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+      "targetPathKeep": "resources/b0f9ps1l56-overview/aplus_00.png",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f9ps1l56/gallery/aplus_00.png"
+    },
+    {
+      "productId": "B0F9PS1L56",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F9PS1L56:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/primary.jpg",
+      "targetPathKeep": "resources/b0f9ps1l56-overview/primary.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f9ps1l56/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0F9PS1L56",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0F9PS1L56:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/71su4dbOb8L._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0f9ps1l56-overview/71su4dbob8l._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0f9ps1l56/gallery/71su4dbob8l._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5f57b98d-ca59-4483-a44a-899c1b6156de/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0bfc4091-cf82-47d9-972e-f02a7a20c1c6/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/724565e7-b08c-4000-9be5-b02c78a5561c/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1ed29be2-94a7-4752-9e57-396834bbd6ae/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c6909ff5-b3b1-4726-be93-fd765826307e/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1274c2c0-d0ac-47cf-9e9e-68919ff8491b/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/028de850-3341-48aa-ab16-d52d2e007659/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/16865046-cbb1-401f-a49a-095a281012a3/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/609ffebe-74c4-44e3-a000-e403e140b665/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/27f349f3-94b6-4ac8-b302-52542ed1c6d2/default.vertical.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/index.html"
+  ]
+}

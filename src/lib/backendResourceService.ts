@@ -47,7 +47,7 @@ type WorkerResource = {
 
 const DEFAULT_WORKER_BASE_URL = "https://kidsmobi-api-v1.seaman-player.workers.dev";
 
-function getWorkerBaseUrl() {
+export function getWorkerBaseUrl() {
   const env = (import.meta as any)?.env?.VITE_SCRAPE_API_BASE_URL;
   const value = typeof env === "string" && env.trim().length > 0 ? env.trim() : DEFAULT_WORKER_BASE_URL;
   return value.replace(/\/+$/, "");

@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0G1ZF9Z63",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "images": [
+    {
+      "productId": "B0G1ZF9Z63",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0G1ZF9Z63:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Baby/Rank_2_ASIN_B0G1ZF9Z63_Baby Trend Navigator 2-in-1 Stroller Wagon Desert/images/primary.jpg",
+      "targetPathKeep": "resources/b0g1zf9z63-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0g1zf9z63/cover/primary.jpg"
+    },
+    {
+      "productId": "B0G1ZF9Z63",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0G1ZF9Z63:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Baby/Rank_2_ASIN_B0G1ZF9Z63_Baby Trend Navigator 2-in-1 Stroller Wagon Desert/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0g1zf9z63-overview/alt_1.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0g1zf9z63/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0G1ZF9Z63",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0G1ZF9Z63:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Baby/Rank_2_ASIN_B0G1ZF9Z63_Baby Trend Navigator 2-in-1 Stroller Wagon Desert/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0g1zf9z63-overview/alt_2.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0g1zf9z63/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0G1ZF9Z63",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0G1ZF9Z63:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Baby/Rank_2_ASIN_B0G1ZF9Z63_Baby Trend Navigator 2-in-1 Stroller Wagon Desert/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0g1zf9z63-overview/alt_3.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0g1zf9z63/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0G1ZF9Z63",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0G1ZF9Z63:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Baby/Rank_2_ASIN_B0G1ZF9Z63_Baby Trend Navigator 2-in-1 Stroller Wagon Desert/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0g1zf9z63-overview/alt_4.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0g1zf9z63/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0G1ZF9Z63",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0G1ZF9Z63:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Baby/Rank_2_ASIN_B0G1ZF9Z63_Baby Trend Navigator 2-in-1 Stroller Wagon Desert/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0g1zf9z63-overview/alt_5.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0g1zf9z63/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0G1ZF9Z63",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0G1ZF9Z63:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Baby/Rank_2_ASIN_B0G1ZF9Z63_Baby Trend Navigator 2-in-1 Stroller Wagon Desert/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0g1zf9z63-overview/alt_6.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0g1zf9z63/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0G1ZF9Z63",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0G1ZF9Z63:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Baby/Rank_2_ASIN_B0G1ZF9Z63_Baby Trend Navigator 2-in-1 Stroller Wagon Desert/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0g1zf9z63-overview/alt_7.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0g1zf9z63/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0G1ZF9Z63",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0G1ZF9Z63:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Baby/Rank_2_ASIN_B0G1ZF9Z63_Baby Trend Navigator 2-in-1 Stroller Wagon Desert/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0g1zf9z63-overview/alt_8.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0g1zf9z63/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0G1ZF9Z63",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0G1ZF9Z63:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Baby/Rank_2_ASIN_B0G1ZF9Z63_Baby Trend Navigator 2-in-1 Stroller Wagon Desert/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0g1zf9z63-overview/alt_9.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0g1zf9z63/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0G1ZF9Z63",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0G1ZF9Z63:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Baby/Rank_2_ASIN_B0G1ZF9Z63_Baby Trend Navigator 2-in-1 Stroller Wagon Desert/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0g1zf9z63-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0g1zf9z63/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0G1ZF9Z63",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0G1ZF9Z63:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Baby/Rank_2_ASIN_B0G1ZF9Z63_Baby Trend Navigator 2-in-1 Stroller Wagon Desert/images/primary.jpg",
+      "targetPathKeep": "resources/b0g1zf9z63-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0g1zf9z63/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0G1ZF9Z63",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0G1ZF9Z63:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/715k1UOSa3L._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0g1zf9z63-overview/715k1uosa3l._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0g1zf9z63/gallery/715k1uosa3l._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0912b6f8-0b61-446d-824b-bb838636a6e1/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bbae8e70-ad9a-49d9-bb9a-d3f87ff8ecc1/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1318b01d-a2cd-40c0-85f0-82178754ce97/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d34acce5-03f3-4792-ae60-d6078f7a0bd9/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ea9532ec-e5de-48ca-bf19-7fe60f5607ea/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3dbc3d74-3705-476d-bb40-c512db34e63d/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6256c059-d4f9-4e4c-bb4e-a64806edb3fc/default.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/Baby/Rank_2_ASIN_B0G1ZF9Z63_Baby Trend Navigator 2-in-1 Stroller Wagon Desert/index.html"
+  ]
+}

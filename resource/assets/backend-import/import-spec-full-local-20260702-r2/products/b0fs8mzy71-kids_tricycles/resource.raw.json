@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_tricycles",
+  "fetchedAt": "2026-07-01T20:06:14.604Z",
+  "data": {
+    "resourceId": "B0FS8MZY71:overview",
+    "categoryId": "kids_tricycles",
+    "productId": "B0FS8MZY71",
+    "resourceType": "product_overview",
+    "title": "Radio Flyer City 4-in-1 Stroll 'N Trike, Teal, for Riders 1-5 Years Old, 4 Riding Modes, 3 Point Harness with Comfort Pad, Pa",
+    "summary": "SAFETY AND COMFORT: A 3-point harness with padded shoulders, comfort seat pad, UV protection canopy, removable snack tray, and removable footrest keep little riders safe, comfortable, and cool on every ride. | PARENT-CONTROLLED STEERING: The adjustable Steer & Stroll push handle ",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_tricycles/Radio/Rank_4_ASIN_B0FS8MZY71_Radio Flyer City 4-in-1 Stroll N Trike Teal for Ri/index.html",
+    "videoUrls": [
+      "/scrape_store/kids_tricycles/Radio/Rank_4_ASIN_B0FS8MZY71_Radio Flyer City 4-in-1 Stroll N Trike Teal for Ri/videos/video_0.mp4",
+      "/scrape_store/kids_tricycles/Radio/Rank_4_ASIN_B0FS8MZY71_Radio Flyer City 4-in-1 Stroll N Trike Teal for Ri/videos/video_1.mp4",
+      "/scrape_store/kids_tricycles/Radio/Rank_4_ASIN_B0FS8MZY71_Radio Flyer City 4-in-1 Stroll N Trike Teal for Ri/videos/video_2.mp4",
+      "/scrape_store/kids_tricycles/Radio/Rank_4_ASIN_B0FS8MZY71_Radio Flyer City 4-in-1 Stroll N Trike Teal for Ri/videos/video_3.mp4",
+      "/scrape_store/kids_tricycles/Radio/Rank_4_ASIN_B0FS8MZY71_Radio Flyer City 4-in-1 Stroll N Trike Teal for Ri/videos/video_4.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/74a6fd34-31f1-429b-849a-d434bee9bf5d.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/982d3285-0451-41bd-b0da-5d11b4aa35ab.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/50fb81f8-0182-4ee6-a93e-543320901851.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/fc301be0-7169-4114-bca3-1e3ea91bb85d.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/2a1e0ac3-5774-400e-8d7c-0f1fc59f036a.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4e1aad51-4931-4ab3-8a52-5b2e84f4ecca/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/06fb2b7e-f474-49dc-8ce7-66b6ffae8df8/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ab71944c-bb1e-4f63-bb08-7b2eb417c6b4/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c6565b3-8db4-4469-8e2a-59a4e4ede4ff/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bc909413-13ba-4c75-a3f0-d281d921a34a/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 1,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 15,
+      "hasFeatures": true
+    }
+  }
+}

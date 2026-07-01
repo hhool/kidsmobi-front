@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_tricycles",
+  "fetchedAt": "2026-07-01T21:38:57.532Z",
+  "data": {
+    "resourceId": "B0B5MVCKCC:video",
+    "categoryId": "kids_tricycles",
+    "productId": "B0B5MVCKCC",
+    "resourceType": "product_video",
+    "title": "KRIDDO Tricycles Age 24 Month to 4 Years, Toddler Kids Trike for 2.5 to 5 Year Old, Gift for 2-4 Year Olds , Green • Video preview",
+    "summary": "Video preview asset set for KRIDDO in kids_tricycles.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/858b08f3-b156-4388-9a24-8351276471c0/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/858b08f3-b156-4388-9a24-8351276471c0/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/93027184-1e0d-40f9-a8f0-5e3b3d530c51/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/21fb7638-ed04-49f0-9323-c1dcec3af0e0/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5003b164-1b4d-45c8-814b-666c3af78c3c/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fb3f5fc9-92b6-457b-a92e-60a8c1bafa44/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bff09874-7f25-4e4a-a3bd-506e776c4a6d/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.94,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

@@ -1,0 +1,801 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "balance_bike",
+  "categoryCode": "balance",
+  "fetchedAt": "2026-07-01T21:38:34.488Z",
+  "data": {
+    "productId": "B0CFDX97YD",
+    "categoryId": "balance_bike",
+    "rank": 4,
+    "title": "JMMD 6 in 1 Toddler Bike with Push Handle for Kids 18-60 Months, 12\" Foldable Balance Bike with Training Wheels, Pedals, Brak",
+    "brand": "JMMD",
+    "price": {
+      "display": "$104.36",
+      "value": 104.36,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.8  1,472",
+      "value": 4.8
+    },
+    "weight": {
+      "display": "N/A",
+      "lbs": 0
+    },
+    "classification": {
+      "Brand": "JMMD",
+      "Bike_Type": "Balance Bike",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Unknown",
+      "Price_Tier": "100-200"
+    },
+    "categoryAttributes": {
+      "categoryId": "balance_bike",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "GROWS WITH YOUR CHILD: No need to buy multiple kid bikes! This 6-in-1 convertible design easily transforms from a parent-push trike to a toddler tricycle",
+        "balance bike",
+        "toddler bike and more — perfectly suited for ages 18 to 60 months. It’s the only bike your child will need through their early years.",
+        "ADJUSTABLE STEERING HANDLE FOR SAFE CONTROL: The parent push handle rotates 135° for easy control of the toddler push bike’s speed and direction",
+        "helping protect your child from tipping or losing balance. It can also be adjusted to match parents’ height for comfortable guiding. Both the handlebar and seat are height-adjustable",
+        "and it comes with a seat extension rod for a perfect fit for kids of different heights.",
+        "SAFETY FIRST",
+        "ALWAYS: Built with parents’ peace of mind in mind. Equipped with an aluminum alloy frame",
+        "12\" all-terrain puncture-proof rubber wheels",
+        "a hand brake",
+        "and 60° steering limiter to prevent sudden turns. The gear-driven",
+        "chain-free system keeps your child safe while offering smoother control. Every detail of JMMD kids bicycle is designed for stability",
+        "safety",
+        "and comfort.",
+        "EASY TO ASSEMBLE & FOLD: Arrives 95% pre-assembled — just attach the handlebar",
+        "seat",
+        "push rod",
+        "and pedals",
+        "and it’s ready to ride. With one press of the red button under the frame",
+        "the toddler bike with training wheels folds instantly",
+        "making it easy to carry or store in your car trunk. Setup takes just minutes — no tools",
+        "no stress",
+        "just fun. Perfect for travel and family outings.",
+        "THE PERFECT GIFT FOR GROWING KIDS: Designed with training wheels and a kickstand",
+        "JMMD 6-in-1 toddler bicycle offers a smooth and safe transition from tricycle to balance bike to real bike. It helps your little one build balance and confidence step by step — from guided rides to independent adventures. A thoughtful gift for birthdays",
+        "Christmas",
+        "or first-bike surprises — more than a toy",
+        "it’s a memory that grows with your child."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "GROWS WITH YOUR CHILD: No need to buy multiple kid bikes! This 6-in-1 convertible design easily transforms from a parent-push trike to a toddler tricycle",
+        "featureLabel": "GROWS WITH YOUR CHILD: No Need To Buy Multiple Kid Bikes! This 6 In 1 Convertible Design Easily Transforms From A Parent Push Trike To A Toddler Tricycle",
+        "featureValue": "GROWS WITH YOUR CHILD: No need to buy multiple kid bikes! This 6-in-1 convertible design easily transforms from a parent-push trike to a toddler tricycle",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "balance bike",
+        "featureLabel": "Balance Bike",
+        "featureValue": "balance bike",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "toddler bike and more — perfectly suited for ages 18 to 60 months. It’s the only bike your child will need through their early years.",
+        "featureLabel": "Toddler Bike And More — Perfectly Suited For Ages 18 To 60 Months. It’S The Only Bike Your Child Will Need Through Their Early Years.",
+        "featureValue": "toddler bike and more — perfectly suited for ages 18 to 60 months. It’s the only bike your child will need through their early years.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "ADJUSTABLE STEERING HANDLE FOR SAFE CONTROL: The parent push handle rotates 135° for easy control of the toddler push bike’s speed and direction",
+        "featureLabel": "ADJUSTABLE STEERING HANDLE FOR SAFE CONTROL: The Parent Push Handle Rotates 135° For Easy Control Of The Toddler Push Bike’S Speed And Direction",
+        "featureValue": "ADJUSTABLE STEERING HANDLE FOR SAFE CONTROL: The parent push handle rotates 135° for easy control of the toddler push bike’s speed and direction",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "helping protect your child from tipping or losing balance. It can also be adjusted to match parents’ height for comfortable guiding. Both the handlebar and seat are height-adjustable",
+        "featureLabel": "Helping Protect Your Child From Tipping Or Losing Balance. It Can Also Be Adjusted To Match Parents’ Height For Comfortable Guiding. Both The Handlebar And Seat Are Height Adjustable",
+        "featureValue": "helping protect your child from tipping or losing balance. It can also be adjusted to match parents’ height for comfortable guiding. Both the handlebar and seat are height-adjustable",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "and it comes with a seat extension rod for a perfect fit for kids of different heights.",
+        "featureLabel": "And It Comes With A Seat Extension Rod For A Perfect Fit For Kids Of Different Heights.",
+        "featureValue": "and it comes with a seat extension rod for a perfect fit for kids of different heights.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from balance_bike classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "GROWS WITH YOUR CHILD: No need to buy multiple kid bikes! This 6-in-1 convertible design easily transforms from a parent-push trike to a toddler tricycle",
+        "balance bike",
+        "toddler bike and more — perfectly suited for ages 18 to 60 months. It’s the only bike your child will need through their early years.",
+        "ADJUSTABLE STEERING HANDLE FOR SAFE CONTROL: The parent push handle rotates 135° for easy control of the toddler push bike’s speed and direction"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/61pSZ5vkcsL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/61pSZ5vkcsL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0448b8ac-57b2-4df2-ade5-4690dd2ea818/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/002c4590-5f7c-4016-afa2-0941539544c3/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/227b2189-182b-4379-ac1a-6f7fa59e2357/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5cfc4bb1-abf5-4e8f-a212-0aebd7d14e7c/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/09856d4e-56ba-45d6-97a1-3e1f424c87a2/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/70138f9b-b376-4893-b692-716d9d695955/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3ffacd04-7574-49e8-8c34-4f1ffb176897/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7380cc36-5e8a-45e3-a31c-61d4afd86338/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6bfacb52-7d33-4b08-9a2b-f56f78146397/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/954300b7-6ba0-42a1-afde-f0511e643222/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 10,
+      "similarItems": 1
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0448b8ac-57b2-4df2-ade5-4690dd2ea818/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61WteCjAkfL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Great Gift -- JMMD 6 in 1 Kid Bike with Push Handle",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/002c4590-5f7c-4016-afa2-0941539544c3/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51ARUk2OE9L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "New packaging installation video",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/227b2189-182b-4379-ac1a-6f7fa59e2357/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/615sEhBswRL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "4-in-1 Balance Bike",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5cfc4bb1-abf5-4e8f-a212-0aebd7d14e7c/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51ZnTkGHJnL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Toddler Bike with Push Handle",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/09856d4e-56ba-45d6-97a1-3e1f424c87a2/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51kZVhE4w1L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Multifunctional Kids Bike Installation",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/70138f9b-b376-4893-b692-716d9d695955/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1vKVXVCbFL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Ranking Top 3 Toddler Balance Bikes! (Dont Buy Wrong!)",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3ffacd04-7574-49e8-8c34-4f1ffb176897/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/918EmWcNcyL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "So happy we have this. #balancebike #bike #kidsbike",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7380cc36-5e8a-45e3-a31c-61d4afd86338/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71A1cxRKcnL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "this bike with a weighted vest has been such a vibe and mom win!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6bfacb52-7d33-4b08-9a2b-f56f78146397/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/915j0za6-dL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "6in1 Toddler Bike Unpacked! Everything Parents Need to Know",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/954300b7-6ba0-42a1-afde-f0511e643222/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1tBBl3Hr5L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Easy to set up, quality made and toddler loved!",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "KRIDDO",
+        "Title": "KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bike 2 Year Old, Detachable Pedals and Stowable Training Wheels, DIY Plate, R",
+        "Price": "$62.49",
+        "Rating": "4.6",
+        "Reviews": "447",
+        "URL": "https://www.amazon.com/KRIDDO-Tricycle-Detachable-Stowable-Training/dp/B0D2NGJ164/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_3/147-4509411-4851755?pd_rd_w=7JB0S&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=ZK6SXBZ1CN0KHKVV4Z2M&pd_rd_wg=JASX5&pd_rd_r=3b97e70c-4504-4f78-9491-bdcfbcc1853f&pd_rd_i=B0D2NGJ164&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/71UQO0GFxtL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B0D2NGJ164",
+        "Features": "VERSATILE 2-IN-1 MODE -This innovative 2-in-1 kids' trike and balance bike meets dual needs with a single bike. Whether in trike mode for stability and safety or balance bike mode for mastering balance skills, your child can learn to ride faster and easier. It saves the hassle of buying two separate bikes and supports your child's growth from beginner to pro. | BUILT-IN PEDAL MOUNT - Easily switch to balance bike mode by storing the pedals in a convenient slot under the rear seat, preventing loss. This innovative design makes it the first balance bike on the market with pedal storage. The pedals can also be fully detached. | STOWABLE TRAINING WHEELS - The training wheels on this bike can be conveniently lifted and stored, providing flexibility as the rider gains confidence. If the training wheels are no longer needed, they can be completely removed, turning it into a classic balance bike. | CUSTOMIZABLE PLATE - Equipped with a customizable plate, allowing kids to DIY their own balance bike style, enhancing their involvement and creativity. | ATTENTION TO DETAIL - KRIDDO focuses on perfecting every detail. The bike features an easy-to-carry soft seat, quick-release fixtures, and tool-free adjustment of the seat and handlebars to achieve the most comfortable height for your child.",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/40696c2b-d3f4-4a41-8462-9ab31a6bf24d/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/40696c2b-d3f4-4a41-8462-9ab31a6bf24d/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/91u7wROdq5L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "KRIDDO 2-in-1 Kids Balance Bike 2 Years Installation KB007",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/74d5319e-de98-43a3-adbe-6ed114dfa173/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/81aTkWDxKVL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Unboxing, putting together and quality & first reaction! ",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d16f47e7-36eb-452f-a983-8c302d616e35/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A18g+uSVtOL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+            "Title": "Worth it or not?",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/67e654dc-b8e0-436c-8d34-88fbd32660e6/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61WmsDhROVL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "MUST WATCH Before Buying KRIDDO Balance Bike",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cae4ca95-d17e-4226-b2d9-2939ca6a7d79/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61viJPtL9EL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "My review on this bike",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/33a09192-ebe8-440c-8956-e586fe07ab77/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61-kQYk2RSL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Perfect for little adventurers!",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/40696c2b-d3f4-4a41-8462-9ab31a6bf24d/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/74d5319e-de98-43a3-adbe-6ed114dfa173/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d16f47e7-36eb-452f-a983-8c302d616e35/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/67e654dc-b8e0-436c-8d34-88fbd32660e6/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cae4ca95-d17e-4226-b2d9-2939ca6a7d79/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/33a09192-ebe8-440c-8956-e586fe07ab77/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/40696c2b-d3f4-4a41-8462-9ab31a6bf24d/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/74d5319e-de98-43a3-adbe-6ed114dfa173/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d16f47e7-36eb-452f-a983-8c302d616e35/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/67e654dc-b8e0-436c-8d34-88fbd32660e6/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cae4ca95-d17e-4226-b2d9-2939ca6a7d79/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/33a09192-ebe8-440c-8956-e586fe07ab77/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "Fun Rides with KRIDDO",
+              "Texts": [],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/502af6e4-eb03-4b00-bf52-566205bbde25.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2ce98d19-ba69-422a-b4c2-b3e9a29a8778.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/d1649ab6-2bc4-478d-afc5-08022752b470.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/933d0117-383a-499b-81a5-aa0cc979d008.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/26809f82-d9f1-4645-8d3a-c56ae30f669a.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/bf0a7199-08b4-40ce-878d-7d40c194b1d2.__CR0,0,2928,1200_PT0_SX1464_V1___.png"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/502af6e4-eb03-4b00-bf52-566205bbde25.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+                  "Image_Order": 1,
+                  "Image_Title": "Kriddo 2-in-1 kids tricycle and balance bike",
+                  "Image_Alt": "Kriddo 2-in-1 kids tricycle and balance bike"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2ce98d19-ba69-422a-b4c2-b3e9a29a8778.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+                  "Image_Order": 2,
+                  "Image_Title": "Kriddo 2-in-1 kids tricycle and balance bike",
+                  "Image_Alt": "Kriddo 2-in-1 kids tricycle and balance bike"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/d1649ab6-2bc4-478d-afc5-08022752b470.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+                  "Image_Order": 3,
+                  "Image_Title": "Kriddo 2-in-1 kids tricycle and balance bike",
+                  "Image_Alt": "Kriddo 2-in-1 kids tricycle and balance bike"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/933d0117-383a-499b-81a5-aa0cc979d008.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+                  "Image_Order": 4,
+                  "Image_Title": "Kriddo 2-in-1 kids tricycle and balance bike",
+                  "Image_Alt": "Kriddo 2-in-1 kids tricycle and balance bike"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/26809f82-d9f1-4645-8d3a-c56ae30f669a.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+                  "Image_Order": 5,
+                  "Image_Title": "kriddo 2-in-1 kids tricycle and balance bike",
+                  "Image_Alt": "kriddo 2-in-1 kids tricycle and balance bike"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/bf0a7199-08b4-40ce-878d-7d40c194b1d2.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+                  "Image_Order": 6,
+                  "Image_Title": "kriddo 2-in-1 kids tricycle and balance bike",
+                  "Image_Alt": "kriddo 2-in-1 kids tricycle and balance bike"
+                }
+              ],
+              "Comparison_Table": {
+                "Headers": [
+                  "KRIDDO Kids Tricycle Buying Options",
+                  "KRIDD0 Kids Balance Bike Buying Options",
+                  "KRIDDO Kids Tricycle Add to Cart",
+                  "KRIDDO Kids Tricycle Add to Cart",
+                  "KRIDD0 Kids Balance Bike Buying Options"
+                ],
+                "Rows": [
+                  [
+                    "Customer Reviews",
+                    "4.6 out of 5 stars 447",
+                    "4.6 out of 5 stars 5,563",
+                    "4.6 out of 5 stars 7,568",
+                    "4.6 out of 5 stars 7,568",
+                    "4.5 out of 5 stars 79"
+                  ],
+                  [
+                    "Price",
+                    "$62.49 $ 62 . 49",
+                    "$44.99 $ 44 . 99",
+                    "$52.93 $ 52 . 93",
+                    "$61.97 $ 61 . 97",
+                    "$59.99 $ 59 . 99"
+                  ],
+                  [
+                    "US Toy Safety Standards",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔"
+                  ],
+                  [
+                    "Age",
+                    "1.5 - 3 years",
+                    "2 - 5 years",
+                    "2 - 5 years",
+                    "2 - 5 years",
+                    "2 - 5 years"
+                  ],
+                  [
+                    "Removable Pedals",
+                    "✔",
+                    "✔",
+                    "✘",
+                    "✔",
+                    "✘"
+                  ],
+                  [
+                    "Seat Handle",
+                    "✔",
+                    "✘",
+                    "✔",
+                    "✔",
+                    "✘"
+                  ],
+                  [
+                    "Hight Adjustable",
+                    "✔",
+                    "✔",
+                    "✘",
+                    "✘",
+                    "✔"
+                  ]
+                ]
+              },
+              "Block_Types": [
+                "image",
+                "table"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "Fun Rides with KRIDDO"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/502af6e4-eb03-4b00-bf52-566205bbde25.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+                    "Image_Order": 1,
+                    "Image_Title": "Kriddo 2-in-1 kids tricycle and balance bike",
+                    "Image_Alt": "Kriddo 2-in-1 kids tricycle and balance bike"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2ce98d19-ba69-422a-b4c2-b3e9a29a8778.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+                    "Image_Order": 2,
+                    "Image_Title": "Kriddo 2-in-1 kids tricycle and balance bike",
+                    "Image_Alt": "Kriddo 2-in-1 kids tricycle and balance bike"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/d1649ab6-2bc4-478d-afc5-08022752b470.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+                    "Image_Order": 3,
+                    "Image_Title": "Kriddo 2-in-1 kids tricycle and balance bike",
+                    "Image_Alt": "Kriddo 2-in-1 kids tricycle and balance bike"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/933d0117-383a-499b-81a5-aa0cc979d008.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+                    "Image_Order": 4,
+                    "Image_Title": "Kriddo 2-in-1 kids tricycle and balance bike",
+                    "Image_Alt": "Kriddo 2-in-1 kids tricycle and balance bike"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/26809f82-d9f1-4645-8d3a-c56ae30f669a.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+                    "Image_Order": 5,
+                    "Image_Title": "kriddo 2-in-1 kids tricycle and balance bike",
+                    "Image_Alt": "kriddo 2-in-1 kids tricycle and balance bike"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/bf0a7199-08b4-40ce-878d-7d40c194b1d2.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+                    "Image_Order": 6,
+                    "Image_Title": "kriddo 2-in-1 kids tricycle and balance bike",
+                    "Image_Alt": "kriddo 2-in-1 kids tricycle and balance bike"
+                  }
+                },
+                {
+                  "Block_Type": "table",
+                  "Table": {
+                    "Headers": [
+                      "KRIDDO Kids Tricycle Buying Options",
+                      "KRIDD0 Kids Balance Bike Buying Options",
+                      "KRIDDO Kids Tricycle Add to Cart",
+                      "KRIDDO Kids Tricycle Add to Cart",
+                      "KRIDD0 Kids Balance Bike Buying Options"
+                    ],
+                    "Rows": [
+                      [
+                        "Customer Reviews",
+                        "4.6 out of 5 stars 447",
+                        "4.6 out of 5 stars 5,563",
+                        "4.6 out of 5 stars 7,568",
+                        "4.6 out of 5 stars 7,568",
+                        "4.5 out of 5 stars 79"
+                      ],
+                      [
+                        "Price",
+                        "$62.49 $ 62 . 49",
+                        "$44.99 $ 44 . 99",
+                        "$52.93 $ 52 . 93",
+                        "$61.97 $ 61 . 97",
+                        "$59.99 $ 59 . 99"
+                      ],
+                      [
+                        "US Toy Safety Standards",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔"
+                      ],
+                      [
+                        "Age",
+                        "1.5 - 3 years",
+                        "2 - 5 years",
+                        "2 - 5 years",
+                        "2 - 5 years",
+                        "2 - 5 years"
+                      ],
+                      [
+                        "Removable Pedals",
+                        "✔",
+                        "✔",
+                        "✘",
+                        "✔",
+                        "✘"
+                      ],
+                      [
+                        "Seat Handle",
+                        "✔",
+                        "✘",
+                        "✔",
+                        "✔",
+                        "✘"
+                      ],
+                      [
+                        "Hight Adjustable",
+                        "✔",
+                        "✔",
+                        "✘",
+                        "✘",
+                        "✔"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/502af6e4-eb03-4b00-bf52-566205bbde25.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2ce98d19-ba69-422a-b4c2-b3e9a29a8778.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/d1649ab6-2bc4-478d-afc5-08022752b470.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/933d0117-383a-499b-81a5-aa0cc979d008.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/26809f82-d9f1-4645-8d3a-c56ae30f669a.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/bf0a7199-08b4-40ce-878d-7d40c194b1d2.__CR0,0,2928,1200_PT0_SX1464_V1___.png"
+            ],
+            "Local_Images": [
+              "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B0D2NGJ164_KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bi/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+              "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B0D2NGJ164_KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bi/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.png",
+              "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B0D2NGJ164_KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bi/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.png",
+              "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B0D2NGJ164_KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bi/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.png",
+              "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B0D2NGJ164_KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bi/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.png",
+              "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B0D2NGJ164_KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bi/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_05.png"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [],
+          "Summary": {
+            "Count": 0
+          },
+          "Local_Paths": []
+        },
+        "Product_Description": "KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bike 2 Year Old, Detachable Pedals and Stowable Training Wheels, DIY Plate, Riding Trikes Toy for Ages 18 Months to 3 Years",
+        "Product_Specifications": {
+          "Measurements": {
+            "Wheel Size": "12 Inches",
+            "Size": "Standard",
+            "Item Weight": "4.8 Kilograms",
+            "Maximum Weight Recommendation": "110 Pounds"
+          },
+          "Features_Specs": {
+            "Bike Type": "Balance Bike",
+            "Age Range (Description)": "18 month to 3 year old",
+            "Suspension Type": "Rigid",
+            "Special Feature": "Adjustable Handlebars, Adjustable Seat, Customizable Plate",
+            "Additional Features": "Adjustable Handlebars, Adjustable Seat, Customizable Plate",
+            "Specific Uses For Product": "Learning to ride, Leisure",
+            "Power Source": "Manual",
+            "Skill Level": "Beginner",
+            "Gear Type": "Single-speed",
+            "Is Autographed": "No",
+            "Theme": "Vehicle",
+            "Age Range Description": "18 month to 3 year old",
+            "UPC": "850053567599",
+            "Warranty Description": "1 year manufacturer defect warranty",
+            "Warranty Type": "Limited"
+          },
+          "Materials_Care": {
+            "Frame Material": "Carbon Steel",
+            "Frame Material Type": "Carbon Steel",
+            "Wheel Material": "Ethylene Vinyl Acetate (EVA)",
+            "Seat Material": "Polyurethane (PU)"
+          },
+          "Item_Details": {
+            "Brand": "KRIDDO",
+            "Number of Speeds": "1",
+            "Included Components": "Tool Kit",
+            "Number Of Speeds": "1",
+            "Number of Handles": "2",
+            "Brand Name": "KRIDDO",
+            "Model Number": "KB007-White",
+            "Model Name": "KRIDDO Convertible Balance Bike with Training Wheels",
+            "Manufacturer": "LFUN",
+            "Best Sellers Rank": "#19,672 in Toys & Games (See Top 100 in Toys & Games) #39 in Kids' Balance Bikes #3,135 in Cycling Equipment",
+            "ASIN": "B0D2NGJ164",
+            "Customer Reviews": "4.6  4.6 out of 5 stars   \n    (447)   \n\n\n 4.6 out of 5 stars"
+          },
+          "User_Guide": {
+            "Is Assembly Required": "Yes"
+          },
+          "Additional_Details": {
+            "Color": "White",
+            "Brake Style": "No Brake",
+            "Style Name": "Modern"
+          }
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
+          "Sold_By": "LFUN DIRECT \n  LFUN DIRECT      Sold by   LFUN DIRECT",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery Sunday, July 5",
+          "Specifications": {
+            "Bike Type": "Balance Bike",
+            "Age Range (Description)": "18 month to 3 year old",
+            "Brand": "KRIDDO",
+            "Number of Speeds": "1",
+            "Color": "White",
+            "Wheel Size": "12 Inches",
+            "Frame Material": "Carbon Steel",
+            "Suspension Type": "Rigid",
+            "Special Feature": "Adjustable Handlebars, Adjustable Seat, Customizable Plate",
+            "Included Components": "Tool Kit"
+          }
+        },
+        "Category_Attributes": {
+          "categoryId": "balance_bike",
+          "ageGroup": [],
+          "structure": [
+            "Vehicle"
+          ],
+          "scenario": [],
+          "features": [
+            "VERSATILE 2-IN-1 MODE -This innovative 2-in-1 kids' trike and balance bike meets dual needs with a single bike. Whether in trike mode for stability and safety or balance bike mode for mastering balance skills",
+            "your child can learn to ride faster and easier. It saves the hassle of buying two separate bikes and supports your child's growth from beginner to pro.",
+            "BUILT-IN PEDAL MOUNT - Easily switch to balance bike mode by storing the pedals in a convenient slot under the rear seat",
+            "preventing loss. This innovative design makes it the first balance bike on the market with pedal storage. The pedals can also be fully detached.",
+            "STOWABLE TRAINING WHEELS - The training wheels on this bike can be conveniently lifted and stored",
+            "providing flexibility as the rider gains confidence. If the training wheels are no longer needed",
+            "they can be completely removed",
+            "turning it into a classic balance bike.",
+            "CUSTOMIZABLE PLATE - Equipped with a customizable plate",
+            "allowing kids to DIY their own balance bike style",
+            "enhancing their involvement and creativity.",
+            "ATTENTION TO DETAIL - KRIDDO focuses on perfecting every detail. The bike features an easy-to-carry soft seat",
+            "quick-release fixtures",
+            "and tool-free adjustment of the seat and handlebars to achieve the most comfortable height for your child.",
+            "Balance Bike",
+            "18 month to 3 year old",
+            "Rigid",
+            "Adjustable Handlebars",
+            "Adjustable Seat",
+            "Customizable Plate",
+            "Learning to ride",
+            "Leisure",
+            "Manual",
+            "Beginner",
+            "Single-speed",
+            "No",
+            "Vehicle",
+            "850053567599",
+            "1 year manufacturer defect warranty",
+            "Limited"
+          ],
+          "materialClass": [],
+          "wheelSize": [
+            "12 Inches"
+          ],
+          "powerLevel": []
+        },
+        "Feature_Cards": [
+          {
+            "featureKey": "VERSATILE 2-IN-1 MODE -This innovative 2-in-1 kids' trike and balance bike meets dual needs with a single bike. Whether in trike mode for stability and safety or balance bike mode for mastering balance skills",
+            "featureLabel": "Versatile 2 In 1 Mode This Innovative 2 In 1 Kids' Trike And Balance Bike Meets Dual Needs With A Single Bike. Whether In Trike Mode For Stability And Safety Or Balance Bike Mode For Mastering Balance Skills",
+            "featureValue": "VERSATILE 2-IN-1 MODE -This innovative 2-in-1 kids' trike and balance bike meets dual needs with a single bike. Whether in trike mode for stability and safety or balance bike mode for mastering balance skills",
+            "featureEvidence": "Features",
+            "featureRank": 1,
+            "featureNotes": "Derived from balance_bike scrape-time evidence"
+          },
+          {
+            "featureKey": "your child can learn to ride faster and easier. It saves the hassle of buying two separate bikes and supports your child's growth from beginner to pro.",
+            "featureLabel": "Your Child Can Learn To Ride Faster And Easier. It Saves The Hassle Of Buying Two Separate Bikes And Supports Your Child's Growth From Beginner To Pro.",
+            "featureValue": "your child can learn to ride faster and easier. It saves the hassle of buying two separate bikes and supports your child's growth from beginner to pro.",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 2,
+            "featureNotes": "Derived from balance_bike scrape-time evidence"
+          },
+          {
+            "featureKey": "BUILT-IN PEDAL MOUNT - Easily switch to balance bike mode by storing the pedals in a convenient slot under the rear seat",
+            "featureLabel": "Built In Pedal Mount Easily Switch To Balance Bike Mode By Storing The Pedals In A Convenient Slot Under The Rear Seat",
+            "featureValue": "BUILT-IN PEDAL MOUNT - Easily switch to balance bike mode by storing the pedals in a convenient slot under the rear seat",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 3,
+            "featureNotes": "Derived from balance_bike scrape-time evidence"
+          },
+          {
+            "featureKey": "preventing loss. This innovative design makes it the first balance bike on the market with pedal storage. The pedals can also be fully detached.",
+            "featureLabel": "Preventing Loss. This Innovative Design Makes It The First Balance Bike On The Market With Pedal Storage. The Pedals Can Also Be Fully Detached.",
+            "featureValue": "preventing loss. This innovative design makes it the first balance bike on the market with pedal storage. The pedals can also be fully detached.",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 4,
+            "featureNotes": "Derived from balance_bike scrape-time evidence"
+          },
+          {
+            "featureKey": "STOWABLE TRAINING WHEELS - The training wheels on this bike can be conveniently lifted and stored",
+            "featureLabel": "Stowable Training Wheels The Training Wheels On This Bike Can Be Conveniently Lifted And Stored",
+            "featureValue": "STOWABLE TRAINING WHEELS - The training wheels on this bike can be conveniently lifted and stored",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 5,
+            "featureNotes": "Derived from balance_bike scrape-time evidence"
+          },
+          {
+            "featureKey": "providing flexibility as the rider gains confidence. If the training wheels are no longer needed",
+            "featureLabel": "Providing Flexibility As The Rider Gains Confidence. If The Training Wheels Are No Longer Needed",
+            "featureValue": "providing flexibility as the rider gains confidence. If the training wheels are no longer needed",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 6,
+            "featureNotes": "Derived from balance_bike scrape-time evidence"
+          }
+        ],
+        "Decision_Signals": {
+          "ranking": [
+            "VERSATILE 2-IN-1 MODE -This innovative 2-in-1 kids' trike and balance bike meets dual needs with a single bike. Whether in trike mode for stability and safety or balance bike mode for mastering balance skills",
+            "your child can learn to ride faster and easier. It saves the hassle of buying two separate bikes and supports your child's growth from beginner to pro.",
+            "BUILT-IN PEDAL MOUNT - Easily switch to balance bike mode by storing the pedals in a convenient slot under the rear seat",
+            "preventing loss. This innovative design makes it the first balance bike on the market with pedal storage. The pedals can also be fully detached."
+          ],
+          "safety": [],
+          "fit": [
+            "12 Inches",
+            "Vehicle"
+          ]
+        },
+        "Evidence_Refs": [
+          "Product_Specifications.Features_Specs.Theme",
+          "Product_Specifications.Measurements.Wheel Size",
+          "Features"
+        ],
+        "Local_Image_Paths": [
+          "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B0D2NGJ164_KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bi/images/primary.jpg",
+          "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B0D2NGJ164_KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bi/images/alt_1.jpg",
+          "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B0D2NGJ164_KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bi/images/alt_2.jpg",
+          "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B0D2NGJ164_KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bi/images/alt_3.jpg",
+          "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B0D2NGJ164_KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bi/images/alt_4.jpg",
+          "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B0D2NGJ164_KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bi/images/alt_5.jpg",
+          "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B0D2NGJ164_KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bi/images/alt_6.jpg",
+          "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B0D2NGJ164_KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bi/images/alt_7.jpg",
+          "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B0D2NGJ164_KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bi/images/alt_8.jpg",
+          "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B0D2NGJ164_KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bi/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B0D2NGJ164_KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bi/images/primary.jpg",
+        "Local_Video_Paths": []
+      }
+    ]
+  }
+}

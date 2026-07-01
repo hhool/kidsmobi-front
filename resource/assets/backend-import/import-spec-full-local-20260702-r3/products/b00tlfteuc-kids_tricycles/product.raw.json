@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_tricycles",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T21:39:00.617Z",
+  "data": {
+    "productId": "B00TLFTEUC",
+    "categoryId": "kids_tricycles",
+    "rank": 9,
+    "title": "Radio Flyer Red Rider Trike, Ages 2.5-5, Adjustable Seat, Steel Construction, Quiet Ride Wheels, Storage Bin, Comfort Grip Ha",
+    "brand": "Radio",
+    "price": {
+      "display": "$62.07",
+      "value": 62.07,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.7  14,632",
+      "value": 4.7
+    },
+    "weight": {
+      "display": "9.9 Pounds",
+      "lbs": 9.9
+    },
+    "classification": {
+      "Brand": "Radio",
+      "Tricycle_Type": "Tricycle",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_tricycles",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "CLASSIC FIRST TRIKE: The Radio Flyer Red Rider Trike features sturdy steel construction",
+        "quietride wheels and comfortgrip handlebars to deliver a smooth",
+        "confident and comfortable ride for little ones.",
+        "GROWS WITH YOUR CHILD: The adjustable seat creates a comfy",
+        "secure fit from ages 2.5-5",
+        "so kids can practice",
+        "progress",
+        "and ride longer as balance and coordination improve through everyday neighborhood play.",
+        "BRING TREASURES ALONG: A covered rear storage bin lets kids pack favorite toys",
+        "snacks",
+        "or newfound treasures",
+        "inspiring imaginative play and turning simple rides into exciting little adventures and missions.",
+        "PARENTFRIENDLY TRANSPORT: An easytocarry seat back hand grip simplifies curb lifts",
+        "car trips and storage",
+        "so bringing this toddler tricycle to parks and playdates is quick",
+        "convenient",
+        "and hasslefree.",
+        "BELOVED ICON OF PLAY: For over a century",
+        "Radio Flyer has inspired joyful play with wagons",
+        "trikes",
+        "and more. As a Certified B Corp",
+        "we create lasting products that spark imagination while caring for future generations."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "CLASSIC FIRST TRIKE: The Radio Flyer Red Rider Trike features sturdy steel construction",
+        "featureLabel": "CLASSIC FIRST TRIKE: The Radio Flyer Red Rider Trike Features Sturdy Steel Construction",
+        "featureValue": "CLASSIC FIRST TRIKE: The Radio Flyer Red Rider Trike features sturdy steel construction",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "quietride wheels and comfortgrip handlebars to deliver a smooth",
+        "featureLabel": "Quietride Wheels And Comfortgrip Handlebars To Deliver A Smooth",
+        "featureValue": "quietride wheels and comfortgrip handlebars to deliver a smooth",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "confident and comfortable ride for little ones.",
+        "featureLabel": "Confident And Comfortable Ride For Little Ones.",
+        "featureValue": "confident and comfortable ride for little ones.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "GROWS WITH YOUR CHILD: The adjustable seat creates a comfy",
+        "featureLabel": "GROWS WITH YOUR CHILD: The Adjustable Seat Creates A Comfy",
+        "featureValue": "GROWS WITH YOUR CHILD: The adjustable seat creates a comfy",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "secure fit from ages 2.5-5",
+        "featureLabel": "Secure Fit From Ages 2.5 5",
+        "featureValue": "secure fit from ages 2.5-5",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "so kids can practice",
+        "featureLabel": "So Kids Can Practice",
+        "featureValue": "so kids can practice",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "CLASSIC FIRST TRIKE: The Radio Flyer Red Rider Trike features sturdy steel construction",
+        "quietride wheels and comfortgrip handlebars to deliver a smooth",
+        "confident and comfortable ride for little ones.",
+        "GROWS WITH YOUR CHILD: The adjustable seat creates a comfy"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/71+DI+gBqQL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71+DI+gBqQL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/3a43fe0a-40ab-56df-9850-80363be97a58/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4"
+    ],
+    "resourceStats": {
+      "videos": 1,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/3a43fe0a-40ab-56df-9850-80363be97a58/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_tricycles/Radio/Rank_9_ASIN_B00TLFTEUC_Radio Flyer Red Rider Trike Ages 2.5-5 Adjustable/videos/video_0.mp4"
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

@@ -7,6 +7,7 @@ import {
   Star, 
   BookOpen, 
   Globe, 
+  FolderKanban,
   Settings as SettingsIcon, 
   X 
 } from "lucide-react";
@@ -27,7 +28,12 @@ export default function Sidebar({ activeMenu, setActiveMenu, lang, onClose }: Si
           <div className="w-8 h-8 bg-orange-500 rounded-xl flex items-center justify-center text-white font-black shadow-lg shadow-orange-500/20">K</div>
           <span className="font-black tracking-tighter text-slate-900">CMS 2.0</span>
         </div>
-        <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-xl text-slate-400">
+        <button
+          onClick={onClose}
+          aria-label={lang === "zh" ? "关闭侧边栏" : "Close sidebar"}
+          title={lang === "zh" ? "关闭侧边栏" : "Close sidebar"}
+          className="p-2 hover:bg-slate-100 rounded-xl text-slate-400"
+        >
           <X className="w-5 h-5" />
         </button>
       </div>
@@ -80,6 +86,12 @@ export default function Sidebar({ activeMenu, setActiveMenu, lang, onClose }: Si
           onClick={() => setActiveMenu("assets")} 
           icon={<Globe className="w-5 h-5" />} 
           label={lang === "zh" ? "资源库" : "Assets"} 
+        />
+        <MenuItem 
+          active={activeMenu === "imports"} 
+          onClick={() => setActiveMenu("imports")} 
+          icon={<FolderKanban className="w-5 h-5" />} 
+          label={lang === "zh" ? "导入审核" : "Import Review"} 
         />
         <MenuItem 
           active={activeMenu === "settings"} 

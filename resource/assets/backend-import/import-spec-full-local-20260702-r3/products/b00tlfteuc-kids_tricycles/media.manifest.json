@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "productId": "B00TLFTEUC",
+  "sourceCategoryId": "kids_tricycles",
+  "images": [
+    {
+      "productId": "B00TLFTEUC",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B00TLFTEUC:video",
+      "kind": "cover",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/71+DI+gBqQL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b00tlfteuc-video/71-di-gbqql._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b00tlfteuc/cover/71-di-gbqql._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/3a43fe0a-40ab-56df-9850-80363be97a58/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4"
+  ]
+}

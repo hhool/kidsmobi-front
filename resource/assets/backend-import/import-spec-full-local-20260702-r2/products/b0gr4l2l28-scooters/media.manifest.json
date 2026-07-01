@@ -1,0 +1,201 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0GR4L2L28",
+  "sourceCategoryId": "scooters",
+  "images": [
+    {
+      "productId": "B0GR4L2L28",
+      "categoryId": "scooters",
+      "resourceId": "B0GR4L2L28:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/images/primary.jpg",
+      "targetPathKeep": "resources/b0gr4l2l28-overview/primary.jpg",
+      "targetPathCpk": "categories/scooters/products/b0gr4l2l28/cover/primary.jpg"
+    },
+    {
+      "productId": "B0GR4L2L28",
+      "categoryId": "scooters",
+      "resourceId": "B0GR4L2L28:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0gr4l2l28-overview/alt_1.jpg",
+      "targetPathCpk": "categories/scooters/products/b0gr4l2l28/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0GR4L2L28",
+      "categoryId": "scooters",
+      "resourceId": "B0GR4L2L28:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0gr4l2l28-overview/alt_2.jpg",
+      "targetPathCpk": "categories/scooters/products/b0gr4l2l28/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0GR4L2L28",
+      "categoryId": "scooters",
+      "resourceId": "B0GR4L2L28:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0gr4l2l28-overview/alt_3.jpg",
+      "targetPathCpk": "categories/scooters/products/b0gr4l2l28/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0GR4L2L28",
+      "categoryId": "scooters",
+      "resourceId": "B0GR4L2L28:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0gr4l2l28-overview/alt_4.jpg",
+      "targetPathCpk": "categories/scooters/products/b0gr4l2l28/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0GR4L2L28",
+      "categoryId": "scooters",
+      "resourceId": "B0GR4L2L28:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0gr4l2l28-overview/alt_5.jpg",
+      "targetPathCpk": "categories/scooters/products/b0gr4l2l28/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0GR4L2L28",
+      "categoryId": "scooters",
+      "resourceId": "B0GR4L2L28:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0gr4l2l28-overview/alt_6.jpg",
+      "targetPathCpk": "categories/scooters/products/b0gr4l2l28/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0GR4L2L28",
+      "categoryId": "scooters",
+      "resourceId": "B0GR4L2L28:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0gr4l2l28-overview/alt_7.jpg",
+      "targetPathCpk": "categories/scooters/products/b0gr4l2l28/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0GR4L2L28",
+      "categoryId": "scooters",
+      "resourceId": "B0GR4L2L28:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0gr4l2l28-overview/alt_8.jpg",
+      "targetPathCpk": "categories/scooters/products/b0gr4l2l28/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0GR4L2L28",
+      "categoryId": "scooters",
+      "resourceId": "B0GR4L2L28:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0gr4l2l28-overview/alt_9.jpg",
+      "targetPathCpk": "categories/scooters/products/b0gr4l2l28/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0GR4L2L28",
+      "categoryId": "scooters",
+      "resourceId": "B0GR4L2L28:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0gr4l2l28-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/scooters/products/b0gr4l2l28/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0GR4L2L28",
+      "categoryId": "scooters",
+      "resourceId": "B0GR4L2L28:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "targetPathKeep": "resources/b0gr4l2l28-overview/aplus_01.jpg",
+      "targetPathCpk": "categories/scooters/products/b0gr4l2l28/gallery/aplus_01.jpg"
+    },
+    {
+      "productId": "B0GR4L2L28",
+      "categoryId": "scooters",
+      "resourceId": "B0GR4L2L28:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "targetPathKeep": "resources/b0gr4l2l28-overview/aplus_02.jpg",
+      "targetPathCpk": "categories/scooters/products/b0gr4l2l28/gallery/aplus_02.jpg"
+    },
+    {
+      "productId": "B0GR4L2L28",
+      "categoryId": "scooters",
+      "resourceId": "B0GR4L2L28:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+      "targetPathKeep": "resources/b0gr4l2l28-overview/aplus_03.jpg",
+      "targetPathCpk": "categories/scooters/products/b0gr4l2l28/gallery/aplus_03.jpg"
+    },
+    {
+      "productId": "B0GR4L2L28",
+      "categoryId": "scooters",
+      "resourceId": "B0GR4L2L28:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg",
+      "targetPathKeep": "resources/b0gr4l2l28-overview/aplus_04.jpg",
+      "targetPathCpk": "categories/scooters/products/b0gr4l2l28/gallery/aplus_04.jpg"
+    },
+    {
+      "productId": "B0GR4L2L28",
+      "categoryId": "scooters",
+      "resourceId": "B0GR4L2L28:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_05.jpg",
+      "targetPathKeep": "resources/b0gr4l2l28-overview/aplus_05.jpg",
+      "targetPathCpk": "categories/scooters/products/b0gr4l2l28/gallery/aplus_05.jpg"
+    },
+    {
+      "productId": "B0GR4L2L28",
+      "categoryId": "scooters",
+      "resourceId": "B0GR4L2L28:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_06.jpg",
+      "targetPathKeep": "resources/b0gr4l2l28-overview/aplus_06.jpg",
+      "targetPathCpk": "categories/scooters/products/b0gr4l2l28/gallery/aplus_06.jpg"
+    },
+    {
+      "productId": "B0GR4L2L28",
+      "categoryId": "scooters",
+      "resourceId": "B0GR4L2L28:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/images/primary.jpg",
+      "targetPathKeep": "resources/b0gr4l2l28-overview/primary.jpg",
+      "targetPathCpk": "categories/scooters/products/b0gr4l2l28/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0GR4L2L28",
+      "categoryId": "scooters",
+      "resourceId": "B0GR4L2L28:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/613xCEATgYL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0gr4l2l28-overview/613xceatgyl._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/scooters/products/b0gr4l2l28/gallery/613xceatgyl._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/videos/video_0.mp4",
+    "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/videos/video_1.mp4",
+    "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/videos/video_2.mp4",
+    "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/videos/video_3.mp4",
+    "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/videos/video_4.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/cf1bc629-eb22-4402-8541-948db9087be9.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/32165a30-f74b-4b24-837e-60ed7874ee31.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/137faf0a-83ad-4dc5-8247-348c3e975b03.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/4d08cbda-f8d3-4a91-948a-f8f953190921.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/1379832e-2949-4ae3-8711-5333a1f9445d.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/36986bb7-28b0-4226-8077-e390e86ca78e/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fcd67e37-baa1-4de6-a7db-365e31673e48/embedded.cc.default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a6de5042-9b54-42ca-bcda-4b426f65c3dc/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/361d97c6-3904-49c5-b0e7-d466ba7f4bfc/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8ebee35a-a7b2-474f-9c7e-812f52b7afde/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2e2e9c56-1e9f-4688-adf9-3cb7dec42388/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8d908beb-1a51-4e82-a59f-be415c058999/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1de3ab0c-6281-4fcc-b487-0aa8f6be3813/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3100f417-fdb5-4f49-9912-d8f908f75f97/embedded.cc.default.vertical.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/scooters/VOLPAM/Rank_2_ASIN_B0GR4L2L28_VOLPAM Electric Scooter 350W500W800W1000W250W Powe/index.html"
+  ]
+}

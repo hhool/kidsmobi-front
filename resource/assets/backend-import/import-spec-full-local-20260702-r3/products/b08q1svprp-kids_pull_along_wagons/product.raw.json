@@ -1,0 +1,189 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T21:39:10.947Z",
+  "data": {
+    "productId": "B08Q1SVPRP",
+    "categoryId": "kids_pull_along_wagons",
+    "rank": 4,
+    "title": "Green Toys Wagon, Orange CB - Pretend Play, Motor Skills, Kids Outdoor Toy Vehicle. No BPA, phthalates, PVC. Dishwasher Safe,",
+    "brand": "Green",
+    "price": {
+      "display": "$24.99",
+      "value": 24.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.7  788",
+      "value": 4.7
+    },
+    "weight": {
+      "display": "N/A",
+      "lbs": 0
+    },
+    "classification": {
+      "Brand": "Green",
+      "Wagon_Type": "wagon",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "4",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Unknown",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_pull_along_wagons",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "Package Dimensions: 40.106 H x 14.503 L x 24.307 W (centimeters)",
+        "Package Weight: 0.839 kilograms",
+        "No BPA",
+        "phthalates",
+        "PVC",
+        "or external coatings"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "Package Dimensions: 40.106 H x 14.503 L x 24.307 W (centimeters)",
+        "featureLabel": "Package Dimensions: 40.106 H X 14.503 L X 24.307 W (Centimeters)",
+        "featureValue": "Package Dimensions: 40.106 H x 14.503 L x 24.307 W (centimeters)",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "Package Weight: 0.839 kilograms",
+        "featureLabel": "Package Weight: 0.839 Kilograms",
+        "featureValue": "Package Weight: 0.839 kilograms",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "No BPA",
+        "featureLabel": "No BPA",
+        "featureValue": "No BPA",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "phthalates",
+        "featureLabel": "Phthalates",
+        "featureValue": "phthalates",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "PVC",
+        "featureLabel": "PVC",
+        "featureValue": "PVC",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "or external coatings",
+        "featureLabel": "Or External Coatings",
+        "featureValue": "or external coatings",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "Package Dimensions: 40.106 H x 14.503 L x 24.307 W (centimeters)",
+        "Package Weight: 0.839 kilograms",
+        "No BPA",
+        "phthalates"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/61fTwVwULpL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/61fTwVwULpL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ebf97aa4-331e-4942-8647-e45412434e6d/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8868b360-b31a-4c7d-8b30-e38f1504be77/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c71e0013-84e6-49a0-a13d-fa0f5c8c5c3e/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/15169ca6-65e2-41da-958f-218eff9bb651/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6cfb4f17-253c-44c2-b0a8-69aff5ac6104/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/418e8cde-f89f-4500-858a-6bb2362055a7/default.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 6,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ebf97aa4-331e-4942-8647-e45412434e6d/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51xpZj9mzrL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Green Toys Wagon",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8868b360-b31a-4c7d-8b30-e38f1504be77/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91PMy1zR1ZL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Is it worth it?! Toy Wagon Review & Thoughts",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c71e0013-84e6-49a0-a13d-fa0f5c8c5c3e/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1UFfySs2jL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "The best toy wagon! Here is why! ",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/15169ca6-65e2-41da-958f-218eff9bb651/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61jpLxUlA9L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Light but sturdy- my kids love this Wagon!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6cfb4f17-253c-44c2-b0a8-69aff5ac6104/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71Zdzec2QaL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Indestructible, dishwasher, safe, and perfect size for Littles!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/418e8cde-f89f-4500-858a-6bb2362055a7/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1gyLhUMvAL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Honest Review and DEMO of Green Toys Wagon ",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

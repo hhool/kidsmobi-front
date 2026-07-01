@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "car_seat",
+  "fetchedAt": "2026-07-01T20:06:11.183Z",
+  "data": {
+    "resourceId": "B0DHLQMWW7:overview",
+    "categoryId": "car_seat",
+    "productId": "B0DHLQMWW7",
+    "resourceType": "product_overview",
+    "title": "Graco Extend2Fit Convertible Car Seat, Rear and Forward Facing Car Seat with Adjustable Extension Panel for Extra Legroom, Gr",
+    "summary": "Convertible car seat grows with your child from rear-facing harness (4-50 lb) to forward-facing harness (26.5-65 lb) | Extend2Fit 4-position adjustable extension panel provides up to 5\" additional legroom, allowing your child to safely ride rear-facing longer | Up to 50 lb rear-f",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3caaaf83-9bc7-494f-a63a-d9d2b4fa696f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/705cb4a5-eb92-401d-90b2-6ecd7cf3e9f0/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0b18ae2f-92da-44c1-8751-44e0eb03f114/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9abbce32-d807-4be9-9ed7-fee44b9dc67c/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e48e25f4-f2ec-48ba-bb9b-7a9ab4c01a4b/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3a50c2b3-ccf5-44f4-b803-8bde3560595e/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.79,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

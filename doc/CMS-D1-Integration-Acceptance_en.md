@@ -28,6 +28,7 @@ The current architecture is operational:
 2. Worker serves `/api/cms/d1/health`, `/api/cms/{collection}`, and `/api/cms/{collection}/save|delete`.
 3. Worker binds D1 (`CMS_DB`) and auto-ensures `cms_records` table exists.
 4. Frontend no longer depends on same-origin `/api/cms/*` under static Pages domain, avoiding HTML fallback issues.
+5. Worker demo and admin health checks should use configured base URLs instead of hardcoded domains.
 
 ## 3. Validation Results
 
@@ -36,7 +37,7 @@ The current architecture is operational:
 Command:
 
 ```bash
-npm run cms:smoke -- --base=https://kidsmobi-api-v1.seaman-player.workers.dev
+WORKER_BASE=https://your-worker-domain npm run cms:smoke -- --base=$WORKER_BASE
 ```
 
 Results:
@@ -56,7 +57,7 @@ Conclusion: 7/7 PASS.
 Command:
 
 ```bash
-npm run cms:regress -- --base=https://kidsmobi-api-v1.seaman-player.workers.dev
+WORKER_BASE=https://your-worker-domain npm run cms:regress -- --base=$WORKER_BASE
 ```
 
 Results:
@@ -95,7 +96,7 @@ Frontend:
 Online endpoints:
 
 1. Frontend production: `https://kidsmobi.pages.dev`
-2. Worker API: `https://kidsmobi-api-v1.seaman-player.workers.dev`
+2. Worker API: configured deployment domain
 
 ## 5. Residual Risks and Recommendations
 

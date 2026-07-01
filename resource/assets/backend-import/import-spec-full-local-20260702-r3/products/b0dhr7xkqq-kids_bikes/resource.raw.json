@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_bikes",
+  "fetchedAt": "2026-07-01T21:38:51.356Z",
+  "data": {
+    "resourceId": "B0DHR7XKQQ:image",
+    "categoryId": "kids_bikes",
+    "productId": "B0DHR7XKQQ",
+    "resourceType": "product_image",
+    "title": "Glerc 20 24 26 Inch Kids Bike, Kids Mountain Bike for Boys and Girls Ages 6+, 21-Speed Skyline Bicycle with Front Suspension • Cover image",
+    "summary": "Primary visual asset for Glerc in kids_bikes.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://images-na.ssl-images-amazon.com/images/I/71f1WfCydAL._AC_UL300_SR300,200_.jpg",
+    "videoUrls": [],
+    "credibilityScore": 0.62,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 0,
+      "hasFeatures": true
+    }
+  }
+}

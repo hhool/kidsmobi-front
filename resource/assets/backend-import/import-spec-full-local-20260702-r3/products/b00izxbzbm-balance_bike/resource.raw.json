@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "balance_bike",
+  "fetchedAt": "2026-07-01T21:38:36.029Z",
+  "data": {
+    "resourceId": "B00IZXBZBM:video",
+    "categoryId": "balance_bike",
+    "productId": "B00IZXBZBM",
+    "resourceType": "product_video",
+    "title": "Strider 12” Sport Bike - No Pedal Balance Bicycle for Kids 1 to 4 Years - Includes Safety Pad, Padded Seat, Mini Grips & Flat • Video preview",
+    "summary": "Video preview asset set for Strider in balance_bike.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3ecaf7d9-e43f-4f56-826b-e5a15b01dba3/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3ecaf7d9-e43f-4f56-826b-e5a15b01dba3/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cc17b8a1-da37-41b3-8987-2c83a8549f52/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/09cce014-427b-46a5-bb75-8c5cc1031a1f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8ca79142-452f-4748-869b-bf3887d92b24/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62a26ffb-cced-4ad1-9bf9-5e1d892de90d/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/77d8e6a4-d036-4eeb-a336-5dfbae147b2e/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/76b2a872-b81a-4b0e-845c-49ab9d087820/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f49adece-0087-4613-b49e-e4d645e5bed1/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6ae92cab-6f37-4e0d-ab96-ded634b38b2e/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/71b4fd50-bc0f-4857-8af8-7865f3c8a58a/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 1,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 10,
+      "hasFeatures": true
+    }
+  }
+}

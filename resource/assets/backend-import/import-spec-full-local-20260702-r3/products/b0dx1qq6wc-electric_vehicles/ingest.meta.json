@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "electric_vehicles",
+  "productId": "B0DX1QQ6WC",
+  "productDirName": "b0dx1qq6wc-electric_vehicles",
+  "outputDir": "/Users/yanmenghou/Desktop/cbike/kidsmobi/front/resource/assets/backend-import/import-spec-full-local-20260702-r3/products/b0dx1qq6wc-electric_vehicles",
+  "files": [
+    "product.raw.json",
+    "resource.raw.json",
+    "product.editable.json",
+    "product.publish.json",
+    "media.manifest.json",
+    "ingest.meta.json"
+  ],
+  "generatedAt": "2026-07-01T21:38:46.167Z"
+}

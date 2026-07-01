@@ -1,0 +1,128 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0DC5GGJRP",
+  "sourceCategoryId": "stroller",
+  "images": [
+    {
+      "productId": "B0DC5GGJRP",
+      "categoryId": "stroller",
+      "resourceId": "B0DC5GGJRP:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/primary.jpg",
+      "targetPathKeep": "resources/b0dc5ggjrp-overview/primary.jpg",
+      "targetPathCpk": "categories/stroller/products/b0dc5ggjrp/cover/primary.jpg"
+    },
+    {
+      "productId": "B0DC5GGJRP",
+      "categoryId": "stroller",
+      "resourceId": "B0DC5GGJRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0dc5ggjrp-overview/alt_1.jpg",
+      "targetPathCpk": "categories/stroller/products/b0dc5ggjrp/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0DC5GGJRP",
+      "categoryId": "stroller",
+      "resourceId": "B0DC5GGJRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0dc5ggjrp-overview/alt_2.jpg",
+      "targetPathCpk": "categories/stroller/products/b0dc5ggjrp/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0DC5GGJRP",
+      "categoryId": "stroller",
+      "resourceId": "B0DC5GGJRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0dc5ggjrp-overview/alt_3.jpg",
+      "targetPathCpk": "categories/stroller/products/b0dc5ggjrp/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0DC5GGJRP",
+      "categoryId": "stroller",
+      "resourceId": "B0DC5GGJRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0dc5ggjrp-overview/alt_4.jpg",
+      "targetPathCpk": "categories/stroller/products/b0dc5ggjrp/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0DC5GGJRP",
+      "categoryId": "stroller",
+      "resourceId": "B0DC5GGJRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0dc5ggjrp-overview/alt_5.jpg",
+      "targetPathCpk": "categories/stroller/products/b0dc5ggjrp/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0DC5GGJRP",
+      "categoryId": "stroller",
+      "resourceId": "B0DC5GGJRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0dc5ggjrp-overview/alt_6.jpg",
+      "targetPathCpk": "categories/stroller/products/b0dc5ggjrp/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0DC5GGJRP",
+      "categoryId": "stroller",
+      "resourceId": "B0DC5GGJRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0dc5ggjrp-overview/alt_7.jpg",
+      "targetPathCpk": "categories/stroller/products/b0dc5ggjrp/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0DC5GGJRP",
+      "categoryId": "stroller",
+      "resourceId": "B0DC5GGJRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0dc5ggjrp-overview/alt_8.jpg",
+      "targetPathCpk": "categories/stroller/products/b0dc5ggjrp/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0DC5GGJRP",
+      "categoryId": "stroller",
+      "resourceId": "B0DC5GGJRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0dc5ggjrp-overview/alt_9.jpg",
+      "targetPathCpk": "categories/stroller/products/b0dc5ggjrp/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0DC5GGJRP",
+      "categoryId": "stroller",
+      "resourceId": "B0DC5GGJRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+      "targetPathKeep": "resources/b0dc5ggjrp-overview/aplus_00.png",
+      "targetPathCpk": "categories/stroller/products/b0dc5ggjrp/gallery/aplus_00.png"
+    },
+    {
+      "productId": "B0DC5GGJRP",
+      "categoryId": "stroller",
+      "resourceId": "B0DC5GGJRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.png",
+      "targetPathKeep": "resources/b0dc5ggjrp-overview/aplus_01.png",
+      "targetPathCpk": "categories/stroller/products/b0dc5ggjrp/gallery/aplus_01.png"
+    },
+    {
+      "productId": "B0DC5GGJRP",
+      "categoryId": "stroller",
+      "resourceId": "B0DC5GGJRP:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/primary.jpg",
+      "targetPathKeep": "resources/b0dc5ggjrp-overview/primary.jpg",
+      "targetPathCpk": "categories/stroller/products/b0dc5ggjrp/gallery/primary.jpg"
+    }
+  ],
+  "videos": [
+    "http://127.0.0.1:8010/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/index.html"
+  ]
+}

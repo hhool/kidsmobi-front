@@ -1,0 +1,726 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_bikes",
+  "categoryCode": "bicycle",
+  "fetchedAt": "2026-07-01T21:38:49.868Z",
+  "data": {
+    "productId": "B07FMYDDCW",
+    "categoryId": "kids_bikes",
+    "rank": 2,
+    "title": "JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Girls, 12-20 Inch BMX Style Kid's Bikes with Training Wheels, Children Bicycle",
+    "brand": "JOYSTAR",
+    "price": {
+      "display": "$93.49",
+      "value": 93.49,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.4  5,165",
+      "value": 4.4
+    },
+    "weight": {
+      "display": "20.9 Pounds",
+      "lbs": 20.9
+    },
+    "classification": {
+      "Brand": "JOYSTAR",
+      "Bike_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Standard",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_bikes",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "DESIGN FOR KIDS - 1. This Kids bike comes with stable training wheel early rider. 2.Quick release seat simplify the height adjustment. 3.Saddle with holder to learn riding when the training wheel is off. 4.Foot brake suitable for young rider don't have enough power to manipulate the hand brake.",
+        "MINIMUM MAINTENANCE - Made of premium steel to survive the bumps of learning",
+        "the durable steel frame is backed by our limited lifetime warranty. The bike comes with black tire & single speed",
+        "only little maintenance needed due to the simple design.",
+        "DIY DECAL & SAFE CHAIN GURAD - Your child will get a DIY decal",
+        "they could make a unique bike with the decal by sticking their name on the frame or chain guard. The chain guard well protects the chain",
+        "it will last longer than other bikes",
+        "your child will not get hurt when try to touch the chain.",
+        "EASY TO INSTALL - The children bike comes with 85% Pre-assembled body and the basic assembly tools",
+        "only pump needed for tire",
+        "normally takes a novice about 20 minutes to assemble it. If you have problem about assembly or the bike",
+        "please contact us.",
+        "RECOMMENDED SIZE CHART - 12\" BIKE FOR 2-4 YEARS (33\"-41\") TODDLER",
+        "14\" bike for 3-5 years (35\" - 47\") child",
+        "16\" bike for 4-7 years (41\" - 53\") boys & girls",
+        "18\" bike for 5-9 years (43\"-59\") boys & girls. Note: child height may vary even at the same age",
+        "please take the height into consideration."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "DESIGN FOR KIDS - 1. This Kids bike comes with stable training wheel early rider. 2.Quick release seat simplify the height adjustment. 3.Saddle with holder to learn riding when the training wheel is off. 4.Foot brake suitable for young rider don't have enough power to manipulate the hand brake.",
+        "featureLabel": "DESIGN FOR KIDS   1. This Kids Bike Comes With Stable Training Wheel Early Rider. 2.Quick Release Seat Simplify The Height Adjustment. 3.Saddle With Holder To Learn Riding When The Training Wheel Is Off. 4.Foot Brake Suitable For Young Rider Don'T Have Enough Power To Manipulate The Hand Brake.",
+        "featureValue": "DESIGN FOR KIDS - 1. This Kids bike comes with stable training wheel early rider. 2.Quick release seat simplify the height adjustment. 3.Saddle with holder to learn riding when the training wheel is off. 4.Foot brake suitable for young rider don't have enough power to manipulate the hand brake.",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "MINIMUM MAINTENANCE - Made of premium steel to survive the bumps of learning",
+        "featureLabel": "MINIMUM MAINTENANCE   Made Of Premium Steel To Survive The Bumps Of Learning",
+        "featureValue": "MINIMUM MAINTENANCE - Made of premium steel to survive the bumps of learning",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "the durable steel frame is backed by our limited lifetime warranty. The bike comes with black tire & single speed",
+        "featureLabel": "The Durable Steel Frame Is Backed By Our Limited Lifetime Warranty. The Bike Comes With Black Tire & Single Speed",
+        "featureValue": "the durable steel frame is backed by our limited lifetime warranty. The bike comes with black tire & single speed",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "only little maintenance needed due to the simple design.",
+        "featureLabel": "Only Little Maintenance Needed Due To The Simple Design.",
+        "featureValue": "only little maintenance needed due to the simple design.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "DIY DECAL & SAFE CHAIN GURAD - Your child will get a DIY decal",
+        "featureLabel": "DIY DECAL & SAFE CHAIN GURAD   Your Child Will Get A DIY Decal",
+        "featureValue": "DIY DECAL & SAFE CHAIN GURAD - Your child will get a DIY decal",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "they could make a unique bike with the decal by sticking their name on the frame or chain guard. The chain guard well protects the chain",
+        "featureLabel": "They Could Make A Unique Bike With The Decal By Sticking Their Name On The Frame Or Chain Guard. The Chain Guard Well Protects The Chain",
+        "featureValue": "they could make a unique bike with the decal by sticking their name on the frame or chain guard. The chain guard well protects the chain",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_bikes classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "DESIGN FOR KIDS - 1. This Kids bike comes with stable training wheel early rider. 2.Quick release seat simplify the height adjustment. 3.Saddle with holder to learn riding when the training wheel is off. 4.Foot brake suitable for young rider don't have enough power to manipulate the hand brake.",
+        "MINIMUM MAINTENANCE - Made of premium steel to survive the bumps of learning",
+        "the durable steel frame is backed by our limited lifetime warranty. The bike comes with black tire & single speed",
+        "only little maintenance needed due to the simple design."
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/61xySkZCAtL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/61xySkZCAtL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e0d33a3f-655a-4aae-8c6a-16cb96af07f1/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3d012fdd-1854-4969-9218-efda110c317a/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/864887a8-6d2b-4082-bd01-3a68db641706/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e359c994-fe5e-4837-95b6-883aca58dc40/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/415a5d5b-5e55-455b-b519-f3e328efd0b5/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0b4205cd-380c-4061-966b-33f5794e7765/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1b5f882f-db6f-44a6-ac91-0af03bd2a35d/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c24c7b89-fab7-4261-a557-de06b9697b17/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d298d869-3a89-43a7-8570-f962e43b678f/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/857d7a93-8415-453f-9580-b4082c182923/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 10,
+      "similarItems": 1
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e0d33a3f-655a-4aae-8c6a-16cb96af07f1/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1XfA-CnW1L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Bike gift for holiday",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3d012fdd-1854-4969-9218-efda110c317a/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71vgo9Eqi2L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Best Birthday Gift for little girl, Enjoy Happy Growing Up",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/864887a8-6d2b-4082-bd01-3a68db641706/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1hwpNKvbtL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "JOYSTAR TOTEM Kids Bike - Unboxing & Assembly Guide",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e359c994-fe5e-4837-95b6-883aca58dc40/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1+DfBQ0plL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Learn to pedal and go faster and faster!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/415a5d5b-5e55-455b-b519-f3e328efd0b5/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1GLoGqzrvS.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "JOYSTAR TOTEM Kids Bike Blue",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0b4205cd-380c-4061-966b-33f5794e7765/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1qjnzrdHAL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "A must have feature that our 8 year old son loves!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1b5f882f-db6f-44a6-ac91-0af03bd2a35d/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81dgOcLhlJL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "See why this is the PERFECT starter & overall kids bike!!!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c24c7b89-fab7-4261-a557-de06b9697b17/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81W6ODpRMKL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Honest review of Joystar kids bike",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d298d869-3a89-43a7-8570-f962e43b678f/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/914dMxX1VZL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Great starter bike! Review, one year later.",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/857d7a93-8415-453f-9580-b4082c182923/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71wTOGDBWvL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Watch before you buy! My honest review of this bike",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "vollsch",
+        "Title": "vollsch BMX Style 12 14 16 Inch Kids Bike Training Wheels 20'' Bicycle with Kickstand for 2-14 Years Old Toddlers Boys Girls",
+        "Price": "$103.54",
+        "Rating": "4.3",
+        "Reviews": "241",
+        "URL": "https://www.amazon.com/vollsch-Toddlers-Bicycle-Training-Coaster/dp/B0DCZ11TCR/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_1/139-3937907-4973010?pd_rd_w=3CAoi&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=28PG131HNYBMSJECMW37&pd_rd_wg=MlyPk&pd_rd_r=3c0fc19c-416b-4336-b26b-3567e1ae6eb2&pd_rd_i=B0DCZ11TCR&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/71FMYn6BVIL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B0DCZ11TCR",
+        "Features": "Intended for Kids: Our BMX style toddlers bike caters specifically to novice riders embarking on their cycling journey. It features safety training wheels for balance (while the 20-inch bicycle only has a kickstand), along with an adjustable seat to accommodate your child's development | Superior Quality: Crafted from high carbon steel, the bike frame is designed to withstand the rigors of uneven terrain without bending or breaking, offering essential safety for your child's adventures. Its robust construction and straightforward design ensure minimal maintenance needs | Safety and Sturdiness: The trusty coaster brake is perfect for toddlers who might not have the muscle power for hand brakes yet. The full chain guard keeps little fingers safe from getting caught in the chain. And those big 12 x 2.4-inch tires give a great grip to stop any slipping while they're riding | Easy Installation: The bike arrives with 85% of the assembly already completed, accompanied by essential assembly tools. By following our installation guide video and instructions, you will only need to attach a few components, which should take roughly 20 minutes to finish the final assembly process | Ensure Proper Fit: The 12-inch bike fits children 32 - 38 inches tall, aged 1 - 4 years. The 14-inch is ideal for kids 35 - 43 inches, aged 3 - 5 years. The 16-inch bike is designed for children 40 - 51 inches tall, suitable for ages 4 - 8 years. The 20-inch fits big kids 48 - 60 inches tall, aged over 8 years",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c1a1413-b509-4bd2-8414-61147a2bc18d/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c1a1413-b509-4bd2-8414-61147a2bc18d/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/99d13603-4706-49fc-84b8-bd98f0054e50/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dfba9ea7-796f-47a9-9566-26455bc75d9e/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/267a751d-cb9f-47a6-80c3-74bb0d822d9a/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/30a690ef-187c-4d46-9ecd-d9d34339556a/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a3fefce1-e489-4c97-80b1-bc1adb2e20a9/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cc8d56ff-5552-4da9-9eef-c299abed0f9e/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/be853643-ae02-4eeb-a07a-5b39683546c3/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ed24ec2e-67c8-487f-87de-c3b56aca567a/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/34c8121d-737c-4fd6-8c3a-6b5232d8949d/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1474dafa-7a37-4bb4-89aa-65320d10f7a5/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/19c7ebff-a448-47ba-9662-cae346ecc40e/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4c3af3bf-0326-4b08-b59f-ff2711f2cbcb/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/0b436a33-5645-4107-83c2-724ccde971fc.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/748aacfe-24ac-4f37-adf3-87708d0ee86e.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/534fbd73-66e0-41ed-8cd1-4018eab77054.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/2592bfad-c0e4-4bd2-98fb-42ef0edcc133.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/595404a4-3422-4dbd-b67c-e435b4c0a072.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1b4e5d1e-5b3c-4a16-a0ca-1a039e410765/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/0b436a33-5645-4107-83c2-724ccde971fc.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/748aacfe-24ac-4f37-adf3-87708d0ee86e.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/534fbd73-66e0-41ed-8cd1-4018eab77054.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/2592bfad-c0e4-4bd2-98fb-42ef0edcc133.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/595404a4-3422-4dbd-b67c-e435b4c0a072.mp4/productVideoOptimized.mp4"
+        ],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c1a1413-b509-4bd2-8414-61147a2bc18d/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/99d13603-4706-49fc-84b8-bd98f0054e50/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dfba9ea7-796f-47a9-9566-26455bc75d9e/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/267a751d-cb9f-47a6-80c3-74bb0d822d9a/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/30a690ef-187c-4d46-9ecd-d9d34339556a/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a3fefce1-e489-4c97-80b1-bc1adb2e20a9/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cc8d56ff-5552-4da9-9eef-c299abed0f9e/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/be853643-ae02-4eeb-a07a-5b39683546c3/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ed24ec2e-67c8-487f-87de-c3b56aca567a/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/34c8121d-737c-4fd6-8c3a-6b5232d8949d/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1474dafa-7a37-4bb4-89aa-65320d10f7a5/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/19c7ebff-a448-47ba-9662-cae346ecc40e/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4c3af3bf-0326-4b08-b59f-ff2711f2cbcb/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1b4e5d1e-5b3c-4a16-a0ca-1a039e410765/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "Watch your little ones' confidence soar as they ride VOLLSCH kids bicycles.",
+              "Texts": [
+                "12 inch: 32'' - 38'' 14 inch: 35'' - 43'' 16 inch: 40'' - 51'' 20 inch: 51'' - 65''",
+                "12 inch: 10.6kg (23 lb) 14 inch: 11.8kg (26 lb) 16 inch: 12.9kg (28 lb) 20 inch: 13.8kg (30 lb)",
+                "Durable Carbon Steel Frame",
+                "Aluminum Handbrake",
+                "Adjustable Saddle",
+                "Removable Training Wheels",
+                "Non-slip 2.4 inch Wide Tires",
+                "Easy to Assemble",
+                "Tool Kit Included",
+                "Coaster Brake",
+                "Vollsch bikes are designed to ignite a sense of wonder and curiosity in young minds. Our bicycles are crafted with meticulous attention to detail, ensuring that each one is as unique as the child who rides it."
+              ],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1d093ad6-83ee-44ae-9175-b5035423a85a.__CR0,0,970,300_PT0_SX970_V1___.png",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/06150c8b-f97e-4c02-9969-a019b83d9d45.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/d93ca72a-4f77-4d81-8ed8-0df1ebe213db.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/696bbbb8-46f5-4832-8876-f757ef15c74e.__CR0,0,1000,1000_PT0_SX300_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/47ab90f9-fb0a-49a4-a6e4-c19f7b260179.__CR0,0,970,600_PT0_SX970_V1___.png",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/9e191481-a818-429f-8489-cb2a762b226f.__CR0,0,970,600_PT0_SX970_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1d093ad6-83ee-44ae-9175-b5035423a85a.__CR0,0,970,300_PT0_SX970_V1___.png",
+                  "Image_Order": 1,
+                  "Image_Title": "vollsch brand",
+                  "Image_Alt": "vollsch brand"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/06150c8b-f97e-4c02-9969-a019b83d9d45.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                  "Image_Order": 2,
+                  "Image_Title": "kids bike",
+                  "Image_Alt": "kids bike"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/d93ca72a-4f77-4d81-8ed8-0df1ebe213db.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                  "Image_Order": 3,
+                  "Image_Title": "Grow &amp;amp;amp; Explore On VOLLSCH Bikes!",
+                  "Image_Alt": "Grow &amp;amp;amp; Explore On VOLLSCH Bikes!"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/696bbbb8-46f5-4832-8876-f757ef15c74e.__CR0,0,1000,1000_PT0_SX300_V1___.jpg",
+                  "Image_Order": 4,
+                  "Image_Title": "vollsch bike for boys",
+                  "Image_Alt": "vollsch bike for boys"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/47ab90f9-fb0a-49a4-a6e4-c19f7b260179.__CR0,0,970,600_PT0_SX970_V1___.png",
+                  "Image_Order": 5,
+                  "Image_Title": "features",
+                  "Image_Alt": "features"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/9e191481-a818-429f-8489-cb2a762b226f.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                  "Image_Order": 6,
+                  "Image_Title": "best gift for kids",
+                  "Image_Alt": "best gift for kids"
+                }
+              ],
+              "Comparison_Table": {
+                "Headers": [
+                  "Clara 24'' Girls Cruiser Bike",
+                  "MT. WHITNEY 24 KIDS MTB",
+                  "vollsch 14'' BMX Style Kids Bike",
+                  "RUCKUS 20 BLACK",
+                  "Phantom Race BMX",
+                  "Customer Reviews",
+                  "Price",
+                  "Size",
+                  "Suitable for age",
+                  "Recommended Rider Height",
+                  "Drivetrain",
+                  "Brake System"
+                ],
+                "Rows": [
+                  [
+                    "Add to Cart",
+                    "Add to Cart",
+                    "Add to Cart",
+                    "Buying Options",
+                    "Add to Cart"
+                  ],
+                  [
+                    "5.0 out of 5 stars 2",
+                    "4.2 out of 5 stars 8",
+                    "4.7 out of 5 stars 12",
+                    "4.2 out of 5 stars 126",
+                    "4.8 out of 5 stars 7"
+                  ],
+                  [
+                    "$238.99 $ 238 . 99",
+                    "$238.99 $ 238 . 99",
+                    "$108.99 $ 108 . 99",
+                    "$188.54 $ 188 . 54",
+                    "$238.99 $ 238 . 99"
+                  ],
+                  [
+                    "20 / 24 inch",
+                    "20 / 24 inch",
+                    "12 / 14 / 16 inch",
+                    "20 inch",
+                    "20 / 24 inch"
+                  ],
+                  [
+                    "6+ Years Old",
+                    "9+ Years Old",
+                    "2-8 Years Old",
+                    "8+ Years Old",
+                    "8+ Years Old"
+                  ],
+                  [
+                    "47\" - 65\"",
+                    "42\" - 66\"",
+                    "33\" - 53\"",
+                    "4'3\" - 5'4\"",
+                    "42\" - 66\""
+                  ],
+                  [
+                    "6-Speeds",
+                    "6-Speeds",
+                    "Single Speed",
+                    "Single Speed",
+                    "Single Speed"
+                  ],
+                  [
+                    "Dual V Brakes",
+                    "Dual V Brakes",
+                    "Caliper Brake & Coaster Brake",
+                    "Rear U Brake",
+                    "Rear V Brake"
+                  ]
+                ]
+              },
+              "Block_Types": [
+                "text",
+                "image",
+                "table"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "Watch your little ones' confidence soar as they ride VOLLSCH kids bicycles."
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1d093ad6-83ee-44ae-9175-b5035423a85a.__CR0,0,970,300_PT0_SX970_V1___.png",
+                    "Image_Order": 1,
+                    "Image_Title": "vollsch brand",
+                    "Image_Alt": "vollsch brand"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/06150c8b-f97e-4c02-9969-a019b83d9d45.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                    "Image_Order": 2,
+                    "Image_Title": "kids bike",
+                    "Image_Alt": "kids bike"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/d93ca72a-4f77-4d81-8ed8-0df1ebe213db.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                    "Image_Order": 3,
+                    "Image_Title": "Grow &amp;amp;amp; Explore On VOLLSCH Bikes!",
+                    "Image_Alt": "Grow &amp;amp;amp; Explore On VOLLSCH Bikes!"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/696bbbb8-46f5-4832-8876-f757ef15c74e.__CR0,0,1000,1000_PT0_SX300_V1___.jpg",
+                    "Image_Order": 4,
+                    "Image_Title": "vollsch bike for boys",
+                    "Image_Alt": "vollsch bike for boys"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "12 inch: 32'' - 38'' 14 inch: 35'' - 43'' 16 inch: 40'' - 51'' 20 inch: 51'' - 65''"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "12 inch: 10.6kg (23 lb) 14 inch: 11.8kg (26 lb) 16 inch: 12.9kg (28 lb) 20 inch: 13.8kg (30 lb)"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Durable Carbon Steel Frame"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Aluminum Handbrake"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Adjustable Saddle"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Removable Training Wheels"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Non-slip 2.4 inch Wide Tires"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Easy to Assemble"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Tool Kit Included"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Coaster Brake"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/47ab90f9-fb0a-49a4-a6e4-c19f7b260179.__CR0,0,970,600_PT0_SX970_V1___.png",
+                    "Image_Order": 5,
+                    "Image_Title": "features",
+                    "Image_Alt": "features"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/9e191481-a818-429f-8489-cb2a762b226f.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                    "Image_Order": 6,
+                    "Image_Title": "best gift for kids",
+                    "Image_Alt": "best gift for kids"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Vollsch bikes are designed to ignite a sense of wonder and curiosity in young minds. Our bicycles are crafted with meticulous attention to detail, ensuring that each one is as unique as the child who rides it."
+                },
+                {
+                  "Block_Type": "table",
+                  "Table": {
+                    "Headers": [
+                      "Clara 24'' Girls Cruiser Bike",
+                      "MT. WHITNEY 24 KIDS MTB",
+                      "vollsch 14'' BMX Style Kids Bike",
+                      "RUCKUS 20 BLACK",
+                      "Phantom Race BMX",
+                      "Customer Reviews",
+                      "Price",
+                      "Size",
+                      "Suitable for age",
+                      "Recommended Rider Height",
+                      "Drivetrain",
+                      "Brake System"
+                    ],
+                    "Rows": [
+                      [
+                        "Add to Cart",
+                        "Add to Cart",
+                        "Add to Cart",
+                        "Buying Options",
+                        "Add to Cart"
+                      ],
+                      [
+                        "5.0 out of 5 stars 2",
+                        "4.2 out of 5 stars 8",
+                        "4.7 out of 5 stars 12",
+                        "4.2 out of 5 stars 126",
+                        "4.8 out of 5 stars 7"
+                      ],
+                      [
+                        "$238.99 $ 238 . 99",
+                        "$238.99 $ 238 . 99",
+                        "$108.99 $ 108 . 99",
+                        "$188.54 $ 188 . 54",
+                        "$238.99 $ 238 . 99"
+                      ],
+                      [
+                        "20 / 24 inch",
+                        "20 / 24 inch",
+                        "12 / 14 / 16 inch",
+                        "20 inch",
+                        "20 / 24 inch"
+                      ],
+                      [
+                        "6+ Years Old",
+                        "9+ Years Old",
+                        "2-8 Years Old",
+                        "8+ Years Old",
+                        "8+ Years Old"
+                      ],
+                      [
+                        "47\" - 65\"",
+                        "42\" - 66\"",
+                        "33\" - 53\"",
+                        "4'3\" - 5'4\"",
+                        "42\" - 66\""
+                      ],
+                      [
+                        "6-Speeds",
+                        "6-Speeds",
+                        "Single Speed",
+                        "Single Speed",
+                        "Single Speed"
+                      ],
+                      [
+                        "Dual V Brakes",
+                        "Dual V Brakes",
+                        "Caliper Brake & Coaster Brake",
+                        "Rear U Brake",
+                        "Rear V Brake"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1d093ad6-83ee-44ae-9175-b5035423a85a.__CR0,0,970,300_PT0_SX970_V1___.png",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/06150c8b-f97e-4c02-9969-a019b83d9d45.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/d93ca72a-4f77-4d81-8ed8-0df1ebe213db.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/696bbbb8-46f5-4832-8876-f757ef15c74e.__CR0,0,1000,1000_PT0_SX300_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/47ab90f9-fb0a-49a4-a6e4-c19f7b260179.__CR0,0,970,600_PT0_SX970_V1___.png",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/9e191481-a818-429f-8489-cb2a762b226f.__CR0,0,970,600_PT0_SX970_V1___.jpg"
+            ],
+            "Local_Images": [
+              "scrape_store/kids_bikes/vollsch/Rank_Similar_ASIN_B0DCZ11TCR_vollsch BMX Style 12 14 16 Inch Kids Bike Training/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+              "scrape_store/kids_bikes/vollsch/Rank_Similar_ASIN_B0DCZ11TCR_vollsch BMX Style 12 14 16 Inch Kids Bike Training/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+              "scrape_store/kids_bikes/vollsch/Rank_Similar_ASIN_B0DCZ11TCR_vollsch BMX Style 12 14 16 Inch Kids Bike Training/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+              "scrape_store/kids_bikes/vollsch/Rank_Similar_ASIN_B0DCZ11TCR_vollsch BMX Style 12 14 16 Inch Kids Bike Training/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+              "scrape_store/kids_bikes/vollsch/Rank_Similar_ASIN_B0DCZ11TCR_vollsch BMX Style 12 14 16 Inch Kids Bike Training/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.png",
+              "scrape_store/kids_bikes/vollsch/Rank_Similar_ASIN_B0DCZ11TCR_vollsch BMX Style 12 14 16 Inch Kids Bike Training/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_05.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [],
+          "Summary": {
+            "Count": 0
+          },
+          "Local_Paths": []
+        },
+        "Product_Description": "N/A",
+        "Product_Specifications": {
+          "Measurements": {
+            "Wheel Size": "12 Inches",
+            "Minimum User Height": "32 Inches",
+            "Size": "12 Inch",
+            "Item Weight": "11.79 Kilograms"
+          },
+          "Features_Specs": {
+            "Bike Type": "Kids Bike",
+            "Age Range (Description)": "Kids",
+            "Suspension Type": "Rigid",
+            "Special Feature": "Adjustable Saddle, BMX Style, Coaster Brake, Full Chain Guard, Wide Tires",
+            "Additional Features": "Adjustable Saddle, BMX Style, Coaster Brake, Full Chain Guard, Wide Tires",
+            "Power Source": "Pedal power",
+            "Bicycle Gear Shifter Type": "Twist Grip",
+            "Bicycle Drivetrain Type": "Single-speed",
+            "Is Autographed": "No",
+            "Age Range Description": "Kids"
+          },
+          "Materials_Care": {
+            "Frame Material": "Carbon Steel",
+            "Frame Material Type": "Carbon Steel",
+            "Wheel Material": "Plastic"
+          },
+          "Item_Details": {
+            "Brand": "vollsch",
+            "Number of Speeds": "1",
+            "Included Components": "Reflectors, Tool Kit, Training Wheel, User Manual",
+            "Number Of Speeds": "1",
+            "Brand Name": "vollsch",
+            "Model Number": "6f2f2ab8-7165-485c-aa98-a6ce0d2ce4a4",
+            "Model Name": "ALIOTH",
+            "Model Year": "2025",
+            "Manufacturer": "Vollsch",
+            "Best Sellers Rank": "#8,456 in Sports & Outdoors (See Top 100 in Sports & Outdoors) #12 in Kids' Bicycles",
+            "ASIN": "B0DCZ11TCR",
+            "Customer Reviews": "4.3  4.3 out of 5 stars   \n    (241)   \n\n\n 4.3 out of 5 stars"
+          },
+          "User_Guide": {
+            "Is Assembly Required": "Yes"
+          },
+          "Additional_Details": {
+            "Color": "Sage Green",
+            "Brake Style": "Coaster",
+            "Style Name": "12 Inch With Training Wheels"
+          }
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
+          "Sold_By": "Xita Cycle \n  Xita Cycle      Sold by   Xita Cycle",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery Wednesday, July 1",
+          "Specifications": {
+            "Bike Type": "Kids Bike",
+            "Age Range (Description)": "Kids",
+            "Brand": "vollsch",
+            "Number of Speeds": "1",
+            "Color": "Sage Green",
+            "Wheel Size": "12 Inches",
+            "Frame Material": "Carbon Steel",
+            "Suspension Type": "Rigid",
+            "Special Feature": "Adjustable Saddle, BMX Style, Coaster Brake, Full Chain Guard, Wide Tires",
+            "Included Components": "Reflectors, Tool Kit, Training Wheel, User Manual"
+          }
+        },
+        "Local_Image_Paths": [
+          "scrape_store/kids_bikes/vollsch/Rank_Similar_ASIN_B0DCZ11TCR_vollsch BMX Style 12 14 16 Inch Kids Bike Training/images/primary.jpg",
+          "scrape_store/kids_bikes/vollsch/Rank_Similar_ASIN_B0DCZ11TCR_vollsch BMX Style 12 14 16 Inch Kids Bike Training/images/alt_1.jpg",
+          "scrape_store/kids_bikes/vollsch/Rank_Similar_ASIN_B0DCZ11TCR_vollsch BMX Style 12 14 16 Inch Kids Bike Training/images/alt_2.jpg",
+          "scrape_store/kids_bikes/vollsch/Rank_Similar_ASIN_B0DCZ11TCR_vollsch BMX Style 12 14 16 Inch Kids Bike Training/images/alt_3.jpg",
+          "scrape_store/kids_bikes/vollsch/Rank_Similar_ASIN_B0DCZ11TCR_vollsch BMX Style 12 14 16 Inch Kids Bike Training/images/alt_4.jpg",
+          "scrape_store/kids_bikes/vollsch/Rank_Similar_ASIN_B0DCZ11TCR_vollsch BMX Style 12 14 16 Inch Kids Bike Training/images/alt_5.jpg",
+          "scrape_store/kids_bikes/vollsch/Rank_Similar_ASIN_B0DCZ11TCR_vollsch BMX Style 12 14 16 Inch Kids Bike Training/images/alt_6.jpg",
+          "scrape_store/kids_bikes/vollsch/Rank_Similar_ASIN_B0DCZ11TCR_vollsch BMX Style 12 14 16 Inch Kids Bike Training/images/alt_7.jpg",
+          "scrape_store/kids_bikes/vollsch/Rank_Similar_ASIN_B0DCZ11TCR_vollsch BMX Style 12 14 16 Inch Kids Bike Training/images/alt_8.jpg",
+          "scrape_store/kids_bikes/vollsch/Rank_Similar_ASIN_B0DCZ11TCR_vollsch BMX Style 12 14 16 Inch Kids Bike Training/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/kids_bikes/vollsch/Rank_Similar_ASIN_B0DCZ11TCR_vollsch BMX Style 12 14 16 Inch Kids Bike Training/images/primary.jpg",
+        "Local_Video_Paths": []
+      }
+    ]
+  }
+}

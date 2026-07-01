@@ -28,6 +28,7 @@
 2. Worker 提供 `/api/cms/d1/health`、`/api/cms/{collection}`、`/api/cms/{collection}/save|delete`。
 3. Worker 绑定 D1（`CMS_DB`）并自动保障 `cms_records` 表存在。
 4. 前端在静态 Pages 域名下不再依赖同域 `/api/cms/*`，规避 HTML fallback 问题。
+5. Worker 演示和健康检查应使用可配置的 base URL，而不是硬编码域名。
 
 ## 3. 自动化验证结果
 
@@ -36,7 +37,7 @@
 执行命令：
 
 ```bash
-npm run cms:smoke -- --base=https://kidsmobi-api-v1.seaman-player.workers.dev
+WORKER_BASE=https://your-worker-domain npm run cms:smoke -- --base=$WORKER_BASE
 ```
 
 结果：
@@ -56,7 +57,7 @@ npm run cms:smoke -- --base=https://kidsmobi-api-v1.seaman-player.workers.dev
 执行命令：
 
 ```bash
-npm run cms:regress -- --base=https://kidsmobi-api-v1.seaman-player.workers.dev
+WORKER_BASE=https://your-worker-domain npm run cms:regress -- --base=$WORKER_BASE
 ```
 
 结果：
@@ -95,7 +96,7 @@ npm run cms:regress -- --base=https://kidsmobi-api-v1.seaman-player.workers.dev
 线上域名：
 
 1. 前端生产：`https://kidsmobi.pages.dev`
-2. Worker API：`https://kidsmobi-api-v1.seaman-player.workers.dev`
+2. Worker API：使用部署时配置的域名
 
 ## 5. 剩余风险与建议
 

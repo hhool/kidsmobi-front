@@ -1,0 +1,207 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T21:39:06.820Z",
+  "data": {
+    "productId": "B08J8G3K3N",
+    "categoryId": "kids_push_ride_ons",
+    "rank": 9,
+    "title": "Step2 Up and Down Roller Coaster Toy for Kids, Ride On Push Car, Indoor, Outdoor Playset, Toddlers Ages 2, 5 Years Old, Compa",
+    "brand": "Step2",
+    "price": {
+      "display": "$139.99",
+      "value": 139.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.7  7,722",
+      "value": 4.7
+    },
+    "weight": {
+      "display": "N/A",
+      "lbs": 0
+    },
+    "classification": {
+      "Brand": "Step2",
+      "Stroller_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Unknown",
+      "Price_Tier": "100-200"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_push_ride_ons",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "KIDS ROLLER COASTER: An amusement park right in your home",
+        "long 9-foot roller coaster track",
+        "ATV-inspired ride-on car",
+        "encourages your child to play actively and independently",
+        "ACTIVE PLAY: Great outdoor toddler toys for backyard or indoor playrooms",
+        "ensuring kids to stay active and entertained all season long",
+        "COMPACT STORAGE: Coaster track comes apart",
+        "easy to assemble",
+        "dimensions: 12.75\" H x 110\" W x 27\" D",
+        "* get 4 feet of extra track with the Step2 Farther and Faster Coaster Track Expansion: Second Edition (sold separately)",
+        "Not compatible with other extension packs",
+        "CHILD DIRECTED LEARNING: Kids can climb steps",
+        "board the ride-on car",
+        "and the recessed retainer wells hold the car until ready to roll",
+        "interactive play helps develop gross motor skills",
+        "balance",
+        "and hand-eye coordination",
+        "DURABLE: Built to last with durable double-walled plastic construction",
+        "years of use with colors that won't chip",
+        "fade",
+        "crack",
+        "or peel",
+        "low maintenance",
+        "easily wipe down dirt"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "KIDS ROLLER COASTER: An amusement park right in your home",
+        "featureLabel": "KIDS ROLLER COASTER: An Amusement Park Right In Your Home",
+        "featureValue": "KIDS ROLLER COASTER: An amusement park right in your home",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "long 9-foot roller coaster track",
+        "featureLabel": "Long 9 Foot Roller Coaster Track",
+        "featureValue": "long 9-foot roller coaster track",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "ATV-inspired ride-on car",
+        "featureLabel": "ATV Inspired Ride On Car",
+        "featureValue": "ATV-inspired ride-on car",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "encourages your child to play actively and independently",
+        "featureLabel": "Encourages Your Child To Play Actively And Independently",
+        "featureValue": "encourages your child to play actively and independently",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "ACTIVE PLAY: Great outdoor toddler toys for backyard or indoor playrooms",
+        "featureLabel": "ACTIVE PLAY: Great Outdoor Toddler Toys For Backyard Or Indoor Playrooms",
+        "featureValue": "ACTIVE PLAY: Great outdoor toddler toys for backyard or indoor playrooms",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "ensuring kids to stay active and entertained all season long",
+        "featureLabel": "Ensuring Kids To Stay Active And Entertained All Season Long",
+        "featureValue": "ensuring kids to stay active and entertained all season long",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "KIDS ROLLER COASTER: An amusement park right in your home",
+        "long 9-foot roller coaster track",
+        "ATV-inspired ride-on car",
+        "encourages your child to play actively and independently"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/61tnuCVDnOL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/61tnuCVDnOL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/48448cf7-9ecb-4935-97d1-ad5e36e8c52b/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6233b7a8-cb75-44f0-b165-92d58a26edd2/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0640ebdc-fb5a-469c-b2ab-fdacbc62aff3/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/987387ba-3710-4757-ba61-ed75dca943dc/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f7eb8756-f17c-4b03-930e-db57eda57ab7/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c9ee7fb1-5617-4f09-a254-3629eb90a102/default.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 6,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/48448cf7-9ecb-4935-97d1-ad5e36e8c52b/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51WSTiO8m+L.SS125_PKplay-button-mb-image-grid-small_.jpg",
+          "Title": "Up & Down Roller Coaster Rapid Ride & Hide",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6233b7a8-cb75-44f0-b165-92d58a26edd2/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51zsj0qRlJL.SS125_PKplay-button-mb-image-grid-small_.jpg",
+          "Title": "Honest Review Step2 Up and Down Roller Coaster Kids Toy",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0640ebdc-fb5a-469c-b2ab-fdacbc62aff3/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51JP9mBf63L.SS125_PKplay-button-mb-image-grid-small_.jpg",
+          "Title": "Toddler's fun with the new roller coaster toy!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/987387ba-3710-4757-ba61-ed75dca943dc/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61c9X9JA3HL.SS125_PKplay-button-mb-image-grid-small_.jpg",
+          "Title": "Honest Review Step2 Up & Down Roller Coaster Kids Toy, Ride On Push Car, Indoor or Outdoor Playset",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f7eb8756-f17c-4b03-930e-db57eda57ab7/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81YtxqYkAiL.SS125_PKplay-button-mb-image-grid-small_.jpg",
+          "Title": "Kiddie Coaster for toddlers",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c9ee7fb1-5617-4f09-a254-3629eb90a102/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51tHHr-Ga2L.SS125_PKplay-button-mb-image-grid-small_.jpg",
+          "Title": "Honest Review Step2 Up & Down Roller Coaster for Toddlers ",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

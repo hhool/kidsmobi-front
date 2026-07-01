@@ -1,0 +1,155 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B08SGH7NKX",
+  "sourceCategoryId": "balance_bike",
+  "images": [
+    {
+      "productId": "B08SGH7NKX",
+      "categoryId": "balance_bike",
+      "resourceId": "B08SGH7NKX:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_1_ASIN_B08SGH7NKX_SEREED Baby Balance Bike for 1 Year Old Boys Girls/images/primary.jpg",
+      "targetPathKeep": "resources/b08sgh7nkx-overview/primary.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b08sgh7nkx/cover/primary.jpg"
+    },
+    {
+      "productId": "B08SGH7NKX",
+      "categoryId": "balance_bike",
+      "resourceId": "B08SGH7NKX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_1_ASIN_B08SGH7NKX_SEREED Baby Balance Bike for 1 Year Old Boys Girls/images/alt_1.jpg",
+      "targetPathKeep": "resources/b08sgh7nkx-overview/alt_1.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b08sgh7nkx/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B08SGH7NKX",
+      "categoryId": "balance_bike",
+      "resourceId": "B08SGH7NKX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_1_ASIN_B08SGH7NKX_SEREED Baby Balance Bike for 1 Year Old Boys Girls/images/alt_2.jpg",
+      "targetPathKeep": "resources/b08sgh7nkx-overview/alt_2.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b08sgh7nkx/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B08SGH7NKX",
+      "categoryId": "balance_bike",
+      "resourceId": "B08SGH7NKX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_1_ASIN_B08SGH7NKX_SEREED Baby Balance Bike for 1 Year Old Boys Girls/images/alt_3.jpg",
+      "targetPathKeep": "resources/b08sgh7nkx-overview/alt_3.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b08sgh7nkx/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B08SGH7NKX",
+      "categoryId": "balance_bike",
+      "resourceId": "B08SGH7NKX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_1_ASIN_B08SGH7NKX_SEREED Baby Balance Bike for 1 Year Old Boys Girls/images/alt_4.jpg",
+      "targetPathKeep": "resources/b08sgh7nkx-overview/alt_4.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b08sgh7nkx/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B08SGH7NKX",
+      "categoryId": "balance_bike",
+      "resourceId": "B08SGH7NKX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_1_ASIN_B08SGH7NKX_SEREED Baby Balance Bike for 1 Year Old Boys Girls/images/alt_5.jpg",
+      "targetPathKeep": "resources/b08sgh7nkx-overview/alt_5.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b08sgh7nkx/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B08SGH7NKX",
+      "categoryId": "balance_bike",
+      "resourceId": "B08SGH7NKX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_1_ASIN_B08SGH7NKX_SEREED Baby Balance Bike for 1 Year Old Boys Girls/images/alt_6.jpg",
+      "targetPathKeep": "resources/b08sgh7nkx-overview/alt_6.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b08sgh7nkx/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B08SGH7NKX",
+      "categoryId": "balance_bike",
+      "resourceId": "B08SGH7NKX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_1_ASIN_B08SGH7NKX_SEREED Baby Balance Bike for 1 Year Old Boys Girls/images/alt_7.jpg",
+      "targetPathKeep": "resources/b08sgh7nkx-overview/alt_7.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b08sgh7nkx/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B08SGH7NKX",
+      "categoryId": "balance_bike",
+      "resourceId": "B08SGH7NKX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_1_ASIN_B08SGH7NKX_SEREED Baby Balance Bike for 1 Year Old Boys Girls/images/alt_8.jpg",
+      "targetPathKeep": "resources/b08sgh7nkx-overview/alt_8.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b08sgh7nkx/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B08SGH7NKX",
+      "categoryId": "balance_bike",
+      "resourceId": "B08SGH7NKX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_1_ASIN_B08SGH7NKX_SEREED Baby Balance Bike for 1 Year Old Boys Girls/images/alt_9.jpg",
+      "targetPathKeep": "resources/b08sgh7nkx-overview/alt_9.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b08sgh7nkx/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B08SGH7NKX",
+      "categoryId": "balance_bike",
+      "resourceId": "B08SGH7NKX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_1_ASIN_B08SGH7NKX_SEREED Baby Balance Bike for 1 Year Old Boys Girls/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b08sgh7nkx-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b08sgh7nkx/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B08SGH7NKX",
+      "categoryId": "balance_bike",
+      "resourceId": "B08SGH7NKX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_1_ASIN_B08SGH7NKX_SEREED Baby Balance Bike for 1 Year Old Boys Girls/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "targetPathKeep": "resources/b08sgh7nkx-overview/aplus_01.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b08sgh7nkx/gallery/aplus_01.jpg"
+    },
+    {
+      "productId": "B08SGH7NKX",
+      "categoryId": "balance_bike",
+      "resourceId": "B08SGH7NKX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_1_ASIN_B08SGH7NKX_SEREED Baby Balance Bike for 1 Year Old Boys Girls/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "targetPathKeep": "resources/b08sgh7nkx-overview/aplus_02.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b08sgh7nkx/gallery/aplus_02.jpg"
+    },
+    {
+      "productId": "B08SGH7NKX",
+      "categoryId": "balance_bike",
+      "resourceId": "B08SGH7NKX:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_1_ASIN_B08SGH7NKX_SEREED Baby Balance Bike for 1 Year Old Boys Girls/images/primary.jpg",
+      "targetPathKeep": "resources/b08sgh7nkx-overview/primary.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b08sgh7nkx/gallery/primary.jpg"
+    },
+    {
+      "productId": "B08SGH7NKX",
+      "categoryId": "balance_bike",
+      "resourceId": "B08SGH7NKX:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/61tilO4erpL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b08sgh7nkx-overview/61tilo4erpl._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b08sgh7nkx/gallery/61tilo4erpl._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/52b608da-19a3-440d-9368-7773ae593785/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7acca5e2-cb06-45ec-9e45-b1180c6c7cfa/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b27aa405-fd0a-4a64-90d0-8479312be85a/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/39cc0b28-04fc-4b54-8e80-51f728c178be/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cedf217a-767c-4956-aaf3-15bca5098a40/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b9189800-c678-4d7b-8331-8b0d0d0c0c26/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e66afb55-ae8a-49e6-8bfe-1db855e7d4e7/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c56d1cdc-1664-4199-a048-24664126229b/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9e1bb11f-6eb2-45cb-838f-1da8d8368fff/default.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/balance_bike/SEREED/Rank_1_ASIN_B08SGH7NKX_SEREED Baby Balance Bike for 1 Year Old Boys Girls/index.html"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "stroller",
+  "fetchedAt": "2026-07-01T20:06:11.102Z",
+  "data": {
+    "resourceId": "B0DC5GGJRP:overview",
+    "categoryId": "stroller",
+    "productId": "B0DC5GGJRP",
+    "resourceType": "product_overview",
+    "title": "Dream On Me Aero Travel Umbrella Stroller, One-Hand Quick Fold, 3-Point Safety Harness, Dual Brakes, Adjustable Removable Can",
+    "summary": "300D Polyester | Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds, the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on the go — perfect for vacations, city strolls, and quick errands. | Compact One-Hand ",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/index.html",
+    "videoUrls": [],
+    "credibilityScore": 0.55,
+    "credibilityLevel": "low",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 0,
+      "hasFeatures": true
+    }
+  }
+}

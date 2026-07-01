@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_tricycles",
+  "fetchedAt": "2026-07-01T20:06:14.638Z",
+  "data": {
+    "resourceId": "B09B9LRBM5:overview",
+    "categoryId": "kids_tricycles",
+    "productId": "B09B9LRBM5",
+    "resourceType": "product_overview",
+    "title": "newyoo TR008 5 in 1 Toddler Tricycle with Push Handle for 1-3 Year Old Boys and Girls, Kids Push Trike with Safe Bar, Toddler",
+    "summary": "4 Modes: Parent steering push mode, Tricycle mode, balance bike mode and bike mode. Multifunctional tricycle is suitable for 1, 2,3 years old boys and girls. | Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your ",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_tricycles/newyoo/Rank_5_ASIN_B09B9LRBM5_newyoo TR008 5 in 1 Toddler Tricycle with Push Han/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3d3136e2-3eeb-4143-9b5d-0982659bc09c/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/12b3baaa-4800-4514-a488-81c30082f15d/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/aed507b0-b614-4a86-8bee-632b5d5b0217/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/609e829d-5019-4f82-951f-fd1fd66832e7/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6d22f786-af75-404d-be6f-1f5442b7ca7e/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5e7b6e05-fb74-418b-b1fb-919d9172db55/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/46c528cb-a6a7-4d11-a681-421b8e56d891/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e916f395-92ae-4b50-a3ad-dc6821417480/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a38e7bcd-af64-4839-b312-afb511970b01/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b1bfc24b-e862-40ea-a4d5-30032f7bce65/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.95,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 10,
+      "hasFeatures": true
+    }
+  }
+}

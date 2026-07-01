@@ -1,0 +1,481 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "electric_vehicles",
+  "categoryCode": "electric_car",
+  "fetchedAt": "2026-07-01T20:06:12.985Z",
+  "data": {
+    "productId": "B0F9PS1L56",
+    "categoryId": "electric_vehicles",
+    "rank": 7,
+    "title": "ANPABO 3-in-1 Electric Push Ride On Car, 12V Kids Ride On Toy w/Remote Control, 360° Spin, 5-Point Safety Belt, Colorful LED",
+    "brand": "ANPABO",
+    "price": {
+      "display": "$123.49",
+      "value": 123.49,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.5  249",
+      "value": 4.5
+    },
+    "weight": {
+      "display": "18.74 Pounds",
+      "lbs": 18.74
+    },
+    "classification": {
+      "Brand": "ANPABO",
+      "Vehicle_Type": "Sport",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Standard",
+      "Price_Tier": "100-200"
+    },
+    "categoryAttributes": {
+      "categoryId": "electric_vehicles",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "[3-In-1 Design For Growing Kids]This innovative 3-in-1 toddler push car features 3 modes (push car",
+        "remote control",
+        "and electric mode) that can be switched easily",
+        "catering to the riding needs of boys and girls aged 1-3.5 years. Parents can use the push mode to walk with kids in the park",
+        "while the remote control mode allows them to guide the car effortlessly. As kids grow",
+        "they can press the paddles on the 2 motors to switch to electric mode and ride anywhere. The adjustable push rod can be easily shortened when not in use",
+        "[360° Spin & Colorful LED Light]Equipped with 3 universal wheels",
+        "this toddler push car with handle rotate 360° on the spot",
+        "letting kids to ride flexibly and freely even in tight indoor spaces. The front of the electric car for toddlers and the 2 large wear-resistant wheels are inlaid with colorful lights",
+        "and the dreamy lights make kids feel like they are wandering in the stars. (Note: Universal wheels are more suitable for driving on hard and flat roads.)",
+        "[5-Point Safety Belt for Greater Safety]Compared with ordinary 2-point seat belts",
+        "the 5-point seat belt significantly improves both safety and comfort. The electric mode features 2 hidden lock switches on both sides of the motor",
+        "allowing parents to disable the function in advance and prevent accidental pedal activation by kids. Plus",
+        "the remote control includes an emergency stop function that lets parents immediately stop the baby car when needed to avoid potential hazards. The semi-enclosed body design reduces the risk of accidental falls",
+        "giving kids a greater sense of security",
+        "[Remote Control & Self-Driving Fun]Unlike non-electric push cars",
+        "this electric toddler car features a 12V 7AH battery",
+        "2 motors",
+        "and a remote control",
+        "which offers additional remote-controlled and electric riding options. The remote mode offers 3 adjustable speeds",
+        "allowing parents to choose a suitable speed for their child while sitting on a park bench and easily controlling the 12V kids ride on toys. The baby just needs to sit back and enjoy! The pedal mode offers 2 speeds for when the child is ready to drive independently",
+        "[Multi-Function Music Player with Wireless Connection]In addition to the built-in music",
+        "parents can wirelessly connect their phone to play kids' favorite songs and stories",
+        "turning every ride into a musical adventure! Kids can easily control the speed of toddler car",
+        "steering",
+        "horn",
+        "and lights with simple buttons of the car stroller. Fun continues with diverse functions. The vibrant color stimulates sensory development and large buttons improve hand-eye coordination. A perfect gift for birthdays",
+        "Christmas",
+        "and any memorable occasions"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "[3-In-1 Design For Growing Kids]This innovative 3-in-1 toddler push car features 3 modes (push car",
+        "featureLabel": "[3 In 1 Design For Growing Kids]this Innovative 3 In 1 Toddler Push Car Features 3 Modes (push Car",
+        "featureValue": "[3-In-1 Design For Growing Kids]This innovative 3-in-1 toddler push car features 3 modes (push car",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "remote control",
+        "featureLabel": "Remote Control",
+        "featureValue": "remote control",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "and electric mode) that can be switched easily",
+        "featureLabel": "And Electric Mode) That Can Be Switched Easily",
+        "featureValue": "and electric mode) that can be switched easily",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "catering to the riding needs of boys and girls aged 1-3.5 years. Parents can use the push mode to walk with kids in the park",
+        "featureLabel": "Catering To The Riding Needs Of Boys And Girls Aged 1 3.5 Years. Parents Can Use The Push Mode To Walk With Kids In The Park",
+        "featureValue": "catering to the riding needs of boys and girls aged 1-3.5 years. Parents can use the push mode to walk with kids in the park",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "while the remote control mode allows them to guide the car effortlessly. As kids grow",
+        "featureLabel": "While The Remote Control Mode Allows Them To Guide The Car Effortlessly. As Kids Grow",
+        "featureValue": "while the remote control mode allows them to guide the car effortlessly. As kids grow",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "they can press the paddles on the 2 motors to switch to electric mode and ride anywhere. The adjustable push rod can be easily shortened when not in use",
+        "featureLabel": "They Can Press The Paddles On The 2 Motors To Switch To Electric Mode And Ride Anywhere. The Adjustable Push Rod Can Be Easily Shortened When Not In Use",
+        "featureValue": "they can press the paddles on the 2 motors to switch to electric mode and ride anywhere. The adjustable push rod can be easily shortened when not in use",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "[3-In-1 Design For Growing Kids]This innovative 3-in-1 toddler push car features 3 modes (push car",
+        "remote control",
+        "and electric mode) that can be switched easily",
+        "catering to the riding needs of boys and girls aged 1-3.5 years. Parents can use the push mode to walk with kids in the park"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+          "source": "local",
+          "order": 10
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_1.jpg",
+      "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_2.jpg",
+      "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_3.jpg",
+      "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_4.jpg",
+      "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_5.jpg",
+      "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_6.jpg",
+      "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_7.jpg",
+      "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_8.jpg",
+      "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_9.jpg",
+      "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png"
+    ],
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5f57b98d-ca59-4483-a44a-899c1b6156de/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0bfc4091-cf82-47d9-972e-f02a7a20c1c6/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/724565e7-b08c-4000-9be5-b02c78a5561c/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1ed29be2-94a7-4752-9e57-396834bbd6ae/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c6909ff5-b3b1-4726-be93-fd765826307e/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1274c2c0-d0ac-47cf-9e9e-68919ff8491b/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/028de850-3341-48aa-ab16-d52d2e007659/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/16865046-cbb1-401f-a49a-095a281012a3/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/609ffebe-74c4-44e3-a000-e403e140b665/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/27f349f3-94b6-4ac8-b302-52542ed1c6d2/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5f57b98d-ca59-4483-a44a-899c1b6156de/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "ANPABO 3-in-1 Electric Push Ride On Car - Blue",
+        "thumbnail": "https://m.media-amazon.com/images/I/71Unx-QiqDL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0bfc4091-cf82-47d9-972e-f02a7a20c1c6/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "How to use 3-In-1 push car?",
+        "thumbnail": "https://m.media-amazon.com/images/I/81r5ovrNdHL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/724565e7-b08c-4000-9be5-b02c78a5561c/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "ANPABO 12V Electric Push Ride On Car",
+        "thumbnail": "https://m.media-amazon.com/images/I/81bYHuw3y9L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1ed29be2-94a7-4752-9e57-396834bbd6ae/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "12V 3-In-1 Push Car Installation Guide",
+        "thumbnail": "https://m.media-amazon.com/images/I/91QitawkydL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c6909ff5-b3b1-4726-be93-fd765826307e/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "ANPABO 12V 3-in-1 Electric Push Car",
+        "thumbnail": "https://m.media-amazon.com/images/I/81V7YnYKSmL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1274c2c0-d0ac-47cf-9e9e-68919ff8491b/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Toddler's new favorite ride-on car!",
+        "thumbnail": "https://m.media-amazon.com/images/I/81MQIKFBlxL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 6
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/028de850-3341-48aa-ab16-d52d2e007659/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Electric and Push Ride-On Car for Toddlers",
+        "thumbnail": "https://m.media-amazon.com/images/I/912kxPpP9OL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 7
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/16865046-cbb1-401f-a49a-095a281012a3/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "A blast for kids!- 3 in 1 Electric Push Ride on Car",
+        "thumbnail": "https://m.media-amazon.com/images/I/A1y+gd93tOL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 8
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/609ffebe-74c4-44e3-a000-e403e140b665/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "SUPER COOL! Watch Unboxing, Assembling and Demo",
+        "thumbnail": "https://m.media-amazon.com/images/I/91TPKbJ8FDL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 9
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/27f349f3-94b6-4ac8-b302-52542ed1c6d2/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Reviews Highlight Reel",
+        "thumbnail": "https://m.media-amazon.com/images/I/81qJNuD8IPL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 10
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/electric_vehicles/index.html",
+      "categoryPages": "/scrape_store/electric_vehicles/pages/index.html",
+      "detailPage": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/index.html"
+    },
+    "resourceStats": {
+      "videos": 10,
+      "similarItems": 0
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71su4dbOb8L._AC_UL300_SR300,200_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 12
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/electric_vehicles/ANPABO/Rank_7_ASIN_B0F9PS1L56_ANPABO 3-in-1 Electric Push Ride On Car 12V Kids R/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5f57b98d-ca59-4483-a44a-899c1b6156de/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71Unx-QiqDL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "ANPABO 3-in-1 Electric Push Ride On Car - Blue",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0bfc4091-cf82-47d9-972e-f02a7a20c1c6/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81r5ovrNdHL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "How to use 3-In-1 push car?",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/724565e7-b08c-4000-9be5-b02c78a5561c/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81bYHuw3y9L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "ANPABO 12V Electric Push Ride On Car",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1ed29be2-94a7-4752-9e57-396834bbd6ae/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91QitawkydL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "12V 3-In-1 Push Car Installation Guide",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c6909ff5-b3b1-4726-be93-fd765826307e/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81V7YnYKSmL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "ANPABO 12V 3-in-1 Electric Push Car",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1274c2c0-d0ac-47cf-9e9e-68919ff8491b/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81MQIKFBlxL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Toddler's new favorite ride-on car!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/028de850-3341-48aa-ab16-d52d2e007659/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/912kxPpP9OL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Electric and Push Ride-On Car for Toddlers",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/16865046-cbb1-401f-a49a-095a281012a3/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1y+gd93tOL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "A blast for kids!- 3 in 1 Electric Push Ride on Car",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/609ffebe-74c4-44e3-a000-e403e140b665/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91TPKbJ8FDL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "SUPER COOL! Watch Unboxing, Assembling and Demo",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/27f349f3-94b6-4ac8-b302-52542ed1c6d2/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81qJNuD8IPL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Reviews Highlight Reel",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

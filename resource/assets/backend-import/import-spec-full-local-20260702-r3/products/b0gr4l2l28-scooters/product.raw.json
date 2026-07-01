@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "scooters",
+  "categoryCode": "scooter",
+  "fetchedAt": "2026-07-01T21:38:40.126Z",
+  "data": {
+    "productId": "B0GR4L2L28",
+    "categoryId": "scooters",
+    "rank": 2,
+    "title": "VOLPAM Electric Scooter, 350W/500W/800W/1000W/250W Powerful Motor & 19/22/ 9 MPH Top Speed, 16-28-10 Miles Long Range, Foldin",
+    "brand": "VOLPAM",
+    "price": {
+      "display": "$252.67",
+      "value": 252.67,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "N/A",
+      "value": 0
+    },
+    "weight": {
+      "display": "N/A",
+      "lbs": 0
+    },
+    "classification": {
+      "Brand": "VOLPAM",
+      "Scooter_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "2",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Unknown",
+      "Price_Tier": ">200"
+    },
+    "categoryAttributes": {
+      "categoryId": "scooters",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [],
+    "decisionSignals": {
+      "ranking": [],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [],
+    "availability": "AVAILABLE",
+    "coverImage": null,
+    "galleryUrls": [],
+    "images": {
+      "cover": null,
+      "gallery": []
+    },
+    "videoUrls": [],
+    "resourceStats": {
+      "videos": 0,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

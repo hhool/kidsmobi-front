@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "productId": "B084ZGLH27",
+  "productDirName": "b084zglh27-kids_pull_along_wagons",
+  "outputDir": "/Users/yanmenghou/Desktop/cbike/kidsmobi/front/resource/assets/backend-import/import-spec-full-local-20260702-r2/products/b084zglh27-kids_pull_along_wagons",
+  "files": [
+    "product.raw.json",
+    "resource.raw.json",
+    "product.editable.json",
+    "product.publish.json",
+    "media.manifest.json",
+    "ingest.meta.json"
+  ],
+  "generatedAt": "2026-07-01T20:06:15.963Z"
+}

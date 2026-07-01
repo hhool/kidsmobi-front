@@ -1,0 +1,408 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T20:06:15.123Z",
+  "data": {
+    "productId": "B008CO80SA",
+    "categoryId": "kids_push_ride_ons",
+    "rank": 3,
+    "title": "Step2 Whisper Ride II Kids Push Car, Ride-On Car with Seat Belt and Horn, Quick Fold Handle, Stroller Alternative, Toddlers a",
+    "brand": "Step2",
+    "price": {
+      "display": "$71.24",
+      "value": 71.24,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.6  16,473",
+      "value": 4.6
+    },
+    "weight": {
+      "display": "7.1 Kilograms",
+      "lbs": 7.1
+    },
+    "classification": {
+      "Brand": "Step2",
+      "Stroller_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_push_ride_ons",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "RIDE IN STYLE: Treat your toddler to a smooth and quiet \"whisper ride\" with our push toy car",
+        "enjoy added comfort with the extra-wide rear parent grip handle.",
+        "SAFE & FUN: Easy-latch adjustable seat belt for safety",
+        "real car horn and steering wheel",
+        "convenient cup holders",
+        "under-hood storage for snacks and toys.",
+        "COMPACT: Toy car with an easy-to-fold handle for quick transportation and storage",
+        "max weight 50 lbs.",
+        "assembled dimensions 34\" H x 19\" W x 45.5\" D.",
+        "EASY TO CLEAN & ASSEMBLE: Use disinfectant wipes or household cleaners to clean for a sanitary play environment",
+        "adult assembly required",
+        "includes assembly hardware.",
+        "DURABLE: Built to last",
+        "double-walled plastic construction",
+        "years of use with colors that won't chip",
+        "fade",
+        "crack",
+        "or peel.",
+        "Features \"whisper ride\" wheels for smooth",
+        "quiet ride and easy-pull handle design"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "RIDE IN STYLE: Treat your toddler to a smooth and quiet \"whisper ride\" with our push toy car",
+        "featureLabel": "Ride In Style: Treat Your Toddler To A Smooth And Quiet \"whisper Ride\" With Our Push Toy Car",
+        "featureValue": "RIDE IN STYLE: Treat your toddler to a smooth and quiet \"whisper ride\" with our push toy car",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "enjoy added comfort with the extra-wide rear parent grip handle.",
+        "featureLabel": "Enjoy Added Comfort With The Extra Wide Rear Parent Grip Handle.",
+        "featureValue": "enjoy added comfort with the extra-wide rear parent grip handle.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "SAFE & FUN: Easy-latch adjustable seat belt for safety",
+        "featureLabel": "Safe & Fun: Easy Latch Adjustable Seat Belt For Safety",
+        "featureValue": "SAFE & FUN: Easy-latch adjustable seat belt for safety",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "real car horn and steering wheel",
+        "featureLabel": "Real Car Horn And Steering Wheel",
+        "featureValue": "real car horn and steering wheel",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "convenient cup holders",
+        "featureLabel": "Convenient Cup Holders",
+        "featureValue": "convenient cup holders",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "under-hood storage for snacks and toys.",
+        "featureLabel": "Under Hood Storage For Snacks And Toys.",
+        "featureValue": "under-hood storage for snacks and toys.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "RIDE IN STYLE: Treat your toddler to a smooth and quiet \"whisper ride\" with our push toy car",
+        "enjoy added comfort with the extra-wide rear parent grip handle.",
+        "SAFE & FUN: Easy-latch adjustable seat belt for safety",
+        "real car horn and steering wheel"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+          "source": "local",
+          "order": 10
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_1.jpg",
+      "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_2.jpg",
+      "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_3.jpg",
+      "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_4.jpg",
+      "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_5.jpg",
+      "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_6.jpg",
+      "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_7.jpg",
+      "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_8.jpg",
+      "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_9.jpg",
+      "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg"
+    ],
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/56e21d08-9bfc-4d3e-819e-7d6f098537a8/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d1de77d5-37cd-475f-9a00-4974cb8db27f/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/75381bbe-8e16-4a54-adef-fc3c575bef9c/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7637adf5-7c62-48ef-a619-46672648f7cf/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ca6afbc8-8426-477d-8ffe-3700ad5bcfca/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8ca0164b-fc27-4a2d-a8de-9d98b06447b3/default.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/56e21d08-9bfc-4d3e-819e-7d6f098537a8/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Whisper Ride II",
+        "thumbnail": "https://m.media-amazon.com/images/I/51Q8aZ0TWtL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d1de77d5-37cd-475f-9a00-4974cb8db27f/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "New favorite toy for outdoor play!",
+        "thumbnail": "https://m.media-amazon.com/images/I/71Na2P-isFL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/75381bbe-8e16-4a54-adef-fc3c575bef9c/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Review- We LOVE the Step2 Whisper Ride Push car!",
+        "thumbnail": "https://m.media-amazon.com/images/I/B1Q1VAgZQ1L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7637adf5-7c62-48ef-a619-46672648f7cf/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "My review of Step2 Whisper Ride II Buggy Kids Push Car",
+        "thumbnail": "https://m.media-amazon.com/images/I/81or9-zwLWL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ca6afbc8-8426-477d-8ffe-3700ad5bcfca/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Honest Review of Push Car",
+        "thumbnail": "https://m.media-amazon.com/images/I/61WNNczlerL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8ca0164b-fc27-4a2d-a8de-9d98b06447b3/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Honest review of this car stroller!",
+        "thumbnail": "https://m.media-amazon.com/images/I/A17cUAmfuzL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 6
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/kids_push_ride_ons/index.html",
+      "categoryPages": "/scrape_store/kids_push_ride_ons/pages/index.html",
+      "detailPage": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/index.html"
+    },
+    "resourceStats": {
+      "videos": 6,
+      "similarItems": 0
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/61pwr1SZzEL._AC_UL300_SR300,200_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 12
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/56e21d08-9bfc-4d3e-819e-7d6f098537a8/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51Q8aZ0TWtL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Whisper Ride II",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d1de77d5-37cd-475f-9a00-4974cb8db27f/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71Na2P-isFL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "New favorite toy for outdoor play!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/75381bbe-8e16-4a54-adef-fc3c575bef9c/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1Q1VAgZQ1L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Review- We LOVE the Step2 Whisper Ride Push car!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7637adf5-7c62-48ef-a619-46672648f7cf/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81or9-zwLWL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "My review of Step2 Whisper Ride II Buggy Kids Push Car",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ca6afbc8-8426-477d-8ffe-3700ad5bcfca/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61WNNczlerL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Honest Review of Push Car",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8ca0164b-fc27-4a2d-a8de-9d98b06447b3/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A17cUAmfuzL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Honest review of this car stroller!",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

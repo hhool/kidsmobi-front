@@ -1,0 +1,1025 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T21:39:05.315Z",
+  "data": {
+    "productId": "B01GFZT4AK",
+    "categoryId": "kids_push_ride_ons",
+    "rank": 6,
+    "title": "John Deere Ride On Toys Sit 'N Scoot Activity Tractor for Kids Ages 18 Months and Up, Green",
+    "brand": "John",
+    "price": {
+      "display": "$50.94",
+      "value": 50.94,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.4  9,630",
+      "value": 4.4
+    },
+    "weight": {
+      "display": "3.9 Pounds",
+      "lbs": 3.9
+    },
+    "classification": {
+      "Brand": "John",
+      "Stroller_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_push_ride_ons",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "Stable Design: Watch your kids scoot to their heart's content with a foot to floor John Deere tractor that includes a wide wheelbase for riding stability while they're exploring",
+        "Easy to Assemble: This John Deere tractor toy has a durable design that is is easy for parents to put together and makes it ready to roll in a matter of minutes",
+        "Ride On Vehicles: This ride on John Deere tractor toy is lightweight to help your toddlers maneuver around corners indoors or around obstacles outside in the backyard",
+        "Officially Licensed: This push and pull foot to floor tractor brings the barnyard home with authentic John Deere colors and details",
+        "just like kids see on the farm",
+        "Toddler Ride On: This fun ride on toy makes a fantastic addition to your little one's birthday gifts or Easter basket stuffers",
+        "suitable for ages 18 months and up to 60 pounds"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "Stable Design: Watch your kids scoot to their heart's content with a foot to floor John Deere tractor that includes a wide wheelbase for riding stability while they're exploring",
+        "featureLabel": "Stable Design: Watch Your Kids Scoot To Their Heart'S Content With A Foot To Floor John Deere Tractor That Includes A Wide Wheelbase For Riding Stability While They'Re Exploring",
+        "featureValue": "Stable Design: Watch your kids scoot to their heart's content with a foot to floor John Deere tractor that includes a wide wheelbase for riding stability while they're exploring",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "Easy to Assemble: This John Deere tractor toy has a durable design that is is easy for parents to put together and makes it ready to roll in a matter of minutes",
+        "featureLabel": "Easy To Assemble: This John Deere Tractor Toy Has A Durable Design That Is Is Easy For Parents To Put Together And Makes It Ready To Roll In A Matter Of Minutes",
+        "featureValue": "Easy to Assemble: This John Deere tractor toy has a durable design that is is easy for parents to put together and makes it ready to roll in a matter of minutes",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "Ride On Vehicles: This ride on John Deere tractor toy is lightweight to help your toddlers maneuver around corners indoors or around obstacles outside in the backyard",
+        "featureLabel": "Ride On Vehicles: This Ride On John Deere Tractor Toy Is Lightweight To Help Your Toddlers Maneuver Around Corners Indoors Or Around Obstacles Outside In The Backyard",
+        "featureValue": "Ride On Vehicles: This ride on John Deere tractor toy is lightweight to help your toddlers maneuver around corners indoors or around obstacles outside in the backyard",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "Officially Licensed: This push and pull foot to floor tractor brings the barnyard home with authentic John Deere colors and details",
+        "featureLabel": "Officially Licensed: This Push And Pull Foot To Floor Tractor Brings The Barnyard Home With Authentic John Deere Colors And Details",
+        "featureValue": "Officially Licensed: This push and pull foot to floor tractor brings the barnyard home with authentic John Deere colors and details",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "just like kids see on the farm",
+        "featureLabel": "Just Like Kids See On The Farm",
+        "featureValue": "just like kids see on the farm",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "Toddler Ride On: This fun ride on toy makes a fantastic addition to your little one's birthday gifts or Easter basket stuffers",
+        "featureLabel": "Toddler Ride On: This Fun Ride On Toy Makes A Fantastic Addition To Your Little One'S Birthday Gifts Or Easter Basket Stuffers",
+        "featureValue": "Toddler Ride On: This fun ride on toy makes a fantastic addition to your little one's birthday gifts or Easter basket stuffers",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "Stable Design: Watch your kids scoot to their heart's content with a foot to floor John Deere tractor that includes a wide wheelbase for riding stability while they're exploring",
+        "Easy to Assemble: This John Deere tractor toy has a durable design that is is easy for parents to put together and makes it ready to roll in a matter of minutes",
+        "Ride On Vehicles: This ride on John Deere tractor toy is lightweight to help your toddlers maneuver around corners indoors or around obstacles outside in the backyard",
+        "Officially Licensed: This push and pull foot to floor tractor brings the barnyard home with authentic John Deere colors and details"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/715ZtziGaVL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/715ZtziGaVL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0d509975-e911-456e-ad65-a22db43bc334/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/48ca8242-d12d-4227-9c39-1b1ebf218965/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/422e37e0-293e-47be-960b-ee4e97c3aa09/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4890c90c-26df-433f-9b9a-1aa7c9df9d09/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5b93a99e-6747-499f-993f-f39612749d09/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/58849f11-5798-42a7-8792-f94160be609d/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 6,
+      "similarItems": 2
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0d509975-e911-456e-ad65-a22db43bc334/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/5128y7j-ekL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "TOMY John Deere Sit-N-Scoot Tractor Toy",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/48ca8242-d12d-4227-9c39-1b1ebf218965/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91IPVrMG5SL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Honest Review - John Deer Tractor Toy",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/422e37e0-293e-47be-960b-ee4e97c3aa09/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71IHdnNBlXL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "This toddler tractor is so fun for our farm loving kid!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4890c90c-26df-433f-9b9a-1aa7c9df9d09/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81fSuxk0OJL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Scooting Fun with This John Deere Tractor an Honest Review",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5b93a99e-6747-499f-993f-f39612749d09/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61nDy30S1TL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "John Deere Toddler Bike - easy to assemble & fun!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/58849f11-5798-42a7-8792-f94160be609d/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61MDU6J1T+L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Honest Review John Deere Ride On Tractor",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "Little",
+        "Title": "Little Tikes Tractor & Cart, Foot-to-Floor Ride-On, for Boys and Girls Ages 1-5 Years",
+        "Price": "$64.99",
+        "Rating": "4.7",
+        "Reviews": "366",
+        "URL": "https://www.amazon.com/Little-Tikes-Tractor-Foot-Floor/dp/B0D8SD9WZH/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_1/143-0532524-2915706?pd_rd_w=ZRNRZ&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=42YPT74SJD459YH1CMPY&pd_rd_wg=e9QaW&pd_rd_r=4616bbdb-1c24-408c-aa22-a25a795d3b50&pd_rd_i=B0D8SD9WZH&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/61DYRTL9w7L._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B0D8SD9WZH",
+        "Source_Page": 1,
+        "Source_URL": "https://www.amazon.com/Best-Sellers-Toys-Games-Kids-Push-Ride-Ons/zgbs/toys-and-games/166414011/ref=zg_bs_nav_toys-and-games_2_3405171",
+        "Source_Position": 11,
+        "Source_Type": "Best Sellers",
+        "Features": "LITTLE FARMERS – This Tractor & Cart set is a must-have for little farmers on the go. With the tractor’s realistic features and foot-to-floor design, kids can enjoy imaginative play while developing large motor skills. | ATTACHABLE CART – Includes an easy-to-attach cart that is perfect for carrying a child’s items. | REALISTIC DESIGN – Features a working steering wheel and horn. | DURABILITY – Tractor tires are high-quality and durable to last rugged outdoor play. | COMFORTABLE SEATING – The tractor’s seat is made spacious to fit children as they grow. | EASY ASSEMBLY – Easy one-time adult assembly required. | ACTIVE PLAY – This tractor set makes an ideal gift for kids ages 1-5 years. | Ages 1-5 Years",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fa010915-0629-4284-a2d3-79986e480e03/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fa010915-0629-4284-a2d3-79986e480e03/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/51MrcwkF6bL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Little Tikes Tractor & Cart",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9c0ce93f-a9c2-4f1d-8dac-e67c05191a65/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71DiSe4PhgL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Little Tikes Firsts",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1c686135-e312-4a07-badb-4144069f0d3c/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71oyXniIGlL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Fun for the 1 year old!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4e5765b2-338a-42d5-8fbe-21e0e8898b09/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1i10zqGlZL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Little Tikes Tractor Ride On With Trailer for Toddlers",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bfa6c011-895f-4b0b-bfff-c57f3bb8c7ed/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/91U58-VmQ0L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+            "Title": "my honest review of Little Tikes Tractor & Cart",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cfc13d0d-15b2-4372-a75f-cea535dc8862/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61q-cnUuVKL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Toy Tractor Honest Review!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b570b111-97f4-461d-a449-a0fd95dc29cf/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/91npAMAua5L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "All You Need To Know About This Little Tikes Tractor",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fa010915-0629-4284-a2d3-79986e480e03/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9c0ce93f-a9c2-4f1d-8dac-e67c05191a65/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1c686135-e312-4a07-badb-4144069f0d3c/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4e5765b2-338a-42d5-8fbe-21e0e8898b09/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bfa6c011-895f-4b0b-bfff-c57f3bb8c7ed/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cfc13d0d-15b2-4372-a75f-cea535dc8862/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b570b111-97f4-461d-a449-a0fd95dc29cf/default.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fa010915-0629-4284-a2d3-79986e480e03/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9c0ce93f-a9c2-4f1d-8dac-e67c05191a65/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1c686135-e312-4a07-badb-4144069f0d3c/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4e5765b2-338a-42d5-8fbe-21e0e8898b09/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bfa6c011-895f-4b0b-bfff-c57f3bb8c7ed/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cfc13d0d-15b2-4372-a75f-cea535dc8862/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b570b111-97f4-461d-a449-a0fd95dc29cf/default.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "ATTACHABLE CART",
+              "Texts": [
+                "Includes an easy-to-attach cart that is perfect for carrying a child’s items.",
+                "LITTLE FARMERS – This Tractor & Cart set is a must-have for little farmers on the go. With the tractor’s realistic features and foot-to-floor design, kids can enjoy imaginative play while developing large motor skills.",
+                "Features a working steering wheel and horn. Durable, tractor tires are high-quality and durable to last rugged outdoor play."
+              ],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/4320f8c1-cf72-4aff-b30a-c06627aea06c.__CR0,0,304,304_PT0_SX300_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f519b0ae-469b-4a1c-bce4-5c31e17a2127.__CR0,1,305,305_PT0_SX300_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/e3ea425b-51a7-446a-8a1a-deb3e855ab42.__CR0,1,305,305_PT0_SX300_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/4320f8c1-cf72-4aff-b30a-c06627aea06c.__CR0,0,304,304_PT0_SX300_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "cart",
+                  "Image_Alt": "cart"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f519b0ae-469b-4a1c-bce4-5c31e17a2127.__CR0,1,305,305_PT0_SX300_V1___.jpg",
+                  "Image_Order": 2,
+                  "Image_Title": "cart",
+                  "Image_Alt": "cart"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/e3ea425b-51a7-446a-8a1a-deb3e855ab42.__CR0,1,305,305_PT0_SX300_V1___.jpg",
+                  "Image_Order": 3,
+                  "Image_Title": "cart",
+                  "Image_Alt": "cart"
+                }
+              ],
+              "Comparison_Table": {},
+              "Block_Types": [
+                "text",
+                "image"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "ATTACHABLE CART"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/4320f8c1-cf72-4aff-b30a-c06627aea06c.__CR0,0,304,304_PT0_SX300_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "cart",
+                    "Image_Alt": "cart"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Includes an easy-to-attach cart that is perfect for carrying a child’s items."
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f519b0ae-469b-4a1c-bce4-5c31e17a2127.__CR0,1,305,305_PT0_SX300_V1___.jpg",
+                    "Image_Order": 2,
+                    "Image_Title": "cart",
+                    "Image_Alt": "cart"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "LITTLE FARMERS – This Tractor & Cart set is a must-have for little farmers on the go. With the tractor’s realistic features and foot-to-floor design, kids can enjoy imaginative play while developing large motor skills."
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/e3ea425b-51a7-446a-8a1a-deb3e855ab42.__CR0,1,305,305_PT0_SX300_V1___.jpg",
+                    "Image_Order": 3,
+                    "Image_Title": "cart",
+                    "Image_Alt": "cart"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Features a working steering wheel and horn. Durable, tractor tires are high-quality and durable to last rugged outdoor play."
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/4320f8c1-cf72-4aff-b30a-c06627aea06c.__CR0,0,304,304_PT0_SX300_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f519b0ae-469b-4a1c-bce4-5c31e17a2127.__CR0,1,305,305_PT0_SX300_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/e3ea425b-51a7-446a-8a1a-deb3e855ab42.__CR0,1,305,305_PT0_SX300_V1___.jpg"
+            ],
+            "Local_Images": [
+              "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+              "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+              "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [],
+          "Summary": {
+            "Count": 0
+          },
+          "Local_Paths": []
+        },
+        "Product_Description": "Little farmers will love to haul their harvests around with this toddler Tractor & Cart set. Powered by its foot-to-floor movement design and a working steering wheel, this tractor encourages hours of imaginative play and the development of large motor skills. The included cart attaches easily to the back of the tractor and can carry your child’s favorite toys, gardening supplies, and more. The tractor and cart both feature durable tires that last, ensuring this set will be a longtime favorite toy. Consumer Note: maximum weight is 50 lbs.",
+        "Product_Specifications": {
+          "Measurements": {
+            "Size": "Toddler",
+            "Item Dimensions L x W x H": "44.88\"L x 18.44\"W x 18.44\"H",
+            "Weight Capacity Maximum": "50 Pounds",
+            "Item Dimensions": "22 x 16 x 12 inches"
+          },
+          "Features_Specs": {
+            "Age Range Description": "Toddler",
+            "UPC": "050743642050",
+            "Item Type Name": "Green Tractor & Cart",
+            "Theme": "Green Tractor & Cart"
+          },
+          "Materials_Care": {
+            "Material Type": "Plastic"
+          },
+          "Item_Details": {
+            "Brand Name": "Little Tikes",
+            "Manufacturer Part Number": "642050",
+            "Model Number": "642050",
+            "Manufacturer": "MGA Entertainment",
+            "Included Components": "Green Tractor & Cart",
+            "Best Sellers Rank": "#3,070 in Toys & Games (See Top 100 in Toys & Games) #11 in Kids' Push Ride-Ons",
+            "ASIN": "B0D8SD9WZH",
+            "Customer Reviews": "4.7  4.7 out of 5 stars   \n    (366)   \n\n\n 4.7 out of 5 stars"
+          },
+          "User_Guide": {
+            "Manufacturer Minimum Age (MONTHS)": "18.0",
+            "Manufacturer Maximum Age (MONTHS)": "60.0",
+            "Is Assembly Required": "Yes"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery Monday, July 6",
+          "Specifications": {}
+        },
+        "Local_Image_Paths": [
+          "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/primary.jpg",
+          "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_1.jpg",
+          "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_2.jpg",
+          "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_3.jpg",
+          "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_4.jpg",
+          "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_5.jpg",
+          "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_6.jpg",
+          "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_7.jpg",
+          "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_8.jpg",
+          "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/primary.jpg",
+        "Local_Video_Paths": [],
+        "Last_Updated": "2026-06-27T08:42:43.341754",
+        "Similar_Items_Quick_Delivery": [
+          {
+            "Rank": "Similar",
+            "Brand": "John",
+            "Title": "John Deere Ride On Toys Pedal Tractor with Wagon for Kids Aged 18 Months to 3 Years, Green/Yellow",
+            "Price": "$114.95",
+            "Rating": "4.4",
+            "Reviews": "1,882",
+            "URL": "https://www.amazon.com/TOMY-Deere-Pedal-Tractor-Wagon/dp/B007LL7J96/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_1/141-4761812-9774563?pd_rd_w=Yt912&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=0WAG7X3RJ8FHF8354NJZ&pd_rd_wg=I3vNt&pd_rd_r=aa049230-8dff-4ee7-a09f-7d7e26202753&pd_rd_i=B007LL7J96&psc=1",
+            "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/51OYG+S8mcL._AC_UL165_SR165,165_.jpg",
+            "ASIN": "B007LL7J96",
+            "Features": "Let your child get in on the hauling action with this John Deere ride-on toy set | Comes complete with an attached wagon that lets kids haul toys and more | Takes the traditional toddler trike to the next level with authentic John Deere colors and details | Officially Licensed John Deere Product | Recommended age: 18M+ and up to 60 pounds",
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/916fc56b-1142-406f-99c9-f0b443bb8338/default.jobtemplate.hls.m3u8",
+            "Product_Videos_Detail": [
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/916fc56b-1142-406f-99c9-f0b443bb8338/default.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/510En8qGDmL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+                "Title": "John Deere Tractor and Wagon Ride On",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3a241e78-ab6b-4539-b627-31d69a59253c/default.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1Q1vZ+mnXL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+                "Title": "Our Favorite Toddler Riding Toy",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/81db9291-546e-4817-a0bf-1bf28842c85a/default.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1Sh84PgsxL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+                "Title": "Honest Review from the mom a tractor loving toddler",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/770e6cc0-6c36-4b05-8f21-3134be4a9206/default.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/61hPAZzMImL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+                "Title": "Perfect for tractor loving kids of ANY age!",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e846f629-9d23-4743-a03f-32bf747d8c34/default.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/C15ubF6jkHL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+                "Title": "John Deere Ride on Tractor after Years of Use",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5f3e02d3-5b61-4337-bb5b-fd47d4c0f0d0/default.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1VnVRqD4iL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+                "Title": "View TOMY John Deere Pedal Tricycle and Wagon Set here!",
+                "Author": "N/A",
+                "Is_MP4": false
+              }
+            ],
+            "Product_Videos": [
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/916fc56b-1142-406f-99c9-f0b443bb8338/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3a241e78-ab6b-4539-b627-31d69a59253c/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/81db9291-546e-4817-a0bf-1bf28842c85a/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/770e6cc0-6c36-4b05-8f21-3134be4a9206/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e846f629-9d23-4743-a03f-32bf747d8c34/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5f3e02d3-5b61-4337-bb5b-fd47d4c0f0d0/default.jobtemplate.hls.m3u8"
+            ],
+            "Product_Videos_MP4": [],
+            "Product_Videos_M3U8": [
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/916fc56b-1142-406f-99c9-f0b443bb8338/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3a241e78-ab6b-4539-b627-31d69a59253c/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/81db9291-546e-4817-a0bf-1bf28842c85a/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/770e6cc0-6c36-4b05-8f21-3134be4a9206/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e846f629-9d23-4743-a03f-32bf747d8c34/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5f3e02d3-5b61-4337-bb5b-fd47d4c0f0d0/default.jobtemplate.hls.m3u8"
+            ],
+            "From_The_Manufacturer": {
+              "Model_Version": "2.0",
+              "Sections": [
+                {
+                  "Section_Id": "section_01",
+                  "Display_Order": 1,
+                  "Title": "Highlights:",
+                  "Texts": [
+                    "Ride on tractor",
+                    "Comes complete with an attached wagon",
+                    "For ages 18 month to 3 years",
+                    "John Deere helps your child feel like part of the hauling action with this Pedal Tractor and Wagon ride-on toy set. This rugged ride-on features traditional John Deere green and yellow colors for an authentic look kids will love. The pedal powered ride-on includes an accessory wagon for all of your child's outdoor hauling needs. From toddlers to preschool, your boy or girl will love getting outside to enjoy creative play with the John Deere Pedal Tractor and Wagon!",
+                    "John Deere fans of all ages will enjoy this selection of farm and off-road toys! These toys combine John Deere styling with durable design and super cool features. From infant to established collector- there’s something for everyone!"
+                  ],
+                  "Images": [
+                    "https://m.media-amazon.com/images/S/aplus-media/vc/2082cf78-7441-4a85-aa37-0cb948ae1740.__CR2,0,970,300_PT0_SX970_V1___.jpg",
+                    "https://m.media-amazon.com/images/S/aplus-media/vc/f3b2e9bf-407d-4c15-b7e1-a7dd8d73f911.__CR0,0,1442,1922_PT0_SX300_V1___.jpg",
+                    "https://m.media-amazon.com/images/S/aplus-media/vc/f9ef2747-0ec2-46a0-91f9-7627ee0f27cb.__CR185,0,600,300_PT0_SX350_V1___.jpg",
+                    "https://m.media-amazon.com/images/S/aplus-media/vc/c538dd50-0517-4a30-a356-e4e071e6b73f.__CR54,0,1498,1498_PT0_SX300_V1___.jpg"
+                  ],
+                  "Images_Detail": [
+                    {
+                      "Image_URL": "https://m.media-amazon.com/images/S/aplus-media/vc/2082cf78-7441-4a85-aa37-0cb948ae1740.__CR2,0,970,300_PT0_SX970_V1___.jpg",
+                      "Image_Order": 1,
+                      "Image_Title": "John Deere Pedal Tractor And Wagon Banner",
+                      "Image_Alt": "John Deere Pedal Tractor And Wagon Banner"
+                    },
+                    {
+                      "Image_URL": "https://m.media-amazon.com/images/S/aplus-media/vc/f3b2e9bf-407d-4c15-b7e1-a7dd8d73f911.__CR0,0,1442,1922_PT0_SX300_V1___.jpg",
+                      "Image_Order": 2,
+                      "Image_Title": "John Deere Pedal Tractor And Wagon",
+                      "Image_Alt": "John Deere Pedal Tractor And Wagon"
+                    },
+                    {
+                      "Image_URL": "https://m.media-amazon.com/images/S/aplus-media/vc/f9ef2747-0ec2-46a0-91f9-7627ee0f27cb.__CR185,0,600,300_PT0_SX350_V1___.jpg",
+                      "Image_Order": 3,
+                      "Image_Title": "John Deere Logo",
+                      "Image_Alt": "John Deere Logo"
+                    },
+                    {
+                      "Image_URL": "https://m.media-amazon.com/images/S/aplus-media/vc/c538dd50-0517-4a30-a356-e4e071e6b73f.__CR54,0,1498,1498_PT0_SX300_V1___.jpg",
+                      "Image_Order": 4,
+                      "Image_Title": "About john Deere",
+                      "Image_Alt": "About john Deere"
+                    }
+                  ],
+                  "Comparison_Table": {
+                    "Headers": [
+                      "John Deere Sit 'N Scoot Activity Tractor",
+                      "John Deere Pedal Tractor Green",
+                      "John Deere Electronic Lawn Mower",
+                      "John Deere Sit-N-Scoot Tractor Toy",
+                      "Customer Reviews",
+                      "Price",
+                      "Explore other products from John Deere"
+                    ],
+                    "Rows": [
+                      [
+                        "Buying Options",
+                        "Buying Options",
+                        "Buying Options",
+                        "Add to Cart"
+                      ],
+                      [
+                        "4.8 out of 5 stars 4,366",
+                        "4.4 out of 5 stars 746",
+                        "4.8 out of 5 stars 4,366",
+                        "4.4 out of 5 stars 9,630"
+                      ],
+                      [
+                        "— no data",
+                        "— no data",
+                        "— no data",
+                        "$50.94 $ 50 . 94"
+                      ],
+                      [
+                        "The John Deere Sit 'N Scoot Activity Tractor is an imaginative riding toy that encourages creative play while teaching kids farm sounds",
+                        "Take your kid's playtime to the next level with this John Deere Plastic Pedal Tractor ride-on featuring authentic John Deere colors and details",
+                        "The John Deere real sounds lawn mower is a fun toy that lets your child get in on the action and help out around the yard",
+                        "This John Deere Sit 'N Scoot Tractor is a perfect fit for those kid size chores"
+                      ]
+                    ]
+                  },
+                  "Block_Types": [
+                    "text",
+                    "image",
+                    "table"
+                  ],
+                  "Layout_Blocks": [
+                    {
+                      "Block_Type": "title",
+                      "Text": "Highlights:"
+                    },
+                    {
+                      "Block_Type": "image",
+                      "Image": {
+                        "Image_URL": "https://m.media-amazon.com/images/S/aplus-media/vc/2082cf78-7441-4a85-aa37-0cb948ae1740.__CR2,0,970,300_PT0_SX970_V1___.jpg",
+                        "Image_Order": 1,
+                        "Image_Title": "John Deere Pedal Tractor And Wagon Banner",
+                        "Image_Alt": "John Deere Pedal Tractor And Wagon Banner"
+                      }
+                    },
+                    {
+                      "Block_Type": "image",
+                      "Image": {
+                        "Image_URL": "https://m.media-amazon.com/images/S/aplus-media/vc/f3b2e9bf-407d-4c15-b7e1-a7dd8d73f911.__CR0,0,1442,1922_PT0_SX300_V1___.jpg",
+                        "Image_Order": 2,
+                        "Image_Title": "John Deere Pedal Tractor And Wagon",
+                        "Image_Alt": "John Deere Pedal Tractor And Wagon"
+                      }
+                    },
+                    {
+                      "Block_Type": "image",
+                      "Image": {
+                        "Image_URL": "https://m.media-amazon.com/images/S/aplus-media/vc/f9ef2747-0ec2-46a0-91f9-7627ee0f27cb.__CR185,0,600,300_PT0_SX350_V1___.jpg",
+                        "Image_Order": 3,
+                        "Image_Title": "John Deere Logo",
+                        "Image_Alt": "John Deere Logo"
+                      }
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "Ride on tractor"
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "Comes complete with an attached wagon"
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "For ages 18 month to 3 years"
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "John Deere helps your child feel like part of the hauling action with this Pedal Tractor and Wagon ride-on toy set. This rugged ride-on features traditional John Deere green and yellow colors for an authentic look kids will love. The pedal powered ride-on includes an accessory wagon for all of your child's outdoor hauling needs. From toddlers to preschool, your boy or girl will love getting outside to enjoy creative play with the John Deere Pedal Tractor and Wagon!"
+                    },
+                    {
+                      "Block_Type": "image",
+                      "Image": {
+                        "Image_URL": "https://m.media-amazon.com/images/S/aplus-media/vc/c538dd50-0517-4a30-a356-e4e071e6b73f.__CR54,0,1498,1498_PT0_SX300_V1___.jpg",
+                        "Image_Order": 4,
+                        "Image_Title": "About john Deere",
+                        "Image_Alt": "About john Deere"
+                      }
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "John Deere fans of all ages will enjoy this selection of farm and off-road toys! These toys combine John Deere styling with durable design and super cool features. From infant to established collector- there’s something for everyone!"
+                    },
+                    {
+                      "Block_Type": "table",
+                      "Table": {
+                        "Headers": [
+                          "John Deere Sit 'N Scoot Activity Tractor",
+                          "John Deere Pedal Tractor Green",
+                          "John Deere Electronic Lawn Mower",
+                          "John Deere Sit-N-Scoot Tractor Toy",
+                          "Customer Reviews",
+                          "Price",
+                          "Explore other products from John Deere"
+                        ],
+                        "Rows": [
+                          [
+                            "Buying Options",
+                            "Buying Options",
+                            "Buying Options",
+                            "Add to Cart"
+                          ],
+                          [
+                            "4.8 out of 5 stars 4,366",
+                            "4.4 out of 5 stars 746",
+                            "4.8 out of 5 stars 4,366",
+                            "4.4 out of 5 stars 9,630"
+                          ],
+                          [
+                            "— no data",
+                            "— no data",
+                            "— no data",
+                            "$50.94 $ 50 . 94"
+                          ],
+                          [
+                            "The John Deere Sit 'N Scoot Activity Tractor is an imaginative riding toy that encourages creative play while teaching kids farm sounds",
+                            "Take your kid's playtime to the next level with this John Deere Plastic Pedal Tractor ride-on featuring authentic John Deere colors and details",
+                            "The John Deere real sounds lawn mower is a fun toy that lets your child get in on the action and help out around the yard",
+                            "This John Deere Sit 'N Scoot Tractor is a perfect fit for those kid size chores"
+                          ]
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ],
+              "Assets": {
+                "Remote_Images": [
+                  "https://m.media-amazon.com/images/S/aplus-media/vc/2082cf78-7441-4a85-aa37-0cb948ae1740.__CR2,0,970,300_PT0_SX970_V1___.jpg",
+                  "https://m.media-amazon.com/images/S/aplus-media/vc/f3b2e9bf-407d-4c15-b7e1-a7dd8d73f911.__CR0,0,1442,1922_PT0_SX300_V1___.jpg",
+                  "https://m.media-amazon.com/images/S/aplus-media/vc/f9ef2747-0ec2-46a0-91f9-7627ee0f27cb.__CR185,0,600,300_PT0_SX350_V1___.jpg",
+                  "https://m.media-amazon.com/images/S/aplus-media/vc/c538dd50-0517-4a30-a356-e4e071e6b73f.__CR54,0,1498,1498_PT0_SX300_V1___.jpg"
+                ],
+                "Local_Images": [
+                  "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+                  "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+                  "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+                  "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg"
+                ]
+              }
+            },
+            "Product_Guides_And_Documents": {
+              "Model_Version": "1.0",
+              "Items": [
+                {
+                  "Title": "User Guide (PDF)",
+                  "URL": "https://m.media-amazon.com/images/I/91aBknaB7PL.pdf",
+                  "Type": "PDF",
+                  "Source": "Product guides and documents",
+                  "Category": "manual",
+                  "Local_Path": "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/guides/manual/doc_00_User_Guide_PDF.pdf"
+                }
+              ],
+              "Summary": {
+                "Count": 1
+              },
+              "Local_Paths": [
+                "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/guides/manual/doc_00_User_Guide_PDF.pdf"
+              ]
+            },
+            "Product_Description": "Product Description   John Deere helps your child feel like part of the hauling action with this Pedal Tractor and Wagon ride-on toy set. This rugged ride-on features traditional John Deere green and yellow colors for an authentic look kids will love. The pedal powered ride-on includes an accessory wagon where they can put their farm tools, dolls, action figures, or play food to feel like their farming role models! The pull-along wagon is perfect for all of your child's outdoor hauling needs. This John Deere ride on is a fantastic way to get your toddlers out in the sun and interested in the classic John Deere style. From toddlers to preschool, your boy or girl will love getting outside to enjoy creative play by creating a new adventure every day and “helping” with the day’s farming/yard work outdoors. Encourage their imaginations and get ready for days filled with hauling-action fun! This tractor toy tricycle and wagon attachment have a weight limit of 60 lbs. and are great gifts for kids ages 18 months and up.   From the Manufacturer   This tractor and wagon set is where John Deere meets child sized chores. Features traditional John Deere green and yellow deco. Pedal action with accessory wagon for hauling.",
+            "Product_Specifications": {
+              "Measurements": {
+                "Size": "Small",
+                "Item Weight": "10 Pounds",
+                "Item Dimensions L x W x H": "1\"H",
+                "Weight Capacity Maximum": "60 Pounds",
+                "Item Dimensions": "47 x 16.5 x 18 inches"
+              },
+              "Features_Specs": {
+                "Subject Character": "Board Games",
+                "Age Range Description": "Toddler",
+                "UPC": "036881460886",
+                "Set Name": "Pedal Tractor with Wagon",
+                "Item Type Name": "Pedal Tractor And Wagon",
+                "Theme": "Christmas"
+              },
+              "Materials_Care": {
+                "Material Type": "Plastic"
+              },
+              "Item_Details": {
+                "Brand Name": "TOMY",
+                "Sub Brand": "John Deere",
+                "Manufacturer Warranty Description": "90 Day Warranty Against Manufacturer Defects",
+                "Global Trade Identification Number": "00036881460886",
+                "Manufacturer Part Number": "46088",
+                "Model Number": "46088",
+                "Manufacturer": "TOMY Intl.",
+                "Unit Count": "1.0 Count",
+                "Included Components": "Wagon, Ride On Toy",
+                "Best Sellers Rank": "#129,730 in Toys & Games (See Top 100 in Toys & Games) #185 in Kids' Push Ride-Ons",
+                "ASIN": "B007LL7J96",
+                "Customer Reviews": "4.4  4.4 out of 5 stars   \n    (1,882)   \n\n\n 4.4 out of 5 stars"
+              },
+              "User_Guide": {
+                "Manufacturer Minimum Age (MONTHS)": "18.0",
+                "Manufacturer Maximum Age (MONTHS)": "36.0",
+                "Is Assembly Required": "No"
+              },
+              "Additional_Details": {}
+            },
+            "Right_Panel_Details": {
+              "Ships_From": "N/A",
+              "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+              "Availability": "Only 9 left in stock - order soon.",
+              "Delivery_Promise": "FREE delivery Wednesday, July 1 Or Prime members get FREE delivery Tomorrow, June 27. Order within 3 hrs 12 mins. Join Prime",
+              "Specifications": {}
+            },
+            "Local_Image_Paths": [
+              "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/images/primary.jpg",
+              "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/images/alt_1.jpg",
+              "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/images/alt_2.jpg",
+              "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/images/alt_3.jpg",
+              "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/images/alt_4.jpg",
+              "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/images/alt_5.jpg"
+            ],
+            "Local_Image_Path": "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/images/primary.jpg",
+            "Local_Video_Paths": []
+          }
+        ]
+      },
+      {
+        "Rank": "Similar",
+        "Brand": "VEVOR",
+        "Title": "VEVOR Ride On Push Car for Toddlers, Ages 19+ Months, Ride Racer, Sit to Stand Toddler Ride On Toy, Kids Ride On Car with Music Steering, Horn & Under Seat Storage, Ride On Toy for Boys Girls, Red",
+        "Price": "$29.86",
+        "Rating": "4.2",
+        "Reviews": "363",
+        "URL": "https://www.amazon.com/VEVOR-Toddlers-Toddler-Steering-Storage/dp/B0D8KMD5Q3/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_6/143-0532524-2915706?pd_rd_w=ZRNRZ&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=42YPT74SJD459YH1CMPY&pd_rd_wg=e9QaW&pd_rd_r=4616bbdb-1c24-408c-aa22-a25a795d3b50&pd_rd_i=B0D8KMD5Q3&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/71wKrcf8RhL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B0D8KMD5Q3",
+        "Features": "PP | Suitable for 1-3 Year Olds: Designed just for little ones aged 1-3, this ride on push car helps them build balance while looking super stylish. Moms will love taking their kids out with this cool stroller! | 48.5 lbs/22 kg Strong Load Capacity: Made from tough, impact-resistant PP material and with a sturdy four-wheel design, this toddler ride on car can support up to 48.5 lbs/22 kg. It's built to last and give your kid endless fun. | Dynamic Car Music: Our toddler ride on toy's steering wheel plays cheerful kids' songs with just a press of a button, adding extra joy to playtime. Plus, the smooth design of the steering wheel makes it easy and comfy for your kid to steer. | Built-in Hidden Storage Space: The toddler riding car features a handy storage compartment under the seat, ideal for storing toys, water bottles, tissues, and more while out and about. It's a great way to help your kid learn to keep things tidy. | Anti-Backward Design: Security first! The ride on car has a wide backrest and an anti-backward support bar at the rear to keep your kid safe from tipping over while riding. Enjoy peace of mind while your little one rides around.",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/94b2d547-bfb5-4ceb-ab05-2161dfb76a81/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/94b2d547-bfb5-4ceb-ab05-2161dfb76a81/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/510Q2DcjDML.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "VEVOR Ride On Push Car for Toddlers",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/927ccb26-c688-4b26-ad6f-048bdd7ab33b/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/51GsTVDxN7L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Review of this Firetruck Push Ride Toy for Toddlers",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9992bc3f-7d24-4fd7-aaed-6c5632c3a1a1/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/51oVQqVJijL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "VEVOR Ride On Push Fire Truck",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1e0a9a06-1d2f-4d5c-a9be-1ebe813d971c/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61NNdZbV6BL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Great ride-on fire truck-perfect for toddlers.",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/09e3bd66-eeae-4164-b7a6-f42ca7672d37/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/81hJDZTYI7L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Comparison of Fire Truck Ride On vs Regular Ride On",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5d770e44-7a8a-438e-a8c5-1203679b050f/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A14BanAQdCL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+            "Title": "MUST WATCH Before Buying FIretruck Ride On Push",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/94b2d547-bfb5-4ceb-ab05-2161dfb76a81/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/927ccb26-c688-4b26-ad6f-048bdd7ab33b/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9992bc3f-7d24-4fd7-aaed-6c5632c3a1a1/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1e0a9a06-1d2f-4d5c-a9be-1ebe813d971c/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/09e3bd66-eeae-4164-b7a6-f42ca7672d37/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5d770e44-7a8a-438e-a8c5-1203679b050f/default.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/94b2d547-bfb5-4ceb-ab05-2161dfb76a81/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/927ccb26-c688-4b26-ad6f-048bdd7ab33b/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9992bc3f-7d24-4fd7-aaed-6c5632c3a1a1/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1e0a9a06-1d2f-4d5c-a9be-1ebe813d971c/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/09e3bd66-eeae-4164-b7a6-f42ca7672d37/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5d770e44-7a8a-438e-a8c5-1203679b050f/default.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "Ride On Push Car for Toddlers",
+              "Texts": [
+                "VEVOR is a home improvement brand empowering Home Creators to upgrade spaces with pro-level products at exceptional value. We deliver superior performance through practical tech innovation that blends purposeful technology with the hands-on joy of creation. We break down price barriers so every upgrade reflects your vision to life. Upgrading every space isn’t just a task—it’s a declaration of reinvention. Upgrade with VEVOR!",
+                "Ride On Push Car for Toddlers Visit the Store",
+                "VEVOR Advantages Complete Product Range: Your one-stop solution for all home improvement needs. Pro-Level Performance: Delivered by practical tech innovation that combines purpose-driven technology with hands-on creative delight. Exceptional value: Through practical technological innovation and lean manufacturing, we deliver products that offer pro-level performance and benchmark quality at exceptional value.",
+                "Activity Busy Board Wall Visit the Store",
+                "Seesaw Teeter Totter for Kids Visit the Store",
+                "RC Helicopter for Kid Visit the Store"
+              ],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/a8a06514-bbfd-427c-9b3b-b1f8f924337d.__CR0,0,1464,625_PT0_SX1464_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/a8a06514-bbfd-427c-9b3b-b1f8f924337d.__CR0,0,1464,625_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "VEVOR",
+                  "Image_Alt": "VEVOR"
+                }
+              ],
+              "Comparison_Table": {},
+              "Block_Types": [
+                "text",
+                "image"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "Ride On Push Car for Toddlers"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/a8a06514-bbfd-427c-9b3b-b1f8f924337d.__CR0,0,1464,625_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "VEVOR",
+                    "Image_Alt": "VEVOR"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "VEVOR is a home improvement brand empowering Home Creators to upgrade spaces with pro-level products at exceptional value. We deliver superior performance through practical tech innovation that blends purposeful technology with the hands-on joy of creation. We break down price barriers so every upgrade reflects your vision to life. Upgrading every space isn’t just a task—it’s a declaration of reinvention. Upgrade with VEVOR!"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Ride On Push Car for Toddlers Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "VEVOR Advantages Complete Product Range: Your one-stop solution for all home improvement needs. Pro-Level Performance: Delivered by practical tech innovation that combines purpose-driven technology with hands-on creative delight. Exceptional value: Through practical technological innovation and lean manufacturing, we deliver products that offer pro-level performance and benchmark quality at exceptional value."
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Activity Busy Board Wall Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Seesaw Teeter Totter for Kids Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "RC Helicopter for Kid Visit the Store"
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/a8a06514-bbfd-427c-9b3b-b1f8f924337d.__CR0,0,1464,625_PT0_SX1464_V1___.jpg"
+            ],
+            "Local_Images": [
+              "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KMD5Q3_VEVOR Ride On Push Car for Toddlers Ages 19 Months/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [],
+          "Summary": {
+            "Count": 0
+          },
+          "Local_Paths": []
+        },
+        "Product_Description": "N/A",
+        "Product_Specifications": {
+          "Measurements": {
+            "Size": "X-Large",
+            "Item Weight": "1.75 Kilograms",
+            "Item Dimensions L x W x H": "20.67\"L x 8.85\"W x 14.57\"H",
+            "Weight Capacity Maximum": "48.5 Pounds",
+            "Item Dimensions": "20.67 x 8.85 x 14.57 inches"
+          },
+          "Features_Specs": {
+            "Age Range Description": "Baby",
+            "UPC": "197988216520",
+            "Item Type Name": "Ride On Push Car for Toddlers",
+            "Theme": "Sport"
+          },
+          "Materials_Care": {
+            "Material Type": "Polypropylene"
+          },
+          "Item_Details": {
+            "Brand Name": "VEVOR",
+            "Sub Brand": "Red",
+            "Manufacturer Part Number": "Ride On Push Car for Toddlers 3",
+            "Model Number": "QX-5503-1",
+            "Manufacturer": "VEVOR",
+            "Unit Count": "1.0 Count",
+            "Included Components": "1 x Ride On Car",
+            "Best Sellers Rank": "#19,641 in Toys & Games (See Top 100 in Toys & Games) #43 in Kids' Push Ride-Ons",
+            "ASIN": "B0D8KMD5Q3",
+            "Customer Reviews": "4.2  4.2 out of 5 stars   \n    (363)   \n\n\n 4.2 out of 5 stars"
+          },
+          "User_Guide": {
+            "Manufacturer Minimum Age (MONTHS)": "19.0",
+            "Manufacturer Maximum Age (MONTHS)": "40.0",
+            "Is Assembly Required": "No"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery Wednesday, July 1 on orders shipped by Amazon over $35",
+          "Specifications": {}
+        },
+        "Local_Image_Paths": [
+          "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KMD5Q3_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/primary.jpg",
+          "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KMD5Q3_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_1.jpg",
+          "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KMD5Q3_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_2.jpg",
+          "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KMD5Q3_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_3.jpg",
+          "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KMD5Q3_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_4.jpg",
+          "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KMD5Q3_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_5.jpg",
+          "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KMD5Q3_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_6.jpg",
+          "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KMD5Q3_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_7.jpg",
+          "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KMD5Q3_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_8.jpg",
+          "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KMD5Q3_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KMD5Q3_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/primary.jpg",
+        "Local_Video_Paths": []
+      }
+    ]
+  }
+}

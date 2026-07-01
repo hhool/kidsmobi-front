@@ -1,0 +1,168 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_tricycles",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T21:38:59.068Z",
+  "data": {
+    "productId": "B0FMY5PJ7S",
+    "categoryId": "kids_tricycles",
+    "rank": 6,
+    "title": "Umatoll Toddler Tricycle for 18 Month to 4 Year Old Boys Girls,Toddler Bike Toys with Adjustable Seat&Light-Up Wheels,Birthda",
+    "brand": "Umatoll",
+    "price": {
+      "display": "$37.98",
+      "value": 37.98,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.7  290",
+      "value": 4.7
+    },
+    "weight": {
+      "display": "N/A",
+      "lbs": 0
+    },
+    "classification": {
+      "Brand": "Umatoll",
+      "Tricycle_Type": "Sport",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Unknown",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_tricycles",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "CLASSIC RIDE: This toddler toy tricycle is great for beginner riders. It helps develop balance",
+        "steering and coordination",
+        "builds muscle strength and gives toddlers confidence from an early age.",
+        "SAFETY AND DURABILITY: Sturdy carbon steel frame with wide wheelbase prevents tipping",
+        "and non-slip pedals grip indoor floors or outdoor pavement. Perfect for tricycles for 2-4 years old transitioning from strollers to solo adventures.",
+        "EASY ASSEMBLY: The tricycle's special design allows it to be set up in minutes and put to use immediately. Excellent choice for busy parents as a last minute birthday surprise for children ages 2-4.",
+        "FUN SHARING: Two baskets carry snacks and treasures for park playdates",
+        "while battery-free light-up rear wheels spark magic with every push. Ideal outdoor toy for ages 2-4 sharing giggles!",
+        "GROWING ADJUSTABLE GIFT: 3-position seat forward or backward grows with your child. Lively colors & classical design make it the ideal birthday gift."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "CLASSIC RIDE: This toddler toy tricycle is great for beginner riders. It helps develop balance",
+        "featureLabel": "CLASSIC RIDE: This Toddler Toy Tricycle Is Great For Beginner Riders. It Helps Develop Balance",
+        "featureValue": "CLASSIC RIDE: This toddler toy tricycle is great for beginner riders. It helps develop balance",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "steering and coordination",
+        "featureLabel": "Steering And Coordination",
+        "featureValue": "steering and coordination",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "builds muscle strength and gives toddlers confidence from an early age.",
+        "featureLabel": "Builds Muscle Strength And Gives Toddlers Confidence From An Early Age.",
+        "featureValue": "builds muscle strength and gives toddlers confidence from an early age.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "SAFETY AND DURABILITY: Sturdy carbon steel frame with wide wheelbase prevents tipping",
+        "featureLabel": "SAFETY AND DURABILITY: Sturdy Carbon Steel Frame With Wide Wheelbase Prevents Tipping",
+        "featureValue": "SAFETY AND DURABILITY: Sturdy carbon steel frame with wide wheelbase prevents tipping",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "and non-slip pedals grip indoor floors or outdoor pavement. Perfect for tricycles for 2-4 years old transitioning from strollers to solo adventures.",
+        "featureLabel": "And Non Slip Pedals Grip Indoor Floors Or Outdoor Pavement. Perfect For Tricycles For 2 4 Years Old Transitioning From Strollers To Solo Adventures.",
+        "featureValue": "and non-slip pedals grip indoor floors or outdoor pavement. Perfect for tricycles for 2-4 years old transitioning from strollers to solo adventures.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "EASY ASSEMBLY: The tricycle's special design allows it to be set up in minutes and put to use immediately. Excellent choice for busy parents as a last minute birthday surprise for children ages 2-4.",
+        "featureLabel": "EASY ASSEMBLY: The Tricycle'S Special Design Allows It To Be Set Up In Minutes And Put To Use Immediately. Excellent Choice For Busy Parents As A Last Minute Birthday Surprise For Children Ages 2 4.",
+        "featureValue": "EASY ASSEMBLY: The tricycle's special design allows it to be set up in minutes and put to use immediately. Excellent choice for busy parents as a last minute birthday surprise for children ages 2-4.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "CLASSIC RIDE: This toddler toy tricycle is great for beginner riders. It helps develop balance",
+        "steering and coordination",
+        "builds muscle strength and gives toddlers confidence from an early age.",
+        "SAFETY AND DURABILITY: Sturdy carbon steel frame with wide wheelbase prevents tipping"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/61HPv17yGaL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/61HPv17yGaL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/17ed0175-43dc-4d87-8ab2-4190170958f0/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2b17f52d-6da8-4fbd-a304-06f1d9e9e81a/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2e59a0d2-bf62-47c9-9e0b-1d753cd47ca2/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 3,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/17ed0175-43dc-4d87-8ab2-4190170958f0/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/616b3G+fA+L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Umatoll Lighting Toddler Tricycle, Ideal Toy Gift",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2b17f52d-6da8-4fbd-a304-06f1d9e9e81a/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81NtNRO8WKL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Installation Video of Umatoll Toddler Tricycle",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2e59a0d2-bf62-47c9-9e0b-1d753cd47ca2/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61MqVyjwvmL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "This toddler trike is amazing!",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

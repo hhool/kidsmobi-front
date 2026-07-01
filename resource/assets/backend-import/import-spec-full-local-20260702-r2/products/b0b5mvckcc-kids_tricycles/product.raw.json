@@ -1,0 +1,405 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_tricycles",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T20:06:14.553Z",
+  "data": {
+    "productId": "B0B5MVCKCC",
+    "categoryId": "kids_tricycles",
+    "rank": 3,
+    "title": "KRIDDO Tricycles Age 24 Month to 4 Years, Toddler Kids Trike for 2.5 to 5 Year Old, Gift for 2-4 Year Olds , Green",
+    "brand": "KRIDDO",
+    "price": {
+      "display": "$46.54",
+      "value": 46.54,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.6  7,562",
+      "value": 4.6
+    },
+    "weight": {
+      "display": "9 Pounds",
+      "lbs": 9
+    },
+    "classification": {
+      "Brand": "KRIDDO",
+      "Tricycle_Type": "Outdoor Play",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_tricycles",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "TODDLER TRICYCLE – KRIDDO kids tricycle is designed for 24-48 month toddler girls & boys who are curious and exited to explore the world",
+        "it helps to develop kids' steering skills",
+        "steering and coordination at an early age. KRIDDO kids trike for 2 year old let your kids enjoy riding and gain confidence",
+        "as well as develop muscle strength",
+        "it’s a fun gift for your little ones.",
+        "IMPROVED ROLL-OVER PREVENTION – This interactive toddler trike for 2-4 years features a smarter triangular design with extended rear wheels",
+        "wider wheelbase to help prevent tipping or rolling over when kids are learning to ride.",
+        "EASY-TO-CARRY SEAT AND COMFORTABLE GRIPS – The ergonomic design of our kid’s trike boasts a comfier seat for small bottoms",
+        "the design makes it easy to carry around. The smooth edges and non-slip handle grip also provide them better support during early learning active play.",
+        "INDOOR AND OUTDOOR USE: KRIDDO kids tricycle is built with solid structure",
+        "which makes outdoor riding safe. The shock absorption silent wheels allow your kids ride around silently inside the house and do no damage to your floors.",
+        "ATTENTION TO SAFETY: We have always considered the importance of safety for toddlers",
+        "KRIDDO kids tricycle for 1.5 to 5 year old is made of high-quality material",
+        "BPA free",
+        "matte nontoxic paint and conform to America toy standard",
+        "this ensures that they are safe for kids. You will get a sturdy kids trike",
+        "but don’t leave your baby alone when playing with it."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "TODDLER TRICYCLE – KRIDDO kids tricycle is designed for 24-48 month toddler girls & boys who are curious and exited to explore the world",
+        "featureLabel": "Toddler Tricycle – Kriddo Kids Tricycle Is Designed For 24 48 Month Toddler Girls & Boys Who Are Curious And Exited To Explore The World",
+        "featureValue": "TODDLER TRICYCLE – KRIDDO kids tricycle is designed for 24-48 month toddler girls & boys who are curious and exited to explore the world",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "it helps to develop kids' steering skills",
+        "featureLabel": "It Helps To Develop Kids' Steering Skills",
+        "featureValue": "it helps to develop kids' steering skills",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "steering and coordination at an early age. KRIDDO kids trike for 2 year old let your kids enjoy riding and gain confidence",
+        "featureLabel": "Steering And Coordination At An Early Age. Kriddo Kids Trike For 2 Year Old Let Your Kids Enjoy Riding And Gain Confidence",
+        "featureValue": "steering and coordination at an early age. KRIDDO kids trike for 2 year old let your kids enjoy riding and gain confidence",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "as well as develop muscle strength",
+        "featureLabel": "As Well As Develop Muscle Strength",
+        "featureValue": "as well as develop muscle strength",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "it’s a fun gift for your little ones.",
+        "featureLabel": "It’s A Fun Gift For Your Little Ones.",
+        "featureValue": "it’s a fun gift for your little ones.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "IMPROVED ROLL-OVER PREVENTION – This interactive toddler trike for 2-4 years features a smarter triangular design with extended rear wheels",
+        "featureLabel": "Improved Roll Over Prevention – This Interactive Toddler Trike For 2 4 Years Features A Smarter Triangular Design With Extended Rear Wheels",
+        "featureValue": "IMPROVED ROLL-OVER PREVENTION – This interactive toddler trike for 2-4 years features a smarter triangular design with extended rear wheels",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "TODDLER TRICYCLE – KRIDDO kids tricycle is designed for 24-48 month toddler girls & boys who are curious and exited to explore the world",
+        "it helps to develop kids' steering skills",
+        "steering and coordination at an early age. KRIDDO kids trike for 2 year old let your kids enjoy riding and gain confidence",
+        "as well as develop muscle strength"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+          "source": "local",
+          "order": 10
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_1.jpg",
+      "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_2.jpg",
+      "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_3.jpg",
+      "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_4.jpg",
+      "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_5.jpg",
+      "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_6.jpg",
+      "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_7.jpg",
+      "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_8.jpg",
+      "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_9.jpg",
+      "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png"
+    ],
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/858b08f3-b156-4388-9a24-8351276471c0/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/93027184-1e0d-40f9-a8f0-5e3b3d530c51/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/21fb7638-ed04-49f0-9323-c1dcec3af0e0/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5003b164-1b4d-45c8-814b-666c3af78c3c/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fb3f5fc9-92b6-457b-a92e-60a8c1bafa44/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bff09874-7f25-4e4a-a3bd-506e776c4a6d/default.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/858b08f3-b156-4388-9a24-8351276471c0/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "KRIDDO Kids Tricycle 2 to 4 Year Old",
+        "thumbnail": "https://m.media-amazon.com/images/I/91MpdUBJhWL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/93027184-1e0d-40f9-a8f0-5e3b3d530c51/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Best tricycle for learning to pedal!",
+        "thumbnail": "https://m.media-amazon.com/images/I/71HpoOxzP0L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/21fb7638-ed04-49f0-9323-c1dcec3af0e0/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Excited for her new bike!",
+        "thumbnail": "https://m.media-amazon.com/images/I/714EEJvHWuL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5003b164-1b4d-45c8-814b-666c3af78c3c/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Perfect tricycle for toddlers!",
+        "thumbnail": "https://m.media-amazon.com/images/I/61E6ja9QXNL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fb3f5fc9-92b6-457b-a92e-60a8c1bafa44/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Honest Review - Kriddo Kids Tricycle #ad",
+        "thumbnail": "https://m.media-amazon.com/images/I/A1ruorS0DQL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bff09874-7f25-4e4a-a3bd-506e776c4a6d/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "A Trike I Can ACTUALLY Use?",
+        "thumbnail": "https://m.media-amazon.com/images/I/61YRQJq8+vL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 6
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/kids_tricycles/index.html",
+      "categoryPages": "/scrape_store/kids_tricycles/pages/index.html",
+      "detailPage": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/index.html"
+    },
+    "resourceStats": {
+      "videos": 6,
+      "similarItems": 0
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71p-s1Z4uQL._AC_UL300_SR300,200_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 12
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/858b08f3-b156-4388-9a24-8351276471c0/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91MpdUBJhWL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "KRIDDO Kids Tricycle 2 to 4 Year Old",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/93027184-1e0d-40f9-a8f0-5e3b3d530c51/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71HpoOxzP0L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Best tricycle for learning to pedal!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/21fb7638-ed04-49f0-9323-c1dcec3af0e0/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/714EEJvHWuL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Excited for her new bike!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5003b164-1b4d-45c8-814b-666c3af78c3c/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61E6ja9QXNL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Perfect tricycle for toddlers!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fb3f5fc9-92b6-457b-a92e-60a8c1bafa44/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1ruorS0DQL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Honest Review - Kriddo Kids Tricycle #ad",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bff09874-7f25-4e4a-a3bd-506e776c4a6d/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61YRQJq8+vL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "A Trike I Can ACTUALLY Use?",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

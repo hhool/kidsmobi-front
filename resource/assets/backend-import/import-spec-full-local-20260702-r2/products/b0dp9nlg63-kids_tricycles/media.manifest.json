@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0DP9NLG63",
+  "sourceCategoryId": "kids_tricycles",
+  "images": [
+    {
+      "productId": "B0DP9NLG63",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0DP9NLG63:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/primary.jpg",
+      "targetPathKeep": "resources/b0dp9nlg63-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0dp9nlg63/cover/primary.jpg"
+    },
+    {
+      "productId": "B0DP9NLG63",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0DP9NLG63:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0dp9nlg63-overview/alt_1.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0dp9nlg63/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0DP9NLG63",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0DP9NLG63:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0dp9nlg63-overview/alt_2.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0dp9nlg63/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0DP9NLG63",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0DP9NLG63:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0dp9nlg63-overview/alt_3.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0dp9nlg63/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0DP9NLG63",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0DP9NLG63:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0dp9nlg63-overview/alt_4.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0dp9nlg63/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0DP9NLG63",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0DP9NLG63:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0dp9nlg63-overview/alt_5.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0dp9nlg63/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0DP9NLG63",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0DP9NLG63:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0dp9nlg63-overview/alt_6.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0dp9nlg63/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0DP9NLG63",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0DP9NLG63:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0dp9nlg63-overview/alt_7.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0dp9nlg63/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0DP9NLG63",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0DP9NLG63:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0dp9nlg63-overview/alt_8.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0dp9nlg63/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0DP9NLG63",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0DP9NLG63:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0dp9nlg63-overview/alt_9.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0dp9nlg63/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0DP9NLG63",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0DP9NLG63:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0dp9nlg63-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0dp9nlg63/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0DP9NLG63",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0DP9NLG63:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/primary.jpg",
+      "targetPathKeep": "resources/b0dp9nlg63-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0dp9nlg63/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0DP9NLG63",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0DP9NLG63:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/71B8IQsrSwL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0dp9nlg63-overview/71b8iqsrswl._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0dp9nlg63/gallery/71b8iqsrswl._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d12fef19-42d2-4aab-8932-c57d77a111d3/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/581627b0-5a0c-49e4-a940-5ed38635cea8/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f1efebb6-4b0f-4268-8f41-dde206dc72b9/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b22032ac-2617-4af7-990a-54803db0d7c4/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/962025ba-f257-4f9d-9761-5685680ffddc/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2e59a0d2-bf62-47c9-9e0b-1d753cd47ca2/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cf7513eb-4b09-465f-bc90-31e8f6dc1567/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cfd9d973-eae0-4c48-9b19-d926eb1db9db/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e94e0463-edc2-450f-9746-dbb48f6d223a/default.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/index.html"
+  ]
+}

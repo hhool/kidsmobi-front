@@ -1,0 +1,585 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T21:39:03.249Z",
+  "data": {
+    "productId": "B004Y8TF96",
+    "categoryId": "kids_push_ride_ons",
+    "rank": 1,
+    "title": "Step2 Push Around Buggy Kids Push Car, Ride On Toy, Stroller Substitute, Includes Seat Belt & Horn, Made of Durable Plastic,",
+    "brand": "Step2",
+    "price": {
+      "display": "$50.99",
+      "value": 50.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.7  9,681",
+      "value": 4.7
+    },
+    "weight": {
+      "display": "14.2 Pounds",
+      "lbs": 14.2
+    },
+    "classification": {
+      "Brand": "Step2",
+      "Stroller_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_push_ride_ons",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "RIDE IN STYLE: Treat your toddler to a smooth and quiet \"whisper ride\" with our push toy car",
+        "enjoy added comfort with the extra-wide rear parent grip handle",
+        "SAFE & FUN: Easy-latch adjustable seat belt for safety",
+        "real car horn and steering wheel",
+        "convenient cup holders",
+        "under hood storage for snacks and toys",
+        "COMPACT: Toy car with easy to fold handle for quick transportation and storage",
+        "max weight 50 lbs.",
+        "EASY TO CLEAN & ASSEMBLE: Use disinfectant wipes or household cleaners to clean for sanitary play environment",
+        "adult assembly required",
+        "includes assembly hardware",
+        "DURABLE: Built to last",
+        "double-walled plastic construction",
+        "years of use with colors that won't chip",
+        "fade",
+        "crack",
+        "or peel"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "RIDE IN STYLE: Treat your toddler to a smooth and quiet \"whisper ride\" with our push toy car",
+        "featureLabel": "RIDE IN STYLE: Treat Your Toddler To A Smooth And Quiet \"Whisper Ride\" With Our Push Toy Car",
+        "featureValue": "RIDE IN STYLE: Treat your toddler to a smooth and quiet \"whisper ride\" with our push toy car",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "enjoy added comfort with the extra-wide rear parent grip handle",
+        "featureLabel": "Enjoy Added Comfort With The Extra Wide Rear Parent Grip Handle",
+        "featureValue": "enjoy added comfort with the extra-wide rear parent grip handle",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "SAFE & FUN: Easy-latch adjustable seat belt for safety",
+        "featureLabel": "SAFE & FUN: Easy Latch Adjustable Seat Belt For Safety",
+        "featureValue": "SAFE & FUN: Easy-latch adjustable seat belt for safety",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "real car horn and steering wheel",
+        "featureLabel": "Real Car Horn And Steering Wheel",
+        "featureValue": "real car horn and steering wheel",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "convenient cup holders",
+        "featureLabel": "Convenient Cup Holders",
+        "featureValue": "convenient cup holders",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "under hood storage for snacks and toys",
+        "featureLabel": "Under Hood Storage For Snacks And Toys",
+        "featureValue": "under hood storage for snacks and toys",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "RIDE IN STYLE: Treat your toddler to a smooth and quiet \"whisper ride\" with our push toy car",
+        "enjoy added comfort with the extra-wide rear parent grip handle",
+        "SAFE & FUN: Easy-latch adjustable seat belt for safety",
+        "real car horn and steering wheel"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/61XZsPOcJ6L._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/61XZsPOcJ6L._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/73aa8ad4-3d20-519a-b5e2-9b53edce9abe/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a8053f4a-4882-461d-84e1-1d89518743a5/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d34b1414-4b4f-4fdd-9e13-ce08d3b671a4/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ca6afbc8-8426-477d-8ffe-3700ad5bcfca/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/59e43db7-6c20-4cdc-9d9b-e1855e4d77ec/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2ee36fec-dc3e-4658-89bf-846ddd6941cb/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 6,
+      "similarItems": 1
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/73aa8ad4-3d20-519a-b5e2-9b53edce9abe/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51P77GxGXPL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Step2 Push Around Buggy Anniversary Edition Pink",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_push_ride_ons/Step2/Rank_1_ASIN_B004Y8TF96_Step2 Push Around Buggy Kids Push Car Ride On Toy/videos/video_0.mp4",
+          "Local_Thumbnail_Path": "scrape_store/kids_push_ride_ons/Step2/Rank_1_ASIN_B004Y8TF96_Step2 Push Around Buggy Kids Push Car Ride On Toy/videos/video_0_thumb.jpg"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a8053f4a-4882-461d-84e1-1d89518743a5/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61WY3e7GpbL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Try out this push and ride on car before you buy",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d34b1414-4b4f-4fdd-9e13-ce08d3b671a4/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71EHWN4KsvL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Everything you Need to Know Before you Buy",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ca6afbc8-8426-477d-8ffe-3700ad5bcfca/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61WNNczlerL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Honest Review of Push Car",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/59e43db7-6c20-4cdc-9d9b-e1855e4d77ec/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91E4YEoDREL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Push car with storage!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2ee36fec-dc3e-4658-89bf-846ddd6941cb/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61rSNsuDJML.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "this gets me and the kids outside and having fun! ",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "Little",
+        "Title": "Little Tikes Fairy Cozy Coupe (Amazon Exclusive) Large",
+        "Price": "$64.99",
+        "Rating": "4.6",
+        "Reviews": "17,122",
+        "URL": "https://www.amazon.com/Little-Tikes-Fairy-Amazon-Exclusive/dp/B01C967BQS/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_2/143-0350013-4740359?pd_rd_w=pgQ8w&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=AV5RJ0QKXBGH6CBGGB4N&pd_rd_wg=p5P0l&pd_rd_r=050696f7-261c-42e5-860f-90359fb2206f&pd_rd_i=B01C967BQS&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/71PLoffE8VL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B01C967BQS",
+        "Source_Page": 1,
+        "Source_URL": "https://www.amazon.com/Best-Sellers-Toys-Games-Kids-Push-Ride-Ons/zgbs/toys-and-games/166414011/ref=zg_bs_nav_toys-and-games_2_3405171",
+        "Source_Position": 5,
+        "Source_Type": "Best Sellers",
+        "Features": "Made in the USA. The Little Tikes Company is located in the heartland of America. | The cozy Coupe fairy has a fun design, A parent push handle and a removable floorboard. Parents and kids will both love the ride! | Designed with a high Seat back and cup holders in the rear (cup not included). working horn. Moving, clicking ignition switch. Gas cap open and closes | Cozy rolls on rugged, durable tires. Front wheels spin 360 degrees. Weight limit up to 50 lbs. Assembly required | The Cozy Coupe Fairy has a fun design, a parent push handle and a removable floorboard. Parents and kids will both love the ride!",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d9643aa3-1857-401b-a200-3305958f8adf/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d9643aa3-1857-401b-a200-3305958f8adf/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/51mi9nPSwPL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Little Tikes Classics",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9c0ce93f-a9c2-4f1d-8dac-e67c05191a65/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71DiSe4PhgL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Little Tikes Firsts",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b2fdd0e2-071d-4651-ab00-70d3b980a26f/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/41xdvmb-cNL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Cozy Coupe Ride On",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64ecad94-d407-4f81-915e-4ddae77524cb/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61AEpkhmKJL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Little Tikes Princess Cozy Coupe",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e4e58ace-d962-486e-937b-0457f81f0500/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61IinzWtoML.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Little Tikes Ride Ons",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/09c32374-6acf-4ea7-a779-9d858b59c972/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/91o-g-7bGuL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "My kids love this car and yours will too!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c7d632c-0dbb-40cb-ac69-3584591b8aaa/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61PVnKUqBOL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Fun Kid Powered Coupe for years of imaginative active play",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0df6b2f0-d1c5-4f10-a3c2-cc73137331d9/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71OTcD4pw9L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Kids Toy Car ",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1ff7ae82-93b9-41bb-925c-f7905f98f824/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/C1Gn3aHgqJL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+            "Title": "Honest Review of Little Tikes Cozy Coupe Car",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e82dbbf7-398d-45b3-897b-94c2c0ef7d52/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A191DZH3yuL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Honest review of the Little Tikes Cozy Coupe",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d9643aa3-1857-401b-a200-3305958f8adf/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9c0ce93f-a9c2-4f1d-8dac-e67c05191a65/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b2fdd0e2-071d-4651-ab00-70d3b980a26f/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64ecad94-d407-4f81-915e-4ddae77524cb/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e4e58ace-d962-486e-937b-0457f81f0500/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/09c32374-6acf-4ea7-a779-9d858b59c972/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c7d632c-0dbb-40cb-ac69-3584591b8aaa/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0df6b2f0-d1c5-4f10-a3c2-cc73137331d9/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1ff7ae82-93b9-41bb-925c-f7905f98f824/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e82dbbf7-398d-45b3-897b-94c2c0ef7d52/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d9643aa3-1857-401b-a200-3305958f8adf/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9c0ce93f-a9c2-4f1d-8dac-e67c05191a65/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b2fdd0e2-071d-4651-ab00-70d3b980a26f/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64ecad94-d407-4f81-915e-4ddae77524cb/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e4e58ace-d962-486e-937b-0457f81f0500/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/09c32374-6acf-4ea7-a779-9d858b59c972/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c7d632c-0dbb-40cb-ac69-3584591b8aaa/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0df6b2f0-d1c5-4f10-a3c2-cc73137331d9/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1ff7ae82-93b9-41bb-925c-f7905f98f824/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e82dbbf7-398d-45b3-897b-94c2c0ef7d52/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "",
+              "Texts": [],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/e2da60f4-5fd3-4e02-b640-45ad56a731ed.__CR0,3,970,300_PT0_SX970_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/e2da60f4-5fd3-4e02-b640-45ad56a731ed.__CR0,3,970,300_PT0_SX970_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "USA",
+                  "Image_Alt": "USA"
+                }
+              ],
+              "Comparison_Table": {
+                "Headers": [
+                  "Little Tikes Ladybug Cozy Coupe",
+                  "Little Tikes Princess Cozy Coupe, 30th Anniversary",
+                  "Little Tikes Cozy Coupe Dino",
+                  "Little Tikes Princess Cozy Coupe",
+                  "Little Tikes Princess Cozy Truck",
+                  "Little Tikes Princess Cozy Truck",
+                  "Customer Reviews",
+                  "Price",
+                  "Product Name",
+                  "Theme",
+                  "Recommended Age"
+                ],
+                "Rows": [
+                  [
+                    "Add to Cart",
+                    "Buying Options",
+                    "Buying Options",
+                    "Add to Cart",
+                    "Buying Options",
+                    "Buying Options"
+                  ],
+                  [
+                    "4.6 out of 5 stars 5,933",
+                    "4.8 out of 5 stars 3,873",
+                    "4.6 out of 5 stars 13,009",
+                    "4.6 out of 5 stars 17,122",
+                    "4.6 out of 5 stars 2,606",
+                    "—"
+                  ],
+                  [
+                    "$64.99 $ 64 . 99",
+                    "— no data",
+                    "$47.49 $ 47 . 49",
+                    "$54.00 $ 54 . 00",
+                    "— no data",
+                    "— no data"
+                  ],
+                  [
+                    "Little Tikes Ladybug Cozy Coupe",
+                    "Little Tikes Princess Cozy Coupe, 30th Anniversary",
+                    "Little Tikes Cozy Coupe Dino",
+                    "Little Tikes Princess Cozy Coupe",
+                    "Little Tikes Princess Cozy Truck",
+                    "Little Tikes Princess Cozy Truck"
+                  ],
+                  [
+                    "Ladybug",
+                    "Princess Coupe",
+                    "Dinosaur",
+                    "Princess Coupe",
+                    "Princess Truck",
+                    "Princess Truck"
+                  ],
+                  [
+                    "18 months - 3 years",
+                    "18 months - 5 years",
+                    "18 months - 5 years",
+                    "12 months - 5 years",
+                    "18 months - 5 years",
+                    "18 months - 5 years"
+                  ]
+                ]
+              },
+              "Block_Types": [
+                "image",
+                "table"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/e2da60f4-5fd3-4e02-b640-45ad56a731ed.__CR0,3,970,300_PT0_SX970_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "USA",
+                    "Image_Alt": "USA"
+                  }
+                },
+                {
+                  "Block_Type": "table",
+                  "Table": {
+                    "Headers": [
+                      "Little Tikes Ladybug Cozy Coupe",
+                      "Little Tikes Princess Cozy Coupe, 30th Anniversary",
+                      "Little Tikes Cozy Coupe Dino",
+                      "Little Tikes Princess Cozy Coupe",
+                      "Little Tikes Princess Cozy Truck",
+                      "Little Tikes Princess Cozy Truck",
+                      "Customer Reviews",
+                      "Price",
+                      "Product Name",
+                      "Theme",
+                      "Recommended Age"
+                    ],
+                    "Rows": [
+                      [
+                        "Add to Cart",
+                        "Buying Options",
+                        "Buying Options",
+                        "Add to Cart",
+                        "Buying Options",
+                        "Buying Options"
+                      ],
+                      [
+                        "4.6 out of 5 stars 5,933",
+                        "4.8 out of 5 stars 3,873",
+                        "4.6 out of 5 stars 13,009",
+                        "4.6 out of 5 stars 17,122",
+                        "4.6 out of 5 stars 2,606",
+                        "—"
+                      ],
+                      [
+                        "$64.99 $ 64 . 99",
+                        "— no data",
+                        "$47.49 $ 47 . 49",
+                        "$54.00 $ 54 . 00",
+                        "— no data",
+                        "— no data"
+                      ],
+                      [
+                        "Little Tikes Ladybug Cozy Coupe",
+                        "Little Tikes Princess Cozy Coupe, 30th Anniversary",
+                        "Little Tikes Cozy Coupe Dino",
+                        "Little Tikes Princess Cozy Coupe",
+                        "Little Tikes Princess Cozy Truck",
+                        "Little Tikes Princess Cozy Truck"
+                      ],
+                      [
+                        "Ladybug",
+                        "Princess Coupe",
+                        "Dinosaur",
+                        "Princess Coupe",
+                        "Princess Truck",
+                        "Princess Truck"
+                      ],
+                      [
+                        "18 months - 3 years",
+                        "18 months - 5 years",
+                        "18 months - 5 years",
+                        "12 months - 5 years",
+                        "18 months - 5 years",
+                        "18 months - 5 years"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/e2da60f4-5fd3-4e02-b640-45ad56a731ed.__CR0,3,970,300_PT0_SX970_V1___.jpg"
+            ],
+            "Local_Images": [
+              "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [
+            {
+              "Title": "User Manual (PDF)",
+              "URL": "https://m.media-amazon.com/images/I/D1vZcFCw8VS.pdf",
+              "Type": "PDF",
+              "Source": "Product guides and documents",
+              "Category": "manual",
+              "Local_Path": "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/guides/manual/doc_00_User_Manual_PDF.pdf"
+            },
+            {
+              "Title": "Installation Manual (PDF)",
+              "URL": "https://m.media-amazon.com/images/I/91QEoLETHnL.pdf",
+              "Type": "PDF",
+              "Source": "Product guides and documents",
+              "Category": "manual",
+              "Local_Path": "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/guides/manual/doc_01_Installation_Manual_PDF.pdf"
+            }
+          ],
+          "Summary": {
+            "Count": 2
+          },
+          "Local_Paths": [
+            "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/guides/manual/doc_00_User_Manual_PDF.pdf",
+            "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/guides/manual/doc_01_Installation_Manual_PDF.pdf"
+          ]
+        },
+        "Product_Description": "This beautiful fairy inspired cozy coupe provides endless imaginative and active play. Cute, cool and ready for action! This cozy ride-on features colors and styling to please every little princess. The fairy riding toy encourages active play, imagination, and developing motor skills.",
+        "Product_Specifications": {
+          "Measurements": {
+            "Size": "Large",
+            "Item Weight": "1.98 Pounds",
+            "Item Dimensions L x W x H": "29.5\"L x 16.5\"W x 36\"H",
+            "Weight Capacity Maximum": "50 Pounds",
+            "Item Dimensions": "16.5 x 14.96 x 28.74 inches"
+          },
+          "Features_Specs": {
+            "Subject Character": "Fairy",
+            "Age Range Description": "18 months to 60 months",
+            "UPC": "050743641954",
+            "Item Type Name": "Little Tikes Fairy Cozy Coupe (Amazon Exclusive)",
+            "Theme": "Fantasy"
+          },
+          "Materials_Care": {
+            "Material Type": "Plastic"
+          },
+          "Item_Details": {
+            "Brand Name": "Little Tikes",
+            "Sub Brand": "little tikes",
+            "Manufacturer Warranty Description": "90 Day Warranty Against Manufacturer Defects",
+            "Global Trade Identification Number": "00050743641954",
+            "Manufacturer Part Number": "173165E3",
+            "Model Number": "173165E3",
+            "Manufacturer": "MGA Entertainment",
+            "Included Components": "Ride On",
+            "Best Sellers Rank": "#1,236 in Toys & Games (See Top 100 in Toys & Games) #5 in Kids' Push Ride-Ons",
+            "ASIN": "B01C967BQS",
+            "Customer Reviews": "4.6  4.6 out of 5 stars   \n    (17,122)   \n\n\n 4.6 out of 5 stars"
+          },
+          "User_Guide": {
+            "Manufacturer Minimum Age (MONTHS)": "18.0",
+            "Manufacturer Maximum Age (MONTHS)": "60.0",
+            "Is Assembly Required": "Yes"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery Wednesday, July 1",
+          "Specifications": {}
+        },
+        "Local_Image_Paths": [
+          "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/primary.jpg",
+          "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_1.jpg",
+          "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_2.jpg",
+          "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_3.jpg",
+          "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_4.jpg",
+          "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_5.jpg",
+          "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_6.jpg",
+          "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_7.jpg",
+          "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_8.jpg",
+          "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B01C967BQS_Little Tikes Fairy Cozy Coupe Amazon Exclusive Lar/images/primary.jpg",
+        "Local_Video_Paths": [],
+        "Last_Updated": "2026-06-27T08:38:52.567301",
+        "Similar_Items_Quick_Delivery": []
+      }
+    ]
+  }
+}

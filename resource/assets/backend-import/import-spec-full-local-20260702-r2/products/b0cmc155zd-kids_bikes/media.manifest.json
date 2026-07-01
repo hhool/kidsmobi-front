@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0CMC155ZD",
+  "sourceCategoryId": "kids_bikes",
+  "images": [
+    {
+      "productId": "B0CMC155ZD",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0CMC155ZD:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/JOYSTAR/Rank_8_ASIN_B0CMC155ZD_JOYSTAR 12 14 16 18 Inch Kids Bike for 2-9 Years G/images/primary.jpg",
+      "targetPathKeep": "resources/b0cmc155zd-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0cmc155zd/cover/primary.jpg"
+    },
+    {
+      "productId": "B0CMC155ZD",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0CMC155ZD:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/JOYSTAR/Rank_8_ASIN_B0CMC155ZD_JOYSTAR 12 14 16 18 Inch Kids Bike for 2-9 Years G/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0cmc155zd-overview/alt_1.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0cmc155zd/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0CMC155ZD",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0CMC155ZD:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/JOYSTAR/Rank_8_ASIN_B0CMC155ZD_JOYSTAR 12 14 16 18 Inch Kids Bike for 2-9 Years G/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0cmc155zd-overview/alt_2.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0cmc155zd/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0CMC155ZD",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0CMC155ZD:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/JOYSTAR/Rank_8_ASIN_B0CMC155ZD_JOYSTAR 12 14 16 18 Inch Kids Bike for 2-9 Years G/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0cmc155zd-overview/alt_3.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0cmc155zd/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0CMC155ZD",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0CMC155ZD:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/JOYSTAR/Rank_8_ASIN_B0CMC155ZD_JOYSTAR 12 14 16 18 Inch Kids Bike for 2-9 Years G/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0cmc155zd-overview/alt_4.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0cmc155zd/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0CMC155ZD",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0CMC155ZD:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/JOYSTAR/Rank_8_ASIN_B0CMC155ZD_JOYSTAR 12 14 16 18 Inch Kids Bike for 2-9 Years G/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0cmc155zd-overview/alt_5.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0cmc155zd/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0CMC155ZD",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0CMC155ZD:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/JOYSTAR/Rank_8_ASIN_B0CMC155ZD_JOYSTAR 12 14 16 18 Inch Kids Bike for 2-9 Years G/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0cmc155zd-overview/alt_6.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0cmc155zd/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0CMC155ZD",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0CMC155ZD:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/JOYSTAR/Rank_8_ASIN_B0CMC155ZD_JOYSTAR 12 14 16 18 Inch Kids Bike for 2-9 Years G/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0cmc155zd-overview/alt_7.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0cmc155zd/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0CMC155ZD",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0CMC155ZD:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/JOYSTAR/Rank_8_ASIN_B0CMC155ZD_JOYSTAR 12 14 16 18 Inch Kids Bike for 2-9 Years G/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0cmc155zd-overview/alt_8.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0cmc155zd/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0CMC155ZD",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0CMC155ZD:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/JOYSTAR/Rank_8_ASIN_B0CMC155ZD_JOYSTAR 12 14 16 18 Inch Kids Bike for 2-9 Years G/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0cmc155zd-overview/alt_9.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0cmc155zd/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0CMC155ZD",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0CMC155ZD:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/JOYSTAR/Rank_8_ASIN_B0CMC155ZD_JOYSTAR 12 14 16 18 Inch Kids Bike for 2-9 Years G/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0cmc155zd-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0cmc155zd/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0CMC155ZD",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0CMC155ZD:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/JOYSTAR/Rank_8_ASIN_B0CMC155ZD_JOYSTAR 12 14 16 18 Inch Kids Bike for 2-9 Years G/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "targetPathKeep": "resources/b0cmc155zd-overview/aplus_01.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0cmc155zd/gallery/aplus_01.jpg"
+    },
+    {
+      "productId": "B0CMC155ZD",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0CMC155ZD:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/JOYSTAR/Rank_8_ASIN_B0CMC155ZD_JOYSTAR 12 14 16 18 Inch Kids Bike for 2-9 Years G/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "targetPathKeep": "resources/b0cmc155zd-overview/aplus_02.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0cmc155zd/gallery/aplus_02.jpg"
+    },
+    {
+      "productId": "B0CMC155ZD",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0CMC155ZD:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/JOYSTAR/Rank_8_ASIN_B0CMC155ZD_JOYSTAR 12 14 16 18 Inch Kids Bike for 2-9 Years G/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+      "targetPathKeep": "resources/b0cmc155zd-overview/aplus_03.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0cmc155zd/gallery/aplus_03.jpg"
+    },
+    {
+      "productId": "B0CMC155ZD",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0CMC155ZD:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/JOYSTAR/Rank_8_ASIN_B0CMC155ZD_JOYSTAR 12 14 16 18 Inch Kids Bike for 2-9 Years G/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg",
+      "targetPathKeep": "resources/b0cmc155zd-overview/aplus_04.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0cmc155zd/gallery/aplus_04.jpg"
+    },
+    {
+      "productId": "B0CMC155ZD",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0CMC155ZD:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/JOYSTAR/Rank_8_ASIN_B0CMC155ZD_JOYSTAR 12 14 16 18 Inch Kids Bike for 2-9 Years G/images/primary.jpg",
+      "targetPathKeep": "resources/b0cmc155zd-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0cmc155zd/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0CMC155ZD",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0CMC155ZD:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/71QAG7lgVUL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0cmc155zd-overview/71qag7lgvul._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0cmc155zd/gallery/71qag7lgvul._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f2212f0f-23d6-4c3b-a0b5-6823f4e366f9/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a9460c1c-3944-4500-8f5b-4c8735430b56/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f3bc8706-bd51-4edc-af4f-709819c10c56/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/73625d2f-34fa-45be-8d4a-b97784cc8664/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a00c1d1d-31c8-4215-9977-9b69161bd2a2/default.vertical.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/kids_bikes/JOYSTAR/Rank_8_ASIN_B0CMC155ZD_JOYSTAR 12 14 16 18 Inch Kids Bike for 2-9 Years G/index.html"
+  ]
+}

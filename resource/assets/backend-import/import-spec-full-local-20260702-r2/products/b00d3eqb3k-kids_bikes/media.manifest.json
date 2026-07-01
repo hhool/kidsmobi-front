@@ -1,0 +1,165 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B00D3EQB3K",
+  "sourceCategoryId": "kids_bikes",
+  "images": [
+    {
+      "productId": "B00D3EQB3K",
+      "categoryId": "kids_bikes",
+      "resourceId": "B00D3EQB3K:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/RoyalBaby/Rank_3_ASIN_B00D3EQB3K_RoyalBaby Freestyle Kids Bike 12 14 16 Inch with T/images/primary.jpg",
+      "targetPathKeep": "resources/b00d3eqb3k-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b00d3eqb3k/cover/primary.jpg"
+    },
+    {
+      "productId": "B00D3EQB3K",
+      "categoryId": "kids_bikes",
+      "resourceId": "B00D3EQB3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/RoyalBaby/Rank_3_ASIN_B00D3EQB3K_RoyalBaby Freestyle Kids Bike 12 14 16 Inch with T/images/alt_1.jpg",
+      "targetPathKeep": "resources/b00d3eqb3k-overview/alt_1.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b00d3eqb3k/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B00D3EQB3K",
+      "categoryId": "kids_bikes",
+      "resourceId": "B00D3EQB3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/RoyalBaby/Rank_3_ASIN_B00D3EQB3K_RoyalBaby Freestyle Kids Bike 12 14 16 Inch with T/images/alt_2.jpg",
+      "targetPathKeep": "resources/b00d3eqb3k-overview/alt_2.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b00d3eqb3k/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B00D3EQB3K",
+      "categoryId": "kids_bikes",
+      "resourceId": "B00D3EQB3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/RoyalBaby/Rank_3_ASIN_B00D3EQB3K_RoyalBaby Freestyle Kids Bike 12 14 16 Inch with T/images/alt_3.jpg",
+      "targetPathKeep": "resources/b00d3eqb3k-overview/alt_3.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b00d3eqb3k/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B00D3EQB3K",
+      "categoryId": "kids_bikes",
+      "resourceId": "B00D3EQB3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/RoyalBaby/Rank_3_ASIN_B00D3EQB3K_RoyalBaby Freestyle Kids Bike 12 14 16 Inch with T/images/alt_4.jpg",
+      "targetPathKeep": "resources/b00d3eqb3k-overview/alt_4.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b00d3eqb3k/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B00D3EQB3K",
+      "categoryId": "kids_bikes",
+      "resourceId": "B00D3EQB3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/RoyalBaby/Rank_3_ASIN_B00D3EQB3K_RoyalBaby Freestyle Kids Bike 12 14 16 Inch with T/images/alt_5.jpg",
+      "targetPathKeep": "resources/b00d3eqb3k-overview/alt_5.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b00d3eqb3k/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B00D3EQB3K",
+      "categoryId": "kids_bikes",
+      "resourceId": "B00D3EQB3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/RoyalBaby/Rank_3_ASIN_B00D3EQB3K_RoyalBaby Freestyle Kids Bike 12 14 16 Inch with T/images/alt_6.jpg",
+      "targetPathKeep": "resources/b00d3eqb3k-overview/alt_6.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b00d3eqb3k/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B00D3EQB3K",
+      "categoryId": "kids_bikes",
+      "resourceId": "B00D3EQB3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/RoyalBaby/Rank_3_ASIN_B00D3EQB3K_RoyalBaby Freestyle Kids Bike 12 14 16 Inch with T/images/alt_7.jpg",
+      "targetPathKeep": "resources/b00d3eqb3k-overview/alt_7.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b00d3eqb3k/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B00D3EQB3K",
+      "categoryId": "kids_bikes",
+      "resourceId": "B00D3EQB3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/RoyalBaby/Rank_3_ASIN_B00D3EQB3K_RoyalBaby Freestyle Kids Bike 12 14 16 Inch with T/images/alt_8.jpg",
+      "targetPathKeep": "resources/b00d3eqb3k-overview/alt_8.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b00d3eqb3k/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B00D3EQB3K",
+      "categoryId": "kids_bikes",
+      "resourceId": "B00D3EQB3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/RoyalBaby/Rank_3_ASIN_B00D3EQB3K_RoyalBaby Freestyle Kids Bike 12 14 16 Inch with T/images/alt_9.jpg",
+      "targetPathKeep": "resources/b00d3eqb3k-overview/alt_9.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b00d3eqb3k/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B00D3EQB3K",
+      "categoryId": "kids_bikes",
+      "resourceId": "B00D3EQB3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/RoyalBaby/Rank_3_ASIN_B00D3EQB3K_RoyalBaby Freestyle Kids Bike 12 14 16 Inch with T/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+      "targetPathKeep": "resources/b00d3eqb3k-overview/aplus_00.png",
+      "targetPathCpk": "categories/kids_bikes/products/b00d3eqb3k/gallery/aplus_00.png"
+    },
+    {
+      "productId": "B00D3EQB3K",
+      "categoryId": "kids_bikes",
+      "resourceId": "B00D3EQB3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/RoyalBaby/Rank_3_ASIN_B00D3EQB3K_RoyalBaby Freestyle Kids Bike 12 14 16 Inch with T/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.png",
+      "targetPathKeep": "resources/b00d3eqb3k-overview/aplus_01.png",
+      "targetPathCpk": "categories/kids_bikes/products/b00d3eqb3k/gallery/aplus_01.png"
+    },
+    {
+      "productId": "B00D3EQB3K",
+      "categoryId": "kids_bikes",
+      "resourceId": "B00D3EQB3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/RoyalBaby/Rank_3_ASIN_B00D3EQB3K_RoyalBaby Freestyle Kids Bike 12 14 16 Inch with T/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.png",
+      "targetPathKeep": "resources/b00d3eqb3k-overview/aplus_02.png",
+      "targetPathCpk": "categories/kids_bikes/products/b00d3eqb3k/gallery/aplus_02.png"
+    },
+    {
+      "productId": "B00D3EQB3K",
+      "categoryId": "kids_bikes",
+      "resourceId": "B00D3EQB3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/RoyalBaby/Rank_3_ASIN_B00D3EQB3K_RoyalBaby Freestyle Kids Bike 12 14 16 Inch with T/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.png",
+      "targetPathKeep": "resources/b00d3eqb3k-overview/aplus_03.png",
+      "targetPathCpk": "categories/kids_bikes/products/b00d3eqb3k/gallery/aplus_03.png"
+    },
+    {
+      "productId": "B00D3EQB3K",
+      "categoryId": "kids_bikes",
+      "resourceId": "B00D3EQB3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/RoyalBaby/Rank_3_ASIN_B00D3EQB3K_RoyalBaby Freestyle Kids Bike 12 14 16 Inch with T/images/primary.jpg",
+      "targetPathKeep": "resources/b00d3eqb3k-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b00d3eqb3k/gallery/primary.jpg"
+    },
+    {
+      "productId": "B00D3EQB3K",
+      "categoryId": "kids_bikes",
+      "resourceId": "B00D3EQB3K:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/715DHm91CKL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b00d3eqb3k-overview/715dhm91ckl._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b00d3eqb3k/gallery/715dhm91ckl._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62187cdc-d3e5-4567-a621-0dcf0a28750a/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/61064a3b-5ce3-4f37-93c4-e4555c4e1276/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1a0ce2da-edfe-4af2-8bdc-32106646648a/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/459ee2d9-d5a6-456e-b42e-07657cedac45/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9335da7c-7af8-420f-ba71-f38ef4723811/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e61b2448-8383-4e26-8e93-31fb9466d0fa/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9aa6c66a-b35a-4667-abb8-21ba2eb28cd9/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/97c550b7-a67c-4ee1-8edd-ecc6cfa31a5b/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/142ed454-c025-4a43-9abd-d2c5e75e6817/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/df4c9acf-7fa6-4c0e-9a56-b10d767494fc/default.vertical.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/kids_bikes/RoyalBaby/Rank_3_ASIN_B00D3EQB3K_RoyalBaby Freestyle Kids Bike 12 14 16 Inch with T/index.html"
+  ]
+}

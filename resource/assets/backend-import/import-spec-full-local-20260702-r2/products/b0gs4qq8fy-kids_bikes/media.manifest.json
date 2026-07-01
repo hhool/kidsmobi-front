@@ -1,0 +1,175 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0GS4QQ8FY",
+  "sourceCategoryId": "kids_bikes",
+  "images": [
+    {
+      "productId": "B0GS4QQ8FY",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0GS4QQ8FY:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_6_ASIN_B0GS4QQ8FY_WEIZE Kids BikesBoys Bike for KidsBMX Style Bicycl/images/primary.jpg",
+      "targetPathKeep": "resources/b0gs4qq8fy-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0gs4qq8fy/cover/primary.jpg"
+    },
+    {
+      "productId": "B0GS4QQ8FY",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0GS4QQ8FY:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_6_ASIN_B0GS4QQ8FY_WEIZE Kids BikesBoys Bike for KidsBMX Style Bicycl/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0gs4qq8fy-overview/alt_1.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0gs4qq8fy/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0GS4QQ8FY",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0GS4QQ8FY:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_6_ASIN_B0GS4QQ8FY_WEIZE Kids BikesBoys Bike for KidsBMX Style Bicycl/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0gs4qq8fy-overview/alt_2.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0gs4qq8fy/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0GS4QQ8FY",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0GS4QQ8FY:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_6_ASIN_B0GS4QQ8FY_WEIZE Kids BikesBoys Bike for KidsBMX Style Bicycl/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0gs4qq8fy-overview/alt_3.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0gs4qq8fy/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0GS4QQ8FY",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0GS4QQ8FY:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_6_ASIN_B0GS4QQ8FY_WEIZE Kids BikesBoys Bike for KidsBMX Style Bicycl/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0gs4qq8fy-overview/alt_4.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0gs4qq8fy/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0GS4QQ8FY",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0GS4QQ8FY:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_6_ASIN_B0GS4QQ8FY_WEIZE Kids BikesBoys Bike for KidsBMX Style Bicycl/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0gs4qq8fy-overview/alt_5.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0gs4qq8fy/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0GS4QQ8FY",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0GS4QQ8FY:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_6_ASIN_B0GS4QQ8FY_WEIZE Kids BikesBoys Bike for KidsBMX Style Bicycl/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0gs4qq8fy-overview/alt_6.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0gs4qq8fy/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0GS4QQ8FY",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0GS4QQ8FY:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_6_ASIN_B0GS4QQ8FY_WEIZE Kids BikesBoys Bike for KidsBMX Style Bicycl/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0gs4qq8fy-overview/alt_7.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0gs4qq8fy/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0GS4QQ8FY",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0GS4QQ8FY:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_6_ASIN_B0GS4QQ8FY_WEIZE Kids BikesBoys Bike for KidsBMX Style Bicycl/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0gs4qq8fy-overview/alt_8.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0gs4qq8fy/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0GS4QQ8FY",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0GS4QQ8FY:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_6_ASIN_B0GS4QQ8FY_WEIZE Kids BikesBoys Bike for KidsBMX Style Bicycl/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0gs4qq8fy-overview/alt_9.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0gs4qq8fy/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0GS4QQ8FY",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0GS4QQ8FY:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_6_ASIN_B0GS4QQ8FY_WEIZE Kids BikesBoys Bike for KidsBMX Style Bicycl/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0gs4qq8fy-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0gs4qq8fy/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0GS4QQ8FY",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0GS4QQ8FY:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_6_ASIN_B0GS4QQ8FY_WEIZE Kids BikesBoys Bike for KidsBMX Style Bicycl/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "targetPathKeep": "resources/b0gs4qq8fy-overview/aplus_01.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0gs4qq8fy/gallery/aplus_01.jpg"
+    },
+    {
+      "productId": "B0GS4QQ8FY",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0GS4QQ8FY:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_6_ASIN_B0GS4QQ8FY_WEIZE Kids BikesBoys Bike for KidsBMX Style Bicycl/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "targetPathKeep": "resources/b0gs4qq8fy-overview/aplus_02.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0gs4qq8fy/gallery/aplus_02.jpg"
+    },
+    {
+      "productId": "B0GS4QQ8FY",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0GS4QQ8FY:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_6_ASIN_B0GS4QQ8FY_WEIZE Kids BikesBoys Bike for KidsBMX Style Bicycl/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+      "targetPathKeep": "resources/b0gs4qq8fy-overview/aplus_03.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0gs4qq8fy/gallery/aplus_03.jpg"
+    },
+    {
+      "productId": "B0GS4QQ8FY",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0GS4QQ8FY:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_6_ASIN_B0GS4QQ8FY_WEIZE Kids BikesBoys Bike for KidsBMX Style Bicycl/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg",
+      "targetPathKeep": "resources/b0gs4qq8fy-overview/aplus_04.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0gs4qq8fy/gallery/aplus_04.jpg"
+    },
+    {
+      "productId": "B0GS4QQ8FY",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0GS4QQ8FY:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_6_ASIN_B0GS4QQ8FY_WEIZE Kids BikesBoys Bike for KidsBMX Style Bicycl/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_05.jpg",
+      "targetPathKeep": "resources/b0gs4qq8fy-overview/aplus_05.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0gs4qq8fy/gallery/aplus_05.jpg"
+    },
+    {
+      "productId": "B0GS4QQ8FY",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0GS4QQ8FY:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_6_ASIN_B0GS4QQ8FY_WEIZE Kids BikesBoys Bike for KidsBMX Style Bicycl/images/primary.jpg",
+      "targetPathKeep": "resources/b0gs4qq8fy-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0gs4qq8fy/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0GS4QQ8FY",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0GS4QQ8FY:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/7142a7QLdcL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0gs4qq8fy-overview/7142a7qldcl._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0gs4qq8fy/gallery/7142a7qldcl._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/773fb11e-25f3-4e3a-8d02-e7643c7d26de/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/435a7a61-5421-49ef-b149-7398f6b22b78/default.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_6_ASIN_B0GS4QQ8FY_WEIZE Kids BikesBoys Bike for KidsBMX Style Bicycl/index.html"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_bikes",
+  "fetchedAt": "2026-07-01T21:38:54.819Z",
+  "data": {
+    "resourceId": "B0DCYXXL3V:video",
+    "categoryId": "kids_bikes",
+    "productId": "B0DCYXXL3V",
+    "resourceType": "product_video",
+    "title": "vollsch BMX Style 12 14 16 Inch Kids Bike Training Wheels 20'' Bicycle with Kickstand for 2-14 Years Old Toddlers Boys Girls • Video preview",
+    "summary": "Video preview asset set for vollsch in kids_bikes.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/0b436a33-5645-4107-83c2-724ccde971fc.mp4/productVideoOptimized.mp4",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/0b436a33-5645-4107-83c2-724ccde971fc.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/748aacfe-24ac-4f37-adf3-87708d0ee86e.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/80957eec-3191-4b66-85c2-bb5eff54f0f2.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/af296e2c-b3f2-4591-8810-b1e497bc7160.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/2592bfad-c0e4-4bd2-98fb-42ef0edcc133.mp4/productVideoOptimized.mp4"
+    ],
+    "credibilityScore": 0.9,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 5,
+      "hasFeatures": true
+    }
+  }
+}

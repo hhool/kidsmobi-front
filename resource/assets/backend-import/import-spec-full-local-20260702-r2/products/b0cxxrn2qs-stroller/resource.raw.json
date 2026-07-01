@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "stroller",
+  "fetchedAt": "2026-07-01T20:06:11.051Z",
+  "data": {
+    "resourceId": "B0CXXRN2QS:overview",
+    "categoryId": "stroller",
+    "productId": "B0CXXRN2QS",
+    "resourceType": "product_overview",
+    "title": "MAMAZING Ultra Air Lightweight Baby Travel Stroller with Carbon Fiber Frame, Compact & Airplane-Friendly, One-Handed Fold, 11",
+    "summary": "Carbon Fiber | Imported | Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. Weighing in at just 11.6 pounds, thanks to its advanced carbon fiber frame, ",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/stroller/MAMAZING/Rank_2_ASIN_B0CXXRN2QS_MAMAZING Ultra Air Lightweight Baby Travel Strolle/index.html",
+    "videoUrls": [],
+    "credibilityScore": 0.55,
+    "credibilityLevel": "low",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 0,
+      "hasFeatures": true
+    }
+  }
+}

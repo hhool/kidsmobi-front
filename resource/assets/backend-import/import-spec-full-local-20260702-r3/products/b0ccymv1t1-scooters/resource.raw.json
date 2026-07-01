@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "scooters",
+  "fetchedAt": "2026-07-01T21:38:39.561Z",
+  "data": {
+    "resourceId": "B0CCYMV1T1:overview",
+    "categoryId": "scooters",
+    "productId": "B0CCYMV1T1",
+    "resourceType": "product_overview",
+    "title": "Gotrax KS1 Kids Kick Scooter, LED Lighted Wheels and 3 Adjustable Height Handlebars, Lean-to-Steer & Widen Anti-Slip Deck, 3",
+    "summary": "",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": null,
+    "videoUrls": [],
+    "credibilityScore": 0.45,
+    "credibilityLevel": "low",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 0,
+      "hasFeatures": false
+    }
+  }
+}

@@ -1,0 +1,356 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "stroller",
+  "categoryCode": "stroller",
+  "fetchedAt": "2026-07-01T20:06:11.102Z",
+  "data": {
+    "productId": "B0DC5GGJRP",
+    "categoryId": "stroller",
+    "rank": 7,
+    "title": "Dream On Me Aero Travel Umbrella Stroller, One-Hand Quick Fold, 3-Point Safety Harness, Dual Brakes, Adjustable Removable Can",
+    "brand": "Dream",
+    "price": {
+      "display": "$33.99",
+      "value": 33.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.4  1,032",
+      "value": 4.4
+    },
+    "weight": {
+      "display": "7.4 Pounds",
+      "lbs": 7.4
+    },
+    "classification": {
+      "Brand": "Dream On Me",
+      "Stroller_Type": "Umbrella Stroller",
+      "Travel_System_Ready": "No",
+      "Seating_Capacity": "1",
+      "Wheel_Configuration": "4",
+      "Harness_Type": "3 Point",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "stroller",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "300D Polyester",
+        "Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds",
+        "the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on the go — perfect for vacations",
+        "city strolls",
+        "and quick errands.",
+        "Compact One-Hand Fold - The Dream On Me Aero Travel Light Stroller features a quick one-hand fold design",
+        "making it easy to collapse and store in seconds. Perfect for apartments",
+        "vans",
+        "or on-the-go parents",
+        "this stroller folds compactly to fit in tight spaces while maintaining convenience and style.",
+        "Durable and Safe - Built with a sturdy steel frame and high-quality 300D polyester fabric",
+        "the Aero Travel Light Stroller ensures lasting durability and comfort for your little one. The 3-point safety harness keeps your child securely seated during every stroll",
+        "offering parents peace of mind on all types of adventures.",
+        "Removable Canopy & Safety Certified - Keep your baby safe and comfortable with the adjustable",
+        "removable canopy that provides full coverage from sun and wind. The Aero Travel Light Stroller meets ASTM safety standards",
+        "offering reliable protection and durability parents can trust on every adventure.",
+        "Enjoy a stable and comfortable ride for your child with front wheels featuring suspension and a direction fixer",
+        "while the rear wheels come equipped with dual brakes and suspension for added control and safety."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "300D Polyester",
+        "featureLabel": "300d Polyester",
+        "featureValue": "300D Polyester",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds",
+        "featureLabel": "Lightweight & Travel Friendly Design Weighing Just 7.4 Pounds",
+        "featureValue": "Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on the go — perfect for vacations",
+        "featureLabel": "The Dream On Me Aero Travel Light Stroller Makes Traveling With Your Little One Effortless. Ideal For Families On The Go — Perfect For Vacations",
+        "featureValue": "the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on the go — perfect for vacations",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "city strolls",
+        "featureLabel": "City Strolls",
+        "featureValue": "city strolls",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "and quick errands.",
+        "featureLabel": "And Quick Errands.",
+        "featureValue": "and quick errands.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "Compact One-Hand Fold - The Dream On Me Aero Travel Light Stroller features a quick one-hand fold design",
+        "featureLabel": "Compact One Hand Fold The Dream On Me Aero Travel Light Stroller Features A Quick One Hand Fold Design",
+        "featureValue": "Compact One-Hand Fold - The Dream On Me Aero Travel Light Stroller features a quick one-hand fold design",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from stroller classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "300D Polyester",
+        "Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds",
+        "the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on the go — perfect for vacations",
+        "city strolls"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+          "source": "local",
+          "order": 10
+        },
+        {
+          "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.png",
+          "source": "local",
+          "order": 11
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_1.jpg",
+      "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_2.jpg",
+      "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_3.jpg",
+      "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_4.jpg",
+      "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_5.jpg",
+      "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_6.jpg",
+      "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_7.jpg",
+      "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_8.jpg",
+      "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_9.jpg",
+      "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+      "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.png"
+    ],
+    "videoUrls": [],
+    "videos": [],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/stroller/index.html",
+      "categoryPages": "/scrape_store/stroller/pages/index.html",
+      "detailPage": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/index.html"
+    },
+    "resourceStats": {
+      "videos": 0,
+      "similarItems": 0
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      },
+      {
+        "url": "/scrape_store/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream On Me Aero Travel Umbrella Stroller One-Hand/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.png",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 12
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/87de57a0-2529-4268-86c3-a6277181db46/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "about:blank#external-url-removedcom/images/I/51mRcEpzTxL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "451XX - Aero Stroller ",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0bd18be6-b6ce-41c7-8a4e-fb76a7a48d4a/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "about:blank#external-url-removedcom/images/I/81ebA+wjlyL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Assembly required? Unboxing and setting it up",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/efc3cb6d-9132-42b7-a758-6150f577df52/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "about:blank#external-url-removedcom/images/I/91+1zHFoOdL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Honest review of travel stroller",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/de4eb06f-eb3f-4ab2-8291-5d1490b3ca7b/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "about:blank#external-url-removedcom/images/I/B1ZRqhrWa3L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Quick-fold travel stroller review-dream on me #ad",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64ad2298-c4fa-43c9-869f-cd6df6afe722/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "about:blank#external-url-removedcom/images/I/71D-ZwAcP9L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Makes traveling so much easier",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/85b5b306-67c2-411f-8fa1-65839dc84688/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "about:blank#external-url-removedcom/images/I/61zvTW2fTeL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Easy- portable umbrella stroller",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "productId": "B0CFDX97YD",
+  "sourceCategoryId": "balance_bike",
+  "images": [
+    {
+      "productId": "B0CFDX97YD",
+      "categoryId": "balance_bike",
+      "resourceId": "B0CFDX97YD:video",
+      "kind": "cover",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/61pSZ5vkcsL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0cfdx97yd-video/61psz5vkcsl._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/balance_bike/products/b0cfdx97yd/cover/61psz5vkcsl._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0448b8ac-57b2-4df2-ade5-4690dd2ea818/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/002c4590-5f7c-4016-afa2-0941539544c3/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/227b2189-182b-4379-ac1a-6f7fa59e2357/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5cfc4bb1-abf5-4e8f-a212-0aebd7d14e7c/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/09856d4e-56ba-45d6-97a1-3e1f424c87a2/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/70138f9b-b376-4893-b692-716d9d695955/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3ffacd04-7574-49e8-8c34-4f1ffb176897/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7380cc36-5e8a-45e3-a31c-61d4afd86338/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6bfacb52-7d33-4b08-9a2b-f56f78146397/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/954300b7-6ba0-42a1-afde-f0511e643222/default.vertical.jobtemplate.hls.m3u8"
+  ]
+}

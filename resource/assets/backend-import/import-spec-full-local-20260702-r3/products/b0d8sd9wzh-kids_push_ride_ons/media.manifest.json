@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "productId": "B0D8SD9WZH",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "images": [
+    {
+      "productId": "B0D8SD9WZH",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8SD9WZH:video",
+      "kind": "cover",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/61DYRTL9w7L._AC_UL165_SR165,165_.jpg",
+      "targetPathKeep": "resources/b0d8sd9wzh-video/61dyrtl9w7l._ac_ul165_sr165-165_.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8sd9wzh/cover/61dyrtl9w7l._ac_ul165_sr165-165_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fa010915-0629-4284-a2d3-79986e480e03/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9c0ce93f-a9c2-4f1d-8dac-e67c05191a65/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1c686135-e312-4a07-badb-4144069f0d3c/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4e5765b2-338a-42d5-8fbe-21e0e8898b09/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cb823cd0-3a21-477a-9493-1fd49c66e048/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bfa6c011-895f-4b0b-bfff-c57f3bb8c7ed/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cfc13d0d-15b2-4372-a75f-cea535dc8862/default.jobtemplate.hls.m3u8"
+  ]
+}

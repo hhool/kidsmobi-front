@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "stroller",
+  "fetchedAt": "2026-07-01T20:06:11.019Z",
+  "data": {
+    "resourceId": "B07Y5VQYFW:overview",
+    "categoryId": "stroller",
+    "productId": "B07Y5VQYFW",
+    "resourceType": "product_overview",
+    "title": "Graco Modes Pramette Travel System, Car Seat and Stroller Combo, Includes SnugRide LX Infant Car Seat and Baby Stroller, 3 Mo",
+    "summary": "3 strollers in 1: Infant Car Seat Carrier, Infant Pramette, and Toddler Stroller to stroll from infant to toddler | Reversible stroller seat can face parent or the world, for just the right ride as baby grows | Toddler seat converts to an infant pramette mode, for comfortable str",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/stroller/Graco/Rank_1_ASIN_B07Y5VQYFW_Graco Modes Pramette Travel System Car Seat and St/index.html",
+    "videoUrls": [],
+    "credibilityScore": 0.55,
+    "credibilityLevel": "low",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 0,
+      "hasFeatures": true
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "fetchedAt": "2026-07-01T21:39:03.782Z",
+  "data": {
+    "resourceId": "B01LY46WJN:video",
+    "categoryId": "kids_push_ride_ons",
+    "productId": "B01LY46WJN",
+    "resourceType": "product_video",
+    "title": "Little Tikes Cozy Coupe Dinosaur – Amazon Exclusive Large, Green • Video preview",
+    "summary": "Video preview asset set for Little in kids_push_ride_ons.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ca8d7cbf-43bb-4110-9f80-7d5cddae2438.mp4/productVideoOptimized.mp4",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ca8d7cbf-43bb-4110-9f80-7d5cddae2438.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ab733cf3-97c6-483d-88b0-5f7a6ffebe5a.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5d75b3fd-ea02-4a87-a1f8-d311798ad12c.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/e272dabb-c4a1-49f7-8b99-92ad7d3b47f3.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a5239543-bcf2-4eb6-91a2-9f9c6e8acb56.mp4/productVideoOptimized.mp4"
+    ],
+    "credibilityScore": 0.9,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 5,
+      "hasFeatures": true
+    }
+  }
+}

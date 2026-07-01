@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "fetchedAt": "2026-07-01T21:39:08.876Z",
+  "data": {
+    "resourceId": "B0D8KM8M3G:video",
+    "categoryId": "kids_push_ride_ons",
+    "productId": "B0D8KM8M3G",
+    "resourceType": "product_video",
+    "title": "VEVOR Ride On Push Car for Toddlers, Ages 19+ Months, Ride Racer, Sit to Stand Toddler Ride On Toy, Kids Ride On Car with Music Steering, Horn & Under Seat Storage, Ride On Toy for Boys Girls, • Video preview",
+    "summary": "Video preview asset set for VEVOR in kids_push_ride_ons.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ed6c34bc-7029-4f9e-be29-56abc2936bee.mp4/productVideoOptimized.mp4",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ed6c34bc-7029-4f9e-be29-56abc2936bee.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/b1fe0298-8076-4e65-88b7-c866121aa872.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/c6c1ae68-91cb-4a82-b52f-f685ba5e1dbb.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/659c0d10-567f-46f1-8d92-68e7821cd044.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/c29f6e83-37d5-454b-a0ac-dd1796e6966f.mp4/productVideoOptimized.mp4"
+    ],
+    "credibilityScore": 0.9,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 5,
+      "hasFeatures": true
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "fetchedAt": "2026-07-01T20:06:15.782Z",
+  "data": {
+    "resourceId": "B0DJY3JH8D:overview",
+    "categoryId": "kids_pull_along_wagons",
+    "productId": "B0DJY3JH8D",
+    "resourceType": "product_overview",
+    "title": "ELEMARA Foldable Wagon Stroller, Stroller Wagon for 2 Kids, Premium All Terrain Wagon for Kids with Removable Canopy, Adjusta",
+    "summary": "oxford fabric | Made in the USA and Imported | 2 IN 1 PUSH ＆ PULL STROLLER WAGON: Heavy duty steel frame holds up to 110lbs(55lbs per seat). Size: 41 x 18 x 39.37 inches. Weight: 39 pounds. Bid farewell to bulky strollers. This ingeniously designed wagon stroller collapses easily",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8c561752-2f09-4055-a642-3d21d738a0ff.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5197f176-7d6e-420f-af9b-c2b3d5c93c7c.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/67e86294-4490-41d1-a6e3-93b079ff909f.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a61ba6f2-a986-4e57-965d-b75543e70dcc.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a79fe938-77d7-452f-bb6b-008a7685e366.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cee88b45-e5ba-4485-bc57-ae6418305e6e/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/df5c2e68-f2d3-4d7e-9014-899b91cbf991/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/75316088-022a-40b6-b0d6-113cda499015/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c7b1678-a916-443d-8077-6d606e5e08d5/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0d65a07c-0d9f-4a55-98e8-f9acdc537db0/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6a54c365-1a11-4338-ba64-5bd7663af979/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/872ec1c4-4ebd-47b5-8675-738cf2681b9c/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d1735d68-8d50-4330-a79a-58876b7d0731/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/adb98479-df52-4549-ac95-3e11e2ac5e4e/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/427ddb58-2fc9-4140-9867-e2fd713978d7/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/397088de-775e-4d85-9648-60f13bcdcee4/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/26b38948-a5d8-45da-8fda-bf32431682b6/embedded.cc.default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1a2ee81c-fc6e-4180-acac-d08dfde5d026/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f317c343-cf2b-4bfd-941b-14f79f861355/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c7524b5a-fbee-4dc7-b354-3d1166a43fb9/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 1,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 20,
+      "hasFeatures": true
+    }
+  }
+}

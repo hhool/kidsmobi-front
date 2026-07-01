@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "electric_vehicles",
+  "fetchedAt": "2026-07-01T21:38:43.644Z",
+  "data": {
+    "resourceId": "B017HHKGIE:video",
+    "categoryId": "electric_vehicles",
+    "productId": "B017HHKGIE",
+    "resourceType": "product_video",
+    "title": "Kids Motorcycle - 3-Wheel Ride on Toy with Police Decals, Reverse, and Headlights - 6V Electric Motorcycle for Kids Ages 3 to • Video preview",
+    "summary": "Video preview asset set for Kids in electric_vehicles.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/546fa99c-ae6b-4d99-a883-2d97d1ad6028/default.vertical.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/546fa99c-ae6b-4d99-a883-2d97d1ad6028/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.71,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 1,
+      "hasFeatures": true
+    }
+  }
+}

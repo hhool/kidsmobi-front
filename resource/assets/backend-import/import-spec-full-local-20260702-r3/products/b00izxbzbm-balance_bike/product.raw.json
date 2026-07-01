@@ -1,0 +1,224 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "balance_bike",
+  "categoryCode": "balance",
+  "fetchedAt": "2026-07-01T21:38:36.029Z",
+  "data": {
+    "productId": "B00IZXBZBM",
+    "categoryId": "balance_bike",
+    "rank": 10,
+    "title": "Strider 12” Sport Bike - No Pedal Balance Bicycle for Kids 1 to 4 Years - Includes Safety Pad, Padded Seat, Mini Grips & Flat",
+    "brand": "Strider",
+    "price": {
+      "display": "$149.99",
+      "value": 149.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.8  11,484",
+      "value": 4.8
+    },
+    "weight": {
+      "display": "6.7 Pounds",
+      "lbs": 6.7
+    },
+    "classification": {
+      "Brand": "Strider",
+      "Bike_Type": "Balance Bike",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "100-200"
+    },
+    "categoryAttributes": {
+      "categoryId": "balance_bike",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "Balance bikes are proven to teach kids to learn to ride faster than training wheels.",
+        "With a seat height range from 11-17 in. (28-43 cm)",
+        "the Strider 12\" Sport fits children with an inseam of 12-18 in. (31-46 cm).",
+        "Never flat",
+        "no-maintenance",
+        "12\" foam rubber tires will ensure safe and steady riding over any terrain",
+        "The 12\" Sport has a lightweight steel frame that weighs in at 6.7 lbs. (3.0 kg). Easy",
+        "no stress assembly with all tools included.",
+        "The seat and handlebar heights adjust to accommodate ages 1 to 4 years. Maximum Rider Weight: 60 lbs. (27 kg)."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "Balance bikes are proven to teach kids to learn to ride faster than training wheels.",
+        "featureLabel": "Balance Bikes Are Proven To Teach Kids To Learn To Ride Faster Than Training Wheels.",
+        "featureValue": "Balance bikes are proven to teach kids to learn to ride faster than training wheels.",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "With a seat height range from 11-17 in. (28-43 cm)",
+        "featureLabel": "With A Seat Height Range From 11 17 In. (28 43 Cm)",
+        "featureValue": "With a seat height range from 11-17 in. (28-43 cm)",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "the Strider 12\" Sport fits children with an inseam of 12-18 in. (31-46 cm).",
+        "featureLabel": "The Strider 12\" Sport Fits Children With An Inseam Of 12 18 In. (31 46 Cm).",
+        "featureValue": "the Strider 12\" Sport fits children with an inseam of 12-18 in. (31-46 cm).",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "Never flat",
+        "featureLabel": "Never Flat",
+        "featureValue": "Never flat",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "no-maintenance",
+        "featureLabel": "No Maintenance",
+        "featureValue": "no-maintenance",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "12\" foam rubber tires will ensure safe and steady riding over any terrain",
+        "featureLabel": "12\" Foam Rubber Tires Will Ensure Safe And Steady Riding Over Any Terrain",
+        "featureValue": "12\" foam rubber tires will ensure safe and steady riding over any terrain",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from balance_bike classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "Balance bikes are proven to teach kids to learn to ride faster than training wheels.",
+        "With a seat height range from 11-17 in. (28-43 cm)",
+        "the Strider 12\" Sport fits children with an inseam of 12-18 in. (31-46 cm).",
+        "Never flat"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/71f4kedh16L._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71f4kedh16L._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3ecaf7d9-e43f-4f56-826b-e5a15b01dba3/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cc17b8a1-da37-41b3-8987-2c83a8549f52/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/09cce014-427b-46a5-bb75-8c5cc1031a1f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8ca79142-452f-4748-869b-bf3887d92b24/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62a26ffb-cced-4ad1-9bf9-5e1d892de90d/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/77d8e6a4-d036-4eeb-a336-5dfbae147b2e/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/76b2a872-b81a-4b0e-845c-49ab9d087820/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f49adece-0087-4613-b49e-e4d645e5bed1/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6ae92cab-6f37-4e0d-ab96-ded634b38b2e/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/71b4fd50-bc0f-4857-8af8-7865f3c8a58a/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 10,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3ecaf7d9-e43f-4f56-826b-e5a15b01dba3/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71hyCqtQGuL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Strider - 12 Inch Sport Overview",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cc17b8a1-da37-41b3-8987-2c83a8549f52/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71i-6Zx6imL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Strider - 12 Inch Sport Assembly",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/09cce014-427b-46a5-bb75-8c5cc1031a1f/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71yOOw-s62L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Strider - 12 Inch Sport",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8ca79142-452f-4748-869b-bf3887d92b24/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61f-3o7QhwL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Strider bikes  ",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62a26ffb-cced-4ad1-9bf9-5e1d892de90d/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51dOaPk6s9L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Strider - 12 Sport Balance Bike",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/77d8e6a4-d036-4eeb-a336-5dfbae147b2e/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91U+Q6oqCSL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Adjusting The Strider Sport Bike. Watch Before You Buy. ",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/76b2a872-b81a-4b0e-845c-49ab9d087820/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/510dJcTrhFL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Review: Strider 12\\\" Sport Balance Bike for Kids 1-4 Years",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f49adece-0087-4613-b49e-e4d645e5bed1/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71jQUznqTwL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Unboxing and assembly of bike",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6ae92cab-6f37-4e0d-ab96-ded634b38b2e/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1ZQVa7EyoL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Best Training Bike for Toddlers | Strider Balance Bike",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/71b4fd50-bc0f-4857-8af8-7865f3c8a58a/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71o87xa7bAL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Great for kids learning to balance #ad",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

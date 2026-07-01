@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_tricycles",
+  "fetchedAt": "2026-07-01T21:38:57.028Z",
+  "data": {
+    "resourceId": "B0DP9NLG63:video",
+    "categoryId": "kids_tricycles",
+    "productId": "B0DP9NLG63",
+    "resourceType": "product_video",
+    "title": "Umatoll Tricycle for Toddlers 2-5 Year Old, Ajustable Toddler Bike Outdoor Toys, Birthday Gift for Girl Age 2-4, Trike with L • Video preview",
+    "summary": "Video preview asset set for Umatoll in kids_tricycles.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d12fef19-42d2-4aab-8932-c57d77a111d3/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d12fef19-42d2-4aab-8932-c57d77a111d3/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/581627b0-5a0c-49e4-a940-5ed38635cea8/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f1efebb6-4b0f-4268-8f41-dde206dc72b9/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b22032ac-2617-4af7-990a-54803db0d7c4/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/962025ba-f257-4f9d-9761-5685680ffddc/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2e59a0d2-bf62-47c9-9e0b-1d753cd47ca2/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cf7513eb-4b09-465f-bc90-31e8f6dc1567/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cfd9d973-eae0-4c48-9b19-d926eb1db9db/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e94e0463-edc2-450f-9746-dbb48f6d223a/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 1,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 9,
+      "hasFeatures": true
+    }
+  }
+}

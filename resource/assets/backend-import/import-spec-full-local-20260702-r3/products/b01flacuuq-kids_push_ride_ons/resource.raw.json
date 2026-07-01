@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "fetchedAt": "2026-07-01T21:39:05.798Z",
+  "data": {
+    "resourceId": "B01FLACUUQ:video",
+    "categoryId": "kids_push_ride_ons",
+    "productId": "B01FLACUUQ",
+    "resourceType": "product_video",
+    "title": "Radio Flyer Scoot 2 Scooter, Blue/Red/Pink, for Kids Ages 1-4, Ride On Toy or 4-Wheel Kids Scooter, Durable Wheels and Frame, • Video preview",
+    "summary": "Video preview asset set for Radio in kids_push_ride_ons.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/89192b85-0ae1-568b-a695-40558bcc0769/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/89192b85-0ae1-568b-a695-40558bcc0769/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f892437e-88a7-4212-b942-8b714fa27453/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/aaa52c68-deda-4074-9dd1-7681f84e6590/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/79afb089-d46f-4068-8c1b-9fe10678ba06/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/94e2ab06-9dc7-4ef9-a73f-fd68f2dc3092/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/318c8338-14a3-4ff8-978a-2f30a727214b/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.94,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "balance_bike",
+  "fetchedAt": "2026-07-01T20:06:11.951Z",
+  "data": {
+    "resourceId": "B0FVRV5HZB:overview",
+    "categoryId": "balance_bike",
+    "productId": "B0FVRV5HZB",
+    "resourceType": "product_overview",
+    "title": "Gotrax Baby Balance Bike 1-2 Years, 7\" Front&Rear Silent Wheels, Sturdy Steel Frame 66 lbs Load, Quick 2-Min Assembly, CPC Ce",
+    "summary": "Stable & Secure Ride: 7\" Front & Rear Silent Big 4-Wheels provide spacing to deliver ample legroom. Designed with a 5.1-inch front wheel spacing &1.45-inch wheel width and 45° limited steering for enhanced stability and anti-tip safety. | Sturdy Steel Frame: Durable steel alloy f",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/balance_bike/Gotrax/Rank_12_ASIN_B0FVRV5HZB_Gotrax Baby Balance Bike 1-2 Years 7 FrontRear Sil/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cb8da8fe-edad-4c8b-bae6-83ba21859954/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/afcf4aca-215d-4120-ae01-de43f1fc31c3/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9e04f0dd-32d1-42b5-a986-79af9ac09043/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7ebd02c1-4a1f-4576-b799-13ed5a156736/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cf3258f6-bb0c-431d-90fe-a872fc05e78e/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a2055fc4-501c-4ddc-99e2-69b3a877e0d6/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a240c5ab-11ed-4d5a-a886-3b49674592e4/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.83,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 7,
+      "hasFeatures": true
+    }
+  }
+}

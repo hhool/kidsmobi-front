@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0FSS9PR84",
+  "sourceCategoryId": "electric_vehicles",
+  "images": [
+    {
+      "productId": "B0FSS9PR84",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FSS9PR84:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_6_ASIN_B0FSS9PR84_ANPABO Licensed Ford F-150 24V 2 Seater Ride on Ca/images/primary.jpg",
+      "targetPathKeep": "resources/b0fss9pr84-overview/primary.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fss9pr84/cover/primary.jpg"
+    },
+    {
+      "productId": "B0FSS9PR84",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FSS9PR84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_6_ASIN_B0FSS9PR84_ANPABO Licensed Ford F-150 24V 2 Seater Ride on Ca/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0fss9pr84-overview/alt_1.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fss9pr84/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0FSS9PR84",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FSS9PR84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_6_ASIN_B0FSS9PR84_ANPABO Licensed Ford F-150 24V 2 Seater Ride on Ca/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0fss9pr84-overview/alt_2.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fss9pr84/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0FSS9PR84",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FSS9PR84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_6_ASIN_B0FSS9PR84_ANPABO Licensed Ford F-150 24V 2 Seater Ride on Ca/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0fss9pr84-overview/alt_3.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fss9pr84/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0FSS9PR84",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FSS9PR84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_6_ASIN_B0FSS9PR84_ANPABO Licensed Ford F-150 24V 2 Seater Ride on Ca/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0fss9pr84-overview/alt_4.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fss9pr84/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0FSS9PR84",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FSS9PR84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_6_ASIN_B0FSS9PR84_ANPABO Licensed Ford F-150 24V 2 Seater Ride on Ca/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0fss9pr84-overview/alt_5.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fss9pr84/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0FSS9PR84",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FSS9PR84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_6_ASIN_B0FSS9PR84_ANPABO Licensed Ford F-150 24V 2 Seater Ride on Ca/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0fss9pr84-overview/alt_6.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fss9pr84/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0FSS9PR84",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FSS9PR84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_6_ASIN_B0FSS9PR84_ANPABO Licensed Ford F-150 24V 2 Seater Ride on Ca/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0fss9pr84-overview/alt_7.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fss9pr84/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0FSS9PR84",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FSS9PR84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_6_ASIN_B0FSS9PR84_ANPABO Licensed Ford F-150 24V 2 Seater Ride on Ca/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0fss9pr84-overview/alt_8.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fss9pr84/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0FSS9PR84",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FSS9PR84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_6_ASIN_B0FSS9PR84_ANPABO Licensed Ford F-150 24V 2 Seater Ride on Ca/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0fss9pr84-overview/alt_9.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fss9pr84/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0FSS9PR84",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FSS9PR84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_6_ASIN_B0FSS9PR84_ANPABO Licensed Ford F-150 24V 2 Seater Ride on Ca/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+      "targetPathKeep": "resources/b0fss9pr84-overview/aplus_00.png",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fss9pr84/gallery/aplus_00.png"
+    },
+    {
+      "productId": "B0FSS9PR84",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FSS9PR84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_6_ASIN_B0FSS9PR84_ANPABO Licensed Ford F-150 24V 2 Seater Ride on Ca/images/primary.jpg",
+      "targetPathKeep": "resources/b0fss9pr84-overview/primary.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fss9pr84/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0FSS9PR84",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0FSS9PR84:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/71EwTUa5Y8L._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0fss9pr84-overview/71ewtua5y8l._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0fss9pr84/gallery/71ewtua5y8l._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e44775d4-430f-4b13-b134-1778bed00e77/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d4492886-d098-4af2-a63b-c27f08323387/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d4ac48ae-3d49-4442-8769-7f6e1196a590/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/02b4ba09-e923-4cc2-8a92-21148903eec9/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b8677eda-0464-4013-b079-0823514c6cc3/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6d08a2a5-d576-435a-a1e2-42997acbbb6d/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/08580f4d-5ca7-41d8-86ab-0ec10f301388/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9edfd122-0563-4a94-a1d7-55b47ab7a688/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1886660d-9175-463e-b308-cbc9453b4045/default.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/electric_vehicles/ANPABO/Rank_6_ASIN_B0FSS9PR84_ANPABO Licensed Ford F-150 24V 2 Seater Ride on Ca/index.html"
+  ]
+}

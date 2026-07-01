@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "playard",
+  "categoryCode": "stroller",
+  "fetchedAt": "2026-07-01T21:38:30.911Z",
+  "data": {
+    "productId": "B00GUN43AY",
+    "categoryId": "playard",
+    "rank": 1,
+    "title": "Delta Children Infant Changing Table with Pad, White",
+    "brand": "Delta",
+    "price": {
+      "display": "$89.99",
+      "value": 89.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.7  7,277",
+      "value": 4.7
+    },
+    "weight": {
+      "display": "33 Pounds",
+      "lbs": 33
+    },
+    "classification": {
+      "Brand": "Delta",
+      "Playard_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Heavy Duty",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "playard",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "Strong and sturdy wood construction",
+        "Includes water resistant changing pad with safety strap",
+        "Includes two fixed shelves for open storage",
+        "Safety rails enclose all four sides around the top of the table",
+        "Non toxic finish tested for lead and other toxic elements to meet or exceed government and ASTM safety standards",
+        "Made of solid wood and wood composites",
+        "Easy Assembly.This item is eligible for free replacement parts. Contact Amazon Customer Service for more information"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "Strong and sturdy wood construction",
+        "featureLabel": "Strong And Sturdy Wood Construction",
+        "featureValue": "Strong and sturdy wood construction",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from playard classification data"
+      },
+      {
+        "featureKey": "Includes water resistant changing pad with safety strap",
+        "featureLabel": "Includes Water Resistant Changing Pad With Safety Strap",
+        "featureValue": "Includes water resistant changing pad with safety strap",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from playard classification data"
+      },
+      {
+        "featureKey": "Includes two fixed shelves for open storage",
+        "featureLabel": "Includes Two Fixed Shelves For Open Storage",
+        "featureValue": "Includes two fixed shelves for open storage",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from playard classification data"
+      },
+      {
+        "featureKey": "Safety rails enclose all four sides around the top of the table",
+        "featureLabel": "Safety Rails Enclose All Four Sides Around The Top Of The Table",
+        "featureValue": "Safety rails enclose all four sides around the top of the table",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from playard classification data"
+      },
+      {
+        "featureKey": "Non toxic finish tested for lead and other toxic elements to meet or exceed government and ASTM safety standards",
+        "featureLabel": "Non Toxic Finish Tested For Lead And Other Toxic Elements To Meet Or Exceed Government And ASTM Safety Standards",
+        "featureValue": "Non toxic finish tested for lead and other toxic elements to meet or exceed government and ASTM safety standards",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from playard classification data"
+      },
+      {
+        "featureKey": "Made of solid wood and wood composites",
+        "featureLabel": "Made Of Solid Wood And Wood Composites",
+        "featureValue": "Made of solid wood and wood composites",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from playard classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "Strong and sturdy wood construction",
+        "Includes water resistant changing pad with safety strap",
+        "Includes two fixed shelves for open storage",
+        "Safety rails enclose all four sides around the top of the table"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/71rucbKgpuL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71rucbKgpuL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/e31dad11-1895-4959-bdcd-9f7ed57532f5.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/139e0efb-bd7d-4cda-919d-54006de4fa6a.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/c8c97f1b-5ee2-4810-8acb-aed807343a14.mov/productVideoOptimized.mp4"
+    ],
+    "resourceStats": {
+      "videos": 3,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/e31dad11-1895-4959-bdcd-9f7ed57532f5.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/videos/video_0.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/139e0efb-bd7d-4cda-919d-54006de4fa6a.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/videos/video_1.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/c8c97f1b-5ee2-4810-8acb-aed807343a14.mov/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/playard/Delta/Rank_1_ASIN_B00GUN43AY_Delta Children Infant Changing Table with Pad Whit/videos/video_2.mp4"
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

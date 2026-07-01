@@ -1,0 +1,170 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B07YC4VCYH",
+  "sourceCategoryId": "electric_vehicles",
+  "images": [
+    {
+      "productId": "B07YC4VCYH",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B07YC4VCYH:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/images/primary.jpg",
+      "targetPathKeep": "resources/b07yc4vcyh-overview/primary.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b07yc4vcyh/cover/primary.jpg"
+    },
+    {
+      "productId": "B07YC4VCYH",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B07YC4VCYH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/images/alt_1.jpg",
+      "targetPathKeep": "resources/b07yc4vcyh-overview/alt_1.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b07yc4vcyh/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B07YC4VCYH",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B07YC4VCYH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/images/alt_2.jpg",
+      "targetPathKeep": "resources/b07yc4vcyh-overview/alt_2.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b07yc4vcyh/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B07YC4VCYH",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B07YC4VCYH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/images/alt_3.jpg",
+      "targetPathKeep": "resources/b07yc4vcyh-overview/alt_3.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b07yc4vcyh/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B07YC4VCYH",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B07YC4VCYH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/images/alt_4.jpg",
+      "targetPathKeep": "resources/b07yc4vcyh-overview/alt_4.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b07yc4vcyh/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B07YC4VCYH",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B07YC4VCYH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/images/alt_5.jpg",
+      "targetPathKeep": "resources/b07yc4vcyh-overview/alt_5.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b07yc4vcyh/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B07YC4VCYH",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B07YC4VCYH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/images/alt_6.jpg",
+      "targetPathKeep": "resources/b07yc4vcyh-overview/alt_6.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b07yc4vcyh/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B07YC4VCYH",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B07YC4VCYH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/images/alt_7.jpg",
+      "targetPathKeep": "resources/b07yc4vcyh-overview/alt_7.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b07yc4vcyh/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B07YC4VCYH",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B07YC4VCYH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/images/alt_8.jpg",
+      "targetPathKeep": "resources/b07yc4vcyh-overview/alt_8.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b07yc4vcyh/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B07YC4VCYH",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B07YC4VCYH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/images/alt_9.jpg",
+      "targetPathKeep": "resources/b07yc4vcyh-overview/alt_9.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b07yc4vcyh/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B07YC4VCYH",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B07YC4VCYH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b07yc4vcyh-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b07yc4vcyh/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B07YC4VCYH",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B07YC4VCYH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "targetPathKeep": "resources/b07yc4vcyh-overview/aplus_01.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b07yc4vcyh/gallery/aplus_01.jpg"
+    },
+    {
+      "productId": "B07YC4VCYH",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B07YC4VCYH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "targetPathKeep": "resources/b07yc4vcyh-overview/aplus_02.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b07yc4vcyh/gallery/aplus_02.jpg"
+    },
+    {
+      "productId": "B07YC4VCYH",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B07YC4VCYH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+      "targetPathKeep": "resources/b07yc4vcyh-overview/aplus_03.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b07yc4vcyh/gallery/aplus_03.jpg"
+    },
+    {
+      "productId": "B07YC4VCYH",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B07YC4VCYH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg",
+      "targetPathKeep": "resources/b07yc4vcyh-overview/aplus_04.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b07yc4vcyh/gallery/aplus_04.jpg"
+    },
+    {
+      "productId": "B07YC4VCYH",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B07YC4VCYH:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/images/primary.jpg",
+      "targetPathKeep": "resources/b07yc4vcyh-overview/primary.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b07yc4vcyh/gallery/primary.jpg"
+    },
+    {
+      "productId": "B07YC4VCYH",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B07YC4VCYH:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/819EixX48RS._AC_UL165_SR165,165_.jpg",
+      "targetPathKeep": "resources/b07yc4vcyh-overview/819eixx48rs._ac_ul165_sr165-165_.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b07yc4vcyh/gallery/819eixx48rs._ac_ul165_sr165-165_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d864eefa-be6d-46ab-8030-8859827c6a61/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bc4606b8-66e5-4f5f-9211-733ff2763d85/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/87442e49-1797-4ee4-8a2d-760803dd19db/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/05422e8c-2471-409a-97ca-aa2da89fcb0b/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c73d8407-61ca-484f-a4b8-249cbe37ff4a/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f27621b3-9339-47c9-8ff1-5bd4ba23e766/default.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/index.html"
+  ]
+}

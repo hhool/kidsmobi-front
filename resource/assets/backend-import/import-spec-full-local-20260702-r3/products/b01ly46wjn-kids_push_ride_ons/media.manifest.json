@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "productId": "B01LY46WJN",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "images": [
+    {
+      "productId": "B01LY46WJN",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B01LY46WJN:video",
+      "kind": "cover",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/81Lg7Hp2Y0L._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b01ly46wjn-video/81lg7hp2y0l._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b01ly46wjn/cover/81lg7hp2y0l._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ca8d7cbf-43bb-4110-9f80-7d5cddae2438.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ab733cf3-97c6-483d-88b0-5f7a6ffebe5a.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5d75b3fd-ea02-4a87-a1f8-d311798ad12c.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/e272dabb-c4a1-49f7-8b99-92ad7d3b47f3.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a5239543-bcf2-4eb6-91a2-9f9c6e8acb56.mp4/productVideoOptimized.mp4"
+  ]
+}

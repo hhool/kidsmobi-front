@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_tricycles",
+  "fetchedAt": "2026-07-01T20:06:14.553Z",
+  "data": {
+    "resourceId": "B0B5MVCKCC:overview",
+    "categoryId": "kids_tricycles",
+    "productId": "B0B5MVCKCC",
+    "resourceType": "product_overview",
+    "title": "KRIDDO Tricycles Age 24 Month to 4 Years, Toddler Kids Trike for 2.5 to 5 Year Old, Gift for 2-4 Year Olds , Green",
+    "summary": "TODDLER TRICYCLE – KRIDDO kids tricycle is designed for 24-48 month toddler girls & boys who are curious and exited to explore the world, it helps to develop kids' steering skills, steering and coordination at an early age. KRIDDO kids trike for 2 year old let your kids enjoy rid",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/858b08f3-b156-4388-9a24-8351276471c0/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/93027184-1e0d-40f9-a8f0-5e3b3d530c51/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/21fb7638-ed04-49f0-9323-c1dcec3af0e0/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5003b164-1b4d-45c8-814b-666c3af78c3c/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fb3f5fc9-92b6-457b-a92e-60a8c1bafa44/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bff09874-7f25-4e4a-a3bd-506e776c4a6d/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.79,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

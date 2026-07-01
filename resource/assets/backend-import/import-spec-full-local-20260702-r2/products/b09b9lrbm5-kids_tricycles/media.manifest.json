@@ -1,0 +1,183 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B09B9LRBM5",
+  "sourceCategoryId": "kids_tricycles",
+  "images": [
+    {
+      "productId": "B09B9LRBM5",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B09B9LRBM5:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/newyoo/Rank_5_ASIN_B09B9LRBM5_newyoo TR008 5 in 1 Toddler Tricycle with Push Han/images/primary.jpg",
+      "targetPathKeep": "resources/b09b9lrbm5-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b09b9lrbm5/cover/primary.jpg"
+    },
+    {
+      "productId": "B09B9LRBM5",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B09B9LRBM5:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/newyoo/Rank_5_ASIN_B09B9LRBM5_newyoo TR008 5 in 1 Toddler Tricycle with Push Han/images/alt_1.jpg",
+      "targetPathKeep": "resources/b09b9lrbm5-overview/alt_1.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b09b9lrbm5/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B09B9LRBM5",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B09B9LRBM5:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/newyoo/Rank_5_ASIN_B09B9LRBM5_newyoo TR008 5 in 1 Toddler Tricycle with Push Han/images/alt_2.jpg",
+      "targetPathKeep": "resources/b09b9lrbm5-overview/alt_2.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b09b9lrbm5/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B09B9LRBM5",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B09B9LRBM5:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/newyoo/Rank_5_ASIN_B09B9LRBM5_newyoo TR008 5 in 1 Toddler Tricycle with Push Han/images/alt_3.jpg",
+      "targetPathKeep": "resources/b09b9lrbm5-overview/alt_3.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b09b9lrbm5/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B09B9LRBM5",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B09B9LRBM5:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/newyoo/Rank_5_ASIN_B09B9LRBM5_newyoo TR008 5 in 1 Toddler Tricycle with Push Han/images/alt_4.jpg",
+      "targetPathKeep": "resources/b09b9lrbm5-overview/alt_4.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b09b9lrbm5/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B09B9LRBM5",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B09B9LRBM5:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/newyoo/Rank_5_ASIN_B09B9LRBM5_newyoo TR008 5 in 1 Toddler Tricycle with Push Han/images/alt_5.jpg",
+      "targetPathKeep": "resources/b09b9lrbm5-overview/alt_5.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b09b9lrbm5/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B09B9LRBM5",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B09B9LRBM5:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/newyoo/Rank_5_ASIN_B09B9LRBM5_newyoo TR008 5 in 1 Toddler Tricycle with Push Han/images/alt_6.jpg",
+      "targetPathKeep": "resources/b09b9lrbm5-overview/alt_6.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b09b9lrbm5/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B09B9LRBM5",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B09B9LRBM5:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/newyoo/Rank_5_ASIN_B09B9LRBM5_newyoo TR008 5 in 1 Toddler Tricycle with Push Han/images/alt_7.jpg",
+      "targetPathKeep": "resources/b09b9lrbm5-overview/alt_7.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b09b9lrbm5/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B09B9LRBM5",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B09B9LRBM5:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/newyoo/Rank_5_ASIN_B09B9LRBM5_newyoo TR008 5 in 1 Toddler Tricycle with Push Han/images/alt_8.jpg",
+      "targetPathKeep": "resources/b09b9lrbm5-overview/alt_8.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b09b9lrbm5/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B09B9LRBM5",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B09B9LRBM5:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/newyoo/Rank_5_ASIN_B09B9LRBM5_newyoo TR008 5 in 1 Toddler Tricycle with Push Han/images/alt_9.jpg",
+      "targetPathKeep": "resources/b09b9lrbm5-overview/alt_9.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b09b9lrbm5/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B09B9LRBM5",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B09B9LRBM5:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/newyoo/Rank_5_ASIN_B09B9LRBM5_newyoo TR008 5 in 1 Toddler Tricycle with Push Han/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b09b9lrbm5-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b09b9lrbm5/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B09B9LRBM5",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B09B9LRBM5:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/newyoo/Rank_5_ASIN_B09B9LRBM5_newyoo TR008 5 in 1 Toddler Tricycle with Push Han/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "targetPathKeep": "resources/b09b9lrbm5-overview/aplus_01.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b09b9lrbm5/gallery/aplus_01.jpg"
+    },
+    {
+      "productId": "B09B9LRBM5",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B09B9LRBM5:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/newyoo/Rank_5_ASIN_B09B9LRBM5_newyoo TR008 5 in 1 Toddler Tricycle with Push Han/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "targetPathKeep": "resources/b09b9lrbm5-overview/aplus_02.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b09b9lrbm5/gallery/aplus_02.jpg"
+    },
+    {
+      "productId": "B09B9LRBM5",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B09B9LRBM5:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/newyoo/Rank_5_ASIN_B09B9LRBM5_newyoo TR008 5 in 1 Toddler Tricycle with Push Han/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+      "targetPathKeep": "resources/b09b9lrbm5-overview/aplus_03.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b09b9lrbm5/gallery/aplus_03.jpg"
+    },
+    {
+      "productId": "B09B9LRBM5",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B09B9LRBM5:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/newyoo/Rank_5_ASIN_B09B9LRBM5_newyoo TR008 5 in 1 Toddler Tricycle with Push Han/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg",
+      "targetPathKeep": "resources/b09b9lrbm5-overview/aplus_04.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b09b9lrbm5/gallery/aplus_04.jpg"
+    },
+    {
+      "productId": "B09B9LRBM5",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B09B9LRBM5:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/newyoo/Rank_5_ASIN_B09B9LRBM5_newyoo TR008 5 in 1 Toddler Tricycle with Push Han/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_05.jpg",
+      "targetPathKeep": "resources/b09b9lrbm5-overview/aplus_05.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b09b9lrbm5/gallery/aplus_05.jpg"
+    },
+    {
+      "productId": "B09B9LRBM5",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B09B9LRBM5:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/newyoo/Rank_5_ASIN_B09B9LRBM5_newyoo TR008 5 in 1 Toddler Tricycle with Push Han/images/primary.jpg",
+      "targetPathKeep": "resources/b09b9lrbm5-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b09b9lrbm5/gallery/primary.jpg"
+    },
+    {
+      "productId": "B09B9LRBM5",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B09B9LRBM5:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/61X45LXJn5L._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b09b9lrbm5-overview/61x45lxjn5l._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b09b9lrbm5/gallery/61x45lxjn5l._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3d3136e2-3eeb-4143-9b5d-0982659bc09c/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/12b3baaa-4800-4514-a488-81c30082f15d/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/aed507b0-b614-4a86-8bee-632b5d5b0217/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/609e829d-5019-4f82-951f-fd1fd66832e7/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6d22f786-af75-404d-be6f-1f5442b7ca7e/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5e7b6e05-fb74-418b-b1fb-919d9172db55/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/46c528cb-a6a7-4d11-a681-421b8e56d891/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e916f395-92ae-4b50-a3ad-dc6821417480/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a38e7bcd-af64-4839-b312-afb511970b01/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b1bfc24b-e862-40ea-a4d5-30032f7bce65/default.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/kids_tricycles/newyoo/Rank_5_ASIN_B09B9LRBM5_newyoo TR008 5 in 1 Toddler Tricycle with Push Han/index.html"
+  ]
+}

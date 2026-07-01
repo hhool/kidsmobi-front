@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "fetchedAt": "2026-07-01T21:39:03.249Z",
+  "data": {
+    "resourceId": "B004Y8TF96:video",
+    "categoryId": "kids_push_ride_ons",
+    "productId": "B004Y8TF96",
+    "resourceType": "product_video",
+    "title": "Step2 Push Around Buggy Kids Push Car, Ride On Toy, Stroller Substitute, Includes Seat Belt & Horn, Made of Durable Plastic, • Video preview",
+    "summary": "Video preview asset set for Step2 in kids_push_ride_ons.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/73aa8ad4-3d20-519a-b5e2-9b53edce9abe/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/73aa8ad4-3d20-519a-b5e2-9b53edce9abe/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a8053f4a-4882-461d-84e1-1d89518743a5/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d34b1414-4b4f-4fdd-9e13-ce08d3b671a4/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ca6afbc8-8426-477d-8ffe-3700ad5bcfca/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/59e43db7-6c20-4cdc-9d9b-e1855e4d77ec/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2ee36fec-dc3e-4658-89bf-846ddd6941cb/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.94,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

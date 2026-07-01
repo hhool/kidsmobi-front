@@ -1,0 +1,156 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0DKHCWJ5G",
+  "sourceCategoryId": "baby_carrier",
+  "images": [
+    {
+      "productId": "B0DKHCWJ5G",
+      "categoryId": "baby_carrier",
+      "resourceId": "B0DKHCWJ5G:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/primary.jpg",
+      "targetPathKeep": "resources/b0dkhcwj5g-overview/primary.jpg",
+      "targetPathCpk": "categories/baby_carrier/products/b0dkhcwj5g/cover/primary.jpg"
+    },
+    {
+      "productId": "B0DKHCWJ5G",
+      "categoryId": "baby_carrier",
+      "resourceId": "B0DKHCWJ5G:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0dkhcwj5g-overview/alt_1.jpg",
+      "targetPathCpk": "categories/baby_carrier/products/b0dkhcwj5g/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0DKHCWJ5G",
+      "categoryId": "baby_carrier",
+      "resourceId": "B0DKHCWJ5G:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0dkhcwj5g-overview/alt_2.jpg",
+      "targetPathCpk": "categories/baby_carrier/products/b0dkhcwj5g/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0DKHCWJ5G",
+      "categoryId": "baby_carrier",
+      "resourceId": "B0DKHCWJ5G:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0dkhcwj5g-overview/alt_3.jpg",
+      "targetPathCpk": "categories/baby_carrier/products/b0dkhcwj5g/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0DKHCWJ5G",
+      "categoryId": "baby_carrier",
+      "resourceId": "B0DKHCWJ5G:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0dkhcwj5g-overview/alt_4.jpg",
+      "targetPathCpk": "categories/baby_carrier/products/b0dkhcwj5g/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0DKHCWJ5G",
+      "categoryId": "baby_carrier",
+      "resourceId": "B0DKHCWJ5G:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0dkhcwj5g-overview/alt_5.jpg",
+      "targetPathCpk": "categories/baby_carrier/products/b0dkhcwj5g/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0DKHCWJ5G",
+      "categoryId": "baby_carrier",
+      "resourceId": "B0DKHCWJ5G:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0dkhcwj5g-overview/alt_6.jpg",
+      "targetPathCpk": "categories/baby_carrier/products/b0dkhcwj5g/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0DKHCWJ5G",
+      "categoryId": "baby_carrier",
+      "resourceId": "B0DKHCWJ5G:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0dkhcwj5g-overview/alt_7.jpg",
+      "targetPathCpk": "categories/baby_carrier/products/b0dkhcwj5g/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0DKHCWJ5G",
+      "categoryId": "baby_carrier",
+      "resourceId": "B0DKHCWJ5G:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0dkhcwj5g-overview/alt_8.jpg",
+      "targetPathCpk": "categories/baby_carrier/products/b0dkhcwj5g/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0DKHCWJ5G",
+      "categoryId": "baby_carrier",
+      "resourceId": "B0DKHCWJ5G:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0dkhcwj5g-overview/alt_9.jpg",
+      "targetPathCpk": "categories/baby_carrier/products/b0dkhcwj5g/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0DKHCWJ5G",
+      "categoryId": "baby_carrier",
+      "resourceId": "B0DKHCWJ5G:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0dkhcwj5g-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/baby_carrier/products/b0dkhcwj5g/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0DKHCWJ5G",
+      "categoryId": "baby_carrier",
+      "resourceId": "B0DKHCWJ5G:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/primary.jpg",
+      "targetPathKeep": "resources/b0dkhcwj5g-overview/primary.jpg",
+      "targetPathCpk": "categories/baby_carrier/products/b0dkhcwj5g/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0DKHCWJ5G",
+      "categoryId": "baby_carrier",
+      "resourceId": "B0DKHCWJ5G:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/61fpvuwaeRL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0dkhcwj5g-overview/61fpvuwaerl._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/baby_carrier/products/b0dkhcwj5g/gallery/61fpvuwaerl._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "http://127.0.0.1:8010/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_0.mp4",
+    "http://127.0.0.1:8010/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_1.mp4",
+    "http://127.0.0.1:8010/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_2.mp4",
+    "http://127.0.0.1:8010/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_3.mp4",
+    "http://127.0.0.1:8010/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_4.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ac64566e-76e9-45fa-bbbd-9ca05a3d3f32.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8b4fc472-8dc2-471f-a166-5cdcec975b31.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5b083537-a72c-4e60-90e0-5a8d09a63954.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/6570c47f-d9c8-4429-9b20-71c1fd186e2c.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/9090e70d-6a85-4c6c-abb9-9b8f7c05b6fe.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/17acd383-068b-47c5-b925-660a3fae6ba8/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5282cd4d-a3df-4f45-8631-531b90bae310/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ad27e3c4-5494-4529-81fc-705ac8ac0d00/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/67a21c55-0dd2-47eb-8987-7cb7b4820908/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/364e8870-4629-4b58-85a0-f695dedc3970/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3f0e89f7-0c60-46bb-b919-cf12989f02a0/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/040b9a1c-a892-4b39-97ae-1be29942a4e2/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/41f88636-0e1f-4ead-addf-14599015cd63/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e76f1da2-6762-4fe2-b8a4-d70ec5bf4861/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/488537f2-7d8d-4dcb-b1f5-fc18274a468c/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cfbd0937-d56b-41ed-971e-75b06a93abfe/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9809146a-ff9a-4f72-8bd1-f48c5a057116/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1b55bae0-a118-4729-aaad-37b169402cfb/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f1262c1f-7d85-4d8e-b802-f4d24d4a0824/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/99b59bf5-7221-4e35-a3ff-e763c0634331/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8613524a-0d8a-4b32-8afa-daa8d66dbf25/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/346a3835-139e-43ed-a05a-d745c9a24e91/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c0e15014-187c-4ea1-bcc8-fa17ecb89c69/default.vertical.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/index.html"
+  ]
+}

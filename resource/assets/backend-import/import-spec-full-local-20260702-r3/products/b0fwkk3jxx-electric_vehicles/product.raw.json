@@ -1,0 +1,218 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "electric_vehicles",
+  "categoryCode": "electric_car",
+  "fetchedAt": "2026-07-01T21:38:44.598Z",
+  "data": {
+    "productId": "B0FWKK3JXX",
+    "categoryId": "electric_vehicles",
+    "rank": 5,
+    "title": "First Ride On 36V Kids Ride On UTV, 2-Seater 400W Electric Car for Kids 6+, 5-8 MPH Speed, 14\" EVA Wheels, Metal Frame, Bluet",
+    "brand": "First",
+    "price": {
+      "display": "$379.52",
+      "value": 379.52,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.3  135",
+      "value": 4.3
+    },
+    "weight": {
+      "display": "N/A",
+      "lbs": 0
+    },
+    "classification": {
+      "Brand": "First",
+      "Vehicle_Type": "Driving, Music",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Unknown",
+      "Price_Tier": ">200"
+    },
+    "categoryAttributes": {
+      "categoryId": "electric_vehicles",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "Realistic Driving Experience: This is a true driving UTV - no remote control",
+        "no artificial limits. Kids can control speed with the variable throttle pedal",
+        "shift between forward and reverse",
+        "and experience gradual start and electronic brake for real vehicle control. With Bluetooth music",
+        "FM radio",
+        "and LED lights",
+        "it turns every outdoor ride into a thrilling off-road adventure.",
+        "Built for Outdoor Fun & Lasting Play: Designed for extended outdoor play",
+        "this 36V ride-on UTV offers 40–60 minutes of runtime per charge depending on terrain. A spacious rear storage box holds toys and snacks",
+        "while the durable structure ensures years of reliable performance. The perfect gift to inspire independence",
+        "adventure",
+        "and real driving excitement in your child.",
+        "High-Performance Power System: Equipped with a 36V 9Ah battery and dual 200W high-torque motors",
+        "this UTV delivers powerful acceleration and strong climbing ability with a top speed of 5–8 mph. Designed for bigger kids ages 6+",
+        "it offers responsive performance",
+        "smooth control",
+        "and reliable power on grass",
+        "dirt",
+        "and gravel for true off-road excitement.",
+        "Large 14\" EVA Tires & Metal Frame: Compared with ordinary plastic tires",
+        "EVA tires offer stronger grip and shock absorption. Built for durability and adventure",
+        "this electric ride-on car features 14-inch wear-resistant EVA tires and a reinforced metal chassis that provide excellent traction and stability across multiple terrains. Rear metal spring suspension absorbs shocks effectively",
+        "ensuring a smoother",
+        "more comfortable ride even on rough ground.",
+        "Spacious Two-Seater for Big Kids: With an overall size of 55\"L × 35\"W × 31\"H and a 20.5\" wide seat",
+        "this UTV easily fits two children or one older rider up to 130 lbs (60 kg). Each seat is equipped with a 3-point safety belt for added protection during bumpy rides",
+        "offering both safety and comfort for growing kids ages 6 and up."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "Realistic Driving Experience: This is a true driving UTV - no remote control",
+        "featureLabel": "Realistic Driving Experience: This Is A True Driving UTV   No Remote Control",
+        "featureValue": "Realistic Driving Experience: This is a true driving UTV - no remote control",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "no artificial limits. Kids can control speed with the variable throttle pedal",
+        "featureLabel": "No Artificial Limits. Kids Can Control Speed With The Variable Throttle Pedal",
+        "featureValue": "no artificial limits. Kids can control speed with the variable throttle pedal",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "shift between forward and reverse",
+        "featureLabel": "Shift Between Forward And Reverse",
+        "featureValue": "shift between forward and reverse",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "and experience gradual start and electronic brake for real vehicle control. With Bluetooth music",
+        "featureLabel": "And Experience Gradual Start And Electronic Brake For Real Vehicle Control. With Bluetooth Music",
+        "featureValue": "and experience gradual start and electronic brake for real vehicle control. With Bluetooth music",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "FM radio",
+        "featureLabel": "FM Radio",
+        "featureValue": "FM radio",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "and LED lights",
+        "featureLabel": "And LED Lights",
+        "featureValue": "and LED lights",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "Realistic Driving Experience: This is a true driving UTV - no remote control",
+        "no artificial limits. Kids can control speed with the variable throttle pedal",
+        "shift between forward and reverse",
+        "and experience gradual start and electronic brake for real vehicle control. With Bluetooth music"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/71VBo4T-mEL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71VBo4T-mEL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/41e60033-6265-4183-84d2-187b7bd7af08/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/46b19189-b152-45f1-a5b9-b53a371b993b/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9b2b4754-9adb-4837-93ad-884d5dd2a557/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6be40573-bc6f-4623-b67f-32f19496edcb/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/def3cf96-20bb-4a09-8e40-9800cda3f127/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/310bf8ae-e29b-440f-b5d4-e4e08a7bdf3a/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7b05b01b-0ef7-4def-854c-57fa7c65b017/default.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 7,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/41e60033-6265-4183-84d2-187b7bd7af08/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1QOITZdLCL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "First Ride On 36V UTV, Your Kid\\u2019s Next-Level Ride.",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/46b19189-b152-45f1-a5b9-b53a371b993b/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71D4spDemrL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "How to install First Ride On 36V UTV",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9b2b4754-9adb-4837-93ad-884d5dd2a557/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1-kWLcWNIL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "First Ride On 36V Kids Ride On UTV 400W Electric Kids Car",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6be40573-bc6f-4623-b67f-32f19496edcb/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91fz6E2S+0L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Super Fast Ride On Car for Kids",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/def3cf96-20bb-4a09-8e40-9800cda3f127/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71VBuAK2YKL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Great Fun, but Assembly & Switch Placement Could Be Better",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/310bf8ae-e29b-440f-b5d4-e4e08a7bdf3a/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81Rlb5ej6NL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "This First Ride On UTV is Faster than I thought! See it Go!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7b05b01b-0ef7-4def-854c-57fa7c65b017/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/912uH-lgSvL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Drives so well on rough terrain!!",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

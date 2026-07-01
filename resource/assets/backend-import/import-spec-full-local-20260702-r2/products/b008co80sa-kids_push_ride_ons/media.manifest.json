@@ -1,0 +1,134 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B008CO80SA",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "images": [
+    {
+      "productId": "B008CO80SA",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B008CO80SA:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/primary.jpg",
+      "targetPathKeep": "resources/b008co80sa-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b008co80sa/cover/primary.jpg"
+    },
+    {
+      "productId": "B008CO80SA",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B008CO80SA:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_1.jpg",
+      "targetPathKeep": "resources/b008co80sa-overview/alt_1.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b008co80sa/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B008CO80SA",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B008CO80SA:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_2.jpg",
+      "targetPathKeep": "resources/b008co80sa-overview/alt_2.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b008co80sa/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B008CO80SA",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B008CO80SA:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_3.jpg",
+      "targetPathKeep": "resources/b008co80sa-overview/alt_3.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b008co80sa/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B008CO80SA",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B008CO80SA:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_4.jpg",
+      "targetPathKeep": "resources/b008co80sa-overview/alt_4.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b008co80sa/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B008CO80SA",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B008CO80SA:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_5.jpg",
+      "targetPathKeep": "resources/b008co80sa-overview/alt_5.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b008co80sa/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B008CO80SA",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B008CO80SA:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_6.jpg",
+      "targetPathKeep": "resources/b008co80sa-overview/alt_6.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b008co80sa/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B008CO80SA",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B008CO80SA:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_7.jpg",
+      "targetPathKeep": "resources/b008co80sa-overview/alt_7.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b008co80sa/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B008CO80SA",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B008CO80SA:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_8.jpg",
+      "targetPathKeep": "resources/b008co80sa-overview/alt_8.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b008co80sa/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B008CO80SA",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B008CO80SA:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/alt_9.jpg",
+      "targetPathKeep": "resources/b008co80sa-overview/alt_9.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b008co80sa/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B008CO80SA",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B008CO80SA:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b008co80sa-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b008co80sa/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B008CO80SA",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B008CO80SA:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/images/primary.jpg",
+      "targetPathKeep": "resources/b008co80sa-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b008co80sa/gallery/primary.jpg"
+    },
+    {
+      "productId": "B008CO80SA",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B008CO80SA:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/61pwr1SZzEL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b008co80sa-overview/61pwr1szzel._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b008co80sa/gallery/61pwr1szzel._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/56e21d08-9bfc-4d3e-819e-7d6f098537a8/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d1de77d5-37cd-475f-9a00-4974cb8db27f/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/75381bbe-8e16-4a54-adef-fc3c575bef9c/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7637adf5-7c62-48ef-a619-46672648f7cf/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ca6afbc8-8426-477d-8ffe-3700ad5bcfca/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8ca0164b-fc27-4a2d-a8de-9d98b06447b3/default.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/index.html"
+  ]
+}

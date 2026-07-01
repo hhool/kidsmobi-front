@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "stroller",
+  "fetchedAt": "2026-07-01T21:38:27.427Z",
+  "data": {
+    "resourceId": "B0DC5GGJRP:video",
+    "categoryId": "stroller",
+    "productId": "B0DC5GGJRP",
+    "resourceType": "product_video",
+    "title": "Dream On Me Aero Travel Umbrella Stroller, One-Hand Quick Fold, 3-Point Safety Harness, Dual Brakes, Adjustable Removable Can • Video preview",
+    "summary": "Video preview asset set for Dream in stroller.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/87de57a0-2529-4268-86c3-a6277181db46/default.vertical.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/87de57a0-2529-4268-86c3-a6277181db46/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0bd18be6-b6ce-41c7-8a4e-fb76a7a48d4a/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/de4eb06f-eb3f-4ab2-8291-5d1490b3ca7b/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64ad2298-c4fa-43c9-869f-cd6df6afe722/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/efc3cb6d-9132-42b7-a758-6150f577df52/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d1fc04be-b3d3-412f-93a4-f1307d13862d/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.94,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

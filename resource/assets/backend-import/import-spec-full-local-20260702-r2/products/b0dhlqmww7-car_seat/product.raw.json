@@ -1,0 +1,421 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "car_seat",
+  "categoryCode": "safety_seat",
+  "fetchedAt": "2026-07-01T20:06:11.154Z",
+  "data": {
+    "productId": "B0DHLQMWW7",
+    "categoryId": "car_seat",
+    "rank": 1,
+    "title": "Graco Extend2Fit Convertible Car Seat, Rear and Forward Facing Car Seat with Adjustable Extension Panel for Extra Legroom, Gr",
+    "brand": "Graco",
+    "price": {
+      "display": "$167.99",
+      "value": 167.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.8  59,105",
+      "value": 4.8
+    },
+    "weight": {
+      "display": "N/A",
+      "lbs": null
+    },
+    "classification": {
+      "Brand": "Graco",
+      "Car_Seat_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "5-Point",
+      "Weight_Class": "Unknown",
+      "Price_Tier": "100-200"
+    },
+    "categoryAttributes": {
+      "categoryId": "car_seat",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "Convertible car seat grows with your child from rear-facing harness (4-50 lb) to forward-facing harness (26.5-65 lb)",
+        "Extend2Fit 4-position adjustable extension panel provides up to 5\" additional legroom",
+        "allowing your child to safely ride rear-facing longer",
+        "Up to 50 lb rear-facing",
+        "Graco ProtectPlus Engineered to the newest testing standards for side and frontal impact",
+        "and beyond—because the safety of your child shouldn’t stop at the standard",
+        "No-Rethread Simply Safe Adjust Harness System allows the headrest and harness to adjust together in one motion"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "Convertible car seat grows with your child from rear-facing harness (4-50 lb) to forward-facing harness (26.5-65 lb)",
+        "featureLabel": "Convertible Car Seat Grows With Your Child From Rear Facing Harness (4 50 Lb) To Forward Facing Harness (26.5 65 Lb)",
+        "featureValue": "Convertible car seat grows with your child from rear-facing harness (4-50 lb) to forward-facing harness (26.5-65 lb)",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from car_seat classification data"
+      },
+      {
+        "featureKey": "Extend2Fit 4-position adjustable extension panel provides up to 5\" additional legroom",
+        "featureLabel": "Extend2fit 4 Position Adjustable Extension Panel Provides Up To 5\" Additional Legroom",
+        "featureValue": "Extend2Fit 4-position adjustable extension panel provides up to 5\" additional legroom",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from car_seat classification data"
+      },
+      {
+        "featureKey": "allowing your child to safely ride rear-facing longer",
+        "featureLabel": "Allowing Your Child To Safely Ride Rear Facing Longer",
+        "featureValue": "allowing your child to safely ride rear-facing longer",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from car_seat classification data"
+      },
+      {
+        "featureKey": "Up to 50 lb rear-facing",
+        "featureLabel": "Up To 50 Lb Rear Facing",
+        "featureValue": "Up to 50 lb rear-facing",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from car_seat classification data"
+      },
+      {
+        "featureKey": "Graco ProtectPlus Engineered to the newest testing standards for side and frontal impact",
+        "featureLabel": "Graco Protectplus Engineered To The Newest Testing Standards For Side And Frontal Impact",
+        "featureValue": "Graco ProtectPlus Engineered to the newest testing standards for side and frontal impact",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from car_seat classification data"
+      },
+      {
+        "featureKey": "and beyond—because the safety of your child shouldn’t stop at the standard",
+        "featureLabel": "And Beyond—because The Safety Of Your Child Shouldn’t Stop At The Standard",
+        "featureValue": "and beyond—because the safety of your child shouldn’t stop at the standard",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from car_seat classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "Convertible car seat grows with your child from rear-facing harness (4-50 lb) to forward-facing harness (26.5-65 lb)",
+        "Extend2Fit 4-position adjustable extension panel provides up to 5\" additional legroom",
+        "allowing your child to safely ride rear-facing longer",
+        "Up to 50 lb rear-facing"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+          "source": "local",
+          "order": 10
+        },
+        {
+          "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.png",
+          "source": "local",
+          "order": 11
+        },
+        {
+          "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.png",
+          "source": "local",
+          "order": 12
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_1.jpg",
+      "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_2.jpg",
+      "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_3.jpg",
+      "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_4.jpg",
+      "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_5.jpg",
+      "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_6.jpg",
+      "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_7.jpg",
+      "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_8.jpg",
+      "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_9.jpg",
+      "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+      "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.png",
+      "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.png"
+    ],
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3caaaf83-9bc7-494f-a63a-d9d2b4fa696f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/705cb4a5-eb92-401d-90b2-6ecd7cf3e9f0/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0b18ae2f-92da-44c1-8751-44e0eb03f114/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9abbce32-d807-4be9-9ed7-fee44b9dc67c/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e48e25f4-f2ec-48ba-bb9b-7a9ab4c01a4b/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3a50c2b3-ccf5-44f4-b803-8bde3560595e/default.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3caaaf83-9bc7-494f-a63a-d9d2b4fa696f/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Graco Extend2Fit Convertible Car Seat",
+        "thumbnail": "https://m.media-amazon.com/images/I/71jxQKfRkhL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/705cb4a5-eb92-401d-90b2-6ecd7cf3e9f0/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "The car seat that grows with your child ",
+        "thumbnail": "https://m.media-amazon.com/images/I/51O8dRDJh1L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0b18ae2f-92da-44c1-8751-44e0eb03f114/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Check Out All of the High End Features on this Car Seat",
+        "thumbnail": "https://m.media-amazon.com/images/I/91UiY-k7yYL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9abbce32-d807-4be9-9ed7-fee44b9dc67c/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Why I love this carseat and now own two of them",
+        "thumbnail": "https://m.media-amazon.com/images/I/71VLk9Wes9L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e48e25f4-f2ec-48ba-bb9b-7a9ab4c01a4b/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Honest review of Graco Extend2Fit Baby Car seat",
+        "thumbnail": "https://m.media-amazon.com/images/I/91xeFR1diiL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3a50c2b3-ccf5-44f4-b803-8bde3560595e/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Graco Extend2Fit Car Seat Review - Real Mom Tested",
+        "thumbnail": "https://m.media-amazon.com/images/I/91QIb4agwGL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 6
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/car_seat/index.html",
+      "categoryPages": "/scrape_store/car_seat/pages/index.html",
+      "detailPage": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/index.html"
+    },
+    "resourceStats": {
+      "videos": 6,
+      "similarItems": 0
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71t-4GHbwAL._AC_UL300_SR300,200_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 14
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      },
+      {
+        "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.png",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 12
+      },
+      {
+        "url": "/scrape_store/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco Extend2Fit Convertible Car Seat Rear and For/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.png",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 13
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3caaaf83-9bc7-494f-a63a-d9d2b4fa696f/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71jxQKfRkhL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Graco Extend2Fit Convertible Car Seat",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/705cb4a5-eb92-401d-90b2-6ecd7cf3e9f0/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51O8dRDJh1L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "The car seat that grows with your child ",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0b18ae2f-92da-44c1-8751-44e0eb03f114/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91UiY-k7yYL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Check Out All of the High End Features on this Car Seat",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9abbce32-d807-4be9-9ed7-fee44b9dc67c/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71VLk9Wes9L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Why I love this carseat and now own two of them",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e48e25f4-f2ec-48ba-bb9b-7a9ab4c01a4b/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91xeFR1diiL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Honest review of Graco Extend2Fit Baby Car seat",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3a50c2b3-ccf5-44f4-b803-8bde3560595e/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91QIb4agwGL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Graco Extend2Fit Car Seat Review - Real Mom Tested",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

@@ -20,8 +20,6 @@ import {
 import { Product, CurrencyData } from "../types";
 import { 
   signInWithPopup, 
-  signInWithRedirect,
-  getRedirectResult,
   GoogleAuthProvider, 
   signOut,
   createUserWithEmailAndPassword,
@@ -98,40 +96,6 @@ export default function AuthSection({
     return () => clearTimeout(timer);
   }, [counter]);
 
-  // Handle Google redirect callback in environments where popup login is blocked.
-  useEffect(() => {
-    const syncRedirectResult = async () => {
-      try {
-        const redirectResult = await getRedirectResult(auth);
-        if (redirectResult?.user) {
-          await ensureUserProfileInFirestore(redirectResult.user.uid, redirectResult.user.email || "");
-          setUserEmail(redirectResult.user.email || "");
-          setIsRegistered(true);
-          setSuccessMessage(
-            isEn
-              ? "🎉 Google sign-in completed via redirect." 
-              : "🎉 已通过页面跳转完成 Google 登录。"
-          );
-        }
-      } catch (redirectError: any) {
-        console.error(redirectError);
-        let msg = redirectError.message || String(redirectError);
-        if (redirectError.code === "auth/unauthorized-domain") {
-          msg = isEn
-            ? "Unauthorized Domain: Please add this URL to your Firebase Console > Authentication > Settings > Authorized domains list."
-            : "域名未授权：请将当前网址添加到 Firebase 控制台的“Authentication (身份验证) > Settings (设置) > 已授权域名”列表中。";
-        }
-        setErrorMessage(
-          isEn
-            ? "Google redirect sign-in failed: " + msg
-            : "Google 跳转登录失败: " + msg
-        );
-      }
-    };
-
-    syncRedirectResult();
-  }, [isEn, setUserEmail]);
-
   const handleSendCode = () => {
     if (!emailInput.trim() || !emailInput.includes("@")) {
       setErrorMessage(
@@ -187,24 +151,12 @@ export default function AuthSection({
         lowerMsg.includes("cross-origin") ||
         lowerMsg.includes("popup")
       ) {
-        try {
-          await signInWithRedirect(auth, provider);
-          setSuccessMessage(
-            isEn
-              ? "Redirecting to Google sign-in (popup blocked)."
-              : "弹窗受限，正在切换为 Google 跳转登录。"
-          );
-          return;
-        } catch (redirectStartError: any) {
-          console.error(redirectStartError);
-          const redirectMsg = redirectStartError.message || String(redirectStartError);
-          setErrorMessage(
-            isEn
-              ? "Google sign-in failed to start redirect: " + redirectMsg
-              : "Google 登录无法启动跳转流程: " + redirectMsg
-          );
-          return;
-        }
+        setErrorMessage(
+          isEn
+            ? "Google sign-in requires a normal browser tab because this environment blocks popup auth and Firebase redirect recovery is unreliable here. Open the site directly and retry."
+            : "当前环境拦截了 Google 弹窗登录，且 Firebase 跳转恢复在这里不稳定。请在普通浏览器标签页直接打开站点后重试。"
+        );
+        return;
       }
 
       let msg = rawMsg;
@@ -214,8 +166,8 @@ export default function AuthSection({
           : "域名未授权：请将当前网址添加到 Firebase 控制台的“Authentication (身份验证) > Settings (设置) > 已授权域名”列表中。";
       } else if (lowerMsg.includes("cross-origin") || lowerMsg.includes("popup") || error.code === "auth/popup-closed-by-user") {
         msg = isEn 
-          ? "Popup blocked by iframe/security policy. Redirect fallback is unavailable; please open in a normal browser tab and retry."
-          : "嵌入安全策略拦截了弹窗，且无法切换跳转登录；请在普通浏览器标签页重试。";
+          ? "Popup blocked by iframe/security policy. Please open the site in a normal browser tab and retry Google sign-in."
+          : "嵌入安全策略拦截了弹窗；请在普通浏览器标签页中重新执行 Google 登录。";
       }
       setErrorMessage(
         isEn 
@@ -875,6 +827,8 @@ export default function AuthSection({
                            <button
                              type="button"
                              onClick={() => setCompareList && setCompareList(compareList.filter(item => item.id !== p.id))}
+                             aria-label={isEn ? "Remove from compare list" : "从对比列表移除"}
+                             title={isEn ? "Remove from compare list" : "从对比列表移除"}
                              className="text-xs text-slate-500 hover:text-red-400 p-1 rounded hover:bg-slate-900 cursor-pointer transition-colors"
                            >
                              <X className="w-4 h-4" />

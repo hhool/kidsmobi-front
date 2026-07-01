@@ -1,0 +1,128 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B07Y5VQYFW",
+  "sourceCategoryId": "stroller",
+  "images": [
+    {
+      "productId": "B07Y5VQYFW",
+      "categoryId": "stroller",
+      "resourceId": "B07Y5VQYFW:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Graco/Rank_1_ASIN_B07Y5VQYFW_Graco Modes Pramette Travel System Car Seat and St/images/primary.jpg",
+      "targetPathKeep": "resources/b07y5vqyfw-overview/primary.jpg",
+      "targetPathCpk": "categories/stroller/products/b07y5vqyfw/cover/primary.jpg"
+    },
+    {
+      "productId": "B07Y5VQYFW",
+      "categoryId": "stroller",
+      "resourceId": "B07Y5VQYFW:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Graco/Rank_1_ASIN_B07Y5VQYFW_Graco Modes Pramette Travel System Car Seat and St/images/alt_1.jpg",
+      "targetPathKeep": "resources/b07y5vqyfw-overview/alt_1.jpg",
+      "targetPathCpk": "categories/stroller/products/b07y5vqyfw/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B07Y5VQYFW",
+      "categoryId": "stroller",
+      "resourceId": "B07Y5VQYFW:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Graco/Rank_1_ASIN_B07Y5VQYFW_Graco Modes Pramette Travel System Car Seat and St/images/alt_2.jpg",
+      "targetPathKeep": "resources/b07y5vqyfw-overview/alt_2.jpg",
+      "targetPathCpk": "categories/stroller/products/b07y5vqyfw/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B07Y5VQYFW",
+      "categoryId": "stroller",
+      "resourceId": "B07Y5VQYFW:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Graco/Rank_1_ASIN_B07Y5VQYFW_Graco Modes Pramette Travel System Car Seat and St/images/alt_3.jpg",
+      "targetPathKeep": "resources/b07y5vqyfw-overview/alt_3.jpg",
+      "targetPathCpk": "categories/stroller/products/b07y5vqyfw/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B07Y5VQYFW",
+      "categoryId": "stroller",
+      "resourceId": "B07Y5VQYFW:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Graco/Rank_1_ASIN_B07Y5VQYFW_Graco Modes Pramette Travel System Car Seat and St/images/alt_4.jpg",
+      "targetPathKeep": "resources/b07y5vqyfw-overview/alt_4.jpg",
+      "targetPathCpk": "categories/stroller/products/b07y5vqyfw/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B07Y5VQYFW",
+      "categoryId": "stroller",
+      "resourceId": "B07Y5VQYFW:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Graco/Rank_1_ASIN_B07Y5VQYFW_Graco Modes Pramette Travel System Car Seat and St/images/alt_5.jpg",
+      "targetPathKeep": "resources/b07y5vqyfw-overview/alt_5.jpg",
+      "targetPathCpk": "categories/stroller/products/b07y5vqyfw/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B07Y5VQYFW",
+      "categoryId": "stroller",
+      "resourceId": "B07Y5VQYFW:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Graco/Rank_1_ASIN_B07Y5VQYFW_Graco Modes Pramette Travel System Car Seat and St/images/alt_6.jpg",
+      "targetPathKeep": "resources/b07y5vqyfw-overview/alt_6.jpg",
+      "targetPathCpk": "categories/stroller/products/b07y5vqyfw/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B07Y5VQYFW",
+      "categoryId": "stroller",
+      "resourceId": "B07Y5VQYFW:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Graco/Rank_1_ASIN_B07Y5VQYFW_Graco Modes Pramette Travel System Car Seat and St/images/alt_7.jpg",
+      "targetPathKeep": "resources/b07y5vqyfw-overview/alt_7.jpg",
+      "targetPathCpk": "categories/stroller/products/b07y5vqyfw/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B07Y5VQYFW",
+      "categoryId": "stroller",
+      "resourceId": "B07Y5VQYFW:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Graco/Rank_1_ASIN_B07Y5VQYFW_Graco Modes Pramette Travel System Car Seat and St/images/alt_8.jpg",
+      "targetPathKeep": "resources/b07y5vqyfw-overview/alt_8.jpg",
+      "targetPathCpk": "categories/stroller/products/b07y5vqyfw/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B07Y5VQYFW",
+      "categoryId": "stroller",
+      "resourceId": "B07Y5VQYFW:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Graco/Rank_1_ASIN_B07Y5VQYFW_Graco Modes Pramette Travel System Car Seat and St/images/alt_9.jpg",
+      "targetPathKeep": "resources/b07y5vqyfw-overview/alt_9.jpg",
+      "targetPathCpk": "categories/stroller/products/b07y5vqyfw/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B07Y5VQYFW",
+      "categoryId": "stroller",
+      "resourceId": "B07Y5VQYFW:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Graco/Rank_1_ASIN_B07Y5VQYFW_Graco Modes Pramette Travel System Car Seat and St/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+      "targetPathKeep": "resources/b07y5vqyfw-overview/aplus_00.png",
+      "targetPathCpk": "categories/stroller/products/b07y5vqyfw/gallery/aplus_00.png"
+    },
+    {
+      "productId": "B07Y5VQYFW",
+      "categoryId": "stroller",
+      "resourceId": "B07Y5VQYFW:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Graco/Rank_1_ASIN_B07Y5VQYFW_Graco Modes Pramette Travel System Car Seat and St/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.png",
+      "targetPathKeep": "resources/b07y5vqyfw-overview/aplus_01.png",
+      "targetPathCpk": "categories/stroller/products/b07y5vqyfw/gallery/aplus_01.png"
+    },
+    {
+      "productId": "B07Y5VQYFW",
+      "categoryId": "stroller",
+      "resourceId": "B07Y5VQYFW:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/stroller/Graco/Rank_1_ASIN_B07Y5VQYFW_Graco Modes Pramette Travel System Car Seat and St/images/primary.jpg",
+      "targetPathKeep": "resources/b07y5vqyfw-overview/primary.jpg",
+      "targetPathCpk": "categories/stroller/products/b07y5vqyfw/gallery/primary.jpg"
+    }
+  ],
+  "videos": [
+    "http://127.0.0.1:8010/scrape_store/stroller/Graco/Rank_1_ASIN_B07Y5VQYFW_Graco Modes Pramette Travel System Car Seat and St/index.html"
+  ]
+}

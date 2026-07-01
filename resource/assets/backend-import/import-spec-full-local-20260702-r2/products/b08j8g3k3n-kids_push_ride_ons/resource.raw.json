@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "fetchedAt": "2026-07-01T20:06:15.341Z",
+  "data": {
+    "resourceId": "B08J8G3K3N:overview",
+    "categoryId": "kids_push_ride_ons",
+    "productId": "B08J8G3K3N",
+    "resourceType": "product_overview",
+    "title": "Step2 Up and Down Roller Coaster Toy for Kids, Ride On Push Car, Indoor, Outdoor Playset, Toddlers Ages 2, 5 Years Old, Compa",
+    "summary": "KIDS ROLLER COASTER: An amusement park right in your home, long 9-foot roller coaster track, ATV-inspired ride-on car, encourages your child to play actively and independently | ACTIVE PLAY: Great outdoor toddler toys for backyard or indoor playrooms, ensuring kids to stay active",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_push_ride_ons/Step2/Rank_9_ASIN_B08J8G3K3N_Step2 Up and Down Roller Coaster Toy for Kids Ride/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/48448cf7-9ecb-4935-97d1-ad5e36e8c52b/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6233b7a8-cb75-44f0-b165-92d58a26edd2/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0640ebdc-fb5a-469c-b2ab-fdacbc62aff3/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/987387ba-3710-4757-ba61-ed75dca943dc/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f7eb8756-f17c-4b03-930e-db57eda57ab7/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c9ee7fb1-5617-4f09-a254-3629eb90a102/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.79,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

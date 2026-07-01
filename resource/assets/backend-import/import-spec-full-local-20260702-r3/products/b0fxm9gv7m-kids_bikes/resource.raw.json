@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_bikes",
+  "fetchedAt": "2026-07-01T21:38:54.330Z",
+  "data": {
+    "resourceId": "B0FXM9GV7M:video",
+    "categoryId": "kids_bikes",
+    "productId": "B0FXM9GV7M",
+    "resourceType": "product_video",
+    "title": "WEIZE 20 24 Inch Kids Mountain Bike,Kids Bike for Girls Age 6-14 Year Old,6 Speed Kid Bicycle with Front Suspension Fork,Adju • Video preview",
+    "summary": "Video preview asset set for WEIZE in kids_bikes.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fbd1ca75-69ca-4f00-b50c-6f064565247f/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fbd1ca75-69ca-4f00-b50c-6f064565247f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/30b90523-e87a-4bbb-b4ba-c3c3cae58883/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/61374ea8-ac20-4cf1-8045-d0f1168eb0b2/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.82,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 3,
+      "hasFeatures": true
+    }
+  }
+}

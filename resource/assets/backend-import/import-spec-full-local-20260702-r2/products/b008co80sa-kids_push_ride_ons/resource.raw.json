@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "fetchedAt": "2026-07-01T20:06:15.123Z",
+  "data": {
+    "resourceId": "B008CO80SA:overview",
+    "categoryId": "kids_push_ride_ons",
+    "productId": "B008CO80SA",
+    "resourceType": "product_overview",
+    "title": "Step2 Whisper Ride II Kids Push Car, Ride-On Car with Seat Belt and Horn, Quick Fold Handle, Stroller Alternative, Toddlers a",
+    "summary": "RIDE IN STYLE: Treat your toddler to a smooth and quiet \"whisper ride\" with our push toy car, enjoy added comfort with the extra-wide rear parent grip handle. | SAFE & FUN: Easy-latch adjustable seat belt for safety, real car horn and steering wheel, convenient cup holders, under",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_push_ride_ons/Step2/Rank_3_ASIN_B008CO80SA_Step2 Whisper Ride II Kids Push Car Ride-On Car wi/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/56e21d08-9bfc-4d3e-819e-7d6f098537a8/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d1de77d5-37cd-475f-9a00-4974cb8db27f/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/75381bbe-8e16-4a54-adef-fc3c575bef9c/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7637adf5-7c62-48ef-a619-46672648f7cf/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ca6afbc8-8426-477d-8ffe-3700ad5bcfca/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8ca0164b-fc27-4a2d-a8de-9d98b06447b3/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.79,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

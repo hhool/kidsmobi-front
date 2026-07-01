@@ -1,0 +1,226 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_tricycles",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T21:39:00.063Z",
+  "data": {
+    "productId": "B0CPSG9HX7",
+    "categoryId": "kids_tricycles",
+    "rank": 8,
+    "title": "besrey Toddler Tricycle with Bell, Kids Tricycle Age 18 Months to 5 Years, Kids Trike, Toddler Bike for 1.5-5 Year Olds, Baby",
+    "brand": "besrey",
+    "price": {
+      "display": "$45.59",
+      "value": 45.59,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.7  1,598",
+      "value": 4.7
+    },
+    "weight": {
+      "display": "10.2 Pounds",
+      "lbs": 10.2
+    },
+    "classification": {
+      "Brand": "besrey",
+      "Tricycle_Type": "Exploration",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_tricycles",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "First Toddler Tricycle: This tricycle for toddlers is great for beginner riders",
+        "designed for 18 months to 5 year old toddler girls & boys who are curious and excited to explore the world",
+        "to develop kids' steering skills and coordination at an early age",
+        "2-IN-1 Thoughtful Design: This toddler bike effortlessly transitions between riding and folding modes",
+        "offering endless adventures and ultimate convenience for storage and transport—a perfect companion for on-the-go families",
+        "Rollover-Free for Added Safety: A robust triangular structure frame with wider rear wheels minimizes the risk of tipping or overturning for safer and more enjoyable riding",
+        "Indoor & Outdoor Comfy Riding: Rugged EVA foam wheels with excellent shock absorption ensure your kids conquer various terrains with comfort and confidence",
+        "Adaptable to Growth: Designed with a spacious seat and comfy backrest",
+        "this bike for toddlers features an adjustable seat that moves forward and backward to accommodate a wider age range and ensures your child enjoys optimal riding position",
+        "Safety: The besrey tricycle for toddlers has passed rigorous safety tests",
+        "ensuring that all materials and designs are child-safe. We also provide a 24-month hassle-free return policy and a LIFETIME warranty for your satisfied shopping experience"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "First Toddler Tricycle: This tricycle for toddlers is great for beginner riders",
+        "featureLabel": "First Toddler Tricycle: This Tricycle For Toddlers Is Great For Beginner Riders",
+        "featureValue": "First Toddler Tricycle: This tricycle for toddlers is great for beginner riders",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "designed for 18 months to 5 year old toddler girls & boys who are curious and excited to explore the world",
+        "featureLabel": "Designed For 18 Months To 5 Year Old Toddler Girls & Boys Who Are Curious And Excited To Explore The World",
+        "featureValue": "designed for 18 months to 5 year old toddler girls & boys who are curious and excited to explore the world",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "to develop kids' steering skills and coordination at an early age",
+        "featureLabel": "To Develop Kids' Steering Skills And Coordination At An Early Age",
+        "featureValue": "to develop kids' steering skills and coordination at an early age",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "2-IN-1 Thoughtful Design: This toddler bike effortlessly transitions between riding and folding modes",
+        "featureLabel": "2 IN 1 Thoughtful Design: This Toddler Bike Effortlessly Transitions Between Riding And Folding Modes",
+        "featureValue": "2-IN-1 Thoughtful Design: This toddler bike effortlessly transitions between riding and folding modes",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "offering endless adventures and ultimate convenience for storage and transport—a perfect companion for on-the-go families",
+        "featureLabel": "Offering Endless Adventures And Ultimate Convenience For Storage And Transport—A Perfect Companion For On The Go Families",
+        "featureValue": "offering endless adventures and ultimate convenience for storage and transport—a perfect companion for on-the-go families",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "Rollover-Free for Added Safety: A robust triangular structure frame with wider rear wheels minimizes the risk of tipping or overturning for safer and more enjoyable riding",
+        "featureLabel": "Rollover Free For Added Safety: A Robust Triangular Structure Frame With Wider Rear Wheels Minimizes The Risk Of Tipping Or Overturning For Safer And More Enjoyable Riding",
+        "featureValue": "Rollover-Free for Added Safety: A robust triangular structure frame with wider rear wheels minimizes the risk of tipping or overturning for safer and more enjoyable riding",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "First Toddler Tricycle: This tricycle for toddlers is great for beginner riders",
+        "designed for 18 months to 5 year old toddler girls & boys who are curious and excited to explore the world",
+        "to develop kids' steering skills and coordination at an early age",
+        "2-IN-1 Thoughtful Design: This toddler bike effortlessly transitions between riding and folding modes"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/71ZsisQKJ1L._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71ZsisQKJ1L._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/851142d4-46a4-4a8a-a501-1f69cdf4b7cb/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7129aa54-461a-4ef3-87fd-e37433519561/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5d32e9ee-5e69-4fb3-a02f-833d2145633c/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f66f0b31-3f3b-4e81-ac51-d14c95a322f8/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/edefce21-0b5c-4ac9-aeb6-e2df72308f24/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0bf840ac-5c1d-4ce8-af11-b29f20445d66/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/345bd219-f53a-4829-b9fb-b88cbc952667/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/98f3da0d-bd23-4c40-9793-e20be07d0480/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d2d81896-f9c1-41d4-9c46-e39d4bfe6921/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0c60e003-1f7e-423f-b7fd-0e4b9f019ea6/default.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 10,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/851142d4-46a4-4a8a-a501-1f69cdf4b7cb/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/715ZM7i+1qL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "besrey toddler tricycle with bell",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7129aa54-461a-4ef3-87fd-e37433519561/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71amN2cMpML.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Babies First Tricycle",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5d32e9ee-5e69-4fb3-a02f-833d2145633c/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91ZEeWwIXzL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "besrey Toddler Tricycle with Bell",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f66f0b31-3f3b-4e81-ac51-d14c95a322f8/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/918+VVR4EiL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "besrey 2 in 1 Kids Tricycle for 2 to 5 Year Old",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/edefce21-0b5c-4ac9-aeb6-e2df72308f24/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/41l9qBLNs4L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "besrey toddler tricycle",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0bf840ac-5c1d-4ce8-af11-b29f20445d66/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61rXKNv1aCL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Cute pink tricycle, perfect for toddlers.",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/345bd219-f53a-4829-b9fb-b88cbc952667/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71JSGXUlJiL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Reviews Highlight Reel",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/98f3da0d-bd23-4c40-9793-e20be07d0480/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71CWxpeic-L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Trying out the toddler tricycle",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d2d81896-f9c1-41d4-9c46-e39d4bfe6921/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81+e7LXSvQL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Foldable Tricycle with Storage Basket!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0c60e003-1f7e-423f-b7fd-0e4b9f019ea6/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61dx5GRDsgL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Great Quality First Tricycle for Toddler",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

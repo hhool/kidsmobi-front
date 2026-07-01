@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "scooters",
+  "categoryCode": "scooter",
+  "fetchedAt": "2026-07-01T21:38:41.149Z",
+  "data": {
+    "productId": "B0DZG137KT",
+    "categoryId": "scooters",
+    "rank": 4,
+    "title": "Blue Mini 3 Wheel Scooter for Kids – Lean-to-Steer with LED Light-Up Wheels, Adjustable Handlebar, Wide Anti-Slip Deck, Smoot",
+    "brand": "Blue",
+    "price": {
+      "display": "$20.02",
+      "value": 20.02,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "N/A",
+      "value": 0
+    },
+    "weight": {
+      "display": "2.93 Kilograms",
+      "lbs": 2.93
+    },
+    "classification": {
+      "Brand": "Blue",
+      "Scooter_Type": "Kick Scooter",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "scooters",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [],
+    "decisionSignals": {
+      "ranking": [],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [],
+    "availability": "AVAILABLE",
+    "coverImage": null,
+    "galleryUrls": [],
+    "images": {
+      "cover": null,
+      "gallery": []
+    },
+    "videoUrls": [],
+    "resourceStats": {
+      "videos": 0,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

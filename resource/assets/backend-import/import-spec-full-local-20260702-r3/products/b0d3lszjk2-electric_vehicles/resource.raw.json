@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "electric_vehicles",
+  "fetchedAt": "2026-07-01T21:38:43.162Z",
+  "data": {
+    "resourceId": "B0D3LSZJK2:video",
+    "categoryId": "electric_vehicles",
+    "productId": "B0D3LSZJK2",
+    "resourceType": "product_video",
+    "title": "FanttikRide N7 Pro Electric Wiggle Car with Pedal, Rechargeable Battery, CyberWiggle, 2 in 1 Swing Car, 2 Speeds Max 4 Mph, A • Video preview",
+    "summary": "Video preview asset set for FanttikRide in electric_vehicles.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/88c0017c-fa7f-49a2-96e7-a3748990f879/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/88c0017c-fa7f-49a2-96e7-a3748990f879/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2494b64a-11d4-4a3b-be89-4c025d2e754f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dcae779b-c379-414d-b715-88fa32413e21/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/99269f1f-2074-4d42-98eb-ee5781ed5e3d/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/23ebb4fc-f339-4f55-89e7-6c2a49faec01/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e1b261a2-2056-4f7c-95f1-b68db0869226/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e647aa95-d4ca-4263-9fff-630aabfb14bf/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f7d4aa2c-962e-44cc-b09d-e27c786c6b71/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5e5a072e-8345-4ebe-b137-42cd4faa206f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fe4313ea-f786-448e-9961-36ae46478165/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 1,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 10,
+      "hasFeatures": true
+    }
+  }
+}

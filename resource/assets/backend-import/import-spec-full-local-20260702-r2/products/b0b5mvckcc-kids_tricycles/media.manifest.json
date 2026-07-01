@@ -1,0 +1,134 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0B5MVCKCC",
+  "sourceCategoryId": "kids_tricycles",
+  "images": [
+    {
+      "productId": "B0B5MVCKCC",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0B5MVCKCC:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/primary.jpg",
+      "targetPathKeep": "resources/b0b5mvckcc-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0b5mvckcc/cover/primary.jpg"
+    },
+    {
+      "productId": "B0B5MVCKCC",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0B5MVCKCC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0b5mvckcc-overview/alt_1.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0b5mvckcc/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0B5MVCKCC",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0B5MVCKCC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0b5mvckcc-overview/alt_2.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0b5mvckcc/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0B5MVCKCC",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0B5MVCKCC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0b5mvckcc-overview/alt_3.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0b5mvckcc/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0B5MVCKCC",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0B5MVCKCC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0b5mvckcc-overview/alt_4.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0b5mvckcc/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0B5MVCKCC",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0B5MVCKCC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0b5mvckcc-overview/alt_5.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0b5mvckcc/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0B5MVCKCC",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0B5MVCKCC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0b5mvckcc-overview/alt_6.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0b5mvckcc/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0B5MVCKCC",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0B5MVCKCC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0b5mvckcc-overview/alt_7.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0b5mvckcc/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0B5MVCKCC",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0B5MVCKCC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0b5mvckcc-overview/alt_8.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0b5mvckcc/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0B5MVCKCC",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0B5MVCKCC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0b5mvckcc-overview/alt_9.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0b5mvckcc/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0B5MVCKCC",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0B5MVCKCC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+      "targetPathKeep": "resources/b0b5mvckcc-overview/aplus_00.png",
+      "targetPathCpk": "categories/kids_tricycles/products/b0b5mvckcc/gallery/aplus_00.png"
+    },
+    {
+      "productId": "B0B5MVCKCC",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0B5MVCKCC:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/images/primary.jpg",
+      "targetPathKeep": "resources/b0b5mvckcc-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0b5mvckcc/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0B5MVCKCC",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0B5MVCKCC:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/71p-s1Z4uQL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0b5mvckcc-overview/71p-s1z4uql._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0b5mvckcc/gallery/71p-s1z4uql._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/858b08f3-b156-4388-9a24-8351276471c0/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/93027184-1e0d-40f9-a8f0-5e3b3d530c51/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/21fb7638-ed04-49f0-9323-c1dcec3af0e0/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5003b164-1b4d-45c8-814b-666c3af78c3c/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fb3f5fc9-92b6-457b-a92e-60a8c1bafa44/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bff09874-7f25-4e4a-a3bd-506e776c4a6d/default.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/kids_tricycles/KRIDDO/Rank_3_ASIN_B0B5MVCKCC_KRIDDO Tricycles Age 24 Month to 4 Years Toddler K/index.html"
+  ]
+}

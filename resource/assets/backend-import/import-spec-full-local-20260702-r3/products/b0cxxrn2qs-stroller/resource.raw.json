@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "stroller",
+  "fetchedAt": "2026-07-01T21:38:26.423Z",
+  "data": {
+    "resourceId": "B0CXXRN2QS:video",
+    "categoryId": "stroller",
+    "productId": "B0CXXRN2QS",
+    "resourceType": "product_video",
+    "title": "MAMAZING Ultra Air Lightweight Baby Travel Stroller with Carbon Fiber Frame, Compact & Airplane-Friendly, One-Handed Fold, 11 • Video preview",
+    "summary": "Video preview asset set for MAMAZING in stroller.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3e952392-410d-4d14-aa58-139b976f14f2/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3e952392-410d-4d14-aa58-139b976f14f2/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3f13abdb-fa1a-4862-8ac2-8dac1af825af/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/93b2bdce-2491-417b-9aba-2aa0e62e9cc2/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62457925-bd8b-492d-beb0-aa2bfcfbda00/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c218e939-3f24-4d38-b340-f798d939c476/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/05ea39a6-bd26-416d-9b5e-3a891595d600/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7469cfed-70cc-478e-bd1e-0b8722b414dd/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/978b418b-de83-4aa8-b2f6-3fb4f717251d/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b9856f0e-45f6-4140-80dd-91b9aacf0785/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 1,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 9,
+      "hasFeatures": true
+    }
+  }
+}

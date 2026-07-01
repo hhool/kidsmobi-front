@@ -1,0 +1,767 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "electric_vehicles",
+  "categoryCode": "electric_car",
+  "fetchedAt": "2026-07-01T20:06:12.770Z",
+  "data": {
+    "productId": "B0D3LSZJK2",
+    "categoryId": "electric_vehicles",
+    "rank": 2,
+    "title": "FanttikRide N7 Pro Electric Wiggle Car with Pedal, Rechargeable Battery, CyberWiggle, 2 in 1 Swing Car, 2 Speeds Max 4 Mph, A",
+    "brand": "FanttikRide",
+    "price": {
+      "display": "$79.99",
+      "value": 79.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.4  1,450",
+      "value": 4.4
+    },
+    "weight": {
+      "display": "13.78 Pounds",
+      "lbs": 13.78
+    },
+    "classification": {
+      "Brand": "FanttikRide",
+      "Vehicle_Type": "Sport",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "electric_vehicles",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "360° Control and 2-in-1 Swing Car: The electric swing car benefits from a steering wheel with integrated smooth bearings and swivel wheels capable of 360° steering",
+        "allowing you to have fun indoors and outdoors. Electric mode: turn on the power switch and press the pedal",
+        "or manual mode: just turn the steering wheel or slide with your feet to take you to a pleasant riding experience",
+        "2 Speeds and Anti-Rollover: 12V battery and 45W powerful motor",
+        "max. 4 mph",
+        "feel the speed and passion brought by the kids electric car. You can be adjusted to a low speed mode of 1.9 mph through the plug-in button on the bottom of the toddler electric car. Pyramid-style double triangular anti-tip chassis",
+        "upgraded anti-tip rear wheels and its spring shock system",
+        "effectively avoiding sideways tilting",
+        "Flashing Wheels and Bluetooth: When you slide on the wiggle car with pedals",
+        "the front light guide you forward",
+        "and the magnetic flash wheels flash with colorful lights. Light up PU wheels no batteries needed",
+        "provide shock absorption",
+        "glide smoothly and do not scratch the floor. Connect to Bluetooth to freely adjust the volume and songs",
+        "adding fun to your child's driving experience",
+        "Suitable for Children: Electric wiggle car stimulate child's imagination and hands-on ability",
+        "and also cultivate children's hand-eye coordination",
+        "sense of balance. The ergonomically designed extra-large seat can accommodate two kids. This ride-on toy suitable for heights up to 69 inches",
+        "weight capacity of up to 150 pounds",
+        "so even adults can experience the fun of little ones",
+        "Easy to Install and Special Choice: Just two steps",
+        "you can quickly finish the installation of the motorized wiggle car. This innovative ride-on car is suitable for boys and girls aged three and up",
+        "making it a choice for birthdays",
+        "holidays",
+        "or any special occasion",
+        "Tips for Extending Battery Life: To maximize battery life for your ride on wiggle car",
+        "store it in a cool",
+        "dry place",
+        "and remember to charge your device regularly to avoid completely draining it. Keep your battery healthy and enjoy a longer product experience"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "360° Control and 2-in-1 Swing Car: The electric swing car benefits from a steering wheel with integrated smooth bearings and swivel wheels capable of 360° steering",
+        "featureLabel": "360° Control And 2 In 1 Swing Car: The Electric Swing Car Benefits From A Steering Wheel With Integrated Smooth Bearings And Swivel Wheels Capable Of 360° Steering",
+        "featureValue": "360° Control and 2-in-1 Swing Car: The electric swing car benefits from a steering wheel with integrated smooth bearings and swivel wheels capable of 360° steering",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "allowing you to have fun indoors and outdoors. Electric mode: turn on the power switch and press the pedal",
+        "featureLabel": "Allowing You To Have Fun Indoors And Outdoors. Electric Mode: Turn On The Power Switch And Press The Pedal",
+        "featureValue": "allowing you to have fun indoors and outdoors. Electric mode: turn on the power switch and press the pedal",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "or manual mode: just turn the steering wheel or slide with your feet to take you to a pleasant riding experience",
+        "featureLabel": "Or Manual Mode: Just Turn The Steering Wheel Or Slide With Your Feet To Take You To A Pleasant Riding Experience",
+        "featureValue": "or manual mode: just turn the steering wheel or slide with your feet to take you to a pleasant riding experience",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "2 Speeds and Anti-Rollover: 12V battery and 45W powerful motor",
+        "featureLabel": "2 Speeds And Anti Rollover: 12v Battery And 45w Powerful Motor",
+        "featureValue": "2 Speeds and Anti-Rollover: 12V battery and 45W powerful motor",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "max. 4 mph",
+        "featureLabel": "Max. 4 Mph",
+        "featureValue": "max. 4 mph",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "feel the speed and passion brought by the kids electric car. You can be adjusted to a low speed mode of 1.9 mph through the plug-in button on the bottom of the toddler electric car. Pyramid-style double triangular anti-tip chassis",
+        "featureLabel": "Feel The Speed And Passion Brought By The Kids Electric Car. You Can Be Adjusted To A Low Speed Mode Of 1.9 Mph Through The Plug In Button On The Bottom Of The Toddler Electric Car. Pyramid Style Double Triangular Anti Tip Chassis",
+        "featureValue": "feel the speed and passion brought by the kids electric car. You can be adjusted to a low speed mode of 1.9 mph through the plug-in button on the bottom of the toddler electric car. Pyramid-style double triangular anti-tip chassis",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "360° Control and 2-in-1 Swing Car: The electric swing car benefits from a steering wheel with integrated smooth bearings and swivel wheels capable of 360° steering",
+        "allowing you to have fun indoors and outdoors. Electric mode: turn on the power switch and press the pedal",
+        "or manual mode: just turn the steering wheel or slide with your feet to take you to a pleasant riding experience",
+        "2 Speeds and Anti-Rollover: 12V battery and 45W powerful motor"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+          "source": "local",
+          "order": 10
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_1.jpg",
+      "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_2.jpg",
+      "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_3.jpg",
+      "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_4.jpg",
+      "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_5.jpg",
+      "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_6.jpg",
+      "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_7.jpg",
+      "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_8.jpg",
+      "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_9.jpg",
+      "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg"
+    ],
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/88c0017c-fa7f-49a2-96e7-a3748990f879/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2494b64a-11d4-4a3b-be89-4c025d2e754f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dcae779b-c379-414d-b715-88fa32413e21/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/99269f1f-2074-4d42-98eb-ee5781ed5e3d/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/23ebb4fc-f339-4f55-89e7-6c2a49faec01/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e1b261a2-2056-4f7c-95f1-b68db0869226/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e647aa95-d4ca-4263-9fff-630aabfb14bf/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f7d4aa2c-962e-44cc-b09d-e27c786c6b71/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5e5a072e-8345-4ebe-b137-42cd4faa206f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fe4313ea-f786-448e-9961-36ae46478165/default.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/88c0017c-fa7f-49a2-96e7-a3748990f879/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Wiggle Car Model Showdown: Find Your Ideal Ride in 1 Mins!",
+        "thumbnail": "https://m.media-amazon.com/images/I/B1JPBDUZ12L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2494b64a-11d4-4a3b-be89-4c025d2e754f/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "FanttikRide Wiggle Car grows with your child!",
+        "thumbnail": "https://m.media-amazon.com/images/I/61u0V3FeM1L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dcae779b-c379-414d-b715-88fa32413e21/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "It\\u2019s so fun to watch kids go crazy on electric wiggle cars!",
+        "thumbnail": "https://m.media-amazon.com/images/I/91-3iHGkisL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/99269f1f-2074-4d42-98eb-ee5781ed5e3d/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Easy Replacement Guide for Parts.",
+        "thumbnail": "https://m.media-amazon.com/images/I/61E7qwqWuFL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/23ebb4fc-f339-4f55-89e7-6c2a49faec01/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Get the ultimate surprise with N7 Pro electric wiggle car!",
+        "thumbnail": "https://m.media-amazon.com/images/I/71k5w90R3mL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e1b261a2-2056-4f7c-95f1-b68db0869226/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Check out the features of this electric wiggle car.",
+        "thumbnail": "https://m.media-amazon.com/images/I/A1V2ODzJ+mL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 6
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e647aa95-d4ca-4263-9fff-630aabfb14bf/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "You need to know this!",
+        "thumbnail": "https://m.media-amazon.com/images/I/B1V0EXnEVzL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 7
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f7d4aa2c-962e-44cc-b09d-e27c786c6b71/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Watch Before You Buy!Honest Review of Electric Wiggle Car!!",
+        "thumbnail": "https://m.media-amazon.com/images/I/51agXIrjXtL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 8
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5e5a072e-8345-4ebe-b137-42cd4faa206f/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Should you get the FanttikRide wiggle car?",
+        "thumbnail": "https://m.media-amazon.com/images/I/B1OC9HDzQIL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 9
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fe4313ea-f786-448e-9961-36ae46478165/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "What to Know! FanttikRide N7 Pro Electric Wiggle Pedal Car",
+        "thumbnail": "https://m.media-amazon.com/images/I/91WkDh89D0L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 10
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/electric_vehicles/index.html",
+      "categoryPages": "/scrape_store/electric_vehicles/pages/index.html",
+      "detailPage": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/index.html"
+    },
+    "resourceStats": {
+      "videos": 10,
+      "similarItems": 1
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/61U31omDjAL._AC_UL300_SR300,200_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 12
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/88c0017c-fa7f-49a2-96e7-a3748990f879/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1JPBDUZ12L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Wiggle Car Model Showdown: Find Your Ideal Ride in 1 Mins!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2494b64a-11d4-4a3b-be89-4c025d2e754f/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61u0V3FeM1L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "FanttikRide Wiggle Car grows with your child!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dcae779b-c379-414d-b715-88fa32413e21/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91-3iHGkisL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "It\\u2019s so fun to watch kids go crazy on electric wiggle cars!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/99269f1f-2074-4d42-98eb-ee5781ed5e3d/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61E7qwqWuFL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Easy Replacement Guide for Parts.",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/23ebb4fc-f339-4f55-89e7-6c2a49faec01/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71k5w90R3mL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Get the ultimate surprise with N7 Pro electric wiggle car!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e1b261a2-2056-4f7c-95f1-b68db0869226/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1V2ODzJ+mL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Check out the features of this electric wiggle car.",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e647aa95-d4ca-4263-9fff-630aabfb14bf/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1V0EXnEVzL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "You need to know this!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f7d4aa2c-962e-44cc-b09d-e27c786c6b71/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51agXIrjXtL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Watch Before You Buy!Honest Review of Electric Wiggle Car!!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5e5a072e-8345-4ebe-b137-42cd4faa206f/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1OC9HDzQIL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Should you get the FanttikRide wiggle car?",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fe4313ea-f786-448e-9961-36ae46478165/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91WkDh89D0L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "What to Know! FanttikRide N7 Pro Electric Wiggle Pedal Car",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "Gotrax",
+        "Title": "Gotrax WG1 Electric Wiggle Car for Kids, 12V Big Battery up to 120Min Playtime, Music Speaker &Rear Flash Wheels, Battery Dis",
+        "Price": "$98.79",
+        "Rating": "4.3",
+        "Reviews": "231",
+        "URL": "https://www.amazon.com/Gotrax-WG1-Electric-Playtime-Assembly/dp/B0FCC24ZQC/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_4/139-6744624-7442418?pd_rd_w=V7JZw&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=370BPXXXFZ6QFV21CDXW&pd_rd_wg=4mgXG&pd_rd_r=8b8fb5e0-9810-4fa2-b894-c499a660cf2f&pd_rd_i=B0FCC24ZQC&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/618hzQw15qL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B0FCC24ZQC",
+        "Features": "Fun for Kids: The electric wiggle car's 360° swivel wheels enable sharp turns and drifts while building balance! Features built-in songs / music speaker 2 modes. Freely adjust volume and songs and switch modes for extra riding excitement! | Long-Lasting 12V Battery: Powered by a 12V safe lead-acid rechargeable battery, this ride on toy provides up to 120 minutes of continuous ride per charge under 110lbs load( the lighter the longer playing time). Quick-replace design for easy battery swaps. | Anti-Slip Safety & 2.5MPH Max Speed : The triangle anti-roll chassis, upgraded anti-roll rear wheel, effectively prevents side tilt. 12V battery and 30W powerful motor, maximum speed 2.5mph, feel the speed and passion of the wiggle car. | Easy 5 Minute Assembly: 1, Attach the Handlebar–Secure it to the front with screws; 2, Install the rear wheel set–Fix it to the base with screws; 3, Connect the Wires–Plug the wheel's wire into the motor adapter cable. It is ready for fun in minutes! | Light-Up Rear Wheels: The colorful flash LED lights boost fun, making rides more exciting. Kids love the vibrant glow, enhancing engagement. The wiggle car model is WG1, and it was authorized by the FCC, with an FCC ID of 2AWFV-WG1",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/626970be-3e5b-410a-b367-7e91c393759a/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/626970be-3e5b-410a-b367-7e91c393759a/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/912PzT5GqLL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Gotrax Electric Wiggle Car",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c2c454f-b518-4fe0-893c-35b217886d0c/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1UkpsuhA-L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "How to Assemble Your Electric Wiggle Car(Step-by-Step Guide)",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e0a3c800-79de-4a30-ae13-9c0b3a83072e/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/91f5DVQ3jZL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "QUICK LOOK - Gotrax WG1 Electric Wiggle Car",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/06371fb6-fe68-4888-a781-581578c8cab4/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/51WUTVSBTaL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "My five year-old absolutely loves this",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/676df84c-318b-4ef5-91d9-d2c5c8f34a34/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61EFC4WU08L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "What An Amazing Fun Product! #ad#earnscommission",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/95ec7569-b6d3-4550-b4f2-7711f4913533/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/514l2F0ziUL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Wiggle car review - amazing toy for kids",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/99ad1cb0-c62f-42fb-9dd0-8053aef70ebb/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1nKrZj-HDL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Electric Wiggle Car. Easy assembly? Durable? Work well? Watch to see!",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/626970be-3e5b-410a-b367-7e91c393759a/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c2c454f-b518-4fe0-893c-35b217886d0c/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e0a3c800-79de-4a30-ae13-9c0b3a83072e/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/06371fb6-fe68-4888-a781-581578c8cab4/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/676df84c-318b-4ef5-91d9-d2c5c8f34a34/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/95ec7569-b6d3-4550-b4f2-7711f4913533/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/99ad1cb0-c62f-42fb-9dd0-8053aef70ebb/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/626970be-3e5b-410a-b367-7e91c393759a/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c2c454f-b518-4fe0-893c-35b217886d0c/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e0a3c800-79de-4a30-ae13-9c0b3a83072e/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/06371fb6-fe68-4888-a781-581578c8cab4/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/676df84c-318b-4ef5-91d9-d2c5c8f34a34/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/95ec7569-b6d3-4550-b4f2-7711f4913533/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/99ad1cb0-c62f-42fb-9dd0-8053aef70ebb/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "360° Spins Obsessed! Kid’s Favorite Gotrax Wiggle Car Move – Endless Fun!",
+              "Texts": [
+                "360° Spins Obsessed! Kid’s Favorite Gotrax Wiggle Car Move – Endless Fun! Christmas Hit! 360° Spinning Gotrax Electric Wiggle Car (120Min Playtime!) The video showcases the product in use. The video guides you through product setup. The video compares multiple products. The video shows the product being unpacked. Gotrax electric wiggle car",
+                "Kid’s Favorite Gotrax Wiggle Car Gotrax WG1 Electric Wiggle Car – 120Min Playtime + Flash Wheels! Kid-Approved Christmas Gift! Gotrax 12V Electric Wiggle Car (3+) 132Lbs Capacity! Gotrax Wiggle Car – Music + Pedal Throttle Fun The video showcases the product in use. The video guides you through product setup. The video compares multiple products. The video shows the product being unpacked. Gotrax kids toy",
+                "Indoor Adventure! Kid Zooms Around the House on Gotrax Wiggle Car Non-Stop Indoor Fun! Gotrax Electric Wiggle Car – Kid’s New Favorite The video showcases the product in use. The video guides you through product setup. The video compares multiple products. The video shows the product being unpacked. 360° Spins Obsessed!"
+              ],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1d923f90-3912-4819-90d6-54efdbcef398.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3372331d-7dfd-449a-9236-671a1caa643d.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/ba349566-4ffc-4cba-9c26-e47c62fb6e7a.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/8e824a67-6b4a-42fa-9f3b-a8b80149e25b.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f96b7fb1-411b-4007-bfee-2a98f5751814.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1d923f90-3912-4819-90d6-54efdbcef398.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "2 kids are playing with the wiggle car happily, and their parents are walking to accompany them",
+                  "Image_Alt": "2 kids are playing with the wiggle car happily, and their parents are walking to accompany them"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3372331d-7dfd-449a-9236-671a1caa643d.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 2,
+                  "Image_Title": "2 kids are riding electric wiggle car in the living room",
+                  "Image_Alt": "2 kids are riding electric wiggle car in the living room"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/ba349566-4ffc-4cba-9c26-e47c62fb6e7a.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 3,
+                  "Image_Title": "daughter and mom are playing the electric wiggle car together",
+                  "Image_Alt": "daughter and mom are playing the electric wiggle car together"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/8e824a67-6b4a-42fa-9f3b-a8b80149e25b.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 4,
+                  "Image_Title": "12V 4.5Ah long lasting battery, kids can play 120minutes",
+                  "Image_Alt": "12V 4.5Ah long lasting battery, kids can play 120minutes"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f96b7fb1-411b-4007-bfee-2a98f5751814.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 5,
+                  "Image_Title": "perfect gift for your lovely kids",
+                  "Image_Alt": "perfect gift for your lovely kids"
+                }
+              ],
+              "Comparison_Table": {},
+              "Block_Types": [
+                "text",
+                "image"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "360° Spins Obsessed! Kid’s Favorite Gotrax Wiggle Car Move – Endless Fun!"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1d923f90-3912-4819-90d6-54efdbcef398.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "2 kids are playing with the wiggle car happily, and their parents are walking to accompany them",
+                    "Image_Alt": "2 kids are playing with the wiggle car happily, and their parents are walking to accompany them"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3372331d-7dfd-449a-9236-671a1caa643d.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 2,
+                    "Image_Title": "2 kids are riding electric wiggle car in the living room",
+                    "Image_Alt": "2 kids are riding electric wiggle car in the living room"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/ba349566-4ffc-4cba-9c26-e47c62fb6e7a.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 3,
+                    "Image_Title": "daughter and mom are playing the electric wiggle car together",
+                    "Image_Alt": "daughter and mom are playing the electric wiggle car together"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/8e824a67-6b4a-42fa-9f3b-a8b80149e25b.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 4,
+                    "Image_Title": "12V 4.5Ah long lasting battery, kids can play 120minutes",
+                    "Image_Alt": "12V 4.5Ah long lasting battery, kids can play 120minutes"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "360° Spins Obsessed! Kid’s Favorite Gotrax Wiggle Car Move – Endless Fun! Christmas Hit! 360° Spinning Gotrax Electric Wiggle Car (120Min Playtime!) The video showcases the product in use. The video guides you through product setup. The video compares multiple products. The video shows the product being unpacked. Gotrax electric wiggle car"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Kid’s Favorite Gotrax Wiggle Car Gotrax WG1 Electric Wiggle Car – 120Min Playtime + Flash Wheels! Kid-Approved Christmas Gift! Gotrax 12V Electric Wiggle Car (3+) 132Lbs Capacity! Gotrax Wiggle Car – Music + Pedal Throttle Fun The video showcases the product in use. The video guides you through product setup. The video compares multiple products. The video shows the product being unpacked. Gotrax kids toy"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Indoor Adventure! Kid Zooms Around the House on Gotrax Wiggle Car Non-Stop Indoor Fun! Gotrax Electric Wiggle Car – Kid’s New Favorite The video showcases the product in use. The video guides you through product setup. The video compares multiple products. The video shows the product being unpacked. 360° Spins Obsessed!"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f96b7fb1-411b-4007-bfee-2a98f5751814.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 5,
+                    "Image_Title": "perfect gift for your lovely kids",
+                    "Image_Alt": "perfect gift for your lovely kids"
+                  }
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1d923f90-3912-4819-90d6-54efdbcef398.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3372331d-7dfd-449a-9236-671a1caa643d.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/ba349566-4ffc-4cba-9c26-e47c62fb6e7a.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/8e824a67-6b4a-42fa-9f3b-a8b80149e25b.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f96b7fb1-411b-4007-bfee-2a98f5751814.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+            ],
+            "Local_Images": [
+              "scrape_store/electric_vehicles/Gotrax/Rank_Similar_ASIN_B0FCC24ZQC_Gotrax WG1 Electric Wiggle Car for Kids 12V Big Ba/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+              "scrape_store/electric_vehicles/Gotrax/Rank_Similar_ASIN_B0FCC24ZQC_Gotrax WG1 Electric Wiggle Car for Kids 12V Big Ba/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+              "scrape_store/electric_vehicles/Gotrax/Rank_Similar_ASIN_B0FCC24ZQC_Gotrax WG1 Electric Wiggle Car for Kids 12V Big Ba/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+              "scrape_store/electric_vehicles/Gotrax/Rank_Similar_ASIN_B0FCC24ZQC_Gotrax WG1 Electric Wiggle Car for Kids 12V Big Ba/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+              "scrape_store/electric_vehicles/Gotrax/Rank_Similar_ASIN_B0FCC24ZQC_Gotrax WG1 Electric Wiggle Car for Kids 12V Big Ba/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [],
+          "Summary": {
+            "Count": 0
+          },
+          "Local_Paths": []
+        },
+        "Product_Description": "N/A",
+        "Product_Specifications": {
+          "Measurements": {
+            "Size": "30.7 x 17.71 x 14.96 inches",
+            "Item Weight": "14.33 Pounds",
+            "Item Dimensions L x W x H": "30.7\"L x 13.38\"W x 14.96\"H",
+            "Weight Capacity Maximum": "132 Pounds",
+            "Item Dimensions": "30.7 x 13.38 x 8.46 inches"
+          },
+          "Features_Specs": {
+            "Battery Average Life": "120 minutes",
+            "UPC": "810172572126",
+            "Item Type Name": "WG1",
+            "Theme": "Ride-on"
+          },
+          "Materials_Care": {
+            "Material Type": "Plastic"
+          },
+          "Item_Details": {
+            "Brand Name": "Gotrax",
+            "Manufacturer Part Number": "WG1",
+            "Model Number": "WG1",
+            "Manufacturer": "ZHEJIANG TAOTAO VEHICLES CO.,LTD",
+            "Unit Count": "1.0 Count",
+            "Included Components": "Charger, Electric Wiggle Car, User Manual",
+            "Best Sellers Rank": "#13,381 in Toys & Games (See Top 100 in Toys & Games) #41 in Kids' Electric Vehicles",
+            "ASIN": "B0FCC24ZQC",
+            "Customer Reviews": "4.3  4.3 out of 5 stars   \n    (231)   \n\n\n 4.3 out of 5 stars"
+          },
+          "User_Guide": {
+            "Manufacturer Minimum Age (MONTHS)": "36.0",
+            "Manufacturer Maximum Age (MONTHS)": "144.0",
+            "Is Assembly Required": "Yes"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery Wednesday, July 1",
+          "Specifications": {}
+        },
+        "Local_Image_Paths": [
+          "scrape_store/electric_vehicles/Gotrax/Rank_Similar_ASIN_B0FCC24ZQC_Gotrax WG1 Electric Wiggle Car for Kids 12V Big Ba/images/primary.jpg",
+          "scrape_store/electric_vehicles/Gotrax/Rank_Similar_ASIN_B0FCC24ZQC_Gotrax WG1 Electric Wiggle Car for Kids 12V Big Ba/images/alt_1.jpg",
+          "scrape_store/electric_vehicles/Gotrax/Rank_Similar_ASIN_B0FCC24ZQC_Gotrax WG1 Electric Wiggle Car for Kids 12V Big Ba/images/alt_2.jpg",
+          "scrape_store/electric_vehicles/Gotrax/Rank_Similar_ASIN_B0FCC24ZQC_Gotrax WG1 Electric Wiggle Car for Kids 12V Big Ba/images/alt_3.jpg",
+          "scrape_store/electric_vehicles/Gotrax/Rank_Similar_ASIN_B0FCC24ZQC_Gotrax WG1 Electric Wiggle Car for Kids 12V Big Ba/images/alt_4.jpg",
+          "scrape_store/electric_vehicles/Gotrax/Rank_Similar_ASIN_B0FCC24ZQC_Gotrax WG1 Electric Wiggle Car for Kids 12V Big Ba/images/alt_5.jpg",
+          "scrape_store/electric_vehicles/Gotrax/Rank_Similar_ASIN_B0FCC24ZQC_Gotrax WG1 Electric Wiggle Car for Kids 12V Big Ba/images/alt_6.jpg",
+          "scrape_store/electric_vehicles/Gotrax/Rank_Similar_ASIN_B0FCC24ZQC_Gotrax WG1 Electric Wiggle Car for Kids 12V Big Ba/images/alt_7.jpg",
+          "scrape_store/electric_vehicles/Gotrax/Rank_Similar_ASIN_B0FCC24ZQC_Gotrax WG1 Electric Wiggle Car for Kids 12V Big Ba/images/alt_8.jpg",
+          "scrape_store/electric_vehicles/Gotrax/Rank_Similar_ASIN_B0FCC24ZQC_Gotrax WG1 Electric Wiggle Car for Kids 12V Big Ba/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/electric_vehicles/Gotrax/Rank_Similar_ASIN_B0FCC24ZQC_Gotrax WG1 Electric Wiggle Car for Kids 12V Big Ba/images/primary.jpg",
+        "Local_Video_Paths": []
+      }
+    ]
+  }
+}

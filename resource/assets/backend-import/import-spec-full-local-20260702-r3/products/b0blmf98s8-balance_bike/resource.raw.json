@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "balance_bike",
+  "fetchedAt": "2026-07-01T21:38:33.413Z",
+  "data": {
+    "resourceId": "B0BLMF98S8:video",
+    "categoryId": "balance_bike",
+    "productId": "B0BLMF98S8",
+    "resourceType": "product_video",
+    "title": "Gamfeiny Colorful Lighting Baby Balance Bike Toys for 1 Year Old Boy Girl Gifts, 10-36 Month Toddler Balance Bike, No Pedal 4 • Video preview",
+    "summary": "Video preview asset set for Gamfeiny in balance_bike.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c44d6194-8f09-4035-bda9-92bf6cdf1091/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c44d6194-8f09-4035-bda9-92bf6cdf1091/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/93315bcf-8cde-4b98-a6f2-c4b139c55890/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6e06d634-41af-4087-9d86-0278c6de801d/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9d4d8997-d2ad-4b94-854c-9fc0fed9fde5/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/da184c14-fca5-4591-87d1-98833f08646f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/169f051d-4a17-44bb-9dc5-a7844f6d6aec/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0d9139b1-73fb-4fa6-b6aa-6d1d68d88744/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.98,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 7,
+      "hasFeatures": true
+    }
+  }
+}

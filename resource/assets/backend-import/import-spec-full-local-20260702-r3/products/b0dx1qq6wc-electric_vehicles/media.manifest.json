@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "productId": "B0DX1QQ6WC",
+  "sourceCategoryId": "electric_vehicles",
+  "images": [
+    {
+      "productId": "B0DX1QQ6WC",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0DX1QQ6WC:video",
+      "kind": "cover",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/713pagF74gL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0dx1qq6wc-video/713pagf74gl._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0dx1qq6wc/cover/713pagf74gl._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/803df68d-b62b-44e5-9306-7581ff887459/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a970c28c-ce02-4d9d-934b-4181d7e3d611/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b91c8bbc-7b6e-40cc-9329-9491b9998667/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bd404d8d-88c9-4c78-b6af-8ee582684055/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e93e6b65-5043-4920-af5d-99feb258d09d/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f6ae34aa-076d-4df8-9f27-27e660fe99a9/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/04c416ea-5edf-4666-add0-95d7ff628f5b/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/10e9784d-ee58-4828-bbc9-0af7a5d66197/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ee9ee904-d0af-4b75-9d6b-848c4492d895/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b9ae77f3-c665-4b12-9f4f-8bab4721c42c/default.vertical.jobtemplate.hls.m3u8"
+  ]
+}

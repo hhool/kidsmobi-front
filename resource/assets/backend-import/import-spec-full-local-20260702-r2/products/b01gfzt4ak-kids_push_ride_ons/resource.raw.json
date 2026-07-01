@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "fetchedAt": "2026-07-01T20:06:15.207Z",
+  "data": {
+    "resourceId": "B01GFZT4AK:overview",
+    "categoryId": "kids_push_ride_ons",
+    "productId": "B01GFZT4AK",
+    "resourceType": "product_overview",
+    "title": "John Deere Ride On Toys Sit 'N Scoot Activity Tractor for Kids Ages 18 Months and Up, Green",
+    "summary": "Stable Design: Watch your kids scoot to their heart's content with a foot to floor John Deere tractor that includes a wide wheelbase for riding stability while they're exploring | Easy to Assemble: This John Deere tractor toy has a durable design that is is easy for parents to pu",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_push_ride_ons/John/Rank_6_ASIN_B01GFZT4AK_John Deere Ride On Toys Sit N Scoot Activity Tract/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0d509975-e911-456e-ad65-a22db43bc334/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/48ca8242-d12d-4227-9c39-1b1ebf218965/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/422e37e0-293e-47be-960b-ee4e97c3aa09/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4890c90c-26df-433f-9b9a-1aa7c9df9d09/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5b93a99e-6747-499f-993f-f39612749d09/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/58849f11-5798-42a7-8792-f94160be609d/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.79,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

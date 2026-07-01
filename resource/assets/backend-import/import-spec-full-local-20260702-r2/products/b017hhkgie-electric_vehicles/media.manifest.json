@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B017HHKGIE",
+  "sourceCategoryId": "electric_vehicles",
+  "images": [
+    {
+      "productId": "B017HHKGIE",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B017HHKGIE:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Kids/Rank_3_ASIN_B017HHKGIE_Kids Motorcycle - 3-Wheel Ride on Toy with Police/images/primary.jpg",
+      "targetPathKeep": "resources/b017hhkgie-overview/primary.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b017hhkgie/cover/primary.jpg"
+    },
+    {
+      "productId": "B017HHKGIE",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B017HHKGIE:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Kids/Rank_3_ASIN_B017HHKGIE_Kids Motorcycle - 3-Wheel Ride on Toy with Police/images/alt_1.jpg",
+      "targetPathKeep": "resources/b017hhkgie-overview/alt_1.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b017hhkgie/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B017HHKGIE",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B017HHKGIE:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Kids/Rank_3_ASIN_B017HHKGIE_Kids Motorcycle - 3-Wheel Ride on Toy with Police/images/alt_2.jpg",
+      "targetPathKeep": "resources/b017hhkgie-overview/alt_2.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b017hhkgie/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B017HHKGIE",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B017HHKGIE:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Kids/Rank_3_ASIN_B017HHKGIE_Kids Motorcycle - 3-Wheel Ride on Toy with Police/images/alt_3.jpg",
+      "targetPathKeep": "resources/b017hhkgie-overview/alt_3.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b017hhkgie/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B017HHKGIE",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B017HHKGIE:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Kids/Rank_3_ASIN_B017HHKGIE_Kids Motorcycle - 3-Wheel Ride on Toy with Police/images/alt_4.jpg",
+      "targetPathKeep": "resources/b017hhkgie-overview/alt_4.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b017hhkgie/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B017HHKGIE",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B017HHKGIE:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Kids/Rank_3_ASIN_B017HHKGIE_Kids Motorcycle - 3-Wheel Ride on Toy with Police/images/alt_5.jpg",
+      "targetPathKeep": "resources/b017hhkgie-overview/alt_5.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b017hhkgie/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B017HHKGIE",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B017HHKGIE:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Kids/Rank_3_ASIN_B017HHKGIE_Kids Motorcycle - 3-Wheel Ride on Toy with Police/images/alt_6.jpg",
+      "targetPathKeep": "resources/b017hhkgie-overview/alt_6.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b017hhkgie/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B017HHKGIE",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B017HHKGIE:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Kids/Rank_3_ASIN_B017HHKGIE_Kids Motorcycle - 3-Wheel Ride on Toy with Police/images/alt_7.jpg",
+      "targetPathKeep": "resources/b017hhkgie-overview/alt_7.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b017hhkgie/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B017HHKGIE",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B017HHKGIE:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Kids/Rank_3_ASIN_B017HHKGIE_Kids Motorcycle - 3-Wheel Ride on Toy with Police/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b017hhkgie-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b017hhkgie/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B017HHKGIE",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B017HHKGIE:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Kids/Rank_3_ASIN_B017HHKGIE_Kids Motorcycle - 3-Wheel Ride on Toy with Police/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "targetPathKeep": "resources/b017hhkgie-overview/aplus_01.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b017hhkgie/gallery/aplus_01.jpg"
+    },
+    {
+      "productId": "B017HHKGIE",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B017HHKGIE:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Kids/Rank_3_ASIN_B017HHKGIE_Kids Motorcycle - 3-Wheel Ride on Toy with Police/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "targetPathKeep": "resources/b017hhkgie-overview/aplus_02.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b017hhkgie/gallery/aplus_02.jpg"
+    },
+    {
+      "productId": "B017HHKGIE",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B017HHKGIE:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Kids/Rank_3_ASIN_B017HHKGIE_Kids Motorcycle - 3-Wheel Ride on Toy with Police/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+      "targetPathKeep": "resources/b017hhkgie-overview/aplus_03.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b017hhkgie/gallery/aplus_03.jpg"
+    },
+    {
+      "productId": "B017HHKGIE",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B017HHKGIE:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/Kids/Rank_3_ASIN_B017HHKGIE_Kids Motorcycle - 3-Wheel Ride on Toy with Police/images/primary.jpg",
+      "targetPathKeep": "resources/b017hhkgie-overview/primary.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b017hhkgie/gallery/primary.jpg"
+    },
+    {
+      "productId": "B017HHKGIE",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B017HHKGIE:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/61xlmMctArL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b017hhkgie-overview/61xlmmctarl._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b017hhkgie/gallery/61xlmmctarl._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/546fa99c-ae6b-4d99-a883-2d97d1ad6028/default.vertical.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/electric_vehicles/Kids/Rank_3_ASIN_B017HHKGIE_Kids Motorcycle - 3-Wheel Ride on Toy with Police/index.html"
+  ]
+}

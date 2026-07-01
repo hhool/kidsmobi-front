@@ -1,0 +1,188 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T21:39:03.782Z",
+  "data": {
+    "productId": "B01LY46WJN",
+    "categoryId": "kids_push_ride_ons",
+    "rank": 2,
+    "title": "Little Tikes Cozy Coupe Dinosaur – Amazon Exclusive Large, Green",
+    "brand": "Little",
+    "price": {
+      "display": "$47.49",
+      "value": 47.49,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.6  13,009",
+      "value": 4.6
+    },
+    "weight": {
+      "display": "1 Pounds",
+      "lbs": 1
+    },
+    "classification": {
+      "Brand": "Little",
+      "Stroller_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_push_ride_ons",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "Made in the USA. The Little Tikes Company is located in the heartland of America.",
+        "The Dino cozy Coupe has a fun design",
+        "A parent push handle and a removable floorboard. Parents and kids will both love the ride!",
+        "Designed with a high Seat back and cup holders in the rear (cup not included). working horn. Moving",
+        "clicking ignition switch. Gas cap open and closes",
+        "Cozy rolls on rugged",
+        "durable tires. Front wheels spin 360 degrees. Weight limit up to 50 lbs. Assembly required",
+        "Skill Level: All"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "Made in the USA. The Little Tikes Company is located in the heartland of America.",
+        "featureLabel": "Made In The USA. The Little Tikes Company Is Located In The Heartland Of America.",
+        "featureValue": "Made in the USA. The Little Tikes Company is located in the heartland of America.",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "The Dino cozy Coupe has a fun design",
+        "featureLabel": "The Dino Cozy Coupe Has A Fun Design",
+        "featureValue": "The Dino cozy Coupe has a fun design",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "A parent push handle and a removable floorboard. Parents and kids will both love the ride!",
+        "featureLabel": "A Parent Push Handle And A Removable Floorboard. Parents And Kids Will Both Love The Ride!",
+        "featureValue": "A parent push handle and a removable floorboard. Parents and kids will both love the ride!",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "Designed with a high Seat back and cup holders in the rear (cup not included). working horn. Moving",
+        "featureLabel": "Designed With A High Seat Back And Cup Holders In The Rear (Cup Not Included). Working Horn. Moving",
+        "featureValue": "Designed with a high Seat back and cup holders in the rear (cup not included). working horn. Moving",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "clicking ignition switch. Gas cap open and closes",
+        "featureLabel": "Clicking Ignition Switch. Gas Cap Open And Closes",
+        "featureValue": "clicking ignition switch. Gas cap open and closes",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "Cozy rolls on rugged",
+        "featureLabel": "Cozy Rolls On Rugged",
+        "featureValue": "Cozy rolls on rugged",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "Made in the USA. The Little Tikes Company is located in the heartland of America.",
+        "The Dino cozy Coupe has a fun design",
+        "A parent push handle and a removable floorboard. Parents and kids will both love the ride!",
+        "Designed with a high Seat back and cup holders in the rear (cup not included). working horn. Moving"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/81Lg7Hp2Y0L._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/81Lg7Hp2Y0L._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ca8d7cbf-43bb-4110-9f80-7d5cddae2438.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ab733cf3-97c6-483d-88b0-5f7a6ffebe5a.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5d75b3fd-ea02-4a87-a1f8-d311798ad12c.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/e272dabb-c4a1-49f7-8b99-92ad7d3b47f3.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a5239543-bcf2-4eb6-91a2-9f9c6e8acb56.mp4/productVideoOptimized.mp4"
+    ],
+    "resourceStats": {
+      "videos": 5,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ca8d7cbf-43bb-4110-9f80-7d5cddae2438.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/videos/video_0.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ab733cf3-97c6-483d-88b0-5f7a6ffebe5a.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/videos/video_1.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5d75b3fd-ea02-4a87-a1f8-d311798ad12c.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/videos/video_2.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/e272dabb-c4a1-49f7-8b99-92ad7d3b47f3.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/videos/video_3.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a5239543-bcf2-4eb6-91a2-9f9c6e8acb56.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/videos/video_4.mp4"
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

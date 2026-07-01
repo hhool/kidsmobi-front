@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "electric_vehicles",
+  "fetchedAt": "2026-07-01T20:06:12.906Z",
+  "data": {
+    "resourceId": "B0FWKK3JXX:overview",
+    "categoryId": "electric_vehicles",
+    "productId": "B0FWKK3JXX",
+    "resourceType": "product_overview",
+    "title": "First Ride On 36V Kids Ride On UTV, 2-Seater 400W Electric Car for Kids 6+, 5-8 MPH Speed, 14\" EVA Wheels, Metal Frame, Bluet",
+    "summary": "Realistic Driving Experience: This is a true driving UTV - no remote control, no artificial limits. Kids can control speed with the variable throttle pedal, shift between forward and reverse, and experience gradual start and electronic brake for real vehicle control. With Bluetoo",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/electric_vehicles/First/Rank_5_ASIN_B0FWKK3JXX_First Ride On 36V Kids Ride On UTV 2-Seater 400W E/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/41e60033-6265-4183-84d2-187b7bd7af08/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/46b19189-b152-45f1-a5b9-b53a371b993b/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9b2b4754-9adb-4837-93ad-884d5dd2a557/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6be40573-bc6f-4623-b67f-32f19496edcb/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/def3cf96-20bb-4a09-8e40-9800cda3f127/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/310bf8ae-e29b-440f-b5d4-e4e08a7bdf3a/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7b05b01b-0ef7-4def-854c-57fa7c65b017/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.83,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 7,
+      "hasFeatures": true
+    }
+  }
+}

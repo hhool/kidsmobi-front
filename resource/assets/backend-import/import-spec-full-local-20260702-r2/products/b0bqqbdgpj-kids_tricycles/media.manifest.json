@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0BQQBDGPJ",
+  "sourceCategoryId": "kids_tricycles",
+  "images": [
+    {
+      "productId": "B0BQQBDGPJ",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0BQQBDGPJ:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/JMMD/Rank_11_ASIN_B0BQQBDGPJ_JMMD 8 in 1 Tricycle Stroller with Push Handle Fol/images/primary.jpg",
+      "targetPathKeep": "resources/b0bqqbdgpj-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0bqqbdgpj/cover/primary.jpg"
+    },
+    {
+      "productId": "B0BQQBDGPJ",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0BQQBDGPJ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/JMMD/Rank_11_ASIN_B0BQQBDGPJ_JMMD 8 in 1 Tricycle Stroller with Push Handle Fol/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0bqqbdgpj-overview/alt_1.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0bqqbdgpj/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0BQQBDGPJ",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0BQQBDGPJ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/JMMD/Rank_11_ASIN_B0BQQBDGPJ_JMMD 8 in 1 Tricycle Stroller with Push Handle Fol/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0bqqbdgpj-overview/alt_2.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0bqqbdgpj/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0BQQBDGPJ",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0BQQBDGPJ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/JMMD/Rank_11_ASIN_B0BQQBDGPJ_JMMD 8 in 1 Tricycle Stroller with Push Handle Fol/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0bqqbdgpj-overview/alt_3.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0bqqbdgpj/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0BQQBDGPJ",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0BQQBDGPJ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/JMMD/Rank_11_ASIN_B0BQQBDGPJ_JMMD 8 in 1 Tricycle Stroller with Push Handle Fol/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0bqqbdgpj-overview/alt_4.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0bqqbdgpj/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0BQQBDGPJ",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0BQQBDGPJ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/JMMD/Rank_11_ASIN_B0BQQBDGPJ_JMMD 8 in 1 Tricycle Stroller with Push Handle Fol/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0bqqbdgpj-overview/alt_5.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0bqqbdgpj/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0BQQBDGPJ",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0BQQBDGPJ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/JMMD/Rank_11_ASIN_B0BQQBDGPJ_JMMD 8 in 1 Tricycle Stroller with Push Handle Fol/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0bqqbdgpj-overview/alt_6.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0bqqbdgpj/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0BQQBDGPJ",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0BQQBDGPJ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/JMMD/Rank_11_ASIN_B0BQQBDGPJ_JMMD 8 in 1 Tricycle Stroller with Push Handle Fol/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0bqqbdgpj-overview/alt_7.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0bqqbdgpj/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0BQQBDGPJ",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0BQQBDGPJ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/JMMD/Rank_11_ASIN_B0BQQBDGPJ_JMMD 8 in 1 Tricycle Stroller with Push Handle Fol/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0bqqbdgpj-overview/alt_8.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0bqqbdgpj/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0BQQBDGPJ",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0BQQBDGPJ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/JMMD/Rank_11_ASIN_B0BQQBDGPJ_JMMD 8 in 1 Tricycle Stroller with Push Handle Fol/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0bqqbdgpj-overview/alt_9.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0bqqbdgpj/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0BQQBDGPJ",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0BQQBDGPJ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/JMMD/Rank_11_ASIN_B0BQQBDGPJ_JMMD 8 in 1 Tricycle Stroller with Push Handle Fol/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0bqqbdgpj-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0bqqbdgpj/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0BQQBDGPJ",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0BQQBDGPJ:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/JMMD/Rank_11_ASIN_B0BQQBDGPJ_JMMD 8 in 1 Tricycle Stroller with Push Handle Fol/images/primary.jpg",
+      "targetPathKeep": "resources/b0bqqbdgpj-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0bqqbdgpj/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0BQQBDGPJ",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0BQQBDGPJ:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/71u02veZBML._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0bqqbdgpj-overview/71u02vezbml._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0bqqbdgpj/gallery/71u02vezbml._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/86b3b158-08f5-4692-916a-38ddb44989fc/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fe4b7237-2fe8-42b7-ae70-583afe94ba6b/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/32940782-af68-4cdd-9bd9-943a4b09822a/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f4b3006d-f3ff-44ea-9e05-4832f99b91a1/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/69ef10de-b8ff-4c4f-82d4-5af7f602d7e6/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2386150a-95dd-46e1-ae35-a7cb7ff1c396/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c3fbaf63-295c-4064-9c54-89f1127c47d7/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d947a3b3-5cbe-481f-a2ba-e804b59abca6/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/45a9bc8e-e192-416e-af7f-173c3302328b/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1275c57e-9cbc-4d67-93dc-a38b089cb36d/default.vertical.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/kids_tricycles/JMMD/Rank_11_ASIN_B0BQQBDGPJ_JMMD 8 in 1 Tricycle Stroller with Push Handle Fol/index.html"
+  ]
+}

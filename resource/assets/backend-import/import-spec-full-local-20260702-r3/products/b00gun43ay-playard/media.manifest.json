@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "productId": "B00GUN43AY",
+  "sourceCategoryId": "playard",
+  "images": [
+    {
+      "productId": "B00GUN43AY",
+      "categoryId": "playard",
+      "resourceId": "B00GUN43AY:video",
+      "kind": "cover",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/71rucbKgpuL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b00gun43ay-video/71rucbkgpul._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/playard/products/b00gun43ay/cover/71rucbkgpul._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/e31dad11-1895-4959-bdcd-9f7ed57532f5.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/139e0efb-bd7d-4cda-919d-54006de4fa6a.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/c8c97f1b-5ee2-4810-8acb-aed807343a14.mov/productVideoOptimized.mp4"
+  ]
+}

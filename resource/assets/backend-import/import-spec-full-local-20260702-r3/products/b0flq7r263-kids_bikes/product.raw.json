@@ -1,0 +1,160 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_bikes",
+  "categoryCode": "bicycle",
+  "fetchedAt": "2026-07-01T21:38:55.351Z",
+  "data": {
+    "productId": "B0FLQ7R263",
+    "categoryId": "kids_bikes",
+    "rank": 0,
+    "title": "WEIZE Kids Bike, 14 16 20 Inch Children Bicycle for Boys & Girls Youth Ages 4-12 Years Old, Rider Height 41-62 Inch, Adjustab",
+    "brand": "WEIZE",
+    "price": {
+      "display": "$89.99",
+      "value": 89.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.3",
+      "value": 4.3
+    },
+    "weight": {
+      "display": "N/A",
+      "lbs": 0
+    },
+    "classification": {
+      "Brand": "WEIZE",
+      "Bike_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Unknown",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_bikes",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "Size Guide - - 20 inch bike for 6-12 years (48\"-62\") boys & girls. Note: Measure kid’s INSEAM and compare with SADDLE HEIGHT to check if the rider can touch the ground.",
+        "PERFECT FOR BEGINNERS - - Our bicycle are engineered specifically for a kid's proportions",
+        "smaller grips",
+        "and lightweight frame create an easier ride and control.",
+        "Durable Wheels & Sturdy Frame - -Made of premium high carbon Steel to survive the bumps of learning. Anti-slip tires and detachable training wheels ensure steadiness and are helpful for beginners to practice balance.",
+        "SMOOTH RIDING - - Wide 2.125\" tires with superior grip and bump absorption. This kids bicycle cruises smoothly on sidewalks",
+        "paths",
+        "and light trails for endless fun.",
+        "EASY TO INSTALL - - The children bike comes with 85% Pre-assembled body and the basic assembly tools.You can watch the assembly video on our page first before splicing bicycles."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "Size Guide - - 20 inch bike for 6-12 years (48\"-62\") boys & girls. Note: Measure kid’s INSEAM and compare with SADDLE HEIGHT to check if the rider can touch the ground.",
+        "featureLabel": "Size Guide     20 Inch Bike For 6 12 Years (48\" 62\") Boys & Girls. Note: Measure Kid’S INSEAM And Compare With SADDLE HEIGHT To Check If The Rider Can Touch The Ground.",
+        "featureValue": "Size Guide - - 20 inch bike for 6-12 years (48\"-62\") boys & girls. Note: Measure kid’s INSEAM and compare with SADDLE HEIGHT to check if the rider can touch the ground.",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "PERFECT FOR BEGINNERS - - Our bicycle are engineered specifically for a kid's proportions",
+        "featureLabel": "PERFECT FOR BEGINNERS     Our Bicycle Are Engineered Specifically For A Kid'S Proportions",
+        "featureValue": "PERFECT FOR BEGINNERS - - Our bicycle are engineered specifically for a kid's proportions",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "smaller grips",
+        "featureLabel": "Smaller Grips",
+        "featureValue": "smaller grips",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "and lightweight frame create an easier ride and control.",
+        "featureLabel": "And Lightweight Frame Create An Easier Ride And Control.",
+        "featureValue": "and lightweight frame create an easier ride and control.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "Durable Wheels & Sturdy Frame - -Made of premium high carbon Steel to survive the bumps of learning. Anti-slip tires and detachable training wheels ensure steadiness and are helpful for beginners to practice balance.",
+        "featureLabel": "Durable Wheels & Sturdy Frame    Made Of Premium High Carbon Steel To Survive The Bumps Of Learning. Anti Slip Tires And Detachable Training Wheels Ensure Steadiness And Are Helpful For Beginners To Practice Balance.",
+        "featureValue": "Durable Wheels & Sturdy Frame - -Made of premium high carbon Steel to survive the bumps of learning. Anti-slip tires and detachable training wheels ensure steadiness and are helpful for beginners to practice balance.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "SMOOTH RIDING - - Wide 2.125\" tires with superior grip and bump absorption. This kids bicycle cruises smoothly on sidewalks",
+        "featureLabel": "SMOOTH RIDING     Wide 2.125\" Tires With Superior Grip And Bump Absorption. This Kids Bicycle Cruises Smoothly On Sidewalks",
+        "featureValue": "SMOOTH RIDING - - Wide 2.125\" tires with superior grip and bump absorption. This kids bicycle cruises smoothly on sidewalks",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_bikes classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "Size Guide - - 20 inch bike for 6-12 years (48\"-62\") boys & girls. Note: Measure kid’s INSEAM and compare with SADDLE HEIGHT to check if the rider can touch the ground.",
+        "PERFECT FOR BEGINNERS - - Our bicycle are engineered specifically for a kid's proportions",
+        "smaller grips",
+        "and lightweight frame create an easier ride and control."
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/61S6zRlAKkL._AC_UL165_SR165,165_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/61S6zRlAKkL._AC_UL165_SR165,165_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/47bede3f-44cf-4a0f-8ef7-0c1cdac70a2e/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/69a97ea9-b2ee-4a2d-a115-0c240b22b3a9/default.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 2,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/47bede3f-44cf-4a0f-8ef7-0c1cdac70a2e/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51-FvrzJDOL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "WEIZE kids Bike Installation Video ",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/69a97ea9-b2ee-4a2d-a115-0c240b22b3a9/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51rZsarLygL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "WEIZE Kids Bike Display Video",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

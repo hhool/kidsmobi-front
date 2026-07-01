@@ -1,0 +1,2114 @@
+{
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "generatedAt": "2026-07-01T21:38:24.633Z",
+  "categories": [
+    "stroller",
+    "car_seat",
+    "high_chair",
+    "playard",
+    "baby_carrier",
+    "balance_bike",
+    "scooters",
+    "electric_vehicles",
+    "kids_bikes",
+    "kids_tricycles",
+    "kids_push_ride_ons",
+    "kids_pull_along_wagons"
+  ],
+  "totalProducts": 86,
+  "writtenProducts": 86,
+  "failedProducts": 0,
+  "outputRoot": "/Users/yanmenghou/Desktop/cbike/kidsmobi/front/resource/assets/backend-import/import-spec-full-local-20260702-r3",
+  "byCategory": {
+    "stroller": 4,
+    "car_seat": 2,
+    "high_chair": 1,
+    "playard": 1,
+    "baby_carrier": 1,
+    "balance_bike": 12,
+    "scooters": 5,
+    "electric_vehicles": 12,
+    "kids_bikes": 12,
+    "kids_tricycles": 12,
+    "kids_push_ride_ons": 12,
+    "kids_pull_along_wagons": 12
+  },
+  "products": [
+    {
+      "productId": "B07Y5VQYFW",
+      "sourceCategoryId": "stroller",
+      "productDirName": "b07y5vqyfw-stroller",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 7,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0CXXRN2QS",
+      "sourceCategoryId": "stroller",
+      "productDirName": "b0cxxrn2qs-stroller",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 9,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B07P1YSC18",
+      "sourceCategoryId": "stroller",
+      "productDirName": "b07p1ysc18-stroller",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 5,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0DC5GGJRP",
+      "sourceCategoryId": "stroller",
+      "productDirName": "b0dc5ggjrp-stroller",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 6,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0DHLQMWW7",
+      "sourceCategoryId": "car_seat",
+      "productDirName": "b0dhlqmww7-car_seat",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 0,
+        "invalidVideoCount": 1,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": true,
+        "editorialIncomplete": true,
+        "blocked": true,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "hold"
+      }
+    },
+    {
+      "productId": "B0DHLQMWW7",
+      "sourceCategoryId": "car_seat",
+      "productDirName": "b0dhlqmww7-car_seat-dup2",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 0,
+        "invalidVideoCount": 1,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": true,
+        "mediaIssue": true,
+        "editorialIncomplete": true,
+        "blocked": true,
+        "flags": [
+          "duplicate-product",
+          "editorial-empty"
+        ],
+        "decision": "hold"
+      }
+    },
+    {
+      "productId": "B0DF1FDKR4",
+      "sourceCategoryId": "high_chair",
+      "productDirName": "b0df1fdkr4-high_chair",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 5,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B00GUN43AY",
+      "sourceCategoryId": "playard",
+      "productDirName": "b00gun43ay-playard",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 3,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0DKHCWJ5G",
+      "sourceCategoryId": "baby_carrier",
+      "productDirName": "b0dkhcwj5g-baby_carrier",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 5,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B08SGH7NKX",
+      "sourceCategoryId": "balance_bike",
+      "productDirName": "b08sgh7nkx-balance_bike",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 9,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0BLMF98S8",
+      "sourceCategoryId": "balance_bike",
+      "productDirName": "b0blmf98s8-balance_bike",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 7,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0DDQ4FQHK",
+      "sourceCategoryId": "balance_bike",
+      "productDirName": "b0ddq4fqhk-balance_bike",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 6,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0CFDX97YD",
+      "sourceCategoryId": "balance_bike",
+      "productDirName": "b0cfdx97yd-balance_bike",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 10,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0CR6VKXJ7",
+      "sourceCategoryId": "balance_bike",
+      "productDirName": "b0cr6vkxj7-balance_bike",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 8,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0FMNWHRMX",
+      "sourceCategoryId": "balance_bike",
+      "productDirName": "b0fmnwhrmx-balance_bike",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 6,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B00IZXBZBM",
+      "sourceCategoryId": "balance_bike",
+      "productDirName": "b00izxbzbm-balance_bike",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 10,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0DG8VRZBZ",
+      "sourceCategoryId": "balance_bike",
+      "productDirName": "b0dg8vrzbz-balance_bike",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 6,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0FVRV5HZB",
+      "sourceCategoryId": "balance_bike",
+      "productDirName": "b0fvrv5hzb-balance_bike",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 7,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0CCY6YRS8",
+      "sourceCategoryId": "balance_bike",
+      "productDirName": "b0ccy6yrs8-balance_bike",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 6,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B09Z65PBXP",
+      "sourceCategoryId": "balance_bike",
+      "productDirName": "b09z65pbxp-balance_bike",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 7,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0B2H5333D",
+      "sourceCategoryId": "balance_bike",
+      "productDirName": "b0b2h5333d-balance_bike",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 6,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0CCYMV1T1",
+      "sourceCategoryId": "scooters",
+      "productDirName": "b0ccymv1t1-scooters",
+      "media": {
+        "coverImages": 0,
+        "totalImages": 0,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 0,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": true,
+        "editorialIncomplete": true,
+        "blocked": true,
+        "flags": [
+          "missing-cover",
+          "editorial-empty"
+        ],
+        "decision": "hold"
+      }
+    },
+    {
+      "productId": "B0GR4L2L28",
+      "sourceCategoryId": "scooters",
+      "productDirName": "b0gr4l2l28-scooters",
+      "media": {
+        "coverImages": 0,
+        "totalImages": 0,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 0,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": true,
+        "editorialIncomplete": true,
+        "blocked": true,
+        "flags": [
+          "missing-cover",
+          "editorial-empty"
+        ],
+        "decision": "hold"
+      }
+    },
+    {
+      "productId": "B0FJY2XC2D",
+      "sourceCategoryId": "scooters",
+      "productDirName": "b0fjy2xc2d-scooters",
+      "media": {
+        "coverImages": 0,
+        "totalImages": 0,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 0,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": true,
+        "editorialIncomplete": true,
+        "blocked": true,
+        "flags": [
+          "missing-cover",
+          "editorial-empty"
+        ],
+        "decision": "hold"
+      }
+    },
+    {
+      "productId": "B0DZG137KT",
+      "sourceCategoryId": "scooters",
+      "productDirName": "b0dzg137kt-scooters",
+      "media": {
+        "coverImages": 0,
+        "totalImages": 0,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 0,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": true,
+        "editorialIncomplete": true,
+        "blocked": true,
+        "flags": [
+          "missing-cover",
+          "editorial-empty"
+        ],
+        "decision": "hold"
+      }
+    },
+    {
+      "productId": "B01EM42B60",
+      "sourceCategoryId": "scooters",
+      "productDirName": "b01em42b60-scooters",
+      "media": {
+        "coverImages": 0,
+        "totalImages": 0,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 0,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": true,
+        "editorialIncomplete": true,
+        "blocked": true,
+        "flags": [
+          "missing-cover",
+          "editorial-empty"
+        ],
+        "decision": "hold"
+      }
+    },
+    {
+      "productId": "B0DZ3R72NS",
+      "sourceCategoryId": "electric_vehicles",
+      "productDirName": "b0dz3r72ns-electric_vehicles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 6,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0D3LSZJK2",
+      "sourceCategoryId": "electric_vehicles",
+      "productDirName": "b0d3lszjk2-electric_vehicles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 10,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B017HHKGIE",
+      "sourceCategoryId": "electric_vehicles",
+      "productDirName": "b017hhkgie-electric_vehicles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 1,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0DB5K3JF4",
+      "sourceCategoryId": "electric_vehicles",
+      "productDirName": "b0db5k3jf4-electric_vehicles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 9,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0FWKK3JXX",
+      "sourceCategoryId": "electric_vehicles",
+      "productDirName": "b0fwkk3jxx-electric_vehicles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 7,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0FSS9PR84",
+      "sourceCategoryId": "electric_vehicles",
+      "productDirName": "b0fss9pr84-electric_vehicles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 9,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0F9PS1L56",
+      "sourceCategoryId": "electric_vehicles",
+      "productDirName": "b0f9ps1l56-electric_vehicles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 10,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0DX1QQ6WC",
+      "sourceCategoryId": "electric_vehicles",
+      "productDirName": "b0dx1qq6wc-electric_vehicles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 10,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0FGXR4X4T",
+      "sourceCategoryId": "electric_vehicles",
+      "productDirName": "b0fgxr4x4t-electric_vehicles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 3,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0CY5HRL3K",
+      "sourceCategoryId": "electric_vehicles",
+      "productDirName": "b0cy5hrl3k-electric_vehicles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 7,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0F5GHHDHC",
+      "sourceCategoryId": "electric_vehicles",
+      "productDirName": "b0f5ghhdhc-electric_vehicles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 6,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B07YC4VCYH",
+      "sourceCategoryId": "electric_vehicles",
+      "productDirName": "b07yc4vcyh-electric_vehicles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 6,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B08Q7TMRWR",
+      "sourceCategoryId": "kids_bikes",
+      "productDirName": "b08q7tmrwr-kids_bikes",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 5,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B07FMYDDCW",
+      "sourceCategoryId": "kids_bikes",
+      "productDirName": "b07fmyddcw-kids_bikes",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 10,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B00D3EQB3K",
+      "sourceCategoryId": "kids_bikes",
+      "productDirName": "b00d3eqb3k-kids_bikes",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 10,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B07PZKLLRT",
+      "sourceCategoryId": "kids_bikes",
+      "productDirName": "b07pzkllrt-kids_bikes",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 7,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0DHR7XKQQ",
+      "sourceCategoryId": "kids_bikes",
+      "productDirName": "b0dhr7xkqq-kids_bikes",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 0,
+        "invalidVideoCount": 1,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": true,
+        "editorialIncomplete": true,
+        "blocked": true,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "hold"
+      }
+    },
+    {
+      "productId": "B0GS4QQ8FY",
+      "sourceCategoryId": "kids_bikes",
+      "productDirName": "b0gs4qq8fy-kids_bikes",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 2,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B09PBR7DG9",
+      "sourceCategoryId": "kids_bikes",
+      "productDirName": "b09pbr7dg9-kids_bikes",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 5,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0CMC155ZD",
+      "sourceCategoryId": "kids_bikes",
+      "productDirName": "b0cmc155zd-kids_bikes",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 5,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0C53KHV7F",
+      "sourceCategoryId": "kids_bikes",
+      "productDirName": "b0c53khv7f-kids_bikes",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 6,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0FXM9GV7M",
+      "sourceCategoryId": "kids_bikes",
+      "productDirName": "b0fxm9gv7m-kids_bikes",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 3,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0DCYXXL3V",
+      "sourceCategoryId": "kids_bikes",
+      "productDirName": "b0dcyxxl3v-kids_bikes",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 5,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0FLQ7R263",
+      "sourceCategoryId": "kids_bikes",
+      "productDirName": "b0flq7r263-kids_bikes",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 2,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0CWLTLC2F",
+      "sourceCategoryId": "kids_tricycles",
+      "productDirName": "b0cwltlc2f-kids_tricycles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 10,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0DP9NLG63",
+      "sourceCategoryId": "kids_tricycles",
+      "productDirName": "b0dp9nlg63-kids_tricycles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 9,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0B5MVCKCC",
+      "sourceCategoryId": "kids_tricycles",
+      "productDirName": "b0b5mvckcc-kids_tricycles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 6,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0FS8MZY71",
+      "sourceCategoryId": "kids_tricycles",
+      "productDirName": "b0fs8mzy71-kids_tricycles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 5,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B09B9LRBM5",
+      "sourceCategoryId": "kids_tricycles",
+      "productDirName": "b09b9lrbm5-kids_tricycles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 10,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0FMY5PJ7S",
+      "sourceCategoryId": "kids_tricycles",
+      "productDirName": "b0fmy5pj7s-kids_tricycles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 3,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B08M5CG126",
+      "sourceCategoryId": "kids_tricycles",
+      "productDirName": "b08m5cg126-kids_tricycles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 10,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0CPSG9HX7",
+      "sourceCategoryId": "kids_tricycles",
+      "productDirName": "b0cpsg9hx7-kids_tricycles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 10,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B00TLFTEUC",
+      "sourceCategoryId": "kids_tricycles",
+      "productDirName": "b00tlfteuc-kids_tricycles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 1,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0FH23SNXM",
+      "sourceCategoryId": "kids_tricycles",
+      "productDirName": "b0fh23snxm-kids_tricycles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 3,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0BQQBDGPJ",
+      "sourceCategoryId": "kids_tricycles",
+      "productDirName": "b0bqqbdgpj-kids_tricycles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 10,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0FJXG5YVF",
+      "sourceCategoryId": "kids_tricycles",
+      "productDirName": "b0fjxg5yvf-kids_tricycles",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 3,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B004Y8TF96",
+      "sourceCategoryId": "kids_push_ride_ons",
+      "productDirName": "b004y8tf96-kids_push_ride_ons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 6,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B01LY46WJN",
+      "sourceCategoryId": "kids_push_ride_ons",
+      "productDirName": "b01ly46wjn-kids_push_ride_ons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 5,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B008CO80SA",
+      "sourceCategoryId": "kids_push_ride_ons",
+      "productDirName": "b008co80sa-kids_push_ride_ons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 6,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B00IOWBKQO",
+      "sourceCategoryId": "kids_push_ride_ons",
+      "productDirName": "b00iowbkqo-kids_push_ride_ons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 6,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B01GFZT4AK",
+      "sourceCategoryId": "kids_push_ride_ons",
+      "productDirName": "b01gfzt4ak-kids_push_ride_ons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 6,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B01FLACUUQ",
+      "sourceCategoryId": "kids_push_ride_ons",
+      "productDirName": "b01flacuuq-kids_push_ride_ons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 6,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B00005850H",
+      "sourceCategoryId": "kids_push_ride_ons",
+      "productDirName": "b00005850h-kids_push_ride_ons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 6,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B08J8G3K3N",
+      "sourceCategoryId": "kids_push_ride_ons",
+      "productDirName": "b08j8g3k3n-kids_push_ride_ons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 6,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B001NQHN7S",
+      "sourceCategoryId": "kids_push_ride_ons",
+      "productDirName": "b001nqhn7s-kids_push_ride_ons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 9,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B01C967BQS",
+      "sourceCategoryId": "kids_push_ride_ons",
+      "productDirName": "b01c967bqs-kids_push_ride_ons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 10,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0D8SD9WZH",
+      "sourceCategoryId": "kids_push_ride_ons",
+      "productDirName": "b0d8sd9wzh-kids_push_ride_ons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 7,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0D8KM8M3G",
+      "sourceCategoryId": "kids_push_ride_ons",
+      "productDirName": "b0d8km8m3g-kids_push_ride_ons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 5,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0DJY3JH8D",
+      "sourceCategoryId": "kids_pull_along_wagons",
+      "productDirName": "b0djy3jh8d-kids_pull_along_wagons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 5,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0G1ZF9Z63",
+      "sourceCategoryId": "kids_pull_along_wagons",
+      "productDirName": "b0g1zf9z63-kids_pull_along_wagons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 7,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B08Q1SVPRP",
+      "sourceCategoryId": "kids_pull_along_wagons",
+      "productDirName": "b08q1svprp-kids_pull_along_wagons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 6,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B084ZGLH27",
+      "sourceCategoryId": "kids_pull_along_wagons",
+      "productDirName": "b084zglh27-kids_pull_along_wagons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 7,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0GQXF73JZ",
+      "sourceCategoryId": "kids_pull_along_wagons",
+      "productDirName": "b0gqxf73jz-kids_pull_along_wagons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 4,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0DXFG3954",
+      "sourceCategoryId": "kids_pull_along_wagons",
+      "productDirName": "b0dxfg3954-kids_pull_along_wagons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 5,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B08VF98FSS",
+      "sourceCategoryId": "kids_pull_along_wagons",
+      "productDirName": "b08vf98fss-kids_pull_along_wagons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 6,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0FFM5P1SF",
+      "sourceCategoryId": "kids_pull_along_wagons",
+      "productDirName": "b0ffm5p1sf-kids_pull_along_wagons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 2,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0FCY4WM8M",
+      "sourceCategoryId": "kids_pull_along_wagons",
+      "productDirName": "b0fcy4wm8m-kids_pull_along_wagons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 5,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0G2YVKS6M",
+      "sourceCategoryId": "kids_pull_along_wagons",
+      "productDirName": "b0g2yvks6m-kids_pull_along_wagons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 5,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0FQTZTC84",
+      "sourceCategoryId": "kids_pull_along_wagons",
+      "productDirName": "b0fqtztc84-kids_pull_along_wagons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 2,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    },
+    {
+      "productId": "B0C5434M8D",
+      "sourceCategoryId": "kids_pull_along_wagons",
+      "productDirName": "b0c5434m8d-kids_pull_along_wagons",
+      "media": {
+        "coverImages": 1,
+        "totalImages": 1,
+        "galleryImages": 0,
+        "manufacturerImages": 0,
+        "videos": 7,
+        "invalidVideoCount": 0,
+        "roleMismatchCount": 0
+      },
+      "review": {
+        "duplicateProduct": false,
+        "mediaIssue": false,
+        "editorialIncomplete": true,
+        "blocked": false,
+        "flags": [
+          "editorial-empty"
+        ],
+        "decision": "pass-with-review"
+      }
+    }
+  ],
+  "duplicateProductCount": 1,
+  "mediaIssueCount": 8,
+  "editorialIncompleteCount": 86,
+  "blockedProductCount": 8,
+  "batchDecision": "hold"
+}

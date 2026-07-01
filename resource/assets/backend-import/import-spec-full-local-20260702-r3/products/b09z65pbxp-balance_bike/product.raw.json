@@ -1,0 +1,206 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "balance_bike",
+  "categoryCode": "balance",
+  "fetchedAt": "2026-07-01T21:38:37.997Z",
+  "data": {
+    "productId": "B09Z65PBXP",
+    "categoryId": "balance_bike",
+    "rank": 0,
+    "title": "KRIDDO Toddler Balance Bike 2 Year Old, Age 24 Months to 5 Years Old, 12 Inch Push Bicycle with Customize Plate (3 Sets of Stickers Included), Gift Bike for 2-3 Boys Girls, White",
+    "brand": "KRIDDO",
+    "price": {
+      "display": "$44.99",
+      "value": 44.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.6",
+      "value": 4.6
+    },
+    "weight": {
+      "display": "6.6 Pounds",
+      "lbs": 6.6
+    },
+    "classification": {
+      "Brand": "KRIDDO",
+      "Bike_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "balance_bike",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "EARLY LEARNING BALANCE BIKE – A fun way to introduce small toddlers to riding bicycles this girls and boys balance bike lets them push",
+        "stand",
+        "and walk their way around the outdoors with a sturdy frame and well-balanced",
+        "kid-friendly design for 2 to 5 years old.",
+        "CUSTOMIZE PLATE – Each balancing bike comes with a removable customizable plate",
+        "where kids can design their own plate with the stickers or draw anything they want.",
+        "ENHANCED SAFETY – Along with a soft",
+        "rubber grip handlebars",
+        "a soft PU seat",
+        "this kids balance bike has built in a wide tough carbon-steel frame",
+        "it can holds up to 110 lbs and you never need to worry that it will break when kids are learning to ride around.",
+        "EXTRA-THICK NEVER-FLAT TIRES – We want kids to feel strong and stable when they’re moving on grass and sidewalks which is why we added puncture-resistant tires to the front and back of each balance bike for 5-year old’s and 24-month-old riders.",
+        "GROW WITH YOUR KIDS – We know kids grow fast and we would like them to enjoy their riding partner longer",
+        "both handlebar and seat height can be adjusted",
+        "the quick release mechanizm makes it really easy and safe to adjust the handlebar and seat height to your needs."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "EARLY LEARNING BALANCE BIKE – A fun way to introduce small toddlers to riding bicycles this girls and boys balance bike lets them push",
+        "featureLabel": "EARLY LEARNING BALANCE BIKE – A Fun Way To Introduce Small Toddlers To Riding Bicycles This Girls And Boys Balance Bike Lets Them Push",
+        "featureValue": "EARLY LEARNING BALANCE BIKE – A fun way to introduce small toddlers to riding bicycles this girls and boys balance bike lets them push",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "stand",
+        "featureLabel": "Stand",
+        "featureValue": "stand",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "and walk their way around the outdoors with a sturdy frame and well-balanced",
+        "featureLabel": "And Walk Their Way Around The Outdoors With A Sturdy Frame And Well Balanced",
+        "featureValue": "and walk their way around the outdoors with a sturdy frame and well-balanced",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "kid-friendly design for 2 to 5 years old.",
+        "featureLabel": "Kid Friendly Design For 2 To 5 Years Old.",
+        "featureValue": "kid-friendly design for 2 to 5 years old.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "CUSTOMIZE PLATE – Each balancing bike comes with a removable customizable plate",
+        "featureLabel": "CUSTOMIZE PLATE – Each Balancing Bike Comes With A Removable Customizable Plate",
+        "featureValue": "CUSTOMIZE PLATE – Each balancing bike comes with a removable customizable plate",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "where kids can design their own plate with the stickers or draw anything they want.",
+        "featureLabel": "Where Kids Can Design Their Own Plate With The Stickers Or Draw Anything They Want.",
+        "featureValue": "where kids can design their own plate with the stickers or draw anything they want.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from balance_bike classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "EARLY LEARNING BALANCE BIKE – A fun way to introduce small toddlers to riding bicycles this girls and boys balance bike lets them push",
+        "stand",
+        "and walk their way around the outdoors with a sturdy frame and well-balanced",
+        "kid-friendly design for 2 to 5 years old."
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/7137joS8fWL._AC_UL165_SR165,165_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/7137joS8fWL._AC_UL165_SR165,165_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6747c342-e100-436d-9864-b8c70e2474c4/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a3cb8bb0-707b-4d21-b594-4d6e2b7299d5/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/db005f49-46db-43c2-83c5-6ce0a9a9d934/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/70138f9b-b376-4893-b692-716d9d695955/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/29ab605c-131d-4e78-9bcb-48e3e470f7c2/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a6405e94-0480-476a-bed0-ef571e76490e/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/17866b38-b396-442a-8b66-deccc4fc10d7/default.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 7,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6747c342-e100-436d-9864-b8c70e2474c4/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51-r7IduO8L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "KRIDDO Kids Balance Bike Installation Guide(KB002)",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a3cb8bb0-707b-4d21-b594-4d6e2b7299d5/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81MnNae4pcL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "KRIDDO Toddler Balance Bike 2 Year Old with Customize Plate",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/db005f49-46db-43c2-83c5-6ce0a9a9d934/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/611INZu7fCL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "WATCH THIS before buying this balance bike!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/70138f9b-b376-4893-b692-716d9d695955/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1vKVXVCbFL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Ranking Top 3 Toddler Balance Bikes! (Dont Buy Wrong!)",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/29ab605c-131d-4e78-9bcb-48e3e470f7c2/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/D15Mwm0wusL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Review of KRIDDO Toddler Balance Bike",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a6405e94-0480-476a-bed0-ef571e76490e/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71CEpBTJuYL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Kriddo toddler balance bike honest review",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/17866b38-b396-442a-8b66-deccc4fc10d7/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1zsapnQUBL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Honest Review of KRIDDO Toddler Balance Bike",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

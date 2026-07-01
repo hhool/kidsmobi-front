@@ -1,0 +1,464 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "electric_vehicles",
+  "categoryCode": "electric_car",
+  "fetchedAt": "2026-07-01T20:06:12.843Z",
+  "data": {
+    "productId": "B0DB5K3JF4",
+    "categoryId": "electric_vehicles",
+    "rank": 4,
+    "title": "First Ride On 24V Ride on Toys for Big Kids, Licensed Ford Bronco Raptor 2 Seater Ride on Cars with Remote Control, Ride on T",
+    "brand": "First",
+    "price": {
+      "display": "$314.47",
+      "value": 314.47,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.5  948",
+      "value": 4.5
+    },
+    "weight": {
+      "display": "N/A",
+      "lbs": null
+    },
+    "classification": {
+      "Brand": "First",
+      "Vehicle_Type": "Music",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Unknown",
+      "Price_Tier": ">200"
+    },
+    "categoryAttributes": {
+      "categoryId": "electric_vehicles",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "OFFICIALLY LICENSED BY FORD BRONCO RAPTOR: This 24v ride on toys for big kids delivers an authentic driving experience",
+        "Spacious Dual-Seater Fun: Featuring a 21-inch dual seat",
+        "this 24v kids ride on car is perfect for siblings or friends to enjoy together. It is ideal for a larger child",
+        "offering comfortable seating with left-side driving and two-seat driving for a more realistic car experience",
+        "Ultimate Safety Features: Equipped with two individual 3-point seat belts and anti-slip seats",
+        "this ride on cars for kids ages 3-8 prioritizes safety with parental remote control",
+        "soft start",
+        "and rear shock function. It ensures a secure and smooth ride",
+        "allowing parents to confidently let their children drive and explore",
+        "Endless Entertainment: Packed with music",
+        "Bluetooth",
+        "and a built-in radio",
+        "this 24V ride-on car creates a fun-filled world for kids. They can sing along",
+        "enjoy stories",
+        "and cruise with joy. Plus",
+        "the volume is fully adjustable—turn it up to enjoy loud",
+        "clear sound even while driving. It offers an immersive space for little riders and a bit of peace for parents too",
+        "Superior Performance: Powered by a 24v battery with dual drive",
+        "this kids ride on toys offers three-speed options: 2.0",
+        "2.7",
+        "and 4.3 mph. The battery life ranges from 50 minutes to 2 hours",
+        "varying based on usage and speed. The three-speed settings cater to different age groups",
+        "making it suitable for various driving scenarios. Enjoy safe outdoor fun with a 98ft remote control range for worry-free play!",
+        "Creating Unforgettable Memories: Perfect for milestone celebrations",
+        "this kids ride on toy with parent remote brings joy and creates lasting memories. It offers an excellent opportunity for parent-child interaction and helps kids develop cognitive",
+        "coordination",
+        "and driving skills",
+        "making it a cherished present that children will treasure and enjoy for years to come"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "OFFICIALLY LICENSED BY FORD BRONCO RAPTOR: This 24v ride on toys for big kids delivers an authentic driving experience",
+        "featureLabel": "Officially Licensed By Ford Bronco Raptor: This 24v Ride On Toys For Big Kids Delivers An Authentic Driving Experience",
+        "featureValue": "OFFICIALLY LICENSED BY FORD BRONCO RAPTOR: This 24v ride on toys for big kids delivers an authentic driving experience",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "Spacious Dual-Seater Fun: Featuring a 21-inch dual seat",
+        "featureLabel": "Spacious Dual Seater Fun: Featuring A 21 Inch Dual Seat",
+        "featureValue": "Spacious Dual-Seater Fun: Featuring a 21-inch dual seat",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "this 24v kids ride on car is perfect for siblings or friends to enjoy together. It is ideal for a larger child",
+        "featureLabel": "This 24v Kids Ride On Car Is Perfect For Siblings Or Friends To Enjoy Together. It Is Ideal For A Larger Child",
+        "featureValue": "this 24v kids ride on car is perfect for siblings or friends to enjoy together. It is ideal for a larger child",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "offering comfortable seating with left-side driving and two-seat driving for a more realistic car experience",
+        "featureLabel": "Offering Comfortable Seating With Left Side Driving And Two Seat Driving For A More Realistic Car Experience",
+        "featureValue": "offering comfortable seating with left-side driving and two-seat driving for a more realistic car experience",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "Ultimate Safety Features: Equipped with two individual 3-point seat belts and anti-slip seats",
+        "featureLabel": "Ultimate Safety Features: Equipped With Two Individual 3 Point Seat Belts And Anti Slip Seats",
+        "featureValue": "Ultimate Safety Features: Equipped with two individual 3-point seat belts and anti-slip seats",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "this ride on cars for kids ages 3-8 prioritizes safety with parental remote control",
+        "featureLabel": "This Ride On Cars For Kids Ages 3 8 Prioritizes Safety With Parental Remote Control",
+        "featureValue": "this ride on cars for kids ages 3-8 prioritizes safety with parental remote control",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "OFFICIALLY LICENSED BY FORD BRONCO RAPTOR: This 24v ride on toys for big kids delivers an authentic driving experience",
+        "Spacious Dual-Seater Fun: Featuring a 21-inch dual seat",
+        "this 24v kids ride on car is perfect for siblings or friends to enjoy together. It is ideal for a larger child",
+        "offering comfortable seating with left-side driving and two-seat driving for a more realistic car experience"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+          "source": "local",
+          "order": 10
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_1.jpg",
+      "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_2.jpg",
+      "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_3.jpg",
+      "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_4.jpg",
+      "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_5.jpg",
+      "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_6.jpg",
+      "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_7.jpg",
+      "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_8.jpg",
+      "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_9.jpg",
+      "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png"
+    ],
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a4930289-4b52-4ffc-b8f5-12752c160757/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a7cadea2-6fff-4ecd-ac38-d10ea096d75c/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a84b6809-6543-4f2f-afeb-330912600d02/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/171815e7-1f34-41d6-8bd0-f0f039a3bee3/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2e9b0ce5-540c-479d-8431-163b6819c60c/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e1309c0a-9754-4846-b201-ec17a767da56/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8a150ed1-0732-426e-b405-9b826dcf7ff0/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4f529eb0-6ee3-447d-a636-cb44c77db462/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c6d49f6-a27c-4f97-b334-04a8f2f5b102/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a4930289-4b52-4ffc-b8f5-12752c160757/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Best Gift for Kids - Ford Bronco 24V Ride on Toys",
+        "thumbnail": "https://m.media-amazon.com/images/I/71te-ceD4OL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a7cadea2-6fff-4ecd-ac38-d10ea096d75c/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "24V Ford Bronco Raptor Kids Ride on Car Installation Video",
+        "thumbnail": "https://m.media-amazon.com/images/I/81batFO481L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a84b6809-6543-4f2f-afeb-330912600d02/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "24V Ford Bronco Raptor Customer Experience Video",
+        "thumbnail": "https://m.media-amazon.com/images/I/A1C0b9x57IL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/171815e7-1f34-41d6-8bd0-f0f039a3bee3/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Ford Bronco 24V Ride on Toys",
+        "thumbnail": "https://m.media-amazon.com/images/I/71ImnN+1R+L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2e9b0ce5-540c-479d-8431-163b6819c60c/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "My girls love taking their Bronco for a ride!",
+        "thumbnail": "https://m.media-amazon.com/images/I/B1NY87dbraL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e1309c0a-9754-4846-b201-ec17a767da56/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Quality, Fast Bronco!",
+        "thumbnail": "https://m.media-amazon.com/images/I/81KdXit86SL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 6
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8a150ed1-0732-426e-b405-9b826dcf7ff0/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Watch- Remote Controlled Big Wheel",
+        "thumbnail": "https://m.media-amazon.com/images/I/71RH128AHfL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 7
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4f529eb0-6ee3-447d-a636-cb44c77db462/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "24V Electric Car for Kids",
+        "thumbnail": "https://m.media-amazon.com/images/I/81WYqRweorL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 8
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c6d49f6-a27c-4f97-b334-04a8f2f5b102/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "What makes this ride on bronco unique??",
+        "thumbnail": "https://m.media-amazon.com/images/I/91YVvzE2yuL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 9
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/electric_vehicles/index.html",
+      "categoryPages": "/scrape_store/electric_vehicles/pages/index.html",
+      "detailPage": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/index.html"
+    },
+    "resourceStats": {
+      "videos": 9,
+      "similarItems": 0
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71gDqdmUHmL._AC_UL300_SR300,200_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 12
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/electric_vehicles/First/Rank_4_ASIN_B0DB5K3JF4_First Ride On 24V Ride on Toys for Big Kids Licens/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a4930289-4b52-4ffc-b8f5-12752c160757/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71te-ceD4OL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Best Gift for Kids - Ford Bronco 24V Ride on Toys",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a7cadea2-6fff-4ecd-ac38-d10ea096d75c/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81batFO481L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "24V Ford Bronco Raptor Kids Ride on Car Installation Video",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a84b6809-6543-4f2f-afeb-330912600d02/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1C0b9x57IL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "24V Ford Bronco Raptor Customer Experience Video",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/171815e7-1f34-41d6-8bd0-f0f039a3bee3/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71ImnN+1R+L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Ford Bronco 24V Ride on Toys",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2e9b0ce5-540c-479d-8431-163b6819c60c/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1NY87dbraL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "My girls love taking their Bronco for a ride!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e1309c0a-9754-4846-b201-ec17a767da56/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81KdXit86SL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Quality, Fast Bronco!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8a150ed1-0732-426e-b405-9b826dcf7ff0/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71RH128AHfL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Watch- Remote Controlled Big Wheel",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4f529eb0-6ee3-447d-a636-cb44c77db462/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81WYqRweorL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "24V Electric Car for Kids",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c6d49f6-a27c-4f97-b334-04a8f2f5b102/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91YVvzE2yuL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "What makes this ride on bronco unique??",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

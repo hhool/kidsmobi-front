@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "balance_bike",
+  "fetchedAt": "2026-07-01T21:38:37.997Z",
+  "data": {
+    "resourceId": "B09Z65PBXP:video",
+    "categoryId": "balance_bike",
+    "productId": "B09Z65PBXP",
+    "resourceType": "product_video",
+    "title": "KRIDDO Toddler Balance Bike 2 Year Old, Age 24 Months to 5 Years Old, 12 Inch Push Bicycle with Customize Plate (3 Sets of Stickers Included), Gift Bike for 2-3 Boys Girls, White • Video preview",
+    "summary": "Video preview asset set for KRIDDO in balance_bike.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6747c342-e100-436d-9864-b8c70e2474c4/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6747c342-e100-436d-9864-b8c70e2474c4/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a3cb8bb0-707b-4d21-b594-4d6e2b7299d5/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/db005f49-46db-43c2-83c5-6ce0a9a9d934/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/70138f9b-b376-4893-b692-716d9d695955/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/29ab605c-131d-4e78-9bcb-48e3e470f7c2/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a6405e94-0480-476a-bed0-ef571e76490e/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/17866b38-b396-442a-8b66-deccc4fc10d7/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.98,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 7,
+      "hasFeatures": true
+    }
+  }
+}

@@ -1,0 +1,996 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_bikes",
+  "categoryCode": "bicycle",
+  "fetchedAt": "2026-07-01T21:38:49.362Z",
+  "data": {
+    "productId": "B08Q7TMRWR",
+    "categoryId": "kids_bikes",
+    "rank": 1,
+    "title": "JOYSTAR Little Daisy Kids Bike for Girls Boys Ages 2-10 Years, 12 14 16 20 Inch Girls Bikes with Doll Bike Seat & Streamers,",
+    "brand": "JOYSTAR",
+    "price": {
+      "display": "$94.98",
+      "value": 94.98,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.3  3,051",
+      "value": 4.3
+    },
+    "weight": {
+      "display": "9.4 Kilograms",
+      "lbs": 9.4
+    },
+    "classification": {
+      "Brand": "JOYSTAR",
+      "Bike_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_bikes",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "Amazing Design and Color - JOYSTAR Little Daisy Princess 12 Inch girls bike is a beautiful and attractive bike with vibrant colors. The doll bike seat",
+        "lovely basket",
+        "and DIY decals make the journey even more enjoyable",
+        "For Safety Riding - The front hand caliper brakes and rear coaster",
+        "foot brake provide sufficient stopping power and increased safety. The kids bike also comes with the front and rear reflectors",
+        "wheel reflectors and the enclosed chainguard",
+        "Design for Kids - Removable training wheels are included. The bike includes adjustable saddle and stem height for a more comfortable fit and easy pedaling. Comes with a single speed drivetrain",
+        "making it simple for the child to maneuver the bicycle",
+        "Easy to Assemble - The children bike comes with 85% Pre-assembled body and the basic assembly tools",
+        "only pump needed for tires",
+        "normally takes a novice about 20 minutes to assemble it. Our limited Lifetime Warranty covers the kids bicycles",
+        "Perfect Gift for Kids - 12 inch girls bike is suitable for 2-4 years old. A kids bike is a perfect gift for kids to foster physical activity",
+        "enhances coordination",
+        "boosts confidence",
+        "and provides endless fun and adventure"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "Amazing Design and Color - JOYSTAR Little Daisy Princess 12 Inch girls bike is a beautiful and attractive bike with vibrant colors. The doll bike seat",
+        "featureLabel": "Amazing Design And Color   JOYSTAR Little Daisy Princess 12 Inch Girls Bike Is A Beautiful And Attractive Bike With Vibrant Colors. The Doll Bike Seat",
+        "featureValue": "Amazing Design and Color - JOYSTAR Little Daisy Princess 12 Inch girls bike is a beautiful and attractive bike with vibrant colors. The doll bike seat",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "lovely basket",
+        "featureLabel": "Lovely Basket",
+        "featureValue": "lovely basket",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "and DIY decals make the journey even more enjoyable",
+        "featureLabel": "And DIY Decals Make The Journey Even More Enjoyable",
+        "featureValue": "and DIY decals make the journey even more enjoyable",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "For Safety Riding - The front hand caliper brakes and rear coaster",
+        "featureLabel": "For Safety Riding   The Front Hand Caliper Brakes And Rear Coaster",
+        "featureValue": "For Safety Riding - The front hand caliper brakes and rear coaster",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "foot brake provide sufficient stopping power and increased safety. The kids bike also comes with the front and rear reflectors",
+        "featureLabel": "Foot Brake Provide Sufficient Stopping Power And Increased Safety. The Kids Bike Also Comes With The Front And Rear Reflectors",
+        "featureValue": "foot brake provide sufficient stopping power and increased safety. The kids bike also comes with the front and rear reflectors",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "wheel reflectors and the enclosed chainguard",
+        "featureLabel": "Wheel Reflectors And The Enclosed Chainguard",
+        "featureValue": "wheel reflectors and the enclosed chainguard",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_bikes classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "Amazing Design and Color - JOYSTAR Little Daisy Princess 12 Inch girls bike is a beautiful and attractive bike with vibrant colors. The doll bike seat",
+        "lovely basket",
+        "and DIY decals make the journey even more enjoyable",
+        "For Safety Riding - The front hand caliper brakes and rear coaster"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/71C+5ucKDEL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71C+5ucKDEL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/19eb9f6c-0f50-486d-92d7-b2eb3a5fbb4f.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/aa639064-db32-4de6-a952-9e599720e24c.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/0b436a33-5645-4107-83c2-724ccde971fc.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/365634a7-ae7a-40bd-af4f-15e8b90f786d.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8497b097-69c8-460c-a681-de189a0a670e.mp4/productVideoOptimized.mp4"
+    ],
+    "resourceStats": {
+      "videos": 5,
+      "similarItems": 2
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/19eb9f6c-0f50-486d-92d7-b2eb3a5fbb4f.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR Little Daisy Kids Bike for Girls Boys Ages/videos/video_0.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/aa639064-db32-4de6-a952-9e599720e24c.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR Little Daisy Kids Bike for Girls Boys Ages/videos/video_1.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/0b436a33-5645-4107-83c2-724ccde971fc.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR Little Daisy Kids Bike for Girls Boys Ages/videos/video_2.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/365634a7-ae7a-40bd-af4f-15e8b90f786d.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR Little Daisy Kids Bike for Girls Boys Ages/videos/video_3.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8497b097-69c8-460c-a681-de189a0a670e.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR Little Daisy Kids Bike for Girls Boys Ages/videos/video_4.mp4"
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "Glerc",
+        "Title": "Glerc Maggie Girls Bike, 12-20 Inch Kids Bike for 2-13 Years Old Children, Princess Style Kids Bicycle with Doll-Seat & Basket & Training Wheels, Multiple Colors",
+        "Price": "$99.99",
+        "Rating": "4.5",
+        "Reviews": "907",
+        "URL": "https://www.amazon.com/Glerc-Little-Bicycles-Basket-Training/dp/B0BCDBWMXM/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_1/140-2415004-9420942?pd_rd_w=GqHiO&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=QC1HG9CM0N4QKKBRDZ41&pd_rd_wg=Drsi7&pd_rd_r=a2b5da80-d61a-4d39-95a3-5da7b9f1f7b6&pd_rd_i=B0BCDBWMXM&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/71KzJBqdYQL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B0BCDBWMXM",
+        "Features": "【Enchant Your Little Girl】 This princess-themed kids bike features an irresistibly cute design and a special doll-style seat. She won't want playtime to end! A dream surprise gift awaits. | 【Friendly Designs】 The saddle and handlebar of the girls bike are adjustable, it can easily cope with the growth of your child's height and grow with your kids. | 【Safe Riding】 Front hand brake and coaster brake provide enough braking force to control the distance easily. The kids bicycle also comes with a closed chain cover to further prevent children from getting hurt. | 【Size Guide】 This 14 inch bike is suitable for children ages 3-5, 38\"-46\" tall, with an inseam height of 17\"-20\". The bike weighs 24 lbs. Please focus on your child's height and inseam to choose the size. | 【Easy to Install】 Kids bike come with an 85% pre-assembled body and basic assembly tools, so you can add just a few parts to the bike and have it assembled in just 25 minutes.",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/17bcd41c-8179-48e7-bce1-c089ce5662ce/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/17bcd41c-8179-48e7-bce1-c089ce5662ce/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7a33c2f5-6aaa-4338-9f3c-edb2b5525530/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/55d82430-ff6a-4900-bb96-8947e4515369/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/37d002e7-f347-49a0-927f-8c779ccb6fd7/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b3fd6c50-e3f0-4727-9a17-9904a354e556/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e33baaf0-587f-4582-9193-fb525484c6a3/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/028e2062-d814-4842-994b-69e090185bd1/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cdc0815a-d982-430b-bd36-76de597ac875/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dc5e6b7d-cd6b-43ef-812c-13316dfe97e4/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f051ea78-52fc-4bc8-a195-215860e1defa/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3edc4756-abe6-4f4c-b36b-f15abd2521e2/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/530602e5-dbd2-4e57-9ca6-f9a60b06d86a/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f0c08999-eabe-42ce-b5f4-75e84d32f84a/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/13e8a6b1-47dc-4bd4-9269-755bafc2cbf5/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d32c22d4-9187-4e44-8c43-ea2987431478/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/137aa9d0-d63a-4f1b-92fd-ca45ef7e84ce/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/19eb9f6c-0f50-486d-92d7-b2eb3a5fbb4f.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/365634a7-ae7a-40bd-af4f-15e8b90f786d.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/0b436a33-5645-4107-83c2-724ccde971fc.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/3d069527-1b39-415c-aa7d-77446b4ddd1f.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/595404a4-3422-4dbd-b67c-e435b4c0a072.mp4/productVideoOptimized.mp4"
+        ],
+        "Product_Videos_MP4": [
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/19eb9f6c-0f50-486d-92d7-b2eb3a5fbb4f.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/365634a7-ae7a-40bd-af4f-15e8b90f786d.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/0b436a33-5645-4107-83c2-724ccde971fc.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/3d069527-1b39-415c-aa7d-77446b4ddd1f.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/595404a4-3422-4dbd-b67c-e435b4c0a072.mp4/productVideoOptimized.mp4"
+        ],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/17bcd41c-8179-48e7-bce1-c089ce5662ce/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7a33c2f5-6aaa-4338-9f3c-edb2b5525530/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/55d82430-ff6a-4900-bb96-8947e4515369/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/37d002e7-f347-49a0-927f-8c779ccb6fd7/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b3fd6c50-e3f0-4727-9a17-9904a354e556/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e33baaf0-587f-4582-9193-fb525484c6a3/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/028e2062-d814-4842-994b-69e090185bd1/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cdc0815a-d982-430b-bd36-76de597ac875/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dc5e6b7d-cd6b-43ef-812c-13316dfe97e4/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f051ea78-52fc-4bc8-a195-215860e1defa/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3edc4756-abe6-4f4c-b36b-f15abd2521e2/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/530602e5-dbd2-4e57-9ca6-f9a60b06d86a/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f0c08999-eabe-42ce-b5f4-75e84d32f84a/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/13e8a6b1-47dc-4bd4-9269-755bafc2cbf5/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d32c22d4-9187-4e44-8c43-ea2987431478/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/137aa9d0-d63a-4f1b-92fd-ca45ef7e84ce/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "Maggie Girls Bike",
+              "Texts": [],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/eed74cb5-062f-4512-a460-0b411592c4b0.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/df748636-a473-49a2-a13e-52189efac12a.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/6fcc5383-e0d8-4091-95c3-40d71e2890a8.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/eed74cb5-062f-4512-a460-0b411592c4b0.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "1",
+                  "Image_Alt": "1"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/df748636-a473-49a2-a13e-52189efac12a.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 2,
+                  "Image_Title": "1",
+                  "Image_Alt": "1"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/6fcc5383-e0d8-4091-95c3-40d71e2890a8.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 3,
+                  "Image_Title": "",
+                  "Image_Alt": ""
+                }
+              ],
+              "Comparison_Table": {
+                "Headers": [
+                  "Maggie Buying Options",
+                  "Little Molly Buying Options",
+                  "Petal Add to Cart",
+                  "Missy Buying Options",
+                  "Fantacy Add to Cart",
+                  "Skyline Add to Cart"
+                ],
+                "Rows": [
+                  [
+                    "Customer Reviews",
+                    "4.5 out of 5 stars 907",
+                    "4.5 out of 5 stars 572",
+                    "4.6 out of 5 stars 125",
+                    "4.4 out of 5 stars 376",
+                    "4.6 out of 5 stars 322",
+                    "4.5 out of 5 stars 497"
+                  ],
+                  [
+                    "Price",
+                    "$100.79 $ 100 . 79",
+                    "$99.99 $ 99 . 99",
+                    "$113.99 $ 113 . 99",
+                    "$189.99 $ 189 . 99",
+                    "$99.99 $ 99 . 99",
+                    "$199.99 $ 199 . 99"
+                  ],
+                  [
+                    "Size",
+                    "12'' - 20\"",
+                    "12'' - 20\"",
+                    "12'' - 18''",
+                    "20\"- 26\"",
+                    "12'' - 20''",
+                    "20'' - 26\""
+                  ],
+                  [
+                    "Suitable for Age",
+                    "2-13 years old",
+                    "2-13 years old",
+                    "2-9 years old",
+                    "over 6 years old",
+                    "2-13 years old",
+                    "over 6 years old"
+                  ],
+                  [
+                    "Front Brake",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔"
+                  ],
+                  [
+                    "Coaster Brake",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✘",
+                    "✔",
+                    "✘"
+                  ],
+                  [
+                    "Training Wheels",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✘",
+                    "✔",
+                    "✘"
+                  ],
+                  [
+                    "Kickstand",
+                    "Only for 16\" 20\"",
+                    "Only for 16\" 18\" 20\"",
+                    "Only for 16\" 18\"",
+                    "Yes",
+                    "Only for 16\" 18\" 20\"",
+                    "Yes"
+                  ]
+                ]
+              },
+              "Block_Types": [
+                "image",
+                "table"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "Maggie Girls Bike"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/eed74cb5-062f-4512-a460-0b411592c4b0.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "1",
+                    "Image_Alt": "1"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/df748636-a473-49a2-a13e-52189efac12a.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 2,
+                    "Image_Title": "1",
+                    "Image_Alt": "1"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/6fcc5383-e0d8-4091-95c3-40d71e2890a8.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 3,
+                    "Image_Title": "",
+                    "Image_Alt": ""
+                  }
+                },
+                {
+                  "Block_Type": "table",
+                  "Table": {
+                    "Headers": [
+                      "Maggie Buying Options",
+                      "Little Molly Buying Options",
+                      "Petal Add to Cart",
+                      "Missy Buying Options",
+                      "Fantacy Add to Cart",
+                      "Skyline Add to Cart"
+                    ],
+                    "Rows": [
+                      [
+                        "Customer Reviews",
+                        "4.5 out of 5 stars 907",
+                        "4.5 out of 5 stars 572",
+                        "4.6 out of 5 stars 125",
+                        "4.4 out of 5 stars 376",
+                        "4.6 out of 5 stars 322",
+                        "4.5 out of 5 stars 497"
+                      ],
+                      [
+                        "Price",
+                        "$100.79 $ 100 . 79",
+                        "$99.99 $ 99 . 99",
+                        "$113.99 $ 113 . 99",
+                        "$189.99 $ 189 . 99",
+                        "$99.99 $ 99 . 99",
+                        "$199.99 $ 199 . 99"
+                      ],
+                      [
+                        "Size",
+                        "12'' - 20\"",
+                        "12'' - 20\"",
+                        "12'' - 18''",
+                        "20\"- 26\"",
+                        "12'' - 20''",
+                        "20'' - 26\""
+                      ],
+                      [
+                        "Suitable for Age",
+                        "2-13 years old",
+                        "2-13 years old",
+                        "2-9 years old",
+                        "over 6 years old",
+                        "2-13 years old",
+                        "over 6 years old"
+                      ],
+                      [
+                        "Front Brake",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔"
+                      ],
+                      [
+                        "Coaster Brake",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✘",
+                        "✔",
+                        "✘"
+                      ],
+                      [
+                        "Training Wheels",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✘",
+                        "✔",
+                        "✘"
+                      ],
+                      [
+                        "Kickstand",
+                        "Only for 16\" 20\"",
+                        "Only for 16\" 18\" 20\"",
+                        "Only for 16\" 18\"",
+                        "Yes",
+                        "Only for 16\" 18\" 20\"",
+                        "Yes"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/eed74cb5-062f-4512-a460-0b411592c4b0.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/df748636-a473-49a2-a13e-52189efac12a.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/6fcc5383-e0d8-4091-95c3-40d71e2890a8.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+            ],
+            "Local_Images": [
+              "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0BCDBWMXM_Glerc Maggie Girls Bike 12-20 Inch Kids Bike for 2/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+              "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0BCDBWMXM_Glerc Maggie Girls Bike 12-20 Inch Kids Bike for 2/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+              "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0BCDBWMXM_Glerc Maggie Girls Bike 12-20 Inch Kids Bike for 2/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [],
+          "Summary": {
+            "Count": 0
+          },
+          "Local_Paths": []
+        },
+        "Product_Description": "N/A",
+        "Product_Specifications": {
+          "Measurements": {
+            "Wheel Size": "14 Inches",
+            "Size": "14 Inch",
+            "Item Weight": "10.2 Pounds",
+            "Maximum Weight Recommendation": "50 Pounds",
+            "Minimum User Height": "17 Inches"
+          },
+          "Features_Specs": {
+            "Bike Type": "Kids Bike",
+            "Age Range (Description)": "Kids",
+            "Suspension Type": "Rigid",
+            "Special Feature": "Adjustable, Basket, Doll seat, Durable, Lightweight",
+            "Additional Features": "Adjustable, Basket, Doll seat, Durable, Lightweight",
+            "Power Source": "human-powered",
+            "Bicycle Drivetrain Type": "Coaster Brake",
+            "Is Autographed": "No",
+            "Theme": "Princess",
+            "Age Range Description": "Kids",
+            "Warranty Type": "Lifetime"
+          },
+          "Materials_Care": {
+            "Frame Material": "Carbon Steel",
+            "Frame Material Type": "Carbon Steel",
+            "Wheel Material": "Carbon Steel",
+            "Seat Material": "Steel"
+          },
+          "Item_Details": {
+            "Brand": "Glerc",
+            "Number of Speeds": "1",
+            "Included Components": "Basket, Bell, Mudguard, Reflectors, Training Wheel",
+            "Number Of Speeds": "1",
+            "Number of Handles": "2",
+            "Brand Name": "Glerc",
+            "Model Number": "BG1012YD14pk",
+            "Model Name": "Maggie",
+            "Manufacturer": "Glerc",
+            "Best Sellers Rank": "#12,904 in Sports & Outdoors (See Top 100 in Sports & Outdoors) #30 in Kids' Bicycles",
+            "ASIN": "B0BCDBWMXM",
+            "Customer Reviews": "4.5  4.5 out of 5 stars   \n    (907)   \n\n\n 4.5 out of 5 stars"
+          },
+          "User_Guide": {
+            "Is Assembly Required": "Yes"
+          },
+          "Additional_Details": {
+            "Color": "Pink",
+            "Brake Style": "Coaster",
+            "Style Name": "14 Inch With Training Wheels"
+          }
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
+          "Sold_By": "Memo Cycle \n  Memo Cycle      Sold by   Memo Cycle",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery Wednesday, July 1",
+          "Specifications": {
+            "Bike Type": "Kids Bike",
+            "Age Range (Description)": "Kids",
+            "Brand": "Glerc",
+            "Number of Speeds": "1",
+            "Color": "Pink",
+            "Wheel Size": "14 Inches",
+            "Frame Material": "Carbon Steel",
+            "Suspension Type": "Rigid",
+            "Special Feature": "Adjustable, Basket, Doll seat, Durable, Lightweight",
+            "Included Components": "Basket, Bell, Mudguard, Reflectors, Training Wheel"
+          }
+        },
+        "Local_Image_Paths": [
+          "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0BCDBWMXM_Glerc Maggie Girls Bike 12-20 Inch Kids Bike for 2/images/primary.jpg",
+          "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0BCDBWMXM_Glerc Maggie Girls Bike 12-20 Inch Kids Bike for 2/images/alt_1.jpg",
+          "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0BCDBWMXM_Glerc Maggie Girls Bike 12-20 Inch Kids Bike for 2/images/alt_2.jpg",
+          "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0BCDBWMXM_Glerc Maggie Girls Bike 12-20 Inch Kids Bike for 2/images/alt_3.jpg",
+          "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0BCDBWMXM_Glerc Maggie Girls Bike 12-20 Inch Kids Bike for 2/images/alt_4.jpg",
+          "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0BCDBWMXM_Glerc Maggie Girls Bike 12-20 Inch Kids Bike for 2/images/alt_5.jpg",
+          "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0BCDBWMXM_Glerc Maggie Girls Bike 12-20 Inch Kids Bike for 2/images/alt_6.jpg",
+          "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0BCDBWMXM_Glerc Maggie Girls Bike 12-20 Inch Kids Bike for 2/images/alt_7.jpg",
+          "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0BCDBWMXM_Glerc Maggie Girls Bike 12-20 Inch Kids Bike for 2/images/alt_8.jpg",
+          "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0BCDBWMXM_Glerc Maggie Girls Bike 12-20 Inch Kids Bike for 2/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0BCDBWMXM_Glerc Maggie Girls Bike 12-20 Inch Kids Bike for 2/images/primary.jpg",
+        "Local_Video_Paths": []
+      },
+      {
+        "Rank": "Similar",
+        "Brand": "Bixike",
+        "Title": "Bixike Girls Bike with Basket for Toddlers and Kids Aged 3-14 Years Old, 12 14 16 18 Inch with Training Wheels & Doll Seat, 2",
+        "Price": "$99.99",
+        "Rating": "4.3",
+        "Reviews": "591",
+        "URL": "https://www.amazon.com/BIXIKE-Basket-Training-Kickstand-Kickstand/dp/B0B8MNBC5J/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_6/140-2415004-9420942?pd_rd_w=GqHiO&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=QC1HG9CM0N4QKKBRDZ41&pd_rd_wg=Drsi7&pd_rd_r=a2b5da80-d61a-4d39-95a3-5da7b9f1f7b6&pd_rd_i=B0B8MNBC5J&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/61j10zjFOiL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B0B8MNBC5J",
+        "Features": "Size and Design: Bixike kids bike is designed specifically for children and comes in a size suitable for their age and height. The bike features sturdy frame, kid-friendly design with bright colors, and adjustable saddle and handlebars to ensure a comfortable fit.Pink Purple Orange color optional. | Safety Features: Safety is a top priority for Bixike girl bikes, and they come equipped with several features to protect children while they ride. These include training wheels for beginners, front caliper brakes and coaster brakes for easy stopping, and non-slip pedals to keep their feet in place. | Durability: The kids bikes are built to last, with high-quality components and materials that can withstand the wear and tear of regular use. They feature rust-resistant chains, and strong steel frames to ensure they can handle rough terrain and adventurous kids. | Age and Height Range: The 12\" bike is designed for kids 2-4 years old or 32-41 inches tall.The 14\" bike is designed for kids 3-5 years old or 37-45 inches tall. The 16\" bike is designed for kids 4-8 years old or 41-51 inches tall.The 18\" bike is designed for kids 9-12 years old or 49-57 inches tall.The 20\" bike is designed for kids 12-14 years old or 51-61 inches tall. | Ease of Use: Bixike bikes are easy to assemble, with tools and instructions included. They are also lightweight, making them easy for kids to maneuver and ride without too much effort. Additionally, they are typically easy to clean and maintain, making them a great investment for parents looking for a reliable and convenient kids bike.",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9a02ff54-7281-4e8b-9c7e-ee476ffc51e8/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9a02ff54-7281-4e8b-9c7e-ee476ffc51e8/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1NZZkOxoDL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Bixike Girls Bike with Basket and Doll Seat",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/242e4707-e9e0-4255-8de2-d71a80ec630e/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61XGr8xY5wL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "UPDATED Review On This Bike We Bought My 4 Year Old",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8305badf-04cc-4a8b-b47c-32aad2afd840/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1-x+nPFFrL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Why we love this bike!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/72235ec4-ad06-4767-a0f4-6780acf61d15/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/81ghvUxmgoL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Perfect Bike? Must Watch Before Buying This Toddler Bike!",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9a02ff54-7281-4e8b-9c7e-ee476ffc51e8/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/242e4707-e9e0-4255-8de2-d71a80ec630e/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8305badf-04cc-4a8b-b47c-32aad2afd840/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/72235ec4-ad06-4767-a0f4-6780acf61d15/default.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9a02ff54-7281-4e8b-9c7e-ee476ffc51e8/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/242e4707-e9e0-4255-8de2-d71a80ec630e/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8305badf-04cc-4a8b-b47c-32aad2afd840/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/72235ec4-ad06-4767-a0f4-6780acf61d15/default.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "",
+              "Texts": [],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/a868f1d3-d15c-468c-bcce-5fa610852d9f.__CR0,0,2928,1200_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/dec975f8-b185-499a-b773-433ecc69ac3b.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/035d9984-0621-4d5e-9f9a-876eb38895d9.__CR0,0,2928,1200_PT0_SX1464_V1___.png"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/a868f1d3-d15c-468c-bcce-5fa610852d9f.__CR0,0,2928,1200_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "娃娃封面",
+                  "Image_Alt": "娃娃封面"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/dec975f8-b185-499a-b773-433ecc69ac3b.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+                  "Image_Order": 2,
+                  "Image_Title": "",
+                  "Image_Alt": ""
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/035d9984-0621-4d5e-9f9a-876eb38895d9.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+                  "Image_Order": 3,
+                  "Image_Title": "",
+                  "Image_Alt": ""
+                }
+              ],
+              "Comparison_Table": {
+                "Headers": [
+                  "Girls Bike with Doll seat Add to Cart",
+                  "Girls Bike with Streamer Buying Options",
+                  "Girls Bike with Basket Buying Options",
+                  "Girls Bike with Rear Rack Buying Options",
+                  "Girls Bike with Rear Rack Buying Options",
+                  "ACEGER Bmx style Bike Buying Options",
+                  "ACEGER Sarkle Kids Bike Buying Options"
+                ],
+                "Rows": [
+                  [
+                    "Customer Reviews",
+                    "4.3 out of 5 stars 591",
+                    "4.2 out of 5 stars 122",
+                    "4.3 out of 5 stars 782",
+                    "4.3 out of 5 stars 591",
+                    "4.8 out of 5 stars 17",
+                    "4.2 out of 5 stars 55",
+                    "4.2 out of 5 stars 55"
+                  ],
+                  [
+                    "Price",
+                    "$105.44 $ 105 . 44",
+                    "$106.22 $ 106 . 22",
+                    "$143.32 $ 143 . 32",
+                    "$143.32 $ 143 . 32",
+                    "$143.32 $ 143 . 32",
+                    "—",
+                    "$101.17 $ 101 . 17"
+                  ],
+                  [
+                    "Size",
+                    "12 14 16 18 20 Inch",
+                    "12 14 16 18 20 Inch",
+                    "14 16 18 20 Inch",
+                    "20 Inch",
+                    "20 Inch",
+                    "12 14 16 18 20 Inch",
+                    "12 14 16 18 20 Inch"
+                  ],
+                  [
+                    "Age",
+                    "2-13 Years",
+                    "2-13 Years",
+                    "3-13 Years",
+                    "Over 7 Years Old",
+                    "Over 7 Years Old",
+                    "2-12 Years",
+                    "2-12 Years"
+                  ],
+                  [
+                    "Brake Style",
+                    "Coaster Brake & Caliper Brake",
+                    "Coaster Brake & Caliper Brake",
+                    "Coaster Brake & Caliper Brake",
+                    "Coaster Brake & Caliper Brake",
+                    "Coaster Brake & Caliper Brake",
+                    "Coaster Brake & V Brake",
+                    "Coaster Brake & V brake"
+                  ],
+                  [
+                    "Training Wheels",
+                    "12 14 16 18 Inch available",
+                    "12 14 16 18 Inch available",
+                    "14 16 18 Inch available",
+                    "/",
+                    "12 14 16 18 Inch available",
+                    "12 14 16 18 Inch available",
+                    "12 14 16 18 Inch available"
+                  ],
+                  [
+                    "Kickstand",
+                    "16 18 20 Inch available",
+                    "16 18 20 Inch available",
+                    "16 18 20  Inch available",
+                    "20 Inch available",
+                    "16 18 20 Inch available",
+                    "16 18 20 Inch available",
+                    "16 18 20 Inch available"
+                  ]
+                ]
+              },
+              "Block_Types": [
+                "image",
+                "table"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/a868f1d3-d15c-468c-bcce-5fa610852d9f.__CR0,0,2928,1200_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "娃娃封面",
+                    "Image_Alt": "娃娃封面"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/dec975f8-b185-499a-b773-433ecc69ac3b.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+                    "Image_Order": 2,
+                    "Image_Title": "",
+                    "Image_Alt": ""
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/035d9984-0621-4d5e-9f9a-876eb38895d9.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+                    "Image_Order": 3,
+                    "Image_Title": "",
+                    "Image_Alt": ""
+                  }
+                },
+                {
+                  "Block_Type": "table",
+                  "Table": {
+                    "Headers": [
+                      "Girls Bike with Doll seat Add to Cart",
+                      "Girls Bike with Streamer Buying Options",
+                      "Girls Bike with Basket Buying Options",
+                      "Girls Bike with Rear Rack Buying Options",
+                      "Girls Bike with Rear Rack Buying Options",
+                      "ACEGER Bmx style Bike Buying Options",
+                      "ACEGER Sarkle Kids Bike Buying Options"
+                    ],
+                    "Rows": [
+                      [
+                        "Customer Reviews",
+                        "4.3 out of 5 stars 591",
+                        "4.2 out of 5 stars 122",
+                        "4.3 out of 5 stars 782",
+                        "4.3 out of 5 stars 591",
+                        "4.8 out of 5 stars 17",
+                        "4.2 out of 5 stars 55",
+                        "4.2 out of 5 stars 55"
+                      ],
+                      [
+                        "Price",
+                        "$105.44 $ 105 . 44",
+                        "$106.22 $ 106 . 22",
+                        "$143.32 $ 143 . 32",
+                        "$143.32 $ 143 . 32",
+                        "$143.32 $ 143 . 32",
+                        "—",
+                        "$101.17 $ 101 . 17"
+                      ],
+                      [
+                        "Size",
+                        "12 14 16 18 20 Inch",
+                        "12 14 16 18 20 Inch",
+                        "14 16 18 20 Inch",
+                        "20 Inch",
+                        "20 Inch",
+                        "12 14 16 18 20 Inch",
+                        "12 14 16 18 20 Inch"
+                      ],
+                      [
+                        "Age",
+                        "2-13 Years",
+                        "2-13 Years",
+                        "3-13 Years",
+                        "Over 7 Years Old",
+                        "Over 7 Years Old",
+                        "2-12 Years",
+                        "2-12 Years"
+                      ],
+                      [
+                        "Brake Style",
+                        "Coaster Brake & Caliper Brake",
+                        "Coaster Brake & Caliper Brake",
+                        "Coaster Brake & Caliper Brake",
+                        "Coaster Brake & Caliper Brake",
+                        "Coaster Brake & Caliper Brake",
+                        "Coaster Brake & V Brake",
+                        "Coaster Brake & V brake"
+                      ],
+                      [
+                        "Training Wheels",
+                        "12 14 16 18 Inch available",
+                        "12 14 16 18 Inch available",
+                        "14 16 18 Inch available",
+                        "/",
+                        "12 14 16 18 Inch available",
+                        "12 14 16 18 Inch available",
+                        "12 14 16 18 Inch available"
+                      ],
+                      [
+                        "Kickstand",
+                        "16 18 20 Inch available",
+                        "16 18 20 Inch available",
+                        "16 18 20  Inch available",
+                        "20 Inch available",
+                        "16 18 20 Inch available",
+                        "16 18 20 Inch available",
+                        "16 18 20 Inch available"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/a868f1d3-d15c-468c-bcce-5fa610852d9f.__CR0,0,2928,1200_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/dec975f8-b185-499a-b773-433ecc69ac3b.__CR0,0,2928,1200_PT0_SX1464_V1___.png",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/035d9984-0621-4d5e-9f9a-876eb38895d9.__CR0,0,2928,1200_PT0_SX1464_V1___.png"
+            ],
+            "Local_Images": [
+              "scrape_store/kids_bikes/Bixike/Rank_Similar_ASIN_B0B8MNBC5J_Bixike Girls Bike with Basket for Toddlers and Kid/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+              "scrape_store/kids_bikes/Bixike/Rank_Similar_ASIN_B0B8MNBC5J_Bixike Girls Bike with Basket for Toddlers and Kid/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.png",
+              "scrape_store/kids_bikes/Bixike/Rank_Similar_ASIN_B0B8MNBC5J_Bixike Girls Bike with Basket for Toddlers and Kid/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.png"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [],
+          "Summary": {
+            "Count": 0
+          },
+          "Local_Paths": []
+        },
+        "Product_Description": "N/A",
+        "Product_Specifications": {
+          "Measurements": {
+            "Wheel Size": "12 Inches",
+            "Minimum User Height": "32 Inches",
+            "Size": "12 Inch",
+            "Item Weight": "11.05 Kilograms"
+          },
+          "Features_Specs": {
+            "Bike Type": "Kids Bike",
+            "Age Range (Description)": "2-4 Years",
+            "Suspension Type": "Rigid",
+            "Special Feature": "Caliper Brake & Coaster Brake",
+            "Additional Features": "Caliper Brake & Coaster Brake",
+            "Power Source": "Pedal power",
+            "Bicycle Drivetrain Type": "Single-speed",
+            "Warranty Type": "Limited",
+            "Age Range Description": "2-4 Years"
+          },
+          "Materials_Care": {
+            "Frame Material": "Alloy Steel",
+            "Frame Material Type": "Alloy Steel",
+            "Wheel Material": "Alloy Steel"
+          },
+          "Item_Details": {
+            "Brand": "Bixike",
+            "Number of Speeds": "1",
+            "Included Components": "Bell, Doll Seat, Fender, Reflectors, Training Wheel",
+            "Number Of Speeds": "1",
+            "Brand Name": "Bixike",
+            "Model Name": "Doll bike",
+            "Manufacturer": "Bixike",
+            "Best Sellers Rank": "#6,968 in Sports & Outdoors (See Top 100 in Sports & Outdoors) #10 in Kids' Bicycles",
+            "ASIN": "B0B8MNBC5J",
+            "Customer Reviews": "4.3  4.3 out of 5 stars   \n    (591)   \n\n\n 4.3 out of 5 stars"
+          },
+          "User_Guide": {
+            "Is Assembly Required": "Yes"
+          },
+          "Additional_Details": {
+            "Color": "Pink & Blue",
+            "Brake Style": "Front Caliper Brakes and Coaster Brakes",
+            "Style Name": "12 Inch With Doll Seat"
+          }
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
+          "Sold_By": "BixikeStore \n  BixikeStore      Sold by   BixikeStore",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery Wednesday, July 1 Or Prime members get FREE delivery Tomorrow, June 27. Order within 5 hrs 43 mins. Join Prime",
+          "Specifications": {
+            "Bike Type": "Kids Bike",
+            "Age Range (Description)": "2-4 Years",
+            "Brand": "Bixike",
+            "Number of Speeds": "1",
+            "Color": "Pink & Blue",
+            "Wheel Size": "12 Inches",
+            "Frame Material": "Alloy Steel",
+            "Suspension Type": "Rigid",
+            "Special Feature": "Caliper Brake & Coaster Brake",
+            "Included Components": "Bell, Doll Seat, Fender, Reflectors, Training Wheel"
+          }
+        },
+        "Local_Image_Paths": [
+          "scrape_store/kids_bikes/Bixike/Rank_Similar_ASIN_B0B8MNBC5J_Bixike Girls Bike with Basket for Toddlers and Kid/images/primary.jpg",
+          "scrape_store/kids_bikes/Bixike/Rank_Similar_ASIN_B0B8MNBC5J_Bixike Girls Bike with Basket for Toddlers and Kid/images/alt_1.jpg",
+          "scrape_store/kids_bikes/Bixike/Rank_Similar_ASIN_B0B8MNBC5J_Bixike Girls Bike with Basket for Toddlers and Kid/images/alt_2.jpg",
+          "scrape_store/kids_bikes/Bixike/Rank_Similar_ASIN_B0B8MNBC5J_Bixike Girls Bike with Basket for Toddlers and Kid/images/alt_3.jpg",
+          "scrape_store/kids_bikes/Bixike/Rank_Similar_ASIN_B0B8MNBC5J_Bixike Girls Bike with Basket for Toddlers and Kid/images/alt_4.jpg",
+          "scrape_store/kids_bikes/Bixike/Rank_Similar_ASIN_B0B8MNBC5J_Bixike Girls Bike with Basket for Toddlers and Kid/images/alt_5.jpg",
+          "scrape_store/kids_bikes/Bixike/Rank_Similar_ASIN_B0B8MNBC5J_Bixike Girls Bike with Basket for Toddlers and Kid/images/alt_6.jpg",
+          "scrape_store/kids_bikes/Bixike/Rank_Similar_ASIN_B0B8MNBC5J_Bixike Girls Bike with Basket for Toddlers and Kid/images/alt_7.jpg",
+          "scrape_store/kids_bikes/Bixike/Rank_Similar_ASIN_B0B8MNBC5J_Bixike Girls Bike with Basket for Toddlers and Kid/images/alt_8.jpg",
+          "scrape_store/kids_bikes/Bixike/Rank_Similar_ASIN_B0B8MNBC5J_Bixike Girls Bike with Basket for Toddlers and Kid/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/kids_bikes/Bixike/Rank_Similar_ASIN_B0B8MNBC5J_Bixike Girls Bike with Basket for Toddlers and Kid/images/primary.jpg",
+        "Local_Video_Paths": []
+      }
+    ]
+  }
+}

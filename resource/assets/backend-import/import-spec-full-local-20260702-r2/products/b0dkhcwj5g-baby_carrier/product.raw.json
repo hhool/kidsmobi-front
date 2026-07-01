@@ -1,0 +1,606 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "baby_carrier",
+  "categoryCode": "stroller",
+  "fetchedAt": "2026-07-01T20:06:11.337Z",
+  "data": {
+    "productId": "B0DKHCWJ5G",
+    "categoryId": "baby_carrier",
+    "rank": 1,
+    "title": "Momcozy Portable Bottle Warmer for Travel – Dual Heating Modes for Breast Milk & Water, Portable Milk Warmer with Fast Heatin",
+    "brand": "Momcozy",
+    "price": {
+      "display": "$63.99",
+      "value": 63.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.2  3,637",
+      "value": 4.2
+    },
+    "weight": {
+      "display": "1.5 Pounds",
+      "lbs": 1.5
+    },
+    "classification": {
+      "Brand": "Momcozy",
+      "Baby_Carrier_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "baby_carrier",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "𝐅𝐚𝐬𝐭 𝐇𝐞𝐚𝐭𝐢𝐧𝐠 𝐰𝐢𝐭𝐡 𝐍𝐮𝐭𝐫𝐢𝐞𝐧𝐭𝐬 𝐏𝐫𝐞𝐬𝐞𝐫𝐯𝐞𝐝: Warm 4oz of water to 104°F in just 2 minutes or breast milk to 98°F in 5 minutes. Your baby’s milk will be ready before the tears start. Moreover",
+        "its even heating system could help to preserve most of nutrients of breastmilk.",
+        "𝐃𝐮𝐚𝐥 𝐌𝐨𝐝𝐞𝐬 𝐰𝐢𝐭𝐡 𝐏𝐫𝐞𝐜𝐢𝐬𝐞 𝐓𝐞𝐦𝐩𝐞𝐫𝐚𝐭𝐮𝐫𝐞 𝐂𝐨𝐧𝐭𝐫𝐨𝐥: Choose between breast milk warming (90",
+        "95",
+        "98°F) and water heating (98",
+        "104",
+        "110",
+        "122°F). These precise options meet your diverse feeding needs and allowing you to easily warm milk or prepare formula",
+        "giving you peace of mind every time.",
+        "𝐏𝐨𝐫𝐭𝐚𝐛𝐥𝐞 & 𝐄𝐚𝐬𝐲 𝐭𝐨 𝐂𝐚𝐫𝐫𝐲: You can slip this cordless bottle warmer into your diaper bag or car cup holder. Take it with you to the park",
+        "outdoors",
+        "or even on family trips—it’s always ready when you are.",
+        "𝐋𝐚𝐫𝐠𝐞 𝟏𝟕𝐨𝐳 𝐂𝐚𝐩𝐚𝐜𝐢𝐭𝐲: With a 17oz capacity",
+        "you’ll have enough for multiple feedings",
+        "perfect for all-day feeding needs. Whether you have one baby or more",
+        "you can stay confident knowing you won’t run out during the day.",
+        "𝐋𝐨𝐧𝐠-𝐋𝐚𝐬𝐭𝐢𝐧𝐠 𝐑𝐞𝐜𝐡𝐚𝐫𝐠𝐞𝐚𝐛𝐥𝐞 𝐁𝐚𝐭𝐭𝐞𝐫𝐲: On a single charge",
+        "you can warm 4oz of water up to 19 times or milk up to 8 times. With 1.5-hour fast charging",
+        "this wireless design keeps your bottle warmer ready whenever and wherever you need it—no outlets required.",
+        "𝐋𝐞𝐚𝐤-𝐏𝐫𝐨𝐨𝐟 & 𝐒𝐚𝐟𝐞 𝐃𝐞𝐬𝐢𝐠𝐧: The secure",
+        "leak-proof lid keeps water or milk safely sealed",
+        "so you don’t have to worry about spills in your diaper bag or car. Carry it with confidence—every drop stays where it should."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "𝐅𝐚𝐬𝐭 𝐇𝐞𝐚𝐭𝐢𝐧𝐠 𝐰𝐢𝐭𝐡 𝐍𝐮𝐭𝐫𝐢𝐞𝐧𝐭𝐬 𝐏𝐫𝐞𝐬𝐞𝐫𝐯𝐞𝐝: Warm 4oz of water to 104°F in just 2 minutes or breast milk to 98°F in 5 minutes. Your baby’s milk will be ready before the tears start. Moreover",
+        "featureLabel": "𝐅𝐚𝐬𝐭 𝐇𝐞𝐚𝐭𝐢𝐧𝐠 𝐰𝐢𝐭𝐡 𝐍𝐮𝐭𝐫𝐢𝐞𝐧𝐭𝐬 𝐏𝐫𝐞𝐬𝐞𝐫𝐯𝐞𝐝: Warm 4oz Of Water To 104°f In Just 2 Minutes Or Breast Milk To 98°f In 5 Minutes. Your Baby’s Milk Will Be Ready Before The Tears Start. Moreover",
+        "featureValue": "𝐅𝐚𝐬𝐭 𝐇𝐞𝐚𝐭𝐢𝐧𝐠 𝐰𝐢𝐭𝐡 𝐍𝐮𝐭𝐫𝐢𝐞𝐧𝐭𝐬 𝐏𝐫𝐞𝐬𝐞𝐫𝐯𝐞𝐝: Warm 4oz of water to 104°F in just 2 minutes or breast milk to 98°F in 5 minutes. Your baby’s milk will be ready before the tears start. Moreover",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from baby_carrier classification data"
+      },
+      {
+        "featureKey": "its even heating system could help to preserve most of nutrients of breastmilk.",
+        "featureLabel": "Its Even Heating System Could Help To Preserve Most Of Nutrients Of Breastmilk.",
+        "featureValue": "its even heating system could help to preserve most of nutrients of breastmilk.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from baby_carrier classification data"
+      },
+      {
+        "featureKey": "𝐃𝐮𝐚𝐥 𝐌𝐨𝐝𝐞𝐬 𝐰𝐢𝐭𝐡 𝐏𝐫𝐞𝐜𝐢𝐬𝐞 𝐓𝐞𝐦𝐩𝐞𝐫𝐚𝐭𝐮𝐫𝐞 𝐂𝐨𝐧𝐭𝐫𝐨𝐥: Choose between breast milk warming (90",
+        "featureLabel": "𝐃𝐮𝐚𝐥 𝐌𝐨𝐝𝐞𝐬 𝐰𝐢𝐭𝐡 𝐏𝐫𝐞𝐜𝐢𝐬𝐞 𝐓𝐞𝐦𝐩𝐞𝐫𝐚𝐭𝐮𝐫𝐞 𝐂𝐨𝐧𝐭𝐫𝐨𝐥: Choose Between Breast Milk Warming (90",
+        "featureValue": "𝐃𝐮𝐚𝐥 𝐌𝐨𝐝𝐞𝐬 𝐰𝐢𝐭𝐡 𝐏𝐫𝐞𝐜𝐢𝐬𝐞 𝐓𝐞𝐦𝐩𝐞𝐫𝐚𝐭𝐮𝐫𝐞 𝐂𝐨𝐧𝐭𝐫𝐨𝐥: Choose between breast milk warming (90",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from baby_carrier classification data"
+      },
+      {
+        "featureKey": "95",
+        "featureLabel": "95",
+        "featureValue": "95",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from baby_carrier classification data"
+      },
+      {
+        "featureKey": "98°F) and water heating (98",
+        "featureLabel": "98°f) And Water Heating (98",
+        "featureValue": "98°F) and water heating (98",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from baby_carrier classification data"
+      },
+      {
+        "featureKey": "104",
+        "featureLabel": "104",
+        "featureValue": "104",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from baby_carrier classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "𝐅𝐚𝐬𝐭 𝐇𝐞𝐚𝐭𝐢𝐧𝐠 𝐰𝐢𝐭𝐡 𝐍𝐮𝐭𝐫𝐢𝐞𝐧𝐭𝐬 𝐏𝐫𝐞𝐬𝐞𝐫𝐯𝐞𝐝: Warm 4oz of water to 104°F in just 2 minutes or breast milk to 98°F in 5 minutes. Your baby’s milk will be ready before the tears start. Moreover",
+        "its even heating system could help to preserve most of nutrients of breastmilk.",
+        "𝐃𝐮𝐚𝐥 𝐌𝐨𝐝𝐞𝐬 𝐰𝐢𝐭𝐡 𝐏𝐫𝐞𝐜𝐢𝐬𝐞 𝐓𝐞𝐦𝐩𝐞𝐫𝐚𝐭𝐮𝐫𝐞 𝐂𝐨𝐧𝐭𝐫𝐨𝐥: Choose between breast milk warming (90",
+        "95"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+          "source": "local",
+          "order": 10
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_1.jpg",
+      "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_2.jpg",
+      "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_3.jpg",
+      "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_4.jpg",
+      "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_5.jpg",
+      "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_6.jpg",
+      "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_7.jpg",
+      "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_8.jpg",
+      "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_9.jpg",
+      "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg"
+    ],
+    "videoUrls": [
+      "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_0.mp4",
+      "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_1.mp4",
+      "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_2.mp4",
+      "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_3.mp4",
+      "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_4.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ac64566e-76e9-45fa-bbbd-9ca05a3d3f32.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8b4fc472-8dc2-471f-a166-5cdcec975b31.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5b083537-a72c-4e60-90e0-5a8d09a63954.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/6570c47f-d9c8-4429-9b20-71c1fd186e2c.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/9090e70d-6a85-4c6c-abb9-9b8f7c05b6fe.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/17acd383-068b-47c5-b925-660a3fae6ba8/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5282cd4d-a3df-4f45-8631-531b90bae310/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ad27e3c4-5494-4529-81fc-705ac8ac0d00/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/67a21c55-0dd2-47eb-8987-7cb7b4820908/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/364e8870-4629-4b58-85a0-f695dedc3970/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3f0e89f7-0c60-46bb-b919-cf12989f02a0/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/040b9a1c-a892-4b39-97ae-1be29942a4e2/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/41f88636-0e1f-4ead-addf-14599015cd63/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e76f1da2-6762-4fe2-b8a4-d70ec5bf4861/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/488537f2-7d8d-4dcb-b1f5-fc18274a468c/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cfbd0937-d56b-41ed-971e-75b06a93abfe/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9809146a-ff9a-4f72-8bd1-f48c5a057116/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1b55bae0-a118-4729-aaad-37b169402cfb/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f1262c1f-7d85-4d8e-b802-f4d24d4a0824/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/99b59bf5-7221-4e35-a3ff-e763c0634331/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8613524a-0d8a-4b32-8afa-daa8d66dbf25/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/346a3835-139e-43ed-a05a-d745c9a24e91/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c0e15014-187c-4ea1-bcc8-fa17ecb89c69/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_0.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_1.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_2.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_3.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_4.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ac64566e-76e9-45fa-bbbd-9ca05a3d3f32.mp4/productVideoOptimized.mp4",
+        "source": "scraped",
+        "type": "mp4",
+        "title": "N/A",
+        "thumbnail": "N/A",
+        "order": 6
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8b4fc472-8dc2-471f-a166-5cdcec975b31.mp4/productVideoOptimized.mp4",
+        "source": "scraped",
+        "type": "mp4",
+        "title": "N/A",
+        "thumbnail": "N/A",
+        "order": 7
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5b083537-a72c-4e60-90e0-5a8d09a63954.mp4/productVideoOptimized.mp4",
+        "source": "scraped",
+        "type": "mp4",
+        "title": "N/A",
+        "thumbnail": "N/A",
+        "order": 8
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/6570c47f-d9c8-4429-9b20-71c1fd186e2c.mp4/productVideoOptimized.mp4",
+        "source": "scraped",
+        "type": "mp4",
+        "title": "N/A",
+        "thumbnail": "N/A",
+        "order": 9
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/9090e70d-6a85-4c6c-abb9-9b8f7c05b6fe.mp4/productVideoOptimized.mp4",
+        "source": "scraped",
+        "type": "mp4",
+        "title": "N/A",
+        "thumbnail": "N/A",
+        "order": 10
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/17acd383-068b-47c5-b925-660a3fae6ba8/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 11
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5282cd4d-a3df-4f45-8631-531b90bae310/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 12
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ad27e3c4-5494-4529-81fc-705ac8ac0d00/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 13
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/67a21c55-0dd2-47eb-8987-7cb7b4820908/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 14
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/364e8870-4629-4b58-85a0-f695dedc3970/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 15
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3f0e89f7-0c60-46bb-b919-cf12989f02a0/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 16
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/040b9a1c-a892-4b39-97ae-1be29942a4e2/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 17
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/41f88636-0e1f-4ead-addf-14599015cd63/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 18
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e76f1da2-6762-4fe2-b8a4-d70ec5bf4861/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 19
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/488537f2-7d8d-4dcb-b1f5-fc18274a468c/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 20
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cfbd0937-d56b-41ed-971e-75b06a93abfe/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 21
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9809146a-ff9a-4f72-8bd1-f48c5a057116/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 22
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1b55bae0-a118-4729-aaad-37b169402cfb/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 23
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f1262c1f-7d85-4d8e-b802-f4d24d4a0824/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 24
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/99b59bf5-7221-4e35-a3ff-e763c0634331/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 25
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8613524a-0d8a-4b32-8afa-daa8d66dbf25/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 26
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/346a3835-139e-43ed-a05a-d745c9a24e91/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 27
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c0e15014-187c-4ea1-bcc8-fa17ecb89c69/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 28
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/baby_carrier/index.html",
+      "categoryPages": "/scrape_store/baby_carrier/pages/index.html",
+      "detailPage": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/index.html"
+    },
+    "resourceStats": {
+      "videos": 28,
+      "similarItems": 0
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/61fpvuwaeRL._AC_UL300_SR300,200_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 12
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ac64566e-76e9-45fa-bbbd-9ca05a3d3f32.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_0.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8b4fc472-8dc2-471f-a166-5cdcec975b31.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_1.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5b083537-a72c-4e60-90e0-5a8d09a63954.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_2.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/6570c47f-d9c8-4429-9b20-71c1fd186e2c.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_3.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/9090e70d-6a85-4c6c-abb9-9b8f7c05b6fe.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_4.mp4"
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

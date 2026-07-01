@@ -1,0 +1,230 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_tricycles",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T21:38:59.583Z",
+  "data": {
+    "productId": "B08M5CG126",
+    "categoryId": "kids_tricycles",
+    "rank": 7,
+    "title": "besrey 5 in 1 Toddler Bike for 1 Year to 4 Years Old Kids, Toddler Tricycle Kids Trikes Tricycle, Toys for Boy & Girl, Balanc",
+    "brand": "besrey",
+    "price": {
+      "display": "$56.52",
+      "value": 56.52,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.5  8,650",
+      "value": 4.5
+    },
+    "weight": {
+      "display": "7.3 Pounds",
+      "lbs": 7.3
+    },
+    "classification": {
+      "Brand": "besrey",
+      "Tricycle_Type": "Sport",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_tricycles",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "Wider Use Ages: This upgraded kids tricycle has an enlarged body size so that can be used for a wider range of ages. One besrey toddler bike can meet your kid's all requirements at different ages",
+        "help your baby quickly learn to ride. The best first bike for your baby",
+        "Double Care: We specially adopted a Curved Carbon Steel Frame Structure + No Edges Design",
+        "which can buffer the transmission of vibration and minimize the risk of injury during riding",
+        "so as to better keep the safety of your baby",
+        "Easy to Install & Use: The structure frame is simple",
+        "just refer to the attached manual",
+        "you can easily assemble it in a few minutes. One-click deformation",
+        "quick-disassembly pedal allows kids easy to switch riding mode randomly",
+        "Sturdy and Safe: Sturdy carbon steel frame make the tricycle stable and durable. Non-slip handrail Limited 70° steering to prevent rollover",
+        "the widen and fully-enclosed wheel protect your child from falling or slipping whether on the road",
+        "in the yard or in the garden. Ensure full protection for kids playing inside or outdoor.",
+        "Extra Comfort: Soft",
+        "ergonomically designed saddle with PU surface gives the max riding comfort",
+        "while the rubber handlebar provides anti-slip grid and smooth bearing of the rear wheels reduces resistance when riding"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "Wider Use Ages: This upgraded kids tricycle has an enlarged body size so that can be used for a wider range of ages. One besrey toddler bike can meet your kid's all requirements at different ages",
+        "featureLabel": "Wider Use Ages: This Upgraded Kids Tricycle Has An Enlarged Body Size So That Can Be Used For A Wider Range Of Ages. One Besrey Toddler Bike Can Meet Your Kid'S All Requirements At Different Ages",
+        "featureValue": "Wider Use Ages: This upgraded kids tricycle has an enlarged body size so that can be used for a wider range of ages. One besrey toddler bike can meet your kid's all requirements at different ages",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "help your baby quickly learn to ride. The best first bike for your baby",
+        "featureLabel": "Help Your Baby Quickly Learn To Ride. The Best First Bike For Your Baby",
+        "featureValue": "help your baby quickly learn to ride. The best first bike for your baby",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "Double Care: We specially adopted a Curved Carbon Steel Frame Structure + No Edges Design",
+        "featureLabel": "Double Care: We Specially Adopted A Curved Carbon Steel Frame Structure + No Edges Design",
+        "featureValue": "Double Care: We specially adopted a Curved Carbon Steel Frame Structure + No Edges Design",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "which can buffer the transmission of vibration and minimize the risk of injury during riding",
+        "featureLabel": "Which Can Buffer The Transmission Of Vibration And Minimize The Risk Of Injury During Riding",
+        "featureValue": "which can buffer the transmission of vibration and minimize the risk of injury during riding",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "so as to better keep the safety of your baby",
+        "featureLabel": "So As To Better Keep The Safety Of Your Baby",
+        "featureValue": "so as to better keep the safety of your baby",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "Easy to Install & Use: The structure frame is simple",
+        "featureLabel": "Easy To Install & Use: The Structure Frame Is Simple",
+        "featureValue": "Easy to Install & Use: The structure frame is simple",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "Wider Use Ages: This upgraded kids tricycle has an enlarged body size so that can be used for a wider range of ages. One besrey toddler bike can meet your kid's all requirements at different ages",
+        "help your baby quickly learn to ride. The best first bike for your baby",
+        "Double Care: We specially adopted a Curved Carbon Steel Frame Structure + No Edges Design",
+        "which can buffer the transmission of vibration and minimize the risk of injury during riding"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/6173gnLlOHL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/6173gnLlOHL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8386c261-00ae-40d8-a121-a940f05cd8b5/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/15cfc9f5-ad90-47f4-a15a-d799f5445887/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9183cc9b-817a-4f38-834b-f704e2699045/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a96c8390-d7a6-40ea-ad3a-61c4ef626579/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/777396e0-82ce-4b30-9b65-64860b4d53bd/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/28091f74-4878-4cba-973f-669ab46d806e/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5bb057c0-bf8c-46d2-870a-9014a3765973/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/47a2c70a-12d5-42f2-bba0-f4d9ae2d1f5b/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7be5795d-51bb-4a8e-8dc5-7872a48fd0e9/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/76af0e6d-ec02-470d-865a-66405e47a8fc/default.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 10,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8386c261-00ae-40d8-a121-a940f05cd8b5/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61g-+wSK2hL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "besrey 5 in 1 Toddler Bike for 1-4 Years Old",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/15cfc9f5-ad90-47f4-a15a-d799f5445887/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51nMT56sQEL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "besrey 5 in1 Toddler Bike for 1-4 Years Old",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9183cc9b-817a-4f38-834b-f704e2699045/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71g-qfOOK4L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "besrey 5 in 1 Toddler Bike for 1 to 4 Years Old Kids",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a96c8390-d7a6-40ea-ad3a-61c4ef626579/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71C9oc45lzL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "besrey 5 in 1 Toddler Bike for 1 Year to 4 Years Old Kids",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/777396e0-82ce-4b30-9b65-64860b4d53bd/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/413GVOQbOJL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "besrey 5 in 1 Toddler Bike installation video",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/28091f74-4878-4cba-973f-669ab46d806e/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1ByaEIdtRL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Watch Before Buying This 5 in 1 Toddler Bike",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5bb057c0-bf8c-46d2-870a-9014a3765973/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71pGIooAvbL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Watch Before Buying Honest Review Kids Tricycle",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/47a2c70a-12d5-42f2-bba0-f4d9ae2d1f5b/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81-QMAWx7uL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Honest review Convertible Trike\\/Bike",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7be5795d-51bb-4a8e-8dc5-7872a48fd0e9/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61UEw4dUhHL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Toddler mom review of 5 in 1 toddler bike ",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/76af0e6d-ec02-470d-865a-66405e47a8fc/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61xDj31-eCL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Honest review of Besrey toddler bike",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

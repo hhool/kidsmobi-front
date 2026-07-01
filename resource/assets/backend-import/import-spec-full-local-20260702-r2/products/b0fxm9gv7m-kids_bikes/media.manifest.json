@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0FXM9GV7M",
+  "sourceCategoryId": "kids_bikes",
+  "images": [
+    {
+      "productId": "B0FXM9GV7M",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0FXM9GV7M:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_11_ASIN_B0FXM9GV7M_WEIZE 20 24 Inch Kids Mountain BikeKids Bike for G/images/primary.jpg",
+      "targetPathKeep": "resources/b0fxm9gv7m-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0fxm9gv7m/cover/primary.jpg"
+    },
+    {
+      "productId": "B0FXM9GV7M",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0FXM9GV7M:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_11_ASIN_B0FXM9GV7M_WEIZE 20 24 Inch Kids Mountain BikeKids Bike for G/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0fxm9gv7m-overview/alt_1.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0fxm9gv7m/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0FXM9GV7M",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0FXM9GV7M:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_11_ASIN_B0FXM9GV7M_WEIZE 20 24 Inch Kids Mountain BikeKids Bike for G/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0fxm9gv7m-overview/alt_2.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0fxm9gv7m/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0FXM9GV7M",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0FXM9GV7M:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_11_ASIN_B0FXM9GV7M_WEIZE 20 24 Inch Kids Mountain BikeKids Bike for G/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0fxm9gv7m-overview/alt_3.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0fxm9gv7m/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0FXM9GV7M",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0FXM9GV7M:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_11_ASIN_B0FXM9GV7M_WEIZE 20 24 Inch Kids Mountain BikeKids Bike for G/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0fxm9gv7m-overview/alt_4.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0fxm9gv7m/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0FXM9GV7M",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0FXM9GV7M:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_11_ASIN_B0FXM9GV7M_WEIZE 20 24 Inch Kids Mountain BikeKids Bike for G/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0fxm9gv7m-overview/alt_5.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0fxm9gv7m/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0FXM9GV7M",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0FXM9GV7M:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_11_ASIN_B0FXM9GV7M_WEIZE 20 24 Inch Kids Mountain BikeKids Bike for G/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0fxm9gv7m-overview/alt_6.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0fxm9gv7m/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0FXM9GV7M",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0FXM9GV7M:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_11_ASIN_B0FXM9GV7M_WEIZE 20 24 Inch Kids Mountain BikeKids Bike for G/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0fxm9gv7m-overview/alt_7.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0fxm9gv7m/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0FXM9GV7M",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0FXM9GV7M:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_11_ASIN_B0FXM9GV7M_WEIZE 20 24 Inch Kids Mountain BikeKids Bike for G/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0fxm9gv7m-overview/alt_8.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0fxm9gv7m/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0FXM9GV7M",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0FXM9GV7M:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_11_ASIN_B0FXM9GV7M_WEIZE 20 24 Inch Kids Mountain BikeKids Bike for G/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0fxm9gv7m-overview/alt_9.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0fxm9gv7m/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0FXM9GV7M",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0FXM9GV7M:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_11_ASIN_B0FXM9GV7M_WEIZE 20 24 Inch Kids Mountain BikeKids Bike for G/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0fxm9gv7m-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0fxm9gv7m/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0FXM9GV7M",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0FXM9GV7M:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_11_ASIN_B0FXM9GV7M_WEIZE 20 24 Inch Kids Mountain BikeKids Bike for G/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "targetPathKeep": "resources/b0fxm9gv7m-overview/aplus_01.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0fxm9gv7m/gallery/aplus_01.jpg"
+    },
+    {
+      "productId": "B0FXM9GV7M",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0FXM9GV7M:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_11_ASIN_B0FXM9GV7M_WEIZE 20 24 Inch Kids Mountain BikeKids Bike for G/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "targetPathKeep": "resources/b0fxm9gv7m-overview/aplus_02.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0fxm9gv7m/gallery/aplus_02.jpg"
+    },
+    {
+      "productId": "B0FXM9GV7M",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0FXM9GV7M:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_11_ASIN_B0FXM9GV7M_WEIZE 20 24 Inch Kids Mountain BikeKids Bike for G/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+      "targetPathKeep": "resources/b0fxm9gv7m-overview/aplus_03.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0fxm9gv7m/gallery/aplus_03.jpg"
+    },
+    {
+      "productId": "B0FXM9GV7M",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0FXM9GV7M:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_11_ASIN_B0FXM9GV7M_WEIZE 20 24 Inch Kids Mountain BikeKids Bike for G/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg",
+      "targetPathKeep": "resources/b0fxm9gv7m-overview/aplus_04.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0fxm9gv7m/gallery/aplus_04.jpg"
+    },
+    {
+      "productId": "B0FXM9GV7M",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0FXM9GV7M:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_11_ASIN_B0FXM9GV7M_WEIZE 20 24 Inch Kids Mountain BikeKids Bike for G/images/primary.jpg",
+      "targetPathKeep": "resources/b0fxm9gv7m-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0fxm9gv7m/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0FXM9GV7M",
+      "categoryId": "kids_bikes",
+      "resourceId": "B0FXM9GV7M:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/712PYoY1j2L._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0fxm9gv7m-overview/712pyoy1j2l._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_bikes/products/b0fxm9gv7m/gallery/712pyoy1j2l._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fbd1ca75-69ca-4f00-b50c-6f064565247f/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/30b90523-e87a-4bbb-b4ba-c3c3cae58883/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/61374ea8-ac20-4cf1-8045-d0f1168eb0b2/default.vertical.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/kids_bikes/WEIZE/Rank_11_ASIN_B0FXM9GV7M_WEIZE 20 24 Inch Kids Mountain BikeKids Bike for G/index.html"
+  ]
+}

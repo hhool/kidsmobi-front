@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "baby_carrier",
+  "fetchedAt": "2026-07-01T21:38:31.933Z",
+  "data": {
+    "resourceId": "B0DKHCWJ5G:video",
+    "categoryId": "baby_carrier",
+    "productId": "B0DKHCWJ5G",
+    "resourceType": "product_video",
+    "title": "Momcozy Portable Bottle Warmer for Travel – Dual Heating Modes for Breast Milk & Water, Portable Milk Warmer with Fast Heatin • Video preview",
+    "summary": "Video preview asset set for Momcozy in baby_carrier.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ac64566e-76e9-45fa-bbbd-9ca05a3d3f32.mp4/productVideoOptimized.mp4",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ac64566e-76e9-45fa-bbbd-9ca05a3d3f32.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8b4fc472-8dc2-471f-a166-5cdcec975b31.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5b083537-a72c-4e60-90e0-5a8d09a63954.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/6570c47f-d9c8-4429-9b20-71c1fd186e2c.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/9090e70d-6a85-4c6c-abb9-9b8f7c05b6fe.mp4/productVideoOptimized.mp4"
+    ],
+    "credibilityScore": 0.9,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 5,
+      "hasFeatures": true
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "electric_vehicles",
+  "fetchedAt": "2026-07-01T20:06:13.133Z",
+  "data": {
+    "resourceId": "B0CY5HRL3K:overview",
+    "categoryId": "electric_vehicles",
+    "productId": "B0CY5HRL3K",
+    "resourceType": "product_overview",
+    "title": "MINIATURE MOTORS 12V Kids Electric Ride on Truck Car Remote Control, Twin 35W Motors 3.5MPH Max Speed, Bluetooth Music Player",
+    "summary": "This product is exclusively provided by MINIATURE MOTORS and requires assembly! The Remote Control has three speeds: 2-3.5MPH. You can't change the speed in Manual Mode, as it's set at 3.5MPH | Powerful 35W Dual Motor & Long-Lasting Battery: Watch your child explore with confiden",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f5fa3322-4bd6-4b4f-a50a-e4192b076ac2/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62c84305-d958-4ba8-9ef1-315ebbb86af3/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/147f0005-9cf3-4e2c-ad00-3e1cf52430a1/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8ce2e489-4ea1-4c98-92b7-36b5f56a7b63/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f2989d71-cd7e-4b26-af3b-063635bb85a2/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/416907b4-3518-4b61-9887-4bc97a435ed8/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3376f82a-a9bd-4a48-91d2-2e5c3c2fa9eb/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.83,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 7,
+      "hasFeatures": true
+    }
+  }
+}

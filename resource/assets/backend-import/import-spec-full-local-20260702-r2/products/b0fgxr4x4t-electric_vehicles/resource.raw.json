@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "electric_vehicles",
+  "fetchedAt": "2026-07-01T20:06:13.104Z",
+  "data": {
+    "resourceId": "B0FGXR4X4T:overview",
+    "categoryId": "electric_vehicles",
+    "productId": "B0FGXR4X4T",
+    "resourceType": "product_overview",
+    "title": "Winado Licensed Chevrolet Colorado Electric Car for Kids, 12V Ride on Toys for Toddlers with Remote Control, Battery Powered",
+    "summary": "Licensed Chevrolet - Electric car for kids is officially licensed, Chevrolet ride-on car features the same styling as the real car, such as a racing steering wheel, slim body, smooth lines, 2-speed, dual door safety locks and LED lights for a realistic driving experience for your",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/electric_vehicles/Winado/Rank_9_ASIN_B0FGXR4X4T_Winado Licensed Chevrolet Colorado Electric Car fo/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3c7c4fea-9f3d-4be2-9155-80cfa973a4f8/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a99aa116-9da9-48d1-8ee6-674f000b435e/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1109591d-f92c-49cc-99cf-ab270445be02/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.67,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 3,
+      "hasFeatures": true
+    }
+  }
+}

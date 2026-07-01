@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "productId": "B0FQTZTC84",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "images": [
+    {
+      "productId": "B0FQTZTC84",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0FQTZTC84:video",
+      "kind": "cover",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/71KYfegrp9L._AC_UL165_SR165,165_.jpg",
+      "targetPathKeep": "resources/b0fqtztc84-video/71kyfegrp9l._ac_ul165_sr165-165_.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0fqtztc84/cover/71kyfegrp9l._ac_ul165_sr165-165_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7dfc322b-36cf-49e3-a22b-c60060fb9f7f/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b570bd9a-69ac-4899-9b03-ad07988e332f/default.vertical.jobtemplate.hls.m3u8"
+  ]
+}

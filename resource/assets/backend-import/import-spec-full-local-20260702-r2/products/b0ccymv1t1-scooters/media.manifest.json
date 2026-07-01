@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0CCYMV1T1",
+  "sourceCategoryId": "scooters",
+  "images": [
+    {
+      "productId": "B0CCYMV1T1",
+      "categoryId": "scooters",
+      "resourceId": "B0CCYMV1T1:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Gotrax/Rank_1_ASIN_B0CCYMV1T1_Gotrax KS1 Kids Kick Scooter LED Lighted Wheels an/images/primary.jpg",
+      "targetPathKeep": "resources/b0ccymv1t1-overview/primary.jpg",
+      "targetPathCpk": "categories/scooters/products/b0ccymv1t1/cover/primary.jpg"
+    },
+    {
+      "productId": "B0CCYMV1T1",
+      "categoryId": "scooters",
+      "resourceId": "B0CCYMV1T1:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Gotrax/Rank_1_ASIN_B0CCYMV1T1_Gotrax KS1 Kids Kick Scooter LED Lighted Wheels an/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0ccymv1t1-overview/alt_1.jpg",
+      "targetPathCpk": "categories/scooters/products/b0ccymv1t1/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0CCYMV1T1",
+      "categoryId": "scooters",
+      "resourceId": "B0CCYMV1T1:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Gotrax/Rank_1_ASIN_B0CCYMV1T1_Gotrax KS1 Kids Kick Scooter LED Lighted Wheels an/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0ccymv1t1-overview/alt_2.jpg",
+      "targetPathCpk": "categories/scooters/products/b0ccymv1t1/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0CCYMV1T1",
+      "categoryId": "scooters",
+      "resourceId": "B0CCYMV1T1:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Gotrax/Rank_1_ASIN_B0CCYMV1T1_Gotrax KS1 Kids Kick Scooter LED Lighted Wheels an/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0ccymv1t1-overview/alt_3.jpg",
+      "targetPathCpk": "categories/scooters/products/b0ccymv1t1/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0CCYMV1T1",
+      "categoryId": "scooters",
+      "resourceId": "B0CCYMV1T1:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Gotrax/Rank_1_ASIN_B0CCYMV1T1_Gotrax KS1 Kids Kick Scooter LED Lighted Wheels an/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0ccymv1t1-overview/alt_4.jpg",
+      "targetPathCpk": "categories/scooters/products/b0ccymv1t1/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0CCYMV1T1",
+      "categoryId": "scooters",
+      "resourceId": "B0CCYMV1T1:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Gotrax/Rank_1_ASIN_B0CCYMV1T1_Gotrax KS1 Kids Kick Scooter LED Lighted Wheels an/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0ccymv1t1-overview/alt_5.jpg",
+      "targetPathCpk": "categories/scooters/products/b0ccymv1t1/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0CCYMV1T1",
+      "categoryId": "scooters",
+      "resourceId": "B0CCYMV1T1:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Gotrax/Rank_1_ASIN_B0CCYMV1T1_Gotrax KS1 Kids Kick Scooter LED Lighted Wheels an/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0ccymv1t1-overview/alt_6.jpg",
+      "targetPathCpk": "categories/scooters/products/b0ccymv1t1/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0CCYMV1T1",
+      "categoryId": "scooters",
+      "resourceId": "B0CCYMV1T1:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Gotrax/Rank_1_ASIN_B0CCYMV1T1_Gotrax KS1 Kids Kick Scooter LED Lighted Wheels an/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0ccymv1t1-overview/alt_7.jpg",
+      "targetPathCpk": "categories/scooters/products/b0ccymv1t1/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0CCYMV1T1",
+      "categoryId": "scooters",
+      "resourceId": "B0CCYMV1T1:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Gotrax/Rank_1_ASIN_B0CCYMV1T1_Gotrax KS1 Kids Kick Scooter LED Lighted Wheels an/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0ccymv1t1-overview/alt_8.jpg",
+      "targetPathCpk": "categories/scooters/products/b0ccymv1t1/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0CCYMV1T1",
+      "categoryId": "scooters",
+      "resourceId": "B0CCYMV1T1:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Gotrax/Rank_1_ASIN_B0CCYMV1T1_Gotrax KS1 Kids Kick Scooter LED Lighted Wheels an/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0ccymv1t1-overview/alt_9.jpg",
+      "targetPathCpk": "categories/scooters/products/b0ccymv1t1/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0CCYMV1T1",
+      "categoryId": "scooters",
+      "resourceId": "B0CCYMV1T1:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Gotrax/Rank_1_ASIN_B0CCYMV1T1_Gotrax KS1 Kids Kick Scooter LED Lighted Wheels an/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0ccymv1t1-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/scooters/products/b0ccymv1t1/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0CCYMV1T1",
+      "categoryId": "scooters",
+      "resourceId": "B0CCYMV1T1:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Gotrax/Rank_1_ASIN_B0CCYMV1T1_Gotrax KS1 Kids Kick Scooter LED Lighted Wheels an/images/primary.jpg",
+      "targetPathKeep": "resources/b0ccymv1t1-overview/primary.jpg",
+      "targetPathCpk": "categories/scooters/products/b0ccymv1t1/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0CCYMV1T1",
+      "categoryId": "scooters",
+      "resourceId": "B0CCYMV1T1:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/51b6NxAuLGL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0ccymv1t1-overview/51b6nxaulgl._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/scooters/products/b0ccymv1t1/gallery/51b6nxaulgl._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dd025acd-506b-46f1-ab08-3fb1929f03ba/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/55005556-359d-4d28-ae85-7911ca358069/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8f0ebde4-03d4-4870-8c9c-82b4c9e2ff37/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4d936aab-3a10-451b-b7f1-c6bf5fa2bc23/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a1f04a00-2d27-4bc1-bd94-d6355311793a/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/af7f0a65-5ee8-4771-b2cb-b07e83bcb676/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6ad55a8b-3ae7-4c9a-915f-f129a85c2289/default.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/scooters/Gotrax/Rank_1_ASIN_B0CCYMV1T1_Gotrax KS1 Kids Kick Scooter LED Lighted Wheels an/index.html"
+  ]
+}

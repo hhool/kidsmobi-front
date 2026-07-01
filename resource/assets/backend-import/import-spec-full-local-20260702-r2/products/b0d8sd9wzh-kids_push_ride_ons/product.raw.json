@@ -1,0 +1,798 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T20:06:15.522Z",
+  "data": {
+    "productId": "B0D8SD9WZH",
+    "categoryId": "kids_push_ride_ons",
+    "rank": 0,
+    "title": "Little Tikes Tractor & Cart, Foot-to-Floor Ride-On, for Boys and Girls Ages 1-5 Years",
+    "brand": "Little",
+    "price": {
+      "display": "$64.99",
+      "value": 64.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.7",
+      "value": 4.7
+    },
+    "weight": {
+      "display": "N/A",
+      "lbs": null
+    },
+    "classification": {
+      "Brand": "Little",
+      "Stroller_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Unknown",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_push_ride_ons",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "LITTLE FARMERS – This Tractor & Cart set is a must-have for little farmers on the go. With the tractor’s realistic features and foot-to-floor design",
+        "kids can enjoy imaginative play while developing large motor skills.",
+        "ATTACHABLE CART – Includes an easy-to-attach cart that is perfect for carrying a child’s items.",
+        "REALISTIC DESIGN – Features a working steering wheel and horn.",
+        "DURABILITY – Tractor tires are high-quality and durable to last rugged outdoor play.",
+        "COMFORTABLE SEATING – The tractor’s seat is made spacious to fit children as they grow.",
+        "EASY ASSEMBLY – Easy one-time adult assembly required.",
+        "ACTIVE PLAY – This tractor set makes an ideal gift for kids ages 1-5 years.",
+        "Ages 1-5 Years"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "LITTLE FARMERS – This Tractor & Cart set is a must-have for little farmers on the go. With the tractor’s realistic features and foot-to-floor design",
+        "featureLabel": "Little Farmers – This Tractor & Cart Set Is A Must Have For Little Farmers On The Go. With The Tractor’s Realistic Features And Foot To Floor Design",
+        "featureValue": "LITTLE FARMERS – This Tractor & Cart set is a must-have for little farmers on the go. With the tractor’s realistic features and foot-to-floor design",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "kids can enjoy imaginative play while developing large motor skills.",
+        "featureLabel": "Kids Can Enjoy Imaginative Play While Developing Large Motor Skills.",
+        "featureValue": "kids can enjoy imaginative play while developing large motor skills.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "ATTACHABLE CART – Includes an easy-to-attach cart that is perfect for carrying a child’s items.",
+        "featureLabel": "Attachable Cart – Includes An Easy To Attach Cart That Is Perfect For Carrying A Child’s Items.",
+        "featureValue": "ATTACHABLE CART – Includes an easy-to-attach cart that is perfect for carrying a child’s items.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "REALISTIC DESIGN – Features a working steering wheel and horn.",
+        "featureLabel": "Realistic Design – Features A Working Steering Wheel And Horn.",
+        "featureValue": "REALISTIC DESIGN – Features a working steering wheel and horn.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "DURABILITY – Tractor tires are high-quality and durable to last rugged outdoor play.",
+        "featureLabel": "Durability – Tractor Tires Are High Quality And Durable To Last Rugged Outdoor Play.",
+        "featureValue": "DURABILITY – Tractor tires are high-quality and durable to last rugged outdoor play.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "COMFORTABLE SEATING – The tractor’s seat is made spacious to fit children as they grow.",
+        "featureLabel": "Comfortable Seating – The Tractor’s Seat Is Made Spacious To Fit Children As They Grow.",
+        "featureValue": "COMFORTABLE SEATING – The tractor’s seat is made spacious to fit children as they grow.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "LITTLE FARMERS – This Tractor & Cart set is a must-have for little farmers on the go. With the tractor’s realistic features and foot-to-floor design",
+        "kids can enjoy imaginative play while developing large motor skills.",
+        "ATTACHABLE CART – Includes an easy-to-attach cart that is perfect for carrying a child’s items.",
+        "REALISTIC DESIGN – Features a working steering wheel and horn."
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+          "source": "local",
+          "order": 10
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+          "source": "local",
+          "order": 11
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+          "source": "local",
+          "order": 12
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_1.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_2.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_3.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_4.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_5.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_6.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_7.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_8.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_9.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg"
+    ],
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fa010915-0629-4284-a2d3-79986e480e03/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9c0ce93f-a9c2-4f1d-8dac-e67c05191a65/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1c686135-e312-4a07-badb-4144069f0d3c/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4e5765b2-338a-42d5-8fbe-21e0e8898b09/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cb823cd0-3a21-477a-9493-1fd49c66e048/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bfa6c011-895f-4b0b-bfff-c57f3bb8c7ed/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cfc13d0d-15b2-4372-a75f-cea535dc8862/default.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fa010915-0629-4284-a2d3-79986e480e03/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Little Tikes Tractor & Cart",
+        "thumbnail": "https://m.media-amazon.com/images/I/51MrcwkF6bL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9c0ce93f-a9c2-4f1d-8dac-e67c05191a65/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Little Tikes Firsts",
+        "thumbnail": "https://m.media-amazon.com/images/I/71DiSe4PhgL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1c686135-e312-4a07-badb-4144069f0d3c/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Fun for the 1 year old!",
+        "thumbnail": "https://m.media-amazon.com/images/I/71oyXniIGlL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4e5765b2-338a-42d5-8fbe-21e0e8898b09/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Little Tikes Tractor Ride On With Trailer for Toddlers",
+        "thumbnail": "https://m.media-amazon.com/images/I/B1i10zqGlZL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cb823cd0-3a21-477a-9493-1fd49c66e048/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Honest Review of Little Tikes Tractor and Cart",
+        "thumbnail": "https://m.media-amazon.com/images/I/91K5zR5Ro3L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bfa6c011-895f-4b0b-bfff-c57f3bb8c7ed/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "my honest review of Little Tikes Tractor & Cart",
+        "thumbnail": "https://m.media-amazon.com/images/I/91U58-VmQ0L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 6
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cfc13d0d-15b2-4372-a75f-cea535dc8862/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Toy Tractor Honest Review!",
+        "thumbnail": "https://m.media-amazon.com/images/I/61q-cnUuVKL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 7
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/kids_push_ride_ons/index.html",
+      "categoryPages": "/scrape_store/kids_push_ride_ons/pages/index.html",
+      "detailPage": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/index.html"
+    },
+    "resourceStats": {
+      "videos": 7,
+      "similarItems": 1
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/61DYRTL9w7L._AC_UL165_SR165,165_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 14
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 12
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little Tikes Tractor  Cart Foot-to-Floor Ride-On f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 13
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fa010915-0629-4284-a2d3-79986e480e03/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51MrcwkF6bL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Little Tikes Tractor & Cart",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9c0ce93f-a9c2-4f1d-8dac-e67c05191a65/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71DiSe4PhgL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Little Tikes Firsts",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1c686135-e312-4a07-badb-4144069f0d3c/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71oyXniIGlL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Fun for the 1 year old!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4e5765b2-338a-42d5-8fbe-21e0e8898b09/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1i10zqGlZL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Little Tikes Tractor Ride On With Trailer for Toddlers",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cb823cd0-3a21-477a-9493-1fd49c66e048/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91K5zR5Ro3L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Honest Review of Little Tikes Tractor and Cart",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bfa6c011-895f-4b0b-bfff-c57f3bb8c7ed/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91U58-VmQ0L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "my honest review of Little Tikes Tractor & Cart",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cfc13d0d-15b2-4372-a75f-cea535dc8862/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61q-cnUuVKL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Toy Tractor Honest Review!",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "John",
+        "Title": "John Deere Ride On Toys Pedal Tractor with Wagon for Kids Aged 18 Months to 3 Years, Green/Yellow",
+        "Price": "$114.95",
+        "Rating": "4.4",
+        "Reviews": "1,882",
+        "URL": "https://www.amazon.com/TOMY-Deere-Pedal-Tractor-Wagon/dp/B007LL7J96/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_1/141-4761812-9774563?pd_rd_w=Yt912&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=0WAG7X3RJ8FHF8354NJZ&pd_rd_wg=I3vNt&pd_rd_r=aa049230-8dff-4ee7-a09f-7d7e26202753&pd_rd_i=B007LL7J96&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/51OYG+S8mcL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B007LL7J96",
+        "Features": "Let your child get in on the hauling action with this John Deere ride-on toy set | Comes complete with an attached wagon that lets kids haul toys and more | Takes the traditional toddler trike to the next level with authentic John Deere colors and details | Officially Licensed John Deere Product | Recommended age: 18M+ and up to 60 pounds",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/916fc56b-1142-406f-99c9-f0b443bb8338/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/916fc56b-1142-406f-99c9-f0b443bb8338/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/510En8qGDmL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "John Deere Tractor and Wagon Ride On",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3a241e78-ab6b-4539-b627-31d69a59253c/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1Q1vZ+mnXL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+            "Title": "Our Favorite Toddler Riding Toy",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/81db9291-546e-4817-a0bf-1bf28842c85a/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1Sh84PgsxL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+            "Title": "Honest Review from the mom a tractor loving toddler",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/770e6cc0-6c36-4b05-8f21-3134be4a9206/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61hPAZzMImL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Perfect for tractor loving kids of ANY age!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e846f629-9d23-4743-a03f-32bf747d8c34/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/C15ubF6jkHL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "John Deere Ride on Tractor after Years of Use",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5f3e02d3-5b61-4337-bb5b-fd47d4c0f0d0/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1VnVRqD4iL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "View TOMY John Deere Pedal Tricycle and Wagon Set here!",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/916fc56b-1142-406f-99c9-f0b443bb8338/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3a241e78-ab6b-4539-b627-31d69a59253c/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/81db9291-546e-4817-a0bf-1bf28842c85a/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/770e6cc0-6c36-4b05-8f21-3134be4a9206/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e846f629-9d23-4743-a03f-32bf747d8c34/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5f3e02d3-5b61-4337-bb5b-fd47d4c0f0d0/default.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/916fc56b-1142-406f-99c9-f0b443bb8338/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3a241e78-ab6b-4539-b627-31d69a59253c/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/81db9291-546e-4817-a0bf-1bf28842c85a/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/770e6cc0-6c36-4b05-8f21-3134be4a9206/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e846f629-9d23-4743-a03f-32bf747d8c34/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5f3e02d3-5b61-4337-bb5b-fd47d4c0f0d0/default.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "Highlights:",
+              "Texts": [
+                "Ride on tractor",
+                "Comes complete with an attached wagon",
+                "For ages 18 month to 3 years",
+                "John Deere helps your child feel like part of the hauling action with this Pedal Tractor and Wagon ride-on toy set. This rugged ride-on features traditional John Deere green and yellow colors for an authentic look kids will love. The pedal powered ride-on includes an accessory wagon for all of your child's outdoor hauling needs. From toddlers to preschool, your boy or girl will love getting outside to enjoy creative play with the John Deere Pedal Tractor and Wagon!",
+                "John Deere fans of all ages will enjoy this selection of farm and off-road toys! These toys combine John Deere styling with durable design and super cool features. From infant to established collector- there’s something for everyone!"
+              ],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media/vc/2082cf78-7441-4a85-aa37-0cb948ae1740.__CR2,0,970,300_PT0_SX970_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media/vc/f3b2e9bf-407d-4c15-b7e1-a7dd8d73f911.__CR0,0,1442,1922_PT0_SX300_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media/vc/f9ef2747-0ec2-46a0-91f9-7627ee0f27cb.__CR185,0,600,300_PT0_SX350_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media/vc/c538dd50-0517-4a30-a356-e4e071e6b73f.__CR54,0,1498,1498_PT0_SX300_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media/vc/2082cf78-7441-4a85-aa37-0cb948ae1740.__CR2,0,970,300_PT0_SX970_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "John Deere Pedal Tractor And Wagon Banner",
+                  "Image_Alt": "John Deere Pedal Tractor And Wagon Banner"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media/vc/f3b2e9bf-407d-4c15-b7e1-a7dd8d73f911.__CR0,0,1442,1922_PT0_SX300_V1___.jpg",
+                  "Image_Order": 2,
+                  "Image_Title": "John Deere Pedal Tractor And Wagon",
+                  "Image_Alt": "John Deere Pedal Tractor And Wagon"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media/vc/f9ef2747-0ec2-46a0-91f9-7627ee0f27cb.__CR185,0,600,300_PT0_SX350_V1___.jpg",
+                  "Image_Order": 3,
+                  "Image_Title": "John Deere Logo",
+                  "Image_Alt": "John Deere Logo"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media/vc/c538dd50-0517-4a30-a356-e4e071e6b73f.__CR54,0,1498,1498_PT0_SX300_V1___.jpg",
+                  "Image_Order": 4,
+                  "Image_Title": "About john Deere",
+                  "Image_Alt": "About john Deere"
+                }
+              ],
+              "Comparison_Table": {
+                "Headers": [
+                  "John Deere Sit 'N Scoot Activity Tractor",
+                  "John Deere Pedal Tractor Green",
+                  "John Deere Electronic Lawn Mower",
+                  "John Deere Sit-N-Scoot Tractor Toy",
+                  "Customer Reviews",
+                  "Price",
+                  "Explore other products from John Deere"
+                ],
+                "Rows": [
+                  [
+                    "Buying Options",
+                    "Buying Options",
+                    "Buying Options",
+                    "Add to Cart"
+                  ],
+                  [
+                    "4.8 out of 5 stars 4,366",
+                    "4.4 out of 5 stars 746",
+                    "4.8 out of 5 stars 4,366",
+                    "4.4 out of 5 stars 9,630"
+                  ],
+                  [
+                    "— no data",
+                    "— no data",
+                    "— no data",
+                    "$50.94 $ 50 . 94"
+                  ],
+                  [
+                    "The John Deere Sit 'N Scoot Activity Tractor is an imaginative riding toy that encourages creative play while teaching kids farm sounds",
+                    "Take your kid's playtime to the next level with this John Deere Plastic Pedal Tractor ride-on featuring authentic John Deere colors and details",
+                    "The John Deere real sounds lawn mower is a fun toy that lets your child get in on the action and help out around the yard",
+                    "This John Deere Sit 'N Scoot Tractor is a perfect fit for those kid size chores"
+                  ]
+                ]
+              },
+              "Block_Types": [
+                "text",
+                "image",
+                "table"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "Highlights:"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media/vc/2082cf78-7441-4a85-aa37-0cb948ae1740.__CR2,0,970,300_PT0_SX970_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "John Deere Pedal Tractor And Wagon Banner",
+                    "Image_Alt": "John Deere Pedal Tractor And Wagon Banner"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media/vc/f3b2e9bf-407d-4c15-b7e1-a7dd8d73f911.__CR0,0,1442,1922_PT0_SX300_V1___.jpg",
+                    "Image_Order": 2,
+                    "Image_Title": "John Deere Pedal Tractor And Wagon",
+                    "Image_Alt": "John Deere Pedal Tractor And Wagon"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media/vc/f9ef2747-0ec2-46a0-91f9-7627ee0f27cb.__CR185,0,600,300_PT0_SX350_V1___.jpg",
+                    "Image_Order": 3,
+                    "Image_Title": "John Deere Logo",
+                    "Image_Alt": "John Deere Logo"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Ride on tractor"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Comes complete with an attached wagon"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "For ages 18 month to 3 years"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "John Deere helps your child feel like part of the hauling action with this Pedal Tractor and Wagon ride-on toy set. This rugged ride-on features traditional John Deere green and yellow colors for an authentic look kids will love. The pedal powered ride-on includes an accessory wagon for all of your child's outdoor hauling needs. From toddlers to preschool, your boy or girl will love getting outside to enjoy creative play with the John Deere Pedal Tractor and Wagon!"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media/vc/c538dd50-0517-4a30-a356-e4e071e6b73f.__CR54,0,1498,1498_PT0_SX300_V1___.jpg",
+                    "Image_Order": 4,
+                    "Image_Title": "About john Deere",
+                    "Image_Alt": "About john Deere"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "John Deere fans of all ages will enjoy this selection of farm and off-road toys! These toys combine John Deere styling with durable design and super cool features. From infant to established collector- there’s something for everyone!"
+                },
+                {
+                  "Block_Type": "table",
+                  "Table": {
+                    "Headers": [
+                      "John Deere Sit 'N Scoot Activity Tractor",
+                      "John Deere Pedal Tractor Green",
+                      "John Deere Electronic Lawn Mower",
+                      "John Deere Sit-N-Scoot Tractor Toy",
+                      "Customer Reviews",
+                      "Price",
+                      "Explore other products from John Deere"
+                    ],
+                    "Rows": [
+                      [
+                        "Buying Options",
+                        "Buying Options",
+                        "Buying Options",
+                        "Add to Cart"
+                      ],
+                      [
+                        "4.8 out of 5 stars 4,366",
+                        "4.4 out of 5 stars 746",
+                        "4.8 out of 5 stars 4,366",
+                        "4.4 out of 5 stars 9,630"
+                      ],
+                      [
+                        "— no data",
+                        "— no data",
+                        "— no data",
+                        "$50.94 $ 50 . 94"
+                      ],
+                      [
+                        "The John Deere Sit 'N Scoot Activity Tractor is an imaginative riding toy that encourages creative play while teaching kids farm sounds",
+                        "Take your kid's playtime to the next level with this John Deere Plastic Pedal Tractor ride-on featuring authentic John Deere colors and details",
+                        "The John Deere real sounds lawn mower is a fun toy that lets your child get in on the action and help out around the yard",
+                        "This John Deere Sit 'N Scoot Tractor is a perfect fit for those kid size chores"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media/vc/2082cf78-7441-4a85-aa37-0cb948ae1740.__CR2,0,970,300_PT0_SX970_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media/vc/f3b2e9bf-407d-4c15-b7e1-a7dd8d73f911.__CR0,0,1442,1922_PT0_SX300_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media/vc/f9ef2747-0ec2-46a0-91f9-7627ee0f27cb.__CR185,0,600,300_PT0_SX350_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media/vc/c538dd50-0517-4a30-a356-e4e071e6b73f.__CR54,0,1498,1498_PT0_SX300_V1___.jpg"
+            ],
+            "Local_Images": [
+              "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+              "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+              "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+              "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [
+            {
+              "Title": "User Guide (PDF)",
+              "URL": "https://m.media-amazon.com/images/I/91aBknaB7PL.pdf",
+              "Type": "PDF",
+              "Source": "Product guides and documents",
+              "Category": "manual",
+              "Local_Path": "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/guides/manual/doc_00_User_Guide_PDF.pdf"
+            }
+          ],
+          "Summary": {
+            "Count": 1
+          },
+          "Local_Paths": [
+            "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/guides/manual/doc_00_User_Guide_PDF.pdf"
+          ]
+        },
+        "Product_Description": "Product Description   John Deere helps your child feel like part of the hauling action with this Pedal Tractor and Wagon ride-on toy set. This rugged ride-on features traditional John Deere green and yellow colors for an authentic look kids will love. The pedal powered ride-on includes an accessory wagon where they can put their farm tools, dolls, action figures, or play food to feel like their farming role models! The pull-along wagon is perfect for all of your child's outdoor hauling needs. This John Deere ride on is a fantastic way to get your toddlers out in the sun and interested in the classic John Deere style. From toddlers to preschool, your boy or girl will love getting outside to enjoy creative play by creating a new adventure every day and “helping” with the day’s farming/yard work outdoors. Encourage their imaginations and get ready for days filled with hauling-action fun! This tractor toy tricycle and wagon attachment have a weight limit of 60 lbs. and are great gifts for kids ages 18 months and up.   From the Manufacturer   This tractor and wagon set is where John Deere meets child sized chores. Features traditional John Deere green and yellow deco. Pedal action with accessory wagon for hauling.",
+        "Product_Specifications": {
+          "Measurements": {
+            "Size": "Small",
+            "Item Weight": "10 Pounds",
+            "Item Dimensions L x W x H": "1\"H",
+            "Weight Capacity Maximum": "60 Pounds",
+            "Item Dimensions": "47 x 16.5 x 18 inches"
+          },
+          "Features_Specs": {
+            "Subject Character": "Board Games",
+            "Age Range Description": "Toddler",
+            "UPC": "036881460886",
+            "Set Name": "Pedal Tractor with Wagon",
+            "Item Type Name": "Pedal Tractor And Wagon",
+            "Theme": "Christmas"
+          },
+          "Materials_Care": {
+            "Material Type": "Plastic"
+          },
+          "Item_Details": {
+            "Brand Name": "TOMY",
+            "Sub Brand": "John Deere",
+            "Manufacturer Warranty Description": "90 Day Warranty Against Manufacturer Defects",
+            "Global Trade Identification Number": "00036881460886",
+            "Manufacturer Part Number": "46088",
+            "Model Number": "46088",
+            "Manufacturer": "TOMY Intl.",
+            "Unit Count": "1.0 Count",
+            "Included Components": "Wagon, Ride On Toy",
+            "Best Sellers Rank": "#129,730 in Toys & Games (See Top 100 in Toys & Games) #185 in Kids' Push Ride-Ons",
+            "ASIN": "B007LL7J96",
+            "Customer Reviews": "4.4  4.4 out of 5 stars   \n    (1,882)   \n\n\n 4.4 out of 5 stars"
+          },
+          "User_Guide": {
+            "Manufacturer Minimum Age (MONTHS)": "18.0",
+            "Manufacturer Maximum Age (MONTHS)": "36.0",
+            "Is Assembly Required": "No"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+          "Availability": "Only 9 left in stock - order soon.",
+          "Delivery_Promise": "FREE delivery Wednesday, July 1 Or Prime members get FREE delivery Tomorrow, June 27. Order within 3 hrs 12 mins. Join Prime",
+          "Specifications": {}
+        },
+        "Local_Image_Paths": [
+          "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/images/primary.jpg",
+          "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/images/alt_1.jpg",
+          "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/images/alt_2.jpg",
+          "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/images/alt_3.jpg",
+          "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/images/alt_4.jpg",
+          "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/images/alt_5.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/kids_push_ride_ons/John/Rank_Similar_ASIN_B007LL7J96_John Deere Ride On Toys Pedal Tractor with Wagon f/images/primary.jpg",
+        "Local_Video_Paths": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "scooters",
+  "fetchedAt": "2026-07-01T20:06:12.441Z",
+  "data": {
+    "resourceId": "B0CCYMV1T1:overview",
+    "categoryId": "scooters",
+    "productId": "B0CCYMV1T1",
+    "resourceType": "product_overview",
+    "title": "Gotrax KS1 Kids Kick Scooter, LED Lighted Wheels and 3 Adjustable Height Handlebars, Lean-to-Steer & Widen Anti-Slip Deck, 3",
+    "summary": "EXCITING GLOWING WHEELS: The 3 wheels are equipped with powerful LEDs, igniting a brilliant glow, captivating the young riders with its enchanting charm. Safety is never compromised, as the scooter becomes a captivating spectacle even in the dark, providing peace of mind for pare",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/scooters/Gotrax/Rank_1_ASIN_B0CCYMV1T1_Gotrax KS1 Kids Kick Scooter LED Lighted Wheels an/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dd025acd-506b-46f1-ab08-3fb1929f03ba/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/55005556-359d-4d28-ae85-7911ca358069/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8f0ebde4-03d4-4870-8c9c-82b4c9e2ff37/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4d936aab-3a10-451b-b7f1-c6bf5fa2bc23/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a1f04a00-2d27-4bc1-bd94-d6355311793a/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/af7f0a65-5ee8-4771-b2cb-b07e83bcb676/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6ad55a8b-3ae7-4c9a-915f-f129a85c2289/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.83,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 7,
+      "hasFeatures": true
+    }
+  }
+}

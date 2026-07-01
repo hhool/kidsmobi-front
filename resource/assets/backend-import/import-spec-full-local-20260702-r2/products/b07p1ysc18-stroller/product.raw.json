@@ -1,0 +1,853 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "stroller",
+  "categoryCode": "stroller",
+  "fetchedAt": "2026-07-01T20:06:11.083Z",
+  "data": {
+    "productId": "B07P1YSC18",
+    "categoryId": "stroller",
+    "rank": 4,
+    "title": "Ingenuity 3D Mini Convenience Stroller – Lightweight Stroller with Compact Fold, Multi-Position Recline, Canopy with Pop Out",
+    "brand": "Ingenuity",
+    "price": {
+      "display": "$69.88",
+      "value": 69.88,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.3  23,237",
+      "value": 4.3
+    },
+    "weight": {
+      "display": "10.6 Pounds",
+      "lbs": 10.6
+    },
+    "classification": {
+      "Brand": "Ingenuity",
+      "Stroller_Type": "Umbrella Stroller",
+      "Travel_System_Ready": "No",
+      "Seating_Capacity": "1",
+      "Wheel_Configuration": "4",
+      "Harness_Type": "5 Point",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "stroller",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "100% polyester",
+        "Imported",
+        "LIGHTWEIGHT - A lightweight stroller makes any outing a little easier",
+        "The Ingenuity 3D Mini Convenience Stroller has a durable steel frame that weighs 11 pounds and has a full-sized seat",
+        "plus auto-lock",
+        "anti-shock front wheels and lockable rear wheels",
+        "FOR TRAVEL AND EVERYDAY - Whether youre traveling or just on the go running everyday errands",
+        "having a lightweight",
+        "compact stroller is a must! Its mini",
+        "but mighty for long-term use and offers both an everyday and travel stroller option",
+        "MULTI-POSITION RECLINE - Keep your little one comfortable with multi-position recline",
+        "padded seat back and padded 5-point safety harness",
+        "Its perfect for nap time strolls and edge-of-the-seat travels",
+        "Maximum weight for this toddler stroller: 45 pounds",
+        "COMPACT FOLD - The easy",
+        "compact fold makes it simple to store this lightweight umbrella stroller and bring it with you on the go",
+        "Plus",
+        "it has a hassle-free canopy with flip out sun visor that is perfect for sunny days",
+        "EXTRA STORAGE - With plenty of storage in this stroller",
+        "you wont have to leave anything at home",
+        "It includes a storage basket",
+        "rear storage pocket and two cup holders"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "100% polyester",
+        "featureLabel": "100% Polyester",
+        "featureValue": "100% polyester",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "Imported",
+        "featureLabel": "Imported",
+        "featureValue": "Imported",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "LIGHTWEIGHT - A lightweight stroller makes any outing a little easier",
+        "featureLabel": "Lightweight A Lightweight Stroller Makes Any Outing A Little Easier",
+        "featureValue": "LIGHTWEIGHT - A lightweight stroller makes any outing a little easier",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "The Ingenuity 3D Mini Convenience Stroller has a durable steel frame that weighs 11 pounds and has a full-sized seat",
+        "featureLabel": "The Ingenuity 3d Mini Convenience Stroller Has A Durable Steel Frame That Weighs 11 Pounds And Has A Full Sized Seat",
+        "featureValue": "The Ingenuity 3D Mini Convenience Stroller has a durable steel frame that weighs 11 pounds and has a full-sized seat",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "plus auto-lock",
+        "featureLabel": "Plus Auto Lock",
+        "featureValue": "plus auto-lock",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "anti-shock front wheels and lockable rear wheels",
+        "featureLabel": "Anti Shock Front Wheels And Lockable Rear Wheels",
+        "featureValue": "anti-shock front wheels and lockable rear wheels",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from stroller classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "100% polyester",
+        "Imported",
+        "LIGHTWEIGHT - A lightweight stroller makes any outing a little easier",
+        "The Ingenuity 3D Mini Convenience Stroller has a durable steel frame that weighs 11 pounds and has a full-sized seat"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+          "source": "local",
+          "order": 10
+        },
+        {
+          "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+          "source": "local",
+          "order": 11
+        },
+        {
+          "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+          "source": "local",
+          "order": 12
+        },
+        {
+          "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+          "source": "local",
+          "order": 13
+        },
+        {
+          "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg",
+          "source": "local",
+          "order": 14
+        },
+        {
+          "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_05.jpg",
+          "source": "local",
+          "order": 15
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_1.jpg",
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_2.jpg",
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_3.jpg",
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_4.jpg",
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_5.jpg",
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_6.jpg",
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_7.jpg",
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_8.jpg",
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_9.jpg",
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg",
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_05.jpg"
+    ],
+    "videoUrls": [
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_0.mp4",
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_1.mp4",
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_2.mp4",
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_3.mp4",
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_4.mp4"
+    ],
+    "videos": [
+      {
+        "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_0.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_1.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_2.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_3.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_4.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 5
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/stroller/index.html",
+      "categoryPages": "/scrape_store/stroller/pages/index.html",
+      "detailPage": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/index.html"
+    },
+    "resourceStats": {
+      "videos": 5,
+      "similarItems": 1
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      },
+      {
+        "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 12
+      },
+      {
+        "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 13
+      },
+      {
+        "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 14
+      },
+      {
+        "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 15
+      },
+      {
+        "url": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_05.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 16
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8a8e3efc-edc4-4f48-b4c7-7cbc69850fa8/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "about:blank#external-url-removedcom/images/I/51oxTUgUDNL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Summer Infant, 3D Mini Convenience Stroller - Gray",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3ddd74eb-c254-4adf-a148-07a7e84fd3ba/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "about:blank#external-url-removedcom/images/I/A1acfyAfaQL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Honest Review - Mini Convenience Stroller",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/959dce64-1205-4cbf-b992-ea8a08e52dcc/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "about:blank#external-url-removedcom/images/I/A1hKCYf0OWL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Honest Review Ingenuity 3D Stroller",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/29ffde7f-0915-4ed1-9bf1-947e9d3997df/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "about:blank#external-url-removedcom/images/I/81-qCYQuBkL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Full Review of Ingenuity Stroller in the color Slate",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2f791e06-25e9-4336-b3dd-d1b3731d6e85/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "about:blank#external-url-removedcom/images/I/717R1Jpe0WL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Features of Stroller",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fd54e5c7-d61a-45f0-8056-38b914b2afcd/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "about:blank#external-url-removedcom/images/I/A19OUdNLv7L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Honest Review of Summer by Ingenuity 3D Mini Stroller",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "Dream",
+        "Title": "Dream On Me Volgo Twin Baby Stroller, Compact Side-by-Side Double Umbrella Stroller, 5-Point Safety Harness, Adjustable Canop",
+        "Price": "$109.81",
+        "Rating": "4.4",
+        "Reviews": "2,532",
+        "URL": "about:blank#external-url-removedcom/Dream-Me-Umbrella-Stroller-446-BLK/dp/B089TVHV1X/ref=bmx_dp_d_sccl_1_5/147-2271281-0753021?pd_rd_w=c7JSZ&content-id=amzn1.sym.c952656f-2e08-43b8-b699-3c3bba430c7f&pf_rd_p=c952656f-2e08-43b8-b699-3c3bba430c7f&pf_rd_r=0BM1HSHM7FTK7MK6603X&pd_rd_wg=DZDFY&pd_rd_r=14c65d67-3071-407e-968c-adc01a6086f3&pd_rd_i=B089TVHV1X&psc=1",
+        "Listing_Image_URL": "about:blank#external-url-removedcom/images/I/71MpjKBKsaL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B089TVHV1X",
+        "Features": "Mesh | Imported | TWIN UMBRELLA STROLLER AT 29.5 INCHES WIDE FOR NARROW SPACES AND TRAVEL: Side-by-side seating for twins or siblings, sized to fit through doorways and fold flat with one hand for car trunks and storage. Each seat holds children from 6 months up to 40 lbs. | UMBRELLA FOLD FOR REAL-WORLD TRAVEL: The Volgo folds into a slim, travel-ready profile that fits car trunks and tight storage spaces. Its lightweight frame makes lifting easy, making it a practical double stroller for everyday travel and family outings. | INDEPENDENT 5-POINT SAFETY HARNESS FOR EACH CHILD: Both seats feature a dedicated 5-point harness with adjustable shoulder straps, waist belt, crotch strap to keep babies and toddlers secure. Adjust each harness independently for a secure, comfortable fit | FRONT SWIVEL WHEELS FOR SMOOTH URBAN NAVIGATION: Front swivel wheels glide smoothly on sidewalks, malls, airports, and indoor spaces, making turns easy. Designed for flat, smooth surfaces. Not intended for gravel, rough terrain, or off-road use. | DUAL ADJUSTABLE CANOPIES + UNDER-SEAT STORAGE BASKET: Each child has an adjustable canopy for sun and light-weather coverage; see images for coverage details. A roomy under-seat basket keeps diaper bags, snacks, and essentials close at hand.",
+        "Video_URL": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/374df266-1a53-4793-8952-89f930675348/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/374df266-1a53-4793-8952-89f930675348/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "about:blank#external-url-removedcom/images/I/51FRMsT9KaL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "446 -Volgo Twin Stroller  Canopy Installation",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/27c2c183-fee8-4b45-9471-5c8ba64ae3f9/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "about:blank#external-url-removedcom/images/I/81plTqCgETL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Dream On Me Volgo Twin Umbrella Stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b0d2684b-9017-490f-a98c-9b6fd5ddda3d/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "about:blank#external-url-removedcom/images/I/61ABRxWd0wL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Need a double umbrella stroller?Checkout theDream on Me Twin",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/310c22ed-8860-471f-a783-d04ca78319a7/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "about:blank#external-url-removedcom/images/I/71FzhB8FSEL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Disney approved set up for success",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cec6dc4e-f0eb-43c4-9ad1-43195064e39e/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "about:blank#external-url-removedcom/images/I/717ZQ7JL6lL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+            "Title": "WATCH BEFORE BUYING Dream On Me Twin Umbrella Stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/268f79fa-dc87-49ab-9fa9-5ad1fda01b3c/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "about:blank#external-url-removedcom/images/I/B1dUgbcPjCL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Dream On Me Twin Volgo Double Stroller ",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/41cccf69-5d8e-423d-892b-85a8aa0408c3/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "about:blank#external-url-removedcom/images/I/61w7DvrdPTL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Let me show you why after 2 yrs I still use this stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/374df266-1a53-4793-8952-89f930675348/default.jobtemplate.hls.m3u8",
+          "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/27c2c183-fee8-4b45-9471-5c8ba64ae3f9/default.jobtemplate.hls.m3u8",
+          "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b0d2684b-9017-490f-a98c-9b6fd5ddda3d/default.jobtemplate.hls.m3u8",
+          "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/310c22ed-8860-471f-a783-d04ca78319a7/default.vertical.jobtemplate.hls.m3u8",
+          "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cec6dc4e-f0eb-43c4-9ad1-43195064e39e/default.jobtemplate.hls.m3u8",
+          "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/268f79fa-dc87-49ab-9fa9-5ad1fda01b3c/default.jobtemplate.hls.m3u8",
+          "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/41cccf69-5d8e-423d-892b-85a8aa0408c3/default.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/374df266-1a53-4793-8952-89f930675348/default.jobtemplate.hls.m3u8",
+          "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/27c2c183-fee8-4b45-9471-5c8ba64ae3f9/default.jobtemplate.hls.m3u8",
+          "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b0d2684b-9017-490f-a98c-9b6fd5ddda3d/default.jobtemplate.hls.m3u8",
+          "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/310c22ed-8860-471f-a783-d04ca78319a7/default.vertical.jobtemplate.hls.m3u8",
+          "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cec6dc4e-f0eb-43c4-9ad1-43195064e39e/default.jobtemplate.hls.m3u8",
+          "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/268f79fa-dc87-49ab-9fa9-5ad1fda01b3c/default.jobtemplate.hls.m3u8",
+          "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/41cccf69-5d8e-423d-892b-85a8aa0408c3/default.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "Easy Steps for Canopy Installation",
+              "Texts": [],
+              "Images": [
+                "about:blank#external-url-removedcom/images/S/aplus-media-library-service-media/cb33fed9-0604-4d5f-8bdf-91c13df340a3.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                "about:blank#external-url-removedcom/images/S/aplus-media-library-service-media/9634246b-4c07-4356-b0b5-2a07fc98a96f.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                "about:blank#external-url-removedcom/images/S/aplus-media-library-service-media/d5152837-d048-4782-b00f-f06c9d7bda1b.__CR0,13,4000,2474_PT0_SX970_V1___.jpg",
+                "about:blank#external-url-removedcom/images/S/aplus-media-library-service-media/902b213e-d64a-46ef-ae81-411784fbfbc2.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                "about:blank#external-url-removedcom/images/S/aplus-media-library-service-media/c85de40b-a117-4a96-b81b-3b9bdad67244.__CR0,0,970,600_PT0_SX970_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "about:blank#external-url-removedcom/images/S/aplus-media-library-service-media/cb33fed9-0604-4d5f-8bdf-91c13df340a3.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "twin stroller, baby stroller, double stroller",
+                  "Image_Alt": "twin stroller, baby stroller, double stroller"
+                },
+                {
+                  "Image_URL": "about:blank#external-url-removedcom/images/S/aplus-media-library-service-media/9634246b-4c07-4356-b0b5-2a07fc98a96f.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                  "Image_Order": 2,
+                  "Image_Title": "twin stroller, baby stroller, double stroller, light weight stroller, tandem stroller",
+                  "Image_Alt": "twin stroller, baby stroller, double stroller, light weight stroller, tandem stroller"
+                },
+                {
+                  "Image_URL": "about:blank#external-url-removedcom/images/S/aplus-media-library-service-media/d5152837-d048-4782-b00f-f06c9d7bda1b.__CR0,13,4000,2474_PT0_SX970_V1___.jpg",
+                  "Image_Order": 3,
+                  "Image_Title": "C",
+                  "Image_Alt": "C"
+                },
+                {
+                  "Image_URL": "about:blank#external-url-removedcom/images/S/aplus-media-library-service-media/902b213e-d64a-46ef-ae81-411784fbfbc2.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                  "Image_Order": 4,
+                  "Image_Title": "Easy to fold twin stroller",
+                  "Image_Alt": "Easy to fold twin stroller"
+                },
+                {
+                  "Image_URL": "about:blank#external-url-removedcom/images/S/aplus-media-library-service-media/c85de40b-a117-4a96-b81b-3b9bdad67244.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                  "Image_Order": 5,
+                  "Image_Title": "variations of twin stroller",
+                  "Image_Alt": "variations of twin stroller"
+                }
+              ],
+              "Comparison_Table": {},
+              "Block_Types": [
+                "image"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "Easy Steps for Canopy Installation"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "about:blank#external-url-removedcom/images/S/aplus-media-library-service-media/cb33fed9-0604-4d5f-8bdf-91c13df340a3.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "twin stroller, baby stroller, double stroller",
+                    "Image_Alt": "twin stroller, baby stroller, double stroller"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "about:blank#external-url-removedcom/images/S/aplus-media-library-service-media/9634246b-4c07-4356-b0b5-2a07fc98a96f.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                    "Image_Order": 2,
+                    "Image_Title": "twin stroller, baby stroller, double stroller, light weight stroller, tandem stroller",
+                    "Image_Alt": "twin stroller, baby stroller, double stroller, light weight stroller, tandem stroller"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "about:blank#external-url-removedcom/images/S/aplus-media-library-service-media/d5152837-d048-4782-b00f-f06c9d7bda1b.__CR0,13,4000,2474_PT0_SX970_V1___.jpg",
+                    "Image_Order": 3,
+                    "Image_Title": "C",
+                    "Image_Alt": "C"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "about:blank#external-url-removedcom/images/S/aplus-media-library-service-media/902b213e-d64a-46ef-ae81-411784fbfbc2.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                    "Image_Order": 4,
+                    "Image_Title": "Easy to fold twin stroller",
+                    "Image_Alt": "Easy to fold twin stroller"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "about:blank#external-url-removedcom/images/S/aplus-media-library-service-media/c85de40b-a117-4a96-b81b-3b9bdad67244.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+                    "Image_Order": 5,
+                    "Image_Title": "variations of twin stroller",
+                    "Image_Alt": "variations of twin stroller"
+                  }
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "about:blank#external-url-removedcom/images/S/aplus-media-library-service-media/cb33fed9-0604-4d5f-8bdf-91c13df340a3.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+              "about:blank#external-url-removedcom/images/S/aplus-media-library-service-media/9634246b-4c07-4356-b0b5-2a07fc98a96f.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+              "about:blank#external-url-removedcom/images/S/aplus-media-library-service-media/d5152837-d048-4782-b00f-f06c9d7bda1b.__CR0,13,4000,2474_PT0_SX970_V1___.jpg",
+              "about:blank#external-url-removedcom/images/S/aplus-media-library-service-media/902b213e-d64a-46ef-ae81-411784fbfbc2.__CR0,0,970,600_PT0_SX970_V1___.jpg",
+              "about:blank#external-url-removedcom/images/S/aplus-media-library-service-media/c85de40b-a117-4a96-b81b-3b9bdad67244.__CR0,0,970,600_PT0_SX970_V1___.jpg"
+            ],
+            "Local_Images": [
+              "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+              "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+              "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+              "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+              "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [
+            {
+              "Title": "User Guide (PDF)",
+              "URL": "about:blank#external-url-removedcom/images/I/B1MqhTvME-L.pdf",
+              "Type": "PDF",
+              "Source": "Product guides and documents",
+              "Category": "manual",
+              "Local_Path": "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/guides/manual/doc_00_User_Guide_PDF.pdf"
+            }
+          ],
+          "Summary": {
+            "Count": 1
+          },
+          "Local_Paths": [
+            "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/guides/manual/doc_00_User_Guide_PDF.pdf"
+          ]
+        },
+        "Product_Description": "The Dream On Me Volgo Twin Baby Stroller keeps outings with twins or siblings manageable for daily errands, family trips, or anything in between. At 29.9\" wide, this narrow double stroller fits through standard doorways and moves easily through stores and sidewalks. Reclining seats with adjustable footrests fit children 6 to 36 months, up to 40 lbs per seat. Soft Ride wheels, 360° swivel front wheels, and lockable rear wheels keep on-the-go parents in control. The stroller measures L 31.8\" x W 29.9\" x H 39.3\", 22.57 lbs weight when fully assembled, offering a compact footprint for everyday use. Adjustable mesh canopies and large storage pockets handle sun coverage and everyday carry. Padded 5-point harnesses and an ASTM-tested frame built for real family life.",
+        "Product_Specifications": {
+          "Measurements": {
+            "Item Weight": "22.57 Pounds",
+            "Folded Size": "32 L x 26 W x 40 H (inches)",
+            "Rear Facing Stroller Maximum Height": "40 Inches",
+            "Item Dimensions L x W x H": "31.8\"L x 29.9\"W x 39.3\"H",
+            "Stroller Seat Weight": "40 Pounds",
+            "Basket Weight Capacity Maximum": "80 Pounds",
+            "Back Wheel Diameter": "5.5 Inches",
+            "Front Wheel Diameter": "5.5 Inches"
+          },
+          "Features_Specs": {
+            "Stroller Type": "Umbrella Stroller",
+            "Is Car Seat Compatible": "No",
+            "Seating Capacity": "2",
+            "Additional Features": "360° Maneuverability, Adjustable Hoods with Mesh Inserts, Compact Design, Large Storage Pockets",
+            "Built-in Light": "No",
+            "Has Stroller Brake System": "Yes"
+          },
+          "Materials_Care": {},
+          "Item_Details": {
+            "Number of Wheels": "4"
+          },
+          "User_Guide": {
+            "Harness Type": "5 Point",
+            "Harness Feature": "adjustable, padded comfort strap"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+          "Availability": "In Stock",
+          "Delivery_Promise": "$46.01 delivery Thursday, July 9. Order within 11 hrs 24 mins Or fastest delivery Wednesday, July 8",
+          "Specifications": {
+            "Item Weight": "22.57 Pounds",
+            "Folded Size": "32 L x 26 W x 40 H (inches)",
+            "Rear Facing Stroller Maximum Height": "40 Inches",
+            "Item Dimensions L x W x H": "31.8\"L x 29.9\"W x 39.3\"H",
+            "Stroller Seat Weight": "40 Pounds",
+            "Basket Weight Capacity Maximum": "80 Pounds",
+            "Back Wheel Diameter": "5.5 Inches",
+            "Front Wheel Diameter": "5.5 Inches"
+          }
+        },
+        "Category_Attributes": {
+          "categoryId": "stroller",
+          "ageGroup": [],
+          "structure": [
+            "Umbrella Stroller"
+          ],
+          "scenario": [],
+          "features": [
+            "Mesh",
+            "Imported",
+            "TWIN UMBRELLA STROLLER AT 29.5 INCHES WIDE FOR NARROW SPACES AND TRAVEL: Side-by-side seating for twins or siblings",
+            "sized to fit through doorways and fold flat with one hand for car trunks and storage. Each seat holds children from 6 months up to 40 lbs.",
+            "UMBRELLA FOLD FOR REAL-WORLD TRAVEL: The Volgo folds into a slim",
+            "travel-ready profile that fits car trunks and tight storage spaces. Its lightweight frame makes lifting easy",
+            "making it a practical double stroller for everyday travel and family outings.",
+            "INDEPENDENT 5-POINT SAFETY HARNESS FOR EACH CHILD: Both seats feature a dedicated 5-point harness with adjustable shoulder straps",
+            "waist belt",
+            "crotch strap to keep babies and toddlers secure. Adjust each harness independently for a secure",
+            "comfortable fit",
+            "FRONT SWIVEL WHEELS FOR SMOOTH URBAN NAVIGATION: Front swivel wheels glide smoothly on sidewalks",
+            "malls",
+            "airports",
+            "and indoor spaces",
+            "making turns easy. Designed for flat",
+            "smooth surfaces. Not intended for gravel",
+            "rough terrain",
+            "or off-road use.",
+            "DUAL ADJUSTABLE CANOPIES + UNDER-SEAT STORAGE BASKET: Each child has an adjustable canopy for sun and light-weather coverage",
+            "see images for coverage details. A roomy under-seat basket keeps diaper bags",
+            "snacks",
+            "and essentials close at hand.",
+            "Umbrella Stroller",
+            "No",
+            "2",
+            "360° Maneuverability",
+            "Adjustable Hoods with Mesh Inserts",
+            "Compact Design",
+            "Large Storage Pockets",
+            "Yes"
+          ],
+          "materialClass": [],
+          "wheelSize": [],
+          "powerLevel": []
+        },
+        "Feature_Cards": [
+          {
+            "featureKey": "Mesh",
+            "featureLabel": "Mesh",
+            "featureValue": "Mesh",
+            "featureEvidence": "Features",
+            "featureRank": 1,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "Imported",
+            "featureLabel": "Imported",
+            "featureValue": "Imported",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 2,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "TWIN UMBRELLA STROLLER AT 29.5 INCHES WIDE FOR NARROW SPACES AND TRAVEL: Side-by-side seating for twins or siblings",
+            "featureLabel": "Twin Umbrella Stroller At 29.5 Inches Wide For Narrow Spaces And Travel: Side By Side Seating For Twins Or Siblings",
+            "featureValue": "TWIN UMBRELLA STROLLER AT 29.5 INCHES WIDE FOR NARROW SPACES AND TRAVEL: Side-by-side seating for twins or siblings",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 3,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "sized to fit through doorways and fold flat with one hand for car trunks and storage. Each seat holds children from 6 months up to 40 lbs.",
+            "featureLabel": "Sized To Fit Through Doorways And Fold Flat With One Hand For Car Trunks And Storage. Each Seat Holds Children From 6 Months Up To 40 Lbs.",
+            "featureValue": "sized to fit through doorways and fold flat with one hand for car trunks and storage. Each seat holds children from 6 months up to 40 lbs.",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 4,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "UMBRELLA FOLD FOR REAL-WORLD TRAVEL: The Volgo folds into a slim",
+            "featureLabel": "Umbrella Fold For Real World Travel: The Volgo Folds Into A Slim",
+            "featureValue": "UMBRELLA FOLD FOR REAL-WORLD TRAVEL: The Volgo folds into a slim",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 5,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "travel-ready profile that fits car trunks and tight storage spaces. Its lightweight frame makes lifting easy",
+            "featureLabel": "Travel Ready Profile That Fits Car Trunks And Tight Storage Spaces. Its Lightweight Frame Makes Lifting Easy",
+            "featureValue": "travel-ready profile that fits car trunks and tight storage spaces. Its lightweight frame makes lifting easy",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 6,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          }
+        ],
+        "Decision_Signals": {
+          "ranking": [
+            "Mesh",
+            "Imported",
+            "TWIN UMBRELLA STROLLER AT 29.5 INCHES WIDE FOR NARROW SPACES AND TRAVEL: Side-by-side seating for twins or siblings",
+            "sized to fit through doorways and fold flat with one hand for car trunks and storage. Each seat holds children from 6 months up to 40 lbs."
+          ],
+          "safety": [],
+          "fit": [
+            "Umbrella Stroller"
+          ]
+        },
+        "Evidence_Refs": [
+          "Product_Specifications.Features_Specs.Stroller Type",
+          "Features"
+        ],
+        "Local_Image_Paths": [
+          "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/images/primary.jpg",
+          "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/images/alt_1.jpg",
+          "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/images/alt_2.jpg",
+          "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/images/alt_3.jpg",
+          "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/images/alt_4.jpg",
+          "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/images/alt_5.jpg",
+          "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/images/alt_6.jpg",
+          "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/images/alt_7.jpg",
+          "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/images/alt_8.jpg",
+          "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "../scrape_store/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream On Me Volgo Twin Baby Stroller Compact Side-/images/primary.jpg",
+        "Local_Video_Paths": []
+      }
+    ]
+  }
+}

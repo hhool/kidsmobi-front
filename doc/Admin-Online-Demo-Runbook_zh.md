@@ -8,7 +8,7 @@
 ## 演示环境
 - 生产站点：https://kidsmobi.pages.dev
 - 最新预览站点：https://e7661ce7.kidsmobi.pages.dev
-- Worker API：https://kidsmobi-api-v1.seaman-player.workers.dev
+- Worker API：使用配置好的 `VITE_SCRAPE_API_BASE_URL` 或 `SCRAPE_KIDSMOBILE_API_BASE_URL`
 
 ## 演示前检查（1 分钟）
 1. 进入 Admin 后台。

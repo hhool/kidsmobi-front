@@ -1,0 +1,806 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "stroller",
+  "categoryCode": "stroller",
+  "fetchedAt": "2026-07-01T21:38:27.427Z",
+  "data": {
+    "productId": "B0DC5GGJRP",
+    "categoryId": "stroller",
+    "rank": 7,
+    "title": "Dream On Me Aero Travel Umbrella Stroller, One-Hand Quick Fold, 3-Point Safety Harness, Dual Brakes, Adjustable Removable Can",
+    "brand": "Dream",
+    "price": {
+      "display": "$33.99",
+      "value": 33.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.4  1,032",
+      "value": 4.4
+    },
+    "weight": {
+      "display": "7.4 Pounds",
+      "lbs": 7.4
+    },
+    "classification": {
+      "Brand": "Dream On Me",
+      "Stroller_Type": "Umbrella Stroller",
+      "Travel_System_Ready": "No",
+      "Seating_Capacity": "1",
+      "Wheel_Configuration": "4",
+      "Harness_Type": "3 Point",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "stroller",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "300D Polyester",
+        "Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds",
+        "the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on the go — perfect for vacations",
+        "city strolls",
+        "and quick errands.",
+        "Compact One-Hand Fold - The Dream On Me Aero Travel Light Stroller features a quick one-hand fold design",
+        "making it easy to collapse and store in seconds. Perfect for apartments",
+        "vans",
+        "or on-the-go parents",
+        "this stroller folds compactly to fit in tight spaces while maintaining convenience and style.",
+        "Durable and Safe - Built with a sturdy steel frame and high-quality 300D polyester fabric",
+        "the Aero Travel Light Stroller ensures lasting durability and comfort for your little one. The 3-point safety harness keeps your child securely seated during every stroll",
+        "offering parents peace of mind on all types of adventures.",
+        "Removable Canopy & Safety Certified - Keep your baby safe and comfortable with the adjustable",
+        "removable canopy that provides full coverage from sun and wind. The Aero Travel Light Stroller meets ASTM safety standards",
+        "offering reliable protection and durability parents can trust on every adventure.",
+        "Enjoy a stable and comfortable ride for your child with front wheels featuring suspension and a direction fixer",
+        "while the rear wheels come equipped with dual brakes and suspension for added control and safety."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "300D Polyester",
+        "featureLabel": "300D Polyester",
+        "featureValue": "300D Polyester",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds",
+        "featureLabel": "Lightweight & Travel Friendly Design   Weighing Just 7.4 Pounds",
+        "featureValue": "Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on the go — perfect for vacations",
+        "featureLabel": "The Dream On Me Aero Travel Light Stroller Makes Traveling With Your Little One Effortless. Ideal For Families On The Go — Perfect For Vacations",
+        "featureValue": "the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on the go — perfect for vacations",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "city strolls",
+        "featureLabel": "City Strolls",
+        "featureValue": "city strolls",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "and quick errands.",
+        "featureLabel": "And Quick Errands.",
+        "featureValue": "and quick errands.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from stroller classification data"
+      },
+      {
+        "featureKey": "Compact One-Hand Fold - The Dream On Me Aero Travel Light Stroller features a quick one-hand fold design",
+        "featureLabel": "Compact One Hand Fold   The Dream On Me Aero Travel Light Stroller Features A Quick One Hand Fold Design",
+        "featureValue": "Compact One-Hand Fold - The Dream On Me Aero Travel Light Stroller features a quick one-hand fold design",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from stroller classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "300D Polyester",
+        "Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds",
+        "the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on the go — perfect for vacations",
+        "city strolls"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/71J1ckKnTuL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71J1ckKnTuL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/87de57a0-2529-4268-86c3-a6277181db46/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0bd18be6-b6ce-41c7-8a4e-fb76a7a48d4a/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/de4eb06f-eb3f-4ab2-8291-5d1490b3ca7b/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64ad2298-c4fa-43c9-869f-cd6df6afe722/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/efc3cb6d-9132-42b7-a758-6150f577df52/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d1fc04be-b3d3-412f-93a4-f1307d13862d/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 6,
+      "similarItems": 1
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/87de57a0-2529-4268-86c3-a6277181db46/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51mRcEpzTxL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "451XX - Aero Stroller ",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0bd18be6-b6ce-41c7-8a4e-fb76a7a48d4a/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81ebA+wjlyL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Assembly required? Unboxing and setting it up",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/de4eb06f-eb3f-4ab2-8291-5d1490b3ca7b/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1ZRqhrWa3L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Quick-fold travel stroller review-dream on me #ad",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64ad2298-c4fa-43c9-869f-cd6df6afe722/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71D-ZwAcP9L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Makes traveling so much easier",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/efc3cb6d-9132-42b7-a758-6150f577df52/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91+1zHFoOdL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Honest review of travel stroller",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d1fc04be-b3d3-412f-93a4-f1307d13862d/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71PP-f6WgFL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Umbrella stroller HONEST REVIEW",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "Baby",
+        "Title": "Baby Trend Passport® Cargo Stroller, Fieldstone Grey",
+        "Price": "$123.99",
+        "Rating": "4.6",
+        "Reviews": "295",
+        "URL": "https://www.amazon.com/Baby-Trend-Passport-Cargo-Stroller/dp/B0B6LR3C5H/ref=bmx_dp_d_sccl_1_5/134-1752432-7053461?pd_rd_w=TXZNG&content-id=amzn1.sym.c952656f-2e08-43b8-b699-3c3bba430c7f&pf_rd_p=c952656f-2e08-43b8-b699-3c3bba430c7f&pf_rd_r=ZF7NEQ0MF1WN9MD6DA1E&pd_rd_wg=5wQyc&pd_rd_r=fcb52a28-e605-4fe0-ab5b-35f2c238fc6a&pd_rd_i=B0B6LR3C5H&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/71Q6XwEpP2L._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B0B6LR3C5H",
+        "Features": "100% Polyester | Optimal storage solutions with a large storage pouch integrated on the back of seat | Comfort Cabin with UPF 50+ sun protection canopy, plush fabrics and padding | Handle with removable leatherette cover for comfort and differing grip options | Parent’s tray equipped with two cupholders and center compartment | Spacious basket with rear and front access | Quick, easy and compact one-hand center fold",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0e3cb9ad-e3c9-4491-b4b3-d010f3ca2602/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0e3cb9ad-e3c9-4491-b4b3-d010f3ca2602/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/91IjB0QSqBL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Baby Trend Passport Cargo Stroller",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/90a797f1-e47b-4f69-b220-bb17863f967d/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1e3cA9Zo8L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "In depth look at all the features",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4a01cd98-a404-4c1a-a9f8-d442cf457682/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71GEQIWk+dL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Convertible Carriage Stroller for Baby or Toddler",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d01de20d-5715-473d-9cdb-6ad6cd6c33d6/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1wMFVxa3SL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Lightweight, washable seating, storage. 5 stars, highly recommend!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/53caf1b1-7621-4fb5-a0c3-b2c6b597378b/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/618qDoMEA+L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Mom of 4, installed myself, easy to use!",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0e3cb9ad-e3c9-4491-b4b3-d010f3ca2602/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/90a797f1-e47b-4f69-b220-bb17863f967d/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4a01cd98-a404-4c1a-a9f8-d442cf457682/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d01de20d-5715-473d-9cdb-6ad6cd6c33d6/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/53caf1b1-7621-4fb5-a0c3-b2c6b597378b/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0e3cb9ad-e3c9-4491-b4b3-d010f3ca2602/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/90a797f1-e47b-4f69-b220-bb17863f967d/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4a01cd98-a404-4c1a-a9f8-d442cf457682/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d01de20d-5715-473d-9cdb-6ad6cd6c33d6/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/53caf1b1-7621-4fb5-a0c3-b2c6b597378b/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "Baby Trend Passport Cargo Stroller",
+              "Texts": [
+                "Integrated storage pouch Optimal storage solutions with a large storage pouch integrated on the back of seat.",
+                "Basket front access Spacious basket with front access.",
+                "Basket rear access",
+                "Extra plush seat padding.",
+                "Large canopy with visor and UPF 50+ protection.",
+                "Parent tray with two cup holders and center compartment.",
+                "Handle with removable leatherette cover for comfort and differing grip options.",
+                "Quick, easy and compact one-hand center fold."
+              ],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/7e7857d4-3759-4bf0-aa7b-f4556a5a78eb.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/af29ce8e-68e5-489f-a15f-657adb09a98c.__CR0,0,300,225_PT0_SX300_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0f889e93-5f53-4e7c-834f-1c4ae02a5f2f.__CR0,0,300,225_PT0_SX300_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/af6c1c2d-b0d9-4d38-ae85-3e144c07e0b8.__CR0,0,300,225_PT0_SX300_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/df043b0d-0aac-4d0f-896b-4e584b58fde5.__CR0,0,300,225_PT0_SX300_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f24ca4ec-3622-4d24-b05c-68eae675a656.__CR0,0,650,350_PT0_SX650_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/538b677e-87a9-49e8-a481-61a067d88008.__CR0,0,650,350_PT0_SX650_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/7e7857d4-3759-4bf0-aa7b-f4556a5a78eb.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "Mom and child with the Baby Trend Passport Cargo Stroller",
+                  "Image_Alt": "Mom and child with the Baby Trend Passport Cargo Stroller"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/af29ce8e-68e5-489f-a15f-657adb09a98c.__CR0,0,300,225_PT0_SX300_V1___.jpg",
+                  "Image_Order": 2,
+                  "Image_Title": "Baby Trend Passport Cargo Stroller Travel System comfort cabin extra plush seat padding",
+                  "Image_Alt": "Baby Trend Passport Cargo Stroller Travel System comfort cabin extra plush seat padding"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0f889e93-5f53-4e7c-834f-1c4ae02a5f2f.__CR0,0,300,225_PT0_SX300_V1___.jpg",
+                  "Image_Order": 3,
+                  "Image_Title": "Baby Trend Passport Cargo Stroller Travel System large canopy with visor and UPF 50+ protection",
+                  "Image_Alt": "Baby Trend Passport Cargo Stroller Travel System large canopy with visor and UPF 50+ protection"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/af6c1c2d-b0d9-4d38-ae85-3e144c07e0b8.__CR0,0,300,225_PT0_SX300_V1___.jpg",
+                  "Image_Order": 4,
+                  "Image_Title": "Baby Trend Passport Cargo Stroller Travel System reclining seat",
+                  "Image_Alt": "Baby Trend Passport Cargo Stroller Travel System reclining seat"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/df043b0d-0aac-4d0f-896b-4e584b58fde5.__CR0,0,300,225_PT0_SX300_V1___.jpg",
+                  "Image_Order": 5,
+                  "Image_Title": "Passport Cargo Stroller Travel System parent tray with two cup holders and center compartment",
+                  "Image_Alt": "Passport Cargo Stroller Travel System parent tray with two cup holders and center compartment"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f24ca4ec-3622-4d24-b05c-68eae675a656.__CR0,0,650,350_PT0_SX650_V1___.jpg",
+                  "Image_Order": 6,
+                  "Image_Title": "Passport Cargo Stroller handle with removable leatherette cover for comfort and differing grip",
+                  "Image_Alt": "Passport Cargo Stroller handle with removable leatherette cover for comfort and differing grip"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/538b677e-87a9-49e8-a481-61a067d88008.__CR0,0,650,350_PT0_SX650_V1___.jpg",
+                  "Image_Order": 7,
+                  "Image_Title": "Passport Cargo Stroller Travel System quick, easy and compact one-hand center fold",
+                  "Image_Alt": "Passport Cargo Stroller Travel System quick, easy and compact one-hand center fold"
+                }
+              ],
+              "Comparison_Table": {
+                "Headers": [
+                  "Passport Cargo Buying Options",
+                  "Passport Carriage Buying Options",
+                  "Tango Buying Options",
+                  "Tango Buying Options"
+                ],
+                "Rows": [
+                  [
+                    "Customer Reviews",
+                    "4.6 out of 5 stars 295",
+                    "4.6 out of 5 stars 295",
+                    "4.3 out of 5 stars 657",
+                    "4.3 out of 5 stars 657"
+                  ],
+                  [
+                    "Parent console cup holders",
+                    "Two cup holders",
+                    "Two cup holders",
+                    "Two cup holders",
+                    "Two cup holders"
+                  ],
+                  [
+                    "Parent cell phone positioner",
+                    "✘",
+                    "✘",
+                    "✔",
+                    "✔"
+                  ],
+                  [
+                    "Parent center compartment",
+                    "✔",
+                    "✔",
+                    "✘",
+                    "✘"
+                  ],
+                  [
+                    "Parent handle material",
+                    "Removable leatherette cover",
+                    "Foam",
+                    "Foam",
+                    "Foam"
+                  ],
+                  [
+                    "Wheels",
+                    "4 wheels EVA",
+                    "4 wheels EVA",
+                    "4 wheels EVA",
+                    "4 wheels EVA"
+                  ],
+                  [
+                    "Fold",
+                    "In-seat strap one-hand fold",
+                    "In-seat strap one-hand fold",
+                    "In-seat strap one-hand fold",
+                    "In-seat strap one-hand fold"
+                  ],
+                  [
+                    "Comfort Cabin",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔"
+                  ],
+                  [
+                    "Front / Rear Basket Access",
+                    "Front and Rear",
+                    "Front and Rear",
+                    "Front and Rear",
+                    "Front and Rear"
+                  ],
+                  [
+                    "Full zip mesh covering",
+                    "✘",
+                    "✔",
+                    "✘",
+                    "✘"
+                  ],
+                  [
+                    "Back seat integrated storage",
+                    "✔",
+                    "✘",
+                    "✘",
+                    "✘"
+                  ]
+                ]
+              },
+              "Block_Types": [
+                "text",
+                "image",
+                "table"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "Baby Trend Passport Cargo Stroller"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/7e7857d4-3759-4bf0-aa7b-f4556a5a78eb.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "Mom and child with the Baby Trend Passport Cargo Stroller",
+                    "Image_Alt": "Mom and child with the Baby Trend Passport Cargo Stroller"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Integrated storage pouch Optimal storage solutions with a large storage pouch integrated on the back of seat."
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Basket front access Spacious basket with front access."
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Basket rear access"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/af29ce8e-68e5-489f-a15f-657adb09a98c.__CR0,0,300,225_PT0_SX300_V1___.jpg",
+                    "Image_Order": 2,
+                    "Image_Title": "Baby Trend Passport Cargo Stroller Travel System comfort cabin extra plush seat padding",
+                    "Image_Alt": "Baby Trend Passport Cargo Stroller Travel System comfort cabin extra plush seat padding"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Extra plush seat padding."
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0f889e93-5f53-4e7c-834f-1c4ae02a5f2f.__CR0,0,300,225_PT0_SX300_V1___.jpg",
+                    "Image_Order": 3,
+                    "Image_Title": "Baby Trend Passport Cargo Stroller Travel System large canopy with visor and UPF 50+ protection",
+                    "Image_Alt": "Baby Trend Passport Cargo Stroller Travel System large canopy with visor and UPF 50+ protection"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Large canopy with visor and UPF 50+ protection."
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/af6c1c2d-b0d9-4d38-ae85-3e144c07e0b8.__CR0,0,300,225_PT0_SX300_V1___.jpg",
+                    "Image_Order": 4,
+                    "Image_Title": "Baby Trend Passport Cargo Stroller Travel System reclining seat",
+                    "Image_Alt": "Baby Trend Passport Cargo Stroller Travel System reclining seat"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/df043b0d-0aac-4d0f-896b-4e584b58fde5.__CR0,0,300,225_PT0_SX300_V1___.jpg",
+                    "Image_Order": 5,
+                    "Image_Title": "Passport Cargo Stroller Travel System parent tray with two cup holders and center compartment",
+                    "Image_Alt": "Passport Cargo Stroller Travel System parent tray with two cup holders and center compartment"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Parent tray with two cup holders and center compartment."
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f24ca4ec-3622-4d24-b05c-68eae675a656.__CR0,0,650,350_PT0_SX650_V1___.jpg",
+                    "Image_Order": 6,
+                    "Image_Title": "Passport Cargo Stroller handle with removable leatherette cover for comfort and differing grip",
+                    "Image_Alt": "Passport Cargo Stroller handle with removable leatherette cover for comfort and differing grip"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Handle with removable leatherette cover for comfort and differing grip options."
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/538b677e-87a9-49e8-a481-61a067d88008.__CR0,0,650,350_PT0_SX650_V1___.jpg",
+                    "Image_Order": 7,
+                    "Image_Title": "Passport Cargo Stroller Travel System quick, easy and compact one-hand center fold",
+                    "Image_Alt": "Passport Cargo Stroller Travel System quick, easy and compact one-hand center fold"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Quick, easy and compact one-hand center fold."
+                },
+                {
+                  "Block_Type": "table",
+                  "Table": {
+                    "Headers": [
+                      "Passport Cargo Buying Options",
+                      "Passport Carriage Buying Options",
+                      "Tango Buying Options",
+                      "Tango Buying Options"
+                    ],
+                    "Rows": [
+                      [
+                        "Customer Reviews",
+                        "4.6 out of 5 stars 295",
+                        "4.6 out of 5 stars 295",
+                        "4.3 out of 5 stars 657",
+                        "4.3 out of 5 stars 657"
+                      ],
+                      [
+                        "Parent console cup holders",
+                        "Two cup holders",
+                        "Two cup holders",
+                        "Two cup holders",
+                        "Two cup holders"
+                      ],
+                      [
+                        "Parent cell phone positioner",
+                        "✘",
+                        "✘",
+                        "✔",
+                        "✔"
+                      ],
+                      [
+                        "Parent center compartment",
+                        "✔",
+                        "✔",
+                        "✘",
+                        "✘"
+                      ],
+                      [
+                        "Parent handle material",
+                        "Removable leatherette cover",
+                        "Foam",
+                        "Foam",
+                        "Foam"
+                      ],
+                      [
+                        "Wheels",
+                        "4 wheels EVA",
+                        "4 wheels EVA",
+                        "4 wheels EVA",
+                        "4 wheels EVA"
+                      ],
+                      [
+                        "Fold",
+                        "In-seat strap one-hand fold",
+                        "In-seat strap one-hand fold",
+                        "In-seat strap one-hand fold",
+                        "In-seat strap one-hand fold"
+                      ],
+                      [
+                        "Comfort Cabin",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔"
+                      ],
+                      [
+                        "Front / Rear Basket Access",
+                        "Front and Rear",
+                        "Front and Rear",
+                        "Front and Rear",
+                        "Front and Rear"
+                      ],
+                      [
+                        "Full zip mesh covering",
+                        "✘",
+                        "✔",
+                        "✘",
+                        "✘"
+                      ],
+                      [
+                        "Back seat integrated storage",
+                        "✔",
+                        "✘",
+                        "✘",
+                        "✘"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/7e7857d4-3759-4bf0-aa7b-f4556a5a78eb.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/af29ce8e-68e5-489f-a15f-657adb09a98c.__CR0,0,300,225_PT0_SX300_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0f889e93-5f53-4e7c-834f-1c4ae02a5f2f.__CR0,0,300,225_PT0_SX300_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/af6c1c2d-b0d9-4d38-ae85-3e144c07e0b8.__CR0,0,300,225_PT0_SX300_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/df043b0d-0aac-4d0f-896b-4e584b58fde5.__CR0,0,300,225_PT0_SX300_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f24ca4ec-3622-4d24-b05c-68eae675a656.__CR0,0,650,350_PT0_SX650_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/538b677e-87a9-49e8-a481-61a067d88008.__CR0,0,650,350_PT0_SX650_V1___.jpg"
+            ],
+            "Local_Images": [
+              "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0B6LR3C5H_Baby Trend Passport Cargo Stroller Fieldstone Grey/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+              "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0B6LR3C5H_Baby Trend Passport Cargo Stroller Fieldstone Grey/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+              "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0B6LR3C5H_Baby Trend Passport Cargo Stroller Fieldstone Grey/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+              "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0B6LR3C5H_Baby Trend Passport Cargo Stroller Fieldstone Grey/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+              "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0B6LR3C5H_Baby Trend Passport Cargo Stroller Fieldstone Grey/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg",
+              "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0B6LR3C5H_Baby Trend Passport Cargo Stroller Fieldstone Grey/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_05.jpg",
+              "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0B6LR3C5H_Baby Trend Passport Cargo Stroller Fieldstone Grey/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_06.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [
+            {
+              "Title": "User Manual (PDF)",
+              "URL": "https://m.media-amazon.com/images/I/A1Y73CscOtL.pdf",
+              "Type": "PDF",
+              "Source": "Product guides and documents",
+              "Category": "manual",
+              "Local_Path": "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0B6LR3C5H_Baby Trend Passport Cargo Stroller Fieldstone Grey/guides/manual/doc_00_User_Manual_PDF.pdf"
+            }
+          ],
+          "Summary": {
+            "Count": 1
+          },
+          "Local_Paths": [
+            "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0B6LR3C5H_Baby Trend Passport Cargo Stroller Fieldstone Grey/guides/manual/doc_00_User_Manual_PDF.pdf"
+          ]
+        },
+        "Product_Description": "Day trips just became a lot easier with the Passport Cargo Stroller by Baby Trend! Innovative storage solutions allow for quick and easy access to your most essential belongings. A large integrated storage pouch on the back seat of the stroller and front and rear access basket provides the ultimate in convenience for the busy family. The parent tray includes a helpful phone positioner that holds in portrait or landscape mode, along with two large cup holders. The Passport Cargo is equipped with Comfort Cabin, which includes plush seat padding and a large canopy with UPF 50+ protection. Parents will also love the handle with a removable leatherette cover and the quick, easy and compact center fold.",
+        "Product_Specifications": {
+          "Measurements": {
+            "Folded Size": "22.5*30.75*16.38 Inches",
+            "Rear Facing Stroller Maximum Height": "42 Inches",
+            "Item Dimensions L x W x H": "38.5\"L x 22.5\"W x 42\"H",
+            "Back Wheel Diameter": "12.81 Inches"
+          },
+          "Features_Specs": {
+            "Stroller Type": "Standard Stroller",
+            "Is Car Seat Compatible": "No",
+            "Seating Capacity": "1",
+            "Additional Features": "Quick, easy and compact one-hand center fold",
+            "Built-in Light": "No",
+            "Has Stroller Brake System": "No"
+          },
+          "Materials_Care": {},
+          "Item_Details": {
+            "Number of Cup Holders": "2",
+            "Number of Wheels": "4"
+          },
+          "User_Guide": {
+            "Harness Type": "5 Point",
+            "Harness Feature": "5-point adjustable straps"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "N/A",
+          "Availability": "This item cannot be shipped to your selected delivery location. Please choose a different delivery location.",
+          "Delivery_Promise": "N/A",
+          "Specifications": {
+            "Folded Size": "22.5*30.75*16.38 Inches",
+            "Rear Facing Stroller Maximum Height": "42 Inches",
+            "Item Dimensions L x W x H": "38.5\"L x 22.5\"W x 42\"H",
+            "Back Wheel Diameter": "12.81 Inches"
+          }
+        },
+        "Category_Attributes": {
+          "categoryId": "stroller",
+          "ageGroup": [],
+          "structure": [
+            "Standard Stroller"
+          ],
+          "scenario": [],
+          "features": [
+            "100% Polyester",
+            "Optimal storage solutions with a large storage pouch integrated on the back of seat",
+            "Comfort Cabin with UPF 50+ sun protection canopy",
+            "plush fabrics and padding",
+            "Handle with removable leatherette cover for comfort and differing grip options",
+            "Parent’s tray equipped with two cupholders and center compartment",
+            "Spacious basket with rear and front access",
+            "Quick",
+            "easy and compact one-hand center fold",
+            "Standard Stroller",
+            "No",
+            "1"
+          ],
+          "materialClass": [],
+          "wheelSize": [],
+          "powerLevel": []
+        },
+        "Feature_Cards": [
+          {
+            "featureKey": "100% Polyester",
+            "featureLabel": "100% Polyester",
+            "featureValue": "100% Polyester",
+            "featureEvidence": "Features",
+            "featureRank": 1,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "Optimal storage solutions with a large storage pouch integrated on the back of seat",
+            "featureLabel": "Optimal Storage Solutions With A Large Storage Pouch Integrated On The Back Of Seat",
+            "featureValue": "Optimal storage solutions with a large storage pouch integrated on the back of seat",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 2,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "Comfort Cabin with UPF 50+ sun protection canopy",
+            "featureLabel": "Comfort Cabin With Upf 50+ Sun Protection Canopy",
+            "featureValue": "Comfort Cabin with UPF 50+ sun protection canopy",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 3,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "plush fabrics and padding",
+            "featureLabel": "Plush Fabrics And Padding",
+            "featureValue": "plush fabrics and padding",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 4,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "Handle with removable leatherette cover for comfort and differing grip options",
+            "featureLabel": "Handle With Removable Leatherette Cover For Comfort And Differing Grip Options",
+            "featureValue": "Handle with removable leatherette cover for comfort and differing grip options",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 5,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          },
+          {
+            "featureKey": "Parent’s tray equipped with two cupholders and center compartment",
+            "featureLabel": "Parent’s Tray Equipped With Two Cupholders And Center Compartment",
+            "featureValue": "Parent’s tray equipped with two cupholders and center compartment",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 6,
+            "featureNotes": "Derived from stroller scrape-time evidence"
+          }
+        ],
+        "Decision_Signals": {
+          "ranking": [
+            "100% Polyester",
+            "Optimal storage solutions with a large storage pouch integrated on the back of seat",
+            "Comfort Cabin with UPF 50+ sun protection canopy",
+            "plush fabrics and padding"
+          ],
+          "safety": [],
+          "fit": [
+            "Standard Stroller"
+          ]
+        },
+        "Evidence_Refs": [
+          "Product_Specifications.Features_Specs.Stroller Type",
+          "Features"
+        ],
+        "Local_Image_Paths": [
+          "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0B6LR3C5H_Baby Trend Passport Cargo Stroller Fieldstone Grey/images/primary.jpg",
+          "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0B6LR3C5H_Baby Trend Passport Cargo Stroller Fieldstone Grey/images/alt_1.jpg",
+          "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0B6LR3C5H_Baby Trend Passport Cargo Stroller Fieldstone Grey/images/alt_2.jpg",
+          "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0B6LR3C5H_Baby Trend Passport Cargo Stroller Fieldstone Grey/images/alt_3.jpg",
+          "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0B6LR3C5H_Baby Trend Passport Cargo Stroller Fieldstone Grey/images/alt_4.jpg",
+          "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0B6LR3C5H_Baby Trend Passport Cargo Stroller Fieldstone Grey/images/alt_5.jpg",
+          "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0B6LR3C5H_Baby Trend Passport Cargo Stroller Fieldstone Grey/images/alt_6.jpg",
+          "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0B6LR3C5H_Baby Trend Passport Cargo Stroller Fieldstone Grey/images/alt_7.jpg",
+          "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0B6LR3C5H_Baby Trend Passport Cargo Stroller Fieldstone Grey/images/alt_8.jpg",
+          "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0B6LR3C5H_Baby Trend Passport Cargo Stroller Fieldstone Grey/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "../scrape_store/stroller/Baby/Rank_Similar_ASIN_B0B6LR3C5H_Baby Trend Passport Cargo Stroller Fieldstone Grey/images/primary.jpg",
+        "Local_Video_Paths": []
+      }
+    ]
+  }
+}

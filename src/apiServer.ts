@@ -90,6 +90,14 @@ interface WorkerDiscoveryHome {
   };
 }
 
+interface WorkerScrapeStoreDemo {
+  data?: {
+    categoryId?: string;
+    categoryName?: string;
+    heroProducts?: WorkerProduct[];
+  };
+}
+
 function getScrapeApiBaseUrl() {
   return (process.env.SCRAPE_KIDSMOBILE_API_BASE_URL?.trim() || DEFAULT_SCRAPE_API_BASE_URL).replace(/\/+$/, "");
 }
@@ -632,13 +640,12 @@ app.get("/api/content/bundle", async (req, res) => {
     }
 
     const discoveryCategory = categories.find((category) => category.categoryId === "stroller")?.categoryId || categories[0].categoryId;
-    const discoveryHome = await fetchWorkerJson<WorkerDiscoveryHome>(`/api/v1/discovery/home?categoryId=${encodeURIComponent(discoveryCategory)}`);
 
     const categoryPayloads = await Promise.all(
       categories.map(async (category) => {
-        const [productsResponse, resourcesResponse] = await Promise.all([
-          fetchWorkerJson<{ data: WorkerProduct[]; meta?: unknown }>(
-            `/api/v1/products?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=${category.defaultLimit}`
+        const [demoResponse, resourcesResponse] = await Promise.all([
+          fetchWorkerJson<WorkerScrapeStoreDemo>(
+            `/api/v1/demo/scrape-store?categoryId=${encodeURIComponent(category.categoryId)}&limit=${category.defaultLimit}`
           ),
           fetchWorkerJson<{ data: WorkerResource[]; meta?: unknown }>(
             `/api/v1/resources?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=${category.defaultLimit}`
@@ -647,7 +654,7 @@ app.get("/api/content/bundle", async (req, res) => {
 
         return {
           category,
-          products: Array.isArray(productsResponse.data) ? productsResponse.data : [],
+          products: Array.isArray(demoResponse.data?.heroProducts) ? demoResponse.data?.heroProducts : [],
           resources: Array.isArray(resourcesResponse.data) ? resourcesResponse.data : [],
         };
       })
@@ -670,10 +677,10 @@ app.get("/api/content/bundle", async (req, res) => {
       }
     }
 
-    const homeProducts = (discoveryHome.data?.hotProducts || [])
+    const discoveryPayload = categoryPayloads.find((payload) => payload.category.categoryId === discoveryCategory) || categoryPayloads[0];
+    const homeProducts = (discoveryPayload?.products || [])
       .map((product) => {
-        const matchingCategory = categoryPayloads.find((payload) => payload.category.categoryId === product.categoryId);
-        const resource = matchingCategory?.resources.find((item) => item.productId === product.productId);
+        const resource = discoveryPayload?.resources.find((item) => item.productId === product.productId);
         return convertWorkerProduct(product, resource);
       })
       .filter((product, index, array) => array.findIndex((item) => item.id === product.id) === index);
@@ -683,22 +690,22 @@ app.get("/api/content/bundle", async (req, res) => {
       id: "global",
       hero: {
         zh: {
-          title: "KIDSMOBI Live API Explorer",
-          subtitle: `Connected to ${categories.length} live categories from the kidsmobi worker API.`,
+          title: "KIDSMOBI Live Demo Explorer",
+          subtitle: `Connected to ${categories.length} live categories via /api/v1/demo/scrape-store.`,
         },
         en: {
-          title: "KIDSMOBI Live API Explorer",
-          subtitle: `Connected to ${categories.length} live categories from the kidsmobi worker API.`,
+          title: "KIDSMOBI Live Demo Explorer",
+          subtitle: `Connected to ${categories.length} live categories via /api/v1/demo/scrape-store.`,
         },
       },
       homeSlots: buildHomeSlots(homeProducts.length > 0 ? homeProducts : allProducts, evaluationIds),
       scoringStandards: [
         {
           id: "worker-live",
-          labelZh: "Worker 实时数据",
-          labelEn: "Worker live data",
-          descriptionZh: "从 Cloudflare Worker 的 products、resources 和 discovery 接口聚合而来。",
-          descriptionEn: "Aggregated from the Cloudflare Worker products, resources, and discovery endpoints.",
+          labelZh: "Worker Demo 实时数据",
+          labelEn: "Worker demo live data",
+          descriptionZh: "从 Cloudflare Worker 的 /api/v1/demo/scrape-store 接口聚合而来。",
+          descriptionEn: "Aggregated from the Cloudflare Worker /api/v1/demo/scrape-store endpoint.",
           icon: "Globe",
         },
       ],

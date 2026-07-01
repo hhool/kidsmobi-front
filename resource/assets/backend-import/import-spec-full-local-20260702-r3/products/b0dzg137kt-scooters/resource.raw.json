@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "scooters",
+  "fetchedAt": "2026-07-01T21:38:41.149Z",
+  "data": {
+    "resourceId": "B0DZG137KT:overview",
+    "categoryId": "scooters",
+    "productId": "B0DZG137KT",
+    "resourceType": "product_overview",
+    "title": "Blue Mini 3 Wheel Scooter for Kids – Lean-to-Steer with LED Light-Up Wheels, Adjustable Handlebar, Wide Anti-Slip Deck, Smoot",
+    "summary": "",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": null,
+    "videoUrls": [],
+    "credibilityScore": 0.45,
+    "credibilityLevel": "low",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 0,
+      "hasFeatures": false
+    }
+  }
+}

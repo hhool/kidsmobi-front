@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "electric_vehicles",
+  "fetchedAt": "2026-07-01T20:06:12.734Z",
+  "data": {
+    "resourceId": "B0DZ3R72NS:overview",
+    "categoryId": "electric_vehicles",
+    "productId": "B0DZ3R72NS",
+    "resourceType": "product_overview",
+    "title": "Best Choice Products Kids 24V 2-Seater Electric Ride On Car Truck w/ 132lb Weight Capacity, Parent Control, Bluetooth, LED Li",
+    "summary": "2-SEATER RIDE-ON TRUCK: Built for double the fun, this ride-on supports up to 132 pounds, making it great for your children and their friends | 90-MINUTE RUN TIME: A fully rechargeable 24V battery allows your child to enjoy this ride-on toy for well over an hour on just one charg",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/electric_vehicles/Best/Rank_1_ASIN_B0DZ3R72NS_Best Choice Products Kids 24V 2-Seater Electric Ri/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/97791350-cb41-4cde-bcab-896975808f14/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/de15886d-8f82-4378-90ae-97b01faa7e75/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cabe89b8-5a88-4ad4-99ea-dd228ebb974b/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/07aa14fd-31c8-49ca-8053-c447382002ad/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2b44904d-6eb6-4128-aa0a-0ca1bf49af10/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c4599407-1b62-470a-a88d-52191bfc1ef8/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.79,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

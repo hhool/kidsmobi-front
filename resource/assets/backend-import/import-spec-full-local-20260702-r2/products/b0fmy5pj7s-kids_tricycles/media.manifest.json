@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0FMY5PJ7S",
+  "sourceCategoryId": "kids_tricycles",
+  "images": [
+    {
+      "productId": "B0FMY5PJ7S",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0FMY5PJ7S:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_6_ASIN_B0FMY5PJ7S_Umatoll Toddler Tricycle for 18 Month to 4 Year Ol/images/primary.jpg",
+      "targetPathKeep": "resources/b0fmy5pj7s-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0fmy5pj7s/cover/primary.jpg"
+    },
+    {
+      "productId": "B0FMY5PJ7S",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0FMY5PJ7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_6_ASIN_B0FMY5PJ7S_Umatoll Toddler Tricycle for 18 Month to 4 Year Ol/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0fmy5pj7s-overview/alt_1.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0fmy5pj7s/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0FMY5PJ7S",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0FMY5PJ7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_6_ASIN_B0FMY5PJ7S_Umatoll Toddler Tricycle for 18 Month to 4 Year Ol/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0fmy5pj7s-overview/alt_2.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0fmy5pj7s/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0FMY5PJ7S",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0FMY5PJ7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_6_ASIN_B0FMY5PJ7S_Umatoll Toddler Tricycle for 18 Month to 4 Year Ol/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0fmy5pj7s-overview/alt_3.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0fmy5pj7s/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0FMY5PJ7S",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0FMY5PJ7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_6_ASIN_B0FMY5PJ7S_Umatoll Toddler Tricycle for 18 Month to 4 Year Ol/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0fmy5pj7s-overview/alt_4.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0fmy5pj7s/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0FMY5PJ7S",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0FMY5PJ7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_6_ASIN_B0FMY5PJ7S_Umatoll Toddler Tricycle for 18 Month to 4 Year Ol/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0fmy5pj7s-overview/alt_5.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0fmy5pj7s/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0FMY5PJ7S",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0FMY5PJ7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_6_ASIN_B0FMY5PJ7S_Umatoll Toddler Tricycle for 18 Month to 4 Year Ol/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0fmy5pj7s-overview/alt_6.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0fmy5pj7s/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0FMY5PJ7S",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0FMY5PJ7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_6_ASIN_B0FMY5PJ7S_Umatoll Toddler Tricycle for 18 Month to 4 Year Ol/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0fmy5pj7s-overview/alt_7.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0fmy5pj7s/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0FMY5PJ7S",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0FMY5PJ7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_6_ASIN_B0FMY5PJ7S_Umatoll Toddler Tricycle for 18 Month to 4 Year Ol/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0fmy5pj7s-overview/alt_8.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0fmy5pj7s/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0FMY5PJ7S",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0FMY5PJ7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_6_ASIN_B0FMY5PJ7S_Umatoll Toddler Tricycle for 18 Month to 4 Year Ol/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0fmy5pj7s-overview/alt_9.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0fmy5pj7s/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0FMY5PJ7S",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0FMY5PJ7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_6_ASIN_B0FMY5PJ7S_Umatoll Toddler Tricycle for 18 Month to 4 Year Ol/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0fmy5pj7s-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0fmy5pj7s/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0FMY5PJ7S",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0FMY5PJ7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_6_ASIN_B0FMY5PJ7S_Umatoll Toddler Tricycle for 18 Month to 4 Year Ol/images/primary.jpg",
+      "targetPathKeep": "resources/b0fmy5pj7s-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0fmy5pj7s/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0FMY5PJ7S",
+      "categoryId": "kids_tricycles",
+      "resourceId": "B0FMY5PJ7S:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/61HPv17yGaL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0fmy5pj7s-overview/61hpv17ygal._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/kids_tricycles/products/b0fmy5pj7s/gallery/61hpv17ygal._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/17ed0175-43dc-4d87-8ab2-4190170958f0/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2b17f52d-6da8-4fbd-a304-06f1d9e9e81a/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2e59a0d2-bf62-47c9-9e0b-1d753cd47ca2/default.vertical.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/kids_tricycles/Umatoll/Rank_6_ASIN_B0FMY5PJ7S_Umatoll Toddler Tricycle for 18 Month to 4 Year Ol/index.html"
+  ]
+}

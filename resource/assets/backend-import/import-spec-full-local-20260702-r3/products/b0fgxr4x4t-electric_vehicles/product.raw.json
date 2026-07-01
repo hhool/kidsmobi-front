@@ -1,0 +1,420 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "electric_vehicles",
+  "categoryCode": "electric_car",
+  "fetchedAt": "2026-07-01T21:38:46.679Z",
+  "data": {
+    "productId": "B0FGXR4X4T",
+    "categoryId": "electric_vehicles",
+    "rank": 9,
+    "title": "Winado Licensed Chevrolet Colorado Electric Car for Kids, 12V Ride on Toys for Toddlers with Remote Control, Battery Powered",
+    "brand": "Winado",
+    "price": {
+      "display": "$129.99",
+      "value": 129.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.8  233",
+      "value": 4.8
+    },
+    "weight": {
+      "display": "N/A",
+      "lbs": 0
+    },
+    "classification": {
+      "Brand": "Winado",
+      "Vehicle_Type": "Car",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Unknown",
+      "Price_Tier": "100-200"
+    },
+    "categoryAttributes": {
+      "categoryId": "electric_vehicles",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "Licensed Chevrolet - Electric car for kids is officially licensed",
+        "Chevrolet ride-on car features the same styling as the real car",
+        "such as a racing steering wheel",
+        "slim body",
+        "smooth lines",
+        "2-speed",
+        "dual door safety locks and LED lights for a realistic driving experience for your little one",
+        "2 Control Methods - Kids electric car supports pedal operation and remote control operation. Remote control operation supports 3 speed switching",
+        "which improves the safety of children",
+        "More Experiencial - Toy cars for toddlers comes with Bluetooth functionality and a built-in music player",
+        "perfect for kids to play their favorite songs and stories on outdoor trips",
+        "with real speaker sound on the steering wheel to make the experience even more enjoyable",
+        "More Safer - Electric car is equipped with soft start",
+        "rear wheel shock absorbers",
+        "and a safety belt design",
+        "lockable double doors",
+        "and ASTM and CPSIA certified. All functions are ready for children's safe travel",
+        "A Good Choice for Children - Ride on car is suitable for children over 3 years old",
+        "can bear a maximum weight of 66LBS",
+        "is equipped with 2x25W motors and a rechargeable battery",
+        "and only needs to be fully charged for 8-12 hours for 1 hour of play"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "Licensed Chevrolet - Electric car for kids is officially licensed",
+        "featureLabel": "Licensed Chevrolet   Electric Car For Kids Is Officially Licensed",
+        "featureValue": "Licensed Chevrolet - Electric car for kids is officially licensed",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "Chevrolet ride-on car features the same styling as the real car",
+        "featureLabel": "Chevrolet Ride On Car Features The Same Styling As The Real Car",
+        "featureValue": "Chevrolet ride-on car features the same styling as the real car",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "such as a racing steering wheel",
+        "featureLabel": "Such As A Racing Steering Wheel",
+        "featureValue": "such as a racing steering wheel",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "slim body",
+        "featureLabel": "Slim Body",
+        "featureValue": "slim body",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "smooth lines",
+        "featureLabel": "Smooth Lines",
+        "featureValue": "smooth lines",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "2-speed",
+        "featureLabel": "2 Speed",
+        "featureValue": "2-speed",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "Licensed Chevrolet - Electric car for kids is officially licensed",
+        "Chevrolet ride-on car features the same styling as the real car",
+        "such as a racing steering wheel",
+        "slim body"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/71iyhXxrXWL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71iyhXxrXWL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3c7c4fea-9f3d-4be2-9155-80cfa973a4f8/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a99aa116-9da9-48d1-8ee6-674f000b435e/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1109591d-f92c-49cc-99cf-ab270445be02/default.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 3,
+      "similarItems": 1
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3c7c4fea-9f3d-4be2-9155-80cfa973a4f8/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61y--XkPGbL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Winado Licensed Chevrolet Colorado Electric Car for Kids",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a99aa116-9da9-48d1-8ee6-674f000b435e/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61BzL1bJgyL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Parent control is an additional perk !",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1109591d-f92c-49cc-99cf-ab270445be02/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51+i4ImbBNL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Watch before you buy- electric toy car",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "Best",
+        "Title": "Best Choice Products 12V Licensed Chevrolet Silverado Ride On Truck, Electric Car Toy w/Parent Remote Control, Truck Bed Stor",
+        "Price": "$199.99",
+        "Rating": "4.7",
+        "Reviews": "595",
+        "URL": "https://www.amazon.com/Best-Choice-Products-Chevrolet-Silverado/dp/B0CPB1GVGJ/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_1/138-8557852-2087714?pd_rd_w=ZoLYV&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=P8N01NAA7GK6R2GHTE6C&pd_rd_wg=8XctT&pd_rd_r=322f301d-1614-43c8-92f1-45676981bb0e&pd_rd_i=B0CPB1GVGJ&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/71TqcasFOaL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B0CPB1GVGJ",
+        "Features": "REALISTIC DRIVING ACTION: Give your kids a realistic behind-the-wheel experience with controls sized for small hands and a powerful 12V battery that runs up to 1 hour on a full charge and a max speed of 2.5 mph | MANUAL AND PARENT CONTROL: Let your child drive manually or use the remote control to safely guide them yourself; remote has forward/reverse and left/right controls | PERFECTLY SIZED: Precision designed to accurately recreate the Chevrolet Silverado truck, scaled down so your little ones can have a fun-sized ride | CHILD-FRIENDLY DESIGN: Includes a battery-powered steering wheel, a seat harness with locking doors, a truck bed for easy toy storage, and functional headlights for interactive fun! | BLUETOOTH CONNECTIVITY: A built-in sound system allows kids to connect their media devices and enjoy their drive with their favorite music; OVERALL DIMENSIONS: 42.9\"(L) x 28.4\"(W) x 25.2\"(H); WEIGHT CAPACITY: 66 lbs.",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/13204125-3e54-442e-88c3-5d28fec4bf04/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/13204125-3e54-442e-88c3-5d28fec4bf04/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0faed523-62a5-4759-98e8-54227e819443/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/86821ac2-3361-4cc3-82d6-a69c284a90b4/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/35ba32f8-28bf-46f7-ac15-5245168daaa9/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/642b57c0-6888-4ae9-87cf-d291f7460e2c/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/da0bc1aa-2262-427d-9d17-ad637ad2f417/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7ba913e6-51e0-4dc4-8f13-4377a23fdca7/embedded.cc.default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2087fb6c-2573-45d6-bc35-0f7040c56736/embedded.cc.default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/38d2791e-1b94-4bd7-a47e-bb9b10c1e0e7/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/11baa3f2-a120-4177-84df-4a28e48faa27/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/feab0282-491b-4915-b04a-379177da3b7e/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/b1fe0298-8076-4e65-88b7-c866121aa872.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/c6c1ae68-91cb-4a82-b52f-f685ba5e1dbb.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/d6b19fe8-ccd7-4838-b141-dd13c6cc4153.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/77a90ae0-ef69-4f57-81cf-c4e37b4b215e.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/942b9659-9c45-40a8-99c9-5024135aabfc.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/10854cab-aae6-4486-9ad0-e380f111f2ca/embedded.cc.default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/b1fe0298-8076-4e65-88b7-c866121aa872.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/c6c1ae68-91cb-4a82-b52f-f685ba5e1dbb.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/d6b19fe8-ccd7-4838-b141-dd13c6cc4153.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/77a90ae0-ef69-4f57-81cf-c4e37b4b215e.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/942b9659-9c45-40a8-99c9-5024135aabfc.mp4/productVideoOptimized.mp4"
+        ],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/13204125-3e54-442e-88c3-5d28fec4bf04/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0faed523-62a5-4759-98e8-54227e819443/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/86821ac2-3361-4cc3-82d6-a69c284a90b4/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/35ba32f8-28bf-46f7-ac15-5245168daaa9/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/642b57c0-6888-4ae9-87cf-d291f7460e2c/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/da0bc1aa-2262-427d-9d17-ad637ad2f417/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7ba913e6-51e0-4dc4-8f13-4377a23fdca7/embedded.cc.default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2087fb6c-2573-45d6-bc35-0f7040c56736/embedded.cc.default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/38d2791e-1b94-4bd7-a47e-bb9b10c1e0e7/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/11baa3f2-a120-4177-84df-4a28e48faa27/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/feab0282-491b-4915-b04a-379177da3b7e/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/10854cab-aae6-4486-9ad0-e380f111f2ca/embedded.cc.default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "",
+              "Texts": [],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/89c02589-ab3f-4fc4-a18b-93914b8f8e9a.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/c81dd763-6d5b-45c6-ac4e-3f7331213a16.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/e74bff68-cf41-43ab-ac44-f195547db0f0.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3417dfaa-e1f3-4217-a5ec-8c919616a08e.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/91c94927-05fe-4abe-b3ea-12c7941c0b0f.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/89c02589-ab3f-4fc4-a18b-93914b8f8e9a.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "Something for everyone",
+                  "Image_Alt": "Something for everyone"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/c81dd763-6d5b-45c6-ac4e-3f7331213a16.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 2,
+                  "Image_Title": "Stamp of approval",
+                  "Image_Alt": "Stamp of approval"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/e74bff68-cf41-43ab-ac44-f195547db0f0.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 3,
+                  "Image_Title": "Experts at work",
+                  "Image_Alt": "Experts at work"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3417dfaa-e1f3-4217-a5ec-8c919616a08e.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 4,
+                  "Image_Title": "something for everyone",
+                  "Image_Alt": "something for everyone"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/91c94927-05fe-4abe-b3ea-12c7941c0b0f.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 5,
+                  "Image_Title": "BCP Collections",
+                  "Image_Alt": "BCP Collections"
+                }
+              ],
+              "Comparison_Table": {},
+              "Block_Types": [
+                "image"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/89c02589-ab3f-4fc4-a18b-93914b8f8e9a.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "Something for everyone",
+                    "Image_Alt": "Something for everyone"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/c81dd763-6d5b-45c6-ac4e-3f7331213a16.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 2,
+                    "Image_Title": "Stamp of approval",
+                    "Image_Alt": "Stamp of approval"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/e74bff68-cf41-43ab-ac44-f195547db0f0.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 3,
+                    "Image_Title": "Experts at work",
+                    "Image_Alt": "Experts at work"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3417dfaa-e1f3-4217-a5ec-8c919616a08e.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 4,
+                    "Image_Title": "something for everyone",
+                    "Image_Alt": "something for everyone"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/91c94927-05fe-4abe-b3ea-12c7941c0b0f.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 5,
+                    "Image_Title": "BCP Collections",
+                    "Image_Alt": "BCP Collections"
+                  }
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/89c02589-ab3f-4fc4-a18b-93914b8f8e9a.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/c81dd763-6d5b-45c6-ac4e-3f7331213a16.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/e74bff68-cf41-43ab-ac44-f195547db0f0.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3417dfaa-e1f3-4217-a5ec-8c919616a08e.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/91c94927-05fe-4abe-b3ea-12c7941c0b0f.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+            ],
+            "Local_Images": [
+              "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B0CPB1GVGJ_Best Choice Products 12V Licensed Chevrolet Silver/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+              "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B0CPB1GVGJ_Best Choice Products 12V Licensed Chevrolet Silver/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+              "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B0CPB1GVGJ_Best Choice Products 12V Licensed Chevrolet Silver/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+              "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B0CPB1GVGJ_Best Choice Products 12V Licensed Chevrolet Silver/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+              "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B0CPB1GVGJ_Best Choice Products 12V Licensed Chevrolet Silver/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [],
+          "Summary": {
+            "Count": 0
+          },
+          "Local_Paths": []
+        },
+        "Product_Description": "N/A",
+        "Product_Specifications": {
+          "Measurements": {
+            "Size": "12V",
+            "Item Weight": "36.7 Pounds",
+            "Item Dimensions L x W x H": "42.9\"L x 28.4\"W x 25.2\"H",
+            "Weight Capacity Maximum": "66 Pounds",
+            "Item Dimensions": "42.9 x 28.4 x 25.2 inches"
+          },
+          "Features_Specs": {
+            "Subject Character": "Chevrolet Silverado",
+            "Age Range Description": "Kid",
+            "Battery Average Life": "1 Hour",
+            "UPC": "842957139064",
+            "Theme": "Sport"
+          },
+          "Materials_Care": {
+            "Material Type": "Alloy Steel, Polypropylene"
+          },
+          "Item_Details": {
+            "Brand Name": "Best Choice Products",
+            "Sub Brand": "Best Choice Products",
+            "Manufacturer Warranty Description": "60 DAY WARRANTY: All returns are shipped back to a Best Choice Products Return Center at the customer's expense within 60 days of delivery; however, we will send a pre-paid return shipping label via email if the return is a result of our error. Please note that it is at the company's discretion to decide if the item may be returned to a Best Choice Products Return Center. Unauthorized returns may not be accepted. Once your claim is processed and approved, please allow 5-7 business days for the request to be completed. If a replacement unit or replacement parts are requested, please be aware that the fulfillment time-frame is based on product availability.",
+            "Manufacturer Part Number": "SKY7413",
+            "Model Number": "SKY7413",
+            "Manufacturer": "Best Choice Products",
+            "Unit Count": "1.0 Count",
+            "Included Components": "Assembly Guide",
+            "Best Sellers Rank": "#40,112 in Toys & Games (See Top 100 in Toys & Games) #133 in Kids' Electric Vehicles",
+            "ASIN": "B0CPB1GVGJ",
+            "Customer Reviews": "4.7  4.7 out of 5 stars   \n    (595)   \n\n\n 4.7 out of 5 stars"
+          },
+          "User_Guide": {
+            "Manufacturer Minimum Age (MONTHS)": "36",
+            "Manufacturer Maximum Age (MONTHS)": "72",
+            "Is Assembly Required": "Yes"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "Best Choice Products Inc \n  Best Choice Products Inc      Shipper / Seller   Best Choice Products Inc",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery Monday, June 29. Order within 40 mins. Details",
+          "Specifications": {}
+        },
+        "Local_Image_Paths": [
+          "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B0CPB1GVGJ_Best Choice Products 12V Licensed Chevrolet Silver/images/primary.jpg",
+          "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B0CPB1GVGJ_Best Choice Products 12V Licensed Chevrolet Silver/images/alt_1.jpg",
+          "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B0CPB1GVGJ_Best Choice Products 12V Licensed Chevrolet Silver/images/alt_2.jpg",
+          "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B0CPB1GVGJ_Best Choice Products 12V Licensed Chevrolet Silver/images/alt_3.jpg",
+          "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B0CPB1GVGJ_Best Choice Products 12V Licensed Chevrolet Silver/images/alt_4.jpg",
+          "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B0CPB1GVGJ_Best Choice Products 12V Licensed Chevrolet Silver/images/alt_5.jpg",
+          "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B0CPB1GVGJ_Best Choice Products 12V Licensed Chevrolet Silver/images/alt_6.jpg",
+          "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B0CPB1GVGJ_Best Choice Products 12V Licensed Chevrolet Silver/images/alt_7.jpg",
+          "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B0CPB1GVGJ_Best Choice Products 12V Licensed Chevrolet Silver/images/alt_8.jpg",
+          "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B0CPB1GVGJ_Best Choice Products 12V Licensed Chevrolet Silver/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B0CPB1GVGJ_Best Choice Products 12V Licensed Chevrolet Silver/images/primary.jpg",
+        "Local_Video_Paths": []
+      }
+    ]
+  }
+}

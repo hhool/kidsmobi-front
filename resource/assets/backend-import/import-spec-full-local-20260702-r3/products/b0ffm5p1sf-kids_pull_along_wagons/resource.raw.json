@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "fetchedAt": "2026-07-01T21:39:13.755Z",
+  "data": {
+    "resourceId": "B0FFM5P1SF:video",
+    "categoryId": "kids_pull_along_wagons",
+    "productId": "B0FFM5P1SF",
+    "resourceType": "product_video",
+    "title": "Touheart JML002 Wagon Stroller for 2 Kids - Double Seater Push Stroller with Canopy | Collapsible Foldable Wagon for Kids Tod • Video preview",
+    "summary": "Video preview asset set for Touheart in kids_pull_along_wagons.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ad09a56d-a1c0-474c-a0dc-6b3ab9fb7eab/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ad09a56d-a1c0-474c-a0dc-6b3ab9fb7eab/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/08cba32a-cc4d-4980-813f-9534e95d975b/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.78,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 2,
+      "hasFeatures": true
+    }
+  }
+}

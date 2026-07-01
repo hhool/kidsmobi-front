@@ -1,0 +1,1299 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T20:06:16.235Z",
+  "data": {
+    "productId": "B0FCY4WM8M",
+    "categoryId": "kids_pull_along_wagons",
+    "rank": 11,
+    "title": "TODEFULL Wagon Stroller for 2 Kids, Foldable Kids Wagon Cart Featuring with Harnesses, Adjustable Double Push Handle, Removab",
+    "brand": "TODEFULL",
+    "price": {
+      "display": "$174.39",
+      "value": 174.39,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.6  188",
+      "value": 4.6
+    },
+    "weight": {
+      "display": "43 Pounds",
+      "lbs": 43
+    },
+    "classification": {
+      "Brand": "TODEFULL",
+      "Wagon_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "4",
+      "Harness_Type": "3 Point",
+      "Weight_Class": "Heavy Duty",
+      "Price_Tier": "100-200"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_pull_along_wagons",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "DOUBLE WAGON STROLLER: Heavy steel frame for 2 passengers (55 LBS per seat)",
+        "This cleverly designed station wagon stroller is easy to fold for storage",
+        "is also capable of transporting oversized loads and fits in the trunk for easy transportation",
+        "ADJUSTABLE DOUBLE PUSH BAR: the stroller adopts 10 adjustable double pushrod design",
+        "a variety of angles designed for different heights of parentst",
+        "All terrain non-skid tires and its impact resistance system to adapt to rugged all outdoor terrain",
+        "SAFE & COMFORTABLE SEATS: The toddler stroller has a 3-point seat belt built in for children",
+        "and detachable upholstered seat provides extra comfort for your baby",
+        "1-STEP foot brake locks the wagon safely in place for children",
+        "WAGON WITH CANOPY: Sliding and detachable canopy to protect kids from the sun or afternoon showers",
+        "Deep carriages with breathable netting to keep children cool and dry",
+        "You can use this wagon at beaches",
+        "parks",
+        "camping",
+        "touring",
+        "shopping and more",
+        "PORTABLE & PRACTIAL: The foldable kids wagon has enough storage space to hold all your daily necessities",
+        "with multiple storage bags on the front side",
+        "removable snack trays and a large extra zippered storage bag"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "DOUBLE WAGON STROLLER: Heavy steel frame for 2 passengers (55 LBS per seat)",
+        "featureLabel": "Double Wagon Stroller: Heavy Steel Frame For 2 Passengers (55 Lbs Per Seat)",
+        "featureValue": "DOUBLE WAGON STROLLER: Heavy steel frame for 2 passengers (55 LBS per seat)",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "This cleverly designed station wagon stroller is easy to fold for storage",
+        "featureLabel": "This Cleverly Designed Station Wagon Stroller Is Easy To Fold For Storage",
+        "featureValue": "This cleverly designed station wagon stroller is easy to fold for storage",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "is also capable of transporting oversized loads and fits in the trunk for easy transportation",
+        "featureLabel": "Is Also Capable Of Transporting Oversized Loads And Fits In The Trunk For Easy Transportation",
+        "featureValue": "is also capable of transporting oversized loads and fits in the trunk for easy transportation",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "ADJUSTABLE DOUBLE PUSH BAR: the stroller adopts 10 adjustable double pushrod design",
+        "featureLabel": "Adjustable Double Push Bar: The Stroller Adopts 10 Adjustable Double Pushrod Design",
+        "featureValue": "ADJUSTABLE DOUBLE PUSH BAR: the stroller adopts 10 adjustable double pushrod design",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "a variety of angles designed for different heights of parentst",
+        "featureLabel": "A Variety Of Angles Designed For Different Heights Of Parentst",
+        "featureValue": "a variety of angles designed for different heights of parentst",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "All terrain non-skid tires and its impact resistance system to adapt to rugged all outdoor terrain",
+        "featureLabel": "All Terrain Non Skid Tires And Its Impact Resistance System To Adapt To Rugged All Outdoor Terrain",
+        "featureValue": "All terrain non-skid tires and its impact resistance system to adapt to rugged all outdoor terrain",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "DOUBLE WAGON STROLLER: Heavy steel frame for 2 passengers (55 LBS per seat)",
+        "This cleverly designed station wagon stroller is easy to fold for storage",
+        "is also capable of transporting oversized loads and fits in the trunk for easy transportation",
+        "ADJUSTABLE DOUBLE PUSH BAR: the stroller adopts 10 adjustable double pushrod design"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+          "source": "local",
+          "order": 10
+        },
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+          "source": "local",
+          "order": 11
+        },
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+          "source": "local",
+          "order": 12
+        },
+        {
+          "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg",
+          "source": "local",
+          "order": 13
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_1.jpg",
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_2.jpg",
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_3.jpg",
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_4.jpg",
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_5.jpg",
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_6.jpg",
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_7.jpg",
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_8.jpg",
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg"
+    ],
+    "videoUrls": [
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/videos/video_0.mp4",
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/videos/video_1.mp4",
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/videos/video_2.mp4",
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/videos/video_3.mp4",
+      "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/videos/video_4.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8c561752-2f09-4055-a642-3d21d738a0ff.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/771d9bdd-1f1c-43d5-85cb-f43ef60ba442.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a79fe938-77d7-452f-bb6b-008a7685e366.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/2bfe5214-ddfd-47c9-9ff2-b9dc1b210e32.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/162657f0-bf29-448c-aa86-42b3ef53cafd.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b9a4d32e-f442-4c9a-b9cf-5b57b514cced/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/25b2968a-c023-4598-b79c-153fe6050b8b/default.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/videos/video_0.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/videos/video_1.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/videos/video_2.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/videos/video_3.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/videos/video_4.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8c561752-2f09-4055-a642-3d21d738a0ff.mp4/productVideoOptimized.mp4",
+        "source": "scraped",
+        "type": "mp4",
+        "title": "N/A",
+        "thumbnail": "N/A",
+        "order": 6
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/771d9bdd-1f1c-43d5-85cb-f43ef60ba442.mp4/productVideoOptimized.mp4",
+        "source": "scraped",
+        "type": "mp4",
+        "title": "N/A",
+        "thumbnail": "N/A",
+        "order": 7
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a79fe938-77d7-452f-bb6b-008a7685e366.mp4/productVideoOptimized.mp4",
+        "source": "scraped",
+        "type": "mp4",
+        "title": "N/A",
+        "thumbnail": "N/A",
+        "order": 8
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/2bfe5214-ddfd-47c9-9ff2-b9dc1b210e32.mp4/productVideoOptimized.mp4",
+        "source": "scraped",
+        "type": "mp4",
+        "title": "N/A",
+        "thumbnail": "N/A",
+        "order": 9
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/162657f0-bf29-448c-aa86-42b3ef53cafd.mp4/productVideoOptimized.mp4",
+        "source": "scraped",
+        "type": "mp4",
+        "title": "N/A",
+        "thumbnail": "N/A",
+        "order": 10
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b9a4d32e-f442-4c9a-b9cf-5b57b514cced/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 11
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/25b2968a-c023-4598-b79c-153fe6050b8b/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 12
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/kids_pull_along_wagons/index.html",
+      "categoryPages": "/scrape_store/kids_pull_along_wagons/pages/index.html",
+      "detailPage": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/index.html"
+    },
+    "resourceStats": {
+      "videos": 12,
+      "similarItems": 1
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/81kKRosaAgL._AC_UL300_SR300,200_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 15
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 10
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 12
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 13
+      },
+      {
+        "url": "/scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 14
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8c561752-2f09-4055-a642-3d21d738a0ff.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/videos/video_0.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/771d9bdd-1f1c-43d5-85cb-f43ef60ba442.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/videos/video_1.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a79fe938-77d7-452f-bb6b-008a7685e366.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/videos/video_2.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/2bfe5214-ddfd-47c9-9ff2-b9dc1b210e32.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/videos/video_3.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/162657f0-bf29-448c-aa86-42b3ef53cafd.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_pull_along_wagons/TODEFULL/Rank_11_ASIN_B0FCY4WM8M_TODEFULL Wagon Stroller for 2 Kids Foldable Kids W/videos/video_4.mp4"
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "1",
+        "Brand": "ELEMARA",
+        "Title": "ELEMARA Foldable Wagon Stroller, Stroller Wagon for 2 Kids, Premium All Terrain Wagon for Kids with Removable Canopy, Adjusta",
+        "Price": "$183.59",
+        "Rating": "4.6  453",
+        "Reviews": "453",
+        "URL": "https://www.amazon.com/ELEMARA-Stroller-Removable-Adjustable-Harnesses/dp/B0DJY3JH8D/ref=zg_bs_g_166419011_d_sccl_1/136-4512855-8647436?psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/81FuObGY6LL._AC_UL300_SR300,200_.jpg",
+        "ASIN": "B0DJY3JH8D",
+        "Source_Page": 1,
+        "Source_URL": "https://www.amazon.com/Best-Sellers-Toys-Games-Kids-Pull-Along-Wagons/zgbs/toys-and-games/166419011/ref=zg_bs_nav_toys-and-games_2_166414011",
+        "Source_Position": 1,
+        "Source_Type": "Best Sellers",
+        "Features": "oxford fabric | Made in the USA and Imported | 2 IN 1 PUSH ＆ PULL STROLLER WAGON: Heavy duty steel frame holds up to 110lbs(55lbs per seat). Size: 41 x 18 x 39.37 inches. Weight: 39 pounds. Bid farewell to bulky strollers. This ingeniously designed wagon stroller collapses easily for storage and also is capable of hauling oversized cargo and fit in the trunk for easy transpotation. Simple 1-STEP foot brake locks the wagon for kids safely in place | ADJUSTABLE PUSH & PULL HANDLE: This wagon with seats come with Adjustable push handlebar designed for parents of varying heights. Hideaway 3-section telescopic lockable pull handle easily allows the double wagon stroller to transform from \"Push\" to \"Pull\" mode! Morever, all terrain EVA tires and its anti-shock system makes this wagon stroller for 2 kids adaptable to rugged all outdoor terrain | SAFE AND COMFORT SEATS: ELEMARA stroller wagon for 2 kids built-in a reliable 3-point harness belt and 2 face-to face seats. More ergonomic seat design: Equipped with a shared, drop-down footwell for stroller-style seating, which provide more foot space for your babies; and the detachable cushioned seats back for extra comfort for your babies. This toddler stroller ensures your little explorer remains snug and secure during every journey | WAGON WITH CANOPY ＆ Mosquito Net: Slideable/Removable UV-protection canopy shade protect little ones from the sun or afternoon showers while they ride in the carriage and allows you to adjust the canopy for the angle of the sun. The all-round mosquito net is used to protect babies from mosquito bites. Deep Carriage with breathable mesh to keep kids cool and dry. It is perfect for sports, camping, beach and shopping | PORTABLE & PRACTICAL: ELEMARA collapsible kids wagon have ample storage space to hold all of your daily essentials: a movable center console with snack tray and cup holders, and a large movable zippered storage bag that attaches to the rear of the wagon",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cee88b45-e5ba-4485-bc57-ae6418305e6e/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cee88b45-e5ba-4485-bc57-ae6418305e6e/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/df5c2e68-f2d3-4d7e-9014-899b91cbf991/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/75316088-022a-40b6-b0d6-113cda499015/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c7b1678-a916-443d-8077-6d606e5e08d5/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0d65a07c-0d9f-4a55-98e8-f9acdc537db0/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6a54c365-1a11-4338-ba64-5bd7663af979/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/872ec1c4-4ebd-47b5-8675-738cf2681b9c/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d1735d68-8d50-4330-a79a-58876b7d0731/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/adb98479-df52-4549-ac95-3e11e2ac5e4e/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/427ddb58-2fc9-4140-9867-e2fd713978d7/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/397088de-775e-4d85-9648-60f13bcdcee4/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/26b38948-a5d8-45da-8fda-bf32431682b6/embedded.cc.default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1a2ee81c-fc6e-4180-acac-d08dfde5d026/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f317c343-cf2b-4bfd-941b-14f79f861355/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c7524b5a-fbee-4dc7-b354-3d1166a43fb9/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8c561752-2f09-4055-a642-3d21d738a0ff.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5197f176-7d6e-420f-af9b-c2b3d5c93c7c.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/67e86294-4490-41d1-a6e3-93b079ff909f.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a61ba6f2-a986-4e57-965d-b75543e70dcc.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a79fe938-77d7-452f-bb6b-008a7685e366.mp4/productVideoOptimized.mp4"
+        ],
+        "Product_Videos_MP4": [
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8c561752-2f09-4055-a642-3d21d738a0ff.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5197f176-7d6e-420f-af9b-c2b3d5c93c7c.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/67e86294-4490-41d1-a6e3-93b079ff909f.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a61ba6f2-a986-4e57-965d-b75543e70dcc.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a79fe938-77d7-452f-bb6b-008a7685e366.mp4/productVideoOptimized.mp4"
+        ],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cee88b45-e5ba-4485-bc57-ae6418305e6e/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/df5c2e68-f2d3-4d7e-9014-899b91cbf991/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/75316088-022a-40b6-b0d6-113cda499015/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7c7b1678-a916-443d-8077-6d606e5e08d5/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0d65a07c-0d9f-4a55-98e8-f9acdc537db0/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6a54c365-1a11-4338-ba64-5bd7663af979/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/872ec1c4-4ebd-47b5-8675-738cf2681b9c/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d1735d68-8d50-4330-a79a-58876b7d0731/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/adb98479-df52-4549-ac95-3e11e2ac5e4e/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/427ddb58-2fc9-4140-9867-e2fd713978d7/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/397088de-775e-4d85-9648-60f13bcdcee4/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/26b38948-a5d8-45da-8fda-bf32431682b6/embedded.cc.default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1a2ee81c-fc6e-4180-acac-d08dfde5d026/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f317c343-cf2b-4bfd-941b-14f79f861355/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c7524b5a-fbee-4dc7-b354-3d1166a43fb9/default.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "ELEMARA WAGON STROLLER FOR 2 KIDS",
+              "Texts": [],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/146963e3-a070-4e51-a098-288f3a98990e.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/146963e3-a070-4e51-a098-288f3a98990e.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "`",
+                  "Image_Alt": "`"
+                }
+              ],
+              "Comparison_Table": {},
+              "Block_Types": [
+                "image"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "ELEMARA WAGON STROLLER FOR 2 KIDS"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/146963e3-a070-4e51-a098-288f3a98990e.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "`",
+                    "Image_Alt": "`"
+                  }
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/146963e3-a070-4e51-a098-288f3a98990e.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+            ],
+            "Local_Images": [
+              "scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [],
+          "Summary": {
+            "Count": 0
+          },
+          "Local_Paths": []
+        },
+        "Product_Description": "N/A",
+        "Product_Specifications": {
+          "Measurements": {
+            "Item Weight": "39 Pounds",
+            "Folded Size": "41*32.5*22 Inches",
+            "Item Dimensions L x W x H": "48.43\"L x 17.7\"W x 40.94\"H",
+            "Stroller Seat Weight": "110 Pounds"
+          },
+          "Features_Specs": {
+            "Stroller Type": "Wagon Stroller",
+            "Is Car Seat Compatible": "No",
+            "Seating Capacity": "2",
+            "Additional Features": "Adjustable Handle, Collapsible, Durable, Easy Assembly, Sturdy",
+            "Has Stroller Brake System": "Yes"
+          },
+          "Materials_Care": {},
+          "Item_Details": {
+            "Number of Wheels": "4"
+          },
+          "User_Guide": {
+            "Harness Type": "3 Point",
+            "Harness Feature": "3-point harness"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery Wednesday, July 1",
+          "Specifications": {
+            "Item Weight": "39 Pounds",
+            "Folded Size": "41*32.5*22 Inches",
+            "Item Dimensions L x W x H": "48.43\"L x 17.7\"W x 40.94\"H",
+            "Stroller Seat Weight": "110 Pounds"
+          }
+        },
+        "Local_Image_Paths": [
+          "scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/images/primary.jpg",
+          "scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/images/alt_1.jpg",
+          "scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/images/alt_2.jpg",
+          "scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/images/alt_3.jpg",
+          "scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/images/alt_4.jpg",
+          "scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/images/alt_5.jpg",
+          "scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/images/alt_6.jpg",
+          "scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/images/alt_7.jpg",
+          "scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/images/alt_8.jpg",
+          "scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/kids_pull_along_wagons/ELEMARA/Rank_1_ASIN_B0DJY3JH8D_ELEMARA Foldable Wagon Stroller Stroller Wagon for/images/primary.jpg",
+        "Local_Video_Paths": [],
+        "Last_Updated": "2026-06-27T08:48:48.423483",
+        "Similar_Items_Quick_Delivery": [
+          {
+            "Rank": "Similar",
+            "Brand": "BabyVista",
+            "Title": "BabyVista Stroller Wagon for Kids, One-Hand Adjustable Push/Pull Handle, Spacious Storage, 8\"/12\" All-Terrain Wheels, Canopy with Bug Net, Wagon Stroller for Daily Walks, Short Trips & Grocery Runs",
+            "Price": "$179.99",
+            "Rating": "4.7",
+            "Reviews": "109",
+            "URL": "https://www.amazon.com/BabyVista-Stroller-One-Hand-Adjustable-All-Terrain/dp/B0FQTZTC84/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_4/136-4512855-8647436?pd_rd_w=OK0u1&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=WZB5XESDDTVVPTSJG6D5&pd_rd_wg=q5Xj0&pd_rd_r=3ca5bffe-03b4-4c7f-9d06-639b20c7f3cd&pd_rd_i=B0FQTZTC84&psc=1",
+            "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/71KYfegrp9L._AC_UL165_SR165,165_.jpg",
+            "ASIN": "B0FQTZTC84",
+            "Features": "Alloy Steel Frame, Rubber Wheels | ONE-HAND ADJUSTABLE PUSH/PULL HANDLE: Easily adjust the handle height with one hand to fit your comfort. Push your wagon stroller on smooth paths or pull it over sand, grass, or slopes—it’s easy to steer and comfy to handle wherever you go | SPACIOUS STORAGE FOR ALL ESSENTIALS: This stroller wagon offers plenty of room for all your family essentials. With dual side pockets, cup holders, and a large organizer bag, you can pack snacks, toys, and diapers with ease—everything stays tidy, accessible, and ready for every outing | ALL-TERRAIN WHEELS FOR SMOOTH RIDE: With 8” front and 12” rear all-terrain wheels, this kids wagon handles grass, gravel, and uneven paths with ease. It glides smoothly wherever you go, keeping every ride steady, comfy, and fun for you and your little ones | PROTECTIVE UPF 50+ CANOPY WITH BUG NET: Shield your little ones from sun and bugs with the UPF 50+ canopy and built-in bug net. This toddler wagon keeps them cool, comfy, and protected, so you can enjoy every sunny stroll or outdoor adventure with peace of mind | DURABLE DESIGN FOR GROWING FAMILIES: Built to last, this baby wagon stroller supports up to two kids (6 years and under) and holds up to 300 lbs. Its sturdy frame and solid build make it a reliable companion for daily errands, park strolls, and weekend adventure | VERSATILE COMFORT FOR EVERY RIDE: Easily switch between sit mode and lay-flat mode. The drop-down footwell supports comfortable seating, while the nap mat creates a flat space for naps—keeping kids relaxed, secure, and ready for every outing | RELIABLE LONG-TERM SUPPORT: Enjoy peace of mind with dedicated customer support for up to 3 years. If you experience any issues, we’re here to help with returns, replacements, or parts support—quickly and hassle-free",
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7dfc322b-36cf-49e3-a22b-c60060fb9f7f/default.jobtemplate.hls.m3u8",
+            "Product_Videos_Detail": [
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7dfc322b-36cf-49e3-a22b-c60060fb9f7f/default.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/A15fF8uW3fL.SS125_PKplay-button-mb-image-grid-small_.jpg",
+                "Title": "BabyVista Stroller Wagon User Guide",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b570bd9a-69ac-4899-9b03-ad07988e332f/default.vertical.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/51tBOvwV2dL.SS125_PKplay-button-mb-image-grid-small_.jpg",
+                "Title": "BabyVista Stroller Wagon for Kids,",
+                "Author": "N/A",
+                "Is_MP4": false
+              }
+            ],
+            "Product_Videos": [
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7dfc322b-36cf-49e3-a22b-c60060fb9f7f/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b570bd9a-69ac-4899-9b03-ad07988e332f/default.vertical.jobtemplate.hls.m3u8"
+            ],
+            "Product_Videos_MP4": [],
+            "Product_Videos_M3U8": [
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7dfc322b-36cf-49e3-a22b-c60060fb9f7f/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b570bd9a-69ac-4899-9b03-ad07988e332f/default.vertical.jobtemplate.hls.m3u8"
+            ],
+            "From_The_Manufacturer": {
+              "Model_Version": "2.0",
+              "Sections": [
+                {
+                  "Section_Id": "section_01",
+                  "Display_Order": 1,
+                  "Title": "",
+                  "Texts": [],
+                  "Images": [
+                    "https://m.media-amazon.com/images/S/aplus-media-library-service-media/31a73e84-4f4b-4377-8e8e-1a41f68b5348.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "https://m.media-amazon.com/images/S/aplus-media-library-service-media/408d1841-b953-4874-a8c5-ee9a1ba21c2c.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0e7dd418-114d-405c-8f34-7ff34129d8e3.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+                  ],
+                  "Images_Detail": [
+                    {
+                      "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/31a73e84-4f4b-4377-8e8e-1a41f68b5348.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                      "Image_Order": 1,
+                      "Image_Title": "BabyVista Wagon Stroller",
+                      "Image_Alt": "BabyVista Wagon Stroller"
+                    },
+                    {
+                      "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/408d1841-b953-4874-a8c5-ee9a1ba21c2c.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                      "Image_Order": 2,
+                      "Image_Title": "BabyVista Wagon Stroller",
+                      "Image_Alt": "BabyVista Wagon Stroller"
+                    },
+                    {
+                      "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0e7dd418-114d-405c-8f34-7ff34129d8e3.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                      "Image_Order": 3,
+                      "Image_Title": "BabyVista Wagon Stroller",
+                      "Image_Alt": "BabyVista Wagon Stroller"
+                    }
+                  ],
+                  "Comparison_Table": {},
+                  "Block_Types": [
+                    "image"
+                  ],
+                  "Layout_Blocks": [
+                    {
+                      "Block_Type": "image",
+                      "Image": {
+                        "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/31a73e84-4f4b-4377-8e8e-1a41f68b5348.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                        "Image_Order": 1,
+                        "Image_Title": "BabyVista Wagon Stroller",
+                        "Image_Alt": "BabyVista Wagon Stroller"
+                      }
+                    },
+                    {
+                      "Block_Type": "image",
+                      "Image": {
+                        "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/408d1841-b953-4874-a8c5-ee9a1ba21c2c.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                        "Image_Order": 2,
+                        "Image_Title": "BabyVista Wagon Stroller",
+                        "Image_Alt": "BabyVista Wagon Stroller"
+                      }
+                    },
+                    {
+                      "Block_Type": "image",
+                      "Image": {
+                        "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0e7dd418-114d-405c-8f34-7ff34129d8e3.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                        "Image_Order": 3,
+                        "Image_Title": "BabyVista Wagon Stroller",
+                        "Image_Alt": "BabyVista Wagon Stroller"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "Assets": {
+                "Remote_Images": [
+                  "https://m.media-amazon.com/images/S/aplus-media-library-service-media/31a73e84-4f4b-4377-8e8e-1a41f68b5348.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "https://m.media-amazon.com/images/S/aplus-media-library-service-media/408d1841-b953-4874-a8c5-ee9a1ba21c2c.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0e7dd418-114d-405c-8f34-7ff34129d8e3.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+                ],
+                "Local_Images": [
+                  "scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+                  "scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+                  "scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg"
+                ]
+              }
+            },
+            "Product_Guides_And_Documents": {
+              "Model_Version": "1.0",
+              "Items": [],
+              "Summary": {
+                "Count": 0
+              },
+              "Local_Paths": []
+            },
+            "Product_Description": "N/A",
+            "Product_Specifications": {
+              "Measurements": {
+                "Product Dimensions": "45.28\"D x 26.77\"W x 41.43\"H",
+                "Weight Capacity Maximum": "300 Pounds",
+                "Item Dimensions D x W x H": "45.28\"D x 26.77\"W x 41.43\"H",
+                "Item Weight": "27.8 Pounds"
+              },
+              "Features_Specs": {
+                "Special Feature": "Adjustable Handle, Collapsible, Durable, Easy Assembly, Heavy Duty",
+                "Recommended Uses For Product": "Outdoor",
+                "Target Audience": "Baby, Kids, Toddler",
+                "Additional Features": "Adjustable Handle, Collapsible, Durable, Easy Assembly, Heavy Duty",
+                "Caster Type": "Swivel"
+              },
+              "Materials_Care": {
+                "Material": "Alloy Steel, PU Leather, Polyester, Rubber",
+                "Material Type": "Alloy Steel, PU Leather, Polyester, Rubber",
+                "Handle Material": "PU Leather",
+                "Frame Material": "Alloy Steel"
+              },
+              "Item_Details": {
+                "Brand": "BabyVista",
+                "Brand Name": "BabyVista",
+                "Manufacturer Warranty Description": "3 year manufacturer.",
+                "Manufacturer": "BabyVista",
+                "Unit Count": "1.0 Count",
+                "Best Sellers Rank": "#4,881 in Toys & Games (See Top 100 in Toys & Games) #3 in Kids' Pull-Along Wagons",
+                "ASIN": "B0FQTZTC84",
+                "Customer Reviews": "4.7  4.7 out of 5 stars   \n    (109)   \n\n\n 4.7 out of 5 stars",
+                "Number of Wheels": "4"
+              },
+              "User_Guide": {
+                "Required Assembly": "Yes"
+              },
+              "Additional_Details": {
+                "Color": "Black"
+              }
+            },
+            "Right_Panel_Details": {
+              "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
+              "Sold_By": "Tukarla \n  Tukarla      Sold by   Tukarla",
+              "Availability": "In Stock",
+              "Delivery_Promise": "FREE delivery Wednesday, July 1",
+              "Specifications": {
+                "Product Dimensions": "45.28\"D x 26.77\"W x 41.43\"H",
+                "Brand": "BabyVista",
+                "Material": "Alloy Steel, PU Leather, Polyester, Rubber",
+                "Color": "Black",
+                "Special Feature": "Adjustable Handle, Collapsible, Durable, Easy Assembly, Heavy Duty"
+              }
+            },
+            "Local_Image_Paths": [
+              "scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/images/primary.jpg",
+              "scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/images/alt_1.jpg",
+              "scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/images/alt_2.jpg",
+              "scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/images/alt_3.jpg",
+              "scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/images/alt_4.jpg",
+              "scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/images/alt_5.jpg",
+              "scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/images/alt_6.jpg",
+              "scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/images/alt_7.jpg",
+              "scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/images/alt_8.jpg",
+              "scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/images/alt_9.jpg"
+            ],
+            "Local_Image_Path": "scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/images/primary.jpg",
+            "Local_Video_Paths": []
+          },
+          {
+            "Rank": "Similar",
+            "Brand": "Jeep",
+            "Title": "Jeep Wrangler Deluxe 4 Seater Stroller Wagon by Delta Children - Premium Quad Stroller Wagon for 4 Kids with Convertible Seats, Adjustable Push/Pull Handles, Removable Canopy & Flat Fold, Grey",
+            "Price": "$479.99",
+            "Rating": "4.6",
+            "Reviews": "989",
+            "URL": "https://www.amazon.com/Wrangler-Deluxe-Stroller-Delta-Children/dp/B0C5435KM9/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_6/136-4512855-8647436?pd_rd_w=OK0u1&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=WZB5XESDDTVVPTSJG6D5&pd_rd_wg=q5Xj0&pd_rd_r=3ca5bffe-03b4-4c7f-9d06-639b20c7f3cd&pd_rd_i=B0C5435KM9&psc=1",
+            "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/71R5C6jl91L._AC_UL165_SR165,165_.jpg",
+            "ASIN": "B0C5435KM9",
+            "Features": "Mesh | FITS 4 KIDS: First-of-its-kind convertible wagon | 5 seating options for 4 kids | Seats can face forward, backwards, inwards, outwards in different directions or be removed to carry gear | Outward facing seats perfect for older kids with longer legs | TONS OF STORAGE: Front and rear storage pockets, zippered storage compartments under the seats, a large cooler that can be attached to the front, back or side of the wagon, kids snack tray, plus two parent cup holders | EASY TO MANEUVER: Two adjustable leatherette handlebars for parents of all heights | Rust-resistant steel frame for long-lasting use | Shock absorbing puncture-proof 8-inch front wheels and 12-inch back wheels | One-step back footbrake for ultimate control | REMOVABLE CANOPY: Removable canopy provides UV protection and has roll down mesh screens for ventilation or black out privacy screens for on-the-go naps | FOLDS FLAT: Flat fold with latch closure for easy transport/storage | Size: 41”L x 30.25”W x 51”H | Folded: 29.6“L x 29.6”W x 43.5”H |Weighs 60.13 lbs. | Holds up to 200 lbs. | For 6 months to 42\" | JPMA stroller certified | 5-point safety harnesses",
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64ba181d-4411-4d49-b70c-6cb10fcb22a9/default.jobtemplate.hls.m3u8",
+            "Product_Videos_Detail": [
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64ba181d-4411-4d49-b70c-6cb10fcb22a9/default.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/81MCrnWhQVL.SS125_PKplay-button-mb-image-grid-small_.jpg",
+                "Title": "Jeep Wrangler Deluxe 4 Seater Stroller Wagon",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/120f1585-1a18-437f-8e03-eece8a2c999c/default.vertical.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/71HsR9jDB8L.SS125_PKplay-button-mb-image-grid-small_.jpg",
+                "Title": "Product Overview Video",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/579302f1-9492-4a0d-acaa-58ba2c484532/default.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/81dKuFmysNL.SS125_PKplay-button-mb-image-grid-small_.jpg",
+                "Title": "Showing you ALL the features of this wagon -1st time toddler mom",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fb0f58cc-ff1c-4c22-bb03-d28d65fb1042/default.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1ql5hHiAeL.SS125_PKplay-button-mb-image-grid-small_.png",
+                "Title": "Honest Review of this GAME CHANGING Jeep Wagon",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/07693927-de47-4912-b150-fee70c333182/default.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/C1WYAuMZgdL.SS125_PKplay-button-mb-image-grid-small_.png",
+                "Title": "Closer look at Jeep by Delta children ",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/080bf921-e0ca-42e6-9f91-a170d3c1f535/default.vertical.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/91knG6ZXB2L.SS125_PKplay-button-mb-image-grid-small_.png",
+                "Title": "The best purchase. Pricey but durable & usable for years",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/891c62b9-fffd-4194-8461-60514098e0d0/default.vertical.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/91BORED4-SL.SS125_PKplay-button-mb-image-grid-small_.jpg",
+                "Title": "Jeep by delta 4 seater wagon favorite features",
+                "Author": "N/A",
+                "Is_MP4": false
+              }
+            ],
+            "Product_Videos": [
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64ba181d-4411-4d49-b70c-6cb10fcb22a9/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/120f1585-1a18-437f-8e03-eece8a2c999c/default.vertical.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/579302f1-9492-4a0d-acaa-58ba2c484532/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fb0f58cc-ff1c-4c22-bb03-d28d65fb1042/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/07693927-de47-4912-b150-fee70c333182/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/080bf921-e0ca-42e6-9f91-a170d3c1f535/default.vertical.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/891c62b9-fffd-4194-8461-60514098e0d0/default.vertical.jobtemplate.hls.m3u8"
+            ],
+            "Product_Videos_MP4": [],
+            "Product_Videos_M3U8": [
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/64ba181d-4411-4d49-b70c-6cb10fcb22a9/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/120f1585-1a18-437f-8e03-eece8a2c999c/default.vertical.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/579302f1-9492-4a0d-acaa-58ba2c484532/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fb0f58cc-ff1c-4c22-bb03-d28d65fb1042/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/07693927-de47-4912-b150-fee70c333182/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/080bf921-e0ca-42e6-9f91-a170d3c1f535/default.vertical.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/891c62b9-fffd-4194-8461-60514098e0d0/default.vertical.jobtemplate.hls.m3u8"
+            ],
+            "From_The_Manufacturer": {
+              "Model_Version": "2.0",
+              "Sections": [
+                {
+                  "Section_Id": "section_01",
+                  "Display_Order": 1,
+                  "Title": "Delta Children Epic Glider",
+                  "Texts": [],
+                  "Images": [
+                    "https://m.media-amazon.com/images/S/aplus-media-library-service-media/fc60e467-e7c7-4adb-8dd8-a012d3a0dd18.__CR0,1,2034,834_PT0_SX1464_V1___.png",
+                    "https://m.media-amazon.com/images/S/aplus-media-library-service-media/40c079e9-3d19-41a4-8bae-01d070a09351.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "https://m.media-amazon.com/images/S/aplus-media-library-service-media/cc6ace52-ae05-4d85-9f1f-8b5b4dc7ee6b.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+                  ],
+                  "Images_Detail": [
+                    {
+                      "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/fc60e467-e7c7-4adb-8dd8-a012d3a0dd18.__CR0,1,2034,834_PT0_SX1464_V1___.png",
+                      "Image_Order": 1,
+                      "Image_Title": "72977-931 Upholstered Glider, Charcoal Desktop-1",
+                      "Image_Alt": "72977-931 Upholstered Glider, Charcoal Desktop-1"
+                    },
+                    {
+                      "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/40c079e9-3d19-41a4-8bae-01d070a09351.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                      "Image_Order": 2,
+                      "Image_Title": "13275-001_Jeep-Altitude-Compact-Travel-Stroller_Amazon_Template_Mobile-03",
+                      "Image_Alt": "13275-001_Jeep-Altitude-Compact-Travel-Stroller_Amazon_Template_Mobile-03"
+                    },
+                    {
+                      "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/cc6ace52-ae05-4d85-9f1f-8b5b4dc7ee6b.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                      "Image_Order": 3,
+                      "Image_Title": "11508-2013_Jeep-Destination-Ultralight-Side-x-Side-Double-Stroller_Amazon_Template_Mobile-05",
+                      "Image_Alt": "11508-2013_Jeep-Destination-Ultralight-Side-x-Side-Double-Stroller_Amazon_Template_Mobile-05"
+                    }
+                  ],
+                  "Comparison_Table": {
+                    "Headers": [
+                      "Wrangler Wagon Add to Cart",
+                      "Classic Wrangler Walker Add to Cart",
+                      "Classic 2-in-1 High Chair Add to Cart",
+                      "Horizon Travel Play Yard Add to Cart",
+                      "Sleeper Twin Bassinet Add to Cart",
+                      "Milestone High Chair Add to Cart",
+                      "Personalized Cozee Chair Add to Cart"
+                    ],
+                    "Rows": [
+                      [
+                        "Customer Reviews",
+                        "4.6 out of 5 stars 989",
+                        "4.7 out of 5 stars 6,762",
+                        "4.7 out of 5 stars 399",
+                        "4.4 out of 5 stars 59",
+                        "4.7 out of 5 stars 1,459",
+                        "4.7 out of 5 stars 728",
+                        "4.3 out of 5 stars 619"
+                      ],
+                      [
+                        "Price",
+                        "$479.99 $ 479 . 99",
+                        "$73.99 $ 73 . 99",
+                        "$92.99 $ 92 . 99",
+                        "$109.99 $ 109 . 99",
+                        "$189.00 $ 189 . 00",
+                        "$99.99 $ 99 . 99",
+                        "$89.99 $ 89 . 99"
+                      ],
+                      [
+                        "Brand",
+                        "Jeep",
+                        "Jeep",
+                        "Delta Children",
+                        "Jeep",
+                        "Jeep",
+                        "Delta Children",
+                        "Delta Children"
+                      ],
+                      [
+                        "Color",
+                        "Black",
+                        "Green",
+                        "White/Acorn",
+                        "Tan/Black",
+                        "Grey/Olive Green",
+                        "Oatmeal",
+                        "Grey"
+                      ],
+                      [
+                        "Tested Above & Beyond",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔"
+                      ],
+                      [
+                        "Perfect For Your Nursery",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔"
+                      ],
+                      [
+                        "Healhty Materials",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔"
+                      ]
+                    ]
+                  },
+                  "Block_Types": [
+                    "image",
+                    "table"
+                  ],
+                  "Layout_Blocks": [
+                    {
+                      "Block_Type": "title",
+                      "Text": "Delta Children Epic Glider"
+                    },
+                    {
+                      "Block_Type": "image",
+                      "Image": {
+                        "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/fc60e467-e7c7-4adb-8dd8-a012d3a0dd18.__CR0,1,2034,834_PT0_SX1464_V1___.png",
+                        "Image_Order": 1,
+                        "Image_Title": "72977-931 Upholstered Glider, Charcoal Desktop-1",
+                        "Image_Alt": "72977-931 Upholstered Glider, Charcoal Desktop-1"
+                      }
+                    },
+                    {
+                      "Block_Type": "image",
+                      "Image": {
+                        "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/40c079e9-3d19-41a4-8bae-01d070a09351.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                        "Image_Order": 2,
+                        "Image_Title": "13275-001_Jeep-Altitude-Compact-Travel-Stroller_Amazon_Template_Mobile-03",
+                        "Image_Alt": "13275-001_Jeep-Altitude-Compact-Travel-Stroller_Amazon_Template_Mobile-03"
+                      }
+                    },
+                    {
+                      "Block_Type": "image",
+                      "Image": {
+                        "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/cc6ace52-ae05-4d85-9f1f-8b5b4dc7ee6b.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                        "Image_Order": 3,
+                        "Image_Title": "11508-2013_Jeep-Destination-Ultralight-Side-x-Side-Double-Stroller_Amazon_Template_Mobile-05",
+                        "Image_Alt": "11508-2013_Jeep-Destination-Ultralight-Side-x-Side-Double-Stroller_Amazon_Template_Mobile-05"
+                      }
+                    },
+                    {
+                      "Block_Type": "table",
+                      "Table": {
+                        "Headers": [
+                          "Wrangler Wagon Add to Cart",
+                          "Classic Wrangler Walker Add to Cart",
+                          "Classic 2-in-1 High Chair Add to Cart",
+                          "Horizon Travel Play Yard Add to Cart",
+                          "Sleeper Twin Bassinet Add to Cart",
+                          "Milestone High Chair Add to Cart",
+                          "Personalized Cozee Chair Add to Cart"
+                        ],
+                        "Rows": [
+                          [
+                            "Customer Reviews",
+                            "4.6 out of 5 stars 989",
+                            "4.7 out of 5 stars 6,762",
+                            "4.7 out of 5 stars 399",
+                            "4.4 out of 5 stars 59",
+                            "4.7 out of 5 stars 1,459",
+                            "4.7 out of 5 stars 728",
+                            "4.3 out of 5 stars 619"
+                          ],
+                          [
+                            "Price",
+                            "$479.99 $ 479 . 99",
+                            "$73.99 $ 73 . 99",
+                            "$92.99 $ 92 . 99",
+                            "$109.99 $ 109 . 99",
+                            "$189.00 $ 189 . 00",
+                            "$99.99 $ 99 . 99",
+                            "$89.99 $ 89 . 99"
+                          ],
+                          [
+                            "Brand",
+                            "Jeep",
+                            "Jeep",
+                            "Delta Children",
+                            "Jeep",
+                            "Jeep",
+                            "Delta Children",
+                            "Delta Children"
+                          ],
+                          [
+                            "Color",
+                            "Black",
+                            "Green",
+                            "White/Acorn",
+                            "Tan/Black",
+                            "Grey/Olive Green",
+                            "Oatmeal",
+                            "Grey"
+                          ],
+                          [
+                            "Tested Above & Beyond",
+                            "✔",
+                            "✔",
+                            "✔",
+                            "✔",
+                            "✔",
+                            "✔",
+                            "✔"
+                          ],
+                          [
+                            "Perfect For Your Nursery",
+                            "✔",
+                            "✔",
+                            "✔",
+                            "✔",
+                            "✔",
+                            "✔",
+                            "✔"
+                          ],
+                          [
+                            "Healhty Materials",
+                            "✔",
+                            "✔",
+                            "✔",
+                            "✔",
+                            "✔",
+                            "✔",
+                            "✔"
+                          ]
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ],
+              "Assets": {
+                "Remote_Images": [
+                  "https://m.media-amazon.com/images/S/aplus-media-library-service-media/fc60e467-e7c7-4adb-8dd8-a012d3a0dd18.__CR0,1,2034,834_PT0_SX1464_V1___.png",
+                  "https://m.media-amazon.com/images/S/aplus-media-library-service-media/40c079e9-3d19-41a4-8bae-01d070a09351.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "https://m.media-amazon.com/images/S/aplus-media-library-service-media/cc6ace52-ae05-4d85-9f1f-8b5b4dc7ee6b.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+                ],
+                "Local_Images": [
+                  "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5435KM9_Jeep Wrangler Deluxe 4 Seater Stroller Wagon by De/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png",
+                  "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5435KM9_Jeep Wrangler Deluxe 4 Seater Stroller Wagon by De/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+                  "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5435KM9_Jeep Wrangler Deluxe 4 Seater Stroller Wagon by De/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg"
+                ]
+              }
+            },
+            "Product_Guides_And_Documents": {
+              "Model_Version": "1.0",
+              "Items": [],
+              "Summary": {
+                "Count": 0
+              },
+              "Local_Paths": []
+            },
+            "Product_Description": "Expand your adventure with the Jeep Wrangler Deluxe 4 Seater Stroller Wagon by Delta Children. Built with everything you love about Jeep Wagons, but with room for four passengers, this XL wagon allows you to bring even more essential cargo and all the people you love along for the journey. A great option for growing families, this first-of-its-kind convertible wagon offers a range of seating options to accommodate up to four children—both seats can face forward, both can face backwards, both can face inwards, both can face out in different directions, or you can remove the seats completely and use the wagon to carry all your gear. Outfitted with a multitude of convenient features to help accommodate and entertain your larger crew, this wagon comes with a removable canopy that has roll down mesh screens for ventilation or black out privacy screens for on-the-go naps. Take advantage of the wagon’s expansive storage. The wagon features front and rear storage pockets, a large cooler that can be attached to the front, back or side of the wagon, zippered storage compartments under the seats, kids snack tray, plus two parent cup holders. Two adjustable leatherette handlebars ensure a comfortable grip for parents of all heights, while the large, puncture-proof tires provide a smooth ride on any terrain. The wagon’s flat fold makes it easy to store and transport. It’s the perfect all-in-one solution for growing families.",
+            "Product_Specifications": {
+              "Measurements": {
+                "Item Weight": "60.1 Pounds",
+                "Folded Size": "29.6L x 29.6W x 43.5H inches",
+                "Rear Facing Stroller Maximum Height": "42 Inches",
+                "Item Dimensions L x W x H": "41\"L x 30.25\"W x 51\"H",
+                "Frame Weight": "60.13 Pounds",
+                "Basket Weight Capacity Maximum": "200 Pounds",
+                "Back Wheel Diameter": "12 Inches",
+                "Front Wheel Diameter": "8 Inches",
+                "Maximum Weight Recommendation": "200 Pounds"
+              },
+              "Features_Specs": {
+                "Age Range (Description)": "Kid",
+                "Installation Type": "Freestanding",
+                "Stroller Type": "Wagon Stroller",
+                "Is Car Seat Compatible": "No",
+                "Seating Capacity": "4",
+                "Additional Features": "Convertible",
+                "Built-in Light": "No",
+                "Has Stroller Brake System": "Yes",
+                "Age Range Description": "Kid",
+                "UPC": "080213124977"
+              },
+              "Materials_Care": {
+                "Material": "Alloy Steel",
+                "Frame Material": "Alloy Steel",
+                "Material Type": "Alloy Steel",
+                "Care Instructions": "Spot clean",
+                "Seat Material": "Mesh",
+                "Tire Material": "Rubber",
+                "Fabric Type": "Mesh"
+              },
+              "Item_Details": {
+                "Brand": "Delta Children",
+                "Number of Cup Holders": "2",
+                "Number of Wheels": "4",
+                "Included Components": "Two adjustable leatherette handlebars, Removable canopy, Large cooler, Kids snack tray, Two parent cup holders, Front and rear storage pockets, Zippered storage compartments under the seats",
+                "Model Number": "60008-2363",
+                "Manufacturer Warranty Description": "90 Days",
+                "Global Trade Identification Number": "00080213124977",
+                "Part Number": "60008-2363",
+                "Manufacturer": "Delta Children",
+                "Unit Count": "1.0 Count",
+                "Best Sellers Rank": "#13,114 in Toys & Games (See Top 100 in Toys & Games) #13 in Kids' Pull-Along Wagons",
+                "ASIN": "B0C5435KM9",
+                "Customer Reviews": "4.6  4.6 out of 5 stars   \n    (989)   \n\n\n 4.6 out of 5 stars"
+              },
+              "User_Guide": {
+                "Specification Met": "JPMA",
+                "Assembly Instructions Description": "Minimal assembly required",
+                "Harness Type": "5 Point",
+                "Harness Feature": "5-point harness"
+              },
+              "Additional_Details": {
+                "Color": "Grey",
+                "Frame Color": "Grey"
+              }
+            },
+            "Right_Panel_Details": {
+              "Ships_From": "N/A",
+              "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+              "Availability": "In Stock",
+              "Delivery_Promise": "FREE delivery Wednesday, July 1. Order within 6 hrs 8 mins",
+              "Specifications": {
+                "Brand": "Delta Children",
+                "Color": "Grey",
+                "Material": "Alloy Steel",
+                "Frame Material": "Alloy Steel",
+                "Age Range (Description)": "Kid"
+              }
+            },
+            "Local_Image_Paths": [
+              "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5435KM9_Jeep Wrangler Deluxe 4 Seater Stroller Wagon by De/images/primary.jpg",
+              "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5435KM9_Jeep Wrangler Deluxe 4 Seater Stroller Wagon by De/images/alt_1.jpg",
+              "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5435KM9_Jeep Wrangler Deluxe 4 Seater Stroller Wagon by De/images/alt_2.jpg",
+              "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5435KM9_Jeep Wrangler Deluxe 4 Seater Stroller Wagon by De/images/alt_3.jpg",
+              "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5435KM9_Jeep Wrangler Deluxe 4 Seater Stroller Wagon by De/images/alt_4.jpg",
+              "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5435KM9_Jeep Wrangler Deluxe 4 Seater Stroller Wagon by De/images/alt_5.jpg",
+              "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5435KM9_Jeep Wrangler Deluxe 4 Seater Stroller Wagon by De/images/alt_6.jpg",
+              "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5435KM9_Jeep Wrangler Deluxe 4 Seater Stroller Wagon by De/images/alt_7.jpg",
+              "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5435KM9_Jeep Wrangler Deluxe 4 Seater Stroller Wagon by De/images/alt_8.jpg",
+              "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5435KM9_Jeep Wrangler Deluxe 4 Seater Stroller Wagon by De/images/alt_9.jpg"
+            ],
+            "Local_Image_Path": "scrape_store/kids_pull_along_wagons/Jeep/Rank_Similar_ASIN_B0C5435KM9_Jeep Wrangler Deluxe 4 Seater Stroller Wagon by De/images/primary.jpg",
+            "Local_Video_Paths": []
+          }
+        ]
+      }
+    ]
+  }
+}

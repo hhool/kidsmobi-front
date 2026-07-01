@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "electric_vehicles",
+  "fetchedAt": "2026-07-01T21:38:47.731Z",
+  "data": {
+    "resourceId": "B0F5GHHDHC:video",
+    "categoryId": "electric_vehicles",
+    "productId": "B0F5GHHDHC",
+    "resourceType": "product_video",
+    "title": "Gotrax RT1 Ride on Toys for Toddlers 1.5-4, Safe 12V Lead-acid Battery up to 80 Minutes, Forward/Reverse 2 Gears, Max 1.5MPH • Video preview",
+    "summary": "Video preview asset set for Gotrax in electric_vehicles.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62c4152e-204f-467e-bfe1-b0b2e66f692c/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62c4152e-204f-467e-bfe1-b0b2e66f692c/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9ea3012f-ff41-4701-90af-1255295087a8/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0b8c3a14-a23e-43eb-b5f6-ec6561469e65/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f5432382-012d-4b7e-9141-ab4d316a9321/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d2d15e30-5d20-4a4f-a9c5-d10892d7940c/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8186064b-2ebf-4055-a8f5-adcc0afcb8ec/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.94,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

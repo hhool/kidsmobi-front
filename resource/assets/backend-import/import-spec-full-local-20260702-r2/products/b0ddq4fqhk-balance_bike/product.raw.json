@@ -1,0 +1,738 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "balance_bike",
+  "categoryCode": "balance",
+  "fetchedAt": "2026-07-01T20:06:11.701Z",
+  "data": {
+    "productId": "B0DDQ4FQHK",
+    "categoryId": "balance_bike",
+    "rank": 3,
+    "title": "SEREED Toddler Balance Bike 2 Year Old, No Pedal Kids Toy Bike for 2-5 Years Old, Tool-Free Adjustment, Gift for 2-3 Boys Gir",
+    "brand": "SEREED",
+    "price": {
+      "display": "$44.99",
+      "value": 44.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.8  1,227",
+      "value": 4.8
+    },
+    "weight": {
+      "display": "7.8 Pounds",
+      "lbs": 7.8
+    },
+    "classification": {
+      "Brand": "SEREED",
+      "Bike_Type": "Balance Bike",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "balance_bike",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame",
+        "supports up to 110 lbs",
+        "safe footrest pad",
+        "rubber grips",
+        "soft saddle and a 12.6 inch starting seat height",
+        "let your little one enjoy cycling at an early age!",
+        "GROW WITH KIDS- Equipped with quick-release mechanism",
+        "parents can adjust the seat height(12.6-17.1inch) and handlebars height(19.6-22.5inch) without tools",
+        "easily adjust to the most suitable height for your child.",
+        "WHY YOU NEED IT?- With the no pedals bicycle",
+        "child will learn balance and steering",
+        "boost self-confidence",
+        "which makes transitioning to a pedal bike much smoother. In addition",
+        "bonus plate and stickers let kids personalize their own balance bike!",
+        "READY FOR RIDING FUN- Weighing 3.5kg (7.8 pounds)",
+        "easy for boys and girls to push and pull independently. Parents will also appreciate its portability",
+        "just packing it into the car trunk and go for adventures with the little ones!",
+        "SMOOTH RIDING- EVA foam airless tires that are noiseless",
+        "anti-slip and never go flat",
+        "ideal for all terrains. Children can freely explore outdoors or gliding indoors without scratching the floors."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame",
+        "featureLabel": "Sturdy And Safe What You Think For Your Kids Is What Sereed Toddler Balance Bike Have. Wide And Tough Carbon Steel Frame",
+        "featureValue": "STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "supports up to 110 lbs",
+        "featureLabel": "Supports Up To 110 Lbs",
+        "featureValue": "supports up to 110 lbs",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "safe footrest pad",
+        "featureLabel": "Safe Footrest Pad",
+        "featureValue": "safe footrest pad",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "rubber grips",
+        "featureLabel": "Rubber Grips",
+        "featureValue": "rubber grips",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "soft saddle and a 12.6 inch starting seat height",
+        "featureLabel": "Soft Saddle And A 12.6 Inch Starting Seat Height",
+        "featureValue": "soft saddle and a 12.6 inch starting seat height",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "let your little one enjoy cycling at an early age!",
+        "featureLabel": "Let Your Little One Enjoy Cycling At An Early Age!",
+        "featureValue": "let your little one enjoy cycling at an early age!",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from balance_bike classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame",
+        "supports up to 110 lbs",
+        "safe footrest pad",
+        "rubber grips"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+          "source": "local",
+          "order": 10
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_1.jpg",
+      "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_2.jpg",
+      "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_3.jpg",
+      "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_4.jpg",
+      "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_5.jpg",
+      "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_6.jpg",
+      "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_7.jpg",
+      "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_8.jpg",
+      "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_9.jpg",
+      "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg"
+    ],
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6da144cb-0125-492b-9b5a-cc38c91aee94/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5cf49f00-c58e-4cc1-9dc6-28bbff762424/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/70138f9b-b376-4893-b692-716d9d695955/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1065f161-7551-44cc-80e9-dfc88494ba4f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/062b730f-e4cf-407e-81e4-d584fcd5c7d2/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/80a334bd-1bc0-40b0-950e-30089791b50e/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6da144cb-0125-492b-9b5a-cc38c91aee94/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "SEREED Toddler Balance Bike, No Pedal Kids Toys Bike for 2-5",
+        "thumbnail": "https://m.media-amazon.com/images/I/A1-RTCf6itL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5cf49f00-c58e-4cc1-9dc6-28bbff762424/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Watch This Before You Buy Your Balance Bike!",
+        "thumbnail": "https://m.media-amazon.com/images/I/A1TyfC-I4VL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/70138f9b-b376-4893-b692-716d9d695955/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Ranking Top 3 Toddler Balance Bikes! (Dont Buy Wrong!)",
+        "thumbnail": "https://m.media-amazon.com/images/I/A1vKVXVCbFL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1065f161-7551-44cc-80e9-dfc88494ba4f/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "My kids love this bike!",
+        "thumbnail": "https://m.media-amazon.com/images/I/91g6MChZs+L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/062b730f-e4cf-407e-81e4-d584fcd5c7d2/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Easy to learn balance bike !",
+        "thumbnail": "https://m.media-amazon.com/images/I/61pwohTtJlL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/80a334bd-1bc0-40b0-950e-30089791b50e/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "my toddler loves this bike!",
+        "thumbnail": "https://m.media-amazon.com/images/I/B1ADRZxmxXL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 6
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/balance_bike/index.html",
+      "categoryPages": "/scrape_store/balance_bike/pages/index.html",
+      "detailPage": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/index.html"
+    },
+    "resourceStats": {
+      "videos": 6,
+      "similarItems": 1
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71h170NO5+L._AC_UL300_SR300,200_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 12
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/balance_bike/SEREED/Rank_3_ASIN_B0DDQ4FQHK_SEREED Toddler Balance Bike 2 Year Old No Pedal Ki/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6da144cb-0125-492b-9b5a-cc38c91aee94/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1-RTCf6itL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "SEREED Toddler Balance Bike, No Pedal Kids Toys Bike for 2-5",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5cf49f00-c58e-4cc1-9dc6-28bbff762424/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1TyfC-I4VL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Watch This Before You Buy Your Balance Bike!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/70138f9b-b376-4893-b692-716d9d695955/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1vKVXVCbFL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Ranking Top 3 Toddler Balance Bikes! (Dont Buy Wrong!)",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1065f161-7551-44cc-80e9-dfc88494ba4f/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91g6MChZs+L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "My kids love this bike!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/062b730f-e4cf-407e-81e4-d584fcd5c7d2/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61pwohTtJlL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Easy to learn balance bike !",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/80a334bd-1bc0-40b0-950e-30089791b50e/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1ADRZxmxXL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "my toddler loves this bike!",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "KRIDDO",
+        "Title": "KRIDDO Toddler Balance Bike 2 Year Old, Age 24 Months to 5 Years Old, 12 Inch Push Bicycle with Customize Plate (3 Sets of Stickers Included), Gift Bike for 2-3 Boys Girls, White",
+        "Price": "$44.99",
+        "Rating": "4.6",
+        "Reviews": "5,563",
+        "URL": "https://www.amazon.com/KRIDDO-Customize-Stickers-Included-Balancing/dp/B09Z65PBXP/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_1/135-1361248-9318224?pd_rd_w=j4HMi&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=Z9P6GZPC7TW9M5K7QG7R&pd_rd_wg=rkb7P&pd_rd_r=2a89ab85-8300-4294-b199-5ba16bafe187&pd_rd_i=B09Z65PBXP&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/7137joS8fWL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B09Z65PBXP",
+        "Features": "EARLY LEARNING BALANCE BIKE – A fun way to introduce small toddlers to riding bicycles this girls and boys balance bike lets them push, stand, and walk their way around the outdoors with a sturdy frame and well-balanced, kid-friendly design for 2 to 5 years old. | CUSTOMIZE PLATE – Each balancing bike comes with a removable customizable plate, where kids can design their own plate with the stickers or draw anything they want. | ENHANCED SAFETY – Along with a soft, rubber grip handlebars, a soft PU seat, this kids balance bike has built in a wide tough carbon-steel frame, it can holds up to 110 lbs and you never need to worry that it will break when kids are learning to ride around. | EXTRA-THICK NEVER-FLAT TIRES – We want kids to feel strong and stable when they’re moving on grass and sidewalks which is why we added puncture-resistant tires to the front and back of each balance bike for 5-year old’s and 24-month-old riders. | GROW WITH YOUR KIDS – We know kids grow fast and we would like them to enjoy their riding partner longer, both handlebar and seat height can be adjusted, the quick release mechanizm makes it really easy and safe to adjust the handlebar and seat height to your needs.",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6747c342-e100-436d-9864-b8c70e2474c4/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6747c342-e100-436d-9864-b8c70e2474c4/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/51-r7IduO8L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "KRIDDO Kids Balance Bike Installation Guide(KB002)",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a3cb8bb0-707b-4d21-b594-4d6e2b7299d5/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/81MnNae4pcL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "KRIDDO Toddler Balance Bike 2 Year Old with Customize Plate",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/db005f49-46db-43c2-83c5-6ce0a9a9d934/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/611INZu7fCL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "WATCH THIS before buying this balance bike!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/70138f9b-b376-4893-b692-716d9d695955/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1vKVXVCbFL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+            "Title": "Ranking Top 3 Toddler Balance Bikes! (Dont Buy Wrong!)",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/29ab605c-131d-4e78-9bcb-48e3e470f7c2/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/D15Mwm0wusL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+            "Title": "Review of KRIDDO Toddler Balance Bike",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a6405e94-0480-476a-bed0-ef571e76490e/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71CEpBTJuYL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Kriddo toddler balance bike honest review",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/17866b38-b396-442a-8b66-deccc4fc10d7/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1zsapnQUBL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+            "Title": "Honest Review of KRIDDO Toddler Balance Bike",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6747c342-e100-436d-9864-b8c70e2474c4/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a3cb8bb0-707b-4d21-b594-4d6e2b7299d5/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/db005f49-46db-43c2-83c5-6ce0a9a9d934/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/70138f9b-b376-4893-b692-716d9d695955/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/29ab605c-131d-4e78-9bcb-48e3e470f7c2/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a6405e94-0480-476a-bed0-ef571e76490e/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/17866b38-b396-442a-8b66-deccc4fc10d7/default.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6747c342-e100-436d-9864-b8c70e2474c4/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a3cb8bb0-707b-4d21-b594-4d6e2b7299d5/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/db005f49-46db-43c2-83c5-6ce0a9a9d934/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/70138f9b-b376-4893-b692-716d9d695955/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/29ab605c-131d-4e78-9bcb-48e3e470f7c2/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a6405e94-0480-476a-bed0-ef571e76490e/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/17866b38-b396-442a-8b66-deccc4fc10d7/default.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "Shop Kids Tricycle",
+              "Texts": [
+                "Shop Kids Tricycle",
+                "Shop Toddler Balance Bike",
+                "Shop Tricycle with Push Handle"
+              ],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/28b12835-a61f-4b9b-9d7b-28509367c0b6.__CR0,0,1464,625_PT0_SX1464_V1___.png"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/28b12835-a61f-4b9b-9d7b-28509367c0b6.__CR0,0,1464,625_PT0_SX1464_V1___.png",
+                  "Image_Order": 1,
+                  "Image_Title": "",
+                  "Image_Alt": ""
+                }
+              ],
+              "Comparison_Table": {},
+              "Block_Types": [
+                "text",
+                "image"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "Shop Kids Tricycle"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/28b12835-a61f-4b9b-9d7b-28509367c0b6.__CR0,0,1464,625_PT0_SX1464_V1___.png",
+                    "Image_Order": 1,
+                    "Image_Title": "",
+                    "Image_Alt": ""
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Shop Kids Tricycle"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Shop Toddler Balance Bike"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Shop Tricycle with Push Handle"
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/28b12835-a61f-4b9b-9d7b-28509367c0b6.__CR0,0,1464,625_PT0_SX1464_V1___.png"
+            ],
+            "Local_Images": [
+              "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B09Z65PBXP_KRIDDO Toddler Balance Bike 2 Year Old Age 24 Mont/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.png"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [],
+          "Summary": {
+            "Count": 0
+          },
+          "Local_Paths": []
+        },
+        "Product_Description": "N/A",
+        "Product_Specifications": {
+          "Measurements": {
+            "Size": "Standard",
+            "Item Weight": "6.6 Pounds",
+            "Item Dimensions L x W x H": "33.07\"L x 14.96\"W x 22.05\"H",
+            "Weight Capacity Maximum": "110 Pounds",
+            "Item Dimensions": "33.07 x 14.96 x 22.05 inches"
+          },
+          "Features_Specs": {
+            "Age Range Description": "Toddler",
+            "UPC": "850034535357",
+            "Set Name": "3 Sets of Stickers",
+            "Item Type Name": "KRIDDO Toddler Balance Bike 2 Year Old, Age 18 Months to 5 Years Old, 12 Inch Push Bicycle with Customize Plate (3 Sets of Stickers Included), Steady Balancing, Gift Bike for 2-3 Boys Girls, WH",
+            "Theme": "Bike"
+          },
+          "Materials_Care": {
+            "Material Type": "Carbon Steel"
+          },
+          "Item_Details": {
+            "Brand Name": "KRIDDO",
+            "Sub Brand": "kriddo",
+            "Manufacturer Warranty Description": "1 Year Manufacturer",
+            "Manufacturer Part Number": "KB002-White",
+            "Model Number": "KB002-White",
+            "Manufacturer": "LFUN",
+            "Unit Count": "1.0 Count",
+            "Included Components": "Customizable Name Plate",
+            "Best Sellers Rank": "#1,083 in Toys & Games (See Top 100 in Toys & Games) #5 in Kids' Balance Bikes",
+            "ASIN": "B09Z65PBXP",
+            "Customer Reviews": "4.6  4.6 out of 5 stars   \n    (5,563)   \n\n\n 4.6 out of 5 stars"
+          },
+          "User_Guide": {
+            "Manufacturer Minimum Age (MONTHS)": "18.0",
+            "Manufacturer Maximum Age (MONTHS)": "60.0",
+            "Is Assembly Required": "Yes"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
+          "Sold_By": "LFUN DIRECT \n  LFUN DIRECT      Sold by   LFUN DIRECT",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery Sunday, July 5",
+          "Specifications": {}
+        },
+        "Category_Attributes": {
+          "categoryId": "balance_bike",
+          "ageGroup": [],
+          "structure": [
+            "KRIDDO Toddler Balance Bike 2 Year Old",
+            "Age 18 Months to 5 Years Old",
+            "12 Inch Push Bicycle with Customize Plate (3 Sets of Stickers Included)",
+            "Steady Balancing",
+            "Gift Bike for 2-3 Boys Girls",
+            "WH",
+            "Bike"
+          ],
+          "scenario": [],
+          "features": [
+            "EARLY LEARNING BALANCE BIKE – A fun way to introduce small toddlers to riding bicycles this girls and boys balance bike lets them push",
+            "stand",
+            "and walk their way around the outdoors with a sturdy frame and well-balanced",
+            "kid-friendly design for 2 to 5 years old.",
+            "CUSTOMIZE PLATE – Each balancing bike comes with a removable customizable plate",
+            "where kids can design their own plate with the stickers or draw anything they want.",
+            "ENHANCED SAFETY – Along with a soft",
+            "rubber grip handlebars",
+            "a soft PU seat",
+            "this kids balance bike has built in a wide tough carbon-steel frame",
+            "it can holds up to 110 lbs and you never need to worry that it will break when kids are learning to ride around.",
+            "EXTRA-THICK NEVER-FLAT TIRES – We want kids to feel strong and stable when they’re moving on grass and sidewalks which is why we added puncture-resistant tires to the front and back of each balance bike for 5-year old’s and 24-month-old riders.",
+            "GROW WITH YOUR KIDS – We know kids grow fast and we would like them to enjoy their riding partner longer",
+            "both handlebar and seat height can be adjusted",
+            "the quick release mechanizm makes it really easy and safe to adjust the handlebar and seat height to your needs.",
+            "Toddler",
+            "850034535357",
+            "3 Sets of Stickers",
+            "KRIDDO Toddler Balance Bike 2 Year Old",
+            "Age 18 Months to 5 Years Old",
+            "12 Inch Push Bicycle with Customize Plate (3 Sets of Stickers Included)",
+            "Steady Balancing",
+            "Gift Bike for 2-3 Boys Girls",
+            "WH",
+            "Bike"
+          ],
+          "materialClass": [],
+          "wheelSize": [],
+          "powerLevel": []
+        },
+        "Feature_Cards": [
+          {
+            "featureKey": "EARLY LEARNING BALANCE BIKE – A fun way to introduce small toddlers to riding bicycles this girls and boys balance bike lets them push",
+            "featureLabel": "Early Learning Balance Bike – A Fun Way To Introduce Small Toddlers To Riding Bicycles This Girls And Boys Balance Bike Lets Them Push",
+            "featureValue": "EARLY LEARNING BALANCE BIKE – A fun way to introduce small toddlers to riding bicycles this girls and boys balance bike lets them push",
+            "featureEvidence": "Features",
+            "featureRank": 1,
+            "featureNotes": "Derived from balance_bike scrape-time evidence"
+          },
+          {
+            "featureKey": "stand",
+            "featureLabel": "Stand",
+            "featureValue": "stand",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 2,
+            "featureNotes": "Derived from balance_bike scrape-time evidence"
+          },
+          {
+            "featureKey": "and walk their way around the outdoors with a sturdy frame and well-balanced",
+            "featureLabel": "And Walk Their Way Around The Outdoors With A Sturdy Frame And Well Balanced",
+            "featureValue": "and walk their way around the outdoors with a sturdy frame and well-balanced",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 3,
+            "featureNotes": "Derived from balance_bike scrape-time evidence"
+          },
+          {
+            "featureKey": "kid-friendly design for 2 to 5 years old.",
+            "featureLabel": "Kid Friendly Design For 2 To 5 Years Old.",
+            "featureValue": "kid-friendly design for 2 to 5 years old.",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 4,
+            "featureNotes": "Derived from balance_bike scrape-time evidence"
+          },
+          {
+            "featureKey": "CUSTOMIZE PLATE – Each balancing bike comes with a removable customizable plate",
+            "featureLabel": "Customize Plate – Each Balancing Bike Comes With A Removable Customizable Plate",
+            "featureValue": "CUSTOMIZE PLATE – Each balancing bike comes with a removable customizable plate",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 5,
+            "featureNotes": "Derived from balance_bike scrape-time evidence"
+          },
+          {
+            "featureKey": "where kids can design their own plate with the stickers or draw anything they want.",
+            "featureLabel": "Where Kids Can Design Their Own Plate With The Stickers Or Draw Anything They Want.",
+            "featureValue": "where kids can design their own plate with the stickers or draw anything they want.",
+            "featureEvidence": "Product_Specifications.Features_Specs",
+            "featureRank": 6,
+            "featureNotes": "Derived from balance_bike scrape-time evidence"
+          }
+        ],
+        "Decision_Signals": {
+          "ranking": [
+            "EARLY LEARNING BALANCE BIKE – A fun way to introduce small toddlers to riding bicycles this girls and boys balance bike lets them push",
+            "stand",
+            "and walk their way around the outdoors with a sturdy frame and well-balanced",
+            "kid-friendly design for 2 to 5 years old."
+          ],
+          "safety": [],
+          "fit": [
+            "KRIDDO Toddler Balance Bike 2 Year Old",
+            "Age 18 Months to 5 Years Old"
+          ]
+        },
+        "Evidence_Refs": [
+          "Product_Specifications.Features_Specs.Item Type Name",
+          "Product_Specifications.Features_Specs.Theme",
+          "Features"
+        ],
+        "Local_Image_Paths": [
+          "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B09Z65PBXP_KRIDDO Toddler Balance Bike 2 Year Old Age 24 Mont/images/primary.jpg",
+          "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B09Z65PBXP_KRIDDO Toddler Balance Bike 2 Year Old Age 24 Mont/images/alt_1.jpg",
+          "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B09Z65PBXP_KRIDDO Toddler Balance Bike 2 Year Old Age 24 Mont/images/alt_2.jpg",
+          "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B09Z65PBXP_KRIDDO Toddler Balance Bike 2 Year Old Age 24 Mont/images/alt_3.jpg",
+          "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B09Z65PBXP_KRIDDO Toddler Balance Bike 2 Year Old Age 24 Mont/images/alt_4.jpg",
+          "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B09Z65PBXP_KRIDDO Toddler Balance Bike 2 Year Old Age 24 Mont/images/alt_5.jpg",
+          "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B09Z65PBXP_KRIDDO Toddler Balance Bike 2 Year Old Age 24 Mont/images/alt_6.jpg",
+          "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B09Z65PBXP_KRIDDO Toddler Balance Bike 2 Year Old Age 24 Mont/images/alt_7.jpg",
+          "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B09Z65PBXP_KRIDDO Toddler Balance Bike 2 Year Old Age 24 Mont/images/alt_8.jpg",
+          "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B09Z65PBXP_KRIDDO Toddler Balance Bike 2 Year Old Age 24 Mont/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "../scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B09Z65PBXP_KRIDDO Toddler Balance Bike 2 Year Old Age 24 Mont/images/primary.jpg",
+        "Local_Video_Paths": []
+      }
+    ]
+  }
+}

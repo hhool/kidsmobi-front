@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_tricycles",
+  "fetchedAt": "2026-07-01T20:06:14.861Z",
+  "data": {
+    "resourceId": "B0FJXG5YVF:overview",
+    "categoryId": "kids_tricycles",
+    "productId": "B0FJXG5YVF",
+    "resourceType": "product_overview",
+    "title": "besrey 5-in-1 Toddler Tricycle with Push Handle, Grow with Me Kids Trike for 1-3 Years, Balance Bike & Tricycle, Adjustable P",
+    "summary": "Safer Design for Your Toddler——Equipped with a 3-point harness, detachable backrest, and anti-tip structure, this tricycle keeps your child secure at every stage. Built with a sturdy carbon steel frame and enclosed design to reduce the risk of falls and injuries. | 5-in-1 Grow-Wi",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_tricycles/besrey/Rank_12_ASIN_B0FJXG5YVF_besrey 5-in-1 Toddler Tricycle with Push Handle Gr/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8a256017-fef1-4d72-a03d-4278c41041d9/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6dcb47a2-89c3-4c27-af31-d74797d928cc/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d744affa-d52c-4dfe-b1d6-8ba2f88b9b7e/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.67,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 3,
+      "hasFeatures": true
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "stroller",
+  "fetchedAt": "2026-07-01T20:06:11.083Z",
+  "data": {
+    "resourceId": "B07P1YSC18:overview",
+    "categoryId": "stroller",
+    "productId": "B07P1YSC18",
+    "resourceType": "product_overview",
+    "title": "Ingenuity 3D Mini Convenience Stroller – Lightweight Stroller with Compact Fold, Multi-Position Recline, Canopy with Pop Out",
+    "summary": "100% polyester | Imported | LIGHTWEIGHT - A lightweight stroller makes any outing a little easier; The Ingenuity 3D Mini Convenience Stroller has a durable steel frame that weighs 11 pounds and has a full-sized seat, plus auto-lock, anti-shock front wheels and lockable rear wheel",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/index.html",
+    "videoUrls": [
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_0.mp4",
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_1.mp4",
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_2.mp4",
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_3.mp4",
+      "/scrape_store/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity 3D Mini Convenience Stroller  Lightweigh/videos/video_4.mp4"
+    ],
+    "credibilityScore": 0.75,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 5,
+      "hasFeatures": true
+    }
+  }
+}

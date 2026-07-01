@@ -1,0 +1,598 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T21:39:16.070Z",
+  "data": {
+    "productId": "B0C5434M8D",
+    "categoryId": "kids_pull_along_wagons",
+    "rank": 0,
+    "title": "Jeep Sport All-Terrain Stroller Wagon by Delta Children - Includes Canopy, Parent Organizer, Adjustable Handlebar, Snack Tray & Cup Holders, Grey/Olive Green",
+    "brand": "Jeep",
+    "price": {
+      "display": "$219.97",
+      "value": 219.97,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.8",
+      "value": 4.8
+    },
+    "weight": {
+      "display": "33 Pounds",
+      "lbs": 33
+    },
+    "classification": {
+      "Brand": "Jeep",
+      "Wagon_Type": "Wagon Stroller",
+      "Travel_System_Ready": "Yes",
+      "Seating_Capacity": "2",
+      "Wheel_Configuration": "4",
+      "Harness_Type": "3 Point",
+      "Weight_Class": "Heavy Duty",
+      "Price_Tier": ">200"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_pull_along_wagons",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "imitation leather",
+        "KEEPS KIDS AND PARENTS COMFORTABLE: Large",
+        "adjustable canopy with extendable sunshade provides protection",
+        "Adjustable push or pull leatherette handle with 5 positions adapts to any parents’ height",
+        "2 cushioned seats with 3-point safety harnesses",
+        "TONS OF STORAGE: Each wagon comes with an expandable bag",
+        "tons of pockets",
+        "parent organizer",
+        "2 parent cupholders and a plastic child's tray with cup holders for snacks and drinks",
+        "SMOOTH RIDE: Shock absorbing puncture-proof 6-inch front wheels and 10-inch back wheels",
+        "One-step back footbrake for ultimate control",
+        "Heavy-duty",
+        "rust-resistant steel frame ensures long-lasting use",
+        "SIZE",
+        "WEIGHT: Weighs: 33 lbs.",
+        "Assembled: 43.3”L x 18.11”W x 43.3”H (with canopy)",
+        "Folded: 20.5”L x 11.8”W x 30.7”H",
+        "Compact flat fold with auto latch closure for easy transport",
+        "storage",
+        "Machine washable seat pads",
+        "JPMA stroller certified",
+        "RECOMMENDED USE: Holds 55 lbs. per seat",
+        "110 lbs. total",
+        "To use with car seat purchase adapter #A1961-001 (sold separately)",
+        "adapter works with Graco SnugRide Click Connect 30",
+        "35",
+        "40 Evenflo Nurture Evenflo Embrace",
+        "Britax B-Safe 35",
+        "Chicco KeyFit 30"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "imitation leather",
+        "featureLabel": "Imitation Leather",
+        "featureValue": "imitation leather",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "KEEPS KIDS AND PARENTS COMFORTABLE: Large",
+        "featureLabel": "KEEPS KIDS AND PARENTS COMFORTABLE: Large",
+        "featureValue": "KEEPS KIDS AND PARENTS COMFORTABLE: Large",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "adjustable canopy with extendable sunshade provides protection",
+        "featureLabel": "Adjustable Canopy With Extendable Sunshade Provides Protection",
+        "featureValue": "adjustable canopy with extendable sunshade provides protection",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "Adjustable push or pull leatherette handle with 5 positions adapts to any parents’ height",
+        "featureLabel": "Adjustable Push Or Pull Leatherette Handle With 5 Positions Adapts To Any Parents’ Height",
+        "featureValue": "Adjustable push or pull leatherette handle with 5 positions adapts to any parents’ height",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "2 cushioned seats with 3-point safety harnesses",
+        "featureLabel": "2 Cushioned Seats With 3 Point Safety Harnesses",
+        "featureValue": "2 cushioned seats with 3-point safety harnesses",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      },
+      {
+        "featureKey": "TONS OF STORAGE: Each wagon comes with an expandable bag",
+        "featureLabel": "TONS OF STORAGE: Each Wagon Comes With An Expandable Bag",
+        "featureValue": "TONS OF STORAGE: Each wagon comes with an expandable bag",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_pull_along_wagons classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "imitation leather",
+        "KEEPS KIDS AND PARENTS COMFORTABLE: Large",
+        "adjustable canopy with extendable sunshade provides protection",
+        "Adjustable push or pull leatherette handle with 5 positions adapts to any parents’ height"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/71yYeqcWKpL._AC_UL165_SR165,165_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71yYeqcWKpL._AC_UL165_SR165,165_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/70fcb8fb-f243-492c-91b7-e8905b4a6023/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2ba8bd13-373e-4e98-b73e-7a8a9d1ebe64/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4cfa9c08-90b9-45cf-95e7-24767334075a/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2199cfc2-63a3-4e71-aefb-256793c026bb/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/89d048ea-a972-416c-8fdc-886dd630b906/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9da8c294-2aaf-4ae0-845b-1754ec24f54d/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d4499cad-1dbd-4772-8695-3fb1584347cf/default.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 7,
+      "similarItems": 1
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/70fcb8fb-f243-492c-91b7-e8905b4a6023/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91DMpw0XZhL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Jeep Sport All-Terrain Stroller Wagon by Delta Children",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2ba8bd13-373e-4e98-b73e-7a8a9d1ebe64/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71aKKblKg2L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Product Overview Video",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4cfa9c08-90b9-45cf-95e7-24767334075a/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81XlJd-6JHL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "I wish this one thing was different! ",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2199cfc2-63a3-4e71-aefb-256793c026bb/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71OKY7opa+L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Parent Review on Jeep Stroller Wagon ",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/89d048ea-a972-416c-8fdc-886dd630b906/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61yLg5xT7lL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Full Review on Jeep Sport Wagon by Delta Children!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9da8c294-2aaf-4ae0-845b-1754ec24f54d/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71-QQy0f+CL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "This Wagon Made Outings SO Much Easier",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d4499cad-1dbd-4772-8695-3fb1584347cf/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81omubYVaoL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Watch before you buy!! See why we love this!! ",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "Baby",
+        "Title": "Baby Trend Expedition 2 in 1 Push/Pull Stroller Wagon w/ Canopy, Choose Between Car Seat Adapter or Built In Seating for 2 Ch",
+        "Price": "$199.98",
+        "Rating": "4.7",
+        "Reviews": "7,287",
+        "URL": "https://www.amazon.com/Baby-Trend-Expedition-Stroller-Wagon/dp/B09HJTBQJF/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_1/134-8199614-1455955?pd_rd_w=T5OOy&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=XC4680E1G2SCXDSRR1Q6&pd_rd_wg=5Pdg1&pd_rd_r=3a0abb67-930d-4c1e-a29e-f0d9b1aae18f&pd_rd_i=B09HJTBQJF&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/71C86J-9yEL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B09HJTBQJF",
+        "Features": "100% Polyester | Push-Pull Stroller Wagon Combination: Expedition 2-in-1 Stroller Wagon is a push stroller that can be transformed into a pull wagon when needed with a hideaway telescoping pull handle | Seats 2 Kids or Holds Car Seat: Extra-large cargo area features 2 built-in cushioned seats with 3-point safety harnesses for children 6 months and up or a car seat adapter attachment option | Sun and Bug Protection: Removable, extra-large UPF 50+ shade canopy and mosquito netting protects babies and toddlers from bugs and the elements | Multiple Storage Compartments: Flip over basket can be attached to the front or back of the wagon; Features parent and child storage trays, 2 cup holders on a removable center console, and 2 additional cup holders on the outside of the stroller | Portable, Compact Design: Folds into a compact, slim design for simple storage and transport; Maximum Weight Recommendation: 110 pounds or 55 pounds per child seat; Free Seating Age Recommendation: 6 months and up; Color: Liberty Midnight; Dimensions (L x W x H): 48 x 26.25 x 43 Inches; Weight: 37.88 pounds",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0912b6f8-0b61-446d-824b-bb838636a6e1/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0912b6f8-0b61-446d-824b-bb838636a6e1/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/518XMwrOv7L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "About Baby Trend ",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bbae8e70-ad9a-49d9-bb9a-d3f87ff8ecc1/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1YnbaqsikL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Baby Trend Navigator 2-in-1 Stroller Wagon",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/71c190d0-7f80-4e51-9b18-c34a3969cb2f/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61kbz7aNYjL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Expedition 2-in-1Stroller Wagon",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d7fe751f-2d3b-4be6-b1a2-d4dcd02141ef/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/71lIMGi5w6L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Product Overview Video",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/86125f8f-d133-4964-ba76-14e43c296cb9/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/811ydn-WgML.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Down to Earth review of Babytrend Expedition Stroller Wagon",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d074dc1a-3953-4fc2-80c8-cafdebbac959/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/C1HezM+BNQL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Demo and Review of the Baby Trend Expedition Stroller Wagon!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8e5da730-e491-4dc1-923a-ea00dfbe5157/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/51GgK1ucPuL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "If you need a wagon, this is for you!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7d397d17-6448-41fe-9f92-d224ec437660/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/7103ZtvWyJL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Why I love this stroller wagon ",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1318b01d-a2cd-40c0-85f0-82178754ce97/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/713fCIHdFtL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Honest Review - features, storage, ease of use. Great for outings!",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0912b6f8-0b61-446d-824b-bb838636a6e1/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bbae8e70-ad9a-49d9-bb9a-d3f87ff8ecc1/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/71c190d0-7f80-4e51-9b18-c34a3969cb2f/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d7fe751f-2d3b-4be6-b1a2-d4dcd02141ef/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/86125f8f-d133-4964-ba76-14e43c296cb9/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d074dc1a-3953-4fc2-80c8-cafdebbac959/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8e5da730-e491-4dc1-923a-ea00dfbe5157/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7d397d17-6448-41fe-9f92-d224ec437660/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1318b01d-a2cd-40c0-85f0-82178754ce97/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0912b6f8-0b61-446d-824b-bb838636a6e1/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bbae8e70-ad9a-49d9-bb9a-d3f87ff8ecc1/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/71c190d0-7f80-4e51-9b18-c34a3969cb2f/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d7fe751f-2d3b-4be6-b1a2-d4dcd02141ef/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/86125f8f-d133-4964-ba76-14e43c296cb9/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d074dc1a-3953-4fc2-80c8-cafdebbac959/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8e5da730-e491-4dc1-923a-ea00dfbe5157/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7d397d17-6448-41fe-9f92-d224ec437660/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1318b01d-a2cd-40c0-85f0-82178754ce97/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "Innovative Patented Hideaway Pull Handle Easily Allows the Expedition Wagon Plus to Transform From \"Push\" to \"Pull\" Mode!",
+              "Texts": [
+                "Designed with utility, safety and style, the Expedition 2-in-1 Stroller Wagon is for the family that loves outdoor activities and discovery. The super large cargo space with built-in seating and the two 3-point safety harness belt allows kids to explore with safety. Plus, the extra-large ratcheting canopy with UPF 50+ protection and air-flow mosquito netting keeps your little ones away from the harmful sun-rays and rain.",
+                "Parents will also love the Ultimate Storage Solutions, which includes parent and child trays with 2 cup holders and center consoles, plus 2 additional cup holders outside of the wagon.",
+                "The Baby Trend Expedition 2-in-1 Stroller Wagon is equipped with easy one button removable 11\" rear wheels and durable 8\" front wheels for easy maneuverability. With the Hideaway Pull Handle, parents can easily transform the “Push” stroller into a “Pull” wagon mode. The compact flat fold allows the wagon to be easily stored and transported.",
+                "Easy one-press removable and durable 11 rear and 8 front wheels with suspension",
+                "Large and easy push brakes",
+                "Compact flat fold for storage and travel"
+              ],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/ad76bdd3-83d1-4759-8e7b-d6691a2834d8.__CR0,0,600,600_PT0_SX300_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/ad76bdd3-83d1-4759-8e7b-d6691a2834d8.__CR0,0,600,600_PT0_SX300_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "Baby Trend Expedition 2-in-1 Stroller Wagon",
+                  "Image_Alt": "Baby Trend Expedition 2-in-1 Stroller Wagon"
+                }
+              ],
+              "Comparison_Table": {
+                "Headers": [
+                  "Expedition 2-in-1 Stroller Wagon",
+                  "Expedition 2-in-1 Stroller Wagon PLUS",
+                  "Customer Reviews",
+                  "Price",
+                  "Parent Handle Material",
+                  "Tires",
+                  "Hidden pull handle bar",
+                  "Child tray w/ cup holders and center console",
+                  "Parent storage console",
+                  "Canopy side Mesh Windows",
+                  "Seat-2-Mats",
+                  "Detachable Storage Basket",
+                  "One step linked brakes"
+                ],
+                "Rows": [
+                  [
+                    "Add to Cart",
+                    "Add to Cart"
+                  ],
+                  [
+                    "4.7 out of 5 stars 7,287",
+                    "4.7 out of 5 stars 7,287"
+                  ],
+                  [
+                    "$199.98 $ 199 . 98",
+                    "$239.99 $ 239 . 99"
+                  ],
+                  [
+                    "Foam",
+                    "Foam"
+                  ],
+                  [
+                    "EVA",
+                    "EVA"
+                  ],
+                  [
+                    "✓",
+                    "✓"
+                  ],
+                  [
+                    "no data",
+                    "✓"
+                  ]
+                ]
+              },
+              "Block_Types": [
+                "text",
+                "image",
+                "table"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "Innovative Patented Hideaway Pull Handle Easily Allows the Expedition Wagon Plus to Transform From \"Push\" to \"Pull\" Mode!"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/ad76bdd3-83d1-4759-8e7b-d6691a2834d8.__CR0,0,600,600_PT0_SX300_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "Baby Trend Expedition 2-in-1 Stroller Wagon",
+                    "Image_Alt": "Baby Trend Expedition 2-in-1 Stroller Wagon"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Designed with utility, safety and style, the Expedition 2-in-1 Stroller Wagon is for the family that loves outdoor activities and discovery. The super large cargo space with built-in seating and the two 3-point safety harness belt allows kids to explore with safety. Plus, the extra-large ratcheting canopy with UPF 50+ protection and air-flow mosquito netting keeps your little ones away from the harmful sun-rays and rain."
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Parents will also love the Ultimate Storage Solutions, which includes parent and child trays with 2 cup holders and center consoles, plus 2 additional cup holders outside of the wagon."
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "The Baby Trend Expedition 2-in-1 Stroller Wagon is equipped with easy one button removable 11\" rear wheels and durable 8\" front wheels for easy maneuverability. With the Hideaway Pull Handle, parents can easily transform the “Push” stroller into a “Pull” wagon mode. The compact flat fold allows the wagon to be easily stored and transported."
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Easy one-press removable and durable 11 rear and 8 front wheels with suspension"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Large and easy push brakes"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Compact flat fold for storage and travel"
+                },
+                {
+                  "Block_Type": "table",
+                  "Table": {
+                    "Headers": [
+                      "Expedition 2-in-1 Stroller Wagon",
+                      "Expedition 2-in-1 Stroller Wagon PLUS",
+                      "Customer Reviews",
+                      "Price",
+                      "Parent Handle Material",
+                      "Tires",
+                      "Hidden pull handle bar",
+                      "Child tray w/ cup holders and center console",
+                      "Parent storage console",
+                      "Canopy side Mesh Windows",
+                      "Seat-2-Mats",
+                      "Detachable Storage Basket",
+                      "One step linked brakes"
+                    ],
+                    "Rows": [
+                      [
+                        "Add to Cart",
+                        "Add to Cart"
+                      ],
+                      [
+                        "4.7 out of 5 stars 7,287",
+                        "4.7 out of 5 stars 7,287"
+                      ],
+                      [
+                        "$199.98 $ 199 . 98",
+                        "$239.99 $ 239 . 99"
+                      ],
+                      [
+                        "Foam",
+                        "Foam"
+                      ],
+                      [
+                        "EVA",
+                        "EVA"
+                      ],
+                      [
+                        "✓",
+                        "✓"
+                      ],
+                      [
+                        "no data",
+                        "✓"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/ad76bdd3-83d1-4759-8e7b-d6691a2834d8.__CR0,0,600,600_PT0_SX300_V1___.jpg"
+            ],
+            "Local_Images": [
+              "scrape_store/kids_pull_along_wagons/Baby/Rank_Similar_ASIN_B09HJTBQJF_Baby Trend Expedition 2 in 1 PushPull Stroller Wag/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [
+            {
+              "Title": "Installation Manual (PDF)",
+              "URL": "https://m.media-amazon.com/images/I/91apSwkSunS.pdf",
+              "Type": "PDF",
+              "Source": "Product guides and documents",
+              "Category": "manual",
+              "Local_Path": "scrape_store/kids_pull_along_wagons/Baby/Rank_Similar_ASIN_B09HJTBQJF_Baby Trend Expedition 2 in 1 PushPull Stroller Wag/guides/manual/doc_00_Installation_Manual_PDF.pdf"
+            },
+            {
+              "Title": "User Manual (PDF)",
+              "URL": "https://m.media-amazon.com/images/I/91C0HD-1snL.pdf",
+              "Type": "PDF",
+              "Source": "Product guides and documents",
+              "Category": "manual",
+              "Local_Path": "scrape_store/kids_pull_along_wagons/Baby/Rank_Similar_ASIN_B09HJTBQJF_Baby Trend Expedition 2 in 1 PushPull Stroller Wag/guides/manual/doc_01_User_Manual_PDF.pdf"
+            },
+            {
+              "Title": "User Guide (PDF)",
+              "URL": "https://m.media-amazon.com/images/I/91RTISKr84L.pdf",
+              "Type": "PDF",
+              "Source": "Product guides and documents",
+              "Category": "manual",
+              "Local_Path": "scrape_store/kids_pull_along_wagons/Baby/Rank_Similar_ASIN_B09HJTBQJF_Baby Trend Expedition 2 in 1 PushPull Stroller Wag/guides/manual/doc_02_User_Guide_PDF.pdf"
+            }
+          ],
+          "Summary": {
+            "Count": 3
+          },
+          "Local_Paths": [
+            "scrape_store/kids_pull_along_wagons/Baby/Rank_Similar_ASIN_B09HJTBQJF_Baby Trend Expedition 2 in 1 PushPull Stroller Wag/guides/manual/doc_00_Installation_Manual_PDF.pdf",
+            "scrape_store/kids_pull_along_wagons/Baby/Rank_Similar_ASIN_B09HJTBQJF_Baby Trend Expedition 2 in 1 PushPull Stroller Wag/guides/manual/doc_01_User_Manual_PDF.pdf",
+            "scrape_store/kids_pull_along_wagons/Baby/Rank_Similar_ASIN_B09HJTBQJF_Baby Trend Expedition 2 in 1 PushPull Stroller Wag/guides/manual/doc_02_User_Guide_PDF.pdf"
+          ]
+        },
+        "Product_Description": "Explore the neighborhood, head to the park, or enjoy family outings with the Baby Trend Expedition 2-in-1 Stroller Wagon. This stroller wagon converts between push stroller mode and pull wagon mode, giving you flexible use for walks, outdoor events, and travel. It also offers a car seat adapter option for infant carrier seats, making it useful from the early months through the toddler years. Inside, the extra-large main compartment provides room for 2 children with built-in cushioned seats and 3-point safety harnesses. Each seat accommodates children up to 55 pounds. When extra lounging space is needed, the seat cushions can be unfolded into a nap pad for rest time or quick diaper changes while away from home. Storage is built into the design to keep essentials close at hand. A flip-over basket can be attached to the front or back of the wagon, while a removable center snack console with 2 cup holders fits between the child seats for drinks and snacks. Extra storage helps keep diaper bags, bottles, and travel items more organized during outings. The 2-In-1 Stroller Wagon folds into a compact design for easier storage and transport. One-touch removable wheels help save space in the car or at home. With room for 2 children, push and pull functionality, and built-in storage, this stroller wagon is ready for family use.",
+        "Product_Specifications": {
+          "Measurements": {
+            "Item Weight": "37.9 Pounds",
+            "Folded Size": "45x26.25x18.5",
+            "Rear Facing Stroller Maximum Height": "30 Inches",
+            "Item Dimensions L x W x H": "48\"L x 26.25\"W x 43\"H",
+            "Frame Weight": "39.9 Pounds",
+            "Basket Weight Capacity Maximum": "30 Pounds",
+            "Back Wheel Diameter": "11.5 Inches",
+            "Front Wheel Diameter": "8 Inches"
+          },
+          "Features_Specs": {
+            "Stroller Type": "Wagon Stroller",
+            "Is Car Seat Compatible": "No",
+            "Seating Capacity": "2",
+            "Additional Features": "50+ UPF protection, Compact flat fold for storage and travel, Hideaway Pull Handle, Seating for two, includes 3-point safety harness belt",
+            "Built-in Light": "No",
+            "Has Stroller Brake System": "Yes"
+          },
+          "Materials_Care": {},
+          "Item_Details": {
+            "Number of Cup Holders": "4",
+            "Number of Wheels": "4"
+          },
+          "User_Guide": {
+            "Harness Type": "3 Point",
+            "Harness Feature": "Three Point Harness"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "Spreetail \n  Spreetail      Shipper / Seller   Spreetail",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery Wednesday, July 1. Details",
+          "Specifications": {
+            "Item Weight": "37.9 Pounds",
+            "Folded Size": "45x26.25x18.5",
+            "Rear Facing Stroller Maximum Height": "30 Inches",
+            "Item Dimensions L x W x H": "48\"L x 26.25\"W x 43\"H",
+            "Frame Weight": "39.9 Pounds",
+            "Basket Weight Capacity Maximum": "30 Pounds",
+            "Back Wheel Diameter": "11.5 Inches",
+            "Front Wheel Diameter": "8 Inches"
+          }
+        },
+        "Local_Image_Paths": [
+          "scrape_store/kids_pull_along_wagons/Baby/Rank_Similar_ASIN_B09HJTBQJF_Baby Trend Expedition 2 in 1 PushPull Stroller Wag/images/primary.jpg",
+          "scrape_store/kids_pull_along_wagons/Baby/Rank_Similar_ASIN_B09HJTBQJF_Baby Trend Expedition 2 in 1 PushPull Stroller Wag/images/alt_1.jpg",
+          "scrape_store/kids_pull_along_wagons/Baby/Rank_Similar_ASIN_B09HJTBQJF_Baby Trend Expedition 2 in 1 PushPull Stroller Wag/images/alt_2.jpg",
+          "scrape_store/kids_pull_along_wagons/Baby/Rank_Similar_ASIN_B09HJTBQJF_Baby Trend Expedition 2 in 1 PushPull Stroller Wag/images/alt_3.jpg",
+          "scrape_store/kids_pull_along_wagons/Baby/Rank_Similar_ASIN_B09HJTBQJF_Baby Trend Expedition 2 in 1 PushPull Stroller Wag/images/alt_4.jpg",
+          "scrape_store/kids_pull_along_wagons/Baby/Rank_Similar_ASIN_B09HJTBQJF_Baby Trend Expedition 2 in 1 PushPull Stroller Wag/images/alt_5.jpg",
+          "scrape_store/kids_pull_along_wagons/Baby/Rank_Similar_ASIN_B09HJTBQJF_Baby Trend Expedition 2 in 1 PushPull Stroller Wag/images/alt_6.jpg",
+          "scrape_store/kids_pull_along_wagons/Baby/Rank_Similar_ASIN_B09HJTBQJF_Baby Trend Expedition 2 in 1 PushPull Stroller Wag/images/alt_7.jpg",
+          "scrape_store/kids_pull_along_wagons/Baby/Rank_Similar_ASIN_B09HJTBQJF_Baby Trend Expedition 2 in 1 PushPull Stroller Wag/images/alt_8.jpg",
+          "scrape_store/kids_pull_along_wagons/Baby/Rank_Similar_ASIN_B09HJTBQJF_Baby Trend Expedition 2 in 1 PushPull Stroller Wag/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/kids_pull_along_wagons/Baby/Rank_Similar_ASIN_B09HJTBQJF_Baby Trend Expedition 2 in 1 PushPull Stroller Wag/images/primary.jpg",
+        "Local_Video_Paths": []
+      }
+    ]
+  }
+}

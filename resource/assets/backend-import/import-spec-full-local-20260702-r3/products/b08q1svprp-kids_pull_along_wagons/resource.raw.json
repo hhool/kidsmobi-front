@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "fetchedAt": "2026-07-01T21:39:10.947Z",
+  "data": {
+    "resourceId": "B08Q1SVPRP:video",
+    "categoryId": "kids_pull_along_wagons",
+    "productId": "B08Q1SVPRP",
+    "resourceType": "product_video",
+    "title": "Green Toys Wagon, Orange CB - Pretend Play, Motor Skills, Kids Outdoor Toy Vehicle. No BPA, phthalates, PVC. Dishwasher Safe, • Video preview",
+    "summary": "Video preview asset set for Green in kids_pull_along_wagons.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ebf97aa4-331e-4942-8647-e45412434e6d/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ebf97aa4-331e-4942-8647-e45412434e6d/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8868b360-b31a-4c7d-8b30-e38f1504be77/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c71e0013-84e6-49a0-a13d-fa0f5c8c5c3e/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/15169ca6-65e2-41da-958f-218eff9bb651/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6cfb4f17-253c-44c2-b0a8-69aff5ac6104/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/418e8cde-f89f-4500-858a-6bb2362055a7/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.94,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

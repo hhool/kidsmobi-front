@@ -1,0 +1,411 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "balance_bike",
+  "categoryCode": "balance",
+  "fetchedAt": "2026-07-01T20:06:12.121Z",
+  "data": {
+    "productId": "B0B2H5333D",
+    "categoryId": "balance_bike",
+    "rank": 0,
+    "title": "Retrospec Cricket Baby Balance Bike, 4-Wheel Ride-On Toy for Ages 12-24 Months – First Bike & Toddler Bike for 1 Year Old Boy",
+    "brand": "Retrospec",
+    "price": {
+      "display": "$49.99",
+      "value": 49.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.7",
+      "value": 4.7
+    },
+    "weight": {
+      "display": "4 Pounds",
+      "lbs": 4
+    },
+    "classification": {
+      "Brand": "Retrospec",
+      "Bike_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "balance_bike",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "BEGINNER BABY BALANCE BIKE: Designed for toddlers ages 12-24 months to develop balance and coordination",
+        "this first bike is a toy for 1 year old boys and girls and a first birthday gift",
+        "SAFE FIRST BALANCE BIKE: Feet-to-floor design lets toddlers walk",
+        "scoot",
+        "and ride while four stable wheels help prevent tipping and support growing balance and coordination",
+        "QUIET",
+        "NO-SCRATCH WHEELS: Non-slip wheels protect indoor floors and provide secure grip outdoors",
+        "making this baby balance bike suitable for play inside or outside",
+        "COMFORTABLE & EASY TO RIDE: Soft handlebars",
+        "cushy seat",
+        "and a built-in steering limit help keep toddlers comfortable",
+        "supported",
+        "and in control while learning to ride",
+        "FAST ASSEMBLY & TODDLER FIT: Arrives 95% assembled for quick setup. Best for early walkers ages 1224 months with an inseam of 913 inches",
+        "and supports up to 44 lbs (20 kg)",
+        "LIGHTWEIGHT & PORTABLE DESIGN: Easy for parents to carry to the park",
+        "playdates",
+        "or grandparents' house",
+        "making it convenient for on-the-go fun and active play",
+        "CONFIDENCE-BUILDING RIDE-ON TOY: Helps toddlers practice balance",
+        "steering",
+        "and coordination while building confidence from their very first ride",
+        "preparing them for future bikes"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "BEGINNER BABY BALANCE BIKE: Designed for toddlers ages 12-24 months to develop balance and coordination",
+        "featureLabel": "Beginner Baby Balance Bike: Designed For Toddlers Ages 12 24 Months To Develop Balance And Coordination",
+        "featureValue": "BEGINNER BABY BALANCE BIKE: Designed for toddlers ages 12-24 months to develop balance and coordination",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "this first bike is a toy for 1 year old boys and girls and a first birthday gift",
+        "featureLabel": "This First Bike Is A Toy For 1 Year Old Boys And Girls And A First Birthday Gift",
+        "featureValue": "this first bike is a toy for 1 year old boys and girls and a first birthday gift",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "SAFE FIRST BALANCE BIKE: Feet-to-floor design lets toddlers walk",
+        "featureLabel": "Safe First Balance Bike: Feet To Floor Design Lets Toddlers Walk",
+        "featureValue": "SAFE FIRST BALANCE BIKE: Feet-to-floor design lets toddlers walk",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "scoot",
+        "featureLabel": "Scoot",
+        "featureValue": "scoot",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "and ride while four stable wheels help prevent tipping and support growing balance and coordination",
+        "featureLabel": "And Ride While Four Stable Wheels Help Prevent Tipping And Support Growing Balance And Coordination",
+        "featureValue": "and ride while four stable wheels help prevent tipping and support growing balance and coordination",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from balance_bike classification data"
+      },
+      {
+        "featureKey": "QUIET",
+        "featureLabel": "Quiet",
+        "featureValue": "QUIET",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from balance_bike classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "BEGINNER BABY BALANCE BIKE: Designed for toddlers ages 12-24 months to develop balance and coordination",
+        "this first bike is a toy for 1 year old boys and girls and a first birthday gift",
+        "SAFE FIRST BALANCE BIKE: Feet-to-floor design lets toddlers walk",
+        "scoot"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+          "source": "local",
+          "order": 10
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_1.jpg",
+      "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_2.jpg",
+      "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_3.jpg",
+      "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_4.jpg",
+      "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_5.jpg",
+      "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_6.jpg",
+      "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_7.jpg",
+      "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_8.jpg",
+      "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_9.jpg",
+      "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg"
+    ],
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ee5e973a-36fe-471d-8a96-04f60c2e7e2a/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1d51cbc9-9647-416a-8c64-a11c3d0418b5/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/736743ce-c1fe-409c-bf7d-2d1fe3808b82/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bfc2deed-e4c8-4b12-b165-bc6a13f9de09/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/09b104dd-225f-4dd4-bca3-c5d41876e05a/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/42ab564b-90c0-4fdb-9dbc-82850609b02e/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ee5e973a-36fe-471d-8a96-04f60c2e7e2a/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Retrospec Cricket Baby Walker Balance Bike with 4 Wheels ",
+        "thumbnail": "https://m.media-amazon.com/images/I/91RFECVQNRL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1d51cbc9-9647-416a-8c64-a11c3d0418b5/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Check out the actual size!",
+        "thumbnail": "https://m.media-amazon.com/images/I/91AUBmsaCVL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/736743ce-c1fe-409c-bf7d-2d1fe3808b82/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Retrospec Cricket Baby Walker- 12-24 months ",
+        "thumbnail": "https://m.media-amazon.com/images/I/91X8mguYJ+L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bfc2deed-e4c8-4b12-b165-bc6a13f9de09/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Honest thoughts on the Retrospec balance bike!",
+        "thumbnail": "https://m.media-amazon.com/images/I/51UAU8tgQ-L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/09b104dd-225f-4dd4-bca3-c5d41876e05a/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Honest review-retrospec cricket baby balance bike",
+        "thumbnail": "https://m.media-amazon.com/images/I/81fLnAWL4QL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/42ab564b-90c0-4fdb-9dbc-82850609b02e/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Great gift for little ones learning to ride",
+        "thumbnail": "https://m.media-amazon.com/images/I/61yVVqakcvL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 6
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/balance_bike/index.html",
+      "categoryPages": "/scrape_store/balance_bike/pages/index.html",
+      "detailPage": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/index.html"
+    },
+    "resourceStats": {
+      "videos": 6,
+      "similarItems": 0
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/717QQJexroL._AC_UL165_SR165,165_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 12
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ee5e973a-36fe-471d-8a96-04f60c2e7e2a/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91RFECVQNRL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Retrospec Cricket Baby Walker Balance Bike with 4 Wheels ",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1d51cbc9-9647-416a-8c64-a11c3d0418b5/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91AUBmsaCVL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Check out the actual size!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/736743ce-c1fe-409c-bf7d-2d1fe3808b82/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91X8mguYJ+L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Retrospec Cricket Baby Walker- 12-24 months ",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bfc2deed-e4c8-4b12-b165-bc6a13f9de09/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51UAU8tgQ-L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Honest thoughts on the Retrospec balance bike!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/09b104dd-225f-4dd4-bca3-c5d41876e05a/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81fLnAWL4QL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Honest review-retrospec cricket baby balance bike",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/42ab564b-90c0-4fdb-9dbc-82850609b02e/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61yVVqakcvL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Great gift for little ones learning to ride",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

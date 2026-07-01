@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "scooters",
+  "fetchedAt": "2026-07-01T20:06:12.485Z",
+  "data": {
+    "resourceId": "B0FJY2XC2D:overview",
+    "categoryId": "scooters",
+    "productId": "B0FJY2XC2D",
+    "resourceType": "product_overview",
+    "title": "HopCycle Electric Scooters - Electric Scooter Adults, 1200W/1000W/500W Motor, 28/25/21/18 MPH Top Speed, 10''/8.5'' Tires, 28",
+    "summary": "POWERFUL MOTOR & 18 MPH TOP SPEED: Electric scooters is equipped with a powerful 500W peak motor, reaches speeds of up to 18 MPH for a smooth and efficient ride. making it perfect for daily commutes and city travel. | LONG BATTERY LIFE: Foldable Scooter rides up to 21 miles on a ",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c3398023-4f48-4de3-ac76-c69fc8fb2f48/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c0749b91-6a8f-4b2c-9ea7-4ece4080b1b9/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/03f99817-f512-4903-9cbb-8b0ca102794c/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a0af9ad2-66a7-4244-8b7e-899a12a2cc4b/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/20ebb053-3805-4756-97b7-abd877730d54/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/58848f5a-c596-4998-936b-aea463583267/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/50b5166f-9f01-45be-9973-d271a16286af/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/34c4467e-8e6e-4622-b363-627b6e32eccf/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.87,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 8,
+      "hasFeatures": true
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "balance_bike",
+  "fetchedAt": "2026-07-01T20:06:11.671Z",
+  "data": {
+    "resourceId": "B0BLMF98S8:overview",
+    "categoryId": "balance_bike",
+    "productId": "B0BLMF98S8",
+    "resourceType": "product_overview",
+    "title": "Gamfeiny Colorful Lighting Baby Balance Bike Toys for 1 Year Old Boy Girl Gifts, 10-36 Month Toddler Balance Bike, No Pedal 4",
+    "summary": "【COLORFUL LIGHTING DESIGN】 To enhance children's fun, we have specially designed the colorful lighting rear wheel. No batteries are required, just spin the wheels to glow. Greatly increases the fun for children. | 【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. bab",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/balance_bike/Gamfeiny/Rank_2_ASIN_B0BLMF98S8_Gamfeiny Colorful Lighting Baby Balance Bike Toys/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c44d6194-8f09-4035-bda9-92bf6cdf1091/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/93315bcf-8cde-4b98-a6f2-c4b139c55890/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6e06d634-41af-4087-9d86-0278c6de801d/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9d4d8997-d2ad-4b94-854c-9fc0fed9fde5/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/da184c14-fca5-4591-87d1-98833f08646f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/169f051d-4a17-44bb-9dc5-a7844f6d6aec/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0d9139b1-73fb-4fa6-b6aa-6d1d68d88744/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.83,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 7,
+      "hasFeatures": true
+    }
+  }
+}

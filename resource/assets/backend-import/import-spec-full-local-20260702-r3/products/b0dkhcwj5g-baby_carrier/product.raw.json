@@ -1,0 +1,202 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "baby_carrier",
+  "categoryCode": "stroller",
+  "fetchedAt": "2026-07-01T21:38:31.933Z",
+  "data": {
+    "productId": "B0DKHCWJ5G",
+    "categoryId": "baby_carrier",
+    "rank": 1,
+    "title": "Momcozy Portable Bottle Warmer for Travel – Dual Heating Modes for Breast Milk & Water, Portable Milk Warmer with Fast Heatin",
+    "brand": "Momcozy",
+    "price": {
+      "display": "$63.99",
+      "value": 63.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.2  3,637",
+      "value": 4.2
+    },
+    "weight": {
+      "display": "1.5 Pounds",
+      "lbs": 1.5
+    },
+    "classification": {
+      "Brand": "Momcozy",
+      "Baby_Carrier_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "baby_carrier",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "𝐅𝐚𝐬𝐭 𝐇𝐞𝐚𝐭𝐢𝐧𝐠 𝐰𝐢𝐭𝐡 𝐍𝐮𝐭𝐫𝐢𝐞𝐧𝐭𝐬 𝐏𝐫𝐞𝐬𝐞𝐫𝐯𝐞𝐝: Warm 4oz of water to 104°F in just 2 minutes or breast milk to 98°F in 5 minutes. Your baby’s milk will be ready before the tears start. Moreover",
+        "its even heating system could help to preserve most of nutrients of breastmilk.",
+        "𝐃𝐮𝐚𝐥 𝐌𝐨𝐝𝐞𝐬 𝐰𝐢𝐭𝐡 𝐏𝐫𝐞𝐜𝐢𝐬𝐞 𝐓𝐞𝐦𝐩𝐞𝐫𝐚𝐭𝐮𝐫𝐞 𝐂𝐨𝐧𝐭𝐫𝐨𝐥: Choose between breast milk warming (90",
+        "95",
+        "98°F) and water heating (98",
+        "104",
+        "110",
+        "122°F). These precise options meet your diverse feeding needs and allowing you to easily warm milk or prepare formula",
+        "giving you peace of mind every time.",
+        "𝐏𝐨𝐫𝐭𝐚𝐛𝐥𝐞 & 𝐄𝐚𝐬𝐲 𝐭𝐨 𝐂𝐚𝐫𝐫𝐲: You can slip this cordless bottle warmer into your diaper bag or car cup holder. Take it with you to the park",
+        "outdoors",
+        "or even on family trips—it’s always ready when you are.",
+        "𝐋𝐚𝐫𝐠𝐞 𝟏𝟕𝐨𝐳 𝐂𝐚𝐩𝐚𝐜𝐢𝐭𝐲: With a 17oz capacity",
+        "you’ll have enough for multiple feedings",
+        "perfect for all-day feeding needs. Whether you have one baby or more",
+        "you can stay confident knowing you won’t run out during the day.",
+        "𝐋𝐨𝐧𝐠-𝐋𝐚𝐬𝐭𝐢𝐧𝐠 𝐑𝐞𝐜𝐡𝐚𝐫𝐠𝐞𝐚𝐛𝐥𝐞 𝐁𝐚𝐭𝐭𝐞𝐫𝐲: On a single charge",
+        "you can warm 4oz of water up to 19 times or milk up to 8 times. With 1.5-hour fast charging",
+        "this wireless design keeps your bottle warmer ready whenever and wherever you need it—no outlets required.",
+        "𝐋𝐞𝐚𝐤-𝐏𝐫𝐨𝐨𝐟 & 𝐒𝐚𝐟𝐞 𝐃𝐞𝐬𝐢𝐠𝐧: The secure",
+        "leak-proof lid keeps water or milk safely sealed",
+        "so you don’t have to worry about spills in your diaper bag or car. Carry it with confidence—every drop stays where it should."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "𝐅𝐚𝐬𝐭 𝐇𝐞𝐚𝐭𝐢𝐧𝐠 𝐰𝐢𝐭𝐡 𝐍𝐮𝐭𝐫𝐢𝐞𝐧𝐭𝐬 𝐏𝐫𝐞𝐬𝐞𝐫𝐯𝐞𝐝: Warm 4oz of water to 104°F in just 2 minutes or breast milk to 98°F in 5 minutes. Your baby’s milk will be ready before the tears start. Moreover",
+        "featureLabel": "𝐅𝐚𝐬𝐭 𝐇𝐞𝐚𝐭𝐢𝐧𝐠 𝐰𝐢𝐭𝐡 𝐍𝐮𝐭𝐫𝐢𝐞𝐧𝐭𝐬 𝐏𝐫𝐞𝐬𝐞𝐫𝐯𝐞𝐝: Warm 4oz Of Water To 104°F In Just 2 Minutes Or Breast Milk To 98°F In 5 Minutes. Your Baby’S Milk Will Be Ready Before The Tears Start. Moreover",
+        "featureValue": "𝐅𝐚𝐬𝐭 𝐇𝐞𝐚𝐭𝐢𝐧𝐠 𝐰𝐢𝐭𝐡 𝐍𝐮𝐭𝐫𝐢𝐞𝐧𝐭𝐬 𝐏𝐫𝐞𝐬𝐞𝐫𝐯𝐞𝐝: Warm 4oz of water to 104°F in just 2 minutes or breast milk to 98°F in 5 minutes. Your baby’s milk will be ready before the tears start. Moreover",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from baby_carrier classification data"
+      },
+      {
+        "featureKey": "its even heating system could help to preserve most of nutrients of breastmilk.",
+        "featureLabel": "Its Even Heating System Could Help To Preserve Most Of Nutrients Of Breastmilk.",
+        "featureValue": "its even heating system could help to preserve most of nutrients of breastmilk.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from baby_carrier classification data"
+      },
+      {
+        "featureKey": "𝐃𝐮𝐚𝐥 𝐌𝐨𝐝𝐞𝐬 𝐰𝐢𝐭𝐡 𝐏𝐫𝐞𝐜𝐢𝐬𝐞 𝐓𝐞𝐦𝐩𝐞𝐫𝐚𝐭𝐮𝐫𝐞 𝐂𝐨𝐧𝐭𝐫𝐨𝐥: Choose between breast milk warming (90",
+        "featureLabel": "𝐃𝐮𝐚𝐥 𝐌𝐨𝐝𝐞𝐬 𝐰𝐢𝐭𝐡 𝐏𝐫𝐞𝐜𝐢𝐬𝐞 𝐓𝐞𝐦𝐩𝐞𝐫𝐚𝐭𝐮𝐫𝐞 𝐂𝐨𝐧𝐭𝐫𝐨𝐥: Choose Between Breast Milk Warming (90",
+        "featureValue": "𝐃𝐮𝐚𝐥 𝐌𝐨𝐝𝐞𝐬 𝐰𝐢𝐭𝐡 𝐏𝐫𝐞𝐜𝐢𝐬𝐞 𝐓𝐞𝐦𝐩𝐞𝐫𝐚𝐭𝐮𝐫𝐞 𝐂𝐨𝐧𝐭𝐫𝐨𝐥: Choose between breast milk warming (90",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from baby_carrier classification data"
+      },
+      {
+        "featureKey": "95",
+        "featureLabel": "95",
+        "featureValue": "95",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from baby_carrier classification data"
+      },
+      {
+        "featureKey": "98°F) and water heating (98",
+        "featureLabel": "98°F) And Water Heating (98",
+        "featureValue": "98°F) and water heating (98",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from baby_carrier classification data"
+      },
+      {
+        "featureKey": "104",
+        "featureLabel": "104",
+        "featureValue": "104",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from baby_carrier classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "𝐅𝐚𝐬𝐭 𝐇𝐞𝐚𝐭𝐢𝐧𝐠 𝐰𝐢𝐭𝐡 𝐍𝐮𝐭𝐫𝐢𝐞𝐧𝐭𝐬 𝐏𝐫𝐞𝐬𝐞𝐫𝐯𝐞𝐝: Warm 4oz of water to 104°F in just 2 minutes or breast milk to 98°F in 5 minutes. Your baby’s milk will be ready before the tears start. Moreover",
+        "its even heating system could help to preserve most of nutrients of breastmilk.",
+        "𝐃𝐮𝐚𝐥 𝐌𝐨𝐝𝐞𝐬 𝐰𝐢𝐭𝐡 𝐏𝐫𝐞𝐜𝐢𝐬𝐞 𝐓𝐞𝐦𝐩𝐞𝐫𝐚𝐭𝐮𝐫𝐞 𝐂𝐨𝐧𝐭𝐫𝐨𝐥: Choose between breast milk warming (90",
+        "95"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/61fpvuwaeRL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/61fpvuwaeRL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ac64566e-76e9-45fa-bbbd-9ca05a3d3f32.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8b4fc472-8dc2-471f-a166-5cdcec975b31.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5b083537-a72c-4e60-90e0-5a8d09a63954.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/6570c47f-d9c8-4429-9b20-71c1fd186e2c.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/9090e70d-6a85-4c6c-abb9-9b8f7c05b6fe.mp4/productVideoOptimized.mp4"
+    ],
+    "resourceStats": {
+      "videos": 5,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ac64566e-76e9-45fa-bbbd-9ca05a3d3f32.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_0.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/8b4fc472-8dc2-471f-a166-5cdcec975b31.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_1.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5b083537-a72c-4e60-90e0-5a8d09a63954.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_2.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/6570c47f-d9c8-4429-9b20-71c1fd186e2c.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_3.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/9090e70d-6a85-4c6c-abb9-9b8f7c05b6fe.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/baby_carrier/Momcozy/Rank_1_ASIN_B0DKHCWJ5G_Momcozy Portable Bottle Warmer for Travel  Dual He/videos/video_4.mp4"
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

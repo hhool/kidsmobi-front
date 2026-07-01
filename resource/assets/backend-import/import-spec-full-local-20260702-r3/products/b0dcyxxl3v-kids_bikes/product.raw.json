@@ -1,0 +1,1037 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_bikes",
+  "categoryCode": "bicycle",
+  "fetchedAt": "2026-07-01T21:38:54.819Z",
+  "data": {
+    "productId": "B0DCYXXL3V",
+    "categoryId": "kids_bikes",
+    "rank": 12,
+    "title": "vollsch BMX Style 12 14 16 Inch Kids Bike Training Wheels 20'' Bicycle with Kickstand for 2-14 Years Old Toddlers Boys Girls",
+    "brand": "vollsch",
+    "price": {
+      "display": "$103.54",
+      "value": 103.54,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.3  241",
+      "value": 4.3
+    },
+    "weight": {
+      "display": "N/A",
+      "lbs": 0
+    },
+    "classification": {
+      "Brand": "vollsch",
+      "Bike_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Unknown",
+      "Price_Tier": "100-200"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_bikes",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "Intended for Kids: Our BMX style toddlers bike caters specifically to novice riders embarking on their cycling journey. It features safety training wheels for balance (while the 20-inch bicycle only has a kickstand)",
+        "along with an adjustable seat to accommodate your child's development",
+        "Superior Quality: Crafted from high carbon steel",
+        "the bike frame is designed to withstand the rigors of uneven terrain without bending or breaking",
+        "offering essential safety for your child's adventures. Its robust construction and straightforward design ensure minimal maintenance needs",
+        "Safety and Sturdiness: The trusty coaster brake is perfect for toddlers who might not have the muscle power for hand brakes yet. The full chain guard keeps little fingers safe from getting caught in the chain. And those big 12 x 2.4-inch tires give a great grip to stop any slipping while they're riding",
+        "Easy Installation: The bike arrives with 85% of the assembly already completed",
+        "accompanied by essential assembly tools. By following our installation guide video and instructions",
+        "you will only need to attach a few components",
+        "which should take roughly 20 minutes to finish the final assembly process",
+        "Ensure Proper Fit: The 12-inch bike fits children 32 - 38 inches tall",
+        "aged 1 - 4 years. The 14-inch is ideal for kids 35 - 43 inches",
+        "aged 3 - 5 years. The 16-inch bike is designed for children 40 - 51 inches tall",
+        "suitable for ages 4 - 8 years. The 20-inch fits big kids 48 - 60 inches tall",
+        "aged over 8 years"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "Intended for Kids: Our BMX style toddlers bike caters specifically to novice riders embarking on their cycling journey. It features safety training wheels for balance (while the 20-inch bicycle only has a kickstand)",
+        "featureLabel": "Intended For Kids: Our BMX Style Toddlers Bike Caters Specifically To Novice Riders Embarking On Their Cycling Journey. It Features Safety Training Wheels For Balance (While The 20 Inch Bicycle Only Has A Kickstand)",
+        "featureValue": "Intended for Kids: Our BMX style toddlers bike caters specifically to novice riders embarking on their cycling journey. It features safety training wheels for balance (while the 20-inch bicycle only has a kickstand)",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "along with an adjustable seat to accommodate your child's development",
+        "featureLabel": "Along With An Adjustable Seat To Accommodate Your Child'S Development",
+        "featureValue": "along with an adjustable seat to accommodate your child's development",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "Superior Quality: Crafted from high carbon steel",
+        "featureLabel": "Superior Quality: Crafted From High Carbon Steel",
+        "featureValue": "Superior Quality: Crafted from high carbon steel",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "the bike frame is designed to withstand the rigors of uneven terrain without bending or breaking",
+        "featureLabel": "The Bike Frame Is Designed To Withstand The Rigors Of Uneven Terrain Without Bending Or Breaking",
+        "featureValue": "the bike frame is designed to withstand the rigors of uneven terrain without bending or breaking",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "offering essential safety for your child's adventures. Its robust construction and straightforward design ensure minimal maintenance needs",
+        "featureLabel": "Offering Essential Safety For Your Child'S Adventures. Its Robust Construction And Straightforward Design Ensure Minimal Maintenance Needs",
+        "featureValue": "offering essential safety for your child's adventures. Its robust construction and straightforward design ensure minimal maintenance needs",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_bikes classification data"
+      },
+      {
+        "featureKey": "Safety and Sturdiness: The trusty coaster brake is perfect for toddlers who might not have the muscle power for hand brakes yet. The full chain guard keeps little fingers safe from getting caught in the chain. And those big 12 x 2.4-inch tires give a great grip to stop any slipping while they're riding",
+        "featureLabel": "Safety And Sturdiness: The Trusty Coaster Brake Is Perfect For Toddlers Who Might Not Have The Muscle Power For Hand Brakes Yet. The Full Chain Guard Keeps Little Fingers Safe From Getting Caught In The Chain. And Those Big 12 X 2.4 Inch Tires Give A Great Grip To Stop Any Slipping While They'Re Riding",
+        "featureValue": "Safety and Sturdiness: The trusty coaster brake is perfect for toddlers who might not have the muscle power for hand brakes yet. The full chain guard keeps little fingers safe from getting caught in the chain. And those big 12 x 2.4-inch tires give a great grip to stop any slipping while they're riding",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_bikes classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "Intended for Kids: Our BMX style toddlers bike caters specifically to novice riders embarking on their cycling journey. It features safety training wheels for balance (while the 20-inch bicycle only has a kickstand)",
+        "along with an adjustable seat to accommodate your child's development",
+        "Superior Quality: Crafted from high carbon steel",
+        "the bike frame is designed to withstand the rigors of uneven terrain without bending or breaking"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/7158+CmNFnL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/7158+CmNFnL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/0b436a33-5645-4107-83c2-724ccde971fc.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/748aacfe-24ac-4f37-adf3-87708d0ee86e.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/80957eec-3191-4b66-85c2-bb5eff54f0f2.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/af296e2c-b3f2-4591-8810-b1e497bc7160.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/2592bfad-c0e4-4bd2-98fb-42ef0edcc133.mp4/productVideoOptimized.mp4"
+    ],
+    "resourceStats": {
+      "videos": 5,
+      "similarItems": 2
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/0b436a33-5645-4107-83c2-724ccde971fc.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_bikes/vollsch/Rank_12_ASIN_B0DCYXXL3V_vollsch BMX Style 12 14 16 Inch Kids Bike Training/videos/video_0.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/748aacfe-24ac-4f37-adf3-87708d0ee86e.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_bikes/vollsch/Rank_12_ASIN_B0DCYXXL3V_vollsch BMX Style 12 14 16 Inch Kids Bike Training/videos/video_1.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/80957eec-3191-4b66-85c2-bb5eff54f0f2.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_bikes/vollsch/Rank_12_ASIN_B0DCYXXL3V_vollsch BMX Style 12 14 16 Inch Kids Bike Training/videos/video_2.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/af296e2c-b3f2-4591-8810-b1e497bc7160.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_bikes/vollsch/Rank_12_ASIN_B0DCYXXL3V_vollsch BMX Style 12 14 16 Inch Kids Bike Training/videos/video_3.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/2592bfad-c0e4-4bd2-98fb-42ef0edcc133.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_bikes/vollsch/Rank_12_ASIN_B0DCYXXL3V_vollsch BMX Style 12 14 16 Inch Kids Bike Training/videos/video_4.mp4"
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "Glerc",
+        "Title": "Glerc Kids Bike for Ages 1-8 Years Old, 12-16 Inch BMX Style Kids Bicycle with Training Wheels, Boys Bike for Children and To",
+        "Price": "$119.99",
+        "Rating": "4.5",
+        "Reviews": "65",
+        "URL": "https://www.amazon.com/Glerc-Bicycle-Training-Children-Toddler/dp/B0FCYCS2F9/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_1/134-0932823-2311456?pd_rd_w=anoeS&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=ZGRN061EXFG3FNF0GZ82&pd_rd_wg=tjlRK&pd_rd_r=a293ee20-9cf3-4c4f-b25e-7f70abc3bfae&pd_rd_i=B0FCYCS2F9&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/71WTb7-ctCL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B0FCYCS2F9",
+        "Features": "【COOL BMX STYLE】With its sporty and lightweight BMX design, this kids bike is sure to be a hit with your child. It boosts self-confidence and inspires outdoor adventures, making it the ideal boys bike. | 【STURDY FRAME】Made of durable high tensile steel frame, this kids bike is strong enough to withstand everyday bumps and jumps, giving little riders a comfortable riding experience. | 【DUAL BRAKE SYSTEM】This kids bicycle is equipped with coaster brake, providing reliable braking performance, making it easy for even beginners to control the speed of the bike, which can ensure a safe ride and help cycling learning. | 【SIZE GUIDE】This 12 inch bike is suitable for children ages 1-4, 33\"-37\" tall, with an inseam height of 13\"-16\". The bike weighs 20 lbs. Please focus on your child's height and inseam to choose the size. | 【85% PRE-ASSEMBLED】The main parts of the children's bike are pre-assembled to save you time and effort. With final assembly in just 20 minutes, your child will be ready to embark on a fun journey in no time.",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ef57d6a3-1b2b-4d2a-9da8-dceccc1ddc9b/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ef57d6a3-1b2b-4d2a-9da8-dceccc1ddc9b/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/6175audQqcL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Not Just a Bike, But a Confidence Builder.",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c75a6771-8e1d-494a-80de-699f03d78bbb/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/91BCT5ozL1L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "14 Inch BMX Style Kids Bike",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5210103e-f233-4155-bfb6-d335a5282811/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/81gOKhAPSaL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Assembly Guide of Razor",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ef57d6a3-1b2b-4d2a-9da8-dceccc1ddc9b/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c75a6771-8e1d-494a-80de-699f03d78bbb/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5210103e-f233-4155-bfb6-d335a5282811/default.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ef57d6a3-1b2b-4d2a-9da8-dceccc1ddc9b/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c75a6771-8e1d-494a-80de-699f03d78bbb/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5210103e-f233-4155-bfb6-d335a5282811/default.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "Razor Kids Bike",
+              "Texts": [],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f52e2b20-ba5a-4933-a70e-0560bcb12d2f.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/562d9ee0-bae5-422a-b10c-91488ad1b321.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f52e2b20-ba5a-4933-a70e-0560bcb12d2f.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "1",
+                  "Image_Alt": "1"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/562d9ee0-bae5-422a-b10c-91488ad1b321.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 2,
+                  "Image_Title": "1",
+                  "Image_Alt": "1"
+                }
+              ],
+              "Comparison_Table": {
+                "Headers": [
+                  "Razor Add to Cart",
+                  "NuNu+ Add to Cart",
+                  "Rover Add to Cart",
+                  "Glerc Mars Add to Cart",
+                  "Skyline Add to Cart",
+                  "Mesa Buying Options"
+                ],
+                "Rows": [
+                  [
+                    "Customer Reviews",
+                    "4.5 out of 5 stars 65",
+                    "5.0 out of 5 stars 2",
+                    "4.7 out of 5 stars 48",
+                    "4.4 out of 5 stars 136",
+                    "4.5 out of 5 stars 497",
+                    "4.4 out of 5 stars 23"
+                  ],
+                  [
+                    "Price",
+                    "$139.99 $ 139 . 99",
+                    "$109.99 $ 109 . 99",
+                    "$129.99 $ 129 . 99",
+                    "$239.99 $ 239 . 99",
+                    "$199.99 $ 199 . 99",
+                    "$169.99 $ 169 . 99"
+                  ],
+                  [
+                    "Size",
+                    "12\" - 16\"",
+                    "12\" - 18\"",
+                    "12\" - 18\"",
+                    "20\"- 24\"",
+                    "20\"- 26\"",
+                    "20\"- 24\""
+                  ],
+                  [
+                    "Suitable for Age",
+                    "1 - 8 Y/O",
+                    "1 - 10 Y/O",
+                    "2 - 9 Y/O",
+                    "6+ Y/O",
+                    "6+ Y/O",
+                    "6+ Y/O"
+                  ],
+                  [
+                    "Hand Brake",
+                    "Yes (excluding 12\")",
+                    "Yes (excluding 12\")",
+                    "Yes",
+                    "Yes",
+                    "Yes",
+                    "Yes"
+                  ],
+                  [
+                    "Coaster Brake",
+                    "Yes",
+                    "Yes",
+                    "Yes (excluding 18\")",
+                    "—",
+                    "—",
+                    "—"
+                  ],
+                  [
+                    "Training Wheels",
+                    "Yes",
+                    "Yes",
+                    "Yes",
+                    "—",
+                    "—",
+                    "—"
+                  ],
+                  [
+                    "Kickstand",
+                    "Only for 16\"",
+                    "Only for 16\" 18\"",
+                    "Only for 16\" 18\"",
+                    "Yes",
+                    "Yes",
+                    "Yes"
+                  ]
+                ]
+              },
+              "Block_Types": [
+                "image",
+                "table"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "Razor Kids Bike"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f52e2b20-ba5a-4933-a70e-0560bcb12d2f.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "1",
+                    "Image_Alt": "1"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/562d9ee0-bae5-422a-b10c-91488ad1b321.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 2,
+                    "Image_Title": "1",
+                    "Image_Alt": "1"
+                  }
+                },
+                {
+                  "Block_Type": "table",
+                  "Table": {
+                    "Headers": [
+                      "Razor Add to Cart",
+                      "NuNu+ Add to Cart",
+                      "Rover Add to Cart",
+                      "Glerc Mars Add to Cart",
+                      "Skyline Add to Cart",
+                      "Mesa Buying Options"
+                    ],
+                    "Rows": [
+                      [
+                        "Customer Reviews",
+                        "4.5 out of 5 stars 65",
+                        "5.0 out of 5 stars 2",
+                        "4.7 out of 5 stars 48",
+                        "4.4 out of 5 stars 136",
+                        "4.5 out of 5 stars 497",
+                        "4.4 out of 5 stars 23"
+                      ],
+                      [
+                        "Price",
+                        "$139.99 $ 139 . 99",
+                        "$109.99 $ 109 . 99",
+                        "$129.99 $ 129 . 99",
+                        "$239.99 $ 239 . 99",
+                        "$199.99 $ 199 . 99",
+                        "$169.99 $ 169 . 99"
+                      ],
+                      [
+                        "Size",
+                        "12\" - 16\"",
+                        "12\" - 18\"",
+                        "12\" - 18\"",
+                        "20\"- 24\"",
+                        "20\"- 26\"",
+                        "20\"- 24\""
+                      ],
+                      [
+                        "Suitable for Age",
+                        "1 - 8 Y/O",
+                        "1 - 10 Y/O",
+                        "2 - 9 Y/O",
+                        "6+ Y/O",
+                        "6+ Y/O",
+                        "6+ Y/O"
+                      ],
+                      [
+                        "Hand Brake",
+                        "Yes (excluding 12\")",
+                        "Yes (excluding 12\")",
+                        "Yes",
+                        "Yes",
+                        "Yes",
+                        "Yes"
+                      ],
+                      [
+                        "Coaster Brake",
+                        "Yes",
+                        "Yes",
+                        "Yes (excluding 18\")",
+                        "—",
+                        "—",
+                        "—"
+                      ],
+                      [
+                        "Training Wheels",
+                        "Yes",
+                        "Yes",
+                        "Yes",
+                        "—",
+                        "—",
+                        "—"
+                      ],
+                      [
+                        "Kickstand",
+                        "Only for 16\"",
+                        "Only for 16\" 18\"",
+                        "Only for 16\" 18\"",
+                        "Yes",
+                        "Yes",
+                        "Yes"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f52e2b20-ba5a-4933-a70e-0560bcb12d2f.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/562d9ee0-bae5-422a-b10c-91488ad1b321.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+            ],
+            "Local_Images": [
+              "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0FCYCS2F9_Glerc Kids Bike for Ages 1-8 Years Old 12-16 Inch/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+              "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0FCYCS2F9_Glerc Kids Bike for Ages 1-8 Years Old 12-16 Inch/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [],
+          "Summary": {
+            "Count": 0
+          },
+          "Local_Paths": []
+        },
+        "Product_Description": "N/A",
+        "Product_Specifications": {
+          "Measurements": {
+            "Wheel Size": "12 Inches",
+            "Size": "12 Inch",
+            "Minimum User Height": "33 Inches"
+          },
+          "Features_Specs": {
+            "Bike Type": "Kids Bike",
+            "Age Range (Description)": "Kids",
+            "Suspension Type": "Rigid",
+            "Special Feature": "Adjustable, BMX Style, Coaster Brake, Durable, Lightweight",
+            "Additional Features": "Adjustable, BMX Style, Coaster Brake, Durable, Lightweight",
+            "Power Source": "Pedal power",
+            "Bicycle Drivetrain Type": "hub drive",
+            "Age Range Description": "Kids"
+          },
+          "Materials_Care": {
+            "Frame Material": "Carbon Steel",
+            "Frame Material Type": "Carbon Steel",
+            "Wheel Material": "Alloy Steel"
+          },
+          "Item_Details": {
+            "Brand": "Glerc",
+            "Number of Speeds": "1",
+            "Included Components": "Bell, Reflectors, Stickers, Straps, Training Wheel",
+            "Number Of Speeds": "1",
+            "Brand Name": "Glerc",
+            "Manufacturer": "Glerc",
+            "Unit Count": "1.0 Count",
+            "Best Sellers Rank": "#63,813 in Sports & Outdoors (See Top 100 in Sports & Outdoors) #124 in Kids' Bicycles",
+            "ASIN": "B0FCYCS2F9",
+            "Customer Reviews": "4.5  4.5 out of 5 stars   \n    (65)   \n\n\n 4.5 out of 5 stars"
+          },
+          "User_Guide": {
+            "Is Assembly Required": "Yes"
+          },
+          "Additional_Details": {
+            "Color": "Black and Green",
+            "Brake Style": "Coaster",
+            "Style Name": "Bmx"
+          }
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
+          "Sold_By": "Memo Cycle \n  Memo Cycle      Sold by   Memo Cycle",
+          "Availability": "Only 11 left in stock - order soon.",
+          "Delivery_Promise": "FREE delivery Thursday, July 2",
+          "Specifications": {
+            "Bike Type": "Kids Bike",
+            "Age Range (Description)": "Kids",
+            "Brand": "Glerc",
+            "Number of Speeds": "1",
+            "Color": "Black and Green",
+            "Wheel Size": "12 Inches",
+            "Frame Material": "Carbon Steel",
+            "Suspension Type": "Rigid",
+            "Special Feature": "Adjustable, BMX Style, Coaster Brake, Durable, Lightweight",
+            "Included Components": "Bell, Reflectors, Stickers, Straps, Training Wheel"
+          }
+        },
+        "Local_Image_Paths": [
+          "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0FCYCS2F9_Glerc Kids Bike for Ages 1-8 Years Old 12-16 Inch/images/primary.jpg",
+          "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0FCYCS2F9_Glerc Kids Bike for Ages 1-8 Years Old 12-16 Inch/images/alt_1.jpg",
+          "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0FCYCS2F9_Glerc Kids Bike for Ages 1-8 Years Old 12-16 Inch/images/alt_2.jpg",
+          "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0FCYCS2F9_Glerc Kids Bike for Ages 1-8 Years Old 12-16 Inch/images/alt_3.jpg",
+          "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0FCYCS2F9_Glerc Kids Bike for Ages 1-8 Years Old 12-16 Inch/images/alt_4.jpg",
+          "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0FCYCS2F9_Glerc Kids Bike for Ages 1-8 Years Old 12-16 Inch/images/alt_5.jpg",
+          "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0FCYCS2F9_Glerc Kids Bike for Ages 1-8 Years Old 12-16 Inch/images/alt_6.jpg",
+          "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0FCYCS2F9_Glerc Kids Bike for Ages 1-8 Years Old 12-16 Inch/images/alt_7.jpg",
+          "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0FCYCS2F9_Glerc Kids Bike for Ages 1-8 Years Old 12-16 Inch/images/alt_8.jpg",
+          "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0FCYCS2F9_Glerc Kids Bike for Ages 1-8 Years Old 12-16 Inch/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/kids_bikes/Glerc/Rank_Similar_ASIN_B0FCYCS2F9_Glerc Kids Bike for Ages 1-8 Years Old 12-16 Inch/images/primary.jpg",
+        "Local_Video_Paths": []
+      },
+      {
+        "Rank": "Similar",
+        "Brand": "JOYSTAR",
+        "Title": "JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Girls, 12-20 Inch BMX Style Kid's Bikes with Training Wheels, Children Bicycle for Kids and Toddler, Multiple Colors",
+        "Price": "$84.99",
+        "Rating": "4.4",
+        "Reviews": "5,165",
+        "URL": "https://www.amazon.com/JOYSTAR-Bicycle-Training-Wheels-Silver/dp/B083BKD8K2/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_2/134-0932823-2311456?pd_rd_w=anoeS&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=ZGRN061EXFG3FNF0GZ82&pd_rd_wg=tjlRK&pd_rd_r=a293ee20-9cf3-4c4f-b25e-7f70abc3bfae&pd_rd_i=B083BKD8K2&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/61kwPyArW9L._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B083BKD8K2",
+        "Features": "DESIGN FOR KIDS - 1. This Kids bike comes with stable training wheel early rider. 2.Quick release seat simplify the height adjustment. 3.Saddle with holder to learn riding when the training wheel is off. 4.Foot brake suitable for young rider don't have enough power to manipulate the hand brake. | MINIMUM MAINTENANCE - Made of premium steel to survive the bumps of learning, the durable steel frame is backed by our limited lifetime warranty. The bike comes with black tire & single speed, only little maintenance needed due to the simple design. | DIY DECAL & SAFE CHAIN GURAD - Your child will get a DIY decal, they could make a unique bike with the decal by sticking their name on the frame or chain guard. The chain guard well protects the chain, it will last longer than other bikes, your child will not get hurt when try to touch the chain. | EASY TO INSTALL - The children bike comes with 85% Pre-assembled body and the basic assembly tools, only pump needed for tire, normally takes a novice about 20 minutes to assemble it. If you have problem about assembly or the bike, please contact us. | RECOMMENDED SIZE CHART - 12\" BIKE FOR 2-4 YEARS (33\"-41\") TODDLER, 14\" bike for 3-5 years (35\" - 47\") child, 16\" bike for 4-7 years (41\" - 53\") boys & girls, 18\" bike for 5-9 years (43\"-59\") boys & girls. Note: child height may vary even at the same age, please take the height into consideration.",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/262c7d6b-9451-4f1a-b6db-37d83ca3c6ae/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/262c7d6b-9451-4f1a-b6db-37d83ca3c6ae/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c0bbc1f1-40e5-4d9a-9c5f-928e8f93a18d/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bdf0f825-66bf-4b47-a4f3-145072fb2528/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5ea11339-82b3-49b1-9304-89304a3261a4/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6f837469-005d-4a65-93ad-5f1f0f976abb/embedded.cc.default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f2e71e95-e85a-4c3b-b638-bfb7c8bcf2bd/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/90fe166b-d4cd-417f-a34c-f70d15c731d1/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/795d796b-d15c-41a7-8a50-015e1df75468/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/96d2ef42-3417-4f43-bc78-7c211b5e801a/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7d54eb07-f46d-4cfb-ab89-49462362601b/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c24c7b89-fab7-4261-a557-de06b9697b17/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/0b436a33-5645-4107-83c2-724ccde971fc.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/748aacfe-24ac-4f37-adf3-87708d0ee86e.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/595404a4-3422-4dbd-b67c-e435b4c0a072.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/af296e2c-b3f2-4591-8810-b1e497bc7160.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/84ccf5c3-2dd6-49fd-85c6-77d199045645.mp4/productVideoOptimized.mp4"
+        ],
+        "Product_Videos_MP4": [
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/0b436a33-5645-4107-83c2-724ccde971fc.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/748aacfe-24ac-4f37-adf3-87708d0ee86e.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/595404a4-3422-4dbd-b67c-e435b4c0a072.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/af296e2c-b3f2-4591-8810-b1e497bc7160.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/84ccf5c3-2dd6-49fd-85c6-77d199045645.mp4/productVideoOptimized.mp4"
+        ],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/262c7d6b-9451-4f1a-b6db-37d83ca3c6ae/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c0bbc1f1-40e5-4d9a-9c5f-928e8f93a18d/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bdf0f825-66bf-4b47-a4f3-145072fb2528/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5ea11339-82b3-49b1-9304-89304a3261a4/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6f837469-005d-4a65-93ad-5f1f0f976abb/embedded.cc.default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f2e71e95-e85a-4c3b-b638-bfb7c8bcf2bd/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/90fe166b-d4cd-417f-a34c-f70d15c731d1/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/795d796b-d15c-41a7-8a50-015e1df75468/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/96d2ef42-3417-4f43-bc78-7c211b5e801a/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7d54eb07-f46d-4cfb-ab89-49462362601b/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c24c7b89-fab7-4261-a557-de06b9697b17/default.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "aplus content video",
+              "Texts": [
+                "Gets Kids Outside Playing outdoors has been proven to have a variety of benefits for kids",
+                "Improve Coordination and Balance Bicycling not only engages the whole body, but also multiple different parts of the brain.",
+                "Promotes Kids’ Self-Confidence and Independence Learning to ride a bike is difficult. mastering that skill can boost kids’ self-confidence",
+                "Keeps Kids Physically Healthy Riding a bike is a great way to ensure that kids stay active and healthy.",
+                "The whole family can enjoy together Cycling with kids can help you be close to them, understand their problems and worries",
+                "Bikes are some of the most memorable and useful gifts you can give this holiday season. When you give a child a kids bike that fits them, you are beginning a life-long habit of healthy fun. They will learn independence, balance, and fitness."
+              ],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/a7c12f30-9fdd-4cb6-acdb-a03b91348187.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/bbbc1277-154a-426c-9dd4-ad84a2169404.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2e448a41-0301-4dad-87f7-4825c7d07161.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/a7c12f30-9fdd-4cb6-acdb-a03b91348187.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "joystar kids bike for boys and girls",
+                  "Image_Alt": "joystar kids bike for boys and girls"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/bbbc1277-154a-426c-9dd4-ad84a2169404.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 2,
+                  "Image_Title": "",
+                  "Image_Alt": ""
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2e448a41-0301-4dad-87f7-4825c7d07161.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 3,
+                  "Image_Title": "best gifts for kids",
+                  "Image_Alt": "best gifts for kids"
+                }
+              ],
+              "Comparison_Table": {
+                "Headers": [
+                  "TOTEM Buying Options",
+                  "Vintage Add to Cart",
+                  "WHIZZ Add to Cart",
+                  "NEO Buying Options",
+                  "Gemsbok Add to Cart",
+                  "Contender Add to Cart",
+                  "Minifat Buying Options"
+                ],
+                "Rows": [
+                  [
+                    "Customer Reviews",
+                    "4.4 out of 5 stars 5,165",
+                    "4.6 out of 5 stars 2,885",
+                    "4.4 out of 5 stars 1,552",
+                    "4.2 out of 5 stars 901",
+                    "4.3 out of 5 stars 423",
+                    "4.4 out of 5 stars 430",
+                    "4.0 out of 5 stars 287"
+                  ],
+                  [
+                    "Price",
+                    "—",
+                    "$72.19 $ 72 . 19",
+                    "$90.24 $ 90 . 24",
+                    "$161.49 $ 161 . 49",
+                    "$179.99 $ 179 . 99",
+                    "$153.89 $ 153 . 89",
+                    "—"
+                  ],
+                  [
+                    "Suitable for Ages",
+                    "2-9 Years",
+                    "2-14 Years",
+                    "2-9 Years",
+                    "7-12 Years",
+                    "7-12 Years",
+                    "7-12 Years",
+                    "7-12 Years"
+                  ],
+                  [
+                    "Size Available",
+                    "12“ 14\" 16\" 18“",
+                    "12“ 14\" 16\" 20“ 24\"",
+                    "12“ 14\" 16\" 18“",
+                    "20“",
+                    "20“",
+                    "20“",
+                    "20“"
+                  ],
+                  [
+                    "HI-TEN Steel Frame",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔"
+                  ],
+                  [
+                    "Air Rubber Tires",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔"
+                  ],
+                  [
+                    "Handbrake",
+                    "Only 18inch has handbrake",
+                    "Only 24 & 24inch has handbrake",
+                    "All sizes have the handbrake",
+                    "Yes",
+                    "Dual Handbrake",
+                    "Dual Handbrake",
+                    "Dual Handbrake"
+                  ],
+                  [
+                    "Coaster Brake",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✘",
+                    "✘",
+                    "✘"
+                  ],
+                  [
+                    "Training Wheels",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✔",
+                    "✘",
+                    "✘",
+                    "✘"
+                  ]
+                ]
+              },
+              "Block_Types": [
+                "text",
+                "image",
+                "table"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "aplus content video"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/a7c12f30-9fdd-4cb6-acdb-a03b91348187.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "joystar kids bike for boys and girls",
+                    "Image_Alt": "joystar kids bike for boys and girls"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/bbbc1277-154a-426c-9dd4-ad84a2169404.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 2,
+                    "Image_Title": "",
+                    "Image_Alt": ""
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Gets Kids Outside Playing outdoors has been proven to have a variety of benefits for kids"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Improve Coordination and Balance Bicycling not only engages the whole body, but also multiple different parts of the brain."
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Promotes Kids’ Self-Confidence and Independence Learning to ride a bike is difficult. mastering that skill can boost kids’ self-confidence"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Keeps Kids Physically Healthy Riding a bike is a great way to ensure that kids stay active and healthy."
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "The whole family can enjoy together Cycling with kids can help you be close to them, understand their problems and worries"
+                },
+                {
+                  "Block_Type": "table",
+                  "Table": {
+                    "Headers": [
+                      "TOTEM Buying Options",
+                      "Vintage Add to Cart",
+                      "WHIZZ Add to Cart",
+                      "NEO Buying Options",
+                      "Gemsbok Add to Cart",
+                      "Contender Add to Cart",
+                      "Minifat Buying Options"
+                    ],
+                    "Rows": [
+                      [
+                        "Customer Reviews",
+                        "4.4 out of 5 stars 5,165",
+                        "4.6 out of 5 stars 2,885",
+                        "4.4 out of 5 stars 1,552",
+                        "4.2 out of 5 stars 901",
+                        "4.3 out of 5 stars 423",
+                        "4.4 out of 5 stars 430",
+                        "4.0 out of 5 stars 287"
+                      ],
+                      [
+                        "Price",
+                        "—",
+                        "$72.19 $ 72 . 19",
+                        "$90.24 $ 90 . 24",
+                        "$161.49 $ 161 . 49",
+                        "$179.99 $ 179 . 99",
+                        "$153.89 $ 153 . 89",
+                        "—"
+                      ],
+                      [
+                        "Suitable for Ages",
+                        "2-9 Years",
+                        "2-14 Years",
+                        "2-9 Years",
+                        "7-12 Years",
+                        "7-12 Years",
+                        "7-12 Years",
+                        "7-12 Years"
+                      ],
+                      [
+                        "Size Available",
+                        "12“ 14\" 16\" 18“",
+                        "12“ 14\" 16\" 20“ 24\"",
+                        "12“ 14\" 16\" 18“",
+                        "20“",
+                        "20“",
+                        "20“",
+                        "20“"
+                      ],
+                      [
+                        "HI-TEN Steel Frame",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔"
+                      ],
+                      [
+                        "Air Rubber Tires",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔"
+                      ],
+                      [
+                        "Handbrake",
+                        "Only 18inch has handbrake",
+                        "Only 24 & 24inch has handbrake",
+                        "All sizes have the handbrake",
+                        "Yes",
+                        "Dual Handbrake",
+                        "Dual Handbrake",
+                        "Dual Handbrake"
+                      ],
+                      [
+                        "Coaster Brake",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✘",
+                        "✘",
+                        "✘"
+                      ],
+                      [
+                        "Training Wheels",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✔",
+                        "✘",
+                        "✘",
+                        "✘"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2e448a41-0301-4dad-87f7-4825c7d07161.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 3,
+                    "Image_Title": "best gifts for kids",
+                    "Image_Alt": "best gifts for kids"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Bikes are some of the most memorable and useful gifts you can give this holiday season. When you give a child a kids bike that fits them, you are beginning a life-long habit of healthy fun. They will learn independence, balance, and fitness."
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/a7c12f30-9fdd-4cb6-acdb-a03b91348187.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/bbbc1277-154a-426c-9dd4-ad84a2169404.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2e448a41-0301-4dad-87f7-4825c7d07161.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+            ],
+            "Local_Images": [
+              "scrape_store/kids_bikes/JOYSTAR/Rank_Similar_ASIN_B083BKD8K2_JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Gir/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+              "scrape_store/kids_bikes/JOYSTAR/Rank_Similar_ASIN_B083BKD8K2_JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Gir/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+              "scrape_store/kids_bikes/JOYSTAR/Rank_Similar_ASIN_B083BKD8K2_JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Gir/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [],
+          "Summary": {
+            "Count": 0
+          },
+          "Local_Paths": []
+        },
+        "Product_Description": "N/A",
+        "Product_Specifications": {
+          "Measurements": {
+            "Wheel Size": "12 Inches",
+            "Size": "12 Inch with Training Wheels",
+            "Item Weight": "18.5 Pounds",
+            "Maximum Weight Recommendation": "60 Kilograms",
+            "Minimum User Height": "33 Inches"
+          },
+          "Features_Specs": {
+            "Bike Type": "Kids Bike",
+            "Age Range (Description)": "Kids",
+            "Suspension Type": "Rigid",
+            "Special Feature": "bmx style",
+            "Additional Features": "bmx style",
+            "Specific Uses For Product": "Road",
+            "Power Source": "Manual",
+            "Skill Level": "Beginner",
+            "Bicycle Drivetrain Type": "Single Speed",
+            "Is Autographed": "No",
+            "Age Range Description": "Kids",
+            "Item Type Name": "kids bicycles",
+            "Warranty Type": "Limited Lifetime Warranty"
+          },
+          "Materials_Care": {
+            "Frame Material": "Carbon Steel",
+            "Frame Material Type": "Carbon Steel",
+            "Wheel Material": "Alloy Steel",
+            "Seat Material": "Plastic"
+          },
+          "Item_Details": {
+            "Brand": "JOYSTAR",
+            "Number of Speeds": "1",
+            "Included Components": "Reflectors, Black Bell, Colorful Decals, Training Wheels",
+            "Number Of Speeds": "1",
+            "Number of Handles": "1",
+            "Brand Name": "JOYSTAR",
+            "Model Number": "BIKE016sv-12",
+            "Model Name": "TOTEM",
+            "Model Year": "2020",
+            "Manufacturer": "DRBIKE CYCLE LTD",
+            "Unit Count": "1 Count",
+            "Best Sellers Rank": "#2,916 in Sports & Outdoors (See Top 100 in Sports & Outdoors) #2 in Kids' Bicycles",
+            "ASIN": "B083BKD8K2",
+            "Customer Reviews": "4.4  4.4 out of 5 stars   \n    (5,165)   \n\n\n 4.4 out of 5 stars"
+          },
+          "User_Guide": {
+            "Is Assembly Required": "Yes"
+          },
+          "Additional_Details": {
+            "Color": "Silver",
+            "Brake Style": "Coaster",
+            "Style Name": "12 Inch With Training Wheels"
+          }
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
+          "Sold_By": "Drbike \n  Drbike      Sold by   Drbike",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery July 1 - 3",
+          "Specifications": {
+            "Bike Type": "Kids Bike",
+            "Age Range (Description)": "Kids",
+            "Brand": "JOYSTAR",
+            "Number of Speeds": "1",
+            "Color": "Silver",
+            "Wheel Size": "12 Inches",
+            "Frame Material": "Carbon Steel",
+            "Suspension Type": "Rigid",
+            "Special Feature": "bmx style",
+            "Included Components": "Reflectors, Black Bell, Colorful Decals, Training Wheels"
+          }
+        },
+        "Local_Image_Paths": [
+          "scrape_store/kids_bikes/JOYSTAR/Rank_Similar_ASIN_B083BKD8K2_JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Gir/images/primary.jpg",
+          "scrape_store/kids_bikes/JOYSTAR/Rank_Similar_ASIN_B083BKD8K2_JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Gir/images/alt_1.jpg",
+          "scrape_store/kids_bikes/JOYSTAR/Rank_Similar_ASIN_B083BKD8K2_JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Gir/images/alt_2.jpg",
+          "scrape_store/kids_bikes/JOYSTAR/Rank_Similar_ASIN_B083BKD8K2_JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Gir/images/alt_3.jpg",
+          "scrape_store/kids_bikes/JOYSTAR/Rank_Similar_ASIN_B083BKD8K2_JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Gir/images/alt_4.jpg",
+          "scrape_store/kids_bikes/JOYSTAR/Rank_Similar_ASIN_B083BKD8K2_JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Gir/images/alt_5.jpg",
+          "scrape_store/kids_bikes/JOYSTAR/Rank_Similar_ASIN_B083BKD8K2_JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Gir/images/alt_6.jpg",
+          "scrape_store/kids_bikes/JOYSTAR/Rank_Similar_ASIN_B083BKD8K2_JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Gir/images/alt_7.jpg",
+          "scrape_store/kids_bikes/JOYSTAR/Rank_Similar_ASIN_B083BKD8K2_JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Gir/images/alt_8.jpg",
+          "scrape_store/kids_bikes/JOYSTAR/Rank_Similar_ASIN_B083BKD8K2_JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Gir/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/kids_bikes/JOYSTAR/Rank_Similar_ASIN_B083BKD8K2_JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Gir/images/primary.jpg",
+        "Local_Video_Paths": []
+      }
+    ]
+  }
+}

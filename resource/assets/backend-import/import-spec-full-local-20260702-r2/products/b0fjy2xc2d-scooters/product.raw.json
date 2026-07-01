@@ -1,0 +1,443 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "scooters",
+  "categoryCode": "scooter",
+  "fetchedAt": "2026-07-01T20:06:12.485Z",
+  "data": {
+    "productId": "B0FJY2XC2D",
+    "categoryId": "scooters",
+    "rank": 3,
+    "title": "HopCycle Electric Scooters - Electric Scooter Adults, 1200W/1000W/500W Motor, 28/25/21/18 MPH Top Speed, 10''/8.5'' Tires, 28",
+    "brand": "HopCycle",
+    "price": {
+      "display": "$139.99",
+      "value": 139.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.3  754",
+      "value": 4.3
+    },
+    "weight": {
+      "display": "22.9 Pounds",
+      "lbs": 22.9
+    },
+    "classification": {
+      "Brand": "HopCycle",
+      "Scooter_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "2",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Standard",
+      "Price_Tier": "100-200"
+    },
+    "categoryAttributes": {
+      "categoryId": "scooters",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "POWERFUL MOTOR & 18 MPH TOP SPEED: Electric scooters is equipped with a powerful 500W peak motor",
+        "reaches speeds of up to 18 MPH for a smooth and efficient ride. making it perfect for daily commutes and city travel.",
+        "LONG BATTERY LIFE: Foldable Scooter rides up to 21 miles on a single 5-hour charge",
+        "uses a 36V 7.8AH powerful battery built for short trips to school",
+        "work",
+        "or around the neighborhood without the worry of running out of battery",
+        "SMART APP CONTROL: Connect your electric scooter to the mobile app for convenient operation and real-time monitoring. Use the app to activate the electronic lock",
+        "view real-time speed",
+        "switch speed units",
+        "adjust riding modes",
+        "control the headlight",
+        "and enable cruise control for a smarter and more customizable riding experience.",
+        "8.5\" PNEUMATIC TIRES & IPX4 WATER RESISTANCE: This fast electric scooter has 8.5-inch air-filled tires that provide shock absorption and grip",
+        "which easily climb 20° slopes. With an IP65 waterproof rating",
+        "it can withstand splashes and light rain",
+        "making it a reliable choice for commuters and adventure seekers alike.",
+        "PORTABLE & FOLDABLE: ONE-STEP FOLDING: To collapse the scooter in just 3 seconds and hold up to 220lb",
+        "which is easy to carry and store",
+        "ideal for commutes",
+        "subways",
+        "offices",
+        "or car trunks",
+        "making it ideal for adults and teens alike."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "POWERFUL MOTOR & 18 MPH TOP SPEED: Electric scooters is equipped with a powerful 500W peak motor",
+        "featureLabel": "Powerful Motor & 18 Mph Top Speed: Electric Scooters Is Equipped With A Powerful 500w Peak Motor",
+        "featureValue": "POWERFUL MOTOR & 18 MPH TOP SPEED: Electric scooters is equipped with a powerful 500W peak motor",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from scooters classification data"
+      },
+      {
+        "featureKey": "reaches speeds of up to 18 MPH for a smooth and efficient ride. making it perfect for daily commutes and city travel.",
+        "featureLabel": "Reaches Speeds Of Up To 18 Mph For A Smooth And Efficient Ride. Making It Perfect For Daily Commutes And City Travel.",
+        "featureValue": "reaches speeds of up to 18 MPH for a smooth and efficient ride. making it perfect for daily commutes and city travel.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from scooters classification data"
+      },
+      {
+        "featureKey": "LONG BATTERY LIFE: Foldable Scooter rides up to 21 miles on a single 5-hour charge",
+        "featureLabel": "Long Battery Life: Foldable Scooter Rides Up To 21 Miles On A Single 5 Hour Charge",
+        "featureValue": "LONG BATTERY LIFE: Foldable Scooter rides up to 21 miles on a single 5-hour charge",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from scooters classification data"
+      },
+      {
+        "featureKey": "uses a 36V 7.8AH powerful battery built for short trips to school",
+        "featureLabel": "Uses A 36v 7.8ah Powerful Battery Built For Short Trips To School",
+        "featureValue": "uses a 36V 7.8AH powerful battery built for short trips to school",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from scooters classification data"
+      },
+      {
+        "featureKey": "work",
+        "featureLabel": "Work",
+        "featureValue": "work",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from scooters classification data"
+      },
+      {
+        "featureKey": "or around the neighborhood without the worry of running out of battery",
+        "featureLabel": "Or Around The Neighborhood Without The Worry Of Running Out Of Battery",
+        "featureValue": "or around the neighborhood without the worry of running out of battery",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from scooters classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "POWERFUL MOTOR & 18 MPH TOP SPEED: Electric scooters is equipped with a powerful 500W peak motor",
+        "reaches speeds of up to 18 MPH for a smooth and efficient ride. making it perfect for daily commutes and city travel.",
+        "LONG BATTERY LIFE: Foldable Scooter rides up to 21 miles on a single 5-hour charge",
+        "uses a 36V 7.8AH powerful battery built for short trips to school"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+          "source": "local",
+          "order": 10
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_1.jpg",
+      "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_2.jpg",
+      "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_3.jpg",
+      "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_4.jpg",
+      "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_5.jpg",
+      "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_6.jpg",
+      "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_7.jpg",
+      "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_8.jpg",
+      "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_9.jpg",
+      "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg"
+    ],
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c3398023-4f48-4de3-ac76-c69fc8fb2f48/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c0749b91-6a8f-4b2c-9ea7-4ece4080b1b9/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/03f99817-f512-4903-9cbb-8b0ca102794c/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a0af9ad2-66a7-4244-8b7e-899a12a2cc4b/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/20ebb053-3805-4756-97b7-abd877730d54/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/58848f5a-c596-4998-936b-aea463583267/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/50b5166f-9f01-45be-9973-d271a16286af/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/34c4467e-8e6e-4622-b363-627b6e32eccf/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c3398023-4f48-4de3-ac76-c69fc8fb2f48/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Fast Charging Electric Scooter for Daily City Commute",
+        "thumbnail": "https://m.media-amazon.com/images/I/81BlXD+-5YL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c0749b91-6a8f-4b2c-9ea7-4ece4080b1b9/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Electric Scooter Throttle Replacement Guide",
+        "thumbnail": "https://m.media-amazon.com/images/I/51Ci64nc1IL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/03f99817-f512-4903-9cbb-8b0ca102794c/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Hopcycle Electric Scooters",
+        "thumbnail": "https://m.media-amazon.com/images/I/81raB2imJEL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a0af9ad2-66a7-4244-8b7e-899a12a2cc4b/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Wish I had this as a kid",
+        "thumbnail": "https://m.media-amazon.com/images/I/614FoFW-TVL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/20ebb053-3805-4756-97b7-abd877730d54/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Adult Electric Scooter",
+        "thumbnail": "https://m.media-amazon.com/images/I/A1Rg0wbdw5L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/58848f5a-c596-4998-936b-aea463583267/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "HopCycle Electric Scooters",
+        "thumbnail": "https://m.media-amazon.com/images/I/A17aAeEFvzL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 6
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/50b5166f-9f01-45be-9973-d271a16286af/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Scoot around the features of this electric scooter with me",
+        "thumbnail": "https://m.media-amazon.com/images/I/91SDp60dshL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 7
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/34c4467e-8e6e-4622-b363-627b6e32eccf/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Craziest Electric Scooter On The Market",
+        "thumbnail": "https://m.media-amazon.com/images/I/619r4Ga+qOL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 8
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/scooters/index.html",
+      "categoryPages": "/scrape_store/scooters/pages/index.html",
+      "detailPage": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/index.html"
+    },
+    "resourceStats": {
+      "videos": 8,
+      "similarItems": 0
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/510JvgA+mmL._AC_UL300_SR300,200_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 12
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/scooters/HopCycle/Rank_3_ASIN_B0FJY2XC2D_HopCycle Electric Scooters - Electric Scooter Adul/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c3398023-4f48-4de3-ac76-c69fc8fb2f48/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81BlXD+-5YL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Fast Charging Electric Scooter for Daily City Commute",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c0749b91-6a8f-4b2c-9ea7-4ece4080b1b9/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51Ci64nc1IL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Electric Scooter Throttle Replacement Guide",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/03f99817-f512-4903-9cbb-8b0ca102794c/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81raB2imJEL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Hopcycle Electric Scooters",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a0af9ad2-66a7-4244-8b7e-899a12a2cc4b/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/614FoFW-TVL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Wish I had this as a kid",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/20ebb053-3805-4756-97b7-abd877730d54/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1Rg0wbdw5L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "Adult Electric Scooter",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/58848f5a-c596-4998-936b-aea463583267/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A17aAeEFvzL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "HopCycle Electric Scooters",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/50b5166f-9f01-45be-9973-d271a16286af/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91SDp60dshL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Scoot around the features of this electric scooter with me",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/34c4467e-8e6e-4622-b363-627b6e32eccf/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/619r4Ga+qOL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Craziest Electric Scooter On The Market",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

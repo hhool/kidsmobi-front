@@ -24,6 +24,7 @@ import EvaluationManager from "./admin/EvaluationManager";
 import GuideManager from "./admin/GuideManager";
 import NewsManager from "./admin/NewsManager";
 import SettingsManager from "./admin/SettingsManager";
+import ImportReviewManager from "./admin/ImportReviewManager";
 import { getD1Health } from "../lib/cmsD1Service";
 const AssetUploader = React.lazy(() => import("./admin/AssetUploader"));
 
@@ -57,7 +58,7 @@ export default function AdminPanel({
   loading: boolean,
   onDeveloperBypass?: () => void
 }) {
-  const [activeMenu, setActiveMenu] = useState<"dashboard" | "categories" | "scenarios" | "products" | "evaluations" | "guides" | "news" | "settings" | "assets">("dashboard");
+  const [activeMenu, setActiveMenu] = useState<"dashboard" | "categories" | "scenarios" | "products" | "evaluations" | "guides" | "news" | "settings" | "assets" | "imports">("dashboard");
   const [syncing, setSyncing] = useState(false);
   const [deduping, setDeduping] = useState(false);
   const [operationNotice, setOperationNotice] = useState<OperationNotice | null>(null);
@@ -383,6 +384,7 @@ export default function AdminPanel({
            {activeMenu === "evaluations" && <EvaluationManager lang={lang} />}
            {activeMenu === "guides" && <GuideManager lang={lang} />}
            {activeMenu === "news" && <NewsManager lang={lang} />}
+           {activeMenu === "imports" && <ImportReviewManager lang={lang} />}
            {activeMenu === "settings" && <SettingsManager lang={lang} />}
            {activeMenu === "assets" && (
              <div className="p-6">

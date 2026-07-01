@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "balance_bike",
+  "fetchedAt": "2026-07-01T21:38:32.930Z",
+  "data": {
+    "resourceId": "B08SGH7NKX:video",
+    "categoryId": "balance_bike",
+    "productId": "B08SGH7NKX",
+    "resourceType": "product_video",
+    "title": "SEREED Baby Balance Bike for 1 Year Old Boys Girls 12-24 Month Toddler Balance Bike, 4 Wheels Toddler First Bike, First Birth • Video preview",
+    "summary": "Video preview asset set for SEREED in balance_bike.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/52b608da-19a3-440d-9368-7773ae593785/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/52b608da-19a3-440d-9368-7773ae593785/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7acca5e2-cb06-45ec-9e45-b1180c6c7cfa/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b27aa405-fd0a-4a64-90d0-8479312be85a/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/39cc0b28-04fc-4b54-8e80-51f728c178be/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cedf217a-767c-4956-aaf3-15bca5098a40/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b9189800-c678-4d7b-8331-8b0d0d0c0c26/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e66afb55-ae8a-49e6-8bfe-1db855e7d4e7/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c56d1cdc-1664-4199-a048-24664126229b/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9e1bb11f-6eb2-45cb-838f-1da8d8368fff/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 1,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 9,
+      "hasFeatures": true
+    }
+  }
+}

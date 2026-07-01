@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_bikes",
+  "fetchedAt": "2026-07-01T20:06:14.004Z",
+  "data": {
+    "resourceId": "B0C53KHV7F:overview",
+    "categoryId": "kids_bikes",
+    "productId": "B0C53KHV7F",
+    "resourceType": "product_overview",
+    "title": "Bixike Girls Bike with Basket for Toddlers and Kids Aged 3-14 Years Old, 12 14 16 18 Inch with Training Wheels & Doll Seat, 2",
+    "summary": "Size and Design: Bixike kids bike is designed specifically for children and comes in a size suitable for their age and height. The bike features sturdy frame, kid-friendly design with bright colors, and adjustable saddle and handlebars to ensure a comfortable fit.Pink Purple Gree",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_bikes/Bixike/Rank_10_ASIN_B0C53KHV7F_Bixike Girls Bike with Basket for Toddlers and Kid/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6f180431-4de9-4be2-b9af-9fc4562d7b20/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9a02ff54-7281-4e8b-9c7e-ee476ffc51e8/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/242e4707-e9e0-4255-8de2-d71a80ec630e/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8305badf-04cc-4a8b-b47c-32aad2afd840/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/79905842-ac96-4153-9dbc-0035d523e0e3/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/72235ec4-ad06-4767-a0f4-6780acf61d15/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.79,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

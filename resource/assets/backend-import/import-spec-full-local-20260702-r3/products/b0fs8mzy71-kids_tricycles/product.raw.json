@@ -1,0 +1,197 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_tricycles",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T21:38:58.046Z",
+  "data": {
+    "productId": "B0FS8MZY71",
+    "categoryId": "kids_tricycles",
+    "rank": 4,
+    "title": "Radio Flyer City 4-in-1 Stroll 'N Trike, Teal, for Riders 1-5 Years Old, 4 Riding Modes, 3 Point Harness with Comfort Pad, Pa",
+    "brand": "Radio",
+    "price": {
+      "display": "$103.99",
+      "value": 103.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.7  245",
+      "value": 4.7
+    },
+    "weight": {
+      "display": "15 Pounds",
+      "lbs": 15
+    },
+    "classification": {
+      "Brand": "Radio",
+      "Tricycle_Type": "Tricycle",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Standard",
+      "Price_Tier": "100-200"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_tricycles",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "SAFETY AND COMFORT: A 3-point harness with padded shoulders",
+        "comfort seat pad",
+        "UV protection canopy",
+        "removable snack tray",
+        "and removable footrest keep little riders safe",
+        "comfortable",
+        "and cool on every ride.",
+        "PARENT-CONTROLLED STEERING: The adjustable Steer & Stroll push handle with a premium vegan leather grip gives parents smooth",
+        "easy control of the stroller trike",
+        "whether on neighborhood walks or day trips.",
+        "STORAGE AND DURABILITY: A sturdy steel frame ensures lasting quality",
+        "while the XL rear basket - made with 100% recycled fabric - carries toys or on-the-go essentials.",
+        "BELOVED ICON OF PLAY: For over a century",
+        "Radio Flyer has inspired joyful play with wagons",
+        "trikes",
+        "and more. As a Certified B Corp",
+        "we create lasting products that spark imagination while caring for future generations."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "SAFETY AND COMFORT: A 3-point harness with padded shoulders",
+        "featureLabel": "SAFETY AND COMFORT: A 3 Point Harness With Padded Shoulders",
+        "featureValue": "SAFETY AND COMFORT: A 3-point harness with padded shoulders",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "comfort seat pad",
+        "featureLabel": "Comfort Seat Pad",
+        "featureValue": "comfort seat pad",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "UV protection canopy",
+        "featureLabel": "UV Protection Canopy",
+        "featureValue": "UV protection canopy",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "removable snack tray",
+        "featureLabel": "Removable Snack Tray",
+        "featureValue": "removable snack tray",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "and removable footrest keep little riders safe",
+        "featureLabel": "And Removable Footrest Keep Little Riders Safe",
+        "featureValue": "and removable footrest keep little riders safe",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "comfortable",
+        "featureLabel": "Comfortable",
+        "featureValue": "comfortable",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "SAFETY AND COMFORT: A 3-point harness with padded shoulders",
+        "comfort seat pad",
+        "UV protection canopy",
+        "removable snack tray"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/71ajuXu82RL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71ajuXu82RL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/74a6fd34-31f1-429b-849a-d434bee9bf5d.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/982d3285-0451-41bd-b0da-5d11b4aa35ab.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/50fb81f8-0182-4ee6-a93e-543320901851.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/fc301be0-7169-4114-bca3-1e3ea91bb85d.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/2a1e0ac3-5774-400e-8d7c-0f1fc59f036a.mp4/productVideoOptimized.mp4"
+    ],
+    "resourceStats": {
+      "videos": 5,
+      "similarItems": 0
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/74a6fd34-31f1-429b-849a-d434bee9bf5d.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_tricycles/Radio/Rank_4_ASIN_B0FS8MZY71_Radio Flyer City 4-in-1 Stroll N Trike Teal for Ri/videos/video_0.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/982d3285-0451-41bd-b0da-5d11b4aa35ab.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_tricycles/Radio/Rank_4_ASIN_B0FS8MZY71_Radio Flyer City 4-in-1 Stroll N Trike Teal for Ri/videos/video_1.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/50fb81f8-0182-4ee6-a93e-543320901851.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_tricycles/Radio/Rank_4_ASIN_B0FS8MZY71_Radio Flyer City 4-in-1 Stroll N Trike Teal for Ri/videos/video_2.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/fc301be0-7169-4114-bca3-1e3ea91bb85d.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_tricycles/Radio/Rank_4_ASIN_B0FS8MZY71_Radio Flyer City 4-in-1 Stroll N Trike Teal for Ri/videos/video_3.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/2a1e0ac3-5774-400e-8d7c-0f1fc59f036a.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_tricycles/Radio/Rank_4_ASIN_B0FS8MZY71_Radio Flyer City 4-in-1 Stroll N Trike Teal for Ri/videos/video_4.mp4"
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

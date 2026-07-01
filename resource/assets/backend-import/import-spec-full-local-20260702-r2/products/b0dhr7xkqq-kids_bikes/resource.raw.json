@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_bikes",
+  "fetchedAt": "2026-07-01T20:06:13.755Z",
+  "data": {
+    "resourceId": "B0DHR7XKQQ:overview",
+    "categoryId": "kids_bikes",
+    "productId": "B0DHR7XKQQ",
+    "resourceType": "product_overview",
+    "title": "Glerc 20 24 26 Inch Kids Bike, Kids Mountain Bike for Boys and Girls Ages 6+, 21-Speed Skyline Bicycle with Front Suspension",
+    "summary": "【Sturdy Frame】The kids mountain bike is made of high carbon steel frame, which can easily handle the challenges of off-road adventures, providing a reliable foundation for your child's adventures. | 【Ride Anytime】This mountain bike is equipped with a 21-speed drivetrain, offering",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_bikes/Glerc/Rank_5_ASIN_B0DHR7XKQQ_Glerc 20 24 26 Inch Kids Bike Kids Mountain Bike f/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/57f2c4c5-4332-4cb8-ad3d-fdff8c446080/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9e4d0c35-9946-490a-b744-a0ae1e7559fb/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/05711011-55e7-44a3-a3e9-8d3a537f7e7a/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/79c35d75-1aa1-451b-a842-7ce247c5332f/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3710fd21-e064-492c-84ad-8517e7cb3e30/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c63839e0-a07d-47b4-9bad-1d39d393bbd4/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7dd9ea4e-1b5f-4773-97e1-c71cbcb7a0f6/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4dca3344-ed56-48e1-b8e2-953e7544a9bc/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/30784d5e-4cd3-4fcc-8da7-0f8f4bb13472/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/02860de5-5e3d-4370-a62e-b07cd8d50b4b/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1ffb9adf-85de-4838-9655-661953bae0fa/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7993ead7-b3ac-4e4a-9d1f-8b9a00a1898c/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0c1d629d-ddee-4bc3-b910-4f89942444dd/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/369edf96-9a9f-4f7e-8855-7c3cad2e9ace/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2250c427-05fc-469b-a6fd-4eb53cb85405/embedded.cc.default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/727321f7-5e5c-432f-af9a-0bc2e91a4a19/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dbbbb783-30fc-4b6d-a762-7d96b8cf0018/embedded.cc.default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f7c2e46e-e9df-4896-b134-5bcb427a68f1/embedded.cc.default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a402e3fa-b68b-49f6-ad92-2d5da0e05d32/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 1,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 19,
+      "hasFeatures": true
+    }
+  }
+}

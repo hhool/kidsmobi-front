@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_bikes",
+  "fetchedAt": "2026-07-01T21:38:52.917Z",
+  "data": {
+    "resourceId": "B0CMC155ZD:video",
+    "categoryId": "kids_bikes",
+    "productId": "B0CMC155ZD",
+    "resourceType": "product_video",
+    "title": "JOYSTAR 12 14 16 18 Inch Kids Bike for 2-9 Years Girls, Toddler Girls Bike with Training Wheels, Rainbow Bikes, Children Bicy • Video preview",
+    "summary": "Video preview asset set for JOYSTAR in kids_bikes.",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f2212f0f-23d6-4c3b-a0b5-6823f4e366f9/default.jobtemplate.hls.m3u8",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f2212f0f-23d6-4c3b-a0b5-6823f4e366f9/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a9460c1c-3944-4500-8f5b-4c8735430b56/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f3bc8706-bd51-4edc-af4f-709819c10c56/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/73625d2f-34fa-45be-8d4a-b97784cc8664/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a00c1d1d-31c8-4215-9977-9b69161bd2a2/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.9,
+    "credibilityLevel": "high",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 5,
+      "hasFeatures": true
+    }
+  }
+}

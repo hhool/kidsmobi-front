@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "fetchedAt": "2026-07-01T20:06:16.192Z",
+  "data": {
+    "resourceId": "B0FFM5P1SF:overview",
+    "categoryId": "kids_pull_along_wagons",
+    "productId": "B0FFM5P1SF",
+    "resourceType": "product_overview",
+    "title": "Touheart JML002 Wagon Stroller for 2 Kids - Double Seater Push Stroller with Canopy | Collapsible Foldable Wagon for Kids Tod",
+    "summary": "carbon steel frame | ✅Dual-Seat All-Terrain Shock-Absorbing Wheels: This 2-kid wagon stroller comes with upgraded shock-absorbing big tires, adapting perfectly to grass, gravel, pavement, sand and bumpy paths for a bump-free comfortable ride; offered in two neutral colors: Black ",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/kids_pull_along_wagons/Touheart/Rank_10_ASIN_B0FFM5P1SF_Touheart JML002 Wagon Stroller for 2 Kids - Double/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ad09a56d-a1c0-474c-a0dc-6b3ab9fb7eab/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/08cba32a-cc4d-4980-813f-9534e95d975b/default.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.63,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 2,
+      "hasFeatures": true
+    }
+  }
+}

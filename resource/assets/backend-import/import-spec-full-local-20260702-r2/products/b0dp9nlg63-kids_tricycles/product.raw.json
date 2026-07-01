@@ -1,0 +1,450 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_tricycles",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T20:06:14.474Z",
+  "data": {
+    "productId": "B0DP9NLG63",
+    "categoryId": "kids_tricycles",
+    "rank": 2,
+    "title": "Umatoll Tricycle for Toddlers 2-5 Year Old, Ajustable Toddler Bike Outdoor Toys, Birthday Gift for Girl Age 2-4, Trike with L",
+    "brand": "Umatoll",
+    "price": {
+      "display": "$39.99",
+      "value": 39.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.7  1,082",
+      "value": 4.7
+    },
+    "weight": {
+      "display": "9.6 Pounds",
+      "lbs": 9.6
+    },
+    "classification": {
+      "Brand": "Umatoll",
+      "Tricycle_Type": "Outdoor Play",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_tricycles",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "DURABLE AND STURDY: The Umatoll tricycle is made with top quality carbon steel",
+        "equipped with spring buckles and reinforced screws for a solid",
+        "long-lasting structure that will grow with your child.",
+        "SMOOTH AND SAFE RIDE: The toddler tricycle features extended rear wheels and a wide wheelbase",
+        "effectively preventing tipping. It provides a stable and secure ride",
+        "giving your child the confidence to learn to ride and build muscle strength.",
+        "GROWS WITH TODDLER: Featuring a 3-position adjustable seat",
+        "the tricycle is perfect for toddler aged 2 to 5",
+        "adapting to your child’s growing needs as she learns to pedal and steer.",
+        "DUAL BASKETS: The removable front and rear baskets allow your little one to easily carry their favorite toys or treasures",
+        "making it perfect for rides in the yard or outdoor adventures.",
+        "LIGHT-UP FUN: The rear wheels light up with every turn—no batteries needed! These colorful lights add extra fun to every ride",
+        "whether indoors or outdoors",
+        "making it an exciting gift for your little one."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "DURABLE AND STURDY: The Umatoll tricycle is made with top quality carbon steel",
+        "featureLabel": "Durable And Sturdy: The Umatoll Tricycle Is Made With Top Quality Carbon Steel",
+        "featureValue": "DURABLE AND STURDY: The Umatoll tricycle is made with top quality carbon steel",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "equipped with spring buckles and reinforced screws for a solid",
+        "featureLabel": "Equipped With Spring Buckles And Reinforced Screws For A Solid",
+        "featureValue": "equipped with spring buckles and reinforced screws for a solid",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "long-lasting structure that will grow with your child.",
+        "featureLabel": "Long Lasting Structure That Will Grow With Your Child.",
+        "featureValue": "long-lasting structure that will grow with your child.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "SMOOTH AND SAFE RIDE: The toddler tricycle features extended rear wheels and a wide wheelbase",
+        "featureLabel": "Smooth And Safe Ride: The Toddler Tricycle Features Extended Rear Wheels And A Wide Wheelbase",
+        "featureValue": "SMOOTH AND SAFE RIDE: The toddler tricycle features extended rear wheels and a wide wheelbase",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "effectively preventing tipping. It provides a stable and secure ride",
+        "featureLabel": "Effectively Preventing Tipping. It Provides A Stable And Secure Ride",
+        "featureValue": "effectively preventing tipping. It provides a stable and secure ride",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      },
+      {
+        "featureKey": "giving your child the confidence to learn to ride and build muscle strength.",
+        "featureLabel": "Giving Your Child The Confidence To Learn To Ride And Build Muscle Strength.",
+        "featureValue": "giving your child the confidence to learn to ride and build muscle strength.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_tricycles classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "DURABLE AND STURDY: The Umatoll tricycle is made with top quality carbon steel",
+        "equipped with spring buckles and reinforced screws for a solid",
+        "long-lasting structure that will grow with your child.",
+        "SMOOTH AND SAFE RIDE: The toddler tricycle features extended rear wheels and a wide wheelbase"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+          "source": "local",
+          "order": 10
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_1.jpg",
+      "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_2.jpg",
+      "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_3.jpg",
+      "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_4.jpg",
+      "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_5.jpg",
+      "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_6.jpg",
+      "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_7.jpg",
+      "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_8.jpg",
+      "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_9.jpg",
+      "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg"
+    ],
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d12fef19-42d2-4aab-8932-c57d77a111d3/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/581627b0-5a0c-49e4-a940-5ed38635cea8/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f1efebb6-4b0f-4268-8f41-dde206dc72b9/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b22032ac-2617-4af7-990a-54803db0d7c4/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/962025ba-f257-4f9d-9761-5685680ffddc/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2e59a0d2-bf62-47c9-9e0b-1d753cd47ca2/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cf7513eb-4b09-465f-bc90-31e8f6dc1567/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cfd9d973-eae0-4c48-9b19-d926eb1db9db/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e94e0463-edc2-450f-9746-dbb48f6d223a/default.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d12fef19-42d2-4aab-8932-c57d77a111d3/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Umatoll Tricycle for Toddlers",
+        "thumbnail": "https://m.media-amazon.com/images/I/A1ehKgnc1bL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/581627b0-5a0c-49e4-a940-5ed38635cea8/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Umatoll Tricycle for Toddlers",
+        "thumbnail": "https://m.media-amazon.com/images/I/A1ehKgnc1bL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f1efebb6-4b0f-4268-8f41-dde206dc72b9/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Umatoll Tricycle for Toddlers",
+        "thumbnail": "https://m.media-amazon.com/images/I/A1ehKgnc1bL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b22032ac-2617-4af7-990a-54803db0d7c4/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Umatoll Tricycle for Toddlers",
+        "thumbnail": "https://m.media-amazon.com/images/I/91PbJjkSNbL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/962025ba-f257-4f9d-9761-5685680ffddc/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Perfect birthday gift for toddlers",
+        "thumbnail": "https://m.media-amazon.com/images/I/71XVZsBrhpL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2e59a0d2-bf62-47c9-9e0b-1d753cd47ca2/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "This toddler trike is amazing!",
+        "thumbnail": "https://m.media-amazon.com/images/I/61MqVyjwvmL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 6
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cf7513eb-4b09-465f-bc90-31e8f6dc1567/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Review Umatoll Tricycle for Toddlers",
+        "thumbnail": "https://m.media-amazon.com/images/I/61vEGLD5RWL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 7
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cfd9d973-eae0-4c48-9b19-d926eb1db9db/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Our favorite toddler trike!",
+        "thumbnail": "https://m.media-amazon.com/images/I/71zjIjjTxzL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 8
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e94e0463-edc2-450f-9746-dbb48f6d223a/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Unbox and review this toddler trike with me!",
+        "thumbnail": "https://m.media-amazon.com/images/I/91ktLT+oOPL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 9
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/kids_tricycles/index.html",
+      "categoryPages": "/scrape_store/kids_tricycles/pages/index.html",
+      "detailPage": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/index.html"
+    },
+    "resourceStats": {
+      "videos": 9,
+      "similarItems": 0
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71B8IQsrSwL._AC_UL300_SR300,200_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 12
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/kids_tricycles/Umatoll/Rank_2_ASIN_B0DP9NLG63_Umatoll Tricycle for Toddlers 2-5 Year Old Ajustab/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d12fef19-42d2-4aab-8932-c57d77a111d3/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1ehKgnc1bL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Umatoll Tricycle for Toddlers",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/581627b0-5a0c-49e4-a940-5ed38635cea8/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1ehKgnc1bL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Umatoll Tricycle for Toddlers",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f1efebb6-4b0f-4268-8f41-dde206dc72b9/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1ehKgnc1bL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Umatoll Tricycle for Toddlers",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b22032ac-2617-4af7-990a-54803db0d7c4/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91PbJjkSNbL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Umatoll Tricycle for Toddlers",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/962025ba-f257-4f9d-9761-5685680ffddc/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71XVZsBrhpL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Perfect birthday gift for toddlers",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2e59a0d2-bf62-47c9-9e0b-1d753cd47ca2/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61MqVyjwvmL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "This toddler trike is amazing!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cf7513eb-4b09-465f-bc90-31e8f6dc1567/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61vEGLD5RWL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Review Umatoll Tricycle for Toddlers",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cfd9d973-eae0-4c48-9b19-d926eb1db9db/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71zjIjjTxzL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Our favorite toddler trike!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e94e0463-edc2-450f-9746-dbb48f6d223a/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91ktLT+oOPL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Unbox and review this toddler trike with me!",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

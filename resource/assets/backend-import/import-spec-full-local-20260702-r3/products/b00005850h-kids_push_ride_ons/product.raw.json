@@ -1,0 +1,874 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r3",
+  "sourceBase": "https://kidsmobi-api-v1.seaman-player.workers.dev",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T21:39:06.343Z",
+  "data": {
+    "productId": "B00005850H",
+    "categoryId": "kids_push_ride_ons",
+    "rank": 8,
+    "title": "Little Tikes Push and Ride Racer – (Amazon Exclusive), 22\"L x 10\"W x 17\"H with screws",
+    "brand": "Little",
+    "price": {
+      "display": "$34.99",
+      "value": 34.99,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.5  5,418",
+      "value": 4.5
+    },
+    "weight": {
+      "display": "6.3 Pounds",
+      "lbs": 6.3
+    },
+    "classification": {
+      "Brand": "Little",
+      "Stroller_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_push_ride_ons",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "Made in the USA. The Little Tikes Company is located in the heartland of America.",
+        "A riding toy and walker in one. Toddlers can ride themselves or use kid-sized push bar as a push toy or car",
+        "Use this durable",
+        "kid powered",
+        "foot to floor ride on indoors or outdoors",
+        "Low seat makes it easy for toddler to get on and off",
+        "High back and sturdy handles help keep young racers steady",
+        "Maximum weight limit: up to 50 lbs. Assembly required."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "Made in the USA. The Little Tikes Company is located in the heartland of America.",
+        "featureLabel": "Made In The USA. The Little Tikes Company Is Located In The Heartland Of America.",
+        "featureValue": "Made in the USA. The Little Tikes Company is located in the heartland of America.",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "A riding toy and walker in one. Toddlers can ride themselves or use kid-sized push bar as a push toy or car",
+        "featureLabel": "A Riding Toy And Walker In One. Toddlers Can Ride Themselves Or Use Kid Sized Push Bar As A Push Toy Or Car",
+        "featureValue": "A riding toy and walker in one. Toddlers can ride themselves or use kid-sized push bar as a push toy or car",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "Use this durable",
+        "featureLabel": "Use This Durable",
+        "featureValue": "Use this durable",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "kid powered",
+        "featureLabel": "Kid Powered",
+        "featureValue": "kid powered",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "foot to floor ride on indoors or outdoors",
+        "featureLabel": "Foot To Floor Ride On Indoors Or Outdoors",
+        "featureValue": "foot to floor ride on indoors or outdoors",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "Low seat makes it easy for toddler to get on and off",
+        "featureLabel": "Low Seat Makes It Easy For Toddler To Get On And Off",
+        "featureValue": "Low seat makes it easy for toddler to get on and off",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "Made in the USA. The Little Tikes Company is located in the heartland of America.",
+        "A riding toy and walker in one. Toddlers can ride themselves or use kid-sized push bar as a push toy or car",
+        "Use this durable",
+        "kid powered"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "https://images-na.ssl-images-amazon.com/images/I/71-8c1+TYaL._AC_UL300_SR300,200_.jpg",
+    "galleryUrls": [],
+    "images": {
+      "cover": {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71-8c1+TYaL._AC_UL300_SR300,200_.jpg",
+        "source": "scraped",
+        "order": 0
+      },
+      "gallery": []
+    },
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/caf529d3-ec30-4f65-9a50-6e2a0bc903ee/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2f8c7d2d-e4f2-41d0-9ad3-3ad4c013822a/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/21874714-6b45-4406-82a9-bd56f64bb855/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f751ea62-a86c-48fa-928b-0a9d59ebaf24/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6b4a063b-ecf2-4484-b3da-880f3b34bd97/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6621712d-e1f7-484f-b662-3bf6de4978d1/default.jobtemplate.hls.m3u8"
+    ],
+    "resourceStats": {
+      "videos": 6,
+      "similarItems": 2
+    },
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/caf529d3-ec30-4f65-9a50-6e2a0bc903ee/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61TL95ccJ+L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "LT Active Play Rap 30",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2f8c7d2d-e4f2-41d0-9ad3-3ad4c013822a/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81R3qEQq-dL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Review-Little Tikes Push and Ride Racer",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/21874714-6b45-4406-82a9-bd56f64bb855/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/618dMdfdNlL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Lasts forever, great quality ",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f751ea62-a86c-48fa-928b-0a9d59ebaf24/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71ro-Tq7M7L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "My 1 year old absolutely loves this! ",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6b4a063b-ecf2-4484-b3da-880f3b34bd97/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/617qTSX1uCL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Easy to assemble, sturdy, long lasting",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6621712d-e1f7-484f-b662-3bf6de4978d1/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/71TzdDX1xmL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Why We Love This Little Tikes Ride-On Toy",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "VEVOR",
+        "Title": "VEVOR Ride On Push Car for Toddlers, Ages 19+ Months, Ride Racer, Sit to Stand Toddler Ride On Toy, Kids Ride On Car with Music Steering, Horn & Under Seat Storage, Ride On Toy for Boys Girls,",
+        "Price": "$26.72",
+        "Rating": "4.5",
+        "Reviews": "513",
+        "URL": "https://www.amazon.com/VEVOR-Toddlers-Toddler-Steering-Storage/dp/B0D8KM8M3G/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_1/139-1235790-8934649?pd_rd_w=yNCT9&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=17GSXRQ4ZBF2WM1RPRR0&pd_rd_wg=rkQ2y&pd_rd_r=cb194161-ebfc-4f4c-b4d8-ab7d41ca7307&pd_rd_i=B0D8KM8M3G&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/71iKXSpuDhL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B0D8KM8M3G",
+        "Source_Page": 1,
+        "Source_URL": "https://www.amazon.com/Best-Sellers-Toys-Games-Kids-Push-Ride-Ons/zgbs/toys-and-games/166414011/ref=zg_bs_nav_toys-and-games_2_3405171",
+        "Source_Position": 12,
+        "Source_Type": "Best Sellers",
+        "Features": "PP | 【Ride on Car】: Designed just for little ones aged 1-3, this ride on push car helps them build balance while looking super stylish. Moms will love taking their kids out with this cool stroller! | 【Strong Load Capacity】: Made from tough, impact-resistant PP material and with a sturdy four-wheel design, this toddler ride on car can support up to 48.5 lbs/22 kg. It's built to last and give your kid endless fun. | 【Dynamic Car Music】: Our toddler ride on toys steering wheel plays cheerful kids' songs with just a press of a button, adding extra joy to playtime. Plus, the smooth design of the steering wheel makes it easy and comfy for your kid to steer. | 【Under Seat Storage】: The toddler riding car features a handy storage compartment under the seat, ideal for storing toys, water bottles, tissues, and more while out and about. It's a great way to help your kid learn to keep things tidy. | 【Safety Design】: Security first! The ride on car has a wide backrest and an anti-backward support bar at the rear to keep your kid safe from tipping over while riding. Enjoy peace of mind while your little one rides around.",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4a4560c9-363a-4cdf-a87d-cd011441f850/default.vertical.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4a4560c9-363a-4cdf-a87d-cd011441f850/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9fe8ccfe-f483-4e7d-868e-362e3ecf14d9/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4dc18f3c-4ec9-49cc-aa06-5f220fcc119c/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0e3cf17d-6bc1-455d-b646-9800f5e9d1d9/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8c949081-415e-4395-8e04-fa94969ee668/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a72a0f2a-5f8d-4ba6-9ed6-b3adcf8ea388/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9d09454f-f87e-4122-8526-43bfd431f89f/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d90be532-ecc8-4d5a-8f59-b5139cbf3e30/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5f096e07-a8ea-47f7-9a5d-eeb42d1c4980/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b5274db9-bcce-4552-9438-35507163267d/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/b1fe0298-8076-4e65-88b7-c866121aa872.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/c6c1ae68-91cb-4a82-b52f-f685ba5e1dbb.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/659c0d10-567f-46f1-8d92-68e7821cd044.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/c29f6e83-37d5-454b-a0ac-dd1796e6966f.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/76a58866-9367-4a41-af45-94f7827fdbe2.mp4/productVideoOptimized.mp4"
+        ],
+        "Product_Videos_MP4": [
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/b1fe0298-8076-4e65-88b7-c866121aa872.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/c6c1ae68-91cb-4a82-b52f-f685ba5e1dbb.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/659c0d10-567f-46f1-8d92-68e7821cd044.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/c29f6e83-37d5-454b-a0ac-dd1796e6966f.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/76a58866-9367-4a41-af45-94f7827fdbe2.mp4/productVideoOptimized.mp4"
+        ],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4a4560c9-363a-4cdf-a87d-cd011441f850/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9fe8ccfe-f483-4e7d-868e-362e3ecf14d9/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4dc18f3c-4ec9-49cc-aa06-5f220fcc119c/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0e3cf17d-6bc1-455d-b646-9800f5e9d1d9/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8c949081-415e-4395-8e04-fa94969ee668/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a72a0f2a-5f8d-4ba6-9ed6-b3adcf8ea388/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9d09454f-f87e-4122-8526-43bfd431f89f/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d90be532-ecc8-4d5a-8f59-b5139cbf3e30/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5f096e07-a8ea-47f7-9a5d-eeb42d1c4980/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b5274db9-bcce-4552-9438-35507163267d/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "Ride On Push Car for Toddlers",
+              "Texts": [
+                "VEVOR is a home improvement brand empowering Home Creators to upgrade spaces with pro-level products at exceptional value. We deliver superior performance through practical tech innovation that blends purposeful technology with the hands-on joy of creation. We break down price barriers so every upgrade reflects your vision to life. Upgrading every space isn’t just a task—it’s a declaration of reinvention. Upgrade with VEVOR!",
+                "Ride On Push Car for Toddlers Visit the Store",
+                "VEVOR Advantages Complete Product Range: Your one-stop solution for all home improvement needs. Pro-Level Performance: Delivered by practical tech innovation that combines purpose-driven technology with hands-on creative delight. Exceptional value: Through practical technological innovation and lean manufacturing, we deliver products that offer pro-level performance and benchmark quality at exceptional value.",
+                "Activity Busy Board Wall Visit the Store",
+                "Seesaw Teeter Totter for Kids Visit the Store",
+                "RC Helicopter for Kid Visit the Store"
+              ],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/a8a06514-bbfd-427c-9b3b-b1f8f924337d.__CR0,0,1464,625_PT0_SX1464_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/a8a06514-bbfd-427c-9b3b-b1f8f924337d.__CR0,0,1464,625_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "VEVOR",
+                  "Image_Alt": "VEVOR"
+                }
+              ],
+              "Comparison_Table": {},
+              "Block_Types": [
+                "text",
+                "image"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "Ride On Push Car for Toddlers"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/a8a06514-bbfd-427c-9b3b-b1f8f924337d.__CR0,0,1464,625_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "VEVOR",
+                    "Image_Alt": "VEVOR"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "VEVOR is a home improvement brand empowering Home Creators to upgrade spaces with pro-level products at exceptional value. We deliver superior performance through practical tech innovation that blends purposeful technology with the hands-on joy of creation. We break down price barriers so every upgrade reflects your vision to life. Upgrading every space isn’t just a task—it’s a declaration of reinvention. Upgrade with VEVOR!"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Ride On Push Car for Toddlers Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "VEVOR Advantages Complete Product Range: Your one-stop solution for all home improvement needs. Pro-Level Performance: Delivered by practical tech innovation that combines purpose-driven technology with hands-on creative delight. Exceptional value: Through practical technological innovation and lean manufacturing, we deliver products that offer pro-level performance and benchmark quality at exceptional value."
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Activity Busy Board Wall Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Seesaw Teeter Totter for Kids Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "RC Helicopter for Kid Visit the Store"
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/a8a06514-bbfd-427c-9b3b-b1f8f924337d.__CR0,0,1464,625_PT0_SX1464_V1___.jpg"
+            ],
+            "Local_Images": [
+              "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [],
+          "Summary": {
+            "Count": 0
+          },
+          "Local_Paths": []
+        },
+        "Product_Description": "N/A",
+        "Product_Specifications": {
+          "Measurements": {
+            "Size": "20.08 x 9.84 x 17.72 in",
+            "Item Weight": "1.55 Kilograms",
+            "Item Dimensions L x W x H": "24.02\"L x 9.06\"W x 24\"H",
+            "Weight Capacity Maximum": "48.5 Pounds",
+            "Item Dimensions": "20.08 x 9.84 x 17.72 inches"
+          },
+          "Features_Specs": {
+            "Age Range Description": "Baby",
+            "UPC": "197988223290",
+            "Item Type Name": "Ages 1-3, Ride Racer, Sit to Stand Toddler Ride On Toy, Classic Kids Ride On Car with Music Steering Wheel, Horn & Under Seat Storage, Ride On Toy for Boys Girls",
+            "Theme": "Sport"
+          },
+          "Materials_Care": {
+            "Material Type": "Polypropylene"
+          },
+          "Item_Details": {
+            "Brand Name": "VEVOR",
+            "Sub Brand": "Colorful",
+            "Manufacturer Part Number": "Ride On Push Car for Toddlers 1",
+            "Model Number": "QX-3342-1",
+            "Manufacturer": "VEVOR",
+            "Unit Count": "1.0 Count",
+            "Included Components": "1 x Ride On Car",
+            "Best Sellers Rank": "#3,240 in Toys & Games (See Top 100 in Toys & Games) #12 in Kids' Push Ride-Ons",
+            "ASIN": "B0D8KM8M3G",
+            "Customer Reviews": "4.5  4.5 out of 5 stars   \n    (513)   \n\n\n 4.5 out of 5 stars"
+          },
+          "User_Guide": {
+            "Manufacturer Minimum Age (MONTHS)": "19.0",
+            "Manufacturer Maximum Age (MONTHS)": "40",
+            "Is Assembly Required": "No"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery Wednesday, July 1 on orders shipped by Amazon over $35",
+          "Specifications": {}
+        },
+        "Local_Image_Paths": [
+          "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/primary.jpg",
+          "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_1.jpg",
+          "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_2.jpg",
+          "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_3.jpg",
+          "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_4.jpg",
+          "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_5.jpg",
+          "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_6.jpg",
+          "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_7.jpg",
+          "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_8.jpg",
+          "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/primary.jpg",
+        "Local_Video_Paths": [],
+        "Last_Updated": "2026-06-27T08:43:45.506462",
+        "Similar_Items_Quick_Delivery": [
+          {
+            "Rank": "Similar",
+            "Brand": "Radio",
+            "Title": "Radio Flyer Busy Buggy, for Toddlers 1-3, 3-in-1 Push Walker Ride On Car with 17 Sensory Activities, Anti-Tip Feature, Under-",
+            "Price": "$39.88",
+            "Rating": "4.8",
+            "Reviews": "11,527",
+            "URL": "https://www.amazon.com/Radio-Flyer-Busy-Buggy-Red/dp/B07CN9T8RC/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_2/139-1235790-8934649?pd_rd_w=yNCT9&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=17GSXRQ4ZBF2WM1RPRR0&pd_rd_wg=rkQ2y&pd_rd_r=cb194161-ebfc-4f4c-b4d8-ab7d41ca7307&pd_rd_i=B07CN9T8RC&psc=1",
+            "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/71sDdjUJzML._AC_UL165_SR165,165_.jpg",
+            "ASIN": "B07CN9T8RC",
+            "Features": "3-IN-1 WALKER & RIDE-ON: The Radio Flyer Busy Buggy is a versatile first vehicle with push walker, ride on, and sensory play modes to build confidence, balance, and coordination. | 17 INTERACTIVE ACTIVITIES: Keep little hands busy with interlocking gears, sliding beads, a clicking spare tire, folding mirrors, a fun horn, and an interactive dashboard - encouraging sensory and imaginative play. | WALK & RIDE DEVELOPMENT: The push walker design supports beginner walkers with an anti-tip feature and stable base. When ready, kids can sit and scoot to develop fine and gross motor skills. | BUILT-IN STORAGE: Seat flips open for under-seat storage so favorite toys can tag along. Recommended for toddlers 1-3 years old, with a weight capacity of 42 lb. | BELOVED ICON OF PLAY: For over a century, Radio Flyer has inspired joyful play with wagons, trikes, and more. As a Certified B Corp, we create lasting products that spark imagination while caring for future generations.",
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/75daffc6-f1de-59a0-8ab7-63406ef6b9e0/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+            "Product_Videos_Detail": [
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/75daffc6-f1de-59a0-8ab7-63406ef6b9e0/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/51vpt0kJxrL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+                "Title": "Radio Flyer Busy Buggy",
+                "Author": "N/A",
+                "Is_MP4": true
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8f8aaeb2-d720-4cbc-9102-b81ac9bb3803/default.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1iHb0SiPkL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+                "Title": "Honest Review of Radio Flyer Busy Buggy",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bbec5ce4-2fa6-4845-aa36-b51ab2152f28/default.vertical.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/61q2ltHz0XL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+                "Title": "The Perfect Christmas or Birthday Gift for a Busy Baby!",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/04b93e58-965a-4bb7-be99-76f84a54dd2a/default.vertical.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/81rxgzpveQL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+                "Title": "Mom Review Radio Flyer Tinker Truck Lights Sound Assembly",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1b5219fc-6b65-4814-8457-33eb5284c28c/default.vertical.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/81SFDFRVOpL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+                "Title": "How my one year old plays with this Radio Flyer car!",
+                "Author": "N/A",
+                "Is_MP4": false
+              },
+              {
+                "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a2756fcb-5e8a-462d-8592-b6cba9487c10/default.vertical.jobtemplate.hls.m3u8",
+                "Thumbnail_URL": "https://m.media-amazon.com/images/I/61VpTxoRE9L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+                "Title": "AWESOME riding toy with lights and sounds!",
+                "Author": "N/A",
+                "Is_MP4": false
+              }
+            ],
+            "Product_Videos": [
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/75daffc6-f1de-59a0-8ab7-63406ef6b9e0/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8f8aaeb2-d720-4cbc-9102-b81ac9bb3803/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bbec5ce4-2fa6-4845-aa36-b51ab2152f28/default.vertical.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/04b93e58-965a-4bb7-be99-76f84a54dd2a/default.vertical.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1b5219fc-6b65-4814-8457-33eb5284c28c/default.vertical.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a2756fcb-5e8a-462d-8592-b6cba9487c10/default.vertical.jobtemplate.hls.m3u8"
+            ],
+            "Product_Videos_MP4": [
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/75daffc6-f1de-59a0-8ab7-63406ef6b9e0/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4"
+            ],
+            "Product_Videos_M3U8": [
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8f8aaeb2-d720-4cbc-9102-b81ac9bb3803/default.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bbec5ce4-2fa6-4845-aa36-b51ab2152f28/default.vertical.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/04b93e58-965a-4bb7-be99-76f84a54dd2a/default.vertical.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1b5219fc-6b65-4814-8457-33eb5284c28c/default.vertical.jobtemplate.hls.m3u8",
+              "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a2756fcb-5e8a-462d-8592-b6cba9487c10/default.vertical.jobtemplate.hls.m3u8"
+            ],
+            "From_The_Manufacturer": {
+              "Model_Version": "2.0",
+              "Sections": [
+                {
+                  "Section_Id": "section_01",
+                  "Display_Order": 1,
+                  "Title": "Shop baby toys",
+                  "Texts": [
+                    "Shop baby toys Visit the Store",
+                    "Shop toddler toys Visit the Store",
+                    "Shop preschool toys Visit the Store",
+                    "Shop big kid toys Visit the Store",
+                    "Shop accessories Visit the Store"
+                  ],
+                  "Images": [
+                    "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2042b54b-dafc-4546-95f8-985f055b76c3.__CR0,0,1464,625_PT0_SX1464_V1___.jpg"
+                  ],
+                  "Images_Detail": [
+                    {
+                      "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2042b54b-dafc-4546-95f8-985f055b76c3.__CR0,0,1464,625_PT0_SX1464_V1___.jpg",
+                      "Image_Order": 1,
+                      "Image_Title": "Radio Flyer has been bringing the world out to play since 1917",
+                      "Image_Alt": "Radio Flyer has been bringing the world out to play since 1917"
+                    }
+                  ],
+                  "Comparison_Table": {},
+                  "Block_Types": [
+                    "text",
+                    "image"
+                  ],
+                  "Layout_Blocks": [
+                    {
+                      "Block_Type": "title",
+                      "Text": "Shop baby toys"
+                    },
+                    {
+                      "Block_Type": "image",
+                      "Image": {
+                        "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2042b54b-dafc-4546-95f8-985f055b76c3.__CR0,0,1464,625_PT0_SX1464_V1___.jpg",
+                        "Image_Order": 1,
+                        "Image_Title": "Radio Flyer has been bringing the world out to play since 1917",
+                        "Image_Alt": "Radio Flyer has been bringing the world out to play since 1917"
+                      }
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "Shop baby toys Visit the Store"
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "Shop toddler toys Visit the Store"
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "Shop preschool toys Visit the Store"
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "Shop big kid toys Visit the Store"
+                    },
+                    {
+                      "Block_Type": "text",
+                      "Text": "Shop accessories Visit the Store"
+                    }
+                  ]
+                }
+              ],
+              "Assets": {
+                "Remote_Images": [
+                  "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2042b54b-dafc-4546-95f8-985f055b76c3.__CR0,0,1464,625_PT0_SX1464_V1___.jpg"
+                ],
+                "Local_Images": [
+                  "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg"
+                ]
+              }
+            },
+            "Product_Guides_And_Documents": {
+              "Model_Version": "1.0",
+              "Items": [
+                {
+                  "Title": "User Guide (PDF)",
+                  "URL": "https://m.media-amazon.com/images/I/91QRyoM4T1L.pdf",
+                  "Type": "PDF",
+                  "Source": "Product guides and documents",
+                  "Category": "manual",
+                  "Local_Path": "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/guides/manual/doc_00_User_Guide_PDF.pdf"
+                },
+                {
+                  "Title": "User Manual (PDF)",
+                  "URL": "https://m.media-amazon.com/images/I/91Ssusi-YoL.pdf",
+                  "Type": "PDF",
+                  "Source": "Product guides and documents",
+                  "Category": "manual",
+                  "Local_Path": "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/guides/manual/doc_01_User_Manual_PDF.pdf"
+                }
+              ],
+              "Summary": {
+                "Count": 2
+              },
+              "Local_Paths": [
+                "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/guides/manual/doc_00_User_Guide_PDF.pdf",
+                "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/guides/manual/doc_01_User_Manual_PDF.pdf"
+              ]
+            },
+            "Product_Description": "The Radio Flyer Busy Buggy is a do-it-all toddler favorite that grows with your child. Three play modes - push walker, ride on, and sensory activity play - support early balance, confidence, and motor skill development. With 17 engaging sensory activities including gears, beads, a clicking spare tire, folding mirrors, a horn, and an interactive dashboard, kids stay entertained as they explore. A stable base and anti-tip feature support early walkers, and when it's time to ride, little ones can scoot around independently. The seat flips up to reveal under-seat storage for must-bring toys. 42 lb max weight capacity. Recommended for ages 1-3. Radio Flyer is a Certified B Corp dedicated to durable products that inspire active play and warm family memories.",
+            "Product_Specifications": {
+              "Measurements": {
+                "Size": "Large",
+                "Item Weight": "4.9 Pounds",
+                "Item Dimensions L x W x H": "21.5\"L x 10.5\"W x 16.3\"H",
+                "Weight Capacity Maximum": "42 Pounds",
+                "Item Dimensions": "21.5 x 10.5 x 16.3 inches"
+              },
+              "Features_Specs": {
+                "Age Range Description": "1-3 years",
+                "UPC": "042385113630",
+                "Item Type Name": "Ride on Toys",
+                "Theme": "Sport"
+              },
+              "Materials_Care": {
+                "Material Type": "Plastic"
+              },
+              "Item_Details": {
+                "Brand Name": "Radio Flyer",
+                "Sub Brand": "radio,radio flyer",
+                "Manufacturer Warranty Description": "1 Year Warranty Against Manufacturer Defects",
+                "Global Trade Identification Number": "00042385113630",
+                "Manufacturer Part Number": "603Z",
+                "Model Number": "603",
+                "Manufacturer": "Radio Flyer",
+                "Unit Count": "1.0 Count",
+                "Included Components": "Ride On",
+                "Best Sellers Rank": "#3,562 in Toys & Games (See Top 100 in Toys & Games) #13 in Kids' Push Ride-Ons",
+                "ASIN": "B07CN9T8RC",
+                "Customer Reviews": "4.8  4.8 out of 5 stars   \n    (11,527)   \n\n\n 4.8 out of 5 stars"
+              },
+              "User_Guide": {
+                "Manufacturer Minimum Age (MONTHS)": "12.0",
+                "Manufacturer Maximum Age (MONTHS)": "36.0",
+                "Is Assembly Required": "No"
+              },
+              "Additional_Details": {}
+            },
+            "Right_Panel_Details": {
+              "Ships_From": "N/A",
+              "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+              "Availability": "In Stock",
+              "Delivery_Promise": "FREE delivery Thursday, July 2. Order within 6 hrs 58 mins",
+              "Specifications": {}
+            },
+            "Local_Image_Paths": [
+              "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/images/primary.jpg",
+              "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/images/alt_1.jpg",
+              "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/images/alt_2.jpg",
+              "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/images/alt_3.jpg",
+              "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/images/alt_4.jpg",
+              "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/images/alt_5.jpg",
+              "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/images/alt_6.jpg",
+              "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/images/alt_7.jpg",
+              "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/images/alt_8.jpg",
+              "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/images/alt_9.jpg"
+            ],
+            "Local_Image_Path": "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/images/primary.jpg",
+            "Local_Video_Paths": []
+          }
+        ]
+      },
+      {
+        "Rank": "Similar",
+        "Brand": "Radio",
+        "Title": "Radio Flyer Busy Buggy, for Toddlers 1-3, 3-in-1 Push Walker Ride On Car with 17 Sensory Activities, Anti-Tip Feature, Under-",
+        "Price": "$39.88",
+        "Rating": "4.8",
+        "Reviews": "11,527",
+        "URL": "https://www.amazon.com/Radio-Flyer-Busy-Buggy-Red/dp/B07CN9T8RC/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_2/139-1235790-8934649?pd_rd_w=yNCT9&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=17GSXRQ4ZBF2WM1RPRR0&pd_rd_wg=rkQ2y&pd_rd_r=cb194161-ebfc-4f4c-b4d8-ab7d41ca7307&pd_rd_i=B07CN9T8RC&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/71sDdjUJzML._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B07CN9T8RC",
+        "Features": "3-IN-1 WALKER & RIDE-ON: The Radio Flyer Busy Buggy is a versatile first vehicle with push walker, ride on, and sensory play modes to build confidence, balance, and coordination. | 17 INTERACTIVE ACTIVITIES: Keep little hands busy with interlocking gears, sliding beads, a clicking spare tire, folding mirrors, a fun horn, and an interactive dashboard - encouraging sensory and imaginative play. | WALK & RIDE DEVELOPMENT: The push walker design supports beginner walkers with an anti-tip feature and stable base. When ready, kids can sit and scoot to develop fine and gross motor skills. | BUILT-IN STORAGE: Seat flips open for under-seat storage so favorite toys can tag along. Recommended for toddlers 1-3 years old, with a weight capacity of 42 lb. | BELOVED ICON OF PLAY: For over a century, Radio Flyer has inspired joyful play with wagons, trikes, and more. As a Certified B Corp, we create lasting products that spark imagination while caring for future generations.",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/75daffc6-f1de-59a0-8ab7-63406ef6b9e0/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/75daffc6-f1de-59a0-8ab7-63406ef6b9e0/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/51vpt0kJxrL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Radio Flyer Busy Buggy",
+            "Author": "N/A",
+            "Is_MP4": true
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8f8aaeb2-d720-4cbc-9102-b81ac9bb3803/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1iHb0SiPkL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+            "Title": "Honest Review of Radio Flyer Busy Buggy",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bbec5ce4-2fa6-4845-aa36-b51ab2152f28/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61q2ltHz0XL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "The Perfect Christmas or Birthday Gift for a Busy Baby!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/04b93e58-965a-4bb7-be99-76f84a54dd2a/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/81rxgzpveQL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Mom Review Radio Flyer Tinker Truck Lights Sound Assembly",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1b5219fc-6b65-4814-8457-33eb5284c28c/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/81SFDFRVOpL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "How my one year old plays with this Radio Flyer car!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a2756fcb-5e8a-462d-8592-b6cba9487c10/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/61VpTxoRE9L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "AWESOME riding toy with lights and sounds!",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/75daffc6-f1de-59a0-8ab7-63406ef6b9e0/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8f8aaeb2-d720-4cbc-9102-b81ac9bb3803/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bbec5ce4-2fa6-4845-aa36-b51ab2152f28/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/04b93e58-965a-4bb7-be99-76f84a54dd2a/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1b5219fc-6b65-4814-8457-33eb5284c28c/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a2756fcb-5e8a-462d-8592-b6cba9487c10/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/75daffc6-f1de-59a0-8ab7-63406ef6b9e0/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4"
+        ],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8f8aaeb2-d720-4cbc-9102-b81ac9bb3803/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bbec5ce4-2fa6-4845-aa36-b51ab2152f28/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/04b93e58-965a-4bb7-be99-76f84a54dd2a/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1b5219fc-6b65-4814-8457-33eb5284c28c/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a2756fcb-5e8a-462d-8592-b6cba9487c10/default.vertical.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "Shop baby toys",
+              "Texts": [
+                "Shop baby toys Visit the Store",
+                "Shop toddler toys Visit the Store",
+                "Shop preschool toys Visit the Store",
+                "Shop big kid toys Visit the Store",
+                "Shop accessories Visit the Store"
+              ],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2042b54b-dafc-4546-95f8-985f055b76c3.__CR0,0,1464,625_PT0_SX1464_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2042b54b-dafc-4546-95f8-985f055b76c3.__CR0,0,1464,625_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "Radio Flyer has been bringing the world out to play since 1917",
+                  "Image_Alt": "Radio Flyer has been bringing the world out to play since 1917"
+                }
+              ],
+              "Comparison_Table": {},
+              "Block_Types": [
+                "text",
+                "image"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "Shop baby toys"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2042b54b-dafc-4546-95f8-985f055b76c3.__CR0,0,1464,625_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "Radio Flyer has been bringing the world out to play since 1917",
+                    "Image_Alt": "Radio Flyer has been bringing the world out to play since 1917"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Shop baby toys Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Shop toddler toys Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Shop preschool toys Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Shop big kid toys Visit the Store"
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Shop accessories Visit the Store"
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2042b54b-dafc-4546-95f8-985f055b76c3.__CR0,0,1464,625_PT0_SX1464_V1___.jpg"
+            ],
+            "Local_Images": [
+              "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [
+            {
+              "Title": "User Guide (PDF)",
+              "URL": "https://m.media-amazon.com/images/I/91QRyoM4T1L.pdf",
+              "Type": "PDF",
+              "Source": "Product guides and documents",
+              "Category": "manual",
+              "Local_Path": "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/guides/manual/doc_00_User_Guide_PDF.pdf"
+            },
+            {
+              "Title": "User Manual (PDF)",
+              "URL": "https://m.media-amazon.com/images/I/91Ssusi-YoL.pdf",
+              "Type": "PDF",
+              "Source": "Product guides and documents",
+              "Category": "manual",
+              "Local_Path": "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/guides/manual/doc_01_User_Manual_PDF.pdf"
+            }
+          ],
+          "Summary": {
+            "Count": 2
+          },
+          "Local_Paths": [
+            "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/guides/manual/doc_00_User_Guide_PDF.pdf",
+            "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/guides/manual/doc_01_User_Manual_PDF.pdf"
+          ]
+        },
+        "Product_Description": "The Radio Flyer Busy Buggy is a do-it-all toddler favorite that grows with your child. Three play modes - push walker, ride on, and sensory activity play - support early balance, confidence, and motor skill development. With 17 engaging sensory activities including gears, beads, a clicking spare tire, folding mirrors, a horn, and an interactive dashboard, kids stay entertained as they explore. A stable base and anti-tip feature support early walkers, and when it's time to ride, little ones can scoot around independently. The seat flips up to reveal under-seat storage for must-bring toys. 42 lb max weight capacity. Recommended for ages 1-3. Radio Flyer is a Certified B Corp dedicated to durable products that inspire active play and warm family memories.",
+        "Product_Specifications": {
+          "Measurements": {
+            "Size": "Large",
+            "Item Weight": "4.9 Pounds",
+            "Item Dimensions L x W x H": "21.5\"L x 10.5\"W x 16.3\"H",
+            "Weight Capacity Maximum": "42 Pounds",
+            "Item Dimensions": "21.5 x 10.5 x 16.3 inches"
+          },
+          "Features_Specs": {
+            "Age Range Description": "1-3 years",
+            "UPC": "042385113630",
+            "Item Type Name": "Ride on Toys",
+            "Theme": "Sport"
+          },
+          "Materials_Care": {
+            "Material Type": "Plastic"
+          },
+          "Item_Details": {
+            "Brand Name": "Radio Flyer",
+            "Sub Brand": "radio,radio flyer",
+            "Manufacturer Warranty Description": "1 Year Warranty Against Manufacturer Defects",
+            "Global Trade Identification Number": "00042385113630",
+            "Manufacturer Part Number": "603Z",
+            "Model Number": "603",
+            "Manufacturer": "Radio Flyer",
+            "Unit Count": "1.0 Count",
+            "Included Components": "Ride On",
+            "Best Sellers Rank": "#3,562 in Toys & Games (See Top 100 in Toys & Games) #13 in Kids' Push Ride-Ons",
+            "ASIN": "B07CN9T8RC",
+            "Customer Reviews": "4.8  4.8 out of 5 stars   \n    (11,527)   \n\n\n 4.8 out of 5 stars"
+          },
+          "User_Guide": {
+            "Manufacturer Minimum Age (MONTHS)": "12.0",
+            "Manufacturer Maximum Age (MONTHS)": "36.0",
+            "Is Assembly Required": "No"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "Amazon.com \n  Amazon.com      Shipper / Seller      Amazon.com",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery Thursday, July 2. Order within 6 hrs 58 mins",
+          "Specifications": {}
+        },
+        "Local_Image_Paths": [
+          "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/images/primary.jpg",
+          "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/images/alt_1.jpg",
+          "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/images/alt_2.jpg",
+          "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/images/alt_3.jpg",
+          "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/images/alt_4.jpg",
+          "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/images/alt_5.jpg",
+          "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/images/alt_6.jpg",
+          "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/images/alt_7.jpg",
+          "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/images/alt_8.jpg",
+          "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio Flyer Busy Buggy for Toddlers 1-3 3-in-1 Pus/images/primary.jpg",
+        "Local_Video_Paths": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0FQTZTC84",
+  "sourceCategoryId": "kids_pull_along_wagons",
+  "images": [
+    {
+      "productId": "B0FQTZTC84",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0FQTZTC84:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/images/primary.jpg",
+      "targetPathKeep": "resources/b0fqtztc84-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0fqtztc84/cover/primary.jpg"
+    },
+    {
+      "productId": "B0FQTZTC84",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0FQTZTC84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0fqtztc84-overview/alt_1.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0fqtztc84/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0FQTZTC84",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0FQTZTC84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0fqtztc84-overview/alt_2.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0fqtztc84/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0FQTZTC84",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0FQTZTC84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0fqtztc84-overview/alt_3.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0fqtztc84/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0FQTZTC84",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0FQTZTC84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0fqtztc84-overview/alt_4.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0fqtztc84/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0FQTZTC84",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0FQTZTC84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0fqtztc84-overview/alt_5.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0fqtztc84/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0FQTZTC84",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0FQTZTC84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0fqtztc84-overview/alt_6.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0fqtztc84/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0FQTZTC84",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0FQTZTC84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0fqtztc84-overview/alt_7.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0fqtztc84/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0FQTZTC84",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0FQTZTC84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0fqtztc84-overview/alt_8.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0fqtztc84/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0FQTZTC84",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0FQTZTC84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0fqtztc84-overview/alt_9.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0fqtztc84/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0FQTZTC84",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0FQTZTC84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0fqtztc84-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0fqtztc84/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0FQTZTC84",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0FQTZTC84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "targetPathKeep": "resources/b0fqtztc84-overview/aplus_01.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0fqtztc84/gallery/aplus_01.jpg"
+    },
+    {
+      "productId": "B0FQTZTC84",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0FQTZTC84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "targetPathKeep": "resources/b0fqtztc84-overview/aplus_02.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0fqtztc84/gallery/aplus_02.jpg"
+    },
+    {
+      "productId": "B0FQTZTC84",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0FQTZTC84:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/images/primary.jpg",
+      "targetPathKeep": "resources/b0fqtztc84-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0fqtztc84/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0FQTZTC84",
+      "categoryId": "kids_pull_along_wagons",
+      "resourceId": "B0FQTZTC84:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/71KYfegrp9L._AC_UL165_SR165,165_.jpg",
+      "targetPathKeep": "resources/b0fqtztc84-overview/71kyfegrp9l._ac_ul165_sr165-165_.jpg",
+      "targetPathCpk": "categories/kids_pull_along_wagons/products/b0fqtztc84/gallery/71kyfegrp9l._ac_ul165_sr165-165_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7dfc322b-36cf-49e3-a22b-c60060fb9f7f/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b570bd9a-69ac-4899-9b03-ad07988e332f/default.vertical.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/kids_pull_along_wagons/BabyVista/Rank_Similar_ASIN_B0FQTZTC84_BabyVista Stroller Wagon for Kids One-Hand Adjusta/index.html"
+  ]
+}

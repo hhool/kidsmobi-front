@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B01EM42B60",
+  "sourceCategoryId": "scooters",
+  "images": [
+    {
+      "productId": "B01EM42B60",
+      "categoryId": "scooters",
+      "resourceId": "B01EM42B60:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Razor/Rank_5_ASIN_B01EM42B60_Razor A5 Lux Kick Scooter for Kids Ages 8 - 8 Uret/images/primary.jpg",
+      "targetPathKeep": "resources/b01em42b60-overview/primary.jpg",
+      "targetPathCpk": "categories/scooters/products/b01em42b60/cover/primary.jpg"
+    },
+    {
+      "productId": "B01EM42B60",
+      "categoryId": "scooters",
+      "resourceId": "B01EM42B60:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Razor/Rank_5_ASIN_B01EM42B60_Razor A5 Lux Kick Scooter for Kids Ages 8 - 8 Uret/images/alt_1.jpg",
+      "targetPathKeep": "resources/b01em42b60-overview/alt_1.jpg",
+      "targetPathCpk": "categories/scooters/products/b01em42b60/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B01EM42B60",
+      "categoryId": "scooters",
+      "resourceId": "B01EM42B60:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Razor/Rank_5_ASIN_B01EM42B60_Razor A5 Lux Kick Scooter for Kids Ages 8 - 8 Uret/images/alt_2.jpg",
+      "targetPathKeep": "resources/b01em42b60-overview/alt_2.jpg",
+      "targetPathCpk": "categories/scooters/products/b01em42b60/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B01EM42B60",
+      "categoryId": "scooters",
+      "resourceId": "B01EM42B60:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Razor/Rank_5_ASIN_B01EM42B60_Razor A5 Lux Kick Scooter for Kids Ages 8 - 8 Uret/images/alt_3.jpg",
+      "targetPathKeep": "resources/b01em42b60-overview/alt_3.jpg",
+      "targetPathCpk": "categories/scooters/products/b01em42b60/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B01EM42B60",
+      "categoryId": "scooters",
+      "resourceId": "B01EM42B60:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Razor/Rank_5_ASIN_B01EM42B60_Razor A5 Lux Kick Scooter for Kids Ages 8 - 8 Uret/images/alt_4.jpg",
+      "targetPathKeep": "resources/b01em42b60-overview/alt_4.jpg",
+      "targetPathCpk": "categories/scooters/products/b01em42b60/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B01EM42B60",
+      "categoryId": "scooters",
+      "resourceId": "B01EM42B60:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Razor/Rank_5_ASIN_B01EM42B60_Razor A5 Lux Kick Scooter for Kids Ages 8 - 8 Uret/images/alt_5.jpg",
+      "targetPathKeep": "resources/b01em42b60-overview/alt_5.jpg",
+      "targetPathCpk": "categories/scooters/products/b01em42b60/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B01EM42B60",
+      "categoryId": "scooters",
+      "resourceId": "B01EM42B60:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Razor/Rank_5_ASIN_B01EM42B60_Razor A5 Lux Kick Scooter for Kids Ages 8 - 8 Uret/images/alt_6.jpg",
+      "targetPathKeep": "resources/b01em42b60-overview/alt_6.jpg",
+      "targetPathCpk": "categories/scooters/products/b01em42b60/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B01EM42B60",
+      "categoryId": "scooters",
+      "resourceId": "B01EM42B60:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Razor/Rank_5_ASIN_B01EM42B60_Razor A5 Lux Kick Scooter for Kids Ages 8 - 8 Uret/images/alt_7.jpg",
+      "targetPathKeep": "resources/b01em42b60-overview/alt_7.jpg",
+      "targetPathCpk": "categories/scooters/products/b01em42b60/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B01EM42B60",
+      "categoryId": "scooters",
+      "resourceId": "B01EM42B60:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Razor/Rank_5_ASIN_B01EM42B60_Razor A5 Lux Kick Scooter for Kids Ages 8 - 8 Uret/images/alt_8.jpg",
+      "targetPathKeep": "resources/b01em42b60-overview/alt_8.jpg",
+      "targetPathCpk": "categories/scooters/products/b01em42b60/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B01EM42B60",
+      "categoryId": "scooters",
+      "resourceId": "B01EM42B60:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Razor/Rank_5_ASIN_B01EM42B60_Razor A5 Lux Kick Scooter for Kids Ages 8 - 8 Uret/images/alt_9.jpg",
+      "targetPathKeep": "resources/b01em42b60-overview/alt_9.jpg",
+      "targetPathCpk": "categories/scooters/products/b01em42b60/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B01EM42B60",
+      "categoryId": "scooters",
+      "resourceId": "B01EM42B60:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Razor/Rank_5_ASIN_B01EM42B60_Razor A5 Lux Kick Scooter for Kids Ages 8 - 8 Uret/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b01em42b60-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/scooters/products/b01em42b60/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B01EM42B60",
+      "categoryId": "scooters",
+      "resourceId": "B01EM42B60:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/scooters/Razor/Rank_5_ASIN_B01EM42B60_Razor A5 Lux Kick Scooter for Kids Ages 8 - 8 Uret/images/primary.jpg",
+      "targetPathKeep": "resources/b01em42b60-overview/primary.jpg",
+      "targetPathCpk": "categories/scooters/products/b01em42b60/gallery/primary.jpg"
+    },
+    {
+      "productId": "B01EM42B60",
+      "categoryId": "scooters",
+      "resourceId": "B01EM42B60:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/51mhs6pZbTL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b01em42b60-overview/51mhs6pzbtl._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/scooters/products/b01em42b60/gallery/51mhs6pzbtl._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "http://127.0.0.1:8010/scrape_store/scooters/Razor/Rank_5_ASIN_B01EM42B60_Razor A5 Lux Kick Scooter for Kids Ages 8 - 8 Uret/videos/video_0.mp4",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/fe888540-1797-583d-b2c0-de15a9b7b3bd/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e64d8f98-0cc6-4915-bc25-dcb5a4439321/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ef73c4aa-ee2a-4226-b69d-99af03470d45/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/7cea21d3-c609-4b27-a2b1-c249b8723377/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2d1088c6-4052-4d4b-a50c-c27c88defc74/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4a6b7232-9910-42a4-93b9-9e637ccd4271/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6cec340c-7c9a-4de8-9c64-734af93f2879/default.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/scooters/Razor/Rank_5_ASIN_B01EM42B60_Razor A5 Lux Kick Scooter for Kids Ages 8 - 8 Uret/index.html"
+  ]
+}

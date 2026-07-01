@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "balance_bike",
+  "fetchedAt": "2026-07-01T20:06:11.902Z",
+  "data": {
+    "resourceId": "B0DG8VRZBZ:overview",
+    "categoryId": "balance_bike",
+    "productId": "B0DG8VRZBZ",
+    "resourceType": "product_overview",
+    "title": "Colorful Glow Wheel Toddler Balance Bike,Baby Toys for 1 Year Old Boy Girls,12-24 Months Baby Balance Bike with Soft Music Cu",
+    "summary": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby.No extra energy supply required, colorful light can be emitted just by rotating the wheel | SOFT MUSIC & CUTE ANIMAL SOUNDS:The b",
+    "publishTime": null,
+    "source": "scrape_store",
+    "resourceUrl": "/scrape_store/balance_bike/Colorful/Rank_11_ASIN_B0DG8VRZBZ_Colorful Glow Wheel Toddler Balance BikeBaby Toys/index.html",
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ae89ad4c-41f2-4000-88ed-614716c727ee/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62806ce7-15ed-412f-b371-c788d0789a7b/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e679957b-9f45-4ca7-8c32-08d69e1d7bc4/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b4da5108-bfef-4924-8202-7de0e6e76218/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b66adfb7-cacb-4e92-8df5-a98fa67d64e7/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0404f633-d679-407a-aaa8-41d7bab62830/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "credibilityScore": 0.79,
+    "credibilityLevel": "medium",
+    "scoringBreakdown": {
+      "docs": 0,
+      "videos": 6,
+      "hasFeatures": true
+    }
+  }
+}

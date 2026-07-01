@@ -12,6 +12,11 @@ Validation method:
 2. Click through all six business modules in the left sidebar.
 3. Trigger one "create -> save" interaction in Product Center to verify pre-submit behavior.
 
+Deployment note:
+
+1. Keep `VITE_CMS_API_BASE_URL` pinned to the deployed Worker CMS API for stable acceptance runs.
+2. Keep `VITE_SCRAPE_API_BASE_URL` or `SCRAPE_KIDSMOBILE_API_BASE_URL` pinned to the deployed Worker API for backend resource checks.
+
 ## 1. Module Reachability
 
 Result: all six modules were reachable, with expected headings and primary action buttons visible.
@@ -59,5 +64,5 @@ Staged conclusion:
 ## 5. Next Recommendations
 
 1. Run one additional manual acceptance pass using a real admin Google account (focus: save/edit/delete success feedback and list refresh).
-2. Pin frontend deployment variable: `VITE_CMS_API_BASE_URL=https://kidsmobi-api-v1.seaman-player.workers.dev`.
+2. Pin frontend deployment variables in the deployment environment instead of relying on hardcoded example domains.
 3. Add a final "real-admin UI acceptance" report as release gate evidence.

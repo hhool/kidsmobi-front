@@ -1,0 +1,150 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0D8KM8M3G",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "images": [
+    {
+      "productId": "B0D8KM8M3G",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8KM8M3G:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/primary.jpg",
+      "targetPathKeep": "resources/b0d8km8m3g-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8km8m3g/cover/primary.jpg"
+    },
+    {
+      "productId": "B0D8KM8M3G",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8KM8M3G:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0d8km8m3g-overview/alt_1.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8km8m3g/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0D8KM8M3G",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8KM8M3G:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0d8km8m3g-overview/alt_2.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8km8m3g/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0D8KM8M3G",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8KM8M3G:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0d8km8m3g-overview/alt_3.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8km8m3g/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0D8KM8M3G",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8KM8M3G:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0d8km8m3g-overview/alt_4.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8km8m3g/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0D8KM8M3G",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8KM8M3G:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0d8km8m3g-overview/alt_5.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8km8m3g/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0D8KM8M3G",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8KM8M3G:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0d8km8m3g-overview/alt_6.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8km8m3g/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0D8KM8M3G",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8KM8M3G:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0d8km8m3g-overview/alt_7.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8km8m3g/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0D8KM8M3G",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8KM8M3G:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0d8km8m3g-overview/alt_8.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8km8m3g/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0D8KM8M3G",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8KM8M3G:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0d8km8m3g-overview/alt_9.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8km8m3g/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0D8KM8M3G",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8KM8M3G:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0d8km8m3g-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8km8m3g/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0D8KM8M3G",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8KM8M3G:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/images/primary.jpg",
+      "targetPathKeep": "resources/b0d8km8m3g-overview/primary.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8km8m3g/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0D8KM8M3G",
+      "categoryId": "kids_push_ride_ons",
+      "resourceId": "B0D8KM8M3G:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/71iKXSpuDhL._AC_UL165_SR165,165_.jpg",
+      "targetPathKeep": "resources/b0d8km8m3g-overview/71ikxspudhl._ac_ul165_sr165-165_.jpg",
+      "targetPathCpk": "categories/kids_push_ride_ons/products/b0d8km8m3g/gallery/71ikxspudhl._ac_ul165_sr165-165_.jpg"
+    }
+  ],
+  "videos": [
+    "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/videos/video_0.mp4",
+    "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/videos/video_1.mp4",
+    "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/videos/video_2.mp4",
+    "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/videos/video_3.mp4",
+    "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/videos/video_4.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ed6c34bc-7029-4f9e-be29-56abc2936bee.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/b1fe0298-8076-4e65-88b7-c866121aa872.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/c6c1ae68-91cb-4a82-b52f-f685ba5e1dbb.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/659c0d10-567f-46f1-8d92-68e7821cd044.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/c29f6e83-37d5-454b-a0ac-dd1796e6966f.mp4/productVideoOptimized.mp4",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4a4560c9-363a-4cdf-a87d-cd011441f850/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9fe8ccfe-f483-4e7d-868e-362e3ecf14d9/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4dc18f3c-4ec9-49cc-aa06-5f220fcc119c/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8c949081-415e-4395-8e04-fa94969ee668/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0e3cf17d-6bc1-455d-b646-9800f5e9d1d9/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a72a0f2a-5f8d-4ba6-9ed6-b3adcf8ea388/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d90be532-ecc8-4d5a-8f59-b5139cbf3e30/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9d09454f-f87e-4122-8526-43bfd431f89f/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2e1ca6ad-74bc-4e3b-a0af-b88eed1735e2/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c43ababf-2c3c-40c2-95bc-859c76f86eef/default.vertical.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5f096e07-a8ea-47f7-9a5d-eeb42d1c4980/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b5274db9-bcce-4552-9438-35507163267d/embedded.cc.default.vertical.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR Ride On Push Car for Toddlers Ages 19 Months/index.html"
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "productId": "B0D3LSZJK2",
+  "sourceCategoryId": "electric_vehicles",
+  "images": [
+    {
+      "productId": "B0D3LSZJK2",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0D3LSZJK2:overview",
+      "kind": "cover",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/primary.jpg",
+      "targetPathKeep": "resources/b0d3lszjk2-overview/primary.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0d3lszjk2/cover/primary.jpg"
+    },
+    {
+      "productId": "B0D3LSZJK2",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0D3LSZJK2:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_1.jpg",
+      "targetPathKeep": "resources/b0d3lszjk2-overview/alt_1.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0d3lszjk2/gallery/alt_1.jpg"
+    },
+    {
+      "productId": "B0D3LSZJK2",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0D3LSZJK2:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_2.jpg",
+      "targetPathKeep": "resources/b0d3lszjk2-overview/alt_2.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0d3lszjk2/gallery/alt_2.jpg"
+    },
+    {
+      "productId": "B0D3LSZJK2",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0D3LSZJK2:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_3.jpg",
+      "targetPathKeep": "resources/b0d3lszjk2-overview/alt_3.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0d3lszjk2/gallery/alt_3.jpg"
+    },
+    {
+      "productId": "B0D3LSZJK2",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0D3LSZJK2:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_4.jpg",
+      "targetPathKeep": "resources/b0d3lszjk2-overview/alt_4.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0d3lszjk2/gallery/alt_4.jpg"
+    },
+    {
+      "productId": "B0D3LSZJK2",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0D3LSZJK2:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_5.jpg",
+      "targetPathKeep": "resources/b0d3lszjk2-overview/alt_5.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0d3lszjk2/gallery/alt_5.jpg"
+    },
+    {
+      "productId": "B0D3LSZJK2",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0D3LSZJK2:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_6.jpg",
+      "targetPathKeep": "resources/b0d3lszjk2-overview/alt_6.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0d3lszjk2/gallery/alt_6.jpg"
+    },
+    {
+      "productId": "B0D3LSZJK2",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0D3LSZJK2:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_7.jpg",
+      "targetPathKeep": "resources/b0d3lszjk2-overview/alt_7.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0d3lszjk2/gallery/alt_7.jpg"
+    },
+    {
+      "productId": "B0D3LSZJK2",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0D3LSZJK2:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_8.jpg",
+      "targetPathKeep": "resources/b0d3lszjk2-overview/alt_8.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0d3lszjk2/gallery/alt_8.jpg"
+    },
+    {
+      "productId": "B0D3LSZJK2",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0D3LSZJK2:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/alt_9.jpg",
+      "targetPathKeep": "resources/b0d3lszjk2-overview/alt_9.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0d3lszjk2/gallery/alt_9.jpg"
+    },
+    {
+      "productId": "B0D3LSZJK2",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0D3LSZJK2:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "targetPathKeep": "resources/b0d3lszjk2-overview/aplus_00.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0d3lszjk2/gallery/aplus_00.jpg"
+    },
+    {
+      "productId": "B0D3LSZJK2",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0D3LSZJK2:overview",
+      "kind": "gallery",
+      "sourceUrl": "http://127.0.0.1:8010/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/images/primary.jpg",
+      "targetPathKeep": "resources/b0d3lszjk2-overview/primary.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0d3lszjk2/gallery/primary.jpg"
+    },
+    {
+      "productId": "B0D3LSZJK2",
+      "categoryId": "electric_vehicles",
+      "resourceId": "B0D3LSZJK2:overview",
+      "kind": "gallery",
+      "sourceUrl": "https://images-na.ssl-images-amazon.com/images/I/61U31omDjAL._AC_UL300_SR300,200_.jpg",
+      "targetPathKeep": "resources/b0d3lszjk2-overview/61u31omdjal._ac_ul300_sr300-200_.jpg",
+      "targetPathCpk": "categories/electric_vehicles/products/b0d3lszjk2/gallery/61u31omdjal._ac_ul300_sr300-200_.jpg"
+    }
+  ],
+  "videos": [
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/88c0017c-fa7f-49a2-96e7-a3748990f879/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2494b64a-11d4-4a3b-be89-4c025d2e754f/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dcae779b-c379-414d-b715-88fa32413e21/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/99269f1f-2074-4d42-98eb-ee5781ed5e3d/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/23ebb4fc-f339-4f55-89e7-6c2a49faec01/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e1b261a2-2056-4f7c-95f1-b68db0869226/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e647aa95-d4ca-4263-9fff-630aabfb14bf/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f7d4aa2c-962e-44cc-b09d-e27c786c6b71/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5e5a072e-8345-4ebe-b137-42cd4faa206f/default.jobtemplate.hls.m3u8",
+    "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fe4313ea-f786-448e-9961-36ae46478165/default.jobtemplate.hls.m3u8",
+    "http://127.0.0.1:8010/scrape_store/electric_vehicles/FanttikRide/Rank_2_ASIN_B0D3LSZJK2_FanttikRide N7 Pro Electric Wiggle Car with Pedal/index.html"
+  ]
+}

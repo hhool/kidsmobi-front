@@ -1,0 +1,614 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "kids_push_ride_ons",
+  "categoryCode": "tricycle",
+  "fetchedAt": "2026-07-01T20:06:15.086Z",
+  "data": {
+    "productId": "B01LY46WJN",
+    "categoryId": "kids_push_ride_ons",
+    "rank": 2,
+    "title": "Little Tikes Cozy Coupe Dinosaur – Amazon Exclusive Large, Green",
+    "brand": "Little",
+    "price": {
+      "display": "$47.49",
+      "value": 47.49,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.6  13,009",
+      "value": 4.6
+    },
+    "weight": {
+      "display": "1 Pounds",
+      "lbs": 1
+    },
+    "classification": {
+      "Brand": "Little",
+      "Stroller_Type": "Unknown",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Ultra Lightweight",
+      "Price_Tier": "<100"
+    },
+    "categoryAttributes": {
+      "categoryId": "kids_push_ride_ons",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "Made in the USA. The Little Tikes Company is located in the heartland of America.",
+        "The Dino cozy Coupe has a fun design",
+        "A parent push handle and a removable floorboard. Parents and kids will both love the ride!",
+        "Designed with a high Seat back and cup holders in the rear (cup not included). working horn. Moving",
+        "clicking ignition switch. Gas cap open and closes",
+        "Cozy rolls on rugged",
+        "durable tires. Front wheels spin 360 degrees. Weight limit up to 50 lbs. Assembly required",
+        "Skill Level: All"
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "Made in the USA. The Little Tikes Company is located in the heartland of America.",
+        "featureLabel": "Made In The Usa. The Little Tikes Company Is Located In The Heartland Of America.",
+        "featureValue": "Made in the USA. The Little Tikes Company is located in the heartland of America.",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "The Dino cozy Coupe has a fun design",
+        "featureLabel": "The Dino Cozy Coupe Has A Fun Design",
+        "featureValue": "The Dino cozy Coupe has a fun design",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "A parent push handle and a removable floorboard. Parents and kids will both love the ride!",
+        "featureLabel": "A Parent Push Handle And A Removable Floorboard. Parents And Kids Will Both Love The Ride!",
+        "featureValue": "A parent push handle and a removable floorboard. Parents and kids will both love the ride!",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "Designed with a high Seat back and cup holders in the rear (cup not included). working horn. Moving",
+        "featureLabel": "Designed With A High Seat Back And Cup Holders In The Rear (cup Not Included). Working Horn. Moving",
+        "featureValue": "Designed with a high Seat back and cup holders in the rear (cup not included). working horn. Moving",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "clicking ignition switch. Gas cap open and closes",
+        "featureLabel": "Clicking Ignition Switch. Gas Cap Open And Closes",
+        "featureValue": "clicking ignition switch. Gas cap open and closes",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      },
+      {
+        "featureKey": "Cozy rolls on rugged",
+        "featureLabel": "Cozy Rolls On Rugged",
+        "featureValue": "Cozy rolls on rugged",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from kids_push_ride_ons classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "Made in the USA. The Little Tikes Company is located in the heartland of America.",
+        "The Dino cozy Coupe has a fun design",
+        "A parent push handle and a removable floorboard. Parents and kids will both love the ride!",
+        "Designed with a high Seat back and cup holders in the rear (cup not included). working horn. Moving"
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+          "source": "local",
+          "order": 10
+        },
+        {
+          "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+          "source": "local",
+          "order": 11
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_1.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_2.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_3.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_4.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_5.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_6.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_7.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_8.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_9.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg"
+    ],
+    "videoUrls": [
+      "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/videos/video_0.mp4",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/videos/video_1.mp4",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/videos/video_2.mp4",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/videos/video_3.mp4",
+      "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/videos/video_4.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ca8d7cbf-43bb-4110-9f80-7d5cddae2438.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ab733cf3-97c6-483d-88b0-5f7a6ffebe5a.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5d75b3fd-ea02-4a87-a1f8-d311798ad12c.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/e272dabb-c4a1-49f7-8b99-92ad7d3b47f3.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a5239543-bcf2-4eb6-91a2-9f9c6e8acb56.mp4/productVideoOptimized.mp4",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d9643aa3-1857-401b-a200-3305958f8adf/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9c0ce93f-a9c2-4f1d-8dac-e67c05191a65/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b2fdd0e2-071d-4651-ab00-70d3b980a26f/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ca49b3c8-8f77-429d-b300-881d3e67eed5/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e4e58ace-d962-486e-937b-0457f81f0500/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/735125ee-a938-4e0a-8fe8-5cd75e6bfe48/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/de4d89bd-5d00-48ea-829b-e16aa358af83/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/eb81227e-ec04-42f1-bae5-7e66a16fcad9/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/21562564-d30b-403d-91a1-ac9603382b7d/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c2a61ad8-e238-4a26-9c3a-0f1e8cd364b8/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3f941b10-e2b2-46e6-83d1-e706326edd61/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/96b07046-1938-4728-9442-db9d2fb14bec/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8d63dafd-103c-4321-8717-2c18d0197764/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/32a99f4d-9235-4690-875f-adaef755ac48/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/77ff5b54-f1ea-442c-a890-a3b1ae8cfaea/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/319efd60-65fe-4f6a-a152-16abd90a19f1/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c991263e-640d-4e4b-a4f1-a199ba665808/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9aef1aa1-0302-4a05-8405-e760d542bc9c/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c21ea357-27a9-4655-b3b9-a2b7acf8a2fd/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/videos/video_0.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/videos/video_1.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/videos/video_2.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/videos/video_3.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/videos/video_4.mp4",
+        "source": "local",
+        "type": "mp4",
+        "title": "",
+        "thumbnail": null,
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ca8d7cbf-43bb-4110-9f80-7d5cddae2438.mp4/productVideoOptimized.mp4",
+        "source": "scraped",
+        "type": "mp4",
+        "title": "N/A",
+        "thumbnail": "N/A",
+        "order": 6
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ab733cf3-97c6-483d-88b0-5f7a6ffebe5a.mp4/productVideoOptimized.mp4",
+        "source": "scraped",
+        "type": "mp4",
+        "title": "N/A",
+        "thumbnail": "N/A",
+        "order": 7
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5d75b3fd-ea02-4a87-a1f8-d311798ad12c.mp4/productVideoOptimized.mp4",
+        "source": "scraped",
+        "type": "mp4",
+        "title": "N/A",
+        "thumbnail": "N/A",
+        "order": 8
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/e272dabb-c4a1-49f7-8b99-92ad7d3b47f3.mp4/productVideoOptimized.mp4",
+        "source": "scraped",
+        "type": "mp4",
+        "title": "N/A",
+        "thumbnail": "N/A",
+        "order": 9
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a5239543-bcf2-4eb6-91a2-9f9c6e8acb56.mp4/productVideoOptimized.mp4",
+        "source": "scraped",
+        "type": "mp4",
+        "title": "N/A",
+        "thumbnail": "N/A",
+        "order": 10
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d9643aa3-1857-401b-a200-3305958f8adf/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 11
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9c0ce93f-a9c2-4f1d-8dac-e67c05191a65/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 12
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b2fdd0e2-071d-4651-ab00-70d3b980a26f/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 13
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ca49b3c8-8f77-429d-b300-881d3e67eed5/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 14
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e4e58ace-d962-486e-937b-0457f81f0500/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 15
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/735125ee-a938-4e0a-8fe8-5cd75e6bfe48/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 16
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/de4d89bd-5d00-48ea-829b-e16aa358af83/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 17
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/eb81227e-ec04-42f1-bae5-7e66a16fcad9/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 18
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/21562564-d30b-403d-91a1-ac9603382b7d/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 19
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c2a61ad8-e238-4a26-9c3a-0f1e8cd364b8/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 20
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3f941b10-e2b2-46e6-83d1-e706326edd61/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 21
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/96b07046-1938-4728-9442-db9d2fb14bec/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 22
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8d63dafd-103c-4321-8717-2c18d0197764/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 23
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/32a99f4d-9235-4690-875f-adaef755ac48/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 24
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/77ff5b54-f1ea-442c-a890-a3b1ae8cfaea/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 25
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/319efd60-65fe-4f6a-a152-16abd90a19f1/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 26
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c991263e-640d-4e4b-a4f1-a199ba665808/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 27
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9aef1aa1-0302-4a05-8405-e760d542bc9c/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 28
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c21ea357-27a9-4655-b3b9-a2b7acf8a2fd/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "",
+        "thumbnail": null,
+        "order": 29
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/kids_push_ride_ons/index.html",
+      "categoryPages": "/scrape_store/kids_push_ride_ons/pages/index.html",
+      "detailPage": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/index.html"
+    },
+    "resourceStats": {
+      "videos": 29,
+      "similarItems": 0
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/81Lg7Hp2Y0L._AC_UL300_SR300,200_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 13
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      },
+      {
+        "url": "/scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 12
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ca8d7cbf-43bb-4110-9f80-7d5cddae2438.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/videos/video_0.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/ab733cf3-97c6-483d-88b0-5f7a6ffebe5a.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/videos/video_1.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5d75b3fd-ea02-4a87-a1f8-d311798ad12c.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/videos/video_2.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/e272dabb-c4a1-49f7-8b99-92ad7d3b47f3.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/videos/video_3.mp4"
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/a5239543-bcf2-4eb6-91a2-9f9c6e8acb56.mp4/productVideoOptimized.mp4",
+          "Thumbnail_URL": "N/A",
+          "Title": "N/A",
+          "Author": "N/A",
+          "Is_MP4": true,
+          "Local_Video_Path": "scrape_store/kids_push_ride_ons/Little/Rank_2_ASIN_B01LY46WJN_Little Tikes Cozy Coupe Dinosaur  Amazon Exclusive/videos/video_4.mp4"
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": []
+  }
+}

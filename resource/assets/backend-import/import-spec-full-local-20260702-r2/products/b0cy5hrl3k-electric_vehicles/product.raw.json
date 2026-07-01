@@ -1,0 +1,926 @@
+{
+  "schemaVersion": "v1",
+  "importBatchId": "import-spec-full-local-20260702-r2",
+  "sourceBase": "http://127.0.0.1:8010",
+  "sourceCategoryId": "electric_vehicles",
+  "categoryCode": "electric_car",
+  "fetchedAt": "2026-07-01T20:06:13.133Z",
+  "data": {
+    "productId": "B0CY5HRL3K",
+    "categoryId": "electric_vehicles",
+    "rank": 10,
+    "title": "MINIATURE MOTORS 12V Kids Electric Ride on Truck Car Remote Control, Twin 35W Motors 3.5MPH Max Speed, Bluetooth Music Player",
+    "brand": "MINIATURE",
+    "price": {
+      "display": "$102.59",
+      "value": 102.59,
+      "currency": "USD"
+    },
+    "rating": {
+      "display": "4.6  824",
+      "value": 4.6
+    },
+    "weight": {
+      "display": "26.4 Pounds",
+      "lbs": 26.4
+    },
+    "classification": {
+      "Brand": "MINIATURE",
+      "Vehicle_Type": "12V Kids Ride on Truck",
+      "Travel_System_Ready": "Unknown",
+      "Seating_Capacity": "Unknown",
+      "Wheel_Configuration": "Unknown",
+      "Harness_Type": "Unknown",
+      "Weight_Class": "Heavy Duty",
+      "Price_Tier": "100-200"
+    },
+    "categoryAttributes": {
+      "categoryId": "electric_vehicles",
+      "ageGroup": [],
+      "structure": [],
+      "scenario": [],
+      "features": [
+        "This product is exclusively provided by MINIATURE MOTORS and requires assembly! The Remote Control has three speeds: 2-3.5MPH. You can't change the speed in Manual Mode",
+        "as it's set at 3.5MPH",
+        "Powerful 35W Dual Motor & Long-Lasting Battery: Watch your child explore with confidence! This ride-on truck features twin 35W motors for impressive power and a rechargeable 12V battery that delivers 40-60 minutes of continuous play. With a top speed of 3.5MPH",
+        "it's perfect for thrilling yet manageable outdoor adventures.",
+        "Parental Remote Control & Independent Driving Modes: Best of both worlds for growing kids! Let your little driver take the wheel using the foot pedal and steering wheel. For younger children or close supervision",
+        "simply take over with the easy-to-use parental remote control",
+        "ensuring safety and interactive fun for different ages.",
+        "Built-in Bluetooth Speaker & Realistic Driving Sounds: Turn every ride into an exciting journey! The built-in Bluetooth speaker allows kids to play their favorite songs and stories from your smart device. Combined with a fun horn and engine start-up sound",
+        "it creates an immersive",
+        "realistic driving experience that doubles the fun.",
+        "The Perfect Gift That Fosters Development & Fun: Certified by ASTM and CPSIA safety standards",
+        "this electric truck is an unforgettable gift for birthdays",
+        "Christmas",
+        "and more. It's not just a toy—it encourages outdoor play",
+        "boosts coordination",
+        "and develops crucial motor skills",
+        "all while sparking joyful imagination.",
+        "Safety-Engineered for Your Peace of Mind: We prioritize your child's safety as much as you do. This toy car comes with a parental remote for full control",
+        "a safety belt",
+        "and slow-start technology for stable acceleration. The spring suspension system ensures a smooth and stable ride on various surfaces."
+      ],
+      "materialClass": [],
+      "wheelSize": [],
+      "powerLevel": []
+    },
+    "featureCards": [
+      {
+        "featureKey": "This product is exclusively provided by MINIATURE MOTORS and requires assembly! The Remote Control has three speeds: 2-3.5MPH. You can't change the speed in Manual Mode",
+        "featureLabel": "This Product Is Exclusively Provided By Miniature Motors And Requires Assembly! The Remote Control Has Three Speeds: 2 3.5mph. You Can't Change The Speed In Manual Mode",
+        "featureValue": "This product is exclusively provided by MINIATURE MOTORS and requires assembly! The Remote Control has three speeds: 2-3.5MPH. You can't change the speed in Manual Mode",
+        "featureEvidence": "report.Features",
+        "featureRank": 1,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "as it's set at 3.5MPH",
+        "featureLabel": "As It's Set At 3.5mph",
+        "featureValue": "as it's set at 3.5MPH",
+        "featureEvidence": "classification.summary",
+        "featureRank": 2,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "Powerful 35W Dual Motor & Long-Lasting Battery: Watch your child explore with confidence! This ride-on truck features twin 35W motors for impressive power and a rechargeable 12V battery that delivers 40-60 minutes of continuous play. With a top speed of 3.5MPH",
+        "featureLabel": "Powerful 35w Dual Motor & Long Lasting Battery: Watch Your Child Explore With Confidence! This Ride On Truck Features Twin 35w Motors For Impressive Power And A Rechargeable 12v Battery That Delivers 40 60 Minutes Of Continuous Play. With A Top Speed Of 3.5mph",
+        "featureValue": "Powerful 35W Dual Motor & Long-Lasting Battery: Watch your child explore with confidence! This ride-on truck features twin 35W motors for impressive power and a rechargeable 12V battery that delivers 40-60 minutes of continuous play. With a top speed of 3.5MPH",
+        "featureEvidence": "classification.summary",
+        "featureRank": 3,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "it's perfect for thrilling yet manageable outdoor adventures.",
+        "featureLabel": "It's Perfect For Thrilling Yet Manageable Outdoor Adventures.",
+        "featureValue": "it's perfect for thrilling yet manageable outdoor adventures.",
+        "featureEvidence": "classification.summary",
+        "featureRank": 4,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "Parental Remote Control & Independent Driving Modes: Best of both worlds for growing kids! Let your little driver take the wheel using the foot pedal and steering wheel. For younger children or close supervision",
+        "featureLabel": "Parental Remote Control & Independent Driving Modes: Best Of Both Worlds For Growing Kids! Let Your Little Driver Take The Wheel Using The Foot Pedal And Steering Wheel. For Younger Children Or Close Supervision",
+        "featureValue": "Parental Remote Control & Independent Driving Modes: Best of both worlds for growing kids! Let your little driver take the wheel using the foot pedal and steering wheel. For younger children or close supervision",
+        "featureEvidence": "classification.summary",
+        "featureRank": 5,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      },
+      {
+        "featureKey": "simply take over with the easy-to-use parental remote control",
+        "featureLabel": "Simply Take Over With The Easy To Use Parental Remote Control",
+        "featureValue": "simply take over with the easy-to-use parental remote control",
+        "featureEvidence": "classification.summary",
+        "featureRank": 6,
+        "featureNotes": "Derived from electric_vehicles classification data"
+      }
+    ],
+    "decisionSignals": {
+      "ranking": [
+        "This product is exclusively provided by MINIATURE MOTORS and requires assembly! The Remote Control has three speeds: 2-3.5MPH. You can't change the speed in Manual Mode",
+        "as it's set at 3.5MPH",
+        "Powerful 35W Dual Motor & Long-Lasting Battery: Watch your child explore with confidence! This ride-on truck features twin 35W motors for impressive power and a rechargeable 12V battery that delivers 40-60 minutes of continuous play. With a top speed of 3.5MPH",
+        "it's perfect for thrilling yet manageable outdoor adventures."
+      ],
+      "safety": [],
+      "fit": []
+    },
+    "evidenceRefs": [
+      "report.Features"
+    ],
+    "availability": "AVAILABLE",
+    "coverImage": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/primary.jpg",
+    "images": {
+      "cover": {
+        "url": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/primary.jpg",
+        "source": "local",
+        "order": 0
+      },
+      "gallery": [
+        {
+          "url": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_1.jpg",
+          "source": "local",
+          "order": 1
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_2.jpg",
+          "source": "local",
+          "order": 2
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_3.jpg",
+          "source": "local",
+          "order": 3
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_4.jpg",
+          "source": "local",
+          "order": 4
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_5.jpg",
+          "source": "local",
+          "order": 5
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_6.jpg",
+          "source": "local",
+          "order": 6
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_7.jpg",
+          "source": "local",
+          "order": 7
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_8.jpg",
+          "source": "local",
+          "order": 8
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_9.jpg",
+          "source": "local",
+          "order": 9
+        },
+        {
+          "url": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+          "source": "local",
+          "order": 10
+        }
+      ]
+    },
+    "galleryUrls": [
+      "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_1.jpg",
+      "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_2.jpg",
+      "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_3.jpg",
+      "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_4.jpg",
+      "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_5.jpg",
+      "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_6.jpg",
+      "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_7.jpg",
+      "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_8.jpg",
+      "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_9.jpg",
+      "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg"
+    ],
+    "videoUrls": [
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f5fa3322-4bd6-4b4f-a50a-e4192b076ac2/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62c84305-d958-4ba8-9ef1-315ebbb86af3/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/147f0005-9cf3-4e2c-ad00-3e1cf52430a1/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8ce2e489-4ea1-4c98-92b7-36b5f56a7b63/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f2989d71-cd7e-4b26-af3b-063635bb85a2/default.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/416907b4-3518-4b61-9887-4bc97a435ed8/default.vertical.jobtemplate.hls.m3u8",
+      "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3376f82a-a9bd-4a48-91d2-2e5c3c2fa9eb/default.vertical.jobtemplate.hls.m3u8"
+    ],
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f5fa3322-4bd6-4b4f-a50a-e4192b076ac2/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "MINIATURE MOTORS 12V\\/24V Ride on Truck Car Assembly Video",
+        "thumbnail": "https://m.media-amazon.com/images/I/91ruK-NGbIL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62c84305-d958-4ba8-9ef1-315ebbb86af3/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "MINIATURE MOTORS 12V Ride on Truck for Kids with Remote",
+        "thumbnail": "https://m.media-amazon.com/images/I/A11cA++505L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+        "order": 2
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/147f0005-9cf3-4e2c-ad00-3e1cf52430a1/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Review of toy car",
+        "thumbnail": "https://m.media-amazon.com/images/I/51c6rIj1p3L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 3
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8ce2e489-4ea1-4c98-92b7-36b5f56a7b63/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Moms honest review of this cool electric car for kids!",
+        "thumbnail": "https://m.media-amazon.com/images/I/81-49uTdKgL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 4
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f2989d71-cd7e-4b26-af3b-063635bb85a2/default.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Kids Electric Jeep with Remote - Everything You NEED to Know",
+        "thumbnail": "https://m.media-amazon.com/images/I/61V+qL2i-GL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 5
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/416907b4-3518-4b61-9887-4bc97a435ed8/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "A parents Pros & cons of this jeep- Kid demo! ",
+        "thumbnail": "https://m.media-amazon.com/images/I/81QHBsq4yuL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 6
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3376f82a-a9bd-4a48-91d2-2e5c3c2fa9eb/default.vertical.jobtemplate.hls.m3u8",
+        "source": "scraped",
+        "type": "m3u8",
+        "title": "Driving my kids ride-on car review",
+        "thumbnail": "https://m.media-amazon.com/images/I/81QFV7O5uYL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+        "order": 7
+      }
+    ],
+    "demoLinks": {
+      "categoryCatalog": "/scrape_store/electric_vehicles/index.html",
+      "categoryPages": "/scrape_store/electric_vehicles/pages/index.html",
+      "detailPage": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/index.html"
+    },
+    "resourceStats": {
+      "videos": 7,
+      "similarItems": 2
+    },
+    "galleryImages": [
+      {
+        "url": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/primary.jpg",
+        "kind": "cover",
+        "source": "local",
+        "sourceField": "Local_Image_Path",
+        "order": 1
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_1.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 2
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_2.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 3
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_3.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 4
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_4.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 5
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_5.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 6
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_6.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 7
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_7.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 8
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_8.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 9
+      },
+      {
+        "url": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/images/alt_9.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "Local_Image_Paths",
+        "order": 10
+      },
+      {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/71xx05YS06L._AC_UL300_SR300,200_.jpg",
+        "kind": "cover",
+        "source": "scraped",
+        "sourceField": "Listing_Image_URL",
+        "order": 12
+      }
+    ],
+    "manufacturerImages": [
+      {
+        "url": "/scrape_store/electric_vehicles/MINIATURE/Rank_10_ASIN_B0CY5HRL3K_MINIATURE MOTORS 12V Kids Electric Ride on Truck C/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+        "kind": "gallery",
+        "source": "local",
+        "sourceField": "From_The_Manufacturer.Assets.Local_Images",
+        "order": 11
+      }
+    ],
+    "relatedResources": {
+      "videos": [
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f5fa3322-4bd6-4b4f-a50a-e4192b076ac2/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/91ruK-NGbIL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "MINIATURE MOTORS 12V\\/24V Ride on Truck Car Assembly Video",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62c84305-d958-4ba8-9ef1-315ebbb86af3/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/A11cA++505L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+          "Title": "MINIATURE MOTORS 12V Ride on Truck for Kids with Remote",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/147f0005-9cf3-4e2c-ad00-3e1cf52430a1/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/51c6rIj1p3L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Review of toy car",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8ce2e489-4ea1-4c98-92b7-36b5f56a7b63/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81-49uTdKgL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Moms honest review of this cool electric car for kids!",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f2989d71-cd7e-4b26-af3b-063635bb85a2/default.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/61V+qL2i-GL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Kids Electric Jeep with Remote - Everything You NEED to Know",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/416907b4-3518-4b61-9887-4bc97a435ed8/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81QHBsq4yuL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "A parents Pros & cons of this jeep- Kid demo! ",
+          "Author": "N/A",
+          "Is_MP4": false
+        },
+        {
+          "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3376f82a-a9bd-4a48-91d2-2e5c3c2fa9eb/default.vertical.jobtemplate.hls.m3u8",
+          "Thumbnail_URL": "https://m.media-amazon.com/images/I/81QFV7O5uYL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+          "Title": "Driving my kids ride-on car review",
+          "Author": "N/A",
+          "Is_MP4": false
+        }
+      ],
+      "documents": []
+    },
+    "relatedProducts": [
+      {
+        "Rank": "Similar",
+        "Brand": "Best",
+        "Title": "Best Choice Products 12V Kids Electric Vehicle Toy Ride On Car with Parent Remote Control for Toddlers, Seat Harness, 61 lbs",
+        "Price": "$169.99",
+        "Rating": "4.3",
+        "Reviews": "21,161",
+        "URL": "https://www.amazon.com/Best-Choice-Products-Control-Suspension/dp/B07YC4VCYH/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_2/145-0039283-8171922?pd_rd_w=aHROD&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=VG8CSZ3T11FW3WP9M1XC&pd_rd_wg=qvsGy&pd_rd_r=60cb5428-1330-493c-988c-dd6ba41b2572&pd_rd_i=B07YC4VCYH&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/819EixX48RS._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B07YC4VCYH",
+        "Features": "FOR KIDS 3 YEARS & OLDER: This small yet powerful ride-on is perfect for your little racers who want to start driving like the grownups do! | POWERFUL 12V & REALISTIC DESIGN: Adjustable seatbelt, bright LED headlights, lockable doors, and grid windshield for off-road style, with a 12V motor and traction tires to ride on different terrains | MANUAL AND PARENT CONTROL: Let your child drive manually or use the remote control to safely guide them yourself; remote has forward/reverse controls | SAFE & DURABLE: Includes plastic wheels that will never deflate, plus a spring suspension system and safe, 2.8mph max speed for smooth rides on outdoor adventures | CONNECT YOUR MUSIC: A built-in AUX outlet allows kids to plug in media devices to drive while jamming to their own selection of music; OVERALL DIMENSIONS: 39.25\"(L) x 26\"(W) x 26\"(H); Weight Capacity: 61 lbs.",
+        "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d864eefa-be6d-46ab-8030-8859827c6a61/default.jobtemplate.hls.m3u8",
+        "Product_Videos_Detail": [
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d864eefa-be6d-46ab-8030-8859827c6a61/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1ZNfkvQQ4L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "12v Ride-On Truck Toy",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bc4606b8-66e5-4f5f-9211-733ff2763d85/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/51rNecSt0-L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Honest Review Best Choice Products 12V Kids RideON w Remote",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/87442e49-1797-4ee4-8a2d-760803dd19db/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1eGfNvwGfL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Watch This Before Your Buy!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/05422e8c-2471-409a-97ca-aa2da89fcb0b/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A1VbTHPUWeL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "Every detail you should know about this fun ride-on truck!",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c73d8407-61ca-484f-a4b8-249cbe37ff4a/default.vertical.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/B1UaAvm932L.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.jpg",
+            "Title": "MUST WATCH BEFORE you buy this jeep",
+            "Author": "N/A",
+            "Is_MP4": false
+          },
+          {
+            "Video_URL": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f27621b3-9339-47c9-8ff1-5bd4ba23e766/default.jobtemplate.hls.m3u8",
+            "Thumbnail_URL": "https://m.media-amazon.com/images/I/A16LIG+48nL.SS40_BG85,85,85_BR-120_PKdp-play-icon-overlay__.png",
+            "Title": "Watch This Before You Buy This Electric Kids Car!",
+            "Author": "N/A",
+            "Is_MP4": false
+          }
+        ],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d864eefa-be6d-46ab-8030-8859827c6a61/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bc4606b8-66e5-4f5f-9211-733ff2763d85/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/87442e49-1797-4ee4-8a2d-760803dd19db/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/05422e8c-2471-409a-97ca-aa2da89fcb0b/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c73d8407-61ca-484f-a4b8-249cbe37ff4a/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f27621b3-9339-47c9-8ff1-5bd4ba23e766/default.jobtemplate.hls.m3u8"
+        ],
+        "Product_Videos_MP4": [],
+        "Product_Videos_M3U8": [
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d864eefa-be6d-46ab-8030-8859827c6a61/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bc4606b8-66e5-4f5f-9211-733ff2763d85/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/87442e49-1797-4ee4-8a2d-760803dd19db/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/05422e8c-2471-409a-97ca-aa2da89fcb0b/default.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c73d8407-61ca-484f-a4b8-249cbe37ff4a/default.vertical.jobtemplate.hls.m3u8",
+          "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f27621b3-9339-47c9-8ff1-5bd4ba23e766/default.jobtemplate.hls.m3u8"
+        ],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "",
+              "Texts": [],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/89c02589-ab3f-4fc4-a18b-93914b8f8e9a.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/c81dd763-6d5b-45c6-ac4e-3f7331213a16.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/e74bff68-cf41-43ab-ac44-f195547db0f0.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3417dfaa-e1f3-4217-a5ec-8c919616a08e.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/91c94927-05fe-4abe-b3ea-12c7941c0b0f.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/89c02589-ab3f-4fc4-a18b-93914b8f8e9a.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "Something for everyone",
+                  "Image_Alt": "Something for everyone"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/c81dd763-6d5b-45c6-ac4e-3f7331213a16.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 2,
+                  "Image_Title": "Stamp of approval",
+                  "Image_Alt": "Stamp of approval"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/e74bff68-cf41-43ab-ac44-f195547db0f0.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 3,
+                  "Image_Title": "Experts at work",
+                  "Image_Alt": "Experts at work"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3417dfaa-e1f3-4217-a5ec-8c919616a08e.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 4,
+                  "Image_Title": "something for everyone",
+                  "Image_Alt": "something for everyone"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/91c94927-05fe-4abe-b3ea-12c7941c0b0f.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 5,
+                  "Image_Title": "BCP Collections",
+                  "Image_Alt": "BCP Collections"
+                }
+              ],
+              "Comparison_Table": {},
+              "Block_Types": [
+                "image"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/89c02589-ab3f-4fc4-a18b-93914b8f8e9a.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "Something for everyone",
+                    "Image_Alt": "Something for everyone"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/c81dd763-6d5b-45c6-ac4e-3f7331213a16.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 2,
+                    "Image_Title": "Stamp of approval",
+                    "Image_Alt": "Stamp of approval"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/e74bff68-cf41-43ab-ac44-f195547db0f0.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 3,
+                    "Image_Title": "Experts at work",
+                    "Image_Alt": "Experts at work"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3417dfaa-e1f3-4217-a5ec-8c919616a08e.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 4,
+                    "Image_Title": "something for everyone",
+                    "Image_Alt": "something for everyone"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/91c94927-05fe-4abe-b3ea-12c7941c0b0f.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 5,
+                    "Image_Title": "BCP Collections",
+                    "Image_Alt": "BCP Collections"
+                  }
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/89c02589-ab3f-4fc4-a18b-93914b8f8e9a.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/c81dd763-6d5b-45c6-ac4e-3f7331213a16.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/e74bff68-cf41-43ab-ac44-f195547db0f0.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3417dfaa-e1f3-4217-a5ec-8c919616a08e.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/91c94927-05fe-4abe-b3ea-12c7941c0b0f.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+            ],
+            "Local_Images": [
+              "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+              "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+              "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+              "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+              "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [
+            {
+              "Title": "Instructions for Use (IFU) (PDF)",
+              "URL": "https://m.media-amazon.com/images/I/B11y1aHGPyL.pdf",
+              "Type": "PDF",
+              "Source": "Product guides and documents",
+              "Category": "manual",
+              "Local_Path": "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/guides/manual/doc_00_Instructions_for_Use_IFU_PDF.pdf"
+            }
+          ],
+          "Summary": {
+            "Count": 1
+          },
+          "Local_Paths": [
+            "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/guides/manual/doc_00_Instructions_for_Use_IFU_PDF.pdf"
+          ]
+        },
+        "Product_Description": "N/A",
+        "Product_Specifications": {
+          "Measurements": {
+            "Size": "12V",
+            "Item Weight": "32 Pounds",
+            "Item Dimensions L x W x H": "39.25\"L x 26\"W x 26\"H",
+            "Weight Capacity Maximum": "61 Pounds",
+            "Item Dimensions": "39.25 x 26 x 26 inches"
+          },
+          "Features_Specs": {
+            "Age Range Description": "Kid",
+            "UPC": "842957119448",
+            "Theme": "Sport"
+          },
+          "Materials_Care": {
+            "Material Type": "Plastic， Metal"
+          },
+          "Item_Details": {
+            "Brand Name": "Best Choice Products",
+            "Sub Brand": "Best Choice Products",
+            "Manufacturer Warranty Description": "60 DAY WARRANTY: All returns are shipped back to a Best Choice Products Return Center at the customer's expense within 60 days of delivery; however, we will send a pre-paid return shipping label via email if the return is a result of our error. Please note that it is at the company's discretion to decide if the item may be returned to a Best Choice Products Return Center. Unauthorized returns may not be accepted. Once your claim is processed and approved, please allow 5-7 business days for the request to be completed. If a replacement unit or replacement parts are requested, please be aware that the fulfillment time-frame is based on product availability.",
+            "Manufacturer Part Number": "SKY5506",
+            "Model Number": "SKY5506",
+            "Manufacturer": "Best Choice Products",
+            "Unit Count": "1 Count",
+            "Included Components": "Assembly Guide",
+            "Best Sellers Rank": "#7,291 in Toys & Games (See Top 100 in Toys & Games) #12 in Kids' Electric Vehicles",
+            "ASIN": "B07YC4VCYH",
+            "Customer Reviews": "4.3  4.3 out of 5 stars   \n    (21,161)   \n\n\n 4.3 out of 5 stars"
+          },
+          "User_Guide": {
+            "Manufacturer Minimum Age (MONTHS)": "36",
+            "Is Assembly Required": "Yes"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "Best Choice Products Inc \n  Best Choice Products Inc      Shipper / Seller   Best Choice Products Inc",
+          "Availability": "In Stock",
+          "Delivery_Promise": "FREE delivery Monday, June 29",
+          "Specifications": {}
+        },
+        "Local_Image_Paths": [
+          "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/images/primary.jpg",
+          "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/images/alt_1.jpg",
+          "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/images/alt_2.jpg",
+          "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/images/alt_3.jpg",
+          "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/images/alt_4.jpg",
+          "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/images/alt_5.jpg",
+          "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/images/alt_6.jpg",
+          "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/images/alt_7.jpg",
+          "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/images/alt_8.jpg",
+          "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/images/alt_9.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/electric_vehicles/Best/Rank_Similar_ASIN_B07YC4VCYH_Best Choice Products 12V Kids Electric Vehicle Toy/images/primary.jpg",
+        "Local_Video_Paths": []
+      },
+      {
+        "Rank": "Similar",
+        "Brand": "Winado",
+        "Title": "Winado 12V Electric Car for Kids, Ride on Truck for Toddlers with Remote Control, Battery Powered Kids Electric Vehicle to Dr",
+        "Price": "$119.99",
+        "Rating": "4.3",
+        "Reviews": "28",
+        "URL": "https://www.amazon.com/Winado-Electric-Toddlers-Control-Bluetooth/dp/B0G1LF5LR3/ref=sims_dp_d_dex_ai_rank_model_1_d_v1_d_sccl_1_3/145-0039283-8171922?pd_rd_w=aHROD&content-id=amzn1.sym.bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_p=bb4a0aac-c2b4-4b4b-a0c8-9aa89b28dce3&pf_rd_r=VG8CSZ3T11FW3WP9M1XC&pd_rd_wg=qvsGy&pd_rd_r=60cb5428-1330-493c-988c-dd6ba41b2572&pd_rd_i=B0G1LF5LR3&psc=1",
+        "Listing_Image_URL": "https://images-na.ssl-images-amazon.com/images/I/71w1pL3rKXL._AC_UL165_SR165,165_.jpg",
+        "ASIN": "B0G1LF5LR3",
+        "Features": "2 Control Modes - If the child can drive byself, they can drive by themselvs with pedals and steering wheel. If the child can't drive yet, parents can use the remote control to control it, ensuring the safety of your child | Small Truck Real Experience - Mini Electric Car is fully functional and reduced in size, suitable for children. This ride-on toy can bear 66 pounds, allowing your child to have a realistic driving experience, and the controls are suitable for small hands | Multifunctional Operation - Electric kids car has a built-in MP3 player, Bluetooth and LED lights, allowing children to play their favorite music or stories while driving, creating a more realistic driving experience | Long-lasting Battery - Power electric toy is equipped with a 12V rechargeable battery, which can be charged for 8-12 hours each time and has a battery life of 1-2 hours, fully meeting children's long-term outdoor game needs | Safety Assurance - Winado 12V electric truck is made of safe materials, complies with ASTM, CPSIA, and CPSC certifications, and is equipped with seat belts. It is suitable for children under 1.1 meters in height, so parents can use it with confidence",
+        "Video_URL": "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/494d5e81-45f5-4b13-bcbc-ab4925daa00b.mp4/productVideoOptimized.mp4",
+        "Product_Videos_Detail": [],
+        "Product_Videos": [
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/494d5e81-45f5-4b13-bcbc-ab4925daa00b.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/7fd8b7e2-2dfb-4649-83ab-7ab6a3deeed4.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/11533b03-73d3-45d8-8fce-4ab5095d8de0.mov/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5bdf19c9-a5bf-46d7-9533-affb10dcf91b.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/024b8b11-7a47-4d3f-b37f-c5a57564f622.mp4/productVideoOptimized.mp4"
+        ],
+        "Product_Videos_MP4": [
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/494d5e81-45f5-4b13-bcbc-ab4925daa00b.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/7fd8b7e2-2dfb-4649-83ab-7ab6a3deeed4.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/11533b03-73d3-45d8-8fce-4ab5095d8de0.mov/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5bdf19c9-a5bf-46d7-9533-affb10dcf91b.mp4/productVideoOptimized.mp4",
+          "https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/024b8b11-7a47-4d3f-b37f-c5a57564f622.mp4/productVideoOptimized.mp4"
+        ],
+        "Product_Videos_M3U8": [],
+        "From_The_Manufacturer": {
+          "Model_Version": "2.0",
+          "Sections": [
+            {
+              "Section_Id": "section_01",
+              "Display_Order": 1,
+              "Title": "Winado 12V Electric Car - A Mini Truck for Your Little Driver",
+              "Texts": [
+                "Give your child the thrill of driving with Winado's 12V Electric Car. Featuring dual control modes, Bluetooth connectivity, and LED lights, mini Truck offers a realistic driving experience. With safety features like soft start and seat belts. Perfect for toddlers up to 66 pounds.",
+                "Timely Recharging Charge the battery when the power is low to maintain its lifespan. Avoid waiting until the battery is completely drained before recharging.",
+                "Periodic Charging Charge the battery every 1 month to prevent deep discharge and maintain its condition.",
+                "Is the remote control not working? The remote control needs to be paired with the vehicle for the first use. Refer to the manual for pairing instructions. If the light on the remote control stays on, it indicates successful pairing.",
+                "Initial Charge When charging for the first time, ensure the battery is fully charged for 8-12 hours to optimize performance and extend battery life. After a full charge, the runtime is approximately 1 hour."
+              ],
+              "Images": [
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/8e0a5143-ea2c-49fe-af96-b125e0ed0117.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/72c1cc2b-6e2e-4b18-a940-144045eb785c.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0147e748-dfcc-4a4e-813d-19ee703f13d7.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/5913d594-a583-4365-bf3e-816ac7b958ba.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f0b2364b-02b6-49e5-9e1f-96bcbca177c3.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+              ],
+              "Images_Detail": [
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/8e0a5143-ea2c-49fe-af96-b125e0ed0117.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 1,
+                  "Image_Title": "ride on car",
+                  "Image_Alt": "ride on car"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/72c1cc2b-6e2e-4b18-a940-144045eb785c.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 2,
+                  "Image_Title": "ride on car",
+                  "Image_Alt": "ride on car"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0147e748-dfcc-4a4e-813d-19ee703f13d7.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 3,
+                  "Image_Title": "ride on car",
+                  "Image_Alt": "ride on car"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/5913d594-a583-4365-bf3e-816ac7b958ba.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 4,
+                  "Image_Title": "ride on car",
+                  "Image_Alt": "ride on car"
+                },
+                {
+                  "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f0b2364b-02b6-49e5-9e1f-96bcbca177c3.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                  "Image_Order": 5,
+                  "Image_Title": "ride on car",
+                  "Image_Alt": "ride on car"
+                }
+              ],
+              "Comparison_Table": {},
+              "Block_Types": [
+                "text",
+                "image"
+              ],
+              "Layout_Blocks": [
+                {
+                  "Block_Type": "title",
+                  "Text": "Winado 12V Electric Car - A Mini Truck for Your Little Driver"
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/8e0a5143-ea2c-49fe-af96-b125e0ed0117.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 1,
+                    "Image_Title": "ride on car",
+                    "Image_Alt": "ride on car"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Give your child the thrill of driving with Winado's 12V Electric Car. Featuring dual control modes, Bluetooth connectivity, and LED lights, mini Truck offers a realistic driving experience. With safety features like soft start and seat belts. Perfect for toddlers up to 66 pounds."
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/72c1cc2b-6e2e-4b18-a940-144045eb785c.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 2,
+                    "Image_Title": "ride on car",
+                    "Image_Alt": "ride on car"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0147e748-dfcc-4a4e-813d-19ee703f13d7.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 3,
+                    "Image_Title": "ride on car",
+                    "Image_Alt": "ride on car"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/5913d594-a583-4365-bf3e-816ac7b958ba.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 4,
+                    "Image_Title": "ride on car",
+                    "Image_Alt": "ride on car"
+                  }
+                },
+                {
+                  "Block_Type": "image",
+                  "Image": {
+                    "Image_URL": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f0b2364b-02b6-49e5-9e1f-96bcbca177c3.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+                    "Image_Order": 5,
+                    "Image_Title": "ride on car",
+                    "Image_Alt": "ride on car"
+                  }
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Timely Recharging Charge the battery when the power is low to maintain its lifespan. Avoid waiting until the battery is completely drained before recharging."
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Periodic Charging Charge the battery every 1 month to prevent deep discharge and maintain its condition."
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Is the remote control not working? The remote control needs to be paired with the vehicle for the first use. Refer to the manual for pairing instructions. If the light on the remote control stays on, it indicates successful pairing."
+                },
+                {
+                  "Block_Type": "text",
+                  "Text": "Initial Charge When charging for the first time, ensure the battery is fully charged for 8-12 hours to optimize performance and extend battery life. After a full charge, the runtime is approximately 1 hour."
+                }
+              ]
+            }
+          ],
+          "Assets": {
+            "Remote_Images": [
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/8e0a5143-ea2c-49fe-af96-b125e0ed0117.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/72c1cc2b-6e2e-4b18-a940-144045eb785c.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0147e748-dfcc-4a4e-813d-19ee703f13d7.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/5913d594-a583-4365-bf3e-816ac7b958ba.__CR0,0,1464,600_PT0_SX1464_V1___.jpg",
+              "https://m.media-amazon.com/images/S/aplus-media-library-service-media/f0b2364b-02b6-49e5-9e1f-96bcbca177c3.__CR0,0,1464,600_PT0_SX1464_V1___.jpg"
+            ],
+            "Local_Images": [
+              "scrape_store/electric_vehicles/Winado/Rank_Similar_ASIN_B0G1LF5LR3_Winado 12V Electric Car for Kids Ride on Truck for/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+              "scrape_store/electric_vehicles/Winado/Rank_Similar_ASIN_B0G1LF5LR3_Winado 12V Electric Car for Kids Ride on Truck for/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+              "scrape_store/electric_vehicles/Winado/Rank_Similar_ASIN_B0G1LF5LR3_Winado 12V Electric Car for Kids Ride on Truck for/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+              "scrape_store/electric_vehicles/Winado/Rank_Similar_ASIN_B0G1LF5LR3_Winado 12V Electric Car for Kids Ride on Truck for/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg",
+              "scrape_store/electric_vehicles/Winado/Rank_Similar_ASIN_B0G1LF5LR3_Winado 12V Electric Car for Kids Ride on Truck for/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_04.jpg"
+            ]
+          }
+        },
+        "Product_Guides_And_Documents": {
+          "Model_Version": "1.0",
+          "Items": [],
+          "Summary": {
+            "Count": 0
+          },
+          "Local_Paths": []
+        },
+        "Product_Description": "N/A",
+        "Product_Specifications": {
+          "Measurements": {
+            "Size": "Small",
+            "Weight Capacity Maximum": "66 Pounds"
+          },
+          "Features_Specs": {
+            "Battery Average Life": "1.5 Hours",
+            "Theme": "Vehicle"
+          },
+          "Materials_Care": {
+            "Material Type": "Metal, Plastic"
+          },
+          "Item_Details": {
+            "Brand Name": "Winado",
+            "Manufacturer Part Number": "WNDTRUCK657",
+            "Manufacturer": "Winado",
+            "Unit Count": "1.0 Count",
+            "Best Sellers Rank": "#107,055 in Toys & Games (See Top 100 in Toys & Games) #455 in Kids' Electric Vehicles",
+            "ASIN": "B0G1LF5LR3",
+            "Customer Reviews": "4.3  4.3 out of 5 stars   \n    (28)   \n\n\n 4.3 out of 5 stars"
+          },
+          "User_Guide": {
+            "Manufacturer Minimum Age (MONTHS)": "36.0",
+            "Manufacturer Maximum Age (MONTHS)": "96",
+            "Is Assembly Required": "Yes"
+          },
+          "Additional_Details": {}
+        },
+        "Right_Panel_Details": {
+          "Ships_From": "N/A",
+          "Sold_By": "Winado \n  Winado      Shipper / Seller   Winado",
+          "Availability": "Only 6 left in stock - order soon.",
+          "Delivery_Promise": "FREE delivery July 1 - 3. Details",
+          "Specifications": {}
+        },
+        "Local_Image_Paths": [
+          "scrape_store/electric_vehicles/Winado/Rank_Similar_ASIN_B0G1LF5LR3_Winado 12V Electric Car for Kids Ride on Truck for/images/primary.jpg",
+          "scrape_store/electric_vehicles/Winado/Rank_Similar_ASIN_B0G1LF5LR3_Winado 12V Electric Car for Kids Ride on Truck for/images/alt_1.jpg",
+          "scrape_store/electric_vehicles/Winado/Rank_Similar_ASIN_B0G1LF5LR3_Winado 12V Electric Car for Kids Ride on Truck for/images/alt_2.jpg",
+          "scrape_store/electric_vehicles/Winado/Rank_Similar_ASIN_B0G1LF5LR3_Winado 12V Electric Car for Kids Ride on Truck for/images/alt_3.jpg",
+          "scrape_store/electric_vehicles/Winado/Rank_Similar_ASIN_B0G1LF5LR3_Winado 12V Electric Car for Kids Ride on Truck for/images/alt_4.jpg",
+          "scrape_store/electric_vehicles/Winado/Rank_Similar_ASIN_B0G1LF5LR3_Winado 12V Electric Car for Kids Ride on Truck for/images/alt_5.jpg",
+          "scrape_store/electric_vehicles/Winado/Rank_Similar_ASIN_B0G1LF5LR3_Winado 12V Electric Car for Kids Ride on Truck for/images/alt_6.jpg",
+          "scrape_store/electric_vehicles/Winado/Rank_Similar_ASIN_B0G1LF5LR3_Winado 12V Electric Car for Kids Ride on Truck for/images/alt_7.jpg",
+          "scrape_store/electric_vehicles/Winado/Rank_Similar_ASIN_B0G1LF5LR3_Winado 12V Electric Car for Kids Ride on Truck for/images/alt_8.jpg"
+        ],
+        "Local_Image_Path": "scrape_store/electric_vehicles/Winado/Rank_Similar_ASIN_B0G1LF5LR3_Winado 12V Electric Car for Kids Ride on Truck for/images/primary.jpg",
+        "Local_Video_Paths": []
+      }
+    ]
+  }
+}

@@ -12,6 +12,7 @@ import {
   Download
 } from "lucide-react";
 import { getCMSProducts, getCMSEvaluations, getCMSGuides, getCMSNews, saveCMSProduct, seedProductsToFirestore, seedGuidesToFirestore, seedNewsToFirestore, seedEvaluationsToFirestore } from "../../lib/cmsService";
+import { getWorkerBaseUrl } from "../../lib/backendResourceService";
 import { productsData as defaultProductsData } from "../../data/modelsData";
 import { guideArticles } from "../../data/guidesData";
 import { newsArticles } from "../../data/newsData";
@@ -81,7 +82,7 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
     }
 
     try {
-      const workerResponse = await fetch("https://kidsmobi-api-v1.seaman-player.workers.dev/api/v1/catalog/categories", {
+      const workerResponse = await fetch(`${getWorkerBaseUrl()}/api/v1/catalog/categories`, {
         headers: { Accept: "application/json" },
       });
       const contentType = workerResponse.headers.get("content-type") || "";
@@ -111,6 +112,7 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
       `- Generated At: ${nowIso}`,
       `- Generated At (Local): ${nowLocal}`,
       `- Environment Origin: ${window.location.origin}`,
+      `- Worker Base URL: ${getWorkerBaseUrl()}`,
       `- Site Reachability: ${statusText(health.site)}`,
       `- Worker API Availability: ${statusText(health.worker)}`,
       `- CMS Read Capability: ${statusText(health.cms)}`,
@@ -119,7 +121,7 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
       "## Demo Entry Links",
       "",
       "- Production: https://kidsmobi.pages.dev",
-      "- Worker Categories API: https://kidsmobi-api-v1.seaman-player.workers.dev/api/v1/catalog/categories",
+      `- Worker Categories API: ${getWorkerBaseUrl()}/api/v1/catalog/categories`,
       "- Admin Panel: open the production site and enter admin mode",
       "",
     ];
