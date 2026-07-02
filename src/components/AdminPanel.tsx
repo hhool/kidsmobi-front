@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { 
   Globe,
   AlertCircle,
-  Database,
   HelpCircle,
   FolderKanban,
   X,
@@ -13,9 +12,6 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { auth } from "../lib/firebase";
-import { checkIsAdmin, dedupeCMSCategoriesByCode, seedProductsToFirestore } from "../lib/cmsService";
-import { productsData as defaultProductsData } from "../data/modelsData";
-import { translateProduct } from "../lib/translate";
 import Sidebar from "./admin/Sidebar";
 import Dashboard from "./admin/Dashboard";
 import ProductManager from "./admin/ProductManager";
@@ -29,21 +25,6 @@ import ImportReviewManager from "./admin/ImportReviewManager";
 import OperationsCenter from "./admin/OperationsCenter";
 import { getD1Health } from "../lib/cmsD1Service";
 const AssetUploader = React.lazy(() => import("./admin/AssetUploader"));
-
-type CategoryDedupeAudit = {
-  executedAt: string;
-  actor: string;
-  removed: number;
-  remaining: number;
-};
-
-type OperationNotice = {
-  kind: "success" | "error";
-  title: string;
-  message: string;
-};
-
-const CATEGORY_DEDUPE_AUDIT_KEY = "cms_last_category_dedupe_audit";
 
 export default function AdminPanel({ 
   onClose, 
@@ -61,10 +42,6 @@ export default function AdminPanel({
   onDeveloperBypass?: () => void
 }) {
   const [activeMenu, setActiveMenu] = useState<"dashboard" | "categories" | "scenarios" | "products" | "evaluations" | "guides" | "news" | "settings" | "assets" | "imports">("dashboard");
-  const [syncing, setSyncing] = useState(false);
-  const [deduping, setDeduping] = useState(false);
-  const [operationNotice, setOperationNotice] = useState<OperationNotice | null>(null);
-  const [lastDedupeAudit, setLastDedupeAudit] = useState<CategoryDedupeAudit | null>(null);
   const [showHelpTip, setShowHelpTip] = useState(false);
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [d1Status, setD1Status] = useState<"unknown" | "healthy" | "down">("unknown");
@@ -86,18 +63,6 @@ export default function AdminPanel({
     };
   }, []);
 
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem(CATEGORY_DEDUPE_AUDIT_KEY);
-      if (!raw) return;
-      const parsed = JSON.parse(raw) as CategoryDedupeAudit;
-      if (!parsed?.executedAt) return;
-      setLastDedupeAudit(parsed);
-    } catch {
-      // Ignore local parse errors and continue with empty audit state.
-    }
-  }, []);
-
   const handleCopy = (text: string, fieldName: string) => {
     try {
       navigator.clipboard.writeText(text);
@@ -108,78 +73,6 @@ export default function AdminPanel({
     }
   };
 
-  const handleForceSync = async () => {
-    const confirm = window.confirm(lang === "zh" ? "您确定要强制同步数据到 Cloudflare D1 吗？这将会使用默认车型数据重新初始化并清空不兼容格式的数据。" : "Are you sure you want to force sync products to Cloudflare D1? This will serialize correct default stroller structures into your D1-backed CMS.");
-    if (!confirm) return;
-    setSyncing(true);
-    try {
-      const dedupe = await dedupeCMSCategoriesByCode();
-      const success = await seedProductsToFirestore(defaultProductsData, translateProduct);
-      if (success) {
-        alert(
-          lang === "zh"
-            ? `数据强制同步成功！已自动去重品类 ${dedupe.removed} 条，当前品类总数 ${dedupe.remaining}。`
-            : `Force sync completed. Category dedupe removed ${dedupe.removed} duplicates, ${dedupe.remaining} categories remain.`,
-        );
-        window.location.reload();
-      } else {
-        alert(lang === "zh" ? "同步失败，请检查控制台。" : "Sync failed, please consult console logs.");
-      }
-    } catch (e: any) {
-      console.error("Force sync failed:", e);
-      let errorMsg = e.message || String(e);
-      if (errorMsg.includes("Missing or insufficient permissions")) {
-        alert(
-          lang === "zh"
-            ? "❌ 同步失败（权限不足）：当前会话缺少云端写入权限。请使用 Google 账号正常登录后重试；开发者 bypass 仅用于本地浏览。"
-            : "❌ Sync failed (Missing or insufficient permissions): Current session lacks write permission to cloud data. Please sign in with Google and retry; developer bypass is read-only."
-        );
-      } else {
-        alert((lang === "zh" ? "同步出错: " : "Sync Error: ") + errorMsg);
-      }
-    } finally {
-      setSyncing(false);
-    }
-  };
-
-  const handleManualCategoryDedupe = async () => {
-    const confirm = window.confirm(
-      lang === "zh"
-        ? "确认立即执行品类去重吗？系统将按 code 清理重复品类，并保留标准记录。"
-        : "Run category dedupe now? Duplicates will be removed by code while keeping canonical records.",
-    );
-    if (!confirm) return;
-
-    setDeduping(true);
-    try {
-      const result = await dedupeCMSCategoriesByCode();
-      const audit: CategoryDedupeAudit = {
-        executedAt: new Date().toISOString(),
-        actor: String(auth.currentUser?.email || "unknown").trim() || "unknown",
-        removed: result.removed,
-        remaining: result.remaining,
-      };
-      setLastDedupeAudit(audit);
-      localStorage.setItem(CATEGORY_DEDUPE_AUDIT_KEY, JSON.stringify(audit));
-      setOperationNotice({
-        kind: "success",
-        title: lang === "zh" ? "品类去重已完成" : "Category dedupe completed",
-        message:
-          lang === "zh"
-            ? `删除 ${result.removed} 条重复项，当前品类总数 ${result.remaining}。`
-            : `Removed ${result.removed} duplicates, ${result.remaining} categories remain.`,
-      });
-    } catch (e: any) {
-      console.error("Category dedupe failed:", e);
-      setOperationNotice({
-        kind: "error",
-        title: lang === "zh" ? "品类去重失败" : "Category dedupe failed",
-        message: (e?.message || String(e)),
-      });
-    } finally {
-      setDeduping(false);
-    }
-  };
 
   if (loadingProp) return (
     <div className="fixed inset-0 bg-white/80 backdrop-blur-md z-[100] flex items-center justify-center">
@@ -282,82 +175,11 @@ export default function AdminPanel({
               <HelpCircle className="w-3.5 h-3.5 text-slate-500 animate-pulse" />
               {lang === "zh" ? "权限说明与排错" : "Permissions Guide"}
             </button>
-            <button
-              onClick={handleManualCategoryDedupe}
-              disabled={deduping || syncing}
-              className="text-[11px] bg-emerald-500 hover:bg-emerald-600 disabled:bg-emerald-100 text-white disabled:text-emerald-500 px-4 py-2 rounded-xl font-black uppercase tracking-wide hover:shadow-md disabled:hover:shadow-none disabled:opacity-70 flex items-center gap-1.5 cursor-pointer transition active:scale-95"
-            >
-              <ShieldAlert className="w-3.5 h-3.5 animate-pulse" />
-              {deduping ? (lang === "zh" ? "去重中..." : "Deduping...") : (lang === "zh" ? "品类去重" : "Dedupe Categories")}
-            </button>
-            <button
-              onClick={handleForceSync}
-              disabled={syncing || deduping}
-              className="text-[11px] bg-amber-500 hover:bg-amber-600 disabled:bg-amber-100 text-slate-950 disabled:text-slate-400 px-4 py-2 rounded-xl font-black uppercase tracking-wide hover:shadow-md disabled:hover:shadow-none disabled:opacity-70 flex items-center gap-1.5 cursor-pointer transition active:scale-95"
-            >
-              <Database className="w-3.5 h-3.5 animate-pulse" />
-              {syncing ? (lang === "zh" ? "同步中..." : "Syncing...") : (lang === "zh" ? "强制同步数据" : "Force Sync Data")}
-            </button>
           </div>
         </div>
 
         <div className="p-10 max-w-7xl mx-auto w-full flex-1">
           <OperationsCenter lang={lang} />
-
-          {operationNotice && (
-            <div
-              className={`mb-5 p-4 rounded-2xl border flex items-start justify-between gap-3 ${
-                operationNotice.kind === "success"
-                  ? "bg-emerald-50 border-emerald-200 text-emerald-900"
-                  : "bg-rose-50 border-rose-200 text-rose-900"
-              }`}
-            >
-              <div>
-                <h4 className="font-black text-sm">{operationNotice.title}</h4>
-                <p className="text-xs mt-1 opacity-90 break-words">{operationNotice.message}</p>
-              </div>
-              <button
-                onClick={() => setOperationNotice(null)}
-                title={lang === "zh" ? "关闭通知" : "Dismiss notification"}
-                className="p-1 rounded-lg hover:bg-black/5 transition shrink-0 cursor-pointer"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-          )}
-
-          {lastDedupeAudit && (
-            <div className="mb-5 p-4 rounded-2xl border border-slate-200 bg-white shadow-sm">
-              <div className="flex items-center justify-between gap-3">
-                <div>
-                  <h4 className="font-black text-sm text-slate-900">
-                    {lang === "zh" ? "最近一次品类去重记录" : "Latest category dedupe audit"}
-                  </h4>
-                  <p className="text-xs text-slate-500 mt-1">
-                    {lang === "zh" ? "用于运维留档与复盘" : "For operations evidence and post-check"}
-                  </p>
-                </div>
-              </div>
-              <div className="mt-3 grid grid-cols-1 md:grid-cols-4 gap-2 text-xs">
-                <div className="rounded-xl bg-slate-50 border border-slate-100 p-3">
-                  <div className="text-slate-500">{lang === "zh" ? "执行时间" : "Executed at"}</div>
-                  <div className="font-bold text-slate-800 mt-1">{new Date(lastDedupeAudit.executedAt).toLocaleString()}</div>
-                </div>
-                <div className="rounded-xl bg-slate-50 border border-slate-100 p-3">
-                  <div className="text-slate-500">{lang === "zh" ? "执行人" : "Operator"}</div>
-                  <div className="font-bold text-slate-800 mt-1 break-all">{lastDedupeAudit.actor}</div>
-                </div>
-                <div className="rounded-xl bg-slate-50 border border-slate-100 p-3">
-                  <div className="text-slate-500">{lang === "zh" ? "删除重复" : "Removed"}</div>
-                  <div className="font-bold text-slate-800 mt-1">{lastDedupeAudit.removed}</div>
-                </div>
-                <div className="rounded-xl bg-slate-50 border border-slate-100 p-3">
-                  <div className="text-slate-500">{lang === "zh" ? "剩余品类" : "Remaining"}</div>
-                  <div className="font-bold text-slate-800 mt-1">{lastDedupeAudit.remaining}</div>
-                </div>
-              </div>
-            </div>
-          )}
 
           {localStorage.getItem("dev_admin_bypass") === "true" && (
             <div className="mb-8 p-6 bg-amber-50 border border-amber-200 rounded-[28px] shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4 animate-in fade-in slide-in-from-top-4 duration-500">

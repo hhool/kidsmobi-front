@@ -8,6 +8,10 @@ import {
   downloadCMSOpsExport,
   dedupeD1CMSCategories,
 } from "../../lib/cmsD1Service";
+import { seedProductsToFirestore } from "../../lib/cmsService";
+import { productsData as defaultProductsData } from "../../data/modelsData";
+import { translateProduct } from "../../lib/translate";
+import { getOpsCollectionLabel, OPS_COLLECTIONS, OPS_COPY } from "./operationsConfig";
 
 type Props = {
   lang: "zh" | "en";
@@ -18,41 +22,8 @@ type Notice = {
   text: string;
 };
 
-const collections: Array<Exclude<CMSOpsCollection, "all">> = [
-  "products",
-  "categories",
-  "scenarios",
-  "evaluations",
-  "guides",
-  "news",
-  "settings",
-];
-
-function collectionLabel(lang: "zh" | "en", value: CMSOpsCollection): string {
-  const mapZh: Record<CMSOpsCollection, string> = {
-    all: "全站",
-    products: "产品中心",
-    categories: "品类管理",
-    scenarios: "场景管理",
-    evaluations: "评测中心",
-    guides: "选购指南",
-    news: "全球资讯",
-    settings: "首页与配置",
-  };
-  const mapEn: Record<CMSOpsCollection, string> = {
-    all: "All",
-    products: "Products",
-    categories: "Categories",
-    scenarios: "Scenarios",
-    evaluations: "Evaluations",
-    guides: "Guides",
-    news: "News",
-    settings: "Settings",
-  };
-  return lang === "zh" ? mapZh[value] : mapEn[value];
-}
-
 export default function OperationsCenter({ lang }: Props) {
+  const copy = OPS_COPY[lang];
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState<Notice | null>(null);
   const [overview, setOverview] = useState<{
@@ -84,14 +55,12 @@ export default function OperationsCenter({ lang }: Props) {
 
   const totalRows = useMemo(() => {
     if (!overview) return 0;
-    return collections.reduce((sum, key) => sum + Number(overview.counts[key] || 0), 0);
+    return OPS_COLLECTIONS.reduce((sum, key) => sum + Number(overview.counts[key] || 0), 0);
   }, [overview]);
 
   const runInit = async () => {
     const confirmText =
-      lang === "zh"
-        ? `确认初始化 ${collectionLabel(lang, targetCollection)}？来源=${source} 模式=${mode}`
-        : `Initialize ${collectionLabel(lang, targetCollection)}? source=${source} mode=${mode}`;
+      copy.initConfirm(getOpsCollectionLabel(lang, targetCollection), source, mode);
     if (!window.confirm(confirmText)) return;
 
     setBusy(true);
@@ -101,9 +70,7 @@ export default function OperationsCenter({ lang }: Props) {
       setNotice({
         kind: "success",
         text:
-          lang === "zh"
-            ? `初始化完成：${collectionLabel(lang, result.collection)}，写入 ${result.initialized} 条。`
-            : `Initialization completed: ${collectionLabel(lang, result.collection)}, ${result.initialized} rows written.`,
+          copy.initSuccess(getOpsCollectionLabel(lang, result.collection), result.initialized),
       });
       await refreshOverview();
     } catch (error: any) {
@@ -115,9 +82,7 @@ export default function OperationsCenter({ lang }: Props) {
 
   const runPurge = async () => {
     const riskText =
-      lang === "zh"
-        ? `危险操作：确认清空 ${collectionLabel(lang, targetCollection)} 吗？`
-        : `Dangerous action: purge ${collectionLabel(lang, targetCollection)}?`;
+      copy.purgeConfirm(getOpsCollectionLabel(lang, targetCollection));
     if (!window.confirm(riskText)) return;
 
     setBusy(true);
@@ -127,9 +92,7 @@ export default function OperationsCenter({ lang }: Props) {
       setNotice({
         kind: "success",
         text:
-          lang === "zh"
-            ? `清空完成：${collectionLabel(lang, result.collection)}，删除 ${result.purged} 条。`
-            : `Purge completed: ${collectionLabel(lang, result.collection)}, ${result.purged} rows removed.`,
+          copy.purgeSuccess(getOpsCollectionLabel(lang, result.collection), result.purged),
       });
       await refreshOverview();
     } catch (error: any) {
@@ -146,7 +109,7 @@ export default function OperationsCenter({ lang }: Props) {
       await downloadCMSOpsExport();
       setNotice({
         kind: "success",
-        text: lang === "zh" ? "导出成功，JSON 已开始下载。" : "Export succeeded, JSON download started.",
+        text: copy.exportSuccess,
       });
     } catch (error: any) {
       setNotice({ kind: "error", text: error?.message || String(error) });
@@ -156,7 +119,7 @@ export default function OperationsCenter({ lang }: Props) {
   };
 
   const runDedupe = async () => {
-    if (!window.confirm(lang === "zh" ? "确认执行品类去重？" : "Run category dedupe now?")) return;
+    if (!window.confirm(copy.dedupeConfirm)) return;
     setBusy(true);
     setNotice(null);
     try {
@@ -164,9 +127,29 @@ export default function OperationsCenter({ lang }: Props) {
       setNotice({
         kind: "success",
         text:
-          lang === "zh"
-            ? `去重完成：删除 ${result.removed} 条，剩余 ${result.remaining} 条。`
-            : `Dedupe completed: removed ${result.removed}, remaining ${result.remaining}.`,
+          copy.dedupeSuccess(result.removed, result.remaining),
+      });
+      await refreshOverview();
+    } catch (error: any) {
+      setNotice({ kind: "error", text: error?.message || String(error) });
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const runForceSync = async () => {
+    if (!window.confirm(copy.forceSyncConfirm)) return;
+    setBusy(true);
+    setNotice(null);
+    try {
+      const dedupe = await dedupeD1CMSCategories();
+      const success = await seedProductsToFirestore(defaultProductsData, translateProduct);
+      if (!success) {
+        throw new Error(lang === "zh" ? "同步失败，请检查控制台。" : "Sync failed, please consult console logs.");
+      }
+      setNotice({
+        kind: "success",
+        text: copy.forceSyncSuccess(dedupe.removed, dedupe.remaining),
       });
       await refreshOverview();
     } catch (error: any) {
@@ -182,12 +165,10 @@ export default function OperationsCenter({ lang }: Props) {
         <div>
           <h4 className="font-black text-sm text-slate-900 flex items-center gap-2">
             <ShieldAlert className="w-4 h-4 text-amber-500" />
-            {lang === "zh" ? "集中辅助操作中心" : "Centralized Ops Center"}
+            {copy.title}
           </h4>
           <p className="text-xs text-slate-500 mt-1">
-            {lang === "zh"
-              ? "初始化/清空/导出/去重统一入口。避免辅助按钮分散在各页面。"
-              : "Unified entry for init/purge/export/dedupe to avoid scattered helper actions."}
+            {copy.subtitle}
           </p>
         </div>
         <button
@@ -196,7 +177,7 @@ export default function OperationsCenter({ lang }: Props) {
           className="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-black text-slate-700 flex items-center gap-1.5"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${busy ? "animate-spin" : ""}`} />
-          {lang === "zh" ? "刷新概览" : "Refresh"}
+          {copy.refresh}
         </button>
       </div>
 
@@ -213,18 +194,18 @@ export default function OperationsCenter({ lang }: Props) {
       )}
 
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-2 text-xs">
-        <Metric label={lang === "zh" ? "D1 配置" : "D1 Config"} value={overview?.configured ? "OK" : "NO"} />
-        <Metric label={lang === "zh" ? "D1 健康" : "D1 Health"} value={overview?.healthy ? "OK" : "DOWN"} />
-        <Metric label={collectionLabel(lang, "products")} value={String(overview?.counts.products || 0)} />
-        <Metric label={collectionLabel(lang, "categories")} value={String(overview?.counts.categories || 0)} />
-        <Metric label={collectionLabel(lang, "scenarios")} value={String(overview?.counts.scenarios || 0)} />
-        <Metric label={collectionLabel(lang, "evaluations")} value={String(overview?.counts.evaluations || 0)} />
-        <Metric label={collectionLabel(lang, "guides")} value={String(overview?.counts.guides || 0)} />
-        <Metric label={collectionLabel(lang, "news")} value={String(overview?.counts.news || 0)} />
+        <Metric label={copy.d1Config} value={overview?.configured ? "OK" : "NO"} />
+        <Metric label={copy.d1Health} value={overview?.healthy ? "OK" : "DOWN"} />
+        <Metric label={getOpsCollectionLabel(lang, "products")} value={String(overview?.counts.products || 0)} />
+        <Metric label={getOpsCollectionLabel(lang, "categories")} value={String(overview?.counts.categories || 0)} />
+        <Metric label={getOpsCollectionLabel(lang, "scenarios")} value={String(overview?.counts.scenarios || 0)} />
+        <Metric label={getOpsCollectionLabel(lang, "evaluations")} value={String(overview?.counts.evaluations || 0)} />
+        <Metric label={getOpsCollectionLabel(lang, "guides")} value={String(overview?.counts.guides || 0)} />
+        <Metric label={getOpsCollectionLabel(lang, "news")} value={String(overview?.counts.news || 0)} />
       </div>
 
       <div className="text-[11px] text-slate-500">
-        {lang === "zh" ? "当前总条数" : "Current total rows"}: {totalRows}
+        {copy.totalRows}: {totalRows}
         {overview?.updatedAt ? ` · ${overview.updatedAt}` : ""}
       </div>
 
@@ -234,10 +215,10 @@ export default function OperationsCenter({ lang }: Props) {
           value={targetCollection}
           onChange={(e) => setTargetCollection(e.target.value as CMSOpsCollection)}
         >
-          <option value="all">{collectionLabel(lang, "all")}</option>
-          {collections.map((key) => (
+          <option value="all">{getOpsCollectionLabel(lang, "all")}</option>
+          {OPS_COLLECTIONS.map((key) => (
             <option key={key} value={key}>
-              {collectionLabel(lang, key)}
+              {getOpsCollectionLabel(lang, key)}
             </option>
           ))}
         </select>
@@ -247,8 +228,8 @@ export default function OperationsCenter({ lang }: Props) {
           value={source}
           onChange={(e) => setSource(e.target.value as "worker" | "baseline")}
         >
-          <option value="baseline">{lang === "zh" ? "初始化来源：本地基线" : "Source: Baseline"}</option>
-          <option value="worker">{lang === "zh" ? "初始化来源：Worker" : "Source: Worker"}</option>
+          <option value="baseline">{copy.sourceBaseline}</option>
+          <option value="worker">{copy.sourceWorker}</option>
         </select>
 
         <select
@@ -256,8 +237,8 @@ export default function OperationsCenter({ lang }: Props) {
           value={mode}
           onChange={(e) => setMode(e.target.value as "append" | "replace")}
         >
-          <option value="replace">{lang === "zh" ? "模式：覆盖重建" : "Mode: Replace"}</option>
-          <option value="append">{lang === "zh" ? "模式：追加" : "Mode: Append"}</option>
+          <option value="replace">{copy.modeReplace}</option>
+          <option value="append">{copy.modeAppend}</option>
         </select>
 
         <div className="flex items-center gap-2">
@@ -267,13 +248,13 @@ export default function OperationsCenter({ lang }: Props) {
             className="flex-1 px-3 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black flex items-center justify-center gap-1.5"
           >
             <Wand2 className="w-3.5 h-3.5" />
-            {lang === "zh" ? "初始化" : "Init"}
+            {copy.init}
           </button>
           <button
             onClick={runPurge}
             disabled={busy}
             className="px-3 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-black"
-            title={lang === "zh" ? "清空" : "Purge"}
+            title={copy.purge}
           >
             <Trash2 className="w-3.5 h-3.5" />
           </button>
@@ -287,14 +268,21 @@ export default function OperationsCenter({ lang }: Props) {
           className="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-black flex items-center gap-1.5"
         >
           <Download className="w-3.5 h-3.5" />
-          {lang === "zh" ? "导出全站 JSON" : "Export JSON"}
+          {copy.exportJson}
         </button>
         <button
           onClick={runDedupe}
           disabled={busy}
           className="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black"
         >
-          {lang === "zh" ? "品类去重" : "Dedupe Categories"}
+          {copy.dedupe}
+        </button>
+        <button
+          onClick={runForceSync}
+          disabled={busy}
+          className="px-3 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-black"
+        >
+          {copy.forceSync}
         </button>
       </div>
     </div>
