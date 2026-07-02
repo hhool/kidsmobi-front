@@ -1416,7 +1416,7 @@ app.post("/api/cms/ops/init", async (req, res) => {
 
     const collection = String(req.body?.collection || "").trim() as CMSOpsCollection;
     const mode = String(req.body?.mode || "append").trim().toLowerCase();
-    const source = String(req.body?.source || "baseline").trim().toLowerCase();
+    const source = String(req.body?.source || "worker").trim().toLowerCase();
 
     if (!collection || (collection !== "all" && !D1_COLLECTIONS.includes(collection as D1Collection))) {
       res.status(400).json({ error: "Invalid collection. Use one of products/categories/scenarios/evaluations/guides/news/settings/all." });

@@ -6,11 +6,8 @@ import {
   initCMSOpsCollection,
   purgeCMSOpsCollection,
   downloadCMSOpsExport,
-  dedupeD1CMSCategories,
 } from "../../lib/cmsD1Service";
-import { getCMSSettings, seedProductsToFirestore } from "../../lib/cmsService";
-import { productsData as defaultProductsData } from "../../data/modelsData";
-import { translateProduct } from "../../lib/translate";
+import { getCMSSettings } from "../../lib/cmsService";
 import {
   getOpsCollectionLabelWithOverride,
   OPS_COLLECTIONS,
@@ -47,7 +44,7 @@ export default function OperationsCenter({ lang }: Props) {
   } | null>(null);
 
   const [targetCollection, setTargetCollection] = useState<CMSOpsCollection>("all");
-  const [source, setSource] = useState<"worker" | "baseline">("baseline");
+  const [source, setSource] = useState<"worker" | "baseline">("worker");
   const [mode, setMode] = useState<"append" | "replace">("replace");
 
   const refreshOverview = async () => {
@@ -155,47 +152,6 @@ export default function OperationsCenter({ lang }: Props) {
     }
   };
 
-  const runDedupe = async () => {
-    if (!window.confirm(copy.dedupeConfirm)) return;
-    setBusy(true);
-    setNotice(null);
-    try {
-      const result = await dedupeD1CMSCategories();
-      setNotice({
-        kind: "success",
-        text:
-          copy.dedupeSuccess(result.removed, result.remaining),
-      });
-      await refreshOverview();
-    } catch (error: any) {
-      setNotice({ kind: "error", text: error?.message || String(error) });
-    } finally {
-      setBusy(false);
-    }
-  };
-
-  const runForceSync = async () => {
-    if (!window.confirm(copy.forceSyncConfirm)) return;
-    setBusy(true);
-    setNotice(null);
-    try {
-      const dedupe = await dedupeD1CMSCategories();
-      const success = await seedProductsToFirestore(defaultProductsData, translateProduct);
-      if (!success) {
-        throw new Error(lang === "zh" ? "同步失败，请检查控制台。" : "Sync failed, please consult console logs.");
-      }
-      setNotice({
-        kind: "success",
-        text: copy.forceSyncSuccess(dedupe.removed, dedupe.remaining),
-      });
-      await refreshOverview();
-    } catch (error: any) {
-      setNotice({ kind: "error", text: error?.message || String(error) });
-    } finally {
-      setBusy(false);
-    }
-  };
-
   return (
     <div className="mb-5 p-5 rounded-2xl border border-slate-200 bg-white shadow-sm space-y-4">
       <div className="flex items-start justify-between gap-4 flex-col lg:flex-row">
@@ -265,8 +221,8 @@ export default function OperationsCenter({ lang }: Props) {
           value={source}
           onChange={(e) => setSource(e.target.value as "worker" | "baseline")}
         >
-          <option value="baseline">{copy.sourceBaseline}</option>
           <option value="worker">{copy.sourceWorker}</option>
+          <option value="baseline">{copy.sourceBaseline}</option>
         </select>
 
         <select
@@ -306,20 +262,6 @@ export default function OperationsCenter({ lang }: Props) {
         >
           <Download className="w-3.5 h-3.5" />
           {copy.exportJson}
-        </button>
-        <button
-          onClick={runDedupe}
-          disabled={busy}
-          className="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black"
-        >
-          {copy.dedupe}
-        </button>
-        <button
-          onClick={runForceSync}
-          disabled={busy}
-          className="px-3 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-black"
-        >
-          {copy.forceSync}
         </button>
       </div>
     </div>

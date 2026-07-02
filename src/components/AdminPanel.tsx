@@ -3,7 +3,6 @@ import {
   Globe,
   AlertCircle,
   HelpCircle,
-  FolderKanban,
   X,
   Key,
   Copy,
@@ -161,13 +160,6 @@ export default function AdminPanel({
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => setActiveMenu("imports")}
-              className="text-[11px] bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl font-black uppercase tracking-wide hover:shadow-md flex items-center gap-1.5 cursor-pointer transition active:scale-95"
-            >
-              <FolderKanban className="w-3.5 h-3.5" />
-              {lang === "zh" ? "导入审核" : "Import Review"}
-            </button>
             <button
               onClick={() => setShowHelpTip(true)}
               className="text-[11px] bg-slate-100 hover:bg-slate-200 text-slate-705 px-4 py-2 rounded-xl font-bold uppercase tracking-wide flex items-center gap-1.5 cursor-pointer transition active:scale-95 text-slate-700"

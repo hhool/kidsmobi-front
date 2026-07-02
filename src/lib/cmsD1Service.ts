@@ -238,7 +238,7 @@ export async function getCMSOpsOverview(): Promise<CMSOpsOverview> {
 export async function initCMSOpsCollection(
   collection: CMSOpsCollection,
   mode: "append" | "replace" = "append",
-  source: "worker" | "baseline" = "baseline",
+  source: "worker" | "baseline" = "worker",
 ): Promise<{ collection: CMSOpsCollection; initialized: number }> {
   const response = await requestJson<{ data?: { collection?: CMSOpsCollection; initialized?: number } }>("/api/cms/ops/init", {
     method: "POST",
