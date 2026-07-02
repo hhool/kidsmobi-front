@@ -44,6 +44,8 @@ export interface ProductVideoAsset {
 export interface ProductImages {
   cover?: ProductImageAsset;
   gallery?: ProductImageAsset[];
+  feature?: ProductImageAsset[];
+  all?: ProductImageAsset[];
 }
 
 export interface Product {
@@ -62,7 +64,9 @@ export interface Product {
   compliance?: ComplianceTag[];
   images?: ProductImages;
   imageUrl: string;
+  productImageUrls?: string[];
   galleryUrls?: string[];
+  featureImageUrls?: string[];
   videoUrl?: string;
   features?: string[];
   scenarios?: string[];

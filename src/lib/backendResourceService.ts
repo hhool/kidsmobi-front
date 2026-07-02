@@ -29,11 +29,15 @@ type WorkerProduct = {
   title: string;
   brand: string;
   coverImage?: string;
+  productImageUrls?: string[];
   galleryUrls?: string[];
+  featureImageUrls?: string[];
   videoUrls?: string[];
   images?: {
     cover?: { url?: string };
     gallery?: Array<{ url?: string }>;
+    feature?: Array<{ url?: string }>;
+    all?: Array<{ url?: string }>;
   };
 };
 
