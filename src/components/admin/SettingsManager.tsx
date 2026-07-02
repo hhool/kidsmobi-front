@@ -7,12 +7,97 @@ import {
   ArrowRight,
   Monitor,
   Globe,
+  ShieldAlert,
   AlertTriangle,
   CheckCircle2
 } from "lucide-react";
 import { motion } from "motion/react";
 import { getCMSSettings, saveCMSSettings, getCMSProducts, getCMSEvaluations, getCMSGuides } from "../../lib/cmsService";
 import { CMSSettings, HomeSlot } from "../../types";
+import { OPS_COPY } from "./operationsConfig";
+
+const OPS_COLLECTION_KEYS = ["all", "products", "categories", "scenarios", "evaluations", "guides", "news", "settings"] as const;
+
+const OPS_COLLECTION_LABEL_DEFAULTS = {
+  zh: {
+    all: "全站",
+    products: "产品中心",
+    categories: "品类管理",
+    scenarios: "场景管理",
+    evaluations: "评测中心",
+    guides: "选购指南",
+    news: "全球资讯",
+    settings: "首页与配置",
+  },
+  en: {
+    all: "All",
+    products: "Products",
+    categories: "Categories",
+    scenarios: "Scenarios",
+    evaluations: "Evaluations",
+    guides: "Guides",
+    news: "News",
+    settings: "Settings",
+  },
+} as const;
+
+const OPS_COPY_EDITABLE_KEYS = [
+  "title",
+  "subtitle",
+  "refresh",
+  "d1Config",
+  "d1Health",
+  "totalRows",
+  "sourceBaseline",
+  "sourceWorker",
+  "modeReplace",
+  "modeAppend",
+  "init",
+  "purge",
+  "exportJson",
+  "dedupe",
+  "forceSync",
+] as const;
+
+const OPS_COPY_KEY_LABELS: Record<typeof OPS_COPY_EDITABLE_KEYS[number], string> = {
+  title: "Title",
+  subtitle: "Subtitle",
+  refresh: "Refresh Button",
+  d1Config: "D1 Config Label",
+  d1Health: "D1 Health Label",
+  totalRows: "Total Rows Label",
+  sourceBaseline: "Source Baseline",
+  sourceWorker: "Source Worker",
+  modeReplace: "Mode Replace",
+  modeAppend: "Mode Append",
+  init: "Init Button",
+  purge: "Purge Button",
+  exportJson: "Export Button",
+  dedupe: "Dedupe Button",
+  forceSync: "Force Sync Button",
+};
+
+function buildDefaultOpsCenter() {
+  const fromCopy = (locale: "zh" | "en") => {
+    const source = OPS_COPY[locale];
+    const out: Record<string, string> = {};
+    for (const key of OPS_COPY_EDITABLE_KEYS) {
+      out[key] = source[key];
+    }
+    return out;
+  };
+
+  return {
+    copy: {
+      zh: fromCopy("zh"),
+      en: fromCopy("en"),
+    },
+    collectionLabels: {
+      zh: { ...OPS_COLLECTION_LABEL_DEFAULTS.zh },
+      en: { ...OPS_COLLECTION_LABEL_DEFAULTS.en },
+    },
+  };
+}
 
 export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
   const [settings, setSettings] = useState<CMSSettings | null>(null);
@@ -69,6 +154,73 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [saveSuccess, setSaveSuccess] = useState<string | null>(null);
+
+  const ensureOpsCenter = () => {
+    const defaults = buildDefaultOpsCenter();
+    const current = settings?.opsCenter || {};
+    return {
+      copy: {
+        zh: {
+          ...defaults.copy.zh,
+          ...(current.copy?.zh || {}),
+        },
+        en: {
+          ...defaults.copy.en,
+          ...(current.copy?.en || {}),
+        },
+      },
+      collectionLabels: {
+        zh: {
+          ...defaults.collectionLabels.zh,
+          ...(current.collectionLabels?.zh || {}),
+        },
+        en: {
+          ...defaults.collectionLabels.en,
+          ...(current.collectionLabels?.en || {}),
+        },
+      },
+    };
+  };
+
+  const updateOpsCopyField = (locale: "zh" | "en", key: string, value: string) => {
+    if (!settings) return;
+    const merged = ensureOpsCenter();
+    setSettings({
+      ...settings,
+      opsCenter: {
+        ...merged,
+        copy: {
+          ...merged.copy,
+          [locale]: {
+            ...merged.copy[locale],
+            [key]: value,
+          },
+        },
+      },
+    });
+  };
+
+  const updateOpsCollectionLabel = (
+    locale: "zh" | "en",
+    key: typeof OPS_COLLECTION_KEYS[number],
+    value: string,
+  ) => {
+    if (!settings) return;
+    const merged = ensureOpsCenter();
+    setSettings({
+      ...settings,
+      opsCenter: {
+        ...merged,
+        collectionLabels: {
+          ...merged.collectionLabels,
+          [locale]: {
+            ...merged.collectionLabels[locale],
+            [key]: value,
+          },
+        },
+      },
+    });
+  };
 
   const handleSave = async () => {
     if (settings) {
@@ -159,6 +311,8 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
   };
 
   if (!settings) return null;
+
+  const opsCenterConfig = ensureOpsCenter();
 
   return (
     <div className="space-y-12 animate-in fade-in duration-500 pb-16">
@@ -410,6 +564,68 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
                 placeholder="Enter full English page description for global indexing..."
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Operations Center Config */}
+      <section className="space-y-8 border-t border-slate-100 pt-12">
+        <div className="flex items-center gap-3">
+          <ShieldAlert className="w-6 h-6 text-slate-900" />
+          <h3 className="font-black text-lg uppercase tracking-tight">
+            {lang === "zh" ? "集中辅助操作中心远端配置" : "Operations Center Remote Config"}
+          </h3>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <div className="bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm space-y-5">
+            <div className="text-xs font-black text-orange-500 uppercase tracking-widest">ZH Copy Overrides</div>
+            {OPS_COPY_EDITABLE_KEYS.map((key) => (
+              <Field
+                key={`zh-${key}`}
+                label={OPS_COPY_KEY_LABELS[key]}
+                value={String(opsCenterConfig.copy.zh[key] || "")}
+                onChange={(v: string) => updateOpsCopyField("zh", key, v)}
+              />
+            ))}
+          </div>
+
+          <div className="bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm space-y-5">
+            <div className="text-xs font-black text-blue-500 uppercase tracking-widest">EN Copy Overrides</div>
+            {OPS_COPY_EDITABLE_KEYS.map((key) => (
+              <Field
+                key={`en-${key}`}
+                label={OPS_COPY_KEY_LABELS[key]}
+                value={String(opsCenterConfig.copy.en[key] || "")}
+                onChange={(v: string) => updateOpsCopyField("en", key, v)}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <div className="bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm space-y-5">
+            <div className="text-xs font-black text-orange-500 uppercase tracking-widest">ZH Collection Labels</div>
+            {OPS_COLLECTION_KEYS.map((key) => (
+              <Field
+                key={`label-zh-${key}`}
+                label={key}
+                value={String(opsCenterConfig.collectionLabels.zh[key] || "")}
+                onChange={(v: string) => updateOpsCollectionLabel("zh", key, v)}
+              />
+            ))}
+          </div>
+
+          <div className="bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm space-y-5">
+            <div className="text-xs font-black text-blue-500 uppercase tracking-widest">EN Collection Labels</div>
+            {OPS_COLLECTION_KEYS.map((key) => (
+              <Field
+                key={`label-en-${key}`}
+                label={key}
+                value={String(opsCenterConfig.collectionLabels.en[key] || "")}
+                onChange={(v: string) => updateOpsCollectionLabel("en", key, v)}
+              />
+            ))}
           </div>
         </div>
       </section>
