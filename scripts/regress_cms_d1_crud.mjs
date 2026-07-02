@@ -19,6 +19,26 @@ function normalizeBase(base) {
 
 function buildPayload(collection, id) {
   const now = new Date().toISOString();
+  if (collection === "categories") {
+    const code = `regress-cat-${Math.random().toString(36).slice(2, 8)}`;
+    return {
+      id,
+      code,
+      status: "draft",
+      sortOrder: 999,
+      icon: "",
+      updatedAt: now,
+      zh: {
+        name: `回归分类-${code}`,
+        description: "自动回归写入",
+      },
+      en: {
+        name: `Regress Category ${code}`,
+        description: "automated regression write",
+      },
+    };
+  }
+
   return {
     id,
     status: "draft",
