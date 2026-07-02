@@ -1,5 +1,22 @@
 import { CMSCategory, CMSProduct, CMSScenario, Evaluation, Guide, News } from "../types";
 
+export type CMSOpsCollection =
+  | "products"
+  | "categories"
+  | "scenarios"
+  | "evaluations"
+  | "guides"
+  | "news"
+  | "settings"
+  | "all";
+
+export interface CMSOpsOverview {
+  configured: boolean;
+  healthy: boolean;
+  counts: Record<Exclude<CMSOpsCollection, "all">, number>;
+  updatedAt: string;
+}
+
 const CMS_API_BASE = (
   import.meta.env.VITE_CMS_API_BASE_URL || import.meta.env.VITE_CMS_BACKEND_BASE_URL || ""
 ).replace(/\/$/, "");
@@ -197,4 +214,85 @@ export async function getD1Health(): Promise<{ configured: boolean; healthy: boo
     configured: Boolean(response?.data?.configured),
     healthy: Boolean(response?.data?.healthy),
   };
+}
+
+export async function getCMSOpsOverview(): Promise<CMSOpsOverview> {
+  const response = await requestJson<{ data?: CMSOpsOverview }>("/api/cms/ops/overview");
+  const data = response?.data;
+  return {
+    configured: Boolean(data?.configured),
+    healthy: Boolean(data?.healthy),
+    counts: {
+      products: Number(data?.counts?.products || 0),
+      categories: Number(data?.counts?.categories || 0),
+      scenarios: Number(data?.counts?.scenarios || 0),
+      evaluations: Number(data?.counts?.evaluations || 0),
+      guides: Number(data?.counts?.guides || 0),
+      news: Number(data?.counts?.news || 0),
+      settings: Number(data?.counts?.settings || 0),
+    },
+    updatedAt: String(data?.updatedAt || new Date().toISOString()),
+  };
+}
+
+export async function initCMSOpsCollection(
+  collection: CMSOpsCollection,
+  mode: "append" | "replace" = "append",
+  source: "worker" | "baseline" = "baseline",
+): Promise<{ collection: CMSOpsCollection; initialized: number }> {
+  const response = await requestJson<{ data?: { collection?: CMSOpsCollection; initialized?: number } }>("/api/cms/ops/init", {
+    method: "POST",
+    body: JSON.stringify({ collection, mode, source }),
+  });
+  return {
+    collection: (response?.data?.collection || collection) as CMSOpsCollection,
+    initialized: Number(response?.data?.initialized || 0),
+  };
+}
+
+export async function purgeCMSOpsCollection(collection: CMSOpsCollection): Promise<{ collection: CMSOpsCollection; purged: number }> {
+  const response = await requestJson<{ data?: { collection?: CMSOpsCollection; purged?: number } }>("/api/cms/ops/purge", {
+    method: "POST",
+    body: JSON.stringify({ collection }),
+  });
+  return {
+    collection: (response?.data?.collection || collection) as CMSOpsCollection,
+    purged: Number(response?.data?.purged || 0),
+  };
+}
+
+export async function dedupeD1CMSCategories(): Promise<{ removed: number; remaining: number }> {
+  const response = await requestJson<{ data?: { removed?: number; remaining?: number } }>("/api/cms/categories/dedupe", {
+    method: "POST",
+    body: "{}",
+  });
+  return {
+    removed: Number(response?.data?.removed || 0),
+    remaining: Number(response?.data?.remaining || 0),
+  };
+}
+
+export async function downloadCMSOpsExport(): Promise<void> {
+  const requestUrl = resolveCMSApiPath("/api/cms/ops/export?download=1");
+  const response = await fetch(requestUrl, {
+    headers: {
+      Accept: "application/json",
+    },
+  });
+  if (!response.ok) {
+    const details = await response.text().catch(() => "");
+    throw new Error(details || `Request failed: ${response.status}`);
+  }
+
+  const blob = await response.blob();
+  const disposition = response.headers.get("content-disposition") || "";
+  const match = disposition.match(/filename=\"?([^\";]+)\"?/i);
+  const filename = match?.[1] || `cms-export-${Date.now()}.json`;
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
 }

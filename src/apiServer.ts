@@ -1,7 +1,9 @@
 import express from "express";
 import { guideArticles } from "./data/guidesData.js";
 import { newsArticles } from "./data/newsData.js";
-import type { CMSCategory, CMSProduct, CMSScenario, CMSSettings, Evaluation, Guide, HomeSlot, News, ProductCategory } from "./types.js";
+import { productsData } from "./data/modelsData.js";
+import { initialEvaluationsData } from "./data/evaluationsData.js";
+import type { CMSCategory, CMSProduct, CMSScenario, CMSSettings, Evaluation, Guide, HomeSlot, News, Product, ProductCategory } from "./types.js";
 import dotenv from "dotenv";
 
 // Load environment variables
@@ -142,6 +144,17 @@ type D1QueryResponse = {
 };
 
 type D1Collection = "products" | "categories" | "scenarios" | "evaluations" | "guides" | "news" | "settings";
+type CMSOpsCollection = D1Collection | "all";
+
+const D1_COLLECTIONS: D1Collection[] = [
+  "products",
+  "categories",
+  "scenarios",
+  "evaluations",
+  "guides",
+  "news",
+  "settings",
+];
 
 function getD1Config() {
   const accountId = (process.env.CLOUDFLARE_ACCOUNT_ID || "").trim();
@@ -293,6 +306,109 @@ function buildCMSProductFromResourceRow(row: AdminResourceProduct): CMSProduct {
       editorVerdict: "Please enrich editorial content before publishing.",
     },
     updatedAt: new Date().toISOString(),
+  };
+}
+
+const BASELINE_CATEGORY_TEMPLATES: Array<{
+  code: ProductCategory;
+  zhName: string;
+  enName: string;
+  sortOrder: number;
+}> = [
+  { code: "stroller", zhName: "Stroller", enName: "Stroller", sortOrder: 1 },
+  { code: "safety_seat", zhName: "Car Seat", enName: "Car Seat", sortOrder: 2 },
+  { code: "balance", zhName: "Balance Bike", enName: "Balance Bike", sortOrder: 3 },
+  { code: "bicycle", zhName: "Kids Bike", enName: "Kids Bike", sortOrder: 4 },
+  { code: "tricycle", zhName: "Tricycle", enName: "Tricycle", sortOrder: 5 },
+  { code: "scooter", zhName: "Scooter", enName: "Scooter", sortOrder: 6 },
+  { code: "electric_car", zhName: "Electric Ride-on", enName: "Electric Ride-on", sortOrder: 7 },
+];
+
+function buildBaselineCMSProductFromStatic(product: Product): CMSProduct {
+  const name = String(product.name || "").trim() || String(product.brand || "Product");
+  const description = `${name} baseline entry initialized from local modelsData.`;
+  return {
+    ...(product as CMSProduct),
+    status: product.status || "draft",
+    zh: {
+      name,
+      description,
+      brandText: product.brand || "Unknown",
+      specsText: "Baseline initialization",
+      pros: product.pros || [],
+      cons: product.cons || [],
+      editorVerdict: product.editorVerdict || "待编辑",
+    },
+    en: {
+      name,
+      description,
+      brandText: product.brand || "Unknown",
+      specsText: "Baseline initialization",
+      pros: product.pros || [],
+      cons: product.cons || [],
+      editorVerdict: product.editorVerdict || "Pending editorial enrichment",
+    },
+    updatedAt: new Date().toISOString(),
+  };
+}
+
+function buildBaselineScenarios(): CMSScenario[] {
+  const now = new Date().toISOString();
+  return [
+    {
+      id: "scenario-city-commute",
+      code: "city-commute",
+      status: "published",
+      sortOrder: 1,
+      zh: { name: "城市通勤", description: "日常城市路面、短途通勤" },
+      en: { name: "City Commute", description: "Daily urban commute" },
+      updatedAt: now,
+    },
+    {
+      id: "scenario-travel-light",
+      code: "travel-light",
+      status: "published",
+      sortOrder: 2,
+      zh: { name: "旅行便携", description: "强调折叠与便携" },
+      en: { name: "Travel & Compact", description: "Compact folding and travel use" },
+      updatedAt: now,
+    },
+    {
+      id: "scenario-all-weather",
+      code: "all-weather",
+      status: "published",
+      sortOrder: 3,
+      zh: { name: "全地形", description: "适配多地形和全天候场景" },
+      en: { name: "All Terrain", description: "Multi-terrain and all-weather use" },
+      updatedAt: now,
+    },
+  ];
+}
+
+function buildBaselineSettings(): CMSSettings {
+  return {
+    id: "global",
+    hero: {
+      zh: {
+        title: "KIDSMOBI 管理后台",
+        subtitle: "基线初始化设置，可在 CMS 后台继续编辑",
+      },
+      en: {
+        title: "KIDSMOBI Admin",
+        subtitle: "Baseline-initialized settings, editable in CMS",
+      },
+    },
+    homeSlots: [],
+    scoringStandards: [
+      {
+        id: "baseline",
+        labelZh: "基线规则",
+        labelEn: "Baseline Standard",
+        descriptionZh: "用于初始化环境的默认评分规则。",
+        descriptionEn: "Default scoring rule for initialized environments.",
+        icon: "ShieldCheck",
+      },
+    ],
   };
 }
 
@@ -628,6 +744,218 @@ function buildEvaluationFromProducts(categoryId: string, label: string, products
     },
     updatedAt: new Date().toISOString(),
   };
+}
+
+async function getCollectionCount(collection: D1Collection): Promise<number> {
+  const rows = await d1Query("SELECT COUNT(*) AS count FROM cms_records WHERE collection = ?", [collection]);
+  const raw = rows?.[0]?.count;
+  return Number(raw || 0);
+}
+
+async function purgeCollection(collection: D1Collection): Promise<number> {
+  const count = await getCollectionCount(collection);
+  await d1Query("DELETE FROM cms_records WHERE collection = ?", [collection]);
+  return count;
+}
+
+async function initCollectionFromBaseline(collection: D1Collection): Promise<number> {
+  let initialized = 0;
+  const now = new Date().toISOString();
+
+  if (collection === "categories") {
+    for (const item of BASELINE_CATEGORY_TEMPLATES) {
+      const row: CMSCategory = {
+        id: `cat_${item.code}`,
+        code: item.code,
+        status: "published",
+        sortOrder: item.sortOrder,
+        icon: "",
+        zh: {
+          name: item.zhName,
+          description: `baseline:${item.code}`,
+        },
+        en: {
+          name: item.enName,
+          description: `baseline:${item.code}`,
+        },
+        updatedAt: now,
+      };
+      await upsertD1CMSRecord("categories", row.id, row);
+      initialized += 1;
+    }
+    return initialized;
+  }
+
+  if (collection === "products") {
+    for (const item of productsData) {
+      const row = buildBaselineCMSProductFromStatic(item);
+      await upsertD1CMSRecord("products", row.id, row);
+      initialized += 1;
+    }
+    return initialized;
+  }
+
+  if (collection === "scenarios") {
+    for (const item of buildBaselineScenarios()) {
+      await upsertD1CMSRecord("scenarios", item.id, item);
+      initialized += 1;
+    }
+    return initialized;
+  }
+
+  if (collection === "evaluations") {
+    for (const item of initialEvaluationsData) {
+      const row: Evaluation = {
+        ...item,
+        status: item.status || "published",
+        updatedAt: now,
+      };
+      await upsertD1CMSRecord("evaluations", row.id, row);
+      initialized += 1;
+    }
+    return initialized;
+  }
+
+  if (collection === "guides") {
+    for (const item of guideArticles) {
+      const row: Guide = {
+        id: item.id,
+        category: item.category,
+        status: "published",
+        imageUrl: "",
+        riskCards: [],
+        seo: {
+          zh: {
+            title: item.title,
+            description: item.summary,
+            keywords: [item.categoryLabel || "指南"],
+          },
+          en: {
+            title: item.title,
+            description: item.summary,
+            keywords: [item.categoryLabel || "guide"],
+          },
+        },
+        zh: {
+          title: item.title,
+          content: item.content,
+        },
+        en: {
+          title: item.title,
+          content: item.content,
+        },
+        updatedAt: now,
+      };
+      await upsertD1CMSRecord("guides", row.id, row);
+      initialized += 1;
+    }
+    return initialized;
+  }
+
+  if (collection === "news") {
+    for (const item of newsArticles) {
+      const row: News = {
+        id: item.id,
+        category: item.category,
+        status: "published",
+        imageUrl: "",
+        seo: {
+          zh: {
+            title: item.title,
+            description: item.summary,
+            keywords: [item.categoryLabel || "资讯"],
+          },
+          en: {
+            title: item.title,
+            description: item.summary,
+            keywords: [item.categoryLabel || "news"],
+          },
+        },
+        zh: {
+          title: item.title,
+          content: item.content,
+        },
+        en: {
+          title: item.title,
+          content: item.content,
+        },
+        updatedAt: now,
+      };
+      await upsertD1CMSRecord("news", row.id, row);
+      initialized += 1;
+    }
+    return initialized;
+  }
+
+  if (collection === "settings") {
+    const row = buildBaselineSettings();
+    await upsertD1CMSRecord("settings", row.id, row);
+    return 1;
+  }
+
+  return 0;
+}
+
+async function initCollectionFromWorker(collection: D1Collection): Promise<number> {
+  if (collection === "categories") {
+    const categoriesResponse = await fetchWorkerJson<{ data: WorkerCategory[] }>("/api/v1/catalog/categories");
+    const categories = Array.isArray(categoriesResponse.data) ? categoriesResponse.data : [];
+    const byCode = new Map<ProductCategory, CMSCategory>();
+    for (const [index, item] of categories.entries()) {
+      const mapped = buildCMSCategoryFromWorker(item, index);
+      if (!byCode.has(mapped.code)) {
+        byCode.set(mapped.code, mapped);
+      }
+    }
+    const rows = Array.from(byCode.values());
+    for (const row of rows) {
+      await upsertD1CMSRecord("categories", row.id, row);
+    }
+    return rows.length;
+  }
+
+  if (collection === "products") {
+    const payload = await buildAdminResourcePayload({ includeAll: true });
+    const sourceRows = payload.products || [];
+    for (const row of sourceRows) {
+      const mapped = buildCMSProductFromResourceRow(row);
+      await upsertD1CMSRecord("products", mapped.id, mapped);
+    }
+    return sourceRows.length;
+  }
+
+  // For collections without worker-native source, use baseline init.
+  return initCollectionFromBaseline(collection);
+}
+
+async function dedupeCategoriesByCodeInD1(): Promise<{ removed: number; remaining: number }> {
+  const rows = await listD1CMSRecords<CMSCategory>("categories");
+  const groups = new Map<string, CMSCategory[]>();
+
+  for (const row of rows) {
+    const key = String(row?.code || "").trim().toLowerCase();
+    if (!key) continue;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key)!.push(row);
+  }
+
+  let removed = 0;
+  for (const [code, items] of groups.entries()) {
+    if (items.length <= 1) continue;
+    const keep =
+      items.find((it) => it.id === `cat_${code}`) ||
+      items.find((it) => it.status === "published") ||
+      [...items].sort((a, b) => Number(a.sortOrder || 0) - Number(b.sortOrder || 0))[0];
+
+    for (const item of items) {
+      if (item.id === keep.id) continue;
+      await deleteD1CMSRecord("categories", item.id);
+      removed += 1;
+    }
+  }
+
+  const remaining = await getCollectionCount("categories");
+  return { removed, remaining };
 }
 
 app.get("/api/content/bundle", async (req, res) => {
@@ -993,6 +1321,199 @@ app.get("/api/cms/settings", async (_req, res) => {
   }
 });
 
+app.get("/api/cms/ops/overview", async (_req, res) => {
+  try {
+    const configured = hasD1Config();
+    if (!configured) {
+      res.json({
+        data: {
+          configured: false,
+          healthy: false,
+          counts: {
+            products: 0,
+            categories: 0,
+            scenarios: 0,
+            evaluations: 0,
+            guides: 0,
+            news: 0,
+            settings: 0,
+          },
+          updatedAt: new Date().toISOString(),
+        },
+      });
+      return;
+    }
+
+    await ensureD1Schema();
+    await d1Query("SELECT 1 as ok");
+
+    const counts = {
+      products: await getCollectionCount("products"),
+      categories: await getCollectionCount("categories"),
+      scenarios: await getCollectionCount("scenarios"),
+      evaluations: await getCollectionCount("evaluations"),
+      guides: await getCollectionCount("guides"),
+      news: await getCollectionCount("news"),
+      settings: await getCollectionCount("settings"),
+    };
+
+    res.json({
+      data: {
+        configured: true,
+        healthy: true,
+        counts,
+        updatedAt: new Date().toISOString(),
+      },
+    });
+  } catch (error: any) {
+    console.error("Failed to load cms ops overview:", error);
+    res.status(500).json({ error: error.message || "Failed to load cms ops overview" });
+  }
+});
+
+app.post("/api/cms/ops/purge", async (req, res) => {
+  try {
+    if (!hasD1Config()) {
+      res.status(503).json({ error: "D1 is not configured." });
+      return;
+    }
+
+    const collection = String(req.body?.collection || "").trim() as CMSOpsCollection;
+    if (!collection || (collection !== "all" && !D1_COLLECTIONS.includes(collection as D1Collection))) {
+      res.status(400).json({ error: "Invalid collection. Use one of products/categories/scenarios/evaluations/guides/news/settings/all." });
+      return;
+    }
+
+    await ensureD1Schema();
+
+    let purged = 0;
+    if (collection === "all") {
+      for (const name of D1_COLLECTIONS) {
+        purged += await purgeCollection(name);
+      }
+    } else {
+      purged = await purgeCollection(collection as D1Collection);
+    }
+
+    res.json({
+      data: {
+        collection,
+        purged,
+      },
+    });
+  } catch (error: any) {
+    console.error("Failed to purge cms collection:", error);
+    res.status(500).json({ error: error.message || "Failed to purge cms collection" });
+  }
+});
+
+app.post("/api/cms/ops/init", async (req, res) => {
+  try {
+    if (!hasD1Config()) {
+      res.status(503).json({ error: "D1 is not configured." });
+      return;
+    }
+
+    const collection = String(req.body?.collection || "").trim() as CMSOpsCollection;
+    const mode = String(req.body?.mode || "append").trim().toLowerCase();
+    const source = String(req.body?.source || "baseline").trim().toLowerCase();
+
+    if (!collection || (collection !== "all" && !D1_COLLECTIONS.includes(collection as D1Collection))) {
+      res.status(400).json({ error: "Invalid collection. Use one of products/categories/scenarios/evaluations/guides/news/settings/all." });
+      return;
+    }
+    if (mode !== "append" && mode !== "replace") {
+      res.status(400).json({ error: "Invalid mode. Use append or replace." });
+      return;
+    }
+    if (source !== "worker" && source !== "baseline") {
+      res.status(400).json({ error: "Invalid source. Use worker or baseline." });
+      return;
+    }
+
+    await ensureD1Schema();
+
+    let initialized = 0;
+    const targets = collection === "all" ? D1_COLLECTIONS : [collection as D1Collection];
+
+    for (const name of targets) {
+      if (mode === "replace") {
+        await purgeCollection(name);
+      }
+      if (source === "worker") {
+        initialized += await initCollectionFromWorker(name);
+      } else {
+        initialized += await initCollectionFromBaseline(name);
+      }
+    }
+
+    res.json({
+      data: {
+        collection,
+        initialized,
+      },
+    });
+  } catch (error: any) {
+    console.error("Failed to initialize cms collection:", error);
+    res.status(500).json({ error: error.message || "Failed to initialize cms collection" });
+  }
+});
+
+app.get("/api/cms/ops/export", async (req, res) => {
+  try {
+    if (!hasD1Config()) {
+      res.status(503).json({ error: "D1 is not configured." });
+      return;
+    }
+
+    await ensureD1Schema();
+
+    const payload = {
+      meta: {
+        exportedAt: new Date().toISOString(),
+        source: "cloudflare-d1",
+      },
+      collections: {
+        products: await listD1CMSRecords<CMSProduct>("products"),
+        categories: await listD1CMSRecords<CMSCategory>("categories"),
+        scenarios: await listD1CMSRecords<CMSScenario>("scenarios"),
+        evaluations: await listD1CMSRecords<Evaluation>("evaluations"),
+        guides: await listD1CMSRecords<Guide>("guides"),
+        news: await listD1CMSRecords<News>("news"),
+        settings: await listD1CMSRecords<CMSSettings>("settings"),
+      },
+    };
+
+    const asDownload = String(req.query.download || "").toLowerCase();
+    if (asDownload === "1" || asDownload === "true") {
+      res.setHeader("Content-Type", "application/json; charset=utf-8");
+      res.setHeader("Content-Disposition", `attachment; filename=\"cms-export-${Date.now()}.json\"`);
+      res.send(JSON.stringify(payload, null, 2));
+      return;
+    }
+
+    res.json({ data: payload });
+  } catch (error: any) {
+    console.error("Failed to export cms data:", error);
+    res.status(500).json({ error: error.message || "Failed to export cms data" });
+  }
+});
+
+app.post("/api/cms/categories/dedupe", async (_req, res) => {
+  try {
+    if (!hasD1Config()) {
+      res.status(503).json({ error: "D1 is not configured." });
+      return;
+    }
+    await ensureD1Schema();
+    const result = await dedupeCategoriesByCodeInD1();
+    res.json({ data: result });
+  } catch (error: any) {
+    console.error("Failed to dedupe categories:", error);
+    res.status(500).json({ error: error.message || "Failed to dedupe categories" });
+  }
+});
+
 app.post("/api/cms/init/categories", async (_req, res) => {
   try {
     if (!hasD1Config()) {
@@ -1000,26 +1521,11 @@ app.post("/api/cms/init/categories", async (_req, res) => {
       return;
     }
     await ensureD1Schema();
-
-    const categoriesResponse = await fetchWorkerJson<{ data: WorkerCategory[] }>("/api/v1/catalog/categories");
-    const categories = Array.isArray(categoriesResponse.data) ? categoriesResponse.data : [];
-
-    const byCode = new Map<ProductCategory, CMSCategory>();
-    for (const [index, item] of categories.entries()) {
-      const mapped = buildCMSCategoryFromWorker(item, index);
-      if (!byCode.has(mapped.code)) {
-        byCode.set(mapped.code, mapped);
-      }
-    }
-
-    const rows = Array.from(byCode.values());
-    for (const row of rows) {
-      await upsertD1CMSRecord("categories", row.id, row);
-    }
+    const total = await initCollectionFromWorker("categories");
 
     res.json({
       data: {
-        total: rows.length,
+        total,
       },
     });
   } catch (error: any) {
@@ -1138,20 +1644,11 @@ app.post("/api/cms/init/products", async (_req, res) => {
       return;
     }
     await ensureD1Schema();
-
-    const payload = await buildAdminResourcePayload({ includeAll: true });
-    const sourceRows = payload.products || [];
-    let success = 0;
-
-    for (const row of sourceRows) {
-      const mapped = buildCMSProductFromResourceRow(row);
-      await upsertD1CMSRecord("products", mapped.id, mapped);
-      success += 1;
-    }
+    const success = await initCollectionFromWorker("products");
 
     res.json({
       data: {
-        total: sourceRows.length,
+        total: success,
         success,
       },
     });

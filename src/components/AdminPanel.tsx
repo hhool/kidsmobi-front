@@ -26,6 +26,7 @@ import GuideManager from "./admin/GuideManager";
 import NewsManager from "./admin/NewsManager";
 import SettingsManager from "./admin/SettingsManager";
 import ImportReviewManager from "./admin/ImportReviewManager";
+import OperationsCenter from "./admin/OperationsCenter";
 import { getD1Health } from "../lib/cmsD1Service";
 const AssetUploader = React.lazy(() => import("./admin/AssetUploader"));
 
@@ -301,6 +302,8 @@ export default function AdminPanel({
         </div>
 
         <div className="p-10 max-w-7xl mx-auto w-full flex-1">
+          <OperationsCenter lang={lang} />
+
           {operationNotice && (
             <div
               className={`mb-5 p-4 rounded-2xl border flex items-start justify-between gap-3 ${
