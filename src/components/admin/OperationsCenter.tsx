@@ -8,10 +8,14 @@ import {
   downloadCMSOpsExport,
   dedupeD1CMSCategories,
 } from "../../lib/cmsD1Service";
-import { seedProductsToFirestore } from "../../lib/cmsService";
+import { getCMSSettings, seedProductsToFirestore } from "../../lib/cmsService";
 import { productsData as defaultProductsData } from "../../data/modelsData";
 import { translateProduct } from "../../lib/translate";
-import { getOpsCollectionLabel, OPS_COLLECTIONS, OPS_COPY } from "./operationsConfig";
+import {
+  getOpsCollectionLabelWithOverride,
+  OPS_COLLECTIONS,
+  resolveOpsCopy,
+} from "./operationsConfig";
 
 type Props = {
   lang: "zh" | "en";
@@ -22,8 +26,17 @@ type Notice = {
   text: string;
 };
 
+type OpsCenterRemoteConfig = {
+  copy?: Partial<Record<"zh" | "en", Record<string, unknown>>>;
+  collectionLabels?: Partial<Record<"zh" | "en", Partial<Record<CMSOpsCollection, string>>>>;
+};
+
 export default function OperationsCenter({ lang }: Props) {
-  const copy = OPS_COPY[lang];
+  const [remoteConfig, setRemoteConfig] = useState<OpsCenterRemoteConfig | null>(null);
+  const copy = useMemo(
+    () => resolveOpsCopy(lang, remoteConfig?.copy?.[lang] || null),
+    [lang, remoteConfig],
+  );
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState<Notice | null>(null);
   const [overview, setOverview] = useState<{
@@ -49,8 +62,24 @@ export default function OperationsCenter({ lang }: Props) {
     }
   };
 
+  const loadRemoteConfig = async () => {
+    try {
+      const settings = await getCMSSettings();
+      const candidate = (settings as any)?.opsCenter;
+      if (candidate && typeof candidate === "object") {
+        setRemoteConfig(candidate as OpsCenterRemoteConfig);
+      } else {
+        setRemoteConfig(null);
+      }
+    } catch {
+      // Remote config is optional; fallback to local defaults when unavailable.
+      setRemoteConfig(null);
+    }
+  };
+
   useEffect(() => {
     refreshOverview();
+    loadRemoteConfig();
   }, []);
 
   const totalRows = useMemo(() => {
@@ -58,9 +87,17 @@ export default function OperationsCenter({ lang }: Props) {
     return OPS_COLLECTIONS.reduce((sum, key) => sum + Number(overview.counts[key] || 0), 0);
   }, [overview]);
 
+  const getLabel = (value: CMSOpsCollection): string => {
+    return getOpsCollectionLabelWithOverride(
+      lang,
+      value,
+      remoteConfig?.collectionLabels?.[lang],
+    );
+  };
+
   const runInit = async () => {
     const confirmText =
-      copy.initConfirm(getOpsCollectionLabel(lang, targetCollection), source, mode);
+      copy.initConfirm(getLabel(targetCollection), source, mode);
     if (!window.confirm(confirmText)) return;
 
     setBusy(true);
@@ -70,7 +107,7 @@ export default function OperationsCenter({ lang }: Props) {
       setNotice({
         kind: "success",
         text:
-          copy.initSuccess(getOpsCollectionLabel(lang, result.collection), result.initialized),
+          copy.initSuccess(getLabel(result.collection), result.initialized),
       });
       await refreshOverview();
     } catch (error: any) {
@@ -82,7 +119,7 @@ export default function OperationsCenter({ lang }: Props) {
 
   const runPurge = async () => {
     const riskText =
-      copy.purgeConfirm(getOpsCollectionLabel(lang, targetCollection));
+      copy.purgeConfirm(getLabel(targetCollection));
     if (!window.confirm(riskText)) return;
 
     setBusy(true);
@@ -92,7 +129,7 @@ export default function OperationsCenter({ lang }: Props) {
       setNotice({
         kind: "success",
         text:
-          copy.purgeSuccess(getOpsCollectionLabel(lang, result.collection), result.purged),
+          copy.purgeSuccess(getLabel(result.collection), result.purged),
       });
       await refreshOverview();
     } catch (error: any) {
@@ -196,12 +233,12 @@ export default function OperationsCenter({ lang }: Props) {
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-2 text-xs">
         <Metric label={copy.d1Config} value={overview?.configured ? "OK" : "NO"} />
         <Metric label={copy.d1Health} value={overview?.healthy ? "OK" : "DOWN"} />
-        <Metric label={getOpsCollectionLabel(lang, "products")} value={String(overview?.counts.products || 0)} />
-        <Metric label={getOpsCollectionLabel(lang, "categories")} value={String(overview?.counts.categories || 0)} />
-        <Metric label={getOpsCollectionLabel(lang, "scenarios")} value={String(overview?.counts.scenarios || 0)} />
-        <Metric label={getOpsCollectionLabel(lang, "evaluations")} value={String(overview?.counts.evaluations || 0)} />
-        <Metric label={getOpsCollectionLabel(lang, "guides")} value={String(overview?.counts.guides || 0)} />
-        <Metric label={getOpsCollectionLabel(lang, "news")} value={String(overview?.counts.news || 0)} />
+        <Metric label={getLabel("products")} value={String(overview?.counts.products || 0)} />
+        <Metric label={getLabel("categories")} value={String(overview?.counts.categories || 0)} />
+        <Metric label={getLabel("scenarios")} value={String(overview?.counts.scenarios || 0)} />
+        <Metric label={getLabel("evaluations")} value={String(overview?.counts.evaluations || 0)} />
+        <Metric label={getLabel("guides")} value={String(overview?.counts.guides || 0)} />
+        <Metric label={getLabel("news")} value={String(overview?.counts.news || 0)} />
       </div>
 
       <div className="text-[11px] text-slate-500">
@@ -215,10 +252,10 @@ export default function OperationsCenter({ lang }: Props) {
           value={targetCollection}
           onChange={(e) => setTargetCollection(e.target.value as CMSOpsCollection)}
         >
-          <option value="all">{getOpsCollectionLabel(lang, "all")}</option>
+          <option value="all">{getLabel("all")}</option>
           {OPS_COLLECTIONS.map((key) => (
             <option key={key} value={key}>
-              {getOpsCollectionLabel(lang, key)}
+              {getLabel(key)}
             </option>
           ))}
         </select>

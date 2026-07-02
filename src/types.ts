@@ -241,6 +241,16 @@ export interface CMSSettings {
       en: SEOConfig;
     };
   };
+  opsCenter?: {
+    copy?: {
+      zh?: Record<string, string>;
+      en?: Record<string, string>;
+    };
+    collectionLabels?: {
+      zh?: Record<string, string>;
+      en?: Record<string, string>;
+    };
+  };
 }
 
 export interface CurrencyData {

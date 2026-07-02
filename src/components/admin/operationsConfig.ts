@@ -91,3 +91,79 @@ export const OPS_COPY = {
     forceSyncSuccess: (removed: number, remaining: number) => `Force sync completed. Category dedupe removed ${removed} duplicates, ${remaining} categories remain.`,
   },
 } as const;
+
+const OPS_COPY_STRING_KEYS = [
+  "title",
+  "subtitle",
+  "refresh",
+  "d1Config",
+  "d1Health",
+  "totalRows",
+  "sourceBaseline",
+  "sourceWorker",
+  "modeReplace",
+  "modeAppend",
+  "init",
+  "purge",
+  "exportJson",
+  "dedupe",
+  "forceSync",
+] as const;
+
+type OpsCopyStringKey = (typeof OPS_COPY_STRING_KEYS)[number];
+type OpsCopyValue = {
+  title: string;
+  subtitle: string;
+  refresh: string;
+  d1Config: string;
+  d1Health: string;
+  totalRows: string;
+  sourceBaseline: string;
+  sourceWorker: string;
+  modeReplace: string;
+  modeAppend: string;
+  init: string;
+  purge: string;
+  exportJson: string;
+  dedupe: string;
+  forceSync: string;
+  initConfirm: (collection: string, source: string, mode: string) => string;
+  initSuccess: (collection: string, initialized: number) => string;
+  purgeConfirm: (collection: string) => string;
+  purgeSuccess: (collection: string, purged: number) => string;
+  exportSuccess: string;
+  dedupeConfirm: string;
+  dedupeSuccess: (removed: number, remaining: number) => string;
+  forceSyncConfirm: string;
+  forceSyncSuccess: (removed: number, remaining: number) => string;
+};
+
+export function resolveOpsCopy(
+  lang: "zh" | "en",
+  overrides?: Record<string, unknown> | null,
+): OpsCopyValue {
+  const base = OPS_COPY[lang];
+  if (!overrides || typeof overrides !== "object") return base;
+
+  const next: OpsCopyValue = { ...base };
+  for (const key of OPS_COPY_STRING_KEYS) {
+    const value = overrides[key as OpsCopyStringKey];
+    if (typeof value === "string" && value.trim()) {
+      (next as Record<string, unknown>)[key] = value.trim();
+    }
+  }
+  return next;
+}
+
+export function getOpsCollectionLabelWithOverride(
+  lang: "zh" | "en",
+  value: CMSOpsCollection,
+  overrides?: Partial<Record<CMSOpsCollection, string>>,
+): string {
+  const fallback = OPS_COLLECTION_LABELS[lang][value];
+  const override = overrides?.[value];
+  if (typeof override === "string" && override.trim()) {
+    return override.trim();
+  }
+  return fallback;
+}
