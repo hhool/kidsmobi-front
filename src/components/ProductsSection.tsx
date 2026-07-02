@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { 
   Search, 
   Filter, 
@@ -20,6 +20,7 @@ import { Product, ProductCategory, CurrencyData } from "../types";
 import { translateProduct, translateCategory } from "../lib/translate";
 import { formatWeight } from "../lib/units";
 import { resolveProductImages } from "../lib/productImages";
+import { getBackendPickerPayload } from "../lib/backendResourceService";
 import SmartImage from "./common/SmartImage";
 import Breadcrumbs from "./Breadcrumbs";
 import ComparisonDashboard from "./ComparisonDashboard";
@@ -59,38 +60,125 @@ export default function ProductsSection({
   // Extra filters for PRD compliance
   const [selectedAge, setSelectedAge] = useState<string>("all"); // 'all', 'baby', 'toddler', 'child'
   const [selectedPrice, setSelectedPrice] = useState<string>("all"); // 'all', 'budget', 'mid', 'premium'
+  const [backendCategoryNameMap, setBackendCategoryNameMap] = useState<Record<string, string>>({});
 
-  // Dynamic filter label helper
-  const getCategoryLabel = (cat: ProductCategory) => {
-    return translateCategory(cat, lang);
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      try {
+        const payload = await getBackendPickerPayload({ includeAll: true });
+        if (!mounted) return;
+        const nextMap: Record<string, string> = {};
+        for (const item of payload.categories || []) {
+          const key = String(item.categoryId || "").trim().toLowerCase();
+          const name = String(item.name || "").trim();
+          if (key && name) {
+            nextMap[key] = name;
+          }
+        }
+        setBackendCategoryNameMap(nextMap);
+      } catch {
+        if (!mounted) return;
+        setBackendCategoryNameMap({});
+      }
+    })();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const getProductCategoryId = (product: Product): string => {
+    const raw = String((product as any)?.categoryId || product?.category || "").trim().toLowerCase();
+    return raw;
   };
 
-  const categories = lang === "en" ? [
-    { id: "all", label: "📁 All Products" },
-    { id: "balance", label: "🚲 Balance Bikes" },
-    { id: "bicycle", label: "🚴 Pedal Bikes" },
-    { id: "scooter", label: "🛹 Kick Scooters" },
-    { id: "stroller", label: "👶 Baby Strollers" },
-    { id: "electric_car", label: "⚡ Kids Electric Cars" },
-    { id: "tricycle", label: "🧸 Tricycles" },
-    { id: "safety_seat", label: "🛡️ Safety Seats" }
-  ] : [
-    { id: "all", label: "📁 全部产品" },
-    { id: "balance", label: "🚲 平衡车" },
-    { id: "bicycle", label: "🚴 自行车" },
-    { id: "scooter", label: "🛹 滑板车" },
-    { id: "stroller", label: "👶 推车" },
-    { id: "electric_car", label: "⚡ 电动车" },
-    { id: "tricycle", label: "🧸 三轮车" },
-    { id: "safety_seat", label: "🛡️ 安全座椅" }
-  ];
+  const humanizeCategoryId = (rawCategoryId: string): string => {
+    const normalized = rawCategoryId.trim().toLowerCase();
+    if (!normalized) return rawCategoryId;
+    if (backendCategoryNameMap[normalized]) {
+      return backendCategoryNameMap[normalized];
+    }
+
+    const fallbackMap: Record<string, string> = {
+      balance: "Balance Bikes",
+      bicycle: "Pedal Bikes",
+      scooter: "Kick Scooters",
+      stroller: "Baby Strollers",
+      electric_car: "Kids Electric Cars",
+      tricycle: "Tricycles",
+      safety_seat: "Safety Seats",
+      kids_pull_along_wagons: "Kids Pull Along Wagons",
+      kids_push_ride_ons: "Kids Push Ride Ons",
+      kids_tricycles: "Kids Tricycles",
+      kids_bikes: "Kids Bikes",
+      balance_bike: "Balance Bikes",
+      car_seat: "Car Seats",
+      electric_vehicles: "Kids Electric Cars",
+    };
+    if (fallbackMap[normalized]) {
+      return fallbackMap[normalized];
+    }
+
+    return normalized
+      .split("_")
+      .filter(Boolean)
+      .map((token) => token.charAt(0).toUpperCase() + token.slice(1))
+      .join(" ");
+  };
+
+  const parseMinAgeYears = (ageRange: string): number => {
+    const text = String(ageRange || "").toLowerCase().trim();
+    if (!text) return Number.NaN;
+
+    const monthMatch = text.match(/(\d+(?:\.\d+)?)\s*(m|mo|mos|month|months|月)/);
+    if (monthMatch) {
+      return Number(monthMatch[1]) / 12;
+    }
+
+    const yearMatch = text.match(/(\d+(?:\.\d+)?)\s*(y|yr|yrs|year|years|岁)?/);
+    if (yearMatch) {
+      return Number(yearMatch[1]);
+    }
+
+    return Number.NaN;
+  };
+
+  const categories = useMemo(() => {
+    const allLabel = lang === "en" ? "📁 All Products" : "📁 全部产品";
+    const idSet = new Set<string>();
+    for (const item of productsData) {
+      const id = getProductCategoryId(item);
+      if (id) {
+        idSet.add(id);
+      }
+    }
+    const ids = Array.from(idSet.values());
+    ids.sort((a, b) => humanizeCategoryId(a).localeCompare(humanizeCategoryId(b)));
+
+    return [
+      { id: "all", label: allLabel },
+      ...ids.map((id) => ({ id, label: humanizeCategoryId(id) })),
+    ];
+  }, [productsData, lang, backendCategoryNameMap]);
+
+  const getCategoryLabel = (categoryId: string, categoryCode: ProductCategory) => {
+    const fromCategoryId = humanizeCategoryId(categoryId);
+    if (fromCategoryId && fromCategoryId !== categoryId) {
+      return fromCategoryId;
+    }
+    return translateCategory(categoryCode, lang);
+  };
 
   // Filtering and sorting math
   const filteredProducts = useMemo(() => {
     return productsData
-      .map(p => translateProduct(p, lang))
-      .filter((p) => {
-        const matchesCategory = selectedCategory === "all" || p.category === selectedCategory;
+      .map((sourceProduct) => ({
+        sourceCategoryId: getProductCategoryId(sourceProduct),
+        product: translateProduct(sourceProduct, lang),
+      }))
+      .filter(({ product: p, sourceCategoryId }) => {
+        const matchesCategory = selectedCategory === "all" || sourceCategoryId === selectedCategory;
         const matchesSearch = searchQuery.trim() === "" ||
           p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
           p.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -99,7 +187,7 @@ export default function ProductsSection({
           
         let matchesAge = true;
         if (selectedAge !== "all") {
-           const ageNum = parseFloat(p.ageRange.split("-")[0]);
+           const ageNum = parseMinAgeYears(p.ageRange);
            if (selectedAge === "baby") matchesAge = ageNum < 2;
            else if (selectedAge === "toddler") matchesAge = ageNum >= 2 && ageNum < 5;
            else if (selectedAge === "child") matchesAge = ageNum >= 5;
@@ -115,13 +203,15 @@ export default function ProductsSection({
         return matchesCategory && matchesSearch && matchesAge && matchesPrice;
       })
       .sort((a, b) => {
-        if (sortBy === "overallScore") return b.overallScore - a.overallScore;
-        if (sortBy === "weightAsc") return a.weight - b.weight;
-        if (sortBy === "priceDesc") return b.price - a.price;
-        if (sortBy === "priceAsc") return a.price - b.price;
+        const left = a.product;
+        const right = b.product;
+        if (sortBy === "overallScore") return right.overallScore - left.overallScore;
+        if (sortBy === "weightAsc") return left.weight - right.weight;
+        if (sortBy === "priceDesc") return right.price - left.price;
+        if (sortBy === "priceAsc") return left.price - right.price;
         return 0;
       });
-  }, [selectedCategory, searchQuery, sortBy, productsData, lang]);
+  }, [selectedCategory, searchQuery, sortBy, selectedAge, selectedPrice, productsData, lang, backendCategoryNameMap]);
 
   // Compare toggles (allows up to 3 items!)
   const handleToggleCompare = (product: Product, e: React.MouseEvent) => {
@@ -315,8 +405,8 @@ export default function ProductsSection({
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-          {filteredProducts.map((p, idx) => {
-            const diProduct = translateProduct(p, lang);
+          {filteredProducts.map(({ product: p, sourceCategoryId }, idx) => {
+            const diProduct = p;
             const imageSet = resolveProductImages(diProduct);
             const isWeightOver = (diProduct.category === "bicycle" || diProduct.category === "balance")
               ? diProduct.weight > childProfile.weight * 0.3
@@ -348,7 +438,7 @@ export default function ProductsSection({
 
                   <div className="flex justify-between items-center">
                     <span className="bg-orange-50 text-orange-600 px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-orange-100">
-                      {getCategoryLabel(diProduct.category)}
+                      {getCategoryLabel(sourceCategoryId, diProduct.category)}
                     </span>
                     <span className="text-slate-400 text-[10px] font-black uppercase tracking-widest">{diProduct.brand}</span>
                   </div>
