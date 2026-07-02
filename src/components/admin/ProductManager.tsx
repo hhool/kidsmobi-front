@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { 
   Plus, 
   Trash2, 
@@ -7,9 +7,7 @@ import {
   FileText, 
   Search,
   CheckCircle2,
-  AlertTriangle,
-  Download,
-  Upload
+  AlertTriangle
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { getCMSProducts, saveCMSProduct, deleteCMSProduct, getCMSScenarios, checkIsAdmin } from "../../lib/cmsService";
@@ -18,9 +16,8 @@ import { FALLBACK_PRODUCT_IMAGE, resolveProductImages } from "../../lib/productI
 import { validateCMSProduct } from "../../lib/productValidation";
 import SmartImage from "../common/SmartImage";
 import BackendResourcePicker from "./BackendResourcePicker";
-import { auth } from "../../lib/firebase";
 import { getBackendPickerPayload } from "../../lib/backendResourceService";
-import { deleteD1CMSProduct, getD1CMSProducts, initD1CMSProducts, saveD1CMSProduct } from "../../lib/cmsD1Service";
+import { deleteD1CMSProduct, getD1CMSProducts, saveD1CMSProduct } from "../../lib/cmsD1Service";
 
 function normalizeCMSProductForList(item: CMSProduct): CMSProduct {
   const zhName = item?.zh?.name || item.name || item.brand || "";
@@ -152,7 +149,6 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
   const [backendPreviewMode, setBackendPreviewMode] = useState(false);
   const [search, setSearch] = useState("");
   const [editingProduct, setEditingProduct] = useState<CMSProduct | null>(null);
-  const importRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     fetchProducts();
@@ -269,79 +265,6 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
 
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
-  const [initializingProducts, setInitializingProducts] = useState(false);
-
-  const handleInitializeProducts = async () => {
-    const ok = window.confirm(
-      lang === "zh"
-        ? "将从 backend 初始化产品到当前 CMS 库（存在同 ID 会覆盖）。继续？"
-        : "Initialize products from backend into current CMS database now? Existing IDs will be overwritten."
-    );
-    if (!ok) return;
-
-    const user = auth.currentUser;
-    const isAdmin = user ? await checkIsAdmin(user.uid, user) : false;
-    if (!isAdmin) {
-      alert(
-        lang === "zh"
-          ? "初始化失败：当前账号无写入权限。请先登录管理员账号。"
-          : "Initialization failed: current account has no write permission. Please sign in as admin first."
-      );
-      return;
-    }
-
-    setInitializingProducts(true);
-    try {
-      try {
-        const d1Result = await initD1CMSProducts();
-        await fetchProducts();
-        alert(
-          lang === "zh"
-            ? `D1 初始化完成：成功 ${d1Result.success}/${d1Result.total} 条。`
-            : `D1 initialization complete: ${d1Result.success}/${d1Result.total} succeeded.`
-        );
-        return;
-      } catch {
-        // fallback to existing firestore init path
-      }
-
-      const payload = await getBackendPickerPayload({ includeAll: true });
-      const sourceRows = (payload.products || []).slice(0, 120);
-      let success = 0;
-      const errors: string[] = [];
-
-      for (const row of sourceRows) {
-        const candidate = normalizeProductImagesForSave(buildCMSProductFromBackendPreview(row));
-        const result = validateCMSProduct(candidate);
-        if (!result.valid) {
-          errors.push(`${candidate.id}: ${result.errors.join("; ")}`);
-          continue;
-        }
-        try {
-          await saveCMSProduct(candidate);
-          success += 1;
-        } catch (error: any) {
-          errors.push(`${candidate.id}: ${error?.message || String(error)}`);
-        }
-      }
-
-      await fetchProducts();
-      if (errors.length > 0) {
-        alert(
-          (lang === "zh"
-            ? `初始化完成：成功 ${success} 条，失败 ${errors.length} 条。\n`
-            : `Initialization done: ${success} succeeded, ${errors.length} failed.\n`) +
-            errors.slice(0, 8).map((e) => `- ${e}`).join("\n")
-        );
-      } else {
-        alert(lang === "zh" ? `初始化成功，共 ${success} 条。` : `Initialization succeeded: ${success} products.`);
-      }
-    } catch (error: any) {
-      alert((lang === "zh" ? "初始化失败：" : "Initialization failed: ") + (error?.message || String(error)));
-    } finally {
-      setInitializingProducts(false);
-    }
-  };
 
   const handleSave = async (p: CMSProduct) => {
     // Basic Quality Check
@@ -423,72 +346,6 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
     (p.brand || "").toLowerCase().includes(search.toLowerCase())
   );
 
-  const handleExport = () => {
-    const normalized = products.map((item) => normalizeProductImagesForSave(item));
-    const blob = new Blob([JSON.stringify(normalized, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `products-export-${Date.now()}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
-  const handleImportFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-    try {
-      const raw = await file.text();
-      const parsed = JSON.parse(raw);
-      if (!Array.isArray(parsed)) {
-        alert(lang === "zh" ? "导入失败：文件必须为产品数组 JSON。" : "Import failed: JSON must be an array of products.");
-        return;
-      }
-
-      const user = auth.currentUser;
-      const isAdmin = user ? await checkIsAdmin(user.uid, user) : false;
-      if (!isAdmin) {
-        alert(
-          lang === "zh"
-            ? "导入失败：当前账号无写入权限。请先在右上角“账户”完成 Google 登录，并确认账号已加入 admins 集合后重试。"
-            : "Import failed: current account does not have write permission. Please sign in via Google under Account and ensure your user exists in the admins collection."
-        );
-        return;
-      }
-
-      const errors: string[] = [];
-      let count = 0;
-      for (const item of parsed) {
-        const candidate = normalizeProductImagesForSave(item as CMSProduct);
-        const result = validateCMSProduct(candidate);
-        if (!result.valid) {
-          errors.push(`${candidate.id || "unknown"}: ${result.errors.join("; ")}`);
-          continue;
-        }
-        try {
-          await saveCMSProduct(candidate);
-          count += 1;
-        } catch (error: any) {
-          errors.push(`${candidate.id || "unknown"}: ${error?.message || String(error)}`);
-        }
-      }
-
-      await fetchProducts();
-      if (errors.length > 0) {
-        alert(
-          (lang === "zh" ? `导入完成：成功 ${count} 条，失败 ${errors.length} 条。\n` : `Import done: ${count} succeeded, ${errors.length} failed.\n`) +
-          errors.slice(0, 8).map((e) => `- ${e}`).join("\n")
-        );
-      } else {
-        alert(lang === "zh" ? `导入成功，共 ${count} 条。` : `Import succeeded: ${count} products.`);
-      }
-    } catch (error: any) {
-      alert((lang === "zh" ? "导入失败：" : "Import failed: ") + (error?.message || String(error)));
-    } finally {
-      event.target.value = "";
-    }
-  };
-
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <header className="flex items-center justify-between">
@@ -497,40 +354,6 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
           <p className="text-slate-500 font-medium mt-1">Structured repository for global stroller database.</p>
         </div>
         <div className="flex items-center gap-3">
-          <button
-            onClick={handleInitializeProducts}
-            disabled={initializingProducts}
-            className="flex items-center gap-2 bg-white border border-slate-200 text-slate-700 px-5 py-3 rounded-2xl font-black text-xs hover:border-fuchsia-400 hover:text-fuchsia-600 transition-all disabled:opacity-60"
-          >
-            {initializingProducts
-              ? lang === "zh"
-                ? "初始化中..."
-                : "Initializing..."
-              : lang === "zh"
-                ? "初始化产品"
-                : "Initialize Products"}
-          </button>
-          <input
-            ref={importRef}
-            type="file"
-            accept="application/json"
-            onChange={handleImportFile}
-            className="hidden"
-          />
-          <button
-            onClick={() => importRef.current?.click()}
-            className="flex items-center gap-2 bg-white border border-slate-200 text-slate-700 px-5 py-3 rounded-2xl font-black text-xs hover:border-emerald-400 hover:text-emerald-600 transition-all"
-          >
-            <Upload className="w-4 h-4" />
-            {lang === "zh" ? "导入 JSON" : "Import JSON"}
-          </button>
-          <button
-            onClick={handleExport}
-            className="flex items-center gap-2 bg-white border border-slate-200 text-slate-700 px-5 py-3 rounded-2xl font-black text-xs hover:border-sky-400 hover:text-sky-600 transition-all"
-          >
-            <Download className="w-4 h-4" />
-            {lang === "zh" ? "导出 JSON" : "Export JSON"}
-          </button>
           <button onClick={handleNew} className="btn-primary flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-3xl font-black shadow-2xl shadow-slate-900/20 hover:-translate-y-1 transition-all">
             <Plus className="w-5 h-5 text-orange-500" />
             {lang === "zh" ? "新增产品" : "New Product"}

@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Plus, Save, Trash2 } from "lucide-react";
 import { CMSCategory, ProductCategory } from "../../types";
 import { deleteCMSCategory, getCMSCategories, saveCMSCategory } from "../../lib/cmsService";
-import { getBackendPickerPayload } from "../../lib/backendResourceService";
-import { deleteD1CMSCategory, getD1CMSCategories, initD1CMSCategories, saveD1CMSCategory } from "../../lib/cmsD1Service";
+import { deleteD1CMSCategory, getD1CMSCategories, saveD1CMSCategory } from "../../lib/cmsD1Service";
 
 const categoryCodes: ProductCategory[] = [
   "balance",
@@ -14,27 +13,6 @@ const categoryCodes: ProductCategory[] = [
   "tricycle",
   "safety_seat",
 ];
-
-function mapBackendCategoryIdToProductCategory(categoryId: string): ProductCategory {
-  switch (categoryId) {
-    case "balance_bike":
-      return "balance";
-    case "scooters":
-      return "scooter";
-    case "electric_vehicles":
-      return "electric_car";
-    case "kids_bikes":
-      return "bicycle";
-    case "kids_tricycles":
-    case "kids_push_ride_ons":
-    case "kids_pull_along_wagons":
-      return "tricycle";
-    case "car_seat":
-      return "safety_seat";
-    default:
-      return "stroller";
-  }
-}
 
 function normalizeText(value: unknown): string {
   return String(value || "").trim().toLowerCase();
@@ -64,7 +42,6 @@ export default function CategoryManager({ lang }: { lang: "zh" | "en" }) {
   const [items, setItems] = useState<CMSCategory[]>([]);
   const [editing, setEditing] = useState<CMSCategory | null>(null);
   const [saving, setSaving] = useState(false);
-  const [initializing, setInitializing] = useState(false);
 
   async function refresh() {
     try {
@@ -168,81 +145,6 @@ export default function CategoryManager({ lang }: { lang: "zh" | "en" }) {
     await refresh();
   }
 
-  async function handleInitializeCategories() {
-    const ok = window.confirm(
-      lang === "zh"
-        ? "将初始化默认品类（已存在同 code 的品类会被更新）。是否继续？"
-        : "Initialize default categories now? Existing categories with the same code will be updated."
-    );
-    if (!ok) return;
-
-    setInitializing(true);
-    try {
-      try {
-        const d1Result = await initD1CMSCategories();
-        await refresh();
-        alert(
-          lang === "zh"
-            ? `D1 初始化完成，共 ${d1Result.total} 个品类。`
-            : `D1 initialization complete: ${d1Result.total} categories.`
-        );
-        return;
-      } catch {
-        // fallback to previous firestore initialization path
-      }
-
-      const backendPayload = await getBackendPickerPayload({ includeAll: true });
-      const backendCategories = backendPayload.categories || [];
-      const existing = await getCMSCategories(false);
-      const byCode = new Map(existing.map((item) => [item.code, item]));
-
-      const mappedByCode = new Map<ProductCategory, { code: ProductCategory; zhName: string; enName: string }>();
-      for (const item of backendCategories) {
-        const code = mapBackendCategoryIdToProductCategory(item.categoryId);
-        if (!mappedByCode.has(code)) {
-          mappedByCode.set(code, {
-            code,
-            zhName: item.name || code,
-            enName: item.name || code,
-          });
-        }
-      }
-
-      const templates = Array.from(mappedByCode.values());
-      if (templates.length === 0) {
-        throw new Error(lang === "zh" ? "未获取到 backend 品类数据。" : "No backend categories fetched.");
-      }
-
-      for (const [idx, template] of templates.entries()) {
-        const hit = byCode.get(template.code);
-        const payload: CMSCategory = {
-          id: hit?.id || `cat_${template.code}`,
-          code: template.code,
-          status: hit?.status || "published",
-          sortOrder: hit?.sortOrder ?? idx + 1,
-          icon: hit?.icon || "",
-          zh: {
-            name: template.zhName,
-            description: hit?.zh?.description || `backend:${template.code}`,
-          },
-          en: {
-            name: template.enName,
-            description: hit?.en?.description || `backend:${template.code}`,
-          },
-          updatedAt: null,
-        };
-        await saveCMSCategory(payload);
-      }
-
-      await refresh();
-      alert(lang === "zh" ? "默认品类初始化完成。" : "Default categories initialized.");
-    } catch (error: any) {
-      alert((lang === "zh" ? "初始化失败：" : "Initialization failed: ") + (error?.message || String(error)));
-    } finally {
-      setInitializing(false);
-    }
-  }
-
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <header className="flex items-center justify-between">
@@ -255,13 +157,6 @@ export default function CategoryManager({ lang }: { lang: "zh" | "en" }) {
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <button
-            onClick={handleInitializeCategories}
-            disabled={initializing}
-            className="flex items-center gap-2 bg-white border border-slate-200 text-slate-700 px-6 py-3 rounded-2xl font-black text-xs hover:border-emerald-400 hover:text-emerald-600 transition-all disabled:opacity-60"
-          >
-            {initializing ? (lang === "zh" ? "初始化中..." : "Initializing...") : lang === "zh" ? "初始化品类" : "Initialize Categories"}
-          </button>
           <button
             onClick={handleNew}
             className="btn-primary flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-3xl font-black shadow-2xl shadow-slate-900/20 hover:-translate-y-1 transition-all"
