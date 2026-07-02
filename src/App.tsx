@@ -328,12 +328,19 @@ export default function App() {
         setCmsSettings(s);
       }
 
-      const p = await getCMSProducts(true);
+      const publishedProducts = await getCMSProducts(true);
       if (!isActive) return;
-      if (p && p.length > 0) {
-        setProductsData(p);
+      if (publishedProducts && publishedProducts.length > 0) {
+        setProductsData(publishedProducts);
       } else {
-        setProductsData(defaultProductsData);
+        // If initialization imported draft-only products, avoid a blank Product Center.
+        const allProducts = await getCMSProducts(false);
+        if (!isActive) return;
+        if (allProducts && allProducts.length > 0) {
+          setProductsData(allProducts);
+        } else {
+          setProductsData(defaultProductsData);
+        }
       }
 
       const evs = await getCMSEvaluations(true);

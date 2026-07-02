@@ -38,6 +38,8 @@ function mapAssetsToUrls(assets: ProductImageAsset[] | undefined): string[] {
 export function resolveProductImages(product: Partial<Product> | null | undefined): {
   coverUrl: string;
   galleryUrls: string[];
+  featureUrls: string[];
+  allImageUrls: string[];
   images: ProductImages;
 } {
   const images = product?.images;
@@ -48,15 +50,24 @@ export function resolveProductImages(product: Partial<Product> | null | undefine
 
   const galleryCandidates = dedupeUrls([
     ...mapAssetsToUrls(images?.gallery),
+    ...((product?.productImageUrls || []).map((x) => normalizeUrl(x))),
     ...((product?.galleryUrls || []).map((x) => normalizeUrl(x))),
+  ]);
+
+  const featureUrls = dedupeUrls([
+    ...mapAssetsToUrls(images?.feature),
+    ...((product?.featureImageUrls || []).map((x) => normalizeUrl(x))),
   ]);
 
   const coverUrl = coverCandidates[0] || galleryCandidates[0] || FALLBACK_PRODUCT_IMAGE;
   const galleryUrls = dedupeUrls(galleryCandidates.filter((url) => url !== coverUrl));
+  const allImageUrls = dedupeUrls([coverUrl, ...galleryUrls]);
 
   return {
     coverUrl,
     galleryUrls,
+    featureUrls,
+    allImageUrls,
     images: {
       cover: {
         url: coverUrl,
@@ -67,6 +78,16 @@ export function resolveProductImages(product: Partial<Product> | null | undefine
         url,
         source: images?.gallery?.find((item) => normalizeUrl(item.url) === url)?.source || "unknown",
         order: index + 1,
+      })),
+      feature: featureUrls.map((url, index) => ({
+        url,
+        source: images?.feature?.find((item) => normalizeUrl(item.url) === url)?.source || "unknown",
+        order: index,
+      })),
+      all: allImageUrls.map((url, index) => ({
+        url,
+        source: index === 0 ? images?.cover?.source || "unknown" : images?.gallery?.find((item) => normalizeUrl(item.url) === url)?.source || "unknown",
+        order: index,
       })),
     },
   };

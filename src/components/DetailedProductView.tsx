@@ -58,7 +58,9 @@ export default function DetailedProductView({
 }: DetailedProductViewProps) {
   const displayProduct = translateProduct(product, lang);
   const imageSet = resolveProductImages(displayProduct);
-  const [activeMediaTab, setActiveMediaTab] = useState<"gallery" | "video">("gallery");
+  const hasVideo = Boolean(product.videoUrl);
+  const hasFeatureImages = imageSet.featureUrls.length > 0;
+  const [activeMediaTab, setActiveMediaTab] = useState<"gallery" | "feature" | "video">("gallery");
 
   const getBackLabel = () => {
     if (lang === "zh") {
@@ -254,7 +256,16 @@ export default function DetailedProductView({
             <ImageIcon className="w-4 h-4" />
             {lang === "en" ? "Image Gallery" : "产品实拍图库"}
           </button>
-          {product.videoUrl && (
+          {hasFeatureImages && (
+            <button 
+              onClick={() => setActiveMediaTab("feature")}
+              className={`flex-1 flex items-center justify-center gap-2 py-4 text-xs font-black uppercase transition-all ${activeMediaTab === "feature" ? "bg-orange-50 text-orange-600 border-b-2 border-orange-500" : "text-slate-400 hover:bg-slate-50"}`}
+            >
+              <Maximize2 className="w-4 h-4" />
+              {lang === "en" ? "Feature Images" : "特性图解"}
+            </button>
+          )}
+          {hasVideo && (
             <button 
               onClick={() => setActiveMediaTab("video")}
               className={`flex-1 flex items-center justify-center gap-2 py-4 text-xs font-black uppercase transition-all ${activeMediaTab === "video" ? "bg-orange-50 text-orange-600 border-b-2 border-orange-500" : "text-slate-400 hover:bg-slate-50"}`}
@@ -271,9 +282,14 @@ export default function DetailedProductView({
               images={[imageSet.coverUrl, ...imageSet.galleryUrls].filter(Boolean)} 
               lang={lang} 
             />
+          ) : activeMediaTab === "feature" ? (
+            <ProductCarousel 
+              images={imageSet.featureUrls.filter(Boolean)} 
+              lang={lang} 
+            />
           ) : (
             <div className="aspect-video w-full">
-              {product.videoUrl ? (
+              {hasVideo ? (
                 <iframe 
                   src={product.videoUrl} 
                   className="w-full h-full rounded-2xl"
@@ -301,6 +317,7 @@ export default function DetailedProductView({
                 <h3 className="text-xl font-black text-slate-900">{lang === "en" ? "Performance Analysis" : "测评效能透视"}</h3>
                 <div className="flex items-center gap-2">
                   <select
+                    aria-label={lang === "en" ? "Compare products" : "选择对比产品"}
                     value={comparedProduct?.id || ""}
                     onChange={(e) => setComparedProduct(allProducts.find(p => p.id === e.target.value) || null)}
                     className="bg-slate-50 border border-slate-100 rounded-xl text-[10px] font-black uppercase px-4 py-2 cursor-pointer focus:ring-2 focus:ring-orange-500/20"
