@@ -1,0 +1,2 @@
+/api/* https://kidsmobi-api-v1.seaman-player.workers.dev/api/:splat 307
+/* /index.html 200
