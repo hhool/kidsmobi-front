@@ -39,6 +39,12 @@ export default function Sidebar({ activeMenu, setActiveMenu, lang, onClose }: Si
       </div>
 
       <nav className="flex-1 p-6 space-y-2">
+        <MenuItem
+          active={activeMenu === "settings"}
+          onClick={() => setActiveMenu("settings")}
+          icon={<SettingsIcon className="w-5 h-5" />}
+          label={lang === "zh" ? "首页与配置" : "Home & Config"}
+        />
         <MenuItem 
           active={activeMenu === "dashboard"} 
           onClick={() => setActiveMenu("dashboard")} 
@@ -92,12 +98,6 @@ export default function Sidebar({ activeMenu, setActiveMenu, lang, onClose }: Si
           onClick={() => setActiveMenu("imports")} 
           icon={<FolderKanban className="w-5 h-5" />} 
           label={lang === "zh" ? "导入审核" : "Import Review"} 
-        />
-        <MenuItem 
-          active={activeMenu === "settings"} 
-          onClick={() => setActiveMenu("settings")} 
-          icon={<SettingsIcon className="w-5 h-5" />} 
-          label={lang === "zh" ? "首页与配置" : "Home & Config"} 
         />
       </nav>
 
