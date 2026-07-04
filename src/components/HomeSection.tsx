@@ -21,6 +21,7 @@ import { translations, translateProduct } from "../lib/translate";
 import MatchingWizard from "./MatchingWizard";
 import { SCRAPED_CATEGORY_CATALOG } from "../config/scrapedCategoryCatalog";
 import { PRODUCT_CATEGORY_SEO_KEYWORDS } from "../config/seoKeywordMap";
+import { resolveProductImages, withImageFallback, FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
 
 interface HomeSectionProps {
   productsData: Product[];
@@ -43,6 +44,25 @@ export default function HomeSection({
   lang = "zh",
   currencyData
 }: HomeSectionProps) {
+
+  const categoryAliasMap: Record<string, string[]> = {
+    stroller: ["stroller"],
+    double_stroller: ["double_stroller", "double stroller"],
+    jogger_stroller: ["jogger_stroller", "jogger stroller"],
+    balance_bike: ["balance_bike", "balance", "balance bike"],
+    kids_bikes: ["kids_bikes", "bikes", "bike", "kids bike"],
+    kids_tricycles: ["kids_tricycles", "tricycle", "tricycles"],
+    scooters: ["scooters", "scooter"],
+    kids_push_ride_ons: ["kids_push_ride_ons", "push_ride_ons", "ride_ons"],
+    kids_pull_along_wagons: ["kids_pull_along_wagons", "pull_along_wagons", "wagons", "wagon"],
+    electric_vehicles: ["electric_vehicles", "electric", "ev"],
+    car_seat: ["car_seat", "car seat"],
+    baby_carrier: ["baby_carrier", "carrier", "baby carrier"],
+    high_chair: ["high_chair", "high chair"],
+    playard: ["playard", "play yard"],
+  };
+
+  const normalizeCategory = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, "_");
   
   const t = translations[lang];
   const [isWizardOpen, setIsWizardOpen] = useState(false);
@@ -52,6 +72,19 @@ export default function HomeSection({
       label: lang === "zh" ? entry.zh : entry.en,
     }));
   }, [lang]);
+
+  const categoryHeroImageMap = useMemo(() => {
+    const map: Record<string, string> = {};
+    for (const entry of SCRAPED_CATEGORY_CATALOG) {
+      const aliases = categoryAliasMap[entry.id] || [entry.id];
+      const found = productsData.find((product) => {
+        const normalized = normalizeCategory(product.category || "");
+        return aliases.some((alias) => normalized.includes(normalizeCategory(alias)));
+      });
+      map[entry.id] = found ? resolveProductImages(found).coverUrl : FALLBACK_PRODUCT_IMAGE;
+    }
+    return map;
+  }, [productsData]);
 
   const seoTrendGroups = useMemo(() => {
     const hotKeys = ["stroller", "double_stroller", "jogger_stroller", "balance_bike", "scooters", "kids_bikes"];
@@ -65,7 +98,7 @@ export default function HomeSection({
   }, [lang]);
 
   // Outstanding Selection (high scores)
-  const topSelections = productsData.sort((a, b) => b.overallScore - a.overallScore).slice(0, 4);
+  const topSelections = [...productsData].sort((a, b) => b.overallScore - a.overallScore).slice(0, 4);
 
   const annualAwards = [
     { 
@@ -220,21 +253,38 @@ export default function HomeSection({
           {scrapedCategoryCards.map((cat) => (
             <div
               key={cat.id}
-              className="bg-white border border-slate-100 rounded-[28px] p-6 hover:border-orange-500/30 hover:shadow-xl transition-all"
+              className="group bg-white border border-slate-100 rounded-4xl overflow-hidden hover:border-orange-500/30 hover:shadow-2xl hover:shadow-slate-300/40 transition-all"
             >
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <h4 className="text-slate-900 font-black text-lg leading-tight">{cat.label}</h4>
-                  <p className="text-[11px] text-slate-500 font-bold uppercase tracking-wider mt-1">
-                    {lang === "zh" ? `收录 ${cat.itemCount} 条` : `${cat.itemCount} items indexed`}
-                  </p>
+              <div className="relative h-44">
+                <img
+                  src={categoryHeroImageMap[cat.id] || FALLBACK_PRODUCT_IMAGE}
+                  alt={cat.label}
+                  onError={withImageFallback}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-slate-900/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-5">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <h4 className="text-white font-black text-lg leading-tight tracking-tight">{cat.label}</h4>
+                      <p className="text-[11px] text-slate-200 font-bold uppercase tracking-wider mt-1">
+                        {lang === "zh" ? `收录 ${cat.itemCount} 条` : `${cat.itemCount} items indexed`}
+                      </p>
+                    </div>
+                    <span className="px-2 py-1 rounded-lg text-[10px] bg-white/20 text-white font-black uppercase tracking-wider backdrop-blur-sm border border-white/20">
+                      API
+                    </span>
+                  </div>
                 </div>
-                <span className="px-2 py-1 rounded-lg text-[10px] bg-orange-50 text-orange-500 font-black uppercase tracking-wider">
-                  API
-                </span>
               </div>
 
-              <div className="flex gap-2 mt-5">
+              <div className="p-5 bg-linear-to-b from-white to-slate-50/80">
+                <p className="text-[12px] text-slate-500 font-medium leading-relaxed min-h-10">
+                  {lang === "zh"
+                    ? "覆盖参数筛选、评测联动与来源页追溯，适合快速建立选购候选清单。"
+                    : "Includes filters, review linkage, and source tracing to build a shortlist faster."}
+                </p>
+                <div className="flex gap-2 mt-4">
                 <button
                   onClick={() => {
                     onSelectCategory(cat.id);
@@ -252,6 +302,7 @@ export default function HomeSection({
                 >
                   {lang === "zh" ? "源目录" : "Source"}
                 </a>
+                </div>
               </div>
             </div>
           ))}
@@ -329,8 +380,13 @@ export default function HomeSection({
                 onClick={() => onSelectProduct(p)}
                 className="group cursor-pointer bg-white rounded-4xl border border-slate-100 overflow-hidden hover:shadow-2xl transition-all"
                >
-                 <div className="h-48 bg-slate-50 flex items-center justify-center group-hover:bg-orange-50 transition-colors p-8">
-                    <Baby className="w-16 h-16 text-slate-200 group-hover:text-orange-500 transition-colors" />
+                 <div className="h-52 bg-slate-50 overflow-hidden">
+                    <img
+                      src={resolveProductImages(p).coverUrl}
+                      alt={dp.name}
+                      onError={withImageFallback}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
                  </div>
                  <div className="p-6 space-y-4">
                     <div className="flex justify-between items-center">
