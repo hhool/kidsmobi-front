@@ -1019,7 +1019,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
           {/* Navigation Tabs & Desktop Actions */}
           <div className="flex items-center gap-4 lg:gap-6 w-full md:w-auto overflow-x-auto no-scrollbar pb-1 md:pb-0 justify-start md:justify-end relative">
-            <div ref={navMenuRef} className="flex flex-col gap-2 w-full md:w-auto">
+            <div ref={navMenuRef} className="relative w-full md:w-auto">
               <nav className="flex items-center bg-slate-100 p-1 rounded-2xl gap-1 text-xs shrink-0 whitespace-nowrap overflow-x-auto mx-auto md:mx-0">
                 <button
                   onClick={() => handlePrimaryTabClick("home")}
@@ -1094,9 +1094,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               {openNavMenu && (
                 <div
                   id={openNavMenu === "products" ? "products_submenu" : "reviews_submenu"}
-                  className="bg-white border border-slate-200 rounded-2xl p-2 shadow-sm w-full md:max-w-190"
+                  className="absolute top-full left-0 right-0 mt-2 md:left-0 md:right-auto md:w-72 bg-white border border-slate-200 rounded-2xl p-2 shadow-xl z-40"
                 >
-                  <div className="flex gap-2 overflow-x-auto no-scrollbar">
+                  <div className="flex flex-col gap-2 max-h-80 overflow-y-auto pr-1 no-scrollbar">
                     {(openNavMenu === "products" ? productNavOptions : reviewNavOptions).map((item) => {
                       const isActive = openNavMenu === "products"
                         ? activeProductCategory === item.id
@@ -1105,7 +1105,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                         <button
                           key={item.id}
                           onClick={() => openNavMenu === "products" ? handleProductMenuSelect(item.id) : handleReviewMenuSelect(item.id)}
-                          className={`px-3 py-2 rounded-xl text-[11px] font-bold whitespace-nowrap border transition-all ${
+                          className={`w-full text-left px-3 py-2 rounded-xl text-[11px] font-bold border transition-all ${
                             isActive
                               ? "bg-orange-500 text-white border-orange-400"
                               : "bg-slate-50 text-slate-600 border-slate-100 hover:bg-orange-50 hover:text-orange-600"
