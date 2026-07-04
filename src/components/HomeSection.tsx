@@ -15,10 +15,12 @@ import {
   ArrowRight,
   Target
 } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Product, CurrencyData } from "../types";
 import { translations, translateProduct } from "../lib/translate";
 import MatchingWizard from "./MatchingWizard";
+import { SCRAPED_CATEGORY_CATALOG } from "../config/scrapedCategoryCatalog";
+import { PRODUCT_CATEGORY_SEO_KEYWORDS } from "../config/seoKeywordMap";
 
 interface HomeSectionProps {
   productsData: Product[];
@@ -26,6 +28,7 @@ interface HomeSectionProps {
   setActiveTab: (tab: any) => void;
   childProfile: any;
   setChildProfile: (p: any) => void;
+  onSelectCategory: (categoryId: string) => void;
   lang?: "zh" | "en";
   currencyData: CurrencyData;
 }
@@ -36,12 +39,30 @@ export default function HomeSection({
   setActiveTab,
   childProfile,
   setChildProfile,
+  onSelectCategory,
   lang = "zh",
   currencyData
 }: HomeSectionProps) {
   
   const t = translations[lang];
   const [isWizardOpen, setIsWizardOpen] = useState(false);
+  const scrapedCategoryCards = useMemo(() => {
+    return SCRAPED_CATEGORY_CATALOG.slice(0, 8).map((entry) => ({
+      ...entry,
+      label: lang === "zh" ? entry.zh : entry.en,
+    }));
+  }, [lang]);
+
+  const seoTrendGroups = useMemo(() => {
+    const hotKeys = ["stroller", "double_stroller", "jogger_stroller", "balance_bike", "scooters", "kids_bikes"];
+    return hotKeys.map((key) => ({
+      id: key,
+      label: lang === "zh"
+        ? (SCRAPED_CATEGORY_CATALOG.find((item) => item.id === key)?.zh || key)
+        : (SCRAPED_CATEGORY_CATALOG.find((item) => item.id === key)?.en || key),
+      keywords: PRODUCT_CATEGORY_SEO_KEYWORDS[key]?.[lang] || [],
+    }));
+  }, [lang]);
 
   // Outstanding Selection (high scores)
   const topSelections = productsData.sort((a, b) => b.overallScore - a.overallScore).slice(0, 4);
@@ -159,7 +180,7 @@ export default function HomeSection({
               <div 
                 key={cat.id} 
                 onClick={() => setActiveTab("evaluations")}
-                className="bg-white p-8 rounded-[32px] border border-slate-100 hover:border-orange-500/30 hover:shadow-xl transition-all cursor-pointer group text-center space-y-4"
+                className="bg-white p-8 rounded-4xl border border-slate-100 hover:border-orange-500/30 hover:shadow-xl transition-all cursor-pointer group text-center space-y-4"
               >
                 <div className={`mx-auto w-16 h-16 bg-${cat.color}-50 rounded-2xl flex items-center justify-center text-${cat.color}-500 group-hover:scale-110 transition-transform`}>
                   <cat.icon className="w-8 h-8" />
@@ -171,7 +192,121 @@ export default function HomeSection({
         </div>
       </section>
 
-      {/* 4. Hot Products (热门产品) */}
+      {/* 4. Scraped Category Launchpad (已爬取品类入口) */}
+      <section className="max-w-7xl mx-auto px-6 space-y-10">
+        <div className="flex justify-between items-end">
+          <div className="space-y-2">
+            <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">
+              {lang === "zh" ? "已爬取品类" : "Scraped Category Hub"}
+            </span>
+            <h3 className="text-3xl font-black text-slate-900 tracking-tight">
+              {lang === "zh" ? "热门品类快速直达" : "Popular Category Launchpad"}
+            </h3>
+            <p className="text-slate-500 font-medium">
+              {lang === "zh"
+                ? "基于 store.poki2.online 已爬取产物，直连品类浏览与站内筛选。"
+                : "Built from store.poki2.online scraped outputs with direct category navigation and in-site filtering."}
+            </p>
+          </div>
+          <button
+            onClick={() => setActiveTab("products")}
+            className="text-sm font-black text-slate-400 hover:text-orange-500 transition-colors uppercase tracking-widest"
+          >
+            {lang === "zh" ? "进入产品中心" : "Open Product Center"}
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {scrapedCategoryCards.map((cat) => (
+            <div
+              key={cat.id}
+              className="bg-white border border-slate-100 rounded-[28px] p-6 hover:border-orange-500/30 hover:shadow-xl transition-all"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <h4 className="text-slate-900 font-black text-lg leading-tight">{cat.label}</h4>
+                  <p className="text-[11px] text-slate-500 font-bold uppercase tracking-wider mt-1">
+                    {lang === "zh" ? `收录 ${cat.itemCount} 条` : `${cat.itemCount} items indexed`}
+                  </p>
+                </div>
+                <span className="px-2 py-1 rounded-lg text-[10px] bg-orange-50 text-orange-500 font-black uppercase tracking-wider">
+                  API
+                </span>
+              </div>
+
+              <div className="flex gap-2 mt-5">
+                <button
+                  onClick={() => {
+                    onSelectCategory(cat.id);
+                    setActiveTab("products");
+                  }}
+                  className="flex-1 px-3 py-2 rounded-xl bg-slate-900 text-white text-[11px] font-black uppercase tracking-wider hover:bg-orange-500 transition-colors"
+                >
+                  {lang === "zh" ? "站内查看" : "In-site"}
+                </button>
+                <a
+                  href={cat.catalogUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 px-3 py-2 rounded-xl bg-slate-100 text-slate-700 text-[11px] text-center font-black uppercase tracking-wider hover:bg-slate-200 transition-colors"
+                >
+                  {lang === "zh" ? "源目录" : "Source"}
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 5. SEO Trend Cluster (首页内容细化) */}
+      <section className="bg-slate-50 py-20">
+        <div className="max-w-7xl mx-auto px-6 space-y-10">
+          <div className="space-y-2">
+            <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">
+              {lang === "zh" ? "SEO 搜索趋势" : "SEO Search Trends"}
+            </span>
+            <h3 className="text-3xl font-black text-slate-900 tracking-tight">
+              {lang === "zh" ? "家长高频检索关键词" : "High-Intent Parent Queries"}
+            </h3>
+            <p className="text-slate-500 font-medium">
+              {lang === "zh"
+                ? "来源于童车 SEO 词表，用于页面标题、频道内容和内链策略。"
+                : "Derived from the stroller SEO workbook to guide titles, channel copy, and internal links."}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {seoTrendGroups.map((group) => (
+              <div key={group.id} className="bg-white border border-slate-100 rounded-3xl p-6 space-y-4">
+                <div className="flex items-center justify-between gap-2">
+                  <h4 className="text-slate-900 font-black text-lg">{group.label}</h4>
+                  <button
+                    onClick={() => {
+                      onSelectCategory(group.id);
+                      setActiveTab("products");
+                    }}
+                    className="text-[10px] px-2 py-1 bg-orange-50 text-orange-500 rounded-lg font-black uppercase tracking-wider"
+                  >
+                    {lang === "zh" ? "去筛选" : "Filter"}
+                  </button>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {group.keywords.slice(0, 5).map((kw) => (
+                    <span
+                      key={kw}
+                      className="px-2.5 py-1 rounded-full text-[11px] bg-slate-100 text-slate-700 font-semibold"
+                    >
+                      {kw}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Hot Products (热门产品) */}
       <section className="max-w-7xl mx-auto px-6 space-y-12">
         <div className="flex justify-between items-end">
           <div className="space-y-2">
@@ -192,7 +327,7 @@ export default function HomeSection({
                <div 
                 key={p.id} 
                 onClick={() => onSelectProduct(p)}
-                className="group cursor-pointer bg-white rounded-[32px] border border-slate-100 overflow-hidden hover:shadow-2xl transition-all"
+                className="group cursor-pointer bg-white rounded-4xl border border-slate-100 overflow-hidden hover:shadow-2xl transition-all"
                >
                  <div className="h-48 bg-slate-50 flex items-center justify-center group-hover:bg-orange-50 transition-colors p-8">
                     <Baby className="w-16 h-16 text-slate-200 group-hover:text-orange-500 transition-colors" />
@@ -214,7 +349,7 @@ export default function HomeSection({
         </div>
       </section>
 
-      {/* 5. Real-time News (实时资讯) */}
+      {/* 7. Real-time News (实时资讯) */}
       <section className="bg-slate-900 py-24 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500/10 blur-[120px] rounded-full"></div>
         <div className="max-w-7xl mx-auto px-6 space-y-12 relative z-10">
@@ -249,7 +384,7 @@ export default function HomeSection({
         </div>
       </section>
 
-      {/* 6. Buying Guide Quick Links (选购指南快捷入口) & 7. Global Tool Entry (全站工具入口) */}
+      {/* 8. Buying Guide Quick Links (选购指南快捷入口) & 9. Global Tool Entry (全站工具入口) */}
       <section className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12">
         <div className="lg:col-span-8 space-y-8">
           <div className="space-y-2">
@@ -263,7 +398,7 @@ export default function HomeSection({
               { id: "commute", label: lang === "zh" ? "日常通勤 · 轻便首选" : "Daily Commute", desc: lang === "zh" ? "折叠速度与整备质量极限对比" : "Weight and folding speed" },
               { id: "growth", label: lang === "zh" ? "运动天赋 · 平衡进阶" : "Growth & Balance", desc: lang === "zh" ? "转向限位与工效几何深度拆解" : "Ergonomic geometry analysis" },
             ].map(scene => (
-              <div key={scene.id} onClick={() => setActiveTab("guides")} className="p-8 bg-white border border-slate-100 rounded-[32px] hover:border-orange-500 hover:shadow-xl transition-all cursor-pointer group">
+              <div key={scene.id} onClick={() => setActiveTab("guides")} className="p-8 bg-white border border-slate-100 rounded-4xl hover:border-orange-500 hover:shadow-xl transition-all cursor-pointer group">
                 <h5 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors mb-2">{scene.label}</h5>
                 <p className="text-xs text-slate-500 font-medium leading-relaxed">{scene.desc}</p>
               </div>
@@ -282,7 +417,7 @@ export default function HomeSection({
                { id: "products", label: lang === "zh" ? "全维度对比矩阵" : "Comparison Matrix", icon: Scale },
                { id: "about", label: lang === "zh" ? "产品合规查询系统" : "Compliance Search", icon: ShieldCheck },
              ].map(tool => (
-               <div key={tool.id} onClick={() => setActiveTab(tool.id)} className="flex items-center gap-6 p-6 bg-slate-900 rounded-[32px] hover:bg-orange-500 transition-all cursor-pointer group border border-slate-800">
+               <div key={tool.id} onClick={() => setActiveTab(tool.id)} className="flex items-center gap-6 p-6 bg-slate-900 rounded-4xl hover:bg-orange-500 transition-all cursor-pointer group border border-slate-800">
                   <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-white group-hover:bg-white/20 transition-colors">
                     <tool.icon className="w-6 h-6" />
                   </div>

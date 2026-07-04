@@ -283,6 +283,11 @@ export default function App() {
     setOpenNavMenu(null);
   };
 
+  const handleHomeCategorySelect = (categoryId: string) => {
+    setActiveProductCategory(categoryId);
+    setActiveTab("products");
+  };
+
   useEffect(() => {
     const handlePointerDown = (event: MouseEvent) => {
       if (!openNavMenu) return;
@@ -1224,6 +1229,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             setActiveTab={setActiveTab}
             childProfile={childProfile}
             setChildProfile={setChildProfile}
+            onSelectCategory={handleHomeCategorySelect}
             lang={lang}
             currencyData={currencyData}
           />
