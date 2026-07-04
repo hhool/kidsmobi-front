@@ -360,12 +360,12 @@ export default function HomeSection({
         </div>
       </section>
 
-      {/* 4. Scraped Category Launchpad (已爬取品类入口) */}
+      {/* 4. Category Launchpad (品类入口) */}
       <section className="max-w-7xl mx-auto px-6 space-y-10">
         <div className="flex justify-between items-end">
           <div className="space-y-2">
             <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">
-              {lang === "zh" ? "已爬取品类" : "Scraped Category Hub"}
+              {lang === "zh" ? "精选品类" : "Category Highlights"}
             </span>
             <h3 className="text-3xl font-black text-slate-900 tracking-tight">
               {lang === "zh" ? "热门品类快速直达" : "Popular Category Launchpad"}
@@ -421,11 +421,11 @@ export default function HomeSection({
                     <div>
                       <h4 className="text-white font-black text-lg leading-tight tracking-tight">{cat.label}</h4>
                       <p className="text-[11px] text-slate-200 font-bold uppercase tracking-wider mt-1">
-                        {lang === "zh" ? `收录 ${cat.itemCount} 条` : `${cat.itemCount} items indexed`}
+                        {lang === "zh" ? `当前参考 ${cat.itemCount} 款` : `${cat.itemCount} picks in view`}
                       </p>
                     </div>
                     <span className="px-2 py-1 rounded-lg text-[10px] bg-white/20 text-white font-black uppercase tracking-wider backdrop-blur-sm border border-white/20">
-                      API
+                      {lang === "zh" ? "推荐" : "Featured"}
                     </span>
                   </div>
                 </div>
@@ -468,10 +468,10 @@ export default function HomeSection({
         <div className="max-w-7xl mx-auto px-6 space-y-10">
           <div className="space-y-2">
             <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">
-              {lang === "zh" ? "SEO 搜索趋势" : "SEO Search Trends"}
+              {lang === "zh" ? "选购热议话题" : "What Parents Are Searching"}
             </span>
             <h3 className="text-3xl font-black text-slate-900 tracking-tight">
-              {lang === "zh" ? "家长高频检索关键词" : "High-Intent Parent Queries"}
+              {lang === "zh" ? "家长最近常搜的问题" : "Top Questions Parents Search"}
             </h3>
             <p className="text-slate-500 font-medium">
               {lang === "zh"
@@ -550,7 +550,7 @@ export default function HomeSection({
           <div className="rounded-3xl border border-orange-200 bg-orange-50/80 p-5 space-y-3">
             <div className="flex items-center justify-between gap-3">
               <h4 className="text-sm font-black text-orange-700">
-                {lang === "zh" ? "图片加载异常检测" : "Image Load Failure Diagnostics"}
+                {lang === "zh" ? "图片加载提示" : "Image Loading Notes"}
               </h4>
               <button
                 onClick={retryFailedImages}
