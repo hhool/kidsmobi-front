@@ -173,24 +173,38 @@ export default function HomeSection({
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {annualAwards.map((award, idx) => (
-            <div key={idx} className="bg-white border border-slate-100 rounded-[40px] p-8 space-y-6 hover:shadow-2xl hover:shadow-slate-200/50 transition-all cursor-pointer group">
-              <div className="flex justify-between items-start">
-                <div className="p-4 bg-orange-50 rounded-2xl">
-                  <Award className="w-8 h-8 text-orange-500" />
+            <div key={idx} className="bg-white border border-slate-100 rounded-[40px] overflow-hidden hover:shadow-2xl hover:shadow-slate-200/50 transition-all cursor-pointer group">
+              <div className="relative h-44">
+                <img
+                  src={award.winner ? resolveProductImages(award.winner).coverUrl : FALLBACK_PRODUCT_IMAGE}
+                  alt={award.winner ? translateProduct(award.winner, lang).name : award.label}
+                  onError={withImageFallback}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-slate-950/70 via-slate-900/10 to-transparent" />
+                <div className="absolute top-4 left-4 p-3 bg-white/85 rounded-xl backdrop-blur-sm border border-white/70">
+                  <Award className="w-6 h-6 text-orange-500" />
                 </div>
-                <span className="text-slate-200 font-black text-4xl group-hover:text-orange-500/10 transition-colors italic">0{idx+1}</span>
+                <span className="absolute top-4 right-4 text-white/80 font-black text-4xl group-hover:text-orange-200 transition-colors italic">0{idx+1}</span>
               </div>
-              <div className="space-y-2">
+              <div className="p-7 space-y-5 bg-linear-to-b from-white to-slate-50/70">
+                <div className="space-y-2">
                 <h4 className="text-slate-400 font-bold text-[10px] uppercase tracking-widest">{award.label}</h4>
                 <p className="text-xl font-black text-slate-900 group-hover:text-orange-500 transition-colors">{award.winner ? translateProduct(award.winner, lang).name : "Evaluating..."}</p>
+                </div>
+                <p className="text-xs text-slate-500 font-medium leading-relaxed min-h-9">
+                  {lang === "zh"
+                    ? "基于实验室多维评测矩阵与家庭使用场景评分，给出本年度优选建议。"
+                    : "Picked with lab-grade multi-metric scoring and real family usage scenario weighting."}
+                </p>
+                <button 
+                  onClick={() => award.winner && onSelectProduct(award.winner)}
+                  className="w-full py-4 bg-slate-900 hover:bg-orange-500 text-white font-black rounded-2xl transition-all flex items-center justify-center gap-2"
+                >
+                  {lang === "zh" ? "查看详细评测" : "Read Evaluation"}
+                  <ArrowRight className="w-4 h-4" />
+                </button>
               </div>
-              <button 
-                onClick={() => award.winner && onSelectProduct(award.winner)}
-                className="w-full py-4 bg-slate-50 hover:bg-orange-500 hover:text-white text-slate-900 font-black rounded-2xl transition-all flex items-center justify-center gap-2"
-              >
-                {lang === "zh" ? "查看详细评测" : "Read Evaluation"}
-                <ArrowRight className="w-4 h-4" />
-              </button>
             </div>
           ))}
         </div>
@@ -328,28 +342,44 @@ export default function HomeSection({
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {seoTrendGroups.map((group) => (
-              <div key={group.id} className="bg-white border border-slate-100 rounded-3xl p-6 space-y-4">
-                <div className="flex items-center justify-between gap-2">
-                  <h4 className="text-slate-900 font-black text-lg">{group.label}</h4>
-                  <button
-                    onClick={() => {
-                      onSelectCategory(group.id);
-                      setActiveTab("products");
-                    }}
-                    className="text-[10px] px-2 py-1 bg-orange-50 text-orange-500 rounded-lg font-black uppercase tracking-wider"
-                  >
-                    {lang === "zh" ? "去筛选" : "Filter"}
-                  </button>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {group.keywords.slice(0, 5).map((kw) => (
-                    <span
-                      key={kw}
-                      className="px-2.5 py-1 rounded-full text-[11px] bg-slate-100 text-slate-700 font-semibold"
+              <div key={group.id} className="group bg-white border border-slate-100 rounded-4xl overflow-hidden hover:shadow-xl hover:shadow-slate-300/30 transition-all">
+                <div className="relative h-36">
+                  <img
+                    src={categoryHeroImageMap[group.id] || FALLBACK_PRODUCT_IMAGE}
+                    alt={group.label}
+                    onError={withImageFallback}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-slate-900/70 via-slate-900/20 to-transparent" />
+                  <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between gap-2">
+                    <h4 className="text-white font-black text-lg">{group.label}</h4>
+                    <button
+                      onClick={() => {
+                        onSelectCategory(group.id);
+                        setActiveTab("products");
+                      }}
+                      className="text-[10px] px-2.5 py-1 bg-white/20 text-white rounded-lg font-black uppercase tracking-wider border border-white/20 backdrop-blur-sm"
                     >
-                      {kw}
-                    </span>
-                  ))}
+                      {lang === "zh" ? "去筛选" : "Filter"}
+                    </button>
+                  </div>
+                </div>
+                <div className="p-5 space-y-4">
+                  <p className="text-xs text-slate-500 font-medium">
+                    {lang === "zh"
+                      ? "高意图词簇用于频道页内链与专题页标题扩展。"
+                      : "High-intent query clusters for internal linking and landing title expansion."}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {group.keywords.slice(0, 5).map((kw) => (
+                      <span
+                        key={kw}
+                        className="px-2.5 py-1 rounded-full text-[11px] bg-slate-100 text-slate-700 font-semibold"
+                      >
+                        {kw}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
