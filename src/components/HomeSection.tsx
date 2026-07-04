@@ -336,7 +336,7 @@ export default function HomeSection({
         <div className="max-w-7xl mx-auto px-6 space-y-12">
           <div className="text-center space-y-4">
             <h3 className="text-4xl font-black text-slate-900 tracking-tight">{lang === "zh" ? "深度评测专题" : "Featured Evaluations"}</h3>
-            <p className="text-slate-500 font-medium">{lang === "zh" ? "拒绝营销软文。我们通过 120+ 项力学检测得出中立评分。" : "No sponsored reviews. 120+ mechanical tests for unbiased scoring."}</p>
+            <p className="text-slate-500 font-medium">{lang === "zh" ? "从结构稳定到骑行舒适，我们把关键差异讲清楚再给结论。" : "From structural stability to ride comfort, we explain the differences before giving a verdict."}</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
@@ -372,8 +372,8 @@ export default function HomeSection({
             </h3>
             <p className="text-slate-500 font-medium">
               {lang === "zh"
-                ? "基于 store.poki2.online 已爬取产物，直连品类浏览与站内筛选。"
-                : "Built from store.poki2.online scraped outputs with direct category navigation and in-site filtering."}
+                ? "围绕真实出行场景整理的品类入口，帮助你更快锁定候选方向。"
+                : "Category cards curated around real mobility scenarios to help you narrow down options faster."}
             </p>
           </div>
           <button
@@ -434,8 +434,8 @@ export default function HomeSection({
               <div className="p-5 bg-linear-to-b from-white to-slate-50/80 flex-1 flex flex-col">
                 <p className="text-[12px] text-slate-500 font-medium leading-relaxed min-h-14">
                   {lang === "zh"
-                    ? "覆盖参数筛选、评测联动与来源页追溯，适合快速建立选购候选清单。"
-                    : "Includes filters, review linkage, and source tracing to build a shortlist faster."}
+                    ? "从通勤、旅行到户外场景，这里汇总了最常被比较的核心品类。"
+                    : "From daily commute to travel and outdoor use, these are the categories families compare most."}
                 </p>
                 <div className="flex gap-2 mt-auto pt-4">
                 <button
@@ -445,16 +445,17 @@ export default function HomeSection({
                   }}
                   className="flex-1 px-3 py-2 rounded-xl bg-slate-900 text-white text-[11px] font-black uppercase tracking-wider hover:bg-orange-500 transition-colors"
                 >
-                  {lang === "zh" ? "站内查看" : "In-site"}
+                  {lang === "zh" ? "查看该品类" : "View Category"}
                 </button>
-                <a
-                  href={cat.catalogUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  onClick={() => {
+                    onSelectCategory(cat.id);
+                    setActiveTab("evaluations");
+                  }}
                   className="flex-1 px-3 py-2 rounded-xl bg-slate-100 text-slate-700 text-[11px] text-center font-black uppercase tracking-wider hover:bg-slate-200 transition-colors"
                 >
-                  {lang === "zh" ? "源目录" : "Source"}
-                </a>
+                  {lang === "zh" ? "看评测" : "See Reviews"}
+                </button>
                 </div>
               </div>
             </div>
@@ -474,8 +475,8 @@ export default function HomeSection({
             </h3>
             <p className="text-slate-500 font-medium">
               {lang === "zh"
-                ? "来源于童车 SEO 词表，用于页面标题、频道内容和内链策略。"
-                : "Derived from the stroller SEO workbook to guide titles, channel copy, and internal links."}
+                ? "这些词来自真实检索偏好，反映家长在不同阶段最关心的问题。"
+                : "These clusters reflect real parent search intent and the questions they care about most."}
             </p>
           </div>
 
@@ -524,8 +525,8 @@ export default function HomeSection({
                 <div className="p-5 space-y-4 flex-1 flex flex-col">
                   <p className="text-xs text-slate-500 font-medium min-h-10">
                     {lang === "zh"
-                      ? "高意图词簇用于频道页内链与专题页标题扩展。"
-                      : "High-intent query clusters for internal linking and landing title expansion."}
+                      ? "从旅行推车到双人慢跑，不同词簇对应不同选购场景。"
+                      : "From travel strollers to double joggers, each keyword cluster maps to a distinct buying scenario."}
                   </p>
                   <div className="flex flex-wrap gap-2 mt-auto">
                     {group.keywords.slice(0, 5).map((kw) => (
@@ -560,8 +561,8 @@ export default function HomeSection({
             </div>
             <p className="text-xs text-orange-700/90">
               {lang === "zh"
-                ? "已自动回退到占位图以保证卡片高度稳定。常见原因：资源失效、防盗链、网络抖动。"
-                : "Fallback placeholders are active to keep card heights stable. Common causes: missing assets, hotlink blocking, or network jitter."}
+                ? "当前已启用占位图保持版面稳定，网络恢复后会继续尝试加载原图。"
+                : "Placeholders keep the layout stable while the page keeps trying to recover original images."}
             </p>
             <ul className="text-xs text-orange-800 space-y-1">
               {imageFailureEntries.slice(0, 4).map((entry) => (
@@ -572,8 +573,8 @@ export default function HomeSection({
             </ul>
             <p className="text-[11px] text-orange-800/80">
               {lang === "zh"
-                ? "补救建议：1) 检查源图 URL 是否有效；2) 迁移到可控图床/R2；3) 保留占位图兜底避免布局跳动。"
-                : "Remediation: 1) validate source URLs; 2) migrate assets to controlled hosting/R2; 3) keep fallback placeholders to avoid layout shift."}
+                ? "建议优先补齐稳定图源，并持续保留占位图策略以避免页面跳动。"
+                : "Prioritize stable image hosting and keep placeholder protection to avoid layout shifts."}
             </p>
           </div>
         </section>
