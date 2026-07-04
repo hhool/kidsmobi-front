@@ -172,6 +172,101 @@ const REVIEW_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
   { id: "ergonomics", zh: "人体工学", en: "Ergonomics" },
 ];
 
+const PRODUCT_ROUTE_IDS = new Set(PRODUCT_NAV_OPTIONS.map((item) => item.id));
+const REVIEW_ROUTE_IDS = new Set(REVIEW_NAV_OPTIONS.map((item) => item.id));
+
+const normalizePathname = (pathname: string) => {
+  const cleaned = pathname.replace(/\/+$/, "");
+  return cleaned || "/";
+};
+
+const resolveRouteState = (pathname: string, hash: string) => {
+  if (hash === "#cms") {
+    return {
+      activeTab: "admin",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      currentPath: normalizePathname(pathname),
+    };
+  }
+
+  const currentPath = normalizePathname(pathname);
+  const segments = currentPath.split("/").filter(Boolean);
+  const [root, sub] = segments;
+
+  if (!root) {
+    return {
+      activeTab: "home",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      currentPath,
+    };
+  }
+
+  if (root === "products") {
+    const activeProductCategory = sub && PRODUCT_ROUTE_IDS.has(sub) ? sub : "all";
+    return {
+      activeTab: "products",
+      activeProductCategory,
+      activeReviewType: "all",
+      currentPath,
+    };
+  }
+
+  if (root === "reviews" || root === "evaluations") {
+    const activeReviewType = sub && REVIEW_ROUTE_IDS.has(sub) ? sub : "all";
+    return {
+      activeTab: "evaluations",
+      activeProductCategory: "all",
+      activeReviewType,
+      currentPath,
+    };
+  }
+
+  if (root === "guides") {
+    return {
+      activeTab: "guides",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      currentPath,
+    };
+  }
+
+  if (root === "news") {
+    return {
+      activeTab: "news",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      currentPath,
+    };
+  }
+
+  if (root === "about") {
+    return {
+      activeTab: "about",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      currentPath,
+    };
+  }
+
+  if (root === "auth") {
+    return {
+      activeTab: "auth",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      currentPath,
+    };
+  }
+
+  return {
+    activeTab: "home",
+    activeProductCategory: "all",
+    activeReviewType: "all",
+    currentPath: "/",
+  };
+};
+
 export default function App() {
   // Lang toggle state
   const [lang, setLang] = useState<"zh" | "en">(
@@ -186,38 +281,82 @@ export default function App() {
     return localStorage.getItem("dev_admin_bypass") !== "true";
   });
 
+  const initialRouteState = resolveRouteState(window.location.pathname, window.location.hash);
+
   // 2. Active Tab Router: home, news, products, evaluations, guides, about, auth
-  const [activeTab, setActiveTab] = useState<string>("home");
+  const [activeTab, setActiveTab] = useState<string>(initialRouteState.activeTab);
   const [openNavMenu, setOpenNavMenu] = useState<"products" | "evaluations" | null>(null);
-  const [activeProductCategory, setActiveProductCategory] = useState<string>("all");
-  const [activeReviewType, setActiveReviewType] = useState<string>("all");
+  const [activeProductCategory, setActiveProductCategory] = useState<string>(initialRouteState.activeProductCategory);
+  const [activeReviewType, setActiveReviewType] = useState<string>(initialRouteState.activeReviewType);
+  const [currentPath, setCurrentPath] = useState<string>(initialRouteState.currentPath);
   const navMenuRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const handleHash = () => {
-      if (window.location.hash === "#cms") {
-        setActiveTab("admin");
-      } else if (!window.location.hash) {
-        setActiveTab(current => current === "admin" ? "home" : current);
-      }
-    };
-    
-    handleHash();
-    window.addEventListener("hashchange", handleHash);
-    return () => window.removeEventListener("hashchange", handleHash);
-  }, []);
+  const syncRouteStateFromLocation = () => {
+    const routeState = resolveRouteState(window.location.pathname, window.location.hash);
+    setActiveTab(routeState.activeTab);
+    setActiveProductCategory(routeState.activeProductCategory);
+    setActiveReviewType(routeState.activeReviewType);
+    setCurrentPath(routeState.currentPath);
+    if (routeState.activeTab !== "products" && routeState.activeTab !== "evaluations") {
+      setOpenNavMenu(null);
+    }
+  };
 
-  useEffect(() => {
-    if (activeTab === "admin") {
-      if (window.location.hash !== "#cms") {
-        window.location.hash = "cms";
-      }
-    } else {
-      if (window.location.hash === "#cms") {
-        window.history.replaceState(null, "", window.location.pathname + window.location.search);
+  const navigateToPath = (path: string, options?: { replace?: boolean; preserveScroll?: boolean }) => {
+    const normalizedPath = normalizePathname(path);
+    const shouldReplace = options?.replace ?? false;
+    const preserveScroll = options?.preserveScroll ?? false;
+    const hasChanged = window.location.pathname !== normalizedPath || window.location.hash === "#cms";
+
+    if (hasChanged) {
+      if (shouldReplace) {
+        window.history.replaceState(null, "", normalizedPath);
+      } else {
+        window.history.pushState(null, "", normalizedPath);
       }
     }
-  }, [activeTab]);
+
+    syncRouteStateFromLocation();
+    if (!preserveScroll) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const navigateToTab = (tabId: string) => {
+    if (tabId === "admin") {
+      if (window.location.hash !== "#cms") {
+        window.location.hash = "cms";
+      } else {
+        syncRouteStateFromLocation();
+      }
+      return;
+    }
+
+    const tabPathMap: Record<string, string> = {
+      home: "/",
+      products: "/products",
+      evaluations: "/reviews",
+      guides: "/guides",
+      news: "/news",
+      about: "/about",
+      auth: "/auth",
+    };
+
+    navigateToPath(tabPathMap[tabId] || "/");
+  };
+
+  useEffect(() => {
+    const handleLocationUpdate = () => {
+      syncRouteStateFromLocation();
+    };
+
+    window.addEventListener("popstate", handleLocationUpdate);
+    window.addEventListener("hashchange", handleLocationUpdate);
+    return () => {
+      window.removeEventListener("popstate", handleLocationUpdate);
+      window.removeEventListener("hashchange", handleLocationUpdate);
+    };
+  }, []);
 
   // Country & Currency State
   const [countryCode, setCountryCode] = useState<string>(() => {
@@ -260,32 +399,29 @@ export default function App() {
   );
 
   const handlePrimaryTabClick = (tabId: string) => {
-    setActiveTab(tabId);
+    navigateToTab(tabId);
     if (tabId !== "products" && tabId !== "evaluations") {
       setOpenNavMenu(null);
     }
   };
 
   const handleToggleSubmenu = (menu: "products" | "evaluations") => {
-    setActiveTab(menu);
+    navigateToPath(menu === "products" ? "/products" : "/reviews", { preserveScroll: true });
     setOpenNavMenu((prev) => (prev === menu ? null : menu));
   };
 
   const handleProductMenuSelect = (categoryId: string) => {
-    setActiveProductCategory(categoryId);
-    setActiveTab("products");
+    navigateToPath(categoryId === "all" ? "/products" : `/products/${categoryId}`);
     setOpenNavMenu(null);
   };
 
   const handleReviewMenuSelect = (reviewType: string) => {
-    setActiveReviewType(reviewType);
-    setActiveTab("evaluations");
+    navigateToPath(reviewType === "all" ? "/reviews" : `/reviews/${reviewType}`);
     setOpenNavMenu(null);
   };
 
   const handleHomeCategorySelect = (categoryId: string) => {
-    setActiveProductCategory(categoryId);
-    setActiveTab("products");
+    navigateToPath(categoryId === "all" ? "/products" : `/products/${categoryId}`);
   };
 
   useEffect(() => {
@@ -625,6 +761,26 @@ export default function App() {
     element.setAttribute("content", content);
   };
 
+  const updateMetaProperty = (property: string, content: string) => {
+    let element = document.querySelector(`meta[property="${property}"]`);
+    if (!element) {
+      element = document.createElement("meta");
+      element.setAttribute("property", property);
+      document.head.appendChild(element);
+    }
+    element.setAttribute("content", content);
+  };
+
+  const updateCanonicalLink = (href: string) => {
+    let link = document.querySelector("link[rel='canonical']") as HTMLLinkElement | null;
+    if (!link) {
+      link = document.createElement("link");
+      link.setAttribute("rel", "canonical");
+      document.head.appendChild(link);
+    }
+    link.setAttribute("href", href);
+  };
+
   // Dynamic SEO Page Meta Configuration (Title, Keywords, Description)
   useEffect(() => {
     // Determine active tab database key
@@ -650,6 +806,14 @@ export default function App() {
         document.title = title;
         updateMetaTag("description", desc);
         updateMetaTag("keywords", kws.join(", "));
+        updateMetaTag("robots", "index,follow,max-image-preview:large");
+
+        const canonicalUrl = `${window.location.origin}${currentPath}`;
+        updateCanonicalLink(canonicalUrl);
+        updateMetaProperty("og:url", canonicalUrl);
+        updateMetaProperty("og:type", "website");
+        updateMetaProperty("og:title", title);
+        updateMetaProperty("og:description", desc);
       }
       return;
     }
@@ -702,8 +866,16 @@ export default function App() {
     document.title = titleStr;
     updateMetaTag("description", descStr);
     updateMetaTag("keywords", keywordsArr.join(", "));
+    updateMetaTag("robots", "index,follow,max-image-preview:large");
 
-  }, [activeTab, lang, cmsSettings, selectedProduct, activeProductCategory, activeReviewType, productNavOptions, reviewNavOptions]);
+    const canonicalUrl = `${window.location.origin}${currentPath}`;
+    updateCanonicalLink(canonicalUrl);
+    updateMetaProperty("og:url", canonicalUrl);
+    updateMetaProperty("og:type", "website");
+    updateMetaProperty("og:title", titleStr);
+    updateMetaProperty("og:description", descStr);
+
+  }, [activeTab, lang, cmsSettings, selectedProduct, activeProductCategory, activeReviewType, productNavOptions, reviewNavOptions, currentPath]);
 
   const handleSelectProduct = (product: Product | null, compareWith?: Product) => {
     if (product) {
@@ -970,7 +1142,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           
           <div className="flex w-full md:w-auto items-center justify-between">
             {/* Brand Logo and custom version stamp */}
-            <div className="flex items-center gap-3 cursor-pointer select-none shrink-0" onClick={() => setActiveTab("home")}>
+            <div className="flex items-center gap-3 cursor-pointer select-none shrink-0" onClick={() => navigateToTab("home")}>
               <div className="bg-orange-500 p-2 sm:p-2.5 rounded-2xl shadow-lg shadow-orange-500/20">
                 <Baby className="w-4 h-4 sm:w-5 sm:h-5 text-white stroke-[2.5]" />
               </div>
@@ -993,7 +1165,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <span className="text-[10px] uppercase font-black">{lang === "zh" ? "EN" : "ZH"}</span>
               </button>
               <button
-                onClick={() => setActiveTab("auth")}
+                onClick={() => navigateToTab("auth")}
                 className={`p-2 rounded-xl transition-all border w-10 h-10 flex items-center justify-center ${
                   activeTab === "auth" 
                     ? "bg-orange-500 text-white border-orange-400" 
@@ -1141,7 +1313,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                       if (highlightedIndex >= 0 && highlightedIndex < suggestions.length) {
                         handleSuggestionClick(suggestions[highlightedIndex]);
                       } else {
-                        setActiveTab("products");
+                          navigateToTab("products");
                         setIsSearchFocused(false);
                       }
                     } else if (e.key === "Escape") {
@@ -1191,7 +1363,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </button>
                 
                 <button
-                  onClick={() => setActiveTab("auth")}
+                  onClick={() => navigateToTab("auth")}
                   className={`p-2 rounded-xl font-bold transition-all border ${
                     activeTab === "auth" 
                       ? "bg-orange-500 text-white border-orange-400" 
@@ -1226,7 +1398,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           <HomeSection 
             productsData={productsData} 
             onSelectProduct={handleSelectProduct} 
-            setActiveTab={setActiveTab}
+            setActiveTab={navigateToTab}
             childProfile={childProfile}
             setChildProfile={setChildProfile}
             onSelectCategory={handleHomeCategorySelect}
@@ -1254,7 +1426,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             viewHistory={viewHistory}
             initialCategory="all"
             activeCategory={activeProductCategory}
-            onCategoryChange={setActiveProductCategory}
+            onCategoryChange={(categoryId) => navigateToPath(categoryId === "all" ? "/products" : `/products/${categoryId}`, { preserveScroll: true })}
             seoKeywordHints={productSeoHints}
           />
         )}
@@ -1267,10 +1439,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             childProfile={childProfile}
             lang={lang}
             cmsSettings={cmsSettings}
-            setActiveTab={setActiveTab}
+            setActiveTab={navigateToTab}
             initialReviewType="all"
             activeReviewType={activeReviewType}
-            onReviewTypeChange={setActiveReviewType}
+            onReviewTypeChange={(reviewTypeId) => navigateToPath(reviewTypeId === "all" ? "/reviews" : `/reviews/${reviewTypeId}`, { preserveScroll: true })}
             seoKeywordHints={reviewSeoHints}
           />
         )}
@@ -1325,8 +1497,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
         {activeTab === "admin" && (
           <AdminPanel 
-            onClose={() => setActiveTab("home")} 
-            onRedirectAuth={() => setActiveTab("auth")}
+            onClose={() => navigateToTab("home")} 
+            onRedirectAuth={() => navigateToTab("auth")}
             lang={lang}
             isAdmin={isAdmin}
             loading={authLoading}
@@ -1445,19 +1617,19 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               <ul className="space-y-3 font-medium">
                 <li 
                   className="hover:text-orange-500 transition-colors cursor-pointer text-slate-400"
-                  onClick={() => setActiveTab("products")}
+                  onClick={() => navigateToPath("/products/balance_bike")}
                 >
                   {lang === "en" ? "Balance Bikes" : "平衡车系列"}
                 </li>
                 <li 
                   className="hover:text-orange-500 transition-colors cursor-pointer text-slate-400"
-                  onClick={() => setActiveTab("products")}
+                  onClick={() => navigateToPath("/products/kids_bikes")}
                 >
                   {lang === "en" ? "Pedal Cycles" : "脚踏车系列"}
                 </li>
                 <li 
                   className="hover:text-orange-500 transition-colors cursor-pointer text-slate-400"
-                  onClick={() => setActiveTab("guides")}
+                  onClick={() => navigateToTab("guides")}
                 >
                   {lang === "en" ? "Sizing Guide" : "智能选型系统"}
                 </li>
@@ -1484,13 +1656,13 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </li>
                 <li 
                   className="hover:text-orange-500 transition-colors cursor-pointer text-slate-400"
-                  onClick={() => setActiveTab("about")}
+                  onClick={() => navigateToTab("about")}
                 >
                   {lang === "en" ? "Certification Lab" : "实验室认证说明"}
                 </li>
                 <li 
                   className="hover:text-orange-500 transition-colors cursor-pointer text-slate-400"
-                  onClick={() => setActiveTab("about")}
+                  onClick={() => navigateToTab("about")}
                 >
                   {lang === "en" ? "Privacy Policy" : "隐私与数据政策"}
                 </li>
@@ -1564,7 +1736,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </p>
                 {isAdmin && (
                   <button 
-                    onClick={() => setActiveTab("admin")}
+                    onClick={() => navigateToTab("admin")}
                     className="flex items-center gap-2 mt-2 px-3 py-1 bg-slate-800 text-slate-400 hover:text-white border border-slate-700 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all w-fit"
                   >
                     <SettingsIcon className="w-3 h-3 text-orange-500" />
