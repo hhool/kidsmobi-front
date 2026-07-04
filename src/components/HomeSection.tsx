@@ -24,7 +24,6 @@ import { PRODUCT_CATEGORY_SEO_KEYWORDS } from "../config/seoKeywordMap";
 import { resolveProductImages, withImageFallback, FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
 
 interface HomeSectionProps {
-  productsData: Product[];
   onSelectProduct: (p: Product) => void;
   setActiveTab: (tab: any) => void;
   childProfile: any;
@@ -187,19 +186,19 @@ export default function HomeSection({
                 </div>
                 <span className="absolute top-4 right-4 text-white/80 font-black text-4xl group-hover:text-orange-200 transition-colors italic">0{idx+1}</span>
               </div>
-              <div className="p-7 space-y-5 bg-linear-to-b from-white to-slate-50/70">
-                <div className="space-y-2">
+              <div className="p-7 space-y-5 bg-linear-to-b from-white to-slate-50/70 flex-1 flex flex-col">
+                <div className="space-y-2 min-h-20">
                 <h4 className="text-slate-400 font-bold text-[10px] uppercase tracking-widest">{award.label}</h4>
                 <p className="text-xl font-black text-slate-900 group-hover:text-orange-500 transition-colors">{award.winner ? translateProduct(award.winner, lang).name : "Evaluating..."}</p>
                 </div>
-                <p className="text-xs text-slate-500 font-medium leading-relaxed min-h-9">
+                <p className="text-xs text-slate-500 font-medium leading-relaxed min-h-14">
                   {lang === "zh"
                     ? "基于实验室多维评测矩阵与家庭使用场景评分，给出本年度优选建议。"
                     : "Picked with lab-grade multi-metric scoring and real family usage scenario weighting."}
                 </p>
                 <button 
                   onClick={() => award.winner && onSelectProduct(award.winner)}
-                  className="w-full py-4 bg-slate-900 hover:bg-orange-500 text-white font-black rounded-2xl transition-all flex items-center justify-center gap-2"
+                  className="w-full py-4 bg-slate-900 hover:bg-orange-500 text-white font-black rounded-2xl transition-all flex items-center justify-center gap-2 mt-auto"
                 >
                   {lang === "zh" ? "查看详细评测" : "Read Evaluation"}
                   <ArrowRight className="w-4 h-4" />
@@ -267,7 +266,7 @@ export default function HomeSection({
           {scrapedCategoryCards.map((cat) => (
             <div
               key={cat.id}
-              className="group bg-white border border-slate-100 rounded-4xl overflow-hidden hover:border-orange-500/30 hover:shadow-2xl hover:shadow-slate-300/40 transition-all"
+              className="group h-full min-h-90 bg-white border border-slate-100 rounded-4xl overflow-hidden hover:border-orange-500/30 hover:shadow-2xl hover:shadow-slate-300/40 transition-all flex flex-col"
             >
               <div className="relative h-44">
                 <img
@@ -292,13 +291,13 @@ export default function HomeSection({
                 </div>
               </div>
 
-              <div className="p-5 bg-linear-to-b from-white to-slate-50/80">
-                <p className="text-[12px] text-slate-500 font-medium leading-relaxed min-h-10">
+              <div className="p-5 bg-linear-to-b from-white to-slate-50/80 flex-1 flex flex-col">
+                <p className="text-[12px] text-slate-500 font-medium leading-relaxed min-h-14">
                   {lang === "zh"
                     ? "覆盖参数筛选、评测联动与来源页追溯，适合快速建立选购候选清单。"
                     : "Includes filters, review linkage, and source tracing to build a shortlist faster."}
                 </p>
-                <div className="flex gap-2 mt-4">
+                <div className="flex gap-2 mt-auto pt-4">
                 <button
                   onClick={() => {
                     onSelectCategory(cat.id);
@@ -342,7 +341,7 @@ export default function HomeSection({
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {seoTrendGroups.map((group) => (
-              <div key={group.id} className="group bg-white border border-slate-100 rounded-4xl overflow-hidden hover:shadow-xl hover:shadow-slate-300/30 transition-all">
+              <div key={group.id} className="group h-full min-h-75 bg-white border border-slate-100 rounded-4xl overflow-hidden hover:shadow-xl hover:shadow-slate-300/30 transition-all flex flex-col">
                 <div className="relative h-36">
                   <img
                     src={categoryHeroImageMap[group.id] || FALLBACK_PRODUCT_IMAGE}
@@ -364,13 +363,13 @@ export default function HomeSection({
                     </button>
                   </div>
                 </div>
-                <div className="p-5 space-y-4">
-                  <p className="text-xs text-slate-500 font-medium">
+                <div className="p-5 space-y-4 flex-1 flex flex-col">
+                  <p className="text-xs text-slate-500 font-medium min-h-10">
                     {lang === "zh"
                       ? "高意图词簇用于频道页内链与专题页标题扩展。"
                       : "High-intent query clusters for internal linking and landing title expansion."}
                   </p>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2 mt-auto">
                     {group.keywords.slice(0, 5).map((kw) => (
                       <span
                         key={kw}
@@ -408,7 +407,7 @@ export default function HomeSection({
                <div 
                 key={p.id} 
                 onClick={() => onSelectProduct(p)}
-                className="group cursor-pointer bg-white rounded-4xl border border-slate-100 overflow-hidden hover:shadow-2xl transition-all"
+                className="group h-full min-h-90 cursor-pointer bg-white rounded-4xl border border-slate-100 overflow-hidden hover:shadow-2xl transition-all flex flex-col"
                >
                  <div className="h-52 bg-slate-50 overflow-hidden">
                     <img
@@ -418,7 +417,7 @@ export default function HomeSection({
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                  </div>
-                 <div className="p-6 space-y-4">
+                 <div className="p-6 space-y-4 flex-1 flex flex-col">
                     <div className="flex justify-between items-center">
                       <span className="text-[9px] font-black text-orange-500 uppercase tracking-widest">{dp.brand}</span>
                       <div className="flex items-center gap-1">
@@ -426,8 +425,8 @@ export default function HomeSection({
                         <span className="text-xs font-black">{dp.overallScore}</span>
                       </div>
                     </div>
-                    <h5 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors line-clamp-1">{dp.name}</h5>
-                    <p className="text-[10px] text-slate-500 font-medium line-clamp-2 leading-relaxed">“{dp.editorVerdict}”</p>
+                    <h5 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors line-clamp-2 min-h-12">{dp.name}</h5>
+                    <p className="text-[10px] text-slate-500 font-medium line-clamp-3 leading-relaxed min-h-12">“{dp.editorVerdict}”</p>
                  </div>
                </div>
              );
