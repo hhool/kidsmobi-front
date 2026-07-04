@@ -21,7 +21,7 @@ import { translations, translateProduct } from "../lib/translate";
 import MatchingWizard from "./MatchingWizard";
 import { SCRAPED_CATEGORY_CATALOG } from "../config/scrapedCategoryCatalog";
 import { PRODUCT_CATEGORY_SEO_KEYWORDS } from "../config/seoKeywordMap";
-import { resolveProductImages, withImageFallback, FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
+import { resolveProductImages, FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
 
 interface HomeSectionProps {
   onSelectProduct: (p: Product) => void;
@@ -65,6 +65,110 @@ export default function HomeSection({
   
   const t = translations[lang];
   const [isWizardOpen, setIsWizardOpen] = useState(false);
+  const [imageLoadState, setImageLoadState] = useState<Record<string, {
+    loaded: boolean;
+    failed: boolean;
+    fallback: boolean;
+    retryCount: number;
+    reason?: string;
+    sourceUrl?: string;
+  }>>({});
+
+  const inferFailureReason = (sourceUrl: string) => {
+    if (!sourceUrl || sourceUrl === FALLBACK_PRODUCT_IMAGE) {
+      return lang === "zh" ? "无有效图片地址" : "No valid image URL";
+    }
+    if (sourceUrl.includes("amazon.")) {
+      return lang === "zh" ? "可能触发外链防盗链策略" : "Likely blocked by hotlink protection";
+    }
+    return lang === "zh"
+      ? "可能为网络抖动、资源失效或跨域限制"
+      : "Likely network jitter, missing asset, or cross-origin limits";
+  };
+
+  const resolveStableImageSrc = (imageKey: string, sourceUrl: string) => {
+    const state = imageLoadState[imageKey];
+    if (state?.fallback) {
+      return FALLBACK_PRODUCT_IMAGE;
+    }
+    const safeSource = sourceUrl || FALLBACK_PRODUCT_IMAGE;
+    if ((state?.retryCount || 0) > 0 && safeSource !== FALLBACK_PRODUCT_IMAGE) {
+      const separator = safeSource.includes("?") ? "&" : "?";
+      return `${safeSource}${separator}retry=${state?.retryCount}`;
+    }
+    return safeSource;
+  };
+
+  const handleCardImageLoad = (imageKey: string) => {
+    setImageLoadState((prev) => ({
+      ...prev,
+      [imageKey]: {
+        ...(prev[imageKey] || { retryCount: 0 }),
+        loaded: true,
+        failed: false,
+        fallback: false,
+      },
+    }));
+  };
+
+  const handleCardImageError = (imageKey: string, sourceUrl: string) => {
+    setImageLoadState((prev) => {
+      const current = prev[imageKey] || { loaded: false, failed: false, fallback: false, retryCount: 0 };
+      if (current.retryCount < 1 && sourceUrl && sourceUrl !== FALLBACK_PRODUCT_IMAGE) {
+        return {
+          ...prev,
+          [imageKey]: {
+            ...current,
+            loaded: false,
+            failed: false,
+            fallback: false,
+            retryCount: current.retryCount + 1,
+            reason: inferFailureReason(sourceUrl),
+            sourceUrl,
+          },
+        };
+      }
+      return {
+        ...prev,
+        [imageKey]: {
+          ...current,
+          loaded: true,
+          failed: true,
+          fallback: true,
+          reason: inferFailureReason(sourceUrl),
+          sourceUrl,
+        },
+      };
+    });
+  };
+
+  const retryFailedImages = () => {
+    setImageLoadState((prev) => {
+      const next = { ...prev };
+      Object.entries(next).forEach(([key, state]) => {
+        if (state.failed) {
+          next[key] = {
+            ...state,
+            loaded: false,
+            failed: false,
+            fallback: false,
+            retryCount: (state.retryCount || 0) + 1,
+          };
+        }
+      });
+      return next;
+    });
+  };
+
+  const imageFailureEntries = useMemo(() => {
+    return Object.entries(imageLoadState)
+      .filter(([, state]) => state.failed)
+      .map(([key, state]) => ({
+        key,
+        reason: state.reason || (lang === "zh" ? "未知错误" : "Unknown error"),
+        sourceUrl: state.sourceUrl || "",
+      }));
+  }, [imageLoadState, lang]);
   const scrapedCategoryCards = useMemo(() => {
     return SCRAPED_CATEGORY_CATALOG.slice(0, 8).map((entry) => ({
       ...entry,
@@ -172,14 +276,32 @@ export default function HomeSection({
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {annualAwards.map((award, idx) => (
-            <div key={idx} className="bg-white border border-slate-100 rounded-[40px] overflow-hidden hover:shadow-2xl hover:shadow-slate-200/50 transition-all cursor-pointer group">
+            <div key={idx} className="h-full min-h-90 bg-white border border-slate-100 rounded-[40px] overflow-hidden hover:shadow-2xl hover:shadow-slate-200/50 transition-all cursor-pointer group flex flex-col">
               <div className="relative h-44">
+                {(() => {
+                  const imageKey = `award-${idx}`;
+                  const sourceUrl = award.winner ? resolveProductImages(award.winner).coverUrl : FALLBACK_PRODUCT_IMAGE;
+                  const state = imageLoadState[imageKey];
+                  return (
+                    <>
                 <img
-                  src={award.winner ? resolveProductImages(award.winner).coverUrl : FALLBACK_PRODUCT_IMAGE}
+                  src={resolveStableImageSrc(imageKey, sourceUrl)}
                   alt={award.winner ? translateProduct(award.winner, lang).name : award.label}
-                  onError={withImageFallback}
+                  onLoad={() => handleCardImageLoad(imageKey)}
+                  onError={() => handleCardImageError(imageKey, sourceUrl)}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
+                      {!state?.loaded && (
+                        <div className="absolute inset-0 animate-pulse bg-linear-to-r from-slate-200 via-slate-100 to-slate-200" />
+                      )}
+                      {state?.failed && (
+                        <span className="absolute bottom-3 left-3 px-2 py-1 rounded-md bg-slate-900/80 text-white text-[10px] font-bold">
+                          {lang === "zh" ? "已回退占位图" : "Fallback active"}
+                        </span>
+                      )}
+                    </>
+                  );
+                })()}
                 <div className="absolute inset-0 bg-linear-to-t from-slate-950/70 via-slate-900/10 to-transparent" />
                 <div className="absolute top-4 left-4 p-3 bg-white/85 rounded-xl backdrop-blur-sm border border-white/70">
                   <Award className="w-6 h-6 text-orange-500" />
@@ -226,7 +348,7 @@ export default function HomeSection({
               <div 
                 key={cat.id} 
                 onClick={() => setActiveTab("evaluations")}
-                className="bg-white p-8 rounded-4xl border border-slate-100 hover:border-orange-500/30 hover:shadow-xl transition-all cursor-pointer group text-center space-y-4"
+                className="h-full min-h-55 bg-white p-8 rounded-4xl border border-slate-100 hover:border-orange-500/30 hover:shadow-xl transition-all cursor-pointer group text-center flex flex-col justify-center gap-4"
               >
                 <div className={`mx-auto w-16 h-16 bg-${cat.color}-50 rounded-2xl flex items-center justify-center text-${cat.color}-500 group-hover:scale-110 transition-transform`}>
                   <cat.icon className="w-8 h-8" />
@@ -269,12 +391,30 @@ export default function HomeSection({
               className="group h-full min-h-90 bg-white border border-slate-100 rounded-4xl overflow-hidden hover:border-orange-500/30 hover:shadow-2xl hover:shadow-slate-300/40 transition-all flex flex-col"
             >
               <div className="relative h-44">
+                {(() => {
+                  const imageKey = `category-${cat.id}`;
+                  const sourceUrl = categoryHeroImageMap[cat.id] || FALLBACK_PRODUCT_IMAGE;
+                  const state = imageLoadState[imageKey];
+                  return (
+                    <>
                 <img
-                  src={categoryHeroImageMap[cat.id] || FALLBACK_PRODUCT_IMAGE}
+                  src={resolveStableImageSrc(imageKey, sourceUrl)}
                   alt={cat.label}
-                  onError={withImageFallback}
+                  onLoad={() => handleCardImageLoad(imageKey)}
+                  onError={() => handleCardImageError(imageKey, sourceUrl)}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
+                      {!state?.loaded && (
+                        <div className="absolute inset-0 animate-pulse bg-linear-to-r from-slate-200 via-slate-100 to-slate-200" />
+                      )}
+                      {state?.failed && (
+                        <span className="absolute bottom-3 left-3 px-2 py-1 rounded-md bg-slate-900/80 text-white text-[10px] font-bold">
+                          {lang === "zh" ? "已回退占位图" : "Fallback active"}
+                        </span>
+                      )}
+                    </>
+                  );
+                })()}
                 <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-slate-900/20 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-5">
                   <div className="flex items-center justify-between gap-3">
@@ -343,12 +483,30 @@ export default function HomeSection({
             {seoTrendGroups.map((group) => (
               <div key={group.id} className="group h-full min-h-75 bg-white border border-slate-100 rounded-4xl overflow-hidden hover:shadow-xl hover:shadow-slate-300/30 transition-all flex flex-col">
                 <div className="relative h-36">
+                  {(() => {
+                    const imageKey = `seo-${group.id}`;
+                    const sourceUrl = categoryHeroImageMap[group.id] || FALLBACK_PRODUCT_IMAGE;
+                    const state = imageLoadState[imageKey];
+                    return (
+                      <>
                   <img
-                    src={categoryHeroImageMap[group.id] || FALLBACK_PRODUCT_IMAGE}
+                    src={resolveStableImageSrc(imageKey, sourceUrl)}
                     alt={group.label}
-                    onError={withImageFallback}
+                    onLoad={() => handleCardImageLoad(imageKey)}
+                    onError={() => handleCardImageError(imageKey, sourceUrl)}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
+                        {!state?.loaded && (
+                          <div className="absolute inset-0 animate-pulse bg-linear-to-r from-slate-200 via-slate-100 to-slate-200" />
+                        )}
+                        {state?.failed && (
+                          <span className="absolute bottom-2 left-2 px-2 py-1 rounded-md bg-slate-900/80 text-white text-[10px] font-bold">
+                            {lang === "zh" ? "已回退占位图" : "Fallback active"}
+                          </span>
+                        )}
+                      </>
+                    );
+                  })()}
                   <div className="absolute inset-0 bg-linear-to-t from-slate-900/70 via-slate-900/20 to-transparent" />
                   <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between gap-2">
                     <h4 className="text-white font-black text-lg">{group.label}</h4>
@@ -386,6 +544,41 @@ export default function HomeSection({
         </div>
       </section>
 
+      {imageFailureEntries.length > 0 && (
+        <section className="max-w-7xl mx-auto px-6">
+          <div className="rounded-3xl border border-orange-200 bg-orange-50/80 p-5 space-y-3">
+            <div className="flex items-center justify-between gap-3">
+              <h4 className="text-sm font-black text-orange-700">
+                {lang === "zh" ? "图片加载异常检测" : "Image Load Failure Diagnostics"}
+              </h4>
+              <button
+                onClick={retryFailedImages}
+                className="px-3 py-1.5 rounded-lg bg-orange-500 text-white text-[11px] font-black uppercase tracking-wider hover:bg-orange-600"
+              >
+                {lang === "zh" ? "重试失败图片" : "Retry Failed Images"}
+              </button>
+            </div>
+            <p className="text-xs text-orange-700/90">
+              {lang === "zh"
+                ? "已自动回退到占位图以保证卡片高度稳定。常见原因：资源失效、防盗链、网络抖动。"
+                : "Fallback placeholders are active to keep card heights stable. Common causes: missing assets, hotlink blocking, or network jitter."}
+            </p>
+            <ul className="text-xs text-orange-800 space-y-1">
+              {imageFailureEntries.slice(0, 4).map((entry) => (
+                <li key={entry.key} className="truncate">
+                  {entry.key}: {entry.reason}
+                </li>
+              ))}
+            </ul>
+            <p className="text-[11px] text-orange-800/80">
+              {lang === "zh"
+                ? "补救建议：1) 检查源图 URL 是否有效；2) 迁移到可控图床/R2；3) 保留占位图兜底避免布局跳动。"
+                : "Remediation: 1) validate source URLs; 2) migrate assets to controlled hosting/R2; 3) keep fallback placeholders to avoid layout shift."}
+            </p>
+          </div>
+        </section>
+      )}
+
       {/* 6. Hot Products (热门产品) */}
       <section className="max-w-7xl mx-auto px-6 space-y-12">
         <div className="flex justify-between items-end">
@@ -409,13 +602,31 @@ export default function HomeSection({
                 onClick={() => onSelectProduct(p)}
                 className="group h-full min-h-90 cursor-pointer bg-white rounded-4xl border border-slate-100 overflow-hidden hover:shadow-2xl transition-all flex flex-col"
                >
-                 <div className="h-52 bg-slate-50 overflow-hidden">
+                 <div className="relative h-52 bg-slate-50 overflow-hidden">
+                    {(() => {
+                      const imageKey = `product-${p.id}`;
+                      const sourceUrl = resolveProductImages(p).coverUrl;
+                      const state = imageLoadState[imageKey];
+                      return (
+                        <>
                     <img
-                      src={resolveProductImages(p).coverUrl}
+                      src={resolveStableImageSrc(imageKey, sourceUrl)}
                       alt={dp.name}
-                      onError={withImageFallback}
+                      onLoad={() => handleCardImageLoad(imageKey)}
+                      onError={() => handleCardImageError(imageKey, sourceUrl)}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
+                          {!state?.loaded && (
+                            <div className="absolute inset-0 animate-pulse bg-linear-to-r from-slate-200 via-slate-100 to-slate-200" />
+                          )}
+                          {state?.failed && (
+                            <span className="absolute bottom-3 left-3 px-2 py-1 rounded-md bg-slate-900/80 text-white text-[10px] font-bold">
+                              {lang === "zh" ? "已回退占位图" : "Fallback active"}
+                            </span>
+                          )}
+                        </>
+                      );
+                    })()}
                  </div>
                  <div className="p-6 space-y-4 flex-1 flex flex-col">
                     <div className="flex justify-between items-center">

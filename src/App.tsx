@@ -21,7 +21,6 @@ import {
   ThumbsDown,
   ChevronRight,
   ChevronLeft,
-  ChevronDown,
   Twitter,
   Facebook,
   Youtube,
@@ -1205,23 +1204,21 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <button
                   onClick={() => handleToggleSubmenu("products")}
                   title={lang === "zh" ? "展开产品品类菜单" : "Open product categories"}
-                  className={`px-3 py-2 rounded-xl font-bold transition-all flex items-center gap-1 ${
+                  className={`px-3 py-2 rounded-xl font-bold transition-all ${
                     activeTab === "products" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
                   }`}
                 >
                   {t.navProducts}
-                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${openNavMenu === "products" ? "rotate-180" : ""}`} />
                 </button>
 
                 <button
                   onClick={() => handleToggleSubmenu("evaluations")}
                   title={lang === "zh" ? "展开评测分类菜单" : "Open review categories"}
-                  className={`px-3 py-2 rounded-xl font-bold transition-all flex items-center gap-1 ${
+                  className={`px-3 py-2 rounded-xl font-bold transition-all ${
                     activeTab === "evaluations" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
                   }`}
                 >
                   {t.navEvaluations}
-                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${openNavMenu === "evaluations" ? "rotate-180" : ""}`} />
                 </button>
 
                 <button
