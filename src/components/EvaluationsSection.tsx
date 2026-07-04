@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Award, Filter, ShieldCheck, Scale, Search, CheckCircle, Flame, Star, Sparkles, BookOpen, ArrowRight } from "lucide-react";
 import { Product } from "../types";
 import { translateProduct } from "../lib/translate";
@@ -17,6 +17,10 @@ interface EvaluationsSectionProps {
   cmsSettings?: any;
   setActiveTab?: (tab: string) => void;
   lang?: "zh" | "en";
+  initialReviewType?: string;
+  activeReviewType?: string;
+  onReviewTypeChange?: (type: string) => void;
+  seoKeywordHints?: string[];
 }
 
 // Custom SVG Radar Polygon Chart
@@ -78,7 +82,7 @@ function SafetyRadarChart({ product, evaluation, lang = "zh", isDark = false }: 
   }, [scores, radius, center]);
 
   return (
-    <div className={`flex flex-col items-center p-8 rounded-[48px] border relative overflow-hidden w-full max-w-[280px] mx-auto transition-transform hover:scale-[1.02] duration-500 ${isDark ? "bg-slate-800/50 border-slate-700 shadow-none text-white" : "bg-white border-slate-100 shadow-xl shadow-orange-500/5"}`}>
+    <div className={`flex flex-col items-center p-8 rounded-[48px] border relative overflow-hidden w-full max-w-70 mx-auto transition-transform hover:scale-[1.02] duration-500 ${isDark ? "bg-slate-800/50 border-slate-700 shadow-none text-white" : "bg-white border-slate-100 shadow-xl shadow-orange-500/5"}`}>
       <span className="text-[10px] text-orange-500 uppercase font-black tracking-[0.2em] mb-6 leading-none text-center">
         {lang === "en" ? "Performance Matrix" : "五维度综合考量"}
       </span>
@@ -145,11 +149,26 @@ export default function EvaluationsSection({
   childProfile,
   cmsSettings,
   setActiveTab,
-  lang = "zh"
+  lang = "zh",
+  initialReviewType = "all",
+  activeReviewType,
+  onReviewTypeChange,
+  seoKeywordHints = []
 }: EvaluationsSectionProps) {
-  const [selectedReviewType, setSelectedReviewType] = useState<string>("all");
+  const [selectedReviewType, setSelectedReviewType] = useState<string>(initialReviewType || "all");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedEvaluation, setSelectedEvaluation] = useState<Evaluation | null>(null);
+
+  useEffect(() => {
+    if (activeReviewType && activeReviewType !== selectedReviewType) {
+      setSelectedReviewType(activeReviewType);
+    }
+  }, [activeReviewType, selectedReviewType]);
+
+  const handleReviewTypeSelect = (type: string) => {
+    setSelectedReviewType(type);
+    onReviewTypeChange?.(type);
+  };
 
   const reviewTypes = lang === "en" ? [
     { id: "all", label: "📁 ALL REPORTS" },
@@ -274,6 +293,18 @@ export default function EvaluationsSection({
             ? "We bypass marketing hype to deliver the absolute truth in kids' mobility performance." 
             : "KIDSMOBI 通过匿名采购、工业级精密设备及儿科工效学评估，为您呈现每一款童车背后的真实物理数据。"}
         </p>
+        {seoKeywordHints.length > 0 && (
+          <div className="flex flex-wrap justify-center gap-2 pt-2">
+            {seoKeywordHints.slice(0, 8).map((kw) => (
+              <span
+                key={kw}
+                className="px-3 py-1 rounded-full text-[10px] font-bold text-slate-600 bg-slate-100 border border-slate-200"
+              >
+                {kw}
+              </span>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Sifting control dashboard */}
@@ -296,7 +327,7 @@ export default function EvaluationsSection({
             {reviewTypes.map((t) => (
               <button
                 key={t.id}
-                onClick={() => setSelectedReviewType(t.id)}
+                onClick={() => handleReviewTypeSelect(t.id)}
                 className={`px-6 py-4 rounded-[28px] text-[10px] font-black uppercase tracking-widest transition-all border ${
                   selectedReviewType === t.id
                     ? "bg-slate-900 text-white border-slate-900 shadow-xl shadow-slate-900/10"
@@ -309,7 +340,7 @@ export default function EvaluationsSection({
           </div>
         </div>
 
-        <div className="bg-emerald-50/50 p-6 rounded-[32px] border border-emerald-100 flex items-center gap-4 text-xs text-emerald-700 font-black relative z-10">
+        <div className="bg-emerald-50/50 p-6 rounded-4xl border border-emerald-100 flex items-center gap-4 text-xs text-emerald-700 font-black relative z-10">
           <div className="w-10 h-10 rounded-2xl bg-white flex items-center justify-center shadow-sm">
              <ShieldCheck className="w-6 h-6 text-emerald-500 shrink-0" />
           </div>
@@ -355,7 +386,7 @@ export default function EvaluationsSection({
                       const diProduct = translateProduct(product, lang);
                       const imageSet = resolveProductImages(product);
                       return (
-                        <div key={product.id} className="bg-slate-800/80 backdrop-blur-sm rounded-[32px] p-6 border border-slate-700/80 flex flex-col items-center gap-4 hover:border-slate-500 transition-colors duration-300">
+                        <div key={product.id} className="bg-slate-800/80 backdrop-blur-sm rounded-4xl p-6 border border-slate-700/80 flex flex-col items-center gap-4 hover:border-slate-500 transition-colors duration-300">
                           <div className="w-20 h-20 bg-white rounded-2xl p-2 flex items-center justify-center">
                             <SmartImage
                               src={imageSet.coverUrl || undefined}
@@ -398,7 +429,7 @@ export default function EvaluationsSection({
                 key={evaluation.id}
                 className="bg-white border border-slate-100 rounded-[56px] p-10 flex flex-col md:flex-row gap-10 justify-between transition-all group hover:shadow-[0_48px_80px_-24px_rgba(249,115,22,0.12)] shadow-sm relative overflow-hidden"
               >
-                <div className="absolute bottom-0 right-0 w-48 h-48 bg-orange-50/30 blur-[64px] rounded-full -mb-24 -mr-24 group-hover:bg-orange-100/50 transition-colors"></div>
+                <div className="absolute bottom-0 right-0 w-48 h-48 bg-orange-50/30 blur-3xl rounded-full -mb-24 -mr-24 group-hover:bg-orange-100/50 transition-colors"></div>
                 
                 {/* Column Left: Text info */}
                 <div className="md:w-1/2 flex flex-col justify-between space-y-8 relative z-10">
@@ -416,14 +447,14 @@ export default function EvaluationsSection({
                       </h3>
                     </div>
 
-                    <div className="bg-slate-50/50 p-6 rounded-[32px] border border-slate-50">
+                    <div className="bg-slate-50/50 p-6 rounded-4xl border border-slate-50">
                        <p className="text-[15px] sm:text-sm text-slate-600 leading-relaxed font-bold italic">“{tEv.verdict || diProduct.editorVerdict}”</p>
                     </div>
                   </div>
 
                   <button
                     onClick={() => onSelectProduct(product)}
-                    className="w-full py-5 bg-slate-900 hover:bg-orange-500 text-white font-black text-xs uppercase tracking-widest rounded-[24px] transition-all shadow-xl shadow-slate-900/10 flex items-center justify-center gap-3 active:scale-95 group-hover:shadow-orange-500/20"
+                    className="w-full py-5 bg-slate-900 hover:bg-orange-500 text-white font-black text-xs uppercase tracking-widest rounded-3xl transition-all shadow-xl shadow-slate-900/10 flex items-center justify-center gap-3 active:scale-95 group-hover:shadow-orange-500/20"
                   >
                     {lang === "en" ? "OPEN FULL DOSSIER" : "开启完整测评档案"}
                     <ArrowRight className="w-5 h-5" />

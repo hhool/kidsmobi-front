@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, FormEvent } from "react";
+import { useState, useEffect, useRef, FormEvent, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Baby,
@@ -21,6 +21,7 @@ import {
   ThumbsDown,
   ChevronRight,
   ChevronLeft,
+  ChevronDown,
   Twitter,
   Facebook,
   Youtube,
@@ -65,6 +66,7 @@ import { auth } from "./lib/firebase";
 import { getBookmarksFromFirestore, addBookmarkToFirestore, removeBookmarkFromFirestore } from "./lib/firestoreService";
 import { checkIsAdmin, getCMSSettings, getCMSProducts, getCMSEvaluations, seedProductsToFirestore, seedEvaluationsToFirestore, seedGuidesToFirestore, seedNewsToFirestore } from "./lib/cmsService";
 import { fetchContentBundle, isScrapedContentSource } from "./lib/contentSource";
+import { getProductSeoKeywords, getReviewSeoKeywords } from "./config/seoKeywordMap";
 
 const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
   home: {
@@ -141,6 +143,35 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
   }
 };
 
+const PRODUCT_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
+  { id: "all", zh: "全部品类", en: "All Categories" },
+  { id: "stroller", zh: "婴儿推车", en: "Stroller" },
+  { id: "double_stroller", zh: "双人推车", en: "Double Stroller" },
+  { id: "jogger_stroller", zh: "慢跑推车", en: "Jogger Stroller" },
+  { id: "balance_bike", zh: "平衡车", en: "Balance Bike" },
+  { id: "kids_bikes", zh: "儿童自行车", en: "Kids Bikes" },
+  { id: "kids_tricycles", zh: "儿童三轮车", en: "Kids Tricycles" },
+  { id: "scooters", zh: "儿童滑板车", en: "Scooters" },
+  { id: "kids_push_ride_ons", zh: "推骑玩具车", en: "Push Ride-Ons" },
+  { id: "kids_pull_along_wagons", zh: "拖拉小推车", en: "Pull-Along Wagons" },
+  { id: "electric_vehicles", zh: "儿童电动车", en: "Electric Vehicles" },
+  { id: "car_seat", zh: "安全座椅", en: "Car Seat" },
+  { id: "baby_carrier", zh: "婴儿背带", en: "Baby Carrier" },
+  { id: "high_chair", zh: "儿童餐椅", en: "High Chair" },
+  { id: "playard", zh: "婴儿围栏床", en: "Playard" },
+];
+
+const REVIEW_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
+  { id: "all", zh: "全部评测", en: "All Reports" },
+  { id: "single", zh: "单品实测", en: "Single Test" },
+  { id: "compare", zh: "多品横评", en: "Cross Compare" },
+  { id: "value", zh: "性价比测评", en: "Value Rank" },
+  { id: "ranking", zh: "年度榜单", en: "Annual Top" },
+  { id: "safety", zh: "安全专项", en: "Safety Special" },
+  { id: "durability", zh: "耐用测试", en: "Durability" },
+  { id: "ergonomics", zh: "人体工学", en: "Ergonomics" },
+];
+
 export default function App() {
   // Lang toggle state
   const [lang, setLang] = useState<"zh" | "en">(
@@ -157,6 +188,10 @@ export default function App() {
 
   // 2. Active Tab Router: home, news, products, evaluations, guides, about, auth
   const [activeTab, setActiveTab] = useState<string>("home");
+  const [openNavMenu, setOpenNavMenu] = useState<"products" | "evaluations" | null>(null);
+  const [activeProductCategory, setActiveProductCategory] = useState<string>("all");
+  const [activeReviewType, setActiveReviewType] = useState<string>("all");
+  const navMenuRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const handleHash = () => {
@@ -207,6 +242,69 @@ export default function App() {
 
   const t = translations[lang];
   const currencyData = getCurrencyData(countryCode);
+  const productNavOptions = PRODUCT_NAV_OPTIONS.map((item) => ({
+    id: item.id,
+    label: lang === "zh" ? item.zh : item.en,
+  }));
+  const reviewNavOptions = REVIEW_NAV_OPTIONS.map((item) => ({
+    id: item.id,
+    label: lang === "zh" ? item.zh : item.en,
+  }));
+  const productSeoHints = useMemo(
+    () => getProductSeoKeywords(activeProductCategory, lang),
+    [activeProductCategory, lang]
+  );
+  const reviewSeoHints = useMemo(
+    () => getReviewSeoKeywords(activeReviewType, lang),
+    [activeReviewType, lang]
+  );
+
+  const handlePrimaryTabClick = (tabId: string) => {
+    setActiveTab(tabId);
+    if (tabId !== "products" && tabId !== "evaluations") {
+      setOpenNavMenu(null);
+    }
+  };
+
+  const handleToggleSubmenu = (menu: "products" | "evaluations") => {
+    setActiveTab(menu);
+    setOpenNavMenu((prev) => (prev === menu ? null : menu));
+  };
+
+  const handleProductMenuSelect = (categoryId: string) => {
+    setActiveProductCategory(categoryId);
+    setActiveTab("products");
+    setOpenNavMenu(null);
+  };
+
+  const handleReviewMenuSelect = (reviewType: string) => {
+    setActiveReviewType(reviewType);
+    setActiveTab("evaluations");
+    setOpenNavMenu(null);
+  };
+
+  useEffect(() => {
+    const handlePointerDown = (event: MouseEvent) => {
+      if (!openNavMenu) return;
+      const target = event.target as Node | null;
+      if (target && navMenuRef.current && !navMenuRef.current.contains(target)) {
+        setOpenNavMenu(null);
+      }
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpenNavMenu(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [openNavMenu]);
 
   // 1. Core child mechanics states
   const [childProfile, setChildProfileState] = useState<ChildProfile>({
@@ -573,12 +671,34 @@ export default function App() {
       }
     }
 
+    if (seoKey === "products" && activeProductCategory !== "all") {
+      const selectedCategory = productNavOptions.find((item) => item.id === activeProductCategory)?.label || activeProductCategory;
+      titleStr = lang === "zh"
+        ? `${selectedCategory} 选购与参数对比 | KIDSMOBI 产品中心`
+        : `${selectedCategory} Buying Guide & Specs Compare | KIDSMOBI Products`;
+      descStr = lang === "zh"
+        ? `聚焦 ${selectedCategory} 的参数、安全与选购建议，结合实测数据快速筛选更适合宝宝的车型。`
+        : `Focused insights for ${selectedCategory}: specs, safety metrics, and buying recommendations powered by real test data.`;
+      keywordsArr = Array.from(new Set([...keywordsArr, selectedCategory, ...getProductSeoKeywords(activeProductCategory, lang)]));
+    }
+
+    if (seoKey === "evaluations" && activeReviewType !== "all") {
+      const selectedReview = reviewNavOptions.find((item) => item.id === activeReviewType)?.label || activeReviewType;
+      titleStr = lang === "zh"
+        ? `${selectedReview} 专题评测 | KIDSMOBI Reviews`
+        : `${selectedReview} Review Reports | KIDSMOBI Evaluations`;
+      descStr = lang === "zh"
+        ? `查看 ${selectedReview} 相关实验室报告，覆盖安全、耐用与人体工学等关键评测维度。`
+        : `Explore ${selectedReview} lab reports spanning safety, durability, and ergonomics benchmarks.`;
+      keywordsArr = Array.from(new Set([...keywordsArr, selectedReview, ...getReviewSeoKeywords(activeReviewType, lang)]));
+    }
+
     // 3. Set values
     document.title = titleStr;
     updateMetaTag("description", descStr);
     updateMetaTag("keywords", keywordsArr.join(", "));
 
-  }, [activeTab, lang, cmsSettings, selectedProduct]);
+  }, [activeTab, lang, cmsSettings, selectedProduct, activeProductCategory, activeReviewType, productNavOptions, reviewNavOptions]);
 
   const handleSelectProduct = (product: Product | null, compareWith?: Product) => {
     if (product) {
@@ -862,6 +982,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               <button 
                 onClick={() => setLang(prev => prev === "zh" ? "en" : "zh")} 
                 className="p-2 bg-slate-50 hover:bg-slate-100 rounded-xl text-slate-600 font-bold border border-slate-200 active:scale-95 transition-all flex items-center justify-center w-10 h-10"
+                title={lang === "zh" ? "Switch to English" : "切换至中文"}
+                aria-label={lang === "zh" ? "Switch to English" : "切换至中文"}
               >
                 <span className="text-[10px] uppercase font-black">{lang === "zh" ? "EN" : "ZH"}</span>
               </button>
@@ -874,12 +996,16 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                       ? "text-emerald-600 border-emerald-100 bg-emerald-50"
                       : "text-slate-500 border-slate-200 hover:text-slate-900 bg-white"
                 }`}
+                title={userEmail ? (lang === "zh" ? "我的收藏" : "My Space") : (lang === "zh" ? "登录" : "Sign In")}
+                aria-label={userEmail ? (lang === "zh" ? "我的收藏" : "My Space") : (lang === "zh" ? "登录" : "Sign In")}
               >
                 <Award className="w-5 h-5" />
               </button>
               <button
                 onClick={() => setShowAiDrawer(!showAiDrawer)}
                 className="bg-slate-900 text-white p-2 rounded-xl flex items-center justify-center w-10 h-10 transition-all shadow-lg"
+                title={showAiDrawer ? t.closeAdvisor : t.connectAdvisor}
+                aria-label={showAiDrawer ? t.closeAdvisor : t.connectAdvisor}
               >
                 <MessageSquare className="w-5 h-5" />
               </button>
@@ -888,27 +1014,106 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
           {/* Navigation Tabs & Desktop Actions */}
           <div className="flex items-center gap-4 lg:gap-6 w-full md:w-auto overflow-x-auto no-scrollbar pb-1 md:pb-0 justify-start md:justify-end relative">
-            <nav className="flex items-center bg-slate-100 p-1 rounded-2xl gap-1 text-xs shrink-0 whitespace-nowrap overflow-x-auto mx-auto md:mx-0">
-              {[
-                { id: "home", label: t.navHome },
-                { id: "products", label: t.navProducts },
-                { id: "evaluations", label: t.navEvaluations },
-                { id: "guides", label: t.navGuides },
-                { id: "news", label: t.navNews },
-                { id: "about", label: t.navAbout },
-                ...(isAdmin ? [{ id: "admin", label: lang === "zh" ? "管理后台" : "Admin" }] : []),
-              ].map(tab => (
+            <div ref={navMenuRef} className="flex flex-col gap-2 w-full md:w-auto">
+              <nav className="flex items-center bg-slate-100 p-1 rounded-2xl gap-1 text-xs shrink-0 whitespace-nowrap overflow-x-auto mx-auto md:mx-0">
                 <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
+                  onClick={() => handlePrimaryTabClick("home")}
                   className={`px-3 py-2 rounded-xl font-bold transition-all ${
-                    activeTab === tab.id ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                    activeTab === "home" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
                   }`}
                 >
-                  {tab.label}
+                  {t.navHome}
                 </button>
-              ))}
-            </nav>
+
+                <button
+                  onClick={() => handleToggleSubmenu("products")}
+                  title={lang === "zh" ? "展开产品品类菜单" : "Open product categories"}
+                  className={`px-3 py-2 rounded-xl font-bold transition-all flex items-center gap-1 ${
+                    activeTab === "products" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                  }`}
+                >
+                  {t.navProducts}
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${openNavMenu === "products" ? "rotate-180" : ""}`} />
+                </button>
+
+                <button
+                  onClick={() => handleToggleSubmenu("evaluations")}
+                  title={lang === "zh" ? "展开评测分类菜单" : "Open review categories"}
+                  className={`px-3 py-2 rounded-xl font-bold transition-all flex items-center gap-1 ${
+                    activeTab === "evaluations" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                  }`}
+                >
+                  {t.navEvaluations}
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${openNavMenu === "evaluations" ? "rotate-180" : ""}`} />
+                </button>
+
+                <button
+                  onClick={() => handlePrimaryTabClick("guides")}
+                  className={`px-3 py-2 rounded-xl font-bold transition-all ${
+                    activeTab === "guides" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                  }`}
+                >
+                  {t.navGuides}
+                </button>
+
+                <button
+                  onClick={() => handlePrimaryTabClick("news")}
+                  className={`px-3 py-2 rounded-xl font-bold transition-all ${
+                    activeTab === "news" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                  }`}
+                >
+                  {t.navNews}
+                </button>
+
+                <button
+                  onClick={() => handlePrimaryTabClick("about")}
+                  className={`px-3 py-2 rounded-xl font-bold transition-all ${
+                    activeTab === "about" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                  }`}
+                >
+                  {t.navAbout}
+                </button>
+
+                {isAdmin && (
+                  <button
+                    onClick={() => handlePrimaryTabClick("admin")}
+                    className={`px-3 py-2 rounded-xl font-bold transition-all ${
+                      activeTab === "admin" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                    }`}
+                  >
+                    {lang === "zh" ? "管理后台" : "Admin"}
+                  </button>
+                )}
+              </nav>
+
+              {openNavMenu && (
+                <div
+                  id={openNavMenu === "products" ? "products_submenu" : "reviews_submenu"}
+                  className="bg-white border border-slate-200 rounded-2xl p-2 shadow-sm w-full md:max-w-190"
+                >
+                  <div className="flex gap-2 overflow-x-auto no-scrollbar">
+                    {(openNavMenu === "products" ? productNavOptions : reviewNavOptions).map((item) => {
+                      const isActive = openNavMenu === "products"
+                        ? activeProductCategory === item.id
+                        : activeReviewType === item.id;
+                      return (
+                        <button
+                          key={item.id}
+                          onClick={() => openNavMenu === "products" ? handleProductMenuSelect(item.id) : handleReviewMenuSelect(item.id)}
+                          className={`px-3 py-2 rounded-xl text-[11px] font-bold whitespace-nowrap border transition-all ${
+                            isActive
+                              ? "bg-orange-500 text-white border-orange-400"
+                              : "bg-slate-50 text-slate-600 border-slate-100 hover:bg-orange-50 hover:text-orange-600"
+                          }`}
+                        >
+                          {item.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
 
             {/* Header Search & Auth & Lang (Desktop) */}
             <div className="hidden md:flex items-center gap-3 shrink-0">
@@ -1041,6 +1246,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             lang={lang}
             currencyData={currencyData}
             viewHistory={viewHistory}
+            initialCategory="all"
+            activeCategory={activeProductCategory}
+            onCategoryChange={setActiveProductCategory}
+            seoKeywordHints={productSeoHints}
           />
         )}
 
@@ -1053,6 +1262,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             lang={lang}
             cmsSettings={cmsSettings}
             setActiveTab={setActiveTab}
+            initialReviewType="all"
+            activeReviewType={activeReviewType}
+            onReviewTypeChange={setActiveReviewType}
+            seoKeywordHints={reviewSeoHints}
           />
         )}
 
@@ -1124,7 +1337,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
       {/* FLOAT DRAWER FOR AI ASSISTANT (B2C Friendly) */}
       {showAiDrawer && (
-        <div id="ai_advisor_drawer" className="fixed bottom-6 right-6 z-40 w-96 max-h-[80vh] bg-white border border-slate-200 rounded-[32px] shadow-2xl flex flex-col justify-between overflow-hidden animate-fade-in ring-1 ring-slate-900/5">
+        <div id="ai_advisor_drawer" className="fixed bottom-6 right-6 z-40 w-96 max-h-[80vh] bg-white border border-slate-200 rounded-4xl shadow-2xl flex flex-col justify-between overflow-hidden animate-fade-in ring-1 ring-slate-900/5">
           
           {/* Drawer top banner */}
           <div className="bg-orange-50 p-5 border-b border-orange-100 flex justify-between items-center">
@@ -1135,6 +1348,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             <button 
               onClick={() => setShowAiDrawer(false)}
               className="text-orange-300 hover:text-orange-600 p-1.5 rounded-full hover:bg-white transition-colors"
+              title={lang === "zh" ? "关闭顾问面板" : "Close advisor panel"}
+              aria-label={lang === "zh" ? "关闭顾问面板" : "Close advisor panel"}
             >
               <X className="w-5 h-5" />
             </button>
@@ -1187,6 +1402,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               type="submit"
               disabled={isAiLoading || !userInput.trim()}
               className="p-2.5 bg-orange-500 disabled:bg-slate-200 text-white rounded-2xl font-bold transition-all shadow-lg shadow-orange-500/20 hover:scale-105 active:scale-95"
+              title={lang === "zh" ? "发送消息" : "Send message"}
+              aria-label={lang === "zh" ? "发送消息" : "Send message"}
             >
               <Send className="w-5 h-5" />
             </button>
@@ -1283,7 +1500,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <a 
                   href={`https://x.com/intent/tweet?text=${encodeURIComponent(lang === "en" ? "Check out KIDSMOBI - Premium Kids Mobility Evaluation Platform! #KidsMobility #Safety" : "推荐一个高端垂直童车评测平台 KIDSMOBI，专注安全与工效！#童车评测 #育儿")}&url=${encodeURIComponent(window.location.href)}`}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="p-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl transition-all border border-slate-700 hover:border-orange-500/50"
                   title="Share on X (Twitter)"
                 >
@@ -1292,7 +1509,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <a 
                   href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="p-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl transition-all border border-slate-700 hover:border-orange-500/50"
                   title="Share on Facebook"
                 >
@@ -1301,7 +1518,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <a 
                   href="https://youtube.com/@kidsmobi"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="p-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl transition-all border border-slate-700 hover:border-orange-500/50"
                   title="YouTube"
                 >
@@ -1310,7 +1527,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <a 
                   href="https://tiktok.com/@kidsmobi"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="p-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl transition-all border border-slate-700 hover:border-orange-500/50"
                   title="TikTok"
                 >
@@ -1358,6 +1575,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     value={countryCode}
                     onChange={(e) => setCountryCode(e.target.value)}
                     className="bg-transparent text-slate-300 font-bold outline-none cursor-pointer hover:text-white transition-colors"
+                    title={lang === "zh" ? "选择国家与货币" : "Select country and currency"}
+                    aria-label={lang === "zh" ? "选择国家与货币" : "Select country and currency"}
                   >
                     {countries.map(c => (
                       <option key={c.code} value={c.code} className="bg-slate-900">
@@ -1398,7 +1617,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             className="fixed bottom-24 right-8 z-40 p-4 bg-orange-500 text-white rounded-2xl shadow-2xl shadow-orange-500/20 border border-orange-400 hover:bg-orange-600 transition-colors focus:outline-none focus:ring-4 focus:ring-orange-500/20 active:scale-95"
             title={lang === "en" ? "Back to Top" : "回到顶部"}
           >
-            <ArrowUp className="w-5 h-5 stroke-[3]" />
+            <ArrowUp className="w-5 h-5 stroke-3" />
           </motion.button>
         )}
       </AnimatePresence>

@@ -37,6 +37,10 @@ interface ProductsSectionProps {
   lang?: "zh" | "en";
   currencyData: CurrencyData;
   viewHistory?: Product[];
+  initialCategory?: string;
+  activeCategory?: string;
+  onCategoryChange?: (categoryId: string) => void;
+  seoKeywordHints?: string[];
 }
 
 export default function ProductsSection({
@@ -50,9 +54,13 @@ export default function ProductsSection({
   userEmail,
   lang = "zh",
   currencyData,
-  viewHistory
+  viewHistory,
+  initialCategory = "all",
+  activeCategory,
+  onCategoryChange,
+  seoKeywordHints = []
 }: ProductsSectionProps) {
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory || "all");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [sortBy, setSortBy] = useState<string>("overallScore");
   const [showCompareDrawer, setShowCompareDrawer] = useState<boolean>(false);
@@ -87,6 +95,17 @@ export default function ProductsSection({
       mounted = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (activeCategory && activeCategory !== selectedCategory) {
+      setSelectedCategory(activeCategory);
+    }
+  }, [activeCategory, selectedCategory]);
+
+  const handleCategorySelect = (categoryId: string) => {
+    setSelectedCategory(categoryId);
+    onCategoryChange?.(categoryId);
+  };
 
   const getProductCategoryId = (product: Product): string => {
     const raw = String((product as any)?.categoryId || product?.category || "").trim().toLowerCase();
@@ -288,6 +307,18 @@ export default function ProductsSection({
             ? "We've hand-picked and tested the safest models for your little one." 
             : "每一款入库产品都经过专人实测，只为给宝宝选择最合适的那一辆。"}
         </p>
+        {seoKeywordHints.length > 0 && (
+          <div className="flex flex-wrap justify-center gap-2 pt-2">
+            {seoKeywordHints.slice(0, 8).map((kw) => (
+              <span
+                key={kw}
+                className="px-3 py-1 rounded-full text-[10px] font-bold text-slate-600 bg-slate-100 border border-slate-200"
+              >
+                {kw}
+              </span>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Control panel */}
@@ -312,6 +343,8 @@ export default function ProductsSection({
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
             className="bg-slate-50 border border-slate-100 rounded-[28px] px-8 py-4.5 text-[10px] text-slate-900 font-black uppercase tracking-widest focus:outline-none focus:ring-4 focus:ring-orange-500/10 cursor-pointer appearance-none"
+            title={lang === "en" ? "Sort products" : "排序产品"}
+            aria-label={lang === "en" ? "Sort products" : "排序产品"}
           >
             <option value="overallScore">{lang === "en" ? "🏆 TOP RATED" : "🏆 专家综合推荐"}</option>
             <option value="weightAsc">{lang === "en" ? "⚖️ LIGHTWEIGHT" : "⚖️ 极轻量优先"}</option>
@@ -326,7 +359,7 @@ export default function ProductsSection({
             {categories.map((c) => (
               <button
                 key={c.id}
-                onClick={() => setSelectedCategory(c.id)}
+                onClick={() => handleCategorySelect(c.id)}
                 className={`px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${
                   selectedCategory === c.id
                     ? "bg-orange-500 text-white border-orange-400 shadow-lg shadow-orange-500/20"
@@ -338,7 +371,7 @@ export default function ProductsSection({
             ))}
           </div>
 
-          <div className="flex flex-wrap gap-4 pt-2 border-t border-slate-50 pt-6">
+          <div className="flex flex-wrap gap-4 border-t border-slate-50 pt-6">
              <div className="space-y-2">
                 <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{lang === "zh" ? "适龄跨度" : "Age Bridge"}</span>
                 <div className="flex gap-2">
@@ -447,7 +480,7 @@ export default function ProductsSection({
                     {diProduct.name}
                   </h3>
 
-                  <div className="grid grid-cols-2 gap-6 bg-slate-50/50 p-6 rounded-[32px] border border-slate-50 mt-2 group-hover:bg-white group-hover:shadow-lg group-hover:shadow-slate-200/50 transition-all">
+                  <div className="grid grid-cols-2 gap-6 bg-slate-50/50 p-6 rounded-4xl border border-slate-50 mt-2 group-hover:bg-white group-hover:shadow-lg group-hover:shadow-slate-200/50 transition-all">
                     <div className="space-y-1">
                       <span className="text-slate-400 block text-[9px] font-black uppercase tracking-widest">
                         {lang === "en" ? "MASS" : "自重"}
@@ -481,6 +514,8 @@ export default function ProductsSection({
                           ? "bg-orange-500 border-orange-400 text-white shadow-xl shadow-orange-500/20"
                           : "bg-white border-slate-100 text-slate-400 hover:text-orange-500 hover:border-orange-200"
                       }`}
+                      title={lang === "en" ? "Add to compare" : "加入对比"}
+                      aria-label={lang === "en" ? "Add to compare" : "加入对比"}
                     >
                       <Scale className="w-5 h-5" />
                     </button>
@@ -491,6 +526,8 @@ export default function ProductsSection({
                           ? "bg-rose-500 border-rose-400 text-white shadow-xl shadow-rose-500/20"
                           : "bg-white border-slate-100 text-slate-400 hover:text-rose-500 hover:border-rose-200"
                       }`}
+                      title={lang === "en" ? "Save product" : "收藏产品"}
+                      aria-label={lang === "en" ? "Save product" : "收藏产品"}
                     >
                       <Bookmark className="w-5 h-5 fill-current" />
                     </button>
@@ -529,7 +566,7 @@ export default function ProductsSection({
                 <div 
                   key={p.id}
                   onClick={() => onSelectProduct(p)}
-                  className="bg-white border border-slate-100 hover:border-orange-200 rounded-[32px] p-5 flex items-center gap-4 cursor-pointer hover:shadow-xl transition duration-300 group"
+                  className="bg-white border border-slate-100 hover:border-orange-200 rounded-4xl p-5 flex items-center gap-4 cursor-pointer hover:shadow-xl transition duration-300 group"
                 >
                   <div className="w-16 h-16 bg-slate-50 border border-slate-100/50 rounded-2xl flex items-center justify-center p-2 shrink-0 group-hover:bg-orange-50/50 transition">
                     <SmartImage
