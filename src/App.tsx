@@ -197,6 +197,31 @@ const shouldNoIndexCurrentPath = (path: string, search: string) => {
   return nonIndexParams.some((key) => params.has(key));
 };
 
+const safeStorageGet = (key: string): string | null => {
+  try {
+    return window.localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+};
+
+const safeStorageSet = (key: string, value: string): void => {
+  try {
+    window.localStorage.setItem(key, value);
+  } catch {
+    // Ignore storage write failures to avoid runtime crashes.
+  }
+};
+
+const isDevAdminBypassEnabled = (): boolean => {
+  return safeStorageGet("dev_admin_bypass") === "true";
+};
+
+const resolveInitialLang = (): "zh" | "en" => {
+  const saved = safeStorageGet("app_lang");
+  return saved === "zh" || saved === "en" ? saved : "zh";
+};
+
 const resolveRouteState = (pathname: string, hash: string) => {
   if (hash === "#cms") {
     return {
@@ -286,27 +311,23 @@ const resolveRouteState = (pathname: string, hash: string) => {
 
 export default function App() {
   // Lang toggle state
-  const [lang, setLang] = useState<"zh" | "en">(
-    () => (localStorage.getItem("app_lang") as "zh" | "en") || "zh"
-  );
+  const [lang, setLang] = useState<"zh" | "en">(() => resolveInitialLang());
 
   // Admin access state
   const [isAdmin, setIsAdmin] = useState<boolean>(() => {
-    return localStorage.getItem("dev_admin_bypass") === "true";
+    return isDevAdminBypassEnabled();
   });
   const [authLoading, setAuthLoading] = useState<boolean>(() => {
-    return localStorage.getItem("dev_admin_bypass") !== "true";
+    return !isDevAdminBypassEnabled();
   });
 
   const initialRouteState = resolveRouteState(window.location.pathname, window.location.hash);
 
   // 2. Active Tab Router: home, news, products, evaluations, guides, about, auth
   const [activeTab, setActiveTab] = useState<string>(initialRouteState.activeTab);
-  const [openNavMenu, setOpenNavMenu] = useState<"products" | "evaluations" | null>(null);
   const [activeProductCategory, setActiveProductCategory] = useState<string>(initialRouteState.activeProductCategory);
   const [activeReviewType, setActiveReviewType] = useState<string>(initialRouteState.activeReviewType);
   const [currentPath, setCurrentPath] = useState<string>(initialRouteState.currentPath);
-  const navMenuRef = useRef<HTMLDivElement | null>(null);
 
   const syncRouteStateFromLocation = () => {
     const routeState = resolveRouteState(window.location.pathname, window.location.hash);
@@ -314,9 +335,6 @@ export default function App() {
     setActiveProductCategory(routeState.activeProductCategory);
     setActiveReviewType(routeState.activeReviewType);
     setCurrentPath(routeState.currentPath);
-    if (routeState.activeTab !== "products" && routeState.activeTab !== "evaluations") {
-      setOpenNavMenu(null);
-    }
   };
 
   const navigateToPath = (path: string, options?: { replace?: boolean; preserveScroll?: boolean }) => {
@@ -377,7 +395,7 @@ export default function App() {
 
   // Country & Currency State
   const [countryCode, setCountryCode] = useState<string>(() => {
-    const saved = localStorage.getItem("app_country");
+    const saved = safeStorageGet("app_country");
     if (saved) return saved;
     try {
       const locale = Intl.DateTimeFormat().resolvedOptions().locale;
@@ -389,14 +407,14 @@ export default function App() {
   });
 
   useEffect(() => {
-    localStorage.setItem("app_lang", lang);
+    safeStorageSet("app_lang", lang);
   }, [lang]);
 
   useEffect(() => {
-    localStorage.setItem("app_country", countryCode);
+    safeStorageSet("app_country", countryCode);
   }, [countryCode]);
 
-  const t = translations[lang];
+  const t = translations[lang] || translations.zh;
   const currencyData = getCurrencyData(countryCode);
   const productNavOptions = PRODUCT_NAV_OPTIONS.map((item) => ({
     id: item.id,
@@ -417,52 +435,11 @@ export default function App() {
 
   const handlePrimaryTabClick = (tabId: string) => {
     navigateToTab(tabId);
-    if (tabId !== "products" && tabId !== "evaluations") {
-      setOpenNavMenu(null);
-    }
-  };
-
-  const handleToggleSubmenu = (menu: "products" | "evaluations") => {
-    navigateToPath(menu === "products" ? "/products" : "/reviews", { preserveScroll: true });
-    setOpenNavMenu((prev) => (prev === menu ? null : menu));
-  };
-
-  const handleProductMenuSelect = (categoryId: string) => {
-    navigateToPath(categoryId === "all" ? "/products" : `/products/${categoryId}`);
-    setOpenNavMenu(null);
-  };
-
-  const handleReviewMenuSelect = (reviewType: string) => {
-    navigateToPath(reviewType === "all" ? "/reviews" : `/reviews/${reviewType}`);
-    setOpenNavMenu(null);
   };
 
   const handleHomeCategorySelect = (categoryId: string) => {
     navigateToPath(categoryId === "all" ? "/products" : `/products/${categoryId}`);
   };
-
-  useEffect(() => {
-    const handlePointerDown = (event: MouseEvent) => {
-      if (!openNavMenu) return;
-      const target = event.target as Node | null;
-      if (target && navMenuRef.current && !navMenuRef.current.contains(target)) {
-        setOpenNavMenu(null);
-      }
-    };
-
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setOpenNavMenu(null);
-      }
-    };
-
-    document.addEventListener("mousedown", handlePointerDown);
-    document.addEventListener("keydown", handleEscape);
-    return () => {
-      document.removeEventListener("mousedown", handlePointerDown);
-      document.removeEventListener("keydown", handleEscape);
-    };
-  }, [openNavMenu]);
 
   // 1. Core child mechanics states
   const [childProfile, setChildProfileState] = useState<ChildProfile>({
@@ -478,7 +455,7 @@ export default function App() {
       const newProfile = typeof profileOrUpdater === 'function' ? profileOrUpdater(prev) : profileOrUpdater;
       
       const currentUser = auth.currentUser;
-      const isBypass = localStorage.getItem("dev_admin_bypass") === "true";
+      const isBypass = isDevAdminBypassEnabled();
       if (currentUser && !isBypass) {
         // Asynchronously save to Firebase
         import("./lib/firestoreService").then(({ saveChildProfileToFirestore }) => {
@@ -517,7 +494,7 @@ export default function App() {
   });
 
   const [userEmail, setUserEmail] = useState<string>(() => {
-    const isBypass = localStorage.getItem("dev_admin_bypass") === "true";
+    const isBypass = isDevAdminBypassEnabled();
     return isBypass ? "hhool.student@gmail.com" : "";
   });
 
@@ -654,7 +631,7 @@ export default function App() {
           console.error("加载云端收藏夹失败:", error);
         }
       } else {
-        const isBypass = localStorage.getItem("dev_admin_bypass") === "true";
+        const isBypass = isDevAdminBypassEnabled();
         if (!currentUser && !isBypass) {
           setSavedProducts([]);
         }
@@ -698,7 +675,7 @@ export default function App() {
 
   // Listen to Firebase Auth state
   useEffect(() => {
-    const isBypass = localStorage.getItem("dev_admin_bypass") === "true";
+    const isBypass = isDevAdminBypassEnabled();
     if (isBypass) {
       setUserEmail("hhool.student@gmail.com");
       setIsAdmin(true);
@@ -1356,7 +1333,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
           {/* Navigation Tabs & Desktop Actions */}
           <div className="flex items-center gap-4 lg:gap-6 w-full md:w-auto overflow-x-auto no-scrollbar pb-1 md:pb-0 justify-start md:justify-end relative">
-            <div ref={navMenuRef} className="relative w-full md:w-auto">
+            <div className="relative w-full md:w-auto">
               <nav className="flex items-center bg-slate-100 p-1 rounded-2xl gap-1 text-xs shrink-0 whitespace-nowrap overflow-x-auto mx-auto md:mx-0">
                 <button
                   onClick={() => handlePrimaryTabClick("home")}
@@ -1368,8 +1345,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </button>
 
                 <button
-                  onClick={() => handleToggleSubmenu("products")}
-                  title={lang === "zh" ? "展开产品品类菜单" : "Open product categories"}
+                  onClick={() => handlePrimaryTabClick("products")}
+                  title={lang === "zh" ? "进入产品中心" : "Open products"}
                   className={`px-3 py-2 rounded-xl font-bold transition-all ${
                     activeTab === "products" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
                   }`}
@@ -1378,8 +1355,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </button>
 
                 <button
-                  onClick={() => handleToggleSubmenu("evaluations")}
-                  title={lang === "zh" ? "展开评测分类菜单" : "Open review categories"}
+                  onClick={() => handlePrimaryTabClick("evaluations")}
+                  title={lang === "zh" ? "进入评测中心" : "Open reviews"}
                   className={`px-3 py-2 rounded-xl font-bold transition-all ${
                     activeTab === "evaluations" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
                   }`}
@@ -1414,45 +1391,20 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                   {t.navAbout}
                 </button>
 
-                {isAdmin && (
-                  <button
-                    onClick={() => handlePrimaryTabClick("admin")}
-                    className={`px-3 py-2 rounded-xl font-bold transition-all ${
-                      activeTab === "admin" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
-                    }`}
-                  >
-                    {lang === "zh" ? "管理后台" : "Admin"}
-                  </button>
-                )}
-              </nav>
-
-              {openNavMenu && (
-                <div
-                  id={openNavMenu === "products" ? "products_submenu" : "reviews_submenu"}
-                  className="absolute top-full left-0 right-0 mt-2 md:left-0 md:right-auto md:w-72 bg-white border border-slate-200 rounded-2xl p-2 shadow-xl z-40"
+                <button
+                  onClick={() => handlePrimaryTabClick(isAdmin ? "admin" : "auth")}
+                  title={isAdmin ? (lang === "zh" ? "进入管理后台" : "Open admin") : (lang === "zh" ? "登录后进入管理后台" : "Sign in to access admin")}
+                  className={`px-3 py-2 rounded-xl font-bold transition-all ${
+                    activeTab === "admin"
+                      ? "bg-white text-orange-500 shadow-sm"
+                      : isAdmin
+                        ? "text-slate-500 hover:text-slate-900"
+                        : "text-slate-400 hover:text-slate-700"
+                  }`}
                 >
-                  <div className="flex flex-col gap-2 max-h-80 overflow-y-auto pr-1 no-scrollbar">
-                    {(openNavMenu === "products" ? productNavOptions : reviewNavOptions).map((item) => {
-                      const isActive = openNavMenu === "products"
-                        ? activeProductCategory === item.id
-                        : activeReviewType === item.id;
-                      return (
-                        <button
-                          key={item.id}
-                          onClick={() => openNavMenu === "products" ? handleProductMenuSelect(item.id) : handleReviewMenuSelect(item.id)}
-                          className={`w-full text-left px-3 py-2 rounded-xl text-[11px] font-bold border transition-all ${
-                            isActive
-                              ? "bg-orange-500 text-white border-orange-400"
-                              : "bg-slate-50 text-slate-600 border-slate-100 hover:bg-orange-50 hover:text-orange-600"
-                          }`}
-                        >
-                          {item.label}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
+                  {lang === "zh" ? "管理后台" : "Admin"}
+                </button>
+              </nav>
             </div>
 
             {/* Header Search & Auth & Lang (Desktop) */}
@@ -1666,7 +1618,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             isAdmin={isAdmin}
             loading={authLoading}
             onDeveloperBypass={() => {
-              localStorage.setItem("dev_admin_bypass", "true");
+              safeStorageSet("dev_admin_bypass", "true");
               setUserEmail("hhool.student@gmail.com");
               setIsAdmin(true);
               setAuthLoading(false);
