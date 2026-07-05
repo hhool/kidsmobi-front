@@ -20,9 +20,12 @@ import Breadcrumbs from "./Breadcrumbs";
 
 interface NewsSectionProps {
   lang?: "zh" | "en";
+  currentPage?: number;
+  onPageChange?: (page: number) => void;
+  onPaginationMetaChange?: (meta: { totalPages: number }) => void;
 }
 
-export default function NewsSection({ lang = "zh" }: NewsSectionProps) {
+export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange, onPaginationMetaChange }: NewsSectionProps) {
   const [newsArticlesState, setNewsArticlesState] = useState<NewsArticle[]>(fallbackNewsArticles);
   const [loadingNews, setLoadingNews] = useState<boolean>(false);
   const [selectedArticleState, setSelectedArticleState] = useState<any | null>(null);
@@ -33,15 +36,6 @@ export default function NewsSection({ lang = "zh" }: NewsSectionProps) {
   useEffect(() => {
     if (!selectedArticleState) {
       clearJsonLd("news-detail");
-      const canonicalUrl = window.location.href;
-      setCollectionPageJsonLd("news-list", {
-        name: lang === "en" ? "Global Kids Bike Insights" : "全球童车资讯库",
-        url: canonicalUrl,
-        items: newsArticlesState.slice(0, 12).map((article) => ({
-          name: translateNewsArticle(article, lang).title,
-          url: canonicalUrl,
-        })),
-      });
       return;
     }
 
@@ -62,7 +56,7 @@ export default function NewsSection({ lang = "zh" }: NewsSectionProps) {
     });
 
     return () => clearJsonLd("news-detail");
-  }, [selectedArticleState, lang, newsArticlesState]);
+  }, [selectedArticleState, lang]);
 
   useEffect(() => {
     setLoadingNews(true);
@@ -150,6 +144,31 @@ export default function NewsSection({ lang = "zh" }: NewsSectionProps) {
         return new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime();
       });
   }, [newsArticlesState, searchQuery, selectedCategory, sortBy, lang]);
+
+  const pageSize = 8;
+  const totalPages = Math.max(1, Math.ceil(filteredNews.length / pageSize));
+  const safePage = Math.min(Math.max(1, currentPage), totalPages);
+  const pagedNews = filteredNews.slice((safePage - 1) * pageSize, safePage * pageSize);
+
+  useEffect(() => {
+    onPaginationMetaChange?.({ totalPages });
+  }, [totalPages, onPaginationMetaChange]);
+
+  useEffect(() => {
+    if (selectedArticleState) {
+      return;
+    }
+    const canonicalUrl = window.location.href;
+    setCollectionPageJsonLd("news-list", {
+      name: lang === "en" ? "Global Kids Bike Insights" : "全球童车资讯库",
+      url: canonicalUrl,
+      items: pagedNews.map((article) => ({
+        name: article.title,
+        url: canonicalUrl,
+      })),
+    });
+    return () => clearJsonLd("news-list");
+  }, [lang, pagedNews, selectedArticleState]);
 
   return (
     <div id="news_hub" className="space-y-8 animate-fade-in text-left">
@@ -346,8 +365,9 @@ export default function NewsSection({ lang = "zh" }: NewsSectionProps) {
                 </span>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left animate-fade-in">
-              {filteredNews.map((art) => (
+            <div className="space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left animate-fade-in">
+              {pagedNews.map((art) => (
                 <div
                   key={art.id}
                   onClick={() => setSelectedArticleState(art)}
@@ -386,6 +406,29 @@ export default function NewsSection({ lang = "zh" }: NewsSectionProps) {
                   </div>
                 </div>
               ))}
+              </div>
+
+              {totalPages > 1 && (
+                <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                  <button
+                    onClick={() => onPageChange?.(Math.max(1, safePage - 1))}
+                    disabled={safePage <= 1}
+                    className="px-4 py-2 rounded-2xl border border-slate-200 bg-white text-slate-600 font-black text-xs disabled:opacity-40"
+                  >
+                    {lang === "en" ? "Previous" : "上一页"}
+                  </button>
+                  <span className="text-xs font-black text-slate-400">
+                    {safePage} / {totalPages}
+                  </span>
+                  <button
+                    onClick={() => onPageChange?.(Math.min(totalPages, safePage + 1))}
+                    disabled={safePage >= totalPages}
+                    className="px-4 py-2 rounded-2xl border border-slate-200 bg-white text-slate-600 font-black text-xs disabled:opacity-40"
+                  >
+                    {lang === "en" ? "Next" : "下一页"}
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </div>

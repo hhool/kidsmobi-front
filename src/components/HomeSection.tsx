@@ -143,6 +143,20 @@ export default function HomeSection({
     });
   };
 
+  const openWizard = () => {
+    // Push a same-URL history entry so one browser Back closes the modal and stays on Home.
+    window.history.pushState({ ...(window.history.state || {}), kidsmobiWizard: true }, "", window.location.href);
+    setIsWizardOpen(true);
+  };
+
+  useEffect(() => {
+    const handlePopstate = () => {
+      setIsWizardOpen(false);
+    };
+    window.addEventListener("popstate", handlePopstate);
+    return () => window.removeEventListener("popstate", handlePopstate);
+  }, []);
+
   const retryFailedImages = () => {
     setImageLoadState((prev) => {
       const next = { ...prev };
@@ -266,7 +280,7 @@ export default function HomeSection({
           </p>
           <div className="flex flex-wrap justify-center gap-4 pt-4">
             <button 
-              onClick={() => setIsWizardOpen(true)}
+              onClick={openWizard}
               className="px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-2xl transition-all flex items-center gap-2 shadow-xl shadow-orange-500/20 active:scale-95 group"
             >
               <Sparkles className="w-5 h-5 group-hover:animate-pulse" />
@@ -295,7 +309,12 @@ export default function HomeSection({
             <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">{lang === "zh" ? "权威发布" : "Annual Authority"}</span>
             <h3 className="text-3xl font-black text-slate-900 tracking-tight">{lang === "zh" ? "2026 年度童车大奖" : "2026 Annual Awards"}</h3>
           </div>
-          <button className="text-sm font-black text-slate-400 hover:text-orange-500 transition-colors uppercase tracking-widest">{lang === "zh" ? "查看完整榜单" : "Full Rankings"}</button>
+          <button
+            onClick={() => setActiveTab("evaluations")}
+            className="text-sm font-black text-slate-400 hover:text-orange-500 transition-colors uppercase tracking-widest"
+          >
+            {lang === "zh" ? "查看完整榜单" : "Full Rankings"}
+          </button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {annualAwards.map((award, idx) => (
@@ -342,7 +361,13 @@ export default function HomeSection({
                     : "Picked with lab-grade multi-metric scoring and real family usage scenario weighting."}
                 </p>
                 <button 
-                  onClick={() => award.winner && onSelectProduct(award.winner)}
+                  onClick={() => {
+                    if (award.winner) {
+                      onSelectProduct(award.winner);
+                      return;
+                    }
+                    setActiveTab("evaluations");
+                  }}
                   className="w-full py-4 bg-slate-900 hover:bg-orange-500 text-white font-black rounded-2xl transition-all flex items-center justify-center gap-2 mt-auto"
                 >
                   {lang === "zh" ? "查看详细评测" : "Read Evaluation"}

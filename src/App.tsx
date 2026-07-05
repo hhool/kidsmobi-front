@@ -228,6 +228,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
       activeTab: "admin",
       activeProductCategory: "all",
       activeReviewType: "all",
+      activePageIndex: 1,
       currentPath: normalizePathname(pathname),
     };
   }
@@ -241,44 +242,57 @@ const resolveRouteState = (pathname: string, hash: string) => {
       activeTab: "home",
       activeProductCategory: "all",
       activeReviewType: "all",
+      activePageIndex: 1,
       currentPath,
     };
   }
 
   if (root === "products") {
+    const pageSegmentIndex = segments.indexOf("page");
+    const activePageIndex = pageSegmentIndex >= 0 ? Number(segments[pageSegmentIndex + 1] || 1) : 1;
     const activeProductCategory = sub && PRODUCT_ROUTE_IDS.has(sub) ? sub : "all";
     return {
       activeTab: "products",
       activeProductCategory,
       activeReviewType: "all",
+      activePageIndex,
       currentPath,
     };
   }
 
   if (root === "reviews" || root === "evaluations") {
+    const pageSegmentIndex = segments.indexOf("page");
+    const activePageIndex = pageSegmentIndex >= 0 ? Number(segments[pageSegmentIndex + 1] || 1) : 1;
     const activeReviewType = sub && REVIEW_ROUTE_IDS.has(sub) ? sub : "all";
     return {
       activeTab: "evaluations",
       activeProductCategory: "all",
       activeReviewType,
+      activePageIndex,
       currentPath,
     };
   }
 
   if (root === "guides") {
+    const pageSegmentIndex = segments.indexOf("page");
+    const activePageIndex = pageSegmentIndex >= 0 ? Number(segments[pageSegmentIndex + 1] || 1) : 1;
     return {
       activeTab: "guides",
       activeProductCategory: "all",
       activeReviewType: "all",
+      activePageIndex,
       currentPath,
     };
   }
 
   if (root === "news") {
+    const pageSegmentIndex = segments.indexOf("page");
+    const activePageIndex = pageSegmentIndex >= 0 ? Number(segments[pageSegmentIndex + 1] || 1) : 1;
     return {
       activeTab: "news",
       activeProductCategory: "all",
       activeReviewType: "all",
+      activePageIndex,
       currentPath,
     };
   }
@@ -288,6 +302,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
       activeTab: "about",
       activeProductCategory: "all",
       activeReviewType: "all",
+      activePageIndex: 1,
       currentPath,
     };
   }
@@ -297,6 +312,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
       activeTab: "auth",
       activeProductCategory: "all",
       activeReviewType: "all",
+      activePageIndex: 1,
       currentPath,
     };
   }
@@ -305,6 +321,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
     activeTab: "home",
     activeProductCategory: "all",
     activeReviewType: "all",
+    activePageIndex: 1,
     currentPath: "/",
   };
 };
@@ -327,13 +344,22 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<string>(initialRouteState.activeTab);
   const [activeProductCategory, setActiveProductCategory] = useState<string>(initialRouteState.activeProductCategory);
   const [activeReviewType, setActiveReviewType] = useState<string>(initialRouteState.activeReviewType);
+  const [activePageIndex, setActivePageIndex] = useState<number>(initialRouteState.activePageIndex);
   const [currentPath, setCurrentPath] = useState<string>(initialRouteState.currentPath);
+  const [newsPaginationTotalPages, setNewsPaginationTotalPages] = useState<number | null>(null);
+  const [guidesPaginationTotalPages, setGuidesPaginationTotalPages] = useState<number | null>(null);
+  const activeTabRef = useRef<string>(initialRouteState.activeTab);
+
+  useEffect(() => {
+    activeTabRef.current = activeTab;
+  }, [activeTab]);
 
   const syncRouteStateFromLocation = () => {
     const routeState = resolveRouteState(window.location.pathname, window.location.hash);
     setActiveTab(routeState.activeTab);
     setActiveProductCategory(routeState.activeProductCategory);
     setActiveReviewType(routeState.activeReviewType);
+    setActivePageIndex(routeState.activePageIndex);
     setCurrentPath(routeState.currentPath);
   };
 
@@ -357,6 +383,16 @@ export default function App() {
     }
   };
 
+  useEffect(() => {
+    if (activeTab !== "news") {
+      return;
+    }
+    if (currentPath !== "/news") {
+      return;
+    }
+    navigateToPath("/news/page/1", { replace: true, preserveScroll: true });
+  }, [activeTab, currentPath]);
+
   const navigateToTab = (tabId: string) => {
     if (tabId === "admin") {
       if (window.location.hash !== "#cms") {
@@ -372,7 +408,7 @@ export default function App() {
       products: "/products",
       evaluations: "/reviews",
       guides: "/guides",
-      news: "/news",
+      news: "/news/page/1",
       about: "/about",
       auth: "/auth",
     };
@@ -381,7 +417,21 @@ export default function App() {
   };
 
   useEffect(() => {
+    // Backward compatibility for legacy child components that still call window.setActiveTab.
+    (window as any).setActiveTab = navigateToTab;
+    return () => {
+      if ((window as any).setActiveTab === navigateToTab) {
+        delete (window as any).setActiveTab;
+      }
+    };
+  }, [navigateToTab]);
+
+  useEffect(() => {
     const handleLocationUpdate = () => {
+      if (activeTabRef.current === "product_detail") {
+        setSelectedProduct(null);
+        setComparedProduct(null);
+      }
       syncRouteStateFromLocation();
     };
 
@@ -790,6 +840,20 @@ export default function App() {
     }
   };
 
+  const resolveCmsRouteSeoConfig = (seoKey: string) => {
+    const pageSeo = cmsSettings?.pages?.[seoKey]?.seo?.[lang];
+    if (pageSeo) {
+      return pageSeo;
+    }
+
+    const routeSeo = cmsSettings?.seo?.[seoKey]?.[lang];
+    if (routeSeo) {
+      return routeSeo;
+    }
+
+    return DEFAULT_SEO_CONFIGS[seoKey]?.[lang] || DEFAULT_SEO_CONFIGS.home[lang];
+  };
+
   // Dynamic SEO Page Meta Configuration (Title, Keywords, Description)
   useEffect(() => {
     // Determine active tab database key
@@ -870,20 +934,16 @@ export default function App() {
       seoKey = "home";
     }
 
-    // 1. Grab default SEO configuration first
-    const defaultSEO = DEFAULT_SEO_CONFIGS[seoKey]?.[lang] || DEFAULT_SEO_CONFIGS.home[lang];
-    let titleStr = defaultSEO.title;
-    let descStr = defaultSEO.description;
-    let keywordsArr = defaultSEO.keywords;
+    const resolvedSEO = resolveCmsRouteSeoConfig(seoKey);
+    let titleStr = resolvedSEO.title;
+    let descStr = resolvedSEO.description;
+    let keywordsArr = resolvedSEO.keywords;
 
-    // 2. Override with cmsSettings.seo if present and configured
-    if (cmsSettings?.seo?.[seoKey]?.[lang]) {
-      const config = cmsSettings.seo[seoKey][lang];
-      if (config.title) titleStr = config.title;
-      if (config.description) descStr = config.description;
-      if (config.keywords && config.keywords.length > 0) {
-        keywordsArr = config.keywords;
-      }
+    if (activePageIndex > 1 && ["products", "evaluations", "guides", "news"].includes(seoKey)) {
+      titleStr = lang === "zh" ? `${titleStr} - 第 ${activePageIndex} 页` : `${titleStr} - Page ${activePageIndex}`;
+      descStr = lang === "zh"
+        ? `${descStr} 当前为第 ${activePageIndex} 页分页内容。`
+        : `${descStr} This is paginated page ${activePageIndex}.`;
     }
 
     if (seoKey === "products" && activeProductCategory !== "all") {
@@ -909,11 +969,43 @@ export default function App() {
     }
 
     // 3. Set values
+    const resolvePaginationTotalPages = (): number | null => {
+      if (seoKey === "products") {
+        const routeProducts = activeProductCategory === "all"
+          ? productsData
+          : productsData.filter((product) => {
+              const categoryId = String((product as any)?.categoryId || product?.category || "").trim().toLowerCase();
+              return categoryId === activeProductCategory;
+            });
+        return Math.max(1, Math.ceil(routeProducts.length / 9));
+      }
+
+      if (seoKey === "evaluations") {
+        const publishedEvaluations = evaluationsData.filter((evaluation) => evaluation.status === "published");
+        const routeEvaluations = activeReviewType === "all"
+          ? publishedEvaluations
+          : publishedEvaluations.filter((evaluation) => (evaluation.type || "single") === activeReviewType);
+        return Math.max(1, Math.ceil(routeEvaluations.length / 6));
+      }
+
+      if (seoKey === "news") {
+        return newsPaginationTotalPages;
+      }
+
+      if (seoKey === "guides") {
+        return guidesPaginationTotalPages;
+      }
+
+      return null;
+    };
+
     document.title = titleStr;
     updateMetaTag("description", descStr);
     updateMetaTag("keywords", keywordsArr.join(", "));
     const canonicalPath = normalizeCanonicalPath(currentPath);
-    const noIndex = shouldNoIndexCurrentPath(canonicalPath, window.location.search);
+    const totalPages = resolvePaginationTotalPages();
+    const isOutOfRangePagination = totalPages !== null && activePageIndex > totalPages;
+    const noIndex = shouldNoIndexCurrentPath(canonicalPath, window.location.search) || isOutOfRangePagination;
     updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : "index,follow,max-image-preview:large");
 
     const canonicalUrl = `${window.location.origin}${canonicalPath}`;
@@ -960,42 +1052,49 @@ export default function App() {
     };
 
     const itemListItems = (() => {
+      const getPagedSlice = <T,>(items: T[], pageSize: number) => {
+        const page = Math.max(1, activePageIndex);
+        const start = (page - 1) * pageSize;
+        return items.slice(start, start + pageSize);
+      };
+
       if (seoKey === "guides") {
-        return guideArticles.slice(0, 8).map((article, index) => ({
+        return getPagedSlice(guideArticles, 8).map((article, index) => ({
           "@type": "ListItem",
           position: index + 1,
           name: translateGuideArticle(article, lang).title,
-          url: `${window.location.origin}/guides`,
+          url: canonicalUrl,
         }));
       }
       if (seoKey === "news") {
-        return newsArticles.slice(0, 8).map((article, index) => ({
+        return getPagedSlice(newsArticles, 8).map((article, index) => ({
           "@type": "ListItem",
           position: index + 1,
           name: translateNewsArticle(article, lang).title,
-          url: `${window.location.origin}/news`,
+          url: canonicalUrl,
         }));
       }
       if (seoKey === "evaluations") {
-        return initialEvaluationsData.slice(0, 8).map((evaluation, index) => ({
+        return getPagedSlice(evaluationsData, 6).map((evaluation, index) => ({
           "@type": "ListItem",
           position: index + 1,
           name: lang === "zh" ? evaluation.zh.title : evaluation.en.title,
-          url: `${window.location.origin}/reviews`,
+          url: canonicalUrl,
         }));
       }
       if (seoKey === "products") {
-        return productsData.slice(0, 8).map((product, index) => ({
+        return getPagedSlice(productsData, 9).map((product, index) => ({
           "@type": "ListItem",
           position: index + 1,
           name: translateProduct(product, lang).name,
-          url: `${window.location.origin}/products`,
+          url: canonicalUrl,
         }));
       }
       return [] as Array<Record<string, unknown>>;
     })();
 
-    const collectionSchema = (itemListItems.length > 0)
+    const isCollectionSeoKey = ["guides", "news", "evaluations", "products"].includes(seoKey);
+    const collectionSchema = isCollectionSeoKey
       ? {
           "@context": "https://schema.org",
           "@type": "ItemList",
@@ -1017,13 +1116,14 @@ export default function App() {
 
     injectJsonLd([orgSchema, webPageSchema, breadcrumbSchema, ...(collectionSchema ? [collectionSchema] : [])]);
 
-  }, [activeTab, lang, cmsSettings, selectedProduct, activeProductCategory, activeReviewType, productNavOptions, reviewNavOptions, currentPath]);
+  }, [activeTab, lang, cmsSettings, selectedProduct, activeProductCategory, activeReviewType, activePageIndex, productNavOptions, reviewNavOptions, productsData, evaluationsData, currentPath, newsPaginationTotalPages, guidesPaginationTotalPages]);
 
   const handleSelectProduct = (product: Product | null, compareWith?: Product) => {
     if (product) {
       setPreviousTab(activeTab);
       setSelectedProduct(product);
       setComparedProduct(compareWith || null);
+      window.history.pushState({ ...(window.history.state || {}), kidsmobiProductDetail: true }, "", window.location.href);
       setActiveTab("product_detail");
       window.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -1523,7 +1623,12 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
         )}
 
         {activeTab === "news" && (
-          <NewsSection lang={lang} />
+          <NewsSection
+            lang={lang}
+            currentPage={activePageIndex}
+            onPageChange={(page) => navigateToPath(page <= 1 ? "/news/page/1" : `/news/page/${page}`, { preserveScroll: true })}
+            onPaginationMetaChange={(meta) => setNewsPaginationTotalPages(meta.totalPages)}
+          />
         )}
 
         {activeTab === "products" && (
@@ -1543,6 +1648,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             activeCategory={activeProductCategory}
             onCategoryChange={(categoryId) => navigateToPath(categoryId === "all" ? "/products" : `/products/${categoryId}`, { preserveScroll: true })}
             seoKeywordHints={productSeoHints}
+            currentPage={activePageIndex}
+            onPageChange={(page) => {
+              const categoryPath = activeProductCategory === "all" ? "/products" : `/products/${activeProductCategory}`;
+              navigateToPath(page <= 1 ? categoryPath : `${categoryPath}/page/${page}`, { preserveScroll: true });
+            }}
           />
         )}
 
@@ -1559,6 +1669,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             activeReviewType={activeReviewType}
             onReviewTypeChange={(reviewTypeId) => navigateToPath(reviewTypeId === "all" ? "/reviews" : `/reviews/${reviewTypeId}`, { preserveScroll: true })}
             seoKeywordHints={reviewSeoHints}
+            currentPage={activePageIndex}
+            onPageChange={(page) => {
+              const reviewPath = activeReviewType === "all" ? "/reviews" : `/reviews/${activeReviewType}`;
+              navigateToPath(page <= 1 ? reviewPath : `${reviewPath}/page/${page}`, { preserveScroll: true });
+            }}
           />
         )}
 
@@ -1570,6 +1685,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             setChildProfile={setChildProfile}
             lang={lang}
             currencyData={currencyData}
+            currentPage={activePageIndex}
+            onPageChange={(page) => navigateToPath(page <= 1 ? "/guides" : `/guides/page/${page}`, { preserveScroll: true })}
+            onPaginationMetaChange={(meta) => setGuidesPaginationTotalPages(meta.totalPages)}
           />
         )}
 

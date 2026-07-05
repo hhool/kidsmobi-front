@@ -42,8 +42,6 @@ export default function MatchingWizard({
     budget: "" // affordable, standard, premium
   });
 
-  if (!isOpen) return null;
-
   const ageOptions = [
     { id: "0-12m", zh: "0-12个月", en: "0-12 Months", desc: "新生儿/幼儿", category: "stroller" },
     { id: "1-2y", zh: "1-2岁", en: "1-2 Years", desc: "学步/平衡启蒙", category: "balance" },
@@ -99,6 +97,8 @@ export default function MatchingWizard({
 
     return filtered.sort((a, b) => b.overallScore - a.overallScore).slice(0, 3);
   }, [step, selections, productsData]);
+
+  if (!isOpen) return null;
 
   const handleNext = () => {
     if (step === "age") setStep("environment");

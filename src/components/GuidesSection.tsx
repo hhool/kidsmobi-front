@@ -145,6 +145,9 @@ interface GuidesSectionProps {
   setChildProfile: (p: any) => void;
   lang?: "zh" | "en";
   currencyData: CurrencyData;
+  currentPage?: number;
+  onPageChange?: (page: number) => void;
+  onPaginationMetaChange?: (meta: { totalPages: number }) => void;
 }
 
 export default function GuidesSection({
@@ -153,7 +156,10 @@ export default function GuidesSection({
   childProfile,
   setChildProfile,
   lang = "zh",
-  currencyData
+  currencyData,
+  currentPage = 1,
+  onPageChange,
+  onPaginationMetaChange
 }: GuidesSectionProps) {
   const [guideArticles, setGuideArticles] = useState<GuideArticle[]>(fallbackGuideArticles);
   const [loadingGuides, setLoadingGuides] = useState<boolean>(false);
@@ -214,16 +220,7 @@ export default function GuidesSection({
   useEffect(() => {
     if (!selectedGuideState) {
       clearJsonLd("guides-detail");
-      const canonicalUrl = window.location.href;
-      setCollectionPageJsonLd("guides-list", {
-        name: lang === "en" ? "Buyer's Guides" : "选购指南",
-        url: canonicalUrl,
-        items: guideArticles.slice(0, 12).map((guide) => ({
-          name: translateGuideArticle(guide, lang).title,
-          url: canonicalUrl,
-        })),
-      });
-      return () => clearJsonLd("guides-list");
+      return;
     }
 
     const guide = translateGuideArticle(selectedGuideState, lang);
@@ -243,7 +240,7 @@ export default function GuidesSection({
     });
 
     return () => clearJsonLd("guides-detail");
-  }, [selectedGuideState, lang, guideArticles]);
+  }, [selectedGuideState, lang]);
 
   // Match Wizard interactive states
   const [wizardAge, setWizardAge] = useState<number>(childProfile.age || 4);
@@ -268,6 +265,31 @@ export default function GuidesSection({
         return matchesCat && matchesSearch;
       });
   }, [guideArticles, selectedCategory, searchQuery, lang]);
+
+  const pageSize = 8;
+  const totalPages = Math.max(1, Math.ceil(filteredGuides.length / pageSize));
+  const safePage = Math.min(Math.max(1, currentPage), totalPages);
+  const pagedGuides = filteredGuides.slice((safePage - 1) * pageSize, safePage * pageSize);
+
+  useEffect(() => {
+    onPaginationMetaChange?.({ totalPages });
+  }, [totalPages, onPaginationMetaChange]);
+
+  useEffect(() => {
+    if (selectedGuideState) {
+      return;
+    }
+    const canonicalUrl = window.location.href;
+    setCollectionPageJsonLd("guides-list", {
+      name: lang === "en" ? "Buyer's Guides" : "选购指南",
+      url: canonicalUrl,
+      items: pagedGuides.map((guide) => ({
+        name: guide.title,
+        url: canonicalUrl,
+      })),
+    });
+    return () => clearJsonLd("guides-list");
+  }, [lang, pagedGuides, selectedGuideState]);
 
   // Match Wizard calculation formula
   const matchRecommendations = useMemo(() => {
@@ -827,8 +849,9 @@ export default function GuidesSection({
                 </span>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left animate-fade-in">
-                {filteredGuides.map((guide) => (
+              <div className="space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left animate-fade-in">
+                {pagedGuides.map((guide) => (
                   <div
                     key={guide.id}
                     onClick={() => setSelectedGuideState(guide)}
@@ -867,6 +890,29 @@ export default function GuidesSection({
                     </div>
                   </div>
                 ))}
+                </div>
+
+                {totalPages > 1 && (
+                  <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                    <button
+                      onClick={() => onPageChange?.(Math.max(1, safePage - 1))}
+                      disabled={safePage <= 1}
+                      className="px-4 py-2 rounded-2xl border border-slate-200 bg-white text-slate-600 font-black text-xs disabled:opacity-40"
+                    >
+                      {lang === "en" ? "Previous" : "上一页"}
+                    </button>
+                    <span className="text-xs font-black text-slate-400">
+                      {safePage} / {totalPages}
+                    </span>
+                    <button
+                      onClick={() => onPageChange?.(Math.min(totalPages, safePage + 1))}
+                      disabled={safePage >= totalPages}
+                      className="px-4 py-2 rounded-2xl border border-slate-200 bg-white text-slate-600 font-black text-xs disabled:opacity-40"
+                    >
+                      {lang === "en" ? "Next" : "下一页"}
+                    </button>
+                  </div>
+                )}
               </div>
             )}
 

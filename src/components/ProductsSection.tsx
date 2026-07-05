@@ -41,6 +41,8 @@ interface ProductsSectionProps {
   activeCategory?: string;
   onCategoryChange?: (categoryId: string) => void;
   seoKeywordHints?: string[];
+  currentPage?: number;
+  onPageChange?: (page: number) => void;
 }
 
 export default function ProductsSection({
@@ -58,7 +60,9 @@ export default function ProductsSection({
   initialCategory = "all",
   activeCategory,
   onCategoryChange,
-  seoKeywordHints = []
+  seoKeywordHints = [],
+  currentPage = 1,
+  onPageChange
 }: ProductsSectionProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory || "all");
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -231,6 +235,11 @@ export default function ProductsSection({
         return 0;
       });
   }, [selectedCategory, searchQuery, sortBy, selectedAge, selectedPrice, productsData, lang, backendCategoryNameMap]);
+
+  const pageSize = 9;
+  const totalPages = Math.max(1, Math.ceil(filteredProducts.length / pageSize));
+  const safePage = Math.min(Math.max(1, currentPage), totalPages);
+  const pagedProducts = filteredProducts.slice((safePage - 1) * pageSize, safePage * pageSize);
 
   // Compare toggles (allows up to 3 items!)
   const handleToggleCompare = (product: Product, e: React.MouseEvent) => {
@@ -437,8 +446,9 @@ export default function ProductsSection({
           </p>
         </div>
       ) : (
+        <div className="space-y-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-          {filteredProducts.map(({ product: p, sourceCategoryId }, idx) => {
+          {pagedProducts.map(({ product: p, sourceCategoryId }, idx) => {
             const diProduct = p;
             const imageSet = resolveProductImages(diProduct);
             const isWeightOver = (diProduct.category === "bicycle" || diProduct.category === "balance")
@@ -540,6 +550,29 @@ export default function ProductsSection({
               </div>
             );
           })}
+        </div>
+
+        {totalPages > 1 && (
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+            <button
+              onClick={() => onPageChange?.(Math.max(1, safePage - 1))}
+              disabled={safePage <= 1}
+              className="px-4 py-2 rounded-2xl border border-slate-200 bg-white text-slate-600 font-black text-xs disabled:opacity-40"
+            >
+              {lang === "en" ? "Previous" : "上一页"}
+            </button>
+            <span className="text-xs font-black text-slate-400">
+              {safePage} / {totalPages}
+            </span>
+            <button
+              onClick={() => onPageChange?.(Math.min(totalPages, safePage + 1))}
+              disabled={safePage >= totalPages}
+              className="px-4 py-2 rounded-2xl border border-slate-200 bg-white text-slate-600 font-black text-xs disabled:opacity-40"
+            >
+              {lang === "en" ? "Next" : "下一页"}
+            </button>
+          </div>
+        )}
         </div>
       )}
 

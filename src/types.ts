@@ -224,6 +224,29 @@ export interface HomeSlot {
   imageOverride?: string;
 }
 
+export interface CMSPageSEO {
+  zh: SEOConfig;
+  en: SEOConfig;
+}
+
+export interface CMSPageConfig {
+  id?: string;
+  pageType?: "home" | "products_index" | "reviews_index" | "guides_index" | "news_index" | "about";
+  pageSlug?: string;
+  templateKey?: string;
+  pageGroup?: string;
+  pageOrder?: number;
+  pageIndex?: number;
+  paginationPolicy?: "none" | "page_path" | "query_param";
+  indexingPolicy?: "index" | "noindex";
+  canonicalPath?: string;
+  contentBlocks?: unknown[];
+  relatedIds?: string[];
+  locale?: "zh" | "en";
+  status?: "draft" | "review" | "published" | "offline";
+  seo?: CMSPageSEO;
+}
+
 export interface CMSSettings {
   id: "global";
   hero: {
@@ -244,6 +267,9 @@ export interface CMSSettings {
       zh: SEOConfig;
       en: SEOConfig;
     };
+  };
+  pages?: {
+    [key: string]: CMSPageConfig;
   };
   opsCenter?: {
     copy?: {

@@ -22,6 +22,8 @@ interface EvaluationsSectionProps {
   activeReviewType?: string;
   onReviewTypeChange?: (type: string) => void;
   seoKeywordHints?: string[];
+  currentPage?: number;
+  onPageChange?: (page: number) => void;
 }
 
 // Custom SVG Radar Polygon Chart
@@ -154,7 +156,9 @@ export default function EvaluationsSection({
   initialReviewType = "all",
   activeReviewType,
   onReviewTypeChange,
-  seoKeywordHints = []
+  seoKeywordHints = [],
+  currentPage = 1,
+  onPageChange
 }: EvaluationsSectionProps) {
   const [selectedReviewType, setSelectedReviewType] = useState<string>(initialReviewType || "all");
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -163,18 +167,6 @@ export default function EvaluationsSection({
   useEffect(() => {
     if (!selectedEvaluation) {
       clearJsonLd("evaluations-detail");
-      const canonicalUrl = window.location.href;
-      setCollectionPageJsonLd("evaluations-list", {
-        name: lang === "en" ? "Evaluation Reports" : "评测中心",
-        url: canonicalUrl,
-        items: evaluationsData
-          .filter((ev) => ev.status === "published")
-          .slice(0, 12)
-          .map((evaluation) => ({
-            name: lang === "zh" ? evaluation.zh.title : evaluation.en.title,
-            url: canonicalUrl,
-          })),
-      });
       return;
     }
 
@@ -213,7 +205,7 @@ export default function EvaluationsSection({
     }
 
     return () => clearJsonLd("evaluations-detail");
-  }, [selectedEvaluation, lang, productsData, evaluationsData]);
+  }, [selectedEvaluation, lang, productsData]);
 
   useEffect(() => {
     if (activeReviewType && activeReviewType !== selectedReviewType) {
@@ -301,6 +293,27 @@ export default function EvaluationsSection({
       }
     });
   }, [filteredReviews, productsData]);
+
+  const pageSize = 6;
+  const totalPages = Math.max(1, Math.ceil(renderList.length / pageSize));
+  const safePage = Math.min(Math.max(1, currentPage), totalPages);
+  const pagedRenderList = renderList.slice((safePage - 1) * pageSize, safePage * pageSize);
+
+  useEffect(() => {
+    if (selectedEvaluation) {
+      return;
+    }
+    const canonicalUrl = window.location.href;
+    setCollectionPageJsonLd("evaluations-list", {
+      name: lang === "en" ? "Evaluation Reports" : "评测中心",
+      url: canonicalUrl,
+      items: pagedRenderList.map((block) => ({
+        name: lang === "zh" ? block.evaluation.zh.title : block.evaluation.en.title,
+        url: canonicalUrl,
+      })),
+    });
+    return () => clearJsonLd("evaluations-list");
+  }, [lang, pagedRenderList, selectedEvaluation]);
 
   const isSelectedSingle = selectedEvaluation && 
     (selectedEvaluation.type === "single" || 
@@ -413,8 +426,8 @@ export default function EvaluationsSection({
           </p>
         </div>
       ) : (
-        <div className="flex flex-col gap-12 text-left animate-fade-in">
-          {renderList.map((block) => {
+        <div className="space-y-12 text-left animate-fade-in">
+          {pagedRenderList.map((block) => {
             if (block.type === "multi") {
               const { evaluation, products, reviewBadge } = block;
               const tEv = lang === "zh" ? evaluation.zh : evaluation.en;
@@ -525,6 +538,28 @@ export default function EvaluationsSection({
               </div>
             );
           })}
+
+          {totalPages > 1 && (
+            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+              <button
+                onClick={() => onPageChange?.(Math.max(1, safePage - 1))}
+                disabled={safePage <= 1}
+                className="px-4 py-2 rounded-2xl border border-slate-200 bg-white text-slate-600 font-black text-xs disabled:opacity-40"
+              >
+                {lang === "en" ? "Previous" : "上一页"}
+              </button>
+              <span className="text-xs font-black text-slate-400">
+                {safePage} / {totalPages}
+              </span>
+              <button
+                onClick={() => onPageChange?.(Math.min(totalPages, safePage + 1))}
+                disabled={safePage >= totalPages}
+                className="px-4 py-2 rounded-2xl border border-slate-200 bg-white text-slate-600 font-black text-xs disabled:opacity-40"
+              >
+                {lang === "en" ? "Next" : "下一页"}
+              </button>
+            </div>
+          )}
         </div>
       )}
 
