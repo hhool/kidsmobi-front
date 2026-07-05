@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { 
   X, 
   ArrowLeft, 
@@ -99,6 +99,30 @@ export default function DetailedProductView({
   React.useEffect(() => {
     setActiveMediaTab("gallery");
   }, [product.id]);
+
+  const getCategoryPriority = (categoryValue?: string) => {
+    const normalized = String(categoryValue || "").trim().toLowerCase();
+    if (normalized.includes("stroller")) return 0;
+    if (normalized.includes("balance")) return 1;
+    return 2;
+  };
+
+  const compareCandidates = useMemo(() => {
+    return allProducts
+      .filter((p) => p.id !== product.id)
+      .sort((a, b) => {
+        const sameCategoryDelta = Number(b.category === product.category) - Number(a.category === product.category);
+        if (sameCategoryDelta !== 0) {
+          return sameCategoryDelta;
+        }
+        const priorityDelta = getCategoryPriority(a.category) - getCategoryPriority(b.category);
+        if (priorityDelta !== 0) {
+          return priorityDelta;
+        }
+        return (b.overallScore || 0) - (a.overallScore || 0);
+      })
+      .slice(0, 20);
+  }, [allProducts, product.id, product.category]);
   
   // Function to extract 5-dimension scores
   const getProductScores = (p: Product) => {
@@ -323,7 +347,7 @@ export default function DetailedProductView({
                     className="bg-slate-50 border border-slate-100 rounded-xl text-[10px] font-black uppercase px-4 py-2 cursor-pointer focus:ring-2 focus:ring-orange-500/20"
                   >
                     <option value="">{lang === "en" ? "Compare With..." : "选择对比型号..."}</option>
-                    {allProducts.filter(p => p.id !== product.id && p.category === product.category).map(p => {
+                    {compareCandidates.map(p => {
                       const dp = translateProduct(p, lang);
                       return <option key={p.id} value={p.id}>{dp.brand} {dp.name}</option>;
                     })}
