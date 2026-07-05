@@ -435,7 +435,7 @@ export default function GuidesSection({
             </h2>
             <p className="text-sm text-slate-500 font-medium">
               {lang === "en" 
-                ? "Use real child measurements to match travel stroller, jogging stroller, and family stroller options safely." 
+                ? "Use real child measurements for how to choose a baby stroller, matching travel stroller, jogging stroller, double stroller, and twin stroller options safely." 
                 : "输入宝宝的身高体重，我们将通过科学算法为您匹配最合适的轮径与型号。"}
             </p>
           </div>

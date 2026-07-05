@@ -281,7 +281,7 @@ export default function HomeSection({
           <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed font-medium">
             {lang === "zh" 
               ? "KIDSMOBI 是全球领先的高端童车垂直评测平台，通过力学公式与数千小时的实测，协助家长完成每一个理性的消费决策。"
-              : "KIDSMOBI helps families choose the best stroller, jogging stroller, and travel stroller through objective engineering-led evaluations."}
+              : "KIDSMOBI helps families choose the best stroller, jogging stroller, double stroller, and twin stroller with objective engineering-led methods for how to choose a baby stroller."}
           </p>
           <div className="flex flex-wrap justify-center gap-4 pt-4">
             <button 

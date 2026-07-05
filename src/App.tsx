@@ -42,7 +42,7 @@ import { productsData as defaultProductsData } from "./data/modelsData";
 import { guideArticles } from "./data/guidesData";
 import { newsArticles } from "./data/newsData";
 import { initialEvaluationsData } from "./data/evaluationsData";
-import { ChildProfile, Product, ChatMessage, CMSSettings, SEOConfig, Evaluation } from "./types";
+import { ChildProfile, Product, ChatMessage, CMSSettings, SEOConfig, Evaluation, CMSPageConfig } from "./types";
 
 // Import translations
 import { translations, translateProduct, translateNewsArticle, translateGuideArticle, countries, getCurrencyData } from "./lib/translate";
@@ -75,9 +75,9 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
       keywords: ["童车评测", "平衡车推荐", "安全座椅测评", "智能选车向导", "KIDSMOBI", "儿童滑板车评测"]
     },
     en: {
-      title: "Best Stroller & Jogging Stroller Guide Hub | KIDSMOBI",
-      description: "KIDSMOBI helps families choose a stroller, jogging stroller, travel stroller, and double stroller with objective safety reviews, fit guidance, and test-backed buying decisions.",
-      keywords: ["stroller", "jogging stroller", "how to choose a baby stroller", "best travel stroller", "double stroller stroller", "stroller travel stroller", "twin stroller", "triple stroller", "wagon and stroller", "KIDSMOBI"]
+      title: "Best Stroller, Jogging Stroller, Double & Twin Stroller Guide | KIDSMOBI",
+      description: "KIDSMOBI helps families choose a stroller, jogging stroller, double stroller, and twin stroller with objective safety reviews, fit guidance, and test-backed how to choose a baby stroller methods.",
+      keywords: ["stroller", "jogging stroller", "jogging stroller stroller", "how to choose a baby stroller", "best travel stroller", "double stroller", "double stroller stroller", "stroller travel stroller", "twin stroller", "triple stroller", "wagon and stroller", "KIDSMOBI"]
     }
   },
   news: {
@@ -87,9 +87,9 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
       keywords: ["童车行业动态", "童车安全标准", "童车召回警示", "设计趋势"]
     },
     en: {
-      title: "Stroller Safety News & Jogging Stroller Standards | KIDSMOBI",
-      description: "Track stroller safety alerts, jogging stroller compliance updates, and global regulation changes to make safer stroller and travel stroller decisions.",
-      keywords: ["stroller", "jogging stroller", "stroller standards", "best travel stroller", "stroller travel stroller", "double stroller stroller", "twin stroller", "wagon and stroller"]
+      title: "Stroller & Jogging Stroller Safety News | Double & Twin Stroller Updates",
+      description: "Track stroller and jogging stroller safety alerts, plus double stroller and twin stroller compliance updates to make safer travel stroller decisions.",
+      keywords: ["stroller", "jogging stroller", "jogging stroller stroller", "stroller standards", "best travel stroller", "double stroller", "double stroller stroller", "stroller travel stroller", "twin stroller", "wagon and stroller"]
     }
   },
   products: {
@@ -99,9 +99,9 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
       keywords: ["童车参数对比", "平衡车挑选数据库", "童车重量对比", "几何重心分析"]
     },
     en: {
-      title: "Stroller, Jogging Stroller & Travel Stroller Specs | KIDSMOBI",
-      description: "Compare stroller and jogging stroller specifications, weight, braking, foldability, and fit. Quickly filter best travel stroller, double stroller, twin stroller, and wagon and stroller options.",
-      keywords: ["stroller", "jogging stroller", "best travel stroller", "stroller travel stroller", "double stroller stroller", "twin stroller", "triple stroller", "wagon and stroller"]
+      title: "Stroller, Jogging, Double & Twin Stroller Specs | KIDSMOBI",
+      description: "Compare stroller, jogging stroller, double stroller, and twin stroller specifications across weight, braking, foldability, and fit. Quickly filter best travel stroller options.",
+      keywords: ["stroller", "jogging stroller", "jogging stroller stroller", "best travel stroller", "double stroller", "double stroller stroller", "stroller travel stroller", "twin stroller", "triple stroller", "wagon and stroller"]
     }
   },
   evaluations: {
@@ -111,9 +111,9 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
       keywords: ["工程师评测报告", "机械载重量测试", "滑行顺畅度实测", "童车优缺点分析"]
     },
     en: {
-      title: "Stroller & Jogging Stroller Lab Reviews | KIDSMOBI",
-      description: "Read lab-grade stroller and jogging stroller reviews with structural stress tests, safety metrics, and practical guidance for travel stroller and double stroller choices.",
-      keywords: ["stroller", "jogging stroller", "stroller lab test", "best travel stroller", "double stroller stroller", "stroller travel stroller", "twin stroller"]
+      title: "Stroller, Jogging, Double & Twin Stroller Lab Reviews | KIDSMOBI",
+      description: "Read lab-grade stroller and jogging stroller reviews with structural stress tests, plus double stroller and twin stroller safety comparisons for practical travel stroller decisions.",
+      keywords: ["stroller", "jogging stroller", "jogging stroller stroller", "stroller lab test", "best travel stroller", "double stroller", "double stroller stroller", "stroller travel stroller", "twin stroller"]
     }
   },
   guides: {
@@ -123,9 +123,9 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
       keywords: ["选型指南", "避坑指南", "跨步长计算器", "车架黄金比例"]
     },
     en: {
-      title: "How to Choose a Baby Stroller & Jogging Stroller | KIDSMOBI",
-      description: "Follow practical stroller buying guides for how to choose a baby stroller, best travel stroller picks, jogging stroller fit checks, and family-ready double stroller planning.",
-      keywords: ["how to choose a baby stroller", "stroller", "jogging stroller", "best travel stroller", "stroller travel stroller", "double stroller stroller", "wagon and stroller"]
+      title: "How to Choose a Baby Stroller | Jogging, Double & Twin Guide",
+      description: "Follow practical stroller buying guides for how to choose a baby stroller, jogging stroller fit checks, best travel stroller picks, and family-ready double stroller and twin stroller planning.",
+      keywords: ["how to choose a baby stroller", "stroller", "jogging stroller", "jogging stroller stroller", "best travel stroller", "double stroller", "double stroller stroller", "stroller travel stroller", "twin stroller", "wagon and stroller"]
     }
   },
   about: {
@@ -135,9 +135,9 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
       keywords: ["关于KIDSMOBI", "实验室愿景", "评测中立性声明", "团队核心成员"]
     },
     en: {
-      title: "About KIDSMOBI | Stroller & Jogging Stroller Safety Lab",
-      description: "Learn how KIDSMOBI audits stroller and jogging stroller safety with independent methods, transparent standards, and family-focused evaluation principles.",
-      keywords: ["stroller", "jogging stroller", "stroller safety lab", "how to choose a baby stroller", "KIDSMOBI team"]
+      title: "About KIDSMOBI | Stroller, Jogging, Double & Twin Safety Lab",
+      description: "Learn how KIDSMOBI audits stroller, jogging stroller, double stroller, and twin stroller safety with independent methods and transparent family-focused evaluation standards.",
+      keywords: ["stroller", "jogging stroller", "jogging stroller stroller", "double stroller", "double stroller stroller", "twin stroller", "stroller safety lab", "how to choose a baby stroller", "KIDSMOBI team"]
     }
   }
 };
@@ -163,8 +163,10 @@ const DEFAULT_CMS_PAGE_BLUEPRINT: Record<string, CMSPageConfig> = {
 const PRIORITY_SEO_KEYWORDS_EN = [
   "stroller",
   "jogging stroller",
+  "jogging stroller stroller",
   "how to choose a baby stroller",
   "best travel stroller",
+  "double stroller",
   "double stroller stroller",
   "stroller travel stroller",
   "twin stroller",

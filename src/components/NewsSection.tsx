@@ -304,7 +304,7 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
               </h2>
               <p className="text-sm text-slate-500 font-medium">
                 {lang === "en" 
-                    ? "Track stroller standards, jogging stroller safety alerts, and travel stroller market trends." 
+                  ? "Track stroller standards, jogging stroller safety alerts, plus double stroller and twin stroller market and compliance trends." 
                     : "专注同步全球安全召回、产业动态，以及最硬核的一线科普。"}
               </p>
           </div>

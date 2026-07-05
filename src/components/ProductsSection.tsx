@@ -318,7 +318,7 @@ export default function ProductsSection({
         </h2>
         <p className="text-sm text-slate-500 font-medium">
           {lang === "en" 
-            ? "Compare stroller, jogging stroller, travel stroller, and double stroller options with test-backed safety metrics." 
+            ? "Compare stroller, jogging stroller, travel stroller, double stroller, and twin stroller options with test-backed safety metrics and how to choose a baby stroller guidance." 
             : "每一款入库产品都经过专人实测，只为给宝宝选择最合适的那一辆。"}
         </p>
         {seoKeywordHints.length > 0 && (

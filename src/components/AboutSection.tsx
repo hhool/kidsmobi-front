@@ -34,7 +34,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
               <span className="text-orange-500">& Jogging Stroller Evaluation Platform</span>
             </h2>
             <p className="text-slate-500 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-medium">
-              We align with the world's most rigorous pediatric frameworks to solve one simple question:
+              We align with the world's most rigorous pediatric frameworks for stroller, jogging stroller, double stroller, and twin stroller safety to solve one simple question:
               <span className="text-slate-900 font-bold block"> "Is this design truly safe for your child's growth and healthy riding?"</span>
             </p>
           </div>

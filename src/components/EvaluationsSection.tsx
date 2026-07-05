@@ -364,7 +364,7 @@ export default function EvaluationsSection({
         </h2>
         <p className="text-slate-500 text-lg font-medium leading-relaxed">
           {lang === "en" 
-            ? "Get objective stroller, jogging stroller, and travel stroller test data for safer buying decisions." 
+            ? "Get objective stroller, jogging stroller, double stroller, and twin stroller test data for safer travel stroller buying decisions." 
             : "KIDSMOBI 通过匿名采购、工业级精密设备及儿科工效学评估，为您呈现每一款童车背后的真实物理数据。"}
         </p>
         {seoKeywordHints.length > 0 && (
