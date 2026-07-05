@@ -403,6 +403,11 @@ export default function GuidesSection({
 
   return (
     <div id="guides_container" className="space-y-8 animate-fade-in text-left">
+      <h1 className="sr-only">
+        {lang === "en"
+          ? "How to Choose a Baby Stroller and Jogging Stroller Guides"
+          : "如何选择 stroller 与 jogging stroller 指南"}
+      </h1>
       
       {/* Breadcrumbs (PRD 4.4.2) */}
       <Breadcrumbs 
@@ -424,13 +429,13 @@ export default function GuidesSection({
             <span className="px-3 py-1 bg-orange-100 text-orange-600 text-[10px] font-black rounded-full uppercase tracking-widest border border-orange-200 inline-block">
               {lang === "en" ? "Smart Wizard" : "智能选车助手"}
             </span>
-            <h3 className="text-2xl font-black text-slate-900 flex items-center gap-2">
+            <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
               <Calculator className="w-6 h-6 text-orange-500" />
-              {lang === "en" ? "Find the Perfect Match" : "帮宝宝选出真爱座驾"}
-            </h3>
+              {lang === "en" ? "How to Choose a Baby Stroller & Jogging Stroller" : "帮宝宝选出真爱座驾"}
+            </h2>
             <p className="text-sm text-slate-500 font-medium">
               {lang === "en" 
-                ? "Enter your child's measurements to find the safest, most comfortable ride." 
+                ? "Use real child measurements to match travel stroller, jogging stroller, and family stroller options safely." 
                 : "输入宝宝的身高体重，我们将通过科学算法为您匹配最合适的轮径与型号。"}
             </p>
           </div>

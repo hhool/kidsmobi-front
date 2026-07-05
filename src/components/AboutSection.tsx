@@ -12,6 +12,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
   if (isEn) {
     return (
       <div id="about_main" className="space-y-8 animate-fade-in text-left">
+        <h1 className="sr-only">Stroller and Jogging Stroller Safety Lab</h1>
         
         {/* Breadcrumbs (PRD 4.6.2) */}
         <Breadcrumbs 
@@ -29,8 +30,8 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
               ESTABLISHED IN 2026 · Independent Premium Platform
             </span>
             <h2 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-              KIDSMOBI · High-end Vertical <br />
-              <span className="text-orange-500">Evaluation Platform</span>
+              KIDSMOBI · Stroller Safety <br />
+              <span className="text-orange-500">& Jogging Stroller Evaluation Platform</span>
             </h2>
             <p className="text-slate-500 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-medium">
               We align with the world's most rigorous pediatric frameworks to solve one simple question:
@@ -193,6 +194,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
 
   return (
     <div id="about_main" className="space-y-8 animate-fade-in text-left">
+      <h1 className="sr-only">stroller 与 jogging stroller 安全实验室</h1>
       
     {/* Breadcrumbs (PRD 4.6.2) */}
     <Breadcrumbs 

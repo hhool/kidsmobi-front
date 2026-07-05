@@ -293,6 +293,11 @@ export default function ProductsSection({
 
   return (
     <div id="product_library" className="space-y-8 animate-fade-in text-left">
+      <h1 className="sr-only">
+        {lang === "en"
+          ? "Stroller, Jogging Stroller, and Travel Stroller Product Database"
+          : "stroller 与 jogging stroller 产品数据库"}
+      </h1>
       
       {/* Breadcrumbs (PRD 4.2.2) */}
       <Breadcrumbs 
@@ -309,11 +314,11 @@ export default function ProductsSection({
           </div>
         </div>
         <h2 className="text-3xl font-black text-slate-900">
-          {lang === "en" ? "Explore the Best Rides" : "好车发现大厅"}
+          {lang === "en" ? "Best Stroller & Jogging Stroller Discovery Hub" : "好车发现大厅"}
         </h2>
         <p className="text-sm text-slate-500 font-medium">
           {lang === "en" 
-            ? "We've hand-picked and tested the safest models for your little one." 
+            ? "Compare stroller, jogging stroller, travel stroller, and double stroller options with test-backed safety metrics." 
             : "每一款入库产品都经过专人实测，只为给宝宝选择最合适的那一辆。"}
         </p>
         {seoKeywordHints.length > 0 && (

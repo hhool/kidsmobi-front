@@ -260,6 +260,11 @@ export default function HomeSection({
 
   return (
     <div id="home_layout" className="space-y-24 pb-20">
+      <h1 className="sr-only">
+        {lang === "zh"
+          ? "stroller 与 jogging stroller 科学选购与安全评测平台"
+          : "Stroller and Jogging Stroller Buying & Safety Review Platform"}
+      </h1>
       
       {/* 1. Slogan Banner (Brand Identity) */}
       <section className="relative rounded-[48px] bg-slate-900 overflow-hidden p-10 sm:p-20 text-center max-w-7xl mx-auto shadow-2xl">
@@ -270,13 +275,13 @@ export default function HomeSection({
             {lang === "zh" ? "全链路安全实验室审计" : "END-TO-END SAFETY AUDIT"}
           </div>
           <h2 className="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
-            {lang === "zh" ? "客观科学评测" : "Objective & Scientific Reviews,"} <br />
+            {lang === "zh" ? "客观科学评测" : "Stroller & Jogging Stroller Reviews,"} <br />
             <span className="text-orange-500">{lang === "zh" ? "您的信心之选" : "Your Confident Choice"}</span>
           </h2>
           <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed font-medium">
             {lang === "zh" 
               ? "KIDSMOBI 是全球领先的高端童车垂直评测平台，通过力学公式与数千小时的实测，协助家长完成每一个理性的消费决策。"
-              : "KIDSMOBI is a global leading evaluation platform for premium kids mobility. We help parents make rational decisions through mechanical physics."}
+              : "KIDSMOBI helps families choose the best stroller, jogging stroller, and travel stroller through objective engineering-led evaluations."}
           </p>
           <div className="flex flex-wrap justify-center gap-4 pt-4">
             <button 

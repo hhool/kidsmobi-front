@@ -172,6 +172,11 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
 
   return (
     <div id="news_hub" className="space-y-8 animate-fade-in text-left">
+      <h1 className="sr-only">
+        {lang === "en"
+          ? "Stroller and Jogging Stroller Industry News"
+          : "stroller 与 jogging stroller 行业资讯"}
+      </h1>
       
       {/* Breadcrumbs (PRD 4.5.2) */}
       <Breadcrumbs 
@@ -295,11 +300,11 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
                 </div>
               </div>
               <h2 className="text-3xl font-black text-slate-900">
-                {lang === "en" ? "Global Kids Bike Insights" : "全球童车资讯库"}
+                {lang === "en" ? "Global Stroller & Jogging Stroller Insights" : "全球童车资讯库"}
               </h2>
               <p className="text-sm text-slate-500 font-medium">
                 {lang === "en" 
-                    ? "Synchronized with international safety alerts and professional industry trends." 
+                    ? "Track stroller standards, jogging stroller safety alerts, and travel stroller market trends." 
                     : "专注同步全球安全召回、产业动态，以及最硬核的一线科普。"}
               </p>
           </div>

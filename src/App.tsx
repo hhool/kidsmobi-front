@@ -75,9 +75,9 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
       keywords: ["童车评测", "平衡车推荐", "安全座椅测评", "智能选车向导", "KIDSMOBI", "儿童滑板车评测"]
     },
     en: {
-      title: "KIDSMOBI | Next-Gen Premium Kids Mobility Evaluation & Decision Hub",
-      description: "KIDSMOBI delivers objective review and structural safety audits for kids strollers, bicycles, and balance bikes. Choose with absolute confidence based on engineering dynamics and real tests.",
-      keywords: ["kids mobility", "balance bike reviews", "car seat reviews", "stroller evaluation", "KIDSMOBI"]
+      title: "Best Stroller & Jogging Stroller Guide Hub | KIDSMOBI",
+      description: "KIDSMOBI helps families choose a stroller, jogging stroller, travel stroller, and double stroller with objective safety reviews, fit guidance, and test-backed buying decisions.",
+      keywords: ["stroller", "jogging stroller", "how to choose a baby stroller", "best travel stroller", "double stroller stroller", "stroller travel stroller", "twin stroller", "triple stroller", "wagon and stroller", "KIDSMOBI"]
     }
   },
   news: {
@@ -87,9 +87,9 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
       keywords: ["童车行业动态", "童车安全标准", "童车召回警示", "设计趋势"]
     },
     en: {
-      title: "Industry Trends & Safety Regulation Audits | KIDSMOBI News",
-      description: "Stay ahead with global updates on product safety regulations, EU/US testing thresholds, and premium kids brand innovations. Verified by KIDSMOBI safety analysts.",
-      keywords: ["mobility news", "safety policies", "stroller standards", "brand updates"]
+      title: "Stroller Safety News & Jogging Stroller Standards | KIDSMOBI",
+      description: "Track stroller safety alerts, jogging stroller compliance updates, and global regulation changes to make safer stroller and travel stroller decisions.",
+      keywords: ["stroller", "jogging stroller", "stroller standards", "best travel stroller", "stroller travel stroller", "double stroller stroller", "twin stroller", "wagon and stroller"]
     }
   },
   products: {
@@ -99,9 +99,9 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
       keywords: ["童车参数对比", "平衡车挑选数据库", "童车重量对比", "几何重心分析"]
     },
     en: {
-      title: "Comprehensive Kids Bike & Stroller Specification Matrix | KIDSMOBI Products",
-      description: "Compare weight limits, brake efficiency metrics, framework materials, and dynamic posture indexes. Easily filter perfect products for your child.",
-      keywords: ["bike parameters", "matrix compare", "stroller specifications", "mobility filters"]
+      title: "Stroller, Jogging Stroller & Travel Stroller Specs | KIDSMOBI",
+      description: "Compare stroller and jogging stroller specifications, weight, braking, foldability, and fit. Quickly filter best travel stroller, double stroller, twin stroller, and wagon and stroller options.",
+      keywords: ["stroller", "jogging stroller", "best travel stroller", "stroller travel stroller", "double stroller stroller", "twin stroller", "triple stroller", "wagon and stroller"]
     }
   },
   evaluations: {
@@ -111,9 +111,9 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
       keywords: ["工程师评测报告", "机械载重量测试", "滑行顺畅度实测", "童车优缺点分析"]
     },
     en: {
-      title: "In-Depth Laboratory Evaluation Reports | KIDSMOBI Safety Audits",
-      description: "Explore meticulous engineering test results showing structural stress, mechanical resilience, and ergonomic safety factors evaluated by experts.",
-      keywords: ["stroller lab test", "professional evaluations", "biomechanical test", "stress analytics"]
+      title: "Stroller & Jogging Stroller Lab Reviews | KIDSMOBI",
+      description: "Read lab-grade stroller and jogging stroller reviews with structural stress tests, safety metrics, and practical guidance for travel stroller and double stroller choices.",
+      keywords: ["stroller", "jogging stroller", "stroller lab test", "best travel stroller", "double stroller stroller", "stroller travel stroller", "twin stroller"]
     }
   },
   guides: {
@@ -123,9 +123,9 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
       keywords: ["选型指南", "避坑指南", "跨步长计算器", "车架黄金比例"]
     },
     en: {
-      title: "Interactive Buying Guides & Safe Shopping Checklists | KIDSMOBI Wizard",
-      description: "Determine perfect saddle heights using advanced inseam formulas. Prevent typical hazards like fork over-rotation and high carbon-steel limits.",
-      keywords: ["buying checklist", "size calculation", "hazard prevention", "mobility guides"]
+      title: "How to Choose a Baby Stroller & Jogging Stroller | KIDSMOBI",
+      description: "Follow practical stroller buying guides for how to choose a baby stroller, best travel stroller picks, jogging stroller fit checks, and family-ready double stroller planning.",
+      keywords: ["how to choose a baby stroller", "stroller", "jogging stroller", "best travel stroller", "stroller travel stroller", "double stroller stroller", "wagon and stroller"]
     }
   },
   about: {
@@ -135,11 +135,48 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
       keywords: ["关于KIDSMOBI", "实验室愿景", "评测中立性声明", "团队核心成员"]
     },
     en: {
-      title: "About KIDSMOBI Safety Lab | Objective Research, Uncompromised Protection",
-      description: "Discover our mission statement, precise test rigging configurations, and transparent rating principles. Built to guard every child's sliding journey.",
-      keywords: ["about us", "KIDSMOBI team", "unbiased review pledge", "safety lab gear"]
+      title: "About KIDSMOBI | Stroller & Jogging Stroller Safety Lab",
+      description: "Learn how KIDSMOBI audits stroller and jogging stroller safety with independent methods, transparent standards, and family-focused evaluation principles.",
+      keywords: ["stroller", "jogging stroller", "stroller safety lab", "how to choose a baby stroller", "KIDSMOBI team"]
     }
   }
+};
+
+const SEO_KEY_TO_PAGE_TYPE: Record<string, CMSPageConfig["pageType"]> = {
+  home: "home",
+  products: "products_index",
+  evaluations: "reviews_index",
+  guides: "guides_index",
+  news: "news_index",
+  about: "about",
+};
+
+const DEFAULT_CMS_PAGE_BLUEPRINT: Record<string, CMSPageConfig> = {
+  home: { pageType: "home", pageSlug: "home", pageIndex: 1, paginationPolicy: "none", indexingPolicy: "index", status: "published" },
+  products: { pageType: "products_index", pageSlug: "products", pageIndex: 1, paginationPolicy: "page_path", indexingPolicy: "index", status: "published" },
+  evaluations: { pageType: "reviews_index", pageSlug: "reviews", pageIndex: 1, paginationPolicy: "page_path", indexingPolicy: "index", status: "published" },
+  guides: { pageType: "guides_index", pageSlug: "guides", pageIndex: 1, paginationPolicy: "page_path", indexingPolicy: "index", status: "published" },
+  news: { pageType: "news_index", pageSlug: "news", pageIndex: 1, paginationPolicy: "page_path", indexingPolicy: "index", status: "published" },
+  about: { pageType: "about", pageSlug: "about", pageIndex: 1, paginationPolicy: "none", indexingPolicy: "index", status: "published" },
+};
+
+const PRIORITY_SEO_KEYWORDS_EN = [
+  "stroller",
+  "jogging stroller",
+  "how to choose a baby stroller",
+  "best travel stroller",
+  "double stroller stroller",
+  "stroller travel stroller",
+  "twin stroller",
+  "triple stroller",
+  "wagon and stroller",
+];
+
+const mergePrioritySeoKeywords = (keywords: string[], lang: "zh" | "en") => {
+  if (lang === "en") {
+    return Array.from(new Set([...PRIORITY_SEO_KEYWORDS_EN, ...keywords]));
+  }
+  return Array.from(new Set(["stroller", "jogging stroller", ...keywords]));
 };
 
 const PRODUCT_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
@@ -182,6 +219,29 @@ const normalizePathname = (pathname: string) => {
 const normalizeCanonicalPath = (path: string) => {
   const normalized = normalizePathname(path || "/");
   return normalized.startsWith("/") ? normalized : `/${normalized}`;
+};
+
+const buildCanonicalPathFromPageConfig = (
+  pageConfig: CMSPageConfig | undefined,
+  fallbackPath: string,
+  activePage: number,
+) => {
+  if (pageConfig?.canonicalPath) {
+    return normalizeCanonicalPath(pageConfig.canonicalPath);
+  }
+
+  const slug = String(pageConfig?.pageSlug || "").trim();
+  if (!slug || slug === "home") {
+    return normalizeCanonicalPath(fallbackPath || "/");
+  }
+
+  const normalizedSlug = slug.replace(/^\/+|\/+$/g, "");
+  const page = Math.max(1, activePage || 1);
+  if (pageConfig?.paginationPolicy === "page_path" && page > 1) {
+    return `/${normalizedSlug}/page/${page}`;
+  }
+
+  return `/${normalizedSlug}`;
 };
 
 const isSearchOrAuthPath = (path: string) => {
@@ -840,18 +900,44 @@ export default function App() {
     }
   };
 
+  const resolveCmsPageConfigForRoute = (seoKey: string) => {
+    const pageType = SEO_KEY_TO_PAGE_TYPE[seoKey];
+    const configuredPages = Object.values(cmsSettings?.pages || {}).filter(Boolean) as CMSPageConfig[];
+    const publishedPages = configuredPages.filter((item) => !item.status || item.status === "published");
+    const candidatePool = publishedPages.length > 0 ? publishedPages : configuredPages;
+
+    const matchedByType = candidatePool.filter((item) => item.pageType === pageType);
+    const matchedBySlug = candidatePool.filter((item) => item.pageSlug === seoKey);
+    const matched = [...matchedByType, ...matchedBySlug];
+
+    if (matched.length === 0) {
+      return DEFAULT_CMS_PAGE_BLUEPRINT[seoKey] || DEFAULT_CMS_PAGE_BLUEPRINT.home;
+    }
+
+    const currentIndex = Math.max(1, activePageIndex || 1);
+    const exact = matched.find((item) => Number(item.pageIndex || 1) === currentIndex);
+    if (exact) {
+      return exact;
+    }
+
+    const firstPage = matched.find((item) => Number(item.pageIndex || 1) === 1);
+    return firstPage || matched[0];
+  };
+
   const resolveCmsRouteSeoConfig = (seoKey: string) => {
-    const pageSeo = cmsSettings?.pages?.[seoKey]?.seo?.[lang];
+    const pageConfig = resolveCmsPageConfigForRoute(seoKey);
+    const pageSeo = pageConfig?.seo?.[lang];
     if (pageSeo) {
-      return pageSeo;
+      return { seo: pageSeo, pageConfig };
     }
 
     const routeSeo = cmsSettings?.seo?.[seoKey]?.[lang];
     if (routeSeo) {
-      return routeSeo;
+      return { seo: routeSeo, pageConfig };
     }
 
-    return DEFAULT_SEO_CONFIGS[seoKey]?.[lang] || DEFAULT_SEO_CONFIGS.home[lang];
+    const fallbackSeo = DEFAULT_SEO_CONFIGS[seoKey]?.[lang] || DEFAULT_SEO_CONFIGS.home[lang];
+    return { seo: fallbackSeo, pageConfig };
   };
 
   // Dynamic SEO Page Meta Configuration (Title, Keywords, Description)
@@ -934,7 +1020,7 @@ export default function App() {
       seoKey = "home";
     }
 
-    const resolvedSEO = resolveCmsRouteSeoConfig(seoKey);
+    const { seo: resolvedSEO, pageConfig } = resolveCmsRouteSeoConfig(seoKey);
     let titleStr = resolvedSEO.title;
     let descStr = resolvedSEO.description;
     let keywordsArr = resolvedSEO.keywords;
@@ -967,6 +1053,8 @@ export default function App() {
         : `Explore ${selectedReview} lab reports spanning safety, durability, and ergonomics benchmarks.`;
       keywordsArr = Array.from(new Set([...keywordsArr, selectedReview, ...getReviewSeoKeywords(activeReviewType, lang)]));
     }
+
+    keywordsArr = mergePrioritySeoKeywords(keywordsArr, lang);
 
     // 3. Set values
     const resolvePaginationTotalPages = (): number | null => {
@@ -1002,13 +1090,20 @@ export default function App() {
     document.title = titleStr;
     updateMetaTag("description", descStr);
     updateMetaTag("keywords", keywordsArr.join(", "));
-    const canonicalPath = normalizeCanonicalPath(currentPath);
+    const canonicalPath = buildCanonicalPathFromPageConfig(pageConfig, currentPath, activePageIndex);
     const totalPages = resolvePaginationTotalPages();
     const isOutOfRangePagination = totalPages !== null && activePageIndex > totalPages;
-    const noIndex = shouldNoIndexCurrentPath(canonicalPath, window.location.search) || isOutOfRangePagination;
+    const noIndex =
+      shouldNoIndexCurrentPath(canonicalPath, window.location.search) ||
+      isOutOfRangePagination ||
+      pageConfig?.indexingPolicy === "noindex";
     updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : "index,follow,max-image-preview:large");
 
-    const canonicalUrl = `${window.location.origin}${canonicalPath}`;
+    const canonicalOrigin =
+      (cmsSettings as any)?.siteOrigin ||
+      (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+      window.location.origin;
+    const canonicalUrl = `${canonicalOrigin}${canonicalPath}`;
     updateCanonicalLink(canonicalUrl);
     updateMetaProperty("og:url", canonicalUrl);
     updateMetaProperty("og:type", "website");

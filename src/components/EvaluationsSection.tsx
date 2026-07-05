@@ -336,6 +336,11 @@ export default function EvaluationsSection({
 
   return (
     <div id="evaluations_hub" className="space-y-8 animate-fade-in text-left">
+      <h1 className="sr-only">
+        {lang === "en"
+          ? "Stroller and Jogging Stroller Evaluation Reports"
+          : "stroller 与 jogging stroller 实验室评测报告"}
+      </h1>
       
       {/* Breadcrumbs (PRD 4.3.2) */}
       <Breadcrumbs 
@@ -352,14 +357,14 @@ export default function EvaluationsSection({
         </div>
         <h2 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
           {lang === "en" ? (
-            <>Objective Science, Parental Confidence</>
+            <>Stroller & Jogging Stroller Lab Reviews</>
           ) : (
             <>用严苛实测，重塑选购信心</>
           )}
         </h2>
         <p className="text-slate-500 text-lg font-medium leading-relaxed">
           {lang === "en" 
-            ? "We bypass marketing hype to deliver the absolute truth in kids' mobility performance." 
+            ? "Get objective stroller, jogging stroller, and travel stroller test data for safer buying decisions." 
             : "KIDSMOBI 通过匿名采购、工业级精密设备及儿科工效学评估，为您呈现每一款童车背后的真实物理数据。"}
         </p>
         {seoKeywordHints.length > 0 && (
