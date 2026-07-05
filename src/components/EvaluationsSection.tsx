@@ -269,8 +269,36 @@ export default function EvaluationsSection({
     });
   }, [reviewsList, selectedReviewType, searchQuery, lang]);
 
+  const getCategoryPriority = (categoryValue?: string) => {
+    const normalized = String(categoryValue || "").trim().toLowerCase();
+    if (normalized.includes("stroller")) return 0;
+    if (normalized.includes("balance")) return 1;
+    return 2;
+  };
+
+  const getEvaluationPriority = (ev: Evaluation) => {
+    const ids = (ev.productIds && ev.productIds.length > 0 ? ev.productIds : [ev.productId]).filter(Boolean);
+    if (ids.length === 0) return 2;
+    const priorities = ids
+      .map((id) => productsData.find((p) => p.id === id))
+      .filter(Boolean)
+      .map((p) => getCategoryPriority((p as Product).category));
+    return priorities.length > 0 ? Math.min(...priorities) : 2;
+  };
+
   const renderList = useMemo(() => {
-    return filteredReviews.map(r => {
+    const prioritizedReviews = [...filteredReviews].sort((a, b) => {
+      const pa = getEvaluationPriority(a.evaluation);
+      const pb = getEvaluationPriority(b.evaluation);
+      if (pa !== pb) {
+        return pa - pb;
+      }
+      const scoreA = a.evaluation.scores?.safety || 0;
+      const scoreB = b.evaluation.scores?.safety || 0;
+      return scoreB - scoreA;
+    });
+
+    return prioritizedReviews.map(r => {
       const isSingle = r.reviewType === "single" || r.reviewType === "safety" || r.reviewType === "durability" || r.reviewType === "ergonomics";
       if (isSingle) {
         const product = productsData.find(p => p.id === r.evaluation.productId);

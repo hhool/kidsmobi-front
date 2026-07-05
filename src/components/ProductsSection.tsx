@@ -193,6 +193,13 @@ export default function ProductsSection({
     return translateCategory(categoryCode, lang);
   };
 
+  const getCategoryPriority = (categoryId: string) => {
+    const normalized = String(categoryId || "").trim().toLowerCase();
+    if (normalized.includes("stroller")) return 0;
+    if (normalized.includes("balance")) return 1;
+    return 2;
+  };
+
   // Filtering and sorting math
   const filteredProducts = useMemo(() => {
     return productsData
@@ -228,10 +235,23 @@ export default function ProductsSection({
       .sort((a, b) => {
         const left = a.product;
         const right = b.product;
-        if (sortBy === "overallScore") return right.overallScore - left.overallScore;
-        if (sortBy === "weightAsc") return left.weight - right.weight;
-        if (sortBy === "priceDesc") return right.price - left.price;
-        if (sortBy === "priceAsc") return left.price - right.price;
+        const priorityDelta = getCategoryPriority(a.sourceCategoryId) - getCategoryPriority(b.sourceCategoryId);
+        if (sortBy === "overallScore") {
+          if (priorityDelta !== 0) return priorityDelta;
+          return right.overallScore - left.overallScore;
+        }
+        if (sortBy === "weightAsc") {
+          if (priorityDelta !== 0) return priorityDelta;
+          return left.weight - right.weight;
+        }
+        if (sortBy === "priceDesc") {
+          if (priorityDelta !== 0) return priorityDelta;
+          return right.price - left.price;
+        }
+        if (sortBy === "priceAsc") {
+          if (priorityDelta !== 0) return priorityDelta;
+          return left.price - right.price;
+        }
         return 0;
       });
   }, [selectedCategory, searchQuery, sortBy, selectedAge, selectedPrice, productsData, lang, backendCategoryNameMap]);
