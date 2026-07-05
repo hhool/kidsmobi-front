@@ -64,15 +64,24 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
     getCMSNews(true)
       .then((dbNews) => {
         if (dbNews && dbNews.length > 0) {
+          const pickLocalized = (item: any, zhValue: string | undefined, enValue: string | undefined, fallback = "") => {
+            const zh = String(zhValue || "").trim();
+            const en = String(enValue || "").trim();
+            if (lang === "en") {
+              return en || zh || fallback;
+            }
+            return zh || en || fallback;
+          };
+
           const mapped: NewsArticle[] = dbNews.map((n) => ({
             id: n.id,
-            title: n.zh?.title || n.en?.title || "",
+            title: pickLocalized(n, n.zh?.title, n.en?.title),
             category: n.category as any,
             categoryLabel: translateCategoryLabel(n.category),
-            summary: n.seo?.zh?.description || n.seo?.en?.description || "Kidsmobi 行业动态与科普报告。",
-            content: n.zh?.content || n.en?.content || "",
-            author: "Kidsmobi 全球安全实验室",
-            readTime: "5 分钟",
+            summary: pickLocalized(n, n.seo?.zh?.description, n.seo?.en?.description, lang === "en" ? "Kidsmobi industry updates and safety insights." : "Kidsmobi 行业动态与科普报告。"),
+            content: pickLocalized(n, n.zh?.content, n.en?.content),
+            author: lang === "en" ? "Kidsmobi Global Safety Lab" : "Kidsmobi 全球安全实验室",
+            readTime: lang === "en" ? "5 min read" : "5 分钟",
             publishDate: n.updatedAt && n.updatedAt.seconds
               ? new Date(n.updatedAt.seconds * 1000).toISOString().split("T")[0]
               : "2026-06-15",
@@ -104,7 +113,7 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
             setLoadingNews(false);
           });
       });
-  }, []);
+  }, [lang]);
 
   // Like counters holder
   const [likedList, setLikedList] = useState<string[]>([]);

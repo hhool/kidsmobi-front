@@ -173,15 +173,24 @@ export default function GuidesSection({
     getCMSGuides(true)
       .then((dbGuides) => {
         if (dbGuides && dbGuides.length > 0) {
+          const pickLocalized = (item: any, zhValue: string | undefined, enValue: string | undefined, fallback = "") => {
+            const zh = String(zhValue || "").trim();
+            const en = String(enValue || "").trim();
+            if (lang === "en") {
+              return en || zh || fallback;
+            }
+            return zh || en || fallback;
+          };
+
           const mapped: GuideArticle[] = dbGuides.map((g) => ({
             id: g.id,
-            title: g.zh?.title || g.en?.title || "",
+            title: pickLocalized(g, g.zh?.title, g.en?.title),
             category: g.category as any,
             categoryLabel: translateCategoryLabel(g.category),
-            summary: g.seo?.zh?.description || g.seo?.en?.description || "专业选购指南与安全研究报告。",
-            content: g.zh?.content || g.en?.content || "",
-            author: "Kidsmobi 专家组",
-            readTime: "8 分钟",
+            summary: pickLocalized(g, g.seo?.zh?.description, g.seo?.en?.description, lang === "en" ? "Professional buying guides and safety research insights." : "专业选购指南与安全研究报告。"),
+            content: pickLocalized(g, g.zh?.content, g.en?.content),
+            author: lang === "en" ? "Kidsmobi Expert Team" : "Kidsmobi 专家组",
+            readTime: lang === "en" ? "8 min read" : "8 分钟",
             publishDate: g.updatedAt && g.updatedAt.seconds
               ? new Date(g.updatedAt.seconds * 1000).toISOString().split("T")[0]
               : "2026-06-15"
@@ -212,7 +221,7 @@ export default function GuidesSection({
             setLoadingGuides(false);
           });
       });
-  }, []);
+  }, [lang]);
   
   // Accordion state
   const [openFaqId, setOpenFaqId] = useState<string | null>("faq_1");

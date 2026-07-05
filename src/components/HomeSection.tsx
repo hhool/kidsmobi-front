@@ -215,8 +215,33 @@ export default function HomeSection({
     }));
   }, [lang]);
 
+  const getCategoryPriority = (rawCategory?: string) => {
+    const normalized = normalizeCategory(rawCategory || "");
+    if (normalized.includes("stroller")) return 0;
+    if (normalized.includes("balance")) return 1;
+    return 2;
+  };
+
   // Outstanding Selection (high scores)
-  const topSelections = [...productsData].sort((a, b) => b.overallScore - a.overallScore).slice(0, 4);
+  const topSelections = [...productsData]
+    .sort((a, b) => {
+      const categoryDelta = getCategoryPriority(a.category) - getCategoryPriority(b.category);
+      if (categoryDelta !== 0) {
+        return categoryDelta;
+      }
+      return (b.overallScore || 0) - (a.overallScore || 0);
+    })
+    .slice(0, 4);
+
+  const prioritizedCategoryCards = useMemo(() => {
+    return [...scrapedCategoryCards].sort((a, b) => {
+      const delta = getCategoryPriority(a.id) - getCategoryPriority(b.id);
+      if (delta !== 0) {
+        return delta;
+      }
+      return b.itemCount - a.itemCount;
+    });
+  }, [scrapedCategoryCards]);
 
   const annualAwards = [
     { 
@@ -232,7 +257,7 @@ export default function HomeSection({
     { 
       type: "value", 
       label: lang === "zh" ? "年度性价比之选" : "Best Value Pick", 
-      winner: productsData.sort((a, b) => a.price - b.price)[0] 
+      winner: [...productsData].sort((a, b) => a.price - b.price)[0] 
     }
   ];
 
@@ -243,7 +268,7 @@ export default function HomeSection({
         name: translateProduct(product, lang).name,
         url: canonicalUrl,
       })),
-      ...scrapedCategoryCards.slice(0, 4).map((category) => ({
+      ...prioritizedCategoryCards.slice(0, 4).map((category) => ({
         name: category.label,
         url: canonicalUrl,
       })),
@@ -256,7 +281,7 @@ export default function HomeSection({
     });
 
     return () => clearJsonLd("home-list");
-  }, [lang, topSelections, scrapedCategoryCards]);
+  }, [lang, topSelections, prioritizedCategoryCards]);
 
   return (
     <div id="home_layout" className="space-y-24 pb-20">
@@ -438,7 +463,7 @@ export default function HomeSection({
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {scrapedCategoryCards.map((cat) => (
+          {prioritizedCategoryCards.map((cat) => (
             <div
               key={cat.id}
               className="group h-full min-h-90 bg-white border border-slate-100 rounded-4xl overflow-hidden hover:border-orange-500/30 hover:shadow-2xl hover:shadow-slate-300/40 transition-all flex flex-col"
