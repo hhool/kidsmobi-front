@@ -15,13 +15,14 @@ import {
   ArrowRight,
   Target
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Product, CurrencyData } from "../types";
 import { translations, translateProduct } from "../lib/translate";
 import MatchingWizard from "./MatchingWizard";
 import { SCRAPED_CATEGORY_CATALOG } from "../config/scrapedCategoryCatalog";
 import { PRODUCT_CATEGORY_SEO_KEYWORDS } from "../config/seoKeywordMap";
 import { resolveProductImages, FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
+import { clearJsonLd, setCollectionPageJsonLd } from "../lib/seoJsonLd";
 
 interface HomeSectionProps {
   onSelectProduct: (p: Product) => void;
@@ -220,6 +221,28 @@ export default function HomeSection({
       winner: productsData.sort((a, b) => a.price - b.price)[0] 
     }
   ];
+
+  useEffect(() => {
+    const canonicalUrl = window.location.origin + "/";
+    const homepageItems = [
+      ...topSelections.slice(0, 4).map((product) => ({
+        name: translateProduct(product, lang).name,
+        url: canonicalUrl,
+      })),
+      ...scrapedCategoryCards.slice(0, 4).map((category) => ({
+        name: category.label,
+        url: canonicalUrl,
+      })),
+    ];
+
+    setCollectionPageJsonLd("home-list", {
+      name: lang === "zh" ? "KIDSMOBI 首页" : "KIDSMOBI Home",
+      url: canonicalUrl,
+      items: homepageItems,
+    });
+
+    return () => clearJsonLd("home-list");
+  }, [lang, topSelections, scrapedCategoryCards]);
 
   return (
     <div id="home_layout" className="space-y-24 pb-20">

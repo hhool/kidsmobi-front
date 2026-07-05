@@ -3,6 +3,7 @@ import { Search, Calendar, User, Eye, BookOpen, Clock, ArrowLeft, Heart, Share2 
 import { NewsArticle, newsArticles as fallbackNewsArticles } from "../data/newsData";
 import { translateNewsArticle } from "../lib/translate";
 import { getCMSNews } from "../lib/cmsService";
+import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
 
 function translateCategoryLabel(cat: string): string {
   const labels: Record<string, string> = {
@@ -28,6 +29,40 @@ export default function NewsSection({ lang = "zh" }: NewsSectionProps) {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("date"); // 'date' | 'views'
+
+  useEffect(() => {
+    if (!selectedArticleState) {
+      clearJsonLd("news-detail");
+      const canonicalUrl = window.location.href;
+      setCollectionPageJsonLd("news-list", {
+        name: lang === "en" ? "Global Kids Bike Insights" : "全球童车资讯库",
+        url: canonicalUrl,
+        items: newsArticlesState.slice(0, 12).map((article) => ({
+          name: translateNewsArticle(article, lang).title,
+          url: canonicalUrl,
+        })),
+      });
+      return;
+    }
+
+    const article = translateNewsArticle(selectedArticleState, lang);
+    const canonicalUrl = window.location.href;
+    setJsonLd("news-detail", {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: article.title,
+      description: article.summary,
+      inLanguage: lang,
+      author: {
+        "@type": "Organization",
+        name: article.author || "KIDSMOBI",
+      },
+      mainEntityOfPage: canonicalUrl,
+      url: canonicalUrl,
+    });
+
+    return () => clearJsonLd("news-detail");
+  }, [selectedArticleState, lang, newsArticlesState]);
 
   useEffect(() => {
     setLoadingNews(true);
@@ -209,6 +244,8 @@ export default function NewsSection({ lang = "zh" }: NewsSectionProps) {
               <div className="flex gap-3">
                 <button
                   onClick={(e) => handleToggleLike(article.id, e)}
+                  aria-label={lang === "en" ? "Like article" : "点赞文章"}
+                  title={lang === "en" ? "Like article" : "点赞文章"}
                   className={`p-3 rounded-2xl border transition-all active:scale-95 ${
                     likedList.includes(article.id)
                       ? "bg-rose-50 border-rose-100 text-rose-500"
@@ -219,6 +256,8 @@ export default function NewsSection({ lang = "zh" }: NewsSectionProps) {
                 </button>
                 <button
                   onClick={(e) => handleShare(article.title, e)}
+                  aria-label={lang === "en" ? "Share article" : "分享文章"}
+                  title={lang === "en" ? "Share article" : "分享文章"}
                   className="p-3 bg-white border border-slate-100 text-slate-400 hover:text-orange-500 hover:border-orange-100 rounded-2xl transition-all active:scale-95"
                 >
                   <Share2 className="w-5 h-5" />
@@ -247,7 +286,7 @@ export default function NewsSection({ lang = "zh" }: NewsSectionProps) {
           </div>
 
           {/* Searching and Categorizing Tags */}
-          <div className="bg-white border border-slate-100 rounded-[32px] p-6 shadow-xl shadow-slate-200/50 space-y-6">
+          <div className="bg-white border border-slate-100 rounded-4xl p-6 shadow-xl shadow-slate-200/50 space-y-6">
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="relative flex-1">
                 <Search className="w-4 h-4 text-slate-400 absolute left-4 top-4" />
@@ -256,12 +295,16 @@ export default function NewsSection({ lang = "zh" }: NewsSectionProps) {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={lang === "en" ? "Search news keyword..." : "检索核心安全术语、合规标准、品牌动态..."}
+                  aria-label={lang === "en" ? "Search news keywords" : "检索资讯关键词"}
+                  title={lang === "en" ? "Search news keywords" : "检索资讯关键词"}
                   className="w-full bg-slate-50 border border-slate-100 rounded-2xl pl-10 pr-4 py-3 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 transition-all font-medium"
                 />
               </div>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
+                aria-label={lang === "en" ? "Sort news articles" : "排序资讯文章"}
+                title={lang === "en" ? "Sort news articles" : "排序资讯文章"}
                 className="bg-white border border-slate-100 rounded-2xl px-4 py-3 text-sm text-slate-700 font-bold focus:outline-none focus:border-orange-500 transition-all cursor-pointer"
               >
                 <option value="date">{lang === "en" ? "📅 Newest" : "📅 最新发布"}</option>

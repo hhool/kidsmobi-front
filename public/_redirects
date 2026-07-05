@@ -1,2 +1,4 @@
+/robots.txt https://kidsmobi-api-v1.seaman-player.workers.dev/robots.txt 307
+/sitemap.xml https://kidsmobi-api-v1.seaman-player.workers.dev/sitemap.xml 307
 /api/* https://kidsmobi-api-v1.seaman-player.workers.dev/api/:splat 307
 /* /index.html 200

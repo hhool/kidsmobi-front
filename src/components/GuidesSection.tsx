@@ -35,6 +35,7 @@ function translateCategoryLabel(cat: string): string {
 }
 import { formatWeight, formatHeight } from "../lib/units";
 import Breadcrumbs from "./Breadcrumbs";
+import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
 
 const faqData = [
   {
@@ -209,6 +210,40 @@ export default function GuidesSection({
   
   // Accordion state
   const [openFaqId, setOpenFaqId] = useState<string | null>("faq_1");
+
+  useEffect(() => {
+    if (!selectedGuideState) {
+      clearJsonLd("guides-detail");
+      const canonicalUrl = window.location.href;
+      setCollectionPageJsonLd("guides-list", {
+        name: lang === "en" ? "Buyer's Guides" : "选购指南",
+        url: canonicalUrl,
+        items: guideArticles.slice(0, 12).map((guide) => ({
+          name: translateGuideArticle(guide, lang).title,
+          url: canonicalUrl,
+        })),
+      });
+      return () => clearJsonLd("guides-list");
+    }
+
+    const guide = translateGuideArticle(selectedGuideState, lang);
+    const canonicalUrl = window.location.href;
+    setJsonLd("guides-detail", {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: guide.title,
+      description: guide.summary,
+      inLanguage: lang,
+      author: {
+        "@type": "Organization",
+        name: "KIDSMOBI",
+      },
+      mainEntityOfPage: canonicalUrl,
+      url: canonicalUrl,
+    });
+
+    return () => clearJsonLd("guides-detail");
+  }, [selectedGuideState, lang, guideArticles]);
 
   // Match Wizard interactive states
   const [wizardAge, setWizardAge] = useState<number>(childProfile.age || 4);
@@ -454,7 +489,7 @@ export default function GuidesSection({
               </div>
 
               {matchRecommendations.matches.length === 0 ? (
-                <div className="p-12 text-center bg-slate-50 rounded-[32px] border border-slate-100 shadow-inner">
+                <div className="p-12 text-center bg-slate-50 rounded-4xl border border-slate-100 shadow-inner">
                   <AlertTriangle className="w-12 h-12 text-orange-500 mx-auto mb-4 animate-bounce" />
                   <span className="text-slate-900 font-black block text-lg mb-2">
                     {lang === "en" ? "No matches found" : "哎呀，没找到完美匹配"}
@@ -471,7 +506,7 @@ export default function GuidesSection({
                     const dispProduct = translateProduct(p, lang);
                     const isPerfectWeight = p.weight <= matchRecommendations.perfectWeightLimit;
                     return (
-                      <div key={dispProduct.id} className="bg-white p-6 rounded-[32px] border border-slate-100 hover:border-orange-100 flex flex-col justify-between space-y-4 shadow-sm hover:shadow-xl hover:shadow-orange-500/5 transition-all group">
+                      <div key={dispProduct.id} className="bg-white p-6 rounded-4xl border border-slate-100 hover:border-orange-100 flex flex-col justify-between space-y-4 shadow-sm hover:shadow-xl hover:shadow-orange-500/5 transition-all group">
                         <div className="space-y-2">
                           <div className="flex justify-between items-center">
                             <span className="bg-orange-50 text-orange-600 px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase border border-orange-100">{dispProduct.brand}</span>
@@ -521,7 +556,7 @@ export default function GuidesSection({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-xs text-slate-600 text-left relative z-10">
             
             {/* Input 1: Age */}
-            <div className="bg-slate-50 p-6 rounded-[32px] border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
+            <div className="bg-slate-50 p-6 rounded-4xl border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
               <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
                 <span>{lang === "en" ? "1. Age" : "1. 宝宝岁数"}</span>
                 <span className="text-orange-500 text-sm">{wizardAge} {lang === "en" ? "yrs" : "岁"}</span>
@@ -536,6 +571,8 @@ export default function GuidesSection({
                   const val = parseFloat(e.target.value);
                   setWizardAge(val);
                 }}
+                aria-label={lang === "en" ? "Child age slider" : "宝宝岁数滑杆"}
+                title={lang === "en" ? "Child age slider" : "宝宝岁数滑杆"}
                 className="w-full accent-orange-500 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer"
               />
               <span className="text-[10px] text-slate-400 font-medium block">
@@ -544,7 +581,7 @@ export default function GuidesSection({
             </div>
 
             {/* Input 2: Height */}
-            <div className="bg-slate-50 p-6 rounded-[32px] border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
+            <div className="bg-slate-50 p-6 rounded-4xl border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
               <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
                 <span>{lang === "en" ? "2. Height" : "2. 身高 (Height)"}</span>
                 <span className="text-orange-500 text-sm">{formatHeight(wizardHeight, currencyData.code)}</span>
@@ -560,12 +597,14 @@ export default function GuidesSection({
                   setWizardHeight(val);
                   setWizardInseam(Math.floor(val * 0.38)); // Default estimation
                 }}
+                aria-label={lang === "en" ? "Child height slider" : "宝宝身高滑杆"}
+                title={lang === "en" ? "Child height slider" : "宝宝身高滑杆"}
                 className="w-full accent-orange-500 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer"
               />
             </div>
 
             {/* Input 3: Inseam */}
-            <div className="bg-slate-50 p-6 rounded-[32px] border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
+            <div className="bg-slate-50 p-6 rounded-4xl border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
               <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
                 <span>{lang === "en" ? "3. Inseam" : "3. 跨高 (Inseam)"}</span>
                 <span className="text-orange-500 text-sm">{formatHeight(wizardInseam, currencyData.code)}</span>
@@ -577,12 +616,14 @@ export default function GuidesSection({
                 step="1"
                 value={wizardInseam}
                 onChange={(e) => setWizardInseam(parseInt(e.target.value))}
+                aria-label={lang === "en" ? "Child inseam slider" : "宝宝跨高滑杆"}
+                title={lang === "en" ? "Child inseam slider" : "宝宝跨高滑杆"}
                 className="w-full accent-orange-500 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer"
               />
             </div>
 
             {/* Input 4: Weight */}
-            <div className="bg-slate-50 p-6 rounded-[32px] border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
+            <div className="bg-slate-50 p-6 rounded-4xl border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
               <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
                 <span>{lang === "en" ? "4. Weight" : "4. 体重 (Weight)"}</span>
                 <span className="text-rose-500 text-sm font-black">{formatWeight(wizardWeight, currencyData.code)}</span>
@@ -597,6 +638,8 @@ export default function GuidesSection({
                   const val = parseFloat(e.target.value);
                   setWizardWeight(val);
                 }}
+                aria-label={lang === "en" ? "Child weight slider" : "宝宝体重滑杆"}
+                title={lang === "en" ? "Child weight slider" : "宝宝体重滑杆"}
                 className="w-full accent-orange-500 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer"
               />
               <span className="text-[10px] text-slate-400 font-medium block">
@@ -605,7 +648,7 @@ export default function GuidesSection({
             </div>
 
             {/* Input 5: Budget */}
-            <div className="bg-slate-50 p-6 rounded-[32px] border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow sm:col-span-2">
+            <div className="bg-slate-50 p-6 rounded-4xl border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow sm:col-span-2">
               <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
                 <span>{lang === "en" ? "5. Purchase Budget" : "5. 购车预算上限"}</span>
                 <span className="text-emerald-500 text-sm font-black">
@@ -619,18 +662,22 @@ export default function GuidesSection({
                 step="50"
                 value={wizardBudget}
                 onChange={(e) => setWizardBudget(parseInt(e.target.value))}
+                aria-label={lang === "en" ? "Budget slider" : "预算滑杆"}
+                title={lang === "en" ? "Budget slider" : "预算滑杆"}
                 className="w-full accent-emerald-500 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer"
               />
             </div>
 
             {/* Input 6: Scenario */}
-            <div className="bg-slate-50 p-6 rounded-[32px] border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow sm:col-span-2">
+            <div className="bg-slate-50 p-6 rounded-4xl border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow sm:col-span-2">
               <label className="text-slate-400 font-black uppercase tracking-wider block text-[10px]">
                 {lang === "en" ? "6. Primary Usage Scenario" : "6. 主要使用场景"}
               </label>
               <select
                 value={wizardScenario}
                 onChange={(e) => setWizardScenario(e.target.value)}
+                aria-label={lang === "en" ? "Primary usage scenario" : "主要使用场景"}
+                title={lang === "en" ? "Primary usage scenario" : "主要使用场景"}
                 className="w-full bg-white border border-slate-100 rounded-2xl p-3 text-sm text-slate-700 font-bold focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 cursor-pointer"
               >
                 <option value="all">{lang === "en" ? "🌐 Standard / City Paths" : "🌐 全部道路 (多场景)"}</option>
@@ -740,7 +787,7 @@ export default function GuidesSection({
               </p>
             </div>
 
-            <div className="bg-white border border-slate-100 rounded-[32px] p-6 shadow-xl shadow-slate-200/50 space-y-6">
+            <div className="bg-white border border-slate-100 rounded-4xl p-6 shadow-xl shadow-slate-200/50 space-y-6">
               <div className="flex flex-col sm:flex-row gap-4 text-left">
                 <div className="relative flex-1">
                   <Search className="w-4 h-4 text-slate-400 absolute left-4 top-4" />
@@ -749,6 +796,8 @@ export default function GuidesSection({
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder={lang === "en" ? "Search safety keywords..." : "检索核心安全术语、Q-factor、避震材质..."}
+                    aria-label={lang === "en" ? "Search safety keywords" : "检索安全关键词"}
+                    title={lang === "en" ? "Search safety keywords" : "检索安全关键词"}
                     className="w-full bg-slate-50 border border-slate-100 rounded-2xl pl-10 pr-4 py-3 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 transition-all font-medium"
                   />
                 </div>
@@ -848,7 +897,7 @@ export default function GuidesSection({
                   return (
                     <div 
                       key={faq.id} 
-                      className={`rounded-[32px] border transition-all duration-300 overflow-hidden ${
+                      className={`rounded-4xl border transition-all duration-300 overflow-hidden ${
                         isOpen 
                           ? "bg-white border-orange-200 shadow-xl shadow-orange-500/5 ring-1 ring-orange-500/5" 
                           : "bg-white border-slate-50 hover:border-orange-100"
@@ -869,7 +918,7 @@ export default function GuidesSection({
 
                       {isOpen && (
                         <div className="px-6 pb-8 pt-2 animate-fade-in">
-                          <div className="p-6 text-slate-600 text-sm leading-relaxed whitespace-pre-wrap bg-slate-50 rounded-[24px] border border-slate-100 space-y-4 font-medium italic">
+                          <div className="p-6 text-slate-600 text-sm leading-relaxed whitespace-pre-wrap bg-slate-50 rounded-3xl border border-slate-100 space-y-4 font-medium italic">
                             {answer.split("\n\n").map((para, idx) => {
                               if (para.startsWith("* ") || para.startsWith("- ") || para.startsWith("1. ") || para.startsWith("2. ") || para.startsWith("3. ") || para.startsWith("4. ")) {
                                 return (

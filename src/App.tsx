@@ -45,7 +45,7 @@ import { initialEvaluationsData } from "./data/evaluationsData";
 import { ChildProfile, Product, ChatMessage, CMSSettings, SEOConfig, Evaluation } from "./types";
 
 // Import translations
-import { translations, translateProduct, countries, getCurrencyData } from "./lib/translate";
+import { translations, translateProduct, translateNewsArticle, translateGuideArticle, countries, getCurrencyData } from "./lib/translate";
 import { formatWeight, formatHeight } from "./lib/units";
 import { resolveProductImages } from "./lib/productImages";
 
@@ -177,6 +177,24 @@ const REVIEW_ROUTE_IDS = new Set(REVIEW_NAV_OPTIONS.map((item) => item.id));
 const normalizePathname = (pathname: string) => {
   const cleaned = pathname.replace(/\/+$/, "");
   return cleaned || "/";
+};
+
+const normalizeCanonicalPath = (path: string) => {
+  const normalized = normalizePathname(path || "/");
+  return normalized.startsWith("/") ? normalized : `/${normalized}`;
+};
+
+const isSearchOrAuthPath = (path: string) => {
+  return path.startsWith("/search") || path.startsWith("/auth");
+};
+
+const shouldNoIndexCurrentPath = (path: string, search: string) => {
+  const params = new URLSearchParams(search);
+  if (isSearchOrAuthPath(path)) {
+    return true;
+  }
+  const nonIndexParams = ["sort", "filter", "query", "q"];
+  return nonIndexParams.some((key) => params.has(key));
 };
 
 const resolveRouteState = (pathname: string, hash: string) => {
@@ -780,6 +798,21 @@ export default function App() {
     link.setAttribute("href", href);
   };
 
+  const removeJsonLdScripts = () => {
+    document.querySelectorAll("script[data-seo-jsonld='true']").forEach((node) => node.remove());
+  };
+
+  const injectJsonLd = (schemas: Record<string, unknown>[]) => {
+    removeJsonLdScripts();
+    for (const schema of schemas) {
+      const script = document.createElement("script");
+      script.type = "application/ld+json";
+      script.setAttribute("data-seo-jsonld", "true");
+      script.text = JSON.stringify(schema);
+      document.head.appendChild(script);
+    }
+  };
+
   // Dynamic SEO Page Meta Configuration (Title, Keywords, Description)
   useEffect(() => {
     // Determine active tab database key
@@ -805,14 +838,51 @@ export default function App() {
         document.title = title;
         updateMetaTag("description", desc);
         updateMetaTag("keywords", kws.join(", "));
-        updateMetaTag("robots", "index,follow,max-image-preview:large");
-
-        const canonicalUrl = `${window.location.origin}${currentPath}`;
+        const canonicalPath = normalizeCanonicalPath(currentPath);
+        const canonicalUrl = `${window.location.origin}${canonicalPath}`;
+        const noIndex = shouldNoIndexCurrentPath(canonicalPath, window.location.search);
         updateCanonicalLink(canonicalUrl);
         updateMetaProperty("og:url", canonicalUrl);
-        updateMetaProperty("og:type", "website");
+        updateMetaProperty("og:type", "article");
         updateMetaProperty("og:title", title);
         updateMetaProperty("og:description", desc);
+        updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : "index,follow,max-image-preview:large");
+
+        injectJsonLd([
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: `${window.location.origin}/`,
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Products",
+                item: `${window.location.origin}/products`,
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: selectedProduct.name,
+                item: canonicalUrl,
+              },
+            ],
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: selectedProduct.name,
+            brand: selectedProduct.brand,
+            image: selectedProduct.imageUrl,
+            url: canonicalUrl,
+            description: desc,
+          },
+        ]);
       }
       return;
     }
@@ -865,14 +935,110 @@ export default function App() {
     document.title = titleStr;
     updateMetaTag("description", descStr);
     updateMetaTag("keywords", keywordsArr.join(", "));
-    updateMetaTag("robots", "index,follow,max-image-preview:large");
+    const canonicalPath = normalizeCanonicalPath(currentPath);
+    const noIndex = shouldNoIndexCurrentPath(canonicalPath, window.location.search);
+    updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : "index,follow,max-image-preview:large");
 
-    const canonicalUrl = `${window.location.origin}${currentPath}`;
+    const canonicalUrl = `${window.location.origin}${canonicalPath}`;
     updateCanonicalLink(canonicalUrl);
     updateMetaProperty("og:url", canonicalUrl);
     updateMetaProperty("og:type", "website");
     updateMetaProperty("og:title", titleStr);
     updateMetaProperty("og:description", descStr);
+
+    const orgSchema = {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "KIDSMOBI",
+      url: `${window.location.origin}/`,
+      logo: `${window.location.origin}/favicon.ico`,
+    };
+
+    const breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: canonicalPath === "/"
+        ? [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Home",
+              item: `${window.location.origin}/`,
+            },
+          ]
+        : [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Home",
+              item: `${window.location.origin}/`,
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: titleStr,
+              item: canonicalUrl,
+            },
+          ],
+    };
+
+    const itemListItems = (() => {
+      if (seoKey === "guides") {
+        return guideArticles.slice(0, 8).map((article, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: translateGuideArticle(article, lang).title,
+          url: `${window.location.origin}/guides`,
+        }));
+      }
+      if (seoKey === "news") {
+        return newsArticles.slice(0, 8).map((article, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: translateNewsArticle(article, lang).title,
+          url: `${window.location.origin}/news`,
+        }));
+      }
+      if (seoKey === "evaluations") {
+        return initialEvaluationsData.slice(0, 8).map((evaluation, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: lang === "zh" ? evaluation.zh.title : evaluation.en.title,
+          url: `${window.location.origin}/reviews`,
+        }));
+      }
+      if (seoKey === "products") {
+        return productsData.slice(0, 8).map((product, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: translateProduct(product, lang).name,
+          url: `${window.location.origin}/products`,
+        }));
+      }
+      return [] as Array<Record<string, unknown>>;
+    })();
+
+    const collectionSchema = (itemListItems.length > 0)
+      ? {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: titleStr,
+          numberOfItems: itemListItems.length,
+          url: canonicalUrl,
+          itemListElement: itemListItems,
+        }
+      : null;
+
+    const webPageSchema = {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: titleStr,
+      url: canonicalUrl,
+      description: descStr,
+      inLanguage: lang,
+    };
+
+    injectJsonLd([orgSchema, webPageSchema, breadcrumbSchema, ...(collectionSchema ? [collectionSchema] : [])]);
 
   }, [activeTab, lang, cmsSettings, selectedProduct, activeProductCategory, activeReviewType, productNavOptions, reviewNavOptions, currentPath]);
 

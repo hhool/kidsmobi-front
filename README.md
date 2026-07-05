@@ -99,6 +99,20 @@ npm run cms:regress -- --base=https://your-cms-api.example.com
 
 The command validates full write/read/delete cycles (`save -> list -> delete -> list`) across all six CMS collections.
 
+SEO static-asset check:
+
+```bash
+npm run seo:check
+```
+
+Optional expected domain override:
+
+```bash
+SEO_SITE_BASE_URL=https://your-site.example.com npm run seo:check
+```
+
+The command validates `public/robots.txt`, `public/sitemap.xml`, and `public/_redirects`, including checks for site-domain sitemap URLs and accidental `.workers.dev` sitemap regressions.
+
 ## Product Bulk Import JSON
 
 Use Product Center -> `Import JSON` with an array payload.

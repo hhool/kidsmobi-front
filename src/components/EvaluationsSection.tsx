@@ -8,6 +8,7 @@ import Breadcrumbs from "./Breadcrumbs";
 
 import MultiCompareView from "./MultiCompareView";
 import { Evaluation } from "../types";
+import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
 
 interface EvaluationsSectionProps {
   evaluationsData?: Evaluation[];
@@ -158,6 +159,61 @@ export default function EvaluationsSection({
   const [selectedReviewType, setSelectedReviewType] = useState<string>(initialReviewType || "all");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedEvaluation, setSelectedEvaluation] = useState<Evaluation | null>(null);
+
+  useEffect(() => {
+    if (!selectedEvaluation) {
+      clearJsonLd("evaluations-detail");
+      const canonicalUrl = window.location.href;
+      setCollectionPageJsonLd("evaluations-list", {
+        name: lang === "en" ? "Evaluation Reports" : "评测中心",
+        url: canonicalUrl,
+        items: evaluationsData
+          .filter((ev) => ev.status === "published")
+          .slice(0, 12)
+          .map((evaluation) => ({
+            name: lang === "zh" ? evaluation.zh.title : evaluation.en.title,
+            url: canonicalUrl,
+          })),
+      });
+      return;
+    }
+
+    const canonicalUrl = window.location.href;
+    const langModel = lang === "zh" ? selectedEvaluation.zh : selectedEvaluation.en;
+    const isSingle = selectedEvaluation.type === "single" || selectedEvaluation.type === "safety" || selectedEvaluation.type === "durability" || selectedEvaluation.type === "ergonomics" || !selectedEvaluation.type;
+
+    if (isSingle) {
+      const reviewedProduct = productsData.find((p) => p.id === selectedEvaluation.productId);
+      setJsonLd("evaluations-detail", {
+        "@context": "https://schema.org",
+        "@type": "Review",
+        name: langModel.title,
+        reviewBody: langModel.verdict,
+        inLanguage: lang,
+        itemReviewed: reviewedProduct
+          ? {
+              "@type": "Product",
+              name: translateProduct(reviewedProduct, lang).name,
+              brand: translateProduct(reviewedProduct, lang).brand,
+              url: canonicalUrl,
+            }
+          : undefined,
+        mainEntityOfPage: canonicalUrl,
+        url: canonicalUrl,
+      });
+    } else {
+      setJsonLd("evaluations-detail", {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: langModel.title,
+        numberOfItems: selectedEvaluation.productIds?.length || 0,
+        mainEntityOfPage: canonicalUrl,
+        url: canonicalUrl,
+      });
+    }
+
+    return () => clearJsonLd("evaluations-detail");
+  }, [selectedEvaluation, lang, productsData, evaluationsData]);
 
   useEffect(() => {
     if (activeReviewType && activeReviewType !== selectedReviewType) {
