@@ -11,17 +11,12 @@ export const PRODUCT_CATEGORY_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
     en: ["stroller", "kids bike", "balance bike", "kids scooter", "kids electric vehicle", "kids mobility"],
   },
   stroller: {
-    zh: ["婴儿车", "旅行婴儿车", "最佳轻便童车", "婴儿车评论", "如何选择婴儿推车", "最佳婴儿车", "便携式旅行婴儿推车", "婴儿推车（便携式旅行款）"],
+    zh: [ "旅行婴儿车", "最佳轻便童车", "婴儿车评论", "如何选择婴儿推车", "最佳婴儿车", "便携式旅行婴儿推车", "婴儿推车（便携式旅行款）"],
     en: [
-      "stroller",
       "travel stroller",
-      "best travel stroller",
-      "stroller travel stroller",
-      "best lightweight stroller",
-      "stroller reviews",
-      "how to choose a baby stroller",
-      "best baby stroller",
-      "wagon and stroller",
+      "lightweight stroller",
+      "jogging stroller",
+      "twin stroller"
     ],
   },
   double_stroller: {
@@ -40,9 +35,17 @@ export const PRODUCT_CATEGORY_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
     zh: ["慢跑婴儿推车", "婴儿与慢跑婴儿推车", "最佳慢跑婴儿车", "慢跑推车评测", "双人慢跑婴儿推车"],
     en: ["jogging stroller", "best jogging stroller", "infants and jogging strollers", "jogger stroller reviews", "jogging stroller stroller"],
   },
+  kids_strollers: {
+    zh: ["慢跑婴儿推车", "慢跑婴儿推车", "慢跑婴儿推车"],
+    en: ["jogging stroller", "lightweight stroller", "travel stroller"]
+  },
   balance_bike: {
-    zh: ["平衡车", "幼儿平衡车", "适合1岁儿童的平衡车", "平衡车选购", "宝宝平衡车"],
-    en: ["balance bike", "balance bike toddler", "toddler balance bike", "balance bike for 1 year old", "baby balance bike"],
+    zh: ["平衡车", "幼儿平衡车", "适合1岁儿童的平衡车", "平衡车选购"],
+    en: ["balance bike", "balance bike toddler", "balance bike for 1 year old"],
+  },
+  kids_scooters: {
+    zh: ["儿童滑板车", "儿童电动滑板车", "可折叠电动滑板车", "带座椅电动滑板车"],
+    en: ["kids scooter", "kids scooters", "electric scooters for kids", "foldable electric scooter", "electric scooter with seat"],
   },
   scooters: {
     zh: ["儿童滑板车", "儿童电动滑板车", "可折叠电动滑板车", "带座椅电动滑板车"],

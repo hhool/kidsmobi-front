@@ -99,9 +99,9 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
       keywords: ["童车参数对比", "平衡车挑选数据库", "童车重量对比", "几何重心分析"]
     },
     en: {
-      title: "Stroller, Jogging, Double & Twin Stroller Specs | KIDSMOBI",
-      description: "Compare stroller, jogging stroller, double stroller, and twin stroller specifications across weight, braking, foldability, and fit. Quickly filter best travel stroller options.",
-      keywords: ["stroller", "jogging stroller", "jogging stroller stroller", "best travel stroller", "double stroller", "double stroller stroller", "stroller travel stroller", "twin stroller", "triple stroller", "wagon and stroller"]
+      title: "Travel & Jogging Strollers, Balance Bikes | KIDSMOBI",
+      description: "Compare specs for travel, lightweight, twin & jogging strollers. Find the best balance bike, kids bike, kids scooter, kids tricycle & kids electric vehicle.",
+      keywords: ["jogging stroller", "travel stroller", "twin stroller", "balance bike", "kids scooter", "kids bike", "kids tricycle", "kids electric vehicle"]
     }
   },
   evaluations: {
@@ -113,7 +113,7 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
     en: {
       title: "Stroller, Jogging, Double & Twin Stroller Lab Reviews | KIDSMOBI",
       description: "Read lab-grade stroller and jogging stroller reviews with structural stress tests, plus double stroller and twin stroller safety comparisons for practical travel stroller decisions.",
-      keywords: ["stroller", "jogging stroller", "jogging stroller stroller", "stroller lab test", "best travel stroller", "double stroller", "double stroller stroller", "stroller travel stroller", "twin stroller"]
+      keywords: ["stroller", "jogging stroller", "jogging stroller stroller", "stroller lab test", "best travel stroller", "double stroller", "stroller travel stroller", "twin stroller"]
     }
   },
   guides: {
@@ -125,7 +125,7 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
     en: {
       title: "How to Choose a Baby Stroller | Jogging, Double & Twin Guide",
       description: "Follow practical stroller buying guides for how to choose a baby stroller, jogging stroller fit checks, best travel stroller picks, and family-ready double stroller and twin stroller planning.",
-      keywords: ["how to choose a baby stroller", "stroller", "jogging stroller", "jogging stroller stroller", "best travel stroller", "double stroller", "double stroller stroller", "stroller travel stroller", "twin stroller", "wagon and stroller"]
+      keywords: ["how to choose a baby stroller", "stroller", "jogging stroller", "best travel stroller", "double stroller", "stroller travel stroller", "twin stroller", "wagon and stroller"]
     }
   },
   about: {
@@ -137,7 +137,7 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
     en: {
       title: "About KIDSMOBI | Stroller, Jogging, Double & Twin Safety Lab",
       description: "Learn how KIDSMOBI audits stroller, jogging stroller, double stroller, and twin stroller safety with independent methods and transparent family-focused evaluation standards.",
-      keywords: ["stroller", "jogging stroller", "jogging stroller stroller", "double stroller", "double stroller stroller", "twin stroller", "stroller safety lab", "how to choose a baby stroller", "KIDSMOBI team"]
+      keywords: ["stroller", "jogging stroller", "double stroller", "twin stroller", "stroller safety lab", "how to choose a baby stroller", "KIDSMOBI team"]
     }
   }
 };
@@ -160,36 +160,31 @@ const DEFAULT_CMS_PAGE_BLUEPRINT: Record<string, CMSPageConfig> = {
   about: { pageType: "about", pageSlug: "about", pageIndex: 1, paginationPolicy: "none", indexingPolicy: "index", status: "published" },
 };
 
-const PRIORITY_SEO_KEYWORDS_EN = [
-  "stroller",
-  "jogging stroller",
-  "jogging stroller stroller",
-  "how to choose a baby stroller",
-  "best travel stroller",
-  "double stroller",
-  "double stroller stroller",
-  "stroller travel stroller",
-  "twin stroller",
-  "triple stroller",
-  "wagon and stroller",
+const PRODUCTS_PAGE_KEYWORDS_EN = [
+  "kids stroller",
+  "balance bike",
+  "kids bike",
+  "kids tricycle",
+  "kids scooter",
+  "kids electric vehicle"
 ];
 
-const mergePrioritySeoKeywords = (keywords: string[], lang: "zh" | "en") => {
-  if (lang === "en") {
-    return Array.from(new Set([...PRIORITY_SEO_KEYWORDS_EN, ...keywords]));
+const applyPageKeywordOverride = (seoKey: string, keywords: string[], lang: "zh" | "en", activeProductCategory = "all") => {
+  if (seoKey === "products" && lang === "en" && activeProductCategory === "all") {
+    return PRODUCTS_PAGE_KEYWORDS_EN;
   }
-  return Array.from(new Set(["stroller", "jogging stroller", ...keywords]));
+  return keywords;
 };
 
 const PRODUCT_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
   { id: "all", zh: "全部品类", en: "All Categories" },
-  { id: "stroller", zh: "婴儿推车", en: "Stroller" },
+  { id: "stroller", zh: "婴儿推车", en: "Kids Stroller" },
   { id: "double_stroller", zh: "双人推车", en: "Double Stroller" },
   { id: "jogger_stroller", zh: "慢跑推车", en: "Jogger Stroller" },
   { id: "balance_bike", zh: "平衡车", en: "Balance Bike" },
   { id: "kids_bikes", zh: "儿童自行车", en: "Kids Bikes" },
   { id: "kids_tricycles", zh: "儿童三轮车", en: "Kids Tricycles" },
-  { id: "scooters", zh: "儿童滑板车", en: "Scooters" },
+  { id: "kids_scooters", zh: "儿童滑板车", en: "Kids Scooters" },
   { id: "electric_vehicles", zh: "儿童电动车", en: "Electric Vehicles" },
   { id: "car_seat", zh: "安全座椅", en: "Car Seat" },
 ];
@@ -205,10 +200,34 @@ const REVIEW_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
 
 const PRODUCT_ROUTE_IDS = new Set(PRODUCT_NAV_OPTIONS.map((item) => item.id));
 const REVIEW_ROUTE_IDS = new Set(REVIEW_NAV_OPTIONS.map((item) => item.id));
+const PRODUCT_ROUTE_ALIASES: Record<string, string> = {
+  scooters: "kids_scooters",
+  scooter: "kids_scooters",
+};
+const EXCLUDED_PRODUCT_CATEGORY_IDS = new Set([
+  "playard",
+  "high_chair",
+  "kids_push_ride_ons",
+  "kids_pull_along_wagons",
+  "baby_carrier",
+]);
+
+const resolveProductCategoryId = (product: Product) => {
+  return String((product as any)?.categoryId || product?.category || "").trim().toLowerCase();
+};
+
+const filterExcludedProductCategories = (products: Product[]) => {
+  return products.filter((product) => !EXCLUDED_PRODUCT_CATEGORY_IDS.has(resolveProductCategoryId(product)));
+};
 
 const normalizePathname = (pathname: string) => {
   const cleaned = pathname.replace(/\/+$/, "");
   return cleaned || "/";
+};
+
+const normalizeProductRouteCategory = (value: string) => {
+  const normalized = String(value || "").trim().toLowerCase();
+  return PRODUCT_ROUTE_ALIASES[normalized] || normalized;
 };
 
 const normalizeCanonicalPath = (path: string) => {
@@ -305,7 +324,8 @@ const resolveRouteState = (pathname: string, hash: string) => {
   if (root === "products") {
     const pageSegmentIndex = segments.indexOf("page");
     const activePageIndex = pageSegmentIndex >= 0 ? Number(segments[pageSegmentIndex + 1] || 1) : 1;
-    const activeProductCategory = sub && PRODUCT_ROUTE_IDS.has(sub) ? sub : "all";
+    const normalizedCategory = normalizeProductRouteCategory(sub || "");
+    const activeProductCategory = normalizedCategory && PRODUCT_ROUTE_IDS.has(normalizedCategory) ? normalizedCategory : "all";
     return {
       activeTab: "products",
       activeProductCategory,
@@ -448,6 +468,16 @@ export default function App() {
     navigateToPath("/news/page/1", { replace: true, preserveScroll: true });
   }, [activeTab, currentPath]);
 
+  useEffect(() => {
+    if (activeTab !== "products") {
+      return;
+    }
+    if (currentPath !== "/products/scooters") {
+      return;
+    }
+    navigateToPath("/products/kids_scooters", { replace: true, preserveScroll: true });
+  }, [activeTab, currentPath]);
+
   const navigateToTab = (tabId: string) => {
     if (tabId === "admin") {
       if (window.location.hash !== "#cms") {
@@ -543,7 +573,8 @@ export default function App() {
   };
 
   const handleHomeCategorySelect = (categoryId: string) => {
-    navigateToPath(categoryId === "all" ? "/products" : `/products/${categoryId}`);
+    const normalizedCategoryId = normalizeProductRouteCategory(categoryId);
+    navigateToPath(normalizedCategoryId === "all" ? "/products" : `/products/${normalizedCategoryId}`);
   };
 
   // 1. Core child mechanics states
@@ -669,15 +700,15 @@ export default function App() {
       const publishedProducts = await getCMSProducts(true);
       if (!isActive) return;
       if (publishedProducts && publishedProducts.length > 0) {
-        setProductsData(publishedProducts);
+        setProductsData(filterExcludedProductCategories(publishedProducts));
       } else {
         // If initialization imported draft-only products, avoid a blank Product Center.
         const allProducts = await getCMSProducts(false);
         if (!isActive) return;
         if (allProducts && allProducts.length > 0) {
-          setProductsData(allProducts);
+          setProductsData(filterExcludedProductCategories(allProducts));
         } else {
-          setProductsData(defaultProductsData);
+          setProductsData(filterExcludedProductCategories(defaultProductsData));
         }
       }
 
@@ -702,7 +733,7 @@ export default function App() {
 
         if (bundle.settings && bundle.products.length > 0 && bundle.evaluations.length > 0) {
           setCmsSettings(bundle.settings);
-          setProductsData(bundle.products);
+          setProductsData(filterExcludedProductCategories(bundle.products));
           setEvaluationsData(bundle.evaluations);
           return;
         }
@@ -758,7 +789,7 @@ export default function App() {
           if (successProd) {
             const freshProducts = await getCMSProducts(true);
             if (freshProducts && freshProducts.length > 0) {
-              setProductsData(freshProducts);
+              setProductsData(filterExcludedProductCategories(freshProducts));
             }
           }
           // Seed Evaluations
@@ -1030,12 +1061,12 @@ export default function App() {
     if (seoKey === "products" && activeProductCategory !== "all") {
       const selectedCategory = productNavOptions.find((item) => item.id === activeProductCategory)?.label || activeProductCategory;
       titleStr = lang === "zh"
-        ? `${selectedCategory} 选购与参数对比 | KIDSMOBI 产品中心`
-        : `${selectedCategory} Buying Guide & Specs Compare | KIDSMOBI Products`;
+        ? `${selectedCategory} 参数 | KIDSMOBI 产品中心`
+        : `${selectedCategory} Specs | KIDSMOBI Products`;
       descStr = lang === "zh"
         ? `聚焦 ${selectedCategory} 的参数、安全与选购建议，结合实测数据快速筛选更适合宝宝的车型。`
         : `Focused insights for ${selectedCategory}: specs, safety metrics, and buying recommendations powered by real test data.`;
-      keywordsArr = Array.from(new Set([...keywordsArr, selectedCategory, ...getProductSeoKeywords(activeProductCategory, lang)]));
+      keywordsArr = getProductSeoKeywords(activeProductCategory, lang);
     }
 
     if (seoKey === "evaluations" && activeReviewType !== "all") {
@@ -1049,7 +1080,7 @@ export default function App() {
       keywordsArr = Array.from(new Set([...keywordsArr, selectedReview, ...getReviewSeoKeywords(activeReviewType, lang)]));
     }
 
-    keywordsArr = mergePrioritySeoKeywords(keywordsArr, lang);
+    keywordsArr = applyPageKeywordOverride(seoKey, keywordsArr, lang, activeProductCategory);
 
     // 3. Set values
     const resolvePaginationTotalPages = (): number | null => {
@@ -1736,12 +1767,12 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             viewHistory={viewHistory}
             initialCategory="all"
             activeCategory={activeProductCategory}
-            onCategoryChange={(categoryId) => navigateToPath(categoryId === "all" ? "/products" : `/products/${categoryId}`, { preserveScroll: true })}
+            onCategoryChange={(categoryId) => navigateToPath(categoryId === "all" ? "/products" : `/products/${categoryId}`, { preserveScroll: false })}
             seoKeywordHints={productSeoHints}
             currentPage={activePageIndex}
             onPageChange={(page) => {
               const categoryPath = activeProductCategory === "all" ? "/products" : `/products/${activeProductCategory}`;
-              navigateToPath(page <= 1 ? categoryPath : `${categoryPath}/page/${page}`, { preserveScroll: true });
+              navigateToPath(page <= 1 ? categoryPath : `${categoryPath}/page/${page}`, { preserveScroll: false });
             }}
           />
         )}

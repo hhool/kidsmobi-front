@@ -200,14 +200,13 @@ export default function HomeSection({
   }, [productsData]);
 
   const seoTrendGroups = useMemo(() => {
-    const hotKeys = ["stroller", "double_stroller", "jogger_stroller", "balance_bike", "scooters", "kids_bikes"];
-    return hotKeys.map((key) => ({
-      id: key,
-      label: lang === "zh"
-        ? (SCRAPED_CATEGORY_CATALOG.find((item) => item.id === key)?.zh || key)
-        : (SCRAPED_CATEGORY_CATALOG.find((item) => item.id === key)?.en || key),
-      keywords: PRODUCT_CATEGORY_SEO_KEYWORDS[key]?.[lang] || [],
-    }));
+    return SCRAPED_CATEGORY_CATALOG
+      .map((entry) => ({
+        id: entry.id,
+        label: lang === "zh" ? entry.zh : entry.en,
+        keywords: PRODUCT_CATEGORY_SEO_KEYWORDS[entry.id]?.[lang] || [],
+      }))
+      .filter((group) => group.keywords.length > 0);
   }, [lang]);
 
   const getCategoryPriority = (rawCategory?: string) => {

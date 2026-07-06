@@ -177,7 +177,7 @@ export function translateCategory(cat: string, lang: "zh" | "en") {
     balance: "Balance Bike",
     bicycle: "Pedal Bicycle",
     scooter: "Kick Scooter",
-    stroller: "Baby Stroller",
+    stroller: "Kids Stroller",
     electric_car: "Electric Off-Road Car",
     tricycle: "Multifuel Tricycle",
     safety_seat: "Car Safety Seat"

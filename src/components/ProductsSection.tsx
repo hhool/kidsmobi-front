@@ -64,6 +64,14 @@ export default function ProductsSection({
   currentPage = 1,
   onPageChange
 }: ProductsSectionProps) {
+  const excludedCategoryIds = new Set([
+    "playard",
+    "high_chair",
+    "kids_push_ride_ons",
+    "kids_pull_along_wagons",
+    "baby_carrier",
+  ]);
+
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory || "all");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [sortBy, setSortBy] = useState<string>("overallScore");
@@ -73,6 +81,11 @@ export default function ProductsSection({
   const [selectedAge, setSelectedAge] = useState<string>("all"); // 'all', 'baby', 'toddler', 'child'
   const [selectedPrice, setSelectedPrice] = useState<string>("all"); // 'all', 'budget', 'mid', 'premium'
   const [backendCategoryNameMap, setBackendCategoryNameMap] = useState<Record<string, string>>({});
+  const [hintFlash, setHintFlash] = useState<string | null>(null);
+  const categoryAliasMap: Record<string, string> = {
+    scooters: "kids_scooters",
+    scooter: "kids_scooters",
+  };
 
   useEffect(() => {
     let mounted = true;
@@ -113,7 +126,7 @@ export default function ProductsSection({
 
   const getProductCategoryId = (product: Product): string => {
     const raw = String((product as any)?.categoryId || product?.category || "").trim().toLowerCase();
-    return raw;
+    return categoryAliasMap[raw] || raw;
   };
 
   const humanizeCategoryId = (rawCategoryId: string): string => {
@@ -127,7 +140,7 @@ export default function ProductsSection({
       balance: "Balance Bikes",
       bicycle: "Pedal Bikes",
       scooter: "Kick Scooters",
-      stroller: "Baby Strollers",
+      stroller: "Kids Strollers",
       electric_car: "Kids Electric Cars",
       tricycle: "Tricycles",
       safety_seat: "Safety Seats",
@@ -170,7 +183,7 @@ export default function ProductsSection({
     const idSet = new Set<string>();
     for (const item of productsData) {
       const id = getProductCategoryId(item);
-      if (id) {
+      if (id && !excludedCategoryIds.has(id)) {
         idSet.add(id);
       }
     }
@@ -198,6 +211,33 @@ export default function ProductsSection({
     return 2;
   };
 
+  const getSeoHintTarget = (hint: string) => {
+    const normalized = hint.trim().toLowerCase();
+    const hintMap: Record<string, string> = {
+      stroller: "stroller",
+      "kids strollers": "stroller",
+      "kids stroller": "stroller",
+      "婴儿车": "stroller",
+      "婴儿推车": "stroller",
+      "travel stroller": "stroller",
+      "jogging stroller": "jogger_stroller",
+      "double stroller": "double_stroller",
+      "twin stroller": "double_stroller",
+      "balance bike": "balance_bike",
+      "平衡车": "balance_bike",
+      "kids bike": "kids_bikes",
+      "kids bikes": "kids_bikes",
+      "儿童自行车": "kids_bikes",
+      "kids scooter": "kids_scooters",
+      "kids scooters": "kids_scooters",
+      "儿童滑板车": "scooters",
+      "electric vehicles": "electric_vehicles",
+      "儿童电动车": "electric_vehicles",
+    };
+
+    return hintMap[normalized] || hintMap[hint] || null;
+  };
+
   // Filtering and sorting math
   const filteredProducts = useMemo(() => {
     return productsData
@@ -206,6 +246,9 @@ export default function ProductsSection({
         product: translateProduct(sourceProduct, lang),
       }))
       .filter(({ product: p, sourceCategoryId }) => {
+        if (excludedCategoryIds.has(sourceCategoryId)) {
+          return false;
+        }
         const matchesCategory = selectedCategory === "all" || sourceCategoryId === selectedCategory;
         const matchesSearch = searchQuery.trim() === "" ||
           p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -342,12 +385,31 @@ export default function ProductsSection({
         {seoKeywordHints.length > 0 && (
           <div className="flex flex-wrap justify-center gap-2 pt-2">
             {seoKeywordHints.slice(0, 8).map((kw) => (
-              <span
+              <button
                 key={kw}
-                className="px-3 py-1 rounded-full text-[10px] font-bold text-slate-600 bg-slate-100 border border-slate-200"
+                type="button"
+                onClick={() => {
+                  setHintFlash(null);
+                  window.requestAnimationFrame(() => setHintFlash(kw));
+                  window.setTimeout(() => setHintFlash((current) => (current === kw ? null : current)), 300);
+                  const target = getSeoHintTarget(kw);
+                  if (target) {
+                    if (target === selectedCategory) {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+                    onCategoryChange?.(target);
+                  }
+                }}
+                className={`px-3 py-1 rounded-full text-[10px] font-bold text-slate-600 bg-slate-100 border transition-all ${
+                  hintFlash === kw
+                    ? "bg-orange-50 text-orange-600 border-orange-300 shadow-sm scale-105"
+                    : getSeoHintTarget(kw) === selectedCategory
+                      ? "border-orange-200 text-orange-600 bg-orange-50"
+                      : "border-slate-200 hover:bg-orange-50 hover:text-orange-600 hover:border-orange-200"
+                }`}
               >
                 {kw}
-              </span>
+              </button>
             ))}
           </div>
         )}
