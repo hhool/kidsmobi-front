@@ -172,7 +172,7 @@ export default function EvaluationsSection({
 
     const canonicalUrl = window.location.href;
     const langModel = lang === "zh" ? selectedEvaluation.zh : selectedEvaluation.en;
-    const isSingle = selectedEvaluation.type === "single" || selectedEvaluation.type === "safety" || selectedEvaluation.type === "durability" || selectedEvaluation.type === "ergonomics" || !selectedEvaluation.type;
+    const isSingle = selectedEvaluation.type === "single" || selectedEvaluation.type === "safety" || !selectedEvaluation.type;
 
     if (isSingle) {
       const reviewedProduct = productsData.find((p) => p.id === selectedEvaluation.productId);
@@ -224,18 +224,14 @@ export default function EvaluationsSection({
     { id: "compare", label: "⚖️ CROSS COMPARE" },
     { id: "value", label: "💰 VALUE RANK" },
     { id: "ranking", label: "🏆 ANNUAL TOP" },
-    { id: "safety", label: "🛡️ SAFETY SPECIAL" },
-    { id: "durability", label: "🔧 DURABILITY" },
-    { id: "ergonomics", label: "📐 ERGONOMICS" }
+    { id: "safety", label: "🛡️ SAFETY SPECIAL" }
   ] : [
     { id: "all", label: "📁 全部评估" },
     { id: "single", label: "🔬 单品实测" },
     { id: "compare", label: "⚖️ 多品横评" },
     { id: "value", label: "💰 性价比测评" },
     { id: "ranking", label: "🏆 年度榜单" },
-    { id: "safety", label: "🛡️ 安全专项" },
-    { id: "durability", label: "🔧 耐用测试" },
-    { id: "ergonomics", label: "📐 人体工学" }
+    { id: "safety", label: "🛡️ 安全专项" }
   ];
 
   // Map real evaluations instead of products
@@ -246,8 +242,6 @@ export default function EvaluationsSection({
       if (ev.type === "value") badge = lang === "en" ? "VALUE PICK" : "性价比之选";
       if (ev.type === "ranking") badge = lang === "en" ? "TOP RANKING" : "年度排行";
       if (ev.type === "safety") badge = lang === "en" ? "SAFETY SPECS" : "安全专项测试";
-      if (ev.type === "durability") badge = lang === "en" ? "DURABILITY SCORE" : "耐用极限测试";
-      if (ev.type === "ergonomics") badge = lang === "en" ? "ERGONOMICS INDEX" : "工效及坐姿评测";
       if (ev.type === "single" || !ev.type) badge = lang === "en" ? "EXPERT REPORT" : "深度专家报告";
       
       return {
@@ -299,7 +293,7 @@ export default function EvaluationsSection({
     });
 
     return prioritizedReviews.map(r => {
-      const isSingle = r.reviewType === "single" || r.reviewType === "safety" || r.reviewType === "durability" || r.reviewType === "ergonomics";
+      const isSingle = r.reviewType === "single" || r.reviewType === "safety";
       if (isSingle) {
         const product = productsData.find(p => p.id === r.evaluation.productId);
         return {
@@ -346,8 +340,6 @@ export default function EvaluationsSection({
   const isSelectedSingle = selectedEvaluation && 
     (selectedEvaluation.type === "single" || 
      selectedEvaluation.type === "safety" || 
-     selectedEvaluation.type === "durability" || 
-     selectedEvaluation.type === "ergonomics" ||
      !selectedEvaluation.type);
 
   if (selectedEvaluation && !isSelectedSingle) {
@@ -613,7 +605,7 @@ export default function EvaluationsSection({
           </h3>
           <p className="text-sm text-slate-500 font-medium leading-relaxed">
             {lang === "en" 
-              ? "After filtering through 100+ stress tests and real-world durability checks, these models stand out for their exceptional safety and comfort."
+              ? "After filtering through 100+ stress tests and real-world ride validation checks, these models stand out for their exceptional safety and comfort."
               : "经历过严格实测和上万次平衡稳定性测试，我们精选出了以下几款能够真正让家长放心、孩子开心的标兵车型："}
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs pt-2">

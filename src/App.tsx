@@ -190,13 +190,8 @@ const PRODUCT_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
   { id: "kids_bikes", zh: "儿童自行车", en: "Kids Bikes" },
   { id: "kids_tricycles", zh: "儿童三轮车", en: "Kids Tricycles" },
   { id: "scooters", zh: "儿童滑板车", en: "Scooters" },
-  { id: "kids_push_ride_ons", zh: "推骑玩具车", en: "Push Ride-Ons" },
-  { id: "kids_pull_along_wagons", zh: "拖拉小推车", en: "Pull-Along Wagons" },
   { id: "electric_vehicles", zh: "儿童电动车", en: "Electric Vehicles" },
   { id: "car_seat", zh: "安全座椅", en: "Car Seat" },
-  { id: "baby_carrier", zh: "婴儿背带", en: "Baby Carrier" },
-  { id: "high_chair", zh: "儿童餐椅", en: "High Chair" },
-  { id: "playard", zh: "婴儿围栏床", en: "Playard" },
 ];
 
 const REVIEW_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
@@ -206,8 +201,6 @@ const REVIEW_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
   { id: "value", zh: "性价比测评", en: "Value Rank" },
   { id: "ranking", zh: "年度榜单", en: "Annual Top" },
   { id: "safety", zh: "安全专项", en: "Safety Special" },
-  { id: "durability", zh: "耐用测试", en: "Durability" },
-  { id: "ergonomics", zh: "人体工学", en: "Ergonomics" },
 ];
 
 const PRODUCT_ROUTE_IDS = new Set(PRODUCT_NAV_OPTIONS.map((item) => item.id));
@@ -1051,8 +1044,8 @@ export default function App() {
         ? `${selectedReview} 专题评测 | KIDSMOBI Reviews`
         : `${selectedReview} Review Reports | KIDSMOBI Evaluations`;
       descStr = lang === "zh"
-        ? `查看 ${selectedReview} 相关实验室报告，覆盖安全、耐用与人体工学等关键评测维度。`
-        : `Explore ${selectedReview} lab reports spanning safety, durability, and ergonomics benchmarks.`;
+        ? `查看 ${selectedReview} 相关实验室报告，覆盖安全、结构稳定与真实场景表现等关键评测维度。`
+        : `Explore ${selectedReview} lab reports spanning safety, structural stability, and real-world usability benchmarks.`;
       keywordsArr = Array.from(new Set([...keywordsArr, selectedReview, ...getReviewSeoKeywords(activeReviewType, lang)]));
     }
 

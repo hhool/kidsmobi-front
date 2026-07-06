@@ -131,8 +131,6 @@ export default function ProductsSection({
       electric_car: "Kids Electric Cars",
       tricycle: "Tricycles",
       safety_seat: "Safety Seats",
-      kids_pull_along_wagons: "Kids Pull Along Wagons",
-      kids_push_ride_ons: "Kids Push Ride Ons",
       kids_tricycles: "Kids Tricycles",
       kids_bikes: "Kids Bikes",
       balance_bike: "Balance Bikes",

@@ -423,14 +423,9 @@ function mapWorkerCategoryToProductCategory(categoryId: string): ProductCategory
     case "kids_bikes":
       return "bicycle";
     case "kids_tricycles":
-    case "kids_push_ride_ons":
-    case "kids_pull_along_wagons":
       return "tricycle";
     case "car_seat":
       return "safety_seat";
-    case "high_chair":
-    case "playard":
-    case "baby_carrier":
     case "stroller":
     default:
       return "stroller";
@@ -448,8 +443,6 @@ function mapCategoryToAgeRange(categoryId: string): string {
     case "kids_bikes":
       return "3-10 years";
     case "kids_tricycles":
-    case "kids_push_ride_ons":
-    case "kids_pull_along_wagons":
       return "1-5 years";
     case "car_seat":
       return "0-2 years";
@@ -469,8 +462,6 @@ function mapCategoryToHeightRange(categoryId: string): [number, number] {
     case "kids_bikes":
       return [90, 155];
     case "kids_tricycles":
-    case "kids_push_ride_ons":
-    case "kids_pull_along_wagons":
       return [65, 120];
     case "car_seat":
       return [45, 90];

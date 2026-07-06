@@ -141,7 +141,7 @@ export interface CMSScenario {
 
 export interface Evaluation {
   id: string;
-  type?: "single" | "compare" | "value" | "ranking" | "safety" | "durability" | "ergonomics";
+  type?: "single" | "compare" | "value" | "ranking" | "safety";
   productIds?: string[];
   productId: string; // Maintain for backward compatibility
   status: "draft" | "published" | "archived";

@@ -100,7 +100,7 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
   const [saveError, setSaveError] = useState<string | null>(null);
 
   const handleSave = async (ev: Evaluation) => {
-    const isSingleProduct = ev.type === 'single' || ev.type === 'safety' || ev.type === 'durability' || ev.type === 'ergonomics';
+    const isSingleProduct = ev.type === 'single' || ev.type === 'safety';
     if (isSingleProduct && !ev.productId) return alert("Please link a product first.");
     if (!isSingleProduct && (!ev.productIds || ev.productIds.length < 2)) return alert("Please select at least 2 products for a comparison evaluation.");
     if (!isSingleProduct && ev.productIds && ev.productIds.length > 4) return alert("You can only compare up to 4 products.");
@@ -295,16 +295,12 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
                   <option value="value">Cost-Effectiveness (性价比评测)</option>
                   <option value="ranking">Annual Ranking (年度排行榜评测)</option>
                   <option value="safety">🛡️ Safety Specialist (安全专项评测)</option>
-                  <option value="durability">🔧 Durability 극한 (耐用极限测试)</option>
-                  <option value="ergonomics">📐 Ergonomics Focus (工效及坐姿评测)</option>
                 </select>
               </div>
 
               {( !formData.type || 
                  formData.type === "single" || 
-                 formData.type === "safety" || 
-                 formData.type === "durability" || 
-                 formData.type === "ergonomics"
+                 formData.type === "safety"
                ) ? (
                 <div className="space-y-2">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
@@ -359,9 +355,7 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
 
             {( !formData.type || 
                formData.type === "single" || 
-               formData.type === "safety" || 
-               formData.type === "durability" || 
-               formData.type === "ergonomics"
+              formData.type === "safety"
              ) && (
               <div className="space-y-8">
                 <div className="flex items-center justify-between">

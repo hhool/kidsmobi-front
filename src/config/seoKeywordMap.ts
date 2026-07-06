@@ -56,14 +56,6 @@ export const PRODUCT_CATEGORY_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
     zh: ["儿童三轮车", "幼儿三轮车", "成长型三轮车"],
     en: ["kids tricycle", "kids tricycles", "toddler tricycle"],
   },
-  kids_push_ride_ons: {
-    zh: ["推骑玩具车", "幼儿骑乘玩具", "儿童骑乘车"],
-    en: ["push ride-ons", "kids ride on toys", "toddler ride on"],
-  },
-  kids_pull_along_wagons: {
-    zh: ["儿童拖拉车", "亲子拉车", "多功能拖车"],
-    en: ["kids pull along wagons", "kids wagon", "pull along wagon"],
-  },
   electric_vehicles: {
     zh: ["儿童电动车", "儿童电动越野车", "儿童骑行电动车"],
     en: ["electric vehicles for kids", "kids electric vehicle", "kids electric ride on"],
@@ -72,24 +64,12 @@ export const PRODUCT_CATEGORY_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
     zh: ["儿童安全座椅", "汽车安全座椅", "婴儿安全座椅"],
     en: ["car seat", "baby car seat", "child safety seat"],
   },
-  baby_carrier: {
-    zh: ["婴儿背带", "婴儿背巾", "新生儿背带"],
-    en: ["baby carrier", "soft structured carrier", "newborn carrier"],
-  },
-  high_chair: {
-    zh: ["儿童餐椅", "宝宝餐椅", "可调节餐椅"],
-    en: ["high chair", "baby high chair", "adjustable high chair"],
-  },
-  playard: {
-    zh: ["婴儿围栏床", "便携婴儿床", "宝宝游戏围栏"],
-    en: ["playard", "portable crib", "baby play yard"],
-  },
 };
 
 export const REVIEW_TYPE_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
   all: {
-    zh: ["婴儿车评测", "童车评测", "安全专项评测", "耐用测试", "人体工学评测"],
-    en: ["stroller reviews", "kids mobility reviews", "safety reviews", "durability test", "ergonomics review"],
+    zh: ["婴儿车评测", "童车评测", "安全专项评测"],
+    en: ["stroller reviews", "kids mobility reviews", "safety reviews"],
   },
   single: {
     zh: ["单品实测", "深度评测", "真实使用评测", "单款童车评测"],
@@ -110,14 +90,6 @@ export const REVIEW_TYPE_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
   safety: {
     zh: ["安全专项", "结构安全测试", "婴儿车安全评测"],
     en: ["safety special", "stroller safety test", "safety audit"],
-  },
-  durability: {
-    zh: ["耐用测试", "疲劳测试", "长期使用评测"],
-    en: ["durability", "fatigue test", "long-term durability review"],
-  },
-  ergonomics: {
-    zh: ["人体工学", "坐姿工效", "推行舒适度"],
-    en: ["ergonomics", "posture fit", "comfort ergonomics"],
   },
 };
 

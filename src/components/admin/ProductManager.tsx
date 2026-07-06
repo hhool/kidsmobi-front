@@ -89,8 +89,6 @@ function buildCMSProductFromBackendPreview(item: {
     electric_vehicles: "electric_car",
     kids_bikes: "bicycle",
     kids_tricycles: "tricycle",
-    kids_push_ride_ons: "tricycle",
-    kids_pull_along_wagons: "tricycle",
     car_seat: "safety_seat",
   };
 

@@ -226,7 +226,7 @@ export const initialEvaluationsData: Evaluation[] = [
   },
   {
     id: "eval_durability_bike",
-    type: "durability",
+    type: "safety",
     productId: "bike_2",
     status: "published",
     version: "V1.0",
@@ -270,7 +270,7 @@ export const initialEvaluationsData: Evaluation[] = [
   },
   {
     id: "eval_ergonomics_seat",
-    type: "ergonomics",
+    type: "single",
     productId: "seat_1",
     status: "published",
     version: "V1.3",

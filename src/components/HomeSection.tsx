@@ -53,13 +53,8 @@ export default function HomeSection({
     kids_bikes: ["kids_bikes", "bikes", "bike", "kids bike"],
     kids_tricycles: ["kids_tricycles", "tricycle", "tricycles"],
     scooters: ["scooters", "scooter"],
-    kids_push_ride_ons: ["kids_push_ride_ons", "push_ride_ons", "ride_ons"],
-    kids_pull_along_wagons: ["kids_pull_along_wagons", "pull_along_wagons", "wagons", "wagon"],
     electric_vehicles: ["electric_vehicles", "electric", "ev"],
     car_seat: ["car_seat", "car seat"],
-    baby_carrier: ["baby_carrier", "carrier", "baby carrier"],
-    high_chair: ["high_chair", "high chair"],
-    playard: ["playard", "play yard"],
   };
 
   const normalizeCategory = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, "_");
