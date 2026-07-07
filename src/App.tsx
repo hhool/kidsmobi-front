@@ -99,9 +99,9 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
       keywords: ["童车参数对比", "平衡车挑选数据库", "童车重量对比", "几何重心分析"]
     },
     en: {
-      title: "Travel & Jogging Strollers, Balance Bikes | KIDSMOBI",
-      description: "Compare specs for travel, lightweight, twin & jogging strollers. Find the best balance bike, kids bike, kids scooter, kids tricycle & kids electric vehicle.",
-      keywords: ["jogging stroller", "travel stroller", "twin stroller", "balance bike", "kids scooter", "kids bike", "kids tricycle", "kids electric vehicle"]
+      title: "Travel Strollers, Balance Bikes & Scooters | KIDSMOBI",
+      description: "Compare specs for all types of kids' mobility products. Find the best travel stroller, balance bike, kids bike, kids tricycle, and kids scooter",
+      keywords: ["travel stroller", "balance bike", "kids scooter", "kids bike", "kids tricycle"]
     }
   },
   evaluations: {

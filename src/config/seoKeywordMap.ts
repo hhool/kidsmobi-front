@@ -53,7 +53,7 @@ export const PRODUCT_CATEGORY_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
   },
   kids_bikes: {
     zh: ["儿童自行车", "儿童电动自行车", "儿童越野摩托车", "儿童骑行车"],
-    en: ["kids bike", "kids bikes", "kids electric bike", "electric bike for kids", "electric dirt bike for kids"],
+    en: ["kids bikes", "kids electric bike", "electric bike for kids", "electric dirt bike for kids"],
   },
   kids_tricycles: {
     zh: ["儿童三轮车", "幼儿三轮车", "成长型三轮车"],

@@ -552,11 +552,11 @@ export default function ProductsSection({
           </div>
         </div>
         <h2 className="text-3xl font-black text-slate-900">
-          {lang === "en" ? "Best Stroller & Jogging Stroller Discovery Hub" : "好车发现大厅"}
+          {lang === "en" ? "Kids' Mobility Discovery Hub: Travel Strollers, Bikes & Scooters" : "儿童出行发现大厅"}
         </h2>
         <p className="text-sm text-slate-500 font-medium">
           {lang === "en" 
-            ? "Compare stroller, jogging stroller, travel stroller, double stroller, and twin stroller options with test-backed safety metrics and how to choose a baby stroller guidance." 
+            ? "Compare travel strollers, balance bikes, kids bikes, kids tricycles, and kids scooters with test-backed safety metrics and how to choose a baby stroller guidance." 
             : "每一款入库产品都经过专人实测，只为给宝宝选择最合适的那一辆。"}
         </p>
         {seoKeywordHints.length > 0 && (
