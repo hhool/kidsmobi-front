@@ -150,7 +150,7 @@ async function getWorkerResourcePayload(params?: { categoryId?: string; q?: stri
   const requestedCategory = (params?.categoryId || "").trim();
   const keyword = (params?.q || "").trim().toLowerCase();
 
-  const categoriesJson = await fetchWorkerJson<{ data: WorkerCategory[] }>("/api/v1/catalog/categories");
+  const categoriesJson = await fetchWorkerJson<{ data: WorkerCategory[] }>("/api/v2/catalog/categories");
   const allCategories = Array.isArray(categoriesJson?.data) ? categoriesJson.data : [];
 
   const categories = requestedCategory
@@ -163,10 +163,10 @@ async function getWorkerResourcePayload(params?: { categoryId?: string; q?: stri
     categories.map(async (category) => {
       const [productsJson, resourcesJson] = await Promise.all([
         fetchWorkerJson<{ data: WorkerProduct[] }>(
-          `/api/v1/products?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=60`
+          `/api/v2/products?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=60`
         ),
         fetchWorkerJson<{ data: WorkerResource[] }>(
-          `/api/v1/resources?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=120`
+          `/api/v2/resources?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=120`
         ),
       ]);
       return {

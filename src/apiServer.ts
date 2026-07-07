@@ -930,7 +930,7 @@ async function initCollectionFromBaseline(collection: D1Collection): Promise<num
 
 async function initCollectionFromWorker(collection: D1Collection): Promise<number> {
   if (collection === "categories") {
-    const categoriesResponse = await fetchWorkerJson<{ data: WorkerCategory[] }>("/api/v1/catalog/categories");
+    const categoriesResponse = await fetchWorkerJson<{ data: WorkerCategory[] }>("/api/v2/catalog/categories");
     const categories = Array.isArray(categoriesResponse.data) ? categoriesResponse.data : [];
     const byCode = new Map<ProductCategory, CMSCategory>();
     for (const [index, item] of categories.entries()) {
@@ -992,7 +992,7 @@ async function dedupeCategoriesByCodeInD1(): Promise<{ removed: number; remainin
 
 app.get("/api/content/bundle", async (req, res) => {
   try {
-    const categoriesResponse = await fetchWorkerJson<{ data: WorkerCategory[] }>("/api/v1/catalog/categories");
+    const categoriesResponse = await fetchWorkerJson<{ data: WorkerCategory[] }>("/api/v2/catalog/categories");
     const categories = Array.isArray(categoriesResponse.data) ? categoriesResponse.data : [];
 
     if (categories.length === 0) {
@@ -1005,10 +1005,10 @@ app.get("/api/content/bundle", async (req, res) => {
       categories.map(async (category) => {
         const [demoResponse, resourcesResponse] = await Promise.all([
           fetchWorkerJson<WorkerScrapeStoreDemo>(
-            `/api/v1/demo/scrape-store?categoryId=${encodeURIComponent(category.categoryId)}&limit=${category.defaultLimit}`
+            `/api/v2/demo/scrape-store?categoryId=${encodeURIComponent(category.categoryId)}&limit=${category.defaultLimit}`
           ),
           fetchWorkerJson<{ data: WorkerResource[]; meta?: unknown }>(
-            `/api/v1/resources?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=${category.defaultLimit}`
+            `/api/v2/resources?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=${category.defaultLimit}`
           ),
         ]);
 
@@ -1051,11 +1051,11 @@ app.get("/api/content/bundle", async (req, res) => {
       hero: {
         zh: {
           title: "KIDSMOBI Live Demo Explorer",
-          subtitle: `Connected to ${categories.length} live categories via /api/v1/demo/scrape-store.`,
+          subtitle: `Connected to ${categories.length} live categories via /api/v2/demo/scrape-store.`,
         },
         en: {
           title: "KIDSMOBI Live Demo Explorer",
-          subtitle: `Connected to ${categories.length} live categories via /api/v1/demo/scrape-store.`,
+          subtitle: `Connected to ${categories.length} live categories via /api/v2/demo/scrape-store.`,
         },
       },
       homeSlots: buildHomeSlots(homeProducts.length > 0 ? homeProducts : allProducts, evaluationIds),
@@ -1064,8 +1064,8 @@ app.get("/api/content/bundle", async (req, res) => {
           id: "worker-live",
           labelZh: "Worker Demo 实时数据",
           labelEn: "Worker demo live data",
-          descriptionZh: "从 Cloudflare Worker 的 /api/v1/demo/scrape-store 接口聚合而来。",
-          descriptionEn: "Aggregated from the Cloudflare Worker /api/v1/demo/scrape-store endpoint.",
+          descriptionZh: "从 Cloudflare Worker 的 /api/v2/demo/scrape-store 接口聚合而来。",
+          descriptionEn: "Aggregated from the Cloudflare Worker /api/v2/demo/scrape-store endpoint.",
           icon: "Globe",
         },
       ],
@@ -1088,7 +1088,7 @@ async function buildAdminResourcePayload(options?: { categoryId?: string; q?: st
   const requestedCategory = (options?.categoryId || "").trim();
   const query = (options?.q || "").trim().toLowerCase();
 
-  const categoriesResponse = await fetchWorkerJson<{ data: WorkerCategory[] }>("/api/v1/catalog/categories");
+  const categoriesResponse = await fetchWorkerJson<{ data: WorkerCategory[] }>("/api/v2/catalog/categories");
   const categories = Array.isArray(categoriesResponse.data) ? categoriesResponse.data : [];
   if (categories.length === 0) {
     return { categories: [] as Array<{ categoryId: string; name: string }>, products: [] as AdminResourceProduct[] };
@@ -1104,10 +1104,10 @@ async function buildAdminResourcePayload(options?: { categoryId?: string; q?: st
     selectedCategories.map(async (category) => {
       const [productsResponse, resourcesResponse] = await Promise.all([
         fetchWorkerJson<{ data: WorkerProduct[] }>(
-          `/api/v1/products?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=40`
+          `/api/v2/products?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=40`
         ),
         fetchWorkerJson<{ data: WorkerResource[] }>(
-          `/api/v1/resources?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=60`
+          `/api/v2/resources?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=60`
         ),
       ]);
       return {

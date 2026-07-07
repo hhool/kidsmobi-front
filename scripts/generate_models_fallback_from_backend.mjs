@@ -157,7 +157,63 @@ function buildFeatureList(row) {
   return fallback.slice(0, 4);
 }
 
+function encodeUrlPathSegment(value) {
+  return encodeURIComponent(String(value || "")).replace(/%2F/g, "/");
+}
+
+async function buildMirrorImageIndex() {
+  const index = new Map();
+  const assetsRoot = path.join(repoRoot, "backend", "assets");
+  const categoryDirs = await fs.readdir(assetsRoot, { withFileTypes: true }).catch(() => []);
+
+  for (const categoryEntry of categoryDirs) {
+    if (!categoryEntry.isDirectory()) continue;
+    const categoryKey = categoryEntry.name;
+    const categoryPath = path.join(assetsRoot, categoryKey);
+    const brandDirs = await fs.readdir(categoryPath, { withFileTypes: true }).catch(() => []);
+    const asinMap = new Map();
+
+    for (const brandDir of brandDirs) {
+      if (!brandDir.isDirectory()) continue;
+      const brandPath = path.join(categoryPath, brandDir.name);
+      const rankDirs = await fs.readdir(brandPath, { withFileTypes: true }).catch(() => []);
+
+      for (const rankDir of rankDirs) {
+        if (!rankDir.isDirectory()) continue;
+        const dirName = rankDir.name;
+        const asinMatch = dirName.match(/ASIN_([A-Z0-9]{10})/i);
+        if (!asinMatch) continue;
+        const asin = String(asinMatch[1] || "").toUpperCase();
+        if (!asin) continue;
+
+        const primaryLocalPath = path.join(brandPath, dirName, "images", "primary.jpg");
+        try {
+          await fs.access(primaryLocalPath);
+        } catch {
+          continue;
+        }
+
+        const existing = asinMap.get(asin);
+        const isSimilar = dirName.toLowerCase().includes("rank_similar");
+        if (!existing || (existing.isSimilar && !isSimilar)) {
+          const encodedBrand = encodeUrlPathSegment(brandDir.name);
+          const encodedDir = encodeUrlPathSegment(dirName);
+          asinMap.set(asin, {
+            isSimilar,
+            url: `https://store.poki2.online/${encodeUrlPathSegment(categoryKey)}/${encodedBrand}/${encodedDir}/images/primary.jpg`,
+          });
+        }
+      }
+    }
+
+    index.set(categoryKey, asinMap);
+  }
+
+  return index;
+}
+
 async function gatherProducts() {
+  const mirrorImageIndex = await buildMirrorImageIndex();
   const entries = await fs.readdir(dataRoot, { withFileTypes: true });
   const products = [];
 
@@ -203,14 +259,16 @@ async function gatherProducts() {
       const wheelSize = parseWheelSize(title, classification, attrs);
 
       const compliance = normalizeCompliance(classification.Certifications, config.compliance);
-      const imageUrl = asText(report?.Listing_Image_URL);
+      const asin = asText(row?.ASIN);
+      const listingImageUrl = asText(report?.Listing_Image_URL);
+      const mirrorImageUrl = mirrorImageIndex.get(categoryKey)?.get(asin.toUpperCase())?.url || "";
+      const imageUrl = mirrorImageUrl || listingImageUrl;
       const videos = Array.isArray(report?.Product_Videos) ? report.Product_Videos.map(asText).filter(Boolean).slice(0, 3) : [];
       const price = toNumber(row?.Price_Value, 0);
       const weight = toNumber(row?.Weight_Lbs, 0);
       const scores = scoreBySignals(row?.Rank, report?.Rating || report?.Reviews || "", weight);
       const ageRange = asText(classification.User_Age) || config.ageRange;
       const features = buildFeatureList(row);
-      const asin = asText(row?.ASIN);
 
       products.push({
         id: asin ? `${categoryKey}-${asin.toLowerCase()}` : `${categoryKey}-${slugify(title)}`,

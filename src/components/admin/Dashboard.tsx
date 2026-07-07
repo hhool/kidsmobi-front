@@ -82,7 +82,7 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
     }
 
     try {
-      const workerResponse = await fetch(`${getWorkerBaseUrl()}/api/v1/catalog/categories`, {
+      const workerResponse = await fetch(`${getWorkerBaseUrl()}/api/v2/catalog/categories`, {
         headers: { Accept: "application/json" },
       });
       const contentType = workerResponse.headers.get("content-type") || "";
@@ -121,7 +121,7 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
       "## Demo Entry Links",
       "",
       "- Production: https://kidsmobi.pages.dev",
-      `- Worker Categories API: ${getWorkerBaseUrl()}/api/v1/catalog/categories`,
+      `- Worker Categories API: ${getWorkerBaseUrl()}/api/v2/catalog/categories`,
       "- Admin Panel: open the production site and enter admin mode",
       "",
     ];
