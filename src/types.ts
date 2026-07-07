@@ -12,7 +12,7 @@ export type ProductCategory =
   | "tricycle" 
   | "safety_seat";
 
-export type ComplianceTag = "CCC" | "EN1888" | "ASTM" | "GS";
+export type ComplianceTag = "CCC" | "EN1888" | "ASTM" | "ASTM F963" | "GS" | "CPC" | "CE" | "CPSC";
 
 export interface SEOConfig {
   title: string;
@@ -53,6 +53,7 @@ export interface Product {
   name: string;
   brand: string;
   category: ProductCategory;
+  categoryId?: string;
   wheelSize: string;
   weight: number; 
   material: string;

@@ -3,7 +3,7 @@ import { guideArticles } from "./data/guidesData.js";
 import { newsArticles } from "./data/newsData.js";
 import { productsData } from "./data/modelsData.js";
 import { initialEvaluationsData } from "./data/evaluationsData.js";
-import type { CMSCategory, CMSProduct, CMSScenario, CMSSettings, Evaluation, Guide, HomeSlot, News, Product, ProductCategory } from "./types.js";
+import type { CMSCategory, CMSProduct, CMSScenario, CMSSettings, ComplianceTag, Evaluation, Guide, HomeSlot, News, Product, ProductCategory } from "./types.js";
 import dotenv from "dotenv";
 
 // Load environment variables
@@ -589,6 +589,25 @@ function dedupeUrls(urls: string[]) {
   return out;
 }
 
+function parseLbsFromText(value?: string): number | undefined {
+  if (!value) return undefined;
+  const match = String(value).match(/(\d+(?:\.\d+)?)/);
+  if (!match) return undefined;
+  const numeric = Number(match[1]);
+  return Number.isFinite(numeric) ? numeric : undefined;
+}
+
+function splitFacetValues(value?: string): string[] {
+  const raw = String(value || "").trim();
+  if (!raw || raw.toLowerCase() === "unknown") {
+    return [];
+  }
+  return raw
+    .split("+")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
 function normalizeImageSource(source?: string): "cms" | "scraped" | "unknown" {
   if (source === "cms" || source === "scraped" || source === "unknown") {
     return source;
@@ -632,7 +651,27 @@ function normalizeWorkerImages(product: WorkerProduct) {
 
 function convertWorkerProduct(product: WorkerProduct, resource?: WorkerResource): CMSProduct {
   const localized = buildLocalizedText(product, resource);
-  const weight = product.weight?.lbs ?? 0;
+  const classification = product.classification || {};
+  const taxonomyWeight = parseLbsFromText(classification.Item_Weight);
+  const weight = taxonomyWeight ?? product.weight?.lbs ?? 0;
+  const wheelSize = classification.Wheel_Size || classification.Wheel_Configuration || "N/A";
+  const frameMaterial = classification.Frame_Material || classification.Weight_Class || classification.Stroller_Type || "Unknown";
+  const brakingSystem = classification.Braking_System || classification.Harness_Type || "Unknown";
+  const tireType = classification.Tire_Type || (classification.Wheel_Configuration ? `${classification.Wheel_Configuration}-wheel` : "Unknown");
+  const ageRange = classification.Age_Range || mapCategoryToAgeRange(product.categoryId);
+  const certifications = splitFacetValues(classification.Certifications);
+  const taxonomyFeaturePairs = [
+    ["Adjustability", classification.Adjustability],
+    ["Wheel_Count", classification.Wheel_Count],
+    ["Special_Wheel_Features", classification.Special_Wheel_Features],
+    ["Multi_in_1_Features", classification.Multi_in_1_Features],
+    ["Comfort_Extras", classification.Comfort_Extras],
+    ["Max_Load_Capacity", classification.Max_Load_Capacity],
+    ["Saddle_Height_Range", classification.Saddle_Height_Range],
+    ["Price_Tier", classification.Price_Tier],
+  ]
+    .filter(([, value]) => value && String(value).trim() && String(value).toLowerCase() !== "unknown")
+    .map(([key, value]) => `${key}: ${value}`);
   const normalizedImages = normalizeWorkerImages(product);
 
   return {
@@ -640,17 +679,19 @@ function convertWorkerProduct(product: WorkerProduct, resource?: WorkerResource)
     name: product.title,
     brand: product.brand,
     category: mapWorkerCategoryToProductCategory(product.categoryId),
-    wheelSize: product.classification?.Wheel_Configuration ? `${product.classification.Wheel_Configuration}-wheel` : "N/A",
+    wheelSize,
     weight,
-    material: product.classification?.Weight_Class || product.classification?.Stroller_Type || "Unknown",
-    brakeType: product.classification?.Harness_Type || "Unknown",
-    tireType: product.classification?.Wheel_Configuration ? `${product.classification.Wheel_Configuration}-wheel` : "Unknown",
+    material: frameMaterial,
+    brakeType: brakingSystem,
+    tireType,
     price: product.price?.value ?? 0,
-    ageRange: mapCategoryToAgeRange(product.categoryId),
+    ageRange,
     heightRange: mapCategoryToHeightRange(product.categoryId),
+    compliance: certifications.length > 0 ? (certifications as ComplianceTag[]) : undefined,
     images: normalizedImages.images,
     imageUrl: normalizedImages.coverUrl,
     galleryUrls: normalizedImages.galleryUrls,
+    features: taxonomyFeaturePairs,
     status: "published",
     overallScore: computeOverallScore(
       computeSafetyScore(product, resource),

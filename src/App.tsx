@@ -203,6 +203,12 @@ const REVIEW_ROUTE_IDS = new Set(REVIEW_NAV_OPTIONS.map((item) => item.id));
 const PRODUCT_ROUTE_ALIASES: Record<string, string> = {
   scooters: "kids_scooters",
   scooter: "kids_scooters",
+  balance: "balance_bike",
+  "balance bike": "balance_bike",
+  bicycle: "kids_bikes",
+  tricycle: "kids_tricycles",
+  electric_car: "electric_vehicles",
+  safety_seat: "car_seat",
 };
 const EXCLUDED_PRODUCT_CATEGORY_IDS = new Set([
   "playard",
@@ -708,7 +714,19 @@ export default function App() {
         if (allProducts && allProducts.length > 0) {
           setProductsData(filterExcludedProductCategories(allProducts));
         } else {
-          setProductsData(filterExcludedProductCategories(defaultProductsData));
+          // Final fallback: bootstrap from backend bundle so category pages never render empty.
+          try {
+            const bundle = await fetchContentBundle();
+            if (!isActive) return;
+            if (bundle.products && bundle.products.length > 0) {
+              setProductsData(filterExcludedProductCategories(bundle.products));
+            } else {
+              setProductsData(filterExcludedProductCategories(defaultProductsData));
+            }
+          } catch {
+            if (!isActive) return;
+            setProductsData(filterExcludedProductCategories(defaultProductsData));
+          }
         }
       }
 
@@ -723,6 +741,21 @@ export default function App() {
           await loadCmsData();
         } catch (err) {
           console.error("Failed to load CMS data:", err);
+          try {
+            const bundle = await fetchContentBundle();
+            if (!isActive) return;
+            if (bundle.settings) {
+              setCmsSettings(bundle.settings);
+            }
+            if (bundle.products && bundle.products.length > 0) {
+              setProductsData(filterExcludedProductCategories(bundle.products));
+            }
+            if (bundle.evaluations && bundle.evaluations.length > 0) {
+              setEvaluationsData(bundle.evaluations);
+            }
+          } catch (bundleErr) {
+            console.error("Fallback content bundle load failed:", bundleErr);
+          }
         }
         return;
       }
@@ -1089,7 +1122,7 @@ export default function App() {
           ? productsData
           : productsData.filter((product) => {
               const categoryId = String((product as any)?.categoryId || product?.category || "").trim().toLowerCase();
-              return categoryId === activeProductCategory;
+              return normalizeProductRouteCategory(categoryId) === activeProductCategory;
             });
         return Math.max(1, Math.ceil(routeProducts.length / 9));
       }

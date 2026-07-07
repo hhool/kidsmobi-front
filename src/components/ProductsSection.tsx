@@ -80,11 +80,22 @@ export default function ProductsSection({
   // Extra filters for PRD compliance
   const [selectedAge, setSelectedAge] = useState<string>("all"); // 'all', 'baby', 'toddler', 'child'
   const [selectedPrice, setSelectedPrice] = useState<string>("all"); // 'all', 'budget', 'mid', 'premium'
+  const [selectedFrameMaterial, setSelectedFrameMaterial] = useState<string>("all");
+  const [selectedTireType, setSelectedTireType] = useState<string>("all");
+  const [selectedBrakeSystem, setSelectedBrakeSystem] = useState<string>("all");
+  const [selectedWheelSize, setSelectedWheelSize] = useState<string>("all");
+  const [selectedCertification, setSelectedCertification] = useState<string>("all");
   const [backendCategoryNameMap, setBackendCategoryNameMap] = useState<Record<string, string>>({});
   const [hintFlash, setHintFlash] = useState<string | null>(null);
   const categoryAliasMap: Record<string, string> = {
     scooters: "kids_scooters",
     scooter: "kids_scooters",
+    balance: "balance_bike",
+    "balance bike": "balance_bike",
+    bicycle: "kids_bikes",
+    tricycle: "kids_tricycles",
+    electric_car: "electric_vehicles",
+    safety_seat: "car_seat",
   };
 
   useEffect(() => {
@@ -118,6 +129,14 @@ export default function ProductsSection({
       setSelectedCategory(activeCategory);
     }
   }, [activeCategory, selectedCategory]);
+
+  useEffect(() => {
+    setSelectedFrameMaterial("all");
+    setSelectedTireType("all");
+    setSelectedBrakeSystem("all");
+    setSelectedWheelSize("all");
+    setSelectedCertification("all");
+  }, [selectedCategory]);
 
   const handleCategorySelect = (categoryId: string) => {
     setSelectedCategory(categoryId);
@@ -161,21 +180,49 @@ export default function ProductsSection({
       .join(" ");
   };
 
-  const parseMinAgeYears = (ageRange: string): number => {
+  const parseAgeRangeYears = (ageRange: string): { min: number; max: number } | null => {
     const text = String(ageRange || "").toLowerCase().trim();
-    if (!text) return Number.NaN;
+    if (!text) return null;
 
-    const monthMatch = text.match(/(\d+(?:\.\d+)?)\s*(m|mo|mos|month|months|月)/);
-    if (monthMatch) {
-      return Number(monthMatch[1]) / 12;
+    const matches = Array.from(text.matchAll(/(\d+(?:\.\d+)?)\s*(m|mo|mos|month|months|月|y|yr|yrs|year|years|岁)?/g));
+    if (!matches.length) return null;
+
+    const years = matches
+      .map((match) => {
+        const value = Number(match[1]);
+        if (!Number.isFinite(value)) return Number.NaN;
+        const unit = (match[2] || "").toLowerCase();
+        if (unit === "m" || unit === "mo" || unit === "mos" || unit === "month" || unit === "months" || unit === "月") {
+          return value / 12;
+        }
+        return value;
+      })
+      .filter((value) => Number.isFinite(value));
+
+    if (!years.length) return null;
+
+    const plusStyle = text.includes("+") || text.includes("up") || text.includes("以上");
+    if (plusStyle) {
+      return { min: years[0], max: Number.POSITIVE_INFINITY };
     }
 
-    const yearMatch = text.match(/(\d+(?:\.\d+)?)\s*(y|yr|yrs|year|years|岁)?/);
-    if (yearMatch) {
-      return Number(yearMatch[1]);
+    const min = Math.min(...years);
+    const max = Math.max(...years);
+    return { min, max };
+  };
+
+  const intersectsAgeBucket = (range: { min: number; max: number } | null, bucket: "baby" | "toddler" | "child") => {
+    if (!range) {
+      return true;
     }
 
-    return Number.NaN;
+    if (bucket === "baby") {
+      return range.min < 2;
+    }
+    if (bucket === "toddler") {
+      return range.max >= 2 && range.min <= 5;
+    }
+    return range.max >= 5;
   };
 
   const categories = useMemo(() => {
@@ -210,6 +257,46 @@ export default function ProductsSection({
     if (normalized.includes("balance")) return 1;
     return 2;
   };
+
+  const normalizeFacetValue = (value?: string) => {
+    const text = String(value || "").trim();
+    if (!text) return "Unknown";
+    return text;
+  };
+
+  const normalizeFacetList = (values: Array<string | undefined>) => {
+    return Array.from(
+      new Set(
+        values
+          .map((value) => normalizeFacetValue(value))
+          .filter((value) => value && value.toLowerCase() !== "unknown")
+      )
+    ).sort((a, b) => a.localeCompare(b));
+  };
+
+  const selectedCategoryProducts = useMemo<Product[]>(() => {
+    if (!selectedCategory || selectedCategory === "all") {
+      return [] as Product[];
+    }
+    return productsData
+      .map((item) => ({
+        categoryId: getProductCategoryId(item),
+        product: translateProduct(item, lang),
+      }))
+      .filter(({ categoryId }) => categoryId === selectedCategory)
+      .map(({ product }) => product);
+  }, [productsData, lang, selectedCategory]);
+
+  const categoryFilterOptions = useMemo(() => {
+    const frameMaterials = normalizeFacetList(selectedCategoryProducts.map((item: Product) => item.material));
+    const tireTypes = normalizeFacetList(selectedCategoryProducts.map((item: Product) => item.tireType));
+    const brakeSystems = normalizeFacetList(selectedCategoryProducts.map((item: Product) => item.brakeType));
+    const wheelSizes = normalizeFacetList(selectedCategoryProducts.map((item: Product) => item.wheelSize));
+    const certifications = normalizeFacetList(
+      selectedCategoryProducts.flatMap((item: Product) => item.compliance || [])
+    );
+    return { frameMaterials, tireTypes, brakeSystems, wheelSizes, certifications };
+  }, [selectedCategoryProducts]);
 
   const getSeoHintTarget = (hint: string) => {
     const normalized = hint.trim().toLowerCase();
@@ -258,10 +345,10 @@ export default function ProductsSection({
           
         let matchesAge = true;
         if (selectedAge !== "all") {
-           const ageNum = parseMinAgeYears(p.ageRange);
-           if (selectedAge === "baby") matchesAge = ageNum < 2;
-           else if (selectedAge === "toddler") matchesAge = ageNum >= 2 && ageNum < 5;
-           else if (selectedAge === "child") matchesAge = ageNum >= 5;
+            const ageRange = parseAgeRangeYears(p.ageRange);
+            if (selectedAge === "baby" || selectedAge === "toddler" || selectedAge === "child") {
+             matchesAge = intersectsAgeBucket(ageRange, selectedAge);
+            }
         }
 
         let matchesPrice = true;
@@ -271,7 +358,27 @@ export default function ProductsSection({
            else if (selectedPrice === "premium") matchesPrice = p.price >= 2000;
         }
 
-        return matchesCategory && matchesSearch && matchesAge && matchesPrice;
+        const needsCategoryFacetFilter = selectedCategory !== "all";
+        const matchesFrameMaterial = !needsCategoryFacetFilter || selectedFrameMaterial === "all" || normalizeFacetValue(p.material) === selectedFrameMaterial;
+        const matchesTireType = !needsCategoryFacetFilter || selectedTireType === "all" || normalizeFacetValue(p.tireType) === selectedTireType;
+        const matchesBrakeSystem = !needsCategoryFacetFilter || selectedBrakeSystem === "all" || normalizeFacetValue(p.brakeType) === selectedBrakeSystem;
+        const matchesWheelSize = !needsCategoryFacetFilter || selectedWheelSize === "all" || normalizeFacetValue(p.wheelSize) === selectedWheelSize;
+        const matchesCertification =
+          !needsCategoryFacetFilter ||
+          selectedCertification === "all" ||
+          (p.compliance || []).map((item: string) => normalizeFacetValue(item)).includes(selectedCertification);
+
+        return (
+          matchesCategory &&
+          matchesSearch &&
+          matchesAge &&
+          matchesPrice &&
+          matchesFrameMaterial &&
+          matchesTireType &&
+          matchesBrakeSystem &&
+          matchesWheelSize &&
+          matchesCertification
+        );
       })
       .sort((a, b) => {
         const left = a.product;
@@ -295,7 +402,21 @@ export default function ProductsSection({
         }
         return 0;
       });
-  }, [selectedCategory, searchQuery, sortBy, selectedAge, selectedPrice, productsData, lang, backendCategoryNameMap]);
+  }, [
+    selectedCategory,
+    searchQuery,
+    sortBy,
+    selectedAge,
+    selectedPrice,
+    selectedFrameMaterial,
+    selectedTireType,
+    selectedBrakeSystem,
+    selectedWheelSize,
+    selectedCertification,
+    productsData,
+    lang,
+    backendCategoryNameMap,
+  ]);
 
   const pageSize = 9;
   const totalPages = Math.max(1, Math.ceil(filteredProducts.length / pageSize));
@@ -509,6 +630,90 @@ export default function ProductsSection({
                   ))}
                 </div>
              </div>
+
+             {selectedCategory !== "all" && (
+              <>
+                <div className="space-y-2">
+                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{lang === "zh" ? "车架材质" : "Frame"}</span>
+                  <select
+                    value={selectedFrameMaterial}
+                    onChange={(e) => setSelectedFrameMaterial(e.target.value)}
+                    title={lang === "zh" ? "选择车架材质" : "Select frame material"}
+                    aria-label={lang === "zh" ? "选择车架材质" : "Select frame material"}
+                    className="px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
+                  >
+                    <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
+                    {categoryFilterOptions.frameMaterials.map((item) => (
+                      <option key={item} value={item}>{item}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="space-y-2">
+                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{lang === "zh" ? "轮胎类型" : "Tire"}</span>
+                  <select
+                    value={selectedTireType}
+                    onChange={(e) => setSelectedTireType(e.target.value)}
+                    title={lang === "zh" ? "选择轮胎类型" : "Select tire type"}
+                    aria-label={lang === "zh" ? "选择轮胎类型" : "Select tire type"}
+                    className="px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
+                  >
+                    <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
+                    {categoryFilterOptions.tireTypes.map((item) => (
+                      <option key={item} value={item}>{item}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="space-y-2">
+                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{lang === "zh" ? "制动系统" : "Brake"}</span>
+                  <select
+                    value={selectedBrakeSystem}
+                    onChange={(e) => setSelectedBrakeSystem(e.target.value)}
+                    title={lang === "zh" ? "选择制动系统" : "Select braking system"}
+                    aria-label={lang === "zh" ? "选择制动系统" : "Select braking system"}
+                    className="px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
+                  >
+                    <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
+                    {categoryFilterOptions.brakeSystems.map((item) => (
+                      <option key={item} value={item}>{item}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="space-y-2">
+                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{lang === "zh" ? "轮径" : "Wheel"}</span>
+                  <select
+                    value={selectedWheelSize}
+                    onChange={(e) => setSelectedWheelSize(e.target.value)}
+                    title={lang === "zh" ? "选择轮径" : "Select wheel size"}
+                    aria-label={lang === "zh" ? "选择轮径" : "Select wheel size"}
+                    className="px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
+                  >
+                    <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
+                    {categoryFilterOptions.wheelSizes.map((item) => (
+                      <option key={item} value={item}>{item}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="space-y-2">
+                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{lang === "zh" ? "安全认证" : "Certification"}</span>
+                  <select
+                    value={selectedCertification}
+                    onChange={(e) => setSelectedCertification(e.target.value)}
+                    title={lang === "zh" ? "选择安全认证" : "Select certification"}
+                    aria-label={lang === "zh" ? "选择安全认证" : "Select certification"}
+                    className="px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
+                  >
+                    <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
+                    {categoryFilterOptions.certifications.map((item) => (
+                      <option key={item} value={item}>{item}</option>
+                    ))}
+                  </select>
+                </div>
+              </>
+             )}
           </div>
         </div>
 
