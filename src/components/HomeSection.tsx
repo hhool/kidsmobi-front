@@ -25,6 +25,7 @@ import { resolveProductImages, FALLBACK_PRODUCT_IMAGE } from "../lib/productImag
 import { clearJsonLd, setCollectionPageJsonLd } from "../lib/seoJsonLd";
 
 interface HomeSectionProps {
+  productsData: Product[];
   onSelectProduct: (p: Product) => void;
   setActiveTab: (tab: any) => void;
   childProfile: any;
@@ -33,6 +34,15 @@ interface HomeSectionProps {
   lang?: "zh" | "en";
   currencyData: CurrencyData;
 }
+
+type ImageLoadState = {
+  loaded: boolean;
+  failed: boolean;
+  fallback: boolean;
+  retryCount: number;
+  reason?: string;
+  sourceUrl?: string;
+};
 
 export default function HomeSection({
   productsData,
@@ -61,14 +71,7 @@ export default function HomeSection({
   
   const t = translations[lang];
   const [isWizardOpen, setIsWizardOpen] = useState(false);
-  const [imageLoadState, setImageLoadState] = useState<Record<string, {
-    loaded: boolean;
-    failed: boolean;
-    fallback: boolean;
-    retryCount: number;
-    reason?: string;
-    sourceUrl?: string;
-  }>>({});
+  const [imageLoadState, setImageLoadState] = useState<Record<string, ImageLoadState>>({});
 
   const inferFailureReason = (sourceUrl: string) => {
     if (!sourceUrl || sourceUrl === FALLBACK_PRODUCT_IMAGE) {
@@ -155,7 +158,7 @@ export default function HomeSection({
   const retryFailedImages = () => {
     setImageLoadState((prev) => {
       const next = { ...prev };
-      Object.entries(next).forEach(([key, state]) => {
+      Object.entries<ImageLoadState>(next).forEach(([key, state]) => {
         if (state.failed) {
           next[key] = {
             ...state,
@@ -171,7 +174,7 @@ export default function HomeSection({
   };
 
   const imageFailureEntries = useMemo(() => {
-    return Object.entries(imageLoadState)
+    return Object.entries<ImageLoadState>(imageLoadState)
       .filter(([, state]) => state.failed)
       .map(([key, state]) => ({
         key,
