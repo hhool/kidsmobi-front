@@ -7,10 +7,10 @@ interface SeoKeywordEntry {
 
 export const PRODUCT_CATEGORY_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
   all: {
-    zh: ["婴儿车", "儿童自行车", "平衡车", "儿童滑板车", "儿童电动车", "童车评测"],
-    en: ["stroller", "kids bike", "balance bike", "kids scooter", "kids electric vehicle", "kids mobility"],
+    zh: ["婴儿车", "儿童自行车", "平衡车", "儿童滑板车", "儿童电动车", "安全座椅"],
+    en: ["strollers", "kids bikes", "balance bikes", "kids scooters", "kids electric vehicles", "car seats"],
   },
-  stroller: {
+  strollers: {
     zh: [ "旅行婴儿车", "最佳轻便童车", "婴儿车评论", "如何选择婴儿推车", "最佳婴儿车", "便携式旅行婴儿推车", "婴儿推车（便携式旅行款）"],
     en: [
       "travel stroller",
@@ -19,8 +19,8 @@ export const PRODUCT_CATEGORY_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
       "twin stroller"
     ],
   },
-  double_stroller: {
-    zh: ["双人婴儿推车", "双胞胎婴儿车", "并排式双人婴儿推车", "旅行双人婴儿车", "双人慢跑婴儿车", "三人座婴儿推车"],
+  double_strollers: {
+    zh: ["双人婴儿推车", "双胞胎婴儿车", "并排式双人婴儿推车", "旅行双人婴儿车", "双人慢跑婴儿推车", "三人座婴儿推车"],
     en: [
       "double stroller",
       "twin stroller",
@@ -39,17 +39,17 @@ export const PRODUCT_CATEGORY_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
     zh: ["慢跑婴儿推车", "慢跑婴儿推车", "慢跑婴儿推车"],
     en: ["jogging stroller", "lightweight stroller", "travel stroller"]
   },
-  balance_bike: {
+  balance_bikes: {
     zh: ["平衡车", "幼儿平衡车", "适合1岁儿童的平衡车", "平衡车选购"],
-    en: ["balance bike", "balance bike toddler", "balance bike for 1 year old"],
+    en: ["balance bikes", "balance bike for toddlers", "toddler balance bike", "balance bike for kidstoddler", "balance bike for 1 year old"],
   },
   kids_scooters: {
     zh: ["儿童滑板车", "儿童电动滑板车", "可折叠电动滑板车", "带座椅电动滑板车"],
-    en: ["kids scooter", "kids scooters", "electric scooters for kids", "foldable electric scooter", "electric scooter with seat"],
+    en: ["kids scooters", "electric scooters for kids", "foldable electric scooter", "electric scooter with seat"],
   },
   scooters: {
     zh: ["儿童滑板车", "儿童电动滑板车", "可折叠电动滑板车", "带座椅电动滑板车"],
-    en: ["kids scooter", "kids scooters", "electric scooters for kids", "foldable electric scooter", "electric scooter with seat"],
+    en: ["kids scooters", "electric scooters for kids", "foldable electric scooter", "electric scooter with seat"],
   },
   kids_bikes: {
     zh: ["儿童自行车", "儿童电动自行车", "儿童越野摩托车", "儿童骑行车"],
@@ -63,9 +63,9 @@ export const PRODUCT_CATEGORY_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
     zh: ["儿童电动车", "儿童电动越野车", "儿童骑行电动车"],
     en: ["electric vehicles for kids", "kids electric vehicle", "kids electric ride on"],
   },
-  car_seat: {
+  car_seats: {
     zh: ["儿童安全座椅", "汽车安全座椅", "婴儿安全座椅"],
-    en: ["car seat", "baby car seat", "child safety seat"],
+    en: ["car seats", "baby car seats", "child safety seats"],
   },
 };
 

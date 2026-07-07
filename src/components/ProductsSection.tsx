@@ -260,6 +260,96 @@ export default function ProductsSection({
     return 2;
   };
 
+  const getAllProductsIntentPriority = (categoryId: string, product: Product) => {
+    const normalizedCategory = String(categoryId || "").trim().toLowerCase();
+    const text = [product.name, product.editorVerdict, product.brand]
+      .map((item) => String(item || "").toLowerCase())
+      .join(" ");
+
+    const isStroller = normalizedCategory.includes("stroller");
+    const isBalanceBike = normalizedCategory.includes("balance");
+
+    const travelSignals = ["travel stroller", "lightweight stroller", "umbrella stroller", "compact stroller", "cabin", "portable", "travel", "lightweight", "umbrella", "轻便", "旅行", "便携"];
+    const heavySignals = ["jogger", "jogging", "double stroller", "double", "twin stroller", "twin", "双人", "慢跑"];
+
+    const hasTravelSignal = travelSignals.some((kw) => text.includes(kw));
+    const hasHeavySignal = heavySignals.some((kw) => text.includes(kw));
+
+    if (isStroller && hasTravelSignal && !hasHeavySignal) return 0;
+    if (isBalanceBike) return 1;
+    if (isStroller && !hasHeavySignal) return 2;
+    if (isStroller && hasHeavySignal) return 4;
+    return 3;
+  };
+
+  const isTravelStrollerCandidate = (categoryId: string, product: Product) => {
+    const normalizedCategory = String(categoryId || "").trim().toLowerCase();
+    if (!normalizedCategory.includes("stroller")) {
+      return false;
+    }
+
+    const text = [product.name, product.editorVerdict, product.brand]
+      .map((item) => String(item || "").toLowerCase())
+      .join(" ");
+    const travelSignals = ["travel stroller", "lightweight stroller", "umbrella stroller", "compact stroller", "cabin", "portable", "travel", "lightweight", "umbrella", "轻便", "旅行", "便携"];
+    const heavySignals = ["jogger", "jogging", "double stroller", "double", "twin stroller", "twin", "双人", "慢跑"];
+
+    const hasTravelSignal = travelSignals.some((kw) => text.includes(kw));
+    const hasHeavySignal = heavySignals.some((kw) => text.includes(kw));
+    return hasTravelSignal && !hasHeavySignal;
+  };
+
+  const isBalanceBikeCandidate = (categoryId: string, product: Product) => {
+    const normalizedCategory = String(categoryId || "").trim().toLowerCase();
+    if (normalizedCategory.includes("balance")) {
+      return true;
+    }
+
+    const text = [product.name, product.editorVerdict, product.brand]
+      .map((item) => String(item || "").toLowerCase())
+      .join(" ");
+    return text.includes("balance bike") || text.includes("平衡车");
+  };
+
+  const rebalanceFirstPageIntentMix = (
+    sortedItems: Array<{ sourceCategoryId: string; sourceProduct: Product; product: Product }>,
+    firstPageSize: number
+  ) => {
+    if (sortedItems.length <= 1) {
+      return sortedItems;
+    }
+
+    const travelCandidates = sortedItems.filter((item) =>
+      isTravelStrollerCandidate(item.sourceCategoryId, item.product)
+    );
+    const balanceCandidates = sortedItems.filter((item) =>
+      isBalanceBikeCandidate(item.sourceCategoryId, item.product)
+    );
+    const otherCandidates = sortedItems.filter(
+      (item) =>
+        !isTravelStrollerCandidate(item.sourceCategoryId, item.product) &&
+        !isBalanceBikeCandidate(item.sourceCategoryId, item.product)
+    );
+
+    const targetTravel = Math.ceil(firstPageSize / 2);
+    const targetBalance = Math.floor(firstPageSize / 2);
+
+    const firstPageTravel = travelCandidates.slice(0, targetTravel);
+    const firstPageBalance = balanceCandidates.slice(0, targetBalance);
+    let firstPage = [...firstPageTravel, ...firstPageBalance];
+
+    if (firstPage.length < firstPageSize) {
+      const travelOverflow = travelCandidates.slice(firstPageTravel.length);
+      const balanceOverflow = balanceCandidates.slice(firstPageBalance.length);
+      const refillPool = [...travelOverflow, ...balanceOverflow, ...otherCandidates];
+      firstPage = [...firstPage, ...refillPool.slice(0, firstPageSize - firstPage.length)];
+    }
+
+    const firstPageIdSet = new Set(firstPage.map((item) => item.product.id));
+    const rest = sortedItems.filter((item) => !firstPageIdSet.has(item.product.id));
+    return [...firstPage, ...rest];
+  };
+
   const normalizeFacetValue = (value?: string) => {
     const text = String(value || "").trim();
     if (!text) return "Unknown";
@@ -375,7 +465,7 @@ export default function ProductsSection({
 
   // Filtering and sorting math
   const filteredProducts = useMemo(() => {
-    return productsData
+    const sortedItems = productsData
       .map((sourceProduct) => ({
         sourceCategoryId: getProductCategoryId(sourceProduct),
         sourceProduct,
@@ -438,7 +528,12 @@ export default function ProductsSection({
       .sort((a, b) => {
         const left = a.product;
         const right = b.product;
-        const priorityDelta = getCategoryPriority(a.sourceCategoryId) - getCategoryPriority(b.sourceCategoryId);
+
+        const useIntentPriority = selectedCategory === "all" && sortBy === "overallScore";
+        const priorityDelta = useIntentPriority
+          ? getAllProductsIntentPriority(a.sourceCategoryId, left) - getAllProductsIntentPriority(b.sourceCategoryId, right)
+          : getCategoryPriority(a.sourceCategoryId) - getCategoryPriority(b.sourceCategoryId);
+
         if (sortBy === "overallScore") {
           if (priorityDelta !== 0) return priorityDelta;
           return right.overallScore - left.overallScore;
@@ -457,6 +552,12 @@ export default function ProductsSection({
         }
         return 0;
       });
+
+    const useIntentPriority = selectedCategory === "all" && sortBy === "overallScore";
+    if (useIntentPriority) {
+      return rebalanceFirstPageIntentMix(sortedItems, 9);
+    }
+    return sortedItems;
   }, [
     selectedCategory,
     searchQuery,
