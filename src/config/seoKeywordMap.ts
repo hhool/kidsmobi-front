@@ -13,27 +13,26 @@ export const PRODUCT_CATEGORY_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
   strollers: {
     zh: [ "旅行婴儿车", "最佳轻便童车", "婴儿车评论", "如何选择婴儿推车", "最佳婴儿车", "便携式旅行婴儿推车", "婴儿推车（便携式旅行款）"],
     en: [
-      "travel stroller",
-      "lightweight stroller",
-      "jogging stroller",
-      "twin stroller"
+      "travel strollers",
+      "lightweight strollers",
+      "double strollers",
+      "jogger strollers",
+      "twin strollers"
     ],
   },
   double_strollers: {
-    zh: ["双人婴儿推车", "双胞胎婴儿车", "并排式双人婴儿推车", "旅行双人婴儿车", "双人慢跑婴儿推车", "三人座婴儿推车"],
+    zh: ["双胞胎婴儿车", "并排式双人婴儿推车", "旅行双人婴儿车", "双人慢跑婴儿推车"],
     en: [
       "double stroller",
       "twin stroller",
-      "triple stroller",
       "side by side double stroller",
-      "best double stroller for travel",
+      "double stroller for travel",
       "stroller jogging double",
-      "double stroller stroller",
     ],
   },
   jogger_stroller: {
-    zh: ["慢跑婴儿推车", "婴儿与慢跑婴儿推车", "最佳慢跑婴儿车", "慢跑推车评测", "双人慢跑婴儿推车"],
-    en: ["jogging stroller", "best jogging stroller", "infants and jogging strollers", "jogger stroller reviews", "jogging stroller stroller"],
+    zh: ["慢跑婴儿推车",   "双人慢跑婴儿推车"],
+    en: ["jogging stroller", "double jogging stroller"],
   },
   kids_strollers: {
     zh: ["慢跑婴儿推车", "慢跑婴儿推车", "慢跑婴儿推车"],
@@ -56,12 +55,12 @@ export const PRODUCT_CATEGORY_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
     en: ["kids bikes", "kids electric bike", "electric bike for kids", "electric dirt bike for kids"],
   },
   kids_tricycles: {
-    zh: ["儿童三轮车", "幼儿三轮车", "成长型三轮车"],
-    en: ["kids tricycle", "kids tricycles", "toddler tricycle"],
+    zh: ["幼儿三轮车", "成长型三轮车"],
+    en: ["kids tricycles", "toddler tricycle"],
   },
   electric_vehicles: {
-    zh: ["儿童电动车", "儿童电动越野车", "儿童骑行电动车"],
-    en: ["electric vehicles for kids", "kids electric vehicle", "kids electric ride on"],
+    zh: ["儿童电动车", "儿童骑行电动车"],
+    en: ["electric vehicles for kids", "kids electric ride on"],
   },
   car_seats: {
     zh: ["儿童安全座椅", "汽车安全座椅", "婴儿安全座椅"],
@@ -97,7 +96,14 @@ export const REVIEW_TYPE_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
 };
 
 export function getProductSeoKeywords(categoryId: string, lang: SupportedLang): string[] {
-  const key = categoryId || "all";
+  const raw = (categoryId || "all").trim().toLowerCase();
+  const aliasMap: Record<string, string> = {
+    stroller: "strollers",
+    double_stroller: "double_strollers",
+    car_seat: "car_seats",
+    balance_bike: "balance_bikes",
+  };
+  const key = aliasMap[raw] || raw;
   return PRODUCT_CATEGORY_SEO_KEYWORDS[key]?.[lang] || PRODUCT_CATEGORY_SEO_KEYWORDS.all[lang];
 }
 

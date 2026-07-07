@@ -153,6 +153,33 @@ export default function ProductsSection({
   const humanizeCategoryId = (rawCategoryId: string): string => {
     const normalized = rawCategoryId.trim().toLowerCase();
     if (!normalized) return rawCategoryId;
+    const normalizedKey = normalized.replace(/[\s-]+/g, "_");
+
+    if (lang === "en") {
+      const englishDisplayMap: Record<string, string> = {
+        balance: "Balance Bikes",
+        balance_bike: "Balance Bikes",
+        balance_bikes: "Balance Bikes",
+        car_seat: "Car Seats",
+        car_seats: "Car Seats",
+        safety_seat: "Car Seats",
+        stroller: "Strollers",
+        strollers: "Strollers",
+        double_stroller: "Double Strollers",
+        double_strollers: "Double Strollers",
+        jogger_stroller: "Jogger Strollers",
+        jogger_strollers: "Jogger Strollers",
+        electric_vehicles: "Electric Vehicles",
+        electric_car: "Electric Vehicles",
+      };
+      if (englishDisplayMap[normalized]) {
+        return englishDisplayMap[normalized];
+      }
+      if (englishDisplayMap[normalizedKey]) {
+        return englishDisplayMap[normalizedKey];
+      }
+    }
+
     if (backendCategoryNameMap[normalized]) {
       return backendCategoryNameMap[normalized];
     }
@@ -440,15 +467,29 @@ export default function ProductsSection({
     const normalized = hint.trim().toLowerCase();
     const hintMap: Record<string, string> = {
       stroller: "stroller",
+      strollers: "stroller",
       "kids strollers": "stroller",
       "kids stroller": "stroller",
       "婴儿车": "stroller",
       "婴儿推车": "stroller",
       "travel stroller": "stroller",
+      "travel strollers": "stroller",
+      "traval strollers": "stroller",
+      "lightweight strollers": "stroller",
+      "leightweight strollers": "stroller",
       "jogging stroller": "jogger_stroller",
+      "jogger stroller": "jogger_stroller",
+      "jogger strollers": "jogger_stroller",
+      "jogger strolles": "jogger_stroller",
       "double stroller": "double_stroller",
+      "double strollers": "double_stroller",
       "twin stroller": "double_stroller",
+      "side by side double stroller": "double_stroller",
+      "double stroller for travel": "double_stroller",
+      "stroller jogging double": "double_stroller",
+      "twin strollers": "double_stroller",
       "balance bike": "balance_bike",
+      "balance bikes": "balance_bike",
       "平衡车": "balance_bike",
       "kids bike": "kids_bikes",
       "kids bikes": "kids_bikes",
@@ -457,6 +498,14 @@ export default function ProductsSection({
       "kids scooters": "kids_scooters",
       "儿童滑板车": "scooters",
       "electric vehicles": "electric_vehicles",
+      "electric vehicle": "electric_vehicles",
+      "kids electric vehicles": "electric_vehicles",
+      "kids electric bike": "electric_vehicles",
+      "electric bike for kids": "electric_vehicles",
+      "electric dirt bike for kids": "electric_vehicles",
+      "kids electric vehicle": "electric_vehicles",
+      "car seats": "car_seat",
+      "car seat": "car_seat",
       "儿童电动车": "electric_vehicles",
     };
 
