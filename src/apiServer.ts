@@ -286,7 +286,8 @@ function buildCMSProductFromResourceRow(row: AdminResourceProduct): CMSProduct {
     features: ["backend-imported", "d1-init"],
     scenarios: ["city-commute"],
     relatedProductIds: [],
-    status: "draft",
+    // Early-site bootstrap should be immediately visible in frontend reads (onlyPublished=1).
+    status: "published",
     zh: {
       name: row.title,
       description: "由 backend 原始数据初始化到 D1。",

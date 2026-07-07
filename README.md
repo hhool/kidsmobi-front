@@ -133,6 +133,36 @@ Parameters:
 - `--limit`: max products to include
 - `--output`: output JSON path for Product Center import
 
+## CMS Initial Data Injection Runbook (Early Site Setup)
+
+When CMS does not yet contain complete published records (for example missing `kids_scooters`), use the operation runbook:
+
+- Chinese: `doc/CMS_INITIAL_DATA_INJECTION_RUNBOOK.zh.md`
+- English: `doc/CMS_INITIAL_DATA_INJECTION_RUNBOOK.en.md`
+
+This runbook covers:
+
+- Centralized Ops Center injection order
+- Worker-source init/replace/merge recommendations
+- Published-state checks
+- Frontend regression checklist
+
+## Cloudflare D1 Initial Injection Fix (Operational)
+
+For D1-specific bootstrap issues (records exist but not visible due to publish-state or category gaps):
+
+- Chinese: `doc/CLOUDFLARE_D1_INITIAL_INJECTION_FIX.zh.md`
+- English: `doc/CLOUDFLARE_D1_INITIAL_INJECTION_FIX.en.md`
+
+Includes:
+
+- D1 SQL checks
+- draft -> published remediation SQL
+- API-based init commands
+- `kids_scooters` targeted verification
+- 403 fallback operations (CMS Ops Center / D1 Studio SQL)
+- scooters-only rollback SQL for reversible operations
+
 ## Full CMS Bootstrap From Backend v2
 
 Script reference and naming catalog:

@@ -133,7 +133,10 @@ async function fetchJsonWithRetry(url, init = {}, options = {}) {
         message.includes("ECONNRESET") ||
         message.includes("ETIMEDOUT") ||
         message.includes("ENOTFOUND") ||
-        message.includes("other side closed");
+        message.includes("other side closed") ||
+        message.includes(" 503 ") ||
+        message.includes(" 429 ") ||
+        message.includes("resource limits");
       if (attempt >= retries || !isNetworkLike) {
         throw error;
       }
@@ -143,6 +146,23 @@ async function fetchJsonWithRetry(url, init = {}, options = {}) {
       await sleep(waitMs);
     }
   }
+}
+
+async function fetchAllPages(baseUrl, pageSize, dataKey = "data") {
+  const safePageSize = Math.max(1, Math.min(100, Number(pageSize) || 100));
+  const out = [];
+  let page = 1;
+  for (;;) {
+    const sep = baseUrl.includes("?") ? "&" : "?";
+    const url = `${baseUrl}${sep}page=${page}&pageSize=${safePageSize}`;
+    const payload = await fetchJsonWithRetry(url);
+    const rows = Array.isArray(payload?.[dataKey]) ? payload[dataKey] : [];
+    out.push(...rows);
+    if (rows.length < safePageSize) break;
+    page += 1;
+    if (page > 200) break;
+  }
+  return out;
 }
 
 function isDuplicateError(err) {
@@ -325,6 +345,8 @@ async function main() {
   const cmsBase = (parseArg("cmsBase", process.env.CMS_BASE || CMS_BASE_DEFAULT) || CMS_BASE_DEFAULT).replace(/\/+$/, "");
   const sourceBase = (parseArg("sourceBase", process.env.SOURCE_BASE || SOURCE_BASE_DEFAULT) || SOURCE_BASE_DEFAULT).replace(/\/+$/, "");
   const perCategory = Math.max(5, Number(parseArg("perCategory", "12")) || 12);
+  const productPageSize = Math.min(100, perCategory);
+  const resourcePageSize = 20;
   const manifestPath = parseArg("manifestPath", process.env.IMAGE_MANIFEST_PATH || "./tmp/front_image_transfer_manifest.json");
   const importBatchId = `import-${Date.now()}`;
   const importStats = {
@@ -399,13 +421,15 @@ async function main() {
   const allProducts = [];
   const allResources = [];
   for (const cat of sourceCategories) {
-    const [productsResp, resourcesResp] = await Promise.all([
-      fetchJsonWithRetry(`${sourceBase}/api/v2/products?categoryId=${encodeURIComponent(cat.categoryId)}&page=1&pageSize=${perCategory}`),
-      fetchJsonWithRetry(`${sourceBase}/api/v2/resources?categoryId=${encodeURIComponent(cat.categoryId)}&page=1&pageSize=${perCategory * 3}`),
-    ]);
-
-    const products = Array.isArray(productsResp?.data) ? productsResp.data : [];
-    const resources = Array.isArray(resourcesResp?.data) ? resourcesResp.data : [];
+    const encodedCategory = encodeURIComponent(cat.categoryId);
+    const products = await fetchAllPages(
+      `${sourceBase}/api/v2/products?categoryId=${encodedCategory}`,
+      productPageSize,
+    );
+    const resources = await fetchAllPages(
+      `${sourceBase}/api/v2/resources?categoryId=${encodedCategory}`,
+      resourcePageSize,
+    );
 
     allProducts.push(...products);
     allResources.push(...resources);

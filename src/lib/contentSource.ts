@@ -42,7 +42,28 @@ type WorkerProduct = {
 };
 
 function getScrapeApiBaseUrl() {
-  return (import.meta.env.VITE_SCRAPE_API_BASE_URL || DEFAULT_SCRAPE_API_BASE_URL).replace(/\/+$/, "");
+  const configured = String(import.meta.env.VITE_SCRAPE_API_BASE_URL || "").trim();
+  const fallback = DEFAULT_SCRAPE_API_BASE_URL;
+  const candidate = (configured || fallback).replace(/\/+$/, "");
+
+  // In deployed environments, never use localhost API bases.
+  if (typeof window !== "undefined") {
+    const pageHost = window.location.hostname.toLowerCase();
+    const isOnlineHost = !["localhost", "127.0.0.1", "::1"].includes(pageHost);
+    if (isOnlineHost) {
+      try {
+        const parsed = new URL(candidate);
+        const apiHost = parsed.hostname.toLowerCase();
+        if (["localhost", "127.0.0.1", "::1"].includes(apiHost)) {
+          return fallback;
+        }
+      } catch {
+        return fallback;
+      }
+    }
+  }
+
+  return candidate;
 }
 
 function buildWorkerUrl(pathname: string) {
@@ -344,7 +365,18 @@ export function isScrapedContentSource(): boolean {
   return (import.meta.env.VITE_CONTENT_SOURCE ?? "cms").toLowerCase() === "scraped";
 }
 
+function shouldUseLocalBundleEndpoint(): boolean {
+  const host = (typeof window !== "undefined" && window.location?.hostname) || "";
+  // /api/content/bundle is provided by the local/front server aggregator.
+  // In online static/worker-hosted environments this route commonly does not exist.
+  return host === "localhost" || host === "127.0.0.1";
+}
+
 export async function fetchContentBundle(): Promise<ContentBundle> {
+  if (!shouldUseLocalBundleEndpoint()) {
+    return fetchRemoteFallbackBundle();
+  }
+
   try {
     const response = await fetch("/api/content/bundle", {
       headers: {

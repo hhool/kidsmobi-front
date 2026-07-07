@@ -53,8 +53,27 @@ const DEFAULT_WORKER_BASE_URL = "https://kidsmobi-api-v1.seaman-player.workers.d
 
 export function getWorkerBaseUrl() {
   const env = (import.meta as any)?.env?.VITE_SCRAPE_API_BASE_URL;
-  const value = typeof env === "string" && env.trim().length > 0 ? env.trim() : DEFAULT_WORKER_BASE_URL;
-  return value.replace(/\/+$/, "");
+  const configured = typeof env === "string" && env.trim().length > 0 ? env.trim() : "";
+  const fallback = DEFAULT_WORKER_BASE_URL;
+  const candidate = (configured || fallback).replace(/\/+$/, "");
+
+  if (typeof window !== "undefined") {
+    const pageHost = window.location.hostname.toLowerCase();
+    const isOnlineHost = !["localhost", "127.0.0.1", "::1"].includes(pageHost);
+    if (isOnlineHost) {
+      try {
+        const parsed = new URL(candidate);
+        const apiHost = parsed.hostname.toLowerCase();
+        if (["localhost", "127.0.0.1", "::1"].includes(apiHost)) {
+          return fallback;
+        }
+      } catch {
+        return fallback;
+      }
+    }
+  }
+
+  return candidate;
 }
 
 function getBackendApiBaseUrl() {
@@ -166,7 +185,7 @@ async function getWorkerResourcePayload(params?: { categoryId?: string; q?: stri
           `/api/v2/products?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=60`
         ),
         fetchWorkerJson<{ data: WorkerResource[] }>(
-          `/api/v2/resources?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=120`
+          `/api/v2/resources?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=100`
         ),
       ]);
       return {

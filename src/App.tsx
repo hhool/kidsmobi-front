@@ -218,12 +218,35 @@ const EXCLUDED_PRODUCT_CATEGORY_IDS = new Set([
   "baby_carrier",
 ]);
 
+const PRODUCT_CATEGORY_ID_ALIASES: Record<string, string> = {
+  ...PRODUCT_ROUTE_ALIASES,
+  strollers: "stroller",
+};
+
 const resolveProductCategoryId = (product: Product) => {
-  return String((product as any)?.categoryId || product?.category || "").trim().toLowerCase();
+  const raw = String((product as any)?.categoryId || product?.category || "").trim().toLowerCase();
+  return PRODUCT_CATEGORY_ID_ALIASES[raw] || raw;
 };
 
 const filterExcludedProductCategories = (products: Product[]) => {
   return products.filter((product) => !EXCLUDED_PRODUCT_CATEGORY_IDS.has(resolveProductCategoryId(product)));
+};
+
+const mergeCmsWithFallbackByCategory = (cmsProducts: Product[], fallbackProducts: Product[]) => {
+  const merged = [...cmsProducts];
+  const seenIds = new Set(cmsProducts.map((item) => item.id));
+  const coveredCategories = new Set(cmsProducts.map((item) => resolveProductCategoryId(item)).filter(Boolean));
+
+  for (const item of fallbackProducts) {
+    const categoryId = resolveProductCategoryId(item);
+    if (!categoryId || coveredCategories.has(categoryId) || seenIds.has(item.id)) {
+      continue;
+    }
+    merged.push(item);
+    seenIds.add(item.id);
+  }
+
+  return merged;
 };
 
 const normalizePathname = (pathname: string) => {
@@ -706,7 +729,33 @@ export default function App() {
       const publishedProducts = await getCMSProducts(true);
       if (!isActive) return;
       if (publishedProducts && publishedProducts.length > 0) {
-        setProductsData(filterExcludedProductCategories(publishedProducts));
+        let nextProducts = filterExcludedProductCategories(publishedProducts);
+        const publishedCategories = new Set(nextProducts.map((item) => resolveProductCategoryId(item)).filter(Boolean));
+        const requiredCategories = PRODUCT_NAV_OPTIONS.map((item) => item.id).filter(
+          (id) => id !== "all" && !EXCLUDED_PRODUCT_CATEGORY_IDS.has(id)
+        );
+        const missingCategories = requiredCategories.filter((id) => !publishedCategories.has(id));
+
+        if (missingCategories.length > 0) {
+          // Keep CMS as primary source, but fill category gaps from runtime fallback data.
+          try {
+            const bundle = await fetchContentBundle();
+            if (!isActive) return;
+            const fallbackProducts =
+              bundle.products && bundle.products.length > 0
+                ? filterExcludedProductCategories(bundle.products)
+                : filterExcludedProductCategories(defaultProductsData);
+            nextProducts = mergeCmsWithFallbackByCategory(nextProducts, fallbackProducts);
+          } catch {
+            if (!isActive) return;
+            nextProducts = mergeCmsWithFallbackByCategory(
+              nextProducts,
+              filterExcludedProductCategories(defaultProductsData)
+            );
+          }
+        }
+
+        setProductsData(nextProducts);
       } else {
         // If initialization imported draft-only products, avoid a blank Product Center.
         const allProducts = await getCMSProducts(false);
@@ -1229,7 +1278,7 @@ export default function App() {
         }));
       }
       if (seoKey === "evaluations") {
-        return getPagedSlice(evaluationsData, 6).map((evaluation, index) => ({
+        return (getPagedSlice(evaluationsData, 6) as Evaluation[]).map((evaluation, index) => ({
           "@type": "ListItem",
           position: index + 1,
           name: lang === "zh" ? evaluation.zh.title : evaluation.en.title,

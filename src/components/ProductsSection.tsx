@@ -80,6 +80,7 @@ export default function ProductsSection({
   // Extra filters for PRD compliance
   const [selectedAge, setSelectedAge] = useState<string>("all"); // 'all', 'baby', 'toddler', 'child'
   const [selectedPrice, setSelectedPrice] = useState<string>("all"); // 'all', 'budget', 'mid', 'premium'
+  const [selectedBrand, setSelectedBrand] = useState<string>("all");
   const [selectedFrameMaterial, setSelectedFrameMaterial] = useState<string>("all");
   const [selectedTireType, setSelectedTireType] = useState<string>("all");
   const [selectedBrakeSystem, setSelectedBrakeSystem] = useState<string>("all");
@@ -131,6 +132,7 @@ export default function ProductsSection({
   }, [activeCategory, selectedCategory]);
 
   useEffect(() => {
+    setSelectedBrand("all");
     setSelectedFrameMaterial("all");
     setSelectedTireType("all");
     setSelectedBrakeSystem("all");
@@ -274,6 +276,33 @@ export default function ProductsSection({
     ).sort((a, b) => a.localeCompare(b));
   };
 
+  const matchesKidsScootersBoundary = (sourceProduct: Product, translatedProduct: Product) => {
+    const text = [
+      sourceProduct.name,
+      sourceProduct.editorVerdict,
+      translatedProduct.name,
+      translatedProduct.editorVerdict,
+    ]
+      .map((item) => String(item || "").toLowerCase())
+      .join(" ");
+
+    const required = ["scooter", "kick scooter", "滑板车"];
+    const blocked = [
+      "stroller",
+      "travel system",
+      "pram",
+      "umbrella stroller",
+      "car seat",
+      "推车",
+      "婴儿车",
+      "安全座椅",
+    ];
+
+    const hasRequired = required.some((kw) => text.includes(kw));
+    const hasBlocked = blocked.some((kw) => text.includes(kw));
+    return hasRequired && !hasBlocked;
+  };
+
   const selectedCategoryProducts = useMemo<Product[]>(() => {
     if (!selectedCategory || selectedCategory === "all") {
       return [] as Product[];
@@ -288,6 +317,7 @@ export default function ProductsSection({
   }, [productsData, lang, selectedCategory]);
 
   const categoryFilterOptions = useMemo(() => {
+    const brands = normalizeFacetList(selectedCategoryProducts.map((item: Product) => item.brand));
     const frameMaterials = normalizeFacetList(selectedCategoryProducts.map((item: Product) => item.material));
     const tireTypes = normalizeFacetList(selectedCategoryProducts.map((item: Product) => item.tireType));
     const brakeSystems = normalizeFacetList(selectedCategoryProducts.map((item: Product) => item.brakeType));
@@ -295,8 +325,26 @@ export default function ProductsSection({
     const certifications = normalizeFacetList(
       selectedCategoryProducts.flatMap((item: Product) => item.compliance || [])
     );
-    return { frameMaterials, tireTypes, brakeSystems, wheelSizes, certifications };
+    return { brands, frameMaterials, tireTypes, brakeSystems, wheelSizes, certifications };
   }, [selectedCategoryProducts]);
+
+  const categoryBaseCount = useMemo(() => {
+    return productsData
+      .map((sourceProduct) => ({
+        sourceCategoryId: getProductCategoryId(sourceProduct),
+        sourceProduct,
+        translatedProduct: translateProduct(sourceProduct, lang),
+      }))
+      .filter(({ sourceCategoryId, sourceProduct, translatedProduct }) => {
+        if (excludedCategoryIds.has(sourceCategoryId)) {
+          return false;
+        }
+        const matchesCategory = selectedCategory === "all" || sourceCategoryId === selectedCategory;
+        const matchesScooterBoundary =
+          selectedCategory !== "kids_scooters" || matchesKidsScootersBoundary(sourceProduct, translatedProduct);
+        return matchesCategory && matchesScooterBoundary;
+      }).length;
+  }, [productsData, lang, selectedCategory]);
 
   const getSeoHintTarget = (hint: string) => {
     const normalized = hint.trim().toLowerCase();
@@ -330,9 +378,10 @@ export default function ProductsSection({
     return productsData
       .map((sourceProduct) => ({
         sourceCategoryId: getProductCategoryId(sourceProduct),
+        sourceProduct,
         product: translateProduct(sourceProduct, lang),
       }))
-      .filter(({ product: p, sourceCategoryId }) => {
+      .filter(({ product: p, sourceCategoryId, sourceProduct }) => {
         if (excludedCategoryIds.has(sourceCategoryId)) {
           return false;
         }
@@ -359,6 +408,7 @@ export default function ProductsSection({
         }
 
         const needsCategoryFacetFilter = selectedCategory !== "all";
+        const matchesBrand = !needsCategoryFacetFilter || selectedBrand === "all" || normalizeFacetValue(p.brand) === selectedBrand;
         const matchesFrameMaterial = !needsCategoryFacetFilter || selectedFrameMaterial === "all" || normalizeFacetValue(p.material) === selectedFrameMaterial;
         const matchesTireType = !needsCategoryFacetFilter || selectedTireType === "all" || normalizeFacetValue(p.tireType) === selectedTireType;
         const matchesBrakeSystem = !needsCategoryFacetFilter || selectedBrakeSystem === "all" || normalizeFacetValue(p.brakeType) === selectedBrakeSystem;
@@ -368,16 +418,21 @@ export default function ProductsSection({
           selectedCertification === "all" ||
           (p.compliance || []).map((item: string) => normalizeFacetValue(item)).includes(selectedCertification);
 
+        const matchesScooterBoundary =
+          selectedCategory !== "kids_scooters" || matchesKidsScootersBoundary(sourceProduct, p);
+
         return (
           matchesCategory &&
           matchesSearch &&
           matchesAge &&
           matchesPrice &&
+          matchesBrand &&
           matchesFrameMaterial &&
           matchesTireType &&
           matchesBrakeSystem &&
           matchesWheelSize &&
-          matchesCertification
+          matchesCertification &&
+          matchesScooterBoundary
         );
       })
       .sort((a, b) => {
@@ -408,6 +463,7 @@ export default function ProductsSection({
     sortBy,
     selectedAge,
     selectedPrice,
+    selectedBrand,
     selectedFrameMaterial,
     selectedTireType,
     selectedBrakeSystem,
@@ -634,6 +690,22 @@ export default function ProductsSection({
              {selectedCategory !== "all" && (
               <>
                 <div className="space-y-2">
+                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{lang === "zh" ? "品牌" : "Brand"}</span>
+                  <select
+                    value={selectedBrand}
+                    onChange={(e) => setSelectedBrand(e.target.value)}
+                    title={lang === "zh" ? "选择品牌" : "Select brand"}
+                    aria-label={lang === "zh" ? "选择品牌" : "Select brand"}
+                    className="px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
+                  >
+                    <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
+                    {categoryFilterOptions.brands.map((item) => (
+                      <option key={item} value={item}>{item}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="space-y-2">
                   <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{lang === "zh" ? "车架材质" : "Frame"}</span>
                   <select
                     value={selectedFrameMaterial}
@@ -737,6 +809,11 @@ export default function ProductsSection({
         </div>
       ) : (
         <div className="space-y-8">
+        <div className="flex items-center justify-center">
+          <span className="px-4 py-2 rounded-full bg-slate-50 border border-slate-200 text-[11px] font-black text-slate-500 uppercase tracking-widest">
+            {filteredProducts.length} / {categoryBaseCount} {lang === "en" ? "items" : "条目"}
+          </span>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {pagedProducts.map(({ product: p, sourceCategoryId }, idx) => {
             const diProduct = p;
@@ -760,6 +837,7 @@ export default function ProductsSection({
                   <div className="w-full h-52 bg-slate-50 border border-slate-100 rounded-[28px] p-4 flex items-center justify-center overflow-hidden">
                     <SmartImage
                       src={imageSet.coverUrl || undefined}
+                      fallbackSrcs={imageSet.galleryUrls}
                       alt={diProduct.name}
                       className="w-full h-full object-contain"
                       wrapperClassName="w-full h-full"
@@ -894,6 +972,7 @@ export default function ProductsSection({
                   <div className="w-16 h-16 bg-slate-50 border border-slate-100/50 rounded-2xl flex items-center justify-center p-2 shrink-0 group-hover:bg-orange-50/50 transition">
                     <SmartImage
                       src={imageSet.coverUrl || undefined}
+                      fallbackSrcs={imageSet.galleryUrls}
                       alt={dp.name}
                       className="w-full h-full object-contain"
                       wrapperClassName="w-full h-full"

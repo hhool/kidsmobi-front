@@ -11,7 +11,15 @@ function normalizeUrl(raw: unknown): string {
   if (typeof raw !== "string") {
     return "";
   }
-  return raw.trim();
+  const normalized = raw.trim();
+  if (!normalized) {
+    return "";
+  }
+  const lower = normalized.toLowerCase();
+  if (lower.startsWith("about:blank") || lower.includes("external-url-removed")) {
+    return "";
+  }
+  return normalized;
 }
 
 function dedupeUrls(urls: string[]): string[] {
