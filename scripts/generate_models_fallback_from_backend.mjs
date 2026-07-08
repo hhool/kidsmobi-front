@@ -157,6 +157,116 @@ function buildFeatureList(row) {
   return fallback.slice(0, 4);
 }
 
+function cleanEvidenceText(value) {
+  return String(value || "")
+    .replace(/\s+/g, " ")
+    .replace(/^Parent's Tip:\s*/i, "")
+    .trim();
+}
+
+function truncateEvidence(value, max = 180) {
+  const text = cleanEvidenceText(value);
+  if (text.length <= max) return text;
+  return `${text.slice(0, max - 1).trim()}...`;
+}
+
+function pushEvidence(out, source, text) {
+  const evidenceText = truncateEvidence(text);
+  if (!evidenceText) return;
+  const sourceText = String(source || "Scraped content").trim();
+  const key = `${sourceText}:${evidenceText}`.toLowerCase();
+  if (out.some((item) => `${item.source}:${item.text}`.toLowerCase() === key)) return;
+  out.push({ source: sourceText, text: evidenceText });
+}
+
+function collectScrapedEvidence(report) {
+  const out = [];
+  for (const item of report?.Expert_Review_Inputs?.evidenceHighlights || []) {
+    pushEvidence(out, item.source, item.text);
+  }
+  const features = String(report?.Features || "").split("|").map((item) => item.trim()).filter(Boolean);
+  features.forEach((text, index) => pushEvidence(out, `Features[${index + 1}]`, text));
+  pushEvidence(out, "Product_Description", report?.Product_Description);
+  for (const standard of Object.values(report?.Scoring_Standards_Logic || {})) {
+    for (const item of standard?.evidence || []) {
+      pushEvidence(out, item.source, item.text);
+    }
+  }
+  for (const [key, field] of Object.entries(report?.Product_Display_Fields || {})) {
+    if (field?.value) pushEvidence(out, field.source || `Product_Display_Fields.${key}`, `${key}: ${field.value}`);
+  }
+  return out;
+}
+
+function formatEvidenceLine(item) {
+  return `${item.text} (${item.source})`;
+}
+
+function buildEvidencePros(evidence) {
+  const preferred = evidence.filter((item) => /feature|description|comfort|safety|harness|fold|storage|battery|seat|wheel|suspension|brake/i.test(`${item.source} ${item.text}`));
+  return [...preferred, ...evidence].slice(0, 4).map(formatEvidenceLine);
+}
+
+function buildEvidenceCons(report, evidence) {
+  const cautionSignals = evidence.filter((item) => /\bno\b|not|without|weight|heavy|capacity|warranty|folded|battery|assembly|brake|harness|height|limit/i.test(`${item.source} ${item.text}`));
+  const displayChecks = Object.entries(report?.Product_Display_Fields || {}).map(([key, field]) => ({
+    source: String(field?.source || `Product_Display_Fields.${key}`),
+    text: truncateEvidence(`${key}: ${field?.value || "Confirm from source"}`),
+  }));
+  const out = [];
+  for (const item of [...cautionSignals, ...displayChecks, ...evidence]) {
+    const line = formatEvidenceLine(item);
+    if (!out.includes(line)) out.push(line);
+    if (out.length >= 4) break;
+  }
+  return out;
+}
+
+function filterEvidenceForScoring(rawKey, evidence) {
+  const keywordMap = {
+    safetyFirst: /safe|safety|secure|harness|brake|lock|cert|protect|limit|capacity|weight recommendation|weight capacity|seat belt|isofix/i,
+    ridingComfort: /comfort|padded|seat|cushion|suspension|shock|smooth|adjustable|recline|ergonomic|wheel|tire/i,
+    lightAndEasy: /light|weight|fold|portable|carry|storage|compact|assembly|easy|install|height|adjustable/i,
+  };
+  const matcher = keywordMap[rawKey];
+  const matched = matcher ? evidence.filter((item) => matcher.test(`${item.source} ${item.text}`)) : [];
+  const out = [];
+  for (const item of [...matched, ...evidence]) {
+    const key = `${item.source}:${item.text}`;
+    if (!out.some((candidate) => `${candidate.source}:${candidate.text}` === key)) out.push(item);
+    if (out.length >= 4) break;
+  }
+  return out;
+}
+
+function buildScoringStandards(report, evidence) {
+  const logic = report?.Scoring_Standards_Logic || {};
+  return [
+    ["safetyFirst", "safety", "Safety First"],
+    ["ridingComfort", "comfort", "Riding Comfort"],
+    ["lightAndEasy", "portability", "Light & Easy"],
+  ].map(([rawKey, key, fallbackLabel]) => {
+    const item = logic[rawKey] || {};
+    const itemEvidence = [];
+    for (const evidenceItem of item.evidence || []) {
+      pushEvidence(itemEvidence, evidenceItem.source, evidenceItem.text);
+    }
+    const resolvedEvidence = itemEvidence.length > 0 ? itemEvidence.slice(0, 4) : filterEvidenceForScoring(rawKey, evidence);
+    return {
+      key,
+      label: String(item.label || fallbackLabel),
+      parentTip: truncateEvidence(item.parentTip || report?.Parent_Tips?.[rawKey] || resolvedEvidence[0]?.text || "Derived from scraped product metadata."),
+      evidence: resolvedEvidence,
+    };
+  });
+}
+
+function buildEditorVerdict(report, evidence) {
+  const highlights = evidence.slice(0, 3).map((item) => item.text).filter(Boolean);
+  if (highlights.length > 0) return `Based on scraped product evidence: ${highlights.join(" ")}`;
+  return truncateEvidence(report?.Product_Description || report?.Features || "");
+}
+
 function encodeUrlPathSegment(value) {
   return encodeURIComponent(String(value || "")).replace(/%2F/g, "/");
 }
@@ -271,6 +381,10 @@ async function gatherProducts() {
       const scores = scoreBySignals(row?.Rank, report?.Rating || report?.Reviews || "", weight);
       const ageRange = asText(classification.User_Age) || config.ageRange;
       const features = buildFeatureList(row);
+      const scrapedEvidence = collectScrapedEvidence(report);
+      const pros = buildEvidencePros(scrapedEvidence);
+      const cons = buildEvidenceCons(report, scrapedEvidence);
+      const scoringStandards = buildScoringStandards(report, scrapedEvidence);
 
       products.push({
         id: asin ? `${categoryKey}-${asin.toLowerCase()}` : `${categoryKey}-${slugify(title)}`,
@@ -298,11 +412,16 @@ async function gatherProducts() {
           order: index,
         })),
         features,
+        description: asText(report?.Product_Description || report?.Features),
+        pros,
+        cons,
         scenarios: [config.categoryId],
         relatedProductIds: [],
         status: "published",
         ...scores,
-        editorVerdict: `${brand} ${title} is indexed from backend classification and used as a static fallback product.`,
+        editorVerdict: buildEditorVerdict(report, scrapedEvidence),
+        scrapedEvidence: scrapedEvidence.slice(0, 8),
+        scoringStandards,
       });
     }
   }

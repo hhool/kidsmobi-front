@@ -41,6 +41,18 @@ export interface ProductVideoAsset {
   order?: number;
 }
 
+export interface ScrapedEvidenceItem {
+  source: string;
+  text: string;
+}
+
+export interface ProductScoringStandard {
+  key: "safety" | "comfort" | "portability" | string;
+  label: string;
+  parentTip: string;
+  evidence: ScrapedEvidenceItem[];
+}
+
 export interface ProductImages {
   cover?: ProductImageAsset;
   gallery?: ProductImageAsset[];
@@ -83,12 +95,15 @@ export interface Product {
   reviews?: { display?: string; count?: number };
   userRating?: number;
   reviewCount?: number;
+  description?: string;
   pros?: string[];
   cons?: string[];
   customers_say?: string;
   customersSay?: string;
   safetyCertification?: string[];
   editorVerdict?: string;
+  scrapedEvidence?: ScrapedEvidenceItem[];
+  scoringStandards?: ProductScoringStandard[];
 }
 
 export interface CMSProduct extends Product {

@@ -547,8 +547,8 @@ export function translateProduct(p: any, lang: "zh" | "en") {
     brakeType: translateBrakeToEn(p.brakeType),
     wheelSize: p.wheelSize === "无" ? "None" : p.wheelSize.replace("寸", " in."),
     safetyCertification: translateSafetyCertificationToEn(p.safetyCertification),
-    pros: pros.map((pr: string) => pr.substring(0, 40)),
-    cons: cons.map((cn: string) => cn.substring(0, 40)),
+    pros,
+    cons,
     ageRange: p.ageRange,
     editorVerdict: editorVerdict ? editorVerdict : "Independently verified kids stroller or bicycle setup."
   };

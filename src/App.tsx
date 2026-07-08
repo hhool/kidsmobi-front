@@ -112,9 +112,9 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
       keywords: ["工程师评测报告", "机械载重量测试", "滑行顺畅度实测", "童车优缺点分析"]
     },
     en: {
-      title: "Stroller, Jogging, Double & Twin Stroller Lab Reviews | KIDSMOBI",
+      title: "Stroller, Balance Bike & Kids Scooter Reviews | KIDSMOBI",
       description: "Read lab-grade stroller and jogging stroller reviews with structural stress tests, plus double stroller and twin stroller safety comparisons for practical travel stroller decisions.",
-      keywords: ["stroller", "jogging stroller", "jogging stroller stroller", "stroller lab test", "best travel stroller", "double stroller", "stroller travel stroller", "twin stroller"]
+      keywords: ["jogging stroller", "balance bike", "toddler bike", "annual top", "safety special"]
     }
   },
   guides: {
@@ -585,7 +585,6 @@ export default function App() {
     const handleLocationUpdate = () => {
       if (activeTabRef.current === "product_detail") {
         setSelectedProduct(null);
-        setComparedProduct(null);
       }
       syncRouteStateFromLocation();
     };
@@ -1033,7 +1032,6 @@ export default function App() {
 
   // 4. Detail view state
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [comparedProduct, setComparedProduct] = useState<Product | null>(null);
   const [activeStandardDimension, setActiveStandardDimension] = useState<string | null>(null);
   const [previousTab, setPreviousTab] = useState<string>("home");
 
@@ -1396,11 +1394,10 @@ export default function App() {
 
   }, [activeTab, lang, cmsSettings, selectedProduct, activeProductCategory, activeReviewType, activePageIndex, productNavOptions, reviewNavOptions, productsData, evaluationsData, currentPath, newsPaginationTotalPages, guidesPaginationTotalPages]);
 
-  const handleSelectProduct = (product: Product | null, compareWith?: Product) => {
+  const handleSelectProduct = (product: Product | null) => {
     if (product) {
       setPreviousTab(activeTab);
       setSelectedProduct(product);
-      setComparedProduct(compareWith || null);
       window.history.pushState({ ...(window.history.state || {}), kidsmobiProductDetail: true }, "", window.location.href);
       setActiveTab("product_detail");
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1412,13 +1409,9 @@ export default function App() {
       });
     } else {
       setSelectedProduct(null);
-      setComparedProduct(null);
       setActiveTab(previousTab);
     }
   };
-
-  // Removing the useEffect that clears comparedProduct when selectedProduct changes,,
-  // Since we are setting it in handleSelectProduct now.
 
   const handleAxisLabelClick = (key: string) => {
     if (!key) return;
@@ -1972,12 +1965,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
         {activeTab === "product_detail" && selectedProduct && (
           <DetailedProductView
             product={selectedProduct}
-            allProducts={productsData}
             onClose={() => handleSelectProduct(null)}
             lang={lang}
             currencyData={currencyData}
-            comparedProduct={comparedProduct}
-            setComparedProduct={setComparedProduct}
             activeStandardDimension={activeStandardDimension}
             setActiveStandardDimension={setActiveStandardDimension}
             previousTab={previousTab}

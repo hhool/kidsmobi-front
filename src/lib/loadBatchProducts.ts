@@ -1,4 +1,4 @@
-import { Product, ProductCategory } from "../types";
+import { Product, ProductCategory, ProductScoringStandard, ScrapedEvidenceItem } from "../types";
 
 /**
  * Maps category folder names to ProductCategory types
@@ -63,6 +63,14 @@ interface RawProduct {
   Product_Description?: string;
   Category_Attributes?: Record<string, string>;
   Product_Specifications?: Record<string, any>;
+  Product_Display_Fields?: Record<string, { value?: unknown; source?: unknown }>;
+  Scoring_Standards_Logic?: Record<string, any>;
+  Parent_Tips?: Record<string, string>;
+  Expert_Review_Inputs?: {
+    evidenceHighlights?: Array<{ source?: unknown; text?: unknown }>;
+    title?: string;
+    brand?: string;
+  };
   ASIN?: string;
   [key: string]: any;
 }
@@ -315,6 +323,131 @@ function pickExplicitCustomersSay(rawProduct: RawProduct): string {
   ).trim();
 }
 
+function cleanEvidenceText(value: unknown): string {
+  return String(value || "")
+    .replace(/\s+/g, " ")
+    .replace(/^Parent's Tip:\s*/i, "")
+    .trim();
+}
+
+function truncateEvidence(value: unknown, max = 180): string {
+  const text = cleanEvidenceText(value);
+  if (text.length <= max) return text;
+  return `${text.slice(0, max - 1).trim()}...`;
+}
+
+function pushEvidence(out: ScrapedEvidenceItem[], source: unknown, text: unknown) {
+  const sourceText = String(source || "Scraped content").trim();
+  const evidenceText = truncateEvidence(text);
+  if (!evidenceText) return;
+  const key = `${sourceText}:${evidenceText}`.toLowerCase();
+  if (out.some((item) => `${item.source}:${item.text}`.toLowerCase() === key)) return;
+  out.push({ source: sourceText, text: evidenceText });
+}
+
+function extractFeatureEvidence(rawProduct: RawProduct): ScrapedEvidenceItem[] {
+  const features = String(rawProduct.Features || "").split("|").map((item) => item.trim()).filter(Boolean);
+  return features.map((text, index) => ({ source: `Features[${index + 1}]`, text: truncateEvidence(text) }));
+}
+
+function collectScrapedEvidence(rawProduct: RawProduct): ScrapedEvidenceItem[] {
+  const out: ScrapedEvidenceItem[] = [];
+  for (const item of rawProduct.Expert_Review_Inputs?.evidenceHighlights || []) {
+    pushEvidence(out, item.source, item.text);
+  }
+  for (const item of extractFeatureEvidence(rawProduct)) {
+    pushEvidence(out, item.source, item.text);
+  }
+  if (rawProduct.Product_Description) {
+    pushEvidence(out, "Product_Description", rawProduct.Product_Description);
+  }
+  for (const standard of Object.values(rawProduct.Scoring_Standards_Logic || {})) {
+    for (const item of standard?.evidence || []) {
+      pushEvidence(out, item.source, item.text);
+    }
+  }
+  for (const [key, field] of Object.entries(rawProduct.Product_Display_Fields || {})) {
+    if (!field?.value) continue;
+    pushEvidence(out, field.source || `Product_Display_Fields.${key}`, `${key}: ${field.value}`);
+  }
+  return out;
+}
+
+function formatEvidenceLine(item: ScrapedEvidenceItem): string {
+  return `${item.text} (${item.source})`;
+}
+
+function buildPros(rawProduct: RawProduct, evidence: ScrapedEvidenceItem[]): string[] {
+  const preferred = evidence.filter((item) => /feature|description|comfort|safety|harness|fold|storage|battery|seat|wheel|suspension|brake/i.test(`${item.source} ${item.text}`));
+  const pool = [...preferred, ...evidence];
+  return pool.slice(0, 4).map(formatEvidenceLine);
+}
+
+function buildCons(rawProduct: RawProduct, evidence: ScrapedEvidenceItem[]): string[] {
+  const cautionSignals = evidence.filter((item) => /\bno\b|not|without|weight|heavy|capacity|warranty|folded|battery|assembly|brake|harness|height|limit/i.test(`${item.source} ${item.text}`));
+  const displayChecks = Object.entries(rawProduct.Product_Display_Fields || {}).map(([key, field]) => ({
+    source: String(field?.source || `Product_Display_Fields.${key}`),
+    text: truncateEvidence(`${key}: ${field?.value || "Confirm from source"}`),
+  }));
+  const pool = [...cautionSignals, ...displayChecks, ...evidence];
+  const out: string[] = [];
+  for (const item of pool) {
+    const line = formatEvidenceLine(item);
+    if (!out.includes(line)) out.push(line);
+    if (out.length >= 4) break;
+  }
+  return out;
+}
+
+function filterEvidenceForScoring(key: string, evidence: ScrapedEvidenceItem[]): ScrapedEvidenceItem[] {
+  const keywordMap: Record<string, RegExp> = {
+    safetyFirst: /safe|safety|secure|harness|brake|lock|cert|protect|limit|capacity|weight recommendation|weight capacity|seat belt|isofix/i,
+    ridingComfort: /comfort|padded|seat|cushion|suspension|shock|smooth|adjustable|recline|ergonomic|wheel|tire/i,
+    lightAndEasy: /light|weight|fold|portable|carry|storage|compact|assembly|easy|install|height|adjustable/i,
+  };
+  const matcher = keywordMap[key];
+  if (!matcher) return evidence.slice(0, 4);
+  const matched = evidence.filter((item) => matcher.test(`${item.source} ${item.text}`));
+  return [...matched, ...evidence].filter((item, index, pool) => {
+    const itemKey = `${item.source}:${item.text}`;
+    return pool.findIndex((candidate) => `${candidate.source}:${candidate.text}` === itemKey) === index;
+  }).slice(0, 4);
+}
+
+function mapScoringStandards(rawProduct: RawProduct, evidence: ScrapedEvidenceItem[]): ProductScoringStandard[] {
+  const rawLogic = rawProduct.Scoring_Standards_Logic || {};
+  const entries: Array<[string, string, string]> = [
+    ["safetyFirst", "safety", "Safety First"],
+    ["ridingComfort", "comfort", "Riding Comfort"],
+    ["lightAndEasy", "portability", "Light & Easy"],
+  ];
+
+  return entries.map(([rawKey, key, fallbackLabel]) => {
+    const item = rawLogic[rawKey] || {};
+    const itemEvidence: ScrapedEvidenceItem[] = [];
+    for (const evidenceItem of item.evidence || []) {
+      pushEvidence(itemEvidence, evidenceItem.source, evidenceItem.text);
+    }
+    if (itemEvidence.length === 0) {
+      itemEvidence.push(...filterEvidenceForScoring(rawKey, evidence));
+    }
+    return {
+      key,
+      label: String(item.label || fallbackLabel),
+      parentTip: truncateEvidence(item.parentTip || rawProduct.Parent_Tips?.[rawKey] || itemEvidence[0]?.text || "Derived from scraped product metadata."),
+      evidence: itemEvidence.slice(0, 4),
+    };
+  });
+}
+
+function buildEditorVerdict(rawProduct: RawProduct, evidence: ScrapedEvidenceItem[]): string {
+  const highlights = evidence.slice(0, 3).map((item) => item.text).filter(Boolean);
+  if (highlights.length > 0) {
+    return `Based on scraped product evidence: ${highlights.join(" ")}`;
+  }
+  return truncateEvidence(rawProduct.Product_Description || rawProduct.Features || "");
+}
+
 /**
  * Determine stroller subcategory based on product title and description
  */
@@ -376,6 +509,10 @@ export function transformReportProduct(
   const reviewCount = parseReviewCount(reviewsDisplay);
   const customersSay = pickExplicitCustomersSay(rawProduct) || buildCustomersSay(userRating, reviewCount);
   const videos = extractProductVideos(rawProduct);
+  const scrapedEvidence = collectScrapedEvidence(rawProduct);
+  const pros = buildPros(rawProduct, scrapedEvidence);
+  const cons = buildCons(rawProduct, scrapedEvidence);
+  const scoringStandards = mapScoringStandards(rawProduct, scrapedEvidence);
 
   const product: Product = {
     id,
@@ -396,12 +533,18 @@ export function transformReportProduct(
     galleryUrls: extractGalleryUrls(rawProduct),
     videoUrl: videos[0]?.url,
     videos,
+    description: rawProduct.Product_Description || rawProduct.Features || "",
+    pros,
+    cons,
     rating: { display: ratingDisplay || "N/A", value: userRating },
     reviews: { display: reviewsDisplay || "N/A", count: reviewCount },
     userRating,
     reviewCount,
     customers_say: customersSay,
     customersSay,
+    editorVerdict: buildEditorVerdict(rawProduct, scrapedEvidence),
+    scrapedEvidence,
+    scoringStandards,
   };
 
   return product;

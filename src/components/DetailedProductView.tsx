@@ -1,11 +1,10 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { 
   X, 
   ArrowLeft, 
   ShieldCheck, 
   TrendingUp, 
   TrendingDown, 
-  Scale, 
   ChevronRight, 
   CheckCircle2, 
   ThumbsUp, 
@@ -57,13 +56,12 @@ function resolveVerdictText(product: Product, lang: "zh" | "en"): string {
   const customersSay = resolveCustomersSay(product, lang);
   const isVerdictPlaceholder = isPlaceholderVerdict(verdict);
 
-  if (customersSay) {
-    return customersSay;
-  }
-  
-  // If verdict is not placeholder, use it
   if (!isVerdictPlaceholder && verdict) {
     return verdict;
+  }
+  
+  if (customersSay) {
+    return customersSay;
   }
   
   // Return empty string - no placeholder text for SEO health
@@ -81,12 +79,9 @@ function getVideoRenderType(url: string): "direct" | "hls" | "embed" | "none" {
 
 interface DetailedProductViewProps {
   product: Product;
-  allProducts: Product[];
   onClose: () => void;
   lang: "zh" | "en";
   currencyData: CurrencyData;
-  comparedProduct: Product | null;
-  setComparedProduct: (p: Product | null) => void;
   activeStandardDimension: string | null;
   setActiveStandardDimension: (dim: string | null) => void;
   previousTab?: string;
@@ -95,12 +90,9 @@ interface DetailedProductViewProps {
 
 export default function DetailedProductView({
   product,
-  allProducts,
   onClose,
   lang,
   currencyData,
-  comparedProduct,
-  setComparedProduct,
   activeStandardDimension,
   setActiveStandardDimension,
   previousTab,
@@ -130,6 +122,20 @@ export default function DetailedProductView({
   const hasVideo = videoRenderType !== "none";
   const hasFeatureImages = imageSet.featureUrls.length > 0;
   const [activeMediaTab, setActiveMediaTab] = useState<"gallery" | "feature" | "video">("gallery");
+
+  const ensureFourItems = (items: string[] | undefined, fallbackPrefix: string) => {
+    const out = [...(items || []).filter(Boolean)];
+    const evidence = displayProduct.scrapedEvidence || product.scrapedEvidence || [];
+    for (const item of evidence) {
+      if (out.length >= 4) break;
+      const line = `${fallbackPrefix}: ${item.text} (${item.source})`;
+      if (!out.includes(line)) out.push(line);
+    }
+    return out.slice(0, Math.max(4, out.length));
+  };
+
+  const detailPros = ensureFourItems(displayProduct.pros, lang === "en" ? "Scraped highlight" : "爬取亮点");
+  const detailCons = ensureFourItems(displayProduct.cons, lang === "en" ? "Source check" : "来源核对");
 
   const getBackLabel = () => {
     if (lang === "zh") {
@@ -169,30 +175,6 @@ export default function DetailedProductView({
     setActiveMediaTab("gallery");
   }, [product.id]);
 
-  const getCategoryPriority = (categoryValue?: string) => {
-    const normalized = String(categoryValue || "").trim().toLowerCase();
-    if (normalized.includes("stroller")) return 0;
-    if (normalized.includes("balance")) return 1;
-    return 2;
-  };
-
-  const compareCandidates = useMemo(() => {
-    return allProducts
-      .filter((p) => p.id !== product.id)
-      .sort((a, b) => {
-        const sameCategoryDelta = Number(b.category === product.category) - Number(a.category === product.category);
-        if (sameCategoryDelta !== 0) {
-          return sameCategoryDelta;
-        }
-        const priorityDelta = getCategoryPriority(a.category) - getCategoryPriority(b.category);
-        if (priorityDelta !== 0) {
-          return priorityDelta;
-        }
-        return (b.overallScore || 0) - (a.overallScore || 0);
-      })
-      .slice(0, 20);
-  }, [allProducts, product.id, product.category]);
-  
   // Function to extract 5-dimension scores
   const getProductScores = (p: Product) => {
     const safety = p.safetyScore;
@@ -219,20 +201,19 @@ export default function DetailedProductView({
   };
 
   const scoresA = getProductScores(product);
-  const scoresB = comparedProduct ? getProductScores(comparedProduct) : null;
 
   const radarData = lang === "en" ? [
-    { subject: "Safety", scoreA: scoresA.safety, scoreB: scoresB?.safety, key: "safety" },
-    { subject: "Comfort", scoreA: scoresA.comfort, scoreB: scoresB?.comfort, key: "comfort" },
-    { subject: "Portability", scoreA: scoresA.portability, scoreB: scoresB?.portability, key: "portability" },
-    { subject: "Functionality", scoreA: scoresA.functionality, scoreB: scoresB?.functionality, key: "functionality" },
-    { subject: "Value", scoreA: scoresA.costEff, scoreB: scoresB?.costEff, key: "value" }
+    { subject: "Safety", scoreA: scoresA.safety, key: "safety" },
+    { subject: "Comfort", scoreA: scoresA.comfort, key: "comfort" },
+    { subject: "Portability", scoreA: scoresA.portability, key: "portability" },
+    { subject: "Functionality", scoreA: scoresA.functionality, key: "functionality" },
+    { subject: "Value", scoreA: scoresA.costEff, key: "value" }
   ] : [
-    { subject: "安全性", scoreA: scoresA.safety, scoreB: scoresB?.safety, key: "safety" },
-    { subject: "舒适度", scoreA: scoresA.comfort, scoreB: scoresB?.comfort, key: "comfort" },
-    { subject: "便携性", scoreA: scoresA.portability, scoreB: scoresB?.portability, key: "portability" },
-    { subject: "功能性", scoreA: scoresA.functionality, scoreB: scoresB?.functionality, key: "functionality" },
-    { subject: "性价比", scoreA: scoresA.costEff, scoreB: scoresB?.costEff, key: "value" }
+    { subject: "安全性", scoreA: scoresA.safety, key: "safety" },
+    { subject: "舒适度", scoreA: scoresA.comfort, key: "comfort" },
+    { subject: "便携性", scoreA: scoresA.portability, key: "portability" },
+    { subject: "功能性", scoreA: scoresA.functionality, key: "functionality" },
+    { subject: "性价比", scoreA: scoresA.costEff, key: "value" }
   ];
 
   const handleAxisLabelClick = (key: string) => {
@@ -268,47 +249,34 @@ export default function DetailedProductView({
     return null;
   };
 
-  const defaultScoringStandards = [
-    {
-      key: "safety",
-      nameZh: "🛡️ 安全防护 (更省心)",
-      nameEn: "🛡️ Safety First",
-      formulaZh: "给家长的总结：我们测试了紧急刹车时的稳当程度，以及车架在碰撞时会不会轻易变形。",
-      formulaEn: "Parent's Tip: We tested how quickly and safely it stops, and frame strength.",
-      descZh: "选用更软、更好握的刹车系统，配合加固的合金车架，即使宝宝骑得飞快，也能稳稳停住。",
-      descEn: "Designed with easy-to-pull brakes and a sturdy frame so your child stays safe."
-    },
-    {
-      key: "comfort",
-      nameZh: "🛋️ 骑行舒适 (不累腰)",
-      nameEn: "🛋️ Riding Comfort",
-      formulaZh: "给家长的总结：测试了座包的柔软度，以及骑行时震手不震手。保证孩子不喊累。",
-      formulaEn: "Parent's Tip: We checked seat softness and how well it handles bumpy paths.",
-      descZh: "针对孩子发育的窄跨距设计，保护膝盖不外八字。配合减震轮胎，让颠簸路面更舒服。",
-      descEn: "Ergonomic seating protects little knees and makes bumpy rides a breeze."
-    },
-    {
-       key: "portability",
-       nameZh: "🎒 轻便省力 (好拿取)",
-       nameEn: "🎒 Light & Easy",
-       formulaZh: "给家长的总结：实测了车重。确保妈妈一个人也能轻松拎进后备箱。",
-       formulaEn: "Parent's Tip: We weighed every bike for ease of lifting into a trunk.",
-       descZh: "坚持“轻量化”原则。大部分车型都轻得离谱，哪怕是老人带娃，搬运也无压力。",
-       descEn: "Built with lightweight materials so anyone can easily carry it upstairs or store it."
-    }
-  ];
+  const scoringIconMap: Record<string, string> = {
+    safety: "🛡️",
+    comfort: "🛋️",
+    portability: "🎒",
+  };
 
-  const scoringStandards = cmsSettings?.scoringStandards && cmsSettings.scoringStandards.length > 0 
-    ? cmsSettings.scoringStandards.map(s => ({
+  const scoringLabelMap: Record<string, { zh: string; en: string }> = {
+    safety: { zh: "Safety First", en: "Safety First" },
+    comfort: { zh: "Riding Comfort", en: "Riding Comfort" },
+    portability: { zh: "Light & Easy", en: "Light & Easy" },
+  };
+
+  const productScoringStandards = displayProduct.scoringStandards || product.scoringStandards || [];
+  const scoringStandards = productScoringStandards.length > 0
+    ? productScoringStandards.map((standard) => ({
+        key: standard.key,
+        nameZh: `${scoringIconMap[standard.key] || "•"} ${scoringLabelMap[standard.key]?.zh || standard.label}`,
+        nameEn: `${scoringIconMap[standard.key] || "•"} ${scoringLabelMap[standard.key]?.en || standard.label}`,
+        parentTip: standard.parentTip,
+        evidence: standard.evidence || [],
+      }))
+    : (cmsSettings?.scoringStandards || []).slice(0, 3).map(s => ({
         key: s.id,
         nameZh: s.icon + " " + s.labelZh,
         nameEn: s.icon + " " + s.labelEn,
-        formulaZh: "给家长的总结：" + s.descriptionZh,
-        formulaEn: "Parent's Tip: " + s.descriptionEn,
-        descZh: s.descriptionZh,
-        descEn: s.descriptionEn
-      }))
-    : defaultScoringStandards;
+        parentTip: lang === "en" ? s.descriptionEn : s.descriptionZh,
+        evidence: (displayProduct.scrapedEvidence || product.scrapedEvidence || []).slice(0, 3),
+      }));
 
   return (
     <div id="detailed_product_view" className="max-w-4xl mx-auto space-y-8 animate-fade-in text-left">
@@ -430,24 +398,13 @@ export default function DetailedProductView({
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
-        {/* Radar & Comparison (Left Column) */}
+        {/* Radar & Evidence (Left Column) */}
         <div className="lg:col-span-2 space-y-8">
           <div className="bg-white border border-slate-100 rounded-[40px] p-8 shadow-sm space-y-8">
              <div className="flex justify-between items-center border-b border-slate-50 pb-6">
                 <h3 className="text-xl font-black text-slate-900">{lang === "en" ? "Performance Analysis" : "测评效能透视"}</h3>
-                <div className="flex items-center gap-2">
-                  <select
-                    aria-label={lang === "en" ? "Compare products" : "选择对比产品"}
-                    value={comparedProduct?.id || ""}
-                    onChange={(e) => setComparedProduct(allProducts.find(p => p.id === e.target.value) || null)}
-                    className="bg-slate-50 border border-slate-100 rounded-xl text-[10px] font-black uppercase px-4 py-2 cursor-pointer focus:ring-2 focus:ring-orange-500/20"
-                  >
-                    <option value="">{lang === "en" ? "Compare With..." : "选择对比型号..."}</option>
-                    {compareCandidates.map(p => {
-                      const dp = translateProduct(p, lang);
-                      return <option key={p.id} value={p.id}>{dp.brand} {dp.name}</option>;
-                    })}
-                  </select>
+                <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                  {lang === "en" ? "Single Product Evidence" : "单品证据评估"}
                 </div>
              </div>
 
@@ -483,16 +440,6 @@ export default function DetailedProductView({
                       fillOpacity={0.2}
                       strokeWidth={3}
                     />
-                    {comparedProduct && (
-                      <Radar
-                        name={comparedProduct.brand}
-                        dataKey="scoreB"
-                        stroke="#6366f1"
-                        fill="#6366f1"
-                        fillOpacity={0.15}
-                        strokeWidth={3}
-                      />
-                    )}
                   </RadarChart>
                 </ResponsiveContainer>
              </div>
@@ -505,7 +452,7 @@ export default function DetailedProductView({
                     {lang === "en" ? "Pros" : "产品亮点"}
                   </h4>
                   <ul className="space-y-2">
-                    {displayProduct.pros?.map((pro, i) => (
+                    {detailPros.map((pro, i) => (
                       <li key={i} className="flex gap-3 text-sm text-slate-600 font-medium bg-emerald-50/50 p-3 rounded-2xl border border-emerald-50">
                         <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                         {pro}
@@ -519,7 +466,7 @@ export default function DetailedProductView({
                     {lang === "en" ? "Cons" : "留意事项"}
                   </h4>
                   <ul className="space-y-2">
-                    {displayProduct.cons?.map((con, i) => (
+                    {detailCons.map((con, i) => (
                       <li key={i} className="flex gap-3 text-sm text-slate-600 font-medium bg-rose-50/50 p-3 rounded-2xl border border-rose-50">
                         <X className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
                         {con}
@@ -528,42 +475,6 @@ export default function DetailedProductView({
                   </ul>
                 </div>
              </div>
-             
-             {comparedProduct && (
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-slate-50 relative mt-4">
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -mt-3 text-[10px] font-black tracking-widest uppercase bg-slate-100 text-slate-400 px-3 py-1 rounded-full whitespace-nowrap">
-                    {lang === "en" ? `COMPARED WITH: ${comparedProduct.name}` : `对比机型优势与不足: ${comparedProduct.name}`}
-                  </div>
-                  <div className="space-y-4 pt-4 md:pt-0">
-                    <h4 className="flex items-center gap-2 text-xs font-black text-indigo-500 uppercase">
-                      <ThumbsUp className="w-4 h-4" />
-                      {lang === "en" ? "Compared Pros" : "对比款亮点"}
-                    </h4>
-                    <ul className="space-y-2 opacity-80">
-                      {translateProduct(comparedProduct, lang).pros?.map((pro, i) => (
-                        <li key={i} className="flex gap-3 text-sm text-slate-600 font-medium bg-indigo-50/50 p-3 rounded-2xl border border-indigo-50">
-                          <CheckCircle2 className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
-                          {pro}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="space-y-4 pt-4 md:pt-0">
-                    <h4 className="flex items-center gap-2 text-xs font-black text-rose-400 uppercase">
-                      <ThumbsDown className="w-4 h-4" />
-                      {lang === "en" ? "Compared Cons" : "对比款不足"}
-                    </h4>
-                    <ul className="space-y-2 opacity-80">
-                      {translateProduct(comparedProduct, lang).cons?.map((con, i) => (
-                        <li key={i} className="flex gap-3 text-sm text-slate-600 font-medium bg-rose-50/30 p-3 rounded-2xl border border-rose-50">
-                          <X className="w-4 h-4 text-rose-300 shrink-0 mt-0.5" />
-                          {con}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-               </div>
-             )}
           </div>
 
           {/* Standards Accordion */}
@@ -588,9 +499,16 @@ export default function DetailedProductView({
                       {isExpanded && (
                         <div className="px-6 pb-6 space-y-4 animate-fade-in">
                            <div className="bg-white p-4 rounded-2xl border border-orange-100 text-[11px] text-orange-800 font-bold leading-relaxed shadow-sm">
-                              {lang === "en" ? std.formulaEn : std.formulaZh}
+                            {lang === "en" ? "Parent's Tip: " : "给家长的总结："}{std.parentTip}
                            </div>
-                           <p className="text-xs text-slate-500 leading-relaxed font-medium pl-2">{lang === "en" ? std.descEn : std.descZh}</p>
+                          <div className="space-y-2 pl-2">
+                            {std.evidence.map((item, index) => (
+                              <div key={`${std.key}-${index}`} className="text-xs text-slate-500 leading-relaxed font-medium bg-white/70 border border-slate-100 rounded-2xl p-3">
+                               <span className="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">{item.source}</span>
+                               {item.text}
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       )}
                     </div>
@@ -613,19 +531,18 @@ export default function DetailedProductView({
 
               <div className="space-y-5">
                  {[
-                   ...(hasRealWeight ? [{ label: lang === "en" ? "Weight" : "整车自重", val1: formatWeight(displayProduct.weight, currencyData.code), val2: comparedProduct ? formatWeight(comparedProduct.weight, currencyData.code) : null, highlight1: displayProduct.weight < (comparedProduct?.weight || 6), highlight2: comparedProduct ? comparedProduct.weight < displayProduct.weight : false }] : []),
-                   { label: lang === "en" ? "Tires" : "轮胎材质", val1: displayProduct.tireType, val2: comparedProduct?.tireType },
-                   { label: lang === "en" ? "Frame" : "主要架构", val1: displayProduct.material, val2: comparedProduct?.material },
-                   { label: lang === "en" ? "Wheel Size" : "轮毂规格", val1: displayProduct.wheelSize, val2: comparedProduct?.wheelSize },
-                   { label: lang === "en" ? "Brakes" : "制动系统", val1: displayProduct.brakeType, val2: comparedProduct?.brakeType },
-                   { label: lang === "en" ? "Height Range" : "适配身高范围", val1: displayProduct.heightRange ? `${displayProduct.heightRange[0]}-${displayProduct.heightRange[1]}cm` : "", val2: comparedProduct?.heightRange ? `${comparedProduct.heightRange[0]}-${comparedProduct.heightRange[1]}cm` : null },
-                   { label: lang === "en" ? "MSRP" : "参考售价", val1: `${currencyData.symbol}${displayProduct.price}`, val2: comparedProduct ? `${currencyData.symbol}${comparedProduct.price}` : null }
+                   ...(hasRealWeight ? [{ label: lang === "en" ? "Weight" : "整车自重", val1: formatWeight(displayProduct.weight, currencyData.code), highlight1: displayProduct.weight < 6 }] : []),
+                   { label: lang === "en" ? "Tires" : "轮胎材质", val1: displayProduct.tireType },
+                   { label: lang === "en" ? "Frame" : "主要架构", val1: displayProduct.material },
+                   { label: lang === "en" ? "Wheel Size" : "轮毂规格", val1: displayProduct.wheelSize },
+                   { label: lang === "en" ? "Brakes" : "制动系统", val1: displayProduct.brakeType },
+                   { label: lang === "en" ? "Height Range" : "适配身高范围", val1: displayProduct.heightRange ? `${displayProduct.heightRange[0]}-${displayProduct.heightRange[1]}cm` : "" },
+                   { label: lang === "en" ? "MSRP" : "参考售价", val1: `${currencyData.symbol}${displayProduct.price}` }
                  ].map((item, i) => (
                    <div key={i} className="flex justify-between items-center text-xs border-b border-white/5 pb-3 last:border-0">
                       <span className="text-slate-500 font-bold">{item.label}</span>
                       <div className="flex flex-col items-end gap-1">
                         <strong className={`font-mono ${item.highlight1 ? "text-emerald-400" : "text-white"}`}>{item.val1}</strong>
-                        {item.val2 && <span className={`font-mono text-[10px] ${item.highlight2 ? "text-emerald-400" : "text-slate-400"}`}>VS. {item.val2}</span>}
                       </div>
                    </div>
                  ))}
