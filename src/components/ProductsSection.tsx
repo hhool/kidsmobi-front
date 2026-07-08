@@ -1066,7 +1066,7 @@ export default function ProductsSection({
                     <span className="text-slate-400 text-[10px] font-black uppercase tracking-widest">{diProduct.brand}</span>
                   </div>
 
-                  <h3 className="font-black text-slate-900 text-xl leading-tight group-hover:text-orange-500 transition-colors uppercase">
+                  <h3 className="font-black text-slate-900 text-xl leading-tight group-hover:text-orange-500 transition-colors">
                     {diProduct.name}
                   </h3>
 
