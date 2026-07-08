@@ -8,8 +8,11 @@ const CATEGORY_FOLDER_TO_TYPE: Record<string, ProductCategory> = {
   kids_bikes: "bicycle",
   scooters: "scooter",
   stroller: "stroller",
+  strollers: "stroller",
   double_stroller: "stroller",
+  double_strollers: "stroller",
   jogger_stroller: "stroller",
+  jogger_strollers: "stroller",
   electric_vehicles: "electric_car",
   kids_tricycles: "tricycle",
   car_seat: "safety_seat",
@@ -167,6 +170,26 @@ function parsePrice(priceStr: string | undefined): number {
 }
 
 /**
+ * Determine stroller subcategory based on product title and description
+ */
+function getStrollerSubcategory(title: string, description: string = ""): string {
+  const text = `${title} ${description}`.toLowerCase();
+  
+  // Check for double/twin/side-by-side indicators
+  if (text.includes("double") || text.includes("twin") || text.includes("side by side") || text.includes("双人")) {
+    return "double_stroller";
+  }
+  
+  // Check for jogging/jogger indicators
+  if (text.includes("jogging") || text.includes("jogger") || text.includes("慢跑")) {
+    return "jogger_stroller";
+  }
+  
+  // Default to regular stroller
+  return "stroller";
+}
+
+/**
  * Transform raw report product to frontend Product type
  */
 export function transformReportProduct(
@@ -174,12 +197,23 @@ export function transformReportProduct(
   categoryId: string,
   index: number
 ): Product | null {
-  const productCategory = CATEGORY_FOLDER_TO_TYPE[categoryId] || "stroller";
+  let productCategory = CATEGORY_FOLDER_TO_TYPE[categoryId] || "stroller";
+  let finalCategoryId = categoryId;
+  
+  // For stroller category, subdivide into stroller/double_stroller/jogger_stroller
+  if (categoryId === "stroller" || categoryId === "strollers") {
+    const strollerType = getStrollerSubcategory(
+      rawProduct.Title || "",
+      rawProduct.Product_Description || ""
+    );
+    finalCategoryId = strollerType;
+  }
+  
   const brand = rawProduct.Brand || "Unknown";
   const title = rawProduct.Title || `Product ${index}`;
   
   // Generate unique ID combining category and ASIN or index
-  const id = `${categoryId}-${(rawProduct.ASIN || `product${index}`).toLowerCase()}`;
+  const id = `${finalCategoryId}-${(rawProduct.ASIN || `product${index}`).toLowerCase()}`;
   
   const imageUrl = extractImageUrl(rawProduct);
   if (!imageUrl) {
@@ -195,7 +229,7 @@ export function transformReportProduct(
     name: title,
     brand,
     category: productCategory,
-    categoryId,
+    categoryId: finalCategoryId,
     wheelSize: extractWheelSize(attrs),
     weight: extractWeight(specs),
     material: extractMaterial(attrs, specs),
