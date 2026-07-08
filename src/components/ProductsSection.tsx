@@ -47,6 +47,124 @@ function pickCustomersSay(product: Product, lang: "zh" | "en"): string {
   return String(localized || product.customers_say || "").trim();
 }
 
+function pickLocalizedDescription(product: Product, lang: "zh" | "en"): string {
+  const localized = (product as Product & {
+    description?: string;
+    zh?: { description?: string };
+    en?: { description?: string };
+  })[lang]?.description;
+  return String(localized || (product as Product & { description?: string }).description || "").trim();
+}
+
+function compactSnippet(value: string): string {
+  return String(value || "")
+    .replace(/\s+/g, " ")
+    .replace(/[“”]/g, '"')
+    .trim();
+}
+
+function normalizeSnippetForCompare(value: string): string {
+  return compactSnippet(value)
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9\u4e00-\u9fa5]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function stripRepeatedBrandPrefix(text: string, brand: string): string {
+  const brandText = compactSnippet(brand);
+  let next = compactSnippet(text);
+  if (!brandText) return next;
+
+  const escapedBrand = brandText.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const repeatedBrandPattern = new RegExp(`^(?:${escapedBrand}\\s+){1,3}`, "i");
+  return next.replace(repeatedBrandPattern, "").trim();
+}
+
+function isTitleDuplicateSnippet(value: string, product: Product): boolean {
+  const text = normalizeSnippetForCompare(value);
+  const name = normalizeSnippetForCompare(product.name);
+  const brand = normalizeSnippetForCompare(product.brand);
+  if (!text || !name) return true;
+
+  const textWithoutBrand = brand ? text.replace(new RegExp(`^(?:${brand}\\s+){1,3}`), "").trim() : text;
+  return (
+    text === name ||
+    textWithoutBrand === name ||
+    name.startsWith(textWithoutBrand) ||
+    textWithoutBrand.startsWith(name.slice(0, Math.min(name.length, 80)))
+  );
+}
+
+function resolveGeneratedCardSummary(product: Product, lang: "zh" | "en"): string {
+  const name = normalizeSnippetForCompare(product.name);
+  const categoryId = normalizeSnippetForCompare(String((product as Product & { categoryId?: string }).categoryId || product.category || ""));
+
+  if (lang === "zh") {
+    if (/airplane|airline|compact|travel/.test(name)) return "适合出行场景的轻便旅行推车，强调紧凑收纳、机场携带与日常快速折叠。";
+    if (/car seat|travel system|infant/.test(name)) return "旅行系统套装，兼顾婴儿安全座椅衔接、家庭通勤与新生儿出行便利性。";
+    if (/jogger|jogging|runner/.test(name) || categoryId.includes("jogger")) return "面向户外慢跑和公园路面的三轮推车，重点关注稳定性、轮组通过性与推行控制。";
+    if (/double|twin/.test(name) || categoryId.includes("double")) return "双座推车方案，适合双胞胎或二孩家庭，重点关注座舱空间与转向稳定性。";
+    if (/balance/.test(name) || categoryId.includes("balance")) return "幼儿平衡车入门选择，帮助建立低速控车、转向协调与初期骑行信心。";
+    if (/scooter/.test(name) || categoryId.includes("scooter")) return "儿童滑板车方案，适合短途玩耍与平衡训练，重点关注转向反馈和低龄稳定性。";
+    if (/car seat/.test(name) || categoryId.includes("car seat")) return "儿童安全座椅选择，重点关注安装兼容性、侧向防护与日常乘车安全。";
+    return "基于品类参数与家庭使用场景整理的候选产品，适合进一步比较重量、价格与安全配置。";
+  }
+
+  if (/airplane|airline|compact|travel/.test(name)) return "Compact travel stroller for airport trips, fold-friendly storage, and everyday lightweight handling.";
+  if (/car seat|travel system|infant/.test(name)) return "Travel system bundle pairing stroller mobility with infant car seat compatibility for daily family trips.";
+  if (/jogger|jogging|runner/.test(name) || categoryId.includes("jogger")) return "Jogging stroller option for park paths and active families, focused on stability, wheel control, and smoother pushing.";
+  if (/double|twin/.test(name) || categoryId.includes("double")) return "Double stroller pick for twins or two-child families, balancing cabin space, steering stability, and shared outings.";
+  if (/balance/.test(name) || categoryId.includes("balance")) return "Toddler balance bike focused on early confidence, low-speed control, and first-ride coordination.";
+  if (/scooter/.test(name) || categoryId.includes("scooter")) return "Kids scooter option for short rides and balance practice, with emphasis on steering feedback and beginner stability.";
+  if (/car seat/.test(name) || categoryId.includes("car seat")) return "Child car seat option focused on installation fit, side-impact protection, and everyday passenger safety.";
+  return "Curated product candidate for comparing weight, price, safety configuration, and family-use fit.";
+}
+
+function isGenericCardSnippet(value: string): boolean {
+  const text = compactSnippet(value).toLowerCase();
+  if (!text) return true;
+
+  const genericPatterns = [
+    "product entry initialized into cms",
+    "backend preview item loaded",
+    "independently verified kids stroller or bicycle setup",
+    "由后台一键初始化写入 cms",
+    "cms 空数据时自动加载",
+    "请编辑后保存到 cms",
+  ];
+
+  return genericPatterns.some((pattern) => text.includes(pattern));
+}
+
+function truncateCardSnippet(value: string, maxLength: number): string {
+  if (value.length <= maxLength) return value;
+  return `${value.slice(0, maxLength).replace(/[\s,;:.!?-]+$/g, "")}...`;
+}
+
+function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
+  const description = pickLocalizedDescription(product, lang);
+  const verdict = resolveCardVerdict(product, lang);
+  const pros = ((product as Product & {
+    pros?: string[];
+    zh?: { pros?: string[] };
+    en?: { pros?: string[] };
+  })[lang]?.pros || product.pros || [])
+    .map((item) => compactSnippet(item))
+    .filter(Boolean);
+  const features = (product.features || [])
+    .map((item) => compactSnippet(item))
+    .filter(Boolean);
+
+  const candidates = [description, verdict, pickCustomersSay(product, lang), pros[0], features[0]]
+    .map((item) => compactSnippet(item))
+    .map((item) => stripRepeatedBrandPrefix(item, product.brand))
+    .filter((item) => item && !isPlaceholderVerdict(item) && !isGenericCardSnippet(item) && !isTitleDuplicateSnippet(item, product));
+
+  return truncateCardSnippet(candidates[0] || resolveGeneratedCardSummary(product, lang), lang === "zh" ? 72 : 120);
+}
+
 function resolveCardVerdict(product: Product, lang: "zh" | "en"): string {
   const verdict = String(product.editorVerdict || "").trim();
   const customersSay = pickCustomersSay(product, lang);
@@ -1026,7 +1144,7 @@ export default function ProductsSection({
           {pagedProducts.map(({ product: p, sourceCategoryId }, idx) => {
             const diProduct = p;
             const imageSet = resolveProductImages(diProduct);
-            const verdictText = resolveCardVerdict(diProduct, lang);
+            const cardSummary = resolveCardSummary(diProduct, lang);
             const massText = formatMassDisplay(diProduct.weight, currencyData.code, lang);
             const priceText = formatPriceDisplay(diProduct.price, currencyData.symbol, lang);
             const hasRealWeight = typeof diProduct.weight === "number" && Number.isFinite(diProduct.weight) && diProduct.weight > 0;
@@ -1041,6 +1159,15 @@ export default function ProductsSection({
               <div
                 key={diProduct.id}
                 onClick={() => onSelectProduct(p)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    onSelectProduct(p);
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+                aria-label={lang === "en" ? `View full metrics for ${diProduct.name}` : `查看 ${diProduct.name} 的完整参数`}
                 className="bg-white border border-slate-100 hover:border-orange-100 rounded-[56px] p-8 flex flex-col justify-between space-y-8 hover:shadow-[0_48px_80px_-24px_rgba(249,115,22,0.12)] transition-all duration-500 group text-left cursor-pointer relative animate-fade-in overflow-hidden"
               >
                 <div className="absolute top-0 right-0 w-24 h-24 bg-orange-50 rounded-bl-[60px] opacity-0 group-hover:opacity-100 transition-opacity translate-x-4 -translate-y-4"></div>
@@ -1070,6 +1197,12 @@ export default function ProductsSection({
                     {diProduct.name}
                   </h3>
 
+                  {cardSummary && (
+                    <p className="text-slate-600 text-sm leading-relaxed font-medium line-clamp-2">
+                      {cardSummary}
+                    </p>
+                  )}
+
                   <div className={`grid ${hasRealWeight ? "grid-cols-2" : "grid-cols-1"} gap-6 bg-slate-50/50 p-6 rounded-4xl border border-slate-50 mt-2 group-hover:bg-white group-hover:shadow-lg group-hover:shadow-slate-200/50 transition-all`}>
                     {hasRealWeight && (
                       <div className="space-y-1">
@@ -1091,11 +1224,6 @@ export default function ProductsSection({
                     </div>
                   </div>
 
-                  {verdictText && (
-                    <p className="text-slate-500 text-xs line-clamp-2 leading-relaxed font-bold italic">
-                      "{verdictText}"
-                    </p>
-                  )}
                 </div>
 
                 {/* Card actions */}
@@ -1126,7 +1254,10 @@ export default function ProductsSection({
                       <Bookmark className="w-5 h-5 fill-current" />
                     </button>
                   </div>
-                  <span className="text-[10px] font-black text-orange-500 uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all">
+                  <span
+                    className="text-[10px] font-black text-orange-500 uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all"
+                    aria-label={lang === "en" ? `Open ${diProduct.name} full metrics` : `打开 ${diProduct.name} 完整参数`}
+                  >
                     {lang === "en" ? "Full Metrics" : "完整参数"} <ChevronRight className="w-4 h-4" />
                   </span>
                 </div>

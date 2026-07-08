@@ -291,8 +291,20 @@ const isSearchOrAuthPath = (path: string) => {
   return path.startsWith("/search") || path.startsWith("/auth");
 };
 
-const shouldNoIndexCurrentPath = (path: string, search: string) => {
+const isNonProductionHostname = (hostname: string) => {
+  const normalized = String(hostname || "").trim().toLowerCase();
+  return (
+    normalized === "localhost" ||
+    normalized === "127.0.0.1" ||
+    normalized.startsWith("dev.")
+  );
+};
+
+const shouldNoIndexCurrentPath = (path: string, search: string, hostname?: string) => {
   const params = new URLSearchParams(search);
+  if (hostname && isNonProductionHostname(hostname)) {
+    return true;
+  }
   if (isSearchOrAuthPath(path)) {
     return true;
   }
@@ -1110,7 +1122,7 @@ export default function App() {
         updateMetaTag("keywords", kws.join(", "));
         const canonicalPath = normalizeCanonicalPath(currentPath);
         const canonicalUrl = `${window.location.origin}${canonicalPath}`;
-        const noIndex = shouldNoIndexCurrentPath(canonicalPath, window.location.search);
+        const noIndex = shouldNoIndexCurrentPath(canonicalPath, window.location.search, window.location.hostname);
         updateCanonicalLink(canonicalUrl);
         updateMetaProperty("og:url", canonicalUrl);
         updateMetaProperty("og:type", "article");
@@ -1237,7 +1249,7 @@ export default function App() {
     const totalPages = resolvePaginationTotalPages();
     const isOutOfRangePagination = totalPages !== null && activePageIndex > totalPages;
     const noIndex =
-      shouldNoIndexCurrentPath(canonicalPath, window.location.search) ||
+      shouldNoIndexCurrentPath(canonicalPath, window.location.search, window.location.hostname) ||
       isOutOfRangePagination ||
       pageConfig?.indexingPolicy === "noindex";
     updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : "index,follow,max-image-preview:large");
@@ -1627,9 +1639,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <Baby className="w-4 h-4 sm:w-5 sm:h-5 text-white stroke-[2.5]" />
               </div>
               <div className="text-left">
-                <h1 className="text-lg sm:text-xl font-display font-black tracking-tight text-slate-900 flex items-center gap-2">
+                <div className="text-lg sm:text-xl font-display font-black tracking-tight text-slate-900 flex items-center gap-2">
                   {t.brandTitle} <span className="hidden sm:inline-block text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-bold uppercase">{t.versionStamp}</span>
-                </h1>
+                </div>
                 <p className="hidden sm:block text-[11px] text-slate-500 font-medium tracking-normal">{lang === "zh" ? "更科学、更贴心的童车导购助手" : "Your Smart & Safe Kids Bike Guide"}</p>
               </div>
             </div>
