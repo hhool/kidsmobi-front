@@ -179,11 +179,8 @@ const applyPageKeywordOverride = (seoKey: string, keywords: string[], lang: "zh"
 const PRODUCT_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
   { id: "all", zh: "全部品类", en: "All Categories" },
   { id: "stroller", zh: "婴儿推车", en: "Kids Stroller" },
-  { id: "double_stroller", zh: "双人推车", en: "Double Stroller" },
-  { id: "jogger_stroller", zh: "慢跑推车", en: "Jogger Stroller" },
   { id: "balance_bike", zh: "平衡车", en: "Balance Bike" },
   { id: "kids_bikes", zh: "儿童自行车", en: "Kids Bikes" },
-  { id: "kids_tricycles", zh: "儿童三轮车", en: "Kids Tricycles" },
   { id: "kids_scooters", zh: "儿童滑板车", en: "Kids Scooters" },
   { id: "electric_vehicles", zh: "儿童电动车", en: "Electric Vehicles" },
   { id: "car_seat", zh: "安全座椅", en: "Car Seat" },
@@ -226,6 +223,33 @@ const PRODUCT_CATEGORY_ID_ALIASES: Record<string, string> = {
 const resolveProductCategoryId = (product: Product) => {
   const raw = String((product as any)?.categoryId || product?.category || "").trim().toLowerCase();
   return PRODUCT_CATEGORY_ID_ALIASES[raw] || raw;
+};
+
+const resolveProductMergeKey = (product: Product) => {
+  const raw = String((product as any)?.productId || (product as any)?.ASIN || product.id || "").trim();
+  const asinMatch = raw.match(/[A-Z0-9]{10}/i);
+  if (asinMatch) {
+    return asinMatch[0].toLowerCase();
+  }
+  return raw.toLowerCase();
+};
+
+const mergeBatchProductsIntoBase = (baseProducts: Product[], batchProducts: Product[]) => {
+  if (!batchProducts.length) return baseProducts;
+
+  const mergedById = new Map(baseProducts.map(product => [product.id, product]));
+  const idByMergeKey = new Map(baseProducts.map(product => [resolveProductMergeKey(product), product.id]));
+  for (const product of batchProducts) {
+    const mergeKey = resolveProductMergeKey(product);
+    const previousId = idByMergeKey.get(mergeKey);
+    if (previousId && previousId !== product.id) {
+      mergedById.set(previousId, product);
+    } else {
+      mergedById.set(product.id, product);
+    }
+    idByMergeKey.set(mergeKey, product.id);
+  }
+  return Array.from(mergedById.values());
 };
 
 const filterExcludedProductCategories = (products: Product[]) => {
@@ -465,6 +489,11 @@ export default function App() {
   const [newsPaginationTotalPages, setNewsPaginationTotalPages] = useState<number | null>(null);
   const [guidesPaginationTotalPages, setGuidesPaginationTotalPages] = useState<number | null>(null);
   const activeTabRef = useRef<string>(initialRouteState.activeTab);
+  const batchProductsRef = useRef<Product[]>([]);
+
+  const applyBatchProducts = (products: Product[]) => {
+    return mergeBatchProductsIntoBase(products, batchProductsRef.current);
+  };
 
   useEffect(() => {
     activeTabRef.current = activeTab;
@@ -767,26 +796,26 @@ export default function App() {
           }
         }
 
-        setProductsData(nextProducts);
+        setProductsData(applyBatchProducts(nextProducts));
       } else {
         // If initialization imported draft-only products, avoid a blank Product Center.
         const allProducts = await getCMSProducts(false);
         if (!isActive) return;
         if (allProducts && allProducts.length > 0) {
-          setProductsData(filterExcludedProductCategories(allProducts));
+          setProductsData(applyBatchProducts(filterExcludedProductCategories(allProducts)));
         } else {
           // Final fallback: bootstrap from backend bundle so category pages never render empty.
           try {
             const bundle = await fetchContentBundle();
             if (!isActive) return;
             if (bundle.products && bundle.products.length > 0) {
-              setProductsData(filterExcludedProductCategories(bundle.products));
+              setProductsData(applyBatchProducts(filterExcludedProductCategories(bundle.products)));
             } else {
-              setProductsData(filterExcludedProductCategories(defaultProductsData));
+              setProductsData(applyBatchProducts(filterExcludedProductCategories(defaultProductsData)));
             }
           } catch {
             if (!isActive) return;
-            setProductsData(filterExcludedProductCategories(defaultProductsData));
+            setProductsData(applyBatchProducts(filterExcludedProductCategories(defaultProductsData)));
           }
         }
       }
@@ -809,7 +838,7 @@ export default function App() {
               setCmsSettings(bundle.settings);
             }
             if (bundle.products && bundle.products.length > 0) {
-              setProductsData(filterExcludedProductCategories(bundle.products));
+              setProductsData(applyBatchProducts(filterExcludedProductCategories(bundle.products)));
             }
             if (bundle.evaluations && bundle.evaluations.length > 0) {
               setEvaluationsData(bundle.evaluations);
@@ -827,7 +856,7 @@ export default function App() {
 
         if (bundle.settings && bundle.products.length > 0 && bundle.evaluations.length > 0) {
           setCmsSettings(bundle.settings);
-          setProductsData(filterExcludedProductCategories(bundle.products));
+          setProductsData(applyBatchProducts(filterExcludedProductCategories(bundle.products)));
           setEvaluationsData(bundle.evaluations);
           return;
         }
@@ -860,11 +889,10 @@ export default function App() {
         
         if (batchProducts && batchProducts.length > 0) {
           console.log(`Loaded ${batchProducts.length} batch products, merging with existing data`);
+          batchProductsRef.current = batchProducts;
           // Merge batch products with existing data, preferring batch if duplicate IDs exist
           setProductsData(prev => {
-            const existingIds = new Set(prev.map(p => p.id));
-            const newProducts = batchProducts.filter(p => !existingIds.has(p.id));
-            return [...prev, ...newProducts];
+            return mergeBatchProductsIntoBase(prev, batchProducts);
           });
         }
       } catch (err) {

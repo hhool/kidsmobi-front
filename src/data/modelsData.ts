@@ -1340,10 +1340,8 @@ export const productsData: Product[] = [
     "safetyCertification": [
       "EN1888"
     ],
-    "imageUrl": "https://m.media-amazon.com/images/I/71QMKdktOlL._AC_UL320_.jpg",
-    "galleryUrls": [
-      "https://m.media-amazon.com/images/I/71QMKdktOlL._AC_UL320_.jpg"
-    ],
+    "imageUrl": "",
+    "galleryUrls": [],
     "videoUrl": "",
     "videos": [],
     "features": [
@@ -1870,10 +1868,8 @@ export const productsData: Product[] = [
     "safetyCertification": [
       "EN1888"
     ],
-    "imageUrl": "https://m.media-amazon.com/images/I/818U3EVBU1L._AC_UL320_.jpg",
-    "galleryUrls": [
-      "https://m.media-amazon.com/images/I/818U3EVBU1L._AC_UL320_.jpg"
-    ],
+    "imageUrl": "",
+    "galleryUrls": [],
     "videoUrl": "",
     "videos": [],
     "features": [
@@ -5388,757 +5384,52 @@ export const productsData: Product[] = [
     "editorVerdict": "WEIZE WEIZE Kids Mountain Bike 20 24 inch Kids' Bicycles for 8-14 Years Old Boys Girls with Dual Full Suspension, 6... is indexed from backend classification and used as a static fallback product."
   },
   {
-    "id": "kids_pull_along_wagons-b08q1svprp",
-    "name": "Green Toys Wagon, Orange CB - Pretend Play, Motor Skills, Kids Outdoor Toy Vehicle. No BPA, phthalates, PVC. ...",
-    "brand": "Green",
-    "category": "stroller",
-    "categoryId": "kids_pull_along_wagons",
-    "wheelSize": "4-wheel",
+    "id": "scooters-b0h29gpcfr",
+    "name": "Aovowheel Electric Scooter Adults, Foldable 8.5\" Tires E Scooter for Adults, 350W Motor, Kick Scooters Max 16...",
+    "brand": "Aovowheel",
+    "category": "scooter",
+    "categoryId": "kids_scooters",
+    "wheelSize": "8 Inch",
     "weight": 0,
     "material": "Engineering Plastic",
-    "brakeType": "N/A",
-    "tireType": "N/A",
-    "price": 24.99,
-    "ageRange": "Kids",
-    "heightRange": [
-      70,
-      140
-    ],
-    "compliance": [
-      "ASTM F963"
-    ],
-    "safetyCertification": [
-      "ASTM F963"
-    ],
-    "imageUrl": "https://store.poki2.online/kids_pull_along_wagons/Green/Rank_4_ASIN_B08Q1SVPRP_Green%20Toys%20Wagon%20Orange%20CB%20-%20Pretend%20Play%20Motor%20Sk/images/primary.jpg",
-    "galleryUrls": [
-      "https://store.poki2.online/kids_pull_along_wagons/Green/Rank_4_ASIN_B08Q1SVPRP_Green%20Toys%20Wagon%20Orange%20CB%20-%20Pretend%20Play%20Motor%20Sk/images/primary.jpg"
-    ],
-    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ebf97aa4-331e-4942-8647-e45412434e6d/default.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ebf97aa4-331e-4942-8647-e45412434e6d/default.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8868b360-b31a-4c7d-8b30-e38f1504be77/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c71e0013-84e6-49a0-a13d-fa0f5c8c5c3e/default.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
-    "features": [
-      "<100"
-    ],
-    "scenarios": [
-      "kids_pull_along_wagons"
-    ],
-    "relatedProductIds": [],
-    "status": "published",
-    "safetyScore": 9.1,
-    "weightScore": 8,
-    "geometryScore": 9.6,
-    "overallScore": 8.9,
-    "editorVerdict": "Green Green Toys Wagon, Orange CB - Pretend Play, Motor Skills, Kids Outdoor Toy Vehicle. No BPA, phthalates, PVC. ... is indexed from backend classification and used as a static fallback product."
-  },
-  {
-    "id": "kids_pull_along_wagons-b09gj7hvfh",
-    "name": "Radio Flyer City Luxe Stroll 'N Wagon, Ages 1+, 3-in-1 Push or Pull, Easy Fold, UV Canopy, 5-Point Harnesses,...",
-    "brand": "Radio",
-    "category": "stroller",
-    "categoryId": "kids_pull_along_wagons",
-    "wheelSize": "4-wheel",
-    "weight": 31.3,
-    "material": "Aluminum",
-    "brakeType": "5-Point Harness",
-    "tireType": "N/A",
-    "price": 199,
-    "ageRange": "kids",
-    "heightRange": [
-      70,
-      140
-    ],
-    "compliance": [
-      "ASTM F963"
-    ],
-    "safetyCertification": [
-      "ASTM F963"
-    ],
-    "imageUrl": "https://store.poki2.online/kids_pull_along_wagons/Radio/Rank_Similar_ASIN_B09GJ7HVFH_Radio%20Flyer%20City%20Luxe%20Stroll%20N%20Wagon%20Ages%201%203-in-1/images/primary.jpg",
-    "galleryUrls": [
-      "https://store.poki2.online/kids_pull_along_wagons/Radio/Rank_Similar_ASIN_B09GJ7HVFH_Radio%20Flyer%20City%20Luxe%20Stroll%20N%20Wagon%20Ages%201%203-in-1/images/primary.jpg"
-    ],
-    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/401e076f-c672-487a-a260-fe98d1e56069/default.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/401e076f-c672-487a-a260-fe98d1e56069/default.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a747f1e8-7963-4fde-9a61-159aae7b7873/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/11653e26-5c19-4c92-930d-f6f3872b1db9/default.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
-    "features": [
-      "100-200",
-      "Heavy Duty"
-    ],
-    "scenarios": [
-      "kids_pull_along_wagons"
-    ],
-    "relatedProductIds": [],
-    "status": "published",
-    "safetyScore": 9.1,
-    "weightScore": 6.6,
-    "geometryScore": 9.7,
-    "overallScore": 8.5,
-    "editorVerdict": "Radio Radio Flyer City Luxe Stroll 'N Wagon, Ages 1+, 3-in-1 Push or Pull, Easy Fold, UV Canopy, 5-Point Harnesses,... is indexed from backend classification and used as a static fallback product."
-  },
-  {
-    "id": "kids_pull_along_wagons-b084zglh27",
-    "name": "Radio Flyer Mini Classic Red Wagon for Kids, 16.5\" Toy Wagon for Kids Aged 1.5+, Play-Size Version of the Cla...",
-    "brand": "Radio",
-    "category": "stroller",
-    "categoryId": "kids_pull_along_wagons",
-    "wheelSize": "16.5 in",
-    "weight": 3.3,
-    "material": "Carbon Fiber",
-    "brakeType": "N/A",
-    "tireType": "N/A",
-    "price": 26.44,
-    "ageRange": "Kids | kid | toddler",
-    "heightRange": [
-      70,
-      140
-    ],
-    "compliance": [
-      "ASTM F963"
-    ],
-    "safetyCertification": [
-      "ASTM F963"
-    ],
-    "imageUrl": "https://store.poki2.online/kids_pull_along_wagons/Radio/Rank_5_ASIN_B084ZGLH27_Radio%20Flyer%20Mini%20Classic%20Red%20Wagon%20for%20Kids%2016.5%20T/images/primary.jpg",
-    "galleryUrls": [
-      "https://store.poki2.online/kids_pull_along_wagons/Radio/Rank_5_ASIN_B084ZGLH27_Radio%20Flyer%20Mini%20Classic%20Red%20Wagon%20for%20Kids%2016.5%20T/images/primary.jpg"
-    ],
-    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fe793a46-8057-4d85-b5c5-893da6829791/default.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fe793a46-8057-4d85-b5c5-893da6829791/default.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f6dd83a4-066e-4753-b0ef-f5c0b8cff4d7/default.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c3a3886f-94c6-45ca-9278-ad40584accef/default.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
-    "features": [
-      "<100",
-      "Ultra Lightweight"
-    ],
-    "scenarios": [
-      "kids_pull_along_wagons"
-    ],
-    "relatedProductIds": [],
-    "status": "published",
-    "safetyScore": 8.4,
-    "weightScore": 9.6,
-    "geometryScore": 9.5,
-    "overallScore": 9.2,
-    "editorVerdict": "Radio Radio Flyer Mini Classic Red Wagon for Kids, 16.5\" Toy Wagon for Kids Aged 1.5+, Play-Size Version of the Cla... is indexed from backend classification and used as a static fallback product."
-  },
-  {
-    "id": "kids_pull_along_wagons-b08vf98fss",
-    "name": "Radio Flyer Push & Pull Walker Wagon, Red, for Kids 1-4 Years Old, Locking Handle for Stability, Baby Push Wa...",
-    "brand": "Radio",
-    "category": "stroller",
-    "categoryId": "kids_pull_along_wagons",
-    "wheelSize": "4-wheel",
-    "weight": 4.5,
-    "material": "Carbon Fiber",
-    "brakeType": "N/A",
-    "tireType": "N/A",
-    "price": 29.44,
-    "ageRange": "1-4 Years | Kids",
-    "heightRange": [
-      70,
-      140
-    ],
-    "compliance": [
-      "ASTM F963"
-    ],
-    "safetyCertification": [
-      "ASTM F963"
-    ],
-    "imageUrl": "https://store.poki2.online/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio%20Flyer%20Push%20%20Pull%20Walker%20Wagon%20Red%20for%20Kids%201/images/primary.jpg",
-    "galleryUrls": [
-      "https://store.poki2.online/kids_pull_along_wagons/Radio/Rank_9_ASIN_B08VF98FSS_Radio%20Flyer%20Push%20%20Pull%20Walker%20Wagon%20Red%20for%20Kids%201/images/primary.jpg"
-    ],
-    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/04b05370-ea68-45af-81a2-4bdb2a7b7412/default.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/04b05370-ea68-45af-81a2-4bdb2a7b7412/default.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0823220d-c908-4aec-bdac-45700ac04451/default.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2a9812e9-e746-491c-adb0-6acb1ce0be19/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
-    "features": [
-      "<100",
-      "Ultra Lightweight"
-    ],
-    "scenarios": [
-      "kids_pull_along_wagons"
-    ],
-    "relatedProductIds": [],
-    "status": "published",
-    "safetyScore": 9,
-    "weightScore": 9.4,
-    "geometryScore": 9.4,
-    "overallScore": 9.3,
-    "editorVerdict": "Radio Radio Flyer Push & Pull Walker Wagon, Red, for Kids 1-4 Years Old, Locking Handle for Stability, Baby Push Wa... is indexed from backend classification and used as a static fallback product."
-  },
-  {
-    "id": "kids_push_ride_ons-b01gfzt4ak",
-    "name": "John Deere Ride On Toys Sit 'N Scoot Activity Tractor for Kids Ages 18 Months and Up, Green",
-    "brand": "John",
-    "category": "electric_car",
-    "categoryId": "kids_push_ride_ons",
-    "wheelSize": "N/A",
-    "weight": 3.9,
-    "material": "Engineering Plastic",
-    "brakeType": "N/A",
-    "tireType": "N/A",
-    "price": 50.94,
-    "ageRange": "18 Months and Up | Kids | Toddler",
-    "heightRange": [
-      70,
-      120
-    ],
-    "compliance": [
-      "ASTM F963"
-    ],
-    "safetyCertification": [
-      "ASTM F963"
-    ],
-    "imageUrl": "https://store.poki2.online/kids_push_ride_ons/John/Rank_6_ASIN_B01GFZT4AK_John%20Deere%20Ride%20On%20Toys%20Sit%20N%20Scoot%20Activity%20Tract/images/primary.jpg",
-    "galleryUrls": [
-      "https://store.poki2.online/kids_push_ride_ons/John/Rank_6_ASIN_B01GFZT4AK_John%20Deere%20Ride%20On%20Toys%20Sit%20N%20Scoot%20Activity%20Tract/images/primary.jpg"
-    ],
-    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0d509975-e911-456e-ad65-a22db43bc334/default.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0d509975-e911-456e-ad65-a22db43bc334/default.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/48ca8242-d12d-4227-9c39-1b1ebf218965/default.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/422e37e0-293e-47be-960b-ee4e97c3aa09/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
-    "features": [
-      "<100",
-      "Ultra Lightweight"
-    ],
-    "scenarios": [
-      "kids_push_ride_ons"
-    ],
-    "relatedProductIds": [],
-    "status": "published",
-    "safetyScore": 8.5,
-    "weightScore": 9.5,
-    "geometryScore": 9.5,
-    "overallScore": 9.2,
-    "editorVerdict": "John John Deere Ride On Toys Sit 'N Scoot Activity Tractor for Kids Ages 18 Months and Up, Green is indexed from backend classification and used as a static fallback product."
-  },
-  {
-    "id": "kids_push_ride_ons-b0d8sd9wzh",
-    "name": "Little Tikes Tractor & Cart, Foot-to-Floor Ride-On, for Boys and Girls Ages 1-5 Years",
-    "brand": "Little",
-    "category": "electric_car",
-    "categoryId": "kids_push_ride_ons",
-    "wheelSize": "N/A",
-    "weight": 0,
-    "material": "Engineering Plastic",
-    "brakeType": "N/A",
-    "tireType": "N/A",
-    "price": 64.99,
-    "ageRange": "Toddler | 1-5 Years | Ages 1-5 Years",
-    "heightRange": [
-      70,
-      120
-    ],
-    "compliance": [
-      "ASTM F963"
-    ],
-    "safetyCertification": [
-      "ASTM F963"
-    ],
-    "imageUrl": "https://store.poki2.online/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little%20Tikes%20Tractor%20%20Cart%20Foot-to-Floor%20Ride-On%20f/images/primary.jpg",
-    "galleryUrls": [
-      "https://store.poki2.online/kids_push_ride_ons/Little/Rank_Similar_ASIN_B0D8SD9WZH_Little%20Tikes%20Tractor%20%20Cart%20Foot-to-Floor%20Ride-On%20f/images/primary.jpg"
-    ],
-    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fa010915-0629-4284-a2d3-79986e480e03/default.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fa010915-0629-4284-a2d3-79986e480e03/default.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9c0ce93f-a9c2-4f1d-8dac-e67c05191a65/default.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1c686135-e312-4a07-badb-4144069f0d3c/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
-    "features": [
-      "<100"
-    ],
-    "scenarios": [
-      "kids_push_ride_ons"
-    ],
-    "relatedProductIds": [],
-    "status": "published",
-    "safetyScore": 8.9,
-    "weightScore": 8,
-    "geometryScore": 9.7,
-    "overallScore": 8.9,
-    "editorVerdict": "Little Little Tikes Tractor & Cart, Foot-to-Floor Ride-On, for Boys and Girls Ages 1-5 Years is indexed from backend classification and used as a static fallback product."
-  },
-  {
-    "id": "kids_push_ride_ons-b07cn9t8rc",
-    "name": "Radio Flyer Busy Buggy, for Toddlers 1-3, 3-in-1 Push Walker Ride On Car with 17 Sensory Activities, Anti-Tip...",
-    "brand": "Radio",
-    "category": "electric_car",
-    "categoryId": "kids_push_ride_ons",
-    "wheelSize": "N/A",
-    "weight": 4.9,
-    "material": "Engineering Plastic",
-    "brakeType": "N/A",
-    "tireType": "N/A",
-    "price": 39.88,
-    "ageRange": "1-3 years | kids | toddler",
-    "heightRange": [
-      70,
-      120
-    ],
-    "compliance": [
-      "ASTM F963"
-    ],
-    "safetyCertification": [
-      "ASTM F963"
-    ],
-    "imageUrl": "https://store.poki2.online/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio%20Flyer%20Busy%20Buggy%20for%20Toddlers%201-3%203-in-1%20Pus/images/primary.jpg",
-    "galleryUrls": [
-      "https://store.poki2.online/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B07CN9T8RC_Radio%20Flyer%20Busy%20Buggy%20for%20Toddlers%201-3%203-in-1%20Pus/images/primary.jpg"
-    ],
-    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/75daffc6-f1de-59a0-8ab7-63406ef6b9e0/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
-    "videos": [
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/75daffc6-f1de-59a0-8ab7-63406ef6b9e0/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8f8aaeb2-d720-4cbc-9102-b81ac9bb3803/default.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bbec5ce4-2fa6-4845-aa36-b51ab2152f28/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
-    "features": [
-      "<100",
-      "Ultra Lightweight"
-    ],
-    "scenarios": [
-      "kids_push_ride_ons"
-    ],
-    "relatedProductIds": [],
-    "status": "published",
-    "safetyScore": 9.1,
-    "weightScore": 9.4,
-    "geometryScore": 9.7,
-    "overallScore": 9.4,
-    "editorVerdict": "Radio Radio Flyer Busy Buggy, for Toddlers 1-3, 3-in-1 Push Walker Ride On Car with 17 Sensory Activities, Anti-Tip... is indexed from backend classification and used as a static fallback product."
-  },
-  {
-    "id": "kids_push_ride_ons-b00j405vh4",
-    "name": "Radio Flyer Cyclone, For Ages 3-7, Arm-Powered Ride On, 16\" Wheels, 360-degree Spins, Forward/Reverse Action,...",
-    "brand": "Radio",
-    "category": "electric_car",
-    "categoryId": "kids_push_ride_ons",
-    "wheelSize": "16 in",
-    "weight": 10.1,
-    "material": "Carbon Fiber",
     "brakeType": "N/A",
     "tireType": "Solid",
-    "price": 69,
-    "ageRange": "3-7 Years | Kids",
+    "price": 359.99,
+    "ageRange": "kids",
     "heightRange": [
-      70,
-      120
+      80,
+      140
     ],
     "compliance": [
-      "ASTM F963"
+      "ASTM F963",
+      "CPSC"
     ],
     "safetyCertification": [
-      "ASTM F963"
+      "ASTM F963",
+      "CPSC"
     ],
-    "imageUrl": "https://store.poki2.online/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B00J405VH4_Radio%20Flyer%20Cyclone%20For%20Ages%203-7%20Arm-Powered%20Ride/images/primary.jpg",
+    "imageUrl": "https://store.poki2.online/scooters/Aovowheel/Rank_Similar_ASIN_B0H29GPCFR_Aovowheel%20Electric%20Scooter%20Adults%20Foldable%208.5%20Tir/images/primary.jpg",
     "galleryUrls": [
-      "https://store.poki2.online/kids_push_ride_ons/Radio/Rank_Similar_ASIN_B00J405VH4_Radio%20Flyer%20Cyclone%20For%20Ages%203-7%20Arm-Powered%20Ride/images/primary.jpg"
+      "https://store.poki2.online/scooters/Aovowheel/Rank_Similar_ASIN_B0H29GPCFR_Aovowheel%20Electric%20Scooter%20Adults%20Foldable%208.5%20Tir/images/primary.jpg"
     ],
-    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/d281a647-aff5-55ca-9081-94077bc5b3ae/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
-    "videos": [
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/d281a647-aff5-55ca-9081-94077bc5b3ae/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5e128465-c346-4b84-941e-567ea7de7ae3/default.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/de2d7948-ecd9-467b-98e8-2343ca055786/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
+    "videoUrl": "",
+    "videos": [],
     "features": [
-      "<100",
-      "Ultra Lightweight"
+      "【powerful Motor & Long Range】 Equipped With A 350w Motor",
+      "The Aovowheel Purple Scooter Reaches Speeds Up To 19 Mph And Delivers Up To 21 Miles Of Riding On A Single Charge. Perfect For School Commutes",
+      "Weekend Adventures",
+      "Or Park Rides"
     ],
     "scenarios": [
-      "kids_push_ride_ons"
+      "kids_scooters"
     ],
     "relatedProductIds": [],
     "status": "published",
-    "safetyScore": 8.4,
-    "weightScore": 8.7,
-    "geometryScore": 9.7,
-    "overallScore": 8.9,
-    "editorVerdict": "Radio Radio Flyer Cyclone, For Ages 3-7, Arm-Powered Ride On, 16\" Wheels, 360-degree Spins, Forward/Reverse Action,... is indexed from backend classification and used as a static fallback product."
-  },
-  {
-    "id": "kids_push_ride_ons-b08j8g3k3n",
-    "name": "Step2 Up and Down Roller Coaster Toy for Kids, Ride On Push Car, Indoor, Outdoor Playset, Toddlers Ages 2, 5 ...",
-    "brand": "Step2",
-    "category": "electric_car",
-    "categoryId": "kids_push_ride_ons",
-    "wheelSize": "N/A",
-    "weight": 0,
-    "material": "Engineering Plastic",
-    "brakeType": "Coaster Brake",
-    "tireType": "N/A",
-    "price": 139.99,
-    "ageRange": "2 to 6 years | Kids | toddler",
-    "heightRange": [
-      70,
-      120
-    ],
-    "compliance": [
-      "ASTM F963"
-    ],
-    "safetyCertification": [
-      "ASTM F963"
-    ],
-    "imageUrl": "https://store.poki2.online/kids_push_ride_ons/Step2/Rank_9_ASIN_B08J8G3K3N_Step2%20Up%20and%20Down%20Roller%20Coaster%20Toy%20for%20Kids%20Ride/images/primary.jpg",
-    "galleryUrls": [
-      "https://store.poki2.online/kids_push_ride_ons/Step2/Rank_9_ASIN_B08J8G3K3N_Step2%20Up%20and%20Down%20Roller%20Coaster%20Toy%20for%20Kids%20Ride/images/primary.jpg"
-    ],
-    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/48448cf7-9ecb-4935-97d1-ad5e36e8c52b/default.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/48448cf7-9ecb-4935-97d1-ad5e36e8c52b/default.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6233b7a8-cb75-44f0-b165-92d58a26edd2/default.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0640ebdc-fb5a-469c-b2ab-fdacbc62aff3/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
-    "features": [
-      "100-200"
-    ],
-    "scenarios": [
-      "kids_push_ride_ons"
-    ],
-    "relatedProductIds": [],
-    "status": "published",
-    "safetyScore": 9.1,
+    "safetyScore": 7.2,
     "weightScore": 8,
-    "geometryScore": 9.4,
-    "overallScore": 8.8,
-    "editorVerdict": "Step2 Step2 Up and Down Roller Coaster Toy for Kids, Ride On Push Car, Indoor, Outdoor Playset, Toddlers Ages 2, 5 ... is indexed from backend classification and used as a static fallback product."
-  },
-  {
-    "id": "kids_push_ride_ons-b0d8km8m3g",
-    "name": "VEVOR Ride On Push Car for Toddlers, Ages 19+ Months, Ride Racer, Sit to Stand Toddler Ride On Toy, Kids Ride...",
-    "brand": "VEVOR",
-    "category": "electric_car",
-    "categoryId": "kids_push_ride_ons",
-    "wheelSize": "N/A",
-    "weight": 1.55,
-    "material": "Engineering Plastic",
-    "brakeType": "N/A",
-    "tireType": "N/A",
-    "price": 26.72,
-    "ageRange": "Toddler | Kids | kid",
-    "heightRange": [
-      70,
-      120
-    ],
-    "compliance": [
-      "ASTM F963"
-    ],
-    "safetyCertification": [
-      "ASTM F963"
-    ],
-    "imageUrl": "https://store.poki2.online/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR%20Ride%20On%20Push%20Car%20for%20Toddlers%20Ages%2019%20Months/images/primary.jpg",
-    "galleryUrls": [
-      "https://store.poki2.online/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KM8M3G_VEVOR%20Ride%20On%20Push%20Car%20for%20Toddlers%20Ages%2019%20Months/images/primary.jpg"
-    ],
-    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4a4560c9-363a-4cdf-a87d-cd011441f850/default.vertical.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4a4560c9-363a-4cdf-a87d-cd011441f850/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9fe8ccfe-f483-4e7d-868e-362e3ecf14d9/default.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4dc18f3c-4ec9-49cc-aa06-5f220fcc119c/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
-    "features": [
-      "<100",
-      "Ultra Lightweight"
-    ],
-    "scenarios": [
-      "kids_push_ride_ons"
-    ],
-    "relatedProductIds": [],
-    "status": "published",
-    "safetyScore": 8.5,
-    "weightScore": 9.8,
     "geometryScore": 9.7,
-    "overallScore": 9.3,
-    "editorVerdict": "VEVOR VEVOR Ride On Push Car for Toddlers, Ages 19+ Months, Ride Racer, Sit to Stand Toddler Ride On Toy, Kids Ride... is indexed from backend classification and used as a static fallback product."
-  },
-  {
-    "id": "kids_push_ride_ons-b0d8kmd5q3",
-    "name": "VEVOR Ride On Push Car for Toddlers, Ages 19+ Months, Ride Racer, Sit to Stand Toddler Ride On Toy, Kids Ride...",
-    "brand": "VEVOR",
-    "category": "electric_car",
-    "categoryId": "kids_push_ride_ons",
-    "wheelSize": "N/A",
-    "weight": 1.75,
-    "material": "Engineering Plastic",
-    "brakeType": "N/A",
-    "tireType": "N/A",
-    "price": 29.86,
-    "ageRange": "Toddler | Kids | 1-3 Year",
-    "heightRange": [
-      70,
-      120
-    ],
-    "compliance": [
-      "ASTM F963"
-    ],
-    "safetyCertification": [
-      "ASTM F963"
-    ],
-    "imageUrl": "https://store.poki2.online/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KMD5Q3_VEVOR%20Ride%20On%20Push%20Car%20for%20Toddlers%20Ages%2019%20Months/images/primary.jpg",
-    "galleryUrls": [
-      "https://store.poki2.online/kids_push_ride_ons/VEVOR/Rank_Similar_ASIN_B0D8KMD5Q3_VEVOR%20Ride%20On%20Push%20Car%20for%20Toddlers%20Ages%2019%20Months/images/primary.jpg"
-    ],
-    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/94b2d547-bfb5-4ceb-ab05-2161dfb76a81/default.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/94b2d547-bfb5-4ceb-ab05-2161dfb76a81/default.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/927ccb26-c688-4b26-ad6f-048bdd7ab33b/default.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9992bc3f-7d24-4fd7-aaed-6c5632c3a1a1/default.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
-    "features": [
-      "<100",
-      "Ultra Lightweight"
-    ],
-    "scenarios": [
-      "kids_push_ride_ons"
-    ],
-    "relatedProductIds": [],
-    "status": "published",
-    "safetyScore": 8,
-    "weightScore": 9.8,
-    "geometryScore": 9.7,
-    "overallScore": 9.1,
-    "editorVerdict": "VEVOR VEVOR Ride On Push Car for Toddlers, Ages 19+ Months, Ride Racer, Sit to Stand Toddler Ride On Toy, Kids Ride... is indexed from backend classification and used as a static fallback product."
-  },
-  {
-    "id": "kids_push_ride_ons-b00iowbkqo",
-    "name": "Wiggle Car - Ride on Toy for Ages 3 and Up - Toddler Ride on Toys with no Batteries, Gears, or Pedals Just Tw...",
-    "brand": "Wiggle",
-    "category": "electric_car",
-    "categoryId": "kids_push_ride_ons",
-    "wheelSize": "N/A",
-    "weight": 8.68,
-    "material": "Engineering Plastic",
-    "brakeType": "N/A",
-    "tireType": "N/A",
-    "price": 38.59,
-    "ageRange": "Toddler | 3 Years and up | Kids",
-    "heightRange": [
-      70,
-      120
-    ],
-    "compliance": [
-      "ASTM F963"
-    ],
-    "safetyCertification": [
-      "ASTM F963"
-    ],
-    "imageUrl": "https://store.poki2.online/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle%20Car%20-%20Ride%20on%20Toy%20for%20Ages%203%20and%20Up%20-%20Toddl/images/primary.jpg",
-    "galleryUrls": [
-      "https://store.poki2.online/kids_push_ride_ons/Wiggle/Rank_4_ASIN_B00IOWBKQO_Wiggle%20Car%20-%20Ride%20on%20Toy%20for%20Ages%203%20and%20Up%20-%20Toddl/images/primary.jpg"
-    ],
-    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/887f38e9-ecdf-4f91-98c1-ac7ac95b9175/default.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/887f38e9-ecdf-4f91-98c1-ac7ac95b9175/default.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e84cf2c6-5b89-4f3d-a0a2-5e1fab618917/default.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e423331f-a4bb-4a40-ba22-a6b2a55d16e1/default.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
-    "features": [
-      "<100",
-      "Ultra Lightweight"
-    ],
-    "scenarios": [
-      "kids_push_ride_ons"
-    ],
-    "relatedProductIds": [],
-    "status": "published",
-    "safetyScore": 8.3,
-    "weightScore": 8.9,
-    "geometryScore": 9.6,
-    "overallScore": 8.9,
-    "editorVerdict": "Wiggle Wiggle Car - Ride on Toy for Ages 3 and Up - Toddler Ride on Toys with no Batteries, Gears, or Pedals Just Tw... is indexed from backend classification and used as a static fallback product."
+    "overallScore": 8.3,
+    "editorVerdict": "Aovowheel Aovowheel Electric Scooter Adults, Foldable 8.5\" Tires E Scooter for Adults, 350W Motor, Kick Scooters Max 16... is indexed from backend classification and used as a static fallback product."
   },
   {
     "id": "scooters-b0gdfjj5wp",
@@ -6165,26 +5456,26 @@ export const productsData: Product[] = [
       "ASTM F963",
       "CPSC"
     ],
-    "imageUrl": "https://store.poki2.online/scooters/Aovowheel/Rank_4_ASIN_B0GDFJJ5WP_Aovowheel%20Electric%20Scooter%20for%20Adults%20Folding%20E%20Sc/images/primary.jpg",
+    "imageUrl": "https://store.poki2.online/scooters/Aovowheel/Rank_5_ASIN_B0GDFJJ5WP_Aovowheel%20Electric%20Scooter%20for%20Adults%20Folding%20E%20Sc/images/primary.jpg",
     "galleryUrls": [
-      "https://store.poki2.online/scooters/Aovowheel/Rank_4_ASIN_B0GDFJJ5WP_Aovowheel%20Electric%20Scooter%20for%20Adults%20Folding%20E%20Sc/images/primary.jpg"
+      "https://store.poki2.online/scooters/Aovowheel/Rank_5_ASIN_B0GDFJJ5WP_Aovowheel%20Electric%20Scooter%20for%20Adults%20Folding%20E%20Sc/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/be201e46-8f7b-4d70-9978-114546d7e21d/default.vertical.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9ef0db24-cb9e-4909-bbb8-386194bea7f1/default.vertical.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/be201e46-8f7b-4d70-9978-114546d7e21d/default.vertical.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9ef0db24-cb9e-4909-bbb8-386194bea7f1/default.vertical.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9ef0db24-cb9e-4909-bbb8-386194bea7f1/default.vertical.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/be201e46-8f7b-4d70-9978-114546d7e21d/default.vertical.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/62b5731f-b4fa-48ea-a392-50942ef06726/default.vertical.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/56989400-4152-45bf-84e2-5e9aa5fb8541/default.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -6202,7 +5493,7 @@ export const productsData: Product[] = [
     "status": "published",
     "safetyScore": 7.7,
     "weightScore": 7.5,
-    "geometryScore": 9.4,
+    "geometryScore": 9.3,
     "overallScore": 8.2,
     "editorVerdict": "Aovowheel Aovowheel Electric Scooter for Adults, Folding E Scooter with 250W-500W Motor 16-24 Mph Top Speed, Max 15-60M... is indexed from backend classification and used as a static fallback product."
   },
@@ -6235,22 +5526,22 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/scooters/Besrey/Rank_12_ASIN_B0BPXRVWYK_Besrey%20Kick%20Scooter%20for%20Kids%20Ages%203-10%203-Wheel%20Fol/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8dcfadca-a333-4f81-8f2a-c39cd03da631/default.vertical.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8dcfadca-a333-4f81-8f2a-c39cd03da631/default.vertical.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8dcfadca-a333-4f81-8f2a-c39cd03da631/default.vertical.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8dcfadca-a333-4f81-8f2a-c39cd03da631/default.vertical.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/adae2554-8623-4e34-bd97-8b7278435ed6/default.vertical.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/adae2554-8623-4e34-bd97-8b7278435ed6/default.vertical.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8d8148d4-6660-4cde-9ddc-fb60ada10680/default.vertical.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8d8148d4-6660-4cde-9ddc-fb60ada10680/default.vertical.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -6273,71 +5564,6 @@ export const productsData: Product[] = [
     "editorVerdict": "Besrey Besrey Kick Scooter for Kids Ages 3-10, 3-Wheel Folding Scooter with Adjustable Height, LED Light Wheels, Ext... is indexed from backend classification and used as a static fallback product."
   },
   {
-    "id": "scooters-b0glpd3grk",
-    "name": "Electric Scooter, 500W/350W/800W/1000W Motor & 10\"/8.5\" Solid Tires, Up to 22/19 MPH & 28/25/15 Miles Range, ...",
-    "brand": "Electric",
-    "category": "scooter",
-    "categoryId": "kids_scooters",
-    "wheelSize": "8 Inch",
-    "weight": 0,
-    "material": "Aluminum",
-    "brakeType": "Electronic Brake",
-    "tireType": "Solid",
-    "price": 159.99,
-    "ageRange": "Unknown",
-    "heightRange": [
-      80,
-      140
-    ],
-    "compliance": [
-      "ASTM F963",
-      "CPSC"
-    ],
-    "safetyCertification": [
-      "ASTM F963",
-      "CPSC"
-    ],
-    "imageUrl": "https://store.poki2.online/scooters/Electric/Rank_13_ASIN_B0GLPD3GRK_Electric%20Scooter%20500W350W800W1000W%20Motor%20%20108.5%20So/images/primary.jpg",
-    "galleryUrls": [
-      "https://store.poki2.online/scooters/Electric/Rank_13_ASIN_B0GLPD3GRK_Electric%20Scooter%20500W350W800W1000W%20Motor%20%20108.5%20So/images/primary.jpg"
-    ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fd35ee67-3045-4f65-a173-fbc36fc0b964/default.vertical.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fd35ee67-3045-4f65-a173-fbc36fc0b964/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9171debf-c6e9-44ef-902c-576b364108b6/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9a53ea79-aa19-42f5-afeb-20455fea77d1/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
-    "features": [
-      "Electric Scooter, 500W/350W/800W/1000W Motor & 10\"/8.5\" Solid Tires, Up to 22/19 MPH & 28/25/15 Miles Range, Foldable Commute",
-      "100-200"
-    ],
-    "scenarios": [
-      "kids_scooters"
-    ],
-    "relatedProductIds": [],
-    "status": "published",
-    "safetyScore": 8.3,
-    "weightScore": 8,
-    "geometryScore": 8.6,
-    "overallScore": 8.3,
-    "editorVerdict": "Electric Electric Scooter, 500W/350W/800W/1000W Motor & 10\"/8.5\" Solid Tires, Up to 22/19 MPH & 28/25/15 Miles Range, ... is indexed from backend classification and used as a static fallback product."
-  },
-  {
     "id": "scooters-b0ccymv1t1",
     "name": "Gotrax KS1 Kids Kick Scooter, LED Lighted Wheels and 3 Adjustable Height Handlebars, Lean-to-Steer & Widen An...",
     "brand": "Gotrax",
@@ -6348,7 +5574,7 @@ export const productsData: Product[] = [
     "material": "Aluminum",
     "brakeType": "N/A",
     "tireType": "N/A",
-    "price": 37.99,
+    "price": 41.82,
     "ageRange": "Kids | kid",
     "heightRange": [
       80,
@@ -6366,22 +5592,22 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/scooters/Gotrax/Rank_1_ASIN_B0CCYMV1T1_Gotrax%20KS1%20Kids%20Kick%20Scooter%20LED%20Lighted%20Wheels%20an/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dd025acd-506b-46f1-ab08-3fb1929f03ba/default.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dd025acd-506b-46f1-ab08-3fb1929f03ba/default.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dd025acd-506b-46f1-ab08-3fb1929f03ba/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dd025acd-506b-46f1-ab08-3fb1929f03ba/default.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/55005556-359d-4d28-ae85-7911ca358069/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/55005556-359d-4d28-ae85-7911ca358069/default.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8bf5f4aa-95b4-4e03-afd5-fcf32ff2b1f9/default.vertical.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8bf5f4aa-95b4-4e03-afd5-fcf32ff2b1f9/default.vertical.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -6414,7 +5640,7 @@ export const productsData: Product[] = [
     "material": "Aluminum",
     "brakeType": "N/A",
     "tireType": "PU",
-    "price": 20.66,
+    "price": 19.43,
     "ageRange": "Little Kid | Kids",
     "heightRange": [
       80,
@@ -6432,22 +5658,22 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/scooters/Green/Rank_7_ASIN_B0DZG3QYLR_Green%20Mini%203%20Wheel%20Scooter%20for%20Kids%20%20Lean-to-Steer/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/77eed8fe-21a1-4c8d-b168-948bab3f413f/default.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/77eed8fe-21a1-4c8d-b168-948bab3f413f/default.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/77eed8fe-21a1-4c8d-b168-948bab3f413f/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/77eed8fe-21a1-4c8d-b168-948bab3f413f/default.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/222e73ac-4bcc-4958-a18c-a90001fe37fe/default.vertical.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/222e73ac-4bcc-4958-a18c-a90001fe37fe/default.vertical.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/57f739ec-4e37-4a36-8469-42993e44dacb/default.vertical.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/57f739ec-4e37-4a36-8469-42993e44dacb/default.vertical.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -6498,22 +5724,22 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/scooters/HopCycle/Rank_8_ASIN_B0FJY2XC2D_HopCycle%20Electric%20Scooters%20-%20Electric%20Scooter%20Adul/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c3398023-4f48-4de3-ac76-c69fc8fb2f48/default.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c3398023-4f48-4de3-ac76-c69fc8fb2f48/default.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c3398023-4f48-4de3-ac76-c69fc8fb2f48/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c3398023-4f48-4de3-ac76-c69fc8fb2f48/default.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c0749b91-6a8f-4b2c-9ea7-4ece4080b1b9/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c0749b91-6a8f-4b2c-9ea7-4ece4080b1b9/default.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/03f99817-f512-4903-9cbb-8b0ca102794c/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/03f99817-f512-4903-9cbb-8b0ca102794c/default.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -6546,7 +5772,7 @@ export const productsData: Product[] = [
     "material": "Aluminum",
     "brakeType": "N/A",
     "tireType": "N/A",
-    "price": 54.99,
+    "price": 46.74,
     "ageRange": "Toddler | Kids",
     "heightRange": [
       80,
@@ -6560,26 +5786,26 @@ export const productsData: Product[] = [
       "ASTM F963",
       "CPSC"
     ],
-    "imageUrl": "https://store.poki2.online/scooters/Hurtle/Rank_5_ASIN_B07VY9Q95Q_Hurtle%203-Wheeled%20Scooter%20for%20Kids%20-%20Wheel%20LED%20Ligh/images/primary.jpg",
+    "imageUrl": "https://store.poki2.online/scooters/Hurtle/Rank_4_ASIN_B07VY9Q95Q_Hurtle%203-Wheeled%20Scooter%20for%20Kids%20-%20Wheel%20LED%20Ligh/images/primary.jpg",
     "galleryUrls": [
-      "https://store.poki2.online/scooters/Hurtle/Rank_5_ASIN_B07VY9Q95Q_Hurtle%203-Wheeled%20Scooter%20for%20Kids%20-%20Wheel%20LED%20Ligh/images/primary.jpg"
+      "https://store.poki2.online/scooters/Hurtle/Rank_4_ASIN_B07VY9Q95Q_Hurtle%203-Wheeled%20Scooter%20for%20Kids%20-%20Wheel%20LED%20Ligh/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c6ef3aa0-bed5-46ae-845e-f6290d198039/default.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c6ef3aa0-bed5-46ae-845e-f6290d198039/default.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c6ef3aa0-bed5-46ae-845e-f6290d198039/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c6ef3aa0-bed5-46ae-845e-f6290d198039/default.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/48f3ac1b-e4f3-479c-8937-fa0e7dee900a/default.vertical.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/48f3ac1b-e4f3-479c-8937-fa0e7dee900a/default.vertical.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a12f9e82-6c16-4356-a2ab-e1feecf27072/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a12f9e82-6c16-4356-a2ab-e1feecf27072/default.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -6597,9 +5823,75 @@ export const productsData: Product[] = [
     "status": "published",
     "safetyScore": 8.8,
     "weightScore": 9.5,
-    "geometryScore": 9.3,
+    "geometryScore": 9.4,
     "overallScore": 9.2,
     "editorVerdict": "Hurtle Hurtle 3-Wheeled Scooter for Kids - Wheel LED Lights, Adjustable Lean-to-Steer Handlebar, and Foldable Seat -... is indexed from backend classification and used as a static fallback product."
+  },
+  {
+    "id": "scooters-b08zcm11j6",
+    "name": "Jetson Jupiter Kids 2-Wheel Light-Up Kick Scooter, LED Lights on Handlebar, Stem, Wheels & Deck, Adjustable H...",
+    "brand": "Jetson",
+    "category": "scooter",
+    "categoryId": "kids_scooters",
+    "wheelSize": "4 Inch",
+    "weight": 6,
+    "material": "Aluminum",
+    "brakeType": "Foot Brake",
+    "tireType": "N/A",
+    "price": 28.49,
+    "ageRange": "Kids",
+    "heightRange": [
+      80,
+      140
+    ],
+    "compliance": [
+      "ASTM F963",
+      "CPSC"
+    ],
+    "safetyCertification": [
+      "ASTM F963",
+      "CPSC"
+    ],
+    "imageUrl": "https://store.poki2.online/scooters/Jetson/Rank_13_ASIN_B08ZCM11J6_Jetson%20Jupiter%20Kids%202-Wheel%20Light-Up%20Kick%20Scooter/images/primary.jpg",
+    "galleryUrls": [
+      "https://store.poki2.online/scooters/Jetson/Rank_13_ASIN_B08ZCM11J6_Jetson%20Jupiter%20Kids%202-Wheel%20Light-Up%20Kick%20Scooter/images/primary.jpg"
+    ],
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/becbb841-ba9c-49c7-9433-804d22c08489/default.jobtemplate.hls.m3u8",
+    "videos": [
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/becbb841-ba9c-49c7-9433-804d22c08489/default.jobtemplate.hls.m3u8",
+        "title": "video-1",
+        "source": "scraped",
+        "order": 0
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/4f145a9f-ab86-58fe-879d-2d8a5cea3cde/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
+        "title": "video-2",
+        "source": "scraped",
+        "order": 1
+      },
+      {
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e8071837-b7e8-45cb-b30a-49705d58c960/default.jobtemplate.hls.m3u8",
+        "title": "video-3",
+        "source": "scraped",
+        "order": 2
+      }
+    ],
+    "features": [
+      "Jetson Jupiter Kids 2-Wheel Light-Up Kick Scooter, LED Lights on Handlebar, Stem, Wheels & Deck, Adjustable Handlebar, Rear B",
+      "<100",
+      "Ultra Lightweight"
+    ],
+    "scenarios": [
+      "kids_scooters"
+    ],
+    "relatedProductIds": [],
+    "status": "published",
+    "safetyScore": 8.6,
+    "weightScore": 9.3,
+    "geometryScore": 8.6,
+    "overallScore": 8.8,
+    "editorVerdict": "Jetson Jetson Jupiter Kids 2-Wheel Light-Up Kick Scooter, LED Lights on Handlebar, Stem, Wheels & Deck, Adjustable H... is indexed from backend classification and used as a static fallback product."
   },
   {
     "id": "scooters-b0dhd74rhp",
@@ -6630,22 +5922,22 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/scooters/Maxshot/Rank_10_ASIN_B0DHD74RHP_Maxshot%20Electric%20Scooter%208.5%2010%2014%20Tire%20161922%20Mph/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9b802df6-7684-46f3-a926-58d5f7078de8/default.vertical.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8e5646da-a2ec-4217-ae15-fbe9326c0ff0/default.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9b802df6-7684-46f3-a926-58d5f7078de8/default.vertical.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8e5646da-a2ec-4217-ae15-fbe9326c0ff0/default.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0ea2f93c-02bc-4146-affe-8952f4b01226/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e04ce408-f295-4947-bf58-9107e9248bdd/default.vertical.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8e5646da-a2ec-4217-ae15-fbe9326c0ff0/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e107af81-e5c7-4132-ac76-b6a12feb4065/default.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -6674,7 +5966,7 @@ export const productsData: Product[] = [
     "category": "scooter",
     "categoryId": "kids_scooters",
     "wheelSize": "2-wheel",
-    "weight": 4.62,
+    "weight": 4.6,
     "material": "Aluminum",
     "brakeType": "N/A",
     "tireType": "N/A",
@@ -6696,22 +5988,22 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/scooters/Razor/Rank_3_ASIN_B01EN6LTAQ_Razor%20A%20Kick%20Scooter%20for%20Kids%20-%20Lightweight%20Foldab/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6056970b-fcdd-4388-9778-22e4aaf13de0/default.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6056970b-fcdd-4388-9778-22e4aaf13de0/default.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6056970b-fcdd-4388-9778-22e4aaf13de0/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6056970b-fcdd-4388-9778-22e4aaf13de0/default.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/87e1e66b-312f-49e9-920b-089786fd08a4/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/87e1e66b-312f-49e9-920b-089786fd08a4/default.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d234e42d-c2da-4ae2-89fc-4a61ec9b9320/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d234e42d-c2da-4ae2-89fc-4a61ec9b9320/default.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -6762,22 +6054,22 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/scooters/Roinside/Rank_11_ASIN_B0FJFCX6FW_Roinside%20Electric%20Scooter-%208.51014%20Tires%20Up%20to%20192/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f8a9c8d9-fb8a-4e02-9165-a93f276f0808/default.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f8a9c8d9-fb8a-4e02-9165-a93f276f0808/default.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f8a9c8d9-fb8a-4e02-9165-a93f276f0808/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f8a9c8d9-fb8a-4e02-9165-a93f276f0808/default.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ed4a142b-5858-4bd4-bc78-8562d4597666/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ed4a142b-5858-4bd4-bc78-8562d4597666/default.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/eaa16d42-6c36-4d6d-87fd-8cdb1fb2f753/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/eaa16d42-6c36-4d6d-87fd-8cdb1fb2f753/default.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -6828,22 +6120,22 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/scooters/VOLPAM/Rank_2_ASIN_B0GWM1RCT6_VOLPAM%20Electric%20Scooter%20350W500W800W1000W250W%20Powe/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/edbb2d82-442f-4c61-a72a-ae3e1a3f932b/default.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1de3ab0c-6281-4fcc-b487-0aa8f6be3813/default.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/edbb2d82-442f-4c61-a72a-ae3e1a3f932b/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1de3ab0c-6281-4fcc-b487-0aa8f6be3813/default.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/361d97c6-3904-49c5-b0e7-d466ba7f4bfc/default.vertical.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/361d97c6-3904-49c5-b0e7-d466ba7f4bfc/default.vertical.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1de3ab0c-6281-4fcc-b487-0aa8f6be3813/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/edbb2d82-442f-4c61-a72a-ae3e1a3f932b/default.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -6875,7 +6167,7 @@ export const productsData: Product[] = [
     "material": "Carbon Fiber",
     "brakeType": "N/A",
     "tireType": "N/A",
-    "price": 69.99,
+    "price": 81.89,
     "ageRange": "Kid | Kids",
     "heightRange": [
       80,
@@ -6893,22 +6185,22 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/scooters/WAYPLUS/Rank_9_ASIN_B09ZY6M8XH_WAYPLUS%20KS1%20Kick%20Scooter%20for%20Ages%206Kid%20Teens%20%20Adul/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/29b3c9a4-34dd-4e33-8709-36b4191ebe5a/default.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/29b3c9a4-34dd-4e33-8709-36b4191ebe5a/default.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/29b3c9a4-34dd-4e33-8709-36b4191ebe5a/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/29b3c9a4-34dd-4e33-8709-36b4191ebe5a/default.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0d7eccc4-3327-48fa-80a4-d8fc7932d189/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0d7eccc4-3327-48fa-80a4-d8fc7932d189/default.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6666fb9d-cf40-48b6-ba9e-9c1c5c36542c/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6666fb9d-cf40-48b6-ba9e-9c1c5c36542c/default.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -8337,10 +7629,8 @@ export const productsData: Product[] = [
     "safetyCertification": [
       "EN1888"
     ],
-    "imageUrl": "about:blank#external-url-removedcom/images/I/71QMKdktOlL._AC_UL320_.jpg",
-    "galleryUrls": [
-      "about:blank#external-url-removedcom/images/I/71QMKdktOlL._AC_UL320_.jpg"
-    ],
+    "imageUrl": "",
+    "galleryUrls": [],
     "videoUrl": "",
     "videos": [],
     "features": [
@@ -8366,8 +7656,8 @@ export const productsData: Product[] = [
     "wheelSize": "N/A",
     "weight": 0,
     "material": "Carbon Fiber",
-    "brakeType": "5-Point Harness",
-    "tireType": "Solid",
+    "brakeType": "N/A",
+    "tireType": "N/A",
     "price": 165.99,
     "ageRange": "6-36 months",
     "heightRange": [
@@ -8380,31 +7670,10 @@ export const productsData: Product[] = [
     "safetyCertification": [
       "EN1888"
     ],
-    "imageUrl": "about:blank#external-url-removedcom/images/I/61B-+tfSHbL._AC_UL320_.jpg",
-    "galleryUrls": [
-      "about:blank#external-url-removedcom/images/I/61B-+tfSHbL._AC_UL320_.jpg"
-    ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4733d222-9abb-4dc4-9acb-47372e3e2d6b/default.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4733d222-9abb-4dc4-9acb-47372e3e2d6b/default.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1dfaefa6-36a0-483a-8012-3b8144fad48e/default.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/528c0253-6942-45b7-b385-d237b901f874/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
+    "imageUrl": "",
+    "galleryUrls": [],
+    "videoUrl": "",
+    "videos": [],
     "features": [
       "100-200"
     ],
@@ -8413,10 +7682,10 @@ export const productsData: Product[] = [
     ],
     "relatedProductIds": [],
     "status": "published",
-    "safetyScore": 8.4,
+    "safetyScore": 7.2,
     "weightScore": 8,
     "geometryScore": 8.6,
-    "overallScore": 8.3,
+    "overallScore": 7.9,
     "editorVerdict": "BABY BABY JOY Double Stroller, Foldable Lightweight Twin Stroller with Tandem Seating, Adjustable Backrest/Canopy/... is indexed from backend classification and used as a static fallback product."
   },
   {
@@ -8442,31 +7711,10 @@ export const productsData: Product[] = [
     "safetyCertification": [
       "EN1888"
     ],
-    "imageUrl": "about:blank#external-url-removedcom/images/I/71fzexxzZ1L._AC_UL320_.jpg",
-    "galleryUrls": [
-      "about:blank#external-url-removedcom/images/I/71fzexxzZ1L._AC_UL320_.jpg"
-    ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3a3be604-11ce-4666-8f09-d5342ee6a74a/default.vertical.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3a3be604-11ce-4666-8f09-d5342ee6a74a/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/89c300a6-d07c-4c40-951a-21cd7abeb4b9/default.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f748069e-3dc5-4436-8ea3-a474fd72bdc3/embedded.cc.default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
+    "imageUrl": "",
+    "galleryUrls": [],
+    "videoUrl": "",
+    "videos": [],
     "features": [
       "100-200",
       "Standard"
@@ -8476,10 +7724,10 @@ export const productsData: Product[] = [
     ],
     "relatedProductIds": [],
     "status": "published",
-    "safetyScore": 8.4,
+    "safetyScore": 7.2,
     "weightScore": 7.8,
     "geometryScore": 8.1,
-    "overallScore": 8.1,
+    "overallScore": 7.7,
     "editorVerdict": "BABY BABY JOY Double Umbrella Stroller, Lightweight Travel Side by Side Twin Stroller with Large Storage, Cup Hold... is indexed from backend classification and used as a static fallback product."
   },
   {
@@ -8505,31 +7753,10 @@ export const productsData: Product[] = [
     "safetyCertification": [
       "EN1888"
     ],
-    "imageUrl": "about:blank#external-url-removedcom/images/I/71+kjzaK+-L._AC_UL300_SR300,200_.jpg",
-    "galleryUrls": [
-      "about:blank#external-url-removedcom/images/I/71+kjzaK+-L._AC_UL300_SR300,200_.jpg"
-    ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9b659610-29d7-4483-a8b4-dac9c84a749a/default.vertical.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/9b659610-29d7-4483-a8b4-dac9c84a749a/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/27cddab6-faa5-422e-94a5-93efd96bd54d/default.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d3593c90-651f-4a85-b745-093ae4c6e349/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
+    "imageUrl": "",
+    "galleryUrls": [],
+    "videoUrl": "",
+    "videos": [],
     "features": [
       ">200",
       "Heavy Duty"
@@ -8539,10 +7766,10 @@ export const productsData: Product[] = [
     ],
     "relatedProductIds": [],
     "status": "published",
-    "safetyScore": 8.7,
+    "safetyScore": 7.2,
     "weightScore": 6.6,
     "geometryScore": 9.4,
-    "overallScore": 8.2,
+    "overallScore": 7.7,
     "editorVerdict": "Baby Baby Trend Expedition Double Jogger Stroller, Griffin is indexed from backend classification and used as a static fallback product."
   },
   {
@@ -8554,7 +7781,7 @@ export const productsData: Product[] = [
     "wheelSize": "N/A",
     "weight": 0,
     "material": "N/A",
-    "brakeType": "5-Point Harness",
+    "brakeType": "N/A",
     "tireType": "N/A",
     "price": 327.99,
     "ageRange": "Infant | Toddler | newborn",
@@ -8568,31 +7795,10 @@ export const productsData: Product[] = [
     "safetyCertification": [
       "EN1888"
     ],
-    "imageUrl": "about:blank#external-url-removedcom/images/I/71V6mYWSTHL._AC_UL320_.jpg",
-    "galleryUrls": [
-      "about:blank#external-url-removedcom/images/I/71V6mYWSTHL._AC_UL320_.jpg"
-    ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d8aaf63e-0a6c-4e4a-bf1f-4f0cc0f5aa69/default.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d8aaf63e-0a6c-4e4a-bf1f-4f0cc0f5aa69/default.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3f5b1b31-760b-4d87-9cdf-9b8084d02b5f/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b12b0179-4649-4724-8969-24ad64975ae0/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
+    "imageUrl": "",
+    "galleryUrls": [],
+    "videoUrl": "",
+    "videos": [],
     "features": [
       ">200"
     ],
@@ -8601,10 +7807,10 @@ export const productsData: Product[] = [
     ],
     "relatedProductIds": [],
     "status": "published",
-    "safetyScore": 8.5,
+    "safetyScore": 7.2,
     "weightScore": 8,
     "geometryScore": 8.2,
-    "overallScore": 8.3,
+    "overallScore": 7.8,
     "editorVerdict": "Baby Baby Trend Infant and Toddler Double Stroller & Car Seat Combo, 2 Pc Set, Stormy - Portable and Lightweight S... is indexed from backend classification and used as a static fallback product."
   },
   {
@@ -8634,22 +7840,22 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/stroller/Baby/Rank_Similar_ASIN_B0DNTSPNS2_Baby%20Trend%20Journey%20Jogging%20Stroller%20Stellar%20Grey/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0912b6f8-0b61-446d-824b-bb838636a6e1/default.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0912b6f8-0b61-446d-824b-bb838636a6e1/default.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0912b6f8-0b61-446d-824b-bb838636a6e1/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0912b6f8-0b61-446d-824b-bb838636a6e1/default.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a7ff08f5-d497-4858-829a-ad2fc5471b2f/default.vertical.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a7ff08f5-d497-4858-829a-ad2fc5471b2f/default.vertical.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cb7d644c-0d18-427d-947d-5f20be69ef57/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/cb7d644c-0d18-427d-947d-5f20be69ef57/default.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -8666,10 +7872,10 @@ export const productsData: Product[] = [
     ],
     "relatedProductIds": [],
     "status": "published",
-    "safetyScore": 8.6,
+    "safetyScore": 8.5,
     "weightScore": 7.4,
     "geometryScore": 9,
-    "overallScore": 8.4,
+    "overallScore": 8.3,
     "editorVerdict": "Baby Baby Trend Journey Jogging Stroller, Stellar Grey is indexed from backend classification and used as a static fallback product."
   },
   {
@@ -8699,22 +7905,22 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/stroller/Baby/Rank_Similar_ASIN_B0C99K7SP9_Baby%20Trend%20Passport%20Switch%206-in-1%20Modular%20Stroller/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/011ab912-e141-4014-83bf-e5bad3e94fe9/default.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/011ab912-e141-4014-83bf-e5bad3e94fe9/default.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/011ab912-e141-4014-83bf-e5bad3e94fe9/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/011ab912-e141-4014-83bf-e5bad3e94fe9/default.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0912b6f8-0b61-446d-824b-bb838636a6e1/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0912b6f8-0b61-446d-824b-bb838636a6e1/default.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a905d13f-0b04-4c94-89c3-5fa0767ede32/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a905d13f-0b04-4c94-89c3-5fa0767ede32/default.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -8762,27 +7968,8 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/stroller/Baby/Rank_Similar_ASIN_B094P2ZC86_Baby%20Trend%20Sit%20N%20Stand%20Double%20Stroller%20Desert%20Blue/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0912b6f8-0b61-446d-824b-bb838636a6e1/default.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0912b6f8-0b61-446d-824b-bb838636a6e1/default.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/119822ba-8ef2-4806-8ab8-ecc7824a05ef/default.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e298b4e1-f670-477f-a969-e914366bc5d5/default.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
+    "videoUrl": "",
+    "videos": [],
     "features": [
       "100-200"
     ],
@@ -8820,31 +8007,10 @@ export const productsData: Product[] = [
     "safetyCertification": [
       "EN1888"
     ],
-    "imageUrl": "about:blank#external-url-removedcom/images/I/818lrmcX7HL._AC_UL320_.jpg",
-    "galleryUrls": [
-      "about:blank#external-url-removedcom/images/I/818lrmcX7HL._AC_UL320_.jpg"
-    ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0014100c-0837-423e-8640-3d25f8a9be0d/default.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0014100c-0837-423e-8640-3d25f8a9be0d/default.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d6161eec-4005-4976-939d-156717194018/default.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/08d9a3f4-4669-44a6-b743-666ae8d5717f/default.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
+    "imageUrl": "",
+    "galleryUrls": [],
+    "videoUrl": "",
+    "videos": [],
     "features": [
       "100-200",
       "Standard"
@@ -8854,10 +8020,10 @@ export const productsData: Product[] = [
     ],
     "relatedProductIds": [],
     "status": "published",
-    "safetyScore": 8.7,
+    "safetyScore": 7.2,
     "weightScore": 7.8,
     "geometryScore": 8.5,
-    "overallScore": 8.3,
+    "overallScore": 7.8,
     "editorVerdict": "Baby Baby Trend Snap-N-Go® Double Stroller is indexed from backend classification and used as a static fallback product."
   },
   {
@@ -8929,10 +8095,8 @@ export const productsData: Product[] = [
     "safetyCertification": [
       "EN1888"
     ],
-    "imageUrl": "about:blank#external-url-removedcom/images/I/818U3EVBU1L._AC_UL320_.jpg",
-    "galleryUrls": [
-      "about:blank#external-url-removedcom/images/I/818U3EVBU1L._AC_UL320_.jpg"
-    ],
+    "imageUrl": "",
+    "galleryUrls": [],
     "videoUrl": "",
     "videos": [],
     "features": [
@@ -8976,22 +8140,22 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/stroller/Chicco/Rank_8_ASIN_B08VPVLF95_Chicco%20Bravo%203-in-1%20Trio%20Travel%20System%20Bravo%20Quick/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c88bbe50-1ede-41cf-b92c-57df0e655a43/default.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c88bbe50-1ede-41cf-b92c-57df0e655a43/default.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c88bbe50-1ede-41cf-b92c-57df0e655a43/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c88bbe50-1ede-41cf-b92c-57df0e655a43/default.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1937bc4e-e273-4a52-b7cc-f0fe8dce8654/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1937bc4e-e273-4a52-b7cc-f0fe8dce8654/default.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3ac4da2b-743f-4ef5-a6dd-24e6fb814d48/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3ac4da2b-743f-4ef5-a6dd-24e6fb814d48/default.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -9041,27 +8205,8 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/stroller/Chicco/Rank_Similar_ASIN_B07DGHR789_Chicco%20Cortina%20Together%20Double%20Stroller%20-%20Minerale/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2d1423d0-275e-4f26-84c2-062fe4e266b3/default.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/2d1423d0-275e-4f26-84c2-062fe4e266b3/default.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d11d74c9-a759-4de8-ba3a-ae42d7a2e66a/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dd5bfd11-97a2-4cc4-89bf-fadedd48191d/default.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
+    "videoUrl": "",
+    "videos": [],
     "features": [
       "100% Polyester",
       "Imported",
@@ -9073,7 +8218,7 @@ export const productsData: Product[] = [
     ],
     "relatedProductIds": [],
     "status": "published",
-    "safetyScore": 8.5,
+    "safetyScore": 8.7,
     "weightScore": 6.6,
     "geometryScore": 9.7,
     "overallScore": 8.3,
@@ -9102,31 +8247,10 @@ export const productsData: Product[] = [
     "safetyCertification": [
       "EN1888"
     ],
-    "imageUrl": "about:blank#external-url-removedcom/images/I/61qyPHuQIrL._AC_UL165_SR165,165_.jpg",
-    "galleryUrls": [
-      "about:blank#external-url-removedcom/images/I/61qyPHuQIrL._AC_UL165_SR165,165_.jpg"
-    ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c748c58a-130d-4a50-bb00-610090f3288a/default.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c748c58a-130d-4a50-bb00-610090f3288a/default.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d25fa5a6-f770-4149-9167-1b9bd7683ac4/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d8d84bee-d71d-4637-9bd5-cb01007e2df0/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
+    "imageUrl": "",
+    "galleryUrls": [],
+    "videoUrl": "",
+    "videos": [],
     "features": [
       "Smooth Ride: 12 Inch Front Wheel And 16 Inch Back Wheels With Back Brakes",
       "Puncture Proof Wheels",
@@ -9138,10 +8262,10 @@ export const productsData: Product[] = [
     ],
     "relatedProductIds": [],
     "status": "published",
-    "safetyScore": 8.7,
+    "safetyScore": 7.2,
     "weightScore": 6.6,
     "geometryScore": 9.7,
-    "overallScore": 8.3,
+    "overallScore": 7.8,
     "editorVerdict": "Delta Delta Children Apollo Jogging Stroller - Shock Absorbing Frame with Large Canopy & Recline - Car Seat Compati... is indexed from backend classification and used as a static fallback product."
   },
   {
@@ -9167,31 +8291,10 @@ export const productsData: Product[] = [
     "safetyCertification": [
       "EN1888"
     ],
-    "imageUrl": "about:blank#external-url-removedcom/images/I/71nbFzIgEjL._AC_UL320_.jpg",
-    "galleryUrls": [
-      "about:blank#external-url-removedcom/images/I/71nbFzIgEjL._AC_UL320_.jpg"
-    ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f50a6ad8-18ba-44b3-8ca5-8cdbcd666764/default.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f50a6ad8-18ba-44b3-8ca5-8cdbcd666764/default.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3255e215-36d8-4803-b462-9543cc24f0d0/default.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/63bfd7bd-6cf3-4532-ba8a-b697569a2fa5/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
+    "imageUrl": "",
+    "galleryUrls": [],
+    "videoUrl": "",
+    "videos": [],
     "features": [
       "<100",
       "Standard"
@@ -9201,10 +8304,10 @@ export const productsData: Product[] = [
     ],
     "relatedProductIds": [],
     "status": "published",
-    "safetyScore": 8.5,
+    "safetyScore": 7.2,
     "weightScore": 7.7,
     "geometryScore": 7.6,
-    "overallScore": 8,
+    "overallScore": 7.5,
     "editorVerdict": "Delta Delta Children LX Side by Side Stroller - with Recline, Storage & Compact Fold, Night Sky is indexed from backend classification and used as a static fallback product."
   },
   {
@@ -9234,22 +8337,22 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream%20On%20Me%20Aero%20Travel%20Umbrella%20Stroller%20One-Hand/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/87de57a0-2529-4268-86c3-a6277181db46/default.vertical.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/87de57a0-2529-4268-86c3-a6277181db46/default.vertical.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/87de57a0-2529-4268-86c3-a6277181db46/default.vertical.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/87de57a0-2529-4268-86c3-a6277181db46/default.vertical.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0bd18be6-b6ce-41c7-8a4e-fb76a7a48d4a/default.vertical.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0bd18be6-b6ce-41c7-8a4e-fb76a7a48d4a/default.vertical.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/efc3cb6d-9132-42b7-a758-6150f577df52/default.vertical.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/efc3cb6d-9132-42b7-a758-6150f577df52/default.vertical.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -9297,22 +8400,22 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/stroller/Dream/Rank_12_ASIN_B07SDH646B_Dream%20On%20Me%20Coast%20Rider%20Lightweight%20Travel%20Strolle/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c8d976be-a816-4939-9c9b-f2bf20016b60/default.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c8d976be-a816-4939-9c9b-f2bf20016b60/default.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c8d976be-a816-4939-9c9b-f2bf20016b60/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/c8d976be-a816-4939-9c9b-f2bf20016b60/default.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/be7031da-b6d0-4724-a79f-7a5f4349a9ca/default.vertical.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/be7031da-b6d0-4724-a79f-7a5f4349a9ca/default.vertical.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/46dcbfa9-96fa-434e-ba04-4130f2065355/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/46dcbfa9-96fa-434e-ba04-4130f2065355/default.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -9360,22 +8463,22 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/stroller/Dream/Rank_Similar_ASIN_B089TVHV1X_Dream%20On%20Me%20Volgo%20Twin%20Baby%20Stroller%20Compact%20Side-/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/374df266-1a53-4793-8952-89f930675348/default.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/374df266-1a53-4793-8952-89f930675348/default.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/374df266-1a53-4793-8952-89f930675348/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/374df266-1a53-4793-8952-89f930675348/default.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/27c2c183-fee8-4b45-9471-5c8ba64ae3f9/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/27c2c183-fee8-4b45-9471-5c8ba64ae3f9/default.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/41cccf69-5d8e-423d-892b-85a8aa0408c3/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b0d2684b-9017-490f-a98c-9b6fd5ddda3d/default.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -9425,22 +8528,22 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/stroller/Evenflo/Rank_6_ASIN_B08316K3LG_Evenflo%20Pivot%20NXT%20Travel%20System%20with%20LiteMax%20NXT%20I/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dbd6378d-a587-49e6-90e4-00bcba3898fd/default.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dbd6378d-a587-49e6-90e4-00bcba3898fd/default.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dbd6378d-a587-49e6-90e4-00bcba3898fd/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/dbd6378d-a587-49e6-90e4-00bcba3898fd/default.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b8a6df73-210d-4d1f-8e0b-dea775481bd0/default.vertical.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/b8a6df73-210d-4d1f-8e0b-dea775481bd0/default.vertical.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e0936744-0d59-4484-a64c-4fcb5b14a2c6/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e0936744-0d59-4484-a64c-4fcb5b14a2c6/default.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -9484,31 +8587,10 @@ export const productsData: Product[] = [
     "safetyCertification": [
       "EN1888"
     ],
-    "imageUrl": "about:blank#external-url-removedcom/images/I/71VH78-311L._AC_UL165_SR165,165_.jpg",
-    "galleryUrls": [
-      "about:blank#external-url-removedcom/images/I/71VH78-311L._AC_UL165_SR165,165_.jpg"
-    ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4a1edc3a-8bd6-4e90-be02-24edaf9fd1a4/default.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4a1edc3a-8bd6-4e90-be02-24edaf9fd1a4/default.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bb2b39bc-9709-49b4-b878-bebc9f725585/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d50e50a7-19c7-4fe4-8a11-f1f98d29b89e/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
+    "imageUrl": "",
+    "galleryUrls": [],
+    "videoUrl": "",
+    "videos": [],
     "features": [
       "Convenient One Hand Fold: Graco's Signature Fastaction One Second",
       "One Hand Fold Mechanism.",
@@ -9520,10 +8602,10 @@ export const productsData: Product[] = [
     ],
     "relatedProductIds": [],
     "status": "published",
-    "safetyScore": 8.4,
+    "safetyScore": 7.2,
     "weightScore": 6.6,
     "geometryScore": 9.7,
-    "overallScore": 8.2,
+    "overallScore": 7.8,
     "editorVerdict": "Graco Graco FastAction Jogger LX Stroller - Drive, Convenient One-Hand Fold, ICS Compatible, Ideal for Parents on t... is indexed from backend classification and used as a static fallback product."
   },
   {
@@ -9553,22 +8635,22 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/stroller/Graco/Rank_1_ASIN_B07Y5VQYFW_Graco%20Modes%20Pramette%20Travel%20System%20Car%20Seat%20and%20St/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fbb4d711-8d87-4dda-b96a-05d1de922770/default.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fbb4d711-8d87-4dda-b96a-05d1de922770/default.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fbb4d711-8d87-4dda-b96a-05d1de922770/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fbb4d711-8d87-4dda-b96a-05d1de922770/default.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fd014a41-1919-417b-8aff-9bc8ae61c57f/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/fd014a41-1919-417b-8aff-9bc8ae61c57f/default.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3ba365e3-acf4-4940-baee-a1d29f9afea1/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3ba365e3-acf4-4940-baee-a1d29f9afea1/default.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -9618,22 +8700,22 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/stroller/Graco/Rank_6_ASIN_B08K2KC6KD_Graco%20Ready2Grow%202.0%20Double%20Stroller%20Twin%20Baby%20Str/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/db91b9b3-0feb-4317-ab0d-b792f31b8a5a/default.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/db91b9b3-0feb-4317-ab0d-b792f31b8a5a/default.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/db91b9b3-0feb-4317-ab0d-b792f31b8a5a/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/db91b9b3-0feb-4317-ab0d-b792f31b8a5a/default.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8a2e687d-3362-494a-9cbf-82aff01ec0b6/default.vertical.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8a2e687d-3362-494a-9cbf-82aff01ec0b6/default.vertical.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1622e803-1c23-4e13-95a0-fe063f4d5146/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1622e803-1c23-4e13-95a0-fe063f4d5146/default.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -9677,31 +8759,10 @@ export const productsData: Product[] = [
     "safetyCertification": [
       "EN1888"
     ],
-    "imageUrl": "about:blank#external-url-removedcom/images/I/71i3nWJWl+L._AC_UL165_SR165,165_.jpg",
-    "galleryUrls": [
-      "about:blank#external-url-removedcom/images/I/71i3nWJWl+L._AC_UL165_SR165,165_.jpg"
-    ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e57a28b5-67d1-4e5e-91ed-dc2044bbd696/default.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/e57a28b5-67d1-4e5e-91ed-dc2044bbd696/default.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/580817f3-5bc0-43d3-b238-5adc70c5c01e/default.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/81800f4c-700e-4744-99db-086d6a97720f/default.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
+    "imageUrl": "",
+    "galleryUrls": [],
+    "videoUrl": "",
+    "videos": [],
     "features": [
       "Practical Safe Design: Infans Jogging Stroller Is Equipped With A Rear Wheel Brake System. Pressing It Down Locks Both Rear Wheels At The Same Time. The Front Wheel Has A Dual Function Of Flexible Swiveling And Direction Locking. Combined With A 5 Point Safety Harness",
       "It Provides All Round Protection For Child's Safe.",
@@ -9713,10 +8774,10 @@ export const productsData: Product[] = [
     ],
     "relatedProductIds": [],
     "status": "published",
-    "safetyScore": 8.7,
+    "safetyScore": 7.2,
     "weightScore": 8.6,
     "geometryScore": 9.7,
-    "overallScore": 9,
+    "overallScore": 8.5,
     "editorVerdict": "INFANS INFANS Jogging Stroller, Foldable Jogger with Air-Filled Tires Shock Absorbing Suspension Adjustable Backrest... is indexed from backend classification and used as a static fallback product."
   },
   {
@@ -9746,22 +8807,22 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity%203D%20Mini%20Convenience%20Stroller%20%20Lightweigh/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8a8e3efc-edc4-4f48-b4c7-7cbc69850fa8/default.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8a8e3efc-edc4-4f48-b4c7-7cbc69850fa8/default.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8a8e3efc-edc4-4f48-b4c7-7cbc69850fa8/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8a8e3efc-edc4-4f48-b4c7-7cbc69850fa8/default.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/50e2219f-fe51-48b9-913c-d18b211a25d8/default.vertical.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/50e2219f-fe51-48b9-913c-d18b211a25d8/default.vertical.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3ddd74eb-c254-4adf-a148-07a7e84fd3ba/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3ddd74eb-c254-4adf-a148-07a7e84fd3ba/default.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -9807,31 +8868,10 @@ export const productsData: Product[] = [
     "safetyCertification": [
       "EN1888"
     ],
-    "imageUrl": "about:blank#external-url-removedcom/images/I/71cFk5bNnuL._AC_UL165_SR165,165_.jpg",
-    "galleryUrls": [
-      "about:blank#external-url-removedcom/images/I/71cFk5bNnuL._AC_UL165_SR165,165_.jpg"
-    ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/f5765ad8-6cb4-5438-bf41-9c87636fbfd5/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
-    "videos": [
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/v2/f5765ad8-6cb4-5438-bf41-9c87636fbfd5/ShortForm-Generic-480p-16-9-1409173089793-rpcbe5.mp4",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4cb7aed2-2ece-4e42-80c6-74768352e683/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a1b45d16-d5fc-44eb-8339-b488235f51ca/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
+    "imageUrl": "",
+    "galleryUrls": [],
+    "videoUrl": "",
+    "videos": [],
     "features": [
       "Jogging Stroller Travel System: Use As A Standard Jogging Stroller Or Create A Travel System With Your Infant Car Seat (car Sear Sold Separately)",
       "Size",
@@ -9843,10 +8883,10 @@ export const productsData: Product[] = [
     ],
     "relatedProductIds": [],
     "status": "published",
-    "safetyScore": 8.9,
+    "safetyScore": 7.2,
     "weightScore": 6.6,
     "geometryScore": 9.7,
-    "overallScore": 8.4,
+    "overallScore": 7.8,
     "editorVerdict": "Jeep Jeep Classic Jogging Stroller by Delta Children, Grey is indexed from backend classification and used as a static fallback product."
   },
   {
@@ -9872,31 +8912,10 @@ export const productsData: Product[] = [
     "safetyCertification": [
       "EN1888"
     ],
-    "imageUrl": "about:blank#external-url-removedcom/images/I/715pJRh5Y-L._AC_UL300_SR300,200_.jpg",
-    "galleryUrls": [
-      "about:blank#external-url-removedcom/images/I/715pJRh5Y-L._AC_UL300_SR300,200_.jpg"
-    ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a888f40a-8e87-4c15-a3ba-bb576ae66d8b/default.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/a888f40a-8e87-4c15-a3ba-bb576ae66d8b/default.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/6e5fb883-1a6e-4423-a5ba-a703352e15c1/default.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/39f8fb37-10ec-4166-bdd2-4dd340ad6873/default.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
+    "imageUrl": "",
+    "galleryUrls": [],
+    "videoUrl": "",
+    "videos": [],
     "features": [
       ">200",
       "Heavy Duty"
@@ -9906,10 +8925,10 @@ export const productsData: Product[] = [
     ],
     "relatedProductIds": [],
     "status": "published",
-    "safetyScore": 9.1,
+    "safetyScore": 7.2,
     "weightScore": 6.8,
     "geometryScore": 7.7,
-    "overallScore": 7.8,
+    "overallScore": 7.2,
     "editorVerdict": "Jeep Jeep Cross-Country Sport Plus Jogging Stroller by Delta Children, Charcoal Galaxy is indexed from backend classification and used as a static fallback product."
   },
   {
@@ -9935,31 +8954,10 @@ export const productsData: Product[] = [
     "safetyCertification": [
       "EN1888"
     ],
-    "imageUrl": "about:blank#external-url-removedcom/images/I/71FDGdGC5LL._AC_UL320_.jpg",
-    "galleryUrls": [
-      "about:blank#external-url-removedcom/images/I/71FDGdGC5LL._AC_UL320_.jpg"
-    ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0c201935-e983-4dcd-a095-6d442242bb79/default.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/0c201935-e983-4dcd-a095-6d442242bb79/default.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d9383b75-9de5-4cdf-8ae2-4e8d5ed9904c/default.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/77dcfecd-0c00-493f-81d2-6aeae9798720/default.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
+    "imageUrl": "",
+    "galleryUrls": [],
+    "videoUrl": "",
+    "videos": [],
     "features": [
       "Oxford Cloth",
       "Imported",
@@ -9971,10 +8969,10 @@ export const productsData: Product[] = [
     ],
     "relatedProductIds": [],
     "status": "published",
-    "safetyScore": 8.7,
+    "safetyScore": 7.2,
     "weightScore": 6.6,
     "geometryScore": 9.2,
-    "overallScore": 8.2,
+    "overallScore": 7.7,
     "editorVerdict": "Jeep Jeep Destination Ultralight Side x Side Double Stroller, Midnight is indexed from backend classification and used as a static fallback product."
   },
   {
@@ -10000,31 +8998,10 @@ export const productsData: Product[] = [
     "safetyCertification": [
       "EN1888"
     ],
-    "imageUrl": "about:blank#external-url-removedcom/images/I/51llRi3ziGL._AC_UL320_.jpg",
-    "galleryUrls": [
-      "about:blank#external-url-removedcom/images/I/51llRi3ziGL._AC_UL320_.jpg"
-    ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3dde5af2-2cd1-4799-942c-5990fcf5a2bb/default.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3dde5af2-2cd1-4799-942c-5990fcf5a2bb/default.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/8bc5fec7-1ef0-4d51-b1dc-bbcb7c117c5f/default.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/1ec6b8e8-9181-437f-a6ba-2b43609a3f89/default.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
+    "imageUrl": "",
+    "galleryUrls": [],
+    "videoUrl": "",
+    "videos": [],
     "features": [
       "Unique",
       "Compact Tri Fold Design Makes This Twin Stroller Ideal For Small Cars With Limited Cargo Space",
@@ -10036,10 +9013,10 @@ export const productsData: Product[] = [
     ],
     "relatedProductIds": [],
     "status": "published",
-    "safetyScore": 8.9,
+    "safetyScore": 7.2,
     "weightScore": 8,
     "geometryScore": 7.8,
-    "overallScore": 8.2,
+    "overallScore": 7.7,
     "editorVerdict": "Joovy Joovy Kooper X2 Double Stroller, Lightweight Travel Stroller, Compact Fold with Tray, Black is indexed from backend classification and used as a static fallback product."
   },
   {
@@ -10069,22 +9046,22 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/stroller/MAMAZING/Rank_2_ASIN_B0CXXRN2QS_MAMAZING%20Ultra%20Air%20Lightweight%20Baby%20Travel%20Strolle/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3e952392-410d-4d14-aa58-139b976f14f2/default.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3e952392-410d-4d14-aa58-139b976f14f2/default.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3e952392-410d-4d14-aa58-139b976f14f2/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3e952392-410d-4d14-aa58-139b976f14f2/default.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3f13abdb-fa1a-4862-8ac2-8dac1af825af/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/3f13abdb-fa1a-4862-8ac2-8dac1af825af/default.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/93b2bdce-2491-417b-9aba-2aa0e62e9cc2/default.vertical.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/93b2bdce-2491-417b-9aba-2aa0e62e9cc2/default.vertical.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -10115,7 +9092,7 @@ export const productsData: Product[] = [
     "weight": 25.4,
     "material": "N/A",
     "brakeType": "5-Point Harness",
-    "tireType": "Rubber",
+    "tireType": "N/A",
     "price": 239.99,
     "ageRange": "Infant | Toddler",
     "heightRange": [
@@ -10128,31 +9105,10 @@ export const productsData: Product[] = [
     "safetyCertification": [
       "EN1888"
     ],
-    "imageUrl": "about:blank#external-url-removedcom/images/I/713-QM1W4cL._AC_UL320_.jpg",
-    "galleryUrls": [
-      "about:blank#external-url-removedcom/images/I/713-QM1W4cL._AC_UL320_.jpg"
-    ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ee70da06-de83-46bf-8a0c-539f70423baf/default.jobtemplate.hls.m3u8",
-    "videos": [
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ee70da06-de83-46bf-8a0c-539f70423baf/default.jobtemplate.hls.m3u8",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/d239e5c1-f250-48a5-9e99-b21e1883ddeb/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/78e6517f-8219-4579-959e-e32b2bb2045d/default.vertical.jobtemplate.hls.m3u8",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
+    "imageUrl": "",
+    "galleryUrls": [],
+    "videoUrl": "",
+    "videos": [],
     "features": [
       ">200",
       "Heavy Duty"
@@ -10162,10 +9118,10 @@ export const productsData: Product[] = [
     ],
     "relatedProductIds": [],
     "status": "published",
-    "safetyScore": 8.7,
+    "safetyScore": 7.2,
     "weightScore": 6.8,
     "geometryScore": 8.9,
-    "overallScore": 8.1,
+    "overallScore": 7.6,
     "editorVerdict": "Mompush Mompush Lithe Double Stroller for Infant and Toddler, Lightweight Side by Side Twin Stroller, Only 25 lbs, 30... is indexed from backend classification and used as a static fallback product."
   },
   {
@@ -10195,22 +9151,22 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/stroller/Mompush/Rank_9_ASIN_B0FPFYG1BS_Mompush%20Nexis%20Carbon%20Travel%20Stroller%20Ultra-Lightwe/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ab546842-269b-43a3-9781-868c5dede2a2/default.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ab546842-269b-43a3-9781-868c5dede2a2/default.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ab546842-269b-43a3-9781-868c5dede2a2/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/ab546842-269b-43a3-9781-868c5dede2a2/default.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/80eceaa7-b353-4422-b960-1b515f3a357a/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/80eceaa7-b353-4422-b960-1b515f3a357a/default.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5aaaf4fb-25c6-4c83-8a81-dc73b6dc6703/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5aaaf4fb-25c6-4c83-8a81-dc73b6dc6703/default.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -10258,22 +9214,22 @@ export const productsData: Product[] = [
     "galleryUrls": [
       "https://store.poki2.online/stroller/Mompush/Rank_10_ASIN_B093GS5723_Mompush%20Wiz%202%20in%201%20Baby%20Stroller%20with%20Infant%20Prame/images/primary.jpg"
     ],
-    "videoUrl": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bfe2bc36-388f-4c00-99ad-3703fddbb0dd/default.jobtemplate.hls.m3u8",
+    "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bfe2bc36-388f-4c00-99ad-3703fddbb0dd/default.jobtemplate.hls.m3u8",
     "videos": [
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bfe2bc36-388f-4c00-99ad-3703fddbb0dd/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/bfe2bc36-388f-4c00-99ad-3703fddbb0dd/default.jobtemplate.hls.m3u8",
         "title": "video-1",
         "source": "scraped",
         "order": 0
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5e194961-d773-49cc-bf14-52f96b820ba3/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/5e194961-d773-49cc-bf14-52f96b820ba3/default.jobtemplate.hls.m3u8",
         "title": "video-2",
         "source": "scraped",
         "order": 1
       },
       {
-        "url": "about:blank#external-url-removedcom/images/S/vse-vms-transcoding-artifact-us-east-1-prod/47306bed-e14d-4968-b646-6dfe5dad214f/default.jobtemplate.hls.m3u8",
+        "url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/47306bed-e14d-4968-b646-6dfe5dad214f/default.jobtemplate.hls.m3u8",
         "title": "video-3",
         "source": "scraped",
         "order": 2
@@ -10317,10 +9273,8 @@ export const productsData: Product[] = [
     "safetyCertification": [
       "EN1888"
     ],
-    "imageUrl": "about:blank#external-url-removedcom/images/I/818U3EVBU1L._AC_UL320_.jpg",
-    "galleryUrls": [
-      "about:blank#external-url-removedcom/images/I/818U3EVBU1L._AC_UL320_.jpg"
-    ],
+    "imageUrl": "",
+    "galleryUrls": [],
     "videoUrl": "",
     "videos": [],
     "features": [

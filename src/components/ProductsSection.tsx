@@ -44,7 +44,11 @@ function pickCustomersSay(product: Product, lang: "zh" | "en"): string {
     zh?: { customersSay?: string };
     en?: { customersSay?: string };
   })[lang]?.customersSay;
-  return String(localized || product.customers_say || "").trim();
+  return String(localized || product.customers_say || product.customersSay || "").trim();
+}
+
+function hasRealCustomersSay(product: Product, lang: "zh" | "en"): boolean {
+  return /^Customers find\b/i.test(pickCustomersSay(product, lang));
 }
 
 function pickLocalizedDescription(product: Product, lang: "zh" | "en"): string {
@@ -157,7 +161,8 @@ function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
     .map((item) => compactSnippet(item))
     .filter(Boolean);
 
-  const candidates = [description, verdict, pickCustomersSay(product, lang), pros[0], features[0]]
+  const customersSay = pickCustomersSay(product, lang);
+  const candidates = [customersSay, verdict, description, pros[0], features[0]]
     .map((item) => compactSnippet(item))
     .map((item) => stripRepeatedBrandPrefix(item, product.brand))
     .filter((item) => item && !isPlaceholderVerdict(item) && !isGenericCardSnippet(item) && !isTitleDuplicateSnippet(item, product));
@@ -169,15 +174,14 @@ function resolveCardVerdict(product: Product, lang: "zh" | "en"): string {
   const verdict = String(product.editorVerdict || "").trim();
   const customersSay = pickCustomersSay(product, lang);
   const isVerdictPlaceholder = isPlaceholderVerdict(verdict);
+
+  if (customersSay) {
+    return customersSay;
+  }
   
   // If verdict is not placeholder, use it
   if (!isVerdictPlaceholder && verdict) {
     return verdict;
-  }
-  
-  // If we have customersSay, use it
-  if (customersSay) {
-    return customersSay;
   }
   
   // Return empty string - no placeholder text for SEO health
@@ -246,6 +250,7 @@ export default function ProductsSection({
     "kids_pull_along_wagons",
     "baby_carrier",
   ]);
+  const hiddenCategoryOptionIds = new Set(["kids_tricycles", "double_stroller", "jogger_stroller"]);
 
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory || "all");
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -263,6 +268,7 @@ export default function ProductsSection({
   const [selectedCertification, setSelectedCertification] = useState<string>("all");
   const [backendCategoryNameMap, setBackendCategoryNameMap] = useState<Record<string, string>>({});
   const [hintFlash, setHintFlash] = useState<string | null>(null);
+  const [saveTip, setSaveTip] = useState<string | null>(null);
   const categoryAliasMap: Record<string, string> = {
     scooters: "kids_scooters",
     scooter: "kids_scooters",
@@ -342,9 +348,9 @@ export default function ProductsSection({
         strollers: "Strollers",
         double_stroller: "Double Strollers",
         double_strollers: "Double Strollers",
-        jogger_stroller: "Jogger Strollers",
-        jogger_strollers: "Jogger Strollers",
-        electric_vehicles: "Electric Vehicles",
+        jogger_stroller: "Jogging Strollers",
+        jogger_strollers: "Jogging Strollers",
+        electric_vehicles: "Elingric Vehicles",
         electric_car: "Electric Vehicles",
       };
       if (englishDisplayMap[normalized]) {
@@ -434,7 +440,7 @@ export default function ProductsSection({
     const idSet = new Set<string>();
     for (const item of productsData) {
       const id = getProductCategoryId(item);
-      if (id && !excludedCategoryIds.has(id)) {
+      if (id && !excludedCategoryIds.has(id) && !hiddenCategoryOptionIds.has(id)) {
         idSet.add(id);
       }
     }
@@ -449,10 +455,27 @@ export default function ProductsSection({
 
   const getCategoryLabel = (categoryId: string, categoryCode: ProductCategory) => {
     const fromCategoryId = humanizeCategoryId(categoryId);
-    if (fromCategoryId && fromCategoryId !== categoryId) {
-      return fromCategoryId;
-    }
-    return translateCategory(categoryCode, lang);
+    const label = fromCategoryId && fromCategoryId !== categoryId
+      ? fromCategoryId
+      : translateCategory(categoryCode, lang);
+
+    if (lang !== "en") return label;
+    const singularMap: Record<string, string> = {
+      "Strollers": "Stroller",
+      "Double Strollers": "Double Stroller",
+      "Jogger Strollers": "Jogger Stroller",
+      "Balance Bikes": "Balance Bike",
+      "Kids Bikes": "Kids Bike",
+      "Kids Scooters": "Kids Scooter",
+      "Kids Tricycles": "Kids Tricycle",
+      "Electric Vehicles": "Electric Vehicle",
+      "Car Seats": "Car Seat",
+      "Push Ride Ons": "Push Ride On",
+      "Pull Along Wagons": "Pull Along Wagon",
+      "Kids Pull Along Wagons": "Kids Pull Along Wagon",
+      "Kids Push Ride Ons": "Kids Push Ride On",
+    };
+    return singularMap[label] || label;
   };
 
   const getCategoryPriority = (categoryId: string) => {
@@ -760,6 +783,8 @@ export default function ProductsSection({
 
         if (sortBy === "overallScore") {
           if (priorityDelta !== 0) return priorityDelta;
+          const customerSayDelta = Number(hasRealCustomersSay(right, lang)) - Number(hasRealCustomersSay(left, lang));
+          if (customerSayDelta !== 0) return customerSayDelta;
           return right.overallScore - left.overallScore;
         }
         if (sortBy === "weightAsc") {
@@ -804,53 +829,48 @@ export default function ProductsSection({
   const safePage = Math.min(Math.max(1, currentPage), totalPages);
   const pagedProducts = filteredProducts.slice((safePage - 1) * pageSize, safePage * pageSize);
 
-  // Compare toggles (allows up to 3 items!)
+  // Compare toggles (allows up to 4 items!)
   const handleToggleCompare = (product: Product, e: React.MouseEvent) => {
     e.stopPropagation();
     const exists = compareList.find(p => p.id === product.id);
     let newList: Product[] = [];
     if (exists) {
       newList = compareList.filter(p => p.id !== product.id);
-    } else if (compareList.length >= 3) {
+    } else if (compareList.length >= 4) {
       if (lang === "en") {
-        alert("Comparison Limit: For ideal display width, side-by-side matrices are capped at 3 models. Previous designs have been cycle replaced.");
+        alert("Comparison Limit: You can compare up to 4 models at once.");
       } else {
-        alert("【对比上限提醒】为保证在移动和电脑端都能有极佳的阅读空间，横评对比最多支持 3 款同台哦！已自动替换较先加入的车款。");
+        alert("【对比上限提醒】横评对比最多支持 4 款同台。");
       }
-      newList = [compareList[1], compareList[2], product];
+      return;
     } else {
       newList = [...compareList, product];
     }
     setCompareList(newList);
   };
 
+  const showSaveTip = (message: string) => {
+    setSaveTip(message);
+    window.setTimeout(() => {
+      setSaveTip((current: string | null) => (current === message ? null : current));
+    }, 3000);
+  };
+
   // Saved / Bookmark toggles
   const handleToggleSave = (product: Product, e: React.MouseEvent) => {
     e.stopPropagation();
     if (!userEmail) {
-      if (lang === "en") {
-        alert("Saved List is a free premium feature. Please click 'Register / Log in' at the top to secure an account!");
-      } else {
-        alert("【会员注册提醒】保存方案为专属免费特权。请点顶部‘注册登录’注册一个哈希受保护邮箱，即可秒速锁解锁特权！");
-      }
+      showSaveTip(lang === "en" ? "Log in to save products." : "请先注册/登录后收藏产品。");
       return;
     }
 
     const alreadySaved = savedProducts.some(s => s.id === product.id);
     if (alreadySaved) {
       setSavedProducts(savedProducts.filter(s => s.id !== product.id));
-      if (lang === "en") {
-        alert(`Successfully removed [${product.name}] from your saved list.`);
-      } else {
-        alert(`已成功将 [${product.name}] 从您的会员个人库中移除。`);
-      }
+      showSaveTip(lang === "en" ? "Removed from saved list." : "已从收藏列表移除。");
     } else {
       setSavedProducts([...savedProducts, product]);
-      if (lang === "en") {
-        alert(`Successfully saved [${product.name}]! You can download high-res PDF datasheets dynamically inside user panel.`);
-      } else {
-        alert(`已成功将 [${product.name}] 妥加储存在您的会员数据库中！您可以前往“会员中心”一键下载 PDF 高清报告。`);
-      }
+      showSaveTip(lang === "en" ? "Saved. View it in your member center." : "已收藏，可在会员中心查看。");
     }
   };
 
@@ -859,8 +879,8 @@ export default function ProductsSection({
       {/* Primary H1 for SEO - visible to search engines */}
       <h1 className="text-3xl font-black text-slate-900 text-center">
         {lang === "en" 
-          ? "Best Kids' Stroller, Jogging Stroller, Balance Bike & Kids Scooter - KIDSMOBI Reviews" 
-          : "儿童推车、平衡车、儿童滑板车选购指南 | KIDSMOBI 产品数据库"}
+          ? "Kids Mobility Product Finder | KIDSMOBI" 
+          : "儿童出行产品数据库 | KIDSMOBI"}
       </h1>
       
       {/* Breadcrumbs (PRD 4.2.2) */}
@@ -1117,14 +1137,73 @@ export default function ProductsSection({
 
       </div>
 
-      {/* Comparison Dashboard (PRD Requirement: Automatic Detection) */}
-      <ComparisonDashboard 
-        compareList={compareList}
-        lang={lang}
-        currencyData={currencyData}
-        onRemove={(id) => setCompareList(compareList.filter(p => p.id !== id))}
-        onClear={() => setCompareList([])}
-      />
+      {showCompareDrawer && compareList.length > 0 && (
+        <div className="fixed inset-0 z-[80] bg-slate-950/70 backdrop-blur-sm p-4 md:p-8 overflow-y-auto" onClick={() => setShowCompareDrawer(false)}>
+          <div className="max-w-7xl mx-auto" onClick={(event) => event.stopPropagation()}>
+            <div className="flex justify-end mb-4">
+              <button
+                onClick={() => setShowCompareDrawer(false)}
+                className="p-3 rounded-2xl bg-white text-slate-700 border border-slate-200 shadow-xl hover:text-orange-500 transition-colors"
+                aria-label={lang === "en" ? "Close comparison" : "关闭对比"}
+                title={lang === "en" ? "Close comparison" : "关闭对比"}
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <ComparisonDashboard
+              compareList={compareList}
+              lang={lang}
+              currencyData={currencyData}
+              onRemove={(id) => {
+                const nextList = compareList.filter(p => p.id !== id);
+                setCompareList(nextList);
+                if (nextList.length === 0) setShowCompareDrawer(false);
+              }}
+              onClear={() => {
+                setCompareList([]);
+                setShowCompareDrawer(false);
+              }}
+            />
+          </div>
+        </div>
+      )}
+
+      {saveTip && (
+        <div className="fixed left-1/2 top-24 z-[90] -translate-x-1/2 rounded-2xl border border-slate-200 bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-2xl shadow-slate-900/20">
+          {saveTip}
+        </div>
+      )}
+
+      {compareList.length > 0 && !showCompareDrawer && (
+        <div className="fixed left-1/2 bottom-6 z-[70] w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 rounded-[28px] border border-slate-200 bg-white/95 p-4 shadow-2xl shadow-slate-900/15 backdrop-blur-md">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="min-w-0">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+                {lang === "en" ? "Compare Selection" : "对比选择"}
+              </p>
+              <p className="truncate text-sm font-black text-slate-900">
+                {lang === "en" ? `${compareList.length} / 4 selected` : `已选择 ${compareList.length} / 4 款`}
+              </p>
+            </div>
+            <div className="flex items-center gap-2 sm:gap-3">
+              <button
+                type="button"
+                onClick={() => setCompareList([])}
+                className="px-4 py-3 rounded-2xl border border-slate-200 bg-white text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-rose-500 hover:border-rose-200 transition-colors"
+              >
+                {lang === "en" ? "Clear" : "清空"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowCompareDrawer(true)}
+                className="px-5 py-3 rounded-2xl bg-orange-500 text-[10px] font-black uppercase tracking-widest text-white shadow-xl shadow-orange-500/20 hover:bg-orange-600 transition-colors"
+              >
+                {lang === "en" ? "Open Compare" : "确认对比"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Grid listing */}
       {filteredProducts.length === 0 ? (
@@ -1145,12 +1224,7 @@ export default function ProductsSection({
             const diProduct = p;
             const imageSet = resolveProductImages(diProduct);
             const cardSummary = resolveCardSummary(diProduct, lang);
-            const massText = formatMassDisplay(diProduct.weight, currencyData.code, lang);
             const priceText = formatPriceDisplay(diProduct.price, currencyData.symbol, lang);
-            const hasRealWeight = typeof diProduct.weight === "number" && Number.isFinite(diProduct.weight) && diProduct.weight > 0;
-            const isWeightOver = (diProduct.category === "bicycle" || diProduct.category === "balance")
-              ? hasRealWeight && diProduct.weight > childProfile.weight * 0.3
-              : false;
 
             const isAlreadySaved = savedProducts.some(s => s.id === diProduct.id);
             const isAlreadyCompared = compareList.some(c => c.id === diProduct.id);
@@ -1203,37 +1277,22 @@ export default function ProductsSection({
                     </p>
                   )}
 
-                  <div className={`grid ${hasRealWeight ? "grid-cols-2" : "grid-cols-1"} gap-6 bg-slate-50/50 p-6 rounded-4xl border border-slate-50 mt-2 group-hover:bg-white group-hover:shadow-lg group-hover:shadow-slate-200/50 transition-all`}>
-                    {hasRealWeight && (
-                      <div className="space-y-1">
-                        <span className="text-slate-400 block text-[9px] font-black uppercase tracking-widest">
-                          {lang === "en" ? "MASS" : "自重"}
-                        </span>
-                        <strong className={`text-lg font-black tracking-tighter ${isWeightOver ? "text-orange-500" : "text-emerald-500"}`}>
-                          {massText}
-                        </strong>
-                      </div>
-                    )}
-                    <div className="space-y-1">
-                      <span className="text-slate-400 block text-[9px] font-black uppercase tracking-widest">
-                        {lang === "en" ? "EST. PRICE" : "参考"}
-                      </span>
-                      <strong className="text-lg text-slate-900 font-black tracking-tighter">
-                        {priceText}
-                      </strong>
-                    </div>
-                  </div>
-
                 </div>
 
                 {/* Card actions */}
                 <div className="flex justify-between items-center gap-4 pt-6 border-t border-slate-50 relative z-10">
+                  <strong className="text-lg text-slate-900 font-black tracking-tighter shrink-0">
+                    {priceText}
+                  </strong>
                   <div className="flex gap-3">
                     <button
                       onClick={(e) => handleToggleCompare(p, e)}
+                      disabled={!isAlreadyCompared && compareList.length >= 4}
                       className={`p-3.5 rounded-2xl border transition-all active:scale-90 ${
                         isAlreadyCompared 
                           ? "bg-orange-500 border-orange-400 text-white shadow-xl shadow-orange-500/20"
+                          : compareList.length >= 4
+                            ? "bg-slate-50 border-slate-100 text-slate-300 cursor-not-allowed"
                           : "bg-white border-slate-100 text-slate-400 hover:text-orange-500 hover:border-orange-200"
                       }`}
                       title={lang === "en" ? "Add to compare" : "加入对比"}
@@ -1254,12 +1313,6 @@ export default function ProductsSection({
                       <Bookmark className="w-5 h-5 fill-current" />
                     </button>
                   </div>
-                  <span
-                    className="text-[10px] font-black text-orange-500 uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all"
-                    aria-label={lang === "en" ? `Open ${diProduct.name} full metrics` : `打开 ${diProduct.name} 完整参数`}
-                  >
-                    {lang === "en" ? "Full Metrics" : "完整参数"} <ChevronRight className="w-4 h-4" />
-                  </span>
                 </div>
 
               </div>

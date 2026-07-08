@@ -580,6 +580,161 @@
       "Model Number": "TR007",
       "Age Range Description": "Toddler",
       "Brand": "newyoo"
+    },
+    "customers_say": "Customers find this tricycle to be a great first bike that's easy to assemble and can be used for many years. It's perfect for toddlers, serving as a transition bike, and features a secure seatbelt that keeps children safely strapped in. Customers praise its maneuverability, particularly the rear handle that allows adults to control direction and speed, and its versatility, with one customer noting it adapts well as children grow. While the training wheels provide good stability, some customers report issues with the bike being wobbly.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Toddler",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "35 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "4.4 Kilograms",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Carbon Steel",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "24.61\"L x 17.13\"W x 19.69\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Carbon Steel",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "35 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes."
+          },
+          {
+            "source": "Features[4]",
+            "text": "Carbon Steel Frame & EVA Wheels: EN188 & ASTM Approved. Made of high-quality carbon steel, EVA solid shock-absorbing wheels and environment-friendly PP seat. Long-lasting life, durable and stylish design."
+          },
+          {
+            "source": "Product_Description",
+            "text": "5 Modes: Push Tricycle Mode, Push Balance Bike Mode, Tricycle Mode, Balance Bike Mode and Bike Mode. Multifunctional tricycle is suitable for 1, 2,3 years old boys and girls. Steering Push Handlebar: Rotating 135 degree..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[4]",
+            "text": "Anti-slip Handlebar Cover"
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[6]",
+            "text": "Removable Safety Guard & Backrest"
+          }
+        ],
+        "parentTip": "Parent's Tip: Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjusted according parents’ height so that dad..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "Easy Access to Use: Much easier to assemble handlebar and wheels. Press buttons to convert it into different modes. Suitable for 1-3 years kids under 43.3 inches(110 cm)."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[7]",
+            "text": "Also can be used as Footrest"
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[8]",
+            "text": "10+ Month Parent Steering & Helping (with Footrest)"
+          }
+        ],
+        "parentTip": "Parent's Tip: Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjust..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "4.4 Kilograms",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "dimensions": {
+            "value": "24.61\"L x 17.13\"W x 19.69\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes.",
+      "ridingComfort": "Parent's Tip: Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjust...",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "newyoo Toddler Tricycle with Push Handle for 1-3 Year Old, Toddler Bike, Birthday Gift and Toy for Boys and Girls, 5 in 1 Kid",
+      "brand": "newyoo",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "5 Modes: Push Tricycle Mode, Push Balance Bike Mode, Tricycle Mode, Balance Bike Mode and Bike Mode. Multifunctional tricycle is suitable for 1, 2,3 years old boys and girls."
+        },
+        {
+          "source": "Features[2]",
+          "text": "Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjusted according parents’ height so that dad and mom can accompanied to practice with your little."
+        },
+        {
+          "source": "Features[3]",
+          "text": "Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes."
+        },
+        {
+          "source": "Features[4]",
+          "text": "Carbon Steel Frame & EVA Wheels: EN188 & ASTM Approved. Made of high-quality carbon steel, EVA solid shock-absorbing wheels and environment-friendly PP seat. Long-lasting life, durable and stylish design."
+        },
+        {
+          "source": "Features[5]",
+          "text": "Easy Access to Use: Much easier to assemble handlebar and wheels. Press buttons to convert it into different modes. Suitable for 1-3 years kids under 43.3 inches(110 cm)."
+        },
+        {
+          "source": "Product_Description",
+          "text": "5 Modes: Push Tricycle Mode, Push Balance Bike Mode, Tricycle Mode, Balance Bike Mode and Bike Mode. Multifunctional tricycle is suitable for 1, 2,3 years old boys and girls. Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjusted according parents’ height so that dad and mom can accompanied to practice with your little. Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Love Is What Makes You Smile"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "Spend the most memorable time with your baby"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes.",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjusted according parents’ height so that dad...",
+          "source": "Features[2]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -820,6 +975,145 @@
     "Category_Attributes": {
       "Age Range Description": "2 To 5 Years",
       "Brand": "Umatoll"
+    },
+    "customers_say": "Customers find the tricycle easy to assemble with no tools required and appreciate its build quality, describing it as ingeniously-engineered. The toy receives positive feedback for its functionality, with wheels that light up, and customers like its size, with one mentioning it's just right for their child's height. Customers find it cute, particularly noting the lights on the rear wheels, and consider it good value for money. The durability receives mixed reviews, with some finding it long-lasting while others report issues with parts coming loose.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "2 To 5 Years",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "50 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "9.6 Pounds",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Carbon Steel",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "26.3\"L x 18.1\"W x 21.2\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Carbon Steel",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "50 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "DURABLE AND STURDY: The Umatoll tricycle is made with top quality carbon steel, equipped with spring buckles and reinforced screws for a solid, long-lasting structure that will grow with your child."
+          },
+          {
+            "source": "Features[2]",
+            "text": "SMOOTH AND SAFE RIDE: The toddler tricycle features extended rear wheels and a wide wheelbase, effectively preventing tipping. It provides a stable and secure ride, giving your child the confidence to learn to ride and..."
+          },
+          {
+            "source": "Features[3]",
+            "text": "GROWS WITH TODDLER: Featuring a 3-position adjustable seat, the tricycle is perfect for toddler aged 2 to 5, adapting to your child’s growing needs as she learns to pedal and steer."
+          },
+          {
+            "source": "Product_Description",
+            "text": "DURABLE AND STURDY: The Umatoll tricycle is made with top quality carbon steel, equipped with spring buckles and reinforced screws for a solid, long-lasting structure that will grow with your child. SMOOTH AND SAFE RIDE..."
+          }
+        ],
+        "parentTip": "Parent's Tip: DURABLE AND STURDY: The Umatoll tricycle is made with top quality carbon steel, equipped with spring buckles and reinforced screws for a solid, long-lasting structure that will gr..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "9.6 Pounds",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "dimensions": {
+            "value": "26.3\"L x 18.1\"W x 21.2\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[4]",
+            "text": "DUAL BASKETS: The removable front and rear baskets allow your little one to easily carry their favorite toys or treasures, making it perfect for rides in the yard or outdoor adventures."
+          }
+        ],
+        "parentTip": "Parent's Tip: DUAL BASKETS: The removable front and rear baskets allow your little one to easily carry their favorite toys or treasures, making it perfect for rides in the yard or outdoor adven..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: DURABLE AND STURDY: The Umatoll tricycle is made with top quality carbon steel, equipped with spring buckles and reinforced screws for a solid, long-lasting structure that will gr...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: DUAL BASKETS: The removable front and rear baskets allow your little one to easily carry their favorite toys or treasures, making it perfect for rides in the yard or outdoor adven..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Umatoll Tricycle for Toddlers 2-5 Year Old, Ajustable Toddler Bike Outdoor Toys, Birthday Gift for Girl Age 2-4, Trike with L",
+      "brand": "Umatoll",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "DURABLE AND STURDY: The Umatoll tricycle is made with top quality carbon steel, equipped with spring buckles and reinforced screws for a solid, long-lasting structure that will grow with your child."
+        },
+        {
+          "source": "Features[2]",
+          "text": "SMOOTH AND SAFE RIDE: The toddler tricycle features extended rear wheels and a wide wheelbase, effectively preventing tipping. It provides a stable and secure ride, giving your child the confidence to learn to ride and build muscle strength."
+        },
+        {
+          "source": "Features[3]",
+          "text": "GROWS WITH TODDLER: Featuring a 3-position adjustable seat, the tricycle is perfect for toddler aged 2 to 5, adapting to your child’s growing needs as she learns to pedal and steer."
+        },
+        {
+          "source": "Features[4]",
+          "text": "DUAL BASKETS: The removable front and rear baskets allow your little one to easily carry their favorite toys or treasures, making it perfect for rides in the yard or outdoor adventures."
+        },
+        {
+          "source": "Features[5]",
+          "text": "LIGHT-UP FUN: The rear wheels light up with every turn—no batteries needed! These colorful lights add extra fun to every ride, whether indoors or outdoors, making it an exciting gift for your little one."
+        },
+        {
+          "source": "Product_Description",
+          "text": "DURABLE AND STURDY: The Umatoll tricycle is made with top quality carbon steel, equipped with spring buckles and reinforced screws for a solid, long-lasting structure that will grow with your child. SMOOTH AND SAFE RIDE: The toddler tricycle features extended rear wheels and a wide wheelbase, effectively preventing tipping. It provides a stable and secure ride, giving your child the confidence to learn to ride and build muscle strength. GROWS WITH TODDLER: Featuring a 3-position adjustable seat, the tricycle is perfect for toddler aged 2 to 5, adapting to your child’s growing needs as she learns to pedal and steer."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Umatoll bike"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "No need to be timid, no need to turn your head. Be brave and start stepping out in front! We hope that every baby can grow up healthy and happy! We believe toys are not just playmates but essential partners in a child's development. Umatoll accompanies the growth of the baby and records the beautiful moments of the baby!"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "DURABLE AND STURDY: The Umatoll tricycle is made with top quality carbon steel, equipped with spring buckles and reinforced screws for a solid, long-lasting structure that will grow with your child.",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "DUAL BASKETS: The removable front and rear baskets allow your little one to easily carry their favorite toys or treasures, making it perfect for rides in the yard or outdoor adventures.",
+          "source": "Features[4]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -1036,6 +1330,131 @@
       "Model Number": "TC003-Green",
       "Age Range Description": "24 Months to 5 Years Old",
       "Brand": "KRIDDO"
+    },
+    "customers_say": "Customers find the tricycle easy to assemble with no tools required and appreciate its quality as a first bike. The tricycle is sturdy and well-balanced, with customers noting its pretty pink appearance and suitability for young children. While some customers say it's the perfect size for little ones, others find it too small for their 3-year-olds. The durability receives mixed feedback, with some saying it's built to last while others report parts breaking off. Customers consider it good value for the price.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "24 Months to 5 Years Old",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "itemWeight": {
+        "value": "9 Pounds",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Carbon Steel",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "26.54\"L x 18.27\"W x 21.81\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Carbon Steel",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "IMPROVED ROLL-OVER PREVENTION – This interactive toddler trike for 2-4 years features a smarter triangular design with extended rear wheels, wider wheelbase to help prevent tipping or rolling over when kids are learning..."
+          },
+          {
+            "source": "Features[3]",
+            "text": "EASY-TO-CARRY SEAT AND COMFORTABLE GRIPS – The ergonomic design of our kid’s trike boasts a comfier seat for small bottoms, the design makes it easy to carry around. The smooth edges and non-slip handle grip also provid..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "INDOOR AND OUTDOOR USE: KRIDDO kids tricycle is built with solid structure, which makes outdoor riding safe. The shock absorption silent wheels allow your kids ride around silently inside the house and do no damage to y..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "ATTENTION TO SAFETY: We have always considered the importance of safety for toddlers, KRIDDO kids tricycle for 1.5 to 5 year old is made of high-quality material, BPA free, matte nontoxic paint and conform to America to..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "TODDLER TRICYCLE – KRIDDO kids tricycle is designed for 24-48 month toddler girls & boys who are curious and exited to explore the world, it helps to develop kids' steering skills, steering and coordination at an early..."
+          }
+        ],
+        "parentTip": "Parent's Tip: IMPROVED ROLL-OVER PREVENTION – This interactive toddler trike for 2-4 years features a smarter triangular design with extended rear wheels, wider wheelbase to help prevent tippin..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "9 Pounds",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "dimensions": {
+            "value": "26.54\"L x 18.27\"W x 21.81\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: IMPROVED ROLL-OVER PREVENTION – This interactive toddler trike for 2-4 years features a smarter triangular design with extended rear wheels, wider wheelbase to help prevent tippin...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "KRIDDO Tricycles Age 24 Month to 4 Years, Toddler Kids Trike for 2.5 to 5 Year Old, Gift for 2-4 Year Olds , Green",
+      "brand": "KRIDDO",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "TODDLER TRICYCLE – KRIDDO kids tricycle is designed for 24-48 month toddler girls & boys who are curious and exited to explore the world, it helps to develop kids' steering skills, steering and coordination at an early age. KRIDDO kids trike for 2 year old let your kids enjoy riding and gain confidence, as well as develop muscle strength, it’s a fun gift for your little ones."
+        },
+        {
+          "source": "Features[2]",
+          "text": "IMPROVED ROLL-OVER PREVENTION – This interactive toddler trike for 2-4 years features a smarter triangular design with extended rear wheels, wider wheelbase to help prevent tipping or rolling over when kids are learning to ride."
+        },
+        {
+          "source": "Features[3]",
+          "text": "EASY-TO-CARRY SEAT AND COMFORTABLE GRIPS – The ergonomic design of our kid’s trike boasts a comfier seat for small bottoms, the design makes it easy to carry around. The smooth edges and non-slip handle grip also provide them better support during early learning active play."
+        },
+        {
+          "source": "Features[4]",
+          "text": "INDOOR AND OUTDOOR USE: KRIDDO kids tricycle is built with solid structure, which makes outdoor riding safe. The shock absorption silent wheels allow your kids ride around silently inside the house and do no damage to your floors."
+        },
+        {
+          "source": "Features[5]",
+          "text": "ATTENTION TO SAFETY: We have always considered the importance of safety for toddlers, KRIDDO kids tricycle for 1.5 to 5 year old is made of high-quality material, BPA free, matte nontoxic paint and conform to America toy standard, this ensures that they are safe for kids. You will get a sturdy kids trike, but don’t leave your baby alone when playing with it."
+        },
+        {
+          "source": "Product_Description",
+          "text": "TODDLER TRICYCLE – KRIDDO kids tricycle is designed for 24-48 month toddler girls & boys who are curious and exited to explore the world, it helps to develop kids' steering skills, steering and coordination at an early age. KRIDDO kids trike for 2 year old let your kids enjoy riding and gain confidence, as well as develop muscle strength, it’s a fun gift for your little ones. IMPROVED ROLL-OVER PREVENTION – This interactive toddler trike for 2-4 years features a smarter triangular design with extended rear wheels, wider wheelbase to help prevent tipping or rolling over when kids are learning to ride. EASY-TO-CARRY SEAT AND COMFORTABLE GRIPS – The ergonomic design of our kid’s trike boasts a comfier seat for small bottoms, the design makes it easy to carry around. The smooth edges and non-slip handle grip also provide them better support during early learning active play."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Shop Kids Tricycle"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[2]",
+          "text": "Shop Toddler Balance Bike"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "IMPROVED ROLL-OVER PREVENTION – This interactive toddler trike for 2-4 years features a smarter triangular design with extended rear wheels, wider wheelbase to help prevent tipping or rolling over when kids are learning...",
+          "source": "Features[2]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -1269,6 +1688,131 @@
     "Category_Attributes": {
       "Model Number": "492TZ",
       "Brand": "Radio"
+    },
+    "customers_say": "Customers find this ride-on toy to be a great starter bike that's easy to assemble and maneuver, with a well-designed appearance enhanced by its colors. Moreover, they appreciate its sturdiness, fun features, and age-appropriate design that grows with children up to age 6. However, the durability receives mixed feedback, with some customers finding it quite durable while others report issues with parts coming undone easily.",
+    "Product_Display_Fields": {
+      "itemWeight": {
+        "value": "15 Pounds",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Plastic",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "19.88\"L x 35.04\"W x 40.75\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      },
+      "harness": {
+        "value": "3-point harness",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "harness": {
+            "value": "3-point harness",
+            "source": "detail_text_regex"
+          },
+          "frameMaterial": {
+            "value": "Plastic",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "SAFETY AND COMFORT: A 3-point harness with padded shoulders, comfort seat pad, UV protection canopy, removable snack tray, and removable footrest keep little riders safe, comfortable, and cool on every ride."
+          },
+          {
+            "source": "Features[2]",
+            "text": "PARENT-CONTROLLED STEERING: The adjustable Steer & Stroll push handle with a premium vegan leather grip gives parents smooth, easy control of the stroller trike, whether on neighborhood walks or day trips."
+          },
+          {
+            "source": "Features[3]",
+            "text": "STORAGE AND DURABILITY: A sturdy steel frame ensures lasting quality, while the XL rear basket - made with 100% recycled fabric - carries toys or on-the-go essentials."
+          },
+          {
+            "source": "Features[4]",
+            "text": "BELOVED ICON OF PLAY: For over a century, Radio Flyer has inspired joyful play with wagons, trikes, and more. As a Certified B Corp, we create lasting products that spark imagination while caring for future generations."
+          }
+        ],
+        "parentTip": "Parent's Tip: SAFETY AND COMFORT: A 3-point harness with padded shoulders, comfort seat pad, UV protection canopy, removable snack tray, and removable footrest keep little riders safe, comforta..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "15 Pounds",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "dimensions": {
+            "value": "19.88\"L x 35.04\"W x 40.75\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: SAFETY AND COMFORT: A 3-point harness with padded shoulders, comfort seat pad, UV protection canopy, removable snack tray, and removable footrest keep little riders safe, comforta...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Radio Flyer City 4-in-1 Stroll 'N Trike, Teal, for Riders 1-5 Years Old, 4 Riding Modes, 3 Point Harness with Comfort Pad, Pa",
+      "brand": "Radio",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "SAFETY AND COMFORT: A 3-point harness with padded shoulders, comfort seat pad, UV protection canopy, removable snack tray, and removable footrest keep little riders safe, comfortable, and cool on every ride."
+        },
+        {
+          "source": "Features[2]",
+          "text": "PARENT-CONTROLLED STEERING: The adjustable Steer & Stroll push handle with a premium vegan leather grip gives parents smooth, easy control of the stroller trike, whether on neighborhood walks or day trips."
+        },
+        {
+          "source": "Features[3]",
+          "text": "STORAGE AND DURABILITY: A sturdy steel frame ensures lasting quality, while the XL rear basket - made with 100% recycled fabric - carries toys or on-the-go essentials."
+        },
+        {
+          "source": "Features[4]",
+          "text": "BELOVED ICON OF PLAY: For over a century, Radio Flyer has inspired joyful play with wagons, trikes, and more. As a Certified B Corp, we create lasting products that spark imagination while caring for future generations."
+        },
+        {
+          "source": "Product_Description",
+          "text": "4 TRIKES IN 1: The Stroll 'N Trike grows with your child through four riding stages. Easily convert from infant to steering, learn-to-ride, and classic trike mode, offering years of versatile use."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Shop baby toys"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "Shop baby toys Visit the Store"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[2]",
+          "text": "Shop toddler toys Visit the Store"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "SAFETY AND COMFORT: A 3-point harness with padded shoulders, comfort seat pad, UV protection canopy, removable snack tray, and removable footrest keep little riders safe, comfortable, and cool on every ride.",
+          "source": "Features[1]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -1814,6 +2358,157 @@
       "Model Number": "TR008",
       "Age Range Description": "Kid",
       "Brand": "newyoo"
+    },
+    "customers_say": "Customers find this tricycle to be a great first bike that's easy to assemble and maneuver, particularly suitable for toddlers learning to ride. They appreciate its appearance, adjustability, and consider it worth the price. The durability receives mixed feedback - while some say it lasts a long time, others report wheels breaking off within 30 minutes of use.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Kid",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "30 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "12 Pounds",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Carbon Steel",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "24.61\"L x 17.13\"W x 19.69\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Carbon Steel",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "30 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes."
+          },
+          {
+            "source": "Features[4]",
+            "text": "Alloy Steel Frame & EVA Wheels: EN188 & ASTM Approved. Made of high-quality Aluminium alloy steel, EVA solid shock-absorbing wheels and environment-friendly PP seat. Long-lasting life, durable and stylish design."
+          },
+          {
+            "source": "Product_Description",
+            "text": "4 Modes: Parent steering push mode, Tricycle mode, balance bike mode and bike mode. Multifunctional tricycle is suitable for 1, 2,3 years old boys and girls. Steering Push Handlebar: Rotating 135 degrees to control and..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[4]",
+            "text": "Anti-slip Handlebar Cover"
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[6]",
+            "text": "Removable Safety Guard & Backrest"
+          }
+        ],
+        "parentTip": "Parent's Tip: Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjusted according parents’ height so that dad..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "Easy Access to Use: Much easier to assemble handlebar and wheels. Press buttons to convert it into different modes. Suitable for 1-3 years kids under 43.3 inches(110 cm)."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[7]",
+            "text": "Also can be used as Footrest"
+          }
+        ],
+        "parentTip": "Parent's Tip: Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjust..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "12 Pounds",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "dimensions": {
+            "value": "24.61\"L x 17.13\"W x 19.69\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes.",
+      "ridingComfort": "Parent's Tip: Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjust...",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "newyoo TR008 5 in 1 Toddler Tricycle with Push Handle for 1-3 Year Old Boys and Girls, Kids Push Trike with Safe Bar, Toddler",
+      "brand": "newyoo",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "4 Modes: Parent steering push mode, Tricycle mode, balance bike mode and bike mode. Multifunctional tricycle is suitable for 1, 2,3 years old boys and girls."
+        },
+        {
+          "source": "Features[2]",
+          "text": "Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjusted according parents’ height so that dad and mom can accompanied to practice with your little."
+        },
+        {
+          "source": "Features[3]",
+          "text": "Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes."
+        },
+        {
+          "source": "Features[4]",
+          "text": "Alloy Steel Frame & EVA Wheels: EN188 & ASTM Approved. Made of high-quality Aluminium alloy steel, EVA solid shock-absorbing wheels and environment-friendly PP seat. Long-lasting life, durable and stylish design."
+        },
+        {
+          "source": "Features[5]",
+          "text": "Easy Access to Use: Much easier to assemble handlebar and wheels. Press buttons to convert it into different modes. Suitable for 1-3 years kids under 43.3 inches(110 cm)."
+        },
+        {
+          "source": "Product_Description",
+          "text": "4 Modes: Parent steering push mode, Tricycle mode, balance bike mode and bike mode. Multifunctional tricycle is suitable for 1, 2,3 years old boys and girls. Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjusted according parents’ height so that dad and mom can accompanied to practice with your little. Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Grow With Your Kid"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "Spend the most memorable time with your baby"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes.",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjusted according parents’ height so that dad...",
+          "source": "Features[2]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -2000,6 +2695,129 @@
       "Model Number": "T308",
       "Age Range Description": "Toddler",
       "Brand": "Umatoll"
+    },
+    "customers_say": "Customers find this tricycle to be a good beginner bike that's easy to assemble and snap together like a dream, with a beautiful pink color and perfect size. They appreciate its sturdiness and well-balanced design, and like the light-up wheels that make it more fun to ride. While some customers find it durable, others report issues with it breaking.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Toddler",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "frameMaterial": {
+        "value": "Carbon Steel, Ethylene Vinyl Acetate, Polypropylene",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "21\"L x 16\"W x 17\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Carbon Steel, Ethylene Vinyl Acetate, Polypropylene",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "SAFETY AND DURABILITY: Sturdy carbon steel frame with wide wheelbase prevents tipping, and non-slip pedals grip indoor floors or outdoor pavement. Perfect for tricycles for 2-4 years old transitioning from strollers to..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "GROWING ADJUSTABLE GIFT: 3-position seat forward or backward grows with your child. Lively colors & classical design make it the ideal birthday gift."
+          },
+          {
+            "source": "Product_Description",
+            "text": "CLASSIC RIDE: This toddler toy tricycle is great for beginner riders. It helps develop balance, steering and coordination, builds muscle strength and gives toddlers confidence from an early age. SAFETY AND DURABILITY: S..."
+          }
+        ],
+        "parentTip": "Parent's Tip: SAFETY AND DURABILITY: Sturdy carbon steel frame with wide wheelbase prevents tipping, and non-slip pedals grip indoor floors or outdoor pavement. Perfect for tricycles for 2-4 ye..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "dimensions": {
+            "value": "21\"L x 16\"W x 17\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "EASY ASSEMBLY: The tricycle's special design allows it to be set up in minutes and put to use immediately. Excellent choice for busy parents as a last minute birthday surprise for children ages 2-4."
+          },
+          {
+            "source": "Features[4]",
+            "text": "FUN SHARING: Two baskets carry snacks and treasures for park playdates, while battery-free light-up rear wheels spark magic with every push. Ideal outdoor toy for ages 2-4 sharing giggles!"
+          }
+        ],
+        "parentTip": "Parent's Tip: EASY ASSEMBLY: The tricycle's special design allows it to be set up in minutes and put to use immediately. Excellent choice for busy parents as a last minute birthday surprise for..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: SAFETY AND DURABILITY: Sturdy carbon steel frame with wide wheelbase prevents tipping, and non-slip pedals grip indoor floors or outdoor pavement. Perfect for tricycles for 2-4 ye...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: EASY ASSEMBLY: The tricycle's special design allows it to be set up in minutes and put to use immediately. Excellent choice for busy parents as a last minute birthday surprise for..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Umatoll Toddler Tricycle for 18 Month to 4 Year Old Boys Girls,Toddler Bike Toys with Adjustable Seat&Light-Up Wheels,Birthda",
+      "brand": "Umatoll",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "CLASSIC RIDE: This toddler toy tricycle is great for beginner riders. It helps develop balance, steering and coordination, builds muscle strength and gives toddlers confidence from an early age."
+        },
+        {
+          "source": "Features[2]",
+          "text": "SAFETY AND DURABILITY: Sturdy carbon steel frame with wide wheelbase prevents tipping, and non-slip pedals grip indoor floors or outdoor pavement. Perfect for tricycles for 2-4 years old transitioning from strollers to solo adventures."
+        },
+        {
+          "source": "Features[3]",
+          "text": "EASY ASSEMBLY: The tricycle's special design allows it to be set up in minutes and put to use immediately. Excellent choice for busy parents as a last minute birthday surprise for children ages 2-4."
+        },
+        {
+          "source": "Features[4]",
+          "text": "FUN SHARING: Two baskets carry snacks and treasures for park playdates, while battery-free light-up rear wheels spark magic with every push. Ideal outdoor toy for ages 2-4 sharing giggles!"
+        },
+        {
+          "source": "Features[5]",
+          "text": "GROWING ADJUSTABLE GIFT: 3-position seat forward or backward grows with your child. Lively colors & classical design make it the ideal birthday gift."
+        },
+        {
+          "source": "Product_Description",
+          "text": "CLASSIC RIDE: This toddler toy tricycle is great for beginner riders. It helps develop balance, steering and coordination, builds muscle strength and gives toddlers confidence from an early age. SAFETY AND DURABILITY: Sturdy carbon steel frame with wide wheelbase prevents tipping, and non-slip pedals grip indoor floors or outdoor pavement. Perfect for tricycles for 2-4 years old transitioning from strollers to solo adventures. EASY ASSEMBLY: The tricycle's special design allows it to be set up in minutes and put to use immediately. Excellent choice for busy parents as a last minute birthday surprise for children ages 2-4."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Toddler bike"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "No need to be timid, no need to turn your head. Be brave and start stepping out in front! We hope that every baby can grow up healthy and happy! We believe toys are not just playmates but essential partners in a child's development. Umatoll accompanies the growth of the baby and records the beautiful moments of the baby!"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "SAFETY AND DURABILITY: Sturdy carbon steel frame with wide wheelbase prevents tipping, and non-slip pedals grip indoor floors or outdoor pavement. Perfect for tricycles for 2-4 years old transitioning from strollers to....",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "EASY ASSEMBLY: The tricycle's special design allows it to be set up in minutes and put to use immediately. Excellent choice for busy parents as a last minute birthday surprise for children ages 2-4.",
+          "source": "Features[3]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -2288,6 +3106,149 @@
       "Model Number": "BR-C727",
       "Age Range Description": "Kid",
       "Brand": "besrey"
+    },
+    "customers_say": "Customers find this trike to be a great starter bike that's easy to assemble and adjust, with adjustable seat height and handlebars that accommodate different skill levels. The bike is sturdy, surviving multiple toddlers, and is particularly suitable for 2-year-olds. While customers consider it worth the price, opinions about size are mixed, with some finding it perfect while others say it's too small to reach the pedals. The ease of use receives mixed feedback.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Kid",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "55.11 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "7.3 Pounds",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Alloy Steel",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "24\"L x 17.5\"W x 20\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Alloy Steel",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "55.11 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "Double Care: We specially adopted a Curved Carbon Steel Frame Structure + No Edges Design, which can buffer the transmission of vibration and minimize the risk of injury during riding, so as to better keep the safety of..."
+          },
+          {
+            "source": "Features[3]",
+            "text": "Easy to Install & Use: The structure frame is simple, just refer to the attached manual, you can easily assemble it in a few minutes. One-click deformation, quick-disassembly pedal allows kids easy to switch riding mode..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "Sturdy and Safe: Sturdy carbon steel frame make the tricycle stable and durable. Non-slip handrail Limited 70° steering to prevent rollover, the widen and fully-enclosed wheel protect your child from falling or slipping..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "Extra Comfort: Soft, ergonomically designed saddle with PU surface gives the max riding comfort, while the rubber handlebar provides anti-slip grid and smooth bearing of the rear wheels reduces resistance when riding"
+          },
+          {
+            "source": "Product_Description",
+            "text": "Wider Use Ages: This upgraded kids tricycle has an enlarged body size so that can be used for a wider range of ages. One besrey toddler bike can meet your kid's all requirements at different ages, help your baby quickly..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Double Care: We specially adopted a Curved Carbon Steel Frame Structure + No Edges Design, which can buffer the transmission of vibration and minimize the risk of injury during ri..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "7.3 Pounds",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "dimensions": {
+            "value": "24\"L x 17.5\"W x 20\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "Wider Use Ages: This upgraded kids tricycle has an enlarged body size so that can be used for a wider range of ages. One besrey toddler bike can meet your kid's all requirements at different ages, help your baby quickly..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Wider Use Ages: This upgraded kids tricycle has an enlarged body size so that can be used for a wider range of ages. One besrey toddler bike can meet your kid's all requirements a..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Double Care: We specially adopted a Curved Carbon Steel Frame Structure + No Edges Design, which can buffer the transmission of vibration and minimize the risk of injury during ri...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: Wider Use Ages: This upgraded kids tricycle has an enlarged body size so that can be used for a wider range of ages. One besrey toddler bike can meet your kid's all requirements a..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "besrey 5 in 1 Toddler Bike for 1 Year to 4 Years Old Kids, Toddler Tricycle Kids Trikes Tricycle, Toys for Boy & Girl, Balanc",
+      "brand": "besrey",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Wider Use Ages: This upgraded kids tricycle has an enlarged body size so that can be used for a wider range of ages. One besrey toddler bike can meet your kid's all requirements at different ages, help your baby quickly learn to ride. The best first bike for your baby"
+        },
+        {
+          "source": "Features[2]",
+          "text": "Double Care: We specially adopted a Curved Carbon Steel Frame Structure + No Edges Design, which can buffer the transmission of vibration and minimize the risk of injury during riding, so as to better keep the safety of your baby"
+        },
+        {
+          "source": "Features[3]",
+          "text": "Easy to Install & Use: The structure frame is simple, just refer to the attached manual, you can easily assemble it in a few minutes. One-click deformation, quick-disassembly pedal allows kids easy to switch riding mode randomly"
+        },
+        {
+          "source": "Features[4]",
+          "text": "Sturdy and Safe: Sturdy carbon steel frame make the tricycle stable and durable. Non-slip handrail Limited 70° steering to prevent rollover, the widen and fully-enclosed wheel protect your child from falling or slipping whether on the road, in the yard or in the garden. Ensure full protection for kids playing inside or outdoor."
+        },
+        {
+          "source": "Features[5]",
+          "text": "Extra Comfort: Soft, ergonomically designed saddle with PU surface gives the max riding comfort, while the rubber handlebar provides anti-slip grid and smooth bearing of the rear wheels reduces resistance when riding"
+        },
+        {
+          "source": "Product_Description",
+          "text": "Wider Use Ages: This upgraded kids tricycle has an enlarged body size so that can be used for a wider range of ages. One besrey toddler bike can meet your kid's all requirements at different ages, help your baby quickly learn to ride. The best first bike for your baby Double Care: We specially adopted a Curved Carbon Steel Frame Structure + No Edges Design, which can buffer the transmission of vibration and minimize the risk of injury during riding, so as to better keep the safety of your baby Easy to Install & Use: The structure frame is simple, just refer to the attached manual, you can easily assemble it in a few minutes. One-click deformation, quick-disassembly pedal allows kids easy to switch riding mode randomly"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "5 in 1 Toddler Bike"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "At besrey, we are committed to providing parents with thoughtfully designed products built to the highest standards. In addition to offering heartfelt service, we care about the safe and healthy growth of your baby, as well as understanding the stress of being a new parent."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Double Care: We specially adopted a Curved Carbon Steel Frame Structure + No Edges Design, which can buffer the transmission of vibration and minimize the risk of injury during riding, so as to better keep the safety of...",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "Wider Use Ages: This upgraded kids tricycle has an enlarged body size so that can be used for a wider range of ages. One besrey toddler bike can meet your kid's all requirements at different ages, help your baby quickly...",
+          "source": "Features[1]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -2569,6 +3530,161 @@
       "Model Number": "KSE05",
       "Age Range Description": "1.5-5 Years",
       "Brand": "besrey"
+    },
+    "customers_say": "Customers find the tricycle easy to assemble and put together, describing it as a top-quality first bike that's perfect for toddlers, particularly 3-year-olds. The tricycle features a cute pink color, is well-built and stable, and customers say it's worth the price. They appreciate its durability, with one customer noting it lasts a long time, and find it easy to ride, with one mentioning the pedals are not hard to push.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "1.5-5 Years",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "55.11 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "10.2 Pounds",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Iron",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "24.8\"L x 12.2\"W x 20.8\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      },
+      "foldability": {
+        "value": "folding modes, offering endless adventures and ultimat",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Iron",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "55.11 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "Rollover-Free for Added Safety: A robust triangular structure frame with wider rear wheels minimizes the risk of tipping or overturning for safer and more enjoyable riding"
+          },
+          {
+            "source": "Features[4]",
+            "text": "Indoor & Outdoor Comfy Riding: Rugged EVA foam wheels with excellent shock absorption ensure your kids conquer various terrains with comfort and confidence"
+          },
+          {
+            "source": "Features[5]",
+            "text": "Adaptable to Growth: Designed with a spacious seat and comfy backrest, this bike for toddlers features an adjustable seat that moves forward and backward to accommodate a wider age range and ensures your child enjoys op..."
+          },
+          {
+            "source": "Features[6]",
+            "text": "Safety: The besrey tricycle for toddlers has passed rigorous safety tests, ensuring that all materials and designs are child-safe. We also provide a 24-month hassle-free return policy and a LIFETIME warranty for your sa..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "First Toddler Tricycle: This tricycle for toddlers is great for beginner riders, designed for 18 months to 5 year old toddler girls & boys who are curious and excited to explore the world, to develop kids' steering skil..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Rollover-Free for Added Safety: A robust triangular structure frame with wider rear wheels minimizes the risk of tipping or overturning for safer and more enjoyable riding"
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "10.2 Pounds",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "foldability": {
+            "value": "folding modes, offering endless adventures and ultimat",
+            "source": "detail_text_regex"
+          },
+          "dimensions": {
+            "value": "24.8\"L x 12.2\"W x 20.8\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "2-IN-1 Thoughtful Design: This toddler bike effortlessly transitions between riding and folding modes, offering endless adventures and ultimate convenience for storage and transport—a perfect companion for on-the-go fam..."
+          },
+          {
+            "source": "Product_Videos_Detail[9].Title",
+            "text": "Foldable Tricycle with Storage Basket!"
+          }
+        ],
+        "parentTip": "Parent's Tip: 2-IN-1 Thoughtful Design: This toddler bike effortlessly transitions between riding and folding modes, offering endless adventures and ultimate convenience for storage and transpo..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Rollover-Free for Added Safety: A robust triangular structure frame with wider rear wheels minimizes the risk of tipping or overturning for safer and more enjoyable riding",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: 2-IN-1 Thoughtful Design: This toddler bike effortlessly transitions between riding and folding modes, offering endless adventures and ultimate convenience for storage and transpo..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "besrey Toddler Tricycle with Bell, Kids Tricycle Age 18 Months to 5 Years, Kids Trike, Toddler Bike for 1.5-5 Year Olds, Baby",
+      "brand": "besrey",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "First Toddler Tricycle: This tricycle for toddlers is great for beginner riders, designed for 18 months to 5 year old toddler girls & boys who are curious and excited to explore the world, to develop kids' steering skills and coordination at an early age"
+        },
+        {
+          "source": "Features[2]",
+          "text": "2-IN-1 Thoughtful Design: This toddler bike effortlessly transitions between riding and folding modes, offering endless adventures and ultimate convenience for storage and transport—a perfect companion for on-the-go families"
+        },
+        {
+          "source": "Features[3]",
+          "text": "Rollover-Free for Added Safety: A robust triangular structure frame with wider rear wheels minimizes the risk of tipping or overturning for safer and more enjoyable riding"
+        },
+        {
+          "source": "Features[4]",
+          "text": "Indoor & Outdoor Comfy Riding: Rugged EVA foam wheels with excellent shock absorption ensure your kids conquer various terrains with comfort and confidence"
+        },
+        {
+          "source": "Features[5]",
+          "text": "Adaptable to Growth: Designed with a spacious seat and comfy backrest, this bike for toddlers features an adjustable seat that moves forward and backward to accommodate a wider age range and ensures your child enjoys optimal riding position"
+        },
+        {
+          "source": "Features[6]",
+          "text": "Safety: The besrey tricycle for toddlers has passed rigorous safety tests, ensuring that all materials and designs are child-safe. We also provide a 24-month hassle-free return policy and a LIFETIME warranty for your satisfied shopping experience"
+        },
+        {
+          "source": "Product_Description",
+          "text": "First Toddler Tricycle: This tricycle for toddlers is great for beginner riders, designed for 18 months to 5 year old toddler girls & boys who are curious and excited to explore the world, to develop kids' steering skills and coordination at an early age 2-IN-1 Thoughtful Design: This toddler bike effortlessly transitions between riding and folding modes, offering endless adventures and ultimate convenience for storage and transport—a perfect companion for on-the-go families Rollover-Free for Added Safety: A robust triangular structure frame with wider rear wheels minimizes the risk of tipping or overturning for safer and more enjoyable riding"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Kid Tricycles"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Rollover-Free for Added Safety: A robust triangular structure frame with wider rear wheels minimizes the risk of tipping or overturning for safer and more enjoyable riding",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "2-IN-1 Thoughtful Design: This toddler bike effortlessly transitions between riding and folding modes, offering endless adventures and ultimate convenience for storage and transport—a perfect companion for on-the-go fam...",
+          "source": "Features[2]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -2814,6 +3930,159 @@
       "Model Number": "421",
       "Age Range Description": "2.5-5 Years",
       "Brand": "Radio"
+    },
+    "customers_say": "Customers find this tricycle to be of great quality, easy to assemble, and durable enough to last through multiple grandchildren. They appreciate its traditional red color, sturdiness, and value for money. Customers disagree on the size, with some finding it bigger than expected while others say it's too small for independent pedaling.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "2.5-5 Years",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "49 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "9.9 Pounds",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Alloy Steel",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "26.38\"L x 19.88\"W x 19.69\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Alloy Steel",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "49 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "CLASSIC FIRST TRIKE: The Radio Flyer Red Rider Trike features sturdy steel construction, quietride wheels and comfortgrip handlebars to deliver a smooth, confident and comfortable ride for little ones."
+          },
+          {
+            "source": "Features[2]",
+            "text": "GROWS WITH YOUR CHILD: The adjustable seat creates a comfy, secure fit from ages 2.5-5, so kids can practice, progress, and ride longer as balance and coordination improve through everyday neighborhood play."
+          },
+          {
+            "source": "Features[5]",
+            "text": "BELOVED ICON OF PLAY: For over a century, Radio Flyer has inspired joyful play with wagons, trikes, and more. As a Certified B Corp, we create lasting products that spark imagination while caring for future generations."
+          },
+          {
+            "source": "Product_Description",
+            "text": "The Radio Flyer Red Rider Trike is a cheerful, confidence-boosting first tricycle built for everyday adventures. Quiet-ride wheels keep trips smooth, while a sturdy steel frame and comfort-grip handlebars help little ri..."
+          },
+          {
+            "source": "Product_Specifications.Item_Details.Included Components",
+            "text": "Included Components: Front Wheel Assembly, Handlebars, Main Frame, Seat, Storage Bin"
+          }
+        ],
+        "parentTip": "Parent's Tip: CLASSIC FIRST TRIKE: The Radio Flyer Red Rider Trike features sturdy steel construction, quietride wheels and comfortgrip handlebars to deliver a smooth, confident and comfortable..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[4]",
+            "text": "PARENTFRIENDLY TRANSPORT: An easytocarry seat back hand grip simplifies curb lifts, car trips and storage, so bringing this toddler tricycle to parks and playdates is quick, convenient, and hasslefree."
+          }
+        ],
+        "parentTip": "Parent's Tip: PARENTFRIENDLY TRANSPORT: An easytocarry seat back hand grip simplifies curb lifts, car trips and storage, so bringing this toddler tricycle to parks and playdates is quick, conve..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "9.9 Pounds",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "dimensions": {
+            "value": "26.38\"L x 19.88\"W x 19.69\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "BRING TREASURES ALONG: A covered rear storage bin lets kids pack favorite toys, snacks, or newfound treasures, inspiring imaginative play and turning simple rides into exciting little adventures and missions."
+          }
+        ],
+        "parentTip": "Parent's Tip: BRING TREASURES ALONG: A covered rear storage bin lets kids pack favorite toys, snacks, or newfound treasures, inspiring imaginative play and turning simple rides into exciting li..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: CLASSIC FIRST TRIKE: The Radio Flyer Red Rider Trike features sturdy steel construction, quietride wheels and comfortgrip handlebars to deliver a smooth, confident and comfortable...",
+      "ridingComfort": "Parent's Tip: PARENTFRIENDLY TRANSPORT: An easytocarry seat back hand grip simplifies curb lifts, car trips and storage, so bringing this toddler tricycle to parks and playdates is quick, conve...",
+      "lightAndEasy": "Parent's Tip: BRING TREASURES ALONG: A covered rear storage bin lets kids pack favorite toys, snacks, or newfound treasures, inspiring imaginative play and turning simple rides into exciting li..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Radio Flyer Red Rider Trike, Ages 2.5-5, Adjustable Seat, Steel Construction, Quiet Ride Wheels, Storage Bin, Comfort Grip Ha",
+      "brand": "Radio",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "CLASSIC FIRST TRIKE: The Radio Flyer Red Rider Trike features sturdy steel construction, quietride wheels and comfortgrip handlebars to deliver a smooth, confident and comfortable ride for little ones."
+        },
+        {
+          "source": "Features[2]",
+          "text": "GROWS WITH YOUR CHILD: The adjustable seat creates a comfy, secure fit from ages 2.5-5, so kids can practice, progress, and ride longer as balance and coordination improve through everyday neighborhood play."
+        },
+        {
+          "source": "Features[3]",
+          "text": "BRING TREASURES ALONG: A covered rear storage bin lets kids pack favorite toys, snacks, or newfound treasures, inspiring imaginative play and turning simple rides into exciting little adventures and missions."
+        },
+        {
+          "source": "Features[4]",
+          "text": "PARENTFRIENDLY TRANSPORT: An easytocarry seat back hand grip simplifies curb lifts, car trips and storage, so bringing this toddler tricycle to parks and playdates is quick, convenient, and hasslefree."
+        },
+        {
+          "source": "Features[5]",
+          "text": "BELOVED ICON OF PLAY: For over a century, Radio Flyer has inspired joyful play with wagons, trikes, and more. As a Certified B Corp, we create lasting products that spark imagination while caring for future generations."
+        },
+        {
+          "source": "Product_Description",
+          "text": "The Radio Flyer Red Rider Trike is a cheerful, confidence-boosting first tricycle built for everyday adventures. Quiet-ride wheels keep trips smooth, while a sturdy steel frame and comfort-grip handlebars help little riders steer with control. As kids grow, the adjustable seat ensures a secure, comfy fit through the years. A covered rear storage bin invites imaginative play - pack favorite toys or collect treasures on the go - and the easy-carry seat handle makes transport simple for parents. Perfect for sidewalks, driveways, and outdoor rides, this toddler trike brings memory-making fun to toddlers ages 2.5-5. 49 lb maximum weight capacity. Radio Flyer is a Certified B Corp dedicated to durable products that inspire active play and warm family memories."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Shop baby toys"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "Shop baby toys Visit the Store"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "CLASSIC FIRST TRIKE: The Radio Flyer Red Rider Trike features sturdy steel construction, quietride wheels and comfortgrip handlebars to deliver a smooth, confident and comfortable ride for little ones.",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "PARENTFRIENDLY TRANSPORT: An easytocarry seat back hand grip simplifies curb lifts, car trips and storage, so bringing this toddler tricycle to parks and playdates is quick, convenient, and hasslefree.",
+          "source": "Features[4]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "BRING TREASURES ALONG: A covered rear storage bin lets kids pack favorite toys, snacks, or newfound treasures, inspiring imaginative play and turning simple rides into exciting little adventures and missions.",
+          "source": "Features[3]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -3166,6 +4435,141 @@
     "Category_Attributes": {
       "Model Number": "WJ121503",
       "Brand": "Kkdi"
+    },
+    "customers_say": "Customers find the tricycle easy to assemble and appreciate its strong materials, with one mentioning it comes with a helpful assembly video. The bike is particularly suitable for two-year-olds and features wheels that light up, making it visually appealing. While some customers find it sturdy, others report that the seat is wobbly and the paddles break off quickly. The size receives mixed feedback, with some finding it perfect while others say it's too small. Customers consider it good value for money.",
+    "Product_Display_Fields": {
+      "itemWeight": {
+        "value": "16 ounces",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Carbon Steel",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "23.6\"L x 14\"W x 19\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Carbon Steel",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x the weight of other kids bikes. ➌ Glowin..."
+          },
+          {
+            "source": "Features[3]",
+            "text": "🌟【Light-Up Fun】: No batteries needed! Wheels magically glow with every spin for exciting and safer dark rides. Pure magic kids adore! Our toddler tricycle is the ideal ride on toys for ages 2-4 kids."
+          },
+          {
+            "source": "Features[4]",
+            "text": "🌟【Grows With Your Child】: With 4-level adjustable seat & ergonomic backrest, our tricycle for 1.5-5 year old kids sensure a perfect, comfy fit. For years of joyful riding."
+          },
+          {
+            "source": "Features[6]",
+            "text": "🌟【Indoor & Outdoor Toy】: EVA silent wheels for quiet, scratch-free floors indoors, reduce vibration outdoors. Non-slip handlebars ensure tiny hands have total control. It's the confidence-boosting toy for 2 3 4 5 year o..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x the weight of other kids bikes. ➌ Glowin..."
+          }
+        ],
+        "parentTip": "Parent's Tip: 🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "16 ounces",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "dimensions": {
+            "value": "23.6\"L x 14\"W x 19\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[5]",
+            "text": "🌟【2 Storage Baskets】: Our bike for toddlers 2-4 comes with 2 storage. Kids can pack their own treasures and snacks, fostering independence while keeping outings organized and fun."
+          },
+          {
+            "source": "Features[7]",
+            "text": "🎁【Ideal Gifts for Age 1.5-5】: Tricycle for toddlers builds balance, coordination and motor skills through play. Easy assemblely, get ready for fun in minutes! An investment in growth and the perfect birthday gift for 2..."
+          }
+        ],
+        "parentTip": "Parent's Tip: 🌟【2 Storage Baskets】: Our bike for toddlers 2-4 comes with 2 storage. Kids can pack their own treasures and snacks, fostering independence while keeping outings organized and fun."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: 🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: 🌟【2 Storage Baskets】: Our bike for toddlers 2-4 comes with 2 storage. Kids can pack their own treasures and snacks, fostering independence while keeping outings organized and fun."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Kkdi Toddler Tricycle for 1-3 3-5 Year Olds, 2 3 4 5 Year Old Girl Birthday Gifts, Purple Toddler Baby Bike, 4-Level Adjustab",
+      "brand": "Kkdi",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x the weight of other kids bikes. ➌ Glowing wheels for visible night rides.➍ CPC Certified & Tested(ASTM F963"
+        },
+        {
+          "source": "Features[2]",
+          "text": "CPSIA)."
+        },
+        {
+          "source": "Features[3]",
+          "text": "🌟【Light-Up Fun】: No batteries needed! Wheels magically glow with every spin for exciting and safer dark rides. Pure magic kids adore! Our toddler tricycle is the ideal ride on toys for ages 2-4 kids."
+        },
+        {
+          "source": "Features[4]",
+          "text": "🌟【Grows With Your Child】: With 4-level adjustable seat & ergonomic backrest, our tricycle for 1.5-5 year old kids sensure a perfect, comfy fit. For years of joyful riding."
+        },
+        {
+          "source": "Features[5]",
+          "text": "🌟【2 Storage Baskets】: Our bike for toddlers 2-4 comes with 2 storage. Kids can pack their own treasures and snacks, fostering independence while keeping outings organized and fun."
+        },
+        {
+          "source": "Features[6]",
+          "text": "🌟【Indoor & Outdoor Toy】: EVA silent wheels for quiet, scratch-free floors indoors, reduce vibration outdoors. Non-slip handlebars ensure tiny hands have total control. It's the confidence-boosting toy for 2 3 4 5 year old girls."
+        },
+        {
+          "source": "Features[7]",
+          "text": "🎁【Ideal Gifts for Age 1.5-5】: Tricycle for toddlers builds balance, coordination and motor skills through play. Easy assemblely, get ready for fun in minutes! An investment in growth and the perfect birthday gift for 2 3 4 5 year old girl."
+        },
+        {
+          "source": "Product_Description",
+          "text": "🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x the weight of other kids bikes. ➌ Glowing wheels for visible night rides.➍ CPC Certified & Tested(ASTM F963 CPSIA). 🌟【Light-Up Fun】: No batteries needed! Wheels magically glow with every spin for exciting and safer dark rides. Pure magic kids adore! Our toddler tricycle is the ideal ride on toys for ages 2-4 kids."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x the weight of other kids bikes. ➌ Glowin...",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "🌟【2 Storage Baskets】: Our bike for toddlers 2-4 comes with 2 storage. Kids can pack their own treasures and snacks, fostering independence while keeping outings organized and fun.",
+          "source": "Features[5]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -3421,6 +4825,181 @@
       "Model Number": "1220-Foldgrey",
       "Age Range Description": "18months-5years",
       "Brand": "JMMD"
+    },
+    "customers_say": "Customers find the trike stroller well-made and easy to assemble, with sturdy construction that's not wobbly. The product is particularly suitable for babies and toddlers, with one customer noting it's perfect for walks in the neighborhood or park. They appreciate its smooth wheels that roll well on different surfaces, its durability, and consider it worth the price.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "18months-5years",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "55 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "4.54 Pounds",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Heavy-duty steel frame",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "28.74\"L x 20.07\"W x 41.73\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      },
+      "foldability": {
+        "value": "FOLDABLE",
+        "source": "detail_text_regex"
+      },
+      "harness": {
+        "value": "safety harness",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "harness": {
+            "value": "safety harness",
+            "source": "detail_text_regex"
+          },
+          "frameMaterial": {
+            "value": "Heavy-duty steel frame",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "55 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "SAFE, STURDY & BUILT TO LAST: Built with a reinforced steel frame (supports up to 55 lbs) for long-term durability and stability, this push stroller tricycle is designed to safely support your child through every growth..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "COMFORTABLE RIDE — INDOORS & OUTDOORS: Designed as a versatile stroller bike for toddler, the 360° swivel seat with lockable, multi-position recline keeps younger babies comfortable while allowing interaction as they gr..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "GROWS WITH YOUR CHILD — FROM 6 MONTHS TO 5 YEARS: Designed to grow alongside your child, JMMD 8-in-1 tricycle stroller supports every stage from 6 months to 5 years. Easily converts from parent-push stroller mode to tod..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+            "text": "JMMD is dedicated to providing premium products for all of our customers. We take pride in offering premium products that are designed with utmost care and attention to detail. Each tricycle is manufactured with the hig..."
+          },
+          {
+            "source": "Product_Specifications.Materials_Care.Material Type",
+            "text": "Material Type: Heavy-duty steel frame"
+          }
+        ],
+        "parentTip": "Parent's Tip: SAFE, STURDY & BUILT TO LAST: Built with a reinforced steel frame (supports up to 55 lbs) for long-term durability and stability, this push stroller tricycle is designed to safely..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "4.54 Pounds",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "foldability": {
+            "value": "FOLDABLE",
+            "source": "detail_text_regex"
+          },
+          "dimensions": {
+            "value": "28.74\"L x 20.07\"W x 41.73\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "FOLDABLE & TRAVEL-FRIENDLY — PERFECT FOR APARTMENTS: The toddler stroller folds down quickly for compact storage and fits easily in a standard car trunk, making it ideal for apartment living, road trips, and everyday ou..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "TOOL-FREE SETUP IN ABOUT 5 MINUTES — ONE-PERSON FRIENDLY: No tools, no frustration. The JMMD toddler tricycle is mostly pre-assembled and can be set up in about 5 minutes by one person, making it ideal for busy parents..."
+          },
+          {
+            "source": "Product_Videos_Detail[3].Title",
+            "text": "7-in-1 Folding Kids Trike, Immersive Ride"
+          },
+          {
+            "source": "Product_Videos_Detail[4].Title",
+            "text": "Baby 7-in-1 Folding Tricycle"
+          },
+          {
+            "source": "Product_Videos_Detail[5].Title",
+            "text": "JMMD folding tricycle push handle upgrade"
+          }
+        ],
+        "parentTip": "Parent's Tip: FOLDABLE & TRAVEL-FRIENDLY — PERFECT FOR APARTMENTS: The toddler stroller folds down quickly for compact storage and fits easily in a standard car trunk, making it ideal for apart..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: SAFE, STURDY & BUILT TO LAST: Built with a reinforced steel frame (supports up to 55 lbs) for long-term durability and stability, this push stroller tricycle is designed to safely...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: FOLDABLE & TRAVEL-FRIENDLY — PERFECT FOR APARTMENTS: The toddler stroller folds down quickly for compact storage and fits easily in a standard car trunk, making it ideal for apart..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "JMMD 8 in 1 Tricycle Stroller with Push Handle, Foldable Trike with 360° Swivel Seat, Reclining Backrest, All-Terrain Wheels,",
+      "brand": "JMMD",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "GROWS WITH YOUR CHILD — FROM 6 MONTHS TO 5 YEARS: Designed to grow alongside your child, JMMD 8-in-1 tricycle stroller supports every stage from 6 months to 5 years. Easily converts from parent-push stroller mode to toddler trike, steering trike, learn-to-ride trike and classic trike—one smart investment that replaces multiple toddler vehicles."
+        },
+        {
+          "source": "Features[2]",
+          "text": "FOLDABLE & TRAVEL-FRIENDLY — PERFECT FOR APARTMENTS: The toddler stroller folds down quickly for compact storage and fits easily in a standard car trunk, making it ideal for apartment living, road trips, and everyday outings. Store it neatly when not in use—no bulky gear taking over your space."
+        },
+        {
+          "source": "Features[3]",
+          "text": "SAFE, STURDY & BUILT TO LAST: Built with a reinforced steel frame (supports up to 55 lbs) for long-term durability and stability, this push stroller tricycle is designed to safely support your child through every growth stage. Features a 3-point safety harness, detachable safety bar, rear dual brakes, and is ASTM F963 & CPSIA certified, giving parents confidence at every stage."
+        },
+        {
+          "source": "Features[4]",
+          "text": "COMFORTABLE RIDE — INDOORS & OUTDOORS: Designed as a versatile stroller bike for toddler, the 360° swivel seat with lockable, multi-position recline keeps younger babies comfortable while allowing interaction as they grow. Equipped with maintenance-free EVA all-terrain wheels that roll smoothly on sidewalks, parks, and rough surfaces—no inflation needed. Includes an adjustable canopy, storage basket, cup holder, and parent pockets for everyday convenience."
+        },
+        {
+          "source": "Features[5]",
+          "text": "TOOL-FREE SETUP IN ABOUT 5 MINUTES — ONE-PERSON FRIENDLY: No tools, no frustration. The JMMD toddler tricycle is mostly pre-assembled and can be set up in about 5 minutes by one person, making it ideal for busy parents who want to spend time with their child—not with instructions."
+        },
+        {
+          "source": "Product_Description",
+          "text": "GROWS WITH YOUR CHILD — FROM 6 MONTHS TO 5 YEARS: Designed to grow alongside your child, JMMD 8-in-1 tricycle stroller supports every stage from 6 months to 5 years. Easily converts from parent-push stroller mode to toddler trike, steering trike, learn-to-ride trike and classic trike—one smart investment that replaces multiple toddler vehicles. FOLDABLE & TRAVEL-FRIENDLY — PERFECT FOR APARTMENTS: The toddler stroller folds down quickly for compact storage and fits easily in a standard car trunk, making it ideal for apartment living, road trips, and everyday outings. Store it neatly when not in use—no bulky gear taking over your space. SAFE, STURDY & BUILT TO LAST: Built with a reinforced steel frame (supports up to 55 lbs) for long-term durability and stability, this push stroller tricycle is designed to safely support your child through every growth stage. Features a 3-point safety har..."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "JMMD Kids Tricycle"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "JMMD is dedicated to providing premium products for all of our customers. We take pride in offering premium products that are designed with utmost care and attention to detail. Each tricycle is manufactured with the high quality materials and craftsmanship to provide your child with a safe and comfortable experience."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "SAFE, STURDY & BUILT TO LAST: Built with a reinforced steel frame (supports up to 55 lbs) for long-term durability and stability, this push stroller tricycle is designed to safely support your child through every growth...",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "FOLDABLE & TRAVEL-FRIENDLY — PERFECT FOR APARTMENTS: The toddler stroller folds down quickly for compact storage and fits easily in a standard car trunk, making it ideal for apartment living, road trips, and everyday ou...",
+          "source": "Features[2]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -3606,6 +5185,149 @@
       "Model Number": "BR-KSE10",
       "Age Range Description": "1-3 Years",
       "Brand": "besrey"
+    },
+    "customers_say": "Customers find the tricycle easy to assemble. The stability receives mixed feedback, with some finding it sturdy while others describe it as flimsy.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "1-3 Years",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "itemWeight": {
+        "value": "9.7 Pounds",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Carbon Steel",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "27\"L x 16\"W x 31\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      },
+      "harness": {
+        "value": "3-point harness",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "harness": {
+            "value": "3-point harness",
+            "source": "detail_text_regex"
+          },
+          "frameMaterial": {
+            "value": "Carbon Steel",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "Safer Design for Your Toddler——Equipped with a 3-point harness, detachable backrest, and anti-tip structure, this tricycle keeps your child secure at every stage. Built with a sturdy carbon steel frame and enclosed desi..."
+          },
+          {
+            "source": "Features[3]",
+            "text": "Effortless Parent Control——Features a 4-position adjustable push handle for parents of all heights. Smooth steering and easy maneuverability make outdoor walks and daily use more comfortable and enjoyable."
+          },
+          {
+            "source": "Features[5]",
+            "text": "Built for Indoor & Outdoor Fun——Durable PU wheels with shock absorption ensure a smooth, quiet ride on all surfaces. Safe for indoor use without damaging floors, and strong enough for outdoor adventures. Includes storag..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "Safer Design for Your Toddler——Equipped with a 3-point harness, detachable backrest, and anti-tip structure, this tricycle keeps your child secure at every stage. Built with a sturdy carbon steel frame and enclosed desi..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+            "text": "At besrey, we are committed to providing parents with thoughtfully designed products built to the highest standards. In addition to offering heartfelt service, we care about the safe and healthy growth of your baby, as..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Safer Design for Your Toddler——Equipped with a 3-point harness, detachable backrest, and anti-tip structure, this tricycle keeps your child secure at every stage. Built with a stu..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "9.7 Pounds",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "dimensions": {
+            "value": "27\"L x 16\"W x 31\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[4]",
+            "text": "Easy Assembly & Quick Mode Switching——Tool-free assembly with a smart buckle design. Easily switch between modes with one-button adjustments. The included spare wheel allows quick conversion to balance bike mode for tra..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Easy Assembly & Quick Mode Switching——Tool-free assembly with a smart buckle design. Easily switch between modes with one-button adjustments. The included spare wheel allows quick..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Safer Design for Your Toddler——Equipped with a 3-point harness, detachable backrest, and anti-tip structure, this tricycle keeps your child secure at every stage. Built with a stu...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: Easy Assembly & Quick Mode Switching——Tool-free assembly with a smart buckle design. Easily switch between modes with one-button adjustments. The included spare wheel allows quick..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "besrey 5-in-1 Toddler Tricycle with Push Handle, Grow with Me Kids Trike for 1-3 Years, Balance Bike & Tricycle, Adjustable P",
+      "brand": "besrey",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Safer Design for Your Toddler——Equipped with a 3-point harness, detachable backrest, and anti-tip structure, this tricycle keeps your child secure at every stage. Built with a sturdy carbon steel frame and enclosed design to reduce the risk of falls and injuries."
+        },
+        {
+          "source": "Features[2]",
+          "text": "5-in-1 Grow-With-Me Tricycle——Easily converts between Push Trike, Push Balance Bike, Tricycle, Balance Bike, and Bike Mode. Designed for kids ages 1–3, it adapts to every growth stage—one trike for years of use."
+        },
+        {
+          "source": "Features[3]",
+          "text": "Effortless Parent Control——Features a 4-position adjustable push handle for parents of all heights. Smooth steering and easy maneuverability make outdoor walks and daily use more comfortable and enjoyable."
+        },
+        {
+          "source": "Features[4]",
+          "text": "Easy Assembly & Quick Mode Switching——Tool-free assembly with a smart buckle design. Easily switch between modes with one-button adjustments. The included spare wheel allows quick conversion to balance bike mode for training."
+        },
+        {
+          "source": "Features[5]",
+          "text": "Built for Indoor & Outdoor Fun——Durable PU wheels with shock absorption ensure a smooth, quiet ride on all surfaces. Safe for indoor use without damaging floors, and strong enough for outdoor adventures. Includes storage-friendly and practical design for everyday convenience."
+        },
+        {
+          "source": "Product_Description",
+          "text": "Safer Design for Your Toddler——Equipped with a 3-point harness, detachable backrest, and anti-tip structure, this tricycle keeps your child secure at every stage. Built with a sturdy carbon steel frame and enclosed design to reduce the risk of falls and injuries. 5-in-1 Grow-With-Me Tricycle——Easily converts between Push Trike, Push Balance Bike, Tricycle, Balance Bike, and Bike Mode. Designed for kids ages 1–3, it adapts to every growth stage—one trike for years of use. Effortless Parent Control——Features a 4-position adjustable push handle for parents of all heights. Smooth steering and easy maneuverability make outdoor walks and daily use more comfortable and enjoyable."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Toddler Scooter for Kids"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "At besrey, we are committed to providing parents with thoughtfully designed products built to the highest standards. In addition to offering heartfelt service, we care about the safe and healthy growth of your baby, as well as understanding the stress of being a new parent."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Safer Design for Your Toddler——Equipped with a 3-point harness, detachable backrest, and anti-tip structure, this tricycle keeps your child secure at every stage. Built with a sturdy carbon steel frame and enclosed desi...",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "Easy Assembly & Quick Mode Switching——Tool-free assembly with a smart buckle design. Easily switch between modes with one-button adjustments. The included spare wheel allows quick conversion to balance bike mode for tra...",
+          "source": "Features[4]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -3827,6 +5549,145 @@
       "Model Number": "469Z",
       "Age Range Description": "1-5 Years",
       "Brand": "Radio"
+    },
+    "customers_say": "Customers find the tricycle easy to assemble with detailed instructions and appreciate its versatility for walks around the block. Moreover, the product is well-suited for toddlers and children of all ages, with one customer noting it's particularly good for children with special needs. However, the sturdiness and steering receive mixed feedback - while some find it solidly built and maneuver easily, others report it feels unstable and difficult to control. Additionally, durability is also mixed, with some customers saying it will last for years while others report it breaking within minutes of use.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "1-5 Years",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "49 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "13.7 Pounds",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Alloy Steel, Plastic",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "36.3\"L x 17.8\"W x 37.2\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Alloy Steel, Plastic",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "49 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "REMOVABLE ACCESSORIES: Growwithme design includes an adjustable UV protection canopy, wraparound tray, headrest and seat belt, footrest, and parent push handle. Remove accessories as your kid gains independence."
+          },
+          {
+            "source": "Features[4]",
+            "text": "PARENTCONTROLLED STEERING: Heightadjustable push handle with a comfortable foam grip gives parents easy control. When your rider is ready, remove the handle and let them ride in kids tricycle mode."
+          },
+          {
+            "source": "Features[5]",
+            "text": "BELOVED ICON OF PLAY: For over a century, Radio Flyer has inspired joyful play with wagons, trikes, and more. As a Certified B Corp, we create lasting products that spark imagination while caring for future generations."
+          },
+          {
+            "source": "Product_Description",
+            "text": "The Radio Flyer 4-in-1 Stroll 'N Trike is a grow-with-me favorite designed to make everyday outings easy and fun. Start with a secure, parent-steered setup featuring an adjustable UV canopy, wraparound tray, headrest, s..."
+          }
+        ],
+        "parentTip": "Parent's Tip: REMOVABLE ACCESSORIES: Growwithme design includes an adjustable UV protection canopy, wraparound tray, headrest and seat belt, footrest, and parent push handle. Remove accessories..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "GREAT FOR OUTDOOR PLAY: The UV canopy helps protect from the sun, while highdensity foam tires deliver a quiet, smooth ride - ideal for strolls through the park, neighborhood adventures, and learning to ride."
+          }
+        ],
+        "parentTip": "Parent's Tip: GREAT FOR OUTDOOR PLAY: The UV canopy helps protect from the sun, while highdensity foam tires deliver a quiet, smooth ride - ideal for strolls through the park, neighborhood adve..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "13.7 Pounds",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "dimensions": {
+            "value": "36.3\"L x 17.8\"W x 37.2\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: REMOVABLE ACCESSORIES: Growwithme design includes an adjustable UV protection canopy, wraparound tray, headrest and seat belt, footrest, and parent push handle. Remove accessories...",
+      "ridingComfort": "Parent's Tip: GREAT FOR OUTDOOR PLAY: The UV canopy helps protect from the sun, while highdensity foam tires deliver a quiet, smooth ride - ideal for strolls through the park, neighborhood adve...",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Radio Flyer 4-in-1 Stroll 'N Trike, Ages 1-5, Toddler Tricycle & Stroller, Foam Tires, Push Handle, UV Canopy, Removable Tray & Seatbelt, Amazon Exclusive",
+      "brand": "Radio",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "4 TRIKES IN 1: The Radio Flyer Ultimate Stroll 'N Trike grows through four stages - toddler trike (12-18 mos), steering trike (18-24 mos), learntoride trike (2-3 yrs), and classic trike (3-5 yrs) - for years of confidencebuilding fun."
+        },
+        {
+          "source": "Features[2]",
+          "text": "REMOVABLE ACCESSORIES: Growwithme design includes an adjustable UV protection canopy, wraparound tray, headrest and seat belt, footrest, and parent push handle. Remove accessories as your kid gains independence."
+        },
+        {
+          "source": "Features[3]",
+          "text": "GREAT FOR OUTDOOR PLAY: The UV canopy helps protect from the sun, while highdensity foam tires deliver a quiet, smooth ride - ideal for strolls through the park, neighborhood adventures, and learning to ride."
+        },
+        {
+          "source": "Features[4]",
+          "text": "PARENTCONTROLLED STEERING: Heightadjustable push handle with a comfortable foam grip gives parents easy control. When your rider is ready, remove the handle and let them ride in kids tricycle mode."
+        },
+        {
+          "source": "Features[5]",
+          "text": "BELOVED ICON OF PLAY: For over a century, Radio Flyer has inspired joyful play with wagons, trikes, and more. As a Certified B Corp, we create lasting products that spark imagination while caring for future generations."
+        },
+        {
+          "source": "Product_Description",
+          "text": "The Radio Flyer 4-in-1 Stroll 'N Trike is a grow-with-me favorite designed to make everyday outings easy and fun. Start with a secure, parent-steered setup featuring an adjustable UV canopy, wraparound tray, headrest, seat belt, and footrest. As your kid grows, remove accessories to transition from steering trike to learn-to-ride and finally a classic tricycle they can pedal on their own. High-density foam tires keep rides quiet and smooth, and the height-adjustable push handle with a cushioned grip makes steering simple and comfortable for parents. Perfect for sidewalks, driveways, and outdoor rides, this stroll 'n trike brings memory-making fun to toddlers and kids ages 1-5. Radio Flyer is a Certified B Corp dedicated to durable products that inspire active play and warm family memories."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Shop baby toys"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "Shop baby toys Visit the Store"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "REMOVABLE ACCESSORIES: Growwithme design includes an adjustable UV protection canopy, wraparound tray, headrest and seat belt, footrest, and parent push handle. Remove accessories as your kid gains independence.",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "GREAT FOR OUTDOOR PLAY: The UV canopy helps protect from the sun, while highdensity foam tires deliver a quiet, smooth ride - ideal for strolls through the park, neighborhood adventures, and learning to ride.",
+          "source": "Features[3]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -4052,6 +5913,145 @@
       "Model Number": "TR007",
       "Age Range Description": "Kid",
       "Brand": "newyoo"
+    },
+    "customers_say": "Customers find this tricycle to be a great first bike that's easy to assemble and can be used for many years. It's perfect for toddlers, serving as a transition bike, and features a secure seatbelt that keeps children safely strapped in. Customers praise its maneuverability, particularly the rear handle that allows adults to control direction and speed, and its versatility, with one customer noting it adapts well as children grow. While the training wheels provide good stability, some customers report issues with the bike being wobbly.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Kid",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "35 Kilograms",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "4.4 Kilograms",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Carbon Steel",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "24.61\"L x 17.13\"W x 19.69\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Carbon Steel",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "35 Kilograms",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes."
+          },
+          {
+            "source": "Features[4]",
+            "text": "Carbon Steel Frame & EVA Wheels: EN188 & ASTM Approved. Made of high-quality carbon steel, EVA solid shock-absorbing wheels and environment-friendly PP seat. Long-lasting life, durable and stylish design."
+          },
+          {
+            "source": "Product_Description",
+            "text": "5 Modes: Push Tricycle Mode, Push Balance Bike Mode, Tricycle Mode, Balance Bike Mode and Bike Mode. Multifunctional tricycle is suitable for 1, 2,3 years old boys and girls. Steering Push Handlebar: Rotating 135 degree..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjusted according parents’ height so that dad..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "Easy Access to Use: Much easier to assemble handlebar and wheels. Press buttons to convert it into different modes. Suitable for 1-3 years kids under 43.3 inches(110 cm)."
+          }
+        ],
+        "parentTip": "Parent's Tip: Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjust..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "4.4 Kilograms",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "dimensions": {
+            "value": "24.61\"L x 17.13\"W x 19.69\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes.",
+      "ridingComfort": "Parent's Tip: Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjust...",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "newyoo Toddler Tricycle,Toddler Bike,Birthday Gifts and Toys for 1-3 Year Old Boys and Girls, Trike with Push Handle, Backres",
+      "brand": "newyoo",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "5 Modes: Push Tricycle Mode, Push Balance Bike Mode, Tricycle Mode, Balance Bike Mode and Bike Mode. Multifunctional tricycle is suitable for 1, 2,3 years old boys and girls."
+        },
+        {
+          "source": "Features[2]",
+          "text": "Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjusted according parents’ height so that dad and mom can accompanied to practice with your little."
+        },
+        {
+          "source": "Features[3]",
+          "text": "Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes."
+        },
+        {
+          "source": "Features[4]",
+          "text": "Carbon Steel Frame & EVA Wheels: EN188 & ASTM Approved. Made of high-quality carbon steel, EVA solid shock-absorbing wheels and environment-friendly PP seat. Long-lasting life, durable and stylish design."
+        },
+        {
+          "source": "Features[5]",
+          "text": "Easy Access to Use: Much easier to assemble handlebar and wheels. Press buttons to convert it into different modes. Suitable for 1-3 years kids under 43.3 inches(110 cm)."
+        },
+        {
+          "source": "Product_Description",
+          "text": "5 Modes: Push Tricycle Mode, Push Balance Bike Mode, Tricycle Mode, Balance Bike Mode and Bike Mode. Multifunctional tricycle is suitable for 1, 2,3 years old boys and girls. Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjusted according parents’ height so that dad and mom can accompanied to practice with your little. Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes."
+        },
+        {
+          "source": "Product_Videos_Detail[1].Title",
+          "text": "His First Reaction to the 5-in-1 Trike!"
+        },
+        {
+          "source": "Product_Videos_Detail[2].Title",
+          "text": "5-in-1 Grow-with-Me Kids Tricycle"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes.",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjusted according parents’ height so that dad...",
+          "source": "Features[2]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -4262,6 +6262,131 @@
       "Model Number": "TC003-Pink",
       "Age Range Description": "2 year old to 5 year old",
       "Brand": "KRIDDO"
+    },
+    "customers_say": "Customers find the tricycle easy to assemble with no tools required and appreciate its quality as a first bike. The tricycle is sturdy and well-balanced, with customers noting its pretty pink appearance and suitability for young children. While some customers say it's the perfect size for little ones, others find it too small for their 3-year-olds. The durability receives mixed feedback, with some saying it's built to last while others report parts breaking off. Customers consider it good value for the price.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "2 year old to 5 year old",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "itemWeight": {
+        "value": "9 Pounds",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Carbon Steel",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "26.54\"L x 18.27\"W x 18.27\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Carbon Steel",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "IMPROVED ROLL-OVER PREVENTION – This interactive toddler trike for 2-4 years features a smarter triangular design with extended rear wheels, wider wheelbase to help prevent tipping or rolling over when kids are learning..."
+          },
+          {
+            "source": "Features[3]",
+            "text": "EASY-TO-CARRY SEAT AND COMFORTABLE GRIPS – The ergonomic design of our kid’s trike boasts a comfier seat for small bottoms, the design makes it easy to carry around. The smooth edges and non-slip handle grip also provid..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "INDOOR AND OUTDOOR USE – KRIDDO kids tricycle is built with solid structure, which makes outdoor riding safe. The shock absorption silent wheels allow your kids ride around silently inside the house and do no damage to..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "ATTENTION TO SAFETY – We have always considered the importance of safety for toddlers, KRIDDO kids tricycle for 2 to 5 year old is made of high-quality material, BPA free, matte nontoxic paint and conform to America toy..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "TODDLER TRICYCLE – KRIDDO kids tricycle is designed for 24-48 month toddler girls & boys who are curious and exited to explore the world, it helps to develop kids' steering skills, steering and coordination at an early..."
+          }
+        ],
+        "parentTip": "Parent's Tip: IMPROVED ROLL-OVER PREVENTION – This interactive toddler trike for 2-4 years features a smarter triangular design with extended rear wheels, wider wheelbase to help prevent tippin..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "9 Pounds",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "dimensions": {
+            "value": "26.54\"L x 18.27\"W x 18.27\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: IMPROVED ROLL-OVER PREVENTION – This interactive toddler trike for 2-4 years features a smarter triangular design with extended rear wheels, wider wheelbase to help prevent tippin...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "KRIDDO Tricycle for 2-5 Year Olds - Pink Toddler Trike With Gift for 24 Month to 4 Year Old Girls",
+      "brand": "KRIDDO",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "TODDLER TRICYCLE – KRIDDO kids tricycle is designed for 24-48 month toddler girls & boys who are curious and exited to explore the world, it helps to develop kids' steering skills, steering and coordination at an early age. KRIDDO kids trike for 2 year old let your kids enjoy riding and gain confidence, as well as develop muscle strength, it’s a fun gift for your little ones."
+        },
+        {
+          "source": "Features[2]",
+          "text": "IMPROVED ROLL-OVER PREVENTION – This interactive toddler trike for 2-4 years features a smarter triangular design with extended rear wheels, wider wheelbase to help prevent tipping or rolling over when kids are learning to ride."
+        },
+        {
+          "source": "Features[3]",
+          "text": "EASY-TO-CARRY SEAT AND COMFORTABLE GRIPS – The ergonomic design of our kid’s trike boasts a comfier seat for small bottoms, the design makes it easy to carry around. The smooth edges and non-slip handle grip also provide them better support during early learning active play."
+        },
+        {
+          "source": "Features[4]",
+          "text": "INDOOR AND OUTDOOR USE – KRIDDO kids tricycle is built with solid structure, which makes outdoor riding safe. The shock absorption silent wheels allow your kids ride around silently inside the house and do no damage to your floors."
+        },
+        {
+          "source": "Features[5]",
+          "text": "ATTENTION TO SAFETY – We have always considered the importance of safety for toddlers, KRIDDO kids tricycle for 2 to 5 year old is made of high-quality material, BPA free, matte nontoxic paint and conform to America toy standard, this ensures that they are safe for kids. You will get a sturdy kids trike, but don’t leave your baby alone when playing with it."
+        },
+        {
+          "source": "Product_Description",
+          "text": "TODDLER TRICYCLE – KRIDDO kids tricycle is designed for 24-48 month toddler girls & boys who are curious and exited to explore the world, it helps to develop kids' steering skills, steering and coordination at an early age. KRIDDO kids trike for 2 year old let your kids enjoy riding and gain confidence, as well as develop muscle strength, it’s a fun gift for your little ones. IMPROVED ROLL-OVER PREVENTION – This interactive toddler trike for 2-4 years features a smarter triangular design with extended rear wheels, wider wheelbase to help prevent tipping or rolling over when kids are learning to ride. EASY-TO-CARRY SEAT AND COMFORTABLE GRIPS – The ergonomic design of our kid’s trike boasts a comfier seat for small bottoms, the design makes it easy to carry around. The smooth edges and non-slip handle grip also provide them better support during early learning active play."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Shop Kids Tricycle"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[2]",
+          "text": "Shop Toddler Balance Bike"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "IMPROVED ROLL-OVER PREVENTION – This interactive toddler trike for 2-4 years features a smarter triangular design with extended rear wheels, wider wheelbase to help prevent tipping or rolling over when kids are learning...",
+          "source": "Features[2]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -4757,6 +6882,199 @@
       "Model Number": "0910-7in1 Pink",
       "Age Range Description": "18 months - 5 years",
       "Brand": "JMMD"
+    },
+    "customers_say": "Customers find the tricycle to be a great baby bike that's straightforward to assemble and convenient to use, with good build quality and foldable design. They appreciate its appearance and consider it worth the price. The steering receives mixed feedback, with several customers finding it difficult to maneuver.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "18 months - 5 years",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "44 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "44 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "frameMaterial": {
+        "value": "Polypropylene",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "27.87\"L x 20.08\"W x 38.98\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      },
+      "foldability": {
+        "value": "foldable",
+        "source": "detail_text_regex"
+      },
+      "harness": {
+        "value": "safety harness",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "harness": {
+            "value": "safety harness",
+            "source": "detail_text_regex"
+          },
+          "frameMaterial": {
+            "value": "Polypropylene",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "44 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "【Safe & Comfortable】This baby trike comes with 5-point safety harness and movable guardrail, ensures the safety of the child. Soft PU seat and backrest also provides comfortable sitting experience for your kids. The dua..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "【Multiple Adjustable Functions】This tricycle with push handle allows parents can easily guide and steer the tricycle, the parent handle can also be adjusted to the height of the parents, ensuring a comfortable and ergon..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "【7 in 1 Tricycle】This baby tricycle can accompany your kids at different stages of growth from 18 months to 5 years. It's 7 in 1 design allows you to easily change its mode, which including parent mode tricycle, steerin..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[2]",
+            "text": "18 ~ 24 Months Helps children safely and steadily try sliding."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[6]",
+            "text": "Movable Safety Bar Designed specifically for babies to provide a convenient and safe environment."
+          }
+        ],
+        "parentTip": "Parent's Tip: 【Safe & Comfortable】This baby trike comes with 5-point safety harness and movable guardrail, ensures the safety of the child. Soft PU seat and backrest also provides comfortable s..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "【Reliable Quality】Our toddler push tricycle designed to provide endless hours of fun and adventure for your little ones. Equipped with EVA silent wheels, this kids trike ensures a smooth and quiet ride for a both indoor..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[11]",
+            "text": "Equipped with EVA silent wheels, this kids trike ensures a smooth and quiet ride for a both indoor and outdoor use."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[13]",
+            "text": "Soft leather seat cushions provide a comfortable riding environment."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[15]",
+            "text": "How to fold this tricycle? After removing the push handle and seat, press the button in the middle of the body to achieve folding."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[16]",
+            "text": "Why don't the pedals rotate with the wheels? Our pedal has 2 gears. First gear position: The pedal does not control the front wheel and can serve as a footrest. Second gear position: By continuing to insert, the pedal c..."
+          }
+        ],
+        "parentTip": "Parent's Tip: 【Reliable Quality】Our toddler push tricycle designed to provide endless hours of fun and adventure for your little ones. Equipped with EVA silent wheels, this kids trike ensures a..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "44 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          },
+          "foldability": {
+            "value": "foldable",
+            "source": "detail_text_regex"
+          },
+          "dimensions": {
+            "value": "27.87\"L x 20.08\"W x 38.98\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "【7 in 1 Tricycle】This baby tricycle can accompany your kids at different stages of growth from 18 months to 5 years. It's 7 in 1 design allows you to easily change its mode, which including parent mode tricycle, steerin..."
+          },
+          {
+            "source": "Product_Videos_Detail[5].Title",
+            "text": "Mom Assembles and Baby Tries out Trike! #Ad"
+          },
+          {
+            "source": "Product_Videos_Detail[7].Title",
+            "text": "Review of Foldable Tricycle"
+          }
+        ],
+        "parentTip": "Parent's Tip: 【7 in 1 Tricycle】This baby tricycle can accompany your kids at different stages of growth from 18 months to 5 years. It's 7 in 1 design allows you to easily change its mode, which..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: 【Safe & Comfortable】This baby trike comes with 5-point safety harness and movable guardrail, ensures the safety of the child. Soft PU seat and backrest also provides comfortable s...",
+      "ridingComfort": "Parent's Tip: 【Reliable Quality】Our toddler push tricycle designed to provide endless hours of fun and adventure for your little ones. Equipped with EVA silent wheels, this kids trike ensures a...",
+      "lightAndEasy": "Parent's Tip: 【7 in 1 Tricycle】This baby tricycle can accompany your kids at different stages of growth from 18 months to 5 years. It's 7 in 1 design allows you to easily change its mode, which..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "JMMD Baby Tricycle, 7-in-1 Foldable Kids Trike with Adjustable Parent Handle, Safety Harness & Wheel Brakes, Removable Canopy",
+      "brand": "JMMD",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "【7 in 1 Tricycle】This baby tricycle can accompany your kids at different stages of growth from 18 months to 5 years. It's 7 in 1 design allows you to easily change its mode, which including parent mode tricycle, steering tricycle, stand alone trike, baby trike, balance bike with pedal, balance bike mode and foldable mode."
+        },
+        {
+          "source": "Features[2]",
+          "text": "【Reliable Quality】Our toddler push tricycle designed to provide endless hours of fun and adventure for your little ones. Equipped with EVA silent wheels, this kids trike ensures a smooth and quiet ride for a both indoor and outdoor use. The pedals has three positions, you can turn it into a footrest or tricycle pedal mode according to your children's needs."
+        },
+        {
+          "source": "Features[3]",
+          "text": "【Safe & Comfortable】This baby trike comes with 5-point safety harness and movable guardrail, ensures the safety of the child. Soft PU seat and backrest also provides comfortable sitting experience for your kids. The dual brakes on the rear wheels are designed for emergency braking or to prevent skidding, ensures a smooth ride. Besides, the canopy, seat, and headrest all have two positions to choose from according to your needs."
+        },
+        {
+          "source": "Features[4]",
+          "text": "【Multiple Adjustable Functions】This tricycle with push handle allows parents can easily guide and steer the tricycle, the parent handle can also be adjusted to the height of the parents, ensuring a comfortable and ergonomic user experience. The removable canopy provides shade and protection from the sun, keeping your little one cool and safe during hot summer days."
+        },
+        {
+          "source": "Features[5]",
+          "text": "【Buy with Confidence】:Please feel free to contact us if you have any question about JMMD push bike tricycle, we will provide for satisfaction after-sales program, please rest assured to buy."
+        },
+        {
+          "source": "Product_Description",
+          "text": "【7 in 1 Tricycle】This baby tricycle can accompany your kids at different stages of growth from 18 months to 5 years. It's 7 in 1 design allows you to easily change its mode, which including parent mode tricycle, steering tricycle, stand alone trike, baby trike, balance bike with pedal, balance bike mode and foldable mode. 【Reliable Quality】Our toddler push tricycle designed to provide endless hours of fun and adventure for your little ones. Equipped with EVA silent wheels, this kids trike ensures a smooth and quiet ride for a both indoor and outdoor use. The pedals has three positions, you can turn it into a footrest or tricycle pedal mode according to your children's needs. 【Safe & Comfortable】This baby trike comes with 5-point safety harness and movable guardrail, ensures the safety of the child. Soft PU seat and backrest also provides comfortable sitting experience for your kids. The..."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "JMMD 7-in-1 Multifunctional Baby Tricycle"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "18 ~ 24 Months Parent Steering Multi-functional Stroller"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "【Safe & Comfortable】This baby trike comes with 5-point safety harness and movable guardrail, ensures the safety of the child. Soft PU seat and backrest also provides comfortable sitting experience for your kids. The dua...",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "【Reliable Quality】Our toddler push tricycle designed to provide endless hours of fun and adventure for your little ones. Equipped with EVA silent wheels, this kids trike ensures a smooth and quiet ride for a both indoor...",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "【7 in 1 Tricycle】This baby tricycle can accompany your kids at different stages of growth from 18 months to 5 years. It's 7 in 1 design allows you to easily change its mode, which including parent mode tricycle, steerin...",
+          "source": "Features[1]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -5313,6 +7631,194 @@
       "Wheel Size": "12 Inches",
       "Brake Style": "Hand Brake",
       "Suspension Type": "Rigid"
+    },
+    "customers_say": "Customers find this toddler bike to be a great first bike that's perfect for almost 2-year-olds and easy to assemble. The bike is well-engineered with easy-to-steer parent handle, and customers appreciate that the pedals and training wheels snap on and off. They like its appearance, with one customer noting it looks more like a bike than a stroller or wagon, and consider it worth the price.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Kids",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "55 Pounds",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "itemWeight": {
+        "value": "55 Pounds",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "frameMaterial": {
+        "value": "Aluminum",
+        "source": "Category_Attributes.Frame Material"
+      },
+      "wheelSize": {
+        "value": "12 Inches",
+        "source": "Category_Attributes.Wheel Size"
+      },
+      "brakeSystem": {
+        "value": "Hand Brake",
+        "source": "Category_Attributes.Brake Style"
+      },
+      "tireType": {
+        "value": "Rubber",
+        "source": "Product_Specifications.Materials_Care.Wheel Material"
+      },
+      "seatRecline": {
+        "value": "Polyurethane (PU)",
+        "source": "Product_Specifications.Materials_Care.Seat Material"
+      },
+      "speed": {
+        "value": "1",
+        "source": "Product_Specifications.Item_Details.Number of Speeds"
+      },
+      "foldability": {
+        "value": "FOLD: Arrives 95% pre-assembled — just attach the hand",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "brakeSystem": {
+            "value": "Hand Brake",
+            "source": "Category_Attributes.Brake Style"
+          },
+          "frameMaterial": {
+            "value": "Aluminum",
+            "source": "Category_Attributes.Frame Material"
+          },
+          "weightLimit": {
+            "value": "55 Pounds",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "ADJUSTABLE STEERING HANDLE FOR SAFE CONTROL: The parent push handle rotates 135° for easy control of the toddler push bike’s speed and direction, helping protect your child from tipping or losing balance. It can also be..."
+          },
+          {
+            "source": "Features[3]",
+            "text": "SAFETY FIRST, ALWAYS: Built with parents’ peace of mind in mind. Equipped with an aluminum alloy frame, 12\" all-terrain puncture-proof rubber wheels, a hand brake, and 60° steering limiter to prevent sudden turns. The g..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "EASY TO ASSEMBLE & FOLD: Arrives 95% pre-assembled — just attach the handlebar, seat, push rod, and pedals, and it’s ready to ride. With one press of the red button under the frame, the toddler bike with training wheels..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "THE PERFECT GIFT FOR GROWING KIDS: Designed with training wheels and a kickstand, JMMD 6-in-1 toddler bicycle offers a smooth and safe transition from tricycle to balance bike to real bike. It helps your little one buil..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+            "text": "TPR soft rubber handle provides a non-slip, comfortable grip and is adjustable to accommodate kid of various heights."
+          }
+        ],
+        "parentTip": "Parent's Tip: ADJUSTABLE STEERING HANDLE FOR SAFE CONTROL: The parent push handle rotates 135° for easy control of the toddler push bike’s speed and direction, helping protect your child from t..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {
+          "seatRecline": {
+            "value": "Polyurethane (PU)",
+            "source": "Product_Specifications.Materials_Care.Seat Material"
+          },
+          "tireType": {
+            "value": "Rubber",
+            "source": "Product_Specifications.Materials_Care.Wheel Material"
+          },
+          "wheelSize": {
+            "value": "12 Inches",
+            "source": "Category_Attributes.Wheel Size"
+          }
+        },
+        "evidence": [
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[4]",
+            "text": "The PU soft seat cushion brings a comfortable experience to the child. The height of the seat can be adjusted according to the child's height."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Suspension Type",
+            "text": "Suspension Type: Rigid"
+          },
+          {
+            "source": "Product_Specifications.Materials_Care.Seat Material",
+            "text": "Seat Material: Polyurethane (PU)"
+          }
+        ],
+        "parentTip": "Parent's Tip: The PU soft seat cushion brings a comfortable experience to the child. The height of the seat can be adjusted according to the child's height."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "55 Pounds",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          },
+          "foldability": {
+            "value": "FOLD: Arrives 95% pre-assembled — just attach the hand",
+            "source": "detail_text_regex"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: ADJUSTABLE STEERING HANDLE FOR SAFE CONTROL: The parent push handle rotates 135° for easy control of the toddler push bike’s speed and direction, helping protect your child from t...",
+      "ridingComfort": "Parent's Tip: The PU soft seat cushion brings a comfortable experience to the child. The height of the seat can be adjusted according to the child's height.",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "JMMD 6 in 1 Toddler Bike with Push Handle for Kids 18-60 Months, 12\" Foldable Balance Bike with Training Wheels, Pedals, Brakes, Kickstand, Push Tricycle Toddler Gift & Toys for Boy & Girl",
+      "brand": "JMMD",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "GROWS WITH YOUR CHILD: No need to buy multiple kid bikes! This 6-in-1 convertible design easily transforms from a parent-push trike to a toddler tricycle, balance bike, toddler bike and more — perfectly suited for ages 18 to 60 months. It’s the only bike your child will need through their early years."
+        },
+        {
+          "source": "Features[2]",
+          "text": "ADJUSTABLE STEERING HANDLE FOR SAFE CONTROL: The parent push handle rotates 135° for easy control of the toddler push bike’s speed and direction, helping protect your child from tipping or losing balance. It can also be adjusted to match parents’ height for comfortable guiding. Both the handlebar and seat are height-adjustable, and it comes with a seat extension rod for a perfect fit for kids of different heights."
+        },
+        {
+          "source": "Features[3]",
+          "text": "SAFETY FIRST, ALWAYS: Built with parents’ peace of mind in mind. Equipped with an aluminum alloy frame, 12\" all-terrain puncture-proof rubber wheels, a hand brake, and 60° steering limiter to prevent sudden turns. The gear-driven, chain-free system keeps your child safe while offering smoother control. Every detail of JMMD kids bicycle is designed for stability, safety, and comfort."
+        },
+        {
+          "source": "Features[4]",
+          "text": "EASY TO ASSEMBLE & FOLD: Arrives 95% pre-assembled — just attach the handlebar, seat, push rod, and pedals, and it’s ready to ride. With one press of the red button under the frame, the toddler bike with training wheels folds instantly, making it easy to carry or store in your car trunk. Setup takes just minutes — no tools, no stress, just fun. Perfect for travel and family outings."
+        },
+        {
+          "source": "Features[5]",
+          "text": "THE PERFECT GIFT FOR GROWING KIDS: Designed with training wheels and a kickstand, JMMD 6-in-1 toddler bicycle offers a smooth and safe transition from tricycle to balance bike to real bike. It helps your little one build balance and confidence step by step — from guided rides to independent adventures. A thoughtful gift for birthdays, Christmas, or first-bike surprises — more than a toy, it’s a memory that grows with your child."
+        },
+        {
+          "source": "Product_Description",
+          "text": "Balance Bike"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Great Gift to Kids -- JMMD 6 IN 1 Kids Bike"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "TPR soft rubber handle provides a non-slip, comfortable grip and is adjustable to accommodate kid of various heights."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "ADJUSTABLE STEERING HANDLE FOR SAFE CONTROL: The parent push handle rotates 135° for easy control of the toddler push bike’s speed and direction, helping protect your child from tipping or losing balance. It can also be...",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "The PU soft seat cushion brings a comfortable experience to the child. The height of the seat can be adjusted according to the child's height.",
+          "source": "From_The_Manufacturer.Sections[1].Texts[4]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -5578,6 +8084,156 @@
       "Model Number": "KSE05",
       "Age Range Description": "1.5-5 Years",
       "Brand": "besrey"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "1.5-5 Years",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "55.11 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "10.2 Pounds",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Carbon Steel, EVA, PU",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "24.8\"L x 12.2\"W x 20.08\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      },
+      "foldability": {
+        "value": "folding modes, offering endless adventures and ultimat",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Carbon Steel, EVA, PU",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "55.11 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "Rollover-Free for Added Safety: A robust triangular structure frame with wider rear wheels minimizes the risk of tipping or overturning for safer and more enjoyable riding"
+          },
+          {
+            "source": "Features[4]",
+            "text": "Indoor & Outdoor Comfy Riding: Rugged EVA foam wheels with excellent shock absorption ensure your kids conquer various terrains with comfort and confidence"
+          },
+          {
+            "source": "Features[5]",
+            "text": "Adaptable to Growth: Designed with a spacious seat and comfy backrest, this bike for toddlers features an adjustable seat that moves forward and backward to accommodate a wider age range and ensures your child enjoys op..."
+          },
+          {
+            "source": "Features[6]",
+            "text": "Safety: The besrey tricycle for toddlers has passed rigorous safety tests, ensuring that all materials and designs are child-safe. We also provide a 24-month hassle-free return policy and a LIFETIME warranty for your sa..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "First Toddler Tricycle: This tricycle for toddlers is great for beginner riders, designed for 18 months to 5 year old toddler girls & boys who are curious and excited to explore the world, to develop kids' steering skil..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Rollover-Free for Added Safety: A robust triangular structure frame with wider rear wheels minimizes the risk of tipping or overturning for safer and more enjoyable riding"
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "10.2 Pounds",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "foldability": {
+            "value": "folding modes, offering endless adventures and ultimat",
+            "source": "detail_text_regex"
+          },
+          "dimensions": {
+            "value": "24.8\"L x 12.2\"W x 20.08\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "2-IN-1 Thoughtful Design: This toddler bike effortlessly transitions between riding and folding modes, offering endless adventures and ultimate convenience for storage and transport—a perfect companion for on-the-go fam..."
+          }
+        ],
+        "parentTip": "Parent's Tip: 2-IN-1 Thoughtful Design: This toddler bike effortlessly transitions between riding and folding modes, offering endless adventures and ultimate convenience for storage and transpo..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Rollover-Free for Added Safety: A robust triangular structure frame with wider rear wheels minimizes the risk of tipping or overturning for safer and more enjoyable riding",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: 2-IN-1 Thoughtful Design: This toddler bike effortlessly transitions between riding and folding modes, offering endless adventures and ultimate convenience for storage and transpo..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "besrey Toddler Tricycle with Bell, Kids Tricycle Age 18 Months to 5 Years, Kids Trike, Toddler Bike for 2-4 Year Olds, Baby Bike, Gifts & Toys for Boys & Girls, Pink",
+      "brand": "besrey",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "First Toddler Tricycle: This tricycle for toddlers is great for beginner riders, designed for 18 months to 5 year old toddler girls & boys who are curious and excited to explore the world, to develop kids' steering skills and coordination at an early age"
+        },
+        {
+          "source": "Features[2]",
+          "text": "2-IN-1 Thoughtful Design: This toddler bike effortlessly transitions between riding and folding modes, offering endless adventures and ultimate convenience for storage and transport—a perfect companion for on-the-go families"
+        },
+        {
+          "source": "Features[3]",
+          "text": "Rollover-Free for Added Safety: A robust triangular structure frame with wider rear wheels minimizes the risk of tipping or overturning for safer and more enjoyable riding"
+        },
+        {
+          "source": "Features[4]",
+          "text": "Indoor & Outdoor Comfy Riding: Rugged EVA foam wheels with excellent shock absorption ensure your kids conquer various terrains with comfort and confidence"
+        },
+        {
+          "source": "Features[5]",
+          "text": "Adaptable to Growth: Designed with a spacious seat and comfy backrest, this bike for toddlers features an adjustable seat that moves forward and backward to accommodate a wider age range and ensures your child enjoys optimal riding position"
+        },
+        {
+          "source": "Features[6]",
+          "text": "Safety: The besrey tricycle for toddlers has passed rigorous safety tests, ensuring that all materials and designs are child-safe. We also provide a 24-month hassle-free return policy and a LIFETIME warranty for your satisfied shopping experience"
+        },
+        {
+          "source": "Product_Description",
+          "text": "First Toddler Tricycle: This tricycle for toddlers is great for beginner riders, designed for 18 months to 5 year old toddler girls & boys who are curious and excited to explore the world, to develop kids' steering skills and coordination at an early age 2-IN-1 Thoughtful Design: This toddler bike effortlessly transitions between riding and folding modes, offering endless adventures and ultimate convenience for storage and transport—a perfect companion for on-the-go families Rollover-Free for Added Safety: A robust triangular structure frame with wider rear wheels minimizes the risk of tipping or overturning for safer and more enjoyable riding"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Kid Tricycles"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Rollover-Free for Added Safety: A robust triangular structure frame with wider rear wheels minimizes the risk of tipping or overturning for safer and more enjoyable riding",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "2-IN-1 Thoughtful Design: This toddler bike effortlessly transitions between riding and folding modes, offering endless adventures and ultimate convenience for storage and transport—a perfect companion for on-the-go fam...",
+          "source": "Features[2]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -5989,6 +8645,149 @@
     "Category_Attributes": {
       "Model Number": "WJ121503",
       "Brand": "Kkdi"
+    },
+    "customers_say": "Customers find the tricycle easy to assemble and appreciate its strong materials, with one mentioning it comes with a helpful assembly video. The bike is particularly suitable for two-year-olds and features wheels that light up, making it visually appealing. While some customers find it sturdy, others report that the seat is wobbly and the paddles break off quickly. The size receives mixed feedback, with some finding it perfect while others say it's too small. Customers consider it good value for money.",
+    "Product_Display_Fields": {
+      "weightLimit": {
+        "value": "50 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "3.39 Kilograms",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Carbon Steel",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "23.6\"L x 14\"W x 19\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Carbon Steel",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "50 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x the weight of other kids bikes. ➌ Glowin..."
+          },
+          {
+            "source": "Features[3]",
+            "text": "🌟【Light-Up Fun】: No batteries needed! Wheels magically glow with every spin for exciting and safer dark rides. Pure magic kids adore! Our toddler tricycle is the ideal ride on toys for ages 2-4 kids."
+          },
+          {
+            "source": "Features[4]",
+            "text": "🌟【Grows With Your Child】: With 4-level adjustable seat & ergonomic backrest, our pink tricycle for 1.5-5 year old kids sensure a perfect, comfy fit. For years of joyful riding."
+          },
+          {
+            "source": "Features[6]",
+            "text": "🌟【Indoor & Outdoor Toy】: EVA silent wheels for quiet, scratch-free floors indoors, reduce vibration outdoors. Non-slip handlebars ensure tiny hands have total control. It's the confidence-boosting toy for 2 3 4 5 year o..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x the weight of other kids bikes. ➌ Glowin..."
+          }
+        ],
+        "parentTip": "Parent's Tip: 🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "3.39 Kilograms",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "dimensions": {
+            "value": "23.6\"L x 14\"W x 19\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[5]",
+            "text": "🌟【2 Storage Baskets】: Our bike for toddlers 2-4 comes with 2 storage. Kids can pack their own treasures and snacks, fostering independence while keeping outings organized and fun."
+          },
+          {
+            "source": "Features[7]",
+            "text": "🎁【Ideal Gifts for Age 1.5-5】: Tricycle for toddlers builds balance, coordination and motor skills through play. Easy assemblely, get ready for fun in minutes! An investment in growth and the perfect birthday gift for 2..."
+          }
+        ],
+        "parentTip": "Parent's Tip: 🌟【2 Storage Baskets】: Our bike for toddlers 2-4 comes with 2 storage. Kids can pack their own treasures and snacks, fostering independence while keeping outings organized and fun."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: 🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: 🌟【2 Storage Baskets】: Our bike for toddlers 2-4 comes with 2 storage. Kids can pack their own treasures and snacks, fostering independence while keeping outings organized and fun."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Kkdi Toddler Tricycle for 1-3 3-5 Year Olds, 2 3 4 5 Year Old Girl Birthday Gifts, Pink Toddler Baby Bike, 4-Level Adjustable",
+      "brand": "Kkdi",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x the weight of other kids bikes. ➌ Glowing wheels for visible night rides.➍ CPC Certified & Tested(ASTM F963"
+        },
+        {
+          "source": "Features[2]",
+          "text": "CPSIA)."
+        },
+        {
+          "source": "Features[3]",
+          "text": "🌟【Light-Up Fun】: No batteries needed! Wheels magically glow with every spin for exciting and safer dark rides. Pure magic kids adore! Our toddler tricycle is the ideal ride on toys for ages 2-4 kids."
+        },
+        {
+          "source": "Features[4]",
+          "text": "🌟【Grows With Your Child】: With 4-level adjustable seat & ergonomic backrest, our pink tricycle for 1.5-5 year old kids sensure a perfect, comfy fit. For years of joyful riding."
+        },
+        {
+          "source": "Features[5]",
+          "text": "🌟【2 Storage Baskets】: Our bike for toddlers 2-4 comes with 2 storage. Kids can pack their own treasures and snacks, fostering independence while keeping outings organized and fun."
+        },
+        {
+          "source": "Features[6]",
+          "text": "🌟【Indoor & Outdoor Toy】: EVA silent wheels for quiet, scratch-free floors indoors, reduce vibration outdoors. Non-slip handlebars ensure tiny hands have total control. It's the confidence-boosting toy for 2 3 4 5 year old girls."
+        },
+        {
+          "source": "Features[7]",
+          "text": "🎁【Ideal Gifts for Age 1.5-5】: Tricycle for toddlers builds balance, coordination and motor skills through play. Easy assemblely, get ready for fun in minutes! An investment in growth and the perfect birthday gift for 2 3 4 5 year old girl."
+        },
+        {
+          "source": "Product_Description",
+          "text": "🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x the weight of other kids bikes. ➌ Glowing wheels for visible night rides.➍ CPC Certified & Tested(ASTM F963 CPSIA). 🌟【Light-Up Fun】: No batteries needed! Wheels magically glow with every spin for exciting and safer dark rides. Pure magic kids adore! Our toddler tricycle is the ideal ride on toys for ages 2-4 kids."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x the weight of other kids bikes. ➌ Glowin...",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "🌟【2 Storage Baskets】: Our bike for toddlers 2-4 comes with 2 storage. Kids can pack their own treasures and snacks, fostering independence while keeping outings organized and fun.",
+          "source": "Features[5]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -6164,6 +8963,155 @@
     "Category_Attributes": {
       "Age Range Description": "18 months to 5 year old",
       "Brand": "KRIDDO"
+    },
+    "customers_say": "Customers find the tricycle easy to assemble and appreciate its good quality. They like its appearance, particularly the bright pink color, and one customer mentions it's perfect for toddlers. Customers praise the controls, with one noting that the parent handle allows seamless steering and pushing.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "18 months to 5 year old",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "itemWeight": {
+        "value": "12.5 Pounds",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Carbon Steel",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "26.77\"L x 18\"W x 40\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      },
+      "harness": {
+        "value": "safety harness",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "harness": {
+            "value": "safety harness",
+            "source": "detail_text_regex"
+          },
+          "frameMaterial": {
+            "value": "Carbon Steel",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "Parent-Controlled Push Handle – The kids tricycle comes with a detachable push handle that allows parents to steer left, right, or straight. The rear handle has 3 height settings to fit parents of different heights, and..."
+          },
+          {
+            "source": "Features[2]",
+            "text": "9-Stage Fore-Aft Adjustable Handlebar – This tricycle for toddlers 18 months to 5 years features a handlebar with 9-position fore-aft adjustable handlebar, ensuring the most comfortable riding posture as your child grow..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "Safe & Comfortable Ride – Designed with a 3-point safety harness, soft seat cushion, and detachable ergonomic backrest, this kids tricycle with push handle keeps toddlers secure while providing maximum comfort during ev..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "Parent-Controlled Push Handle – The kids tricycle comes with a detachable push handle that allows parents to steer left, right, or straight. The rear handle has 3 height settings to fit parents of different heights, and..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Parent-Controlled Push Handle – The kids tricycle comes with a detachable push handle that allows parents to steer left, right, or straight. The rear handle has 3 height settings..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "Smart Pedal Clutch Design – With a simple red knob on the front wheel, you can switch between riding mode and push mode. In push mode, pedals stay still even if the wheels are moving, giving toddlers a smoother experien..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Smart Pedal Clutch Design – With a simple red knob on the front wheel, you can switch between riding mode and push mode. In push mode, pedals stay still even if the wheels are mov..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "12.5 Pounds",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "dimensions": {
+            "value": "26.77\"L x 18\"W x 40\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[5]",
+            "text": "Dual Storage Baskets – This tricycle for toddler comes with both front and rear baskets, perfect for carrying toys, snacks, or essentials. A fun and practical baby tricycle for everyday adventures."
+          }
+        ],
+        "parentTip": "Parent's Tip: Dual Storage Baskets – This tricycle for toddler comes with both front and rear baskets, perfect for carrying toys, snacks, or essentials. A fun and practical baby tricycle for ev..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Parent-Controlled Push Handle – The kids tricycle comes with a detachable push handle that allows parents to steer left, right, or straight. The rear handle has 3 height settings...",
+      "ridingComfort": "Parent's Tip: Smart Pedal Clutch Design – With a simple red knob on the front wheel, you can switch between riding mode and push mode. In push mode, pedals stay still even if the wheels are mov...",
+      "lightAndEasy": "Parent's Tip: Dual Storage Baskets – This tricycle for toddler comes with both front and rear baskets, perfect for carrying toys, snacks, or essentials. A fun and practical baby tricycle for ev..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "KRIDDO 2-in-1 Tricycle for Toddlers 1.5-5 Years, Push Tricycle with Parent Steering Detachable Handle, 9-Stage Adjustable Handlebar, Toddler Trike with Safety Belt, Clutch Pedals & Dual Basket, Pink",
+      "brand": "KRIDDO",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Parent-Controlled Push Handle – The kids tricycle comes with a detachable push handle that allows parents to steer left, right, or straight. The rear handle has 3 height settings to fit parents of different heights, and when removed, the connection point is covered with a protective cap for safety."
+        },
+        {
+          "source": "Features[2]",
+          "text": "9-Stage Fore-Aft Adjustable Handlebar – This tricycle for toddlers 18 months to 5 years features a handlebar with 9-position fore-aft adjustable handlebar, ensuring the most comfortable riding posture as your child grows."
+        },
+        {
+          "source": "Features[3]",
+          "text": "Smart Pedal Clutch Design – With a simple red knob on the front wheel, you can switch between riding mode and push mode. In push mode, pedals stay still even if the wheels are moving, giving toddlers a smoother experience."
+        },
+        {
+          "source": "Features[4]",
+          "text": "Safe & Comfortable Ride – Designed with a 3-point safety harness, soft seat cushion, and detachable ergonomic backrest, this kids tricycle with push handle keeps toddlers secure while providing maximum comfort during every ride."
+        },
+        {
+          "source": "Features[5]",
+          "text": "Dual Storage Baskets – This tricycle for toddler comes with both front and rear baskets, perfect for carrying toys, snacks, or essentials. A fun and practical baby tricycle for everyday adventures."
+        },
+        {
+          "source": "Product_Description",
+          "text": "Parent-Controlled Push Handle – The kids tricycle comes with a detachable push handle that allows parents to steer left, right, or straight. The rear handle has 3 height settings to fit parents of different heights, and when removed, the connection point is covered with a protective cap for safety. 9-Stage Fore-Aft Adjustable Handlebar – This tricycle for toddlers 18 months to 5 years features a handlebar with 9-position fore-aft adjustable handlebar, ensuring the most comfortable riding posture as your child grows. Smart Pedal Clutch Design – With a simple red knob on the front wheel, you can switch between riding mode and push mode. In push mode, pedals stay still even if the wheels are moving, giving toddlers a smoother experience."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Shop Kids Tricycle"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[2]",
+          "text": "Shop Toddler Balance Bike"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Parent-Controlled Push Handle – The kids tricycle comes with a detachable push handle that allows parents to steer left, right, or straight. The rear handle has 3 height settings to fit parents of different heights, and...",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "Smart Pedal Clutch Design – With a simple red knob on the front wheel, you can switch between riding mode and push mode. In push mode, pedals stay still even if the wheels are moving, giving toddlers a smoother experien...",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "Dual Storage Baskets – This tricycle for toddler comes with both front and rear baskets, perfect for carrying toys, snacks, or essentials. A fun and practical baby tricycle for everyday adventures.",
+          "source": "Features[5]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -6537,6 +9485,133 @@
     "Category_Attributes": {
       "Age Range Description": "1-5",
       "Brand": "Kkdi"
+    },
+    "customers_say": "Customers find this bike to be a great first choice for toddlers, with easy assembly. They appreciate the control features, with one customer noting that an adult can turn the handlebars using a push stick.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "1-5",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "frameMaterial": {
+        "value": "Carbon Steel",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "29.7\"L x 18.1\"W x 39.4\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Carbon Steel",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "🌟【Grows With Your Child】: No more buying a new bike every year! Our 5-in-1 toddler bike converts different mode in just 5s: from a parent-push trike (12M+) to scoot tricycle (18M+), pedal tricycle (24M+), balance bike (..."
+          },
+          {
+            "source": "Features[2]",
+            "text": "🌟【Adjustable Steering Push Handlebar】: Take full control with 135°of rotation to steer and manage speed effortlessly. The 3-height adjustment ensures a comfortable push for any parent, letting you guide and protect your..."
+          },
+          {
+            "source": "Features[3]",
+            "text": "🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x the weight of other kids bikes. ➌ Glowin..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "🌟【Light-Up Fun & Basket】: No batteries needed! Wheels magically glow with every spin for exciting and safer dark rides. Pure magic kids adore! Also, the handy basket​ for snacks and toy, makes every outing more convenie..."
+          },
+          {
+            "source": "Features[6]",
+            "text": "🌟【 Indoor & Outdoor Ready】: EVA wheels ensure quiet, scratch-free rides indoors and reduce vibration outdoors. Switch wheel modes on the go—no tools needed. Non-slip handlebars give little hands full control for confide..."
+          }
+        ],
+        "parentTip": "Parent's Tip: 🌟【Grows With Your Child】: No more buying a new bike every year! Our 5-in-1 toddler bike converts different mode in just 5s: from a parent-push trike (12M+) to scoot tricycle (18M+..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "dimensions": {
+            "value": "29.7\"L x 18.1\"W x 39.4\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[7]",
+            "text": "🎁【Ideal Gifts for Age 1-5】: Tricycle for toddlers builds balance, coordination and motor skills through play. Easy assemblely, get ready for fun in minutes! An investment in growth and the perfect birthday Christmas gif..."
+          }
+        ],
+        "parentTip": "Parent's Tip: 🎁【Ideal Gifts for Age 1-5】: Tricycle for toddlers builds balance, coordination and motor skills through play. Easy assemblely, get ready for fun in minutes! An investment in growt..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: 🌟【Grows With Your Child】: No more buying a new bike every year! Our 5-in-1 toddler bike converts different mode in just 5s: from a parent-push trike (12M+) to scoot tricycle (18M+...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: 🎁【Ideal Gifts for Age 1-5】: Tricycle for toddlers builds balance, coordination and motor skills through play. Easy assemblely, get ready for fun in minutes! An investment in growt..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Kkdi 5 in 1 Toddler Bike for 1-5 Year Old, Tricycle with Push Handle, Convertible Baby Balance Bike, Bicycle, Color Light Wheel & Detachable Pedal, 4-Position Seat, Toddler Girl Birthday Gift, Toy",
+      "brand": "Kkdi",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "🌟【Grows With Your Child】: No more buying a new bike every year! Our 5-in-1 toddler bike converts different mode in just 5s: from a parent-push trike (12M+) to scoot tricycle (18M+), pedal tricycle (24M+), balance bike (30M+), bicycle (36M+). The 4-level adjustable seat with belt ensures a perfect fit. The only ride your child needs from toddler to big kid."
+        },
+        {
+          "source": "Features[2]",
+          "text": "🌟【Adjustable Steering Push Handlebar】: Take full control with 135°of rotation to steer and manage speed effortlessly. The 3-height adjustment ensures a comfortable push for any parent, letting you guide and protect your child comfortably on every ride."
+        },
+        {
+          "source": "Features[3]",
+          "text": "🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x the weight of other kids bikes. ➌ Glowing wheels for visible night rides.➍ CPC Certified & Tested(ASTM F963"
+        },
+        {
+          "source": "Features[4]",
+          "text": "CPSIA)."
+        },
+        {
+          "source": "Features[5]",
+          "text": "🌟【Light-Up Fun & Basket】: No batteries needed! Wheels magically glow with every spin for exciting and safer dark rides. Pure magic kids adore! Also, the handy basket​ for snacks and toy, makes every outing more convenient and fun."
+        },
+        {
+          "source": "Features[6]",
+          "text": "🌟【 Indoor & Outdoor Ready】: EVA wheels ensure quiet, scratch-free rides indoors and reduce vibration outdoors. Switch wheel modes on the go—no tools needed. Non-slip handlebars give little hands full control for confident turns inside and steady rides outside. The perfect indoor outdoor toy for 1-5 year old girls."
+        },
+        {
+          "source": "Features[7]",
+          "text": "🎁【Ideal Gifts for Age 1-5】: Tricycle for toddlers builds balance, coordination and motor skills through play. Easy assemblely, get ready for fun in minutes! An investment in growth and the perfect birthday Christmas gift for 1 2 3 4 year old boy girl."
+        },
+        {
+          "source": "Product_Description",
+          "text": "🌟【Grows With Your Child】: No more buying a new bike every year! Our 5-in-1 toddler bike converts different mode in just 5s: from a parent-push trike (12M+) to scoot tricycle (18M+), pedal tricycle (24M+), balance bike (30M+), bicycle (36M+). The 4-level adjustable seat with belt ensures a perfect fit. The only ride your child needs from toddler to big kid. 🌟【Adjustable Steering Push Handlebar】: Take full control with 135°of rotation to steer and manage speed effortlessly. The 3-height adjustment ensures a comfortable push for any parent, letting you guide and protect your child comfortably on every ride. 🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x the weight of other kids bikes. ➌ Glowing wheels for visible night rides.➍ CPC Certified & Tested(ASTM F963"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "🌟【Grows With Your Child】: No more buying a new bike every year! Our 5-in-1 toddler bike converts different mode in just 5s: from a parent-push trike (12M+) to scoot tricycle (18M+), pedal tricycle (24M+), balance bike (...",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "🎁【Ideal Gifts for Age 1-5】: Tricycle for toddlers builds balance, coordination and motor skills through play. Easy assemblely, get ready for fun in minutes! An investment in growth and the perfect birthday Christmas gif...",
+          "source": "Features[7]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   }
 ]

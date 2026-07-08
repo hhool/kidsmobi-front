@@ -33,7 +33,12 @@ type WorkerProduct = {
   brand?: string;
   price?: { value?: number };
   weight?: { lbs?: number };
-  rating?: { value?: number };
+  rating?: { display?: string; value?: number };
+  reviews?: { display?: string; count?: number };
+  userRating?: number;
+  reviewCount?: number;
+  customers_say?: string;
+  customersSay?: string;
   coverImage?: string;
   galleryUrls?: string[];
   classification?: Record<string, string>;
@@ -203,6 +208,12 @@ function toCMSProduct(item: WorkerProduct): CMSProduct {
         .slice(0, 4)
     : (attrs?.features || []).slice(0, 4);
   const updatedAt = new Date().toISOString();
+  const customersSay = String(item.customers_say || item.customersSay || "").trim();
+  const ratingValue = item.rating?.value ?? item.userRating;
+  const reviewCount = item.reviews?.count ?? item.reviewCount;
+  const fallbackVerdict = `${brand} ${name} loaded from remote worker fallback for product category continuity.`;
+  const zhFallbackVerdict = `${brand} ${name} 已通过远端回退链路加载。`;
+  const enFallbackVerdict = `${brand} ${name} loaded through remote fallback path.`;
 
   return {
     id: item.productId,
@@ -225,30 +236,38 @@ function toCMSProduct(item: WorkerProduct): CMSProduct {
     scenarios: [item.categoryId],
     relatedProductIds: [],
     status: "published",
-    overallScore: Math.max(6.5, Math.min(10, Number(item.rating?.value || 4.2) * 1.9)),
-    safetyScore: Math.max(6.5, Math.min(10, Number(item.rating?.value || 4.2) * 1.9)),
+    overallScore: Math.max(6.5, Math.min(10, Number(ratingValue || 4.2) * 1.9)),
+    safetyScore: Math.max(6.5, Math.min(10, Number(ratingValue || 4.2) * 1.9)),
     weightScore: item.weight?.lbs ? Math.max(6.5, Math.min(10, 10 - Number(item.weight.lbs) / 8)) : 8.0,
     geometryScore: item.rank ? Math.max(7.0, Math.min(9.8, 9.6 - Number(item.rank) * 0.08)) : 8.6,
     pros: features.slice(0, 3),
     cons: ["Auto-generated runtime fallback from worker API"],
-    editorVerdict: `${brand} ${name} loaded from remote worker fallback for product category continuity.`,
+    customers_say: customersSay,
+    customersSay,
+    rating: item.rating,
+    reviews: item.reviews,
+    userRating: ratingValue,
+    reviewCount,
+    editorVerdict: customersSay || fallbackVerdict,
     zh: {
       name,
       description: `${brand} ${name} 由远端数据回退生成。`,
+      customersSay,
       brandText: brand,
       specsText: `Category: ${item.categoryId}`,
       pros: features.slice(0, 3),
       cons: ["运行态回退数据，建议在 CMS 中继续补充"],
-      editorVerdict: `${brand} ${name} 已通过远端回退链路加载。`,
+      editorVerdict: customersSay || zhFallbackVerdict,
     },
     en: {
       name,
       description: `${brand} ${name} generated from remote fallback.`,
+      customersSay,
       brandText: brand,
       specsText: `Category: ${item.categoryId}`,
       pros: features.slice(0, 3),
       cons: ["Runtime fallback data, enrich in CMS if needed"],
-      editorVerdict: `${brand} ${name} loaded through remote fallback path.`,
+      editorVerdict: customersSay || enFallbackVerdict,
     },
     updatedAt,
   };

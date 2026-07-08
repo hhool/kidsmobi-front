@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { FALLBACK_PRODUCT_IMAGE, withImageFallback } from "../../lib/productImages";
 
 function buildStoreMirrorCandidates(rawUrl: string): string[] {
@@ -68,8 +68,8 @@ export default function SmartImage({
   loading = "lazy",
   priority = false,
 }: SmartImageProps) {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [fallbackIndex, setFallbackIndex] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(true);
+  const [resolvedSrc, setResolvedSrc] = useState(FALLBACK_PRODUCT_IMAGE);
 
   const candidates = useMemo(() => {
     const list = [src, ...fallbackSrcs]
@@ -79,19 +79,51 @@ export default function SmartImage({
     return Array.from(new Set(list));
   }, [src, fallbackSrcs]);
 
-  const resolvedSrc = useMemo(() => {
-    const candidate = candidates[fallbackIndex];
-    if (candidate) {
-      return candidate;
-    }
-    const normalized = (src || "").trim();
-    return normalized || FALLBACK_PRODUCT_IMAGE;
-  }, [candidates, fallbackIndex, src]);
+  useEffect(() => {
+    let cancelled = false;
+    let timer: number | null = null;
+    const list = candidates.length > 0 ? candidates : [(src || "").trim()].filter(Boolean);
+
+    setResolvedSrc(FALLBACK_PRODUCT_IMAGE);
+    setIsLoaded(true);
+
+    const loadCandidate = (index: number) => {
+      if (cancelled) return;
+      const candidate = list[index];
+      if (!candidate) return;
+
+      const probe = new Image();
+      timer = window.setTimeout(() => loadCandidate(index + 1), priority ? 16000 : 12000);
+      probe.onload = () => {
+        if (timer) window.clearTimeout(timer);
+        if (!cancelled) {
+          setResolvedSrc(candidate);
+          setIsLoaded(true);
+        }
+      };
+      probe.onerror = () => {
+        if (timer) window.clearTimeout(timer);
+        loadCandidate(index + 1);
+      };
+      probe.referrerPolicy = referrerPolicy;
+      probe.src = candidate;
+    };
+
+    loadCandidate(0);
+
+    return () => {
+      cancelled = true;
+      if (timer) window.clearTimeout(timer);
+    };
+  }, [candidates, priority, referrerPolicy, src]);
+
+  const markLoaded = () => {
+    setIsLoaded(true);
+  };
 
   const handleImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
-    if (fallbackIndex < candidates.length - 1) {
-      setFallbackIndex((idx) => idx + 1);
-      return;
+    if (resolvedSrc !== FALLBACK_PRODUCT_IMAGE) {
+      setResolvedSrc(FALLBACK_PRODUCT_IMAGE);
     }
     withImageFallback(event);
     setIsLoaded(true);
@@ -112,7 +144,7 @@ export default function SmartImage({
         loading={priority ? "eager" : loading}
         fetchPriority={priority ? "high" : "auto"}
         decoding={priority ? "sync" : "async"}
-        onLoad={() => setIsLoaded(true)}
+        onLoad={markLoaded}
         onError={handleImageError}
       />
     </div>

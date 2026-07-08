@@ -295,6 +295,136 @@
     "Category_Attributes": {
       "Brand": "Virplik",
       "Age Range Description": "Newborn"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Newborn",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "44 Pounds",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "itemWeight": {
+        "value": "44 Pounds",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "foldability": {
+        "value": "Foldable",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "weightLimit": {
+            "value": "44 Pounds",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "Adjustable Height : Multiple height and recline positions allow you to find the perfect fit for your baby’s comfort and your table height. Ideal for newborn feeding, sitting support, and upright toddler meals"
+          },
+          {
+            "source": "Features[3]",
+            "text": "Foldable & Travel Design: This high chair folds quickly for easy storage and transport, making it perfect for small homes, dining spaces, or travel. Lightweight yet sturdy for everyday use"
+          },
+          {
+            "source": "Features[5]",
+            "text": "Safe & Stable with Locking Wheels: Equipped with smooth-rolling wheels and secure brakes for easy movement and reliable stability. Built with safety in mind, so you can focus on enjoying mealtime with peace of mind"
+          },
+          {
+            "source": "Product_Description",
+            "text": "Easy-to-Clean: Detachable double-layer tray adjusts to your baby’s needs and is simple to remove for cleaning. The waterproof PU cushion wipes clean in seconds—no more mess stress after meals Adjustable Height : Multipl..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Adjustable Height : Multiple height and recline positions allow you to find the perfect fit for your baby’s comfort and your table height. Ideal for newborn feeding, sitting suppo..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "Easy-to-Clean: Detachable double-layer tray adjusts to your baby’s needs and is simple to remove for cleaning. The waterproof PU cushion wipes clean in seconds—no more mess stress after meals"
+          }
+        ],
+        "parentTip": "Parent's Tip: Easy-to-Clean: Detachable double-layer tray adjusts to your baby’s needs and is simple to remove for cleaning. The waterproof PU cushion wipes clean in seconds—no more mess stress..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "44 Pounds",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          },
+          "foldability": {
+            "value": "Foldable",
+            "source": "detail_text_regex"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Adjustable Height : Multiple height and recline positions allow you to find the perfect fit for your baby’s comfort and your table height. Ideal for newborn feeding, sitting suppo...",
+      "ridingComfort": "Parent's Tip: Easy-to-Clean: Detachable double-layer tray adjusts to your baby’s needs and is simple to remove for cleaning. The waterproof PU cushion wipes clean in seconds—no more mess stress...",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Foldable 3-in-1 Baby High Chair with Wheels, Adjustable Infant & Toddler Feeding Chair, Removable Tray, Detachable PU Cush...",
+      "brand": "Foldable",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Easy-to-Clean: Detachable double-layer tray adjusts to your baby’s needs and is simple to remove for cleaning. The waterproof PU cushion wipes clean in seconds—no more mess stress after meals"
+        },
+        {
+          "source": "Features[2]",
+          "text": "Adjustable Height : Multiple height and recline positions allow you to find the perfect fit for your baby’s comfort and your table height. Ideal for newborn feeding, sitting support, and upright toddler meals"
+        },
+        {
+          "source": "Features[3]",
+          "text": "Foldable & Travel Design: This high chair folds quickly for easy storage and transport, making it perfect for small homes, dining spaces, or travel. Lightweight yet sturdy for everyday use"
+        },
+        {
+          "source": "Features[4]",
+          "text": "Convertible High Chair：Designed to grow with your child, this baby high chair easily converts to meet different stages from baby to toddler. Perfect for feeding, playing, and family mealtime, saving space and money with one versatile chair"
+        },
+        {
+          "source": "Features[5]",
+          "text": "Safe & Stable with Locking Wheels: Equipped with smooth-rolling wheels and secure brakes for easy movement and reliable stability. Built with safety in mind, so you can focus on enjoying mealtime with peace of mind"
+        },
+        {
+          "source": "Product_Description",
+          "text": "Easy-to-Clean: Detachable double-layer tray adjusts to your baby’s needs and is simple to remove for cleaning. The waterproof PU cushion wipes clean in seconds—no more mess stress after meals Adjustable Height : Multiple height and recline positions allow you to find the perfect fit for your baby’s comfort and your table height. Ideal for newborn feeding, sitting support, and upright toddler meals Foldable & Travel Design: This high chair folds quickly for easy storage and transport, making it perfect for small homes, dining spaces, or travel. Lightweight yet sturdy for everyday use"
+        },
+        {
+          "source": "Product_Specifications.Measurements.Maximum Weight Recommendation",
+          "text": "Maximum Weight Recommendation: 44 Pounds"
+        },
+        {
+          "source": "Product_Specifications.Features_Specs.Age Range Description",
+          "text": "Age Range Description: Newborn"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Adjustable Height : Multiple height and recline positions allow you to find the perfect fit for your baby’s comfort and your table height. Ideal for newborn feeding, sitting support, and upright toddler meals",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "Easy-to-Clean: Detachable double-layer tray adjusts to your baby’s needs and is simple to remove for cleaning. The waterproof PU cushion wipes clean in seconds—no more mess stress after meals",
+          "source": "Features[1]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -542,6 +672,156 @@
     "Category_Attributes": {
       "Brand": "Dream On Me",
       "Age Range Description": "3 months to 3 years 33 lbs"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "3 months to 3 years 33 lbs",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "33 Pounds",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "itemWeight": {
+        "value": "33 Pounds",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "foldability": {
+        "value": "Fold – Features a quick-fold mechanism that allows the",
+        "source": "detail_text_regex"
+      },
+      "harness": {
+        "value": "safety harness",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "harness": {
+            "value": "safety harness",
+            "source": "detail_text_regex"
+          },
+          "weightLimit": {
+            "value": "33 Pounds",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "Designed to Grow With Your Child - The Dream On Me TableTalk 2-in-1 High Chair seamlessly transitions from a baby feeding chair to a toddler chair (Conversion Kit Included), offering long-term value for growing families..."
+          },
+          {
+            "source": "Features[2]",
+            "text": "Dual Removable Feeding Trays – Features two trays for added convenience: a color co-ordinated, removable top tray that easily lifts off and is dishwasher safe for quick cleaning, and a fixed base tray that stays securel..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "Comfort Meets Functionality - Features a removabel padded seat made material that wipes clean easily, along with a secure 5-point safety harness to keep your child comfortable and supported during mealtime."
+          },
+          {
+            "source": "Features[5]",
+            "text": "Certified Safe - Designed and tested to meet all applicable ASTM and CPSC safety standards, ensuring a secure and reliable seating option for your child."
+          },
+          {
+            "source": "Product_Description",
+            "text": "The Dream On Me TableTalk 2-in-1 High Chair is thoughtfully designed to grow with your child, seamlessly transitioning from a baby feeding chair to a toddler chair with the included conversion kit. Created with both com..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Designed to Grow With Your Child - The Dream On Me TableTalk 2-in-1 High Chair seamlessly transitions from a baby feeding chair to a toddler chair (Conversion Kit Included), offer..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "33 Pounds",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          },
+          "foldability": {
+            "value": "Fold – Features a quick-fold mechanism that allows the",
+            "source": "detail_text_regex"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "Space-Saving Fold – Features a quick-fold mechanism that allows the chair to fold flat for easy storage, with the removable tray conveniently stored on the back of the chair—perfect for small spaces and easy cleanup aft..."
+          },
+          {
+            "source": "Product_Videos_Detail[6].Title",
+            "text": "The BEST lightweight convertible high chair!"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Item Type Name",
+            "text": "Item Type Name: portable 2-In-1 TableTalk High Chair |Convertible |Compact High Chair |Light weight Portable Highchair"
+          }
+        ],
+        "parentTip": "Parent's Tip: Space-Saving Fold – Features a quick-fold mechanism that allows the chair to fold flat for easy storage, with the removable tray conveniently stored on the back of the chair—perfe..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Designed to Grow With Your Child - The Dream On Me TableTalk 2-in-1 High Chair seamlessly transitions from a baby feeding chair to a toddler chair (Conversion Kit Included), offer...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: Space-Saving Fold – Features a quick-fold mechanism that allows the chair to fold flat for easy storage, with the removable tray conveniently stored on the back of the chair—perfe..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Dream On Me Portable 2-in-1 Tabletalk High Chair, Convertible Compact High Chair, Light Weight Portable Highchair, Grey",
+      "brand": "Dream",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Designed to Grow With Your Child - The Dream On Me TableTalk 2-in-1 High Chair seamlessly transitions from a baby feeding chair to a toddler chair (Conversion Kit Included), offering long-term value for growing families. Designed with safety, comfort, and style in mind, it supports your child through every mealtime milestone."
+        },
+        {
+          "source": "Features[2]",
+          "text": "Dual Removable Feeding Trays – Features two trays for added convenience: a color co-ordinated, removable top tray that easily lifts off and is dishwasher safe for quick cleaning, and a fixed base tray that stays securely attached to the chair for added stability during mealtime. Both trays are designed for easy, everyday use."
+        },
+        {
+          "source": "Features[3]",
+          "text": "Space-Saving Fold – Features a quick-fold mechanism that allows the chair to fold flat for easy storage, with the removable tray conveniently stored on the back of the chair—perfect for small spaces and easy cleanup after meals."
+        },
+        {
+          "source": "Features[4]",
+          "text": "Comfort Meets Functionality - Features a removabel padded seat made material that wipes clean easily, along with a secure 5-point safety harness to keep your child comfortable and supported during mealtime."
+        },
+        {
+          "source": "Features[5]",
+          "text": "Certified Safe - Designed and tested to meet all applicable ASTM and CPSC safety standards, ensuring a secure and reliable seating option for your child."
+        },
+        {
+          "source": "Features[6]",
+          "text": "Product Specifications – High chair measures 38\" H × 28\" W × 23\" D; junior chair measures 24\" H × 17.5\" W × 16\" D.Suitable for children from 6 months to 3 years old, supporting up to 33 lbs, and includes a 1-year warranty to ensure long-lasting quality and reliability."
+        },
+        {
+          "source": "Product_Description",
+          "text": "The Dream On Me TableTalk 2-in-1 High Chair is thoughtfully designed to grow with your child, seamlessly transitioning from a baby feeding chair to a toddler chair with the included conversion kit. Created with both comfort and convenience in mind, it features dual removable feeding trays—a color-coordinated, dishwasher-safe top tray for easy cleanup and a secure base tray for added stability during mealtime. The chair folds flat for compact storage, with the tray neatly stored on the back, making it ideal for homes where space matters. A padded, easy-to-clean seat and a secure 5-point safety harness ensure your child stays comfortable and supported at every stage. Built to meet all ASTM and CPSC safety standards, the TableTalk High Chair measures 38\" H × 28\" W × 23\" D in high chair mode and 24\" H × 17.5\" W × 16\" D as a junior chair. Suitable for children from 6 months to 3 years and supporting up to 33 lbs, it also includes a 1-year manufacturer warranty for added peace of mind."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Effortless Assembly, Adjustable Comfort, Easy Cleaning Portable High Chair"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Designed to Grow With Your Child - The Dream On Me TableTalk 2-in-1 High Chair seamlessly transitions from a baby feeding chair to a toddler chair (Conversion Kit Included), offering long-term value for growing families...",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "Space-Saving Fold – Features a quick-fold mechanism that allows the chair to fold flat for easy storage, with the removable tray conveniently stored on the back of the chair—perfect for small spaces and easy cleanup aft...",
+          "source": "Features[3]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -1653,6 +1933,128 @@
     "Category_Attributes": {
       "Brand": "Evenflo",
       "Age Range Description": "Toddler"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Toddler",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "50 Pounds",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "itemWeight": {
+        "value": "50 Pounds",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "harness": {
+        "value": "5-point harness",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "harness": {
+            "value": "5-point harness",
+            "source": "detail_text_regex"
+          },
+          "weightLimit": {
+            "value": "50 Pounds",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "KEEP LITTLE ONES SECURE: Includes a 5-point harness to help keep wiggly babies in place"
+          },
+          {
+            "source": "Product_Description",
+            "text": "Get a taste for the highly rated high chair designed to serve you long past infancy: the versatile 4-in-1 Eat and Grow Convertible High Chair. Converting with ease through four modes that adapt to your growing and incre..."
+          }
+        ],
+        "parentTip": "Parent's Tip: KEEP LITTLE ONES SECURE: Includes a 5-point harness to help keep wiggly babies in place"
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[4]",
+            "text": "KEEP IT LOOKING FRESH: Includes a machine-washable seat pad for easy cleaning, with wipeable surfaces, including a removable tray"
+          }
+        ],
+        "parentTip": "Parent's Tip: KEEP IT LOOKING FRESH: Includes a machine-washable seat pad for easy cleaning, with wipeable surfaces, including a removable tray"
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "50 Pounds",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: KEEP LITTLE ONES SECURE: Includes a 5-point harness to help keep wiggly babies in place",
+      "ridingComfort": "Parent's Tip: KEEP IT LOOKING FRESH: Includes a machine-washable seat pad for easy cleaning, with wipeable surfaces, including a removable tray",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Evenflo Eat and Grow 4-in-1 Convertible High Chair (Pop Star White)",
+      "brand": "Evenflo",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "GROW FROM FOOD TO FUN: Easily converts as your child grows — from Infant High Chair to Toddler Dining Chair and Tray to Toddler Standalone Chair, and finally to Big Kid Table and Chair"
+        },
+        {
+          "source": "Features[2]",
+          "text": "ADAPT TO EACH STAGE: Offers extended use across 4 modes for children age 6 months all the way up to 50 lb. (22.6 kg)"
+        },
+        {
+          "source": "Features[3]",
+          "text": "KEEP LITTLE ONES SECURE: Includes a 5-point harness to help keep wiggly babies in place"
+        },
+        {
+          "source": "Features[4]",
+          "text": "KEEP IT LOOKING FRESH: Includes a machine-washable seat pad for easy cleaning, with wipeable surfaces, including a removable tray"
+        },
+        {
+          "source": "Product_Description",
+          "text": "Get a taste for the highly rated high chair designed to serve you long past infancy: the versatile 4-in-1 Eat and Grow Convertible High Chair. Converting with ease through four modes that adapt to your growing and increasingly independent child, the sturdy Eat and Grow will take you from 6 months of age all the way up to 50 lb (22.6 kg) — from baby food feedings to spaghetti on their own to coloring sessions and beyond More than just a high chair, the Eat and Grow converts easily as your child grows. Mode 1 - Infant High Chair: A full-size, small-space-friendly high chair that puts you and your child at the right height while providing secure seating for infant feedings; for babies at least 6 months of age and weighing up to 40 lb (18 kg). Mode 2 - Toddler Dining Chair and Tray: A meal-time chair that lowers to the floor for when your child is more independent and wants their feet on the ground; for children weighing up to 50 lb (22.6 kg). Mode 3 - Standalone Toddler Chair: A comfy toddler chair (with the tray removed) that allows your big kid to sit comfortably for reading or play; for kids weighing up to 50 lb (22.6 kg). Mode 4 - Big Kid Table and Chair: Converts to a playtime table and chair for your independent kiddo — ready for snacks, crafts and playdates; for kids weighing up to 50 lb (22.6 kg). The multi-use Eat and Grow offers the convenience of a removable and washable tray, a colorful, easy-to-clean seat pad, a secure 5-point harness (removable in modes 3 and 4), and sturdy legs. Ready to grow from food to fun? The 4-in-1 Eat and Grow Convertible High Chair is the right choice."
+        },
+        {
+          "source": "Product_Specifications.Measurements.Maximum Weight Recommendation",
+          "text": "Maximum Weight Recommendation: 50 Pounds"
+        },
+        {
+          "source": "Product_Specifications.Features_Specs.Age Range Description",
+          "text": "Age Range Description: Toddler"
+        },
+        {
+          "source": "Product_Specifications.Features_Specs.UPC",
+          "text": "UPC: 032884201624"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "KEEP LITTLE ONES SECURE: Includes a 5-point harness to help keep wiggly babies in place",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "KEEP IT LOOKING FRESH: Includes a machine-washable seat pad for easy cleaning, with wipeable surfaces, including a removable tray",
+          "source": "Features[4]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -2148,7 +2550,159 @@
     "Local_Image_Path": "../scrape_store/high_chair/Jeep/Rank_Similar_ASIN_B0CXVWXJZS_Jeep Milestone 6-in-1 High Chair by Delta Children/images/primary.jpg",
     "Local_Video_Paths": [],
     "Last_Updated": "2026-07-08T05:12:38.123046",
-    "Similar_Items_Quick_Delivery": []
+    "Similar_Items_Quick_Delivery": [],
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "For ages 6 months to 3 years or until child reaches 35-inches",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "125 Pounds",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "itemWeight": {
+        "value": "125 Pounds",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "harness": {
+        "value": "safety harness",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "harness": {
+            "value": "safety harness",
+            "source": "detail_text_regex"
+          },
+          "weightLimit": {
+            "value": "125 Pounds",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[7]",
+            "text": "Adjustable meal tray with 3 positions"
+          },
+          {
+            "source": "Features[8]",
+            "text": "SAFE OPTION: Five-point safety harness"
+          },
+          {
+            "source": "Features[9]",
+            "text": "JPMA certified to meet or exceed all ASTM and applicable CPSC standards"
+          },
+          {
+            "source": "Features[10]",
+            "text": "Anti-slip rubber feet reduces unwanted sliding"
+          },
+          {
+            "source": "Product_Description",
+            "text": "The Jeep Milestone 6-in-1 High Chair by Delta Children was especially designed for your child over their first few years. As they develop, the Milestone easily transforms from a high chair to a stool, booster seat, floo..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Adjustable meal tray with 3 positions"
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "Use as an infant high chair, stool, booster seat, floor toddler chair, activity table and a desk and chair"
+          },
+          {
+            "source": "Features[5]",
+            "text": "EASY TO CLEAN: Water-resistant leatherette seat cover is easy to wipe clean"
+          },
+          {
+            "source": "Features[6]",
+            "text": "Easy to wipe clean with smooth surfaces from top to bottom |No hidden crevices for food to get stuck"
+          }
+        ],
+        "parentTip": "Parent's Tip: Use as an infant high chair, stool, booster seat, floor toddler chair, activity table and a desk and chair"
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "125 Pounds",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[4]",
+            "text": "No tools needed for assembly, easy snap-in design allows you to set up quickly"
+          }
+        ],
+        "parentTip": "Parent's Tip: No tools needed for assembly, easy snap-in design allows you to set up quickly"
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Adjustable meal tray with 3 positions",
+      "ridingComfort": "Parent's Tip: Use as an infant high chair, stool, booster seat, floor toddler chair, activity table and a desk and chair",
+      "lightAndEasy": "Parent's Tip: No tools needed for assembly, easy snap-in design allows you to set up quickly"
+    },
+    "Expert_Review_Inputs": {
+      "title": "Jeep Milestone 6-in-1 High Chair by Delta Children - High Chair Converts to Stool, Booster Seat, Toddler Chair, Activity Table and Desk and Chair, Sage Green",
+      "brand": "Jeep",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "6 MODES OF USE: This convertible high chair has a variety of modes to suit your baby’s next stage of development"
+        },
+        {
+          "source": "Features[2]",
+          "text": "Use as an infant high chair, stool, booster seat, floor toddler chair, activity table and a desk and chair"
+        },
+        {
+          "source": "Features[3]",
+          "text": "STYLISH DESIGN: The stylish, contemporary silhouette and neutral color palette of this high chair will complement your home"
+        },
+        {
+          "source": "Features[4]",
+          "text": "No tools needed for assembly, easy snap-in design allows you to set up quickly"
+        },
+        {
+          "source": "Features[5]",
+          "text": "EASY TO CLEAN: Water-resistant leatherette seat cover is easy to wipe clean"
+        },
+        {
+          "source": "Features[6]",
+          "text": "Easy to wipe clean with smooth surfaces from top to bottom |No hidden crevices for food to get stuck"
+        },
+        {
+          "source": "Features[7]",
+          "text": "Adjustable meal tray with 3 positions"
+        },
+        {
+          "source": "Features[8]",
+          "text": "SAFE OPTION: Five-point safety harness"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Adjustable meal tray with 3 positions",
+          "source": "Features[7]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "Use as an infant high chair, stool, booster seat, floor toddler chair, activity table and a desk and chair",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "No tools needed for assembly, easy snap-in design allows you to set up quickly",
+          "source": "Features[4]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
+    }
   },
   {
     "Rank": "Similar",
@@ -2440,6 +2994,148 @@
     ],
     "Local_Image_Path": "../scrape_store/high_chair/Dream/Rank_Similar_ASIN_B0CSFZBBRW_Dream On Me TableTalk 2-in-1 High Chair for Baby/images/primary.jpg",
     "Local_Video_Paths": [],
-    "Last_Updated": "2026-07-08T05:12:36.302354"
+    "Last_Updated": "2026-07-08T05:12:36.302354",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "3 months to 3 years 33 lbs",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "33 Pounds",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "itemWeight": {
+        "value": "33 Pounds",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "foldability": {
+        "value": "Fold – Features a quick-fold mechanism that allows the",
+        "source": "detail_text_regex"
+      },
+      "harness": {
+        "value": "safety harness",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "harness": {
+            "value": "safety harness",
+            "source": "detail_text_regex"
+          },
+          "weightLimit": {
+            "value": "33 Pounds",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "Designed to Grow With Your Child - The Dream On Me TableTalk 2-in-1 High Chair seamlessly transitions from a baby feeding chair to a toddler chair (Conversion Kit Included), offering long-term value for growing families..."
+          },
+          {
+            "source": "Features[2]",
+            "text": "Dual Removable Feeding Trays – Features two trays for added convenience: a color co-ordinated, removable top tray that easily lifts off and is dishwasher safe for quick cleaning, and a fixed base tray that stays securel..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "Comfort Meets Functionality - Features a removable padded seat made material that wipes clean easily, along with a secure 5-point safety harness to keep your child comfortable and supported during mealtime."
+          },
+          {
+            "source": "Features[5]",
+            "text": "Certified Safe - Designed and tested to meet all applicable ASTM and CPSC safety standards, ensuring a secure and reliable seating option for your child."
+          },
+          {
+            "source": "Product_Description",
+            "text": "The Dream On Me TableTalk 2-in-1 High Chair is thoughtfully designed to grow with your child, seamlessly transitioning from a baby feeding chair to a toddler chair with the included conversion kit. Created with both com..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Designed to Grow With Your Child - The Dream On Me TableTalk 2-in-1 High Chair seamlessly transitions from a baby feeding chair to a toddler chair (Conversion Kit Included), offer..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "33 Pounds",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          },
+          "foldability": {
+            "value": "Fold – Features a quick-fold mechanism that allows the",
+            "source": "detail_text_regex"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "Space-Saving Fold – Features a quick-fold mechanism that allows the chair to fold flat for easy storage, with the removable tray conveniently stored on the back of the chair—perfect for small spaces and easy cleanup aft..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Space-Saving Fold – Features a quick-fold mechanism that allows the chair to fold flat for easy storage, with the removable tray conveniently stored on the back of the chair—perfe..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Designed to Grow With Your Child - The Dream On Me TableTalk 2-in-1 High Chair seamlessly transitions from a baby feeding chair to a toddler chair (Conversion Kit Included), offer...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: Space-Saving Fold – Features a quick-fold mechanism that allows the chair to fold flat for easy storage, with the removable tray conveniently stored on the back of the chair—perfe..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Dream On Me TableTalk 2-in-1 High Chair for Baby & Toddler – Convertible High Chair to Junior Chair, Removable Padded Seat, D",
+      "brand": "Dream",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Designed to Grow With Your Child - The Dream On Me TableTalk 2-in-1 High Chair seamlessly transitions from a baby feeding chair to a toddler chair (Conversion Kit Included), offering long-term value for growing families. Designed with safety, comfort, and style in mind, it supports your child through every mealtime milestone."
+        },
+        {
+          "source": "Features[2]",
+          "text": "Dual Removable Feeding Trays – Features two trays for added convenience: a color co-ordinated, removable top tray that easily lifts off and is dishwasher safe for quick cleaning, and a fixed base tray that stays securely attached to the chair for added stability during mealtime. Both trays are designed for easy, everyday use."
+        },
+        {
+          "source": "Features[3]",
+          "text": "Space-Saving Fold – Features a quick-fold mechanism that allows the chair to fold flat for easy storage, with the removable tray conveniently stored on the back of the chair—perfect for small spaces and easy cleanup after meals."
+        },
+        {
+          "source": "Features[4]",
+          "text": "Comfort Meets Functionality - Features a removable padded seat made material that wipes clean easily, along with a secure 5-point safety harness to keep your child comfortable and supported during mealtime."
+        },
+        {
+          "source": "Features[5]",
+          "text": "Certified Safe - Designed and tested to meet all applicable ASTM and CPSC safety standards, ensuring a secure and reliable seating option for your child."
+        },
+        {
+          "source": "Features[6]",
+          "text": "Product Specifications – High chair measures 38\" H × 28\" W × 23\" D; junior chair measures 24\" H × 17.5\" W × 16\" D.Suitable for children from 6 months to 3 years old, supporting up to 33 lbs, and includes a 1-year warranty to ensure long-lasting quality and reliability."
+        },
+        {
+          "source": "Product_Description",
+          "text": "The Dream On Me TableTalk 2-in-1 High Chair is thoughtfully designed to grow with your child, seamlessly transitioning from a baby feeding chair to a toddler chair with the included conversion kit. Created with both comfort and convenience in mind, it features dual removable feeding trays—a color-coordinated, dishwasher-safe top tray for easy cleanup and a secure base tray for added stability during mealtime. The chair folds flat for compact storage, with the tray neatly stored on the back, making it ideal for homes where space matters. A padded, easy-to-clean seat and a secure 5-point safety harness ensure your child stays comfortable and supported at every stage. Built to meet all ASTM and CPSC safety standards, the TableTalk High Chair measures 38\" H × 28\" W × 23\" D in high chair mode and 24\" H × 17.5\" W × 16\" D as a junior chair. Suitable for children from 6 months to 3 years and supporting up to 33 lbs, it also includes a 1-year manufacturer warranty for added peace of mind."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Effortless Assembly, Adjustable Comfort, Easy Cleaning Portable High Chair"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Designed to Grow With Your Child - The Dream On Me TableTalk 2-in-1 High Chair seamlessly transitions from a baby feeding chair to a toddler chair (Conversion Kit Included), offering long-term value for growing families...",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "Space-Saving Fold – Features a quick-fold mechanism that allows the chair to fold flat for easy storage, with the removable tray conveniently stored on the back of the chair—perfect for small spaces and easy cleanup aft...",
+          "source": "Features[3]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
+    }
   }
 ]

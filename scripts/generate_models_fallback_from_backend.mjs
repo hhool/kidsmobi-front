@@ -20,9 +20,9 @@ const CATEGORY_MAP = {
   baby_carrier: { category: "stroller", categoryId: "baby_carrier", ageRange: "0-2 years", heightRange: [45, 95], compliance: ["CE"] },
   high_chair: { category: "stroller", categoryId: "high_chair", ageRange: "0-4 years", heightRange: [45, 105], compliance: ["CE"] },
   playard: { category: "stroller", categoryId: "playard", ageRange: "0-3 years", heightRange: [45, 100], compliance: ["CE"] },
-  kids_push_ride_ons: { category: "electric_car", categoryId: "kids_push_ride_ons", ageRange: "1-5 years", heightRange: [70, 120], compliance: ["ASTM F963"] },
-  kids_pull_along_wagons: { category: "stroller", categoryId: "kids_pull_along_wagons", ageRange: "1-8 years", heightRange: [70, 140], compliance: ["ASTM F963"] },
 };
+
+const EXCLUDED_CATEGORY_KEYS = new Set(["kids_push_ride_ons", "kids_pull_along_wagons"]);
 
 const MATERIAL_PATTERNS = [
   [/carbon|碳/, "Carbon Fiber"],
@@ -169,6 +169,7 @@ async function buildMirrorImageIndex() {
   for (const categoryEntry of categoryDirs) {
     if (!categoryEntry.isDirectory()) continue;
     const categoryKey = categoryEntry.name;
+    if (EXCLUDED_CATEGORY_KEYS.has(categoryKey)) continue;
     const categoryPath = path.join(assetsRoot, categoryKey);
     const brandDirs = await fs.readdir(categoryPath, { withFileTypes: true }).catch(() => []);
     const asinMap = new Map();
@@ -220,6 +221,7 @@ async function gatherProducts() {
   for (const entry of entries) {
     if (!entry.isDirectory()) continue;
     const categoryKey = entry.name;
+    if (EXCLUDED_CATEGORY_KEYS.has(categoryKey)) continue;
     const categoryDir = path.join(dataRoot, categoryKey);
     const files = await fs.readdir(categoryDir);
     const classificationFile = files.find((name) => name.endsWith("_classification.json"));

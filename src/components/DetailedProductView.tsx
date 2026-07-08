@@ -12,7 +12,8 @@ import {
   ThumbsDown,
   Maximize2,
   Play,
-  Image as ImageIcon
+  Image as ImageIcon,
+  ExternalLink
 } from "lucide-react";
 import { 
   Radar, 
@@ -48,26 +49,34 @@ function resolveCustomersSay(product: Product, lang: "zh" | "en"): string {
     zh?: { customersSay?: string };
     en?: { customersSay?: string };
   })[lang]?.customersSay;
-  return String(localized || product.customers_say || "").trim();
+  return String(localized || product.customers_say || product.customersSay || "").trim();
 }
 
 function resolveVerdictText(product: Product, lang: "zh" | "en"): string {
   const verdict = String(product.editorVerdict || "").trim();
   const customersSay = resolveCustomersSay(product, lang);
   const isVerdictPlaceholder = isPlaceholderVerdict(verdict);
+
+  if (customersSay) {
+    return customersSay;
+  }
   
   // If verdict is not placeholder, use it
   if (!isVerdictPlaceholder && verdict) {
     return verdict;
   }
   
-  // If we have customersSay, use it
-  if (customersSay) {
-    return customersSay;
-  }
-  
   // Return empty string - no placeholder text for SEO health
   return "";
+}
+
+function getVideoRenderType(url: string): "direct" | "hls" | "embed" | "none" {
+  const normalized = String(url || "").trim().toLowerCase();
+  if (!normalized) return "none";
+  if (/\.(mp4|webm|ogg)(\?|#|$)/.test(normalized)) return "direct";
+  if (/\.m3u8(\?|#|$)/.test(normalized)) return "hls";
+  if (/youtube\.com|youtu\.be|vimeo\.com/.test(normalized)) return "embed";
+  return "embed";
 }
 
 interface DetailedProductViewProps {
@@ -116,7 +125,9 @@ export default function DetailedProductView({
     },
   ].filter((item) => item.value && item.value.trim());
   const imageSet = resolveProductImages(displayProduct);
-  const hasVideo = Boolean(product.videoUrl);
+  const videoUrl = String(product.videoUrl || product.videos?.[0]?.url || "").trim();
+  const videoRenderType = getVideoRenderType(videoUrl);
+  const hasVideo = videoRenderType !== "none";
   const hasFeatureImages = imageSet.featureUrls.length > 0;
   const [activeMediaTab, setActiveMediaTab] = useState<"gallery" | "feature" | "video">("gallery");
 
@@ -373,9 +384,34 @@ export default function DetailedProductView({
             />
           ) : (
             <div className="aspect-video w-full">
-              {hasVideo ? (
+              {hasVideo && videoRenderType === "direct" ? (
+                <video
+                  src={videoUrl}
+                  className="w-full h-full rounded-2xl bg-black"
+                  title={`${product.name} Video`}
+                  controls
+                  playsInline
+                  preload="metadata"
+                />
+              ) : hasVideo && videoRenderType === "hls" ? (
+                <div className="w-full h-full bg-slate-900 rounded-2xl flex flex-col items-center justify-center gap-4 text-center p-8">
+                  <Play className="w-10 h-10 text-orange-400" />
+                  <p className="text-sm font-bold text-white max-w-md">
+                    {lang === "en" ? "This product video is available as an HLS stream." : "该产品视频为 HLS 流媒体资源。"}
+                  </p>
+                  <a
+                    href={videoUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-slate-900 text-xs font-black uppercase"
+                  >
+                    <ExternalLink className="w-3 h-3" />
+                    {lang === "en" ? "Open Video" : "打开视频"}
+                  </a>
+                </div>
+              ) : hasVideo ? (
                 <iframe 
-                  src={product.videoUrl} 
+                  src={videoUrl} 
                   className="w-full h-full rounded-2xl"
                   title={`${product.name} Video`}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 

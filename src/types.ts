@@ -79,9 +79,14 @@ export interface Product {
   safetyScore?: number;
   weightScore?: number;
   geometryScore?: number;
+  rating?: { display?: string; value?: number };
+  reviews?: { display?: string; count?: number };
+  userRating?: number;
+  reviewCount?: number;
   pros?: string[];
   cons?: string[];
   customers_say?: string;
+  customersSay?: string;
   safetyCertification?: string[];
   editorVerdict?: string;
 }

@@ -19,8 +19,6 @@ const CATEGORY_FOLDER_TO_TYPE: Record<string, ProductCategory> = {
   baby_carrier: "stroller",
   high_chair: "stroller",
   playard: "stroller",
-  kids_push_ride_ons: "stroller",
-  kids_pull_along_wagons: "stroller",
 };
 
 /**
@@ -37,9 +35,11 @@ const REPORT_FILE_TO_CATEGORY: Record<string, string> = {
   "baby_carrier_report.json": "baby_carrier",
   "high_chair_report.json": "high_chair",
   "playard_report.json": "playard",
-  "kids_push_ride_ons_report.json": "kids_push_ride_ons",
-  "kids_pull_along_wagons_report.json": "kids_pull_along_wagons",
 };
+
+const REPORT_DATA_VERSION = "20260709-customer-say-all-categories";
+const STORE_MEDIA_ORIGIN = "https://store.poki2.online";
+const AGE_RANGE_NEEDS_SOURCE_CONFIRMATION = "Confirm from source";
 
 interface RawProduct {
   Rank?: string;
@@ -47,14 +47,70 @@ interface RawProduct {
   Title?: string;
   Price?: string;
   Rating?: string;
+  Reviews?: string;
+  customers_say?: string;
+  customersSay?: string;
+  Customers_Say?: string;
+  Customer_Summary?: string;
+  Review_Summary?: string;
   Local_Image_Path?: string;
   Local_Image_Paths?: string[];
+  Local_Video_Paths?: string[];
   Product_Videos?: any[];
+  Product_Videos_Detail?: any[];
+  Product_Videos_MP4?: any;
+  Product_Videos_M3U8?: any;
   Product_Description?: string;
   Category_Attributes?: Record<string, string>;
   Product_Specifications?: Record<string, any>;
   ASIN?: string;
   [key: string]: any;
+}
+
+function normalizeReportMediaUrl(raw: unknown): string {
+  if (typeof raw !== "string") return "";
+  const text = raw.trim().replace(/\\/g, "/");
+  if (!text) return "";
+  const lower = text.toLowerCase();
+  if (lower.startsWith("about:blank") || lower.includes("external-url-removed")) return "";
+  if (/^https?:\/\//i.test(text) || text.startsWith("data:")) return text;
+
+  const marker = "scrape_store/";
+  const markerIndex = text.indexOf(marker);
+  const mediaPath = markerIndex >= 0 ? text.slice(markerIndex + marker.length) : text.replace(/^\.\.\/+/, "").replace(/^\/+/, "");
+  return `${STORE_MEDIA_ORIGIN}/${mediaPath.split("/").map((part) => encodeURIComponent(part)).join("/")}`;
+}
+
+function extractStringList(value: unknown): string[] {
+  if (!value) return [];
+  if (typeof value === "string") return [value];
+  if (Array.isArray(value)) return value.flatMap((item) => extractStringList(item));
+  if (typeof value === "object") {
+    const record = value as Record<string, unknown>;
+    return [
+      record.url,
+      record.Url,
+      record.URL,
+      record.Video_URL,
+      record.video_url,
+      record.videoUrl,
+      record.Local_Video_Path,
+      record.Local_Video_Paths,
+    ].flatMap((item) => extractStringList(item));
+  }
+  return [];
+}
+
+function dedupeMediaUrls(urls: string[]): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const url of urls) {
+    const normalized = normalizeReportMediaUrl(url);
+    if (!normalized || seen.has(normalized)) continue;
+    seen.add(normalized);
+    out.push(normalized);
+  }
+  return out;
 }
 
 /**
@@ -72,15 +128,15 @@ function parseWeight(weightStr: string | undefined): number {
 function extractImageUrl(product: RawProduct): string {
   // Try Local_Image_Path first
   if (product.Local_Image_Path) {
-    return product.Local_Image_Path;
+    return normalizeReportMediaUrl(product.Local_Image_Path);
   }
   // Try first item in Local_Image_Paths array
   if (Array.isArray(product.Local_Image_Paths) && product.Local_Image_Paths.length > 0) {
-    return product.Local_Image_Paths[0];
+    return normalizeReportMediaUrl(product.Local_Image_Paths[0]);
   }
   // Try Listing_Image_URL from scrape data
   if (product.Listing_Image_URL) {
-    return product.Listing_Image_URL;
+    return normalizeReportMediaUrl(product.Listing_Image_URL);
   }
   return "";
 }
@@ -90,20 +146,62 @@ function extractImageUrl(product: RawProduct): string {
  */
 function extractGalleryUrls(product: RawProduct): string[] {
   if (Array.isArray(product.Local_Image_Paths)) {
-    return product.Local_Image_Paths.slice(0, 10); // Limit to 10 images
+    return dedupeMediaUrls(product.Local_Image_Paths).slice(0, 10); // Limit to 10 images
   }
   if (product.Local_Image_Path) {
-    return [product.Local_Image_Path];
+    return dedupeMediaUrls([product.Local_Image_Path]);
   }
   return [];
+}
+
+function extractProductVideos(product: RawProduct): { url: string; title?: string; source: "scraped"; order: number }[] {
+  const urls = dedupeMediaUrls([
+    ...extractStringList(product.Local_Video_Paths),
+    ...extractStringList(product.Product_Videos),
+    ...extractStringList(product.Product_Videos_Detail),
+    ...extractStringList(product.Product_Videos_MP4),
+    ...extractStringList(product.Product_Videos_M3U8),
+  ]);
+
+  return urls.map((url, index) => ({
+    url,
+    title: `product-video-${index + 1}`,
+    source: "scraped" as const,
+    order: index,
+  }));
 }
 
 /**
  * Extract age range from category attributes
  */
-function extractAgeRange(attrs: Record<string, string> | undefined): string {
-  if (!attrs) return "All Ages";
-  return attrs["Age Range Description"] || attrs["Age Range"] || "All Ages";
+function normalizeAgeCandidate(value: unknown): string {
+  if (typeof value !== "string") return "";
+  const text = value.replace(/\s+/g, " ").trim();
+  if (!text) return "";
+  if (/^(all\s*ages?|all)$/i.test(text)) return "";
+  if (/^(n\/?a|na|unknown|not specified|unspecified|null|none)$/i.test(text)) return "";
+  return text;
+}
+
+function extractAgeRange(product: RawProduct, attrs: Record<string, string> | undefined): string {
+  const candidates = [
+    attrs?.["Age Range Description"],
+    attrs?.["Age Range"],
+    attrs?.["Manufacturer recommended age"],
+    attrs?.["Manufacturer Recommended Age"],
+    attrs?.["Target Age Range"],
+    attrs?.["Recommended Uses For Product"],
+    product.Age_Range,
+    product.AgeRange,
+    product.age_range,
+    product.ageRange,
+    product.Recommended_Age,
+    product.recommended_age,
+    product.Manufacturer_Recommended_Age,
+    product.Target_Age,
+  ];
+  const confirmed = candidates.map(normalizeAgeCandidate).find(Boolean);
+  return confirmed || AGE_RANGE_NEEDS_SOURCE_CONFIRMATION;
 }
 
 /**
@@ -169,6 +267,54 @@ function parsePrice(priceStr: string | undefined): number {
   return match ? parseFloat(match[0]) : 0;
 }
 
+function parseRating(ratingStr: string | undefined): number | undefined {
+  if (!ratingStr) return undefined;
+  const match = ratingStr.match(/\d+(?:\.\d+)?/);
+  if (!match) return undefined;
+  const rating = parseFloat(match[0]);
+  return Number.isFinite(rating) ? rating : undefined;
+}
+
+function parseReviewCount(reviewStr: string | undefined): number | undefined {
+  if (!reviewStr) return undefined;
+  const matches = reviewStr.match(/\(?([\d,]{2,})\)?/g) || reviewStr.match(/\d+/g);
+  const last = matches?.at(-1)?.replace(/[(),]/g, "");
+  const count = last ? parseInt(last, 10) : NaN;
+  return Number.isFinite(count) ? count : undefined;
+}
+
+function extractCustomerReviewText(specs: Record<string, any> | undefined): string {
+  const itemDetails = specs?.["Item_Details"];
+  if (itemDetails && typeof itemDetails === "object") {
+    return String(itemDetails["Customer Reviews"] || itemDetails["Customer_Reviews"] || "").trim();
+  }
+  return "";
+}
+
+function buildCustomersSay(rating: number | undefined, reviewCount: number | undefined): string {
+  if (rating !== undefined && reviewCount) {
+    return `Rated ${rating.toFixed(1)} out of 5 from ${reviewCount.toLocaleString()} customer reviews.`;
+  }
+  if (rating !== undefined) {
+    return `Rated ${rating.toFixed(1)} out of 5 by customers.`;
+  }
+  if (reviewCount) {
+    return `Backed by ${reviewCount.toLocaleString()} customer reviews.`;
+  }
+  return "";
+}
+
+function pickExplicitCustomersSay(rawProduct: RawProduct): string {
+  return String(
+    rawProduct.customers_say ||
+    rawProduct.customersSay ||
+    rawProduct.Customers_Say ||
+    rawProduct.Customer_Summary ||
+    rawProduct.Review_Summary ||
+    ""
+  ).trim();
+}
+
 /**
  * Determine stroller subcategory based on product title and description
  */
@@ -223,6 +369,13 @@ export function transformReportProduct(
 
   const attrs = rawProduct.Category_Attributes || {};
   const specs = rawProduct.Product_Specifications || {};
+  const customerReviewText = extractCustomerReviewText(specs);
+  const ratingDisplay = rawProduct.Rating || customerReviewText;
+  const reviewsDisplay = rawProduct.Reviews || customerReviewText;
+  const userRating = parseRating(ratingDisplay);
+  const reviewCount = parseReviewCount(reviewsDisplay);
+  const customersSay = pickExplicitCustomersSay(rawProduct) || buildCustomersSay(userRating, reviewCount);
+  const videos = extractProductVideos(rawProduct);
 
   const product: Product = {
     id,
@@ -236,12 +389,19 @@ export function transformReportProduct(
     brakeType: extractBrakeType(attrs, specs),
     tireType: extractTireType(attrs, specs),
     price: parsePrice(rawProduct.Price),
-    ageRange: extractAgeRange(attrs),
+    ageRange: extractAgeRange(rawProduct, attrs),
     heightRange: [45, 95], // Default range, can be enhanced
     compliance: [],
     imageUrl,
     galleryUrls: extractGalleryUrls(rawProduct),
-    videoUrl: rawProduct.Product_Videos?.[0]?.Video_URL,
+    videoUrl: videos[0]?.url,
+    videos,
+    rating: { display: ratingDisplay || "N/A", value: userRating },
+    reviews: { display: reviewsDisplay || "N/A", count: reviewCount },
+    userRating,
+    reviewCount,
+    customers_say: customersSay,
+    customersSay,
   };
 
   return product;
@@ -257,7 +417,7 @@ export async function loadBatchProducts(): Promise<Product[]> {
     // Load each category report
     for (const [reportFile, categoryId] of Object.entries(REPORT_FILE_TO_CATEGORY)) {
       try {
-        const response = await fetch(`/data/reports/${reportFile}`);
+        const response = await fetch(`/data/reports/${reportFile}?v=${REPORT_DATA_VERSION}`);
         if (!response.ok) {
           console.warn(`Failed to load ${reportFile}: ${response.status}`);
           continue;

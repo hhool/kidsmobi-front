@@ -301,6 +301,187 @@
       "Weight Limit": "110 Pounds",
       "Brake Style": "Rear Braking",
       "Suspension Type": "Rigid"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "2 years old+ Kids",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "110 Pounds",
+        "source": "Category_Attributes.Weight Limit"
+      },
+      "itemWeight": {
+        "value": "110 Pounds",
+        "source": "Category_Attributes.Weight Limit"
+      },
+      "frameMaterial": {
+        "value": "Aluminum",
+        "source": "Category_Attributes.Frame Material"
+      },
+      "wheelSize": {
+        "value": "4.5 Inches",
+        "source": "Category_Attributes.Wheel Size"
+      },
+      "brakeSystem": {
+        "value": "Rear Braking",
+        "source": "Category_Attributes.Brake Style"
+      },
+      "tireType": {
+        "value": "Solid",
+        "source": "Product_Specifications.Features_Specs.Wheel Type"
+      },
+      "dimensions": {
+        "value": "22\"L x 11\"W x 30\"H",
+        "source": "Product_Specifications.Measurements.Product Dimensions"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "brakeSystem": {
+            "value": "Rear Braking",
+            "source": "Category_Attributes.Brake Style"
+          },
+          "frameMaterial": {
+            "value": "Aluminum",
+            "source": "Category_Attributes.Frame Material"
+          },
+          "weightLimit": {
+            "value": "110 Pounds",
+            "source": "Category_Attributes.Weight Limit"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "EXCITING GLOWING WHEELS: The 3 wheels are equipped with powerful LEDs, igniting a brilliant glow, captivating the young riders with its enchanting charm. Safety is never compromised, as the scooter becomes a captivating..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "SAFE & SMOOTH RIDE EXPERIENCE: Gotrax KS1 kick scooter is equipped with ABEC-7 Bearings wheels, the scooter offers extra stability and smooth rides even on uneven and bumpy surfaces. The wide anti-slip deck (5 inches) a..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "EXCITING GLOWING WHEELS: The 3 wheels are equipped with powerful LEDs, igniting a brilliant glow, captivating the young riders with its enchanting charm. Safety is never compromised, as the scooter becomes a captivating..."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Special Feature",
+            "text": "Special Feature: Adjustable Handlebar Height, Light Up Wheels, Non Slip Deck"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Other Special Features of the Product",
+            "text": "Other Special Features of the Product: Adjustable Handlebar Height, Light Up Wheels, Non Slip Deck"
+          }
+        ],
+        "parentTip": "Parent's Tip: EXCITING GLOWING WHEELS: The 3 wheels are equipped with powerful LEDs, igniting a brilliant glow, captivating the young riders with its enchanting charm. Safety is never compromis..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {
+          "tireType": {
+            "value": "Solid",
+            "source": "Product_Specifications.Features_Specs.Wheel Type"
+          },
+          "wheelSize": {
+            "value": "4.5 Inches",
+            "source": "Category_Attributes.Wheel Size"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "THE IDEAL FIRST KIDS SCOOTER: The KS1 kids scooter is featuring Lean-to-Steer technology, kids can turn by leaning and it helps to develop their balance and coordination. The handlebars of this scooter can be set to 3 d..."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Suspension Type",
+            "text": "Suspension Type: Rigid"
+          }
+        ],
+        "parentTip": "Parent's Tip: THE IDEAL FIRST KIDS SCOOTER: The KS1 kids scooter is featuring Lean-to-Steer technology, kids can turn by leaning and it helps to develop their balance and coordination. The hand..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "110 Pounds",
+            "source": "Category_Attributes.Weight Limit"
+          },
+          "dimensions": {
+            "value": "22\"L x 11\"W x 30\"H",
+            "source": "Product_Specifications.Measurements.Product Dimensions"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "EASY TO DISASSEMBLE AND CARRY: Just press the red button on the stem and pull out the stem to complete the disassembly, simply press the red button and insert the stem into the base to complete the installation. This ki..."
+          }
+        ],
+        "parentTip": "Parent's Tip: EASY TO DISASSEMBLE AND CARRY: Just press the red button on the stem and pull out the stem to complete the disassembly, simply press the red button and insert the stem into the ba..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: EXCITING GLOWING WHEELS: The 3 wheels are equipped with powerful LEDs, igniting a brilliant glow, captivating the young riders with its enchanting charm. Safety is never compromis...",
+      "ridingComfort": "Parent's Tip: THE IDEAL FIRST KIDS SCOOTER: The KS1 kids scooter is featuring Lean-to-Steer technology, kids can turn by leaning and it helps to develop their balance and coordination. The hand...",
+      "lightAndEasy": "Parent's Tip: EASY TO DISASSEMBLE AND CARRY: Just press the red button on the stem and pull out the stem to complete the disassembly, simply press the red button and insert the stem into the ba..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Gotrax KS1 Kids Kick Scooter, LED Lighted Wheels and 3 Adjustable Height Handlebars, Lean-to-Steer & Widen Anti-Slip Deck, 3",
+      "brand": "Gotrax",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "EXCITING GLOWING WHEELS: The 3 wheels are equipped with powerful LEDs, igniting a brilliant glow, captivating the young riders with its enchanting charm. Safety is never compromised, as the scooter becomes a captivating spectacle even in the dark, providing peace of mind for parents."
+        },
+        {
+          "source": "Features[2]",
+          "text": "THE IDEAL FIRST KIDS SCOOTER: The KS1 kids scooter is featuring Lean-to-Steer technology, kids can turn by leaning and it helps to develop their balance and coordination. The handlebars of this scooter can be set to 3 different heights(33.7/31.9/29.9 inches) and ensure the scooter grows with your children."
+        },
+        {
+          "source": "Features[3]",
+          "text": "EASY TO DISASSEMBLE AND CARRY: Just press the red button on the stem and pull out the stem to complete the disassembly, simply press the red button and insert the stem into the base to complete the installation. This kid's scooter weighs just 5.1lbs, making it light enough to carry and compact enough to fit in your car trunk or store with ease."
+        },
+        {
+          "source": "Features[4]",
+          "text": "SAFE & SMOOTH RIDE EXPERIENCE: Gotrax KS1 kick scooter is equipped with ABEC-7 Bearings wheels, the scooter offers extra stability and smooth rides even on uneven and bumpy surfaces. The wide anti-slip deck (5 inches) and rear mudguard brake ensure your child's safety while riding."
+        },
+        {
+          "source": "Features[5]",
+          "text": "EXCELLENT SERVICE: Gotrax offers a 1-year manufacturer's assurance, providing assurance that your Gotrax KS1 kid's scooter is built to last. Any questions, please contact us at any time and we're happy to help!"
+        },
+        {
+          "source": "Product_Description",
+          "text": "EXCITING GLOWING WHEELS: The 3 wheels are equipped with powerful LEDs, igniting a brilliant glow, captivating the young riders with its enchanting charm. Safety is never compromised, as the scooter becomes a captivating spectacle even in the dark, providing peace of mind for parents. THE IDEAL FIRST KIDS SCOOTER: The KS1 kids scooter is featuring Lean-to-Steer technology, kids can turn by leaning and it helps to develop their balance and coordination. The handlebars of this scooter can be set to 3 different heights(33.7/31.9/29.9 inches) and ensure the scooter grows with your children. EASY TO DISASSEMBLE AND CARRY: Just press the red button on the stem and pull out the stem to complete the disassembly, simply press the red button and insert the stem into the base to complete the installation. This kid's scooter weighs just 5.1lbs, making it light enough to carry and compact enough to f..."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "2-Wheel Kick Scooter"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "2-Wheel Kick Scooter Visit the Store"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "EXCITING GLOWING WHEELS: The 3 wheels are equipped with powerful LEDs, igniting a brilliant glow, captivating the young riders with its enchanting charm. Safety is never compromised, as the scooter becomes a captivating...",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "THE IDEAL FIRST KIDS SCOOTER: The KS1 kids scooter is featuring Lean-to-Steer technology, kids can turn by leaning and it helps to develop their balance and coordination. The handlebars of this scooter can be set to 3 d...",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "EASY TO DISASSEMBLE AND CARRY: Just press the red button on the stem and pull out the stem to complete the disassembly, simply press the red button and insert the stem into the base to complete the installation. This ki...",
+          "source": "Features[3]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -858,6 +1039,182 @@
       "Number of Wheels": "2",
       "Weight Limit": "264 Pounds",
       "Brake Style": "Dual Braking"
+    },
+    "customers_say": "Customers find this electric scooter to be a good choice for everyday use, with impressive battery life that can cover long distances on a single charge. The scooter is perfect for commuting and quick trips around town, with smooth performance on sidewalks, and one customer notes it holds up to 260 pounds. They appreciate its reliability for both commuting and leisure rides, and consider it a great value for urban mobility.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Adult",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "264 Pounds",
+        "source": "Category_Attributes.Weight Limit"
+      },
+      "itemWeight": {
+        "value": "264 Pounds",
+        "source": "Category_Attributes.Weight Limit"
+      },
+      "frameMaterial": {
+        "value": "Rubber",
+        "source": "Product_Specifications.Materials_Care.Wheel Material"
+      },
+      "wheelSize": {
+        "value": "8.5 Inches",
+        "source": "Category_Attributes.Wheel Size"
+      },
+      "brakeSystem": {
+        "value": "Dual Braking",
+        "source": "Category_Attributes.Brake Style"
+      },
+      "tireType": {
+        "value": "Solid",
+        "source": "Product_Specifications.Features_Specs.Wheel Type"
+      },
+      "battery": {
+        "value": "4 Hours",
+        "source": "Product_Specifications.Features_Specs.Battery Charge Time"
+      },
+      "foldability": {
+        "value": "Folding】 The electric scooter Can be folded in 3 secon",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "brakeSystem": {
+            "value": "Dual Braking",
+            "source": "Category_Attributes.Brake Style"
+          },
+          "frameMaterial": {
+            "value": "Rubber",
+            "source": "Product_Specifications.Materials_Care.Wheel Material"
+          },
+          "weightLimit": {
+            "value": "264 Pounds",
+            "source": "Category_Attributes.Weight Limit"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "【Keep You Safe】Dual Braking System(front electronic brake+rear wheel drum brake）+ Lighting System(warning taillight + bright headlight) + 8.5” solid tires(provide a good ride and are very smooth) electric scooter bring..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "【Powerful Performance】The electric scooter Equipped with 350W powerful motor and high capacity battery, electric scooter allows for speeds up to 19 mph and max range up to 15 miles under specific conditions. Scooter has..."
+          },
+          {
+            "source": "Product_Specifications.Additional_Details.Brake Style",
+            "text": "Brake Style: Dual Braking"
+          }
+        ],
+        "parentTip": "Parent's Tip: 【Keep You Safe】Dual Braking System(front electronic brake+rear wheel drum brake）+ Lighting System(warning taillight + bright headlight) + 8.5” solid tires(provide a good ride and..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {
+          "tireType": {
+            "value": "Solid",
+            "source": "Product_Specifications.Features_Specs.Wheel Type"
+          },
+          "wheelSize": {
+            "value": "8.5 Inches",
+            "source": "Category_Attributes.Wheel Size"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "264 Pounds",
+            "source": "Category_Attributes.Weight Limit"
+          },
+          "foldability": {
+            "value": "Folding】 The electric scooter Can be folded in 3 secon",
+            "source": "detail_text_regex"
+          },
+          "battery": {
+            "value": "4 Hours",
+            "source": "Product_Specifications.Features_Specs.Battery Charge Time"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[4]",
+            "text": "【Lightweight & Folding】 The electric scooter Can be folded in 3 seconds. The compact design can be easily put into the trunk of the car. It provides great convenience and fun for your city travel, campus travel, and off..."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Special Feature",
+            "text": "Special Feature: Digital Display, Dual Braking System, Lightweight"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Other Special Features of the Product",
+            "text": "Other Special Features of the Product: Digital Display, Dual Braking System, Lightweight"
+          }
+        ],
+        "parentTip": "Parent's Tip: 【Lightweight & Folding】 The electric scooter Can be folded in 3 seconds. The compact design can be easily put into the trunk of the car. It provides great convenience and fun for..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: 【Keep You Safe】Dual Braking System(front electronic brake+rear wheel drum brake）+ Lighting System(warning taillight + bright headlight) + 8.5” solid tires(provide a good ride and...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: 【Lightweight & Folding】 The electric scooter Can be folded in 3 seconds. The compact design can be easily put into the trunk of the car. It provides great convenience and fun for..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "VOLPAM Electric Scooter, 350W/500W/800W/1000W/250W Powerful Motor & 19/22/ 9 MPH Top Speed, 16-28-10 Miles Long Range, Foldin",
+      "brand": "VOLPAM",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "【Powerful Performance】The electric scooter Equipped with 350W powerful motor and high capacity battery, electric scooter allows for speeds up to 19 mph and max range up to 15 miles under specific conditions. Scooter has 4 hours fast charging function, perfect for daily commuting or short trip."
+        },
+        {
+          "source": "Features[2]",
+          "text": "【Keep You Safe】Dual Braking System(front electronic brake+rear wheel drum brake）+ Lighting System(warning taillight + bright headlight) + 8.5” solid tires(provide a good ride and are very smooth) electric scooter bring you more comfortable and safer riding experience."
+        },
+        {
+          "source": "Features[3]",
+          "text": "【Smart App Control & LCD Display】Just turn on Bluetooth, pair the smart App with your smartphone, and you can set all the functions of the scooter. It is suitable for iPhone and Android smartphones. Fitted with a cutting-edge LCD screen, ensuring a clear view of your speed, battery level, distance, and other features as you ride(The APP provides more functions for this electric scooter, but it is also can be ridden without the APP)"
+        },
+        {
+          "source": "Features[4]",
+          "text": "【Lightweight & Folding】 The electric scooter Can be folded in 3 seconds. The compact design can be easily put into the trunk of the car. It provides great convenience and fun for your city travel, campus travel, and office commuting"
+        },
+        {
+          "source": "Features[5]",
+          "text": "【Quality Assurance】 VOLPAM pursues excellent performance and quality products for the users. 12-month or 180-day for different parts, please contact us if you have any questions."
+        },
+        {
+          "source": "Product_Description",
+          "text": "【Powerful Performance】The electric scooter Equipped with 350W powerful motor and high capacity battery, electric scooter allows for speeds up to 19 mph and max range up to 15 miles under specific conditions. Scooter has 4 hours fast charging function, perfect for daily commuting or short trip. 【Keep You Safe】Dual Braking System(front electronic brake+rear wheel drum brake）+ Lighting System(warning taillight + bright headlight) + 8.5” solid tires(provide a good ride and are very smooth) electric scooter bring you more comfortable and safer riding experience. 【Smart App Control & LCD Display】Just turn on Bluetooth, pair the smart App with your smartphone, and you can set all the functions of the scooter. It is suitable for iPhone and Android smartphones. Fitted with a cutting-edge LCD screen, ensuring a clear view of your speed, battery level, distance, and other features as you ride(The..."
+        },
+        {
+          "source": "Product_Specifications.Measurements.Weight Limit",
+          "text": "Weight Limit: 264 Pounds"
+        },
+        {
+          "source": "Product_Specifications.Measurements.Wheel Size",
+          "text": "Wheel Size: 8.5 Inches"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "【Keep You Safe】Dual Braking System(front electronic brake+rear wheel drum brake）+ Lighting System(warning taillight + bright headlight) + 8.5” solid tires(provide a good ride and are very smooth) electric scooter bring....",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "【Lightweight & Folding】 The electric scooter Can be folded in 3 seconds. The compact design can be easily put into the trunk of the car. It provides great convenience and fun for your city travel, campus travel, and off...",
+          "source": "Features[4]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -1149,6 +1506,212 @@
       "Weight Limit": "143 Pounds",
       "Brake Style": "Rear Braking",
       "Suspension Type": "Rear Suspension"
+    },
+    "customers_say": "Customers find this kick scooter to be a great value for its price, with a sturdy construction that's well-suited for children's size and weight. The scooter is easy to fold up for storage, and customers report it can take a beating from daily use. They appreciate that it's easy to assemble and handle, and is particularly suitable for 5-year-olds, with customers noting their children can ride it confidently within minutes.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Kid",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "143 Pounds",
+        "source": "Category_Attributes.Weight Limit"
+      },
+      "itemWeight": {
+        "value": "143 Pounds",
+        "source": "Category_Attributes.Weight Limit"
+      },
+      "frameMaterial": {
+        "value": "Aluminum",
+        "source": "Category_Attributes.Frame Material"
+      },
+      "wheelSize": {
+        "value": "98 Millimeters",
+        "source": "Category_Attributes.Wheel Size"
+      },
+      "brakeSystem": {
+        "value": "Rear Braking",
+        "source": "Category_Attributes.Brake Style"
+      },
+      "tireType": {
+        "value": "Solid",
+        "source": "Product_Specifications.Features_Specs.Wheel Type"
+      },
+      "dimensions": {
+        "value": "23.9\"L x 11.3\"W x 32.4\"H",
+        "source": "Product_Specifications.Measurements.Product Dimensions"
+      },
+      "foldability": {
+        "value": "folding mechanism for quick and easy carry, transport",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "brakeSystem": {
+            "value": "Rear Braking",
+            "source": "Category_Attributes.Brake Style"
+          },
+          "frameMaterial": {
+            "value": "Aluminum",
+            "source": "Category_Attributes.Frame Material"
+          },
+          "weightLimit": {
+            "value": "143 Pounds",
+            "source": "Category_Attributes.Weight Limit"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[4]",
+            "text": "Additional features include rear-fender brake and urethane wheels"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Special Feature",
+            "text": "Special Feature: Adjustable Handlebar Height, Foldable"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Other Special Features of the Product",
+            "text": "Other Special Features of the Product: Adjustable Handlebar Height, Foldable"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Handlebar Type",
+            "text": "Handlebar Type: Adjustable"
+          },
+          {
+            "source": "Product_Specifications.Materials_Care.Frame Material",
+            "text": "Frame Material: Aluminum"
+          }
+        ],
+        "parentTip": "Parent's Tip: Additional features include rear-fender brake and urethane wheels"
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {
+          "tireType": {
+            "value": "Solid",
+            "source": "Product_Specifications.Features_Specs.Wheel Type"
+          },
+          "wheelSize": {
+            "value": "98 Millimeters",
+            "source": "Category_Attributes.Wheel Size"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "Easy-adjust handlebars can be set to the perfect ride height"
+          },
+          {
+            "source": "Product_Description",
+            "text": "Top quality aluminum construction of the Razor A kick scooter is lightweight yet durable Features our original folding mechanism for quick and easy carry, transport and storage between rides Easy-adjust handlebars can b..."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Suspension Type",
+            "text": "Suspension Type: Rear Suspension"
+          }
+        ],
+        "parentTip": "Parent's Tip: Easy-adjust handlebars can be set to the perfect ride height"
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "143 Pounds",
+            "source": "Category_Attributes.Weight Limit"
+          },
+          "foldability": {
+            "value": "folding mechanism for quick and easy carry, transport",
+            "source": "detail_text_regex"
+          },
+          "dimensions": {
+            "value": "23.9\"L x 11.3\"W x 32.4\"H",
+            "source": "Product_Specifications.Measurements.Product Dimensions"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "Top quality aluminum construction of the Razor A kick scooter is lightweight yet durable"
+          },
+          {
+            "source": "Features[2]",
+            "text": "Features our original folding mechanism for quick and easy carry, transport and storage between rides"
+          },
+          {
+            "source": "Product_Videos_Detail[3].Title",
+            "text": "LOVE our scooter - compact!! Watch"
+          },
+          {
+            "source": "Product_Videos_Detail[4].Title",
+            "text": "My Take- Razor A Kick Scooter for Kids Lightweight & Foldable"
+          }
+        ],
+        "parentTip": "Parent's Tip: Top quality aluminum construction of the Razor A kick scooter is lightweight yet durable"
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Additional features include rear-fender brake and urethane wheels",
+      "ridingComfort": "Parent's Tip: Easy-adjust handlebars can be set to the perfect ride height",
+      "lightAndEasy": "Parent's Tip: Top quality aluminum construction of the Razor A kick scooter is lightweight yet durable"
+    },
+    "Expert_Review_Inputs": {
+      "title": "Razor A Kick Scooter for Kids - Lightweight, Foldable, Aluminum Frame, and Adjustable Handlebars",
+      "brand": "Razor",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Top quality aluminum construction of the Razor A kick scooter is lightweight yet durable"
+        },
+        {
+          "source": "Features[2]",
+          "text": "Features our original folding mechanism for quick and easy carry, transport and storage between rides"
+        },
+        {
+          "source": "Features[3]",
+          "text": "Easy-adjust handlebars can be set to the perfect ride height"
+        },
+        {
+          "source": "Features[4]",
+          "text": "Additional features include rear-fender brake and urethane wheels"
+        },
+        {
+          "source": "Product_Description",
+          "text": "Top quality aluminum construction of the Razor A kick scooter is lightweight yet durable Features our original folding mechanism for quick and easy carry, transport and storage between rides Easy-adjust handlebars can be set to the perfect ride height"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "The Original"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "For over 20 years Razor has embodied the spirit of freedom and fearless fun. Whether it’s for transportation or recreation, our scooters and ride-ons are expertly crafted by action sport athletes to provide the highest quality and performance. We believe in riding for thrills, riding with joy, and most importantly riding with friends & family!"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[2]",
+          "text": "The Original Visit the Store"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Additional features include rear-fender brake and urethane wheels",
+          "source": "Features[4]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "Easy-adjust handlebars can be set to the perfect ride height",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "Top quality aluminum construction of the Razor A kick scooter is lightweight yet durable",
+          "source": "Features[1]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -1541,6 +2104,215 @@
       "Weight Limit": "132 Pounds",
       "Brake Style": "Rear Braking",
       "Suspension Type": "Front Suspension"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Toddler",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "132 Pounds",
+        "source": "Category_Attributes.Weight Limit"
+      },
+      "itemWeight": {
+        "value": "132 Pounds",
+        "source": "Category_Attributes.Weight Limit"
+      },
+      "frameMaterial": {
+        "value": "Aluminum Metal, Engineered ABS",
+        "source": "Category_Attributes.Frame Material"
+      },
+      "wheelSize": {
+        "value": "120 Millimeters",
+        "source": "Category_Attributes.Wheel Size"
+      },
+      "brakeSystem": {
+        "value": "Rear Braking",
+        "source": "Category_Attributes.Brake Style"
+      },
+      "tireType": {
+        "value": "Solid",
+        "source": "Product_Specifications.Features_Specs.Wheel Type"
+      },
+      "dimensions": {
+        "value": "22.8\"L x 9.2\"W x 33\"H",
+        "source": "Product_Specifications.Measurements.Product Dimensions"
+      },
+      "foldability": {
+        "value": "Foldable",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "brakeSystem": {
+            "value": "Rear Braking",
+            "source": "Category_Attributes.Brake Style"
+          },
+          "frameMaterial": {
+            "value": "Aluminum Metal, Engineered ABS",
+            "source": "Category_Attributes.Frame Material"
+          },
+          "weightLimit": {
+            "value": "132 Pounds",
+            "source": "Category_Attributes.Weight Limit"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "ADJUSTABLE HANDLEBAR: The lightweight and compact kids scooter features an adjustable handlebar w/ 4 height options — 25.5/27.5/31/34 inches, works w/ kids of all ages. Ideal for little ones ages 1 year old and up with..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "SMOOTH RIDE: The mini toddler trike 3 wheel scooter is equipped w/ anti-slip and wide deck that is large enough to fit both feet. Also has smooth 120mm/80mm gliding roller wheels that run smoothly even on surfaces that..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "MULTI-COLOR WHEEL LIGHTS: The Hurtle ScootKid 3-Wheel Kick Scooters for Kids feature colorful LED turning wheel lights that light up in a variety of flashing colors as you scoot, adding a fun twist to the ride! It also..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[2]",
+            "text": "The three-wheeled scooter has intelligent gravity steering and automatic balance reset to provide quiet and smooth driving."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Handlebar Type",
+            "text": "Handlebar Type: Adjustable"
+          }
+        ],
+        "parentTip": "Parent's Tip: ADJUSTABLE HANDLEBAR: The lightweight and compact kids scooter features an adjustable handlebar w/ 4 height options — 25.5/27.5/31/34 inches, works w/ kids of all ages. Ideal for..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {
+          "tireType": {
+            "value": "Solid",
+            "source": "Product_Specifications.Features_Specs.Wheel Type"
+          },
+          "wheelSize": {
+            "value": "120 Millimeters",
+            "source": "Category_Attributes.Wheel Size"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "SIT OR STAND DESIGN WITH FOOT REST: This scooter for toddlers is equipped w/ a unique 45lb capacity removable flip-out seat which kids can use while cruising along with the built-in foot pad. Can be detached when they f..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Title",
+            "text": "Long-Lasting, Super Smooth Gliding Wheels"
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[3]",
+            "text": "Flip-out seat which kids can use while cruising along with the built-in footpad. It can be detached when they feel more confident standing up."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Suspension Type",
+            "text": "Suspension Type: Front Suspension"
+          }
+        ],
+        "parentTip": "Parent's Tip: SIT OR STAND DESIGN WITH FOOT REST: This scooter for toddlers is equipped w/ a unique 45lb capacity removable flip-out seat which kids can use while cruising along with the built-..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "132 Pounds",
+            "source": "Category_Attributes.Weight Limit"
+          },
+          "foldability": {
+            "value": "Foldable",
+            "source": "detail_text_regex"
+          },
+          "dimensions": {
+            "value": "22.8\"L x 9.2\"W x 33\"H",
+            "source": "Product_Specifications.Measurements.Product Dimensions"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[5]",
+            "text": "LEAN-TO-STEER TECHNOLOGY: Features easy maneuvering w/ lean-to-steer technology, which means the mini scooter is controlled by leaning rather than turning the steering wheel, this design helps your child develop balance..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+            "text": "With its lightweight design and lean to steer, it makes riding a scooter fun and easy for kids to play with."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[4]",
+            "text": "Wide deck for children places both feet on it, easy for little kids to hop on and off."
+          },
+          {
+            "source": "Product_Videos_Detail[2].Title",
+            "text": "Foldable and easy to clean 3 wheeled scooter-review"
+          }
+        ],
+        "parentTip": "Parent's Tip: LEAN-TO-STEER TECHNOLOGY: Features easy maneuvering w/ lean-to-steer technology, which means the mini scooter is controlled by leaning rather than turning the steering wheel, this..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: ADJUSTABLE HANDLEBAR: The lightweight and compact kids scooter features an adjustable handlebar w/ 4 height options — 25.5/27.5/31/34 inches, works w/ kids of all ages. Ideal for...",
+      "ridingComfort": "Parent's Tip: SIT OR STAND DESIGN WITH FOOT REST: This scooter for toddlers is equipped w/ a unique 45lb capacity removable flip-out seat which kids can use while cruising along with the built-...",
+      "lightAndEasy": "Parent's Tip: LEAN-TO-STEER TECHNOLOGY: Features easy maneuvering w/ lean-to-steer technology, which means the mini scooter is controlled by leaning rather than turning the steering wheel, this..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Hurtle 3-Wheeled Scooter for Kids - Wheel LED Lights, Adjustable Lean-to-Steer Handlebar, and Foldable Seat - Sit or Stand Ri",
+      "brand": "Hurtle",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "MULTI-COLOR WHEEL LIGHTS: The Hurtle ScootKid 3-Wheel Kick Scooters for Kids feature colorful LED turning wheel lights that light up in a variety of flashing colors as you scoot, adding a fun twist to the ride! It also makes the scooter stand out"
+        },
+        {
+          "source": "Features[2]",
+          "text": "SIT OR STAND DESIGN WITH FOOT REST: This scooter for toddlers is equipped w/ a unique 45lb capacity removable flip-out seat which kids can use while cruising along with the built-in foot pad. Can be detached when they feel more confident standing up"
+        },
+        {
+          "source": "Features[3]",
+          "text": "ADJUSTABLE HANDLEBAR: The lightweight and compact kids scooter features an adjustable handlebar w/ 4 height options — 25.5/27.5/31/34 inches, works w/ kids of all ages. Ideal for little ones ages 1 year old and up with a weight capacity of 132 lbs"
+        },
+        {
+          "source": "Features[4]",
+          "text": "SMOOTH RIDE: The mini toddler trike 3 wheel scooter is equipped w/ anti-slip and wide deck that is large enough to fit both feet. Also has smooth 120mm/80mm gliding roller wheels that run smoothly even on surfaces that are uneven or bumpy"
+        },
+        {
+          "source": "Features[5]",
+          "text": "LEAN-TO-STEER TECHNOLOGY: Features easy maneuvering w/ lean-to-steer technology, which means the mini scooter is controlled by leaning rather than turning the steering wheel, this design helps your child develop balance skills, coordination and more"
+        },
+        {
+          "source": "Features[6]",
+          "text": "COMMITTED TO YOU: 65 years of trust, quality, and USA-based servicing, ensuring lasting support and reliability for our valued customers."
+        },
+        {
+          "source": "Product_Description",
+          "text": "MULTI-COLOR WHEEL LIGHTS: The Hurtle ScootKid 3-Wheel Kick Scooters for Kids feature colorful LED turning wheel lights that light up in a variety of flashing colors as you scoot, adding a fun twist to the ride! It also makes the scooter stand out SIT OR STAND DESIGN WITH FOOT REST: This scooter for toddlers is equipped w/ a unique 45lb capacity removable flip-out seat which kids can use while cruising along with the built-in foot pad. Can be detached when they feel more confident standing up ADJUSTABLE HANDLEBAR: The lightweight and compact kids scooter features an adjustable handlebar w/ 4 height options — 25.5/27.5/31/34 inches, works w/ kids of all ages. Ideal for little ones ages 1 year old and up with a weight capacity of 132 lbs"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Long-Lasting, Super Smooth Gliding Wheels"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "ADJUSTABLE HANDLEBAR: The lightweight and compact kids scooter features an adjustable handlebar w/ 4 height options — 25.5/27.5/31/34 inches, works w/ kids of all ages. Ideal for little ones ages 1 year old and up with....",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "SIT OR STAND DESIGN WITH FOOT REST: This scooter for toddlers is equipped w/ a unique 45lb capacity removable flip-out seat which kids can use while cruising along with the built-in foot pad. Can be detached when they f...",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "LEAN-TO-STEER TECHNOLOGY: Features easy maneuvering w/ lean-to-steer technology, which means the mini scooter is controlled by leaning rather than turning the steering wheel, this design helps your child develop balance...",
+          "source": "Features[5]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -1806,6 +2578,204 @@
       "Weight Limit": "265 Pounds",
       "Brake Style": "Front Braking, Rear Braking",
       "Suspension Type": "Dual Suspension"
+    },
+    "customers_say": "Customers find the electric scooter reliable, fun to ride, and appreciate its smooth performance on smooth surfaces, with one customer noting it handles hills well. The speed is good, reaching up to 16 mph, and customers consider it good value for money with intuitive controls. The battery life and durability receive mixed reviews - while some say the battery life is better than expected, others report it doesn't last long, and while some find it stable, others mention handlebars coming loose. Functionality is also mixed, with some saying it works well while others report it doesn't operate at all.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "10-60",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "265 Pounds",
+        "source": "Category_Attributes.Weight Limit"
+      },
+      "itemWeight": {
+        "value": "265 Pounds",
+        "source": "Category_Attributes.Weight Limit"
+      },
+      "frameMaterial": {
+        "value": "Aluminum",
+        "source": "Category_Attributes.Frame Material"
+      },
+      "wheelSize": {
+        "value": "8.5 Inches",
+        "source": "Category_Attributes.Wheel Size"
+      },
+      "brakeSystem": {
+        "value": "Front Braking, Rear Braking",
+        "source": "Category_Attributes.Brake Style"
+      },
+      "tireType": {
+        "value": "Solid",
+        "source": "Product_Specifications.Features_Specs.Wheel Type"
+      },
+      "dimensions": {
+        "value": "43\"L x 20\"W x 5.7\"H",
+        "source": "Product_Specifications.Measurements.Product Dimensions"
+      },
+      "foldability": {
+        "value": "Folding】 The electric scooter Can be folded in 3 secon",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "brakeSystem": {
+            "value": "Front Braking, Rear Braking",
+            "source": "Category_Attributes.Brake Style"
+          },
+          "frameMaterial": {
+            "value": "Aluminum",
+            "source": "Category_Attributes.Frame Material"
+          },
+          "weightLimit": {
+            "value": "265 Pounds",
+            "source": "Category_Attributes.Weight Limit"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "【E Scooter Powerful Performance】The Y01 electric scooter Equipped with 350W( Peak 700W) powerful motor and high capacity battery, electric scooter allows for speeds up to 19mph and max range up to 21miles under specific..."
+          },
+          {
+            "source": "Features[2]",
+            "text": "【Adult Electric Scooter Keep You Safe】Dual Braking System(front electronic brake+rear wheel drum brake）+ Lighting System(warning taillight + bright headlight) + Dual Suspension(Double shock absorbers front and rear + wi..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "【E Scooter Powerful Performance】The Y01 electric scooter Equipped with 350W( Peak 700W) powerful motor and high capacity battery, electric scooter allows for speeds up to 19mph and max range up to 21miles under specific..."
+          },
+          {
+            "source": "Product_Specifications.Materials_Care.Frame Material",
+            "text": "Frame Material: Aluminum"
+          },
+          {
+            "source": "Product_Specifications.Materials_Care.Frame Material Type",
+            "text": "Frame Material Type: Aluminum"
+          }
+        ],
+        "parentTip": "Parent's Tip: 【E Scooter Powerful Performance】The Y01 electric scooter Equipped with 350W( Peak 700W) powerful motor and high capacity battery, electric scooter allows for speeds up to 19mph an..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {
+          "tireType": {
+            "value": "Solid",
+            "source": "Product_Specifications.Features_Specs.Wheel Type"
+          },
+          "wheelSize": {
+            "value": "8.5 Inches",
+            "source": "Category_Attributes.Wheel Size"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Product_Specifications.Features_Specs.Handlebar Type",
+            "text": "Handlebar Type: T-shaped or Y-shaped"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Suspension Type",
+            "text": "Suspension Type: Dual Suspension"
+          }
+        ],
+        "parentTip": "Parent's Tip: Handlebar Type: T-shaped or Y-shaped"
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "265 Pounds",
+            "source": "Category_Attributes.Weight Limit"
+          },
+          "foldability": {
+            "value": "Folding】 The electric scooter Can be folded in 3 secon",
+            "source": "detail_text_regex"
+          },
+          "dimensions": {
+            "value": "43\"L x 20\"W x 5.7\"H",
+            "source": "Product_Specifications.Measurements.Product Dimensions"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[4]",
+            "text": "【Lightweight & Portable Folding】 The electric scooter Can be folded in 3 seconds. The height after folding is only 18 inch, weighs only 36LBS and mini 41*18 inch size. kick scooter can be lifted with one hand. The compa..."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Special Feature",
+            "text": "Special Feature: Digital Display, Disc, Foldable"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Other Special Features of the Product",
+            "text": "Other Special Features of the Product: Digital Display, Disc, Foldable"
+          }
+        ],
+        "parentTip": "Parent's Tip: 【Lightweight & Portable Folding】 The electric scooter Can be folded in 3 seconds. The height after folding is only 18 inch, weighs only 36LBS and mini 41*18 inch size. kick scoote..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: 【E Scooter Powerful Performance】The Y01 electric scooter Equipped with 350W( Peak 700W) powerful motor and high capacity battery, electric scooter allows for speeds up to 19mph an...",
+      "ridingComfort": "Parent's Tip: Handlebar Type: T-shaped or Y-shaped",
+      "lightAndEasy": "Parent's Tip: 【Lightweight & Portable Folding】 The electric scooter Can be folded in 3 seconds. The height after folding is only 18 inch, weighs only 36LBS and mini 41*18 inch size. kick scoote..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Aovowheel Electric Scooter for Adults, Folding E Scooter with 250W-500W Motor 16-24 Mph Top Speed, Max 15-60Miles Long Range,",
+      "brand": "Aovowheel",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "【E Scooter Powerful Performance】The Y01 electric scooter Equipped with 350W( Peak 700W) powerful motor and high capacity battery, electric scooter allows for speeds up to 19mph and max range up to 21miles under specific conditions. Experience a breezy 20° uphill journey, 4 hours fast charging.Perfect for daily commuting or short trip. Max load is 265lbs. This E-Scooter has UL2272 certified"
+        },
+        {
+          "source": "Features[2]",
+          "text": "【Adult Electric Scooter Keep You Safe】Dual Braking System(front electronic brake+rear wheel drum brake）+ Lighting System(warning taillight + bright headlight) + Dual Suspension(Double shock absorbers front and rear + widened pedals) + 8.5” solid tires(provide a good ride and are very smooth) electric scooter bring you more comfortable and safer riding experience"
+        },
+        {
+          "source": "Features[3]",
+          "text": "【Smart App Control&Electric Scooter LCD Display】Just turn on Bluetooth, pair the vicont App with your smartphone, and youA can set all the functions of the scooter. It is suitable for iPhone and Android smartphones. Fitted with a cutting-edge LCD screen, ensuring a clear view of your speed, battery level, distance, and other features as you ride(The APP provides more functions for this electric scooter, but it is also can be ridden without the APP)"
+        },
+        {
+          "source": "Features[4]",
+          "text": "【Lightweight & Portable Folding】 The electric scooter Can be folded in 3 seconds. The height after folding is only 18 inch, weighs only 36LBS and mini 41*18 inch size. kick scooter can be lifted with one hand. The compact design can be easily put into the trunk of the car. It provides great convenience and fun for your city travel, campus travel, and office commuting"
+        },
+        {
+          "source": "Features[5]",
+          "text": "【Premium Service】The speed and range of electric scooters vary depending on weight, surface, temperature, battery and riding style. Here is 12months service for different parts and Returns and exchanges, if you have any question please feel free to contact us"
+        },
+        {
+          "source": "Product_Description",
+          "text": "【E Scooter Powerful Performance】The Y01 electric scooter Equipped with 350W( Peak 700W) powerful motor and high capacity battery, electric scooter allows for speeds up to 19mph and max range up to 21miles under specific conditions. Experience a breezy 20° uphill journey, 4 hours fast charging.Perfect for daily commuting or short trip. Max load is 265lbs. This E-Scooter has UL2272 certified 【Adult Electric Scooter Keep You Safe】Dual Braking System(front electronic brake+rear wheel drum brake）+ Lighting System(warning taillight + bright headlight) + Dual Suspension(Double shock absorbers front and rear + widened pedals) + 8.5” solid tires(provide a good ride and are very smooth) electric scooter bring you more comfortable and safer riding experience 【Smart App Control&Electric Scooter LCD Display】Just turn on Bluetooth, pair the vicont App with your smartphone, and youA can set all the fu..."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Aovowheel"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[2]",
+          "text": "Aovowheel electric scooter High-Quality！ High-Performance！ High-Intelligence！ Cost Effective！ Aovowheel is a technology company dedicated to providing a tech lifestyle. With fashionable design and first-class quality to win the trust of global customers. A company that meets customer needs and helps in any way, aiming to provide the best customer experience."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "【E Scooter Powerful Performance】The Y01 electric scooter Equipped with 350W( Peak 700W) powerful motor and high capacity battery, electric scooter allows for speeds up to 19mph and max range up to 21miles under specific...",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "Handlebar Type: T-shaped or Y-shaped",
+          "source": "Product_Specifications.Features_Specs.Handlebar Type"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "【Lightweight & Portable Folding】 The electric scooter Can be folded in 3 seconds. The height after folding is only 18 inch, weighs only 36LBS and mini 41*18 inch size. kick scooter can be lifted with one hand. The compa...",
+          "source": "Features[4]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -2008,6 +2978,160 @@
       "Color": "Green",
       "Age Range Description": "Little Kid",
       "Brand": "Green"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Little Kid",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "itemWeight": {
+        "value": "2.93 Kilograms",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Aluminum",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "23.6 x 11.6 x 26.2 inches",
+        "source": "Product_Specifications.Measurements.Item Dimensions"
+      },
+      "battery": {
+        "value": "No batteries required",
+        "source": "Product_Specifications.Features_Specs.Supported Battery Types"
+      },
+      "weightLimit": {
+        "value": "110 lb",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Aluminum",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "110 lb",
+            "source": "detail_text_regex"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "LED WHEELS FOR MAGICAL RIDES – Watch your child's face light up as they ride. The motion-activated LED wheels flash bright colors with every turn, making every scooting adventure extra fun. Plus, they add visibility for..."
+          },
+          {
+            "source": "Features[3]",
+            "text": "GROWS WITH YOUR CHILD – The adjustable T-bar handlebar offers four height settings (21.65’’, 23.62’’, 25.59’’, and 27.56’’ inches), making this scooter the perfect ride for as young as 2 years old and growing kids up to..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "WIDE AND SLIP-RESISTANT DECK – The anti-slip foot deck provides a secure grip, while the 3 wheel scooter design adds extra stability. Built with a durable and premium materials, it's made to withstand endless adventures."
+          },
+          {
+            "source": "Features[5]",
+            "text": "SUPER SMOOTH WHEELS – The premium engineered polyurethane wheels ensure a smooth glide on both indoor and outdoor surfaces. The large 120mm front wheels and 80mm rear wheel absorb shocks, making every ride steady and en..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "Give your child the perfect first scooter experience with the Mini 3-Wheel Kids Scooter, designed for stability, safety, and endless fun. The lean-to-steer technology makes turning effortless and helps develop balance a..."
+          }
+        ],
+        "parentTip": "Parent's Tip: LED WHEELS FOR MAGICAL RIDES – Watch your child's face light up as they ride. The motion-activated LED wheels flash bright colors with every turn, making every scooting adventure..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "2.93 Kilograms",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "dimensions": {
+            "value": "23.6 x 11.6 x 26.2 inches",
+            "source": "Product_Specifications.Measurements.Item Dimensions"
+          },
+          "battery": {
+            "value": "No batteries required",
+            "source": "Product_Specifications.Features_Specs.Supported Battery Types"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "LEAN-TO-STEER CONTROL – No complicated turns or tricky maneuvers—just lean and go. This intuitive steering technology helps kids develop balance and coordination while making riding feel natural and effortless."
+          },
+          {
+            "source": "Product_Specifications.Measurements.Size",
+            "text": "Size: Compact"
+          }
+        ],
+        "parentTip": "Parent's Tip: LEAN-TO-STEER CONTROL – No complicated turns or tricky maneuvers—just lean and go. This intuitive steering technology helps kids develop balance and coordination while making ridi..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: LED WHEELS FOR MAGICAL RIDES – Watch your child's face light up as they ride. The motion-activated LED wheels flash bright colors with every turn, making every scooting adventure...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: LEAN-TO-STEER CONTROL – No complicated turns or tricky maneuvers—just lean and go. This intuitive steering technology helps kids develop balance and coordination while making ridi..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Green Mini 3 Wheel Scooter for Kids – Lean-to-Steer with LED Light-Up Wheels, Adjustable Handlebar, Wide Anti-Slip Deck, Smoo",
+      "brand": "Green",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "LED WHEELS FOR MAGICAL RIDES – Watch your child's face light up as they ride. The motion-activated LED wheels flash bright colors with every turn, making every scooting adventure extra fun. Plus, they add visibility for a safer ride in low light."
+        },
+        {
+          "source": "Features[2]",
+          "text": "LEAN-TO-STEER CONTROL – No complicated turns or tricky maneuvers—just lean and go. This intuitive steering technology helps kids develop balance and coordination while making riding feel natural and effortless."
+        },
+        {
+          "source": "Features[3]",
+          "text": "GROWS WITH YOUR CHILD – The adjustable T-bar handlebar offers four height settings (21.65’’, 23.62’’, 25.59’’, and 27.56’’ inches), making this scooter the perfect ride for as young as 2 years old and growing kids up to 110 lbs."
+        },
+        {
+          "source": "Features[4]",
+          "text": "WIDE AND SLIP-RESISTANT DECK – The anti-slip foot deck provides a secure grip, while the 3 wheel scooter design adds extra stability. Built with a durable and premium materials, it's made to withstand endless adventures."
+        },
+        {
+          "source": "Features[5]",
+          "text": "SUPER SMOOTH WHEELS – The premium engineered polyurethane wheels ensure a smooth glide on both indoor and outdoor surfaces. The large 120mm front wheels and 80mm rear wheel absorb shocks, making every ride steady and enjoyable."
+        },
+        {
+          "source": "Product_Description",
+          "text": "Give your child the perfect first scooter experience with the Mini 3-Wheel Kids Scooter, designed for stability, safety, and endless fun. The lean-to-steer technology makes turning effortless and helps develop balance and coordination, while the three-wheel trike-style design ensures a steady and secure ride. With an adjustable T-bar handlebar offering four height settings, this scooter grows with your child making it long-lasting. Watch their excitement as the built-in LED light-up wheels glow in motion—no batteries required! The smooth-gliding engineered polyurethane wheels provide a quiet and stable ride, whether indoors or outdoors. The wide, anti-slip deck gives little feet plenty of room to stand securely, and the rear foot brake ensures easy and reliable stopping power for added safety. Designed for kids ages 2 and up, this scooter is built with durable and lightweight materials, making it easy to carry, store, and take on the go. Simple assembly means your little one will be scooting in no time! Whether it’s for daily adventures, playdates, or outdoor fun, the Mini 3-Wheel Kids Scooter is the perfect ride to keep them active, engaged, and smiling."
+        },
+        {
+          "source": "Product_Videos_Detail[1].Title",
+          "text": "campior kids scooter full video"
+        },
+        {
+          "source": "Product_Videos_Detail[2].Title",
+          "text": "Thoughts and age range | Fun sturdy scooter"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "LED WHEELS FOR MAGICAL RIDES – Watch your child's face light up as they ride. The motion-activated LED wheels flash bright colors with every turn, making every scooting adventure extra fun. Plus, they add visibility for...",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "LEAN-TO-STEER CONTROL – No complicated turns or tricky maneuvers—just lean and go. This intuitive steering technology helps kids develop balance and coordination while making riding feel natural and effortless.",
+          "source": "Features[2]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -2275,6 +3399,207 @@
       "Number of Wheels": "2",
       "Weight Limit": "220 Pounds",
       "Brake Style": "Electronic, Rear Drum"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Adult",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "220 Pounds",
+        "source": "Category_Attributes.Weight Limit"
+      },
+      "itemWeight": {
+        "value": "220 Pounds",
+        "source": "Category_Attributes.Weight Limit"
+      },
+      "frameMaterial": {
+        "value": "Aluminum",
+        "source": "Category_Attributes.Frame Material"
+      },
+      "wheelSize": {
+        "value": "8.5 Inches",
+        "source": "Category_Attributes.Wheel Size"
+      },
+      "brakeSystem": {
+        "value": "Electronic, Rear Drum",
+        "source": "Category_Attributes.Brake Style"
+      },
+      "tireType": {
+        "value": "Pneumatic",
+        "source": "Product_Specifications.Features_Specs.Wheel Type"
+      },
+      "dimensions": {
+        "value": "41.3\"L x 17.7\"W x 43.3\"H",
+        "source": "Product_Specifications.Measurements.Product Dimensions"
+      },
+      "battery": {
+        "value": "5 Hours",
+        "source": "Product_Specifications.Features_Specs.Battery Charge Time"
+      },
+      "foldability": {
+        "value": "Foldable",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "brakeSystem": {
+            "value": "Electronic, Rear Drum",
+            "source": "Category_Attributes.Brake Style"
+          },
+          "frameMaterial": {
+            "value": "Aluminum",
+            "source": "Category_Attributes.Frame Material"
+          },
+          "weightLimit": {
+            "value": "220 Pounds",
+            "source": "Category_Attributes.Weight Limit"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "SMART APP CONTROL: Connect your electric scooter to the mobile app for convenient operation and real-time monitoring. Use the app to activate the electronic lock, view real-time speed, switch speed units, adjust riding..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "8.5\" PNEUMATIC TIRES & IPX4 WATER RESISTANCE: This fast electric scooter has 8.5-inch air-filled tires that provide shock absorption and grip, which easily climb 20° slopes. With an IP65 waterproof rating, it can withst..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "POWERFUL MOTOR & 18 MPH TOP SPEED: Electric scooters is equipped with a powerful 500W peak motor, reaches speeds of up to 18 MPH for a smooth and efficient ride. making it perfect for daily commutes and city travel. LON..."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Special Feature",
+            "text": "Special Feature: Digital Display, Dual Braking System, Lightweight, Lockable, Smart APP control"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Other Special Features of the Product",
+            "text": "Other Special Features of the Product: Digital Display, Dual Braking System, Lightweight, Lockable, Smart APP control"
+          }
+        ],
+        "parentTip": "Parent's Tip: SMART APP CONTROL: Connect your electric scooter to the mobile app for convenient operation and real-time monitoring. Use the app to activate the electronic lock, view real-time s..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {
+          "tireType": {
+            "value": "Pneumatic",
+            "source": "Product_Specifications.Features_Specs.Wheel Type"
+          },
+          "wheelSize": {
+            "value": "8.5 Inches",
+            "source": "Category_Attributes.Wheel Size"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "POWERFUL MOTOR & 18 MPH TOP SPEED: Electric scooters is equipped with a powerful 500W peak motor, reaches speeds of up to 18 MPH for a smooth and efficient ride. making it perfect for daily commutes and city travel."
+          }
+        ],
+        "parentTip": "Parent's Tip: POWERFUL MOTOR & 18 MPH TOP SPEED: Electric scooters is equipped with a powerful 500W peak motor, reaches speeds of up to 18 MPH for a smooth and efficient ride. making it perfect..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "220 Pounds",
+            "source": "Category_Attributes.Weight Limit"
+          },
+          "foldability": {
+            "value": "Foldable",
+            "source": "detail_text_regex"
+          },
+          "dimensions": {
+            "value": "41.3\"L x 17.7\"W x 43.3\"H",
+            "source": "Product_Specifications.Measurements.Product Dimensions"
+          },
+          "battery": {
+            "value": "5 Hours",
+            "source": "Product_Specifications.Features_Specs.Battery Charge Time"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "LONG BATTERY LIFE: Foldable Scooter rides up to 21 miles on a single 5-hour charge, uses a 36V 7.8AH powerful battery built for short trips to school, work, or around the neighborhood without the worry of running out of..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "PORTABLE & FOLDABLE: ONE-STEP FOLDING: To collapse the scooter in just 3 seconds and hold up to 220lb, which is easy to carry and store, ideal for commutes, subways, offices, or car trunks, making it ideal for adults an..."
+          },
+          {
+            "source": "Product_Videos_Detail[8].Title",
+            "text": "This Electric Scooter is so fun! Love that it folds up!"
+          }
+        ],
+        "parentTip": "Parent's Tip: LONG BATTERY LIFE: Foldable Scooter rides up to 21 miles on a single 5-hour charge, uses a 36V 7.8AH powerful battery built for short trips to school, work, or around the neighbor..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: SMART APP CONTROL: Connect your electric scooter to the mobile app for convenient operation and real-time monitoring. Use the app to activate the electronic lock, view real-time s...",
+      "ridingComfort": "Parent's Tip: POWERFUL MOTOR & 18 MPH TOP SPEED: Electric scooters is equipped with a powerful 500W peak motor, reaches speeds of up to 18 MPH for a smooth and efficient ride. making it perfect...",
+      "lightAndEasy": "Parent's Tip: LONG BATTERY LIFE: Foldable Scooter rides up to 21 miles on a single 5-hour charge, uses a 36V 7.8AH powerful battery built for short trips to school, work, or around the neighbor..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "HopCycle Electric Scooters - Electric Scooter Adults, 1200W/1000W/500W Motor, 28/25/21/18 MPH Top Speed, 10''/8.5'' Tires, 28",
+      "brand": "HopCycle",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "POWERFUL MOTOR & 18 MPH TOP SPEED: Electric scooters is equipped with a powerful 500W peak motor, reaches speeds of up to 18 MPH for a smooth and efficient ride. making it perfect for daily commutes and city travel."
+        },
+        {
+          "source": "Features[2]",
+          "text": "LONG BATTERY LIFE: Foldable Scooter rides up to 21 miles on a single 5-hour charge, uses a 36V 7.8AH powerful battery built for short trips to school, work, or around the neighborhood without the worry of running out of battery"
+        },
+        {
+          "source": "Features[3]",
+          "text": "SMART APP CONTROL: Connect your electric scooter to the mobile app for convenient operation and real-time monitoring. Use the app to activate the electronic lock, view real-time speed, switch speed units, adjust riding modes, control the headlight, and enable cruise control for a smarter and more customizable riding experience."
+        },
+        {
+          "source": "Features[4]",
+          "text": "8.5\" PNEUMATIC TIRES & IPX4 WATER RESISTANCE: This fast electric scooter has 8.5-inch air-filled tires that provide shock absorption and grip, which easily climb 20° slopes. With an IP65 waterproof rating, it can withstand splashes and light rain, making it a reliable choice for commuters and adventure seekers alike."
+        },
+        {
+          "source": "Features[5]",
+          "text": "PORTABLE & FOLDABLE: ONE-STEP FOLDING: To collapse the scooter in just 3 seconds and hold up to 220lb, which is easy to carry and store, ideal for commutes, subways, offices, or car trunks, making it ideal for adults and teens alike."
+        },
+        {
+          "source": "Product_Description",
+          "text": "POWERFUL MOTOR & 18 MPH TOP SPEED: Electric scooters is equipped with a powerful 500W peak motor, reaches speeds of up to 18 MPH for a smooth and efficient ride. making it perfect for daily commutes and city travel. LONG BATTERY LIFE: Foldable Scooter rides up to 21 miles on a single 5-hour charge, uses a 36V 7.8AH powerful battery built for short trips to school, work, or around the neighborhood without the worry of running out of battery SMART APP CONTROL: Connect your electric scooter to the mobile app for convenient operation and real-time monitoring. Use the app to activate the electronic lock, view real-time speed, switch speed units, adjust riding modes, control the headlight, and enable cruise control for a smarter and more customizable riding experience."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "electric scooter"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[2]",
+          "text": "electric bike"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "SMART APP CONTROL: Connect your electric scooter to the mobile app for convenient operation and real-time monitoring. Use the app to activate the electronic lock, view real-time speed, switch speed units, adjust riding....",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "POWERFUL MOTOR & 18 MPH TOP SPEED: Electric scooters is equipped with a powerful 500W peak motor, reaches speeds of up to 18 MPH for a smooth and efficient ride. making it perfect for daily commutes and city travel.",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "LONG BATTERY LIFE: Foldable Scooter rides up to 21 miles on a single 5-hour charge, uses a 36V 7.8AH powerful battery built for short trips to school, work, or around the neighborhood without the worry of running out of...",
+          "source": "Features[2]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -2517,6 +3842,207 @@
       "Weight Limit": "240 Pounds",
       "Brake Style": "Rear Braking",
       "Suspension Type": "Front Suspension"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Age6+",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "240 Pounds",
+        "source": "Category_Attributes.Weight Limit"
+      },
+      "itemWeight": {
+        "value": "240 Pounds",
+        "source": "Category_Attributes.Weight Limit"
+      },
+      "frameMaterial": {
+        "value": "Alloy Steel",
+        "source": "Category_Attributes.Frame Material"
+      },
+      "wheelSize": {
+        "value": "8 Inches",
+        "source": "Category_Attributes.Wheel Size"
+      },
+      "brakeSystem": {
+        "value": "Rear Braking",
+        "source": "Category_Attributes.Brake Style"
+      },
+      "tireType": {
+        "value": "Solid",
+        "source": "Product_Specifications.Features_Specs.Wheel Type"
+      },
+      "dimensions": {
+        "value": "35\"L x 13\"W x 37\"H",
+        "source": "Product_Specifications.Measurements.Product Dimensions"
+      },
+      "foldability": {
+        "value": "Folding: Just touch the folding button to fold your sc",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "brakeSystem": {
+            "value": "Rear Braking",
+            "source": "Category_Attributes.Brake Style"
+          },
+          "frameMaterial": {
+            "value": "Alloy Steel",
+            "source": "Category_Attributes.Frame Material"
+          },
+          "weightLimit": {
+            "value": "240 Pounds",
+            "source": "Category_Attributes.Weight Limit"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "Safety is Our Top Priority: The handle double-layer lock prevents the handle from falling, Extra-wide Non-slip DECK(Max load Riders 240 LBS), and the high-quality heat-treated brakes, provide you with security"
+          },
+          {
+            "source": "Features[5]",
+            "text": "Height Adjustable: Supports 3.9 FT - 6.2 FT height riders. The handlebar is adjustable to 4 height options (31”, 33.8”, 35.4”, 37”), The perfect family scooter, the same scooter can be used by parents and daughter and s..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "WAYPLUS Kick Scooter for Ages 6+, Kids, Teens & Adults, Max Load 108kg, Foldable & Lightweight, 203mm Big Wheels with ABEC-9 Bearings, 4 Adjustable Height Levels, Shock Absorption & Smooth Ride"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Special Feature",
+            "text": "Special Feature: Adjustable Handlebar Height, Foldable,carry-on"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Other Special Features of the Product",
+            "text": "Other Special Features of the Product: Adjustable Handlebar Height, Foldable,carry-on"
+          }
+        ],
+        "parentTip": "Parent's Tip: Safety is Our Top Priority: The handle double-layer lock prevents the handle from falling, Extra-wide Non-slip DECK(Max load Riders 240 LBS), and the high-quality heat-treated bra..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {
+          "tireType": {
+            "value": "Solid",
+            "source": "Product_Specifications.Features_Specs.Wheel Type"
+          },
+          "wheelSize": {
+            "value": "8 Inches",
+            "source": "Category_Attributes.Wheel Size"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[4]",
+            "text": "All-Terrains Smooth Ride: 8-Inch wear-resistant wheels with ABEC9 bearings and the latest suspension system provide a smoother ride than most, ensuring you're more relaxed while riding"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Suspension Type",
+            "text": "Suspension Type: Front Suspension"
+          }
+        ],
+        "parentTip": "Parent's Tip: All-Terrains Smooth Ride: 8-Inch wear-resistant wheels with ABEC9 bearings and the latest suspension system provide a smoother ride than most, ensuring you're more relaxed while r..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "240 Pounds",
+            "source": "Category_Attributes.Weight Limit"
+          },
+          "foldability": {
+            "value": "Folding: Just touch the folding button to fold your sc",
+            "source": "detail_text_regex"
+          },
+          "dimensions": {
+            "value": "35\"L x 13\"W x 37\"H",
+            "source": "Product_Specifications.Measurements.Product Dimensions"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "Quick Push-Button Folding: Just touch the folding button to fold your scooter into a small compact size, with the carrying strap, you can take the scooter anywhere you want"
+          },
+          {
+            "source": "Features[7]",
+            "text": "Lifetime Service: WAYPLUS quick reply within 24 hours. Parts warehouses all over the US. Make after-sales service easier and effective"
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+            "text": "The Brand You Can Trust 300K+ Families Choose WAYPLUS for Every Ride Quality Assured Rigorous Testing and Outstanding Performance Efficient Support Service Quick Response within 12 Hours"
+          },
+          {
+            "source": "Product_Videos_Detail[3].Title",
+            "text": "WAYPLUS Lightweight Kick Scooter for Kids, Teens & Adults"
+          }
+        ],
+        "parentTip": "Parent's Tip: Quick Push-Button Folding: Just touch the folding button to fold your scooter into a small compact size, with the carrying strap, you can take the scooter anywhere you want"
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Safety is Our Top Priority: The handle double-layer lock prevents the handle from falling, Extra-wide Non-slip DECK(Max load Riders 240 LBS), and the high-quality heat-treated bra...",
+      "ridingComfort": "Parent's Tip: All-Terrains Smooth Ride: 8-Inch wear-resistant wheels with ABEC9 bearings and the latest suspension system provide a smoother ride than most, ensuring you're more relaxed while r...",
+      "lightAndEasy": "Parent's Tip: Quick Push-Button Folding: Just touch the folding button to fold your scooter into a small compact size, with the carrying strap, you can take the scooter anywhere you want"
+    },
+    "Expert_Review_Inputs": {
+      "title": "WAYPLUS KS1 Kick Scooter for Ages 6+,Kid, Teens & Adults. Max Load 240 LBS. Foldable, Lightweight, 8IN Big Wheels for Kids, T",
+      "brand": "WAYPLUS",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Designed for Kids and Teens: This scooter is specially designed for teens and kids to encourage kids to get out, exercise while playing, rather than staying at home. Perfect for commuting to school or playing in the park with friends"
+        },
+        {
+          "source": "Features[2]",
+          "text": "Quick Push-Button Folding: Just touch the folding button to fold your scooter into a small compact size, with the carrying strap, you can take the scooter anywhere you want"
+        },
+        {
+          "source": "Features[3]",
+          "text": "Safety is Our Top Priority: The handle double-layer lock prevents the handle from falling, Extra-wide Non-slip DECK(Max load Riders 240 LBS), and the high-quality heat-treated brakes, provide you with security"
+        },
+        {
+          "source": "Features[4]",
+          "text": "All-Terrains Smooth Ride: 8-Inch wear-resistant wheels with ABEC9 bearings and the latest suspension system provide a smoother ride than most, ensuring you're more relaxed while riding"
+        },
+        {
+          "source": "Features[5]",
+          "text": "Height Adjustable: Supports 3.9 FT - 6.2 FT height riders. The handlebar is adjustable to 4 height options (31”, 33.8”, 35.4”, 37”), The perfect family scooter, the same scooter can be used by parents and daughter and son riding together"
+        },
+        {
+          "source": "Features[6]",
+          "text": "Unique Gift: Exquisitely packaged gift boxes to kids and adults, Whether it's a birthday gift, Thanksgiving gift, or a Christmas gift, this will be a gift that anyone really wants"
+        },
+        {
+          "source": "Features[7]",
+          "text": "Lifetime Service: WAYPLUS quick reply within 24 hours. Parts warehouses all over the US. Make after-sales service easier and effective"
+        },
+        {
+          "source": "Product_Description",
+          "text": "WAYPLUS Kick Scooter for Ages 6+, Kids, Teens & Adults, Max Load 108kg, Foldable & Lightweight, 203mm Big Wheels with ABEC-9 Bearings, 4 Adjustable Height Levels, Shock Absorption & Smooth Ride"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Safety is Our Top Priority: The handle double-layer lock prevents the handle from falling, Extra-wide Non-slip DECK(Max load Riders 240 LBS), and the high-quality heat-treated brakes, provide you with security",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "All-Terrains Smooth Ride: 8-Inch wear-resistant wheels with ABEC9 bearings and the latest suspension system provide a smoother ride than most, ensuring you're more relaxed while riding",
+          "source": "Features[4]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "Quick Push-Button Folding: Just touch the folding button to fold your scooter into a small compact size, with the carrying strap, you can take the scooter anywhere you want",
+          "source": "Features[2]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -2796,6 +4322,219 @@
       "Weight Limit": "265 Pounds",
       "Brake Style": "dual braking",
       "Suspension Type": "Dual Suspension"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Adult",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "265 Pounds",
+        "source": "Category_Attributes.Weight Limit"
+      },
+      "itemWeight": {
+        "value": "265 Pounds",
+        "source": "Category_Attributes.Weight Limit"
+      },
+      "frameMaterial": {
+        "value": "Aluminum",
+        "source": "Category_Attributes.Frame Material"
+      },
+      "wheelSize": {
+        "value": "10 Inches",
+        "source": "Category_Attributes.Wheel Size"
+      },
+      "brakeSystem": {
+        "value": "dual braking",
+        "source": "Category_Attributes.Brake Style"
+      },
+      "tireType": {
+        "value": "Solid",
+        "source": "Product_Specifications.Features_Specs.Wheel Type"
+      },
+      "dimensions": {
+        "value": "44.5\"L x 16.9\"W x 48.8\"H",
+        "source": "Product_Specifications.Measurements.Product Dimensions"
+      },
+      "battery": {
+        "value": "4 Hours",
+        "source": "Product_Specifications.Features_Specs.Battery Charge Time"
+      },
+      "foldability": {
+        "value": "folded in seconds and stored in car trunks, offices an",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "brakeSystem": {
+            "value": "dual braking",
+            "source": "Category_Attributes.Brake Style"
+          },
+          "frameMaterial": {
+            "value": "Aluminum",
+            "source": "Category_Attributes.Frame Material"
+          },
+          "weightLimit": {
+            "value": "265 Pounds",
+            "source": "Category_Attributes.Weight Limit"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "【Dual Suspension and Solid Tire】The 10”honeycomb tires, along with the shock absorbing system, make this electric scooter adults for a smooth and comfortable ride even on rough surfaces while the tires don't require add..."
+          },
+          {
+            "source": "Features[2]",
+            "text": "【LED Display & Smart Control &Lockable】You can check your speed, modes and battery level on the LED digital display. check and control the electric scooter's features via your cell phone, such as checking cruise control..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "【Ride Safety】This e scooter product is UL 2272 certified. The e-scooter has a dual braking system and non slip deck, so it is safer to ride. Also, the escooter for teens & adults has super bright LED headlight and brake..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "【Dual Suspension and Solid Tire】The 10”honeycomb tires, along with the shock absorbing system, make this electric scooter adults for a smooth and comfortable ride even on rough surfaces while the tires don't require add..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[3]",
+            "text": "Why do scooter brakes not work well? Please check the brake cable connection and adjust tension with a wrench. Why do suspensions not work properly? Please check if there is insufficient lubrication in shock absorber jo..."
+          }
+        ],
+        "parentTip": "Parent's Tip: 【Dual Suspension and Solid Tire】The 10”honeycomb tires, along with the shock absorbing system, make this electric scooter adults for a smooth and comfortable ride even on rough su..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {
+          "tireType": {
+            "value": "Solid",
+            "source": "Product_Specifications.Features_Specs.Wheel Type"
+          },
+          "wheelSize": {
+            "value": "10 Inches",
+            "source": "Category_Attributes.Wheel Size"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Product_Specifications.Features_Specs.Handlebar Type",
+            "text": "Handlebar Type: Fixed"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Suspension Type",
+            "text": "Suspension Type: Dual Suspension"
+          }
+        ],
+        "parentTip": "Parent's Tip: Handlebar Type: Fixed"
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "265 Pounds",
+            "source": "Category_Attributes.Weight Limit"
+          },
+          "foldability": {
+            "value": "folded in seconds and stored in car trunks, offices an",
+            "source": "detail_text_regex"
+          },
+          "dimensions": {
+            "value": "44.5\"L x 16.9\"W x 48.8\"H",
+            "source": "Product_Specifications.Measurements.Product Dimensions"
+          },
+          "battery": {
+            "value": "4 Hours",
+            "source": "Product_Specifications.Features_Specs.Battery Charge Time"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[5]",
+            "text": "【Portable&Lightweight Design】The adult electric scooters can be folded in seconds and stored in car trunks, offices and other places to save space. This scooter is made of aluminum and weighs only 36 pounds, this scoote..."
+          },
+          {
+            "source": "Features[6]",
+            "text": "【Delivery Tips】The Item Dimensions: Unfold: ‎44.5 x 16.9 x 48.8 inches. Fold: 44.5 x 16.9 x 24.4inches."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+            "text": "About MAXSHOT With years of deep industry experience and a comprehensive integration of outdoor travel resources, we are dedicated to making travel more accessible and friendly for our customers. Our mission is to help..."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Special Feature",
+            "text": "Special Feature: Cruise Control; APP Control, Digital Display, Dual Braking System, Foldable, Non Slip Deck"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Other Special Features of the Product",
+            "text": "Other Special Features of the Product: Cruise Control; APP Control, Digital Display, Dual Braking System, Foldable, Non Slip Deck"
+          }
+        ],
+        "parentTip": "Parent's Tip: 【Portable&Lightweight Design】The adult electric scooters can be folded in seconds and stored in car trunks, offices and other places to save space. This scooter is made of aluminu..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: 【Dual Suspension and Solid Tire】The 10”honeycomb tires, along with the shock absorbing system, make this electric scooter adults for a smooth and comfortable ride even on rough su...",
+      "ridingComfort": "Parent's Tip: Handlebar Type: Fixed",
+      "lightAndEasy": "Parent's Tip: 【Portable&Lightweight Design】The adult electric scooters can be folded in seconds and stored in car trunks, offices and other places to save space. This scooter is made of aluminu..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Maxshot Electric Scooter, 8.5\" /10\" /14\" Tire, 16/19/22 Mph Top Speed, 12/16/21/27/28/49/50 Miles Long Range, Folding Escoote",
+      "brand": "Maxshot",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "【Dual Suspension and Solid Tire】The 10”honeycomb tires, along with the shock absorbing system, make this electric scooter adults for a smooth and comfortable ride even on rough surfaces while the tires don't require additional maintenance or repair. This escooter can handle common inclines well."
+        },
+        {
+          "source": "Features[2]",
+          "text": "【LED Display & Smart Control &Lockable】You can check your speed, modes and battery level on the LED digital display. check and control the electric scooter's features via your cell phone, such as checking cruise control, speedometer, unlocking or locking the scooter and more. It works with both iPhone and Android smartphones."
+        },
+        {
+          "source": "Features[3]",
+          "text": "【Powerful Motor & Long Range】The electric scooter for adults with a 500W brushless hub motor allows for speed up to 22mph. High-capacity rechargeable and replaceable battery (42V/10.5Ah) has a max range of 22 miles under certain conditions. The max load is 265 lbs so it can meet the difference needs of teenagers and adults."
+        },
+        {
+          "source": "Features[4]",
+          "text": "【Ride Safety】This e scooter product is UL 2272 certified. The e-scooter has a dual braking system and non slip deck, so it is safer to ride. Also, the escooter for teens & adults has super bright LED headlight and brake tail light for better visibility and riding safety."
+        },
+        {
+          "source": "Features[5]",
+          "text": "【Portable&Lightweight Design】The adult electric scooters can be folded in seconds and stored in car trunks, offices and other places to save space. This scooter is made of aluminum and weighs only 36 pounds, this scooter's folding size is 44.5 x 16.9 x 24.4inches, so you can easily take this foldable scooter to subways and buses."
+        },
+        {
+          "source": "Features[6]",
+          "text": "【Delivery Tips】The Item Dimensions: Unfold: ‎44.5 x 16.9 x 48.8 inches. Fold: 44.5 x 16.9 x 24.4inches."
+        },
+        {
+          "source": "Features[7]",
+          "text": "【Warming Tips】The first initial charge is 6 hours. Each subsequent charge time is no more than 5 hours. Users should regularly check the condition of the battery and charging device, ‌to ensure that the matching battery is used and the correct charging method is used, ‌ and avoid charging in an unventilated or flammable environment."
+        },
+        {
+          "source": "Product_Description",
+          "text": "【Dual Suspension and Solid Tire】The 10”honeycomb tires, along with the shock absorbing system, make this electric scooter adults for a smooth and comfortable ride even on rough surfaces while the tires don't require additional maintenance or repair. This escooter can handle common inclines well. 【LED Display & Smart Control &Lockable】You can check your speed, modes and battery level on the LED digital display. check and control the electric scooter's features via your cell phone, such as checking cruise control, speedometer, unlocking or locking the scooter and more. It works with both iPhone and Android smartphones. 【Powerful Motor & Long Range】The electric scooter for adults with a 500W brushless hub motor allows for speed up to 22mph. High-capacity rechargeable and replaceable battery (42V/10.5Ah) has a max range of 22 miles under certain conditions. The max load is 265 lbs so it can..."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "【Dual Suspension and Solid Tire】The 10”honeycomb tires, along with the shock absorbing system, make this electric scooter adults for a smooth and comfortable ride even on rough surfaces while the tires don't require add...",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "Handlebar Type: Fixed",
+          "source": "Product_Specifications.Features_Specs.Handlebar Type"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "【Portable&Lightweight Design】The adult electric scooters can be folded in seconds and stored in car trunks, offices and other places to save space. This scooter is made of aluminum and weighs only 36 pounds, this scoote...",
+          "source": "Features[5]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -3223,6 +4962,219 @@
       "Weight Limit": "265 Pounds",
       "Brake Style": "Rear Braking",
       "Suspension Type": "Rear Suspension"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Adult",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "265 Pounds",
+        "source": "Category_Attributes.Weight Limit"
+      },
+      "itemWeight": {
+        "value": "265 Pounds",
+        "source": "Category_Attributes.Weight Limit"
+      },
+      "frameMaterial": {
+        "value": "Aluminum",
+        "source": "Category_Attributes.Frame Material"
+      },
+      "wheelSize": {
+        "value": "8.5 Inches",
+        "source": "Category_Attributes.Wheel Size"
+      },
+      "brakeSystem": {
+        "value": "Rear Braking",
+        "source": "Category_Attributes.Brake Style"
+      },
+      "tireType": {
+        "value": "Solid",
+        "source": "Product_Specifications.Features_Specs.Wheel Type"
+      },
+      "dimensions": {
+        "value": "35\"L x 5\"W x 12\"H",
+        "source": "Product_Specifications.Measurements.Product Dimensions"
+      },
+      "battery": {
+        "value": "5 Hours",
+        "source": "Product_Specifications.Features_Specs.Battery Charge Time"
+      },
+      "foldability": {
+        "value": "FOLDING DESIGN: Engineered with one-click folding mech",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "brakeSystem": {
+            "value": "Rear Braking",
+            "source": "Category_Attributes.Brake Style"
+          },
+          "frameMaterial": {
+            "value": "Aluminum",
+            "source": "Category_Attributes.Frame Material"
+          },
+          "weightLimit": {
+            "value": "265 Pounds",
+            "source": "Category_Attributes.Weight Limit"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "ADVANCED SAFETY SYSTEM: Ride with confidence using the dual braking system (front regenerative brake and rear disc brake) paired with a bright LED headlight and rear reflective taillight, ensuring maximum visibility and..."
+          },
+          {
+            "source": "Features[6]",
+            "text": "SOLID TIRES FOR COMFORT: Equipped with [8.5 inch] Solid tires that absorb bumps and vibrations, providing a stable, comfortable, and slip-resistant ride even on rough city pavement."
+          },
+          {
+            "source": "Product_Description",
+            "text": "POWERFUL MOTOR & HIGH SPEED: Equipped with a high-torque [350W] brushless hub motor, this scooter reaches speeds of up to [19 mph] and handles inclines of up to [25%] grade, ensuring a swift and smooth commute even on h..."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Grip Type",
+            "text": "Grip Type: Lock-On"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Recommended Uses For Product",
+            "text": "Recommended Uses For Product: urban commuting, short-distance travel, safety-conscious commuting, school, outside"
+          }
+        ],
+        "parentTip": "Parent's Tip: ADVANCED SAFETY SYSTEM: Ride with confidence using the dual braking system (front regenerative brake and rear disc brake) paired with a bright LED headlight and rear reflective ta..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {
+          "tireType": {
+            "value": "Solid",
+            "source": "Product_Specifications.Features_Specs.Wheel Type"
+          },
+          "wheelSize": {
+            "value": "8.5 Inches",
+            "source": "Category_Attributes.Wheel Size"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "POWERFUL MOTOR & HIGH SPEED: Equipped with a high-torque [350W] brushless hub motor, this scooter reaches speeds of up to [19 mph] and handles inclines of up to [25%] grade, ensuring a swift and smooth commute even on h..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "CRUISE CONTROL & SMART DISPLAY: Activate cruise control for relaxed riding on long stretches, and monitor your speed, battery life, and riding mode via the easy-to-read LED display located centrally on the handlebars."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Handlebar Type",
+            "text": "Handlebar Type: Fixed"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Suspension Type",
+            "text": "Suspension Type: Rear Suspension"
+          }
+        ],
+        "parentTip": "Parent's Tip: POWERFUL MOTOR & HIGH SPEED: Equipped with a high-torque [350W] brushless hub motor, this scooter reaches speeds of up to [19 mph] and handles inclines of up to [25%] grade, ensur..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "265 Pounds",
+            "source": "Category_Attributes.Weight Limit"
+          },
+          "foldability": {
+            "value": "FOLDING DESIGN: Engineered with one-click folding mech",
+            "source": "detail_text_regex"
+          },
+          "dimensions": {
+            "value": "35\"L x 5\"W x 12\"H",
+            "source": "Product_Specifications.Measurements.Product Dimensions"
+          },
+          "battery": {
+            "value": "5 Hours",
+            "source": "Product_Specifications.Features_Specs.Battery Charge Time"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "LONG-RANGE BATTERY: Featuring a high-capacity [5.2Ah] battery, enjoy a reliable travel range of up to [16 miles] on a single charge, making it the perfect solution for daily urban commuting without the anxiety of runnin..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "ULTRA-PORTABLE FOLDING DESIGN: Engineered with one-click folding mechanism, this scooter collapses in seconds to a compact size, allowing you to easily carry it onto buses, trains, or store it neatly under your desk."
+          },
+          {
+            "source": "Features[7]",
+            "text": "QUICK CHARGE & IP65 WATER RESISTANCE: Stay mobile with a fast-charging battery that reaches full capacity [4-5 hours], plus an IP65 waterproof rating that protects the scooter against dust and splashing water from light..."
+          }
+        ],
+        "parentTip": "Parent's Tip: LONG-RANGE BATTERY: Featuring a high-capacity [5.2Ah] battery, enjoy a reliable travel range of up to [16 miles] on a single charge, making it the perfect solution for daily urban..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: ADVANCED SAFETY SYSTEM: Ride with confidence using the dual braking system (front regenerative brake and rear disc brake) paired with a bright LED headlight and rear reflective ta...",
+      "ridingComfort": "Parent's Tip: POWERFUL MOTOR & HIGH SPEED: Equipped with a high-torque [350W] brushless hub motor, this scooter reaches speeds of up to [19 mph] and handles inclines of up to [25%] grade, ensur...",
+      "lightAndEasy": "Parent's Tip: LONG-RANGE BATTERY: Featuring a high-capacity [5.2Ah] battery, enjoy a reliable travel range of up to [16 miles] on a single charge, making it the perfect solution for daily urban..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Roinside Electric Scooter- 8.5\"/10''/14'' Tires, Up to 19/22MPH, 350W/500W Motor, Max 12/16/21/23/27/62Miles Long-Range Folda",
+      "brand": "Roinside",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "POWERFUL MOTOR & HIGH SPEED: Equipped with a high-torque [350W] brushless hub motor, this scooter reaches speeds of up to [19 mph] and handles inclines of up to [25%] grade, ensuring a swift and smooth commute even on hilly terrain."
+        },
+        {
+          "source": "Features[2]",
+          "text": "LONG-RANGE BATTERY: Featuring a high-capacity [5.2Ah] battery, enjoy a reliable travel range of up to [16 miles] on a single charge, making it the perfect solution for daily urban commuting without the anxiety of running out of power."
+        },
+        {
+          "source": "Features[3]",
+          "text": "ADVANCED SAFETY SYSTEM: Ride with confidence using the dual braking system (front regenerative brake and rear disc brake) paired with a bright LED headlight and rear reflective taillight, ensuring maximum visibility and stopping power in all conditions."
+        },
+        {
+          "source": "Features[4]",
+          "text": "CRUISE CONTROL & SMART DISPLAY: Activate cruise control for relaxed riding on long stretches, and monitor your speed, battery life, and riding mode via the easy-to-read LED display located centrally on the handlebars."
+        },
+        {
+          "source": "Features[5]",
+          "text": "ULTRA-PORTABLE FOLDING DESIGN: Engineered with one-click folding mechanism, this scooter collapses in seconds to a compact size, allowing you to easily carry it onto buses, trains, or store it neatly under your desk."
+        },
+        {
+          "source": "Features[6]",
+          "text": "SOLID TIRES FOR COMFORT: Equipped with [8.5 inch] Solid tires that absorb bumps and vibrations, providing a stable, comfortable, and slip-resistant ride even on rough city pavement."
+        },
+        {
+          "source": "Features[7]",
+          "text": "QUICK CHARGE & IP65 WATER RESISTANCE: Stay mobile with a fast-charging battery that reaches full capacity [4-5 hours], plus an IP65 waterproof rating that protects the scooter against dust and splashing water from light rain."
+        },
+        {
+          "source": "Product_Description",
+          "text": "POWERFUL MOTOR & HIGH SPEED: Equipped with a high-torque [350W] brushless hub motor, this scooter reaches speeds of up to [19 mph] and handles inclines of up to [25%] grade, ensuring a swift and smooth commute even on hilly terrain. LONG-RANGE BATTERY: Featuring a high-capacity [5.2Ah] battery, enjoy a reliable travel range of up to [16 miles] on a single charge, making it the perfect solution for daily urban commuting without the anxiety of running out of power. ADVANCED SAFETY SYSTEM: Ride with confidence using the dual braking system (front regenerative brake and rear disc brake) paired with a bright LED headlight and rear reflective taillight, ensuring maximum visibility and stopping power in all conditions."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "ADVANCED SAFETY SYSTEM: Ride with confidence using the dual braking system (front regenerative brake and rear disc brake) paired with a bright LED headlight and rear reflective taillight, ensuring maximum visibility and...",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "POWERFUL MOTOR & HIGH SPEED: Equipped with a high-torque [350W] brushless hub motor, this scooter reaches speeds of up to [19 mph] and handles inclines of up to [25%] grade, ensuring a swift and smooth commute even on h...",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "LONG-RANGE BATTERY: Featuring a high-capacity [5.2Ah] battery, enjoy a reliable travel range of up to [16 miles] on a single charge, making it the perfect solution for daily urban commuting without the anxiety of runnin...",
+          "source": "Features[2]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -3512,6 +5464,199 @@
       "Weight Limit": "110 Pounds",
       "Brake Style": "Rear Braking",
       "Suspension Type": "Rigid"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Toddler",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "110 Pounds",
+        "source": "Category_Attributes.Weight Limit"
+      },
+      "itemWeight": {
+        "value": "110 Pounds",
+        "source": "Category_Attributes.Weight Limit"
+      },
+      "frameMaterial": {
+        "value": "Aluminum",
+        "source": "Category_Attributes.Frame Material"
+      },
+      "wheelSize": {
+        "value": "4.72 Inches",
+        "source": "Category_Attributes.Wheel Size"
+      },
+      "brakeSystem": {
+        "value": "Rear Braking",
+        "source": "Category_Attributes.Brake Style"
+      },
+      "tireType": {
+        "value": "Solid",
+        "source": "Product_Specifications.Features_Specs.Wheel Type"
+      },
+      "dimensions": {
+        "value": "23.23\"L x 11.02\"W x 30.31\"H",
+        "source": "Product_Specifications.Measurements.Product Dimensions"
+      },
+      "foldability": {
+        "value": "Folding Design - No need to assemble, just one step to",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "brakeSystem": {
+            "value": "Rear Braking",
+            "source": "Category_Attributes.Brake Style"
+          },
+          "frameMaterial": {
+            "value": "Aluminum",
+            "source": "Category_Attributes.Frame Material"
+          },
+          "weightLimit": {
+            "value": "110 Pounds",
+            "source": "Category_Attributes.Weight Limit"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "Sturdy& Secure - 1. Extra wide deck with anti-slip coating; 2. The widened base design makes the scooter stronger and can carry a maximum weight of 110 lbs; 3. Highly sensitive rear brake stops when stepped on; 4. Soft..."
+          },
+          {
+            "source": "Features[2]",
+            "text": "Super Cool Flashin LED PU Wheels - The toddler scooter features two big fronts LED wheels and small rear LED wheels, which are motion activated with no batteries required. Lights get brighter the faster your kids go. Th..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "Safety and After-Sales Service- After thousands of repeated tests, this scooter is certified by American ASTM F963-17 / European EN71 standard. Our products have a 2-year return policy. If you have any questions, please..."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Special Feature",
+            "text": "Special Feature: Adjustable Handlebar Height"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Other Special Features of the Product",
+            "text": "Other Special Features of the Product: Adjustable Handlebar Height"
+          }
+        ],
+        "parentTip": "Parent's Tip: Sturdy& Secure - 1. Extra wide deck with anti-slip coating; 2. The widened base design makes the scooter stronger and can carry a maximum weight of 110 lbs; 3. Highly sensitive re..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {
+          "tireType": {
+            "value": "Solid",
+            "source": "Product_Specifications.Features_Specs.Wheel Type"
+          },
+          "wheelSize": {
+            "value": "4.72 Inches",
+            "source": "Category_Attributes.Wheel Size"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Product_Specifications.Features_Specs.Suspension Type",
+            "text": "Suspension Type: Rigid"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Grip Type",
+            "text": "Grip Type: Ergonomic"
+          }
+        ],
+        "parentTip": "Parent's Tip: Suspension Type: Rigid"
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "110 Pounds",
+            "source": "Category_Attributes.Weight Limit"
+          },
+          "foldability": {
+            "value": "Folding Design - No need to assemble, just one step to",
+            "source": "detail_text_regex"
+          },
+          "dimensions": {
+            "value": "23.23\"L x 11.02\"W x 30.31\"H",
+            "source": "Product_Specifications.Measurements.Product Dimensions"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[4]",
+            "text": "Fast Folding Design - No need to assemble, just one step to unfold when received, easy to carry and store."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[2]",
+            "text": "Shop Family Travel"
+          }
+        ],
+        "parentTip": "Parent's Tip: Fast Folding Design - No need to assemble, just one step to unfold when received, easy to carry and store."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Sturdy& Secure - 1. Extra wide deck with anti-slip coating; 2. The widened base design makes the scooter stronger and can carry a maximum weight of 110 lbs; 3. Highly sensitive re...",
+      "ridingComfort": "Parent's Tip: Suspension Type: Rigid",
+      "lightAndEasy": "Parent's Tip: Fast Folding Design - No need to assemble, just one step to unfold when received, easy to carry and store."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Besrey Kick Scooter for Kids Ages 3-10, 3-Wheel Folding Scooter with Adjustable Height, LED Light Wheels, Extra Wide Deck for",
+      "brand": "Besrey",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Sturdy& Secure - 1. Extra wide deck with anti-slip coating; 2. The widened base design makes the scooter stronger and can carry a maximum weight of 110 lbs; 3. Highly sensitive rear brake stops when stepped on; 4. Soft and slack handlebars help kids grip for better control, better maneuverability, and optimum safety."
+        },
+        {
+          "source": "Features[2]",
+          "text": "Super Cool Flashin LED PU Wheels - The toddler scooter features two big fronts LED wheels and small rear LED wheels, which are motion activated with no batteries required. Lights get brighter the faster your kids go. The bright and eye-catching design keeps children safe and fun in the dark. Highly sensitive rear brake, stop when stepped on."
+        },
+        {
+          "source": "Features[3]",
+          "text": "Lean-to-Steer Technology - The lean-to-steer technology lets leaning, instead of turning, control the ride, for better balance and coordination."
+        },
+        {
+          "source": "Features[4]",
+          "text": "Fast Folding Design - No need to assemble, just one step to unfold when received, easy to carry and store."
+        },
+        {
+          "source": "Features[5]",
+          "text": "Safety and After-Sales Service- After thousands of repeated tests, this scooter is certified by American ASTM F963-17 / European EN71 standard. Our products have a 2-year return policy. If you have any questions, please do not hesitate to contact us."
+        },
+        {
+          "source": "Product_Description",
+          "text": "1"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Shop Riding"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[2]",
+          "text": "Shop Family Travel"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Sturdy& Secure - 1. Extra wide deck with anti-slip coating; 2. The widened base design makes the scooter stronger and can carry a maximum weight of 110 lbs; 3. Highly sensitive rear brake stops when stepped on; 4. Soft....",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "Suspension Type: Rigid",
+          "source": "Product_Specifications.Features_Specs.Suspension Type"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "Fast Folding Design - No need to assemble, just one step to unfold when received, easy to carry and store.",
+          "source": "Features[4]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -4150,6 +6295,203 @@
       "Weight Limit": "132 Pounds",
       "Brake Style": "Rear Braking",
       "Suspension Type": "Rigid"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Youth",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "132 Pounds",
+        "source": "Category_Attributes.Weight Limit"
+      },
+      "itemWeight": {
+        "value": "132 Pounds",
+        "source": "Category_Attributes.Weight Limit"
+      },
+      "frameMaterial": {
+        "value": "Aluminum",
+        "source": "Category_Attributes.Frame Material"
+      },
+      "wheelSize": {
+        "value": "4 Inches",
+        "source": "Category_Attributes.Wheel Size"
+      },
+      "brakeSystem": {
+        "value": "Rear Braking",
+        "source": "Category_Attributes.Brake Style"
+      },
+      "tireType": {
+        "value": "Solid",
+        "source": "Product_Specifications.Features_Specs.Wheel Type"
+      },
+      "dimensions": {
+        "value": "23.5\"L x 11.3\"W x 24.6\"H",
+        "source": "Product_Specifications.Measurements.Product Dimensions"
+      },
+      "foldability": {
+        "value": "Folding Scooters give you the best ride on two wheels!",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "brakeSystem": {
+            "value": "Rear Braking",
+            "source": "Category_Attributes.Brake Style"
+          },
+          "frameMaterial": {
+            "value": "Aluminum",
+            "source": "Category_Attributes.Frame Material"
+          },
+          "weightLimit": {
+            "value": "132 Pounds",
+            "source": "Category_Attributes.Weight Limit"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "JUPITER SCOOTERS: Easy to ride, lightweight, easy to move, with light up LEDs all over! The Jupiter has over 100 LED lights for high visibility safety and nonstop fun! Kids can kick and push their around with ease and s..."
+          },
+          {
+            "source": "Features[2]",
+            "text": "EASY SMOOTH RIDE: The low deck makes it easy to balance while the super smooth shock-absorbing wheels give you easy cruising. Our scooters use full contact rear brakes for a fast easy stop without a lot of force. Jetson..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "SPECIFICATIONS: The Jupiter is a two-wheel scooter with adjustable height handlebars and rear foot brake that's perfect for beginners. The handlebars reach 24.6\" to 33.3\", the 2 wheels are each 4\", and is best for boys..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "Highlights Kick-scooting on 2 spectacular fully illuminated wheels. Fun, foldable, and the right fit, thanks to a height-adjustable handlebar. Lightweight and sturdy frame – the perfect combo for kids. Product Details B..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+            "text": "The video showcases the product in use. The video guides you through product setup. The video compares multiple products. The video shows the product being unpacked. aplus content video Jupiter Light-Up Folding Kick Sco..."
+          }
+        ],
+        "parentTip": "Parent's Tip: JUPITER SCOOTERS: Easy to ride, lightweight, easy to move, with light up LEDs all over! The Jupiter has over 100 LED lights for high visibility safety and nonstop fun! Kids can ki..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {
+          "tireType": {
+            "value": "Solid",
+            "source": "Product_Specifications.Features_Specs.Wheel Type"
+          },
+          "wheelSize": {
+            "value": "4 Inches",
+            "source": "Category_Attributes.Wheel Size"
+          }
+        },
+        "evidence": [
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[7]",
+            "text": "As kids grow, so can this scooter. It's easy to raise the padded-grip handlebar so it's always at the right height."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Suspension Type",
+            "text": "Suspension Type: Rigid"
+          }
+        ],
+        "parentTip": "Parent's Tip: As kids grow, so can this scooter. It's easy to raise the padded-grip handlebar so it's always at the right height."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "132 Pounds",
+            "source": "Category_Attributes.Weight Limit"
+          },
+          "foldability": {
+            "value": "Folding Scooters give you the best ride on two wheels!",
+            "source": "detail_text_regex"
+          },
+          "dimensions": {
+            "value": "23.5\"L x 11.3\"W x 24.6\"H",
+            "source": "Product_Specifications.Measurements.Product Dimensions"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "LIGHTWEIGHT AND PORTABLE: The foldable collapsible design means it's easy to take your scooter anywhere! The fast no-tool folding process is simple for kids. These scooters make great gifts and toys for boys and girls 5..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Title",
+            "text": "Watch spirited, active play unfold."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[5]",
+            "text": "The Jupiter folds in half for storage and transport. Weighing just 6 pounds, it's easy for kids to carry themselves."
+          }
+        ],
+        "parentTip": "Parent's Tip: LIGHTWEIGHT AND PORTABLE: The foldable collapsible design means it's easy to take your scooter anywhere! The fast no-tool folding process is simple for kids. These scooters make g..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: JUPITER SCOOTERS: Easy to ride, lightweight, easy to move, with light up LEDs all over! The Jupiter has over 100 LED lights for high visibility safety and nonstop fun! Kids can ki...",
+      "ridingComfort": "Parent's Tip: As kids grow, so can this scooter. It's easy to raise the padded-grip handlebar so it's always at the right height.",
+      "lightAndEasy": "Parent's Tip: LIGHTWEIGHT AND PORTABLE: The foldable collapsible design means it's easy to take your scooter anywhere! The fast no-tool folding process is simple for kids. These scooters make g..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Jetson Jupiter Kids 2-Wheel Light-Up Kick Scooter, LED Lights on Handlebar, Stem, Wheels & Deck, Adjustable Handlebar, Rear B",
+      "brand": "Jetson",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "JUPITER SCOOTERS: Easy to ride, lightweight, easy to move, with light up LEDs all over! The Jupiter has over 100 LED lights for high visibility safety and nonstop fun! Kids can kick and push their around with ease and safety."
+        },
+        {
+          "source": "Features[2]",
+          "text": "EASY SMOOTH RIDE: The low deck makes it easy to balance while the super smooth shock-absorbing wheels give you easy cruising. Our scooters use full contact rear brakes for a fast easy stop without a lot of force. Jetson Folding Scooters give you the best ride on two wheels!"
+        },
+        {
+          "source": "Features[3]",
+          "text": "LIGHTWEIGHT AND PORTABLE: The foldable collapsible design means it's easy to take your scooter anywhere! The fast no-tool folding process is simple for kids. These scooters make great gifts and toys for boys and girls 5 years and older!"
+        },
+        {
+          "source": "Features[4]",
+          "text": "SPECIFICATIONS: The Jupiter is a two-wheel scooter with adjustable height handlebars and rear foot brake that's perfect for beginners. The handlebars reach 24.6\" to 33.3\", the 2 wheels are each 4\", and is best for boys and girls up to 132 lbs."
+        },
+        {
+          "source": "Features[5]",
+          "text": "FOR EVERYDAY ADVENTURES: Our products are made to bring the joy of riding to people and help them experience freedom, inspiration, and exploration. We create kids scooters, electric scooters, and hoverboards made to be your companion wherever you go!"
+        },
+        {
+          "source": "Product_Description",
+          "text": "Highlights Kick-scooting on 2 spectacular fully illuminated wheels. Fun, foldable, and the right fit, thanks to a height-adjustable handlebar. Lightweight and sturdy frame – the perfect combo for kids. Product Details Beaming lights, radiant smiles. This 2-wheeler delivers a whole lot of happy. Kick the energy up a notch with this brilliant kids’ kick scooter. Color soars out of every direction from the fully illuminated wheels, and flashing LED lights send cascades of sparkle up and down the stem. The Moonbeam brightens up the entire block – including the kids riding it. This is a scooter, after all, that’s all about the inner glow. Fun in sight There are 20 different illumination effects kids can choose for the wheels. All of them keep kids extra-visible. Hold steady Height-adjustable and with durable comfort grips, the handlebar allows for optimal positioning and control. Collapse and carry Easy to fold. Lightweight for carrying. The Moonbeam can stow and go almost anywhere. Product Weight 6.2 lb. Weight Limit 132 lb. Brake Rear Foot Brake Wheel Size 4 in. Deck Size 17.3\" x 3.6\" Product Dimensions (L x W x H) 24.0\" x 9.8\" x 24.6\" Folded Dimensions (L x W x H) 24.8\" x 9.8\" x 7.7\" For Riders Aged 5+ Assembly Required Partial"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Watch spirited, active play unfold."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "The video showcases the product in use. The video guides you through product setup. The video compares multiple products. The video shows the product being unpacked. aplus content video Jupiter Light-Up Folding Kick Scooter Scoot for the Stars The perfect next step from a 3-wheel scooter, this 2-wheel spinner is smooth rolling, sturdy - and super fun."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "JUPITER SCOOTERS: Easy to ride, lightweight, easy to move, with light up LEDs all over! The Jupiter has over 100 LED lights for high visibility safety and nonstop fun! Kids can kick and push their around with ease and s...",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "As kids grow, so can this scooter. It's easy to raise the padded-grip handlebar so it's always at the right height.",
+          "source": "From_The_Manufacturer.Sections[1].Texts[7]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "LIGHTWEIGHT AND PORTABLE: The foldable collapsible design means it's easy to take your scooter anywhere! The fast no-tool folding process is simple for kids. These scooters make great gifts and toys for boys and girls 5...",
+          "source": "Features[3]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -4323,6 +6665,185 @@
     ],
     "Local_Image_Path": "scrape_store/scooters/Aovowheel/Rank_Similar_ASIN_B0H29GPCFR_Aovowheel Electric Scooter Adults Foldable 8.5 Tir/images/primary.jpg",
     "Local_Video_Paths": [],
-    "Last_Updated": "2026-07-07T23:11:16.660057"
+    "Last_Updated": "2026-07-07T23:11:16.660057",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "10-60",
+        "source": "Product_Specifications.Features_Specs.Age Range (Description)"
+      },
+      "weightLimit": {
+        "value": "265 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Limit"
+      },
+      "itemWeight": {
+        "value": "265 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Limit"
+      },
+      "frameMaterial": {
+        "value": "Rubber",
+        "source": "Product_Specifications.Materials_Care.Wheel Material"
+      },
+      "wheelSize": {
+        "value": "8.5 Inches",
+        "source": "Product_Specifications.Measurements.Wheel Size"
+      },
+      "brakeSystem": {
+        "value": "Front Braking",
+        "source": "Product_Specifications.Additional_Details.Brake Style"
+      },
+      "tireType": {
+        "value": "Solid",
+        "source": "Product_Specifications.Features_Specs.Wheel Type"
+      },
+      "dimensions": {
+        "value": "43\"L x 20\"W x 5.7\"H",
+        "source": "Product_Specifications.Measurements.Product Dimensions"
+      },
+      "foldability": {
+        "value": "Foldable",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "brakeSystem": {
+            "value": "Front Braking",
+            "source": "Product_Specifications.Additional_Details.Brake Style"
+          },
+          "frameMaterial": {
+            "value": "Rubber",
+            "source": "Product_Specifications.Materials_Care.Wheel Material"
+          },
+          "weightLimit": {
+            "value": "265 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Limit"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "【Dual Braking & Bright Lighting System for Safe】The scooter has EABS front brake and rear drum brake for responsive stopping power. Bright LED headlights illuminate the path, while the rear brake light increases visibil..."
+          },
+          {
+            "source": "Features[3]",
+            "text": "【Cool Graffiti Deck & Non-Slip Design】The Purple model features a vibrant graffiti-style purple foot deck, making it visually appealing and unique. Great for kids to show off their personality while commuting to and fro..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "【Intelligent APP control & Three Adjustable Speed Modes】Supports connection to dedicated APP, allows monitoring of escooter status and setting speed limits, customizable cruise mode, and lighting settings. This scooter..."
+          },
+          {
+            "source": "Product_Specifications.Additional_Details.Brake Style",
+            "text": "Brake Style: Front Braking"
+          }
+        ],
+        "parentTip": "Parent's Tip: 【Dual Braking & Bright Lighting System for Safe】The scooter has EABS front brake and rear drum brake for responsive stopping power. Bright LED headlights illuminate the path, whil..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {
+          "tireType": {
+            "value": "Solid",
+            "source": "Product_Specifications.Features_Specs.Wheel Type"
+          },
+          "wheelSize": {
+            "value": "8.5 Inches",
+            "source": "Product_Specifications.Measurements.Wheel Size"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "265 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Limit"
+          },
+          "foldability": {
+            "value": "Foldable",
+            "source": "detail_text_regex"
+          },
+          "dimensions": {
+            "value": "43\"L x 20\"W x 5.7\"H",
+            "source": "Product_Specifications.Measurements.Product Dimensions"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[5]",
+            "text": "【Lightweight & Foldable for Easy Carrying】Our Innovative e-scooter features 3-second fast folding technology, enabling one-click storage. Weighing only 22 pounds and compact in folding size, it can easily fit into the t..."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Special Feature",
+            "text": "Special Feature: Digital Display, Disc, Foldable"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Other Special Features of the Product",
+            "text": "Other Special Features of the Product: Digital Display, Disc, Foldable"
+          }
+        ],
+        "parentTip": "Parent's Tip: 【Lightweight & Foldable for Easy Carrying】Our Innovative e-scooter features 3-second fast folding technology, enabling one-click storage. Weighing only 22 pounds and compact in fo..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: 【Dual Braking & Bright Lighting System for Safe】The scooter has EABS front brake and rear drum brake for responsive stopping power. Bright LED headlights illuminate the path, whil...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: 【Lightweight & Foldable for Easy Carrying】Our Innovative e-scooter features 3-second fast folding technology, enabling one-click storage. Weighing only 22 pounds and compact in fo..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Aovowheel Electric Scooter Adults, Foldable 8.5\" Tires E Scooter for Adults, 350W Motor, Kick Scooters Max 16 Miles Long Rang",
+      "brand": "Aovowheel",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "【Powerful Motor & Long Range】 Equipped with a 350W motor, the Aovowheel purple scooter reaches speeds up to 19 MPH and delivers up to 21 miles of riding on a single charge. Perfect for school commutes, weekend adventures, or park rides, this electric scooter offers excitement and reliable performance for young riders"
+        },
+        {
+          "source": "Features[2]",
+          "text": "【Dual Braking & Bright Lighting System for Safe】The scooter has EABS front brake and rear drum brake for responsive stopping power. Bright LED headlights illuminate the path, while the rear brake light increases visibility during evening rides. The 8.5-inch solid tires provide shock absorption and a smooth ride across different terrains"
+        },
+        {
+          "source": "Features[3]",
+          "text": "【Cool Graffiti Deck & Non-Slip Design】The Purple model features a vibrant graffiti-style purple foot deck, making it visually appealing and unique. Great for kids to show off their personality while commuting to and from school, cruising around the neighborhood, or enjoying outdoor fun!"
+        },
+        {
+          "source": "Features[4]",
+          "text": "【Intelligent APP control & Three Adjustable Speed Modes】Supports connection to dedicated APP, allows monitoring of escooter status and setting speed limits, customizable cruise mode, and lighting settings. This scooter features three speed modes (E-7.5 MPH, D-11 MPH, S-19 MPH) suitable for beginners to advanced riders. The high-definition LCD screen clearly displays battery level, speed, mileage, and other data, allowing you to understand your riding status at a glance"
+        },
+        {
+          "source": "Features[5]",
+          "text": "【Lightweight & Foldable for Easy Carrying】Our Innovative e-scooter features 3-second fast folding technology, enabling one-click storage. Weighing only 22 pounds and compact in folding size, it can easily fit into the trunk of a car or take public transportation, it’s perfect for family trips or city living. Kids can bring their scooter anywhere with no hassle"
+        },
+        {
+          "source": "Product_Description",
+          "text": "Electric scooter"
+        },
+        {
+          "source": "Product_Specifications.Measurements.Weight Limit",
+          "text": "Weight Limit: 265 Pounds"
+        },
+        {
+          "source": "Product_Specifications.Measurements.Product Dimensions",
+          "text": "Product Dimensions: 43\"L x 20\"W x 5.7\"H"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "【Dual Braking & Bright Lighting System for Safe】The scooter has EABS front brake and rear drum brake for responsive stopping power. Bright LED headlights illuminate the path, while the rear brake light increases visibil...",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "【Lightweight & Foldable for Easy Carrying】Our Innovative e-scooter features 3-second fast folding technology, enabling one-click storage. Weighing only 22 pounds and compact in folding size, it can easily fit into the t...",
+          "source": "Features[5]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
+    }
   }
 ]

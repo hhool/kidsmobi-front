@@ -714,6 +714,220 @@
       "Suspension Type": "Rigid",
       "Brake Style": "No brake",
       "Model Name": "UD30"
+    },
+    "customers_say": "Customers find this balance bike perfect for toddlers just starting to walk, with a four-wheel design that makes it very stable and doesn't tip over easily. The bike is easy to assemble with no tools required, takes to riding very easily, and helps with balance and coordination. While some customers find it the perfect size for little ones, others say it's too small.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Toddler",
+        "source": "Category_Attributes.Age Range (Description)"
+      },
+      "weightLimit": {
+        "value": "55 Pounds",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "itemWeight": {
+        "value": "3.5 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "TPU",
+        "source": "Category_Attributes.Wheel Material"
+      },
+      "wheelSize": {
+        "value": "6.7 Inches",
+        "source": "Category_Attributes.Wheel Size"
+      },
+      "brakeSystem": {
+        "value": "No brake",
+        "source": "Category_Attributes.Brake Style"
+      },
+      "tireType": {
+        "value": "TPU",
+        "source": "Category_Attributes.Wheel Material"
+      },
+      "seatRecline": {
+        "value": "Polypropylene (PP)",
+        "source": "Product_Specifications.Materials_Care.Seat Material"
+      },
+      "speed": {
+        "value": "1",
+        "source": "Product_Specifications.Item_Details.Number of Speeds"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "brakeSystem": {
+            "value": "No brake",
+            "source": "Category_Attributes.Brake Style"
+          },
+          "frameMaterial": {
+            "value": "TPU",
+            "source": "Category_Attributes.Wheel Material"
+          },
+          "weightLimit": {
+            "value": "55 Pounds",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "SAFELY RIDE: No pedal and fully widened closed wheel to avoid clamping baby's feet. 135 ° turning limit and gravity steering without leaving the ground to prevent the baby from turning over."
+          },
+          {
+            "source": "Features[3]",
+            "text": "STURDY & COMFORTABLE DESIGN: The mini balance bike equips sturdy aluminum alloy frame, non-slip TPU handle, and a softly supportive seat.The mini balance bike wheels are non-slip, wear-resistant and non-destructive floo..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "PERFECT GIFT FOR BABIES: This baby balance bike is made of high-quality material. This ensures that they are safe for any baby. Safe design can be assured as gift for 1 year old boys and girls."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[4]",
+            "text": "Sturdy constrction"
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[8]",
+            "text": "Padded shock absorber cushion, comfortable sitting, shock absorption and hip protection"
+          }
+        ],
+        "parentTip": "Parent's Tip: SAFELY RIDE: No pedal and fully widened closed wheel to avoid clamping baby's feet. 135 ° turning limit and gravity steering without leaving the ground to prevent the baby from tu..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {
+          "seatRecline": {
+            "value": "Polypropylene (PP)",
+            "source": "Product_Specifications.Materials_Care.Seat Material"
+          },
+          "tireType": {
+            "value": "TPU",
+            "source": "Category_Attributes.Wheel Material"
+          },
+          "wheelSize": {
+            "value": "6.7 Inches",
+            "source": "Category_Attributes.Wheel Size"
+          }
+        },
+        "evidence": [
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+            "text": "A baby balance bike is a small ride-on without any pedals, meaning the children propels themselves forward by using their legs and can use the handlebars to change direction."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[6]",
+            "text": "Ideal height designed seat"
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[9]",
+            "text": "Soft and silent, no damage to the floor, smooth and comfortable sliding"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Suspension Type",
+            "text": "Suspension Type: Rigid"
+          },
+          {
+            "source": "Product_Specifications.Materials_Care.Seat Material",
+            "text": "Seat Material: Polypropylene (PP)"
+          }
+        ],
+        "parentTip": "Parent's Tip: A baby balance bike is a small ride-on without any pedals, meaning the children propels themselves forward by using their legs and can use the handlebars to change direction."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "3.5 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[5]",
+            "text": "EASY TO CARRY: With only 1.6kg (3.6 pounds) of weight, both you and your children can easily carry it around to play. Increased the children’s interest, no need to worry about the children giving up because they can’t m..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[2]",
+            "text": "The bikes are designed to be lightweight so they can be easily operated by the toddler and can usually be used on any surface, whether indoor or outdoor."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[5]",
+            "text": "Easy to assemble"
+          },
+          {
+            "source": "Product_Videos_Detail[5].Title",
+            "text": "How to assemble Sereed Baby Balance Bike"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Special Feature",
+            "text": "Special Feature: Lightweight"
+          }
+        ],
+        "parentTip": "Parent's Tip: EASY TO CARRY: With only 1.6kg (3.6 pounds) of weight, both you and your children can easily carry it around to play. Increased the children’s interest, no need to worry about the..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: SAFELY RIDE: No pedal and fully widened closed wheel to avoid clamping baby's feet. 135 ° turning limit and gravity steering without leaving the ground to prevent the baby from tu...",
+      "ridingComfort": "Parent's Tip: A baby balance bike is a small ride-on without any pedals, meaning the children propels themselves forward by using their legs and can use the handlebars to change direction.",
+      "lightAndEasy": "Parent's Tip: EASY TO CARRY: With only 1.6kg (3.6 pounds) of weight, both you and your children can easily carry it around to play. Increased the children’s interest, no need to worry about the..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "SEREED Baby Balance Bike for 1 Year Old Boys Girls 12-24 Month Toddler Balance Bike, 4 Wheels Toddler First Bike, First Birth",
+      "brand": "SEREED",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "GROW IN FUN: Recommended ages for 12-24 months. The infant balance bike is the best birthday gift for toddlers to learn walking and riding. It helps to develop babies' balance, steering, coordination, and gain confidence at an early age."
+        },
+        {
+          "source": "Features[2]",
+          "text": "SAFELY RIDE: No pedal and fully widened closed wheel to avoid clamping baby's feet. 135 ° turning limit and gravity steering without leaving the ground to prevent the baby from turning over."
+        },
+        {
+          "source": "Features[3]",
+          "text": "STURDY & COMFORTABLE DESIGN: The mini balance bike equips sturdy aluminum alloy frame, non-slip TPU handle, and a softly supportive seat.The mini balance bike wheels are non-slip, wear-resistant and non-destructive floor, and baby can ride indoors or outdoors."
+        },
+        {
+          "source": "Features[4]",
+          "text": "PERFECT GIFT FOR BABIES: This baby balance bike is made of high-quality material. This ensures that they are safe for any baby. Safe design can be assured as gift for 1 year old boys and girls."
+        },
+        {
+          "source": "Features[5]",
+          "text": "EASY TO CARRY: With only 1.6kg (3.6 pounds) of weight, both you and your children can easily carry it around to play. Increased the children’s interest, no need to worry about the children giving up because they can’t move it without your help."
+        },
+        {
+          "source": "Product_Description",
+          "text": "The Baby Balance bikes are designed to help baby develop balance through an intuitive process of first walking while sitting over the saddle, then gliding with feet lifted, help baby build confidence, independence and coordination in the early stages."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Great Gift for Your Baby"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "A baby balance bike is a small ride-on without any pedals, meaning the children propels themselves forward by using their legs and can use the handlebars to change direction."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "SAFELY RIDE: No pedal and fully widened closed wheel to avoid clamping baby's feet. 135 ° turning limit and gravity steering without leaving the ground to prevent the baby from turning over.",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "A baby balance bike is a small ride-on without any pedals, meaning the children propels themselves forward by using their legs and can use the handlebars to change direction.",
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "EASY TO CARRY: With only 1.6kg (3.6 pounds) of weight, both you and your children can easily carry it around to play. Increased the children’s interest, no need to worry about the children giving up because they can’t m...",
+          "source": "Features[5]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -1367,6 +1581,141 @@
     "Category_Attributes": {
       "Age Range Description": "10-36 Month",
       "Item Weight": "4.6 Pounds"
+    },
+    "customers_say": "Customers find this balance bike to be of good quality, easy to assemble with no tools needed, and perfect for toddlers learning to ride. The bike features cute wheels that light up, and customers appreciate its stability, with one noting it doesn't tip over easily. While some customers say it's perfect for 18 months and up, others find it too small for their needs.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "10-36 Month",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "4.6 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "4.6 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Carbon Steel",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "21.2\"L x 9.2\"W x 15.3\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Carbon Steel",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "4.6 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby."
+          },
+          {
+            "source": "Features[4]",
+            "text": "【STURDY & COMFORTABLE DESIGN】 This balance bike 1 year old is made of sturdy carbon steel, soft non-slip EVA handle, and a soft seat made of PU material. Provide your baby with a stable and comfortable riding environmen..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "【COLORFUL LIGHTING DESIGN】 To enhance children's fun, we have specially designed the colorful lighting rear wheel. No batteries are required, just spin the wheels to glow. Greatly increases the fun for children. 【THE BE..."
+          }
+        ],
+        "parentTip": "Parent's Tip: 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "4.6 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          },
+          "dimensions": {
+            "value": "21.2\"L x 9.2\"W x 15.3\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[5]",
+            "text": "【EASY TO ASSEMBLE & CARRY】 Our baby balance bike is built in Buckle design, no tools are required to install, easy to install in 3 minutes. With only 4.6lbs of weight, both you and your children can easily carry it arou..."
+          }
+        ],
+        "parentTip": "Parent's Tip: 【EASY TO ASSEMBLE & CARRY】 Our baby balance bike is built in Buckle design, no tools are required to install, easy to install in 3 minutes. With only 4.6lbs of weight, both you an..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby.",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: 【EASY TO ASSEMBLE & CARRY】 Our baby balance bike is built in Buckle design, no tools are required to install, easy to install in 3 minutes. With only 4.6lbs of weight, both you an..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Gamfeiny Colorful Lighting Baby Balance Bike Toys for 1 Year Old Boy Girl Gifts, 10-36 Month Toddler Balance Bike, No Pedal 4",
+      "brand": "Gamfeiny",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "【COLORFUL LIGHTING DESIGN】 To enhance children's fun, we have specially designed the colorful lighting rear wheel. No batteries are required, just spin the wheels to glow. Greatly increases the fun for children."
+        },
+        {
+          "source": "Features[2]",
+          "text": "【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can help enhance the baby's balance, steering, coordination, and increase self-confidence."
+        },
+        {
+          "source": "Features[3]",
+          "text": "【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby."
+        },
+        {
+          "source": "Features[4]",
+          "text": "【STURDY & COMFORTABLE DESIGN】 This balance bike 1 year old is made of sturdy carbon steel, soft non-slip EVA handle, and a soft seat made of PU material. Provide your baby with a stable and comfortable riding environment, your child will enjoy the fun of riding every day."
+        },
+        {
+          "source": "Features[5]",
+          "text": "【EASY TO ASSEMBLE & CARRY】 Our baby balance bike is built in Buckle design, no tools are required to install, easy to install in 3 minutes. With only 4.6lbs of weight, both you and your children can easily carry it around to play.WETIFY"
+        },
+        {
+          "source": "Product_Description",
+          "text": "【COLORFUL LIGHTING DESIGN】 To enhance children's fun, we have specially designed the colorful lighting rear wheel. No batteries are required, just spin the wheels to glow. Greatly increases the fun for children. 【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can help enhance the baby's balance, steering, coordination, and increase self-confidence. 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "aplus content video"
+        },
+        {
+          "source": "Product_Videos_Detail[1].Title",
+          "text": "Colorful Lighting Toys for 1 Year Old Girl Gifts"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby.",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "【EASY TO ASSEMBLE & CARRY】 Our baby balance bike is built in Buckle design, no tools are required to install, easy to install in 3 minutes. With only 4.6lbs of weight, both you and your children can easily carry it arou...",
+          "source": "Features[5]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -1956,6 +2305,204 @@
       "Suspension Type": "Rigid",
       "Brake Style": "No Brakes",
       "Model Name": "NA07127"
+    },
+    "customers_say": "Customers find this balance bike to be a perfect first bike that's easy to assemble, with one noting it doesn't require tools. The bike is particularly suitable for toddlers, with one customer mentioning their child learned to balance within two weeks. Customers appreciate its sturdy build, adjustable seat and handlebars that accommodate growth, and consider it good value for the price.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Kids",
+        "source": "Category_Attributes.Age Range (Description)"
+      },
+      "weightLimit": {
+        "value": "110 Pounds",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "itemWeight": {
+        "value": "7.8 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Ethylene Vinyl Acetate (EVA)",
+        "source": "Category_Attributes.Wheel Material"
+      },
+      "wheelSize": {
+        "value": "11 Inches",
+        "source": "Category_Attributes.Wheel Size"
+      },
+      "brakeSystem": {
+        "value": "No Brakes",
+        "source": "Category_Attributes.Brake Style"
+      },
+      "tireType": {
+        "value": "Ethylene Vinyl Acetate (EVA)",
+        "source": "Category_Attributes.Wheel Material"
+      },
+      "seatRecline": {
+        "value": "Rubber",
+        "source": "Product_Specifications.Materials_Care.Seat Material"
+      },
+      "speed": {
+        "value": "1",
+        "source": "Product_Specifications.Item_Details.Number of Speeds"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "brakeSystem": {
+            "value": "No Brakes",
+            "source": "Category_Attributes.Brake Style"
+          },
+          "frameMaterial": {
+            "value": "Ethylene Vinyl Acetate (EVA)",
+            "source": "Category_Attributes.Wheel Material"
+          },
+          "weightLimit": {
+            "value": "110 Pounds",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame, supports up to 110 lbs, safe footrest pad, rubber grips, soft saddle and a 12.6 inch starting se..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "SMOOTH RIDING- EVA foam airless tires that are noiseless, anti-slip and never go flat, ideal for all terrains. Children can freely explore outdoors or gliding indoors without scratching the floors."
+          },
+          {
+            "source": "Product_Description",
+            "text": "STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame, supports up to 110 lbs, safe footrest pad, rubber grips, soft saddle and a 12.6 inch starting se..."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Special Feature",
+            "text": "Special Feature: Adjustable"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Additional Features",
+            "text": "Additional Features: Adjustable"
+          }
+        ],
+        "parentTip": "Parent's Tip: STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame, supports up to 110 lbs, safe footrest pad, rubber grips,..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {
+          "seatRecline": {
+            "value": "Rubber",
+            "source": "Product_Specifications.Materials_Care.Seat Material"
+          },
+          "tireType": {
+            "value": "Ethylene Vinyl Acetate (EVA)",
+            "source": "Category_Attributes.Wheel Material"
+          },
+          "wheelSize": {
+            "value": "11 Inches",
+            "source": "Category_Attributes.Wheel Size"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "GROW WITH KIDS- Equipped with quick-release mechanism, parents can adjust the seat height(12.6-17.1inch) and handlebars height(19.6-22.5inch) without tools, easily adjust to the most suitable height for your child."
+          },
+          {
+            "source": "Features[3]",
+            "text": "WHY YOU NEED IT?- With the no pedals bicycle, child will learn balance and steering, boost self-confidence, which makes transitioning to a pedal bike much smoother. In addition, bonus plate and stickers let kids persona..."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Suspension Type",
+            "text": "Suspension Type: Rigid"
+          },
+          {
+            "source": "Product_Specifications.Materials_Care.Seat Material",
+            "text": "Seat Material: Rubber"
+          }
+        ],
+        "parentTip": "Parent's Tip: GROW WITH KIDS- Equipped with quick-release mechanism, parents can adjust the seat height(12.6-17.1inch) and handlebars height(19.6-22.5inch) without tools, easily adjust to the m..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "7.8 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[4]",
+            "text": "READY FOR RIDING FUN- Weighing 3.5kg (7.8 pounds), easy for boys and girls to push and pull independently. Parents will also appreciate its portability, just packing it into the car trunk and go for adventures with the..."
+          },
+          {
+            "source": "Product_Videos_Detail[5].Title",
+            "text": "Easy to learn balance bike !"
+          }
+        ],
+        "parentTip": "Parent's Tip: READY FOR RIDING FUN- Weighing 3.5kg (7.8 pounds), easy for boys and girls to push and pull independently. Parents will also appreciate its portability, just packing it into the c..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame, supports up to 110 lbs, safe footrest pad, rubber grips,...",
+      "ridingComfort": "Parent's Tip: GROW WITH KIDS- Equipped with quick-release mechanism, parents can adjust the seat height(12.6-17.1inch) and handlebars height(19.6-22.5inch) without tools, easily adjust to the m...",
+      "lightAndEasy": "Parent's Tip: READY FOR RIDING FUN- Weighing 3.5kg (7.8 pounds), easy for boys and girls to push and pull independently. Parents will also appreciate its portability, just packing it into the c..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "SEREED Toddler Balance Bike 2 Year Old, No Pedal Kids Toy Bike for 2-5 Years Old, Tool-Free Adjustment, Gift for 2-3 Boys Gir",
+      "brand": "SEREED",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame, supports up to 110 lbs, safe footrest pad, rubber grips, soft saddle and a 12.6 inch starting seat height, let your little one enjoy cycling at an early age!"
+        },
+        {
+          "source": "Features[2]",
+          "text": "GROW WITH KIDS- Equipped with quick-release mechanism, parents can adjust the seat height(12.6-17.1inch) and handlebars height(19.6-22.5inch) without tools, easily adjust to the most suitable height for your child."
+        },
+        {
+          "source": "Features[3]",
+          "text": "WHY YOU NEED IT?- With the no pedals bicycle, child will learn balance and steering, boost self-confidence, which makes transitioning to a pedal bike much smoother. In addition, bonus plate and stickers let kids personalize their own balance bike!"
+        },
+        {
+          "source": "Features[4]",
+          "text": "READY FOR RIDING FUN- Weighing 3.5kg (7.8 pounds), easy for boys and girls to push and pull independently. Parents will also appreciate its portability, just packing it into the car trunk and go for adventures with the little ones!"
+        },
+        {
+          "source": "Features[5]",
+          "text": "SMOOTH RIDING- EVA foam airless tires that are noiseless, anti-slip and never go flat, ideal for all terrains. Children can freely explore outdoors or gliding indoors without scratching the floors."
+        },
+        {
+          "source": "Product_Description",
+          "text": "STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame, supports up to 110 lbs, safe footrest pad, rubber grips, soft saddle and a 12.6 inch starting seat height, let your little one enjoy cycling at an early age! GROW WITH KIDS- Equipped with quick-release mechanism, parents can adjust the seat height(12.6-17.1inch) and handlebars height(19.6-22.5inch) without tools, easily adjust to the most suitable height for your child. WHY YOU NEED IT?- With the no pedals bicycle, child will learn balance and steering, boost self-confidence, which makes transitioning to a pedal bike much smoother. In addition, bonus plate and stickers let kids personalize their own balance bike!"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Toddler Balance Bike"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "The birth of babies is the miracle of life! Nothing is more joyful and important than welcoming the birth of life and witnessing the growth of babies. SEREED is committed to creating the best quality products for babies, protecting their healthy developments, exploring the new power of babies, and enhancing the self-confidence of babies. The smile on the baby's face is our motivation to keep moving forward!"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame, supports up to 110 lbs, safe footrest pad, rubber grips, soft saddle and a 12.6 inch starting se...",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "GROW WITH KIDS- Equipped with quick-release mechanism, parents can adjust the seat height(12.6-17.1inch) and handlebars height(19.6-22.5inch) without tools, easily adjust to the most suitable height for your child.",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "READY FOR RIDING FUN- Weighing 3.5kg (7.8 pounds), easy for boys and girls to push and pull independently. Parents will also appreciate its portability, just packing it into the car trunk and go for adventures with the....",
+          "source": "Features[4]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -3116,6 +3663,204 @@
       "Suspension Type": "Rigid",
       "Brake Style": "Hand Brake",
       "Model Name": "0910-4in1 Black"
+    },
+    "customers_say": "Customers find this toddler bike to be a great first bike that's perfect for almost 2-year-olds and easy to assemble. The bike is well-engineered with easy-to-steer parent handle, and customers appreciate that the pedals and training wheels snap on and off. They like its appearance, with one customer noting it looks more like a bike than a stroller or wagon, and consider it worth the price.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Kids",
+        "source": "Category_Attributes.Age Range (Description)"
+      },
+      "weightLimit": {
+        "value": "55 Pounds",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "itemWeight": {
+        "value": "55 Pounds",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "frameMaterial": {
+        "value": "Rubber",
+        "source": "Category_Attributes.Wheel Material"
+      },
+      "wheelSize": {
+        "value": "12 Inches",
+        "source": "Category_Attributes.Wheel Size"
+      },
+      "brakeSystem": {
+        "value": "Hand Brake",
+        "source": "Category_Attributes.Brake Style"
+      },
+      "tireType": {
+        "value": "Rubber",
+        "source": "Category_Attributes.Wheel Material"
+      },
+      "seatRecline": {
+        "value": "Polyurethane (PU)",
+        "source": "Product_Specifications.Materials_Care.Seat Material"
+      },
+      "speed": {
+        "value": "1",
+        "source": "Product_Specifications.Item_Details.Number of Speeds"
+      },
+      "foldability": {
+        "value": "FOLD: Arrives 95% pre-assembled — just attach the hand",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "brakeSystem": {
+            "value": "Hand Brake",
+            "source": "Category_Attributes.Brake Style"
+          },
+          "frameMaterial": {
+            "value": "Rubber",
+            "source": "Category_Attributes.Wheel Material"
+          },
+          "weightLimit": {
+            "value": "55 Pounds",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "ADJUSTABLE STEERING HANDLE FOR SAFE CONTROL: The parent push handle rotates 135° for easy control of the toddler push bike’s speed and direction, helping protect your child from tipping or losing balance. It can also be..."
+          },
+          {
+            "source": "Features[3]",
+            "text": "SAFETY FIRST, ALWAYS: Built with parents’ peace of mind in mind. Equipped with an aluminum alloy frame, 12\" all-terrain puncture-proof rubber wheels, a hand brake, and 60° steering limiter to prevent sudden turns. The g..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "EASY TO ASSEMBLE & FOLD: Arrives 95% pre-assembled — just attach the handlebar, seat, push rod, and pedals, and it’s ready to ride. With one press of the red button under the frame, the toddler bike with training wheels..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "THE PERFECT GIFT FOR GROWING KIDS: Designed with training wheels and a kickstand, JMMD 6-in-1 toddler bicycle offers a smooth and safe transition from tricycle to balance bike to real bike. It helps your little one buil..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+            "text": "TPR soft rubber handle provides a non-slip, comfortable grip and is adjustable to accommodate kid of various heights."
+          }
+        ],
+        "parentTip": "Parent's Tip: ADJUSTABLE STEERING HANDLE FOR SAFE CONTROL: The parent push handle rotates 135° for easy control of the toddler push bike’s speed and direction, helping protect your child from t..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {
+          "seatRecline": {
+            "value": "Polyurethane (PU)",
+            "source": "Product_Specifications.Materials_Care.Seat Material"
+          },
+          "tireType": {
+            "value": "Rubber",
+            "source": "Category_Attributes.Wheel Material"
+          },
+          "wheelSize": {
+            "value": "12 Inches",
+            "source": "Category_Attributes.Wheel Size"
+          }
+        },
+        "evidence": [
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[4]",
+            "text": "The PU soft seat cushion brings a comfortable experience to the child. The height of the seat can be adjusted according to the child's height."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Suspension Type",
+            "text": "Suspension Type: Rigid"
+          },
+          {
+            "source": "Product_Specifications.Materials_Care.Seat Material",
+            "text": "Seat Material: Polyurethane (PU)"
+          }
+        ],
+        "parentTip": "Parent's Tip: The PU soft seat cushion brings a comfortable experience to the child. The height of the seat can be adjusted according to the child's height."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "55 Pounds",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          },
+          "foldability": {
+            "value": "FOLD: Arrives 95% pre-assembled — just attach the hand",
+            "source": "detail_text_regex"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Product_Videos_Detail[10].Title",
+            "text": "Easy to set up, quality made and toddler loved!"
+          }
+        ],
+        "parentTip": "Parent's Tip: Easy to set up, quality made and toddler loved!"
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: ADJUSTABLE STEERING HANDLE FOR SAFE CONTROL: The parent push handle rotates 135° for easy control of the toddler push bike’s speed and direction, helping protect your child from t...",
+      "ridingComfort": "Parent's Tip: The PU soft seat cushion brings a comfortable experience to the child. The height of the seat can be adjusted according to the child's height.",
+      "lightAndEasy": "Parent's Tip: Easy to set up, quality made and toddler loved!"
+    },
+    "Expert_Review_Inputs": {
+      "title": "JMMD 6 in 1 Toddler Bike with Push Handle for Kids 18-60 Months, 12\" Foldable Balance Bike with Training Wheels, Pedals, Brak",
+      "brand": "JMMD",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "GROWS WITH YOUR CHILD: No need to buy multiple kid bikes! This 6-in-1 convertible design easily transforms from a parent-push trike to a toddler tricycle, balance bike, toddler bike and more — perfectly suited for ages 18 to 60 months. It’s the only bike your child will need through their early years."
+        },
+        {
+          "source": "Features[2]",
+          "text": "ADJUSTABLE STEERING HANDLE FOR SAFE CONTROL: The parent push handle rotates 135° for easy control of the toddler push bike’s speed and direction, helping protect your child from tipping or losing balance. It can also be adjusted to match parents’ height for comfortable guiding. Both the handlebar and seat are height-adjustable, and it comes with a seat extension rod for a perfect fit for kids of different heights."
+        },
+        {
+          "source": "Features[3]",
+          "text": "SAFETY FIRST, ALWAYS: Built with parents’ peace of mind in mind. Equipped with an aluminum alloy frame, 12\" all-terrain puncture-proof rubber wheels, a hand brake, and 60° steering limiter to prevent sudden turns. The gear-driven, chain-free system keeps your child safe while offering smoother control. Every detail of JMMD kids bicycle is designed for stability, safety, and comfort."
+        },
+        {
+          "source": "Features[4]",
+          "text": "EASY TO ASSEMBLE & FOLD: Arrives 95% pre-assembled — just attach the handlebar, seat, push rod, and pedals, and it’s ready to ride. With one press of the red button under the frame, the toddler bike with training wheels folds instantly, making it easy to carry or store in your car trunk. Setup takes just minutes — no tools, no stress, just fun. Perfect for travel and family outings."
+        },
+        {
+          "source": "Features[5]",
+          "text": "THE PERFECT GIFT FOR GROWING KIDS: Designed with training wheels and a kickstand, JMMD 6-in-1 toddler bicycle offers a smooth and safe transition from tricycle to balance bike to real bike. It helps your little one build balance and confidence step by step — from guided rides to independent adventures. A thoughtful gift for birthdays, Christmas, or first-bike surprises — more than a toy, it’s a memory that grows with your child."
+        },
+        {
+          "source": "Product_Description",
+          "text": "Balance Bike"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Great Gift to Kids -- JMMD 6 IN 1 Kids Bike"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "TPR soft rubber handle provides a non-slip, comfortable grip and is adjustable to accommodate kid of various heights."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "ADJUSTABLE STEERING HANDLE FOR SAFE CONTROL: The parent push handle rotates 135° for easy control of the toddler push bike’s speed and direction, helping protect your child from tipping or losing balance. It can also be...",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "The PU soft seat cushion brings a comfortable experience to the child. The height of the seat can be adjusted according to the child's height.",
+          "source": "From_The_Manufacturer.Sections[1].Texts[4]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "Easy to set up, quality made and toddler loved!",
+          "source": "Product_Videos_Detail[10].Title"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -3411,7 +4156,140 @@
     "Local_Image_Path": "scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B09Z65PBXP_KRIDDO Toddler Balance Bike 2 Year Old Age 24 Mont/images/primary.jpg",
     "Local_Video_Paths": [],
     "Last_Updated": "2026-07-08T05:10:29.865236",
-    "Similar_Items_Quick_Delivery": []
+    "Similar_Items_Quick_Delivery": [],
+    "customers_say": "Customers find this balance bike to be of good quality, easy to assemble with clear instructions, and suitable for toddlers, with one customer noting it's perfect for grandkids. The bike is sturdy, with one customer mentioning it can handle hard falls, and helps children learn balance and coordination. Customers appreciate its appearance and adjustability, noting the seat and handlebars can be adjusted as children grow, and consider it worth the price.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Toddler",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "110 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "6.6 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Carbon Steel",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "33.07\"L x 14.96\"W x 22.05\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Carbon Steel",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "110 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "EARLY LEARNING BALANCE BIKE – A fun way to introduce small toddlers to riding bicycles this girls and boys balance bike lets them push, stand, and walk their way around the outdoors with a sturdy frame and well-balanced..."
+          },
+          {
+            "source": "Features[3]",
+            "text": "ENHANCED SAFETY – Along with a soft, rubber grip handlebars, a soft PU seat, this kids balance bike has built in a wide tough carbon-steel frame, it can holds up to 110 lbs and you never need to worry that it will break..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "EXTRA-THICK NEVER-FLAT TIRES – We want kids to feel strong and stable when they’re moving on grass and sidewalks which is why we added puncture-resistant tires to the front and back of each balance bike for 5-year old’s..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "GROW WITH YOUR KIDS – We know kids grow fast and we would like them to enjoy their riding partner longer, both handlebar and seat height can be adjusted, the quick release mechanizm makes it really easy and safe to adju..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "EARLY LEARNING BALANCE BIKE – A fun way to introduce small toddlers to riding bicycles this girls and boys balance bike lets them push, stand, and walk their way around the outdoors with a sturdy frame and well-balanced..."
+          }
+        ],
+        "parentTip": "Parent's Tip: EARLY LEARNING BALANCE BIKE – A fun way to introduce small toddlers to riding bicycles this girls and boys balance bike lets them push, stand, and walk their way around the outdoo..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "6.6 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          },
+          "dimensions": {
+            "value": "33.07\"L x 14.96\"W x 22.05\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: EARLY LEARNING BALANCE BIKE – A fun way to introduce small toddlers to riding bicycles this girls and boys balance bike lets them push, stand, and walk their way around the outdoo...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "KRIDDO Toddler Balance Bike 2 Year Old, Age 24 Months to 5 Years Old, 12 Inch Push Bicycle with Customize Plate (3 Sets of Stickers Included), Gift Bike for 2-3 Boys Girls, White",
+      "brand": "KRIDDO",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "EARLY LEARNING BALANCE BIKE – A fun way to introduce small toddlers to riding bicycles this girls and boys balance bike lets them push, stand, and walk their way around the outdoors with a sturdy frame and well-balanced, kid-friendly design for 2 to 5 years old."
+        },
+        {
+          "source": "Features[2]",
+          "text": "CUSTOMIZE PLATE – Each balancing bike comes with a removable customizable plate, where kids can design their own plate with the stickers or draw anything they want."
+        },
+        {
+          "source": "Features[3]",
+          "text": "ENHANCED SAFETY – Along with a soft, rubber grip handlebars, a soft PU seat, this kids balance bike has built in a wide tough carbon-steel frame, it can holds up to 110 lbs and you never need to worry that it will break when kids are learning to ride around."
+        },
+        {
+          "source": "Features[4]",
+          "text": "EXTRA-THICK NEVER-FLAT TIRES – We want kids to feel strong and stable when they’re moving on grass and sidewalks which is why we added puncture-resistant tires to the front and back of each balance bike for 5-year old’s and 24-month-old riders."
+        },
+        {
+          "source": "Features[5]",
+          "text": "GROW WITH YOUR KIDS – We know kids grow fast and we would like them to enjoy their riding partner longer, both handlebar and seat height can be adjusted, the quick release mechanizm makes it really easy and safe to adjust the handlebar and seat height to your needs."
+        },
+        {
+          "source": "Product_Description",
+          "text": "EARLY LEARNING BALANCE BIKE – A fun way to introduce small toddlers to riding bicycles this girls and boys balance bike lets them push, stand, and walk their way around the outdoors with a sturdy frame and well-balanced, kid-friendly design for 2 to 5 years old. CUSTOMIZE PLATE – Each balancing bike comes with a removable customizable plate, where kids can design their own plate with the stickers or draw anything they want. ENHANCED SAFETY – Along with a soft, rubber grip handlebars, a soft PU seat, this kids balance bike has built in a wide tough carbon-steel frame, it can holds up to 110 lbs and you never need to worry that it will break when kids are learning to ride around."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Shop Kids Tricycle"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[2]",
+          "text": "Shop Toddler Balance Bike"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "EARLY LEARNING BALANCE BIKE – A fun way to introduce small toddlers to riding bicycles this girls and boys balance bike lets them push, stand, and walk their way around the outdoors with a sturdy frame and well-balanced...",
+          "source": "Features[1]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
+    }
   },
   {
     "Rank": "6",
@@ -4412,7 +5290,128 @@
       "Product_Specifications.Features_Specs.Item Type Name",
       "Product_Specifications.Features_Specs.Theme",
       "Features"
-    ]
+    ],
+    "customers_say": "Customers find the balance bike easy to assemble with no tools required, and appreciate its great quality and suitability for 12-18 month-olds. The bike features stable wheels that don't tip easily, and customers like the lights on the wheels, with one mentioning they can spin them to see them light up. Customers consider it good value for money and find it visually appealing, with one noting it's eye-catching for children while playing. The size receives mixed feedback, with some finding it right for small children while others say it's too small.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Toddler",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "itemWeight": {
+        "value": "3.3 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Aluminum",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "21.5\"L x 7.9\"W x 14\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Aluminum",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "SAFETY FIRST: 135° steering limiter effectively prevents the baby from turning over. Fully enclosed wheels to avoid clamping baby's feet. TPU handle makes baby's grip firm and hard to get off. No sharp parts, making you..."
+          },
+          {
+            "source": "Features[3]",
+            "text": "ADJUSTABLE SEAT: The 3-position adjustable seat is more suitable for babies aged 12-24 months. Note: After adjusting the seat to hear the seat \"click\" to be considered successfully fixed seat."
+          },
+          {
+            "source": "Features[4]",
+            "text": "HIGH-QUANLITY MATERIAL: The aluminum main frame is lighter and stronger, weighing only 1.5 kg (3.3 lbs), making it easy for your baby to ride and stride. EVA wheels are quiet and non-slip, perfect for baby to ride indoo..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "GLOW REAR WHEEL: Colorful lighted rear wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No batteries required, just spin the wheels to glow. SAFETY FIRS..."
+          }
+        ],
+        "parentTip": "Parent's Tip: SAFETY FIRST: 135° steering limiter effectively prevents the baby from turning over. Fully enclosed wheels to avoid clamping baby's feet. TPU handle makes baby's grip firm and har..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "3.3 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          },
+          "dimensions": {
+            "value": "21.5\"L x 7.9\"W x 14\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: SAFETY FIRST: 135° steering limiter effectively prevents the baby from turning over. Fully enclosed wheels to avoid clamping baby's feet. TPU handle makes baby's grip firm and har...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Umatoll Colorful Lighting Baby Balance Bike Toys for 1 Year Old Boys Gifts, Adjustable Seat Baby Walker, One Year Old Boy Bir",
+      "brand": "Umatoll",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "GLOW REAR WHEEL: Colorful lighted rear wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No batteries required, just spin the wheels to glow."
+        },
+        {
+          "source": "Features[2]",
+          "text": "SAFETY FIRST: 135° steering limiter effectively prevents the baby from turning over. Fully enclosed wheels to avoid clamping baby's feet. TPU handle makes baby's grip firm and hard to get off. No sharp parts, making your baby safer."
+        },
+        {
+          "source": "Features[3]",
+          "text": "ADJUSTABLE SEAT: The 3-position adjustable seat is more suitable for babies aged 12-24 months. Note: After adjusting the seat to hear the seat \"click\" to be considered successfully fixed seat."
+        },
+        {
+          "source": "Features[4]",
+          "text": "HIGH-QUANLITY MATERIAL: The aluminum main frame is lighter and stronger, weighing only 1.5 kg (3.3 lbs), making it easy for your baby to ride and stride. EVA wheels are quiet and non-slip, perfect for baby to ride indoors and outdoors."
+        },
+        {
+          "source": "Features[5]",
+          "text": "PERFECT GIFT for 1-2 Year Old: The toddler bike brings babies fun and joy, while helps develop their balance, control and leg strength. Removable baskets can hold baby's beloved small toys. No need tools, it only takes a few minutes to complete the installation. Perfect first birthday gift for 1 year old boys!"
+        },
+        {
+          "source": "Product_Description",
+          "text": "GLOW REAR WHEEL: Colorful lighted rear wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No batteries required, just spin the wheels to glow. SAFETY FIRST: 135° steering limiter effectively prevents the baby from turning over. Fully enclosed wheels to avoid clamping baby's feet. TPU handle makes baby's grip firm and hard to get off. No sharp parts, making your baby safer. ADJUSTABLE SEAT: The 3-position adjustable seat is more suitable for babies aged 12-24 months. Note: After adjusting the seat to hear the seat \"click\" to be considered successfully fixed seat."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Umatoll bike"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "No need to be timid, no need to turn your head. Be brave and start stepping out in front! We hope that every baby can grow up healthy and happy! We believe toys are not just playmates but essential partners in a child's development. Umatoll accompanies the growth of the baby and records the beautiful moments of the baby!"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "SAFETY FIRST: 135° steering limiter effectively prevents the baby from turning over. Fully enclosed wheels to avoid clamping baby's feet. TPU handle makes baby's grip firm and hard to get off. No sharp parts, making you...",
+          "source": "Features[2]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
+    }
   },
   {
     "Rank": "Similar",
@@ -4707,7 +5706,160 @@
     "Local_Image_Path": "scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0B2H5333D_Retrospec Cricket Baby Balance Bike 4-Wheel Ride-O/images/primary.jpg",
     "Local_Video_Paths": [],
     "Last_Updated": "2026-07-08T05:10:34.163124",
-    "Similar_Items_Quick_Delivery": []
+    "Similar_Items_Quick_Delivery": [],
+    "customers_say": "Customers find this balance bike excellent for one-year-olds and appreciate its retro design and stability, with one customer noting it's heavy enough to prevent tipping. The bike is easy to assemble and helps with balance and mobility, though opinions about size are mixed, with some finding it perfect for littles while others say it's too small. Durability receives mixed feedback, with some customers reporting it falls apart constantly.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Toddler",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "44 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "4 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Plastic",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "18\"L x 7\"W x 13\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Plastic",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "44 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "SAFE FIRST BALANCE BIKE: Feet-to-floor design lets toddlers walk, scoot, and ride while four stable wheels help prevent tipping and support growing balance and coordination"
+          },
+          {
+            "source": "Features[3]",
+            "text": "QUIET, NO-SCRATCH WHEELS: Non-slip wheels protect indoor floors and provide secure grip outdoors, making this baby balance bike suitable for play inside or outside"
+          },
+          {
+            "source": "Product_Description",
+            "text": "Meet Cricket, Retrospec’s baby balance bike and ride-on toy designed for budding riders ages 12–24 months. This beginner balance bike helps toddlers practice balance, steering, and coordination while building confidence..."
+          }
+        ],
+        "parentTip": "Parent's Tip: SAFE FIRST BALANCE BIKE: Feet-to-floor design lets toddlers walk, scoot, and ride while four stable wheels help prevent tipping and support growing balance and coordination"
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[4]",
+            "text": "COMFORTABLE & EASY TO RIDE: Soft handlebars, cushy seat, and a built-in steering limit help keep toddlers comfortable, supported, and in control while learning to ride"
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[5]",
+            "text": "The outside is for everyone, but not everyone feels comfortable outside. So we set out to make everyone feel at home in the open air through the use of expertly designed, durably crafted, accessibly priced gear. Our goa..."
+          }
+        ],
+        "parentTip": "Parent's Tip: COMFORTABLE & EASY TO RIDE: Soft handlebars, cushy seat, and a built-in steering limit help keep toddlers comfortable, supported, and in control while learning to ride"
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "4 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          },
+          "dimensions": {
+            "value": "18\"L x 7\"W x 13\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[5]",
+            "text": "FAST ASSEMBLY & TODDLER FIT: Arrives 95% assembled for quick setup. Best for early walkers ages 1224 months with an inseam of 913 inches, and supports up to 44 lbs (20 kg)"
+          },
+          {
+            "source": "Features[6]",
+            "text": "LIGHTWEIGHT & PORTABLE DESIGN: Easy for parents to carry to the park, playdates, or grandparents' house, making it convenient for on-the-go fun and active play"
+          }
+        ],
+        "parentTip": "Parent's Tip: FAST ASSEMBLY & TODDLER FIT: Arrives 95% assembled for quick setup. Best for early walkers ages 1224 months with an inseam of 913 inches, and supports up to 44 lbs (20 kg)"
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: SAFE FIRST BALANCE BIKE: Feet-to-floor design lets toddlers walk, scoot, and ride while four stable wheels help prevent tipping and support growing balance and coordination",
+      "ridingComfort": "Parent's Tip: COMFORTABLE & EASY TO RIDE: Soft handlebars, cushy seat, and a built-in steering limit help keep toddlers comfortable, supported, and in control while learning to ride",
+      "lightAndEasy": "Parent's Tip: FAST ASSEMBLY & TODDLER FIT: Arrives 95% assembled for quick setup. Best for early walkers ages 1224 months with an inseam of 913 inches, and supports up to 44 lbs (20 kg)"
+    },
+    "Expert_Review_Inputs": {
+      "title": "Retrospec Cricket Baby Balance Bike, 4-Wheel Ride-On Toy for Ages 12-24 Months – First Bike & Toddler Bike for 1 Year Old Boy",
+      "brand": "Retrospec",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "BEGINNER BABY BALANCE BIKE: Designed for toddlers ages 12-24 months to develop balance and coordination, this first bike is a toy for 1 year old boys and girls and a first birthday gift"
+        },
+        {
+          "source": "Features[2]",
+          "text": "SAFE FIRST BALANCE BIKE: Feet-to-floor design lets toddlers walk, scoot, and ride while four stable wheels help prevent tipping and support growing balance and coordination"
+        },
+        {
+          "source": "Features[3]",
+          "text": "QUIET, NO-SCRATCH WHEELS: Non-slip wheels protect indoor floors and provide secure grip outdoors, making this baby balance bike suitable for play inside or outside"
+        },
+        {
+          "source": "Features[4]",
+          "text": "COMFORTABLE & EASY TO RIDE: Soft handlebars, cushy seat, and a built-in steering limit help keep toddlers comfortable, supported, and in control while learning to ride"
+        },
+        {
+          "source": "Features[5]",
+          "text": "FAST ASSEMBLY & TODDLER FIT: Arrives 95% assembled for quick setup. Best for early walkers ages 1224 months with an inseam of 913 inches, and supports up to 44 lbs (20 kg)"
+        },
+        {
+          "source": "Features[6]",
+          "text": "LIGHTWEIGHT & PORTABLE DESIGN: Easy for parents to carry to the park, playdates, or grandparents' house, making it convenient for on-the-go fun and active play"
+        },
+        {
+          "source": "Features[7]",
+          "text": "CONFIDENCE-BUILDING RIDE-ON TOY: Helps toddlers practice balance, steering, and coordination while building confidence from their very first ride, preparing them for future bikes"
+        },
+        {
+          "source": "Product_Description",
+          "text": "Meet Cricket, Retrospec’s baby balance bike and ride-on toy designed for budding riders ages 12–24 months. This beginner balance bike helps toddlers practice balance, steering, and coordination while building confidence from their very first ride. With four stable wheels, rounded components, and soft, no-scratch tires, Cricket is designed to be difficult to tip and gentle on indoor floors. Its low, feet-to-floor design lets little ones push, scoot, and glide at their own pace indoors or outdoors, without pedals or training wheels getting in the way. Lightweight and easy for parents to carry to the park, playdates, or grandparents’ house, it’s an ideal first bike and a thoughtful first birthday gift for 1-year-old boys and girls. Focused on balance and confidence over flashy distractions, Cricket helps make the transition to a big-kid bike smoother and more natural."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "SAFE FIRST BALANCE BIKE: Feet-to-floor design lets toddlers walk, scoot, and ride while four stable wheels help prevent tipping and support growing balance and coordination",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "COMFORTABLE & EASY TO RIDE: Soft handlebars, cushy seat, and a built-in steering limit help keep toddlers comfortable, supported, and in control while learning to ride",
+          "source": "Features[4]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "FAST ASSEMBLY & TODDLER FIT: Arrives 95% assembled for quick setup. Best for early walkers ages 1224 months with an inseam of 913 inches, and supports up to 44 lbs (20 kg)",
+          "source": "Features[5]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
+    }
   },
   {
     "Rank": "Similar",
@@ -6407,7 +7559,181 @@
           "Features"
         ]
       }
-    ]
+    ],
+    "customers_say": "Customers find the balance bike easy to assemble with clear instructions and no tools required. Moreover, the bike is well-built with a solid feel, and customers consider it a great first bike for toddlers, particularly noting it's perfect for one-year-olds. They appreciate its appearance, with cute flashing wheels in the back, and its sturdiness, with one customer mentioning it can take a toddler's beating. Additionally, customers like the bike's lighting features and consider it good value for money.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "10-36 months",
+        "source": "Category_Attributes.Age Range (Description)"
+      },
+      "weightLimit": {
+        "value": "4.6 Pounds",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "itemWeight": {
+        "value": "4.6 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Carbon",
+        "source": "Category_Attributes.Wheel Material"
+      },
+      "wheelSize": {
+        "value": "6.8 Inches",
+        "source": "Category_Attributes.Wheel Size"
+      },
+      "brakeSystem": {
+        "value": "Coaster",
+        "source": "Category_Attributes.Brake Style"
+      },
+      "tireType": {
+        "value": "Carbon",
+        "source": "Category_Attributes.Wheel Material"
+      },
+      "speed": {
+        "value": "1",
+        "source": "Product_Specifications.Item_Details.Number of Speeds"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "brakeSystem": {
+            "value": "Coaster",
+            "source": "Category_Attributes.Brake Style"
+          },
+          "frameMaterial": {
+            "value": "Carbon",
+            "source": "Category_Attributes.Wheel Material"
+          },
+          "weightLimit": {
+            "value": "4.6 Pounds",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby."
+          },
+          {
+            "source": "Features[4]",
+            "text": "【STURDY & COMFORTABLE DESIGN】 This balance bike 1 year old is made of sturdy carbon steel, soft non-slip EVA handle, and a soft seat made of PU material. Provide your baby with a stable and comfortable riding environmen..."
+          },
+          {
+            "source": "Features[6]",
+            "text": "【1 YEAR OLD BOY&GIRL GIFT】 This 1st birthday boy girl gifts is designed for 10-36 month babies. It has passed the safety riding test and product material safety certification. Well packed in gift Box, 1 year old boy gir..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "【COLORFUL LIGHTING DESIGN】 To enhance children's fun, we have specially designed the colorful lighting rear wheel. No batteries are required, just spin the wheels to glow. Greatly increases the fun for children. 【THE BE..."
+          },
+          {
+            "source": "Product_Specifications.Materials_Care.Frame Material",
+            "text": "Frame Material: Carbon Steel"
+          }
+        ],
+        "parentTip": "Parent's Tip: 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {
+          "tireType": {
+            "value": "Carbon",
+            "source": "Category_Attributes.Wheel Material"
+          },
+          "wheelSize": {
+            "value": "6.8 Inches",
+            "source": "Category_Attributes.Wheel Size"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Product_Specifications.Features_Specs.Suspension Type",
+            "text": "Suspension Type: Rear"
+          }
+        ],
+        "parentTip": "Parent's Tip: Suspension Type: Rear"
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "4.6 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[5]",
+            "text": "【EASY TO ASSEMBLE & CARRY】 Our baby balance bike is built in Buckle design, no tools are required to install, easy to install in 3 minutes. With only 4.6lbs of weight, both you and your children can easily carry it arou..."
+          }
+        ],
+        "parentTip": "Parent's Tip: 【EASY TO ASSEMBLE & CARRY】 Our baby balance bike is built in Buckle design, no tools are required to install, easy to install in 3 minutes. With only 4.6lbs of weight, both you an..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby.",
+      "ridingComfort": "Parent's Tip: Suspension Type: Rear",
+      "lightAndEasy": "Parent's Tip: 【EASY TO ASSEMBLE & CARRY】 Our baby balance bike is built in Buckle design, no tools are required to install, easy to install in 3 minutes. With only 4.6lbs of weight, both you an..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Colorful Lighting Baby Balance Bike Toys for 1 Year Old Boy Gifts, 10-36 Month Toddler Balance Bike, No Pedal 4 Silence Wheels & Soft Seat First Bike, One Year Old Boy Birthday Gift.",
+      "brand": "Colorful",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "【COLORFUL LIGHTING DESIGN】 To enhance children's fun, we have specially designed the colorful lighting rear wheel. No batteries are required, just spin the wheels to glow. Greatly increases the fun for children."
+        },
+        {
+          "source": "Features[2]",
+          "text": "【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can help enhance the baby's balance, steering, coordination, and increase self-confidence."
+        },
+        {
+          "source": "Features[3]",
+          "text": "【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby."
+        },
+        {
+          "source": "Features[4]",
+          "text": "【STURDY & COMFORTABLE DESIGN】 This balance bike 1 year old is made of sturdy carbon steel, soft non-slip EVA handle, and a soft seat made of PU material. Provide your baby with a stable and comfortable riding environment, your child will enjoy the fun of riding every day."
+        },
+        {
+          "source": "Features[5]",
+          "text": "【EASY TO ASSEMBLE & CARRY】 Our baby balance bike is built in Buckle design, no tools are required to install, easy to install in 3 minutes. With only 4.6lbs of weight, both you and your children can easily carry it around to play."
+        },
+        {
+          "source": "Features[6]",
+          "text": "【1 YEAR OLD BOY&GIRL GIFT】 This 1st birthday boy girl gifts is designed for 10-36 month babies. It has passed the safety riding test and product material safety certification. Well packed in gift Box, 1 year old boy girl gifts, toys for 1 year old boy girl, first birthday gifts for boys girls."
+        },
+        {
+          "source": "Product_Description",
+          "text": "【COLORFUL LIGHTING DESIGN】 To enhance children's fun, we have specially designed the colorful lighting rear wheel. No batteries are required, just spin the wheels to glow. Greatly increases the fun for children. 【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can help enhance the baby's balance, steering, coordination, and increase self-confidence. 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Colorful Lighting Balance Bike"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby.",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "Suspension Type: Rear",
+          "source": "Product_Specifications.Features_Specs.Suspension Type"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "【EASY TO ASSEMBLE & CARRY】 Our baby balance bike is built in Buckle design, no tools are required to install, easy to install in 3 minutes. With only 4.6lbs of weight, both you and your children can easily carry it arou...",
+          "source": "Features[5]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
+    }
   },
   {
     "Rank": "9",
@@ -6659,6 +7985,188 @@
       "Suspension Type": "Rigid",
       "Brake Style": "No Brakes",
       "Model Name": "SR201"
+    },
+    "customers_say": "Customers find this balance bike well-made, easy to assemble, and perfect for two-year-olds, with one customer noting it's great for building confidence and balance. The bike features pretty pink color and customers consider it good value for money. While customers describe the bike as sturdy, they note that the tires are made of hard plastic rather than rubber.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Toddler",
+        "source": "Category_Attributes.Age Range (Description)"
+      },
+      "weightLimit": {
+        "value": "110 Pounds",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "itemWeight": {
+        "value": "9 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Ethylene Vinyl Acetate (EVA)",
+        "source": "Category_Attributes.Wheel Material"
+      },
+      "wheelSize": {
+        "value": "11 Inches",
+        "source": "Category_Attributes.Wheel Size"
+      },
+      "brakeSystem": {
+        "value": "No Brakes",
+        "source": "Category_Attributes.Brake Style"
+      },
+      "tireType": {
+        "value": "Ethylene Vinyl Acetate (EVA)",
+        "source": "Category_Attributes.Wheel Material"
+      },
+      "speed": {
+        "value": "1",
+        "source": "Product_Specifications.Item_Details.Number of Speeds"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "brakeSystem": {
+            "value": "No Brakes",
+            "source": "Category_Attributes.Brake Style"
+          },
+          "frameMaterial": {
+            "value": "Ethylene Vinyl Acetate (EVA)",
+            "source": "Category_Attributes.Wheel Material"
+          },
+          "weightLimit": {
+            "value": "110 Pounds",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame, supports up to 110 lbs, safe footrest pad, rubber grips, soft saddle and a 11.8 inch starting se..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "SMOOTH RIDING- EVA foam tires that are noiseless, anti-slip and never go flat, ideal for all terrains. Children can freely explore outdoors or gliding indoors without scratching the floors."
+          },
+          {
+            "source": "Product_Description",
+            "text": "STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame, supports up to 110 lbs, safe footrest pad, rubber grips, soft saddle and a 11.8 inch starting se..."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Special Feature",
+            "text": "Special Feature: Adjustable Handlebars"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Additional Features",
+            "text": "Additional Features: Adjustable Handlebars"
+          }
+        ],
+        "parentTip": "Parent's Tip: STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame, supports up to 110 lbs, safe footrest pad, rubber grips,..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {
+          "tireType": {
+            "value": "Ethylene Vinyl Acetate (EVA)",
+            "source": "Category_Attributes.Wheel Material"
+          },
+          "wheelSize": {
+            "value": "11 Inches",
+            "source": "Category_Attributes.Wheel Size"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "GROW WITH KIDS- Equipped with quick-release mechanism, parents can adjust the seat height(11.8-16.5inch) and handlebars height(19.6-22.5inch) without tools, easily adjust to the most suitable height for your child."
+          },
+          {
+            "source": "Features[3]",
+            "text": "WHY YOU NEED IT?- With the no pedals bicycle, child will learn balance and steering, boost self-confidence, which makes transitioning to a pedal bike much smoother. In addition, bonus plate and stickers let kids persona..."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Suspension Type",
+            "text": "Suspension Type: Rigid"
+          }
+        ],
+        "parentTip": "Parent's Tip: GROW WITH KIDS- Equipped with quick-release mechanism, parents can adjust the seat height(11.8-16.5inch) and handlebars height(19.6-22.5inch) without tools, easily adjust to the m..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "9 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[4]",
+            "text": "READY FOR RIDING FUN- Weighing 3.5kg (7.8 pounds), easy for boys and girls to push and pull independently. Parents will also appreciate its portability, just packing it into the car trunk and go for adventures with the..."
+          }
+        ],
+        "parentTip": "Parent's Tip: READY FOR RIDING FUN- Weighing 3.5kg (7.8 pounds), easy for boys and girls to push and pull independently. Parents will also appreciate its portability, just packing it into the c..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame, supports up to 110 lbs, safe footrest pad, rubber grips,...",
+      "ridingComfort": "Parent's Tip: GROW WITH KIDS- Equipped with quick-release mechanism, parents can adjust the seat height(11.8-16.5inch) and handlebars height(19.6-22.5inch) without tools, easily adjust to the m...",
+      "lightAndEasy": "Parent's Tip: READY FOR RIDING FUN- Weighing 3.5kg (7.8 pounds), easy for boys and girls to push and pull independently. Parents will also appreciate its portability, just packing it into the c..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "SEREED Toddler Balance Bike 2 Year Old, No Pedal Kids Bicycle Toys for 2-5 Years Old, Tool-Free Adjustment, Customize Plate w",
+      "brand": "SEREED",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame, supports up to 110 lbs, safe footrest pad, rubber grips, soft saddle and a 11.8 inch starting seat height, let your little one enjoy cycling at an early age!"
+        },
+        {
+          "source": "Features[2]",
+          "text": "GROW WITH KIDS- Equipped with quick-release mechanism, parents can adjust the seat height(11.8-16.5inch) and handlebars height(19.6-22.5inch) without tools, easily adjust to the most suitable height for your child."
+        },
+        {
+          "source": "Features[3]",
+          "text": "WHY YOU NEED IT?- With the no pedals bicycle, child will learn balance and steering, boost self-confidence, which makes transitioning to a pedal bike much smoother. In addition, bonus plate and stickers let kids personalize their own balance bike!"
+        },
+        {
+          "source": "Features[4]",
+          "text": "READY FOR RIDING FUN- Weighing 3.5kg (7.8 pounds), easy for boys and girls to push and pull independently. Parents will also appreciate its portability, just packing it into the car trunk and go for adventures with the little ones!"
+        },
+        {
+          "source": "Features[5]",
+          "text": "SMOOTH RIDING- EVA foam tires that are noiseless, anti-slip and never go flat, ideal for all terrains. Children can freely explore outdoors or gliding indoors without scratching the floors."
+        },
+        {
+          "source": "Product_Description",
+          "text": "STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame, supports up to 110 lbs, safe footrest pad, rubber grips, soft saddle and a 11.8 inch starting seat height, let your little one enjoy cycling at an early age! GROW WITH KIDS- Equipped with quick-release mechanism, parents can adjust the seat height(11.8-16.5inch) and handlebars height(19.6-22.5inch) without tools, easily adjust to the most suitable height for your child. WHY YOU NEED IT?- With the no pedals bicycle, child will learn balance and steering, boost self-confidence, which makes transitioning to a pedal bike much smoother. In addition, bonus plate and stickers let kids personalize their own balance bike!"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Toddler Balance Bike"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "The birth of babies is the miracle of life! Nothing is more joyful and important than welcoming the birth of life and witnessing the growth of babies. SEREED is committed to creating the best quality products for babies, protecting their healthy developments, exploring the new power of babies, and enhancing the self-confidence of babies. The smile on the baby's face is our motivation to keep moving forward!"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame, supports up to 110 lbs, safe footrest pad, rubber grips, soft saddle and a 11.8 inch starting se...",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "GROW WITH KIDS- Equipped with quick-release mechanism, parents can adjust the seat height(11.8-16.5inch) and handlebars height(19.6-22.5inch) without tools, easily adjust to the most suitable height for your child.",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "READY FOR RIDING FUN- Weighing 3.5kg (7.8 pounds), easy for boys and girls to push and pull independently. Parents will also appreciate its portability, just packing it into the car trunk and go for adventures with the....",
+          "source": "Features[4]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -6943,6 +8451,194 @@
       "Suspension Type": "Rigid",
       "Brake Style": "No pedal balance, No braking system",
       "Model Name": "Strider 12 Sport Balance Bike"
+    },
+    "customers_say": "Customers find this balance bike to be an awesome first bike that teaches balance effectively. The bike is easy to assemble, lightweight, and durable, holding up well to toddler abuse and lasting through multiple children. They appreciate its adjustability, noting that the seat and handlebars can be adjusted without tools as children grow.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "1 - 4 Years",
+        "source": "Category_Attributes.Age Range (Description)"
+      },
+      "weightLimit": {
+        "value": "60 Pounds",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "itemWeight": {
+        "value": "6.7 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Rubber",
+        "source": "Category_Attributes.Wheel Material"
+      },
+      "wheelSize": {
+        "value": "12 Inches",
+        "source": "Category_Attributes.Wheel Size"
+      },
+      "brakeSystem": {
+        "value": "No pedal balance, No braking system",
+        "source": "Category_Attributes.Brake Style"
+      },
+      "tireType": {
+        "value": "Rubber",
+        "source": "Category_Attributes.Wheel Material"
+      },
+      "seatRecline": {
+        "value": "Polypropylene (PP)",
+        "source": "Product_Specifications.Materials_Care.Seat Material"
+      },
+      "speed": {
+        "value": "1",
+        "source": "Product_Specifications.Item_Details.Number of Speeds"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "brakeSystem": {
+            "value": "No pedal balance, No braking system",
+            "source": "Category_Attributes.Brake Style"
+          },
+          "frameMaterial": {
+            "value": "Rubber",
+            "source": "Category_Attributes.Wheel Material"
+          },
+          "weightLimit": {
+            "value": "60 Pounds",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "Never flat, no-maintenance, 12\" foam rubber tires will ensure safe and steady riding over any terrain"
+          },
+          {
+            "source": "Features[4]",
+            "text": "The 12\" Sport has a lightweight steel frame that weighs in at 6.7 lbs. (3.0 kg). Easy, no stress assembly with all tools included."
+          },
+          {
+            "source": "Product_Description",
+            "text": "Balance bikes are proven to teach kids to learn to ride faster than training wheels. With a seat height range from 11-17 in. (28-43 cm), the Strider 12\" Sport fits children with an inseam of 12-18 in. (31-46 cm). Never..."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Special Feature",
+            "text": "Special Feature: adjustable, wheels"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Additional Features",
+            "text": "Additional Features: adjustable, wheels"
+          }
+        ],
+        "parentTip": "Parent's Tip: Never flat, no-maintenance, 12\" foam rubber tires will ensure safe and steady riding over any terrain"
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {
+          "seatRecline": {
+            "value": "Polypropylene (PP)",
+            "source": "Product_Specifications.Materials_Care.Seat Material"
+          },
+          "tireType": {
+            "value": "Rubber",
+            "source": "Category_Attributes.Wheel Material"
+          },
+          "wheelSize": {
+            "value": "12 Inches",
+            "source": "Category_Attributes.Wheel Size"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "With a seat height range from 11-17 in. (28-43 cm), the Strider 12\" Sport fits children with an inseam of 12-18 in. (31-46 cm)."
+          },
+          {
+            "source": "Features[5]",
+            "text": "The seat and handlebar heights adjust to accommodate ages 1 to 4 years. Maximum Rider Weight: 60 lbs. (27 kg)."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Suspension Type",
+            "text": "Suspension Type: Rigid"
+          },
+          {
+            "source": "Product_Specifications.Materials_Care.Seat Material",
+            "text": "Seat Material: Polypropylene (PP)"
+          },
+          {
+            "source": "Product_Specifications.User_Guide.Seatpost Travel Distance Maximum",
+            "text": "Seatpost Travel Distance Maximum: 17 Inches"
+          }
+        ],
+        "parentTip": "Parent's Tip: With a seat height range from 11-17 in. (28-43 cm), the Strider 12\" Sport fits children with an inseam of 12-18 in. (31-46 cm)."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "6.7 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Never flat, no-maintenance, 12\" foam rubber tires will ensure safe and steady riding over any terrain",
+      "ridingComfort": "Parent's Tip: With a seat height range from 11-17 in. (28-43 cm), the Strider 12\" Sport fits children with an inseam of 12-18 in. (31-46 cm).",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Strider 12” Sport Bike - No Pedal Balance Bicycle for Kids 1 to 4 Years - Includes Safety Pad, Padded Seat, Mini Grips & Flat",
+      "brand": "Strider",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Balance bikes are proven to teach kids to learn to ride faster than training wheels."
+        },
+        {
+          "source": "Features[2]",
+          "text": "With a seat height range from 11-17 in. (28-43 cm), the Strider 12\" Sport fits children with an inseam of 12-18 in. (31-46 cm)."
+        },
+        {
+          "source": "Features[3]",
+          "text": "Never flat, no-maintenance, 12\" foam rubber tires will ensure safe and steady riding over any terrain"
+        },
+        {
+          "source": "Features[4]",
+          "text": "The 12\" Sport has a lightweight steel frame that weighs in at 6.7 lbs. (3.0 kg). Easy, no stress assembly with all tools included."
+        },
+        {
+          "source": "Features[5]",
+          "text": "The seat and handlebar heights adjust to accommodate ages 1 to 4 years. Maximum Rider Weight: 60 lbs. (27 kg)."
+        },
+        {
+          "source": "Product_Description",
+          "text": "Balance bikes are proven to teach kids to learn to ride faster than training wheels. With a seat height range from 11-17 in. (28-43 cm), the Strider 12\" Sport fits children with an inseam of 12-18 in. (31-46 cm). Never flat, no-maintenance, 12\" foam rubber tires will ensure safe and steady riding over any terrain"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Best Sellers"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "Best Sellers Visit the Store"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Never flat, no-maintenance, 12\" foam rubber tires will ensure safe and steady riding over any terrain",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "With a seat height range from 11-17 in. (28-43 cm), the Strider 12\" Sport fits children with an inseam of 12-18 in. (31-46 cm).",
+          "source": "Features[2]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -7429,6 +9125,126 @@
     "Category_Attributes": {
       "Age Range Description": "Kids",
       "Brand": "Colorful"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Kids",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "30 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "5 Pounds",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Plastic",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "21.5\"L x 9.9\"W x 16\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Plastic",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "30 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "SAFA & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling.No pedal and fully widened closed wheel to avoid clamping baby's feet.Low centre of gravity design,Stop when you baby land.Doub..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby.No extra energy supply required, colorful light can be emitted just..."
+          }
+        ],
+        "parentTip": "Parent's Tip: SAFA & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling.No pedal and fully widened closed wheel to avoid clamping baby's feet.Low centre of gra..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "5 Pounds",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "dimensions": {
+            "value": "21.5\"L x 9.9\"W x 16\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: SAFA & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling.No pedal and fully widened closed wheel to avoid clamping baby's feet.Low centre of gra...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Colorful Glow Wheel Toddler Balance Bike,Baby Toys for 1 Year Old Boy Girls,12-24 Months Baby Balance Bike with Soft Music Cu",
+      "brand": "Colorful",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby.No extra energy supply required, colorful light can be emitted just by rotating the wheel"
+        },
+        {
+          "source": "Features[2]",
+          "text": "SOFT MUSIC & CUTE ANIMAL SOUNDS:The balance bike has 5 built-in songs and cute animal sounds on the tail button, the music makes the baby more willing to move and feel more relaxed and happy. The combination of movement and music together promotes the development of children's perceptual ability and body coordination (appropriate decibel size will not damage the baby's hearing)"
+        },
+        {
+          "source": "Features[3]",
+          "text": "SAFA & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling.No pedal and fully widened closed wheel to avoid clamping baby's feet.Low centre of gravity design,Stop when you baby land.Double triangular structure and self-balancing design to prevent tipping"
+        },
+        {
+          "source": "Features[4]",
+          "text": "FIRST BABY BIKE: Designed for baby ages 12-24 months Babies can learn to go forward and back with their feet to practice toddlers' leg strength,to develop the motor skills needed to walk and eventually ride,it‘s a great toddler toy for 1-2 year olds"
+        },
+        {
+          "source": "Features[5]",
+          "text": "GREAT GIFTS FOR BABIES: The cute balance bike with music and lights,suit for 1 year old toddler scooting to learn to walk.Great first birthday gift for boys and girls,or christmas Gifts"
+        },
+        {
+          "source": "Product_Description",
+          "text": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby.No extra energy supply required, colorful light can be emitted just by rotating the wheel SOFT MUSIC & CUTE ANIMAL SOUNDS:The balance bike has 5 built-in songs and cute animal sounds on the tail button, the music makes the baby more willing to move and feel more relaxed and happy. The combination of movement and music together promotes the development of children's perceptual ability and body coordination (appropriate decibel size will not damage the baby's hearing) SAFA & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling.No pedal and fully widened closed wheel to avoid clamping baby's feet.Low centre of gravity design,Stop when you baby land.Double triangular structure and self-balancing design to preve..."
+        },
+        {
+          "source": "Product_Videos_Detail[1].Title",
+          "text": "toddler balance bike"
+        },
+        {
+          "source": "Product_Videos_Detail[2].Title",
+          "text": "Colorful Toddler Balance Bike"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "SAFA & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling.No pedal and fully widened closed wheel to avoid clamping baby's feet.Low centre of gravity design,Stop when you baby land.Doub...",
+          "source": "Features[3]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -9429,6 +11245,173 @@
       "Wheel Size": "7 Inches",
       "Brake Style": "NO",
       "Suspension Type": "Rigid"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Toddlers ages 12–24 months",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "30 Kilograms",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "itemWeight": {
+        "value": "5.9 Pounds",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Iron",
+        "source": "Category_Attributes.Frame Material"
+      },
+      "wheelSize": {
+        "value": "7 Inches",
+        "source": "Category_Attributes.Wheel Size"
+      },
+      "brakeSystem": {
+        "value": "NO",
+        "source": "Category_Attributes.Brake Style"
+      },
+      "tireType": {
+        "value": "Ethylene Vinyl Acetate (EVA)",
+        "source": "Product_Specifications.Materials_Care.Wheel Material"
+      },
+      "speed": {
+        "value": "1",
+        "source": "Product_Specifications.Item_Details.Number of Speeds"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "brakeSystem": {
+            "value": "NO",
+            "source": "Category_Attributes.Brake Style"
+          },
+          "frameMaterial": {
+            "value": "Iron",
+            "source": "Category_Attributes.Frame Material"
+          },
+          "weightLimit": {
+            "value": "30 Kilograms",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "Stable & Secure Ride: 7\" Front & Rear Silent Big 4-Wheels provide spacing to deliver ample legroom. Designed with a 5.1-inch front wheel spacing &1.45-inch wheel width and 45° limited steering for enhanced stability and..."
+          },
+          {
+            "source": "Features[2]",
+            "text": "Sturdy Steel Frame: Durable steel alloy frame ensures long-lasting stability and strength. Supports up to 66 lbs, perfect for most toddlers."
+          },
+          {
+            "source": "Features[3]",
+            "text": "Safe For Exploring: The Gotrax toddler balance bike features a soft-edge design that provides all-around protection as toddlers explore. Designed as a first ride on toy for 1-2year-olds, it protects against bumps and sc..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "Quick Assembly: Assembles in just 2 minutes with a precision-locking system for stability and safety. One-click disassembly makes storage simple. Weighing 5.9 lbs, it’s so lightweight that your baby can ride it with eas..."
+          },
+          {
+            "source": "Features[6]",
+            "text": "First Bike for 1-Year-Olds: The Gotrax BA1 Baby Balance Bike is designed for toddlers ages 12–24 months to safely learn standing, walking, and riding, making it a safe, fun, and easy-to-use first birthday gift for your..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Stable & Secure Ride: 7\" Front & Rear Silent Big 4-Wheels provide spacing to deliver ample legroom. Designed with a 5.1-inch front wheel spacing &1.45-inch wheel width and 45° lim..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {
+          "tireType": {
+            "value": "Ethylene Vinyl Acetate (EVA)",
+            "source": "Product_Specifications.Materials_Care.Wheel Material"
+          },
+          "wheelSize": {
+            "value": "7 Inches",
+            "source": "Category_Attributes.Wheel Size"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[5]",
+            "text": "High-Quality: Crafted with a one-piece TPR solf handle, ergonomic curved comfortable soft seat, and EVA silent wheels for durability and comfort. The mini fan turns every ride into fun, helping kids build balance, coord..."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Suspension Type",
+            "text": "Suspension Type: Rigid"
+          }
+        ],
+        "parentTip": "Parent's Tip: High-Quality: Crafted with a one-piece TPR solf handle, ergonomic curved comfortable soft seat, and EVA silent wheels for durability and comfort. The mini fan turns every ride int..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "5.9 Pounds",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Stable & Secure Ride: 7\" Front & Rear Silent Big 4-Wheels provide spacing to deliver ample legroom. Designed with a 5.1-inch front wheel spacing &1.45-inch wheel width and 45° lim...",
+      "ridingComfort": "Parent's Tip: High-Quality: Crafted with a one-piece TPR solf handle, ergonomic curved comfortable soft seat, and EVA silent wheels for durability and comfort. The mini fan turns every ride int...",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Gotrax Baby Balance Bike 1-2 Years, 7\" Front&Rear Silent Wheels, Sturdy Steel Frame 66 lbs Load, Quick 2-Min Assembly, CPC Ce",
+      "brand": "Gotrax",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Stable & Secure Ride: 7\" Front & Rear Silent Big 4-Wheels provide spacing to deliver ample legroom. Designed with a 5.1-inch front wheel spacing &1.45-inch wheel width and 45° limited steering for enhanced stability and anti-tip safety."
+        },
+        {
+          "source": "Features[2]",
+          "text": "Sturdy Steel Frame: Durable steel alloy frame ensures long-lasting stability and strength. Supports up to 66 lbs, perfect for most toddlers."
+        },
+        {
+          "source": "Features[3]",
+          "text": "Safe For Exploring: The Gotrax toddler balance bike features a soft-edge design that provides all-around protection as toddlers explore. Designed as a first ride on toy for 1-2year-olds, it protects against bumps and scrapes."
+        },
+        {
+          "source": "Features[4]",
+          "text": "Quick Assembly: Assembles in just 2 minutes with a precision-locking system for stability and safety. One-click disassembly makes storage simple. Weighing 5.9 lbs, it’s so lightweight that your baby can ride it with ease, whether indoors or outdoors."
+        },
+        {
+          "source": "Features[5]",
+          "text": "High-Quality: Crafted with a one-piece TPR solf handle, ergonomic curved comfortable soft seat, and EVA silent wheels for durability and comfort. The mini fan turns every ride into fun, helping kids build balance, coordination, confidence with every step."
+        },
+        {
+          "source": "Features[6]",
+          "text": "First Bike for 1-Year-Olds: The Gotrax BA1 Baby Balance Bike is designed for toddlers ages 12–24 months to safely learn standing, walking, and riding, making it a safe, fun, and easy-to-use first birthday gift for your little one."
+        },
+        {
+          "source": "Features[7]",
+          "text": "Reliable Choice: The Gotrax BA1 Infant Balance Bike is CPC certified, Please use with confidence. It comes with a 1-year warranty and 24/7 customer support, letting you peace of mind when purchasing and using the bike—truly a great choice."
+        },
+        {
+          "source": "Product_Description",
+          "text": "Gotrax Baby Balance Bike 1-2 Years, 7\" Front & Rear Silent Wheels, Sturdy Steel Frame 66 lbs Load, Quick 2-Min Assembly"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Stable & Secure Ride: 7\" Front & Rear Silent Big 4-Wheels provide spacing to deliver ample legroom. Designed with a 5.1-inch front wheel spacing &1.45-inch wheel width and 45° limited steering for enhanced stability and...",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "High-Quality: Crafted with a one-piece TPR solf handle, ergonomic curved comfortable soft seat, and EVA silent wheels for durability and comfort. The mini fan turns every ride into fun, helping kids build balance, coord...",
+          "source": "Features[5]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -9766,7 +11749,141 @@
       "scrape_store/balance_bike/Gamfeiny/Rank_Similar_ASIN_B0BKXSHHNP_Gamfeiny Colorful Lighting Baby Balance Bike Toys/images/alt_9.jpg"
     ],
     "Local_Image_Path": "scrape_store/balance_bike/Gamfeiny/Rank_Similar_ASIN_B0BKXSHHNP_Gamfeiny Colorful Lighting Baby Balance Bike Toys/images/primary.jpg",
-    "Local_Video_Paths": []
+    "Local_Video_Paths": [],
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "10-36 Month",
+        "source": "Product_Specifications.Features_Specs.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "4.6 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "4.6 Pounds",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Carbon Steel",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "21.18\"L x 9.02\"W x 15\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Carbon Steel",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "4.6 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby."
+          },
+          {
+            "source": "Features[4]",
+            "text": "【STURDY & COMFORTABLE DESIGN】 This balance bike 1 year old is made of sturdy carbon steel, soft non-slip EVA handle, and a soft seat made of PU material. Provide your baby with a stable and comfortable riding environmen..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "【COLORFUL LIGHTING DESIGN】 No batteries are needed and no charging is required.To enhance children's fun, we have specially designed the colorful lighting rear wheel.just spin the wheels to glow. Greatly increases the f..."
+          }
+        ],
+        "parentTip": "Parent's Tip: 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "4.6 Pounds",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "dimensions": {
+            "value": "21.18\"L x 9.02\"W x 15\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[5]",
+            "text": "【EASY TO ASSEMBLE & CARRY】 Our baby balance bike is built in Buckle design, no tools are required to install, easy to install in 3 minutes. With only 4.6lbs of weight, both you and your children can easily carry it arou..."
+          }
+        ],
+        "parentTip": "Parent's Tip: 【EASY TO ASSEMBLE & CARRY】 Our baby balance bike is built in Buckle design, no tools are required to install, easy to install in 3 minutes. With only 4.6lbs of weight, both you an..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby.",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: 【EASY TO ASSEMBLE & CARRY】 Our baby balance bike is built in Buckle design, no tools are required to install, easy to install in 3 minutes. With only 4.6lbs of weight, both you an..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Gamfeiny Colorful Lighting Baby Balance Bike Toys for 1 Year Old Boy Girl Gifts, 10-36 Month Toddler Balance Bike, No Pedal 4",
+      "brand": "Gamfeiny",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "【COLORFUL LIGHTING DESIGN】 No batteries are needed and no charging is required.To enhance children's fun, we have specially designed the colorful lighting rear wheel.just spin the wheels to glow. Greatly increases the fun for children."
+        },
+        {
+          "source": "Features[2]",
+          "text": "【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can help enhance the baby's balance, steering, coordination, and increase self-confidence."
+        },
+        {
+          "source": "Features[3]",
+          "text": "【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby."
+        },
+        {
+          "source": "Features[4]",
+          "text": "【STURDY & COMFORTABLE DESIGN】 This balance bike 1 year old is made of sturdy carbon steel, soft non-slip EVA handle, and a soft seat made of PU material. Provide your baby with a stable and comfortable riding environment, your child will enjoy the fun of riding every day."
+        },
+        {
+          "source": "Features[5]",
+          "text": "【EASY TO ASSEMBLE & CARRY】 Our baby balance bike is built in Buckle design, no tools are required to install, easy to install in 3 minutes. With only 4.6lbs of weight, both you and your children can easily carry it around to play.WETIFY"
+        },
+        {
+          "source": "Product_Description",
+          "text": "【COLORFUL LIGHTING DESIGN】 No batteries are needed and no charging is required.To enhance children's fun, we have specially designed the colorful lighting rear wheel.just spin the wheels to glow. Greatly increases the fun for children. 【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can help enhance the baby's balance, steering, coordination, and increase self-confidence. 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "aplus content video"
+        },
+        {
+          "source": "Product_Videos_Detail[1].Title",
+          "text": "Toys for 1 Year Old Boy Girl"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby.",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "【EASY TO ASSEMBLE & CARRY】 Our baby balance bike is built in Buckle design, no tools are required to install, easy to install in 3 minutes. With only 4.6lbs of weight, both you and your children can easily carry it arou...",
+          "source": "Features[5]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
+    }
   },
   {
     "Rank": "Similar",
@@ -10281,7 +12398,186 @@
       "scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B0D2NGJ164_KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bi/images/alt_9.jpg"
     ],
     "Local_Image_Path": "scrape_store/balance_bike/KRIDDO/Rank_Similar_ASIN_B0D2NGJ164_KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bi/images/primary.jpg",
-    "Local_Video_Paths": []
+    "Local_Video_Paths": [],
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "18 month to 3 year old",
+        "source": "Product_Specifications.Features_Specs.Age Range (Description)"
+      },
+      "weightLimit": {
+        "value": "110 Pounds",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "itemWeight": {
+        "value": "4.8 Kilograms",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Carbon Steel",
+        "source": "Product_Specifications.Materials_Care.Frame Material"
+      },
+      "wheelSize": {
+        "value": "12 Inches",
+        "source": "Product_Specifications.Measurements.Wheel Size"
+      },
+      "brakeSystem": {
+        "value": "No Brake",
+        "source": "Product_Specifications.Additional_Details.Brake Style"
+      },
+      "tireType": {
+        "value": "Ethylene Vinyl Acetate (EVA)",
+        "source": "Product_Specifications.Materials_Care.Wheel Material"
+      },
+      "seatRecline": {
+        "value": "Polyurethane (PU)",
+        "source": "Product_Specifications.Materials_Care.Seat Material"
+      },
+      "speed": {
+        "value": "1",
+        "source": "Product_Specifications.Item_Details.Number of Speeds"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "brakeSystem": {
+            "value": "No Brake",
+            "source": "Product_Specifications.Additional_Details.Brake Style"
+          },
+          "frameMaterial": {
+            "value": "Carbon Steel",
+            "source": "Product_Specifications.Materials_Care.Frame Material"
+          },
+          "weightLimit": {
+            "value": "110 Pounds",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "VERSATILE 2-IN-1 MODE -This innovative 2-in-1 kids' trike and balance bike meets dual needs with a single bike. Whether in trike mode for stability and safety or balance bike mode for mastering balance skills, your chil..."
+          },
+          {
+            "source": "Features[2]",
+            "text": "BUILT-IN PEDAL MOUNT - Easily switch to balance bike mode by storing the pedals in a convenient slot under the rear seat, preventing loss. This innovative design makes it the first balance bike on the market with pedal..."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Special Feature",
+            "text": "Special Feature: Adjustable Handlebars, Adjustable Seat, Customizable Plate"
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Additional Features",
+            "text": "Additional Features: Adjustable Handlebars, Adjustable Seat, Customizable Plate"
+          },
+          {
+            "source": "Product_Specifications.Materials_Care.Frame Material",
+            "text": "Frame Material: Carbon Steel"
+          }
+        ],
+        "parentTip": "Parent's Tip: VERSATILE 2-IN-1 MODE -This innovative 2-in-1 kids' trike and balance bike meets dual needs with a single bike. Whether in trike mode for stability and safety or balance bike mode..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {
+          "seatRecline": {
+            "value": "Polyurethane (PU)",
+            "source": "Product_Specifications.Materials_Care.Seat Material"
+          },
+          "tireType": {
+            "value": "Ethylene Vinyl Acetate (EVA)",
+            "source": "Product_Specifications.Materials_Care.Wheel Material"
+          },
+          "wheelSize": {
+            "value": "12 Inches",
+            "source": "Product_Specifications.Measurements.Wheel Size"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[5]",
+            "text": "ATTENTION TO DETAIL - KRIDDO focuses on perfecting every detail. The bike features an easy-to-carry soft seat, quick-release fixtures, and tool-free adjustment of the seat and handlebars to achieve the most comfortable..."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Suspension Type",
+            "text": "Suspension Type: Rigid"
+          },
+          {
+            "source": "Product_Specifications.Materials_Care.Seat Material",
+            "text": "Seat Material: Polyurethane (PU)"
+          }
+        ],
+        "parentTip": "Parent's Tip: ATTENTION TO DETAIL - KRIDDO focuses on perfecting every detail. The bike features an easy-to-carry soft seat, quick-release fixtures, and tool-free adjustment of the seat and han..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "4.8 Kilograms",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: VERSATILE 2-IN-1 MODE -This innovative 2-in-1 kids' trike and balance bike meets dual needs with a single bike. Whether in trike mode for stability and safety or balance bike mode...",
+      "ridingComfort": "Parent's Tip: ATTENTION TO DETAIL - KRIDDO focuses on perfecting every detail. The bike features an easy-to-carry soft seat, quick-release fixtures, and tool-free adjustment of the seat and han...",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bike 2 Year Old, Detachable Pedals and Stowable Training Wheels, DIY Plate, R",
+      "brand": "KRIDDO",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "VERSATILE 2-IN-1 MODE -This innovative 2-in-1 kids' trike and balance bike meets dual needs with a single bike. Whether in trike mode for stability and safety or balance bike mode for mastering balance skills, your child can learn to ride faster and easier. It saves the hassle of buying two separate bikes and supports your child's growth from beginner to pro."
+        },
+        {
+          "source": "Features[2]",
+          "text": "BUILT-IN PEDAL MOUNT - Easily switch to balance bike mode by storing the pedals in a convenient slot under the rear seat, preventing loss. This innovative design makes it the first balance bike on the market with pedal storage. The pedals can also be fully detached."
+        },
+        {
+          "source": "Features[3]",
+          "text": "STOWABLE TRAINING WHEELS - The training wheels on this bike can be conveniently lifted and stored, providing flexibility as the rider gains confidence. If the training wheels are no longer needed, they can be completely removed, turning it into a classic balance bike."
+        },
+        {
+          "source": "Features[4]",
+          "text": "CUSTOMIZABLE PLATE - Equipped with a customizable plate, allowing kids to DIY their own balance bike style, enhancing their involvement and creativity."
+        },
+        {
+          "source": "Features[5]",
+          "text": "ATTENTION TO DETAIL - KRIDDO focuses on perfecting every detail. The bike features an easy-to-carry soft seat, quick-release fixtures, and tool-free adjustment of the seat and handlebars to achieve the most comfortable height for your child."
+        },
+        {
+          "source": "Product_Description",
+          "text": "KRIDDO 2-in-1 Kids Tricycle and Toddler Balance Bike 2 Year Old, Detachable Pedals and Stowable Training Wheels, DIY Plate, Riding Trikes Toy for Ages 18 Months to 3 Years"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Fun Rides with KRIDDO"
+        },
+        {
+          "source": "Product_Videos_Detail[1].Title",
+          "text": "KRIDDO 2-in-1 Kids Balance Bike 2 Years Installation KB007"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "VERSATILE 2-IN-1 MODE -This innovative 2-in-1 kids' trike and balance bike meets dual needs with a single bike. Whether in trike mode for stability and safety or balance bike mode for mastering balance skills, your chil...",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "ATTENTION TO DETAIL - KRIDDO focuses on perfecting every detail. The bike features an easy-to-carry soft seat, quick-release fixtures, and tool-free adjustment of the seat and handlebars to achieve the most comfortable....",
+          "source": "Features[5]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
+    }
   },
   {
     "Rank": "Similar",
@@ -10475,7 +12771,137 @@
       "scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0DZ4BNZDR_Retrospec Cricket 2 Baby Walker Balance Bike with/images/alt_9.jpg"
     ],
     "Local_Image_Path": "scrape_store/balance_bike/Retrospec/Rank_Similar_ASIN_B0DZ4BNZDR_Retrospec Cricket 2 Baby Walker Balance Bike with/images/primary.jpg",
-    "Local_Video_Paths": []
+    "Local_Video_Paths": [],
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Little Kid",
+        "source": "Product_Specifications.Features_Specs.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "20 Kilograms",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "3.65 Pounds",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Alloy Steel",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Alloy Steel",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "20 Kilograms",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "Safe & Durable: Sturdy, comfortable, and safe. Cricket’s design ensures the child’s feet are always touching the ground, so they stay in control of their speed, stopping, and movement."
+          },
+          {
+            "source": "Features[3]",
+            "text": "Scratch-Resistant Wheels: Cricket’s non-slip, no-scratch wheels prevent scratched floors and provide a secure grip for riding both indoors and outdoors. Keep them (and your floors) safe!"
+          },
+          {
+            "source": "Features[4]",
+            "text": "Easy to Control: Soft handlebars, a cushy seat, and a steering limit keep your child safe, comfortable, and in control the entire time. The first step in learning how to ride a bike!"
+          },
+          {
+            "source": "Product_Description",
+            "text": "​ The Cricket 2 baby walker balance bike helps toddlers aged 12-24 months develop essential motor skills for walking and riding. As a wonderful first birthday gift, this 4-wheel baby bike features non-slip wheels that w..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Safe & Durable: Sturdy, comfortable, and safe. Cricket’s design ensures the child’s feet are always touching the ground, so they stay in control of their speed, stopping, and move..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "3.65 Pounds",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[5]",
+            "text": "Comes 95% Assembled Assembly instructions included. Cricket comes 95% assembled straight out of the box and is easy to put together. Max Recommended Rider Weight: 44lbs / 20kgs"
+          }
+        ],
+        "parentTip": "Parent's Tip: Comes 95% Assembled Assembly instructions included. Cricket comes 95% assembled straight out of the box and is easy to put together. Max Recommended Rider Weight: 44lbs / 20kgs"
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Safe & Durable: Sturdy, comfortable, and safe. Cricket’s design ensures the child’s feet are always touching the ground, so they stay in control of their speed, stopping, and move...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: Comes 95% Assembled Assembly instructions included. Cricket comes 95% assembled straight out of the box and is easy to put together. Max Recommended Rider Weight: 44lbs / 20kgs"
+    },
+    "Expert_Review_Inputs": {
+      "title": "Retrospec Cricket 2 Baby Walker Balance Bike with 4 Wheels - Safe Learning Toy for Ages 12-24 Months - Scratch-Resistant Indo",
+      "brand": "Retrospec",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Learn to Ride Early: Retrospec Cricket is designed for toddlers ages 12-24 months of age to develop the advanced motor skills needed to walk and eventually ride. Great toy for a 1 year old girl or boy!"
+        },
+        {
+          "source": "Features[2]",
+          "text": "Safe & Durable: Sturdy, comfortable, and safe. Cricket’s design ensures the child’s feet are always touching the ground, so they stay in control of their speed, stopping, and movement."
+        },
+        {
+          "source": "Features[3]",
+          "text": "Scratch-Resistant Wheels: Cricket’s non-slip, no-scratch wheels prevent scratched floors and provide a secure grip for riding both indoors and outdoors. Keep them (and your floors) safe!"
+        },
+        {
+          "source": "Features[4]",
+          "text": "Easy to Control: Soft handlebars, a cushy seat, and a steering limit keep your child safe, comfortable, and in control the entire time. The first step in learning how to ride a bike!"
+        },
+        {
+          "source": "Features[5]",
+          "text": "Comes 95% Assembled Assembly instructions included. Cricket comes 95% assembled straight out of the box and is easy to put together. Max Recommended Rider Weight: 44lbs / 20kgs"
+        },
+        {
+          "source": "Product_Description",
+          "text": "​ The Cricket 2 baby walker balance bike helps toddlers aged 12-24 months develop essential motor skills for walking and riding. As a wonderful first birthday gift, this 4-wheel baby bike features non-slip wheels that work safely on any surface. The comfortable design includes soft handlebars, a cushy seat, and steering limits to keep your little one in control. An ideal toddler toy that grows with your child, helping them build confidence and coordination at their own pace."
+        },
+        {
+          "source": "Product_Specifications.Measurements.Size",
+          "text": "Size: One Size"
+        },
+        {
+          "source": "Product_Specifications.Measurements.Item Weight",
+          "text": "Item Weight: 3.65 Pounds"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Safe & Durable: Sturdy, comfortable, and safe. Cricket’s design ensures the child’s feet are always touching the ground, so they stay in control of their speed, stopping, and movement.",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "Comes 95% Assembled Assembly instructions included. Cricket comes 95% assembled straight out of the box and is easy to put together. Max Recommended Rider Weight: 44lbs / 20kgs",
+          "source": "Features[5]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
+    }
   },
   {
     "Rank": "Similar",
@@ -10828,6 +13254,127 @@
     ],
     "Local_Image_Path": "scrape_store/balance_bike/Umatoll/Rank_Similar_ASIN_B0FZVLG7YQ_Umatoll Colorful Lighting Baby Balance Bike Toys f/images/primary.jpg",
     "Local_Video_Paths": [],
-    "Last_Updated": "2026-07-08T05:11:00.019526"
+    "Last_Updated": "2026-07-08T05:11:00.019526",
+    "customers_say": "Customers find the balance bike easy to assemble with no tools required, and appreciate its great quality and suitability for 12-18 month-olds. The bike features stable wheels that don't tip easily, and customers like the lights on the wheels, with one mentioning they can spin them to see them light up. Customers consider it good value for money and find it visually appealing, with one noting it's eye-catching for children while playing. The size receives mixed feedback, with some finding it right for small children while others say it's too small.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Toddler",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "itemWeight": {
+        "value": "3.6 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Aluminum",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "21.5 x 7.9 x 14 inches",
+        "source": "Product_Specifications.Measurements.Item Dimensions"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Aluminum",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "SAFETY FIRST: 135° steering limiter effectively prevents the baby from turning over. Fully enclosed wheels to avoid clamping baby's feet. TPU handle makes baby's grip firm and hard to get off. No sharp parts, making you..."
+          },
+          {
+            "source": "Features[3]",
+            "text": "ADJUSTABLE SEAT: The 3-position adjustable seat is more suitable for babies aged 12-24 months. Note: After adjusting the seat to hear the seat \"click\" to be considered successfully fixed seat."
+          },
+          {
+            "source": "Features[4]",
+            "text": "HIGH-QUANLITY MATERIAL: The aluminum main frame is lighter and stronger, weighing only 1.5 kg (3.3 lbs), making it easy for your baby to ride and stride. EVA wheels are quiet and non-slip, perfect for baby to ride indoo..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "GLOW REAR WHEEL: Colorful lighted rear wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No batteries required, just spin the wheels to glow. SAFETY FIRS..."
+          }
+        ],
+        "parentTip": "Parent's Tip: SAFETY FIRST: 135° steering limiter effectively prevents the baby from turning over. Fully enclosed wheels to avoid clamping baby's feet. TPU handle makes baby's grip firm and har..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "3.6 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          },
+          "dimensions": {
+            "value": "21.5 x 7.9 x 14 inches",
+            "source": "Product_Specifications.Measurements.Item Dimensions"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: SAFETY FIRST: 135° steering limiter effectively prevents the baby from turning over. Fully enclosed wheels to avoid clamping baby's feet. TPU handle makes baby's grip firm and har...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Umatoll Colorful Lighting Baby Balance Bike Toys for 1 Year Old Girl Gifts, Adjustable Seat, First Birthday Gifts, 12-24 Months Toddler Bike, New Pink",
+      "brand": "Umatoll",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "GLOW REAR WHEEL: Colorful lighted rear wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No batteries required, just spin the wheels to glow."
+        },
+        {
+          "source": "Features[2]",
+          "text": "SAFETY FIRST: 135° steering limiter effectively prevents the baby from turning over. Fully enclosed wheels to avoid clamping baby's feet. TPU handle makes baby's grip firm and hard to get off. No sharp parts, making your baby safer."
+        },
+        {
+          "source": "Features[3]",
+          "text": "ADJUSTABLE SEAT: The 3-position adjustable seat is more suitable for babies aged 12-24 months. Note: After adjusting the seat to hear the seat \"click\" to be considered successfully fixed seat."
+        },
+        {
+          "source": "Features[4]",
+          "text": "HIGH-QUANLITY MATERIAL: The aluminum main frame is lighter and stronger, weighing only 1.5 kg (3.3 lbs), making it easy for your baby to ride and stride. EVA wheels are quiet and non-slip, perfect for baby to ride indoors and outdoors."
+        },
+        {
+          "source": "Features[5]",
+          "text": "PERFECT GIFT for 1-2 Year Old: The toddler pink bike brings babies fun and joy, while helps develop their balance, control and leg strength. Removable baskets can hold baby's beloved small toys. No need tools, it only takes a few minutes to complete the installation. Perfect first birthday gifts for girls!"
+        },
+        {
+          "source": "Product_Description",
+          "text": "GLOW REAR WHEEL: Colorful lighted rear wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No batteries required, just spin the wheels to glow. SAFETY FIRST: 135° steering limiter effectively prevents the baby from turning over. Fully enclosed wheels to avoid clamping baby's feet. TPU handle makes baby's grip firm and hard to get off. No sharp parts, making your baby safer. ADJUSTABLE SEAT: The 3-position adjustable seat is more suitable for babies aged 12-24 months. Note: After adjusting the seat to hear the seat \"click\" to be considered successfully fixed seat."
+        },
+        {
+          "source": "Product_Videos_Detail[1].Title",
+          "text": "Colorful lighting baby bike, perfect 1 year old gifts"
+        },
+        {
+          "source": "Product_Videos_Detail[2].Title",
+          "text": "Perfect balance bike with led wheels"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "SAFETY FIRST: 135° steering limiter effectively prevents the baby from turning over. Fully enclosed wheels to avoid clamping baby's feet. TPU handle makes baby's grip firm and hard to get off. No sharp parts, making you...",
+          "source": "Features[2]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
+    }
   }
 ]

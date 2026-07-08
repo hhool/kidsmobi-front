@@ -438,6 +438,127 @@
     "Category_Attributes": {
       "Brand": "Infantino",
       "Age Range Description": "Infant"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Infant",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "foldability": {
+        "value": "folded seat, facing-in expanded seat, facing-out, and",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "ADJUSTABLE FOR ALL CAREGIVERS: Custom-fit straps, buckles, and seat settings make this carrier ideal for different body types and caregivers. Whether it’s mom, dad, or grandparents — everyone can wear baby with a secure..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "The Infantino Flip 4-in-1 Convertible Baby Carrier's unique, convertible seat makes this the ideal infant carrier for newborn to toddler years. Use the narrow seat position and padded head support to comfortably hold sm..."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Strap Type",
+            "text": "Strap Type: Adjustable Strap"
+          }
+        ],
+        "parentTip": "Parent's Tip: ADJUSTABLE FOR ALL CAREGIVERS: Custom-fit straps, buckles, and seat settings make this carrier ideal for different body types and caregivers. Whether it’s mom, dad, or grandparent..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "4-IN-1 CARRYING POSITIONS FOR EVERY STAGE: Convertible baby carrier with facing-in (narrow/wide), facing-out, and back carry positions. Supports newborn to toddler (8–32 lbs) with ergonomic babywearing at every stage"
+          },
+          {
+            "source": "Features[2]",
+            "text": "COMFORTABLE FOR PARENT & BABY: Designed with padded shoulder straps and a wide waist belt that helps evenly distribute your baby's weight — reducing back and shoulder strain whether you’re running errands, exploring the..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "SUPPORTS COMFORTABLE, PROPER POSITIONING: The convertible seat adjusts from narrow to wide as your baby grows, helping to keep their legs in a proper “M” position — a natural seated posture that supports comfort during..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "EASY TO CLEAN, EASY TO USE: Soft, breathable fabric is machine washable and quick to wipe down between uses. It’s simple to put on and adjust — even solo — and perfect for on-the-go moments or travel. A thoughtful baby..."
+          }
+        ],
+        "parentTip": "Parent's Tip: 4-IN-1 CARRYING POSITIONS FOR EVERY STAGE: Convertible baby carrier with facing-in (narrow/wide), facing-out, and back carry positions. Supports newborn to toddler (8–32 lbs) with..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "foldability": {
+            "value": "folded seat, facing-in expanded seat, facing-out, and",
+            "source": "detail_text_regex"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: ADJUSTABLE FOR ALL CAREGIVERS: Custom-fit straps, buckles, and seat settings make this carrier ideal for different body types and caregivers. Whether it’s mom, dad, or grandparent...",
+      "ridingComfort": "Parent's Tip: 4-IN-1 CARRYING POSITIONS FOR EVERY STAGE: Convertible baby carrier with facing-in (narrow/wide), facing-out, and back carry positions. Supports newborn to toddler (8–32 lbs) with...",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Infantino Flip 4-in-1 Convertible Baby Carrier, Adjustable, Ergonomic Babywearing, Registry Essential, Baby Carrier for Ne...",
+      "brand": "Infantino",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "4-IN-1 CARRYING POSITIONS FOR EVERY STAGE: Convertible baby carrier with facing-in (narrow/wide), facing-out, and back carry positions. Supports newborn to toddler (8–32 lbs) with ergonomic babywearing at every stage"
+        },
+        {
+          "source": "Features[2]",
+          "text": "COMFORTABLE FOR PARENT & BABY: Designed with padded shoulder straps and a wide waist belt that helps evenly distribute your baby's weight — reducing back and shoulder strain whether you’re running errands, exploring the park, or multitasking at home"
+        },
+        {
+          "source": "Features[3]",
+          "text": "ADJUSTABLE FOR ALL CAREGIVERS: Custom-fit straps, buckles, and seat settings make this carrier ideal for different body types and caregivers. Whether it’s mom, dad, or grandparents — everyone can wear baby with a secure, personalized fit"
+        },
+        {
+          "source": "Features[4]",
+          "text": "SUPPORTS COMFORTABLE, PROPER POSITIONING: The convertible seat adjusts from narrow to wide as your baby grows, helping to keep their legs in a proper “M” position — a natural seated posture that supports comfort during babywearing"
+        },
+        {
+          "source": "Features[5]",
+          "text": "EASY TO CLEAN, EASY TO USE: Soft, breathable fabric is machine washable and quick to wipe down between uses. It’s simple to put on and adjust — even solo — and perfect for on-the-go moments or travel. A thoughtful baby registry must-have"
+        },
+        {
+          "source": "Product_Description",
+          "text": "The Infantino Flip 4-in-1 Convertible Baby Carrier's unique, convertible seat makes this the ideal infant carrier for newborn to toddler years. Use the narrow seat position and padded head support to comfortably hold small infants. Switch to the wide position to continue to provide an ergonomic seat while your baby grows. With soft, easy-to-clean fabric, a transitional seat, and an adjustable waistband and straps, the Infantino Baby Carrier is a go-to when mom or dad need an extra set of hands. Four different ways to carry: facing-in folded seat, facing-in expanded seat, facing-out, and back carry. With the Infantino Flip 4-in-1 Convertible Baby Carrier, there's no place like close. For babies 8-32 lbs. More chic and stylish colors available."
+        },
+        {
+          "source": "Product_Specifications.Features_Specs.Age Range Description",
+          "text": "Age Range Description: Infant"
+        },
+        {
+          "source": "Product_Specifications.Features_Specs.UPC",
+          "text": "UPC: 773554901832"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "ADJUSTABLE FOR ALL CAREGIVERS: Custom-fit straps, buckles, and seat settings make this carrier ideal for different body types and caregivers. Whether it’s mom, dad, or grandparents — everyone can wear baby with a secure...",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "4-IN-1 CARRYING POSITIONS FOR EVERY STAGE: Convertible baby carrier with facing-in (narrow/wide), facing-out, and back carry positions. Supports newborn to toddler (8–32 lbs) with ergonomic babywearing at every stage",
+          "source": "Features[1]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -903,6 +1024,123 @@
       "Brand": "Momcozy",
       "Age Range Description": "3-24Months",
       "Item Weight": "0.75 Kilograms"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "3-24Months",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "itemWeight": {
+        "value": "0.75 Kilograms",
+        "source": "Category_Attributes.Item Weight"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "Tailored to Grow Together: Our carrier features three adjustable sizing positions, catering to your child's growth at every stage form newborn to toddler. Achieve a safe fit and Ergonomic natural \"M\" position, regardles..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "Ergonomic Waist EVA Support: Experience unmatched comfort during extended wear. The built-in EVA waist support not only offers crucial lumbar support but also minimizes strain on your back, ensuring a labor-saving and c..."
+          },
+          {
+            "source": "Features[6]",
+            "text": "OEKO-TEX Certified Pure Cotton: Made of 100% premium cotton and OEKO-TEX certified, Momcozy carriers are designed to be gentle on delicate baby skin. Care Tip: cotton can attract lint—use a lint roller or tape regularly..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "Lining: 100% Cotton, Shell: 100% Cotton, Filling (Waist Belt & Shoulder Straps): 47% Foam, 40% Polyester Fibers, 13% Polyurethane Foam Hands Free Comfort: This ergonomic Baby Carrier perfect for experiencing hands-free..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Tailored to Grow Together: Our carrier features three adjustable sizing positions, catering to your child's growth at every stage form newborn to toddler. Achieve a safe fit and E..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "Hands Free Comfort: This ergonomic Baby Carrier perfect for experiencing hands-free convenience in everyday use, outing or travel. Lightweight design and effortless wearability, Momcozy's original baby carrier is an ide..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "Thoughtful Back Saver: Unlike conventional H-shaped carriers, the Momcozy Baby Carrier employs a revolutionary X-shaped back design. This forward-looking feature distributes weight better and evenly for unrivaled comfor..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Hands Free Comfort: This ergonomic Baby Carrier perfect for experiencing hands-free convenience in everyday use, outing or travel. Lightweight design and effortless wearability, M..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "0.75 Kilograms",
+            "source": "Category_Attributes.Item Weight"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Tailored to Grow Together: Our carrier features three adjustable sizing positions, catering to your child's growth at every stage form newborn to toddler. Achieve a safe fit and E...",
+      "ridingComfort": "Parent's Tip: Hands Free Comfort: This ergonomic Baby Carrier perfect for experiencing hands-free convenience in everyday use, outing or travel. Lightweight design and effortless wearability, M...",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Momcozy Baby Carrier - Ergonomic, Cozy and Lightweight Carrier for 7-45lbs, Effortless to Put On, Ideal for Hands-Free Par...",
+      "brand": "Momcozy",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Lining: 100% Cotton, Shell: 100% Cotton, Filling (Waist Belt & Shoulder Straps): 47% Foam, 40% Polyester Fibers, 13% Polyurethane Foam"
+        },
+        {
+          "source": "Features[2]",
+          "text": "Hands Free Comfort: This ergonomic Baby Carrier perfect for experiencing hands-free convenience in everyday use, outing or travel. Lightweight design and effortless wearability, Momcozy's original baby carrier is an ideal choice for travel and busy lifestyles. It ensures both comfort and elegance as you carry your little one while on the move"
+        },
+        {
+          "source": "Features[3]",
+          "text": "Tailored to Grow Together: Our carrier features three adjustable sizing positions, catering to your child's growth at every stage form newborn to toddler. Achieve a safe fit and Ergonomic natural \"M\" position, regardless of your baby's size that ensures baby's healthy hip and spinal development. Padded legs opening ensures unobstructed blood circulation in baby's legs, providing both comfort and safety"
+        },
+        {
+          "source": "Features[4]",
+          "text": "Ergonomic Waist EVA Support: Experience unmatched comfort during extended wear. The built-in EVA waist support not only offers crucial lumbar support but also minimizes strain on your back, ensuring a labor-saving and comfortable carrying experience. The thickly padded shoulder and waist straps are easily adjustable to accommodate all sizes for a personalized fit"
+        },
+        {
+          "source": "Features[5]",
+          "text": "Thoughtful Back Saver: Unlike conventional H-shaped carriers, the Momcozy Baby Carrier employs a revolutionary X-shaped back design. This forward-looking feature distributes weight better and evenly for unrivaled comfort for both you and your little one"
+        },
+        {
+          "source": "Features[6]",
+          "text": "OEKO-TEX Certified Pure Cotton: Made of 100% premium cotton and OEKO-TEX certified, Momcozy carriers are designed to be gentle on delicate baby skin. Care Tip: cotton can attract lint—use a lint roller or tape regularly to remove surface fuzz and keep it looking fresh"
+        },
+        {
+          "source": "Product_Description",
+          "text": "Lining: 100% Cotton, Shell: 100% Cotton, Filling (Waist Belt & Shoulder Straps): 47% Foam, 40% Polyester Fibers, 13% Polyurethane Foam Hands Free Comfort: This ergonomic Baby Carrier perfect for experiencing hands-free convenience in everyday use, outing or travel. Lightweight design and effortless wearability, Momcozy's original baby carrier is an ideal choice for travel and busy lifestyles. It ensures both comfort and elegance as you carry your little one while on the move Tailored to Grow Together: Our carrier features three adjustable sizing positions, catering to your child's growth at every stage form newborn to toddler. Achieve a safe fit and Ergonomic natural \"M\" position, regardless of your baby's size that ensures baby's healthy hip and spinal development. Padded legs opening ensures unobstructed blood circulation in baby's legs, providing both comfort and safety"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Wearing Momcozy's Baby Carrier, Relishing Leisurely Moments with Your Baby."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Tailored to Grow Together: Our carrier features three adjustable sizing positions, catering to your child's growth at every stage form newborn to toddler. Achieve a safe fit and Ergonomic natural \"M\" position, regardles...",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "Hands Free Comfort: This ergonomic Baby Carrier perfect for experiencing hands-free convenience in everyday use, outing or travel. Lightweight design and effortless wearability, Momcozy's original baby carrier is an ide...",
+          "source": "Features[2]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -1372,6 +1610,123 @@
       "Brand": "Momcozy",
       "Age Range Description": "3-24Months",
       "Item Weight": "0.75 Kilograms"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "3-24Months",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "itemWeight": {
+        "value": "0.75 Kilograms",
+        "source": "Category_Attributes.Item Weight"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "Tailored to Grow Together: Our carrier features three adjustable sizing positions, catering to your child's growth at every stage form newborn to toddler. Achieve a safe fit and Ergonomic natural \"M\" position, regardles..."
+          },
+          {
+            "source": "Features[3]",
+            "text": "Ergonomic Waist EVA Support: Experience unmatched comfort during extended wear. The built-in EVA waist support not only offers crucial lumbar support but also minimizes strain on your back, ensuring a labor-saving and c..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "OEKO-TEX Certified Pure Cotton: Made of 100% premium cotton and OEKO-TEX certified, Momcozy carriers are designed to be gentle on delicate baby skin. Care Tip: cotton can attract lint—use a lint roller or tape regularly..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "Hands Free Comfort: This ergonomic Baby Carrier perfect for experiencing hands-free convenience in everyday use, outing or travel. Lightweight design and effortless wearability, Momcozy's original baby carrier is an ide..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Tailored to Grow Together: Our carrier features three adjustable sizing positions, catering to your child's growth at every stage form newborn to toddler. Achieve a safe fit and E..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "Hands Free Comfort: This ergonomic Baby Carrier perfect for experiencing hands-free convenience in everyday use, outing or travel. Lightweight design and effortless wearability, Momcozy's original baby carrier is an ide..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "Thoughtful Back Saver: Unlike conventional H-shaped carriers, the Momcozy Baby Carrier employs a revolutionary X-shaped back design. This forward-looking feature distributes weight better and evenly for unrivaled comfor..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Hands Free Comfort: This ergonomic Baby Carrier perfect for experiencing hands-free convenience in everyday use, outing or travel. Lightweight design and effortless wearability, M..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "0.75 Kilograms",
+            "source": "Category_Attributes.Item Weight"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Tailored to Grow Together: Our carrier features three adjustable sizing positions, catering to your child's growth at every stage form newborn to toddler. Achieve a safe fit and E...",
+      "ridingComfort": "Parent's Tip: Hands Free Comfort: This ergonomic Baby Carrier perfect for experiencing hands-free convenience in everyday use, outing or travel. Lightweight design and effortless wearability, M...",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Momcozy Baby Carrier - Ergonomic, Cozy and Lightweight Carrier for 7-45lbs, Effortless to Put On, Ideal for Hands-Free Par...",
+      "brand": "Momcozy",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Hands Free Comfort: This ergonomic Baby Carrier perfect for experiencing hands-free convenience in everyday use, outing or travel. Lightweight design and effortless wearability, Momcozy's original baby carrier is an ideal choice for travel and busy lifestyles. It ensures both comfort and elegance as you carry your little one while on the move"
+        },
+        {
+          "source": "Features[2]",
+          "text": "Tailored to Grow Together: Our carrier features three adjustable sizing positions, catering to your child's growth at every stage form newborn to toddler. Achieve a safe fit and Ergonomic natural \"M\" position, regardless of your baby's size that ensures baby's healthy hip and spinal development. Padded legs opening ensures unobstructed blood circulation in baby's legs, providing both comfort and safety"
+        },
+        {
+          "source": "Features[3]",
+          "text": "Ergonomic Waist EVA Support: Experience unmatched comfort during extended wear. The built-in EVA waist support not only offers crucial lumbar support but also minimizes strain on your back, ensuring a labor-saving and comfortable carrying experience. The thickly padded shoulder and waist straps are easily adjustable to accommodate all sizes for a personalized fit"
+        },
+        {
+          "source": "Features[4]",
+          "text": "Thoughtful Back Saver: Unlike conventional H-shaped carriers, the Momcozy Baby Carrier employs a revolutionary X-shaped back design. This forward-looking feature distributes weight better and evenly for unrivaled comfort for both you and your little one"
+        },
+        {
+          "source": "Features[5]",
+          "text": "OEKO-TEX Certified Pure Cotton: Made of 100% premium cotton and OEKO-TEX certified, Momcozy carriers are designed to be gentle on delicate baby skin. Care Tip: cotton can attract lint—use a lint roller or tape regularly to remove surface fuzz and keep it looking fresh"
+        },
+        {
+          "source": "Product_Description",
+          "text": "Hands Free Comfort: This ergonomic Baby Carrier perfect for experiencing hands-free convenience in everyday use, outing or travel. Lightweight design and effortless wearability, Momcozy's original baby carrier is an ideal choice for travel and busy lifestyles. It ensures both comfort and elegance as you carry your little one while on the move Tailored to Grow Together: Our carrier features three adjustable sizing positions, catering to your child's growth at every stage form newborn to toddler. Achieve a safe fit and Ergonomic natural \"M\" position, regardless of your baby's size that ensures baby's healthy hip and spinal development. Padded legs opening ensures unobstructed blood circulation in baby's legs, providing both comfort and safety Ergonomic Waist EVA Support: Experience unmatched comfort during extended wear. The built-in EVA waist support not only offers crucial lumbar suppor..."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Wearing Momcozy's Baby Carrier, Relishing Leisurely Moments with Your Baby."
+        },
+        {
+          "source": "Product_Specifications.Measurements.Item Weight",
+          "text": "Item Weight: 0.75 Kilograms"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Tailored to Grow Together: Our carrier features three adjustable sizing positions, catering to your child's growth at every stage form newborn to toddler. Achieve a safe fit and Ergonomic natural \"M\" position, regardles...",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "Hands Free Comfort: This ergonomic Baby Carrier perfect for experiencing hands-free convenience in everyday use, outing or travel. Lightweight design and effortless wearability, Momcozy's original baby carrier is an ide...",
+          "source": "Features[1]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -1790,6 +2145,149 @@
       "Brand": "Infantino",
       "Age Range Description": "Infant",
       "Item Weight": "1.5 Pounds"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Infant",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "itemWeight": {
+        "value": "1.5 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "foldability": {
+        "value": "folded seat, facing-in expanded seat, facing-out, and",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "ERGONOMIC SEAT & ADJUSTABLE FIT FOR PARENTS: Supports baby’s natural position while shoulder straps and lumbar belt customize the fit"
+          },
+          {
+            "source": "Product_Description",
+            "text": "The Infantino Flip 4-in-1 Convertible Baby Carrier's unique, convertible seat makes this the ideal infant carrier for newborn to toddler years. Use the narrow seat position and padded head support to comfortably hold sm..."
+          },
+          {
+            "source": "Product_Specifications.Features_Specs.Strap Type",
+            "text": "Strap Type: Adjustable Strap"
+          }
+        ],
+        "parentTip": "Parent's Tip: ERGONOMIC SEAT & ADJUSTABLE FIT FOR PARENTS: Supports baby’s natural position while shoulder straps and lumbar belt customize the fit"
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "UPDATED LUMBAR & WEIGHT DISTRIBUTION: Enhanced lumbar support belt and wider weight distribution for improved comfort"
+          },
+          {
+            "source": "Features[5]",
+            "text": "CARRY WITH EASE, LIVE WITH JOY: Designed to make everyday carrying simpler and more comfortable, so you can focus on the moments that matter with your baby"
+          },
+          {
+            "source": "Product_Videos_Detail[6].Title",
+            "text": "Infantino Carrier- Comfort for You & Baby"
+          }
+        ],
+        "parentTip": "Parent's Tip: UPDATED LUMBAR & WEIGHT DISTRIBUTION: Enhanced lumbar support belt and wider weight distribution for improved comfort"
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "1.5 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          },
+          "foldability": {
+            "value": "folded seat, facing-in expanded seat, facing-out, and",
+            "source": "detail_text_regex"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "4-IN-1 CONVERTIBLE DESIGN: Grows with baby from newborn to toddler with four versatile carrying positions 7–35 lbs"
+          },
+          {
+            "source": "Features[4]",
+            "text": "PREMIUM HERRINGBONE FABRIC WITH ELEVATED ACCENTS: Soft to the touch, easy to clean, and finished with refined tonal or metallic details"
+          },
+          {
+            "source": "Product_Videos_Detail[3].Title",
+            "text": "Mom Test - Is This Carrier Really That Easy to Use & Adjust?"
+          }
+        ],
+        "parentTip": "Parent's Tip: 4-IN-1 CONVERTIBLE DESIGN: Grows with baby from newborn to toddler with four versatile carrying positions 7–35 lbs"
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: ERGONOMIC SEAT & ADJUSTABLE FIT FOR PARENTS: Supports baby’s natural position while shoulder straps and lumbar belt customize the fit",
+      "ridingComfort": "Parent's Tip: UPDATED LUMBAR & WEIGHT DISTRIBUTION: Enhanced lumbar support belt and wider weight distribution for improved comfort",
+      "lightAndEasy": "Parent's Tip: 4-IN-1 CONVERTIBLE DESIGN: Grows with baby from newborn to toddler with four versatile carrying positions 7–35 lbs"
+    },
+    "Expert_Review_Inputs": {
+      "title": "Infantino Flip Luxe 4-in-1 Baby Carrier Ergonomic 7-35 lbs, Onyx",
+      "brand": "Infantino",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "4-IN-1 CONVERTIBLE DESIGN: Grows with baby from newborn to toddler with four versatile carrying positions 7–35 lbs"
+        },
+        {
+          "source": "Features[2]",
+          "text": "UPDATED LUMBAR & WEIGHT DISTRIBUTION: Enhanced lumbar support belt and wider weight distribution for improved comfort"
+        },
+        {
+          "source": "Features[3]",
+          "text": "ERGONOMIC SEAT & ADJUSTABLE FIT FOR PARENTS: Supports baby’s natural position while shoulder straps and lumbar belt customize the fit"
+        },
+        {
+          "source": "Features[4]",
+          "text": "PREMIUM HERRINGBONE FABRIC WITH ELEVATED ACCENTS: Soft to the touch, easy to clean, and finished with refined tonal or metallic details"
+        },
+        {
+          "source": "Features[5]",
+          "text": "CARRY WITH EASE, LIVE WITH JOY: Designed to make everyday carrying simpler and more comfortable, so you can focus on the moments that matter with your baby"
+        },
+        {
+          "source": "Product_Description",
+          "text": "The Infantino Flip 4-in-1 Convertible Baby Carrier's unique, convertible seat makes this the ideal infant carrier for newborn to toddler years. Use the narrow seat position and padded head support to comfortably hold small infants. Switch to the wide position to continue to provide an ergonomic seat while your baby grows. With soft, easy-to-clean fabric, a transitional seat, and an adjustable waistband and straps, the Infantino Baby Carrier is a go-to when mom or dad need an extra set of hands. Four different ways to carry: facing-in folded seat, facing-in expanded seat, facing-out, and back carry. With the Infantino Flip 4-in-1 Convertible Baby Carrier, there's no place like close. For babies 8-32 lbs. More chic and stylish colors available."
+        },
+        {
+          "source": "Product_Videos_Detail[1].Title",
+          "text": "Infantino Flip Luxe 4-in-1 Baby Carrier"
+        },
+        {
+          "source": "Product_Videos_Detail[2].Title",
+          "text": "Structured carrier for moms on the go!"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "ERGONOMIC SEAT & ADJUSTABLE FIT FOR PARENTS: Supports baby’s natural position while shoulder straps and lumbar belt customize the fit",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "UPDATED LUMBAR & WEIGHT DISTRIBUTION: Enhanced lumbar support belt and wider weight distribution for improved comfort",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "4-IN-1 CONVERTIBLE DESIGN: Grows with baby from newborn to toddler with four versatile carrying positions 7–35 lbs",
+          "source": "Features[1]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   }
 ]

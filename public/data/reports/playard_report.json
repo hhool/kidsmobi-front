@@ -700,6 +700,157 @@
       "Brand": "Baby Trend",
       "Model Number": "PY86B64C",
       "Age Range Description": "Kid"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Kid",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "itemWeight": {
+        "value": "27.6 Pounds",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "dimensions": {
+        "value": "42.5 x 35.4 x 41.3 inches",
+        "source": "Product_Specifications.Measurements.Item Dimensions"
+      },
+      "foldability": {
+        "value": "9.5 inches (l) x 9.5 inches (w) x 29.5 inches (h)",
+        "source": "Product_Specifications.Measurements.Folded Size"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[6]",
+            "text": "One hand locking mechanism"
+          },
+          {
+            "source": "Features[7]",
+            "text": "Two large wheels with brakes for added security"
+          },
+          {
+            "source": "Product_Description",
+            "text": "Your little one will feel comfy and secure in the adorable Lil' Snooze Deluxe II Nursery Center from Baby Trend. The removable napper with canopy is perfect for a little shuteye throughout the day and the hanging toys k..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[2]",
+            "text": "As your baby grows, the nursery center transforms into the ideal play time center and the large caster wheels with brakes provide added mobility and stability. The Nursery Center folds compact and easily fits into the i..."
+          }
+        ],
+        "parentTip": "Parent's Tip: One hand locking mechanism"
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "Cozy napper with canopy and 2 plush toys"
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+            "text": "Your little one will feel comfy and secure in the adorable Lil Snooze Deluxe II Nursery Center from Baby Trend. The removable napper with canopy is perfect for a little shuteye throughout the day and the hanging toys ke..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Cozy napper with canopy and 2 plush toys"
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "27.6 Pounds",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "foldability": {
+            "value": "9.5 inches (l) x 9.5 inches (w) x 29.5 inches (h)",
+            "source": "Product_Specifications.Measurements.Folded Size"
+          },
+          "dimensions": {
+            "value": "42.5 x 35.4 x 41.3 inches",
+            "source": "Product_Specifications.Measurements.Item Dimensions"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[8]",
+            "text": "Easy compact fold"
+          },
+          {
+            "source": "Features[9]",
+            "text": "Travel/storage tote bag"
+          },
+          {
+            "source": "Product_Specifications.Measurements.Folded Size",
+            "text": "Folded Size: 9.5 inches (l) x 9.5 inches (w) x 29.5 inches (h)"
+          }
+        ],
+        "parentTip": "Parent's Tip: Easy compact fold"
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: One hand locking mechanism",
+      "ridingComfort": "Parent's Tip: Cozy napper with canopy and 2 plush toys",
+      "lightAndEasy": "Parent's Tip: Easy compact fold"
+    },
+    "Expert_Review_Inputs": {
+      "title": "Baby Trend Lil' Snooze Deluxe II Nursery Center, Twinkle Twinkle Little Moon",
+      "brand": "Baby",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "100% Polyester"
+        },
+        {
+          "source": "Features[2]",
+          "text": "Imported"
+        },
+        {
+          "source": "Features[3]",
+          "text": "Cozy napper with canopy and 2 plush toys"
+        },
+        {
+          "source": "Features[4]",
+          "text": "Flip away changing table"
+        },
+        {
+          "source": "Features[5]",
+          "text": "Removable full bassinet"
+        },
+        {
+          "source": "Features[6]",
+          "text": "One hand locking mechanism"
+        },
+        {
+          "source": "Features[7]",
+          "text": "Two large wheels with brakes for added security"
+        },
+        {
+          "source": "Features[8]",
+          "text": "Easy compact fold"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "One hand locking mechanism",
+          "source": "Features[6]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "Cozy napper with canopy and 2 plush toys",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "Easy compact fold",
+          "source": "Features[8]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -1023,6 +1174,161 @@
       "Brand": "Dream On Me",
       "Model Number": "436-BLK",
       "Age Range Description": "Kid"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Kid",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "itemWeight": {
+        "value": "16.9 Pounds",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "dimensions": {
+        "value": "40 x 28 x 24 inches",
+        "source": "Product_Specifications.Measurements.Item Dimensions"
+      },
+      "foldability": {
+        "value": "7″ x 7.5″ x 28″",
+        "source": "Product_Specifications.Measurements.Folded Size"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "Portable & Lightweight: The Nest Playard is easy to fold and lightweight, perfect for traveling and home use, providing a safe space for babies under 36 inches tall."
+          },
+          {
+            "source": "Features[4]",
+            "text": "Breathable Mesh Sides: Features breathable mesh sides for visibility and ventilation, keeping your baby cool and safe while playing. Ideal for babies 6-12 months or when they can no longer climb out."
+          },
+          {
+            "source": "Product_Description",
+            "text": "Dream On Me Nest Portable Playard – Lightweight, Foldable Playard for Babies and Toddlers with Removable Mattress. The Dream On Me Nest Portable Playard offers a safe, comfortable, and convenient solution for parents se..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Portable & Lightweight: The Nest Playard is easy to fold and lightweight, perfect for traveling and home use, providing a safe space for babies under 36 inches tall."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[6]",
+            "text": "Ideal for Indoor & Outdoor Use: Perfect for both indoor and outdoor use, the Nest Playard offers a secure, comfortable space for your baby to play, whether at home, in the backyard, or on the go."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+            "text": "The award winning Nest Portable Playard is the ideal blend of comfort, convenience and security! It’s easy to assemble and packed with features. Lightweight and portable, it also makes for the perfect travel accessory!"
+          }
+        ],
+        "parentTip": "Parent's Tip: Ideal for Indoor & Outdoor Use: Perfect for both indoor and outdoor use, the Nest Playard offers a secure, comfortable space for your baby to play, whether at home, in the backyar..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "16.9 Pounds",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "foldability": {
+            "value": "7″ x 7.5″ x 28″",
+            "source": "Product_Specifications.Measurements.Folded Size"
+          },
+          "dimensions": {
+            "value": "40 x 28 x 24 inches",
+            "source": "Product_Specifications.Measurements.Item Dimensions"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[5]",
+            "text": "Compact and Easy to Store: Foldable and compact, the Dream On Me Nest Playard fits easily into small spaces and comes with a carry bag for easy storage and travel."
+          },
+          {
+            "source": "Features[7]",
+            "text": "Quick Setup & Foldable Design: The Nest Playard can be set up in seconds, and its foldable design makes it easy to take on trips or pack away for storage when not in use."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Title",
+            "text": "The Dream On Me Nest Portable Playard"
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[2]",
+            "text": "The Nest sets up and folds down in seconds, thanks to the easy fold design. It fits easily in the tote bag provided for easy storage and travel. Take it wherever you go!"
+          },
+          {
+            "source": "Product_Videos_Detail[1].Title",
+            "text": "Dream On Me Nest Portable Play Yard"
+          }
+        ],
+        "parentTip": "Parent's Tip: Compact and Easy to Store: Foldable and compact, the Dream On Me Nest Playard fits easily into small spaces and comes with a carry bag for easy storage and travel."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Portable & Lightweight: The Nest Playard is easy to fold and lightweight, perfect for traveling and home use, providing a safe space for babies under 36 inches tall.",
+      "ridingComfort": "Parent's Tip: Ideal for Indoor & Outdoor Use: Perfect for both indoor and outdoor use, the Nest Playard offers a secure, comfortable space for your baby to play, whether at home, in the backyar...",
+      "lightAndEasy": "Parent's Tip: Compact and Easy to Store: Foldable and compact, the Dream On Me Nest Playard fits easily into small spaces and comes with a carry bag for easy storage and travel."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Dream On Me Nest Portable Playard in Black with Carrybag an Shoulder Strap, Lightweight, Packable and Easy Setup Baby Play...",
+      "brand": "Dream",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Mesh"
+        },
+        {
+          "source": "Features[2]",
+          "text": "Imported"
+        },
+        {
+          "source": "Features[3]",
+          "text": "Portable & Lightweight: The Nest Playard is easy to fold and lightweight, perfect for traveling and home use, providing a safe space for babies under 36 inches tall."
+        },
+        {
+          "source": "Features[4]",
+          "text": "Breathable Mesh Sides: Features breathable mesh sides for visibility and ventilation, keeping your baby cool and safe while playing. Ideal for babies 6-12 months or when they can no longer climb out."
+        },
+        {
+          "source": "Features[5]",
+          "text": "Compact and Easy to Store: Foldable and compact, the Dream On Me Nest Playard fits easily into small spaces and comes with a carry bag for easy storage and travel."
+        },
+        {
+          "source": "Features[6]",
+          "text": "Ideal for Indoor & Outdoor Use: Perfect for both indoor and outdoor use, the Nest Playard offers a secure, comfortable space for your baby to play, whether at home, in the backyard, or on the go."
+        },
+        {
+          "source": "Features[7]",
+          "text": "Quick Setup & Foldable Design: The Nest Playard can be set up in seconds, and its foldable design makes it easy to take on trips or pack away for storage when not in use."
+        },
+        {
+          "source": "Product_Description",
+          "text": "Dream On Me Nest Portable Playard – Lightweight, Foldable Playard for Babies and Toddlers with Removable Mattress. The Dream On Me Nest Portable Playard offers a safe, comfortable, and convenient solution for parents seeking a secure play area for their little one. Ideal for babies under 36 inches tall, this lightweight and foldable playpen is perfect for both home use and travel. Whether you’re at home or on the go, this playard provides a secure space for your child to play, nap, or relax.Designed with breathable mesh sides, the Nest Playard ensures visibility and ventilation, keeping your baby comfortable and safe. The removable padded mattress offers a soft, cushioned surface for naps and playtime, while the easy-to-clean fabric makes maintenance a breeze. The foldable design allows for easy storage and transport, and it comes with a convenient carry bag, making it the perfect choice for parents who are always on the move. The Nest Playard is a must-have for busy families who want a durable, versatile, and compact playpen that can be used both indoors and outdoors."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Portable & Lightweight: The Nest Playard is easy to fold and lightweight, perfect for traveling and home use, providing a safe space for babies under 36 inches tall.",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "Ideal for Indoor & Outdoor Use: Perfect for both indoor and outdoor use, the Nest Playard offers a secure, comfortable space for your baby to play, whether at home, in the backyard, or on the go.",
+          "source": "Features[6]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "Compact and Easy to Store: Foldable and compact, the Dream On Me Nest Playard fits easily into small spaces and comes with a carry bag for easy storage and travel.",
+          "source": "Features[5]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -1855,6 +2161,178 @@
       "Brand": "Dream On Me",
       "Model Number": "438-BLACK",
       "Age Range Description": "6-36 months"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "6-36 months",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "itemWeight": {
+        "value": "16.6 Pounds",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "dimensions": {
+        "value": "40 x 27.5 x 25.5 inches",
+        "source": "Product_Specifications.Measurements.Item Dimensions"
+      },
+      "foldability": {
+        "value": "7 inches (L) x 7 inches (W) x 25.4 inches (H)",
+        "source": "Product_Specifications.Measurements.Folded Size"
+      },
+      "weightLimit": {
+        "value": "30 lb",
+        "source": "detail_text_regex"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "weightLimit": {
+            "value": "30 lb",
+            "source": "detail_text_regex"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "Quick and Easy Setup: No tools required—sets up in minutes and folds down compactly for easy travel or storage. The strong, stable frame delivers dependable support for daily routines at home or on the go."
+          },
+          {
+            "source": "Features[4]",
+            "text": "Safe and Secured: Built to meet ASTM safety standards, the playard features breathable mesh sides that promote airflow and allow clear visibility, helping parents keep an eye on their little one while maintaining a safe..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "Life with a little one is always on the move, and the Dream On Me Zodiak Portable Playard is designed to keep up with every moment. Created for modern, on-the-go families, this lightweight playard weighs just 16.6 lbs a..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+            "text": "The Zodiak Portable Playard marries safety with comfort, making it ideal for your child! Easy to assemble, it is lightweight, packed with features, and also makes for the perfect travel mate."
+          }
+        ],
+        "parentTip": "Parent's Tip: Quick and Easy Setup: No tools required—sets up in minutes and folds down compactly for easy travel or storage. The strong, stable frame delivers dependable support for daily rout..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "Breathable Mesh Sides – Full mesh paneling promotes healthy airflow and allows you to easily keep an eye on your child, while your little one stays calm and connected to their surroundings. Mesh sides provide excellent..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "Comfortable Space: Offers a spacious interior measuring 37” L x 27.5” W x 25.5” H, complete with a padded mattress that provides a cozy, supportive surface for naptime, playtime, or diaper changes. Designed for use from..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[2]",
+            "text": "The Zodiak sets up and folds down in minutes, fitting comfortably in the tote bag provided for easy transportation."
+          }
+        ],
+        "parentTip": "Parent's Tip: Breathable Mesh Sides – Full mesh paneling promotes healthy airflow and allows you to easily keep an eye on your child, while your little one stays calm and connected to their sur..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "16.6 Pounds",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "foldability": {
+            "value": "7 inches (L) x 7 inches (W) x 25.4 inches (H)",
+            "source": "Product_Specifications.Measurements.Folded Size"
+          },
+          "dimensions": {
+            "value": "40 x 27.5 x 25.5 inches",
+            "source": "Product_Specifications.Measurements.Item Dimensions"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "Portable and Travel Friendly: Designed for on-the-go families, this lightweight 16.6 lb playard folds easily and includes a convenient travel bag, making it simple to carry, store, or take along for vacations, visits to..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Title",
+            "text": "The Zodiak Portable Playard"
+          },
+          {
+            "source": "Product_Videos_Detail[1].Title",
+            "text": "Assembly Instructions - Zodiak Portable Playard"
+          },
+          {
+            "source": "Product_Videos_Detail[2].Title",
+            "text": "Zodiak Portable Playard"
+          },
+          {
+            "source": "Product_Videos_Detail[4].Title",
+            "text": "Is this pack n play a good size for travel?"
+          }
+        ],
+        "parentTip": "Parent's Tip: Portable and Travel Friendly: Designed for on-the-go families, this lightweight 16.6 lb playard folds easily and includes a convenient travel bag, making it simple to carry, store..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Quick and Easy Setup: No tools required—sets up in minutes and folds down compactly for easy travel or storage. The strong, stable frame delivers dependable support for daily rout...",
+      "ridingComfort": "Parent's Tip: Breathable Mesh Sides – Full mesh paneling promotes healthy airflow and allows you to easily keep an eye on your child, while your little one stays calm and connected to their sur...",
+      "lightAndEasy": "Parent's Tip: Portable and Travel Friendly: Designed for on-the-go families, this lightweight 16.6 lb playard folds easily and includes a convenient travel bag, making it simple to carry, store..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Dream On Me Zodiak Baby Playard, Breathable Mesh Sides, Soft Comfortable Mattress, Quick & Easy to Fold with Travel Carry ...",
+      "brand": "Dream",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Portable and Travel Friendly: Designed for on-the-go families, this lightweight 16.6 lb playard folds easily and includes a convenient travel bag, making it simple to carry, store, or take along for vacations, visits to grandparents, or everyday use."
+        },
+        {
+          "source": "Features[2]",
+          "text": "Quick and Easy Setup: No tools required—sets up in minutes and folds down compactly for easy travel or storage. The strong, stable frame delivers dependable support for daily routines at home or on the go."
+        },
+        {
+          "source": "Features[3]",
+          "text": "Breathable Mesh Sides – Full mesh paneling promotes healthy airflow and allows you to easily keep an eye on your child, while your little one stays calm and connected to their surroundings. Mesh sides provide excellent airflow and allow parents to keep an eye on their little one at all times."
+        },
+        {
+          "source": "Features[4]",
+          "text": "Safe and Secured: Built to meet ASTM safety standards, the playard features breathable mesh sides that promote airflow and allow clear visibility, helping parents keep an eye on their little one while maintaining a safe, comfortable environment. Suitable for children under 35” in height and up to 30 lbs."
+        },
+        {
+          "source": "Features[5]",
+          "text": "Comfortable Space: Offers a spacious interior measuring 37” L x 27.5” W x 25.5” H, complete with a padded mattress that provides a cozy, supportive surface for naptime, playtime, or diaper changes. Designed for use from infant (6months) through toddler stages."
+        },
+        {
+          "source": "Product_Description",
+          "text": "Life with a little one is always on the move, and the Dream On Me Zodiak Portable Playard is designed to keep up with every moment. Created for modern, on-the-go families, this lightweight playard weighs just 16.6 lbs and folds easily into the included travel bag, making it simple to carry, store, or take along for vacations, visits to grandparents, or everyday adventures. Setting up the Zodiak Playard is quick and stress-free. With no tools required, it assembles in minutes and folds down just as easily for travel or storage. A strong, stable frame provides dependable support, giving parents confidence during daily routines at home or wherever the day takes them. Your child’s comfort and connection are always a priority. The playard features full breathable mesh sides that promote healthy airflow while allowing you to keep a clear view of your little one at all times. The open mesh design helps your child feel calm and connected to their surroundings, whether they’re resting or playing. Safety is thoughtfully built into every detail. Designed to meet ASTM safety standards, the Zodiak Playard creates a secure, comfortable environment for children under 35 inches in height and up to 30 lbs. Parents can rest easy knowing their child is supported in a well-ventilated, visible space. Inside, a spacious interior measuring 37” L x 27.5” W x 25.5” H provides plenty of room for play, rest, and diaper changes. The padded mattress offers a cozy, supportive surface, making the playard suitable for use from infant (6 months) through toddler stages. When life gets messy, cleanup is simple. The playard features a removable mattress cover and wipeable surfaces for quick and easy maintenance. It folds neatly into the included tote bag with compact folded dimensions of 7” W x 25.4” H, and is backed by a 1-year limited warranty for added peace of mind."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "The Zodiak Portable Playard"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "The Zodiak Portable Playard marries safety with comfort, making it ideal for your child! Easy to assemble, it is lightweight, packed with features, and also makes for the perfect travel mate."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Quick and Easy Setup: No tools required—sets up in minutes and folds down compactly for easy travel or storage. The strong, stable frame delivers dependable support for daily routines at home or on the go.",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "Breathable Mesh Sides – Full mesh paneling promotes healthy airflow and allows you to easily keep an eye on your child, while your little one stays calm and connected to their surroundings. Mesh sides provide excellent....",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "Portable and Travel Friendly: Designed for on-the-go families, this lightweight 16.6 lb playard folds easily and includes a convenient travel bag, making it simple to carry, store, or take along for vacations, visits to...",
+          "source": "Features[1]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -2272,7 +2750,154 @@
       "../scrape_store/playard/Graco/Rank_Similar_ASIN_B09MWHG3ZT_Graco Pack n Play On The Go Playard Kaden/videos/video_4.mp4"
     ],
     "Last_Updated": "2026-07-07T07:25:58.827649",
-    "Similar_Items_Quick_Delivery": []
+    "Similar_Items_Quick_Delivery": [],
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Toddler",
+        "source": "Product_Specifications.Features_Specs.Age Range Description"
+      },
+      "itemWeight": {
+        "value": "21.21 Pounds",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "dimensions": {
+        "value": "39.5 x 28.25 x 29 inches",
+        "source": "Product_Specifications.Measurements.Item Dimensions"
+      },
+      "foldability": {
+        "value": "22.6 inches (l) x 6.3 inches (w) x 5.8 inches (h)",
+        "source": "Product_Specifications.Measurements.Folded Size"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Product_Description",
+            "text": "Keep your little one happy and comfortable no matter where you go with the Graco® Pack 'n Play® On the Go™ Playard. A removable full-size bassinet folds with the playard for a quick setup and fewer parts to carry. Foldi..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+            "text": "Folding feet and wheels allow for a more compact fold Durable frame Toy bar with soft toys Convenient carry bag for travel and storage"
+          }
+        ],
+        "parentTip": "Parent's Tip: Keep your little one happy and comfortable no matter where you go with the Graco® Pack 'n Play® On the Go™ Playard. A removable full-size bassinet folds with the playard for a qui..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[2]",
+            "text": "Keep your little one happy and comfortable no matter where you go with the Graco Pack n’ Play On the Go Playard. A specially made, removable, full-size bassinet folds with the playard for a quick setup and fewer parts t..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Keep your little one happy and comfortable no matter where you go with the Graco Pack n’ Play On the Go Playard. A specially made, removable, full-size bassinet folds with the pla..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "21.21 Pounds",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "foldability": {
+            "value": "22.6 inches (l) x 6.3 inches (w) x 5.8 inches (h)",
+            "source": "Product_Specifications.Measurements.Folded Size"
+          },
+          "dimensions": {
+            "value": "39.5 x 28.25 x 29 inches",
+            "source": "Product_Specifications.Measurements.Item Dimensions"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "Bassinet designed to fold with your playard for easy setup and take-down"
+          },
+          {
+            "source": "Features[2]",
+            "text": "Features folding feet and wheels for 20% more compact fold than other Graco playards"
+          },
+          {
+            "source": "Features[3]",
+            "text": "Full-size infant bassinet provides an easy-to-reach and easy-to-view spot for your baby to sleep"
+          },
+          {
+            "source": "Features[5]",
+            "text": "Signature Graco push-button fold makes closing your playard quick and hassle-free"
+          },
+          {
+            "source": "Features[6]",
+            "text": "Convenient carrying bag for no-fuss travel and storage"
+          }
+        ],
+        "parentTip": "Parent's Tip: Bassinet designed to fold with your playard for easy setup and take-down"
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Keep your little one happy and comfortable no matter where you go with the Graco® Pack 'n Play® On the Go™ Playard. A removable full-size bassinet folds with the playard for a qui...",
+      "ridingComfort": "Parent's Tip: Keep your little one happy and comfortable no matter where you go with the Graco Pack n’ Play On the Go Playard. A specially made, removable, full-size bassinet folds with the pla...",
+      "lightAndEasy": "Parent's Tip: Bassinet designed to fold with your playard for easy setup and take-down"
+    },
+    "Expert_Review_Inputs": {
+      "title": "Graco Pack 'n Play® On The Go™ Playard, Kaden",
+      "brand": "Graco",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Bassinet designed to fold with your playard for easy setup and take-down"
+        },
+        {
+          "source": "Features[2]",
+          "text": "Features folding feet and wheels for 20% more compact fold than other Graco playards"
+        },
+        {
+          "source": "Features[3]",
+          "text": "Full-size infant bassinet provides an easy-to-reach and easy-to-view spot for your baby to sleep"
+        },
+        {
+          "source": "Features[4]",
+          "text": "Toy bar features soft toys to amuse your baby"
+        },
+        {
+          "source": "Features[5]",
+          "text": "Signature Graco push-button fold makes closing your playard quick and hassle-free"
+        },
+        {
+          "source": "Features[6]",
+          "text": "Convenient carrying bag for no-fuss travel and storage"
+        },
+        {
+          "source": "Features[7]",
+          "text": "Compatible sheets available; sold separately"
+        },
+        {
+          "source": "Product_Description",
+          "text": "Keep your little one happy and comfortable no matter where you go with the Graco® Pack 'n Play® On the Go™ Playard. A removable full-size bassinet folds with the playard for a quick setup and fewer parts to carry. Folding feet and wheels allow for a compact fold, while the durable frame makes it perfectly suited for travel. The signature Graco push-button fold allows you to break it down quickly and hassle-free."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Keep your little one happy and comfortable no matter where you go with the Graco® Pack 'n Play® On the Go™ Playard. A removable full-size bassinet folds with the playard for a quick setup and fewer parts to carry. Foldi...",
+          "source": "Product_Description"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "Keep your little one happy and comfortable no matter where you go with the Graco Pack n’ Play On the Go Playard. A specially made, removable, full-size bassinet folds with the playard for a quick setup and fewer parts t...",
+          "source": "From_The_Manufacturer.Sections[1].Texts[2]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "Bassinet designed to fold with your playard for easy setup and take-down",
+          "source": "Features[1]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
+    }
   },
   {
     "Rank": "Similar",
@@ -2529,6 +3154,139 @@
       "../scrape_store/playard/Graco/Rank_Similar_ASIN_B08K3314ZL_Graco Pack n Play Close2Baby Bassinet Playard Feat/images/alt_9.jpg"
     ],
     "Local_Image_Path": "../scrape_store/playard/Graco/Rank_Similar_ASIN_B08K3314ZL_Graco Pack n Play Close2Baby Bassinet Playard Feat/images/primary.jpg",
-    "Local_Video_Paths": []
+    "Local_Video_Paths": [],
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Infant",
+        "source": "Product_Specifications.Features_Specs.Age Range Description"
+      },
+      "itemWeight": {
+        "value": "30 Pounds",
+        "source": "Product_Specifications.Measurements.Item Weight"
+      },
+      "dimensions": {
+        "value": "12 x 14.7 x 32.76 inches",
+        "source": "Product_Specifications.Measurements.Item Dimensions"
+      },
+      "foldability": {
+        "value": "29 inches (h) x 39 inches (d)",
+        "source": "Product_Specifications.Measurements.Folded Size"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked braking/control cues, frame strength, and safety restraints from the detail-page evidence."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Product_Description",
+            "text": "The Graco Pack 'n Play Close2Baby Bassinet Playard features a portable bassinet to keep baby by your side as you move around your home. For quick and convenient diaper changes, the playard includes a removable changer w..."
+          }
+        ],
+        "parentTip": "Parent's Tip: The Graco Pack 'n Play Close2Baby Bassinet Playard features a portable bassinet to keep baby by your side as you move around your home. For quick and convenient diaper changes, th..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "30 Pounds",
+            "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "foldability": {
+            "value": "29 inches (h) x 39 inches (d)",
+            "source": "Product_Specifications.Measurements.Folded Size"
+          },
+          "dimensions": {
+            "value": "12 x 14.7 x 32.76 inches",
+            "source": "Product_Specifications.Measurements.Item Dimensions"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "Portable bassinet keeps baby cozy and happy by your side for sleep and play"
+          },
+          {
+            "source": "Features[2]",
+            "text": "Diaper changer features wipe-clean fabrics for easy cleanup"
+          },
+          {
+            "source": "Features[4]",
+            "text": "Integrated storage organizer keeps baby's essentials close at hand"
+          },
+          {
+            "source": "Features[7]",
+            "text": "Convenient carry bag included for no-fuss travel and storage"
+          },
+          {
+            "source": "Features[8]",
+            "text": "Signature Graco push-button fold makes closing your playard quick and easy"
+          }
+        ],
+        "parentTip": "Parent's Tip: Portable bassinet keeps baby cozy and happy by your side for sleep and play"
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: We checked braking/control cues, frame strength, and safety restraints from the detail-page evidence.",
+      "ridingComfort": "Parent's Tip: The Graco Pack 'n Play Close2Baby Bassinet Playard features a portable bassinet to keep baby by your side as you move around your home. For quick and convenient diaper changes, th...",
+      "lightAndEasy": "Parent's Tip: Portable bassinet keeps baby cozy and happy by your side for sleep and play"
+    },
+    "Expert_Review_Inputs": {
+      "title": "Graco Pack 'n Play Close2Baby Bassinet Playard Features Portable Bassinet Diaper Changer and More, Derby",
+      "brand": "Graco",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Portable bassinet keeps baby cozy and happy by your side for sleep and play"
+        },
+        {
+          "source": "Features[2]",
+          "text": "Diaper changer features wipe-clean fabrics for easy cleanup"
+        },
+        {
+          "source": "Features[3]",
+          "text": "Infant bassinet provides an elevated spot for your baby to sleep"
+        },
+        {
+          "source": "Features[4]",
+          "text": "Integrated storage organizer keeps baby's essentials close at hand"
+        },
+        {
+          "source": "Features[5]",
+          "text": "As your baby grows, the spacious toddler playard provides more space to sleep or play"
+        },
+        {
+          "source": "Features[6]",
+          "text": "Integrated wheels add convenience for easily moving the playard around the home"
+        },
+        {
+          "source": "Features[7]",
+          "text": "Convenient carry bag included for no-fuss travel and storage"
+        },
+        {
+          "source": "Features[8]",
+          "text": "Signature Graco push-button fold makes closing your playard quick and easy"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Riding Comfort",
+          "seed": "The Graco Pack 'n Play Close2Baby Bassinet Playard features a portable bassinet to keep baby by your side as you move around your home. For quick and convenient diaper changes, the playard includes a removable changer w...",
+          "source": "Product_Description"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "Portable bassinet keeps baby cozy and happy by your side for sleep and play",
+          "source": "Features[1]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
+    }
   }
 ]

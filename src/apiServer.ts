@@ -44,6 +44,9 @@ interface WorkerProduct {
   brand: string;
   price?: { display?: string; value?: number; currency?: string };
   rating?: { display?: string; value?: number };
+  reviews?: { display?: string; count?: number };
+  userRating?: number;
+  reviewCount?: number;
   weight?: { display?: string; lbs?: number };
   classification?: Record<string, string>;
   availability?: string;
@@ -83,6 +86,10 @@ interface AdminResourceProduct {
   title: string;
   brand: string;
   customers_say?: string;
+  rating?: { display?: string; value?: number };
+  reviews?: { display?: string; count?: number };
+  userRating?: number;
+  reviewCount?: number;
   coverImage?: string;
   galleryImages: string[];
   videoUrls: string[];
@@ -91,6 +98,24 @@ interface AdminResourceProduct {
 function pickCustomersSay(...values: Array<unknown>): string {
   const hit = values.find((value) => typeof value === "string" && value.trim().length > 0);
   return hit ? String(hit).trim() : "";
+}
+
+function parseReviewCount(value: unknown): number | undefined {
+  if (typeof value === "number" && Number.isFinite(value)) return Math.trunc(value);
+  const text = String(value || "").trim();
+  if (!text) return undefined;
+  const matches = text.match(/\(?([\d,]{2,})\)?/g) || text.match(/\d+/g);
+  const last = matches?.at(-1)?.replace(/[(),]/g, "");
+  const numeric = Number(last);
+  return Number.isFinite(numeric) ? Math.trunc(numeric) : undefined;
+}
+
+function normalizeProductReviews(product: Pick<WorkerProduct, "reviews" | "reviewCount" | "rating">) {
+  const count = product.reviews?.count ?? product.reviewCount ?? parseReviewCount(product.reviews?.display || product.rating?.display);
+  return {
+    display: product.reviews?.display || (count ? `${count.toLocaleString()} reviews` : undefined),
+    count,
+  };
 }
 
 interface WorkerDiscoveryHome {
@@ -289,6 +314,11 @@ function buildCMSProductFromResourceRow(row: AdminResourceProduct): CMSProduct {
     galleryUrls: row.galleryImages || [],
     videoUrl: row.videoUrls?.[0] || "",
     customers_say: row.customers_say || "",
+    customersSay: row.customers_say || "",
+    rating: row.rating,
+    reviews: row.reviews,
+    userRating: row.userRating ?? row.rating?.value,
+    reviewCount: row.reviewCount ?? row.reviews?.count,
     videos: (row.videoUrls || []).map((url, idx) => ({
       url,
       title: `init-video-${idx + 1}`,
@@ -509,7 +539,7 @@ function computeWeightScore(weightLbs?: number) {
 }
 
 function computeSafetyScore(product: WorkerProduct, resource?: WorkerResource) {
-  const rating = product.rating?.value ?? 4.0;
+  const rating = product.rating?.value ?? product.userRating ?? 4.0;
   const credibility = resource?.credibilityScore ?? 0.75;
   return Math.min(10, Math.max(6.5, rating * 1.35 + credibility * 1.6));
 }
@@ -540,8 +570,13 @@ function summarizePros(product: WorkerProduct, resource?: WorkerResource): strin
   if (product.weight?.lbs) {
     pros.push(`Lightweight at ${product.weight.lbs} lbs for category ${product.categoryId}`);
   }
-  if (product.rating?.value) {
-    pros.push(`Strong live rating: ${product.rating.value.toFixed(1)}/5`);
+  const ratingValue = product.rating?.value ?? product.userRating;
+  if (ratingValue) {
+    pros.push(`Strong live rating: ${ratingValue.toFixed(1)}/5`);
+  }
+  const reviewCount = normalizeProductReviews(product).count;
+  if (reviewCount) {
+    pros.push(`Backed by ${reviewCount.toLocaleString()} customer reviews`);
   }
   if (product.resourceStats?.videos) {
     pros.push(`Backed by ${product.resourceStats.videos} linked videos`);
@@ -718,6 +753,8 @@ function convertWorkerProduct(product: WorkerProduct, resource?: WorkerResource)
     resource?.customers_say,
     resource?.customersSay,
   );
+  const reviews = normalizeProductReviews(product);
+  const userRating = product.rating?.value ?? product.userRating;
 
   return {
     id: product.productId,
@@ -738,12 +775,17 @@ function convertWorkerProduct(product: WorkerProduct, resource?: WorkerResource)
     galleryUrls: normalizedImages.galleryUrls,
     features: taxonomyFeaturePairs,
     customers_say: customersSay,
+    customersSay,
+    rating: product.rating,
+    reviews,
+    userRating,
+    reviewCount: reviews.count,
     status: "published",
     overallScore: computeOverallScore(
       computeSafetyScore(product, resource),
       computeWeightScore(weight),
       computeGeometryScore(product.categoryId, product),
-      product.rating?.value
+      userRating
     ),
     safetyScore: computeSafetyScore(product, resource),
     weightScore: computeWeightScore(weight),
@@ -1200,6 +1242,10 @@ async function buildAdminResourcePayload(options?: { categoryId?: string; q?: st
         categoryId: product.categoryId,
         title: product.title,
         brand: product.brand,
+        rating: product.rating,
+        reviews: normalizeProductReviews(product),
+        userRating: product.rating?.value ?? product.userRating,
+        reviewCount: normalizeProductReviews(product).count,
         customers_say: pickCustomersSay(product?.customers_say, product?.customersSay),
         coverImage: isHttpUrl(coverImage) ? coverImage : undefined,
         galleryImages,

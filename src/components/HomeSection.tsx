@@ -58,7 +58,7 @@ export default function HomeSection({
   const categoryAliasMap: Record<string, string[]> = {
     stroller: ["stroller"],
     double_stroller: ["double_stroller", "double stroller"],
-    jogger_stroller: ["jogger_stroller", "jogger stroller"],
+    jogger_stroller: ["jogger_stroller", "jogging stroller"],
     balance_bike: ["balance_bike", "balance", "balance bike"],
     kids_bikes: ["kids_bikes", "bikes", "bike", "kids bike"],
     kids_tricycles: ["kids_tricycles", "tricycle", "tricycles"],

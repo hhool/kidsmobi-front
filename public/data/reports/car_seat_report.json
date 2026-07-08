@@ -292,6 +292,152 @@
     "Similar_Items_Quick_Delivery": [],
     "Category_Attributes": {
       "Brand": "Graco"
+    },
+    "Product_Display_Fields": {
+      "weightLimit": {
+        "value": "65 Pounds",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "itemWeight": {
+        "value": "65 Pounds",
+        "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+      },
+      "harness": {
+        "value": "5-Point",
+        "source": "Product_Specifications.User_Guide.Harness Type"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "harness": {
+            "value": "5-Point",
+            "source": "Product_Specifications.User_Guide.Harness Type"
+          },
+          "weightLimit": {
+            "value": "65 Pounds",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "Convertible car seat grows with your child from rear-facing harness (4-50 lb) to forward-facing harness (26.5-65 lb)"
+          },
+          {
+            "source": "Features[2]",
+            "text": "Extend2Fit 4-position adjustable extension panel provides up to 5\" additional legroom, allowing your child to safely ride rear-facing longer"
+          },
+          {
+            "source": "Features[3]",
+            "text": "Up to 50 lb rear-facing, allowing your child to safely ride rear-facing longer"
+          },
+          {
+            "source": "Features[4]",
+            "text": "Graco ProtectPlus Engineered to the newest testing standards for side and frontal impact, and beyond—because the safety of your child shouldn’t stop at the standard"
+          },
+          {
+            "source": "Features[5]",
+            "text": "No-Rethread Simply Safe Adjust Harness System allows the headrest and harness to adjust together in one motion"
+          }
+        ],
+        "parentTip": "Parent's Tip: Convertible car seat grows with your child from rear-facing harness (4-50 lb) to forward-facing harness (26.5-65 lb)"
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "From_The_Manufacturer.Sections[1].Title",
+            "text": "Graco Extend2Fit 2in1 convertible baby car seat"
+          },
+          {
+            "source": "Product_Videos_Detail[1].Title",
+            "text": "Graco Extend2Fit Convertible Car Seat"
+          },
+          {
+            "source": "Product_Videos_Detail[2].Title",
+            "text": "The car seat that grows with your child"
+          },
+          {
+            "source": "Product_Videos_Detail[3].Title",
+            "text": "Check Out All of the High End Features on this Car Seat"
+          },
+          {
+            "source": "Product_Videos_Detail[4].Title",
+            "text": "Why I love this carseat and now own two of them"
+          }
+        ],
+        "parentTip": "Parent's Tip: Graco Extend2Fit 2in1 convertible baby car seat"
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "65 Pounds",
+            "source": "Product_Specifications.Measurements.Maximum Weight Recommendation"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Convertible car seat grows with your child from rear-facing harness (4-50 lb) to forward-facing harness (26.5-65 lb)",
+      "ridingComfort": "Parent's Tip: Graco Extend2Fit 2in1 convertible baby car seat",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Graco Extend2Fit Convertible Car Seat, Rear and Forward Facing Car Seat with Adjustable Extension Panel for Extra Legroom, Gr",
+      "brand": "Graco",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Convertible car seat grows with your child from rear-facing harness (4-50 lb) to forward-facing harness (26.5-65 lb)"
+        },
+        {
+          "source": "Features[2]",
+          "text": "Extend2Fit 4-position adjustable extension panel provides up to 5\" additional legroom, allowing your child to safely ride rear-facing longer"
+        },
+        {
+          "source": "Features[3]",
+          "text": "Up to 50 lb rear-facing, allowing your child to safely ride rear-facing longer"
+        },
+        {
+          "source": "Features[4]",
+          "text": "Graco ProtectPlus Engineered to the newest testing standards for side and frontal impact, and beyond—because the safety of your child shouldn’t stop at the standard"
+        },
+        {
+          "source": "Features[5]",
+          "text": "No-Rethread Simply Safe Adjust Harness System allows the headrest and harness to adjust together in one motion"
+        },
+        {
+          "source": "Product_Description",
+          "text": "Safely ride rear-facing longer! The Graco Extend2Fit Convertible Car Seat grows with your child from rear-facing harness (4-50 lb) to forward-facing harness (26.5-65 lb). It features a 4-position extension panel that provides up to 5” of extra rear-facing legroom, allowing your child to safely ride rear-facing longer. Children are safer riding rear-facing and should ride rear-facing as long as possible, until they reach the maximum rear-facing height or weight rating for their car seat. With Extend2Fit, the adjustable extension panel and 50 lb rear-facing weight limit allow the seat to grow with your child in rear-facing mode, providing extended rear-facing use. The seat features the No-Rethread Simply Safe Adjust Harness System, which allows you to adjust the height of the headrest and harness in one motion, and InRight LATCH for a one-second LATCH attachment. Harnessing is made easier with fuss-free harness storage pockets that conveniently hold the harness out of the way while you get baby in and out of the car seat. This car seat is Graco ProtectPlus Engineered to the newest testing standards for side and frontal impact, and beyond—because the safety of your child shouldn’t stop at the standard."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Graco Extend2Fit 2in1 convertible baby car seat"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "Extend2Fit 3-in-1 Learn More"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Convertible car seat grows with your child from rear-facing harness (4-50 lb) to forward-facing harness (26.5-65 lb)",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "Graco Extend2Fit 2in1 convertible baby car seat",
+          "source": "From_The_Manufacturer.Sections[1].Title"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   }
 ]

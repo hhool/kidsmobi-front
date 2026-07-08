@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { withImageFallback } from "../lib/productImages";
+import { FALLBACK_PRODUCT_IMAGE, withImageFallback } from "../lib/productImages";
 
 interface ProductCarouselProps {
   images: string[];
@@ -9,9 +9,87 @@ interface ProductCarouselProps {
   productName?: string;
 }
 
+function CarouselImage({ src, alt, className }: { src?: string; alt: string; className: string }) {
+  const [resolvedSrc, setResolvedSrc] = useState(src || FALLBACK_PRODUCT_IMAGE);
+
+  useEffect(() => {
+    const nextSrc = src || FALLBACK_PRODUCT_IMAGE;
+    setResolvedSrc(nextSrc);
+    if (nextSrc === FALLBACK_PRODUCT_IMAGE) return;
+
+    let settled = false;
+    const probe = new Image();
+    const timer = window.setTimeout(() => {
+      if (!settled) setResolvedSrc(FALLBACK_PRODUCT_IMAGE);
+    }, 8000);
+    probe.onload = () => {
+      settled = true;
+      window.clearTimeout(timer);
+      setResolvedSrc(nextSrc);
+    };
+    probe.onerror = () => {
+      settled = true;
+      window.clearTimeout(timer);
+      setResolvedSrc(FALLBACK_PRODUCT_IMAGE);
+    };
+    probe.referrerPolicy = "no-referrer";
+    probe.src = nextSrc;
+
+    return () => {
+      settled = true;
+      window.clearTimeout(timer);
+    };
+  }, [src]);
+
+  return (
+    <img
+      src={resolvedSrc}
+      alt={alt}
+      className={className}
+      referrerPolicy="no-referrer"
+      loading="lazy"
+      onLoad={() => undefined}
+      onError={(event) => {
+        setResolvedSrc(FALLBACK_PRODUCT_IMAGE);
+        withImageFallback(event);
+      }}
+    />
+  );
+}
+
 export default function ProductCarousel({ images, lang, productName }: ProductCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [activeImageSrc, setActiveImageSrc] = useState(images[0] || FALLBACK_PRODUCT_IMAGE);
+
+  useEffect(() => {
+    const nextSrc = images[currentIndex] || FALLBACK_PRODUCT_IMAGE;
+    setActiveImageSrc(nextSrc);
+    if (nextSrc === FALLBACK_PRODUCT_IMAGE) return;
+
+    let settled = false;
+    const probe = new Image();
+    const timer = window.setTimeout(() => {
+      if (!settled) setActiveImageSrc(FALLBACK_PRODUCT_IMAGE);
+    }, 8000);
+    probe.onload = () => {
+      settled = true;
+      window.clearTimeout(timer);
+      setActiveImageSrc(nextSrc);
+    };
+    probe.onerror = () => {
+      settled = true;
+      window.clearTimeout(timer);
+      setActiveImageSrc(FALLBACK_PRODUCT_IMAGE);
+    };
+    probe.referrerPolicy = "no-referrer";
+    probe.src = nextSrc;
+
+    return () => {
+      settled = true;
+      window.clearTimeout(timer);
+    };
+  }, [currentIndex, images]);
 
   const slideVariants = {
     enter: (direction: number) => ({
@@ -44,7 +122,7 @@ export default function ProductCarousel({ images, lang, productName }: ProductCa
         <AnimatePresence initial={false} custom={direction}>
           <motion.img
             key={currentIndex}
-            src={images[currentIndex] || undefined}
+            src={activeImageSrc}
             alt={productName ? `${productName} - Image ${currentIndex + 1}` : `Product image ${currentIndex + 1}`}
             custom={direction}
             variants={slideVariants}
@@ -96,13 +174,10 @@ export default function ProductCarousel({ images, lang, productName }: ProductCa
               currentIndex === idx ? "border-orange-500 scale-110 shadow-md" : "border-transparent opacity-50 hover:opacity-100"
             }`}
           >
-            <img
+            <CarouselImage
               src={img || undefined}
               alt={productName ? `${productName} - Thumbnail ${idx + 1}` : `Thumbnail ${idx + 1}`}
               className="w-full h-full object-contain"
-              referrerPolicy="no-referrer"
-              loading="lazy"
-              onError={withImageFallback}
             />
           </button>
         ))}

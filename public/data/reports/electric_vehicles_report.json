@@ -565,6 +565,153 @@
     "Category_Attributes": {
       "Age Range Description": "Kid",
       "Item Weight": "54.6 Pounds"
+    },
+    "customers_say": "Customers find the ride-on toy to be a high-quality vehicle with a responsive remote control that works well for toddlers. They appreciate its cool appearance, looking like a real car, and consider it well worth the price, with assembly being easy. The functionality and battery life receive mixed reviews - while some say everything works great and the battery holds up well, others report it stops working completely and the battery no longer holds a charge. Durability is also mixed, with some saying it's going strong while others report it breaking after a few rides.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Kid",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "132 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "54.6 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Polypropylene",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "45.3\"L x 31.7\"W x 30.7\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      },
+      "battery": {
+        "value": "1.5 Hours",
+        "source": "Product_Specifications.Features_Specs.Battery Average Life"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Polypropylene",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "132 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[4]",
+            "text": "FOR AGES 3-7: Built with your child's protection in mind, this ride on features an adjustable seat harness to secure them when in motion, treaded plastic wheel, LED headlights and 2-wheel suspension for smooth riding"
+          }
+        ],
+        "parentTip": "Parent's Tip: FOR AGES 3-7: Built with your child's protection in mind, this ride on features an adjustable seat harness to secure them when in motion, treaded plastic wheel, LED headlights and..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "2-SEATER RIDE-ON TRUCK: Built for double the fun, this ride-on supports up to 132 pounds, making it great for your children and their friends"
+          },
+          {
+            "source": "Product_Description",
+            "text": "2-SEATER RIDE-ON TRUCK: Built for double the fun, this ride-on supports up to 132 pounds, making it great for your children and their friends 90-MINUTE RUN TIME: A fully rechargeable 24V battery allows your child to enj..."
+          },
+          {
+            "source": "Product_Videos_Detail[1].Title",
+            "text": "Best Choice 24V 2-Seater Ride On"
+          },
+          {
+            "source": "Product_Specifications.Measurements.Size",
+            "text": "Size: 24V - 2 Seater"
+          }
+        ],
+        "parentTip": "Parent's Tip: 2-SEATER RIDE-ON TRUCK: Built for double the fun, this ride-on supports up to 132 pounds, making it great for your children and their friends"
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "54.6 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          },
+          "dimensions": {
+            "value": "45.3\"L x 31.7\"W x 30.7\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          },
+          "battery": {
+            "value": "1.5 Hours",
+            "source": "Product_Specifications.Features_Specs.Battery Average Life"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: FOR AGES 3-7: Built with your child's protection in mind, this ride on features an adjustable seat harness to secure them when in motion, treaded plastic wheel, LED headlights and...",
+      "ridingComfort": "Parent's Tip: 2-SEATER RIDE-ON TRUCK: Built for double the fun, this ride-on supports up to 132 pounds, making it great for your children and their friends",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Best Choice Products Kids 24V 2-Seater Electric Ride On Car Truck w/ 132lb Weight Capacity, Parent Control, Bluetooth, LED Li",
+      "brand": "Best",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "2-SEATER RIDE-ON TRUCK: Built for double the fun, this ride-on supports up to 132 pounds, making it great for your children and their friends"
+        },
+        {
+          "source": "Features[2]",
+          "text": "90-MINUTE RUN TIME: A fully rechargeable 24V battery allows your child to enjoy this ride-on toy for well over an hour on just one charge"
+        },
+        {
+          "source": "Features[3]",
+          "text": "PARENTAL REMOTE CONTROL: Let your child take the wheel or use the included remote to join the fun as you guide them on their adventure, while a built-in Bluetooth sound system lets your child enjoy their favorite playtime songs"
+        },
+        {
+          "source": "Features[4]",
+          "text": "FOR AGES 3-7: Built with your child's protection in mind, this ride on features an adjustable seat harness to secure them when in motion, treaded plastic wheel, LED headlights and 2-wheel suspension for smooth riding"
+        },
+        {
+          "source": "Features[5]",
+          "text": "POWERFUL PERFORMANCE: Small yet powerful with a set of two 24V electric motors for 2-wheel drive, this ride-on is built to support two children with two preset speeds: 2 mph & 4mph; OVERALL DIMENSIONS: 45.3\"(L) x 31.7\"(W) x 30.7\"(H); WEIGHT CAPACITY: 132 lbs."
+        },
+        {
+          "source": "Product_Description",
+          "text": "2-SEATER RIDE-ON TRUCK: Built for double the fun, this ride-on supports up to 132 pounds, making it great for your children and their friends 90-MINUTE RUN TIME: A fully rechargeable 24V battery allows your child to enjoy this ride-on toy for well over an hour on just one charge PARENTAL REMOTE CONTROL: Let your child take the wheel or use the included remote to join the fun as you guide them on their adventure, while a built-in Bluetooth sound system lets your child enjoy their favorite playtime songs"
+        },
+        {
+          "source": "Product_Videos_Detail[1].Title",
+          "text": "Best Choice 24V 2-Seater Ride On"
+        },
+        {
+          "source": "Product_Videos_Detail[2].Title",
+          "text": "Watch This Before You Buy Your Ride On Car!"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "FOR AGES 3-7: Built with your child's protection in mind, this ride on features an adjustable seat harness to secure them when in motion, treaded plastic wheel, LED headlights and 2-wheel suspension for smooth riding",
+          "source": "Features[4]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "2-SEATER RIDE-ON TRUCK: Built for double the fun, this ride-on supports up to 132 pounds, making it great for your children and their friends",
+          "source": "Features[1]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -1161,6 +1308,175 @@
     "Category_Attributes": {
       "Age Range Description": "Kids",
       "Item Weight": "13.78 Pounds"
+    },
+    "customers_say": "Customers find this ride-on toy to be a great car that's easy to put together and use, keeps children entertained for hours, and moves quickly. They consider it a fantastic gift for kids of all ages. The battery life receives mixed feedback - while some say it lasts surprisingly long, others report it doesn't keep its charge. Durability is also mixed, with some saying it holds up well while others report it breaking within months. The reliability is concerning, with multiple customers reporting that the wheels and gas pedal stop working.",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Kids",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "150 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "13.78 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Plastic",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "30.25\"L x 13.95\"W x 15.9\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      },
+      "battery": {
+        "value": "1.75 Hours",
+        "source": "Product_Specifications.Features_Specs.Battery Average Life"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Plastic",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "150 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "2 Speeds and Anti-Rollover: 12V battery and 45W powerful motor, max. 4 mph, feel the speed and passion brought by the kids electric car. You can be adjusted to a low speed mode of 1.9 mph through the plug-in button on t..."
+          },
+          {
+            "source": "Features[3]",
+            "text": "Flashing Wheels and Bluetooth: When you slide on the wiggle car with pedals, the front light guide you forward, and the magnetic flash wheels flash with colorful lights. Light up PU wheels no batteries needed, provide s..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "360° Control and 2-in-1 Swing Car: The electric swing car benefits from a steering wheel with integrated smooth bearings and swivel wheels capable of 360° steering, allowing you to have fun indoors and outdoors. Electri..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[6]",
+            "text": "2-speed Adjustable Wiggle Car Visit the Store"
+          }
+        ],
+        "parentTip": "Parent's Tip: 2 Speeds and Anti-Rollover: 12V battery and 45W powerful motor, max. 4 mph, feel the speed and passion brought by the kids electric car. You can be adjusted to a low speed mode of..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "360° Control and 2-in-1 Swing Car: The electric swing car benefits from a steering wheel with integrated smooth bearings and swivel wheels capable of 360° steering, allowing you to have fun indoors and outdoors. Electri..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "Suitable for Children: Electric wiggle car stimulate child's imagination and hands-on ability, and also cultivate children's hand-eye coordination, sense of balance. The ergonomically designed extra-large seat can accom..."
+          }
+        ],
+        "parentTip": "Parent's Tip: 360° Control and 2-in-1 Swing Car: The electric swing car benefits from a steering wheel with integrated smooth bearings and swivel wheels capable of 360° steering, allowing you t..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "13.78 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          },
+          "dimensions": {
+            "value": "30.25\"L x 13.95\"W x 15.9\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          },
+          "battery": {
+            "value": "1.75 Hours",
+            "source": "Product_Specifications.Features_Specs.Battery Average Life"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[5]",
+            "text": "Easy to Install and Special Choice: Just two steps, you can quickly finish the installation of the motorized wiggle car. This innovative ride-on car is suitable for boys and girls aged three and up, making it a choice f..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[12]",
+            "text": "N10 Trailer with large storage Visit the Store"
+          },
+          {
+            "source": "Product_Videos_Detail[4].Title",
+            "text": "Easy Replacement Guide for Parts."
+          }
+        ],
+        "parentTip": "Parent's Tip: Easy to Install and Special Choice: Just two steps, you can quickly finish the installation of the motorized wiggle car. This innovative ride-on car is suitable for boys and girls..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: 2 Speeds and Anti-Rollover: 12V battery and 45W powerful motor, max. 4 mph, feel the speed and passion brought by the kids electric car. You can be adjusted to a low speed mode of...",
+      "ridingComfort": "Parent's Tip: 360° Control and 2-in-1 Swing Car: The electric swing car benefits from a steering wheel with integrated smooth bearings and swivel wheels capable of 360° steering, allowing you t...",
+      "lightAndEasy": "Parent's Tip: Easy to Install and Special Choice: Just two steps, you can quickly finish the installation of the motorized wiggle car. This innovative ride-on car is suitable for boys and girls..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "FanttikRide N7 Pro Electric Wiggle Car with Pedal, Rechargeable Battery, CyberWiggle, 2 in 1 Swing Car, 2 Speeds Max 4 Mph, A",
+      "brand": "FanttikRide",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "360° Control and 2-in-1 Swing Car: The electric swing car benefits from a steering wheel with integrated smooth bearings and swivel wheels capable of 360° steering, allowing you to have fun indoors and outdoors. Electric mode: turn on the power switch and press the pedal, or manual mode: just turn the steering wheel or slide with your feet to take you to a pleasant riding experience"
+        },
+        {
+          "source": "Features[2]",
+          "text": "2 Speeds and Anti-Rollover: 12V battery and 45W powerful motor, max. 4 mph, feel the speed and passion brought by the kids electric car. You can be adjusted to a low speed mode of 1.9 mph through the plug-in button on the bottom of the toddler electric car. Pyramid-style double triangular anti-tip chassis, upgraded anti-tip rear wheels and its spring shock system, effectively avoiding sideways tilting"
+        },
+        {
+          "source": "Features[3]",
+          "text": "Flashing Wheels and Bluetooth: When you slide on the wiggle car with pedals, the front light guide you forward, and the magnetic flash wheels flash with colorful lights. Light up PU wheels no batteries needed, provide shock absorption, glide smoothly and do not scratch the floor. Connect to Bluetooth to freely adjust the volume and songs, adding fun to your child's driving experience"
+        },
+        {
+          "source": "Features[4]",
+          "text": "Suitable for Children: Electric wiggle car stimulate child's imagination and hands-on ability, and also cultivate children's hand-eye coordination, sense of balance. The ergonomically designed extra-large seat can accommodate two kids. This ride-on toy suitable for heights up to 69 inches, weight capacity of up to 150 pounds, so even adults can experience the fun of little ones"
+        },
+        {
+          "source": "Features[5]",
+          "text": "Easy to Install and Special Choice: Just two steps, you can quickly finish the installation of the motorized wiggle car. This innovative ride-on car is suitable for boys and girls aged three and up, making it a choice for birthdays, holidays, or any special occasion"
+        },
+        {
+          "source": "Features[6]",
+          "text": "Tips for Extending Battery Life: To maximize battery life for your ride on wiggle car, store it in a cool, dry place, and remember to charge your device regularly to avoid completely draining it. Keep your battery healthy and enjoy a longer product experience"
+        },
+        {
+          "source": "Product_Description",
+          "text": "360° Control and 2-in-1 Swing Car: The electric swing car benefits from a steering wheel with integrated smooth bearings and swivel wheels capable of 360° steering, allowing you to have fun indoors and outdoors. Electric mode: turn on the power switch and press the pedal, or manual mode: just turn the steering wheel or slide with your feet to take you to a pleasant riding experience 2 Speeds and Anti-Rollover: 12V battery and 45W powerful motor, max. 4 mph, feel the speed and passion brought by the kids electric car. You can be adjusted to a low speed mode of 1.9 mph through the plug-in button on the bottom of the toddler electric car. Pyramid-style double triangular anti-tip chassis, upgraded anti-tip rear wheels and its spring shock system, effectively avoiding sideways tilting Flashing Wheels and Bluetooth: When you slide on the wiggle car with pedals, the front light guide you forwa..."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Let's Celebrate Prime Day Deal"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "2 Speeds and Anti-Rollover: 12V battery and 45W powerful motor, max. 4 mph, feel the speed and passion brought by the kids electric car. You can be adjusted to a low speed mode of 1.9 mph through the plug-in button on t...",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "360° Control and 2-in-1 Swing Car: The electric swing car benefits from a steering wheel with integrated smooth bearings and swivel wheels capable of 360° steering, allowing you to have fun indoors and outdoors. Electri...",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "Easy to Install and Special Choice: Just two steps, you can quickly finish the installation of the motorized wiggle car. This innovative ride-on car is suitable for boys and girls aged three and up, making it a choice f...",
+          "source": "Features[5]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -1393,6 +1709,154 @@
     "Category_Attributes": {
       "Age Range Description": "Baby, Kid",
       "Item Weight": "16.8 Pounds"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Baby, Kid",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "55 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "16.8 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Plastic",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "31\"L x 17\"W x 21\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Plastic",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "55 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[4]",
+            "text": "DURABLE AND SAFE - Made from high-quality plastic and carbon steel, the kid’s motorcycle ride on toy is built sturdy enough to support kids up to 55lbs. The motorcycle is free of phthalates, allowing your child to have..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "Your little ones will be ready to hit the open road with the trike style Electric Motorcycle by Lil’ Rider. This motorbike for kids has both forward and reverse functions, working headlights, engine sound effects, polic..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[3]",
+            "text": "This toy motorcycle is safe and easy to ride, with built-in footrests, textured handle grips, and a three-wheeled trike design built for stability. The ride on motorcycle reaches a maximum speed of 1.75 miles per hour i..."
+          }
+        ],
+        "parentTip": "Parent's Tip: DURABLE AND SAFE - Made from high-quality plastic and carbon steel, the kid’s motorcycle ride on toy is built sturdy enough to support kids up to 55lbs. The motorcycle is free of..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "REALISTIC FEATURES - The kid’s electric bike features engine sound effects, working headlights, behind the seat storage, and police decals for extra fun. The toddler ride on has both forward and reverse functions, with..."
+          },
+          {
+            "source": "Features[3]",
+            "text": "EASY TO RIDE - Recommended for kids aged 3 to 6, this 3-wheel kid’s electric motorcycle is easy to operate by simply switching it on and pressing the pedal to go. The ride on toy includes a 6-volt rechargeable battery f..."
+          }
+        ],
+        "parentTip": "Parent's Tip: REALISTIC FEATURES - The kid’s electric bike features engine sound effects, working headlights, behind the seat storage, and police decals for extra fun. The toddler ride on has b..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "16.8 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          },
+          "dimensions": {
+            "value": "31\"L x 17\"W x 21\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "MOTORCYCLE FOR KIDS - Satisfy your child's need for imaginative play with this electric bike for kids. Perfect for indoors and outdoors, the toddler motorcycle works on any hard, flat surface and has a compact, lightwei..."
+          }
+        ],
+        "parentTip": "Parent's Tip: MOTORCYCLE FOR KIDS - Satisfy your child's need for imaginative play with this electric bike for kids. Perfect for indoors and outdoors, the toddler motorcycle works on any hard,..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: DURABLE AND SAFE - Made from high-quality plastic and carbon steel, the kid’s motorcycle ride on toy is built sturdy enough to support kids up to 55lbs. The motorcycle is free of...",
+      "ridingComfort": "Parent's Tip: REALISTIC FEATURES - The kid’s electric bike features engine sound effects, working headlights, behind the seat storage, and police decals for extra fun. The toddler ride on has b...",
+      "lightAndEasy": "Parent's Tip: MOTORCYCLE FOR KIDS - Satisfy your child's need for imaginative play with this electric bike for kids. Perfect for indoors and outdoors, the toddler motorcycle works on any hard,..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Kids Motorcycle - 3-Wheel Ride on Toy with Police Decals, Reverse, and Headlights - 6V Electric Motorcycle for Kids Ages 3 to",
+      "brand": "Kids",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "MOTORCYCLE FOR KIDS - Satisfy your child's need for imaginative play with this electric bike for kids. Perfect for indoors and outdoors, the toddler motorcycle works on any hard, flat surface and has a compact, lightweight design for easy transport"
+        },
+        {
+          "source": "Features[2]",
+          "text": "REALISTIC FEATURES - The kid’s electric bike features engine sound effects, working headlights, behind the seat storage, and police decals for extra fun. The toddler ride on has both forward and reverse functions, with a cruising speed of up to 1.75mph."
+        },
+        {
+          "source": "Features[3]",
+          "text": "EASY TO RIDE - Recommended for kids aged 3 to 6, this 3-wheel kid’s electric motorcycle is easy to operate by simply switching it on and pressing the pedal to go. The ride on toy includes a 6-volt rechargeable battery for hours of smooth driving."
+        },
+        {
+          "source": "Features[4]",
+          "text": "DURABLE AND SAFE - Made from high-quality plastic and carbon steel, the kid’s motorcycle ride on toy is built sturdy enough to support kids up to 55lbs. The motorcycle is free of phthalates, allowing your child to have fun in a safe and healthy way."
+        },
+        {
+          "source": "Features[5]",
+          "text": "PRODUCT DETAILS - Materials: Plastic and Carbon Steel. Dimensions: (L) 31\" x (W) 17\" x (H) 21\". Weight Capacity: 55lbs. Specs: 6V, 15W, 4.5ah. Max Forward/Reverse Speed: 1.75mph. Some Assembly Required. For Ages 3 to 6. Color: Black and White."
+        },
+        {
+          "source": "Product_Description",
+          "text": "Your little ones will be ready to hit the open road with the trike style Electric Motorcycle by Lil’ Rider. This motorbike for kids has both forward and reverse functions, working headlights, engine sound effects, police decals, a small storage compartment behind the seat, and a maximum speed of 1.75 miles per hour, so your toddlers can travel at a safe speed. With the included 6-volt rechargeable battery and a 15W motor, your little boy or girl can zoom around the house or backyard for hours of fun with this kid motorcycle."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Kids Motorcycle Police Ride On Toy by Lil’ Rider"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "Give your wild child a fun thrill with the Police Motorcycle for Kids by Lil’ Rider. This battery-powered toddler motorcycle is the tough cousin to electric cars for kids, with police decals and realistic features that will have your little one feeling the thrill of the open road. Boys and girls ages 3 to 6 under 55-pounds will love authentic details like working headlights and engine sound effects, which encourage imaginative play and immersive fun."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "DURABLE AND SAFE - Made from high-quality plastic and carbon steel, the kid’s motorcycle ride on toy is built sturdy enough to support kids up to 55lbs. The motorcycle is free of phthalates, allowing your child to have....",
+          "source": "Features[4]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "REALISTIC FEATURES - The kid’s electric bike features engine sound effects, working headlights, behind the seat storage, and police decals for extra fun. The toddler ride on has both forward and reverse functions, with....",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "MOTORCYCLE FOR KIDS - Satisfy your child's need for imaginative play with this electric bike for kids. Perfect for indoors and outdoors, the toddler motorcycle works on any hard, flat surface and has a compact, lightwei...",
+          "source": "Features[1]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -1702,6 +2166,148 @@
     "Similar_Items_Quick_Delivery": [],
     "Category_Attributes": {
       "Age Range Description": "3-8 years"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "3-8 years",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "132 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "132 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "frameMaterial": {
+        "value": "Metal, PP Plastic",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "44\"L x 31.7\"W x 30.7\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Metal, PP Plastic",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "132 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "Ultimate Safety Features: Equipped with two individual 3-point seat belts and anti-slip seats, this ride on cars for kids ages 3-8 prioritizes safety with parental remote control, soft start, and rear shock function. It..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "Endless Entertainment: Packed with music, Bluetooth, and a built-in radio, this 24V ride-on car creates a fun-filled world for kids. They can sing along, enjoy stories, and cruise with joy. Plus, the volume is fully adj..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "Superior Performance: Powered by a 24v battery with dual drive, this kids ride on toys offers three-speed options: 2.0, 2.7, and 4.3 mph. The battery life ranges from 50 minutes to 2 hours, varying based on usage and sp..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "OFFICIALLY LICENSED BY FORD BRONCO RAPTOR: This 24v ride on toys for big kids delivers an authentic driving experience Spacious Dual-Seater Fun: Featuring a 21-inch dual seat, this 24v kids ride on car is perfect for si..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+            "text": "First Ride On First Ride On, Love at First Ride We want kids to fall in love with outdoor play the moment they see our officially licensed, highly realistic ride-on that looks and feels like a real car made just for the..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Ultimate Safety Features: Equipped with two individual 3-point seat belts and anti-slip seats, this ride on cars for kids ages 3-8 prioritizes safety with parental remote control,..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "Spacious Dual-Seater Fun: Featuring a 21-inch dual seat, this 24v kids ride on car is perfect for siblings or friends to enjoy together. It is ideal for a larger child, offering comfortable seating with left-side drivin..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Spacious Dual-Seater Fun: Featuring a 21-inch dual seat, this 24v kids ride on car is perfect for siblings or friends to enjoy together. It is ideal for a larger child, offering c..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "132 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          },
+          "dimensions": {
+            "value": "44\"L x 31.7\"W x 30.7\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Ultimate Safety Features: Equipped with two individual 3-point seat belts and anti-slip seats, this ride on cars for kids ages 3-8 prioritizes safety with parental remote control,...",
+      "ridingComfort": "Parent's Tip: Spacious Dual-Seater Fun: Featuring a 21-inch dual seat, this 24v kids ride on car is perfect for siblings or friends to enjoy together. It is ideal for a larger child, offering c...",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "First Ride On 24V Ride on Toys for Big Kids, Licensed Ford Bronco Raptor 2 Seater Ride on Cars with Remote Control, Ride on T",
+      "brand": "First",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "OFFICIALLY LICENSED BY FORD BRONCO RAPTOR: This 24v ride on toys for big kids delivers an authentic driving experience"
+        },
+        {
+          "source": "Features[2]",
+          "text": "Spacious Dual-Seater Fun: Featuring a 21-inch dual seat, this 24v kids ride on car is perfect for siblings or friends to enjoy together. It is ideal for a larger child, offering comfortable seating with left-side driving and two-seat driving for a more realistic car experience"
+        },
+        {
+          "source": "Features[3]",
+          "text": "Ultimate Safety Features: Equipped with two individual 3-point seat belts and anti-slip seats, this ride on cars for kids ages 3-8 prioritizes safety with parental remote control, soft start, and rear shock function. It ensures a secure and smooth ride, allowing parents to confidently let their children drive and explore"
+        },
+        {
+          "source": "Features[4]",
+          "text": "Endless Entertainment: Packed with music, Bluetooth, and a built-in radio, this 24V ride-on car creates a fun-filled world for kids. They can sing along, enjoy stories, and cruise with joy. Plus, the volume is fully adjustable—turn it up to enjoy loud, clear sound even while driving. It offers an immersive space for little riders and a bit of peace for parents too"
+        },
+        {
+          "source": "Features[5]",
+          "text": "Superior Performance: Powered by a 24v battery with dual drive, this kids ride on toys offers three-speed options: 2.0, 2.7, and 4.3 mph. The battery life ranges from 50 minutes to 2 hours, varying based on usage and speed. The three-speed settings cater to different age groups, making it suitable for various driving scenarios. Enjoy safe outdoor fun with a 98ft remote control range for worry-free play!"
+        },
+        {
+          "source": "Features[6]",
+          "text": "Creating Unforgettable Memories: Perfect for milestone celebrations, this kids ride on toy with parent remote brings joy and creates lasting memories. It offers an excellent opportunity for parent-child interaction and helps kids develop cognitive, coordination, and driving skills, making it a cherished present that children will treasure and enjoy for years to come"
+        },
+        {
+          "source": "Product_Description",
+          "text": "OFFICIALLY LICENSED BY FORD BRONCO RAPTOR: This 24v ride on toys for big kids delivers an authentic driving experience Spacious Dual-Seater Fun: Featuring a 21-inch dual seat, this 24v kids ride on car is perfect for siblings or friends to enjoy together. It is ideal for a larger child, offering comfortable seating with left-side driving and two-seat driving for a more realistic car experience Ultimate Safety Features: Equipped with two individual 3-point seat belts and anti-slip seats, this ride on cars for kids ages 3-8 prioritizes safety with parental remote control, soft start, and rear shock function. It ensures a secure and smooth ride, allowing parents to confidently let their children drive and explore"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "First Ride On"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Ultimate Safety Features: Equipped with two individual 3-point seat belts and anti-slip seats, this ride on cars for kids ages 3-8 prioritizes safety with parental remote control, soft start, and rear shock function. It...",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "Spacious Dual-Seater Fun: Featuring a 21-inch dual seat, this 24v kids ride on car is perfect for siblings or friends to enjoy together. It is ideal for a larger child, offering comfortable seating with left-side drivin...",
+          "source": "Features[2]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -2008,6 +2614,150 @@
       "Included Components": "Car Body, Charging Box, Instruction Manual",
       "Best Sellers Rank": "#4,163 in Toys & Games (See Top 100 in Toys & Games) #5 in Kids' Electric Vehicles",
       "ASIN": "B0FWKK3JXX"
+    },
+    "Product_Display_Fields": {
+      "weightLimit": {
+        "value": "132 Pounds",
+        "source": "Category_Attributes.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "132 Pounds",
+        "source": "Category_Attributes.Weight Capacity Maximum"
+      },
+      "frameMaterial": {
+        "value": "Metal",
+        "source": "Category_Attributes.Material Type"
+      },
+      "dimensions": {
+        "value": "55\"L x 34.6\"W x 31.5\"H",
+        "source": "Category_Attributes.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Metal",
+            "source": "Category_Attributes.Material Type"
+          },
+          "weightLimit": {
+            "value": "132 Pounds",
+            "source": "Category_Attributes.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "Realistic Driving Experience: This is a true driving UTV - no remote control, no artificial limits. Kids can control speed with the variable throttle pedal, shift between forward and reverse, and experience gradual star..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "Large 14\" EVA Tires & Metal Frame: Compared with ordinary plastic tires, EVA tires offer stronger grip and shock absorption. Built for durability and adventure, this electric ride-on car features 14-inch wear-resistant..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "Spacious Two-Seater for Big Kids: With an overall size of 55\"L × 35\"W × 31\"H and a 20.5\" wide seat, this UTV easily fits two children or one older rider up to 130 lbs (60 kg). Each seat is equipped with a 3-point safety..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "Realistic Driving Experience: This is a true driving UTV - no remote control, no artificial limits. Kids can control speed with the variable throttle pedal, shift between forward and reverse, and experience gradual star..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Realistic Driving Experience: This is a true driving UTV - no remote control, no artificial limits. Kids can control speed with the variable throttle pedal, shift between forward..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "High-Performance Power System: Equipped with a 36V 9Ah battery and dual 200W high-torque motors, this UTV delivers powerful acceleration and strong climbing ability with a top speed of 5–8 mph. Designed for bigger kids..."
+          }
+        ],
+        "parentTip": "Parent's Tip: High-Performance Power System: Equipped with a 36V 9Ah battery and dual 200W high-torque motors, this UTV delivers powerful acceleration and strong climbing ability with a top spe..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "132 Pounds",
+            "source": "Category_Attributes.Weight Capacity Maximum"
+          },
+          "dimensions": {
+            "value": "55\"L x 34.6\"W x 31.5\"H",
+            "source": "Category_Attributes.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "Built for Outdoor Fun & Lasting Play: Designed for extended outdoor play, this 36V ride-on UTV offers 40–60 minutes of runtime per charge depending on terrain. A spacious rear storage box holds toys and snacks, while th..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Built for Outdoor Fun & Lasting Play: Designed for extended outdoor play, this 36V ride-on UTV offers 40–60 minutes of runtime per charge depending on terrain. A spacious rear sto..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Realistic Driving Experience: This is a true driving UTV - no remote control, no artificial limits. Kids can control speed with the variable throttle pedal, shift between forward...",
+      "ridingComfort": "Parent's Tip: High-Performance Power System: Equipped with a 36V 9Ah battery and dual 200W high-torque motors, this UTV delivers powerful acceleration and strong climbing ability with a top spe...",
+      "lightAndEasy": "Parent's Tip: Built for Outdoor Fun & Lasting Play: Designed for extended outdoor play, this 36V ride-on UTV offers 40–60 minutes of runtime per charge depending on terrain. A spacious rear sto..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "First Ride On 36V Kids Ride On UTV, 2-Seater 400W Electric Car for Kids 6+, 5-8 MPH Speed, 14\" EVA Wheels, Metal Frame, Bluet",
+      "brand": "First",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Realistic Driving Experience: This is a true driving UTV - no remote control, no artificial limits. Kids can control speed with the variable throttle pedal, shift between forward and reverse, and experience gradual start and electronic brake for real vehicle control. With Bluetooth music, FM radio, and LED lights, it turns every outdoor ride into a thrilling off-road adventure."
+        },
+        {
+          "source": "Features[2]",
+          "text": "Built for Outdoor Fun & Lasting Play: Designed for extended outdoor play, this 36V ride-on UTV offers 40–60 minutes of runtime per charge depending on terrain. A spacious rear storage box holds toys and snacks, while the durable structure ensures years of reliable performance. The perfect gift to inspire independence, adventure, and real driving excitement in your child."
+        },
+        {
+          "source": "Features[3]",
+          "text": "High-Performance Power System: Equipped with a 36V 9Ah battery and dual 200W high-torque motors, this UTV delivers powerful acceleration and strong climbing ability with a top speed of 5–8 mph. Designed for bigger kids ages 6+, it offers responsive performance, smooth control, and reliable power on grass, dirt, and gravel for true off-road excitement."
+        },
+        {
+          "source": "Features[4]",
+          "text": "Large 14\" EVA Tires & Metal Frame: Compared with ordinary plastic tires, EVA tires offer stronger grip and shock absorption. Built for durability and adventure, this electric ride-on car features 14-inch wear-resistant EVA tires and a reinforced metal chassis that provide excellent traction and stability across multiple terrains. Rear metal spring suspension absorbs shocks effectively, ensuring a smoother, more comfortable ride even on rough ground."
+        },
+        {
+          "source": "Features[5]",
+          "text": "Spacious Two-Seater for Big Kids: With an overall size of 55\"L × 35\"W × 31\"H and a 20.5\" wide seat, this UTV easily fits two children or one older rider up to 130 lbs (60 kg). Each seat is equipped with a 3-point safety belt for added protection during bumpy rides, offering both safety and comfort for growing kids ages 6 and up."
+        },
+        {
+          "source": "Product_Description",
+          "text": "Realistic Driving Experience: This is a true driving UTV - no remote control, no artificial limits. Kids can control speed with the variable throttle pedal, shift between forward and reverse, and experience gradual start and electronic brake for real vehicle control. With Bluetooth music, FM radio, and LED lights, it turns every outdoor ride into a thrilling off-road adventure. Built for Outdoor Fun & Lasting Play: Designed for extended outdoor play, this 36V ride-on UTV offers 40–60 minutes of runtime per charge depending on terrain. A spacious rear storage box holds toys and snacks, while the durable structure ensures years of reliable performance. The perfect gift to inspire independence, adventure, and real driving excitement in your child. High-Performance Power System: Equipped with a 36V 9Ah battery and dual 200W high-torque motors, this UTV delivers powerful acceleration and str..."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "36V UTV"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "First Ride On, Fun On Wheels First Ride On is a premium brand devoted to licensed ride-on cars, delivering an immersive driving experience for children. With official authorization from renowned brands, our ride-on are crafted to capture the details and allure of real vehicles. More than just toys, our ride-on cars are cherished companions of childhood memories and the perfect gateway to the automotive culture."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Realistic Driving Experience: This is a true driving UTV - no remote control, no artificial limits. Kids can control speed with the variable throttle pedal, shift between forward and reverse, and experience gradual star...",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "High-Performance Power System: Equipped with a 36V 9Ah battery and dual 200W high-torque motors, this UTV delivers powerful acceleration and strong climbing ability with a top speed of 5–8 mph. Designed for bigger kids....",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "Built for Outdoor Fun & Lasting Play: Designed for extended outdoor play, this 36V ride-on UTV offers 40–60 minutes of runtime per charge depending on terrain. A spacious rear storage box holds toys and snacks, while th...",
+          "source": "Features[2]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -2300,6 +3050,178 @@
     "Category_Attributes": {
       "Age Range Description": "3-8 years old",
       "Item Weight": "60.63 Pounds"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "3-8 years old",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "65 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "60.63 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Plastic",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "51.2\"L x 30.7\"W x 24.6\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      },
+      "battery": {
+        "value": "122 minutes",
+        "source": "Product_Specifications.Features_Specs.Battery Average Life"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Plastic",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "65 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "【Powerful 24V 4WD for All Terrains】Move beyond the limitations of 12V or standard 24V 2WD car that struggle on grass and complex surfaces. Featuring a 24V 4WD system powered by four 100W motors, this ride on toy deliver..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "【Remote Control, Command Safety】Stay in full command with the parent priority remote. Optimized with a 65ft Safety Range for max signal power, it lets you steer from your garden chair or stop instantly without lag. This..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "【Official License & Immersive Retro Adventure】This kids' electric car perfectly recreates the classic styling and retro colors of the 1973 Ford F-150. Complete with bright LED headlights, realistic engine sounds, a func..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+            "text": "ANPABO is a young and fast-growing brand dedicated to creating kids-loved and parents-trusted toys. We believe that great toys should be not only fun to play with but also a bond that ties the family together. ANPABO ai..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[7]",
+            "text": "Parent-Controlled, Kid-Safe Visit the Store"
+          }
+        ],
+        "parentTip": "Parent's Tip: 【Powerful 24V 4WD for All Terrains】Move beyond the limitations of 12V or standard 24V 2WD car that struggle on grass and complex surfaces. Featuring a 24V 4WD system powered by fo..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "【Ends Sibling Fights, True 2-Seater Comfort】Unlike other cramped ride ons the market, this electric car for kids features newly upgraded, roomy 2 seats (20”L x 14”W x 7.1”H) that comfortably fit two children aged 3–8, t..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[5]",
+            "text": "Roomiest 2-Seat Adventure Visit the Store"
+          },
+          {
+            "source": "Product_Videos_Detail[3].Title",
+            "text": "ANPABO Licensed Ford F-150 2 Seater Ride on Car for Kids"
+          },
+          {
+            "source": "Product_Videos_Detail[5].Title",
+            "text": "Kids 2 Seater Ford f-150 review"
+          }
+        ],
+        "parentTip": "Parent's Tip: 【Ends Sibling Fights, True 2-Seater Comfort】Unlike other cramped ride ons the market, this electric car for kids features newly upgraded, roomy 2 seats (20”L x 14”W x 7.1”H) that..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "60.63 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          },
+          "dimensions": {
+            "value": "51.2\"L x 30.7\"W x 24.6\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          },
+          "battery": {
+            "value": "122 minutes",
+            "source": "Product_Specifications.Features_Specs.Battery Average Life"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[5]",
+            "text": "【Extended Outdoor Playtime】This kids' electric vehicles equipped with a 24V 7AH large-capacity battery (50% more than standard 5AH models), providing enough power for children to explore parks and cruise down driveways..."
+          }
+        ],
+        "parentTip": "Parent's Tip: 【Extended Outdoor Playtime】This kids' electric vehicles equipped with a 24V 7AH large-capacity battery (50% more than standard 5AH models), providing enough power for children to..."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: 【Powerful 24V 4WD for All Terrains】Move beyond the limitations of 12V or standard 24V 2WD car that struggle on grass and complex surfaces. Featuring a 24V 4WD system powered by fo...",
+      "ridingComfort": "Parent's Tip: 【Ends Sibling Fights, True 2-Seater Comfort】Unlike other cramped ride ons the market, this electric car for kids features newly upgraded, roomy 2 seats (20”L x 14”W x 7.1”H) that...",
+      "lightAndEasy": "Parent's Tip: 【Extended Outdoor Playtime】This kids' electric vehicles equipped with a 24V 7AH large-capacity battery (50% more than standard 5AH models), providing enough power for children to..."
+    },
+    "Expert_Review_Inputs": {
+      "title": "ANPABO Licensed Ford F-150 24V 2 Seater Ride on Car for Kids, 4x100W Motors for All-Terrain Electric Car with Parental Remote",
+      "brand": "ANPABO",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "【Official License & Immersive Retro Adventure】This kids' electric car perfectly recreates the classic styling and retro colors of the 1973 Ford F-150. Complete with bright LED headlights, realistic engine sounds, a functional steering wheel, and a music panel with Bluetooth & FM radio, it immerses young drivers in a realistic experience. Every detail is designed for immersive pretend play, they're not just driving, they're starring in their own outdoor adventure"
+        },
+        {
+          "source": "Features[2]",
+          "text": "【Powerful 24V 4WD for All Terrains】Move beyond the limitations of 12V or standard 24V 2WD car that struggle on grass and complex surfaces. Featuring a 24V 4WD system powered by four 100W motors, this ride on toy delivers superior torque and traction, smoothly carrying two children (total weight ≤130 lbs) uphill and over terrain like gravel, grass, or mud. An upgraded stable turning radius and a maximum speed limit of 4.3 mph ensure safe and controlled driving, preventing tipping on uneven ground"
+        },
+        {
+          "source": "Features[3]",
+          "text": "【Ends Sibling Fights, True 2-Seater Comfort】Unlike other cramped ride ons the market, this electric car for kids features newly upgraded, roomy 2 seats (20”L x 14”W x 7.1”H) that comfortably fit two children aged 3–8, turning\"my turn\" fights into cooperative adventures. More than just a play vehicle, it makes a perfect gift for birthdays, Children's Day, or Christmas, encouraging active play over screen time, building coordination, and sparking lasting joy"
+        },
+        {
+          "source": "Features[4]",
+          "text": "【Remote Control, Command Safety】Stay in full command with the parent priority remote. Optimized with a 65ft Safety Range for max signal power, it lets you steer from your garden chair or stop instantly without lag. This precision helps your child progress from wobbly turns on grass to confident rides on the driveway. Soft-start tech boosts balance for beginners, while lockable doors and 3-point belts secure every bumpy adventure, it's pure joy for them, true peace of mind for you"
+        },
+        {
+          "source": "Features[5]",
+          "text": "【Extended Outdoor Playtime】This kids' electric vehicles equipped with a 24V 7AH large-capacity battery (50% more than standard 5AH models), providing enough power for children to explore parks and cruise down driveways for 70-130 minutes, depending on load and terrain. It also has an extra-large trunk for toys, snacks and treasure maps, sparing parents from carrying bags and letting kids enjoy longer outdoor fun"
+        },
+        {
+          "source": "Product_Description",
+          "text": "【Official License & Immersive Retro Adventure】This kids' electric car perfectly recreates the classic styling and retro colors of the 1973 Ford F-150. Complete with bright LED headlights, realistic engine sounds, a functional steering wheel, and a music panel with Bluetooth & FM radio, it immerses young drivers in a realistic experience. Every detail is designed for immersive pretend play, they're not just driving, they're starring in their own outdoor adventure 【Powerful 24V 4WD for All Terrains】Move beyond the limitations of 12V or standard 24V 2WD car that struggle on grass and complex surfaces. Featuring a 24V 4WD system powered by four 100W motors, this ride on toy delivers superior torque and traction, smoothly carrying two children (total weight ≤130 lbs) uphill and over terrain like gravel, grass, or mud. An upgraded stable turning radius and a maximum speed limit of 4.3 mph ens..."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "24V Powerful Hill Climber"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "ANPABO is a young and fast-growing brand dedicated to creating kids-loved and parents-trusted toys. We believe that great toys should be not only fun to play with but also a bond that ties the family together. ANPABO aims to bring quality products at great prices to our customers. Every single toy from ANPABO is certificated with Children's Product Certificate (CPC), and Lead and Phthalates Testing (CPSIA)."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "【Powerful 24V 4WD for All Terrains】Move beyond the limitations of 12V or standard 24V 2WD car that struggle on grass and complex surfaces. Featuring a 24V 4WD system powered by four 100W motors, this ride on toy deliver...",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "【Ends Sibling Fights, True 2-Seater Comfort】Unlike other cramped ride ons the market, this electric car for kids features newly upgraded, roomy 2 seats (20”L x 14”W x 7.1”H) that comfortably fit two children aged 3–8, t...",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "【Extended Outdoor Playtime】This kids' electric vehicles equipped with a 24V 7AH large-capacity battery (50% more than standard 5AH models), providing enough power for children to explore parks and cruise down driveways....",
+          "source": "Features[5]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -2580,6 +3502,126 @@
     "Similar_Items_Quick_Delivery": [],
     "Category_Attributes": {
       "Item Weight": "18.74 Pounds"
+    },
+    "Product_Display_Fields": {
+      "itemWeight": {
+        "value": "18.74 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Plastic",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "32.87\"L x 25.98\"W x 34.64\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Plastic",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "[3-In-1 Design For Growing Kids]This innovative 3-in-1 toddler push car features 3 modes (push car, remote control, and electric mode) that can be switched easily, catering to the riding needs of boys and girls aged 1-3..."
+          },
+          {
+            "source": "Features[3]",
+            "text": "[5-Point Safety Belt for Greater Safety]Compared with ordinary 2-point seat belts, the 5-point seat belt significantly improves both safety and comfort. The electric mode features 2 hidden lock switches on both sides of..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "[Remote Control & Self-Driving Fun]Unlike non-electric push cars, this electric toddler car features a 12V 7AH battery, 2 motors, and a remote control, which offers additional remote-controlled and electric riding optio..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "[3-In-1 Design For Growing Kids]This innovative 3-in-1 toddler push car features 3 modes (push car, remote control, and electric mode) that can be switched easily, catering to the riding needs of boys and girls aged 1-3..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+            "text": "ANPABO is a young and fast-growing brand dedicated to creating kids-loved and parents-trusted toys. We believe that great toys should be not only fun to play with but also a bond that ties the family together. ANPABO ai..."
+          }
+        ],
+        "parentTip": "Parent's Tip: [3-In-1 Design For Growing Kids]This innovative 3-in-1 toddler push car features 3 modes (push car, remote control, and electric mode) that can be switched easily, catering to the..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "18.74 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          },
+          "dimensions": {
+            "value": "32.87\"L x 25.98\"W x 34.64\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: [3-In-1 Design For Growing Kids]This innovative 3-in-1 toddler push car features 3 modes (push car, remote control, and electric mode) that can be switched easily, catering to the...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "ANPABO 3-in-1 Electric Push Ride On Car, 12V Kids Ride On Toy w/Remote Control, 360° Spin, 5-Point Safety Belt, Colorful LED",
+      "brand": "ANPABO",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "[3-In-1 Design For Growing Kids]This innovative 3-in-1 toddler push car features 3 modes (push car, remote control, and electric mode) that can be switched easily, catering to the riding needs of boys and girls aged 1-3.5 years. Parents can use the push mode to walk with kids in the park, while the remote control mode allows them to guide the car effortlessly. As kids grow, they can press the paddles on the 2 motors to switch to electric mode and ride anywhere. The adjustable push rod can be easily shortened when not in use"
+        },
+        {
+          "source": "Features[2]",
+          "text": "[360° Spin & Colorful LED Light]Equipped with 3 universal wheels, this toddler push car with handle rotate 360° on the spot, letting kids to ride flexibly and freely even in tight indoor spaces. The front of the electric car for toddlers and the 2 large wear-resistant wheels are inlaid with colorful lights, and the dreamy lights make kids feel like they are wandering in the stars. (Note: Universal wheels are more suitable for driving on hard and flat roads.)"
+        },
+        {
+          "source": "Features[3]",
+          "text": "[5-Point Safety Belt for Greater Safety]Compared with ordinary 2-point seat belts, the 5-point seat belt significantly improves both safety and comfort. The electric mode features 2 hidden lock switches on both sides of the motor, allowing parents to disable the function in advance and prevent accidental pedal activation by kids. Plus, the remote control includes an emergency stop function that lets parents immediately stop the baby car when needed to avoid potential hazards. The semi-enclosed body design reduces the risk of accidental falls, giving kids a greater sense of security"
+        },
+        {
+          "source": "Features[4]",
+          "text": "[Remote Control & Self-Driving Fun]Unlike non-electric push cars, this electric toddler car features a 12V 7AH battery, 2 motors, and a remote control, which offers additional remote-controlled and electric riding options. The remote mode offers 3 adjustable speeds, allowing parents to choose a suitable speed for their child while sitting on a park bench and easily controlling the 12V kids ride on toys. The baby just needs to sit back and enjoy! The pedal mode offers 2 speeds for when the child is ready to drive independently"
+        },
+        {
+          "source": "Features[5]",
+          "text": "[Multi-Function Music Player with Wireless Connection]In addition to the built-in music, parents can wirelessly connect their phone to play kids' favorite songs and stories, turning every ride into a musical adventure! Kids can easily control the speed of toddler car, steering, horn, and lights with simple buttons of the car stroller. Fun continues with diverse functions. The vibrant color stimulates sensory development and large buttons improve hand-eye coordination. A perfect gift for birthdays, Christmas, and any memorable occasions"
+        },
+        {
+          "source": "Product_Description",
+          "text": "[3-In-1 Design For Growing Kids]This innovative 3-in-1 toddler push car features 3 modes (push car, remote control, and electric mode) that can be switched easily, catering to the riding needs of boys and girls aged 1-3.5 years. Parents can use the push mode to walk with kids in the park, while the remote control mode allows them to guide the car effortlessly. As kids grow, they can press the paddles on the 2 motors to switch to electric mode and ride anywhere. The adjustable push rod can be easily shortened when not in use [360° Spin & Colorful LED Light]Equipped with 3 universal wheels, this toddler push car with handle rotate 360° on the spot, letting kids to ride flexibly and freely even in tight indoor spaces. The front of the electric car for toddlers and the 2 large wear-resistant wheels are inlaid with colorful lights, and the dreamy lights make kids feel like they are wandering..."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "24V Kids Ride-Ons"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "ANPABO is a young and fast-growing brand dedicated to creating kids-loved and parents-trusted toys. We believe that great toys should be not only fun to play with but also a bond that ties the family together. ANPABO aims to bring quality products at great prices to our customers. Every single toy from ANPABO is certificated with Children's Product Certificate (CPC), and Lead and Phthalates Testing (CPSIA)."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "[3-In-1 Design For Growing Kids]This innovative 3-in-1 toddler push car features 3 modes (push car, remote control, and electric mode) that can be switched easily, catering to the riding needs of boys and girls aged 1-3...",
+          "source": "Features[1]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -2837,6 +3879,164 @@
     "Category_Attributes": {
       "Age Range Description": "37-96 Months",
       "Item Weight": "70 Pounds"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "37-96 Months",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "264 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "70 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Plastic",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "51.4\"L x 28.3\"W x 45\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      },
+      "battery": {
+        "value": "2 Hours",
+        "source": "Product_Specifications.Features_Specs.Battery Average Life"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Plastic",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "264 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "Safety is Priority: The remote control design gives parents peace of mind, while kids can also drive using the foot pedal for a hands-on experience. With 4 seat belts, 2 rear anti-roll wheels and spring suspension, it p..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "Spacious with 4-Seats Design: Designed with a spacious 4-seat layout, it’s ideal for larger families. All 4-seats are equipped with seat belts, and the 2 rear seats feature footrests, providing a comfortable ride for si..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+            "text": "At LIGIANT, we go beyond providing endless fun; we facilitate children's joyful growth alongside friends and siblings. Our products are designed to ignite children's imaginations, enhance their social skills, and active..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Safety is Priority: The remote control design gives parents peace of mind, while kids can also drive using the foot pedal for a hands-on experience. With 4 seat belts, 2 rear anti..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "Spacious with 4-Seats Design: Designed with a spacious 4-seat layout, it’s ideal for larger families. All 4-seats are equipped with seat belts, and the 2 rear seats feature footrests, providing a comfortable ride for si..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "Spark Joyful Adventures: Multimedia features add unique fun to this 4-seater toddler golf cart. Enjoy music, stories, and radio via Bluetooth or USB, while the built-in speakers and volume control knob enhance the inter..."
+          },
+          {
+            "source": "Features[6]",
+            "text": "Tips: The maximum weight capacity of this product is 264 lbs, which refers to the total weight when four children are riding simultaneously. The width of each seat is 9.5 inches. Please consider your child's height befo..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Title",
+            "text": "4-Seater Kids Golf Cart"
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[2]",
+            "text": "4-Seater Kids Golf Cart Visit the Store"
+          }
+        ],
+        "parentTip": "Parent's Tip: Spacious with 4-Seats Design: Designed with a spacious 4-seat layout, it’s ideal for larger families. All 4-seats are equipped with seat belts, and the 2 rear seats feature footre..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "70 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          },
+          "dimensions": {
+            "value": "51.4\"L x 28.3\"W x 45\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          },
+          "battery": {
+            "value": "2 Hours",
+            "source": "Product_Specifications.Features_Specs.Battery Average Life"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Safety is Priority: The remote control design gives parents peace of mind, while kids can also drive using the foot pedal for a hands-on experience. With 4 seat belts, 2 rear anti...",
+      "ridingComfort": "Parent's Tip: Spacious with 4-Seats Design: Designed with a spacious 4-seat layout, it’s ideal for larger families. All 4-seats are equipped with seat belts, and the 2 rear seats feature footre...",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "LIGIANT 24V Ride on Toys for Big Kids, 4-Seater Kids' Car, Golf Cart Max. Capacity: 264 Lbs(4 Kids), 4WD Ride on Car w/Remote",
+      "brand": "LIGIANT",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Spacious with 4-Seats Design: Designed with a spacious 4-seat layout, it’s ideal for larger families. All 4-seats are equipped with seat belts, and the 2 rear seats feature footrests, providing a comfortable ride for siblings or friends. Dimensions: 51.4 x 28.3 x 45.1 inches."
+        },
+        {
+          "source": "Features[2]",
+          "text": "Safety is Priority: The remote control design gives parents peace of mind, while kids can also drive using the foot pedal for a hands-on experience. With 4 seat belts, 2 rear anti-roll wheels and spring suspension, it provides extra stability and protection on any terrain, ensuring a smooth and safe ride."
+        },
+        {
+          "source": "Features[3]",
+          "text": "High Performance: Our 4WD kids' golf cart is equipped with a powerful 24V 7AH battery, providing ample power. It offers two speed options ranging from 1.86 to 4.35 mph, making it perfect for children aged 3-8. It’s the ideal companion for your child's adventures."
+        },
+        {
+          "source": "Features[4]",
+          "text": "Spark Joyful Adventures: Multimedia features add unique fun to this 4-seater toddler golf cart. Enjoy music, stories, and radio via Bluetooth or USB, while the built-in speakers and volume control knob enhance the interactive experience. The battery display screen keeps you informed of the battery level, ensuring timely charging so your kids can have endless fun!"
+        },
+        {
+          "source": "Features[5]",
+          "text": "1:1 Replica of a Real Golf Cart: Detachable Awning, a 1:1 replica of a real golf cart, with an appearance that mirrors an actual golf cart. Let kids experience the thrill of driving on the grass just like adults."
+        },
+        {
+          "source": "Features[6]",
+          "text": "Tips: The maximum weight capacity of this product is 264 lbs, which refers to the total weight when four children are riding simultaneously. The width of each seat is 9.5 inches. Please consider your child's height before purchasing."
+        },
+        {
+          "source": "Product_Description",
+          "text": "Spacious with 4-Seats Design: Designed with a spacious 4-seat layout, it’s ideal for larger families. All 4-seats are equipped with seat belts, and the 2 rear seats feature footrests, providing a comfortable ride for siblings or friends. Dimensions: 51.4 x 28.3 x 45.1 inches. Safety is Priority: The remote control design gives parents peace of mind, while kids can also drive using the foot pedal for a hands-on experience. With 4 seat belts, 2 rear anti-roll wheels and spring suspension, it provides extra stability and protection on any terrain, ensuring a smooth and safe ride. High Performance: Our 4WD kids' golf cart is equipped with a powerful 24V 7AH battery, providing ample power. It offers two speed options ranging from 1.86 to 4.35 mph, making it perfect for children aged 3-8. It’s the ideal companion for your child's adventures."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "4-Seater Kids Golf Cart"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Safety is Priority: The remote control design gives parents peace of mind, while kids can also drive using the foot pedal for a hands-on experience. With 4 seat belts, 2 rear anti-roll wheels and spring suspension, it p...",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "Spacious with 4-Seats Design: Designed with a spacious 4-seat layout, it’s ideal for larger families. All 4-seats are equipped with seat belts, and the 2 rear seats feature footrests, providing a comfortable ride for si...",
+          "source": "Features[1]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -3268,6 +4468,142 @@
       "Manufacturer Minimum Age (MONTHS)": "36.0",
       "Manufacturer Maximum Age (MONTHS)": "36",
       "Is Assembly Required": "Yes"
+    },
+    "Product_Display_Fields": {
+      "weightLimit": {
+        "value": "66 Pounds",
+        "source": "Category_Attributes.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "66 Pounds",
+        "source": "Category_Attributes.Weight Capacity Maximum"
+      },
+      "frameMaterial": {
+        "value": "Metal, Plastic",
+        "source": "Category_Attributes.Material Type"
+      },
+      "dimensions": {
+        "value": "40.15 x 21.65 x 22.83 inches",
+        "source": "Category_Attributes.Item Dimensions"
+      },
+      "battery": {
+        "value": "1.5 Hours",
+        "source": "Category_Attributes.Battery Average Life"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Metal, Plastic",
+            "source": "Category_Attributes.Material Type"
+          },
+          "weightLimit": {
+            "value": "66 Pounds",
+            "source": "Category_Attributes.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "Licensed Chevrolet - Electric car for kids is officially licensed, Chevrolet ride-on car features the same styling as the real car, such as a racing steering wheel, slim body, smooth lines, 2-speed, dual door safety loc..."
+          },
+          {
+            "source": "Features[2]",
+            "text": "2 Control Methods - Kids electric car supports pedal operation and remote control operation. Remote control operation supports 3 speed switching, which improves the safety of children"
+          },
+          {
+            "source": "Features[4]",
+            "text": "More Safer - Electric car is equipped with soft start, rear wheel shock absorbers, and a safety belt design, lockable double doors, and ASTM and CPSIA certified. All functions are ready for children's safe travel"
+          },
+          {
+            "source": "Product_Description",
+            "text": "Licensed Chevrolet - Electric car for kids is officially licensed, Chevrolet ride-on car features the same styling as the real car, such as a racing steering wheel, slim body, smooth lines, 2-speed, dual door safety loc..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+            "text": "Winado is committed to creating toys that are loved by children and trusted by parents. While children enjoy toys, they can also enhance the relationship between children and parents. Each car is equipped with remote co..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Licensed Chevrolet - Electric car for kids is officially licensed, Chevrolet ride-on car features the same styling as the real car, such as a racing steering wheel, slim body, smo..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "66 Pounds",
+            "source": "Category_Attributes.Weight Capacity Maximum"
+          },
+          "dimensions": {
+            "value": "40.15 x 21.65 x 22.83 inches",
+            "source": "Category_Attributes.Item Dimensions"
+          },
+          "battery": {
+            "value": "1.5 Hours",
+            "source": "Category_Attributes.Battery Average Life"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Licensed Chevrolet - Electric car for kids is officially licensed, Chevrolet ride-on car features the same styling as the real car, such as a racing steering wheel, slim body, smo...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Winado Licensed Chevrolet Colorado Electric Car for Kids, 12V Ride on Toys for Toddlers with Remote Control, Battery Powered",
+      "brand": "Winado",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Licensed Chevrolet - Electric car for kids is officially licensed, Chevrolet ride-on car features the same styling as the real car, such as a racing steering wheel, slim body, smooth lines, 2-speed, dual door safety locks and LED lights for a realistic driving experience for your little one"
+        },
+        {
+          "source": "Features[2]",
+          "text": "2 Control Methods - Kids electric car supports pedal operation and remote control operation. Remote control operation supports 3 speed switching, which improves the safety of children"
+        },
+        {
+          "source": "Features[3]",
+          "text": "More Experiencial - Toy cars for toddlers comes with Bluetooth functionality and a built-in music player, perfect for kids to play their favorite songs and stories on outdoor trips, with real speaker sound on the steering wheel to make the experience even more enjoyable"
+        },
+        {
+          "source": "Features[4]",
+          "text": "More Safer - Electric car is equipped with soft start, rear wheel shock absorbers, and a safety belt design, lockable double doors, and ASTM and CPSIA certified. All functions are ready for children's safe travel"
+        },
+        {
+          "source": "Features[5]",
+          "text": "A Good Choice for Children - Ride on car is suitable for children over 3 years old, can bear a maximum weight of 66LBS, is equipped with 2x25W motors and a rechargeable battery, and only needs to be fully charged for 8-12 hours for 1 hour of play"
+        },
+        {
+          "source": "Product_Description",
+          "text": "Licensed Chevrolet - Electric car for kids is officially licensed, Chevrolet ride-on car features the same styling as the real car, such as a racing steering wheel, slim body, smooth lines, 2-speed, dual door safety locks and LED lights for a realistic driving experience for your little one 2 Control Methods - Kids electric car supports pedal operation and remote control operation. Remote control operation supports 3 speed switching, which improves the safety of children More Experiencial - Toy cars for toddlers comes with Bluetooth functionality and a built-in music player, perfect for kids to play their favorite songs and stories on outdoor trips, with real speaker sound on the steering wheel to make the experience even more enjoyable"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Winado Licensed Ride-on Car"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "Winado is committed to creating toys that are loved by children and trusted by parents. While children enjoy toys, they can also enhance the relationship between children and parents. Each car is equipped with remote control and seat belts to ensure the safety of children. Each toy of Winado has passed the corresponding certification including CPC, so you can use it with confidence."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Licensed Chevrolet - Electric car for kids is officially licensed, Chevrolet ride-on car features the same styling as the real car, such as a racing steering wheel, slim body, smooth lines, 2-speed, dual door safety loc...",
+          "source": "Features[1]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -4022,6 +5358,148 @@
     ],
     "Category_Attributes": {
       "Item Weight": "26.4 Pounds"
+    },
+    "Product_Display_Fields": {
+      "weightLimit": {
+        "value": "66 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "26.4 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Metal, Plastic",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "39\"L x 24.4\"W x 24.4\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      },
+      "battery": {
+        "value": "50 minutes",
+        "source": "Product_Specifications.Features_Specs.Battery Average Life"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Metal, Plastic",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "66 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "Parental Remote Control & Independent Driving Modes: Best of both worlds for growing kids! Let your little driver take the wheel using the foot pedal and steering wheel. For younger children or close supervision, simply..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "The Perfect Gift That Fosters Development & Fun: Certified by ASTM and CPSIA safety standards, this electric truck is an unforgettable gift for birthdays, Christmas, and more. It's not just a toy—it encourages outdoor p..."
+          },
+          {
+            "source": "Features[6]",
+            "text": "Safety-Engineered for Your Peace of Mind: We prioritize your child's safety as much as you do. This toy car comes with a parental remote for full control, a safety belt, and slow-start technology for stable acceleration..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "This product is exclusively provided by MINIATURE MOTORS and requires assembly! The Remote Control has three speeds: 2-3.5MPH. You can't change the speed in Manual Mode, as it's set at 3.5MPH Powerful 35W Dual Motor & L..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Parental Remote Control & Independent Driving Modes: Best of both worlds for growing kids! Let your little driver take the wheel using the foot pedal and steering wheel. For young..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[5]",
+            "text": "2-Seater Kids Ride on Car Visit the Store"
+          }
+        ],
+        "parentTip": "Parent's Tip: 2-Seater Kids Ride on Car Visit the Store"
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "26.4 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          },
+          "dimensions": {
+            "value": "39\"L x 24.4\"W x 24.4\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          },
+          "battery": {
+            "value": "50 minutes",
+            "source": "Product_Specifications.Features_Specs.Battery Average Life"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Parental Remote Control & Independent Driving Modes: Best of both worlds for growing kids! Let your little driver take the wheel using the foot pedal and steering wheel. For young...",
+      "ridingComfort": "Parent's Tip: 2-Seater Kids Ride on Car Visit the Store",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "MINIATURE MOTORS 12V Kids Electric Ride on Truck Car Remote Control, Twin 35W Motors 3.5MPH Max Speed, Bluetooth Music Player",
+      "brand": "MINIATURE",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "This product is exclusively provided by MINIATURE MOTORS and requires assembly! The Remote Control has three speeds: 2-3.5MPH. You can't change the speed in Manual Mode, as it's set at 3.5MPH"
+        },
+        {
+          "source": "Features[2]",
+          "text": "Powerful 35W Dual Motor & Long-Lasting Battery: Watch your child explore with confidence! This ride-on truck features twin 35W motors for impressive power and a rechargeable 12V battery that delivers 40-60 minutes of continuous play. With a top speed of 3.5MPH, it's perfect for thrilling yet manageable outdoor adventures."
+        },
+        {
+          "source": "Features[3]",
+          "text": "Parental Remote Control & Independent Driving Modes: Best of both worlds for growing kids! Let your little driver take the wheel using the foot pedal and steering wheel. For younger children or close supervision, simply take over with the easy-to-use parental remote control, ensuring safety and interactive fun for different ages."
+        },
+        {
+          "source": "Features[4]",
+          "text": "Built-in Bluetooth Speaker & Realistic Driving Sounds: Turn every ride into an exciting journey! The built-in Bluetooth speaker allows kids to play their favorite songs and stories from your smart device. Combined with a fun horn and engine start-up sound, it creates an immersive, realistic driving experience that doubles the fun."
+        },
+        {
+          "source": "Features[5]",
+          "text": "The Perfect Gift That Fosters Development & Fun: Certified by ASTM and CPSIA safety standards, this electric truck is an unforgettable gift for birthdays, Christmas, and more. It's not just a toy—it encourages outdoor play, boosts coordination, and develops crucial motor skills, all while sparking joyful imagination."
+        },
+        {
+          "source": "Features[6]",
+          "text": "Safety-Engineered for Your Peace of Mind: We prioritize your child's safety as much as you do. This toy car comes with a parental remote for full control, a safety belt, and slow-start technology for stable acceleration. The spring suspension system ensures a smooth and stable ride on various surfaces."
+        },
+        {
+          "source": "Product_Description",
+          "text": "This product is exclusively provided by MINIATURE MOTORS and requires assembly! The Remote Control has three speeds: 2-3.5MPH. You can't change the speed in Manual Mode, as it's set at 3.5MPH Powerful 35W Dual Motor & Long-Lasting Battery: Watch your child explore with confidence! This ride-on truck features twin 35W motors for impressive power and a rechargeable 12V battery that delivers 40-60 minutes of continuous play. With a top speed of 3.5MPH, it's perfect for thrilling yet manageable outdoor adventures. Parental Remote Control & Independent Driving Modes: Best of both worlds for growing kids! Let your little driver take the wheel using the foot pedal and steering wheel. For younger children or close supervision, simply take over with the easy-to-use parental remote control, ensuring safety and interactive fun for different ages."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "12V 2x35W Ride on Truck"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Parental Remote Control & Independent Driving Modes: Best of both worlds for growing kids! Let your little driver take the wheel using the foot pedal and steering wheel. For younger children or close supervision, simply...",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "2-Seater Kids Ride on Car Visit the Store",
+          "source": "From_The_Manufacturer.Sections[1].Texts[5]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -4307,6 +5785,140 @@
     "Category_Attributes": {
       "Age Range Description": "1.5-4 years old",
       "Item Weight": "12.5 Pounds"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "1.5-4 years old",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "itemWeight": {
+        "value": "12.5 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Plastic",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "28.34\"L x 15.74\"W x 17.91\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      },
+      "battery": {
+        "value": "80 minutes",
+        "source": "Product_Specifications.Features_Specs.Battery Average Life"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Plastic",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "8\" Big Wheel: 8\" tires glide smoothly over paved roads; Powerful high-speed motor ensures max speed of 1.5mph, a very safe and fun speed for toddlers."
+          },
+          {
+            "source": "Features[3]",
+            "text": "Anti-Rollover Safety: Engineered with stability features to prevent tipping on slopes or bumpy terrain, keeping little ones secure during every drive."
+          },
+          {
+            "source": "Product_Description",
+            "text": "Power&Long-Lasting Play: Powered by a 12V 4.5Ah rechargeable battery, this ride on offers up to 80 minutes of continuous fun per full charge. Great for extended outdoor without frequent recharging. 8\" Big Wheel: 8\" tire..."
+          }
+        ],
+        "parentTip": "Parent's Tip: 8\" Big Wheel: 8\" tires glide smoothly over paved roads; Powerful high-speed motor ensures max speed of 1.5mph, a very safe and fun speed for toddlers."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "12.5 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          },
+          "dimensions": {
+            "value": "28.34\"L x 15.74\"W x 17.91\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          },
+          "battery": {
+            "value": "80 minutes",
+            "source": "Product_Specifications.Features_Specs.Battery Average Life"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[4]",
+            "text": "Easy Control: Push-Button Accelerator is very easy to control. forward and reverse driving modes button, helping kids build confidence while maneuvering"
+          }
+        ],
+        "parentTip": "Parent's Tip: Easy Control: Push-Button Accelerator is very easy to control. forward and reverse driving modes button, helping kids build confidence while maneuvering"
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: 8\" Big Wheel: 8\" tires glide smoothly over paved roads; Powerful high-speed motor ensures max speed of 1.5mph, a very safe and fun speed for toddlers.",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: Easy Control: Push-Button Accelerator is very easy to control. forward and reverse driving modes button, helping kids build confidence while maneuvering"
+    },
+    "Expert_Review_Inputs": {
+      "title": "Gotrax RT1 Ride on Toys for Toddlers 1.5-4, Safe 12V Lead-acid Battery up to 80 Minutes, Forward/Reverse 2 Gears, Max 1.5MPH",
+      "brand": "Gotrax",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Power&Long-Lasting Play: Powered by a 12V 4.5Ah rechargeable battery, this ride on offers up to 80 minutes of continuous fun per full charge. Great for extended outdoor without frequent recharging."
+        },
+        {
+          "source": "Features[2]",
+          "text": "8\" Big Wheel: 8\" tires glide smoothly over paved roads; Powerful high-speed motor ensures max speed of 1.5mph, a very safe and fun speed for toddlers."
+        },
+        {
+          "source": "Features[3]",
+          "text": "Anti-Rollover Safety: Engineered with stability features to prevent tipping on slopes or bumpy terrain, keeping little ones secure during every drive."
+        },
+        {
+          "source": "Features[4]",
+          "text": "Easy Control: Push-Button Accelerator is very easy to control. forward and reverse driving modes button, helping kids build confidence while maneuvering"
+        },
+        {
+          "source": "Features[5]",
+          "text": "1 Year Quality Assurance: Gotrax has a 1 year limited assurance for different parts, buy in confidence! If you have any problem, pls contact us. Whether it's for graduation, birthday, or Christmas, it will be a surprise present for your kids."
+        },
+        {
+          "source": "Product_Description",
+          "text": "Power&Long-Lasting Play: Powered by a 12V 4.5Ah rechargeable battery, this ride on offers up to 80 minutes of continuous fun per full charge. Great for extended outdoor without frequent recharging. 8\" Big Wheel: 8\" tires glide smoothly over paved roads; Powerful high-speed motor ensures max speed of 1.5mph, a very safe and fun speed for toddlers. Anti-Rollover Safety: Engineered with stability features to prevent tipping on slopes or bumpy terrain, keeping little ones secure during every drive."
+        },
+        {
+          "source": "Product_Videos_Detail[1].Title",
+          "text": "Gotrax RT1 Ride on Toys for Toddlers 1.5-4"
+        },
+        {
+          "source": "Product_Videos_Detail[2].Title",
+          "text": "LOVE this tiny four wheeler. So much better on concrete!"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "8\" Big Wheel: 8\" tires glide smoothly over paved roads; Powerful high-speed motor ensures max speed of 1.5mph, a very safe and fun speed for toddlers.",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "Easy Control: Push-Button Accelerator is very easy to control. forward and reverse driving modes button, helping kids build confidence while maneuvering",
+          "source": "Features[4]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -4826,6 +6438,134 @@
     "Category_Attributes": {
       "Age Range Description": "Kid",
       "Item Weight": "32 Pounds"
+    },
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Kid",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "61 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "32 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Plastic， Metal",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "39.25\"L x 26\"W x 26\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Plastic， Metal",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "61 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "POWERFUL 12V & REALISTIC DESIGN: Adjustable seatbelt, bright LED headlights, lockable doors, and grid windshield for off-road style, with a 12V motor and traction tires to ride on different terrains"
+          },
+          {
+            "source": "Features[3]",
+            "text": "MANUAL AND PARENT CONTROL: Let your child drive manually or use the remote control to safely guide them yourself; remote has forward/reverse controls"
+          },
+          {
+            "source": "Features[4]",
+            "text": "SAFE & DURABLE: Includes plastic wheels that will never deflate, plus a spring suspension system and safe, 2.8mph max speed for smooth rides on outdoor adventures"
+          },
+          {
+            "source": "Product_Description",
+            "text": "FOR KIDS 3 YEARS & OLDER: This small yet powerful ride-on is perfect for your little racers who want to start driving like the grownups do! POWERFUL 12V & REALISTIC DESIGN: Adjustable seatbelt, bright LED headlights, lo..."
+          }
+        ],
+        "parentTip": "Parent's Tip: POWERFUL 12V & REALISTIC DESIGN: Adjustable seatbelt, bright LED headlights, lockable doors, and grid windshield for off-road style, with a 12V motor and traction tires to ride on..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "32 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          },
+          "dimensions": {
+            "value": "39.25\"L x 26\"W x 26\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: POWERFUL 12V & REALISTIC DESIGN: Adjustable seatbelt, bright LED headlights, lockable doors, and grid windshield for off-road style, with a 12V motor and traction tires to ride on...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Best Choice Products 12V Kids Electric Vehicle Toy Ride On Car with Parent Remote Control for Toddlers, Seat Harness, 61 lbs",
+      "brand": "Best",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "FOR KIDS 3 YEARS & OLDER: This small yet powerful ride-on is perfect for your little racers who want to start driving like the grownups do!"
+        },
+        {
+          "source": "Features[2]",
+          "text": "POWERFUL 12V & REALISTIC DESIGN: Adjustable seatbelt, bright LED headlights, lockable doors, and grid windshield for off-road style, with a 12V motor and traction tires to ride on different terrains"
+        },
+        {
+          "source": "Features[3]",
+          "text": "MANUAL AND PARENT CONTROL: Let your child drive manually or use the remote control to safely guide them yourself; remote has forward/reverse controls"
+        },
+        {
+          "source": "Features[4]",
+          "text": "SAFE & DURABLE: Includes plastic wheels that will never deflate, plus a spring suspension system and safe, 2.8mph max speed for smooth rides on outdoor adventures"
+        },
+        {
+          "source": "Features[5]",
+          "text": "CONNECT YOUR MUSIC: A built-in AUX outlet allows kids to plug in media devices to drive while jamming to their own selection of music; OVERALL DIMENSIONS: 39.25\"(L) x 26\"(W) x 26\"(H); Weight Capacity: 61 lbs."
+        },
+        {
+          "source": "Product_Description",
+          "text": "FOR KIDS 3 YEARS & OLDER: This small yet powerful ride-on is perfect for your little racers who want to start driving like the grownups do! POWERFUL 12V & REALISTIC DESIGN: Adjustable seatbelt, bright LED headlights, lockable doors, and grid windshield for off-road style, with a 12V motor and traction tires to ride on different terrains MANUAL AND PARENT CONTROL: Let your child drive manually or use the remote control to safely guide them yourself; remote has forward/reverse controls"
+        },
+        {
+          "source": "Product_Videos_Detail[1].Title",
+          "text": "12v Ride-On Truck Toy"
+        },
+        {
+          "source": "Product_Videos_Detail[2].Title",
+          "text": "Honest Review Best Choice Products 12V Kids RideON w Remote"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "POWERFUL 12V & REALISTIC DESIGN: Adjustable seatbelt, bright LED headlights, lockable doors, and grid windshield for off-road style, with a 12V motor and traction tires to ride on different terrains",
+          "source": "Features[2]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
     }
   },
   {
@@ -5078,7 +6818,151 @@
       "Item Weight": "6.4 ounces",
       "Model Name": "EXBHKID40"
     },
-    "Last_Updated": "2026-07-08T05:12:36.060590"
+    "Last_Updated": "2026-07-08T05:12:36.060590",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "age 5+",
+        "source": "Category_Attributes.Age Range (Description)"
+      },
+      "itemWeight": {
+        "value": "6.4 ounces",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Polycarbonate (PC)",
+        "source": "Product_Specifications.Materials_Care.Outer Material"
+      },
+      "dimensions": {
+        "value": "7.87 x 7.09 x 7.09 inches",
+        "source": "Product_Specifications.Measurements.Item Dimensions"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Polycarbonate (PC)",
+            "source": "Product_Specifications.Materials_Care.Outer Material"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "【Safety Kids Bike Helmet 】 The high density EPS foam liner helps to absorb shock to minimize impact harms to kid’s head. The thickened soft heat-sealed lining and chin pad avoid children’ heads from abrasions effectivel..."
+          },
+          {
+            "source": "Features[3]",
+            "text": "【Visor and Adjustment System】Single-Hand dial retention system is easy to adjust and make the cycling helmet perfect fit on your head, The detachable visor on the boys bike helmet prevents the sun from shining directly..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "Kids Helmet, Exclusky Kids Bike Helmet Adjustable Safety Lightweight Children Bicycle Helmet for Kids Skating Cycling Scooter Boys and Girls Bicycle Helmets Ages 5-14"
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+            "text": "We have been engaged in the helmet industry for more than ten years, starting from zero, and now we have our own brand (Exclusky), helmets have passed the CPSP/CPC and other certificates, and helmets are also protected..."
+          },
+          {
+            "source": "Product_Videos_Detail[3].Title",
+            "text": "Stylish & Safe Helmets for Our Adventures! Look up Close!"
+          }
+        ],
+        "parentTip": "Parent's Tip: 【Safety Kids Bike Helmet 】 The high density EPS foam liner helps to absorb shock to minimize impact harms to kid’s head. The thickened soft heat-sealed lining and chin pad avoid c..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "【Comfortable Kids Youth Bike Helmet】 This kids' bike helmets made of lightweight material, the inner pad use of breathable material to wear comfortably. The adoption of specialized aerodynamic and ventilation design all..."
+          }
+        ],
+        "parentTip": "Parent's Tip: 【Comfortable Kids Youth Bike Helmet】 This kids' bike helmets made of lightweight material, the inner pad use of breathable material to wear comfortably. The adoption of specialize..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "6.4 ounces",
+            "source": "Category_Attributes.Item Weight"
+          },
+          "dimensions": {
+            "value": "7.87 x 7.09 x 7.09 inches",
+            "source": "Product_Specifications.Measurements.Item Dimensions"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Product_Videos_Detail[5].Title",
+            "text": "Testing the Fit of This Lightweight Bike Helmet! KIDS LOVE"
+          }
+        ],
+        "parentTip": "Parent's Tip: Testing the Fit of This Lightweight Bike Helmet! KIDS LOVE"
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: 【Safety Kids Bike Helmet 】 The high density EPS foam liner helps to absorb shock to minimize impact harms to kid’s head. The thickened soft heat-sealed lining and chin pad avoid c...",
+      "ridingComfort": "Parent's Tip: 【Comfortable Kids Youth Bike Helmet】 This kids' bike helmets made of lightweight material, the inner pad use of breathable material to wear comfortably. The adoption of specialize...",
+      "lightAndEasy": "Parent's Tip: Testing the Fit of This Lightweight Bike Helmet! KIDS LOVE"
+    },
+    "Expert_Review_Inputs": {
+      "title": "Kids Helmet, Exclusky Kids Bike Helmet Adjustable Safety Lightweight Children Bicycle Helmet for Kids Skating Cycling Scooter Boys and Girls Bicycle Helmets Ages 5-8-14",
+      "brand": "Kids",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "【Safety Kids Bike Helmet 】 The high density EPS foam liner helps to absorb shock to minimize impact harms to kid’s head. The thickened soft heat-sealed lining and chin pad avoid children’ heads from abrasions effectively. The helmet has passed CE+CPSC dual certification, providing the best protection for children's safety."
+        },
+        {
+          "source": "Features[2]",
+          "text": "【Comfortable Kids Youth Bike Helmet】 This kids' bike helmets made of lightweight material, the inner pad use of breathable material to wear comfortably. The adoption of specialized aerodynamic and ventilation design allow air go through the boy bicycle helmet help increase the speed and keep stay cool."
+        },
+        {
+          "source": "Features[3]",
+          "text": "【Visor and Adjustment System】Single-Hand dial retention system is easy to adjust and make the cycling helmet perfect fit on your head, The detachable visor on the boys bike helmet prevents the sun from shining directly into the child's eyes providing more shade."
+        },
+        {
+          "source": "Features[4]",
+          "text": "【Applicable Scenarios】Girls and boys bike helmet as an essential protective gear for boys and girls in sports, We recommend using childrens bicycle helmet when children ride bicycles, trikes, ride-on cars, scooters, bike trailers and other activities like these."
+        },
+        {
+          "source": "Features[5]",
+          "text": "【Bike helmet】Exclusky team fully stand behind all Exclusky girls and boys bicycle helmet, if you are not satisfied with our product for any reason at any time, please contact our Exclusky team timely and we will make it right."
+        },
+        {
+          "source": "Product_Description",
+          "text": "Kids Helmet, Exclusky Kids Bike Helmet Adjustable Safety Lightweight Children Bicycle Helmet for Kids Skating Cycling Scooter Boys and Girls Bicycle Helmets Ages 5-14"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Children's helmet with brim"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "We have been engaged in the helmet industry for more than ten years, starting from zero, and now we have our own brand (Exclusky), helmets have passed the CPSP/CPC and other certificates, and helmets are also protected by patents, all of these are showing that we have the most professional team, and we have the best factories, so please believe in our helmets, which can completely protect your helmets."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "【Safety Kids Bike Helmet 】 The high density EPS foam liner helps to absorb shock to minimize impact harms to kid’s head. The thickened soft heat-sealed lining and chin pad avoid children’ heads from abrasions effectivel...",
+          "source": "Features[1]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "【Comfortable Kids Youth Bike Helmet】 This kids' bike helmets made of lightweight material, the inner pad use of breathable material to wear comfortably. The adoption of specialized aerodynamic and ventilation design all...",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "Testing the Fit of This Lightweight Bike Helmet! KIDS LOVE",
+          "source": "Product_Videos_Detail[5].Title"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
+    }
   },
   {
     "Rank": "Similar",
@@ -5322,7 +7206,139 @@
       "Age Range Description": "Kid",
       "Item Weight": "36.7 Pounds"
     },
-    "Last_Updated": "2026-07-08T05:12:15.575315"
+    "Last_Updated": "2026-07-08T05:12:15.575315",
+    "Product_Display_Fields": {
+      "recommendedAge": {
+        "value": "Kid",
+        "source": "Category_Attributes.Age Range Description"
+      },
+      "weightLimit": {
+        "value": "66 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "36.7 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Alloy Steel, Polypropylene",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "42.9\"L x 28.4\"W x 25.2\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      },
+      "battery": {
+        "value": "1 Hour",
+        "source": "Product_Specifications.Features_Specs.Battery Average Life"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Alloy Steel, Polypropylene",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "66 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "MANUAL AND PARENT CONTROL: Let your child drive manually or use the remote control to safely guide them yourself; remote has forward/reverse and left/right controls"
+          },
+          {
+            "source": "Features[4]",
+            "text": "CHILD-FRIENDLY DESIGN: Includes a battery-powered steering wheel, a seat harness with locking doors, a truck bed for easy toy storage, and functional headlights for interactive fun!"
+          },
+          {
+            "source": "Product_Description",
+            "text": "REALISTIC DRIVING ACTION: Give your kids a realistic behind-the-wheel experience with controls sized for small hands and a powerful 12V battery that runs up to 1 hour on a full charge and a max speed of 2.5 mph MANUAL A..."
+          }
+        ],
+        "parentTip": "Parent's Tip: MANUAL AND PARENT CONTROL: Let your child drive manually or use the remote control to safely guide them yourself; remote has forward/reverse and left/right controls"
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "36.7 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          },
+          "dimensions": {
+            "value": "42.9\"L x 28.4\"W x 25.2\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          },
+          "battery": {
+            "value": "1 Hour",
+            "source": "Product_Specifications.Features_Specs.Battery Average Life"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: MANUAL AND PARENT CONTROL: Let your child drive manually or use the remote control to safely guide them yourself; remote has forward/reverse and left/right controls",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Best Choice Products 12V Licensed Chevrolet Silverado Ride On Truck, Electric Car Toy w/Parent Remote Control, Truck Bed Stor",
+      "brand": "Best",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "REALISTIC DRIVING ACTION: Give your kids a realistic behind-the-wheel experience with controls sized for small hands and a powerful 12V battery that runs up to 1 hour on a full charge and a max speed of 2.5 mph"
+        },
+        {
+          "source": "Features[2]",
+          "text": "MANUAL AND PARENT CONTROL: Let your child drive manually or use the remote control to safely guide them yourself; remote has forward/reverse and left/right controls"
+        },
+        {
+          "source": "Features[3]",
+          "text": "PERFECTLY SIZED: Precision designed to accurately recreate the Chevrolet Silverado truck, scaled down so your little ones can have a fun-sized ride"
+        },
+        {
+          "source": "Features[4]",
+          "text": "CHILD-FRIENDLY DESIGN: Includes a battery-powered steering wheel, a seat harness with locking doors, a truck bed for easy toy storage, and functional headlights for interactive fun!"
+        },
+        {
+          "source": "Features[5]",
+          "text": "BLUETOOTH CONNECTIVITY: A built-in sound system allows kids to connect their media devices and enjoy their drive with their favorite music; OVERALL DIMENSIONS: 42.9\"(L) x 28.4\"(W) x 25.2\"(H); WEIGHT CAPACITY: 66 lbs."
+        },
+        {
+          "source": "Product_Description",
+          "text": "REALISTIC DRIVING ACTION: Give your kids a realistic behind-the-wheel experience with controls sized for small hands and a powerful 12V battery that runs up to 1 hour on a full charge and a max speed of 2.5 mph MANUAL AND PARENT CONTROL: Let your child drive manually or use the remote control to safely guide them yourself; remote has forward/reverse and left/right controls PERFECTLY SIZED: Precision designed to accurately recreate the Chevrolet Silverado truck, scaled down so your little ones can have a fun-sized ride"
+        },
+        {
+          "source": "Product_Specifications.Measurements.Size",
+          "text": "Size: 12V"
+        },
+        {
+          "source": "Product_Specifications.Measurements.Item Weight",
+          "text": "Item Weight: 36.7 Pounds"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "MANUAL AND PARENT CONTROL: Let your child drive manually or use the remote control to safely guide them yourself; remote has forward/reverse and left/right controls",
+          "source": "Features[2]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
+    }
   },
   {
     "Rank": "Similar",
@@ -5625,7 +7641,146 @@
     "Category_Attributes": {
       "Item Weight": "56 Pounds"
     },
-    "Last_Updated": "2026-07-08T05:12:28.579115"
+    "Last_Updated": "2026-07-08T05:12:28.579115",
+    "customers_say": "Customers find this ride-on toy to be an amazing little car that's easy to assemble and serves as a great gift for children, particularly 4-year-olds and grandchildren. The battery life is impressive, and the remote control feature works well. While the functionality and durability receive mixed reviews, with some customers reporting the gas pedal stops working and others mentioning durability issues, customers consider it worth the price.",
+    "Product_Display_Fields": {
+      "weightLimit": {
+        "value": "132 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "56 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Metal, PP Plastic",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "44\"L x 31.7\"W x 30.7\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Metal, PP Plastic",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "132 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[3]",
+            "text": "Ultimate Safety Features: Equipped with two individual 3-point seat belts and anti-slip seats, this ride on cars for kids ages 3-8 prioritizes safety with parental remote control, soft start, and rear shock function. It..."
+          },
+          {
+            "source": "Features[4]",
+            "text": "Endless Entertainment: Packed with music, Bluetooth, and a built-in radio, this 24V ride-on car creates a fun-filled world for kids. They can sing along, enjoy stories, and cruise with joy. Plus, the volume is fully adj..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "Superior Performance: Powered by a 24v battery with dual drive, this kids ride on toys offers three-speed options: 2.0, 2.7, and 4.3 mph. The battery life ranges from 50 minutes to 2 hours, varying based on usage and sp..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "OFFICIALLY LICENSED BY FORD BRONCO RAPTOR: This 24v ride on toys for big kids delivers an authentic driving experience Spacious Dual-Seater Fun: Featuring a 21-inch dual seat, this 24v kids ride on car is perfect for si..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+            "text": "First Ride On First Ride On, Love at First Ride We want kids to fall in love with outdoor play the moment they see our officially licensed, highly realistic ride-on that looks and feels like a real car made just for the..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Ultimate Safety Features: Equipped with two individual 3-point seat belts and anti-slip seats, this ride on cars for kids ages 3-8 prioritizes safety with parental remote control,..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "Spacious Dual-Seater Fun: Featuring a 21-inch dual seat, this 24v kids ride on car is perfect for siblings or friends to enjoy together. It is ideal for a larger child, offering comfortable seating with left-side drivin..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Spacious Dual-Seater Fun: Featuring a 21-inch dual seat, this 24v kids ride on car is perfect for siblings or friends to enjoy together. It is ideal for a larger child, offering c..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "56 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          },
+          "dimensions": {
+            "value": "44\"L x 31.7\"W x 30.7\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Ultimate Safety Features: Equipped with two individual 3-point seat belts and anti-slip seats, this ride on cars for kids ages 3-8 prioritizes safety with parental remote control,...",
+      "ridingComfort": "Parent's Tip: Spacious Dual-Seater Fun: Featuring a 21-inch dual seat, this 24v kids ride on car is perfect for siblings or friends to enjoy together. It is ideal for a larger child, offering c...",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "First Ride On Ford Bronco 24V Ride on Toys for Boys & Girls, 2 Seater Kids Electric Car with Remote Control, Kids Ride on Truck with Rear Wheels Suspension, Led Lights, Safety Belt (24V, Red)",
+      "brand": "First",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "OFFICIALLY LICENSED BY FORD BRONCO RAPTOR: This 24v ride on toys for big kids delivers an authentic driving experience"
+        },
+        {
+          "source": "Features[2]",
+          "text": "Spacious Dual-Seater Fun: Featuring a 21-inch dual seat, this 24v kids ride on car is perfect for siblings or friends to enjoy together. It is ideal for a larger child, offering comfortable seating with left-side driving and two-seat driving for a more realistic car experience"
+        },
+        {
+          "source": "Features[3]",
+          "text": "Ultimate Safety Features: Equipped with two individual 3-point seat belts and anti-slip seats, this ride on cars for kids ages 3-8 prioritizes safety with parental remote control, soft start, and rear shock function. It ensures a secure and smooth ride, allowing parents to confidently let their children drive and explore"
+        },
+        {
+          "source": "Features[4]",
+          "text": "Endless Entertainment: Packed with music, Bluetooth, and a built-in radio, this 24V ride-on car creates a fun-filled world for kids. They can sing along, enjoy stories, and cruise with joy. Plus, the volume is fully adjustable—turn it up to enjoy loud, clear sound even while driving. It offers an immersive space for little riders and a bit of peace for parents too"
+        },
+        {
+          "source": "Features[5]",
+          "text": "Superior Performance: Powered by a 24v battery with dual drive, this kids ride on toys offers three-speed options: 2.0, 2.7, and 4.3 mph. The battery life ranges from 50 minutes to 2 hours, varying based on usage and speed. The three-speed settings cater to different age groups, making it suitable for various driving scenarios. Enjoy safe outdoor fun with a 98ft remote control range for worry-free play!"
+        },
+        {
+          "source": "Features[6]",
+          "text": "Creating Unforgettable Memories: Perfect for milestone celebrations, this kids ride on toy with parent remote brings joy and creates lasting memories. It offers an excellent opportunity for parent-child interaction and helps kids develop cognitive, coordination, and driving skills, making it a cherished present that children will treasure and enjoy for years to come"
+        },
+        {
+          "source": "Product_Description",
+          "text": "OFFICIALLY LICENSED BY FORD BRONCO RAPTOR: This 24v ride on toys for big kids delivers an authentic driving experience Spacious Dual-Seater Fun: Featuring a 21-inch dual seat, this 24v kids ride on car is perfect for siblings or friends to enjoy together. It is ideal for a larger child, offering comfortable seating with left-side driving and two-seat driving for a more realistic car experience Ultimate Safety Features: Equipped with two individual 3-point seat belts and anti-slip seats, this ride on cars for kids ages 3-8 prioritizes safety with parental remote control, soft start, and rear shock function. It ensures a secure and smooth ride, allowing parents to confidently let their children drive and explore"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "First Ride On"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Ultimate Safety Features: Equipped with two individual 3-point seat belts and anti-slip seats, this ride on cars for kids ages 3-8 prioritizes safety with parental remote control, soft start, and rear shock function. It...",
+          "source": "Features[3]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "Spacious Dual-Seater Fun: Featuring a 21-inch dual seat, this 24v kids ride on car is perfect for siblings or friends to enjoy together. It is ideal for a larger child, offering comfortable seating with left-side drivin...",
+          "source": "Features[2]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
+    }
   },
   {
     "Rank": "Similar",
@@ -5915,7 +8070,164 @@
     "Category_Attributes": {
       "Item Weight": "14.33 Pounds"
     },
-    "Last_Updated": "2026-07-08T05:12:34.932813"
+    "Last_Updated": "2026-07-08T05:12:34.932813",
+    "customers_say": "Customers find this ride-on toy fun and engaging, particularly suitable for 3-year-olds, with good battery life lasting up to 120 minutes. The car is easy to assemble with clear instructions, and customers appreciate its durability, with one mentioning it supports up to 130 lbs. Moreover, they like its maneuverability, with one customer noting it turns around in a short space, and find it easy to handle and drive. Additionally, they enjoy the music feature, with one mentioning it plays music via Bluetooth. However, functionality receives mixed reviews, with some reporting the motor stops working entirely.",
+    "Product_Display_Fields": {
+      "weightLimit": {
+        "value": "132 Pounds",
+        "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "14.33 Pounds",
+        "source": "Category_Attributes.Item Weight"
+      },
+      "frameMaterial": {
+        "value": "Plastic",
+        "source": "Product_Specifications.Materials_Care.Material Type"
+      },
+      "dimensions": {
+        "value": "30.7\"L x 13.38\"W x 14.96\"H",
+        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+      },
+      "battery": {
+        "value": "120 minutes",
+        "source": "Product_Specifications.Features_Specs.Battery Average Life"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Plastic",
+            "source": "Product_Specifications.Materials_Care.Material Type"
+          },
+          "weightLimit": {
+            "value": "132 Pounds",
+            "source": "Product_Specifications.Measurements.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[2]",
+            "text": "Long-Lasting 12V Battery: Powered by a 12V safe lead-acid rechargeable battery, this ride on toy provides up to 120 minutes of continuous ride per charge under 110lbs load( the lighter the longer playing time). Quick-re..."
+          },
+          {
+            "source": "Features[3]",
+            "text": "Anti-Slip Safety & 2.5MPH Max Speed : The triangle anti-roll chassis, upgraded anti-roll rear wheel, effectively prevents side tilt. 12V battery and 30W powerful motor, maximum speed 2.5mph, feel the speed and passion o..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "Fun for Kids: The electric wiggle car's 360° swivel wheels enable sharp turns and drifts while building balance! Features built-in songs / music speaker 2 modes. Freely adjust volume and songs and switch modes for extra..."
+          }
+        ],
+        "parentTip": "Parent's Tip: Long-Lasting 12V Battery: Powered by a 12V safe lead-acid rechargeable battery, this ride on toy provides up to 120 minutes of continuous ride per charge under 110lbs load( the li..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [
+          {
+            "source": "Features[4]",
+            "text": "Easy 5 Minute Assembly: 1, Attach the Handlebar–Secure it to the front with screws; 2, Install the rear wheel set–Fix it to the base with screws; 3, Connect the Wires–Plug the wheel's wire into the motor adapter cable...."
+          }
+        ],
+        "parentTip": "Parent's Tip: Easy 5 Minute Assembly: 1, Attach the Handlebar–Secure it to the front with screws; 2, Install the rear wheel set–Fix it to the base with screws; 3, Connect the Wires–Plug the whe..."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "14.33 Pounds",
+            "source": "Category_Attributes.Item Weight"
+          },
+          "dimensions": {
+            "value": "30.7\"L x 13.38\"W x 14.96\"H",
+            "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          },
+          "battery": {
+            "value": "120 minutes",
+            "source": "Product_Specifications.Features_Specs.Battery Average Life"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Product_Videos_Detail[2].Title",
+            "text": "How to Assemble Your Electric Wiggle Car(Step-by-Step Guide)"
+          },
+          {
+            "source": "Product_Videos_Detail[3].Title",
+            "text": "QUICK LOOK - Gotrax WG1 Electric Wiggle Car"
+          },
+          {
+            "source": "Product_Videos_Detail[7].Title",
+            "text": "Electric Wiggle Car. Easy assembly? Durable? Work well? Watch to see!"
+          }
+        ],
+        "parentTip": "Parent's Tip: How to Assemble Your Electric Wiggle Car(Step-by-Step Guide)"
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: Long-Lasting 12V Battery: Powered by a 12V safe lead-acid rechargeable battery, this ride on toy provides up to 120 minutes of continuous ride per charge under 110lbs load( the li...",
+      "ridingComfort": "Parent's Tip: Easy 5 Minute Assembly: 1, Attach the Handlebar–Secure it to the front with screws; 2, Install the rear wheel set–Fix it to the base with screws; 3, Connect the Wires–Plug the whe...",
+      "lightAndEasy": "Parent's Tip: How to Assemble Your Electric Wiggle Car(Step-by-Step Guide)"
+    },
+    "Expert_Review_Inputs": {
+      "title": "Gotrax WG1 Electric Wiggle Car for Kids, 12V Big Battery up to 120Min Playtime, Music Speaker &Rear Flash Wheels, Battery Dis",
+      "brand": "Gotrax",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "Fun for Kids: The electric wiggle car's 360° swivel wheels enable sharp turns and drifts while building balance! Features built-in songs / music speaker 2 modes. Freely adjust volume and songs and switch modes for extra riding excitement!"
+        },
+        {
+          "source": "Features[2]",
+          "text": "Long-Lasting 12V Battery: Powered by a 12V safe lead-acid rechargeable battery, this ride on toy provides up to 120 minutes of continuous ride per charge under 110lbs load( the lighter the longer playing time). Quick-replace design for easy battery swaps."
+        },
+        {
+          "source": "Features[3]",
+          "text": "Anti-Slip Safety & 2.5MPH Max Speed : The triangle anti-roll chassis, upgraded anti-roll rear wheel, effectively prevents side tilt. 12V battery and 30W powerful motor, maximum speed 2.5mph, feel the speed and passion of the wiggle car."
+        },
+        {
+          "source": "Features[4]",
+          "text": "Easy 5 Minute Assembly: 1, Attach the Handlebar–Secure it to the front with screws; 2, Install the rear wheel set–Fix it to the base with screws; 3, Connect the Wires–Plug the wheel's wire into the motor adapter cable. It is ready for fun in minutes!"
+        },
+        {
+          "source": "Features[5]",
+          "text": "Light-Up Rear Wheels: The colorful flash LED lights boost fun, making rides more exciting. Kids love the vibrant glow, enhancing engagement. The wiggle car model is WG1, and it was authorized by the FCC, with an FCC ID of 2AWFV-WG1"
+        },
+        {
+          "source": "Product_Description",
+          "text": "Fun for Kids: The electric wiggle car's 360° swivel wheels enable sharp turns and drifts while building balance! Features built-in songs / music speaker 2 modes. Freely adjust volume and songs and switch modes for extra riding excitement! Long-Lasting 12V Battery: Powered by a 12V safe lead-acid rechargeable battery, this ride on toy provides up to 120 minutes of continuous ride per charge under 110lbs load( the lighter the longer playing time). Quick-replace design for easy battery swaps. Anti-Slip Safety & 2.5MPH Max Speed : The triangle anti-roll chassis, upgraded anti-roll rear wheel, effectively prevents side tilt. 12V battery and 30W powerful motor, maximum speed 2.5mph, feel the speed and passion of the wiggle car."
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "360° Spins Obsessed! Kid’s Favorite Gotrax Wiggle Car Move – Endless Fun!"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "360° Spins Obsessed! Kid’s Favorite Gotrax Wiggle Car Move – Endless Fun! Christmas Hit! 360° Spinning Gotrax Electric Wiggle Car (120Min Playtime!) The video showcases the product in use. The video guides you through product setup. The video compares multiple products. The video shows the product being unpacked. Gotrax electric wiggle car"
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "Long-Lasting 12V Battery: Powered by a 12V safe lead-acid rechargeable battery, this ride on toy provides up to 120 minutes of continuous ride per charge under 110lbs load( the lighter the longer playing time). Quick-re...",
+          "source": "Features[2]"
+        },
+        {
+          "section": "Riding Comfort",
+          "seed": "Easy 5 Minute Assembly: 1, Attach the Handlebar–Secure it to the front with screws; 2, Install the rear wheel set–Fix it to the base with screws; 3, Connect the Wires–Plug the wheel's wire into the motor adapter cable.....",
+          "source": "Features[4]"
+        },
+        {
+          "section": "Light & Easy",
+          "seed": "How to Assemble Your Electric Wiggle Car(Step-by-Step Guide)",
+          "source": "Product_Videos_Detail[2].Title"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
+    }
   },
   {
     "Rank": "Similar",
@@ -6167,6 +8479,134 @@
       "Manufacturer Maximum Age (MONTHS)": "96",
       "Is Assembly Required": "Yes"
     },
-    "Last_Updated": "2026-07-08T05:12:36.187678"
+    "Last_Updated": "2026-07-08T05:12:36.187678",
+    "Product_Display_Fields": {
+      "weightLimit": {
+        "value": "66 Pounds",
+        "source": "Category_Attributes.Weight Capacity Maximum"
+      },
+      "itemWeight": {
+        "value": "66 Pounds",
+        "source": "Category_Attributes.Weight Capacity Maximum"
+      },
+      "frameMaterial": {
+        "value": "Metal, Plastic",
+        "source": "Category_Attributes.Material Type"
+      },
+      "battery": {
+        "value": "1.5 Hours",
+        "source": "Category_Attributes.Battery Average Life"
+      }
+    },
+    "Scoring_Standards_Logic": {
+      "safetyFirst": {
+        "label": "Safety First",
+        "scoringInputs": {
+          "frameMaterial": {
+            "value": "Metal, Plastic",
+            "source": "Category_Attributes.Material Type"
+          },
+          "weightLimit": {
+            "value": "66 Pounds",
+            "source": "Category_Attributes.Weight Capacity Maximum"
+          }
+        },
+        "evidence": [
+          {
+            "source": "Features[1]",
+            "text": "2 Control Modes - If the child can drive byself, they can drive by themselvs with pedals and steering wheel. If the child can't drive yet, parents can use the remote control to control it, ensuring the safety of your ch..."
+          },
+          {
+            "source": "Features[5]",
+            "text": "Safety Assurance - Winado 12V electric truck is made of safe materials, complies with ASTM, CPSIA, and CPSC certifications, and is equipped with seat belts. It is suitable for children under 1.1 meters in height, so par..."
+          },
+          {
+            "source": "Product_Description",
+            "text": "2 Control Modes - If the child can drive byself, they can drive by themselvs with pedals and steering wheel. If the child can't drive yet, parents can use the remote control to control it, ensuring the safety of your ch..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+            "text": "Give your child the thrill of driving with Winado's 12V Electric Car. Featuring dual control modes, Bluetooth connectivity, and LED lights, mini Truck offers a realistic driving experience. With safety features like sof..."
+          },
+          {
+            "source": "From_The_Manufacturer.Sections[1].Texts[3]",
+            "text": "Periodic Charging Charge the battery every 1 month to prevent deep discharge and maintain its condition."
+          }
+        ],
+        "parentTip": "Parent's Tip: 2 Control Modes - If the child can drive byself, they can drive by themselvs with pedals and steering wheel. If the child can't drive yet, parents can use the remote control to co..."
+      },
+      "ridingComfort": {
+        "label": "Riding Comfort",
+        "scoringInputs": {},
+        "evidence": [],
+        "parentTip": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues."
+      },
+      "lightAndEasy": {
+        "label": "Light & Easy",
+        "scoringInputs": {
+          "itemWeight": {
+            "value": "66 Pounds",
+            "source": "Category_Attributes.Weight Capacity Maximum"
+          },
+          "battery": {
+            "value": "1.5 Hours",
+            "source": "Category_Attributes.Battery Average Life"
+          }
+        },
+        "evidence": [],
+        "parentTip": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+      }
+    },
+    "Parent_Tips": {
+      "safetyFirst": "Parent's Tip: 2 Control Modes - If the child can drive byself, they can drive by themselvs with pedals and steering wheel. If the child can't drive yet, parents can use the remote control to co...",
+      "ridingComfort": "Parent's Tip: We looked for seat support, adjustability, suspension, canopy, and smooth-ride cues.",
+      "lightAndEasy": "Parent's Tip: We checked weight, fold/carry language, storage, assembly, and everyday handling cues."
+    },
+    "Expert_Review_Inputs": {
+      "title": "Winado 12V Electric Car for Kids, Ride on Truck for Toddlers with Remote Control, Battery Powered Kids Electric Vehicle to Dr",
+      "brand": "Winado",
+      "evidenceHighlights": [
+        {
+          "source": "Features[1]",
+          "text": "2 Control Modes - If the child can drive byself, they can drive by themselvs with pedals and steering wheel. If the child can't drive yet, parents can use the remote control to control it, ensuring the safety of your child"
+        },
+        {
+          "source": "Features[2]",
+          "text": "Small Truck Real Experience - Mini Electric Car is fully functional and reduced in size, suitable for children. This ride-on toy can bear 66 pounds, allowing your child to have a realistic driving experience, and the controls are suitable for small hands"
+        },
+        {
+          "source": "Features[3]",
+          "text": "Multifunctional Operation - Electric kids car has a built-in MP3 player, Bluetooth and LED lights, allowing children to play their favorite music or stories while driving, creating a more realistic driving experience"
+        },
+        {
+          "source": "Features[4]",
+          "text": "Long-lasting Battery - Power electric toy is equipped with a 12V rechargeable battery, which can be charged for 8-12 hours each time and has a battery life of 1-2 hours, fully meeting children's long-term outdoor game needs"
+        },
+        {
+          "source": "Features[5]",
+          "text": "Safety Assurance - Winado 12V electric truck is made of safe materials, complies with ASTM, CPSIA, and CPSC certifications, and is equipped with seat belts. It is suitable for children under 1.1 meters in height, so parents can use it with confidence"
+        },
+        {
+          "source": "Product_Description",
+          "text": "2 Control Modes - If the child can drive byself, they can drive by themselvs with pedals and steering wheel. If the child can't drive yet, parents can use the remote control to control it, ensuring the safety of your child Small Truck Real Experience - Mini Electric Car is fully functional and reduced in size, suitable for children. This ride-on toy can bear 66 pounds, allowing your child to have a realistic driving experience, and the controls are suitable for small hands Multifunctional Operation - Electric kids car has a built-in MP3 player, Bluetooth and LED lights, allowing children to play their favorite music or stories while driving, creating a more realistic driving experience"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Title",
+          "text": "Winado 12V Electric Car - A Mini Truck for Your Little Driver"
+        },
+        {
+          "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+          "text": "Give your child the thrill of driving with Winado's 12V Electric Car. Featuring dual control modes, Bluetooth connectivity, and LED lights, mini Truck offers a realistic driving experience. With safety features like soft start and seat belts. Perfect for toddlers up to 66 pounds."
+        }
+      ],
+      "expertCommentSeeds": [
+        {
+          "section": "Safety First",
+          "seed": "2 Control Modes - If the child can drive byself, they can drive by themselvs with pedals and steering wheel. If the child can't drive yet, parents can use the remote control to control it, ensuring the safety of your ch...",
+          "source": "Features[1]"
+        }
+      ],
+      "sourcePolicy": "Derived from existing scrape_store metadata/report only; no live crawl."
+    }
   }
 ]

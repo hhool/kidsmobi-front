@@ -35,6 +35,14 @@ export default function ComparisonDashboard({
 }: ComparisonDashboardProps) {
   if (compareList.length === 0) return null;
 
+  const formatMetricValue = (key: string, value: unknown): string => {
+    const text = String(value ?? "").trim();
+    if (key === "ageRange" && (!text || /^all\s*ages?$/i.test(text) || /^confirm from source$/i.test(text))) {
+      return lang === "en" ? "Confirm from source" : "待抓取确认";
+    }
+    return text || (lang === "en" ? "Not specified" : "未标注");
+  };
+
   const metrics = [
     { key: "brand", label: lang === "en" ? "Manufacturer" : "制造商", icon: Package },
     { key: "categoryLabel", label: lang === "en" ? "Category" : "品类", icon: Layers },
@@ -142,6 +150,7 @@ export default function ComparisonDashboard({
                       val = convertWeightNum(Number(val), currencyData.code).toFixed(1);
                       suffix = " " + getWeightUnit(currencyData.code);
                     }
+                    val = formatMetricValue(m.key, val);
                     return (
                       <td key={p.id} className="p-8 px-10 border-l border-white/5 font-black text-white text-base">
                         {m.prefix}{val}{suffix}
