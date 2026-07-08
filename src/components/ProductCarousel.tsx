@@ -6,9 +6,10 @@ import { withImageFallback } from "../lib/productImages";
 interface ProductCarouselProps {
   images: string[];
   lang: "zh" | "en";
+  productName?: string;
 }
 
-export default function ProductCarousel({ images, lang }: ProductCarouselProps) {
+export default function ProductCarousel({ images, lang, productName }: ProductCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
 
@@ -44,6 +45,7 @@ export default function ProductCarousel({ images, lang }: ProductCarouselProps) 
           <motion.img
             key={currentIndex}
             src={images[currentIndex] || undefined}
+            alt={productName ? `${productName} - Image ${currentIndex + 1}` : `Product image ${currentIndex + 1}`}
             custom={direction}
             variants={slideVariants}
             initial="enter"
@@ -96,7 +98,7 @@ export default function ProductCarousel({ images, lang }: ProductCarouselProps) 
           >
             <img
               src={img || undefined}
-              alt={`Thumb ${idx}`}
+              alt={productName ? `${productName} - Thumbnail ${idx + 1}` : `Thumbnail ${idx + 1}`}
               className="w-full h-full object-contain"
               referrerPolicy="no-referrer"
               loading="lazy"

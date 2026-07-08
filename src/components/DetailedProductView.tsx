@@ -317,7 +317,7 @@ export default function DetailedProductView({
               {displayProduct.brand}
             </span>
           </div>
-          <h2 className="text-3xl font-black text-slate-900">{displayProduct.name}</h2>
+          <h1 className="text-3xl font-black text-slate-900">{displayProduct.name}</h1>
         </div>
         
         <div className="flex gap-3">
@@ -362,12 +362,14 @@ export default function DetailedProductView({
           {activeMediaTab === "gallery" ? (
             <ProductCarousel 
               images={[imageSet.coverUrl, ...imageSet.galleryUrls].filter(Boolean)} 
-              lang={lang} 
+              lang={lang}
+              productName={displayProduct.name}
             />
           ) : activeMediaTab === "feature" ? (
             <ProductCarousel 
               images={imageSet.featureUrls.filter(Boolean)} 
-              lang={lang} 
+              lang={lang}
+              productName={displayProduct.name}
             />
           ) : (
             <div className="aspect-video w-full">
