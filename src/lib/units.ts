@@ -44,6 +44,10 @@ export function convertHeightNum(cm: number, countryCode: string): number {
  * Formats a weight value based on the country code.
  */
 export function formatWeight(kg: number, countryCode: string): string {
+  if (!Number.isFinite(kg) || kg <= 0) {
+    return "";
+  }
+
   const isImperial = getUnitSystem(countryCode) === "imperial";
   if (isImperial) {
     const lbs = kg * 2.20462;

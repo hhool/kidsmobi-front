@@ -48,6 +48,7 @@ import { ChildProfile, Product, ChatMessage, CMSSettings, SEOConfig, Evaluation,
 import { translations, translateProduct, translateNewsArticle, translateGuideArticle, countries, getCurrencyData } from "./lib/translate";
 import { formatWeight, formatHeight } from "./lib/units";
 import { resolveProductImages } from "./lib/productImages";
+import { loadBatchProducts } from "./lib/loadBatchProducts";
 
 // Import modular layouts
 import HomeSection from "./components/HomeSection";
@@ -835,6 +836,41 @@ export default function App() {
       isActive = false;
     };
   }, [activeTab]);
+
+  // Load batch products from report files to supplement CMS data
+  useEffect(() => {
+    let isActive = true;
+
+    const loadBatchData = async () => {
+      try {
+        console.log("Loading batch products from reports...");
+        const batchProducts = await loadBatchProducts();
+        if (!isActive) return;
+        
+        if (batchProducts && batchProducts.length > 0) {
+          console.log(`Loaded ${batchProducts.length} batch products, merging with existing data`);
+          // Merge batch products with existing data, preferring batch if duplicate IDs exist
+          setProductsData(prev => {
+            const existingIds = new Set(prev.map(p => p.id));
+            const newProducts = batchProducts.filter(p => !existingIds.has(p.id));
+            return [...prev, ...newProducts];
+          });
+        }
+      } catch (err) {
+        console.error("Failed to load batch products:", err);
+      }
+    };
+
+    // Delay batch load slightly to let CMS data load first
+    const timer = setTimeout(() => {
+      loadBatchData();
+    }, 1000);
+
+    return () => {
+      isActive = false;
+      clearTimeout(timer);
+    };
+  }, []);
 
   // Synchronize bookmarked products whenever productsData or login state changes
   useEffect(() => {

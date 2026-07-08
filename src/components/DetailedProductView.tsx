@@ -24,7 +24,7 @@ import {
   Tooltip 
 } from "recharts";
 import { Product, CurrencyData, CMSSettings } from "../types";
-import { translateProduct } from "../lib/translate";
+import { translateProduct, translateCategory } from "../lib/translate";
 import { formatWeight } from "../lib/units";
 import { resolveProductImages } from "../lib/productImages";
 import ProductCarousel from "./ProductCarousel";
@@ -94,9 +94,7 @@ export default function DetailedProductView({
   const detailHighlights = [
     {
       label: lang === "en" ? "Category" : "品类",
-      value: lang === "en"
-        ? String(displayProduct.category || "").replace(/_/g, " ")
-        : String(displayProduct.category || "").replace(/_/g, " "),
+      value: translateCategory(String(displayProduct.category || ""), lang),
     },
     { label: lang === "en" ? "Age Range" : "适龄范围", value: String(displayProduct.ageRange || "") },
     { label: lang === "en" ? "Material" : "车架材质", value: String(displayProduct.material || "") },
