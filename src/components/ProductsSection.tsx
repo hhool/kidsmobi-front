@@ -52,25 +52,18 @@ function resolveCardVerdict(product: Product, lang: "zh" | "en"): string {
   const customersSay = pickCustomersSay(product, lang);
   const isVerdictPlaceholder = isPlaceholderVerdict(verdict);
   
-  // If verdict is placeholder and we have customersSay, use it
-  if (isVerdictPlaceholder && customersSay) {
-    return customersSay;
-  }
-  
   // If verdict is not placeholder, use it
   if (!isVerdictPlaceholder && verdict) {
     return verdict;
   }
   
-  // Fallback to customersSay or default
+  // If we have customersSay, use it
   if (customersSay) {
     return customersSay;
   }
   
-  // Last resort: default message
-  return lang === "zh" 
-    ? "建议人工复核产品参数和用户评价后发布。" 
-    : "Please review product specs and customer feedback before publishing.";
+  // Return empty string - no placeholder text for SEO health
+  return "";
 }
 
 function formatPriceDisplay(price: unknown, currencySymbol: string, lang: "zh" | "en"): string {
@@ -1098,9 +1091,11 @@ export default function ProductsSection({
                     </div>
                   </div>
 
-                  <p className="text-slate-500 text-xs line-clamp-2 leading-relaxed font-bold italic">
-                    “{verdictText}”
-                  </p>
+                  {verdictText && (
+                    <p className="text-slate-500 text-xs line-clamp-2 leading-relaxed font-bold italic">
+                      "{verdictText}"
+                    </p>
+                  )}
                 </div>
 
                 {/* Card actions */}

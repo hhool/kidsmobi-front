@@ -56,25 +56,18 @@ function resolveVerdictText(product: Product, lang: "zh" | "en"): string {
   const customersSay = resolveCustomersSay(product, lang);
   const isVerdictPlaceholder = isPlaceholderVerdict(verdict);
   
-  // If verdict is placeholder and we have customersSay, use it
-  if (isVerdictPlaceholder && customersSay) {
-    return customersSay;
-  }
-  
   // If verdict is not placeholder, use it
   if (!isVerdictPlaceholder && verdict) {
     return verdict;
   }
   
-  // Fallback to customersSay
+  // If we have customersSay, use it
   if (customersSay) {
     return customersSay;
   }
   
-  // Last resort: default message
-  return lang === "zh" 
-    ? "建议结合产品参数与用户评价后发布。" 
-    : "Please publish after reviewing product specs and customer feedback.";
+  // Return empty string - no placeholder text for SEO health
+  return "";
 }
 
 interface DetailedProductViewProps {
@@ -618,9 +611,11 @@ export default function DetailedProductView({
                 <ShieldCheck className="w-4 h-4" />
                 {lang === "en" ? "Editor Verdict" : "本站终极评价"}
               </h4>
-              <p className="text-sm text-slate-700 font-bold leading-relaxed italic">
-                “{verdictText}”
-              </p>
+              {verdictText && (
+                <p className="text-sm text-slate-700 font-bold leading-relaxed italic">
+                  "{verdictText}"
+                </p>
+              )}
 
               {customersSayText && (
                 <div className="bg-white/80 border border-orange-100 rounded-2xl p-4 space-y-2">
