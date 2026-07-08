@@ -50,10 +50,27 @@ function pickCustomersSay(product: Product, lang: "zh" | "en"): string {
 function resolveCardVerdict(product: Product, lang: "zh" | "en"): string {
   const verdict = String(product.editorVerdict || "").trim();
   const customersSay = pickCustomersSay(product, lang);
-  if (isPlaceholderVerdict(verdict)) {
-    return customersSay || verdict || (lang === "zh" ? "建议人工复核后发布。" : "Editorial review is recommended before publish.");
+  const isVerdictPlaceholder = isPlaceholderVerdict(verdict);
+  
+  // If verdict is placeholder and we have customersSay, use it
+  if (isVerdictPlaceholder && customersSay) {
+    return customersSay;
   }
-  return verdict || customersSay || (lang === "zh" ? "建议人工复核后发布。" : "Editorial review is recommended before publish.");
+  
+  // If verdict is not placeholder, use it
+  if (!isVerdictPlaceholder && verdict) {
+    return verdict;
+  }
+  
+  // Fallback to customersSay or default
+  if (customersSay) {
+    return customersSay;
+  }
+  
+  // Last resort: default message
+  return lang === "zh" 
+    ? "建议人工复核产品参数和用户评价后发布。" 
+    : "Please review product specs and customer feedback before publishing.";
 }
 
 function formatPriceDisplay(price: unknown, currencySymbol: string, lang: "zh" | "en"): string {
@@ -728,10 +745,11 @@ export default function ProductsSection({
 
   return (
     <div id="product_library" className="space-y-8 animate-fade-in text-left">
-      <h1 className="sr-only">
-        {lang === "en"
-          ? "Stroller, Jogging Stroller, and Travel Stroller Product Database"
-          : "stroller 与 jogging stroller 产品数据库"}
+      {/* Primary H1 for SEO - visible to search engines */}
+      <h1 className="text-3xl font-black text-slate-900 text-center">
+        {lang === "en" 
+          ? "Best Kids' Stroller, Jogging Stroller, Balance Bike & Kids Scooter - KIDSMOBI Reviews" 
+          : "儿童推车、平衡车、儿童滑板车选购指南 | KIDSMOBI 产品数据库"}
       </h1>
       
       {/* Breadcrumbs (PRD 4.2.2) */}
@@ -748,12 +766,12 @@ export default function ProductsSection({
             <BookOpen className="w-6 h-6 text-orange-500" />
           </div>
         </div>
-        <h2 className="text-3xl font-black text-slate-900">
-          {lang === "en" ? "Kids' Mobility Discovery Hub: Travel Strollers, Bikes & Scooters" : "儿童出行发现大厅"}
+        <h2 className="text-2xl font-bold text-slate-700 mt-4">
+          {lang === "en" ? "Kids' Mobility Discovery Hub: Strollers & Jogging Stroller, Bikes & Balance Bike, Toddler Bike, Kids Scooter" : "儿童出行发现大厅"}
         </h2>
         <p className="text-sm text-slate-500 font-medium">
           {lang === "en" 
-            ? "Compare travel strollers, balance bikes, kids bikes, kids tricycles, and kids scooters with test-backed safety metrics and how to choose a baby stroller guidance." 
+            ? "Compare strollers & jogging stroller, bikes & balance bike, toddler bike,and kids scooter with test-backed safety metrics and how to choose a baby stroller guidance." 
             : "每一款入库产品都经过专人实测，只为给宝宝选择最合适的那一辆。"}
         </p>
         {seoKeywordHints.length > 0 && (

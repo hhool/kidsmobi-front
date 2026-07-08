@@ -100,9 +100,9 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
       keywords: ["童车参数对比", "平衡车挑选数据库", "童车重量对比", "几何重心分析"]
     },
     en: {
-      title: "Travel Strollers, Balance Bikes & Scooters | KIDSMOBI",
-      description: "Compare specs for all types of kids' mobility products. Find the best travel stroller, balance bike, kids bike, kids tricycle, and kids scooter",
-      keywords: ["travel stroller", "balance bike", "kids scooter", "kids bike", "kids tricycle"]
+      title: "Jogging Stroller, Balance Bike & Kids Scooter | KIDSMOBI",
+      description: "Compare specs for all types of kids' mobility products. Find the best kids stroller, jogging stroller, balance bike, toddler bike, and kids scooter",
+      keywords: ["kids stroller", "jogging stroller", "balance bike", "toddler bike", "kids scooter"]
     }
   },
   evaluations: {
@@ -163,11 +163,10 @@ const DEFAULT_CMS_PAGE_BLUEPRINT: Record<string, CMSPageConfig> = {
 
 const PRODUCTS_PAGE_KEYWORDS_EN = [
   "kids stroller",
+  "jogging stroller",
   "balance bike",
-  "kids bike",
-  "kids tricycle",
+  "toddler bike",
   "kids scooter",
-  "kids electric vehicle"
 ];
 
 const applyPageKeywordOverride = (seoKey: string, keywords: string[], lang: "zh" | "en", activeProductCategory = "all") => {

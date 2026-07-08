@@ -54,10 +54,27 @@ function resolveCustomersSay(product: Product, lang: "zh" | "en"): string {
 function resolveVerdictText(product: Product, lang: "zh" | "en"): string {
   const verdict = String(product.editorVerdict || "").trim();
   const customersSay = resolveCustomersSay(product, lang);
-  if (isPlaceholderVerdict(verdict)) {
-    return customersSay || (lang === "zh" ? "建议结合参数与用户反馈后发布。" : "Please publish after reviewing specs and customer feedback.");
+  const isVerdictPlaceholder = isPlaceholderVerdict(verdict);
+  
+  // If verdict is placeholder and we have customersSay, use it
+  if (isVerdictPlaceholder && customersSay) {
+    return customersSay;
   }
-  return verdict || customersSay || (lang === "zh" ? "建议结合参数与用户反馈后发布。" : "Please publish after reviewing specs and customer feedback.");
+  
+  // If verdict is not placeholder, use it
+  if (!isVerdictPlaceholder && verdict) {
+    return verdict;
+  }
+  
+  // Fallback to customersSay
+  if (customersSay) {
+    return customersSay;
+  }
+  
+  // Last resort: default message
+  return lang === "zh" 
+    ? "建议结合产品参数与用户评价后发布。" 
+    : "Please publish after reviewing product specs and customer feedback.";
 }
 
 interface DetailedProductViewProps {
