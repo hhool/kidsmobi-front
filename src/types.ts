@@ -81,6 +81,7 @@ export interface Product {
   geometryScore?: number;
   pros?: string[];
   cons?: string[];
+  customers_say?: string;
   safetyCertification?: string[];
   editorVerdict?: string;
 }
@@ -89,6 +90,7 @@ export interface CMSProduct extends Product {
   zh: {
     name: string;
     description: string;
+    customersSay?: string;
     brandText?: string;
     specsText?: string;
     pros?: string[];
@@ -98,6 +100,7 @@ export interface CMSProduct extends Product {
   en: {
     name: string;
     description: string;
+    customersSay?: string;
     brandText?: string;
     specsText?: string;
     pros?: string[];

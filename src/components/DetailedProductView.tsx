@@ -29,6 +29,37 @@ import { formatWeight } from "../lib/units";
 import { resolveProductImages } from "../lib/productImages";
 import ProductCarousel from "./ProductCarousel";
 
+const PLACEHOLDER_VERDICT_PATTERNS = [
+  "pending editorial enrichment",
+  "请补充评测",
+  "待编辑",
+  "needs editorial enrichment",
+  "please enrich editorial content before publishing",
+];
+
+function isPlaceholderVerdict(value: unknown): boolean {
+  const text = String(value || "").trim().toLowerCase();
+  if (!text) return true;
+  return PLACEHOLDER_VERDICT_PATTERNS.some((pattern) => text.includes(pattern));
+}
+
+function resolveCustomersSay(product: Product, lang: "zh" | "en"): string {
+  const localized = (product as Product & {
+    zh?: { customersSay?: string };
+    en?: { customersSay?: string };
+  })[lang]?.customersSay;
+  return String(localized || product.customers_say || "").trim();
+}
+
+function resolveVerdictText(product: Product, lang: "zh" | "en"): string {
+  const verdict = String(product.editorVerdict || "").trim();
+  const customersSay = resolveCustomersSay(product, lang);
+  if (isPlaceholderVerdict(verdict)) {
+    return customersSay || (lang === "zh" ? "建议结合参数与用户反馈后发布。" : "Please publish after reviewing specs and customer feedback.");
+  }
+  return verdict || customersSay || (lang === "zh" ? "建议结合参数与用户反馈后发布。" : "Please publish after reviewing specs and customer feedback.");
+}
+
 interface DetailedProductViewProps {
   product: Product;
   allProducts: Product[];
@@ -57,6 +88,25 @@ export default function DetailedProductView({
   cmsSettings
 }: DetailedProductViewProps) {
   const displayProduct = translateProduct(product, lang);
+  const verdictText = resolveVerdictText(displayProduct, lang);
+  const customersSayText = resolveCustomersSay(displayProduct, lang);
+  const hasRealWeight = typeof displayProduct.weight === "number" && Number.isFinite(displayProduct.weight) && displayProduct.weight > 0;
+  const detailHighlights = [
+    {
+      label: lang === "en" ? "Category" : "品类",
+      value: lang === "en"
+        ? String(displayProduct.category || "").replace(/_/g, " ")
+        : String(displayProduct.category || "").replace(/_/g, " "),
+    },
+    { label: lang === "en" ? "Age Range" : "适龄范围", value: String(displayProduct.ageRange || "") },
+    { label: lang === "en" ? "Material" : "车架材质", value: String(displayProduct.material || "") },
+    { label: lang === "en" ? "Tire" : "轮胎类型", value: String(displayProduct.tireType || "") },
+    { label: lang === "en" ? "Brake" : "制动系统", value: String(displayProduct.brakeType || "") },
+    {
+      label: lang === "en" ? "Safety Tags" : "安全标签",
+      value: (displayProduct.compliance || displayProduct.safetyCertification || []).join(", "),
+    },
+  ].filter((item) => item.value && item.value.trim());
   const imageSet = resolveProductImages(displayProduct);
   const hasVideo = Boolean(product.videoUrl);
   const hasFeatureImages = imageSet.featureUrls.length > 0;
@@ -517,7 +567,7 @@ export default function DetailedProductView({
 
               <div className="space-y-5">
                  {[
-                   { label: lang === "en" ? "Weight" : "整车自重", val1: formatWeight(displayProduct.weight, currencyData.code), val2: comparedProduct ? formatWeight(comparedProduct.weight, currencyData.code) : null, highlight1: displayProduct.weight < (comparedProduct?.weight || 6), highlight2: comparedProduct ? comparedProduct.weight < displayProduct.weight : false },
+                   ...(hasRealWeight ? [{ label: lang === "en" ? "Weight" : "整车自重", val1: formatWeight(displayProduct.weight, currencyData.code), val2: comparedProduct ? formatWeight(comparedProduct.weight, currencyData.code) : null, highlight1: displayProduct.weight < (comparedProduct?.weight || 6), highlight2: comparedProduct ? comparedProduct.weight < displayProduct.weight : false }] : []),
                    { label: lang === "en" ? "Tires" : "轮胎材质", val1: displayProduct.tireType, val2: comparedProduct?.tireType },
                    { label: lang === "en" ? "Frame" : "主要架构", val1: displayProduct.material, val2: comparedProduct?.material },
                    { label: lang === "en" ? "Wheel Size" : "轮毂规格", val1: displayProduct.wheelSize, val2: comparedProduct?.wheelSize },
@@ -554,8 +604,33 @@ export default function DetailedProductView({
                 {lang === "en" ? "Editor Verdict" : "本站终极评价"}
               </h4>
               <p className="text-sm text-slate-700 font-bold leading-relaxed italic">
-                “{displayProduct.editorVerdict}”
+                “{verdictText}”
               </p>
+
+              {customersSayText && (
+                <div className="bg-white/80 border border-orange-100 rounded-2xl p-4 space-y-2">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">
+                    {lang === "en" ? "Customers Say" : "用户反馈摘要"}
+                  </p>
+                  <p className="text-xs text-slate-700 leading-relaxed font-semibold">{customersSayText}</p>
+                </div>
+              )}
+
+              {detailHighlights.length > 0 && (
+                <div className="bg-white/80 border border-orange-100 rounded-2xl p-4 space-y-3">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">
+                    {lang === "en" ? "Collected Data Highlights" : "采集数据亮点"}
+                  </p>
+                  <div className="space-y-2">
+                    {detailHighlights.slice(0, 6).map((item, index) => (
+                      <div key={`${item.label}-${index}`} className="flex items-start justify-between gap-4 text-xs">
+                        <span className="text-slate-500 font-bold">{item.label}</span>
+                        <span className="text-slate-800 font-semibold text-right">{item.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
            </div>
         </div>
       </div>

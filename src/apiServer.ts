@@ -47,6 +47,8 @@ interface WorkerProduct {
   weight?: { display?: string; lbs?: number };
   classification?: Record<string, string>;
   availability?: string;
+  customers_say?: string;
+  customersSay?: string;
   coverImage?: string;
   galleryUrls?: string[];
   videoUrls?: string[];
@@ -66,6 +68,8 @@ interface WorkerResource {
   summary: string;
   publishTime: string | null;
   source: string;
+  customers_say?: string;
+  customersSay?: string;
   resourceUrl?: string;
   videoUrls?: string[];
   credibilityScore: number;
@@ -78,9 +82,15 @@ interface AdminResourceProduct {
   categoryId: string;
   title: string;
   brand: string;
+  customers_say?: string;
   coverImage?: string;
   galleryImages: string[];
   videoUrls: string[];
+}
+
+function pickCustomersSay(...values: Array<unknown>): string {
+  const hit = values.find((value) => typeof value === "string" && value.trim().length > 0);
+  return hit ? String(hit).trim() : "";
 }
 
 interface WorkerDiscoveryHome {
@@ -260,6 +270,7 @@ function buildCMSCategoryFromWorker(item: WorkerCategory, index: number): CMSCat
 }
 
 function buildCMSProductFromResourceRow(row: AdminResourceProduct): CMSProduct {
+  const editorVerdict = row.customers_say || "";
   return {
     id: row.id,
     name: row.title,
@@ -277,6 +288,7 @@ function buildCMSProductFromResourceRow(row: AdminResourceProduct): CMSProduct {
     imageUrl: row.coverImage || "",
     galleryUrls: row.galleryImages || [],
     videoUrl: row.videoUrls?.[0] || "",
+    customers_say: row.customers_say || "",
     videos: (row.videoUrls || []).map((url, idx) => ({
       url,
       title: `init-video-${idx + 1}`,
@@ -291,21 +303,24 @@ function buildCMSProductFromResourceRow(row: AdminResourceProduct): CMSProduct {
     zh: {
       name: row.title,
       description: "由 backend 原始数据初始化到 D1。",
+      customersSay: row.customers_say || "",
       brandText: row.brand || "Unknown",
       specsText: "Initialized from backend resources.",
       pros: ["backend source"],
       cons: ["needs editorial enrichment"],
-      editorVerdict: "建议补充评测文案后发布。",
+      editorVerdict,
     },
     en: {
       name: row.title,
       description: "Initialized into D1 from backend source data.",
+      customersSay: row.customers_say || "",
       brandText: row.brand || "Unknown",
       specsText: "Initialized from backend resources.",
       pros: ["backend source"],
       cons: ["needs editorial enrichment"],
-      editorVerdict: "Please enrich editorial content before publishing.",
+      editorVerdict,
     },
+    editorVerdict,
     updatedAt: new Date().toISOString(),
   };
 }
@@ -328,9 +343,19 @@ const BASELINE_CATEGORY_TEMPLATES: Array<{
 function buildBaselineCMSProductFromStatic(product: Product): CMSProduct {
   const name = String(product.name || "").trim() || String(product.brand || "Product");
   const description = `${name} baseline entry initialized from local modelsData.`;
+  const verdictSource = String(
+    (product as { editorVerdict?: string; customers_say?: string; customersSay?: string }).editorVerdict ||
+      (product as { customers_say?: string }).customers_say ||
+      (product as { customersSay?: string }).customersSay ||
+      "",
+  ).trim();
+  const baselineVerdict =
+    verdictSource || `${name} baseline entry imported from local models data; editorial review is recommended.`;
   return {
     ...(product as CMSProduct),
     status: product.status || "draft",
+    editorVerdict: baselineVerdict,
+    customers_say: baselineVerdict,
     zh: {
       name,
       description,
@@ -338,7 +363,8 @@ function buildBaselineCMSProductFromStatic(product: Product): CMSProduct {
       specsText: "Baseline initialization",
       pros: product.pros || [],
       cons: product.cons || [],
-      editorVerdict: product.editorVerdict || "待编辑",
+      customersSay: baselineVerdict,
+      editorVerdict: baselineVerdict,
     },
     en: {
       name,
@@ -347,7 +373,8 @@ function buildBaselineCMSProductFromStatic(product: Product): CMSProduct {
       specsText: "Baseline initialization",
       pros: product.pros || [],
       cons: product.cons || [],
-      editorVerdict: product.editorVerdict || "Pending editorial enrichment",
+      customersSay: baselineVerdict,
+      editorVerdict: baselineVerdict,
     },
     updatedAt: new Date().toISOString(),
   };
@@ -547,17 +574,27 @@ function summarizeCons(product: WorkerProduct): string[] {
 }
 
 function buildVerdict(product: WorkerProduct, resource?: WorkerResource) {
-  const summary = resource?.summary || product.title;
-  const prefix = `${product.brand} ${product.title}`;
-  return `${prefix} is surfaced by the worker with ${product.rating?.value?.toFixed(1) ?? "n/a"}/5 live rating and ${resource?.credibilityLevel ?? "unknown"} evidence confidence. ${summary.slice(0, 180)}`;
+  return pickCustomersSay(
+    product?.customers_say,
+    product?.customersSay,
+    resource?.customers_say,
+    resource?.customersSay,
+  );
 }
 
 function buildLocalizedText(product: WorkerProduct, resource?: WorkerResource) {
   const summary = resource?.summary || product.title;
+  const customersSay = pickCustomersSay(
+    product?.customers_say,
+    product?.customersSay,
+    resource?.customers_say,
+    resource?.customersSay,
+  );
   return {
     zh: {
       name: product.title,
       description: summary,
+      customersSay,
       brandText: product.brand,
       specsText: `Category: ${product.categoryId}`,
       pros: summarizePros(product, resource),
@@ -567,6 +604,7 @@ function buildLocalizedText(product: WorkerProduct, resource?: WorkerResource) {
     en: {
       name: product.title,
       description: summary,
+      customersSay,
       brandText: product.brand,
       specsText: `Category: ${product.categoryId}`,
       pros: summarizePros(product, resource),
@@ -674,6 +712,12 @@ function convertWorkerProduct(product: WorkerProduct, resource?: WorkerResource)
     .filter(([, value]) => value && String(value).trim() && String(value).toLowerCase() !== "unknown")
     .map(([key, value]) => `${key}: ${value}`);
   const normalizedImages = normalizeWorkerImages(product);
+  const customersSay = pickCustomersSay(
+    product?.customers_say,
+    product?.customersSay,
+    resource?.customers_say,
+    resource?.customersSay,
+  );
 
   return {
     id: product.productId,
@@ -693,6 +737,7 @@ function convertWorkerProduct(product: WorkerProduct, resource?: WorkerResource)
     imageUrl: normalizedImages.coverUrl,
     galleryUrls: normalizedImages.galleryUrls,
     features: taxonomyFeaturePairs,
+    customers_say: customersSay,
     status: "published",
     overallScore: computeOverallScore(
       computeSafetyScore(product, resource),
@@ -1155,6 +1200,7 @@ async function buildAdminResourcePayload(options?: { categoryId?: string; q?: st
         categoryId: product.categoryId,
         title: product.title,
         brand: product.brand,
+        customers_say: pickCustomersSay(product?.customers_say, product?.customersSay),
         coverImage: isHttpUrl(coverImage) ? coverImage : undefined,
         galleryImages,
         videoUrls,

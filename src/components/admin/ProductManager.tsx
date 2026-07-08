@@ -24,9 +24,11 @@ function normalizeCMSProductForList(item: CMSProduct): CMSProduct {
   const enName = item?.en?.name || item.name || item.brand || "";
   return {
     ...item,
+    customers_say: item?.customers_say || "",
     zh: {
       name: zhName,
       description: item?.zh?.description || "",
+      customersSay: item?.zh?.customersSay || item?.customers_say || "",
       brandText: item?.zh?.brandText || item.brand || "",
       specsText: item?.zh?.specsText || "",
       pros: item?.zh?.pros || [],
@@ -36,6 +38,7 @@ function normalizeCMSProductForList(item: CMSProduct): CMSProduct {
     en: {
       name: enName,
       description: item?.en?.description || "",
+      customersSay: item?.en?.customersSay || item?.customers_say || "",
       brandText: item?.en?.brandText || item.brand || "",
       specsText: item?.en?.specsText || "",
       pros: item?.en?.pros || [],
@@ -79,6 +82,7 @@ function buildCMSProductFromBackendPreview(item: {
   categoryId: string;
   title: string;
   brand: string;
+  customers_say?: string;
   coverImage?: string;
   galleryImages: string[];
   videoUrls: string[];
@@ -109,6 +113,7 @@ function buildCMSProductFromBackendPreview(item: {
     imageUrl: item.coverImage || "",
     galleryUrls: item.galleryImages || [],
     videoUrl: item.videoUrls?.[0] || "",
+    customers_say: item.customers_say || "",
     features: ["backend-imported", "cms-init"],
     scenarios: ["city-commute"],
     relatedProductIds: [],
@@ -122,6 +127,7 @@ function buildCMSProductFromBackendPreview(item: {
     zh: {
       name: item.title,
       description: "由后台一键初始化写入 CMS 的产品条目。",
+      customersSay: item.customers_say || "",
       brandText: item.brand || "Unknown",
       specsText: "Initialized from backend resources.",
       pros: ["backend source"],
@@ -131,6 +137,7 @@ function buildCMSProductFromBackendPreview(item: {
     en: {
       name: item.title,
       description: "Product entry initialized into CMS from backend resources.",
+      customersSay: item.customers_say || "",
       brandText: item.brand || "Unknown",
       specsText: "Initialized from backend resources.",
       pros: ["backend source"],
@@ -189,6 +196,7 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
           imageUrl: item.coverImage || "",
           galleryUrls: item.galleryImages || [],
           videoUrl: item.videoUrls?.[0] || "",
+          customers_say: item.customers_say || "",
           features: ["backend-preview"],
           scenarios: ["city-commute"],
           relatedProductIds: [],
@@ -202,6 +210,7 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
           zh: {
             name: item.title,
             description: "CMS 空数据时自动加载的 backend 预览条目。",
+            customersSay: item.customers_say || "",
             brandText: item.brand || "Unknown",
             specsText: "Preview mode",
             pros: ["backend preview"],
@@ -211,6 +220,7 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
           en: {
             name: item.title,
             description: "Backend preview item loaded because CMS is empty.",
+            customersSay: item.customers_say || "",
             brandText: item.brand || "Unknown",
             specsText: "Preview mode",
             pros: ["backend preview"],
@@ -250,13 +260,14 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
       imageUrl: "",
       galleryUrls: [],
       videoUrl: "",
+      customers_say: "",
       features: [],
       scenarios: [],
       relatedProductIds: [],
       videos: [],
       status: "draft",
-      zh: { name: "", description: "", brandText: "", specsText: "", pros: [], cons: [], editorVerdict: "" },
-      en: { name: "", description: "", brandText: "", specsText: "", pros: [], cons: [], editorVerdict: "" },
+      zh: { name: "", description: "", customersSay: "", brandText: "", specsText: "", pros: [], cons: [], editorVerdict: "" },
+      en: { name: "", description: "", customersSay: "", brandText: "", specsText: "", pros: [], cons: [], editorVerdict: "" },
       updatedAt: null
     });
   };

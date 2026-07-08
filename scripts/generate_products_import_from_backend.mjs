@@ -40,6 +40,8 @@ function buildImportRow(product, relatedProductId, videoUrls = []) {
 
   const price = Number(product?.price?.value || 0);
   const weightLbs = Number(product?.weight?.lbs || 0);
+  const customersSay = String(product?.customers_say || product?.customersSay || "").trim();
+  const editorVerdict = customersSay;
 
   return {
     id: product.productId,
@@ -59,6 +61,7 @@ function buildImportRow(product, relatedProductId, videoUrls = []) {
     galleryUrls: gallery,
     videoUrl: videoUrls[0] || "",
     features: ["backend-imported", "cms-bulk-ready"],
+    customers_say: customersSay,
     scenarios: [slugifyScenario(product.categoryId || DEFAULT_CATEGORY)],
     relatedProductIds: relatedProductId ? [relatedProductId] : [],
     videos: videoUrls.map((url, idx) => ({
@@ -71,21 +74,24 @@ function buildImportRow(product, relatedProductId, videoUrls = []) {
     zh: {
       name: title,
       description: "由 backend 接口自动生成的批量导入记录。",
+      customersSay,
       brandText: product.brand || "Unknown",
       specsText: `price: ${product?.price?.display || "N/A"}; weight: ${product?.weight?.display || "N/A"}`,
       pros: ["来自 backend 产品接口", "图片资源来自 backend"],
       cons: ["请按业务补充人工编辑字段"],
-      editorVerdict: "导入后建议人工复核描述与打分字段。",
+      editorVerdict,
     },
     en: {
       name: title,
       description: "Auto-generated import payload from backend APIs.",
+      customersSay,
       brandText: product.brand || "Unknown",
       specsText: `price: ${product?.price?.display || "N/A"}; weight: ${product?.weight?.display || "N/A"}`,
       pros: ["backend sourced", "backend image URLs"],
       cons: ["manual curation still recommended"],
-      editorVerdict: "Review and enrich editorial fields after import.",
+      editorVerdict,
     },
+    editorVerdict,
     updatedAt: null,
   };
 }

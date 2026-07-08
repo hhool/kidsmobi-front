@@ -43,6 +43,16 @@ function dedupe(items) {
   return out;
 }
 
+function pickCustomersSay(product, resource) {
+  const candidate = [
+    product?.customers_say,
+    product?.customersSay,
+    resource?.customers_say,
+    resource?.customersSay,
+  ].find((value) => typeof value === "string" && value.trim().length > 0);
+  return candidate ? String(candidate).trim() : "";
+}
+
 function normalizedUrl(value) {
   const raw = asHttpUrl(value);
   if (!raw) return "";
@@ -96,10 +106,14 @@ async function writeManifestFile(filePath, payload) {
 }
 
 async function fetchJson(url, init) {
+  const timeoutMs = Math.max(1000, Number(init?.timeoutMs ?? 45000));
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(new Error(`Request timeout after ${timeoutMs}ms`)), timeoutMs);
   const response = await fetch(url, {
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     ...init,
-  });
+    signal: controller.signal,
+  }).finally(() => clearTimeout(timer));
   const text = await response.text();
   let json = null;
   try {
@@ -260,6 +274,8 @@ function buildProduct(product, resource) {
     resource?.resourceUrl || "",
   ].map(asHttpUrl));
   const summary = resource?.summary || product?.title || "";
+  const customersSay = pickCustomersSay(product, resource);
+  const editorVerdict = customersSay;
 
   return {
     id: product.productId,
@@ -301,24 +317,27 @@ function buildProduct(product, resource) {
     ],
     cons: ["Needs editorial enrichment after bootstrap"],
     safetyCertification: product?.availability ? [String(product.availability)] : [],
-    editorVerdict: `${product.brand || "Unknown"} ${product.title || "product"} imported from backend feed for CMS bootstrap.`,
+    customers_say: customersSay,
+    editorVerdict,
     zh: {
       name: product.title || product.productId,
       description: summary || "由 backend 数据自动导入。",
+      customersSay,
       brandText: product.brand || "Unknown",
       specsText: `Category: ${product.categoryId}`,
       pros: ["来自 backend 实时数据", "导入后可直接在 CMS 编辑"],
       cons: ["建议补充中文评测细节"],
-      editorVerdict: "已完成运维初始化导入，建议人工复核后发布。",
+      editorVerdict,
     },
     en: {
       name: product.title || product.productId,
       description: summary || "Imported automatically from backend source.",
+      customersSay,
       brandText: product.brand || "Unknown",
       specsText: `Category: ${product.categoryId}`,
       pros: ["backend live source", "editable in CMS after import"],
       cons: ["recommend manual editorial enrichment"],
-      editorVerdict: "Ops bootstrap import completed; review before final publish.",
+      editorVerdict,
     },
   };
 }
@@ -344,7 +363,7 @@ async function main() {
   const dryRun = hasFlag("dryRun");
   const cmsBase = (parseArg("cmsBase", process.env.CMS_BASE || CMS_BASE_DEFAULT) || CMS_BASE_DEFAULT).replace(/\/+$/, "");
   const sourceBase = (parseArg("sourceBase", process.env.SOURCE_BASE || SOURCE_BASE_DEFAULT) || SOURCE_BASE_DEFAULT).replace(/\/+$/, "");
-  const perCategory = Math.max(5, Number(parseArg("perCategory", "12")) || 12);
+  const perCategory = Math.max(1, Number(parseArg("perCategory", "12")) || 12);
   const productPageSize = Math.min(100, perCategory);
   const resourcePageSize = 20;
   const manifestPath = parseArg("manifestPath", process.env.IMAGE_MANIFEST_PATH || "./tmp/front_image_transfer_manifest.json");
@@ -421,6 +440,7 @@ async function main() {
   const allProducts = [];
   const allResources = [];
   for (const cat of sourceCategories) {
+    console.log(`[import] loading source data for category=${cat.categoryId} limit=${perCategory}`);
     const encodedCategory = encodeURIComponent(cat.categoryId);
     const products = await fetchAllPages(
       `${sourceBase}/api/v2/products?categoryId=${encodedCategory}`,
@@ -430,6 +450,8 @@ async function main() {
       `${sourceBase}/api/v2/resources?categoryId=${encodedCategory}`,
       resourcePageSize,
     );
+
+    console.log(`[import] loaded category=${cat.categoryId} products=${products.length} resources=${resources.length}`);
 
     allProducts.push(...products);
     allResources.push(...resources);

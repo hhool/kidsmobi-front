@@ -25,6 +25,53 @@ import SmartImage from "./common/SmartImage";
 import Breadcrumbs from "./Breadcrumbs";
 import ComparisonDashboard from "./ComparisonDashboard";
 
+const PLACEHOLDER_VERDICT_PATTERNS = [
+  "pending editorial enrichment",
+  "请补充评测",
+  "待编辑",
+  "needs editorial enrichment",
+  "please enrich editorial content before publishing",
+];
+
+function isPlaceholderVerdict(value: unknown): boolean {
+  const text = String(value || "").trim().toLowerCase();
+  if (!text) return true;
+  return PLACEHOLDER_VERDICT_PATTERNS.some((pattern) => text.includes(pattern));
+}
+
+function pickCustomersSay(product: Product, lang: "zh" | "en"): string {
+  const localized = (product as Product & {
+    zh?: { customersSay?: string };
+    en?: { customersSay?: string };
+  })[lang]?.customersSay;
+  return String(localized || product.customers_say || "").trim();
+}
+
+function resolveCardVerdict(product: Product, lang: "zh" | "en"): string {
+  const verdict = String(product.editorVerdict || "").trim();
+  const customersSay = pickCustomersSay(product, lang);
+  if (isPlaceholderVerdict(verdict)) {
+    return customersSay || verdict || (lang === "zh" ? "建议人工复核后发布。" : "Editorial review is recommended before publish.");
+  }
+  return verdict || customersSay || (lang === "zh" ? "建议人工复核后发布。" : "Editorial review is recommended before publish.");
+}
+
+function formatPriceDisplay(price: unknown, currencySymbol: string, lang: "zh" | "en"): string {
+  const numeric = typeof price === "number" ? price : Number(price);
+  if (Number.isFinite(numeric) && numeric > 0) {
+    return `${currencySymbol}${numeric.toFixed(2)}`;
+  }
+  return lang === "zh" ? "待补充" : "N/A";
+}
+
+function formatMassDisplay(weight: unknown, countryCode: string, lang: "zh" | "en"): string {
+  const numeric = typeof weight === "number" ? weight : Number(weight);
+  if (Number.isFinite(numeric) && numeric > 0) {
+    return formatWeight(numeric, countryCode);
+  }
+  return "";
+}
+
 interface ProductsSectionProps {
   productsData: Product[];
   onSelectProduct: (p: Product) => void;
@@ -968,8 +1015,12 @@ export default function ProductsSection({
           {pagedProducts.map(({ product: p, sourceCategoryId }, idx) => {
             const diProduct = p;
             const imageSet = resolveProductImages(diProduct);
+            const verdictText = resolveCardVerdict(diProduct, lang);
+            const massText = formatMassDisplay(diProduct.weight, currencyData.code, lang);
+            const priceText = formatPriceDisplay(diProduct.price, currencyData.symbol, lang);
+            const hasRealWeight = typeof diProduct.weight === "number" && Number.isFinite(diProduct.weight) && diProduct.weight > 0;
             const isWeightOver = (diProduct.category === "bicycle" || diProduct.category === "balance")
-              ? diProduct.weight > childProfile.weight * 0.3
+              ? hasRealWeight && diProduct.weight > childProfile.weight * 0.3
               : false;
 
             const isAlreadySaved = savedProducts.some(s => s.id === diProduct.id);
@@ -1008,27 +1059,29 @@ export default function ProductsSection({
                     {diProduct.name}
                   </h3>
 
-                  <div className="grid grid-cols-2 gap-6 bg-slate-50/50 p-6 rounded-4xl border border-slate-50 mt-2 group-hover:bg-white group-hover:shadow-lg group-hover:shadow-slate-200/50 transition-all">
-                    <div className="space-y-1">
-                      <span className="text-slate-400 block text-[9px] font-black uppercase tracking-widest">
-                        {lang === "en" ? "MASS" : "自重"}
-                      </span>
-                      <strong className={`text-lg font-black tracking-tighter ${isWeightOver ? "text-orange-500" : "text-emerald-500"}`}>
-                        {formatWeight(diProduct.weight, currencyData.code)}
-                      </strong>
-                    </div>
+                  <div className={`grid ${hasRealWeight ? "grid-cols-2" : "grid-cols-1"} gap-6 bg-slate-50/50 p-6 rounded-4xl border border-slate-50 mt-2 group-hover:bg-white group-hover:shadow-lg group-hover:shadow-slate-200/50 transition-all`}>
+                    {hasRealWeight && (
+                      <div className="space-y-1">
+                        <span className="text-slate-400 block text-[9px] font-black uppercase tracking-widest">
+                          {lang === "en" ? "MASS" : "自重"}
+                        </span>
+                        <strong className={`text-lg font-black tracking-tighter ${isWeightOver ? "text-orange-500" : "text-emerald-500"}`}>
+                          {massText}
+                        </strong>
+                      </div>
+                    )}
                     <div className="space-y-1">
                       <span className="text-slate-400 block text-[9px] font-black uppercase tracking-widest">
                         {lang === "en" ? "EST. PRICE" : "参考"}
                       </span>
                       <strong className="text-lg text-slate-900 font-black tracking-tighter">
-                        {currencyData.symbol}{diProduct.price}
+                        {priceText}
                       </strong>
                     </div>
                   </div>
 
                   <p className="text-slate-500 text-xs line-clamp-2 leading-relaxed font-bold italic">
-                    “{diProduct.editorVerdict}”
+                    “{verdictText}”
                   </p>
                 </div>
 

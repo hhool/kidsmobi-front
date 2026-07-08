@@ -8,6 +8,7 @@ export type BackendPickerProduct = {
   categoryId: string;
   title: string;
   brand: string;
+  customers_say?: string;
   coverImage?: string;
   galleryImages: string[];
   videoUrls: string[];
@@ -28,6 +29,8 @@ type WorkerProduct = {
   categoryId: string;
   title: string;
   brand: string;
+  customers_say?: string;
+  customersSay?: string;
   coverImage?: string;
   productImageUrls?: string[];
   galleryUrls?: string[];
@@ -230,6 +233,7 @@ async function getWorkerResourcePayload(params?: { categoryId?: string; q?: stri
         categoryId: item.categoryId,
         title: item.title,
         brand: item.brand,
+        customers_say: String(item.customers_say || item.customersSay || "").trim() || undefined,
         coverImage: isHttpUrl(coverImage) ? coverImage : undefined,
         galleryImages,
         videoUrls: dedupeUrls([...productVideos, ...resourceVideos]),
