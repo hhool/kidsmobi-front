@@ -678,9 +678,12 @@ export function translateGuideArticle(art: any, lang: "zh" | "en") {
   const categoryLabels: Record<string, string> = {
     beginner: "Beginners' Bible",
     risk: "Safety Assessment",
+    budget: "Budget Guide",
     export: "Import Standards",
     maintenance: "Routine Maintenance",
-    scenario: "Scenario Planning"
+    scenario: "Scenario Planning",
+    special: "Category Special",
+    category_spec: "Category Special"
   };
 
   const db: Record<string, { title: string; summary: string; author: string; readTime: string; content: string }> = {

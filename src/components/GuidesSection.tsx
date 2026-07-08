@@ -27,9 +27,12 @@ import { getCMSGuides } from "../lib/cmsService";
 function translateCategoryLabel(cat: string): string {
   const labels: Record<string, string> = {
     beginner: "新手入门指南",
+    budget: "预算分级指南",
     risk: "风险甄别指南",
     maintenance: "养护使用指南",
-    scenario: "场景化选购指南"
+    scenario: "场景化选购指南",
+    special: "品类专项指南",
+    category_spec: "品类专项指南"
   };
   return labels[cat] || "专业选购指南";
 }
@@ -131,6 +134,154 @@ const faqData = [
 *   **The Brain Suspension Barrier**: A newborn's brain tissue is semi-fluidic, and their neck musculature is entirely undeveloped. Rolling a suspension-free plastic-wheeled buggy over brick lanes generates high-frequency tremors (over 2.2G). These shock waves traverse into the child's cranium, placing them at risk of retinal capillary micro-shearing (Shaken Baby Syndrome). Rigid multi-arm spring suspension and deep layflat bassinet supports are non-negotiable shielding features.`
   }
 ];
+
+type GuideCategoryId = "beginner" | "scenario" | "budget" | "risk" | "special" | "maintenance";
+
+const GUIDE_CATEGORY_LABELS: Record<GuideCategoryId, { zh: string; en: string; shortZh: string; shortEn: string }> = {
+  beginner: { zh: "新手入门指南", en: "Beginner Entry", shortZh: "入门", shortEn: "Start" },
+  scenario: { zh: "场景化选购", en: "Scenario Guide", shortZh: "场景", shortEn: "Use Case" },
+  budget: { zh: "预算分级指南", en: "Budget Guide", shortZh: "预算", shortEn: "Budget" },
+  risk: { zh: "风险甄别指南", en: "Risk ID Guide", shortZh: "风险", shortEn: "Risk" },
+  special: { zh: "品类专项指南", en: "Category Special", shortZh: "品类", shortEn: "Category" },
+  maintenance: { zh: "养护使用指南", en: "Maintenance", shortZh: "养护", shortEn: "Care" },
+};
+
+const GUIDE_ALLOWED_TOPIC_CATEGORIES = new Set(["beginner", "scenario", "budget", "risk", "special", "category_spec", "maintenance"]);
+
+const GUIDE_DISALLOWED_CATEGORY_TERMS = [
+  "electric", "electric_vehicle", "electric vehicles", "电动车", "儿童电动车",
+  "car seat", "safety seat", "car_seat", "safety_seat", "安全座椅",
+  "tricycle", "trike", "kids_tricycles", "三轮车",
+  "wagon", "wagons", "pull along", "push ride", "ride-on", "ride on", "ride_ons", "推骑", "拖车", "拉车",
+  "playard", "play yard", "游戏床",
+  "high chair", "high_chair", "餐椅",
+  "baby carrier", "baby_carrier", "背带",
+  "cyberquad", "mercedes g63", "doona liki"
+];
+
+function isTargetGuideProduct(product: Product) {
+  const text = `${product.category || ""} ${(product as any).categoryId || ""}`.toLowerCase();
+  return text.includes("stroller") || text.includes("balance") || text.includes("bike") || text.includes("bicycle") || text.includes("scooter");
+}
+
+function isAllowedGuideArticle(article: GuideArticle) {
+  if (!GUIDE_ALLOWED_TOPIC_CATEGORIES.has(String(article.category || ""))) return false;
+  const text = `${article.id} ${article.title} ${article.summary} ${article.content} ${article.categoryLabel}`.toLowerCase();
+  return !GUIDE_DISALLOWED_CATEGORY_TERMS.some((term) => text.includes(term));
+}
+
+function productGuideName(product: Product) {
+  return `${product.brand} ${product.name}`.trim();
+}
+
+function productCategoryGuideLabel(product: Product, lang: "zh" | "en") {
+  const text = `${product.category || ""} ${(product as any).categoryId || ""}`.toLowerCase();
+  if (text.includes("stroller")) return lang === "en" ? "stroller" : "婴儿推车";
+  if (text.includes("balance")) return lang === "en" ? "balance bike" : "平衡车";
+  if (text.includes("scooter")) return lang === "en" ? "kids scooter" : "儿童滑板车";
+  return lang === "en" ? "kids bike" : "儿童自行车";
+}
+
+function productGuideEvidence(product: Product) {
+  return String(product.editorVerdict || product.description || product.customersSay || product.pros?.[0] || "").trim();
+}
+
+function buildGuideArticle(category: GuideCategoryId, product: Product, index: number, lang: "zh" | "en"): GuideArticle {
+  const productName = productGuideName(product);
+  const categoryName = productCategoryGuideLabel(product, lang);
+  const evidence = productGuideEvidence(product);
+  const score = Number(product.overallScore || product.safetyScore || 8).toFixed(1);
+  const price = Number(product.price || 0);
+  const label = GUIDE_CATEGORY_LABELS[category];
+  const zhTemplates: Record<GuideCategoryId, { title: string; summary: string; content: string }> = {
+    beginner: {
+      title: `${productName} 新手入门：如何从身高、跨高和轮径判断是否适合`,
+      summary: `用 ${productName} 作为具体样本，解释 ${categoryName} 入门选购里的年龄、身高、跨高和车重关系。`,
+      content: `### ${productName} 新手入门判断\n\n#### 1. 先看身体指标\n选择 ${categoryName} 不能只按年龄，建议先确认孩子的脱鞋跨高、身高和可控车重。${product.weight ? `这款产品标称自重约 ${product.weight}kg，` : ""}需要结合孩子体重判断是否超过 30%-40% 的安全阈值。\n\n#### 2. 再看真实使用信号\n${evidence || "结合已抓取产品参数和评分字段，优先关注安全、舒适、便携与可维护性。"}\n\n#### 3. 适合谁\n如果孩子刚开始接触 ${categoryName}，优先确认脚能稳定触地、转向不拖拽、刹车或减速动作能被理解，再考虑功能和品牌溢价。`,
+    },
+    scenario: {
+      title: `${productName} 场景指南：小区、公园与通勤怎么选`,
+      summary: `围绕 ${productName} 拆解 ${categoryName} 在通勤、平整路面、户外公园里的适配边界。`,
+      content: `### ${productName} 场景化选购\n\n#### 1. 城市日常\n如果主要在小区、商场和学校门口短距离使用，优先看便携、自重、转向半径和收纳空间。\n\n#### 2. 户外公园\n${product.tireType ? `当前轮胎/轮组信息为 ${product.tireType}，` : ""}需要重点判断减震、抓地和湿滑路面的稳定性。\n\n#### 3. 购买建议\n${evidence || "场景选择应先满足安全和可控，再考虑速度、外观和附加功能。"}`,
+    },
+    budget: {
+      title: `${productName} 预算指南：${price ? `约 ${price} 价位` : "当前价位"}值不值得买`,
+      summary: `以 ${productName} 的价格、评分和核心配置为例，判断 ${categoryName} 的性价比边界。`,
+      content: `### ${productName} 预算判断\n\n#### 1. 先定安全底线\n预算再紧，也不建议牺牲车架稳定、轮胎抓地、刹车反馈和材料安全。\n\n#### 2. 再算配置效率\n当前综合评分参考值约 ${score}。如果价格集中在 ${price || "未知"} 区间，家长应重点比较同价位的重量、轮胎、刹车和可调节范围。\n\n#### 3. 性价比结论\n${evidence || "高性价比不是最低价，而是在孩子可控范围内用最少预算买到更长使用周期和更低安全风险。"}`,
+    },
+    risk: {
+      title: `${productName} 风险识别：购买前必须排查的结构隐患`,
+      summary: `用 ${productName} 帮家长建立 ${categoryName} 的风险检查清单，避免只看宣传图。`,
+      content: `### ${productName} 风险识别\n\n#### 1. 看稳定性\n重点检查重心、轴距、把立连接、轮组材质和刹车反馈。任何松旷、异响、偏摆都应视为高优先级风险。\n\n#### 2. 看孩子是否能控制\n${product.weight ? `产品自重约 ${product.weight}kg，` : ""}如果接近或超过孩子体重的 40%，转弯和摔倒时都可能放大伤害。\n\n#### 3. 风险备注\n${evidence || "购买前建议把产品参数和孩子身体指标一起核对，不要只依赖年龄段标签。"}`,
+    },
+    special: {
+      title: `${productName} 品类专项：${categoryName} 核心参数怎么看`,
+      summary: `针对 ${categoryName} 的关键指标，说明 ${productName} 应该重点看哪些配置。`,
+      content: `### ${productName} 品类专项\n\n#### 1. 品类关键指标\n${categoryName} 的核心不是堆功能，而是尺寸适配、可控重量、轮组反馈和日常维护便利度。\n\n#### 2. 产品观察\n${evidence || "从已抓取字段看，应优先核对安全评分、舒适性、便携度和真实用户反馈。"}\n\n#### 3. 对比建议\n同品类横向比较时，把 ${productName} 与同轮径、同价位、同年龄段产品比较，比跨品类比较更有参考价值。`,
+    },
+    maintenance: {
+      title: `${productName} 养护清单：刹车、轮胎与连接件怎么检查`,
+      summary: `围绕 ${productName} 输出家庭可执行的 ${categoryName} 日常维护检查顺序。`,
+      content: `### ${productName} 家庭养护\n\n#### 1. 每月快检\n检查轮胎磨损、把立/折叠扣松动、刹车或减速结构反馈，以及座椅/踏板连接位是否异响。\n\n#### 2. 场景后复检\n雨天、沙地、公园碎石路使用后，应清洁轮组和轴承周边，避免泥沙长期堆积造成偏磨。\n\n#### 3. 维护判断\n${evidence || "若出现刹车距离变长、转向卡滞或车身偏摆，应暂停使用并排查连接件。"}`,
+    },
+  };
+  const enTemplates: Record<GuideCategoryId, { title: string; summary: string; content: string }> = {
+    beginner: {
+      title: `${productName} Beginner Entry: Fit by height, inseam, and wheel size`,
+      summary: `Use ${productName} as a concrete ${categoryName} example to understand age, inseam, wheel size, and safe weight fit.`,
+      content: `### ${productName} Beginner Fit Check\n\n#### 1. Start with body measurements\nDo not buy by age alone. Check barefoot inseam, standing height, and whether the child can control the vehicle weight. ${product.weight ? `This model is listed around ${product.weight}kg, ` : ""}so compare it against the child's 30%-40% body-weight safety range.\n\n#### 2. Read the product signal\n${evidence || "Use the scraped product fields and scores to review safety, comfort, portability, and maintenance fit."}\n\n#### 3. Who it suits\nFor first-time ${categoryName} use, stable foot contact, predictable steering, and understandable braking matter more than brand premium or decorative features.`,
+    },
+    scenario: {
+      title: `${productName} Scenario Guide: home paths, parks, and commute use`,
+      summary: `A practical use-case guide for when ${productName} makes sense as a ${categoryName}.`,
+      content: `### ${productName} Scenario Planning\n\n#### 1. Urban daily use\nFor apartment, school-gate, and shopping-mall use, prioritize carry weight, turning radius, and storage footprint.\n\n#### 2. Outdoor parks\n${product.tireType ? `The tire information is ${product.tireType}. ` : ""}Use it to judge grip, vibration control, and stability on wet or uneven paths.\n\n#### 3. Buying note\n${evidence || "Choose for safety and control first, then speed, style, and optional features."}`,
+    },
+    budget: {
+      title: `${productName} Budget Guide: judging value at its current price`,
+      summary: `Use ${productName}'s price, scores, and core setup to judge ${categoryName} value.`,
+      content: `### ${productName} Value Check\n\n#### 1. Keep the safety floor\nEven tight budgets should not trade away frame stability, wheel grip, braking feedback, or material safety.\n\n#### 2. Compare configuration efficiency\nReference overall score is about ${score}. At a price around ${price || "unknown"}, compare weight, tires, brakes, and adjustment range against same-class products.\n\n#### 3. Value verdict\n${evidence || "Best value means the safest useful life for the lowest reasonable budget, not simply the lowest sticker price."}`,
+    },
+    risk: {
+      title: `${productName} Risk ID Guide: structural checks before buying`,
+      summary: `A ${categoryName} risk checklist using ${productName} as the specific product sample.`,
+      content: `### ${productName} Risk Identification\n\n#### 1. Stability first\nCheck center of gravity, wheelbase, stem joints, wheel materials, and braking response. Looseness, noise, or wobble should be treated as high-priority risks.\n\n#### 2. Control by the child\n${product.weight ? `At about ${product.weight}kg, ` : ""}the model should be compared with the child's body weight. Near or above 40% can amplify injury during turns or falls.\n\n#### 3. Risk note\n${evidence || "Always compare product specs with the child's measurements instead of trusting age labels alone."}`,
+    },
+    special: {
+      title: `${productName} Category Special: what matters in a ${categoryName}`, 
+      summary: `A category-specific reading of the key specs parents should inspect on ${productName}.`,
+      content: `### ${productName} Category Special\n\n#### 1. Category priorities\nFor a ${categoryName}, the core question is not feature count. Fit, controllable weight, wheel feedback, and maintenance are the decision drivers.\n\n#### 2. Product observation\n${evidence || "Use the scraped safety score, comfort score, portability, and real user feedback before choosing."}\n\n#### 3. Comparison advice\nCompare ${productName} against products with the same wheel size, age band, and price band for a fairer decision.`,
+    },
+    maintenance: {
+      title: `${productName} Maintenance: brakes, tires, and joints checklist`,
+      summary: `A practical home maintenance order for keeping ${productName} safe as a ${categoryName}.`,
+      content: `### ${productName} Home Maintenance\n\n#### 1. Monthly quick check\nInspect tire wear, stem or folding joint looseness, braking feedback, and seat or pedal connection noise.\n\n#### 2. After rough use\nAfter rain, sand, or gravel paths, clean around wheels and bearings to prevent uneven wear.\n\n#### 3. Maintenance trigger\n${evidence || "If braking distance grows, steering sticks, or the frame wobbles, pause use and inspect the hardware."}`,
+    },
+  };
+  const template = lang === "en" ? enTemplates[category] : zhTemplates[category];
+  return {
+    id: `generated_${category}_${index + 1}_${product.id}`.replace(/[^a-zA-Z0-9_-]/g, "_"),
+    title: template.title,
+    category,
+    categoryLabel: lang === "en" ? label.en : label.zh,
+    summary: template.summary,
+    content: template.content,
+    author: lang === "en" ? "KIDSMOBI Product Guide Desk" : "KIDSMOBI 产品指南组",
+    readTime: lang === "en" ? "6 min read" : "6 分钟",
+    publishDate: "2026-07-09",
+  };
+}
+
+function buildGeneratedGuideArticles(productsData: Product[], lang: "zh" | "en"): GuideArticle[] {
+  const targetProducts = productsData
+    .filter((product) => product.status !== "archived" && isTargetGuideProduct(product))
+    .sort((a, b) => Number(b.overallScore || b.safetyScore || 0) - Number(a.overallScore || a.safetyScore || 0));
+  const categories: GuideCategoryId[] = ["beginner", "scenario", "budget", "risk", "special", "maintenance"];
+  const fallbackProducts = targetProducts.length > 0 ? targetProducts : productsData.slice(0, 5);
+  return categories.flatMap((category, categoryIndex) => {
+    const categoryProducts = Array.from({ length: 5 }, (_, index) => fallbackProducts[(index + categoryIndex * 2) % Math.max(1, fallbackProducts.length)]).filter(Boolean);
+    return categoryProducts.map((product, index) => buildGuideArticle(category, product, index, lang));
+  });
+}
 
 interface GuidesSectionProps {
   productsData: Product[];
@@ -260,9 +411,32 @@ export default function GuidesSection({
   const [wizardScenario, setWizardScenario] = useState<string>("all");
   const [showWizardResults, setShowWizardResults] = useState<boolean>(false);
 
+  const generatedGuideArticles = useMemo(
+    () => buildGeneratedGuideArticles(productsData, lang),
+    [productsData, lang]
+  );
+
+  const allGuideArticles = useMemo(() => {
+    const seen = new Set<string>();
+    const scopedGuideArticles = guideArticles.filter(isAllowedGuideArticle);
+    return [...scopedGuideArticles, ...generatedGuideArticles].filter((article) => {
+      if (seen.has(article.id)) return false;
+      seen.add(article.id);
+      return true;
+    });
+  }, [guideArticles, generatedGuideArticles]);
+
+  const guideCategoryCounts = useMemo(() => {
+    return allGuideArticles.reduce<Record<string, number>>((acc, article) => {
+      acc[article.category] = (acc[article.category] || 0) + 1;
+      return acc;
+    }, {});
+  }, [allGuideArticles]);
+
   // Guide Article filters
   const filteredGuides = useMemo(() => {
-    return guideArticles
+    const categoryLimit = selectedCategory === "all" ? Infinity : 5;
+    return allGuideArticles
       .map(art => translateGuideArticle(art, lang))
       .filter((art) => {
         const matchesCat = selectedCategory === "all" || art.category === selectedCategory;
@@ -272,8 +446,9 @@ export default function GuidesSection({
           art.summary.toLowerCase().includes(query) ||
           art.content.toLowerCase().includes(query);
         return matchesCat && matchesSearch;
-      });
-  }, [guideArticles, selectedCategory, searchQuery, lang]);
+      })
+      .slice(0, categoryLimit);
+  }, [allGuideArticles, selectedCategory, searchQuery, lang]);
 
   const pageSize = 8;
   const totalPages = Math.max(1, Math.ceil(filteredGuides.length / pageSize));
@@ -332,6 +507,7 @@ export default function GuidesSection({
 
     // 4. Products matching math
     const matches = productsData.filter((p) => {
+      if (!isTargetGuideProduct(p)) return false;
       // Must be below budget
       const withinBudget = p.price <= wizardBudget;
       
@@ -363,7 +539,7 @@ export default function GuidesSection({
       }
 
       // Heavy/weight safety check
-      const isWeightSafe = p.weight <= dangerWeightLimit || p.category === "stroller" || p.category === "safety_seat";
+      const isWeightSafe = p.weight <= dangerWeightLimit || p.category === "stroller";
 
       return withinBudget && isWeightSafe && isWheelSizeMatch && isScenarioMatch;
     });
@@ -393,21 +569,21 @@ export default function GuidesSection({
   };
 
   const categories = lang === "en" ? [
-    { id: "all", label: "📁 All Guides" },
-    { id: "beginner", label: "🔰 Beginner Entry" },
-    { id: "scenario", label: "🏞️ Scenario Guide" },
-    { id: "budget", label: "💰 Budget Guide" },
-    { id: "risk", label: "⚖️ Risk ID Guide" },
-    { id: "special", label: "🚲 Category Special" },
-    { id: "maintenance", label: "🔧 Maintenance" }
+    { id: "all", label: "All Guides", icon: BookOpen, deck: "Full guide library" },
+    { id: "beginner", label: "Beginner Entry", icon: Play, deck: "Fit, sizing, first purchase" },
+    { id: "scenario", label: "Scenario Guide", icon: Briefcase, deck: "Home, park, commute" },
+    { id: "budget", label: "Budget Guide", icon: Calculator, deck: "Value and price bands" },
+    { id: "risk", label: "Risk ID Guide", icon: AlertTriangle, deck: "Structural red flags" },
+    { id: "special", label: "Category Special", icon: Award, deck: "Balance bike, bike, scooter" },
+    { id: "maintenance", label: "Maintenance", icon: Wrench, deck: "Care and inspection" }
   ] : [
-    { id: "all", label: "📁 全部指南目录" },
-    { id: "beginner", label: "🔰 新手入门指南" },
-    { id: "scenario", label: "🏞️ 场景化选购" },
-    { id: "budget", label: "💰 预算分级指南" },
-    { id: "risk", label: "⚖️ 风险甄别指南" },
-    { id: "special", label: "🚲 品类专项指南" },
-    { id: "maintenance", label: "🔧 养护使用指南" }
+    { id: "all", label: "全部指南", icon: BookOpen, deck: "完整指南库" },
+    { id: "beginner", label: "新手入门", icon: Play, deck: "尺寸、跨高、首购" },
+    { id: "scenario", label: "场景指南", icon: Briefcase, deck: "小区、公园、通勤" },
+    { id: "budget", label: "预算指南", icon: Calculator, deck: "价格带与性价比" },
+    { id: "risk", label: "风险识别", icon: AlertTriangle, deck: "结构隐患排查" },
+    { id: "special", label: "品类专项", icon: Award, deck: "平衡车、自行车、滑板车" },
+    { id: "maintenance", label: "养护清单", icon: Wrench, deck: "刹车、轮胎、连接件" }
   ];
 
   return (
@@ -807,52 +983,85 @@ export default function GuidesSection({
           );
         })() : (
           <div className="space-y-10">
-            <div className="text-center max-w-2xl mx-auto space-y-4">
-              <div className="flex justify-center">
-                <div className="bg-orange-100 p-3 rounded-2xl">
-                  <BookOpen className="w-6 h-6 text-orange-500" />
+            <div className="rounded-[40px] overflow-hidden border border-slate-200 bg-slate-950 text-white shadow-2xl shadow-slate-900/10">
+              <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.4fr] min-h-[320px]">
+                <div className="p-8 sm:p-10 flex flex-col justify-between gap-8 bg-[radial-gradient(circle_at_top_left,rgba(249,115,22,0.32),transparent_34%),linear-gradient(135deg,#0f172a,#111827)]">
+                  <div className="space-y-5">
+                    <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-[10px] font-black uppercase tracking-[0.2em] text-orange-200">
+                      <BookOpen className="w-4 h-4" />
+                      {lang === "en" ? "Guide Library" : "选购指南库"}
+                    </span>
+                    <h3 className="text-3xl sm:text-4xl font-black leading-tight tracking-tight">
+                      {lang === "en" ? "How to Choose a Baby Stroller, Bike or Scooter" : "从婴儿推车到童车骑行，按真实产品做选择"}
+                    </h3>
+                    <p className="text-sm text-slate-300 leading-7 font-medium max-w-xl">
+                      {lang === "en" 
+                        ? "All Guides stays open as the complete index, while each specialist shelf surfaces five focused guides for balance bikes, kids bikes, and kids scooters."
+                        : "All Guides 保留完整目录；每个专题分类先呈现 5 条精选，围绕平衡车、儿童自行车、儿童滑板车的具体产品展开。"}
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-3 gap-3 text-center">
+                    {[
+                      { value: filteredGuides.length, label: lang === "en" ? "Visible" : "当前展示" },
+                      { value: allGuideArticles.length, label: lang === "en" ? "Total" : "指南总数" },
+                      { value: "6x5", label: lang === "en" ? "Shelves" : "分类配置" },
+                    ].map((item) => (
+                      <div key={item.label} className="rounded-2xl bg-white/8 border border-white/10 px-3 py-4">
+                        <div className="text-xl font-black text-white">{item.value}</div>
+                        <div className="text-[9px] font-black uppercase tracking-widest text-slate-400 mt-1">{item.label}</div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <h3 className="text-3xl font-black text-slate-900">
-                {lang === "en" ? "Safety & Selection Encyclopedia" : "专家选购指南库"}
-              </h3>
-              <p className="text-sm text-slate-500 font-medium">
-                {lang === "en" 
-                  ? "Professional insights to protect your child's growth and safety."
-                  : "拒绝带货噱头。我们只用物理公式和儿科医学规范，教您选出真正健康的车款。"}
-              </p>
-            </div>
 
-            <div className="bg-white border border-slate-100 rounded-4xl p-6 shadow-xl shadow-slate-200/50 space-y-6">
-              <div className="flex flex-col sm:flex-row gap-4 text-left">
-                <div className="relative flex-1">
-                  <Search className="w-4 h-4 text-slate-400 absolute left-4 top-4" />
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder={lang === "en" ? "Search safety keywords..." : "检索核心安全术语、Q-factor、避震材质..."}
-                    aria-label={lang === "en" ? "Search safety keywords" : "检索安全关键词"}
-                    title={lang === "en" ? "Search safety keywords" : "检索安全关键词"}
-                    className="w-full bg-slate-50 border border-slate-100 rounded-2xl pl-10 pr-4 py-3 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 transition-all font-medium"
-                  />
+                <div className="p-6 sm:p-8 bg-white text-slate-900">
+                  <div className="relative mb-6">
+                    <Search className="w-4 h-4 text-slate-400 absolute left-4 top-4" />
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder={lang === "en" ? "Search product names, risk terms, sizing topics..." : "搜索产品名、风险术语、尺寸/预算/养护主题..."}
+                      aria-label={lang === "en" ? "Search guide library" : "检索指南库"}
+                      title={lang === "en" ? "Search guide library" : "检索指南库"}
+                      className="w-full bg-slate-50 border border-slate-200 rounded-2xl pl-10 pr-4 py-3 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 transition-all font-bold"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {categories.map((c) => {
+                      const Icon = c.icon || BookOpen;
+                      const count = c.id === "all" ? allGuideArticles.length : guideCategoryCounts[c.id] || 0;
+                      return (
+                        <button
+                          key={c.id}
+                          onClick={() => {
+                            setSelectedCategory(c.id);
+                            onPageChange?.(1);
+                          }}
+                          className={`text-left rounded-2xl border p-4 transition-all group ${
+                            selectedCategory === c.id
+                              ? "bg-slate-950 text-white border-slate-950 shadow-xl shadow-slate-900/10"
+                              : "bg-white text-slate-700 border-slate-100 hover:border-orange-200 hover:bg-orange-50/40"
+                          }`}
+                        >
+                          <div className="flex items-start justify-between gap-3">
+                            <div className="flex items-start gap-3 min-w-0">
+                              <span className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${selectedCategory === c.id ? "bg-orange-500 text-white" : "bg-slate-100 text-orange-500 group-hover:bg-orange-100"}`}>
+                                <Icon className="w-5 h-5" />
+                              </span>
+                              <span className="min-w-0">
+                                <span className="block text-sm font-black leading-tight">{c.label}</span>
+                                <span className={`block text-[11px] font-bold mt-1 leading-snug ${selectedCategory === c.id ? "text-slate-300" : "text-slate-400"}`}>{c.deck}</span>
+                              </span>
+                            </div>
+                            <span className={`text-[10px] font-black rounded-full px-2 py-1 shrink-0 ${selectedCategory === c.id ? "bg-white/10 text-orange-200" : "bg-slate-50 text-slate-400"}`}>{count}</span>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-
-              <div className="flex flex-wrap gap-2 pt-2 text-left">
-                {categories.map((c) => (
-                  <button
-                    key={c.id}
-                    onClick={() => setSelectedCategory(c.id)}
-                    className={`px-4 py-2 rounded-xl text-xs font-black transition-all border ${
-                      selectedCategory === c.id
-                        ? "bg-orange-500 text-white border-orange-400 shadow-lg shadow-orange-500/20 scale-105"
-                        : "bg-white text-slate-500 border-slate-100 hover:border-orange-100 hover:text-orange-500"
-                    }`}
-                  >
-                    {c.label}
-                  </button>
-                ))}
               </div>
             </div>
 
@@ -863,46 +1072,74 @@ export default function GuidesSection({
                 </span>
               </div>
             ) : (
-              <div className="space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left animate-fade-in">
-                {pagedGuides.map((guide) => (
-                  <div
+              <div className="space-y-6">
+                {pagedGuides[0] && (
+                  <button
+                    type="button"
+                    onClick={() => setSelectedGuideState(pagedGuides[0])}
+                    className="w-full text-left bg-white border border-slate-100 rounded-[32px] p-6 sm:p-8 shadow-xl shadow-slate-200/50 hover:border-orange-200 hover:shadow-orange-500/10 transition-all group"
+                  >
+                    <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8 items-stretch">
+                      <div className="space-y-5">
+                        <div className="flex flex-wrap items-center gap-3 text-[10px] font-black uppercase tracking-widest">
+                          <span className="bg-orange-50 text-orange-600 px-3 py-1 rounded-full border border-orange-100">{pagedGuides[0].categoryLabel}</span>
+                          <span className="text-slate-400">{pagedGuides[0].publishDate}</span>
+                          <span className="text-slate-400 flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{pagedGuides[0].readTime}</span>
+                        </div>
+                        <h4 className="font-black text-slate-950 text-2xl sm:text-3xl leading-tight group-hover:text-orange-500 transition-colors">
+                          {pagedGuides[0].title}
+                        </h4>
+                        <p className="text-sm text-slate-500 leading-7 font-medium line-clamp-3">
+                          {pagedGuides[0].summary}
+                        </p>
+                      </div>
+                      <div className="rounded-3xl bg-slate-950 text-white p-6 flex flex-col justify-between gap-8">
+                        <div className="text-[11px] text-slate-300 leading-6 font-medium line-clamp-5">
+                          {pagedGuides[0].content.replace(/#+\s/g, "").slice(0, 360)}...
+                        </div>
+                        <div className="flex items-center justify-between text-xs font-black">
+                          <span className="text-slate-400 flex items-center gap-2"><Briefcase className="w-4 h-4 text-orange-400" />{pagedGuides[0].author.split("-")[0].trim()}</span>
+                          <span className="text-orange-300 flex items-center gap-1">{lang === "en" ? "Read guide" : "阅读指南"}<ChevronRight className="w-4 h-4" /></span>
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+                )}
+
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 text-left animate-fade-in">
+                {pagedGuides.slice(1).map((guide) => (
+                  <button
+                    type="button"
                     key={guide.id}
                     onClick={() => setSelectedGuideState(guide)}
-                    className="bg-white border border-slate-100 hover:border-orange-100 rounded-[40px] p-8 flex flex-col justify-between space-y-6 cursor-pointer hover:shadow-2xl hover:shadow-orange-500/5 transition-all group"
+                    className="bg-white border border-slate-100 hover:border-orange-200 rounded-[28px] p-6 flex flex-col justify-between min-h-[260px] cursor-pointer hover:shadow-xl hover:shadow-orange-500/5 transition-all group text-left"
                   >
                     <div className="space-y-4">
-                      <div className="flex justify-between items-center text-[10px]">
-                        <span className="bg-orange-50 text-orange-600 px-3 py-1 rounded-full font-black uppercase border border-orange-100">
+                      <div className="flex justify-between items-start gap-3 text-[10px]">
+                        <span className="bg-slate-50 text-slate-500 px-3 py-1 rounded-full font-black uppercase border border-slate-100 group-hover:bg-orange-50 group-hover:text-orange-600 group-hover:border-orange-100 transition-colors">
                           {guide.categoryLabel}
                         </span>
-                        <span className="text-slate-400 font-bold">{guide.publishDate}</span>
+                        <span className="text-slate-400 font-bold shrink-0">{guide.publishDate}</span>
                       </div>
 
-                      <h4 className="font-extrabold text-slate-900 text-lg leading-tight group-hover:text-orange-500 transition-colors">
+                      <h4 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors line-clamp-3">
                         {guide.title}
                       </h4>
-                      <p className="text-slate-500 text-xs line-clamp-2 leading-relaxed font-medium">
+                      <p className="text-slate-500 text-xs line-clamp-3 leading-6 font-medium">
                         {guide.summary}
                       </p>
                     </div>
 
-                    <div className="flex justify-between items-center text-[10px] text-slate-400 pt-4 border-t border-slate-50 font-bold">
-                      <div className="flex items-center gap-1.5">
-                        <Briefcase className="w-3.5 h-3.5 text-orange-400" />
-                        {guide.author.split("-")[0].trim()}
-                      </div>
-                      <div className="flex items-center gap-4">
-                        <span className="flex items-center gap-1">
-                          <Clock className="w-3.5 h-3.5 text-orange-400" />
-                          {guide.readTime}
-                        </span>
-                        <span className="text-orange-500 group-hover:underline font-black">
-                          {lang === "en" ? "Read →" : "阅读原文 →"}
-                        </span>
-                      </div>
+                    <div className="flex justify-between items-center text-[10px] text-slate-400 pt-5 border-t border-slate-50 font-bold mt-6">
+                      <span className="flex items-center gap-1.5 min-w-0 truncate">
+                        <Briefcase className="w-3.5 h-3.5 text-orange-400 shrink-0" />
+                        <span className="truncate">{guide.author.split("-")[0].trim()}</span>
+                      </span>
+                      <span className="text-orange-500 font-black flex items-center gap-1 shrink-0">
+                        {lang === "en" ? "Read" : "阅读"}<ChevronRight className="w-3.5 h-3.5" />
+                      </span>
                     </div>
-                  </div>
+                  </button>
                 ))}
                 </div>
 

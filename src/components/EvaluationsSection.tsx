@@ -145,6 +145,188 @@ function SafetyRadarChart({ product, evaluation, lang = "zh", isDark = false }: 
   );
 }
 
+const DEFAULT_VERDICT_PATTERNS = [
+  "pending editorial enrichment",
+  "please enrich editorial content before publishing",
+  "edit and save to persist into cms",
+  "independently verified kids stroller or bicycle setup",
+  "generated from remote fallback content source",
+  "static fallback product",
+  "请补充评测",
+  "请编辑后保存到 cms",
+  "待编辑",
+];
+
+function hasRealEditorVerdict(product: Product) {
+  const verdict = String(product.editorVerdict || "").trim().toLowerCase();
+  if (verdict.length < 40) return false;
+  return !DEFAULT_VERDICT_PATTERNS.some((pattern) => verdict.includes(pattern));
+}
+
+function isFocusReviewProduct(product: Product) {
+  const text = `${product.category || ""} ${product.categoryId || ""}`.toLowerCase();
+  return text.includes("balance") || text.includes("bicycle") || text.includes("bike") || text.includes("scooter");
+}
+
+function getProductScores(product: Product) {
+  const safety = Number(product.safetyScore || product.overallScore || 8.2);
+  const comfort = product.category === "scooter" ? 8.5 : product.tireType?.toLowerCase().includes("pneumatic") || product.tireType?.includes("充气") ? 9.4 : 8.1;
+  const portability = Number(product.weightScore || (product.weight > 0 ? Math.max(6.2, 10 - product.weight / 8) : 8));
+  const features = Number(product.geometryScore || product.overallScore || 8.1);
+  const valueForMoney = Number(Math.min(10, Math.max(6, (product.overallScore || 8) + (product.price > 0 ? Math.max(-1.5, 1.2 - product.price / 1200) : 0.4))).toFixed(1));
+  return { safety, comfort, portability, features, valueForMoney };
+}
+
+function productValueScore(product: Product) {
+  const score = Number(product.overallScore || 8);
+  const price = Number(product.price || 0);
+  const priceBoost = price > 0 ? Math.max(0, 3 - price / 500) : 1;
+  return score + priceBoost + Number(product.reviewCount || 0) / 100000;
+}
+
+function getProductDisplayName(product: Product) {
+  return `${product.brand} ${product.name}`.trim();
+}
+
+function productVerdict(product: Product) {
+  return String(product.editorVerdict || product.description || product.customersSay || "").trim();
+}
+
+function makeSingleEvaluation(product: Product, type: Evaluation["type"], suffix: string, zhTitle: string, enTitle: string, verdictPrefixZh = "编辑结论", verdictPrefixEn = "Editor verdict"): Evaluation {
+  const verdict = productVerdict(product);
+  const title = getProductDisplayName(product);
+  return {
+    id: `generated_${type}_${suffix}_${product.id}`.replace(/[^a-zA-Z0-9_-]/g, "_"),
+    type,
+    productId: product.id,
+    productIds: [product.id],
+    status: "published",
+    version: "V2026.7",
+    scores: getProductScores(product),
+    imageUrl: product.imageUrl || product.galleryUrls?.[0] || "",
+    zh: {
+      title: zhTitle.replace("{product}", title),
+      verdict: `${verdictPrefixZh}：${verdict}`,
+      pros: (product.pros || product.features || []).slice(0, 4),
+      cons: (product.cons || []).slice(0, 4),
+      changelog: "由已抓取产品详情、评分字段与 Editor Verdict 自动生成。",
+    },
+    en: {
+      title: enTitle.replace("{product}", title),
+      verdict: `${verdictPrefixEn}: ${verdict}`,
+      pros: (product.pros || product.features || []).slice(0, 4),
+      cons: (product.cons || []).slice(0, 4),
+      changelog: "Generated from scraped product details, score fields, and Editor Verdict.",
+    },
+    updatedAt: new Date("2026-07-09"),
+  };
+}
+
+function makeCompareEvaluation(id: string, products: Product[], zhTitle: string, enTitle: string): Evaluation {
+  const scores = products.map(getProductScores);
+  const average = (key: keyof ReturnType<typeof getProductScores>) => Number((scores.reduce((sum, item) => sum + item[key], 0) / Math.max(1, scores.length)).toFixed(1));
+  const names = products.map(getProductDisplayName).join(" vs ");
+  return {
+    id,
+    type: "compare",
+    productId: products[0].id,
+    productIds: products.map((product) => product.id),
+    status: "published",
+    version: "V2026.7",
+    scores: {
+      safety: average("safety"),
+      comfort: average("comfort"),
+      portability: average("portability"),
+      features: average("features"),
+      valueForMoney: average("valueForMoney"),
+    },
+    imageUrl: products[0].imageUrl || products[0].galleryUrls?.[0] || "",
+    zh: {
+      title: zhTitle,
+      verdict: `多品评测覆盖 ${names}，按安全、舒适、便携、功能和性价比维度形成横向结果。`,
+      pros: products.slice(0, 4).map((product) => `${getProductDisplayName(product)}：${product.pros?.[0] || productVerdict(product)}`),
+      cons: products.slice(0, 4).map((product) => `${getProductDisplayName(product)}：${product.cons?.[0] || "建议结合年龄、身高与使用场景确认。"}`),
+      changelog: "由当前产品数据自动生成多品评测结果。",
+    },
+    en: {
+      title: enTitle,
+      verdict: `Cross comparison across ${names}, scored on safety, comfort, portability, features, and value.`,
+      pros: products.slice(0, 4).map((product) => `${getProductDisplayName(product)}: ${product.pros?.[0] || productVerdict(product)}`),
+      cons: products.slice(0, 4).map((product) => `${getProductDisplayName(product)}: ${product.cons?.[0] || "Confirm age, height, and use case fit before buying."}`),
+      changelog: "Generated from current product data as a multi-product review result.",
+    },
+    updatedAt: new Date("2026-07-09"),
+  };
+}
+
+function buildGeneratedEvaluations(productsData: Product[]): Evaluation[] {
+  const focusProducts = productsData
+    .filter((product) => product.status !== "archived" && isFocusReviewProduct(product))
+    .sort((a, b) => Number(b.overallScore || 0) - Number(a.overallScore || 0));
+  const verdictProducts = focusProducts.filter(hasRealEditorVerdict);
+  const byCategory = (needle: string) => focusProducts.filter((product) => `${product.category} ${product.categoryId}`.toLowerCase().includes(needle));
+  const balanceProducts = byCategory("balance");
+  const bikeProducts = focusProducts.filter((product) => /bicycle|bike|kids_bikes/.test(`${product.category} ${product.categoryId}`.toLowerCase()));
+  const scooterProducts = byCategory("scooter");
+
+  const singles = verdictProducts.slice(0, 12).map((product, index) => makeSingleEvaluation(
+    product,
+    "single",
+    String(index + 1),
+    "{product} 单品 Editor Verdict 深度评测",
+    "{product} Single Product Editor Verdict Review"
+  ));
+
+  const compareGroups = [
+    { products: balanceProducts.slice(0, 4), zh: "Balance Bike 高分车型横向评测", en: "Balance Bike Top Picks Cross Compare" },
+    { products: bikeProducts.slice(0, 4), zh: "Kids Bike 安全与成长适配横向评测", en: "Kids Bike Safety and Fit Cross Compare" },
+    { products: scooterProducts.slice(0, 4), zh: "Kids Scooter 稳定性与便携横向评测", en: "Kids Scooter Stability and Portability Cross Compare" },
+    { products: focusProducts.slice(0, 4), zh: "童车高分安全榜多品评测", en: "Highest Safety Kids Mobility Cross Compare" },
+    { products: [...focusProducts].sort((a, b) => Number(b.weightScore || 0) - Number(a.weightScore || 0)).slice(0, 4), zh: "轻便省力车型多品评测", en: "Light and Easy Product Cross Compare" },
+  ].filter((group) => group.products.length >= 2);
+  const compares = compareGroups.slice(0, 5).map((group, index) => makeCompareEvaluation(`generated_compare_${index + 1}`, group.products, group.zh, group.en));
+
+  const values = [...verdictProducts]
+    .sort((a, b) => productValueScore(b) - productValueScore(a))
+    .slice(0, 5)
+    .map((product, index) => makeSingleEvaluation(
+      product,
+      "value",
+      String(index + 1),
+      "{product} 性价比最高推荐",
+      "{product} Value Bank Pick",
+      "性价比结论",
+      "Value verdict"
+    ));
+
+  const rankingSeeds = [
+    { product: focusProducts[0], zh: "季度排行冠军：{product}", en: "Quarterly Top Pick: {product}" },
+    { product: [...focusProducts].sort((a, b) => Number(b.safetyScore || 0) - Number(a.safetyScore || 0))[0], zh: "半年安全排行冠军：{product}", en: "Half-Year Safety Leader: {product}" },
+    { product: [...focusProducts].sort((a, b) => productValueScore(b) - productValueScore(a))[0], zh: "年度综合排行冠军：{product}", en: "Annual Overall Leader: {product}" },
+  ].filter((item) => item.product);
+  const rankings = rankingSeeds.map((item, index) => makeSingleEvaluation(
+    item.product,
+    "ranking",
+    String(index + 1),
+    item.zh,
+    item.en,
+    "排行依据",
+    "Ranking basis"
+  ));
+
+  const safetyTopics = verdictProducts.slice(0, 6).map((product, index) => makeSingleEvaluation(
+    product,
+    "safety",
+    String(index + 1),
+    "{product} 专业安全知识专项",
+    "{product} Safety Special Knowledge Brief",
+    "安全知识",
+    "Safety note"
+  ));
+
+  return [...singles, ...compares, ...values, ...rankings, ...safetyTopics];
+}
+
 export default function EvaluationsSection({ 
   evaluationsData = [],
   productsData, 
@@ -160,7 +342,8 @@ export default function EvaluationsSection({
   currentPage = 1,
   onPageChange
 }: EvaluationsSectionProps) {
-  const [selectedReviewType, setSelectedReviewType] = useState<string>(initialReviewType || "all");
+  const normalizeReviewType = (type?: string) => type && type !== "all" ? type : "single";
+  const [selectedReviewType, setSelectedReviewType] = useState<string>(normalizeReviewType(initialReviewType));
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedEvaluation, setSelectedEvaluation] = useState<Evaluation | null>(null);
 
@@ -172,7 +355,7 @@ export default function EvaluationsSection({
 
     const canonicalUrl = window.location.href;
     const langModel = lang === "zh" ? selectedEvaluation.zh : selectedEvaluation.en;
-    const isSingle = selectedEvaluation.type === "single" || selectedEvaluation.type === "safety" || !selectedEvaluation.type;
+    const isSingle = selectedEvaluation.type !== "compare" || !selectedEvaluation.productIds || selectedEvaluation.productIds.length <= 1;
 
     if (isSingle) {
       const reviewedProduct = productsData.find((p) => p.id === selectedEvaluation.productId);
@@ -208,25 +391,25 @@ export default function EvaluationsSection({
   }, [selectedEvaluation, lang, productsData]);
 
   useEffect(() => {
-    if (activeReviewType && activeReviewType !== selectedReviewType) {
-      setSelectedReviewType(activeReviewType);
+    const normalizedActiveReviewType = normalizeReviewType(activeReviewType);
+    if (normalizedActiveReviewType !== selectedReviewType) {
+      setSelectedReviewType(normalizedActiveReviewType);
     }
   }, [activeReviewType, selectedReviewType]);
 
   const handleReviewTypeSelect = (type: string) => {
-    setSelectedReviewType(type);
-    onReviewTypeChange?.(type);
+    const normalizedType = normalizeReviewType(type);
+    setSelectedReviewType(normalizedType);
+    onReviewTypeChange?.(normalizedType);
   };
 
   const reviewTypes = lang === "en" ? [
-    { id: "all", label: "📁 ALL REPORTS" },
     { id: "single", label: "🔬 SINGLE TEST" },
     { id: "compare", label: "⚖️ CROSS COMPARE" },
     { id: "value", label: "💰 VALUE RANK" },
     { id: "ranking", label: "🏆 ANNUAL TOP" },
     { id: "safety", label: "🛡️ SAFETY SPECIAL" }
   ] : [
-    { id: "all", label: "📁 全部评估" },
     { id: "single", label: "🔬 单品实测" },
     { id: "compare", label: "⚖️ 多品横评" },
     { id: "value", label: "💰 性价比测评" },
@@ -236,7 +419,17 @@ export default function EvaluationsSection({
 
   // Map real evaluations instead of products
   const reviewsList = useMemo(() => {
-    return evaluationsData.filter(ev => ev.status === "published").map((ev) => {
+    const generatedEvaluations = buildGeneratedEvaluations(productsData);
+    const generatedIds = new Set(generatedEvaluations.map((evaluation) => evaluation.id));
+    const currentEvaluations = evaluationsData.filter((ev) => {
+      if (ev.status !== "published" || generatedIds.has(ev.id)) return false;
+      const ids = (ev.productIds && ev.productIds.length > 0 ? ev.productIds : [ev.productId]).filter(Boolean);
+      return ids.some((id) => {
+        const product = productsData.find((item) => item.id === id);
+        return product ? isFocusReviewProduct(product) : false;
+      });
+    });
+    return [...generatedEvaluations, ...currentEvaluations].map((ev) => {
       let badge = "REPORT";
       if (ev.type === "compare") badge = lang === "en" ? "COMPARISON" : "多品横评";
       if (ev.type === "value") badge = lang === "en" ? "VALUE PICK" : "性价比之选";
@@ -250,12 +443,12 @@ export default function EvaluationsSection({
         reviewBadge: badge
       };
     });
-  }, [evaluationsData, lang]);
+  }, [evaluationsData, lang, productsData]);
 
   const filteredReviews = useMemo(() => {
     return reviewsList.filter((r) => {
       const evLang = lang === "zh" ? r.evaluation.zh : r.evaluation.en;
-      const matchesType = selectedReviewType === "all" || r.reviewType === selectedReviewType;
+      const matchesType = r.reviewType === selectedReviewType;
       const matchesSearch = searchQuery.trim() === "" ||
         evLang.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         evLang.verdict.toLowerCase().includes(searchQuery.toLowerCase());
@@ -265,8 +458,9 @@ export default function EvaluationsSection({
 
   const getCategoryPriority = (categoryValue?: string) => {
     const normalized = String(categoryValue || "").trim().toLowerCase();
-    if (normalized.includes("stroller")) return 0;
-    if (normalized.includes("balance")) return 1;
+    if (normalized.includes("balance")) return 0;
+    if (normalized.includes("bicycle") || normalized.includes("bike")) return 1;
+    if (normalized.includes("scooter")) return 2;
     return 2;
   };
 
@@ -293,7 +487,7 @@ export default function EvaluationsSection({
     });
 
     return prioritizedReviews.map(r => {
-      const isSingle = r.reviewType === "single" || r.reviewType === "safety";
+      const isSingle = r.reviewType !== "compare";
       if (isSingle) {
         const product = productsData.find(p => p.id === r.evaluation.productId);
         return {
@@ -338,9 +532,7 @@ export default function EvaluationsSection({
   }, [lang, pagedRenderList, selectedEvaluation]);
 
   const isSelectedSingle = selectedEvaluation && 
-    (selectedEvaluation.type === "single" || 
-     selectedEvaluation.type === "safety" || 
-     !selectedEvaluation.type);
+    (selectedEvaluation.type !== "compare" || !selectedEvaluation.productIds || selectedEvaluation.productIds.length <= 1);
 
   if (selectedEvaluation && !isSelectedSingle) {
     return (
@@ -358,8 +550,8 @@ export default function EvaluationsSection({
     <div id="evaluations_hub" className="space-y-8 animate-fade-in text-left">
       <h1 className="sr-only">
         {lang === "en"
-          ? "Stroller and Jogging Stroller Evaluation Reports"
-          : "stroller 与 jogging stroller 实验室评测报告"}
+          ? "Balance Bike, Kids Bike and Kids Scooter Evaluation Reports"
+          : "balance bike、kids bike 与 kids scooter 实验室评测报告"}
       </h1>
       
       {/* Breadcrumbs (PRD 4.3.2) */}
@@ -377,14 +569,14 @@ export default function EvaluationsSection({
         </div>
         <h2 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
           {lang === "en" ? (
-            <>Stroller & Jogging Stroller Lab Reviews</>
+            <>Stroller, Balance Bike & Kids Scooter Expert Reviews</>
           ) : (
             <>用严苛实测，重塑选购信心</>
           )}
         </h2>
         <p className="text-slate-500 text-lg font-medium leading-relaxed">
           {lang === "en" 
-            ? "Get objective stroller, jogging stroller, double stroller, and twin stroller test data for safer travel stroller buying decisions." 
+            ? "Real-world testing meets parenting reality. Discover our top-rated jogging stroller, balance bike, and kids scooter, rigorously evaluated for your child's safety and comfort."
             : "KIDSMOBI 通过匿名采购、工业级精密设备及儿科工效学评估，为您呈现每一款童车背后的真实物理数据。"}
         </p>
         {seoKeywordHints.length > 0 && (

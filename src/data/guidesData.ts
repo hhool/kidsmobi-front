@@ -1,7 +1,7 @@
 export interface GuideArticle {
   id: string;
   title: string;
-  category: "beginner" | "scenario" | "budget" | "risk" | "export" | "category_spec" | "maintenance";
+  category: "beginner" | "scenario" | "budget" | "risk" | "export" | "category_spec" | "special" | "maintenance";
   categoryLabel: string;
   summary: string;
   content: string;

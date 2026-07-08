@@ -124,9 +124,9 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
       keywords: ["选型指南", "避坑指南", "跨步长计算器", "车架黄金比例"]
     },
     en: {
-      title: "How to Choose a Baby Stroller | Jogging, Double & Twin Guide",
+      title: "How to Choose a Baby Stroller | Balance Bike Guide",
       description: "Follow practical stroller buying guides for how to choose a baby stroller, jogging stroller fit checks, best travel stroller picks, and family-ready double stroller and twin stroller planning.",
-      keywords: ["how to choose a baby stroller", "stroller", "jogging stroller", "best travel stroller", "double stroller", "stroller travel stroller", "twin stroller", "wagon and stroller"]
+      keywords: ["how to choose a baby stroller", "jogging stroller", "balance bike", "toddler bike", "kids scooter"]
     }
   },
   about: {
@@ -187,7 +187,6 @@ const PRODUCT_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
 ];
 
 const REVIEW_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
-  { id: "all", zh: "全部评测", en: "All Reports" },
   { id: "single", zh: "单品实测", en: "Single Test" },
   { id: "compare", zh: "多品横评", en: "Cross Compare" },
   { id: "value", zh: "性价比测评", en: "Value Rank" },
@@ -362,7 +361,7 @@ const resolveInitialLang = (): "zh" | "en" => {
 };
 
 const resolveRouteState = (pathname: string, hash: string) => {
-  if (hash === "#cms") {
+  if (hash === "#cms" || hash === "#cm") {
     return {
       activeTab: "admin",
       activeProductCategory: "all",
@@ -403,7 +402,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
   if (root === "reviews" || root === "evaluations") {
     const pageSegmentIndex = segments.indexOf("page");
     const activePageIndex = pageSegmentIndex >= 0 ? Number(segments[pageSegmentIndex + 1] || 1) : 1;
-    const activeReviewType = sub && REVIEW_ROUTE_IDS.has(sub) ? sub : "all";
+    const activeReviewType = sub && REVIEW_ROUTE_IDS.has(sub) ? sub : "single";
     return {
       activeTab: "evaluations",
       activeProductCategory: "all",
@@ -1251,10 +1250,20 @@ export default function App() {
 
       if (seoKey === "evaluations") {
         const publishedEvaluations = evaluationsData.filter((evaluation) => evaluation.status === "published");
-        const routeEvaluations = activeReviewType === "all"
-          ? publishedEvaluations
-          : publishedEvaluations.filter((evaluation) => (evaluation.type || "single") === activeReviewType);
-        return Math.max(1, Math.ceil(routeEvaluations.length / 6));
+        const normalizedReviewType = activeReviewType === "all" ? "single" : activeReviewType;
+        const routeEvaluations = publishedEvaluations.filter((evaluation) => (evaluation.type || "single") === normalizedReviewType);
+        const targetProducts = productsData.filter((product) => {
+          const text = `${product.category || ""} ${(product as any).categoryId || ""}`.toLowerCase();
+          return text.includes("balance") || text.includes("bike") || text.includes("bicycle") || text.includes("scooter");
+        });
+        const generatedCountByType: Record<string, number> = {
+          single: Math.min(12, targetProducts.length),
+          compare: 5,
+          value: Math.min(5, targetProducts.length),
+          ranking: Math.min(3, targetProducts.length),
+          safety: Math.min(6, targetProducts.length),
+        };
+        return Math.max(1, Math.ceil(Math.max(routeEvaluations.length, generatedCountByType[normalizedReviewType] || 0) / 6));
       }
 
       if (seoKey === "news") {
@@ -1936,13 +1945,13 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             lang={lang}
             cmsSettings={cmsSettings}
             setActiveTab={navigateToTab}
-            initialReviewType="all"
+            initialReviewType="single"
             activeReviewType={activeReviewType}
-            onReviewTypeChange={(reviewTypeId) => navigateToPath(reviewTypeId === "all" ? "/reviews" : `/reviews/${reviewTypeId}`, { preserveScroll: true })}
+            onReviewTypeChange={(reviewTypeId) => navigateToPath(reviewTypeId === "single" ? "/reviews" : `/reviews/${reviewTypeId}`, { preserveScroll: true })}
             seoKeywordHints={reviewSeoHints}
             currentPage={activePageIndex}
             onPageChange={(page) => {
-              const reviewPath = activeReviewType === "all" ? "/reviews" : `/reviews/${activeReviewType}`;
+              const reviewPath = activeReviewType === "single" || activeReviewType === "all" ? "/reviews" : `/reviews/${activeReviewType}`;
               navigateToPath(page <= 1 ? reviewPath : `${reviewPath}/page/${page}`, { preserveScroll: true });
             }}
           />
