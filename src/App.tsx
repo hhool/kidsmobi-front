@@ -83,14 +83,14 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
   },
   news: {
     zh: {
-      title: "童车行业前沿动态与安全标准研究 | KIDSMOBI 资讯与趋势",
-      description: "探索全球儿童滑行及安全座椅设计的最新工艺标准、合规审查细节与前沿设计流派。KIDSMOBI 为您实时推送海外检测动态及召回警告。",
-      keywords: ["童车行业动态", "童车安全标准", "童车召回警示", "设计趋势"]
+      title: "童车行业趋势、品牌新品与科学选购资讯 | KIDSMOBI News",
+      description: "聚合 stroller、balance bike、kids bike、scooter 相关行业趋势、新品发布、法规政策、品牌动态与科学选购软文，帮助家长用更少时间理解市场变化。",
+      keywords: ["童车行业趋势", "童车新品发布", "童车法规政策", "品牌动态", "科学选购"]
     },
     en: {
-      title: "Stroller & Jogging Stroller Safety News | Double & Twin Stroller Updates",
-      description: "Track stroller and jogging stroller safety alerts, plus double stroller and twin stroller compliance updates to make safer travel stroller decisions.",
-      keywords: ["stroller", "jogging stroller", "jogging stroller stroller", "stroller standards", "best travel stroller", "double stroller", "double stroller stroller", "stroller travel stroller", "twin stroller", "wagon and stroller"]
+      title: "Jogging Stroller, Balance Bike & Kids Scooter ｜ News",
+      description: "Kids mobility news covering market trends, product launches, regulations, brand updates, and practical science tips for family buying decisions.",
+      keywords: ["stroller news", "balance bike news", "kids bike news", "kids scooter news", "new launches", "brand news", "science tips"]
     }
   },
   products: {
@@ -100,7 +100,7 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
       keywords: ["童车参数对比", "平衡车挑选数据库", "童车重量对比", "几何重心分析"]
     },
     en: {
-      title: "Jogging Stroller, Balance Bike & Kids Scooter | KIDSMOBI",
+      title: "Jogging Stroller, Balance Bike & Kids Scooter | Produc",
       description: "Compare specs for all types of kids' mobility products. Find the best kids stroller, jogging stroller, balance bike, toddler bike, and kids scooter",
       keywords: ["kids stroller", "jogging stroller", "balance bike", "toddler bike", "kids scooter"]
     }

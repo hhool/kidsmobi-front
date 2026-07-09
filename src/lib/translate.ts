@@ -559,9 +559,9 @@ export function translateNewsArticle(art: any, lang: "zh" | "en") {
 
   const categoryLabels: Record<string, string> = {
     regulation: "Regulations",
-    recall: "Safety Recalls",
-    new_product: "New Tech Launch",
-    brand_trend: "Supply Chain",
+    new_product: "New Launches",
+    brand_news: "Brand News",
+    brand_trend: "Brand News",
     science: "Science & Biomechanics",
     industry: "Industry Trends"
   };
@@ -584,24 +584,22 @@ The European Union met in Brussels to formalize strict structural and posture st
 When buying baby strollers, please decidedly avoid fabric meshes with no hard underlying support. Solid posture plates protect vertebrae and breathing paths.`
     },
     news_2: {
-      title: "US CPSC Issues Critical Action Safety Alert on High Carbon Steel Heavy Kid Bikes",
-      summary: "US Consumer Product Safety Commission warns parents about massive bike-to-child weight ratios. Heavy bikes lead to immediate balance loss for toddler riders.",
-      author: "Chief Biometrics Specialist - Daniel",
+      title: "Lightweight Kids Mobility Becomes the 2026 Family Buying Theme",
+      summary: "Across strollers, balance bikes, kids bikes, and scooters, families are shifting toward products that are light, easy to store, and easier to maintain.",
+      author: "KIDSMOBI Market Desk",
       readTime: "4 min read",
-      content: `### The Serious Hazard of Excessive Heavy Bicycles
+      content: `### 2026 Industry Trend: Lighter, Easier, More Family-Friendly
 
-CPSC mechanical friction analysis and tilt testing shows: **Excessive physical weight of kid bikes is the prime cause of tipping/injury.**
+    For years, children’s mobility products were sold with bigger frames, thicker tubes, and heavier-duty claims. In real family use, though, parents feel value through a different lens: can one adult carry it, can the child control it, and does it fit stairs, elevators, and car trunks?
 
-#### 1. Human Biomechanical Limitations
-When bicycle mass exceeds 40% of the rider's active weight, children lack the required muscular strength to correct tilt deviations past 22 degrees. The physical inertia throws them down violently, causing joint dislocations.
+    #### 1. Lightweight is household efficiency
+    A good stroller, balance bike, kids bike, or scooter should reduce friction for both child and caregiver. Lightweight frames, predictable wheels, adjustable touchpoints, and stable folding systems are becoming the new purchase language.
 
-#### 2. Self-Check Safety Formula:
-Calculate your kid's health limits:
-$$\\text{Weight Ratio} = \\frac{\\text{Bike Weight}}{\\text{Child Weight}} \\times 100\\%$$
+    #### 2. Parents now buy by scenario
+    Commuting families care about fold size and carry weight. Park families care about grip and vibration. School-age families care about brake feedback and maintenance cost. Brands that explain where a product fits are easier to trust.
 
-*   **Under 30%**: Excellent. High maneuverability, safe handling limit.
-*   **30% - 40%**: Acceptable. Experience required, watch balance curves closely.
-*   **Over 40%**: Risky. Highly recommended to move to carbon fiber or aerospace magnesium models.`
+    #### 3. KIDSMOBI view
+    The next durable brands will not simply shout specifications. They will explain who the product suits, which roads it fits, which budget band it occupies, and how often it needs care.`
     },
     news_3: {
       title: "2026 Kids Bike Global Launch: Woom Explore & Specialized Riprock Pro Carbon Release",
@@ -650,6 +648,126 @@ EVA foam does not contract like air-filled compartments. When kids ride over pav
 
 #### 2. True Pneumatic Dampening Performance
 Air tires ingest and dissolve up to 95% of micro-vibrations via gas deflection, preserving delicate joints and ensuring excellent side-traction during tight turns.`
+    },
+    news_6: {
+      title: "2026 Industry Trend: Families Move From Single Products to Scenario Bundles",
+      summary: "Strollers, balance bikes, kids bikes, and scooters are increasingly bought as connected mobility setups for commuting, weekends, parks, and growth stages.",
+      author: "KIDSMOBI Industry Desk",
+      readTime: "4 min read",
+      content: `### Scenario Bundles Are Reshaping Kids Mobility
+
+Parents used to shop around one product at a time: one stroller, one balance bike, or one kids scooter. In 2026, the decision is becoming more route-based and stage-based.
+
+#### 1. Urban commuting needs light folding and low maintenance
+Elevators, subway gates, car trunks, and preschool entrances are the real testing ground. Products that fold quickly, push smoothly, and park easily now beat specification-only storytelling.
+
+#### 2. Growth stages need a continuous experience
+From stroller to balance bike, then kids bike and scooter, the core skills are balance, braking, steering, and surface judgment. Brands that explain this path earn longer family trust.`
+    },
+    news_7: {
+      title: "After Lightweight, Repairability Becomes the Next Kids Mobility Battleground",
+      summary: "Once lightweight frames become common, wheelsets, brakes, saddles, folding joints, and spare-part availability become the new brand differentiators.",
+      author: "KIDSMOBI Market Research",
+      readTime: "4 min read",
+      content: `### Repairability Is Becoming a Brand Divider
+
+Lightweight products are easier to adopt, but the real test comes two years later: does the stroller, bike, or scooter still feel smooth, safe, and serviceable?
+
+#### 1. Parents care about lifetime cost
+Replaceable tires, common brake parts, stable folding joints, and available saddles or grips all shape the ownership experience.
+
+#### 2. Second-child and resale markets raise durability expectations
+More families want one product to survive across children and seasons. Brands that publish spare parts and maintenance intervals gain an extra trust advantage.`
+    },
+    news_8: {
+      title: "EU Labeling Trend: Age, Weight, and Surface Limits Need Clearer Kids Mobility Copy",
+      summary: "European-market children’s mobility labels are moving toward clearer age, weight, surface, and maintenance guidance for families.",
+      author: "KIDSMOBI Compliance Desk",
+      readTime: "5 min read",
+      content: `### Label Clarity Is Becoming a Compliance Priority
+
+Risks in strollers, balance bikes, kids bikes, and scooters do not come only from structure. They also come from families misunderstanding usage boundaries.
+
+#### 1. Age and height should not be mixed loosely
+Children at the same age may differ widely in height, inseam, and strength. Better labels show age, height, inseam, and maximum load together.
+
+#### 2. Surface limits should be visible earlier
+Indoor floors, sidewalks, gravel paths, and slopes all demand different wheels, brakes, and steering control. Clear surface limits reduce misuse risk.`
+    },
+    news_9: {
+      title: "Kids Scooter Brake Copy Draws Attention: Rear Friction Brakes Are Not All-Terrain Safety",
+      summary: "Rear friction brakes work well in simple settings, but wet pavement and long slopes require clearer usage boundaries and caregiver guidance.",
+      author: "KIDSMOBI Risk Review",
+      readTime: "4 min read",
+      content: `### Scooter Brake Boundaries Need Clearer Explanation
+
+Many kids scooters use rear foot friction brakes. They are simple and reliable, but that does not make them suitable for every speed and surface.
+
+#### 1. Wet slopes are a high-risk pairing
+PU wheels and rear friction brakes can take much longer to stop on wet surfaces. Product pages should tell families to avoid wet slopes and mixed traffic areas.
+
+#### 2. Caregiver guidance should not hide in manuals
+For young children’s products, key risk guidance belongs on packaging, product pages, and after-sales messaging, not only at the end of a long manual.`
+    },
+    news_10: {
+      title: "Brand News: Woom Sharpens Its Growth-Frame Strategy Around Low Weight and Child Geometry",
+      summary: "Woom keeps focusing on low weight, low standover, narrow Q-factor, and child-sized brakes as a clear brand identity around real control.",
+      author: "KIDSMOBI Brand Desk",
+      readTime: "4 min read",
+      content: `### Woom's Brand Language Centers on Control
+
+In premium kids bikes, Woom does not talk only about light weight. It packages light frames, geometry, brakes, and grips into a child-control story.
+
+#### 1. Child geometry becomes brand equity
+Low standover improves mounting confidence, narrow Q-factor supports cleaner pedaling, and short-reach brake levers reduce hand strain.
+
+#### 2. The lesson for other brands
+Shrinking adult bikes is no longer enough. Brands that explain children’s body proportions and learning curves build stronger trust.`
+    },
+    news_11: {
+      title: "Brand News: Joovy and Bumbleride Compete for Urban Stroller Families in Different Ways",
+      summary: "Joovy leans into functional density for multi-child families, while Bumbleride emphasizes sustainable materials and smooth everyday pushing.",
+      author: "KIDSMOBI Brand Research",
+      readTime: "5 min read",
+      content: `### Two Stroller Brand Routes Are Splitting Apart
+
+Urban families now compare more than wheel size and fold dimensions. Brand values, material stories, and multi-child efficiency all influence buying.
+
+#### 1. Joovy's keyword is practical density
+For multi-child families, seating layout, storage, standing boards, and quick folding matter more than decorative styling.
+
+#### 2. Bumbleride's keyword is material and ride feel
+Sustainable fabrics, smooth wheels, and outdoor suitability make Bumbleride feel like a long-term family companion rather than a single-function tool.`
+    },
+    news_12: {
+      title: "Science Tip: Why Low Standover Matters More Than Large Wheels for Early Riders",
+      summary: "At the beginner stage, the key is not speed. Children need to stop, put both feet down, and restart with confidence.",
+      author: "KIDSMOBI Ergonomics Lab",
+      readTime: "4 min read",
+      content: `### Low Standover Determines Whether Children Dare to Start
+
+Parents often focus on wheel size, but early riders care most about whether they can get on, stop, and touch the ground quickly when balance breaks.
+
+#### 1. Foot-down confidence lowers fear
+When children learn on balance bikes or kids bikes, falls often happen because they cannot support themselves in time. Low standover makes practice less intimidating.
+
+#### 2. Bigger wheels are not always better
+Large wheels improve rollover, but they can raise height and weight. For beginners, standing clearance and weight ratio matter more than sizing up too early.`
+    },
+    news_13: {
+      title: "Science Tip: Scooter Steering Design Changes How Children Learn Balance",
+      summary: "Lean steering and handlebar steering train different control patterns, so families should choose based on age, surface, and riding goals.",
+      author: "KIDSMOBI Motor Development Lab",
+      readTime: "4 min read",
+      content: `### Steering Structure Shapes Body Learning
+
+Kids scooters often follow two routes: leaning the body to steer, or turning the handlebar directly. Neither is universally better; they teach different skills.
+
+#### 1. Lean steering trains whole-body control
+Three-wheel lean scooters help younger children coordinate shoulders, hips, and ankles while usually keeping speed in a safer range.
+
+#### 2. Handlebar steering feels closer to cycling
+Handlebar steering responds directly, but can turn sharply at speed. It is better for children who already understand slowing down and avoiding obstacles.`
     }
   };
 

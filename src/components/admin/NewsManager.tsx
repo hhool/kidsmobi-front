@@ -97,7 +97,7 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
   const handleNew = () => {
     setEditingNews({
       id: `news_${Date.now()}`,
-      category: "trends",
+      category: "industry",
       status: "draft",
       imageUrl: "",
       seo: {
@@ -153,7 +153,7 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
       <header className="flex items-center justify-between">
         <div>
           <h2 className="text-3xl font-black text-slate-900 tracking-tighter uppercase">{lang === "zh" ? "全球资讯" : "Global News"}</h2>
-          <p className="text-slate-500 font-medium mt-1">Policy updates, recall alerts, and industry news.</p>
+          <p className="text-slate-500 font-medium mt-1">Industry trends, launches, regulations, brand news, and science tips.</p>
         </div>
         <button onClick={handleNew} className="btn-primary flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-3xl font-black shadow-2xl shadow-slate-900/10 hover:-translate-y-1 transition-all">
           <Plus className="w-5 h-5 text-blue-400" />
@@ -408,10 +408,11 @@ function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving,
                 value={formData.category}
                 onChange={(e) => setFormData({...formData, category: e.target.value})}
               >
-                <option value="trends">Industry Trends</option>
-                <option value="policy">Policy & Compliance</option>
-                <option value="safety">Safety Recall Alerts</option>
-                <option value="science">Kids Mobility Science</option>
+                <option value="industry">Industry Trends</option>
+                <option value="new_product">New Launches</option>
+                <option value="regulation">Regulations</option>
+                <option value="brand_news">Brand News</option>
+                <option value="science">Science & Tips</option>
               </select>
             </div>
 

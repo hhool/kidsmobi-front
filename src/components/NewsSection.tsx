@@ -10,13 +10,42 @@ function translateCategoryLabel(cat: string): string {
     industry: "行业资讯",
     new_product: "新品发布",
     regulation: "合规政策",
-    recall: "安全预警",
+    brand_news: "品牌动态",
     brand_trend: "品牌动态",
+    brand_dynamics: "品牌动态",
     science: "科普干货"
   };
   return labels[cat] || "最新动态";
 }
 import Breadcrumbs from "./Breadcrumbs";
+
+const NEWS_ALLOWED_CATEGORIES = new Set(["industry", "new_product", "regulation", "brand_news", "science"]);
+
+function normalizeNewsCategory(category: string): NewsArticle["category"] | null {
+  const normalized: Record<string, NewsArticle["category"]> = {
+    trends: "industry",
+    policy: "regulation",
+    brand_trend: "brand_news",
+    brand_dynamics: "brand_news",
+    industry: "industry",
+    new_product: "new_product",
+    regulation: "regulation",
+    brand_news: "brand_news",
+    science: "science",
+  };
+  return normalized[category] || null;
+}
+
+function withFallbackNews(articles: NewsArticle[]): NewsArticle[] {
+  const normalizedArticles = articles
+    .map((article) => ({ ...article, category: normalizeNewsCategory(article.category) || article.category }))
+    .filter((article) => NEWS_ALLOWED_CATEGORIES.has(article.category));
+  const seenIds = new Set(normalizedArticles.map((article) => article.id));
+  return [
+    ...normalizedArticles,
+    ...fallbackNewsArticles.filter((article) => !seenIds.has(article.id)),
+  ];
+}
 
 interface NewsSectionProps {
   lang?: "zh" | "en";
@@ -87,7 +116,7 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
               : "2026-06-15",
             views: 4200
           }));
-          setNewsArticlesState(mapped);
+          setNewsArticlesState(withFallbackNews(mapped));
           setLoadingNews(false);
         } else {
           throw new Error("No CMS news found in Firestore, falling back to local server endpoint");
@@ -103,7 +132,7 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
           })
           .then((data) => {
             if (Array.isArray(data) && data.length > 0) {
-              setNewsArticlesState(data);
+              setNewsArticlesState(withFallbackNews(data));
             }
           })
           .catch((fetchErr) => {
@@ -141,6 +170,7 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
     return newsArticlesState
       .map(art => translateNewsArticle(art, lang))
       .filter((art) => {
+        if (!NEWS_ALLOWED_CATEGORIES.has(art.category)) return false;
         const matchesCategory = selectedCategory === "all" || art.category === selectedCategory;
         const matchesSearch = searchQuery.trim() === "" || 
           art.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -313,8 +343,8 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
               </h2>
               <p className="text-sm text-slate-500 font-medium">
                 {lang === "en" 
-                  ? "Track stroller standards, jogging stroller safety alerts, plus double stroller and twin stroller market and compliance trends." 
-                    : "专注同步全球安全召回、产业动态，以及最硬核的一线科普。"}
+                  ? "Track category trends, launches, regulations, brand moves, and practical science tips for smarter family mobility decisions." 
+                    : "聚焦行业趋势、新品发布、法规政策、品牌动态与科学选购内容，用软文方式讲清楚市场变化。"}
               </p>
           </div>
 
@@ -349,11 +379,10 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
             <div className="flex flex-wrap gap-2 pt-2">
               {[
                 { id: "all", label: lang === "en" ? "All News" : "全部资讯", icon: "📁" },
-                { id: "brand_trend", label: lang === "en" ? "Industry Trends" : "行业动态", icon: "🏭" },
+                { id: "industry", label: lang === "en" ? "Industry Trends" : "行业趋势", icon: "🏭" },
                 { id: "new_product", label: lang === "en" ? "New Launches" : "新品发布", icon: "🆕" },
                 { id: "regulation", label: lang === "en" ? "Regulations" : "合规政策", icon: "⚖️" },
-                { id: "recall", label: lang === "en" ? "Safety Alerts" : "安全预警", icon: "⚠️" },
-                { id: "brand_dynamics", label: lang === "en" ? "Brand News" : "品牌动态", icon: "🏢" },
+                { id: "brand_news", label: lang === "en" ? "Brand News" : "品牌动态", icon: "🏢" },
                 { id: "science", label: lang === "en" ? "Science & Tips" : "科普干货", icon: "🔬" },
               ].map((c) => (
                 <button
