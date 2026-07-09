@@ -590,7 +590,7 @@ export default function GuidesSection({
     <div id="guides_container" className="space-y-8 animate-fade-in text-left">
       <h1 className="sr-only">
         {lang === "en"
-          ? "How to Choose a Baby Stroller and Jogging Stroller Guides"
+          ? "How to Choose a Baby Stroller, Balance Bike Toddler and Kids Scooter Guide"
           : "如何选择 stroller 与 jogging stroller 指南"}
       </h1>
       
@@ -616,13 +616,30 @@ export default function GuidesSection({
             </span>
             <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
               <Calculator className="w-6 h-6 text-orange-500" />
-              {lang === "en" ? "How to Choose a Baby Stroller & Jogging Stroller" : "帮宝宝选出真爱座驾"}
+              {lang === "en" ? "How to Choose a Baby Stroller & Balance Bike Toddler" : "帮宝宝选出真爱座驾"}
             </h2>
             <p className="text-sm text-slate-500 font-medium">
               {lang === "en" 
-                ? "Use real child measurements for how to choose a baby stroller, matching travel stroller, jogging stroller, double stroller, and twin stroller options safely." 
+                ? "Use real child measurements for how to choose a baby stroller, then compare jogging stroller, balance bike toddler, toddler bike, kids scooter, and kids electric bike fit safely." 
                 : "输入宝宝的身高体重，我们将通过科学算法为您匹配最合适的轮径与型号。"}
             </p>
+            {lang === "en" && (
+              <div className="flex flex-wrap gap-2 pt-2">
+                {[
+                  "how to choose a baby stroller",
+                  "jogging stroller fit",
+                  "balance bike toddler",
+                  "toddler bike sizing",
+                  "kids scooter safety",
+                  "kids electric bike fit",
+                  "foldable electric scooter guide",
+                ].map((keyword) => (
+                  <span key={keyword} className="rounded-full border border-orange-100 bg-orange-50 px-3 py-1 text-[10px] font-black uppercase tracking-wide text-orange-600">
+                    {keyword}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
           <button 
             type="button" 

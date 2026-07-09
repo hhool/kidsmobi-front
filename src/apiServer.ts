@@ -4,6 +4,7 @@ import { newsArticles } from "./data/newsData.js";
 import { productsData } from "./data/modelsData.js";
 import { initialEvaluationsData } from "./data/evaluationsData.js";
 import type { CMSCategory, CMSProduct, CMSScenario, CMSSettings, ComplianceTag, Evaluation, Guide, HomeSlot, News, Product, ProductCategory } from "./types.js";
+import { DEFAULT_SEO_CONFIGS } from "./config/defaultSeo.js";
 import dotenv from "dotenv";
 
 // Load environment variables
@@ -145,6 +146,7 @@ function buildWorkerUrl(pathname: string) {
 
 function isHttpUrl(value?: string) {
   if (!value) return false;
+  if (/\.m3u8(\?|#|$)/i.test(value.trim())) return false;
   try {
     const url = new URL(value);
     return url.protocol === "http:" || url.protocol === "https:";
@@ -457,6 +459,7 @@ function buildBaselineSettings(): CMSSettings {
       },
     },
     homeSlots: [],
+    seo: DEFAULT_SEO_CONFIGS,
     scoringStandards: [
       {
         id: "baseline",
@@ -1147,6 +1150,7 @@ app.get("/api/content/bundle", async (req, res) => {
         },
       },
       homeSlots: buildHomeSlots(homeProducts.length > 0 ? homeProducts : allProducts, evaluationIds),
+      seo: DEFAULT_SEO_CONFIGS,
       scoringStandards: [
         {
           id: "worker-live",

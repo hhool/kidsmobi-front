@@ -213,7 +213,7 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
     <div id="news_hub" className="space-y-8 animate-fade-in text-left">
       <h1 className="sr-only">
         {lang === "en"
-          ? "Stroller and Jogging Stroller Industry News"
+          ? "Kids Bike, Kids Scooter, Balance Bike and Jogging Stroller News"
           : "stroller 与 jogging stroller 行业资讯"}
       </h1>
       
@@ -339,13 +339,30 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
                 </div>
               </div>
               <h2 className="text-3xl font-black text-slate-900">
-                {lang === "en" ? "Global Stroller & Jogging Stroller Insights" : "全球童车资讯库"}
+                {lang === "en" ? "Kids Bike, Kids Scooter & Balance Bike Insights" : "全球童车资讯库"}
               </h2>
               <p className="text-sm text-slate-500 font-medium">
                 {lang === "en" 
-                  ? "Track category trends, launches, regulations, brand moves, and practical science tips for smarter family mobility decisions." 
+                  ? "Track kids bike, kids electric bike, kids scooter, balance bike, and jogging stroller trends, launches, regulations, and practical science tips." 
                     : "聚焦行业趋势、新品发布、法规政策、品牌动态与科学选购内容，用软文方式讲清楚市场变化。"}
               </p>
+              {lang === "en" && (
+                <div className="flex flex-wrap justify-center gap-2 pt-2">
+                  {[
+                    "kids bike news",
+                    "kids electric bike launches",
+                    "kids scooter news",
+                    "balance bike trends",
+                    "jogging stroller safety news",
+                    "kids dirt bike updates",
+                    "electric dirt bike for kids",
+                  ].map((keyword) => (
+                    <span key={keyword} className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[10px] font-black uppercase tracking-wide text-slate-500 shadow-sm">
+                      {keyword}
+                    </span>
+                  ))}
+                </div>
+              )}
           </div>
 
           {/* Searching and Categorizing Tags */}

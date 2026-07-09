@@ -192,7 +192,7 @@ function productVerdict(product: Product) {
   return String(product.editorVerdict || product.description || product.customersSay || "").trim();
 }
 
-function makeSingleEvaluation(product: Product, type: Evaluation["type"], suffix: string, zhTitle: string, enTitle: string, verdictPrefixZh = "编辑结论", verdictPrefixEn = "Editor verdict"): Evaluation {
+function makeSingleEvaluation(product: Product, type: Evaluation["type"], suffix: string, zhTitle: string, enTitle: string, verdictPrefixZh = "专家摘要", verdictPrefixEn = "Expert summary"): Evaluation {
   const verdict = productVerdict(product);
   const title = getProductDisplayName(product);
   return {
@@ -209,14 +209,14 @@ function makeSingleEvaluation(product: Product, type: Evaluation["type"], suffix
       verdict: `${verdictPrefixZh}：${verdict}`,
       pros: (product.pros || product.features || []).slice(0, 4),
       cons: (product.cons || []).slice(0, 4),
-      changelog: "由已抓取产品详情、评分字段与 Editor Verdict 自动生成。",
+      changelog: "由已抓取产品详情、评分字段与专家摘要自动生成。",
     },
     en: {
       title: enTitle.replace("{product}", title),
       verdict: `${verdictPrefixEn}: ${verdict}`,
       pros: (product.pros || product.features || []).slice(0, 4),
       cons: (product.cons || []).slice(0, 4),
-      changelog: "Generated from scraped product details, score fields, and Editor Verdict.",
+      changelog: "Generated from scraped product details, score fields, and expert summary.",
     },
     updatedAt: new Date("2026-07-09"),
   };
@@ -273,8 +273,8 @@ function buildGeneratedEvaluations(productsData: Product[]): Evaluation[] {
     product,
     "single",
     String(index + 1),
-    "{product} 单品 Editor Verdict 深度评测",
-    "{product} Single Product Editor Verdict Review"
+    "{product} 单品专家摘要深度评测",
+    "{product} Single Product Expert Summary Review"
   ));
 
   const compareGroups = [
@@ -579,9 +579,25 @@ export default function EvaluationsSection({
             ? "Real-world testing meets parenting reality. Discover our top-rated jogging stroller, balance bike, and kids scooter, rigorously evaluated for your child's safety and comfort."
             : "KIDSMOBI 通过匿名采购、工业级精密设备及儿科工效学评估，为您呈现每一款童车背后的真实物理数据。"}
         </p>
+        {lang === "en" && (
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 text-left">
+            {[
+              "jogging stroller review and stroller safety test",
+              "balance bike review and toddler bike fit report",
+              "kids scooter review and kids electric bike safety audit",
+              "annual top balance bike, kids bike, and kids scooter ranking",
+              "single product review for stroller, balance bike, and kids scooter",
+              "cross compare reports for kids dirt bike and electric dirt bike for kids",
+            ].map((item) => (
+              <p key={item} className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-[11px] font-bold leading-relaxed text-slate-500">
+                {item}
+              </p>
+            ))}
+          </div>
+        )}
         {seoKeywordHints.length > 0 && (
           <div className="flex flex-wrap justify-center gap-2 pt-2">
-            {seoKeywordHints.slice(0, 8).map((kw) => (
+            {seoKeywordHints.slice(0, 10).map((kw) => (
               <span
                 key={kw}
                 className="px-3 py-1 rounded-full text-[10px] font-bold text-slate-600 bg-slate-100 border border-slate-200"

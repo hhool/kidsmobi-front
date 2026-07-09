@@ -12,7 +12,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
   if (isEn) {
     return (
       <div id="about_main" className="space-y-8 animate-fade-in text-left">
-        <h1 className="sr-only">Stroller and Jogging Stroller Safety Lab</h1>
+        <h1 className="sr-only">Jogging Stroller, Balance Bike and Kids Scooter Safety Lab</h1>
         
         {/* Breadcrumbs (PRD 4.6.2) */}
         <Breadcrumbs 
@@ -30,13 +30,28 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
               ESTABLISHED IN 2026 · Independent Premium Platform
             </span>
             <h2 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-              KIDSMOBI · Stroller Safety <br />
-              <span className="text-orange-500">& Jogging Stroller Evaluation Platform</span>
+              KIDSMOBI · Jogging Stroller <br />
+              <span className="text-orange-500">Balance Bike & Kids Scooter Safety Lab</span>
             </h2>
             <p className="text-slate-500 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-medium">
-              We align with the world's most rigorous pediatric frameworks for stroller, jogging stroller, double stroller, and twin stroller safety to solve one simple question:
+              We audit jogging stroller, balance bike, toddler bike, kids scooter, and kids electric bike safety with independent methods to solve one simple question:
               <span className="text-slate-900 font-bold block"> "Is this design truly safe for your child's growth and healthy riding?"</span>
             </p>
+            <div className="flex flex-wrap justify-center gap-2 pt-2">
+              {[
+                "stroller safety lab",
+                "jogging stroller audit",
+                "balance bike safety",
+                "toddler bike ergonomics",
+                "kids scooter testing",
+                "kids electric bike review",
+                "independent KIDSMOBI team",
+              ].map((keyword) => (
+                <span key={keyword} className="rounded-full border border-orange-100 bg-orange-50 px-3 py-1 text-[10px] font-black uppercase tracking-wide text-orange-600">
+                  {keyword}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 

@@ -55,6 +55,15 @@ export default function HomeSection({
   };
 
   const normalizeCategory = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, "_");
+  const isStrictKidsBikeProduct = (product: Product) => {
+    const category = normalizeCategory(product.category || "");
+    const categoryId = normalizeCategory(product.categoryId || "");
+    const searchable = normalizeCategory([product.category, product.categoryId, product.name, product.brand].filter(Boolean).join(" "));
+    if (searchable.includes("mountain") || searchable.includes("dirt") || searchable.includes("balance") || searchable.includes("electric")) {
+      return false;
+    }
+    return category === "kids_bikes" || category === "kids_bike" || categoryId === "kids_bikes" || categoryId === "kids_bike";
+  };
   
   const t = translations[lang];
   const [imageLoadState, setImageLoadState] = useState<Record<string, ImageLoadState>>({});
@@ -140,19 +149,19 @@ export default function HomeSection({
 
   // Outstanding Selection (high scores)
   const topSelections = [...productsData]
-    .filter(p => {
-      const cat = normalizeCategory(p.category || "");
-      const isBike = cat.includes("bike") || cat.includes("bicycle");
-      const isJogger = cat.includes("jogger") || cat.includes("jogging");
-      const isBalance = cat.includes("balance");
-      return (isBike && !isBalance) || isJogger;
-    })
+    .filter(p => isStrictKidsBikeProduct(p))
     .sort((a, b) => {
       return (b.overallScore || 0) - (a.overallScore || 0);
     })
     .slice(0, 4);
 
   const prioritizedCategoryCards = useMemo(() => {
+    const englishLabelOverrides: Record<string, string> = {
+      jogger_stroller: "Jogging Stroller",
+      kids_bikes: "Kids Bike",
+      scooters: "Kids Scooter",
+      kids_scooters: "Kids Scooter",
+    };
     return SCRAPED_CATEGORY_CATALOG.filter(c => {
       const idStr = c.id.toLowerCase();
       if (idStr.includes("jogger")) return true;
@@ -162,15 +171,18 @@ export default function HomeSection({
       return false;
     }).slice(0, 4).map((entry) => ({
       ...entry,
-      label: lang === "zh" ? entry.zh : entry.en,
+      label: lang === "zh" ? entry.zh : englishLabelOverrides[entry.id] || entry.en,
     }));
   }, [lang]);
 
   const annualAwards = [
     { 
       type: "stroller", 
-      label: lang === "zh" ? "年度最佳推车" : "Best Stroller", 
-      winner: productsData.find(p => p.category === "stroller") 
+      label: lang === "zh" ? "年度最佳慢跑推车" : "Best Jogging Stroller", 
+      winner: productsData.find(p => {
+        const cat = normalizeCategory(p.category || "");
+        return cat.includes("jogger") || cat.includes("jogging");
+      })
     },
     { 
       type: "balance", 
@@ -179,8 +191,10 @@ export default function HomeSection({
     },
     { 
       type: "value", 
-      label: lang === "zh" ? "年度性价比之选" : "Best Value Pick", 
-      winner: [...productsData].sort((a, b) => a.price - b.price)[0] 
+      label: lang === "zh" ? "年度最佳儿童滑板车" : "Best Kids Scooter", 
+      winner: [...productsData]
+        .filter(p => normalizeCategory(p.category || "").includes("scooter"))
+        .sort((a, b) => a.price - b.price)[0]
     }
   ];
 
@@ -210,8 +224,8 @@ export default function HomeSection({
     <div id="home_layout" className="space-y-24 pb-20">
       <h1 className="sr-only">
         {lang === "zh"
-          ? "stroller 与 jogging stroller 科学选购与安全评测平台"
-          : "Stroller and Jogging Stroller Buying & Safety Review Platform"}
+          ? "stroller、jogging stroller、balance bike 与 kids scooter 科学选购平台"
+          : "Balance Bike, Jogging Stroller, Kids Bike and Kids Scooter Review Platform"}
       </h1>
       
       {/* 1. Slogan Banner (Brand Identity) */}
@@ -223,14 +237,32 @@ export default function HomeSection({
             {lang === "zh" ? "全链路安全实验室审计" : "END-TO-END SAFETY AUDIT"}
           </div>
           <h2 className="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
-            {lang === "zh" ? "客观科学评测" : "Stroller & Jogging Stroller Reviews,"} <br />
+            {lang === "zh" ? "客观科学评测" : "Balance Bike & Jogging Stroller Reviews,"} <br />
             <span className="text-orange-500">{lang === "zh" ? "您的信心之选" : "Your Confident Choice"}</span>
           </h2>
           <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed font-medium">
             {lang === "zh" 
               ? "KIDSMOBI 是全球领先的高端童车垂直评测平台，通过力学公式与数千小时的实测，协助家长完成每一个理性的消费决策。"
-              : "KIDSMOBI helps families choose the best stroller, jogging stroller, double stroller, and twin stroller with objective engineering-led methods for how to choose a baby stroller."}
+              : "KIDSMOBI helps families compare balance bike, jogging stroller, kids bike, toddler bike, kids scooter, and kids electric bike options with practical how to choose a baby stroller guidance."}
           </p>
+          {lang === "en" && (
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 max-w-3xl mx-auto pt-2 text-left">
+              {[
+                "balance bike review",
+                "jogging stroller review",
+                "kids bike guide",
+                "toddler bike fit",
+                "kids scooter pick",
+                "kids electric bike",
+                "baby stroller guide",
+                "foldable electric scooter",
+              ].map((keyword) => (
+                <span key={keyword} className="px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-[11px] font-black text-slate-300 uppercase tracking-wide">
+                  {keyword}
+                </span>
+              ))}
+            </div>
+          )}
           <div className="flex flex-wrap justify-center gap-4 pt-4">
             {['ISO 8098', 'CPSC', 'EN 71', 'GB-14746'].map(cert => (
               <span key={cert} className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-[10px] font-bold text-slate-500 uppercase tracking-widest">{cert}</span>
@@ -292,11 +324,6 @@ export default function HomeSection({
                 <h4 className="text-slate-400 font-bold text-[10px] uppercase tracking-widest">{award.label}</h4>
                 <p className="text-xl font-black text-slate-900 group-hover:text-orange-500 transition-colors">{award.winner ? translateProduct(award.winner, lang).name : "Evaluating..."}</p>
                 </div>
-                <p className="text-xs text-slate-500 font-medium leading-relaxed min-h-14 line-clamp-3">
-                  {award.winner 
-                    ? translateProduct(award.winner, lang).editorVerdict 
-                    : (lang === "zh" ? "基于实验室多维评测矩阵与家庭使用场景评分，给出本年度优选建议。" : "Picked with lab-grade multi-metric scoring and real family usage scenario weighting.")}
-                </p>
                 <button 
                   onClick={() => {
                     if (award.winner) {
@@ -410,7 +437,7 @@ export default function HomeSection({
                     <div>
                       <h4 className="text-white font-black text-lg leading-tight tracking-tight">{cat.label}</h4>
                       <p className="text-[11px] text-slate-200 font-bold uppercase tracking-wider mt-1">
-                        {lang === "zh" ? `当前参考 ${cat.itemCount} 款` : `${cat.itemCount} picks in view`}
+                        {lang === "zh" ? `当前参考 ${cat.itemCount} 款` : `${cat.itemCount} picks`}
                       </p>
                     </div>
                     <span className="px-2 py-1 rounded-lg text-[10px] bg-white/20 text-white font-black uppercase tracking-wider backdrop-blur-sm border border-white/20">
@@ -421,18 +448,6 @@ export default function HomeSection({
               </div>
 
               <div className="p-5 bg-linear-to-b from-white to-slate-50/80 flex-1 flex flex-col">
-                <p className="text-[12px] text-slate-500 font-medium leading-relaxed min-h-14 line-clamp-3">
-                  {(() => {
-                    const topProduct = categoryTopProductMap[cat.id];
-                    if (topProduct) {
-                      const tp = translateProduct(topProduct, lang);
-                      return tp.editorVerdict || tp.description || "";
-                    }
-                    return lang === "zh"
-                      ? "从通勤、旅行到户外场景，这里汇总了最常被比较的核心品类。"
-                      : "From daily commute to travel and outdoor use, these are the categories families compare most.";
-                  })()}
-                </p>
                 <div className="flex mt-auto pt-4">
                 <button
                   onClick={() => {
@@ -455,7 +470,7 @@ export default function HomeSection({
         <div className="flex justify-between items-end">
           <div className="space-y-2">
             <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">{lang === "zh" ? "社区热选" : "Trending Now"}</span>
-            <h3 className="text-3xl font-black text-slate-900 tracking-tight">{lang === "zh" ? "实验室推荐单品" : "Highly Rated Rides"}</h3>
+            <h3 className="text-3xl font-black text-slate-900 tracking-tight">{lang === "zh" ? "实验室推荐单品" : "Highly Rated Kids Rides"}</h3>
           </div>
           <button 
             onClick={() => setActiveTab("products")}

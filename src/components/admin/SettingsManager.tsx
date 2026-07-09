@@ -14,6 +14,7 @@ import {
 import { motion } from "motion/react";
 import { getCMSSettings, saveCMSSettings, getCMSProducts, getCMSEvaluations, getCMSGuides } from "../../lib/cmsService";
 import { CMSSettings, HomeSlot } from "../../types";
+import { DEFAULT_SEO_CONFIGS } from "../../config/defaultSeo";
 import { OPS_COPY } from "./operationsConfig";
 
 const OPS_COLLECTION_KEYS = ["all", "products", "categories", "scenarios", "evaluations", "guides", "news", "settings"] as const;
@@ -116,20 +117,13 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
       getCMSGuides()
     ]);
     
-    const defaultSeo = {
-      home: { zh: { title: "", description: "", keywords: [] }, en: { title: "", description: "", keywords: [] } },
-      news: { zh: { title: "", description: "", keywords: [] }, en: { title: "", description: "", keywords: [] } },
-      products: { zh: { title: "", description: "", keywords: [] }, en: { title: "", description: "", keywords: [] } },
-      evaluations: { zh: { title: "", description: "", keywords: [] }, en: { title: "", description: "", keywords: [] } },
-      guides: { zh: { title: "", description: "", keywords: [] }, en: { title: "", description: "", keywords: [] } },
-      about: { zh: { title: "", description: "", keywords: [] }, en: { title: "", description: "", keywords: [] } }
-    };
+    const defaultSeo = DEFAULT_SEO_CONFIGS;
 
     const initialSettings: CMSSettings = s ? {
       ...s,
       seo: {
-        ...defaultSeo,
-        ...(s.seo || {})
+        ...(s.seo || {}),
+        ...defaultSeo
       }
     } : {
       id: "global",

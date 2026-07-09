@@ -639,7 +639,7 @@ function ProductEditor({ product, allProducts, scenarios, onSave, onCancel, lang
                 </div>
               </Section>
 
-              <Section title="Product Features / Scenarios / Relations">
+              <Section title="Feature Highlights / Scenarios / Relations">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   <TagEditor
                     title="Features"
@@ -996,7 +996,7 @@ function LangSector({ lang, title, data, onChange }: any) {
         </div>
 
         <div className="space-y-2">
-          <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Editor Verdict (Short)</label>
+          <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Expert Summary (Short)</label>
           <textarea 
             className="w-full bg-white border border-slate-200 py-4 px-6 rounded-2xl font-bold text-slate-600 outline-none focus:border-orange-500 transition-all shadow-sm min-h-[80px]"
             value={data.editorVerdict}

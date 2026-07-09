@@ -71,10 +71,31 @@ function resolveVerdictText(product: Product, lang: "zh" | "en"): string {
 function getVideoRenderType(url: string): "direct" | "hls" | "embed" | "none" {
   const normalized = String(url || "").trim().toLowerCase();
   if (!normalized) return "none";
+  if (/\.m3u8(\?|#|$)/.test(normalized)) return "none";
   if (/\.(mp4|webm|ogg)(\?|#|$)/.test(normalized)) return "direct";
-  if (/\.m3u8(\?|#|$)/.test(normalized)) return "hls";
   if (/youtube\.com|youtu\.be|vimeo\.com/.test(normalized)) return "embed";
   return "embed";
+}
+
+function isUnsupportedVideoUrl(url: string) {
+  return /\.m3u8(\?|#|$)/i.test(String(url || "").trim());
+}
+
+function cleanVisibleFieldText(value: unknown) {
+  return String(value || "")
+    .replace(/^editor\s+verdict\s*[:：-]\s*/i, "")
+    .replace(/\s*\(\s*Features\[\d+\]\s*\)\s*/gi, " ")
+    .replace(/\s*\(\s*Product\s+Feature\s*\)\s*/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function cleanEvidenceSource(value: unknown) {
+  const text = String(value || "").trim();
+  if (/^Features\[\d+\]$/i.test(text)) return "";
+  if (/^Product\s+Feature$/i.test(text)) return "";
+  if (text === "产品特性") return "";
+  return text;
 }
 
 interface DetailedProductViewProps {
@@ -117,7 +138,9 @@ export default function DetailedProductView({
     },
   ].filter((item) => item.value && item.value.trim());
   const imageSet = resolveProductImages(displayProduct);
-  const videoUrl = String(product.videoUrl || product.videos?.[0]?.url || "").trim();
+  const videoUrl = [product.videoUrl, ...(product.videos || []).map((item) => item.url)]
+    .map((item) => String(item || "").trim())
+    .find((item) => item && !isUnsupportedVideoUrl(item)) || "";
   const videoRenderType = getVideoRenderType(videoUrl);
   const hasVideo = videoRenderType !== "none";
   const hasFeatureImages = imageSet.featureUrls.length > 0;
@@ -128,7 +151,8 @@ export default function DetailedProductView({
     const evidence = displayProduct.scrapedEvidence || product.scrapedEvidence || [];
     for (const item of evidence) {
       if (out.length >= 4) break;
-      const line = `${fallbackPrefix}: ${item.text} (${item.source})`;
+      const bodyText = cleanVisibleFieldText(item.text);
+      const line = `${fallbackPrefix}: ${bodyText}`;
       if (!out.includes(line)) out.push(line);
     }
     return out.slice(0, Math.max(4, out.length));
@@ -361,22 +385,6 @@ export default function DetailedProductView({
                   playsInline
                   preload="metadata"
                 />
-              ) : hasVideo && videoRenderType === "hls" ? (
-                <div className="w-full h-full bg-slate-900 rounded-2xl flex flex-col items-center justify-center gap-4 text-center p-8">
-                  <Play className="w-10 h-10 text-orange-400" />
-                  <p className="text-sm font-bold text-white max-w-md">
-                    {lang === "en" ? "This product video is available as an HLS stream." : "该产品视频为 HLS 流媒体资源。"}
-                  </p>
-                  <a
-                    href={videoUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-slate-900 text-xs font-black uppercase"
-                  >
-                    <ExternalLink className="w-3 h-3" />
-                    {lang === "en" ? "Open Video" : "打开视频"}
-                  </a>
-                </div>
               ) : hasVideo ? (
                 <iframe 
                   src={videoUrl} 
@@ -402,7 +410,7 @@ export default function DetailedProductView({
         <div className="lg:col-span-2 space-y-8">
           <div className="bg-white border border-slate-100 rounded-[40px] p-8 shadow-sm space-y-8">
              <div className="flex justify-between items-center border-b border-slate-50 pb-6">
-                <h3 className="text-xl font-black text-slate-900">{lang === "en" ? "Performance Analysis" : "测评效能透视"}</h3>
+                <h2 className="text-xl font-black text-slate-900">{lang === "en" ? "Performance Analysis" : "测评效能透视"}</h2>
                 <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">
                   {lang === "en" ? "Single Product Evidence" : "单品证据评估"}
                 </div>
@@ -447,10 +455,10 @@ export default function DetailedProductView({
              {/* Pros & Cons Section */}
              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-slate-50">
                 <div className="space-y-4">
-                  <h4 className="flex items-center gap-2 text-xs font-black text-emerald-600 uppercase">
+                  <h3 className="flex items-center gap-2 text-xs font-black text-emerald-600 uppercase">
                     <ThumbsUp className="w-4 h-4" />
                     {lang === "en" ? "Pros" : "产品亮点"}
-                  </h4>
+                  </h3>
                   <ul className="space-y-2">
                     {detailPros.map((pro, i) => (
                       <li key={i} className="flex gap-3 text-sm text-slate-600 font-medium bg-emerald-50/50 p-3 rounded-2xl border border-emerald-50">
@@ -461,10 +469,10 @@ export default function DetailedProductView({
                   </ul>
                 </div>
                 <div className="space-y-4">
-                  <h4 className="flex items-center gap-2 text-xs font-black text-rose-500 uppercase">
+                  <h3 className="flex items-center gap-2 text-xs font-black text-rose-500 uppercase">
                     <ThumbsDown className="w-4 h-4" />
                     {lang === "en" ? "Cons" : "留意事项"}
-                  </h4>
+                  </h3>
                   <ul className="space-y-2">
                     {detailCons.map((con, i) => (
                       <li key={i} className="flex gap-3 text-sm text-slate-600 font-medium bg-rose-50/50 p-3 rounded-2xl border border-rose-50">
@@ -479,7 +487,7 @@ export default function DetailedProductView({
 
           {/* Standards Accordion */}
           <div className="bg-white border border-slate-100 rounded-[40px] p-8 shadow-sm space-y-6">
-             <h3 className="text-xl font-black text-slate-900 border-b border-slate-50 pb-4">{lang === "en" ? "Scoring Standards & Logic" : "评分标准与算法详情"}</h3>
+             <h2 className="text-xl font-black text-slate-900 border-b border-slate-50 pb-4">{lang === "en" ? "Scoring Standards & Logic" : "评分标准与算法详情"}</h2>
              <div className="space-y-3">
                 {scoringStandards.map((std) => {
                   const isExpanded = activeStandardDimension === std.key;
@@ -502,12 +510,15 @@ export default function DetailedProductView({
                             {lang === "en" ? "Parent's Tip: " : "给家长的总结："}{std.parentTip}
                            </div>
                           <div className="space-y-2 pl-2">
-                            {std.evidence.map((item, index) => (
-                              <div key={`${std.key}-${index}`} className="text-xs text-slate-500 leading-relaxed font-medium bg-white/70 border border-slate-100 rounded-2xl p-3">
-                               <span className="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">{item.source}</span>
-                               {item.text}
-                              </div>
-                            ))}
+                            {std.evidence.map((item, index) => {
+                              const evidenceSource = cleanEvidenceSource(item.source);
+                              return (
+                                <div key={`${std.key}-${index}`} className="text-xs text-slate-500 leading-relaxed font-medium bg-white/70 border border-slate-100 rounded-2xl p-3">
+                                 {evidenceSource && <span className="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">{evidenceSource}</span>}
+                                 {cleanVisibleFieldText(item.text)}
+                                </div>
+                              );
+                            })}
                           </div>
                         </div>
                       )}
@@ -522,10 +533,10 @@ export default function DetailedProductView({
         <div className="space-y-8">
            <div className="bg-slate-950 border border-slate-850 rounded-[40px] p-8 shadow-xl text-white space-y-8">
               <div>
-                <h3 className="text-lg font-black flex items-center gap-2 mb-2">
+                <h2 className="text-lg font-black flex items-center gap-2 mb-2">
                   <Maximize2 className="w-5 h-5 text-orange-500" />
                   {lang === "en" ? "Live Specs" : "物理规格清单"}
-                </h3>
+                </h2>
                 <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{lang === "en" ? "Laboratory Verified" : "实验室深度测定数据"}</p>
               </div>
 
@@ -562,10 +573,10 @@ export default function DetailedProductView({
 
            {/* Verdict Box */}
            <div className="bg-orange-50 border border-orange-100 rounded-[40px] p-8 space-y-4">
-              <h4 className="text-xs font-black text-orange-600 uppercase tracking-widest flex items-center gap-2">
+              <h2 className="text-xs font-black text-orange-600 uppercase tracking-widest flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4" />
-                {lang === "en" ? "Editor Verdict" : "本站终极评价"}
-              </h4>
+                {lang === "en" ? "Expert Summary" : "本站综合评价"}
+              </h2>
               {verdictText && (
                 <p className="text-sm text-slate-700 font-bold leading-relaxed italic">
                   "{verdictText}"

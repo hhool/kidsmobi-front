@@ -445,6 +445,64 @@ function translateSafetyCertificationToEn(certifications: string[]): string[] {
   });
 }
 
+function cleanVisibleProductText(value: unknown) {
+  return String(value || "")
+    .replace(/^editor\s+verdict\s*[:：-]\s*/i, "")
+    .replace(/\s*\(\s*Features\[\d+\]\s*\)\s*/gi, " ")
+    .replace(/\s*\(\s*Product\s+Feature\s*\)\s*/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function cleanVisibleEvidenceSource(value: unknown) {
+  const text = String(value || "").trim();
+  if (/^Features\[\d+\]$/i.test(text)) return "";
+  if (/^Product\s+Feature$/i.test(text)) return "";
+  if (text === "产品特性") return "";
+  return text;
+}
+
+function isUnsupportedVideoUrl(value: unknown) {
+  return /\.m3u8(\?|#|$)/i.test(String(value || "").trim());
+}
+
+function sanitizeVisibleProductFields(product: any) {
+  const videos = Array.isArray(product.videos)
+    ? product.videos.filter((item: any) => !isUnsupportedVideoUrl(item?.url))
+    : product.videos;
+  const videoUrl = isUnsupportedVideoUrl(product.videoUrl) ? "" : product.videoUrl;
+
+  return {
+    ...product,
+    description: cleanVisibleProductText(product.description),
+    pros: Array.isArray(product.pros) ? product.pros.map(cleanVisibleProductText).filter(Boolean) : product.pros,
+    cons: Array.isArray(product.cons) ? product.cons.map(cleanVisibleProductText).filter(Boolean) : product.cons,
+    editorVerdict: cleanVisibleProductText(product.editorVerdict),
+    scrapedEvidence: Array.isArray(product.scrapedEvidence)
+      ? product.scrapedEvidence.map((item: any) => ({
+          ...item,
+          source: cleanVisibleEvidenceSource(item.source),
+          text: cleanVisibleProductText(item.text),
+        }))
+      : product.scrapedEvidence,
+    scoringStandards: Array.isArray(product.scoringStandards)
+      ? product.scoringStandards.map((standard: any) => ({
+          ...standard,
+          parentTip: cleanVisibleProductText(standard.parentTip),
+          evidence: Array.isArray(standard.evidence)
+            ? standard.evidence.map((item: any) => ({
+                ...item,
+                source: cleanVisibleEvidenceSource(item.source),
+                text: cleanVisibleProductText(item.text),
+              }))
+            : standard.evidence,
+        }))
+      : product.scoringStandards,
+    videoUrl,
+    videos,
+  };
+}
+
 export function translateProduct(p: any, lang: "zh" | "en") {
   const categoryLabel = translateCategory(p.category, lang);
   
@@ -459,7 +517,7 @@ export function translateProduct(p: any, lang: "zh" | "en") {
   const specsText = localData.specsText || "";
 
   if (lang === "zh") {
-    return { 
+    return sanitizeVisibleProductFields({ 
       ...p, 
       name,
       description,
@@ -469,7 +527,7 @@ export function translateProduct(p: any, lang: "zh" | "en") {
       brand: brandText,
       specsText,
       categoryLabel 
-    };
+    });
   }
 
   // lang === "en"
@@ -495,7 +553,7 @@ export function translateProduct(p: any, lang: "zh" | "en") {
 
   const enOverride = productEnTranslations[p.id];
   if (enOverride) {
-    return {
+    return sanitizeVisibleProductFields({
       ...p,
       name: enOverride.name,
       description: enOverride.description || description || p.description,
@@ -510,12 +568,12 @@ export function translateProduct(p: any, lang: "zh" | "en") {
       cons: enOverride.cons,
       ageRange: p.ageRange.replace("岁", " Years").replace("个", " ").replace("月", " Months"),
       editorVerdict: enOverride.editorVerdict
-    };
+    });
   }
 
   // If there is an English override in localData (entered via CMS or stored)
   if (localData.name && !/[\u4e00-\u9fa5]/.test(localData.name)) {
-    return {
+    return sanitizeVisibleProductFields({
       ...p,
       name: localData.name,
       description: localData.description || description || p.description,
@@ -531,11 +589,11 @@ export function translateProduct(p: any, lang: "zh" | "en") {
       wheelSize: p.wheelSize === "无" ? "None" : p.wheelSize.replace("寸", " in."),
       safetyCertification: translateSafetyCertificationToEn(p.safetyCertification),
       ageRange: p.ageRange.replace("岁", " Years").replace("个", " ").replace("月", " Months")
-    };
+    });
   }
 
   // Extreme fallback
-  return {
+  return sanitizeVisibleProductFields({
     ...p,
     name,
     description,
@@ -550,7 +608,7 @@ export function translateProduct(p: any, lang: "zh" | "en") {
     cons,
     ageRange: p.ageRange,
     editorVerdict: editorVerdict ? editorVerdict : "Independently verified kids stroller or bicycle setup."
-  };
+  });
 }
 
 export function translateNewsArticle(art: any, lang: "zh" | "en") {

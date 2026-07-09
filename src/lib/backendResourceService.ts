@@ -88,6 +88,7 @@ function getBackendApiBaseUrl() {
 
 function isHttpUrl(value?: string) {
   if (!value) return false;
+  if (/\.m3u8(\?|#|$)/i.test(value.trim())) return false;
   try {
     const parsed = new URL(value);
     return parsed.protocol === "http:" || parsed.protocol === "https:";

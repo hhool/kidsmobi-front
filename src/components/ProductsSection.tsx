@@ -147,6 +147,13 @@ function truncateCardSnippet(value: string, maxLength: number): string {
   return `${value.slice(0, maxLength).replace(/[\s,;:.!?-]+$/g, "")}...`;
 }
 
+function stripVisibleFieldLabels(value: string): string {
+  return compactSnippet(value)
+    .replace(/^editor\s+verdict\s*[:：-]\s*/i, "")
+    .replace(/\s*\(\s*Features\[\d+\]\s*\)\s*/gi, " ")
+    .trim();
+}
+
 function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
   const description = pickLocalizedDescription(product, lang);
   const verdict = resolveCardVerdict(product, lang);
@@ -161,9 +168,9 @@ function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
     .map((item) => compactSnippet(item))
     .filter(Boolean);
 
-  const customersSay = pickCustomersSay(product, lang);
-  const candidates = [customersSay, verdict, description, pros[0], features[0]]
+  const candidates = [verdict, description, pros[0], features[0]]
     .map((item) => compactSnippet(item))
+    .map((item) => stripVisibleFieldLabels(item))
     .map((item) => stripRepeatedBrandPrefix(item, product.brand))
     .filter((item) => item && !isPlaceholderVerdict(item) && !isGenericCardSnippet(item) && !isTitleDuplicateSnippet(item, product));
 
@@ -172,14 +179,8 @@ function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
 
 function resolveCardVerdict(product: Product, lang: "zh" | "en"): string {
   const verdict = String(product.editorVerdict || "").trim();
-  const customersSay = pickCustomersSay(product, lang);
   const isVerdictPlaceholder = isPlaceholderVerdict(verdict);
 
-  if (customersSay) {
-    return customersSay;
-  }
-  
-  // If verdict is not placeholder, use it
   if (!isVerdictPlaceholder && verdict) {
     return verdict;
   }
@@ -670,12 +671,14 @@ export default function ProductsSection({
       "kids stroller": "stroller",
       "婴儿车": "stroller",
       "婴儿推车": "stroller",
+      "stroller travel stroller": "stroller",
       "travel stroller": "stroller",
       "travel strollers": "stroller",
       "traval strollers": "stroller",
       "lightweight strollers": "stroller",
       "leightweight strollers": "stroller",
       "jogging stroller": "jogger_stroller",
+      "jogging stroller stroller": "jogger_stroller",
       "jogger stroller": "jogger_stroller",
       "jogger strollers": "jogger_stroller",
       "jogger strolles": "jogger_stroller",
@@ -687,13 +690,22 @@ export default function ProductsSection({
       "stroller jogging double": "double_stroller",
       "twin strollers": "double_stroller",
       "balance bike": "balance_bike",
+      "balance bike toddler": "balance_bike",
       "balance bikes": "balance_bike",
       "平衡车": "balance_bike",
       "kids bike": "kids_bikes",
       "kids bikes": "kids_bikes",
+      "toddler bike": "kids_bikes",
       "儿童自行车": "kids_bikes",
       "kids scooter": "kids_scooters",
       "kids scooters": "kids_scooters",
+      "toddler scooter": "kids_scooters",
+      "kids electric scooter": "kids_scooters",
+      "electric scooter for kids": "kids_scooters",
+      "electric scooters for kids": "kids_scooters",
+      "electric scooter with seat": "kids_scooters",
+      "foldable electric scooter": "kids_scooters",
+      "childs e scooter": "kids_scooters",
       "儿童滑板车": "scooters",
       "electric vehicles": "electric_vehicles",
       "electric vehicle": "electric_vehicles",
@@ -701,6 +713,7 @@ export default function ProductsSection({
       "kids electric bike": "electric_vehicles",
       "electric bike for kids": "electric_vehicles",
       "electric dirt bike for kids": "electric_vehicles",
+      "kids dirt bike": "electric_vehicles",
       "kids electric vehicle": "electric_vehicles",
       "car seats": "car_seat",
       "car seat": "car_seat",
@@ -891,16 +904,16 @@ export default function ProductsSection({
           </div>
         </div>
         <h1 className="text-2xl font-bold text-slate-700 mt-4">
-          {lang === "en" ? "Kids' Mobility Discovery Hub: Strollers & Jogging Stroller, Bikes & Balance Bike, Toddler Bike, Kids Scooter" : "儿童出行发现大厅"}
+          {lang === "en" ? "Balance Bike, Kids Bike, Jogging Stroller & Kids Scooter Hub" : "儿童出行发现大厅"}
         </h1>
         <p className="text-sm text-slate-500 font-medium">
           {lang === "en" 
-            ? "Compare strollers & jogging stroller, bikes & balance bike, toddler bike,and kids scooter with test-backed safety metrics and how to choose a baby stroller guidance." 
+            ? "Compare balance bike, kids bike, jogging stroller, toddler bike, kids scooter, kids electric bike, foldable electric scooter, and kids dirt bike options with test-backed safety metrics." 
             : "每一款入库产品都经过专人实测，只为给宝宝选择最合适的那一辆。"}
         </p>
         {seoKeywordHints.length > 0 && (
           <div className="flex flex-wrap justify-center gap-2 pt-2">
-            {seoKeywordHints.slice(0, 8).map((kw) => (
+            {seoKeywordHints.slice(0, 12).map((kw) => (
               <button
                 key={kw}
                 type="button"
@@ -926,6 +939,20 @@ export default function ProductsSection({
               >
                 {kw}
               </button>
+            ))}
+          </div>
+        )}
+        {lang === "en" && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 text-left">
+            {[
+              "Balance bike and balance bike toddler models sorted by fit and stability.",
+              "Kids bike, toddler bike, kids electric bike, and kids dirt bike options grouped for comparison.",
+              "Kids scooter, toddler scooter, foldable electric scooter, and childs e scooter routes stay visible.",
+              "Jogging stroller and stroller travel stroller intent stays connected to product specs.",
+            ].map((item) => (
+              <p key={item} className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-[11px] font-bold leading-relaxed text-slate-500">
+                {item}
+              </p>
             ))}
           </div>
         )}
@@ -1207,7 +1234,10 @@ export default function ProductsSection({
         </div>
       ) : (
         <div className="space-y-8">
-        <div className="flex items-center justify-center">
+        <div className="flex flex-col items-center justify-center gap-3 text-center">
+          <h2 className="text-xl font-black text-slate-900">
+            {lang === "en" ? "Expert Product Picks" : "专家产品精选"}
+          </h2>
           <span className="px-4 py-2 rounded-full bg-slate-50 border border-slate-200 text-[11px] font-black text-slate-500 uppercase tracking-widest">
             {filteredProducts.length} / {categoryBaseCount} {lang === "en" ? "items" : "条目"}
           </span>
@@ -1344,9 +1374,9 @@ export default function ProductsSection({
               <span className="font-sans text-lg">🕒</span>
             </div>
             <div>
-              <h3 className="text-2xl font-black text-slate-900 tracking-tight">
-                {lang === "zh" ? "最近浏览车款" : "Recently Viewed Strollers"}
-              </h3>
+              <h2 className="text-2xl font-black text-slate-900 tracking-tight">
+                {lang === "zh" ? "最近浏览车款" : "Recently Viewed Product"}
+              </h2>
               <p className="text-slate-400 text-xs font-semibold">
                 {lang === "zh" ? "您最近查看过的物理测试细节档案（保存在浏览器中）" : "Quickly retrieve strollers you investigated recently (Cached in your browser)"}
               </p>

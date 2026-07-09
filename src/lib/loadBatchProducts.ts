@@ -168,8 +168,7 @@ function extractProductVideos(product: RawProduct): { url: string; title?: strin
     ...extractStringList(product.Product_Videos),
     ...extractStringList(product.Product_Videos_Detail),
     ...extractStringList(product.Product_Videos_MP4),
-    ...extractStringList(product.Product_Videos_M3U8),
-  ]);
+  ]).filter((url) => !/\.m3u8(\?|#|$)/i.test(url));
 
   return urls.map((url, index) => ({
     url,
@@ -347,7 +346,7 @@ function pushEvidence(out: ScrapedEvidenceItem[], source: unknown, text: unknown
 
 function extractFeatureEvidence(rawProduct: RawProduct): ScrapedEvidenceItem[] {
   const features = String(rawProduct.Features || "").split("|").map((item) => item.trim()).filter(Boolean);
-  return features.map((text, index) => ({ source: `Features[${index + 1}]`, text: truncateEvidence(text) }));
+  return features.map((text) => ({ source: "", text: truncateEvidence(text) }));
 }
 
 function collectScrapedEvidence(rawProduct: RawProduct): ScrapedEvidenceItem[] {
