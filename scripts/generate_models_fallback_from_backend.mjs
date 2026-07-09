@@ -263,7 +263,7 @@ function buildScoringStandards(report, evidence) {
 
 function buildEditorVerdict(report, evidence) {
   const highlights = evidence.slice(0, 3).map((item) => item.text).filter(Boolean);
-  if (highlights.length > 0) return `Based on scraped product evidence: ${highlights.join(" ")}`;
+  if (highlights.length > 0) return `${highlights.join(" ")}`;
   return truncateEvidence(report?.Product_Description || report?.Features || "");
 }
 

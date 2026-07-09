@@ -1,26 +1,15 @@
 import { 
-  Baby, 
   Award,
   ShieldCheck, 
-  ChevronRight, 
-  TrendingDown, 
   Scale, 
-  Wrench, 
-  Bookmark, 
   Star,
-  Sparkles,
   Zap,
-  Globe,
-  Bell,
   ArrowRight,
-  Target
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Product, CurrencyData } from "../types";
 import { translations, translateProduct } from "../lib/translate";
-import MatchingWizard from "./MatchingWizard";
 import { SCRAPED_CATEGORY_CATALOG } from "../config/scrapedCategoryCatalog";
-import { PRODUCT_CATEGORY_SEO_KEYWORDS } from "../config/seoKeywordMap";
 import { resolveProductImages, FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
 import { clearJsonLd, setCollectionPageJsonLd } from "../lib/seoJsonLd";
 
@@ -40,8 +29,6 @@ type ImageLoadState = {
   failed: boolean;
   fallback: boolean;
   retryCount: number;
-  reason?: string;
-  sourceUrl?: string;
 };
 
 export default function HomeSection({
@@ -70,20 +57,7 @@ export default function HomeSection({
   const normalizeCategory = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, "_");
   
   const t = translations[lang];
-  const [isWizardOpen, setIsWizardOpen] = useState(false);
   const [imageLoadState, setImageLoadState] = useState<Record<string, ImageLoadState>>({});
-
-  const inferFailureReason = (sourceUrl: string) => {
-    if (!sourceUrl || sourceUrl === FALLBACK_PRODUCT_IMAGE) {
-      return lang === "zh" ? "无有效图片地址" : "No valid image URL";
-    }
-    if (sourceUrl.includes("amazon.")) {
-      return lang === "zh" ? "可能触发外链防盗链策略" : "Likely blocked by hotlink protection";
-    }
-    return lang === "zh"
-      ? "可能为网络抖动、资源失效或跨域限制"
-      : "Likely network jitter, missing asset, or cross-origin limits";
-  };
 
   const resolveStableImageSrc = (imageKey: string, sourceUrl: string) => {
     const state = imageLoadState[imageKey];
@@ -122,8 +96,6 @@ export default function HomeSection({
             failed: false,
             fallback: false,
             retryCount: current.retryCount + 1,
-            reason: inferFailureReason(sourceUrl),
-            sourceUrl,
           },
         };
       }
@@ -134,54 +106,11 @@ export default function HomeSection({
           loaded: true,
           failed: true,
           fallback: true,
-          reason: inferFailureReason(sourceUrl),
-          sourceUrl,
         },
       };
     });
   };
 
-  const openWizard = () => {
-    // Push a same-URL history entry so one browser Back closes the modal and stays on Home.
-    window.history.pushState({ ...(window.history.state || {}), kidsmobiWizard: true }, "", window.location.href);
-    setIsWizardOpen(true);
-  };
-
-  useEffect(() => {
-    const handlePopstate = () => {
-      setIsWizardOpen(false);
-    };
-    window.addEventListener("popstate", handlePopstate);
-    return () => window.removeEventListener("popstate", handlePopstate);
-  }, []);
-
-  const retryFailedImages = () => {
-    setImageLoadState((prev) => {
-      const next = { ...prev };
-      Object.entries<ImageLoadState>(next).forEach(([key, state]) => {
-        if (state.failed) {
-          next[key] = {
-            ...state,
-            loaded: false,
-            failed: false,
-            fallback: false,
-            retryCount: (state.retryCount || 0) + 1,
-          };
-        }
-      });
-      return next;
-    });
-  };
-
-  const imageFailureEntries = useMemo(() => {
-    return Object.entries<ImageLoadState>(imageLoadState)
-      .filter(([, state]) => state.failed)
-      .map(([key, state]) => ({
-        key,
-        reason: state.reason || (lang === "zh" ? "未知错误" : "Unknown error"),
-        sourceUrl: state.sourceUrl || "",
-      }));
-  }, [imageLoadState, lang]);
   const scrapedCategoryCards = useMemo(() => {
     return SCRAPED_CATEGORY_CATALOG.slice(0, 8).map((entry) => ({
       ...entry,
@@ -189,28 +118,18 @@ export default function HomeSection({
     }));
   }, [lang]);
 
-  const categoryHeroImageMap = useMemo(() => {
-    const map: Record<string, string> = {};
+  const categoryTopProductMap = useMemo(() => {
+    const map: Record<string, Product> = {};
     for (const entry of SCRAPED_CATEGORY_CATALOG) {
       const aliases = categoryAliasMap[entry.id] || [entry.id];
       const found = productsData.find((product) => {
         const normalized = normalizeCategory(product.category || "");
         return aliases.some((alias) => normalized.includes(normalizeCategory(alias)));
       });
-      map[entry.id] = found ? resolveProductImages(found).coverUrl : FALLBACK_PRODUCT_IMAGE;
+      if (found) map[entry.id] = found;
     }
     return map;
   }, [productsData]);
-
-  const seoTrendGroups = useMemo(() => {
-    return SCRAPED_CATEGORY_CATALOG
-      .map((entry) => ({
-        id: entry.id,
-        label: lang === "zh" ? entry.zh : entry.en,
-        keywords: PRODUCT_CATEGORY_SEO_KEYWORDS[entry.id]?.[lang] || [],
-      }))
-      .filter((group) => group.keywords.length > 0);
-  }, [lang]);
 
   const getCategoryPriority = (rawCategory?: string) => {
     const normalized = normalizeCategory(rawCategory || "");
@@ -221,24 +140,31 @@ export default function HomeSection({
 
   // Outstanding Selection (high scores)
   const topSelections = [...productsData]
+    .filter(p => {
+      const cat = normalizeCategory(p.category || "");
+      const isBike = cat.includes("bike") || cat.includes("bicycle");
+      const isJogger = cat.includes("jogger") || cat.includes("jogging");
+      const isBalance = cat.includes("balance");
+      return (isBike && !isBalance) || isJogger;
+    })
     .sort((a, b) => {
-      const categoryDelta = getCategoryPriority(a.category) - getCategoryPriority(b.category);
-      if (categoryDelta !== 0) {
-        return categoryDelta;
-      }
       return (b.overallScore || 0) - (a.overallScore || 0);
     })
     .slice(0, 4);
 
   const prioritizedCategoryCards = useMemo(() => {
-    return [...scrapedCategoryCards].sort((a, b) => {
-      const delta = getCategoryPriority(a.id) - getCategoryPriority(b.id);
-      if (delta !== 0) {
-        return delta;
-      }
-      return b.itemCount - a.itemCount;
-    });
-  }, [scrapedCategoryCards]);
+    return SCRAPED_CATEGORY_CATALOG.filter(c => {
+      const idStr = c.id.toLowerCase();
+      if (idStr.includes("jogger")) return true;
+      if (idStr.includes("balance")) return true;
+      if (idStr.includes("scooter")) return true;
+      if (idStr.includes("bike") && !idStr.includes("balance")) return true;
+      return false;
+    }).slice(0, 4).map((entry) => ({
+      ...entry,
+      label: lang === "zh" ? entry.zh : entry.en,
+    }));
+  }, [lang]);
 
   const annualAwards = [
     { 
@@ -306,22 +232,6 @@ export default function HomeSection({
               : "KIDSMOBI helps families choose the best stroller, jogging stroller, double stroller, and twin stroller with objective engineering-led methods for how to choose a baby stroller."}
           </p>
           <div className="flex flex-wrap justify-center gap-4 pt-4">
-            <button 
-              onClick={openWizard}
-              className="px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-2xl transition-all flex items-center gap-2 shadow-xl shadow-orange-500/20 active:scale-95 group"
-            >
-              <Sparkles className="w-5 h-5 group-hover:animate-pulse" />
-              {lang === "zh" ? "智能匹配向导" : "Smart Match Wizard"}
-            </button>
-            <button 
-              onClick={() => setActiveTab("guides")}
-              className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-black border border-white/20 rounded-2xl transition-all flex items-center gap-2 active:scale-95"
-            >
-              {lang === "zh" ? "手动选型计算" : "Manual Calculator"}
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-          <div className="flex flex-wrap justify-center gap-4 pt-4">
             {['ISO 8098', 'CPSC', 'EN 71', 'GB-14746'].map(cert => (
               <span key={cert} className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-[10px] font-bold text-slate-500 uppercase tracking-widest">{cert}</span>
             ))}
@@ -358,7 +268,7 @@ export default function HomeSection({
                   alt={award.winner ? translateProduct(award.winner, lang).name : award.label}
                   onLoad={() => handleCardImageLoad(imageKey)}
                   onError={() => handleCardImageError(imageKey, sourceUrl)}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-contain p-4 bg-white transition-transform duration-500 group-hover:scale-105"
                 />
                       {!state?.loaded && (
                         <div className="absolute inset-0 animate-pulse bg-linear-to-r from-slate-200 via-slate-100 to-slate-200" />
@@ -382,10 +292,10 @@ export default function HomeSection({
                 <h4 className="text-slate-400 font-bold text-[10px] uppercase tracking-widest">{award.label}</h4>
                 <p className="text-xl font-black text-slate-900 group-hover:text-orange-500 transition-colors">{award.winner ? translateProduct(award.winner, lang).name : "Evaluating..."}</p>
                 </div>
-                <p className="text-xs text-slate-500 font-medium leading-relaxed min-h-14">
-                  {lang === "zh"
-                    ? "基于实验室多维评测矩阵与家庭使用场景评分，给出本年度优选建议。"
-                    : "Picked with lab-grade multi-metric scoring and real family usage scenario weighting."}
+                <p className="text-xs text-slate-500 font-medium leading-relaxed min-h-14 line-clamp-3">
+                  {award.winner 
+                    ? translateProduct(award.winner, lang).editorVerdict 
+                    : (lang === "zh" ? "基于实验室多维评测矩阵与家庭使用场景评分，给出本年度优选建议。" : "Picked with lab-grade multi-metric scoring and real family usage scenario weighting.")}
                 </p>
                 <button 
                   onClick={() => {
@@ -415,14 +325,17 @@ export default function HomeSection({
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { id: "single", icon: Star, label: lang === "zh" ? "精品实测" : "Single Review", color: "orange" },
-              { id: "compare", icon: Scale, label: lang === "zh" ? "热门横评" : "Comparison", color: "blue" },
-              { id: "new", icon: Zap, label: lang === "zh" ? "新品速递" : "New Arrival", color: "emerald" },
-              { id: "avoid", icon: ShieldCheck, label: lang === "zh" ? "避坑指南" : "Safe Pick", color: "rose" },
+              { id: "single", icon: Star, label: lang === "zh" ? "精品实测" : "Single Review", color: "orange", path: "/reviews/single" },
+              { id: "compare", icon: Scale, label: lang === "zh" ? "热门横评" : "Comparison", color: "blue", path: "/reviews/compare" },
+              { id: "new", icon: Zap, label: lang === "zh" ? "新品速递" : "New Arrival", color: "emerald", path: "/news/page/1" },
+              { id: "avoid", icon: ShieldCheck, label: lang === "zh" ? "避坑指南" : "Safe Pick", color: "rose", path: "/reviews/safety" },
             ].map(cat => (
               <div 
                 key={cat.id} 
-                onClick={() => setActiveTab("evaluations")}
+                onClick={() => {
+                  window.history.pushState(null, "", cat.path);
+                  window.dispatchEvent(new PopStateEvent("popstate"));
+                }}
                 className="h-full min-h-55 bg-white p-8 rounded-4xl border border-slate-100 hover:border-orange-500/30 hover:shadow-xl transition-all cursor-pointer group text-center flex flex-col justify-center gap-4"
               >
                 <div className={`mx-auto w-16 h-16 bg-${cat.color}-50 rounded-2xl flex items-center justify-center text-${cat.color}-500 group-hover:scale-110 transition-transform`}>
@@ -468,7 +381,8 @@ export default function HomeSection({
               <div className="relative h-44">
                 {(() => {
                   const imageKey = `category-${cat.id}`;
-                  const sourceUrl = categoryHeroImageMap[cat.id] || FALLBACK_PRODUCT_IMAGE;
+                  const topProduct = categoryTopProductMap[cat.id];
+                  const sourceUrl = topProduct ? resolveProductImages(topProduct).coverUrl : FALLBACK_PRODUCT_IMAGE;
                   const state = imageLoadState[imageKey];
                   return (
                     <>
@@ -477,7 +391,7 @@ export default function HomeSection({
                   alt={cat.label}
                   onLoad={() => handleCardImageLoad(imageKey)}
                   onError={() => handleCardImageError(imageKey, sourceUrl)}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-contain p-4 bg-white transition-transform duration-500 group-hover:scale-105"
                 />
                       {!state?.loaded && (
                         <div className="absolute inset-0 animate-pulse bg-linear-to-r from-slate-200 via-slate-100 to-slate-200" />
@@ -507,29 +421,27 @@ export default function HomeSection({
               </div>
 
               <div className="p-5 bg-linear-to-b from-white to-slate-50/80 flex-1 flex flex-col">
-                <p className="text-[12px] text-slate-500 font-medium leading-relaxed min-h-14">
-                  {lang === "zh"
-                    ? "从通勤、旅行到户外场景，这里汇总了最常被比较的核心品类。"
-                    : "From daily commute to travel and outdoor use, these are the categories families compare most."}
+                <p className="text-[12px] text-slate-500 font-medium leading-relaxed min-h-14 line-clamp-3">
+                  {(() => {
+                    const topProduct = categoryTopProductMap[cat.id];
+                    if (topProduct) {
+                      const tp = translateProduct(topProduct, lang);
+                      return tp.editorVerdict || tp.description || "";
+                    }
+                    return lang === "zh"
+                      ? "从通勤、旅行到户外场景，这里汇总了最常被比较的核心品类。"
+                      : "From daily commute to travel and outdoor use, these are the categories families compare most.";
+                  })()}
                 </p>
-                <div className="flex gap-2 mt-auto pt-4">
+                <div className="flex mt-auto pt-4">
                 <button
                   onClick={() => {
                     onSelectCategory(cat.id);
                     setActiveTab("products");
                   }}
-                  className="flex-1 px-3 py-2 rounded-xl bg-slate-900 text-white text-[11px] font-black uppercase tracking-wider hover:bg-orange-500 transition-colors"
+                  className="w-full px-3 py-2 rounded-xl bg-slate-900 text-white text-[11px] font-black uppercase tracking-wider hover:bg-orange-500 transition-colors"
                 >
                   {lang === "zh" ? "查看该品类" : "View Category"}
-                </button>
-                <button
-                  onClick={() => {
-                    onSelectCategory(cat.id);
-                    setActiveTab("evaluations");
-                  }}
-                  className="flex-1 px-3 py-2 rounded-xl bg-slate-100 text-slate-700 text-[11px] text-center font-black uppercase tracking-wider hover:bg-slate-200 transition-colors"
-                >
-                  {lang === "zh" ? "看评测" : "See Reviews"}
                 </button>
                 </div>
               </div>
@@ -538,124 +450,7 @@ export default function HomeSection({
         </div>
       </section>
 
-      {/* 5. SEO Trend Cluster (首页内容细化) */}
-      <section className="bg-slate-50 py-20">
-        <div className="max-w-7xl mx-auto px-6 space-y-10">
-          <div className="space-y-2">
-            <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">
-              {lang === "zh" ? "选购热议话题" : "What Parents Are Searching"}
-            </span>
-            <h3 className="text-3xl font-black text-slate-900 tracking-tight">
-              {lang === "zh" ? "家长最近常搜的问题" : "Top Questions Parents Search"}
-            </h3>
-            <p className="text-slate-500 font-medium">
-              {lang === "zh"
-                ? "这些词来自真实检索偏好，反映家长在不同阶段最关心的问题。"
-                : "These clusters reflect real parent search intent and the questions they care about most."}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {seoTrendGroups.map((group) => (
-              <div key={group.id} className="group h-full min-h-75 bg-white border border-slate-100 rounded-4xl overflow-hidden hover:shadow-xl hover:shadow-slate-300/30 transition-all flex flex-col">
-                <div className="relative h-36">
-                  {(() => {
-                    const imageKey = `seo-${group.id}`;
-                    const sourceUrl = categoryHeroImageMap[group.id] || FALLBACK_PRODUCT_IMAGE;
-                    const state = imageLoadState[imageKey];
-                    return (
-                      <>
-                  <img
-                    src={resolveStableImageSrc(imageKey, sourceUrl)}
-                    alt={group.label}
-                    onLoad={() => handleCardImageLoad(imageKey)}
-                    onError={() => handleCardImageError(imageKey, sourceUrl)}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                        {!state?.loaded && (
-                          <div className="absolute inset-0 animate-pulse bg-linear-to-r from-slate-200 via-slate-100 to-slate-200" />
-                        )}
-                        {state?.failed && (
-                          <span className="absolute bottom-2 left-2 px-2 py-1 rounded-md bg-slate-900/80 text-white text-[10px] font-bold">
-                            {lang === "zh" ? "已回退占位图" : "Fallback active"}
-                          </span>
-                        )}
-                      </>
-                    );
-                  })()}
-                  <div className="absolute inset-0 bg-linear-to-t from-slate-900/70 via-slate-900/20 to-transparent" />
-                  <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between gap-2">
-                    <h4 className="text-white font-black text-lg">{group.label}</h4>
-                    <button
-                      onClick={() => {
-                        onSelectCategory(group.id);
-                        setActiveTab("products");
-                      }}
-                      className="text-[10px] px-2.5 py-1 bg-white/20 text-white rounded-lg font-black uppercase tracking-wider border border-white/20 backdrop-blur-sm"
-                    >
-                      {lang === "zh" ? "去筛选" : "Filter"}
-                    </button>
-                  </div>
-                </div>
-                <div className="p-5 space-y-4 flex-1 flex flex-col">
-                  <p className="text-xs text-slate-500 font-medium min-h-10">
-                    {lang === "zh"
-                      ? "从旅行推车到双人慢跑，不同词簇对应不同选购场景。"
-                      : "From travel strollers to double joggers, each keyword cluster maps to a distinct buying scenario."}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mt-auto">
-                    {group.keywords.slice(0, 5).map((kw) => (
-                      <span
-                        key={kw}
-                        className="px-2.5 py-1 rounded-full text-[11px] bg-slate-100 text-slate-700 font-semibold"
-                      >
-                        {kw}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {imageFailureEntries.length > 0 && (
-        <section className="max-w-7xl mx-auto px-6">
-          <div className="rounded-3xl border border-orange-200 bg-orange-50/80 p-5 space-y-3">
-            <div className="flex items-center justify-between gap-3">
-              <h4 className="text-sm font-black text-orange-700">
-                {lang === "zh" ? "图片加载提示" : "Image Loading Notes"}
-              </h4>
-              <button
-                onClick={retryFailedImages}
-                className="px-3 py-1.5 rounded-lg bg-orange-500 text-white text-[11px] font-black uppercase tracking-wider hover:bg-orange-600"
-              >
-                {lang === "zh" ? "重试失败图片" : "Retry Failed Images"}
-              </button>
-            </div>
-            <p className="text-xs text-orange-700/90">
-              {lang === "zh"
-                ? "当前已启用占位图保持版面稳定，网络恢复后会继续尝试加载原图。"
-                : "Placeholders keep the layout stable while the page keeps trying to recover original images."}
-            </p>
-            <ul className="text-xs text-orange-800 space-y-1">
-              {imageFailureEntries.slice(0, 4).map((entry) => (
-                <li key={entry.key} className="truncate">
-                  {entry.key}: {entry.reason}
-                </li>
-              ))}
-            </ul>
-            <p className="text-[11px] text-orange-800/80">
-              {lang === "zh"
-                ? "建议优先补齐稳定图源，并持续保留占位图策略以避免页面跳动。"
-                : "Prioritize stable image hosting and keep placeholder protection to avoid layout shifts."}
-            </p>
-          </div>
-        </section>
-      )}
-
-      {/* 6. Hot Products (热门产品) */}
+      {/* 5. Hot Products (热门产品) */}
       <section className="max-w-7xl mx-auto px-6 space-y-12">
         <div className="flex justify-between items-end">
           <div className="space-y-2">
@@ -721,54 +516,17 @@ export default function HomeSection({
         </div>
       </section>
 
-      {/* 7. Real-time News (实时资讯) */}
-      <section className="bg-slate-900 py-24 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500/10 blur-[120px] rounded-full"></div>
-        <div className="max-w-7xl mx-auto px-6 space-y-12 relative z-10">
-          <div className="flex justify-between items-end">
-             <div className="space-y-2">
-                <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">{lang === "zh" ? "全球连线" : "Global Sync"}</span>
-                <h3 className="text-3xl font-black text-white tracking-tight">{lang === "zh" ? "行业及合规实时资讯" : "Real-time Industry News"}</h3>
-             </div>
-             <button onClick={() => setActiveTab("news")} className="text-sm font-black text-slate-500 hover:text-white transition-colors uppercase tracking-widest">{lang === "zh" ? "查看全部" : "View All"}</button>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-             {[1, 2].map(i => (
-               <div key={i} className="flex gap-6 p-6 bg-white/5 border border-white/10 rounded-3xl hover:bg-white/10 transition-colors cursor-pointer group">
-                  <div className="w-24 h-24 bg-white/5 rounded-2xl shrink-0 flex items-center justify-center">
-                    <Globe className="w-8 h-8 text-slate-600 group-hover:text-orange-500 transition-colors" />
-                  </div>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-[10px] font-black text-orange-500 uppercase">
-                      <span className="px-2 py-0.5 bg-orange-500/10 rounded-full">{i === 1 ? 'REGULATION' : 'NEW TECH'}</span>
-                      <span className="text-slate-600">June 14, 2026</span>
-                    </div>
-                    <h4 className="text-white font-bold leading-tight group-hover:text-orange-500 transition-colors">
-                      {i === 1 
-                        ? (lang === "zh" ? "欧盟修订 ISO 8098 儿童自行车安全标准，涉及刹把间距强制性提案" : "EU Updates ISO 8098 Standards for Kids Bike Brake Reach Safety")
-                        : (lang === "zh" ? "一体镁压铸技术迎来爆发：轻便童车市场平均自重下降 15%" : "Magnesium Die-casting Tech Drops Average Bike Weight by 15%")}
-                    </h4>
-                    <p className="text-slate-500 text-xs line-clamp-1">{lang === "zh" ? "深度分析技术变革对家庭选购的影响..." : "Deep analysis on how tech changes affect home buying..."}</p>
-                  </div>
-               </div>
-             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 8. Buying Guide Quick Links (选购指南快捷入口) & 9. Global Tool Entry (全站工具入口) */}
-      <section className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12">
-        <div className="lg:col-span-8 space-y-8">
-          <div className="space-y-2">
+      {/* 6. Buying Guide Quick Links (选购指南快捷入口) */}
+      <section className="max-w-7xl mx-auto px-6 space-y-12">
+          <div className="space-y-2 text-center max-w-2xl mx-auto">
             <h3 className="text-3xl font-black text-slate-900 tracking-tight">{lang === "zh" ? "智能选购场景" : "Quick Selection Scenarios"}</h3>
             <p className="text-slate-500 font-medium">{lang === "zh" ? "从成长阶段出发，为您快速匹配最佳方案。" : "Find the perfect match based on your child's growth stage."}</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { id: "newborn", label: lang === "zh" ? "新生儿(0-12月) · 出行安全" : "Newborn Mobility", desc: lang === "zh" ? "侧重减震与中轴枢纽强度" : "Focus on shock absorption" },
               { id: "outdoor", label: lang === "zh" ? "户外郊游 · 越野专家" : "Outdoor Experts", desc: lang === "zh" ? "轮组抓地力与通过性专项评测" : "Grip and terrain testing" },
               { id: "commute", label: lang === "zh" ? "日常通勤 · 轻便首选" : "Daily Commute", desc: lang === "zh" ? "折叠速度与整备质量极限对比" : "Weight and folding speed" },
-              { id: "growth", label: lang === "zh" ? "运动天赋 · 平衡进阶" : "Growth & Balance", desc: lang === "zh" ? "转向限位与工效几何深度拆解" : "Ergonomic geometry analysis" },
             ].map(scene => (
               <div key={scene.id} onClick={() => setActiveTab("guides")} className="p-8 bg-white border border-slate-100 rounded-4xl hover:border-orange-500 hover:shadow-xl transition-all cursor-pointer group">
                 <h5 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors mb-2">{scene.label}</h5>
@@ -776,41 +534,7 @@ export default function HomeSection({
               </div>
             ))}
           </div>
-        </div>
-
-        <div className="lg:col-span-4 space-y-8">
-          <div className="space-y-2">
-             <h3 className="text-3xl font-black text-slate-900 tracking-tight">{lang === "zh" ? "效率工具" : "Smart Tools"}</h3>
-             <p className="text-slate-500 font-medium">{lang === "zh" ? "用算力解决选购难题" : "Solve problems with data."}</p>
-          </div>
-          <div className="space-y-4">
-             {[
-               { id: "guides", label: lang === "zh" ? "智能选型计算器" : "Smart Sizing Calc", icon: Wrench },
-               { id: "products", label: lang === "zh" ? "全维度对比矩阵" : "Comparison Matrix", icon: Scale },
-               { id: "about", label: lang === "zh" ? "产品合规查询系统" : "Compliance Search", icon: ShieldCheck },
-             ].map(tool => (
-               <div key={tool.id} onClick={() => setActiveTab(tool.id)} className="flex items-center gap-6 p-6 bg-slate-900 rounded-4xl hover:bg-orange-500 transition-all cursor-pointer group border border-slate-800">
-                  <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-white group-hover:bg-white/20 transition-colors">
-                    <tool.icon className="w-6 h-6" />
-                  </div>
-                  <span className="font-black text-white text-lg">{tool.label}</span>
-               </div>
-             ))}
-          </div>
-        </div>
       </section>
-
-      <MatchingWizard 
-        isOpen={isWizardOpen}
-        onClose={() => setIsWizardOpen(false)}
-        productsData={productsData}
-        onSelectProduct={(p) => {
-          setIsWizardOpen(false);
-          onSelectProduct(p);
-        }}
-        lang={lang}
-        currencyData={currencyData}
-      />
     </div>
   );
 }

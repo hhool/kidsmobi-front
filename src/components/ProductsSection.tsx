@@ -876,13 +876,6 @@ export default function ProductsSection({
 
   return (
     <div id="product_library" className="space-y-8 animate-fade-in text-left">
-      {/* Primary H1 for SEO - visible to search engines */}
-      <h1 className="text-3xl font-black text-slate-900 text-center">
-        {lang === "en" 
-          ? "Kids Mobility Product Finder | KIDSMOBI" 
-          : "儿童出行产品数据库 | KIDSMOBI"}
-      </h1>
-      
       {/* Breadcrumbs (PRD 4.2.2) */}
       <Breadcrumbs 
         lang={lang} 
@@ -897,9 +890,9 @@ export default function ProductsSection({
             <BookOpen className="w-6 h-6 text-orange-500" />
           </div>
         </div>
-        <h2 className="text-2xl font-bold text-slate-700 mt-4">
+        <h1 className="text-2xl font-bold text-slate-700 mt-4">
           {lang === "en" ? "Kids' Mobility Discovery Hub: Strollers & Jogging Stroller, Bikes & Balance Bike, Toddler Bike, Kids Scooter" : "儿童出行发现大厅"}
-        </h2>
+        </h1>
         <p className="text-sm text-slate-500 font-medium">
           {lang === "en" 
             ? "Compare strollers & jogging stroller, bikes & balance bike, toddler bike,and kids scooter with test-backed safety metrics and how to choose a baby stroller guidance." 

@@ -443,7 +443,7 @@ function mapScoringStandards(rawProduct: RawProduct, evidence: ScrapedEvidenceIt
 function buildEditorVerdict(rawProduct: RawProduct, evidence: ScrapedEvidenceItem[]): string {
   const highlights = evidence.slice(0, 3).map((item) => item.text).filter(Boolean);
   if (highlights.length > 0) {
-    return `Based on scraped product evidence: ${highlights.join(" ")}`;
+    return `${highlights.join(" ")}`;
   }
   return truncateEvidence(rawProduct.Product_Description || rawProduct.Features || "");
 }

@@ -4,15 +4,14 @@
  */
 
 export const countries = [
-  { code: "CN", name: "中国", nameEn: "China", currency: "CNY", symbol: "￥" },
-  { code: "US", name: "美国", nameEn: "United States", currency: "USD", symbol: "$" },
-  { code: "GB", name: "英国", nameEn: "United Kingdom", currency: "GBP", symbol: "£" },
-  { code: "EU", name: "欧元区", nameEn: "Eurozone", currency: "EUR", symbol: "€" },
-  { code: "JP", name: "日本", nameEn: "Japan", currency: "JPY", symbol: "¥" },
+  { code: "US", name: "美国", nameEn: "United States", currency: "USD", symbol: "$", rate: 1.0 },
+  { code: "DE", name: "德国", nameEn: "Germany", currency: "EUR", symbol: "€", rate: 0.92 },
+  { code: "GB", name: "英国", nameEn: "United Kingdom", currency: "GBP", symbol: "£", rate: 0.79 }
 ];
 
 export function getCurrencyData(countryCode: string) {
-  return countries.find(c => c.code === countryCode) || countries[0];
+  // Default to US (USD) if country code is not found or excluded
+  return countries.find(c => c.code === countryCode) || countries.find(c => c.code === "US") || countries[0];
 }
 
 export const translations = {

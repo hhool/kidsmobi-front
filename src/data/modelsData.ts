@@ -74,7 +74,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.5,
     "overallScore": 8.8,
-    "editorVerdict": "Based on scraped product evidence: 4-IN-1 CARRYING POSITIONS FOR EVERY STAGE: Convertible baby carrier with facing-in (narrow/wide), facing-out, and back carry positions. Supports newborn to toddler (8–32 lbs) with... COMFORTABLE FOR PARENT & BABY: Designed with padded shoulder straps and a wide waist belt that helps evenly distribute your baby's weight — reducing back and shoulder strain wheth... ADJUSTABLE FOR ALL CAREGIVERS: Custom-fit straps, buckles, and seat settings make this carrier ideal for different body types and caregivers. Whether it’s mom, dad, or grandparent...",
+    "editorVerdict": "4-IN-1 CARRYING POSITIONS FOR EVERY STAGE: Convertible baby carrier with facing-in (narrow/wide), facing-out, and back carry positions. Supports newborn to toddler (8–32 lbs) with... COMFORTABLE FOR PARENT & BABY: Designed with padded shoulder straps and a wide waist belt that helps evenly distribute your baby's weight — reducing back and shoulder strain wheth... ADJUSTABLE FOR ALL CAREGIVERS: Custom-fit straps, buckles, and seat settings make this carrier ideal for different body types and caregivers. Whether it’s mom, dad, or grandparent...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -251,7 +251,7 @@ export const productsData: Product[] = [
     "weightScore": 9.8,
     "geometryScore": 9.2,
     "overallScore": 9.3,
-    "editorVerdict": "Based on scraped product evidence: 4-IN-1 CONVERTIBLE DESIGN: Grows with baby from newborn to toddler with four versatile carrying positions 7–35 lbs UPDATED LUMBAR & WEIGHT DISTRIBUTION: Enhanced lumbar support belt and wider weight distribution for improved comfort ERGONOMIC SEAT & ADJUSTABLE FIT FOR PARENTS: Supports baby’s natural position while shoulder straps and lumbar belt customize the fit",
+    "editorVerdict": "4-IN-1 CONVERTIBLE DESIGN: Grows with baby from newborn to toddler with four versatile carrying positions 7–35 lbs UPDATED LUMBAR & WEIGHT DISTRIBUTION: Enhanced lumbar support belt and wider weight distribution for improved comfort ERGONOMIC SEAT & ADJUSTABLE FIT FOR PARENTS: Supports baby’s natural position while shoulder straps and lumbar belt customize the fit",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -420,7 +420,7 @@ export const productsData: Product[] = [
     "weightScore": 9.9,
     "geometryScore": 9.4,
     "overallScore": 9.3,
-    "editorVerdict": "Based on scraped product evidence: Lining: 100% Cotton, Shell: 100% Cotton, Filling (Waist Belt & Shoulder Straps): 47% Foam, 40% Polyester Fibers, 13% Polyurethane Foam Hands Free Comfort: This ergonomic Baby Carrier perfect for experiencing hands-free convenience in everyday use, outing or travel. Lightweight design and effortless wearability, M... Tailored to Grow Together: Our carrier features three adjustable sizing positions, catering to your child's growth at every stage form newborn to toddler. Achieve a safe fit and E...",
+    "editorVerdict": "Lining: 100% Cotton, Shell: 100% Cotton, Filling (Waist Belt & Shoulder Straps): 47% Foam, 40% Polyester Fibers, 13% Polyurethane Foam Hands Free Comfort: This ergonomic Baby Carrier perfect for experiencing hands-free convenience in everyday use, outing or travel. Lightweight design and effortless wearability, M... Tailored to Grow Together: Our carrier features three adjustable sizing positions, catering to your child's growth at every stage form newborn to toddler. Achieve a safe fit and E...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -593,7 +593,7 @@ export const productsData: Product[] = [
     "weightScore": 9.9,
     "geometryScore": 9.3,
     "overallScore": 9.2,
-    "editorVerdict": "Based on scraped product evidence: Hands Free Comfort: This ergonomic Baby Carrier perfect for experiencing hands-free convenience in everyday use, outing or travel. Lightweight design and effortless wearability, M... Tailored to Grow Together: Our carrier features three adjustable sizing positions, catering to your child's growth at every stage form newborn to toddler. Achieve a safe fit and E... Ergonomic Waist EVA Support: Experience unmatched comfort during extended wear. The built-in EVA waist support not only offers crucial lumbar support but also minimizes strain on...",
+    "editorVerdict": "Hands Free Comfort: This ergonomic Baby Carrier perfect for experiencing hands-free convenience in everyday use, outing or travel. Lightweight design and effortless wearability, M... Tailored to Grow Together: Our carrier features three adjustable sizing positions, catering to your child's growth at every stage form newborn to toddler. Achieve a safe fit and E... Ergonomic Waist EVA Support: Experience unmatched comfort during extended wear. The built-in EVA waist support not only offers crucial lumbar support but also minimizes strain on...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -769,7 +769,7 @@ export const productsData: Product[] = [
     "weightScore": 9.4,
     "geometryScore": 9.1,
     "overallScore": 9.3,
-    "editorVerdict": "Based on scraped product evidence: GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby.No extra energy supply requi... SOFT MUSIC & CUTE ANIMAL SOUNDS:The balance bike has 5 built-in songs and cute animal sounds on the tail button, the music makes the baby more willing to move and feel more relaxe... SAFA & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling.No pedal and fully widened closed wheel to avoid clamping baby's feet.Low centre of gra...",
+    "editorVerdict": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby.No extra energy supply requi... SOFT MUSIC & CUTE ANIMAL SOUNDS:The balance bike has 5 built-in songs and cute animal sounds on the tail button, the music makes the baby more willing to move and feel more relaxe... SAFA & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling.No pedal and fully widened closed wheel to avoid clamping baby's feet.Low centre of gra...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -946,7 +946,7 @@ export const productsData: Product[] = [
     "weightScore": 9.4,
     "geometryScore": 9.7,
     "overallScore": 9.4,
-    "editorVerdict": "Based on scraped product evidence: 【COLORFUL LIGHTING DESIGN】 To enhance children's fun, we have specially designed the colorful lighting rear wheel. No batteries are required, just spin the wheels to glow. Greatly... 【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can h... 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby.",
+    "editorVerdict": "【COLORFUL LIGHTING DESIGN】 To enhance children's fun, we have specially designed the colorful lighting rear wheel. No batteries are required, just spin the wheels to glow. Greatly... 【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can h... 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby.",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -1106,7 +1106,7 @@ export const productsData: Product[] = [
     "weightScore": 9.4,
     "geometryScore": 9.5,
     "overallScore": 9.4,
-    "editorVerdict": "Based on scraped product evidence: 【COLORFUL LIGHTING DESIGN】 To enhance children's fun, we have specially designed the colorful lighting rear wheel. No batteries are required, just spin the wheels to glow. Greatly... 【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can h... 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby.",
+    "editorVerdict": "【COLORFUL LIGHTING DESIGN】 To enhance children's fun, we have specially designed the colorful lighting rear wheel. No batteries are required, just spin the wheels to glow. Greatly... 【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can h... 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby.",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -1275,7 +1275,7 @@ export const productsData: Product[] = [
     "weightScore": 9.4,
     "geometryScore": 9.7,
     "overallScore": 9.4,
-    "editorVerdict": "Based on scraped product evidence: 【COLORFUL LIGHTING DESIGN】 No batteries are needed and no charging is required.To enhance children's fun, we have specially designed the colorful lighting rear wheel.just spin the... 【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can h... 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby.",
+    "editorVerdict": "【COLORFUL LIGHTING DESIGN】 No batteries are needed and no charging is required.To enhance children's fun, we have specially designed the colorful lighting rear wheel.just spin the... 【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can h... 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby.",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -1447,7 +1447,7 @@ export const productsData: Product[] = [
     "weightScore": 9.3,
     "geometryScore": 9,
     "overallScore": 9,
-    "editorVerdict": "Based on scraped product evidence: Stable & Secure Ride: 7\" Front & Rear Silent Big 4-Wheels provide spacing to deliver ample legroom. Designed with a 5.1-inch front wheel spacing &1.45-inch wheel width and 45° lim... Sturdy Steel Frame: Durable steel alloy frame ensures long-lasting stability and strength. Supports up to 66 lbs, perfect for most toddlers. Safe For Exploring: The Gotrax toddler balance bike features a soft-edge design that provides all-around protection as toddlers explore. Designed as a first ride on toy for 1-2yea...",
+    "editorVerdict": "Stable & Secure Ride: 7\" Front & Rear Silent Big 4-Wheels provide spacing to deliver ample legroom. Designed with a 5.1-inch front wheel spacing &1.45-inch wheel width and 45° lim... Sturdy Steel Frame: Durable steel alloy frame ensures long-lasting stability and strength. Supports up to 66 lbs, perfect for most toddlers. Safe For Exploring: The Gotrax toddler balance bike features a soft-edge design that provides all-around protection as toddlers explore. Designed as a first ride on toy for 1-2yea...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -1622,7 +1622,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.4,
     "overallScore": 8.8,
-    "editorVerdict": "Based on scraped product evidence: GROWS WITH YOUR CHILD: No need to buy multiple kid bikes! This 6-in-1 convertible design easily transforms from a parent-push trike to a toddler tricycle, balance bike, toddler bi... ADJUSTABLE STEERING HANDLE FOR SAFE CONTROL: The parent push handle rotates 135° for easy control of the toddler push bike’s speed and direction, helping protect your child from t... SAFETY FIRST, ALWAYS: Built with parents’ peace of mind in mind. Equipped with an aluminum alloy frame, 12\" all-terrain puncture-proof rubber wheels, a hand brake, and 60° steerin...",
+    "editorVerdict": "GROWS WITH YOUR CHILD: No need to buy multiple kid bikes! This 6-in-1 convertible design easily transforms from a parent-push trike to a toddler tricycle, balance bike, toddler bi... ADJUSTABLE STEERING HANDLE FOR SAFE CONTROL: The parent push handle rotates 135° for easy control of the toddler push bike’s speed and direction, helping protect your child from t... SAFETY FIRST, ALWAYS: Built with parents’ peace of mind in mind. Equipped with an aluminum alloy frame, 12\" all-terrain puncture-proof rubber wheels, a hand brake, and 60° steerin...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -1791,7 +1791,7 @@ export const productsData: Product[] = [
     "weightScore": 9.4,
     "geometryScore": 9.7,
     "overallScore": 9.3,
-    "editorVerdict": "Based on scraped product evidence: VERSATILE 2-IN-1 MODE -This innovative 2-in-1 kids' trike and balance bike meets dual needs with a single bike. Whether in trike mode for stability and safety or balance bike mode... BUILT-IN PEDAL MOUNT - Easily switch to balance bike mode by storing the pedals in a convenient slot under the rear seat, preventing loss. This innovative design makes it the firs... STOWABLE TRAINING WHEELS - The training wheels on this bike can be conveniently lifted and stored, providing flexibility as the rider gains confidence. If the training wheels are...",
+    "editorVerdict": "VERSATILE 2-IN-1 MODE -This innovative 2-in-1 kids' trike and balance bike meets dual needs with a single bike. Whether in trike mode for stability and safety or balance bike mode... BUILT-IN PEDAL MOUNT - Easily switch to balance bike mode by storing the pedals in a convenient slot under the rear seat, preventing loss. This innovative design makes it the firs... STOWABLE TRAINING WHEELS - The training wheels on this bike can be conveniently lifted and stored, providing flexibility as the rider gains confidence. If the training wheels are...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -1972,7 +1972,7 @@ export const productsData: Product[] = [
     "weightScore": 9.2,
     "geometryScore": 9.7,
     "overallScore": 9.2,
-    "editorVerdict": "Based on scraped product evidence: EARLY LEARNING BALANCE BIKE – A fun way to introduce small toddlers to riding bicycles this girls and boys balance bike lets them push, stand, and walk their way around the outdoo... CUSTOMIZE PLATE – Each balancing bike comes with a removable customizable plate, where kids can design their own plate with the stickers or draw anything they want. ENHANCED SAFETY – Along with a soft, rubber grip handlebars, a soft PU seat, this kids balance bike has built in a wide tough carbon-steel frame, it can holds up to 110 lbs and yo...",
+    "editorVerdict": "EARLY LEARNING BALANCE BIKE – A fun way to introduce small toddlers to riding bicycles this girls and boys balance bike lets them push, stand, and walk their way around the outdoo... CUSTOMIZE PLATE – Each balancing bike comes with a removable customizable plate, where kids can design their own plate with the stickers or draw anything they want. ENHANCED SAFETY – Along with a soft, rubber grip handlebars, a soft PU seat, this kids balance bike has built in a wide tough carbon-steel frame, it can holds up to 110 lbs and yo...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -2157,7 +2157,7 @@ export const productsData: Product[] = [
     "weightScore": 9.5,
     "geometryScore": 9.7,
     "overallScore": 9.3,
-    "editorVerdict": "Based on scraped product evidence: Learn to Ride Early: Retrospec Cricket is designed for toddlers ages 12-24 months of age to develop the advanced motor skills needed to walk and eventually ride. Great toy for a 1... Safe & Durable: Sturdy, comfortable, and safe. Cricket’s design ensures the child’s feet are always touching the ground, so they stay in control of their speed, stopping, and move... Scratch-Resistant Wheels: Cricket’s non-slip, no-scratch wheels prevent scratched floors and provide a secure grip for riding both indoors and outdoors. Keep them (and your floors...",
+    "editorVerdict": "Learn to Ride Early: Retrospec Cricket is designed for toddlers ages 12-24 months of age to develop the advanced motor skills needed to walk and eventually ride. Great toy for a 1... Safe & Durable: Sturdy, comfortable, and safe. Cricket’s design ensures the child’s feet are always touching the ground, so they stay in control of their speed, stopping, and move... Scratch-Resistant Wheels: Cricket’s non-slip, no-scratch wheels prevent scratched floors and provide a secure grip for riding both indoors and outdoors. Keep them (and your floors...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -2330,7 +2330,7 @@ export const productsData: Product[] = [
     "weightScore": 9.5,
     "geometryScore": 9.7,
     "overallScore": 9.4,
-    "editorVerdict": "Based on scraped product evidence: BEGINNER BABY BALANCE BIKE: Designed for toddlers ages 12-24 months to develop balance and coordination, this first bike is a toy for 1 year old boys and girls and a first birthda... SAFE FIRST BALANCE BIKE: Feet-to-floor design lets toddlers walk, scoot, and ride while four stable wheels help prevent tipping and support growing balance and coordination QUIET, NO-SCRATCH WHEELS: Non-slip wheels protect indoor floors and provide secure grip outdoors, making this baby balance bike suitable for play inside or outside",
+    "editorVerdict": "BEGINNER BABY BALANCE BIKE: Designed for toddlers ages 12-24 months to develop balance and coordination, this first bike is a toy for 1 year old boys and girls and a first birthda... SAFE FIRST BALANCE BIKE: Feet-to-floor design lets toddlers walk, scoot, and ride while four stable wheels help prevent tipping and support growing balance and coordination QUIET, NO-SCRATCH WHEELS: Non-slip wheels protect indoor floors and provide secure grip outdoors, making this baby balance bike suitable for play inside or outside",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -2494,7 +2494,7 @@ export const productsData: Product[] = [
     "weightScore": 9.6,
     "geometryScore": 9.6,
     "overallScore": 9.4,
-    "editorVerdict": "Based on scraped product evidence: GROW IN FUN: Recommended ages for 12-24 months. The infant balance bike is the best birthday gift for toddlers to learn walking and riding. It helps to develop babies' balance, st... SAFELY RIDE: No pedal and fully widened closed wheel to avoid clamping baby's feet. 135 ° turning limit and gravity steering without leaving the ground to prevent the baby from tu... STURDY & COMFORTABLE DESIGN: The mini balance bike equips sturdy aluminum alloy frame, non-slip TPU handle, and a softly supportive seat.The mini balance bike wheels are non-slip,...",
+    "editorVerdict": "GROW IN FUN: Recommended ages for 12-24 months. The infant balance bike is the best birthday gift for toddlers to learn walking and riding. It helps to develop babies' balance, st... SAFELY RIDE: No pedal and fully widened closed wheel to avoid clamping baby's feet. 135 ° turning limit and gravity steering without leaving the ground to prevent the baby from tu... STURDY & COMFORTABLE DESIGN: The mini balance bike equips sturdy aluminum alloy frame, non-slip TPU handle, and a softly supportive seat.The mini balance bike wheels are non-slip,...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -2678,7 +2678,7 @@ export const productsData: Product[] = [
     "weightScore": 8.9,
     "geometryScore": 9.2,
     "overallScore": 9,
-    "editorVerdict": "Based on scraped product evidence: STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame, supports up to 110 lbs, safe footrest pad, rubber grips,... GROW WITH KIDS- Equipped with quick-release mechanism, parents can adjust the seat height(11.8-16.5inch) and handlebars height(19.6-22.5inch) without tools, easily adjust to the m... WHY YOU NEED IT?- With the no pedals bicycle, child will learn balance and steering, boost self-confidence, which makes transitioning to a pedal bike much smoother. In addition, b...",
+    "editorVerdict": "STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame, supports up to 110 lbs, safe footrest pad, rubber grips,... GROW WITH KIDS- Equipped with quick-release mechanism, parents can adjust the seat height(11.8-16.5inch) and handlebars height(19.6-22.5inch) without tools, easily adjust to the m... WHY YOU NEED IT?- With the no pedals bicycle, child will learn balance and steering, boost self-confidence, which makes transitioning to a pedal bike much smoother. In addition, b...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -2846,7 +2846,7 @@ export const productsData: Product[] = [
     "weightScore": 9,
     "geometryScore": 9.4,
     "overallScore": 9.2,
-    "editorVerdict": "Based on scraped product evidence: STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame, supports up to 110 lbs, safe footrest pad, rubber grips,... GROW WITH KIDS- Equipped with quick-release mechanism, parents can adjust the seat height(12.6-17.1inch) and handlebars height(19.6-22.5inch) without tools, easily adjust to the m... WHY YOU NEED IT?- With the no pedals bicycle, child will learn balance and steering, boost self-confidence, which makes transitioning to a pedal bike much smoother. In addition, b...",
+    "editorVerdict": "STURDY AND SAFE- What you think for your kids is what SEREED toddler balance bike have. Wide and tough carbon steel frame, supports up to 110 lbs, safe footrest pad, rubber grips,... GROW WITH KIDS- Equipped with quick-release mechanism, parents can adjust the seat height(12.6-17.1inch) and handlebars height(19.6-22.5inch) without tools, easily adjust to the m... WHY YOU NEED IT?- With the no pedals bicycle, child will learn balance and steering, boost self-confidence, which makes transitioning to a pedal bike much smoother. In addition, b...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -3023,7 +3023,7 @@ export const productsData: Product[] = [
     "weightScore": 9.6,
     "geometryScore": 9.3,
     "overallScore": 9.3,
-    "editorVerdict": "Based on scraped product evidence: GLOW REAR WHEEL: Colorful lighted rear wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No batteries required, j... SAFETY FIRST: 135° steering limiter effectively prevents the baby from turning over. Fully enclosed wheels to avoid clamping baby's feet. TPU handle makes baby's grip firm and har... ADJUSTABLE SEAT: The 3-position adjustable seat is more suitable for babies aged 12-24 months. Note: After adjusting the seat to hear the seat \"click\" to be considered successfull...",
+    "editorVerdict": "GLOW REAR WHEEL: Colorful lighted rear wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No batteries required, j... SAFETY FIRST: 135° steering limiter effectively prevents the baby from turning over. Fully enclosed wheels to avoid clamping baby's feet. TPU handle makes baby's grip firm and har... ADJUSTABLE SEAT: The 3-position adjustable seat is more suitable for babies aged 12-24 months. Note: After adjusting the seat to hear the seat \"click\" to be considered successfull...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -3208,7 +3208,7 @@ export const productsData: Product[] = [
     "weightScore": 9.6,
     "geometryScore": 9.7,
     "overallScore": 9.5,
-    "editorVerdict": "Based on scraped product evidence: GLOW REAR WHEEL: Colorful lighted rear wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No batteries required, j... SAFETY FIRST: 135° steering limiter effectively prevents the baby from turning over. Fully enclosed wheels to avoid clamping baby's feet. TPU handle makes baby's grip firm and har... ADJUSTABLE SEAT: The 3-position adjustable seat is more suitable for babies aged 12-24 months. Note: After adjusting the seat to hear the seat \"click\" to be considered successfull...",
+    "editorVerdict": "GLOW REAR WHEEL: Colorful lighted rear wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No batteries required, j... SAFETY FIRST: 135° steering limiter effectively prevents the baby from turning over. Fully enclosed wheels to avoid clamping baby's feet. TPU handle makes baby's grip firm and har... ADJUSTABLE SEAT: The 3-position adjustable seat is more suitable for babies aged 12-24 months. Note: After adjusting the seat to hear the seat \"click\" to be considered successfull...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -3390,7 +3390,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.6,
     "overallScore": 8.9,
-    "editorVerdict": "Based on scraped product evidence: Convertible car seat grows with your child from rear-facing harness (4-50 lb) to forward-facing harness (26.5-65 lb) Extend2Fit 4-position adjustable extension panel provides up to 5\" additional legroom, allowing your child to safely ride rear-facing longer Up to 50 lb rear-facing, allowing your child to safely ride rear-facing longer",
+    "editorVerdict": "Convertible car seat grows with your child from rear-facing harness (4-50 lb) to forward-facing harness (26.5-65 lb) Extend2Fit 4-position adjustable extension panel provides up to 5\" additional legroom, allowing your child to safely ride rear-facing longer Up to 50 lb rear-facing, allowing your child to safely ride rear-facing longer",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -3635,7 +3635,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.4,
     "overallScore": 8.6,
-    "editorVerdict": "Based on scraped product evidence: 300D Oxford fabric Double Seat Design: Designed with 2 seats in front and back fits two babies seat together. The front seat is suitable for baby of 6-36 months. Rear seat is suitable from birth to... Safety Wheels & 5-point Safety Belts: The front wheels with shock proof function are non-directional and can also orient easily. The rear wheels have a linkage to brake with one s...",
+    "editorVerdict": "300D Oxford fabric Double Seat Design: Designed with 2 seats in front and back fits two babies seat together. The front seat is suitable for baby of 6-36 months. Rear seat is suitable from birth to... Safety Wheels & 5-point Safety Belts: The front wheels with shock proof function are non-directional and can also orient easily. The rear wheels have a linkage to brake with one s...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -3807,7 +3807,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.2,
     "overallScore": 8.6,
-    "editorVerdict": "Based on scraped product evidence: Polyester VERSATILE 3-IN-1 TRAVEL SYSTEM: A complete double stroller and car seat set designed to grow with your baby from infancy to toddler years, offering a complete travel solution in o... SAFETY FEATURES: Equipped with a 5-point safety harness with a simple 1-hand adjustment and push-button release, this system ensures your baby’s safety and comfort, making every r...",
+    "editorVerdict": "Polyester VERSATILE 3-IN-1 TRAVEL SYSTEM: A complete double stroller and car seat set designed to grow with your baby from infancy to toddler years, offering a complete travel solution in o... SAFETY FEATURES: Equipped with a 5-point safety harness with a simple 1-hand adjustment and push-button release, this system ensures your baby’s safety and comfort, making every r...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -3979,7 +3979,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.7,
     "overallScore": 8.7,
-    "editorVerdict": "Based on scraped product evidence: 100% Polyester Children can sit in the front and rear seats or stand on the rear platform Parent tray with 2 cup holders and covered storage compartment",
+    "editorVerdict": "100% Polyester Children can sit in the front and rear seats or stand on the rear platform Parent tray with 2 cup holders and covered storage compartment",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -4160,7 +4160,7 @@ export const productsData: Product[] = [
     "weightScore": 7.8,
     "geometryScore": 9.3,
     "overallScore": 8.6,
-    "editorVerdict": "Based on scraped product evidence: 100% Polyester Imported Stroller frame that accepts infant car seats to form a Travel System",
+    "editorVerdict": "100% Polyester Imported Stroller frame that accepts infant car seats to form a Travel System",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -4324,7 +4324,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.7,
     "overallScore": 8.9,
-    "editorVerdict": "Based on scraped product evidence: Polyester Imported ADJUSTABLE HANDLEBAR: Adjustable 9-position handlebar creates the perfect fit for parents of all heights",
+    "editorVerdict": "Polyester Imported ADJUSTABLE HANDLEBAR: Adjustable 9-position handlebar creates the perfect fit for parents of all heights",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -4499,7 +4499,7 @@ export const productsData: Product[] = [
     "weightScore": 6.6,
     "geometryScore": 9.7,
     "overallScore": 8.3,
-    "editorVerdict": "Based on scraped product evidence: 100% Polyester Imported Accepts any two Chicco infant car seats with secure, click-in attachment and no adapter needed",
+    "editorVerdict": "100% Polyester Imported Accepts any two Chicco infant car seats with secure, click-in attachment and no adapter needed",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -4674,7 +4674,7 @@ export const productsData: Product[] = [
     "weightScore": 6.6,
     "geometryScore": 9.5,
     "overallScore": 8.3,
-    "editorVerdict": "Based on scraped product evidence: oxford cloth Imported RECOMMENDED USE: Each seat holds up to 40 pounds (80 pounds total). Canopies feature pop out SPF 50 sun visors to shield little ones. Peak a boo windows allow you to keep an eye o...",
+    "editorVerdict": "oxford cloth Imported RECOMMENDED USE: Each seat holds up to 40 pounds (80 pounds total). Canopies feature pop out SPF 50 sun visors to shield little ones. Peak a boo windows allow you to keep an eye o...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -4842,7 +4842,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.4,
     "overallScore": 8.7,
-    "editorVerdict": "Based on scraped product evidence: 100% Polyester A LIGHTWEIGHT TRAVEL COMPANION (25 LBS) – Weighing in at just 25 lbs, the Lithe double stroller is your key to stress-free travel. Designed for nimble urban navigation and stress-... INSTANT COMPACT FOLD & GO – Say goodbye to parking lot struggles. Our \"Slide-and-Go\" mechanism collapses the stroller in seconds into a trunk-friendly size (28.9\" L x 23.2\" W x 13...",
+    "editorVerdict": "100% Polyester A LIGHTWEIGHT TRAVEL COMPANION (25 LBS) – Weighing in at just 25 lbs, the Lithe double stroller is your key to stress-free travel. Designed for nimble urban navigation and stress-... INSTANT COMPACT FOLD & GO – Say goodbye to parking lot struggles. Our \"Slide-and-Go\" mechanism collapses the stroller in seconds into a trunk-friendly size (28.9\" L x 23.2\" W x 13...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -5086,7 +5086,7 @@ export const productsData: Product[] = [
     "weightScore": 7.7,
     "geometryScore": 9.2,
     "overallScore": 8.5,
-    "editorVerdict": "Based on scraped product evidence: [3-In-1 Design For Growing Kids]This innovative 3-in-1 toddler push car features 3 modes (push car, remote control, and electric mode) that can be switched easily, catering to the... [360° Spin & Colorful LED Light]Equipped with 3 universal wheels, this toddler push car with handle rotate 360° on the spot, letting kids to ride flexibly and freely even in tight... [5-Point Safety Belt for Greater Safety]Compared with ordinary 2-point seat belts, the 5-point seat belt significantly improves both safety and comfort. The electric mode features...",
+    "editorVerdict": "[3-In-1 Design For Growing Kids]This innovative 3-in-1 toddler push car features 3 modes (push car, remote control, and electric mode) that can be switched easily, catering to the... [360° Spin & Colorful LED Light]Equipped with 3 universal wheels, this toddler push car with handle rotate 360° on the spot, letting kids to ride flexibly and freely even in tight... [5-Point Safety Belt for Greater Safety]Compared with ordinary 2-point seat belts, the 5-point seat belt significantly improves both safety and comfort. The electric mode features...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -5269,7 +5269,7 @@ export const productsData: Product[] = [
     "weightScore": 6.6,
     "geometryScore": 9.3,
     "overallScore": 8.3,
-    "editorVerdict": "Based on scraped product evidence: 【Official License & Immersive Retro Adventure】This kids' electric car perfectly recreates the classic styling and retro colors of the 1973 Ford F-150. Complete with bright LED hea... 【Powerful 24V 4WD for All Terrains】Move beyond the limitations of 12V or standard 24V 2WD car that struggle on grass and complex surfaces. Featuring a 24V 4WD system powered by fo... 【Ends Sibling Fights, True 2-Seater Comfort】Unlike other cramped ride ons the market, this electric car for kids features newly upgraded, roomy 2 seats (20”L x 14”W x 7.1”H) that...",
+    "editorVerdict": "【Official License & Immersive Retro Adventure】This kids' electric car perfectly recreates the classic styling and retro colors of the 1973 Ford F-150. Complete with bright LED hea... 【Powerful 24V 4WD for All Terrains】Move beyond the limitations of 12V or standard 24V 2WD car that struggle on grass and complex surfaces. Featuring a 24V 4WD system powered by fo... 【Ends Sibling Fights, True 2-Seater Comfort】Unlike other cramped ride ons the market, this electric car for kids features newly upgraded, roomy 2 seats (20”L x 14”W x 7.1”H) that...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -5440,7 +5440,7 @@ export const productsData: Product[] = [
     "weightScore": 6.6,
     "geometryScore": 9.7,
     "overallScore": 8.2,
-    "editorVerdict": "Based on scraped product evidence: FOR KIDS 3 YEARS & OLDER: This small yet powerful ride-on is perfect for your little racers who want to start driving like the grownups do! POWERFUL 12V & REALISTIC DESIGN: Adjustable seatbelt, bright LED headlights, lockable doors, and grid windshield for off-road style, with a 12V motor and traction tires to ride on... MANUAL AND PARENT CONTROL: Let your child drive manually or use the remote control to safely guide them yourself; remote has forward/reverse controls",
+    "editorVerdict": "FOR KIDS 3 YEARS & OLDER: This small yet powerful ride-on is perfect for your little racers who want to start driving like the grownups do! POWERFUL 12V & REALISTIC DESIGN: Adjustable seatbelt, bright LED headlights, lockable doors, and grid windshield for off-road style, with a 12V motor and traction tires to ride on... MANUAL AND PARENT CONTROL: Let your child drive manually or use the remote control to safely guide them yourself; remote has forward/reverse controls",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -5623,7 +5623,7 @@ export const productsData: Product[] = [
     "weightScore": 6.6,
     "geometryScore": 9.7,
     "overallScore": 8.4,
-    "editorVerdict": "Based on scraped product evidence: REALISTIC DRIVING ACTION: Give your kids a realistic behind-the-wheel experience with controls sized for small hands and a powerful 12V battery that runs up to 1 hour on a full ch... MANUAL AND PARENT CONTROL: Let your child drive manually or use the remote control to safely guide them yourself; remote has forward/reverse and left/right controls PERFECTLY SIZED: Precision designed to accurately recreate the Chevrolet Silverado truck, scaled down so your little ones can have a fun-sized ride",
+    "editorVerdict": "REALISTIC DRIVING ACTION: Give your kids a realistic behind-the-wheel experience with controls sized for small hands and a powerful 12V battery that runs up to 1 hour on a full ch... MANUAL AND PARENT CONTROL: Let your child drive manually or use the remote control to safely guide them yourself; remote has forward/reverse and left/right controls PERFECTLY SIZED: Precision designed to accurately recreate the Chevrolet Silverado truck, scaled down so your little ones can have a fun-sized ride",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -5802,7 +5802,7 @@ export const productsData: Product[] = [
     "weightScore": 6.6,
     "geometryScore": 9.6,
     "overallScore": 8.3,
-    "editorVerdict": "Based on scraped product evidence: 2-SEATER RIDE-ON TRUCK: Built for double the fun, this ride-on supports up to 132 pounds, making it great for your children and their friends 90-MINUTE RUN TIME: A fully rechargeable 24V battery allows your child to enjoy this ride-on toy for well over an hour on just one charge PARENTAL REMOTE CONTROL: Let your child take the wheel or use the included remote to join the fun as you guide them on their adventure, while a built-in Bluetooth sound system let...",
+    "editorVerdict": "2-SEATER RIDE-ON TRUCK: Built for double the fun, this ride-on supports up to 132 pounds, making it great for your children and their friends 90-MINUTE RUN TIME: A fully rechargeable 24V battery allows your child to enjoy this ride-on toy for well over an hour on just one charge PARENTAL REMOTE CONTROL: Let your child take the wheel or use the included remote to join the fun as you guide them on their adventure, while a built-in Bluetooth sound system let...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -5972,7 +5972,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.4,
     "overallScore": 8.7,
-    "editorVerdict": "Based on scraped product evidence: OFFICIALLY LICENSED BY FORD BRONCO RAPTOR: This 24v ride on toys for big kids delivers an authentic driving experience Spacious Dual-Seater Fun: Featuring a 21-inch dual seat, this 24v kids ride on car is perfect for siblings or friends to enjoy together. It is ideal for a larger child, offering c... Ultimate Safety Features: Equipped with two individual 3-point seat belts and anti-slip seats, this ride on cars for kids ages 3-8 prioritizes safety with parental remote control,...",
+    "editorVerdict": "OFFICIALLY LICENSED BY FORD BRONCO RAPTOR: This 24v ride on toys for big kids delivers an authentic driving experience Spacious Dual-Seater Fun: Featuring a 21-inch dual seat, this 24v kids ride on car is perfect for siblings or friends to enjoy together. It is ideal for a larger child, offering c... Ultimate Safety Features: Equipped with two individual 3-point seat belts and anti-slip seats, this ride on cars for kids ages 3-8 prioritizes safety with parental remote control,...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -6142,7 +6142,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.4,
     "overallScore": 8.5,
-    "editorVerdict": "Based on scraped product evidence: Realistic Driving Experience: This is a true driving UTV - no remote control, no artificial limits. Kids can control speed with the variable throttle pedal, shift between forward... Built for Outdoor Fun & Lasting Play: Designed for extended outdoor play, this 36V ride-on UTV offers 40–60 minutes of runtime per charge depending on terrain. A spacious rear sto... High-Performance Power System: Equipped with a 36V 9Ah battery and dual 200W high-torque motors, this UTV delivers powerful acceleration and strong climbing ability with a top spe...",
+    "editorVerdict": "Realistic Driving Experience: This is a true driving UTV - no remote control, no artificial limits. Kids can control speed with the variable throttle pedal, shift between forward... Built for Outdoor Fun & Lasting Play: Designed for extended outdoor play, this 36V ride-on UTV offers 40–60 minutes of runtime per charge depending on terrain. A spacious rear sto... High-Performance Power System: Equipped with a 36V 9Ah battery and dual 200W high-torque motors, this UTV delivers powerful acceleration and strong climbing ability with a top spe...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -6301,7 +6301,7 @@ export const productsData: Product[] = [
     "weightScore": 6.6,
     "geometryScore": 9.7,
     "overallScore": 8.3,
-    "editorVerdict": "Based on scraped product evidence: OFFICIALLY LICENSED BY FORD BRONCO RAPTOR: This 24v ride on toys for big kids delivers an authentic driving experience Spacious Dual-Seater Fun: Featuring a 21-inch dual seat, this 24v kids ride on car is perfect for siblings or friends to enjoy together. It is ideal for a larger child, offering c... Ultimate Safety Features: Equipped with two individual 3-point seat belts and anti-slip seats, this ride on cars for kids ages 3-8 prioritizes safety with parental remote control,...",
+    "editorVerdict": "OFFICIALLY LICENSED BY FORD BRONCO RAPTOR: This 24v ride on toys for big kids delivers an authentic driving experience Spacious Dual-Seater Fun: Featuring a 21-inch dual seat, this 24v kids ride on car is perfect for siblings or friends to enjoy together. It is ideal for a larger child, offering c... Ultimate Safety Features: Equipped with two individual 3-point seat belts and anti-slip seats, this ride on cars for kids ages 3-8 prioritizes safety with parental remote control,...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -6472,7 +6472,7 @@ export const productsData: Product[] = [
     "weightScore": 8.4,
     "geometryScore": 8.9,
     "overallScore": 8.4,
-    "editorVerdict": "Based on scraped product evidence: Power&Long-Lasting Play: Powered by a 12V 4.5Ah rechargeable battery, this ride on offers up to 80 minutes of continuous fun per full charge. Great for extended outdoor without fr... 8\" Big Wheel: 8\" tires glide smoothly over paved roads; Powerful high-speed motor ensures max speed of 1.5mph, a very safe and fun speed for toddlers. Anti-Rollover Safety: Engineered with stability features to prevent tipping on slopes or bumpy terrain, keeping little ones secure during every drive.",
+    "editorVerdict": "Power&Long-Lasting Play: Powered by a 12V 4.5Ah rechargeable battery, this ride on offers up to 80 minutes of continuous fun per full charge. Great for extended outdoor without fr... 8\" Big Wheel: 8\" tires glide smoothly over paved roads; Powerful high-speed motor ensures max speed of 1.5mph, a very safe and fun speed for toddlers. Anti-Rollover Safety: Engineered with stability features to prevent tipping on slopes or bumpy terrain, keeping little ones secure during every drive.",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -6627,7 +6627,7 @@ export const productsData: Product[] = [
     "weightScore": 7.9,
     "geometryScore": 9.5,
     "overallScore": 8.6,
-    "editorVerdict": "Based on scraped product evidence: MOTORCYCLE FOR KIDS - Satisfy your child's need for imaginative play with this electric bike for kids. Perfect for indoors and outdoors, the toddler motorcycle works on any hard,... REALISTIC FEATURES - The kid’s electric bike features engine sound effects, working headlights, behind the seat storage, and police decals for extra fun. The toddler ride on has b... EASY TO RIDE - Recommended for kids aged 3 to 6, this 3-wheel kid’s electric motorcycle is easy to operate by simply switching it on and pressing the pedal to go. The ride on toy...",
+    "editorVerdict": "MOTORCYCLE FOR KIDS - Satisfy your child's need for imaginative play with this electric bike for kids. Perfect for indoors and outdoors, the toddler motorcycle works on any hard,... REALISTIC FEATURES - The kid’s electric bike features engine sound effects, working headlights, behind the seat storage, and police decals for extra fun. The toddler ride on has b... EASY TO RIDE - Recommended for kids aged 3 to 6, this 3-wheel kid’s electric motorcycle is easy to operate by simply switching it on and pressing the pedal to go. The ride on toy...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -6786,7 +6786,7 @@ export const productsData: Product[] = [
     "weightScore": 6.6,
     "geometryScore": 9.1,
     "overallScore": 7.9,
-    "editorVerdict": "Based on scraped product evidence: Spacious with 4-Seats Design: Designed with a spacious 4-seat layout, it’s ideal for larger families. All 4-seats are equipped with seat belts, and the 2 rear seats feature footre... Safety is Priority: The remote control design gives parents peace of mind, while kids can also drive using the foot pedal for a hands-on experience. With 4 seat belts, 2 rear anti... High Performance: Our 4WD kids' golf cart is equipped with a powerful 24V 7AH battery, providing ample power. It offers two speed options ranging from 1.86 to 4.35 mph, making it...",
+    "editorVerdict": "Spacious with 4-Seats Design: Designed with a spacious 4-seat layout, it’s ideal for larger families. All 4-seats are equipped with seat belts, and the 2 rear seats feature footre... Safety is Priority: The remote control design gives parents peace of mind, while kids can also drive using the foot pedal for a hands-on experience. With 4 seat belts, 2 rear anti... High Performance: Our 4WD kids' golf cart is equipped with a powerful 24V 7AH battery, providing ample power. It offers two speed options ranging from 1.86 to 4.35 mph, making it...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -6965,7 +6965,7 @@ export const productsData: Product[] = [
     "weightScore": 6.7,
     "geometryScore": 9,
     "overallScore": 8.2,
-    "editorVerdict": "Based on scraped product evidence: This product is exclusively provided by MINIATURE MOTORS and requires assembly! The Remote Control has three speeds: 2-3.5MPH. You can't change the speed in Manual Mode, as it's s... Powerful 35W Dual Motor & Long-Lasting Battery: Watch your child explore with confidence! This ride-on truck features twin 35W motors for impressive power and a rechargeable 12V b... Parental Remote Control & Independent Driving Modes: Best of both worlds for growing kids! Let your little driver take the wheel using the foot pedal and steering wheel. For young...",
+    "editorVerdict": "This product is exclusively provided by MINIATURE MOTORS and requires assembly! The Remote Control has three speeds: 2-3.5MPH. You can't change the speed in Manual Mode, as it's s... Powerful 35W Dual Motor & Long-Lasting Battery: Watch your child explore with confidence! This ride-on truck features twin 35W motors for impressive power and a rechargeable 12V b... Parental Remote Control & Independent Driving Modes: Best of both worlds for growing kids! Let your little driver take the wheel using the foot pedal and steering wheel. For young...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -7135,7 +7135,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.7,
     "overallScore": 8.6,
-    "editorVerdict": "Based on scraped product evidence: 2 Control Modes - If the child can drive byself, they can drive by themselvs with pedals and steering wheel. If the child can't drive yet, parents can use the remote control to co... Small Truck Real Experience - Mini Electric Car is fully functional and reduced in size, suitable for children. This ride-on toy can bear 66 pounds, allowing your child to have a... Multifunctional Operation - Electric kids car has a built-in MP3 player, Bluetooth and LED lights, allowing children to play their favorite music or stories while driving, creatin...",
+    "editorVerdict": "2 Control Modes - If the child can drive byself, they can drive by themselvs with pedals and steering wheel. If the child can't drive yet, parents can use the remote control to co... Small Truck Real Experience - Mini Electric Car is fully functional and reduced in size, suitable for children. This ride-on toy can bear 66 pounds, allowing your child to have a... Multifunctional Operation - Electric kids car has a built-in MP3 player, Bluetooth and LED lights, allowing children to play their favorite music or stories while driving, creatin...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -7317,7 +7317,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9,
     "overallScore": 8.7,
-    "editorVerdict": "Based on scraped product evidence: Licensed Chevrolet - Electric car for kids is officially licensed, Chevrolet ride-on car features the same styling as the real car, such as a racing steering wheel, slim body, smo... 2 Control Methods - Kids electric car supports pedal operation and remote control operation. Remote control operation supports 3 speed switching, which improves the safety of chil... More Experiencial - Toy cars for toddlers comes with Bluetooth functionality and a built-in music player, perfect for kids to play their favorite songs and stories on outdoor trip...",
+    "editorVerdict": "Licensed Chevrolet - Electric car for kids is officially licensed, Chevrolet ride-on car features the same styling as the real car, such as a racing steering wheel, slim body, smo... 2 Control Methods - Kids electric car supports pedal operation and remote control operation. Remote control operation supports 3 speed switching, which improves the safety of chil... More Experiencial - Toy cars for toddlers comes with Bluetooth functionality and a built-in music player, perfect for kids to play their favorite songs and stories on outdoor trip...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -7497,7 +7497,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.4,
     "overallScore": 8.7,
-    "editorVerdict": "Based on scraped product evidence: Designed to Grow With Your Child - The Dream On Me TableTalk 2-in-1 High Chair seamlessly transitions from a baby feeding chair to a toddler chair (Conversion Kit Included), offer... Dual Removable Feeding Trays – Features two trays for added convenience: a color co-ordinated, removable top tray that easily lifts off and is dishwasher safe for quick cleaning,... Space-Saving Fold – Features a quick-fold mechanism that allows the chair to fold flat for easy storage, with the removable tray conveniently stored on the back of the chair—perfe...",
+    "editorVerdict": "Designed to Grow With Your Child - The Dream On Me TableTalk 2-in-1 High Chair seamlessly transitions from a baby feeding chair to a toddler chair (Conversion Kit Included), offer... Dual Removable Feeding Trays – Features two trays for added convenience: a color co-ordinated, removable top tray that easily lifts off and is dishwasher safe for quick cleaning,... Space-Saving Fold – Features a quick-fold mechanism that allows the chair to fold flat for easy storage, with the removable tray conveniently stored on the back of the chair—perfe...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -7673,7 +7673,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.3,
     "overallScore": 8.7,
-    "editorVerdict": "Based on scraped product evidence: GROW FROM FOOD TO FUN: Easily converts as your child grows — from Infant High Chair to Toddler Dining Chair and Tray to Toddler Standalone Chair, and finally to Big Kid Table and... ADAPT TO EACH STAGE: Offers extended use across 4 modes for children age 6 months all the way up to 50 lb. (22.6 kg) KEEP LITTLE ONES SECURE: Includes a 5-point harness to help keep wiggly babies in place",
+    "editorVerdict": "GROW FROM FOOD TO FUN: Easily converts as your child grows — from Infant High Chair to Toddler Dining Chair and Tray to Toddler Standalone Chair, and finally to Big Kid Table and... ADAPT TO EACH STAGE: Offers extended use across 4 modes for children age 6 months all the way up to 50 lb. (22.6 kg) KEEP LITTLE ONES SECURE: Includes a 5-point harness to help keep wiggly babies in place",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -7833,7 +7833,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.4,
     "overallScore": 9,
-    "editorVerdict": "Based on scraped product evidence: Easy-to-Clean: Detachable double-layer tray adjusts to your baby’s needs and is simple to remove for cleaning. The waterproof PU cushion wipes clean in seconds—no more mess stress... Adjustable Height : Multiple height and recline positions allow you to find the perfect fit for your baby’s comfort and your table height. Ideal for newborn feeding, sitting suppo... Foldable & Travel Design: This high chair folds quickly for easy storage and transport, making it perfect for small homes, dining spaces, or travel. Lightweight yet sturdy for eve...",
+    "editorVerdict": "Easy-to-Clean: Detachable double-layer tray adjusts to your baby’s needs and is simple to remove for cleaning. The waterproof PU cushion wipes clean in seconds—no more mess stress... Adjustable Height : Multiple height and recline positions allow you to find the perfect fit for your baby’s comfort and your table height. Ideal for newborn feeding, sitting suppo... Foldable & Travel Design: This high chair folds quickly for easy storage and transport, making it perfect for small homes, dining spaces, or travel. Lightweight yet sturdy for eve...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -8004,7 +8004,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.7,
     "overallScore": 8.9,
-    "editorVerdict": "Based on scraped product evidence: 6 MODES OF USE: This convertible high chair has a variety of modes to suit your baby’s next stage of development Use as an infant high chair, stool, booster seat, floor toddler chair, activity table and a desk and chair STYLISH DESIGN: The stylish, contemporary silhouette and neutral color palette of this high chair will complement your home",
+    "editorVerdict": "6 MODES OF USE: This convertible high chair has a variety of modes to suit your baby’s next stage of development Use as an infant high chair, stool, booster seat, floor toddler chair, activity table and a desk and chair STYLISH DESIGN: The stylish, contemporary silhouette and neutral color palette of this high chair will complement your home",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -8169,7 +8169,7 @@ export const productsData: Product[] = [
     "weightScore": 6.6,
     "geometryScore": 9.6,
     "overallScore": 8.3,
-    "editorVerdict": "Based on scraped product evidence: 100% Polyester Imported Quick release wheels for storage and travel",
+    "editorVerdict": "100% Polyester Imported Quick release wheels for storage and travel",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -8352,7 +8352,7 @@ export const productsData: Product[] = [
     "weightScore": 7.4,
     "geometryScore": 9.4,
     "overallScore": 8.5,
-    "editorVerdict": "Based on scraped product evidence: 100% Polyester All-terrain bicycle tires for a smooth ride, with a lockable front swivel wheel for ease of maneuverability Parent tray includes two cup holders and a center console for convenient storage space; Child tray with cup holders and snack areas​",
+    "editorVerdict": "100% Polyester All-terrain bicycle tires for a smooth ride, with a lockable front swivel wheel for ease of maneuverability Parent tray includes two cup holders and a center console for convenient storage space; Child tray with cup holders and snack areas​",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -8535,7 +8535,7 @@ export const productsData: Product[] = [
     "weightScore": 6.6,
     "geometryScore": 9.5,
     "overallScore": 8.4,
-    "editorVerdict": "Based on scraped product evidence: Polyester Imported ADJUSTABLE HANDLEBAR: Adjustable 9-position handlebar creates the perfect fit for parents of all heights",
+    "editorVerdict": "Polyester Imported ADJUSTABLE HANDLEBAR: Adjustable 9-position handlebar creates the perfect fit for parents of all heights",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -8714,7 +8714,7 @@ export const productsData: Product[] = [
     "weightScore": 6.6,
     "geometryScore": 9.7,
     "overallScore": 8.3,
-    "editorVerdict": "Based on scraped product evidence: SMOOTH RIDE: 12-inch front wheel and 16-inch back wheels with back brakes Puncture-proof wheels| Shock absorbing frame Tons of storage space with the included parent organizer with two cup holders and extra-large basket under the frame",
+    "editorVerdict": "SMOOTH RIDE: 12-inch front wheel and 16-inch back wheels with back brakes Puncture-proof wheels| Shock absorbing frame Tons of storage space with the included parent organizer with two cup holders and extra-large basket under the frame",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -8897,7 +8897,7 @@ export const productsData: Product[] = [
     "weightScore": 8.6,
     "geometryScore": 9.7,
     "overallScore": 9,
-    "editorVerdict": "Based on scraped product evidence: Practical Safe Design: INFANS jogging stroller is equipped with a rear-wheel brake system. Pressing it down locks both rear wheels at the same time. The front wheel has a dual fun... Comfortable Riding Experience: The zip-extend canopy is equipped with a peek-a-boo window on top. The backrest angle can be adjusted (100°-166°) according to the child’s posture.... Premium Rubber Tires: They are suitable for various road surfaces. The tires of this jogger stroller for toddlers work well on concrete sidewalks for daily commutes, as well as la...",
+    "editorVerdict": "Practical Safe Design: INFANS jogging stroller is equipped with a rear-wheel brake system. Pressing it down locks both rear wheels at the same time. The front wheel has a dual fun... Comfortable Riding Experience: The zip-extend canopy is equipped with a peek-a-boo window on top. The backrest angle can be adjusted (100°-166°) according to the child’s posture.... Premium Rubber Tires: They are suitable for various road surfaces. The tires of this jogger stroller for toddlers work well on concrete sidewalks for daily commutes, as well as la...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -9068,7 +9068,7 @@ export const productsData: Product[] = [
     "weightScore": 6.6,
     "geometryScore": 9.7,
     "overallScore": 8.4,
-    "editorVerdict": "Based on scraped product evidence: JOGGING STROLLER TRAVEL SYSTEM: Use as a standard jogging stroller or create a travel system with your infant car seat (car sear sold separately) ; SIZE/WEIGHT: 24.4”L x 44.9”W x... COMPATIBILITY: Stroller fits the following car seats: Graco SnugRide Click Connect; Evenflo Nurture; Evenflo Embrace ; For Britax B-Safe 35 Car Seats & Chicco Keyfit 30 Car Seats,... PROTECTS THEM FROM THE ELEMENTS: Extendable visor with UPF 50 shields kids from the sun, rain, wind or snow ; ADJUSTS TO THE TERRIAN: 12” front wheel with swivel lock provides sta...",
+    "editorVerdict": "JOGGING STROLLER TRAVEL SYSTEM: Use as a standard jogging stroller or create a travel system with your infant car seat (car sear sold separately) ; SIZE/WEIGHT: 24.4”L x 44.9”W x... COMPATIBILITY: Stroller fits the following car seats: Graco SnugRide Click Connect; Evenflo Nurture; Evenflo Embrace ; For Britax B-Safe 35 Car Seats & Chicco Keyfit 30 Car Seats,... PROTECTS THEM FROM THE ELEMENTS: Extendable visor with UPF 50 shields kids from the sun, rain, wind or snow ; ADJUSTS TO THE TERRIAN: 12” front wheel with swivel lock provides sta...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -9237,7 +9237,7 @@ export const productsData: Product[] = [
     "weightScore": 6.8,
     "geometryScore": 9.4,
     "overallScore": 8.4,
-    "editorVerdict": "Based on scraped product evidence: Nylon Durable steel frame with high quality tech fabric; Includes detachable parent organizer; Convenient fabric parent tray with 2 cup holders & covered storage compartment to keep ess... Extendable, quilted European canopy with sun visor and peek a boo window Wide, adjustable foam handle with safety tether Multi position reclining seat with five point safety harne...",
+    "editorVerdict": "Nylon Durable steel frame with high quality tech fabric; Includes detachable parent organizer; Convenient fabric parent tray with 2 cup holders & covered storage compartment to keep ess... Extendable, quilted European canopy with sun visor and peek a boo window Wide, adjustable foam handle with safety tether Multi position reclining seat with five point safety harne...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -9403,7 +9403,7 @@ export const productsData: Product[] = [
     "weightScore": 7.4,
     "geometryScore": 8.9,
     "overallScore": 8.2,
-    "editorVerdict": "Based on scraped product evidence: Size and Design: Bixike kids bike is designed specifically for children and comes in a size suitable for their age and height. The bike features sturdy frame, kid-friendly design... Safety Features: Safety is a top priority for Bixike girl bikes, and they come equipped with several features to protect children while they ride. These include training wheels fo... Durability: the kids bikes are built to last, with high-quality components and materials that can withstand the wear and tear of regular use. They feature rust-resistant chains, a...",
+    "editorVerdict": "Size and Design: Bixike kids bike is designed specifically for children and comes in a size suitable for their age and height. The bike features sturdy frame, kid-friendly design... Safety Features: Safety is a top priority for Bixike girl bikes, and they come equipped with several features to protect children while they ride. These include training wheels fo... Durability: the kids bikes are built to last, with high-quality components and materials that can withstand the wear and tear of regular use. They feature rust-resistant chains, a...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -9573,7 +9573,7 @@ export const productsData: Product[] = [
     "weightScore": 8.6,
     "geometryScore": 9.7,
     "overallScore": 8.8,
-    "editorVerdict": "Based on scraped product evidence: Size and Design: Bixike kids bike is designed specifically for children and comes in a size suitable for their age and height. The bike features sturdy frame, kid-friendly design... Safety Features: Safety is a top priority for Bixike girl bikes, and they come equipped with several features to protect children while they ride. These include training wheels fo... Durability: The kids bikes are built to last, with high-quality components and materials that can withstand the wear and tear of regular use. They feature rust-resistant chains, a...",
+    "editorVerdict": "Size and Design: Bixike kids bike is designed specifically for children and comes in a size suitable for their age and height. The bike features sturdy frame, kid-friendly design... Safety Features: Safety is a top priority for Bixike girl bikes, and they come equipped with several features to protect children while they ride. These include training wheels fo... Durability: The kids bikes are built to last, with high-quality components and materials that can withstand the wear and tear of regular use. They feature rust-resistant chains, a...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -9743,7 +9743,7 @@ export const productsData: Product[] = [
     "weightScore": 8.7,
     "geometryScore": 9.2,
     "overallScore": 8.9,
-    "editorVerdict": "Based on scraped product evidence: 【Built for Young Riders】 Designed for beginners, this bike includes training wheels for balance and an adjustable seat to grow with your child. 【Strong and Safe Frame】 Made with high tensile carbon steel, the frame offers durability and stability on rough surfaces, backed by a limited lifetime warranty. 【Child-Safe Braking System】 Features an easy-to-use coaster brake perfect for small hands, a full chain guard for safety, and wide tires for slip-resistant traction.",
+    "editorVerdict": "【Built for Young Riders】 Designed for beginners, this bike includes training wheels for balance and an adjustable seat to grow with your child. 【Strong and Safe Frame】 Made with high tensile carbon steel, the frame offers durability and stability on rough surfaces, backed by a limited lifetime warranty. 【Child-Safe Braking System】 Features an easy-to-use coaster brake perfect for small hands, a full chain guard for safety, and wide tires for slip-resistant traction.",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -9916,7 +9916,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.3,
     "overallScore": 8.6,
-    "editorVerdict": "Based on scraped product evidence: 【Sturdy Frame】The kids mountain bike is made of high carbon steel frame, which can easily handle the challenges of off-road adventures, providing a reliable foundation for your ch... 【Ride Anytime】This mountain bike is equipped with a 21-speed drivetrain, offering versatile speed options to tackle diverse terrains, while its smooth and efficient gear shifting... 【Easy Distance Control】This kids bicycle features responsive disc brakes that provide more precise braking control and maintain excellent performance in adverse conditions, allowi...",
+    "editorVerdict": "【Sturdy Frame】The kids mountain bike is made of high carbon steel frame, which can easily handle the challenges of off-road adventures, providing a reliable foundation for your ch... 【Ride Anytime】This mountain bike is equipped with a 21-speed drivetrain, offering versatile speed options to tackle diverse terrains, while its smooth and efficient gear shifting... 【Easy Distance Control】This kids bicycle features responsive disc brakes that provide more precise braking control and maintain excellent performance in adverse conditions, allowi...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -10090,7 +10090,7 @@ export const productsData: Product[] = [
     "weightScore": 7.6,
     "geometryScore": 8.8,
     "overallScore": 8.3,
-    "editorVerdict": "Based on scraped product evidence: 【Sturdy Frame】The kids mountain bike is made of high carbon steel frame, which can easily handle the challenges of off-road adventures, providing a reliable foundation for your ch... 【Ride Anytime】This mountain bike is equipped with a 21-speed drivetrain, offering versatile speed options to tackle diverse terrains, while its smooth and efficient gear shifting... 【Easy Distance Control】This kids bicycle features responsive disc brakes that provide more precise braking control and maintain excellent performance in adverse conditions, allowi...",
+    "editorVerdict": "【Sturdy Frame】The kids mountain bike is made of high carbon steel frame, which can easily handle the challenges of off-road adventures, providing a reliable foundation for your ch... 【Ride Anytime】This mountain bike is equipped with a 21-speed drivetrain, offering versatile speed options to tackle diverse terrains, while its smooth and efficient gear shifting... 【Easy Distance Control】This kids bicycle features responsive disc brakes that provide more precise braking control and maintain excellent performance in adverse conditions, allowi...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -10265,7 +10265,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.7,
     "overallScore": 8.7,
-    "editorVerdict": "Based on scraped product evidence: 【Sturdy Frame】The kids mountain bike is made of high carbon steel frame, which can easily handle the challenges of off-road adventures, providing a reliable foundation for your ch... 【Ride Anytime】This mountain bike is equipped with a 21-speed drivetrain, offering versatile speed options to tackle diverse terrains, while its smooth and efficient gear shifting... 【Easy Distance Control】This kids bicycle features responsive disc brakes that provide more precise braking control and maintain excellent performance in adverse conditions, allowi...",
+    "editorVerdict": "【Sturdy Frame】The kids mountain bike is made of high carbon steel frame, which can easily handle the challenges of off-road adventures, providing a reliable foundation for your ch... 【Ride Anytime】This mountain bike is equipped with a 21-speed drivetrain, offering versatile speed options to tackle diverse terrains, while its smooth and efficient gear shifting... 【Easy Distance Control】This kids bicycle features responsive disc brakes that provide more precise braking control and maintain excellent performance in adverse conditions, allowi...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -10440,7 +10440,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.7,
     "overallScore": 8.8,
-    "editorVerdict": "Based on scraped product evidence: 【Ready for Adventure】This kids bike features a water bottle holder and a safety LED light, perfect for outdoor adventures, keeping your child visible and hydrated. 【Easy Braking】The Children bike is equipped with a coaster brake and a handbrake, which provides an intuitive braking experience for beginners, while also helping to develop advan... 【Friendly Design】This kids bike features an adjustable seat and handlebars, easily adapting to your child's growth, ensuring a comfortable riding position and experience for years.",
+    "editorVerdict": "【Ready for Adventure】This kids bike features a water bottle holder and a safety LED light, perfect for outdoor adventures, keeping your child visible and hydrated. 【Easy Braking】The Children bike is equipped with a coaster brake and a handbrake, which provides an intuitive braking experience for beginners, while also helping to develop advan... 【Friendly Design】This kids bike features an adjustable seat and handlebars, easily adapting to your child's growth, ensuring a comfortable riding position and experience for years.",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -10611,7 +10611,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.7,
     "overallScore": 8.7,
-    "editorVerdict": "Based on scraped product evidence: 【COOL BMX STYLE】With its sporty and lightweight BMX design, this kids bike is sure to be a hit with your child. It boosts self-confidence and inspires outdoor adventures, making i... 【STURDY FRAME】Made of durable high tensile steel frame, this kids bike is strong enough to withstand everyday bumps and jumps, giving little riders a comfortable riding experience. 【DUAL BRAKE SYSTEM】This kids bicycle is equipped with coaster brake, providing reliable braking performance, making it easy for even beginners to control the speed of the bike, wh...",
+    "editorVerdict": "【COOL BMX STYLE】With its sporty and lightweight BMX design, this kids bike is sure to be a hit with your child. It boosts self-confidence and inspires outdoor adventures, making i... 【STURDY FRAME】Made of durable high tensile steel frame, this kids bike is strong enough to withstand everyday bumps and jumps, giving little riders a comfortable riding experience. 【DUAL BRAKE SYSTEM】This kids bicycle is equipped with coaster brake, providing reliable braking performance, making it easy for even beginners to control the speed of the bike, wh...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -10773,7 +10773,7 @@ export const productsData: Product[] = [
     "weightScore": 8.7,
     "geometryScore": 9.7,
     "overallScore": 9,
-    "editorVerdict": "Based on scraped product evidence: 【Enchant Your Little Girl】 This princess-themed kids bike features an irresistibly cute design and a special doll-style seat. She won't want playtime to end! A dream surprise gift... 【Friendly Designs】 The saddle and handlebar of the girls bike are adjustable, it can easily cope with the growth of your child's height and grow with your kids. 【Safe Riding】 Front hand brake and coaster brake provide enough braking force to control the distance easily. The kids bicycle also comes with a closed chain cover to further prev...",
+    "editorVerdict": "【Enchant Your Little Girl】 This princess-themed kids bike features an irresistibly cute design and a special doll-style seat. She won't want playtime to end! A dream surprise gift... 【Friendly Designs】 The saddle and handlebar of the girls bike are adjustable, it can easily cope with the growth of your child's height and grow with your kids. 【Safe Riding】 Front hand brake and coaster brake provide enough braking force to control the distance easily. The kids bicycle also comes with a closed chain cover to further prev...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -10938,7 +10938,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.7,
     "overallScore": 8.8,
-    "editorVerdict": "Based on scraped product evidence: 【Built for A Little Princess】Flowing streamers and an adorable doll seat create a magical and eye-catching look she'll love. The girls bike is the ultimate birthday surprise and a... 【Easy Stopping Power】Features a dual-brake safety system(coaster brake + hand brake), petal kids bike giving your child two reliable ways to slow down and stop. This dependable co... 【Friendly Design】The kids bicycle features easy-to-grip aluminum brakes(designed for little hands!), a low straddle frame for easy boarding, and a height-adjustable seat to ensure...",
+    "editorVerdict": "【Built for A Little Princess】Flowing streamers and an adorable doll seat create a magical and eye-catching look she'll love. The girls bike is the ultimate birthday surprise and a... 【Easy Stopping Power】Features a dual-brake safety system(coaster brake + hand brake), petal kids bike giving your child two reliable ways to slow down and stop. This dependable co... 【Friendly Design】The kids bicycle features easy-to-grip aluminum brakes(designed for little hands!), a low straddle frame for easy boarding, and a height-adjustable seat to ensure...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -11105,7 +11105,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.7,
     "overallScore": 8.9,
-    "editorVerdict": "Based on scraped product evidence: 【Ride Confident】2.4-inch wide tires deliver exceptional grip, ensuring smooth rides on any terrain for kids bike. Perfectly boosts your child's riding confidence and sense of secu... 【More Features】The water bottle holder and basket design on this boys bike lets them stay hydrated anytime while carrying favorite toys or snacks, adding convenience and fun to ev... 【Child-Friendly】Kids bicycle are equipped with both foot and hand brakes to provide double safety and help kids master braking skills step by step. Ensure reliable braking perform...",
+    "editorVerdict": "【Ride Confident】2.4-inch wide tires deliver exceptional grip, ensuring smooth rides on any terrain for kids bike. Perfectly boosts your child's riding confidence and sense of secu... 【More Features】The water bottle holder and basket design on this boys bike lets them stay hydrated anytime while carrying favorite toys or snacks, adding convenience and fun to ev... 【Child-Friendly】Kids bicycle are equipped with both foot and hand brakes to provide double safety and help kids master braking skills step by step. Ensure reliable braking perform...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -11271,7 +11271,7 @@ export const productsData: Product[] = [
     "weightScore": 8.6,
     "geometryScore": 9,
     "overallScore": 8.8,
-    "editorVerdict": "Based on scraped product evidence: Great Gift for Kids 3-5 Years Old - JOYSTAR Macarons 14\" Girls bike with bright & stylish colors is suitable for 3 4 5 years old (35-47 inch) toddlers. This toddler bikes have adj... Kids Starter Bike-Sturdy Hi-Ten steel frame and fork easily surivive the multiple bumps of learning balance. The amazing ride comes ready to rock with resilient wheels, wrapped in... Safe for Young Rider-Coaster brake is easy to provide phenomenal stopping power when needed, so they can stay in full control, a great option for young rider. Enclosed chain guard...",
+    "editorVerdict": "Great Gift for Kids 3-5 Years Old - JOYSTAR Macarons 14\" Girls bike with bright & stylish colors is suitable for 3 4 5 years old (35-47 inch) toddlers. This toddler bikes have adj... Kids Starter Bike-Sturdy Hi-Ten steel frame and fork easily surivive the multiple bumps of learning balance. The amazing ride comes ready to rock with resilient wheels, wrapped in... Safe for Young Rider-Coaster brake is easy to provide phenomenal stopping power when needed, so they can stay in full control, a great option for young rider. Enclosed chain guard...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -11449,7 +11449,7 @@ export const productsData: Product[] = [
     "weightScore": 8.8,
     "geometryScore": 9,
     "overallScore": 8.7,
-    "editorVerdict": "Based on scraped product evidence: Design for Little Girls - JOYSTAR Angel 12 Inch Girls bike is suitable for 2-4 years old toddlers. They have adjustable saddle & stem height for easy pedalling. The bike is perfec... Kids Sturdy Bikes - Sturdy Hi-Ten steel frame and fork easily survive the multiple bumps of learning balance. The amazing ride comes ready to rock with resilient wheels, Rubber of... Safe for Younger Riders - Coaster brake and handbrake are easy to provide phenomenal stopping power when needed, so they can stay in full control, a great option for young rider....",
+    "editorVerdict": "Design for Little Girls - JOYSTAR Angel 12 Inch Girls bike is suitable for 2-4 years old toddlers. They have adjustable saddle & stem height for easy pedalling. The bike is perfec... Kids Sturdy Bikes - Sturdy Hi-Ten steel frame and fork easily survive the multiple bumps of learning balance. The amazing ride comes ready to rock with resilient wheels, Rubber of... Safe for Younger Riders - Coaster brake and handbrake are easy to provide phenomenal stopping power when needed, so they can stay in full control, a great option for young rider....",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -11619,7 +11619,7 @@ export const productsData: Product[] = [
     "weightScore": 7.7,
     "geometryScore": 9.1,
     "overallScore": 8.4,
-    "editorVerdict": "Based on scraped product evidence: 1, Retro Design and Colors! JOYSTAR Fantasy Princess 20 Inch Girls bike with bright colors, stylish and charming. DIY decals and beautiful basket add extra fun to the ride. Soft s... 2, Easier to Ride! Your little ones will enjoy a smoother ride with JOYSTAR sealed bearing, Brake lever allows little riders brake efficiently. Kickstand is included. Single speed... 3, Safer Riding! The Front hand caliper Brake plus rear coaster/foot brake offer ample stopping power with more safety, wide 2.125\" pneumatic tires add more stability, Sturdy stee...",
+    "editorVerdict": "1, Retro Design and Colors! JOYSTAR Fantasy Princess 20 Inch Girls bike with bright colors, stylish and charming. DIY decals and beautiful basket add extra fun to the ride. Soft s... 2, Easier to Ride! Your little ones will enjoy a smoother ride with JOYSTAR sealed bearing, Brake lever allows little riders brake efficiently. Kickstand is included. Single speed... 3, Safer Riding! The Front hand caliper Brake plus rear coaster/foot brake offer ample stopping power with more safety, wide 2.125\" pneumatic tires add more stability, Sturdy stee...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -11801,7 +11801,7 @@ export const productsData: Product[] = [
     "weightScore": 7.2,
     "geometryScore": 8.9,
     "overallScore": 8.1,
-    "editorVerdict": "Based on scraped product evidence: 1, Retro Design and Colors! JOYSTAR Fantasy Princess Girls bike with bright colors, stylish and charming. DIY decals and beautiful basket add extra fun to the ride. Soft seat offe... 2, Easier to Ride! Your little ones will enjoy a smoother ride with JOYSTAR sealed bearing, Brake lever allows little riders brake efficiently. Removable training wheels & kicksta... 3, Safer Riding! The Front hand caliper Brake plus rear coaster/foot brake offer ample stopping power with more safety, wide 2.125\" pneumatic tires add more stability, Sturdy stee...",
+    "editorVerdict": "1, Retro Design and Colors! JOYSTAR Fantasy Princess Girls bike with bright colors, stylish and charming. DIY decals and beautiful basket add extra fun to the ride. Soft seat offe... 2, Easier to Ride! Your little ones will enjoy a smoother ride with JOYSTAR sealed bearing, Brake lever allows little riders brake efficiently. Removable training wheels & kicksta... 3, Safer Riding! The Front hand caliper Brake plus rear coaster/foot brake offer ample stopping power with more safety, wide 2.125\" pneumatic tires add more stability, Sturdy stee...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -11983,7 +11983,7 @@ export const productsData: Product[] = [
     "weightScore": 7.4,
     "geometryScore": 9.5,
     "overallScore": 8.5,
-    "editorVerdict": "Based on scraped product evidence: DESIGN FOR KIDS - 1. This Kids bike comes with stable training wheel early rider. 2.Quick release seat simplify the height adjustment. 3.Saddle with holder to learn riding when th... MINIMUM MAINTENANCE - Made of premium steel to survive the bumps of learning, the durable steel frame is backed by our limited lifetime warranty. The bike comes with black tire &... DIY DECAL & SAFE CHAIN GURAD - Your child will get a DIY decal, they could make a unique bike with the decal by sticking their name on the frame or chain guard. The chain guard we...",
+    "editorVerdict": "DESIGN FOR KIDS - 1. This Kids bike comes with stable training wheel early rider. 2.Quick release seat simplify the height adjustment. 3.Saddle with holder to learn riding when th... MINIMUM MAINTENANCE - Made of premium steel to survive the bumps of learning, the durable steel frame is backed by our limited lifetime warranty. The bike comes with black tire &... DIY DECAL & SAFE CHAIN GURAD - Your child will get a DIY decal, they could make a unique bike with the decal by sticking their name on the frame or chain guard. The chain guard we...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -12146,7 +12146,7 @@ export const productsData: Product[] = [
     "weightScore": 7.7,
     "geometryScore": 9.7,
     "overallScore": 8.6,
-    "editorVerdict": "Based on scraped product evidence: DESIGN FOR KIDS - 1. This Kids bike comes with stable training wheel early rider. 2.Quick release seat simplify the height adjustment. 3.Saddle with holder to learn riding when th... MINIMUM MAINTENANCE - Made of premium steel to survive the bumps of learning, the durable steel frame is backed by our limited lifetime warranty. The bike comes with black tire &... DIY DECAL & SAFE CHAIN GURAD - Your child will get a DIY decal, they could make a unique bike with the decal by sticking their name on the frame or chain guard. The chain guard we...",
+    "editorVerdict": "DESIGN FOR KIDS - 1. This Kids bike comes with stable training wheel early rider. 2.Quick release seat simplify the height adjustment. 3.Saddle with holder to learn riding when th... MINIMUM MAINTENANCE - Made of premium steel to survive the bumps of learning, the durable steel frame is backed by our limited lifetime warranty. The bike comes with black tire &... DIY DECAL & SAFE CHAIN GURAD - Your child will get a DIY decal, they could make a unique bike with the decal by sticking their name on the frame or chain guard. The chain guard we...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -12308,7 +12308,7 @@ export const productsData: Product[] = [
     "weightScore": 8.8,
     "geometryScore": 9.6,
     "overallScore": 8.9,
-    "editorVerdict": "Based on scraped product evidence: Amazing Design and Color - JOYSTAR Little Daisy Princess 12 Inch girls bike is a beautiful and attractive bike with vibrant colors. The doll bike seat, lovely basket, and DIY deca... For Safety Riding - The front hand caliper brakes and rear coaster/foot brake provide sufficient stopping power and increased safety. The kids bike also comes with the front and r... Design for Kids - Removable training wheels are included. The bike includes adjustable saddle and stem height for a more comfortable fit and easy pedaling. Comes with a single spe...",
+    "editorVerdict": "Amazing Design and Color - JOYSTAR Little Daisy Princess 12 Inch girls bike is a beautiful and attractive bike with vibrant colors. The doll bike seat, lovely basket, and DIY deca... For Safety Riding - The front hand caliper brakes and rear coaster/foot brake provide sufficient stopping power and increased safety. The kids bike also comes with the front and r... Design for Kids - Removable training wheels are included. The bike includes adjustable saddle and stem height for a more comfortable fit and easy pedaling. Comes with a single spe...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -12478,7 +12478,7 @@ export const productsData: Product[] = [
     "weightScore": 7.3,
     "geometryScore": 9.4,
     "overallScore": 8.2,
-    "editorVerdict": "Based on scraped product evidence: DESIGN FOR KIDS - 1.This kids bike comes with flash training wheel, basket and water bottle for early rider. 2.Quick release seat simplify the height adjustment. 3.Saddle with hol... DIY DECAL & SAFE CHAIN GURAD - Your child will get a DIY decal, they could make a unique bike with the decal by sticking their name on the frame or chain guard. The chain guard we... EASY TO ASSEMBLE - The children bike comes with 85% Pre-assembled body and the basic assembly tools, only pump needed for tire, normally takes a novice about 20 minutes to assembl...",
+    "editorVerdict": "DESIGN FOR KIDS - 1.This kids bike comes with flash training wheel, basket and water bottle for early rider. 2.Quick release seat simplify the height adjustment. 3.Saddle with hol... DIY DECAL & SAFE CHAIN GURAD - Your child will get a DIY decal, they could make a unique bike with the decal by sticking their name on the frame or chain guard. The chain guard we... EASY TO ASSEMBLE - The children bike comes with 85% Pre-assembled body and the basic assembly tools, only pump needed for tire, normally takes a novice about 20 minutes to assembl...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -12636,7 +12636,7 @@ export const productsData: Product[] = [
     "weightScore": 7.6,
     "geometryScore": 9.7,
     "overallScore": 8.4,
-    "editorVerdict": "Based on scraped product evidence: DESIGN FOR KIDS - 1.This kids bike comes with flash training wheel, basket and water bottle for early rider. 2.Quick release seat simplify the height adjustment. 3.Saddle with hol... DIY DECAL & SAFE CHAIN GURAD - Your child will get a DIY decal, they could make a unique bike with the decal by sticking their name on the frame or chain guard. The chain guard we... EASY TO ASSEMBLE - The children bike comes with 85% Pre-assembled body and the basic assembly tools, only pump needed for tire, normally takes a novice about 20 minutes to assembl...",
+    "editorVerdict": "DESIGN FOR KIDS - 1.This kids bike comes with flash training wheel, basket and water bottle for early rider. 2.Quick release seat simplify the height adjustment. 3.Saddle with hol... DIY DECAL & SAFE CHAIN GURAD - Your child will get a DIY decal, they could make a unique bike with the decal by sticking their name on the frame or chain guard. The chain guard we... EASY TO ASSEMBLE - The children bike comes with 85% Pre-assembled body and the basic assembly tools, only pump needed for tire, normally takes a novice about 20 minutes to assembl...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -12799,7 +12799,7 @@ export const productsData: Product[] = [
     "weightScore": 7.7,
     "geometryScore": 9.7,
     "overallScore": 8.6,
-    "editorVerdict": "Based on scraped product evidence: Design for Kids: 18 inch bike for 5-8 years. This bike features a lightweight frame, forward-positioned cranks and pedals. The narrower pedal positions, smaller grips, and compact... Built To Last: Sturdy Hi-Ten steel frame and fork provide awesome impact resistance when riding over rocky and bumpy terrain, trailing edge tires provide good traction in wet and... Safety Riding: Coaster brake and Handbrake offer double safer, this kids bike will have more stopping power. And the wheels wrapped in Rubber off-road tires for outstanding grip a...",
+    "editorVerdict": "Design for Kids: 18 inch bike for 5-8 years. This bike features a lightweight frame, forward-positioned cranks and pedals. The narrower pedal positions, smaller grips, and compact... Built To Last: Sturdy Hi-Ten steel frame and fork provide awesome impact resistance when riding over rocky and bumpy terrain, trailing edge tires provide good traction in wet and... Safety Riding: Coaster brake and Handbrake offer double safer, this kids bike will have more stopping power. And the wheels wrapped in Rubber off-road tires for outstanding grip a...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -12961,7 +12961,7 @@ export const productsData: Product[] = [
     "weightScore": 6.9,
     "geometryScore": 9.4,
     "overallScore": 8.3,
-    "editorVerdict": "Based on scraped product evidence: Sporty Design: RoyalBaby Freestyle Kid's BMX-style bike is all about fun, creativity, and freedom with a sporty look for the next cycling star, with a fully adjustable seat and ha... Specifically for Kids: Equipped with RoyalBaby patented sealed bearing for smooth pedaling, never-bent training wheels, and a seat holder to help maintain balance while learning;... Safety: Coaster brakes with an improved brake level feature a shorter grip length, perfect to fit a kid's strength to ensure a safe stop, while the sturdy steel frame, non-slip pe...",
+    "editorVerdict": "Sporty Design: RoyalBaby Freestyle Kid's BMX-style bike is all about fun, creativity, and freedom with a sporty look for the next cycling star, with a fully adjustable seat and ha... Specifically for Kids: Equipped with RoyalBaby patented sealed bearing for smooth pedaling, never-bent training wheels, and a seat holder to help maintain balance while learning;... Safety: Coaster brakes with an improved brake level feature a shorter grip length, perfect to fit a kid's strength to ensure a safe stop, while the sturdy steel frame, non-slip pe...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -13140,7 +13140,7 @@ export const productsData: Product[] = [
     "weightScore": 6.6,
     "geometryScore": 9.7,
     "overallScore": 8.2,
-    "editorVerdict": "Based on scraped product evidence: SPORTY DESIGN. RoyalBaby Freestyle kid's bike was designed by inspiration from the BMX spirit, It's all about fun, creativity, freedom, and friends. The sporty-looking is perfect... SPECIFICALLY FOR KIDS. Each bike equipped with RoyalBaby patent sealed bearing for smooth pedaling. Training wheels come with 12/14/16 inch bikes, making it easy to maintain balan... SAFETY. Shortest travel distance grips provides extra braking efficiency, sturdy steel frame and 2.4\" wide cylinder tires will accompany every adventure of your little one and bri...",
+    "editorVerdict": "SPORTY DESIGN. RoyalBaby Freestyle kid's bike was designed by inspiration from the BMX spirit, It's all about fun, creativity, freedom, and friends. The sporty-looking is perfect... SPECIFICALLY FOR KIDS. Each bike equipped with RoyalBaby patent sealed bearing for smooth pedaling. Training wheels come with 12/14/16 inch bikes, making it easy to maintain balan... SAFETY. Shortest travel distance grips provides extra braking efficiency, sturdy steel frame and 2.4\" wide cylinder tires will accompany every adventure of your little one and bri...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -13299,7 +13299,7 @@ export const productsData: Product[] = [
     "weightScore": 6.6,
     "geometryScore": 9.7,
     "overallScore": 8.3,
-    "editorVerdict": "Based on scraped product evidence: FRAME MATERIAL & LIGHTWEIGHT DESIGN – High-strength aluminum alloy frame, lightweight yet durable, with strong corrosion resistance, suitable for riding on various terrains. PRECISION GEARING & BRAKES – This mountain bike features 7-speed drivetrain with front/rear disc brakes ensures effortless climbing and reliable stopping power. SHOCK-ABSORBING FORK - High-response suspension fork absorbs bumps and vibrations for smoother rides on rough terrain.",
+    "editorVerdict": "FRAME MATERIAL & LIGHTWEIGHT DESIGN – High-strength aluminum alloy frame, lightweight yet durable, with strong corrosion resistance, suitable for riding on various terrains. PRECISION GEARING & BRAKES – This mountain bike features 7-speed drivetrain with front/rear disc brakes ensures effortless climbing and reliable stopping power. SHOCK-ABSORBING FORK - High-response suspension fork absorbs bumps and vibrations for smoother rides on rough terrain.",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -13472,7 +13472,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 8.7,
     "overallScore": 8.3,
-    "editorVerdict": "Based on scraped product evidence: Intended for Kids: Our BMX style toddlers bike caters specifically to novice riders embarking on their cycling journey. It features safety training wheels for balance (while the 2... Superior Quality: Crafted from high carbon steel, the bike frame is designed to withstand the rigors of uneven terrain without bending or breaking, offering essential safety for y... Safety and Sturdiness: The trusty coaster brake is perfect for toddlers who might not have the muscle power for hand brakes yet. The full chain guard keeps little fingers safe fro...",
+    "editorVerdict": "Intended for Kids: Our BMX style toddlers bike caters specifically to novice riders embarking on their cycling journey. It features safety training wheels for balance (while the 2... Superior Quality: Crafted from high carbon steel, the bike frame is designed to withstand the rigors of uneven terrain without bending or breaking, offering essential safety for y... Safety and Sturdiness: The trusty coaster brake is perfect for toddlers who might not have the muscle power for hand brakes yet. The full chain guard keeps little fingers safe fro...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -13634,7 +13634,7 @@ export const productsData: Product[] = [
     "weightScore": 8.5,
     "geometryScore": 9.7,
     "overallScore": 8.8,
-    "editorVerdict": "Based on scraped product evidence: Intended for Kids: Our BMX style toddlers bike caters specifically to novice riders embarking on their cycling journey. It features safety training wheels for balance (while the 2... Superior Quality: Crafted from high carbon steel, the bike frame is designed to withstand the rigors of uneven terrain without bending or breaking, offering essential safety for y... Safety and Sturdiness: The trusty coaster brake is perfect for toddlers who might not have the muscle power for hand brakes yet. The full chain guard keeps little fingers safe fro...",
+    "editorVerdict": "Intended for Kids: Our BMX style toddlers bike caters specifically to novice riders embarking on their cycling journey. It features safety training wheels for balance (while the 2... Superior Quality: Crafted from high carbon steel, the bike frame is designed to withstand the rigors of uneven terrain without bending or breaking, offering essential safety for y... Safety and Sturdiness: The trusty coaster brake is perfect for toddlers who might not have the muscle power for hand brakes yet. The full chain guard keeps little fingers safe fro...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -13795,7 +13795,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 8.8,
     "overallScore": 8.4,
-    "editorVerdict": "Based on scraped product evidence: Efficient Braking System:This kid mountain bicycle is equipped with front and rear caliper brakes, providing high responsiveness and reliable braking power. Whether on wet surface... Excellent Configuration,Stable Riding:This kids bike adopts a high carbon steel frame, which has excellent impact resistance and long-lasting durability. The front suspension fork... Adjustable and Ergonomic Design:The bike for kids features a height-adjustable saddle (20-inch: 63–71 cm; 24-inch: 69–84 cm) and an ergonomic seat designed for comfort during exte...",
+    "editorVerdict": "Efficient Braking System:This kid mountain bicycle is equipped with front and rear caliper brakes, providing high responsiveness and reliable braking power. Whether on wet surface... Excellent Configuration,Stable Riding:This kids bike adopts a high carbon steel frame, which has excellent impact resistance and long-lasting durability. The front suspension fork... Adjustable and Ergonomic Design:The bike for kids features a height-adjustable saddle (20-inch: 63–71 cm; 24-inch: 69–84 cm) and an ergonomic seat designed for comfort during exte...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -13948,7 +13948,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.7,
     "overallScore": 8.6,
-    "editorVerdict": "Based on scraped product evidence: Size Guide - - 20 inch bike for 6-12 years (48\"-62\") boys & girls. Note: Measure kid’s INSEAM and compare with SADDLE HEIGHT to check if the rider can touch the ground. PERFECT FOR BEGINNERS - - Our bicycle are engineered specifically for a kid's proportions, smaller grips, and lightweight frame create an easier ride and control. Durable Wheels & Sturdy Frame - -Made of premium high carbon Steel to survive the bumps of learning. Anti-slip tires and detachable training wheels ensure steadiness and are helpf...",
+    "editorVerdict": "Size Guide - - 20 inch bike for 6-12 years (48\"-62\") boys & girls. Note: Measure kid’s INSEAM and compare with SADDLE HEIGHT to check if the rider can touch the ground. PERFECT FOR BEGINNERS - - Our bicycle are engineered specifically for a kid's proportions, smaller grips, and lightweight frame create an easier ride and control. Durable Wheels & Sturdy Frame - -Made of premium high carbon Steel to survive the bumps of learning. Anti-slip tires and detachable training wheels ensure steadiness and are helpf...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -14099,7 +14099,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.2,
     "overallScore": 8.3,
-    "editorVerdict": "Based on scraped product evidence: Safe Riding Guarantee:The kid bike is designed with a dual system of handbrake and foot brake for children, and even young or weak children can use the foot brake to brake smoothl... Durable And Easy To Maintain:The bicycle for boys girls adopts a high carbon steel frame, which is sturdy, resistant to bumps, and long-lasting. The front and rear fenders are ful... Accompanying Children's Growth:The 16 inch kid bicycle comes standard with detachable auxiliary wheels, which are more stable during the beginner stage and can be removed after pr...",
+    "editorVerdict": "Safe Riding Guarantee:The kid bike is designed with a dual system of handbrake and foot brake for children, and even young or weak children can use the foot brake to brake smoothl... Durable And Easy To Maintain:The bicycle for boys girls adopts a high carbon steel frame, which is sturdy, resistant to bumps, and long-lasting. The front and rear fenders are ful... Accompanying Children's Growth:The 16 inch kid bicycle comes standard with detachable auxiliary wheels, which are more stable during the beginner stage and can be removed after pr...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -14258,7 +14258,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.7,
     "overallScore": 8.7,
-    "editorVerdict": "Based on scraped product evidence: Ergonomic Durable Steel Frame - - WEIZE Kids' Bicycles are suitable for ages 6-13 or a rider height of 4'-4'7\"(42-55 inches). Durable yet ergonomic 14 inch height carbon steel fra... 20*2.125\" Tires - - The WEZE Kids' Bicycle tires are made of high-quality rubber and have a strong puncture and abrasion resistance, 20\"*2.125\" tires are easier to get on and allo... Safe and Reliable Handbrake - - Our mountain bike has dual braking system. The front and rear V-brakes are easy to operate, ensuring smooth and efficient braking, giving children...",
+    "editorVerdict": "Ergonomic Durable Steel Frame - - WEIZE Kids' Bicycles are suitable for ages 6-13 or a rider height of 4'-4'7\"(42-55 inches). Durable yet ergonomic 14 inch height carbon steel fra... 20*2.125\" Tires - - The WEZE Kids' Bicycle tires are made of high-quality rubber and have a strong puncture and abrasion resistance, 20\"*2.125\" tires are easier to get on and allo... Safe and Reliable Handbrake - - Our mountain bike has dual braking system. The front and rear V-brakes are easy to operate, ensuring smooth and efficient braking, giving children...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -14416,7 +14416,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.7,
     "overallScore": 8.3,
-    "editorVerdict": "Based on scraped product evidence: 【Powerful Motor & Long Range】 Equipped with a 350W motor, the Aovowheel purple scooter reaches speeds up to 19 MPH and delivers up to 21 miles of riding on a single charge. Perfec... 【Dual Braking & Bright Lighting System for Safe】The scooter has EABS front brake and rear drum brake for responsive stopping power. Bright LED headlights illuminate the path, whil... 【Cool Graffiti Deck & Non-Slip Design】The Purple model features a vibrant graffiti-style purple foot deck, making it visually appealing and unique. Great for kids to show off thei...",
+    "editorVerdict": "【Powerful Motor & Long Range】 Equipped with a 350W motor, the Aovowheel purple scooter reaches speeds up to 19 MPH and delivers up to 21 miles of riding on a single charge. Perfec... 【Dual Braking & Bright Lighting System for Safe】The scooter has EABS front brake and rear drum brake for responsive stopping power. Bright LED headlights illuminate the path, whil... 【Cool Graffiti Deck & Non-Slip Design】The Purple model features a vibrant graffiti-style purple foot deck, making it visually appealing and unique. Great for kids to show off thei...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -14596,7 +14596,7 @@ export const productsData: Product[] = [
     "weightScore": 7.5,
     "geometryScore": 9.3,
     "overallScore": 8.2,
-    "editorVerdict": "Based on scraped product evidence: 【E Scooter Powerful Performance】The Y01 electric scooter Equipped with 350W( Peak 700W) powerful motor and high capacity battery, electric scooter allows for speeds up to 19mph an... 【Adult Electric Scooter Keep You Safe】Dual Braking System(front electronic brake+rear wheel drum brake）+ Lighting System(warning taillight + bright headlight) + Dual Suspension(Do... 【Smart App Control&Electric Scooter LCD Display】Just turn on Bluetooth, pair the vicont App with your smartphone, and youA can set all the functions of the scooter. It is suitable...",
+    "editorVerdict": "【E Scooter Powerful Performance】The Y01 electric scooter Equipped with 350W( Peak 700W) powerful motor and high capacity battery, electric scooter allows for speeds up to 19mph an... 【Adult Electric Scooter Keep You Safe】Dual Braking System(front electronic brake+rear wheel drum brake）+ Lighting System(warning taillight + bright headlight) + Dual Suspension(Do... 【Smart App Control&Electric Scooter LCD Display】Just turn on Bluetooth, pair the vicont App with your smartphone, and youA can set all the functions of the scooter. It is suitable...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -14768,7 +14768,7 @@ export const productsData: Product[] = [
     "weightScore": 9.7,
     "geometryScore": 8.7,
     "overallScore": 9.2,
-    "editorVerdict": "Based on scraped product evidence: Sturdy& Secure - 1. Extra wide deck with anti-slip coating; 2. The widened base design makes the scooter stronger and can carry a maximum weight of 110 lbs; 3. Highly sensitive re... Super Cool Flashin LED PU Wheels - The toddler scooter features two big fronts LED wheels and small rear LED wheels, which are motion activated with no batteries required. Lights... Lean-to-Steer Technology - The lean-to-steer technology lets leaning, instead of turning, control the ride, for better balance and coordination.",
+    "editorVerdict": "Sturdy& Secure - 1. Extra wide deck with anti-slip coating; 2. The widened base design makes the scooter stronger and can carry a maximum weight of 110 lbs; 3. Highly sensitive re... Super Cool Flashin LED PU Wheels - The toddler scooter features two big fronts LED wheels and small rear LED wheels, which are motion activated with no batteries required. Lights... Lean-to-Steer Technology - The lean-to-steer technology lets leaning, instead of turning, control the ride, for better balance and coordination.",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -14936,7 +14936,7 @@ export const productsData: Product[] = [
     "weightScore": 9.4,
     "geometryScore": 9.6,
     "overallScore": 9.3,
-    "editorVerdict": "Based on scraped product evidence: EXCITING GLOWING WHEELS: The 3 wheels are equipped with powerful LEDs, igniting a brilliant glow, captivating the young riders with its enchanting charm. Safety is never compromis... THE IDEAL FIRST KIDS SCOOTER: The KS1 kids scooter is featuring Lean-to-Steer technology, kids can turn by leaning and it helps to develop their balance and coordination. The hand... EASY TO DISASSEMBLE AND CARRY: Just press the red button on the stem and pull out the stem to complete the disassembly, simply press the red button and insert the stem into the ba...",
+    "editorVerdict": "EXCITING GLOWING WHEELS: The 3 wheels are equipped with powerful LEDs, igniting a brilliant glow, captivating the young riders with its enchanting charm. Safety is never compromis... THE IDEAL FIRST KIDS SCOOTER: The KS1 kids scooter is featuring Lean-to-Steer technology, kids can turn by leaning and it helps to develop their balance and coordination. The hand... EASY TO DISASSEMBLE AND CARRY: Just press the red button on the stem and pull out the stem to complete the disassembly, simply press the red button and insert the stem into the ba...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -15100,7 +15100,7 @@ export const productsData: Product[] = [
     "weightScore": 9.6,
     "geometryScore": 9.1,
     "overallScore": 9.1,
-    "editorVerdict": "Based on scraped product evidence: LED WHEELS FOR MAGICAL RIDES – Watch your child's face light up as they ride. The motion-activated LED wheels flash bright colors with every turn, making every scooting adventure... LEAN-TO-STEER CONTROL – No complicated turns or tricky maneuvers—just lean and go. This intuitive steering technology helps kids develop balance and coordination while making ridi... GROWS WITH YOUR CHILD – The adjustable T-bar handlebar offers four height settings (21.65’’, 23.62’’, 25.59’’, and 27.56’’ inches), making this scooter the perfect ride for as you...",
+    "editorVerdict": "LED WHEELS FOR MAGICAL RIDES – Watch your child's face light up as they ride. The motion-activated LED wheels flash bright colors with every turn, making every scooting adventure... LEAN-TO-STEER CONTROL – No complicated turns or tricky maneuvers—just lean and go. This intuitive steering technology helps kids develop balance and coordination while making ridi... GROWS WITH YOUR CHILD – The adjustable T-bar handlebar offers four height settings (21.65’’, 23.62’’, 25.59’’, and 27.56’’ inches), making this scooter the perfect ride for as you...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -15276,7 +15276,7 @@ export const productsData: Product[] = [
     "weightScore": 7.1,
     "geometryScore": 9,
     "overallScore": 8.1,
-    "editorVerdict": "Based on scraped product evidence: POWERFUL MOTOR & 18 MPH TOP SPEED: Electric scooters is equipped with a powerful 500W peak motor, reaches speeds of up to 18 MPH for a smooth and efficient ride. making it perfect... LONG BATTERY LIFE: Foldable Scooter rides up to 21 miles on a single 5-hour charge, uses a 36V 7.8AH powerful battery built for short trips to school, work, or around the neighbor... SMART APP CONTROL: Connect your electric scooter to the mobile app for convenient operation and real-time monitoring. Use the app to activate the electronic lock, view real-time s...",
+    "editorVerdict": "POWERFUL MOTOR & 18 MPH TOP SPEED: Electric scooters is equipped with a powerful 500W peak motor, reaches speeds of up to 18 MPH for a smooth and efficient ride. making it perfect... LONG BATTERY LIFE: Foldable Scooter rides up to 21 miles on a single 5-hour charge, uses a 36V 7.8AH powerful battery built for short trips to school, work, or around the neighbor... SMART APP CONTROL: Connect your electric scooter to the mobile app for convenient operation and real-time monitoring. Use the app to activate the electronic lock, view real-time s...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -15444,7 +15444,7 @@ export const productsData: Product[] = [
     "weightScore": 9.5,
     "geometryScore": 9.4,
     "overallScore": 9.2,
-    "editorVerdict": "Based on scraped product evidence: MULTI-COLOR WHEEL LIGHTS: The Hurtle ScootKid 3-Wheel Kick Scooters for Kids feature colorful LED turning wheel lights that light up in a variety of flashing colors as you scoot,... SIT OR STAND DESIGN WITH FOOT REST: This scooter for toddlers is equipped w/ a unique 45lb capacity removable flip-out seat which kids can use while cruising along with the built-... ADJUSTABLE HANDLEBAR: The lightweight and compact kids scooter features an adjustable handlebar w/ 4 height options — 25.5/27.5/31/34 inches, works w/ kids of all ages. Ideal for...",
+    "editorVerdict": "MULTI-COLOR WHEEL LIGHTS: The Hurtle ScootKid 3-Wheel Kick Scooters for Kids feature colorful LED turning wheel lights that light up in a variety of flashing colors as you scoot,... SIT OR STAND DESIGN WITH FOOT REST: This scooter for toddlers is equipped w/ a unique 45lb capacity removable flip-out seat which kids can use while cruising along with the built-... ADJUSTABLE HANDLEBAR: The lightweight and compact kids scooter features an adjustable handlebar w/ 4 height options — 25.5/27.5/31/34 inches, works w/ kids of all ages. Ideal for...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -15628,7 +15628,7 @@ export const productsData: Product[] = [
     "weightScore": 9.3,
     "geometryScore": 8.6,
     "overallScore": 8.8,
-    "editorVerdict": "Based on scraped product evidence: JUPITER SCOOTERS: Easy to ride, lightweight, easy to move, with light up LEDs all over! The Jupiter has over 100 LED lights for high visibility safety and nonstop fun! Kids can ki... EASY SMOOTH RIDE: The low deck makes it easy to balance while the super smooth shock-absorbing wheels give you easy cruising. Our scooters use full contact rear brakes for a fast... LIGHTWEIGHT AND PORTABLE: The foldable collapsible design means it's easy to take your scooter anywhere! The fast no-tool folding process is simple for kids. These scooters make g...",
+    "editorVerdict": "JUPITER SCOOTERS: Easy to ride, lightweight, easy to move, with light up LEDs all over! The Jupiter has over 100 LED lights for high visibility safety and nonstop fun! Kids can ki... EASY SMOOTH RIDE: The low deck makes it easy to balance while the super smooth shock-absorbing wheels give you easy cruising. Our scooters use full contact rear brakes for a fast... LIGHTWEIGHT AND PORTABLE: The foldable collapsible design means it's easy to take your scooter anywhere! The fast no-tool folding process is simple for kids. These scooters make g...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -15800,7 +15800,7 @@ export const productsData: Product[] = [
     "weightScore": 6.6,
     "geometryScore": 8.9,
     "overallScore": 7.8,
-    "editorVerdict": "Based on scraped product evidence: 【Dual Suspension and Solid Tire】The 10”honeycomb tires, along with the shock absorbing system, make this electric scooter adults for a smooth and comfortable ride even on rough su... 【LED Display & Smart Control &Lockable】You can check your speed, modes and battery level on the LED digital display. check and control the electric scooter's features via your cel... 【Powerful Motor & Long Range】The electric scooter for adults with a 500W brushless hub motor allows for speed up to 22mph. High-capacity rechargeable and replaceable battery (42V/...",
+    "editorVerdict": "【Dual Suspension and Solid Tire】The 10”honeycomb tires, along with the shock absorbing system, make this electric scooter adults for a smooth and comfortable ride even on rough su... 【LED Display & Smart Control &Lockable】You can check your speed, modes and battery level on the LED digital display. check and control the electric scooter's features via your cel... 【Powerful Motor & Long Range】The electric scooter for adults with a 500W brushless hub motor allows for speed up to 22mph. High-capacity rechargeable and replaceable battery (42V/...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -15976,7 +15976,7 @@ export const productsData: Product[] = [
     "weightScore": 9.4,
     "geometryScore": 9.4,
     "overallScore": 9.3,
-    "editorVerdict": "Based on scraped product evidence: Top quality aluminum construction of the Razor A kick scooter is lightweight yet durable Features our original folding mechanism for quick and easy carry, transport and storage between rides Easy-adjust handlebars can be set to the perfect ride height",
+    "editorVerdict": "Top quality aluminum construction of the Razor A kick scooter is lightweight yet durable Features our original folding mechanism for quick and easy carry, transport and storage between rides Easy-adjust handlebars can be set to the perfect ride height",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -16156,7 +16156,7 @@ export const productsData: Product[] = [
     "weightScore": 7.3,
     "geometryScore": 8.8,
     "overallScore": 7.9,
-    "editorVerdict": "Based on scraped product evidence: POWERFUL MOTOR & HIGH SPEED: Equipped with a high-torque [350W] brushless hub motor, this scooter reaches speeds of up to [19 mph] and handles inclines of up to [25%] grade, ensur... LONG-RANGE BATTERY: Featuring a high-capacity [5.2Ah] battery, enjoy a reliable travel range of up to [16 miles] on a single charge, making it the perfect solution for daily urban... ADVANCED SAFETY SYSTEM: Ride with confidence using the dual braking system (front regenerative brake and rear disc brake) paired with a bright LED headlight and rear reflective ta...",
+    "editorVerdict": "POWERFUL MOTOR & HIGH SPEED: Equipped with a high-torque [350W] brushless hub motor, this scooter reaches speeds of up to [19 mph] and handles inclines of up to [25%] grade, ensur... LONG-RANGE BATTERY: Featuring a high-capacity [5.2Ah] battery, enjoy a reliable travel range of up to [16 miles] on a single charge, making it the perfect solution for daily urban... ADVANCED SAFETY SYSTEM: Ride with confidence using the dual braking system (front regenerative brake and rear disc brake) paired with a bright LED headlight and rear reflective ta...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -16335,7 +16335,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.5,
     "overallScore": 8.5,
-    "editorVerdict": "Based on scraped product evidence: 【Powerful Performance】The electric scooter Equipped with 350W powerful motor and high capacity battery, electric scooter allows for speeds up to 19 mph and max range up to 15 mile... 【Keep You Safe】Dual Braking System(front electronic brake+rear wheel drum brake）+ Lighting System(warning taillight + bright headlight) + 8.5” solid tires(provide a good ride and... 【Smart App Control & LCD Display】Just turn on Bluetooth, pair the smart App with your smartphone, and you can set all the functions of the scooter. It is suitable for iPhone and A...",
+    "editorVerdict": "【Powerful Performance】The electric scooter Equipped with 350W powerful motor and high capacity battery, electric scooter allows for speeds up to 19 mph and max range up to 15 mile... 【Keep You Safe】Dual Braking System(front electronic brake+rear wheel drum brake）+ Lighting System(warning taillight + bright headlight) + 8.5” solid tires(provide a good ride and... 【Smart App Control & LCD Display】Just turn on Bluetooth, pair the smart App with your smartphone, and you can set all the functions of the scooter. It is suitable for iPhone and A...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -16511,7 +16511,7 @@ export const productsData: Product[] = [
     "weightScore": 8.9,
     "geometryScore": 9,
     "overallScore": 8.9,
-    "editorVerdict": "Based on scraped product evidence: Designed for Kids and Teens: This scooter is specially designed for teens and kids to encourage kids to get out, exercise while playing, rather than staying at home. Perfect for c... Quick Push-Button Folding: Just touch the folding button to fold your scooter into a small compact size, with the carrying strap, you can take the scooter anywhere you want Safety is Our Top Priority: The handle double-layer lock prevents the handle from falling, Extra-wide Non-slip DECK(Max load Riders 240 LBS), and the high-quality heat-treated bra...",
+    "editorVerdict": "Designed for Kids and Teens: This scooter is specially designed for teens and kids to encourage kids to get out, exercise while playing, rather than staying at home. Perfect for c... Quick Push-Button Folding: Just touch the folding button to fold your scooter into a small compact size, with the carrying strap, you can take the scooter anywhere you want Safety is Our Top Priority: The handle double-layer lock prevents the handle from falling, Extra-wide Non-slip DECK(Max load Riders 240 LBS), and the high-quality heat-treated bra...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -16684,7 +16684,7 @@ export const productsData: Product[] = [
     "weightScore": 9.1,
     "geometryScore": 9.2,
     "overallScore": 9,
-    "editorVerdict": "Based on scraped product evidence: Wider Use Ages: This upgraded kids tricycle has an enlarged body size so that can be used for a wider range of ages. One besrey toddler bike can meet your kid's all requirements a... Double Care: We specially adopted a Curved Carbon Steel Frame Structure + No Edges Design, which can buffer the transmission of vibration and minimize the risk of injury during ri... Easy to Install & Use: The structure frame is simple, just refer to the attached manual, you can easily assemble it in a few minutes. One-click deformation, quick-disassembly peda...",
+    "editorVerdict": "Wider Use Ages: This upgraded kids tricycle has an enlarged body size so that can be used for a wider range of ages. One besrey toddler bike can meet your kid's all requirements a... Double Care: We specially adopted a Curved Carbon Steel Frame Structure + No Edges Design, which can buffer the transmission of vibration and minimize the risk of injury during ri... Easy to Install & Use: The structure frame is simple, just refer to the attached manual, you can easily assemble it in a few minutes. One-click deformation, quick-disassembly peda...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -16853,7 +16853,7 @@ export const productsData: Product[] = [
     "weightScore": 8.8,
     "geometryScore": 8.9,
     "overallScore": 8.6,
-    "editorVerdict": "Based on scraped product evidence: Safer Design for Your Toddler——Equipped with a 3-point harness, detachable backrest, and anti-tip structure, this tricycle keeps your child secure at every stage. Built with a stu... 5-in-1 Grow-With-Me Tricycle——Easily converts between Push Trike, Push Balance Bike, Tricycle, Balance Bike, and Bike Mode. Designed for kids ages 1–3, it adapts to every growth s... Effortless Parent Control——Features a 4-position adjustable push handle for parents of all heights. Smooth steering and easy maneuverability make outdoor walks and daily use more...",
+    "editorVerdict": "Safer Design for Your Toddler——Equipped with a 3-point harness, detachable backrest, and anti-tip structure, this tricycle keeps your child secure at every stage. Built with a stu... 5-in-1 Grow-With-Me Tricycle——Easily converts between Push Trike, Push Balance Bike, Tricycle, Balance Bike, and Bike Mode. Designed for kids ages 1–3, it adapts to every growth s... Effortless Parent Control——Features a 4-position adjustable push handle for parents of all heights. Smooth steering and easy maneuverability make outdoor walks and daily use more...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -17022,7 +17022,7 @@ export const productsData: Product[] = [
     "weightScore": 8.7,
     "geometryScore": 9.1,
     "overallScore": 8.9,
-    "editorVerdict": "Based on scraped product evidence: First Toddler Tricycle: This tricycle for toddlers is great for beginner riders, designed for 18 months to 5 year old toddler girls & boys who are curious and excited to explore t... 2-IN-1 Thoughtful Design: This toddler bike effortlessly transitions between riding and folding modes, offering endless adventures and ultimate convenience for storage and transpo... Rollover-Free for Added Safety: A robust triangular structure frame with wider rear wheels minimizes the risk of tipping or overturning for safer and more enjoyable riding",
+    "editorVerdict": "First Toddler Tricycle: This tricycle for toddlers is great for beginner riders, designed for 18 months to 5 year old toddler girls & boys who are curious and excited to explore t... 2-IN-1 Thoughtful Design: This toddler bike effortlessly transitions between riding and folding modes, offering endless adventures and ultimate convenience for storage and transpo... Rollover-Free for Added Safety: A robust triangular structure frame with wider rear wheels minimizes the risk of tipping or overturning for safer and more enjoyable riding",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -17195,7 +17195,7 @@ export const productsData: Product[] = [
     "weightScore": 8.7,
     "geometryScore": 9.7,
     "overallScore": 9.1,
-    "editorVerdict": "Based on scraped product evidence: First Toddler Tricycle: This tricycle for toddlers is great for beginner riders, designed for 18 months to 5 year old toddler girls & boys who are curious and excited to explore t... 2-IN-1 Thoughtful Design: This toddler bike effortlessly transitions between riding and folding modes, offering endless adventures and ultimate convenience for storage and transpo... Rollover-Free for Added Safety: A robust triangular structure frame with wider rear wheels minimizes the risk of tipping or overturning for safer and more enjoyable riding",
+    "editorVerdict": "First Toddler Tricycle: This tricycle for toddlers is great for beginner riders, designed for 18 months to 5 year old toddler girls & boys who are curious and excited to explore t... 2-IN-1 Thoughtful Design: This toddler bike effortlessly transitions between riding and folding modes, offering endless adventures and ultimate convenience for storage and transpo... Rollover-Free for Added Safety: A robust triangular structure frame with wider rear wheels minimizes the risk of tipping or overturning for safer and more enjoyable riding",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -17363,7 +17363,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.7,
     "overallScore": 8.9,
-    "editorVerdict": "Based on scraped product evidence: GROWS WITH YOUR CHILD: No need to buy multiple kid bikes! This 6-in-1 convertible design easily transforms from a parent-push trike to a toddler tricycle, balance bike, toddler bi... ADJUSTABLE STEERING HANDLE FOR SAFE CONTROL: The parent push handle rotates 135° for easy control of the toddler push bike’s speed and direction, helping protect your child from t... SAFETY FIRST, ALWAYS: Built with parents’ peace of mind in mind. Equipped with an aluminum alloy frame, 12\" all-terrain puncture-proof rubber wheels, a hand brake, and 60° steerin...",
+    "editorVerdict": "GROWS WITH YOUR CHILD: No need to buy multiple kid bikes! This 6-in-1 convertible design easily transforms from a parent-push trike to a toddler tricycle, balance bike, toddler bi... ADJUSTABLE STEERING HANDLE FOR SAFE CONTROL: The parent push handle rotates 135° for easy control of the toddler push bike’s speed and direction, helping protect your child from t... SAFETY FIRST, ALWAYS: Built with parents’ peace of mind in mind. Equipped with an aluminum alloy frame, 12\" all-terrain puncture-proof rubber wheels, a hand brake, and 60° steerin...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -17539,7 +17539,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.7,
     "overallScore": 8.8,
-    "editorVerdict": "Based on scraped product evidence: 【7 in 1 Tricycle】This baby tricycle can accompany your kids at different stages of growth from 18 months to 5 years. It's 7 in 1 design allows you to easily change its mode, which... 【Reliable Quality】Our toddler push tricycle designed to provide endless hours of fun and adventure for your little ones. Equipped with EVA silent wheels, this kids trike ensures a... 【Safe & Comfortable】This baby trike comes with 5-point safety harness and movable guardrail, ensures the safety of the child. Soft PU seat and backrest also provides comfortable s...",
+    "editorVerdict": "【7 in 1 Tricycle】This baby tricycle can accompany your kids at different stages of growth from 18 months to 5 years. It's 7 in 1 design allows you to easily change its mode, which... 【Reliable Quality】Our toddler push tricycle designed to provide endless hours of fun and adventure for your little ones. Equipped with EVA silent wheels, this kids trike ensures a... 【Safe & Comfortable】This baby trike comes with 5-point safety harness and movable guardrail, ensures the safety of the child. Soft PU seat and backrest also provides comfortable s...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -17715,7 +17715,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.7,
     "overallScore": 8.7,
-    "editorVerdict": "Based on scraped product evidence: 🌟【Grows With Your Child】: No more buying a new bike every year! Our 5-in-1 toddler bike converts different mode in just 5s: from a parent-push trike (12M+) to scoot tricycle (18M... 🌟【Adjustable Steering Push Handlebar】: Take full control with 135°of rotation to steer and manage speed effortlessly. The 3-height adjustment ensures a comfortable push for any p... 🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x...",
+    "editorVerdict": "🌟【Grows With Your Child】: No more buying a new bike every year! Our 5-in-1 toddler bike converts different mode in just 5s: from a parent-push trike (12M+) to scoot tricycle (18M... 🌟【Adjustable Steering Push Handlebar】: Take full control with 135°of rotation to steer and manage speed effortlessly. The 3-height adjustment ensures a comfortable push for any p... 🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -17884,7 +17884,7 @@ export const productsData: Product[] = [
     "weightScore": 9.6,
     "geometryScore": 9.7,
     "overallScore": 9.3,
-    "editorVerdict": "Based on scraped product evidence: 🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x... CPSIA). 🌟【Light-Up Fun】: No batteries needed! Wheels magically glow with every spin for exciting and safer dark rides. Pure magic kids adore! Our toddler tricycle is the ideal ride on to...",
+    "editorVerdict": "🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x... CPSIA). 🌟【Light-Up Fun】: No batteries needed! Wheels magically glow with every spin for exciting and safer dark rides. Pure magic kids adore! Our toddler tricycle is the ideal ride on to...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -18057,7 +18057,7 @@ export const productsData: Product[] = [
     "weightScore": 9.9,
     "geometryScore": 9,
     "overallScore": 9.2,
-    "editorVerdict": "Based on scraped product evidence: 🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x... CPSIA). 🌟【Light-Up Fun】: No batteries needed! Wheels magically glow with every spin for exciting and safer dark rides. Pure magic kids adore! Our toddler tricycle is the ideal ride on to...",
+    "editorVerdict": "🌟【Multiple Safety Designs】: Peace of Mind, Engineered In. Our toddler bike features: ➊ 135°steering limit & widened wheels to prevent tipping. ➋ Ultra-sturdy frame, supports 1.7x... CPSIA). 🌟【Light-Up Fun】: No batteries needed! Wheels magically glow with every spin for exciting and safer dark rides. Pure magic kids adore! Our toddler tricycle is the ideal ride on to...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -18230,7 +18230,7 @@ export const productsData: Product[] = [
     "weightScore": 8.4,
     "geometryScore": 9.7,
     "overallScore": 8.8,
-    "editorVerdict": "Based on scraped product evidence: Parent-Controlled Push Handle – The kids tricycle comes with a detachable push handle that allows parents to steer left, right, or straight. The rear handle has 3 height settings... 9-Stage Fore-Aft Adjustable Handlebar – This tricycle for toddlers 18 months to 5 years features a handlebar with 9-position fore-aft adjustable handlebar, ensuring the most comfo... Smart Pedal Clutch Design – With a simple red knob on the front wheel, you can switch between riding mode and push mode. In push mode, pedals stay still even if the wheels are mov...",
+    "editorVerdict": "Parent-Controlled Push Handle – The kids tricycle comes with a detachable push handle that allows parents to steer left, right, or straight. The rear handle has 3 height settings... 9-Stage Fore-Aft Adjustable Handlebar – This tricycle for toddlers 18 months to 5 years features a handlebar with 9-position fore-aft adjustable handlebar, ensuring the most comfo... Smart Pedal Clutch Design – With a simple red knob on the front wheel, you can switch between riding mode and push mode. In push mode, pedals stay still even if the wheels are mov...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -18387,7 +18387,7 @@ export const productsData: Product[] = [
     "weightScore": 8.9,
     "geometryScore": 9.7,
     "overallScore": 9.1,
-    "editorVerdict": "Based on scraped product evidence: TODDLER TRICYCLE – KRIDDO kids tricycle is designed for 24-48 month toddler girls & boys who are curious and exited to explore the world, it helps to develop kids' steering skills... IMPROVED ROLL-OVER PREVENTION – This interactive toddler trike for 2-4 years features a smarter triangular design with extended rear wheels, wider wheelbase to help prevent tippin... EASY-TO-CARRY SEAT AND COMFORTABLE GRIPS – The ergonomic design of our kid’s trike boasts a comfier seat for small bottoms, the design makes it easy to carry around. The smooth ed...",
+    "editorVerdict": "TODDLER TRICYCLE – KRIDDO kids tricycle is designed for 24-48 month toddler girls & boys who are curious and exited to explore the world, it helps to develop kids' steering skills... IMPROVED ROLL-OVER PREVENTION – This interactive toddler trike for 2-4 years features a smarter triangular design with extended rear wheels, wider wheelbase to help prevent tippin... EASY-TO-CARRY SEAT AND COMFORTABLE GRIPS – The ergonomic design of our kid’s trike boasts a comfier seat for small bottoms, the design makes it easy to carry around. The smooth ed...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -18568,7 +18568,7 @@ export const productsData: Product[] = [
     "weightScore": 8.9,
     "geometryScore": 9.4,
     "overallScore": 9.1,
-    "editorVerdict": "Based on scraped product evidence: TODDLER TRICYCLE – KRIDDO kids tricycle is designed for 24-48 month toddler girls & boys who are curious and exited to explore the world, it helps to develop kids' steering skills... IMPROVED ROLL-OVER PREVENTION – This interactive toddler trike for 2-4 years features a smarter triangular design with extended rear wheels, wider wheelbase to help prevent tippin... EASY-TO-CARRY SEAT AND COMFORTABLE GRIPS – The ergonomic design of our kid’s trike boasts a comfier seat for small bottoms, the design makes it easy to carry around. The smooth ed...",
+    "editorVerdict": "TODDLER TRICYCLE – KRIDDO kids tricycle is designed for 24-48 month toddler girls & boys who are curious and exited to explore the world, it helps to develop kids' steering skills... IMPROVED ROLL-OVER PREVENTION – This interactive toddler trike for 2-4 years features a smarter triangular design with extended rear wheels, wider wheelbase to help prevent tippin... EASY-TO-CARRY SEAT AND COMFORTABLE GRIPS – The ergonomic design of our kid’s trike boasts a comfier seat for small bottoms, the design makes it easy to carry around. The smooth ed...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -18749,7 +18749,7 @@ export const productsData: Product[] = [
     "weightScore": 9.4,
     "geometryScore": 9.6,
     "overallScore": 9.3,
-    "editorVerdict": "Based on scraped product evidence: 5 Modes: Push Tricycle Mode, Push Balance Bike Mode, Tricycle Mode, Balance Bike Mode and Bike Mode. Multifunctional tricycle is suitable for 1, 2,3 years old boys and girls. Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjust... Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes.",
+    "editorVerdict": "5 Modes: Push Tricycle Mode, Push Balance Bike Mode, Tricycle Mode, Balance Bike Mode and Bike Mode. Multifunctional tricycle is suitable for 1, 2,3 years old boys and girls. Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjust... Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes.",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -18930,7 +18930,7 @@ export const productsData: Product[] = [
     "weightScore": 9.4,
     "geometryScore": 9.7,
     "overallScore": 9.3,
-    "editorVerdict": "Based on scraped product evidence: 5 Modes: Push Tricycle Mode, Push Balance Bike Mode, Tricycle Mode, Balance Bike Mode and Bike Mode. Multifunctional tricycle is suitable for 1, 2,3 years old boys and girls. Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjust... Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes.",
+    "editorVerdict": "5 Modes: Push Tricycle Mode, Push Balance Bike Mode, Tricycle Mode, Balance Bike Mode and Bike Mode. Multifunctional tricycle is suitable for 1, 2,3 years old boys and girls. Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjust... Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes.",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -19099,7 +19099,7 @@ export const productsData: Product[] = [
     "weightScore": 8.5,
     "geometryScore": 9.4,
     "overallScore": 8.9,
-    "editorVerdict": "Based on scraped product evidence: 4 Modes: Parent steering push mode, Tricycle mode, balance bike mode and bike mode. Multifunctional tricycle is suitable for 1, 2,3 years old boys and girls. Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjust... Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes.",
+    "editorVerdict": "4 Modes: Parent steering push mode, Tricycle mode, balance bike mode and bike mode. Multifunctional tricycle is suitable for 1, 2,3 years old boys and girls. Steering Push Handlebar: Rotating 135 degrees to control and steer the speed and direction of tricycle. Protecting your child from falling down and injuring. It also can be adjust... Adjustable Handlebar, Seat and Pedals: Press the red button to adjust handlebar and seat. There’s 3 positions for placing pedals when transforming different modes.",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -19276,7 +19276,7 @@ export const productsData: Product[] = [
     "weightScore": 8.8,
     "geometryScore": 9,
     "overallScore": 8.9,
-    "editorVerdict": "Based on scraped product evidence: CLASSIC FIRST TRIKE: The Radio Flyer Red Rider Trike features sturdy steel construction, quietride wheels and comfortgrip handlebars to deliver a smooth, confident and comfortable... GROWS WITH YOUR CHILD: The adjustable seat creates a comfy, secure fit from ages 2.5-5, so kids can practice, progress, and ride longer as balance and coordination improve through... BRING TREASURES ALONG: A covered rear storage bin lets kids pack favorite toys, snacks, or newfound treasures, inspiring imaginative play and turning simple rides into exciting li...",
+    "editorVerdict": "CLASSIC FIRST TRIKE: The Radio Flyer Red Rider Trike features sturdy steel construction, quietride wheels and comfortgrip handlebars to deliver a smooth, confident and comfortable... GROWS WITH YOUR CHILD: The adjustable seat creates a comfy, secure fit from ages 2.5-5, so kids can practice, progress, and ride longer as balance and coordination improve through... BRING TREASURES ALONG: A covered rear storage bin lets kids pack favorite toys, snacks, or newfound treasures, inspiring imaginative play and turning simple rides into exciting li...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -19432,7 +19432,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.3,
     "overallScore": 8.8,
-    "editorVerdict": "Based on scraped product evidence: CLASSIC RIDE: This toddler toy tricycle is great for beginner riders. It helps develop balance, steering and coordination, builds muscle strength and gives toddlers confidence fro... SAFETY AND DURABILITY: Sturdy carbon steel frame with wide wheelbase prevents tipping, and non-slip pedals grip indoor floors or outdoor pavement. Perfect for tricycles for 2-4 ye... EASY ASSEMBLY: The tricycle's special design allows it to be set up in minutes and put to use immediately. Excellent choice for busy parents as a last minute birthday surprise for...",
+    "editorVerdict": "CLASSIC RIDE: This toddler toy tricycle is great for beginner riders. It helps develop balance, steering and coordination, builds muscle strength and gives toddlers confidence fro... SAFETY AND DURABILITY: Sturdy carbon steel frame with wide wheelbase prevents tipping, and non-slip pedals grip indoor floors or outdoor pavement. Perfect for tricycles for 2-4 ye... EASY ASSEMBLY: The tricycle's special design allows it to be set up in minutes and put to use immediately. Excellent choice for busy parents as a last minute birthday surprise for...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -19601,7 +19601,7 @@ export const productsData: Product[] = [
     "weightScore": 8.8,
     "geometryScore": 9.5,
     "overallScore": 9.1,
-    "editorVerdict": "Based on scraped product evidence: DURABLE AND STURDY: The Umatoll tricycle is made with top quality carbon steel, equipped with spring buckles and reinforced screws for a solid, long-lasting structure that will gr... SMOOTH AND SAFE RIDE: The toddler tricycle features extended rear wheels and a wide wheelbase, effectively preventing tipping. It provides a stable and secure ride, giving your ch... GROWS WITH TODDLER: Featuring a 3-position adjustable seat, the tricycle is perfect for toddler aged 2 to 5, adapting to your child’s growing needs as she learns to pedal and stee...",
+    "editorVerdict": "DURABLE AND STURDY: The Umatoll tricycle is made with top quality carbon steel, equipped with spring buckles and reinforced screws for a solid, long-lasting structure that will gr... SMOOTH AND SAFE RIDE: The toddler tricycle features extended rear wheels and a wide wheelbase, effectively preventing tipping. It provides a stable and secure ride, giving your ch... GROWS WITH TODDLER: Featuring a 3-position adjustable seat, the tricycle is perfect for toddler aged 2 to 5, adapting to your child’s growing needs as she learns to pedal and stee...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -19770,7 +19770,7 @@ export const productsData: Product[] = [
     "weightScore": 6.6,
     "geometryScore": 9.5,
     "overallScore": 8.3,
-    "editorVerdict": "Based on scraped product evidence: 100% Polyester Imported Cozy napper with canopy and 2 plush toys",
+    "editorVerdict": "100% Polyester Imported Cozy napper with canopy and 2 plush toys",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -19939,7 +19939,7 @@ export const productsData: Product[] = [
     "weightScore": 7.9,
     "geometryScore": 9.4,
     "overallScore": 8.6,
-    "editorVerdict": "Based on scraped product evidence: Mesh Imported Portable & Lightweight: The Nest Playard is easy to fold and lightweight, perfect for traveling and home use, providing a safe space for babies under 36 inches tall.",
+    "editorVerdict": "Mesh Imported Portable & Lightweight: The Nest Playard is easy to fold and lightweight, perfect for traveling and home use, providing a safe space for babies under 36 inches tall.",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -20108,7 +20108,7 @@ export const productsData: Product[] = [
     "weightScore": 7.9,
     "geometryScore": 9.3,
     "overallScore": 8.6,
-    "editorVerdict": "Based on scraped product evidence: Portable and Travel Friendly: Designed for on-the-go families, this lightweight 16.6 lb playard folds easily and includes a convenient travel bag, making it simple to carry, store... Quick and Easy Setup: No tools required—sets up in minutes and folds down compactly for easy travel or storage. The strong, stable frame delivers dependable support for daily rout... Breathable Mesh Sides – Full mesh paneling promotes healthy airflow and allows you to easily keep an eye on your child, while your little one stays calm and connected to their sur...",
+    "editorVerdict": "Portable and Travel Friendly: Designed for on-the-go families, this lightweight 16.6 lb playard folds easily and includes a convenient travel bag, making it simple to carry, store... Quick and Easy Setup: No tools required—sets up in minutes and folds down compactly for easy travel or storage. The strong, stable frame delivers dependable support for daily rout... Breathable Mesh Sides – Full mesh paneling promotes healthy airflow and allows you to easily keep an eye on your child, while your little one stays calm and connected to their sur...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -20287,7 +20287,7 @@ export const productsData: Product[] = [
     "weightScore": 7.3,
     "geometryScore": 9.7,
     "overallScore": 8.7,
-    "editorVerdict": "Based on scraped product evidence: Bassinet designed to fold with your playard for easy setup and take-down Features folding feet and wheels for 20% more compact fold than other Graco playards Full-size infant bassinet provides an easy-to-reach and easy-to-view spot for your baby to sleep",
+    "editorVerdict": "Bassinet designed to fold with your playard for easy setup and take-down Features folding feet and wheels for 20% more compact fold than other Graco playards Full-size infant bassinet provides an easy-to-reach and easy-to-view spot for your baby to sleep",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -20777,7 +20777,7 @@ export const productsData: Product[] = [
     "weightScore": 7.4,
     "geometryScore": 9,
     "overallScore": 8.3,
-    "editorVerdict": "Based on scraped product evidence: 100% Polyester All-terrain bicycle tires for a smooth ride, with a lockable front swivel wheel for ease of maneuverability Parent tray includes two cup holders and a center console for convenient storage space; Child tray with cup holders and snack areas​",
+    "editorVerdict": "100% Polyester All-terrain bicycle tires for a smooth ride, with a lockable front swivel wheel for ease of maneuverability Parent tray includes two cup holders and a center console for convenient storage space; Child tray with cup holders and snack areas​",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -20958,7 +20958,7 @@ export const productsData: Product[] = [
     "weightScore": 7.3,
     "geometryScore": 8.4,
     "overallScore": 8.2,
-    "editorVerdict": "Based on scraped product evidence: 100% Polyester Versatile Stroller and Car Seat Combo with 6 Modes of Use: The Baby Trend Passport Switch Modular Travel System is a versatile stroller and car seat combination featuring our EZ-L... The 6 modes of use include: Infant Car Seat facing parent, Infant Car Seat forward facing, Bassinet facing parent, Bassinet forward facing, Toddler Seat facing the parent, Toddler...",
+    "editorVerdict": "100% Polyester Versatile Stroller and Car Seat Combo with 6 Modes of Use: The Baby Trend Passport Switch Modular Travel System is a versatile stroller and car seat combination featuring our EZ-L... The 6 modes of use include: Infant Car Seat facing parent, Infant Car Seat forward facing, Bassinet facing parent, Bassinet forward facing, Toddler Seat facing the parent, Toddler...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -21119,7 +21119,7 @@ export const productsData: Product[] = [
     "weightScore": 8,
     "geometryScore": 9.7,
     "overallScore": 8.7,
-    "editorVerdict": "Based on scraped product evidence: 100% Polyester Children can sit in the front and rear seats or stand on the rear platform Parent tray with 2 cup holders and covered storage compartment",
+    "editorVerdict": "100% Polyester Children can sit in the front and rear seats or stand on the rear platform Parent tray with 2 cup holders and covered storage compartment",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -21349,7 +21349,7 @@ export const productsData: Product[] = [
     "weightScore": 6.6,
     "geometryScore": 9.7,
     "overallScore": 8.3,
-    "editorVerdict": "Based on scraped product evidence: 100% Polyester Versatile Design: 3-wheel stroller design provides superior maneuverability and easy turning for seamless navigation through crowded spaces. Deluxe Parent & Child Trays: Covered parent tray with 2 cup holders and center storage, plus swing-away child tray with 2 cup holders for on-the-go convenience.",
+    "editorVerdict": "100% Polyester Versatile Design: 3-wheel stroller design provides superior maneuverability and easy turning for seamless navigation through crowded spaces. Deluxe Parent & Child Trays: Covered parent tray with 2 cup holders and center storage, plus swing-away child tray with 2 cup holders for on-the-go convenience.",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -21597,7 +21597,7 @@ export const productsData: Product[] = [
     "weightScore": 6.9,
     "geometryScore": 8.3,
     "overallScore": 8.1,
-    "editorVerdict": "Based on scraped product evidence: Polyester CAR SEAT AND STROLLER COMBO – The Chicco Bravo Quick-Fold Stroller paired with the Chicco KeyFit 30 Infant Car Seat creates a baby travel system. SEAMLESS TRANSITIONS – A removable seat and canopy transform the stroller to a lightweight infant car seat carrier and offers secure, click-in attachment via the child tray – no a...",
+    "editorVerdict": "Polyester CAR SEAT AND STROLLER COMBO – The Chicco Bravo Quick-Fold Stroller paired with the Chicco KeyFit 30 Infant Car Seat creates a baby travel system. SEAMLESS TRANSITIONS – A removable seat and canopy transform the stroller to a lightweight infant car seat carrier and offers secure, click-in attachment via the child tray – no a...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -21761,7 +21761,7 @@ export const productsData: Product[] = [
     "weightScore": 6.6,
     "geometryScore": 9.7,
     "overallScore": 8.3,
-    "editorVerdict": "Based on scraped product evidence: 100% Polyester Imported Accepts any two Chicco infant car seats with secure, click-in attachment and no adapter needed",
+    "editorVerdict": "100% Polyester Imported Accepts any two Chicco infant car seats with secure, click-in attachment and no adapter needed",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -22068,7 +22068,7 @@ export const productsData: Product[] = [
     "weightScore": 9.1,
     "geometryScore": 8.6,
     "overallScore": 8.7,
-    "editorVerdict": "Based on scraped product evidence: 300D Polyester Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds, the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on... Compact One-Hand Fold - The Dream On Me Aero Travel Light Stroller features a quick one-hand fold design, making it easy to collapse and store in seconds. Perfect for apartments,...",
+    "editorVerdict": "300D Polyester Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds, the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on... Compact One-Hand Fold - The Dream On Me Aero Travel Light Stroller features a quick one-hand fold design, making it easy to collapse and store in seconds. Perfect for apartments,...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -22241,7 +22241,7 @@ export const productsData: Product[] = [
     "weightScore": 8.4,
     "geometryScore": 7.8,
     "overallScore": 8.3,
-    "editorVerdict": "Based on scraped product evidence: Polyester Imported 3-IN-1 STROLLER, RIDER, AND SCOOTER - Baby Safety Alliance certified and ASTM-tested across all 3 modes, the Coast Rider converts from a full travel stroller to a rear-facing ride...",
+    "editorVerdict": "Polyester Imported 3-IN-1 STROLLER, RIDER, AND SCOOTER - Baby Safety Alliance certified and ASTM-tested across all 3 modes, the Coast Rider converts from a full travel stroller to a rear-facing ride...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -22424,7 +22424,7 @@ export const productsData: Product[] = [
     "weightScore": 7.2,
     "geometryScore": 9.1,
     "overallScore": 8.2,
-    "editorVerdict": "Based on scraped product evidence: Mesh Imported TWIN UMBRELLA STROLLER AT 29.5 INCHES WIDE FOR NARROW SPACES AND TRAVEL: Side-by-side seating for twins or siblings, sized to fit through doorways and fold flat with one hand for...",
+    "editorVerdict": "Mesh Imported TWIN UMBRELLA STROLLER AT 29.5 INCHES WIDE FOR NARROW SPACES AND TRAVEL: Side-by-side seating for twins or siblings, sized to fit through doorways and fold flat with one hand for...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -22605,7 +22605,7 @@ export const productsData: Product[] = [
     "weightScore": 7.3,
     "geometryScore": 8.8,
     "overallScore": 8.2,
-    "editorVerdict": "Based on scraped product evidence: GROWS WITH YOUR CHILD: Modular, lightweight design offers 6 modes of use, with a toddler seat that converts from lay flat pramette mode for baby to an upright seat for toddler as... CHOOSE A SAFE, LIGHTWEIGHT CAR SEAT: Weighing only 8.6 lb, the LiteMax NXT Infant Car Seat suits infants 3-30 lb, is easy-to-install, and transitions to the stroller seamlessly wi... RIDES SMOOTHLY: Upgraded wheels create a smooth ride for both you and your little one, making everyday outings more enjoyable",
+    "editorVerdict": "GROWS WITH YOUR CHILD: Modular, lightweight design offers 6 modes of use, with a toddler seat that converts from lay flat pramette mode for baby to an upright seat for toddler as... CHOOSE A SAFE, LIGHTWEIGHT CAR SEAT: Weighing only 8.6 lb, the LiteMax NXT Infant Car Seat suits infants 3-30 lb, is easy-to-install, and transitions to the stroller seamlessly wi... RIDES SMOOTHLY: Upgraded wheels create a smooth ride for both you and your little one, making everyday outings more enjoyable",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -22856,7 +22856,7 @@ export const productsData: Product[] = [
     "weightScore": 7.4,
     "geometryScore": 9.6,
     "overallScore": 8.6,
-    "editorVerdict": "Based on scraped product evidence: 3 strollers in 1: Infant Car Seat Carrier, Infant Pramette, and Toddler Stroller to stroll from infant to toddler Reversible stroller seat can face parent or the world, for just the right ride as baby grows Toddler seat converts to an infant pramette mode, for comfortable strolls with baby",
+    "editorVerdict": "3 strollers in 1: Infant Car Seat Carrier, Infant Pramette, and Toddler Stroller to stroll from infant to toddler Reversible stroller seat can face parent or the world, for just the right ride as baby grows Toddler seat converts to an infant pramette mode, for comfortable strolls with baby",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -23037,7 +23037,7 @@ export const productsData: Product[] = [
     "weightScore": 6.6,
     "geometryScore": 8.7,
     "overallScore": 8.1,
-    "editorVerdict": "Based on scraped product evidence: Small-folding stroller rides like a double, but folds like a single stroller, making transport and storage easy Includes two stroller seats, a bench seat, and a standing platform for multiple options as your family grows Close-to-you rear seat makes connecting with baby easier",
+    "editorVerdict": "Small-folding stroller rides like a double, but folds like a single stroller, making transport and storage easy Includes two stroller seats, a bench seat, and a standing platform for multiple options as your family grows Close-to-you rear seat makes connecting with baby easier",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -23276,7 +23276,7 @@ export const productsData: Product[] = [
     "weightScore": 8.7,
     "geometryScore": 9,
     "overallScore": 8.6,
-    "editorVerdict": "Based on scraped product evidence: 100% polyester Imported LIGHTWEIGHT - A lightweight stroller makes any outing a little easier; The Ingenuity 3D Mini Convenience Stroller has a durable steel frame that weighs 11 pounds and has a full-si...",
+    "editorVerdict": "100% polyester Imported LIGHTWEIGHT - A lightweight stroller makes any outing a little easier; The Ingenuity 3D Mini Convenience Stroller has a durable steel frame that weighs 11 pounds and has a full-si...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -23727,7 +23727,7 @@ export const productsData: Product[] = [
     "weightScore": 8.6,
     "geometryScore": 9.3,
     "overallScore": 8.9,
-    "editorVerdict": "Based on scraped product evidence: Carbon Fiber Imported Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. W...",
+    "editorVerdict": "Carbon Fiber Imported Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. W...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -23974,7 +23974,7 @@ export const productsData: Product[] = [
     "weightScore": 8.3,
     "geometryScore": 8.2,
     "overallScore": 8.3,
-    "editorVerdict": "Based on scraped product evidence: Polyester Lightness for World Travel: Jet-set effortlessly. Nexis carbon fiber frame weighs at 11.5 lbs—carry-on compliant and overhead bin ready. Stow in seconds for seamless flights, and... One-Hand Freedom: Master on-the-go parenting with effortless one-hand mastery across every feature: auto-fold self-standing in seconds (shoulder strap included for free hands); ad...",
+    "editorVerdict": "Polyester Lightness for World Travel: Jet-set effortlessly. Nexis carbon fiber frame weighs at 11.5 lbs—carry-on compliant and overhead bin ready. Stow in seconds for seamless flights, and... One-Hand Freedom: Master on-the-go parenting with effortless one-hand mastery across every feature: auto-fold self-standing in seconds (shoulder strap included for free hands); ad...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -24147,7 +24147,7 @@ export const productsData: Product[] = [
     "weightScore": 7.1,
     "geometryScore": 8,
     "overallScore": 8,
-    "editorVerdict": "Based on scraped product evidence: Room to Grow: Use from birth as a newborn stroller with easy conversion to infant pramette mode, allowing your baby to sleep comfortably on the go. This stroller adapts as your ch... Open Up to the World: Customize the seat orientation to suit your baby's mood. Parent-facing provides extra reassurance, while outward-facing offers visual stimulation. This moder... Smooth Strolling: Omnidirectional luxury stroller wheels enable effortless 360° maneuvering, paired with a sturdy advanced suspension system for exceptional cushioning. The faux l...",
+    "editorVerdict": "Room to Grow: Use from birth as a newborn stroller with easy conversion to infant pramette mode, allowing your baby to sleep comfortably on the go. This stroller adapts as your ch... Open Up to the World: Customize the seat orientation to suit your baby's mood. Parent-facing provides extra reassurance, while outward-facing offers visual stimulation. This moder... Smooth Strolling: Omnidirectional luxury stroller wheels enable effortless 360° maneuvering, paired with a sturdy advanced suspension system for exceptional cushioning. The faux l...",
     "scrapedEvidence": [
       {
         "source": "Features[1]",

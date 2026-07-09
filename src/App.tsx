@@ -71,24 +71,24 @@ import { getProductSeoKeywords, getReviewSeoKeywords } from "./config/seoKeyword
 const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
   home: {
     zh: {
-      title: "KIDSMOBI | 全新一代高端童车安全评测与科学网购决策平台",
+      title: "全新一代高端童车安全评测与科学网购决策平台 | KIDSMOBI",
       description: "KIDSMOBI 致力于为全球家庭提供科学、中立的童车评测与安全审计服务。通过严苛的物理结构负载公式和工效学实测，覆盖儿童平衡车、童车拉车、安全座椅等领域的国际质量认证、参数对比与智能选车推荐。",
       keywords: ["童车评测", "平衡车推荐", "安全座椅测评", "智能选车向导", "KIDSMOBI", "儿童滑板车评测"]
     },
     en: {
-      title: "Best Stroller, Jogging Stroller, Double & Twin Stroller Guide | KIDSMOBI",
-      description: "KIDSMOBI helps families choose a stroller, jogging stroller, double stroller, and twin stroller with objective safety reviews, fit guidance, and test-backed how to choose a baby stroller methods.",
-      keywords: ["stroller", "jogging stroller", "jogging stroller stroller", "how to choose a baby stroller", "best travel stroller", "double stroller", "double stroller stroller", "stroller travel stroller", "twin stroller", "triple stroller", "wagon and stroller", "KIDSMOBI"]
+      title: "Jogging Stroller, Balance Bike & Kids Scooter | KIDSMOBI",
+      description: "KIDSMOBI helps families choose a stroller & jogging stroller, balance bike, toddler bike, and kids scooter with objective safety reviews, fit guidance, and test-backed how to choose a baby stroller methods.",
+      keywords: ["jogging stroller", "balance bike", "toddler bike",  "kids scootor"]
     }
   },
   news: {
     zh: {
-      title: "童车行业趋势、品牌新品与科学选购资讯 | KIDSMOBI News",
+      title: "童车行业趋势、品牌新品与科学选购资讯 | KIDSMOBI",
       description: "聚合 stroller、balance bike、kids bike、scooter 相关行业趋势、新品发布、法规政策、品牌动态与科学选购软文，帮助家长用更少时间理解市场变化。",
       keywords: ["童车行业趋势", "童车新品发布", "童车法规政策", "品牌动态", "科学选购"]
     },
     en: {
-      title: "Jogging Stroller, Balance Bike & Kids Scooter ｜ News",
+      title: "Jogging Stroller, Balance Bike & Kids Scooter ｜ KIDSMOBI",
       description: "Kids mobility news covering market trends, product launches, regulations, brand updates, and practical science tips for family buying decisions.",
       keywords: ["stroller news", "balance bike news", "kids bike news", "kids scooter news", "new launches", "brand news", "science tips"]
     }
@@ -100,7 +100,7 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
       keywords: ["童车参数对比", "平衡车挑选数据库", "童车重量对比", "几何重心分析"]
     },
     en: {
-      title: "Jogging Stroller, Balance Bike & Kids Scooter | Produc",
+      title: "Jogging Stroller, Balance Bike & Kids Scooter | KIDSMOBI",
       description: "Compare specs for all types of kids' mobility products. Find the best kids stroller, jogging stroller, balance bike, toddler bike, and kids scooter",
       keywords: ["kids stroller", "jogging stroller", "balance bike", "toddler bike", "kids scooter"]
     }
@@ -112,7 +112,7 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
       keywords: ["工程师评测报告", "机械载重量测试", "滑行顺畅度实测", "童车优缺点分析"]
     },
     en: {
-      title: "Stroller, Balance Bike & Kids Scooter Reviews | KIDSMOBI",
+      title: "Jogging Stroller, Balance Bike Reviews | KIDSMOBI",
       description: "Read lab-grade stroller and jogging stroller reviews with structural stress tests, plus double stroller and twin stroller safety comparisons for practical travel stroller decisions.",
       keywords: ["jogging stroller", "balance bike", "toddler bike", "annual top", "safety special"]
     }
@@ -124,21 +124,21 @@ const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
       keywords: ["选型指南", "避坑指南", "跨步长计算器", "车架黄金比例"]
     },
     en: {
-      title: "How to Choose a Baby Stroller | Balance Bike Guide",
+      title: "How to Choose a Baby Stroller | KIDSMOBI",
       description: "Follow practical stroller buying guides for how to choose a baby stroller, jogging stroller fit checks, best travel stroller picks, and family-ready double stroller and twin stroller planning.",
       keywords: ["how to choose a baby stroller", "jogging stroller", "balance bike", "toddler bike", "kids scooter"]
     }
   },
   about: {
     zh: {
-      title: "关于 KIDSMOBI 安全实验室 | 精致、客观而毫不妥协的评测追求",
+      title: "精致、客观而毫不妥协的评测追求 | KIDSMOBI",
       description: "深入了解 KIDSMOBI 的独立实测流程、设备校准基准与物理计算底座。我们保持彻底的中立性与极高的专业良知，保障您孩子的滑行成长路。",
       keywords: ["关于KIDSMOBI", "实验室愿景", "评测中立性声明", "团队核心成员"]
     },
     en: {
-      title: "About KIDSMOBI | Stroller, Jogging, Double & Twin Safety Lab",
-      description: "Learn how KIDSMOBI audits stroller, jogging stroller, double stroller, and twin stroller safety with independent methods and transparent family-focused evaluation standards.",
-      keywords: ["stroller", "jogging stroller", "double stroller", "twin stroller", "stroller safety lab", "how to choose a baby stroller", "KIDSMOBI team"]
+      title: "Jogging Stroller, Balance Bike & Safety Lab | KIDSMOBI",
+      description: "Learn how KIDSMOBI audits stroller, jogging stroller, balance bike and toddler bike safety with independent methods and transparent family-focused evaluation standards.",
+      keywords: [ "jogging stroller", "balance bike ", "toddler bike`", "stroller safety lab", "KIDSMOBI team"]
     }
   }
 };
@@ -599,13 +599,16 @@ export default function App() {
   // Country & Currency State
   const [countryCode, setCountryCode] = useState<string>(() => {
     const saved = safeStorageGet("app_country");
-    if (saved) return saved;
+    const allowedCountries = ["US", "DE", "GB"];
+    if (saved && allowedCountries.includes(saved)) {
+      return saved;
+    }
     try {
       const locale = Intl.DateTimeFormat().resolvedOptions().locale;
       const detected = locale.split("-")[1]?.toUpperCase();
-      return countries.some(c => c.code === detected) ? detected : "CN";
+      return allowedCountries.includes(detected) ? detected : "US"; // Baseline is US (USD)
     } catch {
-      return "CN";
+      return "US";
     }
   });
 
@@ -2224,7 +2227,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               </div>
               <div className="pt-2">
                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-green-500/10 border border-green-500/20 rounded-full">
-                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full" />
                   <span className="text-[10px] text-green-500 font-bold tracking-tight">
                     {lang === "en" ? "NODES ONLINE" : "实验室节点在线"}
                   </span>
@@ -2266,15 +2269,21 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     title={lang === "zh" ? "选择国家与货币" : "Select country and currency"}
                     aria-label={lang === "zh" ? "选择国家与货币" : "Select country and currency"}
                   >
-                    {countries.map(c => (
-                      <option key={c.code} value={c.code} className="bg-slate-900">
-                        {lang === "zh" ? c.name : c.nameEn} ({c.currency})
-                      </option>
-                    ))}
+                    {countries
+                      .filter((c) => ["US", "DE", "GB"].includes(c.code))
+                      .map((c) => (
+                        <option key={c.code} value={c.code} className="bg-slate-900">
+                          {lang === "zh" ? c.name : c.nameEn} ({c.currency})
+                        </option>
+                      ))}
                   </select>
                 </div>
                 <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest bg-slate-800/50 px-3 py-1.5 rounded-lg border border-slate-800">
-                  {lang === "zh" ? "结算货币：" : "Currency:"} <span className="text-orange-500">{currencyData.symbol} {currencyData.currency}</span>
+                  {lang === "zh" ? "结算货币：" : "Currency:"}{" "}
+                  <span className="text-orange-500">
+                    {currencyData?.symbol} {currencyData?.currency} 
+                    {currencyData?.rate !== 1 && ` (1 USD = ${currencyData?.rate} ${currencyData?.currency})`}
+                  </span>
                 </div>
               </div>
             </div>
