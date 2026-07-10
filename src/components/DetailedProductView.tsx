@@ -27,6 +27,7 @@ import { Product, CurrencyData, CMSSettings } from "../types";
 import { translateProduct, translateCategory } from "../lib/translate";
 import { formatWeight } from "../lib/units";
 import { resolveProductImages } from "../lib/productImages";
+import { cleanVisibleSourceText } from "../lib/visibleText";
 import ProductCarousel from "./ProductCarousel";
 
 const PLACEHOLDER_VERDICT_PATTERNS = [
@@ -82,7 +83,7 @@ function isUnsupportedVideoUrl(url: string) {
 }
 
 function cleanVisibleFieldText(value: unknown) {
-  return String(value || "")
+  return cleanVisibleSourceText(value)
     .replace(/^editor\s+verdict\s*[:：-]\s*/i, "")
     .replace(/\s*\(\s*Features\[\d+\]\s*\)\s*/gi, " ")
     .replace(/\s*\(\s*Product\s+Feature\s*\)\s*/gi, " ")
@@ -91,7 +92,7 @@ function cleanVisibleFieldText(value: unknown) {
 }
 
 function cleanEvidenceSource(value: unknown) {
-  const text = String(value || "").trim();
+  const text = cleanVisibleSourceText(value);
   if (/^Features\[\d+\]$/i.test(text)) return "";
   if (/^Product\s+Feature$/i.test(text)) return "";
   if (text === "产品特性") return "";
@@ -152,14 +153,14 @@ export default function DetailedProductView({
     for (const item of evidence) {
       if (out.length >= 4) break;
       const bodyText = cleanVisibleFieldText(item.text);
-      const line = `${fallbackPrefix}: ${bodyText}`;
+      const line = cleanVisibleFieldText(`${fallbackPrefix}: ${bodyText}`);
       if (!out.includes(line)) out.push(line);
     }
     return out.slice(0, Math.max(4, out.length));
   };
 
-  const detailPros = ensureFourItems(displayProduct.pros, lang === "en" ? "Scraped highlight" : "爬取亮点");
-  const detailCons = ensureFourItems(displayProduct.cons, lang === "en" ? "Source check" : "来源核对");
+  const detailPros = ensureFourItems(displayProduct.pros, lang === "en" ? "Product highlight" : "产品亮点");
+  const detailCons = ensureFourItems(displayProduct.cons, lang === "en" ? "Review note" : "留意事项");
 
   const getBackLabel = () => {
     if (lang === "zh") {
@@ -291,14 +292,14 @@ export default function DetailedProductView({
         key: standard.key,
         nameZh: `${scoringIconMap[standard.key] || "•"} ${scoringLabelMap[standard.key]?.zh || standard.label}`,
         nameEn: `${scoringIconMap[standard.key] || "•"} ${scoringLabelMap[standard.key]?.en || standard.label}`,
-        parentTip: standard.parentTip,
+        parentTip: cleanVisibleSourceText(standard.parentTip),
         evidence: standard.evidence || [],
       }))
     : (cmsSettings?.scoringStandards || []).slice(0, 3).map(s => ({
         key: s.id,
         nameZh: s.icon + " " + s.labelZh,
         nameEn: s.icon + " " + s.labelEn,
-        parentTip: lang === "en" ? s.descriptionEn : s.descriptionZh,
+        parentTip: cleanVisibleSourceText(lang === "en" ? s.descriptionEn : s.descriptionZh),
         evidence: (displayProduct.scrapedEvidence || product.scrapedEvidence || []).slice(0, 3),
       }));
 
@@ -507,7 +508,7 @@ export default function DetailedProductView({
                       {isExpanded && (
                         <div className="px-6 pb-6 space-y-4 animate-fade-in">
                            <div className="bg-white p-4 rounded-2xl border border-orange-100 text-[11px] text-orange-800 font-bold leading-relaxed shadow-sm">
-                            {lang === "en" ? "Parent's Tip: " : "给家长的总结："}{std.parentTip}
+                            {lang === "en" ? "Parent's Tip: " : "给家长的总结："}{cleanVisibleSourceText(std.parentTip)}
                            </div>
                           <div className="space-y-2 pl-2">
                             {std.evidence.map((item, index) => {

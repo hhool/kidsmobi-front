@@ -12,6 +12,10 @@ import { translations, translateProduct } from "../lib/translate";
 import { SCRAPED_CATEGORY_CATALOG } from "../config/scrapedCategoryCatalog";
 import { resolveProductImages, FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
 import { clearJsonLd, setCollectionPageJsonLd } from "../lib/seoJsonLd";
+import SeoKeywordPanel from "./common/SeoKeywordPanel";
+
+const KIDS_BIKE_CATEGORY_DEFAULT_IMAGE =
+  "https://store.poki2.online/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/primary.jpg";
 
 interface HomeSectionProps {
   productsData: Product[];
@@ -178,7 +182,7 @@ export default function HomeSection({
   const annualAwards = [
     { 
       type: "stroller", 
-      label: lang === "zh" ? "年度最佳慢跑推车" : "Best Jogging Stroller", 
+      label: lang === "zh" ? "慢跑推车精选" : "Jogging Stroller Pick", 
       winner: productsData.find(p => {
         const cat = normalizeCategory(p.category || "");
         return cat.includes("jogger") || cat.includes("jogging");
@@ -186,12 +190,12 @@ export default function HomeSection({
     },
     { 
       type: "balance", 
-      label: lang === "zh" ? "年度最佳平衡车" : "Best Balance Bike", 
+      label: lang === "zh" ? "平衡车精选" : "Balance Bike Pick", 
       winner: productsData.find(p => p.category === "balance") 
     },
     { 
       type: "value", 
-      label: lang === "zh" ? "年度最佳儿童滑板车" : "Best Kids Scooter", 
+      label: lang === "zh" ? "儿童滑板车精选" : "Kids Scooter Pick", 
       winner: [...productsData]
         .filter(p => normalizeCategory(p.category || "").includes("scooter"))
         .sort((a, b) => a.price - b.price)[0]
@@ -246,8 +250,12 @@ export default function HomeSection({
               : "KIDSMOBI helps families compare balance bike, jogging stroller, kids bike, toddler bike, kids scooter, and kids electric bike options with practical how to choose a baby stroller guidance."}
           </p>
           {lang === "en" && (
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 max-w-3xl mx-auto pt-2 text-left">
-              {[
+            <SeoKeywordPanel
+              variant="dark"
+              columns="four"
+              align="left"
+              className="max-w-3xl mx-auto pt-2 text-left"
+              keywords={[
                 "balance bike review",
                 "jogging stroller review",
                 "kids bike guide",
@@ -256,12 +264,8 @@ export default function HomeSection({
                 "kids electric bike",
                 "baby stroller guide",
                 "foldable electric scooter",
-              ].map((keyword) => (
-                <span key={keyword} className="px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-[11px] font-black text-slate-300 uppercase tracking-wide">
-                  {keyword}
-                </span>
-              ))}
-            </div>
+              ]}
+            />
           )}
           <div className="flex flex-wrap justify-center gap-4 pt-4">
             {['ISO 8098', 'CPSC', 'EN 71', 'GB-14746'].map(cert => (
@@ -403,61 +407,55 @@ export default function HomeSection({
           {prioritizedCategoryCards.map((cat) => (
             <div
               key={cat.id}
-              className="group h-full min-h-90 bg-white border border-slate-100 rounded-4xl overflow-hidden hover:border-orange-500/30 hover:shadow-2xl hover:shadow-slate-300/40 transition-all flex flex-col"
+              onClick={() => {
+                onSelectCategory(cat.id);
+                setActiveTab("products");
+              }}
+              className="group h-full min-h-90 bg-white border border-slate-100 rounded-[32px] overflow-hidden hover:border-orange-500/40 hover:shadow-2xl hover:shadow-orange-100/70 transition-all duration-300 flex flex-col cursor-pointer"
             >
-              <div className="relative h-44">
+              <div className="relative h-50 bg-slate-50">
                 {(() => {
                   const imageKey = `category-${cat.id}`;
                   const topProduct = categoryTopProductMap[cat.id];
-                  const sourceUrl = topProduct ? resolveProductImages(topProduct).coverUrl : FALLBACK_PRODUCT_IMAGE;
+                  const sourceUrl = cat.id === "kids_bikes"
+                    ? KIDS_BIKE_CATEGORY_DEFAULT_IMAGE
+                    : topProduct
+                      ? resolveProductImages(topProduct).coverUrl
+                      : FALLBACK_PRODUCT_IMAGE;
                   const state = imageLoadState[imageKey];
                   return (
                     <>
-                <img
-                  src={resolveStableImageSrc(imageKey, sourceUrl)}
-                  alt={cat.label}
-                  onLoad={() => handleCardImageLoad(imageKey)}
-                  onError={() => handleCardImageError(imageKey, sourceUrl)}
-                  className="w-full h-full object-contain p-4 bg-white transition-transform duration-500 group-hover:scale-105"
-                />
+                      <img
+                        src={resolveStableImageSrc(imageKey, sourceUrl)}
+                        alt={cat.label}
+                        onLoad={() => handleCardImageLoad(imageKey)}
+                        onError={() => handleCardImageError(imageKey, sourceUrl)}
+                        className="w-full h-full object-contain p-5 transition-transform duration-500 group-hover:scale-[1.08]"
+                      />
                       {!state?.loaded && (
                         <div className="absolute inset-0 animate-pulse bg-linear-to-r from-slate-200 via-slate-100 to-slate-200" />
-                      )}
-                      {state?.failed && (
-                        <span className="absolute bottom-3 left-3 px-2 py-1 rounded-md bg-slate-900/80 text-white text-[10px] font-bold">
-                          {lang === "zh" ? "已回退占位图" : "Fallback active"}
-                        </span>
                       )}
                     </>
                   );
                 })()}
-                <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-slate-900/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-5">
-                  <div className="flex items-center justify-between gap-3">
-                    <div>
-                      <h4 className="text-white font-black text-lg leading-tight tracking-tight">{cat.label}</h4>
-                      <p className="text-[11px] text-slate-200 font-bold uppercase tracking-wider mt-1">
-                        {lang === "zh" ? `当前参考 ${cat.itemCount} 款` : `${cat.itemCount} picks`}
-                      </p>
-                    </div>
-                    <span className="px-2 py-1 rounded-lg text-[10px] bg-white/20 text-white font-black uppercase tracking-wider backdrop-blur-sm border border-white/20">
-                      {lang === "zh" ? "推荐" : "Featured"}
-                    </span>
-                  </div>
-                </div>
+                <div className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-white via-white/88 to-transparent" />
+                <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-[10px] bg-white/90 text-orange-600 font-black uppercase backdrop-blur-sm border border-orange-100 shadow-sm">
+                  {lang === "zh" ? "精选" : "Featured"}
+                </span>
               </div>
 
-              <div className="p-5 bg-linear-to-b from-white to-slate-50/80 flex-1 flex flex-col">
-                <div className="flex mt-auto pt-4">
-                <button
-                  onClick={() => {
-                    onSelectCategory(cat.id);
-                    setActiveTab("products");
-                  }}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 text-white text-[11px] font-black uppercase tracking-wider hover:bg-orange-500 transition-colors"
-                >
-                  {lang === "zh" ? "查看该品类" : "View Category"}
-                </button>
+              <div className="p-6 bg-white flex-1 flex flex-col gap-4">
+                <div className="space-y-2">
+                  <h4 className="text-slate-950 font-black text-xl leading-tight">{cat.label}</h4>
+                  <p className="text-sm text-slate-500 font-semibold">
+                    {lang === "zh" ? `当前参考 ${cat.itemCount} 款高相关产品` : `${cat.itemCount} curated picks for this scenario`}
+                  </p>
+                </div>
+                <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-4">
+                  <span className="text-[10px] font-black uppercase text-slate-400">
+                    {lang === "zh" ? "品类入口" : "Category"}
+                  </span>
+                  <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-orange-500 group-hover:translate-x-1 transition-all" />
                 </div>
               </div>
             </div>

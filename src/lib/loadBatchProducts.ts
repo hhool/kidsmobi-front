@@ -336,7 +336,7 @@ function truncateEvidence(value: unknown, max = 180): string {
 }
 
 function pushEvidence(out: ScrapedEvidenceItem[], source: unknown, text: unknown) {
-  const sourceText = String(source || "Scraped content").trim();
+  const sourceText = String(source || "Product detail").trim();
   const evidenceText = truncateEvidence(text);
   if (!evidenceText) return;
   const key = `${sourceText}:${evidenceText}`.toLowerCase();
@@ -433,7 +433,7 @@ function mapScoringStandards(rawProduct: RawProduct, evidence: ScrapedEvidenceIt
     return {
       key,
       label: String(item.label || fallbackLabel),
-      parentTip: truncateEvidence(item.parentTip || rawProduct.Parent_Tips?.[rawKey] || itemEvidence[0]?.text || "Derived from scraped product metadata."),
+      parentTip: truncateEvidence(item.parentTip || rawProduct.Parent_Tips?.[rawKey] || itemEvidence[0]?.text || "Product details and score signals summarized for parents."),
       evidence: itemEvidence.slice(0, 4),
     };
   });

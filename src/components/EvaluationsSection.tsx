@@ -5,10 +5,12 @@ import { translateProduct } from "../lib/translate";
 import { resolveProductImages } from "../lib/productImages";
 import SmartImage from "./common/SmartImage";
 import Breadcrumbs from "./Breadcrumbs";
+import SeoKeywordPanel from "./common/SeoKeywordPanel";
 
 import MultiCompareView from "./MultiCompareView";
 import { Evaluation } from "../types";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
+import { cleanVisibleSourceText } from "../lib/visibleText";
 
 interface EvaluationsSectionProps {
   evaluationsData?: Evaluation[];
@@ -192,7 +194,7 @@ function getProductDisplayName(product: Product) {
 }
 
 function productVerdict(product: Product) {
-  return String(product.editorVerdict || product.description || product.customersSay || "").trim();
+  return cleanVisibleSourceText(product.editorVerdict || product.description || product.customersSay || "");
 }
 
 function makeSingleEvaluation(product: Product, type: Evaluation["type"], suffix: string, zhTitle: string, enTitle: string, verdictPrefixZh = "专家摘要", verdictPrefixEn = "Expert summary"): Evaluation {
@@ -212,14 +214,14 @@ function makeSingleEvaluation(product: Product, type: Evaluation["type"], suffix
       verdict: `${verdictPrefixZh}：${verdict}`,
       pros: (product.pros || product.features || []).slice(0, 4),
       cons: (product.cons || []).slice(0, 4),
-      changelog: "由已抓取产品详情、评分字段与专家摘要自动生成。",
+      changelog: "由产品详情、评分字段与专家摘要自动生成。",
     },
     en: {
       title: enTitle.replace("{product}", title),
       verdict: `${verdictPrefixEn}: ${verdict}`,
       pros: (product.pros || product.features || []).slice(0, 4),
       cons: (product.cons || []).slice(0, 4),
-      changelog: "Generated from scraped product details, score fields, and expert summary.",
+      changelog: "Generated from product details, score fields, and expert summary.",
     },
     updatedAt: new Date("2026-07-09"),
   };
@@ -713,32 +715,22 @@ export default function EvaluationsSection({
             : "KIDSMOBI 通过匿名采购、工业级精密设备及儿科工效学评估，为您呈现每一款童车背后的真实物理数据。"}
         </p>
         {lang === "en" && (
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 text-left">
-            {[
+          <SeoKeywordPanel
+            columns="three"
+            align="left"
+            className="pt-2 text-left"
+            keywords={[
               "jogging stroller review and stroller safety test",
               "balance bike review and toddler bike fit report",
               "kids scooter review and kids electric bike safety audit",
               "annual top balance bike, kids bike, and kids scooter ranking",
               "single product review for stroller, balance bike, and kids scooter",
               "cross compare reports for kids dirt bike and electric dirt bike for kids",
-            ].map((item) => (
-              <p key={item} className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-[11px] font-bold leading-relaxed text-slate-500">
-                {item}
-              </p>
-            ))}
-          </div>
+            ]}
+          />
         )}
         {seoKeywordHints.length > 0 && (
-          <div className="flex flex-wrap justify-center gap-2 pt-2">
-            {seoKeywordHints.slice(0, 10).map((kw) => (
-              <span
-                key={kw}
-                className="px-3 py-1 rounded-full text-[10px] font-bold text-slate-600 bg-slate-100 border border-slate-200"
-              >
-                {kw}
-              </span>
-            ))}
-          </div>
+          <SeoKeywordPanel keywords={seoKeywordHints.slice(0, 10)} className="pt-2" />
         )}
       </section>
 
@@ -928,39 +920,6 @@ export default function EvaluationsSection({
           )}
         </div>
       )}
-
-
-      {/* Annual Awards Section refurbished for B2C */}
-      <section className="bg-orange-50 border border-orange-100 rounded-[48px] p-10 mt-12 relative overflow-hidden text-left shadow-sm">
-        <div className="absolute right-0 bottom-0 opacity-10">
-          <Award className="w-64 h-64 text-orange-200" />
-        </div>
-        
-        <div className="space-y-6 relative z-10 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-orange-100 text-orange-600 text-xs font-bold rounded-full">
-            <Star className="w-3.5 h-3.5 fill-current" />
-            {lang === "en" ? "2026 Annual Best Picks" : "2026 年度家长推荐榜单"}
-          </div>
-          <h3 className="text-3xl font-black text-slate-900">
-            {lang === "en" ? "Top Safety Performers" : "那些值得入手的“尖子生”"}
-          </h3>
-          <p className="text-sm text-slate-500 font-medium leading-relaxed">
-            {lang === "en" 
-              ? "After filtering through 100+ stress tests and real-world ride validation checks, these models stand out for their exceptional safety and comfort."
-              : "经历过严格实测和上万次平衡稳定性测试，我们精选出了以下几款能够真正让家长放心、孩子开心的标兵车型："}
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs pt-2">
-            <div className="bg-white p-5 rounded-3xl border border-orange-100 shadow-sm">
-              <strong className="text-orange-600 block mb-1 font-black">🏆 {lang === "en" ? "Best Balance Bike" : "最佳平衡车"}</strong>
-              <span className="text-slate-500 font-medium">{lang === "en" ? "Woom 1 (Only 3kg, toddlers love it)" : "Woom 1 (仅重 3kg，宝宝一眼爱上)"}</span>
-            </div>
-            <div className="bg-white p-5 rounded-3xl border border-orange-100 shadow-sm">
-              <strong className="text-orange-600 block mb-1 font-black">🏆 {lang === "en" ? "Best Kid Bicycle" : "最佳自行车"}</strong>
-              <span className="text-slate-500 font-medium">{lang === "en" ? "Woom 2 (Micro-reach brakes for maximum safety)" : "Woom 2 (超短握距手刹，安全感拉满)"}</span>
-            </div>
-          </div>
-        </div>
-      </section>
 
     </div>
   );

@@ -21,6 +21,7 @@ import { translateProduct, translateCategory } from "../lib/translate";
 import { formatWeight } from "../lib/units";
 import { resolveProductImages } from "../lib/productImages";
 import { getBackendPickerPayload } from "../lib/backendResourceService";
+import { cleanVisibleSourceText } from "../lib/visibleText";
 import SmartImage from "./common/SmartImage";
 import Breadcrumbs from "./Breadcrumbs";
 import ComparisonDashboard from "./ComparisonDashboard";
@@ -148,7 +149,7 @@ function truncateCardSnippet(value: string, maxLength: number): string {
 }
 
 function stripVisibleFieldLabels(value: string): string {
-  return compactSnippet(value)
+  return cleanVisibleSourceText(compactSnippet(value))
     .replace(/^editor\s+verdict\s*[:：-]\s*/i, "")
     .replace(/\s*\(\s*Features\[\d+\]\s*\)\s*/gi, " ")
     .trim();
@@ -929,7 +930,7 @@ export default function ProductsSection({
                     onCategoryChange?.(target);
                   }
                 }}
-                className={`px-3 py-1 rounded-full text-[10px] font-bold text-slate-600 bg-slate-100 border transition-all ${
+                className={`rounded-2xl border px-3 py-2 text-[11px] font-black uppercase leading-relaxed tracking-wide transition-all ${
                   hintFlash === kw
                     ? "bg-orange-50 text-orange-600 border-orange-300 shadow-sm scale-105"
                     : getSeoHintTarget(kw) === selectedCategory

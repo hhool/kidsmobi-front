@@ -4,6 +4,7 @@ import { NewsArticle, newsArticles as fallbackNewsArticles } from "../data/newsD
 import { translateNewsArticle } from "../lib/translate";
 import { getCMSNews } from "../lib/cmsService";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
+import SeoKeywordPanel from "./common/SeoKeywordPanel";
 
 function translateCategoryLabel(cat: string): string {
   const labels: Record<string, string> = {
@@ -347,8 +348,9 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
                     : "聚焦行业趋势、新品发布、法规政策、品牌动态与科学选购内容，用软文方式讲清楚市场变化。"}
               </p>
               {lang === "en" && (
-                <div className="flex flex-wrap justify-center gap-2 pt-2">
-                  {[
+                <SeoKeywordPanel
+                  className="pt-2"
+                  keywords={[
                     "kids bike news",
                     "kids electric bike launches",
                     "kids scooter news",
@@ -356,12 +358,8 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
                     "jogging stroller safety news",
                     "kids dirt bike updates",
                     "electric dirt bike for kids",
-                  ].map((keyword) => (
-                    <span key={keyword} className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[10px] font-black uppercase tracking-wide text-slate-500 shadow-sm">
-                      {keyword}
-                    </span>
-                  ))}
-                </div>
+                  ]}
+                />
               )}
           </div>
 

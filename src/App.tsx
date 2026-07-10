@@ -808,7 +808,7 @@ export default function App() {
 
         throw new Error("Content bundle is incomplete.");
       } catch (err) {
-        console.warn("Failed to load scraped content bundle, falling back to CMS data:", err);
+        console.warn("Failed to load content bundle, falling back to CMS data:", err);
         try {
           await loadCmsData();
         } catch (fallbackErr) {
@@ -2067,7 +2067,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               </p>
             </div>
 
-            {/* Column 2: Quick Links */}
+            {/* Column 2: Review pathways */}
             <div className="space-y-6">
               <h4 className="text-white font-bold uppercase tracking-widest text-[10px]">
                 {lang === "en" ? "Review Categories" : "评测分类"}
@@ -2075,26 +2075,32 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               <ul className="space-y-3 font-medium">
                 <li 
                   className="hover:text-orange-500 transition-colors cursor-pointer text-slate-400"
-                  onClick={() => navigateToPath("/products/balance_bike")}
+                  onClick={() => navigateToPath("/reviews")}
                 >
-                  {lang === "en" ? "Balance Bikes" : "平衡车系列"}
+                  {lang === "en" ? "Balance Bike Reviews" : "平衡车评测"}
                 </li>
                 <li 
                   className="hover:text-orange-500 transition-colors cursor-pointer text-slate-400"
                   onClick={() => navigateToPath("/products/kids_bikes")}
                 >
-                  {lang === "en" ? "Pedal Cycles" : "脚踏车系列"}
+                  {lang === "en" ? "Kids Bike Product Hub" : "儿童自行车产品库"}
+                </li>
+                <li 
+                  className="hover:text-orange-500 transition-colors cursor-pointer text-slate-400"
+                  onClick={() => navigateToPath("/products/kids_scooters")}
+                >
+                  {lang === "en" ? "Kids Scooter Product Hub" : "儿童滑板车产品库"}
                 </li>
                 <li 
                   className="hover:text-orange-500 transition-colors cursor-pointer text-slate-400"
                   onClick={() => navigateToTab("guides")}
                 >
-                  {lang === "en" ? "Sizing Guide" : "智能选型系统"}
+                  {lang === "en" ? "Sizing & Buying Guide" : "尺寸与选购指南"}
                 </li>
               </ul>
             </div>
 
-            {/* Column 3: Policy & Support */}
+            {/* Column 3: Policy & transparency */}
             <div className="space-y-6">
               <h4 className="text-white font-bold uppercase tracking-widest text-[10px]">
                 {lang === "en" ? "Transparency" : "透明度与标准"}
@@ -2116,7 +2122,13 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                   className="hover:text-orange-500 transition-colors cursor-pointer text-slate-400"
                   onClick={() => navigateToTab("about")}
                 >
-                  {lang === "en" ? "Certification Lab" : "实验室认证说明"}
+                  {lang === "en" ? "Testing Methodology" : "测试方法论"}
+                </li>
+                <li 
+                  className="hover:text-orange-500 transition-colors cursor-pointer text-slate-400"
+                  onClick={() => navigateToTab("about")}
+                >
+                  {lang === "en" ? "Certification & Lab Notes" : "认证与实验室说明"}
                 </li>
                 <li 
                   className="hover:text-orange-500 transition-colors cursor-pointer text-slate-400"

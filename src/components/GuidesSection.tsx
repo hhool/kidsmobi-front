@@ -23,6 +23,7 @@ import { GuideArticle, guideArticles as fallbackGuideArticles } from "../data/gu
 import { Product, CurrencyData } from "../types";
 import { translateProduct, translateGuideArticle } from "../lib/translate";
 import { getCMSGuides } from "../lib/cmsService";
+import { cleanVisibleSourceText } from "../lib/visibleText";
 
 function translateCategoryLabel(cat: string): string {
   const labels: Record<string, string> = {
@@ -39,6 +40,7 @@ function translateCategoryLabel(cat: string): string {
 import { formatWeight, formatHeight } from "../lib/units";
 import Breadcrumbs from "./Breadcrumbs";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
+import SeoKeywordPanel from "./common/SeoKeywordPanel";
 
 const faqData = [
   {
@@ -183,7 +185,7 @@ function productCategoryGuideLabel(product: Product, lang: "zh" | "en") {
 }
 
 function productGuideEvidence(product: Product) {
-  return String(product.editorVerdict || product.description || product.customersSay || product.pros?.[0] || "").trim();
+  return cleanVisibleSourceText(product.editorVerdict || product.description || product.customersSay || product.pros?.[0] || "");
 }
 
 function buildGuideArticle(category: GuideCategoryId, product: Product, index: number, lang: "zh" | "en"): GuideArticle {
@@ -197,7 +199,7 @@ function buildGuideArticle(category: GuideCategoryId, product: Product, index: n
     beginner: {
       title: `${productName} 新手入门：如何从身高、跨高和轮径判断是否适合`,
       summary: `用 ${productName} 作为具体样本，解释 ${categoryName} 入门选购里的年龄、身高、跨高和车重关系。`,
-      content: `### ${productName} 新手入门判断\n\n#### 1. 先看身体指标\n选择 ${categoryName} 不能只按年龄，建议先确认孩子的脱鞋跨高、身高和可控车重。${product.weight ? `这款产品标称自重约 ${product.weight}kg，` : ""}需要结合孩子体重判断是否超过 30%-40% 的安全阈值。\n\n#### 2. 再看真实使用信号\n${evidence || "结合已抓取产品参数和评分字段，优先关注安全、舒适、便携与可维护性。"}\n\n#### 3. 适合谁\n如果孩子刚开始接触 ${categoryName}，优先确认脚能稳定触地、转向不拖拽、刹车或减速动作能被理解，再考虑功能和品牌溢价。`,
+      content: `### ${productName} 新手入门判断\n\n#### 1. 先看身体指标\n选择 ${categoryName} 不能只按年龄，建议先确认孩子的脱鞋跨高、身高和可控车重。${product.weight ? `这款产品标称自重约 ${product.weight}kg，` : ""}需要结合孩子体重判断是否超过 30%-40% 的安全阈值。\n\n#### 2. 再看真实使用信号\n${evidence || "结合产品参数和评分字段，优先关注安全、舒适、便携与可维护性。"}\n\n#### 3. 适合谁\n如果孩子刚开始接触 ${categoryName}，优先确认脚能稳定触地、转向不拖拽、刹车或减速动作能被理解，再考虑功能和品牌溢价。`,
     },
     scenario: {
       title: `${productName} 场景指南：小区、公园与通勤怎么选`,
@@ -217,7 +219,7 @@ function buildGuideArticle(category: GuideCategoryId, product: Product, index: n
     special: {
       title: `${productName} 品类专项：${categoryName} 核心参数怎么看`,
       summary: `针对 ${categoryName} 的关键指标，说明 ${productName} 应该重点看哪些配置。`,
-      content: `### ${productName} 品类专项\n\n#### 1. 品类关键指标\n${categoryName} 的核心不是堆功能，而是尺寸适配、可控重量、轮组反馈和日常维护便利度。\n\n#### 2. 产品观察\n${evidence || "从已抓取字段看，应优先核对安全评分、舒适性、便携度和真实用户反馈。"}\n\n#### 3. 对比建议\n同品类横向比较时，把 ${productName} 与同轮径、同价位、同年龄段产品比较，比跨品类比较更有参考价值。`,
+      content: `### ${productName} 品类专项\n\n#### 1. 品类关键指标\n${categoryName} 的核心不是堆功能，而是尺寸适配、可控重量、轮组反馈和日常维护便利度。\n\n#### 2. 产品观察\n${evidence || "从当前产品信息看，应优先核对安全评分、舒适性、便携度和真实用户反馈。"}\n\n#### 3. 对比建议\n同品类横向比较时，把 ${productName} 与同轮径、同价位、同年龄段产品比较，比跨品类比较更有参考价值。`,
     },
     maintenance: {
       title: `${productName} 养护清单：刹车、轮胎与连接件怎么检查`,
@@ -229,7 +231,7 @@ function buildGuideArticle(category: GuideCategoryId, product: Product, index: n
     beginner: {
       title: `${productName} Beginner Entry: Fit by height, inseam, and wheel size`,
       summary: `Use ${productName} as a concrete ${categoryName} example to understand age, inseam, wheel size, and safe weight fit.`,
-      content: `### ${productName} Beginner Fit Check\n\n#### 1. Start with body measurements\nDo not buy by age alone. Check barefoot inseam, standing height, and whether the child can control the vehicle weight. ${product.weight ? `This model is listed around ${product.weight}kg, ` : ""}so compare it against the child's 30%-40% body-weight safety range.\n\n#### 2. Read the product signal\n${evidence || "Use the scraped product fields and scores to review safety, comfort, portability, and maintenance fit."}\n\n#### 3. Who it suits\nFor first-time ${categoryName} use, stable foot contact, predictable steering, and understandable braking matter more than brand premium or decorative features.`,
+      content: `### ${productName} Beginner Fit Check\n\n#### 1. Start with body measurements\nDo not buy by age alone. Check barefoot inseam, standing height, and whether the child can control the vehicle weight. ${product.weight ? `This model is listed around ${product.weight}kg, ` : ""}so compare it against the child's 30%-40% body-weight safety range.\n\n#### 2. Read the product signal\n${evidence || "Use the product specifications and scores to review safety, comfort, portability, and maintenance fit."}\n\n#### 3. Who it suits\nFor first-time ${categoryName} use, stable foot contact, predictable steering, and understandable braking matter more than brand premium or decorative features.`,
     },
     scenario: {
       title: `${productName} Scenario Guide: home paths, parks, and commute use`,
@@ -249,7 +251,7 @@ function buildGuideArticle(category: GuideCategoryId, product: Product, index: n
     special: {
       title: `${productName} Category Special: what matters in a ${categoryName}`, 
       summary: `A category-specific reading of the key specs parents should inspect on ${productName}.`,
-      content: `### ${productName} Category Special\n\n#### 1. Category priorities\nFor a ${categoryName}, the core question is not feature count. Fit, controllable weight, wheel feedback, and maintenance are the decision drivers.\n\n#### 2. Product observation\n${evidence || "Use the scraped safety score, comfort score, portability, and real user feedback before choosing."}\n\n#### 3. Comparison advice\nCompare ${productName} against products with the same wheel size, age band, and price band for a fairer decision.`,
+      content: `### ${productName} Category Special\n\n#### 1. Category priorities\nFor a ${categoryName}, the core question is not feature count. Fit, controllable weight, wheel feedback, and maintenance are the decision drivers.\n\n#### 2. Product observation\n${evidence || "Use the safety score, comfort score, portability, and real user feedback before choosing."}\n\n#### 3. Comparison advice\nCompare ${productName} against products with the same wheel size, age band, and price band for a fairer decision.`,
     },
     maintenance: {
       title: `${productName} Maintenance: brakes, tires, and joints checklist`,
@@ -624,8 +626,11 @@ export default function GuidesSection({
                 : "输入宝宝的身高体重，我们将通过科学算法为您匹配最合适的轮径与型号。"}
             </p>
             {lang === "en" && (
-              <div className="flex flex-wrap gap-2 pt-2">
-                {[
+              <SeoKeywordPanel
+                variant="orange"
+                align="left"
+                className="pt-2"
+                keywords={[
                   "how to choose a baby stroller",
                   "jogging stroller fit",
                   "balance bike toddler",
@@ -633,12 +638,8 @@ export default function GuidesSection({
                   "kids scooter safety",
                   "kids electric bike fit",
                   "foldable electric scooter guide",
-                ].map((keyword) => (
-                  <span key={keyword} className="rounded-full border border-orange-100 bg-orange-50 px-3 py-1 text-[10px] font-black uppercase tracking-wide text-orange-600">
-                    {keyword}
-                  </span>
-                ))}
-              </div>
+                ]}
+              />
             )}
           </div>
           <button 

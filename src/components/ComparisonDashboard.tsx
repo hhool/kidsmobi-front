@@ -16,6 +16,7 @@ import { Product, CurrencyData } from "../types";
 import { translateProduct } from "../lib/translate";
 import { convertWeightNum, getWeightUnit } from "../lib/units";
 import { resolveProductImages } from "../lib/productImages";
+import { cleanVisibleSourceText } from "../lib/visibleText";
 import SmartImage from "./common/SmartImage";
 
 interface ComparisonDashboardProps {
@@ -38,9 +39,9 @@ export default function ComparisonDashboard({
   const formatMetricValue = (key: string, value: unknown): string => {
     const text = String(value ?? "").trim();
     if (key === "ageRange" && (!text || /^all\s*ages?$/i.test(text) || /^confirm from source$/i.test(text))) {
-      return lang === "en" ? "Confirm from source" : "待抓取确认";
+      return lang === "en" ? "Confirm details" : "待确认";
     }
-    return text || (lang === "en" ? "Not specified" : "未标注");
+    return cleanVisibleSourceText(text) || (lang === "en" ? "Not specified" : "未标注");
   };
 
   const metrics = [

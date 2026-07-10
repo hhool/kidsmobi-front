@@ -1,6 +1,7 @@
 import React from "react";
 import { ShieldCheck, Award, MessageSquare, Flame, CheckCircle, Lock, Users, Handshake, ShieldAlert } from "lucide-react";
 import Breadcrumbs from "./Breadcrumbs";
+import SeoKeywordPanel from "./common/SeoKeywordPanel";
 
 interface AboutSectionProps {
   lang?: "zh" | "en";
@@ -37,8 +38,9 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
               We audit jogging stroller, balance bike, toddler bike, kids scooter, and kids electric bike safety with independent methods to solve one simple question:
               <span className="text-slate-900 font-bold block"> "Is this design truly safe for your child's growth and healthy riding?"</span>
             </p>
-            <div className="flex flex-wrap justify-center gap-2 pt-2">
-              {[
+            <SeoKeywordPanel
+              variant="orange"
+              keywords={[
                 "stroller safety lab",
                 "jogging stroller audit",
                 "balance bike safety",
@@ -46,12 +48,8 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
                 "kids scooter testing",
                 "kids electric bike review",
                 "independent KIDSMOBI team",
-              ].map((keyword) => (
-                <span key={keyword} className="rounded-full border border-orange-100 bg-orange-50 px-3 py-1 text-[10px] font-black uppercase tracking-wide text-orange-600">
-                  {keyword}
-                </span>
-              ))}
-            </div>
+              ]}
+            />
           </div>
         </div>
 
@@ -234,6 +232,16 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             我们100%对标全球最严苛的儿童健康测试体系，只为解答一个纯粹的问题：
             <span className="text-slate-900 font-bold block">“这辆车真的对宝宝的骨骼安全、健康骑行无害吗？”</span>
           </p>
+          <SeoKeywordPanel
+            variant="orange"
+            keywords={[
+              "jogging stroller 安全实验室",
+              "balance bike 安全评测",
+              "toddler bike 工效测试",
+              "kids scooter 稳定性测试",
+              "kids electric bike 安全审计",
+            ]}
+          />
         </div>
       </div>
 

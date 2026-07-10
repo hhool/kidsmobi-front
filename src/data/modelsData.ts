@@ -3165,19 +3165,19 @@ export const productsData: Product[] = [
       {
         "key": "safety",
         "label": "Safety First",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "comfort",
         "label": "Riding Comfort",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "portability",
         "label": "Light & Easy",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       }
     ]
@@ -4480,19 +4480,19 @@ export const productsData: Product[] = [
       {
         "key": "safety",
         "label": "Safety First",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "comfort",
         "label": "Riding Comfort",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "portability",
         "label": "Light & Easy",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       }
     ]
@@ -18320,19 +18320,19 @@ export const productsData: Product[] = [
       {
         "key": "safety",
         "label": "Safety First",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "comfort",
         "label": "Riding Comfort",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "portability",
         "label": "Light & Easy",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       }
     ]
@@ -18385,19 +18385,19 @@ export const productsData: Product[] = [
       {
         "key": "safety",
         "label": "Safety First",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "comfort",
         "label": "Riding Comfort",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "portability",
         "label": "Light & Easy",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       }
     ]
@@ -18451,19 +18451,19 @@ export const productsData: Product[] = [
       {
         "key": "safety",
         "label": "Safety First",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "comfort",
         "label": "Riding Comfort",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "portability",
         "label": "Light & Easy",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       }
     ]
@@ -18517,19 +18517,19 @@ export const productsData: Product[] = [
       {
         "key": "safety",
         "label": "Safety First",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "comfort",
         "label": "Riding Comfort",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "portability",
         "label": "Light & Easy",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       }
     ]
@@ -18582,19 +18582,19 @@ export const productsData: Product[] = [
       {
         "key": "safety",
         "label": "Safety First",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "comfort",
         "label": "Riding Comfort",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "portability",
         "label": "Light & Easy",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       }
     ]
@@ -19135,19 +19135,19 @@ export const productsData: Product[] = [
       {
         "key": "safety",
         "label": "Safety First",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "comfort",
         "label": "Riding Comfort",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "portability",
         "label": "Light & Easy",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       }
     ]
@@ -19364,19 +19364,19 @@ export const productsData: Product[] = [
       {
         "key": "safety",
         "label": "Safety First",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "comfort",
         "label": "Riding Comfort",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "portability",
         "label": "Light & Easy",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       }
     ]
@@ -19752,19 +19752,19 @@ export const productsData: Product[] = [
       {
         "key": "safety",
         "label": "Safety First",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "comfort",
         "label": "Riding Comfort",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "portability",
         "label": "Light & Easy",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       }
     ]
@@ -19818,19 +19818,19 @@ export const productsData: Product[] = [
       {
         "key": "safety",
         "label": "Safety First",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "comfort",
         "label": "Riding Comfort",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "portability",
         "label": "Light & Easy",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       }
     ]
@@ -20528,19 +20528,19 @@ export const productsData: Product[] = [
       {
         "key": "safety",
         "label": "Safety First",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "comfort",
         "label": "Riding Comfort",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "portability",
         "label": "Light & Easy",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       }
     ]
@@ -20910,19 +20910,19 @@ export const productsData: Product[] = [
       {
         "key": "safety",
         "label": "Safety First",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "comfort",
         "label": "Riding Comfort",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "portability",
         "label": "Light & Easy",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       }
     ]
@@ -21142,19 +21142,19 @@ export const productsData: Product[] = [
       {
         "key": "safety",
         "label": "Safety First",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "comfort",
         "label": "Riding Comfort",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "portability",
         "label": "Light & Easy",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       }
     ]
@@ -21208,19 +21208,19 @@ export const productsData: Product[] = [
       {
         "key": "safety",
         "label": "Safety First",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "comfort",
         "label": "Riding Comfort",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "portability",
         "label": "Light & Easy",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       }
     ]
@@ -21276,19 +21276,19 @@ export const productsData: Product[] = [
       {
         "key": "safety",
         "label": "Safety First",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "comfort",
         "label": "Riding Comfort",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "portability",
         "label": "Light & Easy",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       }
     ]
@@ -21344,19 +21344,19 @@ export const productsData: Product[] = [
       {
         "key": "safety",
         "label": "Safety First",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "comfort",
         "label": "Riding Comfort",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "portability",
         "label": "Light & Easy",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       }
     ]
@@ -21572,19 +21572,19 @@ export const productsData: Product[] = [
       {
         "key": "safety",
         "label": "Safety First",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "comfort",
         "label": "Riding Comfort",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "portability",
         "label": "Light & Easy",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       }
     ]
@@ -21941,19 +21941,19 @@ export const productsData: Product[] = [
       {
         "key": "safety",
         "label": "Safety First",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "comfort",
         "label": "Riding Comfort",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       },
       {
         "key": "portability",
         "label": "Light & Easy",
-        "parentTip": "Derived from scraped product metadata.",
+        "parentTip": "Product details and score signals summarized for parents.",
         "evidence": []
       }
     ]
