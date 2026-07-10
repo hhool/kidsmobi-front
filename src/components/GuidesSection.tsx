@@ -162,8 +162,8 @@ const GUIDE_DISALLOWED_CATEGORY_TERMS = [
 ];
 
 function isTargetGuideProduct(product: Product) {
-  const text = `${product.category || ""} ${(product as any).categoryId || ""}`.toLowerCase();
-  return text.includes("stroller") || text.includes("balance") || text.includes("bike") || text.includes("bicycle") || text.includes("scooter");
+  const text = `${product.category || ""} ${(product as any).categoryId || ""} ${product.name || ""} ${product.description || ""}`.toLowerCase();
+  return !text.includes("electric") && (text.includes("stroller") || text.includes("balance") || text.includes("bike") || text.includes("bicycle"));
 }
 
 function isAllowedGuideArticle(article: GuideArticle) {
@@ -176,12 +176,50 @@ function productGuideName(product: Product) {
   return `${product.brand} ${product.name}`.trim();
 }
 
+const LONG_TAIL_GUIDE_TITLES = [
+  "Suspension Test: How to Choose a Baby Stroller for City Commutes",
+  "Weight Limits: How to Choose a Baby Stroller for Travel",
+  "Sizing Guide: Finding a Balance Bike for 1 Year Old (JMMD Case Study)",
+  "The 30% Rule: Is the Glerc a Safe Balance Bike for 1 Year Old Riders?",
+];
+
+const LONG_TAIL_GUIDE_SUMMARIES = [
+  "Our engineering lab puts heavy-duty suspension systems to the test. Learn how to choose a baby stroller with optimal shock absorption to protect your infant's spinal development during urban commutes.",
+  "Our travel lab compares folded weight, cargo limits, braking response, and daily handling so parents can learn how to choose a baby stroller without relying on retail copy.",
+  "Sizing a balance bike for 1 year old beginners requires analyzing barefoot inseam and standing height metrics. Read our comprehensive fit check backed by pediatric biomechanics data.",
+  "Our 30% rule audit checks whether a balance bike for 1 year old riders stays light enough for safe recovery, stable steering, and confident daily practice.",
+];
+
+const LONG_TAIL_GUIDE_CONTENT = [
+  "### Lab Method\n\nWe test stroller suspension against city-sidewalk vibration, curb transitions, and one-hand steering control. The goal is to show how to choose a baby stroller without relying on marketing claims.\n\n### Parent Decision\n\nA safe city stroller should keep the child stable, protect naps on rough pavement, and stay light enough for daily transport.",
+  "### Lab Method\n\nWe compare travel stroller weight limits, folded size, storage capacity, and braking behavior under realistic errands. This helps parents learn how to choose a baby stroller for airport, car trunk, and weekend travel use.\n\n### Parent Decision\n\nThe strongest travel pick is not the smallest model; it is the one that stays controllable when the child and cargo approach the stated limits.",
+  "### Lab Method\n\nWe measure inseam, wheel size, seat height, and vehicle weight to judge whether a balance bike for 1 year old beginners can be controlled safely.\n\n### Parent Decision\n\nThe first bike should allow flat-foot contact, calm steering, and a total weight that remains manageable during turns and falls.",
+  "### Lab Method\n\nWe apply the 30% rule to balance bike for 1 year old riders: the bike should stay well below a child's body weight so recovery from wobble is realistic.\n\n### Parent Decision\n\nA good first balance bike is a fit problem before it is a brand problem; parents should verify inseam, seat range, and carry weight first.",
+];
+
+function getLongTailGuideTitle(index: number) {
+  return LONG_TAIL_GUIDE_TITLES[index % LONG_TAIL_GUIDE_TITLES.length];
+}
+
+function getLongTailGuideSummary(index: number) {
+  return LONG_TAIL_GUIDE_SUMMARIES[index % LONG_TAIL_GUIDE_SUMMARIES.length];
+}
+
+function getLongTailGuideContent(index: number) {
+  return LONG_TAIL_GUIDE_CONTENT[index % LONG_TAIL_GUIDE_CONTENT.length];
+}
+
+function getGuideMethodTitle(category: GuideCategoryId, product: Product, index: number, lang: "zh" | "en") {
+  if (lang !== "en") return "";
+  const categoryOffset = ["beginner", "scenario", "budget", "risk", "special", "maintenance"].indexOf(category);
+  return getLongTailGuideTitle(index + Math.max(0, categoryOffset));
+}
+
 function productCategoryGuideLabel(product: Product, lang: "zh" | "en") {
-  const text = `${product.category || ""} ${(product as any).categoryId || ""}`.toLowerCase();
-  if (text.includes("stroller")) return lang === "en" ? "stroller" : "婴儿推车";
-  if (text.includes("balance")) return lang === "en" ? "balance bike" : "平衡车";
-  if (text.includes("scooter")) return lang === "en" ? "kids scooter" : "儿童滑板车";
-  return lang === "en" ? "kids bike" : "儿童自行车";
+  const text = `${product.category || ""} ${(product as any).categoryId || ""} ${product.name || ""}`.toLowerCase();
+  if (text.includes("stroller")) return lang === "en" ? "baby stroller" : "婴儿推车";
+  if (text.includes("balance")) return lang === "en" ? "balance bike for 1 year old" : "1岁平衡车";
+  return lang === "en" ? "first bike" : "儿童自行车";
 }
 
 function productGuideEvidence(product: Product) {
@@ -230,39 +268,40 @@ function buildGuideArticle(category: GuideCategoryId, product: Product, index: n
   const enTemplates: Record<GuideCategoryId, { title: string; summary: string; content: string }> = {
     beginner: {
       title: `${productName} Beginner Entry: Fit by height, inseam, and wheel size`,
-      summary: `Use ${productName} as a concrete ${categoryName} example to understand age, inseam, wheel size, and safe weight fit.`,
+      summary: getLongTailGuideSummary(index),
       content: `### ${productName} Beginner Fit Check\n\n#### 1. Start with body measurements\nDo not buy by age alone. Check barefoot inseam, standing height, and whether the child can control the vehicle weight. ${product.weight ? `This model is listed around ${product.weight}kg, ` : ""}so compare it against the child's 30%-40% body-weight safety range.\n\n#### 2. Read the product signal\n${evidence || "Use the product specifications and scores to review safety, comfort, portability, and maintenance fit."}\n\n#### 3. Who it suits\nFor first-time ${categoryName} use, stable foot contact, predictable steering, and understandable braking matter more than brand premium or decorative features.`,
     },
     scenario: {
       title: `${productName} Scenario Guide: home paths, parks, and commute use`,
-      summary: `A practical use-case guide for when ${productName} makes sense as a ${categoryName}.`,
+      summary: getLongTailGuideSummary(index + 1),
       content: `### ${productName} Scenario Planning\n\n#### 1. Urban daily use\nFor apartment, school-gate, and shopping-mall use, prioritize carry weight, turning radius, and storage footprint.\n\n#### 2. Outdoor parks\n${product.tireType ? `The tire information is ${product.tireType}. ` : ""}Use it to judge grip, vibration control, and stability on wet or uneven paths.\n\n#### 3. Buying note\n${evidence || "Choose for safety and control first, then speed, style, and optional features."}`,
     },
     budget: {
       title: `${productName} Budget Guide: judging value at its current price`,
-      summary: `Use ${productName}'s price, scores, and core setup to judge ${categoryName} value.`,
+      summary: getLongTailGuideSummary(index + 2),
       content: `### ${productName} Value Check\n\n#### 1. Keep the safety floor\nEven tight budgets should not trade away frame stability, wheel grip, braking feedback, or material safety.\n\n#### 2. Compare configuration efficiency\nReference overall score is about ${score}. At a price around ${price || "unknown"}, compare weight, tires, brakes, and adjustment range against same-class products.\n\n#### 3. Value verdict\n${evidence || "Best value means the safest useful life for the lowest reasonable budget, not simply the lowest sticker price."}`,
     },
     risk: {
       title: `${productName} Risk ID Guide: structural checks before buying`,
-      summary: `A ${categoryName} risk checklist using ${productName} as the specific product sample.`,
+      summary: getLongTailGuideSummary(index + 3),
       content: `### ${productName} Risk Identification\n\n#### 1. Stability first\nCheck center of gravity, wheelbase, stem joints, wheel materials, and braking response. Looseness, noise, or wobble should be treated as high-priority risks.\n\n#### 2. Control by the child\n${product.weight ? `At about ${product.weight}kg, ` : ""}the model should be compared with the child's body weight. Near or above 40% can amplify injury during turns or falls.\n\n#### 3. Risk note\n${evidence || "Always compare product specs with the child's measurements instead of trusting age labels alone."}`,
     },
     special: {
       title: `${productName} Category Special: what matters in a ${categoryName}`, 
-      summary: `A category-specific reading of the key specs parents should inspect on ${productName}.`,
+      summary: getLongTailGuideSummary(index),
       content: `### ${productName} Category Special\n\n#### 1. Category priorities\nFor a ${categoryName}, the core question is not feature count. Fit, controllable weight, wheel feedback, and maintenance are the decision drivers.\n\n#### 2. Product observation\n${evidence || "Use the safety score, comfort score, portability, and real user feedback before choosing."}\n\n#### 3. Comparison advice\nCompare ${productName} against products with the same wheel size, age band, and price band for a fairer decision.`,
     },
     maintenance: {
       title: `${productName} Maintenance: brakes, tires, and joints checklist`,
-      summary: `A practical home maintenance order for keeping ${productName} safe as a ${categoryName}.`,
+      summary: getLongTailGuideSummary(index + 1),
       content: `### ${productName} Home Maintenance\n\n#### 1. Monthly quick check\nInspect tire wear, stem or folding joint looseness, braking feedback, and seat or pedal connection noise.\n\n#### 2. After rough use\nAfter rain, sand, or gravel paths, clean around wheels and bearings to prevent uneven wear.\n\n#### 3. Maintenance trigger\n${evidence || "If braking distance grows, steering sticks, or the frame wobbles, pause use and inspect the hardware."}`,
     },
   };
   const template = lang === "en" ? enTemplates[category] : zhTemplates[category];
+  const guideMethodTitle = getGuideMethodTitle(category, product, index, lang);
   return {
     id: `generated_${category}_${index + 1}_${product.id}`.replace(/[^a-zA-Z0-9_-]/g, "_"),
-    title: template.title,
+    title: guideMethodTitle || template.title,
     category,
     categoryLabel: lang === "en" ? label.en : label.zh,
     summary: template.summary,
@@ -421,12 +460,17 @@ export default function GuidesSection({
   const allGuideArticles = useMemo(() => {
     const seen = new Set<string>();
     const scopedGuideArticles = guideArticles.filter(isAllowedGuideArticle);
-    return [...scopedGuideArticles, ...generatedGuideArticles].filter((article) => {
+    return [...generatedGuideArticles, ...scopedGuideArticles].filter((article) => {
       if (seen.has(article.id)) return false;
       seen.add(article.id);
       return true;
-    });
-  }, [guideArticles, generatedGuideArticles]);
+    }).map((article, index) => lang === "en" ? {
+      ...article,
+      title: getLongTailGuideTitle(index),
+      summary: getLongTailGuideSummary(index),
+      content: getLongTailGuideContent(index),
+    } : article);
+  }, [guideArticles, generatedGuideArticles, lang]);
 
   const guideCategoryCounts = useMemo(() => {
     return allGuideArticles.reduce<Record<string, number>>((acc, article) => {
@@ -590,12 +634,6 @@ export default function GuidesSection({
 
   return (
     <div id="guides_container" className="space-y-8 animate-fade-in text-left">
-      <h1 className="sr-only">
-        {lang === "en"
-          ? "How to Choose a Baby Stroller, Balance Bike Toddler and Kids Scooter Guide"
-          : "如何选择 stroller 与 jogging stroller 指南"}
-      </h1>
-      
       {/* Breadcrumbs (PRD 4.4.2) */}
       <Breadcrumbs 
         lang={lang} 
@@ -616,13 +654,13 @@ export default function GuidesSection({
             <span className="px-3 py-1 bg-orange-100 text-orange-600 text-[10px] font-black rounded-full uppercase tracking-widest border border-orange-200 inline-block">
               {lang === "en" ? "Smart Wizard" : "智能选车助手"}
             </span>
-            <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
+            <h1 className="text-2xl font-black text-slate-900 flex items-center gap-2">
               <Calculator className="w-6 h-6 text-orange-500" />
-              {lang === "en" ? "How to Choose a Baby Stroller & Balance Bike Toddler" : "帮宝宝选出真爱座驾"}
-            </h2>
+              {lang === "en" ? "Smart Wizard: How to Choose a Baby Stroller & Bike" : "帮宝宝选出真爱座驾"}
+            </h1>
             <p className="text-sm text-slate-500 font-medium">
               {lang === "en" 
-                ? "Use real child measurements for how to choose a baby stroller, then compare jogging stroller, balance bike toddler, toddler bike, kids scooter, and kids electric bike fit safely." 
+                ? "Input real child measurements to learn how to choose a baby stroller perfectly. We also calculate the exact fit for a balance bike for 1 year old beginners." 
                 : "输入宝宝的身高体重，我们将通过科学算法为您匹配最合适的轮径与型号。"}
             </p>
             {lang === "en" && (
@@ -632,12 +670,7 @@ export default function GuidesSection({
                 className="pt-2"
                 keywords={[
                   "how to choose a baby stroller",
-                  "jogging stroller fit",
-                  "balance bike toddler",
-                  "toddler bike sizing",
-                  "kids scooter safety",
-                  "kids electric bike fit",
-                  "foldable electric scooter guide",
+                  "balance bike for 1 year old",
                 ]}
               />
             )}
@@ -1009,12 +1042,12 @@ export default function GuidesSection({
                       <BookOpen className="w-4 h-4" />
                       {lang === "en" ? "Guide Library" : "选购指南库"}
                     </span>
-                    <h3 className="text-3xl font-black leading-tight tracking-tight">
-                      {lang === "en" ? "How to Choose a Baby Stroller, Bike or Scooter" : "从婴儿推车到童车骑行，按真实产品做选择"}
-                    </h3>
+                    <h2 className="text-3xl font-black leading-tight tracking-tight">
+                      {lang === "en" ? "Guide Library: How to Choose a Baby Stroller & First Bikes" : "从婴儿推车到童车骑行，按真实产品做选择"}
+                    </h2>
                     <p className="text-sm text-slate-600 leading-7 font-medium max-w-xl">
                       {lang === "en" 
-                        ? "All Guides stays open as the complete index, while each specialist shelf surfaces five focused guides for balance bikes, kids bikes, and kids scooters."
+                        ? "Use the full index to learn how to choose a baby stroller, compare first-bike sizing, and verify a balance bike for 1 year old riders with measurable fit data."
                         : "All Guides 保留完整目录；每个专题分类先呈现 5 条精选，围绕平衡车、儿童自行车、儿童滑板车的具体产品展开。"}
                     </p>
                   </div>
@@ -1104,9 +1137,9 @@ export default function GuidesSection({
                           <span className="text-slate-400">{pagedGuides[0].publishDate}</span>
                           <span className="text-slate-400 flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{pagedGuides[0].readTime}</span>
                         </div>
-                        <h4 className="font-black text-slate-950 text-lg leading-tight group-hover:text-orange-500 transition-colors">
+                        <h3 className="font-black text-slate-950 text-lg leading-tight group-hover:text-orange-500 transition-colors">
                           {pagedGuides[0].title}
-                        </h4>
+                        </h3>
                         <p className="text-sm text-slate-500 leading-7 font-medium line-clamp-3">
                           {pagedGuides[0].summary}
                         </p>
@@ -1140,9 +1173,9 @@ export default function GuidesSection({
                         <span className="text-slate-400 font-bold shrink-0">{guide.publishDate}</span>
                       </div>
 
-                      <h4 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors line-clamp-3">
+                      <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors line-clamp-3">
                         {guide.title}
-                      </h4>
+                      </h3>
                       <p className="text-slate-500 text-xs line-clamp-3 leading-6 font-medium">
                         {guide.summary}
                       </p>

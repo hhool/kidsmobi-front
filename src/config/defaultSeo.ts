@@ -79,14 +79,14 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
   },
   guides: {
     zh: {
-      title: "专家避坑指南与选型计算中心 | KIDSMOBI 科学购车顾问",
-      description: "首创儿童跨步长（Inseam）与车架结合的黄金配对算法，提供避坑防断裂模块化警示，辅助每一位父母买对不买贵。",
-      keywords: ["选型指南", "避坑指南", "跨步长计算器", "车架黄金比例"],
+      title: "How to Choose a Baby Stroller & 1-Year-Old Bike Guide",
+      description: "Learn how to choose a baby stroller with our lab-tested sizing wizard. Discover the safest balance bike for 1 year old riders based on real data.",
+      keywords: ["how to choose a baby stroller", "balance bike for 1 year old", "toddler bike sizing guide"],
     },
     en: {
-      title: "Baby Stroller Guide | Balance Bike & Toddler Bike",
-      description: "Learn how to choose a baby stroller, then compare jogging stroller, balance bike toddler, toddler bike, kids scooter, and kids electric bike fit.",
-      keywords: ["how to choose a baby stroller", "balance bike", "balance bike toddler", "jogging stroller", "toddler bike", "kids scooter", "kids electric bike"],
+      title: "How to Choose a Baby Stroller & 1-Year-Old Bike Guide",
+      description: "Learn how to choose a baby stroller with our lab-tested sizing wizard. Discover the safest balance bike for 1 year old riders based on real data.",
+      keywords: ["how to choose a baby stroller", "balance bike for 1 year old", "toddler bike sizing guide"],
     },
   },
   about: {
