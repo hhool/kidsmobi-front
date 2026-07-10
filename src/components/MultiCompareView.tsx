@@ -11,13 +11,19 @@ export default function MultiCompareView({
   evaluation,
   productsData,
   lang,
+  reviewTypeLabel,
+  onHome,
   onBack,
+  onReviewTypeClick,
   onSelectProduct
 }: {
   evaluation: Evaluation;
   productsData: Product[];
   lang: "zh" | "en";
+  reviewTypeLabel?: string;
+  onHome?: () => void;
   onBack: () => void;
+  onReviewTypeClick?: () => void;
   onSelectProduct: (p: Product) => void;
 }) {
   const compProducts = useMemo(() => {
@@ -37,9 +43,10 @@ export default function MultiCompareView({
     <div className="max-w-6xl mx-auto space-y-8 animate-fade-in text-left">
       <Breadcrumbs 
         lang={lang} 
-        onHomeClick={() => onBack()}
+        onHomeClick={onHome || onBack}
         items={[
           { label: lang === "zh" ? "评测中心" : "EVALUATION CENTER", onClick: onBack },
+          { label: reviewTypeLabel || (lang === "zh" ? "多品横评" : "CROSS COMPARE"), onClick: onReviewTypeClick || onBack },
           { label: tEv.title, active: true }
         ]} 
       />

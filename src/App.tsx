@@ -8,7 +8,6 @@ import {
   TrendingDown,
   TrendingUp,
   RefreshCw,
-  MessageSquare,
   Globe,
   Award,
   BookOpen,
@@ -299,6 +298,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
       activeTab: "admin",
       activeProductCategory: "all",
       activeReviewType: "all",
+      activeEvaluationId: "",
       activePageIndex: 1,
       currentPath: normalizePathname(pathname),
     };
@@ -313,6 +313,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
       activeTab: "home",
       activeProductCategory: "all",
       activeReviewType: "all",
+      activeEvaluationId: "",
       activePageIndex: 1,
       currentPath,
     };
@@ -327,6 +328,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
       activeTab: "products",
       activeProductCategory,
       activeReviewType: "all",
+      activeEvaluationId: "",
       activePageIndex,
       currentPath,
     };
@@ -336,10 +338,12 @@ const resolveRouteState = (pathname: string, hash: string) => {
     const pageSegmentIndex = segments.indexOf("page");
     const activePageIndex = pageSegmentIndex >= 0 ? Number(segments[pageSegmentIndex + 1] || 1) : 1;
     const activeReviewType = sub && REVIEW_ROUTE_IDS.has(sub) ? sub : "single";
+    const activeEvaluationId = pageSegmentIndex >= 0 ? "" : (sub && REVIEW_ROUTE_IDS.has(sub) ? segments[2] : sub) || "";
     return {
       activeTab: "evaluations",
       activeProductCategory: "all",
       activeReviewType,
+      activeEvaluationId,
       activePageIndex,
       currentPath,
     };
@@ -352,6 +356,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
       activeTab: "guides",
       activeProductCategory: "all",
       activeReviewType: "all",
+      activeEvaluationId: "",
       activePageIndex,
       currentPath,
     };
@@ -364,6 +369,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
       activeTab: "news",
       activeProductCategory: "all",
       activeReviewType: "all",
+      activeEvaluationId: "",
       activePageIndex,
       currentPath,
     };
@@ -374,6 +380,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
       activeTab: "about",
       activeProductCategory: "all",
       activeReviewType: "all",
+      activeEvaluationId: "",
       activePageIndex: 1,
       currentPath,
     };
@@ -384,6 +391,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
       activeTab: "auth",
       activeProductCategory: "all",
       activeReviewType: "all",
+      activeEvaluationId: "",
       activePageIndex: 1,
       currentPath,
     };
@@ -393,6 +401,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
     activeTab: "home",
     activeProductCategory: "all",
     activeReviewType: "all",
+    activeEvaluationId: "",
     activePageIndex: 1,
     currentPath: "/",
   };
@@ -416,6 +425,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<string>(initialRouteState.activeTab);
   const [activeProductCategory, setActiveProductCategory] = useState<string>(initialRouteState.activeProductCategory);
   const [activeReviewType, setActiveReviewType] = useState<string>(initialRouteState.activeReviewType);
+  const [activeEvaluationId, setActiveEvaluationId] = useState<string>(initialRouteState.activeEvaluationId);
   const [activePageIndex, setActivePageIndex] = useState<number>(initialRouteState.activePageIndex);
   const [currentPath, setCurrentPath] = useState<string>(initialRouteState.currentPath);
   const [newsPaginationTotalPages, setNewsPaginationTotalPages] = useState<number | null>(null);
@@ -436,6 +446,7 @@ export default function App() {
     setActiveTab(routeState.activeTab);
     setActiveProductCategory(routeState.activeProductCategory);
     setActiveReviewType(routeState.activeReviewType);
+    setActiveEvaluationId(routeState.activeEvaluationId);
     setActivePageIndex(routeState.activePageIndex);
     setCurrentPath(routeState.currentPath);
   };
@@ -1646,14 +1657,6 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               >
                 <Award className="w-5 h-5" />
               </button>
-              <button
-                onClick={() => setShowAiDrawer(!showAiDrawer)}
-                className="bg-slate-900 text-white p-2 rounded-xl flex items-center justify-center w-10 h-10 transition-all shadow-lg"
-                title={showAiDrawer ? t.closeAdvisor : t.connectAdvisor}
-                aria-label={showAiDrawer ? t.closeAdvisor : t.connectAdvisor}
-              >
-                <MessageSquare className="w-5 h-5" />
-              </button>
             </div>
           </div>
 
@@ -1817,13 +1820,6 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                   <Award className="w-5 h-5" />
                 </button>
 
-                <button
-                  onClick={() => setShowAiDrawer(!showAiDrawer)}
-                  className="bg-slate-900 hover:bg-slate-800 text-white p-2 sm:px-4 sm:py-2 rounded-xl font-bold flex items-center gap-2 transition-all shadow-lg shadow-slate-900/10"
-                >
-                  <MessageSquare className="w-5 h-5" />
-                  <span className="hidden sm:inline text-xs">{showAiDrawer ? t.closeAdvisor : t.connectAdvisor}</span>
-                </button>
               </div>
             </div>
           </div>
@@ -1893,7 +1889,13 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             setActiveTab={navigateToTab}
             initialReviewType="single"
             activeReviewType={activeReviewType}
+            activeEvaluationId={activeEvaluationId}
             onReviewTypeChange={(reviewTypeId) => navigateToPath(reviewTypeId === "single" ? "/reviews" : `/reviews/${reviewTypeId}`, { preserveScroll: true })}
+            onEvaluationOpen={(evaluation) => {
+              const reviewType = evaluation.type && evaluation.type !== "single" ? evaluation.type : "single";
+              navigateToPath(reviewType === "single" ? `/reviews/single/${evaluation.id}` : `/reviews/${reviewType}/${evaluation.id}`);
+            }}
+            onEvaluationBack={(reviewTypeId) => navigateToPath(reviewTypeId === "single" ? "/reviews" : `/reviews/${reviewTypeId}`, { preserveScroll: true })}
             seoKeywordHints={reviewSeoHints}
             currentPage={activePageIndex}
             onPageChange={(page) => {
@@ -1970,7 +1972,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
       </main>
 
       {/* FLOAT DRAWER FOR AI ASSISTANT (B2C Friendly) */}
-      {showAiDrawer && (
+      {false && showAiDrawer && (
         <div id="ai_advisor_drawer" className="fixed bottom-6 right-6 z-40 w-96 max-h-[80vh] bg-white border border-slate-200 rounded-4xl shadow-2xl flex flex-col justify-between overflow-hidden animate-fade-in ring-1 ring-slate-900/5">
           
           {/* Drawer top banner */}

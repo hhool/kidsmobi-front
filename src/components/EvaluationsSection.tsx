@@ -20,7 +20,10 @@ interface EvaluationsSectionProps {
   lang?: "zh" | "en";
   initialReviewType?: string;
   activeReviewType?: string;
+  activeEvaluationId?: string;
   onReviewTypeChange?: (type: string) => void;
+  onEvaluationOpen?: (evaluation: Evaluation) => void;
+  onEvaluationBack?: (type: string) => void;
   seoKeywordHints?: string[];
   currentPage?: number;
   onPageChange?: (page: number) => void;
@@ -337,7 +340,10 @@ export default function EvaluationsSection({
   lang = "zh",
   initialReviewType = "all",
   activeReviewType,
+  activeEvaluationId,
   onReviewTypeChange,
+  onEvaluationOpen,
+  onEvaluationBack,
   seoKeywordHints = [],
   currentPage = 1,
   onPageChange
@@ -400,6 +406,7 @@ export default function EvaluationsSection({
   const handleReviewTypeSelect = (type: string) => {
     const normalizedType = normalizeReviewType(type);
     setSelectedReviewType(normalizedType);
+    setSelectedEvaluation(null);
     onReviewTypeChange?.(normalizedType);
   };
 
@@ -455,6 +462,39 @@ export default function EvaluationsSection({
       return matchesType && matchesSearch;
     });
   }, [reviewsList, selectedReviewType, searchQuery, lang]);
+
+  useEffect(() => {
+    if (!activeEvaluationId) {
+      if (selectedEvaluation) {
+        setSelectedEvaluation(null);
+      }
+      return;
+    }
+    const matchedEvaluation = reviewsList.find((item) => item.evaluation.id === activeEvaluationId)?.evaluation;
+    if (matchedEvaluation && selectedEvaluation?.id !== matchedEvaluation.id) {
+      setSelectedEvaluation(matchedEvaluation);
+      setSelectedReviewType(normalizeReviewType(matchedEvaluation.type));
+    }
+  }, [activeEvaluationId, reviewsList, selectedEvaluation]);
+
+  const getReviewTypeLabel = (type?: string) => {
+    const normalizedType = normalizeReviewType(type);
+    return (reviewTypes.find((item) => item.id === normalizedType)?.label || normalizedType)
+      .replace(/^[^A-Za-z0-9\u4e00-\u9fff]+/, "")
+      .trim();
+  };
+
+  const openEvaluationDetail = (evaluation: Evaluation) => {
+    setSelectedEvaluation(evaluation);
+    setSelectedReviewType(normalizeReviewType(evaluation.type));
+    onEvaluationOpen?.(evaluation);
+  };
+
+  const closeEvaluationDetail = (type?: string) => {
+    const normalizedType = normalizeReviewType(type || selectedEvaluation?.type || selectedReviewType);
+    setSelectedEvaluation(null);
+    onEvaluationBack?.(normalizedType);
+  };
 
   const getCategoryPriority = (categoryValue?: string) => {
     const normalized = String(categoryValue || "").trim().toLowerCase();
@@ -534,13 +574,106 @@ export default function EvaluationsSection({
   const isSelectedSingle = selectedEvaluation && 
     (selectedEvaluation.type !== "compare" || !selectedEvaluation.productIds || selectedEvaluation.productIds.length <= 1);
 
+  if (selectedEvaluation && isSelectedSingle) {
+    const reviewedProduct = productsData.find((p) => p.id === selectedEvaluation.productId || selectedEvaluation.productIds?.includes(p.id));
+    const tEv = lang === "zh" ? selectedEvaluation.zh : selectedEvaluation.en;
+    const selectedTypeLabel = getReviewTypeLabel(selectedEvaluation.type);
+    const productDisplay = reviewedProduct ? translateProduct(reviewedProduct, lang) : null;
+    const imageSet = reviewedProduct ? resolveProductImages(reviewedProduct) : null;
+
+    return (
+      <div className="max-w-6xl mx-auto space-y-8 animate-fade-in text-left">
+        <Breadcrumbs
+          lang={lang}
+          onHomeClick={() => {
+            setSelectedEvaluation(null);
+            setActiveTab?.("home");
+          }}
+          items={[
+            { label: lang === "zh" ? "评测中心" : "EVALUATION CENTER", onClick: () => closeEvaluationDetail("single") },
+            { label: selectedTypeLabel, onClick: () => closeEvaluationDetail(selectedEvaluation.type) },
+            { label: tEv.title, active: true },
+          ]}
+        />
+
+        <section className="bg-slate-900 text-white p-8 sm:p-10 rounded-[48px] relative overflow-hidden shadow-2xl">
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8 items-center">
+            <div className="space-y-5">
+              <div className="inline-flex py-1 px-3 bg-white/10 rounded-full text-xs font-black tracking-widest uppercase">
+                {selectedTypeLabel}
+              </div>
+              <h1 className="text-3xl md:text-5xl font-black tracking-tight leading-tight">{tEv.title}</h1>
+              <p className="text-slate-300 font-medium leading-relaxed italic border-l-4 border-orange-500 pl-4">
+                "{tEv.verdict}"
+              </p>
+            </div>
+            {reviewedProduct && imageSet && (
+              <div className="bg-white rounded-[36px] p-6 shadow-2xl shadow-slate-950/20">
+                <SmartImage
+                  src={imageSet.coverUrl || undefined}
+                  alt={productDisplay?.name || tEv.title}
+                  className="w-full h-56 object-contain"
+                  wrapperClassName="w-full h-56"
+                  width={448}
+                  height={224}
+                  priority
+                />
+                <div className="text-center mt-4">
+                  <p className="text-[10px] uppercase font-black text-slate-400 tracking-widest">{productDisplay?.brand}</p>
+                  <h2 className="font-black text-slate-900 text-xl leading-tight mt-1">{productDisplay?.name}</h2>
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+
+        <section className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-8 bg-white rounded-[48px] border border-slate-100 p-8 shadow-sm">
+          <div className="space-y-6">
+            <h2 className="text-2xl font-black text-slate-900">{lang === "en" ? "Evaluation Summary" : "评测摘要"}</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-emerald-50 rounded-[28px] p-5 border border-emerald-100">
+                <h3 className="text-xs font-black text-emerald-600 uppercase tracking-widest mb-3">Pros</h3>
+                <ul className="space-y-2 text-sm font-bold text-slate-700">
+                  {(tEv.pros || []).slice(0, 4).map((item, index) => <li key={index}>{item}</li>)}
+                </ul>
+              </div>
+              <div className="bg-rose-50 rounded-[28px] p-5 border border-rose-100">
+                <h3 className="text-xs font-black text-rose-600 uppercase tracking-widest mb-3">Cons</h3>
+                <ul className="space-y-2 text-sm font-bold text-slate-700">
+                  {(tEv.cons || []).slice(0, 4).map((item, index) => <li key={index}>{item}</li>)}
+                </ul>
+              </div>
+            </div>
+            {reviewedProduct && (
+              <button
+                onClick={() => onSelectProduct(reviewedProduct)}
+                className="w-full py-4 bg-slate-900 hover:bg-orange-500 text-white font-black text-xs uppercase tracking-widest rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2"
+              >
+                {lang === "en" ? "Open Product Dossier" : "打开产品档案"}
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+          <SafetyRadarChart product={reviewedProduct} evaluation={selectedEvaluation} lang={lang} />
+        </section>
+      </div>
+    );
+  }
+
   if (selectedEvaluation && !isSelectedSingle) {
+    const selectedTypeLabel = getReviewTypeLabel(selectedEvaluation.type);
     return (
       <MultiCompareView 
         evaluation={selectedEvaluation}
         productsData={productsData}
         lang={lang}
-        onBack={() => setSelectedEvaluation(null)}
+        reviewTypeLabel={selectedTypeLabel}
+        onHome={() => {
+          setSelectedEvaluation(null);
+          setActiveTab?.("home");
+        }}
+        onBack={() => closeEvaluationDetail(selectedEvaluation.type)}
+        onReviewTypeClick={() => closeEvaluationDetail(selectedEvaluation.type)}
         onSelectProduct={onSelectProduct}
       />
     );
@@ -711,7 +844,7 @@ export default function EvaluationsSection({
 
                   <div className="flex justify-center relative z-10">
                     <button
-                      onClick={() => setSelectedEvaluation(evaluation)}
+                      onClick={() => openEvaluationDetail(evaluation)}
                       className="px-8 py-4.5 bg-white hover:bg-orange-500 text-slate-900 hover:text-white font-black text-xs uppercase tracking-widest rounded-2xl transition-all shadow-md flex items-center gap-2"
                     >
                       {lang === "en" ? "OPEN DIRECT REALTIME COMPARISON" : "进入多品实时对比"}
@@ -755,7 +888,7 @@ export default function EvaluationsSection({
                   </div>
 
                   <button
-                    onClick={() => onSelectProduct(product)}
+                    onClick={() => openEvaluationDetail(evaluation)}
                     className="w-full py-5 bg-slate-900 hover:bg-orange-500 text-white font-black text-xs uppercase tracking-widest rounded-3xl transition-all shadow-xl shadow-slate-900/10 flex items-center justify-center gap-3 active:scale-95 group-hover:shadow-orange-500/20"
                   >
                     {lang === "en" ? "OPEN FULL DOSSIER" : "开启完整测评档案"}

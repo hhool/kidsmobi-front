@@ -99,7 +99,7 @@ export const translations = {
     navAbout: "About Us",
     navLanguage: "🌐 English",
     closeAdvisor: "Close AI Advisor",
-    connectAdvisor: "Ask AI",
+    connectAdvisor: "Advisor",
     advisorTitle: "Physics safety & Ergonomics AI Advisor",
     advisorLoading: "Analyzing multi-dimensional structural tolerances...",
 
