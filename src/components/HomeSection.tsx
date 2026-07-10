@@ -233,25 +233,25 @@ export default function HomeSection({
       </h1>
       
       {/* 1. Slogan Banner (Brand Identity) */}
-      <section className="relative rounded-[48px] bg-slate-900 overflow-hidden p-10 sm:p-20 text-center max-w-7xl mx-auto shadow-2xl">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#f97316_0%,transparent_100%)] opacity-20"></div>
+      <section className="relative rounded-[48px] bg-white border border-slate-100 overflow-hidden p-10 sm:p-20 text-center max-w-7xl mx-auto shadow-2xl">
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,247,237,0.92),rgba(255,255,255,0.88)_45%,rgba(236,253,245,0.55))]"></div>
         <div className="relative z-10 space-y-8">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-500/10 border border-orange-500/20 text-orange-500 text-[10px] font-black uppercase tracking-widest rounded-full">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-50 border border-orange-100 text-orange-600 text-[10px] font-black uppercase tracking-widest rounded-full">
             <ShieldCheck className="w-4 h-4" />
             {lang === "zh" ? "全链路安全实验室审计" : "END-TO-END SAFETY AUDIT"}
           </div>
-          <h2 className="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
+          <h2 className="text-4xl sm:text-6xl font-black text-slate-950 tracking-tight leading-tight">
             {lang === "zh" ? "客观科学评测" : "Balance Bike & Jogging Stroller Reviews,"} <br />
             <span className="text-orange-500">{lang === "zh" ? "您的信心之选" : "Your Confident Choice"}</span>
           </h2>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed font-medium">
+          <p className="text-slate-600 text-lg max-w-2xl mx-auto leading-relaxed font-medium">
             {lang === "zh" 
               ? "KIDSMOBI 是全球领先的高端童车垂直评测平台，通过力学公式与数千小时的实测，协助家长完成每一个理性的消费决策。"
               : "KIDSMOBI helps families compare balance bike, jogging stroller, kids bike, toddler bike, kids scooter, and kids electric bike options with practical how to choose a baby stroller guidance."}
           </p>
           {lang === "en" && (
             <SeoKeywordPanel
-              variant="dark"
+              variant="orange"
               columns="four"
               align="left"
               className="max-w-3xl mx-auto pt-2 text-left"
@@ -269,7 +269,7 @@ export default function HomeSection({
           )}
           <div className="flex flex-wrap justify-center gap-4 pt-4">
             {['ISO 8098', 'CPSC', 'EN 71', 'GB-14746'].map(cert => (
-              <span key={cert} className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-[10px] font-bold text-slate-500 uppercase tracking-widest">{cert}</span>
+              <span key={cert} className="px-4 py-2 bg-white/80 border border-slate-200 rounded-xl text-[10px] font-bold text-slate-500 uppercase tracking-widest shadow-sm">{cert}</span>
             ))}
           </div>
         </div>

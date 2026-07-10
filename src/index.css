@@ -15,6 +15,11 @@
   --font-sans: "Outfit", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Outfit", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --color-km-ink: #101828;
+  --color-km-muted: #667085;
+  --color-km-line: #e4e7ec;
+  --color-km-panel: rgba(255, 255, 255, 0.92);
+  --color-km-accent: #f97316;
 }
 
 @layer base {
@@ -29,8 +34,24 @@
     font-family: var(--font-sans);
     letter-spacing: 0;
     line-height: 1.5;
-    color: #0f172a;
-    background: #f8fafc;
+    color: var(--color-km-ink);
+    background:
+      linear-gradient(135deg, rgba(255, 247, 237, 0.72), rgba(248, 250, 252, 0.92) 36%, rgba(236, 253, 245, 0.48)),
+      #f8fafc;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent 80%);
   }
 
   h1, h2, h3, h4, h5, h6,
@@ -48,5 +69,124 @@
 
   p, li, dd, dt {
     letter-spacing: 0;
+  }
+}
+
+@layer components {
+  #decision_core {
+    background: transparent !important;
+    color: var(--color-km-ink);
+  }
+
+  #alert_banner {
+    background: #101828 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: none !important;
+  }
+
+  #core_header {
+    background: rgba(255, 255, 255, 0.86) !important;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.9) !important;
+    box-shadow: 0 18px 60px -42px rgba(15, 23, 42, 0.55) !important;
+  }
+
+  #core_header nav {
+    background: rgba(248, 250, 252, 0.82) !important;
+    border: 1px solid rgba(226, 232, 240, 0.92);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  }
+
+  #core_header button,
+  #primary_tab_viewport button,
+  #auth_container button {
+    letter-spacing: 0;
+  }
+
+  #primary_tab_viewport {
+    position: relative;
+    padding-top: clamp(1.75rem, 2vw, 2.5rem);
+    padding-bottom: clamp(4rem, 7vw, 6rem);
+  }
+
+  #primary_tab_viewport > * {
+    animation: km-page-in 420ms ease-out both;
+  }
+
+  #primary_tab_viewport :is(.bg-white) {
+    background-color: var(--color-km-panel) !important;
+  }
+
+  #primary_tab_viewport :is(.bg-slate-50) {
+    background-color: rgba(248, 250, 252, 0.72) !important;
+  }
+
+  #primary_tab_viewport :is(.border-slate-100, .border-slate-200) {
+    border-color: var(--color-km-line) !important;
+  }
+
+  #primary_tab_viewport :is(.shadow-sm, .shadow-xl, .shadow-2xl) {
+    box-shadow: 0 24px 70px -46px rgba(15, 23, 42, 0.5) !important;
+  }
+
+  #primary_tab_viewport :is(.rounded-4xl, .rounded-3xl, .rounded-2xl, .rounded-\[28px\], .rounded-\[32px\], .rounded-\[40px\], .rounded-\[48px\], .rounded-\[56px\]) {
+    border-radius: 16px !important;
+  }
+
+  #primary_tab_viewport :is(input, select, textarea) {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    border-color: var(--color-km-line) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  }
+
+  #primary_tab_viewport :is(input, select, textarea):focus {
+    border-color: rgba(249, 115, 22, 0.55) !important;
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+  }
+
+  #auth_container {
+    max-width: 72rem !important;
+  }
+
+  #auth_container :is(.bg-slate-900, .bg-slate-950, .bg-slate-950\/60) {
+    background: rgba(255, 255, 255, 0.92) !important;
+    border-color: var(--color-km-line) !important;
+    color: var(--color-km-ink) !important;
+  }
+
+  #auth_container :is(.text-white, .text-slate-200, .text-slate-300) {
+    color: var(--color-km-ink) !important;
+  }
+
+  #auth_container :is(.text-slate-400, .text-slate-500, .text-slate-600) {
+    color: var(--color-km-muted) !important;
+  }
+
+  #auth_container :is(.text-amber-400, .text-amber-500) {
+    color: var(--color-km-accent) !important;
+  }
+
+  #auth_container :is(.bg-amber-500, .from-amber-500) {
+    background-color: var(--color-km-accent) !important;
+  }
+
+  #auth_container :is(.border-slate-700, .border-slate-800, .border-slate-850) {
+    border-color: var(--color-km-line) !important;
+  }
+
+  #auth_container :is(input, select, textarea) {
+    background: rgba(255, 255, 255, 0.94) !important;
+    border-color: var(--color-km-line) !important;
+    color: var(--color-km-ink) !important;
+  }
+}
+
+@keyframes km-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

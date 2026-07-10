@@ -1607,7 +1607,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
   };
 
   return (
-    <div id="decision_core" className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-orange-200 selection:text-slate-900 flex flex-col justify-between">
+    <div id="decision_core" className="relative min-h-screen overflow-hidden bg-slate-50 text-slate-900 font-sans selection:bg-orange-200 selection:text-slate-900 flex flex-col justify-between">
       
       {/* 2026 Consumer Safe Notice banner */}
       <div id="alert_banner" className="bg-orange-500 text-white px-4 py-2 text-center text-[12px] font-bold tracking-normal flex items-center justify-center gap-2 shadow-sm">
@@ -1616,8 +1616,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
       </div>
 
       {/* Main sticky navigation header bar (B2C Refined) */}
-      <header id="core_header" className="border-b border-slate-200 bg-white/95 backdrop-blur sticky top-0 z-30 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+      <header id="core_header" className="border-b border-slate-200 bg-white/95 backdrop-blur-xl sticky top-0 z-30 shadow-sm">
+        <div className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col md:flex-row justify-between items-center gap-4">
           
           <div className="flex w-full md:w-auto items-center justify-between">
             {/* Brand Logo and custom version stamp */}
@@ -1829,7 +1829,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
       </header>
 
       {/* Primary content area container */}
-      <main id="primary_tab_viewport" className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full position-relative">
+      <main id="primary_tab_viewport" className="flex-1 max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full relative">
         
         {activeTab === "home" && (
           <HomeSection 

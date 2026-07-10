@@ -1001,18 +1001,18 @@ export default function GuidesSection({
           );
         })() : (
           <div className="space-y-10">
-            <div className="rounded-[40px] overflow-hidden border border-slate-200 bg-slate-950 text-white shadow-2xl shadow-slate-900/10">
+            <div className="rounded-[40px] overflow-hidden border border-slate-200 bg-white text-slate-900 shadow-2xl shadow-slate-900/10">
               <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.4fr] min-h-[320px]">
-                <div className="p-8 sm:p-10 flex flex-col justify-between gap-8 bg-[radial-gradient(circle_at_top_left,rgba(249,115,22,0.32),transparent_34%),linear-gradient(135deg,#0f172a,#111827)]">
+                <div className="p-8 sm:p-10 flex flex-col justify-between gap-8 bg-[linear-gradient(135deg,rgba(255,247,237,0.96),rgba(255,255,255,0.86)_48%,rgba(236,253,245,0.64))]">
                   <div className="space-y-5">
-                    <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-[10px] font-black uppercase tracking-[0.2em] text-orange-200">
+                    <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 border border-orange-100 text-[10px] font-black uppercase tracking-[0.2em] text-orange-600">
                       <BookOpen className="w-4 h-4" />
                       {lang === "en" ? "Guide Library" : "选购指南库"}
                     </span>
                     <h3 className="text-3xl sm:text-4xl font-black leading-tight tracking-tight">
                       {lang === "en" ? "How to Choose a Baby Stroller, Bike or Scooter" : "从婴儿推车到童车骑行，按真实产品做选择"}
                     </h3>
-                    <p className="text-sm text-slate-300 leading-7 font-medium max-w-xl">
+                    <p className="text-sm text-slate-600 leading-7 font-medium max-w-xl">
                       {lang === "en" 
                         ? "All Guides stays open as the complete index, while each specialist shelf surfaces five focused guides for balance bikes, kids bikes, and kids scooters."
                         : "All Guides 保留完整目录；每个专题分类先呈现 5 条精选，围绕平衡车、儿童自行车、儿童滑板车的具体产品展开。"}
@@ -1024,9 +1024,9 @@ export default function GuidesSection({
                       { value: allGuideArticles.length, label: lang === "en" ? "Total" : "指南总数" },
                       { value: "6x5", label: lang === "en" ? "Shelves" : "分类配置" },
                     ].map((item) => (
-                      <div key={item.label} className="rounded-2xl bg-white/8 border border-white/10 px-3 py-4">
-                        <div className="text-xl font-black text-white">{item.value}</div>
-                        <div className="text-[9px] font-black uppercase tracking-widest text-slate-400 mt-1">{item.label}</div>
+                      <div key={item.label} className="rounded-2xl bg-white/75 border border-slate-200 px-3 py-4 shadow-sm">
+                        <div className="text-xl font-black text-slate-950">{item.value}</div>
+                        <div className="text-[9px] font-black uppercase tracking-widest text-slate-500 mt-1">{item.label}</div>
                       </div>
                     ))}
                   </div>
