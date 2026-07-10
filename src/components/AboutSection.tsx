@@ -161,6 +161,14 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             </div>
         </section>
 
+        <p className="max-w-3xl mx-auto text-center text-sm text-slate-500 leading-7 font-medium">
+          Want to see our methodology applied to real products? Explore our latest{" "}
+          <a href="/reviews" className="text-orange-500 hover:text-orange-600 font-black underline decoration-orange-200 underline-offset-4">
+            kids scooter audits
+          </a>
+          {" "}and independent bike reviews, where KIDSMOBI turns mechanical testing data into practical safety guidance for families.
+        </p>
+
         {/* Business Cooperation (PRD 4.6.4) */}
         <section className="bg-orange-50 rounded-[48px] p-10 sm:p-14 border border-orange-100 flex flex-col items-center text-center space-y-6">
             <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg shadow-orange-500/10">

@@ -1215,6 +1215,26 @@ export default function GuidesSection({
                     </button>
                   </div>
                 )}
+
+                <p className="max-w-3xl mx-auto text-center text-sm text-slate-500 leading-7 font-medium pt-4">
+                  {lang === "en" ? (
+                    <>
+                      After checking your child's fit, compare real-world handling data in our{" "}
+                      <a href="/reviews" className="text-orange-500 hover:text-orange-600 font-black underline decoration-orange-200 underline-offset-4">
+                        lab-tested jogging stroller reviews
+                      </a>
+                      . Our review desk measures braking response, frame stability, and riding comfort so parents can move from sizing advice to safer product decisions.
+                    </>
+                  ) : (
+                    <>
+                      完成尺寸和场景判断后，可继续查看我们的{" "}
+                      <a href="/reviews" className="text-orange-500 hover:text-orange-600 font-black underline decoration-orange-200 underline-offset-4">
+                        实验室童车评测
+                      </a>
+                      ，用制动、车架稳定性与真实骑行舒适度数据完成下一步筛选。
+                    </>
+                  )}
+                </p>
               </div>
             )}
 
