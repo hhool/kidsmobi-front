@@ -50,6 +50,7 @@ const AboutSection = lazy(() => import("./components/AboutSection"));
 const AuthSection = lazy(() => import("./components/AuthSection"));
 const DetailedProductView = lazy(() => import("./components/DetailedProductView"));
 const AdminPanel = lazy(() => import("./components/AdminPanel"));
+const TransparencyPage = lazy(() => import("./components/TransparencyPage"));
 
 import { auth } from "./lib/firebase";
 import {
@@ -63,6 +64,7 @@ import { checkIsAdmin, getCMSSettings, getCMSProducts, getCMSEvaluations, seedPr
 import { fetchContentBundle, isScrapedContentSource } from "./lib/contentSource";
 import { DEFAULT_SEO_CONFIGS, FALLBACK_FIRST_SEO_KEYS, normalizeSeoConfig } from "./config/defaultSeo";
 import { getProductSeoKeywords, getReviewSeoKeywords } from "./config/seoKeywordMap";
+import { getTransparencyPageByPath, TRANSPARENCY_PAGE_PATHS, type TransparencyPageKey } from "./data/transparencyPages";
 
 const SEO_KEY_TO_PAGE_TYPE: Record<string, CMSPageConfig["pageType"]> = {
   home: "home",
@@ -302,6 +304,18 @@ const resolveRouteState = (pathname: string, hash: string) => {
   const currentPath = normalizePathname(pathname);
   const segments = currentPath.split("/").filter(Boolean);
   const [root, sub] = segments;
+  const transparencyPage = getTransparencyPageByPath(currentPath);
+
+  if (transparencyPage) {
+    return {
+      activeTab: "transparency",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      activeEvaluationId: "",
+      activePageIndex: 1,
+      currentPath,
+    };
+  }
 
   if (!root) {
     return {
@@ -1144,6 +1158,68 @@ export default function App() {
       return;
     }
 
+    if (activeTab === "transparency") {
+      const transparencyPage = getTransparencyPageByPath(currentPath);
+      if (transparencyPage) {
+        const localizedPage = transparencyPage[lang];
+        const normalizedSEO = normalizeSeoConfig(localizedPage.seo);
+        const canonicalPath = normalizeCanonicalPath(localizedPage.path);
+        const canonicalOrigin =
+          (cmsSettings as any)?.siteOrigin ||
+          (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+          window.location.origin;
+        const canonicalUrl = `${canonicalOrigin}${canonicalPath}`;
+        const noIndex = shouldNoIndexCurrentPath(canonicalPath, window.location.search, window.location.hostname);
+
+        document.title = normalizedSEO.title;
+        updateMetaTag("description", normalizedSEO.description);
+        updateMetaTag("keywords", normalizedSEO.keywords.join(", "));
+        updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : "index,follow,max-image-preview:large");
+        updateCanonicalLink(canonicalUrl);
+        updateMetaProperty("og:url", canonicalUrl);
+        updateMetaProperty("og:type", "article");
+        updateMetaProperty("og:title", normalizedSEO.title);
+        updateMetaProperty("og:description", normalizedSEO.description);
+
+        injectJsonLd([
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "KIDSMOBI",
+            url: `${window.location.origin}/`,
+            logo: `${window.location.origin}/favicon.ico`,
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: normalizedSEO.title,
+            url: canonicalUrl,
+            description: normalizedSEO.description,
+            inLanguage: lang,
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: `${window.location.origin}/`,
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: localizedPage.navLabel,
+                item: canonicalUrl,
+              },
+            ],
+          },
+        ]);
+      }
+      return;
+    }
+
     // Default to mapped key if valid, fallback to 'home'
     const validKeys = ["home", "news", "products", "evaluations", "guides", "about"];
     if (!validKeys.includes(seoKey)) {
@@ -1932,6 +2008,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           <AboutSection lang={lang} />
         )}
 
+        {activeTab === "transparency" && (
+          <TransparencyPage pageKey={(getTransparencyPageByPath(currentPath)?.key || "disclaimer") as TransparencyPageKey} lang={lang} />
+        )}
+
         {activeTab === "auth" && (
           <AuthSection 
             userEmail={userEmail}
@@ -2103,35 +2183,53 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 {lang === "en" ? "Transparency" : "透明度与标准"}
               </h4>
               <ul className="space-y-3 font-medium">
-                <li 
-                  className="hover:text-orange-500 transition-colors cursor-pointer text-slate-400"
-                  onClick={() => {
-                    if (lang === "en") {
-                      alert("Disclaimer: All score indexes, rim-size suggestions, load ratios are academic biomechanic predictions and do not substitute legal certifications.");
-                    } else {
-                      alert("【免责声明】KIDSMOBI 所有的分值和轮径、车重警示公式均为客观力学与学术判定推演，不代指法律强制判定。");
-                    }
-                  }}
-                >
-                  {lang === "en" ? "Disclaimer" : "免责声明专栏"}
+                <li>
+                  <a
+                    href={TRANSPARENCY_PAGE_PATHS.disclaimer}
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath(TRANSPARENCY_PAGE_PATHS.disclaimer);
+                    }}
+                  >
+                    Disclaimer
+                  </a>
                 </li>
-                <li 
-                  className="hover:text-orange-500 transition-colors cursor-pointer text-slate-400"
-                  onClick={() => navigateToTab("about")}
-                >
-                  {lang === "en" ? "Testing Methodology" : "测试方法论"}
+                <li>
+                  <a
+                    href={TRANSPARENCY_PAGE_PATHS["testing-methodology"]}
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath(TRANSPARENCY_PAGE_PATHS["testing-methodology"]);
+                    }}
+                  >
+                    Testing Methodology
+                  </a>
                 </li>
-                <li 
-                  className="hover:text-orange-500 transition-colors cursor-pointer text-slate-400"
-                  onClick={() => navigateToTab("about")}
-                >
-                  {lang === "en" ? "Certification & Lab Notes" : "认证与实验室说明"}
+                <li>
+                  <a
+                    href={TRANSPARENCY_PAGE_PATHS.certification}
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath(TRANSPARENCY_PAGE_PATHS.certification);
+                    }}
+                  >
+                    Certification & Lab Notes
+                  </a>
                 </li>
-                <li 
-                  className="hover:text-orange-500 transition-colors cursor-pointer text-slate-400"
-                  onClick={() => navigateToTab("about")}
-                >
-                  {lang === "en" ? "Privacy Policy" : "隐私与数据政策"}
+                <li>
+                  <a
+                    href={TRANSPARENCY_PAGE_PATHS["privacy-policy"]}
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath(TRANSPARENCY_PAGE_PATHS["privacy-policy"]);
+                    }}
+                  >
+                    Privacy Policy
+                  </a>
                 </li>
               </ul>
             </div>
