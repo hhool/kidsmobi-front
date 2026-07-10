@@ -29,9 +29,8 @@ import { auth } from "../lib/firebase";
 import { ensureUserProfileInFirestore } from "../lib/firestoreService";
 import { translateProduct } from "../lib/translate";
 import { formatWeight } from "../lib/units";
-import { resolveProductImages } from "../lib/productImages";
+import { FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
 import { getProductImageAlt, getProductsPageSeoTitle } from "../lib/productSeoText";
-import SmartImage from "./common/SmartImage";
 
 interface AuthSectionProps {
   userEmail: string;
@@ -804,20 +803,21 @@ export default function AuthSection({
                      <span className="text-[10px] bg-slate-850 text-slate-400 px-2.5 py-0.5 rounded-full font-mono">{compareList.length}/3</span>
                   </h4>
                   <div className="space-y-2">
-                     {compareList.map(p => {
+                     {compareList.map((p, index) => {
                        const disp = translateProduct(p, lang);
-                       const imageSet = resolveProductImages(p);
                        return (
                          <div key={p.id} className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center justify-between gap-3">
                            <div className="flex items-center gap-3 min-w-0 cursor-pointer" onClick={() => onSelectProduct && onSelectProduct(p)}>
                              <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center p-1 shrink-0">
-                               <SmartImage
-                                 src={imageSet.coverUrl || undefined}
+                               <img
+                                 src={FALLBACK_PRODUCT_IMAGE}
                                  alt={getProductImageAlt(p)}
                                  className="w-full h-full object-contain"
-                                 wrapperClassName="w-full h-full"
                                  width={80}
                                  height={80}
+                                 loading={index === 0 ? "eager" : "lazy"}
+                                 fetchPriority={index === 0 ? "high" : "auto"}
+                                 decoding={index === 0 ? "sync" : "async"}
                                />
                              </div>
                              <div className="min-w-0">
@@ -849,10 +849,9 @@ export default function AuthSection({
                      <span className="text-[10px] bg-slate-850 text-slate-400 px-2.5 py-0.5 rounded-full font-mono">{viewHistory.length}</span>
                   </h4>
                   <div className="space-y-2 max-h-[300px] overflow-y-auto custom-scrollbar">
-                     {viewHistory.map(p => {
+                     {viewHistory.map((p, index) => {
                        const disp = translateProduct(p, lang);
                        const historySeoTitle = getProductsPageSeoTitle(p);
-                       const imageSet = resolveProductImages(p);
                        return (
                          <div 
                            key={p.id} 
@@ -860,13 +859,15 @@ export default function AuthSection({
                            className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center gap-3 hover:border-slate-700 hover:bg-slate-900/40 transition cursor-pointer"
                          >
                            <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center p-1 shrink-0">
-                             <SmartImage
-                               src={imageSet.coverUrl || undefined}
+                             <img
+                               src={FALLBACK_PRODUCT_IMAGE}
                                alt={historySeoTitle || getProductImageAlt(p)}
                                className="w-full h-full object-contain"
-                               wrapperClassName="w-full h-full"
                                width={80}
                                height={80}
+                               loading={index === 0 ? "eager" : "lazy"}
+                               fetchPriority={index === 0 ? "high" : "auto"}
+                               decoding={index === 0 ? "sync" : "async"}
                              />
                            </div>
                            <div className="min-w-0">

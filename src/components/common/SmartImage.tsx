@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { FALLBACK_PRODUCT_IMAGE, withImageFallback } from "../../lib/productImages";
 
 function buildStoreMirrorCandidates(rawUrl: string): string[] {
@@ -70,6 +70,8 @@ export default function SmartImage({
 }: SmartImageProps) {
   const [isLoaded, setIsLoaded] = useState(true);
   const [resolvedSrc, setResolvedSrc] = useState(FALLBACK_PRODUCT_IMAGE);
+  const [isNearViewport, setIsNearViewport] = useState(priority || loading !== "lazy");
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
 
   const candidates = useMemo(() => {
     const list = [src, ...fallbackSrcs]
@@ -80,12 +82,37 @@ export default function SmartImage({
   }, [src, fallbackSrcs]);
 
   useEffect(() => {
+    if (priority || loading !== "lazy") {
+      setIsNearViewport(true);
+      return;
+    }
+
+    const node = wrapperRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsNearViewport(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "160px" }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [loading, priority]);
+
+  useEffect(() => {
     let cancelled = false;
     let timer: number | null = null;
     const list = candidates.length > 0 ? candidates : [(src || "").trim()].filter(Boolean);
 
     setResolvedSrc(FALLBACK_PRODUCT_IMAGE);
     setIsLoaded(true);
+
+    if (!isNearViewport) return;
 
     const loadCandidate = (index: number) => {
       if (cancelled) return;
@@ -115,7 +142,7 @@ export default function SmartImage({
       cancelled = true;
       if (timer) window.clearTimeout(timer);
     };
-  }, [candidates, priority, referrerPolicy, src]);
+  }, [candidates, isNearViewport, priority, referrerPolicy, src]);
 
   const markLoaded = () => {
     setIsLoaded(true);
@@ -130,7 +157,7 @@ export default function SmartImage({
   };
 
   return (
-    <div className={`relative ${wrapperClassName || ""}`}>
+    <div ref={wrapperRef} className={`relative ${wrapperClassName || ""}`}>
       {!isLoaded && (
         <div className="absolute inset-0 bg-slate-100 animate-pulse" aria-hidden="true" />
       )}
