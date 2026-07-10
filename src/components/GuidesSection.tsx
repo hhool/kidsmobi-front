@@ -704,11 +704,11 @@ export default function GuidesSection({
             {/* Simulated logic matching results list */}
             <div className="space-y-3 relative z-10">
               <div className="flex justify-between items-center px-2">
-                <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">
+                <h3 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">
                   {lang === "en" 
                     ? `Matching Models (${matchRecommendations.matches.length})` 
                     : `为您精准推荐 (${matchRecommendations.matches.length})`}
-                </h4>
+                </h3>
                 <button 
                   onClick={handleApplyWizardToProfile} 
                   className="text-[11px] text-orange-500 hover:text-orange-600 font-black flex items-center gap-1 transition-all hover:gap-2"

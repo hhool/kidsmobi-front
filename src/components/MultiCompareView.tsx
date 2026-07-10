@@ -57,6 +57,7 @@ export default function MultiCompareView({
       </div>
 
       <div className="bg-white rounded-[48px] border border-slate-100 p-8 shadow-sm">
+        <h2 className="sr-only">{lang === "en" ? "Compared Products" : "对比产品"}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {compProducts.map((p, idx) => {
             const pt = translateProduct(p, lang);
@@ -78,8 +79,8 @@ export default function MultiCompareView({
                   />
                 </div>
                 <div className="text-center mb-6">
-                  <h4 className="text-[10px] uppercase font-black text-slate-400 tracking-widest">{pt.brand}</h4>
-                  <p className="font-extrabold text-slate-900 mt-1">{pt.name}</p>
+                  <p className="text-[10px] uppercase font-black text-slate-400 tracking-widest">{pt.brand}</p>
+                  <h3 className="font-extrabold text-slate-900 mt-1">{pt.name}</h3>
                 </div>
                 
                 <div className="space-y-3 mb-6 flex-1">
@@ -99,7 +100,7 @@ export default function MultiCompareView({
 
                 <div className="mb-6 space-y-4">
                   <div className="space-y-2">
-                    <h5 className="text-[10px] font-black text-emerald-500 uppercase tracking-widest flex items-center gap-1"><CheckCircle2 className="w-3 h-3"/> Pros</h5>
+                    <h4 className="text-[10px] font-black text-emerald-500 uppercase tracking-widest flex items-center gap-1"><CheckCircle2 className="w-3 h-3"/> Pros</h4>
                     <ul className="space-y-1">
                       {pt.pros?.slice(0, 2).map((pro, i) => (
                         <li key={i} className="text-xs font-medium text-slate-600 truncate bg-emerald-50 px-2 py-1 rounded" title={pro}>{pro}</li>
@@ -107,7 +108,7 @@ export default function MultiCompareView({
                     </ul>
                   </div>
                   <div className="space-y-2">
-                    <h5 className="text-[10px] font-black text-rose-400 uppercase tracking-widest flex items-center gap-1"><X className="w-3 h-3"/> Cons</h5>
+                    <h4 className="text-[10px] font-black text-rose-400 uppercase tracking-widest flex items-center gap-1"><X className="w-3 h-3"/> Cons</h4>
                     <ul className="space-y-1">
                       {pt.cons?.slice(0, 2).map((con, i) => (
                         <li key={i} className="text-xs font-medium text-slate-600 truncate bg-rose-50 px-2 py-1 rounded" title={con}>{con}</li>
@@ -128,19 +129,19 @@ export default function MultiCompareView({
         </div>
 
         <div className="mt-12 p-8 bg-orange-50 rounded-[32px] border border-orange-100/50 text-orange-900">
-           <h3 className="text-lg font-black mb-4 flex items-center gap-2 uppercase tracking-wide">
+           <h2 className="text-lg font-black mb-4 flex items-center gap-2 uppercase tracking-wide">
              <Star className="w-5 h-5 text-orange-500" />
              {lang === "en" ? "Overall Comparison Insights" : "评测室综合洞察"}
-           </h3>
+           </h2>
            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
              <div>
-               <h4 className="text-xs font-black text-orange-600 uppercase tracking-widest mb-3">Highlights</h4>
+               <h3 className="text-xs font-black text-orange-600 uppercase tracking-widest mb-3">Highlights</h3>
                <ul className="space-y-2 list-disc list-inside opacity-90 text-sm font-medium">
                  {tEv.pros.length > 0 ? tEv.pros.map((p, i) => <li key={i}>{p}</li>) : <li className="opacity-50">No data</li>}
                </ul>
              </div>
              <div>
-               <h4 className="text-xs font-black text-rose-600 uppercase tracking-widest mb-3">Limitations</h4>
+               <h3 className="text-xs font-black text-rose-600 uppercase tracking-widest mb-3">Limitations</h3>
                <ul className="space-y-2 list-disc list-inside opacity-90 text-sm font-medium">
                  {tEv.cons.length > 0 ? tEv.cons.map((c, i) => <li key={i}>{c}</li>) : <li className="opacity-50">No data</li>}
                </ul>

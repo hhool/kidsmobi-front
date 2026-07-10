@@ -522,7 +522,7 @@ export default function HomeSection({
                         <span className="text-xs font-black">{dp.overallScore}</span>
                       </div>
                     </div>
-                    <h5 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors line-clamp-2 min-h-12">{dp.name}</h5>
+                    <h4 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors line-clamp-2 min-h-12">{dp.name}</h4>
                     <p className="text-[10px] text-slate-500 font-medium line-clamp-3 leading-relaxed min-h-12">“{dp.editorVerdict}”</p>
                  </div>
                </div>
@@ -544,7 +544,7 @@ export default function HomeSection({
               { id: "commute", label: lang === "zh" ? "日常通勤 · 轻便首选" : "Daily Commute", desc: lang === "zh" ? "折叠速度与整备质量极限对比" : "Weight and folding speed" },
             ].map(scene => (
               <div key={scene.id} onClick={() => setActiveTab("guides")} className="p-8 bg-white border border-slate-100 rounded-4xl hover:border-orange-500 hover:shadow-xl transition-all cursor-pointer group">
-                <h5 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors mb-2">{scene.label}</h5>
+                <h4 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors mb-2">{scene.label}</h4>
                 <p className="text-xs text-slate-500 font-medium leading-relaxed">{scene.desc}</p>
               </div>
             ))}

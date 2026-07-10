@@ -1404,9 +1404,9 @@ export default function ProductsSection({
                     />
                   </div>
                   <div className="min-w-0">
-                    <h5 className="font-extrabold text-slate-900 group-hover:text-orange-500 transition truncate text-sm">
+                    <h3 className="font-extrabold text-slate-900 group-hover:text-orange-500 transition truncate text-sm">
                       {dp.name}
-                    </h5>
+                    </h3>
                     <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wide">
                       {dp.brand}
                     </p>
