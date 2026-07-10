@@ -90,18 +90,10 @@ const DEFAULT_CMS_PAGE_BLUEPRINT: Record<string, CMSPageConfig> = {
 };
 
 const PRODUCTS_PAGE_KEYWORDS_EN = [
-  "balance bike",
-  "kids bike",
-  "jogging stroller",
   "toddler bike",
-  "kids scooter",
-  "kids electric bike",
-  "stroller travel stroller",
-  "foldable electric scooter",
-  "childs e scooter",
-  "electric dirt bike for kids",
-  "kids dirt bike",
-  "kids stroller",
+  "balance bike toddler",
+  "twin stroller",
+  "kids electric scooter",
 ];
 
 const applyPageKeywordOverride = (seoKey: string, keywords: string[], lang: "zh" | "en", activeProductCategory = "all") => {
@@ -1061,7 +1053,7 @@ export default function App() {
     const pageConfig = resolveCmsPageConfigForRoute(seoKey);
     const fallbackSeo = DEFAULT_SEO_CONFIGS[seoKey]?.[lang] || DEFAULT_SEO_CONFIGS.home[lang];
 
-    if ((lang === "en" || seoKey === "home") && FALLBACK_FIRST_SEO_KEYS.has(seoKey)) {
+    if ((lang === "en" || seoKey === "home" || seoKey === "products") && FALLBACK_FIRST_SEO_KEYS.has(seoKey)) {
       return { seo: fallbackSeo, pageConfig };
     }
 
@@ -1172,14 +1164,10 @@ export default function App() {
     }
 
     if (seoKey === "products" && activeProductCategory !== "all") {
-      const selectedCategory = productNavOptions.find((item) => item.id === activeProductCategory)?.label || activeProductCategory;
-      titleStr = lang === "zh"
-        ? `${selectedCategory} 参数 | KIDSMOBI 产品中心`
-        : `${selectedCategory} Specs | KIDSMOBI Products`;
-      descStr = lang === "zh"
-        ? `聚焦 ${selectedCategory} 的参数、安全与选购建议，结合实测数据快速筛选更适合宝宝的车型。`
-        : `Focused insights for ${selectedCategory}: specs, safety metrics, and buying recommendations powered by real test data.`;
-      keywordsArr = getProductSeoKeywords(activeProductCategory, lang);
+      const productsSeo = normalizeSeoConfig(DEFAULT_SEO_CONFIGS.products[lang] || DEFAULT_SEO_CONFIGS.products.en);
+      titleStr = productsSeo.title;
+      descStr = productsSeo.description;
+      keywordsArr = productsSeo.keywords;
     }
 
     if (seoKey === "evaluations" && activeReviewType !== "all") {

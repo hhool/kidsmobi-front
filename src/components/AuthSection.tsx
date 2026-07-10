@@ -30,7 +30,7 @@ import { ensureUserProfileInFirestore } from "../lib/firestoreService";
 import { translateProduct } from "../lib/translate";
 import { formatWeight } from "../lib/units";
 import { resolveProductImages } from "../lib/productImages";
-import { getProductImageAlt } from "../lib/productSeoText";
+import { getProductImageAlt, getProductsPageSeoTitle } from "../lib/productSeoText";
 import SmartImage from "./common/SmartImage";
 
 interface AuthSectionProps {
@@ -851,6 +851,7 @@ export default function AuthSection({
                   <div className="space-y-2 max-h-[300px] overflow-y-auto custom-scrollbar">
                      {viewHistory.map(p => {
                        const disp = translateProduct(p, lang);
+                       const historySeoTitle = getProductsPageSeoTitle(p);
                        const imageSet = resolveProductImages(p);
                        return (
                          <div 
@@ -861,7 +862,7 @@ export default function AuthSection({
                            <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center p-1 shrink-0">
                              <SmartImage
                                src={imageSet.coverUrl || undefined}
-                               alt={getProductImageAlt(p)}
+                               alt={historySeoTitle || getProductImageAlt(p)}
                                className="w-full h-full object-contain"
                                wrapperClassName="w-full h-full"
                                width={80}
@@ -869,7 +870,7 @@ export default function AuthSection({
                              />
                            </div>
                            <div className="min-w-0">
-                             <h5 className="text-xs font-extrabold text-white truncate">{disp.name}</h5>
+                             <h5 className="text-xs font-extrabold text-white truncate">{historySeoTitle}</h5>
                              <p className="text-[9px] text-slate-500 uppercase font-black tracking-wider">{disp.brand}</p>
                            </div>
                            <div className="ml-auto text-xs font-mono font-bold text-amber-400">

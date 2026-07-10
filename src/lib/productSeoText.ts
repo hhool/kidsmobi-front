@@ -28,3 +28,28 @@ export const getProductSeoTitle = (productOrName?: Product | string | null) => {
 };
 
 export const getProductImageAlt = (productOrName?: Product | string | null) => getProductSeoTitle(productOrName);
+
+export const getProductsPageSeoTitle = (productOrName?: Product | string | null) => {
+  const source = typeof productOrName === "string"
+    ? productOrName
+    : [productOrName?.brand, productOrName?.name].filter(Boolean).join(" ");
+  const normalized = normalizeSearchText(source);
+
+  if (normalized.includes("baby trend") && normalized.includes("passport") && normalized.includes("switch")) return "Baby Trend Passport Switch Modular Stroller";
+  if (normalized.includes("baby trend") && normalized.includes("ez lift") && normalized.includes("stroller")) return "Baby Trend EZ-Lift Stroller Travel System";
+  if (normalized.includes("baby trend") && (normalized.includes("double") || normalized.includes("twin"))) return "Baby Trend Double Twin Stroller";
+  if (normalized.includes("chicco") && normalized.includes("bravo")) return "Chicco Bravo Duo Twin Stroller";
+  if (normalized.includes("glerc") && normalized.includes("kids bike")) return "Glerc Kids Bike";
+  if (normalized.includes("dream on me") && normalized.includes("coast rider")) return "Dream On Me Coast Rider Travel Stroller";
+  if (normalized.includes("dream on me") && normalized.includes("scooter")) return "Dream On Me Kids Electric Scooter";
+  if (normalized.includes("mompush") && normalized.includes("nexis") && normalized.includes("carbon")) return "Mompush Nexis Carbon Travel Stroller";
+  if (normalized.includes("jmmd")) return "JMMD 6-in-1 Convertible Toddler Bike";
+  if (normalized.includes("kriddo")) return "KRIDDO Toddler Balance Bike";
+  if (normalized.includes("sereed")) return "SEREED Toddler Balance Bike";
+  if (normalized.includes("gamfeiny")) return "Gamfeiny Illuminated Toddler Balance Bike";
+  if (normalized.includes("colorful lighting") && normalized.includes("balance bike")) return "Colorful LED Toddler Balance Bike";
+  if (normalized.includes("umatoll")) return "Umatoll Illuminated Toddler Balance Bike";
+  if (normalized.includes("retrospec") && normalized.includes("cricket")) return "Retrospec Cricket Toddler Balance Bike";
+
+  return getProductSeoTitle(productOrName);
+};

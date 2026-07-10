@@ -20,7 +20,7 @@ import { Product, ProductCategory, CurrencyData } from "../types";
 import { translateProduct, translateCategory } from "../lib/translate";
 import { formatWeight } from "../lib/units";
 import { resolveProductImages } from "../lib/productImages";
-import { getProductImageAlt } from "../lib/productSeoText";
+import { getProductImageAlt, getProductsPageSeoTitle } from "../lib/productSeoText";
 import { getBackendPickerPayload } from "../lib/backendResourceService";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 import SmartImage from "./common/SmartImage";
@@ -353,7 +353,7 @@ export default function ProductsSection({
         double_strollers: "Double Strollers",
         jogger_stroller: "Jogging Strollers",
         jogger_strollers: "Jogging Strollers",
-        electric_vehicles: "Elingric Vehicles",
+        electric_vehicles: "Electric Vehicles",
         electric_car: "Electric Vehicles",
       };
       if (englishDisplayMap[normalized]) {
@@ -843,6 +843,11 @@ export default function ProductsSection({
   const totalPages = Math.max(1, Math.ceil(filteredProducts.length / pageSize));
   const safePage = Math.min(Math.max(1, currentPage), totalPages);
   const pagedProducts = filteredProducts.slice((safePage - 1) * pageSize, safePage * pageSize);
+  const productsSeoPillTags = [
+    { label: "TWIN STROLLER", target: "double_stroller" },
+    { label: "TODDLER BIKE", target: "kids_bikes" },
+    { label: "KIDS ELECTRIC SCOOTER", target: "kids_scooters" },
+  ];
 
   // Compare toggles (allows up to 4 items!)
   const handleToggleCompare = (product: Product, e: React.MouseEvent) => {
@@ -906,58 +911,37 @@ export default function ProductsSection({
           </div>
         </div>
         <h1 className="text-3xl font-black text-slate-900 mt-4">
-          {lang === "en" ? "Balance Bike, Kids Bike, Jogging Stroller & Kids Scooter Hub" : "儿童出行发现大厅"}
+          Lab Database: Twin Stroller, Toddler Bike & Kids Electric Scooter
         </h1>
         <p className="text-sm text-slate-500 font-medium">
-          {lang === "en" 
-            ? "Compare balance bike, kids bike, jogging stroller, toddler bike, kids scooter, kids electric bike, foldable electric scooter, and kids dirt bike options with test-backed safety metrics." 
-            : "每一款入库产品都经过专人实测，只为给宝宝选择最合适的那一辆。"}
+          Filter safety metrics across our entire database. Whether you need a heavy-duty twin stroller, a pedal toddler bike, a toddler balance bike, or a premium kids electric scooter, we have the lab data.
         </p>
-        {seoKeywordHints.length > 0 && (
-          <div className="flex flex-wrap justify-center gap-2 pt-2">
-            {seoKeywordHints.slice(0, 12).map((kw) => (
+        <div className="flex flex-wrap justify-center gap-2 pt-2">
+            {productsSeoPillTags.map((pill) => (
               <button
-                key={kw}
+                key={pill.label}
                 type="button"
                 onClick={() => {
                   setHintFlash(null);
-                  window.requestAnimationFrame(() => setHintFlash(kw));
-                  window.setTimeout(() => setHintFlash((current) => (current === kw ? null : current)), 300);
-                  const target = getSeoHintTarget(kw);
-                  if (target) {
-                    if (target === selectedCategory) {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }
-                    onCategoryChange?.(target);
+                  window.requestAnimationFrame(() => setHintFlash(pill.label));
+                  window.setTimeout(() => setHintFlash((current) => (current === pill.label ? null : current)), 300);
+                  if (pill.target === selectedCategory) {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
                   }
+                  onCategoryChange?.(pill.target);
                 }}
                 className={`rounded-2xl border px-3 py-2 text-[11px] font-black uppercase leading-relaxed tracking-wide transition-all ${
-                  hintFlash === kw
+                  hintFlash === pill.label
                     ? "bg-orange-50 text-orange-600 border-orange-300 shadow-sm scale-105"
-                    : getSeoHintTarget(kw) === selectedCategory
+                    : pill.target === selectedCategory
                       ? "border-orange-200 text-orange-600 bg-orange-50"
                       : "border-slate-200 hover:bg-orange-50 hover:text-orange-600 hover:border-orange-200"
                 }`}
               >
-                {kw}
+                {pill.label}
               </button>
             ))}
           </div>
-        )}
-        {lang === "en" && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 text-left">
-            {[
-              "Balance bike and balance bike toddler models sorted by fit and stability.",
-              "Kids bike, toddler bike, kids electric bike, and kids dirt bike options grouped for comparison.",
-              "Kids scooter, toddler scooter, foldable electric scooter, and childs e scooter routes stay visible.",
-              "Jogging stroller and stroller travel stroller intent stays connected to product specs.",
-            ].map((item) => (
-              <p key={item} className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-[11px] font-bold leading-relaxed text-slate-500">
-                {item}
-              </p>
-            ))}
-          </div>
-        )}
       </section>
 
       {/* Control panel */}
@@ -967,6 +951,7 @@ export default function ProductsSection({
         <div className="flex flex-col lg:flex-row gap-6 relative z-10">
           {/* Search */}
           <div className="relative flex-1">
+            <h2 className="sr-only">Search the Twin Stroller &amp; Toddler Bike Database</h2>
             <Search className="w-5 h-5 text-slate-400 absolute left-5 top-5" />
             <input
               type="text"
@@ -1250,6 +1235,7 @@ export default function ProductsSection({
             const imageSet = resolveProductImages(diProduct);
             const cardSummary = resolveCardSummary(diProduct, lang);
             const priceText = formatPriceDisplay(diProduct.price, currencyData.symbol, lang);
+            const productSeoTitle = getProductsPageSeoTitle(p);
 
             const isAlreadySaved = savedProducts.some(s => s.id === diProduct.id);
             const isAlreadyCompared = compareList.some(c => c.id === diProduct.id);
@@ -1276,7 +1262,7 @@ export default function ProductsSection({
                     <SmartImage
                       src={imageSet.coverUrl || undefined}
                       fallbackSrcs={imageSet.galleryUrls}
-                      alt={getProductImageAlt(p)}
+                      alt={productSeoTitle || getProductImageAlt(p)}
                       className="w-full h-full object-contain"
                       wrapperClassName="w-full h-full"
                       width={640}
@@ -1293,7 +1279,7 @@ export default function ProductsSection({
                   </div>
 
                   <h3 className="font-black text-slate-900 text-lg leading-tight group-hover:text-orange-500 transition-colors">
-                    {diProduct.name}
+                    {productSeoTitle}
                   </h3>
 
                   {cardSummary && (
@@ -1387,6 +1373,7 @@ export default function ProductsSection({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {viewHistory.slice(0, 4).map(p => {
               const dp = translateProduct(p, lang);
+              const historySeoTitle = getProductsPageSeoTitle(p);
               const imageSet = resolveProductImages(dp);
               return (
                 <div 
@@ -1398,7 +1385,7 @@ export default function ProductsSection({
                     <SmartImage
                       src={imageSet.coverUrl || undefined}
                       fallbackSrcs={imageSet.galleryUrls}
-                      alt={getProductImageAlt(p)}
+                      alt={historySeoTitle || getProductImageAlt(p)}
                       className="w-full h-full object-contain"
                       wrapperClassName="w-full h-full"
                       width={128}
@@ -1407,7 +1394,7 @@ export default function ProductsSection({
                   </div>
                   <div className="min-w-0">
                     <h3 className="font-extrabold text-slate-900 group-hover:text-orange-500 transition truncate text-sm">
-                      {dp.name}
+                      {historySeoTitle}
                     </h3>
                     <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wide">
                       {dp.brand}

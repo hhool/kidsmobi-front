@@ -55,14 +55,14 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
   },
   products: {
     zh: {
-      title: "童车多维参数比对矩阵 | KIDSMOBI 选车大数据库",
-      description: "提供覆盖各大主流豪华及专业品牌的参数、重量系数、几何重心和刹车力度对标详情。科学排除不合理的超载或易侧翻童车款式。",
-      keywords: ["童车参数对比", "平衡车挑选数据库", "童车重量对比", "几何重心分析"],
+      title: "Toddler Bike, Twin Stroller & Kids Electric Scooter | KIDSMOBI",
+      description: "Search our lab database for the safest twin stroller, toddler bike, and kids electric scooter. Compare test metrics for your next toddler balance bike.",
+      keywords: ["toddler bike", "balance bike toddler", "twin stroller", "kids electric scooter"],
     },
     en: {
-      title: "Balance Bike, Kids Bike & Kids Scooter | KIDSMOBI",
-      description: "Compare balance bike, kids bike, jogging stroller, toddler bike, kids scooter, kids electric bike, foldable electric scooter, and kids dirt bike.",
-      keywords: ["balance bike", "kids bike", "jogging stroller", "toddler bike", "kids scooter", "kids electric bike", "foldable electric scooter", "electric dirt bike for kids"],
+      title: "Toddler Bike, Twin Stroller & Kids Electric Scooter | KIDSMOBI",
+      description: "Search our lab database for the safest twin stroller, toddler bike, and kids electric scooter. Compare test metrics for your next toddler balance bike.",
+      keywords: ["toddler bike", "balance bike toddler", "twin stroller", "kids electric scooter"],
     },
   },
   evaluations: {
