@@ -4,6 +4,7 @@ import { Product, Evaluation, CMSSettings } from "../types";
 import { translateProduct } from "../lib/translate";
 import { formatWeight } from "../lib/units";
 import { resolveProductImages } from "../lib/productImages";
+import { getProductImageAlt } from "../lib/productSeoText";
 import SmartImage from "./common/SmartImage";
 import Breadcrumbs from "./Breadcrumbs";
 
@@ -77,7 +78,7 @@ export default function MultiCompareView({
                 <div className="w-32 h-32 mx-auto bg-white rounded-3xl p-4 mb-6 shadow-sm group-hover:scale-105 transition-transform">
                   <SmartImage
                     src={imageSet.coverUrl || undefined}
-                    alt={pt.name}
+                    alt={getProductImageAlt(p)}
                     className="w-full h-full object-contain"
                     wrapperClassName="w-full h-full"
                     width={256}

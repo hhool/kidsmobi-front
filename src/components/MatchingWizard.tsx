@@ -14,6 +14,7 @@ import {
 import { Product, CurrencyData } from "../types";
 import { translateProduct } from "../lib/translate";
 import { resolveProductImages } from "../lib/productImages";
+import { getProductImageAlt } from "../lib/productSeoText";
 import SmartImage from "./common/SmartImage";
 
 interface MatchingWizardProps {
@@ -266,7 +267,7 @@ export default function MatchingWizard({
                         <div className="w-20 h-20 bg-slate-50 rounded-2xl flex items-center justify-center p-4 group-hover:bg-orange-50 transition-colors">
                           <SmartImage
                             src={imageSet.coverUrl || undefined}
-                            alt={p.name}
+                            alt={getProductImageAlt(p)}
                             className="w-full h-full object-contain"
                             wrapperClassName="w-full h-full"
                             width={160}

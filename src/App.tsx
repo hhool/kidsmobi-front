@@ -36,6 +36,7 @@ import { ChildProfile, Product, ChatMessage, CMSSettings, Evaluation, CMSPageCon
 import { translations, translateProduct, translateNewsArticle, translateGuideArticle, countries, getCurrencyData } from "./lib/translate";
 import { formatWeight, formatHeight } from "./lib/units";
 import { resolveProductImages } from "./lib/productImages";
+import { getProductImageAlt } from "./lib/productSeoText";
 import { loadBatchProducts } from "./lib/loadBatchProducts";
 
 import SmartImage from "./components/common/SmartImage";
@@ -1060,7 +1061,7 @@ export default function App() {
     const pageConfig = resolveCmsPageConfigForRoute(seoKey);
     const fallbackSeo = DEFAULT_SEO_CONFIGS[seoKey]?.[lang] || DEFAULT_SEO_CONFIGS.home[lang];
 
-    if (lang === "en" && FALLBACK_FIRST_SEO_KEYS.has(seoKey)) {
+    if ((lang === "en" || seoKey === "home") && FALLBACK_FIRST_SEO_KEYS.has(seoKey)) {
       return { seo: fallbackSeo, pageConfig };
     }
 
@@ -1634,7 +1635,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <div className="text-lg sm:text-xl font-display font-black tracking-tight text-slate-900 flex items-center gap-2">
                   {t.brandTitle} <span className="hidden sm:inline-block text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-bold uppercase">{t.versionStamp}</span>
                 </div>
-                <p className="hidden sm:block text-[11px] text-slate-500 font-medium tracking-normal">{lang === "zh" ? "更科学、更贴心的童车导购助手" : "Your Smart & Safe Kids Bike Guide"}</p>
+                <p className="hidden sm:block text-[11px] text-slate-500 font-medium tracking-normal">Your Smart & Safe Kids' Mobility Lab</p>
               </div>
             </div>
 
@@ -1784,7 +1785,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                         <div className="w-8 h-8 bg-slate-50 rounded-lg flex items-center justify-center shrink-0">
                           <SmartImage
                             src={resolveProductImages(p).coverUrl || undefined}
-                            alt={p.name}
+                            alt={getProductImageAlt(p)}
                             className="w-6 h-6 object-contain"
                             wrapperClassName="w-6 h-6"
                             width={24}

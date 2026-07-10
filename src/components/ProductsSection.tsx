@@ -20,6 +20,7 @@ import { Product, ProductCategory, CurrencyData } from "../types";
 import { translateProduct, translateCategory } from "../lib/translate";
 import { formatWeight } from "../lib/units";
 import { resolveProductImages } from "../lib/productImages";
+import { getProductImageAlt } from "../lib/productSeoText";
 import { getBackendPickerPayload } from "../lib/backendResourceService";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 import SmartImage from "./common/SmartImage";
@@ -1275,7 +1276,7 @@ export default function ProductsSection({
                     <SmartImage
                       src={imageSet.coverUrl || undefined}
                       fallbackSrcs={imageSet.galleryUrls}
-                      alt={diProduct.name}
+                      alt={getProductImageAlt(p)}
                       className="w-full h-full object-contain"
                       wrapperClassName="w-full h-full"
                       width={640}
@@ -1397,7 +1398,7 @@ export default function ProductsSection({
                     <SmartImage
                       src={imageSet.coverUrl || undefined}
                       fallbackSrcs={imageSet.galleryUrls}
-                      alt={dp.name}
+                      alt={getProductImageAlt(p)}
                       className="w-full h-full object-contain"
                       wrapperClassName="w-full h-full"
                       width={128}

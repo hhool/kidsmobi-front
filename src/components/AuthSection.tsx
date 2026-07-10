@@ -30,6 +30,7 @@ import { ensureUserProfileInFirestore } from "../lib/firestoreService";
 import { translateProduct } from "../lib/translate";
 import { formatWeight } from "../lib/units";
 import { resolveProductImages } from "../lib/productImages";
+import { getProductImageAlt } from "../lib/productSeoText";
 import SmartImage from "./common/SmartImage";
 
 interface AuthSectionProps {
@@ -812,7 +813,7 @@ export default function AuthSection({
                              <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center p-1 shrink-0">
                                <SmartImage
                                  src={imageSet.coverUrl || undefined}
-                                 alt={p.name}
+                                 alt={getProductImageAlt(p)}
                                  className="w-full h-full object-contain"
                                  wrapperClassName="w-full h-full"
                                  width={80}
@@ -860,7 +861,7 @@ export default function AuthSection({
                            <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center p-1 shrink-0">
                              <SmartImage
                                src={imageSet.coverUrl || undefined}
-                               alt={p.name}
+                               alt={getProductImageAlt(p)}
                                className="w-full h-full object-contain"
                                wrapperClassName="w-full h-full"
                                width={80}

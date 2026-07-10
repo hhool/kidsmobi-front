@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { FALLBACK_PRODUCT_IMAGE, withImageFallback } from "../lib/productImages";
+import { getProductImageAlt } from "../lib/productSeoText";
 
 interface ProductCarouselProps {
   images: string[];
@@ -61,6 +62,7 @@ export default function ProductCarousel({ images, lang, productName }: ProductCa
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [activeImageSrc, setActiveImageSrc] = useState(images[0] || FALLBACK_PRODUCT_IMAGE);
+  const imageAlt = getProductImageAlt(productName);
 
   useEffect(() => {
     const nextSrc = images[currentIndex] || FALLBACK_PRODUCT_IMAGE;
@@ -123,7 +125,7 @@ export default function ProductCarousel({ images, lang, productName }: ProductCa
           <motion.img
             key={currentIndex}
             src={activeImageSrc}
-            alt={productName ? `${productName} - Image ${currentIndex + 1}` : `Product image ${currentIndex + 1}`}
+            alt={`${imageAlt} image ${currentIndex + 1}`}
             custom={direction}
             variants={slideVariants}
             initial="enter"
@@ -176,7 +178,7 @@ export default function ProductCarousel({ images, lang, productName }: ProductCa
           >
             <CarouselImage
               src={img || undefined}
-              alt={productName ? `${productName} - Thumbnail ${idx + 1}` : `Thumbnail ${idx + 1}`}
+              alt={`${imageAlt} thumbnail ${idx + 1}`}
               className="w-full h-full object-contain"
             />
           </button>

@@ -16,6 +16,7 @@ import { Product, CurrencyData } from "../types";
 import { translateProduct } from "../lib/translate";
 import { convertWeightNum, getWeightUnit } from "../lib/units";
 import { resolveProductImages } from "../lib/productImages";
+import { getProductImageAlt } from "../lib/productSeoText";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 import SmartImage from "./common/SmartImage";
 
@@ -110,7 +111,7 @@ export default function ComparisonDashboard({
                           <div className="w-32 h-32 bg-white rounded-3xl p-4 flex items-center justify-center">
                             <SmartImage
                               src={imageSet.coverUrl || undefined}
-                              alt={p.name}
+                              alt={getProductImageAlt(p)}
                               className="w-full h-full object-contain"
                               wrapperClassName="w-full h-full"
                               width={256}

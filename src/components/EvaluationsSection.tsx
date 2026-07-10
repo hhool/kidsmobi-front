@@ -3,6 +3,7 @@ import { Award, Filter, ShieldCheck, Scale, Search, CheckCircle, Flame, Star, Sp
 import { Product } from "../types";
 import { translateProduct } from "../lib/translate";
 import { resolveProductImages } from "../lib/productImages";
+import { getProductImageAlt } from "../lib/productSeoText";
 import SmartImage from "./common/SmartImage";
 import Breadcrumbs from "./Breadcrumbs";
 import SeoKeywordPanel from "./common/SeoKeywordPanel";
@@ -613,7 +614,7 @@ export default function EvaluationsSection({
               <div className="bg-white rounded-[36px] p-6 shadow-2xl shadow-slate-950/20">
                 <SmartImage
                   src={imageSet.coverUrl || undefined}
-                  alt={productDisplay?.name || tEv.title}
+                  alt={reviewedProduct ? getProductImageAlt(reviewedProduct) : tEv.title}
                   className="w-full h-56 object-contain"
                   wrapperClassName="w-full h-56"
                   width={448}
@@ -817,7 +818,7 @@ export default function EvaluationsSection({
                           <div className="w-20 h-20 bg-white rounded-2xl p-2 flex items-center justify-center">
                             <SmartImage
                               src={imageSet.coverUrl || undefined}
-                              alt={diProduct.name}
+                              alt={getProductImageAlt(product)}
                               className="w-full h-full object-contain"
                               wrapperClassName="w-full h-full"
                               width={160}

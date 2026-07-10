@@ -1,7 +1,7 @@
 import type { SEOConfig } from "../types";
 
 export const SEO_TDK_LIMITS = {
-  title: 60,
+  title: 72,
   description: 155,
   keywords: 10,
   keyword: 32,
@@ -31,14 +31,14 @@ export function normalizeSeoConfig(config: SEOConfig): SEOConfig {
 export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
   home: {
     zh: {
-      title: "全新一代高端童车安全评测与科学网购决策平台 | KIDSMOBI",
-      description: "KIDSMOBI 致力于为全球家庭提供科学、中立的童车评测与安全审计服务。通过严苛的物理结构负载公式和工效学实测，覆盖儿童平衡车、童车拉车、安全座椅等领域的国际质量认证、参数对比与智能选车推荐。",
-      keywords: ["童车评测", "平衡车推荐", "安全座椅测评", "智能选车向导", "KIDSMOBI", "儿童滑板车评测"],
+      title: "Jogging Stroller, Balance Bike, Kids Bike & Kids Scooter | KIDSMOBI",
+      description: "Compare lab-tested safety metrics for your next jogging stroller, balance bike, kids bike, or kids scooter. Access unbiased reviews to ride safely.",
+      keywords: ["jogging stroller", "balance bike", "kids scooter", "kids bike"],
     },
     en: {
-      title: "Balance Bike, Jogging Stroller & Kids Scooter | KIDSMOBI",
-      description: "Compare balance bike, jogging stroller, toddler bike, kids scooter, and kids electric bike with safety reviews and baby stroller guidance.",
-      keywords: ["balance bike", "jogging stroller", "kids bike", "toddler bike", "kids scooter", "kids electric bike", "how to choose a baby stroller"],
+      title: "Jogging Stroller, Balance Bike, Kids Bike & Kids Scooter | KIDSMOBI",
+      description: "Compare lab-tested safety metrics for your next jogging stroller, balance bike, kids bike, or kids scooter. Access unbiased reviews to ride safely.",
+      keywords: ["jogging stroller", "balance bike", "kids scooter", "kids bike"],
     },
   },
   news: {

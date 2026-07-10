@@ -11,6 +11,7 @@ import { Product, CurrencyData } from "../types";
 import { translations, translateProduct } from "../lib/translate";
 import { SCRAPED_CATEGORY_CATALOG } from "../config/scrapedCategoryCatalog";
 import { resolveProductImages, FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
+import { getProductImageAlt } from "../lib/productSeoText";
 import { clearJsonLd, setCollectionPageJsonLd } from "../lib/seoJsonLd";
 import SeoKeywordPanel from "./common/SeoKeywordPanel";
 
@@ -159,6 +160,20 @@ export default function HomeSection({
     })
     .slice(0, 4);
 
+  const seoProductCards = useMemo(() => {
+    const targets = [
+      { key: "infans", title: "INFANS All-Terrain Jogging Stroller", snapshot: "Lab Snapshot: air-filled tire damping and frame-fold stability reviewed for daily jogging stroller use.", match: (product: Product) => normalizeCategory(`${product.brand} ${product.name}`).includes("infans") },
+      { key: "jmmd", title: "JMMD Convertible Balance Bike", snapshot: "Lab Snapshot: conversion hardware, push-handle control, and balance bike fit range checked across toddler stages.", match: (product: Product) => normalizeCategory(`${product.brand} ${product.name}`).includes("jmmd") },
+      { key: "glerc", title: "Glerc Rover 12\" Kids Bike", snapshot: "Lab Snapshot: tire width, braking response, and frame geometry reviewed for first-pedal kids bike control.", match: (product: Product) => normalizeCategory(`${product.brand} ${product.name}`).includes("glerc") && normalizeCategory(product.name).includes("rover") },
+      { key: "green-mini", title: "Green Mini 3-Wheel Kids Scooter", snapshot: "Lab Snapshot: lean-to-steer response, deck stability, and wheel visibility checked for kids scooter handling.", match: (product: Product) => normalizeCategory(product.name).includes("green_mini") },
+    ];
+    return targets.map((target, index) => ({
+      title: target.title,
+      snapshot: target.snapshot,
+      product: productsData.find(target.match) || topSelections[index] || topSelections[0],
+    })).filter((item): item is { title: string; snapshot: string; product: Product } => Boolean(item.product));
+  }, [productsData, topSelections]);
+
   const prioritizedCategoryCards = useMemo(() => {
     const englishLabelOverrides: Record<string, string> = {
       jogger_stroller: "Jogging Stroller",
@@ -175,30 +190,28 @@ export default function HomeSection({
       return false;
     }).slice(0, 4).map((entry) => ({
       ...entry,
-      label: lang === "zh" ? entry.zh : englishLabelOverrides[entry.id] || entry.en,
+      label: englishLabelOverrides[entry.id] || entry.en,
     }));
-  }, [lang]);
+  }, []);
 
   const annualAwards = [
     { 
       type: "stroller", 
-      label: lang === "zh" ? "慢跑推车精选" : "Jogging Stroller Pick", 
-      winner: productsData.find(p => {
-        const cat = normalizeCategory(p.category || "");
-        return cat.includes("jogger") || cat.includes("jogging");
-      })
+      label: "Jogging Stroller Pick", 
+      title: "INFANS All-Terrain Jogging Stroller",
+      winner: seoProductCards.find(card => card.title === "INFANS All-Terrain Jogging Stroller")?.product
     },
     { 
       type: "balance", 
-      label: lang === "zh" ? "平衡车精选" : "Balance Bike Pick", 
-      winner: productsData.find(p => p.category === "balance") 
+      label: "Balance Bike Pick", 
+      title: "JMMD Convertible Balance Bike",
+      winner: seoProductCards.find(card => card.title === "JMMD Convertible Balance Bike")?.product
     },
     { 
       type: "value", 
-      label: lang === "zh" ? "儿童滑板车精选" : "Kids Scooter Pick", 
-      winner: [...productsData]
-        .filter(p => normalizeCategory(p.category || "").includes("scooter"))
-        .sort((a, b) => a.price - b.price)[0]
+      label: "Kids Scooter Pick", 
+      title: "Green Mini 3-Wheel Kids Scooter",
+      winner: seoProductCards.find(card => card.title === "Green Mini 3-Wheel Kids Scooter")?.product
     }
   ];
 
@@ -226,12 +239,6 @@ export default function HomeSection({
 
   return (
     <div id="home_layout" className="space-y-24 pb-20">
-      <h1 className="sr-only">
-        {lang === "zh"
-          ? "stroller、jogging stroller、balance bike 与 kids scooter 科学选购平台"
-          : "Balance Bike, Jogging Stroller, Kids Bike and Kids Scooter Review Platform"}
-      </h1>
-      
       {/* 1. Slogan Banner (Brand Identity) */}
       <section className="relative rounded-[48px] bg-white border border-slate-100 overflow-hidden p-10 sm:p-20 text-center max-w-7xl mx-auto shadow-2xl">
         <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,247,237,0.92),rgba(255,255,255,0.88)_45%,rgba(236,253,245,0.55))]"></div>
@@ -240,33 +247,24 @@ export default function HomeSection({
             <ShieldCheck className="w-4 h-4" />
             {lang === "zh" ? "全链路安全实验室审计" : "END-TO-END SAFETY AUDIT"}
           </div>
-          <h2 className="text-3xl font-black text-slate-950 tracking-tight leading-tight">
-            {lang === "zh" ? "客观科学评测" : "Balance Bike & Jogging Stroller Reviews,"} <br />
-            <span className="text-orange-500">{lang === "zh" ? "您的信心之选" : "Your Confident Choice"}</span>
-          </h2>
+          <h1 className="text-3xl font-black text-slate-950 tracking-tight leading-tight">
+            Expert Reviews: Jogging Stroller, Balance Bike, Kids Bike & Kids Scooter
+          </h1>
           <p className="text-slate-600 text-sm max-w-2xl mx-auto leading-relaxed font-medium">
-            {lang === "zh" 
-              ? "KIDSMOBI 是全球领先的高端童车垂直评测平台，通过力学公式与数千小时的实测，协助家长完成每一个理性的消费决策。"
-              : "KIDSMOBI helps families compare balance bike, jogging stroller, kids bike, toddler bike, kids scooter, and kids electric bike options with practical how to choose a baby stroller guidance."}
+            Access unbiased mechanical data across our lab-tested jogging stroller, balance bike, kids bike, and kids scooter database.
           </p>
-          {lang === "en" && (
-            <SeoKeywordPanel
-              variant="orange"
-              columns="four"
-              align="left"
-              className="max-w-3xl mx-auto pt-2 text-left"
-              keywords={[
-                "balance bike review",
-                "jogging stroller review",
-                "kids bike guide",
-                "toddler bike fit",
-                "kids scooter pick",
-                "kids electric bike",
-                "baby stroller guide",
-                "foldable electric scooter",
-              ]}
-            />
-          )}
+          <SeoKeywordPanel
+            variant="orange"
+            columns="four"
+            align="left"
+            className="max-w-3xl mx-auto pt-2 text-left"
+            keywords={[
+              "jogging stroller",
+              "balance bike",
+              "kids bike",
+              "kids scooter",
+            ]}
+          />
           <div className="flex flex-wrap justify-center gap-4 pt-4">
             {['ISO 8098', 'CPSC', 'EN 71', 'GB-14746'].map(cert => (
               <span key={cert} className="px-4 py-2 bg-white/80 border border-slate-200 rounded-xl text-[10px] font-bold text-slate-500 uppercase tracking-widest shadow-sm">{cert}</span>
@@ -280,7 +278,7 @@ export default function HomeSection({
         <div className="flex justify-between items-end">
           <div className="space-y-2">
             <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">{lang === "zh" ? "权威发布" : "Annual Authority"}</span>
-            <h3 className="text-3xl font-black text-slate-900 tracking-tight">{lang === "zh" ? "2026 年度童车大奖" : "2026 Annual Awards"}</h3>
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight">2026 Awards: Top Jogging Stroller & Balance Bike</h2>
           </div>
           <button
             onClick={() => setActiveTab("evaluations")}
@@ -311,7 +309,7 @@ export default function HomeSection({
                     <>
                 <img
                   src={resolveStableImageSrc(imageKey, sourceUrl)}
-                  alt={award.winner ? translateProduct(award.winner, lang).name : award.label}
+                  alt={award.winner ? award.title : award.label}
                   onLoad={() => handleCardImageLoad(imageKey)}
                   onError={() => handleCardImageError(imageKey, sourceUrl)}
                   className="w-full h-full object-contain p-5 transition-transform duration-500 group-hover:scale-[1.08]"
@@ -336,9 +334,9 @@ export default function HomeSection({
               </div>
               <div className="p-6 bg-white flex-1 flex flex-col gap-4">
                 <div className="space-y-2">
-                  <h4 className="text-slate-950 font-black text-lg leading-tight group-hover:text-orange-500 transition-colors">
-                    {award.winner ? translateProduct(award.winner, lang).name : (lang === "zh" ? "评测中" : "Evaluating")}
-                  </h4>
+                  <h3 className="text-slate-950 font-black text-lg leading-tight group-hover:text-orange-500 transition-colors">
+                    {award.winner ? award.title : (lang === "zh" ? "评测中" : "Evaluating")}
+                  </h3>
                   <p className="text-sm text-slate-500 font-semibold">
                     {award.label}
                   </p>
@@ -394,13 +392,11 @@ export default function HomeSection({
             <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">
               {lang === "zh" ? "精选品类" : "Category Highlights"}
             </span>
-            <h3 className="text-3xl font-black text-slate-900 tracking-tight">
-              {lang === "zh" ? "热门品类快速直达" : "Popular Category Launchpad"}
-            </h3>
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight">
+              Explore by Category: Find Your Perfect Ride
+            </h2>
             <p className="text-slate-500 font-medium">
-              {lang === "zh"
-                ? "围绕真实出行场景整理的品类入口，帮助你更快锁定候选方向。"
-                : "Category cards curated around real mobility scenarios to help you narrow down options faster."}
+              When testing a kids bike or a balance bike, KIDSMOBI compares frame geometry, braking confidence, and ride posture beside jogging stroller and kids scooter safety data.
             </p>
           </div>
           <button
@@ -454,7 +450,7 @@ export default function HomeSection({
 
               <div className="p-6 bg-white flex-1 flex flex-col gap-4">
                 <div className="space-y-2">
-                  <h4 className="text-slate-950 font-black text-lg leading-tight">{cat.label}</h4>
+                  <h3 className="text-slate-950 font-black text-lg leading-tight">{cat.label}</h3>
                   <p className="text-sm text-slate-500 font-semibold">
                     {lang === "zh" ? `当前参考 ${cat.itemCount} 款高相关产品` : `${cat.itemCount} curated picks for this scenario`}
                   </p>
@@ -476,7 +472,10 @@ export default function HomeSection({
         <div className="flex justify-between items-end">
           <div className="space-y-2">
             <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">{lang === "zh" ? "社区热选" : "Trending Now"}</span>
-            <h3 className="text-3xl font-black text-slate-900 tracking-tight">{lang === "zh" ? "实验室推荐单品" : "Highly Rated Kids Rides"}</h3>
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight">Safety Audits: Best Kids Bike & Kids Scooter</h2>
+            <p className="text-slate-500 font-medium">
+              Every jogging stroller, balance bike, kids bike, and kids scooter card below uses a short lab title so families can compare core ride types faster.
+            </p>
           </div>
           <button 
             onClick={() => setActiveTab("products")}
@@ -486,7 +485,7 @@ export default function HomeSection({
           </button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {topSelections.map(p => {
+           {seoProductCards.map(({ product: p, title, snapshot }) => {
              const dp = translateProduct(p, lang);
              return (
                <div 
@@ -503,7 +502,7 @@ export default function HomeSection({
                         <>
                     <img
                       src={resolveStableImageSrc(imageKey, sourceUrl)}
-                      alt={dp.name}
+                      alt={getProductImageAlt(title)}
                       onLoad={() => handleCardImageLoad(imageKey)}
                       onError={() => handleCardImageError(imageKey, sourceUrl)}
                       className="w-full h-full object-contain p-5 transition-transform duration-500 group-hover:scale-[1.08]"
@@ -528,8 +527,8 @@ export default function HomeSection({
                         <span className="text-xs font-black">{dp.overallScore}</span>
                       </div>
                     </div>
-                    <h4 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors line-clamp-2 min-h-12">{dp.name}</h4>
-                    <p className="text-[10px] text-slate-500 font-medium line-clamp-3 leading-relaxed min-h-12">“{dp.editorVerdict}”</p>
+                    <h3 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors line-clamp-2 min-h-12">{title}</h3>
+                    <p className="text-[10px] text-slate-500 font-medium line-clamp-3 leading-relaxed min-h-12">{snapshot}</p>
                  </div>
                </div>
              );
