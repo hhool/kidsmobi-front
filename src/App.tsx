@@ -2150,29 +2150,25 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 {lang === "en" ? "Review Categories" : "评测分类"}
               </h4>
               <ul className="space-y-3 font-medium">
-                <li 
-                  className="hover:text-orange-500 transition-colors cursor-pointer text-slate-400"
-                  onClick={() => navigateToPath("/reviews")}
-                >
-                  {lang === "en" ? "Balance Bike Reviews" : "平衡车评测"}
+                <li>
+                  <a href="/reviews" className="hover:text-orange-500 transition-colors text-slate-400">
+                    {lang === "en" ? "Balance Bike Reviews" : "平衡车评测"}
+                  </a>
                 </li>
-                <li 
-                  className="hover:text-orange-500 transition-colors cursor-pointer text-slate-400"
-                  onClick={() => navigateToPath("/products/kids_bikes")}
-                >
-                  {lang === "en" ? "Kids Bike Product Hub" : "儿童自行车产品库"}
+                <li>
+                  <a href="/products" className="hover:text-orange-500 transition-colors text-slate-400">
+                    {lang === "en" ? "Kids Bike Product Hub" : "儿童自行车产品库"}
+                  </a>
                 </li>
-                <li 
-                  className="hover:text-orange-500 transition-colors cursor-pointer text-slate-400"
-                  onClick={() => navigateToPath("/products/kids_scooters")}
-                >
-                  {lang === "en" ? "Kids Scooter Product Hub" : "儿童滑板车产品库"}
+                <li>
+                  <a href="/products" className="hover:text-orange-500 transition-colors text-slate-400">
+                    {lang === "en" ? "Kids Scooter Product Hub" : "儿童滑板车产品库"}
+                  </a>
                 </li>
-                <li 
-                  className="hover:text-orange-500 transition-colors cursor-pointer text-slate-400"
-                  onClick={() => navigateToTab("guides")}
-                >
-                  {lang === "en" ? "Sizing & Buying Guide" : "尺寸与选购指南"}
+                <li>
+                  <a href="/guides" className="hover:text-orange-500 transition-colors text-slate-400">
+                    {lang === "en" ? "Sizing & Buying Guide" : "尺寸与选购指南"}
+                  </a>
                 </li>
               </ul>
             </div>
