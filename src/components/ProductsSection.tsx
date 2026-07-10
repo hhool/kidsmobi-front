@@ -904,7 +904,7 @@ export default function ProductsSection({
             <BookOpen className="w-6 h-6 text-orange-500" />
           </div>
         </div>
-        <h1 className="text-2xl font-bold text-slate-700 mt-4">
+        <h1 className="text-3xl font-black text-slate-900 mt-4">
           {lang === "en" ? "Balance Bike, Kids Bike, Jogging Stroller & Kids Scooter Hub" : "儿童出行发现大厅"}
         </h1>
         <p className="text-sm text-slate-500 font-medium">
@@ -1291,7 +1291,7 @@ export default function ProductsSection({
                     <span className="text-slate-400 text-[10px] font-black uppercase tracking-widest">{diProduct.brand}</span>
                   </div>
 
-                  <h3 className="font-black text-slate-900 text-xl leading-tight group-hover:text-orange-500 transition-colors">
+                  <h3 className="font-black text-slate-900 text-lg leading-tight group-hover:text-orange-500 transition-colors">
                     {diProduct.name}
                   </h3>
 

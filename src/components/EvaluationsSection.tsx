@@ -702,14 +702,14 @@ export default function EvaluationsSection({
           <BookOpen className="w-4 h-4" />
           {lang === "zh" ? "专业实测报告" : "VERIFIED REPORTS"}
         </div>
-        <h2 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+        <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-tight">
           {lang === "en" ? (
             <>Stroller, Balance Bike & Kids Scooter Expert Reviews</>
           ) : (
             <>用严苛实测，重塑选购信心</>
           )}
         </h2>
-        <p className="text-slate-500 text-lg font-medium leading-relaxed">
+        <p className="text-slate-500 text-sm font-medium leading-relaxed">
           {lang === "en" 
             ? "Real-world testing meets parenting reality. Discover our top-rated jogging stroller, balance bike, and kids scooter, rigorously evaluated for your child's safety and comfort."
             : "KIDSMOBI 通过匿名采购、工业级精密设备及儿科工效学评估，为您呈现每一款童车背后的真实物理数据。"}
@@ -800,7 +800,7 @@ export default function EvaluationsSection({
                     <span className="bg-orange-500 text-white font-black px-4 py-1.5 rounded-full text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-orange-500/20">
                       {reviewBadge}
                     </span>
-                    <h3 className="text-3xl md:text-5xl mt-6 font-black tracking-tight text-white leading-tight">
+                    <h3 className="text-2xl mt-6 font-black tracking-tight text-white leading-tight">
                       {tEv.title}
                     </h3>
                     <p className="text-slate-400 mt-3 text-sm max-w-lg mx-auto leading-relaxed">
@@ -869,7 +869,7 @@ export default function EvaluationsSection({
 
                     <div className="space-y-2">
                       <span className="text-[10px] text-slate-400 font-black uppercase tracking-widest">{diProduct.brand}</span>
-                      <h3 className="font-black text-slate-900 text-3xl md:text-2xl lg:text-3xl leading-tight group-hover:text-orange-500 transition-colors uppercase">
+                      <h3 className="font-black text-slate-900 text-lg leading-tight group-hover:text-orange-500 transition-colors uppercase">
                         {tEv.title || diProduct.name}
                       </h3>
                     </div>

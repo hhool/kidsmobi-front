@@ -1009,7 +1009,7 @@ export default function GuidesSection({
                       <BookOpen className="w-4 h-4" />
                       {lang === "en" ? "Guide Library" : "选购指南库"}
                     </span>
-                    <h3 className="text-3xl sm:text-4xl font-black leading-tight tracking-tight">
+                    <h3 className="text-3xl font-black leading-tight tracking-tight">
                       {lang === "en" ? "How to Choose a Baby Stroller, Bike or Scooter" : "从婴儿推车到童车骑行，按真实产品做选择"}
                     </h3>
                     <p className="text-sm text-slate-600 leading-7 font-medium max-w-xl">
@@ -1104,7 +1104,7 @@ export default function GuidesSection({
                           <span className="text-slate-400">{pagedGuides[0].publishDate}</span>
                           <span className="text-slate-400 flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{pagedGuides[0].readTime}</span>
                         </div>
-                        <h4 className="font-black text-slate-950 text-2xl sm:text-3xl leading-tight group-hover:text-orange-500 transition-colors">
+                        <h4 className="font-black text-slate-950 text-lg leading-tight group-hover:text-orange-500 transition-colors">
                           {pagedGuides[0].title}
                         </h4>
                         <p className="text-sm text-slate-500 leading-7 font-medium line-clamp-3">

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, FormEvent, useMemo } from "react";
+import { useState, useEffect, useRef, FormEvent, useMemo, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Baby,
@@ -27,17 +27,6 @@ import {
   X,
   ArrowUp
 } from "lucide-react";
-import {
-  Radar,
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  ResponsiveContainer,
-  Legend,
-  Tooltip
-} from "recharts";
-import { productsData as defaultProductsData } from "./data/modelsData";
 import { guideArticles } from "./data/guidesData";
 import { newsArticles } from "./data/newsData";
 import { initialEvaluationsData } from "./data/evaluationsData";
@@ -49,20 +38,26 @@ import { formatWeight, formatHeight } from "./lib/units";
 import { resolveProductImages } from "./lib/productImages";
 import { loadBatchProducts } from "./lib/loadBatchProducts";
 
-// Import modular layouts
-import HomeSection from "./components/HomeSection";
-import NewsSection from "./components/NewsSection";
-import ProductsSection from "./components/ProductsSection";
-import EvaluationsSection from "./components/EvaluationsSection";
-import GuidesSection from "./components/GuidesSection";
-import AboutSection from "./components/AboutSection";
-import AuthSection from "./components/AuthSection";
-import DetailedProductView from "./components/DetailedProductView";
-import AdminPanel from "./components/AdminPanel";
 import SmartImage from "./components/common/SmartImage";
 
+const HomeSection = lazy(() => import("./components/HomeSection"));
+const NewsSection = lazy(() => import("./components/NewsSection"));
+const ProductsSection = lazy(() => import("./components/ProductsSection"));
+const EvaluationsSection = lazy(() => import("./components/EvaluationsSection"));
+const GuidesSection = lazy(() => import("./components/GuidesSection"));
+const AboutSection = lazy(() => import("./components/AboutSection"));
+const AuthSection = lazy(() => import("./components/AuthSection"));
+const DetailedProductView = lazy(() => import("./components/DetailedProductView"));
+const AdminPanel = lazy(() => import("./components/AdminPanel"));
+
 import { auth } from "./lib/firebase";
-import { getBookmarksFromFirestore, addBookmarkToFirestore, removeBookmarkFromFirestore } from "./lib/firestoreService";
+import {
+  addBookmarkToFirestore,
+  getBookmarksFromFirestore,
+  getChildProfileFromFirestore,
+  removeBookmarkFromFirestore,
+  saveChildProfileToFirestore,
+} from "./lib/firestoreService";
 import { checkIsAdmin, getCMSSettings, getCMSProducts, getCMSEvaluations, seedProductsToFirestore, seedEvaluationsToFirestore, seedGuidesToFirestore, seedNewsToFirestore } from "./lib/cmsService";
 import { fetchContentBundle, isScrapedContentSource } from "./lib/contentSource";
 import { DEFAULT_SEO_CONFIGS, FALLBACK_FIRST_SEO_KEYS, normalizeSeoConfig } from "./config/defaultSeo";
@@ -76,6 +71,13 @@ const SEO_KEY_TO_PAGE_TYPE: Record<string, CMSPageConfig["pageType"]> = {
   news: "news_index",
   about: "about",
 };
+
+let defaultProductsDataPromise: Promise<Product[]> | null = null;
+
+function loadDefaultProductsData() {
+  defaultProductsDataPromise ??= import("./data/modelsData").then(({ productsData }) => productsData);
+  return defaultProductsDataPromise;
+}
 
 const DEFAULT_CMS_PAGE_BLUEPRINT: Record<string, CMSPageConfig> = {
   home: { pageType: "home", pageSlug: "home", pageIndex: 1, paginationPolicy: "none", indexingPolicy: "index", status: "published" },
@@ -608,10 +610,7 @@ export default function App() {
       const currentUser = auth.currentUser;
       const isBypass = isDevAdminBypassEnabled();
       if (currentUser && !isBypass) {
-        // Asynchronously save to Firebase
-        import("./lib/firestoreService").then(({ saveChildProfileToFirestore }) => {
-          saveChildProfileToFirestore(currentUser.uid, newProfile);
-        }).catch(err => console.error("Dynamic import failed", err));
+        void saveChildProfileToFirestore(currentUser.uid, newProfile);
       }
       
       return newProfile;
@@ -651,7 +650,7 @@ export default function App() {
 
   // Global CMS settings, Products, and Evaluations state
   const [cmsSettings, setCmsSettings] = useState<CMSSettings | null>(null);
-  const [productsData, setProductsData] = useState<Product[]>(defaultProductsData);
+  const [productsData, setProductsData] = useState<Product[]>([]);
   const [evaluationsData, setEvaluationsData] = useState<Evaluation[]>([]);
 
   // Cache compareList and viewHistory on change and keep them fresh relative to database updates
@@ -727,16 +726,18 @@ export default function App() {
           try {
             const bundle = await fetchContentBundle();
             if (!isActive) return;
-            const fallbackProducts =
-              bundle.products && bundle.products.length > 0
-                ? filterExcludedProductCategories(bundle.products)
-                : filterExcludedProductCategories(defaultProductsData);
+            const fallbackProducts = bundle.products && bundle.products.length > 0
+              ? filterExcludedProductCategories(bundle.products)
+              : filterExcludedProductCategories(await loadDefaultProductsData());
+            if (!isActive) return;
             nextProducts = mergeCmsWithFallbackByCategory(nextProducts, fallbackProducts);
           } catch {
             if (!isActive) return;
+            const defaultProducts = await loadDefaultProductsData();
+            if (!isActive) return;
             nextProducts = mergeCmsWithFallbackByCategory(
               nextProducts,
-              filterExcludedProductCategories(defaultProductsData)
+              filterExcludedProductCategories(defaultProducts)
             );
           }
         }
@@ -756,11 +757,15 @@ export default function App() {
             if (bundle.products && bundle.products.length > 0) {
               setProductsData(applyBatchProducts(filterExcludedProductCategories(bundle.products)));
             } else {
-              setProductsData(applyBatchProducts(filterExcludedProductCategories(defaultProductsData)));
+              const defaultProducts = await loadDefaultProductsData();
+              if (!isActive) return;
+              setProductsData(applyBatchProducts(filterExcludedProductCategories(defaultProducts)));
             }
           } catch {
             if (!isActive) return;
-            setProductsData(applyBatchProducts(filterExcludedProductCategories(defaultProductsData)));
+            const defaultProducts = await loadDefaultProductsData();
+            if (!isActive) return;
+            setProductsData(applyBatchProducts(filterExcludedProductCategories(defaultProducts)));
           }
         }
       }
@@ -887,7 +892,8 @@ export default function App() {
         if (allProducts.length === 0) {
           console.log("Admin logged in & D1 content is empty. Auto-seeding comprehensive dataset...");
           // Seed Products
-          const successProd = await seedProductsToFirestore(defaultProductsData, translateProduct);
+          const defaultProducts = await loadDefaultProductsData();
+          const successProd = await seedProductsToFirestore(defaultProducts, translateProduct);
           if (successProd) {
             const freshProducts = await getCMSProducts(true);
             if (freshProducts && freshProducts.length > 0) {
@@ -937,7 +943,6 @@ export default function App() {
 
         // Fetch user's child profile
         try {
-          const { getChildProfileFromFirestore } = await import("./lib/firestoreService");
           const profile = await getChildProfileFromFirestore(user.uid);
           if (profile) {
             setChildProfileState(profile); // Bypass the save logic since we just fetched it
@@ -1830,6 +1835,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
       {/* Primary content area container */}
       <main id="primary_tab_viewport" className="flex-1 max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full relative">
+        <Suspense fallback={<div className="min-h-80 rounded-3xl border border-slate-100 bg-white/80 p-8 text-center text-sm font-bold text-slate-500 shadow-sm">Loading KIDSMOBI...</div>}>
         
         {activeTab === "home" && (
           <HomeSection 
@@ -1968,6 +1974,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             }}
           />
         )}
+        </Suspense>
 
       </main>
 

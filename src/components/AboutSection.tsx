@@ -30,11 +30,11 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             <span className="px-4 py-1.5 bg-orange-50 border border-orange-100 text-orange-600 text-[10px] font-black uppercase rounded-full tracking-wider">
               ESTABLISHED IN 2026 · Independent Premium Platform
             </span>
-            <h2 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-tight">
               KIDSMOBI · Jogging Stroller <br />
               <span className="text-orange-500">Balance Bike & Kids Scooter Safety Lab</span>
             </h2>
-            <p className="text-slate-500 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-medium">
+            <p className="text-slate-500 text-sm max-w-2xl mx-auto leading-relaxed font-medium">
               We audit jogging stroller, balance bike, toddler bike, kids scooter, and kids electric bike safety with independent methods to solve one simple question:
               <span className="text-slate-900 font-bold block"> "Is this design truly safe for your child's growth and healthy riding?"</span>
             </p>
@@ -224,11 +224,11 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
           <span className="px-4 py-1.5 bg-orange-50 border border-orange-100 text-orange-600 text-[10px] font-black uppercase rounded-full tracking-wider">
             ESTABLISHED IN 2026 · 高端垂直童车导购平台
           </span>
-          <h2 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+          <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-tight">
             KIDSMOBI · 高端垂直 <br />
             <span className="text-orange-500">高端垂直童车评测平台</span>
           </h2>
-          <p className="text-slate-500 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-medium">
+          <p className="text-slate-500 text-sm max-w-2xl mx-auto leading-relaxed font-medium">
             我们100%对标全球最严苛的儿童健康测试体系，只为解答一个纯粹的问题：
             <span className="text-slate-900 font-bold block">“这辆车真的对宝宝的骨骼安全、健康骑行无害吗？”</span>
           </p>

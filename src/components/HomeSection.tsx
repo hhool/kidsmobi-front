@@ -240,11 +240,11 @@ export default function HomeSection({
             <ShieldCheck className="w-4 h-4" />
             {lang === "zh" ? "全链路安全实验室审计" : "END-TO-END SAFETY AUDIT"}
           </div>
-          <h2 className="text-4xl sm:text-6xl font-black text-slate-950 tracking-tight leading-tight">
+          <h2 className="text-3xl font-black text-slate-950 tracking-tight leading-tight">
             {lang === "zh" ? "客观科学评测" : "Balance Bike & Jogging Stroller Reviews,"} <br />
             <span className="text-orange-500">{lang === "zh" ? "您的信心之选" : "Your Confident Choice"}</span>
           </h2>
-          <p className="text-slate-600 text-lg max-w-2xl mx-auto leading-relaxed font-medium">
+          <p className="text-slate-600 text-sm max-w-2xl mx-auto leading-relaxed font-medium">
             {lang === "zh" 
               ? "KIDSMOBI 是全球领先的高端童车垂直评测平台，通过力学公式与数千小时的实测，协助家长完成每一个理性的消费决策。"
               : "KIDSMOBI helps families compare balance bike, jogging stroller, kids bike, toddler bike, kids scooter, and kids electric bike options with practical how to choose a baby stroller guidance."}
@@ -289,10 +289,20 @@ export default function HomeSection({
             {lang === "zh" ? "查看完整榜单" : "Full Rankings"}
           </button>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {annualAwards.map((award, idx) => (
-            <div key={idx} className="h-full min-h-90 bg-white border border-slate-100 rounded-[40px] overflow-hidden hover:shadow-2xl hover:shadow-slate-200/50 transition-all cursor-pointer group flex flex-col">
-              <div className="relative h-44">
+            <div
+              key={idx}
+              onClick={() => {
+                if (award.winner) {
+                  onSelectProduct(award.winner);
+                  return;
+                }
+                setActiveTab("evaluations");
+              }}
+              className="group h-full min-h-90 bg-white border border-slate-100 rounded-[32px] overflow-hidden hover:border-orange-500/40 hover:shadow-2xl hover:shadow-orange-100/70 transition-all duration-300 flex flex-col cursor-pointer"
+            >
+              <div className="relative h-50 bg-slate-50">
                 {(() => {
                   const imageKey = `award-${idx}`;
                   const sourceUrl = award.winner ? resolveProductImages(award.winner).coverUrl : FALLBACK_PRODUCT_IMAGE;
@@ -304,7 +314,7 @@ export default function HomeSection({
                   alt={award.winner ? translateProduct(award.winner, lang).name : award.label}
                   onLoad={() => handleCardImageLoad(imageKey)}
                   onError={() => handleCardImageError(imageKey, sourceUrl)}
-                  className="w-full h-full object-contain p-4 bg-white transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-contain p-5 transition-transform duration-500 group-hover:scale-[1.08]"
                 />
                       {!state?.loaded && (
                         <div className="absolute inset-0 animate-pulse bg-linear-to-r from-slate-200 via-slate-100 to-slate-200" />
@@ -317,30 +327,28 @@ export default function HomeSection({
                     </>
                   );
                 })()}
-                <div className="absolute inset-0 bg-linear-to-t from-slate-950/70 via-slate-900/10 to-transparent" />
-                <div className="absolute top-4 left-4 p-3 bg-white/85 rounded-xl backdrop-blur-sm border border-white/70">
-                  <Award className="w-6 h-6 text-orange-500" />
+                <div className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-white via-white/88 to-transparent" />
+                <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/90 text-orange-600 font-black uppercase backdrop-blur-sm border border-orange-100 shadow-sm flex items-center gap-1.5">
+                  <Award className="w-3.5 h-3.5" />
+                  <span className="text-[10px]">{lang === "zh" ? "大奖" : "Award"}</span>
                 </div>
-                <span className="absolute top-4 right-4 text-white/80 font-black text-4xl group-hover:text-orange-200 transition-colors italic">0{idx+1}</span>
+                <span className="absolute top-4 right-4 px-3 py-1 rounded-full bg-white/90 text-[10px] text-slate-400 font-black uppercase backdrop-blur-sm border border-slate-100 shadow-sm">0{idx+1}</span>
               </div>
-              <div className="p-7 space-y-5 bg-linear-to-b from-white to-slate-50/70 flex-1 flex flex-col">
-                <div className="space-y-2 min-h-20">
-                <h4 className="text-slate-400 font-bold text-[10px] uppercase tracking-widest">{award.label}</h4>
-                <p className="text-xl font-black text-slate-900 group-hover:text-orange-500 transition-colors">{award.winner ? translateProduct(award.winner, lang).name : "Evaluating..."}</p>
+              <div className="p-6 bg-white flex-1 flex flex-col gap-4">
+                <div className="space-y-2">
+                  <h4 className="text-slate-950 font-black text-lg leading-tight group-hover:text-orange-500 transition-colors">
+                    {award.winner ? translateProduct(award.winner, lang).name : (lang === "zh" ? "评测中" : "Evaluating")}
+                  </h4>
+                  <p className="text-sm text-slate-500 font-semibold">
+                    {award.label}
+                  </p>
                 </div>
-                <button 
-                  onClick={() => {
-                    if (award.winner) {
-                      onSelectProduct(award.winner);
-                      return;
-                    }
-                    setActiveTab("evaluations");
-                  }}
-                  className="w-full py-4 bg-slate-900 hover:bg-orange-500 text-white font-black rounded-2xl transition-all flex items-center justify-center gap-2 mt-auto"
-                >
-                  {lang === "zh" ? "查看详细评测" : "Read Evaluation"}
-                  <ArrowRight className="w-4 h-4" />
-                </button>
+                <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-4">
+                  <span className="text-[10px] font-black uppercase text-slate-400">
+                    {lang === "zh" ? "查看详细评测" : "Read Evaluation"}
+                  </span>
+                  <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-orange-500 group-hover:translate-x-1 transition-all" />
+                </div>
               </div>
             </div>
           ))}
@@ -351,7 +359,7 @@ export default function HomeSection({
       <section className="bg-slate-50 py-24">
         <div className="max-w-7xl mx-auto px-6 space-y-12">
           <div className="text-center space-y-4">
-            <h3 className="text-4xl font-black text-slate-900 tracking-tight">{lang === "zh" ? "深度评测专题" : "Featured Evaluations"}</h3>
+            <h3 className="text-3xl font-black text-slate-900 tracking-tight">{lang === "zh" ? "深度评测专题" : "Featured Evaluations"}</h3>
             <p className="text-slate-500 font-medium">{lang === "zh" ? "从结构稳定到骑行舒适，我们把关键差异讲清楚再给结论。" : "From structural stability to ride comfort, we explain the differences before giving a verdict."}</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -446,7 +454,7 @@ export default function HomeSection({
 
               <div className="p-6 bg-white flex-1 flex flex-col gap-4">
                 <div className="space-y-2">
-                  <h4 className="text-slate-950 font-black text-xl leading-tight">{cat.label}</h4>
+                  <h4 className="text-slate-950 font-black text-lg leading-tight">{cat.label}</h4>
                   <p className="text-sm text-slate-500 font-semibold">
                     {lang === "zh" ? `当前参考 ${cat.itemCount} 款高相关产品` : `${cat.itemCount} curated picks for this scenario`}
                   </p>
@@ -498,7 +506,7 @@ export default function HomeSection({
                       alt={dp.name}
                       onLoad={() => handleCardImageLoad(imageKey)}
                       onError={() => handleCardImageError(imageKey, sourceUrl)}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-full object-contain p-5 transition-transform duration-500 group-hover:scale-[1.08]"
                     />
                           {!state?.loaded && (
                             <div className="absolute inset-0 animate-pulse bg-linear-to-r from-slate-200 via-slate-100 to-slate-200" />
