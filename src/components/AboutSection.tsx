@@ -1,7 +1,6 @@
 import React from "react";
 import { ShieldCheck, Award, MessageSquare, Flame, CheckCircle, Lock, Users, Handshake, ShieldAlert } from "lucide-react";
 import Breadcrumbs from "./Breadcrumbs";
-import SeoKeywordPanel from "./common/SeoKeywordPanel";
 
 interface AboutSectionProps {
   lang?: "zh" | "en";
@@ -13,8 +12,6 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
   if (isEn) {
     return (
       <div id="about_main" className="space-y-8 animate-fade-in text-left">
-        <h1 className="sr-only">Jogging Stroller, Balance Bike and Kids Scooter Safety Lab</h1>
-        
         {/* Breadcrumbs (PRD 4.6.2) */}
         <Breadcrumbs 
           lang={lang} 
@@ -30,33 +27,19 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             <span className="px-4 py-1.5 bg-orange-50 border border-orange-100 text-orange-600 text-[10px] font-black uppercase rounded-full tracking-wider">
               ESTABLISHED IN 2026 · Independent Premium Platform
             </span>
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-tight">
-              KIDSMOBI · Jogging Stroller <br />
-              <span className="text-orange-500">Balance Bike & Kids Scooter Safety Lab</span>
-            </h2>
+            <h1 className="text-3xl font-black text-slate-900 tracking-tight leading-tight">
+              About KIDSMOBI: Your Independent Kids' Mobility Lab
+            </h1>
             <p className="text-slate-500 text-sm max-w-2xl mx-auto leading-relaxed font-medium">
-              We audit jogging stroller, balance bike, toddler bike, kids scooter, and kids electric bike safety with independent methods to solve one simple question:
-              <span className="text-slate-900 font-bold block"> "Is this design truly safe for your child's growth and healthy riding?"</span>
+              We audit jogging stroller, balance bike, toddler bike, and kids scooter safety with independent mechanical methods to answer one simple question: Is this truly safe for your child's growth?
             </p>
-            <SeoKeywordPanel
-              variant="orange"
-              keywords={[
-                "stroller safety lab",
-                "jogging stroller audit",
-                "balance bike safety",
-                "toddler bike ergonomics",
-                "kids scooter testing",
-                "kids electric bike review",
-                "independent KIDSMOBI team",
-              ]}
-            />
           </div>
         </div>
 
         {/* The 4 Core Neutral Commitments */}
         <section className="space-y-10">
           <div className="text-center space-y-2">
-            <h3 className="text-3xl font-black text-slate-900">4 Strict Core Commitments</h3>
+            <h2 className="text-3xl font-black text-slate-900">Our Core Commitments: Unbiased Stroller & Bike Reviews</h2>
             <p className="text-sm text-slate-500 font-medium tracking-wide">Free from commercial sponsorships, protecting selection integrity from the source</p>
           </div>
 
@@ -110,7 +93,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
               <Award className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-2xl font-black text-slate-900 uppercase">Evaluation Methodology</h3>
+              <h2 className="text-2xl font-black text-slate-900 uppercase">Evaluation Methodology: How We Test a Kids Scooter or Toddler Bike</h2>
               <p className="text-sm text-slate-500 font-medium tracking-tight">Open sourcing our laboratory rigorous checking procedures.</p>
             </div>
           </div>
@@ -138,7 +121,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
         {/* Content Quality Control (PRD 4.6.4) */}
         <section className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
-                <h3 className="text-3xl font-black text-slate-900">Content Quality Control</h3>
+            <h2 className="text-3xl font-black text-slate-900">Content Quality Control</h2>
                 <p className="text-slate-500 font-medium leading-relaxed">
                     Our "Three-Phased Audit" ensures that every single sentence is verified by mechanics experts and pediatricians before publishing.
                 </p>
@@ -158,7 +141,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             </div>
             <div className="bg-slate-900 p-8 rounded-[48px] text-white space-y-6 relative overflow-hidden">
                 <ShieldAlert className="absolute top-10 right-10 w-24 h-24 text-white/5" />
-                <h4 className="text-xl font-black italic">Lab Team Strength</h4>
+              <h2 className="text-xl font-black italic">Lab Team Strength</h2>
                 <div className="space-y-4 relative z-10">
                     <div className="flex items-center gap-4">
                         <Users className="w-8 h-8 text-orange-500" />
@@ -232,16 +215,6 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             我们100%对标全球最严苛的儿童健康测试体系，只为解答一个纯粹的问题：
             <span className="text-slate-900 font-bold block">“这辆车真的对宝宝的骨骼安全、健康骑行无害吗？”</span>
           </p>
-          <SeoKeywordPanel
-            variant="orange"
-            keywords={[
-              "jogging stroller 安全实验室",
-              "balance bike 安全评测",
-              "toddler bike 工效测试",
-              "kids scooter 稳定性测试",
-              "kids electric bike 安全审计",
-            ]}
-          />
         </div>
       </div>
 

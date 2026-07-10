@@ -4,7 +4,6 @@ import { NewsArticle, newsArticles as fallbackNewsArticles } from "../data/newsD
 import { translateNewsArticle } from "../lib/translate";
 import { getCMSNews } from "../lib/cmsService";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
-import SeoKeywordPanel from "./common/SeoKeywordPanel";
 
 function translateCategoryLabel(cat: string): string {
   const labels: Record<string, string> = {
@@ -21,6 +20,36 @@ function translateCategoryLabel(cat: string): string {
 import Breadcrumbs from "./Breadcrumbs";
 
 const NEWS_ALLOWED_CATEGORIES = new Set(["industry", "new_product", "regulation", "brand_news", "science"]);
+
+const E_MOBILITY_NEWS_TITLES = [
+  "Safety Standards 2026: What Makes a Kids Electric Bike Reliable?",
+  "Battery Watch: Why Kids Electric Bike Rules Are Tightening",
+  "Off-Road Trends: Finding the Safest Electric Dirt Bike for Kids",
+  "Trail Safety Report: Electric Dirt Bike for Kids Gear Checks",
+  "Lab Picks: Which Entry-Level Kids E-Scooter Designs Are Actually Safe?",
+  "Price Watch: Affordable Kids E-Scooter Models with Safer Brakes",
+  "Commuting with Kids: Why the Foldable Electric Scooter is Winning",
+  "Storage Test: Foldable Electric Scooter Designs for Families",
+];
+
+const E_MOBILITY_NEWS_SUMMARIES = [
+  "Track new battery rules, speed caps, and braking benchmarks that separate a safe kids electric bike from a toy-grade ride-on.",
+  "Follow policy updates and battery-safety benchmarks shaping the next kids electric bike generation for cautious families.",
+  "Our industry desk follows frame geometry, tire grip, and age-band guidance for every electric dirt bike for kids launch worth watching.",
+  "This field note compares protective gear, torque limits, and terrain fit before parents choose an electric dirt bike for kids.",
+  "We compare battery quality, braking response, and repair access to see whether entry-level kids e-scooters can stay safe long term.",
+  "Our price desk tracks affordable kids e-scooter models that still offer dependable brakes, safer batteries, and realistic service options.",
+  "This launch briefing explains why a foldable electric scooter is becoming the compact family commute format for short urban trips.",
+  "We evaluate hinge strength, carry weight, and storage footprint as foldable electric scooter designs move into family mobility routines.",
+];
+
+function getEMobilityNewsTitle(index: number) {
+  return E_MOBILITY_NEWS_TITLES[index % E_MOBILITY_NEWS_TITLES.length];
+}
+
+function getEMobilityNewsSummary(index: number) {
+  return E_MOBILITY_NEWS_SUMMARIES[index % E_MOBILITY_NEWS_SUMMARIES.length];
+}
 
 function normalizeNewsCategory(category: string): NewsArticle["category"] | null {
   const normalized: Record<string, NewsArticle["category"]> = {
@@ -182,7 +211,12 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
       .sort((a, b) => {
         if (sortBy === "views") return b.views - a.views;
         return new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime();
-      });
+      })
+      .map((article, index) => lang === "en" ? {
+        ...article,
+        title: getEMobilityNewsTitle(index),
+        summary: getEMobilityNewsSummary(index),
+      } : article);
   }, [newsArticlesState, searchQuery, selectedCategory, sortBy, lang]);
 
   const pageSize = 8;
@@ -200,7 +234,7 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
     }
     const canonicalUrl = window.location.href;
     setCollectionPageJsonLd("news-list", {
-      name: lang === "en" ? "Global Kids Bike Insights" : "全球童车资讯库",
+      name: lang === "en" ? "E-Mobility News: Kids Electric Bike & Scooter Trends" : "全球童车资讯库",
       url: canonicalUrl,
       items: pagedNews.map((article) => ({
         name: article.title,
@@ -212,12 +246,6 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
 
   return (
     <div id="news_hub" className="space-y-8 animate-fade-in text-left">
-      <h1 className="sr-only">
-        {lang === "en"
-          ? "Kids Bike, Kids Scooter, Balance Bike and Jogging Stroller News"
-          : "stroller 与 jogging stroller 行业资讯"}
-      </h1>
-      
       {/* Breadcrumbs (PRD 4.5.2) */}
       <Breadcrumbs 
         lang={lang} 
@@ -339,28 +367,14 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
                   <BookOpen className="w-6 h-6 text-orange-500" />
                 </div>
               </div>
-              <h2 className="text-3xl font-black text-slate-900">
-                {lang === "en" ? "Kids Bike, Kids Scooter & Balance Bike Insights" : "全球童车资讯库"}
-              </h2>
+              <h1 className="text-3xl font-black text-slate-900">
+                {lang === "en" ? "E-Mobility News: Kids Electric Bike & Scooter Trends" : "全球童车资讯库"}
+              </h1>
               <p className="text-sm text-slate-500 font-medium">
-                {lang === "en" 
-                  ? "Track kids bike, kids electric bike, kids scooter, balance bike, and jogging stroller trends, launches, regulations, and practical science tips." 
+                {lang === "en"
+                  ? "Track industry updates for a premium kids electric bike or a rugged electric dirt bike for kids. We also review foldable electric scooter launches and kids e-scooter safety data."
                     : "聚焦行业趋势、新品发布、法规政策、品牌动态与科学选购内容，用软文方式讲清楚市场变化。"}
               </p>
-              {lang === "en" && (
-                <SeoKeywordPanel
-                  className="pt-2"
-                  keywords={[
-                    "kids bike news",
-                    "kids electric bike launches",
-                    "kids scooter news",
-                    "balance bike trends",
-                    "jogging stroller safety news",
-                    "kids dirt bike updates",
-                    "electric dirt bike for kids",
-                  ]}
-                />
-              )}
           </div>
 
           {/* Searching and Categorizing Tags */}
@@ -424,6 +438,16 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
             </div>
           ) : (
             <div className="space-y-8">
+              <div className="max-w-3xl mx-auto text-center space-y-3">
+                <h2 className="text-2xl font-black text-slate-900">
+                  {lang === "en" ? "Latest Updates: Foldable Electric Scooter & Dirt Bike Launches" : "最新童车资讯与行业动态"}
+                </h2>
+                <p className="text-sm text-slate-500 font-medium">
+                  {lang === "en"
+                    ? "Follow kids electric bike safety standards, electric dirt bike for kids launches, and foldable electric scooter commute trends."
+                    : "按行业趋势、新品发布与法规政策持续追踪真实市场变化。"}
+                </p>
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left animate-fade-in">
               {pagedNews.map((art) => (
                 <div

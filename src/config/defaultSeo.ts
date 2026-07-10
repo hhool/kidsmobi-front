@@ -43,14 +43,14 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
   },
   news: {
     zh: {
-      title: "童车行业趋势、品牌新品与科学选购资讯 | KIDSMOBI",
-      description: "聚合 stroller、balance bike、kids bike、scooter 相关行业趋势、新品发布、法规政策、品牌动态与科学选购软文，帮助家长用更少时间理解市场变化。",
-      keywords: ["童车行业趋势", "童车新品发布", "童车法规政策", "品牌动态", "科学选购"],
+      title: "Kids Electric Bike & Foldable Electric Scooter News",
+      description: "Track the latest news on a kids electric bike and an electric dirt bike for kids. Plus, discover foldable electric scooter safety updates.",
+      keywords: ["kids electric bike", "electric dirt bike for kids", "foldable electric scooter"],
     },
     en: {
-      title: "Kids Bike, Kids Scooter & Balance Bike News | KIDSMOBI",
-      description: "Track kids bike, kids electric bike, kids scooter, balance bike, and jogging stroller launches, regulations, brand updates, and science tips.",
-      keywords: ["kids bike news", "kids electric bike launches", "kids scooter news", "balance bike trends", "jogging stroller safety news", "kids dirt bike updates"],
+      title: "Kids Electric Bike & Foldable Electric Scooter News",
+      description: "Track the latest news on a kids electric bike and an electric dirt bike for kids. Plus, discover foldable electric scooter safety updates.",
+      keywords: ["kids electric bike", "electric dirt bike for kids", "foldable electric scooter"],
     },
   },
   products: {
@@ -91,14 +91,14 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
   },
   about: {
     zh: {
-      title: "精致、客观而毫不妥协的评测追求 | KIDSMOBI",
-      description: "深入了解 KIDSMOBI 的独立实测流程、设备校准基准与物理计算底座。我们保持彻底的中立性与极高的专业良知，保障您孩子的滑行成长路。",
-      keywords: ["关于KIDSMOBI", "实验室愿景", "评测中立性声明", "团队核心成员"],
+      title: "About KIDSMOBI: Independent Kids Bike & Stroller Safety Lab",
+      description: "Learn about KIDSMOBI's strict evaluation methodology. We independently audit every jogging stroller, balance bike, and kids scooter to ensure ultimate child safety.",
+      keywords: ["independent kids bike lab", "stroller safety lab", "jogging stroller audit", "balance bike safety", "kids scooter testing"],
     },
     en: {
-      title: "Jogging Stroller, Balance Bike & Safety Lab | KIDSMOBI",
-      description: "Learn how KIDSMOBI audits jogging stroller, balance bike, toddler bike, kids scooter, and kids electric bike safety with independent methods.",
-      keywords: ["stroller safety lab", "jogging stroller audit", "balance bike safety", "toddler bike ergonomics", "kids scooter testing", "kids electric bike review"],
+      title: "About KIDSMOBI: Independent Kids Bike & Stroller Safety Lab",
+      description: "Learn about KIDSMOBI's strict evaluation methodology. We independently audit every jogging stroller, balance bike, and kids scooter to ensure ultimate child safety.",
+      keywords: ["independent kids bike lab", "stroller safety lab", "jogging stroller audit", "balance bike safety", "kids scooter testing"],
     },
   },
 };
