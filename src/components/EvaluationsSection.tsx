@@ -215,6 +215,16 @@ function getReviewCardTitle(product: Product, fallbackTitle?: string) {
   return fallbackTitle || `${baseTitle} Review`;
 }
 
+function getDossierCtaLabel(product: Product, evaluation: Evaluation, lang: "zh" | "en") {
+  if (lang !== "en") return "开启完整测评档案";
+  const normalized = `${product.brand || ""} ${product.name || ""} ${product.description || ""} ${product.category || ""} ${product.categoryId || ""} ${evaluation.en?.title || ""} ${evaluation.en?.verdict || ""}`.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  if (normalized.includes("jmmd")) return "Open JMMD Toddler Bike Dossier";
+  if (normalized.includes("razor") || normalized.includes("mx350") || normalized.includes("dirt bike")) return "Read Razor MX350 Dirt Bike Report";
+  if (normalized.includes("glerc")) return "Explore Glerc 12\" Kids Bike Data";
+  const topic = getReviewCardTitle(product).replace(/\s+Review$/i, "").trim();
+  return `Open ${topic} Dossier`;
+}
+
 function getProductMetricSummary(product: Product) {
   const category = String(product.category || product.categoryId || "mobility product").replace(/_/g, " ").toLowerCase();
   const scores = getProductScores(product);
@@ -959,7 +969,7 @@ export default function EvaluationsSection({
                     onClick={() => openEvaluationDetail(evaluation)}
                     className="w-full py-5 bg-slate-900 hover:bg-orange-500 text-white font-black text-xs uppercase tracking-widest rounded-3xl transition-all shadow-xl shadow-slate-900/10 flex items-center justify-center gap-3 active:scale-95 group-hover:shadow-orange-500/20"
                   >
-                    {lang === "en" ? "OPEN FULL DOSSIER" : "开启完整测评档案"}
+                    {getDossierCtaLabel(product, evaluation, lang)}
                     <ArrowRight className="w-5 h-5" />
                   </button>
                 </div>
