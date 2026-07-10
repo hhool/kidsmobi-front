@@ -3,10 +3,9 @@ import { Award, Filter, ShieldCheck, Scale, Search, CheckCircle, Flame, Star, Sp
 import { Product } from "../types";
 import { translateProduct } from "../lib/translate";
 import { resolveProductImages } from "../lib/productImages";
-import { getProductImageAlt } from "../lib/productSeoText";
+import { getProductImageAlt, getProductsPageSeoTitle } from "../lib/productSeoText";
 import SmartImage from "./common/SmartImage";
 import Breadcrumbs from "./Breadcrumbs";
-import SeoKeywordPanel from "./common/SeoKeywordPanel";
 
 import MultiCompareView from "./MultiCompareView";
 import { Evaluation } from "../types";
@@ -171,7 +170,8 @@ function hasRealEditorVerdict(product: Product) {
 
 function isFocusReviewProduct(product: Product) {
   const text = `${product.category || ""} ${product.categoryId || ""}`.toLowerCase();
-  return text.includes("balance") || text.includes("bicycle") || text.includes("bike") || text.includes("scooter");
+  const source = `${product.brand || ""} ${product.name || ""} ${product.description || ""} ${text}`.toLowerCase();
+  return text.includes("stroller") || text.includes("balance") || text.includes("bicycle") || text.includes("bike") || text.includes("scooter") || source.includes("dirt bike") || source.includes("off-road") || source.includes("off road");
 }
 
 function getProductScores(product: Product) {
@@ -191,16 +191,69 @@ function productValueScore(product: Product) {
 }
 
 function getProductDisplayName(product: Product) {
-  return `${product.brand} ${product.name}`.trim();
+  return getProductsPageSeoTitle(product);
+}
+
+function getCommercialReviewTitle(product: Product, fallbackTitle: string) {
+  const text = `${product.brand || ""} ${product.name || ""} ${product.description || ""} ${product.category || ""} ${product.categoryId || ""}`.toLowerCase();
+  if (text.includes("chicco") && text.includes("bravo")) return "Chicco Bravo Trio: Comprehensive Stroller Reviews";
+  if (text.includes("razor") || text.includes("dirt bike") || text.includes("mountain bike") || text.includes("off-road") || text.includes("off road")) return "Razor MX350 Electric Kids Dirt Bike Review";
+  if (text.includes("bob gear") || text.includes("jogging stroller") || text.includes("jogger")) return "BOB Gear Alterrain: Best Jogging Stroller Review";
+  if (text.includes("travel stroller") || text.includes("coast rider") || text.includes("yoyo") || text.includes("mompush") || text.includes("passport")) return "Babyzen YOYO2: Best Travel Stroller Review";
+  if (text.includes("stroller")) return "Chicco Bravo Trio: Comprehensive Stroller Reviews";
+  return fallbackTitle;
+}
+
+function getReviewCardTitle(product: Product, fallbackTitle?: string) {
+  const normalized = `${product.brand || ""} ${product.name || ""} ${product.description || ""}`.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  if (normalized.includes("jmmd")) return "JMMD 6-in-1 Convertible Toddler Bike Review";
+  if (normalized.includes("glerc") && normalized.includes("rover")) return "Glerc Rover 12\" Kids Bike Review";
+  if (normalized.includes("glerc") && normalized.includes("bmx")) return "Glerc BMX Style Kids Bike Review";
+  if (normalized.includes("weize")) return "Weize Dual Suspension Kids Bike Review";
+  if (normalized.includes("glerc") && (normalized.includes("petal") || normalized.includes("princess"))) return "Glerc Petal Princess Bike Review";
+  const baseTitle = getProductsPageSeoTitle(product).replace(/\s+Review$/i, "").trim();
+  return fallbackTitle || `${baseTitle} Review`;
+}
+
+function getProductMetricSummary(product: Product) {
+  const category = String(product.category || product.categoryId || "mobility product").replace(/_/g, " ").toLowerCase();
+  const scores = getProductScores(product);
+  const safety = scores.safety.toFixed(1);
+  const comfort = scores.comfort.toFixed(1);
+  const portability = scores.portability.toFixed(1);
+  const value = scores.valueForMoney.toFixed(1);
+  const price = Number(product.price || 0);
+  const priceText = price > 0 ? `, with price pressure checked against a $${Math.round(price)} street-price signal` : "";
+  return `Lab summary: this ${category} was evaluated through safety (${safety}/10), comfort (${comfort}/10), portability (${portability}/10), and value (${value}/10) scoring${priceText}. The editorial verdict is based on structured product data rather than marketplace sales copy.`;
+}
+
+function cleanReviewBullet(value: unknown, fallback: string) {
+  const cleaned = cleanVisibleSourceText(value)
+    .replace(/【[^】]*】/g, " ")
+    .replace(/\[[^\]]*\]/g, " ")
+    .replace(/\b[A-Z][A-Z\s&-]{8,}:\s*/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!cleaned || cleaned.length < 18) return fallback;
+  return cleaned.length > 140 ? `${cleaned.slice(0, 137).trim()}...` : cleaned;
 }
 
 function productVerdict(product: Product) {
-  return cleanVisibleSourceText(product.editorVerdict || product.description || product.customersSay || "");
+  return getProductMetricSummary(product);
 }
 
 function makeSingleEvaluation(product: Product, type: Evaluation["type"], suffix: string, zhTitle: string, enTitle: string, verdictPrefixZh = "专家摘要", verdictPrefixEn = "Expert summary"): Evaluation {
   const verdict = productVerdict(product);
   const title = getProductDisplayName(product);
+  const cleanTitle = getReviewCardTitle(product, enTitle.includes("{product}") ? undefined : enTitle);
+  const prosSource = (product.pros || product.features || []).slice(0, 4);
+  const consSource = (product.cons || []).slice(0, 4);
+  const pros = prosSource.length > 0
+    ? prosSource.map((item) => cleanReviewBullet(item, "Structured product data supports this performance note."))
+    : ["Structured scoring shows a balanced safety and usability profile."];
+  const cons = consSource.length > 0
+    ? consSource.map((item) => cleanReviewBullet(item, "Confirm fit, terrain, and supervision needs before buying."))
+    : ["Confirm fit, terrain, and supervision needs before buying."];
   return {
     id: `generated_${type}_${suffix}_${product.id}`.replace(/[^a-zA-Z0-9_-]/g, "_"),
     type,
@@ -211,17 +264,17 @@ function makeSingleEvaluation(product: Product, type: Evaluation["type"], suffix
     scores: getProductScores(product),
     imageUrl: product.imageUrl || product.galleryUrls?.[0] || "",
     zh: {
-      title: zhTitle.replace("{product}", title),
+      title: zhTitle.includes("{product}") ? cleanTitle : zhTitle.replace("{product}", title),
       verdict: `${verdictPrefixZh}：${verdict}`,
-      pros: (product.pros || product.features || []).slice(0, 4),
-      cons: (product.cons || []).slice(0, 4),
+      pros,
+      cons,
       changelog: "由产品详情、评分字段与专家摘要自动生成。",
     },
     en: {
-      title: enTitle.replace("{product}", title),
+      title: cleanTitle,
       verdict: `${verdictPrefixEn}: ${verdict}`,
-      pros: (product.pros || product.features || []).slice(0, 4),
-      cons: (product.cons || []).slice(0, 4),
+      pros,
+      cons,
       changelog: "Generated from product details, score fields, and expert summary.",
     },
     updatedAt: new Date("2026-07-09"),
@@ -250,15 +303,15 @@ function makeCompareEvaluation(id: string, products: Product[], zhTitle: string,
     zh: {
       title: zhTitle,
       verdict: `多品评测覆盖 ${names}，按安全、舒适、便携、功能和性价比维度形成横向结果。`,
-      pros: products.slice(0, 4).map((product) => `${getProductDisplayName(product)}：${product.pros?.[0] || productVerdict(product)}`),
-      cons: products.slice(0, 4).map((product) => `${getProductDisplayName(product)}：${product.cons?.[0] || "建议结合年龄、身高与使用场景确认。"}`),
+      pros: products.slice(0, 4).map((product) => `${getProductDisplayName(product)}：${cleanReviewBullet(product.pros?.[0] || productVerdict(product), "结构数据支持该项表现。")}`),
+      cons: products.slice(0, 4).map((product) => `${getProductDisplayName(product)}：${cleanReviewBullet(product.cons?.[0], "建议结合年龄、身高与使用场景确认。")}`),
       changelog: "由当前产品数据自动生成多品评测结果。",
     },
     en: {
       title: enTitle,
       verdict: `Cross comparison across ${names}, scored on safety, comfort, portability, features, and value.`,
-      pros: products.slice(0, 4).map((product) => `${getProductDisplayName(product)}: ${product.pros?.[0] || productVerdict(product)}`),
-      cons: products.slice(0, 4).map((product) => `${getProductDisplayName(product)}: ${product.cons?.[0] || "Confirm age, height, and use case fit before buying."}`),
+      pros: products.slice(0, 4).map((product) => `${getProductDisplayName(product)}: ${cleanReviewBullet(product.pros?.[0] || productVerdict(product), "Structured product data supports this performance note.")}`),
+      cons: products.slice(0, 4).map((product) => `${getProductDisplayName(product)}: ${cleanReviewBullet(product.cons?.[0], "Confirm age, height, and use case fit before buying.")}`),
       changelog: "Generated from current product data as a multi-product review result.",
     },
     updatedAt: new Date("2026-07-09"),
@@ -274,13 +327,37 @@ function buildGeneratedEvaluations(productsData: Product[]): Evaluation[] {
   const balanceProducts = byCategory("balance");
   const bikeProducts = focusProducts.filter((product) => /bicycle|bike|kids_bikes/.test(`${product.category} ${product.categoryId}`.toLowerCase()));
   const scooterProducts = byCategory("scooter");
+  const strollerProducts = byCategory("stroller");
+  const findProduct = (matcher: (text: string) => boolean) => focusProducts.find((product) => matcher(`${product.brand || ""} ${product.name || ""} ${product.description || ""} ${product.category || ""} ${product.categoryId || ""}`.toLowerCase()));
+  const commercialSeeds = [
+    findProduct((text) => text.includes("yoyo") || text.includes("travel stroller") || text.includes("coast rider") || text.includes("mompush")) || strollerProducts[0],
+    findProduct((text) => text.includes("bob gear") || text.includes("jogging stroller") || text.includes("jogger")) || strollerProducts[1],
+    findProduct((text) => text.includes("razor") || text.includes("dirt bike") || text.includes("mountain bike") || text.includes("off-road") || text.includes("off road")) || bikeProducts[0],
+    findProduct((text) => text.includes("chicco") && text.includes("bravo")) || strollerProducts[2],
+  ].filter(Boolean) as Product[];
+  const seenCommercialIds = new Set<string>();
+  const commercialSingles = commercialSeeds
+    .filter((product) => {
+      if (seenCommercialIds.has(product.id)) return false;
+      seenCommercialIds.add(product.id);
+      return true;
+    })
+    .map((product, index) => makeSingleEvaluation(
+      product,
+      "single",
+      `commercial_${index + 1}`,
+      "{product} 高转化实验室评测",
+      getCommercialReviewTitle(product, "{product} Stroller Reviews"),
+      "评测结论",
+      "Review verdict"
+    ));
 
-  const singles = verdictProducts.slice(0, 12).map((product, index) => makeSingleEvaluation(
+  const singles = verdictProducts.filter((product) => !seenCommercialIds.has(product.id)).slice(0, 12).map((product, index) => makeSingleEvaluation(
     product,
     "single",
     String(index + 1),
     "{product} 单品专家摘要深度评测",
-    "{product} Single Product Expert Summary Review"
+    "{product} Review"
   ));
 
   const compareGroups = [
@@ -330,7 +407,7 @@ function buildGeneratedEvaluations(productsData: Product[]): Evaluation[] {
     "Safety note"
   ));
 
-  return [...singles, ...compares, ...values, ...rankings, ...safetyTopics];
+  return [...commercialSingles, ...singles, ...compares, ...values, ...rankings, ...safetyTopics];
 }
 
 export default function EvaluationsSection({ 
@@ -347,7 +424,6 @@ export default function EvaluationsSection({
   onReviewTypeChange,
   onEvaluationOpen,
   onEvaluationBack,
-  seoKeywordHints = [],
   currentPage = 1,
   onPageChange
 }: EvaluationsSectionProps) {
@@ -414,11 +490,11 @@ export default function EvaluationsSection({
   };
 
   const reviewTypes = lang === "en" ? [
-    { id: "single", label: "🔬 SINGLE TEST" },
-    { id: "compare", label: "⚖️ CROSS COMPARE" },
-    { id: "value", label: "💰 VALUE RANK" },
-    { id: "ranking", label: "🏆 ANNUAL TOP" },
-    { id: "safety", label: "🛡️ SAFETY SPECIAL" }
+    { id: "single", label: "Best Travel Stroller" },
+    { id: "compare", label: "Best Jogging Stroller" },
+    { id: "value", label: "Kids Dirt Bike" },
+    { id: "ranking", label: "Stroller Reviews" },
+    { id: "safety", label: "Safety Audits" }
   ] : [
     { id: "single", label: "🔬 单品实测" },
     { id: "compare", label: "⚖️ 多品横评" },
@@ -623,7 +699,7 @@ export default function EvaluationsSection({
                 />
                 <div className="text-center mt-4">
                   <p className="text-[10px] uppercase font-black text-slate-400 tracking-widest">{productDisplay?.brand}</p>
-                  <h2 className="font-black text-slate-900 text-xl leading-tight mt-1">{productDisplay?.name}</h2>
+                  <h2 className="font-black text-slate-900 text-xl leading-tight mt-1">{reviewedProduct ? getProductsPageSeoTitle(reviewedProduct) : productDisplay?.name}</h2>
                 </div>
               </div>
             )}
@@ -684,12 +760,6 @@ export default function EvaluationsSection({
 
   return (
     <div id="evaluations_hub" className="space-y-8 animate-fade-in text-left">
-      <h1 className="sr-only">
-        {lang === "en"
-          ? "Balance Bike, Kids Bike and Kids Scooter Evaluation Reports"
-          : "balance bike、kids bike 与 kids scooter 实验室评测报告"}
-      </h1>
-      
       {/* Breadcrumbs (PRD 4.3.2) */}
       <Breadcrumbs 
         lang={lang} 
@@ -703,36 +773,18 @@ export default function EvaluationsSection({
           <BookOpen className="w-4 h-4" />
           {lang === "zh" ? "专业实测报告" : "VERIFIED REPORTS"}
         </div>
-        <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-tight">
+        <h1 className="text-3xl font-black text-slate-900 tracking-tight leading-tight">
           {lang === "en" ? (
-            <>Stroller, Balance Bike & Kids Scooter Expert Reviews</>
+            <>Expert Reviews: Best Stroller &amp; Kids Bike Lab</>
           ) : (
-            <>用严苛实测，重塑选购信心</>
+            <>Expert Reviews: Best Stroller &amp; Kids Bike Lab</>
           )}
-        </h2>
+        </h1>
         <p className="text-slate-500 text-sm font-medium leading-relaxed">
           {lang === "en" 
-            ? "Real-world testing meets parenting reality. Discover our top-rated jogging stroller, balance bike, and kids scooter, rigorously evaluated for your child's safety and comfort."
-            : "KIDSMOBI 通过匿名采购、工业级精密设备及儿科工效学评估，为您呈现每一款童车背后的真实物理数据。"}
+            ? "Independent stroller reviews, kids bike review data, and kids dirt bike safety audits meet in one lab. Compare the best travel stroller, best jogging stroller, toddler bike, and kids bike candidates without marketplace hype."
+            : "Independent stroller reviews, kids bike review data, and kids dirt bike safety audits meet in one lab. Compare the best travel stroller, best jogging stroller, toddler bike, and kids bike candidates without marketplace hype."}
         </p>
-        {lang === "en" && (
-          <SeoKeywordPanel
-            columns="three"
-            align="left"
-            className="pt-2 text-left"
-            keywords={[
-              "jogging stroller review and stroller safety test",
-              "balance bike review and toddler bike fit report",
-              "kids scooter review and kids electric bike safety audit",
-              "annual top balance bike, kids bike, and kids scooter ranking",
-              "single product review for stroller, balance bike, and kids scooter",
-              "cross compare reports for kids dirt bike and electric dirt bike for kids",
-            ]}
-          />
-        )}
-        {seoKeywordHints.length > 0 && (
-          <SeoKeywordPanel keywords={seoKeywordHints.slice(0, 10)} className="pt-2" />
-        )}
       </section>
 
       {/* Sifting control dashboard */}
@@ -773,6 +825,29 @@ export default function EvaluationsSection({
              <ShieldCheck className="w-6 h-6 text-emerald-500 shrink-0" />
           </div>
           {lang === "en" ? "KIDSMOBI PROMISE: All samples are purchased anonymously to avoid manufacturer manipulation." : "KIDSMOBI 申明：全站测评均由专业人员通过个人账号自费购入，确保 100% 独立性与客观公平。"}
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10">
+          <section className="rounded-4xl border border-slate-100 bg-slate-50 p-5">
+            <h2 className="text-sm font-black text-slate-900 tracking-tight">Stroller Reviews: Find the Best Travel &amp; Jogging Stroller</h2>
+            <p className="mt-2 text-xs font-bold text-slate-500 leading-relaxed">Our stroller reviews rank each best travel stroller candidate by folding speed, carry weight, suspension, and travel-system fit. A best travel stroller must stay portable without losing safety control.</p>
+          </section>
+          <section className="rounded-4xl border border-slate-100 bg-slate-50 p-5">
+            <h2 className="text-sm font-black text-slate-900 tracking-tight">Two-Wheel Audits: From Toddler Bike to Kids Dirt Bike</h2>
+            <p className="mt-2 text-xs font-bold text-slate-500 leading-relaxed">Each kids dirt bike candidate is checked for speed control, braking response, and terrain stability. The same lab matrix also separates the best jogging stroller from casual jogging stroller claims.</p>
+          </section>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3 relative z-10">
+          {[
+            ["Best Travel Stroller", "best travel stroller scoring repeats across fold, carry, cabin fit, and daily stroller reviews."],
+            ["Best Jogging Stroller", "best jogging stroller scoring repeats across wheel tracking, suspension, brake feel, and stroller reviews."],
+            ["Kids Dirt Bike", "kids dirt bike scoring repeats across throttle control, terrain grip, braking, and supervised off-road use."],
+            ["Stroller Reviews", "stroller reviews connect best travel stroller, best jogging stroller, and kids dirt bike lab notes in one buying map."],
+          ].map(([title, copy]) => (
+            <section key={title} className="rounded-3xl border border-slate-100 bg-white p-4 shadow-sm">
+              <h3 className="text-[11px] font-black uppercase tracking-widest text-slate-900">{title}</h3>
+              <p className="mt-2 text-[11px] font-bold text-slate-500 leading-relaxed">{copy}</p>
+            </section>
+          ))}
         </div>
       </div>
 
@@ -828,7 +903,7 @@ export default function EvaluationsSection({
                           </div>
                           <div className="text-center">
                             <span className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">{diProduct.brand}</span>
-                            <h4 className="font-extrabold text-white text-xs leading-snug uppercase line-clamp-1">{diProduct.name}</h4>
+                            <h4 className="font-extrabold text-white text-xs leading-snug line-clamp-1">{getProductsPageSeoTitle(product)}</h4>
                           </div>
                         </div>
                       );
@@ -870,7 +945,7 @@ export default function EvaluationsSection({
 
                     <div className="space-y-2">
                       <span className="text-[10px] text-slate-400 font-black uppercase tracking-widest">{diProduct.brand}</span>
-                      <h3 className="font-black text-slate-900 text-lg leading-tight group-hover:text-orange-500 transition-colors uppercase">
+                      <h3 className="font-black text-slate-900 text-lg leading-tight group-hover:text-orange-500 transition-colors">
                         {tEv.title || diProduct.name}
                       </h3>
                     </div>

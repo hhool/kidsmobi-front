@@ -79,28 +79,28 @@ export const PRODUCT_CATEGORY_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
 
 export const REVIEW_TYPE_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
   all: {
-    zh: ["婴儿车评测", "童车评测", "安全专项评测"],
-    en: ["stroller reviews", "kids mobility reviews", "safety reviews"],
+    zh: ["best travel stroller", "best jogging stroller", "kids dirt bike", "stroller reviews"],
+    en: ["best travel stroller", "best jogging stroller", "kids dirt bike", "stroller reviews"],
   },
   single: {
-    zh: ["单品实测", "深度评测", "真实使用评测", "单款童车评测"],
-    en: ["single product review", "in-depth review", "hands-on stroller review", "expert report"],
+    zh: ["best travel stroller", "stroller reviews", "unbiased stroller reviews", "expert stroller review"],
+    en: ["best travel stroller", "stroller reviews", "unbiased stroller reviews", "expert stroller review"],
   },
   compare: {
-    zh: ["多品横评", "同类产品对比", "童车对比评测", "参数对比"],
-    en: ["cross compare", "stroller comparison", "head to head review", "specs compare"],
+    zh: ["best jogging stroller", "stroller comparison", "jogging stroller review", "stroller reviews"],
+    en: ["best jogging stroller", "stroller comparison", "jogging stroller review", "stroller reviews"],
   },
   value: {
-    zh: ["性价比评测", "高性价比童车", "预算友好婴儿车"],
-    en: ["value rank", "best value stroller", "budget friendly stroller"],
+    zh: ["kids dirt bike", "electric kids dirt bike", "kids dirt bike safety", "off-road kids ride"],
+    en: ["kids dirt bike", "electric kids dirt bike", "kids dirt bike safety", "off-road kids ride"],
   },
   ranking: {
-    zh: ["年度榜单", "最佳童车推荐", "Top 推荐"],
-    en: ["annual top", "best stroller ranking", "top picks"],
+    zh: ["stroller reviews", "best travel stroller", "best jogging stroller", "top stroller picks"],
+    en: ["stroller reviews", "best travel stroller", "best jogging stroller", "top stroller picks"],
   },
   safety: {
-    zh: ["安全专项", "结构安全测试", "婴儿车安全评测"],
-    en: ["safety special", "stroller safety test", "safety audit"],
+    zh: ["kids dirt bike safety audit", "stroller safety test", "best jogging stroller stability", "stroller reviews"],
+    en: ["kids dirt bike safety audit", "stroller safety test", "best jogging stroller stability", "stroller reviews"],
   },
 };
 

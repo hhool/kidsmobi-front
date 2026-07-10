@@ -39,6 +39,10 @@ export const getProductsPageSeoTitle = (productOrName?: Product | string | null)
   if (normalized.includes("baby trend") && normalized.includes("ez lift") && normalized.includes("stroller")) return "Baby Trend EZ-Lift Stroller Travel System";
   if (normalized.includes("baby trend") && (normalized.includes("double") || normalized.includes("twin"))) return "Baby Trend Double Twin Stroller";
   if (normalized.includes("chicco") && normalized.includes("bravo")) return "Chicco Bravo Duo Twin Stroller";
+  if (normalized.includes("glerc") && normalized.includes("rover")) return "Glerc Rover 12\" Kids Bike";
+  if (normalized.includes("glerc") && normalized.includes("bmx")) return "Glerc BMX Style Kids Bike";
+  if (normalized.includes("glerc") && (normalized.includes("petal") || normalized.includes("princess"))) return "Glerc Petal Princess Bike";
+  if (normalized.includes("weize")) return "Weize Dual Suspension Kids Bike";
   if (normalized.includes("glerc") && normalized.includes("kids bike")) return "Glerc Kids Bike";
   if (normalized.includes("dream on me") && normalized.includes("coast rider")) return "Dream On Me Coast Rider Travel Stroller";
   if (normalized.includes("dream on me") && normalized.includes("scooter")) return "Dream On Me Kids Electric Scooter";

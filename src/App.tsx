@@ -1170,7 +1170,8 @@ export default function App() {
       keywordsArr = productsSeo.keywords;
     }
 
-    if (seoKey === "evaluations" && activeReviewType !== "all") {
+    const isReviewsIndexPath = /^\/reviews(?:\/page\/\d+)?\/?$/.test(currentPath);
+    if (seoKey === "evaluations" && activeReviewType !== "all" && !isReviewsIndexPath) {
       const selectedReview = reviewNavOptions.find((item) => item.id === activeReviewType)?.label || activeReviewType;
       titleStr = lang === "zh"
         ? `${selectedReview} 专题评测 | KIDSMOBI Reviews`

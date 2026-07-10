@@ -67,14 +67,14 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
   },
   evaluations: {
     zh: {
-      title: "深度实验室评测报告 | KIDSMOBI 独家实测与专业意见",
-      description: "KIDSMOBI 独家评测报告，汇聚专业工程师对力学稳定性、材料应力、舒适度指数及真实家庭磨损测试的数据可视化呈现。",
-      keywords: ["工程师评测报告", "机械载重量测试", "滑行顺畅度实测", "童车优缺点分析"],
+      title: "Best Stroller Reviews, Kids Bike & Dirt Bike Lab | KIDSMOBI",
+      description: "Read our unbiased stroller reviews to find the best travel stroller and best jogging stroller. Plus, explore lab-tested kids dirt bike options for off-road fun.",
+      keywords: ["best travel stroller", "best jogging stroller", "kids dirt bike", "stroller reviews", "kids bike review"],
     },
     en: {
-      title: "Jogging Stroller, Balance Bike Reviews | KIDSMOBI",
-      description: "Read jogging stroller review, balance bike review, kids bike review, toddler bike review, and kids scooter review with lab-grade safety tests.",
-      keywords: ["jogging stroller review", "balance bike review", "kids bike review", "toddler bike review", "kids scooter review", "safety special"],
+      title: "Best Stroller Reviews, Kids Bike & Dirt Bike Lab | KIDSMOBI",
+      description: "Read our unbiased stroller reviews to find the best travel stroller and best jogging stroller. Plus, explore lab-tested kids dirt bike options for off-road fun.",
+      keywords: ["best travel stroller", "best jogging stroller", "kids dirt bike", "stroller reviews", "kids bike review"],
     },
   },
   guides: {
