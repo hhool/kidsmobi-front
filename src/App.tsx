@@ -2026,6 +2026,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             compareList={compareList}
             setCompareList={setCompareList}
             onSelectProduct={handleSelectProduct}
+            showDeveloperAdminBypass={isNonProductionHostname(window.location.hostname)}
           />
         )}
 
