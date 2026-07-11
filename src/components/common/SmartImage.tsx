@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { FALLBACK_PRODUCT_IMAGE, withImageFallback } from "../../lib/productImages";
 
+const EMPTY_FALLBACK_SRCS: string[] = [];
+
 function buildStoreMirrorCandidates(rawUrl: string): string[] {
   const url = String(rawUrl || "").trim();
   if (!url) return [];
@@ -58,7 +60,7 @@ type SmartImageProps = {
 
 export default function SmartImage({
   src,
-  fallbackSrcs = [],
+  fallbackSrcs = EMPTY_FALLBACK_SRCS,
   alt,
   className,
   wrapperClassName,
@@ -80,6 +82,7 @@ export default function SmartImage({
       .filter(Boolean);
     return Array.from(new Set(list));
   }, [src, fallbackSrcs]);
+  const immediateSrc = isNearViewport ? (candidates[0] || (src || "").trim()) : "";
 
   useEffect(() => {
     if (priority || loading !== "lazy") {
@@ -109,7 +112,7 @@ export default function SmartImage({
     let timer: number | null = null;
     const list = candidates.length > 0 ? candidates : [(src || "").trim()].filter(Boolean);
 
-    setResolvedSrc(FALLBACK_PRODUCT_IMAGE);
+    setResolvedSrc(immediateSrc || FALLBACK_PRODUCT_IMAGE);
     setIsLoaded(true);
 
     if (!isNearViewport) return;
@@ -142,7 +145,7 @@ export default function SmartImage({
       cancelled = true;
       if (timer) window.clearTimeout(timer);
     };
-  }, [candidates, isNearViewport, priority, referrerPolicy, src]);
+  }, [candidates, immediateSrc, isNearViewport, priority, referrerPolicy, src]);
 
   const markLoaded = () => {
     setIsLoaded(true);
