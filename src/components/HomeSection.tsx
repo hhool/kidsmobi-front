@@ -300,7 +300,7 @@ export default function HomeSection({
               }}
               className="group h-full min-h-90 bg-white border border-slate-100 rounded-[32px] overflow-hidden hover:border-orange-500/40 hover:shadow-2xl hover:shadow-orange-100/70 transition-all duration-300 flex flex-col cursor-pointer"
             >
-              <div className="relative h-50 bg-slate-50">
+              <div className="relative h-52 bg-slate-50 overflow-hidden">
                 {(() => {
                   const imageKey = `award-${idx}`;
                   const sourceUrl = award.winner ? resolveProductImages(award.winner).coverUrl : FALLBACK_PRODUCT_IMAGE;
@@ -325,7 +325,6 @@ export default function HomeSection({
                     </>
                   );
                 })()}
-                <div className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-white via-white/88 to-transparent" />
                 <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/90 text-orange-600 font-black uppercase backdrop-blur-sm border border-orange-100 shadow-sm flex items-center gap-1.5">
                   <Award className="w-3.5 h-3.5" />
                   <span className="text-[10px]">{lang === "zh" ? "大奖" : "Award"}</span>
@@ -417,7 +416,7 @@ export default function HomeSection({
               }}
               className="group h-full min-h-90 bg-white border border-slate-100 rounded-[32px] overflow-hidden hover:border-orange-500/40 hover:shadow-2xl hover:shadow-orange-100/70 transition-all duration-300 flex flex-col cursor-pointer"
             >
-              <div className="relative h-50 bg-slate-50">
+              <div className="relative h-52 bg-slate-50 overflow-hidden">
                 {(() => {
                   const imageKey = `category-${cat.id}`;
                   const topProduct = categoryTopProductMap[cat.id];
@@ -442,7 +441,6 @@ export default function HomeSection({
                     </>
                   );
                 })()}
-                <div className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-white via-white/88 to-transparent" />
                 <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-[10px] bg-white/90 text-orange-600 font-black uppercase backdrop-blur-sm border border-orange-100 shadow-sm">
                   {lang === "zh" ? "精选" : "Featured"}
                 </span>
