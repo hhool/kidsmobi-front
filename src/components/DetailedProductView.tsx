@@ -49,7 +49,19 @@ function resolveCustomersSay(product: Product, lang: "zh" | "en"): string {
     zh?: { customersSay?: string };
     en?: { customersSay?: string };
   })[lang]?.customersSay;
-  return String(localized || product.customers_say || product.customersSay || "").trim();
+  const rawText = String(localized || product.customers_say || product.customersSay || "")
+    .replace(/\s+/g, " ")
+    .trim();
+  const lower = rawText.toLowerCase();
+  if (!rawText) return "";
+
+  const isStatsLine =
+    /^rated\s+\d(?:\.\d+)?\s+out\s+of\s+5\b/.test(lower) ||
+    /^backed\s+by\s+[\d,]+\s+customer\s+reviews\b/.test(lower) ||
+    /^\d(?:\.\d+)?\s+\d(?:\.\d+)?\s+out\s+of\s+5\s+stars\b/.test(lower) ||
+    /^\(?[\d,]+\)?\s+customer\s+reviews\b/.test(lower);
+
+  return isStatsLine ? "" : rawText;
 }
 
 function resolveVerdictText(product: Product, lang: "zh" | "en"): string {
