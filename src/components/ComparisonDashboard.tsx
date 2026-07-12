@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Product, CurrencyData } from "../types";
 import { translateProduct } from "../lib/translate";
+import { convertUsdToCurrency } from "../lib/currency";
 import { convertWeightNum, getWeightUnit } from "../lib/units";
 import { resolveProductImages } from "../lib/productImages";
 import { getProductImageAlt } from "../lib/productSeoText";
@@ -151,6 +152,9 @@ export default function ComparisonDashboard({
                     if (m.key === "weight") {
                       val = convertWeightNum(Number(val), currencyData.code).toFixed(1);
                       suffix = " " + getWeightUnit(currencyData.code);
+                    } else if (m.key === "price") {
+                      const converted = convertUsdToCurrency(val, currencyData);
+                      val = converted === null ? "" : converted.toFixed(2);
                     }
                     val = formatMetricValue(m.key, val);
                     return (

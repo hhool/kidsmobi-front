@@ -28,6 +28,7 @@ import {
 import { auth } from "../lib/firebase";
 import { ensureUserProfileInFirestore } from "../lib/firestoreService";
 import { translateProduct } from "../lib/translate";
+import { formatCurrencyFromUsd } from "../lib/currency";
 import { formatWeight } from "../lib/units";
 import { FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
 import { getProductImageAlt, getProductsPageSeoTitle } from "../lib/productSeoText";
@@ -483,7 +484,7 @@ export default function AuthSection({
                           <div className="flex justify-between">
                             <span className="text-[9px] bg-slate-900 text-amber-500 p-1 rounded font-bold uppercase">{dispProd.brand}</span>
                             <span className="text-xs font-mono font-bold text-amber-400">
-                              {currencyData.symbol}{dispProd.price}
+                              {formatCurrencyFromUsd(dispProd.price, currencyData, lang)}
                             </span>
                           </div>
                           <h4 className="text-sm font-extrabold text-white mt-1">{dispProd.name}</h4>
@@ -878,7 +879,7 @@ export default function AuthSection({
                              <p className="text-[9px] text-slate-500 uppercase font-black tracking-wider">{disp.brand}</p>
                            </div>
                            <div className="ml-auto text-xs font-mono font-bold text-amber-400">
-                             {currencyData.symbol}{disp.price}
+                             {formatCurrencyFromUsd(disp.price, currencyData, lang)}
                            </div>
                          </div>
                        );

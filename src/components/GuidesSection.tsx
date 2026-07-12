@@ -758,10 +758,11 @@ export default function GuidesSection({
                   <span className="text-slate-900 font-black block text-lg mb-2">
                     {lang === "en" ? "No matches found" : "哎呀，没找到完美匹配"}
                   </span>
+import { convertUsdToCurrency, formatCurrencyFromUsd } from "../lib/currency";
                   <p className="text-sm text-slate-500 max-w-sm mx-auto leading-relaxed">
                     {lang === "en" 
                       ? "Try adjusting the budget or weight limits slightly to see more options." 
-                      : `建议试着放宽一点点预算（当前${currencyData.symbol}3000）或者自重限制，或许会有特别的惊喜。`}
+                      : `建议试着放宽一点点预算（当前${currencyData.symbol}${Math.round(convertUsdToCurrency(3000, currencyData) || 3000)}）或者自重限制，或许会有特别的惊喜。`}
                   </p>
                 </div>
               ) : (
@@ -787,7 +788,7 @@ export default function GuidesSection({
                           </div>
                           <div className="flex justify-between items-center">
                             <span className="text-slate-400 font-bold">{lang === "en" ? "Price" : "参考售价"}</span>
-                            <strong className="text-slate-900 font-black">{currencyData.symbol}{dispProduct.price}</strong>
+                            <strong className="text-slate-900 font-black">{formatCurrencyFromUsd(dispProduct.price, currencyData, lang)}</strong>
                           </div>
                         </div>
 
@@ -916,7 +917,7 @@ export default function GuidesSection({
               <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
                 <span>{lang === "en" ? "5. Purchase Budget" : "5. 购车预算上限"}</span>
                 <span className="text-emerald-500 text-sm font-black">
-                  {currencyData.symbol} {wizardBudget}
+                  {formatCurrencyFromUsd(wizardBudget, currencyData, lang, 0)}
                 </span>
               </label>
               <input

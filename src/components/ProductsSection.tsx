@@ -23,6 +23,7 @@ import { resolveProductImages } from "../lib/productImages";
 import { getProductImageAlt, getProductsPageSeoTitle } from "../lib/productSeoText";
 import { getBackendPickerPayload } from "../lib/backendResourceService";
 import { cleanVisibleSourceText } from "../lib/visibleText";
+import { formatCurrencyFromUsd } from "../lib/currency";
 import SmartImage from "./common/SmartImage";
 import Breadcrumbs from "./Breadcrumbs";
 import ComparisonDashboard from "./ComparisonDashboard";
@@ -253,12 +254,8 @@ function resolveCardVerdict(product: Product, lang: "zh" | "en"): string {
   return "";
 }
 
-function formatPriceDisplay(price: unknown, currencySymbol: string, lang: "zh" | "en"): string {
-  const numeric = typeof price === "number" ? price : Number(price);
-  if (Number.isFinite(numeric) && numeric > 0) {
-    return `${currencySymbol}${numeric.toFixed(2)}`;
-  }
-  return lang === "zh" ? "待补充" : "N/A";
+function formatPriceDisplay(price: unknown, currencyData: CurrencyData, lang: "zh" | "en"): string {
+  return formatCurrencyFromUsd(price, currencyData, lang);
 }
 
 function formatMassDisplay(weight: unknown, countryCode: string, lang: "zh" | "en"): string {
@@ -1296,7 +1293,7 @@ export default function ProductsSection({
             const diProduct = p;
             const imageSet = resolveProductImages(diProduct);
             const cardSummary = resolveCardSummary(diProduct, lang);
-            const priceText = formatPriceDisplay(diProduct.price, currencyData.symbol, lang);
+            const priceText = formatPriceDisplay(diProduct.price, currencyData, lang);
             const productSeoTitle = getProductsPageSeoTitle(p);
 
             const isAlreadySaved = savedProducts.some(s => s.id === diProduct.id);
