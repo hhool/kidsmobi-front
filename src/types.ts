@@ -306,6 +306,9 @@ export interface CMSSettings {
       zh?: Record<string, string>;
       en?: Record<string, string>;
     };
+    featureFlags?: {
+      showEmptyScoringStandardsSection?: boolean;
+    };
   };
 }
 

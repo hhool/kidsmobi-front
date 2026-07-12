@@ -460,6 +460,11 @@ function buildBaselineSettings(): CMSSettings {
     },
     homeSlots: [],
     seo: DEFAULT_SEO_CONFIGS,
+    opsCenter: {
+      featureFlags: {
+        showEmptyScoringStandardsSection: false,
+      },
+    },
     scoringStandards: [
       {
         id: "baseline",

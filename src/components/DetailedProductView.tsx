@@ -505,6 +505,8 @@ export default function DetailedProductView({
         parentTip: cleanVisibleSourceText(lang === "en" ? s.descriptionEn : s.descriptionZh),
         evidence: (displayProduct.scrapedEvidence || product.scrapedEvidence || []).slice(0, 3),
       }));
+  const showEmptyScoringStandardsSection = Boolean(cmsSettings?.opsCenter?.featureFlags?.showEmptyScoringStandardsSection);
+  const shouldRenderScoringStandardsSection = scoringStandards.length > 0 || showEmptyScoringStandardsSection;
 
   return (
     <div id="detailed_product_view" className="max-w-4xl mx-auto space-y-8 animate-fade-in text-left">
@@ -693,47 +695,55 @@ export default function DetailedProductView({
           </div>
 
           {/* Standards Accordion */}
-          <div className="bg-white border border-slate-100 rounded-[40px] p-8 shadow-sm space-y-6">
-             <h2 className="text-xl font-black text-slate-900 border-b border-slate-50 pb-4">{lang === "en" ? "Scoring Standards & Logic" : "评分标准与算法详情"}</h2>
-             <div className="space-y-3">
-                {scoringStandards.map((std) => {
-                  const isExpanded = activeStandardDimension === std.key;
-                  return (
-                    <div 
-                      key={std.key} 
-                      id={`std-accordion-${std.key}`}
-                      className={`rounded-3xl border transition-all ${isExpanded ? "border-orange-200 bg-orange-50/20" : "border-slate-100 bg-slate-50/50"}`}
-                    >
-                      <button 
-                        onClick={() => setActiveStandardDimension(isExpanded ? null : std.key)}
-                        className="w-full px-6 py-4 flex justify-between items-center text-left"
-                      >
-                        <span className="font-bold text-slate-700 text-sm">{lang === "en" ? std.nameEn : std.nameZh}</span>
-                        <ChevronRight className={`w-4 h-4 transition-transform ${isExpanded ? "rotate-90 text-orange-500" : "text-slate-300"}`} />
-                      </button>
-                      {isExpanded && (
-                        <div className="px-6 pb-6 space-y-4 animate-fade-in">
-                           <div className="bg-white p-4 rounded-2xl border border-orange-100 text-[11px] text-orange-800 font-bold leading-relaxed shadow-sm">
-                            {lang === "en" ? "Parent's Tip: " : "给家长的总结："}{cleanVisibleSourceText(std.parentTip)}
-                           </div>
-                          <div className="space-y-2 pl-2">
-                            {std.evidence.map((item, index) => {
-                              const evidenceSource = cleanEvidenceSource(item.source);
-                              return (
-                                <div key={`${std.key}-${index}`} className="text-xs text-slate-500 leading-relaxed font-medium bg-white/70 border border-slate-100 rounded-2xl p-3">
-                                 {evidenceSource && <span className="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">{evidenceSource}</span>}
-                                 {cleanVisibleFieldText(item.text)}
-                                </div>
-                              );
-                            })}
-                          </div>
+          {shouldRenderScoringStandardsSection && (
+            <div className="bg-white border border-slate-100 rounded-[40px] p-8 shadow-sm space-y-6">
+               <h2 className="text-xl font-black text-slate-900 border-b border-slate-50 pb-4">{lang === "en" ? "Scoring Standards & Logic" : "评分标准与算法详情"}</h2>
+               {scoringStandards.length > 0 ? (
+                 <div className="space-y-3">
+                    {scoringStandards.map((std) => {
+                      const isExpanded = activeStandardDimension === std.key;
+                      return (
+                        <div 
+                          key={std.key} 
+                          id={`std-accordion-${std.key}`}
+                          className={`rounded-3xl border transition-all ${isExpanded ? "border-orange-200 bg-orange-50/20" : "border-slate-100 bg-slate-50/50"}`}
+                        >
+                          <button 
+                            onClick={() => setActiveStandardDimension(isExpanded ? null : std.key)}
+                            className="w-full px-6 py-4 flex justify-between items-center text-left"
+                          >
+                            <span className="font-bold text-slate-700 text-sm">{lang === "en" ? std.nameEn : std.nameZh}</span>
+                            <ChevronRight className={`w-4 h-4 transition-transform ${isExpanded ? "rotate-90 text-orange-500" : "text-slate-300"}`} />
+                          </button>
+                          {isExpanded && (
+                            <div className="px-6 pb-6 space-y-4 animate-fade-in">
+                               <div className="bg-white p-4 rounded-2xl border border-orange-100 text-[11px] text-orange-800 font-bold leading-relaxed shadow-sm">
+                                {lang === "en" ? "Parent's Tip: " : "给家长的总结："}{cleanVisibleSourceText(std.parentTip)}
+                               </div>
+                              <div className="space-y-2 pl-2">
+                                {std.evidence.map((item, index) => {
+                                  const evidenceSource = cleanEvidenceSource(item.source);
+                                  return (
+                                    <div key={`${std.key}-${index}`} className="text-xs text-slate-500 leading-relaxed font-medium bg-white/70 border border-slate-100 rounded-2xl p-3">
+                                     {evidenceSource && <span className="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">{evidenceSource}</span>}
+                                     {cleanVisibleFieldText(item.text)}
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          )}
                         </div>
-                      )}
-                    </div>
-                  );
-                })}
-             </div>
-          </div>
+                      );
+                    })}
+                 </div>
+               ) : (
+                 <div className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 text-sm text-slate-500 font-medium">
+                   {lang === "en" ? "Scoring standards are temporarily unavailable for this product." : "该产品的评分标准暂未补齐。"}
+                 </div>
+               )}
+            </div>
+          )}
         </div>
 
         {/* Technical Specs (Right Column) */}

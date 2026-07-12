@@ -97,6 +97,9 @@ function buildDefaultOpsCenter() {
       zh: { ...OPS_COLLECTION_LABEL_DEFAULTS.zh },
       en: { ...OPS_COLLECTION_LABEL_DEFAULTS.en },
     },
+    featureFlags: {
+      showEmptyScoringStandardsSection: false,
+    },
   };
 }
 
@@ -173,6 +176,10 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
           ...(current.collectionLabels?.en || {}),
         },
       },
+      featureFlags: {
+        ...defaults.featureFlags,
+        ...(current.featureFlags || {}),
+      },
     };
   };
 
@@ -211,6 +218,21 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
             ...merged.collectionLabels[locale],
             [key]: value,
           },
+        },
+      },
+    });
+  };
+
+  const updateOpsFeatureFlag = (key: "showEmptyScoringStandardsSection", value: boolean) => {
+    if (!settings) return;
+    const merged = ensureOpsCenter();
+    setSettings({
+      ...settings,
+      opsCenter: {
+        ...merged,
+        featureFlags: {
+          ...merged.featureFlags,
+          [key]: value,
         },
       },
     });
@@ -620,6 +642,45 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
                 onChange={(v: string) => updateOpsCollectionLabel("en", key, v)}
               />
             ))}
+          </div>
+        </div>
+
+        <div className="bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm space-y-4">
+          <div className="text-xs font-black text-slate-900 uppercase tracking-widest">
+            {lang === "zh" ? "Feature Flags" : "Feature Flags"}
+          </div>
+          <div className="flex items-center justify-between gap-4 rounded-2xl border border-slate-100 bg-slate-50 px-5 py-4">
+            <div className="space-y-1">
+              <p className="text-sm font-black text-slate-800">
+                {lang === "zh" ? "无评分标准时仍显示评分区块" : "Show scoring section when standards are empty"}
+              </p>
+              <p className="text-xs text-slate-500 font-semibold">
+                {lang === "zh"
+                  ? "关闭后将隐藏空白“评分标准与算法详情”模块。"
+                  : "When disabled, the empty 'Scoring Standards & Logic' module is hidden."}
+              </p>
+            </div>
+            <button
+              type="button"
+              aria-pressed={Boolean(opsCenterConfig.featureFlags?.showEmptyScoringStandardsSection)}
+              onClick={() =>
+                updateOpsFeatureFlag(
+                  "showEmptyScoringStandardsSection",
+                  !Boolean(opsCenterConfig.featureFlags?.showEmptyScoringStandardsSection)
+                )
+              }
+              className={`relative inline-flex h-8 w-16 shrink-0 rounded-full border transition-all ${
+                opsCenterConfig.featureFlags?.showEmptyScoringStandardsSection
+                  ? "bg-orange-500 border-orange-500"
+                  : "bg-slate-200 border-slate-300"
+              }`}
+            >
+              <span
+                className={`inline-block h-6 w-6 transform rounded-full bg-white shadow-sm transition-all mt-[3px] ${
+                  opsCenterConfig.featureFlags?.showEmptyScoringStandardsSection ? "translate-x-8" : "translate-x-1"
+                }`}
+              />
+            </button>
           </div>
         </div>
       </section>

@@ -1,4 +1,4 @@
-import type { CMSProduct, CMSSettings, Evaluation } from "../types";
+import type { CMSProduct, CMSSettings, Evaluation, ProductScoringStandard, ScrapedEvidenceItem } from "../types";
 
 export interface ContentBundle {
   settings: CMSSettings | null;
@@ -306,6 +306,69 @@ function normalizeCompliance(categoryId: string, classification: Record<string, 
   return out.slice(0, 5);
 }
 
+function buildRuntimeFallbackScoringStandards(
+  item: WorkerProduct,
+  features: string[],
+  compliance: string[]
+): ProductScoringStandard[] {
+  const classification = item.classification || {};
+  const ratingValue = Number(item.rating?.value ?? item.userRating ?? 4.2);
+
+  const safetyEvidence: ScrapedEvidenceItem[] = [
+    {
+      source: "Safety",
+      text: `Compliance: ${(compliance.length ? compliance : ["Pending source verification"]).join(", ")}`,
+    },
+    {
+      source: "Harness",
+      text: `Harness type: ${String(classification.Harness_Type || "Not specified")}`,
+    },
+  ];
+
+  const comfortEvidence: ScrapedEvidenceItem[] = [
+    {
+      source: "Wheel",
+      text: `Wheel size: ${String(classification.Wheel_Size || "Not specified")}`,
+    },
+    {
+      source: "Feature",
+      text: `Comfort signals: ${(features.length ? features : ["Suspension and seat comfort need editorial enrichment"]).slice(0, 2).join("; ")}`,
+    },
+  ];
+
+  const portabilityEvidence: ScrapedEvidenceItem[] = [
+    {
+      source: "Weight",
+      text: item.weight?.lbs ? `Item weight: ${Number(item.weight.lbs).toFixed(1)} lbs` : "Weight data pending source confirmation",
+    },
+    {
+      source: "Rating",
+      text: `User rating baseline: ${Number.isFinite(ratingValue) ? ratingValue.toFixed(1) : "4.2"}/5`,
+    },
+  ];
+
+  return [
+    {
+      key: "safety",
+      label: "Safety First",
+      parentTip: "Check compliance and restraint details first, then evaluate structural stability.",
+      evidence: safetyEvidence,
+    },
+    {
+      key: "comfort",
+      label: "Riding Comfort",
+      parentTip: "Focus on seat support, wheel setup, and whether the feature set matches daily usage.",
+      evidence: comfortEvidence,
+    },
+    {
+      key: "portability",
+      label: "Light & Easy",
+      parentTip: "Weight and fold convenience matter most for commuting and travel-heavy families.",
+      evidence: portabilityEvidence,
+    },
+  ];
+}
+
 function toCMSProduct(item: WorkerProduct): CMSProduct {
   const classification = item.classification || {};
   const attrs = item.categoryAttributes;
@@ -327,6 +390,7 @@ function toCMSProduct(item: WorkerProduct): CMSProduct {
         .filter(Boolean)
         .slice(0, 4)
     : (attrs?.features || []).slice(0, 4);
+  const scoringStandards = buildRuntimeFallbackScoringStandards(item, features, compliance);
   const updatedAt = new Date().toISOString();
   const customersSay = String(item.customers_say || item.customersSay || "").trim();
   const ratingValue = item.rating?.value ?? item.userRating;
@@ -361,6 +425,7 @@ function toCMSProduct(item: WorkerProduct): CMSProduct {
     safetyScore: Math.max(6.5, Math.min(10, Number(ratingValue || 4.2) * 1.9)),
     weightScore: item.weight?.lbs ? Math.max(6.5, Math.min(10, 10 - Number(item.weight.lbs) / 8)) : 8.0,
     geometryScore: item.rank ? Math.max(7.0, Math.min(9.8, 9.6 - Number(item.rank) * 0.08)) : 8.6,
+    scoringStandards,
     pros: features.slice(0, 3),
     cons: ["Auto-generated runtime fallback from worker API"],
     customers_say: customersSay,
