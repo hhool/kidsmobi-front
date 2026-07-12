@@ -170,7 +170,6 @@ function stripVisibleFieldLabels(value: string): string {
 }
 
 function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
-  const customersSay = pickCustomersSay(product, lang);
   const description = pickLocalizedDescription(product, lang);
   const verdict = resolveCardVerdict(product, lang);
   const pros = ((product as Product & {
@@ -184,7 +183,8 @@ function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
     .map((item) => compactSnippet(item))
     .filter(Boolean);
 
-  const candidates = [description, verdict, customersSay, pros[0], features[0]]
+  // Card summary must reflect Product Description semantics first; do not fall back to Customers Say.
+  const candidates = [description, verdict, pros[0], features[0]]
     .map((item) => compactSnippet(item))
     .map((item) => stripVisibleFieldLabels(item))
     .map((item) => stripRepeatedBrandPrefix(item, product.brand))
