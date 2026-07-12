@@ -466,6 +466,15 @@ function isUnsupportedVideoUrl(value: unknown) {
   return /\.m3u8(\?|#|$)/i.test(String(value || "").trim());
 }
 
+function isPlaceholderLocalizedDescription(value: unknown) {
+  const text = String(value || "").trim().toLowerCase();
+  if (!text) return false;
+  return (
+    /^primary\s+visual\s+asset\s+for\s+.+\s+in\s+[a-z_]+\.?$/i.test(text) ||
+    text.includes("placeholder description")
+  );
+}
+
 function sanitizeVisibleProductFields(product: any) {
   const videos = Array.isArray(product.videos)
     ? product.videos.filter((item: any) => !isUnsupportedVideoUrl(item?.url))
@@ -509,7 +518,11 @@ export function translateProduct(p: any, lang: "zh" | "en") {
   // Use localized data from CMS if available
   const localData = p[lang] || {};
   const name = localData.name || p.name;
-  const description = localData.description || p.description;
+  const localizedDescription = String(localData.description || "").trim();
+  const description =
+    localizedDescription && !isPlaceholderLocalizedDescription(localizedDescription)
+      ? localizedDescription
+      : p.description;
   const pros = localData.pros || p.pros || [];
   const cons = localData.cons || p.cons || [];
   const editorVerdict = localData.editorVerdict || p.editorVerdict || "";

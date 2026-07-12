@@ -66,13 +66,66 @@ function hasRealCustomersSay(product: Product, lang: "zh" | "en"): boolean {
   return /^Customers find\b/i.test(customerSay);
 }
 
+function isCustomerReviewNarrative(value: string): boolean {
+  const text = compactSnippet(value);
+  if (!text) return false;
+  return /^customers find\b/i.test(text) || isRatingStatsSummary(text);
+}
+
+function isPlaceholderDescription(value: string): boolean {
+  const text = compactSnippet(value).toLowerCase();
+  if (!text) return true;
+  return (
+    /^primary\s+visual\s+asset\s+for\s+.+\s+in\s+[a-z_]+\.?$/i.test(text) ||
+    /^backend[-\s]?imported$/i.test(text) ||
+    /^backend\s+(runtime|preview|fallback)\b/i.test(text) ||
+    text.includes("placeholder description") ||
+    text.includes("backend preview item loaded") ||
+    text.includes("来自 backend 实时数据") ||
+    text.includes("generated from remote fallback")
+  );
+}
+
+function pickDescriptionFromEvidence(product: Product): string {
+  const evidences = Array.isArray(product.scrapedEvidence) ? product.scrapedEvidence : [];
+  for (const item of evidences) {
+    const source = String(item?.source || "").toLowerCase();
+    const text = compactSnippet(String(item?.text || ""));
+    if (!text || isPlaceholderDescription(text)) continue;
+    if (source.includes("product_description") || source.includes("product description")) {
+      return text;
+    }
+  }
+  return "";
+}
+
 function pickLocalizedDescription(product: Product, lang: "zh" | "en"): string {
   const localized = (product as Product & {
     description?: string;
+    Product_Description?: string;
+    product_description?: string;
+    productDescription?: string;
     zh?: { description?: string };
     en?: { description?: string };
-  })[lang]?.description;
-  return String(localized || (product as Product & { description?: string }).description || "").trim();
+  });
+
+  const localizedDescription = String(localized[lang]?.description || "").trim();
+  const rawProductDescription = String(
+    localized.Product_Description || localized.product_description || localized.productDescription || ""
+  ).trim();
+  const defaultDescription = String(localized.description || "").trim();
+  const evidenceDescription = pickDescriptionFromEvidence(product);
+
+  const candidates = [
+    rawProductDescription,
+    isPlaceholderDescription(localizedDescription) ? "" : localizedDescription,
+    isPlaceholderDescription(defaultDescription) ? "" : defaultDescription,
+    evidenceDescription,
+  ].map((item) => compactSnippet(item));
+
+  return (
+    candidates.find((item) => item && !isPlaceholderDescription(item) && !isCustomerReviewNarrative(item)) || ""
+  );
 }
 
 function compactSnippet(value: string): string {
@@ -148,6 +201,10 @@ function isGenericCardSnippet(value: string): boolean {
   const genericPatterns = [
     "product entry initialized into cms",
     "backend preview item loaded",
+    "backend-imported",
+    "primary visual asset for",
+    "来自 backend 实时数据",
+    "generated from remote fallback",
     "independently verified kids stroller or bicycle setup",
     "由后台一键初始化写入 cms",
     "cms 空数据时自动加载",
@@ -171,26 +228,14 @@ function stripVisibleFieldLabels(value: string): string {
 
 function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
   const description = pickLocalizedDescription(product, lang);
-  const verdict = resolveCardVerdict(product, lang);
-  const pros = ((product as Product & {
-    pros?: string[];
-    zh?: { pros?: string[] };
-    en?: { pros?: string[] };
-  })[lang]?.pros || product.pros || [])
-    .map((item) => compactSnippet(item))
-    .filter(Boolean);
-  const features = (product.features || [])
-    .map((item) => compactSnippet(item))
-    .filter(Boolean);
-
-  // Card summary must reflect Product Description semantics first; do not fall back to Customers Say.
-  const candidates = [description, verdict, pros[0], features[0]]
+  // Card summary must display Product_Description string semantics only.
+  const candidates = [description]
     .map((item) => compactSnippet(item))
     .map((item) => stripVisibleFieldLabels(item))
     .map((item) => stripRepeatedBrandPrefix(item, product.brand))
-    .filter((item) => item && !isRatingStatsSummary(item) && !isPlaceholderVerdict(item) && !isGenericCardSnippet(item) && !isTitleDuplicateSnippet(item, product));
+    .filter((item) => item && !isRatingStatsSummary(item) && !isPlaceholderVerdict(item) && !isCustomerReviewNarrative(item) && !isGenericCardSnippet(item) && !isTitleDuplicateSnippet(item, product));
 
-  return truncateCardSnippet(candidates[0] || resolveGeneratedCardSummary(product, lang), lang === "zh" ? 72 : 120);
+  return truncateCardSnippet(candidates[0] || "", lang === "zh" ? 72 : 120);
 }
 
 function resolveCardVerdict(product: Product, lang: "zh" | "en"): string {
@@ -1297,10 +1342,7 @@ export default function ProductsSection({
                   </h3>
 
                   {cardSummary && (
-                    <div className="space-y-1">
-                      <p className="text-[9px] font-black uppercase tracking-widest text-slate-400">
-                        {lang === "en" ? "Product Description" : "产品描述"}
-                      </p>
+                    <div>
                       <p className="text-slate-600 text-sm leading-relaxed font-medium line-clamp-2">
                         {cardSummary}
                       </p>
