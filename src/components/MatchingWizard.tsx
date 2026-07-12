@@ -36,6 +36,14 @@ export default function MatchingWizard({
   lang = "zh",
   currencyData
 }: MatchingWizardProps) {
+  const formatWizardScore = (value: unknown) => {
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric)) {
+      return "";
+    }
+    return numeric.toFixed(2);
+  };
+
   const [step, setStep] = useState<WizardStep>("age");
   const [selections, setSelections] = useState({
     age: "",
@@ -278,10 +286,12 @@ export default function MatchingWizard({
                         <div className="flex-1 space-y-1">
                           <div className="flex justify-between items-center">
                             <span className="text-[9px] font-black text-orange-500 tracking-widest uppercase">{dp.brand}</span>
-                            <div className="flex items-center gap-1">
-                              <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
-                              <span className="text-xs font-black">{p.overallScore}</span>
-                            </div>
+                            {formatWizardScore(p.overallScore) && (
+                              <div className="flex items-center gap-1">
+                                <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
+                                <span className="text-xs font-black">{formatWizardScore(p.overallScore)}</span>
+                              </div>
+                            )}
                           </div>
                           <h5 className="font-black text-slate-900 leading-tight truncate">{dp.name}</h5>
                           <p className="text-[10px] text-slate-400 font-bold uppercase truncate">{dp.categoryLabel}</p>

@@ -73,6 +73,14 @@ export default function AuthSection({
     return "";
   };
 
+  const formatReportScore = (value: unknown) => {
+    const numeric = Number(value);
+    if (Number.isFinite(numeric)) {
+      return numeric.toFixed(2);
+    }
+    return "N/A";
+  };
+
   // Sync page state when user logouts/logins from parent listener
   useEffect(() => {
     setIsRegistered(!!userEmail);
@@ -352,7 +360,7 @@ export default function AuthSection({
     setTimeout(() => {
       setDownloadingId(null);
       const dispProduct = translateProduct(product, lang);
-      const content = `MEMBER_EXCLUSIVE_REPORT\nKID_BIKE_EVAL_LABORATORY\n-------------------------\nPRODUCT: ${dispProduct.name}\nBRAND: ${dispProduct.brand}\nOVERALL SCORE: ${dispProduct.overallScore}/10\nBRAKE SAFETY SCORE: ${dispProduct.safetyScore}\nQ-FACTOR GEOMETRY SCORE: ${dispProduct.geometryScore}\nWEIGHT SCORE: ${dispProduct.weightScore}\n\nPROS:\n${dispProduct.pros.map((p: string) => `- ${p}`).join("\n")}\n\nCONS:\n${dispProduct.cons.map((c: string) => `- ${c}`).join("\n")}\n\nVERDICT:\n${dispProduct.editorVerdict}\n\n-------------------------\nISO 8098 APPROVED REPORT\nGLOBAL THIRD-PARTY REGULATORY DATA.`;
+      const content = `MEMBER_EXCLUSIVE_REPORT\nKID_BIKE_EVAL_LABORATORY\n-------------------------\nPRODUCT: ${dispProduct.name}\nBRAND: ${dispProduct.brand}\nOVERALL SCORE: ${formatReportScore(dispProduct.overallScore)}/10\nBRAKE SAFETY SCORE: ${formatReportScore(dispProduct.safetyScore)}\nQ-FACTOR GEOMETRY SCORE: ${formatReportScore(dispProduct.geometryScore)}\nWEIGHT SCORE: ${formatReportScore(dispProduct.weightScore)}\n\nPROS:\n${dispProduct.pros.map((p: string) => `- ${p}`).join("\n")}\n\nCONS:\n${dispProduct.cons.map((c: string) => `- ${c}`).join("\n")}\n\nVERDICT:\n${dispProduct.editorVerdict}\n\n-------------------------\nISO 8098 APPROVED REPORT\nGLOBAL THIRD-PARTY REGULATORY DATA.`;
       
       const blob = new Blob([content], { type: "text/plain" });
       const url = URL.createObjectURL(blob);

@@ -38,6 +38,14 @@ export default function ComparisonDashboard({
 }: ComparisonDashboardProps) {
   if (compareList.length === 0) return null;
 
+  const formatScoreDisplay = (value: unknown): string => {
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric)) {
+      return lang === "en" ? "N/A" : "--";
+    }
+    return numeric.toFixed(2);
+  };
+
   const formatMetricValue = (key: string, value: unknown): string => {
     const text = String(value ?? "").trim();
     if (key === "ageRange" && (!text || /^all\s*ages?$/i.test(text) || /^confirm from source$/i.test(text))) {
@@ -185,7 +193,7 @@ export default function ComparisonDashboard({
                       <td key={p.id} className="p-8 pb-4 pt-10 px-10 border-l border-white/5">
                         <div className="space-y-3">
                           <div className="flex justify-between items-end">
-                            <span className="text-2xl font-black text-orange-500">{score}</span>
+                            <span className="text-2xl font-black text-orange-500">{formatScoreDisplay(score)}</span>
                             <span className="text-[10px] text-slate-600 font-black">/ 10.0</span>
                           </div>
                           <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">

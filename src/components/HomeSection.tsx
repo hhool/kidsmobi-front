@@ -144,6 +144,14 @@ export default function HomeSection({
     });
   };
 
+  const formatHomeScore = (value: unknown) => {
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric)) {
+      return "";
+    }
+    return numeric.toFixed(2);
+  };
+
   const scrapedCategoryCards = useMemo(() => {
     return SCRAPED_CATEGORY_CATALOG.slice(0, 8).map((entry) => ({
       ...entry,
@@ -617,10 +625,12 @@ export default function HomeSection({
                  <div className="p-6 space-y-4 flex-1 flex flex-col">
                     <div className="flex justify-between items-center">
                       <span className="text-[9px] font-black text-orange-500 uppercase tracking-widest">{dp.brand}</span>
-                      <div className="flex items-center gap-1">
-                        <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
-                        <span className="text-xs font-black">{dp.overallScore}</span>
-                      </div>
+                      {formatHomeScore(dp.overallScore) && (
+                        <div className="flex items-center gap-1">
+                          <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
+                          <span className="text-xs font-black">{formatHomeScore(dp.overallScore)}</span>
+                        </div>
+                      )}
                     </div>
                     <h3 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors line-clamp-2 min-h-12">{title}</h3>
                     <p className="text-[10px] text-slate-500 font-medium line-clamp-3 leading-relaxed min-h-12">{snapshot}</p>
