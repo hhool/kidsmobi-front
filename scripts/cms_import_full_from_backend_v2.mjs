@@ -117,14 +117,19 @@ function normalizeSimilarProduct(parent, item) {
 
 function expandProductsWithEligibleSimilar(products) {
   const byId = new Map();
+  let droppedProductsInvalidId = 0;
   for (const product of products) {
     const id = productIdOf(product);
-    if (!id) continue;
+    if (!id) {
+      droppedProductsInvalidId += 1;
+      continue;
+    }
     byId.set(id, { ...product, productId: id });
   }
 
   let similarAdded = 0;
   let similarLinked = 0;
+  let droppedSimilarInvalidId = 0;
   for (const product of products) {
     const parentId = productIdOf(product);
     if (!parentId) continue;
@@ -134,7 +139,10 @@ function expandProductsWithEligibleSimilar(products) {
     const relatedIds = [];
     for (const item of eligibleItems) {
       const similarId = productIdOf(item);
-      if (!similarId) continue;
+      if (!similarId) {
+        droppedSimilarInvalidId += 1;
+        continue;
+      }
       relatedIds.push(similarId);
       similarLinked += 1;
       if (!byId.has(similarId)) {
@@ -155,6 +163,8 @@ function expandProductsWithEligibleSimilar(products) {
     products: Array.from(byId.values()),
     similarAdded,
     similarLinked,
+    droppedProductsInvalidId,
+    droppedSimilarInvalidId,
   };
 }
 
@@ -491,6 +501,11 @@ async function main() {
     guides: { created: 0, updated: 0, failed: 0 },
     news: { created: 0, updated: 0, failed: 0 },
     settings: { created: 0, updated: 0, failed: 0 },
+    invalidIdAudit: {
+      droppedFromProductsList: 0,
+      droppedFromExpandedBuild: 0,
+      droppedFromSimilarItems: 0,
+    },
   };
 
   console.log(`[import] cmsBase=${cmsBase}`);
@@ -567,9 +582,13 @@ async function main() {
     );
 
     const detailedProducts = [];
+    let droppedFromProductsListForCategory = 0;
     for (const product of products) {
       const productId = productIdOf(product);
-      if (!productId) continue;
+      if (!productId) {
+        droppedFromProductsListForCategory += 1;
+        continue;
+      }
       try {
         const detailResp = await fetchJsonWithRetry(`${sourceBase}/api/v2/products/${encodeURIComponent(productId)}?categoryId=${encodedCategory}`);
         if (detailResp?.data && typeof detailResp.data === "object") {
@@ -583,7 +602,9 @@ async function main() {
       }
     }
     const expanded = expandProductsWithEligibleSimilar(detailedProducts);
-    console.log(`[import] loaded category=${cat.categoryId} products=${products.length} detailed=${detailedProducts.length} similarLinked=${expanded.similarLinked} similarAdded=${expanded.similarAdded} resources=${resources.length}`);
+    importStats.invalidIdAudit.droppedFromProductsList += droppedFromProductsListForCategory;
+    importStats.invalidIdAudit.droppedFromSimilarItems += expanded.droppedSimilarInvalidId;
+    console.log(`[import] loaded category=${cat.categoryId} products=${products.length} detailed=${detailedProducts.length} similarLinked=${expanded.similarLinked} similarAdded=${expanded.similarAdded} invalidListDropped=${droppedFromProductsListForCategory} invalidSimilarDropped=${expanded.droppedSimilarInvalidId} resources=${resources.length}`);
 
     allProducts.push(...expanded.products);
     allResources.push(...resources);
@@ -598,7 +619,20 @@ async function main() {
     sourceCategoryByProductId.set(String(product.productId), String(product.categoryId || "unknown"));
   }
 
-  const cmsProducts = allProducts.map((p) => buildProduct(p, resourceMap.get(p.productId)));
+  const cmsProducts = [];
+  for (const product of allProducts) {
+    const normalizedId = productIdOf(product);
+    if (!normalizedId) {
+      importStats.invalidIdAudit.droppedFromExpandedBuild += 1;
+      continue;
+    }
+    const row = buildProduct({ ...product, productId: normalizedId }, resourceMap.get(normalizedId));
+    if (isInvalidId(row?.id)) {
+      importStats.invalidIdAudit.droppedFromExpandedBuild += 1;
+      continue;
+    }
+    cmsProducts.push(row);
+  }
   const existingProducts = await fetchJsonWithRetry(`${cmsBase}/api/cms/products`);
   const existingProductIds = new Set(
     Array.isArray(existingProducts?.data)
