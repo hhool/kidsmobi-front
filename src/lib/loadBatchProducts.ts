@@ -463,6 +463,24 @@ function normalizeDuplicatedLeadingBrand(title: string, brand: string): string {
   return normalizedTitle.replace(duplicatedLeadingBrandPattern, "$1 ").trim();
 }
 
+function normalizeDuplicatedLeadingToken(title: string): string {
+  const normalizedTitle = String(title || "").replace(/\s+/g, " ").trim();
+  if (!normalizedTitle) return normalizedTitle;
+
+  const parts = normalizedTitle.split(" ");
+  if (parts.length < 2) return normalizedTitle;
+
+  const first = parts[0].replace(/[.,:;!?()\[\]{}"'`]+$/g, "");
+  const second = parts[1].replace(/[.,:;!?()\[\]{}"'`]+$/g, "");
+  if (!first || !second) return normalizedTitle;
+
+  if (first.localeCompare(second, undefined, { sensitivity: "accent" }) === 0) {
+    return [parts[0], ...parts.slice(2)].join(" ").trim();
+  }
+
+  return normalizedTitle;
+}
+
 /**
  * Determine stroller subcategory based on product title and description
  */
@@ -505,7 +523,7 @@ export function transformReportProduct(
   
   const brand = rawProduct.Brand || "Unknown";
   const rawTitle = rawProduct.Title || `Product ${index}`;
-  const title = normalizeDuplicatedLeadingBrand(rawTitle, brand);
+  const title = normalizeDuplicatedLeadingToken(normalizeDuplicatedLeadingBrand(rawTitle, brand));
   
   // Generate unique ID combining category and ASIN or index
   const id = `${finalCategoryId}-${(rawProduct.ASIN || `product${index}`).toLowerCase()}`;

@@ -5,9 +5,29 @@ const compactText = (value: string) => String(value || "").replace(/\s+/g, " ").
 
 const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
+function collapseDuplicatedLeadingPhrase(value: string): string {
+  let text = compactText(value);
+  if (!text) return text;
+
+  // Prefer longer phrase matches first, then single-token fallback.
+  const phraseSizes = [3, 2, 1];
+  for (const size of phraseSizes) {
+    const words = text.split(" ");
+    if (words.length < size * 2) continue;
+    const candidate = words.slice(0, size).join(" ");
+    const escaped = escapeRegExp(candidate);
+    const duplicatedPattern = new RegExp(`^(${escaped})(\\s+\\1)+\\b\\s*`, "i");
+    const next = text.replace(duplicatedPattern, "$1 ").trim();
+    if (next !== text) {
+      text = next;
+    }
+  }
+  return text;
+}
+
 function buildDisplaySource(brand?: string | null, name?: string | null): string {
   const brandText = compactText(brand || "");
-  let nameText = compactText(name || "");
+  let nameText = collapseDuplicatedLeadingPhrase(name || "");
 
   if (brandText && nameText) {
     const repeatedLeadingBrand = new RegExp(`^(?:${escapeRegExp(brandText)}\\s+){1,3}`, "i");
@@ -19,9 +39,9 @@ function buildDisplaySource(brand?: string | null, name?: string | null): string
 
   const brandPattern = new RegExp(`^${escapeRegExp(brandText)}(?:\\b|\\s)`, "i");
   if (brandPattern.test(nameText)) {
-    return nameText;
+    return collapseDuplicatedLeadingPhrase(nameText);
   }
-  return `${brandText} ${nameText}`;
+  return collapseDuplicatedLeadingPhrase(`${brandText} ${nameText}`);
 }
 
 const compactMarketingTitle = (value: string) => {
@@ -37,7 +57,7 @@ const compactMarketingTitle = (value: string) => {
 
 export const getProductSeoTitle = (productOrName?: Product | string | null) => {
   const source = typeof productOrName === "string"
-    ? productOrName
+    ? collapseDuplicatedLeadingPhrase(productOrName)
     : buildDisplaySource(productOrName?.brand, productOrName?.name);
   const normalized = normalizeSearchText(source);
 
