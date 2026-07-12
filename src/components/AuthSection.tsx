@@ -65,6 +65,13 @@ export default function AuthSection({
   showDeveloperAdminBypass = false
 }: AuthSectionProps) {
   const isEn = lang === "en";
+  const formatEvalsScore = (value: unknown) => {
+    const numeric = Number(value);
+    if (Number.isFinite(numeric)) {
+      return numeric.toFixed(2);
+    }
+    return "";
+  };
 
   // Sync page state when user logouts/logins from parent listener
   useEffect(() => {
@@ -490,7 +497,7 @@ export default function AuthSection({
                           <h4 className="text-sm font-extrabold text-white mt-1">{dispProd.name}</h4>
                           <div className="grid grid-cols-2 gap-1 text-[10px] text-slate-400 mt-2">
                             <span>{isEn ? "Weight: " : "自重："}{formatWeight(dispProd.weight, currencyData.code)}</span>
-                            <span>{isEn ? "Evals:" : "工效分："}{dispProd.overallScore}</span>
+                            <span>{isEn ? "Evals:" : "工效分："}{formatEvalsScore(dispProd.overallScore)}</span>
                           </div>
                         </div>
                         <button
