@@ -43,6 +43,111 @@ function dedupe(items) {
   return out;
 }
 
+function parseNumber(value, fallback = 0) {
+  const cleaned = String(value ?? "").replace(/[^0-9.]+/g, "");
+  const parsed = Number(cleaned);
+  return Number.isFinite(parsed) ? parsed : fallback;
+}
+
+function parsePriceValue(value) {
+  return parseNumber(value, 0);
+}
+
+function parseRatingValue(value) {
+  return parseNumber(value, 0);
+}
+
+function productIdOf(product) {
+  return String(product?.productId || product?.ASIN || product?.asin || "").trim();
+}
+
+function eligibleSimilarItems(product) {
+  const related = Array.isArray(product?.relatedProducts)
+    ? product.relatedProducts
+    : Array.isArray(product?.Similar_Items_Quick_Delivery)
+      ? product.Similar_Items_Quick_Delivery
+      : [];
+  return related.filter((item) => {
+    const eligible = item?.D1_Eligible === true || item?.d1Eligible === true;
+    return eligible && productIdOf(item);
+  });
+}
+
+function normalizeSimilarProduct(parent, item) {
+  const productId = productIdOf(item);
+  const cover = asHttpUrl(item?.Listing_Image_URL) || asHttpUrl(item?.coverImage) || "";
+  const title = String(item?.Title || item?.title || productId).trim();
+  return {
+    ...item,
+    productId,
+    title,
+    brand: item?.Brand || item?.brand || "Unknown",
+    categoryId: parent?.categoryId || item?.categoryId || "stroller",
+    price: typeof item?.price === "object" ? item.price : { value: parsePriceValue(item?.Price) },
+    rating: typeof item?.rating === "object" ? item.rating : { value: parseRatingValue(item?.Rating) },
+    reviews: item?.reviews ?? item?.Reviews ?? 0,
+    reviewCount: parseNumber(item?.reviewCount ?? item?.Reviews, 0),
+    coverImage: cover,
+    galleryUrls: dedupe([
+      cover,
+      ...(Array.isArray(item?.Product_Image_URLs) ? item.Product_Image_URLs : []),
+      ...(Array.isArray(item?.galleryUrls) ? item.galleryUrls : []),
+    ].map(asHttpUrl)),
+    videoUrls: dedupe([
+      ...(Array.isArray(item?.Product_Videos) ? item.Product_Videos : []),
+      ...(Array.isArray(item?.videoUrls) ? item.videoUrls : []),
+    ].map(asHttpUrl)),
+    availability: item?.availability || item?.Availability || "",
+    relatedProductIds: [],
+    similarImport: {
+      parentProductId: productIdOf(parent),
+      isSimilarItem: true,
+      d1Eligible: true,
+      detailRecordAsin: item?.Detail_Record_ASIN || productId,
+    },
+  };
+}
+
+function expandProductsWithEligibleSimilar(products) {
+  const byId = new Map();
+  for (const product of products) {
+    const id = productIdOf(product);
+    if (!id) continue;
+    byId.set(id, { ...product, productId: id });
+  }
+
+  let similarAdded = 0;
+  let similarLinked = 0;
+  for (const product of products) {
+    const parentId = productIdOf(product);
+    if (!parentId) continue;
+    const parent = byId.get(parentId) || product;
+    const eligibleItems = eligibleSimilarItems(product);
+    if (eligibleItems.length === 0) continue;
+    const relatedIds = [];
+    for (const item of eligibleItems) {
+      const similarId = productIdOf(item);
+      if (!similarId) continue;
+      relatedIds.push(similarId);
+      similarLinked += 1;
+      if (!byId.has(similarId)) {
+        byId.set(similarId, normalizeSimilarProduct(parent, item));
+        similarAdded += 1;
+      }
+    }
+    byId.set(parentId, {
+      ...parent,
+      relatedProductIds: dedupe([...(Array.isArray(parent.relatedProductIds) ? parent.relatedProductIds : []), ...relatedIds]),
+    });
+  }
+
+  return {
+    products: Array.from(byId.values()),
+    similarAdded,
+    similarLinked,
+  };
+}
+
 function pickCustomersSay(product, resource) {
   const candidate = [
     product?.customers_say,
@@ -305,7 +410,7 @@ function buildProduct(product, resource) {
     })),
     features: ["backend-imported", "ops-bootstrap"],
     scenarios: [`scene-${product.categoryId}`],
-    relatedProductIds: [],
+    relatedProductIds: Array.isArray(product.relatedProductIds) ? dedupe(product.relatedProductIds) : [],
     status: "published",
     overallScore: score.overall,
     safetyScore: Number(score.safety.toFixed(2)),
@@ -451,9 +556,22 @@ async function main() {
       resourcePageSize,
     );
 
-    console.log(`[import] loaded category=${cat.categoryId} products=${products.length} resources=${resources.length}`);
+    const detailedProducts = [];
+    for (const product of products) {
+      const productId = productIdOf(product);
+      if (!productId) continue;
+      try {
+        const detailResp = await fetchJsonWithRetry(`${sourceBase}/api/v2/products/${encodeURIComponent(productId)}?categoryId=${encodedCategory}`);
+        detailedProducts.push(detailResp?.data ? detailResp.data : product);
+      } catch (err) {
+        console.warn(`[import] product detail fetch failed id=${productId}: ${String(err?.message || err)}`);
+        detailedProducts.push(product);
+      }
+    }
+    const expanded = expandProductsWithEligibleSimilar(detailedProducts);
+    console.log(`[import] loaded category=${cat.categoryId} products=${products.length} detailed=${detailedProducts.length} similarLinked=${expanded.similarLinked} similarAdded=${expanded.similarAdded} resources=${resources.length}`);
 
-    allProducts.push(...products);
+    allProducts.push(...expanded.products);
     allResources.push(...resources);
   }
 
