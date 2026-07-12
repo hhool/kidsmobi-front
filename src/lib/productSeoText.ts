@@ -1,6 +1,28 @@
 import type { Product } from "../types";
 
 const normalizeSearchText = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+const compactText = (value: string) => String(value || "").replace(/\s+/g, " ").trim();
+
+const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+function buildDisplaySource(brand?: string | null, name?: string | null): string {
+  const brandText = compactText(brand || "");
+  let nameText = compactText(name || "");
+
+  if (brandText && nameText) {
+    const repeatedLeadingBrand = new RegExp(`^(?:${escapeRegExp(brandText)}\\s+){1,3}`, "i");
+    nameText = nameText.replace(repeatedLeadingBrand, "").trim() || brandText;
+  }
+
+  if (!brandText) return nameText;
+  if (!nameText) return brandText;
+
+  const brandPattern = new RegExp(`^${escapeRegExp(brandText)}(?:\\b|\\s)`, "i");
+  if (brandPattern.test(nameText)) {
+    return nameText;
+  }
+  return `${brandText} ${nameText}`;
+}
 
 const compactMarketingTitle = (value: string) => {
   const cleaned = value
@@ -16,7 +38,7 @@ const compactMarketingTitle = (value: string) => {
 export const getProductSeoTitle = (productOrName?: Product | string | null) => {
   const source = typeof productOrName === "string"
     ? productOrName
-    : [productOrName?.brand, productOrName?.name].filter(Boolean).join(" ");
+    : buildDisplaySource(productOrName?.brand, productOrName?.name);
   const normalized = normalizeSearchText(source);
 
   if (normalized.includes("infans")) return "INFANS All-Terrain Jogging Stroller";
@@ -32,7 +54,7 @@ export const getProductImageAlt = (productOrName?: Product | string | null) => g
 export const getProductsPageSeoTitle = (productOrName?: Product | string | null) => {
   const source = typeof productOrName === "string"
     ? productOrName
-    : [productOrName?.brand, productOrName?.name].filter(Boolean).join(" ");
+    : buildDisplaySource(productOrName?.brand, productOrName?.name);
   const normalized = normalizeSearchText(source);
 
   if (normalized.includes("baby trend") && normalized.includes("passport") && normalized.includes("switch")) return "Baby Trend Passport Switch Modular Stroller";
