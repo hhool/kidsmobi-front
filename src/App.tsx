@@ -2190,6 +2190,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
       )}
 
       {/* Persistent global Foot Trust copyright (PRD Footer Column Section 4.1.8) */}
+      {activeTab !== "admin" && (
       <footer id="main_footer" className="bg-slate-900 border-t border-slate-800 pt-20 pb-10 text-xs">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
@@ -2414,6 +2415,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           </div>
         </div>
       </footer>
+      )}
 
       {/* Back to Top Button */}
       <AnimatePresence>
