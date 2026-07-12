@@ -246,12 +246,21 @@
         "Orientation": "Forward Facing",
         "Compatible with Vehicle Type": "Any Standard Vehicle"
       },
-      "Materials_Care": {},
-      "Item_Details": {},
+      "Materials_Care": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
+      "Item_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "User_Guide": {
         "Harness Type": "5-Point"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",

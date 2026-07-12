@@ -96,6 +96,8 @@ export interface Product {
   userRating?: number;
   reviewCount?: number;
   description?: string;
+  specsText?: string;
+  Product_Specifications?: Record<string, any>;
   pros?: string[];
   cons?: string[];
   customers_say?: string;

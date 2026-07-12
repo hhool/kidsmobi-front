@@ -228,14 +228,17 @@ function stripVisibleFieldLabels(value: string): string {
 
 function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
   const description = pickLocalizedDescription(product, lang);
-  // Card summary must display Product_Description string semantics only.
-  const candidates = [description]
+  const customersSay = pickCustomersSay(product, lang);
+  const candidates = [description, customersSay]
     .map((item) => compactSnippet(item))
     .map((item) => stripVisibleFieldLabels(item))
     .map((item) => stripRepeatedBrandPrefix(item, product.brand))
-    .filter((item) => item && !isRatingStatsSummary(item) && !isPlaceholderVerdict(item) && !isCustomerReviewNarrative(item) && !isGenericCardSnippet(item) && !isTitleDuplicateSnippet(item, product));
+    .filter((item) => item && !isRatingStatsSummary(item) && !isPlaceholderVerdict(item) && !isCustomerReviewNarrative(item) && !isGenericCardSnippet(item));
 
-  return truncateCardSnippet(candidates[0] || "", lang === "zh" ? 72 : 120);
+  const summary = candidates[0] || resolveGeneratedCardSummary(product, lang);
+  if (!summary) return "";
+
+  return truncateCardSnippet(summary, lang === "zh" ? 72 : 120);
 }
 
 function resolveCardVerdict(product: Product, lang: "zh" | "en"): string {
@@ -1288,7 +1291,7 @@ export default function ProductsSection({
             {filteredProducts.length} / {categoryBaseCount} {lang === "en" ? "items" : "条目"}
           </span>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 items-start">
           {pagedProducts.map(({ product: p, sourceCategoryId }, idx) => {
             const diProduct = p;
             const imageSet = resolveProductImages(diProduct);

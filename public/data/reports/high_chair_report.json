@@ -242,7 +242,10 @@
         "Age Range Description": "Newborn",
         "UPC": "607615343852"
       },
-      "Materials_Care": {},
+      "Materials_Care": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Item_Details": {
         "Brand": "Virplik",
         "Manufacturer": "Virplik",
@@ -254,7 +257,10 @@
       "User_Guide": {
         "Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -618,7 +624,10 @@
         "UPC": "811048037824",
         "Item Type Name": "portable 2-In-1 TableTalk High Chair |Convertible |Compact High Chair |Light weight Portable Highchair"
       },
-      "Materials_Care": {},
+      "Materials_Care": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Item_Details": {
         "Brand": "Dream On Me",
         "Manufacturer": "Dream On Me",
@@ -632,7 +641,10 @@
       "User_Guide": {
         "Assembly Required": "No"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -1033,7 +1045,10 @@
         "UPC": "032884201624",
         "Item Type Name": "High Chairs"
       },
-      "Materials_Care": {},
+      "Materials_Care": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Item_Details": {
         "Brand": "Evenflo",
         "Manufacturer Warranty Description": "90-day-limited",
@@ -1049,7 +1064,10 @@
       "User_Guide": {
         "Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -2432,7 +2450,10 @@
         "Age Range Description": "For ages 6 months to 3 years or until child reaches 35-inches",
         "UPC": "080213156121"
       },
-      "Materials_Care": {},
+      "Materials_Care": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Item_Details": {
         "Brand": "Delta Children",
         "Global Trade Identification Number": "00080213156121",
@@ -2447,7 +2468,10 @@
       "User_Guide": {
         "Assembly Required": "No"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -2879,7 +2903,10 @@
         "Age Range Description": "3 months to 3 years 33 lbs",
         "UPC": "810063669584"
       },
-      "Materials_Care": {},
+      "Materials_Care": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Item_Details": {
         "Brand": "Dream On Me",
         "Manufacturer": "Dream On Me",
@@ -2893,7 +2920,10 @@
       "User_Guide": {
         "Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",

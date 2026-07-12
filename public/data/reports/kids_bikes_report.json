@@ -20750,7 +20750,10 @@
         "ASIN": "B0DZWZ2LSD",
         "Customer Reviews": "4.6  4.6 out of 5 stars   \n    (125)   \n\n\n 4.6 out of 5 stars"
       },
-      "User_Guide": {},
+      "User_Guide": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Additional_Details": {
         "Color": "Blue",
         "Brake Style": "Coaster",
@@ -22991,7 +22994,10 @@
         "ASIN": "B0FWRB5WXT",
         "Customer Reviews": "4.7  4.7 out of 5 stars   \n    (49)   \n\n\n 4.7 out of 5 stars"
       },
-      "User_Guide": {},
+      "User_Guide": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Additional_Details": {
         "Color": "Blue"
       }

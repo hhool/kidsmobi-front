@@ -178,6 +178,33 @@ function pickCustomersSay(product, resource) {
   return candidate ? String(candidate).trim() : "";
 }
 
+function hasProductInformation(product, resource) {
+  const specs = product?.Product_Specifications || resource?.Product_Specifications;
+  const attrs = product?.Category_Attributes || resource?.Category_Attributes;
+  const displayFields = product?.Product_Display_Fields || resource?.Product_Display_Fields;
+  return Boolean(
+    (specs && typeof specs === "object" && Object.keys(specs).length > 0) ||
+    (attrs && typeof attrs === "object" && Object.keys(attrs).length > 0) ||
+    (displayFields && typeof displayFields === "object" && Object.keys(displayFields).length > 0)
+  );
+}
+
+function pickPublishedDescription(product, resource) {
+  const candidate = [
+    product?.Product_Description,
+    product?.product_description,
+    product?.productDescription,
+    product?.description,
+    resource?.description,
+    resource?.summary,
+    product?.customers_say,
+    product?.customersSay,
+    resource?.customers_say,
+    resource?.customersSay,
+  ].find((value) => typeof value === "string" && value.trim().length > 0);
+  return candidate ? String(candidate).trim() : "";
+}
+
 function normalizedUrl(value) {
   const raw = asHttpUrl(value);
   if (!raw) return "";
@@ -398,9 +425,16 @@ function buildProduct(product, resource) {
     ...(Array.isArray(resource?.videoUrls) ? resource.videoUrls : []),
     resource?.resourceUrl || "",
   ].map(asHttpUrl));
-  const summary = resource?.summary || product?.title || "";
+  if (!hasProductInformation(product, resource)) {
+    return null;
+  }
+
+  const summary = pickPublishedDescription(product, resource);
+  if (!summary) {
+    return null;
+  }
   const customersSay = pickCustomersSay(product, resource);
-  const editorVerdict = customersSay;
+  const editorVerdict = customersSay || summary;
 
   return {
     id: product.productId,
@@ -446,7 +480,7 @@ function buildProduct(product, resource) {
     editorVerdict,
     zh: {
       name: product.title || product.productId,
-      description: summary || "由 backend 数据自动导入。",
+      description: summary,
       customersSay,
       brandText: product.brand || "Unknown",
       specsText: `Category: ${product.categoryId}`,
@@ -456,7 +490,7 @@ function buildProduct(product, resource) {
     },
     en: {
       name: product.title || product.productId,
-      description: summary || "Imported automatically from backend source.",
+      description: summary,
       customersSay,
       brandText: product.brand || "Unknown",
       specsText: `Category: ${product.categoryId}`,

@@ -551,7 +551,10 @@
         "Manufacturer Maximum Age (MONTHS)": "36",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
@@ -947,7 +950,10 @@
         "Manufacturer Maximum Age (MONTHS)": "60",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -1301,7 +1307,10 @@
         "Manufacturer Maximum Age (MONTHS)": "60.00",
         "Is Assembly Required": "No"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
@@ -1654,7 +1663,10 @@
         "Manufacturer Minimum Age (MONTHS)": "12.0",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -2329,7 +2341,10 @@
         "Manufacturer Maximum Age (MONTHS)": "36",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
@@ -2666,7 +2681,10 @@
         "Manufacturer Maximum Age (MONTHS)": "48",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -3077,7 +3095,10 @@
         "Manufacturer Maximum Age (MONTHS)": "48",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
@@ -3501,7 +3522,10 @@
         "Manufacturer Maximum Age (MONTHS)": "60.0",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
@@ -3894,7 +3918,10 @@
         "Manufacturer Maximum Age (MONTHS)": "60.0",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
@@ -4407,7 +4434,10 @@
         "Manufacturer Maximum Age (MONTHS)": "60",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
@@ -4796,7 +4826,10 @@
         "Manufacturer Maximum Age (MONTHS)": "60.00",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
@@ -5156,7 +5189,10 @@
         "Manufacturer Maximum Age (MONTHS)": "36.0",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
@@ -5522,7 +5558,10 @@
         "Manufacturer Maximum Age (MONTHS)": "60.0",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -5886,7 +5925,10 @@
         "Manufacturer Maximum Age (MONTHS)": "36",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
@@ -6235,7 +6277,10 @@
         "Manufacturer Maximum Age (MONTHS)": "60.0",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
@@ -6855,7 +6900,10 @@
         "Manufacturer Maximum Age (MONTHS)": "60.00",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
@@ -8057,7 +8105,10 @@
         "Manufacturer Maximum Age (MONTHS)": "60.0",
         "Is Assembly Required": "No"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
@@ -8619,7 +8670,10 @@
         "Manufacturer Maximum Age (MONTHS)": "60",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
@@ -8937,7 +8991,10 @@
         "Manufacturer Minimum Age (MONTHS)": "18.0",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",
@@ -9459,7 +9516,10 @@
         "Manufacturer Maximum Age (MONTHS)": "60",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "Amazon \n  Amazon      Ships from      Amazon",

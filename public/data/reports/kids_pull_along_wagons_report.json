@@ -134,7 +134,10 @@
         "Additional Features": "Adjustable Handle, Collapsible, Durable, Easy Assembly, Sturdy",
         "Has Stroller Brake System": "Yes"
       },
-      "Materials_Care": {},
+      "Materials_Care": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Item_Details": {
         "Number of Wheels": "4"
       },
@@ -142,7 +145,10 @@
         "Harness Type": "3 Point",
         "Harness Feature": "3-point harness"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -1178,7 +1184,10 @@
         "Additional Features": "Adjustable Canopy, Adjustable Handle, Cup Holder, Foldable, Swivel Wheels",
         "Has Stroller Brake System": "No"
       },
-      "Materials_Care": {},
+      "Materials_Care": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Item_Details": {
         "Number of Cup Holders": "6",
         "Number of Wheels": "4"
@@ -1186,7 +1195,10 @@
       "User_Guide": {
         "Harness Type": "3 Point"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -4513,7 +4525,10 @@
         "Built-in Light": "No",
         "Has Stroller Brake System": "Yes"
       },
-      "Materials_Care": {},
+      "Materials_Care": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Item_Details": {
         "Number of Cup Holders": "2",
         "Number of Wheels": "4",
@@ -4523,7 +4538,10 @@
         "Harness Type": "3 Point",
         "Harness Feature": "adjustable, padded"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -5304,7 +5322,10 @@
         "Additional Features": "Adjustable Handle, Collapsible, Durable, Easy Assembly, Sturdy",
         "Has Stroller Brake System": "Yes"
       },
-      "Materials_Care": {},
+      "Materials_Care": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Item_Details": {
         "Number of Wheels": "4"
       },
@@ -5312,7 +5333,10 @@
         "Harness Type": "3 Point",
         "Harness Feature": "3-point harness, Padded harness"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -5901,7 +5925,10 @@
         "Number of Shelves": "1",
         "Number of Wheels": "4"
       },
-      "User_Guide": {},
+      "User_Guide": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Additional_Details": {
         "Color": "Gray"
       }
@@ -6684,7 +6711,10 @@
         "Additional Features": "Collapsible, Foldable",
         "Has Stroller Brake System": "Yes"
       },
-      "Materials_Care": {},
+      "Materials_Care": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Item_Details": {
         "Number of Wheels": "4"
       },
@@ -6692,7 +6722,10 @@
         "Harness Type": "3 Point",
         "Harness Feature": "5-Point Harness"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -7720,14 +7753,20 @@
       "Features_Specs": {
         "Additional Features": "Adjustable Handle"
       },
-      "Materials_Care": {},
+      "Materials_Care": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Item_Details": {
         "Number of Wheels": "4"
       },
       "User_Guide": {
         "Harness Type": "3 Point"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -9162,7 +9201,10 @@
         "Built-in Light": "No",
         "Has Stroller Brake System": "No"
       },
-      "Materials_Care": {},
+      "Materials_Care": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Item_Details": {
         "Number of Cup Holders": "4",
         "Number of Wheels": "4"
@@ -9171,7 +9213,10 @@
         "Harness Type": "5 Point",
         "Harness Feature": "5-Point Safety Harness, Adjustable Tension"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -10772,7 +10817,10 @@
         "Built-in Light": "No",
         "Has Stroller Brake System": "Yes"
       },
-      "Materials_Care": {},
+      "Materials_Care": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Item_Details": {
         "Number of Cup Holders": "4",
         "Number of Wheels": "4"
@@ -10781,7 +10829,10 @@
         "Harness Type": "3 Point",
         "Harness Feature": "Three Point Harness"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -12516,7 +12567,10 @@
         "Additional Features": "Adjustable Handle, Collapsible, Durable, Easy Assembly, Sturdy",
         "Has Stroller Brake System": "Yes"
       },
-      "Materials_Care": {},
+      "Materials_Care": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Item_Details": {
         "Number of Wheels": "4"
       },
@@ -12524,7 +12578,10 @@
         "Harness Type": "5 Point",
         "Harness Feature": "Padded straps"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",

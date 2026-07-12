@@ -17,6 +17,34 @@ import SeoKeywordPanel from "./common/SeoKeywordPanel";
 
 const KIDS_BIKE_CATEGORY_DEFAULT_IMAGE =
   "https://store.poki2.online/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/primary.jpg";
+const JOGGER_STROLLER_DEFAULT_IMAGE =
+  "/images/home/jogging-stroller-default.jpg";
+const BALANCE_BIKE_DEFAULT_IMAGE =
+  "https://store.poki2.online/balance_bike/JMMD/Rank_4_ASIN_B0CFDX97YD_JMMD%206%20in%201%20Toddler%20Bike%20with%20Push%20Handle%20for%20Kids/images/primary.jpg";
+const SCOOTER_DEFAULT_IMAGE =
+  "https://store.poki2.online/scooters/Green/Rank_7_ASIN_B0DZG3QYLR_Green%20Mini%203%20Wheel%20Scooter%20for%20Kids%20%20Lean-to-Steer/images/primary.jpg";
+
+const AWARD_DEFAULT_IMAGE_MAP: Record<string, string> = {
+  stroller: JOGGER_STROLLER_DEFAULT_IMAGE,
+  balance: BALANCE_BIKE_DEFAULT_IMAGE,
+  value: SCOOTER_DEFAULT_IMAGE,
+};
+
+const CATEGORY_DEFAULT_IMAGE_MAP: Record<string, string> = {
+  stroller: JOGGER_STROLLER_DEFAULT_IMAGE,
+  jogger_stroller: JOGGER_STROLLER_DEFAULT_IMAGE,
+  balance_bike: BALANCE_BIKE_DEFAULT_IMAGE,
+  kids_bikes: KIDS_BIKE_CATEGORY_DEFAULT_IMAGE,
+  scooters: SCOOTER_DEFAULT_IMAGE,
+  kids_scooters: SCOOTER_DEFAULT_IMAGE,
+};
+
+const HOME_CARD_DEFAULT_IMAGES = [
+  JOGGER_STROLLER_DEFAULT_IMAGE,
+  BALANCE_BIKE_DEFAULT_IMAGE,
+  KIDS_BIKE_CATEGORY_DEFAULT_IMAGE,
+  SCOOTER_DEFAULT_IMAGE,
+];
 
 interface HomeSectionProps {
   productsData: Product[];
@@ -60,16 +88,7 @@ export default function HomeSection({
   };
 
   const normalizeCategory = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, "_");
-  const isStrictKidsBikeProduct = (product: Product) => {
-    const category = normalizeCategory(product.category || "");
-    const categoryId = normalizeCategory(product.categoryId || "");
-    const searchable = normalizeCategory([product.category, product.categoryId, product.name, product.brand].filter(Boolean).join(" "));
-    if (searchable.includes("mountain") || searchable.includes("dirt") || searchable.includes("balance") || searchable.includes("electric")) {
-      return false;
-    }
-    return category === "kids_bikes" || category === "kids_bike" || categoryId === "kids_bikes" || categoryId === "kids_bike";
-  };
-  
+
   const t = translations[lang];
   const [imageLoadState, setImageLoadState] = useState<Record<string, ImageLoadState>>({});
 
@@ -132,18 +151,66 @@ export default function HomeSection({
     }));
   }, [lang]);
 
+  const homeEligibleProducts = useMemo(() => {
+    return productsData.filter((product) => {
+      const rawRank = String(
+        (product as any).Rank || (product as any).rank || (product as any).sourceRank || ""
+      )
+        .trim()
+        .toLowerCase();
+      if (rawRank === "similar") {
+        return false;
+      }
+
+      const mediaCandidates = [
+        String(product.imageUrl || ""),
+        ...(product.productImageUrls || []),
+        ...(product.galleryUrls || []),
+      ]
+        .map((value) => String(value || "").toLowerCase())
+        .filter(Boolean);
+
+      // Scraped similar records usually carry Rank_Similar in asset paths.
+      if (mediaCandidates.some((value) => value.includes("rank_similar_"))) {
+        return false;
+      }
+
+      return true;
+    });
+  }, [productsData]);
+
+  const homeVisualProducts = useMemo(() => {
+    return homeEligibleProducts.filter((product) => {
+      const coverUrl = resolveProductImages(product).coverUrl;
+      return Boolean(coverUrl) && coverUrl !== FALLBACK_PRODUCT_IMAGE;
+    });
+  }, [homeEligibleProducts]);
+
   const categoryTopProductMap = useMemo(() => {
     const map: Record<string, Product> = {};
     for (const entry of SCRAPED_CATEGORY_CATALOG) {
       const aliases = categoryAliasMap[entry.id] || [entry.id];
-      const found = productsData.find((product) => {
-        const normalized = normalizeCategory(product.category || "");
-        return aliases.some((alias) => normalized.includes(normalizeCategory(alias)));
+      const found = homeVisualProducts.find((product) => {
+        const normalizedCategory = normalizeCategory(product.category || "");
+        const normalizedCategoryId = normalizeCategory((product as any).categoryId || "");
+        const searchable = normalizeCategory(
+          [product.category, (product as any).categoryId, product.name, product.brand]
+            .filter(Boolean)
+            .join(" ")
+        );
+        return aliases.some((alias) => {
+          const normalizedAlias = normalizeCategory(alias);
+          return (
+            normalizedCategory.includes(normalizedAlias) ||
+            normalizedCategoryId.includes(normalizedAlias) ||
+            searchable.includes(normalizedAlias)
+          );
+        });
       });
       if (found) map[entry.id] = found;
     }
     return map;
-  }, [productsData]);
+  }, [homeVisualProducts]);
 
   const getCategoryPriority = (rawCategory?: string) => {
     const normalized = normalizeCategory(rawCategory || "");
@@ -153,9 +220,10 @@ export default function HomeSection({
   };
 
   // Outstanding Selection (high scores)
-  const topSelections = [...productsData]
-    .filter(p => isStrictKidsBikeProduct(p))
+  const topSelections = [...homeVisualProducts]
     .sort((a, b) => {
+      const priorityDelta = getCategoryPriority(a.categoryId || a.category) - getCategoryPriority(b.categoryId || b.category);
+      if (priorityDelta !== 0) return priorityDelta;
       return (b.overallScore || 0) - (a.overallScore || 0);
     })
     .slice(0, 4);
@@ -170,9 +238,14 @@ export default function HomeSection({
     return targets.map((target, index) => ({
       title: target.title,
       snapshot: target.snapshot,
-      product: productsData.find(target.match) || topSelections[index] || topSelections[0],
+      product:
+        homeVisualProducts.find(target.match) ||
+        topSelections[index] ||
+        topSelections[0] ||
+        homeVisualProducts[index] ||
+        homeVisualProducts[0],
     })).filter((item): item is { title: string; snapshot: string; product: Product } => Boolean(item.product));
-  }, [productsData, topSelections]);
+  }, [homeVisualProducts, topSelections]);
 
   const prioritizedCategoryCards = useMemo(() => {
     const englishLabelOverrides: Record<string, string> = {
@@ -214,6 +287,22 @@ export default function HomeSection({
       winner: seoProductCards.find(card => card.title === "Green Mini 3-Wheel Kids Scooter")?.product
     }
   ];
+
+  const getAwardCardSummary = (product: Product | undefined): string => {
+    if (!product) {
+      return lang === "zh"
+        ? "当前正在更新该奖项样本，评测完成后将展示核心结论。"
+        : "This award sample is being refreshed. Core findings will appear once evaluation is completed.";
+    }
+
+    const localizedDescription = String((product as any)?.[lang]?.description || "").trim();
+    const summary = String(localizedDescription || product.description || product.editorVerdict || "").trim();
+    if (summary) return summary;
+
+    return lang === "zh"
+      ? "该奖项聚焦结构安全、操控稳定与日常通勤场景适配表现。"
+      : "This award focuses on structural safety, handling stability, and day-to-day commuting suitability.";
+  };
 
   useEffect(() => {
     const canonicalUrl = window.location.origin + "/";
@@ -303,7 +392,10 @@ export default function HomeSection({
               <div className="relative h-52 bg-slate-50 overflow-hidden">
                 {(() => {
                   const imageKey = `award-${idx}`;
-                  const sourceUrl = award.winner ? resolveProductImages(award.winner).coverUrl : FALLBACK_PRODUCT_IMAGE;
+                  const winnerCoverUrl = award.winner ? resolveProductImages(award.winner).coverUrl : "";
+                  const sourceUrl = winnerCoverUrl && winnerCoverUrl !== FALLBACK_PRODUCT_IMAGE
+                    ? winnerCoverUrl
+                    : (AWARD_DEFAULT_IMAGE_MAP[award.type] || FALLBACK_PRODUCT_IMAGE);
                   const state = imageLoadState[imageKey];
                   return (
                     <>
@@ -338,6 +430,9 @@ export default function HomeSection({
                   </h3>
                   <p className="text-sm text-slate-500 font-semibold">
                     {award.label}
+                  </p>
+                  <p className="text-[11px] text-slate-500 font-medium leading-relaxed line-clamp-2 min-h-[34px]">
+                    {getAwardCardSummary(award.winner)}
                   </p>
                 </div>
                 <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-4">
@@ -420,11 +515,10 @@ export default function HomeSection({
                 {(() => {
                   const imageKey = `category-${cat.id}`;
                   const topProduct = categoryTopProductMap[cat.id];
-                  const sourceUrl = cat.id === "kids_bikes"
-                    ? KIDS_BIKE_CATEGORY_DEFAULT_IMAGE
-                    : topProduct
-                      ? resolveProductImages(topProduct).coverUrl
-                      : FALLBACK_PRODUCT_IMAGE;
+                  const productCoverUrl = topProduct ? resolveProductImages(topProduct).coverUrl : "";
+                  const sourceUrl = productCoverUrl && productCoverUrl !== FALLBACK_PRODUCT_IMAGE
+                    ? productCoverUrl
+                    : (CATEGORY_DEFAULT_IMAGE_MAP[cat.id] || FALLBACK_PRODUCT_IMAGE);
                   const state = imageLoadState[imageKey];
                   return (
                     <>
@@ -483,7 +577,7 @@ export default function HomeSection({
           </button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-           {seoProductCards.map(({ product: p, title, snapshot }) => {
+           {seoProductCards.map(({ product: p, title, snapshot }, idx) => {
              const dp = translateProduct(p, lang);
              return (
                <div 
@@ -494,7 +588,10 @@ export default function HomeSection({
                  <div className="relative h-52 bg-slate-50 overflow-hidden">
                     {(() => {
                       const imageKey = `product-${p.id}`;
-                      const sourceUrl = resolveProductImages(p).coverUrl;
+                      const candidateCoverUrl = resolveProductImages(p).coverUrl;
+                      const sourceUrl = candidateCoverUrl && candidateCoverUrl !== FALLBACK_PRODUCT_IMAGE
+                        ? candidateCoverUrl
+                        : HOME_CARD_DEFAULT_IMAGES[idx % HOME_CARD_DEFAULT_IMAGES.length];
                       const state = imageLoadState[imageKey];
                       return (
                         <>

@@ -294,6 +294,79 @@ function parseReviewCount(reviewStr: string | undefined): number | undefined {
   return Number.isFinite(count) ? count : undefined;
 }
 
+function formatSpecKey(key: string): string {
+  return String(key || "")
+    .replace(/_/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/^./, (char) => char.toUpperCase());
+}
+
+function formatSpecValue(value: unknown): string {
+  if (value === null || value === undefined) return "";
+  if (Array.isArray(value)) {
+    return value.map((item) => formatSpecValue(item)).filter(Boolean).join(", ");
+  }
+  if (typeof value === "object") {
+    return Object.entries(value as Record<string, unknown>)
+      .map(([key, entryValue]) => `${formatSpecKey(key)}: ${formatSpecValue(entryValue)}`)
+      .filter((item) => item.trim())
+      .join(" | ");
+  }
+  return String(value).replace(/\s+/g, " ").trim();
+}
+
+function summarizeSpecSection(sectionKey: string, sectionValue: unknown): string {
+  if (!sectionValue || typeof sectionValue !== "object") return "";
+  const rows = Object.entries(sectionValue as Record<string, unknown>)
+    .map(([key, value]) => `${formatSpecKey(key)} ${formatSpecValue(value)}`.trim())
+    .filter(Boolean)
+    .slice(0, 4);
+  if (!rows.length) return "";
+
+  const labelMap: Record<string, string> = {
+    Measurements: "Measurements",
+    Features_Specs: "Features Specs",
+    Materials_Care: "Materials & Care",
+    Item_Details: "Item Details",
+    User_Guide: "User Guide",
+    Additional_Details: "Additional Details",
+  };
+  return `${labelMap[sectionKey] || formatSpecKey(sectionKey)}: ${rows.join("; ")}`;
+}
+
+function buildSpecsText(
+  specs: Record<string, any> | undefined,
+  attrs: Record<string, string> | undefined,
+  displayFields: Record<string, { value?: unknown; source?: unknown }> | undefined
+): string {
+  const parts: string[] = [];
+  const sectionOrder = ["Measurements", "Features_Specs", "Materials_Care", "Item_Details", "User_Guide", "Additional_Details"];
+
+  for (const sectionKey of sectionOrder) {
+    const summary = summarizeSpecSection(sectionKey, specs?.[sectionKey]);
+    if (summary) parts.push(summary);
+  }
+
+  const attrEntries = Object.entries(attrs || {})
+    .map(([key, value]) => `${formatSpecKey(key)} ${formatSpecValue(value)}`.trim())
+    .filter(Boolean)
+    .slice(0, 4);
+  if (attrEntries.length) {
+    parts.push(`Category Attributes: ${attrEntries.join("; ")}`);
+  }
+
+  const displayEntries = Object.entries(displayFields || {})
+    .map(([key, field]) => `${formatSpecKey(key)} ${formatSpecValue(field?.value)}`.trim())
+    .filter(Boolean)
+    .slice(0, 4);
+  if (displayEntries.length) {
+    parts.push(`Display Fields: ${displayEntries.join("; ")}`);
+  }
+
+  return parts.join(" | ").replace(/\s+/g, " ").trim();
+}
+
 function extractCustomerReviewText(specs: Record<string, any> | undefined): string {
   const itemDetails = specs?.["Item_Details"];
   if (itemDetails && typeof itemDetails === "object") {
@@ -332,6 +405,36 @@ function pickExplicitCustomersSay(rawProduct: RawProduct): string {
     rawProduct.Review_Summary ||
     ""
   ).trim();
+}
+
+function hasProductInformation(rawProduct: RawProduct): boolean {
+  const specs = rawProduct.Product_Specifications;
+  const attrs = rawProduct.Category_Attributes;
+  const displayFields = rawProduct.Product_Display_Fields;
+  return Boolean(
+    (specs && typeof specs === "object" && Object.keys(specs).length > 0) ||
+    (attrs && typeof attrs === "object" && Object.keys(attrs).length > 0) ||
+    (displayFields && typeof displayFields === "object" && Object.keys(displayFields).length > 0)
+  );
+}
+
+function pickProductDescription(rawProduct: RawProduct): string {
+  const candidates = [
+    rawProduct.Product_Description,
+    rawProduct.product_description,
+    rawProduct.productDescription,
+    rawProduct.description,
+    pickExplicitCustomersSay(rawProduct),
+  ];
+
+  for (const value of candidates) {
+    const text = String(value || "").replace(/\s+/g, " ").trim();
+    if (!text) continue;
+    if (isStatisticalReviewText(text)) continue;
+    return text;
+  }
+
+  return "";
 }
 
 function cleanEvidenceText(value: unknown): string {
@@ -542,8 +645,18 @@ export function transformReportProduct(
     return null;
   }
 
+  if (!hasProductInformation(rawProduct)) {
+    return null;
+  }
+
+  const description = pickProductDescription(rawProduct);
+  if (!description) {
+    return null;
+  }
+
   const attrs = rawProduct.Category_Attributes || {};
   const specs = rawProduct.Product_Specifications || {};
+  const specsText = buildSpecsText(specs, attrs, rawProduct.Product_Display_Fields);
   const customerReviewText = extractCustomerReviewText(specs);
   const ratingDisplay = rawProduct.Rating || customerReviewText;
   const reviewsDisplay = rawProduct.Reviews || customerReviewText;
@@ -575,7 +688,8 @@ export function transformReportProduct(
     galleryUrls: extractGalleryUrls(rawProduct),
     videoUrl: videos[0]?.url,
     videos,
-    description: rawProduct.Product_Description || rawProduct.Features || "",
+    description,
+    Product_Specifications: specs,
     pros,
     cons,
     rating: { display: ratingDisplay || "N/A", value: userRating },
@@ -584,6 +698,7 @@ export function transformReportProduct(
     reviewCount,
     customers_say: customersSay,
     customersSay,
+    specsText,
     editorVerdict: buildEditorVerdict(rawProduct, scrapedEvidence),
     scrapedEvidence,
     scoringStandards,

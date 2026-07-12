@@ -527,7 +527,7 @@ export function translateProduct(p: any, lang: "zh" | "en") {
   const cons = localData.cons || p.cons || [];
   const editorVerdict = localData.editorVerdict || p.editorVerdict || "";
   const brandText = localData.brandText || p.brand;
-  const specsText = localData.specsText || "";
+  const specsText = localData.specsText || p.specsText || "";
 
   if (lang === "zh") {
     return sanitizeVisibleProductFields({ 
@@ -580,7 +580,8 @@ export function translateProduct(p: any, lang: "zh" | "en") {
       pros: enOverride.pros,
       cons: enOverride.cons,
       ageRange: p.ageRange.replace("岁", " Years").replace("个", " ").replace("月", " Months"),
-      editorVerdict: enOverride.editorVerdict
+      editorVerdict: enOverride.editorVerdict,
+      specsText: p.specsText || specsText,
     });
   }
 
@@ -620,7 +621,8 @@ export function translateProduct(p: any, lang: "zh" | "en") {
     pros,
     cons,
     ageRange: p.ageRange,
-    editorVerdict: editorVerdict ? editorVerdict : "Independently verified kids stroller or bicycle setup."
+    editorVerdict: editorVerdict ? editorVerdict : "Independently verified kids stroller or bicycle setup.",
+    specsText: p.specsText || specsText,
   });
 }
 

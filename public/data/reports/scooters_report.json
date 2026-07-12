@@ -764,7 +764,10 @@
         "ASIN": "B0GWM1RCT6",
         "Customer Reviews": "4.1  4.1 out of 5 stars   \n    (893)   \n\n\n 4.1 out of 5 stars"
       },
-      "User_Guide": {},
+      "User_Guide": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Additional_Details": {
         "Color": "Green",
         "Brake Style": "Dual Braking"
@@ -2051,7 +2054,10 @@
         "ASIN": "B07VY9Q95Q",
         "Customer Reviews": "4.6  4.6 out of 5 stars   \n    (20,741)   \n\n\n 4.6 out of 5 stars"
       },
-      "User_Guide": {},
+      "User_Guide": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Additional_Details": {
         "Color": "Pink",
         "Brake Style": "Rear Braking"
@@ -6240,7 +6246,10 @@
         "ASIN": "B08ZCM11J6",
         "Customer Reviews": "4.5  4.5 out of 5 stars   \n    (24,159)   \n\n\n 4.5 out of 5 stars"
       },
-      "User_Guide": {},
+      "User_Guide": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Additional_Details": {
         "Color": "Jupiter Blue",
         "Brake Style": "Rear Braking"

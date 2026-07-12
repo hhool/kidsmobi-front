@@ -199,7 +199,10 @@
         "Manufacturer Maximum Age (MONTHS)": "36.0",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -1142,7 +1145,10 @@
         "Manufacturer Maximum Age (MONTHS)": "60.0",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -1626,7 +1632,10 @@
         "Manufacturer Maximum Age (MONTHS)": "48.0",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -2081,7 +2090,10 @@
         "Manufacturer Maximum Age (MONTHS)": "72.0",
         "Is Assembly Required": "No"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -2840,7 +2852,10 @@
         "Manufacturer Maximum Age (MONTHS)": "60.0",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -3204,7 +3219,10 @@
         "Manufacturer Maximum Age (MONTHS)": "36.0",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -4946,7 +4964,10 @@
         "Manufacturer Maximum Age (MONTHS)": "36.0",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -6662,7 +6683,10 @@
         "Manufacturer Maximum Age (MONTHS)": "60.0",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -7067,7 +7091,10 @@
         "Manufacturer Maximum Age (MONTHS)": "60.0",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -7818,7 +7845,10 @@
         "Manufacturer Maximum Age (MONTHS)": "40",
         "Is Assembly Required": "No"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -8572,7 +8602,10 @@
         "Manufacturer Maximum Age (MONTHS)": "36.0",
         "Is Assembly Required": "No"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -8925,7 +8958,10 @@
         "Manufacturer Maximum Age (MONTHS)": "84.0",
         "Is Assembly Required": "Yes"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -9312,7 +9348,10 @@
         "Manufacturer Maximum Age (MONTHS)": "36.0",
         "Is Assembly Required": "No"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -9685,7 +9724,10 @@
         "Manufacturer Maximum Age (MONTHS)": "40.0",
         "Is Assembly Required": "No"
       },
-      "Additional_Details": {}
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",

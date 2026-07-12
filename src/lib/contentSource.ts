@@ -39,6 +39,7 @@ type WorkerProduct = {
   reviewCount?: number;
   customers_say?: string;
   customersSay?: string;
+  Product_Specifications?: Record<string, any>;
   coverImage?: string;
   galleryUrls?: string[];
   classification?: Record<string, string>;
@@ -166,6 +167,125 @@ function inferBrakeType(text: string): string {
   return "N/A";
 }
 
+function formatSpecsLabel(key: string): string {
+  return String(key || "")
+    .replace(/_/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/^./, (char) => char.toUpperCase());
+}
+
+function buildWorkerSpecsText(item: WorkerProduct): string {
+  const classification = item.classification || {};
+  const attrs = item.categoryAttributes || {};
+  const featureSignals = [
+    classification.User_Age,
+    classification.Wheel_Size,
+    classification.Harness_Type,
+    classification.Brake,
+    classification.Seat_Material,
+    classification.Frame_Material,
+    classification.Canopy_Material,
+    classification.Storage,
+  ]
+    .map((value) => String(value || "").trim())
+    .filter((value) => value && value.toLowerCase() !== "unknown" && value.toLowerCase() !== "n/a");
+
+  const featureCards = Array.isArray(item.featureCards)
+    ? item.featureCards
+        .map((feature) => String(feature?.featureLabel || feature?.featureValue || "").trim())
+        .filter(Boolean)
+        .slice(0, 4)
+    : [];
+
+  const attrSignals = [
+    ...(attrs.features || []).slice(0, 4),
+    ...(attrs.wheelSize || []).slice(0, 2),
+  ].map((value) => String(value || "").trim()).filter(Boolean);
+
+  const parts: string[] = [];
+  if (featureSignals.length) {
+    parts.push(`Specs: ${featureSignals.map((value, index) => `${formatSpecsLabel(["Age Range", "Wheel Size", "Harness Type", "Brake", "Seat Material", "Frame Material", "Canopy Material", "Storage"][index] || "Spec")} ${value}`).join("; ")}`);
+  }
+  if (attrSignals.length) {
+    parts.push(`Signals: ${attrSignals.join("; ")}`);
+  }
+  if (featureCards.length) {
+    parts.push(`Features: ${featureCards.join("; ")}`);
+  }
+
+  return parts.join(" | ").replace(/\s+/g, " ").trim() || `Category: ${item.categoryId}`;
+}
+
+function buildWorkerProductSpecifications(item: WorkerProduct): Record<string, any> {
+  const classification = item.classification || {};
+  const attrs = item.categoryAttributes || {};
+  const featureCards = Array.isArray(item.featureCards)
+    ? item.featureCards
+        .map((feature) => String(feature?.featureLabel || feature?.featureValue || "").trim())
+        .filter(Boolean)
+        .slice(0, 6)
+    : [];
+
+  const safeText = (value: unknown) => String(value || "").trim() || "N/A";
+
+  return {
+    Measurements: {
+      "Item Weight": item.weight?.lbs ? `${item.weight.lbs} Pounds` : "N/A",
+      "Price": item.price?.value ? `$${Number(item.price.value).toFixed(2)}` : "N/A",
+    },
+    Features_Specs: {
+      "Brand": safeText(item.brand || classification.Brand),
+      "Category": safeText(item.categoryId),
+      "Age Range": safeText(classification.User_Age),
+      "Wheel Size": safeText(classification.Wheel_Size),
+      "Harness Type": safeText(classification.Harness_Type),
+      "Brake": safeText(classification.Brake),
+      "Frame Material": safeText(classification.Frame_Material),
+      "Seat Material": safeText(classification.Seat_Material),
+    },
+    Materials_Care: {
+      "Material": safeText(classification.Material),
+      "Canopy Material": safeText(classification.Canopy_Material),
+      "Tire": safeText(classification.Tire),
+    },
+    Item_Details: {
+      "Brand": safeText(item.brand || classification.Brand),
+      "Title": safeText(item.title),
+      "Product ID": safeText(item.productId),
+      "Storage": safeText(classification.Storage),
+      "Features": featureCards.length ? featureCards.join(" | ") : "N/A",
+    },
+    Category_Attributes: {
+      ...attrs,
+      features: attrs.features || [],
+      wheelSize: attrs.wheelSize || [],
+    },
+    Product_Display_Fields: {
+      ageRange: {
+        value: safeText(classification.User_Age),
+        source: "classification.User_Age",
+      },
+      wheelSize: {
+        value: safeText(classification.Wheel_Size),
+        source: "classification.Wheel_Size",
+      },
+      harnessType: {
+        value: safeText(classification.Harness_Type),
+        source: "classification.Harness_Type",
+      },
+      frameMaterial: {
+        value: safeText(classification.Frame_Material),
+        source: "classification.Frame_Material",
+      },
+      storage: {
+        value: safeText(classification.Storage),
+        source: "classification.Storage",
+      },
+    },
+  };
+}
+
 function normalizeCompliance(categoryId: string, classification: Record<string, string>): string[] {
   const out: string[] = [];
   const raw = String(classification.Certifications || "").trim();
@@ -214,6 +334,7 @@ function toCMSProduct(item: WorkerProduct): CMSProduct {
   const fallbackVerdict = `${brand} ${name} loaded from remote worker fallback for product category continuity.`;
   const zhFallbackVerdict = `${brand} ${name} 已通过远端回退链路加载。`;
   const enFallbackVerdict = `${brand} ${name} loaded through remote fallback path.`;
+  const productSpecifications = item.Product_Specifications || buildWorkerProductSpecifications(item);
 
   return {
     id: item.productId,
@@ -244,6 +365,8 @@ function toCMSProduct(item: WorkerProduct): CMSProduct {
     cons: ["Auto-generated runtime fallback from worker API"],
     customers_say: customersSay,
     customersSay,
+    specsText: buildWorkerSpecsText(item),
+    Product_Specifications: productSpecifications,
     rating: item.rating,
     reviews: item.reviews,
     userRating: ratingValue,
@@ -254,7 +377,8 @@ function toCMSProduct(item: WorkerProduct): CMSProduct {
       description: `${brand} ${name} 由远端数据回退生成。`,
       customersSay,
       brandText: brand,
-      specsText: `Category: ${item.categoryId}`,
+      specsText: buildWorkerSpecsText(item),
+      Product_Specifications: productSpecifications,
       pros: features.slice(0, 3),
       cons: ["运行态回退数据，建议在 CMS 中继续补充"],
       editorVerdict: customersSay || zhFallbackVerdict,
@@ -264,7 +388,8 @@ function toCMSProduct(item: WorkerProduct): CMSProduct {
       description: `${brand} ${name} generated from remote fallback.`,
       customersSay,
       brandText: brand,
-      specsText: `Category: ${item.categoryId}`,
+      specsText: buildWorkerSpecsText(item),
+      Product_Specifications: productSpecifications,
       pros: features.slice(0, 3),
       cons: ["Runtime fallback data, enrich in CMS if needed"],
       editorVerdict: customersSay || enFallbackVerdict,

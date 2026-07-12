@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import { 
-  X, 
   ArrowLeft, 
   ShieldCheck, 
   TrendingUp, 
   TrendingDown, 
   ChevronRight, 
-  CheckCircle2, 
-  ThumbsUp, 
-  ThumbsDown,
-  Maximize2,
   Play,
   Image as ImageIcon,
   ExternalLink
@@ -23,9 +18,8 @@ import {
   ResponsiveContainer, 
   Tooltip 
 } from "recharts";
-import { Product, CurrencyData, CMSSettings } from "../types";
-import { translateProduct, translateCategory } from "../lib/translate";
-import { formatWeight } from "../lib/units";
+import { Product, CMSSettings } from "../types";
+import { translateProduct } from "../lib/translate";
 import { resolveProductImages } from "../lib/productImages";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 import ProductCarousel from "./ProductCarousel";
@@ -62,6 +56,42 @@ function resolveCustomersSay(product: Product, lang: "zh" | "en"): string {
     /^\(?[\d,]+\)?\s+customer\s+reviews\b/.test(lower);
 
   return isStatsLine ? "" : rawText;
+}
+
+function resolveDescriptionText(product: Product, lang: "zh" | "en"): string {
+  const localized = product as Product & {
+    description?: string;
+    Product_Description?: string;
+    product_description?: string;
+    productDescription?: string;
+    zh?: { description?: string; customersSay?: string };
+    en?: { description?: string; customersSay?: string };
+  };
+
+  const candidates = [
+    localized[lang]?.description,
+    localized.Product_Description,
+    localized.product_description,
+    localized.productDescription,
+    localized.description,
+    localized[lang]?.customersSay,
+    localized.customers_say,
+    localized.customersSay,
+  ]
+    .map((value) => String(value || "").replace(/\s+/g, " ").trim())
+    .filter(Boolean);
+
+  for (const text of candidates) {
+    const lower = text.toLowerCase();
+    if (lower.includes("product description")) continue;
+    if (/^rated\s+\d(?:\.\d+)?\s+out\s+of\s+5\b/i.test(text)) continue;
+    if (/^backed\s+by\s+[\d,]+\s+customer\s+reviews\b/i.test(text)) continue;
+    if (/^\d(?:\.\d+)?\s+\d(?:\.\d+)?\s+out\s+of\s+5\s+stars\b/i.test(text)) continue;
+    if (/^\(?[\d,]+\)?\s+customer\s+reviews\b/i.test(text)) continue;
+    return text;
+  }
+
+  return "";
 }
 
 function resolveVerdictText(product: Product, lang: "zh" | "en"): string {
@@ -103,6 +133,161 @@ function cleanVisibleFieldText(value: unknown) {
     .trim();
 }
 
+function formatSpecKey(key: string) {
+  return String(key || "")
+    .replace(/_/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/^./, (char) => char.toUpperCase());
+}
+
+function formatSpecValue(value: unknown): string {
+  if (value === null || value === undefined) return "";
+  if (Array.isArray(value)) {
+    return value.map((item) => formatSpecValue(item)).filter(Boolean).join(", ");
+  }
+  if (typeof value === "object") {
+    return Object.entries(value as Record<string, unknown>)
+      .map(([key, entryValue]) => `${formatSpecKey(key)}: ${formatSpecValue(entryValue)}`)
+      .filter((item) => item.trim())
+      .join(" | ");
+  }
+  return cleanVisibleFieldText(value);
+}
+
+function buildBasicInfoSections(product: Product, lang: "zh" | "en") {
+  const richProduct = product as Product & {
+    Product_Specifications?: Record<string, unknown>;
+    Category_Attributes?: Record<string, unknown>;
+    Product_Display_Fields?: Record<string, { value?: unknown; source?: unknown }>;
+    specsText?: string;
+  };
+  const specs = richProduct.Product_Specifications || {};
+  const sectionOrder = [
+    "Measurements",
+    "Features_Specs",
+    "Materials_Care",
+    "Item_Details",
+    "User_Guide",
+    "Additional_Details",
+  ];
+  const sectionLabels: Record<string, { zh: string; en: string }> = {
+    Measurements: { zh: "尺寸与重量", en: "Measurements" },
+    Features_Specs: { zh: "功能规格", en: "Features Specs" },
+    Materials_Care: { zh: "材质与护理", en: "Materials & Care" },
+    Item_Details: { zh: "商品信息", en: "Item Details" },
+    User_Guide: { zh: "使用指南", en: "User Guide" },
+    Additional_Details: { zh: "附加信息", en: "Additional Details" },
+  };
+
+  const sections = sectionOrder
+    .map((sectionKey) => {
+      const sectionValue = specs[sectionKey];
+      if (!sectionValue || typeof sectionValue !== "object") return null;
+
+      const rows = Object.entries(sectionValue as Record<string, unknown>)
+        .map(([key, value]) => ({
+          label: formatSpecKey(key),
+          value: formatSpecValue(value),
+        }))
+        .filter((item) => item.value);
+
+      if (!rows.length) return null;
+
+      return {
+        key: sectionKey,
+        label: sectionLabels[sectionKey]?.zh || sectionLabels[sectionKey]?.en || formatSpecKey(sectionKey),
+        labelEn: sectionLabels[sectionKey]?.en || formatSpecKey(sectionKey),
+        rows,
+      };
+    })
+    .filter(Boolean) as Array<{
+      key: string;
+      label: string;
+      labelEn: string;
+      rows: Array<{ label: string; value: string }>;
+    }>;
+
+  if (sections.length > 0) {
+    return sections;
+  }
+
+  const fallbackSections: Array<{
+    key: string;
+    label: string;
+    labelEn: string;
+    rows: Array<{ label: string; value: string }>;
+  }> = [];
+
+  const fallbackRowsFromObject = (value: Record<string, unknown>) =>
+    Object.entries(value)
+      .map(([key, itemValue]) => ({
+        label: formatSpecKey(key),
+        value: formatSpecValue(itemValue),
+      }))
+      .filter((item) => item.value);
+
+  const categoryAttributesRows = fallbackRowsFromObject(richProduct.Category_Attributes || {});
+  if (categoryAttributesRows.length > 0) {
+    fallbackSections.push({
+      key: "Category_Attributes",
+      label: lang === "zh" ? "类目属性" : "Category Attributes",
+      labelEn: "Category Attributes",
+      rows: categoryAttributesRows,
+    });
+  }
+
+  const displayFieldRows = Object.entries(richProduct.Product_Display_Fields || {})
+    .map(([key, field]) => ({
+      label: formatSpecKey(key),
+      value: formatSpecValue(field?.value),
+    }))
+    .filter((item) => item.value);
+
+  if (displayFieldRows.length > 0) {
+    fallbackSections.push({
+      key: "Product_Display_Fields",
+      label: lang === "zh" ? "展示字段" : "Display Fields",
+      labelEn: "Display Fields",
+      rows: displayFieldRows,
+    });
+  }
+
+  const specsText = String(richProduct.specsText || "").trim();
+  if (fallbackSections.length === 0 && specsText) {
+    fallbackSections.push({
+      key: "specsText",
+      label: lang === "zh" ? "规格摘要" : "Specs Summary",
+      labelEn: "Specs Summary",
+      rows: [{ label: lang === "zh" ? "摘要" : "Summary", value: specsText }],
+    });
+  }
+
+  if (fallbackSections.length === 0) {
+    const topLevelRows = [
+      { label: lang === "zh" ? "品牌" : "Brand", value: cleanVisibleFieldText(product.brand) },
+      { label: lang === "zh" ? "类目" : "Category", value: cleanVisibleFieldText(product.category) },
+      { label: lang === "zh" ? "适龄范围" : "Age Range", value: cleanVisibleFieldText(product.ageRange) },
+      { label: lang === "zh" ? "重量" : "Weight", value: cleanVisibleFieldText(product.weight) },
+      { label: lang === "zh" ? "材质" : "Material", value: cleanVisibleFieldText(product.material) },
+      { label: lang === "zh" ? "刹车/约束" : "Brake / Restraint", value: cleanVisibleFieldText(product.brakeType) },
+      { label: lang === "zh" ? "轮胎" : "Tire Type", value: cleanVisibleFieldText(product.tireType) },
+      { label: lang === "zh" ? "合规" : "Compliance", value: cleanVisibleFieldText(product.compliance) },
+    ].filter((item) => item.value);
+
+    if (topLevelRows.length > 0) {
+      fallbackSections.push({
+        key: "top_level_specs",
+        label: lang === "zh" ? "基础规格" : "Basic Specs",
+        labelEn: "Basic Specs",
+        rows: topLevelRows,
+      });
+    }
+  }
+
+  return fallbackSections;
+}
+
 function cleanEvidenceSource(value: unknown) {
   const text = cleanVisibleSourceText(value);
   if (/^Features\[\d+\]$/i.test(text)) return "";
@@ -115,7 +300,6 @@ interface DetailedProductViewProps {
   product: Product;
   onClose: () => void;
   lang: "zh" | "en";
-  currencyData: CurrencyData;
   activeStandardDimension: string | null;
   setActiveStandardDimension: (dim: string | null) => void;
   previousTab?: string;
@@ -126,7 +310,6 @@ export default function DetailedProductView({
   product,
   onClose,
   lang,
-  currencyData,
   activeStandardDimension,
   setActiveStandardDimension,
   previousTab,
@@ -134,22 +317,7 @@ export default function DetailedProductView({
 }: DetailedProductViewProps) {
   const displayProduct = translateProduct(product, lang);
   const verdictText = resolveVerdictText(displayProduct, lang);
-  const customersSayText = resolveCustomersSay(displayProduct, lang);
-  const hasRealWeight = typeof displayProduct.weight === "number" && Number.isFinite(displayProduct.weight) && displayProduct.weight > 0;
-  const detailHighlights = [
-    {
-      label: lang === "en" ? "Category" : "品类",
-      value: translateCategory(String(displayProduct.category || ""), lang),
-    },
-    { label: lang === "en" ? "Age Range" : "适龄范围", value: String(displayProduct.ageRange || "") },
-    { label: lang === "en" ? "Material" : "车架材质", value: String(displayProduct.material || "") },
-    { label: lang === "en" ? "Tire" : "轮胎类型", value: String(displayProduct.tireType || "") },
-    { label: lang === "en" ? "Brake" : "制动系统", value: String(displayProduct.brakeType || "") },
-    {
-      label: lang === "en" ? "Safety Tags" : "安全标签",
-      value: (displayProduct.compliance || displayProduct.safetyCertification || []).join(", "),
-    },
-  ].filter((item) => item.value && item.value.trim());
+  const descriptionText = resolveDescriptionText(displayProduct, lang);
   const imageSet = resolveProductImages(displayProduct);
   const videoUrl = [product.videoUrl, ...(product.videos || []).map((item) => item.url)]
     .map((item) => String(item || "").trim())
@@ -158,21 +326,7 @@ export default function DetailedProductView({
   const hasVideo = videoRenderType !== "none";
   const hasFeatureImages = imageSet.featureUrls.length > 0;
   const [activeMediaTab, setActiveMediaTab] = useState<"gallery" | "feature" | "video">("gallery");
-
-  const ensureFourItems = (items: string[] | undefined, fallbackPrefix: string) => {
-    const out = [...(items || []).filter(Boolean)];
-    const evidence = displayProduct.scrapedEvidence || product.scrapedEvidence || [];
-    for (const item of evidence) {
-      if (out.length >= 4) break;
-      const bodyText = cleanVisibleFieldText(item.text);
-      const line = cleanVisibleFieldText(`${fallbackPrefix}: ${bodyText}`);
-      if (!out.includes(line)) out.push(line);
-    }
-    return out.slice(0, Math.max(4, out.length));
-  };
-
-  const detailPros = ensureFourItems(displayProduct.pros, lang === "en" ? "Product highlight" : "产品亮点");
-  const detailCons = ensureFourItems(displayProduct.cons, lang === "en" ? "Review note" : "留意事项");
+  const basicInfoSections = buildBasicInfoSections(displayProduct, lang);
 
   const getBackLabel = () => {
     if (lang === "zh") {
@@ -465,36 +619,39 @@ export default function DetailedProductView({
                 </ResponsiveContainer>
              </div>
 
-             {/* Pros & Cons Section */}
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-slate-50">
-                <div className="space-y-4">
-                  <h3 className="flex items-center gap-2 text-xs font-black text-emerald-600 uppercase">
-                    <ThumbsUp className="w-4 h-4" />
-                    {lang === "en" ? "Pros" : "产品亮点"}
-                  </h3>
-                  <ul className="space-y-2">
-                    {detailPros.map((pro, i) => (
-                      <li key={i} className="flex gap-3 text-sm text-slate-600 font-medium bg-emerald-50/50 p-3 rounded-2xl border border-emerald-50">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                        {pro}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="space-y-4">
-                  <h3 className="flex items-center gap-2 text-xs font-black text-rose-500 uppercase">
-                    <ThumbsDown className="w-4 h-4" />
-                    {lang === "en" ? "Cons" : "留意事项"}
-                  </h3>
-                  <ul className="space-y-2">
-                    {detailCons.map((con, i) => (
-                      <li key={i} className="flex gap-3 text-sm text-slate-600 font-medium bg-rose-50/50 p-3 rounded-2xl border border-rose-50">
-                        <X className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
-                        {con}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+             {/* Product Basic Info Section */}
+             <div className="space-y-4 pt-6 border-t border-slate-50">
+               <h3 className="flex items-center gap-2 text-xs font-black text-slate-700 uppercase tracking-widest">
+                 <ShieldCheck className="w-4 h-4 text-orange-500" />
+                 {lang === "en" ? "Product Basic Info" : "产品基本信息"}
+               </h3>
+               {basicInfoSections.length > 0 ? (
+                 <div className="space-y-4">
+                   {basicInfoSections.map((section) => (
+                     <div key={section.key} className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4">
+                       <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
+                         <div>
+                           <p className="text-sm font-black text-slate-800">{lang === "en" ? section.labelEn : section.label}</p>
+                           <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">{section.key}</p>
+                         </div>
+                         <span className="text-[10px] font-black px-2 py-1 rounded-full bg-white text-slate-500 border border-slate-200">{section.rows.length}</span>
+                       </div>
+                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                         {section.rows.map((row, index) => (
+                           <div key={`${section.key}-${row.label}-${index}`} className="rounded-2xl bg-white border border-slate-100 p-3 space-y-1">
+                             <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{row.label}</p>
+                             <p className="text-sm text-slate-700 font-semibold leading-relaxed break-words">{row.value}</p>
+                           </div>
+                         ))}
+                       </div>
+                     </div>
+                   ))}
+                 </div>
+               ) : (
+                 <div className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 text-sm text-slate-500 font-medium">
+                   {lang === "en" ? "No Product_Specifications data available." : "当前暂无 Product_Specifications 结构化数据。"}
+                 </div>
+               )}
              </div>
           </div>
 
@@ -543,47 +700,7 @@ export default function DetailedProductView({
         </div>
 
         {/* Technical Specs (Right Column) */}
-        <div className="space-y-8">
-           <div className="bg-slate-950 border border-slate-850 rounded-[40px] p-8 shadow-xl text-white space-y-8">
-              <div>
-                <h2 className="text-lg font-black flex items-center gap-2 mb-2">
-                  <Maximize2 className="w-5 h-5 text-orange-500" />
-                  {lang === "en" ? "Live Specs" : "物理规格清单"}
-                </h2>
-                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{lang === "en" ? "Laboratory Verified" : "实验室深度测定数据"}</p>
-              </div>
-
-              <div className="space-y-5">
-                 {[
-                   ...(hasRealWeight ? [{ label: lang === "en" ? "Weight" : "整车自重", val1: formatWeight(displayProduct.weight, currencyData.code), highlight1: displayProduct.weight < 6 }] : []),
-                   { label: lang === "en" ? "Tires" : "轮胎材质", val1: displayProduct.tireType },
-                   { label: lang === "en" ? "Frame" : "主要架构", val1: displayProduct.material },
-                   { label: lang === "en" ? "Wheel Size" : "轮毂规格", val1: displayProduct.wheelSize },
-                   { label: lang === "en" ? "Brakes" : "制动系统", val1: displayProduct.brakeType },
-                   { label: lang === "en" ? "Height Range" : "适配身高范围", val1: displayProduct.heightRange ? `${displayProduct.heightRange[0]}-${displayProduct.heightRange[1]}cm` : "" },
-                   { label: lang === "en" ? "MSRP" : "参考售价", val1: `${currencyData.symbol}${displayProduct.price}` }
-                 ].map((item, i) => (
-                   <div key={i} className="flex justify-between items-center text-xs border-b border-white/5 pb-3 last:border-0">
-                      <span className="text-slate-500 font-bold">{item.label}</span>
-                      <div className="flex flex-col items-end gap-1">
-                        <strong className={`font-mono ${item.highlight1 ? "text-emerald-400" : "text-white"}`}>{item.val1}</strong>
-                      </div>
-                   </div>
-                 ))}
-              </div>
-
-              <div className="pt-4">
-                 <div className="bg-white/5 p-4 rounded-2xl border border-white/10 space-y-2">
-                    <span className="text-[9px] text-slate-400 font-black uppercase tracking-widest block">{lang === "en" ? "Safety Certifications" : "核心准入验证"}</span>
-                    <div className="flex flex-wrap gap-2">
-                       {displayProduct.safetyCertification?.map((cert, j) => (
-                         <span key={j} className="px-2 py-0.5 bg-orange-500/10 text-orange-500 rounded text-[9px] font-black border border-orange-500/20">{cert}</span>
-                       ))}
-                    </div>
-                 </div>
-              </div>
-           </div>
-
+          <div className="space-y-8">
            {/* Verdict Box */}
            <div className="bg-orange-50 border border-orange-100 rounded-[40px] p-8 space-y-4">
               <h2 className="text-xs font-black text-orange-600 uppercase tracking-widest flex items-center gap-2">
@@ -596,28 +713,12 @@ export default function DetailedProductView({
                 </p>
               )}
 
-              {customersSayText && (
+              {descriptionText && (
                 <div className="bg-white/80 border border-orange-100 rounded-2xl p-4 space-y-2">
                   <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">
-                    {lang === "en" ? "Customers Say" : "用户反馈摘要"}
+                    {lang === "en" ? "Description" : "描述"}
                   </p>
-                  <p className="text-xs text-slate-700 leading-relaxed font-semibold">{customersSayText}</p>
-                </div>
-              )}
-
-              {detailHighlights.length > 0 && (
-                <div className="bg-white/80 border border-orange-100 rounded-2xl p-4 space-y-3">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">
-                    {lang === "en" ? "Collected Data Highlights" : "采集数据亮点"}
-                  </p>
-                  <div className="space-y-2">
-                    {detailHighlights.slice(0, 6).map((item, index) => (
-                      <div key={`${item.label}-${index}`} className="flex items-start justify-between gap-4 text-xs">
-                        <span className="text-slate-500 font-bold">{item.label}</span>
-                        <span className="text-slate-800 font-semibold text-right">{item.value}</span>
-                      </div>
-                    ))}
-                  </div>
+                  <p className="text-xs text-slate-700 leading-relaxed font-semibold">{descriptionText}</p>
                 </div>
               )}
            </div>

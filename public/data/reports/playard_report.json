@@ -366,7 +366,10 @@
         "UPC": "090014036324 090014023300 090014035846",
         "Floor Area": "0.73 Square Meters"
       },
-      "Materials_Care": {},
+      "Materials_Care": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Item_Details": {
         "Brand": "Baby Trend",
         "Global Trade Identification Number": "00090014023300",
@@ -378,8 +381,14 @@
         "ASIN": "B07964SFW4",
         "Customer Reviews": "4.7  4.7 out of 5 stars   \n    (11,742)   \n\n\n 4.7 out of 5 stars"
       },
-      "User_Guide": {},
-      "Additional_Details": {}
+      "User_Guide": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -1122,7 +1131,10 @@
         "Item Type Name": "Nest Portable Play Yard",
         "Floor Area": "1120 Square Inches"
       },
-      "Materials_Care": {},
+      "Materials_Care": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Item_Details": {
         "Brand": "Dream On Me",
         "Part Number": "436-BLK",
@@ -1133,8 +1145,14 @@
         "ASIN": "B08BT16TH5",
         "Customer Reviews": "4.5  4.5 out of 5 stars   \n    (10,445)   \n\n\n 4.5 out of 5 stars"
       },
-      "User_Guide": {},
-      "Additional_Details": {}
+      "User_Guide": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -1719,7 +1737,10 @@
         "Item Type Name": "Dream On Me Zodiak Portable Playard in BLACK",
         "Floor Area": "7.64 Square Feet"
       },
-      "Materials_Care": {},
+      "Materials_Care": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Item_Details": {
         "Brand": "Dream On Me",
         "Global Trade Identification Number": "00811048032874",
@@ -1731,8 +1752,14 @@
         "ASIN": "B07WPW1YYC",
         "Customer Reviews": "4.5  4.5 out of 5 stars   \n    (11,503)   \n\n\n 4.5 out of 5 stars"
       },
-      "User_Guide": {},
-      "Additional_Details": {}
+      "User_Guide": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -2621,7 +2648,10 @@
         "Item Type Name": "Playard",
         "Floor Area": "2400 Square Feet"
       },
-      "Materials_Care": {},
+      "Materials_Care": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Item_Details": {
         "Brand": "Graco",
         "Global Trade Identification Number": "00047406182688",
@@ -2635,8 +2665,14 @@
         "ASIN": "B09MWHG3ZT",
         "Customer Reviews": "4.8  4.8 out of 5 stars   \n    (2,718)   \n\n\n 4.8 out of 5 stars"
       },
-      "User_Guide": {},
-      "Additional_Details": {}
+      "User_Guide": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",
@@ -3039,7 +3075,10 @@
         "UPC": "047406177202",
         "Floor Area": "1092 Square Inches"
       },
-      "Materials_Care": {},
+      "Materials_Care": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
       "Item_Details": {
         "Brand": "Graco",
         "Global Trade Identification Number": "00047406177202",
@@ -3052,8 +3091,14 @@
         "ASIN": "B08K3314ZL",
         "Customer Reviews": "4.8  4.8 out of 5 stars   \n    (2,525)   \n\n\n 4.8 out of 5 stars"
       },
-      "User_Guide": {},
-      "Additional_Details": {}
+      "User_Guide": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      },
+      "Additional_Details": {
+        "Status": "N/A",
+        "Source_Note": "Section not provided in upstream source"
+      }
     },
     "Right_Panel_Details": {
       "Ships_From": "N/A",

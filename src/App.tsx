@@ -159,7 +159,12 @@ const resolveProductMergeKey = (product: Product) => {
   if (asinMatch) {
     return asinMatch[0].toLowerCase();
   }
-  return raw.toLowerCase();
+
+  const normalizedName = String(product.name || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "");
+  const normalizedBrand = String(product.brand || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "");
+  const normalizedCategory = String((product as any)?.categoryId || product.category || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "");
+  const compositeKey = [normalizedBrand, normalizedName, normalizedCategory].filter(Boolean).join("|");
+  return compositeKey || raw.toLowerCase();
 };
 
 const chooseMoreCompleteProductName = (previous: Product, incoming: Product) => {
@@ -192,6 +197,16 @@ const mergeDuplicateProductRecords = (previous: Product, incoming: Product): Pro
   } as Product;
 };
 
+const findLatestProductMatch = (products: Product[], item: Product) => {
+  const matchedById = products.find((product) => product.id === item.id);
+  if (matchedById) return matchedById;
+
+  const itemMergeKey = resolveProductMergeKey(item);
+  if (!itemMergeKey) return null;
+
+  return products.find((product) => resolveProductMergeKey(product) === itemMergeKey) || null;
+};
+
 const mergeBatchProductsIntoBase = (baseProducts: Product[], batchProducts: Product[]) => {
   if (!batchProducts.length) return baseProducts;
 
@@ -218,15 +233,34 @@ const filterExcludedProductCategories = (products: Product[]) => {
 const mergeCmsWithFallbackByCategory = (cmsProducts: Product[], fallbackProducts: Product[]) => {
   const merged = [...cmsProducts];
   const seenIds = new Set(cmsProducts.map((item) => item.id));
-  const coveredCategories = new Set(cmsProducts.map((item) => resolveProductCategoryId(item)).filter(Boolean));
+  const mergeKeyToIndex = new Map<string, number>();
+
+  merged.forEach((item, index) => {
+    const mergeKey = resolveProductMergeKey(item);
+    if (mergeKey) {
+      mergeKeyToIndex.set(mergeKey, index);
+    }
+  });
 
   for (const item of fallbackProducts) {
-    const categoryId = resolveProductCategoryId(item);
-    if (!categoryId || coveredCategories.has(categoryId) || seenIds.has(item.id)) {
+    const mergeKey = resolveProductMergeKey(item);
+    const existingIndex = mergeKey ? mergeKeyToIndex.get(mergeKey) : undefined;
+
+    if (existingIndex !== undefined) {
+      merged[existingIndex] = mergeDuplicateProductRecords(merged[existingIndex], item);
       continue;
     }
+
+    if (seenIds.has(item.id)) {
+      continue;
+    }
+
     merged.push(item);
     seenIds.add(item.id);
+
+    if (mergeKey) {
+      mergeKeyToIndex.set(mergeKey, merged.length - 1);
+    }
   }
 
   return merged;
@@ -713,7 +747,7 @@ export default function App() {
       setCompareList(prev => {
         let changed = false;
         const updated = prev.map(item => {
-          const matched = productsData.find(p => p.id === item.id);
+          const matched = findLatestProductMatch(productsData, item);
           if (matched && JSON.stringify(matched) !== JSON.stringify(item)) {
             changed = true;
             return matched;
@@ -726,7 +760,7 @@ export default function App() {
       setViewHistory(prev => {
         let changed = false;
         const updated = prev.map(item => {
-          const matched = productsData.find(p => p.id === item.id);
+          const matched = findLatestProductMatch(productsData, item);
           if (matched && JSON.stringify(matched) !== JSON.stringify(item)) {
             changed = true;
             return matched;
@@ -734,6 +768,13 @@ export default function App() {
           return item;
         });
         return changed ? updated : prev;
+      });
+
+      setSelectedProduct(prev => {
+        if (!prev) return prev;
+        const matched = findLatestProductMatch(productsData, prev);
+        if (!matched) return prev;
+        return JSON.stringify(matched) === JSON.stringify(prev) ? prev : matched;
       });
     }
   }, [productsData]);
@@ -753,31 +794,22 @@ export default function App() {
       if (!isActive) return;
       if (publishedProducts && publishedProducts.length > 0) {
         let nextProducts = filterExcludedProductCategories(publishedProducts);
-        const publishedCategories = new Set(nextProducts.map((item) => resolveProductCategoryId(item)).filter(Boolean));
-        const requiredCategories = PRODUCT_NAV_OPTIONS.map((item) => item.id).filter(
-          (id) => id !== "all" && !EXCLUDED_PRODUCT_CATEGORY_IDS.has(id)
-        );
-        const missingCategories = requiredCategories.filter((id) => !publishedCategories.has(id));
-
-        if (missingCategories.length > 0) {
-          // Keep CMS as primary source, but fill category gaps from runtime fallback data.
-          try {
-            const bundle = await fetchContentBundle();
-            if (!isActive) return;
-            const fallbackProducts = bundle.products && bundle.products.length > 0
-              ? filterExcludedProductCategories(bundle.products)
-              : filterExcludedProductCategories(await loadDefaultProductsData());
-            if (!isActive) return;
-            nextProducts = mergeCmsWithFallbackByCategory(nextProducts, fallbackProducts);
-          } catch {
-            if (!isActive) return;
-            const defaultProducts = await loadDefaultProductsData();
-            if (!isActive) return;
-            nextProducts = mergeCmsWithFallbackByCategory(
-              nextProducts,
-              filterExcludedProductCategories(defaultProducts)
-            );
-          }
+        try {
+          const bundle = await fetchContentBundle();
+          if (!isActive) return;
+          const fallbackProducts = bundle.products && bundle.products.length > 0
+            ? filterExcludedProductCategories(bundle.products)
+            : filterExcludedProductCategories(await loadDefaultProductsData());
+          if (!isActive) return;
+          nextProducts = mergeCmsWithFallbackByCategory(nextProducts, fallbackProducts);
+        } catch {
+          if (!isActive) return;
+          const defaultProducts = await loadDefaultProductsData();
+          if (!isActive) return;
+          nextProducts = mergeCmsWithFallbackByCategory(
+            nextProducts,
+            filterExcludedProductCategories(defaultProducts)
+          );
         }
 
         setProductsData(applyBatchProducts(nextProducts));
@@ -2028,7 +2060,6 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             product={selectedProduct}
             onClose={() => handleSelectProduct(null)}
             lang={lang}
-            currencyData={currencyData}
             activeStandardDimension={activeStandardDimension}
             setActiveStandardDimension={setActiveStandardDimension}
             previousTab={previousTab}

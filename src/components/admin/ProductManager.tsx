@@ -1006,7 +1006,7 @@ function LangSector({ lang, title, data, onChange }: any) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-4">
-            <label className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Pros List</label>
+            <label className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Product Basic Info - Part 1</label>
             <div className="space-y-2">
               {(data.pros || []).map((pro: string, idx: number) => (
                 <div key={idx} className="flex gap-2">
@@ -1025,12 +1025,12 @@ function LangSector({ lang, title, data, onChange }: any) {
                   }} className="text-red-400"><Trash2 className="w-4 h-4" /></button>
                 </div>
               ))}
-              <button onClick={() => onChange({...data, pros: [...(data.pros || []), ""]})} className="text-[10px] font-black text-emerald-600 uppercase">+ Add Pro</button>
+              <button onClick={() => onChange({...data, pros: [...(data.pros || []), ""]})} className="text-[10px] font-black text-emerald-600 uppercase">+ Add Info Item</button>
             </div>
           </div>
 
           <div className="space-y-4">
-            <label className="text-[10px] font-black text-rose-500 uppercase tracking-widest">Cons List</label>
+            <label className="text-[10px] font-black text-rose-500 uppercase tracking-widest">Product Basic Info - Part 2</label>
             <div className="space-y-2">
               {(data.cons || []).map((con: string, idx: number) => (
                 <div key={idx} className="flex gap-2">
@@ -1049,7 +1049,7 @@ function LangSector({ lang, title, data, onChange }: any) {
                   }} className="text-red-400"><Trash2 className="w-4 h-4" /></button>
                 </div>
               ))}
-              <button onClick={() => onChange({...data, cons: [...(data.cons || []), ""]})} className="text-[10px] font-black text-rose-600 uppercase">+ Add Con</button>
+              <button onClick={() => onChange({...data, cons: [...(data.cons || []), ""]})} className="text-[10px] font-black text-rose-600 uppercase">+ Add Info Item</button>
             </div>
           </div>
         </div>

@@ -30,6 +30,33 @@ function slugifyScenario(categoryId) {
   return categoryId === "stroller" ? "city-commute" : `${categoryId}-scene`;
 }
 
+function hasProductInformation(product) {
+  const specs = product?.Product_Specifications;
+  const attrs = product?.Category_Attributes;
+  const displayFields = product?.Product_Display_Fields;
+  return Boolean(
+    (specs && typeof specs === "object" && Object.keys(specs).length > 0) ||
+    (attrs && typeof attrs === "object" && Object.keys(attrs).length > 0) ||
+    (displayFields && typeof displayFields === "object" && Object.keys(displayFields).length > 0)
+  );
+}
+
+function pickPublishedDescription(product) {
+  const candidates = [
+    product?.Product_Description,
+    product?.product_description,
+    product?.productDescription,
+    product?.description,
+    product?.customers_say,
+    product?.customersSay,
+  ];
+  for (const value of candidates) {
+    const text = String(value || "").trim();
+    if (text) return text;
+  }
+  return "";
+}
+
 function buildImportRow(product, relatedProductId, videoUrls = []) {
   const title = product.title || product.productId || "Unnamed Product";
   const cover = toHttpUrl(product?.images?.cover?.url) || toHttpUrl(product.coverImage);
@@ -38,10 +65,19 @@ function buildImportRow(product, relatedProductId, videoUrls = []) {
     ...(product?.images?.gallery || []).map((item) => toHttpUrl(item?.url)),
   ].filter(Boolean).filter((item, idx, arr) => arr.indexOf(item) === idx);
 
+  if (!hasProductInformation(product)) {
+    return null;
+  }
+
+  const description = pickPublishedDescription(product);
+  if (!description) {
+    return null;
+  }
+
   const price = Number(product?.price?.value || 0);
   const weightLbs = Number(product?.weight?.lbs || 0);
   const customersSay = String(product?.customers_say || product?.customersSay || "").trim();
-  const editorVerdict = customersSay;
+  const editorVerdict = customersSay || description;
 
   return {
     id: product.productId,
@@ -73,7 +109,7 @@ function buildImportRow(product, relatedProductId, videoUrls = []) {
     status: "draft",
     zh: {
       name: title,
-      description: "由 backend 接口自动生成的批量导入记录。",
+      description,
       customersSay,
       brandText: product.brand || "Unknown",
       specsText: `price: ${product?.price?.display || "N/A"}; weight: ${product?.weight?.display || "N/A"}`,
@@ -83,7 +119,7 @@ function buildImportRow(product, relatedProductId, videoUrls = []) {
     },
     en: {
       name: title,
-      description: "Auto-generated import payload from backend APIs.",
+      description,
       customersSay,
       brandText: product.brand || "Unknown",
       specsText: `price: ${product?.price?.display || "N/A"}; weight: ${product?.weight?.display || "N/A"}`,
@@ -148,7 +184,7 @@ async function main() {
     const resourceVideos = videoMap.get(product.productId) || [];
     const mergedVideos = [...productVideos, ...resourceVideos].filter((value, index, arr) => arr.indexOf(value) === index);
     return buildImportRow(product, related, mergedVideos);
-  });
+  }).filter(Boolean);
 
   const absoluteOutput = path.resolve(process.cwd(), output);
   await fs.mkdir(path.dirname(absoluteOutput), { recursive: true });
