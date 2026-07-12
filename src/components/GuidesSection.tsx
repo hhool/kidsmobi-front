@@ -22,6 +22,7 @@ import {
 import { GuideArticle, guideArticles as fallbackGuideArticles } from "../data/guidesData";
 import { Product, CurrencyData } from "../types";
 import { translateProduct, translateGuideArticle } from "../lib/translate";
+import { convertUsdToCurrency, formatCurrencyFromUsd } from "../lib/currency";
 import { getCMSGuides } from "../lib/cmsService";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 
@@ -758,7 +759,6 @@ export default function GuidesSection({
                   <span className="text-slate-900 font-black block text-lg mb-2">
                     {lang === "en" ? "No matches found" : "哎呀，没找到完美匹配"}
                   </span>
-import { convertUsdToCurrency, formatCurrencyFromUsd } from "../lib/currency";
                   <p className="text-sm text-slate-500 max-w-sm mx-auto leading-relaxed">
                     {lang === "en" 
                       ? "Try adjusting the budget or weight limits slightly to see more options." 
@@ -917,7 +917,7 @@ import { convertUsdToCurrency, formatCurrencyFromUsd } from "../lib/currency";
               <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
                 <span>{lang === "en" ? "5. Purchase Budget" : "5. 购车预算上限"}</span>
                 <span className="text-emerald-500 text-sm font-black">
-                  {formatCurrencyFromUsd(wizardBudget, currencyData, lang, 0)}
+                  {formatCurrencyFromUsd(wizardBudget, currencyData, lang, 2)}
                 </span>
               </label>
               <input
