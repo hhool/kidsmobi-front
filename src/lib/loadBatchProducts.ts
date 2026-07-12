@@ -302,15 +302,23 @@ function extractCustomerReviewText(specs: Record<string, any> | undefined): stri
   return "";
 }
 
-function buildCustomersSay(rating: number | undefined, reviewCount: number | undefined): string {
-  if (rating !== undefined && reviewCount) {
-    return `Rated ${rating.toFixed(1)} out of 5 from ${reviewCount.toLocaleString()} customer reviews.`;
-  }
-  if (rating !== undefined) {
-    return `Rated ${rating.toFixed(1)} out of 5 by customers.`;
-  }
-  if (reviewCount) {
-    return `Backed by ${reviewCount.toLocaleString()} customer reviews.`;
+function isStatisticalReviewText(value: string): boolean {
+  const text = String(value || "").replace(/\s+/g, " ").trim().toLowerCase();
+  if (!text) return true;
+  return (
+    /^rated\s+\d(?:\.\d+)?\s+out\s+of\s+5\b/.test(text) ||
+    /^backed\s+by\s+[\d,]+\s+customer\s+reviews\b/.test(text) ||
+    /^\d(?:\.\d+)?\s+\d(?:\.\d+)?\s+out\s+of\s+5\s+stars\b/.test(text) ||
+    /^\(?[\d,]+\)?\s+customer\s+reviews\b/.test(text)
+  );
+}
+
+function normalizeCustomersSay(...values: Array<unknown>): string {
+  for (const value of values) {
+    const text = String(value || "").replace(/\s+/g, " ").trim();
+    if (!text) continue;
+    if (isStatisticalReviewText(text)) continue;
+    return text;
   }
   return "";
 }
@@ -541,7 +549,7 @@ export function transformReportProduct(
   const reviewsDisplay = rawProduct.Reviews || customerReviewText;
   const userRating = parseRating(ratingDisplay);
   const reviewCount = parseReviewCount(reviewsDisplay);
-  const customersSay = pickExplicitCustomersSay(rawProduct) || buildCustomersSay(userRating, reviewCount);
+  const customersSay = normalizeCustomersSay(pickExplicitCustomersSay(rawProduct));
   const videos = extractProductVideos(rawProduct);
   const scrapedEvidence = collectScrapedEvidence(rawProduct);
   const pros = buildPros(rawProduct, scrapedEvidence);

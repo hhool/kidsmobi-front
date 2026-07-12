@@ -46,11 +46,24 @@ function pickCustomersSay(product: Product, lang: "zh" | "en"): string {
     zh?: { customersSay?: string };
     en?: { customersSay?: string };
   })[lang]?.customersSay;
-  return String(localized || product.customers_say || product.customersSay || "").trim();
+  return compactSnippet(localized || product.customers_say || product.customersSay || "");
+}
+
+function isRatingStatsSummary(value: string): boolean {
+  const text = compactSnippet(value).toLowerCase();
+  if (!text) return true;
+  return (
+    /^rated\s+\d(?:\.\d+)?\s+out\s+of\s+5\b/.test(text) ||
+    /^backed\s+by\s+[\d,]+\s+customer\s+reviews\b/.test(text) ||
+    /^\d(?:\.\d+)?\s+\d(?:\.\d+)?\s+out\s+of\s+5\s+stars\b/.test(text) ||
+    /^\(?[\d,]+\)?\s+customer\s+reviews\b/.test(text)
+  );
 }
 
 function hasRealCustomersSay(product: Product, lang: "zh" | "en"): boolean {
-  return /^Customers find\b/i.test(pickCustomersSay(product, lang));
+  const customerSay = pickCustomersSay(product, lang);
+  if (!customerSay || isRatingStatsSummary(customerSay)) return false;
+  return /^Customers find\b/i.test(customerSay);
 }
 
 function pickLocalizedDescription(product: Product, lang: "zh" | "en"): string {
@@ -157,6 +170,7 @@ function stripVisibleFieldLabels(value: string): string {
 }
 
 function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
+  const customersSay = pickCustomersSay(product, lang);
   const description = pickLocalizedDescription(product, lang);
   const verdict = resolveCardVerdict(product, lang);
   const pros = ((product as Product & {
@@ -170,11 +184,11 @@ function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
     .map((item) => compactSnippet(item))
     .filter(Boolean);
 
-  const candidates = [verdict, description, pros[0], features[0]]
+  const candidates = [customersSay, verdict, description, pros[0], features[0]]
     .map((item) => compactSnippet(item))
     .map((item) => stripVisibleFieldLabels(item))
     .map((item) => stripRepeatedBrandPrefix(item, product.brand))
-    .filter((item) => item && !isPlaceholderVerdict(item) && !isGenericCardSnippet(item) && !isTitleDuplicateSnippet(item, product));
+    .filter((item) => item && !isRatingStatsSummary(item) && !isPlaceholderVerdict(item) && !isGenericCardSnippet(item) && !isTitleDuplicateSnippet(item, product));
 
   return truncateCardSnippet(candidates[0] || resolveGeneratedCardSummary(product, lang), lang === "zh" ? 72 : 120);
 }
