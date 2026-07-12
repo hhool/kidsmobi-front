@@ -36,7 +36,7 @@ import { ChildProfile, Product, ChatMessage, CMSSettings, Evaluation, CMSPageCon
 import { translations, translateProduct, translateNewsArticle, translateGuideArticle, countries, getCurrencyData } from "./lib/translate";
 import { formatWeight, formatHeight } from "./lib/units";
 import { resolveProductImages } from "./lib/productImages";
-import { getProductImageAlt } from "./lib/productSeoText";
+import { getProductImageAlt, getProductsPageSeoTitle } from "./lib/productSeoText";
 import { loadBatchProducts } from "./lib/loadBatchProducts";
 
 import SmartImage from "./components/common/SmartImage";
@@ -1123,15 +1123,16 @@ export default function App() {
       if (selectedProduct) {
         const name = selectedProduct.name;
         const brand = selectedProduct.brand;
+        const dedupedDisplayTitle = getProductsPageSeoTitle(selectedProduct);
         const cat = selectedProduct.category;
 
         const title = lang === "zh"
-          ? `${brand} ${name} 独家深度客观安全评测报告 | KIDSMOBI`
-          : `${brand} ${name} Exclusive Safety Evaluation & Specs | KIDSMOBI`;
+          ? `${dedupedDisplayTitle} 独家深度客观安全评测报告 | KIDSMOBI`
+          : `${dedupedDisplayTitle} Exclusive Safety Evaluation & Specs | KIDSMOBI`;
 
         const desc = lang === "zh"
-          ? `${brand} ${name} (${selectedProduct.ageRange})的物理材料、轮径比、刹车制动等详细性能参数，结合KIDSMOBI实验室工程师的独家拆解观点与真实优缺点分析。`
-          : `Meticulous safety verification for the ${brand} ${name} kids mobility. Comprehensive parameters, raw materials, pros/cons, and engineer reviews.`;
+          ? `${dedupedDisplayTitle} (${selectedProduct.ageRange})的物理材料、轮径比、刹车制动等详细性能参数，结合KIDSMOBI实验室工程师的独家拆解观点与真实优缺点分析。`
+          : `Meticulous safety verification for the ${dedupedDisplayTitle} kids mobility. Comprehensive parameters, raw materials, pros/cons, and engineer reviews.`;
 
         const kws = lang === "zh"
           ? [name, brand, cat, "童车数据评测", "KIDSMOBI"]

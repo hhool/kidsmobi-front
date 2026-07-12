@@ -41,6 +41,7 @@ import { formatWeight, formatHeight } from "../lib/units";
 import Breadcrumbs from "./Breadcrumbs";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
 import SeoKeywordPanel from "./common/SeoKeywordPanel";
+import { getProductsPageSeoTitle } from "../lib/productSeoText";
 
 const faqData = [
   {
@@ -173,7 +174,7 @@ function isAllowedGuideArticle(article: GuideArticle) {
 }
 
 function productGuideName(product: Product) {
-  return `${product.brand} ${product.name}`.trim();
+  return getProductsPageSeoTitle(product);
 }
 
 const LONG_TAIL_GUIDE_TITLES = [
