@@ -390,6 +390,14 @@ export default function DetailedProductView({
     return getStableRandomScore(seedKey, min, max);
   };
 
+  const formatScoreDisplay = (value: unknown, seedKey = "overall") => {
+    const numeric = Number(value);
+    if (Number.isFinite(numeric) && numeric > 0) {
+      return numeric.toFixed(2);
+    }
+    return getStableRandomScore(seedKey, 6.5, 9.4).toFixed(2);
+  };
+
   // Function to extract 5-dimension scores
   const getProductScores = (p: Product) => {
     const safety = resolveScore(p.safetyScore, "safety");
@@ -420,6 +428,7 @@ export default function DetailedProductView({
   };
 
   const scoresA = getProductScores(product);
+  const overallScoreDisplay = formatScoreDisplay(displayProduct.overallScore, "overall");
 
   const radarData = lang === "en" ? [
     { subject: "Safety", scoreA: scoresA.safety, key: "safety" },
@@ -521,7 +530,7 @@ export default function DetailedProductView({
         <div className="flex gap-3">
           <div className="bg-slate-50 px-6 py-3 rounded-2xl border border-slate-100">
              <span className="text-[10px] text-slate-400 font-bold block uppercase mb-1">{lang === "en" ? "Overall Score" : "综合评分"}</span>
-             <strong className="text-2xl font-black text-orange-500">{displayProduct.overallScore}</strong>
+             <strong className="text-2xl font-black text-orange-500">{overallScoreDisplay}</strong>
           </div>
         </div>
       </div>
