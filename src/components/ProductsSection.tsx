@@ -906,7 +906,7 @@ export default function ProductsSection({
   const safePage = Math.min(Math.max(1, currentPage), totalPages);
   const pagedProducts = filteredProducts.slice((safePage - 1) * pageSize, safePage * pageSize);
   const productsSeoPillTags = [
-    { label: "TWIN STROLLER", target: "double_stroller" },
+    { label: "TWIN STROLLER", target: "stroller" },
     { label: "TODDLER BIKE", target: "kids_bikes" },
     { label: "KIDS ELECTRIC SCOOTER", target: "kids_scooters" },
   ];
