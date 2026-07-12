@@ -40,6 +40,16 @@ function dedupe(items) {
   return out;
 }
 
+function isInvalidId(value) {
+  const normalized = String(value || "").trim().toLowerCase();
+  return !normalized || normalized === "n/a" || normalized === "na" || normalized === "none" || normalized === "null";
+}
+
+function normalizedProductId(value) {
+  const candidate = String(value || "").trim();
+  return isInvalidId(candidate) ? "" : candidate;
+}
+
 function normalizeMediaUrl(value, sourceBase) {
   if (!value || typeof value !== "string") return "";
   const text = String(value).trim();
@@ -398,7 +408,7 @@ async function main() {
     summary.totalProducts += products.length;
 
     for (const product of products) {
-      const productId = String(product?.productId || "").trim();
+      const productId = normalizedProductId(product?.productId);
       if (!productId) {
         summary.failedProducts += 1;
         continue;
@@ -413,11 +423,11 @@ async function main() {
       let productDetail = product;
       try {
         const detailResp = await fetchJsonWithRetry(`${sourceBase}/api/v2/products/${encodeURIComponent(productId)}?categoryId=${encodeURIComponent(categoryId)}`);
-        if (detailResp?.data) {
-          productDetail = detailResp.data;
+        if (detailResp?.data && typeof detailResp.data === "object") {
+          productDetail = { ...detailResp.data, productId };
         }
       } catch {
-        productDetail = product;
+        productDetail = { ...product, productId };
       }
 
       const mediaManifest = buildMediaManifest(productDetail, resource, sourceBase);

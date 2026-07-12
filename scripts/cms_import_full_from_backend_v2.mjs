@@ -57,8 +57,14 @@ function parseRatingValue(value) {
   return parseNumber(value, 0);
 }
 
+function isInvalidId(value) {
+  const normalized = String(value || "").trim().toLowerCase();
+  return !normalized || normalized === "n/a" || normalized === "na" || normalized === "none" || normalized === "null";
+}
+
 function productIdOf(product) {
-  return String(product?.productId || product?.ASIN || product?.asin || "").trim();
+  const candidate = String(product?.productId || product?.ASIN || product?.asin || "").trim();
+  return isInvalidId(candidate) ? "" : candidate;
 }
 
 function eligibleSimilarItems(product) {
@@ -75,6 +81,7 @@ function eligibleSimilarItems(product) {
 
 function normalizeSimilarProduct(parent, item) {
   const productId = productIdOf(item);
+  if (!productId) return null;
   const cover = asHttpUrl(item?.Listing_Image_URL) || asHttpUrl(item?.coverImage) || "";
   const title = String(item?.Title || item?.title || productId).trim();
   return {
@@ -131,8 +138,11 @@ function expandProductsWithEligibleSimilar(products) {
       relatedIds.push(similarId);
       similarLinked += 1;
       if (!byId.has(similarId)) {
-        byId.set(similarId, normalizeSimilarProduct(parent, item));
-        similarAdded += 1;
+        const normalized = normalizeSimilarProduct(parent, item);
+        if (normalized) {
+          byId.set(similarId, normalized);
+          similarAdded += 1;
+        }
       }
     }
     byId.set(parentId, {
@@ -562,10 +572,14 @@ async function main() {
       if (!productId) continue;
       try {
         const detailResp = await fetchJsonWithRetry(`${sourceBase}/api/v2/products/${encodeURIComponent(productId)}?categoryId=${encodedCategory}`);
-        detailedProducts.push(detailResp?.data ? detailResp.data : product);
+        if (detailResp?.data && typeof detailResp.data === "object") {
+          detailedProducts.push({ ...detailResp.data, productId });
+        } else {
+          detailedProducts.push({ ...product, productId });
+        }
       } catch (err) {
         console.warn(`[import] product detail fetch failed id=${productId}: ${String(err?.message || err)}`);
-        detailedProducts.push(product);
+        detailedProducts.push({ ...product, productId });
       }
     }
     const expanded = expandProductsWithEligibleSimilar(detailedProducts);
