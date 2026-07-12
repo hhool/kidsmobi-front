@@ -184,7 +184,7 @@ function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
     .map((item) => compactSnippet(item))
     .filter(Boolean);
 
-  const candidates = [customersSay, verdict, description, pros[0], features[0]]
+  const candidates = [description, verdict, customersSay, pros[0], features[0]]
     .map((item) => compactSnippet(item))
     .map((item) => stripVisibleFieldLabels(item))
     .map((item) => stripRepeatedBrandPrefix(item, product.brand))
@@ -1297,9 +1297,14 @@ export default function ProductsSection({
                   </h3>
 
                   {cardSummary && (
-                    <p className="text-slate-600 text-sm leading-relaxed font-medium line-clamp-2">
-                      {cardSummary}
-                    </p>
+                    <div className="space-y-1">
+                      <p className="text-[9px] font-black uppercase tracking-widest text-slate-400">
+                        {lang === "en" ? "Product Description" : "产品描述"}
+                      </p>
+                      <p className="text-slate-600 text-sm leading-relaxed font-medium line-clamp-2">
+                        {cardSummary}
+                      </p>
+                    </div>
                   )}
 
                 </div>
