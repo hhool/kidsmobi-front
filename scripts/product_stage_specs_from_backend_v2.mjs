@@ -389,12 +389,18 @@ async function main() {
     mediaIssueCount: 0,
     editorialIncompleteCount: 0,
     blockedProductCount: 0,
+    invalidIdAudit: {
+      droppedFromProductsList: 0,
+      droppedAfterDetailMerge: 0,
+    },
     batchDecision: "pass",
   };
   const dirSlugCounts = new Map();
 
   for (const category of categories) {
     const categoryId = String(category?.categoryId || "");
+    let droppedFromProductsListForCategory = 0;
+    let droppedAfterDetailMergeForCategory = 0;
     const [products, resources] = await Promise.all([
       fetchAllByCategory(sourceBase, "products", categoryId, perCategory),
       fetchAllByCategory(sourceBase, "resources", categoryId, perCategory * 3),
@@ -410,6 +416,8 @@ async function main() {
     for (const product of products) {
       const productId = normalizedProductId(product?.productId);
       if (!productId) {
+        droppedFromProductsListForCategory += 1;
+        summary.invalidIdAudit.droppedFromProductsList += 1;
         summary.failedProducts += 1;
         continue;
       }
@@ -428,6 +436,16 @@ async function main() {
         }
       } catch {
         productDetail = { ...product, productId };
+      }
+      const mergedProductId = normalizedProductId(productDetail?.productId);
+      if (!mergedProductId) {
+        droppedAfterDetailMergeForCategory += 1;
+        summary.invalidIdAudit.droppedAfterDetailMerge += 1;
+        summary.failedProducts += 1;
+        continue;
+      }
+      if (mergedProductId !== productId) {
+        productDetail = { ...productDetail, productId: mergedProductId };
       }
 
       const mediaManifest = buildMediaManifest(productDetail, resource, sourceBase);
@@ -550,6 +568,8 @@ async function main() {
         summary.failedProducts += 1;
       }
     }
+
+    console.log(`[spec-stage] loaded category=${categoryId} products=${products.length} invalidListDropped=${droppedFromProductsListForCategory} invalidDetailDropped=${droppedAfterDetailMergeForCategory} writtenSoFar=${summary.writtenProducts}`);
   }
 
   summary.batchDecision = summary.blockedProductCount > 0
@@ -576,6 +596,7 @@ async function main() {
       mediaIssueCount: summary.mediaIssueCount,
       editorialIncompleteCount: summary.editorialIncompleteCount,
       blockedProductCount: summary.blockedProductCount,
+      invalidIdAudit: summary.invalidIdAudit,
       batchDecision: summary.batchDecision,
       batchIndexPath: `./resource/assets/backend-import/${importBatchId}/batch.index.json`,
     };
