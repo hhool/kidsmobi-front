@@ -162,6 +162,36 @@ const resolveProductMergeKey = (product: Product) => {
   return raw.toLowerCase();
 };
 
+const chooseMoreCompleteProductName = (previous: Product, incoming: Product) => {
+  const previousName = String(previous.name || "").trim();
+  const incomingName = String(incoming.name || "").trim();
+  if (!previousName) return incomingName;
+  if (!incomingName) return previousName;
+
+  const previousLower = previousName.toLowerCase();
+  const incomingLower = incomingName.toLowerCase();
+  if (previousLower.startsWith(incomingLower) && previousName.length > incomingName.length) {
+    return previousName;
+  }
+  if (incomingLower.startsWith(previousLower) && incomingName.length > previousName.length) {
+    return incomingName;
+  }
+
+  return incomingName;
+};
+
+const mergeDuplicateProductRecords = (previous: Product, incoming: Product): Product => {
+  const name = chooseMoreCompleteProductName(previous, incoming);
+  return {
+    ...previous,
+    ...incoming,
+    id: previous.id || incoming.id,
+    name,
+    zh: (previous as any).zh ? { ...(previous as any).zh, name } : (incoming as any).zh,
+    en: (previous as any).en ? { ...(previous as any).en, name } : (incoming as any).en,
+  } as Product;
+};
+
 const mergeBatchProductsIntoBase = (baseProducts: Product[], batchProducts: Product[]) => {
   if (!batchProducts.length) return baseProducts;
 
@@ -171,7 +201,8 @@ const mergeBatchProductsIntoBase = (baseProducts: Product[], batchProducts: Prod
     const mergeKey = resolveProductMergeKey(product);
     const previousId = idByMergeKey.get(mergeKey);
     if (previousId && previousId !== product.id) {
-      mergedById.set(previousId, product);
+      const previousProduct = mergedById.get(previousId);
+      mergedById.set(previousId, previousProduct ? mergeDuplicateProductRecords(previousProduct, product) : product);
     } else {
       mergedById.set(product.id, product);
     }

@@ -15,6 +15,8 @@ const CATEGORY_FOLDER_TO_TYPE: Record<string, ProductCategory> = {
   jogger_strollers: "stroller",
   electric_vehicles: "electric_car",
   kids_tricycles: "tricycle",
+  kids_pull_along_wagons: "stroller",
+  kids_push_ride_ons: "stroller",
   car_seat: "safety_seat",
   baby_carrier: "stroller",
   high_chair: "stroller",
@@ -31,13 +33,15 @@ const REPORT_FILE_TO_CATEGORY: Record<string, string> = {
   "strollers_report.json": "stroller",
   "electric_vehicles_report.json": "electric_vehicles",
   "kids_tricycles_report.json": "kids_tricycles",
+  "kids_pull_along_wagons_report.json": "kids_pull_along_wagons",
+  "kids_push_ride_ons_report.json": "kids_push_ride_ons",
   "car_seat_report.json": "car_seat",
   "baby_carrier_report.json": "baby_carrier",
   "high_chair_report.json": "high_chair",
   "playard_report.json": "playard",
 };
 
-const REPORT_DATA_VERSION = "20260709-customer-say-all-categories";
+const REPORT_DATA_VERSION = "20260712-all-categories-detail-sync";
 const STORE_MEDIA_ORIGIN = "https://store.poki2.online";
 const AGE_RANGE_NEEDS_SOURCE_CONFIRMATION = "Confirm from source";
 
