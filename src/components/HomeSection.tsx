@@ -152,6 +152,51 @@ export default function HomeSection({
     return numeric.toFixed(2);
   };
 
+  const resolveHomepageCategoryLabel = (product?: Product) => {
+    const searchable = normalizeCategory(`${(product as any)?.categoryId || ""} ${product?.category || ""} ${product?.name || ""}`);
+    if (searchable.includes("jogger") || searchable.includes("jogging_stroller")) {
+      return lang === "zh" ? "慢跑推车" : "Jogging Stroller";
+    }
+    if (searchable.includes("balance_bike") || (searchable.includes("balance") && !searchable.includes("tricycle"))) {
+      return lang === "zh" ? "平衡车" : "Balance Bike";
+    }
+    if (searchable.includes("kids_bikes") || (searchable.includes("bike") && !searchable.includes("balance") && !searchable.includes("tricycle"))) {
+      return lang === "zh" ? "儿童自行车" : "Kids Bike";
+    }
+    if (searchable.includes("scooter")) {
+      return lang === "zh" ? "儿童滑板车" : "Kids Scooter";
+    }
+    if (searchable.includes("stroller")) {
+      return lang === "zh" ? "婴儿推车" : "Stroller";
+    }
+    return lang === "zh" ? "精选产品" : "Featured Product";
+  };
+
+  const resolveHomepageProductTitle = (product?: Product) => {
+    if (!product) return lang === "zh" ? "评测中" : "Evaluating";
+    const localized = translateProduct(product, lang);
+    const brand = String(localized.brand || product.brand || "").trim();
+    const categoryLabel = resolveHomepageCategoryLabel(product);
+    if (brand && categoryLabel) {
+      return `${brand} ${categoryLabel}`.trim();
+    }
+    return String(localized.name || product.name || categoryLabel).trim();
+  };
+
+  const resolveHomepageProductSummary = (product?: Product) => {
+    if (!product) {
+      return lang === "zh"
+        ? "当前正在更新该卡片样本，完成后将展示对应产品结论。"
+        : "This card sample is being refreshed. Matching product findings will appear once ready.";
+    }
+    const localizedDescription = String((product as any)?.[lang]?.description || "").trim();
+    const summary = String(localizedDescription || product.description || product.editorVerdict || "").trim();
+    if (summary) return summary;
+    return lang === "zh"
+      ? "该卡片展示当前绑定产品的核心适用场景、结构特点与日常使用表现。"
+      : "This card highlights the bound product's fit, structure, and everyday ride behavior.";
+  };
+
   const scrapedCategoryCards = useMemo(() => {
     return SCRAPED_CATEGORY_CATALOG.slice(0, 8).map((entry) => ({
       ...entry,
@@ -294,49 +339,40 @@ export default function HomeSection({
     const targets = [
       {
         key: "infans",
-        title: "INFANS All-Terrain Jogging Stroller",
-        snapshot: "Lab Snapshot: air-filled tire damping and frame-fold stability reviewed for daily jogging stroller use.",
         match: (product: Product) => normalizeCategory(`${product.brand} ${product.name}`).includes("infans"),
         fallback: fallbackByType.stroller,
       },
       {
         key: "jmmd",
-        title: "JMMD Convertible Balance Bike",
-        snapshot: "Lab Snapshot: conversion hardware, push-handle control, and balance bike fit range checked across toddler stages.",
         match: (product: Product) => normalizeCategory(`${product.brand} ${product.name}`).includes("jmmd") && isStrictBalanceBike(product),
         fallback: fallbackByType.balance,
       },
       {
         key: "glerc",
-        title: "Glerc Rover 12\" Kids Bike",
-        snapshot: "Lab Snapshot: tire width, braking response, and frame geometry reviewed for first-pedal kids bike control.",
         match: (product: Product) => normalizeCategory(`${product.brand} ${product.name}`).includes("glerc") && normalizeCategory(product.name).includes("rover"),
         fallback: fallbackByType.kidsBike,
       },
       {
         key: "green-mini",
-        title: "Green Mini 3-Wheel Kids Scooter",
-        snapshot: "Lab Snapshot: lean-to-steer response, deck stability, and wheel visibility checked for kids scooter handling.",
         match: (product: Product) => normalizeCategory(product.name).includes("green_mini"),
         fallback: fallbackByType.scooter,
       },
     ];
     return targets.map((target, index) => ({
-      title: target.title,
-      snapshot: target.snapshot,
+      key: target.key,
       product:
         homeVisualProducts.find(target.match) ||
         target.fallback ||
         topSelections[0] ||
         homeVisualProducts[index] ||
         homeVisualProducts[0],
-    })).filter((item): item is { title: string; snapshot: string; product: Product } => Boolean(item.product));
+    })).filter((item): item is { key: string; product: Product } => Boolean(item.product));
   }, [homeVisualProducts, topSelections]);
 
   const awardWinners = useMemo(() => {
     const strollerWinner =
       categoryTopProductMap.jogger_stroller ||
-      seoProductCards.find((card) => card.title === "INFANS All-Terrain Jogging Stroller")?.product;
+      seoProductCards.find((card) => card.key === "infans")?.product;
 
     const balanceCandidates = homeVisualProducts.filter((product) => {
       const categoryText = normalizeCategory(`${(product as any).categoryId || ""} ${product.category || ""}`);
@@ -357,12 +393,12 @@ export default function HomeSection({
       sortByScore(strictBalanceCandidates)[0] ||
       sortByScore(balanceCandidates)[0] ||
       categoryTopProductMap.balance_bike ||
-      seoProductCards.find((card) => card.title === "JMMD Convertible Balance Bike")?.product;
+      seoProductCards.find((card) => card.key === "jmmd")?.product;
 
     const scooterWinner =
       categoryTopProductMap.scooters ||
       categoryTopProductMap.kids_scooters ||
-      seoProductCards.find((card) => card.title === "Green Mini 3-Wheel Kids Scooter")?.product;
+      seoProductCards.find((card) => card.key === "green-mini")?.product;
 
     return {
       stroller: strollerWinner,
@@ -395,19 +431,19 @@ export default function HomeSection({
     { 
       type: "stroller", 
       label: "Jogging Stroller Pick", 
-      title: "INFANS All-Terrain Jogging Stroller",
+      title: resolveHomepageProductTitle(awardWinners.stroller),
       winner: awardWinners.stroller
     },
     { 
       type: "balance", 
       label: "Balance Bike Pick", 
-      title: "JMMD Convertible Balance Bike",
+      title: resolveHomepageProductTitle(awardWinners.balance),
       winner: awardWinners.balance
     },
     { 
       type: "value", 
       label: "Kids Scooter Pick", 
-      title: "Green Mini 3-Wheel Kids Scooter",
+      title: resolveHomepageProductTitle(awardWinners.value),
       winner: awardWinners.value
     }
   ];
@@ -700,8 +736,10 @@ export default function HomeSection({
           </button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-           {seoProductCards.map(({ product: p, title, snapshot }, idx) => {
+           {seoProductCards.map(({ product: p }, idx) => {
              const dp = translateProduct(p, lang);
+             const title = resolveHomepageProductTitle(p);
+             const snapshot = resolveHomepageProductSummary(p);
              return (
                <div 
                 key={p.id} 

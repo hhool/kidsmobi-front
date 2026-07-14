@@ -185,15 +185,52 @@ const chooseMoreCompleteProductName = (previous: Product, incoming: Product) => 
   return incomingName;
 };
 
+const choosePreferredText = (...values: unknown[]) => {
+  for (const value of values) {
+    const text = String(value || "").trim();
+    if (text) return text;
+  }
+  return "";
+};
+
 const mergeDuplicateProductRecords = (previous: Product, incoming: Product): Product => {
   const name = chooseMoreCompleteProductName(previous, incoming);
+  const previousZh = (previous as any).zh || {};
+  const previousEn = (previous as any).en || {};
+  const incomingZh = (incoming as any).zh || {};
+  const incomingEn = (incoming as any).en || {};
+
   return {
-    ...previous,
     ...incoming,
+    ...previous,
     id: previous.id || incoming.id,
     name,
-    zh: (previous as any).zh ? { ...(previous as any).zh, name } : (incoming as any).zh,
-    en: (previous as any).en ? { ...(previous as any).en, name } : (incoming as any).en,
+    description: choosePreferredText(previous.description, previousZh.description, incoming.description, incomingZh.description),
+    customers_say: choosePreferredText(previous.customers_say, previousZh.customersSay, incoming.customers_say, incomingZh.customersSay),
+    editorVerdict: choosePreferredText(
+      previous.editorVerdict,
+      previousZh.editorVerdict,
+      previousEn.editorVerdict,
+      incoming.editorVerdict,
+      incomingZh.editorVerdict,
+      incomingEn.editorVerdict,
+    ),
+    zh: {
+      ...incomingZh,
+      ...previousZh,
+      name: choosePreferredText(previousZh.name, incomingZh.name, name),
+      description: choosePreferredText(previousZh.description, incomingZh.description, previous.description, incoming.description),
+      customersSay: choosePreferredText(previousZh.customersSay, incomingZh.customersSay, previous.customers_say, incoming.customers_say),
+      editorVerdict: choosePreferredText(previousZh.editorVerdict, incomingZh.editorVerdict, previous.editorVerdict, incoming.editorVerdict),
+    },
+    en: {
+      ...incomingEn,
+      ...previousEn,
+      name: choosePreferredText(previousEn.name, incomingEn.name, name),
+      description: choosePreferredText(previousEn.description, incomingEn.description, previous.description, incoming.description),
+      customersSay: choosePreferredText(previousEn.customersSay, incomingEn.customersSay, previous.customers_say, incoming.customers_say),
+      editorVerdict: choosePreferredText(previousEn.editorVerdict, incomingEn.editorVerdict, previous.editorVerdict, incoming.editorVerdict),
+    },
   } as Product;
 };
 
