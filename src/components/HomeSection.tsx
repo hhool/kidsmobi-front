@@ -198,7 +198,8 @@ export default function HomeSection({
     const map: Record<string, Product> = {};
     for (const entry of SCRAPED_CATEGORY_CATALOG) {
       const aliases = categoryAliasMap[entry.id] || [entry.id];
-      const found = homeVisualProducts.find((product) => {
+      const targetId = normalizeCategory(entry.id);
+      const candidates = homeVisualProducts.filter((product) => {
         const normalizedCategory = normalizeCategory(product.category || "");
         const normalizedCategoryId = normalizeCategory((product as any).categoryId || "");
         const searchable = normalizeCategory(
@@ -206,6 +207,30 @@ export default function HomeSection({
             .filter(Boolean)
             .join(" ")
         );
+
+        // Prefer strict category/categoryId matching to avoid cross-category image bleed.
+        if (normalizedCategoryId === targetId || normalizedCategory === targetId) {
+          return true;
+        }
+
+        if (targetId === "balance_bike") {
+          return normalizedCategoryId.includes("balance_bike") || normalizedCategory.includes("balance_bike");
+        }
+
+        if (targetId === "kids_bikes") {
+          const isKidsBike = normalizedCategoryId.includes("kids_bikes") || normalizedCategory.includes("kids_bikes");
+          const isOtherBikeFamily = searchable.includes("balance") || searchable.includes("tricycle");
+          return isKidsBike && !isOtherBikeFamily;
+        }
+
+        if (targetId === "scooters") {
+          return (
+            normalizedCategoryId.includes("scooter") ||
+            normalizedCategory.includes("scooter") ||
+            normalizedCategoryId === "kids_scooters"
+          );
+        }
+
         return aliases.some((alias) => {
           const normalizedAlias = normalizeCategory(alias);
           return (
@@ -215,6 +240,8 @@ export default function HomeSection({
           );
         });
       });
+
+      const found = [...candidates].sort((a, b) => (b.overallScore || 0) - (a.overallScore || 0))[0];
       if (found) map[entry.id] = found;
     }
     return map;
@@ -237,23 +264,112 @@ export default function HomeSection({
     .slice(0, 4);
 
   const seoProductCards = useMemo(() => {
+    const normalizedSearchText = (product: Product) =>
+      normalizeCategory(`${(product as any).categoryId || ""} ${product.category || ""} ${product.brand || ""} ${product.name || ""}`);
+
+    const isStrictBalanceBike = (product: Product) => {
+      const text = normalizedSearchText(product);
+      const hasBalanceSignals = text.includes("balance_bike") || text.includes("balance");
+      const hasWrongSignals = text.includes("stroller") || text.includes("jogger") || text.includes("tricycle");
+      return hasBalanceSignals && !hasWrongSignals;
+    };
+
+    const findByCategory = (includeTokens: string[], excludeTokens: string[] = []) => {
+      const rows = homeVisualProducts.filter((product) => {
+        const text = normalizedSearchText(product);
+        const includes = includeTokens.some((token) => text.includes(token));
+        const excludes = excludeTokens.some((token) => text.includes(token));
+        return includes && !excludes;
+      });
+      return [...rows].sort((a, b) => (b.overallScore || 0) - (a.overallScore || 0))[0];
+    };
+
+    const fallbackByType = {
+      stroller: findByCategory(["jogger_stroller", "jogging_stroller", "stroller"]),
+      balance: findByCategory(["balance_bike", "balance"], ["stroller", "jogger", "tricycle"]),
+      kidsBike: findByCategory(["kids_bikes", "kids_bike"], ["balance", "tricycle", "stroller", "scooter"]),
+      scooter: findByCategory(["scooters", "kids_scooters", "kids_scooter"]),
+    };
+
     const targets = [
-      { key: "infans", title: "INFANS All-Terrain Jogging Stroller", snapshot: "Lab Snapshot: air-filled tire damping and frame-fold stability reviewed for daily jogging stroller use.", match: (product: Product) => normalizeCategory(`${product.brand} ${product.name}`).includes("infans") },
-      { key: "jmmd", title: "JMMD Convertible Balance Bike", snapshot: "Lab Snapshot: conversion hardware, push-handle control, and balance bike fit range checked across toddler stages.", match: (product: Product) => normalizeCategory(`${product.brand} ${product.name}`).includes("jmmd") },
-      { key: "glerc", title: "Glerc Rover 12\" Kids Bike", snapshot: "Lab Snapshot: tire width, braking response, and frame geometry reviewed for first-pedal kids bike control.", match: (product: Product) => normalizeCategory(`${product.brand} ${product.name}`).includes("glerc") && normalizeCategory(product.name).includes("rover") },
-      { key: "green-mini", title: "Green Mini 3-Wheel Kids Scooter", snapshot: "Lab Snapshot: lean-to-steer response, deck stability, and wheel visibility checked for kids scooter handling.", match: (product: Product) => normalizeCategory(product.name).includes("green_mini") },
+      {
+        key: "infans",
+        title: "INFANS All-Terrain Jogging Stroller",
+        snapshot: "Lab Snapshot: air-filled tire damping and frame-fold stability reviewed for daily jogging stroller use.",
+        match: (product: Product) => normalizeCategory(`${product.brand} ${product.name}`).includes("infans"),
+        fallback: fallbackByType.stroller,
+      },
+      {
+        key: "jmmd",
+        title: "JMMD Convertible Balance Bike",
+        snapshot: "Lab Snapshot: conversion hardware, push-handle control, and balance bike fit range checked across toddler stages.",
+        match: (product: Product) => normalizeCategory(`${product.brand} ${product.name}`).includes("jmmd") && isStrictBalanceBike(product),
+        fallback: fallbackByType.balance,
+      },
+      {
+        key: "glerc",
+        title: "Glerc Rover 12\" Kids Bike",
+        snapshot: "Lab Snapshot: tire width, braking response, and frame geometry reviewed for first-pedal kids bike control.",
+        match: (product: Product) => normalizeCategory(`${product.brand} ${product.name}`).includes("glerc") && normalizeCategory(product.name).includes("rover"),
+        fallback: fallbackByType.kidsBike,
+      },
+      {
+        key: "green-mini",
+        title: "Green Mini 3-Wheel Kids Scooter",
+        snapshot: "Lab Snapshot: lean-to-steer response, deck stability, and wheel visibility checked for kids scooter handling.",
+        match: (product: Product) => normalizeCategory(product.name).includes("green_mini"),
+        fallback: fallbackByType.scooter,
+      },
     ];
     return targets.map((target, index) => ({
       title: target.title,
       snapshot: target.snapshot,
       product:
         homeVisualProducts.find(target.match) ||
-        topSelections[index] ||
+        target.fallback ||
         topSelections[0] ||
         homeVisualProducts[index] ||
         homeVisualProducts[0],
     })).filter((item): item is { title: string; snapshot: string; product: Product } => Boolean(item.product));
   }, [homeVisualProducts, topSelections]);
+
+  const awardWinners = useMemo(() => {
+    const strollerWinner =
+      categoryTopProductMap.jogger_stroller ||
+      seoProductCards.find((card) => card.title === "INFANS All-Terrain Jogging Stroller")?.product;
+
+    const balanceCandidates = homeVisualProducts.filter((product) => {
+      const categoryText = normalizeCategory(`${(product as any).categoryId || ""} ${product.category || ""}`);
+      return categoryText.includes("balance");
+    });
+
+    const strictBalanceCandidates = balanceCandidates.filter((product) => {
+      const searchable = normalizeCategory(`${product.brand || ""} ${product.name || ""} ${(product as any).categoryId || ""} ${product.category || ""}`);
+      const looksLikeBalanceBike = searchable.includes("balance_bike") || searchable.includes("balance");
+      const looksLikeStroller = searchable.includes("stroller") || searchable.includes("jogger");
+      return looksLikeBalanceBike && !looksLikeStroller;
+    });
+
+    const sortByScore = (rows: Product[]) =>
+      [...rows].sort((a, b) => (b.overallScore || 0) - (a.overallScore || 0));
+
+    const balanceWinner =
+      sortByScore(strictBalanceCandidates)[0] ||
+      sortByScore(balanceCandidates)[0] ||
+      categoryTopProductMap.balance_bike ||
+      seoProductCards.find((card) => card.title === "JMMD Convertible Balance Bike")?.product;
+
+    const scooterWinner =
+      categoryTopProductMap.scooters ||
+      categoryTopProductMap.kids_scooters ||
+      seoProductCards.find((card) => card.title === "Green Mini 3-Wheel Kids Scooter")?.product;
+
+    return {
+      stroller: strollerWinner,
+      balance: balanceWinner,
+      value: scooterWinner,
+    };
+  }, [categoryTopProductMap, homeVisualProducts, seoProductCards]);
 
   const prioritizedCategoryCards = useMemo(() => {
     const englishLabelOverrides: Record<string, string> = {
@@ -280,19 +396,19 @@ export default function HomeSection({
       type: "stroller", 
       label: "Jogging Stroller Pick", 
       title: "INFANS All-Terrain Jogging Stroller",
-      winner: seoProductCards.find(card => card.title === "INFANS All-Terrain Jogging Stroller")?.product
+      winner: awardWinners.stroller
     },
     { 
       type: "balance", 
       label: "Balance Bike Pick", 
       title: "JMMD Convertible Balance Bike",
-      winner: seoProductCards.find(card => card.title === "JMMD Convertible Balance Bike")?.product
+      winner: awardWinners.balance
     },
     { 
       type: "value", 
       label: "Kids Scooter Pick", 
       title: "Green Mini 3-Wheel Kids Scooter",
-      winner: seoProductCards.find(card => card.title === "Green Mini 3-Wheel Kids Scooter")?.product
+      winner: awardWinners.value
     }
   ];
 
@@ -515,7 +631,6 @@ export default function HomeSection({
               key={cat.id}
               onClick={() => {
                 onSelectCategory(cat.id);
-                setActiveTab("products");
               }}
               className="group h-full min-h-90 bg-white border border-slate-100 rounded-[32px] overflow-hidden hover:border-orange-500/40 hover:shadow-2xl hover:shadow-orange-100/70 transition-all duration-300 flex flex-col cursor-pointer"
             >

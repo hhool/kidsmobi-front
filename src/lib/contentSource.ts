@@ -1,4 +1,5 @@
 import type { CMSProduct, CMSSettings, Evaluation, ProductScoringStandard, ScrapedEvidenceItem } from "../types";
+import { productsData as staticProductsData } from "../data/modelsData";
 
 export interface ContentBundle {
   settings: CMSSettings | null;
@@ -517,19 +518,30 @@ async function fetchWorkerJson<T>(pathCandidates: string[]): Promise<T> {
   let lastError: Error | null = null;
 
   for (const candidate of pathCandidates) {
-    try {
-      const response = await fetch(buildWorkerUrl(candidate), {
-        headers: {
-          Accept: "application/json",
-        },
-      });
-      if (!response.ok) {
-        const body = await response.text().catch(() => "");
-        throw new Error(`Worker request failed (${response.status})${body ? `: ${body}` : ""}`);
+    for (let attempt = 1; attempt <= 3; attempt += 1) {
+      try {
+        const response = await fetch(buildWorkerUrl(candidate), {
+          headers: {
+            Accept: "application/json",
+          },
+        });
+        if (!response.ok) {
+          const body = await response.text().catch(() => "");
+          const isRetryable = response.status >= 500;
+          if (isRetryable && attempt < 3) {
+            await new Promise((resolve) => setTimeout(resolve, 250 * attempt));
+            continue;
+          }
+          throw new Error(`Worker request failed (${response.status})${body ? `: ${body}` : ""}`);
+        }
+        return (await response.json()) as T;
+      } catch (error: any) {
+        lastError = error;
+        if (attempt < 3) {
+          await new Promise((resolve) => setTimeout(resolve, 250 * attempt));
+          continue;
+        }
       }
-      return (await response.json()) as T;
-    } catch (error: any) {
-      lastError = error;
     }
   }
 
@@ -537,12 +549,31 @@ async function fetchWorkerJson<T>(pathCandidates: string[]): Promise<T> {
 }
 
 async function fetchRemoteFallbackBundle(): Promise<ContentBundle> {
-  const categoriesPayload = await fetchWorkerJson<{ data?: WorkerCategory[] }>([
-    "/api/v2/catalog/categories?withStats=true",
-    "/api/v1/catalog/categories?withStats=true",
-  ]);
+  let categoriesPayload: { data?: WorkerCategory[] } | null = null;
+  try {
+    categoriesPayload = await fetchWorkerJson<{ data?: WorkerCategory[] }>([
+      "/api/v2/catalog/categories?withStats=true",
+      "/api/v1/catalog/categories?withStats=true",
+      "/api/v2/catalog/categories",
+      "/api/v1/catalog/categories",
+    ]);
+  } catch (error) {
+    console.warn("Worker categories unavailable, using static modelsData fallback.", error);
+    const staticProducts = (Array.isArray(staticProductsData) ? staticProductsData : [])
+      .filter((item) => Boolean((item as any)?.id)) as unknown as CMSProduct[];
 
-  const categories = (categoriesPayload.data || []).slice(0, 12);
+    const dedupedProducts = staticProducts.filter(
+      (item, index, array) => array.findIndex((next) => next.id === item.id) === index,
+    );
+
+    return {
+      settings: null,
+      products: dedupedProducts,
+      evaluations: buildFallbackEvaluations(dedupedProducts),
+    };
+  }
+
+  const categories = (categoriesPayload?.data || []).slice(0, 12);
   if (categories.length === 0) {
     return { settings: null, products: [], evaluations: [] };
   }
