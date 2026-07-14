@@ -122,18 +122,33 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
     
     const defaultSeo = DEFAULT_SEO_CONFIGS;
 
+    const defaultHero = {
+      zh: { title: "全球专业童车评测与选购决策平台", subtitle: "权威实测 | 科学选购 | 全球资讯" },
+      en: { title: "Global Kids Mobility Evaluation & Decision Platform", subtitle: "Authority Review | Scientific Guide | Global Trends" }
+    };
+
     const initialSettings: CMSSettings = s ? {
       ...s,
+      hero: {
+        ...defaultHero,
+        ...(s.hero || {}),
+        zh: {
+          ...defaultHero.zh,
+          ...(s.hero?.zh || {}),
+        },
+        en: {
+          ...defaultHero.en,
+          ...(s.hero?.en || {}),
+        },
+      },
       seo: {
         ...(s.seo || {}),
         ...defaultSeo
-      }
+      },
+      homeSlots: Array.isArray(s.homeSlots) ? s.homeSlots : [],
     } : {
       id: "global",
-      hero: {
-        zh: { title: "全球专业童车评测与选购决策平台", subtitle: "权威实测 | 科学选购 | 全球资讯" },
-        en: { title: "Global Kids Mobility Evaluation & Decision Platform", subtitle: "Authority Review | Scientific Guide | Global Trends" }
-      },
+      hero: defaultHero,
       homeSlots: [],
       seo: defaultSeo
     };
@@ -141,9 +156,9 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
     setSettings(initialSettings);
 
     const combinedPool = [
-      ...p.map(x => ({ id: x.id, name: x.zh.name || x.en.name, type: "product" })),
-      ...e.map(x => ({ id: x.id, name: x.zh.title || x.en.title, type: "review" })),
-      ...g.map(x => ({ id: x.id, name: x.zh.title || x.en.title, type: "guide" }))
+      ...p.map(x => ({ id: x.id, name: x.zh?.name || x.en?.name || x.id, type: "product" })),
+      ...e.map(x => ({ id: x.id, name: x.zh?.title || x.en?.title || x.id, type: "review" })),
+      ...g.map(x => ({ id: x.id, name: x.zh?.title || x.en?.title || x.id, type: "guide" }))
     ];
     setPool(combinedPool);
   };
@@ -269,27 +284,30 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
 
   const addSlot = () => {
     if (settings) {
+      const currentSlots = Array.isArray(settings.homeSlots) ? settings.homeSlots : [];
       setSettings({
         ...settings,
-        homeSlots: [...settings.homeSlots, { id: `slot_${Date.now()}`, type: "product", targetId: "" }]
+        homeSlots: [...currentSlots, { id: `slot_${Date.now()}`, type: "product", targetId: "" }]
       });
     }
   };
 
   const removeSlot = (id: string) => {
     if (settings) {
+      const currentSlots = Array.isArray(settings.homeSlots) ? settings.homeSlots : [];
       setSettings({
         ...settings,
-        homeSlots: settings.homeSlots.filter(s => s.id !== id)
+        homeSlots: currentSlots.filter(s => s.id !== id)
       });
     }
   };
 
   const updateSlot = (id: string, updates: Partial<HomeSlot>) => {
     if (settings) {
+      const currentSlots = Array.isArray(settings.homeSlots) ? settings.homeSlots : [];
       setSettings({
         ...settings,
-        homeSlots: settings.homeSlots.map(s => s.id === id ? { ...s, ...updates } : s)
+        homeSlots: currentSlots.map(s => s.id === id ? { ...s, ...updates } : s)
       });
     }
   };
@@ -430,7 +448,7 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
         </div>
 
         <div className="grid grid-cols-1 gap-4">
-          {settings.homeSlots.map((slot, index) => (
+          {(Array.isArray(settings.homeSlots) ? settings.homeSlots : []).map((slot, index) => (
             <div key={slot.id} className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm flex items-center gap-8 group">
               <div className="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-black">
                 {index + 1}
@@ -475,7 +493,7 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
             </div>
           ))}
 
-          {settings.homeSlots.length === 0 && (
+          {(Array.isArray(settings.homeSlots) ? settings.homeSlots : []).length === 0 && (
             <div className="bg-slate-50/50 p-20 rounded-[40px] border border-dashed border-slate-200 text-center">
                <p className="text-slate-400 font-bold uppercase text-xs tracking-widest">No slots configured. Home rankings will appear empty.</p>
             </div>

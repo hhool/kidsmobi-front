@@ -30,7 +30,7 @@ export default function ScenarioPicker({
     const keyword = q.trim().toLowerCase();
     return (scenarios || []).filter((item) => {
       if (!keyword) return true;
-      const text = `${item.code} ${item.zh.name || ""} ${item.en.name || ""}`.toLowerCase();
+      const text = `${item.code} ${item.zh?.name || ""} ${item.en?.name || ""}`.toLowerCase();
       return text.includes(keyword);
     });
   }, [q, scenarios]);
@@ -85,8 +85,8 @@ export default function ScenarioPicker({
                   className={`text-left p-4 rounded-2xl border transition-all ${checked ? "border-emerald-500 bg-emerald-50" : "border-slate-100 bg-white hover:border-slate-300"}`}
                 >
                   <p className="text-[10px] font-black uppercase text-slate-400 mb-1">{item.status}</p>
-                  <h4 className="font-black text-slate-900 text-sm">{item.zh.name || item.code}</h4>
-                  <p className="text-[11px] font-bold text-slate-500 mt-1">{item.en.name || item.code}</p>
+                  <h4 className="font-black text-slate-900 text-sm">{item.zh?.name || item.code}</h4>
+                  <p className="text-[11px] font-bold text-slate-500 mt-1">{item.en?.name || item.code}</p>
                   <p className="text-[10px] font-black uppercase text-slate-400 mt-2">{item.code}</p>
                   {checked && <Check className="w-4 h-4 text-emerald-500 mt-2" />}
                 </button>

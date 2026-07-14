@@ -166,8 +166,8 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
                       {ev.status}
                     </span>
                   </div>
-                  <h4 className="font-black text-slate-900">{ev.zh.title || "(No Title)"}</h4>
-                  <p className="text-xs text-slate-400 font-bold uppercase tracking-tight mt-0.5">Linked: {product?.zh.name || ev.productId}</p>
+                  <h4 className="font-black text-slate-900">{ev.zh?.title || "(No Title)"}</h4>
+                  <p className="text-xs text-slate-400 font-bold uppercase tracking-tight mt-0.5">Linked: {product?.zh?.name || product?.en?.name || ev.productId}</p>
                 </div>
               </div>
             <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -313,7 +313,7 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
                     onChange={(e) => setFormData({...formData, productId: e.target.value})}
                   >
                     <option value="">-- SELECT PRODUCT --</option>
-                    {products.map((p: CMSProduct) => <option key={p.id} value={p.id}>{p.zh.name}</option>)}
+                    {products.map((p: CMSProduct) => <option key={p.id} value={p.id}>{p.zh?.name || p.en?.name || p.id}</option>)}
                   </select>
                 </div>
               ) : (
@@ -344,7 +344,7 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
                               }
                             }}
                           />
-                          <span className="text-xs font-black text-slate-700">{p.zh.name}</span>
+                          <span className="text-xs font-black text-slate-700">{p.zh?.name || p.en?.name || p.id}</span>
                         </label>
                       );
                     })}
@@ -404,9 +404,9 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
               </div>
 
               <div className="bg-white p-10 rounded-[40px] border border-slate-100 shadow-sm space-y-8">
-                <Field label="Report Title" value={activeTab === "zh" ? formData.zh.title : formData.en.title} onChange={(v: string) => {
+                <Field label="Report Title" value={activeTab === "zh" ? (formData.zh?.title || "") : (formData.en?.title || "")} onChange={(v: string) => {
                   const next = {...formData};
-                  (next as any)[activeTab].title = v;
+                  (next as any)[activeTab] = { ...((next as any)[activeTab] || {}), title: v };
                   setFormData(next);
                 }} />
                 
@@ -414,10 +414,10 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Final Verdict</label>
                   <textarea 
                     className="w-full bg-slate-50 p-6 rounded-2xl font-bold text-sm outline-none border-2 border-transparent focus:border-emerald-500 focus:bg-white transition-all min-h-[120px]"
-                    value={activeTab === "zh" ? formData.zh.verdict : formData.en.verdict}
+                    value={activeTab === "zh" ? (formData.zh?.verdict || "") : (formData.en?.verdict || "")}
                     onChange={(e) => {
                       const next = {...formData};
-                      (next as any)[activeTab].verdict = e.target.value;
+                      (next as any)[activeTab] = { ...((next as any)[activeTab] || {}), verdict: e.target.value };
                       setFormData(next);
                     }}
                   />
@@ -428,10 +428,10 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
                   <input 
                     className="w-full bg-slate-50 p-6 rounded-2xl font-bold text-sm outline-none border-2 border-transparent focus:border-red-500 focus:bg-white transition-all"
                     placeholder="Why are you updating this report?"
-                    value={activeTab === "zh" ? formData.zh.changelog : formData.en.changelog}
+                    value={activeTab === "zh" ? (formData.zh?.changelog || "") : (formData.en?.changelog || "")}
                     onChange={(e) => {
                       const next = {...formData};
-                      (next as any)[activeTab].changelog = e.target.value;
+                      (next as any)[activeTab] = { ...((next as any)[activeTab] || {}), changelog: e.target.value };
                       setFormData(next);
                     }}
                   />

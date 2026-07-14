@@ -28,6 +28,11 @@ function resolveCMSApiPath(path: string): string {
   return CMS_API_BASE ? `${CMS_API_BASE}${path}` : path;
 }
 
+function sanitizeListRows<T>(rows: unknown): T[] {
+  if (!Array.isArray(rows)) return [];
+  return rows.filter((item): item is T => Boolean(item && typeof item === "object"));
+}
+
 async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
   const requestUrl = resolveCMSApiPath(path);
   const response = await fetch(requestUrl, {
@@ -58,37 +63,37 @@ async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
 export async function getD1CMSProducts(onlyPublished = false): Promise<CMSProduct[]> {
   const query = onlyPublished ? "?onlyPublished=1" : "";
   const response = await requestJson<{ data?: CMSProduct[] }>(`/api/cms/products${query}`);
-  return response?.data || [];
+  return sanitizeListRows<CMSProduct>(response?.data);
 }
 
 export async function getD1CMSCategories(onlyPublished = false): Promise<CMSCategory[]> {
   const query = onlyPublished ? "?onlyPublished=1" : "";
   const response = await requestJson<{ data?: CMSCategory[] }>(`/api/cms/categories${query}`);
-  return response?.data || [];
+  return sanitizeListRows<CMSCategory>(response?.data);
 }
 
 export async function getD1CMSScenarios(onlyPublished = false): Promise<CMSScenario[]> {
   const query = onlyPublished ? "?onlyPublished=1" : "";
   const response = await requestJson<{ data?: CMSScenario[] }>(`/api/cms/scenarios${query}`);
-  return response?.data || [];
+  return sanitizeListRows<CMSScenario>(response?.data);
 }
 
 export async function getD1CMSEvaluations(onlyPublished = false): Promise<Evaluation[]> {
   const query = onlyPublished ? "?onlyPublished=1" : "";
   const response = await requestJson<{ data?: Evaluation[] }>(`/api/cms/evaluations${query}`);
-  return response?.data || [];
+  return sanitizeListRows<Evaluation>(response?.data);
 }
 
 export async function getD1CMSGuides(onlyPublished = false): Promise<Guide[]> {
   const query = onlyPublished ? "?onlyPublished=1" : "";
   const response = await requestJson<{ data?: Guide[] }>(`/api/cms/guides${query}`);
-  return response?.data || [];
+  return sanitizeListRows<Guide>(response?.data);
 }
 
 export async function getD1CMSNews(onlyPublished = false): Promise<News[]> {
   const query = onlyPublished ? "?onlyPublished=1" : "";
   const response = await requestJson<{ data?: News[] }>(`/api/cms/news${query}`);
-  return response?.data || [];
+  return sanitizeListRows<News>(response?.data);
 }
 
 export async function initD1CMSCategories(): Promise<{ total: number }> {

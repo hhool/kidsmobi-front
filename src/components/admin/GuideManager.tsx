@@ -175,7 +175,7 @@ export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
                     {g.status}
                   </span>
                 </div>
-                <h4 className="font-black text-slate-900">{g.zh.title || "(No Title)"}</h4>
+                <h4 className="font-black text-slate-900">{g.zh?.title || g.en?.title || "(No Title)"}</h4>
                 <p className="text-xs text-slate-400 font-bold uppercase tracking-tight mt-0.5">{g.riskCards.length} Risk Cards Active</p>
               </div>
             </div>
@@ -352,7 +352,7 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                       >
                         <option value="">Select product...</option>
                         {products.map((p: CMSProduct) => (
-                          <option key={p.id} value={p.id}>{p.zh.name || p.en.name || p.id}</option>
+                          <option key={p.id} value={p.id}>{p.zh?.name || p.en?.name || p.id}</option>
                         ))}
                       </select>
                       <div className="flex flex-wrap gap-2">
@@ -389,7 +389,7 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                       >
                         <option value="">Select scenario...</option>
                         {scenarios.map((s: CMSScenario) => (
-                          <option key={s.id} value={s.code}>{s.zh.name || s.code}</option>
+                          <option key={s.id} value={s.code}>{s.zh?.name || s.en?.name || s.code}</option>
                         ))}
                       </select>
                       <div className="flex flex-wrap gap-2">

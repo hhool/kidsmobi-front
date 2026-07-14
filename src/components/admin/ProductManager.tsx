@@ -277,7 +277,7 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
 
   const handleSave = async (p: CMSProduct) => {
     // Basic Quality Check
-    if (!p.zh.name || !p.en.name) {
+    if (!p.zh?.name || !p.en?.name) {
       alert("Please enter product name in both languages.");
       return;
     }
@@ -398,7 +398,7 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
               <div className="w-20 h-20 bg-slate-50 rounded-2xl p-2 shrink-0">
                 <SmartImage
                   src={resolveProductImages(p).coverUrl || undefined}
-                  alt={p.zh.name}
+                  alt={p.zh?.name || p.en?.name || p.id}
                   className="w-full h-full object-contain"
                   wrapperClassName="w-full h-full"
                   width={160}
@@ -412,8 +412,8 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
                     {p.status}
                   </span>
                 </div>
-                <h4 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors">{p.zh.name || "(No Name)"}</h4>
-                <p className="text-xs text-slate-400 font-bold uppercase tracking-tight mt-0.5">{p.brand} • {p.en.name}</p>
+                <h4 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors">{p.zh?.name || p.en?.name || "(No Name)"}</h4>
+                <p className="text-xs text-slate-400 font-bold uppercase tracking-tight mt-0.5">{p.brand} • {p.en?.name || p.zh?.name || ""}</p>
               </div>
             </div>
             
@@ -654,7 +654,7 @@ function ProductEditor({ product, allProducts, scenarios, onSave, onCancel, lang
                     onChange={(next) => setFormData({ ...formData, scenarios: next })}
                     options={(scenarios || []).map((item: CMSScenario) => ({
                       value: item.code,
-                      label: `${item.zh.name || item.code} / ${item.en.name || item.code}`,
+                      label: `${item.zh?.name || item.en?.name || item.code} / ${item.en?.name || item.zh?.name || item.code}`,
                     }))}
                   />
                   <div className="space-y-3">
@@ -684,7 +684,7 @@ function ProductEditor({ product, allProducts, scenarios, onSave, onCancel, lang
                                 }}
                                 className="mt-1"
                               />
-                              <span className="text-xs font-bold text-slate-700 leading-tight">{p.zh.name || p.en.name || p.id}</span>
+                              <span className="text-xs font-bold text-slate-700 leading-tight">{p.zh?.name || p.en?.name || p.id}</span>
                             </label>
                           );
                         })}
@@ -791,7 +791,7 @@ function ProductEditor({ product, allProducts, scenarios, onSave, onCancel, lang
                       <div className="w-full h-36 bg-white rounded-xl border border-slate-100 p-3 flex items-center justify-center">
                         <SmartImage
                           src={resolveProductImages(formData).coverUrl || undefined}
-                          alt={formData.zh.name || formData.en.name || "product"}
+                          alt={formData.zh?.name || formData.en?.name || "product"}
                           className="w-full h-full object-contain"
                           wrapperClassName="w-full h-full"
                           width={640}

@@ -41,7 +41,7 @@ export default function ScenarioManager({ lang }: { lang: "zh" | "en" }) {
 
   async function handleSave() {
     if (!editing) return;
-    if (!editing.zh.name || !editing.en.name) {
+    if (!editing.zh?.name || !editing.en?.name) {
       alert(lang === "zh" ? "请填写中英文场景名称" : "Please fill both ZH/EN scenario names.");
       return;
     }
@@ -102,8 +102,8 @@ export default function ScenarioManager({ lang }: { lang: "zh" | "en" }) {
           <div key={item.id} className="bg-white p-6 rounded-[24px] border border-slate-100 shadow-sm flex items-center justify-between">
             <div>
               <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest">{item.code}</p>
-              <h4 className="font-black text-slate-900">{item.zh.name || "(No Name)"}</h4>
-              <p className="text-xs text-slate-500">{item.en.name}</p>
+              <h4 className="font-black text-slate-900">{item.zh?.name || "(No Name)"}</h4>
+              <p className="text-xs text-slate-500">{item.en?.name || ""}</p>
             </div>
             <div className="flex items-center gap-2">
               <button
@@ -147,23 +147,23 @@ export default function ScenarioManager({ lang }: { lang: "zh" | "en" }) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Field
               label="ZH Name"
-              value={editing.zh.name}
-              onChange={(v) => setEditing({ ...editing, zh: { ...editing.zh, name: v } })}
+              value={editing.zh?.name || ""}
+              onChange={(v) => setEditing({ ...editing, zh: { ...(editing.zh || {}), name: v } })}
             />
             <Field
               label="EN Name"
-              value={editing.en.name}
-              onChange={(v) => setEditing({ ...editing, en: { ...editing.en, name: v } })}
+              value={editing.en?.name || ""}
+              onChange={(v) => setEditing({ ...editing, en: { ...(editing.en || {}), name: v } })}
             />
             <Field
               label="ZH Description"
-              value={editing.zh.description || ""}
-              onChange={(v) => setEditing({ ...editing, zh: { ...editing.zh, description: v } })}
+              value={editing.zh?.description || ""}
+              onChange={(v) => setEditing({ ...editing, zh: { ...(editing.zh || {}), description: v } })}
             />
             <Field
               label="EN Description"
-              value={editing.en.description || ""}
-              onChange={(v) => setEditing({ ...editing, en: { ...editing.en, description: v } })}
+              value={editing.en?.description || ""}
+              onChange={(v) => setEditing({ ...editing, en: { ...(editing.en || {}), description: v } })}
             />
           </div>
 

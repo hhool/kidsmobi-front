@@ -175,8 +175,8 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
                     {n.status}
                   </span>
                 </div>
-                <h4 className="font-black text-slate-900">{n.zh.title || "(Untitled News)"}</h4>
-                <p className="text-xs text-slate-400 font-bold uppercase tracking-tight mt-0.5 whitespace-nowrap overflow-hidden text-ellipsis max-w-md">{n.en.title}</p>
+                <h4 className="font-black text-slate-900">{n.zh?.title || n.en?.title || "(Untitled News)"}</h4>
+                <p className="text-xs text-slate-400 font-bold uppercase tracking-tight mt-0.5 whitespace-nowrap overflow-hidden text-ellipsis max-w-md">{n.en?.title || n.zh?.title || ""}</p>
               </div>
             </div>
             <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -325,7 +325,7 @@ function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving,
                 >
                   <option value="">Select product...</option>
                   {products.map((p: CMSProduct) => (
-                    <option key={p.id} value={p.id}>{p.zh.name || p.en.name || p.id}</option>
+                    <option key={p.id} value={p.id}>{p.zh?.name || p.en?.name || p.id}</option>
                   ))}
                 </select>
                 <div className="flex flex-wrap gap-2">
@@ -362,7 +362,7 @@ function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving,
                 >
                   <option value="">Select scenario...</option>
                   {scenarios.map((s: CMSScenario) => (
-                    <option key={s.id} value={s.code}>{s.zh.name || s.code}</option>
+                    <option key={s.id} value={s.code}>{s.zh?.name || s.en?.name || s.code}</option>
                   ))}
                 </select>
                 <div className="flex flex-wrap gap-2">

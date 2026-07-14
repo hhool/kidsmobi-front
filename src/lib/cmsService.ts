@@ -57,6 +57,11 @@ function normalizeText(value: unknown): string {
   return String(value || "").trim().toLowerCase();
 }
 
+function sanitizeListRows<T>(rows: unknown): T[] {
+  if (!Array.isArray(rows)) return [];
+  return rows.filter((item): item is T => Boolean(item && typeof item === "object"));
+}
+
 function getAllowedAdminEmails(): string[] {
   const configured = String(import.meta.env.VITE_ADMIN_EMAIL_ALLOWLIST || "")
     .split(",")
@@ -77,7 +82,7 @@ export async function checkIsAdmin(_uid: string, user?: User | null): Promise<bo
 export async function getCMSProducts(onlyPublished = false): Promise<CMSProduct[]> {
   const query = onlyPublished ? "?onlyPublished=1" : "";
   const response = await requestJson<{ data?: CMSProduct[] }>(`/api/cms/products${query}`);
-  return response?.data || [];
+  return sanitizeListRows<CMSProduct>(response?.data);
 }
 
 export async function saveCMSProduct(product: CMSProduct) {
@@ -127,7 +132,7 @@ export async function seedProductsToFirestore(productsData: any[], translateProd
 export async function getCMSEvaluations(onlyPublished = false): Promise<Evaluation[]> {
   const query = onlyPublished ? "?onlyPublished=1" : "";
   const response = await requestJson<{ data?: Evaluation[] }>(`/api/cms/evaluations${query}`);
-  return response?.data || [];
+  return sanitizeListRows<Evaluation>(response?.data);
 }
 
 export async function saveCMSEvaluation(ev: Evaluation) {
@@ -152,7 +157,7 @@ export async function seedEvaluationsToFirestore(evaluationsData: Evaluation[]):
 export async function getCMSGuides(onlyPublished = false): Promise<Guide[]> {
   const query = onlyPublished ? "?onlyPublished=1" : "";
   const response = await requestJson<{ data?: Guide[] }>(`/api/cms/guides${query}`);
-  return response?.data || [];
+  return sanitizeListRows<Guide>(response?.data);
 }
 
 export async function saveCMSGuide(guide: Guide) {
@@ -244,7 +249,7 @@ export async function seedNewsToFirestore(newsData: any[]): Promise<boolean> {
 export async function getCMSNews(onlyPublished = false): Promise<News[]> {
   const query = onlyPublished ? "?onlyPublished=1" : "";
   const response = await requestJson<{ data?: News[] }>(`/api/cms/news${query}`);
-  return response?.data || [];
+  return sanitizeListRows<News>(response?.data);
 }
 
 export async function saveCMSNews(news: News) {
@@ -257,7 +262,7 @@ export async function saveCMSNews(news: News) {
 export async function getCMSCategories(onlyPublished = false): Promise<CMSCategory[]> {
   const query = onlyPublished ? "?onlyPublished=1" : "";
   const response = await requestJson<{ data?: CMSCategory[] }>(`/api/cms/categories${query}`);
-  return response?.data || [];
+  return sanitizeListRows<CMSCategory>(response?.data);
 }
 
 export async function saveCMSCategory(category: CMSCategory) {
@@ -270,7 +275,7 @@ export async function saveCMSCategory(category: CMSCategory) {
 export async function getCMSScenarios(onlyPublished = false): Promise<CMSScenario[]> {
   const query = onlyPublished ? "?onlyPublished=1" : "";
   const response = await requestJson<{ data?: CMSScenario[] }>(`/api/cms/scenarios${query}`);
-  return response?.data || [];
+  return sanitizeListRows<CMSScenario>(response?.data);
 }
 
 export async function saveCMSScenario(scenario: CMSScenario) {
