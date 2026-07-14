@@ -95,7 +95,12 @@ function resolveDescriptionText(product: Product, lang: "zh" | "en"): string {
 }
 
 function resolveVerdictText(product: Product, lang: "zh" | "en"): string {
-  const verdict = String(product.editorVerdict || "").trim();
+  const localizedVerdict = String(((product as Product & {
+    zh?: { editorVerdict?: string };
+    en?: { editorVerdict?: string };
+  })[lang]?.editorVerdict) || "").trim();
+  // Keep detail verdict strictly locale-driven to avoid stale top-level fallback content.
+  const verdict = localizedVerdict;
   const customersSay = resolveCustomersSay(product, lang);
   const isVerdictPlaceholder = isPlaceholderVerdict(verdict);
 
@@ -109,6 +114,12 @@ function resolveVerdictText(product: Product, lang: "zh" | "en"): string {
   
   // Return empty string - no placeholder text for SEO health
   return "";
+}
+
+function extractAsin(value: unknown): string {
+  const raw = String(value || "").trim();
+  const match = raw.match(/[A-Z0-9]{10}/i);
+  return match ? match[0].toLowerCase() : "";
 }
 
 function getVideoRenderType(url: string): "direct" | "hls" | "embed" | "none" {
@@ -316,7 +327,10 @@ export default function DetailedProductView({
   cmsSettings
 }: DetailedProductViewProps) {
   const displayProduct = translateProduct(product, lang);
-  const verdictText = resolveVerdictText(displayProduct, lang);
+  const [liveCmsVerdict, setLiveCmsVerdict] = useState<{ zh: string; en: string }>({ zh: "", en: "" });
+  const verdictText = String(
+    (lang === "zh" ? liveCmsVerdict.zh : liveCmsVerdict.en) || resolveVerdictText(product, lang)
+  ).trim();
   const descriptionText = resolveDescriptionText(displayProduct, lang);
   const imageSet = resolveProductImages(displayProduct);
   const videoUrl = [product.videoUrl, ...(product.videos || []).map((item) => item.url)]
@@ -365,6 +379,58 @@ export default function DetailedProductView({
   React.useEffect(() => {
     setActiveMediaTab("gallery");
   }, [product.id]);
+
+  React.useEffect(() => {
+    let disposed = false;
+
+    const loadLatestCmsVerdict = async () => {
+      try {
+        const response = await fetch("/api/cms/products?onlyPublished=1", {
+          headers: {
+            Accept: "application/json",
+          },
+        });
+        if (!response.ok) return;
+
+        const payload = await response.json().catch(() => null);
+        const rows = Array.isArray(payload?.data) ? payload.data : [];
+        if (!rows.length) return;
+
+        const currentId = String(product.id || "").trim().toLowerCase();
+        const currentAsin =
+          extractAsin((product as any)?.ASIN) ||
+          extractAsin((product as any)?.productId) ||
+          extractAsin(product.id);
+
+        const matched = rows.find((item: any) => {
+          const itemId = String(item?.id || "").trim().toLowerCase();
+          if (currentId && itemId && currentId === itemId) return true;
+
+          const itemAsin =
+            extractAsin(item?.ASIN) ||
+            extractAsin(item?.productId) ||
+            extractAsin(item?.id);
+          return Boolean(currentAsin && itemAsin && currentAsin === itemAsin);
+        });
+
+        if (!matched || disposed) return;
+
+        setLiveCmsVerdict({
+          zh: String(matched?.zh?.editorVerdict || "").trim(),
+          en: String(matched?.en?.editorVerdict || "").trim(),
+        });
+      } catch {
+        // Ignore transient CMS fetch errors and keep local fallback text.
+      }
+    };
+
+    setLiveCmsVerdict({ zh: "", en: "" });
+    void loadLatestCmsVerdict();
+
+    return () => {
+      disposed = true;
+    };
+  }, [product.id, (product as any)?.ASIN, (product as any)?.productId]);
 
   const hashSeed = (input: string) => {
     let hash = 0;
@@ -671,7 +737,6 @@ export default function DetailedProductView({
                        <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
                          <div>
                            <p className="text-sm font-black text-slate-800">{lang === "en" ? section.labelEn : section.label}</p>
-                           <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">{section.key}</p>
                          </div>
                          <span className="text-[10px] font-black px-2 py-1 rounded-full bg-white text-slate-500 border border-slate-200">{section.rows.length}</span>
                        </div>
@@ -759,16 +824,16 @@ export default function DetailedProductView({
                   "{verdictText}"
                 </p>
               )}
-
-              {descriptionText && (
-                <div className="bg-white/80 border border-orange-100 rounded-2xl p-4 space-y-2">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">
-                    {lang === "en" ? "Description" : "描述"}
-                  </p>
-                  <p className="text-xs text-slate-700 leading-relaxed font-semibold">{descriptionText}</p>
-                </div>
-              )}
            </div>
+
+           {descriptionText && (
+             <div className="bg-white border border-slate-100 rounded-[32px] p-6 space-y-2 shadow-sm">
+               <p className="text-xs font-black uppercase tracking-widest text-slate-500">
+                 {lang === "en" ? "Description" : "描述"}
+               </p>
+               <p className="text-sm text-slate-700 leading-relaxed font-semibold">{descriptionText}</p>
+             </div>
+           )}
         </div>
       </div>
 
