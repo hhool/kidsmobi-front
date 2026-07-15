@@ -342,6 +342,33 @@ export default function ProductsSection({
     safety_seat: "car_seat",
   };
 
+  const inferMisclassifiedCategoryId = (product: Product, normalizedCategoryId: string) => {
+    if (normalizedCategoryId !== "stroller") return normalizedCategoryId;
+
+    const text = [
+      product.name,
+      (product as any)?.title,
+      product.description,
+      (product as any)?.zh?.description,
+      (product as any)?.en?.description,
+    ]
+      .map((item) => String(item || "").toLowerCase())
+      .join(" ");
+
+    const hasStrollerSignal = /(stroller|pram|pushchair|buggy|jogger|jogging|travel\s+system|umbrella\s+stroller|double\s+stroller|twin\s+stroller|推车|婴儿车|慢跑推车|双人推车)/i.test(text);
+    const hasCarSeatSignal = /(\bcar\s*seat\b|\bbooster\s*seat\b|\bconvertible\s*car\s*seat\b|\binfant\s*car\s*seat\b|安全座椅|提篮座椅)/i.test(text);
+    const hasHighChairSignal = /(\bhigh\s*chair\b|feeding\s*chair|餐椅)/i.test(text);
+    const hasPlayardSignal = /(\bplayard\b|\bplay\s*yard\b|\bpack\s*(n|and)\s*play\b|围栏床|游戏床)/i.test(text);
+    const hasCarrierSignal = /(\bbaby\s*carrier\b|carrier\s*wrap|hip\s*seat\s*carrier|\bsling\b|背带)/i.test(text);
+
+    if (hasCarSeatSignal && !hasStrollerSignal) return "car_seat";
+    if (hasHighChairSignal && !hasStrollerSignal) return "high_chair";
+    if (hasPlayardSignal && !hasStrollerSignal) return "playard";
+    if (hasCarrierSignal && !hasStrollerSignal) return "baby_carrier";
+
+    return normalizedCategoryId;
+  };
+
   useEffect(() => {
     let mounted = true;
     (async () => {
@@ -390,7 +417,8 @@ export default function ProductsSection({
 
   const getProductCategoryId = (product: Product): string => {
     const raw = String((product as any)?.categoryId || product?.category || "").trim().toLowerCase();
-    return categoryAliasMap[raw] || raw;
+    const normalized = categoryAliasMap[raw] || raw;
+    return inferMisclassifiedCategoryId(product, normalized);
   };
 
   const humanizeCategoryId = (rawCategoryId: string): string => {
