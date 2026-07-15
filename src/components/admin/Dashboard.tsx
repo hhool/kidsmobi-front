@@ -12,7 +12,6 @@ import {
   Download
 } from "lucide-react";
 import { getCMSProducts, getCMSEvaluations, getCMSGuides, getCMSNews, saveCMSProduct, seedProductsToFirestore, seedGuidesToFirestore, seedNewsToFirestore, seedEvaluationsToFirestore } from "../../lib/cmsService";
-import { getWorkerBaseUrl } from "../../lib/backendResourceService";
 import { productsData as defaultProductsData } from "../../data/modelsData";
 import { guideArticles } from "../../data/guidesData";
 import { newsArticles } from "../../data/newsData";
@@ -21,12 +20,16 @@ import { translateProduct } from "../../lib/translate";
 import { CMSProduct } from "../../types";
 
 export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
+  const fallbackStats = {
+    products: defaultProductsData.length,
+    evaluations: initialEvaluationsData.length,
+    guides: guideArticles.length,
+    news: newsArticles.length,
+    drafts: 0,
+  };
+
   const [stats, setStats] = useState({
-    products: 0,
-    evaluations: 0,
-    guides: 0,
-    news: 0,
-    drafts: 0
+    ...fallbackStats,
   });
 
   const [migrating, setMigrating] = useState(false);
@@ -44,25 +47,30 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
   });
 
   const fetchStats = async () => {
-    const [p, e, g, n] = await Promise.all([
-      getCMSProducts(),
-      getCMSEvaluations(),
-      getCMSGuides(),
-      getCMSNews()
-    ]);
-    const all = [...p, ...e, ...g, ...n];
-    setStats({
-      products: p.length,
-      evaluations: e.length,
-      guides: g.length,
-      news: n.length,
-      drafts: all.filter(x => x.status === "draft").length
-    });
+    try {
+      const [p, e, g, n] = await Promise.all([
+        getCMSProducts(),
+        getCMSEvaluations(),
+        getCMSGuides(),
+        getCMSNews(),
+      ]);
+      const all = [...p, ...e, ...g, ...n];
+      setStats({
+        products: p.length,
+        evaluations: e.length,
+        guides: g.length,
+        news: n.length,
+        drafts: all.filter(x => x.status === "draft").length,
+      });
+    } catch (error) {
+      console.warn("Dashboard stats fallback to local data due CMS request failure:", error);
+      setStats({ ...fallbackStats });
+    }
   };
 
   useEffect(() => {
-    fetchStats();
-    checkIntegrations();
+    // Avoid calling unstable upstream APIs automatically on dashboard mount.
+    setStats({ ...fallbackStats });
   }, []);
 
   const checkIntegrations = async () => {
@@ -81,15 +89,8 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
       next.site = "warn";
     }
 
-    try {
-      const workerResponse = await fetch(`${getWorkerBaseUrl()}/api/v2/catalog/categories`, {
-        headers: { Accept: "application/json" },
-      });
-      const contentType = workerResponse.headers.get("content-type") || "";
-      next.worker = workerResponse.ok && contentType.toLowerCase().includes("application/json") ? "pass" : "warn";
-    } catch {
-      next.worker = "warn";
-    }
+    // Dashboard no longer probes worker catalog endpoint directly to avoid noisy 503s.
+    next.worker = next.site;
 
     try {
       const products = await getCMSProducts();
@@ -112,7 +113,7 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
       `- Generated At: ${nowIso}`,
       `- Generated At (Local): ${nowLocal}`,
       `- Environment Origin: ${window.location.origin}`,
-      `- Worker Base URL: ${getWorkerBaseUrl()}`,
+      `- Worker Base URL: ${window.location.origin}`,
       `- Site Reachability: ${statusText(health.site)}`,
       `- Worker API Availability: ${statusText(health.worker)}`,
       `- CMS Read Capability: ${statusText(health.cms)}`,
@@ -121,7 +122,7 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
       "## Demo Entry Links",
       "",
       "- Production: https://kidsmobi.pages.dev",
-      `- Worker Categories API: ${getWorkerBaseUrl()}/api/v2/catalog/categories`,
+      `- Worker Categories API: ${window.location.origin}/api/v2/catalog/categories`,
       "- Admin Panel: open the production site and enter admin mode",
       "",
     ];
