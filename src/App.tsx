@@ -139,6 +139,11 @@ const PRODUCT_ROUTE_ALIASES: Record<string, string> = {
   tricycle: "kids_tricycles",
   electric_car: "electric_vehicles",
   safety_seat: "car_seat",
+  strollers: "stroller",
+  jogger_stroller: "stroller",
+  jogging_stroller: "stroller",
+  jogger: "stroller",
+  jogging: "stroller",
 };
 const EXCLUDED_PRODUCT_CATEGORY_IDS = new Set([
   "playard",
