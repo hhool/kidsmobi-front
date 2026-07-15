@@ -6,20 +6,24 @@ import path from "node:path";
 const CMS_BASE_DEFAULT = "https://kidsmobi-api-v1.seaman-player.workers.dev";
 const SOURCE_BASE_DEFAULT = "https://kidsmobi-api-v1.seaman-player.workers.dev";
 
+// Read a --name=value style CLI argument with a fallback value.
 function parseArg(name, fallback = "") {
   const key = `--${name}=`;
   const matched = process.argv.find((arg) => arg.startsWith(key));
   return matched ? matched.slice(key.length) : fallback;
 }
 
+// Check whether a boolean CLI flag is present.
 function hasFlag(name) {
   return process.argv.includes(`--${name}`);
 }
 
+// Print command usage and option help text.
 function printHelp() {
   console.log(`Usage: node scripts/cms_import_full_from_backend_v2.mjs [options]\n\nOptions:\n  --cmsBase=<url>        CMS API base URL (default from CMS_BASE or built-in)\n  --sourceBase=<url>     Backend source base URL (default from SOURCE_BASE or built-in)\n  --perCategory=<n>      Max products per category to import (default: 12)\n  --manifestPath=<path>  Output path for image transfer manifest\n  --dryRun               Fetch and build data only; skip all /save writes\n  --help                 Show this help\n`);
 }
 
+// Return a normalized HTTP(S) URL string, or an empty string if invalid.
 function asHttpUrl(value) {
   if (!value || typeof value !== "string") return "";
   try {
@@ -31,6 +35,7 @@ function asHttpUrl(value) {
   }
 }
 
+// Deduplicate a list of values after trimming and dropping empties.
 function dedupe(items) {
   const seen = new Set();
   const out = [];
@@ -43,30 +48,36 @@ function dedupe(items) {
   return out;
 }
 
+// Parse a number-like value by stripping non-numeric characters.
 function parseNumber(value, fallback = 0) {
   const cleaned = String(value ?? "").replace(/[^0-9.]+/g, "");
   const parsed = Number(cleaned);
   return Number.isFinite(parsed) ? parsed : fallback;
 }
 
+// Normalize free-form price values to numeric.
 function parsePriceValue(value) {
   return parseNumber(value, 0);
 }
 
+// Normalize free-form rating values to numeric.
 function parseRatingValue(value) {
   return parseNumber(value, 0);
 }
 
+// Determine whether a product identifier should be treated as invalid.
 function isInvalidId(value) {
   const normalized = String(value || "").trim().toLowerCase();
   return !normalized || normalized === "n/a" || normalized === "na" || normalized === "none" || normalized === "null";
 }
 
+// Resolve a product ID from possible source fields and validate it.
 function productIdOf(product) {
   const candidate = String(product?.productId || product?.ASIN || product?.asin || "").trim();
   return isInvalidId(candidate) ? "" : candidate;
 }
 
+// Extract similar items that are explicitly marked as D1-eligible.
 function eligibleSimilarItems(product) {
   const related = Array.isArray(product?.relatedProducts)
     ? product.relatedProducts
@@ -79,6 +90,7 @@ function eligibleSimilarItems(product) {
   });
 }
 
+// Normalize a similar-item payload into the product shape used by import.
 function normalizeSimilarProduct(parent, item) {
   const productId = productIdOf(item);
   if (!productId) return null;
@@ -115,6 +127,7 @@ function normalizeSimilarProduct(parent, item) {
   };
 }
 
+// Merge base products with eligible similar items and collect audit stats.
 function expandProductsWithEligibleSimilar(products) {
   const byId = new Map();
   let droppedProductsInvalidId = 0;
@@ -168,6 +181,7 @@ function expandProductsWithEligibleSimilar(products) {
   };
 }
 
+// Pick a best-effort customers-say sentence from product/resource payloads.
 function pickCustomersSay(product, resource) {
   const candidate = [
     product?.customers_say,
@@ -178,6 +192,7 @@ function pickCustomersSay(product, resource) {
   return candidate ? String(candidate).trim() : "";
 }
 
+// Check whether enough structured product information exists for publishing.
 function hasProductInformation(product, resource) {
   const specs = product?.Product_Specifications || resource?.Product_Specifications;
   const attrs = product?.Category_Attributes || resource?.Category_Attributes;
@@ -189,6 +204,7 @@ function hasProductInformation(product, resource) {
   );
 }
 
+// Pick a publishable description from multiple source fields.
 function pickPublishedDescription(product, resource) {
   const candidate = [
     product?.Product_Description,
@@ -205,6 +221,7 @@ function pickPublishedDescription(product, resource) {
   return candidate ? String(candidate).trim() : "";
 }
 
+// Normalize URL for dedupe by removing hash fragments.
 function normalizedUrl(value) {
   const raw = asHttpUrl(value);
   if (!raw) return "";
@@ -217,6 +234,7 @@ function normalizedUrl(value) {
   }
 }
 
+// Convert text to a lowercase safe slug with a fallback.
 function safeSlug(text, fallback = "unknown") {
   const normalized = String(text || "")
     .trim()
@@ -226,6 +244,7 @@ function safeSlug(text, fallback = "unknown") {
   return normalized || fallback;
 }
 
+// Extract filename from URL path, or generate a fallback name.
 function fileNameFromUrl(url, fallbackPrefix) {
   try {
     const u = new URL(url);
@@ -239,6 +258,7 @@ function fileNameFromUrl(url, fallbackPrefix) {
   return `${fallbackPrefix}.bin`;
 }
 
+// Build the canonical R2 target key for an image manifest entry.
 function buildManifestTargetPath(entry) {
   const kind = entry.kind || "gallery";
   const productId = safeSlug(entry.productId, "unknown-product");
@@ -251,12 +271,14 @@ function buildManifestTargetPath(entry) {
   return `products/${productId}/${kind}/${fileName}`;
 }
 
+// Write a JSON manifest file to disk, creating parent directories as needed.
 async function writeManifestFile(filePath, payload) {
   const fullPath = path.resolve(filePath);
   await fs.mkdir(path.dirname(fullPath), { recursive: true });
   await fs.writeFile(fullPath, `${JSON.stringify(payload, null, 2)}\n`, "utf-8");
 }
 
+// Perform a JSON HTTP request with timeout and rich error details.
 async function fetchJson(url, init) {
   const timeoutMs = Math.max(1000, Number(init?.timeoutMs ?? 45000));
   const controller = new AbortController();
@@ -280,10 +302,12 @@ async function fetchJson(url, init) {
   return json;
 }
 
+// Sleep helper used by retry backoff.
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+// Retry transient network/API failures with linear backoff.
 async function fetchJsonWithRetry(url, init = {}, options = {}) {
   const retries = Math.max(0, Number(options.retries ?? 3));
   const backoffMs = Math.max(100, Number(options.backoffMs ?? 400));
@@ -314,6 +338,7 @@ async function fetchJsonWithRetry(url, init = {}, options = {}) {
   }
 }
 
+// Fetch all paginated rows from an endpoint that returns array data.
 async function fetchAllPages(baseUrl, pageSize, dataKey = "data") {
   const safePageSize = Math.max(1, Math.min(100, Number(pageSize) || 100));
   const out = [];
@@ -331,11 +356,13 @@ async function fetchAllPages(baseUrl, pageSize, dataKey = "data") {
   return out;
 }
 
+// Detect duplicate-save style errors that should be treated as updates.
 function isDuplicateError(err) {
   const text = String(err?.message || err || "");
   return text.includes(" 409 ") || /duplicate/i.test(text);
 }
 
+// Map source category IDs to CMS category codes.
 function mapCategoryCode(categoryId) {
   switch (categoryId) {
     case "balance_bike":
@@ -361,6 +388,7 @@ function mapCategoryCode(categoryId) {
   }
 }
 
+// Provide default age-range labels by category.
 function mapAgeRange(categoryId) {
   switch (categoryId) {
     case "balance_bike":
@@ -382,6 +410,7 @@ function mapAgeRange(categoryId) {
   }
 }
 
+// Provide default rider height ranges by category.
 function mapHeightRange(categoryId) {
   switch (categoryId) {
     case "balance_bike":
@@ -403,6 +432,7 @@ function mapHeightRange(categoryId) {
   }
 }
 
+// Build simple derived scoring fields from rating and weight.
 function scoreFromProduct(product) {
   const rating = Number(product?.rating?.value || 4.0);
   const weight = Number(product?.weight?.lbs || 0);
@@ -413,6 +443,7 @@ function scoreFromProduct(product) {
   return { safety, weightScore, geometry, overall };
 }
 
+// Convert source product/resource records into the CMS product schema.
 function buildProduct(product, resource) {
   const score = scoreFromProduct(product);
   const cover = asHttpUrl(product?.images?.cover?.url) || asHttpUrl(product?.coverImage) || "";
@@ -501,6 +532,7 @@ function buildProduct(product, resource) {
   };
 }
 
+// Save one row into a target CMS collection.
 async function cmsSave(cmsBase, collection, payload) {
   return fetchJson(`${cmsBase}/api/cms/${collection}/save`, {
     method: "POST",
@@ -508,11 +540,13 @@ async function cmsSave(cmsBase, collection, payload) {
   });
 }
 
+// Read current row count for a CMS collection.
 async function cmsListCount(cmsBase, collection) {
   const json = await fetchJson(`${cmsBase}/api/cms/${collection}`);
   return Array.isArray(json?.data) ? json.data.length : 0;
 }
 
+// Main import pipeline: read source data, normalize, write CMS, and emit manifest.
 async function main() {
   if (hasFlag("help")) {
     printHelp();

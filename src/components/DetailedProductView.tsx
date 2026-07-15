@@ -7,7 +7,8 @@ import {
   ChevronRight, 
   Play,
   Image as ImageIcon,
-  ExternalLink
+  ExternalLink,
+  Maximize2
 } from "lucide-react";
 import { 
   Radar, 
@@ -171,6 +172,9 @@ function buildBasicInfoSections(product: Product, lang: "zh" | "en") {
     Product_Specifications?: Record<string, unknown>;
     Category_Attributes?: Record<string, unknown>;
     Product_Display_Fields?: Record<string, { value?: unknown; source?: unknown }>;
+    classification?: Record<string, unknown>;
+    categoryAttributes?: Record<string, unknown>;
+    featureCards?: Array<{ featureLabel?: unknown; featureValue?: unknown; featureEvidence?: unknown }>;
     specsText?: string;
   };
   const specs = richProduct.Product_Specifications || {};
@@ -264,6 +268,46 @@ function buildBasicInfoSections(product: Product, lang: "zh" | "en") {
     });
   }
 
+  const classificationRows = fallbackRowsFromObject(richProduct.classification || {});
+  if (classificationRows.length > 0) {
+    fallbackSections.push({
+      key: "classification",
+      label: lang === "zh" ? "分类特征" : "Classification",
+      labelEn: "Classification",
+      rows: classificationRows,
+    });
+  }
+
+  const rawCategoryAttributeRows = fallbackRowsFromObject(richProduct.categoryAttributes || {});
+  if (rawCategoryAttributeRows.length > 0) {
+    fallbackSections.push({
+      key: "categoryAttributes",
+      label: lang === "zh" ? "原始类目属性" : "Raw Category Attributes",
+      labelEn: "Raw Category Attributes",
+      rows: rawCategoryAttributeRows,
+    });
+  }
+
+  const featureCardsRows = (richProduct.featureCards || [])
+    .map((card, index) => {
+      const label = cleanVisibleFieldText(card.featureLabel || card.featureValue) || `${lang === "zh" ? "特征" : "Feature"} ${index + 1}`;
+      const value = cleanVisibleFieldText(card.featureEvidence || card.featureValue || card.featureLabel);
+      return {
+        label,
+        value,
+      };
+    })
+    .filter((item) => item.value);
+
+  if (featureCardsRows.length > 0) {
+    fallbackSections.push({
+      key: "featureCards",
+      label: lang === "zh" ? "关键特性" : "Key Features",
+      labelEn: "Key Features",
+      rows: featureCardsRows,
+    });
+  }
+
   const specsText = String(richProduct.specsText || "").trim();
   if (fallbackSections.length === 0 && specsText) {
     fallbackSections.push({
@@ -292,6 +336,24 @@ function buildBasicInfoSections(product: Product, lang: "zh" | "en") {
         label: lang === "zh" ? "基础规格" : "Basic Specs",
         labelEn: "Basic Specs",
         rows: topLevelRows,
+      });
+    }
+  }
+
+  if (fallbackSections.length === 0) {
+    const minimalRows = [
+      { label: "Product ID", value: String(product.id || "").trim() },
+      { label: lang === "zh" ? "名称" : "Name", value: String((product as Product & { name?: string }).name || "").trim() },
+      { label: lang === "zh" ? "品牌" : "Brand", value: String(product.brand || "").trim() },
+      { label: lang === "zh" ? "类目" : "Category", value: String(product.category || "").trim() },
+    ].filter((item) => item.value);
+
+    if (minimalRows.length > 0) {
+      fallbackSections.push({
+        key: "minimal_identity",
+        label: lang === "zh" ? "基础信息" : "Basic Info",
+        labelEn: "Basic Info",
+        rows: minimalRows,
       });
     }
   }

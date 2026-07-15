@@ -15,6 +15,7 @@
 | 脚本 | 用途 | 常用命令 |
 | --- | --- | --- |
 | `cms_import_full_from_backend_v2.mjs` | 将 backend `/api/v2` 数据导入 CMS 各集合并生成图片转存清单 | `npm run import:cms -- --perCategory=12 --manifestPath=./tmp/front_image_transfer_manifest.json` |
+| `cms_safe_replace_from_export.mjs` | `cms_replace_from_export.mjs` 的安全包装：默认拦截空集合 replace，避免先 purge 后写入 0 条导致清空 | `npm run cms:replace:safe -- --base=https://kidsmobi-api-v1.seaman-player.workers.dev --input=../backend/env/cms-export.json --mode=replace --collections=products --apply` |
 | `product_stage_specs_from_backend_v2.mjs` | 抓取 backend 产品全参数并落盘 raw/editable/publish 占位文件 | `npm run specs:stage:product:init` |
 | `media_stage_images_local.mjs` | 先把 manifest 中图片下载到本地 `front/resource/`，用于目录结构确认（支持 targetPath 重写模式） | `npm run media:stage:local` |
 | `media_transfer_images_to_r2.mjs` | 将 manifest 中的图片转存到 Cloudflare R2 | `npm run media:transfer:r2 -- --manifestPath=./tmp/front_image_transfer_manifest.json --skipExisting` |
@@ -58,6 +59,26 @@
 - 媒体迁移报告输出路径：`./tmp/front_image_transfer_report.json`。
 - 本地落地报告输出路径：`./tmp/front_image_stage_report.json`。
 - 产品参数批次索引路径：`./resource/assets/backend-import/<importBatchId>/batch.index.json`。
+
+## 安全回写护栏
+
+- 脚本：`scripts/cms_safe_replace_from_export.mjs`
+- npm 别名：`npm run cms:replace:safe -- <args>`
+- 护栏规则：在 `--mode=replace` 下，若目标集合输入条数为 `0`，默认直接阻断（因为 replace 会先 purge）。
+- 显式放行：`--allow-empty=<集合1,集合2>` 或 `--allow-empty=all`
+
+示例：
+
+```bash
+# 1) 默认护栏 dry-run
+npm run cms:replace:safe -- --base=https://kidsmobi-api-v1.seaman-player.workers.dev --input=../backend/env/cms-export-1784056120.before-full-reset.json --mode=replace --collections=products,categories
+
+# 2) 严格非空 apply
+npm run cms:replace:safe -- --base=https://kidsmobi-api-v1.seaman-player.workers.dev --input=../backend/env/cms-export-1784056120.before-full-reset.json --mode=replace --collections=products --apply
+
+# 3) 显式放行空 categories 后 apply
+npm run cms:replace:safe -- --base=https://kidsmobi-api-v1.seaman-player.workers.dev --input=../backend/env/cms-export-1784056120.before-full-reset.json --mode=replace --collections=products,categories --allow-empty=categories --apply
+```
 
 ## 导入审核规则
 

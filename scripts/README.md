@@ -15,6 +15,7 @@ This folder contains operational scripts for CMS bootstrap, media migration, CMS
 | Script | Purpose | Typical Command |
 | --- | --- | --- |
 | `cms_import_full_from_backend_v2.mjs` | Import backend `/api/v2` data into CMS collections and generate image manifest | `npm run import:cms -- --perCategory=12 --manifestPath=./tmp/front_image_transfer_manifest.json` |
+| `cms_safe_replace_from_export.mjs` | Safe wrapper for `cms_replace_from_export.mjs`; blocks empty-collection replace by default unless explicitly allowed | `npm run cms:replace:safe -- --base=https://kidsmobi-api-v1.seaman-player.workers.dev --input=../backend/env/cms-export.json --mode=replace --collections=products --apply` |
 | `media_stage_images_local.mjs` | Download manifest images to local `front/resource/` for structure review before upload (supports target path rewrite mode) | `npm run media:stage:local` |
 | `media_transfer_images_to_r2.mjs` | Transfer manifest images into Cloudflare R2 | `npm run media:transfer:r2 -- --manifestPath=./tmp/front_image_transfer_manifest.json --skipExisting` |
 | `generate_products_import_from_backend.mjs` | Generate Product Center JSON import payload | `npm run import:generate -- --base=https://kidsmobi-api-v1.seaman-player.workers.dev --category=stroller --limit=20` |
@@ -54,6 +55,26 @@ This folder contains operational scripts for CMS bootstrap, media migration, CMS
 - Prefer `--dryRun` before destructive or large-scale actions.
 - Transfer report output path: `./tmp/front_image_transfer_report.json`.
 - Local stage report output path: `./tmp/front_image_stage_report.json`.
+
+## Safe Replace Guardrail
+
+- Script: `scripts/cms_safe_replace_from_export.mjs`
+- NPM alias: `npm run cms:replace:safe -- <args>`
+- Safety rule: in `--mode=replace`, any target collection with `0` input rows is blocked by default (because replace purges first).
+- Explicit override: `--allow-empty=<collection1,collection2>` or `--allow-empty=all`
+
+Examples:
+
+```bash
+# 1) Dry-run with guardrail (default)
+npm run cms:replace:safe -- --base=https://kidsmobi-api-v1.seaman-player.workers.dev --input=../backend/env/cms-export-1784056120.before-full-reset.json --mode=replace --collections=products,categories
+
+# 2) Apply write with strict non-empty replace
+npm run cms:replace:safe -- --base=https://kidsmobi-api-v1.seaman-player.workers.dev --input=../backend/env/cms-export-1784056120.before-full-reset.json --mode=replace --collections=products --apply
+
+# 3) Intentionally allow empty categories and apply
+npm run cms:replace:safe -- --base=https://kidsmobi-api-v1.seaman-player.workers.dev --input=../backend/env/cms-export-1784056120.before-full-reset.json --mode=replace --collections=products,categories --allow-empty=categories --apply
+```
 
 ## R2 Naming Strategy
 
