@@ -62,7 +62,7 @@ import {
 } from "./lib/firestoreService";
 import { checkIsAdmin, getCMSSettings, getCMSProducts, getCMSEvaluations, seedProductsToFirestore, seedEvaluationsToFirestore, seedGuidesToFirestore, seedNewsToFirestore } from "./lib/cmsService";
 import { fetchContentBundle, isScrapedContentSource } from "./lib/contentSource";
-import { DEFAULT_SEO_CONFIGS, FALLBACK_FIRST_SEO_KEYS, normalizeSeoConfig } from "./config/defaultSeo";
+import { DEFAULT_SEO_CONFIGS, normalizeSeoConfig } from "./config/defaultSeo";
 import { getProductSeoKeywords, getReviewSeoKeywords } from "./config/seoKeywordMap";
 import { getTransparencyPageByPath, TRANSPARENCY_PAGE_PATHS, type TransparencyPageKey } from "./data/transparencyPages";
 
@@ -429,8 +429,7 @@ const isNonProductionHostname = (hostname: string) => {
   const normalized = String(hostname || "").trim().toLowerCase();
   return (
     normalized === "localhost" ||
-    normalized === "127.0.0.1" ||
-    normalized.startsWith("dev.")
+    normalized === "127.0.0.1"
   );
 };
 
@@ -468,7 +467,7 @@ const isDevAdminBypassEnabled = (): boolean => {
 
 const resolveInitialLang = (): "zh" | "en" => {
   const saved = safeStorageGet("app_lang");
-  return saved === "zh" || saved === "en" ? saved : "zh";
+  return saved === "zh" || saved === "en" ? saved : "en";
 };
 
 const resolveRouteState = (pathname: string, hash: string) => {
@@ -1207,6 +1206,10 @@ export default function App() {
     element.setAttribute("content", content);
   };
 
+  const removeMetaTag = (name: string) => {
+    document.querySelectorAll(`meta[name="${name}"]`).forEach((node) => node.remove());
+  };
+
   const updateMetaProperty = (property: string, content: string) => {
     let element = document.querySelector(`meta[property="${property}"]`);
     if (!element) {
@@ -1270,10 +1273,6 @@ export default function App() {
     const pageConfig = resolveCmsPageConfigForRoute(seoKey);
     const fallbackSeo = DEFAULT_SEO_CONFIGS[seoKey]?.[lang] || DEFAULT_SEO_CONFIGS.home[lang];
 
-    if ((lang === "en" || seoKey === "home" || seoKey === "products") && FALLBACK_FIRST_SEO_KEYS.has(seoKey)) {
-      return { seo: fallbackSeo, pageConfig };
-    }
-
     const pageSeo = pageConfig?.seo?.[lang];
     if (pageSeo) {
       return { seo: pageSeo, pageConfig };
@@ -1289,6 +1288,17 @@ export default function App() {
 
   // Dynamic SEO Page Meta Configuration (Title, Keywords, Description)
   useEffect(() => {
+    const gscVerification = String(cmsSettings?.seoGlobal?.googleSiteVerification || "").trim();
+    if (gscVerification) {
+      updateMetaTag("google-site-verification", gscVerification);
+    } else {
+      removeMetaTag("google-site-verification");
+    }
+
+    const defaultRobotsIndex = String(
+      cmsSettings?.seoGlobal?.defaultRobots || "index,follow,max-image-preview:large"
+    ).trim() || "index,follow,max-image-preview:large";
+
     // Determine active tab database key
     let seoKey = activeTab;
     if (activeTab === "product_detail") {
@@ -1314,14 +1324,19 @@ export default function App() {
         updateMetaTag("description", desc);
         updateMetaTag("keywords", kws.join(", "));
         const canonicalPath = normalizeCanonicalPath(currentPath);
-        const canonicalUrl = `${window.location.origin}${canonicalPath}`;
+        const canonicalOrigin =
+          cmsSettings?.seoGlobal?.siteOrigin ||
+          (cmsSettings as any)?.siteOrigin ||
+          (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+          window.location.origin;
+        const canonicalUrl = `${canonicalOrigin}${canonicalPath}`;
         const noIndex = shouldNoIndexCurrentPath(canonicalPath, window.location.search, window.location.hostname);
         updateCanonicalLink(canonicalUrl);
         updateMetaProperty("og:url", canonicalUrl);
         updateMetaProperty("og:type", "article");
         updateMetaProperty("og:title", title);
         updateMetaProperty("og:description", desc);
-        updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : "index,follow,max-image-preview:large");
+        updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
 
         injectJsonLd([
           {
@@ -1369,6 +1384,7 @@ export default function App() {
         const normalizedSEO = normalizeSeoConfig(localizedPage.seo);
         const canonicalPath = normalizeCanonicalPath(localizedPage.path);
         const canonicalOrigin =
+          cmsSettings?.seoGlobal?.siteOrigin ||
           (cmsSettings as any)?.siteOrigin ||
           (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
           window.location.origin;
@@ -1378,7 +1394,7 @@ export default function App() {
         document.title = normalizedSEO.title;
         updateMetaTag("description", normalizedSEO.description);
         updateMetaTag("keywords", normalizedSEO.keywords.join(", "));
-        updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : "index,follow,max-image-preview:large");
+        updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
         updateCanonicalLink(canonicalUrl);
         updateMetaProperty("og:url", canonicalUrl);
         updateMetaProperty("og:type", "article");
@@ -1441,13 +1457,6 @@ export default function App() {
       descStr = lang === "zh"
         ? `${descStr} 当前为第 ${activePageIndex} 页分页内容。`
         : `${descStr} This is paginated page ${activePageIndex}.`;
-    }
-
-    if (seoKey === "products" && activeProductCategory !== "all") {
-      const productsSeo = normalizeSeoConfig(DEFAULT_SEO_CONFIGS.products[lang] || DEFAULT_SEO_CONFIGS.products.en);
-      titleStr = productsSeo.title;
-      descStr = productsSeo.description;
-      keywordsArr = productsSeo.keywords;
     }
 
     const isReviewsIndexPath = /^\/reviews(?:\/page\/\d+)?\/?$/.test(currentPath);
@@ -1519,9 +1528,10 @@ export default function App() {
       shouldNoIndexCurrentPath(canonicalPath, window.location.search, window.location.hostname) ||
       isOutOfRangePagination ||
       pageConfig?.indexingPolicy === "noindex";
-    updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : "index,follow,max-image-preview:large");
+    updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
 
     const canonicalOrigin =
+      cmsSettings?.seoGlobal?.siteOrigin ||
       (cmsSettings as any)?.siteOrigin ||
       (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
       window.location.origin;

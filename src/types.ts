@@ -294,6 +294,11 @@ export interface CMSSettings {
       en: SEOConfig;
     };
   };
+  seoGlobal?: {
+    siteOrigin?: string;
+    googleSiteVerification?: string;
+    defaultRobots?: string;
+  };
   pages?: {
     [key: string]: CMSPageConfig;
   };

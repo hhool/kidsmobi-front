@@ -460,6 +460,11 @@ function buildBaselineSettings(): CMSSettings {
     },
     homeSlots: [],
     seo: DEFAULT_SEO_CONFIGS,
+    seoGlobal: {
+      siteOrigin: "",
+      googleSiteVerification: "",
+      defaultRobots: "index,follow,max-image-preview:large",
+    },
     opsCenter: {
       featureFlags: {
         showEmptyScoringStandardsSection: false,
@@ -475,6 +480,27 @@ function buildBaselineSettings(): CMSSettings {
         icon: "ShieldCheck",
       },
     ],
+  };
+}
+
+function normalizeCmsSettingsPayload(settings: CMSSettings | null | undefined): CMSSettings | null {
+  if (!settings) {
+    return null;
+  }
+
+  return {
+    ...settings,
+    seo: {
+      ...DEFAULT_SEO_CONFIGS,
+      ...(settings.seo || {}),
+    },
+    seoGlobal: {
+      siteOrigin: String((settings as any)?.seoGlobal?.siteOrigin || (settings as any)?.siteOrigin || "").trim(),
+      googleSiteVerification: String((settings as any)?.seoGlobal?.googleSiteVerification || "").trim(),
+      defaultRobots:
+        String((settings as any)?.seoGlobal?.defaultRobots || "index,follow,max-image-preview:large").trim() ||
+        "index,follow,max-image-preview:large",
+    },
   };
 }
 
@@ -1156,6 +1182,11 @@ app.get("/api/content/bundle", async (req, res) => {
       },
       homeSlots: buildHomeSlots(homeProducts.length > 0 ? homeProducts : allProducts, evaluationIds),
       seo: DEFAULT_SEO_CONFIGS,
+      seoGlobal: {
+        siteOrigin: "",
+        googleSiteVerification: "",
+        defaultRobots: "index,follow,max-image-preview:large",
+      },
       scoringStandards: [
         {
           id: "worker-live",
@@ -1447,7 +1478,8 @@ app.get("/api/cms/settings", async (_req, res) => {
     }
     await ensureD1Schema();
     const rows = await listD1CMSRecords<CMSSettings>("settings");
-    const settings = rows.find((item) => item?.id === "global") || rows[0] || null;
+    const rawSettings = rows.find((item) => item?.id === "global") || rows[0] || null;
+    const settings = normalizeCmsSettingsPayload(rawSettings);
     res.json({ data: settings });
   } catch (error: any) {
     console.error("Failed to read D1 settings:", error);
@@ -1997,7 +2029,11 @@ app.post("/api/cms/settings/save", async (req, res) => {
       res.status(503).json({ error: "D1 is not configured." });
       return;
     }
-    const payload = (req.body || {}) as CMSSettings;
+    const payload = normalizeCmsSettingsPayload((req.body || {}) as CMSSettings);
+    if (!payload) {
+      res.status(400).json({ error: "Settings payload is required." });
+      return;
+    }
     const id = String(payload?.id || "global").trim() || "global";
 
     await ensureD1Schema();

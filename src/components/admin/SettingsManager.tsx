@@ -142,15 +142,25 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
         },
       },
       seo: {
-        ...(s.seo || {}),
-        ...defaultSeo
+        ...defaultSeo,
+        ...(s.seo || {})
+      },
+      seoGlobal: {
+        siteOrigin: String((s as any)?.seoGlobal?.siteOrigin || (s as any)?.siteOrigin || "").trim(),
+        googleSiteVerification: String((s as any)?.seoGlobal?.googleSiteVerification || "").trim(),
+        defaultRobots: String((s as any)?.seoGlobal?.defaultRobots || "index,follow,max-image-preview:large").trim(),
       },
       homeSlots: Array.isArray(s.homeSlots) ? s.homeSlots : [],
     } : {
       id: "global",
       hero: defaultHero,
       homeSlots: [],
-      seo: defaultSeo
+      seo: defaultSeo,
+      seoGlobal: {
+        siteOrigin: "",
+        googleSiteVerification: "",
+        defaultRobots: "index,follow,max-image-preview:large",
+      },
     };
 
     setSettings(initialSettings);
@@ -508,6 +518,57 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
           <h3 className="font-black text-lg uppercase tracking-tight">
             {lang === "zh" ? "全局页面 SEO 与头标签配置" : "Global SEO & Title Configurations"}
           </h3>
+        </div>
+
+        <div className="bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm space-y-6">
+          <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
+            {lang === "zh" ? "全局索引与站点元信息" : "Global Crawling & Site Metadata"}
+          </h4>
+
+          <Field
+            label={lang === "zh" ? "Canonical 主域名（可选）" : "Canonical Site Origin (Optional)"}
+            value={settings.seoGlobal?.siteOrigin || ""}
+            onChange={(v: string) =>
+              setSettings({
+                ...settings,
+                seoGlobal: {
+                  ...(settings.seoGlobal || {}),
+                  siteOrigin: v,
+                },
+              })
+            }
+            placeholder={lang === "zh" ? "例如: https://kidsmobi.pages.dev" : "e.g. https://kidsmobi.pages.dev"}
+          />
+
+          <Field
+            label={lang === "zh" ? "Google Site Verification" : "Google Site Verification"}
+            value={settings.seoGlobal?.googleSiteVerification || ""}
+            onChange={(v: string) =>
+              setSettings({
+                ...settings,
+                seoGlobal: {
+                  ...(settings.seoGlobal || {}),
+                  googleSiteVerification: v,
+                },
+              })
+            }
+            placeholder={lang === "zh" ? "粘贴 GSC 验证 token" : "Paste GSC verification token"}
+          />
+
+          <Field
+            label={lang === "zh" ? "默认 Robots（索引页）" : "Default Robots (Indexable Pages)"}
+            value={settings.seoGlobal?.defaultRobots || "index,follow,max-image-preview:large"}
+            onChange={(v: string) =>
+              setSettings({
+                ...settings,
+                seoGlobal: {
+                  ...(settings.seoGlobal || {}),
+                  defaultRobots: v,
+                },
+              })
+            }
+            placeholder="index,follow,max-image-preview:large"
+          />
         </div>
 
         {/* Page selector Tabs */}
