@@ -677,7 +677,7 @@ export default function HomeSection({
           <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight max-w-5xl mx-auto">
             {lang === "zh" 
               ? "专家评测：儿童自行车、平衡车、滑板车及慢跑手推车" 
-              : "Expert Reviews: Jogging Stroller, Balance Bike, Kids Bike & Kids Scooter"}
+              : "Expert Reviews: Balance Bike, Kids Bike, Kids Scooter & Jogging Stroller"}
           </h1>
           
           <p className="text-slate-600 text-sm md:text-base max-w-3xl mx-auto leading-relaxed font-semibold">
@@ -698,10 +698,10 @@ export default function HomeSection({
 
           <div className="flex flex-wrap justify-center gap-4 pt-4 border-t border-slate-50">
             {[
-              { id: "stroller", label: lang === "zh" ? "慢跑推车" : "JOGGING STROLLER", icon: Footprints },
-              { id: "balance_bike", label: lang === "zh" ? "平衡车" : "BALANCE BIKE", icon: Smile },
               { id: "kids_bikes", label: lang === "zh" ? "儿童自行车" : "KIDS BIKE", icon: Bike },
+              { id: "balance_bike", label: lang === "zh" ? "平衡车" : "BALANCE BIKE", icon: Smile },
               { id: "scooters", label: lang === "zh" ? "儿童滑板车" : "KIDS SCOOTER", icon: Sparkles },
+              { id: "stroller", label: lang === "zh" ? "慢跑推车" : "JOGGING STROLLER", icon: Footprints },
             ].map((item) => (
               <button
                 key={item.id}
