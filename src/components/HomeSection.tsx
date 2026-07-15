@@ -826,7 +826,7 @@ export default function HomeSection({
               {lang === "zh" ? "精选品类" : "Category Highlights"}
             </span>
             <h2 className="text-3xl font-black text-slate-900 tracking-tight">
-              Explore by Category: Find Your Perfect Ride
+              Explore by Category: Find Your Perfect Kids' Mobility
             </h2>
             <p className="text-slate-500 font-medium">
               We compare frame ergonomics and stress tolerances across stroller and kids bike parameters.
