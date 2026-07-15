@@ -417,8 +417,8 @@ export default function HomeSection({
 
   const prioritizedCategoryCards = useMemo(() => {
     const englishLabelOverrides: Record<string, string> = {
-      stroller: "Stroller & Jogging Stroller",
-      balance_bike: "Balance Bike & Balance Bike Toddler",
+      stroller: "Jogging Stroller",
+      balance_bike: "Balance Bike",
       kids_bikes: "Kids Bike",
       scooters: "Kids Scooter",
     };
@@ -453,6 +453,23 @@ export default function HomeSection({
       };
     }).filter((x): x is NonNullable<typeof x> => Boolean(x));
   }, [lang]);
+
+  const strollerProducts = useMemo(() => {
+    const strollers = homeVisualProducts.filter((product) => {
+      const searchable = normalizeCategory(`${product.category || ""} ${(product as any).categoryId || ""} ${product.name}`);
+      return searchable.includes("stroller") || searchable.includes("jogger") || searchable.includes("pram") || searchable.includes("pushchair");
+    });
+    return [...strollers].sort((a, b) => (b.overallScore || 0) - (a.overallScore || 0)).slice(0, 4);
+  }, [homeVisualProducts]);
+
+  const balanceBikeProducts = useMemo(() => {
+    const balance = homeVisualProducts.filter((product) => {
+      const searchable = normalizeCategory(`${product.category || ""} ${(product as any).categoryId || ""} ${product.name}`);
+      const isBalance = searchable.includes("balance") || searchable.includes("balance_bike");
+      return isBalance;
+    });
+    return [...balance].sort((a, b) => (b.overallScore || 0) - (a.overallScore || 0)).slice(0, 4);
+  }, [homeVisualProducts]);
 
   const kidsBikeProducts = useMemo(() => {
     const bikes = homeVisualProducts.filter((product) => {
@@ -908,8 +925,34 @@ export default function HomeSection({
           </a>
         </div>
 
-        {/* Subsection A: Best Kids Bike */}
+        {/* Subsection A: Best Stroller & Jogging Stroller */}
         <div className="space-y-6">
+          <div className="border-l-4 border-orange-500 pl-4">
+            <h3 className="text-xl font-black text-slate-900 tracking-tight">Best Stroller & Jogging Stroller</h3>
+            <p className="text-slate-500 text-xs font-semibold mt-1">
+              {lang === "zh" ? "精选高端与慢跑婴儿推车，重点测评悬挂避震性能与安全带固定系统。" : "Top-rated everyday and jogging strollers. We audit shock absorption, frame rigidity, and secure harness layouts."}
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {strollerProducts.map((p, idx) => renderProductCard(p, idx))}
+          </div>
+        </div>
+
+        {/* Subsection B: Best Balance Bike */}
+        <div className="space-y-6 pt-6">
+          <div className="border-l-4 border-orange-500 pl-4">
+            <h3 className="text-xl font-black text-slate-900 tracking-tight">Best Balance Bike</h3>
+            <p className="text-slate-500 text-xs font-semibold mt-1">
+              {lang === "zh" ? "专为幼童打造的滑行平衡车测评，聚焦轮胎防滑、防侧翻限位及脚踏高度配置。" : "Safest toddler-friendly balance bikes. We test handle grips, turning limiters, and frame weights."}
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {balanceBikeProducts.map((p, idx) => renderProductCard(p, idx + 1))}
+          </div>
+        </div>
+
+        {/* Subsection C: Best Kids Bike */}
+        <div className="space-y-6 pt-6">
           <div className="border-l-4 border-orange-500 pl-4">
             <h3 className="text-xl font-black text-slate-900 tracking-tight">Best Kids Bike</h3>
             <p className="text-slate-500 text-xs font-semibold mt-1">
@@ -917,20 +960,20 @@ export default function HomeSection({
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {kidsBikeProducts.map((p, idx) => renderProductCard(p, idx))}
+            {kidsBikeProducts.map((p, idx) => renderProductCard(p, idx + 2))}
           </div>
         </div>
 
-        {/* Subsection B: Kids Scooter */}
+        {/* Subsection D: Best Kids Scooter */}
         <div className="space-y-6 pt-6">
           <div className="border-l-4 border-orange-500 pl-4">
-            <h3 className="text-xl font-black text-slate-900 tracking-tight">Kids Scooter</h3>
+            <h3 className="text-xl font-black text-slate-900 tracking-tight">Best Kids Scooter</h3>
             <p className="text-slate-500 text-xs font-semibold mt-1">
               {lang === "zh" ? "针对幼童与大童的防翻侧滑板车评测，重点聚焦重力转向及防空转安全垫片。" : "Robust safety evaluations on stability and lean-to-steer mechanisms. We audit deck strength and steering response."}
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {kidsScooterProducts.map((p, idx) => renderProductCard(p, idx + 2))}
+            {kidsScooterProducts.map((p, idx) => renderProductCard(p, idx + 3))}
           </div>
         </div>
       </section>
