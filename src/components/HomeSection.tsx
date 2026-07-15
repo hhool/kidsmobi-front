@@ -5,6 +5,10 @@ import {
   Star,
   Zap,
   ArrowRight,
+  Bike,
+  Smile,
+  Footprints,
+  Sparkles,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Product, CurrencyData } from "../types";
@@ -661,35 +665,52 @@ export default function HomeSection({
 
   return (
     <div id="home_layout" className="space-y-24 pb-20">
-      {/* 1. Slogan Banner (Brand Identity) */}
+      {/* 1. Slogan Banner (Brand Identity - Upgraded/Redesigned to Match Mockup) */}
       <section className="relative rounded-[48px] bg-white border border-slate-100 overflow-hidden p-10 sm:p-20 text-center max-w-7xl mx-auto shadow-2xl">
         <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,247,237,0.92),rgba(255,255,255,0.88)_45%,rgba(236,253,245,0.55))]"></div>
-        <div className="relative z-10 space-y-8">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-50 border border-orange-100 text-orange-600 text-[10px] font-black uppercase tracking-widest rounded-full">
+        <div className="relative z-10 space-y-10">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-50 border border-orange-100/60 text-orange-600 text-[10px] font-black uppercase tracking-widest rounded-full shadow-sm">
             <ShieldCheck className="w-4 h-4" />
             {lang === "zh" ? "全链路安全实验室审计" : "END-TO-END SAFETY AUDIT"}
           </div>
-          <h1 className="text-3xl font-black text-slate-950 tracking-tight leading-tight">
-            Expert Reviews: Jogging Stroller, Balance Bike, Kids Bike & Kids Scooter
+          
+          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight max-w-5xl mx-auto">
+            {lang === "zh" 
+              ? "专家评测：儿童自行车、平衡车、滑板车及慢跑手推车" 
+              : "Expert Reviews: Jogging Stroller, Balance Bike, Kids Bike & Kids Scooter"}
           </h1>
-          <p className="text-slate-600 text-sm max-w-2xl mx-auto leading-relaxed font-medium">
-            Access unbiased mechanical data across our lab-tested jogging stroller, balance bike, kids bike, and kids scooter database.
+          
+          <p className="text-slate-600 text-sm md:text-base max-w-3xl mx-auto leading-relaxed font-semibold">
+            {lang === "zh"
+              ? "我们将严苛的安全审计转化为父母的理性选购决策。请查阅我们中立且完全经过实验室测试的推车、平衡车、滑板车和自行车数据库，为孩子人生的下一个里程碑寻找最安全、最完美的座驾。"
+              : "We turn rigorous safety audits into parenting confidence. Access our unbiased, lab-tested data to find the ultimate jogging stroller, balance bike, kids bike, or kids scooter. Discover the safest ride for your child's next milestone."}
           </p>
-          <SeoKeywordPanel
-            variant="orange"
-            columns="four"
-            align="left"
-            className="max-w-3xl mx-auto pt-2 text-left"
-            keywords={[
-              "jogging stroller",
-              "balance bike",
-              "kids bike",
-              "kids scooter",
-            ]}
-          />
-          <div className="flex flex-wrap justify-center gap-4 pt-4">
-            {['ISO 8098', 'CPSC', 'EN 71', 'GB-14746'].map(cert => (
-              <span key={cert} className="px-4 py-2 bg-white/80 border border-slate-200 rounded-xl text-[10px] font-bold text-slate-500 uppercase tracking-widest shadow-sm">{cert}</span>
+
+          <div className="pt-4 pb-2">
+            <button
+              onClick={() => setActiveTab("guides")}
+              className="inline-flex items-center gap-3 px-10 py-5 bg-linear-to-r from-orange-500 via-orange-500 to-amber-500 text-white text-xs md:text-sm font-black uppercase tracking-widest rounded-full shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer group"
+            >
+              <Zap className="w-4 h-4 text-white fill-white animate-pulse" />
+              {lang === "zh" ? "三步开启您的智能选购" : "FIND YOUR PERFECT RIDE IN 3 STEPS"}
+            </button>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-4 pt-4 border-t border-slate-50">
+            {[
+              { id: "stroller", label: lang === "zh" ? "慢跑推车" : "JOGGING STROLLER", icon: Footprints },
+              { id: "balance_bike", label: lang === "zh" ? "平衡车" : "BALANCE BIKE", icon: Smile },
+              { id: "kids_bikes", label: lang === "zh" ? "儿童自行车" : "KIDS BIKE", icon: Bike },
+              { id: "scooters", label: lang === "zh" ? "儿童滑板车" : "KIDS SCOOTER", icon: Sparkles },
+            ].map((item) => (
+              <button
+                key={item.id}
+                onClick={() => onSelectCategory(item.id)}
+                className="inline-flex items-center gap-2 px-6 py-2.5 bg-white hover:bg-orange-50/50 border border-orange-200/80 rounded-full text-[11px] font-black tracking-widest text-orange-800 uppercase shadow-sm hover:border-orange-300 transition-all cursor-pointer group"
+              >
+                <item.icon className="w-4 h-4 text-orange-500 group-hover:scale-110 transition-transform" />
+                <span>{item.label}</span>
+              </button>
             ))}
           </div>
         </div>
