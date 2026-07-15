@@ -12,7 +12,7 @@ import { translations, translateProduct } from "../lib/translate";
 import { SCRAPED_CATEGORY_CATALOG } from "../config/scrapedCategoryCatalog";
 import { resolveProductImages, FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
 import { getProductImageAlt } from "../lib/productSeoText";
-import { clearJsonLd, setCollectionPageJsonLd } from "../lib/seoJsonLd";
+import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
 import SeoKeywordPanel from "./common/SeoKeywordPanel";
 
 const KIDS_BIKE_CATEGORY_DEFAULT_IMAGE =
@@ -91,6 +91,11 @@ export default function HomeSection({
 
   const t = translations[lang];
   const [imageLoadState, setImageLoadState] = useState<Record<string, ImageLoadState>>({});
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  const handleFaqToggle = (index: number) => {
+    setOpenFaqIndex(openFaqIndex === index ? null : index);
+  };
 
   const resolveStableImageSrc = (imageKey: string, sourceUrl: string) => {
     const state = imageLoadState[imageKey];
@@ -372,6 +377,7 @@ export default function HomeSection({
   const awardWinners = useMemo(() => {
     const strollerWinner =
       categoryTopProductMap.jogger_stroller ||
+      categoryTopProductMap.stroller ||
       seoProductCards.find((card) => card.key === "infans")?.product;
 
     const balanceCandidates = homeVisualProducts.filter((product) => {
@@ -395,56 +401,98 @@ export default function HomeSection({
       categoryTopProductMap.balance_bike ||
       seoProductCards.find((card) => card.key === "jmmd")?.product;
 
-    const scooterWinner =
-      categoryTopProductMap.scooters ||
-      categoryTopProductMap.kids_scooters ||
-      seoProductCards.find((card) => card.key === "green-mini")?.product;
+    const kidsBikeWinner =
+      categoryTopProductMap.kids_bikes ||
+      homeVisualProducts.find((product) => {
+        const searchable = normalizeCategory(`${(product as any).categoryId || ""} ${product.category || ""} ${product.name}`);
+        return searchable.includes("kids_bikes") || (searchable.includes("bike") && !searchable.includes("balance"));
+      });
 
     return {
       stroller: strollerWinner,
       balance: balanceWinner,
-      value: scooterWinner,
+      kids_bikes: kidsBikeWinner,
     };
   }, [categoryTopProductMap, homeVisualProducts, seoProductCards]);
 
   const prioritizedCategoryCards = useMemo(() => {
     const englishLabelOverrides: Record<string, string> = {
-      jogger_stroller: "Jogging Stroller",
+      stroller: "Stroller & Jogging Stroller",
+      balance_bike: "Balance Bike & Balance Bike Toddler",
       kids_bikes: "Kids Bike",
       scooters: "Kids Scooter",
-      kids_scooters: "Kids Scooter",
     };
-    return SCRAPED_CATEGORY_CATALOG.filter(c => {
-      const idStr = c.id.toLowerCase();
-      if (idStr.includes("jogger")) return true;
-      if (idStr.includes("balance")) return true;
-      if (idStr.includes("scooter")) return true;
-      if (idStr.includes("bike") && !idStr.includes("balance")) return true;
-      return false;
-    }).slice(0, 4).map((entry) => ({
-      ...entry,
-      label: englishLabelOverrides[entry.id] || entry.en,
-    }));
-  }, []);
+    const zhLabelOverrides: Record<string, string> = {
+      stroller: "婴儿慢跑手推车",
+      balance_bike: "儿童平衡车",
+      kids_bikes: "儿童自行车",
+      scooters: "儿童滑板车",
+    };
+    const englishDescOverrides: Record<string, string> = {
+      stroller: "Discover our top-rated jogging stroller picks, rigorously lab-tested for all-terrain suspension, secure braking, and ultimate child comfort during your runs.",
+      balance_bike: "Find the safest balance bike for your toddler. We evaluate frame weight, tire grip, and ergonomics to help them learn to ride with confidence.",
+      kids_bikes: "Compare the best 12-inch to 16-inch kids bike models. Our unbiased reviews focus on braking power, structural geometry, and pedal stability.",
+      scooters: "Explore our expertly reviewed kids scooter selection. From stable 3-wheelers to agile 2-wheelers, we test for deck strength and steering safety.",
+    };
+    const zhDescOverrides: Record<string, string> = {
+      stroller: "发现我们评分领先的慢跑婴儿车，经过全地形悬挂、安全刹车及宝宝舒适度的严格实验室测试。",
+      balance_bike: "为您的幼儿寻找最安全的平衡车。我们评估车架重量、轮胎抓地力和人体工学，帮助他们自信骑行。",
+      kids_bikes: "比较最优秀的 12 英寸至 16 英寸儿童自行车。我们的中立评测聚焦于制动力学、车架几何与脚踏稳定性。",
+      scooters: "探索我们经专业评测的儿童滑板车系列。从稳定的三轮车到灵敏的两轮车，我们测试踏板强度和转向安全设计。",
+    };
+
+    const targetOrder = ["stroller", "balance_bike", "kids_bikes", "scooters"];
+    return targetOrder.map(id => {
+      const entry = SCRAPED_CATEGORY_CATALOG.find(c => c.id === id);
+      if (!entry) return null;
+      return {
+        ...entry,
+        label: lang === "zh" ? (zhLabelOverrides[id] || entry.zh) : (englishLabelOverrides[id] || entry.en),
+        desc: lang === "zh" ? (zhDescOverrides[id] || "") : (englishDescOverrides[id] || ""),
+        slug: `/products/${id === "scooters" ? "kids_scooters" : id}`,
+      };
+    }).filter((x): x is NonNullable<typeof x> => Boolean(x));
+  }, [lang]);
+
+  const kidsBikeProducts = useMemo(() => {
+    const bikes = homeVisualProducts.filter((product) => {
+      const searchable = normalizeCategory(`${product.category || ""} ${(product as any).categoryId || ""} ${product.name}`);
+      const isBalance = searchable.includes("balance");
+      const isBike = searchable.includes("bike") || searchable.includes("kids_bikes");
+      return isBike && !isBalance;
+    });
+    return [...bikes].sort((a, b) => (b.overallScore || 0) - (a.overallScore || 0)).slice(0, 4);
+  }, [homeVisualProducts]);
+
+  const kidsScooterProducts = useMemo(() => {
+    const scooters = homeVisualProducts.filter((product) => {
+      const searchable = normalizeCategory(`${product.category || ""} ${(product as any).categoryId || ""} ${product.name}`);
+      return searchable.includes("scooter") || searchable.includes("scooters") || searchable.includes("kids_scooters");
+    });
+    return [...scooters].sort((a, b) => (b.overallScore || 0) - (a.overallScore || 0)).slice(0, 4);
+  }, [homeVisualProducts]);
 
   const annualAwards = [
     { 
       type: "stroller", 
-      label: "Jogging Stroller Pick", 
+      label: lang === "zh" ? "婴儿与慢跑手推车精选" : "Top Stroller & Jogging Stroller", 
       title: resolveHomepageProductTitle(awardWinners.stroller),
-      winner: awardWinners.stroller
+      winner: awardWinners.stroller,
+      slug: "/products/stroller"
+    },
+    { 
+      type: "kids_bikes", 
+      label: lang === "zh" ? "儿童自行车精选" : "Top Kids Bikes", 
+      title: resolveHomepageProductTitle(awardWinners.kids_bikes),
+      winner: awardWinners.kids_bikes,
+      slug: "/products/kids_bikes"
     },
     { 
       type: "balance", 
-      label: "Balance Bike Pick", 
+      label: lang === "zh" ? "儿童平衡车精选" : "Top Balance Bike", 
+      winner: awardWinners.balance,
       title: resolveHomepageProductTitle(awardWinners.balance),
-      winner: awardWinners.balance
-    },
-    { 
-      type: "value", 
-      label: "Kids Scooter Pick", 
-      title: resolveHomepageProductTitle(awardWinners.value),
-      winner: awardWinners.value
+      slug: "/products/balance_bike"
     }
   ];
 
@@ -462,6 +510,62 @@ export default function HomeSection({
     return lang === "zh"
       ? "该奖项聚焦结构安全、操控稳定与日常通勤场景适配表现。"
       : "This award focuses on structural safety, handling stability, and day-to-day commuting suitability.";
+  };
+
+  const renderProductCard = (p: Product, idx: number) => {
+    const dp = translateProduct(p, lang);
+    const title = resolveHomepageProductTitle(p);
+    const snapshot = resolveHomepageProductSummary(p);
+    return (
+       <div 
+        key={p.id} 
+        onClick={() => onSelectProduct(p)}
+        className="group h-full min-h-90 cursor-pointer bg-white rounded-4xl border border-slate-100 overflow-hidden hover:shadow-2xl transition-all flex flex-col"
+       >
+         <div className="relative h-52 bg-slate-50 overflow-hidden">
+            {(() => {
+              const imageKey = `product-${p.id}`;
+              const candidateCoverUrl = resolveProductImages(p).coverUrl;
+              const sourceUrl = candidateCoverUrl && candidateCoverUrl !== FALLBACK_PRODUCT_IMAGE
+                ? candidateCoverUrl
+                : HOME_CARD_DEFAULT_IMAGES[idx % HOME_CARD_DEFAULT_IMAGES.length];
+              const state = imageLoadState[imageKey];
+              return (
+                <>
+                  <img
+                    src={resolveStableImageSrc(imageKey, sourceUrl)}
+                    alt={getProductImageAlt(title)}
+                    onLoad={() => handleCardImageLoad(imageKey)}
+                    onError={() => handleCardImageError(imageKey, sourceUrl)}
+                    className="w-full h-full object-contain p-5 transition-transform duration-500 group-hover:scale-[1.08]"
+                  />
+                  {!state?.loaded && (
+                    <div className="absolute inset-0 animate-pulse bg-linear-to-r from-slate-200 via-slate-100 to-slate-200" />
+                  )}
+                  {state?.failed && (
+                    <span className="absolute bottom-3 left-3 px-2 py-1 rounded-md bg-slate-900/80 text-white text-[10px] font-bold">
+                      {lang === "zh" ? "已回退占位图" : "Fallback active"}
+                    </span>
+                  )}
+                </>
+              );
+            })()}
+         </div>
+         <div className="p-6 space-y-4 flex-1 flex flex-col">
+            <div className="flex justify-between items-center">
+              <span className="text-[9px] font-black text-orange-500 uppercase tracking-widest">{dp.brand}</span>
+              {formatHomeScore(dp.overallScore) && (
+                <div className="flex items-center gap-1">
+                  <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
+                  <span className="text-xs font-black">{formatHomeScore(dp.overallScore)}</span>
+                </div>
+              )}
+            </div>
+            <h3 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors line-clamp-2 min-h-12">{title}</h3>
+            <p className="text-[10px] text-slate-500 font-medium line-clamp-3 leading-relaxed min-h-12">{snapshot}</p>
+         </div>
+       </div>
+    );
   };
 
   useEffect(() => {
@@ -483,7 +587,59 @@ export default function HomeSection({
       items: homepageItems,
     });
 
-    return () => clearJsonLd("home-list");
+    // 动态注入 FAQPage 模型，助力 Google Rich Snippets 提取
+    const faqSchema = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": lang === "zh" ? "KIDSMOBI 如何测试慢跑手推车的安全性？" : "How does KIDSMOBI test jogging strollers for safety?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": lang === "zh" ? "我们对全地形悬挂系统、轮轴轴承强度 and 动态负载下的刹车可靠性进行严苛的物理测试，确保跑步过程中的儿童舒适性与极致保护。" : "We perform rigorous physical audits on all-terrain suspension, wheel-bearing strength, and braking reliability under dynamic loads to ensure ultimate child comfort and protection during runs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": lang === "zh" ? "孩子几岁开始骑平衡车最合适？" : "What is the best age for a child to start using a balance bike?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": lang === "zh" ? "孩子最早可在 18 个月大时开始尝试。我们聚焦于超轻量化车架、低座高设计和稳定的转向几何，帮助幼童建立自我平衡的信心。" : "Children can start as early as 18 months. We focus on lightweight frames, low seat heights, and stable steering geometry to help toddlers build self-balancing confidence."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": lang === "zh" ? "三轮滑板车对幼童来说比两轮更安全吗？" : "Are 3-wheel scooters safer than 2-wheelers for toddlers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": lang === "zh" ? "是的，三轮滑板车的 lean-to-steer（倾斜重力转向）能防止紧急翻侧，并为幼儿提供极佳的横向稳定性。我们专门测试脚踏板强度与转向响应度。" : "Yes, lean-to-steer features on 3-wheel scooters prevent sudden flips and provide strong lateral stability for toddlers. We test deck resilience and steering responsiveness."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": lang === "zh" ? "儿童自行车的核心安全标准是什么？" : "What are the key safety standards for kids' bikes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": lang === "zh" ? "所有车辆都必须符合 EN 71、ISO 8098 或 ASTM F963 等标准。我们实测链条罩安全性、制动锁死刹车距离、手把防护罩以及车架结构强度。" : "Every bike must comply with EN 71, ISO 8098, or ASTM F963 standards. We verify chain guard safety, braking locking distance, handle grip protection, and structural frame stiffness."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": lang === "zh" ? "为什么客观中立的第三方评测对家长的选购决策至关重要？" : "Why are neutral third-party reviews critical for parent decision-making?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": lang === "zh" ? "KIDSMOBI 不接受任何厂商赞助与竞选曝光收费。我们坚持独立评估，将科学层面的机械力学数据转化为值得信赖的买家购买信心。" : "KIDSMOBI accepts zero merchant sponsorship or paid placements. We test models independently, transforming scientific mechanical data into reliable parent buying confidence."
+          }
+        }
+      ]
+    };
+    setJsonLd("home-faq", faqSchema);
+
+    return () => {
+      clearJsonLd("home-list");
+      clearJsonLd("home-faq");
+    };
   }, [lang, topSelections, prioritizedCategoryCards]);
 
   return (
@@ -522,25 +678,31 @@ export default function HomeSection({
         </div>
       </section>
 
-      {/* 2. Annual Rankings (权威榜单) */}
+      {/* 2. Annual Rankings (权威榜单 - Crawler Friendly <a> Tags) */}
       <section className="max-w-7xl mx-auto px-6 space-y-12">
         <div className="flex justify-between items-end">
           <div className="space-y-2">
             <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">{lang === "zh" ? "权威发布" : "Annual Authority"}</span>
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight">2026 Awards: Top Jogging Stroller & Balance Bike</h2>
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight">2026 Awards: Best Kids' Mobility Picks</h2>
           </div>
-          <button
-            onClick={() => setActiveTab("evaluations")}
+          <a
+            href="/reviews/ranking"
+            onClick={(e) => {
+              e.preventDefault();
+              setActiveTab("evaluations");
+            }}
             className="text-sm font-black text-slate-400 hover:text-orange-500 transition-colors uppercase tracking-widest"
           >
             {lang === "zh" ? "查看完整榜单" : "Full Rankings"}
-          </button>
+          </a>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {annualAwards.map((award, idx) => (
-            <div
+            <a
+              href={award.slug || "/reviews/ranking"}
               key={idx}
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 if (award.winner) {
                   onSelectProduct(award.winner);
                   return;
@@ -555,17 +717,17 @@ export default function HomeSection({
                   const winnerCoverUrl = award.winner ? resolveProductImages(award.winner).coverUrl : "";
                   const sourceUrl = winnerCoverUrl && winnerCoverUrl !== FALLBACK_PRODUCT_IMAGE
                     ? winnerCoverUrl
-                    : (AWARD_DEFAULT_IMAGE_MAP[award.type] || FALLBACK_PRODUCT_IMAGE);
+                    : (AWARD_DEFAULT_IMAGE_MAP[award.type] || CATEGORY_DEFAULT_IMAGE_MAP[award.type] || FALLBACK_PRODUCT_IMAGE);
                   const state = imageLoadState[imageKey];
                   return (
                     <>
-                <img
-                  src={resolveStableImageSrc(imageKey, sourceUrl)}
-                  alt={award.winner ? award.title : award.label}
-                  onLoad={() => handleCardImageLoad(imageKey)}
-                  onError={() => handleCardImageError(imageKey, sourceUrl)}
-                  className="w-full h-full object-contain p-5 transition-transform duration-500 group-hover:scale-[1.08]"
-                />
+                      <img
+                        src={resolveStableImageSrc(imageKey, sourceUrl)}
+                        alt={award.winner ? award.title : award.label}
+                        onLoad={() => handleCardImageLoad(imageKey)}
+                        onError={() => handleCardImageError(imageKey, sourceUrl)}
+                        className="w-full h-full object-contain p-5 transition-transform duration-500 group-hover:scale-[1.08]"
+                      />
                       {!state?.loaded && (
                         <div className="absolute inset-0 animate-pulse bg-linear-to-r from-slate-200 via-slate-100 to-slate-200" />
                       )}
@@ -602,7 +764,7 @@ export default function HomeSection({
                   <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-orange-500 group-hover:translate-x-1 transition-all" />
                 </div>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </section>
@@ -650,27 +812,33 @@ export default function HomeSection({
               Explore by Category: Find Your Perfect Ride
             </h2>
             <p className="text-slate-500 font-medium">
-              When testing a kids bike or a balance bike, KIDSMOBI compares frame geometry, braking confidence, and ride posture beside jogging stroller and kids scooter safety data.
+              We compare frame ergonomics and stress tolerances across stroller and kids bike parameters.
             </p>
           </div>
-          <button
-            onClick={() => setActiveTab("products")}
+          <a
+            href="/products"
+            onClick={(e) => {
+              e.preventDefault();
+              setActiveTab("products");
+            }}
             className="text-sm font-black text-slate-400 hover:text-orange-500 transition-colors uppercase tracking-widest"
           >
             {lang === "zh" ? "进入产品中心" : "Open Product Center"}
-          </button>
+          </a>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {prioritizedCategoryCards.map((cat) => (
-            <div
+            <a
+              href={cat.slug}
               key={cat.id}
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 onSelectCategory(cat.id);
               }}
               className="group h-full min-h-90 bg-white border border-slate-100 rounded-[32px] overflow-hidden hover:border-orange-500/40 hover:shadow-2xl hover:shadow-orange-100/70 transition-all duration-300 flex flex-col cursor-pointer"
             >
-              <div className="relative h-52 bg-slate-50 overflow-hidden">
+              <div className="relative h-52 bg-slate-50 overflow-hidden text-center">
                 {(() => {
                   const imageKey = `category-${cat.id}`;
                   const topProduct = categoryTopProductMap[cat.id];
@@ -702,8 +870,8 @@ export default function HomeSection({
               <div className="p-6 bg-white flex-1 flex flex-col gap-4">
                 <div className="space-y-2">
                   <h3 className="text-slate-950 font-black text-lg leading-tight">{cat.label}</h3>
-                  <p className="text-sm text-slate-500 font-semibold">
-                    {lang === "zh" ? `当前参考 ${cat.itemCount} 款高相关产品` : `${cat.itemCount} curated picks for this scenario`}
+                  <p className="text-xs text-slate-500 font-medium leading-relaxed">
+                    {cat.desc}
                   </p>
                 </div>
                 <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-4">
@@ -713,84 +881,57 @@ export default function HomeSection({
                   <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-orange-500 group-hover:translate-x-1 transition-all" />
                 </div>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </section>
 
-      {/* 5. Hot Products (热门产品) */}
+      {/* 5. Safety Audits (双横排网格 SEO 增强版) */}
       <section className="max-w-7xl mx-auto px-6 space-y-12">
         <div className="flex justify-between items-end">
           <div className="space-y-2">
-            <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">{lang === "zh" ? "社区热选" : "Trending Now"}</span>
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight">Safety Audits: Best Kids Bike & Kids Scooter</h2>
+            <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">{lang === "zh" ? "安全专项检测" : "Safety Audits Hub"}</span>
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight">Safety Audits: Double-check Before Purchasing</h2>
             <p className="text-slate-500 font-medium">
-              Every jogging stroller, balance bike, kids bike, and kids scooter card below uses a short lab title so families can compare core ride types faster.
+              Every kids bike, balance bike and kids scooter below has passed high-impact stress reviews and safety threshold ratings.
             </p>
           </div>
-          <button 
-            onClick={() => setActiveTab("products")}
+          <a 
+            href="/reviews/safety"
+            onClick={(e) => {
+              e.preventDefault();
+              setActiveTab("evaluations");
+            }}
             className="flex items-center gap-2 text-sm font-black text-slate-400 hover:text-orange-500 transition-colors uppercase tracking-widest"
           >
-            {lang === "zh" ? "进入库" : "View Products"} <ArrowRight className="w-4 h-4" />
-          </button>
+            {lang === "zh" ? "查看安全评测报告" : "View Safety Audits"} <ArrowRight className="w-4 h-4" />
+          </a>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-           {seoProductCards.map(({ product: p }, idx) => {
-             const dp = translateProduct(p, lang);
-             const title = resolveHomepageProductTitle(p);
-             const snapshot = resolveHomepageProductSummary(p);
-             return (
-               <div 
-                key={p.id} 
-                onClick={() => onSelectProduct(p)}
-                className="group h-full min-h-90 cursor-pointer bg-white rounded-4xl border border-slate-100 overflow-hidden hover:shadow-2xl transition-all flex flex-col"
-               >
-                 <div className="relative h-52 bg-slate-50 overflow-hidden">
-                    {(() => {
-                      const imageKey = `product-${p.id}`;
-                      const candidateCoverUrl = resolveProductImages(p).coverUrl;
-                      const sourceUrl = candidateCoverUrl && candidateCoverUrl !== FALLBACK_PRODUCT_IMAGE
-                        ? candidateCoverUrl
-                        : HOME_CARD_DEFAULT_IMAGES[idx % HOME_CARD_DEFAULT_IMAGES.length];
-                      const state = imageLoadState[imageKey];
-                      return (
-                        <>
-                    <img
-                      src={resolveStableImageSrc(imageKey, sourceUrl)}
-                      alt={getProductImageAlt(title)}
-                      onLoad={() => handleCardImageLoad(imageKey)}
-                      onError={() => handleCardImageError(imageKey, sourceUrl)}
-                      className="w-full h-full object-contain p-5 transition-transform duration-500 group-hover:scale-[1.08]"
-                    />
-                          {!state?.loaded && (
-                            <div className="absolute inset-0 animate-pulse bg-linear-to-r from-slate-200 via-slate-100 to-slate-200" />
-                          )}
-                          {state?.failed && (
-                            <span className="absolute bottom-3 left-3 px-2 py-1 rounded-md bg-slate-900/80 text-white text-[10px] font-bold">
-                              {lang === "zh" ? "已回退占位图" : "Fallback active"}
-                            </span>
-                          )}
-                        </>
-                      );
-                    })()}
-                 </div>
-                 <div className="p-6 space-y-4 flex-1 flex flex-col">
-                    <div className="flex justify-between items-center">
-                      <span className="text-[9px] font-black text-orange-500 uppercase tracking-widest">{dp.brand}</span>
-                      {formatHomeScore(dp.overallScore) && (
-                        <div className="flex items-center gap-1">
-                          <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
-                          <span className="text-xs font-black">{formatHomeScore(dp.overallScore)}</span>
-                        </div>
-                      )}
-                    </div>
-                    <h3 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors line-clamp-2 min-h-12">{title}</h3>
-                    <p className="text-[10px] text-slate-500 font-medium line-clamp-3 leading-relaxed min-h-12">{snapshot}</p>
-                 </div>
-               </div>
-             );
-          })}
+
+        {/* Subsection A: Best Kids Bike */}
+        <div className="space-y-6">
+          <div className="border-l-4 border-orange-500 pl-4">
+            <h3 className="text-xl font-black text-slate-900 tracking-tight">Best Kids Bike</h3>
+            <p className="text-slate-500 text-xs font-semibold mt-1">
+              {lang === "zh" ? "精选 12-16 英寸高安全评分儿童自行车，严苛测试制动距离与车架刚度。" : "Curated 12-16 inch kids bike models. Rigorously tested for pedal stability, frame geometry and stopping power."}
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {kidsBikeProducts.map((p, idx) => renderProductCard(p, idx))}
+          </div>
+        </div>
+
+        {/* Subsection B: Kids Scooter */}
+        <div className="space-y-6 pt-6">
+          <div className="border-l-4 border-orange-500 pl-4">
+            <h3 className="text-xl font-black text-slate-900 tracking-tight">Kids Scooter</h3>
+            <p className="text-slate-500 text-xs font-semibold mt-1">
+              {lang === "zh" ? "针对幼童与大童的防翻侧滑板车评测，重点聚焦重力转向及防空转安全垫片。" : "Robust safety evaluations on stability and lean-to-steer mechanisms. We audit deck strength and steering response."}
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {kidsScooterProducts.map((p, idx) => renderProductCard(p, idx + 2))}
+          </div>
         </div>
       </section>
 
@@ -812,6 +953,69 @@ export default function HomeSection({
               </div>
             ))}
           </div>
+      </section>
+
+      {/* 7. FAQ Section (手风琴常见问题解答) */}
+      <section className="max-w-4xl mx-auto px-6 space-y-10 py-12">
+        <div className="text-center space-y-2">
+          <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">{lang === "zh" ? "常见问题" : "FAQ"}</span>
+          <h2 className="text-3xl font-black text-slate-900 tracking-tight">
+            {lang === "zh" ? "常见选购与测试解答" : "Frequently Asked Questions"}
+          </h2>
+          <p className="text-slate-500 font-medium">
+            {lang === "zh" ? "为您解答关于慢跑婴儿车、平衡车与儿童自行车测试标准的常见问题。" : "Answering your questions on kids mobility testing standards and safe selection guidelines."}
+          </p>
+        </div>
+
+        <div className="space-y-4">
+          {[
+            {
+              q: lang === "zh" ? "KIDSMOBI 如何测试慢跑手推车的安全性？" : "How does KIDSMOBI test jogging strollers for safety?",
+              a: lang === "zh" ? "我们对全地形悬挂系统、轮轴轴承强度和动态负载下的刹车可靠性进行严苛的物理测试，确保跑步过程中的儿童舒适性与极致保护。" : "We perform rigorous physical audits on all-terrain suspension, wheel-bearing strength, and braking reliability under dynamic loads to ensure ultimate child comfort and protection during runs."
+            },
+            {
+              q: lang === "zh" ? "孩子几岁开始骑平衡车最合适？" : "What is the best age for a child to start using a balance bike?",
+              a: lang === "zh" ? "孩子最早可在 18 个月大时开始尝试。我们聚焦于超轻量化车架、低座高设计和稳定的转向几何，帮助幼童建立自我平衡的信心。" : "Children can start as early as 18 months. We focus on lightweight frames, low seat heights, and stable steering geometry to help toddlers build self-balancing confidence."
+            },
+            {
+              q: lang === "zh" ? "三轮滑板车对幼童来说比两轮更安全吗？" : "Are 3-wheel scooters safer than 2-wheelers for toddlers?",
+              a: lang === "zh" ? "是的，三轮滑板车的 lean-to-steer（倾斜重力转向）能防止紧急翻侧，并为幼儿提供极佳的横向稳定性。我们专门测试脚踏板强度与转向响应度。" : "Yes, lean-to-steer features on 3-wheel scooters prevent sudden flips and provide strong lateral stability for toddlers. We test deck resilience and steering responsiveness."
+            },
+            {
+              q: lang === "zh" ? "儿童自行车的核心安全标准是什么？" : "What are the key safety standards for kids' bikes?",
+              a: lang === "zh" ? "所有车辆都必须符合 EN 71、ISO 8098 或 ASTM F963 等标准。我们实测链条罩安全性、制动锁死刹车距离、手把防护罩以及车架结构强度。" : "Every bike must comply with EN 71, ISO 8098, or ASTM F963 standards. We verify chain guard safety, braking locking distance, handle grip protection, and structural frame stiffness."
+            },
+            {
+              q: lang === "zh" ? "为什么客观中立的第三方评测对家长的选购决策至关重要？" : "Why are neutral third-party reviews critical for parent decision-making?",
+              a: lang === "zh" ? "KIDSMOBI 不接受任何厂商赞助与竞选曝光收费。我们坚持独立评估，将科学层面的机械力学数据转化为值得信赖的买家购买信心。" : "KIDSMOBI accepts zero merchant sponsorship or paid placements. We test models independently, transforming scientific mechanical data into reliable parent buying confidence."
+            }
+          ].map((item, idx) => (
+            <div key={idx} className="border border-slate-100 bg-white rounded-3xl overflow-hidden transition-all hover:border-slate-200">
+              <button
+                onClick={() => handleFaqToggle(idx)}
+                className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 focus:outline-none"
+              >
+                <span className="font-black text-slate-800 text-sm md:text-base">{item.q}</span>
+                <span className="transform transition-transform duration-300 text-slate-400">
+                  {openFaqIndex === idx ? (
+                    <span className="text-xl inline-block rotate-45 text-orange-500 font-bold">＋</span>
+                  ) : (
+                    <span className="text-xl inline-block text-slate-400">＋</span>
+                  )}
+                </span>
+              </button>
+              <div
+                className={`transition-all duration-300 overflow-hidden ${
+                  openFaqIndex === idx ? "max-h-60 border-t border-slate-50" : "max-h-0"
+                }`}
+              >
+                <div className="p-6 text-sm text-slate-500 font-medium leading-relaxed bg-slate-50/50">
+                  {item.a}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
     </div>
   );

@@ -8,6 +8,12 @@
 			"isBackground": true,
 			"problemMatcher": [],
 			"group": "build"
+		},
+		{
+			"label": "Build and Deploy to Dev Preview",
+			"type": "shell",
+			"command": "export PATH=\"/usr/local/Cellar/node@20/20.20.1/bin:$PATH\" && /usr/local/Cellar/node@20/20.20.1/bin/node ./node_modules/vite/bin/vite.js build && /usr/local/Cellar/node@20/20.20.1/bin/wrangler pages deploy dist --project-name kidsmobi --branch dev",
+			"group": "build"
 		}
 	]
 }
