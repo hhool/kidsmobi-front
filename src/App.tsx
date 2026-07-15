@@ -78,7 +78,12 @@ const SEO_KEY_TO_PAGE_TYPE: Record<string, CMSPageConfig["pageType"]> = {
 let defaultProductsDataPromise: Promise<Product[]> | null = null;
 
 function loadDefaultProductsData() {
-  defaultProductsDataPromise ??= import("./data/modelsData").then(({ productsData }) => productsData);
+  defaultProductsDataPromise ??= import("./data/modelsData").then(({ productsData }) => {
+    return productsData.map((product) => ({
+      ...product,
+      status: String((product as any)?.status || "published").trim().toLowerCase() || "published",
+    }));
+  });
   return defaultProductsDataPromise;
 }
 
@@ -229,11 +234,25 @@ const mergeDuplicateProductRecords = (previous: Product, incoming: Product): Pro
   const previousEn = (previous as any).en || {};
   const incomingZh = (incoming as any).zh || {};
   const incomingEn = (incoming as any).en || {};
+  const mergedCategoryId = choosePreferredText(
+    (incoming as any)?.categoryId,
+    (previous as any)?.categoryId,
+    incoming.category,
+    previous.category,
+  ).toLowerCase();
+  const mergedCategory = choosePreferredText(
+    incoming.category,
+    previous.category,
+    (incoming as any)?.categoryId,
+    (previous as any)?.categoryId,
+  ).toLowerCase();
 
   return {
     ...incoming,
     ...previous,
     id: previous.id || incoming.id,
+    categoryId: mergedCategoryId || undefined,
+    category: mergedCategory as any,
     name,
     description: choosePreferredText(previous.description, previousZh.description, incoming.description, incomingZh.description),
     customers_say: choosePreferredText(previous.customers_say, previousZh.customersSay, incoming.customers_say, incomingZh.customersSay),
@@ -277,18 +296,29 @@ const findLatestProductMatch = (products: Product[], item: Product) => {
 const mergeBatchProductsIntoBase = (baseProducts: Product[], batchProducts: Product[]) => {
   if (!batchProducts.length) return baseProducts;
 
+  const isPublishedStatus = (product: Product) => {
+    return String((product as any)?.status || "").trim().toLowerCase() === "published";
+  };
+
   const mergedById = new Map(baseProducts.map(product => [product.id, product]));
   const idByMergeKey = new Map(baseProducts.map(product => [resolveProductMergeKey(product), product.id]));
   for (const product of batchProducts) {
     const mergeKey = resolveProductMergeKey(product);
     const previousId = idByMergeKey.get(mergeKey);
-    if (previousId && previousId !== product.id) {
+    if (previousId) {
       const previousProduct = mergedById.get(previousId);
-      mergedById.set(previousId, previousProduct ? mergeDuplicateProductRecords(previousProduct, product) : product);
+      if (previousProduct) {
+        mergedById.set(previousId, mergeDuplicateProductRecords(previousProduct, product));
+      } else if (isPublishedStatus(product)) {
+        mergedById.set(previousId, product);
+      }
+      idByMergeKey.set(mergeKey, previousId);
     } else {
-      mergedById.set(product.id, product);
+      if (isPublishedStatus(product)) {
+        mergedById.set(product.id, product);
+        idByMergeKey.set(mergeKey, product.id);
+      }
     }
-    idByMergeKey.set(mergeKey, product.id);
   }
   return Array.from(mergedById.values());
 };
@@ -347,7 +377,7 @@ const dedupeProductsForDisplay = (products: Product[]) => {
       byKey.set(key, item);
       continue;
     }
-    byKey.set(key, mergeProductsByPriority(existing, item));
+    byKey.set(key, mergeDuplicateProductRecords(existing, item));
   }
 
   return Array.from(byKey.values());
@@ -916,10 +946,32 @@ export default function App() {
           );
         }
 
-        setProductsData(enforcePublishedVisibility(applyBatchProducts(nextProducts)));
+        const withBatch = applyBatchProducts(nextProducts);
+        const finalProducts = enforcePublishedVisibility(withBatch);
+        setProductsData(finalProducts);
       } else {
-        // Strict published-only visibility mode for frontend users.
-        setProductsData([]);
+        try {
+          const bundle = await fetchContentBundle();
+          if (!isActive) return;
+          if (bundle.products && bundle.products.length > 0) {
+            const withBatch = applyBatchProducts(bundle.products);
+            const finalProducts = enforcePublishedVisibility(withBatch);
+            setProductsData(finalProducts);
+          } else {
+            const defaultProducts = await loadDefaultProductsData();
+            if (!isActive) return;
+            const withBatch = applyBatchProducts(defaultProducts);
+            const finalProducts = enforcePublishedVisibility(withBatch);
+            setProductsData(finalProducts);
+          }
+        } catch {
+          if (!isActive) return;
+          const defaultProducts = await loadDefaultProductsData();
+          if (!isActive) return;
+          const withBatch = applyBatchProducts(defaultProducts);
+          const finalProducts = enforcePublishedVisibility(withBatch);
+          setProductsData(finalProducts);
+        }
       }
 
       const evs = await getCMSEvaluations(true);
@@ -929,31 +981,6 @@ export default function App() {
 
     const fetchData = async () => {
       if (!isScrapedContentSource()) {
-        const host = window.location.hostname.toLowerCase();
-        const isLocalHost = host === "localhost" || host === "127.0.0.1" || host === "::1";
-        const hasExplicitCmsBase = Boolean(
-          String(import.meta.env.VITE_CMS_API_BASE_URL || import.meta.env.VITE_CMS_BACKEND_BASE_URL || "").trim()
-        );
-
-        if (!isLocalHost && !hasExplicitCmsBase) {
-          try {
-            const bundle = await fetchContentBundle();
-            if (!isActive) return;
-            if (bundle.settings) {
-              setCmsSettings(bundle.settings);
-            }
-            if (bundle.products && bundle.products.length > 0) {
-              setProductsData(enforcePublishedVisibility(applyBatchProducts(bundle.products)));
-            }
-            if (bundle.evaluations && bundle.evaluations.length > 0) {
-              setEvaluationsData(bundle.evaluations);
-            }
-          } catch (bundleErr) {
-            console.error("Fallback content bundle load failed:", bundleErr);
-          }
-          return;
-        }
-
         try {
           await loadCmsData();
         } catch (err) {
@@ -965,7 +992,9 @@ export default function App() {
               setCmsSettings(bundle.settings);
             }
             if (bundle.products && bundle.products.length > 0) {
-              setProductsData(enforcePublishedVisibility(applyBatchProducts(bundle.products)));
+              const withBatch = applyBatchProducts(bundle.products);
+              const finalProducts = enforcePublishedVisibility(withBatch);
+              setProductsData(finalProducts);
             }
             if (bundle.evaluations && bundle.evaluations.length > 0) {
               setEvaluationsData(bundle.evaluations);
@@ -983,7 +1012,9 @@ export default function App() {
 
         if (bundle.settings && bundle.products.length > 0 && bundle.evaluations.length > 0) {
           setCmsSettings(bundle.settings);
-          setProductsData(enforcePublishedVisibility(applyBatchProducts(bundle.products)));
+          const withBatch = applyBatchProducts(bundle.products);
+          const finalProducts = enforcePublishedVisibility(withBatch);
+          setProductsData(finalProducts);
           setEvaluationsData(bundle.evaluations);
           return;
         }
@@ -1019,7 +1050,9 @@ export default function App() {
           batchProductsRef.current = batchProducts;
           // Merge batch products with existing data, preferring batch if duplicate IDs exist
           setProductsData(prev => {
-            return enforcePublishedVisibility(mergeBatchProductsIntoBase(prev, batchProducts));
+            const merged = mergeBatchProductsIntoBase(prev, batchProducts);
+            const finalProducts = enforcePublishedVisibility(merged);
+            return finalProducts;
           });
         }
       } catch (err) {

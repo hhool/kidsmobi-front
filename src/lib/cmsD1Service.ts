@@ -25,6 +25,15 @@ function resolveCMSApiPath(path: string): string {
   if (/^https?:\/\//i.test(path)) {
     return path;
   }
+
+  if (typeof window !== "undefined") {
+    const host = String(window.location.hostname || "").toLowerCase();
+    const isLocalHost = host === "localhost" || host === "127.0.0.1" || host === "::1";
+    if (!isLocalHost) {
+      return path;
+    }
+  }
+
   return CMS_API_BASE ? `${CMS_API_BASE}${path}` : path;
 }
 
@@ -35,29 +44,42 @@ function sanitizeListRows<T>(rows: unknown): T[] {
 
 async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
   const requestUrl = resolveCMSApiPath(path);
-  const response = await fetch(requestUrl, {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      ...(init?.headers || {}),
-    },
-    ...init,
-  });
+  let lastError: Error | null = null;
 
-  if (!response.ok) {
-    const details = await response.text().catch(() => "");
-    throw new Error(details || `Request failed: ${response.status}`);
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    const response = await fetch(requestUrl, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        ...(init?.headers || {}),
+      },
+      ...init,
+    });
+
+    if (!response.ok) {
+      const details = await response.text().catch(() => "");
+      const transient = response.status === 502 || response.status === 503 || response.status === 504;
+      if (transient && attempt < 3) {
+        await new Promise((resolve) => setTimeout(resolve, 300 * attempt));
+        continue;
+      }
+      lastError = new Error(details || `Request failed: ${response.status}`);
+      break;
+    }
+
+    const contentType = String(response.headers.get("content-type") || "").toLowerCase();
+    if (!contentType.includes("application/json")) {
+      const bodyPreview = (await response.text().catch(() => "")).slice(0, 120).replace(/\s+/g, " ");
+      lastError = new Error(
+        `Expected JSON response from ${requestUrl}, got '${contentType || "unknown"}'. Preview: ${bodyPreview}`,
+      );
+      break;
+    }
+
+    return (await response.json()) as T;
   }
 
-  const contentType = String(response.headers.get("content-type") || "").toLowerCase();
-  if (!contentType.includes("application/json")) {
-    const bodyPreview = (await response.text().catch(() => "")).slice(0, 120).replace(/\s+/g, " ");
-    throw new Error(
-      `Expected JSON response from ${requestUrl}, got '${contentType || "unknown"}'. Preview: ${bodyPreview}`,
-    );
-  }
-
-  return (await response.json()) as T;
+  throw lastError || new Error(`Request failed for ${requestUrl}`);
 }
 
 export async function getD1CMSProducts(onlyPublished = false): Promise<CMSProduct[]> {

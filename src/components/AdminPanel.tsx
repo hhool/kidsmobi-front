@@ -27,6 +27,34 @@ const AssetUploader = React.lazy(() => import("./admin/AssetUploader"));
 
 type AdminMenu = "dashboard" | "categories" | "scenarios" | "products" | "evaluations" | "guides" | "news" | "settings" | "assets" | "imports";
 
+const ADMIN_MENU_PATHS: Record<AdminMenu, string> = {
+  dashboard: "/dashborad",
+  categories: "/categories",
+  scenarios: "/scenarios",
+  products: "/products",
+  evaluations: "/reviews",
+  guides: "/guides",
+  news: "/news",
+  settings: "/settings",
+  assets: "/assets",
+  imports: "/imports",
+};
+
+const ADMIN_PATH_TO_MENU: Record<string, AdminMenu> = {
+  "/dashborad": "dashboard",
+  "/dashboard": "dashboard",
+  "/categories": "categories",
+  "/scenarios": "scenarios",
+  "/products": "products",
+  "/reviews": "evaluations",
+  "/evaluations": "evaluations",
+  "/guides": "guides",
+  "/news": "news",
+  "/settings": "settings",
+  "/assets": "assets",
+  "/imports": "imports",
+};
+
 const ADMIN_MENU_SET = new Set<AdminMenu>([
   "dashboard",
   "categories",
@@ -40,18 +68,35 @@ const ADMIN_MENU_SET = new Set<AdminMenu>([
   "imports",
 ]);
 
-const parseAdminRouteHash = (hashValue: string): { menu: AdminMenu; productId: string } | null => {
+const parseAdminRouteHash = (hashValue: string, pathnameValue: string): { menu: AdminMenu; productId: string } | null => {
   const hash = String(hashValue || "").trim();
   if (!hash.startsWith("#cms")) return null;
 
   const queryIndex = hash.indexOf("?");
   const query = queryIndex >= 0 ? hash.slice(queryIndex + 1) : "";
   const params = new URLSearchParams(query);
-  const rawMenu = String(params.get("menu") || "dashboard").trim().toLowerCase();
+  const pathMenu = ADMIN_PATH_TO_MENU[String(pathnameValue || "").trim().toLowerCase()] || "dashboard";
+  const rawMenu = String(params.get("menu") || pathMenu).trim().toLowerCase();
   const menu = ADMIN_MENU_SET.has(rawMenu as AdminMenu) ? (rawMenu as AdminMenu) : "dashboard";
   const productId = String(params.get("productId") || "").trim();
 
   return { menu, productId };
+};
+
+const navigateToAdminMenu = (menu: AdminMenu, options?: { productId?: string; replace?: boolean }) => {
+  const targetPath = ADMIN_MENU_PATHS[menu] || "/dashborad";
+  const params = new URLSearchParams();
+  params.set("menu", menu);
+  if (options?.productId) {
+    params.set("productId", options.productId);
+  }
+  const nextUrl = `${targetPath}#cms?${params.toString()}`;
+  if (options?.replace) {
+    window.history.replaceState({}, "", nextUrl);
+  } else {
+    window.history.pushState({}, "", nextUrl);
+  }
+  window.dispatchEvent(new PopStateEvent("popstate"));
 };
 
 export default function AdminPanel({ 
@@ -94,7 +139,7 @@ export default function AdminPanel({
 
   useEffect(() => {
     const syncAdminRouteFromHash = () => {
-      const parsed = parseAdminRouteHash(window.location.hash);
+      const parsed = parseAdminRouteHash(window.location.hash, window.location.pathname);
       if (!parsed) return;
       setActiveMenu(parsed.menu);
       setTargetProductId(parsed.menu === "products" ? parsed.productId : "");
@@ -106,6 +151,12 @@ export default function AdminPanel({
       window.removeEventListener("hashchange", syncAdminRouteFromHash);
     };
   }, []);
+
+  const handleAdminMenuChange = (menu: AdminMenu) => {
+    setActiveMenu(menu);
+    setTargetProductId("");
+    navigateToAdminMenu(menu);
+  };
 
   const handleCopy = (text: string, fieldName: string) => {
     try {
@@ -172,7 +223,7 @@ export default function AdminPanel({
 
   return (
     <div className="fixed inset-0 bg-slate-50 z-[100] flex overflow-hidden">
-      <Sidebar activeMenu={activeMenu} setActiveMenu={setActiveMenu} lang={lang} onClose={onClose} />
+      <Sidebar activeMenu={activeMenu} setActiveMenu={handleAdminMenuChange} lang={lang} onClose={onClose} />
       
       <main className="flex-1 overflow-y-auto bg-slate-50 relative flex flex-col">
         {/* Sticky Utility Header Bar with Force Sync Button */}

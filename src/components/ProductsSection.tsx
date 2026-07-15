@@ -317,6 +317,14 @@ export default function ProductsSection({
     "baby_carrier",
   ]);
   const hiddenCategoryOptionIds = new Set(["kids_tricycles", "double_stroller", "jogger_stroller"]);
+  const preferredVisibleCategoryIds = [
+    "stroller",
+    "balance_bike",
+    "kids_bikes",
+    "kids_scooters",
+    "electric_vehicles",
+    "car_seat",
+  ];
 
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory || "all");
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -532,14 +540,28 @@ export default function ProductsSection({
   const categories = useMemo(() => {
     const allLabel = lang === "en" ? "📁 All Products" : "📁 全部产品";
     const idSet = new Set<string>();
+
+    for (const id of preferredVisibleCategoryIds) {
+      if (!excludedCategoryIds.has(id) && !hiddenCategoryOptionIds.has(id)) {
+        idSet.add(id);
+      }
+    }
+
     for (const item of productsData) {
       const id = getProductCategoryId(item);
       if (id && !excludedCategoryIds.has(id) && !hiddenCategoryOptionIds.has(id)) {
         idSet.add(id);
       }
     }
+
+    const preferredOrder = new Map(preferredVisibleCategoryIds.map((id, index) => [id, index]));
     const ids = Array.from(idSet.values());
-    ids.sort((a, b) => humanizeCategoryId(a).localeCompare(humanizeCategoryId(b)));
+    ids.sort((a, b) => {
+      const orderA = preferredOrder.has(a) ? preferredOrder.get(a)! : Number.MAX_SAFE_INTEGER;
+      const orderB = preferredOrder.has(b) ? preferredOrder.get(b)! : Number.MAX_SAFE_INTEGER;
+      if (orderA !== orderB) return orderA - orderB;
+      return humanizeCategoryId(a).localeCompare(humanizeCategoryId(b));
+    });
 
     return [
       { id: "all", label: allLabel },
