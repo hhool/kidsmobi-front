@@ -64,15 +64,8 @@ export function getWorkerBaseUrl() {
     const pageHost = window.location.hostname.toLowerCase();
     const isOnlineHost = !["localhost", "127.0.0.1", "::1"].includes(pageHost);
     if (isOnlineHost) {
-      try {
-        const parsed = new URL(candidate);
-        const apiHost = parsed.hostname.toLowerCase();
-        if (["localhost", "127.0.0.1", "::1"].includes(apiHost)) {
-          return fallback;
-        }
-      } catch {
-        return fallback;
-      }
+      // In deployed pages environments, always use same-origin /api proxy to avoid CORS redirects.
+      return "";
     }
   }
 
@@ -132,6 +125,18 @@ async function fetchWorkerJson<T>(path: string): Promise<T> {
   return response.json();
 }
 
+async function fetchWorkerJsonWithFallbacks<T>(paths: string[]): Promise<T> {
+  let lastError: Error | null = null;
+  for (const path of paths) {
+    try {
+      return await fetchWorkerJson<T>(path);
+    } catch (error) {
+      lastError = error as Error;
+    }
+  }
+  throw lastError || new Error("Worker request failed for all candidates");
+}
+
 async function fetchBackendJson<T>(path: string): Promise<T> {
   const base = getBackendApiBaseUrl();
   if (!base) {
@@ -173,7 +178,12 @@ async function getWorkerResourcePayload(params?: { categoryId?: string; q?: stri
   const requestedCategory = (params?.categoryId || "").trim();
   const keyword = (params?.q || "").trim().toLowerCase();
 
-  const categoriesJson = await fetchWorkerJson<{ data: WorkerCategory[] }>("/api/v2/catalog/categories");
+  const categoriesJson = await fetchWorkerJsonWithFallbacks<{ data: WorkerCategory[] }>([
+    "/api/v2/catalog/categories?withStats=true",
+    "/api/v1/catalog/categories?withStats=true",
+    "/api/v2/catalog/categories",
+    "/api/v1/catalog/categories",
+  ]);
   const allCategories = Array.isArray(categoriesJson?.data) ? categoriesJson.data : [];
 
   const categories = requestedCategory
@@ -185,12 +195,14 @@ async function getWorkerResourcePayload(params?: { categoryId?: string; q?: stri
   const payloads = await Promise.all(
     categories.map(async (category) => {
       const [productsJson, resourcesJson] = await Promise.all([
-        fetchWorkerJson<{ data: WorkerProduct[] }>(
-          `/api/v2/products?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=60`
-        ),
-        fetchWorkerJson<{ data: WorkerResource[] }>(
-          `/api/v2/resources?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=100`
-        ),
+        fetchWorkerJsonWithFallbacks<{ data: WorkerProduct[] }>([
+          `/api/v2/products?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=60`,
+          `/api/v1/products?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=60`,
+        ]),
+        fetchWorkerJsonWithFallbacks<{ data: WorkerResource[] }>([
+          `/api/v2/resources?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=100`,
+          `/api/v1/resources?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=100`,
+        ]),
       ]);
       return {
         category,

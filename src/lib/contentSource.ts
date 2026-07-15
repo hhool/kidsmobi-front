@@ -7,6 +7,25 @@ export interface ContentBundle {
   evaluations: Evaluation[];
 }
 
+function buildStaticFallbackBundle(): ContentBundle {
+  const staticProducts = (Array.isArray(staticProductsData) ? staticProductsData : [])
+    .filter((item) => Boolean((item as any)?.id))
+    .map((item) => ({
+      ...(item as any),
+      status: String((item as any)?.status || "published").trim().toLowerCase() || "published",
+    })) as unknown as CMSProduct[];
+
+  const dedupedProducts = staticProducts.filter(
+    (item, index, array) => array.findIndex((next) => next.id === item.id) === index,
+  );
+
+  return {
+    settings: null,
+    products: dedupedProducts,
+    evaluations: buildFallbackEvaluations(dedupedProducts),
+  };
+}
+
 const DEFAULT_SCRAPE_API_BASE_URL = "https://kidsmobi-api-v1.seaman-player.workers.dev";
 const CATEGORY_COMPLIANCE: Record<string, string[]> = {
   balance_bike: ["ASTM F963", "CPSC"],
@@ -58,15 +77,8 @@ function getScrapeApiBaseUrl() {
     const pageHost = window.location.hostname.toLowerCase();
     const isOnlineHost = !["localhost", "127.0.0.1", "::1"].includes(pageHost);
     if (isOnlineHost) {
-      try {
-        const parsed = new URL(candidate);
-        const apiHost = parsed.hostname.toLowerCase();
-        if (["localhost", "127.0.0.1", "::1"].includes(apiHost)) {
-          return fallback;
-        }
-      } catch {
-        return fallback;
-      }
+      // In deployed pages environments, always use same-origin /api proxy to avoid CORS redirects.
+      return "";
     }
   }
 
@@ -74,7 +86,8 @@ function getScrapeApiBaseUrl() {
 }
 
 function buildWorkerUrl(pathname: string) {
-  return `${getScrapeApiBaseUrl()}${pathname.startsWith("/") ? pathname : `/${pathname}`}`;
+  const normalizedPath = pathname.startsWith("/") ? pathname : `/${pathname}`;
+  return `${getScrapeApiBaseUrl()}${normalizedPath}`;
 }
 
 function normalizeProductCategory(categoryId: string): CMSProduct["category"] {
@@ -549,6 +562,16 @@ async function fetchWorkerJson<T>(pathCandidates: string[]): Promise<T> {
 }
 
 async function fetchRemoteFallbackBundle(): Promise<ContentBundle> {
+  // On deployed static hosts, calling worker APIs from browser often triggers CORS noise
+  // and route mismatches. Use deterministic local fallback first to keep UX stable.
+  if (typeof window !== "undefined") {
+    const host = String(window.location.hostname || "").toLowerCase();
+    const isLocalHost = host === "localhost" || host === "127.0.0.1" || host === "::1";
+    if (!isLocalHost) {
+      return buildStaticFallbackBundle();
+    }
+  }
+
   let categoriesPayload: { data?: WorkerCategory[] } | null = null;
   try {
     categoriesPayload = await fetchWorkerJson<{ data?: WorkerCategory[] }>([
@@ -559,18 +582,7 @@ async function fetchRemoteFallbackBundle(): Promise<ContentBundle> {
     ]);
   } catch (error) {
     console.warn("Worker categories unavailable, using static modelsData fallback.", error);
-    const staticProducts = (Array.isArray(staticProductsData) ? staticProductsData : [])
-      .filter((item) => Boolean((item as any)?.id)) as unknown as CMSProduct[];
-
-    const dedupedProducts = staticProducts.filter(
-      (item, index, array) => array.findIndex((next) => next.id === item.id) === index,
-    );
-
-    return {
-      settings: null,
-      products: dedupedProducts,
-      evaluations: buildFallbackEvaluations(dedupedProducts),
-    };
+    return buildStaticFallbackBundle();
   }
 
   const categories = (categoriesPayload?.data || []).slice(0, 12);

@@ -275,6 +275,8 @@ interface ProductsSectionProps {
   setSavedProducts: (list: Product[]) => void;
   childProfile: any;
   userEmail: string;
+  isAdmin?: boolean;
+  onOpenAdminProductEditor?: (p: Product) => void;
   lang?: "zh" | "en";
   currencyData: CurrencyData;
   viewHistory?: Product[];
@@ -295,6 +297,8 @@ export default function ProductsSection({
   setSavedProducts,
   childProfile,
   userEmail,
+  isAdmin = false,
+  onOpenAdminProductEditor,
   lang = "zh",
   currencyData,
   viewHistory,
@@ -1384,7 +1388,20 @@ export default function ProductsSection({
                   <strong className="text-lg text-slate-900 font-black tracking-tighter shrink-0">
                     {priceText}
                   </strong>
-                  <div className="flex gap-3">
+                  <div className="flex gap-3 items-center">
+                    {isAdmin && onOpenAdminProductEditor && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onOpenAdminProductEditor(p);
+                        }}
+                        className="px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-[10px] font-black uppercase tracking-widest text-slate-600 hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-colors"
+                        title={lang === "en" ? "Edit in Admin" : "后台编辑"}
+                        aria-label={lang === "en" ? "Edit in Admin" : "后台编辑"}
+                      >
+                        {lang === "en" ? "Admin Edit" : "后台编辑"}
+                      </button>
+                    )}
                     <button
                       onClick={(e) => handleToggleCompare(p, e)}
                       disabled={!isAlreadyCompared && compareList.length >= 4}

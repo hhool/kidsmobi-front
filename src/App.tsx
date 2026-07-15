@@ -166,11 +166,13 @@ const inferMisclassifiedCategoryId = (product: Product, normalizedCategoryId: st
   const hasHighChairSignal = /(\bhigh\s*chair\b|feeding\s*chair|餐椅)/i.test(text);
   const hasPlayardSignal = /(\bplayard\b|\bplay\s*yard\b|\bpack\s*(n|and)\s*play\b|围栏床|游戏床)/i.test(text);
   const hasCarrierSignal = /(\bbaby\s*carrier\b|carrier\s*wrap|hip\s*seat\s*carrier|\bsling\b|背带)/i.test(text);
+  const hasNurserySignal = /(\bmattress\b|\bcrib\b|\bbassinet\b|\bbaby\s*swing\b|\bswings\s*for\s*infants\b|\brocker\b|\bbouncer\b|\bsoother\b|\bplaypen\b|\bdiaper\b|\bbottle\s*warmer\b|\bbreast\s*pump\b|\bnursery\b|床垫|婴儿床|摇椅|秋千|安抚椅|尿布|奶瓶加热)/i.test(text);
 
   if (hasCarSeatSignal && !hasStrollerSignal) return "car_seat";
   if (hasHighChairSignal && !hasStrollerSignal) return "high_chair";
   if (hasPlayardSignal && !hasStrollerSignal) return "playard";
   if (hasCarrierSignal && !hasStrollerSignal) return "baby_carrier";
+  if (hasNurserySignal && !hasStrollerSignal) return "playard";
 
   return normalizedCategoryId;
 };
@@ -295,6 +297,10 @@ const filterExcludedProductCategories = (products: Product[]) => {
   return products.filter((product) => !EXCLUDED_PRODUCT_CATEGORY_IDS.has(resolveProductCategoryId(product)));
 };
 
+const isPublishedProduct = (product: Product) => {
+  return String((product as any)?.status || "").trim().toLowerCase() === "published";
+};
+
 const mergeCmsWithFallbackByCategory = (cmsProducts: Product[], fallbackProducts: Product[]) => {
   const merged = [...cmsProducts];
   const seenIds = new Set(cmsProducts.map((item) => item.id));
@@ -329,6 +335,22 @@ const mergeCmsWithFallbackByCategory = (cmsProducts: Product[], fallbackProducts
   }
 
   return merged;
+};
+
+const dedupeProductsForDisplay = (products: Product[]) => {
+  const byKey = new Map<string, Product>();
+
+  for (const item of products) {
+    const key = resolveProductMergeKey(item);
+    const existing = byKey.get(key);
+    if (!existing) {
+      byKey.set(key, item);
+      continue;
+    }
+    byKey.set(key, mergeProductsByPriority(existing, item));
+  }
+
+  return Array.from(byKey.values());
 };
 
 const normalizePathname = (pathname: string) => {
@@ -420,7 +442,7 @@ const resolveInitialLang = (): "zh" | "en" => {
 };
 
 const resolveRouteState = (pathname: string, hash: string) => {
-  if (hash === "#cms" || hash === "#cm") {
+  if (hash.startsWith("#cms") || hash === "#cm") {
     return {
       activeTab: "admin",
       activeProductCategory: "all",
@@ -576,6 +598,10 @@ export default function App() {
     return mergeBatchProductsIntoBase(products, batchProductsRef.current);
   };
 
+  const enforcePublishedVisibility = (products: Product[]) => {
+    return dedupeProductsForDisplay(filterExcludedProductCategories(products).filter(isPublishedProduct));
+  };
+
   useEffect(() => {
     activeTabRef.current = activeTab;
   }, [activeTab]);
@@ -594,7 +620,7 @@ export default function App() {
     const normalizedPath = normalizePathname(path);
     const shouldReplace = options?.replace ?? false;
     const preserveScroll = options?.preserveScroll ?? false;
-    const hasChanged = window.location.pathname !== normalizedPath || window.location.hash === "#cms";
+    const hasChanged = window.location.pathname !== normalizedPath || window.location.hash.startsWith("#cms");
 
     if (hasChanged) {
       if (shouldReplace) {
@@ -651,6 +677,19 @@ export default function App() {
     };
 
     navigateToPath(tabPathMap[tabId] || "/");
+  };
+
+  const openAdminProductEditor = (product: Product) => {
+    const productId = encodeURIComponent(String(product?.id || "").trim());
+    const nextHash = productId ? `#cms?menu=products&productId=${productId}` : "#cms?menu=products";
+
+    if (window.location.hash !== nextHash) {
+      window.location.hash = nextHash;
+    } else {
+      syncRouteStateFromLocation();
+    }
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -858,13 +897,13 @@ export default function App() {
       const publishedProducts = await getCMSProducts(true);
       if (!isActive) return;
       if (publishedProducts && publishedProducts.length > 0) {
-        let nextProducts = filterExcludedProductCategories(publishedProducts);
+        let nextProducts = enforcePublishedVisibility(publishedProducts);
         try {
           const bundle = await fetchContentBundle();
           if (!isActive) return;
           const fallbackProducts = bundle.products && bundle.products.length > 0
-            ? filterExcludedProductCategories(bundle.products)
-            : filterExcludedProductCategories(await loadDefaultProductsData());
+            ? enforcePublishedVisibility(bundle.products)
+            : enforcePublishedVisibility(await loadDefaultProductsData());
           if (!isActive) return;
           nextProducts = mergeCmsWithFallbackByCategory(nextProducts, fallbackProducts);
         } catch {
@@ -873,36 +912,14 @@ export default function App() {
           if (!isActive) return;
           nextProducts = mergeCmsWithFallbackByCategory(
             nextProducts,
-            filterExcludedProductCategories(defaultProducts)
+            enforcePublishedVisibility(defaultProducts)
           );
         }
 
-        setProductsData(applyBatchProducts(nextProducts));
+        setProductsData(enforcePublishedVisibility(applyBatchProducts(nextProducts)));
       } else {
-        // If initialization imported draft-only products, avoid a blank Product Center.
-        const allProducts = await getCMSProducts(false);
-        if (!isActive) return;
-        if (allProducts && allProducts.length > 0) {
-          setProductsData(applyBatchProducts(filterExcludedProductCategories(allProducts)));
-        } else {
-          // Final fallback: bootstrap from backend bundle so category pages never render empty.
-          try {
-            const bundle = await fetchContentBundle();
-            if (!isActive) return;
-            if (bundle.products && bundle.products.length > 0) {
-              setProductsData(applyBatchProducts(filterExcludedProductCategories(bundle.products)));
-            } else {
-              const defaultProducts = await loadDefaultProductsData();
-              if (!isActive) return;
-              setProductsData(applyBatchProducts(filterExcludedProductCategories(defaultProducts)));
-            }
-          } catch {
-            if (!isActive) return;
-            const defaultProducts = await loadDefaultProductsData();
-            if (!isActive) return;
-            setProductsData(applyBatchProducts(filterExcludedProductCategories(defaultProducts)));
-          }
-        }
+        // Strict published-only visibility mode for frontend users.
+        setProductsData([]);
       }
 
       const evs = await getCMSEvaluations(true);
@@ -912,6 +929,31 @@ export default function App() {
 
     const fetchData = async () => {
       if (!isScrapedContentSource()) {
+        const host = window.location.hostname.toLowerCase();
+        const isLocalHost = host === "localhost" || host === "127.0.0.1" || host === "::1";
+        const hasExplicitCmsBase = Boolean(
+          String(import.meta.env.VITE_CMS_API_BASE_URL || import.meta.env.VITE_CMS_BACKEND_BASE_URL || "").trim()
+        );
+
+        if (!isLocalHost && !hasExplicitCmsBase) {
+          try {
+            const bundle = await fetchContentBundle();
+            if (!isActive) return;
+            if (bundle.settings) {
+              setCmsSettings(bundle.settings);
+            }
+            if (bundle.products && bundle.products.length > 0) {
+              setProductsData(enforcePublishedVisibility(applyBatchProducts(bundle.products)));
+            }
+            if (bundle.evaluations && bundle.evaluations.length > 0) {
+              setEvaluationsData(bundle.evaluations);
+            }
+          } catch (bundleErr) {
+            console.error("Fallback content bundle load failed:", bundleErr);
+          }
+          return;
+        }
+
         try {
           await loadCmsData();
         } catch (err) {
@@ -923,7 +965,7 @@ export default function App() {
               setCmsSettings(bundle.settings);
             }
             if (bundle.products && bundle.products.length > 0) {
-              setProductsData(applyBatchProducts(filterExcludedProductCategories(bundle.products)));
+              setProductsData(enforcePublishedVisibility(applyBatchProducts(bundle.products)));
             }
             if (bundle.evaluations && bundle.evaluations.length > 0) {
               setEvaluationsData(bundle.evaluations);
@@ -941,7 +983,7 @@ export default function App() {
 
         if (bundle.settings && bundle.products.length > 0 && bundle.evaluations.length > 0) {
           setCmsSettings(bundle.settings);
-          setProductsData(applyBatchProducts(filterExcludedProductCategories(bundle.products)));
+          setProductsData(enforcePublishedVisibility(applyBatchProducts(bundle.products)));
           setEvaluationsData(bundle.evaluations);
           return;
         }
@@ -977,7 +1019,7 @@ export default function App() {
           batchProductsRef.current = batchProducts;
           // Merge batch products with existing data, preferring batch if duplicate IDs exist
           setProductsData(prev => {
-            return mergeBatchProductsIntoBase(prev, batchProducts);
+            return enforcePublishedVisibility(mergeBatchProductsIntoBase(prev, batchProducts));
           });
         }
       } catch (err) {
@@ -1032,7 +1074,7 @@ export default function App() {
           if (successProd) {
             const freshProducts = await getCMSProducts(true);
             if (freshProducts && freshProducts.length > 0) {
-              setProductsData(filterExcludedProductCategories(freshProducts));
+              setProductsData(enforcePublishedVisibility(freshProducts));
             }
           }
           // Seed Evaluations
@@ -2064,6 +2106,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             setSavedProducts={updateSavedProductsAndFirestore}
             childProfile={childProfile}
             userEmail={userEmail}
+            isAdmin={isAdmin}
+            onOpenAdminProductEditor={openAdminProductEditor}
             lang={lang}
             currencyData={currencyData}
             viewHistory={viewHistory}
@@ -2124,6 +2168,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           <DetailedProductView
             product={selectedProduct}
             onClose={() => handleSelectProduct(null)}
+            isAdmin={isAdmin}
+            onOpenAdminProductEditor={openAdminProductEditor}
             lang={lang}
             activeStandardDimension={activeStandardDimension}
             setActiveStandardDimension={setActiveStandardDimension}

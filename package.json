@@ -24,6 +24,8 @@
     "cms:smoke": "node scripts/smoke_cms_d1_endpoints.mjs",
     "cms:regress": "node scripts/regress_cms_d1_crud.mjs",
     "cms:replace:safe": "node scripts/cms_safe_replace_from_export.mjs",
+    "cms:promote:status": "node scripts/promote_products_by_editor_verdict.mjs",
+    "cms:promote:status:apply": "node scripts/promote_products_by_editor_verdict.mjs --write",
     "cms:reset:a": "node scripts/reset_cms_d1_a_scope.mjs",
     "perf:sample": "node scripts/sample_web_vitals.mjs",
     "perf:sample:desktop": "node scripts/sample_web_vitals.mjs --strategy=desktop",

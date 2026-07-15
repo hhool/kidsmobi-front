@@ -372,6 +372,8 @@ function cleanEvidenceSource(value: unknown) {
 interface DetailedProductViewProps {
   product: Product;
   onClose: () => void;
+  isAdmin?: boolean;
+  onOpenAdminProductEditor?: (product: Product) => void;
   lang: "zh" | "en";
   activeStandardDimension: string | null;
   setActiveStandardDimension: (dim: string | null) => void;
@@ -382,6 +384,8 @@ interface DetailedProductViewProps {
 export default function DetailedProductView({
   product,
   onClose,
+  isAdmin = false,
+  onOpenAdminProductEditor,
   lang,
   activeStandardDimension,
   setActiveStandardDimension,
@@ -657,7 +661,15 @@ export default function DetailedProductView({
           <h1 className="text-3xl font-black text-slate-900">{displayProduct.name}</h1>
         </div>
         
-        <div className="flex gap-3">
+        <div className="flex gap-3 items-center">
+          {isAdmin && onOpenAdminProductEditor && (
+            <button
+              onClick={() => onOpenAdminProductEditor(product)}
+              className="px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50 text-[10px] font-black uppercase tracking-widest text-slate-600 hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-colors"
+            >
+              {lang === "en" ? "Edit in Admin" : "后台编辑"}
+            </button>
+          )}
           <div className="bg-slate-50 px-6 py-3 rounded-2xl border border-slate-100">
              <span className="text-[10px] text-slate-400 font-bold block uppercase mb-1">{lang === "en" ? "Overall Score" : "综合评分"}</span>
              <strong className="text-2xl font-black text-orange-500">{overallScoreDisplay}</strong>

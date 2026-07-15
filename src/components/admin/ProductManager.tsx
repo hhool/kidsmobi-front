@@ -48,6 +48,62 @@ function normalizeCMSProductForList(item: CMSProduct): CMSProduct {
   };
 }
 
+function normalizeToken(value: unknown): string {
+  return String(value || "").trim().toLowerCase();
+}
+
+function extractAsinCandidate(value: unknown): string {
+  const raw = String(value || "").trim().toUpperCase();
+  if (!raw) return "";
+  const direct = raw.match(/[A-Z0-9]{10}/);
+  if (direct?.[0]) return direct[0];
+  const tail = raw.split("-").pop() || "";
+  return /^[A-Z0-9]{10}$/.test(tail) ? tail : "";
+}
+
+function compactAlphaNumeric(value: unknown): string {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "");
+}
+
+function resolveRowAnchorId(productId: string): string {
+  const safe = String(productId || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9_-]+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+  return `cms-product-row-${safe || "unknown"}`;
+}
+
+function matchesDeepLinkTarget(product: CMSProduct, target: string): boolean {
+  const normalizedTarget = normalizeToken(target);
+  if (!normalizedTarget) return false;
+
+  const productId = normalizeToken(product?.id);
+  if (productId === normalizedTarget) return true;
+
+  const targetTail = normalizeToken(normalizedTarget.split("-").pop());
+  const productTail = normalizeToken(productId.split("-").pop());
+  if (targetTail && (targetTail === productId || targetTail === productTail)) {
+    return true;
+  }
+
+  const compactTarget = compactAlphaNumeric(normalizedTarget);
+  const compactProduct = compactAlphaNumeric(productId);
+  if (compactTarget && compactProduct && (compactTarget === compactProduct || compactProduct.endsWith(compactTarget) || compactTarget.endsWith(compactProduct))) {
+    return true;
+  }
+
+  const targetAsin = extractAsinCandidate(normalizedTarget);
+  const productAsin = extractAsinCandidate(productId);
+  if (targetAsin && productAsin && targetAsin === productAsin) {
+    return true;
+  }
+
+  return false;
+}
+
 function normalizeProductImagesForSave(product: CMSProduct): CMSProduct {
   const imageSet = resolveProductImages(product);
   const hasRealCover = imageSet.coverUrl && imageSet.coverUrl !== FALLBACK_PRODUCT_IMAGE;
@@ -148,7 +204,15 @@ function buildCMSProductFromBackendPreview(item: {
   };
 }
 
-export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
+export default function ProductManager({
+  lang,
+  focusProductId,
+  onFocusProductHandled,
+}: {
+  lang: "zh" | "en";
+  focusProductId?: string;
+  onFocusProductHandled?: () => void;
+}) {
   const [products, setProducts] = useState<CMSProduct[]>([]);
   const [scenarios, setScenarios] = useState<CMSScenario[]>([]);
   const [backendPreviewMode, setBackendPreviewMode] = useState(false);
@@ -158,6 +222,27 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  useEffect(() => {
+    const targetId = String(focusProductId || "").trim();
+    if (!targetId || products.length === 0) return;
+
+    const matched = products.find((item) => matchesDeepLinkTarget(item, targetId));
+    if (matched) {
+      setEditingProduct(matched);
+      setSearch(matched.id || extractAsinCandidate(matched.id));
+      window.requestAnimationFrame(() => {
+        const el = document.getElementById(resolveRowAnchorId(matched.id));
+        el?.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+      onFocusProductHandled?.();
+      return;
+    }
+
+    // Keep the user close to the target even when exact match is absent.
+    setSearch(targetId);
+    onFocusProductHandled?.();
+  }, [focusProductId, products, onFocusProductHandled]);
 
   const fetchProducts = async () => {
     let productsData: CMSProduct[] = [];
@@ -352,7 +437,9 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
   const filtered = products.filter(p => 
     (p.zh?.name || "").toLowerCase().includes(search.toLowerCase()) || 
     (p.en?.name || "").toLowerCase().includes(search.toLowerCase()) ||
-    (p.brand || "").toLowerCase().includes(search.toLowerCase())
+    (p.brand || "").toLowerCase().includes(search.toLowerCase()) ||
+    (p.id || "").toLowerCase().includes(search.toLowerCase()) ||
+    extractAsinCandidate(p.id).toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -393,7 +480,7 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
       {/* Product List */}
       <div className="grid grid-cols-1 gap-4">
         {filtered.map((p) => (
-          <div key={p.id} className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm flex items-center justify-between group hover:border-orange-200 transition-all">
+          <div id={resolveRowAnchorId(p.id)} key={p.id} className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm flex items-center justify-between group hover:border-orange-200 transition-all">
             <div className="flex items-center gap-6">
               <div className="w-20 h-20 bg-slate-50 rounded-2xl p-2 shrink-0">
                 <SmartImage
@@ -414,6 +501,10 @@ export default function ProductManager({ lang }: { lang: "zh" | "en" }) {
                 </div>
                 <h4 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors">{p.zh?.name || p.en?.name || "(No Name)"}</h4>
                 <p className="text-xs text-slate-400 font-bold uppercase tracking-tight mt-0.5">{p.brand} • {p.en?.name || p.zh?.name || ""}</p>
+                <p className="text-[11px] text-slate-500 font-mono mt-1">
+                  ID: {p.id}
+                  {extractAsinCandidate(p.id) ? `  |  ASIN: ${extractAsinCandidate(p.id)}` : ""}
+                </p>
               </div>
             </div>
             

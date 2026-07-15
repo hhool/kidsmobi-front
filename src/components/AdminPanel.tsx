@@ -25,6 +25,35 @@ import OperationsCenter from "./admin/OperationsCenter";
 import { getD1Health } from "../lib/cmsD1Service";
 const AssetUploader = React.lazy(() => import("./admin/AssetUploader"));
 
+type AdminMenu = "dashboard" | "categories" | "scenarios" | "products" | "evaluations" | "guides" | "news" | "settings" | "assets" | "imports";
+
+const ADMIN_MENU_SET = new Set<AdminMenu>([
+  "dashboard",
+  "categories",
+  "scenarios",
+  "products",
+  "evaluations",
+  "guides",
+  "news",
+  "settings",
+  "assets",
+  "imports",
+]);
+
+const parseAdminRouteHash = (hashValue: string): { menu: AdminMenu; productId: string } | null => {
+  const hash = String(hashValue || "").trim();
+  if (!hash.startsWith("#cms")) return null;
+
+  const queryIndex = hash.indexOf("?");
+  const query = queryIndex >= 0 ? hash.slice(queryIndex + 1) : "";
+  const params = new URLSearchParams(query);
+  const rawMenu = String(params.get("menu") || "dashboard").trim().toLowerCase();
+  const menu = ADMIN_MENU_SET.has(rawMenu as AdminMenu) ? (rawMenu as AdminMenu) : "dashboard";
+  const productId = String(params.get("productId") || "").trim();
+
+  return { menu, productId };
+};
+
 export default function AdminPanel({ 
   onClose, 
   onRedirectAuth, 
@@ -40,7 +69,8 @@ export default function AdminPanel({
   loading: boolean,
   onDeveloperBypass?: () => void
 }) {
-  const [activeMenu, setActiveMenu] = useState<"dashboard" | "categories" | "scenarios" | "products" | "evaluations" | "guides" | "news" | "settings" | "assets" | "imports">("dashboard");
+  const [activeMenu, setActiveMenu] = useState<AdminMenu>("dashboard");
+  const [targetProductId, setTargetProductId] = useState<string>("");
   const [showHelpTip, setShowHelpTip] = useState(false);
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [d1Status, setD1Status] = useState<"unknown" | "healthy" | "down">("unknown");
@@ -59,6 +89,21 @@ export default function AdminPanel({
     })();
     return () => {
       mounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    const syncAdminRouteFromHash = () => {
+      const parsed = parseAdminRouteHash(window.location.hash);
+      if (!parsed) return;
+      setActiveMenu(parsed.menu);
+      setTargetProductId(parsed.menu === "products" ? parsed.productId : "");
+    };
+
+    syncAdminRouteFromHash();
+    window.addEventListener("hashchange", syncAdminRouteFromHash);
+    return () => {
+      window.removeEventListener("hashchange", syncAdminRouteFromHash);
     };
   }, []);
 
@@ -205,7 +250,13 @@ export default function AdminPanel({
            {activeMenu === "dashboard" && <Dashboard lang={lang} />}
            {activeMenu === "categories" && <CategoryManager lang={lang} />}
            {activeMenu === "scenarios" && <ScenarioManager lang={lang} />}
-           {activeMenu === "products" && <ProductManager lang={lang} />}
+           {activeMenu === "products" && (
+             <ProductManager
+               lang={lang}
+               focusProductId={targetProductId}
+               onFocusProductHandled={() => setTargetProductId("")}
+             />
+           )}
            {activeMenu === "evaluations" && <EvaluationManager lang={lang} />}
            {activeMenu === "guides" && <GuideManager lang={lang} />}
            {activeMenu === "news" && <NewsManager lang={lang} />}
