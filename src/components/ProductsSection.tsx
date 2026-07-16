@@ -539,17 +539,17 @@ export default function ProductsSection({
         balance: "Balance Bikes",
         balance_bike: "Balance Bikes",
         balance_bikes: "Balance Bikes",
-        car_seat: "Car Seats",
-        car_seats: "Car Seats",
-        safety_seat: "Car Seats",
+        car_seat: "Kids Car Seats",
+        car_seats: "Kids Car Seats",
+        safety_seat: "Kids Car Seats",
         stroller: "Strollers",
         strollers: "Strollers",
         double_stroller: "Double Strollers",
         double_strollers: "Double Strollers",
         jogger_stroller: "Jogging Strollers",
         jogger_strollers: "Jogging Strollers",
-        electric_vehicles: "Electric Vehicles",
-        electric_car: "Electric Vehicles",
+        electric_vehicles: "Kids Electric Vehicles",
+        electric_car: "Kids Electric Vehicles",
       };
       if (englishDisplayMap[normalized]) {
         return englishDisplayMap[normalized];
@@ -568,14 +568,14 @@ export default function ProductsSection({
       bicycle: "Pedal Bikes",
       scooter: "Kick Scooters",
       stroller: "Kids Strollers",
-      electric_car: "Kids Electric Cars",
+      electric_car: "Kids Electric Vehicles",
       tricycle: "Tricycles",
-      safety_seat: "Safety Seats",
+      safety_seat: "Kids Car Seats",
       kids_tricycles: "Kids Tricycles",
       kids_bikes: "Kids Bikes",
       balance_bike: "Balance Bikes",
-      car_seat: "Car Seats",
-      electric_vehicles: "Kids Electric Cars",
+      car_seat: "Kids Car Seats",
+      electric_vehicles: "Kids Electric Vehicles",
     };
     if (fallbackMap[normalized]) {
       return fallbackMap[normalized];
@@ -1165,9 +1165,6 @@ export default function ProductsSection({
                   setHintFlash(null);
                   window.requestAnimationFrame(() => setHintFlash(pill.label));
                   window.setTimeout(() => setHintFlash((current) => (current === pill.label ? null : current)), 300);
-                  if (pill.target === selectedCategory) {
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  }
                   
                   let targetPath = `/products/${pill.target}`;
                   let searchString = "";
@@ -1184,6 +1181,14 @@ export default function ProductsSection({
                   // Force routing transition inside SPA context
                   window.history.pushState(null, "", `${targetPath}${searchString}`);
                   window.dispatchEvent(new PopStateEvent("popstate"));
+
+                  // Scroll smoothly to ## Expert Product Picks list
+                  setTimeout(() => {
+                    const element = document.getElementById("expert-picks-anchor");
+                    if (element) {
+                      element.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                  }, 100);
                 }}
                 className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-[11px] font-black tracking-widest uppercase shadow-sm cursor-pointer group transition-all duration-350 border ${
                   hintFlash === pill.label
@@ -1485,7 +1490,7 @@ export default function ProductsSection({
         </div>
       ) : (
         <div className="space-y-8">
-        <div className="flex flex-col items-center justify-center gap-3 text-center">
+        <div id="expert-picks-anchor" className="flex flex-col items-center justify-center gap-3 text-center">
           <h2 className="text-xl font-black text-slate-900">
             {lang === "en" ? "Expert Product Picks" : "专家产品精选"}
           </h2>
