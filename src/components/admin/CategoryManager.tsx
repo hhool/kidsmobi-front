@@ -14,6 +14,96 @@ const categoryCodes: ProductCategory[] = [
   "safety_seat",
 ];
 
+const categorySeoDefaults: Record<ProductCategory, {
+  en: { seoTitle: string; seoDescription: string; seoKeywords: string };
+  zh: { seoTitle: string; seoDescription: string; seoKeywords: string };
+}> = {
+  stroller: {
+    en: {
+      seoTitle: "Best Baby & Twin Strollers 2026 Lab-Tested Reviews - KIDSMOBI",
+      seoDescription: "Explore our expert lab database for the safest and most reliable baby and twin strollers. Compare weight capacity, safety scores, and travel features.",
+      seoKeywords: "baby stroller, twin stroller, double stroller, travel stroller, jogging stroller"
+    },
+    zh: {
+      seoTitle: "2026最佳婴儿车与双胞胎推车实验室深度评测 | KIDSMOBI",
+      seoDescription: "探索KIDSMOBI实验室数据库，获取安全高承重的单人与双胞胎折叠推车。对比避震能力、物理结构与安全性评估分值。",
+      seoKeywords: "婴儿推车, 双人推车, 折叠婴儿车, 慢跑推车, KIDSMOBI"
+    }
+  },
+  balance: {
+    en: {
+      seoTitle: "Best Toddler Balance Bikes 2026 Lab-Tested Reviews - KIDSMOBI",
+      seoDescription: "Explore our expert lab database for the safest toddler balance bikes. Compare weight capacity, stability scores, and features for top ride-on brands.",
+      seoKeywords: "toddler balance bike, kids balance bike, 1 year old balance bike, ride-on balance bike"
+    },
+    zh: {
+      seoTitle: "2026最佳幼儿无脚踏平衡车实验室深度评测 | KIDSMOBI",
+      seoDescription: "探索KIDSMOBI无脚踏幼儿滑步平衡车评分矩阵。深度比较车重工效、几何结构与核心通过性指数，助您科学决策。",
+      seoKeywords: "幼儿平衡车, 儿童滑步车, 1岁平衡车, 平衡训练车, KIDSMOBI"
+    }
+  },
+  bicycle: {
+    en: {
+      seoTitle: "Best Kids Bikes & Toddler Bicycles 2026 Lab-Tested - KIDSMOBI",
+      seoDescription: "Discover the safest and top-rated kids bikes for ages 2-14. Explore our lab database to compare BMX style, training wheels, and dual suspension bicycles.",
+      seoKeywords: "kids bmx bike, toddler bicycle, kids bike training wheels, pedal bike for children"
+    },
+    zh: {
+      seoTitle: "2026最佳适龄儿童自行车与充气轮单车深度评测 | KIDSMOBI",
+      seoDescription: "获取2至14岁最适合最安全的儿童自行车候选数据库。极速对比辅助轮装配、前叉避震、机械双刹等力学客观指标。",
+      seoKeywords: "儿童自行车, 幼儿单车, BMX儿童自行车, 带辅助轮自行车, KIDSMOBI"
+    }
+  },
+  scooter: {
+    en: {
+      seoTitle: "Best Kids Scooters & Electric Scooters 2026 Lab-Tested - KIDSMOBI",
+      seoDescription: "Discover the safest lab-tested scooters for kids and teens. Compare 3-wheel kick scooters, electric models, and top mobility brands.",
+      seoKeywords: "kids kick scooter, foldable kids scooter, toddler 3 wheel scooter, children electric scooter"
+    },
+    zh: {
+      seoTitle: "2026最佳儿童滑板车与重力转向摇摆车深度评测 | KIDSMOBI",
+      seoDescription: "查找最安全的物理级别儿童/青少年滑板车列表。深度测试低重心稳定度、重力智能转向与折叠收折设计。",
+      seoKeywords: "儿童滑板车, 儿童电动滑板车, 折叠滑板车, 三轮重力转向滑板车, KIDSMOBI"
+    }
+  },
+  electric_car: {
+    en: {
+      seoTitle: "Best Kids Ride-On Toys & Electric Cars 2026 Lab-Tested - KIDSMOBI",
+      seoDescription: "Explore our lab-tested reviews of 12V and 24V kids ride-on cars, UTVs, and electric motorcycles. Compare top-rated electric vehicles for battery safety.",
+      seoKeywords: "kids electric car, ride on toys 12v, kids electric motorcycle, toddler electric car"
+    },
+    zh: {
+      seoTitle: "2026最佳儿童电动汽车与电玩骑行玩具车深度评测 | KIDSMOBI",
+      seoDescription: "对比12V/24V儿童电动越野车（UTV/SUV）与双马达重力骑行玩具安全性能。测试其绝缘、过载保护与遥控控制阻断。",
+      seoKeywords: "儿童电动车, 儿童玩具车, 儿童电动越野车, 电玩摩托车, KIDSMOBI"
+    }
+  },
+  safety_seat: {
+    en: {
+      seoTitle: "Best Convertible & Toddler Car Seats 2026 Lab-Tested - KIDSMOBI",
+      seoDescription: "Find the safest convertible and booster car seats for your child. Compare lab-tested scores, weight limits, and safety features for top brands like Graco and Evenflo.",
+      seoKeywords: "convertible car seat, booster car seat, infant car seat, child safety car seat"
+    },
+    zh: {
+      seoTitle: "2026最佳儿童汽车安全提篮与成长座椅深度评测 | KIDSMOBI",
+      seoDescription: "探求最安全的儿童汽车安全座椅（安全提篮/增高垫）。涵盖侧向撞击防护技术、ISOFIX硬接口安装兼容性等专家质检数据。",
+      seoKeywords: "安全座椅, 儿童安全提篮, 成长型安全座椅, 侧向防护座椅, KIDSMOBI"
+    }
+  },
+  tricycle: {
+    en: {
+      seoTitle: "Best Toddler Tricycles & Learn-to-Ride Trikes 2026 - KIDSMOBI",
+      seoDescription: "Compare key safety benchmarks for grow-with-me toddler tricycles and steering push trikes. Evaluate frame solidity and parenting handlebar comfort.",
+      seoKeywords: "kids tricycles, toddler tricycle, steering baby trike"
+    },
+    zh: {
+      seoTitle: "2026最佳幼儿推行三轮脚踏车实验室评测 | KIDSMOBI",
+      seoDescription: "精选安全的多功能成长型幼儿三轮滑步推行车。对比结构刚性、可调节推把工效以及宝宝蹬踏动力学参数。",
+      seoKeywords: "幼儿三轮车, 成长型三轮车, 手推脚踏车, KIDSMOBI"
+    }
+  }
+};
+
 function normalizeText(value: unknown): string {
   return String(value || "").trim().toLowerCase();
 }
@@ -62,15 +152,50 @@ export default function CategoryManager({ lang }: { lang: "zh" | "en" }) {
   }, []);
 
   function handleNew() {
+    const defaults = categorySeoDefaults.stroller;
     setEditing({
       id: `cat_${Date.now()}`,
       code: "stroller",
       status: "draft",
       sortOrder: items.length + 1,
       icon: "",
-      zh: { name: "", description: "" },
-      en: { name: "", description: "" },
+      zh: { 
+        name: "", 
+        description: "", 
+        seoTitle: defaults.zh.seoTitle, 
+        seoDescription: defaults.zh.seoDescription, 
+        seoKeywords: defaults.zh.seoKeywords 
+      },
+      en: { 
+        name: "", 
+        description: "", 
+        seoTitle: defaults.en.seoTitle, 
+        seoDescription: defaults.en.seoDescription, 
+        seoKeywords: defaults.en.seoKeywords 
+      },
       updatedAt: null,
+    });
+  }
+
+  function handleStartEdit(item: CMSCategory) {
+    const defaults = categorySeoDefaults[item.code] || {
+      zh: { seoTitle: "", seoDescription: "", seoKeywords: "" },
+      en: { seoTitle: "", seoDescription: "", seoKeywords: "" }
+    };
+    setEditing({
+      ...item,
+      zh: {
+        ...(item.zh || {}),
+        seoTitle: item.zh?.seoTitle || defaults.zh.seoTitle,
+        seoDescription: item.zh?.seoDescription || defaults.zh.seoDescription,
+        seoKeywords: item.zh?.seoKeywords || defaults.zh.seoKeywords,
+      },
+      en: {
+        ...(item.en || {}),
+        seoTitle: item.en?.seoTitle || defaults.en.seoTitle,
+        seoDescription: item.en?.seoDescription || defaults.en.seoDescription,
+        seoKeywords: item.en?.seoKeywords || defaults.en.seoKeywords,
+      }
     });
   }
 
@@ -177,8 +302,8 @@ export default function CategoryManager({ lang }: { lang: "zh" | "en" }) {
             </div>
             <div className="flex items-center gap-2">
               <button
-                onClick={() => setEditing(item)}
-                className="px-4 py-2 rounded-xl text-xs font-black bg-slate-100 text-slate-600 hover:bg-slate-200"
+                onClick={() => handleStartEdit(item)}
+                className="px-4 py-2 rounded-xl text-xs font-black bg-slate-100 text-slate-600 hover:bg-slate-200 cursor-pointer"
               >
                 Edit
               </button>
@@ -246,6 +371,95 @@ export default function CategoryManager({ lang }: { lang: "zh" | "en" }) {
             />
           </div>
 
+          {/* Category SEO Overrides Panel */}
+          <div className="pt-4 border-t border-dashed border-slate-100/80 space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <h4 className="text-xs font-black text-orange-500 uppercase tracking-widest flex items-center gap-2">
+                <span>🌐</span>
+                {lang === "zh" ? "品类页面 SEO 深度优化 (已按原有品类自动生成 TDK 默认值)" : "Category Landing Page SEO Overrides (TDK Default Values Auto-Generated)"}
+              </h4>
+              <button
+                type="button"
+                onClick={() => {
+                  const defaults = categorySeoDefaults[editing.code];
+                  if (defaults) {
+                    setEditing({
+                      ...editing,
+                      zh: {
+                        ...(editing.zh || {}),
+                        seoTitle: defaults.zh.seoTitle,
+                        seoDescription: defaults.zh.seoDescription,
+                        seoKeywords: defaults.zh.seoKeywords
+                      },
+                      en: {
+                        ...(editing.en || {}),
+                        seoTitle: defaults.en.seoTitle,
+                        seoDescription: defaults.en.seoDescription,
+                        seoKeywords: defaults.en.seoKeywords
+                      }
+                    });
+                  }
+                }}
+                className="px-4 py-2 rounded-xl bg-orange-50 border border-orange-100 text-orange-600 font-extrabold text-[10px] uppercase tracking-widest hover:bg-orange-500 hover:text-white transition-all cursor-pointer shadow-sm active:scale-95"
+              >
+                {lang === "zh" ? "✨ 一键重置为系统默认 SEO / Reset" : "✨ Reset to SEO Defaults"}
+              </button>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Field
+                label="ZH SEO Title"
+                placeholder={lang === "zh" ? "留空则回退至实验室默认品类标题" : "Fallback to default category SEO title if empty"}
+                value={editing.zh?.seoTitle || ""}
+                onChange={(v) => setEditing({ ...editing, zh: { ...(editing.zh || {}), seoTitle: v } })}
+              />
+              <Field
+                label="EN SEO Title"
+                placeholder={lang === "zh" ? "留空则回退至实验室默认品类标题" : "Fallback to default category SEO title if empty"}
+                value={editing.en?.seoTitle || ""}
+                onChange={(v) => setEditing({ ...editing, en: { ...(editing.en || {}), seoTitle: v } })}
+              />
+              
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                  ZH SEO Description
+                </label>
+                <textarea
+                  rows={2}
+                  placeholder={lang === "zh" ? "留空则回退至系统通用分类描述" : "Fallback to default category description if empty"}
+                  value={editing.zh?.seoDescription || ""}
+                  onChange={(e) => setEditing({ ...editing, zh: { ...(editing.zh || {}), seoDescription: e.target.value } })}
+                  className="w-full bg-slate-50 py-3 px-4 rounded-xl font-bold text-sm border border-transparent focus:border-orange-500 resize-none outline-none"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                  EN SEO Description
+                </label>
+                <textarea
+                  rows={2}
+                  placeholder={lang === "zh" ? "留空则回退至系统通用分类描述" : "Fallback to default category description if empty"}
+                  value={editing.en?.seoDescription || ""}
+                  onChange={(e) => setEditing({ ...editing, en: { ...(editing.en || {}), seoDescription: e.target.value } })}
+                  className="w-full bg-slate-50 py-3 px-4 rounded-xl font-bold text-sm border border-transparent focus:border-orange-500 resize-none outline-none"
+                />
+              </div>
+
+              <Field
+                label={lang === "zh" ? "ZH SEO Keywords (逗号分隔)" : "ZH SEO Keywords (Comma separated)"}
+                placeholder="e.g. 婴儿推车, 双人推车, KIDSMOBI"
+                value={editing.zh?.seoKeywords || ""}
+                onChange={(v) => setEditing({ ...editing, zh: { ...(editing.zh || {}), seoKeywords: v } })}
+              />
+              <Field
+                label={lang === "zh" ? "EN SEO Keywords (逗号分隔)" : "EN SEO Keywords (Comma separated)"}
+                placeholder="e.g. baby stroller, twin stroller"
+                value={editing.en?.seoKeywords || ""}
+                onChange={(v) => setEditing({ ...editing, en: { ...(editing.en || {}), seoKeywords: v } })}
+              />
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Field
               label="Icon"
@@ -288,13 +502,14 @@ export default function CategoryManager({ lang }: { lang: "zh" | "en" }) {
   );
 }
 
-function Field({ label, value, onChange, type = "text", disabled = false }: any) {
+function Field({ label, value, onChange, type = "text", disabled = false, placeholder = "" }: any) {
   return (
     <div className="space-y-2">
       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{label}</label>
       <input
         type={type}
         disabled={disabled}
+        placeholder={placeholder}
         className={`w-full bg-slate-50 py-3 px-4 rounded-xl font-bold text-sm border border-transparent ${
           disabled ? "opacity-60 cursor-not-allowed" : "focus:border-orange-500"
         }`}

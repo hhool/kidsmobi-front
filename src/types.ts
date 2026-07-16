@@ -141,10 +141,16 @@ export interface CMSCategory {
   zh: {
     name: string;
     description?: string;
+    seoTitle?: string;
+    seoDescription?: string;
+    seoKeywords?: string;
   };
   en: {
     name: string;
     description?: string;
+    seoTitle?: string;
+    seoDescription?: string;
+    seoKeywords?: string;
   };
   updatedAt: any;
 }
