@@ -620,7 +620,7 @@ export default function EvaluationsSection({
       if (isSingle) {
         const product = productsData.find(p => p.id === r.evaluation.productId);
         return {
-          type: "single",
+          type: "single" as const,
           evaluation: r.evaluation,
           product,
           reviewBadge: r.reviewBadge
@@ -630,7 +630,7 @@ export default function EvaluationsSection({
           .map(id => productsData.find(p => p.id === id))
           .filter(Boolean) as Product[];
         return {
-          type: "multi",
+          type: "multi" as const,
           evaluation: r.evaluation,
           products,
           reviewBadge: r.reviewBadge
@@ -639,10 +639,29 @@ export default function EvaluationsSection({
     });
   }, [filteredReviews, productsData]);
 
-  const pageSize = 6;
-  const totalPages = Math.max(1, Math.ceil(renderList.length / pageSize));
-  const safePage = Math.min(Math.max(1, currentPage), totalPages);
-  const pagedRenderList = renderList.slice((safePage - 1) * pageSize, safePage * pageSize);
+  const doubleStrollerFloorReviews = useMemo(() => {
+    return renderList.filter((item) => {
+      const p = item.type === "single" ? item.product : item.products?.[0];
+      const categoryId = String(p?.categoryId || p?.category || "").toLowerCase();
+      return categoryId.includes("stroller") || categoryId.includes("wagon");
+    });
+  }, [renderList]);
+
+  const balanceBikeFloorReviews = useMemo(() => {
+    return renderList.filter((item) => {
+      const p = item.type === "single" ? item.product : item.products?.[0];
+      const categoryId = String(p?.categoryId || p?.category || "").toLowerCase();
+      return categoryId.includes("balance");
+    });
+  }, [renderList]);
+
+  const kidsBikeFloorReviews = useMemo(() => {
+    return renderList.filter((item) => {
+      const p = item.type === "single" ? item.product : item.products?.[0];
+      const categoryId = String(p?.categoryId || p?.category || "").toLowerCase();
+      return (categoryId.includes("bike") || categoryId.includes("bicycle")) && !categoryId.includes("balance");
+    });
+  }, [renderList]);
 
   useEffect(() => {
     if (selectedEvaluation) {
@@ -652,13 +671,13 @@ export default function EvaluationsSection({
     setCollectionPageJsonLd("evaluations-list", {
       name: lang === "en" ? "Evaluation Reports" : "评测中心",
       url: canonicalUrl,
-      items: pagedRenderList.map((block) => ({
+      items: renderList.map((block) => ({
         name: lang === "zh" ? block.evaluation.zh.title : block.evaluation.en.title,
         url: canonicalUrl,
       })),
     });
     return () => clearJsonLd("evaluations-list");
-  }, [lang, pagedRenderList, selectedEvaluation]);
+  }, [lang, renderList, selectedEvaluation]);
 
   const isSelectedSingle = selectedEvaluation && 
     (selectedEvaluation.type !== "compare" || !selectedEvaluation.productIds || selectedEvaluation.productIds.length <= 1);
@@ -778,23 +797,60 @@ export default function EvaluationsSection({
       />
 
       {/* Upper header details */}
-      <section className="text-center max-w-3xl mx-auto space-y-6">
+      <section className="text-center max-w-4xl mx-auto space-y-6">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-50 border border-orange-100 text-orange-600 text-[10px] font-black uppercase tracking-widest rounded-full">
           <BookOpen className="w-4 h-4" />
           {lang === "zh" ? "专业实测报告" : "VERIFIED REPORTS"}
         </div>
-        <h1 className="text-3xl font-black text-slate-900 tracking-tight leading-tight">
+        <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
           {lang === "en" ? (
-            <>Expert Reviews: Best Stroller &amp; Kids Bike Lab</>
+            <>Expert Stroller &amp; Kids Mobility Reviews Lab</>
           ) : (
-            <>Expert Reviews: Best Stroller &amp; Kids Bike Lab</>
+            <>KIDSMOBI 物理实验室：推车与学步出行科学评测中心</>
           )}
         </h1>
-        <p className="text-slate-500 text-sm font-medium leading-relaxed">
+        <p className="text-slate-500 text-sm font-semibold leading-relaxed max-w-2xl mx-auto">
           {lang === "en" 
-            ? "Independent stroller reviews, kids bike review data, and kids dirt bike safety audits meet in one lab. Compare the best travel stroller, best jogging stroller, toddler bike, and kids bike candidates without marketplace hype."
-            : "Independent stroller reviews, kids bike review data, and kids dirt bike safety audits meet in one lab. Compare the best travel stroller, best jogging stroller, toddler bike, and kids bike candidates without marketplace hype."}
+            ? "Welcome to the KIDSMOBI Lab. Explore our unbiased, physical-tested evaluations for double strollers, balance bikes, and more."
+            : "从物理破坏性撞击、结构抗倾覆、成长力学骨骼维度，为您公正筛查真正好用、安全的单人双人折叠推车及各品类学步平衡车候选。"}
         </p>
+
+        {/* Partitions Fast Smooth Scroll Navigation Anchor buttons */}
+        <div className="flex flex-wrap justify-center gap-4 pt-4">
+          <button
+            type="button"
+            onClick={() => {
+              const el = document.getElementById("strollers");
+              if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+            }}
+            className="inline-flex items-center gap-2 px-6 py-3.5 bg-orange-50 hover:bg-orange-500 hover:text-white border border-orange-100 text-orange-600 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all shadow-md active:scale-95 cursor-pointer"
+          >
+            <span>🛒</span>
+            {lang === "zh" ? "双人推车评测区" : "DOUBLE STROLLERS"}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              const el = document.getElementById("balance-bikes");
+              if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+            }}
+            className="inline-flex items-center gap-2 px-6 py-3.5 bg-orange-50 hover:bg-orange-500 hover:text-white border border-orange-100 text-orange-600 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all shadow-md active:scale-95 cursor-pointer"
+          >
+            <span>🚲</span>
+            {lang === "zh" ? "幼儿平衡车评测区" : "BALANCE BIKES"}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              const el = document.getElementById("kids-bikes");
+              if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+            }}
+            className="inline-flex items-center gap-2 px-6 py-3.5 bg-orange-50 hover:bg-orange-500 hover:text-white border border-orange-100 text-orange-600 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all shadow-md active:scale-95 cursor-pointer"
+          >
+            <span>🚴‍♀️</span>
+            {lang === "zh" ? "儿童自行车评测区" : "KIDS BIKES"}
+          </button>
+        </div>
       </section>
 
       {/* Sifting control dashboard */}

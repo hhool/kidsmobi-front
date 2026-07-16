@@ -67,14 +67,14 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
   },
   evaluations: {
     zh: {
-      title: "Best Stroller Reviews, Kids Bike & Dirt Bike Lab | KIDSMOBI",
-      description: "Read our unbiased stroller reviews to find the best travel stroller and best jogging stroller. Plus, explore lab-tested kids dirt bike options for off-road fun.",
-      keywords: ["best travel stroller", "best jogging stroller", "kids dirt bike", "stroller reviews", "kids bike review"],
+      title: "Best Travel & Jogging Stroller Reviews + Balance Bike Lab",
+      description: "Explore our expert stroller reviews to find the best travel stroller and best jogging stroller. Plus, discover lab-tested balance bike reviews for kids.",
+      keywords: ["best travel stroller", "best jogging stroller", "stroller reviews", "balance bike reviews"],
     },
     en: {
-      title: "Best Stroller Reviews, Kids Bike & Dirt Bike Lab | KIDSMOBI",
-      description: "Read our unbiased stroller reviews to find the best travel stroller and best jogging stroller. Plus, explore lab-tested kids dirt bike options for off-road fun.",
-      keywords: ["best travel stroller", "best jogging stroller", "kids dirt bike", "stroller reviews", "kids bike review"],
+      title: "Best Travel & Jogging Stroller Reviews + Balance Bike Lab",
+      description: "Explore our expert stroller reviews to find the best travel stroller and best jogging stroller. Plus, discover lab-tested balance bike reviews for kids.",
+      keywords: ["best travel stroller", "best jogging stroller", "stroller reviews", "balance bike reviews"],
     },
   },
   guides: {
