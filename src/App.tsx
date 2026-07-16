@@ -581,6 +581,17 @@ const resolveRouteState = (pathname: string, hash: string) => {
     };
   }
 
+  if (root === "compare") {
+    return {
+      activeTab: "compare",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      activeEvaluationId: "",
+      activePageIndex: 1,
+      currentPath,
+    };
+  }
+
   if (root === "auth") {
     return {
       activeTab: "auth",
@@ -871,6 +882,27 @@ export default function App() {
       console.error("Failed to write to unauth_compare_list", e);
     }
   }, [compareList]);
+
+  // Load compared products from URL search query on direct access or shared URL
+  useEffect(() => {
+    if (productsData.length > 0) {
+      const params = new URLSearchParams(window.location.search);
+      const idsParam = params.get("ids");
+      if (idsParam) {
+        const ids = idsParam.split(",").map(id => id.trim()).filter(Boolean);
+        const matched = ids
+          .map(id => productsData.find(p => p.id === id))
+          .filter((p): p is Product => !!p);
+        if (matched.length > 0) {
+          const matchedIds = matched.map(m => m.id).join(",");
+          const currentIds = compareList.map(c => c.id).join(",");
+          if (matchedIds !== currentIds) {
+            setCompareList(matched);
+          }
+        }
+      }
+    }
+  }, [productsData, currentPath]);
 
   useEffect(() => {
     try {
@@ -2164,11 +2196,48 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             onCategoryChange={(categoryId) => navigateToPath(categoryId === "all" ? "/products" : `/products/${categoryId}`, { preserveScroll: false })}
             seoKeywordHints={productSeoHints}
             currentPage={activePageIndex}
+            onCompareOpen={(ids) => navigateToPath(`/compare?ids=${ids.join(",")}`)}
             onPageChange={(page) => {
               const categoryPath = activeProductCategory === "all" ? "/products" : `/products/${activeProductCategory}`;
               navigateToPath(page <= 1 ? categoryPath : `${categoryPath}/page/${page}`, { preserveScroll: false });
             }}
           />
+        )}
+
+        {activeTab === "compare" && (
+          <div className="space-y-8 animate-fade-in text-left max-w-7xl mx-auto">
+            <div className="flex items-center justify-between">
+              <button
+                onClick={() => navigateToPath("/products")}
+                className="inline-flex items-center gap-2 text-slate-500 hover:text-orange-500 font-bold text-xs uppercase tracking-widest transition-colors cursor-pointer"
+              >
+                ← {lang === "en" ? "Back to Products" : "返回产品中心"}
+              </button>
+            </div>
+            <ComparisonDashboard
+              compareList={compareList}
+              lang={lang}
+              currencyData={currencyData}
+              onSelectProduct={(p) => {
+                handleSelectProduct(p);
+              }}
+              onRemove={(id) => {
+                const nextList = compareList.filter(p => p.id !== id);
+                setCompareList(nextList);
+                const params = new URLSearchParams(window.location.search);
+                if (nextList.length === 0) {
+                  navigateToPath("/products");
+                } else {
+                  params.set("ids", nextList.map(p => p.id).join(","));
+                  navigateToPath(`/compare?${params.toString()}`);
+                }
+              }}
+              onClear={() => {
+                setCompareList([]);
+                navigateToPath("/products");
+              }}
+            />
+          </div>
         )}
 
         {activeTab === "evaluations" && (

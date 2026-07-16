@@ -376,6 +376,7 @@ interface ProductsSectionProps {
   seoKeywordHints?: string[];
   currentPage?: number;
   onPageChange?: (page: number) => void;
+  onCompareOpen?: (ids: string[]) => void;
 }
 
 export default function ProductsSection({
@@ -397,7 +398,8 @@ export default function ProductsSection({
   onCategoryChange,
   seoKeywordHints = [],
   currentPage = 1,
-  onPageChange
+  onPageChange,
+  onCompareOpen
 }: ProductsSectionProps) {
   const excludedCategoryIds = new Set([
     "playard",
@@ -435,6 +437,11 @@ export default function ProductsSection({
   const [backendCategoryNameMap, setBackendCategoryNameMap] = useState<Record<string, string>>({});
   const [hintFlash, setHintFlash] = useState<string | null>(null);
   const [saveTip, setSaveTip] = useState<string | null>(null);
+  const [pendingCategoryConflict, setPendingCategoryConflict] = useState<{
+    product: Product;
+    currentCategoryLabel: string;
+    newCategoryLabel: string;
+  } | null>(null);
   const categoryAliasMap: Record<string, string> = {
     scooters: "kids_scooters",
     scooter: "kids_scooters",
@@ -1193,14 +1200,33 @@ export default function ProductsSection({
     let newList: Product[] = [];
     if (exists) {
       newList = compareList.filter(p => p.id !== product.id);
-    } else if (compareList.length >= 4) {
-      if (lang === "en") {
-        alert("Comparison Limit: You can compare up to 4 models at once.");
-      } else {
-        alert("【对比上限提醒】横评对比最多支持 4 款同台。");
-      }
-      return;
     } else {
+      // 1. Cross-category validation check
+      if (compareList.length > 0) {
+        const baseProduct = compareList[0];
+        const baseCategoryId = getProductCategoryId(baseProduct);
+        const thisCategoryId = getProductCategoryId(product);
+        if (baseCategoryId !== thisCategoryId) {
+          const currentCategoryLabel = getCategoryLabel(baseCategoryId, baseProduct.category);
+          const newCategoryLabel = getCategoryLabel(thisCategoryId, product.category);
+          setPendingCategoryConflict({
+            product,
+            currentCategoryLabel,
+            newCategoryLabel,
+          });
+          return;
+        }
+      }
+
+      // 2. Max limits warning toast
+      if (compareList.length >= 4) {
+        showSaveTip(
+          lang === "en" 
+            ? "Limit reached: You can compare up to 4 models. Please remove one first." 
+            : "【对比上限提醒】最多只能同时对比 4 款，请先在下方移除一个。"
+        );
+        return;
+      }
       newList = [...compareList, product];
     }
     setCompareList(newList);
@@ -1555,29 +1581,107 @@ export default function ProductsSection({
         </div>
       )}
 
-      {compareList.length > 0 && !showCompareDrawer && (
-        <div className="fixed left-1/2 bottom-6 z-[70] w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 rounded-[28px] border border-slate-200 bg-white/95 p-4 shadow-2xl shadow-slate-900/15 backdrop-blur-md">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="min-w-0">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                {lang === "en" ? "Compare Selection" : "对比选择"}
-              </p>
-              <p className="truncate text-sm font-black text-slate-900">
-                {lang === "en" ? `${compareList.length} / 4 selected` : `已选择 ${compareList.length} / 4 款`}
-              </p>
+      {/* Cross-Category conflict modal dialog */}
+      {pendingCategoryConflict && (
+        <div className="fixed inset-0 z-[100] bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setPendingCategoryConflict(null)}>
+          <div className="bg-white rounded-[40px] border border-slate-100 max-w-md w-full p-8 shadow-2xl space-y-6 animate-fade-in" onClick={(e) => e.stopPropagation()}>
+            <h4 className="text-lg font-black text-slate-900 leading-tight">
+              {lang === "en" ? "Different Category Intercept" : "跨品类对比防呆拦截"}
+            </h4>
+            <p className="text-slate-600 text-sm leading-relaxed font-semibold">
+              {lang === "en" 
+                ? `You are currently comparing products under [${pendingCategoryConflict.currentCategoryLabel}]. Would you like to clear the current list and start comparing [${pendingCategoryConflict.newCategoryLabel}] instead?`
+                : `您当前处于 [${pendingCategoryConflict.currentCategoryLabel}] 对比状态中。是否需要清空已选的列表，以便开始添加 [${pendingCategoryConflict.newCategoryLabel}] 品类的产品？`}
+            </p>
+            <div className="flex gap-4">
+              <button
+                onClick={() => setPendingCategoryConflict(null)}
+                className="flex-1 py-3.5 px-5 rounded-2xl border border-slate-200 text-slate-500 font-extrabold text-[10px] uppercase tracking-widest hover:bg-slate-50 transition-colors cursor-pointer"
+              >
+                {lang === "en" ? "Cancel" : "取消"}
+              </button>
+              <button
+                onClick={() => {
+                  setCompareList([pendingCategoryConflict.product]);
+                  setPendingCategoryConflict(null);
+                }}
+                className="flex-1 py-3.5 px-5 rounded-2xl bg-orange-500 text-white font-extrabold text-[10px] uppercase tracking-widest hover:bg-orange-600 transition-all shadow-xl shadow-orange-500/20 cursor-pointer"
+              >
+                {lang === "en" ? "Confirm & Compare" : "确认清空并加入"}
+              </button>
             </div>
-            <div className="flex items-center gap-2 sm:gap-3">
+          </div>
+        </div>
+      )}
+
+      {compareList.length > 0 && !showCompareDrawer && (
+        <div className="fixed left-1/2 bottom-6 z-[70] w-[calc(100%-2rem)] max-w-4xl -translate-x-1/2 rounded-[28px] border border-slate-200 bg-white/95 p-4 shadow-2xl shadow-slate-900/15 backdrop-blur-md">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-4 min-w-0 flex-1">
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+                  {lang === "en" ? "Compare Selection" : "对比选择"}
+                </p>
+                <div className="truncate text-xs font-bold text-slate-500">
+                  {lang === "en" ? `${compareList.length} / 4 selected` : `已选择 ${compareList.length} / 4 款`}
+                </div>
+              </div>
+
+              {/* Candidates thumbnails dock with quick X removal */}
+              <div className="flex items-center gap-3 overflow-x-auto py-1 pr-4 custom-scrollbar border-l border-slate-100 pl-4">
+                {compareList.map((item) => {
+                  const images = resolveProductImages(item);
+                  return (
+                    <div key={item.id} className="relative shrink-0 group">
+                      <div className="w-11 h-11 rounded-xl border border-slate-100 bg-slate-50 p-1 flex items-center justify-center overflow-hidden">
+                        <img
+                          src={images.coverUrl || undefined}
+                          alt={item.name}
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setCompareList(compareList.filter(p => p.id !== item.id))}
+                        className="absolute -top-1 -right-1 p-0.5 bg-rose-500 hover:bg-rose-600 text-white rounded-full shadow-md z-10 transition-colors cursor-pointer"
+                        title={lang === "en" ? "Remove" : "移除"}
+                      >
+                        <X className="w-2.5 h-2.5" />
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
               <button
                 type="button"
                 onClick={() => setCompareList([])}
-                className="px-4 py-3 rounded-2xl border border-slate-200 bg-white text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-rose-500 hover:border-rose-200 transition-colors"
+                className="px-4 py-3 rounded-2xl border border-slate-200 bg-white text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-rose-500 hover:border-rose-200 transition-colors cursor-pointer"
               >
                 {lang === "en" ? "Clear" : "清空"}
               </button>
               <button
                 type="button"
-                onClick={() => setShowCompareDrawer(true)}
-                className="px-5 py-3 rounded-2xl bg-orange-500 text-[10px] font-black uppercase tracking-widest text-white shadow-xl shadow-orange-500/20 hover:bg-orange-600 transition-colors"
+                onClick={() => {
+                  if (compareList.length < 2) {
+                    showSaveTip(
+                      lang === "en" 
+                        ? "Please select at least 2 products to compare." 
+                        : "请至少选择 2 款产品进行横评对比。"
+                    );
+                  } else if (onCompareOpen) {
+                    onCompareOpen(compareList.map(p => p.id));
+                  } else {
+                    setShowCompareDrawer(true);
+                  }
+                }}
+                className={`px-5 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest text-orange-500 border border-orange-500/20 active:scale-95 transition-all text-white shadow-xl ${
+                  compareList.length < 2
+                    ? "bg-slate-300 shadow-none border-transparent cursor-not-allowed text-slate-400"
+                    : "bg-orange-500 shadow-orange-500/20 text-white border-transparent hover:bg-orange-600 cursor-pointer"
+                }`}
               >
                 {lang === "en" ? "Open Compare" : "确认对比"}
               </button>
