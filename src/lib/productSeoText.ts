@@ -93,6 +93,7 @@ export const getProductsPageSeoTitle = (productOrName?: Product | string | null)
   if (normalized.includes("kriddo")) return "KRIDDO Toddler Balance Bike";
   if (normalized.includes("sereed")) return "SEREED Toddler Balance Bike";
   if (normalized.includes("gamfeiny")) return "Gamfeiny Illuminated Toddler Balance Bike";
+  if (normalized.includes("colorful") && normalized.includes("glow") && normalized.includes("balance bike")) return "Colorful Glow Wheel Toddler Balance Bike";
   if (normalized.includes("colorful lighting") && normalized.includes("balance bike")) return "Colorful LED Toddler Balance Bike";
   if (normalized.includes("umatoll")) return "Umatoll Illuminated Toddler Balance Bike";
   if (normalized.includes("retrospec") && normalized.includes("cricket")) return "Retrospec Cricket Toddler Balance Bike";
