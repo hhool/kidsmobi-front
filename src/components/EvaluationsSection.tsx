@@ -663,6 +663,10 @@ export default function EvaluationsSection({
     });
   }, [renderList]);
 
+  const pageSize = 6;
+  const totalPages = Math.max(1, Math.ceil(renderList.length / pageSize));
+  const safePage = Math.min(Math.max(1, currentPage), totalPages);
+
   useEffect(() => {
     if (selectedEvaluation) {
       return;
@@ -803,11 +807,9 @@ export default function EvaluationsSection({
           {lang === "zh" ? "专业实测报告" : "VERIFIED REPORTS"}
         </div>
         <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
-          {lang === "en" ? (
-            <>Expert Stroller &amp; Kids Mobility Reviews Lab</>
-          ) : (
-            <>KIDSMOBI 物理实验室：推车与学步出行科学评测中心</>
-          )}
+          {lang === "zh"
+            ? "专家产品中心：儿童自行车、双人推车及儿童电动车"
+            : "Expert Product Hub: Toddler Bike, Twin Stroller & Kids Electric Scooter"}
         </h1>
         <p className="text-slate-500 text-sm font-semibold leading-relaxed max-w-2xl mx-auto">
           {lang === "en" 
