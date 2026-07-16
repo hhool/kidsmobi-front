@@ -497,20 +497,26 @@ function buildGeneratedEvaluations(productsData: Product[]): Evaluation[] {
   const verdictProducts = focusProducts.filter(hasRealEditorVerdict);
 
   const byCategory = (needle: string) => focusProducts.filter((product) => {
-    const text = `${product.category || ""} ${(product as any).categoryId || ""}`.toLowerCase();
+    const categoryId = String(product.categoryId || "").toLowerCase();
+    const category = String(product.category || "").toLowerCase();
+    
     if (needle === "stroller") {
-      return text.includes("stroller");
+      return (categoryId.includes("stroller") || category.includes("stroller") || categoryId.includes("jogger")) 
+        && !categoryId.includes("car_seat") && !category.includes("car_seat");
     }
     if (needle === "balance") {
-      return text.includes("balance");
+      return categoryId.includes("balance") || category.includes("balance");
     }
     if (needle === "scooter") {
-      return text.includes("scooter");
+      return categoryId.includes("scooter") || category.includes("scooter");
     }
     if (needle === "bike") {
-      return (text.includes("bike") || text.includes("bicycle") || text.includes("kids_bikes")) && !text.includes("balance");
+      return (categoryId === "kids_bikes" || categoryId === "bicycle" || category === "bicycle" || category === "kids_bikes") 
+        && !categoryId.includes("balance") && !category.includes("balance")
+        && !categoryId.includes("tricycle") && !category.includes("tricycle")
+        && !categoryId.includes("scooter") && !category.includes("scooter");
     }
-    return text.includes(needle);
+    return categoryId.includes(needle) || category.includes(needle);
   });
 
   const balanceProducts = byCategory("balance");
@@ -564,7 +570,7 @@ function buildGeneratedEvaluations(productsData: Product[]): Evaluation[] {
     { products: balanceProducts.slice(0, 4), zh: "Balance Bike 高分车型横向评测", en: "Balance Bike Top Picks Cross Compare" },
     { products: bikeProducts.slice(0, 4), zh: "Kids Bike 安全与成长适配横向评测", en: "Kids Bike Safety and Fit Cross Compare" },
     { products: scooterProducts.slice(0, 4), zh: "Kids Scooter 稳定性与便携横向评测", en: "Kids Scooter Stability and Portability Cross Compare" },
-  ].filter((group) => group.products.length >= 2);
+  ].filter((group) => group.products.length >= 3);
 
   const compares = compareGroups.map((group, index) => makeCompareEvaluation(`generated_compare_${index + 1}`, group.products, group.zh, group.en));
 
