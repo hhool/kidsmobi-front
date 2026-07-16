@@ -1173,7 +1173,7 @@ export default function ProductsSection({
                   } else if (pill.label === "TWIN STROLLER") {
                     searchString = "?type=twin";
                   } else if (pill.label === "TODDLER BIKE") {
-                    searchString = "?size=12-inch&age=toddler";
+                    searchString = "?age=toddler";
                   } else if (pill.label === "KIDS ELECTRIC SCOOTER") {
                     searchString = "?power=electric";
                   }
