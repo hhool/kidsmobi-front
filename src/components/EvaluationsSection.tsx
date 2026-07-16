@@ -666,6 +666,7 @@ export default function EvaluationsSection({
   const pageSize = 6;
   const totalPages = Math.max(1, Math.ceil(renderList.length / pageSize));
   const safePage = Math.min(Math.max(1, currentPage), totalPages);
+  const pagedRenderList = renderList.slice((safePage - 1) * pageSize, safePage * pageSize);
 
   useEffect(() => {
     if (selectedEvaluation) {
@@ -901,7 +902,7 @@ export default function EvaluationsSection({
           </section>
           <section className="rounded-4xl border border-slate-100 bg-slate-50 p-5">
             <h2 className="text-sm font-black text-slate-900 tracking-tight">{lang === "zh" ? "🚲 两轮双脚与滑步专区" : "🚲 Two-Wheel Balance & Fit Section"}</h2>
-            <p className="mt-2 text-xs font-bold text-slate-500 leading-relaxed">{lang === "zh" ? "针对学步儿 1-3 岁阶段的无脚踏平衡滑步车、重力转向滑板车，提供精确的五维力学评分、骑行重心偏离测试分析。" : "Each kids dirt bike candidate is checked for speed control, braking response, and terrain stability. The same lab matrix also separates the best jogging stroller from casual jogging stroller claims."}</p>
+            <p className="mt-2 text-xs font-bold text-slate-500 leading-relaxed">{lang === "zh" ? "针对学步儿 1-3 岁阶段的无脚踏平衡滑步车、重力转向滑板车，提供精确的五维力学评分、骑行重心偏离测试分析。" : "Each balance bike candidate is checked for safe steering limits and terrain stability. Our lab tests verify materials quality and low center-of-gravity ride control."}</p>
           </section>
         </div>
         {/* Clean and pure content matrix section */}
