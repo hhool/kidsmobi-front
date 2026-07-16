@@ -1016,20 +1016,28 @@ export default function ProductsSection({
         items={[{ label: lang === "zh" ? "产品中心" : "PRODUCT CENTER", active: true }]} 
       />
 
-      {/* Upper description */}
-      <section className="text-center max-w-2xl mx-auto space-y-4">
-        <div className="flex justify-center">
-          <div className="bg-orange-100 p-3 rounded-2xl">
-            <BookOpen className="w-6 h-6 text-orange-500" />
+      {/* Upper description - Upgraded to Match Slogan Banner style */}
+      <section className="relative rounded-[48px] bg-white border border-slate-100 overflow-hidden p-10 sm:p-20 text-center max-w-7xl mx-auto shadow-2xl space-y-8">
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,247,237,0.92),rgba(255,255,255,0.88)_45%,rgba(236,253,245,0.55))]"></div>
+        <div className="relative z-10 space-y-8">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-50 border border-orange-100/60 text-orange-600 text-[10px] font-black uppercase tracking-widest rounded-full shadow-sm">
+            <BookOpen className="w-4 h-4" />
+            {lang === "zh" ? "官方童车数据基准库" : "OFFICIAL MOBILITY BASELINE DATABASE"}
           </div>
-        </div>
-        <h1 className="text-3xl font-black text-slate-900 mt-4">
-          Lab Database: Twin Stroller, Toddler Bike & Kids Electric Scooter
-        </h1>
-        <p className="text-sm text-slate-500 font-medium">
-          Filter safety metrics across our entire database. Whether you need a heavy-duty twin stroller, a pedal toddler bike, a toddler balance bike, or a premium kids electric scooter, we have the lab data.
-        </p>
-        <div className="flex flex-wrap justify-center gap-2 pt-2">
+
+          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight max-w-5xl mx-auto">
+            {lang === "zh"
+              ? "专家产品中心：儿童自行车、双人推车及儿童电动车"
+              : "Expert Product Hub: Toddler Bike, Twin Stroller & Kids Electric Scooter"}
+          </h1>
+
+          <p className="text-slate-600 text-sm md:text-base max-w-4xl mx-auto leading-relaxed font-semibold">
+            {lang === "zh"
+              ? "欢迎来到 KIDSMOBI 实验室数据库。无论您是在寻找一款安全的儿童自行车 (toddler bike) 开启骑行启蒙，还是为早期平衡信心挑选一款轻量化幼儿平衡车 (balance bike toddler)，抑或是为了家庭户外探险配置一款耐用推车，我们的机械安全审计和数据分析都能满足您的决策需求。对于多宝家庭，请探索我们经过严苛测试的双人推车 (twin stroller) 系列，或为大龄儿童升级到通过限速安全认证的儿童电玩车/电动车。通过年龄、品类或预算进行智能筛选，让我们不带偏见的中立客观数据引导您的下一次明智决定。"
+              : "Welcome to the KIDSMOBI Lab Database. Whether you are searching for a safe toddler bike to start pedaling, a lightweight balance bike toddler model for early confidence, or a heavy-duty wagon stroller for family outdoor adventures, our mechanical safety audits have you covered. For growing families, explore our strictly tested twin stroller selections, or upgrade to a speed-certified kids electric scooter for older children. Filter by age or budget, and let our unbiased data guide your next purchase."}
+          </p>
+
+          <div className="flex flex-wrap justify-center gap-4 pt-4 border-t border-slate-50">
             {productsSeoPillTags.map((pill) => (
               <button
                 key={pill.label}
@@ -1043,18 +1051,19 @@ export default function ProductsSection({
                   }
                   onCategoryChange?.(pill.target);
                 }}
-                className={`rounded-2xl border px-3 py-2 text-[11px] font-black uppercase leading-relaxed tracking-wide transition-all ${
+                className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-[11px] font-black tracking-widest uppercase shadow-sm cursor-pointer group transition-all duration-350 border ${
                   hintFlash === pill.label
-                    ? "bg-orange-50 text-orange-600 border-orange-300 shadow-sm scale-105"
+                    ? "bg-orange-500 text-white border-orange-500 scale-105"
                     : pill.target === selectedCategory
-                      ? "border-orange-200 text-orange-600 bg-orange-50"
-                      : "border-slate-200 hover:bg-orange-50 hover:text-orange-600 hover:border-orange-200"
+                      ? "border-orange-200 text-orange-600 bg-orange-50/50"
+                      : "bg-white border-slate-200 text-slate-800 hover:border-orange-300 hover:text-orange-600 hover:bg-orange-50/20"
                 }`}
               >
-                {pill.label}
+                <span>{pill.label}</span>
               </button>
             ))}
           </div>
+        </div>
       </section>
 
       {/* Control panel */}
