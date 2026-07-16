@@ -447,13 +447,21 @@ function makeCompareEvaluation(id: string, products: Product[], zhTitle: string,
   const average = (key: keyof ReturnType<typeof getProductScores>) => Number((scores.reduce((sum, item) => sum + item[key], 0) / Math.max(1, scores.length)).toFixed(1));
   const names = products.map((p) => {
     const brandEn = cleanEnBrandText(p.brand || "");
-    const nameStr = sanitizeMarketplaceNoise((p as any).en?.name || p.name || "");
+    let nameStr = sanitizeMarketplaceNoise((p as any).en?.name || p.name || "");
+    const brandLower = brandEn.toLowerCase();
+    if (nameStr.toLowerCase().startsWith(brandLower)) {
+      nameStr = nameStr.substring(brandLower.length).trim();
+    }
     return `${brandEn} ${nameStr}`.trim();
   }).join(" vs ");
 
   const namesZh = products.map((p) => {
     const brandZh = p.brand || "";
-    const nameStr = (p as any).zh?.name || p.name || "";
+    let nameStr = (p as any).zh?.name || p.name || "";
+    const brandLower = brandZh.toLowerCase();
+    if (nameStr.toLowerCase().startsWith(brandLower)) {
+      nameStr = nameStr.substring(brandLower.length).trim();
+    }
     return `${brandZh} ${nameStr}`.trim();
   }).join(" 对比 ");
 
