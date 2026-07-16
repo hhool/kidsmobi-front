@@ -916,6 +916,20 @@ export default function EvaluationsSection({
     includeCompare = true
   ) => {
     const seenSingleIds = new Set<string>();
+
+    const compare = includeCompare ? renderList.find((item: any) => {
+      if (item.type !== "multi" || !item.products || item.products.length < 2) return false;
+      return item.products.every((product: any) => matcher(normalizeCategoryText(product)));
+    }) : null;
+
+    if (compare && compare.products) {
+      compare.products.forEach((p: any) => {
+        if (p && p.id) {
+          seenSingleIds.add(p.id);
+        }
+      });
+    }
+
     const singles = renderList.filter((item: any) => {
       if (item.type !== "single" || !item.product) return false;
       const categoryText = normalizeCategoryText(item.product);
@@ -923,13 +937,6 @@ export default function EvaluationsSection({
       if (seenSingleIds.has(item.product.id)) return false;
       seenSingleIds.add(item.product.id);
       return true;
-    });
-
-    if (!includeCompare) return singles;
-
-    const compare = renderList.find((item: any) => {
-      if (item.type !== "multi" || !item.products || item.products.length < 2) return false;
-      return item.products.every((product: any) => matcher(normalizeCategoryText(product)));
     });
 
     return compare ? [compare, ...singles] : singles;
