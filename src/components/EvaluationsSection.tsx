@@ -169,6 +169,12 @@ function containsCjk(text: string) {
   return /[\u4e00-\u9fff]/.test(String(text || ""));
 }
 
+function isRealVerdict(text: string) {
+  const v = String(text || "").trim().toLowerCase();
+  if (v.length < 45) return false;
+  return !DEFAULT_VERDICT_PATTERNS.some((p) => v.includes(p));
+}
+
 function cleanEnBrandText(brand: string) {
   const lowercase = String(brand || "").toLowerCase();
   if (lowercase.includes("gamfeiny")) return "Gamfeiny";
@@ -259,9 +265,7 @@ function productVerdict(product: Product, lang: "zh" | "en" = "en") {
   const diProduct = translateProduct(product, lang);
   const rawVerdict = String(diProduct.editorVerdict || "").trim();
   
-  const isReal = rawVerdict.length >= 40 &&
-    !DEFAULT_VERDICT_PATTERNS.some((p) => rawVerdict.toLowerCase().includes(p)) &&
-    !(lang === "en" && containsCjk(rawVerdict));
+  const isReal = isRealVerdict(rawVerdict) && !(lang === "en" && containsCjk(rawVerdict));
 
   if (isReal) {
     return cleanVisibleSourceText(rawVerdict);
@@ -299,9 +303,7 @@ function productVerdict(product: Product, lang: "zh" | "en" = "en") {
 }
 
 function hasRealEditorVerdict(product: Product) {
-  const verdict = String(product.editorVerdict || "").trim().toLowerCase();
-  if (verdict.length < 40) return false;
-  return !DEFAULT_VERDICT_PATTERNS.some((pattern) => verdict.includes(pattern));
+  return isRealVerdict(product.editorVerdict || "");
 }
 
 function isFocusReviewProduct(product: Product) {
@@ -332,11 +334,12 @@ function getProductDisplayName(product: Product) {
 
 function getCommercialReviewTitle(product: Product, fallbackTitle: string) {
   const text = `${product.brand || ""} ${product.name || ""} ${product.description || ""} ${product.category || ""} ${product.categoryId || ""}`.toLowerCase();
+  const brand = cleanEnBrandText(product.brand || "");
   if (text.includes("chicco") && text.includes("bravo")) return "Chicco Bravo Trio: Comprehensive Stroller Reviews";
   if (text.includes("razor") || text.includes("dirt bike") || text.includes("mountain bike") || text.includes("off-road") || text.includes("off road")) return "Razor MX350 Electric Kids Dirt Bike Review";
-  if (text.includes("bob gear") || text.includes("jogging stroller") || text.includes("jogger")) return "BOB Gear Alterrain: Best Jogging Stroller Review";
-  if (text.includes("travel stroller") || text.includes("coast rider") || text.includes("yoyo") || text.includes("mompush") || text.includes("passport")) return "Babyzen YOYO2: Best Travel Stroller Review";
-  if (text.includes("stroller")) return "Chicco Bravo Trio: Comprehensive Stroller Reviews";
+  if (text.includes("bob gear") || text.includes("jogging stroller") || text.includes("jogger")) return `${brand} Alterrain: Best Jogging Stroller Review`;
+  if (text.includes("travel stroller") || text.includes("coast rider") || text.includes("yoyo") || text.includes("mompush") || text.includes("passport")) return `${brand} Ultra Air: Best Travel Stroller Review`;
+  if (text.includes("stroller")) return `${brand}: Comprehensive Stroller Reviews`;
   return fallbackTitle;
 }
 
@@ -941,13 +944,13 @@ export default function EvaluationsSection({
     const displayDetailVerdict = (() => {
       if (lang === "en") {
         const v = sanitizeVerdictText(tEv.verdict || "");
-        if (v && !containsCjk(v)) return v;
+        if (v && !containsCjk(v) && isRealVerdict(v)) return v;
         const brandEn = cleanEnBrandText(productDisplay?.brand || "");
         const modelEn = sanitizeMarketplaceNoise(String(productDisplay?.name || ""));
         return `Detailed evaluation and lab results for the ${brandEn} ${modelEn} stroller, verified for performance capacity and structural safety parameters.`;
       } else {
         const v = sanitizeVerdictText(tEv.verdict || "");
-        if (v && containsCjk(v)) return v;
+        if (v && containsCjk(v) && isRealVerdict(v)) return v;
         return `针对 ${productDisplay?.brand} ${productDisplay?.name} 出行系统的深度结构化力学性能评估档案，覆盖前庭颈椎防护及操控稳定性。`;
       }
     })();
@@ -1248,14 +1251,16 @@ export default function EvaluationsSection({
                     const originalv = tEv.verdict || diProduct.editorVerdict || "";
                     if (lang === "en") {
                       const v = sanitizeVerdictText(originalv);
-                      if (v && !containsCjk(v)) return v;
+                      if (v && !containsCjk(v) && isRealVerdict(v)) return v;
                       const brandEn = cleanEnBrandText(diProduct.brand || "");
                       const modelEn = sanitizeMarketplaceNoise(String(diProduct.name || ""));
                       return `Comprehensive safety assessment for ${brandEn} ${modelEn} stroller, evaluated across structural weight capacity, suspension stiffness, and dynamic stability parameters.`;
                     } else {
                       const v = sanitizeVerdictText(originalv);
-                      if (v && containsCjk(v)) return v;
-                      return `针对 ${diProduct.brand} ${diProduct.name} 实测车型的深入评定摘要，多维度安全骨骼与避震学考核。`;
+                      if (v && containsCjk(v) && isRealVerdict(v)) return v;
+                      const brandZh = diProduct.brand || "该高端";
+                      const modelZh = sanitizeMarketplaceNoise(String(diProduct.name || ""));
+                      return `针对 ${brandZh} ${modelZh} 实测车型的深入评定摘要，多维度安全骨骼与避震学考核。`;
                     }
                   })();
 
@@ -1417,14 +1422,16 @@ export default function EvaluationsSection({
                     const originalv = tEv.verdict || diProduct.editorVerdict || "";
                     if (lang === "en") {
                       const v = sanitizeVerdictText(originalv);
-                      if (v && !containsCjk(v)) return v;
+                      if (v && !containsCjk(v) && isRealVerdict(v)) return v;
                       const brandEn = cleanEnBrandText(diProduct.brand || "");
                       const modelEn = sanitizeMarketplaceNoise(String(diProduct.name || ""));
                       return `Professional engineering safety audit for the ${brandEn} ${modelEn} balance bike. Analysed across low-COG ride control, steering limitations, and framework impact testing.`;
                     } else {
                       const v = sanitizeVerdictText(originalv);
-                      if (v && containsCjk(v)) return v;
-                      return `针对 ${diProduct.brand} ${diProduct.name} 儿童滑步平衡车的物理实测总结，包含转弯几何与车身受冲击测试评级。`;
+                      if (v && containsCjk(v) && isRealVerdict(v)) return v;
+                      const brandZh = diProduct.brand || "该高端";
+                      const modelZh = sanitizeMarketplaceNoise(String(diProduct.name || ""));
+                      return `针对 ${brandZh} ${modelZh} 儿童滑步平衡车的物理实测总结，包含转弯几何与车身受冲击测试评级。`;
                     }
                   })();
 
@@ -1586,14 +1593,16 @@ export default function EvaluationsSection({
                     const originalv = tEv.verdict || diProduct.editorVerdict || "";
                     if (lang === "en") {
                       const v = sanitizeVerdictText(originalv);
-                      if (v && !containsCjk(v)) return v;
+                      if (v && !containsCjk(v) && isRealVerdict(v)) return v;
                       const brandEn = cleanEnBrandText(diProduct.brand || "");
                       const modelEn = sanitizeMarketplaceNoise(String(diProduct.name || ""));
-                      return `Professional engineering safety audit for the ${brandEn} ${modelEn} kids bike. Specially verified for dual brake reach, chain合规 ASTM F963 support, and anti-tipping deck limiters.`;
+                      return `Professional engineering safety audit for the ${brandEn} ${modelEn} kids bike. Specially verified for dual brake reach, chain ASTM F963 support, and anti-tipping deck limiters.`;
                     } else {
                       const v = sanitizeVerdictText(originalv);
-                      if (v && containsCjk(v)) return v;
-                      return `针对 ${diProduct.brand} ${diProduct.name} 儿童自行车或滑板车的手刹制动力与车架防冲击性能的专项物理质检评测。`;
+                      if (v && containsCjk(v) && isRealVerdict(v)) return v;
+                      const brandZh = diProduct.brand || "该高端";
+                      const modelZh = sanitizeMarketplaceNoise(String(diProduct.name || ""));
+                      return `针对 ${brandZh} ${modelZh} 儿童自行车或滑板车的手刹制动力与车架防冲击性能的专项物理质检评测。`;
                     }
                   })();
 
