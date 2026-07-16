@@ -59,7 +59,7 @@ export const SCRAPED_CATEGORY_CATALOG: ScrapedCategoryEntry[] = [
   {
     id: "electric_vehicles",
     zh: "儿童电动车",
-    en: "Electric Vehicles",
+    en: "Kids Electric Vehicles",
     itemCount: 17,
     catalogUrl: "https://store.poki2.online/electric_vehicles/index.html",
     pagesUrl: "https://store.poki2.online/electric_vehicles/pages/index.html",
@@ -75,7 +75,7 @@ export const SCRAPED_CATEGORY_CATALOG: ScrapedCategoryEntry[] = [
   {
     id: "car_seat",
     zh: "安全座椅",
-    en: "Car Seat",
+    en: "Kids Car Seats",
     itemCount: 1,
     catalogUrl: "https://store.poki2.online/car_seat/index.html",
     pagesUrl: "https://store.poki2.online/car_seat/pages/index.html",
