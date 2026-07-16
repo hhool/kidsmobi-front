@@ -502,14 +502,14 @@ export default function EvaluationsSection({
   const reviewTypes = lang === "en" ? [
     { id: "single", label: "Best Travel Stroller" },
     { id: "compare", label: "Best Jogging Stroller" },
-    { id: "value", label: "Kids Dirt Bike" },
+    { id: "value", label: "Balance Bike Reviews" },
     { id: "ranking", label: "Stroller Reviews" },
     { id: "safety", label: "Safety Audits" }
   ] : [
     { id: "single", label: "🔬 单品实测" },
     { id: "compare", label: "⚖️ 多品横评" },
-    { id: "value", label: "💰 性价比测评" },
-    { id: "ranking", label: "🏆 年度榜单" },
+    { id: "value", label: "🚲 平衡车评测" },
+    { id: "ranking", label: "🏆 榜单汇编" },
     { id: "safety", label: "🛡️ 安全专项" }
   ];
 
@@ -838,27 +838,15 @@ export default function EvaluationsSection({
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10">
           <section className="rounded-4xl border border-slate-100 bg-slate-50 p-5">
-            <h2 className="text-sm font-black text-slate-900 tracking-tight">Stroller Reviews: Find the Best Travel &amp; Jogging Stroller</h2>
-            <p className="mt-2 text-xs font-bold text-slate-500 leading-relaxed">Our stroller reviews rank each best travel stroller candidate by folding speed, carry weight, suspension, and travel-system fit. A best travel stroller must stay portable without losing safety control.</p>
+            <h2 className="text-sm font-black text-slate-900 tracking-tight">{lang === "zh" ? "🛒 推车评测专区" : "🛒 Stroller Reviews Section"}</h2>
+            <p className="mt-2 text-xs font-bold text-slate-500 leading-relaxed">{lang === "zh" ? "探索我们实验室针对紧凑旅行推车、双人折叠推车及智能慢跑避震车盘点。深度考察折叠顺畅度与极限承载物理指标。" : "Our stroller reviews rank each best travel stroller candidate by folding speed, carry weight, suspension, and travel-system fit. A best travel stroller must stay portable without losing safety control."}</p>
           </section>
           <section className="rounded-4xl border border-slate-100 bg-slate-50 p-5">
-            <h2 className="text-sm font-black text-slate-900 tracking-tight">Two-Wheel Audits: From Toddler Bike to Kids Dirt Bike</h2>
-            <p className="mt-2 text-xs font-bold text-slate-500 leading-relaxed">Each kids dirt bike candidate is checked for speed control, braking response, and terrain stability. The same lab matrix also separates the best jogging stroller from casual jogging stroller claims.</p>
+            <h2 className="text-sm font-black text-slate-900 tracking-tight">{lang === "zh" ? "🚲 两轮双脚与滑步专区" : "🚲 Two-Wheel Balance & Fit Section"}</h2>
+            <p className="mt-2 text-xs font-bold text-slate-500 leading-relaxed">{lang === "zh" ? "针对学步儿 1-3 岁阶段的无脚踏平衡滑步车、重力转向滑板车，提供精确的五维力学评分、骑行重心偏离测试分析。" : "Each kids dirt bike candidate is checked for speed control, braking response, and terrain stability. The same lab matrix also separates the best jogging stroller from casual jogging stroller claims."}</p>
           </section>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-3 relative z-10">
-          {[
-            ["Best Travel Stroller", "best travel stroller scoring repeats across fold, carry, cabin fit, and daily stroller reviews."],
-            ["Best Jogging Stroller", "best jogging stroller scoring repeats across wheel tracking, suspension, brake feel, and stroller reviews."],
-            ["Kids Dirt Bike", "kids dirt bike scoring repeats across throttle control, terrain grip, braking, and supervised off-road use."],
-            ["Stroller Reviews", "stroller reviews connect best travel stroller, best jogging stroller, and kids dirt bike lab notes in one buying map."],
-          ].map(([title, copy]) => (
-            <section key={title} className="rounded-3xl border border-slate-100 bg-white p-4 shadow-sm">
-              <h3 className="text-[11px] font-black uppercase tracking-widest text-slate-900">{title}</h3>
-              <p className="mt-2 text-[11px] font-bold text-slate-500 leading-relaxed">{copy}</p>
-            </section>
-          ))}
-        </div>
+        {/* Clean and pure content matrix section */}
       </div>
 
       {/* Grid listing */}
