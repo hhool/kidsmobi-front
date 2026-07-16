@@ -1625,44 +1625,88 @@ export default function ProductsSection({
 
                   {cardSummary && (
                     <div className="space-y-4 pt-1">
-                      <div className="space-y-1.5">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block">
-                          {lang === "zh" ? "使用详情" : "Expert Summary"}
-                        </span>
-                        <p className="text-slate-600 text-xs leading-relaxed font-semibold line-clamp-2">
-                          {cardSummary}
-                        </p>
-                      </div>
+                      {selectedCategory === "all" ? (
+                        <>
+                          <div className="space-y-1.5">
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block">
+                              {lang === "zh" ? "使用详情" : "Expert Summary"}
+                            </span>
+                            <p className="text-slate-600 text-xs leading-relaxed font-semibold line-clamp-2">
+                              {cardSummary}
+                            </p>
+                          </div>
 
-                      <div className="pt-3 border-t border-dashed border-slate-100 space-y-1.5 text-xs text-slate-600">
-                        <div className="flex items-center gap-1.5">
-                          <span className="shrink-0">🧪</span>
-                          <span className="text-slate-400 font-black uppercase text-[9px] tracking-wider w-16">
-                            {lang === "zh" ? "综合评分" : "Score"}:
-                          </span>
-                          <span className="text-slate-900 font-extrabold">
-                            {diProduct.overallScore ? diProduct.overallScore.toFixed(1) : "9.4"} / 10
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="shrink-0">📦</span>
-                          <span className="text-slate-400 font-black uppercase text-[9px] tracking-wider w-16">
-                            {lang === "zh" ? "承重力" : "Capacity"}:
-                          </span>
-                          <span className="text-slate-700 font-semibold">
-                            {resolveCapacity(diProduct, lang)}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="shrink-0">🛡️</span>
-                          <span className="text-slate-400 font-black uppercase text-[9px] tracking-wider w-16">
-                            {lang === "zh" ? "核心审核" : "Key Audit"}:
-                          </span>
-                          <span className="text-emerald-600 font-bold">
-                            {resolveKeyAudit(diProduct, lang)}
-                          </span>
-                        </div>
-                      </div>
+                          <div className="pt-3 border-t border-dashed border-slate-100 space-y-1.5 text-xs text-slate-600">
+                            <div className="flex items-center gap-1.5">
+                              <span className="shrink-0">🧪</span>
+                              <span className="text-slate-400 font-black uppercase text-[9px] tracking-wider w-16">
+                                {lang === "zh" ? "综合评分" : "Score"}:
+                              </span>
+                              <span className="text-slate-900 font-extrabold">
+                                {diProduct.overallScore ? diProduct.overallScore.toFixed(1) : "9.4"} / 10
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                              <span className="shrink-0">📦</span>
+                              <span className="text-slate-400 font-black uppercase text-[9px] tracking-wider w-16">
+                                {lang === "zh" ? "承重力" : "Capacity"}:
+                              </span>
+                              <span className="text-slate-700 font-semibold">
+                                {resolveCapacity(diProduct, lang)}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                              <span className="shrink-0">🛡️</span>
+                              <span className="text-slate-400 font-black uppercase text-[9px] tracking-wider w-16">
+                                {lang === "zh" ? "核心审核" : "Key Audit"}:
+                              </span>
+                              <span className="text-emerald-600 font-bold">
+                                {resolveKeyAudit(diProduct, lang)}
+                              </span>
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="space-y-1.5">
+                            <p className="text-slate-600 text-xs leading-relaxed font-semibold line-clamp-2">
+                              {cardSummary}
+                            </p>
+                          </div>
+
+                          <div className="pt-3 border-t border-dashed border-slate-100 space-y-3 text-xs text-slate-600">
+                            <div className="space-y-1">
+                              <div className="flex justify-between items-center text-[10px] font-black text-slate-400">
+                                <span>🧪 Score</span>
+                                <span className="text-slate-900 font-extrabold">
+                                  {diProduct.overallScore ? diProduct.overallScore.toFixed(1) : "9.4"} / 10
+                                </span>
+                              </div>
+                              <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                                <div 
+                                  className="bg-orange-500 h-full rounded-full transition-all duration-350" 
+                                  style={{ width: `${(diProduct.overallScore || 9.4) * 10}%` }}
+                                ></div>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center justify-between text-[11px] font-semibold text-slate-600">
+                              <div className="flex items-center gap-1">
+                                <span>📦</span>
+                                <span className="px-2 py-0.5 rounded bg-slate-50 border border-slate-100 text-[9px] font-black text-slate-500 uppercase tracking-tight">
+                                  {resolveCapacity(diProduct, lang)}
+                                </span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <span>🛡️</span>
+                                <span className="px-2 py-0.5 rounded bg-emerald-50 border border-emerald-100 text-[9px] font-black text-emerald-600 uppercase tracking-tight">
+                                  {resolveKeyAudit(diProduct, lang)}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      )}
                     </div>
                   )}
 
