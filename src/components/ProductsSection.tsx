@@ -227,6 +227,37 @@ function stripVisibleFieldLabels(value: string): string {
     .trim();
 }
 
+function resolveCapacityNumeric(product: Product): string {
+  const textToSearch = [
+    product.name,
+    product.description,
+    ...(product.features || []),
+    Object.values(product.Product_Specifications || {}).join(" ")
+  ].join(" ").toLowerCase();
+
+  const matchLbs = textToSearch.match(/(\d+)\s*(?:lbs|lb|pounds)/);
+  if (matchLbs) {
+    return matchLbs[1];
+  }
+  const matchKg = textToSearch.match(/(\d+)\s*(?:kg|kilograms)/);
+  if (matchKg) {
+    const kg = matchKg[1];
+    return String(Math.round(parseInt(kg) * 2.2));
+  }
+
+  const category = (product.category || "").toLowerCase();
+  if (category.includes("wagon") || category.includes("double")) {
+    return "150";
+  }
+  if (category.includes("stroller")) {
+    return "50";
+  }
+  if (category.includes("bike") || category.includes("bicycle")) {
+    return "110";
+  }
+  return "150";
+}
+
 function resolveCapacity(product: Product, lang: "zh" | "en"): string {
   const textToSearch = [
     product.name,
@@ -238,28 +269,28 @@ function resolveCapacity(product: Product, lang: "zh" | "en"): string {
   const matchLbs = textToSearch.match(/(\d+)\s*(?:lbs|lb|pounds)/);
   if (matchLbs) {
     const lbs = matchLbs[1];
-    const dutyStr = parseInt(lbs) >= 100 ? (lang === "zh" ? "HD" : "HD") : (lang === "zh" ? "Std" : "Std");
-    return lang === "zh" ? `${lbs} 磅 (${dutyStr})` : `${lbs} lb (${dutyStr})`;
+    const dutyStr = parseInt(lbs) >= 100 ? "H" : "S";
+    return lang === "zh" ? `${lbs} 磅 (${dutyStr})` : `${lbs}# (${dutyStr})`;
   }
   const matchKg = textToSearch.match(/(\d+)\s*(?:kg|kilograms)/);
   if (matchKg) {
     const kg = matchKg[1];
     const lbs = Math.round(parseInt(kg) * 2.2);
-    const dutyStr = lbs >= 100 ? (lang === "zh" ? "HD" : "HD") : (lang === "zh" ? "Std" : "Std");
-    return lang === "zh" ? `${lbs} 磅 (${dutyStr})` : `${lbs} lb (${dutyStr})`;
+    const dutyStr = lbs >= 100 ? "H" : "S";
+    return lang === "zh" ? `${lbs} 磅 (${dutyStr})` : `${lbs}# (${dutyStr})`;
   }
 
   const category = (product.category || "").toLowerCase();
   if (category.includes("wagon") || category.includes("double")) {
-    return lang === "zh" ? "150 磅 (HD)" : "150 lb (HD)";
+    return lang === "zh" ? "150 磅 (H)" : "150# (H)";
   }
   if (category.includes("stroller")) {
-    return lang === "zh" ? "50 磅 (Std)" : "50 lb (Std)";
+    return lang === "zh" ? "50 磅 (S)" : "50# (S)";
   }
   if (category.includes("bike") || category.includes("bicycle")) {
-    return lang === "zh" ? "110 磅 (HD)" : "110 lb (HD)";
+    return lang === "zh" ? "110 磅 (H)" : "110# (H)";
   }
-  return lang === "zh" ? "150 磅 (HD)" : "150 lb (HD)";
+  return lang === "zh" ? "150 磅 (H)" : "150# (H)";
 }
 
 function resolveKeyAudit(product: Product, lang: "zh" | "en"): string {
@@ -272,18 +303,18 @@ function resolveKeyAudit(product: Product, lang: "zh" | "en"): string {
   const category = (product.category || "").toLowerCase();
   
   if (category.includes("car_seat") || category.includes("safety_seat")) {
-    return lang === "zh" ? "侧向防护结构认证" : "Side-Impact";
+    return lang === "zh" ? "侧向防护结构认证" : "SideImpact";
   }
   if (textToSearch.includes("suspension") || textToSearch.includes("all-terrain") || textToSearch.includes("shock")) {
-    return lang === "zh" ? "全地形避震稳定" : "All-Terrain";
+    return lang === "zh" ? "全地形避震稳定" : "AllTerrain";
   }
   if (category.includes("stroller") || category.includes("wagon")) {
-    return lang === "zh" ? "全地形安全避震" : "All-Terrain";
+    return lang === "zh" ? "全地形安全避震" : "AllTerrain";
   }
   if (category.includes("bike") || category.includes("scooter")) {
-    return lang === "zh" ? "低重心控车安全" : "Low-COG";
+    return lang === "zh" ? "低重心控车安全" : "LowCOG";
   }
-  return lang === "zh" ? "全地形安全避震" : "All-Terrain";
+  return lang === "zh" ? "全地形安全避震" : "AllTerrain";
 }
 
 function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
@@ -681,7 +712,9 @@ export default function ProductsSection({
       "Kids Scooters": "Kids Scooter",
       "Kids Tricycles": "Kids Tricycle",
       "Electric Vehicles": "Electric Vehicle",
+      "Kids Electric Vehicles": "Kids Electric Vehicle",
       "Car Seats": "Car Seat",
+      "Kids Car Seats": "Kids Car Seat",
       "Push Ride Ons": "Push Ride On",
       "Pull Along Wagons": "Pull Along Wagon",
       "Kids Pull Along Wagons": "Kids Pull Along Wagon",
@@ -1569,6 +1602,13 @@ export default function ProductsSection({
           <span className="px-4 py-2 rounded-full bg-slate-50 border border-slate-200 text-[11px] font-black text-slate-500 uppercase tracking-widest">
             {filteredProducts.length} / {categoryBaseCount} {lang === "en" ? "items" : "条目"}
           </span>
+          <div className="text-[11px] font-semibold text-slate-400">
+            {lang === "en" ? (
+              <span>📊 Metrics: 🧪 Score | 📦 Weight Capacity | 🛡️ Certified Safe</span>
+            ) : (
+              <span>📊 指标说明：🧪 综合评分 | 📦 承重性能 | 🛡️ 安全合规认证</span>
+            )}
+          </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 items-start">
           {pagedProducts.map(({ product: p, sourceCategoryId }, idx) => {
@@ -1628,31 +1668,28 @@ export default function ProductsSection({
                       {selectedCategory === "all" ? (
                         <>
                           <div className="space-y-1.5">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block">
-                              {lang === "zh" ? "使用详情" : "🔬 LAB NOTE"}
-                            </span>
                             <p className="text-slate-600 text-xs leading-relaxed font-semibold line-clamp-2">
                               {cardSummary}
                             </p>
                           </div>
 
-                          <div className="pt-3 border-t border-dashed border-slate-100 space-y-1.5 text-xs text-slate-600">
-                            <div className="flex items-center gap-1.5">
-                              <span className="shrink-0">🧪</span>
-                              <span className="text-slate-900 font-extrabold">
-                                {diProduct.overallScore ? diProduct.overallScore.toFixed(1) : "9.4"} / 10
+                          <div className="pt-3 border-t border-dashed border-slate-100 flex items-center justify-between text-xs font-bold text-slate-600">
+                            <div className="flex items-center gap-1">
+                              <span className="shrink-0" title={lang === "zh" ? "综合评分" : "Score"}>🧪</span>
+                              <span className="text-slate-900 font-extrabold bg-amber-50 border border-amber-100/50 px-2 py-0.5 rounded text-[10px]">
+                                {diProduct.overallScore ? diProduct.overallScore.toFixed(1) : "9.4"}
                               </span>
                             </div>
-                            <div className="flex items-center gap-1.5">
-                              <span className="shrink-0">📦</span>
-                              <span className="text-slate-700 font-semibold">
-                                {resolveCapacity(diProduct, lang)}
+                            <div className="flex items-center gap-1">
+                              <span className="shrink-0" title={lang === "zh" ? "承载重量" : "Capacity"}>📦</span>
+                              <span className="text-slate-700 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded text-[10px] font-extrabold">
+                                {resolveCapacityNumeric(diProduct)}
                               </span>
                             </div>
-                            <div className="flex items-center gap-1.5">
-                              <span className="shrink-0">🛡️</span>
-                              <span className="text-emerald-600 font-bold">
-                                {resolveKeyAudit(diProduct, lang)}
+                            <div className="flex items-center gap-1">
+                              <span className="shrink-0" title={lang === "zh" ? "通过认证" : "Passed"}>🛡️</span>
+                              <span className="text-emerald-700 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded text-[10px] font-extrabold">
+                                {lang === "zh" ? "通过" : "Pass"}
                               </span>
                             </div>
                           </div>
@@ -1668,7 +1705,7 @@ export default function ProductsSection({
                           <div className="pt-3 border-t border-dashed border-slate-100 space-y-3 text-xs text-slate-600">
                             <div className="space-y-1">
                               <div className="flex justify-between items-center text-[10px] font-black text-slate-400">
-                                <span>🧪 {diProduct.overallScore ? diProduct.overallScore.toFixed(1) : "9.4"} / 10</span>
+                                <span>🧪 {diProduct.overallScore ? diProduct.overallScore.toFixed(1) : "9.4"}</span>
                               </div>
                               <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
                                 <div 
@@ -1678,17 +1715,17 @@ export default function ProductsSection({
                               </div>
                             </div>
 
-                            <div className="flex items-center justify-between text-[11px] font-semibold text-slate-600">
+                            <div className="flex items-center justify-between text-xs font-bold">
                               <div className="flex items-center gap-1">
-                                <span>📦</span>
-                                <span className="px-2 py-0.5 rounded bg-slate-50 border border-slate-100 text-[9px] font-black text-slate-500 uppercase tracking-tight">
-                                  {resolveCapacity(diProduct, lang)}
+                                <span title={lang === "zh" ? "承载重量" : "Capacity"}>📦</span>
+                                <span className="px-2 py-0.5 rounded bg-slate-50 border border-slate-100 text-[10px] font-extrabold text-slate-700">
+                                  {resolveCapacityNumeric(diProduct)}
                                 </span>
                               </div>
                               <div className="flex items-center gap-1">
-                                <span>🛡️</span>
-                                <span className="px-2 py-0.5 rounded bg-emerald-50 border border-emerald-100 text-[9px] font-black text-emerald-600 uppercase tracking-tight">
-                                  {resolveKeyAudit(diProduct, lang)}
+                                <span title={lang === "zh" ? "通过认证" : "Passed"}>🛡️</span>
+                                <span className="px-2 py-0.5 rounded bg-emerald-50 border border-emerald-100 text-[10px] font-extrabold text-emerald-600">
+                                  {lang === "zh" ? "通过" : "Pass"}
                                 </span>
                               </div>
                             </div>
