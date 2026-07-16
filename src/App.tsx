@@ -852,6 +852,14 @@ export default function App() {
     }
     return [];
   });
+  const [compareError, setCompareError] = useState<string | null>(null);
+
+  const triggerCompareError = (msg: string) => {
+    setCompareError(msg);
+    window.setTimeout(() => {
+      setCompareError(prev => prev === msg ? null : prev);
+    }, 3000);
+  };
 
   const [viewHistory, setViewHistory] = useState<Product[]>(() => {
     try {
@@ -2422,6 +2430,88 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
         </Suspense>
 
       </main>
+
+      {/* Persistent Sticky Compare Bar (Escaping CSS relative contexts to block screen translation floats) */}
+      {activeTab === "products" && compareList.length > 0 && (
+        <div className="fixed left-1/2 bottom-6 z-[75] w-[calc(100%-2rem)] max-w-4xl -translate-x-1/2 rounded-[28px] border border-slate-200 bg-white/95 p-4 shadow-2xl shadow-slate-900/15 backdrop-blur-md">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-4 min-w-0 flex-1">
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+                  {lang === "en" ? "Compare Selection" : "对比选择"}
+                </p>
+                <div className="truncate text-xs font-bold text-slate-500">
+                  {lang === "en" ? `${compareList.length} / 4 selected` : `已选择 ${compareList.length} / 4 款`}
+                </div>
+              </div>
+
+              {/* Candidates thumbnails dock with quick X removal */}
+              <div className="flex items-center gap-3 overflow-x-auto py-1 pr-4 custom-scrollbar border-l border-slate-100 pl-4">
+                {compareList.map((item) => {
+                  const images = resolveProductImages(item);
+                  return (
+                    <div key={item.id} className="relative shrink-0 group">
+                      <div className="w-11 h-11 rounded-xl border border-slate-100 bg-slate-50 p-1 flex items-center justify-center overflow-hidden">
+                        <img
+                          src={images.coverUrl || undefined}
+                          alt={item.name}
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setCompareList(compareList.filter(p => p.id !== item.id))}
+                        className="absolute -top-1 -right-1 p-0.5 bg-rose-500 hover:bg-rose-600 text-white rounded-full shadow-md z-10 transition-colors cursor-pointer"
+                        title={lang === "en" ? "Remove" : "移除"}
+                      >
+                        <X className="w-2.5 h-2.5" />
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+              <button
+                type="button"
+                onClick={() => setCompareList([])}
+                className="px-4 py-3 rounded-2xl border border-slate-200 bg-white text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-rose-500 hover:border-rose-200 transition-colors cursor-pointer"
+              >
+                {lang === "en" ? "Clear" : "清空"}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  if (compareList.length < 2) {
+                    triggerCompareError(
+                      lang === "en" 
+                        ? "Please select at least 2 products to compare." 
+                        : "请至少选择 2 款产品进行横评对比。"
+                    );
+                  } else {
+                    navigateToPath(`/compare?ids=${compareList.map(p => p.id).join(",")}`);
+                  }
+                }}
+                className={`px-5 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest text-orange-500 border border-orange-500/20 active:scale-95 transition-all text-white shadow-xl ${
+                  compareList.length < 2
+                    ? "bg-slate-300 shadow-none border-transparent cursor-not-allowed text-slate-400"
+                    : "bg-orange-500 shadow-orange-500/20 text-white border-transparent hover:bg-orange-600 cursor-pointer"
+                }`}
+              >
+                {lang === "en" ? "Open Compare" : "确认对比"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Floating compare validation limits error */}
+      {compareError && (
+        <div className="fixed left-1/2 top-24 z-[100] -translate-x-1/2 rounded-2xl border border-slate-200 bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-2xl shadow-slate-900/20 animate-fade-in">
+          {compareError}
+        </div>
+      )}
 
       {/* FLOAT DRAWER FOR AI ASSISTANT (B2C Friendly) */}
       {false && showAiDrawer && (
