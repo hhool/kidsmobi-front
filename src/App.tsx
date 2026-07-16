@@ -51,7 +51,7 @@ const AuthSection = lazy(() => import("./components/AuthSection"));
 const DetailedProductView = lazy(() => import("./components/DetailedProductView"));
 const AdminPanel = lazy(() => import("./components/AdminPanel"));
 const TransparencyPage = lazy(() => import("./components/TransparencyPage"));
-const ComparisonDashboard = lazy(() => import("./components/ComparisonDashboard"));
+import ComparisonDashboard from "./components/ComparisonDashboard";
 
 import { auth } from "./lib/firebase";
 import {
