@@ -51,6 +51,7 @@ const AuthSection = lazy(() => import("./components/AuthSection"));
 const DetailedProductView = lazy(() => import("./components/DetailedProductView"));
 const AdminPanel = lazy(() => import("./components/AdminPanel"));
 const TransparencyPage = lazy(() => import("./components/TransparencyPage"));
+const ComparisonDashboard = lazy(() => import("./components/ComparisonDashboard"));
 
 import { auth } from "./lib/firebase";
 import {
@@ -1411,6 +1412,88 @@ export default function App() {
           },
         ]);
       }
+      return;
+    }
+
+    if (activeTab === "compare") {
+      const productNames = compareList.map(p => getProductsPageSeoTitle(p) || p.name);
+      const joinedNames = productNames.join(" vs ");
+      const joinedNamesZh = productNames.join(" 对比 ");
+
+      const title = lang === "zh"
+        ? (compareList.length > 0 
+           ? `${joinedNamesZh} - 独家实验室指标参数横评 | KIDSMOBI` 
+           : "产品指标技术对比看板 | KIDSMOBI 实验室")
+        : (compareList.length > 0 
+           ? `Comparing ${joinedNames} - Side-by-side Lab Specs | KIDSMOBI` 
+           : "Product Technical Comparison Dashboard | KIDSMOBI Lab");
+
+      const desc = lang === "zh"
+        ? (compareList.length > 0 
+           ? `一键横向对比 ${productNames.slice(0, 3).join("、")} 等多款童车的力学参数与物理规格。包含安全指数、尺寸、重量、轮组及刹车，为您提供极佳科学导购。` 
+           : "KIDSMOBI 实验室产品参数横向比对工具，支持多款车型力学参数同台竞争比对。")
+        : (compareList.length > 0
+           ? `See side-by-side lab test results and physical specs for ${joinedNames}. Compare safety score, weight, price, brakes, and tires to make the best choice.`
+           : "Compare technical parameters, safety ratings, frame materials, and testing scores for multiple kids mobility products.");
+
+      const kws = lang === "zh"
+        ? [...compareList.map(p => `${p.name}对比`), "童车对比报告", "KIDSMOBI"]
+        : [...compareList.map(p => `${p.name} comparison`), "kids mobility compare", "KIDSMOBI"];
+
+      document.title = title;
+      updateMetaTag("description", desc);
+      updateMetaTag("keywords", kws.join(", "));
+      const canonicalPath = normalizeCanonicalPath(currentPath);
+      const canonicalOrigin =
+        cmsSettings?.seoGlobal?.siteOrigin ||
+        (cmsSettings as any)?.siteOrigin ||
+        (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+        window.location.origin;
+      const canonicalUrl = `${canonicalOrigin}${canonicalPath}${window.location.search}`;
+
+      updateCanonicalLink(canonicalUrl);
+      updateMetaProperty("og:url", canonicalUrl);
+      updateMetaProperty("og:type", "article");
+      updateMetaProperty("og:title", title);
+      updateMetaProperty("og:description", desc);
+      const noIndex = compareList.length === 0;
+      updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
+
+      injectJsonLd([
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Home",
+              item: `${window.location.origin}/`,
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Products",
+              item: `${window.location.origin}/products`,
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: lang === "zh" ? "科学横向评测对比" : "Comparative Analysis",
+              item: canonicalUrl,
+            },
+          ],
+        },
+        ...(compareList.length > 0 ? [
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: title,
+            url: canonicalUrl,
+            description: desc,
+          }
+        ] : [])
+      ]);
       return;
     }
 
