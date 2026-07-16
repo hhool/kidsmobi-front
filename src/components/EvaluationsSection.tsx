@@ -916,6 +916,7 @@ export default function EvaluationsSection({
     includeCompare = true
   ) => {
     const seenSingleIds = new Set<string>();
+    const seenDisplayKeys = new Set<string>();
 
     const compare = includeCompare ? renderList.find((item: any) => {
       if (item.type !== "multi" || !item.products || item.products.length < 2) return false;
@@ -926,6 +927,10 @@ export default function EvaluationsSection({
       compare.products.forEach((p: any) => {
         if (p && p.id) {
           seenSingleIds.add(p.id);
+          const brandEn = cleanEnBrandText(p.brand || "").toLowerCase();
+          const nameStr = sanitizeMarketplaceNoise(p.name || "").toLowerCase();
+          const firstTwoWords = nameStr.split(/\s+/).slice(0, 2).join(" ");
+          seenDisplayKeys.add(`${brandEn}:${firstTwoWords}`);
         }
       });
     }
@@ -935,7 +940,16 @@ export default function EvaluationsSection({
       const categoryText = normalizeCategoryText(item.product);
       if (!matcher(categoryText)) return false;
       if (seenSingleIds.has(item.product.id)) return false;
+
+      const brandEn = cleanEnBrandText(item.product.brand || "").toLowerCase();
+      const nameStr = sanitizeMarketplaceNoise(item.product.name || "").toLowerCase();
+      const firstTwoWords = nameStr.split(/\s+/).slice(0, 2).join(" ");
+      const displayKey = `${brandEn}:${firstTwoWords}`;
+
+      if (seenDisplayKeys.has(displayKey)) return false;
+
       seenSingleIds.add(item.product.id);
+      seenDisplayKeys.add(displayKey);
       return true;
     });
 
