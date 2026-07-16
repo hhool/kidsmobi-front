@@ -157,6 +157,12 @@ const DEFAULT_VERDICT_PATTERNS = [
   "自动生成评语",
   "自动生成",
   "未编辑",
+  "auto-generated",
+  "auto-generated verdict",
+  "categorized as",
+  "reference price of",
+  "check fit against age",
+  "amazon exclusive"
 ];
 
 function containsCjk(text: string) {
@@ -189,14 +195,54 @@ function cleanEnBrandText(brand: string) {
 }
 
 function sanitizeMarketplaceNoise(raw: string) {
-  return String(raw || "")
+  let text = String(raw || "").trim();
+  if (!text) return "";
+  
+  // Special explicit overrides for known long-tail spam products
+  const lowercase = text.toLowerCase();
+  if (lowercase.includes("mamazing") && lowercase.includes("ultra air")) {
+    return "MAMAZING Ultra Air Lightweight Travel Stroller";
+  }
+  if (lowercase.includes("colorful led") || lowercase.includes("gamfeiny")) {
+    if (lowercase.includes("illuminated")) return "Gamfeiny Illuminated Balance Bike";
+    return "Gamfeiny LED Balance Bike";
+  }
+  if (lowercase.includes("umatoll")) {
+    return "Umatoll Toddler Balance Bike";
+  }
+  if (lowercase.includes("sereed")) {
+    return "Sereed Toddler Balance Bike";
+  }
+  if (lowercase.includes("kriddo")) {
+    return "Kriddo Kids Balance Bike";
+  }
+
+  // Generic cleanup to strip off detailed specification lists often found in Amazon titles
+  text = text
+    .replace(/\bwith\s+Carbon\s+Fiber\s+Frame[^,.;|)]*/gi, "")
+    .replace(/\bCompact\s*&\s*Airplane-Friendly[^,.;|)]*/gi, "")
+    .replace(/\bOne-Handed\s+Fold[^,.;|)]*/gi, "")
+    .replace(/\bOrganizer\s*&\s*Cushion\s+Included[^,.;|)]*/gi, "")
     .replace(/\btoys?\s+for\s+\d+\s*year\s*old[^,.;|)]*/gi, "")
     .replace(/\bgifts?\s+for\s+[^,.;|)]*/gi, "")
     .replace(/\bfor\s+(boys?|girls?|toddlers?|kids|children)\b[^,.;|)]*/gi, "")
     .replace(/\bfor\s+ages?\s*\d+[^,.;|)]*/gi, "")
+    .replace(/\b\d+(\.\d+)?\s*(lbs|kg)\b[^,.;|)]*/gi, "")
     .replace(/\s+/g, " ")
-    .replace(/\s+,/g, ",")
     .trim();
+
+  // Strip off common trailing clauses after "with", "for", ",", ";"
+  const cutOffs = [" with ", " for ", " - ", " – "];
+  for (const cut of cutOffs) {
+    const idx = text.toLowerCase().indexOf(cut);
+    if (idx > 15) {
+      text = text.substring(0, idx).trim();
+    }
+  }
+  
+  // Strip off any trailing commas/marks
+  text = text.replace(/[,.;|)]+$/, "").trim();
+  return text;
 }
 
 function sanitizeVerdictText(raw: string) {
@@ -425,9 +471,26 @@ function makeCompareEvaluation(id: string, products: Product[], zhTitle: string,
 }
 
 function buildGeneratedEvaluations(productsData: Product[]): Evaluation[] {
-  const focusProducts = productsData
+  const seenModelKeys = new Set<string>();
+  const focusProducts: Product[] = [];
+  
+  const sortedRawFocus = productsData
     .filter((product) => product.status !== "archived" && isFocusReviewProduct(product))
     .sort((a, b) => Number(b.overallScore || 0) - Number(a.overallScore || 0));
+
+  for (const product of sortedRawFocus) {
+    const brand = String(product.brand || "").toLowerCase().trim();
+    const cleanName = sanitizeMarketplaceNoise(product.name || "").toLowerCase();
+    const nameWords = cleanName.split(/\s+/).slice(0, 3).join(" ");
+    const modelKey = `${brand}:${nameWords}`;
+    
+    if (seenModelKeys.has(modelKey)) {
+      continue;
+    }
+    seenModelKeys.add(modelKey);
+    focusProducts.push(product);
+  }
+
   const verdictProducts = focusProducts.filter(hasRealEditorVerdict);
 
   const byCategory = (needle: string) => focusProducts.filter((product) => {
