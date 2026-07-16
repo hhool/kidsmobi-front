@@ -162,7 +162,12 @@ const DEFAULT_VERDICT_PATTERNS = [
   "categorized as",
   "reference price of",
   "check fit against age",
-  "amazon exclusive"
+  "amazon exclusive",
+  "lean-to-steer mechanism",
+  "motion-activated led wheels",
+  "balances speed with handling stability",
+  "quick-fold portability",
+  "a top-tier scooter"
 ];
 
 function containsCjk(text: string) {
@@ -221,6 +226,21 @@ function sanitizeMarketplaceNoise(raw: string) {
   }
   if (lowercase.includes("kriddo")) {
     return "Kriddo Kids Balance Bike";
+  }
+  if (lowercase.includes("cubsala")) {
+    return "Cubsala BMX Kids Bike";
+  }
+  if (lowercase.includes("besrey")) {
+    return "Besrey Kids Scooter";
+  }
+  if (lowercase.includes("hurtle")) {
+    return "Hurtle 3-Wheel Scooter";
+  }
+  if (lowercase.includes("dream on me")) {
+    return "Dream On Me Aero Travel Stroller";
+  }
+  if (lowercase.includes("razor") && lowercase.includes("mx350")) {
+    return "Razor MX350 Electric Dirt Bike";
   }
 
   // Generic cleanup to strip off detailed specification lists often found in Amazon titles
