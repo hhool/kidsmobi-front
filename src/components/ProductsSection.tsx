@@ -238,28 +238,28 @@ function resolveCapacity(product: Product, lang: "zh" | "en"): string {
   const matchLbs = textToSearch.match(/(\d+)\s*(?:lbs|lb|pounds)/);
   if (matchLbs) {
     const lbs = matchLbs[1];
-    const dutyStr = parseInt(lbs) >= 100 ? (lang === "zh" ? "重型阻尼" : "Heavy-Duty") : (lang === "zh" ? "标准载重" : "Standard");
-    return lang === "zh" ? `${lbs} 磅 (${dutyStr})` : `${lbs} lbs (${dutyStr})`;
+    const dutyStr = parseInt(lbs) >= 100 ? (lang === "zh" ? "HD" : "HD") : (lang === "zh" ? "Std" : "Std");
+    return lang === "zh" ? `${lbs} 磅 (${dutyStr})` : `${lbs} lb (${dutyStr})`;
   }
   const matchKg = textToSearch.match(/(\d+)\s*(?:kg|kilograms)/);
   if (matchKg) {
     const kg = matchKg[1];
     const lbs = Math.round(parseInt(kg) * 2.2);
-    const dutyStr = lbs >= 100 ? (lang === "zh" ? "重型阻尼" : "Heavy-Duty") : (lang === "zh" ? "标准载重" : "Standard");
-    return lang === "zh" ? `${lbs} 磅 (${dutyStr})` : `${lbs} lbs (${dutyStr})`;
+    const dutyStr = lbs >= 100 ? (lang === "zh" ? "HD" : "HD") : (lang === "zh" ? "Std" : "Std");
+    return lang === "zh" ? `${lbs} 磅 (${dutyStr})` : `${lbs} lb (${dutyStr})`;
   }
 
   const category = (product.category || "").toLowerCase();
   if (category.includes("wagon") || category.includes("double")) {
-    return lang === "zh" ? "150 磅 (重型阻尼)" : "150 lbs (Heavy-Duty)";
+    return lang === "zh" ? "150 磅 (HD)" : "150 lb (HD)";
   }
   if (category.includes("stroller")) {
-    return lang === "zh" ? "50 磅 (标准款)" : "50 lbs (Standard)";
+    return lang === "zh" ? "50 磅 (Std)" : "50 lb (Std)";
   }
   if (category.includes("bike") || category.includes("bicycle")) {
-    return lang === "zh" ? "110 磅 (高强度)" : "110 lbs (Heavy-Duty)";
+    return lang === "zh" ? "110 磅 (HD)" : "110 lb (HD)";
   }
-  return lang === "zh" ? "150 磅 (重型阻尼)" : "150 lbs (Heavy-Duty)";
+  return lang === "zh" ? "150 磅 (HD)" : "150 lb (HD)";
 }
 
 function resolveKeyAudit(product: Product, lang: "zh" | "en"): string {
@@ -272,18 +272,18 @@ function resolveKeyAudit(product: Product, lang: "zh" | "en"): string {
   const category = (product.category || "").toLowerCase();
   
   if (category.includes("car_seat") || category.includes("safety_seat")) {
-    return lang === "zh" ? "侧向撞击防护安全认证通过" : "Impact Protection Approved";
+    return lang === "zh" ? "侧向防护结构认证" : "Side-Impact";
   }
   if (textToSearch.includes("suspension") || textToSearch.includes("all-terrain") || textToSearch.includes("shock")) {
-    return lang === "zh" ? "全地形避震稳定性通过" : "All-Terrain Stability Passed";
+    return lang === "zh" ? "全地形避震稳定" : "All-Terrain";
   }
   if (category.includes("stroller") || category.includes("wagon")) {
-    return lang === "zh" ? "全地形稳定性物理审核通过" : "All-Terrain Stability Passed";
+    return lang === "zh" ? "全地形安全避震" : "All-Terrain";
   }
   if (category.includes("bike") || category.includes("scooter")) {
-    return lang === "zh" ? "低重心控车安全性测试通过" : "Low Center of Gravity Passed";
+    return lang === "zh" ? "低重心控车安全" : "Low-COG";
   }
-  return lang === "zh" ? "全地形稳定性物理审核通过" : "All-Terrain Stability Passed";
+  return lang === "zh" ? "全地形安全避震" : "All-Terrain";
 }
 
 function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
@@ -1629,7 +1629,7 @@ export default function ProductsSection({
                         <>
                           <div className="space-y-1.5">
                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block">
-                              {lang === "zh" ? "使用详情" : "Expert Summary"}
+                              {lang === "zh" ? "使用详情" : "🔬 LAB NOTE"}
                             </span>
                             <p className="text-slate-600 text-xs leading-relaxed font-semibold line-clamp-2">
                               {cardSummary}
@@ -1639,27 +1639,18 @@ export default function ProductsSection({
                           <div className="pt-3 border-t border-dashed border-slate-100 space-y-1.5 text-xs text-slate-600">
                             <div className="flex items-center gap-1.5">
                               <span className="shrink-0">🧪</span>
-                              <span className="text-slate-400 font-black uppercase text-[9px] tracking-wider w-16">
-                                {lang === "zh" ? "综合评分" : "Score"}:
-                              </span>
                               <span className="text-slate-900 font-extrabold">
                                 {diProduct.overallScore ? diProduct.overallScore.toFixed(1) : "9.4"} / 10
                               </span>
                             </div>
                             <div className="flex items-center gap-1.5">
                               <span className="shrink-0">📦</span>
-                              <span className="text-slate-400 font-black uppercase text-[9px] tracking-wider w-16">
-                                {lang === "zh" ? "承重力" : "Capacity"}:
-                              </span>
                               <span className="text-slate-700 font-semibold">
                                 {resolveCapacity(diProduct, lang)}
                               </span>
                             </div>
                             <div className="flex items-center gap-1.5">
                               <span className="shrink-0">🛡️</span>
-                              <span className="text-slate-400 font-black uppercase text-[9px] tracking-wider w-16">
-                                {lang === "zh" ? "核心审核" : "Key Audit"}:
-                              </span>
                               <span className="text-emerald-600 font-bold">
                                 {resolveKeyAudit(diProduct, lang)}
                               </span>
@@ -1677,10 +1668,7 @@ export default function ProductsSection({
                           <div className="pt-3 border-t border-dashed border-slate-100 space-y-3 text-xs text-slate-600">
                             <div className="space-y-1">
                               <div className="flex justify-between items-center text-[10px] font-black text-slate-400">
-                                <span>🧪 Score</span>
-                                <span className="text-slate-900 font-extrabold">
-                                  {diProduct.overallScore ? diProduct.overallScore.toFixed(1) : "9.4"} / 10
-                                </span>
+                                <span>🧪 {diProduct.overallScore ? diProduct.overallScore.toFixed(1) : "9.4"} / 10</span>
                               </div>
                               <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
                                 <div 
