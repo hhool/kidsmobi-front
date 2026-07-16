@@ -787,6 +787,65 @@ export default function ProductsSection({
     return [...firstPage, ...rest];
   };
 
+  const rebalanceFirstPageAllPillMix = (
+    sortedItems: Array<{ sourceCategoryId: string; sourceProduct: Product; product: Product }>,
+    firstPageSize: number
+  ) => {
+    if (sortedItems.length <= 1) {
+      return sortedItems;
+    }
+
+    const balanceToddlerPool = sortedItems.filter((item) => {
+      const isBalance = item.sourceCategoryId === "balance_bike" || String(item.product.category || "").toLowerCase().includes("balance");
+      const ageRange = parseAgeRangeYears(item.product.ageRange);
+      const isToddler = intersectsAgeBucket(ageRange, "toddler");
+      return isBalance && isToddler;
+    });
+
+    const twinStrollerPool = sortedItems.filter((item) => {
+      const isStroller = item.sourceCategoryId === "stroller" || String(item.product.category || "").toLowerCase().includes("stroller");
+      const nameLower = item.product.name.toLowerCase();
+      const isTwin = nameLower.includes("twin") || nameLower.includes("double") || nameLower.includes("sibling");
+      return isStroller && isTwin;
+    });
+
+    const toddlerBikePool = sortedItems.filter((item) => {
+      const isBike = item.sourceCategoryId === "kids_bikes";
+      const ageRange = parseAgeRangeYears(item.product.ageRange);
+      const isToddler = intersectsAgeBucket(ageRange, "toddler");
+      return isBike && isToddler;
+    });
+
+    const kidsElectricScooterPool = sortedItems.filter((item) => {
+      const nameLower = item.product.name.toLowerCase();
+      const isScooter = item.sourceCategoryId === "kids_scooters" || item.sourceCategoryId === "scooters";
+      const isElectric = nameLower.includes("electric") || nameLower.includes("motorized") || nameLower.includes("battery") || nameLower.includes("e-scooter") || nameLower.includes("e-bike") || item.product.id.toLowerCase().includes("mx350");
+      return isScooter && isElectric;
+    });
+
+    const selectedBalance = balanceToddlerPool.slice(0, 4);
+    const selectedTwin = twinStrollerPool.slice(0, 4);
+    const selectedToddlerBike = toddlerBikePool.slice(0, 4);
+    const selectedElectricScooter = kidsElectricScooterPool.slice(0, 4);
+
+    let firstPage = [
+      ...selectedBalance,
+      ...selectedTwin,
+      ...selectedToddlerBike,
+      ...selectedElectricScooter
+    ];
+
+    const selectedIds = new Set(firstPage.map((item) => item.product.id));
+    if (firstPage.length < firstPageSize) {
+      const refillPool = sortedItems.filter((item) => !selectedIds.has(item.product.id));
+      firstPage = [...firstPage, ...refillPool.slice(0, firstPageSize - firstPage.length)];
+    }
+
+    const finalPageIdSet = new Set(firstPage.map((item) => item.product.id));
+    const rest = sortedItems.filter((item) => !finalPageIdSet.has(item.product.id));
+    return [...firstPage, ...rest];
+  };
+
   const normalizeFacetValue = (value?: string) => {
     const text = String(value || "").trim();
     if (!text) return "Unknown";
@@ -1050,7 +1109,20 @@ export default function ProductsSection({
 
     const useIntentPriority = selectedCategory === "all" && sortBy === "overallScore";
     if (useIntentPriority) {
-      return rebalanceFirstPageIntentMix(sortedItems, 9);
+      const isDefaultState = searchQuery.trim() === "" &&
+        selectedAge === "all" &&
+        selectedPrice === "all" &&
+        selectedBrand === "all" &&
+        selectedFrameMaterial === "all" &&
+        selectedTireType === "all" &&
+        selectedBrakeSystem === "all" &&
+        selectedWheelSize === "all" &&
+        selectedCertification === "all";
+
+      if (isDefaultState) {
+        return rebalanceFirstPageAllPillMix(sortedItems, 16);
+      }
+      return rebalanceFirstPageIntentMix(sortedItems, 16);
     }
     return sortedItems;
   }, [
@@ -1070,7 +1142,7 @@ export default function ProductsSection({
     backendCategoryNameMap,
   ]);
 
-  const pageSize = 9;
+  const pageSize = selectedCategory === "all" ? 16 : 9;
   const totalPages = Math.max(1, Math.ceil(filteredProducts.length / pageSize));
   const safePage = Math.min(Math.max(1, currentPage), totalPages);
   const pagedProducts = filteredProducts.slice((safePage - 1) * pageSize, safePage * pageSize);
