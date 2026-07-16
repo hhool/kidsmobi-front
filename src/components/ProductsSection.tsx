@@ -1207,7 +1207,11 @@ export default function ProductsSection({
         <div className="flex flex-col lg:flex-row gap-6 relative z-10">
           {/* Search */}
           <div className="relative flex-1">
-            <h2 className="sr-only">Search the Twin Stroller &amp; Toddler Bike Database</h2>
+            <h3 className="sr-only">
+              {lang === "zh"
+                ? "搜索双人推车与儿童自行车数据库"
+                : "Search the Twin Stroller & Toddler Bike Database"}
+            </h3>
             <Search className="w-5 h-5 text-slate-400 absolute left-5 top-5" />
             <input
               type="text"
