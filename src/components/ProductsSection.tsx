@@ -340,6 +340,8 @@ export default function ProductsSection({
   const [selectedBrakeSystem, setSelectedBrakeSystem] = useState<string>("all");
   const [selectedWheelSize, setSelectedWheelSize] = useState<string>("all");
   const [selectedCertification, setSelectedCertification] = useState<string>("all");
+  const [selectedType, setSelectedType] = useState<"all" | "twin">("all");
+  const [selectedPower, setSelectedPower] = useState<string>("all"); // 'all', 'electric'
   const [backendCategoryNameMap, setBackendCategoryNameMap] = useState<Record<string, string>>({});
   const [hintFlash, setHintFlash] = useState<string | null>(null);
   const [saveTip, setSaveTip] = useState<string | null>(null);
@@ -420,7 +422,42 @@ export default function ProductsSection({
     setSelectedBrakeSystem("all");
     setSelectedWheelSize("all");
     setSelectedCertification("all");
-  }, [selectedCategory]);
+
+    // Dynamic router-level parsing for search parameters
+    const params = new URLSearchParams(window.location.search);
+    const age = params.get("age");
+    const type = params.get("type");
+    const size = params.get("size");
+    const power = params.get("power");
+
+    if (age) {
+      setSelectedAge(age);
+    } else {
+      setSelectedAge("all");
+    }
+
+    if (type === "twin") {
+      setSelectedType(type);
+    } else {
+      setSelectedType("all");
+    }
+
+    if (size) {
+      if (size === "12-inch" || size === "12") {
+        setSelectedWheelSize("12 Inch");
+      } else {
+        setSelectedWheelSize(size);
+      }
+    } else {
+      setSelectedWheelSize("all");
+    }
+
+    if (power) {
+      setSelectedPower(power);
+    } else {
+      setSelectedPower("all");
+    }
+  }, [selectedCategory, window.location.search]);
 
   const handleCategorySelect = (categoryId: string) => {
     setSelectedCategory(categoryId);
@@ -872,12 +909,32 @@ export default function ProductsSection({
            else if (selectedPrice === "premium") matchesPrice = p.price >= 2000;
         }
 
+        let matchesType = true;
+        if (selectedType === "twin") {
+          matchesType = p.name.toLowerCase().includes("twin") || p.name.toLowerCase().includes("double") || p.name.toLowerCase().includes("sibling");
+        }
+
+        let matchesPower = true;
+        if (selectedPower === "electric") {
+          matchesPower = p.name.toLowerCase().includes("electric") || p.name.toLowerCase().includes("motorized") || p.name.toLowerCase().includes("battery") || p.name.toLowerCase().includes("e-scooter") || p.name.toLowerCase().includes("e-bike") || p.id.toLowerCase().includes("mx350");
+        }
+
         const needsCategoryFacetFilter = selectedCategory !== "all";
         const matchesBrand = !needsCategoryFacetFilter || selectedBrand === "all" || normalizeFacetValue(p.brand) === selectedBrand;
         const matchesFrameMaterial = !needsCategoryFacetFilter || selectedFrameMaterial === "all" || normalizeFacetValue(p.material) === selectedFrameMaterial;
         const matchesTireType = !needsCategoryFacetFilter || selectedTireType === "all" || normalizeFacetValue(p.tireType) === selectedTireType;
         const matchesBrakeSystem = !needsCategoryFacetFilter || selectedBrakeSystem === "all" || normalizeFacetValue(p.brakeType) === selectedBrakeSystem;
-        const matchesWheelSize = !needsCategoryFacetFilter || selectedWheelSize === "all" || normalizeFacetValue(p.wheelSize) === selectedWheelSize;
+        let matchesWheelSize = true;
+        if (needsCategoryFacetFilter && selectedWheelSize !== "all") {
+          const valStr = normalizeFacetValue(p.wheelSize).toLowerCase();
+          const targetStr = selectedWheelSize.toLowerCase();
+          if (targetStr === "12" || targetStr === "12-inch" || targetStr === "12inch") {
+            matchesWheelSize = valStr.includes("12");
+          } else {
+            matchesWheelSize = valStr === targetStr || valStr.includes(targetStr);
+          }
+        }
+
         const matchesCertification =
           !needsCategoryFacetFilter ||
           selectedCertification === "all" ||
@@ -897,7 +954,9 @@ export default function ProductsSection({
           matchesBrakeSystem &&
           matchesWheelSize &&
           matchesCertification &&
-          matchesScooterBoundary
+          matchesScooterBoundary &&
+          matchesType &&
+          matchesPower
         );
       })
       .sort((a, b) => {
@@ -959,7 +1018,6 @@ export default function ProductsSection({
   const productsSeoPillTags = [
     { label: "BALANCE BIKE TODDLER", target: "balance_bike" },
     { label: "TWIN STROLLER", target: "stroller" },
-    { label: "WAGON STROLLER", target: "stroller" },
     { label: "TODDLER BIKE", target: "kids_bikes" },
     { label: "KIDS ELECTRIC SCOOTER", target: "kids_scooters" },
   ];
@@ -1036,7 +1094,7 @@ export default function ProductsSection({
           <p className="text-slate-600 text-sm md:text-base max-w-4xl mx-auto leading-relaxed font-semibold">
             {lang === "zh"
               ? "欢迎来到 KIDSMOBI 实验室数据库。无论您是在寻找一款安全的儿童自行车 (toddler bike) 开启骑行启蒙，还是为早期平衡信心挑选一款轻量化幼儿平衡车 (balance bike toddler)，抑或是为了家庭户外探险配置一款耐用推车，我们的机械安全审计和数据分析都能满足您的决策需求。对于多宝家庭，请探索我们经过严苛测试的双人推车 (twin stroller) 系列，或为大龄儿童升级到通过限速安全认证的儿童电玩车/电动车。通过年龄、品类或预算进行智能筛选，让我们不带偏见的中立客观数据引导您的下一次明智决定。"
-              : "Welcome to the KIDSMOBI Lab Database. Whether you are searching for a safe toddler bike to start pedaling, a lightweight balance bike toddler model for early confidence, or a heavy-duty wagon stroller for family outdoor adventures, our mechanical safety audits have you covered. For growing families, explore our strictly tested twin stroller selections, or upgrade to a speed-certified kids electric scooter for older children. Filter by age or budget, and let our unbiased data guide your next purchase."}
+              : "Welcome to the KIDSMOBI Lab Database. Whether you are searching for a safe toddler bike to start pedaling, a lightweight balance bike toddler model for early confidence, our mechanical safety audits have you covered. For growing families, explore our strictly tested twin stroller selections, or upgrade to a speed-certified kids electric scooter for older children. Filter by age or budget, and let our unbiased data guide your next purchase."}
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 pt-4 border-t border-slate-50">
@@ -1051,7 +1109,22 @@ export default function ProductsSection({
                   if (pill.target === selectedCategory) {
                     window.scrollTo({ top: 0, behavior: "smooth" });
                   }
-                  onCategoryChange?.(pill.target);
+                  
+                  let targetPath = `/products/${pill.target}`;
+                  let searchString = "";
+                  if (pill.label === "BALANCE BIKE TODDLER") {
+                    searchString = "?age=toddler";
+                  } else if (pill.label === "TWIN STROLLER") {
+                    searchString = "?type=twin";
+                  } else if (pill.label === "TODDLER BIKE") {
+                    searchString = "?size=12-inch&age=toddler";
+                  } else if (pill.label === "KIDS ELECTRIC SCOOTER") {
+                    searchString = "?power=electric";
+                  }
+
+                  // Force routing transition inside SPA context
+                  window.history.pushState(null, "", `${targetPath}${searchString}`);
+                  window.dispatchEvent(new PopStateEvent("popstate"));
                 }}
                 className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-[11px] font-black tracking-widest uppercase shadow-sm cursor-pointer group transition-all duration-350 border ${
                   hintFlash === pill.label
