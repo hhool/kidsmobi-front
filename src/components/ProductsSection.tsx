@@ -987,7 +987,7 @@ export default function ProductsSection({
         if (needsCategoryFacetFilter && selectedWheelSize !== "all") {
           const valStr = normalizeFacetValue(p.wheelSize).toLowerCase();
           const targetStr = selectedWheelSize.toLowerCase();
-          if (targetStr === "12" || targetStr === "12-inch" || targetStr === "12inch") {
+          if (targetStr === "12" || targetStr === "12-inch" || targetStr === "12inch" || targetStr.includes("12")) {
             matchesWheelSize = valStr.includes("12");
           } else {
             matchesWheelSize = valStr === targetStr || valStr.includes(targetStr);
