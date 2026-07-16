@@ -1224,8 +1224,8 @@ export default function ProductsSection({
 
           <p className="text-slate-600 text-sm md:text-base max-w-4xl mx-auto leading-relaxed font-semibold">
             {lang === "zh"
-              ? "欢迎来到 KIDSMOBI 实验室数据库。无论您是在寻找一款安全的儿童自行车 (toddler bike) 开启骑行启蒙，还是为早期平衡信心挑选一款轻量化幼儿平衡车 (balance bike toddler)，抑或是为了家庭户外探险配置一款耐用推车，我们的机械安全审计和数据分析都能满足您的决策需求。对于多宝家庭，请探索我们经过严苛测试的双人推车 (twin stroller) 系列，或为大龄儿童升级到通过限速安全认证的儿童电玩车/电动车。通过年龄、品类或预算进行智能筛选，让我们不带偏见的中立客观数据引导您的下一次明智决定。"
-              : "Welcome to the KIDSMOBI Lab Database. Whether you are searching for a safe toddler bike to start pedaling, a lightweight balance bike toddler model for early confidence, our mechanical safety audits have you covered. For growing families, explore our strictly tested twin stroller selections, or upgrade to a speed-certified kids electric scooter for older children. Filter by age or budget, and let our unbiased data guide your next purchase."}
+              ? "欢迎来到 KIDSMOBI 实验室数据库（您的专业童车测评中心）。无论您是在寻找一款高安全性的儿童自行车 (toddler bike) 开启启蒙骑行，还是挑选一款极轻量的幼儿平衡车 (balance bike toddler) 培养核心平衡感，我们权威的实测数据都能为您提供支持。对于多孩家庭，我们深度横评了多款主流双人推车 (twin stroller) 的座舱空间与推行稳定性；同时为大童精选了一系列通过速度限制认证的安全儿童电动滑板车 (kids electric scooter)。立即通过适龄、价格或品牌，对比最受好评的 toddler bike, balance bike toddler 车型, 优质 twin stroller 推车, 以及高人气 kids electric scooter 推荐款！"
+              : "Welcome to the KIDSMOBI Lab Database, your premier hub for testing kids' mobility models. Whether you are searching for an ultra-safe toddler bike to kickstart pedaling, a lightweight balance bike toddler model for initial stability, our intensive physical evaluations have you covered. For twin stroller configurations, explore our thoroughly analyzed double structures. If you are upgrading to an exciting kids electric scooter, examine our speed-regulated and battery-regulated picks. Find the best toddler bike, balance bike toddler models, high-safety twin stroller setups, and kids electric scooter recommendations here."}
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 pt-4 border-t border-slate-50">
