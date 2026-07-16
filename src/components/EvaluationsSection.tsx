@@ -237,10 +237,13 @@ function sanitizeMarketplaceNoise(raw: string) {
     return "Hurtle 3-Wheel Scooter";
   }
   if (lowercase.includes("dream on me")) {
-    return "Dream On Me Aero Travel Stroller";
+    return "Dream On Me Aero Travel Umbrella Stroller";
   }
   if (lowercase.includes("razor") && lowercase.includes("mx350")) {
     return "Razor MX350 Electric Dirt Bike";
+  }
+  if (lowercase.includes("colorful lighting") || lowercase.includes("colorful glow")) {
+    return "Colorful Glow-Wheel Baby Balance Bike";
   }
 
   // Generic cleanup to strip off detailed specification lists often found in Amazon titles
