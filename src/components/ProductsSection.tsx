@@ -1204,37 +1204,41 @@ export default function ProductsSection({
       <div className="bg-white border border-slate-100 rounded-[48px] p-10 shadow-2xl shadow-orange-500/5 space-y-8 text-left relative overflow-hidden">
         <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-bl-full -mr-16 -mt-16 opacity-50"></div>
         
-        <div className="flex flex-col lg:flex-row gap-6 relative z-10">
+        <div className="flex flex-col lg:flex-row gap-6 relative z-10 lg:items-end">
           {/* Search */}
-          <div className="relative flex-1">
-            <h2 className="sr-only">
+          <div className="flex-1 space-y-2 text-left">
+            <h2 className="text-xs font-black text-slate-400 uppercase tracking-widest block">
               {lang === "zh"
                 ? "搜索双人推车与儿童自行车数据库"
                 : "Search the Twin Stroller & Toddler Bike Database"}
             </h2>
-            <Search className="w-5 h-5 text-slate-400 absolute left-5 top-5" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={lang === "en" ? "SEARCH GLOBAL DATABASE..." : "搜索全球高端数据库..."}
-              className="w-full bg-slate-50 border border-slate-100 rounded-[28px] pl-14 pr-6 py-4.5 text-sm text-slate-900 font-bold placeholder:text-slate-400 focus:outline-none focus:ring-4 focus:ring-orange-500/10 focus:bg-white transition-all uppercase tracking-tighter"
-            />
+            <div className="relative">
+              <Search className="w-5 h-5 text-slate-400 absolute left-5 top-5" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder={lang === "en" ? "SEARCH GLOBAL DATABASE..." : "搜索全球高端数据库..."}
+                className="w-full bg-slate-50 border border-slate-100 rounded-[28px] pl-14 pr-6 py-4.5 text-sm text-slate-900 font-bold placeholder:text-slate-400 focus:outline-none focus:ring-4 focus:ring-orange-500/10 focus:bg-white transition-all uppercase tracking-tighter"
+              />
+            </div>
           </div>
 
           {/* Sort */}
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className="bg-slate-50 border border-slate-100 rounded-[28px] px-8 py-4.5 text-[10px] text-slate-900 font-black uppercase tracking-widest focus:outline-none focus:ring-4 focus:ring-orange-500/10 cursor-pointer appearance-none"
-            title={lang === "en" ? "Sort products" : "排序产品"}
-            aria-label={lang === "en" ? "Sort products" : "排序产品"}
-          >
-            <option value="overallScore">{lang === "en" ? "🏆 TOP RATED" : "🏆 专家综合推荐"}</option>
-            <option value="weightAsc">{lang === "en" ? "⚖️ LIGHTWEIGHT" : "⚖️ 极轻量优先"}</option>
-            <option value="priceDesc">{lang === "en" ? "💰 LUXURY FIRST" : "💰 顶级奢选"}</option>
-            <option value="priceAsc">{lang === "en" ? "💎 BEST VALUE" : "💎 卓越性价比"}</option>
-          </select>
+          <div className="shrink-0">
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="bg-slate-50 border border-slate-100 rounded-[28px] px-8 py-4.5 text-[10px] text-slate-900 font-black uppercase tracking-widest focus:outline-none focus:ring-4 focus:ring-orange-500/10 cursor-pointer appearance-none"
+              title={lang === "en" ? "Sort products" : "排序产品"}
+              aria-label={lang === "en" ? "Sort products" : "排序产品"}
+            >
+              <option value="overallScore">{lang === "en" ? "🏆 TOP RATED" : "🏆 专家综合推荐"}</option>
+              <option value="weightAsc">{lang === "en" ? "⚖️ LIGHTWEIGHT" : "⚖️ 极轻量优先"}</option>
+              <option value="priceDesc">{lang === "en" ? "💰 LUXURY FIRST" : "💰 顶级奢选"}</option>
+              <option value="priceAsc">{lang === "en" ? "💎 BEST VALUE" : "💎 卓越性价比"}</option>
+            </select>
+          </div>
         </div>
 
         {/* Categories tags list */}
