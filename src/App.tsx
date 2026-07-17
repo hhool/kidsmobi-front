@@ -76,6 +76,18 @@ const SEO_KEY_TO_PAGE_TYPE: Record<string, CMSPageConfig["pageType"]> = {
   about: "about",
 };
 
+const CURRENCY_TO_COUNTRY_CODE: Record<string, string> = {
+  USD: "US",
+  EUR: "DE",
+  GBP: "GB",
+};
+
+const COUNTRY_HREFLANG_MAP: Record<string, string> = {
+  US: "en-US",
+  GB: "en-GB",
+  DE: "en-DE",
+};
+
 let defaultProductsDataPromise: Promise<Product[]> | null = null;
 
 function loadDefaultProductsData() {
@@ -686,10 +698,10 @@ export default function App() {
     if (activeTab !== "news") {
       return;
     }
-    if (currentPath !== "/news") {
+    if (currentPath !== "/news/page/1") {
       return;
     }
-    navigateToPath("/news/page/1", { replace: true, preserveScroll: true });
+    navigateToPath("/news", { replace: true, preserveScroll: true });
   }, [activeTab, currentPath]);
 
   useEffect(() => {
@@ -717,7 +729,7 @@ export default function App() {
       products: "/products",
       evaluations: "/reviews",
       guides: "/guides",
-      news: "/news/page/1",
+      news: "/news",
       about: "/about",
       auth: "/auth",
     };
@@ -766,6 +778,13 @@ export default function App() {
 
   // Country & Currency State
   const [countryCode, setCountryCode] = useState<string>(() => {
+    const params = new URLSearchParams(window.location.search);
+    const requestedCurrency = String(params.get("currency") || "").trim().toUpperCase();
+    const countryFromCurrency = CURRENCY_TO_COUNTRY_CODE[requestedCurrency];
+    if (countryFromCurrency) {
+      return countryFromCurrency;
+    }
+
     const saved = safeStorageGet("app_country");
     const allowedCountries = ["US", "DE", "GB"];
     if (saved && allowedCountries.includes(saved)) {
@@ -1276,6 +1295,18 @@ export default function App() {
     link.setAttribute("href", href);
   };
 
+  const updateHreflangLinks = (links: Array<{ hreflang: string; href: string }>) => {
+    document.querySelectorAll("link[data-kidsmobi-hreflang='true']").forEach((node) => node.remove());
+    links.forEach(({ hreflang, href }) => {
+      const link = document.createElement("link");
+      link.setAttribute("rel", "alternate");
+      link.setAttribute("hreflang", hreflang);
+      link.setAttribute("href", href);
+      link.setAttribute("data-kidsmobi-hreflang", "true");
+      document.head.appendChild(link);
+    });
+  };
+
   const removeJsonLdScripts = () => {
     document.querySelectorAll("script[data-seo-jsonld='true']").forEach((node) => node.remove());
   };
@@ -1290,6 +1321,27 @@ export default function App() {
       document.head.appendChild(script);
     }
   };
+
+  useEffect(() => {
+    const canonicalOrigin =
+      cmsSettings?.seoGlobal?.siteOrigin ||
+      (cmsSettings as any)?.siteOrigin ||
+      (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+      window.location.origin;
+
+    if (normalizeCanonicalPath(currentPath) !== "/") {
+      updateHreflangLinks([]);
+      return;
+    }
+
+    const homeUrl = `${canonicalOrigin}/`;
+    updateHreflangLinks([
+      { hreflang: COUNTRY_HREFLANG_MAP.US, href: `${homeUrl}?currency=USD` },
+      { hreflang: COUNTRY_HREFLANG_MAP.GB, href: `${homeUrl}?currency=GBP` },
+      { hreflang: COUNTRY_HREFLANG_MAP.DE, href: `${homeUrl}?currency=EUR` },
+      { hreflang: "x-default", href: homeUrl },
+    ]);
+  }, [cmsSettings, currentPath]);
 
   const resolveCmsPageConfigForRoute = (seoKey: string) => {
     const pageType = SEO_KEY_TO_PAGE_TYPE[seoKey];
@@ -2351,7 +2403,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           <NewsSection
             lang={lang}
             currentPage={activePageIndex}
-            onPageChange={(page) => navigateToPath(page <= 1 ? "/news/page/1" : `/news/page/${page}`, { preserveScroll: true })}
+            onPageChange={(page) => navigateToPath(page <= 1 ? "/news" : `/news/page/${page}`, { preserveScroll: true })}
             onPaginationMetaChange={(meta) => setNewsPaginationTotalPages(meta.totalPages)}
           />
         )}
