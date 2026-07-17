@@ -373,7 +373,11 @@ function productValueScore(product: Product) {
 
 function getProductDisplayName(product: Product) {
   const brand = cleanEnBrandText(product.brand || "");
-  const pName = sanitizeMarketplaceNoise(product.name || "");
+  let pName = sanitizeMarketplaceNoise(product.name || "");
+  const brandLower = brand.toLowerCase();
+  if (pName.toLowerCase().startsWith(brandLower)) {
+    pName = pName.substring(brandLower.length).trim();
+  }
   return `${brand} ${pName}`;
 }
 
