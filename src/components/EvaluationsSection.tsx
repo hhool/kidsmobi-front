@@ -379,6 +379,13 @@ function finalizeVerdictText(raw: string) {
   return cleaned.length > 260 ? `${cleaned.slice(0, 257).trim()}...` : cleaned;
 }
 
+function ensureSentenceEnd(text: string) {
+  const cleaned = String(text || "").trim();
+  if (!cleaned) return cleaned;
+  if (/[.。！？!?]$/.test(cleaned)) return cleaned;
+  return `${cleaned}.`;
+}
+
 function productVerdict(product: Product, lang: "zh" | "en" = "en") {
   const diProduct = translateProduct(product, lang);
   const rawVerdict = String(diProduct.editorVerdict || "").trim();
@@ -1337,8 +1344,8 @@ export default function EvaluationsSection({
                       : (lang === "en" ? evaluation.en?.title : evaluation.zh?.title) || "Stroller Reviews Comparison";
 
                     const displayVerdict = lang === "en" && containsCjk(evaluation.en?.verdict || "")
-                      ? "Cross-product analysis on premium strollers scored on structural safety and terrain mobility."
-                      : (lang === "en" ? evaluation.en?.verdict : evaluation.zh?.verdict) || "";
+                      ? ensureSentenceEnd("Cross-product analysis on premium strollers scored on structural safety and terrain mobility.")
+                      : ensureSentenceEnd((lang === "en" ? evaluation.en?.verdict : evaluation.zh?.verdict) || "");
 
                     return (
                       <div
@@ -1354,7 +1361,7 @@ export default function EvaluationsSection({
                           <h2 className="text-xl font-black tracking-tight text-white leading-tight min-h-12 pt-2 group-hover:text-orange-400 transition-colors">
                             {displayTitle}
                           </h2>
-                          <p className="text-slate-400 text-xs font-semibold leading-relaxed line-clamp-3">
+                          <p className="text-slate-400 text-xs font-semibold leading-relaxed whitespace-normal break-words">
                             {displayVerdict}
                           </p>
                         </div>
@@ -1512,8 +1519,8 @@ export default function EvaluationsSection({
                       : (lang === "en" ? evaluation.en?.title : evaluation.zh?.title) || "Balance Bike Reviews Comparison";
 
                     const displayVerdict = lang === "en" && containsCjk(evaluation.en?.verdict || "")
-                      ? "Structural comparisons of leading balance bikes evaluated on geometry, weight, and turn limiting parameters."
-                      : (lang === "en" ? evaluation.en?.verdict : evaluation.zh?.verdict) || "";
+                      ? ensureSentenceEnd("Structural comparisons of leading balance bikes evaluated on geometry, weight, and turn limiting parameters.")
+                      : ensureSentenceEnd((lang === "en" ? evaluation.en?.verdict : evaluation.zh?.verdict) || "");
 
                     return (
                       <div
@@ -1529,7 +1536,7 @@ export default function EvaluationsSection({
                           <h2 className="text-xl font-black tracking-tight text-white leading-tight min-h-12 pt-2 group-hover:text-orange-400 transition-colors">
                             {displayTitle}
                           </h2>
-                          <p className="text-slate-400 text-xs font-semibold leading-relaxed line-clamp-3">
+                          <p className="text-slate-400 text-xs font-semibold leading-relaxed whitespace-normal break-words">
                             {displayVerdict}
                           </p>
                         </div>
@@ -1687,8 +1694,8 @@ export default function EvaluationsSection({
                       : (lang === "en" ? evaluation.en?.title : evaluation.zh?.title) || "Kids Mobility Comparison";
 
                     const displayVerdict = lang === "en" && containsCjk(evaluation.en?.verdict || "")
-                      ? "Comparative engineering analysis on bikes and scooters scored on frame rigidity and braking."
-                      : (lang === "en" ? evaluation.en?.verdict : evaluation.zh?.verdict) || "";
+                      ? ensureSentenceEnd("Comparative engineering analysis on bikes and scooters scored on frame rigidity and braking.")
+                      : ensureSentenceEnd((lang === "en" ? evaluation.en?.verdict : evaluation.zh?.verdict) || "");
 
                     return (
                       <div
@@ -1704,7 +1711,7 @@ export default function EvaluationsSection({
                           <h2 className="text-xl font-black tracking-tight text-white leading-tight min-h-12 pt-2 group-hover:text-orange-400 transition-colors">
                             {displayTitle}
                           </h2>
-                          <p className="text-slate-400 text-xs font-semibold leading-relaxed line-clamp-3">
+                          <p className="text-slate-400 text-xs font-semibold leading-relaxed whitespace-normal break-words">
                             {displayVerdict}
                           </p>
                         </div>
