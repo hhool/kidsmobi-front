@@ -355,7 +355,6 @@ function sanitizeVerdictText(raw: string) {
     .replace(/\b[A-Z][A-Z0-9\s&-]{4,18}\s*[:-：]\s*/g, " ")
     .replace(/The editorial verdict is based on structured product data rather than marketplace sales copy\.?/gi, "")
     .replace(/Review verdict:\s*/gi, "")
-    .replace(/\b[A-Za-z]{1,3}\s+[A-Za-z]{1,2}\b/g, " ")
     .replace(/\s+/g, " ")
     .trim();
     
