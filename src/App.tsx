@@ -76,6 +76,27 @@ const SEO_KEY_TO_PAGE_TYPE: Record<string, CMSPageConfig["pageType"]> = {
   about: "about",
 };
 
+const seoRouteMap: Record<string, string> = {
+  "https://dev.kidsmobi.pages.dev/reviews/balance-bikes/": "/reviews/balance-bikes/",
+  "https://dev.kidsmobi.pages.dev/products/kids-bikes/": "/products/kids-bikes/",
+  "url?id=2": "/products/kids-scooters/",
+  "https://dev.kidsmobi.pages.dev/guides/sizing-buying-guide/": "/guides/sizing-buying-guide/",
+  "https://dev.kidsmobi.pages.dev/transparency/disclaimer/": "/transparency/disclaimer/",
+  "https://dev.kidsmobi.pages.dev/transparency/testing-methodology/": "/transparency/testing-methodology/",
+  "https://dev.kidsmobi.pages.dev/transparency/certification-lab-notes/": "/transparency/certification-lab-notes/",
+  "https://dev.kidsmobi.pages.dev/transparency/privacy-policy/": "/transparency/privacy-policy/",
+  "/reviews/balance-bikes/": "/reviews/balance-bikes/",
+  "/products/kids-bikes/": "/products/kids-bikes/",
+  "/products/kids-scooters/": "/products/kids-scooters/",
+  "/guides/sizing-buying-guide/": "/guides/sizing-buying-guide/",
+  "/transparency/disclaimer/": "/transparency/disclaimer/",
+  "/transparency/testing-methodology/": "/transparency/testing-methodology/",
+  "/transparency/certification-lab-notes/": "/transparency/certification-lab-notes/",
+  "/transparency/privacy-policy/": "/transparency/privacy-policy/"
+};
+
+const resolveSeoLink = (rawId: string) => seoRouteMap[rawId] || rawId;
+
 const CURRENCY_TO_COUNTRY_CODE: Record<string, string> = {
   USD: "US",
   EUR: "DE",
@@ -2763,7 +2784,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               <ul className="space-y-3 font-medium">
                 <li>
                   <a
-                    href="/reviews/balance-bikes/"
+                    href={resolveSeoLink("/reviews/balance-bikes/")}
                     className="hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
@@ -2775,7 +2796,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </li>
                 <li>
                   <a
-                    href="/products/kids-bikes/"
+                    href={resolveSeoLink("/products/kids-bikes/")}
                     className="hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
@@ -2787,7 +2808,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </li>
                 <li>
                   <a
-                    href="/products/kids-scooters/"
+                    href={resolveSeoLink("/products/kids-scooters/")}
                     className="hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
@@ -2799,7 +2820,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </li>
                 <li>
                   <a
-                    href="/guides/sizing-buying-guide/"
+                    href={resolveSeoLink("/guides/sizing-buying-guide/")}
                     className="hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
@@ -2820,7 +2841,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               <ul className="space-y-3 font-medium">
                 <li>
                   <a
-                    href={TRANSPARENCY_PAGE_PATHS.disclaimer}
+                    href={resolveSeoLink(TRANSPARENCY_PAGE_PATHS.disclaimer)}
                     className="hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
@@ -2832,7 +2853,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </li>
                 <li>
                   <a
-                    href={TRANSPARENCY_PAGE_PATHS["testing-methodology"]}
+                    href={resolveSeoLink(TRANSPARENCY_PAGE_PATHS["testing-methodology"])}
                     className="hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
@@ -2844,7 +2865,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </li>
                 <li>
                   <a
-                    href={TRANSPARENCY_PAGE_PATHS.certification}
+                    href={resolveSeoLink(TRANSPARENCY_PAGE_PATHS.certification)}
                     className="hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
@@ -2856,7 +2877,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </li>
                 <li>
                   <a
-                    href={TRANSPARENCY_PAGE_PATHS["privacy-policy"]}
+                    href={resolveSeoLink(TRANSPARENCY_PAGE_PATHS["privacy-policy"])}
                     className="hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
