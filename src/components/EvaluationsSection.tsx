@@ -246,6 +246,20 @@ function sanitizeMarketplaceNoise(raw: string) {
     return "Colorful Glow-Wheel Baby Balance Bike";
   }
 
+  // Pre-trimming Amazon titles separated by commas, semicolons, or parenthetical items
+  // Since Amazon sellers append long strings of keyword specs after a comma or dash.
+  const separators = [",", ";", " - ", " – "];
+  for (const sep of separators) {
+    if (text.includes(sep)) {
+      const parts = text.split(sep);
+      const firstSegment = parts[0].trim();
+      if (firstSegment.length >= 12) {
+        text = firstSegment;
+        break;
+      }
+    }
+  }
+
   // Generic cleanup to strip off detailed specification lists often found in Amazon titles
   text = text
     .replace(/\bwith\s+Carbon\s+Fiber\s+Frame[^,.;|)]*/gi, "")
