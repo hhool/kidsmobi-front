@@ -474,7 +474,7 @@ export default function AuthSection({
             {/* Simulated member dynamic folder panel */}
             <div className="space-y-4 text-left">
               <span className="text-xs font-bold text-slate-400 uppercase tracking-widest block">
-                {isEn ? "⭐ MY BOOKMARK DOSSIER (DOWNLOAD LABORATORY LOGS)" : "⭐ 我的特权产品档案 (下载高清检测书)"}
+                {isEn ? "⭐ MY BOOKMARK REPORTS (DOWNLOAD VERIFIED FILES)" : "⭐ 我的收藏测评报告 (下载认证文件)"}
               </span>
               
               {savedProducts.length === 0 ? (

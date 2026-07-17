@@ -89,7 +89,7 @@ function SafetyRadarChart({ product, evaluation, lang = "zh", isDark = false }: 
   return (
     <div className={`flex flex-col items-center p-8 rounded-[48px] border relative overflow-hidden w-full max-w-70 mx-auto transition-transform hover:scale-[1.02] duration-500 ${isDark ? "bg-slate-800/50 border-slate-700 shadow-none text-white" : "bg-white border-slate-100 shadow-xl shadow-orange-500/5"}`}>
       <span className="text-[10px] text-orange-500 uppercase font-black tracking-[0.2em] mb-6 leading-none text-center">
-        {lang === "en" ? "Performance Matrix" : "五维度综合考量"}
+        {lang === "en" ? "Five-Factor Snapshot" : "五维度评测快照"}
       </span>
       
       <svg width={size} height={size} className="overflow-visible select-none my-2 drop-shadow-sm">
@@ -505,13 +505,13 @@ function getReviewCardTitle(product: Product, fallbackTitle?: string) {
   return fallbackTitle || `${baseTitle} Review`;
 }
 
-function getDossierCtaLabel(product: Product, evaluation: Evaluation, lang: "zh" | "en") {
-  if (lang !== "en") return "开启完整测评档案";
+function getReviewCtaLabel(product: Product, evaluation: Evaluation, lang: "zh" | "en") {
+  if (lang !== "en") return "查看完整测评报告";
   const normalized = `${product.brand || ""} ${product.name || ""} ${product.description || ""} ${product.category || ""} ${product.categoryId || ""} ${evaluation.en?.title || ""} ${evaluation.en?.verdict || ""}`.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
-  if (normalized.includes("jmmd")) return "Open JMMD Toddler Bike Dossier";
-  if (normalized.includes("glerc")) return "Explore Glerc 12\" Kids Bike Data";
+  if (normalized.includes("jmmd")) return "View JMMD Toddler Bike Review";
+  if (normalized.includes("glerc")) return "View Glerc 12\" Kids Bike Review";
   const topic = getReviewCardTitle(product).replace(/\s+Review$/i, "").trim();
-  return `Open ${topic} Dossier`;
+  return `View ${topic} Review`;
 }
 
 function cleanReviewBullet(value: unknown, fallback: string) {
@@ -599,7 +599,7 @@ function makeCompareEvaluation(id: string, products: Product[], zhTitle: string,
     },
     en: {
       title: enTitle,
-      verdict: clampText(`Cross comparison across ${names}, scored on safety, comfort, portability, features, and value.`, 200),
+      verdict: clampText(`Cross comparison across ${names} with five-factor scoring and practical fit notes.`, 200),
       pros: products.slice(0, 4).map((product) => {
         const bullet = cleanReviewBullet(product.pros?.[0] || productVerdict(product, "en"), "Structured product data supports this performance note.");
         return `${getCompactCompareDisplayName(product, "en")}: ${containsCjk(bullet) ? "Structured product data supports this performance note." : bullet}`;
@@ -1202,7 +1202,7 @@ export default function EvaluationsSection({
                 onClick={() => onSelectProduct(reviewedProduct)}
                 className="w-full py-4 bg-slate-900 hover:bg-orange-500 text-white font-black text-xs uppercase tracking-widest rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2"
               >
-                {lang === "en" ? "Open Product Dossier" : "打开产品档案"}
+                {lang === "en" ? "View Product Review" : "查看产品测评"}
                 <ArrowRight className="w-4 h-4" />
               </button>
             )}
@@ -1473,7 +1473,7 @@ export default function EvaluationsSection({
                           onClick={() => openEvaluationDetail(evaluation)}
                           className="w-full py-3.5 bg-slate-900 hover:bg-orange-500 text-white font-black text-[10px] uppercase tracking-widest rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 group-hover:shadow-orange-500/10 active:scale-95"
                         >
-                          {getDossierCtaLabel(product, evaluation, lang)}
+                          {getReviewCtaLabel(product, evaluation, lang)}
                           <ArrowRight className="w-4 h-4" />
                         </button>
                       </div>
@@ -1644,7 +1644,7 @@ export default function EvaluationsSection({
                           onClick={() => openEvaluationDetail(evaluation)}
                           className="w-full py-3.5 bg-slate-900 hover:bg-orange-500 text-white font-black text-[10px] uppercase tracking-widest rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 group-hover:shadow-orange-500/10 active:scale-95"
                         >
-                          {getDossierCtaLabel(product, evaluation, lang)}
+                          {getReviewCtaLabel(product, evaluation, lang)}
                           <ArrowRight className="w-4 h-4" />
                         </button>
                       </div>
@@ -1815,7 +1815,7 @@ export default function EvaluationsSection({
                           onClick={() => openEvaluationDetail(evaluation)}
                           className="w-full py-3.5 bg-slate-900 hover:bg-orange-500 text-white font-black text-[10px] uppercase tracking-widest rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 group-hover:shadow-orange-500/10 active:scale-95"
                         >
-                          {getDossierCtaLabel(product, evaluation, lang)}
+                          {getReviewCtaLabel(product, evaluation, lang)}
                           <ArrowRight className="w-4 h-4" />
                         </button>
                       </div>
@@ -1841,17 +1841,17 @@ export default function EvaluationsSection({
             disabled={safePage <= 1}
             className="px-4 py-2 rounded-2xl border border-slate-200 bg-white text-slate-600 font-black text-xs disabled:opacity-40"
           >
-            {lang === "en" ? "Previous" : "上一页"}
+            {lang === "en" ? "Back" : "上一页"}
           </button>
           <span className="text-xs font-black text-slate-400">
-            {safePage} / {totalPages}
+            {lang === "en" ? `${safePage} of ${totalPages}` : `${safePage} / 共 ${totalPages} 页`}
           </span>
           <button
             onClick={() => onPageChange?.(Math.min(totalPages, safePage + 1))}
             disabled={safePage >= totalPages}
             className="px-4 py-2 rounded-2xl border border-slate-200 bg-white text-slate-600 font-black text-xs disabled:opacity-40"
           >
-            {lang === "en" ? "Next" : "下一页"}
+            {lang === "en" ? "More" : "下一页"}
           </button>
         </div>
       )}

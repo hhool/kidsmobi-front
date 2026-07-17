@@ -497,17 +497,17 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
                     disabled={safePage <= 1}
                     className="px-4 py-2 rounded-2xl border border-slate-200 bg-white text-slate-600 font-black text-xs disabled:opacity-40"
                   >
-                    {lang === "en" ? "Previous" : "上一页"}
+                    {lang === "en" ? "Back" : "上一页"}
                   </button>
                   <span className="text-xs font-black text-slate-400">
-                    {safePage} / {totalPages}
+                    {lang === "en" ? `${safePage} of ${totalPages}` : `${safePage} / 共 ${totalPages} 页`}
                   </span>
                   <button
                     onClick={() => onPageChange?.(Math.min(totalPages, safePage + 1))}
                     disabled={safePage >= totalPages}
                     className="px-4 py-2 rounded-2xl border border-slate-200 bg-white text-slate-600 font-black text-xs disabled:opacity-40"
                   >
-                    {lang === "en" ? "Next" : "下一页"}
+                    {lang === "en" ? "More" : "下一页"}
                   </button>
                 </div>
               )}
