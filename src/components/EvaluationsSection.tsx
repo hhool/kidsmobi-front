@@ -499,7 +499,7 @@ function getReviewCardTitle(product: Product, fallbackTitle?: string) {
 function getReviewCtaLabel(product: Product, evaluation: Evaluation, lang: "zh" | "en") {
   void product;
   void evaluation;
-  return lang === "en" ? "READ FULL REPORT ->" : "查看完整报告 ->";
+  return lang === "en" ? "VIEW PREVIEW ->" : "查看示意图 ->";
 }
 
 function cleanReviewBullet(value: unknown, fallback: string) {
@@ -1190,7 +1190,7 @@ export default function EvaluationsSection({
                 onClick={() => onSelectProduct(reviewedProduct)}
                 className="w-full py-4 bg-slate-900 hover:bg-orange-500 text-white font-black text-xs uppercase tracking-widest rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2"
               >
-                {lang === "en" ? "READ FULL REPORT ->" : "查看完整报告 ->"}
+                {lang === "en" ? "VIEW PREVIEW ->" : "查看示意图 ->"}
                 <ArrowRight className="w-4 h-4" />
               </button>
             )}

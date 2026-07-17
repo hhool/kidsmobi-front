@@ -192,7 +192,7 @@ export default function MultiCompareView({
                   onClick={() => onSelectProduct(p)}
                   className="w-full mt-auto py-4 bg-slate-900 text-white font-black text-[10px] tracking-widest uppercase rounded-2xl hover:bg-slate-800 transition shadow-lg"
                 >
-                  {lang === "en" ? "READ FULL REPORT ->" : "查看完整报告 ->"}
+                  {lang === "en" ? "VIEW PREVIEW ->" : "查看示意图 ->"}
                 </button>
               </div>
             );
