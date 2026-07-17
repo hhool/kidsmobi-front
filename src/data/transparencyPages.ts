@@ -35,10 +35,10 @@ export type LocalizedTransparencyPage = {
 };
 
 export const TRANSPARENCY_PAGE_PATHS: Record<TransparencyPageKey, string> = {
-  disclaimer: "/disclaimer",
-  "testing-methodology": "/testing-methodology",
-  certification: "/certification",
-  "privacy-policy": "/privacy-policy",
+  disclaimer: "/transparency/disclaimer/",
+  "testing-methodology": "/transparency/testing-methodology/",
+  certification: "/transparency/certification-lab-notes/",
+  "privacy-policy": "/transparency/privacy-policy/",
 };
 
 export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
@@ -441,8 +441,11 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
 ];
 
 export function getTransparencyPageByPath(pathname: string) {
-  const normalized = pathname.replace(/\/+$/, "") || "/";
-  return TRANSPARENCY_PAGES.find((page) => page.en.path === normalized);
+  const normalized = pathname.replace(/\/+$/, "").toLowerCase() || "/";
+  return TRANSPARENCY_PAGES.find((page) => {
+    const pagePathNormalized = String(page.en.path || "").replace(/\/+$/, "").toLowerCase() || "/";
+    return pagePathNormalized === normalized;
+  });
 }
 
 export function getTransparencyPageByKey(key: TransparencyPageKey) {

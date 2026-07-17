@@ -146,6 +146,10 @@ const REVIEW_ROUTE_IDS = new Set(REVIEW_NAV_OPTIONS.map((item) => item.id));
 const PRODUCT_ROUTE_ALIASES: Record<string, string> = {
   scooters: "kids_scooters",
   scooter: "kids_scooters",
+  "kids-scooters": "kids_scooters",
+  "kids-bikes": "kids_bikes",
+  "balance-bikes": "balance_bike",
+  "sizing-buying-guide": "guides",
   balance: "balance_bike",
   "balance bike": "balance_bike",
   bicycle: "kids_bikes",
@@ -2758,22 +2762,50 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               </h4>
               <ul className="space-y-3 font-medium">
                 <li>
-                  <a href="/reviews" className="hover:text-orange-500 transition-colors text-slate-400">
+                  <a
+                    href="/reviews/balance-bikes/"
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath("/reviews/balance-bikes");
+                    }}
+                  >
                     {lang === "en" ? "Balance Bike Reviews" : "平衡车评测"}
                   </a>
                 </li>
                 <li>
-                  <a href="/products" className="hover:text-orange-500 transition-colors text-slate-400">
+                  <a
+                    href="/products/kids-bikes/"
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath("/products/kids_bikes");
+                    }}
+                  >
                     {lang === "en" ? "Kids Bike Product Hub" : "儿童自行车产品库"}
                   </a>
                 </li>
                 <li>
-                  <a href="/products" className="hover:text-orange-500 transition-colors text-slate-400">
+                  <a
+                    href="/products/kids-scooters/"
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath("/products/kids_scooters");
+                    }}
+                  >
                     {lang === "en" ? "Kids Scooter Product Hub" : "儿童滑板车产品库"}
                   </a>
                 </li>
                 <li>
-                  <a href="/guides" className="hover:text-orange-500 transition-colors text-slate-400">
+                  <a
+                    href="/guides/sizing-buying-guide/"
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath("/guides/sizing-buying-guide");
+                    }}
+                  >
                     {lang === "en" ? "Sizing & Buying Guide" : "尺寸与选购指南"}
                   </a>
                 </li>
