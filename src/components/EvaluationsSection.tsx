@@ -1229,12 +1229,12 @@ export default function EvaluationsSection({
           <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight max-w-4xl mx-auto">
             {lang === "zh" 
               ? "专家评测中心：甄选最佳旅行推车与慢跑推车" 
-              : "Expert Stroller Reviews & Balance Bike Lab"}
+              : "Expert Stroller Reviews & Balance Bike Reviews"}
           </h1>
           <p className="text-slate-500 text-sm font-semibold leading-relaxed max-w-3xl mx-auto">
             {lang === "zh"
               ? "欢迎来到 KIDSMOBI 科学实测实验室。我们为您提供公正、独立、全物理测试的折叠伞车、高避震慢跑手推车评测 (Stroller Reviews) 以及儿童学步滑步车评测 (Balance Bike Reviews)。为了确保 100% 的客观性与最高标准，全站样品均由测试团队自费购入、拒绝任何厂商商业充值。"
-              : "Welcome to the KIDSMOBI Research Lab. Here we provide physical-tested stroller reviews and rigorous balance bike reviews, helping you pinpoint the best travel stroller for airplanes or the best jogging stroller for all-terrain runs. All test samples are purchased anonymously to ensure absolute fairness and independence."}
+              : "Welcome to KIDSMOBI. Our stroller reviews and balance bike reviews help families quickly shortlist the best travel stroller for airport days and the best jogging stroller for daily runs. We buy every sample anonymously to keep each conclusion independent and practical for real parenting use."}
           </p>
 
           {/* Partitions Fast Smooth Scroll Navigation Anchor buttons */}
@@ -1307,7 +1307,7 @@ export default function EvaluationsSection({
               <p className="mt-3 text-sm text-slate-500 font-medium leading-relaxed max-w-4xl">
                 {lang === "zh"
                   ? "慢跑推车需要极致的全地形悬吊避震 (Best Jogging Stroller)，而高频率出行则需要轻量极简、能轻松单手收折并登机的最佳旅行推车 (Best Travel Stroller)。查看我们实验室出具的详细评测日志与五维力学评分。"
-                  : "Finding the best jogging stroller requires verifying advanced rear wheels shock-absorption & locking handbrakes, whereas the best travel stroller calls for quick, one-hand gravity folds and overhead airplane bin dimensions. Browse our deep stroller reviews with lab-certified indices."}
+                  : "Finding the best jogging stroller means checking wheel control and confident braking, while the best travel stroller needs quick one-hand folding and cabin-friendly size. In our stroller reviews, parents can compare daily handling and choose faster with confidence."}
               </p>
             </div>
             
@@ -1320,8 +1320,8 @@ export default function EvaluationsSection({
                     const { evaluation, products, reviewBadge } = item;
                     
                     const displayTitle = lang === "en" && containsCjk(evaluation.en?.title || "") 
-                      ? "Premium Stroller & Jogger Cross Compare" 
-                      : (lang === "en" ? evaluation.en?.title : evaluation.zh?.title) || "Stroller Dynamic Matrix";
+                      ? "Premium Stroller Reviews Comparison" 
+                      : (lang === "en" ? evaluation.en?.title : evaluation.zh?.title) || "Stroller Reviews Comparison";
 
                     const displayVerdict = lang === "en" && containsCjk(evaluation.en?.verdict || "")
                       ? "Cross-product analysis on premium strollers scored on structural safety and terrain mobility."
@@ -1492,8 +1492,8 @@ export default function EvaluationsSection({
                     const { evaluation, products, reviewBadge } = item;
                     
                     const displayTitle = lang === "en" && containsCjk(evaluation.en?.title || "") 
-                      ? "Balance Bike Top Picks Cross Compare" 
-                      : (lang === "en" ? evaluation.en?.title : evaluation.zh?.title) || "Balance Bike Dynamic Matrix";
+                      ? "Balance Bike Reviews Top Picks" 
+                      : (lang === "en" ? evaluation.en?.title : evaluation.zh?.title) || "Balance Bike Reviews Comparison";
 
                     const displayVerdict = lang === "en" && containsCjk(evaluation.en?.verdict || "")
                       ? "Structural comparisons of leading balance bikes evaluated on geometry, weight, and turn limiting parameters."
@@ -1651,7 +1651,7 @@ export default function EvaluationsSection({
               <p className="mt-3 text-sm text-slate-500 font-medium leading-relaxed max-w-4xl">
                 {lang === "zh"
                   ? "专注于大童脚踏自行车、高性能滑板车安全极限测试：考察双重手刹及反倒刹响应、物理防夹手链条防护罩、立管防倒塌锁死以及前叉形变载荷表现。"
-                  : "We systematically audit classic kids bicycles and personal kids scooters. Wet braking responsiveness, metal tube rigidity, Chain-guard ASTM F963 compliance, and lateral stability are tested to deliver authoritative lab metrics."}
+                  : "We audit classic kids bicycles and scooters with a parent-first lens. Wet braking response, frame stability, chain-guard safety, and corner balance are tested to provide clear buying guidance."}
               </p>
             </div>
 
@@ -1665,7 +1665,7 @@ export default function EvaluationsSection({
                     
                     const displayTitle = lang === "en" && containsCjk(evaluation.en?.title || "") 
                       ? "Kids Bike Parent Picks Compare" 
-                      : (lang === "en" ? evaluation.en?.title : evaluation.zh?.title) || "Kids Mobility Cross Compare";
+                      : (lang === "en" ? evaluation.en?.title : evaluation.zh?.title) || "Kids Mobility Comparison";
 
                     const displayVerdict = lang === "en" && containsCjk(evaluation.en?.verdict || "")
                       ? "Comparative engineering analysis on bikes and scooters scored on frame rigidity and braking."
