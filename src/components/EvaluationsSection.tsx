@@ -288,6 +288,80 @@ function sanitizeMarketplaceNoise(raw: string) {
   return text;
 }
 
+function clampText(value: string, maxLength: number) {
+  const text = String(value || "").replace(/\s+/g, " ").trim();
+  if (!text || text.length <= maxLength) return text;
+  return `${text.slice(0, maxLength).replace(/[\s,;:.!?-]+$/g, "")}...`;
+}
+
+function stripBrandPrefix(text: string, brand: string) {
+  const normalizedText = String(text || "").trim();
+  const normalizedBrand = String(brand || "").trim();
+  if (!normalizedText || !normalizedBrand) return normalizedText;
+  const escapedBrand = normalizedBrand.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return normalizedText.replace(new RegExp(`^${escapedBrand}\\s+`, "i"), "").trim();
+}
+
+function compactModelSegment(name: string, lang: "zh" | "en") {
+  const cleaned = String(name || "").replace(/\s+/g, " ").trim();
+  if (!cleaned) return "";
+
+  if (lang === "zh") {
+    return clampText(cleaned, 18);
+  }
+
+  const tokens = cleaned.split(" ").filter(Boolean);
+  const stopWords = new Set([
+    "with",
+    "for",
+    "and",
+    "lightweight",
+    "compact",
+    "travel",
+    "airplane",
+    "friendly",
+    "approved",
+    "fold",
+    "folding",
+    "stroller",
+    "jogger",
+    "system",
+    "months",
+    "month",
+    "infant",
+    "toddler"
+  ]);
+
+  const chosen: string[] = [];
+  for (const token of tokens) {
+    const normalized = token.toLowerCase().replace(/[^a-z0-9-]/g, "");
+    if (!normalized) continue;
+    if (chosen.length > 0 && stopWords.has(normalized)) break;
+    chosen.push(token.replace(/[^A-Za-z0-9-]/g, ""));
+    if (chosen.length >= 3) break;
+  }
+
+  const fallback = tokens.slice(0, 2).join(" ");
+  return (chosen.join(" ") || fallback || cleaned).trim();
+}
+
+function getCompactCompareDisplayName(product: Product, lang: "zh" | "en" = "en") {
+  if (lang === "zh") {
+    const brand = String(product.brand || "").trim();
+    const localizedName = String((product as any).zh?.name || product.name || "").trim();
+    const modelRaw = stripBrandPrefix(localizedName, brand);
+    const model = compactModelSegment(modelRaw, "zh");
+    return clampText(`${brand} ${model}`.trim(), 24);
+  }
+
+  const brand = cleanEnBrandText(product.brand || "");
+  const localizedName = String((product as any).en?.name || product.name || "").trim();
+  const sanitizedName = sanitizeMarketplaceNoise(localizedName);
+  const modelRaw = stripBrandPrefix(sanitizedName, brand);
+  const model = compactModelSegment(modelRaw, "en");
+  return clampText(`${brand} ${model}`.trim(), 32);
+}
+
 function sanitizeVerdictText(raw: string) {
   let text = String(raw || "").trim();
   if (!text) return text;
@@ -295,23 +369,46 @@ function sanitizeVerdictText(raw: string) {
   // Strip off typical Amazon Bullet Point capitalized headers and marketing jargon
   // Like "GROW IN FUN:", "VERSATILE 2-IN-1 MODE -", "EXCITING GLOWING WHEELS...", "SAFELY RIDE:"
   text = text
+    .replace(/[【\[]\s*[A-Z]{2,20}\s*[】\]]/g, " ")
+    .replace(/[【\[]\s*[A-Z]{1,20}\s+[A-Z]{1,20}\s*[】\]]/g, " ")
+    .replace(/\b(?:feature|features|bullet|spec|specs)\s*\[\s*\d+\s*\]/gi, " ")
+    .replace(/\b(?:scraped|crawler|crawl|selector|xpath|dom|listing|asin)\b\s*[:=-]?\s*/gi, " ")
     .replace(/\b[A-Z][A-Z0-9\s&-]{4,18}\s*[:-：]\s*/g, " ")
     .replace(/The editorial verdict is based on structured product data rather than marketplace sales copy\.?/gi, "")
     .replace(/Review verdict:\s*/gi, "")
+    .replace(/\b[A-Za-z]{1,3}\s+[A-Za-z]{1,2}\b/g, " ")
     .replace(/\s+/g, " ")
     .trim();
     
   return text;
 }
 
+function hasScraperFootprint(text: string) {
+  const value = String(text || "").trim();
+  if (!value) return false;
+  return (
+    /[【\[]\s*[A-Z]{2,20}(?:\s+[A-Z]{2,20})*\s*[】\]]/.test(value) ||
+    /\b(?:feature|features|bullet|spec|specs)\s*\[\s*\d+\s*\]/i.test(value) ||
+    /\b(?:scraped|crawler|crawl|selector|xpath|dom|listing|asin)\b/i.test(value) ||
+    /\b(?:SIGN|KIDS|BABY|TODDLER|FOLD|TRAVEL)\b\s*[】\]]/.test(value)
+  );
+}
+
+function finalizeVerdictText(raw: string) {
+  const cleaned = sanitizeVerdictText(cleanVisibleSourceText(raw || ""));
+  if (!cleaned) return "";
+  return cleaned.length > 260 ? `${cleaned.slice(0, 257).trim()}...` : cleaned;
+}
+
 function productVerdict(product: Product, lang: "zh" | "en" = "en") {
   const diProduct = translateProduct(product, lang);
   const rawVerdict = String(diProduct.editorVerdict || "").trim();
+  const sanitizedRawVerdict = finalizeVerdictText(rawVerdict);
   
-  const isReal = isRealVerdict(rawVerdict) && !(lang === "en" && containsCjk(rawVerdict));
+  const isReal = isRealVerdict(sanitizedRawVerdict) && !(lang === "en" && containsCjk(sanitizedRawVerdict)) && !hasScraperFootprint(rawVerdict);
 
   if (isReal) {
-    return cleanVisibleSourceText(rawVerdict);
+    return sanitizedRawVerdict;
   }
 
   const brand = lang === "en" ? cleanEnBrandText(diProduct.brand || "") : diProduct.brand || "该高端型号";
@@ -463,7 +560,7 @@ function makeSingleEvaluation(product: Product, type: Evaluation["type"], suffix
     },
     en: {
       title: cleanTitle,
-      verdict: `${verdictPrefixEn}: ${productVerdict(product, "en")}`,
+      verdict: `${finalizeVerdictText(productVerdict(product, "en"))}`,
       pros: enPros,
       cons: enCons,
       changelog: "Generated from product details, score fields, and expert summary.",
@@ -475,25 +572,8 @@ function makeSingleEvaluation(product: Product, type: Evaluation["type"], suffix
 function makeCompareEvaluation(id: string, products: Product[], zhTitle: string, enTitle: string): Evaluation {
   const scores = products.map(getProductScores);
   const average = (key: keyof ReturnType<typeof getProductScores>) => Number((scores.reduce((sum, item) => sum + item[key], 0) / Math.max(1, scores.length)).toFixed(1));
-  const names = products.map((p) => {
-    const brandEn = cleanEnBrandText(p.brand || "");
-    let nameStr = sanitizeMarketplaceNoise((p as any).en?.name || p.name || "");
-    const brandLower = brandEn.toLowerCase();
-    if (nameStr.toLowerCase().startsWith(brandLower)) {
-      nameStr = nameStr.substring(brandLower.length).trim();
-    }
-    return `${brandEn} ${nameStr}`.trim();
-  }).join(" vs ");
-
-  const namesZh = products.map((p) => {
-    const brandZh = p.brand || "";
-    let nameStr = (p as any).zh?.name || p.name || "";
-    const brandLower = brandZh.toLowerCase();
-    if (nameStr.toLowerCase().startsWith(brandLower)) {
-      nameStr = nameStr.substring(brandLower.length).trim();
-    }
-    return `${brandZh} ${nameStr}`.trim();
-  }).join(" 对比 ");
+  const names = products.map((p) => getCompactCompareDisplayName(p, "en")).join(" vs ");
+  const namesZh = products.map((p) => getCompactCompareDisplayName(p, "zh")).join(" 对比 ");
 
   return {
     id,
@@ -512,21 +592,21 @@ function makeCompareEvaluation(id: string, products: Product[], zhTitle: string,
     imageUrl: products[0].imageUrl || products[0].galleryUrls?.[0] || "",
     zh: {
       title: zhTitle,
-      verdict: `多品评测覆盖 ${namesZh}，按安全、舒适、便携、功能和性价比维度形成横向结果。`,
-      pros: products.slice(0, 4).map((product) => `${getProductDisplayName(product)}：${cleanReviewBullet(product.pros?.[0] || productVerdict(product, "zh"), "结构数据支持该项表现。")}`),
-      cons: products.slice(0, 4).map((product) => `${getProductDisplayName(product)}：${cleanReviewBullet(product.cons?.[0], "建议结合年龄、身高与使用场景确认。")}`),
+      verdict: clampText(`多品评测覆盖 ${namesZh}，按安全、舒适、便携、功能和性价比维度形成横向结果。`, 120),
+      pros: products.slice(0, 4).map((product) => `${getCompactCompareDisplayName(product, "zh")}：${cleanReviewBullet(product.pros?.[0] || productVerdict(product, "zh"), "结构数据支持该项表现。")}`),
+      cons: products.slice(0, 4).map((product) => `${getCompactCompareDisplayName(product, "zh")}：${cleanReviewBullet(product.cons?.[0], "建议结合年龄、身高与使用场景确认。")}`),
       changelog: "由当前产品数据自动生成多品评测结果。",
     },
     en: {
       title: enTitle,
-      verdict: `Cross comparison across ${names}, scored on safety, comfort, portability, features, and value.`,
+      verdict: clampText(`Cross comparison across ${names}, scored on safety, comfort, portability, features, and value.`, 200),
       pros: products.slice(0, 4).map((product) => {
         const bullet = cleanReviewBullet(product.pros?.[0] || productVerdict(product, "en"), "Structured product data supports this performance note.");
-        return `${getProductDisplayName(product)}: ${containsCjk(bullet) ? "Structured product data supports this performance note." : bullet}`;
+        return `${getCompactCompareDisplayName(product, "en")}: ${containsCjk(bullet) ? "Structured product data supports this performance note." : bullet}`;
       }),
       cons: products.slice(0, 4).map((product) => {
         const bullet = cleanReviewBullet(product.cons?.[0], "Confirm age, height, and use case fit before buying.");
-        return `${getProductDisplayName(product)}: ${containsCjk(bullet) ? "Confirm age, height, and use case fit before buying." : bullet}`;
+        return `${getCompactCompareDisplayName(product, "en")}: ${containsCjk(bullet) ? "Confirm age, height, and use case fit before buying." : bullet}`;
       }),
       changelog: "Generated from current product data as a multi-product review result.",
     },

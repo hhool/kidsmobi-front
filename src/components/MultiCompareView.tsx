@@ -8,6 +8,68 @@ import { getProductImageAlt } from "../lib/productSeoText";
 import SmartImage from "./common/SmartImage";
 import Breadcrumbs from "./Breadcrumbs";
 
+function clampText(value: string, maxLength: number) {
+  const text = String(value || "").replace(/\s+/g, " ").trim();
+  if (!text || text.length <= maxLength) return text;
+  return `${text.slice(0, maxLength).replace(/[\s,;:.!?-]+$/g, "")}...`;
+}
+
+function stripBrandPrefix(text: string, brand: string) {
+  const normalizedText = String(text || "").trim();
+  const normalizedBrand = String(brand || "").trim();
+  if (!normalizedText || !normalizedBrand) return normalizedText;
+  const escapedBrand = normalizedBrand.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return normalizedText.replace(new RegExp(`^${escapedBrand}\\s+`, "i"), "").trim();
+}
+
+function compactModelSegment(name: string, lang: "zh" | "en") {
+  const cleaned = String(name || "").replace(/\s+/g, " ").trim();
+  if (!cleaned) return "";
+  if (lang === "zh") return clampText(cleaned, 18);
+
+  const tokens = cleaned.split(" ").filter(Boolean);
+  const stopWords = new Set([
+    "with",
+    "for",
+    "and",
+    "lightweight",
+    "compact",
+    "travel",
+    "airplane",
+    "friendly",
+    "approved",
+    "fold",
+    "folding",
+    "stroller",
+    "jogger",
+    "system",
+    "months",
+    "month",
+    "infant",
+    "toddler"
+  ]);
+
+  const chosen: string[] = [];
+  for (const token of tokens) {
+    const normalized = token.toLowerCase().replace(/[^a-z0-9-]/g, "");
+    if (!normalized) continue;
+    if (chosen.length > 0 && stopWords.has(normalized)) break;
+    chosen.push(token.replace(/[^A-Za-z0-9-]/g, ""));
+    if (chosen.length >= 3) break;
+  }
+
+  const fallback = tokens.slice(0, 2).join(" ");
+  return (chosen.join(" ") || fallback || cleaned).trim();
+}
+
+function getCompactCompareCardName(product: Product, lang: "zh" | "en") {
+  const pt = translateProduct(product, lang);
+  const brand = String(pt.brand || product.brand || "").trim();
+  const name = String(pt.name || product.name || "").trim();
+  const model = compactModelSegment(stripBrandPrefix(name, brand), lang);
+  return clampText(`${brand} ${model}`.trim(), lang === "en" ? 32 : 24);
+}
+
 export default function MultiCompareView({
   evaluation,
   productsData,
@@ -70,6 +132,7 @@ export default function MultiCompareView({
           {compProducts.map((p, idx) => {
             const pt = translateProduct(p, lang);
             const imageSet = resolveProductImages(p);
+            const compactName = getCompactCompareCardName(p, lang);
             return (
               <div key={p.id} className="bg-slate-50 border border-slate-100 rounded-[32px] p-6 relative flex flex-col group hover:border-emerald-500 transition-colors">
                 <div className="w-10 h-10 bg-slate-900 text-white rounded-full flex items-center justify-center font-black absolute -top-4 -left-4 border-4 border-white shadow-sm z-10">
@@ -88,7 +151,7 @@ export default function MultiCompareView({
                 </div>
                 <div className="text-center mb-6">
                   <p className="text-[10px] uppercase font-black text-slate-400 tracking-widest">{pt.brand}</p>
-                  <h3 className="font-extrabold text-slate-900 mt-1">{pt.name}</h3>
+                  <h3 className="font-extrabold text-slate-900 mt-1" title={compactName}>{compactName}</h3>
                 </div>
                 
                 <div className="space-y-3 mb-6 flex-1">
