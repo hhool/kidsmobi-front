@@ -220,6 +220,13 @@ function truncateCardSnippet(value: string, maxLength: number): string {
   return `${value.slice(0, maxLength).replace(/[\s,;:.!?-]+$/g, "")}...`;
 }
 
+function ensureSummarySentenceEnd(value: string): string {
+  const text = compactSnippet(value);
+  if (!text) return "";
+  if (/[.。！？!?]$/.test(text)) return text;
+  return `${text}.`;
+}
+
 function stripVisibleFieldLabels(value: string): string {
   return cleanVisibleSourceText(compactSnippet(value))
     .replace(/^(?:editor\s+verdict|auto-generated\s+verdict|自动生成评语)\s*[:：-]\s*/i, "")
@@ -329,7 +336,7 @@ function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
   const summary = candidates[0] || resolveGeneratedCardSummary(product, lang);
   if (!summary) return "";
 
-  return truncateCardSnippet(summary, lang === "zh" ? 72 : 120);
+  return ensureSummarySentenceEnd(summary);
 }
 
 function resolveCardVerdict(product: Product, lang: "zh" | "en"): string {
@@ -1696,7 +1703,7 @@ export default function ProductsSection({
                       {selectedCategory === "all" ? (
                         <>
                           <div className="space-y-1.5">
-                            <p className="text-slate-600 text-xs leading-relaxed font-semibold line-clamp-2">
+                            <p className="text-slate-600 text-xs leading-relaxed font-semibold whitespace-normal break-words">
                               {cardSummary}
                             </p>
                           </div>
@@ -1725,7 +1732,7 @@ export default function ProductsSection({
                       ) : (
                         <>
                           <div className="space-y-1.5">
-                            <p className="text-slate-600 text-xs leading-relaxed font-semibold line-clamp-2">
+                            <p className="text-slate-600 text-xs leading-relaxed font-semibold whitespace-normal break-words">
                               {cardSummary}
                             </p>
                           </div>
