@@ -346,7 +346,13 @@ function hasRealEditorVerdict(product: Product) {
 function isFocusReviewProduct(product: Product) {
   const text = `${product.category || ""} ${product.categoryId || ""}`.toLowerCase();
   const source = `${product.brand || ""} ${product.name || ""} ${product.description || ""} ${text}`.toLowerCase();
-  return text.includes("stroller") || text.includes("balance") || text.includes("bicycle") || text.includes("bike") || text.includes("scooter") || source.includes("dirt bike") || source.includes("off-road") || source.includes("off road");
+  
+  // Exclude Kid Dirt Bikes from the review section entirely
+  if (source.includes("dirt bike") || source.includes("dirtbike") || source.includes("motocross") || source.includes("motorcycle")) {
+    return false;
+  }
+  
+  return text.includes("stroller") || text.includes("balance") || text.includes("bicycle") || text.includes("bike") || text.includes("scooter") || source.includes("off-road") || source.includes("off road");
 }
 
 function getProductScores(product: Product) {
@@ -375,7 +381,6 @@ function getCommercialReviewTitle(product: Product, fallbackTitle: string) {
   const text = `${product.brand || ""} ${product.name || ""} ${product.description || ""} ${product.category || ""} ${product.categoryId || ""}`.toLowerCase();
   const brand = cleanEnBrandText(product.brand || "");
   if (text.includes("chicco") && text.includes("bravo")) return "Chicco Bravo Trio: Comprehensive Stroller Reviews";
-  if (text.includes("razor") || text.includes("dirt bike") || text.includes("mountain bike") || text.includes("off-road") || text.includes("off road")) return "Razor MX350 Electric Kids Dirt Bike Review";
   if (text.includes("bob gear") || text.includes("jogging stroller") || text.includes("jogger")) return `${brand} Alterrain: Best Jogging Stroller Review`;
   if (text.includes("travel stroller") || text.includes("coast rider") || text.includes("yoyo") || text.includes("mompush") || text.includes("passport")) return `${brand} Ultra Air: Best Travel Stroller Review`;
   if (text.includes("stroller")) return `${brand}: Comprehensive Stroller Reviews`;
@@ -397,7 +402,6 @@ function getDossierCtaLabel(product: Product, evaluation: Evaluation, lang: "zh"
   if (lang !== "en") return "开启完整测评档案";
   const normalized = `${product.brand || ""} ${product.name || ""} ${product.description || ""} ${product.category || ""} ${product.categoryId || ""} ${evaluation.en?.title || ""} ${evaluation.en?.verdict || ""}`.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
   if (normalized.includes("jmmd")) return "Open JMMD Toddler Bike Dossier";
-  if (normalized.includes("razor") || normalized.includes("mx350") || normalized.includes("dirt bike")) return "Read Razor MX350 Dirt Bike Report";
   if (normalized.includes("glerc")) return "Explore Glerc 12\" Kids Bike Data";
   const topic = getReviewCardTitle(product).replace(/\s+Review$/i, "").trim();
   return `Open ${topic} Dossier`;
@@ -575,7 +579,6 @@ function buildGeneratedEvaluations(productsData: Product[]): Evaluation[] {
   const commercialSeeds = [
     findProduct((text) => text.includes("yoyo") || text.includes("travel stroller") || text.includes("coast rider") || text.includes("mompush")) || strollerProducts[0],
     findProduct((text) => text.includes("bob gear") || text.includes("jogging stroller") || text.includes("jogger")) || strollerProducts[1],
-    findProduct((text) => text.includes("razor") || text.includes("dirt bike") || text.includes("mountain bike") || text.includes("off-road") || text.includes("off road")) || bikeProducts[0],
     findProduct((text) => text.includes("chicco") && text.includes("bravo")) || strollerProducts[2],
   ].filter(Boolean) as Product[];
 
