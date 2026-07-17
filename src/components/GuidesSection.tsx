@@ -816,20 +816,22 @@ export default function GuidesSection({
                 <span>{lang === "en" ? "1. Age" : "1. 宝宝岁数"}</span>
                 <span className="text-orange-500 text-sm">{wizardAge} {lang === "en" ? "yrs" : "岁"}</span>
               </label>
-              <input
-                type="range"
-                min="1"
-                max="12"
-                step="0.5"
-                value={wizardAge}
-                onChange={(e) => {
-                  const val = parseFloat(e.target.value);
-                  setWizardAge(val);
-                }}
-                aria-label={lang === "en" ? "Child age slider" : "宝宝岁数滑杆"}
-                title={lang === "en" ? "Child age slider" : "宝宝岁数滑杆"}
-                className="w-full accent-orange-500 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer"
-              />
+              <div className="border-b border-slate-200 pb-2">
+                <input
+                  type="range"
+                  min="1"
+                  max="12"
+                  step="0.5"
+                  value={wizardAge}
+                  onChange={(e) => {
+                    const val = parseFloat(e.target.value);
+                    setWizardAge(val);
+                  }}
+                  aria-label={lang === "en" ? "Child age slider" : "宝宝岁数滑杆"}
+                  title={lang === "en" ? "Child age slider" : "宝宝岁数滑杆"}
+                  className="w-full accent-orange-500 h-5 bg-transparent border-0 rounded-none appearance-none cursor-pointer"
+                />
+              </div>
               <span className="text-[10px] text-slate-400 font-medium block">
                 {lang === "en" ? "Calculates bone density limits" : "用于测算宝宝体格发育限制"}
               </span>
@@ -841,21 +843,23 @@ export default function GuidesSection({
                 <span>{lang === "en" ? "2. Height" : "2. 身高 (Height)"}</span>
                 <span className="text-orange-500 text-sm">{formatHeight(wizardHeight, currencyData.code)}</span>
               </label>
-              <input
-                type="range"
-                min="70"
-                max="160"
-                step="1"
-                value={wizardHeight}
-                onChange={(e) => {
-                  const val = parseInt(e.target.value);
-                  setWizardHeight(val);
-                  setWizardInseam(Math.floor(val * 0.38)); // Default estimation
-                }}
-                aria-label={lang === "en" ? "Child height slider" : "宝宝身高滑杆"}
-                title={lang === "en" ? "Child height slider" : "宝宝身高滑杆"}
-                className="w-full accent-orange-500 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer"
-              />
+              <div className="border-b border-slate-200 pb-2">
+                <input
+                  type="range"
+                  min="70"
+                  max="160"
+                  step="1"
+                  value={wizardHeight}
+                  onChange={(e) => {
+                    const val = parseInt(e.target.value);
+                    setWizardHeight(val);
+                    setWizardInseam(Math.floor(val * 0.38)); // Default estimation
+                  }}
+                  aria-label={lang === "en" ? "Child height slider" : "宝宝身高滑杆"}
+                  title={lang === "en" ? "Child height slider" : "宝宝身高滑杆"}
+                  className="w-full accent-orange-500 h-5 bg-transparent border-0 rounded-none appearance-none cursor-pointer"
+                />
+              </div>
             </div>
 
             {/* Input 3: Inseam */}
@@ -864,17 +868,19 @@ export default function GuidesSection({
                 <span>{lang === "en" ? "3. Inseam" : "3. 跨高 (Inseam)"}</span>
                 <span className="text-orange-500 text-sm">{formatHeight(wizardInseam, currencyData.code)}</span>
               </label>
-              <input
-                type="range"
-                min="20"
-                max="75"
-                step="1"
-                value={wizardInseam}
-                onChange={(e) => setWizardInseam(parseInt(e.target.value))}
-                aria-label={lang === "en" ? "Child inseam slider" : "宝宝跨高滑杆"}
-                title={lang === "en" ? "Child inseam slider" : "宝宝跨高滑杆"}
-                className="w-full accent-orange-500 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer"
-              />
+              <div className="border-b border-slate-200 pb-2">
+                <input
+                  type="range"
+                  min="20"
+                  max="75"
+                  step="1"
+                  value={wizardInseam}
+                  onChange={(e) => setWizardInseam(parseInt(e.target.value))}
+                  aria-label={lang === "en" ? "Child inseam slider" : "宝宝跨高滑杆"}
+                  title={lang === "en" ? "Child inseam slider" : "宝宝跨高滑杆"}
+                  className="w-full accent-orange-500 h-5 bg-transparent border-0 rounded-none appearance-none cursor-pointer"
+                />
+              </div>
             </div>
 
             {/* Input 4: Weight */}
@@ -883,20 +889,22 @@ export default function GuidesSection({
                 <span>{lang === "en" ? "4. Weight" : "4. 体重 (Weight)"}</span>
                 <span className="text-rose-500 text-sm font-black">{formatWeight(wizardWeight, currencyData.code)}</span>
               </label>
-              <input
-                type="range"
-                min="5"
-                max="65"
-                step="0.5"
-                value={wizardWeight}
-                onChange={(e) => {
-                  const val = parseFloat(e.target.value);
-                  setWizardWeight(val);
-                }}
-                aria-label={lang === "en" ? "Child weight slider" : "宝宝体重滑杆"}
-                title={lang === "en" ? "Child weight slider" : "宝宝体重滑杆"}
-                className="w-full accent-orange-500 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer"
-              />
+              <div className="border-b border-slate-200 pb-2">
+                <input
+                  type="range"
+                  min="5"
+                  max="65"
+                  step="0.5"
+                  value={wizardWeight}
+                  onChange={(e) => {
+                    const val = parseFloat(e.target.value);
+                    setWizardWeight(val);
+                  }}
+                  aria-label={lang === "en" ? "Child weight slider" : "宝宝体重滑杆"}
+                  title={lang === "en" ? "Child weight slider" : "宝宝体重滑杆"}
+                  className="w-full accent-orange-500 h-5 bg-transparent border-0 rounded-none appearance-none cursor-pointer"
+                />
+              </div>
               <span className="text-[10px] text-slate-400 font-medium block">
                 {lang === "en" ? "Calculates 30% safety threshold" : "用于实时更新安全称重死线"}
               </span>
@@ -910,17 +918,19 @@ export default function GuidesSection({
                   {formatCurrencyFromUsd(wizardBudget, currencyData, lang, 2)}
                 </span>
               </label>
-              <input
-                type="range"
-                min="100"
-                max="8000"
-                step="50"
-                value={wizardBudget}
-                onChange={(e) => setWizardBudget(parseInt(e.target.value))}
-                aria-label={lang === "en" ? "Budget slider" : "预算滑杆"}
-                title={lang === "en" ? "Budget slider" : "预算滑杆"}
-                className="w-full accent-emerald-500 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer"
-              />
+              <div className="border-b border-slate-200 pb-2">
+                <input
+                  type="range"
+                  min="100"
+                  max="8000"
+                  step="50"
+                  value={wizardBudget}
+                  onChange={(e) => setWizardBudget(parseInt(e.target.value))}
+                  aria-label={lang === "en" ? "Budget slider" : "预算滑杆"}
+                  title={lang === "en" ? "Budget slider" : "预算滑杆"}
+                  className="w-full accent-emerald-500 h-5 bg-transparent border-0 rounded-none appearance-none cursor-pointer"
+                />
+              </div>
             </div>
 
             {/* Input 6: Scenario */}
