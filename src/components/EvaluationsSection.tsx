@@ -376,7 +376,7 @@ function hasScraperFootprint(text: string) {
 function finalizeVerdictText(raw: string) {
   const cleaned = sanitizeVerdictText(cleanVisibleSourceText(raw || ""));
   if (!cleaned) return "";
-  return cleaned.length > 260 ? `${cleaned.slice(0, 257).trim()}...` : cleaned;
+  return cleaned.length > 480 ? cleaned.slice(0, 480).trim() : cleaned;
 }
 
 function ensureSentenceEnd(text: string) {
@@ -384,6 +384,13 @@ function ensureSentenceEnd(text: string) {
   if (!cleaned) return cleaned;
   if (/[.。！？!?]$/.test(cleaned)) return cleaned;
   return `${cleaned}.`;
+}
+
+function clampSummaryForDisplay(text: string, maxLength = 480) {
+  const cleaned = String(text || "").replace(/\s+/g, " ").trim();
+  if (!cleaned) return "";
+  if (cleaned.length <= maxLength) return cleaned;
+  return cleaned.slice(0, maxLength).trim();
 }
 
 function productVerdict(product: Product, lang: "zh" | "en" = "en") {
@@ -1344,8 +1351,8 @@ export default function EvaluationsSection({
                       : (lang === "en" ? evaluation.en?.title : evaluation.zh?.title) || "Stroller Reviews Comparison";
 
                     const displayVerdict = lang === "en" && containsCjk(evaluation.en?.verdict || "")
-                      ? ensureSentenceEnd("Cross-product analysis on premium strollers scored on structural safety and terrain mobility.")
-                      : ensureSentenceEnd((lang === "en" ? evaluation.en?.verdict : evaluation.zh?.verdict) || "");
+                      ? clampSummaryForDisplay("Cross-product analysis on premium strollers scored on structural safety and terrain mobility.", 480)
+                      : clampSummaryForDisplay((lang === "en" ? evaluation.en?.verdict : evaluation.zh?.verdict) || "", 480);
 
                     return (
                       <div
@@ -1429,6 +1436,7 @@ export default function EvaluationsSection({
                       return `针对 ${brandZh} ${modelZh} 实测车型的深入评定摘要，多维度安全骨骼与避震学考核。`;
                     }
                   })();
+                  const compactDisplayVerdict = clampSummaryForDisplay(displayVerdict, 480);
 
                   const displayTitle = (() => {
                     const originalT = tEv.title || diProduct.name || "";
@@ -1464,7 +1472,7 @@ export default function EvaluationsSection({
                           </div>
 
                             <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100/50">
-                              <p className="text-xs text-slate-600 leading-relaxed font-bold italic whitespace-normal">“{displayVerdict}”</p>
+                               <p className="text-xs text-slate-600 leading-relaxed font-bold italic whitespace-normal break-words">“{compactDisplayVerdict}”</p>
                           </div>
                         </div>
 
@@ -1519,8 +1527,8 @@ export default function EvaluationsSection({
                       : (lang === "en" ? evaluation.en?.title : evaluation.zh?.title) || "Balance Bike Reviews Comparison";
 
                     const displayVerdict = lang === "en" && containsCjk(evaluation.en?.verdict || "")
-                      ? ensureSentenceEnd("Structural comparisons of leading balance bikes evaluated on geometry, weight, and turn limiting parameters.")
-                      : ensureSentenceEnd((lang === "en" ? evaluation.en?.verdict : evaluation.zh?.verdict) || "");
+                      ? clampSummaryForDisplay("Structural comparisons of leading balance bikes evaluated on geometry, weight, and turn limiting parameters.", 480)
+                      : clampSummaryForDisplay((lang === "en" ? evaluation.en?.verdict : evaluation.zh?.verdict) || "", 480);
 
                     return (
                       <div
@@ -1604,6 +1612,7 @@ export default function EvaluationsSection({
                       return `针对 ${brandZh} ${modelZh} 儿童滑步平衡车的物理实测总结，包含转弯几何与车身受冲击测试评级。`;
                     }
                   })();
+                  const compactDisplayVerdict = clampSummaryForDisplay(displayVerdict, 480);
 
                   const displayTitle = (() => {
                     const originalT = tEv.title || diProduct.name || "";
@@ -1639,7 +1648,7 @@ export default function EvaluationsSection({
                           </div>
 
                           <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100/50">
-                             <p className="text-xs text-slate-600 leading-relaxed font-bold italic line-clamp-3">“{displayVerdict}”</p>
+                             <p className="text-xs text-slate-600 leading-relaxed font-bold italic whitespace-normal break-words">“{compactDisplayVerdict}”</p>
                           </div>
                         </div>
 
@@ -1694,8 +1703,8 @@ export default function EvaluationsSection({
                       : (lang === "en" ? evaluation.en?.title : evaluation.zh?.title) || "Kids Mobility Comparison";
 
                     const displayVerdict = lang === "en" && containsCjk(evaluation.en?.verdict || "")
-                      ? ensureSentenceEnd("Comparative engineering analysis on bikes and scooters scored on frame rigidity and braking.")
-                      : ensureSentenceEnd((lang === "en" ? evaluation.en?.verdict : evaluation.zh?.verdict) || "");
+                      ? clampSummaryForDisplay("Comparative engineering analysis on bikes and scooters scored on frame rigidity and braking.", 480)
+                      : clampSummaryForDisplay((lang === "en" ? evaluation.en?.verdict : evaluation.zh?.verdict) || "", 480);
 
                     return (
                       <div
@@ -1779,6 +1788,7 @@ export default function EvaluationsSection({
                       return `针对 ${brandZh} ${modelZh} 儿童自行车或滑板车的手刹制动力与车架防冲击性能的专项物理质检评测。`;
                     }
                   })();
+                  const compactDisplayVerdict = clampSummaryForDisplay(displayVerdict, 480);
 
                   const displayTitle = (() => {
                     const originalT = tEv.title || diProduct.name || "";
@@ -1814,7 +1824,7 @@ export default function EvaluationsSection({
                           </div>
 
                           <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100/50">
-                             <p className="text-xs text-slate-600 leading-relaxed font-bold italic line-clamp-3">“{displayVerdict}”</p>
+                             <p className="text-xs text-slate-600 leading-relaxed font-bold italic whitespace-normal break-words">“{compactDisplayVerdict}”</p>
                           </div>
                         </div>
 

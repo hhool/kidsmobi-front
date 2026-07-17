@@ -216,8 +216,10 @@ function isGenericCardSnippet(value: string): boolean {
 }
 
 function truncateCardSnippet(value: string, maxLength: number): string {
-  if (value.length <= maxLength) return value;
-  return `${value.slice(0, maxLength).replace(/[\s,;:.!?-]+$/g, "")}...`;
+  const text = compactSnippet(value);
+  if (!text) return "";
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength).trim();
 }
 
 function ensureSummarySentenceEnd(value: string): string {
@@ -336,7 +338,7 @@ function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
   const summary = candidates[0] || resolveGeneratedCardSummary(product, lang);
   if (!summary) return "";
 
-  return ensureSummarySentenceEnd(summary);
+  return truncateCardSnippet(summary, 480);
 }
 
 function resolveCardVerdict(product: Product, lang: "zh" | "en"): string {
