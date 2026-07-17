@@ -1462,11 +1462,12 @@ export default function EvaluationsSection({
                         </div>
 
                         <button
+                          type="button"
                           onClick={() => openEvaluationDetail(evaluation)}
-                          className="w-full py-3.5 bg-slate-900 hover:bg-orange-500 text-white font-black text-[10px] uppercase tracking-widest rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 group-hover:shadow-orange-500/10 active:scale-95"
+                          className="w-full py-4 bg-slate-900 hover:bg-orange-500 text-white rounded-xl transition-all shadow-lg flex items-center justify-center active:scale-95 group-hover:shadow-orange-500/10"
                           aria-label={getReviewCtaLabel(product, evaluation, lang)}
+                          title={getReviewCtaLabel(product, evaluation, lang)}
                         >
-                          {getReviewCtaLabel(product, evaluation, lang)}
                           <ArrowRight className="w-4 h-4" aria-hidden="true" />
                         </button>
                       </div>
@@ -1636,11 +1637,12 @@ export default function EvaluationsSection({
                         </div>
 
                         <button
+                          type="button"
                           onClick={() => openEvaluationDetail(evaluation)}
-                          className="w-full py-3.5 bg-slate-900 hover:bg-orange-500 text-white font-black text-[10px] uppercase tracking-widest rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 group-hover:shadow-orange-500/10 active:scale-95"
+                          className="w-full py-4 bg-slate-900 hover:bg-orange-500 text-white rounded-xl transition-all shadow-lg flex items-center justify-center active:scale-95 group-hover:shadow-orange-500/10"
                           aria-label={getReviewCtaLabel(product, evaluation, lang)}
+                          title={getReviewCtaLabel(product, evaluation, lang)}
                         >
-                          {getReviewCtaLabel(product, evaluation, lang)}
                           <ArrowRight className="w-4 h-4" aria-hidden="true" />
                         </button>
                       </div>
@@ -1810,11 +1812,12 @@ export default function EvaluationsSection({
                         </div>
 
                         <button
+                          type="button"
                           onClick={() => openEvaluationDetail(evaluation)}
-                          className="w-full py-3.5 bg-slate-900 hover:bg-orange-500 text-white font-black text-[10px] uppercase tracking-widest rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 group-hover:shadow-orange-500/10 active:scale-95"
+                          className="w-full py-4 bg-slate-900 hover:bg-orange-500 text-white rounded-xl transition-all shadow-lg flex items-center justify-center active:scale-95 group-hover:shadow-orange-500/10"
                           aria-label={getReviewCtaLabel(product, evaluation, lang)}
+                          title={getReviewCtaLabel(product, evaluation, lang)}
                         >
-                          {getReviewCtaLabel(product, evaluation, lang)}
                           <ArrowRight className="w-4 h-4" aria-hidden="true" />
                         </button>
                       </div>
