@@ -1263,6 +1263,42 @@ export default function EvaluationsSection({
               : "Welcome to KIDSMOBI. Our stroller reviews and balance bike reviews help families quickly shortlist the best travel stroller for airport days and the best jogging stroller for daily runs. We buy every sample anonymously to keep each conclusion independent and practical for real parenting use."}
           </p>
 
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50/90 p-4 shadow-sm">
+              <div className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white border border-slate-200 mb-3">
+                <Scale className="w-4 h-4 text-slate-700" />
+              </div>
+              <h3 className="text-[11px] font-black uppercase tracking-wider text-slate-900">{lang === "zh" ? "Best Travel Stroller 标准" : "Best Travel Stroller Standard"}</h3>
+              <p className="mt-2 text-xs text-slate-600 font-semibold leading-relaxed">
+                {lang === "zh"
+                  ? "以收折速度、登机舱尺寸与车架重量为核心指标，筛选真正适合高频出行的 best travel stroller。"
+                  : "Evaluated by fold speed, cabin dimensions, and chassis weight to benchmark each best travel stroller profile."}
+              </p>
+            </div>
+            <div className="rounded-2xl border border-slate-200 bg-slate-50/90 p-4 shadow-sm">
+              <div className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white border border-slate-200 mb-3">
+                <Flame className="w-4 h-4 text-slate-700" />
+              </div>
+              <h3 className="text-[11px] font-black uppercase tracking-wider text-slate-900">{lang === "zh" ? "Best Jogging Stroller 强度" : "Best Jogging Stroller Rigor"}</h3>
+              <p className="mt-2 text-xs text-slate-600 font-semibold leading-relaxed">
+                {lang === "zh"
+                  ? "通过粗糙路面振动稳定性、刹车响应与推行轨迹控制，验证 best jogging stroller 的真实耐用性。"
+                  : "Simulated through rough-terrain vibration stability, brake response, and line control for best jogging stroller use cases."}
+              </p>
+            </div>
+            <div className="rounded-2xl border border-slate-200 bg-slate-50/90 p-4 shadow-sm">
+              <div className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white border border-slate-200 mb-3">
+                <ShieldCheck className="w-4 h-4 text-slate-700" />
+              </div>
+              <h3 className="text-[11px] font-black uppercase tracking-wider text-slate-900">{lang === "zh" ? "独立 Stroller Reviews" : "Independent Stroller Reviews"}</h3>
+              <p className="mt-2 text-xs text-slate-600 font-semibold leading-relaxed">
+                {lang === "zh"
+                  ? "所有 stroller reviews 均坚持零赞助、零置换样机，以真实路测为家庭决策提供高可信依据。"
+                  : "Our stroller reviews stay unsponsored and retail-sampled, preserving independent road-test confidence for families."}
+              </p>
+            </div>
+          </div>
+
           {/* Partitions Fast Smooth Scroll Navigation Anchor buttons */}
           <div className="flex flex-wrap justify-center gap-4 pt-4">
             <button
@@ -1340,8 +1376,17 @@ export default function EvaluationsSection({
             {doubleStrollerFloorReviews.length === 0 ? (
               <p className="text-slate-400 text-xs italic">{lang === "en" ? "No stroller evaluations currently published." : "暂无推车专项实测报告。"}</p>
             ) : (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {doubleStrollerFloorReviews.map((item) => {
+              <>
+                <div className="rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-3">
+                  <p className="text-xs font-semibold text-slate-600 leading-relaxed">
+                    {lang === "zh"
+                      ? "使用动态数据矩阵浏览 stroller reviews：在日常轻量通勤与高强度越野稳定之间，快速定位适配家庭场景的车型。"
+                      : "Use our dynamic data matrix to filter stroller reviews by lifestyle choice, balancing daily lightweight needs against rugged exercise stability."}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  {doubleStrollerFloorReviews.map((item) => {
                   if (item.type === "multi") {
                     const { evaluation, products, reviewBadge } = item;
                     
@@ -1422,6 +1467,10 @@ export default function EvaluationsSection({
                   const displayVerdict = (() => {
                     const originalv = tEv.verdict || diProduct.editorVerdict || "";
                     if (lang === "en") {
+                      const normalizedIdentity = `${diProduct.brand || ""} ${diProduct.name || ""} ${tEv.title || ""}`.toLowerCase();
+                      if (normalizedIdentity.includes("chicco") && normalizedIdentity.includes("bravo")) {
+                        return "Our deep-dive stroller reviews validate the Chicco Bravo Trio as a premier modular travel solution. While it offers unmatched click-in safety, parents seeking the absolute best travel stroller for tight airline bins may favor ultra-lightweight frames, while active families aiming for the best jogging stroller should prioritize all-terrain suspension.";
+                      }
                       const v = sanitizeVerdictText(originalv);
                       if (v && !containsCjk(v) && isRealVerdict(v)) return v;
                       const brandEn = cleanEnBrandText(diProduct.brand || "");
@@ -1493,8 +1542,23 @@ export default function EvaluationsSection({
                       </div>
                     </div>
                   );
-                })}
-              </div>
+                  })}
+                </div>
+
+                <div className="rounded-2xl border border-orange-100 bg-orange-50/60 px-4 py-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                  <p className="text-[11px] font-black uppercase tracking-wide text-orange-700">
+                    {lang === "zh" ? "编辑部推荐标签" : "Editor Summary Labels"}
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-2 text-xs font-semibold text-slate-700">
+                    <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white border border-orange-200">
+                      {lang === "zh" ? "最佳旅行推车" : "Editor's Choice for best travel stroller"}: MAMAZING Ultra Air
+                    </span>
+                    <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white border border-orange-200">
+                      {lang === "zh" ? "最佳慢跑推车" : "Editor's Choice for best jogging stroller"}: Infans Jogging Stroller
+                    </span>
+                  </div>
+                </div>
+              </>
             )}
           </section>
 
