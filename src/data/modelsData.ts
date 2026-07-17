@@ -1172,8 +1172,8 @@ export const productsData: Product[] = [
       "Just Spin The Wheels To Glow. Greatly Increases The Fun For Children.",
       "【the Best Partner For Kids】 Recommended Ages For 10 36 Months. Baby Balance Bike Can Bring Fun And Joy To Children. It's A Great Gift For Toddlers To Learn To Walk And Ride. Can Help Enhance The Baby's Balance"
     ],
-    "description": "【COLORFUL LIGHTING DESIGN】 To enhance children's fun, we have specially designed the colorful lighting rear wheel. No batteries are required, just spin the wheels to glow. Greatly increases the fun for children. 【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can help enhance the baby's balance, steering, coordination, and increase self-confidence. 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby.",
-    "Product_Description": "【COLORFUL LIGHTING DESIGN】 To enhance children's fun, we have specially designed the colorful lighting rear wheel. No batteries are required, just spin the wheels to glow. Greatly increases the fun for children. 【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can help enhance the baby's balance, steering, coordination, and increase self-confidence. 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby.",
+    "description": "To enhance children's fun, we have specially designed the colorful lighting rear wheel. No batteries are required, just spin the wheels to glow. Greatly increases the fun for children. 【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can help enhance the baby's balance, steering, coordination, and increase self-confidence. 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby.",
+    "Product_Description": "To enhance children's fun, we have specially designed the colorful lighting rear wheel. No batteries are required, just spin the wheels to glow. Greatly increases the fun for children. 【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can help enhance the baby's balance, steering, coordination, and increase self-confidence. 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby.",
     "Product_Specifications": {
       "Measurements": {
         "Wheel Size": "6.8 Inches",
@@ -1289,7 +1289,7 @@ export const productsData: Product[] = [
     "weightScore": 9.4,
     "geometryScore": 9.7,
     "overallScore": 9.4,
-    "editorVerdict": "【COLORFUL LIGHTING DESIGN】 To enhance children's fun, we have specially designed the colorful lighting rear wheel. No batteries are required, just spin the wheels to glow. Greatly... 【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can h... 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby.",
+    "editorVerdict": "To enhance children's fun, we have specially designed the colorful lighting rear wheel. No batteries are required, just spin the wheels to glow. Greatly... 【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can h... 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby.",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -1510,7 +1510,7 @@ export const productsData: Product[] = [
     "weightScore": 9.4,
     "geometryScore": 9.5,
     "overallScore": 9.4,
-    "editorVerdict": "【COLORFUL LIGHTING DESIGN】 To enhance children's fun, we have specially designed the colorful lighting rear wheel. No batteries are required, just spin the wheels to glow. Greatly... 【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can h... 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby.",
+    "editorVerdict": "To enhance children's fun, we have specially designed the colorful lighting rear wheel. No batteries are required, just spin the wheels to glow. Greatly... 【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can h... 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby.",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -1739,7 +1739,7 @@ export const productsData: Product[] = [
     "weightScore": 9.4,
     "geometryScore": 9.7,
     "overallScore": 9.4,
-    "editorVerdict": "【COLORFUL LIGHTING DESIGN】 No batteries are needed and no charging is required.To enhance children's fun, we have specially designed the colorful lighting rear wheel.just spin the... 【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can h... 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby.",
+    "editorVerdict": "No batteries are needed and no charging is required.To enhance children's fun, we have specially designed the colorful lighting rear wheel.just spin the... 【THE BEST PARTNER FOR KIDS】 Recommended ages for 10-36 months. baby balance bike can bring fun and joy to children. It's a Great gift for toddlers to learn to walk and ride. Can h... 【SAFELY RIDE】 No pedal and fully widened closed wheel to avoid clamping baby's feet. 135° steering limited to avoid side falling. NO sharp part, safer for your baby.",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
@@ -3556,7 +3556,7 @@ export const productsData: Product[] = [
     "weightScore": 9.6,
     "geometryScore": 9.6,
     "overallScore": 9.4,
-    "editorVerdict": "GROW IN FUN: Recommended ages for 12-24 months. The infant balance bike is the best birthday gift for toddlers to learn walking and riding. It helps to develop babies' balance, st... SAFELY RIDE: No pedal and fully widened closed wheel to avoid clamping baby's feet. 135 ° turning limit and gravity steering without leaving the ground to prevent the baby from tu... STURDY & COMFORTABLE DESIGN: The mini balance bike equips sturdy aluminum alloy frame, non-slip TPU handle, and a softly supportive seat.The mini balance bike wheels are non-slip,...",
+    "editorVerdict": "Recommended for ages 12-24 months. This infant balance bike effectively helps develop babies' balance and stability. Features a pedal-free design with fully closed wheels and a safe 135° steering limit.",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
