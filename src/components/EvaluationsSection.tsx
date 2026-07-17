@@ -289,13 +289,19 @@ function sanitizeMarketplaceNoise(raw: string) {
 }
 
 function sanitizeVerdictText(raw: string) {
-  const text = String(raw || "").trim();
+  let text = String(raw || "").trim();
   if (!text) return text;
-  return text
+  
+  // Strip off typical Amazon Bullet Point capitalized headers and marketing jargon
+  // Like "GROW IN FUN:", "VERSATILE 2-IN-1 MODE -", "EXCITING GLOWING WHEELS...", "SAFELY RIDE:"
+  text = text
+    .replace(/\b[A-Z][A-Z0-9\s&-]{4,18}\s*[:-：]\s*/g, " ")
     .replace(/The editorial verdict is based on structured product data rather than marketplace sales copy\.?/gi, "")
     .replace(/Review verdict:\s*/gi, "")
     .replace(/\s+/g, " ")
     .trim();
+    
+  return text;
 }
 
 function productVerdict(product: Product, lang: "zh" | "en" = "en") {
@@ -412,10 +418,10 @@ function getDossierCtaLabel(product: Product, evaluation: Evaluation, lang: "zh"
 }
 
 function cleanReviewBullet(value: unknown, fallback: string) {
-  const cleaned = cleanVisibleSourceText(value)
+  let cleaned = cleanVisibleSourceText(value)
     .replace(/【[^】]*】/g, " ")
     .replace(/\[[^\]]*\]/g, " ")
-    .replace(/\b[A-Z][A-Z\s&-]{8,}:\s*/g, "")
+    .replace(/\b[A-Z][A-Z0-9\s&-]{4,18}\s*[:-：]\s*/g, " ")
     .replace(/\s+/g, " ")
     .trim();
   if (!cleaned || cleaned.length < 18) return fallback;
