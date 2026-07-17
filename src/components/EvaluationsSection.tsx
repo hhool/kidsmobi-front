@@ -1187,11 +1187,12 @@ export default function EvaluationsSection({
             </div>
             {reviewedProduct && (
               <button
+                type="button"
                 onClick={() => onSelectProduct(reviewedProduct)}
-                className="w-full py-4 bg-slate-900 hover:bg-orange-500 text-white font-black text-xs uppercase tracking-widest rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2"
+                className="w-full py-4 bg-slate-900 hover:bg-orange-500 text-white rounded-2xl transition-all shadow-lg flex items-center justify-center active:scale-95"
                 aria-label={getReviewCtaLabel(reviewedProduct, selectedEvaluation, lang)}
+                title={getReviewCtaLabel(reviewedProduct, selectedEvaluation, lang)}
               >
-                {getReviewCtaLabel(reviewedProduct, selectedEvaluation, lang)}
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
               </button>
             )}
@@ -1386,10 +1387,12 @@ export default function EvaluationsSection({
 
                         <div className="flex justify-center relative z-10 pt-2">
                           <button
+                            type="button"
                             onClick={() => openEvaluationDetail(evaluation)}
-                            className="w-full py-4 bg-white hover:bg-orange-500 text-slate-900 hover:text-white font-black text-[10px] uppercase tracking-widest rounded-xl transition-all shadow-md flex items-center justify-center gap-2 active:scale-95"
+                            className="w-full py-4 bg-white hover:bg-orange-500 text-slate-900 hover:text-white rounded-xl transition-all shadow-md flex items-center justify-center active:scale-95"
+                            aria-label={lang === "en" ? "Compare best travel and jogging strollers" : "对比最佳旅行与慢跑推车"}
+                            title={lang === "en" ? "Compare best travel and jogging strollers" : "对比最佳旅行与慢跑推车"}
                           >
-                            {lang === "en" ? "COMPARE BEST TRAVEL & JOGGING STROLLERS" : "对比最佳旅行与慢跑推车"}
                             <ArrowRight className="w-3.5 h-3.5" />
                           </button>
                         </div>
@@ -1558,10 +1561,12 @@ export default function EvaluationsSection({
 
                         <div className="flex justify-center relative z-10 pt-2">
                           <button
+                            type="button"
                             onClick={() => openEvaluationDetail(evaluation)}
-                            className="w-full py-4 bg-white hover:bg-orange-500 text-slate-900 hover:text-white font-black text-[10px] uppercase tracking-widest rounded-xl transition-all shadow-md flex items-center justify-center gap-2 active:scale-95"
+                            className="w-full py-4 bg-white hover:bg-orange-500 text-slate-900 hover:text-white rounded-xl transition-all shadow-md flex items-center justify-center active:scale-95"
+                            aria-label={lang === "en" ? "Compare top balance bike reviews" : "对比热门平衡车评测"}
+                            title={lang === "en" ? "Compare top balance bike reviews" : "对比热门平衡车评测"}
                           >
-                            {lang === "en" ? "COMPARE TOP BALANCE BIKE REVIEWS" : "对比热门平衡车评测"}
                             <ArrowRight className="w-3.5 h-3.5" />
                           </button>
                         </div>
@@ -1730,10 +1735,12 @@ export default function EvaluationsSection({
 
                         <div className="flex justify-center relative z-10 pt-2">
                           <button
+                            type="button"
                             onClick={() => openEvaluationDetail(evaluation)}
-                            className="w-full py-4 bg-white hover:bg-orange-500 text-slate-900 hover:text-white font-black text-[10px] uppercase tracking-widest rounded-xl transition-all shadow-md flex items-center justify-center gap-2 active:scale-95"
+                            className="w-full py-4 bg-white hover:bg-orange-500 text-slate-900 hover:text-white rounded-xl transition-all shadow-md flex items-center justify-center active:scale-95"
+                            aria-label={lang === "en" ? "Compare kids bike and scooter reviews" : "对比童车与滑板车评测"}
+                            title={lang === "en" ? "Compare kids bike and scooter reviews" : "对比童车与滑板车评测"}
                           >
-                            {lang === "en" ? "COMPARE KIDS BIKE & SCOOTER REVIEWS" : "对比童车与滑板车评测"}
                             <ArrowRight className="w-3.5 h-3.5" />
                           </button>
                         </div>
