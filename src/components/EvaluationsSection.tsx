@@ -86,13 +86,29 @@ function SafetyRadarChart({ product, evaluation, lang = "zh", isDark = false }: 
     });
   }, [scores, radius, center]);
 
+  const radarAriaLabel = useMemo(() => {
+    if (!scores.length) {
+      return lang === "en" ? "Five-factor scoring radar" : "五维评分雷达图";
+    }
+    const dims = scores.map((item: any) => `${item.name} ${Number(item.val || 0).toFixed(1)}`).join(", ");
+    return lang === "en"
+      ? `Five-factor scoring radar: ${dims}`
+      : `五维评分雷达图：${dims}`;
+  }, [scores, lang]);
+
   return (
     <div className={`flex flex-col items-center p-8 rounded-[48px] border relative overflow-hidden w-full max-w-70 mx-auto transition-transform hover:scale-[1.02] duration-500 ${isDark ? "bg-slate-800/50 border-slate-700 shadow-none text-white" : "bg-white border-slate-100 shadow-xl shadow-orange-500/5"}`}>
       <span className="text-[10px] text-orange-500 uppercase font-black tracking-[0.2em] mb-6 leading-none text-center">
         {lang === "en" ? "Five-Factor Snapshot" : "五维度评测快照"}
       </span>
       
-      <svg width={size} height={size} className="overflow-visible select-none my-2 drop-shadow-sm">
+      <svg
+        width={size}
+        height={size}
+        className="overflow-visible select-none my-2 drop-shadow-sm"
+        role="img"
+        aria-label={radarAriaLabel}
+      >
         {guidlines.map((p: any, i: number) => (
           <polygon
             key={i}
@@ -114,31 +130,6 @@ function SafetyRadarChart({ product, evaluation, lang = "zh", isDark = false }: 
            <animate attributeName="opacity" from="0" to="1" dur="1s" />
         </polygon>
 
-        {points.map((p: any, i: number) => {
-          const angle = (i * 2 * Math.PI) / 5 - Math.PI / 2;
-          const textDist = radius + 22;
-          const x = center + textDist * Math.cos(angle);
-          const y = center + textDist * Math.sin(angle);
-          
-          let textAnchor = "middle";
-          if (Math.cos(angle) > 0.15) textAnchor = "start";
-          else if (Math.cos(angle) < -0.15) textAnchor = "end";
-
-          return (
-            <text
-              key={i}
-              x={x}
-              y={y + 3}
-              fill={isDark ? "#94a3b8" : "#64748b"}
-              fontSize="11"
-              fontWeight="900"
-              textAnchor={textAnchor}
-              className="tracking-tighter"
-            >
-              {p.name}
-            </text>
-          );
-        })}
       </svg>
     </div>
   );
@@ -506,12 +497,9 @@ function getReviewCardTitle(product: Product, fallbackTitle?: string) {
 }
 
 function getReviewCtaLabel(product: Product, evaluation: Evaluation, lang: "zh" | "en") {
-  if (lang !== "en") return "查看完整测评报告";
-  const normalized = `${product.brand || ""} ${product.name || ""} ${product.description || ""} ${product.category || ""} ${product.categoryId || ""} ${evaluation.en?.title || ""} ${evaluation.en?.verdict || ""}`.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
-  if (normalized.includes("jmmd")) return "View JMMD Toddler Bike Review";
-  if (normalized.includes("glerc")) return "View Glerc 12\" Kids Bike Review";
-  const topic = getReviewCardTitle(product).replace(/\s+Review$/i, "").trim();
-  return `View ${topic} Review`;
+  void product;
+  void evaluation;
+  return lang === "en" ? "READ FULL REPORT ->" : "查看完整报告 ->";
 }
 
 function cleanReviewBullet(value: unknown, fallback: string) {
@@ -1202,7 +1190,7 @@ export default function EvaluationsSection({
                 onClick={() => onSelectProduct(reviewedProduct)}
                 className="w-full py-4 bg-slate-900 hover:bg-orange-500 text-white font-black text-xs uppercase tracking-widest rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2"
               >
-                {lang === "en" ? "View Product Review" : "查看产品测评"}
+                {lang === "en" ? "READ FULL REPORT ->" : "查看完整报告 ->"}
                 <ArrowRight className="w-4 h-4" />
               </button>
             )}
