@@ -2143,7 +2143,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 title={lang === "zh" ? "Switch to English" : "切换至中文"}
                 aria-label={lang === "zh" ? "Switch to English" : "切换至中文"}
               >
-                <span className="text-[10px] uppercase font-black">{lang === "zh" ? "EN" : "ZH"}</span>
+                <Globe className="w-4 h-4" aria-hidden="true" />
               </button>
               <button
                 onClick={() => navigateToTab("auth")}
@@ -2301,11 +2301,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               <div className="flex items-center gap-2">
                 <button 
                   onClick={() => setLang(prev => prev === "zh" ? "en" : "zh")} 
-                  className="p-2 bg-slate-50 hover:bg-slate-100 rounded-xl text-slate-600 font-bold border border-slate-200 active:scale-95 transition-all flex items-center gap-1.5"
+                  className="p-2 bg-slate-50 hover:bg-slate-100 rounded-xl text-slate-600 font-bold border border-slate-200 active:scale-95 transition-all flex items-center justify-center w-10 h-10"
                   title={lang === "zh" ? "Switch to English" : "切换至中文"}
+                  aria-label={lang === "zh" ? "Switch to English" : "切换至中文"}
                 >
-                  <Globe className="w-4 h-4" />
-                  <span className="text-[10px] uppercase">{lang === "zh" ? "EN" : "ZH"}</span>
+                    <Globe className="w-4 h-4" aria-hidden="true" />
                 </button>
                 
                 <button
