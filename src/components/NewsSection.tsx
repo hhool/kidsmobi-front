@@ -495,19 +495,35 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
                   <button
                     onClick={() => onPageChange?.(Math.max(1, safePage - 1))}
                     disabled={safePage <= 1}
-                    className="px-4 py-2 rounded-2xl border border-slate-200 bg-white text-slate-600 font-black text-xs disabled:opacity-40"
+                    className="w-10 h-10 rounded-2xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center"
+                    aria-label={lang === "en" ? "Go to previous page" : "上一页"}
                   >
-                    {lang === "en" ? "Back" : "上一页"}
+                    <svg aria-hidden="true" viewBox="0 0 20 20" className="w-4 h-4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12.5 4.5L7 10L12.5 15.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
                   </button>
-                  <span className="text-xs font-black text-slate-400">
-                    {lang === "en" ? `${safePage} of ${totalPages}` : `${safePage} / 共 ${totalPages} 页`}
-                  </span>
+                  <div
+                    className="w-24 h-2 rounded-full bg-slate-100 overflow-hidden"
+                    role="progressbar"
+                    aria-valuemin={1}
+                    aria-valuemax={totalPages}
+                    aria-valuenow={safePage}
+                    aria-label={lang === "en" ? `Page ${safePage} of ${totalPages}` : `第 ${safePage} 页，共 ${totalPages} 页`}
+                  >
+                    <div
+                      className="h-full bg-slate-900 rounded-full transition-all"
+                      style={{ width: `${Math.max(8, (safePage / totalPages) * 100)}%` }}
+                    />
+                  </div>
                   <button
                     onClick={() => onPageChange?.(Math.min(totalPages, safePage + 1))}
                     disabled={safePage >= totalPages}
-                    className="px-4 py-2 rounded-2xl border border-slate-200 bg-white text-slate-600 font-black text-xs disabled:opacity-40"
+                    className="w-10 h-10 rounded-2xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center"
+                    aria-label={lang === "en" ? "Go to next page" : "下一页"}
                   >
-                    {lang === "en" ? "More" : "下一页"}
+                    <svg aria-hidden="true" viewBox="0 0 20 20" className="w-4 h-4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7.5 4.5L13 10L7.5 15.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
                   </button>
                 </div>
               )}

@@ -36,21 +36,21 @@ function SafetyRadarChart({ product, evaluation, lang = "zh", isDark = false }: 
   const scores = useMemo(() => {
     if (evaluation && evaluation.scores) {
       return [
-        { name: lang === "en" ? "Safety" : "安全保障", val: evaluation.scores.safety },
-        { name: lang === "en" ? "Comfort" : "舒适减震", val: evaluation.scores.comfort },
-        { name: lang === "en" ? "Portability" : "省力便携", val: evaluation.scores.portability },
-        { name: lang === "en" ? "Features" : "功能拓展", val: evaluation.scores.features },
-        { name: lang === "en" ? "Value" : "性价比", val: evaluation.scores.valueForMoney }
+        { val: evaluation.scores.safety },
+        { val: evaluation.scores.comfort },
+        { val: evaluation.scores.portability },
+        { val: evaluation.scores.features },
+        { val: evaluation.scores.valueForMoney }
       ];
     } else if (product) {
       const comfort = product.category === "stroller" ? 10.0 : product.category === "scooter" ? 8.5 : product.tireType?.includes("充气") ? 9.5 : 6.0;
       const value = product.price < 600 ? 10.0 : product.price < 2000 ? 8.5 : product.price < 4000 ? 7.0 : 5.0;
       return [
-        { name: lang === "en" ? "Safety" : "安全保障", val: product.safetyScore },
-        { name: lang === "en" ? "Comfort" : "舒适减震", val: comfort },
-        { name: lang === "en" ? "Weight" : "省力指数", val: product.weightScore },
-        { name: lang === "en" ? "Fit" : "成长匹配", val: product.geometryScore },
-        { name: lang === "en" ? "Value" : "性价比", val: value }
+        { val: product.safetyScore },
+        { val: comfort },
+        { val: product.weightScore },
+        { val: product.geometryScore },
+        { val: value }
       ];
     }
     return [];
@@ -66,7 +66,7 @@ function SafetyRadarChart({ product, evaluation, lang = "zh", isDark = false }: 
       const pct = s.val / 10;
       const x = center + radius * pct * Math.cos(angle);
       const y = center + radius * pct * Math.sin(angle);
-      return { x, y, name: s.name, val: s.val };
+      return { x, y, val: s.val };
     });
   }, [scores, radius, center]);
 
@@ -86,22 +86,10 @@ function SafetyRadarChart({ product, evaluation, lang = "zh", isDark = false }: 
     });
   }, [scores, radius, center]);
 
-  const radarAriaLabel = useMemo(() => {
-    if (!scores.length) {
-      return lang === "en" ? "Five-factor scoring radar" : "五维评分雷达图";
-    }
-    const dims = scores.map((item: any) => `${item.name} ${Number(item.val || 0).toFixed(1)}`).join(", ");
-    return lang === "en"
-      ? `Five-factor scoring radar: ${dims}`
-      : `五维评分雷达图：${dims}`;
-  }, [scores, lang]);
+  const radarAriaLabel = lang === "en" ? "Scoring radar chart" : "评分雷达图";
 
   return (
     <div className={`flex flex-col items-center p-8 rounded-[48px] border relative overflow-hidden w-full max-w-70 mx-auto transition-transform hover:scale-[1.02] duration-500 ${isDark ? "bg-slate-800/50 border-slate-700 shadow-none text-white" : "bg-white border-slate-100 shadow-xl shadow-orange-500/5"}`}>
-      <span className="text-[10px] text-orange-500 uppercase font-black tracking-[0.2em] mb-6 leading-none text-center">
-        {lang === "en" ? "Five-Factor Snapshot" : "五维度评测快照"}
-      </span>
-      
       <svg
         width={size}
         height={size}
@@ -499,7 +487,25 @@ function getReviewCardTitle(product: Product, fallbackTitle?: string) {
 function getReviewCtaLabel(product: Product, evaluation: Evaluation, lang: "zh" | "en") {
   void product;
   void evaluation;
-  return lang === "en" ? "VIEW PREVIEW ->" : "查看示意图 ->";
+  return lang === "en" ? "Open preview schematic" : "打开示意图";
+}
+
+function ReviewCtaGlyph() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className="w-5 h-5"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect x="3" y="4" width="13" height="13" rx="2" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M8 9H13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M8 12H11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M15 15L21 9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M17 9H21V13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
 }
 
 function cleanReviewBullet(value: unknown, fallback: string) {
@@ -694,10 +700,10 @@ function buildGeneratedEvaluations(productsData: Product[]): Evaluation[] {
     ));
 
   const compareGroups = [
-    { products: strollerProducts.slice(0, 4), zh: "双人与慢大牌手推车横向评测", en: "Premium Stroller & Jogger Cross Compare" },
-    { products: balanceProducts.slice(0, 4), zh: "Balance Bike 高分车型横向评测", en: "Balance Bike Top Picks Cross Compare" },
-    { products: bikeProducts.slice(0, 4), zh: "Kids Bike 安全与成长适配横向评测", en: "Kids Bike Safety and Fit Cross Compare" },
-    { products: scooterProducts.slice(0, 4), zh: "Kids Scooter 稳定性与便携横向评测", en: "Kids Scooter Stability and Portability Cross Compare" },
+    { products: strollerProducts.slice(0, 4), zh: "双人与慢大牌手推车横向评测", en: "Premium Stroller & Jogger Parent Compare" },
+    { products: balanceProducts.slice(0, 4), zh: "Balance Bike 高分车型横向评测", en: "Balance Bike Top Picks Compare" },
+    { products: bikeProducts.slice(0, 4), zh: "Kids Bike 安全与成长适配横向评测", en: "Kids Bike Parent Picks Compare" },
+    { products: scooterProducts.slice(0, 4), zh: "Kids Scooter 稳定性与便携横向评测", en: "Kids Scooter Parent Picks Compare" },
   ].filter((group) => group.products.length >= 3);
 
   const compares = compareGroups.map((group, index) => makeCompareEvaluation(`generated_compare_${index + 1}`, group.products, group.zh, group.en));
@@ -1189,9 +1195,9 @@ export default function EvaluationsSection({
               <button
                 onClick={() => onSelectProduct(reviewedProduct)}
                 className="w-full py-4 bg-slate-900 hover:bg-orange-500 text-white font-black text-xs uppercase tracking-widest rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2"
+                aria-label={lang === "en" ? "Open preview schematic" : "打开示意图"}
               >
-                {lang === "en" ? "VIEW PREVIEW ->" : "查看示意图 ->"}
-                <ArrowRight className="w-4 h-4" />
+                <ReviewCtaGlyph />
               </button>
             )}
           </div>
@@ -1460,9 +1466,9 @@ export default function EvaluationsSection({
                         <button
                           onClick={() => openEvaluationDetail(evaluation)}
                           className="w-full py-3.5 bg-slate-900 hover:bg-orange-500 text-white font-black text-[10px] uppercase tracking-widest rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 group-hover:shadow-orange-500/10 active:scale-95"
+                          aria-label={getReviewCtaLabel(product, evaluation, lang)}
                         >
-                          {getReviewCtaLabel(product, evaluation, lang)}
-                          <ArrowRight className="w-4 h-4" />
+                          <ReviewCtaGlyph />
                         </button>
                       </div>
 
@@ -1631,9 +1637,9 @@ export default function EvaluationsSection({
                         <button
                           onClick={() => openEvaluationDetail(evaluation)}
                           className="w-full py-3.5 bg-slate-900 hover:bg-orange-500 text-white font-black text-[10px] uppercase tracking-widest rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 group-hover:shadow-orange-500/10 active:scale-95"
+                          aria-label={getReviewCtaLabel(product, evaluation, lang)}
                         >
-                          {getReviewCtaLabel(product, evaluation, lang)}
-                          <ArrowRight className="w-4 h-4" />
+                          <ReviewCtaGlyph />
                         </button>
                       </div>
 
@@ -1655,7 +1661,7 @@ export default function EvaluationsSection({
               <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
                 {lang === "zh" 
                   ? "学龄儿童自行车及滑板车安全指数评测 (Kids Bike & Scooter Reviews)" 
-                  : "Kids Bike & Scooter Safety Index Reviews"}
+                  : "Kids Bike & Scooter Expert Reviews"}
               </h2>
               <p className="mt-3 text-sm text-slate-500 font-medium leading-relaxed max-w-4xl">
                 {lang === "zh"
@@ -1673,7 +1679,7 @@ export default function EvaluationsSection({
                     const { evaluation, products, reviewBadge } = item;
                     
                     const displayTitle = lang === "en" && containsCjk(evaluation.en?.title || "") 
-                      ? "Kids Bike Safety and Fit Cross Compare" 
+                      ? "Kids Bike Parent Picks Compare" 
                       : (lang === "en" ? evaluation.en?.title : evaluation.zh?.title) || "Kids Mobility Cross Compare";
 
                     const displayVerdict = lang === "en" && containsCjk(evaluation.en?.verdict || "")
@@ -1802,9 +1808,9 @@ export default function EvaluationsSection({
                         <button
                           onClick={() => openEvaluationDetail(evaluation)}
                           className="w-full py-3.5 bg-slate-900 hover:bg-orange-500 text-white font-black text-[10px] uppercase tracking-widest rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 group-hover:shadow-orange-500/10 active:scale-95"
+                          aria-label={getReviewCtaLabel(product, evaluation, lang)}
                         >
-                          {getReviewCtaLabel(product, evaluation, lang)}
-                          <ArrowRight className="w-4 h-4" />
+                          <ReviewCtaGlyph />
                         </button>
                       </div>
 
@@ -1827,19 +1833,35 @@ export default function EvaluationsSection({
           <button
             onClick={() => onPageChange?.(Math.max(1, safePage - 1))}
             disabled={safePage <= 1}
-            className="px-4 py-2 rounded-2xl border border-slate-200 bg-white text-slate-600 font-black text-xs disabled:opacity-40"
+            className="w-10 h-10 rounded-2xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center"
+            aria-label={lang === "en" ? "Go to previous page" : "上一页"}
           >
-            {lang === "en" ? "Back" : "上一页"}
+            <svg aria-hidden="true" viewBox="0 0 20 20" className="w-4 h-4" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12.5 4.5L7 10L12.5 15.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </button>
-          <span className="text-xs font-black text-slate-400">
-            {lang === "en" ? `${safePage} of ${totalPages}` : `${safePage} / 共 ${totalPages} 页`}
-          </span>
+          <div
+            className="w-24 h-2 rounded-full bg-slate-100 overflow-hidden"
+            role="progressbar"
+            aria-valuemin={1}
+            aria-valuemax={totalPages}
+            aria-valuenow={safePage}
+            aria-label={lang === "en" ? `Page ${safePage} of ${totalPages}` : `第 ${safePage} 页，共 ${totalPages} 页`}
+          >
+            <div
+              className="h-full bg-slate-900 rounded-full transition-all"
+              style={{ width: `${Math.max(8, (safePage / totalPages) * 100)}%` }}
+            />
+          </div>
           <button
             onClick={() => onPageChange?.(Math.min(totalPages, safePage + 1))}
             disabled={safePage >= totalPages}
-            className="px-4 py-2 rounded-2xl border border-slate-200 bg-white text-slate-600 font-black text-xs disabled:opacity-40"
+            className="w-10 h-10 rounded-2xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center"
+            aria-label={lang === "en" ? "Go to next page" : "下一页"}
           >
-            {lang === "en" ? "More" : "下一页"}
+            <svg aria-hidden="true" viewBox="0 0 20 20" className="w-4 h-4" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7.5 4.5L13 10L7.5 15.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </button>
         </div>
       )}

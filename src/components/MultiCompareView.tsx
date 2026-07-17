@@ -70,6 +70,24 @@ function getCompactCompareCardName(product: Product, lang: "zh" | "en") {
   return clampText(`${brand} ${model}`.trim(), lang === "en" ? 32 : 24);
 }
 
+function ReviewCtaGlyph() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className="w-5 h-5"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect x="3" y="4" width="13" height="13" rx="2" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M8 9H13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M8 12H11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M15 15L21 9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M17 9H21V13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export default function MultiCompareView({
   evaluation,
   productsData,
@@ -191,8 +209,11 @@ export default function MultiCompareView({
                 <button 
                   onClick={() => onSelectProduct(p)}
                   className="w-full mt-auto py-4 bg-slate-900 text-white font-black text-[10px] tracking-widest uppercase rounded-2xl hover:bg-slate-800 transition shadow-lg"
+                  aria-label={lang === "en" ? "Open preview schematic" : "打开示意图"}
                 >
-                  {lang === "en" ? "VIEW PREVIEW ->" : "查看示意图 ->"}
+                  <span className="flex items-center justify-center" aria-hidden="true">
+                    <ReviewCtaGlyph />
+                  </span>
                 </button>
               </div>
             );
