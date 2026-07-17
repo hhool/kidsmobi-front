@@ -485,9 +485,21 @@ function getReviewCardTitle(product: Product, fallbackTitle?: string) {
 }
 
 function getReviewCtaLabel(product: Product, evaluation: Evaluation, lang: "zh" | "en") {
-  void product;
-  void evaluation;
-  return lang === "en" ? "READ FULL REPORT ->" : "查看完整报告 ->";
+  const text = `${product.category || ""} ${product.categoryId || ""} ${product.name || ""} ${evaluation.en?.title || ""} ${evaluation.zh?.title || ""}`.toLowerCase();
+
+  if (lang === "en") {
+    if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return "READ FULL STROLLER REVIEW ->";
+    if (text.includes("balance")) return "READ FULL BALANCE BIKE REVIEW ->";
+    if (text.includes("scooter")) return "READ FULL SCOOTER REVIEW ->";
+    if (text.includes("bike") || text.includes("bicycle")) return "READ FULL KIDS BIKE REVIEW ->";
+    return "READ FULL PRODUCT REVIEW ->";
+  }
+
+  if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return "查看完整推车评测 ->";
+  if (text.includes("balance")) return "查看完整平衡车评测 ->";
+  if (text.includes("scooter")) return "查看完整滑板车评测 ->";
+  if (text.includes("bike") || text.includes("bicycle")) return "查看完整自行车评测 ->";
+  return "查看完整产品评测 ->";
 }
 
 function cleanReviewBullet(value: unknown, fallback: string) {
@@ -1377,7 +1389,7 @@ export default function EvaluationsSection({
                             onClick={() => openEvaluationDetail(evaluation)}
                             className="w-full py-4 bg-white hover:bg-orange-500 text-slate-900 hover:text-white font-black text-[10px] uppercase tracking-widest rounded-xl transition-all shadow-md flex items-center justify-center gap-2 active:scale-95"
                           >
-                            {lang === "en" ? "OPEN STROLLER COMPARISON" : "进入推车多品实时对比"}
+                            {lang === "en" ? "COMPARE BEST TRAVEL & JOGGING STROLLERS" : "对比最佳旅行与慢跑推车"}
                             <ArrowRight className="w-3.5 h-3.5" />
                           </button>
                         </div>
@@ -1549,7 +1561,7 @@ export default function EvaluationsSection({
                             onClick={() => openEvaluationDetail(evaluation)}
                             className="w-full py-4 bg-white hover:bg-orange-500 text-slate-900 hover:text-white font-black text-[10px] uppercase tracking-widest rounded-xl transition-all shadow-md flex items-center justify-center gap-2 active:scale-95"
                           >
-                            {lang === "en" ? "OPEN BALANCE BIKE COMPARISON" : "进入平衡车对比详情"}
+                            {lang === "en" ? "COMPARE TOP BALANCE BIKE REVIEWS" : "对比热门平衡车评测"}
                             <ArrowRight className="w-3.5 h-3.5" />
                           </button>
                         </div>
@@ -1721,7 +1733,7 @@ export default function EvaluationsSection({
                             onClick={() => openEvaluationDetail(evaluation)}
                             className="w-full py-4 bg-white hover:bg-orange-500 text-slate-900 hover:text-white font-black text-[10px] uppercase tracking-widest rounded-xl transition-all shadow-md flex items-center justify-center gap-2 active:scale-95"
                           >
-                            {lang === "en" ? "OPEN SELECTION COMPARISON" : "进入较量多品实时对比"}
+                            {lang === "en" ? "COMPARE KIDS BIKE & SCOOTER REVIEWS" : "对比童车与滑板车评测"}
                             <ArrowRight className="w-3.5 h-3.5" />
                           </button>
                         </div>

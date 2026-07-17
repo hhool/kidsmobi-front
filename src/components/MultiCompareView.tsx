@@ -70,6 +70,22 @@ function getCompactCompareCardName(product: Product, lang: "zh" | "en") {
   return clampText(`${brand} ${model}`.trim(), lang === "en" ? 32 : 24);
 }
 
+function getCompareCardCtaLabel(product: Product, lang: "zh" | "en") {
+  const text = `${product.category || ""} ${product.categoryId || ""} ${product.name || ""}`.toLowerCase();
+  if (lang === "en") {
+    if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return "READ STROLLER REVIEW ->";
+    if (text.includes("balance")) return "READ BALANCE BIKE REVIEW ->";
+    if (text.includes("scooter")) return "READ SCOOTER REVIEW ->";
+    if (text.includes("bike") || text.includes("bicycle")) return "READ KIDS BIKE REVIEW ->";
+    return "READ PRODUCT REVIEW ->";
+  }
+  if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return "查看推车评测 ->";
+  if (text.includes("balance")) return "查看平衡车评测 ->";
+  if (text.includes("scooter")) return "查看滑板车评测 ->";
+  if (text.includes("bike") || text.includes("bicycle")) return "查看自行车评测 ->";
+  return "查看产品评测 ->";
+}
+
 export default function MultiCompareView({
   evaluation,
   productsData,
@@ -191,9 +207,9 @@ export default function MultiCompareView({
                 <button 
                   onClick={() => onSelectProduct(p)}
                   className="w-full mt-auto py-4 bg-slate-900 text-white font-black text-[10px] tracking-widest uppercase rounded-2xl hover:bg-slate-800 transition shadow-lg"
-                  aria-label={lang === "en" ? "READ FULL REPORT ->" : "查看完整报告 ->"}
+                  aria-label={getCompareCardCtaLabel(p, lang)}
                 >
-                  <span>{lang === "en" ? "READ FULL REPORT ->" : "查看完整报告 ->"}</span>
+                  <span>{getCompareCardCtaLabel(p, lang)}</span>
                 </button>
               </div>
             );
