@@ -352,7 +352,9 @@ function productValueScore(product: Product) {
 }
 
 function getProductDisplayName(product: Product) {
-  return sanitizeMarketplaceNoise(getProductsPageSeoTitle(product));
+  const brand = cleanEnBrandText(product.brand || "");
+  const pName = sanitizeMarketplaceNoise(product.name || "");
+  return `${brand} ${pName}`;
 }
 
 function getCommercialReviewTitle(product: Product, fallbackTitle: string) {
@@ -1279,7 +1281,7 @@ export default function EvaluationsSection({
                                 </div>
                                 <div className="text-center w-full">
                                   <span className="text-[8px] text-slate-400 font-bold uppercase tracking-widest block truncate">{lang === "en" ? cleanEnBrandText(diProduct.brand || "") : diProduct.brand}</span>
-                                  <h4 className="font-extrabold text-white text-[10px] leading-tight truncate">{sanitizeMarketplaceNoise(getProductsPageSeoTitle(product))}</h4>
+                                  <h4 className="font-extrabold text-white text-[10px] leading-tight truncate">{getProductDisplayName(product)}</h4>
                                 </div>
                               </div>
                             );
@@ -1450,7 +1452,7 @@ export default function EvaluationsSection({
                                 </div>
                                 <div className="text-center w-full">
                                   <span className="text-[8px] text-slate-400 font-bold uppercase tracking-widest block truncate">{lang === "en" ? cleanEnBrandText(diProduct.brand || "") : diProduct.brand}</span>
-                                  <h4 className="font-extrabold text-white text-[10px] leading-tight truncate">{sanitizeMarketplaceNoise(getProductsPageSeoTitle(product))}</h4>
+                                  <h4 className="font-extrabold text-white text-[10px] leading-tight truncate">{getProductDisplayName(product)}</h4>
                                 </div>
                               </div>
                             );
@@ -1621,7 +1623,7 @@ export default function EvaluationsSection({
                                 </div>
                                 <div className="text-center w-full">
                                   <span className="text-[8px] text-slate-400 font-bold uppercase tracking-widest block truncate">{lang === "en" ? cleanEnBrandText(diProduct.brand || "") : diProduct.brand}</span>
-                                  <h4 className="font-extrabold text-white text-[10px] leading-tight truncate">{sanitizeMarketplaceNoise(getProductsPageSeoTitle(product))}</h4>
+                                  <h4 className="font-extrabold text-white text-[10px] leading-tight truncate">{getProductDisplayName(product)}</h4>
                                 </div>
                               </div>
                             );
