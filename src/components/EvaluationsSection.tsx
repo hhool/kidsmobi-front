@@ -1260,7 +1260,7 @@ export default function EvaluationsSection({
           <p className="text-slate-500 text-sm font-semibold leading-relaxed max-w-3xl mx-auto">
             {lang === "zh"
               ? "欢迎来到 KIDSMOBI 科学实测实验室。我们为您提供公正、独立、全物理测试的折叠伞车、高避震慢跑手推车评测 (Stroller Reviews) 以及儿童学步滑步车评测 (Balance Bike Reviews)。为了确保 100% 的客观性与最高标准，全站样品均由测试团队自费购入、拒绝任何厂商商业充值。"
-              : "Welcome to KIDSMOBI. Our stroller reviews and balance bike reviews help families quickly shortlist the best travel stroller for airport days and the best jogging stroller for daily runs. We buy every sample anonymously to keep each conclusion independent and practical for real parenting use."}
+              : "Our stroller reviews and balance bike reviews help families quickly shortlist the best travel stroller for airport days and the best jogging stroller for daily runs. We buy every sample anonymously to keep each conclusion independent and practical for real parenting use."}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">

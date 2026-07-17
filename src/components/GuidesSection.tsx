@@ -41,7 +41,6 @@ function translateCategoryLabel(cat: string): string {
 import { formatWeight, formatHeight } from "../lib/units";
 import Breadcrumbs from "./Breadcrumbs";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
-import SeoKeywordPanel from "./common/SeoKeywordPanel";
 import { getProductsPageSeoTitle } from "../lib/productSeoText";
 
 const faqData = [
@@ -183,6 +182,7 @@ const LONG_TAIL_GUIDE_TITLES = [
   "Weight Limits: How to Choose a Baby Stroller for Travel",
   "Sizing Guide: Finding a Balance Bike for 1 Year Old (JMMD Case Study)",
   "The 30% Rule: Is the Glerc a Safe Balance Bike for 1 Year Old Riders?",
+  "Toddler Safety: Balancing a Bike for 1 Year Old Beginners",
 ];
 
 const LONG_TAIL_GUIDE_SUMMARIES = [
@@ -190,6 +190,7 @@ const LONG_TAIL_GUIDE_SUMMARIES = [
   "Our travel lab compares folded weight, cargo limits, braking response, and daily handling so parents can learn how to choose a baby stroller without relying on retail copy.",
   "Sizing a balance bike for 1 year old beginners requires analyzing barefoot inseam and standing height metrics. Read our comprehensive fit check backed by pediatric biomechanics data.",
   "Our 30% rule audit checks whether a balance bike for 1 year old riders stays light enough for safe recovery, stable steering, and confident daily practice.",
+  "An engineering analysis on low-slung chassis physics and steering geometry limits. Learn how a custom-fit balance bike for 1 year old toddlers prevents over-rotation and helps early walkers transition smoothly into confident riding dynamics.",
 ];
 
 const LONG_TAIL_GUIDE_CONTENT = [
@@ -662,20 +663,9 @@ export default function GuidesSection({
             </h1>
             <p className="text-sm text-slate-500 font-medium">
               {lang === "en" 
-                ? "Input real child measurements to learn how to choose a baby stroller perfectly. We also calculate the exact fit for a balance bike for 1 year old beginners." 
+                ? "Input your child's precise measurements below to instantly resolve how to choose a baby stroller tailored to your lifestyle. This biometric wizard also calculates the safe framework weight threshold and perfect saddle inseam height for a balance bike for 1 year old beginners." 
                 : "输入宝宝的身高体重，我们将通过科学算法为您匹配最合适的轮径与型号。"}
             </p>
-            {lang === "en" && (
-              <SeoKeywordPanel
-                variant="orange"
-                align="left"
-                className="pt-2"
-                keywords={[
-                  "how to choose a baby stroller",
-                  "balance bike for 1 year old",
-                ]}
-              />
-            )}
           </div>
           <button 
             type="button" 
@@ -818,7 +808,7 @@ export default function GuidesSection({
           </div>
         ) : (
           // Input Fields Form View
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-xs text-slate-600 text-left relative z-10">
+          <div data-nosnippet className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-xs text-slate-600 text-left relative z-10">
             
             {/* Input 1: Age */}
             <div className="bg-slate-50 p-6 rounded-4xl border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">

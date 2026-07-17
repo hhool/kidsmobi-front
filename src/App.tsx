@@ -2129,9 +2129,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               </div>
               <div className="text-left">
                 <div className="text-lg sm:text-xl font-display font-black tracking-tight text-slate-900 flex items-center gap-2">
-                  {t.brandTitle} <span className="hidden sm:inline-block text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-bold uppercase">{t.versionStamp}</span>
+                  {t.brandTitle}
                 </div>
-                <p className="hidden sm:block text-[11px] text-slate-500 font-medium tracking-normal">Your Smart & Safe Kids' Mobility Lab</p>
+                <p className="hidden sm:block text-[11px] text-slate-500 font-medium tracking-normal">Independent stroller and first-bike safety research</p>
               </div>
             </div>
 
