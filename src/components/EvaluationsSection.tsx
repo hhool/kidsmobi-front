@@ -1456,8 +1456,8 @@ export default function EvaluationsSection({
                             </h2>
                           </div>
 
-                          <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100/50">
-                             <p className="text-xs text-slate-600 leading-relaxed font-bold italic line-clamp-3">“{displayVerdict}”</p>
+                            <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100/50">
+                              <p className="text-xs text-slate-600 leading-relaxed font-bold italic whitespace-normal">“{displayVerdict}”</p>
                           </div>
                         </div>
 
