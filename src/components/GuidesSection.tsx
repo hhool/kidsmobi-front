@@ -341,8 +341,13 @@ interface GuidesSectionProps {
   lang?: "zh" | "en";
   currencyData: CurrencyData;
   currentPage?: number;
+  activeCategory?: string;
+  activeArticleId?: string;
   onPageChange?: (page: number) => void;
   onPaginationMetaChange?: (meta: { totalPages: number }) => void;
+  onCategoryChange?: (category: string) => void;
+  onArticleOpen?: (category: string, articleId: string) => void;
+  onArticleClose?: () => void;
 }
 
 export default function GuidesSection({
@@ -353,14 +358,66 @@ export default function GuidesSection({
   lang = "zh",
   currencyData,
   currentPage = 1,
+  activeCategory,
+  activeArticleId,
   onPageChange,
-  onPaginationMetaChange
+  onPaginationMetaChange,
+  onCategoryChange,
+  onArticleOpen,
+  onArticleClose,
 }: GuidesSectionProps) {
   const [guideArticles, setGuideArticles] = useState<GuideArticle[]>(fallbackGuideArticles);
   const [loadingGuides, setLoadingGuides] = useState<boolean>(false);
   const [selectedGuideState, setSelectedGuideState] = useState<any | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
+
+  // Sync state with activeCategory
+  useEffect(() => {
+    if (activeCategory) {
+      setSelectedCategory(activeCategory);
+    } else {
+      setSelectedCategory("all");
+    }
+  }, [activeCategory]);
+
+  // Sync state with activeArticleId
+  useEffect(() => {
+    if (activeArticleId) {
+      const found = guideArticles.find((g) => g.id === activeArticleId);
+      if (found) {
+        setSelectedGuideState(found);
+      } else {
+        setSelectedGuideState(null);
+      }
+    } else {
+      setSelectedGuideState(null);
+    }
+  }, [activeArticleId, guideArticles]);
+
+  const handleCategoryClick = (catId: string) => {
+    if (onCategoryChange) {
+      onCategoryChange(catId);
+    } else {
+      setSelectedCategory(catId);
+    }
+  };
+
+  const handleArticleClick = (art: GuideArticle) => {
+    if (onArticleOpen) {
+      onArticleOpen(art.category, art.id);
+    } else {
+      setSelectedGuideState(art);
+    }
+  };
+
+  const handleArticleClose = () => {
+    if (onArticleClose) {
+      onArticleClose();
+    } else {
+      setSelectedGuideState(null);
+    }
+  };
 
   useEffect(() => {
     setLoadingGuides(true);
@@ -638,11 +695,37 @@ export default function GuidesSection({
   return (
     <div id="guides_container" className="space-y-8 animate-fade-in text-left">
       {/* Breadcrumbs (PRD 4.4.2) */}
-      <Breadcrumbs 
-        lang={lang} 
-        onHomeClick={() => (window as any).setActiveTab?.("home")}
-        items={[{ label: lang === "zh" ? "选购指南" : "BUYING GUIDES", active: true }]} 
-      />
+      {(() => {
+        const items = [
+          {
+            label: lang === "zh" ? "选购指南" : "BUYING GUIDES",
+            active: selectedCategory === "all" && !selectedGuideState,
+            onClick: () => handleCategoryClick("all"),
+          },
+        ];
+        if (selectedCategory && selectedCategory !== "all") {
+          items.push({
+            label: GUIDE_CATEGORY_LABELS[selectedCategory as GuideCategoryId]?.[lang] || getCategoryLabel(selectedCategory, lang),
+            active: !selectedGuideState,
+            onClick: () => handleCategoryClick(selectedCategory),
+          });
+        }
+        if (selectedGuideState) {
+          const guide = translateGuideArticle(selectedGuideState, lang);
+          items.push({
+            label: guide.title,
+            active: true,
+            onClick: undefined,
+          });
+        }
+        return (
+          <Breadcrumbs
+            lang={lang}
+            onHomeClick={() => (window as any).setActiveTab?.("home")}
+            items={items}
+          />
+        );
+      })()}
 
       {/* ========================================================
           Part 1: 智能选购匹配工效算力工具 (Interactive Match Wizard)
@@ -966,7 +1049,7 @@ export default function GuidesSection({
             // Read detail mode view container
             <div className="max-w-3xl mx-auto bg-white border border-slate-100 rounded-[40px] p-8 sm:p-12 space-y-8 shadow-2xl relative animate-fade-in text-left">
               <button
-                onClick={() => setSelectedGuideState(null)}
+                onClick={handleArticleClose}
                 className="flex items-center gap-2 text-xs text-orange-500 hover:text-orange-600 font-black uppercase pb-6 border-b border-slate-50 mb-6"
               >
                 <ArrowLeft className="w-4 h-4" />
@@ -1026,7 +1109,7 @@ export default function GuidesSection({
 
               <div className="pt-10 border-t border-slate-50 flex justify-between">
                 <button
-                  onClick={() => setSelectedGuideState(null)}
+                  onClick={handleArticleClose}
                   className="px-6 py-3 bg-slate-50 text-slate-500 hover:text-slate-900 border border-slate-100 hover:border-slate-200 text-sm rounded-2xl font-black transition-all"
                 >
                   {lang === "en" ? "Back to Guides" : "完成阅读"}

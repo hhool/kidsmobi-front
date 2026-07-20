@@ -585,11 +585,25 @@ const resolveRouteState = (pathname: string, hash: string) => {
   if (root === "guides") {
     const pageSegmentIndex = segments.indexOf("page");
     const activePageIndex = pageSegmentIndex >= 0 ? Number(segments[pageSegmentIndex + 1] || 1) : 1;
+    const contentSegments = pageSegmentIndex >= 0 ? segments.slice(0, pageSegmentIndex) : segments;
+    
+    let activeGuidesCategory = "all";
+    let activeGuidesArticleId = "";
+    
+    if (contentSegments[1]) {
+      activeGuidesCategory = contentSegments[1];
+      if (contentSegments[2]) {
+        activeGuidesArticleId = contentSegments[2];
+      }
+    }
+    
     return {
       activeTab: "guides",
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
+      activeGuidesCategory,
+      activeGuidesArticleId,
       activePageIndex,
       currentPath,
     };
@@ -686,6 +700,8 @@ export default function App() {
   const [activeEvaluationId, setActiveEvaluationId] = useState<string>(initialRouteState.activeEvaluationId);
   const [activeNewsCategory, setActiveNewsCategory] = useState<string>(initialRouteState.activeNewsCategory || "all");
   const [activeNewsArticleId, setActiveNewsArticleId] = useState<string>(initialRouteState.activeNewsArticleId || "");
+  const [activeGuidesCategory, setActiveGuidesCategory] = useState<string>(initialRouteState.activeGuidesCategory || "all");
+  const [activeGuidesArticleId, setActiveGuidesArticleId] = useState<string>(initialRouteState.activeGuidesArticleId || "");
   const [activePageIndex, setActivePageIndex] = useState<number>(initialRouteState.activePageIndex);
   const [currentPath, setCurrentPath] = useState<string>(initialRouteState.currentPath);
   const [newsPaginationTotalPages, setNewsPaginationTotalPages] = useState<number | null>(null);
@@ -713,6 +729,8 @@ export default function App() {
     setActiveEvaluationId(routeState.activeEvaluationId);
     setActiveNewsCategory(routeState.activeNewsCategory || "all");
     setActiveNewsArticleId(routeState.activeNewsArticleId || "");
+    setActiveGuidesCategory(routeState.activeGuidesCategory || "all");
+    setActiveGuidesArticleId(routeState.activeGuidesArticleId || "");
     setActivePageIndex(routeState.activePageIndex);
     setCurrentPath(routeState.currentPath);
   };
@@ -2559,7 +2577,15 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             lang={lang}
             currencyData={currencyData}
             currentPage={activePageIndex}
-            onPageChange={(page) => navigateToPath(page <= 1 ? "/guides" : `/guides/page/${page}`, { preserveScroll: true })}
+            activeCategory={activeGuidesCategory}
+            activeArticleId={activeGuidesArticleId}
+            onCategoryChange={(cat) => navigateToPath(cat === "all" ? "/guides" : `/guides/${cat}`, { preserveScroll: true })}
+            onArticleOpen={(cat, articleId) => navigateToPath(`/guides/${cat}/${articleId}`, { preserveScroll: true })}
+            onArticleClose={() => navigateToPath(activeGuidesCategory === "all" ? "/guides" : `/guides/${activeGuidesCategory}`, { preserveScroll: true })}
+            onPageChange={(page) => {
+              const guidesPath = activeGuidesCategory === "all" ? "/guides" : `/guides/${activeGuidesCategory}`;
+              navigateToPath(page <= 1 ? guidesPath : `${guidesPath}/page/${page}`, { preserveScroll: true });
+            }}
             onPaginationMetaChange={(meta) => setGuidesPaginationTotalPages(meta.totalPages)}
           />
         )}
