@@ -2299,19 +2299,19 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                   {t.navAbout}
                 </button>
 
-                <button
-                  onClick={() => handlePrimaryTabClick(isAdmin ? "admin" : "auth")}
-                  title={isAdmin ? (lang === "zh" ? "进入管理后台" : "Open admin") : (lang === "zh" ? "登录后进入管理后台" : "Sign in to access admin")}
-                  className={`px-3 py-2 rounded-xl font-bold transition-all ${
-                    activeTab === "admin"
-                      ? "bg-white text-orange-500 shadow-sm"
-                      : isAdmin
-                        ? "text-slate-500 hover:text-slate-900"
-                        : "text-slate-400 hover:text-slate-700"
-                  }`}
-                >
-                  {lang === "zh" ? "管理后台" : "Admin"}
-                </button>
+                {isAdmin && (
+                  <button
+                    onClick={() => handlePrimaryTabClick("admin")}
+                    title={lang === "zh" ? "进入管理后台" : "Open admin"}
+                    className={`px-3 py-2 rounded-xl font-bold transition-all ${
+                      activeTab === "admin"
+                        ? "bg-white text-orange-500 shadow-sm"
+                        : "text-slate-500 hover:text-slate-900"
+                    }`}
+                  >
+                    {lang === "zh" ? "管理后台" : "Admin"}
+                  </button>
+                )}
               </nav>
             </div>
 
