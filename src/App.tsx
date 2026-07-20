@@ -2374,9 +2374,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           </div>
 
           {/* Navigation Tabs & Desktop Actions */}
-          <div className="flex items-center gap-4 lg:gap-6 w-full md:w-auto overflow-x-auto no-scrollbar pb-1 md:pb-0 justify-start md:justify-end relative">
+          <div className="flex items-center gap-4 lg:gap-6 w-full md:w-auto overflow-x-auto md:overflow-visible no-scrollbar pb-1 md:pb-0 justify-start md:justify-end relative">
             <div className="relative w-full md:w-auto">
-              <nav className="flex items-center bg-slate-100 p-1 rounded-2xl gap-1 text-xs shrink-0 whitespace-nowrap overflow-x-auto mx-auto md:mx-0">
+              <nav className="flex items-center bg-slate-100 p-1 rounded-2xl gap-1 text-xs shrink-0 whitespace-nowrap overflow-x-auto md:overflow-visible mx-auto md:mx-0">
                 <div 
                   className="relative group"
                   onMouseEnter={() => {
