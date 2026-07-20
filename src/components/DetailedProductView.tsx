@@ -642,23 +642,34 @@ export default function DetailedProductView({
   const shouldRenderScoringStandardsSection = scoringStandards.length > 0 || showEmptyScoringStandardsSection;
 
   const getCategoryLabel = (cat: string, l: "zh" | "en"): string => {
+    const normalized = String(cat || "").trim().toLowerCase();
     const mapZh: Record<string, string> = {
       stroller: "婴儿推车",
+      balance: "平衡车",
       balance_bike: "平衡车",
+      bicycle: "儿童自行车",
       kids_bikes: "儿童自行车",
+      scooter: "儿童滑板车",
       kids_scooters: "儿童滑板车",
+      electric_car: "儿童电动车",
       electric_vehicles: "儿童电动车",
+      safety_seat: "安全座椅",
       car_seat: "安全座椅",
     };
     const mapEn: Record<string, string> = {
       stroller: "Kids Stroller",
+      balance: "Balance Bike",
       balance_bike: "Balance Bike",
+      bicycle: "Kids Bikes",
       kids_bikes: "Kids Bikes",
+      scooter: "Kids Scooters",
       kids_scooters: "Kids Scooters",
+      electric_car: "Electric Vehicles",
       electric_vehicles: "Electric Vehicles",
+      safety_seat: "Car Seat",
       car_seat: "Car Seat",
     };
-    return l === "zh" ? (mapZh[cat] || "产品中心") : (mapEn[cat] || "Product Center");
+    return l === "zh" ? (mapZh[normalized] || "产品中心") : (mapEn[normalized] || "Product Center");
   };
 
   return (
