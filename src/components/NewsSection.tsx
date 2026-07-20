@@ -80,17 +80,103 @@ function withFallbackNews(articles: NewsArticle[]): NewsArticle[] {
 interface NewsSectionProps {
   lang?: "zh" | "en";
   currentPage?: number;
+  activeCategory?: string;
+  activeArticleId?: string;
   onPageChange?: (page: number) => void;
   onPaginationMetaChange?: (meta: { totalPages: number }) => void;
+  onCategoryChange?: (category: string) => void;
+  onArticleOpen?: (category: string, articleId: string) => void;
+  onArticleClose?: () => void;
 }
 
-export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange, onPaginationMetaChange }: NewsSectionProps) {
+function getCategoryLabel(cat: string, lang: "zh" | "en"): string {
+  if (lang === "zh") {
+    const labels: Record<string, string> = {
+      industry: "行业趋势",
+      new_product: "新品发布",
+      regulation: "合规政策",
+      brand_news: "品牌动态",
+      science: "科普干货",
+      all: "全部资讯"
+    };
+    return labels[cat] || "最新动态";
+  } else {
+    const labels: Record<string, string> = {
+      industry: "Industry Trends",
+      new_product: "New Launches",
+      regulation: "Regulations",
+      brand_news: "Brand News",
+      science: "Science & Tips",
+      all: "All News"
+    };
+    return labels[cat] || "Latest Updates";
+  }
+}
+
+export default function NewsSection({
+  lang = "zh",
+  currentPage = 1,
+  activeCategory,
+  activeArticleId,
+  onPageChange,
+  onPaginationMetaChange,
+  onCategoryChange,
+  onArticleOpen,
+  onArticleClose,
+}: NewsSectionProps) {
   const [newsArticlesState, setNewsArticlesState] = useState<NewsArticle[]>(fallbackNewsArticles);
   const [loadingNews, setLoadingNews] = useState<boolean>(false);
   const [selectedArticleState, setSelectedArticleState] = useState<any | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("date"); // 'date' | 'views'
+
+  // Sync state with activeCategory prop
+  useEffect(() => {
+    if (activeCategory) {
+      setSelectedCategory(activeCategory);
+    } else {
+      setSelectedCategory("all");
+    }
+  }, [activeCategory]);
+
+  // Sync state with activeArticleId prop
+  useEffect(() => {
+    if (activeArticleId) {
+      const found = newsArticlesState.find((a) => a.id === activeArticleId);
+      if (found) {
+        setSelectedArticleState(found);
+      } else {
+        setSelectedArticleState(null);
+      }
+    } else {
+      setSelectedArticleState(null);
+    }
+  }, [activeArticleId, newsArticlesState]);
+
+  const handleCategoryClick = (catId: string) => {
+    if (onCategoryChange) {
+      onCategoryChange(catId);
+    } else {
+      setSelectedCategory(catId);
+    }
+  };
+
+  const handleArticleClick = (art: NewsArticle) => {
+    if (onArticleOpen) {
+      onArticleOpen(art.category, art.id);
+    } else {
+      setSelectedArticleState(art);
+    }
+  };
+
+  const handleArticleClose = () => {
+    if (onArticleClose) {
+      onArticleClose();
+    } else {
+      setSelectedArticleState(null);
+    }
+  };
 
   useEffect(() => {
     if (!selectedArticleState) {
@@ -247,11 +333,37 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
   return (
     <div id="news_hub" className="space-y-8 animate-fade-in text-left">
       {/* Breadcrumbs (PRD 4.5.2) */}
-      <Breadcrumbs 
-        lang={lang} 
-        onHomeClick={() => (window as any).setActiveTab?.("home")}
-        items={[{ label: lang === "zh" ? "全球资讯" : "GLOBAL NEWS", active: true }]} 
-      />
+      {(() => {
+        const items = [
+          {
+            label: lang === "zh" ? "全球资讯" : "GLOBAL NEWS",
+            active: selectedCategory === "all" && !selectedArticleState,
+            onClick: () => handleCategoryClick("all"),
+          },
+        ];
+        if (selectedCategory && selectedCategory !== "all") {
+          items.push({
+            label: getCategoryLabel(selectedCategory, lang),
+            active: !selectedArticleState,
+            onClick: () => handleCategoryClick(selectedCategory),
+          });
+        }
+        if (selectedArticleState) {
+          const article = translateNewsArticle(selectedArticleState, lang);
+          items.push({
+            label: article.title,
+            active: true,
+            onClick: undefined,
+          });
+        }
+        return (
+          <Breadcrumbs
+            lang={lang}
+            onHomeClick={() => (window as any).setActiveTab?.("home")}
+            items={items}
+          />
+        );
+      })()}
 
       {selectedArticleState ? (() => {
         const article = translateNewsArticle(selectedArticleState, lang);
@@ -259,7 +371,7 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
           // Detailed Article Post Reader View
           <div className="max-w-3xl mx-auto bg-white border border-slate-100 rounded-[40px] p-8 sm:p-12 space-y-8 shadow-2xl relative animate-fade-in text-left">
             <button
-              onClick={() => setSelectedArticleState(null)}
+              onClick={handleArticleClose}
               className="flex items-center gap-2 text-xs text-orange-500 hover:text-orange-600 font-black uppercase pb-6 border-b border-slate-50 mb-6"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -328,7 +440,7 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
             {/* Footer of article with like and shares */}
             <div className="flex justify-between items-center pt-8 border-t border-slate-50">
               <button
-                onClick={() => setSelectedArticleState(null)}
+                onClick={handleArticleClose}
                 className="px-6 py-3 bg-slate-50 text-slate-500 hover:text-slate-900 border border-slate-100 hover:border-slate-200 text-sm rounded-2xl font-black transition-all"
               >
                 {lang === "en" ? "Close Reading" : "关闭阅读"}
@@ -416,7 +528,7 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
               ].map((c) => (
                 <button
                   key={c.id}
-                  onClick={() => setSelectedCategory(c.id)}
+                  onClick={() => handleCategoryClick(c.id)}
                   className={`px-4 py-2 rounded-xl text-xs font-black transition-all border ${
                     selectedCategory === c.id
                       ? "bg-orange-500 text-white border-orange-400 shadow-lg shadow-orange-500/20 scale-105"
@@ -452,7 +564,7 @@ export default function NewsSection({ lang = "zh", currentPage = 1, onPageChange
               {pagedNews.map((art) => (
                 <div
                   key={art.id}
-                  onClick={() => setSelectedArticleState(art)}
+                  onClick={() => handleArticleClick(art)}
                   className="bg-white border border-slate-100 hover:border-orange-100 rounded-[40px] p-8 flex flex-col justify-between space-y-6 cursor-pointer hover:shadow-2xl hover:shadow-orange-500/5 transition-all group"
                 >
                   <div className="space-y-4">

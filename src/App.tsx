@@ -598,11 +598,25 @@ const resolveRouteState = (pathname: string, hash: string) => {
   if (root === "news") {
     const pageSegmentIndex = segments.indexOf("page");
     const activePageIndex = pageSegmentIndex >= 0 ? Number(segments[pageSegmentIndex + 1] || 1) : 1;
+    const contentSegments = pageSegmentIndex >= 0 ? segments.slice(0, pageSegmentIndex) : segments;
+    
+    let activeNewsCategory = "all";
+    let activeNewsArticleId = "";
+    
+    if (contentSegments[1]) {
+      activeNewsCategory = contentSegments[1];
+      if (contentSegments[2]) {
+        activeNewsArticleId = contentSegments[2];
+      }
+    }
+    
     return {
       activeTab: "news",
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
+      activeNewsCategory,
+      activeNewsArticleId,
       activePageIndex,
       currentPath,
     };
@@ -670,6 +684,8 @@ export default function App() {
   const [activeProductCategory, setActiveProductCategory] = useState<string>(initialRouteState.activeProductCategory);
   const [activeReviewType, setActiveReviewType] = useState<string>(initialRouteState.activeReviewType);
   const [activeEvaluationId, setActiveEvaluationId] = useState<string>(initialRouteState.activeEvaluationId);
+  const [activeNewsCategory, setActiveNewsCategory] = useState<string>(initialRouteState.activeNewsCategory || "all");
+  const [activeNewsArticleId, setActiveNewsArticleId] = useState<string>(initialRouteState.activeNewsArticleId || "");
   const [activePageIndex, setActivePageIndex] = useState<number>(initialRouteState.activePageIndex);
   const [currentPath, setCurrentPath] = useState<string>(initialRouteState.currentPath);
   const [newsPaginationTotalPages, setNewsPaginationTotalPages] = useState<number | null>(null);
@@ -695,6 +711,8 @@ export default function App() {
     setActiveProductCategory(routeState.activeProductCategory);
     setActiveReviewType(routeState.activeReviewType);
     setActiveEvaluationId(routeState.activeEvaluationId);
+    setActiveNewsCategory(routeState.activeNewsCategory || "all");
+    setActiveNewsArticleId(routeState.activeNewsArticleId || "");
     setActivePageIndex(routeState.activePageIndex);
     setCurrentPath(routeState.currentPath);
   };
@@ -2428,7 +2446,15 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           <NewsSection
             lang={lang}
             currentPage={activePageIndex}
-            onPageChange={(page) => navigateToPath(page <= 1 ? "/news" : `/news/page/${page}`, { preserveScroll: true })}
+            activeCategory={activeNewsCategory}
+            activeArticleId={activeNewsArticleId}
+            onCategoryChange={(cat) => navigateToPath(cat === "all" ? "/news" : `/news/${cat}`, { preserveScroll: true })}
+            onArticleOpen={(cat, articleId) => navigateToPath(`/news/${cat}/${articleId}`, { preserveScroll: true })}
+            onArticleClose={() => navigateToPath(activeNewsCategory === "all" ? "/news" : `/news/${activeNewsCategory}`, { preserveScroll: true })}
+            onPageChange={(page) => {
+              const newsPath = activeNewsCategory === "all" ? "/news" : `/news/${activeNewsCategory}`;
+              navigateToPath(page <= 1 ? newsPath : `${newsPath}/page/${page}`, { preserveScroll: true });
+            }}
             onPaginationMetaChange={(meta) => setNewsPaginationTotalPages(meta.totalPages)}
           />
         )}
