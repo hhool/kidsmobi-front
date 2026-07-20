@@ -18,6 +18,7 @@ import { resolveProductImages, FALLBACK_PRODUCT_IMAGE } from "../lib/productImag
 import { getProductImageAlt } from "../lib/productSeoText";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
 import SeoKeywordPanel from "./common/SeoKeywordPanel";
+import Breadcrumbs from "./Breadcrumbs";
 
 const KIDS_BIKE_CATEGORY_DEFAULT_IMAGE =
   "https://store.poki2.online/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/primary.jpg";
