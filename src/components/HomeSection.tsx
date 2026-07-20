@@ -59,6 +59,7 @@ interface HomeSectionProps {
   onSelectCategory: (categoryId: string) => void;
   lang?: "zh" | "en";
   currencyData: CurrencyData;
+  isBBTTheme?: boolean;
 }
 
 type ImageLoadState = {
@@ -76,7 +77,8 @@ export default function HomeSection({
   setChildProfile,
   onSelectCategory,
   lang = "zh",
-  currencyData
+  currencyData,
+  isBBTTheme = false
 }: HomeSectionProps) {
 
   const categoryAliasMap: Record<string, string[]> = {
@@ -665,25 +667,47 @@ export default function HomeSection({
 
   return (
     <div id="home_layout" className="space-y-24 pb-20">
+      {isBBTTheme && (
+        <Breadcrumbs
+          lang={lang}
+          onHomeClick={() => setActiveTab("home")}
+          items={[{ label: lang === "zh" ? "首页概览" : "OVERVIEW", active: true }]}
+        />
+      )}
+
       {/* 1. Slogan Banner (Brand Identity - Upgraded/Redesigned to Match Mockup) */}
       <section className="relative rounded-[48px] bg-white border border-slate-100 overflow-hidden p-10 sm:p-20 text-center max-w-7xl mx-auto shadow-2xl">
         <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,247,237,0.92),rgba(255,255,255,0.88)_45%,rgba(236,253,245,0.55))]"></div>
         <div className="relative z-10 space-y-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-50 border border-orange-100/60 text-orange-600 text-[10px] font-black uppercase tracking-widest rounded-full shadow-sm">
             <ShieldCheck className="w-4 h-4" />
-            {lang === "zh" ? "全链路安全实验室审计" : "END-TO-END SAFETY AUDIT"}
+            {isBBTTheme 
+              ? (lang === "zh" ? "官方 BBT 安全指数审计" : "OFFICIAL BBT SAFETY AUDIT")
+              : (lang === "zh" ? "全链路安全实验室审计" : "END-TO-END SAFETY AUDIT")}
           </div>
           
           <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight max-w-5xl mx-auto">
-            {lang === "zh" 
-              ? "专家评测：儿童自行车、平衡车、滑板车及慢跑手推车" 
-              : "Expert Reviews: Balance Bike, Kids Bike, Kids Scooter & Jogging Stroller"}
+            {isBBTTheme ? (
+              lang === "zh"
+                ? "Best Kids Bikes, Scooters, Jogging Strollers & Cars / 顶级滑步平衡车与童车评测"
+                : "Best Kids Bikes, Scooters, Jogging Strollers & Cars"
+            ) : (
+              lang === "zh" 
+                ? "专家评测：儿童自行车、平衡车、滑板车及慢跑手推车" 
+                : "Expert Reviews: Balance Bike, Kids Bike, Kids Scooter & Jogging Stroller"
+            )}
           </h1>
           
           <p className="text-slate-600 text-sm md:text-base max-w-3xl mx-auto leading-relaxed font-semibold">
-            {lang === "zh"
-              ? "我们将严苛的安全审计转化为父母的理性选购决策。请查阅我们中立且完全经过实验室测试的推车、平衡车、滑板车和自行车数据库，为孩子人生的下一个里程碑寻找最安全、最完美的座驾。"
-              : "We turn rigorous safety audits into parenting confidence. Access our unbiased, lab-tested data to find the ultimate jogging stroller, balance bike, kids bike, or kids scooter. Discover the safest ride for your child's next milestone."}
+            {isBBTTheme ? (
+              lang === "zh"
+                ? "Welcome to BalanceBikeToddler, your trusted global review site for kids wheeled toys. 我们倾力于通过精细的工效和压力学遥测来评估全球儿童平衡车、自行车及滑步器，确保守护成长的每一步。"
+                : "Welcome to BalanceBikeToddler, your trusted global review site for kids wheeled toys."
+            ) : (
+              lang === "zh"
+                ? "我们将严苛的安全审计转化为父母的理性选购决策。请查阅我们中立且完全经过实验室测试的推车、平衡车、滑板车和自行车数据库，为孩子人生的下一个里程碑寻找最安全、最完美的座驾。"
+                : "We turn rigorous safety audits into parenting confidence. Access our unbiased, lab-tested data to find the ultimate jogging stroller, balance bike, kids bike, or kids scooter. Discover the safest ride for your child's next milestone."
+            )}
           </p>
 
           <div className="pt-4 pb-2">

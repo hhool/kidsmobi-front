@@ -709,6 +709,25 @@ export default function App() {
   // Lang toggle state
   const [lang, setLang] = useState<"zh" | "en">(() => resolveInitialLang());
 
+  const [isBBT, setIsBBT] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      const q = window.location.search.toLowerCase();
+      if (q.includes("bbt=true")) {
+        window.localStorage.setItem("bbt_theme", "true");
+        return true;
+      } else if (q.includes("bbt=false")) {
+        window.localStorage.removeItem("bbt_theme");
+        return false;
+      }
+      return (
+        window.location.hostname.toLowerCase().includes("balancebiketoddler") ||
+        (window.location.hostname.toLowerCase() === "localhost" && window.localStorage.getItem("bbt_theme") === "true") ||
+        window.localStorage.getItem("bbt_theme") === "true"
+      );
+    }
+    return false;
+  });
+
   // Admin access state
   const [isAdmin, setIsAdmin] = useState<boolean>(() => {
     return isDevAdminBypassEnabled();
@@ -731,6 +750,19 @@ export default function App() {
   const [activeProductId, setActiveProductId] = useState<string>(initialRouteState.activeProductId || "");
   const [activePageIndex, setActivePageIndex] = useState<number>(initialRouteState.activePageIndex);
   const [currentPath, setCurrentPath] = useState<string>(initialRouteState.currentPath);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const q = window.location.search.toLowerCase();
+      if (q.includes("bbt=true")) {
+        window.localStorage.setItem("bbt_theme", "true");
+        setIsBBT(true);
+      } else if (q.includes("bbt=false")) {
+        window.localStorage.removeItem("bbt_theme");
+        setIsBBT(false);
+      }
+    }
+  }, [currentPath]);
   const [newsPaginationTotalPages, setNewsPaginationTotalPages] = useState<number | null>(null);
   const [guidesPaginationTotalPages, setGuidesPaginationTotalPages] = useState<number | null>(null);
   const activeTabRef = useRef<string>(initialRouteState.activeTab);
@@ -2306,9 +2338,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               </div>
               <div className="text-left">
                 <div className="text-lg sm:text-xl font-display font-black tracking-tight text-slate-900 flex items-center gap-2">
-                  {t.brandTitle}
+                  {isBBT ? "BalanceBikeToddler.com" : t.brandTitle}
                 </div>
-                <p className="hidden sm:block text-[11px] text-slate-500 font-medium tracking-normal">Independent stroller and first-bike safety research</p>
+                <p className="hidden sm:block text-[11px] text-slate-500 font-medium tracking-normal">
+                  {isBBT ? "Your trusted global review site for kids wheeled toys" : "Independent stroller and first-bike safety research"}
+                </p>
               </div>
             </div>
 
@@ -2343,14 +2377,92 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           <div className="flex items-center gap-4 lg:gap-6 w-full md:w-auto overflow-x-auto no-scrollbar pb-1 md:pb-0 justify-start md:justify-end relative">
             <div className="relative w-full md:w-auto">
               <nav className="flex items-center bg-slate-100 p-1 rounded-2xl gap-1 text-xs shrink-0 whitespace-nowrap overflow-x-auto mx-auto md:mx-0">
-                <button
-                  onClick={() => handlePrimaryTabClick("home")}
-                  className={`px-3 py-2 rounded-xl font-bold transition-all ${
-                    activeTab === "home" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
-                  }`}
-                >
-                  {t.navHome}
-                </button>
+                <div className="relative group">
+                  <button
+                    onClick={() => handlePrimaryTabClick("home")}
+                    className={`px-3 py-2 rounded-xl font-bold transition-all flex items-center gap-1 ${
+                      activeTab === "home" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                    }`}
+                  >
+                    <span>{t.navHome}</span>
+                    {isBBT && <span className="text-[10px] text-slate-400">▾</span>}
+                  </button>
+                  {isBBT && (
+                    <div className="absolute top-full left-0 mt-1 w-72 bg-white border border-slate-100 rounded-2xl shadow-2xl p-4 hidden group-hover:block hover:block z-[99] animate-in fade-in slide-in-from-top-2 duration-200 text-slate-800">
+                      <div className="space-y-4">
+                        <div>
+                          <button
+                            onClick={() => {
+                              handlePrimaryTabClick("home");
+                            }}
+                            className="w-full text-left font-black text-xs text-orange-500 hover:underline flex items-center gap-2"
+                          >
+                            <span>📂</span> {lang === "en" ? "Home Overview" : "首页总览"}
+                          </button>
+                        </div>
+                        <div className="border-t border-slate-100 pt-3 space-y-2">
+                          <span className="text-[10px] font-black text-slate-400 block uppercase tracking-wider">
+                            {lang === "en" ? "Category Highlights" : "核心品类推荐"}
+                          </span>
+                          <div className="flex flex-col gap-1.5 pl-2 text-[11px] font-extrabold text-slate-600">
+                            <button
+                              onClick={() => {
+                                handlePrimaryTabClick("products");
+                                navigateToPath("/products/balance_bike");
+                              }}
+                              className="text-left hover:text-orange-500 transition-colors"
+                            >
+                              ➔ {lang === "en" ? "Balance Bikes" : "儿童平衡车"}
+                            </button>
+                            <button
+                              onClick={() => {
+                                handlePrimaryTabClick("products");
+                                navigateToPath("/products/kids_bikes");
+                              }}
+                              className="text-left hover:text-orange-500 transition-colors"
+                            >
+                              ➔ {lang === "en" ? "Kids Bikes" : "儿童自行车"}
+                            </button>
+                            <button
+                              onClick={() => {
+                                handlePrimaryTabClick("products");
+                                navigateToPath("/products/kids_scooters");
+                              }}
+                              className="text-left hover:text-orange-500 transition-colors"
+                            >
+                              ➔ {lang === "en" ? "Kids Scooters" : "儿童滑板车"}
+                            </button>
+                          </div>
+                        </div>
+                        <div className="border-t border-slate-100 pt-3 space-y-2">
+                          <span className="text-[10px] font-black text-slate-400 block uppercase tracking-wider">
+                            {lang === "en" ? "Annual Awards" : "年度大奖"}
+                          </span>
+                          <div className="flex flex-col gap-1.5 pl-2 text-[11px] font-extrabold text-slate-600">
+                            <button
+                              onClick={() => {
+                                handlePrimaryTabClick("evaluations");
+                                navigateToPath("/reviews/single");
+                              }}
+                              className="text-left hover:text-orange-500 transition-colors"
+                            >
+                              ➔ {lang === "en" ? "Jogging Strollers" : "慢跑推车大奖"}
+                            </button>
+                            <button
+                              onClick={() => {
+                                handlePrimaryTabClick("products");
+                                navigateToPath("/products/electric_vehicles");
+                              }}
+                              className="text-left hover:text-orange-500 transition-colors"
+                            >
+                              ➔ {lang === "en" ? "Kids Electric Cars" : "电动玩具车大奖"}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
 
                 <button
                   onClick={() => handlePrimaryTabClick("products")}
@@ -2521,6 +2633,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             onSelectCategory={handleHomeCategorySelect}
             lang={lang}
             currencyData={currencyData}
+            isBBTTheme={isBBT}
           />
         )}
 
