@@ -2377,9 +2377,25 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           <div className="flex items-center gap-4 lg:gap-6 w-full md:w-auto overflow-x-auto no-scrollbar pb-1 md:pb-0 justify-start md:justify-end relative">
             <div className="relative w-full md:w-auto">
               <nav className="flex items-center bg-slate-100 p-1 rounded-2xl gap-1 text-xs shrink-0 whitespace-nowrap overflow-x-auto mx-auto md:mx-0">
-                <div className="relative group">
+                <div 
+                  className="relative group"
+                  onMouseEnter={() => {
+                    const dropdown = document.getElementById("bbt_dropdown_menu");
+                    if (dropdown) dropdown.classList.remove("hidden");
+                  }}
+                  onMouseLeave={() => {
+                    const dropdown = document.getElementById("bbt_dropdown_menu");
+                    if (dropdown) dropdown.classList.add("hidden");
+                  }}
+                >
                   <button
-                    onClick={() => handlePrimaryTabClick("home")}
+                    onClick={() => {
+                      handlePrimaryTabClick("home");
+                      const dropdown = document.getElementById("bbt_dropdown_menu");
+                      if (dropdown) {
+                        dropdown.classList.toggle("hidden");
+                      }
+                    }}
                     className={`px-3 py-2 rounded-xl font-bold transition-all flex items-center gap-1 ${
                       activeTab === "home" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
                     }`}
@@ -2388,12 +2404,17 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     {isBBT && <span className="text-[10px] text-slate-400">▾</span>}
                   </button>
                   {isBBT && (
-                    <div className="absolute top-full left-0 mt-1 w-72 bg-white border border-slate-100 rounded-2xl shadow-2xl p-4 hidden group-hover:block hover:block z-[99] animate-in fade-in slide-in-from-top-2 duration-200 text-slate-800">
+                    <div 
+                      id="bbt_dropdown_menu" 
+                      className="absolute top-full left-0 mt-1 w-72 bg-white border border-slate-100 rounded-2xl shadow-2xl p-4 hidden hover:block z-[99] animate-in fade-in slide-in-from-top-2 duration-200 text-slate-800"
+                    >
                       <div className="space-y-4">
                         <div>
                           <button
                             onClick={() => {
                               handlePrimaryTabClick("home");
+                              const dropdown = document.getElementById("bbt_dropdown_menu");
+                              if (dropdown) dropdown.classList.add("hidden");
                             }}
                             className="w-full text-left font-black text-xs text-orange-500 hover:underline flex items-center gap-2"
                           >
@@ -2409,6 +2430,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                               onClick={() => {
                                 handlePrimaryTabClick("products");
                                 navigateToPath("/products/balance_bike");
+                                const dropdown = document.getElementById("bbt_dropdown_menu");
+                                if (dropdown) dropdown.classList.add("hidden");
                               }}
                               className="text-left hover:text-orange-500 transition-colors"
                             >
@@ -2418,6 +2441,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                               onClick={() => {
                                 handlePrimaryTabClick("products");
                                 navigateToPath("/products/kids_bikes");
+                                const dropdown = document.getElementById("bbt_dropdown_menu");
+                                if (dropdown) dropdown.classList.add("hidden");
                               }}
                               className="text-left hover:text-orange-500 transition-colors"
                             >
@@ -2427,6 +2452,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                               onClick={() => {
                                 handlePrimaryTabClick("products");
                                 navigateToPath("/products/kids_scooters");
+                                const dropdown = document.getElementById("bbt_dropdown_menu");
+                                if (dropdown) dropdown.classList.add("hidden");
                               }}
                               className="text-left hover:text-orange-500 transition-colors"
                             >
@@ -2443,6 +2470,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                               onClick={() => {
                                 handlePrimaryTabClick("evaluations");
                                 navigateToPath("/reviews/single");
+                                const dropdown = document.getElementById("bbt_dropdown_menu");
+                                if (dropdown) dropdown.classList.add("hidden");
                               }}
                               className="text-left hover:text-orange-500 transition-colors"
                             >
@@ -2452,6 +2481,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                               onClick={() => {
                                 handlePrimaryTabClick("products");
                                 navigateToPath("/products/electric_vehicles");
+                                const dropdown = document.getElementById("bbt_dropdown_menu");
+                                if (dropdown) dropdown.classList.add("hidden");
                               }}
                               className="text-left hover:text-orange-500 transition-colors"
                             >
