@@ -520,6 +520,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
+      activeProductId: "",
       activePageIndex: 1,
       currentPath: normalizePathname(pathname),
     };
@@ -536,6 +537,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
+      activeProductId: "",
       activePageIndex: 1,
       currentPath,
     };
@@ -547,6 +549,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
+      activeProductId: "",
       activePageIndex: 1,
       currentPath,
     };
@@ -555,13 +558,29 @@ const resolveRouteState = (pathname: string, hash: string) => {
   if (root === "products") {
     const pageSegmentIndex = segments.indexOf("page");
     const activePageIndex = pageSegmentIndex >= 0 ? Number(segments[pageSegmentIndex + 1] || 1) : 1;
-    const normalizedCategory = normalizeProductRouteCategory(sub || "");
-    const activeProductCategory = normalizedCategory && PRODUCT_ROUTE_IDS.has(normalizedCategory) ? normalizedCategory : "all";
+    const contentSegments = pageSegmentIndex >= 0 ? segments.slice(0, pageSegmentIndex) : segments;
+    
+    let activeProductCategory = "all";
+    let activeProductId = "";
+    
+    const secondSegment = contentSegments[1];
+    const normalizedCategory = secondSegment ? normalizeProductRouteCategory(secondSegment) : null;
+    
+    if (normalizedCategory && (PRODUCT_ROUTE_IDS.has(normalizedCategory) || normalizedCategory === "all")) {
+      activeProductCategory = normalizedCategory;
+      if (contentSegments[2]) {
+        activeProductId = contentSegments[2];
+      }
+    } else if (secondSegment) {
+      activeProductId = secondSegment;
+    }
+    
     return {
-      activeTab: "products",
+      activeTab: activeProductId ? "product_detail" : "products",
       activeProductCategory,
       activeReviewType: "all",
       activeEvaluationId: "",
+      activeProductId,
       activePageIndex,
       currentPath,
     };
@@ -577,6 +596,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
       activeProductCategory: "all",
       activeReviewType,
       activeEvaluationId,
+      activeProductId: "",
       activePageIndex,
       currentPath,
     };
@@ -602,6 +622,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
+      activeProductId: "",
       activeGuidesCategory,
       activeGuidesArticleId,
       activePageIndex,
@@ -629,6 +650,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
+      activeProductId: "",
       activeNewsCategory,
       activeNewsArticleId,
       activePageIndex,
@@ -642,6 +664,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
+      activeProductId: "",
       activePageIndex: 1,
       currentPath,
     };
@@ -653,6 +676,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
+      activeProductId: "",
       activePageIndex: 1,
       currentPath,
     };
@@ -664,6 +688,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
+      activeProductId: "",
       activePageIndex: 1,
       currentPath,
     };
@@ -674,6 +699,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
     activeProductCategory: "all",
     activeReviewType: "all",
     activeEvaluationId: "",
+    activeProductId: "",
     activePageIndex: 1,
     currentPath: "/",
   };
@@ -702,6 +728,7 @@ export default function App() {
   const [activeNewsArticleId, setActiveNewsArticleId] = useState<string>(initialRouteState.activeNewsArticleId || "");
   const [activeGuidesCategory, setActiveGuidesCategory] = useState<string>(initialRouteState.activeGuidesCategory || "all");
   const [activeGuidesArticleId, setActiveGuidesArticleId] = useState<string>(initialRouteState.activeGuidesArticleId || "");
+  const [activeProductId, setActiveProductId] = useState<string>(initialRouteState.activeProductId || "");
   const [activePageIndex, setActivePageIndex] = useState<number>(initialRouteState.activePageIndex);
   const [currentPath, setCurrentPath] = useState<string>(initialRouteState.currentPath);
   const [newsPaginationTotalPages, setNewsPaginationTotalPages] = useState<number | null>(null);
@@ -731,6 +758,7 @@ export default function App() {
     setActiveNewsArticleId(routeState.activeNewsArticleId || "");
     setActiveGuidesCategory(routeState.activeGuidesCategory || "all");
     setActiveGuidesArticleId(routeState.activeGuidesArticleId || "");
+    setActiveProductId(routeState.activeProductId || "");
     setActivePageIndex(routeState.activePageIndex);
     setCurrentPath(routeState.currentPath);
   };
@@ -1320,6 +1348,27 @@ export default function App() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [activeStandardDimension, setActiveStandardDimension] = useState<string | null>(null);
   const [previousTab, setPreviousTab] = useState<string>("home");
+
+  // Synchronize URL-derived activeProductId to selectedProduct state
+  useEffect(() => {
+    if (productsData.length > 0) {
+      if (activeProductId) {
+        const found = productsData.find(p => p.id === activeProductId);
+        if (found) {
+          setSelectedProduct(found);
+          setActiveTab("product_detail");
+        } else {
+          setSelectedProduct(null);
+          if (activeTab === "product_detail") {
+            setActiveTab("products");
+          }
+        }
+      } else if (activeTab === "product_detail") {
+        setSelectedProduct(null);
+        setActiveTab("products");
+      }
+    }
+  }, [activeProductId, productsData]);
 
   // Helper inside App to update/inject dynamic meta tags
   const updateMetaTag = (name: string, content: string) => {
@@ -1979,8 +2028,10 @@ export default function App() {
     if (product) {
       setPreviousTab(activeTab);
       setSelectedProduct(product);
-      window.history.pushState({ ...(window.history.state || {}), kidsmobiProductDetail: true }, "", window.location.href);
-      setActiveTab("product_detail");
+      
+      const targetCategory = product.category || "all";
+      navigateToPath(`/products/${targetCategory}/${product.id}`);
+      
       window.scrollTo({ top: 0, behavior: "smooth" });
 
       // Update browsing records automatically
@@ -1990,7 +2041,20 @@ export default function App() {
       });
     } else {
       setSelectedProduct(null);
-      setActiveTab(previousTab);
+      if (previousTab === "products" || previousTab === "home") {
+        navigateToPath(activeProductCategory === "all" ? "/products" : `/products/${activeProductCategory}`);
+      } else {
+        const tabPathMap: Record<string, string> = {
+          home: "/",
+          products: "/products",
+          evaluations: "/reviews",
+          guides: "/guides",
+          news: "/news",
+          about: "/about",
+          auth: "/auth",
+        };
+        navigateToPath(tabPathMap[previousTab] || "/");
+      }
     }
   };
 

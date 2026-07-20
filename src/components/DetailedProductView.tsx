@@ -24,6 +24,7 @@ import { translateProduct } from "../lib/translate";
 import { resolveProductImages } from "../lib/productImages";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 import ProductCarousel from "./ProductCarousel";
+import Breadcrumbs from "./Breadcrumbs";
 
 const PLACEHOLDER_VERDICT_PATTERNS = [
   "pending editorial enrichment",
@@ -640,8 +641,48 @@ export default function DetailedProductView({
   const showEmptyScoringStandardsSection = Boolean(cmsSettings?.opsCenter?.featureFlags?.showEmptyScoringStandardsSection);
   const shouldRenderScoringStandardsSection = scoringStandards.length > 0 || showEmptyScoringStandardsSection;
 
+  const getCategoryLabel = (cat: string, l: "zh" | "en"): string => {
+    const mapZh: Record<string, string> = {
+      stroller: "婴儿推车",
+      balance_bike: "平衡车",
+      kids_bikes: "儿童自行车",
+      kids_scooters: "儿童滑板车",
+      electric_vehicles: "儿童电动车",
+      car_seat: "安全座椅",
+    };
+    const mapEn: Record<string, string> = {
+      stroller: "Kids Stroller",
+      balance_bike: "Balance Bike",
+      kids_bikes: "Kids Bikes",
+      kids_scooters: "Kids Scooters",
+      electric_vehicles: "Electric Vehicles",
+      car_seat: "Car Seat",
+    };
+    return l === "zh" ? (mapZh[cat] || "产品中心") : (mapEn[cat] || "Product Center");
+  };
+
   return (
     <div id="detailed_product_view" className="max-w-4xl mx-auto space-y-8 animate-fade-in text-left">
+      <Breadcrumbs
+        lang={lang}
+        onHomeClick={() => (window as any).setActiveTab?.("home")}
+        items={[
+          {
+            label: lang === "zh" ? "产品中心" : "PRODUCT CENTER",
+            active: false,
+            onClick: onClose,
+          },
+          {
+            label: getCategoryLabel(product.category || "", lang),
+            active: false,
+            onClick: onClose,
+          },
+          {
+            label: displayProduct.name,
+            active: true,
+          }
+        ]}
+      />
       
       {/* Header with Back Button */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 bg-white border border-slate-100 rounded-[40px] p-8 shadow-sm">

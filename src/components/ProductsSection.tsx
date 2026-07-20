@@ -1269,11 +1269,28 @@ export default function ProductsSection({
   return (
     <div id="product_library" className="space-y-8 animate-fade-in text-left">
       {/* Breadcrumbs (PRD 4.2.2) */}
-      <Breadcrumbs 
-        lang={lang} 
-        onHomeClick={() => (window as any).setActiveTab?.("home")}
-        items={[{ label: lang === "zh" ? "产品中心" : "PRODUCT CENTER", active: true }]} 
-      />
+      {(() => {
+        const items = [
+          {
+            label: lang === "zh" ? "产品中心" : "PRODUCT CENTER",
+            active: selectedCategory === "all",
+            onClick: () => handleCategorySelect("all"),
+          },
+        ];
+        if (selectedCategory && selectedCategory !== "all") {
+          items.push({
+            label: humanizeCategoryId(selectedCategory),
+            active: true,
+          });
+        }
+        return (
+          <Breadcrumbs
+            lang={lang}
+            onHomeClick={() => (window as any).setActiveTab?.("home")}
+            items={items}
+          />
+        );
+      })()}
 
       {/* Upper description - Upgraded to Match Slogan Banner style */}
       <section className="relative rounded-[48px] bg-white border border-slate-100 overflow-hidden p-10 sm:p-20 text-center max-w-7xl mx-auto shadow-2xl space-y-8">
