@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Search, Calendar, User, Eye, BookOpen, Clock, ArrowLeft, Heart, Share2 } from "lucide-react";
+import { Search, Calendar, User, Eye, BookOpen, Clock, ArrowLeft, Heart, Share2, Globe, Zap } from "lucide-react";
 import { NewsArticle, newsArticles as fallbackNewsArticles } from "../data/newsData";
 import { translateNewsArticle } from "../lib/translate";
 import { getCMSNews } from "../lib/cmsService";
@@ -472,22 +472,54 @@ export default function NewsSection({
         );
       })() : (
         // Standard Grid card library list view
-        <div className="space-y-10">
-          <div className="text-center max-w-2xl mx-auto space-y-4">
-              <div className="flex justify-center">
-                <div className="bg-orange-100 p-3 rounded-2xl">
-                  <BookOpen className="w-6 h-6 text-orange-500" />
-                </div>
+        <div className="space-y-12">
+          <section className="relative rounded-[48px] bg-slate-950 border border-slate-800 overflow-hidden p-10 sm:p-20 text-center max-w-7xl mx-auto shadow-2xl min-h-[480px] flex items-center justify-center">
+            {/* Ambient background with dark overlay */}
+            <div className="absolute inset-0 z-0">
+              <div 
+                className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
+                style={{
+                  backgroundImage: `url("https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?q=80&w=1600&auto=format&fit=crop")`,
+                  opacity: 0.45
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-900/40 to-slate-950/90 mix-blend-multiply"></div>
+              {/* Pulsing ambient indicators */}
+              <div className="absolute top-0 left-1/4 w-72 h-72 bg-orange-500/10 rounded-full blur-[100px] animate-pulse"></div>
+              <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-emerald-500/10 rounded-full blur-[100px] animate-pulse delay-700"></div>
+            </div>
+
+            <div className="relative z-10 space-y-8 w-full max-w-4xl">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-500/15 border border-orange-500/30 text-orange-400 text-[10px] h-7 font-black uppercase tracking-widest rounded-full shadow-lg backdrop-blur-md">
+                <Globe className="w-4 h-4 text-orange-400" />
+                {lang === "en" ? "GLOBAL MOBILE SAFETY RESEARCH" : "全球出行安全情报所"}
               </div>
-              <h1 className="text-3xl font-black text-slate-900">
-                {lang === "en" ? "E-Mobility News: Kids Electric Bike & Scooter Trends" : "全球童车资讯库"}
+              
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight drop-shadow-md">
+                {lang === "en" ? "E-Mobility News: Kids Electric Bike & Scooter Trends" : "全球交通工具动态：儿童电单车与电动滑板车资讯观察"}
               </h1>
-              <p className="text-sm text-slate-500 font-medium">
+              
+              <p className="text-slate-200 text-xs sm:text-sm md:text-base max-w-3xl mx-auto leading-relaxed font-semibold drop-shadow-sm">
                 {lang === "en"
                   ? "Track industry updates for a premium kids electric bike or a rugged electric dirt bike for kids. We also review foldable electric scooter launches and kids e-scooter safety data."
-                    : "聚焦行业趋势、新品发布、法规政策、品牌动态与科学选购内容，用软文方式讲清楚市场变化。"}
+                  : "深度追踪全球越野电动童车、轻量化儿童滑步车、多档悬挂避震阻尼车架以及可折叠电动滑板车法规标准，权威输出最懂中国供应链的硬核品质指南。"}
               </p>
-          </div>
+
+              <div className="pt-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const el = document.getElementById("latest-news-grid-anchor");
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-linear-to-r from-orange-500 via-orange-500 to-amber-500 text-white text-xs font-black uppercase tracking-widest rounded-full shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer group"
+                >
+                  <Zap className="w-4 h-4 text-white fill-white animate-pulse" />
+                  {lang === "en" ? "EXPLORE RECENT ARTICLES" : "立即探索最新资讯报道"}
+                </button>
+              </div>
+            </div>
+          </section>
 
           {/* Cards Render */}
           {filteredNews.length === 0 ? (
