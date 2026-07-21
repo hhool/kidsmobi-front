@@ -3312,7 +3312,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                                 className="w-full text-left py-1 text-[11px] font-extrabold text-slate-700 hover:text-orange-500 transition-colors flex items-center gap-1.5 cursor-pointer"
                               >
                                 <span>🚲</span>
-                                {lang === "en" ? "Balance Bikes (滑步平衡车)" : "滑步平衡车 (Balance Bikes)"}
+                                {lang === "en" ? "Balance Bikes" : "滑步平衡车 (Balance Bikes)"}
                               </button>
 
                               {/* Baby Strollers */}
@@ -3329,7 +3329,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                                 className="w-full text-left py-1 text-[11px] font-extrabold text-slate-700 hover:text-orange-500 transition-colors flex items-center gap-1.5 cursor-pointer"
                               >
                                 <span>🛒</span>
-                                {lang === "en" ? "Baby Strollers (婴儿手推车)" : "婴儿手推车 (Baby Strollers)"}
+                                {lang === "en" ? "Baby Strollers" : "婴儿手推车 (Baby Strollers)"}
                               </button>
 
                               {/* Toddler Scooters */}
@@ -3346,7 +3346,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                                 className="w-full text-left py-1 text-[11px] font-extrabold text-slate-700 hover:text-orange-500 transition-colors flex items-center gap-1.5 cursor-pointer"
                               >
                                 <span>🛹</span>
-                                {lang === "en" ? "Toddler Scooters (儿童滑板车)" : "儿童滑板车 (Toddler Scooters)"}
+                                {lang === "en" ? "Toddler Scooters" : "儿童滑板车 (Toddler Scooters)"}
                               </button>
                             </div>
                           </div>
@@ -3389,9 +3389,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                             </span>
                             <div className="space-y-3 font-extrabold text-slate-700 text-[11px]">
                               {[
-                                { icon: "🏙️", labelEn: "City & Commute (城市通勤)", labelZh: "精细防震/城市日常通勤" },
-                                { icon: "🚇", labelEn: "Travel & Light (轻便出游)", labelZh: "极致折叠/登机轻量出游" },
-                                { icon: "🏞️", labelEn: "All-Terrain / Outdoor (户外越野)", labelZh: "全地形越野/抗震防滑大胎" }
+                                { icon: "🏙️", labelEn: "City & Commute", labelZh: "精细防震/城市日常通勤" },
+                                { icon: "🚇", labelEn: "Travel & Light", labelZh: "极致折叠/登机轻量出游" },
+                                { icon: "🏞️", labelEn: "All-Terrain & Outdoor", labelZh: "全地形越野/抗震防滑大胎" }
                               ].map((sc, index) => (
                                 <button
                                   key={index}

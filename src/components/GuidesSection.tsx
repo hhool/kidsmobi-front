@@ -25,6 +25,7 @@ import { translateProduct, translateGuideArticle } from "../lib/translate";
 import { convertUsdToCurrency, formatCurrencyFromUsd } from "../lib/currency";
 import { getCMSGuides } from "../lib/cmsService";
 import { cleanVisibleSourceText } from "../lib/visibleText";
+import { resolveProductImages, FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
 
 function translateCategoryLabel(cat: string): string {
   const labels: Record<string, string> = {
@@ -944,11 +945,24 @@ export default function GuidesSection({
                                     <span className="bg-orange-50 text-orange-600 px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase border border-orange-100">{dispProduct.brand}</span>
                                   </div>
                                   
-                                  <h4 className="text-base font-black text-slate-900 truncate group-hover:text-orange-500 transition-colors">{dispProduct.name}</h4>
-                                  <p className="text-[11px] text-slate-500 line-clamp-2 leading-relaxed font-medium">“{dispProduct.editorVerdict}”</p>
-                                </div>
+                          {/* Matching layout with image resolved dynamically */}
+                          {(() => {
+                            const imgSet = resolveProductImages(p);
+                            const imgUrl = imgSet.coverUrl || FALLBACK_PRODUCT_IMAGE;
+                            return (
+                              <div className="h-32 bg-slate-50 border border-slate-100/50 rounded-2xl p-2 flex items-center justify-center overflow-hidden mb-3">
+                                <img
+                                  src={imgUrl}
+                                  alt={dispProduct.name}
+                                  className="h-full object-contain hover:scale-105 transition-transform duration-500"
+                                  onError={(e) => {
+                                    (e.target as HTMLImageElement).src = FALLBACK_PRODUCT_IMAGE;
+                                  }}
+                                />
+                              </div>
+                            );
+                          })()}
 
-                                <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-[11px] space-y-1.5">
                                   <div className="flex justify-between items-center">
                                     <span className="text-slate-400 font-bold">{lang === "en" ? "Weight" : "产品自重"}</span>
                                     <strong className={isPerfectWeight ? "text-emerald-500" : "text-orange-500"}>{formatWeight(dispProduct.weight, currencyData.code)}</strong>
