@@ -3000,28 +3000,6 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                             </div>
                           </div>
 
-                          <div className="space-y-3 pt-2 border-t border-slate-50">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans">
-                              🛠️ INTERACTIVE TOOLS
-                            </span>
-                            <button
-                              onClick={() => {
-                                if (typeof window !== "undefined") {
-                                  localStorage.setItem("autoOpenWizard", "true");
-                                }
-                                handlePrimaryTabClick("guides");
-                                closeReviewsMenuInstantly();
-                              }}
-                              className="text-left p-2.5 bg-orange-50/50 hover:bg-orange-50 rounded-xl transition-all border border-orange-100/40 hover:border-orange-250 flex items-center gap-2 group/tool cursor-pointer"
-                            >
-                              <span className="text-sm bg-white w-6 h-6 rounded-lg flex items-center justify-center border border-orange-100 shadow-xs group-hover/tool:scale-110 transition-transform">🔍</span>
-                              <div className="flex flex-col text-left">
-                                <span className="text-orange-950 font-black text-[10px]">{lang === "en" ? "Smart Review Finder" : "智能选车搜索助手 🔍"}</span>
-                                <span className="text-slate-400 text-[8px] font-medium leading-none mt-0.5">{lang === "en" ? "Match by Child Age & Height" : "根据年龄腿跨精准计算黄金参数"}</span>
-                              </div>
-                            </button>
-                          </div>
-
                           <div className="space-y-2 pt-2 border-t border-slate-50">
                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans">
                               🛡️ TRUST & METHODOLOGY
