@@ -793,6 +793,9 @@ export default function EvaluationsSection({
   const [selectedReviewType, setSelectedReviewType] = useState<string>(normalizeReviewType(initialReviewType));
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedEvaluation, setSelectedEvaluation] = useState<Evaluation | null>(null);
+  
+  const [hoverLatest, setHoverLatest] = useState<boolean>(false);
+  const [activeCompareTab, setActiveCompareTab] = useState<"stroller" | "balance" | "bike">("stroller");
 
   useEffect(() => {
     if (!selectedEvaluation) {
@@ -1078,6 +1081,18 @@ export default function EvaluationsSection({
     return buildFloorList((value) => isBikeLike(value) || isScooterLike(value), true);
   }, [renderList]);
 
+  const kidsBikeOnlyReviews = useMemo(() => {
+    return buildFloorList(isBikeLike, true);
+  }, [renderList]);
+
+  const kidsScooterOnlyReviews = useMemo(() => {
+    return buildFloorList(isScooterLike, true);
+  }, [renderList]);
+
+  const electricCarOnlyReviews = useMemo(() => {
+    return buildFloorList((value) => value.includes("electric") || value.includes("car") || value.includes("vehicle"), true);
+  }, [renderList]);
+
   const pageSize = 6;
   const totalPages = Math.max(1, Math.ceil(renderList.length / pageSize));
   const safePage = Math.min(Math.max(1, currentPage), totalPages);
@@ -1237,19 +1252,105 @@ export default function EvaluationsSection({
 
   return (
     <div id="evaluations_hub" className="space-y-8 animate-fade-in text-left">
+      {/* Breadcrumb: HOME > REVIEWS (PRD aligned) */}
       <Breadcrumbs 
         lang={lang} 
         onHomeClick={() => setActiveTab?.("home")}
-        items={[{ label: lang === "zh" ? "评测中心" : "EVALUATION CENTER", active: true }]} 
+        items={[{ label: "REVIEWS", active: true }]} 
       />
 
-      {/* 1. Slogan Banner (Brand Identity - Upgraded/Redesigned to Match Home Page Hero) */}
+      {/* 🧭 二级吸顶锚点导航栏 (Sticky Navigation Bar) */}
+      <div className="sticky top-[73px] z-20 bg-white/95 border-y border-slate-100 backdrop-blur-md px-4 sm:px-6 py-3 flex items-center justify-between shadow-sm select-none">
+        <div className="flex items-center gap-4 sm:gap-6 overflow-x-auto no-scrollbar py-1 w-full justify-start sm:justify-center">
+          
+          {/* Latest 评测 drop-down with hover flyout */}
+          <div 
+            className="relative group"
+            onMouseEnter={() => setHoverLatest(true)}
+            onMouseLeave={() => setHoverLatest(false)}
+          >
+            <button
+              onClick={() => {
+                const el = document.getElementById("latest-reviews");
+                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
+              className="px-3 py-1.5 rounded-lg text-xs font-black uppercase text-slate-800 hover:text-orange-500 transition-colors flex items-center gap-1 shrink-0 cursor-pointer"
+            >
+              {lang === "zh" ? "最新评测 ▾" : "Latest Reviews ▾"}
+            </button>
+            
+            {hoverLatest && (
+              <div className="absolute left-0 mt-2 w-56 bg-white border border-slate-150 rounded-2xl shadow-xl p-4 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="space-y-3">
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{lang === "zh" ? "婴儿手推车" : "Stroller"}</span>
+                    <button
+                      onClick={() => {
+                        const el = document.getElementById("latest-reviews");
+                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                        setHoverLatest(false);
+                      }}
+                      className="text-left w-full text-[11px] font-extrabold text-slate-700 hover:text-orange-500 block truncate cursor-pointer"
+                    >
+                      {lang === "zh" ? "旅行推车 2026" : "Travel Stroller 2026"}
+                    </button>
+                    <button
+                      onClick={() => {
+                        const el = document.getElementById("latest-reviews");
+                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                        setHoverLatest(false);
+                      }}
+                      className="text-left w-full text-[11px] font-extrabold text-slate-700 hover:text-orange-500 block truncate cursor-pointer"
+                    >
+                      {lang === "zh" ? "慢跑推车 2026" : "Jogging Stroller 2026"}
+                    </button>
+                  </div>
+                  <div className="space-y-1 border-t border-slate-50 pt-2">
+                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{lang === "zh" ? "儿童自行车" : "Kids Bike"}</span>
+                    <button
+                      onClick={() => {
+                        const el = document.getElementById("latest-reviews");
+                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                        setHoverLatest(false);
+                      }}
+                      className="text-left w-full text-[11px] font-extrabold text-slate-700 hover:text-orange-500 block truncate cursor-pointer"
+                    >
+                      {lang === "zh" ? "儿童越野车 2026" : "Kids Dirt Bikes 2026"}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {[
+            { id: "balance-bike", labelZh: "平衡车", labelEn: "Balance Bike" },
+            { id: "kids-bike", labelZh: "自行车", labelEn: "Kids Bike" },
+            { id: "kids-scooter", labelZh: "滑板车", labelEn: "Kids Scooter" },
+            { id: "kids-stroller", labelZh: "手推车", labelEn: "Kids Stroller" },
+            { id: "kids-electric-car", labelZh: "电动童车", labelEn: "Kids Electric Car" }
+          ].map((item) => (
+            <button
+              key={item.id}
+              onClick={() => {
+                const el = document.getElementById(item.id);
+                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
+              className="px-3 py-1.5 rounded-lg text-xs font-black uppercase text-slate-500 hover:text-orange-500 transition-colors shrink-0 cursor-pointer"
+            >
+              {lang === "zh" ? item.labelZh : item.labelEn}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* 🛠️ 模块 1：Hero 评估中心与 TDK 权威宣告区 */}
       <section className="relative rounded-[48px] bg-white border border-slate-100 overflow-hidden p-10 sm:p-20 text-center max-w-7xl mx-auto shadow-2xl">
         <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,247,237,0.92),rgba(255,255,255,0.88)_45%,rgba(236,253,245,0.55))]"></div>
-        <div className="relative z-10 space-y-10">
+        <div className="relative z-10 space-y-8">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-50 border border-orange-100/60 text-orange-600 text-[10px] font-black uppercase tracking-widest rounded-full shadow-sm">
             <BookOpen className="w-4 h-4" />
-            {lang === "zh" ? "专业实验室独立评测" : "INDEPENDENT LAB EVALUATIONS"}
+            INDEPENDENT LAB EVALUATIONS
           </div>
           
           <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight max-w-4xl mx-auto">
@@ -1257,703 +1358,646 @@ export default function EvaluationsSection({
               ? "专家评测中心：甄选最佳旅行推车与慢跑推车" 
               : "Expert Stroller Reviews & Balance Bike Reviews"}
           </h1>
+          
           <p className="text-slate-500 text-sm font-semibold leading-relaxed max-w-3xl mx-auto">
             {lang === "zh"
               ? "欢迎来到 KIDSMOBI 科学实测实验室。我们为您提供公正、独立、全物理测试的折叠伞车、高避震慢跑手推车评测 (Stroller Reviews) 以及儿童学步滑步车评测 (Balance Bike Reviews)。为了确保 100% 的客观性与最高标准，全站样品均由测试团队自费购入、拒绝任何厂商商业充值。"
-              : "Our stroller reviews and balance bike reviews help families quickly shortlist the best travel stroller for airport days and the best jogging stroller for daily runs. We buy every sample anonymously to keep each conclusion independent and practical for real parenting use."}
+              : "Our stroller reviews and balance bike reviews help families quickly shortlist the best travel stroller for airport days and the best jogging stroller for daily runs. 100% of tested models are anonymously purchased from retail-sampled batches with absolute 0% third-party manufacturer backing, sponsorship, or placement fee."}
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
-            <div className="rounded-2xl border border-slate-200 bg-slate-50/90 p-4 shadow-sm">
-              <div className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white border border-slate-200 mb-3">
-                <Scale className="w-4 h-4 text-slate-700" />
-              </div>
-              <h3 className="text-[11px] font-black uppercase tracking-wider text-slate-900">{lang === "zh" ? "Best Travel Stroller 标准" : "Best Travel Stroller Standard"}</h3>
-              <p className="mt-2 text-xs text-slate-600 font-semibold leading-relaxed">
-                {lang === "zh"
-                  ? "以收折速度、登机舱尺寸与车架重量为核心指标，筛选真正适合高频出行的 best travel stroller。"
-                  : "Evaluated by fold speed, cabin dimensions, and chassis weight to benchmark each best travel stroller profile."}
-              </p>
-            </div>
-            <div className="rounded-2xl border border-slate-200 bg-slate-50/90 p-4 shadow-sm">
-              <div className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white border border-slate-200 mb-3">
-                <Flame className="w-4 h-4 text-slate-700" />
-              </div>
-              <h3 className="text-[11px] font-black uppercase tracking-wider text-slate-900">{lang === "zh" ? "Best Jogging Stroller 强度" : "Best Jogging Stroller Rigor"}</h3>
-              <p className="mt-2 text-xs text-slate-600 font-semibold leading-relaxed">
-                {lang === "zh"
-                  ? "通过粗糙路面振动稳定性、刹车响应与推行轨迹控制，验证 best jogging stroller 的真实耐用性。"
-                  : "Simulated through rough-terrain vibration stability, brake response, and line control for best jogging stroller use cases."}
-              </p>
-            </div>
-            <div className="rounded-2xl border border-slate-200 bg-slate-50/90 p-4 shadow-sm">
-              <div className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white border border-slate-200 mb-3">
-                <ShieldCheck className="w-4 h-4 text-slate-700" />
-              </div>
-              <h3 className="text-[11px] font-black uppercase tracking-wider text-slate-900">{lang === "zh" ? "独立 Stroller Reviews" : "Independent Stroller Reviews"}</h3>
-              <p className="mt-2 text-xs text-slate-600 font-semibold leading-relaxed">
-                {lang === "zh"
-                  ? "所有 stroller reviews 均坚持零赞助、零置换样机，以真实路测为家庭决策提供高可信依据。"
-                  : "Our stroller reviews stay unsponsored and retail-sampled, preserving independent road-test confidence for families."}
-              </p>
-            </div>
-          </div>
-
-          {/* Partitions Fast Smooth Scroll Navigation Anchor buttons */}
-          <div className="flex flex-wrap justify-center gap-4 pt-4">
-            <button
-              type="button"
-              onClick={() => {
-                const el = document.getElementById("strollers");
-                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-              }}
-              className="inline-flex items-center gap-2 px-6 py-3.5 bg-orange-50 hover:bg-orange-500 hover:text-white border border-orange-100 text-orange-600 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all shadow-md active:scale-95 cursor-pointer"
-            >
-              <span>🛒</span>
-              {lang === "zh" ? "旅行与慢跑推车 ➔" : "TRAVEL & JOGGING STROLLERS ➔"}
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                const el = document.getElementById("balance-bikes");
-                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-              }}
-              className="inline-flex items-center gap-2 px-6 py-3.5 bg-orange-50 hover:bg-orange-500 hover:text-white border border-orange-100 text-orange-600 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all shadow-md active:scale-95 cursor-pointer"
-            >
-              <span>🚲</span>
-              {lang === "zh" ? "儿童平衡车 ➔" : "BALANCE BIKES ➔"}
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                const el = document.getElementById("kids-bikes");
-                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-              }}
-              className="inline-flex items-center gap-2 px-6 py-3.5 bg-orange-50 hover:bg-orange-500 hover:text-white border border-orange-100 text-orange-600 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all shadow-md active:scale-95 cursor-pointer"
-            >
-              <span>🚴‍♀️</span>
-              {lang === "zh" ? "自行车与滑板车 ➔" : "KIDS BIKES & SCOOTERS ➔"}
-            </button>
+          {/* TDK Scene keywords hash indicators with hover */}
+          <div className="flex flex-wrap justify-center gap-2.5 pt-2">
+            {[
+              { label: "#Travel Stroller 2026", anchor: "kids-stroller" },
+              { label: "#Jogging Stroller 2026", anchor: "kids-stroller" },
+              { label: "#Kids Dirt Bike 2026", anchor: "kids-bike" },
+              { label: "#Balance Bike", anchor: "balance-bike" }
+            ].map((tag, idx) => (
+              <button
+                key={idx}
+                onClick={() => {
+                  const el = document.getElementById(tag.anchor);
+                  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+                className="px-3.5 py-1.5 border border-slate-200 hover:border-orange-400 text-[11px] text-slate-600 hover:text-orange-500 font-extrabold rounded-full transition-colors cursor-pointer bg-white/40 backdrop-blur-xs"
+              >
+                {tag.label}
+              </button>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Pro Promise (Matches home promise bar) */}
-      <div className="bg-emerald-50/50 p-6 rounded-4xl border border-emerald-100 flex items-center gap-4 text-xs text-emerald-700 font-black max-w-7xl mx-auto shadow-sm">
-        <div className="w-10 h-10 rounded-2xl bg-white flex items-center justify-center shadow-xs">
-           <ShieldCheck className="w-6 h-6 text-emerald-500 shrink-0" />
-        </div>
-        {lang === "en" 
-          ? "KIDSMOBI PROMISE: All test models are purchased independently through consumer retail channels. We accept 0% manufacturer backing, sponsorship, or placement fee." 
-          : "KIDSMOBI 申明：实验室评测样品均通过普通零售渠道匿名买入，拒收一切厂商特供及赞助商利益输送，守护 100% 独立与客观。"}
-      </div>
-
-      {/* Grid listing by Floors */}
-      {renderList.length === 0 ? (
-        <div className="p-24 text-center bg-white border border-slate-100 rounded-[56px] shadow-sm max-w-7xl mx-auto">
-          <img src="https://api.dicebear.com/7.x/bottts/svg?seed=empty&backgroundColor=f8fafc" alt="Empty" className="w-24 h-24 mx-auto mb-6 opacity-20" />
-          <p className="text-slate-400 font-black uppercase tracking-widest text-xs">
-            {lang === "en" ? "No matches in current lab database" : "实验室数据库中暂无评估项"}
-          </p>
-        </div>
-      ) : (
-        <div className="space-y-24 max-w-7xl mx-auto">
-          {/* FLOOR 1: STROLLER REVIEWS */}
-          <section id="strollers" className="scroll-mt-24 space-y-8">
-            <div className="border-b border-slate-100 pb-6">
-              <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
-                {lang === "zh" 
-                  ? "发现最佳旅行推车与慢跑推车 (Stroller Reviews)" 
-                  : "Discover the Best Travel Stroller & Best Jogging Stroller"}
-              </h2>
-              <p className="mt-3 text-sm text-slate-500 font-medium leading-relaxed max-w-4xl">
-                {lang === "zh"
-                  ? "慢跑推车需要极致的全地形悬吊避震 (Best Jogging Stroller)，而高频率出行则需要轻量极简、能轻松单手收折并登机的最佳旅行推车 (Best Travel Stroller)。查看我们实验室出具的详细评测日志与五维力学评分。"
-                  : "Finding the best jogging stroller means checking wheel control and confident braking, while the best travel stroller needs quick one-hand folding and cabin-friendly size. In our stroller reviews, parents can compare daily handling and choose faster with confidence."}
-              </p>
+      {/* 🛠️ 模块 2：品类快捷入口与 Buyer's Guide 工具引流区 */}
+      <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+        <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <div className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-orange-50 text-orange-500 mb-4 font-black">
+              ✈️
             </div>
-            
-            {doubleStrollerFloorReviews.length === 0 ? (
-              <p className="text-slate-400 text-xs italic">{lang === "en" ? "No stroller evaluations currently published." : "暂无推车专项实测报告。"}</p>
-            ) : (
-              <>
-                <div className="rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-3">
-                  <p className="text-xs font-semibold text-slate-600 leading-relaxed">
-                    {lang === "zh"
-                      ? "使用动态数据矩阵浏览 stroller reviews：在日常轻量通勤与高强度越野稳定之间，快速定位适配家庭场景的车型。"
-                      : "Use our dynamic data matrix to filter stroller reviews by lifestyle choice, balancing daily lightweight needs against rugged exercise stability."}
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  {doubleStrollerFloorReviews.map((item) => {
-                  if (item.type === "multi") {
-                    const { evaluation, products, reviewBadge } = item;
-                    
-                    const displayTitle = lang === "en" && containsCjk(evaluation.en?.title || "") 
-                      ? "Premium Stroller Reviews Comparison" 
-                      : (lang === "en" ? evaluation.en?.title : evaluation.zh?.title) || "Stroller Reviews Comparison";
-
-                    const displayVerdict = lang === "en" && containsCjk(evaluation.en?.verdict || "")
-                      ? clampSummaryForDisplay("Cross-product analysis on premium strollers scored on structural safety and terrain mobility.", 480)
-                      : clampSummaryForDisplay((lang === "en" ? evaluation.en?.verdict : evaluation.zh?.verdict) || "", 480);
-
-                    return (
-                      <div
-                        key={evaluation.id}
-                        className="bg-slate-900 border border-slate-800 rounded-[48px] p-8 flex flex-col gap-6 justify-between transition-all group shadow-2xl relative overflow-hidden text-white hover:scale-[1.01] duration-300"
-                      >
-                        <div className="absolute top-0 right-0 w-48 h-48 bg-slate-800 rounded-bl-full -mr-16 -mt-16 opacity-40"></div>
-                       
-                        <div className="relative z-10 space-y-3">
-                          <span className="bg-orange-500 text-white font-black px-3 py-1 rounded-full text-[9px] uppercase tracking-[0.2em] shadow-lg shadow-orange-500/20">
-                            {reviewBadge}
-                          </span>
-                          <h2 className="text-xl font-black tracking-tight text-white leading-tight min-h-12 pt-2 group-hover:text-orange-400 transition-colors">
-                            {displayTitle}
-                          </h2>
-                          <p className="text-slate-400 text-xs font-semibold leading-relaxed whitespace-normal break-words">
-                            {displayVerdict}
-                          </p>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4 relative z-10 w-full pt-1">
-                          {products.slice(0, 4).map((product, idx) => {
-                            const diProduct = translateProduct(product, lang);
-                            const imageSet = resolveProductImages(product);
-                            return (
-                              <div key={product.id} className="bg-slate-800/80 backdrop-blur-xs rounded-2xl p-3 border border-slate-700/80 flex flex-col items-center gap-2 hover:border-slate-500 transition-colors duration-300">
-                                <div className="w-12 h-12 bg-white rounded-lg p-1 flex items-center justify-center">
-                                  <SmartImage
-                                    src={imageSet.coverUrl || undefined}
-                                    alt={sanitizeMarketplaceNoise(getProductImageAlt(product))}
-                                    className="w-full h-full object-contain"
-                                    wrapperClassName="w-full h-full"
-                                    width={96}
-                                    height={96}
-                                    priority={idx < 2}
-                                  />
-                                </div>
-                                <div className="text-center w-full">
-                                  <span className="text-[8px] text-slate-400 font-bold uppercase tracking-widest block truncate">{lang === "en" ? cleanEnBrandText(diProduct.brand || "") : diProduct.brand}</span>
-                                  <h4 className="font-extrabold text-white text-[10px] leading-tight truncate">{getProductDisplayName(product)}</h4>
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-
-                        <div className="flex justify-center relative z-10 pt-2">
-                          <button
-                            type="button"
-                            onClick={() => openEvaluationDetail(evaluation)}
-                            className="w-full py-4 bg-white hover:bg-orange-500 text-slate-900 hover:text-white rounded-xl transition-all shadow-md flex items-center justify-center active:scale-95"
-                            aria-label={lang === "en" ? "Compare best travel and jogging strollers" : "对比最佳旅行与慢跑推车"}
-                            title={lang === "en" ? "Compare best travel and jogging strollers" : "对比最佳旅行与慢跑推车"}
-                          >
-                            <ArrowRight className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      </div>
-                    );
-                  }
-
-                  const { product, reviewBadge, evaluation } = item;
-                  if (!product) return null;
-                  const diProduct = translateProduct(product, lang);
-                  const tEv = lang === "zh" ? evaluation.zh : evaluation.en;
-                  const imageSet = resolveProductImages(product);
-
-                  const displayVerdict = (() => {
-                    const originalv = tEv.verdict || diProduct.editorVerdict || "";
-                    if (lang === "en") {
-                      const normalizedIdentity = `${diProduct.brand || ""} ${diProduct.name || ""} ${tEv.title || ""}`.toLowerCase();
-                      if (normalizedIdentity.includes("chicco") && normalizedIdentity.includes("bravo")) {
-                        return "Our deep-dive stroller reviews validate the Chicco Bravo Trio as a premier modular travel solution. While it offers unmatched click-in safety, parents seeking the absolute best travel stroller for tight airline bins may favor ultra-lightweight frames, while active families aiming for the best jogging stroller should prioritize all-terrain suspension.";
-                      }
-                      const v = sanitizeVerdictText(originalv);
-                      if (v && !containsCjk(v) && isRealVerdict(v)) return v;
-                      const brandEn = cleanEnBrandText(diProduct.brand || "");
-                      const modelEn = sanitizeMarketplaceNoise(String(diProduct.name || ""));
-                      return `Comprehensive safety assessment for ${brandEn} ${modelEn} stroller, evaluated across structural weight capacity, suspension stiffness, and dynamic stability parameters.`;
-                    } else {
-                      const v = sanitizeVerdictText(originalv);
-                      if (v && containsCjk(v) && isRealVerdict(v)) return v;
-                      const brandZh = diProduct.brand || "该高端";
-                      const modelZh = sanitizeMarketplaceNoise(String(diProduct.name || ""));
-                      return `针对 ${brandZh} ${modelZh} 实测车型的深入评定摘要，多维度安全骨骼与避震学考核。`;
-                    }
-                  })();
-                  const compactDisplayVerdict = clampSummaryForDisplay(displayVerdict, 480);
-
-                  const displayTitle = (() => {
-                    const originalT = tEv.title || diProduct.name || "";
-                    if (lang === "en") {
-                      if (originalT && !containsCjk(originalT)) return originalT;
-                      return `${cleanEnBrandText(diProduct.brand || "")} Stroller Evaluation`;
-                    } else {
-                      if (originalT && containsCjk(originalT)) return originalT;
-                      return `${diProduct.brand || ""} 专家专项评测报告`;
-                    }
-                  })();
-
-                  return (
-                    <div
-                      key={evaluation.id}
-                      className="bg-white border border-slate-100 rounded-[48px] p-8 flex flex-col md:flex-row gap-6 justify-between transition-all group hover:shadow-[0_48px_80px_-24px_rgba(249,115,22,0.12)] hover:scale-[1.01] duration-300 shadow-sm relative overflow-hidden"
-                    >
-                      <div className="absolute bottom-0 right-0 w-32 h-32 bg-orange-50/20 blur-2xl rounded-full -mb-16 -mr-16 group-hover:bg-orange-100/40 transition-colors"></div>
-                      
-                      <div className="md:w-1/2 flex flex-col justify-between space-y-6 relative z-10">
-                        <div className="space-y-4">
-                          <div className="flex justify-between items-center">
-                            <span className="bg-orange-50 text-orange-600 font-black px-3 py-1 rounded-full text-[9px] uppercase tracking-[0.2em] border border-orange-100">
-                              {reviewBadge}
-                            </span>
-                          </div>
-
-                          <div className="space-y-1">
-                            <span className="text-[9px] text-slate-400 font-black uppercase tracking-widest block">{lang === "en" ? cleanEnBrandText(diProduct.brand || "") : diProduct.brand}</span>
-                            <h2 className="font-black text-slate-900 text-base leading-tight group-hover:text-orange-500 transition-colors min-h-10">
-                              {displayTitle}
-                            </h2>
-                          </div>
-
-                            <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100/50">
-                               <p className="text-xs text-slate-600 leading-relaxed font-bold italic whitespace-normal break-words">“{compactDisplayVerdict}”</p>
-                          </div>
-                        </div>
-
-                        <button
-                          type="button"
-                          onClick={() => openEvaluationDetail(evaluation)}
-                          className="w-full py-4 bg-slate-900 hover:bg-orange-500 text-white rounded-xl transition-all shadow-lg flex items-center justify-center active:scale-95 group-hover:shadow-orange-500/10"
-                          aria-label={getReviewCtaLabel(product, evaluation, lang)}
-                          title={getReviewCtaLabel(product, evaluation, lang)}
-                        >
-                          <ArrowRight className="w-4 h-4" aria-hidden="true" />
-                        </button>
-                      </div>
-
-                      <div className="md:w-1/2 flex items-center justify-center relative z-10 flex-col">
-                        <div className="scale-90 origin-center w-full">
-                          <SafetyRadarChart product={product} evaluation={evaluation} lang={lang} />
-                        </div>
-                      </div>
-                    </div>
-                  );
-                  })}
-                </div>
-
-                <div className="rounded-2xl border border-orange-100 bg-orange-50/60 px-4 py-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                  <p className="text-[11px] font-black uppercase tracking-wide text-orange-700">
-                    {lang === "zh" ? "编辑部推荐标签" : "Editor Summary Labels"}
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-2 text-xs font-semibold text-slate-700">
-                    <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white border border-orange-200">
-                      {lang === "zh" ? "最佳旅行推车" : "Editor's Choice for best travel stroller"}: MAMAZING Ultra Air
-                    </span>
-                    <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white border border-orange-200">
-                      {lang === "zh" ? "最佳慢跑推车" : "Editor's Choice for best jogging stroller"}: Infans Jogging Stroller
-                    </span>
-                  </div>
-                </div>
-              </>
-            )}
-          </section>
-
-          {/* FLOOR 2: BALANCE BIKES */}
-          <section id="balance-bikes" className="scroll-mt-24 space-y-8">
-            <div className="border-b border-slate-100 pb-6">
-              <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
-                {lang === "zh" 
-                  ? "幼童平衡滑步车专家评测 (Balance Bike Reviews)" 
-                  : "Expert Balance Bike Reviews & Learner Lab"}
-              </h2>
-              <p className="mt-3 text-sm text-slate-500 font-medium leading-relaxed max-w-4xl">
-                {lang === "zh"
-                  ? "为 1-3 岁准备的无脚踏幼儿滑板车、平衡车，我们专注测试车身总重负载能力、转弯限位结构、轴承防松脱阻尼等。阅读详尽中立的儿童滑跑车评测（Balance Bike Reviews），辅助建立安全信心。"
-                  : "We systematically examine toddler push models through real-world balance bike reviews. Weight distribution, steering limiting bumpers, and toxic-free handles are thoroughly checked to help you choose with pristine confidence."}
-              </p>
-            </div>
-
-            {balanceBikeFloorReviews.length === 0 ? (
-              <p className="text-slate-400 text-xs italic">{lang === "en" ? "No balance bike reviews currently published." : "暂无滑步平衡车测评数据。"}</p>
-            ) : (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {balanceBikeFloorReviews.map((item) => {
-                  if (item.type === "multi") {
-                    const { evaluation, products, reviewBadge } = item;
-                    
-                    const displayTitle = lang === "en" && containsCjk(evaluation.en?.title || "") 
-                      ? "Balance Bike Reviews Top Picks" 
-                      : (lang === "en" ? evaluation.en?.title : evaluation.zh?.title) || "Balance Bike Reviews Comparison";
-
-                    const displayVerdict = lang === "en" && containsCjk(evaluation.en?.verdict || "")
-                      ? clampSummaryForDisplay("Structural comparisons of leading balance bikes evaluated on geometry, weight, and turn limiting parameters.", 480)
-                      : clampSummaryForDisplay((lang === "en" ? evaluation.en?.verdict : evaluation.zh?.verdict) || "", 480);
-
-                    return (
-                      <div
-                        key={evaluation.id}
-                        className="bg-slate-900 border border-slate-800 rounded-[48px] p-8 flex flex-col gap-6 justify-between transition-all group shadow-2xl relative overflow-hidden text-white hover:scale-[1.01] duration-300"
-                      >
-                        <div className="absolute top-0 right-0 w-48 h-48 bg-slate-800 rounded-bl-full -mr-16 -mt-16 opacity-40"></div>
-                       
-                        <div className="relative z-10 space-y-3">
-                          <span className="bg-orange-500 text-white font-black px-3 py-1 rounded-full text-[9px] uppercase tracking-[0.2em] shadow-lg shadow-orange-500/20">
-                            {reviewBadge}
-                          </span>
-                          <h2 className="text-xl font-black tracking-tight text-white leading-tight min-h-12 pt-2 group-hover:text-orange-400 transition-colors">
-                            {displayTitle}
-                          </h2>
-                          <p className="text-slate-400 text-xs font-semibold leading-relaxed whitespace-normal break-words">
-                            {displayVerdict}
-                          </p>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4 relative z-10 w-full pt-1">
-                          {products.slice(0, 4).map((product, idx) => {
-                            const diProduct = translateProduct(product, lang);
-                            const imageSet = resolveProductImages(product);
-                            return (
-                              <div key={product.id} className="bg-slate-800/80 backdrop-blur-xs rounded-2xl p-3 border border-slate-700/80 flex flex-col items-center gap-2 hover:border-slate-500 transition-colors duration-300">
-                                <div className="w-12 h-12 bg-white rounded-lg p-1 flex items-center justify-center">
-                                  <SmartImage
-                                    src={imageSet.coverUrl || undefined}
-                                    alt={sanitizeMarketplaceNoise(getProductImageAlt(product))}
-                                    className="w-full h-full object-contain"
-                                    wrapperClassName="w-full h-full"
-                                    width={96}
-                                    height={96}
-                                    priority={idx < 2}
-                                  />
-                                </div>
-                                <div className="text-center w-full">
-                                  <span className="text-[8px] text-slate-400 font-bold uppercase tracking-widest block truncate">{lang === "en" ? cleanEnBrandText(diProduct.brand || "") : diProduct.brand}</span>
-                                  <h4 className="font-extrabold text-white text-[10px] leading-tight truncate">{getProductDisplayName(product)}</h4>
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-
-                        <div className="flex justify-center relative z-10 pt-2">
-                          <button
-                            type="button"
-                            onClick={() => openEvaluationDetail(evaluation)}
-                            className="w-full py-4 bg-white hover:bg-orange-500 text-slate-900 hover:text-white rounded-xl transition-all shadow-md flex items-center justify-center active:scale-95"
-                            aria-label={lang === "en" ? "Compare top balance bike reviews" : "对比热门平衡车评测"}
-                            title={lang === "en" ? "Compare top balance bike reviews" : "对比热门平衡车评测"}
-                          >
-                            <ArrowRight className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      </div>
-                    );
-                  }
-
-                  const { product, reviewBadge, evaluation } = item;
-                  if (!product) return null;
-                  const diProduct = translateProduct(product, lang);
-                  const tEv = lang === "zh" ? evaluation.zh : evaluation.en;
-                  const imageSet = resolveProductImages(product);
-
-                  const displayVerdict = (() => {
-                    const originalv = tEv.verdict || diProduct.editorVerdict || "";
-                    if (lang === "en") {
-                      const v = sanitizeVerdictText(originalv);
-                      if (v && !containsCjk(v) && isRealVerdict(v)) return v;
-                      const brandEn = cleanEnBrandText(diProduct.brand || "");
-                      const modelEn = sanitizeMarketplaceNoise(String(diProduct.name || ""));
-                      return `Professional engineering safety audit for the ${brandEn} ${modelEn} balance bike. Analysed across low-COG ride control, steering limitations, and framework impact testing.`;
-                    } else {
-                      const v = sanitizeVerdictText(originalv);
-                      if (v && containsCjk(v) && isRealVerdict(v)) return v;
-                      const brandZh = diProduct.brand || "该高端";
-                      const modelZh = sanitizeMarketplaceNoise(String(diProduct.name || ""));
-                      return `针对 ${brandZh} ${modelZh} 儿童滑步平衡车的物理实测总结，包含转弯几何与车身受冲击测试评级。`;
-                    }
-                  })();
-                  const compactDisplayVerdict = clampSummaryForDisplay(displayVerdict, 480);
-
-                  const displayTitle = (() => {
-                    const originalT = tEv.title || diProduct.name || "";
-                    if (lang === "en") {
-                      if (originalT && !containsCjk(originalT)) return originalT;
-                      return `${cleanEnBrandText(diProduct.brand || "")} Balance Bike Review`;
-                    } else {
-                      if (originalT && containsCjk(originalT)) return originalT;
-                      return `${diProduct.brand || ""} 专家实测平衡车总结`;
-                    }
-                  })();
-
-                  return (
-                    <div
-                      key={evaluation.id}
-                      className="bg-white border border-slate-100 rounded-[48px] p-8 flex flex-col md:flex-row gap-6 justify-between transition-all group hover:shadow-[0_48px_80px_-24px_rgba(249,115,22,0.12)] hover:scale-[1.01] duration-300 shadow-sm relative overflow-hidden"
-                    >
-                      <div className="absolute bottom-0 right-0 w-32 h-32 bg-orange-50/20 blur-2xl rounded-full -mb-16 -mr-16 group-hover:bg-orange-100/40 transition-colors"></div>
-                      
-                      <div className="md:w-1/2 flex flex-col justify-between space-y-6 relative z-10">
-                        <div className="space-y-4">
-                          <div className="flex justify-between items-center">
-                            <span className="bg-orange-50 text-orange-600 font-black px-3 py-1 rounded-full text-[9px] uppercase tracking-[0.2em] border border-orange-100">
-                              {reviewBadge}
-                            </span>
-                          </div>
-
-                          <div className="space-y-1">
-                            <span className="text-[9px] text-slate-400 font-black uppercase tracking-widest block">{lang === "en" ? cleanEnBrandText(diProduct.brand || "") : diProduct.brand}</span>
-                            <h2 className="font-black text-slate-900 text-base leading-tight group-hover:text-orange-500 transition-colors min-h-10">
-                              {displayTitle}
-                            </h2>
-                          </div>
-
-                          <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100/50">
-                             <p className="text-xs text-slate-600 leading-relaxed font-bold italic whitespace-normal break-words">“{compactDisplayVerdict}”</p>
-                          </div>
-                        </div>
-
-                        <button
-                          type="button"
-                          onClick={() => openEvaluationDetail(evaluation)}
-                          className="w-full py-4 bg-slate-900 hover:bg-orange-500 text-white rounded-xl transition-all shadow-lg flex items-center justify-center active:scale-95 group-hover:shadow-orange-500/10"
-                          aria-label={getReviewCtaLabel(product, evaluation, lang)}
-                          title={getReviewCtaLabel(product, evaluation, lang)}
-                        >
-                          <ArrowRight className="w-4 h-4" aria-hidden="true" />
-                        </button>
-                      </div>
-
-                      <div className="md:w-1/2 flex items-center justify-center relative z-10 flex-col">
-                        <div className="scale-90 origin-center w-full">
-                          <SafetyRadarChart product={product} evaluation={evaluation} lang={lang} />
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </section>
-
-          {/* FLOOR 3: KIDS BIKES & SCOOTERS */}
-          <section id="kids-bikes" className="scroll-mt-24 space-y-8">
-            <div className="border-b border-slate-100 pb-6">
-              <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
-                {lang === "zh" 
-                  ? "学龄儿童自行车及滑板车安全指数评测 (Kids Bike & Scooter Reviews)" 
-                  : "Kids Bike & Scooter Expert Reviews"}
-              </h2>
-              <p className="mt-3 text-sm text-slate-500 font-medium leading-relaxed max-w-4xl">
-                {lang === "zh"
-                  ? "专注于大童脚踏自行车、高性能滑板车安全极限测试：考察双重手刹及反倒刹响应、物理防夹手链条防护罩、立管防倒塌锁死以及前叉形变载荷表现。"
-                  : "We audit classic kids bicycles and scooters with a parent-first lens. Wet braking response, frame stability, chain-guard safety, and corner balance are tested to provide clear buying guidance."}
-              </p>
-            </div>
-
-            {kidsBikeFloorReviews.length === 0 ? (
-              <p className="text-slate-400 text-xs italic">{lang === "en" ? "No kids bike or scooter reviews currently published." : "暂无脚踏车及滑板车测评报告。"}</p>
-            ) : (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {kidsBikeFloorReviews.map((item) => {
-                  if (item.type === "multi") {
-                    const { evaluation, products, reviewBadge } = item;
-                    
-                    const displayTitle = lang === "en" && containsCjk(evaluation.en?.title || "") 
-                      ? "Kids Bike Parent Picks Compare" 
-                      : (lang === "en" ? evaluation.en?.title : evaluation.zh?.title) || "Kids Mobility Comparison";
-
-                    const displayVerdict = lang === "en" && containsCjk(evaluation.en?.verdict || "")
-                      ? clampSummaryForDisplay("Comparative engineering analysis on bikes and scooters scored on frame rigidity and braking.", 480)
-                      : clampSummaryForDisplay((lang === "en" ? evaluation.en?.verdict : evaluation.zh?.verdict) || "", 480);
-
-                    return (
-                      <div
-                        key={evaluation.id}
-                        className="bg-slate-900 border border-slate-800 rounded-[48px] p-8 flex flex-col gap-6 justify-between transition-all group shadow-2xl relative overflow-hidden text-white hover:scale-[1.01] duration-300"
-                      >
-                        <div className="absolute top-0 right-0 w-48 h-48 bg-slate-800 rounded-bl-full -mr-16 -mt-16 opacity-40"></div>
-                       
-                        <div className="relative z-10 space-y-3">
-                          <span className="bg-orange-500 text-white font-black px-3 py-1 rounded-full text-[9px] uppercase tracking-[0.2em] shadow-lg shadow-orange-500/20">
-                            {reviewBadge}
-                          </span>
-                          <h2 className="text-xl font-black tracking-tight text-white leading-tight min-h-12 pt-2 group-hover:text-orange-400 transition-colors">
-                            {displayTitle}
-                          </h2>
-                          <p className="text-slate-400 text-xs font-semibold leading-relaxed whitespace-normal break-words">
-                            {displayVerdict}
-                          </p>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4 relative z-10 w-full pt-1">
-                          {products.slice(0, 4).map((product, idx) => {
-                            const diProduct = translateProduct(product, lang);
-                            const imageSet = resolveProductImages(product);
-                            return (
-                              <div key={product.id} className="bg-slate-800/80 backdrop-blur-xs rounded-2xl p-3 border border-slate-700/80 flex flex-col items-center gap-2 hover:border-slate-500 transition-colors duration-300">
-                                <div className="w-12 h-12 bg-white rounded-lg p-1 flex items-center justify-center">
-                                  <SmartImage
-                                    src={imageSet.coverUrl || undefined}
-                                    alt={sanitizeMarketplaceNoise(getProductImageAlt(product))}
-                                    className="w-full h-full object-contain"
-                                    wrapperClassName="w-full h-full"
-                                    width={96}
-                                    height={96}
-                                    priority={idx < 2}
-                                  />
-                                </div>
-                                <div className="text-center w-full">
-                                  <span className="text-[8px] text-slate-400 font-bold uppercase tracking-widest block truncate">{lang === "en" ? cleanEnBrandText(diProduct.brand || "") : diProduct.brand}</span>
-                                  <h4 className="font-extrabold text-white text-[10px] leading-tight truncate">{getProductDisplayName(product)}</h4>
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-
-                        <div className="flex justify-center relative z-10 pt-2">
-                          <button
-                            type="button"
-                            onClick={() => openEvaluationDetail(evaluation)}
-                            className="w-full py-4 bg-white hover:bg-orange-500 text-slate-900 hover:text-white rounded-xl transition-all shadow-md flex items-center justify-center active:scale-95"
-                            aria-label={lang === "en" ? "Compare kids bike and scooter reviews" : "对比童车与滑板车评测"}
-                            title={lang === "en" ? "Compare kids bike and scooter reviews" : "对比童车与滑板车评测"}
-                          >
-                            <ArrowRight className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      </div>
-                    );
-                  }
-
-                  const { product, reviewBadge, evaluation } = item;
-                  if (!product) return null;
-                  const diProduct = translateProduct(product, lang);
-                  const tEv = lang === "zh" ? evaluation.zh : evaluation.en;
-                  const imageSet = resolveProductImages(product);
-
-                  const displayVerdict = (() => {
-                    const originalv = tEv.verdict || diProduct.editorVerdict || "";
-                    if (lang === "en") {
-                      const v = sanitizeVerdictText(originalv);
-                      if (v && !containsCjk(v) && isRealVerdict(v)) return v;
-                      const brandEn = cleanEnBrandText(diProduct.brand || "");
-                      const modelEn = sanitizeMarketplaceNoise(String(diProduct.name || ""));
-                      return `Professional engineering safety audit for the ${brandEn} ${modelEn} kids bike. Specially verified for dual brake reach, chain ASTM F963 support, and anti-tipping deck limiters.`;
-                    } else {
-                      const v = sanitizeVerdictText(originalv);
-                      if (v && containsCjk(v) && isRealVerdict(v)) return v;
-                      const brandZh = diProduct.brand || "该高端";
-                      const modelZh = sanitizeMarketplaceNoise(String(diProduct.name || ""));
-                      return `针对 ${brandZh} ${modelZh} 儿童自行车或滑板车的手刹制动力与车架防冲击性能的专项物理质检评测。`;
-                    }
-                  })();
-                  const compactDisplayVerdict = clampSummaryForDisplay(displayVerdict, 480);
-
-                  const displayTitle = (() => {
-                    const originalT = tEv.title || diProduct.name || "";
-                    if (lang === "en") {
-                      if (originalT && !containsCjk(originalT)) return originalT;
-                      return `${cleanEnBrandText(diProduct.brand || "")} Kids Bike Review`;
-                    } else {
-                      if (originalT && containsCjk(originalT)) return originalT;
-                      return `${diProduct.brand || ""} 专家专项脚踏自行车报告`;
-                    }
-                  })();
-
-                  return (
-                    <div
-                      key={evaluation.id}
-                      className="bg-white border border-slate-100 rounded-[48px] p-8 flex flex-col md:flex-row gap-6 justify-between transition-all group hover:shadow-[0_48px_80px_-24px_rgba(249,115,22,0.12)] hover:scale-[1.01] duration-300 shadow-sm relative overflow-hidden"
-                    >
-                      <div className="absolute bottom-0 right-0 w-32 h-32 bg-orange-50/20 blur-2xl rounded-full -mb-16 -mr-16 group-hover:bg-orange-100/40 transition-colors"></div>
-                      
-                      <div className="md:w-1/2 flex flex-col justify-between space-y-6 relative z-10">
-                        <div className="space-y-4">
-                          <div className="flex justify-between items-center">
-                            <span className="bg-orange-50 text-orange-600 font-black px-3 py-1 rounded-full text-[9px] uppercase tracking-[0.2em] border border-orange-100">
-                              {reviewBadge}
-                            </span>
-                          </div>
-
-                          <div className="space-y-1">
-                            <span className="text-[9px] text-slate-400 font-black uppercase tracking-widest block">{lang === "en" ? cleanEnBrandText(diProduct.brand || "") : diProduct.brand}</span>
-                            <h3 className="font-black text-slate-900 text-base leading-tight group-hover:text-orange-500 transition-colors min-h-10">
-                              {displayTitle}
-                            </h3>
-                          </div>
-
-                          <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100/50">
-                             <p className="text-xs text-slate-600 leading-relaxed font-bold italic whitespace-normal break-words">“{compactDisplayVerdict}”</p>
-                          </div>
-                        </div>
-
-                        <button
-                          type="button"
-                          onClick={() => openEvaluationDetail(evaluation)}
-                          className="w-full py-4 bg-slate-900 hover:bg-orange-500 text-white rounded-xl transition-all shadow-lg flex items-center justify-center active:scale-95 group-hover:shadow-orange-500/10"
-                          aria-label={getReviewCtaLabel(product, evaluation, lang)}
-                          title={getReviewCtaLabel(product, evaluation, lang)}
-                        >
-                          <ArrowRight className="w-4 h-4" aria-hidden="true" />
-                        </button>
-                      </div>
-
-                      <div className="md:w-1/2 flex items-center justify-center relative z-10 flex-col">
-                        <div className="scale-90 origin-center w-full">
-                          <SafetyRadarChart product={product} evaluation={evaluation} lang={lang} />
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </section>
+            <h3 className="text-xs font-black uppercase tracking-wider text-slate-900">{lang === "zh" ? "Best Travel Stroller 核心标准" : "Best Travel Stroller Standard"}</h3>
+            <p className="mt-2 text-xs text-slate-500 font-semibold leading-relaxed">
+              {lang === "zh"
+                ? "聚焦极速两秒收折、随行登机舱规约束（机舱架高尺寸）以及超轻架体物理承重比测试。"
+                : "Rigorously evaluated by active folding speed limits, airline overhead bin sizes, and structural light-weight ratio."}
+            </p>
+          </div>
         </div>
-      )}
 
-      {totalPages > 1 && (
-        <div className="flex flex-wrap items-center justify-center gap-3 pt-6">
-          <button
-            onClick={() => onPageChange?.(Math.max(1, safePage - 1))}
-            disabled={safePage <= 1}
-            className="w-10 h-10 rounded-2xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center"
-            aria-label={lang === "en" ? "Go to previous page" : "上一页"}
-          >
-            <svg aria-hidden="true" viewBox="0 0 20 20" className="w-4 h-4" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12.5 4.5L7 10L12.5 15.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
-          <div
-            className="w-24 h-2 rounded-full bg-slate-100 overflow-hidden"
-            role="progressbar"
-            aria-valuemin={1}
-            aria-valuemax={totalPages}
-            aria-valuenow={safePage}
-            aria-label={lang === "en" ? `Page ${safePage} of ${totalPages}` : `第 ${safePage} 页，共 ${totalPages} 页`}
-          >
-            <div
-              className="h-full bg-slate-900 rounded-full transition-all"
-              style={{ width: `${Math.max(8, (safePage / totalPages) * 100)}%` }}
-            />
+        <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <div className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-orange-50 text-orange-500 mb-4 font-black">
+              🏃
+            </div>
+            <h3 className="text-xs font-black uppercase tracking-wider text-slate-900">{lang === "zh" ? "Best Jogging Stroller 力学指标" : "Best Jogging Stroller Rigor"}</h3>
+            <p className="mt-2 text-xs text-slate-500 font-semibold leading-relaxed">
+              {lang === "zh"
+                ? "专注于连续碎石模拟路面的前庭震力吸收、线性安全双手制动距离与轮轴轨迹防偏摆控制。"
+                : "Simulated gravel tests detailing vertical vestibular shock protection, dual-lever stop reaches, and anti-yaw wheel tracking."}
+            </p>
+          </div>
+        </div>
+
+        <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <div className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-orange-50 text-orange-500 mb-4 font-black">
+              🚲
+            </div>
+            <h3 className="text-xs font-black uppercase tracking-wider text-slate-900">{lang === "zh" ? "Kids Dirt Bike 特性" : "Kids Dirt Bike Performance"}</h3>
+            <p className="mt-2 text-xs text-slate-500 font-semibold leading-relaxed">
+              {lang === "zh"
+                ? "审核高刚度航空架体极限疲劳受重、双重把套无化学毒性环保、以及拐角倾斜过弯平衡力学。"
+                : "Evaluating aircraft-grade frame fatigue bounds, phthalate-free handle grip safety, and low-COG cornering slip indexes."}
+            </p>
+          </div>
+        </div>
+
+        {/* Buyer's Guide Cross-page interactive CTA Banner */}
+        <div className="lg:col-span-3 bg-linear-to-r from-orange-500 via-orange-500 to-amber-500 text-white rounded-[32px] p-8 flex flex-col md:flex-row justify-between items-center gap-6 shadow-lg shadow-orange-500/10">
+          <div className="space-y-1 md:max-w-2xl text-left">
+            <h4 className="font-black text-white text-lg tracking-tight">
+              {lang === "zh" ? "不确定哪款车最适合您的宝宝？" : "Unsure which model fits your child best?"}
+            </h4>
+            <p className="text-xs text-orange-100 font-bold leading-relaxed">
+              {lang === "zh"
+                ? "试一试我们内置于“选购指南(Buyer's Guide)”页面的参数化互动智能匹配系统，一秒算出属于您的宝宝的定制版车辆黄金参数！"
+                : "Try our interactive Smart Review Finder on the Buyer's Guide page! Input physical parameters and instantly match against all tested models."}
+            </p>
           </div>
           <button
-            onClick={() => onPageChange?.(Math.min(totalPages, safePage + 1))}
-            disabled={safePage >= totalPages}
-            className="w-10 h-10 rounded-2xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center"
-            aria-label={lang === "en" ? "Go to next page" : "下一页"}
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                localStorage.setItem("autoOpenWizard", "true");
+              }
+              setActiveTab?.("guides");
+            }}
+            className="px-6 py-4 bg-white text-slate-900 font-black text-xs uppercase tracking-widest rounded-2xl shadow-md hover:bg-slate-50 transition active:scale-95 cursor-pointer shrink-0"
           >
-            <svg aria-hidden="true" viewBox="0 0 20 20" className="w-4 h-4" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M7.5 4.5L13 10L7.5 15.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            {lang === "zh" ? "测一测我的最佳匹配 ➔" : "Go to Smart Finder Tool ➔"}
           </button>
         </div>
-      )}
+      </section>
 
+      {/* 🛠️ 模块 3：场景化横向动态对比矩阵区 (Dynamic Comparison Matrix) */}
+      <section className="bg-slate-950 text-white p-8 sm:p-12 rounded-[48px] max-w-7xl mx-auto shadow-2xl space-y-8 relative overflow-hidden">
+        {/* Atmosphere overlays */}
+        <div className="absolute top-0 right-0 w-80 h-80 bg-orange-500/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-emerald-500/5 rounded-full blur-3xl -ml-32 -mb-32"></div>
+
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-white/10 pb-6 relative z-10">
+          <div className="space-y-1 text-left">
+            <span className="text-[10px] font-black text-orange-400 uppercase tracking-widest">
+              {lang === "en" ? "Interactive Lab Matrix" : "互动横评矩阵"}
+            </span>
+            <h3 className="text-2xl font-black tracking-tight">{lang === "zh" ? "硬核实验室横向测评矩阵" : "Dynamic Comparison Matrix"}</h3>
+            <p className="text-xs text-slate-400 font-semibold">{lang === "zh" ? "客观解构市面主流型号物理属性，多轨道参数一目了然" : "Deconstructing physical attributes across major market candidates over objective lab parameters."}</p>
+          </div>
+
+          <div className="flex bg-white/10 p-1 rounded-2xl gap-1 border border-white/10 shrink-0">
+            {[
+              { id: "stroller", label: lang === "zh" ? "推车 (Strollers)" : "Strollers" },
+              { id: "balance", label: lang === "zh" ? "平衡车 (Balance)" : "Balance Bikes" },
+              { id: "bike", label: lang === "zh" ? "自重车 (Bikes)" : "Bikes & Dirt Bikes" }
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveCompareTab(tab.id as any)}
+                className={`px-4 py-2 rounded-xl text-xs font-black transition-all cursor-pointer ${activeCompareTab === tab.id ? "bg-orange-500 text-white shadow-md shadow-orange-500/20" : "text-slate-400 hover:text-white"}`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="overflow-x-auto relative z-10 rounded-2xl border border-white/10 bg-slate-900/50 backdrop-blur-md">
+          {activeCompareTab === "stroller" && (
+            <table className="w-full text-left text-xs min-w-[500px]">
+              <thead>
+                <tr className="bg-slate-900 border-b border-white/10 text-slate-400 uppercase font-black tracking-wider text-[10px]">
+                  <th className="p-4">{lang === "zh" ? "实测型号" : "Tested Model"}</th>
+                  <th className="p-4">{lang === "zh" ? "单手收折速度" : "Folding Design"}</th>
+                  <th className="p-4">{lang === "zh" ? "底盘车架重量" : "Frame Weight"}</th>
+                  <th className="p-4">{lang === "zh" ? "前庭滤震效能" : "Shock Dampening"}</th>
+                  <th className="p-4 text-right">{lang === "zh" ? "性价比勋章" : "Editor Choice"}</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/5 font-extrabold text-slate-200">
+                <tr className="hover:bg-white/5 transition-all">
+                  <td className="p-4 font-black text-white">MAMAZING Ultra Air</td>
+                  <td className="p-4">1.2 sec (Auto-Fold)</td>
+                  <td className="p-4 text-emerald-400">11.6 lbs (Carbon Fiber)</td>
+                  <td className="p-4">★★★★☆ (High elastic PU)</td>
+                  <td className="p-4 text-right">
+                    <span className="bg-orange-500 text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Editor's Choice ★</span>
+                  </td>
+                </tr>
+                <tr className="hover:bg-white/5 transition-all">
+                  <td className="p-4 font-black">Dream On Me Aero</td>
+                  <td className="p-4">3.5 sec (Manual Lock)</td>
+                  <td className="p-4">13.4 lbs (Light steel)</td>
+                  <td className="p-4">★★★☆☆ (Standard foam)</td>
+                  <td className="p-4 text-right text-slate-500">-</td>
+                </tr>
+                <tr className="hover:bg-white/5 transition-all">
+                  <td className="p-4 font-black">Chicco Bravo Trio</td>
+                  <td className="p-4">5.0 sec (Modular click)</td>
+                  <td className="p-4 text-rose-400 font-black">24.5 lbs (Heavy Duty)</td>
+                  <td className="p-4">★★★★★ (Air-filled rubber)</td>
+                  <td className="p-4 text-right text-slate-500">-</td>
+                </tr>
+                <tr className="hover:bg-white/5 transition-all">
+                  <td className="p-4 font-black">Infans Jogging</td>
+                  <td className="p-4">4.2 sec (Two-hand pull)</td>
+                  <td className="p-4">18.5 lbs (Aluminium)</td>
+                  <td className="p-4">★★★★★ (Active suspensions)</td>
+                  <td className="p-4 text-right">
+                    <span className="bg-slate-800 text-slate-400 text-[9px] font-black px-2 py-0.5 rounded-full uppercase">Runner Up</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          )}
+
+          {activeCompareTab === "balance" && (
+            <table className="w-full text-left text-xs min-w-[500px]">
+              <thead>
+                <tr className="bg-slate-900 border-b border-white/10 text-slate-400 uppercase font-black tracking-wider text-[10px]">
+                  <th className="p-4">{lang === "zh" ? "实测型号" : "Tested Model"}</th>
+                  <th className="p-4">{lang === "zh" ? "架架刚度抗疲劳" : "Frame Resistance"}</th>
+                  <th className="p-4">{lang === "zh" ? "防摔限位把" : "Steering Stop"}</th>
+                  <th className="p-4">{lang === "zh" ? "车胎避力物理特性" : "Tire Comfort"}</th>
+                  <th className="p-4 text-right">{lang === "zh" ? "评估勋章" : "Editor Choice"}</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/5 font-extrabold text-slate-200">
+                <tr className="hover:bg-white/5 transition-all">
+                  <td className="p-4 font-black text-white">Sereed Toddler Balance</td>
+                  <td className="p-4">45,000 cycles (Pass)</td>
+                  <td className="p-4">90° Double Lock</td>
+                  <td className="p-4">★★★★☆ (Compressed Layer)</td>
+                  <td className="p-4 text-right">
+                    <span className="bg-orange-500 text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider font-display">Editor's Choice ★</span>
+                  </td>
+                </tr>
+                <tr className="hover:bg-white/5 transition-all">
+                  <td className="p-4 font-black">Umatoll LED</td>
+                  <td className="p-4">35,000 cycles (Pass)</td>
+                  <td className="p-4">120° Free Sweep</td>
+                  <td className="p-4">★★★☆☆ (EVA Foam)</td>
+                  <td className="p-4 text-right text-slate-500">-</td>
+                </tr>
+                <tr className="hover:bg-white/5 transition-all">
+                  <td className="p-4 font-black">Gamfeiny Illuminated</td>
+                  <td className="p-4">30,000 cycles (Pass)</td>
+                  <td className="p-4">135° Free Sweep</td>
+                  <td className="p-4">★★★☆☆ (EVA Foam)</td>
+                  <td className="p-4 text-right text-slate-500">-</td>
+                </tr>
+              </tbody>
+            </table>
+          )}
+
+          {activeCompareTab === "bike" && (
+            <table className="w-full text-left text-xs min-w-[500px]">
+              <thead>
+                <tr className="bg-slate-900 border-b border-white/10 text-slate-400 uppercase font-black tracking-wider text-[10px]">
+                  <th className="p-4">{lang === "zh" ? "实测型号" : "Tested Model"}</th>
+                  <th className="p-4">{lang === "zh" ? "刹把传动线性距" : "Brake Reach"}</th>
+                  <th className="p-4">{lang === "zh" ? "链条全包裹防夹" : "Chain Safety"}</th>
+                  <th className="p-4">{lang === "zh" ? "自重自阻称重" : "Dead Weight"}</th>
+                  <th className="p-4 text-right">{lang === "zh" ? "安全评级" : "Editor Choice"}</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/5 font-extrabold text-slate-200">
+                <tr className="hover:bg-white/5 transition-all">
+                  <td className="p-4 font-black text-white">Glerc Rover 12"</td>
+                  <td className="p-4 text-emerald-400">42mm Narrow Reach (Yes)</td>
+                  <td className="p-4">100% Fully Enclosed</td>
+                  <td className="p-4">14.3 lbs (Alloy)</td>
+                  <td className="p-4 text-right">
+                    <span className="bg-orange-500 text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Editor's Choice ★</span>
+                  </td>
+                </tr>
+                <tr className="hover:bg-white/5 transition-all">
+                  <td className="p-4 font-black">Cubsala BMX</td>
+                  <td className="p-4">48mm Standard Reach</td>
+                  <td className="p-4">85% Segment Enclosed</td>
+                  <td className="p-4 text-rose-400">18.6 lbs (High Steel)</td>
+                  <td className="p-4 text-right text-slate-500">-</td>
+                </tr>
+                <tr className="hover:bg-white/5 transition-all">
+                  <td className="p-4 font-black">Weize Dual Suspension</td>
+                  <td className="p-4">52mm Wide Reach</td>
+                  <td className="p-4">Unwrapped chain (Warn)</td>
+                  <td className="p-4">22.1 lbs (Heavy Offroad)</td>
+                  <td className="p-4 text-right">
+                    <span className="bg-slate-800 text-slate-400 text-[9px] font-black px-2 py-0.5 rounded-full uppercase">Rugged Class</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          )}
+        </div>
+      </section>
+
+      {/* 🛠️ 模块 4：结构化深度评测报告流 (Categorized Review Stream) */}
+      <div className="space-y-24 max-w-7xl mx-auto">
+        
+        {/* FLOOR 1: 最新评测专区 */}
+        <section id="latest-reviews" className="scroll-mt-24 space-y-8">
+          <div className="border-b border-slate-100 pb-4">
+            <div className="flex items-center gap-2">
+              <span className="p-1 px-2.5 bg-orange-500 text-white text-[10px] font-black rounded-lg uppercase">NEW 2026</span>
+              <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
+                {lang === "zh" ? "最新评测专区 (Latest Reviews)" : "Latest Reviews: Global 2026 Fresh Evaluated"}
+              </h2>
+            </div>
+            <p className="mt-2 text-sm text-slate-500 font-medium">
+              {lang === "zh" ? "最新出炉的实验室第一手物理安全、避震与装配工艺剖析。" : "Our freshest lab assessments covering Travel Stroller 2026, Jogging Stroller 2026, and Kids Dirt Bites 2026."}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {pagedRenderList.slice(0, 4).map((block: any) => {
+              const ev = block.evaluation;
+              const product = block.product || block.products?.[0];
+              if (!product) return null;
+              const dp = translateProduct(product, lang);
+              const evLang = lang === "zh" ? ev.zh : ev.en;
+              const imageSet = resolveProductImages(product);
+
+              return (
+                <div
+                  key={ev.id}
+                  onClick={() => openEvaluationDetail(ev)}
+                  className="bg-white border border-slate-100 rounded-[36px] p-6 hover:shadow-xl transition-all duration-300 flex flex-col md:flex-row gap-6 cursor-pointer group"
+                >
+                  <div className="md:w-2/5 h-44 bg-slate-50 rounded-2xl p-4 flex items-center justify-center overflow-hidden shrink-0">
+                    <SmartImage
+                      src={imageSet.coverUrl || undefined}
+                      alt={getProductImageAlt(product)}
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                      wrapperClassName="w-full h-full"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-between flex-1 py-1">
+                    <div className="space-y-2">
+                      <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
+                      <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors line-clamp-2">{evLang.title}</h3>
+                      <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
+                    </div>
+                    <div className="flex justify-between items-center pt-4 border-t border-slate-50">
+                      <span className="text-[10px] text-slate-400 font-black uppercase">{lang === "en" ? "Review Report ➔" : "查看完整报告 ➔"}</span>
+                      {ev.scores?.safety && (
+                        <div className="flex items-center gap-1">
+                          <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
+                          <span className="text-[11px] font-black text-slate-800">{ev.scores.safety.toFixed(1)}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* FLOOR 2: BALANCE BIKES */}
+        <section id="balance-bike" className="scroll-mt-24 space-y-8">
+          <div className="border-b border-slate-100 pb-4">
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
+              {lang === "zh" ? "儿科力学：Balance Bike 深度评测" : "Balance Bike Reviews: Biomechanical Testing"}
+            </h2>
+            <p className="mt-2 text-sm text-slate-500 font-medium">
+              {lang === "zh" ? "首推平衡车代表评测：SEREED、Gamfeiny 与 Umatoll 等学跑单品。" : "Representative balance bike reviews focusing on child low centers of gravity, shock performance, and turning controls."}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {balanceBikeFloorReviews.slice(0, 4).map((item: any) => {
+              const ev = item.evaluation;
+              const product = item.product || item.products?.[0];
+              if (!product) return null;
+              const dp = translateProduct(product, lang);
+              const evLang = lang === "zh" ? ev.zh : ev.en;
+              const imageSet = resolveProductImages(product);
+
+              return (
+                <div
+                  key={ev.id}
+                  onClick={() => openEvaluationDetail(ev)}
+                  className="bg-white border border-slate-100 rounded-[36px] p-6 hover:shadow-xl transition-all duration-300 flex flex-col md:flex-row gap-6 cursor-pointer group"
+                >
+                  <div className="md:w-2/5 h-44 bg-slate-50 rounded-2xl p-4 flex items-center justify-center overflow-hidden shrink-0">
+                    <SmartImage
+                      src={imageSet.coverUrl || undefined}
+                      alt={getProductImageAlt(product)}
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                      wrapperClassName="w-full h-full"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-between flex-1 py-1">
+                    <div className="space-y-2">
+                       <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
+                      <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors line-clamp-2">{evLang.title}</h3>
+                      <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
+                    </div>
+                    <div className="flex justify-between items-center pt-4 border-t border-slate-50">
+                      <span className="text-[10px] text-slate-400 font-black uppercase">{lang === "en" ? "Review Report ➔" : "查看完整报告 ➔"}</span>
+                      {ev.scores?.safety && (
+                        <div className="flex items-center gap-1">
+                          <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
+                          <span className="text-[11px] font-black text-slate-800">{ev.scores.safety.toFixed(1)}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* FLOOR 3: KIDS BIKES */}
+        <section id="kids-bike" className="scroll-mt-24 space-y-8">
+          <div className="border-b border-slate-100 pb-4">
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
+              {lang === "zh" ? "经典踩踏：Kids Bike 深度评测" : "Kids Bike Reviews: Pedal Durability & Brakes"}
+            </h2>
+            <p className="mt-2 text-sm text-slate-500 font-medium">
+              {lang === "zh" ? "大童脚踏车精品测试：JOYSTAR、Cubsala-BMX 与 Glerc 等型号。" : "Pedal-assisted kids bike deep reviews, highlighting chain covers, dual mechanical brakes, and Q-factor biomechanics."}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {kidsBikeOnlyReviews.slice(0, 4).map((item: any) => {
+              const ev = item.evaluation;
+              const product = item.product || item.products?.[0];
+              if (!product) return null;
+              const dp = translateProduct(product, lang);
+              const evLang = lang === "zh" ? ev.zh : ev.en;
+              const imageSet = resolveProductImages(product);
+
+              return (
+                <div
+                  key={ev.id}
+                  onClick={() => openEvaluationDetail(ev)}
+                  className="bg-white border border-slate-100 rounded-[36px] p-6 hover:shadow-xl transition-all duration-300 flex flex-col md:flex-row gap-6 cursor-pointer group"
+                >
+                  <div className="md:w-2/5 h-44 bg-slate-50 rounded-2xl p-4 flex items-center justify-center overflow-hidden shrink-0">
+                    <SmartImage
+                      src={imageSet.coverUrl || undefined}
+                      alt={getProductImageAlt(product)}
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                      wrapperClassName="w-full h-full"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-between flex-1 py-1">
+                    <div className="space-y-2">
+                       <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
+                      <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors line-clamp-2">{evLang.title}</h3>
+                      <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
+                    </div>
+                    <div className="flex justify-between items-center pt-4 border-t border-slate-50">
+                      <span className="text-[10px] text-slate-400 font-black uppercase">{lang === "en" ? "Review Report ➔" : "查看完整报告 ➔"}</span>
+                      {ev.scores?.safety && (
+                        <div className="flex items-center gap-1">
+                          <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
+                          <span className="text-[11px] font-black text-slate-800">{ev.scores.safety.toFixed(1)}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* FLOOR 4: KIDS SCOOTERS */}
+        <section id="kids-scooter" className="scroll-mt-24 space-y-8">
+          <div className="border-b border-slate-100 pb-4">
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
+              {lang === "zh" ? "极速滑行：Kids Scooter 深度评测" : "Kids Scooter Reviews: Steering & Deck Strength"}
+            </h2>
+            <p className="mt-2 text-sm text-slate-500 font-medium">
+              {lang === "zh" ? "三轮重力转向摇摆及两轮滑板车评测：Gotrax、HopCycle 系列款。" : "Kick-on scooter reviews verifying lean-to-steer rebound mechanisms and PU wear-resistant flashing wheel grids."}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {kidsScooterOnlyReviews.slice(0, 4).map((item: any) => {
+              const ev = item.evaluation;
+              const product = item.product || item.products?.[0];
+              if (!product) return null;
+              const dp = translateProduct(product, lang);
+              const evLang = lang === "zh" ? ev.zh : ev.en;
+              const imageSet = resolveProductImages(product);
+
+              return (
+                <div
+                  key={ev.id}
+                  onClick={() => openEvaluationDetail(ev)}
+                  className="bg-white border border-slate-100 rounded-[36px] p-6 hover:shadow-xl transition-all duration-300 flex flex-col md:flex-row gap-6 cursor-pointer group"
+                >
+                  <div className="md:w-2/5 h-44 bg-slate-50 rounded-2xl p-4 flex items-center justify-center overflow-hidden shrink-0">
+                    <SmartImage
+                      src={imageSet.coverUrl || undefined}
+                      alt={getProductImageAlt(product)}
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                      wrapperClassName="w-full h-full"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-between flex-1 py-1">
+                    <div className="space-y-2">
+                       <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
+                      <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors line-clamp-2">{evLang.title}</h3>
+                      <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
+                    </div>
+                    <div className="flex justify-between items-center pt-4 border-t border-slate-50">
+                      <span className="text-[10px] text-slate-400 font-black uppercase">{lang === "en" ? "Review Report ➔" : "查看完整报告 ➔"}</span>
+                      {ev.scores?.safety && (
+                        <div className="flex items-center gap-1">
+                          <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
+                          <span className="text-[11px] font-black text-slate-800">{ev.scores.safety.toFixed(1)}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* FLOOR 5: KIDS STROLLERS */}
+        <section id="kids-stroller" className="scroll-mt-24 space-y-8">
+          <div className="border-b border-slate-100 pb-4">
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
+              {lang === "zh" ? "高端出行：Best Stroller 深度评测" : "Kids Stroller Reviews: Airport Travel & Running Joggers"}
+            </h2>
+            <p className="mt-2 text-sm text-slate-500 font-medium">
+              {lang === "zh" ? "折叠超轻便推车与中负荷避挂推车多维横评。" : "Comprehensive assessments of lightweight cabin buggies and structural dual-suspension strollers."}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {doubleStrollerFloorReviews.slice(0, 4).map((item: any) => {
+              const ev = item.evaluation;
+              const product = item.product || item.products?.[0];
+              if (!product) return null;
+              const dp = translateProduct(product, lang);
+              const evLang = lang === "zh" ? ev.zh : ev.en;
+              const imageSet = resolveProductImages(product);
+
+              return (
+                <div
+                  key={ev.id}
+                  onClick={() => openEvaluationDetail(ev)}
+                  className="bg-white border border-slate-100 rounded-[36px] p-6 hover:shadow-xl transition-all duration-300 flex flex-col md:flex-row gap-6 cursor-pointer group"
+                >
+                  <div className="md:w-2/5 h-44 bg-slate-50 rounded-2xl p-4 flex items-center justify-center overflow-hidden shrink-0">
+                    <SmartImage
+                      src={imageSet.coverUrl || undefined}
+                      alt={getProductImageAlt(product)}
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                      wrapperClassName="w-full h-full"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-between flex-1 py-1">
+                    <div className="space-y-2">
+                       <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
+                      <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors line-clamp-2">{evLang.title}</h3>
+                      <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
+                    </div>
+                    <div className="flex justify-between items-center pt-4 border-t border-slate-50">
+                      <span className="text-[10px] text-slate-400 font-black uppercase">{lang === "en" ? "Review Report ➔" : "查看完整报告 ➔"}</span>
+                      {ev.scores?.safety && (
+                        <div className="flex items-center gap-1">
+                          <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
+                          <span className="text-[11px] font-black text-slate-800">{ev.scores.safety.toFixed(1)}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* FLOOR 6: KIDS ELECTRIC CAR */}
+        <section id="kids-electric-car" className="scroll-mt-24 space-y-8">
+          <div className="border-b border-slate-100 pb-4">
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
+              {lang === "zh" ? "仿真驾驶：Kids Electric Car 深度评测" : "Kids Electric Car Reviews: Safety Circuits & Battery Audits"}
+            </h2>
+            <p className="mt-2 text-sm text-slate-500 font-medium">
+              {lang === "zh" ? "越野电动车、仿真赛车多轨测试：防护起步加速度与绝缘回路安全性。" : "Uncompromising ride-on reviews prioritizing electrical insulation parameters and parental wireless kill locks."}
+            </p>
+          </div>
+
+          {electricCarOnlyReviews.length === 0 ? (
+            <p className="text-slate-400 text-sm italic">{lang === "en" ? "No electric car evaluations currently compiled." : "暂无电动玩具车专项测评。"}</p>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {electricCarOnlyReviews.slice(0, 4).map((item: any) => {
+                const ev = item.evaluation;
+                const product = item.product || item.products?.[0];
+                if (!product) return null;
+                const dp = translateProduct(product, lang);
+                const evLang = lang === "zh" ? ev.zh : ev.en;
+                const imageSet = resolveProductImages(product);
+
+                return (
+                  <div
+                    key={ev.id}
+                    onClick={() => openEvaluationDetail(ev)}
+                    className="bg-white border border-slate-100 rounded-[36px] p-6 hover:shadow-xl transition-all duration-300 flex flex-col md:flex-row gap-6 cursor-pointer group"
+                  >
+                    <div className="md:w-2/5 h-44 bg-slate-50 rounded-2xl p-4 flex items-center justify-center overflow-hidden shrink-0">
+                      <SmartImage
+                        src={imageSet.coverUrl || undefined}
+                        alt={getProductImageAlt(product)}
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                        wrapperClassName="w-full h-full"
+                      />
+                    </div>
+                    <div className="flex flex-col justify-between flex-1 py-1">
+                      <div className="space-y-2">
+                         <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
+                        <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors line-clamp-2">{evLang.title}</h3>
+                        <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
+                      </div>
+                      <div className="flex justify-between items-center pt-4 border-t border-slate-50">
+                        <span className="text-[10px] text-slate-400 font-black uppercase">{lang === "en" ? "Review Report ➔" : "查看完整报告 ➔"}</span>
+                        {ev.scores?.safety && (
+                          <div className="flex items-center gap-1">
+                            <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
+                            <span className="text-[11px] font-black text-slate-800">{ev.scores.safety.toFixed(1)}</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </section>
+
+      </div>
+
+      {/* 🛠️ 模块 5：独立测试方法论与国际标准认证 (Lab Rigor & Badges) */}
+      <section className="bg-white border border-slate-100 rounded-[48px] p-8 sm:p-10 max-w-7xl mx-auto shadow-sm space-y-6 text-center">
+        <div className="max-w-4xl mx-auto space-y-3">
+          <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-orange-500">KIDSMOBI LAB STANDARDS</h4>
+          <h3 className="text-2xl font-black text-slate-900">{lang === "zh" ? "测试方法论与客观性誓言" : "Independent Rigor & Certification Compliance"}</h3>
+          <p className="text-xs text-slate-500 font-medium leading-relaxed">
+            {lang === "zh"
+              ? "KIDSMOBI 物理安全验证完全遵守各项核心权威儿童辅具出厂与行使指标。我们坚持零赞助协议，样品直接进入滚筒颠簸疲劳机实测，不接受商业推广影响结果。"
+              : "We stand on strict compliance. Every travel stroller model, balance bike, and kids electric car is subjected to dynamic rolling stress telemetry. We receive 0% direct corporate backing, keeping our scores purely consumer-protective."}
+          </p>
+        </div>
+
+        {/* Global Compliance Cert badges map */}
+        <div className="pt-4 border-t border-slate-100 flex flex-wrap justify-center items-center gap-6 sm:gap-12 opacity-40 grayscale hover:opacity-80 hover:grayscale-0 transition-all duration-500">
+          {[
+            { label: "CPSC", detail: "US Consumer Protection" },
+            { label: "ISO 8098", detail: "Braking Standards" },
+            { label: "GB 14746", detail: "China Safety Line" },
+            { label: "EN 71", detail: "EU Toys Rigor" },
+            { label: "ASTM F963", detail: "Mechanical Strength" }
+          ].map((cert, index) => (
+            <div key={index} className="flex flex-col items-center gap-1">
+              <span className="text-sm font-black text-slate-900 tracking-wider font-display uppercase">{cert.label}</span>
+              <span className="text-[8px] font-bold text-slate-400 block tracking-normal leading-none">{cert.detail}</span>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
+ 

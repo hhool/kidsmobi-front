@@ -512,6 +512,17 @@ export default function GuidesSection({
   const [wizardScenario, setWizardScenario] = useState<string>("all");
   const [showWizardResults, setShowWizardResults] = useState<boolean>(false);
 
+  useEffect(() => {
+    if (typeof window !== "undefined" && localStorage.getItem("autoOpenWizard") === "true") {
+      localStorage.removeItem("autoOpenWizard");
+      setShowWizardResults(true);
+      setTimeout(() => {
+        const el = document.getElementById("guides_container");
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 150);
+    }
+  }, []);
+
   const generatedGuideArticles = useMemo(
     () => buildGeneratedGuideArticles(productsData, lang),
     [productsData, lang]
