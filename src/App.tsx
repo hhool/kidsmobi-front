@@ -1067,14 +1067,22 @@ export default function App() {
   };
 
   useEffect(() => {
-    // Backward compatibility for legacy child components that still call window.setActiveTab.
+    // Backward compatibility for legacy child components that still call window.setActiveTab or navigateToPath.
     (window as any).setActiveTab = navigateToTab;
+    (window as any).navigateToPath = navigateToPath;
+    (window as any).setActiveGuidesCategory = setActiveGuidesCategory;
     return () => {
       if ((window as any).setActiveTab === navigateToTab) {
         delete (window as any).setActiveTab;
       }
+      if ((window as any).navigateToPath === navigateToPath) {
+        delete (window as any).navigateToPath;
+      }
+      if ((window as any).setActiveGuidesCategory === setActiveGuidesCategory) {
+        delete (window as any).setActiveGuidesCategory;
+      }
     };
-  }, [navigateToTab]);
+  }, [navigateToTab, navigateToPath, setActiveGuidesCategory]);
 
   useEffect(() => {
     const handleLocationUpdate = () => {

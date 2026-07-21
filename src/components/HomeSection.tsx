@@ -781,10 +781,14 @@ export default function HomeSection({
             <h2 className="text-3xl font-black text-slate-900 tracking-tight">2026 Awards: Best Kids' Mobility Picks</h2>
           </div>
           <a
-            href="/reviews/ranking"
+            href="/guides/best"
             onClick={(e) => {
               e.preventDefault();
-              setActiveTab("evaluations");
+              if ((window as any).navigateToPath) {
+                (window as any).navigateToPath("/guides/best");
+              } else {
+                setActiveTab("guides");
+              }
             }}
             className="text-sm font-black text-slate-400 hover:text-orange-500 transition-colors uppercase tracking-widest"
           >
@@ -1111,11 +1115,34 @@ export default function HomeSection({
 
         {/* Subsection A: Best Stroller & Jogging Stroller */}
         <div className="space-y-6">
-          <div className="border-l-4 border-orange-500 pl-4">
-            <h3 className="text-xl font-black text-slate-900 tracking-tight">Best Stroller & Jogging Stroller</h3>
-            <p className="text-slate-500 text-xs font-semibold mt-1">
-              {lang === "zh" ? "精选高端与慢跑婴儿推车，重点测评悬挂避震性能与安全带固定系统。" : "Top-rated everyday and jogging strollers. We audit shock absorption, frame rigidity, and secure harness layouts."}
-            </p>
+          <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
+            <div>
+              <h3 className="text-xl font-black text-slate-900 tracking-tight">Best Stroller & Jogging Stroller</h3>
+              <p className="text-slate-500 text-xs font-semibold mt-1">
+                {lang === "zh" ? "精选高端与慢跑婴儿推车，重点测评悬挂避震性能与安全带固定系统。" : "Top-rated everyday and jogging strollers. We audit shock absorption, frame rigidity, and secure harness layouts."}
+              </p>
+            </div>
+            <a
+              href="/guides/best"
+              onClick={(e) => {
+                e.preventDefault();
+                localStorage.setItem("selectedCategory", "best");
+                localStorage.setItem("autoSelectWizardCategory", "stroller");
+                if ((window as any).navigateToPath) {
+                  (window as any).navigateToPath("/guides/best");
+                  // Trigger category synchronizer
+                  if (typeof (window as any).setActiveGuidesCategory === "function") {
+                    (window as any).setActiveGuidesCategory("best");
+                  }
+                } else {
+                  setActiveTab("guides");
+                }
+              }}
+              className="text-xs font-black text-orange-500 hover:text-orange-600 hover:underline transition-colors shrink-0 uppercase tracking-widest pl-4 flex items-center gap-1.5"
+            >
+              <span>{lang === "zh" ? "更多精选推荐" : "More Picks"}</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {strollerProducts.map((p, idx) => renderProductCard(p, idx))}
@@ -1124,11 +1151,34 @@ export default function HomeSection({
 
         {/* Subsection B: Best Balance Bike */}
         <div className="space-y-6 pt-6">
-          <div className="border-l-4 border-orange-500 pl-4">
-            <h3 className="text-xl font-black text-slate-900 tracking-tight">Best Balance Bike</h3>
-            <p className="text-slate-500 text-xs font-semibold mt-1">
-              {lang === "zh" ? "专为幼童打造的滑行平衡车测评，聚焦轮胎防滑、防侧翻限位及脚踏高度配置。" : "Safest toddler-friendly balance bikes. We test handle grips, turning limiters, and frame weights."}
-            </p>
+          <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
+            <div>
+              <h3 className="text-xl font-black text-slate-900 tracking-tight">Best Balance Bike</h3>
+              <p className="text-slate-500 text-xs font-semibold mt-1">
+                {lang === "zh" ? "专为幼童打造的滑行平衡车测评，聚焦轮胎防滑、防侧翻限位及脚踏高度配置。" : "Safest toddler-friendly balance bikes. We test handle grips, turning limiters, and frame weights."}
+              </p>
+            </div>
+            <a
+              href="/guides/best"
+              onClick={(e) => {
+                e.preventDefault();
+                localStorage.setItem("selectedCategory", "best");
+                localStorage.setItem("autoSelectWizardCategory", "balance");
+                if ((window as any).navigateToPath) {
+                  (window as any).navigateToPath("/guides/best");
+                  // Trigger category synchronizer
+                  if (typeof (window as any).setActiveGuidesCategory === "function") {
+                    (window as any).setActiveGuidesCategory("best");
+                  }
+                } else {
+                  setActiveTab("guides");
+                }
+              }}
+              className="text-xs font-black text-orange-500 hover:text-orange-600 hover:underline transition-colors shrink-0 uppercase tracking-widest pl-4 flex items-center gap-1.5"
+            >
+              <span>{lang === "zh" ? "更多精选推荐" : "More Picks"}</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {balanceBikeProducts.map((p, idx) => renderProductCard(p, idx + 1))}
@@ -1137,11 +1187,34 @@ export default function HomeSection({
 
         {/* Subsection C: Best Kids Bike */}
         <div className="space-y-6 pt-6">
-          <div className="border-l-4 border-orange-500 pl-4">
-            <h3 className="text-xl font-black text-slate-900 tracking-tight">Best Kids Bike</h3>
-            <p className="text-slate-500 text-xs font-semibold mt-1">
-              {lang === "zh" ? "精选 12-16 英寸高安全评分儿童自行车，严苛测试制动距离与车架刚度。" : "Curated 12-16 inch kids bike models. Rigorously tested for pedal stability, frame geometry and stopping power."}
-            </p>
+          <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
+            <div>
+              <h3 className="text-xl font-black text-slate-900 tracking-tight">Best Kids Bike</h3>
+              <p className="text-slate-500 text-xs font-semibold mt-1">
+                {lang === "zh" ? "精选 12-16 英寸高安全评分儿童自行车，严苛测试制动距离与车架刚度。" : "Curated 12-16 inch kids bike models. Rigorously tested for pedal stability, frame geometry and stopping power."}
+              </p>
+            </div>
+            <a
+              href="/guides/best"
+              onClick={(e) => {
+                e.preventDefault();
+                localStorage.setItem("selectedCategory", "best");
+                localStorage.setItem("autoSelectWizardCategory", "bicycle");
+                if ((window as any).navigateToPath) {
+                  (window as any).navigateToPath("/guides/best");
+                  // Trigger category synchronizer
+                  if (typeof (window as any).setActiveGuidesCategory === "function") {
+                    (window as any).setActiveGuidesCategory("best");
+                  }
+                } else {
+                  setActiveTab("guides");
+                }
+              }}
+              className="text-xs font-black text-orange-500 hover:text-orange-600 hover:underline transition-colors shrink-0 uppercase tracking-widest pl-4 flex items-center gap-1.5"
+            >
+              <span>{lang === "zh" ? "更多精选推荐" : "More Picks"}</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {kidsBikeProducts.map((p, idx) => renderProductCard(p, idx + 2))}
@@ -1150,11 +1223,34 @@ export default function HomeSection({
 
         {/* Subsection D: Best Kids Scooter */}
         <div className="space-y-6 pt-6">
-          <div className="border-l-4 border-orange-500 pl-4">
-            <h3 className="text-xl font-black text-slate-900 tracking-tight">Best Kids Scooter</h3>
-            <p className="text-slate-500 text-xs font-semibold mt-1">
-              {lang === "zh" ? "针对幼童与大童的防翻侧滑板车评测，重点聚焦重力转向及防空转安全垫片。" : "Robust safety evaluations on stability and lean-to-steer mechanisms. We audit deck strength and steering response."}
-            </p>
+          <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
+            <div>
+              <h3 className="text-xl font-black text-slate-900 tracking-tight">Best Kids Scooter</h3>
+              <p className="text-slate-500 text-xs font-semibold mt-1">
+                {lang === "zh" ? "针对幼童与大童的防翻侧滑板车评测，重点聚焦重力转向及防空转安全垫片。" : "Robust safety evaluations on stability and lean-to-steer mechanisms. We audit deck strength and steering response."}
+              </p>
+            </div>
+            <a
+              href="/guides/best"
+              onClick={(e) => {
+                e.preventDefault();
+                localStorage.setItem("selectedCategory", "best");
+                localStorage.setItem("autoSelectWizardCategory", "scooter");
+                if ((window as any).navigateToPath) {
+                  (window as any).navigateToPath("/guides/best");
+                  // Trigger category synchronizer
+                  if (typeof (window as any).setActiveGuidesCategory === "function") {
+                    (window as any).setActiveGuidesCategory("best");
+                  }
+                } else {
+                  setActiveTab("guides");
+                }
+              }}
+              className="text-xs font-black text-orange-500 hover:text-orange-600 hover:underline transition-colors shrink-0 uppercase tracking-widest pl-4 flex items-center gap-1.5"
+            >
+              <span>{lang === "zh" ? "更多精选推荐" : "More Picks"}</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {kidsScooterProducts.map((p, idx) => renderProductCard(p, idx + 3))}

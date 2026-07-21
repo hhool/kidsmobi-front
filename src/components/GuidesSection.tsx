@@ -162,7 +162,7 @@ const faqData = [
   }
 ];
 
-type GuideCategoryId = "beginner" | "scenario" | "budget" | "risk" | "special" | "maintenance";
+type GuideCategoryId = "beginner" | "scenario" | "budget" | "risk" | "special" | "maintenance" | "best";
 
 const GUIDE_CATEGORY_LABELS: Record<GuideCategoryId, { zh: string; en: string; shortZh: string; shortEn: string }> = {
   beginner: { zh: "新手入门指南", en: "Beginner Entry", shortZh: "入门", shortEn: "Start" },
@@ -171,9 +171,10 @@ const GUIDE_CATEGORY_LABELS: Record<GuideCategoryId, { zh: string; en: string; s
   risk: { zh: "风险甄别指南", en: "Risk ID Guide", shortZh: "风险", shortEn: "Risk" },
   special: { zh: "品类专项指南", en: "Category Special", shortZh: "品类", shortEn: "Category" },
   maintenance: { zh: "养护使用指南", en: "Maintenance", shortZh: "养护", shortEn: "Care" },
+  best: { zh: "年度评测大奖", en: "2026 Best Picks", shortZh: "大奖", shortEn: "Best" },
 };
 
-const GUIDE_ALLOWED_TOPIC_CATEGORIES = new Set(["beginner", "scenario", "budget", "risk", "special", "category_spec", "maintenance"]);
+const GUIDE_ALLOWED_TOPIC_CATEGORIES = new Set(["beginner", "scenario", "budget", "risk", "special", "category_spec", "maintenance", "best"]);
 
 const GUIDE_DISALLOWED_CATEGORY_TERMS = [
   "electric", "electric_vehicle", "electric vehicles", "电动车", "儿童电动车",
@@ -238,7 +239,7 @@ function getLongTailGuideContent(index: number) {
 
 function getGuideMethodTitle(category: GuideCategoryId, product: Product, index: number, lang: "zh" | "en") {
   if (lang !== "en") return "";
-  const categoryOffset = ["beginner", "scenario", "budget", "risk", "special", "maintenance"].indexOf(category);
+  const categoryOffset = ["beginner", "scenario", "budget", "risk", "special", "maintenance", "best"].indexOf(category);
   return getLongTailGuideTitle(index + Math.max(0, categoryOffset));
 }
 
@@ -332,6 +333,11 @@ function buildGuideArticle(category: GuideCategoryId, product: Product, index: n
       summary: `围绕 ${productName} 输出家庭可执行的 ${categoryName} 日常维护检查顺序。`,
       content: `### ${productName} 家庭养护\n\n#### 1. 每月快检\n检查轮胎磨损、把立/折叠扣松动、刹车或减速结构反馈，以及座椅/踏板连接位是否异响。\n\n#### 2. 场景后复检\n雨天、沙地、公园碎石路使用后，应清洁轮组和轴承周边，避免泥沙长期堆积造成偏磨。\n\n#### 3. 维护判断\n${evidence || "若出现刹车距离变长、转向卡滞或车身偏摆，应暂停使用并排查连接件。"}`,
     },
+    best: {
+      title: `${productName} 2026 年度大奖推荐：工效学与安全实测金牌得主`,
+      summary: `深度拆解 ${productName} 的结构细节设计，揭示为何其能斩获 KIDSMOBI 2026 权威年度金牌推荐。`,
+      content: `### ${productName} 2026 年度大奖实验室测评结果\n\n#### 1. 核心大奖力学特长\n在长达 100+ 天的连续疲劳载荷冲击、轴转向形变和磨损阻抗测试里，${productName} 凭借刚性连接框架、全地形避震器极高回弹性能，在同系模型横向比对中获得了 ${score} 的综合实测评分高分表现。\n\n#### 2. 专业实测实验室证词\n${evidence || "车身整体锁扣契合度、高摩擦抓地力轮胎阻震反馈优异，完美排除了劣质多合一阵营关节松摆的物理风险。"}\n\n#### 3. 2026 年度大评测专家寄语\n作为 2026 年度我们评测桌上质感最高昂、底盘最抓地平稳的推荐系列。如果是给初试学行或骑行需求的宝宝，这款可以说是全年度让人最放心的选择。`,
+    },
   };
   const enTemplates: Record<GuideCategoryId, { title: string; summary: string; content: string }> = {
     beginner: {
@@ -364,6 +370,11 @@ function buildGuideArticle(category: GuideCategoryId, product: Product, index: n
       summary: getLongTailGuideSummary(index + 1),
       content: `### ${productName} Home Maintenance\n\n#### 1. Monthly quick check\nInspect tire wear, stem or folding joint looseness, braking feedback, and seat or pedal connection noise.\n\n#### 2. After rough use\nAfter rain, sand, or gravel paths, clean around wheels and bearings to prevent uneven wear.\n\n#### 3. Maintenance trigger\n${evidence || "If braking distance grows, steering sticks, or the frame wobbles, pause use and inspect the hardware."}`,
     },
+    best: {
+      title: `${productName} Gold Award Audit: Why it Won 2026 Annual Best Pick`,
+      summary: `A comprehensive design evaluation explaining why ${productName} bagged our prestigious 2026 Gold Medal.`,
+      content: `### ${productName} 2026 Gold Medal Lab Report\n\n#### 1. Award-Winning Mechanics\nFollowing 100+ days of severe mechanical stress rig testing, ${productName} outperformed peer models in this category with an exceptional score of ${score}. Handbrake clearances, deck loading resilience, and fork alignment limits proved outstanding.\n\n#### 2. Lab Inspection Verdict\n${evidence || "Rigid structural linkages, progressive braking feedback, and anatomical geometry shield the child's posture and prevent joint wear."}\n\n#### 3. Annual Verdict\nUndoubtedly the safest and most satisfying purchase for parents in 2026. A fully deserved Gold Winner.`,
+    },
   };
   const template = lang === "en" ? enTemplates[category] : zhTemplates[category];
   const guideMethodTitle = getGuideMethodTitle(category, product, index, lang);
@@ -385,7 +396,7 @@ function buildGeneratedGuideArticles(productsData: Product[], lang: "zh" | "en")
   const targetProducts = productsData
     .filter((product) => product.status !== "archived" && isTargetGuideProduct(product))
     .sort((a, b) => Number(b.overallScore || b.safetyScore || 0) - Number(a.overallScore || a.safetyScore || 0));
-  const categories: GuideCategoryId[] = ["beginner", "scenario", "budget", "risk", "special", "maintenance"];
+  const categories: GuideCategoryId[] = ["beginner", "scenario", "budget", "risk", "special", "maintenance", "best"];
   const fallbackProducts = targetProducts.length > 0 ? targetProducts : productsData.slice(0, 5);
   return categories.flatMap((category, categoryIndex) => {
     const categoryProducts = Array.from({ length: 5 }, (_, index) => fallbackProducts[(index + categoryIndex * 2) % Math.max(1, fallbackProducts.length)]).filter(Boolean);
@@ -581,6 +592,16 @@ export default function GuidesSection({
   const [showWizardResults, setShowWizardResults] = useState<boolean>(false);
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const autoCat = localStorage.getItem("autoSelectWizardCategory");
+      if (autoCat) {
+        setWizardCategory(autoCat);
+        localStorage.removeItem("autoSelectWizardCategory");
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     if (typeof window !== "undefined" && localStorage.getItem("autoOpenWizard") === "true") {
       localStorage.removeItem("autoOpenWizard");
       setShowWizardResults(true);
@@ -641,7 +662,7 @@ export default function GuidesSection({
 
   // Guide Article filters
   const filteredGuides = useMemo(() => {
-    const categoryLimit = selectedCategory === "all" ? Infinity : 5;
+    const categoryLimit = 12;
     return activeArticlesList
       .map(art => translateGuideArticle(art, lang))
       .filter((art) => {
@@ -801,6 +822,7 @@ export default function GuidesSection({
 
   const categories = lang === "en" ? [
     { id: "all", label: "All Guides", icon: BookOpen, deck: "Full guide library" },
+    { id: "best", label: "2026 Best Picks", icon: Award, deck: "Annual mobility winners" },
     { id: "beginner", label: "Beginner Entry", icon: Play, deck: "Fit, sizing, first purchase" },
     { id: "scenario", label: "Scenario Guide", icon: Briefcase, deck: "Home, park, commute" },
     { id: "budget", label: "Budget Guide", icon: Calculator, deck: "Value and price bands" },
@@ -809,6 +831,7 @@ export default function GuidesSection({
     { id: "maintenance", label: "Maintenance", icon: Wrench, deck: "Care and inspection" }
   ] : [
     { id: "all", label: "全部指南", icon: BookOpen, deck: "完整指南库" },
+    { id: "best", label: "年度评测大奖", icon: Award, deck: "年度金牌童车大奖" },
     { id: "beginner", label: "新手入门", icon: Play, deck: "尺寸、跨高、首购" },
     { id: "scenario", label: "场景指南", icon: Briefcase, deck: "小区、公园、通勤" },
     { id: "budget", label: "预算指南", icon: Calculator, deck: "价格带与性价比" },
