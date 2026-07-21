@@ -2495,15 +2495,88 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                   )}
                 </div>
 
-                <button
-                  onClick={() => handlePrimaryTabClick("products")}
-                  title={lang === "zh" ? "进入产品中心" : "Open products"}
-                  className={`px-3 py-2 rounded-xl font-bold transition-all ${
-                    activeTab === "products" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
-                  }`}
+                <div 
+                  className="relative group"
+                  onMouseEnter={() => {
+                    const dropdown = document.getElementById("products_dropdown_menu");
+                    if (dropdown) dropdown.classList.remove("hidden");
+                  }}
+                  onMouseLeave={() => {
+                    const dropdown = document.getElementById("products_dropdown_menu");
+                    if (dropdown) dropdown.classList.add("hidden");
+                  }}
                 >
-                  {t.navProducts}
-                </button>
+                  <button
+                    onClick={() => {
+                      handlePrimaryTabClick("products");
+                      const dropdown = document.getElementById("products_dropdown_menu");
+                      if (dropdown) {
+                        dropdown.classList.toggle("hidden");
+                      }
+                    }}
+                    className={`px-3 py-2 rounded-xl font-bold transition-all flex items-center gap-1 ${
+                      activeTab === "products" || activeTab === "product_detail" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                    }`}
+                  >
+                    <span>{t.navProducts}</span>
+                    <span className="text-[10px] text-slate-400">▾</span>
+                  </button>
+                  <div 
+                    id="products_dropdown_menu" 
+                    className="absolute top-full left-0 mt-1 w-80 bg-white border border-slate-100 rounded-2xl shadow-2xl p-4 hidden hover:block z-[99] animate-in fade-in slide-in-from-top-2 duration-200 text-slate-800"
+                  >
+                    <div className="space-y-4">
+                      {/* 二级菜单: All Products */}
+                      <div className="group/sub relative">
+                        <button
+                          onClick={() => {
+                            handlePrimaryTabClick("products");
+                            navigateToPath("/products");
+                            const dropdown = document.getElementById("products_dropdown_menu");
+                            if (dropdown) dropdown.classList.add("hidden");
+                          }}
+                          className="w-full text-left font-black text-xs text-orange-500 hover:underline flex items-center justify-between"
+                        >
+                          <span className="flex items-center gap-2"><span>📂</span> {lang === "en" ? "All Products" : "所有产品中心(All Products)"}</span>
+                          <span className="text-[10px] text-slate-400">▸</span>
+                        </button>
+
+                        {/* 三级菜单: Categories List */}
+                        <div className="mt-3 pl-2 border-l-2 border-slate-100 space-y-2.5">
+                          <span className="text-[10px] font-black text-slate-400 block uppercase tracking-wider">
+                            {lang === "en" ? "Categories (Level 3)" : "核心品类精选 (三级菜单)"}
+                          </span>
+                          
+                          <div className="flex flex-col gap-2 pl-1 text-[11px] font-extrabold text-slate-600">
+                            {[
+                              { id: "stroller", labelZh: "🛒 婴儿手推车 (STROLLER)", labelEn: "🛒 Kids Stroller" },
+                              { id: "balance_bike", labelZh: "🚲 儿童平衡车 (BALANCE BIKE)", labelEn: "🚲 Balance Bike" },
+                              { id: "kids_bikes", labelZh: "🚴 儿童自行车 (KIDS BIKES)", labelEn: "🚴 Kids Bikes" },
+                              { id: "electric_vehicles", labelZh: "⚡ 儿童电动车 (KIDS ELECTRIC CAR)", labelEn: "⚡ Kids Electric Cars" },
+                              { id: "kids_scooters", labelZh: "🛹 儿童滑板车 (KIDS SCOOTER)", labelEn: "🛹 Kids Scooters" },
+                              { id: "car_seat", labelZh: "💺 安全座椅 (KIDS CAR SEATS)", labelEn: "💺 Kids Car Seats" },
+                            ].map((cat) => (
+                              <button
+                                key={cat.id}
+                                onClick={() => {
+                                  handlePrimaryTabClick("products");
+                                  navigateToPath(`/products/${cat.id}`);
+                                  const dropdown = document.getElementById("products_dropdown_menu");
+                                  if (dropdown) dropdown.classList.add("hidden");
+                                }}
+                                className="w-full text-left font-bold text-[11px] text-slate-600 hover:text-orange-500 transition-colors flex items-center justify-between"
+                              >
+                                <span>{lang === "en" ? cat.labelEn : cat.labelZh}</span>
+                                <span className="text-[9px] text-slate-400">➔</span>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
                 <button
                   onClick={() => handlePrimaryTabClick("evaluations")}
