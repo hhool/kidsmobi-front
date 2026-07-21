@@ -96,7 +96,7 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
       keywords: ["KIDSMOBI", "independent safety lab", "child mobility safety", "evaluation methodology"],
     },
     en: {
-      title: "About KIDSMOBI: Independent Kids Bike & Stroller Safety Lab",
+      title: "Independent Kids Bike & Stroller Safety Lab | BalanceBikeToddler",
       description: "Learn about KIDSMOBI's strict evaluation methodology. We independently audit every jogging stroller, balance bike, and kids scooter to ensure ultimate child safety.",
       keywords: ["KIDSMOBI", "independent safety lab", "child mobility safety", "evaluation methodology"],
     },
