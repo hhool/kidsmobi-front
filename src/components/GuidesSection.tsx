@@ -878,16 +878,17 @@ export default function GuidesSection({
       {/* ========================================================
           Part 1: 智能选购匹配工效算力工具 (Interactive Match Wizard)
           ======================================================== */}
-      <section className="bg-white border border-slate-100 rounded-[40px] p-8 sm:p-10 shadow-xl shadow-slate-200/50 text-left relative overflow-hidden">
-        
-        {/* Background blobs for B2C feel */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-orange-100/30 rounded-full blur-3xl -mr-32 -mt-32"></div>
+      {!selectedGuideState && (
+        <section className="bg-white border border-slate-100 rounded-[40px] p-8 sm:p-10 shadow-xl shadow-slate-200/50 text-left relative overflow-hidden">
+          
+          {/* Background blobs for B2C feel */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-orange-100/30 rounded-full blur-3xl -mr-32 -mt-32"></div>
 
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-b border-slate-50 pb-8 mb-8 relative z-10">
-          <div className="space-y-2 text-left">
-            <span className="px-3 py-1 bg-orange-100 text-orange-600 text-[10px] font-black rounded-full uppercase tracking-widest border border-orange-200 inline-block">
-              {lang === "en" ? "Smart Wizard" : "智能选车助手"}
-            </span>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-b border-slate-50 pb-8 mb-8 relative z-10">
+            <div className="space-y-2 text-left">
+              <span className="px-3 py-1 bg-orange-100 text-orange-600 text-[10px] font-black rounded-full uppercase tracking-widest border border-orange-200 inline-block">
+                {lang === "en" ? "Smart Wizard" : "智能选车助手"}
+              </span>
             <h1 className="text-2xl font-black text-slate-900 flex items-center gap-2">
               <Calculator className="w-6 h-6 text-orange-500" />
               {lang === "en" ? "Smart Wizard: How to Choose a Baby Stroller, Scooter & First Bike" : "全品类工效学智能选车计算器"}
@@ -1298,7 +1299,8 @@ export default function GuidesSection({
           </div>
         )}
 
-      </section>
+        </section>
+      )}
 
       {/* ========================================================
           Part 2: 专家选车科普指南库 (Expert Guides Directory Library)
@@ -1645,78 +1647,6 @@ export default function GuidesSection({
                 </p>
               </div>
             )}
-
-            {/* Professional Q&A Section */}
-            <div id="pro_qa_accordion" className="mt-16 pt-16 border-t border-slate-100 space-y-10">
-              <div className="text-center max-w-2xl mx-auto space-y-4">
-                <div className="flex justify-center">
-                  <div className="bg-orange-100 p-3 rounded-2xl">
-                    <HelpCircle className="w-6 h-6 text-orange-500" />
-                  </div>
-                </div>
-                <h3 className="text-3xl font-black text-slate-900">
-                  {lang === "en" ? "Expert Q&A Board" : "儿科力学问答库"}
-                </h3>
-                <p className="text-sm text-slate-500 font-medium">
-                  {lang === "en" 
-                    ? "Deep-dive answers backstopped by lab trials and mechanical safety regulations."
-                    : "研究所权威技术解答。基于力学负载测试和防范机制，深度解答核心挑选疑惑。"}
-                </p>
-              </div>
-
-              <div className="max-w-4xl mx-auto space-y-4">
-                {faqData.map((faq) => {
-                  const isOpen = openFaqId === faq.id;
-                  const question = lang === "en" ? faq.questionEn : faq.questionZh;
-                  const answer = lang === "en" ? faq.answerEn : faq.answerZh;
-
-                  return (
-                    <div 
-                      key={faq.id} 
-                      className={`rounded-4xl border transition-all duration-300 overflow-hidden ${
-                        isOpen 
-                          ? "bg-white border-orange-200 shadow-xl shadow-orange-500/5 ring-1 ring-orange-500/5" 
-                          : "bg-white border-slate-50 hover:border-orange-100"
-                      }`}
-                    >
-                      <button
-                        onClick={() => setOpenFaqId(isOpen ? null : faq.id)}
-                        className="w-full flex items-center justify-between p-6 text-left text-base font-black text-slate-900 transition-colors hover:text-orange-500"
-                      >
-                        <span className="flex items-center gap-4">
-                          <Award className={`w-6 h-6 shrink-0 ${isOpen ? "text-orange-500" : "text-slate-300"}`} />
-                          <span className="leading-snug">{question}</span>
-                        </span>
-                        <div className={`p-2 rounded-xl transition-all ${isOpen ? "bg-orange-50 text-orange-500 rotate-180" : "bg-slate-50 text-slate-400"}`}>
-                          <ChevronDown className="w-5 h-5 shrink-0" />
-                        </div>
-                      </button>
-
-                      {isOpen && (
-                        <div className="px-6 pb-8 pt-2 animate-fade-in">
-                          <div className="p-6 text-slate-600 text-sm leading-relaxed whitespace-pre-wrap bg-slate-50 rounded-3xl border border-slate-100 space-y-4 font-medium italic">
-                            {answer.split("\n\n").map((para, idx) => {
-                              if (para.startsWith("* ") || para.startsWith("- ") || para.startsWith("1. ") || para.startsWith("2. ") || para.startsWith("3. ") || para.startsWith("4. ")) {
-                                return (
-                                  <ul key={idx} className="list-disc list-inside space-y-3 text-slate-500 pl-2">
-                                    {para.split("\n").map((line, lidx) => (
-                                      <li key={lidx} className="leading-relaxed">
-                                        {line.replace(/^(\* |- |\d+\.\s)/, "")}
-                                      </li>
-                                    ))}
-                                  </ul>
-                                );
-                              }
-                              return <p key={idx} className="leading-relaxed">{para}</p>;
-                            })}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
           </div>
         )}
       </section>
