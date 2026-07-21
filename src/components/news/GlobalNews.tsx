@@ -1,24 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { newsArticles } from '../../data/newsData';
 
-const categoryMap: Record<string, string> = {
-  'Industry Trends': 'industry',
-  'New Launches': 'new_product',
-  'Regulations': 'regulation',
-  'Brand News': 'brand_news',
-  'Science & Tips': 'science'
-};
-
 const GlobalNews: React.FC = () => {
-  const [activeFilter, setActiveFilter] = useState('All');
-  
-  const filters = ['All', 'Industry Trends', 'New Launches', 'Regulations', 'Brand News', 'Science & Tips'];
-
   const sortedArticles = [...newsArticles].sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
   const featuredArticles = sortedArticles.slice(0, 2);
-  const latestArticles = activeFilter === 'All' 
-    ? sortedArticles 
-    : sortedArticles.filter(article => article.category === categoryMap[activeFilter]);
+  const latestArticles = sortedArticles; // Removing filter completely
 
   return (
     <div className="bg-slate-50 min-h-screen pb-20">
@@ -33,25 +19,6 @@ const GlobalNews: React.FC = () => {
           <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-8">
             Global News & Safety Risk Watch
           </h1>
-          
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 no-scrollbar">
-              {filters.map(f => (
-                <button 
-                  key={f} 
-                  onClick={() => setActiveFilter(f)}
-                  className={`px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all ${
-                    activeFilter === f 
-                    ? 'bg-orange-500 text-white shadow-md shadow-orange-500/20' 
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                  }`}
-                >
-                  {f}
-                </button>
-              ))}
-            </div>
-            
-          </div>
         </div>
       </div>
 
@@ -69,7 +36,9 @@ const GlobalNews: React.FC = () => {
               {featuredArticles.map((article) => (
                 <div key={article.id} className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden group cursor-pointer hover:shadow-xl transition-all">
                   <div className="h-48 bg-slate-200 relative overflow-hidden">
-                     {/* Placeholder Image */}
+                     {article.imageUrl ? (
+                      <img src={article.imageUrl} alt={article.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    ) : null}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                     <span className="absolute bottom-4 left-4 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded">BREAKING</span>
                   </div>
@@ -94,14 +63,20 @@ const GlobalNews: React.FC = () => {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {latestArticles.map((article) => (
-                <div key={article.id} className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden group cursor-pointer hover:border-orange-500 transition-all hover:shadow-md">
-                  <div className="h-40 bg-slate-100 mb-4 m-2 rounded-xl flex items-center justify-center text-slate-300">Image: {article.categoryLabel}</div>
-                  <div className="px-4 pb-4">
+                <div key={article.id} className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden group cursor-pointer hover:border-orange-500 transition-all hover:shadow-md flex flex-col">
+                  {article.imageUrl ? (
+                    <div className="h-40 overflow-hidden mb-4 m-2 rounded-xl shrink-0">
+                      <img src={article.imageUrl} alt={article.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    </div>
+                  ) : (
+                    <div className="h-40 bg-slate-100 mb-4 m-2 rounded-xl flex items-center justify-center text-slate-300 shrink-0">Image: {article.categoryLabel}</div>
+                  )}
+                  <div className="px-4 pb-4 flex-1 flex flex-col">
                     <span className="text-[10px] text-blue-500 font-black uppercase tracking-wider mb-2 block">{article.categoryLabel}</span>
                     <h3 className="font-black text-md text-slate-800 group-hover:text-orange-500 transition-colors line-clamp-2 mb-2">
                       {article.title}
                     </h3>
-                    <p className="text-slate-500 text-xs font-medium line-clamp-2">
+                    <p className="text-slate-500 text-xs font-medium line-clamp-2 mt-auto">
                       {article.summary}
                     </p>
                     <div className="text-[10px] text-slate-400 font-bold mt-3 border-t border-slate-100 pt-2">{article.publishDate} • {article.views} views</div>
