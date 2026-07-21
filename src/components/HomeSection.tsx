@@ -718,12 +718,12 @@ export default function HomeSection({
               className="absolute inset-0 transition-opacity duration-1000 ease-in-out bg-cover bg-center"
               style={{
                 backgroundImage: `url(${src})`,
-                opacity: index === currentBgIndex ? 0.38 : 0,
+                opacity: index === currentBgIndex ? 0.62 : 0,
               }}
             />
           ))}
           {/* Elegant dark overlay mask to maintain high readability of white text */}
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-900/40 to-slate-950/80 mix-blend-multiply"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-900/35 to-slate-950/85 mix-blend-multiply"></div>
           {/* Subtle warm glow or cool ambient lights */}
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-[120px] animate-pulse"></div>
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px] animate-pulse delay-700"></div>
