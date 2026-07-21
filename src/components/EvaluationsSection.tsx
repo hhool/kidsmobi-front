@@ -1259,121 +1259,54 @@ export default function EvaluationsSection({
         items={[{ label: "REVIEWS", active: true }]} 
       />
 
-      {/* 🧭 二级吸顶锚点导航栏 (Sticky Navigation Bar) */}
-      <div className="sticky top-[73px] z-20 bg-white/95 border-y border-slate-100 backdrop-blur-md px-4 sm:px-6 py-3 flex items-center justify-between shadow-sm select-none">
-        <div className="flex items-center gap-4 sm:gap-6 overflow-x-auto no-scrollbar py-1 w-full justify-start sm:justify-center">
-          
-          {[
-            { id: "balance-bike", labelZh: "平衡车", labelEn: "Balance Bike" },
-            { id: "kids-bike", labelZh: "自行车", labelEn: "Kids Bike" },
-            { id: "kids-scooter", labelZh: "滑板车", labelEn: "Kids Scooter" },
-            { id: "kids-stroller", labelZh: "手推车", labelEn: "Kids Stroller" },
-            { id: "kids-electric-car", labelZh: "电动童车", labelEn: "Kids Electric Car" }
-          ].map((item) => (
-            <button
-              key={item.id}
-              onClick={() => {
-                const el = document.getElementById(item.id);
-                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-              }}
-              className="px-3 py-1.5 rounded-lg text-xs font-black uppercase text-slate-500 hover:text-orange-500 transition-colors shrink-0 cursor-pointer"
-            >
-              {lang === "zh" ? item.labelZh : item.labelEn}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* 🛠️ 模块 1：Hero 评估中心与 TDK 权威宣告区 */}
-      <section className="relative rounded-[48px] bg-white border border-slate-100 overflow-hidden p-10 sm:p-20 text-center max-w-7xl mx-auto shadow-2xl">
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,247,237,0.92),rgba(255,255,255,0.88)_45%,rgba(236,253,245,0.55))]"></div>
-        <div className="relative z-10 space-y-8">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-50 border border-orange-100/60 text-orange-600 text-[10px] font-black uppercase tracking-widest rounded-full shadow-sm">
-            <BookOpen className="w-4 h-4" />
-            INDEPENDENT LAB EVALUATIONS
+      {/* Atmospheric Title Description Block - Aligned with Product Hub Style */}
+      <section className="relative rounded-[32px] bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 text-white overflow-hidden p-8 md:p-12 text-left max-w-7xl mx-auto shadow-xl space-y-6">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(249,115,22,0.15),transparent)]"></div>
+        <div className="relative z-10 space-y-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-orange-500/10 border border-orange-500/20 text-orange-400 text-[10px] font-black uppercase tracking-widest rounded-full shadow-inner font-mono">
+            ★ INDEPENDENT LAB EVALUATIONS
           </div>
-          
-          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight max-w-4xl mx-auto">
-            {lang === "zh" 
-              ? "专家评测中心：甄选最佳旅行推车与慢跑推车" 
+
+          <h1 className="text-xl md:text-2xl font-black tracking-tight leading-tight max-w-5xl">
+            {lang === "zh"
+              ? "专家评测中心：甄选最佳旅行推车与慢跑推车"
               : "Expert Stroller Reviews & Balance Bike Reviews"}
           </h1>
-          
-          <p className="text-slate-500 text-sm font-semibold leading-relaxed max-w-3xl mx-auto">
-            {lang === "zh"
-              ? "欢迎来到 KIDSMOBI 科学实测实验室。我们为您提供公正、独立、全物理测试的折叠伞车、高避震慢跑手推车评测 (Stroller Reviews) 以及儿童学步滑步车评测 (Balance Bike Reviews)。为了确保 100% 的客观性与最高标准，全站样品均由测试团队自费购入、拒绝任何厂商商业充值。"
-              : "Our stroller reviews and balance bike reviews help families quickly shortlist the best travel stroller for airport days and the best jogging stroller for daily runs. 100% of tested models are anonymously purchased from retail-sampled batches with absolute 0% third-party manufacturer backing, sponsorship, or placement fee."}
-          </p>
 
-          {/* TDK Scene keywords hash indicators with hover */}
-          <div className="flex flex-wrap justify-center gap-2.5 pt-2">
+          <div className="border-l-2 border-orange-500 pl-4 space-y-2">
+            <p className="text-slate-300 text-xs md:text-sm font-semibold max-w-5xl leading-relaxed italic whitespace-normal break-words">
+              {lang === "zh"
+                ? "我们的婴儿手推车及平衡车评测旨在帮助家长快速筛选出最适合机场出行的最佳旅行手推车以及每日慢跑所需的最佳慢跑推车。100%测试样机均通过普通零售渠道匿名买入，拒收一切厂商利益输送与公关赞助费。"
+                : "Our stroller reviews and balance bike reviews help families quickly shortlist the best travel stroller for airport days and the best jogging stroller for daily runs. 100% of tested models are anonymously purchased from retail-sampled batches with absolute 0% third-party manufacturer backing, sponsorship, or placement fee."}
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-2 pt-2 border-t border-slate-800/60">
             {[
-              { label: "#Travel Stroller 2026", anchor: "kids-stroller" },
-              { label: "#Jogging Stroller 2026", anchor: "kids-stroller" },
-              { label: "#Kids Dirt Bike 2026", anchor: "kids-bike" },
-              { label: "#Balance Bike", anchor: "balance-bike" }
+              { label: "Travel Stroller 2026", anchor: "kids-stroller" },
+              { label: "Jogging Stroller 2026", anchor: "kids-stroller" },
+              { label: "Kids Dirt Bike 2026", anchor: "kids-bike" },
+              { label: "Balance Bike", anchor: "balance-bike" }
             ].map((tag, idx) => (
               <button
                 key={idx}
+                type="button"
                 onClick={() => {
                   const el = document.getElementById(tag.anchor);
                   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
-                className="px-3.5 py-1.5 border border-slate-200 hover:border-orange-400 text-[11px] text-slate-600 hover:text-orange-500 font-extrabold rounded-full transition-colors cursor-pointer bg-white/40 backdrop-blur-xs"
+                className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-orange-500 text-[10px] font-extrabold text-slate-300 hover:text-orange-400 rounded-full transition-colors cursor-pointer"
               >
-                {tag.label}
+                #{tag.label}
               </button>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 🛠️ 模块 2：品类快捷入口与 Buyer's Guide 工具引流区 */}
-      <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-        <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm flex flex-col justify-between">
-          <div>
-            <div className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-orange-50 text-orange-500 mb-4 font-black">
-              ✈️
-            </div>
-            <h3 className="text-xs font-black uppercase tracking-wider text-slate-900">{lang === "zh" ? "Best Travel Stroller 核心标准" : "Best Travel Stroller Standard"}</h3>
-            <p className="mt-2 text-xs text-slate-500 font-semibold leading-relaxed">
-              {lang === "zh"
-                ? "聚焦极速两秒收折、随行登机舱规约束（机舱架高尺寸）以及超轻架体物理承重比测试。"
-                : "Rigorously evaluated by active folding speed limits, airline overhead bin sizes, and structural light-weight ratio."}
-            </p>
-          </div>
-        </div>
-
-        <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm flex flex-col justify-between">
-          <div>
-            <div className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-orange-50 text-orange-500 mb-4 font-black">
-              🏃
-            </div>
-            <h3 className="text-xs font-black uppercase tracking-wider text-slate-900">{lang === "zh" ? "Best Jogging Stroller 力学指标" : "Best Jogging Stroller Rigor"}</h3>
-            <p className="mt-2 text-xs text-slate-500 font-semibold leading-relaxed">
-              {lang === "zh"
-                ? "专注于连续碎石模拟路面的前庭震力吸收、线性安全双手制动距离与轮轴轨迹防偏摆控制。"
-                : "Simulated gravel tests detailing vertical vestibular shock protection, dual-lever stop reaches, and anti-yaw wheel tracking."}
-            </p>
-          </div>
-        </div>
-
-        <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm flex flex-col justify-between">
-          <div>
-            <div className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-orange-50 text-orange-500 mb-4 font-black">
-              🚲
-            </div>
-            <h3 className="text-xs font-black uppercase tracking-wider text-slate-900">{lang === "zh" ? "Kids Dirt Bike 特性" : "Kids Dirt Bike Performance"}</h3>
-            <p className="mt-2 text-xs text-slate-500 font-semibold leading-relaxed">
-              {lang === "zh"
-                ? "审核高刚度航空架体极限疲劳受重、双重把套无化学毒性环保、以及拐角倾斜过弯平衡力学。"
-                : "Evaluating aircraft-grade frame fatigue bounds, phthalate-free handle grip safety, and low-COG cornering slip indexes."}
-            </p>
-          </div>
-        </div>
-
-        {/* Buyer's Guide Cross-page interactive CTA Banner */}
-        <div className="lg:col-span-3 bg-linear-to-r from-orange-500 via-orange-500 to-amber-500 text-white rounded-[32px] p-8 flex flex-col md:flex-row justify-between items-center gap-6 shadow-lg shadow-orange-500/10">
+      {/* Buyer's Guide Cross-page interactive CTA Banner */}
+      <section className="max-w-7xl mx-auto">
+        <div className="bg-linear-to-r from-orange-500 via-orange-500 to-amber-500 text-white rounded-[32px] p-8 flex flex-col md:flex-row justify-between items-center gap-6 shadow-lg shadow-orange-500/10">
           <div className="space-y-1 md:max-w-2xl text-left">
             <h4 className="font-black text-white text-lg tracking-tight">
               {lang === "zh" ? "不确定哪款车最适合您的宝宝？" : "Unsure which model fits your child best?"}
