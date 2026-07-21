@@ -533,6 +533,7 @@ export default function GuidesSection({
   const [wizardWeight, setWizardWeight] = useState<number>(childProfile.weight || 16);
   const [wizardBudget, setWizardBudget] = useState<number>(3000);
   const [wizardScenario, setWizardScenario] = useState<string>("all");
+  const [wizardCategory, setWizardCategory] = useState<string>("stroller");
   const [showWizardResults, setShowWizardResults] = useState<boolean>(false);
 
   useEffect(() => {
@@ -617,55 +618,80 @@ export default function GuidesSection({
 
   // Match Wizard calculation formula
   const matchRecommendations = useMemo(() => {
-    // 1. Recommended Wheel Sizes based on leg inseam
+    // 1. Recommended Wheel Sizes or features based on selected category and child biometric specs
     let recWheel = lang === "en" ? "12 in." : "12寸";
-    if (wizardInseam < 34) {
-      recWheel = lang === "en" ? "12 in. (or Balance Bike)" : "12寸 (或滑步平衡车)";
-    } else if (wizardInseam >= 34 && wizardInseam <= 40) {
-      recWheel = lang === "en" ? "12 in. / 14 in." : "12寸 / 14寸";
-    } else if (wizardInseam >= 41 && wizardInseam <= 48) {
-      recWheel = lang === "en" ? "14 in. / 16 in." : "14寸 / 16寸";
-    } else if (wizardInseam >= 49 && wizardInseam <= 56) {
-      recWheel = lang === "en" ? "16 in. / 20 in." : "16寸 / 20寸";
+    
+    if (wizardCategory === "stroller") {
+      recWheel = lang === "en" ? "Cabin-Friendly" : "折叠登机/慢跑避震";
+    } else if (wizardCategory === "electric_car") {
+      recWheel = lang === "en" ? "Dual-Drive 12V/24V" : "双电有源/微冲软启";
+    } else if (wizardCategory === "scooter") {
+      if (wizardAge < 3) {
+        recWheel = lang === "en" ? "3-Wheel Toddler" : "三轮重力转向发光轮";
+      } else {
+        recWheel = lang === "en" ? "2-Wheel Speed" : "两轮极速发光/踩踏脚刹款";
+      }
     } else {
-      recWheel = lang === "en" ? "20 in. or wider gears" : "20寸 或更大寸段车";
+      // bicycle & balance
+      if (wizardInseam < 34) {
+        recWheel = lang === "en" ? "12 in. (or Balance Bike)" : "12寸 (或滑步平衡车)";
+      } else if (wizardInseam >= 34 && wizardInseam <= 40) {
+        recWheel = lang === "en" ? "12 in. / 14 in." : "12寸 / 14寸";
+      } else if (wizardInseam >= 41 && wizardInseam <= 48) {
+        recWheel = lang === "en" ? "14 in. / 16 in." : "14寸 / 16寸";
+      } else if (wizardInseam >= 49 && wizardInseam <= 56) {
+        recWheel = lang === "en" ? "16 in. / 20 in." : "16寸 / 20寸";
+      } else {
+        recWheel = lang === "en" ? "20 in. or wider gears" : "20寸 或更大寸段车";
+      }
     }
 
-    // 2. Safe Max Car Weights
-    const perfectWeightLimit = parseFloat((wizardWeight * 0.3).toFixed(1));
-    const dangerWeightLimit = parseFloat((wizardWeight * 0.4).toFixed(1));
+    // 2. Safe Max Car Weights (30% weight safety rule applies to manually controlled child bikes and scooters)
+    let perfectWeightLimit = parseFloat((wizardWeight * 0.3).toFixed(1));
+    let dangerWeightLimit = parseFloat((wizardWeight * 0.4).toFixed(1));
+    
+    if (wizardCategory === "stroller") {
+      perfectWeightLimit = 13.5; // under 13.5 lbs (Super travel)
+      dangerWeightLimit = 22.0; // above 22 lbs is jogging/heavy stroller limit
+    } else if (wizardCategory === "electric_car") {
+      perfectWeightLimit = 25.0; // under 25 lbs (Easy carry)
+      dangerWeightLimit = 45.0; // over 45 lbs is heavy metal chassis
+    }
 
     // 3. Recommended category
-    let recCat = "balance";
-    if (wizardAge < 2.5) {
-      recCat = "balance";
-    } else if (wizardAge >= 2.5 && wizardAge <= 5) {
-      recCat = "bicycle";
-    } else {
-      recCat = "bicycle";
-    }
+    const recCat = wizardCategory;
 
     // 4. Products matching math
     const matches = productsData.filter((p) => {
-      if (!isTargetGuideProduct(p)) return false;
+      // Must match chosen category exactly
+      if (p.category !== wizardCategory) return false;
+      
       // Must be below budget
       const withinBudget = p.price <= wizardBudget;
       
       // Categorization/wheel size fits generally
       let isWheelSizeMatch = true;
-      if (p.wheelSize !== "无") {
+      if (p.wheelSize && p.wheelSize !== "无") {
         const sizeNum = parseInt(p.wheelSize);
         if (!isNaN(sizeNum)) {
-          if (wizardInseam < 34) {
-            isWheelSizeMatch = sizeNum <= 12;
-          } else if (wizardInseam >= 34 && wizardInseam <= 40) {
-            isWheelSizeMatch = sizeNum === 12 || sizeNum === 14;
-          } else if (wizardInseam >= 41 && wizardInseam <= 48) {
-            isWheelSizeMatch = sizeNum === 14 || sizeNum === 16;
-          } else if (wizardInseam >= 49 && wizardInseam <= 56) {
-            isWheelSizeMatch = sizeNum === 16 || sizeNum === 20;
-          } else {
-            isWheelSizeMatch = sizeNum >= 20;
+          if (wizardCategory === "scooter") {
+            if (wizardAge < 3) {
+              isWheelSizeMatch = sizeNum <= 10;
+            } else {
+              isWheelSizeMatch = sizeNum > 10 || p.wheelSize.includes("2");
+            }
+          } else if (wizardCategory === "bicycle" || wizardCategory === "balance") {
+            if (wizardInseam < 34) {
+              isWheelSizeMatch = sizeNum <= 12;
+            } else if (wizardInseam >= 34 && wizardInseam <= 40) {
+              isWheelSizeMatch = sizeNum === 12 || sizeNum === 14;
+            } else if (wizardInseam >= 41 && wizardInseam <= 48) {
+              isWheelSizeMatch = sizeNum === 14 || sizeNum === 16;
+            } else if (wizardInseam >= 49 && wizardInseam <= 56) {
+              isWheelSizeMatch = sizeNum === 16 || sizeNum === 20;
+            } else {
+              isWheelSizeMatch = sizeNum >= 20;
+            }
           }
         }
       }
@@ -675,13 +701,13 @@ export default function GuidesSection({
       if (wizardScenario === "tight") {
         isScenarioMatch = p.weight <= perfectWeightLimit || p.category === "scooter" || p.category === "balance";
       } else if (wizardScenario === "rough") {
-        isScenarioMatch = (p.tireType || "").includes("充气") || (p.tireType || "").includes("越野") || (p.tireType || "").includes("橡胶");
+        isScenarioMatch = (p.tireType || "").includes("充气") || (p.tireType || "").includes("越野") || (p.tireType || "").includes("橡胶") || (p.tireType || "").includes("避震");
       }
 
-      // Heavy/weight safety check
-      const isWeightSafe = p.weight <= dangerWeightLimit || p.category === "stroller";
+      // Weight safety check
+      const isWeightSafe = p.weight <= dangerWeightLimit;
 
-      return withinBudget && isWeightSafe && isWheelSizeMatch && isScenarioMatch;
+      return withinBudget && isWeightSafe && isWheelSizeMatch && isScenarioMatch && p.status === "published";
     });
 
     return {
@@ -691,7 +717,7 @@ export default function GuidesSection({
       matches,
       recCat
     };
-  }, [wizardAge, wizardHeight, wizardInseam, wizardWeight, wizardBudget, wizardScenario, productsData, lang]);
+  }, [wizardAge, wizardHeight, wizardInseam, wizardWeight, wizardBudget, wizardScenario, wizardCategory, productsData, lang]);
 
   // Synchronize wizard values back to main core childProfile
   const handleApplyWizardToProfile = () => {
@@ -776,12 +802,12 @@ export default function GuidesSection({
             </span>
             <h1 className="text-2xl font-black text-slate-900 flex items-center gap-2">
               <Calculator className="w-6 h-6 text-orange-500" />
-              {lang === "en" ? "Smart Wizard: How to Choose a Baby Stroller & Bike" : "帮宝宝选出真爱座驾"}
+              {lang === "en" ? "Smart Wizard: How to Choose a Baby Stroller, Scooter & First Bike" : "全品类工效学智能选车计算器"}
             </h1>
             <p className="text-sm text-slate-500 font-medium">
               {lang === "en" 
-                ? "Input your child's precise measurements below to instantly resolve how to choose a baby stroller tailored to your lifestyle. This biometric wizard also calculates the safe framework weight threshold and perfect saddle inseam height for a balance bike for 1 year old beginners." 
-                : "输入宝宝的身高体重，我们将通过科学算法为您匹配最合适的轮径与型号。"}
+                ? "Input your child's precise measurements below to instantly audit parameters for Kids Strollers, Kids Bikes, Kids Scooters, Balance Bikes, and Electric Cars. This biometric wizard automatically calculates the max vehicle weight limits and perfect fit geometries." 
+                : "输入宝宝的身高、跨高与体重参数，我们将通过生物力学算法，在婴儿推车、滑板车、平衡车与自行车品类中，精准匹配最安全、最省力的核心型号与轮径。"}
             </p>
           </div>
           <button 
@@ -804,11 +830,15 @@ export default function GuidesSection({
               
               <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500 text-lg font-black shrink-0">
-                  {matchRecommendations.recWheel.split(" ")[0]}
+                  {matchRecommendations.recWheel.split(" ")[0] || "🔬"}
                 </div>
                 <div className="space-y-0.5">
                   <span className="text-[10px] text-slate-500 font-bold block uppercase">
-                    {lang === "en" ? "Recommended Wheel Size" : "安全推荐轮径"}
+                    {wizardCategory === "stroller"
+                      ? (lang === "en" ? "Comfort Fold Design" : "推车收折特质")
+                      : wizardCategory === "electric_car"
+                      ? (lang === "en" ? "Drive Core Mechanics" : "电动动力核心")
+                      : (lang === "en" ? "Recommended Wheel Size" : "安全推荐轮径")}
                   </span>
                   <strong className="text-white text-xs">{matchRecommendations.recWheel}</strong>
                 </div>
@@ -820,10 +850,18 @@ export default function GuidesSection({
                 </div>
                 <div className="space-y-0.5">
                   <span className="text-[10px] text-slate-500 font-bold block uppercase">
-                    {lang === "en" ? "Golden Max Vehicle Weight (30%)" : "宝宝黄金车重上限 (30%)"}
+                    {wizardCategory === "stroller"
+                      ? (lang === "en" ? "Ultralight Comfort Target" : "超轻出行安全自重上限")
+                      : wizardCategory === "electric_car"
+                      ? (lang === "en" ? "Trunk Load Ideal Weight" : "后备箱轻载自重目标")
+                      : (lang === "en" ? "Golden Max Vehicle Weight (30%)" : "宝宝黄金车重上限 (30%)")}
                   </span>
                   <strong className="text-white text-xs">
-                    {lang === "en" ? "Under this limit ensures absolute control" : "低于此自重，骑行最畅快安全"}
+                    {wizardCategory === "stroller"
+                      ? (lang === "en" ? "Lighter chassis are ideal for long walks" : "轻便车身极佳省力，抱娃提车不累腰")
+                      : wizardCategory === "electric_car"
+                      ? (lang === "en" ? "Easy for parents to lift in and out of cars" : "方便妈妈单手轻松提取放置行李架")
+                      : (lang === "en" ? "Under this limit ensures absolute control" : "低于此自重，骑行控车最快最安全")}
                   </strong>
                 </div>
               </div>
@@ -834,10 +872,18 @@ export default function GuidesSection({
                 </div>
                 <div className="space-y-0.5">
                   <span className="text-[10px] text-slate-500 font-bold block uppercase">
-                    {lang === "en" ? "Rigid Biomechanical Stop (40%)" : "物理承载倾轧极限 (40%)"}
+                    {wizardCategory === "stroller"
+                      ? (lang === "en" ? "Jogging Heavy Chassis Limit" : "越野慢跑自重警戒线")
+                      : wizardCategory === "electric_car"
+                      ? (lang === "en" ? "Severe Lift Hazard Weight" : "重金属电驱承载负重")
+                      : (lang === "en" ? "Rigid Biomechanical Stop (40%)" : "物理承载倾轧极限 (40%)")}
                   </span>
                   <strong className="text-white text-xs">
-                    {lang === "en" ? "Heavier frames risk joint overload" : "高于此重量易转弯失控砸伤骨体"}
+                    {wizardCategory === "stroller"
+                      ? (lang === "en" ? "Heavier strollers are harder to carry" : "重载避震虽强，频繁折放易挫伤手臂肌肉")
+                      : wizardCategory === "electric_car"
+                      ? (lang === "en" ? "Requires two adults to load safely" : "庞然重壳推移不便，不建议在人行窄梯搬动")
+                      : (lang === "en" ? "Heavier frames risk joint overload" : "车重一旦超标，转弯时极易失控压迫骨盆")}
                   </strong>
                 </div>
               </div>
@@ -925,149 +971,181 @@ export default function GuidesSection({
           </div>
         ) : (
           // Input Fields Form View
-          <div data-nosnippet className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-xs text-slate-600 text-left relative z-10">
+          <div data-nosnippet className="space-y-8 relative z-10 transition-all">
             
-            {/* Input 1: Age */}
-            <div className="bg-slate-50 p-6 rounded-4xl border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
-              <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
-                <span>{lang === "en" ? "1. Age" : "1. 宝宝岁数"}</span>
-                <span className="text-orange-500 text-sm">{wizardAge} {lang === "en" ? "yrs" : "岁"}</span>
-              </label>
-              <div className="border-b border-slate-200 pb-2">
-                <input
-                  type="range"
-                  min="1"
-                  max="12"
-                  step="0.5"
-                  value={wizardAge}
-                  onChange={(e) => {
-                    const val = parseFloat(e.target.value);
-                    setWizardAge(val);
-                  }}
-                  aria-label={lang === "en" ? "Child age slider" : "宝宝岁数滑杆"}
-                  title={lang === "en" ? "Child age slider" : "宝宝岁数滑杆"}
-                  className="w-full accent-orange-500 h-5 bg-transparent border-0 rounded-none appearance-none cursor-pointer"
-                />
-              </div>
-              <span className="text-[10px] text-slate-400 font-medium block">
-                {lang === "en" ? "Calculates bone density limits" : "用于测算宝宝体格发育限制"}
+            {/* Category selection tab bar: Stroller (Default) and remaining categories */}
+            <div className="pb-6 border-b border-slate-100">
+              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-3.5 pl-1 font-sans">
+                {lang === "en" ? "Step 1: Select Kid's Ride-On Category" : "第一步：选择您要测评的宝宝座驾品类"}
               </span>
-            </div>
-
-            {/* Input 2: Height */}
-            <div className="bg-slate-50 p-6 rounded-4xl border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
-              <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
-                <span>{lang === "en" ? "2. Height" : "2. 身高 (Height)"}</span>
-                <span className="text-orange-500 text-sm">{formatHeight(wizardHeight, currencyData.code)}</span>
-              </label>
-              <div className="border-b border-slate-200 pb-2">
-                <input
-                  type="range"
-                  min="70"
-                  max="160"
-                  step="1"
-                  value={wizardHeight}
-                  onChange={(e) => {
-                    const val = parseInt(e.target.value);
-                    setWizardHeight(val);
-                    setWizardInseam(Math.floor(val * 0.38)); // Default estimation
-                  }}
-                  aria-label={lang === "en" ? "Child height slider" : "宝宝身高滑杆"}
-                  title={lang === "en" ? "Child height slider" : "宝宝身高滑杆"}
-                  className="w-full accent-orange-500 h-5 bg-transparent border-0 rounded-none appearance-none cursor-pointer"
-                />
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-3.5">
+                {[
+                  { id: "stroller", emoji: "🛒", labelEn: "Kids Stroller", labelZh: "安全伞车/手推车" },
+                  { id: "bicycle", emoji: "🚴", labelEn: "Kids Bike", labelZh: "儿童自行车" },
+                  { id: "scooter", emoji: "🛹", labelEn: "Kids Scooter", labelZh: "儿童滑板车" },
+                  { id: "balance", emoji: "🚲", labelEn: "Balance Bike", labelZh: "学步滑步平衡车" },
+                  { id: "electric_car", emoji: "⚡", labelEn: "Electric Car", labelZh: "智能电动玩具车" },
+                ].map((cat) => (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    onClick={() => setWizardCategory(cat.id)}
+                    className={`py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2.5 font-black text-[11px] leading-none transition-all border cursor-pointer active:scale-95 select-none ${
+                      wizardCategory === cat.id
+                        ? "bg-slate-900 border-slate-900 text-white shadow-lg shadow-slate-950/15"
+                        : "bg-slate-50/70 border-slate-100 hover:bg-slate-50 text-slate-500 hover:text-slate-800"
+                    }`}
+                  >
+                    <span className="text-sm">{cat.emoji}</span>
+                    <span className="truncate">{lang === "en" ? cat.labelEn : cat.labelZh}</span>
+                  </button>
+                ))}
               </div>
             </div>
 
-            {/* Input 3: Inseam */}
-            <div className="bg-slate-50 p-6 rounded-4xl border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
-              <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
-                <span>{lang === "en" ? "3. Inseam" : "3. 跨高 (Inseam)"}</span>
-                <span className="text-orange-500 text-sm">{formatHeight(wizardInseam, currencyData.code)}</span>
-              </label>
-              <div className="border-b border-slate-200 pb-2">
-                <input
-                  type="range"
-                  min="20"
-                  max="75"
-                  step="1"
-                  value={wizardInseam}
-                  onChange={(e) => setWizardInseam(parseInt(e.target.value))}
-                  aria-label={lang === "en" ? "Child inseam slider" : "宝宝跨高滑杆"}
-                  title={lang === "en" ? "Child inseam slider" : "宝宝跨高滑杆"}
-                  className="w-full accent-orange-500 h-5 bg-transparent border-0 rounded-none appearance-none cursor-pointer"
-                />
-              </div>
-            </div>
-
-            {/* Input 4: Weight */}
-            <div className="bg-slate-50 p-6 rounded-4xl border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
-              <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
-                <span>{lang === "en" ? "4. Weight" : "4. 体重 (Weight)"}</span>
-                <span className="text-rose-500 text-sm font-black">{formatWeight(wizardWeight, currencyData.code)}</span>
-              </label>
-              <div className="border-b border-slate-200 pb-2">
-                <input
-                  type="range"
-                  min="5"
-                  max="65"
-                  step="0.5"
-                  value={wizardWeight}
-                  onChange={(e) => {
-                    const val = parseFloat(e.target.value);
-                    setWizardWeight(val);
-                  }}
-                  aria-label={lang === "en" ? "Child weight slider" : "宝宝体重滑杆"}
-                  title={lang === "en" ? "Child weight slider" : "宝宝体重滑杆"}
-                  className="w-full accent-orange-500 h-5 bg-transparent border-0 rounded-none appearance-none cursor-pointer"
-                />
-              </div>
-              <span className="text-[10px] text-slate-400 font-medium block">
-                {lang === "en" ? "Calculates 30% safety threshold" : "用于实时更新安全称重死线"}
-              </span>
-            </div>
-
-            {/* Input 5: Budget */}
-            <div className="bg-slate-50 p-6 rounded-4xl border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow sm:col-span-2">
-              <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
-                <span>{lang === "en" ? "5. Purchase Budget" : "5. 购车预算上限"}</span>
-                <span className="text-emerald-500 text-sm font-black">
-                  {formatCurrencyFromUsd(wizardBudget, currencyData, lang, 2)}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-xs text-slate-600 text-left">
+              {/* Input 1: Age */}
+              <div className="bg-slate-50 p-6 rounded-4xl border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
+                <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
+                  <span>{lang === "en" ? "2. Age" : "2. 宝宝年龄"}</span>
+                  <span className="text-orange-500 text-sm">{wizardAge} {lang === "en" ? "yrs" : "岁"}</span>
+                </label>
+                <div className="border-b border-slate-200 pb-2">
+                  <input
+                    type="range"
+                    min="1"
+                    max="12"
+                    step="0.5"
+                    value={wizardAge}
+                    onChange={(e) => {
+                      const val = parseFloat(e.target.value);
+                      setWizardAge(val);
+                    }}
+                    aria-label={lang === "en" ? "Child age slider" : "宝宝岁数滑杆"}
+                    title={lang === "en" ? "Child age slider" : "宝宝岁数滑杆"}
+                    className="w-full accent-orange-500 h-5 bg-transparent border-0 rounded-none appearance-none cursor-pointer"
+                  />
+                </div>
+                <span className="text-[10px] text-slate-400 font-medium block">
+                  {lang === "en" ? "Calculates critical safety threshold" : "用于实时更新安全称重死线"}
                 </span>
-              </label>
-              <div className="border-b border-slate-200 pb-2">
-                <input
-                  type="range"
-                  min="100"
-                  max="8000"
-                  step="50"
-                  value={wizardBudget}
-                  onChange={(e) => setWizardBudget(parseInt(e.target.value))}
-                  aria-label={lang === "en" ? "Budget slider" : "预算滑杆"}
-                  title={lang === "en" ? "Budget slider" : "预算滑杆"}
-                  className="w-full accent-emerald-500 h-5 bg-transparent border-0 rounded-none appearance-none cursor-pointer"
-                />
               </div>
-            </div>
 
-            {/* Input 6: Scenario */}
-            <div className="bg-slate-50 p-6 rounded-4xl border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow sm:col-span-2">
-              <label className="text-slate-400 font-black uppercase tracking-wider block text-[10px]">
-                {lang === "en" ? "6. Primary Usage Scenario" : "6. 主要使用场景"}
-              </label>
-              <select
-                value={wizardScenario}
-                onChange={(e) => setWizardScenario(e.target.value)}
-                aria-label={lang === "en" ? "Primary usage scenario" : "主要使用场景"}
-                title={lang === "en" ? "Primary usage scenario" : "主要使用场景"}
-                className="w-full bg-white border border-slate-100 rounded-2xl p-3 text-sm text-slate-700 font-bold focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 cursor-pointer"
-              >
-                <option value="all">{lang === "en" ? "🌐 Standard / City Paths" : "🌐 全部道路 (多场景)"}</option>
-                <option value="tight">{lang === "en" ? "🚇 Light & Portable (Urban)" : "🚇 极致便携 (高密城市通勤)"}</option>
-                <option value="rough">{lang === "en" ? "🏞️ Rough / Adventure Tracks" : "🏞️ 硬核户外 (泥沙/颠簸路面)"}</option>
-              </select>
-            </div>
+              {/* Input 2: Height */}
+              <div className="bg-slate-50 p-6 rounded-4xl border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
+                <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
+                  <span>{lang === "en" ? "3. Height" : "3. 身高 (Height)"}</span>
+                  <span className="text-orange-500 text-sm">{formatHeight(wizardHeight, currencyData.code)}</span>
+                </label>
+                <div className="border-b border-slate-200 pb-2">
+                  <input
+                    type="range"
+                    min="70"
+                    max="160"
+                    step="1"
+                    value={wizardHeight}
+                    onChange={(e) => {
+                      const val = parseInt(e.target.value);
+                      setWizardHeight(val);
+                      setWizardInseam(Math.floor(val * 0.38)); // Default estimation
+                    }}
+                    aria-label={lang === "en" ? "Child height slider" : "宝宝身高滑杆"}
+                    title={lang === "en" ? "Child height slider" : "宝宝身高滑杆"}
+                    className="w-full accent-orange-500 h-5 bg-transparent border-0 rounded-none appearance-none cursor-pointer"
+                  />
+                </div>
+              </div>
 
+              {/* Input 3: Inseam */}
+              <div className="bg-slate-50 p-6 rounded-4xl border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
+                <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
+                  <span>{lang === "en" ? "4. Inseam" : "4. 跨高 (Inseam)"}</span>
+                  <span className="text-orange-500 text-sm">{formatHeight(wizardInseam, currencyData.code)}</span>
+                </label>
+                <div className="border-b border-slate-200 pb-2">
+                  <input
+                    type="range"
+                    min="20"
+                    max="75"
+                    step="1"
+                    value={wizardInseam}
+                    onChange={(e) => setWizardInseam(parseInt(e.target.value))}
+                    aria-label={lang === "en" ? "Child inseam slider" : "宝宝跨高滑杆"}
+                    title={lang === "en" ? "Child inseam slider" : "宝宝跨高滑杆"}
+                    className="w-full accent-orange-500 h-5 bg-transparent border-0 rounded-none appearance-none cursor-pointer"
+                  />
+                </div>
+              </div>
+
+              {/* Input 4: Weight */}
+              <div className="bg-slate-50 p-6 rounded-4xl border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
+                <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
+                  <span>{lang === "en" ? "5. Weight" : "5. 体重 (Weight)"}</span>
+                  <span className="text-rose-500 text-sm font-black">{formatWeight(wizardWeight, currencyData.code)}</span>
+                </label>
+                <div className="border-b border-slate-200 pb-2">
+                  <input
+                    type="range"
+                    min="5"
+                    max="65"
+                    step="0.5"
+                    value={wizardWeight}
+                    onChange={(e) => {
+                      const val = parseFloat(e.target.value);
+                      setWizardWeight(val);
+                    }}
+                    aria-label={lang === "en" ? "Child weight slider" : "宝宝体重滑杆"}
+                    title={lang === "en" ? "Child weight slider" : "宝宝体重滑杆"}
+                    className="w-full accent-orange-500 h-5 bg-transparent border-0 rounded-none appearance-none cursor-pointer"
+                  />
+                </div>
+                <span className="text-[10px] text-slate-400 font-medium block">
+                  {lang === "en" ? "Calculates 30% safety threshold" : "用于实时更新安全称重死线"}
+                </span>
+              </div>
+
+              {/* Input 5: Budget */}
+              <div className="bg-slate-50 p-6 rounded-4xl border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow sm:col-span-2">
+                <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
+                  <span>{lang === "en" ? "6. Purchase Budget Limit" : "6. 近期购车预算上限"}</span>
+                  <span className="text-emerald-500 text-sm font-black">
+                    {formatCurrencyFromUsd(wizardBudget, currencyData, lang, 2)}
+                  </span>
+                </label>
+                <div className="border-b border-slate-200 pb-2">
+                  <input
+                    type="range"
+                    min="100"
+                    max="8000"
+                    step="50"
+                    value={wizardBudget}
+                    onChange={(e) => setWizardBudget(parseInt(e.target.value))}
+                    aria-label={lang === "en" ? "Budget slider" : "预算滑杆"}
+                    title={lang === "en" ? "Budget slider" : "预算滑杆"}
+                    className="w-full accent-emerald-500 h-5 bg-transparent border-0 rounded-none appearance-none cursor-pointer"
+                  />
+                </div>
+              </div>
+
+              {/* Input 6: Scenario */}
+              <div className="bg-slate-50 p-6 rounded-4xl border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow sm:col-span-2">
+                <label className="text-slate-400 font-black uppercase tracking-wider block text-[10px]">
+                  {lang === "en" ? "7. Primary Usage Scenario" : "7. 核心日常使用环境"}
+                </label>
+                <select
+                  value={wizardScenario}
+                  onChange={(e) => setWizardScenario(e.target.value)}
+                  aria-label={lang === "en" ? "Primary usage scenario" : "主要使用场景"}
+                  title={lang === "en" ? "Primary usage scenario" : "主要使用场景"}
+                  className="w-full bg-white border border-slate-100 rounded-2xl p-3 text-sm text-slate-700 font-bold focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 cursor-pointer"
+                >
+                  <option value="all">{lang === "en" ? "🌐 Standard / City Paths" : "🌐 全部道路 (多场景)"}</option>
+                  <option value="tight">{lang === "en" ? "🚇 Light & Portable (Urban)" : "🚇 极致轻巧及单手便携收折"}</option>
+                  <option value="rough">{lang === "en" ? "🏞️ Rough / Adventure Tracks" : "🏞️ 充气有源避震户外越野颠簸"}</option>
+                </select>
+              </div>
+
+            </div>
           </div>
         )}
 

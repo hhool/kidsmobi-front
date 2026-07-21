@@ -105,8 +105,8 @@ export default function HomeSection({
 
   // Background Carousel Slideshow for Hero Section (2 scenario-based images: stroller & balance bike)
   const bgImages = useMemo(() => [
-    "https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=1920&q=80", // Stroller scenario
-    "https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=1920&q=80"  // Balance bike / kids active riding scenario
+    "https://plus.unsplash.com/premium_photo-1681881804080-ab1e78652c98?fm=jpg&q=60&w=960&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJhbXxlbnwwfHwwfHx8MA%3D%3D", // Stroller scenario
+    "https://plus.unsplash.com/premium_photo-1661715303160-9fecfaba31a9?fm=jpg&q=60&w=960&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGtpZCUyMGJpa2V8ZW58MHx8MHx8fDA%3D"  // Balance bike / kids active riding scenario
   ], []);
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
 
