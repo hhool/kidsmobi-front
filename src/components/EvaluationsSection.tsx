@@ -1263,66 +1263,6 @@ export default function EvaluationsSection({
       <div className="sticky top-[73px] z-20 bg-white/95 border-y border-slate-100 backdrop-blur-md px-4 sm:px-6 py-3 flex items-center justify-between shadow-sm select-none">
         <div className="flex items-center gap-4 sm:gap-6 overflow-x-auto no-scrollbar py-1 w-full justify-start sm:justify-center">
           
-          {/* Latest 评测 drop-down with hover flyout */}
-          <div 
-            className="relative group"
-            onMouseEnter={() => setHoverLatest(true)}
-            onMouseLeave={() => setHoverLatest(false)}
-          >
-            <button
-              onClick={() => {
-                const el = document.getElementById("latest-reviews");
-                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-              }}
-              className="px-3 py-1.5 rounded-lg text-xs font-black uppercase text-slate-800 hover:text-orange-500 transition-colors flex items-center gap-1 shrink-0 cursor-pointer"
-            >
-              {lang === "zh" ? "最新评测 ▾" : "Latest Reviews ▾"}
-            </button>
-            
-            {hoverLatest && (
-              <div className="absolute left-0 mt-2 w-56 bg-white border border-slate-150 rounded-2xl shadow-xl p-4 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                <div className="space-y-3">
-                  <div className="space-y-1">
-                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{lang === "zh" ? "婴儿手推车" : "Stroller"}</span>
-                    <button
-                      onClick={() => {
-                        const el = document.getElementById("latest-reviews");
-                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                        setHoverLatest(false);
-                      }}
-                      className="text-left w-full text-[11px] font-extrabold text-slate-700 hover:text-orange-500 block truncate cursor-pointer"
-                    >
-                      {lang === "zh" ? "旅行推车 2026" : "Travel Stroller 2026"}
-                    </button>
-                    <button
-                      onClick={() => {
-                        const el = document.getElementById("latest-reviews");
-                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                        setHoverLatest(false);
-                      }}
-                      className="text-left w-full text-[11px] font-extrabold text-slate-700 hover:text-orange-500 block truncate cursor-pointer"
-                    >
-                      {lang === "zh" ? "慢跑推车 2026" : "Jogging Stroller 2026"}
-                    </button>
-                  </div>
-                  <div className="space-y-1 border-t border-slate-50 pt-2">
-                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{lang === "zh" ? "儿童自行车" : "Kids Bike"}</span>
-                    <button
-                      onClick={() => {
-                        const el = document.getElementById("latest-reviews");
-                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                        setHoverLatest(false);
-                      }}
-                      className="text-left w-full text-[11px] font-extrabold text-slate-700 hover:text-orange-500 block truncate cursor-pointer"
-                    >
-                      {lang === "zh" ? "儿童越野车 2026" : "Kids Dirt Bikes 2026"}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
           {[
             { id: "balance-bike", labelZh: "平衡车", labelEn: "Balance Bike" },
             { id: "kids-bike", labelZh: "自行车", labelEn: "Kids Bike" },
@@ -1624,65 +1564,6 @@ export default function EvaluationsSection({
       {/* 🛠️ 模块 4：结构化深度评测报告流 (Categorized Review Stream) */}
       <div className="space-y-24 max-w-7xl mx-auto">
         
-        {/* FLOOR 1: 最新评测专区 */}
-        <section id="latest-reviews" className="scroll-mt-24 space-y-8">
-          <div className="border-b border-slate-100 pb-4">
-            <div className="flex items-center gap-2">
-              <span className="p-1 px-2.5 bg-orange-500 text-white text-[10px] font-black rounded-lg uppercase">NEW 2026</span>
-              <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
-                {lang === "zh" ? "最新评测专区 (Latest Reviews)" : "Latest Reviews: Global 2026 Fresh Evaluated"}
-              </h2>
-            </div>
-            <p className="mt-2 text-sm text-slate-500 font-medium">
-              {lang === "zh" ? "最新出炉的实验室第一手物理安全、避震与装配工艺剖析。" : "Our freshest lab assessments covering Travel Stroller 2026, Jogging Stroller 2026, and Kids Dirt Bites 2026."}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {pagedRenderList.slice(0, 4).map((block: any) => {
-              const ev = block.evaluation;
-              const product = block.product || block.products?.[0];
-              if (!product) return null;
-              const dp = translateProduct(product, lang);
-              const evLang = lang === "zh" ? ev.zh : ev.en;
-              const imageSet = resolveProductImages(product);
-
-              return (
-                <div
-                  key={ev.id}
-                  onClick={() => openEvaluationDetail(ev)}
-                  className="bg-white border border-slate-100 rounded-[36px] p-6 hover:shadow-xl transition-all duration-300 flex flex-col md:flex-row gap-6 cursor-pointer group"
-                >
-                  <div className="md:w-2/5 h-44 bg-slate-50 rounded-2xl p-4 flex items-center justify-center overflow-hidden shrink-0">
-                    <SmartImage
-                      src={imageSet.coverUrl || undefined}
-                      alt={getProductImageAlt(product)}
-                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                      wrapperClassName="w-full h-full"
-                    />
-                  </div>
-                  <div className="flex flex-col justify-between flex-1 py-1">
-                    <div className="space-y-2">
-                      <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
-                      <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors line-clamp-2">{evLang.title}</h3>
-                      <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
-                    </div>
-                    <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                      <span className="text-[10px] text-slate-400 font-black uppercase">{lang === "en" ? "Review Report ➔" : "查看完整报告 ➔"}</span>
-                      {ev.scores?.safety && (
-                        <div className="flex items-center gap-1">
-                          <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
-                          <span className="text-[11px] font-black text-slate-800">{ev.scores.safety.toFixed(1)}</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-
         {/* FLOOR 2: BALANCE BIKES */}
         <section id="balance-bike" className="scroll-mt-24 space-y-8">
           <div className="border-b border-slate-100 pb-4">
