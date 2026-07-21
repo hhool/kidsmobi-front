@@ -2879,37 +2879,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                           </span>
                           
                           <div className="space-y-3.5">
-                            {/* Stroller pillar */}
+                            {/* 1. Balance Bikes (Floor 1) */}
                             <div className="space-y-1.5">
-                              <span className="text-[11px] font-black text-slate-800 flex items-center gap-1.5 font-display">
-                                <span>🛒</span> {lang === "en" ? "Strollers" : "婴儿手推车"}
-                              </span>
-                              <div className="pl-5 flex flex-col gap-1 text-[10px] font-bold text-slate-500">
-                                {[
-                                  { label: lang === "en" ? "Travel Strollers" : "轻便折叠/登机推车", anchor: "kids-stroller" },
-                                  { label: lang === "en" ? "Jogging Strollers" : "高避震/跑步推车", anchor: "kids-stroller" },
-                                  { label: lang === "en" ? "Travel System Combo" : "三合一出行系统", anchor: "kids-stroller" }
-                                ].map((lnk, i) => (
-                                  <button
-                                    key={i}
-                                    onClick={() => {
-                                      handlePrimaryTabClick("evaluations");
-                                      closeReviewsMenuInstantly();
-                                      setTimeout(() => {
-                                        const el = document.getElementById(lnk.anchor);
-                                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                                      }, 150);
-                                    }}
-                                    className="text-left py-0.5 hover:text-orange-500 transition-colors cursor-pointer"
-                                  >
-                                    ├─ {lnk.label}
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-
-                            {/* Balance bike pillar */}
-                            <div className="space-y-1.5 pt-0.5">
                               <span className="text-[11px] font-black text-slate-800 flex items-center gap-1.5 font-display">
                                 <span>🚲</span> {lang === "en" ? "Balance Bikes" : "幼儿平衡车"}
                               </span>
@@ -2937,16 +2908,14 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                               </div>
                             </div>
 
-                            {/* Kids Mobility pillar */}
+                            {/* 2. Kids Bikes (Floor 2) */}
                             <div className="space-y-1.5 pt-0.5">
                               <span className="text-[11px] font-black text-slate-800 flex items-center gap-1.5 font-display">
-                                <span>🛹</span> {lang === "en" ? "Kids Mobility" : "童车与滑板车"}
+                                <span>🚴</span> {lang === "en" ? "Kids Bikes" : "儿童自行车"}
                               </span>
                               <div className="pl-5 flex flex-col gap-1 text-[10px] font-bold text-slate-500">
                                 {[
-                                  { label: lang === "en" ? "Kids Dirt Bikes" : "儿童越野/BMX单车", anchor: "kids-bike" },
-                                  { label: lang === "en" ? "Kick Scooters" : "重力转向发光滑板车", anchor: "kids-scooter" },
-                                  { label: lang === "en" ? "Ride-on Electric Cars" : "电动玩具车电路安全", anchor: "kids-electric-car" }
+                                  { label: lang === "en" ? "Kids Dirt Bikes" : "儿童越野/BMX单车", anchor: "kids-bike" }
                                 ].map((lnk, i) => (
                                   <button
                                     key={i}
@@ -2966,6 +2935,88 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                               </div>
                             </div>
 
+                            {/* 3. Kids Scooters (Floor 3) */}
+                            <div className="space-y-1.5 pt-0.5">
+                              <span className="text-[11px] font-black text-slate-800 flex items-center gap-1.5 font-display">
+                                <span>🛹</span> {lang === "en" ? "Kids Scooters" : "儿童滑板车"}
+                              </span>
+                              <div className="pl-5 flex flex-col gap-1 text-[10px] font-bold text-slate-500">
+                                {[
+                                  { label: lang === "en" ? "Kick Scooters" : "重力转向发光滑板车", anchor: "kids-scooter" }
+                                ].map((lnk, i) => (
+                                  <button
+                                    key={i}
+                                    onClick={() => {
+                                      handlePrimaryTabClick("evaluations");
+                                      closeReviewsMenuInstantly();
+                                      setTimeout(() => {
+                                        const el = document.getElementById(lnk.anchor);
+                                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                                      }, 150);
+                                    }}
+                                    className="text-left py-0.5 hover:text-orange-500 transition-colors cursor-pointer"
+                                  >
+                                    ├─ {lnk.label}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* 4. Strollers (Floor 4) */}
+                            <div className="space-y-1.5 pt-0.5">
+                              <span className="text-[11px] font-black text-slate-800 flex items-center gap-1.5 font-display">
+                                <span>🛒</span> {lang === "en" ? "Strollers" : "婴儿手推车"}
+                              </span>
+                              <div className="pl-5 flex flex-col gap-1 text-[10px] font-bold text-slate-500">
+                                {[
+                                  { label: lang === "en" ? "Travel Strollers" : "轻便折叠/登机推车", anchor: "kids-stroller" },
+                                  { label: lang === "en" ? "Jogging Strollers" : "高避震/跑步推车", anchor: "kids-stroller" },
+                                  { label: lang === "en" ? "Travel System Combo" : "三合一出行系统", anchor: "kids-stroller" }
+                                ].map((lnk, i) => (
+                                  <button
+                                    key={i}
+                                    onClick={() => {
+                                      handlePrimaryTabClick("evaluations");
+                                      closeReviewsMenuInstantly();
+                                      setTimeout(() => {
+                                        const el = document.getElementById(lnk.anchor);
+                                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                                      }, 150);
+                                    }}
+                                    className="text-left py-0.5 hover:text-orange-500 transition-colors cursor-pointer"
+                                  >
+                                    ├─ {lnk.label}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* 5. Kids Electric Cars (Floor 5) */}
+                            <div className="space-y-1.5 pt-0.5">
+                              <span className="text-[11px] font-black text-slate-800 flex items-center gap-1.5 font-display">
+                                <span>⚡</span> {lang === "en" ? "Kids Electric Cars" : "儿童电动车"}
+                              </span>
+                              <div className="pl-5 flex flex-col gap-1 text-[10px] font-bold text-slate-500">
+                                {[
+                                  { label: lang === "en" ? "Ride-on Electric Cars" : "电动玩具车电路安全", anchor: "kids-electric-car" }
+                                ].map((lnk, i) => (
+                                  <button
+                                    key={i}
+                                    onClick={() => {
+                                      handlePrimaryTabClick("evaluations");
+                                      closeReviewsMenuInstantly();
+                                      setTimeout(() => {
+                                        const el = document.getElementById(lnk.anchor);
+                                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                                      }, 150);
+                                    }}
+                                    className="text-left py-0.5 hover:text-orange-500 transition-colors cursor-pointer"
+                                  >
+                                    ├─ {lnk.label}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
                           </div>
                         </div>
 
