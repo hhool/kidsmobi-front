@@ -2865,12 +2865,12 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                   {reviewsMenuOpen && (
                     <div 
                       id="reviews_dropdown_menu" 
-                      className="absolute top-full left-1/2 -translate-x-[42%] mt-3 w-[660px] sm:w-[750px] md:w-[840px] bg-white/98 backdrop-blur-2xl border border-slate-200/85 rounded-[32px] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.18)] ring-1 ring-slate-900/5 p-6 z-[99] animate-in fade-in slide-in-from-top-3 duration-300 ease-out zoom-in-95 text-slate-800"
+                      className="absolute top-full left-1/2 -translate-x-[42%] mt-3 w-[660px] sm:w-[750px] md:w-[840px] lg:w-[920px] bg-white/98 backdrop-blur-2xl border border-slate-200/85 rounded-[32px] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.18)] ring-1 ring-slate-900/5 p-6 z-[99] animate-in fade-in slide-in-from-top-3 duration-300 ease-out zoom-in-95 text-slate-800"
                     >
                       {/* Decorative atmospheric top pointer arrow */}
                       <div className="absolute -top-1.5 left-[42%] w-3 h-3 bg-white border-t border-l border-slate-200 rotate-45"></div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-[1.1fr_1fr_0.9fr] gap-6 text-left relative z-10">
+                      <div className="grid grid-cols-1 md:grid-cols-[1.1fr_1fr_0.9fr] lg:grid-cols-[1.1fr_1.45fr_1.05fr] gap-6 text-left relative z-10">
                         
                         {/* Column 1: Categories Pillars */}
                         <div className="space-y-4 pr-3 border-r border-slate-100">
