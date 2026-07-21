@@ -1436,22 +1436,50 @@ export default function GuidesSection({
             {filteredGuides.length === 0 ? (
               <div className="p-16 text-center bg-white border border-slate-100 rounded-[40px] shadow-sm space-y-4">
                 <p className="text-slate-400 font-medium">
-                  {lang === "en" 
-                    ? `No guides found under "${categories.find(c => c.id === selectedCategory)?.label || selectedCategory}".` 
-                    : `在【${categories.find(c => c.id === selectedCategory)?.label || selectedCategory}】主题下，暂时没有该品类的特定科普文章。`}
+                  {searchQuery 
+                    ? (lang === "en" 
+                        ? `No match found for search query "${searchQuery}".` 
+                        : `没有找到匹配关键词 “${searchQuery}” 的指南文章。`)
+                    : (lang === "en" 
+                        ? `No guides found under "${categories.find(c => c.id === selectedCategory)?.label || selectedCategory}".` 
+                        : `在【${categories.find(c => c.id === selectedCategory)?.label || selectedCategory}】主题下，暂时没有该品类的特定科普文章。`)}
                 </p>
-                {selectedCategory !== "all" && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setSelectedCategory("all");
-                      onPageChange?.(1);
-                    }}
-                    className="px-5 py-2.5 bg-orange-500 text-white text-xs font-black rounded-xl hover:bg-orange-600 transition shadow-md shadow-orange-500/10 active:scale-95 cursor-pointer"
-                  >
-                    {lang === "en" ? "Show All Category Guides" : "查看此品类全部指南"}
-                  </button>
-                )}
+                <div className="flex justify-center gap-3">
+                  {searchQuery && (
+                    <button
+                      type="button"
+                      onClick={() => setSearchQuery("")}
+                      className="px-5 py-2.5 bg-slate-900 text-white text-xs font-black rounded-xl hover:bg-slate-800 transition shadow-md active:scale-95 cursor-pointer"
+                    >
+                      {lang === "en" ? "Clear Search Keyword" : "清除搜索词"}
+                    </button>
+                  )}
+                  {selectedCategory !== "all" && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedCategory("all");
+                        onPageChange?.(1);
+                      }}
+                      className="px-5 py-2.5 bg-orange-500 text-white text-xs font-black rounded-xl hover:bg-orange-600 transition shadow-md shadow-orange-500/10 active:scale-95 cursor-pointer"
+                    >
+                      {lang === "en" ? "Show All Category Guides" : "查看此品类全部指南"}
+                    </button>
+                  )}
+                  {selectedCategory === "all" && !searchQuery && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setWizardCategory("stroller");
+                        setSelectedCategory("all");
+                        onPageChange?.(1);
+                      }}
+                      className="px-5 py-2.5 bg-orange-500 text-white text-xs font-black rounded-xl hover:bg-orange-600 transition shadow-md shadow-orange-500/10 active:scale-95 cursor-pointer"
+                    >
+                      {lang === "en" ? "Reset to Baby Stroller Guides" : "重置并查看婴儿推车指南"}
+                    </button>
+                  )}
+                </div>
               </div>
             ) : (
               <div className="space-y-6">
