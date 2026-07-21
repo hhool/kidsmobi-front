@@ -489,58 +489,6 @@ export default function NewsSection({
               </p>
           </div>
 
-          {/* Searching and Categorizing Tags */}
-          <div className="bg-white border border-slate-100 rounded-4xl p-6 shadow-xl shadow-slate-200/50 space-y-6">
-            <div className="flex flex-col sm:flex-row gap-4">
-              <div className="relative flex-1">
-                <Search className="w-4 h-4 text-slate-400 absolute left-4 top-4" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder={lang === "en" ? "Search news keyword..." : "检索核心安全术语、合规标准、品牌动态..."}
-                  aria-label={lang === "en" ? "Search news keywords" : "检索资讯关键词"}
-                  title={lang === "en" ? "Search news keywords" : "检索资讯关键词"}
-                  className="w-full bg-slate-50 border border-slate-100 rounded-2xl pl-10 pr-4 py-3 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 transition-all font-medium"
-                />
-              </div>
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                aria-label={lang === "en" ? "Sort news articles" : "排序资讯文章"}
-                title={lang === "en" ? "Sort news articles" : "排序资讯文章"}
-                className="bg-white border border-slate-100 rounded-2xl px-4 py-3 text-sm text-slate-700 font-bold focus:outline-none focus:border-orange-500 transition-all cursor-pointer"
-              >
-                <option value="date">{lang === "en" ? "📅 Newest" : "📅 最新发布"}</option>
-                <option value="views">{lang === "en" ? "🔥 Popular" : "🔥 最热门"}</option>
-              </select>
-            </div>
-
-            {/* Categorization dynamic tabs bar */}
-            <div className="flex flex-wrap gap-2 pt-2">
-              {[
-                { id: "all", label: lang === "en" ? "All News" : "全部资讯", icon: "📁" },
-                { id: "industry", label: lang === "en" ? "Industry Trends" : "行业趋势", icon: "🏭" },
-                { id: "new_product", label: lang === "en" ? "New Launches" : "新品发布", icon: "🆕" },
-                { id: "regulation", label: lang === "en" ? "Regulations" : "合规政策", icon: "⚖️" },
-                { id: "brand_news", label: lang === "en" ? "Brand News" : "品牌动态", icon: "🏢" },
-                { id: "science", label: lang === "en" ? "Science & Tips" : "科普干货", icon: "🔬" },
-              ].map((c) => (
-                <button
-                  key={c.id}
-                  onClick={() => handleCategoryClick(c.id)}
-                  className={`px-4 py-2 rounded-xl text-xs font-black transition-all border ${
-                    selectedCategory === c.id
-                      ? "bg-orange-500 text-white border-orange-400 shadow-lg shadow-orange-500/20 scale-105"
-                      : "bg-white text-slate-500 border-slate-100 hover:border-orange-100 hover:text-orange-500"
-                  }`}
-                >
-                  {c.icon} {c.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
           {/* Cards Render */}
           {filteredNews.length === 0 ? (
             <div className="p-20 text-center bg-white border border-slate-100 rounded-[40px] shadow-sm">
