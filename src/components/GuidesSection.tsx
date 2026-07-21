@@ -1434,10 +1434,24 @@ export default function GuidesSection({
             </div>
 
             {filteredGuides.length === 0 ? (
-              <div className="p-20 text-center bg-white border border-slate-100 rounded-[40px] shadow-sm">
-                <span className="text-slate-400 font-medium">
-                  {lang === "en" ? "No guides found." : "没找到相关的科普指南文档"}
-                </span>
+              <div className="p-16 text-center bg-white border border-slate-100 rounded-[40px] shadow-sm space-y-4">
+                <p className="text-slate-400 font-medium">
+                  {lang === "en" 
+                    ? `No guides found under "${categories.find(c => c.id === selectedCategory)?.label || selectedCategory}".` 
+                    : `在【${categories.find(c => c.id === selectedCategory)?.label || selectedCategory}】主题下，暂时没有该品类的特定科普文章。`}
+                </p>
+                {selectedCategory !== "all" && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedCategory("all");
+                      onPageChange?.(1);
+                    }}
+                    className="px-5 py-2.5 bg-orange-500 text-white text-xs font-black rounded-xl hover:bg-orange-600 transition shadow-md shadow-orange-500/10 active:scale-95 cursor-pointer"
+                  >
+                    {lang === "en" ? "Show All Category Guides" : "查看此品类全部指南"}
+                  </button>
+                )}
               </div>
             ) : (
               <div className="space-y-6">
