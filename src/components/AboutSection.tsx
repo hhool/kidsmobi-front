@@ -20,21 +20,37 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
         />
 
         {/* Hero Banner */}
-        <div className="relative bg-white border border-slate-100 rounded-[48px] overflow-hidden p-10 sm:p-16 shadow-xl shadow-orange-500/5 text-center">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-orange-100/30 blur-[100px] rounded-full -mr-20 -mt-20"></div>
-          
-          <div className="space-y-6 relative z-10">
-            <span className="px-4 py-1.5 bg-orange-50 border border-orange-100 text-orange-600 text-[10px] font-black uppercase rounded-full tracking-wider">
+        <section className="relative rounded-[48px] bg-slate-950 border border-slate-800 overflow-hidden p-10 sm:p-20 text-center max-w-7xl mx-auto shadow-2xl min-h-[480px] flex items-center justify-center">
+          {/* Ambient background with dark overlay */}
+          <div className="absolute inset-0 z-0">
+            <div 
+              className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
+              style={{
+                backgroundImage: `url("https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?q=80&w=1600&auto=format&fit=crop")`,
+                opacity: 0.45
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-900/40 to-slate-950/90 mix-blend-multiply"></div>
+            {/* Pulsing ambient indicators */}
+            <div className="absolute top-0 left-1/4 w-72 h-72 bg-orange-500/10 rounded-full blur-[100px] animate-pulse"></div>
+            <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-emerald-500/10 rounded-full blur-[100px] animate-pulse delay-700"></div>
+          </div>
+
+          <div className="relative z-10 space-y-8 w-full max-w-4xl">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-500/15 border border-orange-500/30 text-orange-400 text-[10px] h-7 font-black uppercase tracking-widest rounded-full shadow-lg backdrop-blur-md">
+              <ShieldCheck className="w-4 h-4 text-orange-400" />
               ESTABLISHED IN 2026 · Independent Premium Platform
-            </span>
-            <h1 className="text-3xl font-black text-slate-900 tracking-tight leading-tight">
+            </div>
+            
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight drop-shadow-md">
               About KIDSMOBI: Your Independent Kids' Mobility Lab
             </h1>
-            <p className="text-slate-500 text-sm max-w-2xl mx-auto leading-relaxed font-medium">
+            
+            <p className="text-slate-200 text-xs sm:text-sm md:text-base max-w-3xl mx-auto leading-relaxed font-semibold drop-shadow-sm">
               We audit jogging stroller, balance bike, toddler bike, and kids scooter safety with independent mechanical methods to answer one simple question: Is this truly safe for your child's growth?
             </p>
           </div>
-        </div>
+        </section>
 
         {/* The 4 Core Neutral Commitments */}
         <section className="space-y-10">
@@ -208,23 +224,37 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
     />
 
       {/* Hero Banner */}
-      <div className="relative bg-white border border-slate-100 rounded-[48px] overflow-hidden p-10 sm:p-16 shadow-xl shadow-orange-500/5 text-center">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-orange-100/30 blur-[100px] rounded-full -mr-20 -mt-20"></div>
-        
-        <div className="space-y-6 relative z-10">
-          <span className="px-4 py-1.5 bg-orange-50 border border-orange-100 text-orange-600 text-[10px] font-black uppercase rounded-full tracking-wider">
-            ESTABLISHED IN 2026 · 高端垂直童车导购平台
-          </span>
-          <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-tight">
-            KIDSMOBI · 高端垂直 <br />
-            <span className="text-orange-500">高端垂直童车评测平台</span>
+      <section className="relative rounded-[48px] bg-slate-950 border border-slate-800 overflow-hidden p-10 sm:p-20 text-center max-w-7xl mx-auto shadow-2xl min-h-[480px] flex items-center justify-center">
+        {/* Ambient background with dark overlay */}
+        <div className="absolute inset-0 z-0">
+          <div 
+            className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
+            style={{
+              backgroundImage: `url("https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?q=80&w=1600&auto=format&fit=crop")`,
+              opacity: 0.45
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-900/40 to-slate-950/90 mix-blend-multiply"></div>
+          {/* Pulsing ambient indicators */}
+          <div className="absolute top-0 left-1/4 w-72 h-72 bg-orange-500/10 rounded-full blur-[100px] animate-pulse"></div>
+          <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-emerald-500/10 rounded-full blur-[100px] animate-pulse delay-700"></div>
+        </div>
+
+        <div className="relative z-10 space-y-8 w-full max-w-4xl">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-500/15 border border-orange-500/30 text-orange-400 text-[10px] h-7 font-black uppercase tracking-widest rounded-full shadow-lg backdrop-blur-md">
+            <ShieldCheck className="w-4 h-4 text-orange-400" />
+            ESTABLISHED IN 2026 · 独立第三方权威安全实验室
+          </div>
+          
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight drop-shadow-md">
+            KIDSMOBI：您信赖的中立儿童出行安全实验室
           </h2>
-          <p className="text-slate-500 text-sm max-w-2xl mx-auto leading-relaxed font-medium">
-            我们100%对标全球最严苛的儿童健康测试体系，只为解答一个纯粹的问题：
-            <span className="text-slate-900 font-bold block">“这辆车真的对宝宝的骨骼安全、健康骑行无害吗？”</span>
+          
+          <p className="text-slate-200 text-xs sm:text-sm md:text-base max-w-3xl mx-auto leading-relaxed font-semibold drop-shadow-sm">
+            我们100%对标全球最严苛的儿童健康力学测试体系，通过不平整颠震传导、手闸阻力、Q-Factor 膝跨跨距以及钢架结构疲劳抗压等精密实验仪，深度拆解婴儿推车、平衡滑步车、儿童自行车及滑板车的潜在设计缺陷，用独立硬核实测数据捍卫宝宝的骨骼安全与健康成长。
           </p>
         </div>
-      </div>
+      </section>
 
       {/* The 4 Core Neutral Commitments */}
       <section className="space-y-10">
