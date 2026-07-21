@@ -877,6 +877,173 @@ export function translateGuideArticle(art: any, lang: "zh" | "en") {
   };
 
   const db: Record<string, { title: string; summary: string; author: string; readTime: string; content: string }> = {
+    // 1. Stroller Articles
+    guide_stroller_1: {
+      title: "Baby Stroller Suspension & Spinal Safety Sizing Guide",
+      summary: "Understand infant skeletal loads. Learn how shock absorption link arms and high-traction pneumatic tires preserve spine health.",
+      author: "Ergonomics Lead - Prof. Ge",
+      readTime: "8 min read",
+      content: `### Baby Stroller Suspension & Spinal Alignment Engineering
+
+Because infants have extremely tender bones, soft necks, and developing neural tissues during the first 12 months, micro-shocks from brick trails can transmit directly into their skull cavity.
+
+#### 1. Why Lightweight Umbrella Prams Lack Proper Vibration Isolation
+To hit under-4kg fold targets, standard umbrella strollers compromise structural suspension links. Under stone pavements, high-frequency impacts shake the seat, transferring directly into baby's spine.
+
+#### 2. The Suspension Pyramid
+*   **Pneumatic Tires**: Real air cushioning delivers micro-damping bounds.
+*   **Independent Wheel Springs**: Absorb vertical step dips and curbs.
+*   **Magnesium-Aluminum Arch Chassis**: Disperses point shock waves.`
+    },
+    guide_stroller_2: {
+      title: "High-View Stroller vs. Lightweight Pram: Scenario Guide",
+      summary: "Balancing heavy structural comfort against fast one-hand folding portability for suburban trains and rugged camping paths.",
+      author: "Parenting Coach - Mom Emma",
+      readTime: "7 min read",
+      content: `### Selecting Stroller Categories by Spatial Context
+
+Many parents fall into all-in-one deluxe traps, buying heavy 20kg strollers that end up gathering dust on balconies because they are impossible to lift with one hand.
+
+#### 1. High-density Metro & School Gate Transits
+Prioritize strollers under **5.8kg - 6.5kg** featuring a reliable **one-hand gravity fold**.
+
+#### 2. Outdoor Grass & Off-road Commutes
+Hard plastic wheels get stuck on grass. Upgrade to thick **pneumatic off-road tires** (e.g., Bugaboo Fox 5) with parent links.`
+    },
+
+    // 2. Kids Bike Articles
+    guide_bicycle_1: {
+      title: "Kids Bicycle Braking Safety: Coaster, Handbrakes & Safety Boundaries",
+      summary: "Why coaster brakes frustrate beginner riders, and auditing kid bike brake reach limits for small hands.",
+      author: "Material Risk Auditor - Marios",
+      readTime: "6 min read",
+      content: `### Kids Bicycle Brake Safety & Stopping Distances
+
+Many 12-14 in. starter bikes come equipped with back-pedal coaster brakes. While standard in classic designs, this setup can seriously hinder toddler progress.
+
+#### 1. The Coaster Brake Learning Trap
+*   **Balance Loss**: Beginners naturally back-pedal to recover balance when wobbling. Sudden locking of the rear wheel throws them off.
+*   **Start-off Struggles**: To start rolling, kids need to back-rotate pedals to a 45-degree angle. Coaster systems instantly lock, preventing easy start-offs.
+
+#### 2. Handbrake Ergonomic Standards
+*   **V-Brake/Disc Mechanics**: Deliver high deceleration under low finger clamping forces (<10N).
+*   **Micro Reach Lever**: Frame-to-grip range should sit strictly **under 3.2cm** for small hands.`
+    },
+    guide_bicycle_2: {
+      title: "Kids Bicycle Stem Clamp & Chain Durability Self-Check Guide",
+      summary: "5-point inspection to ensure tight stem clamps, smooth chains, and ideal cold pressure tire inflation.",
+      author: "Master Mechanic - Yang Lu",
+      readTime: "8 min read",
+      content: `### Pediatric Bicycle Mechanics: Routine Self-Checks
+
+Approximately **34%** of child bike injuries result from loose handle clamps or poorly maintained chain drives.
+
+#### 1. Steering Stem Torsional Slip Check
+Clamp the front wheel between your shins and twist the handlebar firmly. If the stem rotates relative to the tire, apply exact torque using a 5mm hex wrench to prevent high-speed misalignment.
+
+#### 2. Cold Inflation Verification
+Squeeze tires firmly. The tires should resist indentation beyond 1/3 depth, keeping around **35-45 PSI** for smooth rolling.`
+    },
+
+    // 3. Scooter Articles
+    guide_scooter_1: {
+      title: "Kids Scooter Sizing Guide: Symmetrical Gravity Steering Height",
+      summary: "Why lean-to-steer gravity steering prevents over-rotation flip hazards on daily neighborhood commutes.",
+      author: "Pediatric Physical Therapist - Dr. Yu",
+      readTime: "6 min read",
+      content: `### Mechanical Gravity Steering in Kick Scooters
+
+For toddlers aged 2-5, steering response and handlebar heights play a vital role in preventing fall incidents.
+
+#### 1. Standard Swivel Steering vs. Lean-to-Steer Controls
+*   **Swivel steering**: Over-correction translates into a 90-degree wheel turn on gravel, sending the child flying forwards.
+*   **Lean-to-steer**: Locks standard swivel angles. Steers through weight distribution with smooth self-centering forces.
+
+#### 2. Ergonomic Height Benchmarks
+T-bar handle grips should sit snugly **between the child's lower rib cage and belly button** when standing on the deck.`
+    },
+    guide_scooter_2: {
+      title: "Tipping Hazards of Cheap Scooters: Evading Substandard Steering Gears",
+      summary: "A lab audit of brittle plastics, narrow front wheel tracks, and high-clearance joint wobbles in bargain models.",
+      author: "Master Mechanic - Yang Lu",
+      readTime: "7 min read",
+      content: `### Unveiling Plastic Shell Material Risks in Bargain Scooters
+
+Unbranded low-cost scooters rely on **recycled brittle plastics** without nylon resilience reinforcements.
+
+#### 1. Deck Load Tension Tests
+In structural stress trials, low-cost plastic decks snapped cleanly under **35kg of static mass load**, exposing jagged edges.
+
+#### 2. Stable Track Width Bounds
+Safe scooters keep a front track width **exceeding 24cm** with a low ground deck clearance under 4.5cm to hold a low center of gravity.`
+    },
+
+    // 4. Balance Bike Articles
+    guide_balance_1: {
+      title: "First Balance Bike Setup: Sizing the Ergonomic Standover Safe Dead-Line",
+      summary: "How barefoot inseam measurements determine correct saddle ranges for early learning confidence.",
+      author: "Ergonomics Lead - Prof. Ge",
+      readTime: "9 min read",
+      content: `### The Barefoot Inseam Rule for Balance Bikes
+
+Do not shop for children's riding gear by age tags. Sizing a safe first ride-on requires measuring actual leg inseams.
+
+#### 1. Why Shoe-less Inseam Controls Safety Gaps
+Both heels must rest completely flat on pavement when sitting on the saddle for the child to feel stable.
+*   **Optimal Seat Sizing**: Minimum saddle altitude should sit exactly **2.5cm below computed inseam**.
+*   This 2.5cm allows knees to bend comfortably for forward strides and lets the toddler bring the bike to a safe stop instantly.
+
+#### 2. Developmental Milestones
+Ages 1.5 to 3 mark a precious window for vestibular system development and lower-body motor control. A 12-inch, 3.0kg bike is highly recommended.`
+    },
+    guide_balance_2: {
+      title: "Ultralight Balance Bikes: Materials Audit of Aluminum vs. Magnesium vs. Steel",
+      summary: "Comparing total vehicle weights against a child's 30% body-weight threshold for muscle ergonomics.",
+      author: "Material Risk Auditor - Marios",
+      readTime: "7 min read",
+      content: `### Child Mobility Weights: Materials Comparison
+
+Physiologists state: **A child's vehicle must stay well under 30% of their body weight.**
+
+#### 1. Heavy Carbon Steel Cars
+Typically weigh **5.2kg - 7kg**. During falls, these heavy steel structures pin and injure the child's legs.
+
+#### 2. Aerospace Aluminum 6061 & Injection-Molded Magnesium
+*   **Aluminum 6061**: High strength-to-weight ratio, rust-resistant, keeping overall weights at **2.9kg - 3.5kg**.
+*   **Magnesium One-Piece castings**: Eliminates weld joints, resulting in clean, aerodynamic curves.`
+    },
+
+    // 5. Electric Car Articles
+    guide_electric_1: {
+      title: "Kids Electric Car Battery Safety & Anti-Tip Rollover Verification",
+      summary: "Preventing battery leakages, self-ignition points, and selecting wide wheelbases to block side tipping.",
+      author: "Pediatric Physical Therapist - Dr. Yu",
+      readTime: "8 min read",
+      content: `### Dual-Drive Electric Toy Car: Solid State Battery Safety Checklist
+
+Dual-drive electric cars (12V / 24V) feature high power density and chemical storage, making rigorous safety standards absolute.
+
+#### 1. Fire-Safety Hazards in Bargain Electric Toy Cars
+Bargain models often use low-grade battery configurations and thin copper wiring. Sharp hits can fracture lead-acid sealings.
+
+#### 2. Rollover Prevention Gaps
+Because battery cells introduce significant weight, vehicles must present a **low-slung layout** with wide wheel tracks.`
+    },
+    guide_electric_2: {
+      title: "Dual-Drive Electric Rig: Anti-Skid Tire Traction & Smooth Soft-Start Protection",
+      summary: "Testing tire traction limits on wet paths, and how progressive acceleration protects neck vertebrae against dynamic strain.",
+      author: "Safety Engineer - Yang Lu",
+      readTime: "7 min read",
+      content: `### Dual-Drive Electric Accel Ramp Trials
+
+Standard instant-on switches send peak torque to the motors immediately, snapping the toddler's head backward.
+
+#### 1. Why Soft-Start Progressive Ramping Matters
+A gradual electronic ramping controller prevents whiplash strain on fragile neck vertebrae.
+
+#### 2. Traction Control: Rubber vs. Plastic Tires
+Hard plastic wheels spin out on smooth tiles. Select EVA high-elastic tread tires for reliable grip and safe stopping.`
+    },
     guide_1: {
       title: "First Kid Bike Buyer's Bible: Age & Metric Calculation Calculator Guide",
       summary: "Understand how age, shoe-less leg inseam distance, weight, and wheel dimensions correlate to prevent joint fatigue.",
