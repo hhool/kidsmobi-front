@@ -190,3 +190,4 @@
     transform: translateY(0);
   }
 }
+@plugin "@tailwindcss/typography";
