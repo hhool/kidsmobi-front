@@ -780,6 +780,7 @@ export default function App() {
   const [productsMenuOpen, setProductsMenuOpen] = useState(false);
   const [reviewsMenuOpen, setReviewsMenuOpen] = useState(false);
   const [guidesMenuOpen, setGuidesMenuOpen] = useState(false);
+  const [newsMenuOpen, setNewsMenuOpen] = useState(false);
 
   const bbtShowTimerRef = useRef<any>(null);
   const bbtHideTimerRef = useRef<any>(null);
@@ -789,12 +790,15 @@ export default function App() {
   const reviewsHideTimerRef = useRef<any>(null);
   const guidesShowTimerRef = useRef<any>(null);
   const guidesHideTimerRef = useRef<any>(null);
+  const newsShowTimerRef = useRef<any>(null);
+  const newsHideTimerRef = useRef<any>(null);
 
   const handleBbtMouseEnter = () => {
     // 互斥关闭：滑入 Home 的同时立刻关断并强制销毁 Products、Reviews 和 Guides 面板，防止双层重叠
     closeProductsMenuInstantly();
     closeReviewsMenuInstantly();
     closeGuidesMenuInstantly();
+    closeNewsMenuInstantly();
 
     if (bbtHideTimerRef.current) {
       clearTimeout(bbtHideTimerRef.current);
@@ -835,6 +839,7 @@ export default function App() {
     closeBbtMenuInstantly();
     closeReviewsMenuInstantly();
     closeGuidesMenuInstantly();
+    closeNewsMenuInstantly();
 
     if (productsHideTimerRef.current) {
       clearTimeout(productsHideTimerRef.current);
@@ -875,6 +880,7 @@ export default function App() {
     closeBbtMenuInstantly();
     closeProductsMenuInstantly();
     closeGuidesMenuInstantly();
+    closeNewsMenuInstantly();
 
     if (reviewsHideTimerRef.current) {
       clearTimeout(reviewsHideTimerRef.current);
@@ -915,6 +921,7 @@ export default function App() {
     closeBbtMenuInstantly();
     closeProductsMenuInstantly();
     closeReviewsMenuInstantly();
+    closeNewsMenuInstantly();
 
     if (guidesHideTimerRef.current) {
       clearTimeout(guidesHideTimerRef.current);
@@ -940,6 +947,47 @@ export default function App() {
         guidesHideTimerRef.current = null;
       }, 1000); // 1000ms 延时保护，避免频闪消失
     }
+  };
+
+
+  const handleNewsMouseEnter = () => {
+    closeBbtMenuInstantly();
+    closeProductsMenuInstantly();
+    closeReviewsMenuInstantly();
+    closeGuidesMenuInstantly();
+
+    if (newsHideTimerRef.current) {
+      clearTimeout(newsHideTimerRef.current);
+      newsHideTimerRef.current = null;
+    }
+    if (newsMenuOpen) return;
+    if (!newsShowTimerRef.current) {
+      newsShowTimerRef.current = setTimeout(() => {
+        setNewsMenuOpen(true);
+        newsShowTimerRef.current = null;
+      }, 150); 
+    }
+  };
+
+  const handleNewsMouseLeave = () => {
+    if (newsShowTimerRef.current) {
+      clearTimeout(newsShowTimerRef.current);
+      newsShowTimerRef.current = null;
+    }
+    if (!newsHideTimerRef.current) {
+      newsHideTimerRef.current = setTimeout(() => {
+        setNewsMenuOpen(false);
+        newsHideTimerRef.current = null;
+      }, 1000); 
+    }
+  };
+
+  const closeNewsMenuInstantly = () => {
+    setNewsMenuOpen(false);
+    if (newsShowTimerRef.current) clearTimeout(newsShowTimerRef.current);
+    if (newsHideTimerRef.current) clearTimeout(newsHideTimerRef.current);
+    newsShowTimerRef.current = null;
+    newsHideTimerRef.current = null;
   };
 
   const closeGuidesMenuInstantly = () => {
@@ -3482,14 +3530,58 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                   )}
                 </div>
 
-                <button
-                  onClick={() => handlePrimaryTabClick("news")}
-                  className={`px-3 py-2 rounded-xl font-bold transition-all ${
-                    activeTab === "news" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
-                  }`}
+
+                <div 
+                  className="relative group"
+                  onMouseEnter={handleNewsMouseEnter}
+                  onMouseLeave={handleNewsMouseLeave}
                 >
-                  {t.navNews}
-                </button>
+                  <button
+                    onClick={() => {
+                      handlePrimaryTabClick("news");
+                      setNewsMenuOpen(prev => !prev);
+                      if (newsShowTimerRef.current) clearTimeout(newsShowTimerRef.current);
+                      if (newsHideTimerRef.current) clearTimeout(newsHideTimerRef.current);
+                      newsShowTimerRef.current = null;
+                      newsHideTimerRef.current = null;
+                    }}
+                    className={`px-3 py-2 rounded-xl font-bold transition-all flex items-center gap-1 ${
+                      activeTab === "news" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                    }`}
+                  >
+                    <span>{t.navNews}</span>
+                    <span className="text-[10px] text-slate-400">▾</span>
+                  </button>
+                  {newsMenuOpen && (
+                    <div 
+                      id="news_dropdown_menu" 
+                      className="absolute top-full left-0 mt-3 w-[500px] bg-white/98 backdrop-blur-2xl border border-slate-200/80 rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] ring-1 ring-slate-900/5 p-6 z-[99] animate-in fade-in slide-in-from-top-3 duration-300 ease-out zoom-in-95 text-slate-800 flex gap-6"
+                    >
+                      <div className="absolute -top-1.5 left-10 w-3 h-3 bg-white border-t border-l border-slate-200/80 rotate-45"></div>
+
+                      <div className="w-1/2 space-y-4">
+                          <span className="text-[10px] font-black text-slate-400 block uppercase tracking-wider pl-1 mb-2">Categories</span>
+                          <div className="flex flex-col gap-2">
+                            {["Industry Trends", "New Launches", "Brand News", "Science & Tips"].map(c => (
+                              <button key={c} onClick={() => { handlePrimaryTabClick("news"); closeNewsMenuInstantly(); }} className="text-left font-bold text-slate-600 hover:text-orange-500 transition-colors text-sm px-2 py-1 rounded-lg hover:bg-orange-50">📰 {c}</button>
+                            ))}
+                          </div>
+                      </div>
+
+                      <div className="w-1/2 border-l border-slate-100 pl-6 space-y-4">
+                        <span className="text-[10px] font-black text-slate-400 block uppercase tracking-wider pl-1">Featured Desk</span>
+                        <div onClick={() => { handlePrimaryTabClick("news"); closeNewsMenuInstantly(); }} className="bg-slate-50 border border-slate-100 rounded-xl p-3 cursor-pointer hover:border-orange-500 hover:shadow-md transition-all group/feat">
+                            <div className="h-20 bg-white rounded-lg mb-2 flex items-center justify-center font-bold text-xs text-slate-400 group-hover/feat:text-orange-500 transition-all">📈 Trending Report</div>
+                            <h4 className="font-extrabold text-[11px] truncate">Safety Standards 2026</h4>
+                        </div>
+                        <div className="flex flex-col gap-2 mt-4 text-xs font-bold text-slate-600">
+                          <button onClick={() => { handlePrimaryTabClick("news"); closeNewsMenuInstantly(); }} className="text-left hover:text-orange-500 transition-colors text-red-500">⚠️ Recall & Risk Watch</button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
 
                 <button
                   onClick={() => handlePrimaryTabClick("about")}
