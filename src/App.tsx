@@ -3063,24 +3063,84 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                         {/* Column 2: Highlights & Trust (Optimized to mirror Product menu premium dimensions) */}
                         <div className="space-y-6 pr-3 border-r border-slate-100 flex flex-col justify-between">
                           
-                          <div className="group/total">
-                            <button
-                              onClick={() => {
-                                handlePrimaryTabClick("evaluations");
-                                navigateToPath("/reviews");
-                                closeReviewsMenuInstantly();
-                              }}
-                              className="w-full text-left py-3.5 px-4 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-xl font-extrabold text-xs shadow-md shadow-orange-500/20 hover:shadow-lg hover:shadow-orange-500/35 transition-all flex items-center justify-between group/total"
-                            >
-                              <span className="flex items-center gap-3 font-display">
-                                <span className="text-base bg-white/20 w-8 h-8 rounded-lg flex items-center justify-center backdrop-blur-sm shadow-inner">🔬</span> 
-                                <div className="flex flex-col text-left">
-                                  <span className="font-extrabold text-[12px] text-white">{lang === "en" ? "Explore All Reviews" : "独立全地形实测评测中心"}</span>
-                                  <span className="text-[10px] text-orange-100/90 font-normal mt-0.5">{lang === "en" ? "100% Retails batches & bias-free" : "自费购样，多维数据客观公正深度解构"}</span>
-                                </div>
+                          <div className="space-y-5">
+                            <div className="group/total">
+                              <button
+                                onClick={() => {
+                                  handlePrimaryTabClick("evaluations");
+                                  navigateToPath("/reviews");
+                                  closeReviewsMenuInstantly();
+                                }}
+                                className="w-full text-left py-3.5 px-4 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-xl font-extrabold text-xs shadow-md shadow-orange-500/20 hover:shadow-lg hover:shadow-orange-500/35 transition-all flex items-center justify-between group/total cursor-pointer"
+                              >
+                                <span className="flex items-center gap-3 font-display">
+                                  <span className="text-base bg-white/20 w-8 h-8 rounded-lg flex items-center justify-center backdrop-blur-sm shadow-inner">🔬</span> 
+                                  <div className="flex flex-col text-left">
+                                    <span className="font-extrabold text-[12px] text-white">{lang === "en" ? "Explore All Reviews" : "独立全地形实测评测中心"}</span>
+                                    <span className="text-[10px] text-orange-100/90 font-normal mt-0.5">{lang === "en" ? "100% Retails batches & bias-free" : "自费购样，多维数据客观公正深度解构"}</span>
+                                  </div>
+                                </span>
+                                <span className="text-sm transition-transform group-hover/total:translate-x-1.5">➔</span>
+                              </button>
+                            </div>
+
+                            {/* Middle section filling the blank area perfectly */}
+                            <div className="space-y-3 pt-1">
+                              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans">
+                                🧪 {lang === "en" ? "SPECIALIZED LAB DIMENSIONS" : "实验室专项评估维度"}
                               </span>
-                              <span className="text-sm transition-transform group-hover/total:translate-x-1.5">➔</span>
-                            </button>
+                              <div className="flex flex-col gap-2.5">
+                                {[
+                                  {
+                                    emoji: "🔄",
+                                    titleEn: "Dynamic Fatigue Stress Tests",
+                                    titleZh: "底盘滚动疲劳应力持久测试",
+                                    descEn: "100,000+ continuous tumbling cycles verify mechanical chassis limitations.",
+                                    descZh: "10万次连续颠簸，解构车身、前叉与折叠件的物理疲劳红线。",
+                                    anchor: "kids-stroller"
+                                  },
+                                  {
+                                    emoji: "📐",
+                                    titleEn: "Biomechanical Sizing Bounds",
+                                    titleZh: "人体工学及盆骼生长尺寸测量",
+                                    descEn: "We map child pelvic geometry to safe saddle heights and steering stops.",
+                                    descZh: "测量车架倾心、转弯双向安全限位，适配低重心骑乘结构保护。",
+                                    anchor: "balance-bike"
+                                  }
+                                ].map((item, idx) => (
+                                  <button
+                                    key={idx}
+                                    onClick={() => {
+                                      if (activeTab === "evaluations") {
+                                        closeReviewsMenuInstantly();
+                                        setTimeout(() => {
+                                          const el = document.getElementById(item.anchor);
+                                          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                                        }, 150);
+                                      } else {
+                                        handlePrimaryTabClick("evaluations");
+                                        closeReviewsMenuInstantly();
+                                        setTimeout(() => {
+                                          const el = document.getElementById(item.anchor);
+                                          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                                        }, 350);
+                                      }
+                                    }}
+                                    className="w-full text-left p-3.5 bg-slate-50 hover:bg-orange-500/5 hover:border-orange-500/20 border border-slate-100 rounded-2xl transition-all cursor-pointer flex gap-3 group/lab"
+                                  >
+                                    <span className="text-sm bg-white border border-slate-100 shadow-sm w-7 h-7 rounded-xl flex items-center justify-center shrink-0 group-hover/lab:scale-110 transition-transform">{item.emoji}</span>
+                                    <div className="flex flex-col text-left justify-center min-w-0">
+                                      <span className="text-slate-800 font-extrabold text-[11px] truncate group-hover/lab:text-orange-500 transition-colors">
+                                        {lang === "en" ? item.titleEn : item.titleZh}
+                                      </span>
+                                      <span className="text-slate-400 text-[10px] font-semibold mt-0.5 leading-snug">
+                                        {lang === "en" ? item.descEn : item.descZh}
+                                      </span>
+                                    </div>
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
                           </div>
 
                           <div className="space-y-2 pt-2 border-t border-slate-50">
