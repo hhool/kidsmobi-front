@@ -1259,75 +1259,80 @@ export default function EvaluationsSection({
         items={[{ label: "REVIEWS", active: true }]} 
       />
 
-      {/* Atmospheric Title Description Block - Aligned with Product Hub Style */}
-      <section className="relative rounded-[32px] bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 text-white overflow-hidden p-8 md:p-12 text-left max-w-7xl mx-auto shadow-xl space-y-6">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(249,115,22,0.15),transparent)]"></div>
-        <div className="relative z-10 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-orange-500/10 border border-orange-500/20 text-orange-400 text-[10px] font-black uppercase tracking-widest rounded-full shadow-inner font-mono">
-            ★ INDEPENDENT LAB EVALUATIONS
-          </div>
+      {/* 🛠️ 合并版头部大 Banner & 智能选车工具引导 (Premium Integrated Parent Banner) */}
+      <section className="relative rounded-[40px] bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 text-white overflow-hidden p-8 md:p-12 text-left max-w-7xl mx-auto shadow-2xl border border-slate-800">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(249,115,22,0.18),transparent)]"></div>
+        
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1.25fr_0.75fr] gap-8 md:gap-12 items-center">
+          <div className="space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-orange-500/10 border border-orange-500/25 text-orange-400 text-[10px] font-black uppercase tracking-widest rounded-full shadow-inner font-mono">
+              ★ INDEPENDENT LAB TESTING & REVIEWS
+            </div>
 
-          <h1 className="text-xl md:text-2xl font-black tracking-tight leading-tight max-w-5xl">
-            {lang === "zh"
-              ? "专家评测中心：甄选最佳旅行推车与慢跑推车"
-              : "Expert Stroller Reviews & Balance Bike Reviews"}
-          </h1>
-
-          <div className="border-l-2 border-orange-500 pl-4 space-y-2">
-            <p className="text-slate-300 text-xs md:text-sm font-semibold max-w-5xl leading-relaxed italic whitespace-normal break-words">
+            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight text-white max-w-3xl">
               {lang === "zh"
-                ? "我们的婴儿手推车及平衡车评测旨在帮助家长快速筛选出最适合机场出行的最佳旅行手推车以及每日慢跑所需的最佳慢跑推车。100%测试样机均通过普通零售渠道匿名买入，拒收一切厂商利益输送与公关赞助费。"
-                : "Our stroller reviews and balance bike reviews help families quickly shortlist the best travel stroller for airport days and the best jogging stroller for daily runs. 100% of tested models are anonymously purchased from retail-sampled batches with absolute 0% third-party manufacturer backing, sponsorship, or placement fee."}
-            </p>
+                ? "儿童平衡车与手推车独立评测中心"
+                : "Expert Stroller Reviews & Balance Bike Reviews"}
+            </h1>
+
+            <div className="border-l-2 border-orange-500 pl-4">
+              <p className="text-slate-300 text-sm font-medium leading-relaxed max-w-2xl">
+                {lang === "zh"
+                  ? "帮您可以更为简单、放心地挑出最适合宝宝的优质座驾！无论是轻便折叠伞车 (Travel Stroller)、避震越野慢跑推车 (Jogging Stroller)，还是幼儿滑步平衡车 (Balance Bike)、儿童脚踏自行车 (Kids Bike) 以及滑板车 (Kids Scooter)，我们均坚持 100% 中立客观的匿名检验自购样品，为您呈献深度选购评测。"
+                  : "We make finding the safest, most reliable baby stroller and balance bike straightforward for parents. Whether shopping for a cabin-friendly best travel stroller, an all-terrain jogging stroller, or a sturdy kids bike and kick scooter, we buy and review every model independently through retail batches for 100% unbiased parent confidence."}
+              </p>
+            </div>
+
+            {/* Keyword Pills aligned to anchors */}
+            <div className="flex flex-wrap gap-2 pt-2">
+              {[
+                { label: "Travel Stroller", anchor: "kids-stroller" },
+                { label: "Jogging Stroller", anchor: "kids-stroller" },
+                { label: "Balance Bike", anchor: "balance-bike" },
+                { label: "Kids Bike", anchor: "kids-bike" },
+                { label: "Kids Scooter", anchor: "kids-scooter" },
+                { label: "Kids Electric Car", anchor: "kids-electric-car" }
+              ].map((tag, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => {
+                    const el = document.getElementById(tag.anchor);
+                    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }}
+                  className="px-3.5 py-1.5 bg-white/5 hover:bg-white/12 border border-white/10 hover:border-orange-500 text-[10px] font-extrabold text-slate-300 hover:text-orange-400 rounded-full transition-all cursor-pointer"
+                >
+                  #{tag.label}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className="flex flex-wrap gap-2 pt-2 border-t border-slate-800/60">
-            {[
-              { label: "Travel Stroller 2026", anchor: "kids-stroller" },
-              { label: "Jogging Stroller 2026", anchor: "kids-stroller" },
-              { label: "Kids Dirt Bike 2026", anchor: "kids-bike" },
-              { label: "Balance Bike", anchor: "balance-bike" }
-            ].map((tag, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onClick={() => {
-                  const el = document.getElementById(tag.anchor);
-                  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                }}
-                className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-orange-500 text-[10px] font-extrabold text-slate-300 hover:text-orange-400 rounded-full transition-colors cursor-pointer"
-              >
-                #{tag.label}
-              </button>
-            ))}
+          {/* Right Action Block (Interactive Finder callout merged internally) */}
+          <div className="bg-gradient-to-br from-orange-500 to-amber-500 rounded-[32px] p-6 sm:p-8 flex flex-col justify-between space-y-6 shadow-xl shadow-orange-500/10 border border-orange-400/25 relative z-10 md:min-h-[240px]">
+            <div className="space-y-2">
+              <h3 className="font-extrabold text-white text-lg tracking-tight leading-snug">
+                {lang === "zh" ? "不确定哪款车最适合您的宝宝？" : "Unsure which model fits your child best?"}
+              </h3>
+              <p className="text-xs text-orange-50/90 font-semibold leading-relaxed">
+                {lang === "zh"
+                  ? "使用我们极具人气的智能匹配寻找向导（Smart Finder），一秒计算最适合您宝宝年龄与身高跨高范围的定制参数！"
+                  : "We map physical dimensions to safe geometry. Launch our interactive Smart Review Finder on the Buyer's Guide page to find ideal matches instantly!"}
+              </p>
+            </div>
+            <button
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  localStorage.setItem("autoOpenWizard", "true");
+                }
+                setActiveTab?.("guides");
+              }}
+              className="w-full py-4 bg-white hover:bg-orange-50 text-slate-950 font-black text-xs uppercase tracking-widest rounded-2xl shadow-md transition-all active:scale-95 cursor-pointer text-center shrink-0 flex items-center justify-center gap-2"
+            >
+              <span>🔍</span>
+              {lang === "zh" ? "测一测我的最佳推荐 ➔" : "GO TO SMART FINDER TOOL ➔"}
+            </button>
           </div>
-        </div>
-      </section>
-
-      {/* Buyer's Guide Cross-page interactive CTA Banner */}
-      <section className="max-w-7xl mx-auto">
-        <div className="bg-linear-to-r from-orange-500 via-orange-500 to-amber-500 text-white rounded-[32px] p-8 flex flex-col md:flex-row justify-between items-center gap-6 shadow-lg shadow-orange-500/10">
-          <div className="space-y-1 md:max-w-2xl text-left">
-            <h4 className="font-black text-white text-lg tracking-tight">
-              {lang === "zh" ? "不确定哪款车最适合您的宝宝？" : "Unsure which model fits your child best?"}
-            </h4>
-            <p className="text-xs text-orange-100 font-bold leading-relaxed">
-              {lang === "zh"
-                ? "试一试我们内置于“选购指南(Buyer's Guide)”页面的参数化互动智能匹配系统，一秒算出属于您的宝宝的定制版车辆黄金参数！"
-                : "Try our interactive Smart Review Finder on the Buyer's Guide page! Input physical parameters and instantly match against all tested models."}
-            </p>
-          </div>
-          <button
-            onClick={() => {
-              if (typeof window !== "undefined") {
-                localStorage.setItem("autoOpenWizard", "true");
-              }
-              setActiveTab?.("guides");
-            }}
-            className="px-6 py-4 bg-white text-slate-900 font-black text-xs uppercase tracking-widest rounded-2xl shadow-md hover:bg-slate-50 transition active:scale-95 cursor-pointer shrink-0"
-          >
-            {lang === "zh" ? "测一测我的最佳匹配 ➔" : "Go to Smart Finder Tool ➔"}
-          </button>
         </div>
       </section>
 
