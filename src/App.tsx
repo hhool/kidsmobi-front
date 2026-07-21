@@ -778,15 +778,19 @@ export default function App() {
   // Navigation Dropdown states & timer refs with elegant 1s hover delay
   const [bbtMenuOpen, setBbtMenuOpen] = useState(false);
   const [productsMenuOpen, setProductsMenuOpen] = useState(false);
+  const [reviewsMenuOpen, setReviewsMenuOpen] = useState(false);
 
   const bbtShowTimerRef = useRef<any>(null);
   const bbtHideTimerRef = useRef<any>(null);
   const productsShowTimerRef = useRef<any>(null);
   const productsHideTimerRef = useRef<any>(null);
+  const reviewsShowTimerRef = useRef<any>(null);
+  const reviewsHideTimerRef = useRef<any>(null);
 
   const handleBbtMouseEnter = () => {
-    // 互斥关闭：滑入 Home 的同时立刻关断并强制销毁 Products 面板，防止双层重叠
+    // 互斥关闭：滑入 Home 的同时立刻关断并强制销毁 Products 和 Reviews 面板，防止双层重叠
     closeProductsMenuInstantly();
+    closeReviewsMenuInstantly();
 
     if (bbtHideTimerRef.current) {
       clearTimeout(bbtHideTimerRef.current);
@@ -823,8 +827,9 @@ export default function App() {
   };
 
   const handleProductsMouseEnter = () => {
-    // 互斥关闭：滑入 Products 的同时立刻关断并强制销毁 Home 面板，防止双层重叠
+    // 互斥关闭：滑入 Products 的同时立刻关断并强制销毁 Home 还有 Reviews 面板，防止双层重叠
     closeBbtMenuInstantly();
+    closeReviewsMenuInstantly();
 
     if (productsHideTimerRef.current) {
       clearTimeout(productsHideTimerRef.current);
@@ -860,12 +865,53 @@ export default function App() {
     productsHideTimerRef.current = null;
   };
 
+  const handleReviewsMouseEnter = () => {
+    // 互斥关闭：滑入 Reviews 的同时立刻关断并强制销毁 Home 和 Products 面板，防止双层重叠
+    closeBbtMenuInstantly();
+    closeProductsMenuInstantly();
+
+    if (reviewsHideTimerRef.current) {
+      clearTimeout(reviewsHideTimerRef.current);
+      reviewsHideTimerRef.current = null;
+    }
+    if (reviewsMenuOpen) return;
+    if (!reviewsShowTimerRef.current) {
+      reviewsShowTimerRef.current = setTimeout(() => {
+        setReviewsMenuOpen(true);
+        reviewsShowTimerRef.current = null;
+      }, 150); // 150ms 快速响应
+    }
+  };
+
+  const handleReviewsMouseLeave = () => {
+    if (reviewsShowTimerRef.current) {
+      clearTimeout(reviewsShowTimerRef.current);
+      reviewsShowTimerRef.current = null;
+    }
+    if (!reviewsHideTimerRef.current) {
+      reviewsHideTimerRef.current = setTimeout(() => {
+        setReviewsMenuOpen(false);
+        reviewsHideTimerRef.current = null;
+      }, 1000); // 1000ms 延时保护，避免频闪消失
+    }
+  };
+
+  const closeReviewsMenuInstantly = () => {
+    setReviewsMenuOpen(false);
+    if (reviewsShowTimerRef.current) clearTimeout(reviewsShowTimerRef.current);
+    if (reviewsHideTimerRef.current) clearTimeout(reviewsHideTimerRef.current);
+    reviewsShowTimerRef.current = null;
+    reviewsHideTimerRef.current = null;
+  };
+
   useEffect(() => {
     return () => {
       if (bbtShowTimerRef.current) clearTimeout(bbtShowTimerRef.current);
       if (bbtHideTimerRef.current) clearTimeout(bbtHideTimerRef.current);
       if (productsShowTimerRef.current) clearTimeout(productsShowTimerRef.current);
       if (productsHideTimerRef.current) clearTimeout(productsHideTimerRef.current);
+      if (reviewsShowTimerRef.current) clearTimeout(reviewsShowTimerRef.current);
+      if (reviewsHideTimerRef.current) clearTimeout(reviewsHideTimerRef.current);
     };
   }, []);
 
@@ -2793,15 +2839,256 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     </div>
                   )}
                 </div>
-                <button
-                  onClick={() => handlePrimaryTabClick("evaluations")}
-                  title={lang === "zh" ? "进入评测中心" : "Open reviews"}
-                  className={`px-3 py-2 rounded-xl font-bold transition-all ${
-                    activeTab === "evaluations" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
-                  }`}
+
+                <div 
+                  className="relative group"
+                  onMouseEnter={handleReviewsMouseEnter}
+                  onMouseLeave={handleReviewsMouseLeave}
                 >
-                  {t.navEvaluations}
-                </button>
+                  <button
+                    onClick={() => {
+                      handlePrimaryTabClick("evaluations");
+                      setReviewsMenuOpen(prev => !prev);
+                      if (reviewsShowTimerRef.current) clearTimeout(reviewsShowTimerRef.current);
+                      if (reviewsHideTimerRef.current) clearTimeout(reviewsHideTimerRef.current);
+                      reviewsShowTimerRef.current = null;
+                      reviewsHideTimerRef.current = null;
+                    }}
+                    className={`px-3 py-2 rounded-xl font-bold transition-all flex items-center gap-1 ${
+                      activeTab === "evaluations" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                    }`}
+                  >
+                    <span>{t.navEvaluations}</span>
+                    <span className="text-[10px] text-slate-400">▾</span>
+                  </button>
+
+                  {reviewsMenuOpen && (
+                    <div 
+                      id="reviews_dropdown_menu" 
+                      className="absolute top-full left-1/2 -translate-x-[42%] mt-3 w-[660px] sm:w-[750px] md:w-[840px] bg-white/98 backdrop-blur-2xl border border-slate-200/85 rounded-[32px] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.18)] ring-1 ring-slate-900/5 p-6 z-[99] animate-in fade-in slide-in-from-top-3 duration-300 ease-out zoom-in-95 text-slate-800"
+                    >
+                      {/* Decorative atmospheric top pointer arrow */}
+                      <div className="absolute -top-1.5 left-[42%] w-3 h-3 bg-white border-t border-l border-slate-200 rotate-45"></div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-[1.1fr_1fr_0.9fr] gap-6 text-left relative z-10">
+                        
+                        {/* Column 1: Categories Pillars */}
+                        <div className="space-y-4 pr-3 border-r border-slate-100">
+                          <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans">
+                            📂 REVIEWS BY CATEGORY
+                          </span>
+                          
+                          <div className="space-y-3.5">
+                            {/* Stroller pillar */}
+                            <div className="space-y-1.5">
+                              <span className="text-[11px] font-black text-slate-800 flex items-center gap-1.5 font-display">
+                                <span>🛒</span> {lang === "en" ? "Strollers" : "婴儿手推车"}
+                              </span>
+                              <div className="pl-5 flex flex-col gap-1 text-[10px] font-bold text-slate-500">
+                                {[
+                                  { label: lang === "en" ? "Travel Strollers" : "轻便折叠/登机推车", anchor: "kids-stroller" },
+                                  { label: lang === "en" ? "Jogging Strollers" : "高避震/跑步推车", anchor: "kids-stroller" },
+                                  { label: lang === "en" ? "Travel System Combo" : "三合一出行系统", anchor: "kids-stroller" }
+                                ].map((lnk, i) => (
+                                  <button
+                                    key={i}
+                                    onClick={() => {
+                                      handlePrimaryTabClick("evaluations");
+                                      closeReviewsMenuInstantly();
+                                      setTimeout(() => {
+                                        const el = document.getElementById(lnk.anchor);
+                                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                                      }, 150);
+                                    }}
+                                    className="text-left py-0.5 hover:text-orange-500 transition-colors cursor-pointer"
+                                  >
+                                    ├─ {lnk.label}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Balance bike pillar */}
+                            <div className="space-y-1.5 pt-0.5">
+                              <span className="text-[11px] font-black text-slate-800 flex items-center gap-1.5 font-display">
+                                <span>🚲</span> {lang === "en" ? "Balance Bikes" : "幼儿平衡车"}
+                              </span>
+                              <div className="pl-5 flex flex-col gap-1 text-[10px] font-bold text-slate-500">
+                                {[
+                                  { label: lang === "en" ? "10-36 Months First Bike" : "学步低重心启蒙平衡车", anchor: "balance-bike" },
+                                  { label: lang === "en" ? "2-in-1 Trike & Balance" : "二合一多功能平衡车", anchor: "balance-bike" },
+                                  { label: lang === "en" ? "Biomechanical Lab Tests" : "生物力学/安全姿势参数", anchor: "balance-bike" }
+                                ].map((lnk, i) => (
+                                  <button
+                                    key={i}
+                                    onClick={() => {
+                                      handlePrimaryTabClick("evaluations");
+                                      closeReviewsMenuInstantly();
+                                      setTimeout(() => {
+                                        const el = document.getElementById(lnk.anchor);
+                                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                                      }, 150);
+                                    }}
+                                    className="text-left py-0.5 hover:text-orange-500 transition-colors cursor-pointer"
+                                  >
+                                    ├─ {lnk.label}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Kids Mobility pillar */}
+                            <div className="space-y-1.5 pt-0.5">
+                              <span className="text-[11px] font-black text-slate-800 flex items-center gap-1.5 font-display">
+                                <span>🛹</span> {lang === "en" ? "Kids Mobility" : "童车与滑板车"}
+                              </span>
+                              <div className="pl-5 flex flex-col gap-1 text-[10px] font-bold text-slate-500">
+                                {[
+                                  { label: lang === "en" ? "Kids Dirt Bikes" : "儿童越野/BMX单车", anchor: "kids-bike" },
+                                  { label: lang === "en" ? "Kick Scooters" : "重力转向发光滑板车", anchor: "kids-scooter" },
+                                  { label: lang === "en" ? "Ride-on Electric Cars" : "电动玩具车电路安全", anchor: "kids-electric-car" }
+                                ].map((lnk, i) => (
+                                  <button
+                                    key={i}
+                                    onClick={() => {
+                                      handlePrimaryTabClick("evaluations");
+                                      closeReviewsMenuInstantly();
+                                      setTimeout(() => {
+                                        const el = document.getElementById(lnk.anchor);
+                                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                                      }, 150);
+                                    }}
+                                    className="text-left py-0.5 hover:text-orange-500 transition-colors cursor-pointer"
+                                  >
+                                    ├─ {lnk.label}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+
+                        {/* Column 2: Highlights & Interactive Tools */}
+                        <div className="space-y-5 pr-3 border-r border-slate-100 flex flex-col justify-between">
+                          <div className="space-y-4">
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans">
+                              ⚡ QUICK LAB HIGHLIGHTS
+                            </span>
+                            
+                            <div className="flex flex-col gap-2">
+                              {[
+                                { labelZh: "🔹 2026年最新实验室评测", labelEn: "🔹 2026 Fresh Lab Reviews", anchor: "latest-reviews" },
+                                { labelZh: "🔹 实验室横评对比矩阵", labelEn: "🔹 Dynamic Comparison Matrix", anchor: "home_layout" }, // Scrolls up to comparison board
+                                { labelZh: "🔹 儿童前庭及力学疲劳实验", labelEn: "🔹 Biomechanical Lab Tests", anchor: "balance-bikes" },
+                              ].map((lnk, idx) => (
+                                <button
+                                  key={idx}
+                                  onClick={() => {
+                                    handlePrimaryTabClick("evaluations");
+                                    closeReviewsMenuInstantly();
+                                    setTimeout(() => {
+                                      const el = document.getElementById(lnk.anchor);
+                                      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                                    }, 150);
+                                  }}
+                                  className="text-left text-[11px] font-extrabold text-slate-700 hover:text-orange-500 transition-colors flex items-center gap-1 cursor-pointer"
+                                >
+                                  {lang === "en" ? lnk.labelEn : lnk.labelZh}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div className="space-y-3 pt-2 border-t border-slate-50">
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans">
+                              🛠️ INTERACTIVE TOOLS
+                            </span>
+                            <button
+                              onClick={() => {
+                                if (typeof window !== "undefined") {
+                                  localStorage.setItem("autoOpenWizard", "true");
+                                }
+                                handlePrimaryTabClick("guides");
+                                closeReviewsMenuInstantly();
+                              }}
+                              className="text-left p-2.5 bg-orange-50/50 hover:bg-orange-50 rounded-xl transition-all border border-orange-100/40 hover:border-orange-250 flex items-center gap-2 group/tool cursor-pointer"
+                            >
+                              <span className="text-sm bg-white w-6 h-6 rounded-lg flex items-center justify-center border border-orange-100 shadow-xs group-hover/tool:scale-110 transition-transform">🔍</span>
+                              <div className="flex flex-col text-left">
+                                <span className="text-orange-950 font-black text-[10px]">{lang === "en" ? "Smart Review Finder" : "智能选车搜索助手 🔍"}</span>
+                                <span className="text-slate-400 text-[8px] font-medium leading-none mt-0.5">{lang === "en" ? "Match by Child Age & Height" : "根据年龄腿跨精准计算黄金参数"}</span>
+                              </div>
+                            </button>
+                          </div>
+
+                          <div className="space-y-2 pt-2 border-t border-slate-50">
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans">
+                              🛡️ TRUST & METHODOLOGY
+                            </span>
+                            <div className="flex flex-col gap-1 text-[9px] font-bold text-slate-400 leading-normal">
+                              <span>• Unbiased Oath: 0% sponsor inserations</span>
+                              <span>• Compliant: CPSC • ISO 8098 • EN 71</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Column 3: Featured Choice Card */}
+                        <div className="flex flex-col justify-between space-y-4">
+                          <div className="space-y-3">
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans">
+                              🏆 EDITOR'S CHOICE REVIEW
+                            </span>
+
+                            {(() => {
+                              const featuredStroller = productsData.find(p => p.name.includes("MAMAZING") || p.id.includes("mamazing")) || productsData.find(p => p.category === "stroller") || productsData[0];
+                              const featuredImg = "https://store.balancebiketoddler.com/stroller/MAMAZING/Rank_2_ASIN_B0CXXRN2QS_MAMAZING%20Ultra%2520Air%2520Lightweight%2520Baby%2520Travel%2520Strolle/images/primary.jpg";
+                              return (
+                                <div 
+                                  onClick={() => {
+                                    if (featuredStroller) {
+                                      handleSelectProduct(featuredStroller);
+                                    }
+                                    closeReviewsMenuInstantly();
+                                  }}
+                                  className="bg-slate-50 border border-slate-100 rounded-3xl p-4 text-center cursor-pointer hover:border-orange-500/30 hover:shadow-lg hover:shadow-orange-500/5 transition-all group/feat"
+                                >
+                                  <div className="h-28 bg-white rounded-2xl p-2 flex items-center justify-center overflow-hidden">
+                                    <img 
+                                      src={featuredImg} 
+                                      alt="MAMAZING Ultra Air" 
+                                      className="h-full object-contain group-hover/feat:scale-105 transition-transform duration-500"
+                                      onError={(e) => {
+                                        (e.target as HTMLImageElement).src = "/images/home/jogging-stroller-default.jpg";
+                                      }}
+                                    />
+                                  </div>
+                                  <div className="space-y-1 mt-3">
+                                    <div className="flex justify-center items-center gap-1 text-orange-500 font-extrabold text-[10px]">
+                                      <span>★★★★★</span> <span>9.4/10</span>
+                                    </div>
+                                    <h4 className="font-extrabold text-slate-900 text-[11px] leading-tight truncate">MAMAZING Ultra Air Stroller</h4>
+                                    <p className="text-slate-400 text-[9px] font-semibold">"Best Travel Stroller 2026"</p>
+                                  </div>
+                                  <span className="inline-flex items-center gap-1 text-[9px] text-orange-500 font-black uppercase tracking-wider mt-2.5 group-hover/feat:gap-2 transition-all">
+                                    {lang === "en" ? "Read Lab Report ➔" : "阅读评测档案 ➔"}
+                                  </span>
+                                </div>
+                              );
+                            })()}
+                          </div>
+
+                          <div className="bg-orange-500/5 border border-orange-500/10 rounded-2xl p-3 text-left">
+                            <p className="text-[10px] font-bold text-orange-800 leading-normal">
+                              💡 <strong className="font-black text-orange-900">{lang === "en" ? "Safety Tip" : "安全警告"}</strong>: {lang === "en" ? "Keep bike weight under 30% of child body weight to ensure stable pelvic dynamics." : "自行车整车重绝对不可超过孩子体重的30%，以防重心倾侧跌扣骨折。"}
+                            </p>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  )}
+                </div>
 
                 <button
                   onClick={() => handlePrimaryTabClick("guides")}
