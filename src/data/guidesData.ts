@@ -8,6 +8,7 @@ export interface GuideArticle {
   author: string;
   readTime: string;
   publishDate: string;
+  productCategory?: string;
 }
 
 export const guideArticles: GuideArticle[] = [

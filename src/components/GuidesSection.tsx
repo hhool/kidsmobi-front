@@ -242,6 +242,47 @@ function getGuideMethodTitle(category: GuideCategoryId, product: Product, index:
   return getLongTailGuideTitle(index + Math.max(0, categoryOffset));
 }
 
+const PRODUCT_CATEGORY_LABELS: Record<string, { zh: string; en: string }> = {
+  stroller: { zh: "婴儿推车", en: "Baby Stroller" },
+  bicycle: { zh: "儿童自行车", en: "Kids Bike" },
+  scooter: { zh: "儿童滑板车", en: "Scooter" },
+  balance: { zh: "滑步平衡车", en: "Balance Bike" },
+  electric_car: { zh: "儿童电动车", en: "Electric Car" },
+};
+
+function isArticleRelatedToProductCategory(article: GuideArticle, productCategory: string): boolean {
+  if (!productCategory) return true;
+  
+  // 1. Direct match if productCategory metadata is available
+  if (article.productCategory) {
+    return article.productCategory === productCategory;
+  }
+  
+  if (article.id.includes(`_${productCategory}_`)) {
+    return true;
+  }
+
+  // 2. Keyword fallback for static guides
+  const title = (article.title || "").toLowerCase();
+  const summary = (article.summary || "").toLowerCase();
+  const content = (article.content || "").toLowerCase();
+
+  const strollerKeywords = ["stroller", "baby stroller", "pram", "推车", "婴儿车", "婴儿推车", "伞车"];
+  const bicycleKeywords = ["bicycle", "bike", "自行车", "单车", "脚踏车", "woom", "glerc", "coop"];
+  const scooterKeywords = ["scooter", "滑板车", "micro", "米高", "踏板车"];
+  const balanceKeywords = ["balance", "balance bike", "平衡车", "滑步车", "kokua", "strider", "cruzee"];
+  const electricKeywords = ["electric", "car", "motor", "电动车", "电动汽车", "玩具车", "有源"];
+
+  let keywords: string[] = [];
+  if (productCategory === "stroller") keywords = strollerKeywords;
+  else if (productCategory === "bicycle") keywords = bicycleKeywords;
+  else if (productCategory === "scooter") keywords = scooterKeywords;
+  else if (productCategory === "balance") keywords = balanceKeywords;
+  else if (productCategory === "electric_car") keywords = electricKeywords;
+
+  return keywords.some(kw => title.includes(kw) || summary.includes(kw) || content.includes(kw));
+}
+
 function productCategoryGuideLabel(product: Product, lang: "zh" | "en") {
   const text = `${product.category || ""} ${(product as any).categoryId || ""} ${product.name || ""}`.toLowerCase();
   if (text.includes("stroller")) return lang === "en" ? "baby stroller" : "婴儿推车";
@@ -336,6 +377,7 @@ function buildGuideArticle(category: GuideCategoryId, product: Product, index: n
     author: lang === "en" ? "KIDSMOBI Product Guide Desk" : "KIDSMOBI 产品指南组",
     readTime: lang === "en" ? "6 min read" : "6 分钟",
     publishDate: "2026-07-09",
+    productCategory: product.category,
   };
 }
 
@@ -569,17 +611,30 @@ export default function GuidesSection({
     } : article);
   }, [guideArticles, generatedGuideArticles, lang]);
 
+  // Dynamic automatic filtering of all library articles based on Match Wizard active category selection
+  const productFilteredArticles = useMemo(() => {
+    return allGuideArticles.filter((article) => {
+      return isArticleRelatedToProductCategory(article, wizardCategory);
+    });
+  }, [allGuideArticles, wizardCategory]);
+
+  // Auto-reset page count when wizardCategory changes to prevent pagination bounds overflow
+  useEffect(() => {
+    onPageChange?.(1);
+    setSelectedGuideState(null); // Also clear currently reading article to avoid cross-category confusion
+  }, [wizardCategory]);
+
   const guideCategoryCounts = useMemo(() => {
-    return allGuideArticles.reduce<Record<string, number>>((acc, article) => {
+    return productFilteredArticles.reduce<Record<string, number>>((acc, article) => {
       acc[article.category] = (acc[article.category] || 0) + 1;
       return acc;
     }, {});
-  }, [allGuideArticles]);
+  }, [productFilteredArticles]);
 
   // Guide Article filters
   const filteredGuides = useMemo(() => {
     const categoryLimit = selectedCategory === "all" ? Infinity : 5;
-    return allGuideArticles
+    return productFilteredArticles
       .map(art => translateGuideArticle(art, lang))
       .filter((art) => {
         const matchesCat = selectedCategory === "all" || art.category === selectedCategory;
@@ -591,7 +646,7 @@ export default function GuidesSection({
         return matchesCat && matchesSearch;
       })
       .slice(0, categoryLimit);
-  }, [allGuideArticles, selectedCategory, searchQuery, lang]);
+  }, [productFilteredArticles, selectedCategory, searchQuery, lang]);
 
   const pageSize = 8;
   const totalPages = Math.max(1, Math.ceil(filteredGuides.length / pageSize));
@@ -1300,21 +1355,23 @@ export default function GuidesSection({
                   <div className="space-y-5">
                     <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 border border-orange-100 text-[10px] font-black uppercase tracking-[0.2em] text-orange-600">
                       <BookOpen className="w-4 h-4" />
-                      {lang === "en" ? "Guide Library" : "选购指南库"}
+                      {lang === "en" ? `${PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "All Products"} Guides` : `${PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || "全部"} 专属选购指南`}
                     </span>
                     <h2 className="text-3xl font-black leading-tight tracking-tight">
-                      {lang === "en" ? "Guide Library: How to Choose a Baby Stroller & First Bikes" : "从婴儿推车到童车骑行，按真实产品做选择"}
+                      {lang === "en" 
+                        ? `Guide Library: ${PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "Ride-ons"} Buyer's Handbook` 
+                        : `指南库：针对【${PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || "全部童车"}】的科普与工效测评`}
                     </h2>
                     <p className="text-sm text-slate-600 leading-7 font-medium max-w-xl">
                       {lang === "en" 
-                        ? "Use the full index to learn how to choose a baby stroller, compare first-bike sizing, and verify a balance bike for 1 year old riders with measurable fit data."
-                        : "All Guides 保留完整目录；每个专题分类先呈现 5 条精选，围绕平衡车、儿童自行车、儿童滑板车的具体产品展开。"}
+                        ? `Expert guides specifically filtered for ${PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "your selected category"}. Learn sizing benchmarks, risk indicators, and maintenance habits.`
+                        : `当前内容已根据您在上方算力面板中选择的商品品类，自动对指南库进行全量过滤，为您高能度匹配【${PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || "当前品类"}】相关的尺寸、安全与养护攻略。`}
                     </p>
                   </div>
                   <div className="grid grid-cols-3 gap-3 text-center">
                     {[
                       { value: filteredGuides.length, label: lang === "en" ? "Visible" : "当前展示" },
-                      { value: allGuideArticles.length, label: lang === "en" ? "Total" : "指南总数" },
+                      { value: productFilteredArticles.length, label: lang === "en" ? "Category Total" : "品类指南总数" },
                       { value: "6x5", label: lang === "en" ? "Shelves" : "分类配置" },
                     ].map((item) => (
                       <div key={item.label} className="rounded-2xl bg-white/75 border border-slate-200 px-3 py-4 shadow-sm">
@@ -1342,7 +1399,7 @@ export default function GuidesSection({
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {categories.map((c) => {
                       const Icon = c.icon || BookOpen;
-                      const count = c.id === "all" ? allGuideArticles.length : guideCategoryCounts[c.id] || 0;
+                      const count = c.id === "all" ? productFilteredArticles.length : guideCategoryCounts[c.id] || 0;
                       return (
                         <button
                           key={c.id}
