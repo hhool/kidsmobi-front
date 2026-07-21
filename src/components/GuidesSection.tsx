@@ -618,6 +618,14 @@ export default function GuidesSection({
     });
   }, [allGuideArticles, wizardCategory]);
 
+  const isCategoryFilterBypassed = useMemo(() => {
+    return productFilteredArticles.length === 0;
+  }, [productFilteredArticles]);
+
+  const activeArticlesList = useMemo(() => {
+    return isCategoryFilterBypassed ? allGuideArticles : productFilteredArticles;
+  }, [isCategoryFilterBypassed, allGuideArticles, productFilteredArticles]);
+
   // Auto-reset page count when wizardCategory changes to prevent pagination bounds overflow
   useEffect(() => {
     onPageChange?.(1);
@@ -625,16 +633,16 @@ export default function GuidesSection({
   }, [wizardCategory]);
 
   const guideCategoryCounts = useMemo(() => {
-    return productFilteredArticles.reduce<Record<string, number>>((acc, article) => {
+    return activeArticlesList.reduce<Record<string, number>>((acc, article) => {
       acc[article.category] = (acc[article.category] || 0) + 1;
       return acc;
     }, {});
-  }, [productFilteredArticles]);
+  }, [activeArticlesList]);
 
   // Guide Article filters
   const filteredGuides = useMemo(() => {
     const categoryLimit = selectedCategory === "all" ? Infinity : 5;
-    return productFilteredArticles
+    return activeArticlesList
       .map(art => translateGuideArticle(art, lang))
       .filter((art) => {
         const matchesCat = selectedCategory === "all" || art.category === selectedCategory;
@@ -646,7 +654,7 @@ export default function GuidesSection({
         return matchesCat && matchesSearch;
       })
       .slice(0, categoryLimit);
-  }, [productFilteredArticles, selectedCategory, searchQuery, lang]);
+  }, [activeArticlesList, selectedCategory, searchQuery, lang]);
 
   const pageSize = 6;
   const totalPages = Math.max(1, Math.ceil(filteredGuides.length / pageSize));
@@ -1355,23 +1363,25 @@ export default function GuidesSection({
                   <div className="space-y-5">
                     <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 border border-orange-100 text-[10px] font-black uppercase tracking-[0.2em] text-orange-600">
                       <BookOpen className="w-4 h-4" />
-                      {lang === "en" ? `${PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "All Products"} Guides` : `${PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || "全部"} 专属选购指南`}
+                      {lang === "en" 
+                        ? `${isCategoryFilterBypassed ? "All Products" : (PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "All Products")} Guides` 
+                        : `${isCategoryFilterBypassed ? "全部品类" : (PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || "全部")} 专属选购指南`}
                     </span>
                     <h2 className="text-3xl font-black leading-tight tracking-tight">
                       {lang === "en" 
-                        ? `Guide Library: ${PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "Ride-ons"} Buyer's Handbook` 
-                        : `指南库：针对【${PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || "全部童车"}】的科普与工效测评`}
+                        ? `Guide Library: ${isCategoryFilterBypassed ? "Site-Wide" : (PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "Ride-ons")} Buyer's Handbook` 
+                        : `指南库：针对【${isCategoryFilterBypassed ? "全站通用" : (PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || "全部童车")}】的科普与工效测评`}
                     </h2>
                     <p className="text-sm text-slate-600 leading-7 font-medium max-w-xl">
                       {lang === "en" 
-                        ? `Expert guides specifically filtered for ${PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "your selected category"}. Learn sizing benchmarks, risk indicators, and maintenance habits.`
-                        : `当前内容已根据您在上方算力面板中选择的商品品类，自动对指南库进行全量过滤，为您高能度匹配【${PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || "当前品类"}】相关的尺寸、安全与养护攻略。`}
+                        ? `${isCategoryFilterBypassed ? "Since no guides target the selected type, we are showing all site-wide guides." : `Expert guides specifically filtered for ${PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "your selected category"}.`} Learn sizing benchmarks, risk indicators, and maintenance habits.`
+                        : `${isCategoryFilterBypassed ? "由于当前所选车型暂无专属指南，系统已为您自动呈现全站选购宝典。" : `当前内容已根据您在上方算力面板中选择的商品品类，自动对指南库进行全量过滤，为您高能度匹配【${PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || "当前品类"}】相关的尺寸、安全与养护攻略。`}`}
                     </p>
                   </div>
                   <div className="grid grid-cols-3 gap-3 text-center">
                     {[
                       { value: filteredGuides.length, label: lang === "en" ? "Visible" : "当前展示" },
-                      { value: productFilteredArticles.length, label: lang === "en" ? "Category Total" : "品类指南总数" },
+                      { value: activeArticlesList.length, label: lang === "en" ? "Category Total" : "品类指南总数" },
                       { value: "6x5", label: lang === "en" ? "Shelves" : "分类配置" },
                     ].map((item) => (
                       <div key={item.label} className="rounded-2xl bg-white/75 border border-slate-200 px-3 py-4 shadow-sm">
@@ -1399,7 +1409,7 @@ export default function GuidesSection({
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {categories.map((c) => {
                       const Icon = c.icon || BookOpen;
-                      const count = c.id === "all" ? productFilteredArticles.length : guideCategoryCounts[c.id] || 0;
+                      const count = c.id === "all" ? activeArticlesList.length : guideCategoryCounts[c.id] || 0;
                       return (
                         <button
                           key={c.id}
