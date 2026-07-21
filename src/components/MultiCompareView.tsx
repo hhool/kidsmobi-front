@@ -124,7 +124,7 @@ export default function MultiCompareView({
         lang={lang} 
         onHomeClick={onHome || onBack}
         items={[
-          { label: lang === "zh" ? "评测中心" : "EVALUATION CENTER", onClick: onBack },
+          { label: lang === "zh" ? "评测" : "REVIEWS", onClick: onBack },
           { label: reviewTypeLabel || (lang === "zh" ? "多品横评" : "CROSS COMPARE"), onClick: onReviewTypeClick || onBack },
           { label: tEv.title, active: true }
         ]} 

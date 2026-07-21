@@ -38,6 +38,29 @@ function translateCategoryLabel(cat: string): string {
   };
   return labels[cat] || "专业选购指南";
 }
+
+function getCategoryLabel(cat: string, lang: "zh" | "en"): string {
+  if (lang === "zh") {
+    switch (cat) {
+      case "stroller": return "手推车";
+      case "balance-bike": return "平衡车";
+      case "kids-bike": return "自行车";
+      case "kids-scooter": return "滑板车";
+      case "electric-car": return "电动车";
+      default: return cat;
+    }
+  } else {
+    switch (cat) {
+      case "stroller": return "Stroller";
+      case "balance-bike": return "Balance Bike";
+      case "kids-bike": return "Kids Bike";
+      case "kids-scooter": return "Kids Scooter";
+      case "electric-car": return "Kids Electric Car";
+      default: return cat;
+    }
+  }
+}
+
 import { formatWeight, formatHeight } from "../lib/units";
 import Breadcrumbs from "./Breadcrumbs";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";

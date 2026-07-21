@@ -122,7 +122,7 @@ function loadDefaultProductsData() {
   defaultProductsDataPromise ??= import("./data/modelsData").then(({ productsData }) => {
     return productsData.map((product) => ({
       ...product,
-      status: String((product as any)?.status || "published").trim().toLowerCase() || "published",
+      status: (String((product as any)?.status || "published").trim().toLowerCase() || "published") as "draft" | "published" | "archived",
     }));
   });
   return defaultProductsDataPromise;
@@ -3060,35 +3060,27 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                           </div>
                         </div>
 
-                        {/* Column 2: Highlights & Interactive Tools */}
+                        {/* Column 2: Highlights & Trust (Optimized to mirror Product menu premium dimensions) */}
                         <div className="space-y-6 pr-3 border-r border-slate-100 flex flex-col justify-between">
-                          <div className="space-y-4">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans">
-                              ⚡ QUICK LAB HIGHLIGHTS
-                            </span>
-                            
-                            <div className="flex flex-col gap-3">
-                              {[
-                                { labelZh: "🔹 2026年最新实验室评测", labelEn: "🔹 2026 Fresh Lab Reviews", anchor: "latest-reviews" },
-                                { labelZh: "🔹 实验室横评对比矩阵", labelEn: "🔹 Dynamic Comparison Matrix", anchor: "home_layout" }, // Scrolls up to comparison board
-                                { labelZh: "🔹 儿童前庭及力学疲劳实验", labelEn: "🔹 Biomechanical Lab Tests", anchor: "balance-bikes" },
-                              ].map((lnk, idx) => (
-                                <button
-                                  key={idx}
-                                  onClick={() => {
-                                    handlePrimaryTabClick("evaluations");
-                                    closeReviewsMenuInstantly();
-                                    setTimeout(() => {
-                                      const el = document.getElementById(lnk.anchor);
-                                      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                                    }, 150);
-                                  }}
-                                  className="text-left text-[11px] font-extrabold text-slate-700 hover:text-orange-500 transition-colors flex items-center gap-1 cursor-pointer"
-                                >
-                                  {lang === "en" ? lnk.labelEn : lnk.labelZh}
-                                </button>
-                              ))}
-                            </div>
+                          
+                          <div className="group/total">
+                            <button
+                              onClick={() => {
+                                handlePrimaryTabClick("evaluations");
+                                navigateToPath("/reviews");
+                                closeReviewsMenuInstantly();
+                              }}
+                              className="w-full text-left py-3.5 px-4 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-xl font-extrabold text-xs shadow-md shadow-orange-500/20 hover:shadow-lg hover:shadow-orange-500/35 transition-all flex items-center justify-between group/total"
+                            >
+                              <span className="flex items-center gap-3 font-display">
+                                <span className="text-base bg-white/20 w-8 h-8 rounded-lg flex items-center justify-center backdrop-blur-sm shadow-inner">🔬</span> 
+                                <div className="flex flex-col text-left">
+                                  <span className="font-extrabold text-[12px] text-white">{lang === "en" ? "Explore All Reviews" : "独立全地形实测评测中心"}</span>
+                                  <span className="text-[10px] text-orange-100/90 font-normal mt-0.5">{lang === "en" ? "100% Retails batches & bias-free" : "自费购样，多维数据客观公正深度解构"}</span>
+                                </div>
+                              </span>
+                              <span className="text-sm transition-transform group-hover/total:translate-x-1.5">➔</span>
+                            </button>
                           </div>
 
                           <div className="space-y-2 pt-2 border-t border-slate-50">
@@ -3096,14 +3088,15 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                               🛡️ TRUST & METHODOLOGY
                             </span>
                             <div className="flex flex-col gap-1 text-[9px] font-bold text-slate-400 leading-normal">
-                              <span>• Unbiased Oath: 0% sponsor inserations</span>
-                              <span>• Compliant: CPSC • ISO 8098 • EN 71</span>
+                              <span>• Unbiased Oath: 0% sponsor insertions</span>
+                              <span>• Compliant: CPSC • ISO 8098 • EN 71 • ASTM F963</span>
+                              <span>• Active telemetry lab sensors verified online</span>
                             </div>
                           </div>
                         </div>
 
                         {/* Column 3: Featured Choice Card */}
-                        <div className="flex flex-col justify-between space-y-4">
+                        <div className="flex flex-col justify-between space-y-4 max-w-[210px] sm:max-w-[230px] md:max-w-[260px] overflow-hidden">
                           <div className="space-y-3">
                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans">
                               🏆 EDITOR'S CHOICE REVIEW
@@ -3120,7 +3113,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                                     }
                                     closeReviewsMenuInstantly();
                                   }}
-                                  className="bg-slate-50 border border-slate-100 rounded-3xl p-4 text-center cursor-pointer hover:border-orange-500/30 hover:shadow-lg hover:shadow-orange-500/5 transition-all group/feat"
+                                  className="bg-slate-50 border border-slate-100 rounded-3xl p-4 text-center cursor-pointer hover:border-orange-500/30 hover:shadow-lg hover:shadow-orange-500/5 transition-all group/feat w-full"
                                 >
                                   <div className="h-28 bg-white rounded-2xl p-2 flex items-center justify-center overflow-hidden">
                                     <img 
@@ -3132,14 +3125,14 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                                       }}
                                     />
                                   </div>
-                                  <div className="space-y-1 mt-3">
+                                  <div className="space-y-1 mt-3 text-center">
                                     <div className="flex justify-center items-center gap-1 text-orange-500 font-extrabold text-[10px]">
                                       <span>★★★★★</span> <span>9.4/10</span>
                                     </div>
-                                    <h4 className="font-extrabold text-slate-900 text-[11px] leading-tight truncate">MAMAZING Ultra Air Stroller</h4>
-                                    <p className="text-slate-400 text-[9px] font-semibold">"Best Travel Stroller 2026"</p>
+                                    <h4 className="font-extrabold text-slate-900 text-[11px] leading-tight truncate w-full px-1">MAMAZING Ultra Air</h4>
+                                    <p className="text-slate-400 text-[9px] font-semibold truncate w-full px-1">"Best Travel Stroller 2026"</p>
                                   </div>
-                                  <span className="inline-flex items-center gap-1 text-[9px] text-orange-500 font-black uppercase tracking-wider mt-2.5 group-hover/feat:gap-2 transition-all">
+                                  <span className="inline-flex items-center justify-center gap-1 text-[9px] text-orange-500 font-black uppercase tracking-wider mt-2.5 group-hover/feat:gap-2 transition-all w-full">
                                     {lang === "en" ? "Read Lab Report ➔" : "阅读评测档案 ➔"}
                                   </span>
                                 </div>
@@ -3147,9 +3140,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                             })()}
                           </div>
 
-                          <div className="bg-orange-500/5 border border-orange-500/10 rounded-2xl p-3 text-left">
-                            <p className="text-[10px] font-bold text-orange-800 leading-normal">
-                              💡 <strong className="font-black text-orange-900">{lang === "en" ? "Safety Tip" : "安全警告"}</strong>: {lang === "en" ? "Keep bike weight under 30% of child body weight to ensure stable pelvic dynamics." : "自行车整车重绝对不可超过孩子体重的30%，以防重心倾侧跌扣骨折。"}
+                          <div className="bg-orange-500/5 border border-orange-500/10 rounded-2xl p-3 text-left w-full">
+                            <p className="text-[10px] font-bold text-orange-850 leading-normal">
+                              💡 <strong className="font-black text-orange-900">{lang === "en" ? "Safety Tip" : "安全警告"}</strong>: {lang === "en" ? "Keep bike weight under 30% of child body weight to ensure stable pelvic dynamics." : "保护宝宝：车重绝对不可超过体重30%，以防重心失稳骨折。"}
                             </p>
                           </div>
                         </div>

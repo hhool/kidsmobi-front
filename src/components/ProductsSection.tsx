@@ -1275,7 +1275,7 @@ export default function ProductsSection({
     <div id="product_library" className="space-y-8 animate-fade-in text-left">
       {/* Breadcrumbs (PRD 4.2.2) */}
       {(() => {
-        const items = [
+        const items: { label: string; active: boolean; onClick?: () => void }[] = [
           {
             label: lang === "zh" ? "产品列表" : "PRODUCTS",
             active: selectedCategory === "all",

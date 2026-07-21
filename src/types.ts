@@ -98,6 +98,9 @@ export interface Product {
   description?: string;
   specsText?: string;
   Product_Specifications?: Record<string, any>;
+  Product_Description?: string;
+  Category_Attributes?: Record<string, any>;
+  Product_Display_Fields?: Record<string, any>;
   pros?: string[];
   cons?: string[];
   customers_say?: string;
@@ -118,6 +121,10 @@ export interface CMSProduct extends Product {
     pros?: string[];
     cons?: string[];
     editorVerdict?: string;
+    Product_Specifications?: Record<string, any>;
+    Product_Description?: string;
+    Category_Attributes?: Record<string, any>;
+    Product_Display_Fields?: Record<string, any>;
   };
   en: {
     name: string;
@@ -128,6 +135,10 @@ export interface CMSProduct extends Product {
     pros?: string[];
     cons?: string[];
     editorVerdict?: string;
+    Product_Specifications?: Record<string, any>;
+    Product_Description?: string;
+    Category_Attributes?: Record<string, any>;
+    Product_Display_Fields?: Record<string, any>;
   };
   updatedAt: any;
 }
@@ -329,6 +340,7 @@ export interface CurrencyData {
   nameEn: string;
   currency: string;
   symbol: string;
+  rate?: number;
 }
 
 export interface ChildProfile {
