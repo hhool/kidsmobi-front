@@ -534,6 +534,7 @@ export default function GuidesSection({
   const [wizardBudget, setWizardBudget] = useState<number>(3000);
   const [wizardScenario, setWizardScenario] = useState<string>("all");
   const [wizardCategory, setWizardCategory] = useState<string>("stroller");
+  const [wizardPage, setWizardPage] = useState<number>(1);
   const [showWizardResults, setShowWizardResults] = useState<boolean>(false);
 
   useEffect(() => {
@@ -812,8 +813,11 @@ export default function GuidesSection({
           </div>
           <button 
             type="button" 
-            onClick={() => setShowWizardResults(!showWizardResults)}
-            className="px-6 py-3 bg-orange-500 text-white font-black text-sm rounded-2xl hover:bg-orange-600 transition shadow-lg shadow-orange-500/20 active:scale-95 flex items-center gap-2"
+            onClick={() => {
+              setWizardPage(1);
+              setShowWizardResults(!showWizardResults);
+            }}
+            className="px-6 py-3 bg-orange-500 text-white font-black text-sm rounded-2xl hover:bg-orange-600 transition shadow-lg shadow-orange-500/20 active:scale-95 flex items-center gap-2 cursor-pointer"
           >
             {showWizardResults 
               ? (lang === "en" ? "⚙️ Change Specs" : "⚙️ 调整参数")
@@ -919,41 +923,86 @@ export default function GuidesSection({
                   </p>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                  {matchRecommendations.matches.map((p) => {
-                    const dispProduct = translateProduct(p, lang);
-                    const isPerfectWeight = p.weight <= matchRecommendations.perfectWeightLimit;
+                <div className="space-y-6">
+                  {(() => {
+                    const pageSize = 6;
+                    const totalMatches = matchRecommendations.matches.length;
+                    const totalWizPages = Math.ceil(totalMatches / pageSize);
+                    const safeWizPage = Math.min(totalWizPages, Math.max(1, wizardPage));
+                    const pagedMatches = matchRecommendations.matches.slice((safeWizPage - 1) * pageSize, safeWizPage * pageSize);
+                    
                     return (
-                      <div key={dispProduct.id} className="bg-white p-6 rounded-4xl border border-slate-100 hover:border-orange-100 flex flex-col justify-between space-y-4 shadow-sm hover:shadow-xl hover:shadow-orange-500/5 transition-all group">
-                        <div className="space-y-2">
-                          <div className="flex justify-between items-center">
-                            <span className="bg-orange-50 text-orange-600 px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase border border-orange-100">{dispProduct.brand}</span>
-                          </div>
-                          
-                          <h4 className="text-base font-black text-slate-900 truncate group-hover:text-orange-500 transition-colors">{dispProduct.name}</h4>
-                          <p className="text-[11px] text-slate-500 line-clamp-2 leading-relaxed font-medium">“{dispProduct.editorVerdict}”</p>
+                      <>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                          {pagedMatches.map((p) => {
+                            const dispProduct = translateProduct(p, lang);
+                            const isPerfectWeight = p.weight <= matchRecommendations.perfectWeightLimit;
+                            return (
+                              <div key={dispProduct.id} className="bg-white p-6 rounded-4xl border border-slate-100 hover:border-orange-100 flex flex-col justify-between space-y-4 shadow-sm hover:shadow-xl hover:shadow-orange-500/5 transition-all group">
+                                <div className="space-y-2">
+                                  <div className="flex justify-between items-center">
+                                    <span className="bg-orange-50 text-orange-600 px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase border border-orange-100">{dispProduct.brand}</span>
+                                  </div>
+                                  
+                                  <h4 className="text-base font-black text-slate-900 truncate group-hover:text-orange-500 transition-colors">{dispProduct.name}</h4>
+                                  <p className="text-[11px] text-slate-500 line-clamp-2 leading-relaxed font-medium">“{dispProduct.editorVerdict}”</p>
+                                </div>
+
+                                <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-[11px] space-y-1.5">
+                                  <div className="flex justify-between items-center">
+                                    <span className="text-slate-400 font-bold">{lang === "en" ? "Weight" : "产品自重"}</span>
+                                    <strong className={isPerfectWeight ? "text-emerald-500" : "text-orange-500"}>{formatWeight(dispProduct.weight, currencyData.code)}</strong>
+                                  </div>
+                                  <div className="flex justify-between items-center">
+                                    <span className="text-slate-400 font-bold">{lang === "en" ? "Price" : "参考售价"}</span>
+                                    <strong className="text-slate-900 font-black">{formatCurrencyFromUsd(dispProduct.price, currencyData, lang)}</strong>
+                                  </div>
+                                </div>
+
+                                <button
+                                  onClick={() => onSelectProduct(p)}
+                                  className="w-full py-2.5 bg-white border border-slate-100 hover:border-orange-200 text-slate-600 hover:text-orange-500 font-black text-[11px] uppercase rounded-2xl transition-all shadow-sm active:scale-95 cursor-pointer text-center"
+                                >
+                                  {lang === "en" ? "View Report ➔" : "查看详情 ➔"}
+                                </button>
+                              </div>
+                            );
+                          })}
                         </div>
 
-                        <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-[11px] space-y-1.5">
-                          <div className="flex justify-between items-center">
-                            <span className="text-slate-400 font-bold">{lang === "en" ? "Weight" : "产品自重"}</span>
-                            <strong className={isPerfectWeight ? "text-emerald-500" : "text-orange-500"}>{formatWeight(dispProduct.weight, currencyData.code)}</strong>
+                        {/* Pagination control inside Smart Wizard */}
+                        {totalWizPages > 1 && (
+                          <div className="flex items-center justify-center gap-3 pt-4 border-t border-slate-100 relative z-30">
+                            <button
+                              type="button"
+                              onClick={() => setWizardPage(Math.max(1, safeWizPage - 1))}
+                              disabled={safeWizPage <= 1}
+                              className="w-9 h-9 rounded-xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center cursor-pointer hover:bg-slate-50"
+                              aria-label={lang === "en" ? "Previous matches" : "上一组"}
+                            >
+                              <svg aria-hidden="true" viewBox="0 0 20 20" className="w-4 h-4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.5 4.5L7 10L12.5 15.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
+                            </button>
+                            <span className="text-xs font-bold text-slate-500">
+                              {lang === "en" ? `Page ${safeWizPage} of ${totalWizPages}` : `第 ${safeWizPage} 页，共 ${totalWizPages} 页`}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => setWizardPage(Math.min(totalWizPages, safeWizPage + 1))}
+                              disabled={safeWizPage >= totalWizPages}
+                              className="w-9 h-9 rounded-xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center cursor-pointer hover:bg-slate-50"
+                              aria-label={lang === "en" ? "Next matches" : "下一组"}
+                            >
+                              <svg aria-hidden="true" viewBox="0 0 20 20" className="w-4 h-4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.5 4.5L13 10L7.5 15.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
+                            </button>
                           </div>
-                          <div className="flex justify-between items-center">
-                            <span className="text-slate-400 font-bold">{lang === "en" ? "Price" : "参考售价"}</span>
-                            <strong className="text-slate-900 font-black">{formatCurrencyFromUsd(dispProduct.price, currencyData, lang)}</strong>
-                          </div>
-                        </div>
-
-                        <button
-                          onClick={() => onSelectProduct(p)}
-                          className="w-full py-2.5 bg-white border border-slate-100 hover:border-orange-200 text-slate-600 hover:text-orange-500 font-black text-[11px] uppercase rounded-2xl transition-all shadow-sm active:scale-95"
-                        >
-                          {lang === "en" ? "View Report" : "查看详情"}
-                        </button>
-                      </div>
+                        )}
+                      </>
                     );
-                  })}
+                  })()}
                 </div>
               )}
             </div>
