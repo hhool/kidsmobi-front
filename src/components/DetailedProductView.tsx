@@ -413,7 +413,7 @@ export default function DetailedProductView({
     if (lang === "zh") {
       switch (previousTab) {
         case "products":
-          return "返回产品中心";
+          return "返回产品列表";
         case "evaluations":
           return "返回评测中心";
         case "guides":
@@ -423,12 +423,12 @@ export default function DetailedProductView({
         case "home":
           return "返回首页";
         default:
-          return "返回产品中心";
+          return "返回产品列表";
       }
     } else {
       switch (previousTab) {
         case "products":
-          return "Back to Product Center";
+          return "Back to Products";
         case "evaluations":
           return "Back to Evaluations";
         case "guides":
@@ -438,7 +438,7 @@ export default function DetailedProductView({
         case "home":
           return "Back to Home";
         default:
-          return "Back to Product Center";
+          return "Back to Products";
       }
     }
   };
@@ -660,16 +660,16 @@ export default function DetailedProductView({
       stroller: "Kids Stroller",
       balance: "Balance Bike",
       balance_bike: "Balance Bike",
-      bicycle: "Kids Bikes",
-      kids_bikes: "Kids Bikes",
-      scooter: "Kids Scooters",
-      kids_scooters: "Kids Scooters",
-      electric_car: "Electric Vehicles",
-      electric_vehicles: "Electric Vehicles",
+      bicycle: "Kids Bike",
+      kids_bikes: "Kids Bike",
+      scooter: "Kids Scooter",
+      kids_scooters: "Kids Scooter",
+      electric_car: "Kids Electric Car",
+      electric_vehicles: "Kids Electric Car",
       safety_seat: "Car Seat",
       car_seat: "Car Seat",
     };
-    return l === "zh" ? (mapZh[normalized] || "产品中心") : (mapEn[normalized] || "Product Center");
+    return l === "zh" ? (mapZh[normalized] || "产品列表") : (mapEn[normalized] || "Products");
   };
 
   return (
@@ -679,7 +679,7 @@ export default function DetailedProductView({
         onHomeClick={() => (window as any).setActiveTab?.("home")}
         items={[
           {
-            label: lang === "zh" ? "产品中心" : "PRODUCT CENTER",
+            label: lang === "zh" ? "产品列表" : "PRODUCTS",
             active: false,
             onClick: onClose,
           },

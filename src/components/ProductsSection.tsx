@@ -583,20 +583,22 @@ export default function ProductsSection({
 
     if (lang === "en") {
       const englishDisplayMap: Record<string, string> = {
-        balance: "Balance Bikes",
-        balance_bike: "Balance Bikes",
-        balance_bikes: "Balance Bikes",
-        car_seat: "Kids Car Seats",
-        car_seats: "Kids Car Seats",
-        safety_seat: "Kids Car Seats",
-        stroller: "Strollers",
-        strollers: "Strollers",
-        double_stroller: "Double Strollers",
-        double_strollers: "Double Strollers",
-        jogger_stroller: "Jogging Strollers",
-        jogger_strollers: "Jogging Strollers",
-        electric_vehicles: "Kids Electric Vehicles",
-        electric_car: "Kids Electric Vehicles",
+        balance: "Balance Bike",
+        balance_bike: "Balance Bike",
+        balance_bikes: "Balance Bike",
+        car_seat: "Kids Car Seat",
+        car_seats: "Kids Car Seat",
+        safety_seat: "Kids Car Seat",
+        stroller: "Kids Stroller",
+        strollers: "Kids Stroller",
+        double_stroller: "Double Stroller",
+        double_strollers: "Double Stroller",
+        jogger_stroller: "Jogging Stroller",
+        jogger_strollers: "Jogging Stroller",
+        electric_vehicles: "Kids Electric Car",
+        electric_car: "Kids Electric Car",
+        kids_scooters: "Kids Scooter",
+        scooters: "Kids Scooter",
       };
       if (englishDisplayMap[normalized]) {
         return englishDisplayMap[normalized];
@@ -611,18 +613,20 @@ export default function ProductsSection({
     }
 
     const fallbackMap: Record<string, string> = {
-      balance: "Balance Bikes",
-      bicycle: "Pedal Bikes",
-      scooter: "Kick Scooters",
-      stroller: "Kids Strollers",
-      electric_car: "Kids Electric Vehicles",
-      tricycle: "Tricycles",
-      safety_seat: "Kids Car Seats",
-      kids_tricycles: "Kids Tricycles",
-      kids_bikes: "Kids Bikes",
-      balance_bike: "Balance Bikes",
-      car_seat: "Kids Car Seats",
-      electric_vehicles: "Kids Electric Vehicles",
+      balance: "Balance Bike",
+      bicycle: "Pedal Bike",
+      scooter: "Kick Scooter",
+      stroller: "Kids Stroller",
+      electric_car: "Kids Electric Car",
+      tricycle: "Tricycle",
+      safety_seat: "Kids Car Seat",
+      kids_tricycles: "Kids Tricycle",
+      kids_bikes: "Kids Bike",
+      balance_bike: "Balance Bike",
+      car_seat: "Kids Car Seat",
+      electric_vehicles: "Kids Electric Car",
+      kids_scooters: "Kids Scooter",
+      scooters: "Kids Scooter",
     };
     if (fallbackMap[normalized]) {
       return fallbackMap[normalized];
@@ -727,8 +731,9 @@ export default function ProductsSection({
       "Kids Bikes": "Kids Bike",
       "Kids Scooters": "Kids Scooter",
       "Kids Tricycles": "Kids Tricycle",
-      "Electric Vehicles": "Electric Vehicle",
-      "Kids Electric Vehicles": "Kids Electric Vehicle",
+      "Electric Vehicles": "Kids Electric Car",
+      "Kids Electric Vehicles": "Kids Electric Car",
+      "Kids Electric Vehicle": "Kids Electric Car",
       "Car Seats": "Car Seat",
       "Kids Car Seats": "Kids Car Seat",
       "Push Ride Ons": "Push Ride On",
@@ -1272,7 +1277,7 @@ export default function ProductsSection({
       {(() => {
         const items = [
           {
-            label: lang === "zh" ? "产品中心" : "PRODUCT CENTER",
+            label: lang === "zh" ? "产品列表" : "PRODUCTS",
             active: selectedCategory === "all",
             onClick: () => handleCategorySelect("all"),
           },
@@ -1292,28 +1297,29 @@ export default function ProductsSection({
         );
       })()}
 
-      {/* Upper description - Upgraded to Match Slogan Banner style */}
-      <section className="relative rounded-[48px] bg-white border border-slate-100 overflow-hidden p-10 sm:p-20 text-center max-w-7xl mx-auto shadow-2xl space-y-8">
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,247,237,0.92),rgba(255,255,255,0.88)_45%,rgba(236,253,245,0.55))]"></div>
-        <div className="relative z-10 space-y-8">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-50 border border-orange-100/60 text-orange-600 text-[10px] font-black uppercase tracking-widest rounded-full shadow-sm">
-            <BookOpen className="w-4 h-4" />
-            {lang === "zh" ? "官方童车数据基准库" : "OFFICIAL MOBILITY BASELINE DATABASE"}
+      {/* Compact Atmospheric Title Description Block (PRD 4.2.1) */}
+      <section className="relative rounded-[32px] bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 text-white overflow-hidden p-8 md:p-12 text-left max-w-7xl mx-auto shadow-xl space-y-6">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(249,115,22,0.15),transparent)]"></div>
+        <div className="relative z-10 space-y-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-orange-500/10 border border-orange-500/20 text-orange-400 text-[10px] font-black uppercase tracking-widest rounded-full shadow-inner font-mono">
+            ★ OFFICIAL MOBILITY BASELINE DATABASE
           </div>
 
-          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight max-w-5xl mx-auto">
+          <h1 className="text-xl md:text-2xl font-black tracking-tight leading-tight max-w-5xl">
             {lang === "zh"
               ? "专家产品中心：儿童自行车、双人推车及儿童电动车"
-              : "Expert Product Hub: Toddler Bike, Twin Stroller & Kids Electric Scooter"}
+              : "Expert Product Hub: Kids' Bike, Twin Stroller & Electric Scooter"}
           </h1>
 
-          <p className="text-slate-600 text-sm md:text-base max-w-4xl mx-auto leading-relaxed font-semibold">
-            {lang === "zh"
-              ? "欢迎来到 KIDSMOBI 实验室数据库（您的专业童车测评中心）。无论您是在寻找一款高安全性的儿童自行车 (toddler bike) 开启启蒙骑行，还是挑选一款极轻量的幼儿平衡车 (balance bike toddler) 培养核心平衡感，我们权威的实测数据都能为您提供支持。对于多孩家庭，我们深度横评了多款主流双人推车 (twin stroller) 的座舱空间与推行稳定性；同时为大童精选了一系列通过速度限制认证的安全儿童电动滑板车 (kids electric scooter)。立即通过适龄、价格或品牌，对比最受好评的 toddler bike, balance bike toddler 车型, 优质 twin stroller 推车, 以及高人气 kids electric scooter 推荐款！"
-              : "Welcome to the KIDSMOBI Lab Database, your premier hub for testing kids' mobility models. Whether you are searching for an ultra-safe toddler bike to kickstart pedaling, a lightweight balance bike toddler model for initial stability, our intensive physical evaluations have you covered. For twin stroller configurations, explore our thoroughly analyzed double structures. If you are upgrading to an exciting kids electric scooter, examine our speed-regulated and battery-regulated picks. Find the best toddler bike, balance bike toddler models, high-safety twin stroller setups, and kids electric scooter recommendations here."}
-          </p>
+          <div className="border-l-2 border-orange-500 pl-4 space-y-2">
+            <p className="text-slate-300 text-xs md:text-sm font-semibold max-w-5xl leading-relaxed italic">
+              {lang === "zh"
+                ? "经过独立实验室物理安全检测的儿童自行车、平衡车、双人手推车及儿童电动滑板车的科学测评数据整合模型。"
+                : "Independent lab-tested evaluations for toddler bike, balance bike, twin stroller, and electric scooter."}
+            </p>
+          </div>
 
-          <div className="flex flex-wrap justify-center gap-4 pt-4 border-t border-slate-50">
+          <div className="flex flex-wrap gap-2 pt-2 border-t border-slate-800/60">
             {productsSeoPillTags.map((pill) => (
               <button
                 key={pill.label}
@@ -1347,12 +1353,12 @@ export default function ProductsSection({
                     }
                   }, 100);
                 }}
-                className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-[11px] font-black tracking-widest uppercase shadow-sm cursor-pointer group transition-all duration-350 border ${
+                className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-[10px] font-black tracking-wider uppercase shadow-sm cursor-pointer group transition-all duration-300 border ${
                   hintFlash === pill.label
                     ? "bg-orange-500 text-white border-orange-500 scale-105"
                     : pill.target === selectedCategory
-                      ? "border-orange-200 text-orange-600 bg-orange-50/50"
-                      : "bg-white border-slate-200 text-slate-800 hover:border-orange-300 hover:text-orange-600 hover:bg-orange-50/20"
+                      ? "border-orange-500/20 text-orange-400 bg-orange-500/5"
+                      : "bg-slate-800/40 border-slate-700/60 text-slate-300 hover:border-slate-500 hover:text-white"
                 }`}
               >
                 <span>{pill.label}</span>
@@ -1362,322 +1368,282 @@ export default function ProductsSection({
         </div>
       </section>
 
-      {/* Control panel */}
-      <div className="bg-white border border-slate-100 rounded-[48px] p-10 shadow-2xl shadow-orange-500/5 space-y-8 text-left relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-bl-full -mr-16 -mt-16 opacity-50"></div>
+      {/* 2-Column Responsive Layout for Filters on Left & Products Grid on Right (PRD 4.3) */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start max-w-7xl mx-auto pt-6">
         
-        <div className="flex flex-col lg:flex-row gap-6 relative z-10 lg:items-end">
-          {/* Search */}
-          <div className="flex-1 space-y-2 text-left">
-            <h2 className="text-xs font-black text-slate-400 uppercase tracking-widest block">
-              {lang === "zh"
-                ? "搜索双人推车与儿童自行车数据库"
-                : "Search the Twin Stroller & Toddler Bike Database"}
-            </h2>
-            <div className="relative">
-              <Search className="w-5 h-5 text-slate-400 absolute left-5 top-5" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder={lang === "en" ? "SEARCH GLOBAL DATABASE..." : "搜索全球高端数据库..."}
-                className="w-full bg-slate-50 border border-slate-100 rounded-[28px] pl-14 pr-6 py-4.5 text-sm text-slate-900 font-bold placeholder:text-slate-400 focus:outline-none focus:ring-4 focus:ring-orange-500/10 focus:bg-white transition-all uppercase tracking-tighter"
-              />
+        {/* Left Sidebar: Filter Panel */}
+        <aside className="lg:col-span-1 space-y-6 lg:sticky lg:top-24 bg-white border border-slate-100/90 rounded-[32px] p-6 shadow-xl shadow-slate-200/40 text-left relative overflow-hidden shrink-0">
+          <div className="absolute top-0 right-0 w-24 h-24 bg-slate-50 rounded-bl-full -mr-12 -mt-12 opacity-50"></div>
+          
+          <div className="space-y-6 relative z-10">
+            {/* Search */}
+            <div className="space-y-2 text-left">
+              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block">
+                {lang === "zh"
+                  ? "搜索童车和婴儿推车"
+                  : "Search Products"}
+              </span>
+              <div className="relative">
+                <Search className="w-4 h-4 text-slate-400 absolute left-4 top-3.5" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder={lang === "en" ? "SEARCH PRODUCTS..." : "搜寻型号..."}
+                  className="w-full bg-slate-50 border border-slate-150 rounded-2xl pl-10 pr-4 py-2.5 text-xs text-slate-900 font-bold placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:bg-white transition-all uppercase tracking-tight"
+                />
+              </div>
             </div>
-          </div>
 
-          {/* Sort */}
-          <div className="shrink-0">
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="bg-slate-50 border border-slate-100 rounded-[28px] px-8 py-4.5 text-[10px] text-slate-900 font-black uppercase tracking-widest focus:outline-none focus:ring-4 focus:ring-orange-500/10 cursor-pointer appearance-none"
-              title={lang === "en" ? "Sort products" : "排序产品"}
-              aria-label={lang === "en" ? "Sort products" : "排序产品"}
-            >
-              <option value="overallScore">{lang === "en" ? "🏆 TOP RATED" : "🏆 专家综合推荐"}</option>
-              <option value="weightAsc">{lang === "en" ? "⚖️ LIGHTWEIGHT" : "⚖️ 极轻量优先"}</option>
-              <option value="priceDesc">{lang === "en" ? "💰 LUXURY FIRST" : "💰 顶级奢选"}</option>
-              <option value="priceAsc">{lang === "en" ? "💎 BEST VALUE" : "💎 卓越性价比"}</option>
-            </select>
-          </div>
-        </div>
-
-        {/* Categories tags list */}
-        <div className="space-y-6 relative z-10">
-          <div className="flex flex-wrap gap-2">
-            {categories.map((c) => (
-              <button
-                key={c.id}
-                onClick={() => handleCategorySelect(c.id)}
-                className={`px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${
-                  selectedCategory === c.id
-                    ? "bg-orange-500 text-white border-orange-400 shadow-lg shadow-orange-500/20"
-                    : "bg-white text-slate-400 border-slate-100 hover:border-slate-300 hover:text-slate-900"
-                }`}
+            {/* Sort */}
+            <div className="space-y-2">
+              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans">
+                {lang === "zh" ? "排序条件规划" : "SORT ORDER"}
+              </span>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="w-full bg-slate-50 border border-slate-150 rounded-2xl px-4 py-2.5 text-[10px] text-slate-900 font-black uppercase tracking-wider focus:outline-none focus:ring-2 focus:ring-orange-500/20 cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap"
+                title={lang === "en" ? "Sort products" : "排序产品"}
+                aria-label={lang === "en" ? "Sort products" : "排序产品"}
               >
-                {c.label}
-              </button>
-            ))}
-          </div>
+                <option value="overallScore">{lang === "en" ? "🏆 TOP RATED" : "🏆 专家综合推荐"}</option>
+                <option value="weightAsc">{lang === "en" ? "⚖️ LIGHTWEIGHT" : "⚖️ 极轻量优先"}</option>
+                <option value="priceDesc">{lang === "en" ? "💰 LUXURY FIRST" : "💰 顶级奢选"}</option>
+                <option value="priceAsc">{lang === "en" ? "💎 BEST VALUE" : "💎 卓越性价比"}</option>
+              </select>
+            </div>
 
-          <div className="flex flex-wrap gap-4 border-t border-slate-50 pt-6">
-             <div className="space-y-2">
-                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{lang === "zh" ? "适龄跨度" : "Age Bridge"}</span>
-                <div className="flex gap-2">
+            {/* Category selection */}
+            <div className="space-y-2 border-t border-slate-100 pt-4">
+              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block pl-1">
+                {lang === "zh" ? "核心品类精选" : "Categories"}
+              </span>
+              <div className="flex flex-col gap-1">
+                {categories.map((c) => (
+                  <button
+                    key={c.id}
+                    onClick={() => handleCategorySelect(c.id)}
+                    className={`w-full text-left px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all border ${
+                      selectedCategory === c.id
+                        ? "bg-orange-500 text-white border-orange-400 shadow-md shadow-orange-500/10"
+                        : "bg-slate-50 text-slate-500 border-slate-100 hover:bg-slate-100 hover:text-slate-900"
+                    }`}
+                  >
+                    {c.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Advanced Filters */}
+            <div className="space-y-4 border-t border-slate-100 pt-4">
+              <div className="space-y-1.5">
+                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{lang === "zh" ? "适龄跨度" : "Age Bridge"}</span>
+                <div className="grid grid-cols-2 gap-1.5 font-sans">
                   {[
                     { id: "all", label: lang === "zh" ? "全部" : "ALL" },
-                    { id: "baby", label: lang === "zh" ? "婴幼儿(0-2岁)" : "BABY" },
-                    { id: "toddler", label: lang === "zh" ? "小童(2-5岁)" : "TODDLER" },
-                    { id: "child", label: lang === "zh" ? "中大童(5岁+)" : "CHILD" },
+                    { id: "baby", label: lang === "zh" ? "婴幼儿" : "0-2 Y" },
+                    { id: "toddler", label: lang === "zh" ? "小童" : "2-5 Y" },
+                    { id: "child", label: lang === "zh" ? "中大童" : "5+ Y" },
                   ].map(age => (
                     <button 
                       key={age.id}
                       onClick={() => setSelectedAge(age.id)}
-                      className={`px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border transition-all ${
-                        selectedAge === age.id ? "bg-slate-900 text-white border-slate-900" : "bg-white text-slate-400 border-slate-100 hover:border-slate-200"
+                      className={`py-1.5 rounded-lg text-[9px] font-bold uppercase transition-all border ${
+                        selectedAge === age.id ? "bg-slate-900 text-white border-slate-900 shadow-sm" : "bg-white text-slate-400 border-slate-100 hover:border-slate-200"
                       }`}
                     >
                       {age.label}
                     </button>
                   ))}
                 </div>
-             </div>
+              </div>
 
-             <div className="space-y-2">
-                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{lang === "zh" ? "预算区间" : "Price Filter"}</span>
-                <div className="flex gap-2">
+              <div className="space-y-1.5">
+                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{lang === "zh" ? "预算区间" : "Price Filter"}</span>
+                <div className="grid grid-cols-2 gap-1.5 font-sans">
                   {[
                     { id: "all", label: lang === "zh" ? "全部" : "ALL" },
-                    { id: "budget", label: lang === "zh" ? "大众之选" : "BUDGET" },
-                    { id: "mid", label: lang === "zh" ? "中端进阶" : "MID-RANGE" },
-                    { id: "premium", label: lang === "zh" ? "极致奢选" : "PREMIUM" },
+                    { id: "budget", label: lang === "zh" ? "大众" : "BUDGET" },
+                    { id: "mid", label: lang === "zh" ? "中端" : "MID" },
+                    { id: "premium", label: lang === "zh" ? "极致" : "PREMIUM" },
                   ].map(p => (
                     <button 
                       key={p.id}
                       onClick={() => setSelectedPrice(p.id)}
-                      className={`px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border transition-all ${
-                        selectedPrice === p.id ? "bg-slate-900 text-white border-slate-900" : "bg-white text-slate-400 border-slate-100 hover:border-slate-200"
+                      className={`py-1.5 rounded-lg text-[9px] font-bold uppercase transition-all border ${
+                        selectedPrice === p.id ? "bg-slate-900 text-white border-slate-900 shadow-sm" : "bg-white text-slate-400 border-slate-100 hover:border-slate-200"
                       }`}
                     >
                       {p.label}
                     </button>
                   ))}
                 </div>
-             </div>
+              </div>
 
-             {selectedCategory !== "all" && (
-              <>
-                <div className="space-y-2">
-                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{lang === "zh" ? "品牌" : "Brand"}</span>
-                  <select
-                    value={selectedBrand}
-                    onChange={(e) => setSelectedBrand(e.target.value)}
-                    title={lang === "zh" ? "选择品牌" : "Select brand"}
-                    aria-label={lang === "zh" ? "选择品牌" : "Select brand"}
-                    className="px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
-                  >
-                    <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
-                    {categoryFilterOptions.brands.map((item) => (
-                      <option key={item} value={item}>{item}</option>
-                    ))}
-                  </select>
+              {selectedCategory !== "all" && (
+                <div className="space-y-3 pt-2 border-t border-slate-100">
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{lang === "zh" ? "品牌" : "Brand"}</span>
+                    <select
+                      value={selectedBrand}
+                      onChange={(e) => setSelectedBrand(e.target.value)}
+                      title={lang === "zh" ? "选择品牌" : "Select brand"}
+                      aria-label={lang === "zh" ? "选择品牌" : "Select brand"}
+                      className="w-full px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
+                    >
+                      <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
+                      {categoryFilterOptions.brands.map((item) => (
+                        <option key={item} value={item}>{item}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{lang === "zh" ? "车架材质" : "Frame"}</span>
+                    <select
+                      value={selectedFrameMaterial}
+                      onChange={(e) => setSelectedFrameMaterial(e.target.value)}
+                      title={lang === "zh" ? "选择车架材质" : "Select frame material"}
+                      aria-label={lang === "zh" ? "选择车架材质" : "Select frame material"}
+                      className="w-full px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
+                    >
+                      <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
+                      {categoryFilterOptions.frameMaterials.map((item) => (
+                        <option key={item} value={item}>{item}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{lang === "zh" ? "轮胎类型" : "Tire"}</span>
+                    <select
+                      value={selectedTireType}
+                      onChange={(e) => setSelectedTireType(e.target.value)}
+                      title={lang === "zh" ? "选择轮胎类型" : "Select tire type"}
+                      aria-label={lang === "zh" ? "选择轮胎类型" : "Select tire type"}
+                      className="w-full px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
+                    >
+                      <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
+                      {categoryFilterOptions.tireTypes.map((item) => (
+                        <option key={item} value={item}>{item}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{lang === "zh" ? "制动系统" : "Brake"}</span>
+                    <select
+                      value={selectedBrakeSystem}
+                      onChange={(e) => setSelectedBrakeSystem(e.target.value)}
+                      title={lang === "zh" ? "选择制动系统" : "Select braking system"}
+                      aria-label={lang === "zh" ? "选择制动系统" : "Select braking system"}
+                      className="w-full px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
+                    >
+                      <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
+                      {categoryFilterOptions.brakeSystems.map((item) => (
+                        <option key={item} value={item}>{item}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{lang === "zh" ? "轮径" : "Wheel"}</span>
+                    <select
+                      value={selectedWheelSize}
+                      onChange={(e) => setSelectedWheelSize(e.target.value)}
+                      title={lang === "zh" ? "选择轮径" : "Select wheel size"}
+                      aria-label={lang === "zh" ? "选择轮径" : "Select wheel size"}
+                      className="w-full px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
+                    >
+                      <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
+                      {categoryFilterOptions.wheelSizes.map((item) => (
+                        <option key={item} value={item}>{item}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{lang === "zh" ? "安全认证" : "Certification"}</span>
+                    <select
+                      value={selectedCertification}
+                      onChange={(e) => setSelectedCertification(e.target.value)}
+                      title={lang === "zh" ? "选择安全认证" : "Select certification"}
+                      aria-label={lang === "zh" ? "选择安全认证" : "Select certification"}
+                      className="w-full px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
+                    >
+                      <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
+                      {categoryFilterOptions.certifications.map((item) => (
+                        <option key={item} value={item}>{item}</option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
-
-                <div className="space-y-2">
-                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{lang === "zh" ? "车架材质" : "Frame"}</span>
-                  <select
-                    value={selectedFrameMaterial}
-                    onChange={(e) => setSelectedFrameMaterial(e.target.value)}
-                    title={lang === "zh" ? "选择车架材质" : "Select frame material"}
-                    aria-label={lang === "zh" ? "选择车架材质" : "Select frame material"}
-                    className="px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
-                  >
-                    <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
-                    {categoryFilterOptions.frameMaterials.map((item) => (
-                      <option key={item} value={item}>{item}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="space-y-2">
-                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{lang === "zh" ? "轮胎类型" : "Tire"}</span>
-                  <select
-                    value={selectedTireType}
-                    onChange={(e) => setSelectedTireType(e.target.value)}
-                    title={lang === "zh" ? "选择轮胎类型" : "Select tire type"}
-                    aria-label={lang === "zh" ? "选择轮胎类型" : "Select tire type"}
-                    className="px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
-                  >
-                    <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
-                    {categoryFilterOptions.tireTypes.map((item) => (
-                      <option key={item} value={item}>{item}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="space-y-2">
-                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{lang === "zh" ? "制动系统" : "Brake"}</span>
-                  <select
-                    value={selectedBrakeSystem}
-                    onChange={(e) => setSelectedBrakeSystem(e.target.value)}
-                    title={lang === "zh" ? "选择制动系统" : "Select braking system"}
-                    aria-label={lang === "zh" ? "选择制动系统" : "Select braking system"}
-                    className="px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
-                  >
-                    <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
-                    {categoryFilterOptions.brakeSystems.map((item) => (
-                      <option key={item} value={item}>{item}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="space-y-2">
-                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{lang === "zh" ? "轮径" : "Wheel"}</span>
-                  <select
-                    value={selectedWheelSize}
-                    onChange={(e) => setSelectedWheelSize(e.target.value)}
-                    title={lang === "zh" ? "选择轮径" : "Select wheel size"}
-                    aria-label={lang === "zh" ? "选择轮径" : "Select wheel size"}
-                    className="px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
-                  >
-                    <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
-                    {categoryFilterOptions.wheelSizes.map((item) => (
-                      <option key={item} value={item}>{item}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="space-y-2">
-                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">{lang === "zh" ? "安全认证" : "Certification"}</span>
-                  <select
-                    value={selectedCertification}
-                    onChange={(e) => setSelectedCertification(e.target.value)}
-                    title={lang === "zh" ? "选择安全认证" : "Select certification"}
-                    aria-label={lang === "zh" ? "选择安全认证" : "Select certification"}
-                    className="px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
-                  >
-                    <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
-                    {categoryFilterOptions.certifications.map((item) => (
-                      <option key={item} value={item}>{item}</option>
-                    ))}
-                  </select>
-                </div>
-              </>
-             )}
-          </div>
-        </div>
-
-      </div>
-
-      {showCompareDrawer && compareList.length > 0 && (
-        <div className="fixed inset-0 z-[80] bg-slate-950/70 backdrop-blur-sm p-4 md:p-8 overflow-y-auto" onClick={() => setShowCompareDrawer(false)}>
-          <div className="max-w-7xl mx-auto" onClick={(event) => event.stopPropagation()}>
-            <div className="flex justify-end mb-4">
-              <button
-                onClick={() => setShowCompareDrawer(false)}
-                className="p-3 rounded-2xl bg-white text-slate-700 border border-slate-200 shadow-xl hover:text-orange-500 transition-colors"
-                aria-label={lang === "en" ? "Close comparison" : "关闭对比"}
-                title={lang === "en" ? "Close comparison" : "关闭对比"}
-              >
-                <X className="w-5 h-5" />
-              </button>
+              )}
             </div>
-            <ComparisonDashboard
-              compareList={compareList}
-              lang={lang}
-              currencyData={currencyData}
-              onRemove={(id) => {
-                const nextList = compareList.filter(p => p.id !== id);
-                setCompareList(nextList);
-                if (nextList.length === 0) setShowCompareDrawer(false);
-              }}
-              onClear={() => {
-                setCompareList([]);
-                setShowCompareDrawer(false);
-              }}
-            />
           </div>
-        </div>
-      )}
+        </aside>
 
-      {saveTip && (
-        <div className="fixed left-1/2 top-24 z-[90] -translate-x-1/2 rounded-2xl border border-slate-200 bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-2xl shadow-slate-900/20">
-          {saveTip}
-        </div>
-      )}
-
-      {/* Cross-Category conflict modal dialog */}
-      {pendingCategoryConflict && (
-        <div className="fixed inset-0 z-[100] bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setPendingCategoryConflict(null)}>
-          <div className="bg-white rounded-[40px] border border-slate-100 max-w-md w-full p-8 shadow-2xl space-y-6 animate-fade-in" onClick={(e) => e.stopPropagation()}>
-            <h4 className="text-lg font-black text-slate-900 leading-tight">
-              {lang === "en" ? "Different Category Intercept" : "跨品类对比防呆拦截"}
-            </h4>
-            <p className="text-slate-600 text-sm leading-relaxed font-semibold">
-              {lang === "en" 
-                ? `You are currently comparing products under [${pendingCategoryConflict.currentCategoryLabel}]. Would you like to clear the current list and start comparing [${pendingCategoryConflict.newCategoryLabel}] instead?`
-                : `您当前处于 [${pendingCategoryConflict.currentCategoryLabel}] 对比状态中。是否需要清空已选的列表，以便开始添加 [${pendingCategoryConflict.newCategoryLabel}] 品类的产品？`}
-            </p>
-            <div className="flex gap-4">
-              <button
-                onClick={() => setPendingCategoryConflict(null)}
-                className="flex-1 py-3.5 px-5 rounded-2xl border border-slate-200 text-slate-500 font-extrabold text-[10px] uppercase tracking-widest hover:bg-slate-50 transition-colors cursor-pointer"
-              >
-                {lang === "en" ? "Cancel" : "取消"}
-              </button>
-              <button
+        {/* Right Listings Column */}
+        <section className="lg:col-span-3 space-y-8 min-w-0">
+          {filteredProducts.length === 0 ? (
+            <div className="p-20 text-center bg-white border border-slate-100 rounded-3xl shadow-sm">
+              <span className="text-3xl block mb-3">🔍</span>
+              <p className="text-slate-400 font-extrabold uppercase tracking-wide text-xs">
+                {lang === "en" ? "No matches in global database" : "全球数据库中暂无特定匹配项"}
+              </p>
+              <button 
+                type="button"
                 onClick={() => {
-                  setCompareList([pendingCategoryConflict.product]);
-                  setPendingCategoryConflict(null);
+                  setSearchQuery("");
+                  setSelectedAge("all");
+                  setSelectedPrice("all");
+                  setSelectedBrand("all");
+                  setSelectedFrameMaterial("all");
+                  setSelectedTireType("all");
+                  setSelectedBrakeSystem("all");
+                  setSelectedWheelSize("all");
+                  setSelectedCertification("all");
                 }}
-                className="flex-1 py-3.5 px-5 rounded-2xl bg-orange-500 text-white font-extrabold text-[10px] uppercase tracking-widest hover:bg-orange-600 transition-all shadow-xl shadow-orange-500/20 cursor-pointer"
+                className="mt-4 inline-flex items-center gap-2 px-6 py-2.5 bg-slate-900 text-white hover:bg-orange-500 rounded-full text-xs font-bold transition-colors cursor-pointer"
               >
-                {lang === "en" ? "Confirm & Compare" : "确认清空并加入"}
+                {lang === "en" ? "Reset All Filters" : "清空全部过滤条件"}
               </button>
             </div>
-          </div>
-        </div>
-      )}
+          ) : (
+            <div className="space-y-8">
+              <div id="expert-picks-anchor" className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left bg-gradient-to-r from-orange-50/20 via-slate-50/10 to-transparent p-6 rounded-3xl border border-slate-100">
+                <div className="space-y-1">
+                  <h2 className="text-xl font-black text-slate-900 flex flex-wrap items-center gap-2">
+                    <span>{lang === "en" ? "Expert Product Picks" : "专家产品精选"}</span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-orange-100 text-orange-600 border border-orange-200/50 text-[10px] font-black">
+                      {filteredProducts.length} / {categoryBaseCount}
+                    </span>
+                  </h2>
+                  <p className="text-[10px] text-slate-400 font-semibold max-w-xl">
+                    {lang === "en" 
+                      ? "📊 Metrics index: 🧪 Score | 📦 Capacity limits | 🛡️ Compliance certified"
+                      : "📊 物理实测：🧪 实验室综合评分 | 📦 承重性能参数 | 🛡️ 全球体系安全准入合规验证"}
+                  </p>
+                </div>
+              </div>
 
-      {/* Grid listing */}
-      {filteredProducts.length === 0 ? (
-        <div className="p-24 text-center bg-white border border-slate-100 rounded-[56px] shadow-sm">
-          <p className="text-slate-400 font-black uppercase tracking-widest text-xs">
-            {lang === "en" ? "No matches in global database" : "全球数据库中暂无匹配项"}
-          </p>
-        </div>
-      ) : (
-        <div className="space-y-8">
-        <div id="expert-picks-anchor" className="flex flex-col items-center justify-center gap-3 text-center">
-          <h2 className="text-xl font-black text-slate-900">
-            {lang === "en" ? "Expert Product Picks" : "专家产品精选"}
-          </h2>
-          <span className="px-4 py-2 rounded-full bg-slate-50 border border-slate-200 text-[11px] font-black text-slate-500 uppercase tracking-widest">
-            {filteredProducts.length} / {categoryBaseCount} {lang === "en" ? "items" : "条目"}
-          </span>
-          <div className="text-[11px] font-semibold text-slate-400">
-            {lang === "en" ? (
-              <span>📊 Metrics: 🧪 Score | 📦 Weight Capacity | 🛡️ Certified Safe</span>
-            ) : (
-              <span>📊 指标说明：🧪 综合评分 | 📦 承重性能 | 🛡️ 安全合规认证</span>
-            )}
-          </div>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 items-start">
-          {pagedProducts.map(({ product: p, sourceCategoryId }, idx) => {
-            const diProduct = p;
-            const imageSet = resolveProductImages(diProduct);
-            const cardSummary = resolveCardSummary(diProduct, lang);
-            const priceText = formatPriceDisplay(diProduct.price, currencyData, lang);
-            const productSeoTitle = getProductsPageSeoTitle(p);
+              {/* Grid map listings */}
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 items-start">
+                {pagedProducts.map(({ product: p, sourceCategoryId }, idx) => {
+                  const diProduct = p;
+                  const imageSet = resolveProductImages(diProduct);
+                  const cardSummary = resolveCardSummary(diProduct, lang);
+                  const priceText = formatPriceDisplay(diProduct.price, currencyData, lang);
+                  const productSeoTitle = getProductsPageSeoTitle(p);
 
-            const isAlreadySaved = savedProducts.some(s => s.id === diProduct.id);
-            const isAlreadyCompared = compareList.some(c => c.id === diProduct.id);
+                  const isAlreadySaved = savedProducts.some(s => s.id === diProduct.id);
+                  const isAlreadyCompared = compareList.some(c => c.id === diProduct.id);
 
-            return (
-              <div
-                key={diProduct.id}
+                  return (
+                    <div
+                      key={diProduct.id}
                 onClick={() => onSelectProduct(p)}
                 onKeyDown={(event) => {
                   if (event.key === "Enter" || event.key === " ") {
@@ -1884,6 +1850,8 @@ export default function ProductsSection({
         )}
         </div>
       )}
+      </section>
+      </div>
 
       {viewHistory && viewHistory.length > 0 && (
         <section className="mt-20 border-t border-slate-100 pt-16 space-y-8">

@@ -19,15 +19,16 @@ import { getProductImageAlt } from "../lib/productSeoText";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
 import SeoKeywordPanel from "./common/SeoKeywordPanel";
 import Breadcrumbs from "./Breadcrumbs";
+import MatchingWizard from "./MatchingWizard";
 
 const KIDS_BIKE_CATEGORY_DEFAULT_IMAGE =
-  "https://store.poki2.online/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/primary.jpg";
+  "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/primary.jpg";
 const JOGGER_STROLLER_DEFAULT_IMAGE =
   "/images/home/jogging-stroller-default.jpg";
 const BALANCE_BIKE_DEFAULT_IMAGE =
-  "https://store.poki2.online/balance_bike/JMMD/Rank_4_ASIN_B0CFDX97YD_JMMD%206%20in%201%20Toddler%20Bike%20with%20Push%20Handle%20for%20Kids/images/primary.jpg";
+  "https://store.balancebiketoddler.com/balance_bike/JMMD/Rank_4_ASIN_B0CFDX97YD_JMMD%206%20in%201%20Toddler%20Bike%20with%20Push%20Handle%20for%20Kids/images/primary.jpg";
 const SCOOTER_DEFAULT_IMAGE =
-  "https://store.poki2.online/scooters/Green/Rank_7_ASIN_B0DZG3QYLR_Green%20Mini%203%20Wheel%20Scooter%20for%20Kids%20%20Lean-to-Steer/images/primary.jpg";
+  "https://store.balancebiketoddler.com/scooters/Green/Rank_7_ASIN_B0DZG3QYLR_Green%20Mini%203%20Wheel%20Scooter%20for%20Kids%20%20Lean-to-Steer/images/primary.jpg";
 
 const AWARD_DEFAULT_IMAGE_MAP: Record<string, string> = {
   stroller: JOGGER_STROLLER_DEFAULT_IMAGE,
@@ -99,6 +100,37 @@ export default function HomeSection({
   const t = translations[lang];
   const [imageLoadState, setImageLoadState] = useState<Record<string, ImageLoadState>>({});
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  const [isWizardOpen, setIsWizardOpen] = useState(false);
+
+  // Background Carousel Slideshow for Hero Section (2 scenario-based images: stroller & balance bike)
+  const bgImages = useMemo(() => [
+    "https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=1920&q=80", // Stroller scenario
+    "https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=1920&q=80"  // Balance bike / kids active riding scenario
+  ], []);
+  const [currentBgIndex, setCurrentBgIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentBgIndex((prev) => (prev + 1) % bgImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [bgImages]);
+
+  const openWizard = () => {
+    if (typeof window !== "undefined") {
+      window.history.pushState({ ...(window.history.state || {}), kidsmobiWizard: true }, "", window.location.href);
+    }
+    setIsWizardOpen(true);
+  };
+
+  useEffect(() => {
+    const handlePopstate = () => {
+      setIsWizardOpen(false);
+    };
+    window.addEventListener("popstate", handlePopstate);
+    return () => window.removeEventListener("popstate", handlePopstate);
+  }, []);
 
   const handleFaqToggle = (index: number) => {
     setOpenFaqIndex(openFaqIndex === index ? null : index);
@@ -676,39 +708,39 @@ export default function HomeSection({
         />
       )}
 
-      {/* 1. Slogan Banner (Brand Identity - Upgraded/Redesigned to Match Mockup) */}
-      <section className="relative rounded-[48px] bg-white border border-slate-100 overflow-hidden p-10 sm:p-20 text-center max-w-7xl mx-auto shadow-2xl">
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,247,237,0.92),rgba(255,255,255,0.88)_45%,rgba(236,253,245,0.55))]"></div>
-        <div className="relative z-10 space-y-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-50 border border-orange-100/60 text-orange-600 text-[10px] font-black uppercase tracking-widest rounded-full shadow-sm">
-            <ShieldCheck className="w-4 h-4" />
-            {isBBTTheme 
-              ? (lang === "zh" ? "官方 BBT 安全指数审计" : "OFFICIAL BBT SAFETY AUDIT")
-              : (lang === "zh" ? "全链路安全实验室审计" : "END-TO-END SAFETY AUDIT")}
+      {/* 1. Slogan Banner (Brand Identity - Upgraded/Redesigned to Match Mockup with Background Carousel) */}
+      <section id="home_banner_anchor" className="relative rounded-[48px] bg-slate-950 border border-slate-800 overflow-hidden p-10 sm:p-20 text-center max-w-7xl mx-auto shadow-2xl min-h-[500px] flex items-center justify-center">
+        {/* Ambient background carousel with smooth crossfade */}
+        <div className="absolute inset-0 z-0">
+          {bgImages.map((src, index) => (
+            <div
+              key={src}
+              className="absolute inset-0 transition-opacity duration-1000 ease-in-out bg-cover bg-center"
+              style={{
+                backgroundImage: `url(${src})`,
+                opacity: index === currentBgIndex ? 0.38 : 0,
+              }}
+            />
+          ))}
+          {/* Elegant dark overlay mask to maintain high readability of white text */}
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-900/40 to-slate-950/80 mix-blend-multiply"></div>
+          {/* Subtle warm glow or cool ambient lights */}
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-[120px] animate-pulse"></div>
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px] animate-pulse delay-700"></div>
+        </div>
+
+        <div className="relative z-10 space-y-10 w-full">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-500/15 border border-orange-500/30 text-orange-400 text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg backdrop-blur-md">
+            <ShieldCheck className="w-4 h-4 text-orange-400" />
+            OFFICIAL BBT SAFETY AUDIT
           </div>
           
-          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight max-w-5xl mx-auto">
-            {isBBTTheme ? (
-              lang === "zh"
-                ? "Best Kids Bikes, Scooters, Jogging Strollers & Cars / 顶级滑步平衡车与童车评测"
-                : "Best Kids Bikes, Scooters, Jogging Strollers & Cars"
-            ) : (
-              lang === "zh" 
-                ? "专家评测：儿童自行车、平衡车、滑板车及慢跑手推车" 
-                : "Expert Reviews: Balance Bike, Kids Bike, Kids Scooter & Jogging Stroller"
-            )}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-tight max-w-5xl mx-auto drop-shadow-md">
+            Best Kids Bikes, Scooters, Jogging Strollers & Cars
           </h1>
           
-          <p className="text-slate-600 text-sm md:text-base max-w-3xl mx-auto leading-relaxed font-semibold">
-            {isBBTTheme ? (
-              lang === "zh"
-                ? "Welcome to BalanceBikeToddler, your trusted global review site for kids wheeled toys. 我们倾力于通过精细的工效和压力学遥测来评估全球儿童平衡车、自行车及滑步器，确保守护成长的每一步。"
-                : "Welcome to BalanceBikeToddler, your trusted global review site for kids wheeled toys."
-            ) : (
-              lang === "zh"
-                ? "我们将严苛的安全审计转化为父母的理性选购决策。请查阅我们中立且完全经过实验室测试的推车、平衡车、滑板车和自行车数据库，为孩子人生的下一个里程碑寻找最安全、最完美的座驾。"
-                : "We turn rigorous safety audits into parenting confidence. Access our unbiased, lab-tested data to find the ultimate jogging stroller, balance bike, kids bike, or kids scooter. Discover the safest ride for your child's next milestone."
-            )}
+          <p className="text-slate-200 text-sm md:text-base max-w-3xl mx-auto leading-relaxed font-semibold drop-shadow-sm">
+            Welcome to BalanceBikeToddler, your trusted global review site for kids wheeled toys.
           </p>
 
           <div className="pt-4 pb-2">
@@ -717,23 +749,23 @@ export default function HomeSection({
               className="inline-flex items-center gap-3 px-10 py-5 bg-linear-to-r from-orange-500 via-orange-500 to-amber-500 text-white text-xs md:text-sm font-black uppercase tracking-widest rounded-full shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer group"
             >
               <Zap className="w-4 h-4 text-white fill-white animate-pulse" />
-              {lang === "zh" ? "三步开启您的智能选购" : "FIND YOUR PERFECT RIDE IN 3 STEPS"}
+              FIND YOUR PERFECT RIDE IN 3 STEPS
             </button>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-4 pt-4 border-t border-slate-50">
+          <div className="flex flex-wrap justify-center gap-4 pt-4 border-t border-white/10">
             {[
-              { id: "kids_bikes", label: lang === "zh" ? "儿童自行车" : "KIDS BIKE", icon: Bike },
-              { id: "balance_bike", label: lang === "zh" ? "平衡车" : "BALANCE BIKE", icon: Smile },
-              { id: "scooters", label: lang === "zh" ? "儿童滑板车" : "KIDS SCOOTER", icon: Sparkles },
-              { id: "stroller", label: lang === "zh" ? "慢跑推车" : "JOGGING STROLLER", icon: Footprints },
+              { id: "kids_bikes", label: "KIDS BIKE", icon: Bike },
+              { id: "balance_bike", label: "BALANCE BIKE", icon: Smile },
+              { id: "scooters", label: "KIDS SCOOTER", icon: Sparkles },
+              { id: "stroller", label: "JOGGING STROLLER", icon: Footprints },
             ].map((item) => (
               <button
                 key={item.id}
                 onClick={() => onSelectCategory(item.id)}
-                className="inline-flex items-center gap-2 px-6 py-2.5 bg-white hover:bg-orange-50/50 border border-orange-200/80 rounded-full text-[11px] font-black tracking-widest text-orange-800 uppercase shadow-sm hover:border-orange-300 transition-all cursor-pointer group"
+                className="inline-flex items-center gap-2 px-6 py-2.5 bg-white/10 hover:bg-white/20 border border-white/25 rounded-full text-[11px] font-black tracking-widest text-slate-100 uppercase shadow-md hover:border-white/45 transition-all cursor-pointer group backdrop-blur-md"
               >
-                <item.icon className="w-4 h-4 text-orange-500 group-hover:scale-110 transition-transform" />
+                <item.icon className="w-4 h-4 text-orange-400 group-hover:scale-110 transition-transform" />
                 <span>{item.label}</span>
               </button>
             ))}
@@ -742,7 +774,7 @@ export default function HomeSection({
       </section>
 
       {/* 2. Annual Rankings (权威榜单 - Crawler Friendly <a> Tags) */}
-      <section className="max-w-7xl mx-auto px-6 space-y-12">
+      <section id="annual_rankings_anchor" className="max-w-7xl mx-auto px-6 space-y-12">
         <div className="flex justify-between items-end">
           <div className="space-y-2">
             <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">{lang === "zh" ? "权威发布" : "Annual Authority"}</span>
@@ -833,7 +865,7 @@ export default function HomeSection({
       </section>
 
       {/* 3. Featured Evaluations (热门精选评测) */}
-      <section className="bg-slate-50 py-24">
+      <section id="featured_evaluations_anchor" className="bg-slate-50 py-24">
         <div className="max-w-7xl mx-auto px-6 space-y-12">
           <div className="text-center space-y-4">
             <h3 className="text-3xl font-black text-slate-900 tracking-tight">{lang === "zh" ? "深度评测专题" : "Featured Evaluations"}</h3>
@@ -865,7 +897,7 @@ export default function HomeSection({
       </section>
 
       {/* 4. Category Launchpad (品类入口) */}
-      <section className="max-w-7xl mx-auto px-6 space-y-10">
+      <section id="category_highlights_anchor" className="max-w-7xl mx-auto px-6 space-y-10">
         <div className="flex justify-between items-end">
           <div className="space-y-2">
             <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">
@@ -949,8 +981,114 @@ export default function HomeSection({
         </div>
       </section>
 
-      {/* 5. Safety Audits (双横排网格 SEO 增强版) */}
+      {/* 智能交互工具实验室 (Interactive Mobility Tools) */}
       <section className="max-w-7xl mx-auto px-6 space-y-12">
+        <div className="text-center space-y-4 max-w-3xl mx-auto">
+          <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">
+            {lang === "zh" ? "智能探索工具" : "Interactive Engine"}
+          </span>
+          <h2 className="text-3xl font-black text-slate-900 tracking-tight">Focus & Align: Physics-Engine Driven Assistants</h2>
+          <p className="text-slate-500 font-medium">
+            {lang === "zh" 
+              ? "通过我们自主研发的多维成长算法与横向硬核参数红线对比工具，三秒内锁定最适合孩子的出行装备。" 
+              : "Locate the most suitable ride for your growing child using our specialized biometrics filter and dynamic parameter matrices."}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Card A: Matching Wizard Tool */}
+          <div 
+            id="matching_wizard_anchor" 
+            className="relative bg-linear-to-br from-orange-50/50 via-white to-orange-50/20 border border-orange-100 rounded-[36px] p-8 sm:p-10 flex flex-col justify-between hover:border-orange-500/40 hover:shadow-2xl transition-all group"
+          >
+            <div className="space-y-6">
+              <div className="w-16 h-16 bg-orange-100/50 rounded-2xl flex items-center justify-center text-4xl shadow-sm text-orange-600 group-hover:scale-110 transition-transform">
+                🧙‍♂️
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-2xl font-black text-slate-900">
+                  {lang === "zh" ? "智能选车助手" : "Smart Matching Wizard"}
+                </h3>
+                <p className="text-sm text-slate-600 leading-relaxed font-semibold">
+                  {lang === "zh" 
+                    ? "输入孩子的年龄、身高、日常骑行环境及预算范围。我们的智能算法会将宝宝的身体物理属性与库中所有车架的黄金工效、踏板倾角及重心配置进行毫米级吻合比对，量身定制出最高评分的完美款型。" 
+                    : "Enter your child's age, height, riding habit, and budget. Our physical analysis alignment matches biometrics in milliseconds against safety buffers and pedal angles to recommend the top overall scorer."}
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2 pt-2">
+                <span className="px-3 py-1 bg-white border border-orange-100 rounded-full text-[10px] text-orange-600 font-bold uppercase">
+                  🐣 {lang === "zh" ? "年龄成长适应性" : "Adaptive Age"}
+                </span>
+                <span className="px-3 py-1 bg-white border border-orange-100 rounded-full text-[10px] text-orange-600 font-bold uppercase">
+                  📐 {lang === "zh" ? "人体工学黄金比" : "Ergonomic Alignment"}
+                </span>
+                <span className="px-3 py-1 bg-white border border-orange-100 rounded-full text-[10px] text-orange-600 font-bold uppercase">
+                  🏆 {lang === "zh" ? "大数据口碑推荐" : "Overall Top Picks"}
+                </span>
+              </div>
+            </div>
+
+            <div className="pt-8">
+              <button
+                onClick={() => openWizard()}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white text-xs font-black uppercase tracking-wider rounded-2xl shadow-md hover:shadow-lg transition-all cursor-pointer"
+              >
+                <span>{lang === "zh" ? "立即开启向导" : "Launch Smart Wizard"}</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Card B: Comparison Board Tool */}
+          <div 
+            id="comparison_dashboard_anchor" 
+            className="relative bg-linear-to-br from-slate-50/50 via-white to-slate-50/20 border border-slate-200/80 rounded-[36px] p-8 sm:p-10 flex flex-col justify-between hover:border-orange-500/40 hover:shadow-2xl transition-all group"
+          >
+            <div className="space-y-6">
+              <div className="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-4xl shadow-sm text-slate-600 group-hover:scale-110 transition-transform">
+                📊
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-2xl font-black text-slate-900">
+                  {lang === "zh" ? "参数横评实验室" : "Comparison Board"}
+                </h3>
+                <p className="text-sm text-slate-600 leading-relaxed font-semibold">
+                  {lang === "zh" 
+                    ? "将您心仪的多款型号一键添加至精细对比序列。我们支持跨越车架总重比、刹车阻阻系数、折叠收纳体积及轮胎极限抓地力等多项核心参数的同屏对照，助您迅速划定宝宝在各品类的顶级物理安全红线。" 
+                    : "Add candidates directly into a side-by-side spec grid. Contrast key parameters like carriage safety margins, frame weight ratios, wheel diameter bounds, and steering locks instantly on a single dashboard to resolve any budget dilemmas."}
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2 pt-2">
+                <span className="px-3 py-1 bg-white border border-slate-200 rounded-full text-[10px] text-slate-500 font-bold uppercase">
+                  ⚡️ {lang === "zh" ? "多轨同屏比对" : "Side-by-side Matrix"}
+                </span>
+                <span className="px-3 py-1 bg-white border border-slate-200 rounded-full text-[10px] text-slate-500 font-bold uppercase">
+                  🧠 {lang === "zh" ? "安全红线锁定" : "Safety Boundaries"}
+                </span>
+                <span className="px-3 py-1 bg-white border border-slate-200 rounded-full text-[10px] text-slate-500 font-bold uppercase">
+                  🔍 {lang === "zh" ? "硬核参数透视" : "Extreme Spec Audits"}
+                </span>
+              </div>
+            </div>
+
+            <div className="pt-8">
+              <button
+                onClick={() => {
+                  setActiveTab("compare");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white text-xs font-black uppercase tracking-wider rounded-2xl shadow-md hover:shadow-lg transition-all cursor-pointer"
+              >
+                <span>{lang === "zh" ? "进入横评面板" : "Explore Spec Matrix"}</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Safety Audits (双横排网格 SEO 增强版) */}
+      <section id="safety_audits_anchor" className="max-w-7xl mx-auto px-6 space-y-12">
         <div className="flex justify-between items-end">
           <div className="space-y-2">
             <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">{lang === "zh" ? "安全专项检测" : "Safety Audits Hub"}</span>
@@ -1025,7 +1163,7 @@ export default function HomeSection({
       </section>
 
       {/* 6. Buying Guide Quick Links (选购指南快捷入口) */}
-      <section className="max-w-7xl mx-auto px-6 space-y-12">
+      <section id="quick_scenarios_anchor" className="max-w-7xl mx-auto px-6 space-y-12">
           <div className="space-y-2 text-center max-w-2xl mx-auto">
             <h3 className="text-3xl font-black text-slate-900 tracking-tight">{lang === "zh" ? "智能选购场景" : "Quick Selection Scenarios"}</h3>
             <p className="text-slate-500 font-medium">{lang === "zh" ? "从成长阶段出发，为您快速匹配最佳方案。" : "Find the perfect match based on your child's growth stage."}</p>
@@ -1045,7 +1183,7 @@ export default function HomeSection({
       </section>
 
       {/* 7. FAQ Section (手风琴常见问题解答) */}
-      <section className="max-w-4xl mx-auto px-6 space-y-10 py-12">
+      <section id="faq_section_anchor" className="max-w-4xl mx-auto px-6 space-y-10 py-12">
         <div className="text-center space-y-2">
           <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">{lang === "zh" ? "常见问题" : "FAQ"}</span>
           <h2 className="text-3xl font-black text-slate-900 tracking-tight">
@@ -1106,6 +1244,18 @@ export default function HomeSection({
           ))}
         </div>
       </section>
+
+      <MatchingWizard 
+        isOpen={isWizardOpen}
+        onClose={() => setIsWizardOpen(false)}
+        productsData={productsData}
+        onSelectProduct={(p) => {
+          setIsWizardOpen(false);
+          onSelectProduct(p);
+        }}
+        lang={lang}
+        currencyData={currencyData}
+      />
     </div>
   );
 }

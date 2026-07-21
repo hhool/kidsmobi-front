@@ -42,7 +42,7 @@ const REPORT_FILE_TO_CATEGORY: Record<string, string> = {
 };
 
 const REPORT_DATA_VERSION = "20260712-all-categories-detail-sync";
-const STORE_MEDIA_ORIGIN = "https://store.poki2.online";
+const STORE_MEDIA_ORIGIN = "https://store.balancebiketoddler.com";
 const AGE_RANGE_NEEDS_SOURCE_CONFIRMATION = "Confirm from source";
 
 interface RawProduct {

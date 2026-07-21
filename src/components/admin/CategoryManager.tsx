@@ -56,8 +56,8 @@ const categorySeoDefaults: Record<ProductCategory, {
   },
   scooter: {
     en: {
-      seoTitle: "Best Kids Scooters & Electric Scooters 2026 Lab-Tested - KIDSMOBI",
-      seoDescription: "Discover the safest lab-tested scooters for kids and teens. Compare 3-wheel kick scooters, electric models, and top mobility brands.",
+      seoTitle: "Best Kids Scooter & Electric Scooter 2026 Lab-Tested - KIDSMOBI",
+      seoDescription: "Discover the safest lab-tested scooter models for kids and teens. Compare 3-wheel kick scooter, electric model, and top mobility brands.",
       seoKeywords: "kids kick scooter, foldable kids scooter, toddler 3 wheel scooter, children electric scooter"
     },
     zh: {
@@ -69,7 +69,7 @@ const categorySeoDefaults: Record<ProductCategory, {
   electric_car: {
     en: {
       seoTitle: "Best Kids Ride-On Toys & Electric Cars 2026 Lab-Tested - KIDSMOBI",
-      seoDescription: "Explore our lab-tested reviews of 12V and 24V kids ride-on cars, UTVs, and electric motorcycles. Compare top-rated electric vehicles for battery safety.",
+      seoDescription: "Explore our lab-tested reviews of 12V and 24V kids ride-on cars, UTVs, and electric motorcycles. Compare top-rated kids electric car options for battery safety.",
       seoKeywords: "kids electric car, ride on toys 12v, kids electric motorcycle, toddler electric car"
     },
     zh: {

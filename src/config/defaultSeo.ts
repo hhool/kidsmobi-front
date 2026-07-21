@@ -31,67 +31,67 @@ export function normalizeSeoConfig(config: SEOConfig): SEOConfig {
 export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
   home: {
     zh: {
-      title: "Jogging Stroller, Balance Bike, Kids Bike & Kids Scooter | KIDSMOBI",
-      description: "Compare lab-tested safety metrics for your next jogging stroller, balance bike, kids bike, or kids scooter. Access unbiased reviews to ride safely.",
-      keywords: ["jogging stroller", "balance bike", "kids scooter", "kids bike"],
+      title: "Best Kids Bikes, Scooters, Jogging Strollers & Cars | BalanceBikeToddler",
+      description: "Global review site for kids wheeled toys. Find the perfect balance bike, kids scooter, kids bike, jogging stroller, and kids electric car for your family.",
+      keywords: ["balance bike", "kids scooter", "kids bike", "jogging stroller", "kids electric car"]
     },
     en: {
-      title: "Jogging Stroller, Balance Bike, Kids Bike & Kids Scooter | KIDSMOBI",
-      description: "Compare lab-tested safety metrics for your next jogging stroller, balance bike, kids bike, or kids scooter. Access unbiased reviews to ride safely.",
-      keywords: ["jogging stroller", "balance bike", "kids scooter", "kids bike"],
-    },
-  },
-  news: {
-    zh: {
-      title: "Kids Electric Bike & Foldable Electric Scooter News",
-      description: "Track the latest news on a kids electric bike and an electric dirt bike for kids. Plus, discover foldable electric scooter safety updates.",
-      keywords: ["kids electric bike", "electric dirt bike for kids", "foldable electric scooter"],
-    },
-    en: {
-      title: "Kids Electric Bike & Foldable Electric Scooter News",
-      description: "Track the latest news on a kids electric bike and an electric dirt bike for kids. Plus, discover foldable electric scooter safety updates.",
-      keywords: ["kids electric bike", "electric dirt bike for kids", "foldable electric scooter"],
+      title: "Best Kids Bikes, Scooters, Jogging Strollers & Cars | BalanceBikeToddler",
+      description: "Global review site for kids wheeled toys. Find the perfect balance bike, kids scooter, kids bike, jogging stroller, and kids electric car for your family.",
+      keywords: ["balance bike", "kids scooter", "kids bike", "jogging stroller", "kids electric car"]
     },
   },
   products: {
     zh: {
-      title: "Toddler Bike, Twin Stroller & Kids Electric Scooter | KIDSMOBI",
-      description: "Search our lab database for the safest twin stroller, toddler bike, and kids electric scooter. Compare test metrics for your next toddler balance bike.",
+      title: "Top Toddler Bikes, Twin Strollers & Electric Scooters | BalanceBikeToddler",
+      description: "Browse our catalog of toddler bikes, balance bike toddler models, twin strollers, and kids electric scooters. Find the safest ride-on toys for your children.",
       keywords: ["toddler bike", "balance bike toddler", "twin stroller", "kids electric scooter"],
     },
     en: {
-      title: "Toddler Bike, Twin Stroller & Kids Electric Scooter | KIDSMOBI",
-      description: "Search our lab database for the safest twin stroller, toddler bike, and kids electric scooter. Compare test metrics for your next toddler balance bike.",
+      title: "Top Toddler Bikes, Twin Strollers & Electric Scooters | BalanceBikeToddler",
+      description: "Browse our catalog of toddler bikes, balance bike toddler models, twin strollers, and kids electric scooters. Find the safest ride-on toys for your children.",
       keywords: ["toddler bike", "balance bike toddler", "twin stroller", "kids electric scooter"],
     },
   },
   evaluations: {
     zh: {
-      title: "Best Travel & Jogging Stroller Reviews + Balance Bike Lab",
-      description: "Explore our expert stroller reviews to find the best travel stroller and best jogging stroller. Plus, discover lab-tested balance bike reviews for kids.",
-      keywords: ["best travel stroller", "best jogging stroller", "stroller reviews", "balance bike reviews"],
+      title: "Expert Stroller Reviews, Travel Strollers & Dirt Bikes | BalanceBikeToddler",
+      description: "Read unbiased stroller reviews, travel strollers, jogging stroller tests, and kids dirt bike performance ratings. Make the right choice before you buy.",
+      keywords: ["travel stroller", "jogging stroller", "kids dirt bike", "stroller reviews"],
     },
     en: {
-      title: "Best Travel & Jogging Stroller Reviews + Balance Bike Lab",
-      description: "Explore our expert stroller reviews to find the best travel stroller and best jogging stroller. Plus, discover lab-tested balance bike reviews for kids.",
-      keywords: ["best travel stroller", "best jogging stroller", "stroller reviews", "balance bike reviews"],
+      title: "Expert Stroller Reviews, Travel Strollers & Dirt Bikes | BalanceBikeToddler",
+      description: "Read unbiased stroller reviews, travel strollers, jogging stroller tests, and kids dirt bike performance ratings. Make the right choice before you buy.",
+      keywords: ["travel stroller", "jogging stroller", "kids dirt bike", "stroller reviews"],
     },
   },
   guides: {
     zh: {
-      title: "How to Choose a Baby Stroller & 1-Year-Old Bike Guide",
-      description: "Learn how to choose a baby stroller with our lab-tested sizing wizard. Discover the safest balance bike for 1 year old riders based on real data.",
-      keywords: ["how to choose a baby stroller", "balance bike for 1 year old", "toddler bike sizing guide"],
+      title: "How to Choose a Baby Stroller & First Balance Bikes | BalanceBikeToddler",
+      description: "Expert advice on how to choose a baby stroller and picking the right balance bike for 1 year old infants. Read our step-by-step buying guides today. ",
+      keywords: ["how to choose a baby stroller", "balance bike for 1 year old"],
     },
     en: {
-      title: "How to Choose a Baby Stroller & 1-Year-Old Bike Guide",
-      description: "Learn how to choose a baby stroller with our lab-tested sizing wizard. Discover the safest balance bike for 1 year old riders based on real data.",
-      keywords: ["how to choose a baby stroller", "balance bike for 1 year old", "toddler bike sizing guide"],
+      title: "How to Choose a Baby Stroller & First Balance Bikes | BalanceBikeToddler",
+      description: "Expert advice on how to choose a baby stroller and picking the right balance bike for 1 year old infants. Read our step-by-step buying guides today. ",
+      keywords: ["how to choose a baby stroller", "balance bike for 1 year old"],
+    },
+  },
+  news: {
+    zh: {
+      title: "Kids Electric Bikes & Foldable Scooter Global News | BalanceBikeToddler",
+      description: "Get the latest global news on kids electric bike trends, electric dirt bike for kids releases, and newly launched foldable electric scooter technologies.",
+      keywords: ["kids electric bike, electric dirt bike for kids, foldable electric scooter"],
+    },
+    en: {
+      title: "Kids Electric Bikes & Foldable Scooter Global News | BalanceBikeToddler",
+      description: "Get the latest global news on kids electric bike trends, electric dirt bike for kids releases, and newly launched foldable electric scooter technologies.",
+      keywords: ["kids electric bike, electric dirt bike for kids, foldable electric scooter"],
     },
   },
   about: {
     zh: {
-      title: "About KIDSMOBI: Independent Kids Bike & Stroller Safety Lab",
+      title: "Independent Kids Bike & Stroller Safety Lab | BalanceBikeToddler",
       description: "Learn about KIDSMOBI's strict evaluation methodology. We independently audit every jogging stroller, balance bike, and kids scooter to ensure ultimate child safety.",
       keywords: ["KIDSMOBI", "independent safety lab", "child mobility safety", "evaluation methodology"],
     },

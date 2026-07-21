@@ -121,7 +121,7 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
       "",
       "## Demo Entry Links",
       "",
-      "- Production: https://kidsmobi.pages.dev",
+      "- Production: https://balancebiketoddler.com",
       `- Worker Categories API: ${window.location.origin}/api/v2/catalog/categories`,
       "- Admin Panel: open the production site and enter admin mode",
       "",

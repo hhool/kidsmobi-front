@@ -14,7 +14,7 @@ function buildStoreMirrorCandidates(rawUrl: string): string[] {
     return [];
   }
 
-  if (parsed.hostname !== "store.poki2.online") {
+  if (parsed.hostname !== "store.balancebiketoddler.com") {
     return [url];
   }
 

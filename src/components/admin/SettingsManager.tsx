@@ -537,7 +537,7 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
                 },
               })
             }
-            placeholder={lang === "zh" ? "例如: https://kidsmobi.pages.dev" : "e.g. https://kidsmobi.pages.dev"}
+            placeholder={lang === "zh" ? "例如: https://balancebiketoddler.com" : "e.g. https://balancebiketoddler.com"}
           />
 
           <Field
