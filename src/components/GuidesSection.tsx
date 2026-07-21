@@ -648,7 +648,7 @@ export default function GuidesSection({
       .slice(0, categoryLimit);
   }, [productFilteredArticles, selectedCategory, searchQuery, lang]);
 
-  const pageSize = 8;
+  const pageSize = 6;
   const totalPages = Math.max(1, Math.ceil(filteredGuides.length / pageSize));
   const safePage = Math.min(Math.max(1, currentPage), totalPages);
   const pagedGuides = filteredGuides.slice((safePage - 1) * pageSize, safePage * pageSize);
