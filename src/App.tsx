@@ -779,6 +779,7 @@ export default function App() {
   const [bbtMenuOpen, setBbtMenuOpen] = useState(false);
   const [productsMenuOpen, setProductsMenuOpen] = useState(false);
   const [reviewsMenuOpen, setReviewsMenuOpen] = useState(false);
+  const [guidesMenuOpen, setGuidesMenuOpen] = useState(false);
 
   const bbtShowTimerRef = useRef<any>(null);
   const bbtHideTimerRef = useRef<any>(null);
@@ -786,11 +787,14 @@ export default function App() {
   const productsHideTimerRef = useRef<any>(null);
   const reviewsShowTimerRef = useRef<any>(null);
   const reviewsHideTimerRef = useRef<any>(null);
+  const guidesShowTimerRef = useRef<any>(null);
+  const guidesHideTimerRef = useRef<any>(null);
 
   const handleBbtMouseEnter = () => {
-    // 互斥关闭：滑入 Home 的同时立刻关断并强制销毁 Products 和 Reviews 面板，防止双层重叠
+    // 互斥关闭：滑入 Home 的同时立刻关断并强制销毁 Products、Reviews 和 Guides 面板，防止双层重叠
     closeProductsMenuInstantly();
     closeReviewsMenuInstantly();
+    closeGuidesMenuInstantly();
 
     if (bbtHideTimerRef.current) {
       clearTimeout(bbtHideTimerRef.current);
@@ -827,9 +831,10 @@ export default function App() {
   };
 
   const handleProductsMouseEnter = () => {
-    // 互斥关闭：滑入 Products 的同时立刻关断并强制销毁 Home 还有 Reviews 面板，防止双层重叠
+    // 互斥关闭：滑入 Products 的同时立刻关断并强制销毁 Home、Reviews 和 Guides 面板，防止双层重叠
     closeBbtMenuInstantly();
     closeReviewsMenuInstantly();
+    closeGuidesMenuInstantly();
 
     if (productsHideTimerRef.current) {
       clearTimeout(productsHideTimerRef.current);
@@ -866,9 +871,10 @@ export default function App() {
   };
 
   const handleReviewsMouseEnter = () => {
-    // 互斥关闭：滑入 Reviews 的同时立刻关断并强制销毁 Home 和 Products 面板，防止双层重叠
+    // 互斥关闭：滑入 Reviews 的同时立刻关断并强制销毁 Home、Products 和 Guides 面板，防止双层重叠
     closeBbtMenuInstantly();
     closeProductsMenuInstantly();
+    closeGuidesMenuInstantly();
 
     if (reviewsHideTimerRef.current) {
       clearTimeout(reviewsHideTimerRef.current);
@@ -904,6 +910,46 @@ export default function App() {
     reviewsHideTimerRef.current = null;
   };
 
+  const handleGuidesMouseEnter = () => {
+    // 互斥关闭：滑入 Guides 的同时立刻关断并强制销毁 Home、Products 和 Reviews 面板，防止双层重叠
+    closeBbtMenuInstantly();
+    closeProductsMenuInstantly();
+    closeReviewsMenuInstantly();
+
+    if (guidesHideTimerRef.current) {
+      clearTimeout(guidesHideTimerRef.current);
+      guidesHideTimerRef.current = null;
+    }
+    if (guidesMenuOpen) return;
+    if (!guidesShowTimerRef.current) {
+      guidesShowTimerRef.current = setTimeout(() => {
+        setGuidesMenuOpen(true);
+        guidesShowTimerRef.current = null;
+      }, 150); // 150ms 快速响应
+    }
+  };
+
+  const handleGuidesMouseLeave = () => {
+    if (guidesShowTimerRef.current) {
+      clearTimeout(guidesShowTimerRef.current);
+      guidesShowTimerRef.current = null;
+    }
+    if (!guidesHideTimerRef.current) {
+      guidesHideTimerRef.current = setTimeout(() => {
+        setGuidesMenuOpen(false);
+        guidesHideTimerRef.current = null;
+      }, 1000); // 1000ms 延时保护，避免频闪消失
+    }
+  };
+
+  const closeGuidesMenuInstantly = () => {
+    setGuidesMenuOpen(false);
+    if (guidesShowTimerRef.current) clearTimeout(guidesShowTimerRef.current);
+    if (guidesHideTimerRef.current) clearTimeout(guidesHideTimerRef.current);
+    guidesShowTimerRef.current = null;
+    guidesHideTimerRef.current = null;
+  };
+
   useEffect(() => {
     return () => {
       if (bbtShowTimerRef.current) clearTimeout(bbtShowTimerRef.current);
@@ -912,6 +958,8 @@ export default function App() {
       if (productsHideTimerRef.current) clearTimeout(productsHideTimerRef.current);
       if (reviewsShowTimerRef.current) clearTimeout(reviewsShowTimerRef.current);
       if (reviewsHideTimerRef.current) clearTimeout(reviewsHideTimerRef.current);
+      if (guidesShowTimerRef.current) clearTimeout(guidesShowTimerRef.current);
+      if (guidesHideTimerRef.current) clearTimeout(guidesHideTimerRef.current);
     };
   }, []);
 
@@ -3212,14 +3260,219 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                   )}
                 </div>
 
-                <button
-                  onClick={() => handlePrimaryTabClick("guides")}
-                  className={`px-3 py-2 rounded-xl font-bold transition-all ${
-                    activeTab === "guides" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
-                  }`}
+                <div 
+                  className="relative group"
+                  onMouseEnter={handleGuidesMouseEnter}
+                  onMouseLeave={handleGuidesMouseLeave}
                 >
-                  {t.navGuides}
-                </button>
+                  <button
+                    onClick={() => {
+                      handlePrimaryTabClick("guides");
+                      setGuidesMenuOpen(prev => !prev);
+                      if (guidesShowTimerRef.current) clearTimeout(guidesShowTimerRef.current);
+                      if (guidesHideTimerRef.current) clearTimeout(guidesHideTimerRef.current);
+                      guidesShowTimerRef.current = null;
+                      guidesHideTimerRef.current = null;
+                    }}
+                    className={`px-3 py-2 rounded-xl font-bold transition-all flex items-center gap-1 ${
+                      activeTab === "guides" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                    }`}
+                  >
+                    <span>{t.navGuides}</span>
+                    <span className="text-[10px] text-slate-400">▾</span>
+                  </button>
+
+                  {guidesMenuOpen && (
+                    <div 
+                      id="guides_dropdown_menu" 
+                      className="absolute top-full left-1/2 -translate-x-[55%] mt-3 w-[660px] sm:w-[755px] md:w-[850px] lg:w-[940px] bg-white/98 backdrop-blur-2xl border border-slate-200/85 rounded-[32px] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.18)] ring-1 ring-slate-900/5 p-6 z-[99] animate-in fade-in slide-in-from-top-3 duration-300 ease-out zoom-in-95 text-slate-800"
+                    >
+                      {/* Decorative atmospheric top pointer arrow */}
+                      <div className="absolute -top-1.5 left-[55%] w-3 h-3 bg-white border-t border-l border-slate-200 rotate-45"></div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-[1.1fr_1.1fr_0.8fr] gap-6 text-left relative z-10">
+                        {/* Column 1: By Category & Age Groups */}
+                        <div className="space-y-4 pr-3 border-r border-slate-100">
+                          <div>
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans mb-3">
+                              📂 BY CATEGORY & AGE
+                            </span>
+                            <div className="space-y-3">
+                              {/* Balance Bikes */}
+                              <button
+                                onClick={() => {
+                                  handlePrimaryTabClick("guides");
+                                  setActiveGuidesCategory("special");
+                                  closeGuidesMenuInstantly();
+                                  setTimeout(() => {
+                                    const el = document.getElementById("guides_container");
+                                    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                                  }, 150);
+                                }}
+                                className="w-full text-left py-1 text-[11px] font-extrabold text-slate-700 hover:text-orange-500 transition-colors flex items-center gap-1.5 cursor-pointer"
+                              >
+                                <span>🚲</span>
+                                {lang === "en" ? "Balance Bikes (滑步平衡车)" : "滑步平衡车 (Balance Bikes)"}
+                              </button>
+
+                              {/* Baby Strollers */}
+                              <button
+                                onClick={() => {
+                                  handlePrimaryTabClick("guides");
+                                  setActiveGuidesCategory("special");
+                                  closeGuidesMenuInstantly();
+                                  setTimeout(() => {
+                                    const el = document.getElementById("guides_container");
+                                    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                                  }, 150);
+                                }}
+                                className="w-full text-left py-1 text-[11px] font-extrabold text-slate-700 hover:text-orange-500 transition-colors flex items-center gap-1.5 cursor-pointer"
+                              >
+                                <span>🛒</span>
+                                {lang === "en" ? "Baby Strollers (婴儿手推车)" : "婴儿手推车 (Baby Strollers)"}
+                              </button>
+
+                              {/* Toddler Scooters */}
+                              <button
+                                onClick={() => {
+                                  handlePrimaryTabClick("guides");
+                                  setActiveGuidesCategory("special");
+                                  closeGuidesMenuInstantly();
+                                  setTimeout(() => {
+                                    const el = document.getElementById("guides_container");
+                                    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                                  }, 150);
+                                }}
+                                className="w-full text-left py-1 text-[11px] font-extrabold text-slate-700 hover:text-orange-500 transition-colors flex items-center gap-1.5 cursor-pointer"
+                              >
+                                <span>🛹</span>
+                                {lang === "en" ? "Toddler Scooters (儿童滑板车)" : "儿童滑板车 (Toddler Scooters)"}
+                              </button>
+                            </div>
+                          </div>
+
+                          <div className="pt-2 border-t border-slate-50 uppercase">
+                            <span className="text-[9px] font-black text-slate-400 tracking-widest block mb-2.5 font-mono">
+                              👶 BY AGE & STAGE
+                            </span>
+                            <div className="flex flex-col gap-2">
+                              {[
+                                { val: "1", labelEn: "1 Year Old / First Bike", labelZh: "1岁起步入门指南" },
+                                { val: "2-3", labelEn: "2-3 Years Old Progress", labelZh: "2-3岁体格运动进阶" },
+                                { val: "4", labelEn: "4+ Years Old Explorer", labelZh: "4岁及以上成长探险" }
+                              ].map((item, id) => (
+                                <button
+                                  key={id}
+                                  onClick={() => {
+                                    handlePrimaryTabClick("guides");
+                                    setActiveGuidesCategory("beginner");
+                                    closeGuidesMenuInstantly();
+                                    setTimeout(() => {
+                                      const el = document.getElementById("guides_container");
+                                      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                                    }, 150);
+                                  }}
+                                  className="w-full text-left text-[10px] font-extrabold text-slate-500 hover:text-orange-500 transition-colors cursor-pointer pl-0 border-l border-transparent"
+                                >
+                                  • {lang === "en" ? item.labelEn : item.labelZh}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Column 2: By Scenario */}
+                        <div className="space-y-4 pr-3 border-r border-slate-100">
+                          <div>
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans mb-3">
+                              🏞️ BY USAGE SCENARIO
+                            </span>
+                            <div className="space-y-3 font-extrabold text-slate-700 text-[11px]">
+                              {[
+                                { icon: "🏙️", labelEn: "City & Commute (城市通勤)", labelZh: "精细防震/城市日常通勤" },
+                                { icon: "🚇", labelEn: "Travel & Light (轻便出游)", labelZh: "极致折叠/登机轻量出游" },
+                                { icon: "🏞️", labelEn: "All-Terrain / Outdoor (户外越野)", labelZh: "全地形越野/抗震防滑大胎" }
+                              ].map((sc, index) => (
+                                <button
+                                  key={index}
+                                  onClick={() => {
+                                    handlePrimaryTabClick("guides");
+                                    setActiveGuidesCategory("scenario");
+                                    closeGuidesMenuInstantly();
+                                    setTimeout(() => {
+                                      const el = document.getElementById("guides_container");
+                                      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                                    }, 150);
+                                  }}
+                                  className="w-full text-left py-1 text-slate-700 hover:text-orange-500 transition-colors flex items-center gap-2 cursor-pointer"
+                                >
+                                  <span>{sc.icon}</span>
+                                  {lang === "en" ? sc.labelEn : sc.labelZh}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div className="pt-3 border-t border-slate-50">
+                            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-1.5 font-mono">
+                              💡 EDUCATIONAL RED LINES
+                            </span>
+                            <p className="text-[10px] text-slate-400 leading-normal font-semibold">
+                              {lang === "en"
+                                ? "Avoid rigid brakes on soft vertebrae, and strictly follow the 30% golden ratio chassis safe weight limit rules."
+                                : "避免刚性颠簸损伤宝宝幼嫩前庭，切记严守车重低于宝宝体重的 30% 黄金安全红线。"}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Column 3: Smart Wizard & Tools */}
+                        <div className="space-y-5 flex flex-col justify-between">
+                          <div className="space-y-3.5">
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans">
+                              🧙‍♂️ INTERACTIVE WIZARD
+                            </span>
+                            
+                            <button
+                              onClick={() => {
+                                handlePrimaryTabClick("guides");
+                                if (typeof window !== "undefined") {
+                                  localStorage.setItem("autoOpenWizard", "true");
+                                }
+                                closeGuidesMenuInstantly();
+                                setTimeout(() => {
+                                  const el = document.getElementById("guides_container");
+                                  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                                }, 250);
+                              }}
+                              className="w-full text-left py-4 px-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-2xl font-black text-xs shadow-md shadow-emerald-500/10 hover:shadow-lg hover:shadow-emerald-500/25 transition-all flex items-center justify-between group/total cursor-pointer"
+                            >
+                              <span className="flex items-center gap-3">
+                                <span className="text-sm bg-white/20 w-7 h-7 rounded-lg flex items-center justify-center backdrop-blur-sm">🔍</span> 
+                                <div className="flex flex-col text-left">
+                                  <span className="text-white text-[11px] font-black">{lang === "en" ? "Launch Smart Wizard" : "唤醒智能选车助手"}</span>
+                                  <span className="text-emerald-100 text-[9px] font-medium mt-0.5">{lang === "en" ? "Biomechanics Fit-Check" : "体型骨骼发育精准配准"}</span>
+                                </div>
+                              </span>
+                              <span className="text-xs transition-transform group-hover/total:translate-x-1">➔</span>
+                            </button>
+                          </div>
+
+                          <div className="space-y-2 pt-2 border-t border-slate-100 pr-1 select-none text-left">
+                            <span className="text-[9px] font-black text-slate-400 uppercase tracking-wide block font-mono">
+                              🛠️ SAFETY STANDARDS AUDITTED
+                            </span>
+                            <div className="flex flex-col gap-1 text-[9px] font-bold text-slate-400 leading-normal">
+                              <span>• Inseam Biometrics Resolution</span>
+                              <span>• Spine 175° Lay-Flat Standard</span>
+                              <span>• Coaster Brake Danger Alerts</span>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  )}
+                </div>
 
                 <button
                   onClick={() => handlePrimaryTabClick("news")}
