@@ -65,6 +65,59 @@ const GlobalNews: React.FC = () => {
                   prose-img:rounded-2xl prose-img:shadow-md"
                 dangerouslySetInnerHTML={{ __html: selectedArticle.content }} 
               />
+
+              {/* KIDSMOBI Lab Recommended Best Picks / Safety Guides Widget */}
+              <div className="mt-12 pt-10 border-t border-slate-100 space-y-6">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-sm bg-orange-100 p-1.5 rounded-lg">🔬</span>
+                  <h4 className="text-md sm:text-lg font-black text-slate-900 uppercase tracking-tight">
+                    KIDSMOBI Lab: Recommended Safety Guides
+                  </h4>
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {[
+                    {
+                      id: "g_stroller",
+                      titleEn: "Kids Stroller Protection & Ergonomics Master Guide",
+                      summaryEn: "Learn how modern stroller shock absorption and chassis engineering protect toddler's spine development.",
+                      slug: "baby-stroller-spine-safety-guide"
+                    },
+                    {
+                      id: "g_bike",
+                      titleEn: "Kids Bike & Balance Bike Sizing & Safety Chart",
+                      summaryEn: "A complete guide on Q-factor, seat heights, and frame geometries for junior bikes.",
+                      slug: "toddler-balance-bike-ergonmics"
+                    }
+                  ].map(g => (
+                    <div 
+                      key={g.id} 
+                      onClick={() => {
+                        (window as any).setActiveTab?.("guides");
+                        (window as any).navigateToPath?.(`/guides/${g.slug}`);
+                        setSelectedArticle(null);
+                      }}
+                      className="group relative rounded-3xl border border-slate-100 bg-linear-to-b from-white to-slate-50/30 overflow-hidden shadow-xs hover:shadow-xl hover:border-orange-500/20 transition-all cursor-pointer p-6 flex flex-col justify-between space-y-4 animate-fade-in"
+                    >
+                      <div className="space-y-4 text-left">
+                        <span className="text-[10px] font-black uppercase tracking-wider text-orange-500 bg-orange-50 px-2.5 py-0.5 rounded-full inline-block">
+                          Authoritative Guide
+                        </span>
+                        <h5 className="font-extrabold text-sm sm:text-base text-slate-900 group-hover:text-orange-500 transition-colors line-clamp-2">
+                          {g.titleEn}
+                        </h5>
+                        <p className="text-xs text-slate-500 font-medium leading-relaxed line-clamp-2">
+                          {g.summaryEn}
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-xs font-black text-slate-400 group-hover:text-orange-500 transition-colors">
+                        <span>Read Guide</span>
+                        <span className="group-hover:translate-x-1 transition-transform">➔</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </article>
         </div>

@@ -437,6 +437,65 @@ export default function NewsSection({
               })}
             </div>
 
+            {/* KIDSMOBI Lab Recommended Best Picks / Safety Guides Widget */}
+            <div className="mt-12 pt-10 border-t border-slate-100 space-y-6">
+              <div className="flex items-center gap-2.5">
+                <span className="text-sm bg-orange-100 p-1.5 rounded-lg">🔬</span>
+                <h4 className="text-md sm:text-lg font-black text-slate-900 uppercase tracking-tight">
+                  {lang === "en" ? "KIDSMOBI Lab: Recommended Safety Guides" : "出行实验室：推荐选购安全指南"}
+                </h4>
+              </div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {[
+                  {
+                    id: "g_stroller",
+                    titleZh: "婴儿推车避震与护脊选购硬核指南",
+                    titleEn: "Kids Stroller Protection & Ergonomics Master Guide",
+                    summaryZh: "科学解析婴儿骨骼负荷，教你如何通过避震连杆、高弹橡胶充气胎阻尼，捍卫宝宝娇嫩的颈椎发育。",
+                    summaryEn: "Learn how modern stroller shock absorption and chassis engineering protect toddler's spine development.",
+                    slug: "baby-stroller-spine-safety-guide"
+                  },
+                  {
+                    id: "g_bike",
+                    titleZh: "儿童自行车与滑步平衡车尺寸安全工效对照表",
+                    titleEn: "Kids Bike & Balance Bike Sizing & Safety Chart",
+                    summaryZh: "深度解构两轮骑行产品的力学安全偏振，帮助家庭在成长各阶段挑选最合身的轻量化骑行座驾。",
+                    summaryEn: "A complete guide on Q-factor, seat heights, and frame geometries for junior bikes.",
+                    slug: "toddler-balance-bike-ergonmics"
+                  }
+                ].map(g => (
+                  <div 
+                    key={g.id} 
+                    onClick={() => {
+                      (window as any).setActiveTab?.("guides");
+                      (window as any).navigateToPath?.(`/guides/${g.slug}`);
+                      if (onArticleClose) {
+                        onArticleClose();
+                      }
+                    }}
+                    className="group relative rounded-3xl border border-slate-100 bg-linear-to-b from-white to-slate-50/30 overflow-hidden shadow-xs hover:shadow-xl hover:border-orange-500/20 transition-all cursor-pointer p-6 flex flex-col justify-between space-y-4 animate-fade-in"
+                  >
+                    <div className="space-y-4 text-left">
+                      <span className="text-[10px] font-black uppercase tracking-wider text-orange-500 bg-orange-50 px-2.5 py-0.5 rounded-full inline-block">
+                        {lang === "en" ? "Authoritative Guide" : "实验室首选大奖"}
+                      </span>
+                      <h5 className="font-extrabold text-sm sm:text-base text-slate-900 group-hover:text-orange-500 transition-colors line-clamp-2">
+                        {lang === "en" ? g.titleEn : g.titleZh}
+                      </h5>
+                      <p className="text-xs text-slate-500 font-medium leading-relaxed line-clamp-2">
+                        {lang === "en" ? g.summaryEn : g.summaryZh}
+                      </p>
+                    </div>
+                    <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-xs font-black text-slate-400 group-hover:text-orange-500 transition-colors">
+                      <span>{lang === "en" ? "Read Guide" : "阅读导购指南"}</span>
+                      <span className="group-hover:translate-x-1 transition-transform">➔</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Footer of article with like and shares */}
             <div className="flex justify-between items-center pt-8 border-t border-slate-50">
               <button
