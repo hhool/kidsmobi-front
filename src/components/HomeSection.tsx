@@ -204,7 +204,12 @@ export default function HomeSection({
     if (searchable.includes("balance_bike") || (searchable.includes("balance") && !searchable.includes("tricycle"))) {
       return lang === "zh" ? "平衡车" : "Balance Bike";
     }
-    if (searchable.includes("kids_bikes") || (searchable.includes("bike") && !searchable.includes("balance") && !searchable.includes("tricycle"))) {
+    if (
+      searchable.includes("kids_bikes") ||
+      searchable.includes("tricycle") ||
+      searchable.includes("trike") ||
+      (searchable.includes("bike") && !searchable.includes("balance"))
+    ) {
       return lang === "zh" ? "儿童自行车" : "Kids Bike";
     }
     if (searchable.includes("scooter")) {
