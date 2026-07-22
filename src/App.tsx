@@ -41,6 +41,7 @@ import { loadBatchProducts } from "./lib/loadBatchProducts";
 
 import SmartImage from "./components/common/SmartImage";
 
+const HomeSection = lazy(() => import("./components/HomeSection"));
 const NewsSection = lazy(() => import("./components/NewsSection"));
 const ProductsSection = lazy(() => import("./components/ProductsSection"));
 const EvaluationsSection = lazy(() => import("./components/EvaluationsSection"));
@@ -551,7 +552,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
 
   if (!root) {
     return {
-      activeTab: "products",
+      activeTab: "home",
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
@@ -701,7 +702,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
   }
 
   return {
-    activeTab: "products",
+    activeTab: "home",
     activeProductCategory: "all",
     activeReviewType: "all",
     activeEvaluationId: "",
@@ -1011,6 +1012,11 @@ export default function App() {
 
   const handlePrimaryTabClick = (tabId: string) => {
     navigateToTab(tabId);
+  };
+
+  const handleHomeCategorySelect = (categoryId: string) => {
+    const normalizedCategoryId = normalizeProductRouteCategory(categoryId);
+    navigateToPath(normalizedCategoryId === "all" ? "/products" : `/products/${normalizedCategoryId}`);
   };
 
   // 1. Core child mechanics states
@@ -1436,7 +1442,7 @@ export default function App() {
   // 4. Detail view state
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [activeStandardDimension, setActiveStandardDimension] = useState<string | null>(null);
-  const [previousTab, setPreviousTab] = useState<string>("products");
+  const [previousTab, setPreviousTab] = useState<string>("home");
 
   // Synchronize URL-derived activeProductId to selectedProduct state
   useEffect(() => {
@@ -2389,7 +2395,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           
           <div className="flex w-full md:w-auto items-center justify-between">
             {/* Brand Logo and custom version stamp */}
-            <div className="flex items-center gap-3 cursor-pointer select-none shrink-0" onClick={() => navigateToPath("/")}>
+            <div className="flex items-center gap-3 cursor-pointer select-none shrink-0" onClick={() => navigateToTab("home")}>
               <div className="bg-orange-500 p-2 sm:p-2.5 rounded-2xl shadow-lg shadow-orange-500/20">
                 <Baby className="w-4 h-4 sm:w-5 sm:h-5 text-white stroke-[2.5]" />
               </div>
@@ -2434,6 +2440,18 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           <div className="flex items-center gap-4 lg:gap-6 w-full md:w-auto overflow-x-auto md:overflow-visible no-scrollbar pb-1 md:pb-0 justify-start md:justify-end relative">
             <div className="relative w-full md:w-auto">
               <nav className="flex items-center bg-slate-100 p-1 rounded-2xl gap-1 text-xs shrink-0 whitespace-nowrap overflow-x-auto md:overflow-visible mx-auto md:mx-0">
+                <button
+                  onClick={() => {
+                    handlePrimaryTabClick("home");
+                    navigateToPath("/");
+                  }}
+                  className={`px-3 py-2 rounded-xl font-bold transition-all ${
+                    activeTab === "home" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                  }`}
+                >
+                  <span>{t.navHome}</span>
+                </button>
+
                 <div 
                   className="relative group"
                   onMouseEnter={handleProductsMouseEnter}
@@ -2703,6 +2721,20 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
       <main id="primary_tab_viewport" className="flex-1 max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full relative">
         <Suspense fallback={<div className="min-h-80 rounded-3xl border border-slate-100 bg-white/80 p-8 text-center text-sm font-bold text-slate-500 shadow-sm">Loading KIDSMOBI...</div>}>
         
+        {activeTab === "home" && (
+          <HomeSection 
+            productsData={productsData} 
+            onSelectProduct={handleSelectProduct} 
+            setActiveTab={navigateToTab}
+            childProfile={childProfile}
+            setChildProfile={setChildProfile}
+            onSelectCategory={handleHomeCategorySelect}
+            lang={lang}
+            currencyData={currencyData}
+            isBBTTheme={isBBT}
+          />
+        )}
+
         {activeTab === "news" && (
           <NewsSection
             lang={lang}
@@ -2875,7 +2907,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
         {activeTab === "admin" && (
           <AdminPanel 
-            onClose={() => navigateToPath("/")} 
+            onClose={() => navigateToTab("home")} 
             onRedirectAuth={() => navigateToTab("auth")}
             lang={lang}
             isAdmin={isAdmin}
