@@ -3105,9 +3105,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
             {/* Column 2: Review pathways */}
             <div className="space-y-6">
-              <h4 className="text-white font-bold uppercase tracking-widest text-[10px]">
+              <h2 className="text-white font-bold uppercase tracking-widest text-[10px]">
                 {lang === "en" ? "Review Categories" : "评测分类"}
-              </h4>
+              </h2>
               <ul className="space-y-3 font-medium">
                 <li>
                   <a
@@ -3162,9 +3162,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
             {/* Column 3: Policy & transparency */}
             <div className="space-y-6">
-              <h4 className="text-white font-bold uppercase tracking-widest text-[10px]">
+              <h2 className="text-white font-bold uppercase tracking-widest text-[10px]">
                 {lang === "en" ? "Transparency" : "透明度与标准"}
-              </h4>
+              </h2>
               <ul className="space-y-3 font-medium">
                 <li>
                   <a
@@ -3219,9 +3219,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
             {/* Column 4: Connectivity */}
             <div className="space-y-6">
-              <h4 className="text-white font-bold uppercase tracking-widest text-[10px]">
+              <h2 className="text-white font-bold uppercase tracking-widest text-[10px]">
                 {lang === "en" ? "Global Network" : "社交分享"}
-              </h4>
+              </h2>
               <div className="flex flex-wrap gap-3">
                 <a 
                   href={`https://x.com/intent/tweet?text=${encodeURIComponent(lang === "en" ? "Check out KIDSMOBI - Premium Kids Mobility Evaluation Platform! #KidsMobility #Safety" : "推荐一个高端垂直童车评测平台 KIDSMOBI，专注安全与工效！#童车评测 #育儿")}&url=${encodeURIComponent(window.location.href)}`}
