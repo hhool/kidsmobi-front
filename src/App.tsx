@@ -3396,89 +3396,17 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </div>
 
 
-                <div 
-                  className="relative group"
-                  onMouseEnter={handleNewsMouseEnter}
-                  onMouseLeave={handleNewsMouseLeave}
+                <button
+                  onClick={() => {
+                    handlePrimaryTabClick("news");
+                    navigateToPath("/news/page/1");
+                  }}
+                  className={`px-3 py-2 rounded-xl font-bold transition-all ${
+                    activeTab === "news" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                  }`}
                 >
-                  <button
-                    onClick={() => {
-                      handlePrimaryTabClick("news");
-                      setNewsMenuOpen(prev => !prev);
-                      if (newsShowTimerRef.current) clearTimeout(newsShowTimerRef.current);
-                      if (newsHideTimerRef.current) clearTimeout(newsHideTimerRef.current);
-                      newsShowTimerRef.current = null;
-                      newsHideTimerRef.current = null;
-                    }}
-                    className={`px-3 py-2 rounded-xl font-bold transition-all flex items-center gap-1 ${
-                      activeTab === "news" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
-                    }`}
-                  >
-                    <span>{t.navNews}</span>
-                    <span className="text-[10px] text-slate-400">▾</span>
-                  </button>
-                  {newsMenuOpen && (
-                    <div 
-                      id="news_dropdown_menu"
-                      className="fixed inset-x-4 top-20 md:absolute md:top-full md:left-0 md:inset-x-auto md:w-[450px] mt-3 bg-white/98 backdrop-blur-2xl border border-slate-200/80 rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] ring-1 ring-slate-900/5 p-6 z-[99] animate-in fade-in slide-in-from-top-3 duration-300 ease-out zoom-in-95 text-slate-800 max-h-[75vh] overflow-y-auto md:max-h-none md:overflow-visible no-scrollbar"
-                    >
-                      <div className="hidden md:block absolute -top-1.5 left-10 w-3 h-3 bg-white border-t border-l border-slate-200/80 rotate-45"></div>
-
-                      <div className="space-y-5 relative">
-                        <div className="group/sub">
-                          <button
-                            onClick={() => {
-                              handlePrimaryTabClick("news");
-                              navigateToPath("/news/page/1");
-                              closeNewsMenuInstantly();
-                            }}
-                            className="w-full text-left py-3.5 px-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl font-extrabold text-xs shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/35 transition-all flex items-center justify-between group/total"
-                          >
-                            <span className="flex items-center gap-3">
-                              <span className="text-base bg-white/20 w-8 h-8 rounded-lg flex items-center justify-center backdrop-blur-sm shadow-inner">📰</span> 
-                              <div className="flex flex-col text-left">
-                                <span className="font-extrabold text-[12px] text-white">{lang === "en" ? "Global News Hub" : "全球母婴出行资讯中心"}</span>
-                                <span className="text-[10px] text-blue-100/90 font-normal mt-0.5">{lang === "en" ? "Trends, Recalls & Tips" : "最新动态、评测与召回警报"}</span>
-                              </div>
-                            </span>
-                            <span className="text-sm transition-transform group-hover/total:translate-x-1.5">➔</span>
-                          </button>
-
-                          <div className="mt-4 pt-3 border-t border-slate-100 space-y-2.5">
-                            <span className="text-[12px] font-black text-slate-400 block uppercase tracking-wider pl-1 font-display">
-                              {lang === "en" ? "📚 Coverage Areas" : "📚 报导领域"}
-                            </span>
-                            
-                            <div className="flex flex-col gap-1 pr-1">
-                              {[
-                                { id: "industry", labelZh: "📊 行业趋势 (Industry Trends)", labelEn: "📊 Industry Trends", descZh: "全球婴童出行品类发展风向", descEn: "Market analysis and industry shifts" },
-                                { id: "new_product", labelZh: "✨ 新品发布 (New Launches)", labelEn: "✨ New Launches", descZh: "最新上市产品的首次亮相及分析", descEn: "First looks at the latest gears" },
-                                { id: "brand_news", labelZh: "🏷️ 品牌故事 (Brand News)", labelEn: "🏷️ Brand News", descZh: "主流推车与骑乘品牌背后故事", descEn: "Stories behind major brands" },
-                                { id: "science", labelZh: "🧪 科学育儿 (Science & Tips)", labelEn: "🧪 Science & Tips", descZh: "儿童骨骼发育与产品工效学科普", descEn: "Ergonomics and child development" }
-                              ].map(c => (
-                                <button
-                                  key={c.id}
-                                  onClick={() => {
-                                      handlePrimaryTabClick("news");
-                                      navigateToPath("/news/page/1");
-                                      closeNewsMenuInstantly();
-                                  }}
-                                  className="w-full text-left p-3 hover:bg-slate-50 rounded-xl transition-all flex items-start gap-3 group/cat"
-                                >
-                                  <div className="flex-1">
-                                    <h4 className="font-extrabold text-[#334155] text-[13px] group-hover/cat:text-blue-500 transition-colors">{lang === "zh" ? c.labelZh : c.labelEn}</h4>
-                                    <p className="text-[11px] text-slate-500 font-medium leading-relaxed mt-0.5">{lang === "zh" ? c.descZh : c.descEn}</p>
-                                  </div>
-                                </button>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  )}
-                </div>
+                  <span>{t.navNews}</span>
+                </button>
 
 
                 <button

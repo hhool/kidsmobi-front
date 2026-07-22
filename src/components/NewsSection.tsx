@@ -564,18 +564,32 @@ export default function NewsSection({
                   : "深度追踪全球越野电动童车、轻量化儿童滑步车、多档悬挂避震阻尼车架以及可折叠电动滑板车法规标准，权威输出最懂中国供应链的硬核品质指南。"}
               </p>
 
-              <div className="pt-2">
-                <button
-                  type="button"
-                  onClick={() => {
-                    const el = document.getElementById("latest-news-grid-anchor");
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-linear-to-r from-orange-500 via-orange-500 to-amber-500 text-white text-xs font-black uppercase tracking-widest rounded-full shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer group"
-                >
-                  <Zap className="w-4 h-4 text-white fill-white animate-pulse" />
-                  {lang === "en" ? "EXPLORE RECENT ARTICLES" : "立即探索最新资讯报道"}
-                </button>
+              {/* Categorization dynamic tabs bar strictly in ordered layout */}
+              <div className="flex flex-wrap justify-center gap-3 pt-6 relative z-10">
+                {[
+                  { id: "new_product", labelEn: "New Launches", labelZh: "🆕 新品发布", descEn: "First looks at the latest gears", descZh: "最新上市产品的首次亮相及分析" },
+                  { id: "science", labelEn: "Science & Tips", labelZh: "🧪 科普干货", descEn: "Ergonomics and child development", descZh: "儿童骨骼发育与产品工效学科普" },
+                  { id: "brand_news", labelEn: "Brand News", labelZh: "🏷️ 品牌故事", descEn: "Stories behind major brands", descZh: "主流推车与骑乘品牌背后故事" },
+                  { id: "industry", labelEn: "Industry Trends", labelZh: "📊 行业趋势", descEn: "Market analysis and industry shifts", descZh: "全球婴童出行品类发展风向" },
+                ].map((c) => (
+                  <button
+                    key={c.id}
+                    onClick={() => {
+                      handleCategoryClick(c.id);
+                      setTimeout(() => {
+                        const el = document.getElementById("latest-news-grid-anchor");
+                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                      }, 100);
+                    }}
+                    className={`px-5 py-3 rounded-2xl text-xs font-black transition-all border outline-none cursor-pointer ${
+                      selectedCategory === c.id
+                        ? "bg-orange-500 text-white border-orange-400 shadow-lg shadow-orange-500/20 scale-105"
+                        : "bg-white/10 text-slate-200 hover:text-white border-white/15 hover:border-orange-500/30 backdrop-blur-md"
+                    }`}
+                  >
+                    <span>{lang === "zh" ? c.labelZh : c.labelEn}</span>
+                  </button>
+                ))}
               </div>
             </div>
           </section>
