@@ -212,6 +212,16 @@ export default function HomeSection({
     ) {
       return lang === "zh" ? "儿童自行车" : "Kids Bike";
     }
+    if (
+      searchable.includes("electric_vehicles") ||
+      searchable.includes("electric_car") ||
+      searchable.includes("electric_vehicle") ||
+      searchable.includes("electric_toy") ||
+      searchable.includes("battery_powered") ||
+      searchable.includes("ev")
+    ) {
+      return lang === "zh" ? "儿童电动车" : "Kids Electric Car";
+    }
     if (searchable.includes("scooter")) {
       return lang === "zh" ? "儿童滑板车" : "Kids Scooter";
     }
@@ -519,8 +529,15 @@ export default function HomeSection({
     const bikes = homeVisualProducts.filter((product) => {
       const searchable = normalizeCategory(`${product.category || ""} ${(product as any).categoryId || ""} ${product.name}`);
       const isBalance = searchable.includes("balance");
+      const isElectric =
+        searchable.includes("electric_vehicles") ||
+        searchable.includes("electric_car") ||
+        searchable.includes("electric_vehicle") ||
+        searchable.includes("electric_toy") ||
+        searchable.includes("battery_powered") ||
+        searchable.includes("ev");
       const isBike = searchable.includes("bike") || searchable.includes("kids_bikes");
-      return isBike && !isBalance;
+      return isBike && !isBalance && !isElectric;
     });
     return [...bikes].sort((a, b) => (b.overallScore || 0) - (a.overallScore || 0)).slice(0, 4);
   }, [homeVisualProducts]);
