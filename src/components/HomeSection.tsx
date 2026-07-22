@@ -533,6 +533,21 @@ export default function HomeSection({
     return [...scooters].sort((a, b) => (b.overallScore || 0) - (a.overallScore || 0)).slice(0, 4);
   }, [homeVisualProducts]);
 
+  const kidsElectricCarProducts = useMemo(() => {
+    const cars = homeVisualProducts.filter((product) => {
+      const searchable = normalizeCategory(`${product.category || ""} ${(product as any).categoryId || ""} ${product.name}`);
+      return (
+        searchable.includes("electric_vehicles") ||
+        searchable.includes("electric_car") ||
+        searchable.includes("electric_vehicle") ||
+        searchable.includes("electric_toy") ||
+        searchable.includes("battery_powered") ||
+        searchable.includes("ev")
+      );
+    });
+    return [...cars].sort((a, b) => (b.overallScore || 0) - (a.overallScore || 0)).slice(0, 4);
+  }, [homeVisualProducts]);
+
   const renderProductCard = (p: Product, idx: number) => {
     const dp = translateProduct(p, lang);
     const title = resolveHomepageProductTitle(p);
@@ -986,6 +1001,47 @@ export default function HomeSection({
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {kidsScooterProducts.map((p, idx) => renderProductCard(p, idx + 3))}
+          </div>
+        </div>
+
+        {/* Subsection E: Best Kids Electric Car */}
+        <div className="space-y-6 pt-6">
+          <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
+            <div>
+              <h3 className="text-xl font-black text-slate-900 tracking-tight">Best Kids Electric Car</h3>
+              <p className="text-slate-500 text-xs font-semibold mt-1">
+                {lang === "zh" ? "全方位儿童电动遥控模拟舱测试，着重实测双向避震、缓启冲阻性及电池管理系统。" : "Comprehensive evaluations on interactive dual-drive simulation cabins. We audit suspension, smooth start control, and battery cell reliability."}
+              </p>
+            </div>
+            <a
+              href="/guides/best"
+              onClick={(e) => {
+                e.preventDefault();
+                localStorage.setItem("selectedCategory", "best");
+                localStorage.setItem("autoSelectWizardCategory", "electric_vehicles");
+                if ((window as any).navigateToPath) {
+                  (window as any).navigateToPath("/guides/best");
+                  if (typeof (window as any).setActiveGuidesCategory === "function") {
+                    (window as any).setActiveGuidesCategory("best");
+                  }
+                } else {
+                  setActiveTab("guides");
+                }
+              }}
+              className="text-xs font-black text-orange-500 hover:text-orange-600 hover:underline transition-colors shrink-0 uppercase tracking-widest pl-4 flex items-center gap-1.5"
+            >
+              <span>{lang === "zh" ? "更多精选推荐" : "More Picks"}</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {kidsElectricCarProducts.length > 0 ? (
+              kidsElectricCarProducts.map((p, idx) => renderProductCard(p, idx + 4))
+            ) : (
+              <div className="col-span-full py-8 text-center text-slate-400 font-semibold text-xs border border-dashed border-slate-200 rounded-3xl">
+                {lang === "zh" ? "暂无电动车评测数据，敬请期待" : "No electric car evaluation data available yet."}
+              </div>
+            )}
           </div>
         </div>
       </section>
