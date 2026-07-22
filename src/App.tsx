@@ -776,71 +776,12 @@ export default function App() {
   const batchProductsRef = useRef<Product[]>([]);
 
   // Navigation Dropdown states & timer refs with elegant 1s hover delay
-  const [bbtMenuOpen, setBbtMenuOpen] = useState(false);
   const [productsMenuOpen, setProductsMenuOpen] = useState(false);
-  const [reviewsMenuOpen, setReviewsMenuOpen] = useState(false);
-  const [guidesMenuOpen, setGuidesMenuOpen] = useState(false);
-  const [newsMenuOpen, setNewsMenuOpen] = useState(false);
 
-  const bbtShowTimerRef = useRef<any>(null);
-  const bbtHideTimerRef = useRef<any>(null);
   const productsShowTimerRef = useRef<any>(null);
   const productsHideTimerRef = useRef<any>(null);
-  const reviewsShowTimerRef = useRef<any>(null);
-  const reviewsHideTimerRef = useRef<any>(null);
-  const guidesShowTimerRef = useRef<any>(null);
-  const guidesHideTimerRef = useRef<any>(null);
-  const newsShowTimerRef = useRef<any>(null);
-  const newsHideTimerRef = useRef<any>(null);
-
-  const handleBbtMouseEnter = () => {
-    // 互斥关闭：滑入 Home 的同时立刻关断并强制销毁 Products、Reviews 和 Guides 面板，防止双层重叠
-    closeProductsMenuInstantly();
-    closeReviewsMenuInstantly();
-    closeGuidesMenuInstantly();
-    closeNewsMenuInstantly();
-
-    if (bbtHideTimerRef.current) {
-      clearTimeout(bbtHideTimerRef.current);
-      bbtHideTimerRef.current = null;
-    }
-    if (bbtMenuOpen) return;
-    if (!bbtShowTimerRef.current) {
-      bbtShowTimerRef.current = setTimeout(() => {
-        setBbtMenuOpen(true);
-        bbtShowTimerRef.current = null;
-      }, 150); // 150ms 优雅快显，拒绝迟钝，体验极佳
-    }
-  };
-
-  const handleBbtMouseLeave = () => {
-    if (bbtShowTimerRef.current) {
-      clearTimeout(bbtShowTimerRef.current);
-      bbtShowTimerRef.current = null;
-    }
-    if (!bbtHideTimerRef.current) {
-      bbtHideTimerRef.current = setTimeout(() => {
-        setBbtMenuOpen(false);
-        bbtHideTimerRef.current = null;
-      }, 1000); // 1000ms 延时保护，离开不落空，防止误划出消失
-    }
-  };
-
-  const closeBbtMenuInstantly = () => {
-    setBbtMenuOpen(false);
-    if (bbtShowTimerRef.current) clearTimeout(bbtShowTimerRef.current);
-    if (bbtHideTimerRef.current) clearTimeout(bbtHideTimerRef.current);
-    bbtShowTimerRef.current = null;
-    bbtHideTimerRef.current = null;
-  };
 
   const handleProductsMouseEnter = () => {
-    // 互斥关闭：滑入 Products 的同时立刻关断并强制销毁 Home、Reviews 和 Guides 面板，防止双层重叠
-    closeBbtMenuInstantly();
-    closeReviewsMenuInstantly();
-    closeGuidesMenuInstantly();
-    closeNewsMenuInstantly();
-
     if (productsHideTimerRef.current) {
       clearTimeout(productsHideTimerRef.current);
       productsHideTimerRef.current = null;
@@ -875,139 +816,10 @@ export default function App() {
     productsHideTimerRef.current = null;
   };
 
-  const handleReviewsMouseEnter = () => {
-    // 互斥关闭：滑入 Reviews 的同时立刻关断并强制销毁 Home、Products 和 Guides 面板，防止双层重叠
-    closeBbtMenuInstantly();
-    closeProductsMenuInstantly();
-    closeGuidesMenuInstantly();
-    closeNewsMenuInstantly();
-
-    if (reviewsHideTimerRef.current) {
-      clearTimeout(reviewsHideTimerRef.current);
-      reviewsHideTimerRef.current = null;
-    }
-    if (reviewsMenuOpen) return;
-    if (!reviewsShowTimerRef.current) {
-      reviewsShowTimerRef.current = setTimeout(() => {
-        setReviewsMenuOpen(true);
-        reviewsShowTimerRef.current = null;
-      }, 150); // 150ms 快速响应
-    }
-  };
-
-  const handleReviewsMouseLeave = () => {
-    if (reviewsShowTimerRef.current) {
-      clearTimeout(reviewsShowTimerRef.current);
-      reviewsShowTimerRef.current = null;
-    }
-    if (!reviewsHideTimerRef.current) {
-      reviewsHideTimerRef.current = setTimeout(() => {
-        setReviewsMenuOpen(false);
-        reviewsHideTimerRef.current = null;
-      }, 1000); // 1000ms 延时保护，避免频闪消失
-    }
-  };
-
-  const closeReviewsMenuInstantly = () => {
-    setReviewsMenuOpen(false);
-    if (reviewsShowTimerRef.current) clearTimeout(reviewsShowTimerRef.current);
-    if (reviewsHideTimerRef.current) clearTimeout(reviewsHideTimerRef.current);
-    reviewsShowTimerRef.current = null;
-    reviewsHideTimerRef.current = null;
-  };
-
-  const handleGuidesMouseEnter = () => {
-    // 互斥关闭：滑入 Guides 的同时立刻关断并强制销毁 Home、Products 和 Reviews 面板，防止双层重叠
-    closeBbtMenuInstantly();
-    closeProductsMenuInstantly();
-    closeReviewsMenuInstantly();
-    closeNewsMenuInstantly();
-
-    if (guidesHideTimerRef.current) {
-      clearTimeout(guidesHideTimerRef.current);
-      guidesHideTimerRef.current = null;
-    }
-    if (guidesMenuOpen) return;
-    if (!guidesShowTimerRef.current) {
-      guidesShowTimerRef.current = setTimeout(() => {
-        setGuidesMenuOpen(true);
-        guidesShowTimerRef.current = null;
-      }, 150); // 150ms 快速响应
-    }
-  };
-
-  const handleGuidesMouseLeave = () => {
-    if (guidesShowTimerRef.current) {
-      clearTimeout(guidesShowTimerRef.current);
-      guidesShowTimerRef.current = null;
-    }
-    if (!guidesHideTimerRef.current) {
-      guidesHideTimerRef.current = setTimeout(() => {
-        setGuidesMenuOpen(false);
-        guidesHideTimerRef.current = null;
-      }, 1000); // 1000ms 延时保护，避免频闪消失
-    }
-  };
-
-
-  const handleNewsMouseEnter = () => {
-    closeBbtMenuInstantly();
-    closeProductsMenuInstantly();
-    closeReviewsMenuInstantly();
-    closeGuidesMenuInstantly();
-
-    if (newsHideTimerRef.current) {
-      clearTimeout(newsHideTimerRef.current);
-      newsHideTimerRef.current = null;
-    }
-    if (newsMenuOpen) return;
-    if (!newsShowTimerRef.current) {
-      newsShowTimerRef.current = setTimeout(() => {
-        setNewsMenuOpen(true);
-        newsShowTimerRef.current = null;
-      }, 150); 
-    }
-  };
-
-  const handleNewsMouseLeave = () => {
-    if (newsShowTimerRef.current) {
-      clearTimeout(newsShowTimerRef.current);
-      newsShowTimerRef.current = null;
-    }
-    if (!newsHideTimerRef.current) {
-      newsHideTimerRef.current = setTimeout(() => {
-        setNewsMenuOpen(false);
-        newsHideTimerRef.current = null;
-      }, 1000); 
-    }
-  };
-
-  const closeNewsMenuInstantly = () => {
-    setNewsMenuOpen(false);
-    if (newsShowTimerRef.current) clearTimeout(newsShowTimerRef.current);
-    if (newsHideTimerRef.current) clearTimeout(newsHideTimerRef.current);
-    newsShowTimerRef.current = null;
-    newsHideTimerRef.current = null;
-  };
-
-  const closeGuidesMenuInstantly = () => {
-    setGuidesMenuOpen(false);
-    if (guidesShowTimerRef.current) clearTimeout(guidesShowTimerRef.current);
-    if (guidesHideTimerRef.current) clearTimeout(guidesHideTimerRef.current);
-    guidesShowTimerRef.current = null;
-    guidesHideTimerRef.current = null;
-  };
-
   useEffect(() => {
     return () => {
-      if (bbtShowTimerRef.current) clearTimeout(bbtShowTimerRef.current);
-      if (bbtHideTimerRef.current) clearTimeout(bbtHideTimerRef.current);
       if (productsShowTimerRef.current) clearTimeout(productsShowTimerRef.current);
       if (productsHideTimerRef.current) clearTimeout(productsHideTimerRef.current);
-      if (reviewsShowTimerRef.current) clearTimeout(reviewsShowTimerRef.current);
-      if (reviewsHideTimerRef.current) clearTimeout(reviewsHideTimerRef.current);
-      if (guidesShowTimerRef.current) clearTimeout(guidesShowTimerRef.current);
-      if (guidesHideTimerRef.current) clearTimeout(guidesHideTimerRef.current);
     };
   }, []);
 
@@ -2628,92 +2440,17 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           <div className="flex items-center gap-4 lg:gap-6 w-full md:w-auto overflow-x-auto md:overflow-visible no-scrollbar pb-1 md:pb-0 justify-start md:justify-end relative">
             <div className="relative w-full md:w-auto">
               <nav className="flex items-center bg-slate-100 p-1 rounded-2xl gap-1 text-xs shrink-0 whitespace-nowrap overflow-x-auto md:overflow-visible mx-auto md:mx-0">
-                <div 
-                  className="relative group"
-                  onMouseEnter={handleBbtMouseEnter}
-                  onMouseLeave={handleBbtMouseLeave}
+                <button
+                  onClick={() => {
+                    handlePrimaryTabClick("home");
+                    navigateToPath("/");
+                  }}
+                  className={`px-3 py-2 rounded-xl font-bold transition-all ${
+                    activeTab === "home" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                  }`}
                 >
-                  <button
-                    onClick={() => {
-                      handlePrimaryTabClick("home");
-                      setBbtMenuOpen(prev => !prev);
-                      if (bbtShowTimerRef.current) clearTimeout(bbtShowTimerRef.current);
-                      if (bbtHideTimerRef.current) clearTimeout(bbtHideTimerRef.current);
-                      bbtShowTimerRef.current = null;
-                      bbtHideTimerRef.current = null;
-                    }}
-                    className={`px-3 py-2 rounded-xl font-bold transition-all flex items-center gap-1 ${
-                      activeTab === "home" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
-                    }`}
-                  >
-                    <span>{t.navHome}</span>
-                    <span className="text-[10px] text-slate-400">▾</span>
-                  </button>
-                  {bbtMenuOpen && (
-                    <div 
-                      id="bbt_dropdown_menu" 
-                      className="fixed inset-x-4 top-20 md:absolute md:top-full md:left-0 md:inset-x-auto md:w-88 mt-3 bg-white/98 backdrop-blur-2xl border border-slate-200/80 rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] ring-1 ring-slate-900/5 p-6 z-[99] animate-in fade-in slide-in-from-top-3 duration-300 ease-out zoom-in-95 text-slate-800 max-h-[75vh] overflow-y-auto md:max-h-none md:overflow-visible no-scrollbar"
-                    >
-                      {/* Decorative atmospheric top pointer arrow */}
-                      <div className="hidden md:block absolute -top-1.5 left-6 w-3 h-3 bg-white border-t border-l border-slate-200/80 rotate-45"></div>
-
-                      <div className="space-y-5 relative">
-                        <div className="pb-1 border-b border-slate-100 flex flex-col gap-2">
-                          <button
-                            onClick={() => {
-                              handlePrimaryTabClick("home");
-                              closeBbtMenuInstantly();
-                            }}
-                            className="w-full text-left font-black text-xs text-orange-500 hover:text-orange-600 flex items-center gap-2 group/title transition-all"
-                          >
-                            <span className="flex items-center justify-center bg-orange-50 p-2 rounded-lg text-sm group-hover/title:scale-110 transition-transform shadow-sm">🏡</span> 
-                            <div className="flex flex-col">
-                              <span className="font-extrabold text-[12px]">{lang === "en" ? "Home Overview" : "首页总览区"}</span>
-                              <span className="text-[10px] text-slate-400 font-normal mt-0.5">{lang === "en" ? "Review center & safe rides guide" : "评测中心与安全骑行指南入口"}</span>
-                            </div>
-                          </button>
-                        </div>
-
-                        {/* 额外新增: 首页特定功能模块快捷滚动菜单 */}
-                        <div className="space-y-2 border-b border-slate-100 pb-4">
-                          <span className="text-[10px] font-black text-slate-400 block uppercase tracking-wider pl-1 font-sans">
-                            {lang === "en" ? "Home Page Modules" : "Home页功能模块菜单"}
-                          </span>
-                          <div className="grid grid-cols-2 gap-1.5 pl-1">
-                            {[
-                              { anchor: "annual_rankings_anchor", emoji: "✨", labelZh: "年度权威榜单", labelEn: "Annual Awards" },
-                              { anchor: "featured_evaluations_anchor", emoji: "🔍", labelZh: "深度评测专题", labelEn: "Featured Reviews" },
-                              { anchor: "category_highlights_anchor", emoji: "🛍️", labelZh: "精选产品品类", labelEn: "Categories Hub" },
-                              { anchor: "safety_audits_anchor", emoji: "🛡️", labelZh: "安全专项检测", labelEn: "Safety Audits" },
-                              { anchor: "quick_scenarios_anchor", emoji: "💡", labelZh: "智能选购场景", labelEn: "Quick Scenarios" },
-                              { anchor: "faq_section_anchor", emoji: "💬", labelZh: "热点问题解答", labelEn: "FAQs & Guides" },
-                            ].map((sec) => (
-                              <button
-                                key={sec.anchor}
-                                onClick={() => {
-                                  handlePrimaryTabClick("home");
-                                  closeBbtMenuInstantly();
-                                  setTimeout(() => {
-                                    const element = document.getElementById(sec.anchor);
-                                    if (element) {
-                                      element.scrollIntoView({ behavior: "smooth", block: "center" });
-                                    }
-                                  }, 150);
-                                }}
-                                className="text-left py-1.5 px-2 bg-slate-50/50 hover:bg-slate-100/80 rounded-xl transition-all flex items-center gap-1.5 group/sec border border-transparent hover:border-slate-100"
-                              >
-                                <span className="text-[12px] group-hover/sec:scale-115 transition-transform">{sec.emoji}</span>
-                                <span className="text-slate-700 font-extrabold text-[10px] group-hover/sec:text-orange-500 transition-colors line-clamp-1 leading-none">
-                                  {lang === "en" ? sec.labelEn : sec.labelZh}
-                                </span>
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
+                  <span>{t.navHome}</span>
+                </button>
 
                 <div 
                   className="relative group"
@@ -2750,6 +2487,14 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                           <button
                             onClick={() => {
                               handlePrimaryTabClick("products");
+                              if (activeTab === "products" && activeProductCategory === "all") {
+                                const element = document.getElementById("expert-picks-anchor");
+                                if (element) {
+                                  element.scrollIntoView({ behavior: "smooth", block: "start" });
+                                }
+                              } else {
+                                localStorage.setItem("scrollToExpertPicks", "true");
+                              }
                               navigateToPath("/products");
                               closeProductsMenuInstantly();
                             }}
@@ -2784,6 +2529,14 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                                   key={cat.id}
                                   onClick={() => {
                                     handlePrimaryTabClick("products");
+                                    if (activeTab === "products" && activeProductCategory === cat.id) {
+                                      const element = document.getElementById("expert-picks-anchor");
+                                      if (element) {
+                                        element.scrollIntoView({ behavior: "smooth", block: "start" });
+                                      }
+                                    } else {
+                                      localStorage.setItem("scrollToExpertPicks", "true");
+                                    }
                                     navigateToPath(`/products/${cat.id}`);
                                     closeProductsMenuInstantly();
                                   }}
@@ -2809,591 +2562,29 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                   )}
                 </div>
 
-                <div 
-                  className="relative group"
-                  onMouseEnter={handleReviewsMouseEnter}
-                  onMouseLeave={handleReviewsMouseLeave}
+                <button
+                  onClick={() => {
+                    handlePrimaryTabClick("evaluations");
+                    navigateToPath("/reviews");
+                  }}
+                  className={`px-3 py-2 rounded-xl font-bold transition-all ${
+                    activeTab === "evaluations" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                  }`}
                 >
-                  <button
-                    onClick={() => {
-                      handlePrimaryTabClick("evaluations");
-                      setReviewsMenuOpen(prev => !prev);
-                      if (reviewsShowTimerRef.current) clearTimeout(reviewsShowTimerRef.current);
-                      if (reviewsHideTimerRef.current) clearTimeout(reviewsHideTimerRef.current);
-                      reviewsShowTimerRef.current = null;
-                      reviewsHideTimerRef.current = null;
-                    }}
-                    className={`px-3 py-2 rounded-xl font-bold transition-all flex items-center gap-1 ${
-                      activeTab === "evaluations" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
-                    }`}
-                  >
-                    <span>{t.navEvaluations}</span>
-                    <span className="text-[10px] text-slate-400">▾</span>
-                  </button>
+                  <span>{t.navEvaluations}</span>
+                </button>
 
-                  {reviewsMenuOpen && (
-                    <div 
-                      id="reviews_dropdown_menu" 
-                      className="fixed inset-x-4 top-20 md:absolute md:top-full md:left-1/2 md:-translate-x-[42%] md:inset-x-auto md:w-[660px] sm:md:w-[750px] md:w-[840px] lg:w-[920px] mt-3 bg-white/98 backdrop-blur-2xl border border-slate-200/85 rounded-[32px] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.18)] ring-1 ring-slate-900/5 p-6 z-[99] animate-in fade-in slide-in-from-top-3 duration-300 ease-out zoom-in-95 text-slate-800 max-h-[75vh] overflow-y-auto md:max-h-none md:overflow-visible no-scrollbar"
-                    >
-                      {/* Decorative atmospheric top pointer arrow */}
-                      <div className="hidden md:block absolute -top-1.5 left-[42%] w-3 h-3 bg-white border-t border-l border-slate-200 rotate-45"></div>
-
-                      <div className="grid grid-cols-1 md:grid-cols-[1.1fr_1fr_0.9fr] lg:grid-cols-[1.1fr_1.45fr_1.05fr] gap-6 text-left relative z-10">
-                        
-                        {/* Column 1: Categories Pillars */}
-                        <div className="space-y-4 pr-3 border-r border-slate-100">
-                          <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans">
-                            📂 REVIEWS BY CATEGORY
-                          </span>
-                          
-                          <div className="space-y-4">
-                            {/* 1. Balance Bikes (Floor 1) */}
-                            <div className="space-y-1.5">
-                              <span className="text-[11px] font-black text-slate-800 flex items-center gap-1.5 font-display">
-                                <span>🚲</span> {lang === "en" ? "Balance Bikes" : "幼儿平衡车"}
-                              </span>
-                              <div className="pl-5 flex flex-col gap-1.5 text-[10px] font-bold text-slate-500">
-                                {[
-                                  { label: lang === "en" ? "10-36 Months First Bike" : "学步低重心启蒙平衡车", anchor: "balance-bike" },
-                                  { label: lang === "en" ? "2-in-1 Trike & Balance" : "二合一多功能平衡车", anchor: "balance-bike" },
-                                  { label: lang === "en" ? "Biomechanical Lab Tests" : "生物力学/安全姿势参数", anchor: "balance-bike" }
-                                ].map((lnk, i) => (
-                                  <button
-                                    key={i}
-                                    onClick={() => {
-                                      if (activeTab === "evaluations") {
-                                        closeReviewsMenuInstantly();
-                                        setTimeout(() => {
-                                          const el = document.getElementById(lnk.anchor);
-                                          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                                        }, 150);
-                                      } else {
-                                        handlePrimaryTabClick("evaluations");
-                                        closeReviewsMenuInstantly();
-                                        setTimeout(() => {
-                                          const el = document.getElementById(lnk.anchor);
-                                          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                                        }, 350);
-                                      }
-                                    }}
-                                    className="text-left py-0.5 hover:text-orange-500 transition-colors cursor-pointer"
-                                  >
-                                    ├─ {lnk.label}
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-
-                            {/* 2. Kids Bikes (Floor 2) */}
-                            <div className="space-y-1.5">
-                              <span className="text-[11px] font-black text-slate-800 flex items-center gap-1.5 font-display">
-                                <span>🚴</span> {lang === "en" ? "Kids Bikes" : "儿童自行车"}
-                              </span>
-                              <div className="pl-5 flex flex-col gap-1.5 text-[10px] font-bold text-slate-500">
-                                {[
-                                  { label: lang === "en" ? "Kids Dirt Bikes" : "儿童越野/BMX单车", anchor: "kids-bike" }
-                                ].map((lnk, i) => (
-                                  <button
-                                    key={i}
-                                    onClick={() => {
-                                      if (activeTab === "evaluations") {
-                                        closeReviewsMenuInstantly();
-                                        setTimeout(() => {
-                                          const el = document.getElementById(lnk.anchor);
-                                          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                                        }, 150);
-                                      } else {
-                                        handlePrimaryTabClick("evaluations");
-                                        closeReviewsMenuInstantly();
-                                        setTimeout(() => {
-                                          const el = document.getElementById(lnk.anchor);
-                                          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                                        }, 350);
-                                      }
-                                    }}
-                                    className="text-left py-0.5 hover:text-orange-500 transition-colors cursor-pointer"
-                                  >
-                                    ├─ {lnk.label}
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-
-                            {/* 3. Kids Scooters (Floor 3) */}
-                            <div className="space-y-1.5">
-                              <span className="text-[11px] font-black text-slate-800 flex items-center gap-1.5 font-display">
-                                <span>🧠</span> {lang === "en" ? "Kids Scooters" : "儿童滑板车"}
-                              </span>
-                              <div className="pl-5 flex flex-col gap-1.5 text-[10px] font-bold text-slate-500">
-                                {[
-                                  { label: lang === "en" ? "Kick Scooters" : "重力转向发光滑板车", anchor: "kids-scooter" }
-                                ].map((lnk, i) => (
-                                  <button
-                                    key={i}
-                                    onClick={() => {
-                                      if (activeTab === "evaluations") {
-                                        closeReviewsMenuInstantly();
-                                        setTimeout(() => {
-                                          const el = document.getElementById(lnk.anchor);
-                                          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                                        }, 150);
-                                      } else {
-                                        handlePrimaryTabClick("evaluations");
-                                        closeReviewsMenuInstantly();
-                                        setTimeout(() => {
-                                          const el = document.getElementById(lnk.anchor);
-                                          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                                        }, 350);
-                                      }
-                                    }}
-                                    className="text-left py-0.5 hover:text-orange-500 transition-colors cursor-pointer"
-                                  >
-                                    ├─ {lnk.label}
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-
-                            {/* 4. Strollers (Floor 4) */}
-                            <div className="space-y-1.5">
-                              <span className="text-[11px] font-black text-slate-800 flex items-center gap-1.5 font-display">
-                                <span>🛒</span> {lang === "en" ? "Strollers" : "婴儿手推车"}
-                              </span>
-                              <div className="pl-5 flex flex-col gap-1.5 text-[10px] font-bold text-slate-500">
-                                {[
-                                  { label: lang === "en" ? "Travel Strollers" : "轻便折叠/登机推车", anchor: "kids-stroller" },
-                                  { label: lang === "en" ? "Jogging Strollers" : "高避震/跑步推车", anchor: "kids-stroller" },
-                                  { label: lang === "en" ? "Travel System Combo" : "三合一出行系统", anchor: "kids-stroller" }
-                                ].map((lnk, i) => (
-                                  <button
-                                    key={i}
-                                    onClick={() => {
-                                      if (activeTab === "evaluations") {
-                                        closeReviewsMenuInstantly();
-                                        setTimeout(() => {
-                                          const el = document.getElementById(lnk.anchor);
-                                          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                                        }, 150);
-                                      } else {
-                                        handlePrimaryTabClick("evaluations");
-                                        closeReviewsMenuInstantly();
-                                        setTimeout(() => {
-                                          const el = document.getElementById(lnk.anchor);
-                                          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                                        }, 350);
-                                      }
-                                    }}
-                                    className="text-left py-0.5 hover:text-orange-500 transition-colors cursor-pointer"
-                                  >
-                                    ├─ {lnk.label}
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-
-                            {/* 5. Kids Electric Cars (Floor 5) */}
-                            <div className="space-y-1.5">
-                              <span className="text-[11px] font-black text-slate-800 flex items-center gap-1.5 font-display">
-                                <span>⚡</span> {lang === "en" ? "Kids Electric Cars" : "儿童电动车"}
-                              </span>
-                              <div className="pl-5 flex flex-col gap-1.5 text-[10px] font-bold text-slate-500">
-                                {[
-                                  { label: lang === "en" ? "Ride-on Electric Cars" : "电动玩具车电路安全", anchor: "kids-electric-car" }
-                                ].map((lnk, i) => (
-                                  <button
-                                    key={i}
-                                    onClick={() => {
-                                      if (activeTab === "evaluations") {
-                                        closeReviewsMenuInstantly();
-                                        setTimeout(() => {
-                                          const el = document.getElementById(lnk.anchor);
-                                          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                                        }, 150);
-                                      } else {
-                                        handlePrimaryTabClick("evaluations");
-                                        closeReviewsMenuInstantly();
-                                        setTimeout(() => {
-                                          const el = document.getElementById(lnk.anchor);
-                                          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                                        }, 350);
-                                      }
-                                    }}
-                                    className="text-left py-0.5 hover:text-orange-500 transition-colors cursor-pointer"
-                                  >
-                                    ├─ {lnk.label}
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Column 2: Highlights & Trust (Optimized to mirror Product menu premium dimensions) */}
-                        <div className="space-y-6 pr-3 border-r border-slate-100 flex flex-col justify-between">
-                          
-                          <div className="space-y-5">
-                            <div className="group/total">
-                              <button
-                                onClick={() => {
-                                  handlePrimaryTabClick("evaluations");
-                                  navigateToPath("/reviews");
-                                  closeReviewsMenuInstantly();
-                                }}
-                                className="w-full text-left py-3.5 px-4 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-xl font-extrabold text-xs shadow-md shadow-orange-500/20 hover:shadow-lg hover:shadow-orange-500/35 transition-all flex items-center justify-between group/total cursor-pointer"
-                              >
-                                <span className="flex items-center gap-3 font-display">
-                                  <span className="text-base bg-white/20 w-8 h-8 rounded-lg flex items-center justify-center backdrop-blur-sm shadow-inner">🔬</span> 
-                                  <div className="flex flex-col text-left">
-                                    <span className="font-extrabold text-[12px] text-white">{lang === "en" ? "Explore All Reviews" : "独立全地形实测评测中心"}</span>
-                                    <span className="text-[10px] text-orange-100/90 font-normal mt-0.5">{lang === "en" ? "100% Retails batches & bias-free" : "自费购样，多维数据客观公正深度解构"}</span>
-                                  </div>
-                                </span>
-                                <span className="text-sm transition-transform group-hover/total:translate-x-1.5">➔</span>
-                              </button>
-                            </div>
-
-                            {/* Middle section filling the blank area perfectly */}
-                            <div className="space-y-3 pt-1">
-                              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans">
-                                🧪 {lang === "en" ? "SPECIALIZED LAB DIMENSIONS" : "实验室专项评估维度"}
-                              </span>
-                              <div className="flex flex-col gap-2.5">
-                                {[
-                                  {
-                                    emoji: "🔄",
-                                    titleEn: "Dynamic Fatigue Stress Tests",
-                                    titleZh: "底盘滚动疲劳应力持久测试",
-                                    descEn: "100,000+ continuous tumbling cycles verify mechanical chassis limitations.",
-                                    descZh: "10万次连续颠簸，解构车身、前叉与折叠件的物理疲劳红线。",
-                                    anchor: "kids-stroller"
-                                  },
-                                  {
-                                    emoji: "📐",
-                                    titleEn: "Biomechanical Sizing Bounds",
-                                    titleZh: "人体工学及盆骼生长尺寸测量",
-                                    descEn: "We map child pelvic geometry to safe saddle heights and steering stops.",
-                                    descZh: "测量车架倾心、转弯双向安全限位，适配低重心骑乘结构保护。",
-                                    anchor: "balance-bike"
-                                  }
-                                ].map((item, idx) => (
-                                  <button
-                                    key={idx}
-                                    onClick={() => {
-                                      if (activeTab === "evaluations") {
-                                        closeReviewsMenuInstantly();
-                                        setTimeout(() => {
-                                          const el = document.getElementById(item.anchor);
-                                          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                                        }, 150);
-                                      } else {
-                                        handlePrimaryTabClick("evaluations");
-                                        closeReviewsMenuInstantly();
-                                        setTimeout(() => {
-                                          const el = document.getElementById(item.anchor);
-                                          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                                        }, 350);
-                                      }
-                                    }}
-                                    className="w-full text-left p-3.5 bg-slate-50 hover:bg-orange-500/5 hover:border-orange-500/20 border border-slate-100 rounded-2xl transition-all cursor-pointer flex gap-3 group/lab"
-                                  >
-                                    <span className="text-sm bg-white border border-slate-100 shadow-sm w-7 h-7 rounded-xl flex items-center justify-center shrink-0 group-hover/lab:scale-110 transition-transform">{item.emoji}</span>
-                                    <div className="flex flex-col text-left justify-center min-w-0">
-                                      <span className="text-slate-800 font-extrabold text-[11px] truncate group-hover/lab:text-orange-500 transition-colors">
-                                        {lang === "en" ? item.titleEn : item.titleZh}
-                                      </span>
-                                      <span className="text-slate-400 text-[10px] font-semibold mt-0.5 leading-snug">
-                                        {lang === "en" ? item.descEn : item.descZh}
-                                      </span>
-                                    </div>
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="space-y-2 pt-2 border-t border-slate-50">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans">
-                              🛡️ TRUST & METHODOLOGY
-                            </span>
-                            <div className="flex flex-col gap-1 text-[9px] font-bold text-slate-400 leading-normal">
-                              <span>• Unbiased Oath: 0% sponsor insertions</span>
-                              <span>• Compliant: CPSC • ISO 8098 • EN 71 • ASTM F963</span>
-                              <span>• Active telemetry lab sensors verified online</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Column 3: Featured Choice Card */}
-                        <div className="flex flex-col justify-between space-y-4 max-w-[210px] sm:max-w-[230px] md:max-w-[260px] overflow-hidden">
-                          <div className="space-y-3">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans">
-                              🏆 EDITOR'S CHOICE REVIEW
-                            </span>
-
-                            {(() => {
-                              const featuredStroller = productsData.find(p => p.name.includes("MAMAZING") || p.id.includes("mamazing")) || productsData.find(p => p.category === "stroller") || productsData[0];
-                              const featuredImg = "https://store.balancebiketoddler.com/stroller/MAMAZING/Rank_2_ASIN_B0CXXRN2QS_MAMAZING%20Ultra%2520Air%2520Lightweight%2520Baby%2520Travel%2520Strolle/images/primary.jpg";
-                              return (
-                                <div 
-                                  onClick={() => {
-                                    if (featuredStroller) {
-                                      handleSelectProduct(featuredStroller);
-                                    }
-                                    closeReviewsMenuInstantly();
-                                  }}
-                                  className="bg-slate-50 border border-slate-100 rounded-3xl p-4 text-center cursor-pointer hover:border-orange-500/30 hover:shadow-lg hover:shadow-orange-500/5 transition-all group/feat w-full"
-                                >
-                                  <div className="h-28 bg-white rounded-2xl p-2 flex items-center justify-center overflow-hidden">
-                                    <img 
-                                      src={featuredImg} 
-                                      alt="MAMAZING Ultra Air" 
-                                      className="h-full object-contain group-hover/feat:scale-105 transition-transform duration-500"
-                                      onError={(e) => {
-                                        (e.target as HTMLImageElement).src = "/images/home/jogging-stroller-default.jpg";
-                                      }}
-                                    />
-                                  </div>
-                                  <div className="space-y-1 mt-3 text-center">
-                                    <div className="flex justify-center items-center gap-1 text-orange-500 font-extrabold text-[10px]">
-                                      <span>★★★★★</span> <span>9.4/10</span>
-                                    </div>
-                                    <h4 className="font-extrabold text-slate-900 text-[11px] leading-tight truncate w-full px-1">MAMAZING Ultra Air</h4>
-                                    <p className="text-slate-400 text-[9px] font-semibold truncate w-full px-1">"Best Travel Stroller 2026"</p>
-                                  </div>
-                                  <span className="inline-flex items-center justify-center gap-1 text-[9px] text-orange-500 font-black uppercase tracking-wider mt-2.5 group-hover/feat:gap-2 transition-all w-full">
-                                    {lang === "en" ? "Read Lab Report ➔" : "阅读评测档案 ➔"}
-                                  </span>
-                                </div>
-                              );
-                            })()}
-                          </div>
-
-                          <div className="bg-orange-500/5 border border-orange-500/10 rounded-2xl p-3 text-left w-full">
-                            <p className="text-[10px] font-bold text-orange-850 leading-normal">
-                              💡 <strong className="font-black text-orange-900">{lang === "en" ? "Safety Tip" : "安全警告"}</strong>: {lang === "en" ? "Keep bike weight under 30% of child body weight to ensure stable pelvic dynamics." : "保护宝宝：车重绝对不可超过体重30%，以防重心失稳骨折。"}
-                            </p>
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                <div 
-                  className="relative group"
-                  onMouseEnter={handleGuidesMouseEnter}
-                  onMouseLeave={handleGuidesMouseLeave}
+                <button
+                  onClick={() => {
+                    handlePrimaryTabClick("guides");
+                    navigateToPath("/guides");
+                  }}
+                  className={`px-3 py-2 rounded-xl font-bold transition-all ${
+                    activeTab === "guides" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                  }`}
                 >
-                  <button
-                    onClick={() => {
-                      handlePrimaryTabClick("guides");
-                      setGuidesMenuOpen(prev => !prev);
-                      if (guidesShowTimerRef.current) clearTimeout(guidesShowTimerRef.current);
-                      if (guidesHideTimerRef.current) clearTimeout(guidesHideTimerRef.current);
-                      guidesShowTimerRef.current = null;
-                      guidesHideTimerRef.current = null;
-                    }}
-                    className={`px-3 py-2 rounded-xl font-bold transition-all flex items-center gap-1 ${
-                      activeTab === "guides" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
-                    }`}
-                  >
-                    <span>{t.navGuides}</span>
-                    <span className="text-[10px] text-slate-400">▾</span>
-                  </button>
-
-                  {guidesMenuOpen && (
-                    <div 
-                      id="guides_dropdown_menu" 
-                      className="fixed inset-x-4 top-20 md:absolute md:top-full md:left-1/2 md:-translate-x-[55%] md:inset-x-auto md:w-[660px] sm:md:w-[755px] md:w-[850px] lg:w-[940px] mt-3 bg-white/98 backdrop-blur-2xl border border-slate-200/85 rounded-[32px] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.18)] ring-1 ring-slate-900/5 p-6 z-[99] animate-in fade-in slide-in-from-top-3 duration-300 ease-out zoom-in-95 text-slate-800 max-h-[75vh] overflow-y-auto md:max-h-none md:overflow-visible no-scrollbar"
-                    >
-                      {/* Decorative atmospheric top pointer arrow */}
-                      <div className="hidden md:block absolute -top-1.5 left-[55%] w-3 h-3 bg-white border-t border-l border-slate-200 rotate-45"></div>
-
-                      <div className="grid grid-cols-1 md:grid-cols-[1.1fr_1.1fr_0.8fr] gap-6 text-left relative z-10">
-                        {/* Column 1: By Category & Age Groups */}
-                        <div className="space-y-4 pr-3 border-r border-slate-100">
-                          <div>
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans mb-3">
-                              📂 BY CATEGORY & AGE
-                            </span>
-                            <div className="space-y-3">
-                              {/* Balance Bikes */}
-                              <button
-                                onClick={() => {
-                                  handlePrimaryTabClick("guides");
-                                  setActiveGuidesCategory("special");
-                                  closeGuidesMenuInstantly();
-                                  setTimeout(() => {
-                                    const el = document.getElementById("guides_container");
-                                    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                                  }, 150);
-                                }}
-                                className="w-full text-left py-1 text-[11px] font-extrabold text-slate-700 hover:text-orange-500 transition-colors flex items-center gap-1.5 cursor-pointer"
-                              >
-                                <span>🚲</span>
-                                {lang === "en" ? "Balance Bikes" : "滑步平衡车 (Balance Bikes)"}
-                              </button>
-
-                              {/* Baby Strollers */}
-                              <button
-                                onClick={() => {
-                                  handlePrimaryTabClick("guides");
-                                  setActiveGuidesCategory("special");
-                                  closeGuidesMenuInstantly();
-                                  setTimeout(() => {
-                                    const el = document.getElementById("guides_container");
-                                    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                                  }, 150);
-                                }}
-                                className="w-full text-left py-1 text-[11px] font-extrabold text-slate-700 hover:text-orange-500 transition-colors flex items-center gap-1.5 cursor-pointer"
-                              >
-                                <span>🛒</span>
-                                {lang === "en" ? "Baby Strollers" : "婴儿手推车 (Baby Strollers)"}
-                              </button>
-
-                              {/* Toddler Scooters */}
-                              <button
-                                onClick={() => {
-                                  handlePrimaryTabClick("guides");
-                                  setActiveGuidesCategory("special");
-                                  closeGuidesMenuInstantly();
-                                  setTimeout(() => {
-                                    const el = document.getElementById("guides_container");
-                                    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                                  }, 150);
-                                }}
-                                className="w-full text-left py-1 text-[11px] font-extrabold text-slate-700 hover:text-orange-500 transition-colors flex items-center gap-1.5 cursor-pointer"
-                              >
-                                <span>🛹</span>
-                                {lang === "en" ? "Toddler Scooters" : "儿童滑板车 (Toddler Scooters)"}
-                              </button>
-                            </div>
-                          </div>
-
-                          <div className="pt-2 border-t border-slate-50 uppercase">
-                            <span className="text-[9px] font-black text-slate-400 tracking-widest block mb-2.5 font-mono">
-                              👶 BY AGE & STAGE
-                            </span>
-                            <div className="flex flex-col gap-2">
-                              {[
-                                { val: "1", labelEn: "1 Year Old / First Bike", labelZh: "1岁起步入门指南" },
-                                { val: "2-3", labelEn: "2-3 Years Old Progress", labelZh: "2-3岁体格运动进阶" },
-                                { val: "4", labelEn: "4+ Years Old Explorer", labelZh: "4岁及以上成长探险" }
-                              ].map((item, id) => (
-                                <button
-                                  key={id}
-                                  onClick={() => {
-                                    handlePrimaryTabClick("guides");
-                                    setActiveGuidesCategory("beginner");
-                                    closeGuidesMenuInstantly();
-                                    setTimeout(() => {
-                                      const el = document.getElementById("guides_container");
-                                      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                                    }, 150);
-                                  }}
-                                  className="w-full text-left text-[10px] font-extrabold text-slate-500 hover:text-orange-500 transition-colors cursor-pointer pl-0 border-l border-transparent"
-                                >
-                                  • {lang === "en" ? item.labelEn : item.labelZh}
-                                </button>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Column 2: By Scenario */}
-                        <div className="space-y-4 pr-3 border-r border-slate-100">
-                          <div>
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans mb-3">
-                              🏞️ BY USAGE SCENARIO
-                            </span>
-                            <div className="space-y-3 font-extrabold text-slate-700 text-[11px]">
-                              {[
-                                { icon: "🏙️", labelEn: "City & Commute", labelZh: "精细防震/城市日常通勤" },
-                                { icon: "🚇", labelEn: "Travel & Light", labelZh: "极致折叠/登机轻量出游" },
-                                { icon: "🏞️", labelEn: "All-Terrain & Outdoor", labelZh: "全地形越野/抗震防滑大胎" }
-                              ].map((sc, index) => (
-                                <button
-                                  key={index}
-                                  onClick={() => {
-                                    handlePrimaryTabClick("guides");
-                                    setActiveGuidesCategory("scenario");
-                                    closeGuidesMenuInstantly();
-                                    setTimeout(() => {
-                                      const el = document.getElementById("guides_container");
-                                      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                                    }, 150);
-                                  }}
-                                  className="w-full text-left py-1 text-slate-700 hover:text-orange-500 transition-colors flex items-center gap-2 cursor-pointer"
-                                >
-                                  <span>{sc.icon}</span>
-                                  {lang === "en" ? sc.labelEn : sc.labelZh}
-                                </button>
-                              ))}
-                            </div>
-                          </div>
-
-                          <div className="pt-3 border-t border-slate-50">
-                            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-1.5 font-mono">
-                              💡 EDUCATIONAL RED LINES
-                            </span>
-                            <p className="text-[10px] text-slate-400 leading-normal font-semibold">
-                              {lang === "en"
-                                ? "Avoid rigid brakes on soft vertebrae, and strictly follow the 30% golden ratio chassis safe weight limit rules."
-                                : "避免刚性颠簸损伤宝宝幼嫩前庭，切记严守车重低于宝宝体重的 30% 黄金安全红线。"}
-                            </p>
-                          </div>
-                        </div>
-
-                        {/* Column 3: Smart Wizard & Tools */}
-                        <div className="space-y-5 flex flex-col justify-between">
-                          <div className="space-y-3.5">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans">
-                              🧙‍♂️ INTERACTIVE WIZARD
-                            </span>
-                            
-                            <button
-                              onClick={() => {
-                                handlePrimaryTabClick("guides");
-                                if (typeof window !== "undefined") {
-                                  localStorage.setItem("autoOpenWizard", "true");
-                                }
-                                closeGuidesMenuInstantly();
-                                setTimeout(() => {
-                                  const el = document.getElementById("guides_container");
-                                  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                                }, 250);
-                              }}
-                              className="w-full text-left py-4 px-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-2xl font-black text-xs shadow-md shadow-emerald-500/10 hover:shadow-lg hover:shadow-emerald-500/25 transition-all flex items-center justify-between group/total cursor-pointer"
-                            >
-                              <span className="flex items-center gap-3">
-                                <span className="text-sm bg-white/20 w-7 h-7 rounded-lg flex items-center justify-center backdrop-blur-sm">🔍</span> 
-                                <div className="flex flex-col text-left">
-                                  <span className="text-white text-[11px] font-black">{lang === "en" ? "Launch Smart Wizard" : "唤醒智能选车助手"}</span>
-                                  <span className="text-emerald-100 text-[9px] font-medium mt-0.5">{lang === "en" ? "Biomechanics Fit-Check" : "体型骨骼发育精准配准"}</span>
-                                </div>
-                              </span>
-                              <span className="text-xs transition-transform group-hover/total:translate-x-1">➔</span>
-                            </button>
-                          </div>
-
-                          <div className="space-y-2 pt-2 border-t border-slate-100 pr-1 select-none text-left">
-                            <span className="text-[9px] font-black text-slate-400 uppercase tracking-wide block font-mono">
-                              🛠️ SAFETY STANDARDS AUDITTED
-                            </span>
-                            <div className="flex flex-col gap-1 text-[9px] font-bold text-slate-400 leading-normal">
-                              <span>• Inseam Biometrics Resolution</span>
-                              <span>• Spine 175° Lay-Flat Standard</span>
-                              <span>• Coaster Brake Danger Alerts</span>
-                            </div>
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  )}
-                </div>
+                  <span>{t.navGuides}</span>
+                </button>
 
 
                 <button
