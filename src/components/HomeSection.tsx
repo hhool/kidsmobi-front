@@ -553,14 +553,15 @@ export default function HomeSection({
   const kidsElectricCarProducts = useMemo(() => {
     const cars = homeVisualProducts.filter((product) => {
       const searchable = normalizeCategory(`${product.category || ""} ${(product as any).categoryId || ""} ${product.name}`);
-      return (
+      const isClassicTricycleOrBike = searchable.includes("tricycle") || searchable.includes("trike") || searchable.includes("kids_bikes") || (searchable.includes("bike") && !searchable.includes("electric"));
+      const isElectricMatched =
         searchable.includes("electric_vehicles") ||
         searchable.includes("electric_car") ||
         searchable.includes("electric_vehicle") ||
         searchable.includes("electric_toy") ||
         searchable.includes("battery_powered") ||
-        searchable.includes("ev")
-      );
+        searchable.includes("ev");
+      return isElectricMatched && !isClassicTricycleOrBike;
     });
     return [...cars].sort((a, b) => (b.overallScore || 0) - (a.overallScore || 0)).slice(0, 4);
   }, [homeVisualProducts]);
