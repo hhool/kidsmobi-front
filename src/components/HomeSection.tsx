@@ -43,6 +43,8 @@ const CATEGORY_DEFAULT_IMAGE_MAP: Record<string, string> = {
   kids_bikes: KIDS_BIKE_CATEGORY_DEFAULT_IMAGE,
   scooters: SCOOTER_DEFAULT_IMAGE,
   kids_scooters: SCOOTER_DEFAULT_IMAGE,
+  electric_vehicles: "https://store.balancebiketoddler.com/electric_vehicles/ANPABO/Rank_6_ASIN_B0FSS9PR84_ANPABO%20Licensed%20Ford%20F-150%2024V%202%20Seater%20Ride%20on%20Ca/images/primary.jpg",
+  car_seat: "https://store.balancebiketoddler.com/car_seat/Graco/Rank_1_ASIN_B0DHLQMWW7_Graco%20Extend2Fit%20Convertible%20Car%20Seat%20Rear%20and%20For/images/primary.jpg",
 };
 
 const HOME_CARD_DEFAULT_IMAGES = [
@@ -51,6 +53,35 @@ const HOME_CARD_DEFAULT_IMAGES = [
   KIDS_BIKE_CATEGORY_DEFAULT_IMAGE,
   SCOOTER_DEFAULT_IMAGE,
 ];
+
+function compactSnippet(value: unknown): string {
+  return String(value || "").trim().replace(/\s+/g, " ");
+}
+
+function pickCustomersSay(product: Product, lang: "zh" | "en"): string {
+  const localized = (product as Product & {
+    zh?: { customersSay?: string };
+    en?: { customersSay?: string };
+  })[lang]?.customersSay;
+  return compactSnippet(localized || product.customers_say || product.customersSay || "");
+}
+
+function isRatingStatsSummary(value: string): boolean {
+  const text = compactSnippet(value).toLowerCase();
+  if (!text) return true;
+  return (
+    /^rated\s+\d(?:\.\d+)?\s+out\s+of\s+5\b/.test(text) ||
+    /^backed\s+by\s+[\d,]+\s+customer\s+reviews\b/.test(text) ||
+    /^\d(?:\.\d+)?\s+\d(?:\.\d+)?\s+out\s+of\s+5\s+stars\b/.test(text) ||
+    /^\(?[\d,]+\)?\s+customer\s+reviews\b/.test(text)
+  );
+}
+
+function hasRealCustomersSay(product: Product, lang: "zh" | "en"): boolean {
+  const customerSay = pickCustomersSay(product, lang);
+  if (!customerSay || isRatingStatsSummary(customerSay)) return false;
+  return /^Customers find\b/i.test(customerSay);
+}
 
 interface HomeSectionProps {
   productsData: Product[];
@@ -302,56 +333,70 @@ export default function HomeSection({
 
   const categoryTopProductMap = useMemo(() => {
     const map: Record<string, Product> = {};
+    const homepageToPageCatIdMap: Record<string, string> = {
+      stroller: "stroller",
+      balance_bike: "balance_bike",
+      kids_bikes: "kids_bikes",
+      scooters: "kids_scooters",
+      electric_vehicles: "electric_vehicles",
+      car_seat: "car_seat",
+    };
+
+    const getProductPageCategoryId = (product: Product): string => {
+      const raw = String((product as any)?.categoryId || product?.category || "").trim().toLowerCase();
+      const localAliasMap: Record<string, string> = {
+        scooters: "kids_scooters",
+        scooter: "kids_scooters",
+        balance: "balance_bike",
+        "balance bike": "balance_bike",
+        bicycle: "kids_bikes",
+        tricycle: "kids_tricycles",
+        electric_car: "electric_vehicles",
+        safety_seat: "car_seat",
+      };
+      const normalized = localAliasMap[raw] || raw;
+      
+      if (normalized !== "stroller") return normalized;
+
+      const text = [
+        product.name,
+        (product as any)?.title,
+        product.description,
+        (product as any)?.zh?.description,
+        (product as any)?.en?.description,
+      ]
+        .map((item) => String(item || "").toLowerCase())
+        .join(" ");
+
+      const hasStrollerSignal = /(stroller|pram|pushchair|buggy|jogger|jogging|travel\s+system|umbrella\s+stroller|double\s+stroller|twin\s+stroller|推车|婴儿车|慢跑推车|双人推车)/i.test(text);
+      const hasCarSeatSignal = /(\bcar\s*seat\b|\bbooster\s*seat\b|\bconvertible\s*car\s*seat\b|\binfant\s*car\s*seat\b|安全座椅|提篮座椅)/i.test(text);
+
+      if (hasCarSeatSignal && !hasStrollerSignal) return "car_seat";
+
+      return normalized;
+    };
+
     for (const entry of SCRAPED_CATEGORY_CATALOG) {
-      const aliases = categoryAliasMap[entry.id] || [entry.id];
-      const targetId = normalizeCategory(entry.id);
+      const targetPageCatId = homepageToPageCatIdMap[entry.id] || entry.id;
       const candidates = homeVisualProducts.filter((product) => {
-        const normalizedCategory = normalizeCategory(product.category || "");
-        const normalizedCategoryId = normalizeCategory((product as any).categoryId || "");
-        const searchable = normalizeCategory(
-          [product.category, (product as any).categoryId, product.name, product.brand]
-            .filter(Boolean)
-            .join(" ")
-        );
-
-        // Prefer strict category/categoryId matching to avoid cross-category image bleed.
-        if (normalizedCategoryId === targetId || normalizedCategory === targetId) {
-          return true;
-        }
-
-        if (targetId === "balance_bike") {
-          return normalizedCategoryId.includes("balance_bike") || normalizedCategory.includes("balance_bike");
-        }
-
-        if (targetId === "kids_bikes") {
-          const isKidsBike = normalizedCategoryId.includes("kids_bikes") || normalizedCategory.includes("kids_bikes");
-          const isOtherBikeFamily = searchable.includes("balance") || searchable.includes("tricycle");
-          return isKidsBike && !isOtherBikeFamily;
-        }
-
-        if (targetId === "scooters") {
-          return (
-            normalizedCategoryId.includes("scooter") ||
-            normalizedCategory.includes("scooter") ||
-            normalizedCategoryId === "kids_scooters"
-          );
-        }
-
-        return aliases.some((alias) => {
-          const normalizedAlias = normalizeCategory(alias);
-          return (
-            normalizedCategory.includes(normalizedAlias) ||
-            normalizedCategoryId.includes(normalizedAlias) ||
-            searchable.includes(normalizedAlias)
-          );
-        });
+        const prodCatId = getProductPageCategoryId(product);
+        return prodCatId === targetPageCatId;
       });
 
-      const found = [...candidates].sort((a, b) => (b.overallScore || 0) - (a.overallScore || 0))[0];
-      if (found) map[entry.id] = found;
+      // Sort exactly like the product category list page (by hasRealCustomersSay first, then by overallScore descending)
+      const sorted = [...candidates].sort((a, b) => {
+        const customerSayDelta = Number(hasRealCustomersSay(b, lang)) - Number(hasRealCustomersSay(a, lang));
+        if (customerSayDelta !== 0) return customerSayDelta;
+        return (b.overallScore || 0) - (a.overallScore || 0);
+      });
+
+      const found = sorted[0];
+      if (found) {
+        map[entry.id] = found;
+      }
     }
     return map;
-  }, [homeVisualProducts]);
+  }, [homeVisualProducts, lang]);
 
   const getCategoryPriority = (rawCategory?: string) => {
     const normalized = normalizeCategory(rawCategory || "");
@@ -477,27 +522,35 @@ export default function HomeSection({
       balance_bike: "Balance Bike",
       kids_bikes: "Kids Bike",
       scooters: "Kids Scooter",
+      electric_vehicles: "4-Wheel Kids Electric Car",
+      car_seat: "Kids Car Seat",
     };
     const zhLabelOverrides: Record<string, string> = {
       stroller: "婴儿慢跑手推车",
       balance_bike: "儿童平衡车",
       kids_bikes: "儿童自行车",
       scooters: "儿童滑板车",
+      electric_vehicles: "四轮儿童电动车",
+      car_seat: "儿童安全座椅",
     };
     const englishDescOverrides: Record<string, string> = {
       stroller: "Discover our top-rated jogging stroller picks, rigorously lab-tested for all-terrain suspension, secure braking, and ultimate child comfort during your runs.",
       balance_bike: "Find the safest balance bike for your toddler. We evaluate frame weight, tire grip, and ergonomics to help them learn to ride with confidence.",
       kids_bikes: "Compare the best 12-inch to 16-inch kids bike models. Our unbiased reviews focus on braking power, structural geometry, and pedal stability.",
       scooters: "Explore our expertly reviewed kids scooter selection. From stable 3-wheelers to agile 2-wheelers, we test for deck strength and steering safety.",
+      electric_vehicles: "Browse premium battery-powered kids' ride-on vehicles. We test motor limit safety, speed controls, remote limits, and structural stiffness.",
+      car_seat: "Explore high-protection infant and kids car seats. We evaluate impact shock absorption, 5-point harness safety, and secure installation.",
     };
     const zhDescOverrides: Record<string, string> = {
       stroller: "发现我们评分领先的慢跑婴儿车，经过全地形悬挂、安全刹车及宝宝舒适度的严格实验室测试。",
       balance_bike: "为您的幼儿寻找最安全的平衡车。我们评估车架重量、轮胎抓地力和人体工学，帮助他们自信骑行。",
       kids_bikes: "比较最优秀的 12 英寸至 16 英寸儿童自行车。我们的中立评测聚焦于制动力学、车架几何与脚踏稳定性。",
       scooters: "探索我们经专业评测的儿童滑板车系列。从稳定的三轮车到灵敏的两轮车，我们测试踏板强度和转向安全设计。",
+      electric_vehicles: "评测领先的电池驱动儿童玩具车。我们对机电机理、遥控保护与减震安全性等指标进行专项验证。",
+      car_seat: "全面深度评测儿童汽车安全座椅。我们聚焦于抗侧撞缓冲吸能、防位移五点式束带系统与卡扣牢固度指标。",
     };
 
-    const targetOrder = ["stroller", "balance_bike", "kids_bikes", "scooters"];
+    const targetOrder = ["stroller", "balance_bike", "kids_bikes", "scooters", "electric_vehicles", "car_seat"];
     return targetOrder.map(id => {
       const entry = SCRAPED_CATEGORY_CATALOG.find(c => c.id === id);
       if (!entry) return null;
@@ -651,42 +704,42 @@ export default function HomeSection({
       "mainEntity": [
         {
           "@type": "Question",
-          "name": lang === "zh" ? "KIDSMOBI 如何测试慢跑手推车的安全性？" : "How does KIDSMOBI test jogging strollers for safety?",
+          "name": lang === "zh" ? "KIDSMOBI 如何评估慢跑婴儿车在全地形高速运动下的避震与制动安全性？" : "How does KIDSMOBI test jogging strollers for all-terrain high-speed suspension and braking safety?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": lang === "zh" ? "我们对全地形悬挂系统、轮轴轴承强度 and 动态负载下的刹车可靠性进行严苛的物理测试，确保跑步过程中的儿童舒适性与极致保护。" : "We perform rigorous physical audits on all-terrain suspension, wheel-bearing strength, and braking reliability under dynamic loads to ensure ultimate child comfort and protection during runs."
+            "text": lang === "zh" ? "我们在测试慢跑推车时，会重点检测三个指标：一是前两圈的追踪定位与转向锁定机构（高速慢跑时必须锁定前轮以防剧烈抖动颠覆）；二是充气大橡胶轮胎与高性能避震弹簧在5厘米障碍路面上的重力加速度传导（G-Force必须限制在1.0G以内）；三是手刹与后轮双踩锁死制动的响应时间与减速率控制。" : "We focus on three critical specs when testing jogging strollers: first, the front wheel tracking lock (essential to prevent speed wobbles during high-speed runs); second, G-force telemetry across 5cm obstacles (ensuring vibration stays below 1.0G on pneumatic rubber tires); third, hand-activated deceleration brakes coupled with reliable parking locks for immediate incline arrests."
           }
         },
         {
           "@type": "Question",
-          "name": lang === "zh" ? "孩子几岁开始骑平衡车最合适？" : "What is the best age for a child to start using a balance bike?",
+          "name": lang === "zh" ? "如何为不同年龄的幼童精准选配儿童自行车以及规避不安全的刹车系统？" : "How to select the right kids bike and avoid hazardous bicycle braking systems?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": lang === "zh" ? "孩子最早可在 18 个月大时开始尝试。我们聚焦于超轻量化车架、低座高设计和稳定的转向几何，帮助幼童建立自我平衡的信心。" : "Children can start as early as 18 months. We focus on lightweight frames, low seat heights, and stable steering geometry to help toddlers build self-balancing confidence."
+            "text": lang === "zh" ? "初学者鞍座高度应比脱鞋腿部跨高（Inseam）低2.5厘米以确保双脚平足全落地。在制动系统上，KIDSMOBI强烈反对低端童车配备的倒踩脚刹（Coaster Brakes），此类刹车缺乏线性无极阻尼极易打滑、在紧急时刻还会锁死曲柄使车辆失控侧倾。应优选专门针对儿童手掌骨化周期定制、握距≤42mm的双手短行程闸把系统。" : "Standfoot crotch inseam is the gold standard for sizing. For beginners, the minimum saddle height should be 2.5cm below their inseam for flat-foot stability. Regarding brakes, KIDSMOBI strongly discourages pedal-back Coaster Brakes due to lack of modulation and launch-angle lockups; choose specialized kids' hand levers with a short grip-reach of 42mm or less."
           }
         },
         {
           "@type": "Question",
-          "name": lang === "zh" ? "三轮滑板车对幼童来说比两轮更安全吗？" : "Are 3-wheel scooters safer than 2-wheelers for toddlers?",
+          "name": lang === "zh" ? "三轮滑板车的重力倾斜转向系统真的比普通的双轮滑板车更安全吗？" : "Are 3-wheel lean-to-steer kids scooters significantly safer than traditional 2-wheelers for toddlers?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": lang === "zh" ? "是的，三轮滑板车的 lean-to-steer（倾斜重力转向）能防止紧急翻侧，并为幼儿提供极佳的横向稳定性。我们专门测试脚踏板强度与转向响应度。" : "Yes, lean-to-steer features on 3-wheel scooters prevent sudden flips and provide strong lateral stability for toddlers. We test deck resilience and steering responsiveness."
+            "text": lang === "zh" ? "是的。三轮滑板车采用的重力倾斜转向（Lean-To-Steer）不仅可以防止幼童在高速转向时发生骤急侧翻或甩飞，还能积极训练孩子脑部前庭系统的本体平衡感知。对于3岁以下刚入门的学龄前儿童，宽大低矮的踏板设计与超平稳的三角形分布三轮滑板车是安全性极高的首选，而两轮滑板车则适合平衡能力完备的学龄大童。" : "Yes. The lean-to-steer mechanism on 3-wheel scooters provides superior lateral stability, preventing high-speed high-side flips while developing early vestibular balance in toddlers. For children under 3 years old, wide-deck, low-center-of-gravity 3-wheelers are overwhelmingly safer, while agile 2-wheel models are reserved for older kids with established balancing skills."
           }
         },
         {
           "@type": "Question",
-          "name": lang === "zh" ? "儿童自行车的核心安全标准是什么？" : "What are the key safety standards for kids' bikes?",
+          "name": lang === "zh" ? "如何检测四轮电动童车的动力源安全性、限速保护与抗倾覆防摔稳定指标？" : "How does KIDSMOBI evaluate battery safety, remote overrides, and roll stability for 4-wheel kids electric cars?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": lang === "zh" ? "所有车辆都必须符合 EN 71、ISO 8098 或 ASTM F963 等标准。我们实测链条罩安全性、制动锁死刹车距离、手把防护罩以及车架结构强度。" : "Every bike must comply with EN 71, ISO 8098, or ASTM F963 standards. We verify chain guard safety, braking locking distance, handle grip protection, and structural frame stiffness."
+            "text": lang === "zh" ? "四轮玩具电动车的检测首重电池包的安全散热与防短路热熔断保护，规避大电流充放电自燃与电解液泄漏。其次，车辆的最高物理时速必须严格被限制在3至8公里/小时以内，且母体控制端必须配备绝对优先权的父母遥控器（一键刹停、无极变频）。此外，四轮距物理宽度与高重心重心的倾斜倾翻系数也是我们的重点审计数据。" : "Testing electric ride-ons centers first on battery pack safety (overcharge and short-circuit thermal fuses to completely prevent fire hazards). Second, velocity bounds must be constrained between 3 to 8 km/h, backed by a 2.4G parental override remote that preempts toddler inputs instantly. Lastly, a wide-track chassis geometry is audited to prevent tipping during tight maneuvers."
           }
         },
         {
           "@type": "Question",
-          "name": lang === "zh" ? "为什么客观中立的第三方评测对家长的选购决策至关重要？" : "Why are neutral third-party reviews critical for parent decision-making?",
+          "name": lang === "zh" ? "劣质、不合规的童车和童车结构，容易对正在快速发育的儿童骨骼与前庭系统造成哪些慢性损伤？" : "How do low-quality children's bikes and ride-ons cause permanent skeletal and joint strain for a growing child?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": lang === "zh" ? "KIDSMOBI 不接受任何厂商赞助与竞选曝光收费。我们坚持独立评估，将科学层面的机械力学数据转化为值得信赖的买家购买信心。" : "KIDSMOBI accepts zero merchant sponsorship or paid placements. We test models independently, transforming scientific mechanical data into reliable parent buying confidence."
+            "text": lang === "zh" ? "低价劣质童车为节省开模费用，常粗暴套用成人五通中轴总成。偏宽的 Q-Factor（脚踏左右偏距宽度）会强行拉开幼儿大腿骨，踩踏时膝关节被迫向内侧严重扣折（形成内八或X型腿趋势），导致髌骨关节面在发育初期的软骨阶段发生不可逆磨损。此外，实心发泡轮胎（EVA）由于没有任何物理空气微孔弹性吸收，产生的3.8G以上高频振荡波会直击大脑、前庭及未发育成熟的椎骨骨骺，干扰神经感知并阻碍发育。" : "Low-quality ride-ons often repurpose adult components, introducing dangerous mismatches. For example, excessive Q-Factors (wide pedal stance) force pediatric joints into inward-bowing (genu valgum) tracks, risking permanent cartilage wear. Additionally, solid EVA foam wheels lack pneumatic cushioning, delivering sharp 3.8G shockwaves directly up to a toddler's unossified spine and delicate inner-ear structures."
           }
         }
       ]
@@ -800,7 +853,7 @@ export default function HomeSection({
           </a>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {prioritizedCategoryCards.map((cat) => (
             <a
               href={cat.slug}
@@ -847,10 +900,7 @@ export default function HomeSection({
                     {cat.desc}
                   </p>
                 </div>
-                <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-4">
-                  <span className="text-[10px] font-black uppercase text-slate-400">
-                    {lang === "zh" ? "品类入口" : "Category"}
-                  </span>
+                <div className="mt-auto flex items-center justify-end border-t border-slate-100 pt-4">
                   <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-orange-500 group-hover:translate-x-1 transition-all" />
                 </div>
               </div>
@@ -1102,24 +1152,24 @@ export default function HomeSection({
         <div className="space-y-4">
           {[
             {
-              q: lang === "zh" ? "KIDSMOBI 如何测试慢跑手推车的安全性？" : "How does KIDSMOBI test jogging strollers for safety?",
-              a: lang === "zh" ? "我们对全地形悬挂系统、轮轴轴承强度和动态负载下的刹车可靠性进行严苛的物理测试，确保跑步过程中的儿童舒适性与极致保护。" : "We perform rigorous physical audits on all-terrain suspension, wheel-bearing strength, and braking reliability under dynamic loads to ensure ultimate child comfort and protection during runs."
+              q: lang === "zh" ? "KIDSMOBI 如何评估慢跑婴儿车在全地形高速运动下的避震与制动安全性？" : "How does KIDSMOBI test jogging strollers for all-terrain high-speed suspension and braking safety?",
+              a: lang === "zh" ? "我们在测试慢跑推车时，会重点检测三个指标：一是前两圈的追踪定位与转向锁定机构（高速慢跑时必须锁定前轮以防剧烈抖动颠覆）；二是充气大橡胶轮胎与高性能避震弹簧在5厘米障碍路面上的重力加速度传导（G-Force必须限制在1.0G以内）；三是手刹与后轮双踩锁死制动的响应时间与减速率控制。" : "We focus on three critical specs when testing jogging strollers: first, the front wheel tracking lock (essential to prevent speed wobbles during high-speed runs); second, G-force telemetry across 5cm obstacles (ensuring vibration stays below 1.0G on pneumatic rubber tires); third, hand-activated deceleration brakes coupled with reliable parking locks for immediate incline arrests."
             },
             {
-              q: lang === "zh" ? "孩子几岁开始骑平衡车最合适？" : "What is the best age for a child to start using a balance bike?",
-              a: lang === "zh" ? "孩子最早可在 18 个月大时开始尝试。我们聚焦于超轻量化车架、低座高设计和稳定的转向几何，帮助幼童建立自我平衡的信心。" : "Children can start as early as 18 months. We focus on lightweight frames, low seat heights, and stable steering geometry to help toddlers build self-balancing confidence."
+              q: lang === "zh" ? "如何为不同年龄的幼童精准选配儿童自行车以及规避不安全的刹车系统？" : "How to select the right kids bike and avoid hazardous bicycle braking systems?",
+              a: lang === "zh" ? "初学者鞍座高度应比脱鞋腿部跨高（Inseam）低2.5厘米以确保双脚平足全落地。在制动系统上，KIDSMOBI强烈反对低端童车配备的倒踩脚刹（Coaster Brakes），此类刹车缺乏线性无极阻尼极易打滑、在紧急时刻还会锁死曲柄使车辆失控侧倾。应优选专门针对儿童手掌骨化周期定制、握距≤42mm的双手短行程闸把系统。" : "Standfoot crotch inseam is the gold standard for sizing. For beginners, the minimum saddle height should be 2.5cm below their inseam for flat-foot stability. Regarding brakes, KIDSMOBI strongly discourages pedal-back Coaster Brakes due to lack of modulation and launch-angle lockups; choose specialized kids' hand levers with a short grip-reach of 42mm or less."
             },
             {
-              q: lang === "zh" ? "三轮滑板车对幼童来说比两轮更安全吗？" : "Are 3-wheel scooters safer than 2-wheelers for toddlers?",
-              a: lang === "zh" ? "是的，三轮滑板车的 lean-to-steer（倾斜重力转向）能防止紧急翻侧，并为幼儿提供极佳的横向稳定性。我们专门测试脚踏板强度与转向响应度。" : "Yes, lean-to-steer features on 3-wheel scooters prevent sudden flips and provide strong lateral stability for toddlers. We test deck resilience and steering responsiveness."
+              q: lang === "zh" ? "三轮滑板车的重力倾斜转向系统真的比普通的双轮滑板车更安全吗？" : "Are 3-wheel lean-to-steer kids scooters significantly safer than traditional 2-wheelers for toddlers?",
+              a: lang === "zh" ? "是的。三轮滑板车采用的重力倾斜转向（Lean-To-Steer）不仅可以防止幼童在高速转向时发生骤急侧翻或甩飞，还能积极训练孩子脑部前庭系统的本体平衡感知。对于3岁以下刚入门的学龄前儿童，宽大低矮的踏板设计与超平稳的三角形分布三轮滑板车是安全性极高的首选，而两轮滑板车则适合平衡能力完备的学龄大童。" : "Yes. The lean-to-steer mechanism on 3-wheel scooters provides superior lateral stability, preventing high-speed high-side flips while developing early vestibular balance in toddlers. For children under 3 years old, wide-deck, low-center-of-gravity 3-wheelers are overwhelmingly safer, while agile 2-wheel models are reserved for older kids with established balancing skills."
             },
             {
-              q: lang === "zh" ? "儿童自行车的核心安全标准是什么？" : "What are the key safety standards for kids' bikes?",
-              a: lang === "zh" ? "所有车辆都必须符合 EN 71、ISO 8098 或 ASTM F963 等标准。我们实测链条罩安全性、制动锁死刹车距离、手把防护罩以及车架结构强度。" : "Every bike must comply with EN 71, ISO 8098, or ASTM F963 standards. We verify chain guard safety, braking locking distance, handle grip protection, and structural frame stiffness."
+              q: lang === "zh" ? "如何检测四轮电动童车的动力源安全性、限速保护与抗倾覆防摔稳定指标？" : "How does KIDSMOBI evaluate battery safety, remote overrides, and roll stability for 4-wheel kids electric cars?",
+              a: lang === "zh" ? "四轮玩具电动车的检测首重电池包的安全散热与防短路热熔断保护，规避大电流充放电自燃与电解液泄漏。其次，车辆的最高物理时速必须严格被限制在3至8公里/小时以内，且母体控制端必须配备绝对优先权的父母遥控器（一键刹停、无极变频）。此外，四轮距物理宽度与高重心重心的倾斜倾翻系数也是我们的重点审计数据。" : "Testing electric ride-ons centers first on battery pack safety (overcharge and short-circuit thermal fuses to completely prevent fire hazards). Second, velocity bounds must be constrained between 3 to 8 km/h, backed by a 2.4G parental override remote that preempts toddler inputs instantly. Lastly, a wide-track chassis geometry is audited to prevent tipping during tight maneuvers."
             },
             {
-              q: lang === "zh" ? "为什么客观中立的第三方评测对家长的选购决策至关重要？" : "Why are neutral third-party reviews critical for parent decision-making?",
-              a: lang === "zh" ? "KIDSMOBI 不接受任何厂商赞助与竞选曝光收费。我们坚持独立评估，将科学层面的机械力学数据转化为值得信赖的买家购买信心。" : "KIDSMOBI accepts zero merchant sponsorship or paid placements. We test models independently, transforming scientific mechanical data into reliable parent buying confidence."
+              q: lang === "zh" ? "劣质、不合规的童车和童车结构，容易对正在快速发育的儿童骨骼与前庭系统造成哪些慢性损伤？" : "How do low-quality children's bikes and ride-ons cause permanent skeletal and joint strain for a growing child?",
+              a: lang === "zh" ? "低价劣质童车为节省开模费用，常粗暴套用成人五通中轴总成。偏宽的 Q-Factor（脚踏左右偏距宽度）会强行拉开幼儿大腿骨，踩踏时膝关节被迫向内侧严重扣折（形成内八或X型腿趋势），导致髌骨关节面在发育初期的软骨阶段发生不可逆磨损。此外，实心发泡轮胎（EVA）由于没有任何物理空气微孔弹性吸收，产生的3.8G以上高频振荡波会直击大脑、前庭及未发育成熟的椎骨骨骺，干扰神经感知并阻碍发育。" : "Low-quality ride-ons often repurpose adult components, introducing dangerous mismatches. For example, excessive Q-Factors (wide pedal stance) force pediatric joints into inward-bowing (genu valgum) tracks, risking permanent cartilage wear. Additionally, solid EVA foam wheels lack pneumatic cushioning, delivering sharp 3.8G shockwaves directly up to a toddler's unossified spine and delicate inner-ear structures."
             }
           ].map((item, idx) => (
             <div key={idx} className="border border-slate-100 bg-white rounded-3xl overflow-hidden transition-all hover:border-slate-200">
