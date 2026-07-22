@@ -2652,10 +2652,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                   {isBBT && bbtMenuOpen && (
                     <div 
                       id="bbt_dropdown_menu" 
-                      className="absolute top-full left-0 mt-3 w-88 bg-white/98 backdrop-blur-2xl border border-slate-200/80 rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] ring-1 ring-slate-900/5 p-6 z-[99] animate-in fade-in slide-in-from-top-3 duration-300 ease-out zoom-in-95 text-slate-800"
+                      className="fixed inset-x-4 top-20 md:absolute md:top-full md:left-0 md:inset-x-auto md:w-88 mt-3 bg-white/98 backdrop-blur-2xl border border-slate-200/80 rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] ring-1 ring-slate-900/5 p-6 z-[99] animate-in fade-in slide-in-from-top-3 duration-300 ease-out zoom-in-95 text-slate-800 max-h-[75vh] overflow-y-auto md:max-h-none md:overflow-visible no-scrollbar"
                     >
                       {/* Decorative atmospheric top pointer arrow */}
-                      <div className="absolute -top-1.5 left-6 w-3 h-3 bg-white border-t border-l border-slate-200/80 rotate-45"></div>
+                      <div className="hidden md:block absolute -top-1.5 left-6 w-3 h-3 bg-white border-t border-l border-slate-200/80 rotate-45"></div>
 
                       <div className="space-y-5 relative">
                         <div className="pb-1 border-b border-slate-100 flex flex-col gap-2">
@@ -2739,10 +2739,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                   {productsMenuOpen && (
                     <div 
                       id="products_dropdown_menu" 
-                      className="absolute top-full left-0 mt-3 w-[380px] bg-white/98 backdrop-blur-2xl border border-slate-200/80 rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] ring-1 ring-slate-900/5 p-6 z-[99] animate-in fade-in slide-in-from-top-3 duration-300 ease-out zoom-in-95 text-slate-800"
+                      className="fixed inset-x-4 top-20 md:absolute md:top-full md:left-0 md:inset-x-auto md:w-[380px] mt-3 bg-white/98 backdrop-blur-2xl border border-slate-200/80 rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] ring-1 ring-slate-900/5 p-6 z-[99] animate-in fade-in slide-in-from-top-3 duration-300 ease-out zoom-in-95 text-slate-800 max-h-[75vh] overflow-y-auto md:max-h-none md:overflow-visible no-scrollbar"
                     >
                       {/* Decorative atmospheric top pointer arrow */}
-                      <div className="absolute -top-1.5 left-10 w-3 h-3 bg-white border-t border-l border-slate-200/80 rotate-45"></div>
+                      <div className="hidden md:block absolute -top-1.5 left-10 w-3 h-3 bg-white border-t border-l border-slate-200/80 rotate-45"></div>
 
                       <div className="space-y-5 relative">
                         {/* 二级菜单: All Products */}
@@ -2834,10 +2834,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                   {reviewsMenuOpen && (
                     <div 
                       id="reviews_dropdown_menu" 
-                      className="absolute top-full left-1/2 -translate-x-[42%] mt-3 w-[660px] sm:w-[750px] md:w-[840px] lg:w-[920px] bg-white/98 backdrop-blur-2xl border border-slate-200/85 rounded-[32px] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.18)] ring-1 ring-slate-900/5 p-6 z-[99] animate-in fade-in slide-in-from-top-3 duration-300 ease-out zoom-in-95 text-slate-800"
+                      className="fixed inset-x-4 top-20 md:absolute md:top-full md:left-1/2 md:-translate-x-[42%] md:inset-x-auto md:w-[660px] sm:md:w-[750px] md:w-[840px] lg:w-[920px] mt-3 bg-white/98 backdrop-blur-2xl border border-slate-200/85 rounded-[32px] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.18)] ring-1 ring-slate-900/5 p-6 z-[99] animate-in fade-in slide-in-from-top-3 duration-300 ease-out zoom-in-95 text-slate-800 max-h-[75vh] overflow-y-auto md:max-h-none md:overflow-visible no-scrollbar"
                     >
                       {/* Decorative atmospheric top pointer arrow */}
-                      <div className="absolute -top-1.5 left-[42%] w-3 h-3 bg-white border-t border-l border-slate-200 rotate-45"></div>
+                      <div className="hidden md:block absolute -top-1.5 left-[42%] w-3 h-3 bg-white border-t border-l border-slate-200 rotate-45"></div>
 
                       <div className="grid grid-cols-1 md:grid-cols-[1.1fr_1fr_0.9fr] lg:grid-cols-[1.1fr_1.45fr_1.05fr] gap-6 text-left relative z-10">
                         
@@ -3206,10 +3206,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                   {guidesMenuOpen && (
                     <div 
                       id="guides_dropdown_menu" 
-                      className="absolute top-full left-1/2 -translate-x-[55%] mt-3 w-[660px] sm:w-[755px] md:w-[850px] lg:w-[940px] bg-white/98 backdrop-blur-2xl border border-slate-200/85 rounded-[32px] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.18)] ring-1 ring-slate-900/5 p-6 z-[99] animate-in fade-in slide-in-from-top-3 duration-300 ease-out zoom-in-95 text-slate-800"
+                      className="fixed inset-x-4 top-20 md:absolute md:top-full md:left-1/2 md:-translate-x-[55%] md:inset-x-auto md:w-[660px] sm:md:w-[755px] md:w-[850px] lg:w-[940px] mt-3 bg-white/98 backdrop-blur-2xl border border-slate-200/85 rounded-[32px] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.18)] ring-1 ring-slate-900/5 p-6 z-[99] animate-in fade-in slide-in-from-top-3 duration-300 ease-out zoom-in-95 text-slate-800 max-h-[75vh] overflow-y-auto md:max-h-none md:overflow-visible no-scrollbar"
                     >
                       {/* Decorative atmospheric top pointer arrow */}
-                      <div className="absolute -top-1.5 left-[55%] w-3 h-3 bg-white border-t border-l border-slate-200 rotate-45"></div>
+                      <div className="hidden md:block absolute -top-1.5 left-[55%] w-3 h-3 bg-white border-t border-l border-slate-200 rotate-45"></div>
 
                       <div className="grid grid-cols-1 md:grid-cols-[1.1fr_1.1fr_0.8fr] gap-6 text-left relative z-10">
                         {/* Column 1: By Category & Age Groups */}
@@ -3420,9 +3420,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                   {newsMenuOpen && (
                     <div 
                       id="news_dropdown_menu"
-                      className="absolute top-full left-0 mt-3 w-[450px] bg-white/98 backdrop-blur-2xl border border-slate-200/80 rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] ring-1 ring-slate-900/5 p-6 z-[99] animate-in fade-in slide-in-from-top-3 duration-300 ease-out zoom-in-95 text-slate-800"
+                      className="fixed inset-x-4 top-20 md:absolute md:top-full md:left-0 md:inset-x-auto md:w-[450px] mt-3 bg-white/98 backdrop-blur-2xl border border-slate-200/80 rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] ring-1 ring-slate-900/5 p-6 z-[99] animate-in fade-in slide-in-from-top-3 duration-300 ease-out zoom-in-95 text-slate-800 max-h-[75vh] overflow-y-auto md:max-h-none md:overflow-visible no-scrollbar"
                     >
-                      <div className="absolute -top-1.5 left-10 w-3 h-3 bg-white border-t border-l border-slate-200/80 rotate-45"></div>
+                      <div className="hidden md:block absolute -top-1.5 left-10 w-3 h-3 bg-white border-t border-l border-slate-200/80 rotate-45"></div>
 
                       <div className="space-y-5 relative">
                         <div className="group/sub">
