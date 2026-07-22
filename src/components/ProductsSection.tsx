@@ -522,6 +522,18 @@ export default function ProductsSection({
   }, [activeCategory, selectedCategory]);
 
   useEffect(() => {
+    if (localStorage.getItem("scrollToExpertPicks") === "true") {
+      localStorage.removeItem("scrollToExpertPicks");
+      setTimeout(() => {
+        const element = document.getElementById("expert-picks-anchor");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 150);
+    }
+  }, [selectedCategory]);
+
+  useEffect(() => {
     setSelectedBrand("all");
     setSelectedFrameMaterial("all");
     setSelectedTireType("all");
