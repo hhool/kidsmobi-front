@@ -1070,7 +1070,7 @@ export default function HomeSection({
       {/* 6. Buying Guide Quick Links (选购指南快捷入口) */}
       <section id="quick_scenarios_anchor" className="max-w-7xl mx-auto px-6 space-y-12">
           <div className="space-y-2 text-center max-w-2xl mx-auto">
-            <h3 className="text-3xl font-black text-slate-900 tracking-tight">{lang === "zh" ? "智能选购场景" : "Quick Selection Scenarios"}</h3>
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight">{lang === "zh" ? "智能选购场景" : "Quick Selection Scenarios"}</h2>
             <p className="text-slate-500 font-medium">{lang === "zh" ? "从成长阶段出发，为您快速匹配最佳方案。" : "Find the perfect match based on your child's growth stage."}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -1080,7 +1080,7 @@ export default function HomeSection({
               { id: "commute", label: lang === "zh" ? "日常通勤 · 轻便首选" : "Daily Commute", desc: lang === "zh" ? "折叠速度与整备质量极限对比" : "Weight and folding speed" },
             ].map(scene => (
               <div key={scene.id} onClick={() => setActiveTab("guides")} className="p-8 bg-white border border-slate-100 rounded-4xl hover:border-orange-500 hover:shadow-xl transition-all cursor-pointer group">
-                <h4 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors mb-2">{scene.label}</h4>
+                <h3 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors mb-2 text-base md:text-lg">{scene.label}</h3>
                 <p className="text-xs text-slate-500 font-medium leading-relaxed">{scene.desc}</p>
               </div>
             ))}
@@ -1092,11 +1092,11 @@ export default function HomeSection({
         <div className="text-center space-y-2">
           <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">{lang === "zh" ? "常见问题" : "FAQ"}</span>
           <h2 className="text-3xl font-black text-slate-900 tracking-tight">
-            {lang === "zh" ? "常见选购与测试解答" : "Frequently Asked Questions"}
+            {lang === "zh" ? "常见问题与解答" : "Frequently Asked Questions"}
           </h2>
-          <p className="text-slate-500 font-medium">
+          <h3 className="text-slate-500 font-medium text-base">
             {lang === "zh" ? "为您解答关于慢跑婴儿车、平衡车与儿童自行车测试标准的常见问题。" : "Answering your questions on kids mobility testing standards and safe selection guidelines."}
-          </p>
+          </h3>
         </div>
 
         <div className="space-y-4">
@@ -1127,7 +1127,7 @@ export default function HomeSection({
                 onClick={() => handleFaqToggle(idx)}
                 className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 focus:outline-none"
               >
-                <span className="font-black text-slate-800 text-sm md:text-base">{item.q}</span>
+                <h3 className="font-black text-slate-800 text-sm md:text-base flex-1">{item.q}</h3>
                 <span className="transform transition-transform duration-300 text-slate-400">
                   {openFaqIndex === idx ? (
                     <span className="text-xl inline-block rotate-45 text-orange-500 font-bold">＋</span>
