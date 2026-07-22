@@ -2647,9 +2647,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     }`}
                   >
                     <span>{t.navHome}</span>
-                    {isBBT && <span className="text-[10px] text-slate-400">▾</span>}
+                    <span className="text-[10px] text-slate-400">▾</span>
                   </button>
-                  {isBBT && bbtMenuOpen && (
+                  {bbtMenuOpen && (
                     <div 
                       id="bbt_dropdown_menu" 
                       className="fixed inset-x-4 top-20 md:absolute md:top-full md:left-0 md:inset-x-auto md:w-88 mt-3 bg-white/98 backdrop-blur-2xl border border-slate-200/80 rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] ring-1 ring-slate-900/5 p-6 z-[99] animate-in fade-in slide-in-from-top-3 duration-300 ease-out zoom-in-95 text-slate-800 max-h-[75vh] overflow-y-auto md:max-h-none md:overflow-visible no-scrollbar"
