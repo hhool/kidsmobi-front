@@ -283,7 +283,9 @@ export default function HomeSection({
         .filter(Boolean);
 
       // Scraped similar records usually carry Rank_Similar in asset paths.
-      if (mediaCandidates.some((value) => value.includes("rank_similar_"))) {
+      // Exception: Allow genuine jogger_stroller products to retain their images/ranks
+      const isGenuineJogger = normalizeCategory((product as any).categoryId || "") === "jogger_stroller";
+      if (mediaCandidates.some((value) => value.includes("rank_similar_")) && !isGenuineJogger) {
         return false;
       }
 
@@ -510,8 +512,9 @@ export default function HomeSection({
 
   const strollerProducts = useMemo(() => {
     const strollers = homeVisualProducts.filter((product) => {
-      const searchable = normalizeCategory(`${product.category || ""} ${(product as any).categoryId || ""} ${product.name}`);
-      return searchable.includes("stroller") || searchable.includes("jogger") || searchable.includes("pram") || searchable.includes("pushchair");
+      const normalizedCategoryId = normalizeCategory((product as any).categoryId || "");
+      const normalizedCategory = normalizeCategory(product.category || "");
+      return normalizedCategoryId === "jogger_stroller" || normalizedCategory === "jogger_stroller";
     });
     return [...strollers].sort((a, b) => (b.overallScore || 0) - (a.overallScore || 0)).slice(0, 4);
   }, [homeVisualProducts]);
@@ -878,13 +881,13 @@ export default function HomeSection({
           </a>
         </div>
 
-        {/* Subsection A: Best Stroller & Jogging Stroller */}
+        {/* Subsection A: Best Jogging Stroller */}
         <div className="space-y-6">
           <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
             <div>
-              <h3 className="text-xl font-black text-slate-900 tracking-tight">Best Stroller & Jogging Stroller</h3>
+              <h3 className="text-xl font-black text-slate-900 tracking-tight">Best Jogging Stroller</h3>
               <p className="text-slate-500 text-xs font-semibold mt-1">
-                {lang === "zh" ? "精选高端与慢跑婴儿推车，重点测评悬挂避震性能与安全带固定系统。" : "Top-rated everyday and jogging strollers. We audit shock absorption, frame rigidity, and secure harness layouts."}
+                {lang === "zh" ? "精选高安全性能慢跑婴儿车，深度测评全地形悬挂避震与车胎稳定性设计。" : "Discover the safest high-performance jogging strollers, meticulously evaluated for all-terrain shock absorption and stability."}
               </p>
             </div>
             <a

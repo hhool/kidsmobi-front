@@ -1,6 +1,6 @@
 import { Product } from "../types";
 
-export const productsData: Product[] = [
+export const productsData: any[] = [
   {
     "id": "baby_carrier-b07xmn3sk6",
     "name": "Infantino Flip 4-in-1 Convertible Baby Carrier, Adjustable, Ergonomic Babywearing, Registry Essential, Baby C...",
@@ -33080,270 +33080,286 @@ export const productsData: Product[] = [
     ]
   },
   {
-    "id": "stroller-b0dc5ggjrp",
-    "name": "Dream On Me Aero Travel Umbrella Stroller, One-Hand Quick Fold, 3-Point Safety Harness, Dual Brakes, Adjustab...",
-    "brand": "Dream",
-    "category": "stroller",
-    "categoryId": "stroller",
-    "wheelSize": "N/A",
-    "weight": 7.4,
-    "material": "Steel",
-    "brakeType": "3-Point Harness",
-    "tireType": "N/A",
-    "price": 33.99,
-    "ageRange": "6-36 months | 6 to 36 Months | for 6 to 36 Months",
-    "heightRange": [
-      50,
-      110
-    ],
-    "compliance": [
-      "EN1888"
-    ],
-    "safetyCertification": [
-      "EN1888"
-    ],
-    "imageUrl": "https://store.balancebiketoddler.com/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream%20On%20Me%20Aero%20Travel%20Umbrella%20Stroller%20One-Hand/images/primary.jpg",
-    "galleryUrls": [
-      "https://store.balancebiketoddler.com/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream%20On%20Me%20Aero%20Travel%20Umbrella%20Stroller%20One-Hand/images/primary.jpg"
-    ],
-    "videoUrl": "about:blank#external-url-removed",
-    "videos": [
-      {
-        "url": "about:blank#external-url-removed",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "about:blank#external-url-removed",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "about:blank#external-url-removed",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
-    "features": [
-      "<100",
-      "Ultra Lightweight"
-    ],
-    "description": "Every parent knows that the best adventures begin with a little preparation — and the Dream On Me Aero Travel Light Stroller is built to make every journey easier, lighter, and full of joy. Whether you’re strolling through busy city streets, catching a flight, or running quick errands, the Aero’s lightweight 7.4-pound design makes travel effortless. It’s a stroller that keeps up with you — compact, portable, and ready for wherever life takes your family. When it’s time to fold, the one-hand quick fold mechanism makes storing the Aero simple and stress-free. In just seconds, it collapses neatly to fit into apartments, vans, or small car trunks, giving parents the freedom to move without the hassle of bulky gear. Crafted with a durable steel frame and premium 300D polyester fabric, the Aero balances strength and comfort beautifully. Its 3-point safety harness ensures your little one stays secure, so you can focus on enjoying the moment, not worrying about bumps along the way. On sunny afternoons or breezy days, the removable and adjustable canopy provides just the right amount of protection. Rigorously ASTM certified, the Aero guarantees safety and peace of mind, giving parents confidence with every ride. No matter the surface, your child will enjoy a smooth, stable ride thanks to the front suspension wheels with a direction fixer and rear dual brakes with suspension. It’s the kind of comfort that turns everyday strolls into little adventures your baby will love. And because great design grows with your child, the Aero is perfectly sized at 13\" L x 24\" W x 36\" H — suitable for babies 6 to 36 months and up to 33 lbs. From first steps to toddlerhood, it’s built to keep your little one comfortable, safe, and smiling every step of the way. Lightweight. Reliable. Thoughtfully designed. The Dream On Me Aero Travel Light Stroller isn’t just a stroller — it’s your family’s perfect travel companion, ready for every destination and every memory you’ll make along the journey.",
-    "Product_Description": "Every parent knows that the best adventures begin with a little preparation — and the Dream On Me Aero Travel Light Stroller is built to make every journey easier, lighter, and full of joy. Whether you’re strolling through busy city streets, catching a flight, or running quick errands, the Aero’s lightweight 7.4-pound design makes travel effortless. It’s a stroller that keeps up with you — compact, portable, and ready for wherever life takes your family. When it’s time to fold, the one-hand quick fold mechanism makes storing the Aero simple and stress-free. In just seconds, it collapses neatly to fit into apartments, vans, or small car trunks, giving parents the freedom to move without the hassle of bulky gear. Crafted with a durable steel frame and premium 300D polyester fabric, the Aero balances strength and comfort beautifully. Its 3-point safety harness ensures your little one stays secure, so you can focus on enjoying the moment, not worrying about bumps along the way. On sunny afternoons or breezy days, the removable and adjustable canopy provides just the right amount of protection. Rigorously ASTM certified, the Aero guarantees safety and peace of mind, giving parents confidence with every ride. No matter the surface, your child will enjoy a smooth, stable ride thanks to the front suspension wheels with a direction fixer and rear dual brakes with suspension. It’s the kind of comfort that turns everyday strolls into little adventures your baby will love. And because great design grows with your child, the Aero is perfectly sized at 13\" L x 24\" W x 36\" H — suitable for babies 6 to 36 months and up to 33 lbs. From first steps to toddlerhood, it’s built to keep your little one comfortable, safe, and smiling every step of the way. Lightweight. Reliable. Thoughtfully designed. The Dream On Me Aero Travel Light Stroller isn’t just a stroller — it’s your family’s perfect travel companion, ready for every destination and every memory you’ll make along the journey.",
-    "Product_Specifications": {
-      "Measurements": {
-        "Item Weight": "7.4 Pounds",
-        "Folded Size": "23.5*31*17 Inches or 31.5*11.8 Inches",
-        "Rear Facing Stroller Maximum Height": "91.4 Centimeters",
-        "Item Dimensions L x W x H": "13\"L x 24\"W x 36\"H",
-        "Frame Weight": "7.4 Pounds"
-      },
-      "Features_Specs": {
-        "Harness Type": "3 Point",
-        "Stroller Type": "Umbrella Stroller",
-        "Is Car Seat Compatible": "No",
-        "Harness Feature": "Adjustable straps",
-        "Seating Capacity": "1",
-        "Additional Features": "3 Point Safety Harness, Dual Brake Wheel System, Lightweight & Travel Friendly, One Hand Quick Fold, Steel Frame & Durable",
-        "Built-in Light": "No",
-        "Number of Wheels": "4",
-        "Has Stroller Brake System": "Yes"
-      },
-      "Materials_Care": {
-        "Material Type": "Steel Frame",
-        "Frame Material": "Alloy Steel",
-        "Canopy Material": "300D Polyester",
-        "Care Instructions": "Wipe with damp cloth",
-        "Seat Material": "300D Polyester",
-        "Tire Material": "Rubber",
-        "Fabric Type": "300D Polyester"
-      },
-      "Item_Details": {
-        "Brand": "Dream On Me",
-        "Age Range Description": "6-36 months",
-        "Included Components": "Stroller and Canopy",
-        "Model Number": "451XX-BLK",
-        "UPC": "810150800760",
-        "Part Number": "451XX-BLK",
-        "Manufacturer": "Dream On Me",
-        "Unit Count": "1.0 Count",
-        "Best Sellers Rank": "#880 in Baby (See Top 100 in Baby) #3 in Lightweight Baby Strollers",
-        "ASIN": "B0DC5GGJRP",
-        "Customer Reviews": "4.4  4.4 out of 5 stars   \n    (1,038)  \n\n 4.4 out of 5 stars"
-      },
-      "User_Guide": {
-        "Maximum Weight Recommendation": "33 Pounds",
-        "Rear Facing Minimum Weight": "33 Pounds",
-        "Specification Met": "ASTM",
-        "Assembly Instructions Description": "Easy assembly no tools needed.",
-        "Rear Facing Maximum Weight": "33 Pounds",
-        "Installation Type": "foldable/collapsible"
-      },
-      "Additional_Details": {
-        "Color": "Black",
-        "Frame Color": "Black"
-      }
-    },
-    "Category_Attributes": {
-      "Brand": "Dream On Me",
-      "Color": "Black",
-      "Age Range Description": "6-36 months",
-      "Item Weight": "7.4 Pounds",
-      "Number of Wheels": "4",
-      "Frame Material": "Alloy Steel"
-    },
-    "Product_Display_Fields": {
-      "weightLimit": {
-        "value": "1.0",
-        "source": "Product_Specifications.Features_Specs.Seating Capacity"
-      },
-      "itemWeight": {
-        "value": "7.4 Pounds",
-        "source": "Product_Specifications.Measurements.Item Weight"
-      },
-      "brakeSystem": {
-        "value": "Yes",
-        "source": "Product_Specifications.Features_Specs.Has Stroller Brake System"
-      },
-      "dimensions": {
-        "value": "13\"L x 24\"W x 36\"H",
-        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
-      },
-      "foldability": {
-        "value": "23.5*31*17 Inches or 31.5*11.8 Inches",
-        "source": "Product_Specifications.Measurements.Folded Size"
-      },
-      "harness": {
-        "value": "3 Point",
-        "source": "Product_Specifications.User_Guide.Harness Type"
-      },
-      "seatRecline": {
-        "value": "No",
-        "source": "Product_Specifications.Features_Specs.Is Car Seat Compatible"
-      }
-    },
-    "pros": [
-      "300D Polyester (Features[1])",
-      "Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds, the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on... (Features[2])",
-      "Compact One-Hand Fold - The Dream On Me Aero Travel Light Stroller features a quick one-hand fold design, making it easy to collapse and store in seconds. Perfect for apartments,... (Features[3])",
-      "Durable and Safe - Built with a sturdy steel frame and high-quality 300D polyester fabric, the Aero Travel Light Stroller ensures lasting durability and comfort for your little on... (Features[4])"
-    ],
-    "cons": [
-      "Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds, the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on... (Features[2])",
-      "Enjoy a stable and comfortable ride for your child with front wheels featuring suspension and a direction fixer, while the rear wheels come equipped with dual brakes and suspensio... (Features[6])",
-      "Is Car Seat Compatible: No (Product_Specifications.Features_Specs.Is Car Seat Compatible)",
-      "Seating Capacity: 1.0 (Product_Specifications.Features_Specs.Seating Capacity)"
-    ],
-    "scenarios": [
-      "stroller"
-    ],
-    "relatedProductIds": [],
-    "status": "published",
-    "safetyScore": 8.4,
-    "weightScore": 9.1,
-    "geometryScore": 9.1,
-    "overallScore": 8.9,
-    "editorVerdict": "300D Polyester Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds, the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on... Compact One-Hand Fold - The Dream On Me Aero Travel Light Stroller features a quick one-hand fold design, making it easy to collapse and store in seconds. Perfect for apartments,...",
-    "scrapedEvidence": [
-      {
-        "source": "Features[1]",
-        "text": "300D Polyester"
-      },
-      {
-        "source": "Features[2]",
-        "text": "Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds, the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on..."
-      },
-      {
-        "source": "Features[3]",
-        "text": "Compact One-Hand Fold - The Dream On Me Aero Travel Light Stroller features a quick one-hand fold design, making it easy to collapse and store in seconds. Perfect for apartments,..."
-      },
-      {
-        "source": "Features[4]",
-        "text": "Durable and Safe - Built with a sturdy steel frame and high-quality 300D polyester fabric, the Aero Travel Light Stroller ensures lasting durability and comfort for your little on..."
-      },
-      {
-        "source": "Features[5]",
-        "text": "Removable Canopy & Safety Certified - Keep your baby safe and comfortable with the adjustable, removable canopy that provides full coverage from sun and wind. The Aero Travel Ligh..."
-      },
-      {
-        "source": "Features[6]",
-        "text": "Enjoy a stable and comfortable ride for your child with front wheels featuring suspension and a direction fixer, while the rear wheels come equipped with dual brakes and suspensio..."
-      },
-      {
-        "source": "Product_Description",
-        "text": "Every parent knows that the best adventures begin with a little preparation — and the Dream On Me Aero Travel Light Stroller is built to make every journey easier, lighter, and fu..."
-      },
-      {
-        "source": "From_The_Manufacturer.Sections[1].Title",
-        "text": "Travel Light, Travel Safe – The Perfect Stroller for Every Adventure!"
-      }
-    ],
-    "scoringStandards": [
-      {
-        "key": "safety",
-        "label": "Safety First",
-        "parentTip": "Durable and Safe - Built with a sturdy steel frame and high-quality 300D polyester fabric, the Aero Travel Light Stroller ensures lasting durability and comfort for your little on...",
-        "evidence": [
+      "id": "stroller-b0dc5ggjrp",
+      "name": "Dream On Me Aero Travel Umbrella Stroller, One-Hand Quick Fold, Double Canopy, Lightweight & Compact, Black",
+      "brand": "Dream",
+      "category": "stroller",
+      "categoryId": "stroller",
+      "wheelSize": "N/A",
+      "weight": 7.4,
+      "material": "Steel",
+      "brakeType": "3-Point Harness",
+      "tireType": "N/A",
+      "price": 33.99,
+      "ageRange": "6-36 months | 6 to 36 Months | for 6 to 36 Months",
+      "heightRange": [
+          50,
+          110
+      ],
+      "compliance": [
+          "EN1888"
+      ],
+      "safetyCertification": [
+          "EN1888"
+      ],
+      "imageUrl": "https://store.balancebiketoddler.com/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream%20On%20Me%20Aero%20Travel%20Umbrella%20Stroller%20One-Hand/images/primary.jpg",
+      "galleryUrls": [
+          "https://store.balancebiketoddler.com/stroller/Dream/Rank_7_ASIN_B0DC5GGJRP_Dream%20On%20Me%20Aero%20Travel%20Umbrella%20Stroller%20One-Hand/images/primary.jpg"
+      ],
+      "videoUrl": "about:blank#external-url-removed",
+      "videos": [
           {
-            "source": "Features[4]",
-            "text": "Durable and Safe - Built with a sturdy steel frame and high-quality 300D polyester fabric, the Aero Travel Light Stroller ensures lasting durability and comfort for your little on..."
+              "url": "about:blank#external-url-removed",
+              "title": "video-1",
+              "source": "scraped",
+              "order": 0
           },
           {
-            "source": "Features[5]",
-            "text": "Removable Canopy & Safety Certified - Keep your baby safe and comfortable with the adjustable, removable canopy that provides full coverage from sun and wind. The Aero Travel Ligh..."
+              "url": "about:blank#external-url-removed",
+              "title": "video-2",
+              "source": "scraped",
+              "order": 1
           },
           {
-            "source": "Features[6]",
-            "text": "Enjoy a stable and comfortable ride for your child with front wheels featuring suspension and a direction fixer, while the rear wheels come equipped with dual brakes and suspensio..."
-          },
-          {
-            "source": "Product_Description",
-            "text": "Every parent knows that the best adventures begin with a little preparation — and the Dream On Me Aero Travel Light Stroller is built to make every journey easier, lighter, and fu..."
+              "url": "about:blank#external-url-removed",
+              "title": "video-3",
+              "source": "scraped",
+              "order": 2
           }
-        ]
-      },
-      {
-        "key": "comfort",
-        "label": "Riding Comfort",
-        "parentTip": "Is Car Seat Compatible: No",
-        "evidence": [
-          {
-            "source": "Product_Specifications.Features_Specs.Is Car Seat Compatible",
-            "text": "Is Car Seat Compatible: No"
+      ],
+      "features": [
+          "<100",
+          "Ultra Lightweight"
+      ],
+      "description": "Every parent knows that the best adventures begin with a little preparation — and the Dream On Me Aero Travel Light Stroller is built to make every journey easier, lighter, and full of joy. Whether you’re strolling",
+      "Product_Description": "Every parent knows that the best adventures begin with a little preparation — and the Dream On Me Aero Travel Light Stroller is built to make every journey easier, lighter, and full of joy. Whether you’re strolling",
+      "Product_Specifications": {
+          "Measurements": {
+              "Item Weight": "7.4 Pounds",
+              "Folded Size": "23.5*31*17 Inches or 31.5*11.8 Inches",
+              "Rear Facing Stroller Maximum Height": "91.4 Centimeters",
+              "Item Dimensions L x W x H": "13\"L x 24\"W x 36\"H",
+              "Frame Weight": "7.4 Pounds"
           },
-          {
-            "source": "Product_Specifications.Features_Specs.Seating Capacity",
-            "text": "Seating Capacity: 1.0"
+          "Features_Specs": {
+              "Harness Type": "3 Point",
+              "Stroller Type": "Umbrella Stroller",
+              "Is Car Seat Compatible": "No",
+              "Harness Feature": "Adjustable straps",
+              "Seating Capacity": "1",
+              "Additional Features": "3 Point Safety Harness, Dual Brake Wheel System, Lightweight & Travel Friendly, One Hand Quick Fold, Steel Frame & Durable",
+              "Built-in Light": "No",
+              "Number of Wheels": "4",
+              "Has Stroller Brake System": "Yes",
+              "Category": "stroller",
+              "Frame Material": "Steel",
+              "Brake": "3-Point Harness"
+          },
+          "Materials_Care": {
+              "Material Type": "Steel Frame",
+              "Frame Material": "Alloy Steel",
+              "Canopy Material": "300D Polyester",
+              "Care Instructions": "Wipe with damp cloth",
+              "Seat Material": "300D Polyester",
+              "Tire Material": "Rubber",
+              "Fabric Type": "300D Polyester",
+              "Material": "Steel",
+              "Tire": "N/A"
+          },
+          "Item_Details": {
+              "Brand": "Dream On Me",
+              "Age Range Description": "6-36 months",
+              "Included Components": "Stroller and Canopy",
+              "Model Number": "451XX-BLK",
+              "UPC": "810150800760",
+              "Part Number": "451XX-BLK",
+              "Manufacturer": "Dream On Me",
+              "Unit Count": "1.0 Count",
+              "Best Sellers Rank": "#880 in Baby (See Top 100 in Baby) #3 in Lightweight Baby Strollers",
+              "ASIN": "B0DC5GGJRP",
+              "Customer Reviews": "4.4  4.4 out of 5 stars   \n    (1,038)  \n\n 4.4 out of 5 stars"
+          },
+          "User_Guide": {
+              "Maximum Weight Recommendation": "33 Pounds",
+              "Rear Facing Minimum Weight": "33 Pounds",
+              "Specification Met": "ASTM",
+              "Assembly Instructions Description": "Easy assembly no tools needed.",
+              "Rear Facing Maximum Weight": "33 Pounds",
+              "Installation Type": "foldable/collapsible"
+          },
+          "Additional_Details": {
+              "Color": "Black",
+              "Frame Color": "Black"
           }
-        ]
       },
-      {
-        "key": "portability",
-        "label": "Light & Easy",
-        "parentTip": "Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds, the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on....",
-        "evidence": [
-          {
-            "source": "Features[2]",
-            "text": "Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds, the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on..."
+      "Category_Attributes": {
+          "Brand": "Dream On Me",
+          "Color": "Black",
+          "Age Range Description": "6-36 months",
+          "Item Weight": "7.4 Pounds",
+          "Number of Wheels": "4",
+          "Frame Material": "Alloy Steel",
+          "categoryId": "stroller"
+      },
+      "Product_Display_Fields": {
+          "weightLimit": {
+              "value": "1.0",
+              "source": "Product_Specifications.Features_Specs.Seating Capacity"
           },
-          {
-            "source": "Features[3]",
-            "text": "Compact One-Hand Fold - The Dream On Me Aero Travel Light Stroller features a quick one-hand fold design, making it easy to collapse and store in seconds. Perfect for apartments,..."
+          "itemWeight": {
+              "value": "7.4 Pounds",
+              "source": "Product_Specifications.Measurements.Item Weight"
           },
-          {
-            "source": "From_The_Manufacturer.Sections[1].Texts[2]",
-            "text": "Quick & Easy One-hand folding baby stroller."
+          "brakeSystem": {
+              "value": "Yes",
+              "source": "Product_Specifications.Features_Specs.Has Stroller Brake System"
           },
-          {
-            "source": "From_The_Manufacturer.Sections[1].Texts[3]",
-            "text": "Easy to clean"
+          "dimensions": {
+              "value": "13\"L x 24\"W x 36\"H",
+              "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          },
+          "foldability": {
+              "value": "23.5*31*17 Inches or 31.5*11.8 Inches",
+              "source": "Product_Specifications.Measurements.Folded Size"
+          },
+          "harness": {
+              "value": "3 Point",
+              "source": "Product_Specifications.User_Guide.Harness Type"
+          },
+          "seatRecline": {
+              "value": "No",
+              "source": "Product_Specifications.Features_Specs.Is Car Seat Compatible"
           }
-        ]
+      },
+      "pros": [
+          "300D Polyester (Features[1])",
+          "Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds, the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on... (Features[2])",
+          "Compact One-Hand Fold - The Dream On Me Aero Travel Light Stroller features a quick one-hand fold design, making it easy to collapse and store in seconds. Perfect for apartments,... (Features[3])",
+          "Durable and Safe - Built with a sturdy steel frame and high-quality 300D polyester fabric, the Aero Travel Light Stroller ensures lasting durability and comfort for your little on... (Features[4])"
+      ],
+      "cons": [
+          "Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds, the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on... (Features[2])",
+          "Enjoy a stable and comfortable ride for your child with front wheels featuring suspension and a direction fixer, while the rear wheels come equipped with dual brakes and suspensio... (Features[6])",
+          "Is Car Seat Compatible: No (Product_Specifications.Features_Specs.Is Car Seat Compatible)",
+          "Seating Capacity: 1.0 (Product_Specifications.Features_Specs.Seating Capacity)"
+      ],
+      "scenarios": [
+          "stroller"
+      ],
+      "relatedProductIds": [],
+      "status": "published",
+      "safetyScore": 8.4,
+      "weightScore": 9.1,
+      "geometryScore": 9.1,
+      "overallScore": 8.9,
+      "editorVerdict": "300D Polyester Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds, the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on... Compact One-Hand Fold - The Dream On Me Aero Travel Light Stroller features a quick one-hand fold design, making it easy to collapse and store in seconds. Perfect for apartments,...",
+      "scrapedEvidence": [
+          {
+              "source": "Features[1]",
+              "text": "300D Polyester"
+          },
+          {
+              "source": "Features[2]",
+              "text": "Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds, the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on..."
+          },
+          {
+              "source": "Features[3]",
+              "text": "Compact One-Hand Fold - The Dream On Me Aero Travel Light Stroller features a quick one-hand fold design, making it easy to collapse and store in seconds. Perfect for apartments,..."
+          },
+          {
+              "source": "Features[4]",
+              "text": "Durable and Safe - Built with a sturdy steel frame and high-quality 300D polyester fabric, the Aero Travel Light Stroller ensures lasting durability and comfort for your little on..."
+          },
+          {
+              "source": "Features[5]",
+              "text": "Removable Canopy & Safety Certified - Keep your baby safe and comfortable with the adjustable, removable canopy that provides full coverage from sun and wind. The Aero Travel Ligh..."
+          },
+          {
+              "source": "Features[6]",
+              "text": "Enjoy a stable and comfortable ride for your child with front wheels featuring suspension and a direction fixer, while the rear wheels come equipped with dual brakes and suspensio..."
+          },
+          {
+              "source": "Product_Description",
+              "text": "Every parent knows that the best adventures begin with a little preparation — and the Dream On Me Aero Travel Light Stroller is built to make every journey easier, lighter, and fu..."
+          },
+          {
+              "source": "From_The_Manufacturer.Sections[1].Title",
+              "text": "Travel Light, Travel Safe – The Perfect Stroller for Every Adventure!"
+          }
+      ],
+      "scoringStandards": [
+          {
+              "key": "safety",
+              "label": "Safety First",
+              "parentTip": "Durable and Safe - Built with a sturdy steel frame and high-quality 300D polyester fabric, the Aero Travel Light Stroller ensures lasting durability and comfort for your little on...",
+              "evidence": [
+                  {
+                      "source": "Features[4]",
+                      "text": "Durable and Safe - Built with a sturdy steel frame and high-quality 300D polyester fabric, the Aero Travel Light Stroller ensures lasting durability and comfort for your little on..."
+                  },
+                  {
+                      "source": "Features[5]",
+                      "text": "Removable Canopy & Safety Certified - Keep your baby safe and comfortable with the adjustable, removable canopy that provides full coverage from sun and wind. The Aero Travel Ligh..."
+                  },
+                  {
+                      "source": "Features[6]",
+                      "text": "Enjoy a stable and comfortable ride for your child with front wheels featuring suspension and a direction fixer, while the rear wheels come equipped with dual brakes and suspensio..."
+                  },
+                  {
+                      "source": "Product_Description",
+                      "text": "Every parent knows that the best adventures begin with a little preparation — and the Dream On Me Aero Travel Light Stroller is built to make every journey easier, lighter, and fu..."
+                  }
+              ]
+          },
+          {
+              "key": "comfort",
+              "label": "Riding Comfort",
+              "parentTip": "Is Car Seat Compatible: No",
+              "evidence": [
+                  {
+                      "source": "Product_Specifications.Features_Specs.Is Car Seat Compatible",
+                      "text": "Is Car Seat Compatible: No"
+                  },
+                  {
+                      "source": "Product_Specifications.Features_Specs.Seating Capacity",
+                      "text": "Seating Capacity: 1.0"
+                  }
+              ]
+          },
+          {
+              "key": "portability",
+              "label": "Light & Easy",
+              "parentTip": "Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds, the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on....",
+              "evidence": [
+                  {
+                      "source": "Features[2]",
+                      "text": "Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds, the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on..."
+                  },
+                  {
+                      "source": "Features[3]",
+                      "text": "Compact One-Hand Fold - The Dream On Me Aero Travel Light Stroller features a quick one-hand fold design, making it easy to collapse and store in seconds. Perfect for apartments,..."
+                  },
+                  {
+                      "source": "From_The_Manufacturer.Sections[1].Texts[2]",
+                      "text": "Quick & Easy One-hand folding baby stroller."
+                  },
+                  {
+                      "source": "From_The_Manufacturer.Sections[1].Texts[3]",
+                      "text": "Easy to clean"
+                  }
+              ]
+          }
+      ],
+      "zh": {
+          "name": "Dream On Me Aero 极轻登机伞车，单手秒收避震伞车，五点安全平顺推行 - 黑色",
+          "description": "Dream On Me Aero 极轻登机伞车，单手秒收避震伞车，五点安全平顺推行 - 黑色",
+          "editorVerdict": "专为 6-36 个月打造的高阶轻便伞车。Dream On Me 凭借超轻量化便携车身、单手一键快折叠、伞车式超紧凑收纳，在极简车身上实现了安全防护与出行便利的出色平衡。4轴轮组提供平顺推行反馈，是现代高频家庭高性价比的可靠伴侣。"
+      },
+      "en": {
+          "name": "Dream On Me Aero Travel Umbrella Stroller, One-Hand Quick Fold, 3-Point Safety Harness, Dual Brakes, Adjustable Removable Canopy, Lightweight Compact & Space-Saving, for 6 to 36 Months – Black",
+          "description": "Dream Dream On Me Aero Travel Umbrella Stroller, One-Hand Quick Fold, 3-Point Safety Harness, Dual Brakes, Adjustable Removable Canopy, Lightweight Compact & Space-Saving, for 6 to 36 Months – Black",
+          "editorVerdict": "300D Polyester Lightweight & Travel-Friendly Design - Weighing just 7.4 pounds, the Dream On Me Aero Travel Light Stroller makes traveling with your little one effortless. Ideal for families on... Compact One-Hand Fold - The Dream On Me Aero Travel Light Stroller features a quick one-hand fold design, making it easy to collapse and store in seconds. Perfect for apartments,..."
       }
-    ]
   },
   {
     "id": "stroller-b07sdh646b",
@@ -37067,266 +37083,282 @@ export const productsData: Product[] = [
     ]
   },
   {
-    "id": "stroller-b0d2lxk44t",
-    "name": "Graco Ready2Jet Compact Stroller Overhead Friendly Compact Travel Stroller with Automatic Fold, Kingston",
-    "brand": "Graco",
-    "category": "stroller",
-    "categoryId": "stroller",
-    "wheelSize": "N/A",
-    "weight": 13.2,
-    "material": "N/A",
-    "brakeType": "5-Point Harness",
-    "tireType": "N/A",
-    "price": 144.39,
-    "ageRange": "Infant",
-    "heightRange": [
-      50,
-      110
-    ],
-    "compliance": [
-      "EN1888"
-    ],
-    "safetyCertification": [
-      "EN1888"
-    ],
-    "imageUrl": "https://store.balancebiketoddler.com/stroller/Graco/Rank_6_ASIN_B0D2LXK44T_Graco%20Ready2Jet%20Compact%20Stroller%20Overhead%20Friendly/images/primary.jpg",
-    "galleryUrls": [
-      "https://store.balancebiketoddler.com/stroller/Graco/Rank_6_ASIN_B0D2LXK44T_Graco%20Ready2Jet%20Compact%20Stroller%20Overhead%20Friendly/images/primary.jpg"
-    ],
-    "videoUrl": "",
-    "videos": [],
-    "features": [
-      "Automatically Folds To A Compact Size With One Hand Activation For Multi Tasking Families",
-      "Travel Stroller Is Overhead Friendly* So You Can Go More Places Together *we Recommend Checking With Your Local Airline Prior To Departure For Specific Carry On Requirements",
-      "Self Standing Compact Fold And Ultra Lightweight At 13.2 Lb",
-      "Making This Fully Featured Stroller Easy To Store And Transport"
-    ],
-    "description": "The Graco Ready2Jet Compact Stroller features an automatic, self-fold with one-hand activation that makes it easy to fold and unfold, while its self-standing fold keeps your hands free. Weighing just 13.2 lb—less than two gallons of milk—this compact stroller is fully-featured and ultra lightweight! Experience the added convenience of a collapsible travel stroller that's overhead friendly* for ultimate portability, making it the perfect airport companion. Your child will ride in comfort with a multi-position reclining seat and adjustable calf support under a UV 50 oversized canopy with visor, while the easy-access storage basket helps keep parent and baby travel essentials in a one safe place. All-wheel suspension ensures a smooth ride. Parents will love the included parent cup holder and stylish leatherette stroller handle. The removable belly bar doubles as a carry handle for even more convenience. *We recommend checking with your local airline prior to departure for specific carry-on requirements.",
-    "Product_Description": "The Graco Ready2Jet Compact Stroller features an automatic, self-fold with one-hand activation that makes it easy to fold and unfold, while its self-standing fold keeps your hands free. Weighing just 13.2 lb—less than two gallons of milk—this compact stroller is fully-featured and ultra lightweight! Experience the added convenience of a collapsible travel stroller that's overhead friendly* for ultimate portability, making it the perfect airport companion. Your child will ride in comfort with a multi-position reclining seat and adjustable calf support under a UV 50 oversized canopy with visor, while the easy-access storage basket helps keep parent and baby travel essentials in a one safe place. All-wheel suspension ensures a smooth ride. Parents will love the included parent cup holder and stylish leatherette stroller handle. The removable belly bar doubles as a carry handle for even more convenience. *We recommend checking with your local airline prior to departure for specific carry-on requirements.",
-    "Product_Specifications": {
-      "Measurements": {
-        "Item Weight": "13.2 Pounds",
-        "Folded Size": "Less than 43.5*12.0*8.0 Inches",
-        "Rear Facing Stroller Maximum Height": "43 Inches",
-        "Item Dimensions L x W x H": "27\"L x 20.5\"W x 43\"H",
-        "Car Seat Weight Capacity Maximum": "50 Pounds"
-      },
-      "Features_Specs": {
-        "Harness Type": "5 Point",
-        "Stroller Type": "Standard Stroller",
-        "Is Car Seat Compatible": "Yes",
-        "Number of Cup Holders": "1",
-        "Harness Feature": "adjustable straps, padded for comfort",
-        "Seating Capacity": "1",
-        "Additional Features": "automatic fold mechanism, lightweight, all-wheel suspension, compatible with all Graco SnugRide infant car seats",
-        "Built-in Light": "No",
-        "Number of Wheels": "4",
-        "Has Stroller Brake System": "Yes"
-      },
-      "Materials_Care": {
-        "Material Type": "Metal",
-        "Frame Material": "Metal",
-        "Canopy Material": "Polyester",
-        "Care Instructions": "Hand Wash Only",
-        "Seat Material": "Polyester",
-        "Tire Material": "Rubber"
-      },
-      "Item_Details": {
-        "Brand": "Graco",
-        "Age Range Description": "Infant",
-        "Import Designation": "Imported",
-        "Included Components": "Stroller with removable belly bar, parent cup holder, and UV 50 canopy",
-        "Model Number": "2209064",
-        "Manufacturer Warranty Description": "1 Year Limited Warranty",
-        "UPC": "047406189397",
-        "Global Trade Identification Number": "00047406189397",
-        "Part Number": "2209064",
-        "Manufacturer": "Newell",
-        "Unit Count": "1.0 Count",
-        "Best Sellers Rank": "#930 in Baby (See Top 100 in Baby) #3 in Lightweight Baby Strollers",
-        "ASIN": "B0D2LXK44T",
-        "Customer Reviews": "4.7  4.7 out of 5 stars   \n    (793)  \n\n 4.7 out of 5 stars"
-      },
-      "User_Guide": {
-        "Maximum Weight Recommendation": "50 Pounds",
-        "Rear Facing Minimum Weight": "5.5 Kilograms",
-        "Rear Facing Maximum Weight": "50 Pounds",
-        "Installation Type": "foldable/collapsible"
-      },
-      "Additional_Details": {
-        "Color": "Kingston",
-        "Frame Color": "Grey"
-      }
-    },
-    "Category_Attributes": {
-      "Brand": "Graco",
-      "Color": "Kingston",
-      "Age Range Description": "Infant",
-      "Item Weight": "13.2 Pounds",
-      "Number of Wheels": "4",
-      "Frame Material": "Metal"
-    },
-    "Product_Display_Fields": {
-      "weightLimit": {
-        "value": "50 Pounds",
-        "source": "Product_Specifications.Measurements.Car Seat Weight Capacity Maximum"
-      },
-      "itemWeight": {
-        "value": "13.2 Pounds",
-        "source": "Product_Specifications.Measurements.Item Weight"
-      },
-      "brakeSystem": {
-        "value": "Yes",
-        "source": "Product_Specifications.Features_Specs.Has Stroller Brake System"
-      },
-      "dimensions": {
-        "value": "27\"L x 20.5\"W x 43\"H",
-        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
-      },
-      "foldability": {
-        "value": "Less than 43.5*12.0*8.0 Inches",
-        "source": "Product_Specifications.Measurements.Folded Size"
-      },
-      "harness": {
-        "value": "5 Point",
-        "source": "Product_Specifications.User_Guide.Harness Type"
-      },
-      "seatRecline": {
-        "value": "50 Pounds",
-        "source": "Product_Specifications.Measurements.Car Seat Weight Capacity Maximum"
-      },
-      "storage": {
-        "value": "1",
-        "source": "Product_Specifications.Item_Details.Number of Cup Holders"
-      }
-    },
-    "pros": [
-      "Automatically folds to a compact size with one-hand activation for multi-tasking families (Features[1])",
-      "Travel stroller is overhead friendly* so you can go more places together *We recommend checking with your local airline prior to departure for specific carry-on requirements (Features[2])",
-      "Self-standing compact fold and ultra-lightweight at 13.2 lb, making this fully featured stroller easy to store and transport (Features[3])",
-      "Removable belly bar that doubles as a carry handle, stylish leatherette handle, UV 50 canopy, storage basket, and parent cup holder for easy, convenient strolling (Features[4])"
-    ],
-    "cons": [
-      "Self-standing compact fold and ultra-lightweight at 13.2 lb, making this fully featured stroller easy to store and transport (Features[3])",
-      "All-wheel suspension, multi-position reclining seat, convertible 3- or 5-point harness with ultra-soft webbing and harness covers, and adjustable calf support for a smooth, comfor... (Features[5])",
-      "Single-action, one-foot tap brake makes parking a breeze (Features[7])",
-      "Has Stroller Brake System: Yes (Product_Specifications.Features_Specs.Has Stroller Brake System)"
-    ],
-    "scenarios": [
-      "stroller"
-    ],
-    "relatedProductIds": [],
-    "status": "published",
-    "safetyScore": 9.1,
-    "weightScore": 8.3,
-    "geometryScore": 9.2,
-    "overallScore": 8.9,
-    "editorVerdict": "Automatically folds to a compact size with one-hand activation for multi-tasking families Travel stroller is overhead friendly* so you can go more places together *We recommend checking with your local airline prior to departure for specific carry-on requirements Self-standing compact fold and ultra-lightweight at 13.2 lb, making this fully featured stroller easy to store and transport",
-    "scrapedEvidence": [
-      {
-        "source": "Features[1]",
-        "text": "Automatically folds to a compact size with one-hand activation for multi-tasking families"
-      },
-      {
-        "source": "Features[2]",
-        "text": "Travel stroller is overhead friendly* so you can go more places together *We recommend checking with your local airline prior to departure for specific carry-on requirements"
-      },
-      {
-        "source": "Features[3]",
-        "text": "Self-standing compact fold and ultra-lightweight at 13.2 lb, making this fully featured stroller easy to store and transport"
-      },
-      {
-        "source": "Features[4]",
-        "text": "Removable belly bar that doubles as a carry handle, stylish leatherette handle, UV 50 canopy, storage basket, and parent cup holder for easy, convenient strolling"
-      },
-      {
-        "source": "Features[5]",
-        "text": "All-wheel suspension, multi-position reclining seat, convertible 3- or 5-point harness with ultra-soft webbing and harness covers, and adjustable calf support for a smooth, comfor..."
-      },
-      {
-        "source": "Features[6]",
-        "text": "Accepts all Graco SnugRide ICSs to become a travel system"
-      },
-      {
-        "source": "Features[7]",
-        "text": "Single-action, one-foot tap brake makes parking a breeze"
-      },
-      {
-        "source": "Product_Description",
-        "text": "The Graco Ready2Jet Compact Stroller features an automatic, self-fold with one-hand activation that makes it easy to fold and unfold, while its self-standing fold keeps your hands..."
-      }
-    ],
-    "scoringStandards": [
-      {
-        "key": "safety",
-        "label": "Safety First",
-        "parentTip": "All-wheel suspension, multi-position reclining seat, convertible 3- or 5-point harness with ultra-soft webbing and harness covers, and adjustable calf support for a smooth, comfor...",
-        "evidence": [
-          {
-            "source": "Features[5]",
-            "text": "All-wheel suspension, multi-position reclining seat, convertible 3- or 5-point harness with ultra-soft webbing and harness covers, and adjustable calf support for a smooth, comfor..."
+      "id": "stroller-b0d2lxk44t",
+      "name": "Graco Ready2Jet Compact Stroller, Overhead Friendly Compact Travel Stroller with Automatic Fold, Kingston",
+      "brand": "Graco",
+      "category": "stroller",
+      "categoryId": "stroller",
+      "wheelSize": "N/A",
+      "weight": 15.6,
+      "material": "Alloy Steel",
+      "brakeType": "One-Step Foot Brake",
+      "tireType": "EVA Solid",
+      "price": 144.39,
+      "ageRange": "Infant",
+      "heightRange": [
+          50,
+          110
+      ],
+      "compliance": [
+          "EN1888"
+      ],
+      "safetyCertification": [
+          "EN1888"
+      ],
+      "imageUrl": "https://store.balancebiketoddler.com/stroller/Graco/Rank_6_ASIN_B0D2LXK44T_Graco%20Ready2Jet%20Compact%20Stroller%20Overhead%20Friendly/images/primary.jpg",
+      "galleryUrls": [
+          "https://store.balancebiketoddler.com/stroller/Graco/Rank_6_ASIN_B0D2LXK44T_Graco%20Ready2Jet%20Compact%20Stroller%20Overhead%20Friendly/images/primary.jpg"
+      ],
+      "videoUrl": "",
+      "videos": [],
+      "features": [
+          "Automatically Folds To A Compact Size With One Hand Activation For Multi Tasking Families",
+          "Travel Stroller Is Overhead Friendly* So You Can Go More Places Together *we Recommend Checking With Your Local Airline Prior To Departure For Specific Carry On Requirements",
+          "Self Standing Compact Fold And Ultra Lightweight At 13.2 Lb",
+          "Making This Fully Featured Stroller Easy To Store And Transport"
+      ],
+      "description": "Accepts all Graco infant car seats with a secure-one step attachment to create your own travel system",
+      "Product_Description": "Accepts all Graco infant car seats with a secure-one step attachment to create your own travel system",
+      "Product_Specifications": {
+          "Measurements": {
+              "Item Weight": "15.6 Pounds",
+              "Folded Size": "Less than 43.5*12.0*8.0 Inches",
+              "Rear Facing Stroller Maximum Height": "43 Inches",
+              "Item Dimensions L x W x H": "27\"L x 20.5\"W x 43\"H",
+              "Car Seat Weight Capacity Maximum": "50 Pounds"
           },
-          {
-            "source": "Features[7]",
-            "text": "Single-action, one-foot tap brake makes parking a breeze"
+          "Features_Specs": {
+              "Harness Type": "5 Point",
+              "Stroller Type": "Standard Stroller",
+              "Is Car Seat Compatible": "Yes",
+              "Number of Cup Holders": "1",
+              "Harness Feature": "adjustable straps, padded for comfort",
+              "Seating Capacity": "1",
+              "Additional Features": "automatic fold mechanism, lightweight, all-wheel suspension, compatible with all Graco SnugRide infant car seats",
+              "Built-in Light": "No",
+              "Number of Wheels": "4",
+              "Has Stroller Brake System": "Yes",
+              "Category": "stroller",
+              "Frame Material": "Alloy Steel",
+              "Brake": "One-Step Foot Brake"
           },
-          {
-            "source": "Product_Description",
-            "text": "The Graco Ready2Jet Compact Stroller features an automatic, self-fold with one-hand activation that makes it easy to fold and unfold, while its self-standing fold keeps your hands..."
+          "Materials_Care": {
+              "Material Type": "Metal",
+              "Frame Material": "Metal",
+              "Canopy Material": "Polyester",
+              "Care Instructions": "Hand Wash Only",
+              "Seat Material": "Polyester",
+              "Tire Material": "Rubber",
+              "Material": "Alloy Steel",
+              "Tire": "EVA Solid"
           },
-          {
-            "source": "Product_Specifications.Features_Specs.Has Stroller Brake System",
-            "text": "Has Stroller Brake System: Yes"
+          "Item_Details": {
+              "Brand": "Graco",
+              "Age Range Description": "Infant",
+              "Import Designation": "Imported",
+              "Included Components": "Stroller with removable belly bar, parent cup holder, and UV 50 canopy",
+              "Model Number": "2209064",
+              "Manufacturer Warranty Description": "1 Year Limited Warranty",
+              "UPC": "047406189397",
+              "Global Trade Identification Number": "00047406189397",
+              "Part Number": "2209064",
+              "Manufacturer": "Newell",
+              "Unit Count": "1.0 Count",
+              "Best Sellers Rank": "#930 in Baby (See Top 100 in Baby) #3 in Lightweight Baby Strollers",
+              "ASIN": "B0D2LXK44T",
+              "Customer Reviews": "4.7  4.7 out of 5 stars   \n    (793)  \n\n 4.7 out of 5 stars"
+          },
+          "User_Guide": {
+              "Maximum Weight Recommendation": "50 Pounds",
+              "Rear Facing Minimum Weight": "5.5 Kilograms",
+              "Rear Facing Maximum Weight": "50 Pounds",
+              "Installation Type": "foldable/collapsible"
+          },
+          "Additional_Details": {
+              "Color": "Kingston",
+              "Frame Color": "Grey"
           }
-        ]
       },
-      {
-        "key": "comfort",
-        "label": "Riding Comfort",
-        "parentTip": "Removable belly bar that doubles as a carry handle, stylish leatherette handle, UV 50 canopy, storage basket, and parent cup holder for easy, convenient strolling",
-        "evidence": [
-          {
-            "source": "Features[4]",
-            "text": "Removable belly bar that doubles as a carry handle, stylish leatherette handle, UV 50 canopy, storage basket, and parent cup holder for easy, convenient strolling"
-          },
-          {
-            "source": "Product_Specifications.Measurements.Car Seat Weight Capacity Maximum",
-            "text": "Car Seat Weight Capacity Maximum: 50 Pounds"
-          },
-          {
-            "source": "Product_Specifications.Features_Specs.Is Car Seat Compatible",
-            "text": "Is Car Seat Compatible: Yes"
-          },
-          {
-            "source": "Product_Specifications.Features_Specs.Seating Capacity",
-            "text": "Seating Capacity: 1"
-          }
-        ]
+      "Category_Attributes": {
+          "Brand": "Graco",
+          "Color": "Kingston",
+          "Age Range Description": "Infant",
+          "Item Weight": "13.2 Pounds",
+          "Number of Wheels": "4",
+          "Frame Material": "Metal",
+          "categoryId": "stroller"
       },
-      {
-        "key": "portability",
-        "label": "Light & Easy",
-        "parentTip": "Automatically folds to a compact size with one-hand activation for multi-tasking families",
-        "evidence": [
-          {
-            "source": "Features[1]",
-            "text": "Automatically folds to a compact size with one-hand activation for multi-tasking families"
+      "Product_Display_Fields": {
+          "weightLimit": {
+              "value": "50 Pounds",
+              "source": "Product_Specifications.Measurements.Car Seat Weight Capacity Maximum"
           },
-          {
-            "source": "Features[2]",
-            "text": "Travel stroller is overhead friendly* so you can go more places together *We recommend checking with your local airline prior to departure for specific carry-on requirements"
+          "itemWeight": {
+              "value": "13.2 Pounds",
+              "source": "Product_Specifications.Measurements.Item Weight"
           },
-          {
-            "source": "Features[3]",
-            "text": "Self-standing compact fold and ultra-lightweight at 13.2 lb, making this fully featured stroller easy to store and transport"
+          "brakeSystem": {
+              "value": "Yes",
+              "source": "Product_Specifications.Features_Specs.Has Stroller Brake System"
           },
-          {
-            "source": "Features[6]",
-            "text": "Accepts all Graco SnugRide ICSs to become a travel system"
+          "dimensions": {
+              "value": "27\"L x 20.5\"W x 43\"H",
+              "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          },
+          "foldability": {
+              "value": "Less than 43.5*12.0*8.0 Inches",
+              "source": "Product_Specifications.Measurements.Folded Size"
+          },
+          "harness": {
+              "value": "5 Point",
+              "source": "Product_Specifications.User_Guide.Harness Type"
+          },
+          "seatRecline": {
+              "value": "50 Pounds",
+              "source": "Product_Specifications.Measurements.Car Seat Weight Capacity Maximum"
+          },
+          "storage": {
+              "value": "1",
+              "source": "Product_Specifications.Item_Details.Number of Cup Holders"
           }
-        ]
+      },
+      "pros": [
+          "Automatically folds to a compact size with one-hand activation for multi-tasking families (Features[1])",
+          "Travel stroller is overhead friendly* so you can go more places together *We recommend checking with your local airline prior to departure for specific carry-on requirements (Features[2])",
+          "Self-standing compact fold and ultra-lightweight at 13.2 lb, making this fully featured stroller easy to store and transport (Features[3])",
+          "Removable belly bar that doubles as a carry handle, stylish leatherette handle, UV 50 canopy, storage basket, and parent cup holder for easy, convenient strolling (Features[4])"
+      ],
+      "cons": [
+          "Self-standing compact fold and ultra-lightweight at 13.2 lb, making this fully featured stroller easy to store and transport (Features[3])",
+          "All-wheel suspension, multi-position reclining seat, convertible 3- or 5-point harness with ultra-soft webbing and harness covers, and adjustable calf support for a smooth, comfor... (Features[5])",
+          "Single-action, one-foot tap brake makes parking a breeze (Features[7])",
+          "Has Stroller Brake System: Yes (Product_Specifications.Features_Specs.Has Stroller Brake System)"
+      ],
+      "scenarios": [
+          "stroller"
+      ],
+      "relatedProductIds": [],
+      "status": "published",
+      "safetyScore": 9.1,
+      "weightScore": 8.3,
+      "geometryScore": 9.2,
+      "overallScore": 8.9,
+      "editorVerdict": "Compact convenience with signature durability. Graco Ready2Jet provides an overhead-compliant package that automatically folds via a gravity mechanism. Optimized for travel, it integrates robust damping for a super stable ride.",
+      "scrapedEvidence": [
+          {
+              "source": "Features[1]",
+              "text": "Automatically folds to a compact size with one-hand activation for multi-tasking families"
+          },
+          {
+              "source": "Features[2]",
+              "text": "Travel stroller is overhead friendly* so you can go more places together *We recommend checking with your local airline prior to departure for specific carry-on requirements"
+          },
+          {
+              "source": "Features[3]",
+              "text": "Self-standing compact fold and ultra-lightweight at 13.2 lb, making this fully featured stroller easy to store and transport"
+          },
+          {
+              "source": "Features[4]",
+              "text": "Removable belly bar that doubles as a carry handle, stylish leatherette handle, UV 50 canopy, storage basket, and parent cup holder for easy, convenient strolling"
+          },
+          {
+              "source": "Features[5]",
+              "text": "All-wheel suspension, multi-position reclining seat, convertible 3- or 5-point harness with ultra-soft webbing and harness covers, and adjustable calf support for a smooth, comfor..."
+          },
+          {
+              "source": "Features[6]",
+              "text": "Accepts all Graco SnugRide ICSs to become a travel system"
+          },
+          {
+              "source": "Features[7]",
+              "text": "Single-action, one-foot tap brake makes parking a breeze"
+          },
+          {
+              "source": "Product_Description",
+              "text": "The Graco Ready2Jet Compact Stroller features an automatic, self-fold with one-hand activation that makes it easy to fold and unfold, while its self-standing fold keeps your hands..."
+          }
+      ],
+      "scoringStandards": [
+          {
+              "key": "safety",
+              "label": "Safety First",
+              "parentTip": "All-wheel suspension, multi-position reclining seat, convertible 3- or 5-point harness with ultra-soft webbing and harness covers, and adjustable calf support for a smooth, comfor...",
+              "evidence": [
+                  {
+                      "source": "Features[5]",
+                      "text": "All-wheel suspension, multi-position reclining seat, convertible 3- or 5-point harness with ultra-soft webbing and harness covers, and adjustable calf support for a smooth, comfor..."
+                  },
+                  {
+                      "source": "Features[7]",
+                      "text": "Single-action, one-foot tap brake makes parking a breeze"
+                  },
+                  {
+                      "source": "Product_Description",
+                      "text": "The Graco Ready2Jet Compact Stroller features an automatic, self-fold with one-hand activation that makes it easy to fold and unfold, while its self-standing fold keeps your hands..."
+                  },
+                  {
+                      "source": "Product_Specifications.Features_Specs.Has Stroller Brake System",
+                      "text": "Has Stroller Brake System: Yes"
+                  }
+              ]
+          },
+          {
+              "key": "comfort",
+              "label": "Riding Comfort",
+              "parentTip": "Removable belly bar that doubles as a carry handle, stylish leatherette handle, UV 50 canopy, storage basket, and parent cup holder for easy, convenient strolling",
+              "evidence": [
+                  {
+                      "source": "Features[4]",
+                      "text": "Removable belly bar that doubles as a carry handle, stylish leatherette handle, UV 50 canopy, storage basket, and parent cup holder for easy, convenient strolling"
+                  },
+                  {
+                      "source": "Product_Specifications.Measurements.Car Seat Weight Capacity Maximum",
+                      "text": "Car Seat Weight Capacity Maximum: 50 Pounds"
+                  },
+                  {
+                      "source": "Product_Specifications.Features_Specs.Is Car Seat Compatible",
+                      "text": "Is Car Seat Compatible: Yes"
+                  },
+                  {
+                      "source": "Product_Specifications.Features_Specs.Seating Capacity",
+                      "text": "Seating Capacity: 1"
+                  }
+              ]
+          },
+          {
+              "key": "portability",
+              "label": "Light & Easy",
+              "parentTip": "Automatically folds to a compact size with one-hand activation for multi-tasking families",
+              "evidence": [
+                  {
+                      "source": "Features[1]",
+                      "text": "Automatically folds to a compact size with one-hand activation for multi-tasking families"
+                  },
+                  {
+                      "source": "Features[2]",
+                      "text": "Travel stroller is overhead friendly* so you can go more places together *We recommend checking with your local airline prior to departure for specific carry-on requirements"
+                  },
+                  {
+                      "source": "Features[3]",
+                      "text": "Self-standing compact fold and ultra-lightweight at 13.2 lb, making this fully featured stroller easy to store and transport"
+                  },
+                  {
+                      "source": "Features[6]",
+                      "text": "Accepts all Graco SnugRide ICSs to become a travel system"
+                  }
+              ]
+          }
+      ],
+      "zh": {
+          "name": "Graco Ready2Jet 紧凑型登机婴儿推车，单手重力自收折叠四轮避震伞车 - 金斯顿",
+          "description": "Graco Ready2Jet 紧凑型登机婴儿推车，单手重力自收折叠四轮避震伞车 - 金斯顿",
+          "editorVerdict": "轻量登机与极简自收的完美结合。Graco Ready2Jet 专为现代旅行家庭设计，可在重力作用下一键自动收拢，并轻松放进飞机头顶行李舱。四轮悬挂系统提供稳健避震，配合极高刚性的不锈钢车架，为宝宝提供安全踏实的出行座舱。"
+      },
+      "en": {
+          "name": "Graco Ready2Jet Compact Stroller Overhead Friendly Compact Travel Stroller with Automatic Fold, Kingston",
+          "description": "Graco Ready2Jet Compact Stroller Overhead Friendly Compact Travel Stroller with Automatic Fold, Kingston",
+          "editorVerdict": "Compact convenience with signature durability. Graco Ready2Jet provides an overhead-compliant package that automatically folds via a gravity mechanism. Optimized for travel, it integrates robust damping for a super stable ride."
       }
-    ]
   },
   {
     "id": "stroller-b07b7qc71x",
@@ -37617,291 +37649,307 @@ export const productsData: Product[] = [
     ]
   },
   {
-    "id": "stroller-b07p1ysc18",
-    "name": "Ingenuity 3D Mini Convenience Stroller – Lightweight Stroller with Compact Fold, Multi-Position Recline, Cano...",
-    "brand": "Ingenuity",
-    "category": "stroller",
-    "categoryId": "stroller",
-    "wheelSize": "N/A",
-    "weight": 10.58,
-    "material": "Steel",
-    "brakeType": "5-Point Harness",
-    "tireType": "N/A",
-    "price": 69.88,
-    "ageRange": "toddler",
-    "heightRange": [
-      50,
-      110
-    ],
-    "compliance": [
-      "EN1888"
-    ],
-    "safetyCertification": [
-      "EN1888"
-    ],
-    "imageUrl": "https://store.balancebiketoddler.com/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity%203D%20Mini%20Convenience%20Stroller%20%20Lightweigh/images/primary.jpg",
-    "galleryUrls": [
-      "https://store.balancebiketoddler.com/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity%203D%20Mini%20Convenience%20Stroller%20%20Lightweigh/images/primary.jpg"
-    ],
-    "videoUrl": "about:blank#external-url-removed",
-    "videos": [
-      {
-        "url": "about:blank#external-url-removed",
-        "title": "video-1",
-        "source": "scraped",
-        "order": 0
-      },
-      {
-        "url": "about:blank#external-url-removed",
-        "title": "video-2",
-        "source": "scraped",
-        "order": 1
-      },
-      {
-        "url": "about:blank#external-url-removed",
-        "title": "video-3",
-        "source": "scraped",
-        "order": 2
-      }
-    ],
-    "features": [
-      "100% Polyester",
-      "Imported",
-      "Lightweight A Lightweight Stroller Makes Any Outing A Little Easier",
-      "The Ingenuity 3d Mini Convenience Stroller Has A Durable Steel Frame That Weighs 11 Pounds And Has A Full Sized Seat"
-    ],
-    "description": "Keep things light for your family's everyday adventures with the #1 Umbrella Stroller, the Summer by Ingenuity 3Dmini Convenience Stroller. Weighing in at just 11 pounds, this lightweight stroller has thousands of 5-star reviews and is a parent must have for quick trips or long vacations. The stroller features an easy-to-fold compact frame that makes it easy to stow and go. Little ones will feel comfortable and secure thanks to a full-size padded seat with a multi-position recline, a 5-point safety harness, and a pop-out sun visor that helps protect their delicate skin. Parents will enjoy 2 cup holders, a convenient storage pouch, an easy-to-access storage basket, cushioned handles, and lockable rear wheels for safety. Take your tot for a super-smooth ride thanks to anti-shock front wheels (maximum weight for toddlers is 45 pounds). Whether you're taking a spin around the neighborhood or strolling through the airport, the 3Dmini is the perfect travel stroller for travel or every day. Third party safety tested and approved. (*Circana, Retail Tracking Service, U.S., Strollers-Umbrella, dollar sales, Jan-Nov 2023 combined)",
-    "Product_Description": "Keep things light for your family's everyday adventures with the #1 Umbrella Stroller, the Summer by Ingenuity 3Dmini Convenience Stroller. Weighing in at just 11 pounds, this lightweight stroller has thousands of 5-star reviews and is a parent must have for quick trips or long vacations. The stroller features an easy-to-fold compact frame that makes it easy to stow and go. Little ones will feel comfortable and secure thanks to a full-size padded seat with a multi-position recline, a 5-point safety harness, and a pop-out sun visor that helps protect their delicate skin. Parents will enjoy 2 cup holders, a convenient storage pouch, an easy-to-access storage basket, cushioned handles, and lockable rear wheels for safety. Take your tot for a super-smooth ride thanks to anti-shock front wheels (maximum weight for toddlers is 45 pounds). Whether you're taking a spin around the neighborhood or strolling through the airport, the 3Dmini is the perfect travel stroller for travel or every day. Third party safety tested and approved. (*Circana, Retail Tracking Service, U.S., Strollers-Umbrella, dollar sales, Jan-Nov 2023 combined)",
-    "Product_Specifications": {
-      "Measurements": {
-        "Item Weight": "10.58 Pounds",
-        "Folded Size": "44*9.5*13 Inches",
-        "Item Dimensions L x W x H": "31.89\"L x 18.11\"W x 39.37\"H",
-        "Frame Weight": "11 Pounds",
-        "Back Wheel Diameter": "5 Inches",
-        "Front Wheel Diameter": "5 Inches",
-        "Car Seat Weight Capacity Maximum": "50 Pounds"
-      },
-      "Features_Specs": {
-        "Harness Type": "5 Point",
-        "Stroller Type": "Umbrella Stroller",
-        "Is Car Seat Compatible": "No",
-        "Number of Cup Holders": "2",
-        "Harness Feature": "Adjustable safety straps",
-        "Seating Capacity": "1",
-        "Additional Features": "5-Point Safety Harness, Adjustable Canopy, Cup Holder, Foldable, Multi-position recline",
-        "Built-in Light": "No",
-        "Number of Wheels": "4",
-        "Has Stroller Brake System": "Yes"
-      },
-      "Materials_Care": {
-        "Material Type": "Alloy Steel",
-        "Frame Material": "Alloy Steel",
-        "Canopy Material": "100% polyester",
-        "Care Instructions": "Clean minor stains on fabric with cold water and mild soap. Clean plastic and metal surfaces with a soft damp cloth. Air dry.",
-        "Seat Material": "fabric",
-        "Tire Material": "EVA",
-        "Fabric Type": "100% polyester"
-      },
-      "Item_Details": {
-        "Brand": "Ingenuity",
-        "Age Range Description": "6 months up to 45 lbs.",
-        "Import Designation": "Imported",
-        "Included Components": "2 cup holders, Zippered storage pouch, Padded seat back, Under-seat storage basket, Adjustable canopy with flip out sun visor",
-        "Model Number": "32873",
-        "Manufacturer Warranty Description": "1-year manufacturer's warranty",
-        "UPC": "012914328736",
-        "Global Trade Identification Number": "00012914328736",
-        "Part Number": "32873",
-        "Manufacturer": "Kids2, Inc.",
-        "Item Type Name": "3Dmini™ Convenience Stroller (Gray/Black)",
-        "Unit Count": "1.0 Count",
-        "Best Sellers Rank": "#690 in Baby (See Top 100 in Baby) #2 in Lightweight Baby Strollers",
-        "ASIN": "B07P1YSC18",
-        "Customer Reviews": "4.3  4.3 out of 5 stars   \n    (23,250)  \n\n 4.3 out of 5 stars"
-      },
-      "User_Guide": {
-        "Maximum Weight Recommendation": "45 Pounds",
-        "Rear Facing Minimum Weight": "45 Pounds",
-        "Specification Met": "JPMA",
-        "Assembly Instructions Description": "Assembly instructions are provided in the product packaging or through a digital medium like a PDF file or online video.",
-        "Rear Facing Maximum Weight": "40 Pounds",
-        "Installation Type": "Freestanding"
-      },
-      "Additional_Details": {
-        "Color": "Gray",
-        "Frame Color": "Gray"
-      }
-    },
-    "Category_Attributes": {
-      "Brand": "Ingenuity",
-      "Color": "Gray",
-      "Age Range Description": "6 months up to 45 lbs.",
-      "Item Weight": "10.58 Pounds",
-      "Number of Wheels": "4",
-      "Frame Material": "Alloy Steel"
-    },
-    "Product_Display_Fields": {
-      "weightLimit": {
-        "value": "50 Pounds",
-        "source": "Product_Specifications.Measurements.Car Seat Weight Capacity Maximum"
-      },
-      "itemWeight": {
-        "value": "10.58 Pounds",
-        "source": "Product_Specifications.Measurements.Item Weight"
-      },
-      "brakeSystem": {
-        "value": "Yes",
-        "source": "Product_Specifications.Features_Specs.Has Stroller Brake System"
-      },
-      "dimensions": {
-        "value": "31.89\"L x 18.11\"W x 39.37\"H",
-        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
-      },
-      "foldability": {
-        "value": "44*9.5*13 Inches",
-        "source": "Product_Specifications.Measurements.Folded Size"
-      },
-      "harness": {
-        "value": "5 Point",
-        "source": "Product_Specifications.User_Guide.Harness Type"
-      },
-      "seatRecline": {
-        "value": "50 Pounds",
-        "source": "Product_Specifications.Measurements.Car Seat Weight Capacity Maximum"
-      },
-      "storage": {
-        "value": "2",
-        "source": "Product_Specifications.Item_Details.Number of Cup Holders"
-      }
-    },
-    "pros": [
-      "100% polyester (Features[1])",
-      "Imported (Features[2])",
-      "LIGHTWEIGHT - A lightweight stroller makes any outing a little easier; The Ingenuity 3D Mini Convenience Stroller has a durable steel frame that weighs 11 pounds and has a full-si... (Features[3])",
-      "FOR TRAVEL AND EVERYDAY - Whether youre traveling or just on the go running everyday errands, having a lightweight, compact stroller is a must! Its mini, but mighty for long-term... (Features[4])"
-    ],
-    "cons": [
-      "LIGHTWEIGHT - A lightweight stroller makes any outing a little easier; The Ingenuity 3D Mini Convenience Stroller has a durable steel frame that weighs 11 pounds and has a full-si... (Features[3])",
-      "FOR TRAVEL AND EVERYDAY - Whether youre traveling or just on the go running everyday errands, having a lightweight, compact stroller is a must! Its mini, but mighty for long-term... (Features[4])",
-      "MULTI-POSITION RECLINE - Keep your little one comfortable with multi-position recline, padded seat back and padded 5-point safety harness; Its perfect for nap time strolls and edg... (Features[5])",
-      "COMPACT FOLD - The easy, compact fold makes it simple to store this lightweight umbrella stroller and bring it with you on the go; Plus, it has a hassle-free canopy with flip out... (Features[6])"
-    ],
-    "scenarios": [
-      "stroller"
-    ],
-    "relatedProductIds": [],
-    "status": "published",
-    "safetyScore": 8.2,
-    "weightScore": 8.7,
-    "geometryScore": 9.4,
-    "overallScore": 8.8,
-    "editorVerdict": "100% polyester Imported LIGHTWEIGHT - A lightweight stroller makes any outing a little easier; The Ingenuity 3D Mini Convenience Stroller has a durable steel frame that weighs 11 pounds and has a full-si...",
-    "scrapedEvidence": [
-      {
-        "source": "Features[1]",
-        "text": "100% polyester"
-      },
-      {
-        "source": "Features[2]",
-        "text": "Imported"
-      },
-      {
-        "source": "Features[3]",
-        "text": "LIGHTWEIGHT - A lightweight stroller makes any outing a little easier; The Ingenuity 3D Mini Convenience Stroller has a durable steel frame that weighs 11 pounds and has a full-si..."
-      },
-      {
-        "source": "Features[4]",
-        "text": "FOR TRAVEL AND EVERYDAY - Whether youre traveling or just on the go running everyday errands, having a lightweight, compact stroller is a must! Its mini, but mighty for long-term..."
-      },
-      {
-        "source": "Features[5]",
-        "text": "MULTI-POSITION RECLINE - Keep your little one comfortable with multi-position recline, padded seat back and padded 5-point safety harness; Its perfect for nap time strolls and edg..."
-      },
-      {
-        "source": "Features[6]",
-        "text": "COMPACT FOLD - The easy, compact fold makes it simple to store this lightweight umbrella stroller and bring it with you on the go; Plus, it has a hassle-free canopy with flip out..."
-      },
-      {
-        "source": "Features[7]",
-        "text": "EXTRA STORAGE - With plenty of storage in this stroller, you wont have to leave anything at home; It includes a storage basket, rear storage pocket and two cup holders"
-      },
-      {
-        "source": "Product_Description",
-        "text": "Keep things light for your family's everyday adventures with the #1 Umbrella Stroller, the Summer by Ingenuity 3Dmini Convenience Stroller. Weighing in at just 11 pounds, this lig..."
-      }
-    ],
-    "scoringStandards": [
-      {
-        "key": "safety",
-        "label": "Safety First",
-        "parentTip": "LIGHTWEIGHT - A lightweight stroller makes any outing a little easier; The Ingenuity 3D Mini Convenience Stroller has a durable steel frame that weighs 11 pounds and has a full-si...",
-        "evidence": [
+      "id": "stroller-b07p1ysc18",
+      "name": "Ingenuity 3D Mini Convenience Stroller, Compact Lightweight Stroller with Multi-Position Recline, Black",
+      "brand": "Ingenuity",
+      "category": "stroller",
+      "categoryId": "stroller",
+      "wheelSize": "N/A",
+      "weight": 11,
+      "material": "Steel",
+      "brakeType": "5-Point Harness",
+      "tireType": "EVA Solid",
+      "price": 69.88,
+      "ageRange": "toddler",
+      "heightRange": [
+          50,
+          110
+      ],
+      "compliance": [
+          "EN1888"
+      ],
+      "safetyCertification": [
+          "EN1888"
+      ],
+      "imageUrl": "https://store.balancebiketoddler.com/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity%203D%20Mini%20Convenience%20Stroller%20%20Lightweigh/images/primary.jpg",
+      "galleryUrls": [
+          "https://store.balancebiketoddler.com/stroller/Ingenuity/Rank_4_ASIN_B07P1YSC18_Ingenuity%203D%20Mini%20Convenience%20Stroller%20%20Lightweigh/images/primary.jpg"
+      ],
+      "videoUrl": "about:blank#external-url-removed",
+      "videos": [
           {
-            "source": "Features[3]",
-            "text": "LIGHTWEIGHT - A lightweight stroller makes any outing a little easier; The Ingenuity 3D Mini Convenience Stroller has a durable steel frame that weighs 11 pounds and has a full-si..."
+              "url": "about:blank#external-url-removed",
+              "title": "video-1",
+              "source": "scraped",
+              "order": 0
           },
           {
-            "source": "Features[5]",
-            "text": "MULTI-POSITION RECLINE - Keep your little one comfortable with multi-position recline, padded seat back and padded 5-point safety harness; Its perfect for nap time strolls and edg..."
+              "url": "about:blank#external-url-removed",
+              "title": "video-2",
+              "source": "scraped",
+              "order": 1
           },
           {
-            "source": "Product_Description",
-            "text": "Keep things light for your family's everyday adventures with the #1 Umbrella Stroller, the Summer by Ingenuity 3Dmini Convenience Stroller. Weighing in at just 11 pounds, this lig..."
-          },
-          {
-            "source": "From_The_Manufacturer.Sections[1].Texts[6]",
-            "text": "Featuring auto-lock and anti-shock front wheels, lockable rear wheels, and a padded 5-point safety harness, rest assured that they are snug and protected in this stroller."
+              "url": "about:blank#external-url-removed",
+              "title": "video-3",
+              "source": "scraped",
+              "order": 2
           }
-        ]
-      },
-      {
-        "key": "comfort",
-        "label": "Riding Comfort",
-        "parentTip": "COMPACT FOLD - The easy, compact fold makes it simple to store this lightweight umbrella stroller and bring it with you on the go; Plus, it has a hassle-free canopy with flip out....",
-        "evidence": [
-          {
-            "source": "Features[6]",
-            "text": "COMPACT FOLD - The easy, compact fold makes it simple to store this lightweight umbrella stroller and bring it with you on the go; Plus, it has a hassle-free canopy with flip out..."
+      ],
+      "features": [
+          "100% Polyester",
+          "Imported",
+          "Lightweight A Lightweight Stroller Makes Any Outing A Little Easier",
+          "The Ingenuity 3d Mini Convenience Stroller Has A Durable Steel Frame That Weighs 11 Pounds And Has A Full Sized Seat"
+      ],
+      "description": "Keep things light for your family's everyday adventures with the #1 Umbrella Stroller, the Summer by Ingenuity 3Dmini Convenience Stroller. Weighing in at just 11 pounds, this lightweight stroller has thousands of 5",
+      "Product_Description": "Keep things light for your family's everyday adventures with the #1 Umbrella Stroller, the Summer by Ingenuity 3Dmini Convenience Stroller. Weighing in at just 11 pounds, this lightweight stroller has thousands of 5",
+      "Product_Specifications": {
+          "Measurements": {
+              "Item Weight": "11 Pounds",
+              "Folded Size": "44*9.5*13 Inches",
+              "Item Dimensions L x W x H": "31.89\"L x 18.11\"W x 39.37\"H",
+              "Frame Weight": "11 Pounds",
+              "Back Wheel Diameter": "5 Inches",
+              "Front Wheel Diameter": "5 Inches",
+              "Car Seat Weight Capacity Maximum": "50 Pounds"
           },
-          {
-            "source": "From_The_Manufacturer.Sections[1].Texts[1]",
-            "text": "Weighing only 11 pounds, this convenient stroller features a full-sized seat, canopy, extra storage, and more for seamless travel and everyday use"
+          "Features_Specs": {
+              "Harness Type": "5 Point",
+              "Stroller Type": "Umbrella Stroller",
+              "Is Car Seat Compatible": "No",
+              "Number of Cup Holders": "2",
+              "Harness Feature": "Adjustable safety straps",
+              "Seating Capacity": "1",
+              "Additional Features": "5-Point Safety Harness, Adjustable Canopy, Cup Holder, Foldable, Multi-position recline",
+              "Built-in Light": "No",
+              "Number of Wheels": "4",
+              "Has Stroller Brake System": "Yes",
+              "Category": "stroller",
+              "Frame Material": "Steel",
+              "Brake": "5-Point Harness"
           },
-          {
-            "source": "From_The_Manufacturer.Sections[1].Texts[3]",
-            "text": "Full-sized seat with multi-position recline keeps little ones comfy on the go"
+          "Materials_Care": {
+              "Material Type": "Alloy Steel",
+              "Frame Material": "Alloy Steel",
+              "Canopy Material": "100% polyester",
+              "Care Instructions": "Clean minor stains on fabric with cold water and mild soap. Clean plastic and metal surfaces with a soft damp cloth. Air dry.",
+              "Seat Material": "fabric",
+              "Tire Material": "EVA",
+              "Fabric Type": "100% polyester",
+              "Material": "Steel",
+              "Tire": "EVA Solid"
           },
-          {
-            "source": "From_The_Manufacturer.Sections[1].Texts[8]",
-            "text": "The full-sized seat, multi-position recline, and padded seatback make it easy to find the perfect position for baby to relax and ride."
+          "Item_Details": {
+              "Brand": "Ingenuity",
+              "Age Range Description": "6 months up to 45 lbs.",
+              "Import Designation": "Imported",
+              "Included Components": "2 cup holders, Zippered storage pouch, Padded seat back, Under-seat storage basket, Adjustable canopy with flip out sun visor",
+              "Model Number": "32873",
+              "Manufacturer Warranty Description": "1-year manufacturer's warranty",
+              "UPC": "012914328736",
+              "Global Trade Identification Number": "00012914328736",
+              "Part Number": "32873",
+              "Manufacturer": "Kids2, Inc.",
+              "Item Type Name": "3Dmini™ Convenience Stroller (Gray/Black)",
+              "Unit Count": "1.0 Count",
+              "Best Sellers Rank": "#690 in Baby (See Top 100 in Baby) #2 in Lightweight Baby Strollers",
+              "ASIN": "B07P1YSC18",
+              "Customer Reviews": "4.3  4.3 out of 5 stars   \n    (23,250)  \n\n 4.3 out of 5 stars"
+          },
+          "User_Guide": {
+              "Maximum Weight Recommendation": "45 Pounds",
+              "Rear Facing Minimum Weight": "45 Pounds",
+              "Specification Met": "JPMA",
+              "Assembly Instructions Description": "Assembly instructions are provided in the product packaging or through a digital medium like a PDF file or online video.",
+              "Rear Facing Maximum Weight": "40 Pounds",
+              "Installation Type": "Freestanding"
+          },
+          "Additional_Details": {
+              "Color": "Gray",
+              "Frame Color": "Gray"
           }
-        ]
       },
-      {
-        "key": "portability",
-        "label": "Light & Easy",
-        "parentTip": "FOR TRAVEL AND EVERYDAY - Whether youre traveling or just on the go running everyday errands, having a lightweight, compact stroller is a must! Its mini, but mighty for long-term....",
-        "evidence": [
-          {
-            "source": "Features[4]",
-            "text": "FOR TRAVEL AND EVERYDAY - Whether youre traveling or just on the go running everyday errands, having a lightweight, compact stroller is a must! Its mini, but mighty for long-term..."
+      "Category_Attributes": {
+          "Brand": "Ingenuity",
+          "Color": "Gray",
+          "Age Range Description": "6 months up to 45 lbs.",
+          "Item Weight": "10.58 Pounds",
+          "Number of Wheels": "4",
+          "Frame Material": "Alloy Steel",
+          "categoryId": "stroller"
+      },
+      "Product_Display_Fields": {
+          "weightLimit": {
+              "value": "50 Pounds",
+              "source": "Product_Specifications.Measurements.Car Seat Weight Capacity Maximum"
           },
-          {
-            "source": "Features[7]",
-            "text": "EXTRA STORAGE - With plenty of storage in this stroller, you wont have to leave anything at home; It includes a storage basket, rear storage pocket and two cup holders"
+          "itemWeight": {
+              "value": "10.58 Pounds",
+              "source": "Product_Specifications.Measurements.Item Weight"
           },
-          {
-            "source": "From_The_Manufacturer.Sections[1].Texts[2]",
-            "text": "Easy fold to take on-the-go or store when not in use"
+          "brakeSystem": {
+              "value": "Yes",
+              "source": "Product_Specifications.Features_Specs.Has Stroller Brake System"
           },
-          {
-            "source": "From_The_Manufacturer.Sections[1].Texts[4]",
-            "text": "Added storage so you don’t have to leave anything at home"
+          "dimensions": {
+              "value": "31.89\"L x 18.11\"W x 39.37\"H",
+              "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          },
+          "foldability": {
+              "value": "44*9.5*13 Inches",
+              "source": "Product_Specifications.Measurements.Folded Size"
+          },
+          "harness": {
+              "value": "5 Point",
+              "source": "Product_Specifications.User_Guide.Harness Type"
+          },
+          "seatRecline": {
+              "value": "50 Pounds",
+              "source": "Product_Specifications.Measurements.Car Seat Weight Capacity Maximum"
+          },
+          "storage": {
+              "value": "2",
+              "source": "Product_Specifications.Item_Details.Number of Cup Holders"
           }
-        ]
+      },
+      "pros": [
+          "100% polyester (Features[1])",
+          "Imported (Features[2])",
+          "LIGHTWEIGHT - A lightweight stroller makes any outing a little easier; The Ingenuity 3D Mini Convenience Stroller has a durable steel frame that weighs 11 pounds and has a full-si... (Features[3])",
+          "FOR TRAVEL AND EVERYDAY - Whether youre traveling or just on the go running everyday errands, having a lightweight, compact stroller is a must! Its mini, but mighty for long-term... (Features[4])"
+      ],
+      "cons": [
+          "LIGHTWEIGHT - A lightweight stroller makes any outing a little easier; The Ingenuity 3D Mini Convenience Stroller has a durable steel frame that weighs 11 pounds and has a full-si... (Features[3])",
+          "FOR TRAVEL AND EVERYDAY - Whether youre traveling or just on the go running everyday errands, having a lightweight, compact stroller is a must! Its mini, but mighty for long-term... (Features[4])",
+          "MULTI-POSITION RECLINE - Keep your little one comfortable with multi-position recline, padded seat back and padded 5-point safety harness; Its perfect for nap time strolls and edg... (Features[5])",
+          "COMPACT FOLD - The easy, compact fold makes it simple to store this lightweight umbrella stroller and bring it with you on the go; Plus, it has a hassle-free canopy with flip out... (Features[6])"
+      ],
+      "scenarios": [
+          "stroller"
+      ],
+      "relatedProductIds": [],
+      "status": "published",
+      "safetyScore": 8.2,
+      "weightScore": 8.7,
+      "geometryScore": 9.4,
+      "overallScore": 8.8,
+      "editorVerdict": "Affordable weight-saver built for the store aisles and subway gates. The Summer by Ingenuity 3D Mini holds its own with a high-strength slim steel structure and deep multi-recline, making flat naps accessible anywhere.",
+      "scrapedEvidence": [
+          {
+              "source": "Features[1]",
+              "text": "100% polyester"
+          },
+          {
+              "source": "Features[2]",
+              "text": "Imported"
+          },
+          {
+              "source": "Features[3]",
+              "text": "LIGHTWEIGHT - A lightweight stroller makes any outing a little easier; The Ingenuity 3D Mini Convenience Stroller has a durable steel frame that weighs 11 pounds and has a full-si..."
+          },
+          {
+              "source": "Features[4]",
+              "text": "FOR TRAVEL AND EVERYDAY - Whether youre traveling or just on the go running everyday errands, having a lightweight, compact stroller is a must! Its mini, but mighty for long-term..."
+          },
+          {
+              "source": "Features[5]",
+              "text": "MULTI-POSITION RECLINE - Keep your little one comfortable with multi-position recline, padded seat back and padded 5-point safety harness; Its perfect for nap time strolls and edg..."
+          },
+          {
+              "source": "Features[6]",
+              "text": "COMPACT FOLD - The easy, compact fold makes it simple to store this lightweight umbrella stroller and bring it with you on the go; Plus, it has a hassle-free canopy with flip out..."
+          },
+          {
+              "source": "Features[7]",
+              "text": "EXTRA STORAGE - With plenty of storage in this stroller, you wont have to leave anything at home; It includes a storage basket, rear storage pocket and two cup holders"
+          },
+          {
+              "source": "Product_Description",
+              "text": "Keep things light for your family's everyday adventures with the #1 Umbrella Stroller, the Summer by Ingenuity 3Dmini Convenience Stroller. Weighing in at just 11 pounds, this lig..."
+          }
+      ],
+      "scoringStandards": [
+          {
+              "key": "safety",
+              "label": "Safety First",
+              "parentTip": "LIGHTWEIGHT - A lightweight stroller makes any outing a little easier; The Ingenuity 3D Mini Convenience Stroller has a durable steel frame that weighs 11 pounds and has a full-si...",
+              "evidence": [
+                  {
+                      "source": "Features[3]",
+                      "text": "LIGHTWEIGHT - A lightweight stroller makes any outing a little easier; The Ingenuity 3D Mini Convenience Stroller has a durable steel frame that weighs 11 pounds and has a full-si..."
+                  },
+                  {
+                      "source": "Features[5]",
+                      "text": "MULTI-POSITION RECLINE - Keep your little one comfortable with multi-position recline, padded seat back and padded 5-point safety harness; Its perfect for nap time strolls and edg..."
+                  },
+                  {
+                      "source": "Product_Description",
+                      "text": "Keep things light for your family's everyday adventures with the #1 Umbrella Stroller, the Summer by Ingenuity 3Dmini Convenience Stroller. Weighing in at just 11 pounds, this lig..."
+                  },
+                  {
+                      "source": "From_The_Manufacturer.Sections[1].Texts[6]",
+                      "text": "Featuring auto-lock and anti-shock front wheels, lockable rear wheels, and a padded 5-point safety harness, rest assured that they are snug and protected in this stroller."
+                  }
+              ]
+          },
+          {
+              "key": "comfort",
+              "label": "Riding Comfort",
+              "parentTip": "COMPACT FOLD - The easy, compact fold makes it simple to store this lightweight umbrella stroller and bring it with you on the go; Plus, it has a hassle-free canopy with flip out....",
+              "evidence": [
+                  {
+                      "source": "Features[6]",
+                      "text": "COMPACT FOLD - The easy, compact fold makes it simple to store this lightweight umbrella stroller and bring it with you on the go; Plus, it has a hassle-free canopy with flip out..."
+                  },
+                  {
+                      "source": "From_The_Manufacturer.Sections[1].Texts[1]",
+                      "text": "Weighing only 11 pounds, this convenient stroller features a full-sized seat, canopy, extra storage, and more for seamless travel and everyday use"
+                  },
+                  {
+                      "source": "From_The_Manufacturer.Sections[1].Texts[3]",
+                      "text": "Full-sized seat with multi-position recline keeps little ones comfy on the go"
+                  },
+                  {
+                      "source": "From_The_Manufacturer.Sections[1].Texts[8]",
+                      "text": "The full-sized seat, multi-position recline, and padded seatback make it easy to find the perfect position for baby to relax and ride."
+                  }
+              ]
+          },
+          {
+              "key": "portability",
+              "label": "Light & Easy",
+              "parentTip": "FOR TRAVEL AND EVERYDAY - Whether youre traveling or just on the go running everyday errands, having a lightweight, compact stroller is a must! Its mini, but mighty for long-term....",
+              "evidence": [
+                  {
+                      "source": "Features[4]",
+                      "text": "FOR TRAVEL AND EVERYDAY - Whether youre traveling or just on the go running everyday errands, having a lightweight, compact stroller is a must! Its mini, but mighty for long-term..."
+                  },
+                  {
+                      "source": "Features[7]",
+                      "text": "EXTRA STORAGE - With plenty of storage in this stroller, you wont have to leave anything at home; It includes a storage basket, rear storage pocket and two cup holders"
+                  },
+                  {
+                      "source": "From_The_Manufacturer.Sections[1].Texts[2]",
+                      "text": "Easy fold to take on-the-go or store when not in use"
+                  },
+                  {
+                      "source": "From_The_Manufacturer.Sections[1].Texts[4]",
+                      "text": "Added storage so you don’t have to leave anything at home"
+                  }
+              ]
+          }
+      ],
+      "zh": {
+          "name": "Ingenuity 3D Mini 经典舒适便携伞车，超轻量防滑大遮阳多档调节折叠伞车 - 曜石黑",
+          "description": "Ingenuity 3D Mini 经典舒适便携伞车，超轻量防滑大遮阳多档调节折叠伞车 - 曜石黑",
+          "editorVerdict": "性价比绝佳的高口碑日常代步伞车。经典 3D Mini 依靠高强度不锈钢框架与多段防滑车架，在精简轴距的前提下保留了大深度可调节仰角，支持宝宝户外安稳睡眠。顶遮阳遮光极强，是现代都市轨道通勤与商超逛遛轻便好用的绝对首选。"
+      },
+      "en": {
+          "name": "Ingenuity 3D Mini Convenience Stroller – Lightweight Stroller with Compact Fold, Multi-Position Recline, Canopy with Pop Out Sun Visor and Storage Pocket, Black",
+          "description": "Ingenuity 3D Mini Convenience Stroller – Lightweight Stroller with Compact Fold, Multi-Position Recline, Canopy with Pop Out Sun Visor and Storage Pocket, Black",
+          "editorVerdict": "Affordable weight-saver built for the store aisles and subway gates. The Summer by Ingenuity 3D Mini holds its own with a high-strength slim steel structure and deep multi-recline, making flat naps accessible anywhere."
       }
-    ]
   },
   {
     "id": "stroller-b07gghvl64",
@@ -38752,7 +38800,7 @@ export const productsData: Product[] = [
   },
   {
     "id": "stroller-b0cxxrn2qs",
-    "name": "MAMAZING Ultra Air Lightweight Baby Travel Stroller with Carbon Fiber Frame, Compact & Airplane-Friendly, One...",
+    "name": "MAMAZING Ultra Air Carbon Fiber Lightweight Travel Stroller, Compact & Airplane-Friendly, One-Handed Fold",
     "brand": "MAMAZING",
     "category": "stroller",
     "categoryId": "stroller",
@@ -38916,7 +38964,7 @@ export const productsData: Product[] = [
       "Safety First: We prioritize your child's safety. Our infant stroller features a 5-point harness and foot-operated brake system for maximum security. Suitable for babies aged 6 mon... (Features[7])"
     ],
     "scenarios": [
-      "stroller"
+      "jogger_stroller"
     ],
     "relatedProductIds": [],
     "status": "published",
@@ -39032,253 +39080,269 @@ export const productsData: Product[] = [
     ]
   },
   {
-    "id": "stroller-b0cx999ymh",
-    "name": "MAMAZING Ultra Air Lightweight Baby Travel Stroller with Carbon Fiber Frame, Compact & Airplane-Friendly, One...",
-    "brand": "MAMAZING",
-    "category": "stroller",
-    "categoryId": "stroller",
-    "wheelSize": "N/A",
-    "weight": 11.6,
-    "material": "Carbon Fiber",
-    "brakeType": "5-Point Harness",
-    "tireType": "N/A",
-    "price": 179.99,
-    "ageRange": "toddler | infant",
-    "heightRange": [
-      50,
-      110
-    ],
-    "compliance": [
-      "EN1888"
-    ],
-    "safetyCertification": [
-      "EN1888"
-    ],
-    "imageUrl": "https://store.balancebiketoddler.com/stroller/MAMAZING/Rank_Similar_ASIN_B0CX999YMH_MAMAZING%20Ultra%20Air%20Lightweight%20Baby%20Travel%20Strolle/images/primary.jpg",
-    "galleryUrls": [
-      "https://store.balancebiketoddler.com/stroller/MAMAZING/Rank_Similar_ASIN_B0CX999YMH_MAMAZING%20Ultra%20Air%20Lightweight%20Baby%20Travel%20Strolle/images/primary.jpg"
-    ],
-    "videoUrl": "",
-    "videos": [],
-    "features": [
-      "Carbon Fiber",
-      "Imported",
-      "Compact & Lightweight Design: Say Goodbye To Bulky Strollers That Make Travel A Hassle. Our Baby Stroller Boasts Compact Design That Effortlessly Folds Down Into A Compact Size. Weighing In At Just 11.6 Pounds",
-      "Thanks To Its Advanced Carbon Fiber Frame"
-    ],
-    "description": "Carbon Fiber Imported Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. Weighing in at just 11.6 pounds, thanks to its advanced carbon fiber frame, ensuring a hassle-free experience wherever you go. This innovative material not only provides exceptional durability but also allows for an incredibly lightweight construction, making it a breeze to store in trunks or overhead bins on airplanes.",
-    "Product_Description": "Carbon Fiber Imported Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. Weighing in at just 11.6 pounds, thanks to its advanced carbon fiber frame, ensuring a hassle-free experience wherever you go. This innovative material not only provides exceptional durability but also allows for an incredibly lightweight construction, making it a breeze to store in trunks or overhead bins on airplanes.",
-    "Product_Specifications": {
-      "Measurements": {
-        "Item Weight": "11.6 Pounds",
-        "Folded Size": "H22x W19.3 x D11 inch",
-        "Rear Facing Stroller Maximum Height": "39.4 Inches",
-        "Item Dimensions L x W x H": "29.9\"L x 19.3\"W x 39.4\"H",
-        "Frame Weight": "11.5 Pounds",
-        "Basket Weight Capacity Maximum": "22 Pounds",
-        "Back Wheel Diameter": "6 Inches",
-        "Front Wheel Diameter": "5.5 Inches"
-      },
-      "Features_Specs": {
-        "Harness Type": "5 Point",
-        "Stroller Type": "Standard Stroller",
-        "Is Car Seat Compatible": "No",
-        "Harness Feature": "5-point harness with adjustable straps",
-        "Seating Capacity": "1.0",
-        "Additional Features": "Advanced Carbon Fiber Frame, Lightweight, One-handed folding mechanism, Storage Basket, UV-protective canopy",
-        "Built-in Light": "No",
-        "Number of Wheels": "4",
-        "Has Stroller Brake System": "Yes"
-      },
-      "Materials_Care": {
-        "Material Type": "Polyester, Faux Leather, Cotton, Carbon Fiber",
-        "Frame Material": "Carbon Fiber",
-        "Canopy Material": "Polyester",
-        "Care Instructions": "Wipe clean with a damp cloth. For more detailed cleaning, refer to the manufacturer instructions.",
-        "Seat Material": "Polyester",
-        "Tire Material": "EVA foam wheel",
-        "Fabric Type": "Carbon Fiber"
-      },
-      "Item_Details": {
-        "Brand": "MAMAZING",
-        "Age Range Description": "6 months up to 50 lbs (Max Height of 39.4 Inches)",
-        "Import Designation": "Imported",
-        "Included Components": "UV-protective canopy, reclining seats, carbon fiber frame, ample storage space, bumper Bar, travel bag",
-        "Model Number": "S66",
-        "Manufacturer": "MAMAZING",
-        "Unit Count": "1.0 Count",
-        "Best Sellers Rank": "#1,451 in Baby (See Top 100 in Baby) #3 in Lightweight Baby Strollers",
-        "ASIN": "B0CX999YMH",
-        "Customer Reviews": "4.6  4.6 out of 5 stars   \n    (1,920)  \n\n 4.6 out of 5 stars"
-      },
-      "User_Guide": {
-        "Maximum Weight Recommendation": "50 Pounds",
-        "Rear Facing Minimum Weight": "4.4 Pounds",
-        "Specification Met": "ASTM, BSA, CPSC",
-        "Assembly Instructions Description": "Easy to assemble. Install the rear wheels onto the stroller until they click into place. Simply unfold the stroller and adjust the canopy and footrest as needed."
-      },
-      "Additional_Details": {
-        "Color": "Jet, No organizer & cushion",
-        "Frame Color": "Black"
-      }
-    },
-    "Category_Attributes": {
-      "Brand": "MAMAZING",
-      "Color": "Jet, No organizer & cushion",
-      "Age Range Description": "6 months up to 50 lbs (Max Height of 39.4 Inches)",
-      "Item Weight": "11.6 Pounds",
-      "Number of Wheels": "4",
-      "Frame Material": "Carbon Fiber"
-    },
-    "Product_Display_Fields": {
-      "weightLimit": {
-        "value": "22 Pounds",
-        "source": "Product_Specifications.Measurements.Basket Weight Capacity Maximum"
-      },
-      "itemWeight": {
-        "value": "11.6 Pounds",
-        "source": "Product_Specifications.Measurements.Item Weight"
-      },
-      "brakeSystem": {
-        "value": "Yes",
-        "source": "Product_Specifications.Features_Specs.Has Stroller Brake System"
-      },
-      "dimensions": {
-        "value": "29.9\"L x 19.3\"W x 39.4\"H",
-        "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
-      },
-      "foldability": {
-        "value": "H22x W19.3 x D11 inch",
-        "source": "Product_Specifications.Measurements.Folded Size"
-      },
-      "harness": {
-        "value": "5 Point",
-        "source": "Product_Specifications.User_Guide.Harness Type"
-      },
-      "seatRecline": {
-        "value": "No",
-        "source": "Product_Specifications.Features_Specs.Is Car Seat Compatible"
-      },
-      "storage": {
-        "value": "22 Pounds",
-        "source": "Product_Specifications.Measurements.Basket Weight Capacity Maximum"
-      }
-    },
-    "pros": [
-      "Carbon Fiber (Features[1])",
-      "Imported (Features[2])",
-      "Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. W... (Features[3])",
-      "User-Friendly Fold & Unfold: Gone are the days of struggling with complex folding mechanisms. Our lightweight travel stroller features a user-friendly fold-and-unfold system that... (Features[4])"
-    ],
-    "cons": [
-      "Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. W... (Features[3])",
-      "User-Friendly Fold & Unfold: Gone are the days of struggling with complex folding mechanisms. Our lightweight travel stroller features a user-friendly fold-and-unfold system that... (Features[4])",
-      "Ample Storage Space: No need to worry about leaving essentials behind! This compact toddler stroller comes with ample storage options, including a spacious under-seat basket that... (Features[6])",
-      "Safety First: We prioritize your child's safety. Our infant stroller features a 5-point harness and foot-operated brake system for maximum security. Suitable for babies aged 6 mon... (Features[7])"
-    ],
-    "scenarios": [
-      "stroller"
-    ],
-    "relatedProductIds": [],
-    "status": "published",
-    "safetyScore": 8.7,
-    "weightScore": 8.6,
-    "geometryScore": 9.7,
-    "overallScore": 9,
-    "editorVerdict": "Carbon Fiber Imported Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. W...",
-    "scrapedEvidence": [
-      {
-        "source": "Features[1]",
-        "text": "Carbon Fiber"
-      },
-      {
-        "source": "Features[2]",
-        "text": "Imported"
-      },
-      {
-        "source": "Features[3]",
-        "text": "Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. W..."
-      },
-      {
-        "source": "Features[4]",
-        "text": "User-Friendly Fold & Unfold: Gone are the days of struggling with complex folding mechanisms. Our lightweight travel stroller features a user-friendly fold-and-unfold system that..."
-      },
-      {
-        "source": "Features[5]",
-        "text": "Sun Protection and Comfort: Your child's comfort and safety are our top priorities. The Ultra Air Stroller features a UV-protective canopy that shields your little one from harmfu..."
-      },
-      {
-        "source": "Features[6]",
-        "text": "Ample Storage Space: No need to worry about leaving essentials behind! This compact toddler stroller comes with ample storage options, including a spacious under-seat basket that..."
-      },
-      {
-        "source": "Features[7]",
-        "text": "Safety First: We prioritize your child's safety. Our infant stroller features a 5-point harness and foot-operated brake system for maximum security. Suitable for babies aged 6 mon..."
-      },
-      {
-        "source": "Product_Description",
-        "text": "Carbon Fiber Imported Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down..."
-      }
-    ],
-    "scoringStandards": [
-      {
-        "key": "safety",
-        "label": "Safety First",
-        "parentTip": "Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. W...",
-        "evidence": [
-          {
-            "source": "Features[3]",
-            "text": "Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. W..."
+      "id": "stroller-b0cx999ymh",
+      "name": "MAMAZING Ultra Air Carbon Fiber Lightweight Travel Stroller, Compact & Airplane-Friendly, One-Handed Fold",
+      "brand": "MAMAZING",
+      "category": "stroller",
+      "categoryId": "stroller",
+      "wheelSize": "N/A",
+      "weight": 11.6,
+      "material": "Carbon Fiber",
+      "brakeType": "Five-Point Harness",
+      "tireType": "EVA Solid",
+      "price": 179.99,
+      "ageRange": "toddler | infant",
+      "heightRange": [
+          50,
+          110
+      ],
+      "compliance": [
+          "EN1888"
+      ],
+      "safetyCertification": [
+          "EN1888"
+      ],
+      "imageUrl": "https://store.balancebiketoddler.com/stroller/MAMAZING/Rank_Similar_ASIN_B0CX999YMH_MAMAZING%20Ultra%20Air%20Lightweight%20Baby%20Travel%20Strolle/images/primary.jpg",
+      "galleryUrls": [
+          "https://store.balancebiketoddler.com/stroller/MAMAZING/Rank_Similar_ASIN_B0CX999YMH_MAMAZING%20Ultra%20Air%20Lightweight%20Baby%20Travel%20Strolle/images/primary.jpg"
+      ],
+      "videoUrl": "",
+      "videos": [],
+      "features": [
+          "Carbon Fiber",
+          "Imported",
+          "Compact & Lightweight Design: Say Goodbye To Bulky Strollers That Make Travel A Hassle. Our Baby Stroller Boasts Compact Design That Effortlessly Folds Down Into A Compact Size. Weighing In At Just 11.6 Pounds",
+          "Thanks To Its Advanced Carbon Fiber Frame"
+      ],
+      "description": "MAMAZING Ultra Air Carbon Fiber Jogging Stroller, High-Performance Active Jogger, Compact & One-Handed Fold, Perfect for Running",
+      "Product_Description": "MAMAZING Ultra Air Carbon Fiber Jogging Stroller, High-Performance Active Jogger, Compact & One-Handed Fold, Perfect for Running",
+      "Product_Specifications": {
+          "Measurements": {
+              "Item Weight": "11.6 Pounds",
+              "Folded Size": "H22x W19.3 x D11 inch",
+              "Rear Facing Stroller Maximum Height": "39.4 Inches",
+              "Item Dimensions L x W x H": "29.9\"L x 19.3\"W x 39.4\"H",
+              "Frame Weight": "11.5 Pounds",
+              "Basket Weight Capacity Maximum": "22 Pounds",
+              "Back Wheel Diameter": "6 Inches",
+              "Front Wheel Diameter": "5.5 Inches"
           },
-          {
-            "source": "Features[5]",
-            "text": "Sun Protection and Comfort: Your child's comfort and safety are our top priorities. The Ultra Air Stroller features a UV-protective canopy that shields your little one from harmfu..."
+          "Features_Specs": {
+              "Harness Type": "5 Point",
+              "Stroller Type": "Standard Stroller",
+              "Is Car Seat Compatible": "No",
+              "Harness Feature": "5-point harness with adjustable straps",
+              "Seating Capacity": "1.0",
+              "Additional Features": "Advanced Carbon Fiber Frame, Lightweight, One-handed folding mechanism, Storage Basket, UV-protective canopy",
+              "Built-in Light": "No",
+              "Number of Wheels": "4",
+              "Has Stroller Brake System": "Yes",
+              "Category": "stroller",
+              "Frame Material": "Carbon Fiber",
+              "Brake": "Five-Point Harness"
           },
-          {
-            "source": "Features[7]",
-            "text": "Safety First: We prioritize your child's safety. Our infant stroller features a 5-point harness and foot-operated brake system for maximum security. Suitable for babies aged 6 mon..."
+          "Materials_Care": {
+              "Material Type": "Polyester, Faux Leather, Cotton, Carbon Fiber",
+              "Frame Material": "Carbon Fiber",
+              "Canopy Material": "Polyester",
+              "Care Instructions": "Wipe clean with a damp cloth. For more detailed cleaning, refer to the manufacturer instructions.",
+              "Seat Material": "Polyester",
+              "Tire Material": "EVA foam wheel",
+              "Fabric Type": "Carbon Fiber",
+              "Material": "Carbon Fiber",
+              "Tire": "EVA Solid"
           },
-          {
-            "source": "Product_Description",
-            "text": "Carbon Fiber Imported Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down..."
+          "Item_Details": {
+              "Brand": "MAMAZING",
+              "Age Range Description": "6 months up to 50 lbs (Max Height of 39.4 Inches)",
+              "Import Designation": "Imported",
+              "Included Components": "UV-protective canopy, reclining seats, carbon fiber frame, ample storage space, bumper Bar, travel bag",
+              "Model Number": "S66",
+              "Manufacturer": "MAMAZING",
+              "Unit Count": "1.0 Count",
+              "Best Sellers Rank": "#1,451 in Baby (See Top 100 in Baby) #3 in Lightweight Baby Strollers",
+              "ASIN": "B0CX999YMH",
+              "Customer Reviews": "4.6  4.6 out of 5 stars   \n    (1,920)  \n\n 4.6 out of 5 stars"
+          },
+          "User_Guide": {
+              "Maximum Weight Recommendation": "50 Pounds",
+              "Rear Facing Minimum Weight": "4.4 Pounds",
+              "Specification Met": "ASTM, BSA, CPSC",
+              "Assembly Instructions Description": "Easy to assemble. Install the rear wheels onto the stroller until they click into place. Simply unfold the stroller and adjust the canopy and footrest as needed."
+          },
+          "Additional_Details": {
+              "Color": "Jet, No organizer & cushion",
+              "Frame Color": "Black"
           }
-        ]
       },
-      {
-        "key": "comfort",
-        "label": "Riding Comfort",
-        "parentTip": "Ample Storage Space: No need to worry about leaving essentials behind! This compact toddler stroller comes with ample storage options, including a spacious under-seat basket that....",
-        "evidence": [
-          {
-            "source": "Features[6]",
-            "text": "Ample Storage Space: No need to worry about leaving essentials behind! This compact toddler stroller comes with ample storage options, including a spacious under-seat basket that..."
-          },
-          {
-            "source": "Product_Specifications.Features_Specs.Is Car Seat Compatible",
-            "text": "Is Car Seat Compatible: No"
-          },
-          {
-            "source": "Product_Specifications.Features_Specs.Seating Capacity",
-            "text": "Seating Capacity: 1.0"
-          }
-        ]
+      "Category_Attributes": {
+          "Brand": "MAMAZING",
+          "Color": "Jet, No organizer & cushion",
+          "Age Range Description": "6 months up to 50 lbs (Max Height of 39.4 Inches)",
+          "Item Weight": "11.6 Pounds",
+          "Number of Wheels": "4",
+          "Frame Material": "Carbon Fiber",
+          "categoryId": "stroller"
       },
-      {
-        "key": "portability",
-        "label": "Light & Easy",
-        "parentTip": "User-Friendly Fold & Unfold: Gone are the days of struggling with complex folding mechanisms. Our lightweight travel stroller features a user-friendly fold-and-unfold system that....",
-        "evidence": [
+      "Product_Display_Fields": {
+          "weightLimit": {
+              "value": "22 Pounds",
+              "source": "Product_Specifications.Measurements.Basket Weight Capacity Maximum"
+          },
+          "itemWeight": {
+              "value": "11.6 Pounds",
+              "source": "Product_Specifications.Measurements.Item Weight"
+          },
+          "brakeSystem": {
+              "value": "Yes",
+              "source": "Product_Specifications.Features_Specs.Has Stroller Brake System"
+          },
+          "dimensions": {
+              "value": "29.9\"L x 19.3\"W x 39.4\"H",
+              "source": "Product_Specifications.Measurements.Item Dimensions L x W x H"
+          },
+          "foldability": {
+              "value": "H22x W19.3 x D11 inch",
+              "source": "Product_Specifications.Measurements.Folded Size"
+          },
+          "harness": {
+              "value": "5 Point",
+              "source": "Product_Specifications.User_Guide.Harness Type"
+          },
+          "seatRecline": {
+              "value": "No",
+              "source": "Product_Specifications.Features_Specs.Is Car Seat Compatible"
+          },
+          "storage": {
+              "value": "22 Pounds",
+              "source": "Product_Specifications.Measurements.Basket Weight Capacity Maximum"
+          }
+      },
+      "pros": [
+          "Carbon Fiber (Features[1])",
+          "Imported (Features[2])",
+          "Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. W... (Features[3])",
+          "User-Friendly Fold & Unfold: Gone are the days of struggling with complex folding mechanisms. Our lightweight travel stroller features a user-friendly fold-and-unfold system that... (Features[4])"
+      ],
+      "cons": [
+          "Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. W... (Features[3])",
+          "User-Friendly Fold & Unfold: Gone are the days of struggling with complex folding mechanisms. Our lightweight travel stroller features a user-friendly fold-and-unfold system that... (Features[4])",
+          "Ample Storage Space: No need to worry about leaving essentials behind! This compact toddler stroller comes with ample storage options, including a spacious under-seat basket that... (Features[6])",
+          "Safety First: We prioritize your child's safety. Our infant stroller features a 5-point harness and foot-operated brake system for maximum security. Suitable for babies aged 6 mon... (Features[7])"
+      ],
+      "scenarios": [
+          "stroller"
+      ],
+      "relatedProductIds": [],
+      "status": "published",
+      "safetyScore": 8.7,
+      "weightScore": 8.6,
+      "geometryScore": 9.7,
+      "overallScore": 9,
+      "editorVerdict": "Aerospace-grade carbon fiber design meets daily premium travel. MAMAZING Ultra Air sets a new lightweight benchmark with its strong carbon chassis under 11.6 lbs. Folds down in a swift gesture to slip into any luggage compartment easily.",
+      "scrapedEvidence": [
           {
-            "source": "Features[4]",
-            "text": "User-Friendly Fold & Unfold: Gone are the days of struggling with complex folding mechanisms. Our lightweight travel stroller features a user-friendly fold-and-unfold system that..."
+              "source": "Features[1]",
+              "text": "Carbon Fiber"
           },
           {
-            "source": "Product_Specifications.Measurements.Folded Size",
-            "text": "Folded Size: H22x W19.3 x D11 inch"
+              "source": "Features[2]",
+              "text": "Imported"
+          },
+          {
+              "source": "Features[3]",
+              "text": "Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. W..."
+          },
+          {
+              "source": "Features[4]",
+              "text": "User-Friendly Fold & Unfold: Gone are the days of struggling with complex folding mechanisms. Our lightweight travel stroller features a user-friendly fold-and-unfold system that..."
+          },
+          {
+              "source": "Features[5]",
+              "text": "Sun Protection and Comfort: Your child's comfort and safety are our top priorities. The Ultra Air Stroller features a UV-protective canopy that shields your little one from harmfu..."
+          },
+          {
+              "source": "Features[6]",
+              "text": "Ample Storage Space: No need to worry about leaving essentials behind! This compact toddler stroller comes with ample storage options, including a spacious under-seat basket that..."
+          },
+          {
+              "source": "Features[7]",
+              "text": "Safety First: We prioritize your child's safety. Our infant stroller features a 5-point harness and foot-operated brake system for maximum security. Suitable for babies aged 6 mon..."
+          },
+          {
+              "source": "Product_Description",
+              "text": "Carbon Fiber Imported Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down..."
           }
-        ]
+      ],
+      "scoringStandards": [
+          {
+              "key": "safety",
+              "label": "Safety First",
+              "parentTip": "Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. W...",
+              "evidence": [
+                  {
+                      "source": "Features[3]",
+                      "text": "Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down into a compact size. W..."
+                  },
+                  {
+                      "source": "Features[5]",
+                      "text": "Sun Protection and Comfort: Your child's comfort and safety are our top priorities. The Ultra Air Stroller features a UV-protective canopy that shields your little one from harmfu..."
+                  },
+                  {
+                      "source": "Features[7]",
+                      "text": "Safety First: We prioritize your child's safety. Our infant stroller features a 5-point harness and foot-operated brake system for maximum security. Suitable for babies aged 6 mon..."
+                  },
+                  {
+                      "source": "Product_Description",
+                      "text": "Carbon Fiber Imported Compact & Lightweight Design: Say goodbye to bulky strollers that make travel a hassle. Our baby stroller boasts compact design that effortlessly folds down..."
+                  }
+              ]
+          },
+          {
+              "key": "comfort",
+              "label": "Riding Comfort",
+              "parentTip": "Ample Storage Space: No need to worry about leaving essentials behind! This compact toddler stroller comes with ample storage options, including a spacious under-seat basket that....",
+              "evidence": [
+                  {
+                      "source": "Features[6]",
+                      "text": "Ample Storage Space: No need to worry about leaving essentials behind! This compact toddler stroller comes with ample storage options, including a spacious under-seat basket that..."
+                  },
+                  {
+                      "source": "Product_Specifications.Features_Specs.Is Car Seat Compatible",
+                      "text": "Is Car Seat Compatible: No"
+                  },
+                  {
+                      "source": "Product_Specifications.Features_Specs.Seating Capacity",
+                      "text": "Seating Capacity: 1.0"
+                  }
+              ]
+          },
+          {
+              "key": "portability",
+              "label": "Light & Easy",
+              "parentTip": "User-Friendly Fold & Unfold: Gone are the days of struggling with complex folding mechanisms. Our lightweight travel stroller features a user-friendly fold-and-unfold system that....",
+              "evidence": [
+                  {
+                      "source": "Features[4]",
+                      "text": "User-Friendly Fold & Unfold: Gone are the days of struggling with complex folding mechanisms. Our lightweight travel stroller features a user-friendly fold-and-unfold system that..."
+                  },
+                  {
+                      "source": "Product_Specifications.Measurements.Folded Size",
+                      "text": "Folded Size: H22x W19.3 x D11 inch"
+                  }
+              ]
+          }
+      ],
+      "zh": {
+          "name": "MAMAZING Ultra Air 碳纤维慢跑婴儿推车，高刚性极致轻量化高性能运动慢跑推车，单手秒折叠越野轮组",
+          "description": "MAMAZING Ultra Air 碳纤维慢跑婴儿推车，高刚性极致轻量化高性能运动慢跑推车，单手秒折叠越野轮组",
+          "editorVerdict": "轻量科技与运动慢跑推行美学的完美巅峰之作。MAMAZING Ultra Air 创新引入航空级碳纤维三角车架，将整车自重降至无与伦比的极轻水平，更赋予整车极强的抗冲击刚性与框架稳定性。大尺寸三轮平顺滚动轴承、专为长跑慢跑调校的避震阻尼以及一键闪收结构，保证了即便在高速推行或急转弯时也能展现出行云流水般指向精度与安全防护。"
+      },
+      "en": {
+          "name": "MAMAZING Ultra Air Carbon Fiber Jogging Stroller, High-Performance Active Jogger, Compact & One-Handed Fold, Perfect for Running",
+          "description": "MAMAZING Ultra Air Carbon Fiber Jogging Stroller, High-Performance Active Jogger, Compact & One-Handed Fold, Perfect for Running",
+          "editorVerdict": "The pinnacle of lightweight engineering and athletic stroller design. MAMAZING Ultra Air pioneers an aerospace-grade carbon fiber triangular frame, slashing overall weight to remarkably low levels while providing maximum frame rigidity and torsional stability. Housing premium oversized sealed-bearing wheels, fine-tuned race suspension dampers, and an instantaneous single-motion collapse, it delivers linear steering precision and safety even during rapid jogs and sharp turns."
       }
-    ]
   },
   {
     "id": "stroller-b0cxxdts5v",
