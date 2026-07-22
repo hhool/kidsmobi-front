@@ -733,38 +733,6 @@ export default function HomeSection({
         </div>
       </section>
 
-      {/* 3. Featured Evaluations (热门精选评测) */}
-      <section id="featured_evaluations_anchor" className="bg-slate-50 py-24">
-        <div className="max-w-7xl mx-auto px-6 space-y-12">
-          <div className="text-center space-y-4">
-            <h3 className="text-3xl font-black text-slate-900 tracking-tight">{lang === "zh" ? "深度评测专题" : "Featured Evaluations"}</h3>
-            <p className="text-slate-500 font-medium">{lang === "zh" ? "从结构稳定到骑行舒适，我们把关键差异讲清楚再给结论。" : "From structural stability to ride comfort, we explain the differences before giving a verdict."}</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { id: "single", icon: Star, label: lang === "zh" ? "精品实测" : "Single Review", color: "orange", path: "/reviews/single" },
-              { id: "compare", icon: Scale, label: lang === "zh" ? "热门横评" : "Comparison", color: "blue", path: "/reviews/compare" },
-              { id: "new", icon: Zap, label: lang === "zh" ? "新品速递" : "New Arrival", color: "emerald", path: "/news/page/1" },
-              { id: "avoid", icon: ShieldCheck, label: lang === "zh" ? "避坑指南" : "Safe Pick", color: "rose", path: "/reviews/safety" },
-            ].map(cat => (
-              <div 
-                key={cat.id} 
-                onClick={() => {
-                  window.history.pushState(null, "", cat.path);
-                  window.dispatchEvent(new PopStateEvent("popstate"));
-                }}
-                className="h-full min-h-55 bg-white p-8 rounded-4xl border border-slate-100 hover:border-orange-500/30 hover:shadow-xl transition-all cursor-pointer group text-center flex flex-col justify-center gap-4"
-              >
-                <div className={`mx-auto w-16 h-16 bg-${cat.color}-50 rounded-2xl flex items-center justify-center text-${cat.color}-500 group-hover:scale-110 transition-transform`}>
-                  <cat.icon className="w-8 h-8" />
-                </div>
-                <span className="block font-black text-slate-900 text-lg">{cat.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* 4. Category Launchpad (品类入口) */}
       <section id="category_highlights_anchor" className="max-w-7xl mx-auto px-6 space-y-10">
         <div className="flex justify-between items-end">
