@@ -55,14 +55,14 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
   },
   evaluations: {
     zh: {
-      title: "Expert Stroller Reviews, Travel Strollers & Toddler Bikes | BalanceBike",
-      description: "Read unbiased stroller reviews, travel strollers, jogging stroller tests, and toddler bike performance ratings. Make the right choice before you buy.",
-      keywords: ["travel stroller", "jogging stroller", "toddler bike", "stroller reviews", "stroller review"],
+      title: "Expert Stroller Reviews, Travel Stroller Models & Toddler Bike Safety Tests | BalanceBikeToddler",
+      description: "探索最客观中立的 stroller reviews。深度推荐轻便折叠旅行车 (travel stroller) 榜单、高刚性儿童自行车 (toddler bike) 实测，对比结构舒适度与刹车制动力学等指标。",
+      keywords: ["travel stroller", "toddler bike", "stroller reviews", "stroller review", "toddler bicycle", "kids bike", "jogging stroller"],
     },
     en: {
-      title: "Expert Stroller Reviews, Travel Strollers & Toddler Bikes | BalanceBike",
-      description: "Read unbiased stroller reviews, travel strollers, jogging stroller tests, and toddler bike performance ratings. Make the right choice before you buy.",
-      keywords: ["travel stroller", "jogging stroller", "toddler bike", "stroller reviews", "stroller review"],
+      title: "Expert Stroller Reviews, Travel Stroller Models & Toddler Bike Safety Tests | BalanceBikeToddler",
+      description: "Read unbiased stroller reviews, travel stroller models, heavy-duty jogging strollers, and safety-tested toddler bike ratings. Compare travel stroller frame compliance and toddler bike geometries below.",
+      keywords: ["travel stroller", "toddler bike", "stroller reviews", "stroller review", "toddler bicycle", "kids bike", "jogging stroller"],
     },
   },
   guides: {

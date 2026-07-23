@@ -502,7 +502,7 @@ function getReviewCtaLabel(product: Product, evaluation: Evaluation, lang: "zh" 
 
   if (lang === "en") {
     if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return "Read Full Stroller Review ➔";
-    if (text.includes("balance")) return "Read Balance Bike Toddler Review ➔";
+    if (text.includes("balance")) return "Read Balance Ride Report ➔";
     if (text.includes("scooter")) return "Read Kids Scooter Review ➔";
     if (text.includes("bike") || text.includes("bicycle")) return "Read Toddler Bike Audit ➔";
     return "Read Full Product Review ➔";
@@ -1496,10 +1496,10 @@ export default function EvaluationsSection({
         <section id="balance-bike" className="scroll-mt-24 space-y-8">
           <div className="border-b border-slate-100 pb-4">
             <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
-              {lang === "zh" ? "学步优选：Balance Bike 深度评测" : "Balance Bike Reviews: Biomechanical & Ride Ratings"}
+              {lang === "zh" ? "幼儿学跑：Balance Ride 深度评测" : "Balance Ride Reviews: Biomechanical & Weight Ratings"}
             </h2>
             <p className="mt-2 text-sm text-slate-500 font-medium">
-              {lang === "zh" ? "首推平衡车代表评测：SEREED、Gamfeiny 与 Umatoll 等学跑单品。" : "Discover top-rated infant ride-ons. Read detailed balance bike reviews focusing on child low centers of gravity, frame weight, and structural steering safety limits."}
+              {lang === "zh" ? "首推幼童学跑单品：SEREED、Gamfeiny 与 Umatoll 等低重心起步测评。" : "Discover top-rated infant ride-ons. Read detailed balance reviews focusing on child low centers of gravity, frame weight, and structural steering safety limits."}
             </p>
           </div>
 
@@ -1537,7 +1537,7 @@ export default function EvaluationsSection({
                       <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Read Balance Bike Toddler Review ➔" : "查看平衡车学术评测 ➔"}</span>
+                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Read Balance Ride Report ➔" : "查看平衡车学术评测 ➔"}</span>
                       {ev.scores?.safety && (
                         <div className="flex items-center gap-1">
                           <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
