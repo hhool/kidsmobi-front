@@ -171,6 +171,16 @@ const REVIEW_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
 
 const PRODUCT_ROUTE_IDS = new Set(PRODUCT_NAV_OPTIONS.map((item) => item.id));
 const REVIEW_ROUTE_IDS = new Set(REVIEW_NAV_OPTIONS.map((item) => item.id));
+const GUIDE_ROUTE_CATEGORY_IDS = new Set([
+  "all",
+  "best",
+  "beginner",
+  "scenario",
+  "budget",
+  "risk",
+  "special",
+  "maintenance",
+]);
 const PRODUCT_ROUTE_ALIASES: Record<string, string> = {
   scooters: "kids_scooters",
   scooter: "kids_scooters",
@@ -618,17 +628,15 @@ const resolveRouteState = (pathname: string, hash: string) => {
     let activeGuidesArticleId = "";
     
     if (contentSegments[1]) {
-      // Check if contentSegments[1] is a known article ID
-      const isArticleId = guideArticles.some((g) => g.id === contentSegments[1]);
-      if (isArticleId) {
+      if (contentSegments[2]) {
+        activeGuidesCategory = contentSegments[1];
+        activeGuidesArticleId = contentSegments[2];
+      } else if (GUIDE_ROUTE_CATEGORY_IDS.has(contentSegments[1])) {
+        activeGuidesCategory = contentSegments[1];
+      } else {
         const foundArt = guideArticles.find((g) => g.id === contentSegments[1]);
         activeGuidesCategory = foundArt?.category || "all";
         activeGuidesArticleId = contentSegments[1];
-      } else {
-        activeGuidesCategory = contentSegments[1];
-        if (contentSegments[2]) {
-          activeGuidesArticleId = contentSegments[2];
-        }
       }
     }
     
