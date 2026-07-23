@@ -1065,6 +1065,7 @@ export default function App() {
 
   const handleHomeCategorySelect = (categoryId: string) => {
     const normalizedCategoryId = normalizeProductRouteCategory(categoryId);
+    safeStorageSet("scrollToExpertPicks", "true");
     navigateToPath(normalizedCategoryId === "all" ? "/products" : `/products/${normalizedCategoryId}`);
   };
 
