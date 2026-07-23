@@ -1070,7 +1070,34 @@ export default function EvaluationsSection({
   };
 
   const doubleStrollerFloorReviews = useMemo(() => {
-    return buildFloorList(isStrollerLike, true);
+    const list = buildFloorList(isStrollerLike, true);
+
+    // Split into 3 Travel and 3 Jogging strollers naturally using text criteria
+    const travelList = list.filter((item: any) => {
+      const p = item.product || item.products?.[0];
+      if (!p) return false;
+      const text = `${p.name} ${item.evaluation.en?.title || ""}`.toLowerCase();
+      return text.includes("travel") || text.includes("butterfly") || text.includes("lightweight") || text.includes("compact");
+    }).slice(0, 3);
+
+    const joggingList = list.filter((item: any) => {
+      const p = item.product || item.products?.[0];
+      if (!p) return false;
+      const text = `${p.name} ${item.evaluation.en?.title || ""}`.toLowerCase();
+      return text.includes("jogger") || text.includes("jogging") || text.includes("gt2") || text.includes("expedition");
+    }).slice(0, 3);
+
+    // Dynamic interleaved list to keep variety engaging (3 Travel & 3 Jogging)
+    const combined: any[] = [];
+    for (let i = 0; i < 3; i++) {
+      if (travelList[i]) combined.push(travelList[i]);
+      if (joggingList[i]) combined.push(joggingList[i]);
+    }
+
+    if (combined.length > 0) {
+      return combined;
+    }
+    return list;
   }, [renderList]);
 
   const balanceBikeFloorReviews = useMemo(() => {
@@ -1407,7 +1434,7 @@ export default function EvaluationsSection({
         <section id="kids-bike" className="scroll-mt-24 space-y-8">
           <div className="border-b border-slate-100 pb-4">
             <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
-              {lang === "zh" ? "经典踩踏：Kids Bike 深度评测" : "Pedal Durability & Mechanical Braking Toddler Bike Reviews"}
+              {lang === "zh" ? "经典踩踏：Toddler Bike 深度评测" : "Toddler Bike Reviews: Biomechanical & Ride Ratings"}
             </h2>
             <p className="mt-2 text-sm text-slate-500 font-medium">
               {lang === "zh" ? "大童脚踏车精品测试：JOYSTAR、Cubsala-BMX 与 Glerc 等型号。" : "Our pedal-assisted toddler bike reviews detail structural configurations. Compare toddler bike models by braking parameters, chain protection, and fork geometry."}
