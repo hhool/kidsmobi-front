@@ -501,18 +501,18 @@ function getReviewCtaLabel(product: Product, evaluation: Evaluation, lang: "zh" 
   const text = `${product.category || ""} ${product.categoryId || ""} ${product.name || ""} ${evaluation.en?.title || ""} ${evaluation.zh?.title || ""}`.toLowerCase();
 
   if (lang === "en") {
-    if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return "READ FULL STROLLER REVIEW ->";
-    if (text.includes("balance")) return "READ FULL BALANCE BIKE REVIEW ->";
-    if (text.includes("scooter")) return "READ FULL SCOOTER REVIEW ->";
-    if (text.includes("bike") || text.includes("bicycle")) return "READ FULL KIDS BIKE REVIEW ->";
-    return "READ FULL PRODUCT REVIEW ->";
+    if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return "Read Full Stroller Review ➔";
+    if (text.includes("balance")) return "Read Balance Bike Toddler Review ➔";
+    if (text.includes("scooter")) return "Read Kids Scooter Review ➔";
+    if (text.includes("bike") || text.includes("bicycle")) return "Read Toddler Bike Audit ➔";
+    return "Read Full Product Review ➔";
   }
 
-  if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return "查看完整推车评测 ->";
-  if (text.includes("balance")) return "查看完整平衡车评测 ->";
-  if (text.includes("scooter")) return "查看完整滑板车评测 ->";
-  if (text.includes("bike") || text.includes("bicycle")) return "查看完整自行车评测 ->";
-  return "查看完整产品评测 ->";
+  if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return "阅读婴儿车深度审计报告 ➔";
+  if (text.includes("balance")) return "阅读平衡车学步专项测议 ➔";
+  if (text.includes("scooter")) return "阅读滑板车安全性能报告 ➔";
+  if (text.includes("bike") || text.includes("bicycle")) return "阅读儿童自行车力学测评 ➔";
+  return "阅读完整产品测评报告 ➔";
 }
 
 function cleanReviewBullet(value: unknown, fallback: string) {
@@ -1104,12 +1104,16 @@ export default function EvaluationsSection({
     }
     const canonicalUrl = window.location.href;
     setCollectionPageJsonLd("evaluations-list", {
-      name: lang === "en" ? "Evaluation Reports" : "评测中心",
+      name: lang === "en" ? "Expert Stroller Reviews, Travel Strollers & Toddler Bikes" : "评测中心",
       url: canonicalUrl,
-      items: renderList.map((block: any) => ({
-        name: lang === "zh" ? block.evaluation.zh.title : block.evaluation.en.title,
-        url: canonicalUrl,
-      })),
+      items: renderList.map((block: any) => {
+        const dp = block.product ? translateProduct(block.product, lang) : null;
+        const customTitle = dp ? (lang === "en" ? `${dp.brand} ${dp.name} Review` : `${dp.brand} ${dp.name} 深度安全评测报告`) : (lang === "zh" ? block.evaluation.zh.title : block.evaluation.en.title);
+        return {
+          name: customTitle,
+          url: canonicalUrl,
+        };
+      }),
     });
     return () => clearJsonLd("evaluations-list");
   }, [lang, renderList, selectedEvaluation]);
@@ -1271,8 +1275,8 @@ export default function EvaluationsSection({
 
             <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight text-white max-w-3xl">
               {lang === "zh"
-                ? "儿童平衡车与手推车独立评测中心"
-                : "Expert Stroller Reviews & Balance Bike Reviews"}
+                ? "双胞胎推车与儿童滑板车独立评测中心"
+                : "Expert Stroller Reviews & Toddler Bike Reviews"}
             </h1>
 
             <div className="border-l-2 border-orange-500 pl-4">
@@ -1343,7 +1347,7 @@ export default function EvaluationsSection({
         <section id="balance-bike" className="scroll-mt-24 space-y-8">
           <div className="border-b border-slate-100 pb-4">
             <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
-              {lang === "zh" ? "儿科力学：Balance Bike 深度评测" : "Balance Bike Reviews: Biomechanical Testing"}
+              {lang === "zh" ? "儿科力学：Toddler Bike Reviews 深度评测" : "Toddler Bike Reviews: Biomechanical & Ride Ratings"}
             </h2>
             <p className="mt-2 text-sm text-slate-500 font-medium">
               {lang === "zh" ? "首推平衡车代表评测：SEREED、Gamfeiny 与 Umatoll 等学跑单品。" : "Representative balance bike reviews focusing on child low centers of gravity, shock performance, and turning controls."}
@@ -1356,7 +1360,11 @@ export default function EvaluationsSection({
               const product = item.product || item.products?.[0];
               if (!product) return null;
               const dp = translateProduct(product, lang);
-              const evLang = lang === "zh" ? ev.zh : ev.en;
+              const customEvlangTitle = lang === "en" ? `${dp.brand} ${dp.name} Review` : `${dp.brand} ${dp.name} 深度安全评测报告`;
+              const evLang = {
+                title: customEvlangTitle,
+                verdict: lang === "zh" ? ev.zh.verdict : ev.en.verdict
+              };
               const imageSet = resolveProductImages(product);
 
               return (
@@ -1368,7 +1376,7 @@ export default function EvaluationsSection({
                   <div className="md:w-2/5 h-44 bg-slate-50 rounded-2xl p-4 flex items-center justify-center overflow-hidden shrink-0">
                     <SmartImage
                       src={imageSet.coverUrl || undefined}
-                      alt={getProductImageAlt(product)}
+                      alt={`${dp.brand} ${dp.name} Review`}
                       className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                       wrapperClassName="w-full h-full"
                     />
@@ -1380,7 +1388,7 @@ export default function EvaluationsSection({
                       <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                      <span className="text-[10px] text-slate-400 font-black uppercase">{lang === "en" ? "Review Report ➔" : "查看完整报告 ➔"}</span>
+                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Read Balance Bike Toddler Review ➔" : "查看平衡车学术评测 ➔"}</span>
                       {ev.scores?.safety && (
                         <div className="flex items-center gap-1">
                           <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
@@ -1399,7 +1407,7 @@ export default function EvaluationsSection({
         <section id="kids-bike" className="scroll-mt-24 space-y-8">
           <div className="border-b border-slate-100 pb-4">
             <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
-              {lang === "zh" ? "经典踩踏：Kids Bike 深度评测" : "Kids Bike Reviews: Pedal Durability & Brakes"}
+              {lang === "zh" ? "经典踩踏：Kids Bike 深度评测" : "Pedal Durability & Mechanical Braking Toddler Bike Reviews"}
             </h2>
             <p className="mt-2 text-sm text-slate-500 font-medium">
               {lang === "zh" ? "大童脚踏车精品测试：JOYSTAR、Cubsala-BMX 与 Glerc 等型号。" : "Pedal-assisted kids bike deep reviews, highlighting chain covers, dual mechanical brakes, and Q-factor biomechanics."}
@@ -1412,7 +1420,11 @@ export default function EvaluationsSection({
               const product = item.product || item.products?.[0];
               if (!product) return null;
               const dp = translateProduct(product, lang);
-              const evLang = lang === "zh" ? ev.zh : ev.en;
+              const customEvlangTitle = lang === "en" ? `${dp.brand} ${dp.name} Review` : `${dp.brand} ${dp.name} 深度安全评测报告`;
+              const evLang = {
+                title: customEvlangTitle,
+                verdict: lang === "zh" ? ev.zh.verdict : ev.en.verdict
+              };
               const imageSet = resolveProductImages(product);
 
               return (
@@ -1424,7 +1436,7 @@ export default function EvaluationsSection({
                   <div className="md:w-2/5 h-44 bg-slate-50 rounded-2xl p-4 flex items-center justify-center overflow-hidden shrink-0">
                     <SmartImage
                       src={imageSet.coverUrl || undefined}
-                      alt={getProductImageAlt(product)}
+                      alt={`${dp.brand} ${dp.name} Review`}
                       className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                       wrapperClassName="w-full h-full"
                     />
@@ -1436,7 +1448,7 @@ export default function EvaluationsSection({
                       <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                      <span className="text-[10px] text-slate-400 font-black uppercase">{lang === "en" ? "Review Report ➔" : "查看完整报告 ➔"}</span>
+                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Read Toddler Bike Audit ➔" : "查看自行车深度评测 ➔"}</span>
                       {ev.scores?.safety && (
                         <div className="flex items-center gap-1">
                           <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
@@ -1468,7 +1480,11 @@ export default function EvaluationsSection({
               const product = item.product || item.products?.[0];
               if (!product) return null;
               const dp = translateProduct(product, lang);
-              const evLang = lang === "zh" ? ev.zh : ev.en;
+              const customEvlangTitle = lang === "en" ? `${dp.brand} ${dp.name} Review` : `${dp.brand} ${dp.name} 深度安全评测报告`;
+              const evLang = {
+                title: customEvlangTitle,
+                verdict: lang === "zh" ? ev.zh.verdict : ev.en.verdict
+              };
               const imageSet = resolveProductImages(product);
 
               return (
@@ -1480,7 +1496,7 @@ export default function EvaluationsSection({
                   <div className="md:w-2/5 h-44 bg-slate-50 rounded-2xl p-4 flex items-center justify-center overflow-hidden shrink-0">
                     <SmartImage
                       src={imageSet.coverUrl || undefined}
-                      alt={getProductImageAlt(product)}
+                      alt={`${dp.brand} ${dp.name} Review`}
                       className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                       wrapperClassName="w-full h-full"
                     />
@@ -1492,7 +1508,7 @@ export default function EvaluationsSection({
                       <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                      <span className="text-[10px] text-slate-400 font-black uppercase">{lang === "en" ? "Review Report ➔" : "查看完整报告 ➔"}</span>
+                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Read Kids Scooter Review ➔" : "查看滑板车深度性能报告 ➔"}</span>
                       {ev.scores?.safety && (
                         <div className="flex items-center gap-1">
                           <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
@@ -1524,7 +1540,11 @@ export default function EvaluationsSection({
               const product = item.product || item.products?.[0];
               if (!product) return null;
               const dp = translateProduct(product, lang);
-              const evLang = lang === "zh" ? ev.zh : ev.en;
+              const customEvlangTitle = lang === "en" ? `${dp.brand} ${dp.name} Review` : `${dp.brand} ${dp.name} 深度安全评测报告`;
+              const evLang = {
+                title: customEvlangTitle,
+                verdict: lang === "zh" ? ev.zh.verdict : ev.en.verdict
+              };
               const imageSet = resolveProductImages(product);
 
               return (
@@ -1536,7 +1556,7 @@ export default function EvaluationsSection({
                   <div className="md:w-2/5 h-44 bg-slate-50 rounded-2xl p-4 flex items-center justify-center overflow-hidden shrink-0">
                     <SmartImage
                       src={imageSet.coverUrl || undefined}
-                      alt={getProductImageAlt(product)}
+                      alt={`${dp.brand} ${dp.name} Review`}
                       className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                       wrapperClassName="w-full h-full"
                     />
@@ -1548,7 +1568,7 @@ export default function EvaluationsSection({
                       <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                      <span className="text-[10px] text-slate-400 font-black uppercase">{lang === "en" ? "Review Report ➔" : "查看完整报告 ➔"}</span>
+                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Read Full Stroller Review ➔" : "查看推车深度安全评测报告 ➔"}</span>
                       {ev.scores?.safety && (
                         <div className="flex items-center gap-1">
                           <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
@@ -1583,7 +1603,11 @@ export default function EvaluationsSection({
                 const product = item.product || item.products?.[0];
                 if (!product) return null;
                 const dp = translateProduct(product, lang);
-                const evLang = lang === "zh" ? ev.zh : ev.en;
+                const customEvlangTitle = lang === "en" ? `${dp.brand} ${dp.name} Review` : `${dp.brand} ${dp.name} 深度安全评测报告`;
+                const evLang = {
+                  title: customEvlangTitle,
+                  verdict: lang === "zh" ? ev.zh.verdict : ev.en.verdict
+                };
                 const imageSet = resolveProductImages(product);
 
                 return (
@@ -1595,7 +1619,7 @@ export default function EvaluationsSection({
                     <div className="md:w-2/5 h-44 bg-slate-50 rounded-2xl p-4 flex items-center justify-center overflow-hidden shrink-0">
                       <SmartImage
                         src={imageSet.coverUrl || undefined}
-                        alt={getProductImageAlt(product)}
+                        alt={`${dp.brand} ${dp.name} Review`}
                         className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                         wrapperClassName="w-full h-full"
                       />
@@ -1607,7 +1631,7 @@ export default function EvaluationsSection({
                         <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                       </div>
                       <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                        <span className="text-[10px] text-slate-400 font-black uppercase">{lang === "en" ? "Review Report ➔" : "查看完整报告 ➔"}</span>
+                        <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Read Full Product Review ➔" : "查看完整产品评测 ➔"}</span>
                         {ev.scores?.safety && (
                           <div className="flex items-center gap-1">
                             <Star className="w-3 h-3 fill-orange-500 text-orange-500" />

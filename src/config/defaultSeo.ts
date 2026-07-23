@@ -55,14 +55,14 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
   },
   evaluations: {
     zh: {
-      title: "Expert Stroller Reviews, Travel Strollers & Dirt Bikes | BalanceBikeToddler",
-      description: "Read unbiased stroller reviews, travel strollers, jogging stroller tests, and kids dirt bike performance ratings. Make the right choice before you buy.",
-      keywords: ["travel stroller", "jogging stroller", "kids dirt bike", "stroller reviews"],
+      title: "Expert Stroller Reviews, Travel Strollers & Toddler Bikes | BalanceBike",
+      description: "Read unbiased stroller reviews, travel strollers, jogging stroller tests, and toddler bike performance ratings. Make the right choice before you buy.",
+      keywords: ["travel stroller", "jogging stroller", "toddler bike", "stroller reviews", "stroller review"],
     },
     en: {
-      title: "Expert Stroller Reviews, Travel Strollers & Dirt Bikes | BalanceBikeToddler",
-      description: "Read unbiased stroller reviews, travel strollers, jogging stroller tests, and kids dirt bike performance ratings. Make the right choice before you buy.",
-      keywords: ["travel stroller", "jogging stroller", "kids dirt bike", "stroller reviews"],
+      title: "Expert Stroller Reviews, Travel Strollers & Toddler Bikes | BalanceBike",
+      description: "Read unbiased stroller reviews, travel strollers, jogging stroller tests, and toddler bike performance ratings. Make the right choice before you buy.",
+      keywords: ["travel stroller", "jogging stroller", "toddler bike", "stroller reviews", "stroller review"],
     },
   },
   guides: {
