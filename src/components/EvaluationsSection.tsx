@@ -501,11 +501,11 @@ function getReviewCtaLabel(product: Product, evaluation: Evaluation, lang: "zh" 
   const text = `${product.category || ""} ${product.categoryId || ""} ${product.name || ""} ${evaluation.en?.title || ""} ${evaluation.zh?.title || ""}`.toLowerCase();
 
   if (lang === "en") {
-    if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return "Read Full Stroller Review ➔";
+    if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return "Read Stroller Review ➔";
     if (text.includes("balance")) return "Read Balance Ride Report ➔";
     if (text.includes("scooter")) return "Read Kids Scooter Review ➔";
     if (text.includes("bike") || text.includes("bicycle")) return "Read Toddler Bike Audit ➔";
-    return "Read Full Product Review ➔";
+    return "Read Product Review ➔";
   }
 
   if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return "阅读婴儿车深度审计报告 ➔";
@@ -1072,13 +1072,13 @@ export default function EvaluationsSection({
   const doubleStrollerFloorReviews = useMemo(() => {
     const list = buildFloorList(isStrollerLike, true);
 
-    // Split into 8 Travel and 4 Jogging strollers naturally using text criteria
+    // Split into 11 Travel and 4 Jogging strollers naturally using text criteria
     const travelList = list.filter((item: any) => {
       const p = item.product || item.products?.[0];
       if (!p) return false;
       const text = `${p.name} ${item.evaluation.en?.title || ""}`.toLowerCase();
       return text.includes("travel") || text.includes("butterfly") || text.includes("lightweight") || text.includes("compact");
-    }).slice(0, 8);
+    }).slice(0, 11);
 
     const joggingList = list.filter((item: any) => {
       const p = item.product || item.products?.[0];
@@ -1087,9 +1087,9 @@ export default function EvaluationsSection({
       return text.includes("jogger") || text.includes("jogging") || text.includes("gt2") || text.includes("expedition");
     }).slice(0, 4);
 
-    // Dynamic interleaved list to keep variety engaging (8 Travel & 4 Jogging)
+    // Dynamic interleaved list to keep variety engaging (11 Travel & 4 Jogging)
     const combined: any[] = [];
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 11; i++) {
       if (travelList[i]) combined.push(travelList[i]);
       if (joggingList[i]) combined.push(joggingList[i]);
     }
@@ -1384,7 +1384,7 @@ export default function EvaluationsSection({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {doubleStrollerFloorReviews.slice(0, 12).map((item: any) => {
+            {doubleStrollerFloorReviews.slice(0, 15).map((item: any) => {
               const ev = item.evaluation;
               const product = item.product || item.products?.[0];
               if (!product) return null;
@@ -1417,7 +1417,7 @@ export default function EvaluationsSection({
                       <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Read Full Stroller Review ➔" : "查看推车深度安全评测报告 ➔"}</span>
+                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Read Stroller Review ➔" : "查看推车深度安全评测报告 ➔"}</span>
                       {ev.scores?.safety && (
                         <div className="flex items-center gap-1">
                           <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
@@ -1660,7 +1660,7 @@ export default function EvaluationsSection({
                         <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                       </div>
                       <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                        <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Read Full Product Review ➔" : "查看完整产品评测 ➔"}</span>
+                        <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Read Product Review ➔" : "查看完整产品评测 ➔"}</span>
                         {ev.scores?.safety && (
                           <div className="flex items-center gap-1">
                             <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
