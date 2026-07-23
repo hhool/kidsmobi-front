@@ -458,20 +458,6 @@ export default function GuidesSection({
     }
   }, [activeCategory]);
 
-  // Sync state with activeArticleId
-  useEffect(() => {
-    if (activeArticleId) {
-      const found = guideArticles.find((g) => g.id === activeArticleId);
-      if (found) {
-        setSelectedGuideState(found);
-      } else {
-        setSelectedGuideState(null);
-      }
-    } else {
-      setSelectedGuideState(null);
-    }
-  }, [activeArticleId, guideArticles]);
-
   const handleCategoryClick = (catId: string) => {
     if (onCategoryChange) {
       onCategoryChange(catId);
@@ -631,6 +617,20 @@ export default function GuidesSection({
       content: getLongTailGuideContent(index),
     } : article);
   }, [guideArticles, generatedGuideArticles, lang]);
+
+  // Sync state with activeArticleId
+  useEffect(() => {
+    if (activeArticleId) {
+      const found = allGuideArticles.find((g) => g.id === activeArticleId);
+      if (found) {
+        setSelectedGuideState(found);
+      } else {
+        setSelectedGuideState(null);
+      }
+    } else {
+      setSelectedGuideState(null);
+    }
+  }, [activeArticleId, allGuideArticles]);
 
   // Dynamic automatic filtering of all library articles based on Match Wizard active category selection
   const productFilteredArticles = useMemo(() => {
