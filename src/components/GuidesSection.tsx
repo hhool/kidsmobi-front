@@ -176,6 +176,16 @@ const GUIDE_CATEGORY_LABELS: Record<GuideCategoryId, { zh: string; en: string; s
 
 const GUIDE_ALLOWED_TOPIC_CATEGORIES = new Set(["beginner", "scenario", "budget", "risk", "special", "category_spec", "maintenance", "best"]);
 
+function normalizeGuideTopicCategory(value: unknown): GuideArticle["category"] {
+  const raw = String(value || "").trim().toLowerCase();
+  if (raw === "category_special") return "special";
+  if (raw === "category_spec") return "special";
+  if (raw === "beginner" || raw === "scenario" || raw === "budget" || raw === "risk" || raw === "special" || raw === "maintenance" || raw === "best") {
+    return raw;
+  }
+  return "beginner";
+}
+
 const GUIDE_DISALLOWED_CATEGORY_TERMS = [
   "electric", "electric_vehicle", "electric vehicles", "电动车", "儿童电动车",
   "car seat", "safety seat", "car_seat", "safety_seat", "安全座椅",
@@ -500,15 +510,16 @@ export default function GuidesSection({
           const mapped: GuideArticle[] = dbGuides.map((g) => ({
             id: g.id,
             title: pickLocalized(g, g.zh?.title, g.en?.title),
-            category: g.category as any,
-            categoryLabel: translateCategoryLabel(g.category),
+            category: normalizeGuideTopicCategory(g.taxonomy?.topicCategory || g.category),
+            categoryLabel: translateCategoryLabel(String(g.taxonomy?.topicCategory || g.category || "beginner")),
             summary: pickLocalized(g, g.seo?.zh?.description, g.seo?.en?.description, lang === "en" ? "Professional buying guides and safety research insights." : "专业选购指南与安全研究报告。"),
             content: pickLocalized(g, g.zh?.content, g.en?.content),
             author: lang === "en" ? "Kidsmobi Expert Team" : "Kidsmobi 专家组",
             readTime: lang === "en" ? "8 min read" : "8 分钟",
             publishDate: g.updatedAt && g.updatedAt.seconds
               ? new Date(g.updatedAt.seconds * 1000).toISOString().split("T")[0]
-              : "2026-06-15"
+              : "2026-06-15",
+            productCategory: g.taxonomy?.productCategory,
           }));
           setGuideArticles(mapped);
           setLoadingGuides(false);

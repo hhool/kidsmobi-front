@@ -215,6 +215,25 @@ export interface RiskCard {
   advice: string;
 }
 
+export type GuideHierarchyHub = "all_guides";
+
+export type GuideTopicCategory =
+  | "beginner"
+  | "budget"
+  | "special"
+  | "best"
+  | "scenario"
+  | "risk"
+  | "maintenance";
+
+export interface GuideTaxonomy {
+  productCategory?: ProductCategory;
+  hub?: GuideHierarchyHub;
+  topicCategory?: GuideTopicCategory;
+  topicOrder?: number;
+  hierarchyPath?: string[];
+}
+
 export interface Guide {
   id: string;
   category: string;
@@ -235,6 +254,7 @@ export interface Guide {
   };
   relatedProductIds?: string[];
   scenarioIds?: string[];
+  taxonomy?: GuideTaxonomy;
   updatedAt: any;
 }
 

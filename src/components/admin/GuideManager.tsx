@@ -12,10 +12,56 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { getCMSGuides, saveCMSGuide, deleteCMSGuide, getCMSProducts, getCMSScenarios } from "../../lib/cmsService";
-import { Guide, RiskCard, SEOConfig, CMSProduct, CMSScenario } from "../../types";
+import { Guide, RiskCard, SEOConfig, CMSProduct, CMSScenario, ProductCategory, GuideTopicCategory } from "../../types";
 import { deleteD1CMSGuide, getD1CMSGuides, getD1CMSProducts, getD1CMSScenarios, saveD1CMSGuide } from "../../lib/cmsD1Service";
 import BackendResourcePicker from "./BackendResourcePicker";
 import ScenarioPicker from "./ScenarioPicker";
+
+const GUIDE_PRODUCT_CATEGORY_OPTIONS: ProductCategory[] = [
+  "stroller",
+  "balance",
+  "bicycle",
+  "scooter",
+  "electric_car",
+  "tricycle",
+  "safety_seat",
+];
+
+const GUIDE_TOPIC_OPTIONS: Array<{ value: GuideTopicCategory; zh: string; en: string }> = [
+  { value: "beginner", zh: "Beginner Entry / 新手入门", en: "Beginner Entry" },
+  { value: "budget", zh: "Budget Guide / 预算指南", en: "Budget Guide" },
+  { value: "special", zh: "Category Special / 品类专项", en: "Category Special" },
+  { value: "best", zh: "2026 Best Picks / 年度评测大奖", en: "2026 Best Picks" },
+  { value: "scenario", zh: "Scenario Guide / 场景指南", en: "Scenario Guide" },
+  { value: "risk", zh: "Risk ID Guide / 风险识别", en: "Risk ID Guide" },
+  { value: "maintenance", zh: "Maintenance / 养护清单", en: "Maintenance" },
+];
+
+function normalizeGuideTaxonomy(guide: Guide): Guide {
+  const validProductCategories = new Set<string>(GUIDE_PRODUCT_CATEGORY_OPTIONS);
+  const fallbackProductCategory = validProductCategories.has(String(guide.taxonomy?.productCategory || ""))
+    ? (guide.taxonomy?.productCategory as ProductCategory)
+    : "stroller";
+  const fallbackCategory = (guide.category || "beginner") as GuideTopicCategory;
+  const topicCategory = GUIDE_TOPIC_OPTIONS.some((item) => item.value === fallbackCategory)
+    ? fallbackCategory
+    : "beginner";
+
+  return {
+    ...guide,
+    category: topicCategory,
+    taxonomy: {
+      productCategory: fallbackProductCategory,
+      hub: "all_guides",
+      topicCategory: guide.taxonomy?.topicCategory || topicCategory,
+      topicOrder: Number(guide.taxonomy?.topicOrder || 1),
+      hierarchyPath:
+        guide.taxonomy?.hierarchyPath && guide.taxonomy.hierarchyPath.length > 0
+          ? guide.taxonomy.hierarchyPath
+          : [fallbackProductCategory, "all_guides", guide.taxonomy?.topicCategory || topicCategory],
+    },
+  };
+}
 
 export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
   const [guides, setGuides] = useState<Guide[]>([]);
@@ -94,9 +140,9 @@ export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
   };
 
   const handleNew = () => {
-    setEditingGuide({
+    setEditingGuide(normalizeGuideTaxonomy({
       id: `guide_${Date.now()}`,
-      category: "buying_tips",
+      category: "beginner",
       status: "draft",
       imageUrl: "",
       riskCards: [],
@@ -108,8 +154,15 @@ export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
       en: { title: "", content: "" },
       relatedProductIds: [],
       scenarioIds: [],
+      taxonomy: {
+        productCategory: "stroller",
+        hub: "all_guides",
+        topicCategory: "beginner",
+        topicOrder: 1,
+        hierarchyPath: ["stroller", "all_guides", "beginner"],
+      },
       updatedAt: null
-    });
+    }));
   };
 
   const [saving, setSaving] = useState(false);
@@ -181,7 +234,7 @@ export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
             </div>
             <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
               <button 
-                onClick={() => setEditingGuide(g)}
+                onClick={() => setEditingGuide(normalizeGuideTaxonomy(g))}
                 className="p-4 hover:bg-slate-100 rounded-2xl text-slate-600 transition-all text-xs font-black uppercase tracking-widest flex items-center gap-1.5"
               >
                 <FileText className="w-4 h-4 text-blue-500" />
@@ -217,7 +270,7 @@ export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
 }
 
 function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, saving, error }: any) {
-  const [formData, setFormData] = useState<Guide>(guide);
+  const [formData, setFormData] = useState<Guide>(normalizeGuideTaxonomy(guide));
   const [activeTab, setActiveTab] = useState<"content" | "risk" | "seo">("content");
   const [activeLang, setActiveLang] = useState<"zh" | "en">("zh");
   const [pickerMode, setPickerMode] = useState<"cover" | "related" | null>(null);
@@ -330,6 +383,101 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
               <div className="max-w-3xl mx-auto space-y-10">
                 <section className="space-y-4 bg-white border border-slate-100 rounded-2xl p-6">
                   <h4 className="text-xs font-black uppercase tracking-widest text-slate-700">Cross-module Linkage</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Guide Product Category</label>
+                      <select
+                        className="w-full bg-slate-50 border border-slate-200 py-3 px-4 rounded-xl text-xs font-bold"
+                        value={formData.taxonomy?.productCategory || "stroller"}
+                        onChange={(e) => {
+                          const nextCategory = e.target.value as ProductCategory;
+                          setFormData((prev) => ({
+                            ...prev,
+                            taxonomy: {
+                              ...(prev.taxonomy || {}),
+                              productCategory: nextCategory,
+                              hub: "all_guides",
+                              topicCategory: prev.taxonomy?.topicCategory || "beginner",
+                              topicOrder: Number(prev.taxonomy?.topicOrder || 1),
+                              hierarchyPath: [nextCategory, "all_guides", prev.taxonomy?.topicCategory || "beginner"],
+                            },
+                          }));
+                        }}
+                      >
+                        {GUIDE_PRODUCT_CATEGORY_OPTIONS.map((code) => (
+                          <option key={code} value={code}>{code}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Guide Hub</label>
+                      <input
+                        className="w-full bg-slate-100 border border-slate-200 py-3 px-4 rounded-xl text-xs font-bold text-slate-600"
+                        value={formData.taxonomy?.hub || "all_guides"}
+                        readOnly
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Topic Level (L3)</label>
+                      <select
+                        className="w-full bg-slate-50 border border-slate-200 py-3 px-4 rounded-xl text-xs font-bold"
+                        value={formData.taxonomy?.topicCategory || "beginner"}
+                        onChange={(e) => {
+                          const topicCategory = e.target.value as GuideTopicCategory;
+                          setFormData((prev) => ({
+                            ...prev,
+                            category: topicCategory,
+                            taxonomy: {
+                              ...(prev.taxonomy || {}),
+                              productCategory: prev.taxonomy?.productCategory || "stroller",
+                              hub: "all_guides",
+                              topicCategory,
+                              topicOrder: Number(prev.taxonomy?.topicOrder || 1),
+                              hierarchyPath: [prev.taxonomy?.productCategory || "stroller", "all_guides", topicCategory],
+                            },
+                          }));
+                        }}
+                      >
+                        {GUIDE_TOPIC_OPTIONS.map((item) => (
+                          <option key={item.value} value={item.value}>{lang === "zh" ? item.zh : item.en}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Topic Order</label>
+                      <input
+                        type="number"
+                        min={1}
+                        className="w-full bg-slate-50 border border-slate-200 py-3 px-4 rounded-xl text-xs font-bold"
+                        value={Number(formData.taxonomy?.topicOrder || 1)}
+                        onChange={(e) => {
+                          const topicOrder = Math.max(1, parseInt(e.target.value, 10) || 1);
+                          setFormData((prev) => ({
+                            ...prev,
+                            taxonomy: {
+                              ...(prev.taxonomy || {}),
+                              productCategory: prev.taxonomy?.productCategory || "stroller",
+                              hub: "all_guides",
+                              topicCategory: prev.taxonomy?.topicCategory || "beginner",
+                              topicOrder,
+                              hierarchyPath: [prev.taxonomy?.productCategory || "stroller", "all_guides", prev.taxonomy?.topicCategory || "beginner"],
+                            },
+                          }));
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Hierarchy Preview</p>
+                    <p className="text-xs font-bold text-slate-700 mt-1">
+                      {(formData.taxonomy?.productCategory || "stroller") + " -> all_guides -> " + (formData.taxonomy?.topicCategory || "beginner")}
+                    </p>
+                  </div>
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Related Products</label>

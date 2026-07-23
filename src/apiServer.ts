@@ -978,6 +978,13 @@ async function initCollectionFromBaseline(collection: D1Collection): Promise<num
         status: "published",
         imageUrl: "",
         riskCards: [],
+        taxonomy: {
+          productCategory: (item.productCategory || "stroller") as ProductCategory,
+          hub: "all_guides",
+          topicCategory: (item.category === "category_spec" ? "special" : item.category) as any,
+          topicOrder: 1,
+          hierarchyPath: [String(item.productCategory || "stroller"), "all_guides", String(item.category === "category_spec" ? "special" : item.category || "beginner")],
+        },
         seo: {
           zh: {
             title: item.title,

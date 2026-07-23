@@ -198,6 +198,13 @@ export async function seedGuidesToFirestore(guidesData: any[]): Promise<boolean>
         status: "published",
         imageUrl: "",
         riskCards: [],
+        taxonomy: {
+          productCategory: (g.productCategory || "stroller") as any,
+          hub: "all_guides",
+          topicCategory: (g.category === "category_spec" ? "special" : g.category) as any,
+          topicOrder: 1,
+          hierarchyPath: [String(g.productCategory || "stroller"), "all_guides", String(g.category === "category_spec" ? "special" : g.category || "beginner")],
+        },
         seo: {
           zh: {
             title: g.title,
