@@ -1276,14 +1276,14 @@ export default function EvaluationsSection({
             <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight text-white max-w-3xl">
               {lang === "zh"
                 ? "双胞胎推车与儿童滑板车独立评测中心"
-                : "Expert Stroller Reviews & Toddler Bike Reviews"}
+                : "Expert Stroller Reviews, Travel Strollers & Toddler Bikes"}
             </h1>
 
             <div className="border-l-2 border-orange-500 pl-4">
               <p className="text-slate-300 text-sm font-medium leading-relaxed max-w-2xl">
                 {lang === "zh"
-                  ? "帮您可以更为简单、放心地挑出最适合宝宝的优质座驾！无论是轻便折叠伞车 (Travel Stroller)、避震越野慢跑推车 (Jogging Stroller)，还是幼儿滑步平衡车 (Balance Bike)、儿童脚踏自行车 (Kids Bike) 以及滑板车 (Kids Scooter)，我们均坚持 100% 中立客观的匿名检验自购样品，为您呈献深度选购评测。"
-                  : "We make finding the safest, most reliable baby stroller and balance bike straightforward for parents. Whether shopping for a cabin-friendly best travel stroller, an all-terrain jogging stroller, or a sturdy kids bike and kick scooter, we buy and review every model independently through retail batches for 100% unbiased parent confidence."}
+                  ? "帮您可以更为简单、放心地挑出最适合宝宝的优质座驾！无论是轻便折叠伞车 (travel stroller)、避震越野慢跑推车 (jogging stroller)，还是平衡车与防摔儿童脚踏自行车 (toddler bike)，我们均坚持 100% 中立客观的自购样品检验，为您呈献深度 stroller reviews。"
+                  : "Our portal specializes in professional stroller reviews, helping parents find the ideal travel stroller, high-performance jogging stroller, and safe toddler bike. Every single travel stroller, rugged jogging stroller, and toddler bike model is purchased anonymously and put through strict mechanical tests. Read our direct stroller reviews below with complete biomechanical safety ratings."}
               </p>
             </div>
 
@@ -1350,7 +1350,7 @@ export default function EvaluationsSection({
               {lang === "zh" ? "儿科力学：Toddler Bike Reviews 深度评测" : "Toddler Bike Reviews: Biomechanical & Ride Ratings"}
             </h2>
             <p className="mt-2 text-sm text-slate-500 font-medium">
-              {lang === "zh" ? "首推平衡车代表评测：SEREED、Gamfeiny 与 Umatoll 等学跑单品。" : "Representative balance bike reviews focusing on child low centers of gravity, shock performance, and turning controls."}
+              {lang === "zh" ? "首推平衡车代表评测：SEREED、Gamfeiny 与 Umatoll 等学跑单品。" : "Find the safest toddler bike on the market today. Read our detailed toddler bike reviews focusing on low centers of gravity, frame compliance, and steering limiter safety."}
             </p>
           </div>
 
@@ -1410,7 +1410,7 @@ export default function EvaluationsSection({
               {lang === "zh" ? "经典踩踏：Kids Bike 深度评测" : "Pedal Durability & Mechanical Braking Toddler Bike Reviews"}
             </h2>
             <p className="mt-2 text-sm text-slate-500 font-medium">
-              {lang === "zh" ? "大童脚踏车精品测试：JOYSTAR、Cubsala-BMX 与 Glerc 等型号。" : "Pedal-assisted kids bike deep reviews, highlighting chain covers, dual mechanical brakes, and Q-factor biomechanics."}
+              {lang === "zh" ? "大童脚踏车精品测试：JOYSTAR、Cubsala-BMX 与 Glerc 等型号。" : "Our pedal-assisted toddler bike reviews detail structural configurations. Compare toddler bike models by braking parameters, chain protection, and fork geometry."}
             </p>
           </div>
 
@@ -1527,10 +1527,10 @@ export default function EvaluationsSection({
         <section id="kids-stroller" className="scroll-mt-24 space-y-8">
           <div className="border-b border-slate-100 pb-4">
             <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
-              {lang === "zh" ? "高端出行：Best Stroller 深度评测" : "Kids Stroller Reviews: Airport Travel & Running Joggers"}
+              {lang === "zh" ? "高端出行：Best Stroller 深度评测" : "Kids Stroller Reviews: Travel Stroller & Jogging Stroller Tests"}
             </h2>
             <p className="mt-2 text-sm text-slate-500 font-medium">
-              {lang === "zh" ? "折叠超轻便推车与中负荷避挂推车多维横评。" : "Comprehensive assessments of lightweight cabin buggies and structural dual-suspension strollers."}
+              {lang === "zh" ? "一站式获取最新手推车横向物理测评，保障宝宝出行舒适健康。" : "Explore our latest stroller reviews to compare travel stroller models and high-speed jogging stroller variants. We evaluate travel stroller flight compactness and jogging stroller hub friction safety."}
             </p>
           </div>
 
