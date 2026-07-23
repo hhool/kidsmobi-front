@@ -18,8 +18,8 @@ export const SCRAPED_CATEGORY_CATALOG: ScrapedCategoryEntry[] = [
   },
   {
     id: "double_stroller",
-    zh: "双人推车",
-    en: "Double Stroller",
+    zh: "双胞胎双人推车",
+    en: "Twin Stroller",
     itemCount: 15,
     catalogUrl: "https://store.balancebiketoddler.com/double_stroller/index.html",
     pagesUrl: "https://store.balancebiketoddler.com/double_stroller/pages/index.html",

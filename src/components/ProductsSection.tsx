@@ -242,7 +242,7 @@ function resolveGeneratedCardSummary(product: Product, lang: "zh" | "en"): strin
   if (/airplane|airline|compact|travel/.test(name)) return "Compact travel stroller for airport trips, fold-friendly storage, and everyday lightweight handling.";
   if (/car seat|travel system|infant/.test(name)) return "Travel system bundle pairing stroller mobility with infant car seat compatibility for daily family trips.";
   if (/jogger|jogging|runner/.test(name) || categoryId.includes("jogger")) return "Jogging stroller option for park paths and active families, focused on stability, wheel control, and smoother pushing.";
-  if (/double|twin/.test(name) || categoryId.includes("double")) return "Double stroller pick for twins or two-child families, balancing cabin space, steering stability, and shared outings.";
+  if (/double|twin/.test(name) || categoryId.includes("double")) return "Twin stroller pick for twins or two-child families, balancing cabin space, steering stability, and shared outings.";
   if (/balance/.test(name) || categoryId.includes("balance")) return "Toddler balance bike focused on early confidence, low-speed control, and first-ride coordination.";
   if (/scooter/.test(name) || categoryId.includes("scooter")) return "Kids scooter option for short rides and balance practice, with emphasis on steering feedback and beginner stability.";
   if (/car seat/.test(name) || categoryId.includes("car seat")) return "Child car seat option focused on installation fit, side-impact protection, and everyday passenger safety.";
@@ -657,8 +657,8 @@ export default function ProductsSection({
         safety_seat: "Kids Car Seat",
         stroller: "Kids Stroller",
         strollers: "Kids Stroller",
-        double_stroller: "Double Stroller",
-        double_strollers: "Double Stroller",
+        double_stroller: "Twin Stroller",
+        double_strollers: "Twin Stroller",
         jogger_stroller: "Jogging Stroller",
         jogger_strollers: "Jogging Stroller",
         electric_vehicles: "Kids Electric Car",
@@ -791,7 +791,7 @@ export default function ProductsSection({
     if (lang !== "en") return label;
     const singularMap: Record<string, string> = {
       "Strollers": "Stroller",
-      "Double Strollers": "Double Stroller",
+      "Double Strollers": "Twin Stroller",
       "Jogger Strollers": "Jogger Stroller",
       "Balance Bikes": "Balance Bike",
       "Kids Bikes": "Kids Bike",
@@ -827,7 +827,7 @@ export default function ProductsSection({
     const isBalanceBike = normalizedCategory.includes("balance");
 
     const travelSignals = ["travel stroller", "lightweight stroller", "umbrella stroller", "compact stroller", "cabin", "portable", "travel", "lightweight", "umbrella", "轻便", "旅行", "便携"];
-    const heavySignals = ["jogger", "jogging", "double stroller", "double", "twin stroller", "twin", "双人", "慢跑"];
+    const heavySignals = ["jogger", "jogging", "double twin stroller", "double", "twin stroller", "twin", "双人", "慢跑"];
 
     const hasTravelSignal = travelSignals.some((kw) => text.includes(kw));
     const hasHeavySignal = heavySignals.some((kw) => text.includes(kw));
@@ -849,7 +849,7 @@ export default function ProductsSection({
       .map((item) => String(item || "").toLowerCase())
       .join(" ");
     const travelSignals = ["travel stroller", "lightweight stroller", "umbrella stroller", "compact stroller", "cabin", "portable", "travel", "lightweight", "umbrella", "轻便", "旅行", "便携"];
-    const heavySignals = ["jogger", "jogging", "double stroller", "double", "twin stroller", "twin", "双人", "慢跑"];
+    const heavySignals = ["jogger", "jogging", "double twin stroller", "double", "twin stroller", "twin", "双人", "慢跑"];
 
     const hasTravelSignal = travelSignals.some((kw) => text.includes(kw));
     const hasHeavySignal = heavySignals.some((kw) => text.includes(kw));
@@ -1071,12 +1071,10 @@ export default function ProductsSection({
       "jogger stroller": "jogger_stroller",
       "jogger strollers": "jogger_stroller",
       "jogger strolles": "jogger_stroller",
-      "double stroller": "double_stroller",
-      "double strollers": "double_stroller",
       "twin stroller": "double_stroller",
-      "side by side double stroller": "double_stroller",
-      "double stroller for travel": "double_stroller",
-      "stroller jogging double": "double_stroller",
+      "side by side twin stroller": "double_stroller",
+      "twin stroller for travel": "double_stroller",
+      "stroller jogging twin": "double_stroller",
       "twin strollers": "double_stroller",
       "balance bike": "balance_bike",
       "balance bike toddler": "balance_bike",
@@ -1372,15 +1370,15 @@ export default function ProductsSection({
 
           <h1 className="text-xl md:text-2xl font-black tracking-tight leading-tight max-w-5xl">
             {lang === "zh"
-              ? "专家产品中心：儿童自行车、双人推车及儿童电动车"
-              : "Expert Product Hub: Kids' Bike, Twin Stroller & Electric Scooter"}
+              ? "专家产品中心：儿童自行车、双胞胎双人推车及儿童电动车"
+              : "Expert Product Hub: Kids' Bike, Twin Stroller & Kids Electric Scooter"}
           </h1>
 
           <div className="border-l-2 border-orange-500 pl-4 space-y-2">
             <p className="text-slate-300 text-xs md:text-sm font-semibold max-w-5xl leading-relaxed italic">
               {lang === "zh"
-                ? "经过独立实验室物理安全检测的儿童自行车、平衡车、双人手推车及儿童电动滑板车的科学测评数据整合模型。"
-                : "Independent lab-tested evaluations for toddler bike, balance bike, twin stroller, and electric scooter."}
+                ? "经过独立实验室物理安全检测的儿童自行车、平衡车、双胞胎双人手推车及儿童电动滑板车的科学测评数据整合模型。"
+                : "Independent lab-tested evaluations for toddler bike, balance bike, twin stroller, and kids electric scooter."}
             </p>
           </div>
 

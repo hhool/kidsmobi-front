@@ -22,7 +22,7 @@ const categorySeoDefaults: Record<ProductCategory, {
     en: {
       seoTitle: "Best Baby & Twin Strollers 2026 Lab-Tested Reviews - KIDSMOBI",
       seoDescription: "Explore our expert lab database for the safest and most reliable baby and twin strollers. Compare weight capacity, safety scores, and travel features.",
-      seoKeywords: "baby stroller, twin stroller, double stroller, travel stroller, jogging stroller"
+      seoKeywords: "baby stroller, twin stroller, double twin stroller, travel stroller, jogging stroller"
     },
     zh: {
       seoTitle: "2026最佳婴儿车与双胞胎推车实验室深度评测 | KIDSMOBI",

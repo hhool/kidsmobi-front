@@ -30,13 +30,13 @@ export const PRODUCT_CATEGORY_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
     ],
   },
   double_strollers: {
-    zh: ["双胞胎婴儿车", "并排式双人婴儿推车", "旅行双人婴儿车", "双人慢跑婴儿推车"],
+    zh: ["双胞胎婴儿车", "并排式双胞胎婴儿推车", "旅行双胞胎婴儿车", "双胞胎慢跑婴儿推车"],
     en: [
-      "double stroller",
       "twin stroller",
-      "side by side double stroller",
-      "double stroller for travel",
-      "double jogging stroller",
+      "twin strollers",
+      "side by side twin stroller",
+      "twin stroller for travel",
+      "twin jogging stroller",
     ],
   },
   jogger_stroller: {
