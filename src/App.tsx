@@ -2871,7 +2871,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             activeCategory={activeGuidesCategory}
             activeArticleId={activeGuidesArticleId}
             onCategoryChange={(cat) => navigateToPath(cat === "all" ? "/guides" : `/guides/${cat}`, { preserveScroll: true })}
-            onArticleOpen={(cat, articleId) => navigateToPath(`/guides/${articleId}`, { preserveScroll: true })}
+            onArticleOpen={(cat, articleId) => navigateToPath(`/guides/${cat}/${articleId}`, { preserveScroll: true })}
             onArticleClose={() => navigateToPath(activeGuidesCategory === "all" ? "/guides" : `/guides/${activeGuidesCategory}`, { preserveScroll: true })}
             onPageChange={(page) => {
               const guidesPath = activeGuidesCategory === "all" ? "/guides" : `/guides/${activeGuidesCategory}`;
