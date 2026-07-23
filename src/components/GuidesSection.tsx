@@ -822,21 +822,21 @@ export default function GuidesSection({
 
   const categories = lang === "en" ? [
     { id: "all", label: "All Guides", icon: BookOpen, deck: "Full guide library" },
-    { id: "best", label: "2026 Best Picks", icon: Award, deck: "Annual mobility winners" },
     { id: "beginner", label: "Beginner Entry", icon: Play, deck: "Fit, sizing, first purchase" },
-    { id: "scenario", label: "Scenario Guide", icon: Briefcase, deck: "Home, park, commute" },
     { id: "budget", label: "Budget Guide", icon: Calculator, deck: "Value and price bands" },
-    { id: "risk", label: "Risk ID Guide", icon: AlertTriangle, deck: "Structural red flags" },
     { id: "special", label: "Category Special", icon: Award, deck: "Balance bike, bike, scooter" },
+    { id: "best", label: "2026 Best Picks", icon: Award, deck: "Annual mobility winners" },
+    { id: "scenario", label: "Scenario Guide", icon: Briefcase, deck: "Home, park, commute" },
+    { id: "risk", label: "Risk ID Guide", icon: AlertTriangle, deck: "Structural red flags" },
     { id: "maintenance", label: "Maintenance", icon: Wrench, deck: "Care and inspection" }
   ] : [
     { id: "all", label: "全部指南", icon: BookOpen, deck: "完整指南库" },
-    { id: "best", label: "年度评测大奖", icon: Award, deck: "年度金牌童车大奖" },
     { id: "beginner", label: "新手入门", icon: Play, deck: "尺寸、跨高、首购" },
-    { id: "scenario", label: "场景指南", icon: Briefcase, deck: "小区、公园、通勤" },
     { id: "budget", label: "预算指南", icon: Calculator, deck: "价格带与性价比" },
-    { id: "risk", label: "风险识别", icon: AlertTriangle, deck: "结构隐患排查" },
     { id: "special", label: "品类专项", icon: Award, deck: "平衡车、自行车、滑板车" },
+    { id: "best", label: "年度评测大奖", icon: Award, deck: "年度金牌童车大奖" },
+    { id: "scenario", label: "场景指南", icon: Briefcase, deck: "小区、公园、通勤" },
+    { id: "risk", label: "风险识别", icon: AlertTriangle, deck: "结构隐患排查" },
     { id: "maintenance", label: "养护清单", icon: Wrench, deck: "刹车、轮胎、连接件" }
   ];
 
