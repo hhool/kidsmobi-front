@@ -501,11 +501,11 @@ function getReviewCtaLabel(product: Product, evaluation: Evaluation, lang: "zh" 
   const text = `${product.category || ""} ${product.categoryId || ""} ${product.name || ""} ${evaluation.en?.title || ""} ${evaluation.zh?.title || ""}`.toLowerCase();
 
   if (lang === "en") {
-    if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return "Read Stroller Review ➔";
-    if (text.includes("balance")) return "Read Balance Ride Report ➔";
-    if (text.includes("scooter")) return "Read Kids Scooter Review ➔";
-    if (text.includes("bike") || text.includes("bicycle")) return "Read Toddler Bike Audit ➔";
-    return "Read Product Review ➔";
+    if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return "Stroller Review ➔";
+    if (text.includes("balance")) return "Balance Ride Report ➔";
+    if (text.includes("scooter")) return "Kids Scooter Review ➔";
+    if (text.includes("bike") || text.includes("bicycle")) return "Toddler Bike Audit ➔";
+    return "Product Review ➔";
   }
 
   if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return "阅读婴儿车深度审计报告 ➔";
@@ -1417,7 +1417,7 @@ export default function EvaluationsSection({
                       <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Read Stroller Review ➔" : "查看推车深度安全评测报告 ➔"}</span>
+                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Stroller Review ➔" : "查看推车深度安全评测报告 ➔"}</span>
                       {ev.scores?.safety && (
                         <div className="flex items-center gap-1">
                           <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
@@ -1477,7 +1477,7 @@ export default function EvaluationsSection({
                       <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Read Toddler Bike Audit ➔" : "查看自行车深度评测 ➔"}</span>
+                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Toddler Bike Audit ➔" : "查看自行车深度评测 ➔"}</span>
                       {ev.scores?.safety && (
                         <div className="flex items-center gap-1">
                           <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
@@ -1537,7 +1537,7 @@ export default function EvaluationsSection({
                       <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Read Balance Ride Report ➔" : "查看平衡车学术评测 ➔"}</span>
+                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Balance Ride Report ➔" : "查看平衡车学术评测 ➔"}</span>
                       {ev.scores?.safety && (
                         <div className="flex items-center gap-1">
                           <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
@@ -1597,7 +1597,7 @@ export default function EvaluationsSection({
                       <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Read Kids Scooter Review ➔" : "查看滑板车深度性能报告 ➔"}</span>
+                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Kids Scooter Review ➔" : "查看滑板车深度性能报告 ➔"}</span>
                       {ev.scores?.safety && (
                         <div className="flex items-center gap-1">
                           <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
@@ -1660,7 +1660,7 @@ export default function EvaluationsSection({
                         <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                       </div>
                       <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                        <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Read Product Review ➔" : "查看完整产品评测 ➔"}</span>
+                        <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Product Review ➔" : "查看完整产品评测 ➔"}</span>
                         {ev.scores?.safety && (
                           <div className="flex items-center gap-1">
                             <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
