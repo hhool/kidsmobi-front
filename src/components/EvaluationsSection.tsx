@@ -697,7 +697,7 @@ function buildGeneratedEvaluations(productsData: Product[]): Evaluation[] {
       seenSingleProductIds.add(product.id);
       return true;
     })
-    .slice(0, 12)
+    .slice(0, 120)
     .map((product, index) => makeSingleEvaluation(
       product,
       "single",
@@ -1442,7 +1442,7 @@ export default function EvaluationsSection({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {kidsBikeOnlyReviews.slice(0, 4).map((item: any) => {
+            {kidsBikeOnlyReviews.slice(0, 6).map((item: any) => {
               const ev = item.evaluation;
               const product = item.product || item.products?.[0];
               if (!product) return null;
@@ -1562,7 +1562,7 @@ export default function EvaluationsSection({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {doubleStrollerFloorReviews.slice(0, 4).map((item: any) => {
+            {doubleStrollerFloorReviews.slice(0, 6).map((item: any) => {
               const ev = item.evaluation;
               const product = item.product || item.products?.[0];
               if (!product) return null;
