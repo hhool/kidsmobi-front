@@ -1769,12 +1769,6 @@ export default function ProductsSection({
                                 {resolveCapacityNumeric(diProduct)}
                               </span>
                             </div>
-                            <div className="flex items-center gap-1">
-                              <span className="shrink-0" title={lang === "zh" ? "通过认证" : "Passed"}>🛡️</span>
-                              <span className="text-emerald-700 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded text-[10px] font-extrabold">
-                                {lang === "zh" ? "通过" : "Pass"}
-                              </span>
-                            </div>
                           </div>
                         </>
                       ) : (
@@ -1803,12 +1797,6 @@ export default function ProductsSection({
                                 <span title={lang === "zh" ? "承载重量" : "Capacity"}>📦</span>
                                 <span className="px-2 py-0.5 rounded bg-slate-50 border border-slate-100 text-[10px] font-extrabold text-slate-700">
                                   {resolveCapacityNumeric(diProduct)}
-                                </span>
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <span title={lang === "zh" ? "通过认证" : "Passed"}>🛡️</span>
-                                <span className="px-2 py-0.5 rounded bg-emerald-50 border border-emerald-100 text-[10px] font-extrabold text-emerald-600">
-                                  {lang === "zh" ? "通过" : "Pass"}
                                 </span>
                               </div>
                             </div>
