@@ -1521,7 +1521,7 @@ export default function GuidesSection({
                 {pagedGuides[0] && (
                   <button
                     type="button"
-                    onClick={() => setSelectedGuideState(pagedGuides[0])}
+                    onClick={() => handleArticleClick(pagedGuides[0])}
                     className="w-full text-left bg-white border border-slate-100 rounded-[32px] p-6 sm:p-8 shadow-xl shadow-slate-200/50 hover:border-orange-200 hover:shadow-orange-500/10 transition-all group"
                   >
                     <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8 items-stretch">
@@ -1556,7 +1556,7 @@ export default function GuidesSection({
                   <button
                     type="button"
                     key={guide.id}
-                    onClick={() => setSelectedGuideState(guide)}
+                    onClick={() => handleArticleClick(guide)}
                     className="bg-white border border-slate-100 hover:border-orange-200 rounded-[28px] p-6 flex flex-col justify-between min-h-[260px] cursor-pointer hover:shadow-xl hover:shadow-orange-500/5 transition-all group text-left"
                   >
                     <div className="space-y-4">
