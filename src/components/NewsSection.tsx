@@ -21,36 +21,6 @@ import Breadcrumbs from "./Breadcrumbs";
 
 const NEWS_ALLOWED_CATEGORIES = new Set(["industry", "new_product", "brand_news", "science"]);
 
-const E_MOBILITY_NEWS_TITLES = [
-  "Safety Standards 2026: What Makes a Kids Electric Bike Reliable?",
-  "Battery Watch: Why Kids Electric Bike Rules Are Tightening",
-  "Off-Road Trends: Finding the Safest Electric Dirt Bike for Kids",
-  "Trail Safety Report: Electric Dirt Bike for Kids Gear Checks",
-  "Lab Picks: Which Entry-Level Kids E-Scooter Designs Are Actually Safe?",
-  "Price Watch: Affordable Kids E-Scooter Models with Safer Brakes",
-  "Commuting with Kids: Why the Foldable Electric Scooter is Winning",
-  "Storage Test: Foldable Electric Scooter Designs for Families",
-];
-
-const E_MOBILITY_NEWS_SUMMARIES = [
-  "Track new battery rules, speed caps, and braking benchmarks that separate a safe kids electric bike from a toy-grade ride-on.",
-  "Follow policy updates and battery-safety benchmarks shaping the next kids electric bike generation for cautious families.",
-  "Our industry desk follows frame geometry, tire grip, and age-band guidance for every electric dirt bike for kids launch worth watching.",
-  "This field note compares protective gear, torque limits, and terrain fit before parents choose an electric dirt bike for kids.",
-  "We compare battery quality, braking response, and repair access to see whether entry-level kids e-scooters can stay safe long term.",
-  "Our price desk tracks affordable kids e-scooter models that still offer dependable brakes, safer batteries, and realistic service options.",
-  "This launch briefing explains why a foldable electric scooter is becoming the compact family commute format for short urban trips.",
-  "We evaluate hinge strength, carry weight, and storage footprint as foldable electric scooter designs move into family mobility routines.",
-];
-
-function getEMobilityNewsTitle(index: number) {
-  return E_MOBILITY_NEWS_TITLES[index % E_MOBILITY_NEWS_TITLES.length];
-}
-
-function getEMobilityNewsSummary(index: number) {
-  return E_MOBILITY_NEWS_SUMMARIES[index % E_MOBILITY_NEWS_SUMMARIES.length];
-}
-
 function normalizeNewsCategory(category: string): NewsArticle["category"] | null {
   const normalized: Record<string, NewsArticle["category"]> = {
     trends: "industry",
@@ -87,6 +57,39 @@ interface NewsSectionProps {
   onCategoryChange?: (category: string) => void;
   onArticleOpen?: (category: string, articleId: string) => void;
   onArticleClose?: () => void;
+}
+
+function parseNewsTimestamp(value: unknown): number {
+  if (!value) return 0;
+
+  if (typeof value === "string") {
+    const ms = Date.parse(value);
+    return Number.isFinite(ms) ? ms : 0;
+  }
+
+  if (typeof value === "number") {
+    return Number.isFinite(value) ? value : 0;
+  }
+
+  const raw = value as { seconds?: unknown; _seconds?: unknown; nanoseconds?: unknown; _nanoseconds?: unknown };
+  const secondsCandidate =
+    typeof raw.seconds === "number"
+      ? raw.seconds
+      : typeof raw._seconds === "number"
+        ? raw._seconds
+        : null;
+  const nanosCandidate =
+    typeof raw.nanoseconds === "number"
+      ? raw.nanoseconds
+      : typeof raw._nanoseconds === "number"
+        ? raw._nanoseconds
+        : 0;
+
+  if (secondsCandidate !== null) {
+    return secondsCandidate * 1000 + Math.floor(nanosCandidate / 1_000_000);
+  }
+
+  return 0;
 }
 
 function getCategoryLabel(cat: string, lang: "zh" | "en"): string {
@@ -216,20 +219,24 @@ export default function NewsSection({
             return zh || en || fallback;
           };
 
-          const mapped: NewsArticle[] = dbNews.map((n) => ({
-            id: n.id,
-            title: pickLocalized(n, n.zh?.title, n.en?.title),
-            category: n.category as any,
-            categoryLabel: translateCategoryLabel(n.category),
-            summary: pickLocalized(n, n.seo?.zh?.description, n.seo?.en?.description, lang === "en" ? "Kidsmobi industry updates and safety insights." : "Kidsmobi 行业动态与科普报告。"),
-            content: pickLocalized(n, n.zh?.content, n.en?.content),
-            author: lang === "en" ? "Kidsmobi Global Safety Lab" : "Kidsmobi 全球安全实验室",
-            readTime: lang === "en" ? "5 min read" : "5 分钟",
-            publishDate: n.updatedAt && n.updatedAt.seconds
-              ? new Date(n.updatedAt.seconds * 1000).toISOString().split("T")[0]
-              : "2026-06-15",
-            views: 4200
-          }));
+          const mapped: NewsArticle[] = dbNews.map((n) => {
+            const updatedMs = parseNewsTimestamp((n as any).updatedAt);
+            const publishDate = updatedMs > 0
+              ? new Date(updatedMs).toISOString().split("T")[0]
+              : "2026-06-15";
+            return {
+              id: n.id,
+              title: pickLocalized(n, n.zh?.title, n.en?.title),
+              category: n.category as any,
+              categoryLabel: translateCategoryLabel(n.category),
+              summary: pickLocalized(n, n.seo?.zh?.description, n.seo?.en?.description, lang === "en" ? "Kidsmobi industry updates and safety insights." : "Kidsmobi 行业动态与科普报告。"),
+              content: pickLocalized(n, n.zh?.content, n.en?.content),
+              author: lang === "en" ? "Kidsmobi Global Safety Lab" : "Kidsmobi 全球安全实验室",
+              readTime: lang === "en" ? "5 min read" : "5 分钟",
+              publishDate,
+              views: 4200,
+            };
+          });
           setNewsArticlesState(withFallbackNews(mapped));
           setLoadingNews(false);
         } else {
@@ -281,26 +288,26 @@ export default function NewsSection({
   };
 
   const filteredNews = useMemo(() => {
-    return newsArticlesState
+    const sortedSource = [...newsArticlesState].sort((a, b) => {
+      const timeDelta = parseNewsTimestamp((b as any).updatedAt) - parseNewsTimestamp((a as any).updatedAt);
+      if (timeDelta !== 0) return timeDelta;
+      if (sortBy === "views") return b.views - a.views;
+      return new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime();
+    });
+
+    return sortedSource
       .map(art => translateNewsArticle(art, lang))
       .filter((art) => {
-        if (!NEWS_ALLOWED_CATEGORIES.has(art.category)) return false;
-        const matchesCategory = selectedCategory === "all" || art.category === selectedCategory;
+        const normalizedCategory = String(art.category || "").trim().toLowerCase();
+        const normalizedSelectedCategory = String(selectedCategory || "all").trim().toLowerCase();
+        if (!NEWS_ALLOWED_CATEGORIES.has(normalizedCategory)) return false;
+        const matchesCategory = normalizedSelectedCategory === "all" || normalizedCategory === normalizedSelectedCategory;
         const matchesSearch = searchQuery.trim() === "" || 
           art.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
           art.summary.toLowerCase().includes(searchQuery.toLowerCase()) ||
           art.content.toLowerCase().includes(searchQuery.toLowerCase());
         return matchesCategory && matchesSearch;
-      })
-      .sort((a, b) => {
-        if (sortBy === "views") return b.views - a.views;
-        return new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime();
-      })
-      .map((article, index) => lang === "en" ? {
-        ...article,
-        title: getEMobilityNewsTitle(index),
-        summary: getEMobilityNewsSummary(index),
-      } : article);
+      });
   }, [newsArticlesState, searchQuery, selectedCategory, sortBy, lang]);
 
   const pageSize = 8;
