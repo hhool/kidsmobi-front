@@ -4934,8 +4934,10 @@ export const productsData: any[] = [
     "safetyCertification": [
       "EN1888"
     ],
-    "imageUrl": "",
-    "galleryUrls": [],
+    "imageUrl": "https://m.media-amazon.com/images/I/71QMKdktOlL._AC_SL1500_.jpg",
+    "galleryUrls": [
+      "https://m.media-amazon.com/images/I/71QMKdktOlL._AC_SL1500_.jpg"
+    ],
     "videoUrl": "",
     "videos": [],
     "features": [
