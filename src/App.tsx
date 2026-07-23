@@ -181,6 +181,21 @@ const GUIDE_ROUTE_CATEGORY_IDS = new Set([
   "special",
   "maintenance",
 ]);
+const NEWS_ROUTE_CATEGORY_IDS = new Set([
+  "all",
+  "new_product",
+  "science",
+  "brand_news",
+  "industry",
+]);
+const NEWS_ROUTE_CATEGORY_ALIASES: Record<string, string> = {
+  brand_trend: "brand_news",
+  brand_dynamics: "brand_news",
+  regulation: "science",
+  regulations: "science",
+  new: "new_product",
+  launches: "new_product",
+};
 const PRODUCT_ROUTE_ALIASES: Record<string, string> = {
   scooters: "kids_scooters",
   scooter: "kids_scooters",
@@ -662,9 +677,18 @@ const resolveRouteState = (pathname: string, hash: string) => {
     let activeNewsArticleId = "";
     
     if (contentSegments[1]) {
-      activeNewsCategory = contentSegments[1];
+      const normalizedCategory = NEWS_ROUTE_CATEGORY_ALIASES[contentSegments[1]] || contentSegments[1];
       if (contentSegments[2]) {
+        activeNewsCategory = NEWS_ROUTE_CATEGORY_IDS.has(normalizedCategory) ? normalizedCategory : "all";
         activeNewsArticleId = contentSegments[2];
+      } else if (NEWS_ROUTE_CATEGORY_IDS.has(normalizedCategory)) {
+        activeNewsCategory = normalizedCategory;
+      } else {
+        const foundArticle = newsArticles.find((item) => item.id === contentSegments[1]);
+        const fallbackCategoryRaw = String(foundArticle?.category || "all");
+        const fallbackCategory = NEWS_ROUTE_CATEGORY_ALIASES[fallbackCategoryRaw] || fallbackCategoryRaw;
+        activeNewsCategory = NEWS_ROUTE_CATEGORY_IDS.has(fallbackCategory) ? fallbackCategory : "all";
+        activeNewsArticleId = contentSegments[1];
       }
     }
     

@@ -9,17 +9,17 @@ function translateCategoryLabel(cat: string): string {
   const labels: Record<string, string> = {
     industry: "行业资讯",
     new_product: "新品发布",
-    regulation: "合规政策",
     brand_news: "品牌动态",
     brand_trend: "品牌动态",
     brand_dynamics: "品牌动态",
+    regulation: "科普干货",
     science: "科普干货"
   };
   return labels[cat] || "最新动态";
 }
 import Breadcrumbs from "./Breadcrumbs";
 
-const NEWS_ALLOWED_CATEGORIES = new Set(["industry", "new_product", "regulation", "brand_news", "science"]);
+const NEWS_ALLOWED_CATEGORIES = new Set(["industry", "new_product", "brand_news", "science"]);
 
 const E_MOBILITY_NEWS_TITLES = [
   "Safety Standards 2026: What Makes a Kids Electric Bike Reliable?",
@@ -54,12 +54,12 @@ function getEMobilityNewsSummary(index: number) {
 function normalizeNewsCategory(category: string): NewsArticle["category"] | null {
   const normalized: Record<string, NewsArticle["category"]> = {
     trends: "industry",
-    policy: "regulation",
+    policy: "science",
     brand_trend: "brand_news",
     brand_dynamics: "brand_news",
     industry: "industry",
     new_product: "new_product",
-    regulation: "regulation",
+    regulation: "science",
     brand_news: "brand_news",
     science: "science",
   };
@@ -94,7 +94,6 @@ function getCategoryLabel(cat: string, lang: "zh" | "en"): string {
     const labels: Record<string, string> = {
       industry: "行业趋势",
       new_product: "新品发布",
-      regulation: "合规政策",
       brand_news: "品牌动态",
       science: "科普干货",
       all: "全部资讯"
@@ -104,7 +103,6 @@ function getCategoryLabel(cat: string, lang: "zh" | "en"): string {
     const labels: Record<string, string> = {
       industry: "Industry Trends",
       new_product: "New Launches",
-      regulation: "Regulations",
       brand_news: "Brand News",
       science: "Science & Tips",
       all: "All News"
@@ -567,6 +565,7 @@ export default function NewsSection({
               {/* Categorization dynamic tabs bar strictly in ordered layout */}
               <div className="flex flex-wrap justify-center gap-3 pt-6 relative z-10">
                 {[
+                  { id: "all", labelEn: "All Articles", labelZh: "📰 全部文章", descEn: "All published stories", descZh: "查看全部已发布资讯" },
                   { id: "new_product", labelEn: "New Launches", labelZh: "🆕 新品发布", descEn: "First looks at the latest gears", descZh: "最新上市产品的首次亮相及分析" },
                   { id: "science", labelEn: "Science & Tips", labelZh: "🧪 科普干货", descEn: "Ergonomics and child development", descZh: "儿童骨骼发育与产品工效学科普" },
                   { id: "brand_news", labelEn: "Brand News", labelZh: "🏷️ 品牌故事", descEn: "Stories behind major brands", descZh: "主流推车与骑乘品牌背后故事" },

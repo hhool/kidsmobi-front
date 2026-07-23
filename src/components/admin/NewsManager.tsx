@@ -18,11 +18,42 @@ import { deleteD1CMSNews, getD1CMSNews, getD1CMSProducts, getD1CMSScenarios, sav
 import BackendResourcePicker from "./BackendResourcePicker";
 import ScenarioPicker from "./ScenarioPicker";
 
+const NEWS_CATEGORY_OPTIONS = [
+  { value: "new_product", zh: "New Launches / 新品发布", en: "New Launches", path: "/news/new_product" },
+  { value: "science", zh: "Science & Tips / 科普干货", en: "Science & Tips", path: "/news/science" },
+  { value: "brand_news", zh: "Brand News / 品牌动态", en: "Brand News", path: "/news/brand_news" },
+  { value: "industry", zh: "Industry Trends / 行业趋势", en: "Industry Trends", path: "/news/industry" },
+] as const;
+
+type ManagedNewsCategory = (typeof NEWS_CATEGORY_OPTIONS)[number]["value"];
+
+const NEWS_CATEGORY_MAP: Record<string, ManagedNewsCategory> = {
+  new_product: "new_product",
+  science: "science",
+  brand_news: "brand_news",
+  brand_trend: "brand_news",
+  brand_dynamics: "brand_news",
+  regulation: "science",
+  industry: "industry",
+};
+
+function normalizeNewsCategory(value: unknown): ManagedNewsCategory {
+  return NEWS_CATEGORY_MAP[String(value || "").trim().toLowerCase()] || "industry";
+}
+
+function normalizeNewsRecord(item: News): News {
+  return {
+    ...item,
+    category: normalizeNewsCategory(item.category),
+  };
+}
+
 export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
   const [news, setNews] = useState<News[]>([]);
   const [products, setProducts] = useState<CMSProduct[]>([]);
   const [scenarios, setScenarios] = useState<CMSScenario[]>([]);
   const [editingNews, setEditingNews] = useState<News | null>(null);
+  const [newsFilter, setNewsFilter] = useState<"all" | ManagedNewsCategory>("all");
 
   useEffect(() => {
     fetchData();
@@ -60,7 +91,7 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
       scenariosData = await getCMSScenarios(true);
     }
 
-    setNews(newsData);
+    setNews(newsData.map(normalizeNewsRecord));
     setProducts(productsData);
     setScenarios(scenariosData);
   };
@@ -95,7 +126,7 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
   };
 
   const handleNew = () => {
-    setEditingNews({
+    setEditingNews(normalizeNewsRecord({
       id: `news_${Date.now()}`,
       category: "industry",
       status: "draft",
@@ -109,7 +140,7 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
       relatedProductIds: [],
       scenarioIds: [],
       updatedAt: null
-    });
+    }));
   };
 
   const [saving, setSaving] = useState(false);
@@ -120,12 +151,12 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
     setSaveError(null);
     try {
       try {
-        const saved = await saveD1CMSNews(n);
+        const saved = await saveD1CMSNews(normalizeNewsRecord(n));
         if (!saved) {
           throw new Error("D1 save failed");
         }
       } catch {
-        await saveCMSNews(n);
+        await saveCMSNews(normalizeNewsRecord(n));
       }
       setEditingNews(null);
       fetchData();
@@ -148,12 +179,30 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
     }
   };
 
+  const visibleNews = news
+    .map(normalizeNewsRecord)
+    .filter((item) => (newsFilter === "all" ? true : item.category === newsFilter))
+    .sort((a, b) => String(b.updatedAt || "").localeCompare(String(a.updatedAt || "")));
+
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <header className="flex items-center justify-between">
         <div>
           <h2 className="text-3xl font-black text-slate-900 tracking-tighter uppercase">{lang === "zh" ? "全球资讯" : "Global News"}</h2>
           <p className="text-slate-500 font-medium mt-1">Industry trends, launches, regulations, brand news, and science tips.</p>
+          <div className="mt-3">
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">{lang === "zh" ? "栏目筛选" : "Category Filter"}</label>
+            <select
+              className="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-700"
+              value={newsFilter}
+              onChange={(e) => setNewsFilter(e.target.value as "all" | ManagedNewsCategory)}
+            >
+              <option value="all">{lang === "zh" ? "全部文章 (/news)" : "All Articles (/news)"}</option>
+              {NEWS_CATEGORY_OPTIONS.map((item) => (
+                <option key={item.value} value={item.value}>{lang === "zh" ? item.zh : `${item.en} (${item.path})`}</option>
+              ))}
+            </select>
+          </div>
         </div>
         <button onClick={handleNew} className="btn-primary flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-3xl font-black shadow-2xl shadow-slate-900/10 hover:-translate-y-1 transition-all">
           <Plus className="w-5 h-5 text-blue-400" />
@@ -162,7 +211,7 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
       </header>
 
       <div className="grid grid-cols-1 gap-4">
-        {news.map((n) => (
+        {visibleNews.map((n) => (
           <div key={n.id} className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm flex items-center justify-between group hover:border-slate-800 transition-all">
             <div className="flex items-center gap-6">
               <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center">
@@ -170,7 +219,7 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
               </div>
               <div>
                 <div className="flex items-center gap-2 mb-1.5">
-                  <span className={`text-[10px] font-black uppercase px-2.5 py-1 rounded-full ${n.category === 'safety' ? 'bg-red-100 text-red-600' : 'bg-slate-100 text-slate-600'}`}>{n.category}</span>
+                  <span className="text-[10px] font-black uppercase px-2.5 py-1 rounded-full bg-slate-100 text-slate-600">{normalizeNewsCategory(n.category)}</span>
                   <span className={`text-[10px] font-black uppercase px-2.5 py-1 rounded-full ${n.status === "published" ? "bg-emerald-500 text-white" : "bg-slate-100 text-slate-500"}`}>
                     {n.status}
                   </span>
@@ -181,7 +230,7 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
             </div>
             <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
               <button 
-                onClick={() => setEditingNews(n)}
+                onClick={() => setEditingNews(normalizeNewsRecord(n))}
                 className="p-4 hover:bg-slate-100 rounded-2xl text-slate-600 transition-all text-xs font-black uppercase tracking-widest flex items-center gap-1.5"
               >
                 <FileText className="w-4 h-4 text-blue-500" />
@@ -217,7 +266,7 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
 }
 
 function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving, error }: any) {
-  const [formData, setFormData] = useState<News>(news);
+  const [formData, setFormData] = useState<News>(normalizeNewsRecord(news));
   const [activeLang, setActiveLang] = useState<"zh" | "en">("zh");
   const [pickerMode, setPickerMode] = useState<"cover" | "related" | null>(null);
   const [scenarioPickerOpen, setScenarioPickerOpen] = useState(false);
@@ -406,14 +455,14 @@ function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving,
               <select 
                 className="w-full bg-slate-50 py-4 px-6 rounded-2xl font-black text-xs outline-none border-2 border-transparent focus:border-slate-900 focus:bg-white transition-all shadow-sm"
                 value={formData.category}
-                onChange={(e) => setFormData({...formData, category: e.target.value})}
+                onChange={(e) => setFormData({...formData, category: normalizeNewsCategory(e.target.value)})}
               >
                 <option value="industry">Industry Trends</option>
                 <option value="new_product">New Launches</option>
-                <option value="regulation">Regulations</option>
                 <option value="brand_news">Brand News</option>
                 <option value="science">Science & Tips</option>
               </select>
+              <p className="text-[10px] font-bold text-slate-400 mt-1">{`Path: /news/${normalizeNewsCategory(formData.category)}`}</p>
             </div>
 
             <div className="space-y-2">

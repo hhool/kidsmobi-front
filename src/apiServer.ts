@@ -567,6 +567,23 @@ function normalizeGuideRecord(input: Guide): Guide {
   };
 }
 
+const NEWS_CATEGORY_SET = new Set(["new_product", "science", "brand_news", "industry"]);
+
+function normalizeNewsCategory(rawValue: unknown): string {
+  const value = String(rawValue || "").trim().toLowerCase();
+  if (value === "brand_trend" || value === "brand_dynamics") return "brand_news";
+  if (value === "regulation" || value === "regulations") return "science";
+  if (NEWS_CATEGORY_SET.has(value)) return value;
+  return "industry";
+}
+
+function normalizeNewsRecord(input: News): News {
+  return {
+    ...input,
+    category: normalizeNewsCategory(input?.category),
+  };
+}
+
 function mapWorkerCategoryToProductCategory(categoryId: string): ProductCategory {
   switch (categoryId) {
     case "balance_bike":
@@ -2077,7 +2094,7 @@ app.post("/api/cms/news/save", async (req, res) => {
       res.status(503).json({ error: "D1 is not configured." });
       return;
     }
-    const payload = (req.body || {}) as News;
+    const payload = normalizeNewsRecord((req.body || {}) as News);
     if (!payload?.id) {
       res.status(400).json({ error: "News payload with id is required." });
       return;
