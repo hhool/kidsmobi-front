@@ -11,9 +11,9 @@ import {
   Trash2
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { getCMSGuides, saveCMSGuide, deleteCMSGuide, getCMSProducts, getCMSScenarios } from "../../lib/cmsService";
+import { getCMSGuides, saveCMSGuide, deleteCMSGuide, getCMSProducts, getCMSScenarios, migrateCMSGuidesTaxonomy } from "../../lib/cmsService";
 import { Guide, RiskCard, SEOConfig, CMSProduct, CMSScenario, ProductCategory, GuideTopicCategory } from "../../types";
-import { deleteD1CMSGuide, getD1CMSGuides, getD1CMSProducts, getD1CMSScenarios, saveD1CMSGuide } from "../../lib/cmsD1Service";
+import { deleteD1CMSGuide, getD1CMSGuides, getD1CMSProducts, getD1CMSScenarios, saveD1CMSGuide, migrateD1CMSGuidesTaxonomy } from "../../lib/cmsD1Service";
 import BackendResourcePicker from "./BackendResourcePicker";
 import ScenarioPicker from "./ScenarioPicker";
 
@@ -68,6 +68,7 @@ export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
   const [products, setProducts] = useState<CMSProduct[]>([]);
   const [scenarios, setScenarios] = useState<CMSScenario[]>([]);
   const [editingGuide, setEditingGuide] = useState<Guide | null>(null);
+  const [migratingTaxonomy, setMigratingTaxonomy] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -168,6 +169,39 @@ export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
 
+  const handleMigrateTaxonomy = async () => {
+    if (migratingTaxonomy) return;
+    const isZh = lang === "zh";
+    const ok = window.confirm(
+      isZh
+        ? "确认对现有指南执行 taxonomy 迁移吗？系统将自动补齐品类、层级与排序字段。"
+        : "Run taxonomy migration for existing guides? Missing category hierarchy fields will be auto-filled.",
+    );
+    if (!ok) return;
+
+    setMigratingTaxonomy(true);
+    try {
+      let result: { processed: number; updated: number } | null = null;
+      try {
+        result = await migrateD1CMSGuidesTaxonomy();
+      } catch {
+        result = await migrateCMSGuidesTaxonomy();
+      }
+
+      alert(
+        isZh
+          ? `迁移完成：共扫描 ${result.processed} 篇，更新 ${result.updated} 篇。`
+          : `Migration complete: processed ${result.processed}, updated ${result.updated}.`,
+      );
+      await fetchData();
+    } catch (e: any) {
+      console.error(e);
+      alert(e.message || String(e));
+    } finally {
+      setMigratingTaxonomy(false);
+    }
+  };
+
   const handleSave = async (g: Guide) => {
     setSaving(true);
     setSaveError(null);
@@ -208,10 +242,23 @@ export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
           <h2 className="text-3xl font-black text-slate-900 tracking-tighter uppercase">{lang === "zh" ? "选购指南" : "Buying Guides"}</h2>
           <p className="text-slate-500 font-medium mt-1">SEOized cornerstone content for global conversion.</p>
         </div>
-        <button onClick={handleNew} className="btn-primary flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-3xl font-black shadow-2xl shadow-slate-900/10 hover:-translate-y-1 transition-all">
-          <Plus className="w-5 h-5 text-blue-400" />
-          {lang === "zh" ? "撰写指南" : "Compose Guide"}
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={handleMigrateTaxonomy}
+            disabled={migratingTaxonomy}
+            className="flex items-center gap-2 bg-amber-50 text-amber-700 border border-amber-200 px-6 py-4 rounded-3xl font-black shadow-sm hover:-translate-y-1 transition-all disabled:opacity-60"
+          >
+            <Save className="w-5 h-5 text-amber-500" />
+            {migratingTaxonomy
+              ? (lang === "zh" ? "迁移中..." : "Migrating...")
+              : (lang === "zh" ? "一键迁移 taxonomy" : "Migrate Taxonomy")}
+          </button>
+
+          <button onClick={handleNew} className="btn-primary flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-3xl font-black shadow-2xl shadow-slate-900/10 hover:-translate-y-1 transition-all">
+            <Plus className="w-5 h-5 text-blue-400" />
+            {lang === "zh" ? "撰写指南" : "Compose Guide"}
+          </button>
+        </div>
       </header>
 
       <div className="grid grid-cols-1 gap-4">

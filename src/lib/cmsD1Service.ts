@@ -211,6 +211,17 @@ export async function deleteD1CMSGuide(id: string): Promise<boolean> {
   return Boolean(response?.data?.deleted);
 }
 
+export async function migrateD1CMSGuidesTaxonomy(): Promise<{ processed: number; updated: number }> {
+  const response = await requestJson<{ data?: { processed?: number; updated?: number } }>("/api/cms/guides/migrate-taxonomy", {
+    method: "POST",
+    body: JSON.stringify({}),
+  });
+  return {
+    processed: Number(response?.data?.processed || 0),
+    updated: Number(response?.data?.updated || 0),
+  };
+}
+
 export async function deleteD1CMSNews(id: string): Promise<boolean> {
   const response = await requestJson<{ data?: { deleted?: boolean } }>("/api/cms/news/delete", {
     method: "POST",

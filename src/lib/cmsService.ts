@@ -189,6 +189,17 @@ export async function saveCMSGuide(guide: Guide) {
   });
 }
 
+export async function migrateCMSGuidesTaxonomy(): Promise<{ processed: number; updated: number }> {
+  const response = await requestJson<{ data?: { processed?: number; updated?: number } }>("/api/cms/guides/migrate-taxonomy", {
+    method: "POST",
+    body: JSON.stringify({}),
+  });
+  return {
+    processed: Number(response?.data?.processed || 0),
+    updated: Number(response?.data?.updated || 0),
+  };
+}
+
 export async function seedGuidesToFirestore(guidesData: any[]): Promise<boolean> {
   try {
     for (const g of guidesData) {

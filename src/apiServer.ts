@@ -504,6 +504,69 @@ function normalizeCmsSettingsPayload(settings: CMSSettings | null | undefined): 
   };
 }
 
+const GUIDE_PRODUCT_CATEGORY_SET = new Set<ProductCategory>([
+  "stroller",
+  "balance",
+  "bicycle",
+  "scooter",
+  "electric_car",
+  "tricycle",
+  "safety_seat",
+]);
+
+const GUIDE_TOPIC_CATEGORY_SET = new Set([
+  "beginner",
+  "budget",
+  "special",
+  "best",
+  "scenario",
+  "risk",
+  "maintenance",
+]);
+
+function normalizeGuideTopicCategory(rawValue: unknown): string {
+  const value = String(rawValue || "").trim().toLowerCase();
+  if (value === "category_spec" || value === "category_special") return "special";
+  if (GUIDE_TOPIC_CATEGORY_SET.has(value)) return value;
+  return "beginner";
+}
+
+function inferGuideProductCategory(rawValue: unknown, id: string, category: string): ProductCategory {
+  const normalized = String(rawValue || "").trim().toLowerCase();
+  if (GUIDE_PRODUCT_CATEGORY_SET.has(normalized as ProductCategory)) {
+    return normalized as ProductCategory;
+  }
+
+  const text = `${id} ${category}`.toLowerCase();
+  if (text.includes("balance")) return "balance";
+  if (text.includes("bicycle") || text.includes("bike")) return "bicycle";
+  if (text.includes("scooter")) return "scooter";
+  if (text.includes("electric")) return "electric_car";
+  if (text.includes("tricycle") || text.includes("trike")) return "tricycle";
+  if (text.includes("seat")) return "safety_seat";
+  return "stroller";
+}
+
+function normalizeGuideRecord(input: Guide): Guide {
+  const id = String(input?.id || "").trim();
+  const topicCategory = normalizeGuideTopicCategory(input?.taxonomy?.topicCategory || input?.category);
+  const productCategory = inferGuideProductCategory(input?.taxonomy?.productCategory, id, String(input?.category || ""));
+  const topicOrder = Math.max(1, Number(input?.taxonomy?.topicOrder || 1) || 1);
+
+  return {
+    ...input,
+    category: topicCategory,
+    taxonomy: {
+      ...(input?.taxonomy || {}),
+      productCategory,
+      hub: "all_guides",
+      topicCategory,
+      topicOrder,
+      hierarchyPath: [productCategory, "all_guides", topicCategory],
+    },
+  };
+}
+
 function mapWorkerCategoryToProductCategory(categoryId: string): ProductCategory {
   switch (categoryId) {
     case "balance_bike":
@@ -1939,7 +2002,7 @@ app.post("/api/cms/guides/save", async (req, res) => {
       res.status(503).json({ error: "D1 is not configured." });
       return;
     }
-    const payload = (req.body || {}) as Guide;
+    const payload = normalizeGuideRecord((req.body || {}) as Guide);
     if (!payload?.id) {
       res.status(400).json({ error: "Guide payload with id is required." });
       return;
@@ -1954,6 +2017,36 @@ app.post("/api/cms/guides/save", async (req, res) => {
   } catch (error: any) {
     console.error("Failed to save D1 guide:", error);
     res.status(500).json({ error: error.message || "Failed to save D1 guide" });
+  }
+});
+
+app.post("/api/cms/guides/migrate-taxonomy", async (_req, res) => {
+  try {
+    if (!hasD1Config()) {
+      res.status(503).json({ error: "D1 is not configured." });
+      return;
+    }
+
+    await ensureD1Schema();
+    const rows = await listD1CMSRecords<Guide>("guides");
+    let updated = 0;
+
+    for (const row of rows) {
+      const next = normalizeGuideRecord(row);
+      if (JSON.stringify(row) === JSON.stringify(next)) {
+        continue;
+      }
+      await upsertD1CMSRecord("guides", next.id, {
+        ...next,
+        updatedAt: new Date().toISOString(),
+      });
+      updated += 1;
+    }
+
+    res.json({ data: { processed: rows.length, updated } });
+  } catch (error: any) {
+    console.error("Failed to migrate D1 guide taxonomy:", error);
+    res.status(500).json({ error: error.message || "Failed to migrate D1 guide taxonomy" });
   }
 });
 
