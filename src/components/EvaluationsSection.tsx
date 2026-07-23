@@ -1680,7 +1680,7 @@ export default function EvaluationsSection({
       {/* 🛠️ 模块 5：独立测试方法论与国际标准认证 (Lab Rigor & Badges) */}
       <section className="bg-white border border-slate-100 rounded-[48px] p-8 sm:p-10 max-w-7xl mx-auto shadow-sm space-y-6 text-center">
         <div className="max-w-4xl mx-auto space-y-3">
-          <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-orange-500">KIDSMOBI LAB STANDARDS</h4>
+          <h2 className="text-[10px] font-black uppercase tracking-[0.2em] text-orange-500">KIDSMOBI LAB STANDARDS</h2>
           <h3 className="text-2xl font-black text-slate-900">{lang === "zh" ? "测试方法论与客观性誓言" : "Independent Rigor & Certification Compliance"}</h3>
           <p className="text-xs text-slate-500 font-medium leading-relaxed">
             {lang === "zh"
