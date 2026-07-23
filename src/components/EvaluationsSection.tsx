@@ -1072,13 +1072,13 @@ export default function EvaluationsSection({
   const doubleStrollerFloorReviews = useMemo(() => {
     const list = buildFloorList(isStrollerLike, true);
 
-    // Split into 3 Travel and 3 Jogging strollers naturally using text criteria
+    // Split into 5 Travel and 3 Jogging strollers naturally using text criteria
     const travelList = list.filter((item: any) => {
       const p = item.product || item.products?.[0];
       if (!p) return false;
       const text = `${p.name} ${item.evaluation.en?.title || ""}`.toLowerCase();
       return text.includes("travel") || text.includes("butterfly") || text.includes("lightweight") || text.includes("compact");
-    }).slice(0, 3);
+    }).slice(0, 5);
 
     const joggingList = list.filter((item: any) => {
       const p = item.product || item.products?.[0];
@@ -1087,9 +1087,9 @@ export default function EvaluationsSection({
       return text.includes("jogger") || text.includes("jogging") || text.includes("gt2") || text.includes("expedition");
     }).slice(0, 3);
 
-    // Dynamic interleaved list to keep variety engaging (3 Travel & 3 Jogging)
+    // Dynamic interleaved list to keep variety engaging (5 Travel & 3 Jogging)
     const combined: any[] = [];
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 5; i++) {
       if (travelList[i]) combined.push(travelList[i]);
       if (joggingList[i]) combined.push(joggingList[i]);
     }
@@ -1384,7 +1384,7 @@ export default function EvaluationsSection({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {doubleStrollerFloorReviews.slice(0, 6).map((item: any) => {
+            {doubleStrollerFloorReviews.slice(0, 8).map((item: any) => {
               const ev = item.evaluation;
               const product = item.product || item.products?.[0];
               if (!product) return null;
