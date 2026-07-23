@@ -910,6 +910,23 @@ Prioritize strollers under **5.8kg - 6.5kg** featuring a reliable **one-hand gra
 #### 2. Outdoor Grass & Off-road Commutes
 Hard plastic wheels get stuck on grass. Upgrade to thick **pneumatic off-road tires** (e.g., Bugaboo Fox 5) with parent links.`
     },
+    guide_stroller_3: {
+      title: "How to Choose a Baby Stroller: Spinal Alignment, Suspension & Safety Guide",
+      summary: "Expert biomechanical guide on how to choose a baby stroller. Evaluate high-view comfort tires, ergonomic back support plates, and rollover indicators.",
+      author: "Material Risk Auditor - Marios",
+      readTime: "8 min read",
+      content: `### Biomechanical Guide on How to Choose a Baby Stroller for Infant Spine Safety
+
+Selecting the right pram is one of the most critical decisions for a new parent. Let's explore how to choose a baby stroller with strict biomechanical and safety standards in mind.
+
+#### 1. True Suspension Integration to Protect Fragile Vestibular Systems
+*   **Large Air-Filled or Premium Rubber Tires**: Rear wheels with a diameter &ge; 18cm possess superior dampening capabilities to absorb micro-shocks on concrete or brick sidewalks of suburban areas.
+*   **Independent Suspension Link Arms**: Ensure shock waves disperse throughout the reinforced aluminum frame, minimizing sudden micro-shakes to the infant skull cavity.
+
+#### 2. Deep Posture Support vs. Mesh Sagginess
+*   **Rigid Ergonomic Backing (Posture Plate)**: Strictly avoid purchasing bargain strollers which rely purely on saggy mesh backing without rigid vertical boards. Developing spines under 3 years old require flat, solid alignment to prevent postural issues.
+*   **175-Degree Lie-Flat Buffer**: The medical golden ceiling for flat lying positions to disperse weight evenly without risking fluid reflux.`
+    },
 
     // 2. Kids Bike Articles
     guide_bicycle_1: {
@@ -1011,6 +1028,23 @@ Typically weigh **5.2kg - 7kg**. During falls, these heavy steel structures pin 
 #### 2. Aerospace Aluminum 6061 & Injection-Molded Magnesium
 *   **Aluminum 6061**: High strength-to-weight ratio, rust-resistant, keeping overall weights at **2.9kg - 3.5kg**.
 *   **Magnesium One-Piece castings**: Eliminates weld joints, resulting in clean, aerodynamic curves.`
+    },
+    guide_balance_3: {
+      title: "Scientific Checklist for First Starter Balance Bike for 1 Year Old",
+      summary: "Is a baby ready to slide? Biomechanical rules of selecting a proper balance bike for 1 year old infants, including inseam and steering angles.",
+      author: "Ergonomics Lead - Prof. Ge",
+      readTime: "7 min read",
+      content: `### Biomechanics for Toddlers: Selecting a Balance Bike for 1 Year Old Beginning Sliders
+
+Introducing a balance bike for 1 year old toddlers (typically during 12-18 months) is excellent for vestibular development, but highly specific safety parameters apply.
+
+#### 1. Crucial Rule: Ultra-Low Minimum Seat Heights
+*   **Sizing Inseam Match**: Toddlers' knees and hip joints are highly elastic. To prevent joint fatigue, seat height should sit strictly **&le; bare-foot inseam height minus 2.0 cm**.
+*   **Ideal Starter Dimensions**: Select a micro frameset which lowers seat positions down to 10-12 inches so they feel confident planting feet flat on tiles.
+
+#### 2. Anti-Tip Steering Limiter
+*   **50° Steering Stop Limit**: Ensure the handlebar uses rigid physical stoppers limiting left-to-right turns within 50 degrees. 360-degree free spinning handlebars are dangerous for 1-year-olds; a sudden sharp steer will snap the front wheel sideways, causing direct facial or collarbone impacts.
+*   **Under 2.5kg Target Weight**: Toddlers under 2 years old must not maneuver bikes exceeding 30% of their mass. Keep frames under 2.5 kg using composite foam or aluminum with light wheelsets.`
     },
 
     // 5. Electric Car Articles

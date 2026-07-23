@@ -80,14 +80,14 @@ const seoRouteMap: Record<string, string> = {
   "https://balancebiketoddler.com/reviews/balance-bikes/": "/reviews/balance-bikes/",
   "https://balancebiketoddler.com/products/kids-bikes/": "/products/kids-bikes/",
   "url?id=2": "/products/kids-scooters/",
-  "https://balancebiketoddler.com/guides/sizing-buying-guide/": "/guides/sizing-buying-guide/",
+  "https://balancebiketoddler.com/guides/sizing-buying-guide/": "/guides/",
   "https://balancebiketoddler.com/transparency/disclaimer/": "/transparency/disclaimer/",
   "https://balancebiketoddler.com/transparency/testing-methodology/": "/transparency/testing-methodology/",
   "https://balancebiketoddler.com/transparency/certification-lab-notes/": "/transparency/certification-lab-notes/",
   "https://balancebiketoddler.com/transparency/privacy-policy/": "/transparency/privacy-policy/",
   "https://dev.kidsmobi.pages.dev/reviews/balance-bikes/": "/reviews/balance-bikes/",
   "https://dev.kidsmobi.pages.dev/products/kids-bikes/": "/products/kids-bikes/",
-  "https://dev.kidsmobi.pages.dev/guides/sizing-buying-guide/": "/guides/sizing-buying-guide/",
+  "https://dev.kidsmobi.pages.dev/guides/sizing-buying-guide/": "/guides/",
   "https://dev.kidsmobi.pages.dev/transparency/disclaimer/": "/transparency/disclaimer/",
   "https://dev.kidsmobi.pages.dev/transparency/testing-methodology/": "/transparency/testing-methodology/",
   "https://dev.kidsmobi.pages.dev/transparency/certification-lab-notes/": "/transparency/certification-lab-notes/",
@@ -95,7 +95,7 @@ const seoRouteMap: Record<string, string> = {
   "/reviews/balance-bikes/": "/reviews/balance-bikes/",
   "/products/kids-bikes/": "/products/kids-bikes/",
   "/products/kids-scooters/": "/products/kids-scooters/",
-  "/guides/sizing-buying-guide/": "/guides/sizing-buying-guide/",
+  "/guides/sizing-buying-guide/": "/guides/",
   "/transparency/disclaimer/": "/transparency/disclaimer/",
   "/transparency/testing-methodology/": "/transparency/testing-methodology/",
   "/transparency/certification-lab-notes/": "/transparency/certification-lab-notes/",
@@ -618,9 +618,17 @@ const resolveRouteState = (pathname: string, hash: string) => {
     let activeGuidesArticleId = "";
     
     if (contentSegments[1]) {
-      activeGuidesCategory = contentSegments[1];
-      if (contentSegments[2]) {
-        activeGuidesArticleId = contentSegments[2];
+      // Check if contentSegments[1] is a known article ID
+      const isArticleId = guideArticles.some((g) => g.id === contentSegments[1]);
+      if (isArticleId) {
+        const foundArt = guideArticles.find((g) => g.id === contentSegments[1]);
+        activeGuidesCategory = foundArt?.category || "all";
+        activeGuidesArticleId = contentSegments[1];
+      } else {
+        activeGuidesCategory = contentSegments[1];
+        if (contentSegments[2]) {
+          activeGuidesArticleId = contentSegments[2];
+        }
       }
     }
     
@@ -2855,7 +2863,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             activeCategory={activeGuidesCategory}
             activeArticleId={activeGuidesArticleId}
             onCategoryChange={(cat) => navigateToPath(cat === "all" ? "/guides" : `/guides/${cat}`, { preserveScroll: true })}
-            onArticleOpen={(cat, articleId) => navigateToPath(`/guides/${cat}/${articleId}`, { preserveScroll: true })}
+            onArticleOpen={(cat, articleId) => navigateToPath(`/guides/${articleId}`, { preserveScroll: true })}
             onArticleClose={() => navigateToPath(activeGuidesCategory === "all" ? "/guides" : `/guides/${activeGuidesCategory}`, { preserveScroll: true })}
             onPageChange={(page) => {
               const guidesPath = activeGuidesCategory === "all" ? "/guides" : `/guides/${activeGuidesCategory}`;
@@ -3147,11 +3155,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </li>
                 <li>
                   <a
-                    href={resolveSeoLink("/guides/sizing-buying-guide/")}
+                    href={resolveSeoLink("/guides/")}
                     className="hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
                       event.preventDefault();
-                      navigateToPath("/guides/sizing-buying-guide");
+                      navigateToPath("/guides");
                     }}
                   >
                     {lang === "en" ? "Sizing & Buying Guide" : "尺寸与选购指南"}

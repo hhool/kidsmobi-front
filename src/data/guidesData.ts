@@ -55,6 +55,28 @@ export const guideArticles: GuideArticle[] = [
     publishDate: "2026-07-18",
     productCategory: "stroller"
   },
+  {
+    id: "guide_stroller_3",
+    title: "婴儿手推车科学选购：避震、坐宽与骨骼力学防摔指南 (how to choose a baby stroller)",
+    category: "beginner",
+    categoryLabel: "新手入门指南",
+    summary: "硬核解答婴儿推车怎么选？用实验室生物力学与抗倾覆数据剖析避震、座宽与折叠锁靠背机制，保障骨骼发育。",
+    content: `### 婴儿手推车科学选购基准与多路况防颠安全红线
+
+很多新手家长在面对市场上五花八门的推车宣传时深感困惑。婴儿手推车究竟该怎么选？（How to Choose a Baby Stroller）
+
+#### 1. 核心力学避震：捍卫婴儿颈部发育的核心红线
+*   **首选充气或高性能橡胶大轮组合**：直径 &ge; 18cm 的后轮拥有极强的微震吸收特性。廉价坚硬的塑料单驱轮由于无法过滤高频颤动，颠簸会原封不动地传导给脆弱的脑部。
+*   **独立四轮弹簧避震机构**：当轮毂下陷，承载底架应支持多轴联动以消除重力骤变。
+
+#### 2. 座舱姿态保护：坚硬托底防含胸驼背
+*   **背靠硬支撑钢骨（Posture 板）**：严禁购买只有薄层网套而无坚硬托底支撑的低级背板。3岁以下幼童脊髓极软，若长久缩在无定型网套座舱内会压迫气管与颈椎。
+*   **175度防呛奶平躺视角**：医学黄金平躺上限，给脊椎提供全面释压平面，拒绝过度弯折。`,
+    author: "力学质检与化学安全监督组 Marios",
+    readTime: "8 分钟",
+    publishDate: "2026-07-17",
+    productCategory: "stroller"
+  },
 
   // 2. Kids Bike Articles
   {
@@ -187,6 +209,28 @@ export const guideArticles: GuideArticle[] = [
     author: "力学质检与化学安全监督组 Marios",
     readTime: "7 分钟",
     publishDate: "2026-06-25",
+    productCategory: "balance"
+  },
+  {
+    id: "guide_balance_3",
+    title: "1岁宝宝微型平衡车启蒙：前庭平衡、腿跨测算与座椅红线 (balance bike for 1 year old)",
+    category: "beginner",
+    categoryLabel: "新手入门指南",
+    summary: "1岁幼儿能不能玩滑步车？解析适合1岁宝宝的幼童平衡车力学与人体工程学设计，让初学滑行安全顺畅不伤膝。",
+    content: `### 1岁学步期宝宝的第一辆微型平衡车（Balance Bike for 1 Year Old）
+
+许多家长想在宝宝刚刚学会站立迈步（大约12-18个月）时，引入平衡车。但1岁的宝宝身体结构有自己的特殊红线。
+
+#### 1. 为什么“超低跨高度”是1岁宝宝的安全天条？
+*   **平稳脚跟蹬地（Heel-to-Toe Landing）**：1岁宝宝的骨骼和膝关节还极幼嫩，玩车时座垫最低高度必须 **&le; 脱鞋跨高减去2cm**，确保大腿在大跨度迈步向前蹬地时，膝关节和脚踝能时刻自如微屈，承受缓冲冲击。
+*   **推荐低椅鞍范围**：推荐座椅最低可调至 10-12 英寸以下，让初学者踩得稳踩得舒坦。
+
+#### 2. 底盘轴距与一键防倾覆（Anti-tip Steer Limit）
+*   **50度安全转向角扭限制**：优秀的1岁微型平衡车，其前龙头转向角度必须被限位器卡在左右 50 度范围内。如果像成人大车一样支持 360 度随意旋转，在幼童急转侧倾时龙头极易突然夹死，直接摔破娇嫩的颌面和锁骨。
+*   **车身自重黄金比 (Weight Boundaries)**：1岁幼车自重决不能超过 **2.5kg**，最好是采用超轻发泡轮或高端铝圈。`,
+    author: "安全研究所-工效专家 葛教授",
+    readTime: "7 分钟",
+    publishDate: "2026-06-23",
     productCategory: "balance"
   },
 
