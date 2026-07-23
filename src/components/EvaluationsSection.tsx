@@ -1370,19 +1370,80 @@ export default function EvaluationsSection({
       {/* 🛠️ 模块 4：结构化深度评测报告流 (Categorized Review Stream) */}
       <div className="space-y-24 max-w-7xl mx-auto">
         
-        {/* FLOOR 2: BALANCE BIKES */}
-        <section id="balance-bike" className="scroll-mt-24 space-y-8">
+        
+        {/* FLOOR 5: KIDS STROLLERS */}
+        <section id="kids-stroller" className="scroll-mt-24 space-y-8">
           <div className="border-b border-slate-100 pb-4">
             <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
-              {lang === "zh" ? "儿科力学：Toddler Bike Reviews 深度评测" : "Toddler Bike Reviews: Biomechanical & Ride Ratings"}
+              {lang === "zh" ? "高端出行：Best Stroller 深度评测" : "Kids Stroller Reviews: Travel Stroller & Jogging Stroller Tests"}
             </h2>
             <p className="mt-2 text-sm text-slate-500 font-medium">
-              {lang === "zh" ? "首推平衡车代表评测：SEREED、Gamfeiny 与 Umatoll 等学跑单品。" : "Find the safest toddler bike on the market today. Read our detailed toddler bike reviews focusing on low centers of gravity, frame compliance, and steering limiter safety."}
+              {lang === "zh" ? "一站式获取最新手推车横向物理测评，保障宝宝出行舒适健康。" : "Explore our latest stroller reviews to compare travel stroller models and high-speed jogging stroller variants. We evaluate travel stroller flight compactness and jogging stroller hub friction safety."}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {balanceBikeFloorReviews.slice(0, 4).map((item: any) => {
+            {doubleStrollerFloorReviews.slice(0, 6).map((item: any) => {
+              const ev = item.evaluation;
+              const product = item.product || item.products?.[0];
+              if (!product) return null;
+              const dp = translateProduct(product, lang);
+              const customEvlangTitle = lang === "en" ? `${dp.brand} ${dp.name} Review` : `${dp.brand} ${dp.name} 深度安全评测报告`;
+              const evLang = {
+                title: customEvlangTitle,
+                verdict: lang === "zh" ? ev.zh.verdict : ev.en.verdict
+              };
+              const imageSet = resolveProductImages(product);
+
+              return (
+                <div
+                  key={ev.id}
+                  onClick={() => openEvaluationDetail(ev)}
+                  className="bg-white border border-slate-100 rounded-[36px] p-6 hover:shadow-xl transition-all duration-300 flex flex-col md:flex-row gap-6 cursor-pointer group"
+                >
+                  <div className="md:w-2/5 h-44 bg-slate-50 rounded-2xl p-4 flex items-center justify-center overflow-hidden shrink-0">
+                    <SmartImage
+                      src={imageSet.coverUrl || undefined}
+                      alt={`${dp.brand} ${dp.name} Review`}
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                      wrapperClassName="w-full h-full"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-between flex-1 py-1">
+                    <div className="space-y-2">
+                       <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
+                      <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors line-clamp-2">{evLang.title}</h3>
+                      <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
+                    </div>
+                    <div className="flex justify-between items-center pt-4 border-t border-slate-50">
+                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Read Full Stroller Review ➔" : "查看推车深度安全评测报告 ➔"}</span>
+                      {ev.scores?.safety && (
+                        <div className="flex items-center gap-1">
+                          <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
+                          <span className="text-[11px] font-black text-slate-800">{ev.scores.safety.toFixed(1)}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* FLOOR 2: BALANCE BIKES */}
+        <section id="balance-bike" className="scroll-mt-24 space-y-8">
+          <div className="border-b border-slate-100 pb-4">
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
+              {lang === "zh" ? "学步优选：Balance Bike 深度评测" : "Balance Bike Reviews: Biomechanical & Ride Ratings"}
+            </h2>
+            <p className="mt-2 text-sm text-slate-500 font-medium">
+              {lang === "zh" ? "首推平衡车代表评测：SEREED、Gamfeiny 与 Umatoll 等学跑单品。" : "Discover top-rated infant ride-ons. Read detailed balance bike reviews focusing on child low centers of gravity, frame weight, and structural steering safety limits."}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {balanceBikeFloorReviews.slice(0, 6).map((item: any) => {
               const ev = item.evaluation;
               const product = item.product || item.products?.[0];
               if (!product) return null;
@@ -1442,7 +1503,7 @@ export default function EvaluationsSection({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {kidsBikeOnlyReviews.slice(0, 6).map((item: any) => {
+            {kidsBikeOnlyReviews.slice(0, 4).map((item: any) => {
               const ev = item.evaluation;
               const product = item.product || item.products?.[0];
               if (!product) return null;
@@ -1550,66 +1611,6 @@ export default function EvaluationsSection({
           </div>
         </section>
 
-        {/* FLOOR 5: KIDS STROLLERS */}
-        <section id="kids-stroller" className="scroll-mt-24 space-y-8">
-          <div className="border-b border-slate-100 pb-4">
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
-              {lang === "zh" ? "高端出行：Best Stroller 深度评测" : "Kids Stroller Reviews: Travel Stroller & Jogging Stroller Tests"}
-            </h2>
-            <p className="mt-2 text-sm text-slate-500 font-medium">
-              {lang === "zh" ? "一站式获取最新手推车横向物理测评，保障宝宝出行舒适健康。" : "Explore our latest stroller reviews to compare travel stroller models and high-speed jogging stroller variants. We evaluate travel stroller flight compactness and jogging stroller hub friction safety."}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {doubleStrollerFloorReviews.slice(0, 6).map((item: any) => {
-              const ev = item.evaluation;
-              const product = item.product || item.products?.[0];
-              if (!product) return null;
-              const dp = translateProduct(product, lang);
-              const customEvlangTitle = lang === "en" ? `${dp.brand} ${dp.name} Review` : `${dp.brand} ${dp.name} 深度安全评测报告`;
-              const evLang = {
-                title: customEvlangTitle,
-                verdict: lang === "zh" ? ev.zh.verdict : ev.en.verdict
-              };
-              const imageSet = resolveProductImages(product);
-
-              return (
-                <div
-                  key={ev.id}
-                  onClick={() => openEvaluationDetail(ev)}
-                  className="bg-white border border-slate-100 rounded-[36px] p-6 hover:shadow-xl transition-all duration-300 flex flex-col md:flex-row gap-6 cursor-pointer group"
-                >
-                  <div className="md:w-2/5 h-44 bg-slate-50 rounded-2xl p-4 flex items-center justify-center overflow-hidden shrink-0">
-                    <SmartImage
-                      src={imageSet.coverUrl || undefined}
-                      alt={`${dp.brand} ${dp.name} Review`}
-                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                      wrapperClassName="w-full h-full"
-                    />
-                  </div>
-                  <div className="flex flex-col justify-between flex-1 py-1">
-                    <div className="space-y-2">
-                       <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
-                      <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors line-clamp-2">{evLang.title}</h3>
-                      <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
-                    </div>
-                    <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Read Full Stroller Review ➔" : "查看推车深度安全评测报告 ➔"}</span>
-                      {ev.scores?.safety && (
-                        <div className="flex items-center gap-1">
-                          <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
-                          <span className="text-[11px] font-black text-slate-800">{ev.scores.safety.toFixed(1)}</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-
         {/* FLOOR 6: KIDS ELECTRIC CAR */}
         <section id="kids-electric-car" className="scroll-mt-24 space-y-8">
           <div className="border-b border-slate-100 pb-4">
@@ -1673,7 +1674,6 @@ export default function EvaluationsSection({
             </div>
           )}
         </section>
-
       </div>
 
       {/* 🛠️ 模块 5：独立测试方法论与国际标准认证 (Lab Rigor & Badges) */}
