@@ -66,6 +66,7 @@ import { fetchContentBundle, isScrapedContentSource } from "./lib/contentSource"
 import { DEFAULT_SEO_CONFIGS, normalizeSeoConfig } from "./config/defaultSeo";
 import { getProductSeoKeywords, getReviewSeoKeywords } from "./config/seoKeywordMap";
 import { getTransparencyPageByPath, TRANSPARENCY_PAGE_PATHS, type TransparencyPageKey } from "./data/transparencyPages";
+import CookieConsentModal from "./components/CookieConsentModal";
 
 const SEO_KEY_TO_PAGE_TYPE: Record<string, CMSPageConfig["pageType"]> = {
   home: "home",
@@ -536,6 +537,10 @@ const safeStorageSet = (key: string, value: string): void => {
   }
 };
 
+const COOKIE_CONSENT_KEY = "cookie_consent_v1";
+const COOKIE_PREFERENCES_KEY = "cookie_preferences_v1";
+type CookieConsentChoice = "all" | "essential" | "custom";
+
 const isDevAdminBypassEnabled = (): boolean => {
   return safeStorageGet("dev_admin_bypass") === "true";
 };
@@ -781,6 +786,11 @@ export default function App() {
   });
   const [authLoading, setAuthLoading] = useState<boolean>(() => {
     return !isDevAdminBypassEnabled();
+  });
+
+  const [showCookieConsent, setShowCookieConsent] = useState<boolean>(() => {
+    const consent = safeStorageGet(COOKIE_CONSENT_KEY);
+    return consent !== "all" && consent !== "essential" && consent !== "custom";
   });
 
   const initialRouteState = resolveRouteState(window.location.pathname, window.location.hash);
@@ -2420,6 +2430,21 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
     setSavedProducts([]);
   };
 
+  const persistCookieConsent = (choice: CookieConsentChoice, preferences?: { analytics: boolean; functional: boolean }) => {
+    safeStorageSet(COOKIE_CONSENT_KEY, choice);
+    safeStorageSet(
+      COOKIE_PREFERENCES_KEY,
+      JSON.stringify({
+        essential: true,
+        analytics: preferences?.analytics ?? (choice === "all"),
+        functional: preferences?.functional ?? (choice !== "essential"),
+        consentChoice: choice,
+        updatedAt: new Date().toISOString(),
+      }),
+    );
+    setShowCookieConsent(false);
+  };
+
   return (
     <div id="decision_core" className="relative min-h-screen overflow-hidden bg-slate-50 text-slate-900 font-sans selection:bg-orange-200 selection:text-slate-900 flex flex-col justify-between">
       
@@ -3394,6 +3419,15 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           </motion.button>
         )}
       </AnimatePresence>
+
+      {showCookieConsent && (
+        <CookieConsentModal
+          lang={lang}
+          onAcceptAll={() => persistCookieConsent("all", { analytics: true, functional: true })}
+          onEssentialOnly={() => persistCookieConsent("essential", { analytics: false, functional: false })}
+          onSavePreferences={(preferences) => persistCookieConsent("custom", preferences)}
+        />
+      )}
     </div>
   );
 }

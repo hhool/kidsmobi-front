@@ -9,7 +9,6 @@ import {
   Download, 
   FileText, 
   Key, 
-  Globe, 
   ShieldCheck, 
   RefreshCw,
   LogOut,
@@ -375,27 +374,6 @@ export default function AuthSection({
 
   return (
     <div id="auth_container" className="max-w-4xl mx-auto space-y-8 text-left">
-      {/* Cookie GDPR regulatory banner */}
-      {!userEmail && (
-        <div className="bg-slate-900 border border-amber-500/30 rounded-2xl p-4 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
-          <div className="flex items-center gap-3 text-left">
-            <Globe className="w-8 h-8 text-amber-500 shrink-0" />
-            <p className="text-slate-300 leading-relaxed">
-              <strong>{isEn ? "Privacy & Cookie Preferences (GDPR/UK Compliant)" : "隐私及 Cookie 偏好设定 (GDPR/UK Compliant)"}</strong>: 
-              {isEn 
-                ? " This lightweight portal uses encrypted local variables. Registering unlocks options to bookmark products, compare dynamic profiles, and download certified evaluations." 
-                : " 本轻量化决策官网使用加密本地存储及哈希邮箱哈希串，绝不采集您的实名位置。如果您自愿勾选注册，我们会提供给您保存选型、无限对比、以及下载 PDF 评测包的会员特权。"}
-            </p>
-          </div>
-          <button 
-            onClick={() => alert(isEn ? "Cookie terms accepted. Minimal localized caches active." : "Cookie 条款已同意。平台将采取极致离线轻量逻辑。")} 
-            className="bg-amber-500 hover:bg-amber-600 font-bold px-4 py-2 text-slate-950 rounded-xl transition text-[10px] shrink-0 uppercase tracking-wide"
-          >
-            {isEn ? "Accept All Cookies" : "接受全部 Cookie"}
-          </button>
-        </div>
-      )}
-
       {isRegistered ? (
         // Logined Dashboard
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left">
