@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Search, Calendar, User, Eye, BookOpen, Clock, ArrowLeft, Heart, Share2, Globe, Zap } from "lucide-react";
 import { NewsArticle, newsArticles as fallbackNewsArticles } from "../data/newsData";
-import { translateNewsArticle } from "../lib/translate";
 import { getCMSNews } from "../lib/cmsService";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
 
@@ -185,7 +184,7 @@ export default function NewsSection({
       return;
     }
 
-    const article = translateNewsArticle(selectedArticleState, lang);
+    const article = selectedArticleState;
     const canonicalUrl = window.location.href;
     setJsonLd("news-detail", {
       "@context": "https://schema.org",
@@ -296,7 +295,6 @@ export default function NewsSection({
     });
 
     return sortedSource
-      .map(art => translateNewsArticle(art, lang))
       .filter((art) => {
         const normalizedCategory = String(art.category || "").trim().toLowerCase();
         const normalizedSelectedCategory = String(selectedCategory || "all").trim().toLowerCase();
@@ -354,7 +352,7 @@ export default function NewsSection({
           });
         }
         if (selectedArticleState) {
-          const article = translateNewsArticle(selectedArticleState, lang);
+          const article = selectedArticleState;
           items.push({
             label: article.title,
             active: true,
@@ -371,7 +369,7 @@ export default function NewsSection({
       })()}
 
       {selectedArticleState ? (() => {
-        const article = translateNewsArticle(selectedArticleState, lang);
+        const article = selectedArticleState;
         return (
           // Detailed Article Post Reader View
           <div className="max-w-3xl mx-auto bg-white border border-slate-100 rounded-[40px] p-8 sm:p-12 space-y-8 shadow-2xl relative animate-fade-in text-left">
