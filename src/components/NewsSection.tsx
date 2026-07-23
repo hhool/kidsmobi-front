@@ -646,7 +646,7 @@ export default function NewsSection({
                         {art.views + (likedList.includes(art.id) ? 1 : 0)}
                       </span>
                       <span className="text-orange-500 group-hover:underline font-black">
-                        {lang === "en" ? "Read More →" : "阅读原文 →"}
+                        {lang === "en" ? "read →" : "阅读原文 →"}
                       </span>
                     </div>
                   </div>
