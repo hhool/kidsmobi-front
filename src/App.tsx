@@ -546,8 +546,7 @@ const isDevAdminBypassEnabled = (): boolean => {
 };
 
 const resolveInitialLang = (): "zh" | "en" => {
-  const saved = safeStorageGet("app_lang");
-  return saved === "zh" || saved === "en" ? saved : "en";
+  return "en";
 };
 
 const resolveRouteState = (pathname: string, hash: string) => {
