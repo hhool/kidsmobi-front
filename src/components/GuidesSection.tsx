@@ -294,6 +294,21 @@ function isArticleRelatedToProductCategory(article: GuideArticle, productCategor
   return keywords.some(kw => title.includes(kw) || summary.includes(kw) || content.includes(kw));
 }
 
+function getGuideTopicOrder(article: GuideArticle): number {
+  const direct = Number((article as any)?.topicOrder || (article as any)?.taxonomy?.topicOrder);
+  if (Number.isFinite(direct) && direct > 0) {
+    return direct;
+  }
+
+  const generatedMatch = String(article.id || "").match(/^generated_[^_]+_(\d+)_/);
+  if (generatedMatch && generatedMatch[1]) {
+    const parsed = Number(generatedMatch[1]);
+    if (Number.isFinite(parsed) && parsed > 0) return parsed;
+  }
+
+  return 9999;
+}
+
 function productCategoryGuideLabel(product: Product, lang: "zh" | "en") {
   const text = `${product.category || ""} ${(product as any).categoryId || ""} ${product.name || ""}`.toLowerCase();
   if (text.includes("stroller")) return lang === "en" ? "baby stroller" : "婴儿推车";
@@ -520,6 +535,7 @@ export default function GuidesSection({
               ? new Date(g.updatedAt.seconds * 1000).toISOString().split("T")[0]
               : "2026-06-15",
             productCategory: g.taxonomy?.productCategory,
+            ...(g.taxonomy?.topicOrder ? { topicOrder: Number(g.taxonomy.topicOrder || 1) } : {}),
           }));
           setGuideArticles(mapped);
           setLoadingGuides(false);
@@ -651,7 +667,14 @@ export default function GuidesSection({
   }, [allGuideArticles, wizardCategory]);
 
   const activeArticlesList = useMemo(() => {
-    return productFilteredArticles;
+    return [...productFilteredArticles].sort((a, b) => {
+      if (a.category !== b.category) {
+        return String(a.category).localeCompare(String(b.category));
+      }
+      const topicOrderDiff = getGuideTopicOrder(a) - getGuideTopicOrder(b);
+      if (topicOrderDiff !== 0) return topicOrderDiff;
+      return String(b.publishDate || "").localeCompare(String(a.publishDate || ""));
+    });
   }, [productFilteredArticles]);
 
   // Auto-reset page count when wizardCategory changes to prevent pagination bounds overflow

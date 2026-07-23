@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { 
   Plus, 
   Save, 
@@ -69,6 +69,7 @@ export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
   const [scenarios, setScenarios] = useState<CMSScenario[]>([]);
   const [editingGuide, setEditingGuide] = useState<Guide | null>(null);
   const [migratingTaxonomy, setMigratingTaxonomy] = useState(false);
+  const [topicFilter, setTopicFilter] = useState<"all" | GuideTopicCategory>("all");
 
   useEffect(() => {
     fetchData();
@@ -235,12 +236,42 @@ export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
     }
   };
 
+  const visibleGuides = useMemo(() => {
+    return guides
+      .map(normalizeGuideTaxonomy)
+      .filter((guide) => {
+        if (topicFilter === "all") return true;
+        return (guide.taxonomy?.topicCategory || guide.category) === topicFilter;
+      })
+      .sort((a, b) => {
+        const topicA = Number(a.taxonomy?.topicOrder || 9999);
+        const topicB = Number(b.taxonomy?.topicOrder || 9999);
+        if (topicA !== topicB) return topicA - topicB;
+        return String(b.updatedAt || "").localeCompare(String(a.updatedAt || ""));
+      });
+  }, [guides, topicFilter]);
+
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <header className="flex items-center justify-between">
         <div>
           <h2 className="text-3xl font-black text-slate-900 tracking-tighter uppercase">{lang === "zh" ? "选购指南" : "Buying Guides"}</h2>
           <p className="text-slate-500 font-medium mt-1">SEOized cornerstone content for global conversion.</p>
+          <div className="mt-3">
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">
+              {lang === "zh" ? "三级栏目筛选" : "Topic Filter"}
+            </label>
+            <select
+              className="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-700"
+              value={topicFilter}
+              onChange={(e) => setTopicFilter(e.target.value as "all" | GuideTopicCategory)}
+            >
+              <option value="all">{lang === "zh" ? "全部栏目" : "All Topics"}</option>
+              {GUIDE_TOPIC_OPTIONS.map((item) => (
+                <option key={item.value} value={item.value}>{lang === "zh" ? item.zh : item.en}</option>
+              ))}
+            </select>
+          </div>
         </div>
         <div className="flex items-center gap-3">
           <button
@@ -262,7 +293,7 @@ export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
       </header>
 
       <div className="grid grid-cols-1 gap-4">
-        {guides.map((g) => (
+        {visibleGuides.map((g) => (
           <div key={g.id} className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm flex items-center justify-between group hover:border-blue-200 transition-all">
             <div className="flex items-center gap-6">
               <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center">
@@ -270,7 +301,8 @@ export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
               </div>
               <div>
                 <div className="flex items-center gap-2 mb-1.5">
-                  <span className="text-[10px] font-black uppercase bg-blue-100 text-blue-600 px-2.5 py-1 rounded-full">{g.category}</span>
+                  <span className="text-[10px] font-black uppercase bg-blue-100 text-blue-600 px-2.5 py-1 rounded-full">{g.taxonomy?.topicCategory || g.category}</span>
+                  <span className="text-[10px] font-black uppercase bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">{g.taxonomy?.productCategory || "stroller"}</span>
                   <span className={`text-[10px] font-black uppercase px-2.5 py-1 rounded-full ${g.status === "published" ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-500"}`}>
                     {g.status}
                   </span>
