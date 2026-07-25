@@ -311,7 +311,7 @@ async function buildMirrorImageIndex() {
           const encodedDir = encodeUrlPathSegment(dirName);
           asinMap.set(asin, {
             isSimilar,
-            url: `https://store.poki2.online/${encodeUrlPathSegment(categoryKey)}/${encodedBrand}/${encodedDir}/images/primary.jpg`,
+            url: `https://store.balancebiketoddler.com/${encodeUrlPathSegment(categoryKey)}/${encodedBrand}/${encodedDir}/images/primary.jpg`,
           });
         }
       }
