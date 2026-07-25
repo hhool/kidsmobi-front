@@ -3241,7 +3241,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                       navigateToPath(TRANSPARENCY_PAGE_PATHS.disclaimer);
                     }}
                   >
-                    Disclaimer
+                    {lang === "en" ? "Disclaimer" : "免责声明"}
                   </a>
                 </li>
                 <li>
@@ -3253,7 +3253,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                       navigateToPath(TRANSPARENCY_PAGE_PATHS["testing-methodology"]);
                     }}
                   >
-                    Testing Methodology
+                    {lang === "en" ? "Testing Methodology" : "测试方法"}
                   </a>
                 </li>
                 <li>
@@ -3265,7 +3265,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                       navigateToPath(TRANSPARENCY_PAGE_PATHS.certification);
                     }}
                   >
-                    Certification & Lab Notes
+                    {lang === "en" ? "Certification & Lab Notes" : "认证与实验室说明"}
                   </a>
                 </li>
                 <li>
@@ -3277,7 +3277,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                       navigateToPath(TRANSPARENCY_PAGE_PATHS["privacy-policy"]);
                     }}
                   >
-                    Privacy Policy
+                    {lang === "en" ? "Privacy Policy" : "隐私政策 "}
                   </a>
                 </li>
               </ul>

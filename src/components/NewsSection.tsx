@@ -4,18 +4,6 @@ import { NewsArticle, newsArticles as fallbackNewsArticles } from "../data/newsD
 import { getCMSNews } from "../lib/cmsService";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
 
-function translateCategoryLabel(cat: string): string {
-  const labels: Record<string, string> = {
-    industry: "行业资讯",
-    new_product: "新品发布",
-    brand_news: "品牌动态",
-    brand_trend: "品牌动态",
-    brand_dynamics: "品牌动态",
-    regulation: "科普干货",
-    science: "科普干货"
-  };
-  return labels[cat] || "最新动态";
-}
 import Breadcrumbs from "./Breadcrumbs";
 
 const NEWS_ALLOWED_CATEGORIES = new Set(["industry", "new_product", "brand_news", "science"]);
@@ -44,6 +32,12 @@ function withFallbackNews(articles: NewsArticle[]): NewsArticle[] {
     ...normalizedArticles,
     ...fallbackNewsArticles.filter((article) => !seenIds.has(article.id)),
   ];
+}
+
+function normalizeAndFilterNews(articles: NewsArticle[]): NewsArticle[] {
+  return articles
+    .map((article) => ({ ...article, category: normalizeNewsCategory(article.category) || article.category }))
+    .filter((article) => NEWS_ALLOWED_CATEGORIES.has(article.category));
 }
 
 interface NewsSectionProps {
@@ -91,6 +85,10 @@ function parseNewsTimestamp(value: unknown): number {
   return 0;
 }
 
+function hasCjk(value: string): boolean {
+  return /[\u3400-\u9FFF]/.test(value);
+}
+
 function getCategoryLabel(cat: string, lang: "zh" | "en"): string {
   if (lang === "zh") {
     const labels: Record<string, string> = {
@@ -124,7 +122,7 @@ export default function NewsSection({
   onArticleOpen,
   onArticleClose,
 }: NewsSectionProps) {
-  const [newsArticlesState, setNewsArticlesState] = useState<NewsArticle[]>(fallbackNewsArticles);
+  const [newsArticlesState, setNewsArticlesState] = useState<NewsArticle[]>([]);
   const [loadingNews, setLoadingNews] = useState<boolean>(false);
   const [selectedArticleState, setSelectedArticleState] = useState<any | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -209,11 +207,19 @@ export default function NewsSection({
     getCMSNews(true)
       .then((dbNews) => {
         if (dbNews && dbNews.length > 0) {
-          const pickLocalized = (item: any, zhValue: string | undefined, enValue: string | undefined, fallback = "") => {
+          const pickLocalized = (
+            item: any,
+            zhValue: string | undefined,
+            enValue: string | undefined,
+            fallback = "",
+            options?: { allowZhFallbackInEnglish?: boolean },
+          ) => {
             const zh = String(zhValue || "").trim();
             const en = String(enValue || "").trim();
             if (lang === "en") {
-              return en || zh || fallback;
+              if (en) return en;
+              if (options?.allowZhFallbackInEnglish && zh && !hasCjk(zh)) return zh;
+              return fallback;
             }
             return zh || en || fallback;
           };
@@ -223,20 +229,21 @@ export default function NewsSection({
             const publishDate = updatedMs > 0
               ? new Date(updatedMs).toISOString().split("T")[0]
               : "2026-06-15";
+            const normalizedCategory = normalizeNewsCategory(String(n.category || "")) || "industry";
             return {
               id: n.id,
-              title: pickLocalized(n, n.zh?.title, n.en?.title),
-              category: n.category as any,
-              categoryLabel: translateCategoryLabel(n.category),
+              title: pickLocalized(n, n.zh?.title, n.en?.title, "News Update"),
+              category: normalizedCategory,
+              categoryLabel: getCategoryLabel(normalizedCategory, lang),
               summary: pickLocalized(n, n.seo?.zh?.description, n.seo?.en?.description, lang === "en" ? "Kidsmobi industry updates and safety insights." : "Kidsmobi 行业动态与科普报告。"),
-              content: pickLocalized(n, n.zh?.content, n.en?.content),
+              content: pickLocalized(n, n.zh?.content, n.en?.content, lang === "en" ? "Content in English is being updated. Please check back soon." : "中文内容整理中，请稍后查看。"),
               author: lang === "en" ? "Kidsmobi Global Safety Lab" : "Kidsmobi 全球安全实验室",
               readTime: lang === "en" ? "5 min read" : "5 分钟",
               publishDate,
               views: 4200,
             };
           });
-          setNewsArticlesState(withFallbackNews(mapped));
+          setNewsArticlesState(normalizeAndFilterNews(mapped));
           setLoadingNews(false);
         } else {
           throw new Error("No CMS news found in Firestore, falling back to local server endpoint");
@@ -252,7 +259,25 @@ export default function NewsSection({
           })
           .then((data) => {
             if (Array.isArray(data) && data.length > 0) {
-              setNewsArticlesState(withFallbackNews(data));
+              const normalizedFallback = data.map((item) => {
+                const normalizedCategory = normalizeNewsCategory(String(item?.category || "")) || "industry";
+                const titleRaw = String(item?.title || "").trim();
+                const summaryRaw = String(item?.summary || "").trim();
+                const contentRaw = String(item?.content || "").trim();
+                return {
+                  ...item,
+                  category: normalizedCategory,
+                  categoryLabel: getCategoryLabel(normalizedCategory, lang),
+                  title: lang === "en" && hasCjk(titleRaw) ? "News Update" : titleRaw,
+                  summary: lang === "en" && hasCjk(summaryRaw)
+                    ? "Kidsmobi industry updates and safety insights."
+                    : summaryRaw,
+                  content: lang === "en" && hasCjk(contentRaw)
+                    ? "Content in English is being updated. Please check back soon."
+                    : contentRaw,
+                };
+              });
+              setNewsArticlesState(normalizeAndFilterNews(normalizedFallback));
             }
           })
           .catch((fetchErr) => {
@@ -262,6 +287,15 @@ export default function NewsSection({
             setLoadingNews(false);
           });
       });
+  }, [lang]);
+
+  useEffect(() => {
+    setNewsArticlesState((prev) =>
+      prev.map((item) => ({
+        ...item,
+        categoryLabel: getCategoryLabel(String(item.category || "all"), lang),
+      })),
+    );
   }, [lang]);
 
   // Like counters holder
@@ -383,7 +417,7 @@ export default function NewsSection({
 
             <div className="space-y-4">
               <span className="px-3 py-1 bg-orange-100 text-orange-600 text-[10px] font-black rounded-full uppercase border border-orange-200">
-                {article.categoryLabel}
+                {getCategoryLabel(article.category, lang)}
               </span>
               <h2 className="text-3xl font-black text-slate-900 leading-tight">
                 {article.title}
@@ -627,7 +661,7 @@ export default function NewsSection({
                   <div className="space-y-4">
                     <div className="flex justify-between items-center text-[10px]">
                       <span className="bg-orange-50 text-orange-600 px-3 py-1 rounded-full font-black uppercase border border-orange-100">
-                        {art.categoryLabel}
+                        {getCategoryLabel(art.category, lang)}
                       </span>
                       <span className="text-slate-400 font-bold">{art.publishDate}</span>
                     </div>
