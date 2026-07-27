@@ -29,7 +29,6 @@ import {
 } from "lucide-react";
 import { guideArticles } from "./data/guidesData";
 import { newsArticles } from "./data/newsData";
-import { initialEvaluationsData } from "./data/evaluationsData";
 import { ChildProfile, Product, ChatMessage, CMSSettings, Evaluation, CMSPageConfig } from "./types";
 
 // Import translations
@@ -61,7 +60,7 @@ import {
   removeBookmarkFromFirestore,
   saveChildProfileToFirestore,
 } from "./lib/firestoreService";
-import { checkIsAdmin, getCMSSettings, getCMSProducts, getCMSEvaluations, seedProductsToFirestore, seedEvaluationsToFirestore, seedGuidesToFirestore, seedNewsToFirestore } from "./lib/cmsService";
+import { checkIsAdmin, getCMSSettings, getCMSProducts, getCMSEvaluations } from "./lib/cmsService";
 import { fetchContentBundle, isScrapedContentSource } from "./lib/contentSource";
 import { DEFAULT_SEO_CONFIGS, normalizeSeoConfig } from "./config/defaultSeo";
 import { getProductSeoKeywords, getReviewSeoKeywords } from "./config/seoKeywordMap";
@@ -1391,40 +1390,6 @@ export default function App() {
     };
     syncBookmarks();
   }, [productsData, userEmail]);
-
-  // Auto-seed if database is empty of products and currently logged-in as admin
-  useEffect(() => {
-    const autoSeedIfEmpty = async () => {
-      if (!isAdmin) return;
-      try {
-        const allProducts = await getCMSProducts(false); // get ALL including drafts
-        if (allProducts.length === 0) {
-          console.log("Admin logged in & D1 content is empty. Auto-seeding comprehensive dataset...");
-          // Seed Products
-          const defaultProducts = await loadDefaultProductsData();
-          const successProd = await seedProductsToFirestore(defaultProducts, translateProduct);
-          if (successProd) {
-            const freshProducts = await getCMSProducts(true);
-            if (freshProducts && freshProducts.length > 0) {
-              setProductsData(enforcePublishedVisibility(freshProducts));
-            }
-          }
-          // Seed Evaluations
-          await seedEvaluationsToFirestore(initialEvaluationsData);
-          const freshEvs = await getCMSEvaluations(true);
-          if (freshEvs && freshEvs.length > 0) {
-            setEvaluationsData(freshEvs);
-          }
-          // Seed Guides and News
-          await seedGuidesToFirestore(guideArticles);
-          await seedNewsToFirestore(newsArticles);
-        }
-      } catch (err) {
-        console.error("Failed to auto-seed comprehensive dataset:", err);
-      }
-    };
-    autoSeedIfEmpty();
-  }, [isAdmin]);
 
   // Listen to Firebase Auth state
   useEffect(() => {

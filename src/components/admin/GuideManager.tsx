@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { getCMSGuides, saveCMSGuide, deleteCMSGuide, getCMSProducts, getCMSScenarios, migrateCMSGuidesTaxonomy } from "../../lib/cmsService";
-import { Guide, RiskCard, SEOConfig, CMSProduct, CMSScenario, ProductCategory, GuideTopicCategory } from "../../types";
+import { Guide, RiskCard, CMSProduct, CMSScenario, ProductCategory, GuideTopicCategory } from "../../types";
 import { deleteD1CMSGuide, getD1CMSGuides, getD1CMSProducts, getD1CMSScenarios, saveD1CMSGuide, migrateD1CMSGuidesTaxonomy } from "../../lib/cmsD1Service";
 import BackendResourcePicker from "./BackendResourcePicker";
 import ScenarioPicker from "./ScenarioPicker";
@@ -61,6 +61,18 @@ function normalizeGuideTaxonomy(guide: Guide): Guide {
           : [fallbackProductCategory, "all_guides", guide.taxonomy?.topicCategory || topicCategory],
     },
   };
+}
+
+function parseKeywordInput(value: string): string[] {
+  return String(value || "")
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function stringifyKeywords(keywords: unknown): string {
+  if (!Array.isArray(keywords)) return "";
+  return keywords.map((item) => String(item || "").trim()).filter(Boolean).join(", ");
 }
 
 export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
@@ -223,12 +235,12 @@ export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
       let niceError = errorMsg;
       if (errorMsg.includes("Missing or insufficient permissions")) {
         niceError = lang === "zh"
-          ? "权限不足 (Permission Denied)：您当前没有在 Firebase Auth 进行真实登录。本地 Bypass 模式仅有只读权限。请点击右上角「我的账户」使用 Google 账号进行登录后再试."
-          : "Permission Denied: You are not security-authenticated on the Firebase Auth backend. Developer Bypass session is read-only. Please authenticate via Google popup under the 'Account' section first.";
+          ? "权限不足 (Permission Denied)：当前会话未通过可写权限验证。开发者 Bypass 模式通常为只读，请使用真实管理员登录后重试。"
+          : "Permission Denied: The current session is not authorized for write access. Developer bypass is typically read-only. Please sign in with a real admin account and retry.";
       } else if (errorMsg.includes("Operation timed out")) {
         niceError = lang === "zh"
-          ? "网络超时：无法连接到 Firestore 数据库。请检查您的网络连接、代理，或重新登录过期的账户 session 后尝试。"
-          : "Operation Timed Out: Failed to reach Firestore database. Please verify your connection/proxy settings, or re-authenticate your expired session.";
+          ? "网络超时：无法连接 CMS 接口。请检查网络/代理设置，或重新登录后再试。"
+          : "Operation Timed Out: Failed to reach CMS endpoints. Please check your network/proxy settings or sign in again.";
       }
       setSaveError(niceError);
     } finally {
@@ -307,8 +319,10 @@ export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
                     {g.status}
                   </span>
                 </div>
-                <h4 className="font-black text-slate-900">{g.zh?.title || g.en?.title || "(No Title)"}</h4>
-                <p className="text-xs text-slate-400 font-bold uppercase tracking-tight mt-0.5">{g.riskCards.length} Risk Cards Active</p>
+                <h4 className="font-black text-slate-900">{(lang === "zh" ? g.zh?.title : g.en?.title) || (lang === "zh" ? g.en?.title : g.zh?.title) || "(No Title)"}</h4>
+                <p className="text-xs text-slate-400 font-bold uppercase tracking-tight mt-0.5">
+                  {(lang === "zh" ? g.en?.title : g.zh?.title) || `${g.riskCards.length} Risk Cards Active`}
+                </p>
               </div>
             </div>
             <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -351,9 +365,40 @@ export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
 function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, saving, error }: any) {
   const [formData, setFormData] = useState<Guide>(normalizeGuideTaxonomy(guide));
   const [activeTab, setActiveTab] = useState<"content" | "risk" | "seo">("content");
-  const [activeLang, setActiveLang] = useState<"zh" | "en">("zh");
   const [pickerMode, setPickerMode] = useState<"cover" | "related" | null>(null);
   const [scenarioPickerOpen, setScenarioPickerOpen] = useState(false);
+  const previewTopic = String(formData.taxonomy?.topicCategory || formData.category || "beginner").trim().toLowerCase();
+  const previewGuideId = String(formData.id || "").trim();
+  const previewPath = previewGuideId
+    ? `/guides/${previewTopic}/${encodeURIComponent(previewGuideId)}`
+    : `/guides/${previewTopic}`;
+  const previewBreadcrumb = previewPath
+    .replace(/^\//, "")
+    .split("/")
+    .join(" › ");
+
+  const updateGuideLocale = (locale: "zh" | "en", key: "title" | "content", value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      [locale]: {
+        ...prev[locale],
+        [key]: value,
+      },
+    }));
+  };
+
+  const updateSeoLocale = (locale: "zh" | "en", key: "title" | "description" | "keywords", value: string | string[]) => {
+    setFormData((prev) => ({
+      ...prev,
+      seo: {
+        ...prev.seo,
+        [locale]: {
+          ...prev.seo[locale],
+          [key]: value,
+        },
+      },
+    }));
+  };
 
   const addRiskCard = () => {
     setFormData({
@@ -422,13 +467,12 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
         <div className="flex-1 overflow-y-auto flex flex-col sm:flex-row">
           {/* Navigation */}
           <aside className="w-full sm:w-64 shrink-0 border-r border-slate-100 p-8 flex flex-col gap-2">
-            <NavBtn active={activeTab === "content"} onClick={() => setActiveTab("content")} label="Main Content" icon={<FileText className="w-4 h-4" />} />
-            <NavBtn active={activeTab === "risk"} onClick={() => setActiveTab("risk")} label="Risk Modules" icon={<AlertTriangle className="w-4 h-4" />} />
-            <NavBtn active={activeTab === "seo"} onClick={() => setActiveTab("seo")} label="SEO Controller" icon={<SearchIcon className="w-4 h-4" />} />
+            <NavBtn active={activeTab === "content"} onClick={() => setActiveTab("content")} label={lang === "zh" ? "正文编辑" : "Main Content"} icon={<FileText className="w-4 h-4" />} />
+            <NavBtn active={activeTab === "risk"} onClick={() => setActiveTab("risk")} label={lang === "zh" ? "风险模块" : "Risk Modules"} icon={<AlertTriangle className="w-4 h-4" />} />
+            <NavBtn active={activeTab === "seo"} onClick={() => setActiveTab("seo")} label={lang === "zh" ? "SEO 编辑" : "SEO Controller"} icon={<SearchIcon className="w-4 h-4" />} />
             
-            <div className="mt-auto border-t border-slate-100 pt-8 flex bg-slate-50 p-2 rounded-2xl">
-               <button onClick={() => setActiveLang("zh")} className={`flex-1 py-3 rounded-xl text-[10px] font-black transition-all ${activeLang === "zh" ? "bg-white shadow-sm" : "text-slate-400"}`}>ZH</button>
-               <button onClick={() => setActiveLang("en")} className={`flex-1 py-3 rounded-xl text-[10px] font-black transition-all ${activeLang === "en" ? "bg-white shadow-sm" : "text-slate-400"}`}>EN</button>
+            <div className="mt-auto border-t border-slate-100 pt-8 bg-slate-50 p-3 rounded-2xl">
+              <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{lang === "zh" ? "中英同屏编辑模式" : "Side-by-side bilingual mode"}</p>
             </div>
           </aside>
 
@@ -450,7 +494,7 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                     <p>💡 {lang === "zh" ? "如何在 iframe 预览中发布修改？" : "How to publish successfully inside this preview?"}</p>
                     <p className="normal-case text-rose-500 font-medium tracking-normal leading-normal">
                       {lang === "zh"
-                        ? "1. 请点击预览窗口右上角的「在新标签页中打开」按钮（以绕过跨域 iframe 的安全限制）。\n2. 在新标签页 of your browser page点击「账户」进行 Google 真实登录，即可顺利向云数据库发布更新。"
+                        ? "1. 请点击预览窗口右上角的「在新标签页中打开」按钮（以绕过跨域 iframe 的安全限制）。\n2. 在浏览器新标签页中点击「账户」进行 Google 真实登录，即可顺利向云数据库发布更新。"
                         : "1. Click 'Open in New Tab' at the top-right of your preview frame (to bypass iframe sandboxing limits).\n2. Navigate to 'Account' on your tab, sign in securely with Google, and try editing again."}
                     </p>
                   </div>
@@ -461,10 +505,10 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
             {activeTab === "content" && (
               <div className="max-w-3xl mx-auto space-y-10">
                 <section className="space-y-4 bg-white border border-slate-100 rounded-2xl p-6">
-                  <h4 className="text-xs font-black uppercase tracking-widest text-slate-700">Cross-module Linkage</h4>
+                  <h4 className="text-xs font-black uppercase tracking-widest text-slate-700">{lang === "zh" ? "跨模块关联" : "Cross-module Linkage"}</h4>
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Guide Product Category</label>
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{lang === "zh" ? "指南产品类目" : "Guide Product Category"}</label>
                       <select
                         className="w-full bg-slate-50 border border-slate-200 py-3 px-4 rounded-xl text-xs font-bold"
                         value={formData.taxonomy?.productCategory || "stroller"}
@@ -490,7 +534,7 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Guide Hub</label>
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{lang === "zh" ? "指南聚合页" : "Guide Hub"}</label>
                       <input
                         className="w-full bg-slate-100 border border-slate-200 py-3 px-4 rounded-xl text-xs font-bold text-slate-600"
                         value={formData.taxonomy?.hub || "all_guides"}
@@ -499,7 +543,7 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Topic Level (L3)</label>
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{lang === "zh" ? "主题层级（L3）" : "Topic Level (L3)"}</label>
                       <select
                         className="w-full bg-slate-50 border border-slate-200 py-3 px-4 rounded-xl text-xs font-bold"
                         value={formData.taxonomy?.topicCategory || "beginner"}
@@ -526,7 +570,7 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Topic Order</label>
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{lang === "zh" ? "主题排序" : "Topic Order"}</label>
                       <input
                         type="number"
                         min={1}
@@ -551,7 +595,7 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                   </div>
 
                   <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Hierarchy Preview</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">{lang === "zh" ? "层级预览" : "Hierarchy Preview"}</p>
                     <p className="text-xs font-bold text-slate-700 mt-1">
                       {(formData.taxonomy?.productCategory || "stroller") + " -> all_guides -> " + (formData.taxonomy?.topicCategory || "beginner")}
                     </p>
@@ -559,7 +603,7 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Related Products</label>
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{lang === "zh" ? "关联产品" : "Related Products"}</label>
                       <button
                         onClick={() => setPickerMode("related")}
                         className="w-full py-2.5 border border-sky-200 bg-sky-50 text-sky-700 rounded-xl text-[11px] font-black hover:bg-sky-100 transition-all"
@@ -577,7 +621,7 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                           e.currentTarget.value = "";
                         }}
                       >
-                        <option value="">Select product...</option>
+                        <option value="">{lang === "zh" ? "选择产品..." : "Select product..."}</option>
                         {products.map((p: CMSProduct) => (
                           <option key={p.id} value={p.id}>{p.zh?.name || p.en?.name || p.id}</option>
                         ))}
@@ -596,7 +640,7 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Related Scenarios</label>
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{lang === "zh" ? "关联场景" : "Related Scenarios"}</label>
                       <button
                         onClick={() => setScenarioPickerOpen(true)}
                         className="w-full py-2.5 border border-emerald-200 bg-emerald-50 text-emerald-700 rounded-xl text-[11px] font-black hover:bg-emerald-100 transition-all"
@@ -614,7 +658,7 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                           e.currentTarget.value = "";
                         }}
                       >
-                        <option value="">Select scenario...</option>
+                        <option value="">{lang === "zh" ? "选择场景..." : "Select scenario..."}</option>
                         {scenarios.map((s: CMSScenario) => (
                           <option key={s.id} value={s.code}>{s.zh?.name || s.en?.name || s.code}</option>
                         ))}
@@ -634,7 +678,7 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                   </div>
 
                   <div className="space-y-2 pt-2">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Guide Cover Image URL</label>
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{lang === "zh" ? "指南封面图 URL" : "Guide Cover Image URL"}</label>
                     <button
                       onClick={() => setPickerMode("cover")}
                       className="w-full py-2.5 border border-orange-200 bg-orange-50 text-orange-700 rounded-xl text-[11px] font-black hover:bg-orange-100 transition-all"
@@ -650,27 +694,34 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                   </div>
                 </section>
 
-                <Field label="Post Title" value={formData[activeLang].title} onChange={(v: string) => {
-                  const next = {...formData};
-                  next[activeLang].title = v;
-                  setFormData(next);
-                }} />
-                
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Guide Narrative</label>
-                    <span className="text-[10px] font-bold text-blue-500 italic">Use H2/H3 for auto-navigation indexing</span>
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                  <div className="space-y-4 bg-white border border-slate-100 rounded-[28px] p-6">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">中文内容</p>
+                    <Field label="中文标题" value={formData.zh.title} onChange={(v: string) => updateGuideLocale("zh", "title", v)} />
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">中文正文</label>
+                      <textarea 
+                        className="w-full bg-white border border-slate-200 p-6 rounded-3xl font-medium text-slate-700 outline-none focus:ring-4 focus:ring-blue-500/10 min-h-[420px] shadow-sm leading-relaxed"
+                        placeholder="请输入中文指南正文..."
+                        value={formData.zh.content}
+                        onChange={(e) => updateGuideLocale("zh", "content", e.target.value)}
+                      />
+                    </div>
                   </div>
-                  <textarea 
-                    className="w-full bg-white border border-slate-200 p-10 rounded-[40px] font-medium text-slate-700 outline-none focus:ring-4 focus:ring-blue-500/10 min-h-[500px] shadow-sm leading-relaxed"
-                    placeholder="Start writing scientific guide content..."
-                    value={formData[activeLang].content}
-                    onChange={(e) => {
-                      const next = {...formData};
-                      next[activeLang].content = e.target.value;
-                      setFormData(next);
-                    }}
-                  />
+
+                  <div className="space-y-4 bg-white border border-slate-100 rounded-[28px] p-6">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">English Content</p>
+                    <Field label="English Title" value={formData.en.title} onChange={(v: string) => updateGuideLocale("en", "title", v)} />
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Guide Narrative</label>
+                      <textarea 
+                        className="w-full bg-white border border-slate-200 p-6 rounded-3xl font-medium text-slate-700 outline-none focus:ring-4 focus:ring-blue-500/10 min-h-[420px] shadow-sm leading-relaxed"
+                        placeholder="Start writing scientific guide content..."
+                        value={formData.en.content}
+                        onChange={(e) => updateGuideLocale("en", "content", e.target.value)}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
@@ -699,43 +750,84 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
             )}
 
             {activeTab === "seo" && (
-              <div className="max-w-2xl mx-auto space-y-12">
-                 <h4 className="text-xl font-black text-slate-900 tracking-tight">Search Engine Optimization Panel</h4>
-                 <div className="bg-white p-10 rounded-[40px] border border-slate-200 space-y-8">
-                   <Field label="Meta Title (Target 60 chars)" value={formData.seo[activeLang].title} onChange={(v: string) => {
-                     const next = {...formData};
-                     next.seo[activeLang].title = v;
-                     setFormData(next);
-                   }} />
-                   <div className="space-y-1 flex justify-end">
-                     <span className={`text-[10px] font-black ${formData.seo[activeLang].title.length > 60 ? "text-red-500" : "text-slate-400"}`}>{formData.seo[activeLang].title.length} / 60</span>
+              <div className="max-w-6xl mx-auto space-y-12">
+                 <h4 className="text-xl font-black text-slate-900 tracking-tight">{lang === "zh" ? "SEO 多语言配置" : "Search Engine Optimization Panel"}</h4>
+                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                   <div className="bg-white p-8 rounded-[32px] border border-slate-200 space-y-6">
+                     <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">中文 SEO</p>
+                     <Field label="中文 Meta Title（建议 60 字符内）" value={formData.seo.zh.title} onChange={(v: string) => updateSeoLocale("zh", "title", v)} />
+                     <div className="space-y-1 flex justify-end">
+                       <span className={`text-[10px] font-black ${formData.seo.zh.title.length > 60 ? "text-red-500" : "text-slate-400"}`}>{formData.seo.zh.title.length} / 60</span>
+                     </div>
+
+                     <div className="space-y-2">
+                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">中文 Meta Description（建议 160 字符内）</label>
+                       <textarea 
+                         className="w-full bg-slate-50 p-6 rounded-2xl font-bold text-xs outline-none border border-transparent focus:border-blue-500 focus:bg-white transition-all shadow-inner"
+                         value={formData.seo.zh.description}
+                         onChange={(e) => updateSeoLocale("zh", "description", e.target.value)}
+                       />
+                       <div className="flex justify-end">
+                         <span className={`text-[10px] font-black ${formData.seo.zh.description.length > 160 ? "text-red-500" : "text-slate-400"}`}>{formData.seo.zh.description.length} / 160</span>
+                       </div>
+                     </div>
+
+                     <div className="space-y-2">
+                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">中文 Keywords（逗号分隔）</label>
+                       <textarea
+                         className="w-full bg-slate-50 p-6 rounded-2xl font-bold text-xs outline-none border border-transparent focus:border-blue-500 focus:bg-white transition-all shadow-inner min-h-[90px]"
+                         value={stringifyKeywords(formData.seo.zh.keywords)}
+                         onChange={(e) => updateSeoLocale("zh", "keywords", parseKeywordInput(e.target.value))}
+                       />
+                     </div>
                    </div>
-                   
-                   <div className="space-y-2">
-                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Meta Description (Target 160 chars)</label>
-                     <textarea 
-                       className="w-full bg-slate-50 p-6 rounded-2xl font-bold text-xs outline-none border border-transparent focus:border-blue-500 focus:bg-white transition-all shadow-inner"
-                       value={formData.seo[activeLang].description}
-                       onChange={(e) => {
-                        const next = {...formData};
-                        next.seo[activeLang].description = e.target.value;
-                        setFormData(next);
-                       }}
-                     />
-                     <div className="flex justify-end">
-                       <span className={`text-[10px] font-black ${formData.seo[activeLang].description.length > 160 ? "text-red-500" : "text-slate-400"}`}>{formData.seo[activeLang].description.length} / 160</span>
+
+                   <div className="bg-white p-8 rounded-[32px] border border-slate-200 space-y-6">
+                     <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">English SEO</p>
+                     <Field label="English Meta Title (Target 60 chars)" value={formData.seo.en.title} onChange={(v: string) => updateSeoLocale("en", "title", v)} />
+                     <div className="space-y-1 flex justify-end">
+                       <span className={`text-[10px] font-black ${formData.seo.en.title.length > 60 ? "text-red-500" : "text-slate-400"}`}>{formData.seo.en.title.length} / 60</span>
+                     </div>
+
+                     <div className="space-y-2">
+                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">English Meta Description (Target 160 chars)</label>
+                       <textarea 
+                         className="w-full bg-slate-50 p-6 rounded-2xl font-bold text-xs outline-none border border-transparent focus:border-blue-500 focus:bg-white transition-all shadow-inner"
+                         value={formData.seo.en.description}
+                         onChange={(e) => updateSeoLocale("en", "description", e.target.value)}
+                       />
+                       <div className="flex justify-end">
+                         <span className={`text-[10px] font-black ${formData.seo.en.description.length > 160 ? "text-red-500" : "text-slate-400"}`}>{formData.seo.en.description.length} / 160</span>
+                       </div>
+                     </div>
+
+                     <div className="space-y-2">
+                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">English Keywords (comma separated)</label>
+                       <textarea
+                         className="w-full bg-slate-50 p-6 rounded-2xl font-bold text-xs outline-none border border-transparent focus:border-blue-500 focus:bg-white transition-all shadow-inner min-h-[90px]"
+                         value={stringifyKeywords(formData.seo.en.keywords)}
+                         onChange={(e) => updateSeoLocale("en", "keywords", parseKeywordInput(e.target.value))}
+                       />
                      </div>
                    </div>
                  </div>
 
                  {/* SERP Preview */}
-                 <div className="space-y-4">
+                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-4">Google SERP Simulator</span>
-                   <div className="bg-white px-8 py-10 rounded-[40px] shadow-xl border border-slate-100 flex flex-col gap-1.5 overflow-hidden">
-                      <div className="text-[12px] text-slate-500 truncate">https://strollerlab.com/guide/2026-high-landscape...</div>
-                      <div className="text-[20px] text-blue-600 font-medium hover:underline cursor-pointer truncate">{formData.seo[activeLang].title || "Preview Title Will Appear Here"}</div>
+                   <div className="bg-white px-8 py-10 rounded-[32px] shadow-xl border border-slate-100 flex flex-col gap-1.5 overflow-hidden">
+                      <div className="text-[12px] text-slate-500 truncate">balancebiketoddler.com › {previewBreadcrumb}</div>
+                      <div className="text-[20px] text-blue-600 font-medium hover:underline cursor-pointer truncate">{formData.seo.zh.title || "中文预览标题"}</div>
                       <div className="text-[14px] text-slate-600 line-clamp-2 leading-relaxed">
-                        {formData.seo[activeLang].description || "Compose a meta description to see how your guide will appear in Google Search result snippets."}
+                        {formData.seo.zh.description || "输入中文 Meta Description 后将在此预览。"}
+                      </div>
+                   </div>
+
+                   <div className="bg-white px-8 py-10 rounded-[32px] shadow-xl border border-slate-100 flex flex-col gap-1.5 overflow-hidden">
+                      <div className="text-[12px] text-slate-500 truncate">balancebiketoddler.com › {previewBreadcrumb}</div>
+                      <div className="text-[20px] text-blue-600 font-medium hover:underline cursor-pointer truncate">{formData.seo.en.title || "English preview title"}</div>
+                      <div className="text-[14px] text-slate-600 line-clamp-2 leading-relaxed">
+                        {formData.seo.en.description || "Compose an English meta description to preview the snippet."}
                       </div>
                    </div>
                  </div>

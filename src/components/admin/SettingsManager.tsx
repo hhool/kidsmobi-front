@@ -270,7 +270,7 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
       setSaveSuccess(null);
       try {
         await saveCMSSettings(settings);
-        setSaveSuccess(lang === "zh" ? "店铺配置更新成功！已成功同步持久化至云端 Firestore。" : "Store configuration updated successfully and deployed to Cloud Firestore.");
+        setSaveSuccess(lang === "zh" ? "店铺配置更新成功！已成功同步到云端 CMS。" : "Store configuration updated successfully and synced to cloud CMS.");
         setTimeout(() => setSaveSuccess(null), 4000);
       } catch (e: any) {
         console.error(e);
@@ -278,12 +278,12 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
         let niceError = errorMsg;
         if (errorMsg.includes("Missing or insufficient permissions")) {
           niceError = lang === "zh"
-            ? "权限不足 (Permission Denied)：您当前没有在 Firebase Auth 进行真实登录。本地 Bypass 模式仅有只读权限。请点击右上角「我的账户」使用 Google 账号进行登录后再试。"
-            : "Permission Denied: You are not security-authenticated on the Firebase Auth backend. Developer Bypass session is read-only. Please authenticate via Google popup under the 'Account' section first.";
+            ? "权限不足 (Permission Denied)：当前会话未通过可写权限验证。开发者 Bypass 模式通常为只读，请使用真实管理员登录后重试。"
+            : "Permission Denied: Your current session is not validated for write access. Developer bypass mode is usually read-only; please sign in with a real admin account and retry.";
         } else if (errorMsg.includes("Operation timed out")) {
           niceError = lang === "zh"
-            ? "网络超时：无法连接到 Firestore 数据库。请检查您的网络连接、代理，或重新登录过期的账户 session 后尝试。"
-            : "Operation Timed Out: Failed to reach Firestore database. Please verify your connection/proxy settings, or re-authenticate your expired session.";
+            ? "网络超时：无法连接 CMS 接口。请检查网络/代理设置，或重新登录后再试。"
+            : "Operation Timed Out: Failed to reach the CMS endpoint. Please verify network/proxy settings, then re-authenticate and retry.";
         }
         setSaveError(niceError);
       } finally {

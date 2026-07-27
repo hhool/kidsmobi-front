@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { 
   CheckCircle2, 
-  AlertCircle, 
   TrendingUp, 
   FileText, 
   Package, 
   ShieldCheck,
-  Database,
   RefreshCw,
   Wifi,
   Download
 } from "lucide-react";
-import { getCMSProducts, getCMSEvaluations, getCMSGuides, getCMSNews, saveCMSProduct, seedProductsToFirestore, seedGuidesToFirestore, seedNewsToFirestore, seedEvaluationsToFirestore } from "../../lib/cmsService";
+import { getCMSProducts, getCMSEvaluations, getCMSGuides, getCMSNews, saveCMSProduct } from "../../lib/cmsService";
 import { productsData as defaultProductsData } from "../../data/modelsData";
 import { guideArticles } from "../../data/guidesData";
 import { newsArticles } from "../../data/newsData";
@@ -137,7 +135,7 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
   };
 
   const handleMigrate = async () => {
-    const confirm = window.confirm("Are you sure you want to push modelsData into Firestore? Existing records with the same ID will be overwritten.");
+    const confirm = window.confirm("Are you sure you want to push modelsData into CMS? Existing records with the same ID will be overwritten.");
     if (!confirm) return;
     setMigrating(true);
     for (const p of defaultProductsData) {
@@ -172,86 +170,6 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
     setMigrating(false);
     fetchStats();
     alert("Migration complete!");
-  };
-
-  const handleForceSync = async () => {
-    const confirm = window.confirm(lang === "zh" ? "您确定要强制同步数据到 Firestore 吗？这将会使用默认车型数据重新初始化并清空不兼容格式的数据。" : "Are you sure you want to force sync products to Firestore? This will serialize correct default stroller structures directly into your Firestore project.");
-    if (!confirm) return;
-    setMigrating(true);
-    try {
-      const success = await seedProductsToFirestore(defaultProductsData, translateProduct);
-      if (success) {
-        alert(lang === "zh" ? "数据强制同步成功！" : "Database force-sync completed successfully!");
-      } else {
-        alert(lang === "zh" ? "同步失败，请检查控制台。" : "Sync failed, please consult console logs.");
-      }
-    } catch (e: any) {
-      console.error("Force sync failed:", e);
-      alert((lang === "zh" ? "同步出错: " : "Sync Error: ") + (e.message || e));
-    } finally {
-      setMigrating(false);
-      fetchStats();
-    }
-  };
-
-  const handleSyncGuides = async () => {
-    const confirm = window.confirm(lang === "zh" ? "您确定要将 guidesData 静态选购指南数据同步至云端 Firestore 数据库中吗？这会覆盖或初始化云端指南资源。" : "Are you sure you want to sync static guide articles directly to your Firestore project? Existing guides with the same IDs will be updated.");
-    if (!confirm) return;
-    setMigrating(true);
-    try {
-      const success = await seedGuidesToFirestore(guideArticles);
-      if (success) {
-        alert(lang === "zh" ? "选购指南同步成功！" : "Guides sync completed successfully!");
-      } else {
-        alert(lang === "zh" ? "指南同步发生网络错误，请登录授权后重试。" : "Guides sync failed. Please make sure you are authenticated and try again.");
-      }
-    } catch (e: any) {
-      console.error("Guides sync failed:", e);
-      alert((lang === "zh" ? "同步指南出错: " : "Guides Sync Error: ") + (e.message || e));
-    } finally {
-      setMigrating(false);
-      fetchStats();
-    }
-  };
-
-  const handleSyncNews = async () => {
-    const confirm = window.confirm(lang === "zh" ? "您确定要将 newsData 静态行业资讯数据同步至云端 Firestore 数据库中吗？这会覆盖或初始化云端资讯资源。" : "Are you sure you want to sync static news articles directly to your Firestore project? Existing news with the same IDs will be updated.");
-    if (!confirm) return;
-    setMigrating(true);
-    try {
-      const success = await seedNewsToFirestore(newsArticles);
-      if (success) {
-        alert(lang === "zh" ? "全球资讯同步成功！" : "Global News sync completed successfully!");
-      } else {
-        alert(lang === "zh" ? "资讯同步发生网络错误，请登录授权后重试。" : "News sync failed. Please make sure you are authenticated and try again.");
-      }
-    } catch (e: any) {
-      console.error("News sync failed:", e);
-      alert((lang === "zh" ? "同步资讯出错: " : "News Sync Error: ") + (e.message || e));
-    } finally {
-      setMigrating(false);
-      fetchStats();
-    }
-  };
-
-  const handleSyncEvaluations = async () => {
-    const confirm = window.confirm(lang === "zh" ? "您确定要将评测中心的初始展示数据同步至云端 Firestore 数据库中吗？这会覆盖或初始化云端评测报告资源。" : "Are you sure you want to sync initial evaluation data directly to your Firestore project? Existing evaluations with the same IDs will be updated.");
-    if (!confirm) return;
-    setMigrating(true);
-    try {
-      const success = await seedEvaluationsToFirestore(initialEvaluationsData);
-      if (success) {
-        alert(lang === "zh" ? "评测数据同步成功！" : "Evaluation data sync completed successfully!");
-      } else {
-        alert(lang === "zh" ? "评测数据同步发生网络错误，请登录授权后重试。" : "Evaluation data sync failed. Please make sure you are authenticated and try again.");
-      }
-    } catch (e: any) {
-      console.error("Evaluation sync failed:", e);
-      alert((lang === "zh" ? "同步评测出错: " : "Evaluation Sync Error: ") + (e.message || e));
-    } finally {
-      setMigrating(false);
-      fetchStats();
-    }
   };
 
   const cards = [
@@ -344,43 +262,11 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
             </h3>
             <div className="flex gap-2 items-center flex-wrap">
               <button
-                onClick={handleSyncGuides}
-                disabled={migrating}
-                className="text-[10px] bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-full font-black uppercase hover:shadow-md disabled:opacity-50 flex items-center gap-1 cursor-pointer transition"
-              >
-                <Database className="w-3 h-3" />
-                {migrating ? (lang === "zh" ? "指南同步中..." : "Syncing...") : (lang === "zh" ? "同步指南数据" : "Sync Guides Data")}
-              </button>
-              <button
-                onClick={handleSyncNews}
-                disabled={migrating}
-                className="text-[10px] bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-full font-black uppercase hover:shadow-md disabled:opacity-50 flex items-center gap-1 cursor-pointer transition"
-              >
-                <Database className="w-3 h-3" />
-                {migrating ? (lang === "zh" ? "资讯同步中..." : "Syncing...") : (lang === "zh" ? "同步资讯数据" : "Sync News Data")}
-              </button>
-              <button
-                onClick={handleSyncEvaluations}
-                disabled={migrating}
-                className="text-[10px] bg-purple-600 hover:bg-purple-700 text-white px-3 py-1.5 rounded-full font-black uppercase hover:shadow-md disabled:opacity-50 flex items-center gap-1 cursor-pointer transition"
-              >
-                <Database className="w-3 h-3" />
-                {migrating ? (lang === "zh" ? "评测同步中..." : "Syncing...") : (lang === "zh" ? "同步评测数据" : "Sync Evaluations")}
-              </button>
-              <button
-                onClick={handleForceSync}
-                disabled={migrating}
-                className="text-[10px] bg-amber-500 hover:bg-amber-600 text-slate-950 px-3 py-1.5 rounded-full font-black uppercase hover:shadow-md disabled:opacity-50 flex items-center gap-1 cursor-pointer transition"
-              >
-                <Database className="w-3 h-3" />
-                {migrating ? (lang === "zh" ? "同步中..." : "Syncing...") : (lang === "zh" ? "修复同步数据" : "Force Sync Data")}
-              </button>
-              <button
                 onClick={handleMigrate}
                 disabled={migrating}
                 className="text-[10px] bg-slate-900 hover:bg-slate-800 text-white px-3 py-1.5 rounded-full font-black uppercase hover:shadow-md disabled:opacity-50 flex items-center gap-1 cursor-pointer transition"
               >
-                <Database className="w-3 h-3" />
+                <RefreshCw className={`w-3 h-3 ${migrating ? "animate-spin" : ""}`} />
                 {migrating ? "Migrating..." : "Seed modelsData"}
               </button>
               <span className="text-[10px] bg-emerald-100 text-emerald-600 px-3 py-1.5 rounded-full font-black uppercase">Active</span>

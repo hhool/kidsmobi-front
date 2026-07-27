@@ -114,43 +114,6 @@ export async function saveCMSProduct(product: CMSProduct) {
   });
 }
 
-export async function seedProductsToFirestore(productsData: any[], translateProductFn: any): Promise<boolean> {
-  try {
-    for (const p of productsData) {
-      const pZh = translateProductFn(p, "zh");
-      const pEn = translateProductFn(p, "en");
-      const cmsProd: CMSProduct = {
-        ...p,
-        status: "published",
-        zh: {
-          name: pZh.name || "",
-          description: pZh.description || "",
-          brandText: pZh.brand || "",
-          specsText: "",
-          pros: pZh.pros || [],
-          cons: pZh.cons || [],
-          editorVerdict: pZh.editorVerdict || "",
-        },
-        en: {
-          name: pEn.name || "",
-          description: pEn.description || "",
-          brandText: pEn.brand || "",
-          specsText: "",
-          pros: pEn.pros || [],
-          cons: pEn.cons || [],
-          editorVerdict: pEn.editorVerdict || "",
-        },
-        updatedAt: new Date().toISOString(),
-      };
-      await saveCMSProduct(cmsProd);
-    }
-    return true;
-  } catch (error) {
-    console.error("Cloudflare D1 seed products failed:", error);
-    return false;
-  }
-}
-
 export async function getCMSEvaluations(onlyPublished = false): Promise<Evaluation[]> {
   const query = onlyPublished ? "?onlyPublished=1" : "";
   const response = await requestJson<{ data?: Evaluation[] }>(`/api/cms/evaluations${query}`);
@@ -162,18 +125,6 @@ export async function saveCMSEvaluation(ev: Evaluation) {
     method: "POST",
     body: JSON.stringify(cleanUndefinedValues({ ...ev, updatedAt: new Date().toISOString() })),
   });
-}
-
-export async function seedEvaluationsToFirestore(evaluationsData: Evaluation[]): Promise<boolean> {
-  try {
-    for (const ev of evaluationsData) {
-      await saveCMSEvaluation({ ...ev, updatedAt: new Date().toISOString() } as Evaluation);
-    }
-    return true;
-  } catch (error) {
-    console.error("Cloudflare D1 seed evaluations failed:", error);
-    return false;
-  }
 }
 
 export async function getCMSGuides(onlyPublished = false): Promise<Guide[]> {
@@ -198,92 +149,6 @@ export async function migrateCMSGuidesTaxonomy(): Promise<{ processed: number; u
     processed: Number(response?.data?.processed || 0),
     updated: Number(response?.data?.updated || 0),
   };
-}
-
-export async function seedGuidesToFirestore(guidesData: any[]): Promise<boolean> {
-  try {
-    for (const g of guidesData) {
-      const cmsGuide: Guide = {
-        id: g.id,
-        category: g.category,
-        status: "published",
-        imageUrl: "",
-        riskCards: [],
-        taxonomy: {
-          productCategory: (g.productCategory || "stroller") as any,
-          hub: "all_guides",
-          topicCategory: (g.category === "category_spec" ? "special" : g.category) as any,
-          topicOrder: 1,
-          hierarchyPath: [String(g.productCategory || "stroller"), "all_guides", String(g.category === "category_spec" ? "special" : g.category || "beginner")],
-        },
-        seo: {
-          zh: {
-            title: g.title,
-            description: g.summary,
-            keywords: [g.categoryLabel || "指南"],
-          },
-          en: {
-            title: g.title,
-            description: g.summary,
-            keywords: [g.categoryLabel || "Guide"],
-          },
-        },
-        zh: {
-          title: g.title,
-          content: g.content,
-        },
-        en: {
-          title: g.title,
-          content: g.content,
-        },
-        updatedAt: new Date().toISOString(),
-      };
-      await saveCMSGuide(cmsGuide);
-    }
-    return true;
-  } catch (error) {
-    console.error("Cloudflare D1 seed guides failed:", error);
-    return false;
-  }
-}
-
-export async function seedNewsToFirestore(newsData: any[]): Promise<boolean> {
-  try {
-    for (const n of newsData) {
-      const cmsNews: News = {
-        id: n.id,
-        category: n.category,
-        status: "published",
-        imageUrl: "",
-        seo: {
-          zh: {
-            title: n.title,
-            description: n.summary,
-            keywords: [n.categoryLabel || "资讯"],
-          },
-          en: {
-            title: n.title,
-            description: n.summary,
-            keywords: [n.categoryLabel || "News"],
-          },
-        },
-        zh: {
-          title: n.title,
-          content: n.content,
-        },
-        en: {
-          title: n.title,
-          content: n.content,
-        },
-        updatedAt: new Date().toISOString(),
-      };
-      await saveCMSNews(cmsNews);
-    }
-    return true;
-  } catch (error) {
-    console.error("Cloudflare D1 seed news failed:", error);
-    return false;
-  }
 }
 
 export async function getCMSNews(onlyPublished = false): Promise<News[]> {

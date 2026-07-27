@@ -203,7 +203,7 @@ export default function NewsSection({
 
   useEffect(() => {
     setLoadingNews(true);
-    // 1. Frist try fetching editable CMS news from the Firestore database
+    // 1. Fetch editable CMS news from current CMS API.
     getCMSNews(true)
       .then((dbNews) => {
         if (dbNews && dbNews.length > 0) {
@@ -246,11 +246,11 @@ export default function NewsSection({
           setNewsArticlesState(normalizeAndFilterNews(mapped));
           setLoadingNews(false);
         } else {
-          throw new Error("No CMS news found in Firestore, falling back to local server endpoint");
+          throw new Error("No published CMS news found, falling back to local server endpoint");
         }
       })
       .catch((err) => {
-        console.log("Firestore news retrieval failed, fallback to Express API server:", err);
+        console.log("CMS news retrieval failed, fallback to Express API server:", err);
         // 2. Offline fallback to Express local Server API
         fetch("/api/news")
           .then((res) => {
@@ -314,9 +314,9 @@ export default function NewsSection({
     e.stopPropagation();
     navigator.clipboard.writeText(`${window.location.href} - ${title}`);
     if (lang === "en") {
-      alert(`[Link Copied to Clipboard]:\n\nSuccesfully copied "${title}" direct report reference!`);
+      alert(`[Link Copied to Clipboard]:\n\nSuccessfully copied "${title}" direct report reference!`);
     } else {
-      alert(`【链接已快滑复制到剪切板】:\n\n已成功复制该行业报告/合规解读链接！快去分享给身边的家长等。`);
+      alert(`【链接已复制到剪切板】:\n\n已成功复制该行业报告/合规解读链接，快去分享给身边的家长。`);
     }
   };
 

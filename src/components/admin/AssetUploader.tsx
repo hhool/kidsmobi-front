@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { uploadAssetFile, deleteAssetFile } from "../../lib/upload";
-import { listAssetMetadata } from "../../lib/firestoreAssetHelper";
+import { listAssetMetadata as listAssetCatalog } from "../../lib/firestoreAssetHelper";
 import { Copy, Check, UploadCloud, Image as ImageIcon, Video, Loader2, Folder, ChevronRight, Home, Trash2, FileText } from "lucide-react";
 
 export default function AssetUploader({ lang = "zh", onUploaded }: { lang?: "zh" | "en", onUploaded?: (url: string, key: string) => void }) {
@@ -26,7 +26,7 @@ export default function AssetUploader({ lang = "zh", onUploaded }: { lang?: "zh"
 
   const fetchAssets = async () => {
     try {
-      const data = await listAssetMetadata();
+      const data = await listAssetCatalog();
       setAssets(data);
     } catch (err) {
       console.error("Failed to fetch assets", err);

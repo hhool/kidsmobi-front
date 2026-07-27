@@ -141,7 +141,7 @@ export default function CategoryManager({ lang }: { lang: "zh" | "en" }) {
         return;
       }
     } catch {
-      // fallback to firestore cms service
+      // fallback to CMS API service
     }
     const data = await getCMSCategories(false);
     setItems(data);

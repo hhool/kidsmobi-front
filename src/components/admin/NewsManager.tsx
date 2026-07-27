@@ -166,12 +166,12 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
       let niceError = errorMsg;
       if (errorMsg.includes("Missing or insufficient permissions")) {
         niceError = lang === "zh"
-          ? "权限不足 (Permission Denied)：您当前没有在 Firebase Auth 进行真实登录。本地 Bypass 模式仅有只读权限。请点击右上角「我的账户」使用 Google 账号进行登录后再试。"
-          : "Permission Denied: You are not security-authenticated on the Firebase Auth backend. Developer Bypass session is read-only. Please authenticate via Google popup under the 'Account' section first.";
+          ? "权限不足 (Permission Denied)：当前会话未通过可写权限验证。开发者 Bypass 模式通常为只读，请使用真实管理员登录后重试。"
+          : "Permission Denied: The current session is not authorized for write access. Developer bypass is typically read-only. Please sign in with a real admin account and retry.";
       } else if (errorMsg.includes("Operation timed out")) {
         niceError = lang === "zh"
-          ? "网络超时：无法连接到 Firestore 数据库。请检查您的网络连接、代理，或重新登录过期的账户 session 后尝试。"
-          : "Operation Timed Out: Failed to reach Firestore database. Please verify your connection/proxy settings, or re-authenticate your expired session.";
+          ? "网络超时：无法连接 CMS 接口。请检查网络/代理设置，或重新登录后再试。"
+          : "Operation Timed Out: Failed to reach CMS endpoints. Please check your network/proxy settings or sign in again.";
       }
       setSaveError(niceError);
     } finally {
@@ -224,8 +224,12 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
                     {n.status}
                   </span>
                 </div>
-                <h4 className="font-black text-slate-900">{n.zh?.title || n.en?.title || "(Untitled News)"}</h4>
-                <p className="text-xs text-slate-400 font-bold uppercase tracking-tight mt-0.5 whitespace-nowrap overflow-hidden text-ellipsis max-w-md">{n.en?.title || n.zh?.title || ""}</p>
+                <h4 className="font-black text-slate-900">
+                  {(lang === "zh" ? n.zh?.title : n.en?.title) || (lang === "zh" ? n.en?.title : n.zh?.title) || "(Untitled News)"}
+                </h4>
+                <p className="text-xs text-slate-400 font-bold uppercase tracking-tight mt-0.5 whitespace-nowrap overflow-hidden text-ellipsis max-w-md">
+                  {(lang === "zh" ? n.en?.title : n.zh?.title) || ""}
+                </p>
               </div>
             </div>
             <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -267,9 +271,22 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
 
 function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving, error }: any) {
   const [formData, setFormData] = useState<News>(normalizeNewsRecord(news));
-  const [activeLang, setActiveLang] = useState<"zh" | "en">("zh");
+  const [activeLang, setActiveLang] = useState<"zh" | "en">(lang === "en" ? "en" : "zh");
   const [pickerMode, setPickerMode] = useState<"cover" | "related" | null>(null);
   const [scenarioPickerOpen, setScenarioPickerOpen] = useState(false);
+  const previewCategory = normalizeNewsCategory(formData.category);
+  const previewId = String(formData.id || "").trim();
+  const previewPath = previewId
+    ? `/news/${previewCategory}/${encodeURIComponent(previewId)}`
+    : `/news/${previewCategory}`;
+  const previewBreadcrumb = previewPath
+    .replace(/^\//, "")
+    .split("/")
+    .join(" › ");
+
+  useEffect(() => {
+    setActiveLang(lang === "en" ? "en" : "zh");
+  }, [lang]);
 
   const applyResourceSelection = (selection: { imageUrls: string[]; videoUrls: string[]; relatedProductIds: string[] }) => {
     if (pickerMode === "cover") {
@@ -542,7 +559,7 @@ function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving,
                 <div className="space-y-4">
                   <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-4">Google SERP Preview</span>
                   <div className="bg-white px-8 py-10 rounded-[40px] shadow-2xl border border-slate-50 flex flex-col gap-1.5 overflow-hidden ring-1 ring-slate-100">
-                    <div className="text-[12px] text-emerald-700 truncate">strollerlab.com › news › eu-safety-2026</div>
+                    <div className="text-[12px] text-emerald-700 truncate">balancebiketoddler.com › {previewBreadcrumb}</div>
                     <div className="text-[20px] text-blue-800 font-medium hover:underline cursor-pointer truncate">{formData.seo[activeLang].title || "Headline Preview"}</div>
                     <div className="text-[14px] text-slate-600 line-clamp-2 leading-relaxed">
                       {formData.seo[activeLang].description || "News meta summary will appear here for audit."}
