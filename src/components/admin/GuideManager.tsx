@@ -75,7 +75,7 @@ function stringifyKeywords(keywords: unknown): string {
   return keywords.map((item) => String(item || "").trim()).filter(Boolean).join(", ");
 }
 
-export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
+export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }: { lang: "zh" | "en", focusGuideId?: string, onFocusGuideHandled?: () => void }) {
   const [guides, setGuides] = useState<Guide[]>([]);
   const [products, setProducts] = useState<CMSProduct[]>([]);
   const [scenarios, setScenarios] = useState<CMSScenario[]>([]);
@@ -86,6 +86,15 @@ export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (!focusGuideId) return;
+    const matchedGuide = guides.find((guide) => guide.id === focusGuideId);
+    if (!matchedGuide) return;
+
+    setEditingGuide(normalizeGuideTaxonomy(matchedGuide));
+    onFocusGuideHandled?.();
+  }, [focusGuideId, guides, onFocusGuideHandled]);
 
   const fetchData = async () => {
     let guidesData: Guide[] = [];
@@ -296,6 +305,12 @@ export default function GuideManager({ lang }: { lang: "zh" | "en" }) {
               ? (lang === "zh" ? "迁移中..." : "Migrating...")
               : (lang === "zh" ? "一键迁移 taxonomy" : "Migrate Taxonomy")}
           </button>
+
+          <p className="max-w-[420px] text-[11px] leading-relaxed text-amber-700/90 font-semibold">
+            {lang === "zh"
+              ? "用途：把旧指南自动补齐 taxonomy（topicCategory / topicOrder / productCategory）。适用：升级到 CMS 2.0 或导入历史数据后。结果：processed=扫描总数，updated=实际写入数。"
+              : "Purpose: auto-fill missing taxonomy fields (topicCategory / topicOrder / productCategory) for legacy guides. Run this after CMS 2.0 upgrades or historical imports. Result: processed = scanned guides, updated = actually updated guides."}
+          </p>
 
           <button onClick={handleNew} className="btn-primary flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-3xl font-black shadow-2xl shadow-slate-900/10 hover:-translate-y-1 transition-all">
             <Plus className="w-5 h-5 text-blue-400" />

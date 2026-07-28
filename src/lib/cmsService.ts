@@ -23,9 +23,12 @@ function resolveCMSApiPath(path: string): string {
 async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
   const requestUrl = resolveCMSApiPath(path);
   let lastError: Error | null = null;
+  const method = String(init?.method || "GET").toUpperCase();
+  const fetchCachePolicy = method === "GET" ? "no-store" : init?.cache;
 
   for (let attempt = 1; attempt <= 3; attempt += 1) {
     const response = await fetch(requestUrl, {
+      cache: fetchCachePolicy,
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { Search, Calendar, User, Eye, BookOpen, Clock, ArrowLeft, Heart, Share2, Globe, Zap } from "lucide-react";
 import { NewsArticle, newsArticles as fallbackNewsArticles } from "../data/newsData";
 import { getCMSNews } from "../lib/cmsService";
@@ -128,6 +128,15 @@ export default function NewsSection({
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("date"); // 'date' | 'views'
+  const breadcrumbsAnchorRef = useRef<HTMLDivElement | null>(null);
+
+  const alignViewportToBreadcrumbs = () => {
+    if (typeof window === "undefined") return;
+    const el = breadcrumbsAnchorRef.current;
+    if (!el) return;
+    const top = Math.max(0, el.getBoundingClientRect().top + window.scrollY - 96);
+    window.scrollTo({ top, behavior: "auto" });
+  };
 
   // Sync state with activeCategory prop
   useEffect(() => {
@@ -151,6 +160,14 @@ export default function NewsSection({
       setSelectedArticleState(null);
     }
   }, [activeArticleId, newsArticlesState]);
+
+  useEffect(() => {
+    if (!activeArticleId || !selectedArticleState) return;
+    const timer = window.setTimeout(() => {
+      alignViewportToBreadcrumbs();
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [activeArticleId, selectedArticleState]);
 
   const handleCategoryClick = (catId: string) => {
     if (onCategoryChange) {
@@ -394,11 +411,13 @@ export default function NewsSection({
           });
         }
         return (
-          <Breadcrumbs
-            lang={lang}
-            onHomeClick={() => (window as any).setActiveTab?.("home")}
-            items={items}
-          />
+          <div ref={breadcrumbsAnchorRef}>
+            <Breadcrumbs
+              lang={lang}
+              onHomeClick={() => (window as any).setActiveTab?.("home")}
+              items={items}
+            />
+          </div>
         );
       })()}
 
@@ -598,7 +617,7 @@ export default function NewsSection({
               <p className="text-slate-200 text-xs sm:text-sm md:text-base max-w-3xl mx-auto leading-relaxed font-semibold drop-shadow-sm">
                 {lang === "en"
                   ? "Track industry updates for a premium kids electric bike or a rugged electric dirt bike for kids. We also review foldable electric scooter launches and kids e-scooter safety data."
-                  : "深度追踪全球越野电动童车、轻量化儿童滑步车、多档悬挂避震阻尼车架以及可折叠电动滑板车法规标准，权威输出最懂中国供应链的硬核品质指南。"}
+                  : "深度追踪全球童车及推车（越野电动童车、轻量化滑步车、多档悬挂阻尼车架、折叠电动滑板车及儿童推车）行业标准，权威输出基于源头制造供应链的硬核品质指南。。"}
               </p>
 
               {/* Categorization dynamic tabs bar strictly in ordered layout */}

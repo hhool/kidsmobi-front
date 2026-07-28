@@ -104,6 +104,10 @@ const seoRouteMap: Record<string, string> = {
 
 const resolveSeoLink = (rawId: string) => seoRouteMap[rawId] || rawId;
 
+const normalizeGuideArticleRouteId = (value: string): string => {
+  return decodeURIComponent(String(value || "").trim());
+};
+
 const CURRENCY_TO_COUNTRY_CODE: Record<string, string> = {
   USD: "US",
   EUR: "DE",
@@ -551,12 +555,19 @@ const resolveInitialLang = (): "zh" | "en" => {
 
 const resolveRouteState = (pathname: string, hash: string) => {
   if (hash.startsWith("#cms") || hash === "#cm") {
+    const queryIndex = hash.indexOf("?");
+    const query = queryIndex >= 0 ? hash.slice(queryIndex + 1) : "";
+    const params = new URLSearchParams(query);
+    const cmsMenu = String(params.get("menu") || "dashboard").trim().toLowerCase();
+    const guideId = String(params.get("guideId") || params.get("articleId") || "").trim();
     return {
       activeTab: "admin",
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
       activeProductId: "",
+      activeGuidesCategory: cmsMenu === "guides" ? "all" : "all",
+      activeGuidesArticleId: guideId,
       activePageIndex: 1,
       currentPath: normalizePathname(pathname),
     };
@@ -649,13 +660,18 @@ const resolveRouteState = (pathname: string, hash: string) => {
     if (contentSegments[1]) {
       if (contentSegments[2]) {
         activeGuidesCategory = contentSegments[1];
-        activeGuidesArticleId = contentSegments[2];
+        activeGuidesArticleId = normalizeGuideArticleRouteId(contentSegments[2]);
       } else if (GUIDE_ROUTE_CATEGORY_IDS.has(contentSegments[1])) {
         activeGuidesCategory = contentSegments[1];
       } else {
-        const foundArt = guideArticles.find((g) => g.id === contentSegments[1]);
+        const normalizedGuideId = normalizeGuideArticleRouteId(contentSegments[1]);
+        const normalizedNoSuffix = normalizedGuideId.split(":")[0];
+        const foundArt = guideArticles.find((g) => {
+          const guideId = String(g.id || "");
+          return guideId === normalizedGuideId || guideId.split(":")[0] === normalizedNoSuffix;
+        });
         activeGuidesCategory = foundArt?.category || "all";
-        activeGuidesArticleId = contentSegments[1];
+        activeGuidesArticleId = foundArt?.id || normalizedGuideId;
       }
     }
     
@@ -823,6 +839,8 @@ export default function App() {
   const [guidesPaginationTotalPages, setGuidesPaginationTotalPages] = useState<number | null>(null);
   const activeTabRef = useRef<string>(initialRouteState.activeTab);
   const batchProductsRef = useRef<Product[]>([]);
+  const newsReturnViewRef = useRef<{ path: string; scrollY: number } | null>(null);
+  const guidesReturnViewRef = useRef<{ path: string; scrollY: number } | null>(null);
 
   // Navigation Dropdown states & timer refs with elegant 1s hover delay
   const [productsMenuOpen, setProductsMenuOpen] = useState(false);
@@ -973,6 +991,51 @@ export default function App() {
     }
 
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const openAdminGuideEditor = (guideId: string) => {
+    const safeGuideId = encodeURIComponent(String(guideId || "").trim());
+    const nextHash = safeGuideId ? `#cms?menu=guides&guideId=${safeGuideId}` : "#cms?menu=guides";
+
+    if (window.location.hash !== nextHash) {
+      window.location.hash = nextHash;
+    } else {
+      syncRouteStateFromLocation();
+    }
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const rememberReturnView = (section: "news" | "guides") => {
+    const snapshot = {
+      path: `${window.location.pathname}${window.location.search}${window.location.hash}`,
+      scrollY: window.scrollY,
+    };
+    if (section === "news") {
+      newsReturnViewRef.current = snapshot;
+    } else {
+      guidesReturnViewRef.current = snapshot;
+    }
+  };
+
+  const restoreReturnView = (section: "news" | "guides", fallbackPath: string) => {
+    const snapshot = section === "news" ? newsReturnViewRef.current : guidesReturnViewRef.current;
+    const targetPath = snapshot?.path || fallbackPath;
+    const targetScrollY = snapshot?.scrollY ?? 0;
+
+    navigateToPath(targetPath, { preserveScroll: true });
+
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        window.scrollTo({ top: targetScrollY, behavior: "auto" });
+      });
+    });
+
+    if (section === "news") {
+      newsReturnViewRef.current = null;
+    } else {
+      guidesReturnViewRef.current = null;
+    }
   };
 
   useEffect(() => {
@@ -2773,8 +2836,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             activeCategory={activeNewsCategory}
             activeArticleId={activeNewsArticleId}
             onCategoryChange={(cat) => navigateToPath(cat === "all" ? "/news" : `/news/${cat}`, { preserveScroll: true })}
-            onArticleOpen={(cat, articleId) => navigateToPath(`/news/${cat}/${articleId}`, { preserveScroll: true })}
-            onArticleClose={() => navigateToPath(activeNewsCategory === "all" ? "/news" : `/news/${activeNewsCategory}`, { preserveScroll: true })}
+            onArticleOpen={(cat, articleId) => {
+              rememberReturnView("news");
+              navigateToPath(`/news/${cat}/${articleId}`, { preserveScroll: true });
+            }}
+            onArticleClose={() => restoreReturnView("news", activeNewsCategory === "all" ? "/news" : `/news/${activeNewsCategory}`)}
             onPageChange={(page) => {
               const newsPath = activeNewsCategory === "all" ? "/news" : `/news/${activeNewsCategory}`;
               navigateToPath(page <= 1 ? newsPath : `${newsPath}/page/${page}`, { preserveScroll: true });
@@ -2885,9 +2951,14 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             currentPage={activePageIndex}
             activeCategory={activeGuidesCategory}
             activeArticleId={activeGuidesArticleId}
+            isAdmin={isAdmin}
+            onOpenAdminGuideEditor={openAdminGuideEditor}
             onCategoryChange={(cat) => navigateToPath(cat === "all" ? "/guides" : `/guides/${cat}`, { preserveScroll: true })}
-            onArticleOpen={(cat, articleId) => navigateToPath(`/guides/${cat}/${articleId}`, { preserveScroll: true })}
-            onArticleClose={() => navigateToPath(activeGuidesCategory === "all" ? "/guides" : `/guides/${activeGuidesCategory}`, { preserveScroll: true })}
+            onArticleOpen={(cat, articleId) => {
+              rememberReturnView("guides");
+              navigateToPath(`/guides/${cat}/${articleId}`, { preserveScroll: true });
+            }}
+            onArticleClose={() => restoreReturnView("guides", activeGuidesCategory === "all" ? "/guides" : `/guides/${activeGuidesCategory}`)}
             onPageChange={(page) => {
               const guidesPath = activeGuidesCategory === "all" ? "/guides" : `/guides/${activeGuidesCategory}`;
               navigateToPath(page <= 1 ? guidesPath : `${guidesPath}/page/${page}`, { preserveScroll: true });
@@ -2943,6 +3014,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             lang={lang}
             isAdmin={isAdmin}
             loading={authLoading}
+            focusGuideId={activeGuidesArticleId}
             onDeveloperBypass={() => {
               safeStorageSet("dev_admin_bypass", "true");
               setUserEmail("hhool.student@gmail.com");

@@ -68,7 +68,7 @@ const ADMIN_MENU_SET = new Set<AdminMenu>([
   "imports",
 ]);
 
-const parseAdminRouteHash = (hashValue: string, pathnameValue: string): { menu: AdminMenu; productId: string } | null => {
+const parseAdminRouteHash = (hashValue: string, pathnameValue: string): { menu: AdminMenu; productId: string; guideId: string } | null => {
   const hash = String(hashValue || "").trim();
   if (!hash.startsWith("#cms")) return null;
 
@@ -79,8 +79,9 @@ const parseAdminRouteHash = (hashValue: string, pathnameValue: string): { menu: 
   const rawMenu = String(params.get("menu") || pathMenu).trim().toLowerCase();
   const menu = ADMIN_MENU_SET.has(rawMenu as AdminMenu) ? (rawMenu as AdminMenu) : "dashboard";
   const productId = String(params.get("productId") || "").trim();
+  const guideId = String(params.get("guideId") || params.get("articleId") || "").trim();
 
-  return { menu, productId };
+  return { menu, productId, guideId };
 };
 
 const navigateToAdminMenu = (menu: AdminMenu, options?: { productId?: string; replace?: boolean }) => {
@@ -105,17 +106,20 @@ export default function AdminPanel({
   lang,
   isAdmin: isAdminProp,
   loading: loadingProp,
-  onDeveloperBypass
+  onDeveloperBypass,
+  focusGuideId
 }: { 
   onClose: () => void, 
   onRedirectAuth: () => void, 
   lang: "zh" | "en",
   isAdmin: boolean,
   loading: boolean,
-  onDeveloperBypass?: () => void
+  onDeveloperBypass?: () => void,
+  focusGuideId?: string
 }) {
   const [activeMenu, setActiveMenu] = useState<AdminMenu>("dashboard");
   const [targetProductId, setTargetProductId] = useState<string>("");
+  const [targetGuideId, setTargetGuideId] = useState<string>("");
   const [showHelpTip, setShowHelpTip] = useState(false);
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [d1Status, setD1Status] = useState<"unknown" | "healthy" | "down">("unknown");
@@ -143,6 +147,7 @@ export default function AdminPanel({
       if (!parsed) return;
       setActiveMenu(parsed.menu);
       setTargetProductId(parsed.menu === "products" ? parsed.productId : "");
+      setTargetGuideId(parsed.menu === "guides" ? parsed.guideId : "");
     };
 
     syncAdminRouteFromHash();
@@ -155,6 +160,7 @@ export default function AdminPanel({
   const handleAdminMenuChange = (menu: AdminMenu) => {
     setActiveMenu(menu);
     setTargetProductId("");
+    setTargetGuideId("");
     navigateToAdminMenu(menu);
   };
 
@@ -309,7 +315,13 @@ export default function AdminPanel({
              />
            )}
            {activeMenu === "evaluations" && <EvaluationManager lang={lang} />}
-           {activeMenu === "guides" && <GuideManager lang={lang} />}
+           {activeMenu === "guides" && (
+             <GuideManager
+               lang={lang}
+               focusGuideId={targetGuideId}
+               onFocusGuideHandled={() => setTargetGuideId("")}
+             />
+           )}
            {activeMenu === "news" && <NewsManager lang={lang} />}
            {activeMenu === "imports" && <ImportReviewManager lang={lang} />}
            {activeMenu === "settings" && <SettingsManager lang={lang} />}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { 
   BookOpen, 
   Search, 
@@ -309,6 +309,21 @@ function getGuideTopicOrder(article: GuideArticle): number {
   return 9999;
 }
 
+function normalizeGuideArticleId(value: string): string {
+  const raw = decodeURIComponent(String(value || "").trim());
+  if (!raw) return "";
+  const colonIndex = raw.indexOf(":");
+  return colonIndex >= 0 ? raw.slice(0, colonIndex) : raw;
+}
+
+function isGuideArticleIdMatch(candidateId: string, guideId: string): boolean {
+  const candidate = decodeURIComponent(String(candidateId || "").trim());
+  const current = decodeURIComponent(String(guideId || "").trim());
+  if (!candidate || !current) return false;
+  if (candidate === current) return true;
+  return normalizeGuideArticleId(candidate) === normalizeGuideArticleId(current);
+}
+
 function productCategoryGuideLabel(product: Product, lang: "zh" | "en") {
   const text = `${product.category || ""} ${(product as any).categoryId || ""} ${product.name || ""}`.toLowerCase();
   if (text.includes("stroller")) return lang === "en" ? "baby stroller" : "婴儿推车";
@@ -450,6 +465,8 @@ interface GuidesSectionProps {
   onCategoryChange?: (category: string) => void;
   onArticleOpen?: (category: string, articleId: string) => void;
   onArticleClose?: () => void;
+  isAdmin?: boolean;
+  onOpenAdminGuideEditor?: (guideId: string) => void;
 }
 
 export default function GuidesSection({
@@ -467,6 +484,8 @@ export default function GuidesSection({
   onCategoryChange,
   onArticleOpen,
   onArticleClose,
+  isAdmin = false,
+  onOpenAdminGuideEditor,
 }: GuidesSectionProps) {
   const [guideArticles, setGuideArticles] = useState<GuideArticle[]>(fallbackGuideArticles);
   const [loadingGuides, setLoadingGuides] = useState<boolean>(false);
@@ -509,7 +528,7 @@ export default function GuidesSection({
 
   useEffect(() => {
     setLoadingGuides(true);
-    // 1. Try fetching editable CMS guides from the Firestore Database
+    // 1. Try fetching editable CMS guides from CMS API first
     getCMSGuides(true)
       .then((dbGuides) => {
         if (dbGuides && dbGuides.length > 0) {
@@ -540,11 +559,11 @@ export default function GuidesSection({
           setGuideArticles(mapped);
           setLoadingGuides(false);
         } else {
-          throw new Error("No CMS guides in Firestore, using server API fallback");
+          throw new Error("No CMS guides available, using server API fallback");
         }
       })
       .catch((err) => {
-        console.log("Firestore guides retrieve failed, falling back to express API server:", err);
+        console.log("CMS guides fetch failed, falling back to express API server:", err);
         // 2. Offline fallback to Express local Server API
         fetch("/api/guides")
           .then((res) => {
@@ -603,6 +622,16 @@ export default function GuidesSection({
   const [wizardCategory, setWizardCategory] = useState<string>("stroller");
   const [wizardPage, setWizardPage] = useState<number>(1);
   const [showWizardResults, setShowWizardResults] = useState<boolean>(false);
+  const didInitWizardCategoryResetRef = useRef<boolean>(false);
+  const breadcrumbsAnchorRef = useRef<HTMLDivElement | null>(null);
+
+  const alignViewportToBreadcrumbs = () => {
+    if (typeof window === "undefined") return;
+    const el = breadcrumbsAnchorRef.current;
+    if (!el) return;
+    const top = Math.max(0, el.getBoundingClientRect().top + window.scrollY - 96);
+    window.scrollTo({ top, behavior: "auto" });
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -637,18 +666,23 @@ export default function GuidesSection({
       if (seen.has(article.id)) return false;
       seen.add(article.id);
       return true;
-    }).map((article, index) => lang === "en" ? {
-      ...article,
-      title: getLongTailGuideTitle(index),
-      summary: getLongTailGuideSummary(index),
-      content: getLongTailGuideContent(index),
-    } : article);
+    }).map((article, index) => {
+      if (lang !== "en") return article;
+      // Preserve live CMS-authored guide copy; only enrich generated placeholder guides.
+      if (!String(article.id || "").startsWith("generated_")) return article;
+      return {
+        ...article,
+        title: getLongTailGuideTitle(index),
+        summary: getLongTailGuideSummary(index),
+        content: getLongTailGuideContent(index),
+      };
+    });
   }, [guideArticles, generatedGuideArticles, lang]);
 
   // Sync state with activeArticleId
   useEffect(() => {
     if (activeArticleId) {
-      const found = allGuideArticles.find((g) => g.id === activeArticleId);
+      const found = allGuideArticles.find((g) => isGuideArticleIdMatch(activeArticleId, g.id));
       if (found) {
         setSelectedGuideState(found);
       } else {
@@ -658,6 +692,14 @@ export default function GuidesSection({
       setSelectedGuideState(null);
     }
   }, [activeArticleId, allGuideArticles]);
+
+  useEffect(() => {
+    if (!activeArticleId || !selectedGuideState) return;
+    const timer = window.setTimeout(() => {
+      alignViewportToBreadcrumbs();
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [activeArticleId, selectedGuideState]);
 
   // Dynamic automatic filtering of all library articles based on Match Wizard active category selection
   const productFilteredArticles = useMemo(() => {
@@ -679,9 +721,20 @@ export default function GuidesSection({
 
   // Auto-reset page count when wizardCategory changes to prevent pagination bounds overflow
   useEffect(() => {
+    // Prevent first-render side effects from rewriting detail URLs.
+    if (!didInitWizardCategoryResetRef.current) {
+      didInitWizardCategoryResetRef.current = true;
+      return;
+    }
+
+    // Keep detail route stable while an article is open.
+    if (activeArticleId) {
+      return;
+    }
+
     onPageChange?.(1);
     setSelectedGuideState(null); // Also clear currently reading article to avoid cross-category confusion
-  }, [wizardCategory]);
+  }, [wizardCategory, activeArticleId, onPageChange]);
 
   const guideCategoryCounts = useMemo(() => {
     return activeArticlesList.reduce<Record<string, number>>((acc, article) => {
@@ -897,11 +950,13 @@ export default function GuidesSection({
           });
         }
         return (
-          <Breadcrumbs
-            lang={lang}
-            onHomeClick={() => (window as any).setActiveTab?.("home")}
-            items={items}
-          />
+          <div ref={breadcrumbsAnchorRef}>
+            <Breadcrumbs
+              lang={lang}
+              onHomeClick={() => (window as any).setActiveTab?.("home")}
+              items={items}
+            />
+          </div>
         );
       })()}
 
@@ -1407,6 +1462,14 @@ export default function GuidesSection({
                 >
                   {lang === "en" ? "Back to Guides" : "完成阅读"}
                 </button>
+                {isAdmin && onOpenAdminGuideEditor && (
+                  <button
+                    onClick={() => onOpenAdminGuideEditor(String(selectedGuideState.id || ""))}
+                    className="px-6 py-3 bg-orange-500 text-white hover:bg-orange-600 border border-orange-400 text-sm rounded-2xl font-black transition-all"
+                  >
+                    {lang === "en" ? "Edit in CMS" : "转 CMS 编辑"}
+                  </button>
+                )}
               </div>
             </div>
           );
