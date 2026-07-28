@@ -6,6 +6,7 @@ import { resolveProductImages } from "../lib/productImages";
 import { getProductImageAlt, getProductsPageSeoTitle } from "../lib/productSeoText";
 import SmartImage from "./common/SmartImage";
 import Breadcrumbs from "./Breadcrumbs";
+import { getPageCopy } from "../config/pageCopy";
 
 import MultiCompareView from "./MultiCompareView";
 import { Evaluation } from "../types";
@@ -86,7 +87,7 @@ function SafetyRadarChart({ product, evaluation, lang = "zh", isDark = false }: 
     });
   }, [scores, radius, center]);
 
-  const radarAriaLabel = lang === "en" ? "Scoring radar chart" : "评分雷达图";
+  const radarAriaLabel = getPageCopy(lang).reviews.radarAriaLabel;
 
   return (
     <div className={`flex flex-col items-center p-8 rounded-[48px] border relative overflow-hidden w-full max-w-70 mx-auto transition-transform hover:scale-[1.02] duration-500 ${isDark ? "bg-slate-800/50 border-slate-700 shadow-none text-white" : "bg-white border-slate-100 shadow-xl shadow-orange-500/5"}`}>
@@ -157,6 +158,74 @@ function isRealVerdict(text: string) {
   const v = String(text || "").trim().toLowerCase();
   if (v.length < 45) return false;
   return !DEFAULT_VERDICT_PATTERNS.some((p) => v.includes(p));
+}
+
+function localizeEnglishModelTermsForZh(text: string): string {
+  return String(text || "")
+    .replace(/travel\s*system/gi, "出行系统")
+    .replace(/jogging\s*stroller|jogger\s*stroller/gi, "慢跑推车")
+    .replace(/double\s*stroller|twin\s*stroller/gi, "双人推车")
+    .replace(/stroller/gi, "推车")
+    .replace(/balance\s*bike/gi, "平衡车")
+    .replace(/kids?\s*bike|bicycle/gi, "儿童自行车")
+    .replace(/kids?\s*scooter|scooter/gi, "儿童滑板车")
+    .replace(/electric\s*car|electric\s*vehicle/gi, "儿童电动车")
+    .replace(/car\s*seat/gi, "安全座椅")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function buildZhReviewDisplayTitle(product: Product, detailTitleSuffix: string): string {
+  const localized = translateProduct(product, "zh");
+  const brand = String((product as any).zh?.brand || localized.brand || product.brand || "").trim();
+  const rawName = String((product as any).zh?.name || localized.name || product.name || "").trim();
+  const shortName = localizeEnglishModelTermsForZh(sanitizeMarketplaceNoise(rawName))
+    .replace(/^\W+|\W+$/g, "")
+    .slice(0, 48)
+    .trim();
+  const base = `${brand} ${shortName}`.replace(/\s+/g, " ").trim();
+  return `${base || "该产品"} ${detailTitleSuffix}`.trim();
+}
+
+function isMixedLanguageTitleTooNoisy(title: string): boolean {
+  const text = String(title || "").trim();
+  if (!text) return false;
+  const latinChunks = text.match(/[A-Za-z]{3,}/g) || [];
+  return text.length > 34 && latinChunks.length >= 4;
+}
+
+function getLocalizedReviewTitle(product: Product, evaluation: Evaluation, lang: "zh" | "en", detailTitleSuffix: string): string {
+  if (lang === "en") {
+    const enTitle = String(evaluation.en?.title || "").trim();
+    if (enTitle && !containsCjk(enTitle)) return enTitle;
+    return getReviewCardTitle(product);
+  }
+
+  const zhTitle = String(evaluation.zh?.title || "").trim();
+  if (zhTitle && containsCjk(zhTitle)) {
+    const normalizedZhTitle = localizeEnglishModelTermsForZh(zhTitle);
+    if (!isMixedLanguageTitleTooNoisy(normalizedZhTitle)) return normalizedZhTitle;
+  }
+
+  return buildZhReviewDisplayTitle(product, detailTitleSuffix);
+}
+
+function getLocalizedReviewVerdict(product: Product, evaluation: Evaluation, lang: "zh" | "en"): string {
+  if (lang === "en") {
+    const enVerdict = sanitizeVerdictText(String(evaluation.en?.verdict || ""));
+    if (enVerdict && !containsCjk(enVerdict) && isRealVerdict(enVerdict)) return enVerdict;
+    const fallback = sanitizeVerdictText(productVerdict(product, "en"));
+    return fallback || "Detailed evaluation and lab results verified from structured product data.";
+  }
+
+  const zhVerdict = sanitizeVerdictText(String(evaluation.zh?.verdict || ""));
+  if (zhVerdict && containsCjk(zhVerdict) && isRealVerdict(zhVerdict)) return zhVerdict;
+
+  const fallback = sanitizeVerdictText(productVerdict(product, "zh"));
+  if (fallback && containsCjk(fallback)) return fallback;
+
+  const zhName = String((product as any).zh?.name || product.name || "").trim();
+  return `针对${zhName || "该产品"}的结构化安全与操控评估，建议结合年龄、身高与使用场景进一步确认。`;
 }
 
 function cleanEnBrandText(brand: string) {
@@ -393,6 +462,7 @@ function clampSummaryForDisplay(text: string, maxLength = 480) {
 }
 
 function productVerdict(product: Product, lang: "zh" | "en" = "en") {
+  const reviewBusinessCopy = getPageCopy(lang).reviews.businessCopy;
   const diProduct = translateProduct(product, lang);
   const rawVerdict = String(diProduct.editorVerdict || "").trim();
   const sanitizedRawVerdict = finalizeVerdictText(rawVerdict);
@@ -403,34 +473,62 @@ function productVerdict(product: Product, lang: "zh" | "en" = "en") {
     return sanitizedRawVerdict;
   }
 
-  const brand = lang === "en" ? cleanEnBrandText(diProduct.brand || "") : diProduct.brand || "该高端型号";
+  const brand = lang === "en" ? cleanEnBrandText(diProduct.brand || "") : diProduct.brand || reviewBusinessCopy.fallbackBrandZh;
   const modelName = sanitizeMarketplaceNoise(diProduct.name || "");
   const category = String(diProduct.category || diProduct.categoryId || "ride").replace(/_/g, " ").toLowerCase();
   const rating = Number(diProduct.overallScore || 8.0).toFixed(1);
 
   if (lang === "zh") {
     if (category.includes("stroller")) {
-      return `【实验室评测】${brand} ${modelName} 拥有极佳的抗震力学构造与顺畅微操。总体实测得分 ${rating}，能给予宝宝全天候的前庭保护。`;
+      return reviewBusinessCopy.verdictTemplates.strollerZh
+        .replace("{brand}", brand)
+        .replace("{modelName}", modelName)
+        .replace("{rating}", rating);
     }
     if (category.includes("balance")) {
-      return `【实验室评测】${brand} 幼儿平衡车在安全转弯限位与重心分布上表现极为优秀。总体得分 ${rating}，非常有利于宝宝四肢骨骼和平衡觉早期发育。`;
+      return reviewBusinessCopy.verdictTemplates.balanceZh
+        .replace("{brand}", brand)
+        .replace("{modelName}", modelName)
+        .replace("{rating}", rating);
     }
     if (category.includes("bike") || category.includes("bicycle")) {
-      return `【实验室评测】${brand} 双手刹儿童自行车重量适中、制动力线性安全。物理拆解评分 ${rating}，保障宝宝的安全骑行。`;
+      return reviewBusinessCopy.verdictTemplates.bikeZh
+        .replace("{brand}", brand)
+        .replace("{modelName}", modelName)
+        .replace("{rating}", rating);
     }
-    return `【实验室评测】${brand} 车辆安全框架厚实，在震荡抗疲劳稳定性物理实验中表现优异。总体实测评级达 ${rating} 分，非常高分可靠。`;
+    return reviewBusinessCopy.verdictTemplates.defaultZh
+      .replace("{brand}", brand)
+      .replace("{modelName}", modelName)
+      .replace("{rating}", rating);
   } else {
     const cleanBrand = cleanEnBrandText(brand);
     if (category.includes("stroller")) {
-      return `[Lab Report] The ${cleanBrand} stroller stands out for highly responsive handling and airplane-friendly folding geometry. Scoring ${rating} overall, its multi-terrain suspension is ideal for active parents seeking travel strollers.`;
+      return reviewBusinessCopy.verdictTemplates.strollerEn
+        .replace("{cleanBrand}", cleanBrand)
+        .replace("{brand}", brand)
+        .replace("{modelName}", modelName)
+        .replace("{rating}", rating);
     }
     if (category.includes("balance")) {
-      return `[Lab Report] Engineering a lightweight solid frame, the ${cleanBrand} balance bike ensures stable low-COG ride control and safety steering. Earning a ${rating} overall mark, it is perfect for early balance skills training.`;
+      return reviewBusinessCopy.verdictTemplates.balanceEn
+        .replace("{cleanBrand}", cleanBrand)
+        .replace("{brand}", brand)
+        .replace("{modelName}", modelName)
+        .replace("{rating}", rating);
     }
     if (category.includes("bike") || category.includes("bicycle")) {
-      return `[Lab Report] Earning a robust ${rating} safety rating, this ${cleanBrand} kids bicycle features highly consistent brakes and dynamic pedal support, serving as a dependable choice for young riders.`;
+      return reviewBusinessCopy.verdictTemplates.bikeEn
+        .replace("{cleanBrand}", cleanBrand)
+        .replace("{brand}", brand)
+        .replace("{modelName}", modelName)
+        .replace("{rating}", rating);
     }
-    return `[Lab Report] Rigorously validated for framework stiffness, tire grip, and weight capacity, this ${cleanBrand} model secures an outstanding ${rating} overall score under simulated road test conditions.`;
+    return reviewBusinessCopy.verdictTemplates.defaultEn
+      .replace("{cleanBrand}", cleanBrand)
+      .replace("{brand}", brand)
+      .replace("{modelName}", modelName)
+      .replace("{rating}", rating);
   }
 }
 
@@ -498,21 +596,22 @@ function getReviewCardTitle(product: Product, fallbackTitle?: string) {
 }
 
 function getReviewCtaLabel(product: Product, evaluation: Evaluation, lang: "zh" | "en") {
+  const ctaCopy = getPageCopy(lang).reviews.businessCopy.dynamicCta;
   const text = `${product.category || ""} ${product.categoryId || ""} ${product.name || ""} ${evaluation.en?.title || ""} ${evaluation.zh?.title || ""}`.toLowerCase();
 
   if (lang === "en") {
-    if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return "Stroller Review ➔";
-    if (text.includes("balance")) return "Balance Ride Report ➔";
-    if (text.includes("scooter")) return "Kids Scooter Review ➔";
-    if (text.includes("bike") || text.includes("bicycle")) return "Toddler Bike Audit ➔";
-    return "Product Review ➔";
+    if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return ctaCopy.strollerEn;
+    if (text.includes("balance")) return ctaCopy.balanceEn;
+    if (text.includes("scooter")) return ctaCopy.scooterEn;
+    if (text.includes("bike") || text.includes("bicycle")) return ctaCopy.bikeEn;
+    return ctaCopy.defaultEn;
   }
 
-  if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return "阅读婴儿车深度审计报告 ➔";
-  if (text.includes("balance")) return "阅读平衡车学步专项测议 ➔";
-  if (text.includes("scooter")) return "阅读滑板车安全性能报告 ➔";
-  if (text.includes("bike") || text.includes("bicycle")) return "阅读儿童自行车力学测评 ➔";
-  return "阅读完整产品测评报告 ➔";
+  if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return ctaCopy.strollerZh;
+  if (text.includes("balance")) return ctaCopy.balanceZh;
+  if (text.includes("scooter")) return ctaCopy.scooterZh;
+  if (text.includes("bike") || text.includes("bicycle")) return ctaCopy.bikeZh;
+  return ctaCopy.defaultZh;
 }
 
 function cleanReviewBullet(value: unknown, fallback: string) {
@@ -789,6 +888,7 @@ export default function EvaluationsSection({
   currentPage = 1,
   onPageChange
 }: EvaluationsSectionProps) {
+  const reviewsCopy = getPageCopy(lang).reviews;
   const normalizeReviewType = (type?: string) => type && type !== "all" ? type : "single";
   const [selectedReviewType, setSelectedReviewType] = useState<string>(normalizeReviewType(initialReviewType));
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -854,18 +954,12 @@ export default function EvaluationsSection({
     onReviewTypeChange?.(normalizedType);
   };
 
-  const reviewTypes = lang === "en" ? [
-    { id: "single", label: "Best Travel Stroller" },
-    { id: "compare", label: "Best Jogging Stroller" },
-    { id: "value", label: "Balance Bike Reviews" },
-    { id: "ranking", label: "Stroller Reviews" },
-    { id: "safety", label: "Safety Audits" }
-  ] : [
-    { id: "single", label: "🔬 单品实测" },
-    { id: "compare", label: "⚖️ 多品横评" },
-    { id: "value", label: "🚲 平衡车评测" },
-    { id: "ranking", label: "🏆 榜单汇编" },
-    { id: "safety", label: "🛡️ 安全专项" }
+  const reviewTypes = [
+    { id: "single", label: reviewsCopy.reviewTypes.single },
+    { id: "compare", label: reviewsCopy.reviewTypes.compare },
+    { id: "value", label: reviewsCopy.reviewTypes.value },
+    { id: "ranking", label: reviewsCopy.reviewTypes.ranking },
+    { id: "safety", label: reviewsCopy.reviewTypes.safety }
   ];
 
   const reviewsList = useMemo(() => {
@@ -880,12 +974,12 @@ export default function EvaluationsSection({
       });
     });
     return [...generatedEvaluations, ...currentEvaluations].map((ev) => {
-      let badge = "REPORT";
-      if (ev.type === "compare") badge = lang === "en" ? "COMPARISON" : "多品横评";
-      if (ev.type === "value") badge = lang === "en" ? "VALUE PICK" : "性价比之选";
-      if (ev.type === "ranking") badge = lang === "en" ? "TOP RANKING" : "年度排行";
-      if (ev.type === "safety") badge = lang === "en" ? "SAFETY SPECS" : "安全专项测试";
-      if (ev.type === "single" || !ev.type) badge = lang === "en" ? "EXPERT REPORT" : "深度专家报告";
+      let badge = reviewsCopy.reportBadges.report;
+      if (ev.type === "compare") badge = reviewsCopy.reportBadges.comparison;
+      if (ev.type === "value") badge = reviewsCopy.reportBadges.valuePick;
+      if (ev.type === "ranking") badge = reviewsCopy.reportBadges.topRanking;
+      if (ev.type === "safety") badge = reviewsCopy.reportBadges.safetySpecs;
+      if (ev.type === "single" || !ev.type) badge = reviewsCopy.reportBadges.expertReport;
       
       return {
         evaluation: ev,
@@ -893,7 +987,7 @@ export default function EvaluationsSection({
         reviewBadge: badge
       };
     });
-  }, [evaluationsData, lang, productsData]);
+  }, [evaluationsData, lang, productsData, reviewsCopy.reportBadges]);
 
   const filteredReviews = useMemo(() => {
     const scoped = reviewsList.filter((r: any) => {
@@ -1131,11 +1225,11 @@ export default function EvaluationsSection({
     }
     const canonicalUrl = window.location.href;
     setCollectionPageJsonLd("evaluations-list", {
-      name: lang === "en" ? "Expert Stroller Reviews, Travel Strollers & Toddler Bikes" : "评测中心",
+      name: reviewsCopy.heroTitle,
       url: canonicalUrl,
       items: renderList.map((block: any) => {
         const dp = block.product ? translateProduct(block.product, lang) : null;
-        const customTitle = dp ? (lang === "en" ? `${dp.brand} ${dp.name} Review` : `${dp.brand} ${dp.name} 深度安全评测报告`) : (lang === "zh" ? block.evaluation.zh.title : block.evaluation.en.title);
+        const customTitle = dp ? `${dp.brand} ${dp.name} ${reviewsCopy.detailTitleSuffix}` : (lang === "zh" ? block.evaluation.zh.title : block.evaluation.en.title);
         return {
           name: customTitle,
           url: canonicalUrl,
@@ -1143,7 +1237,7 @@ export default function EvaluationsSection({
       }),
     });
     return () => clearJsonLd("evaluations-list");
-  }, [lang, renderList, selectedEvaluation]);
+  }, [lang, renderList, selectedEvaluation, reviewsCopy.heroTitle, reviewsCopy.detailTitleSuffix]);
 
   const isSelectedSingle = selectedEvaluation && 
     (selectedEvaluation.type !== "compare" || !selectedEvaluation.productIds || selectedEvaluation.productIds.length <= 1);
@@ -1155,31 +1249,13 @@ export default function EvaluationsSection({
     const productDisplay = reviewedProduct ? translateProduct(reviewedProduct, lang) : null;
     const imageSet = reviewedProduct ? resolveProductImages(reviewedProduct) : null;
 
-    const displayDetailVerdict = (() => {
-      if (lang === "en") {
-        const v = sanitizeVerdictText(tEv.verdict || "");
-        if (v && !containsCjk(v) && isRealVerdict(v)) return v;
-        const brandEn = cleanEnBrandText(productDisplay?.brand || "");
-        const modelEn = sanitizeMarketplaceNoise(String(productDisplay?.name || ""));
-        return `Detailed evaluation and lab results for the ${brandEn} ${modelEn} stroller, verified for performance capacity and structural safety parameters.`;
-      } else {
-        const v = sanitizeVerdictText(tEv.verdict || "");
-        if (v && containsCjk(v) && isRealVerdict(v)) return v;
-        return `针对 ${productDisplay?.brand} ${productDisplay?.name} 出行系统的深度结构化力学性能评估档案，覆盖前庭颈椎防护及操控稳定性。`;
-      }
-    })();
+    const displayDetailVerdict = reviewedProduct
+      ? getLocalizedReviewVerdict(reviewedProduct, selectedEvaluation, lang)
+      : sanitizeVerdictText(tEv.verdict || "");
 
-    const displayDetailTitle = (() => {
-      if (lang === "en") {
-        const t = tEv.title || "";
-        if (t && !containsCjk(t)) return t;
-        return `${cleanEnBrandText(productDisplay?.brand || "")} Review`;
-      } else {
-        const t = tEv.title || "";
-        if (t && containsCjk(t)) return t;
-        return `${productDisplay?.brand || ""} 深度专家折页评测报告`;
-      }
-    })();
+    const displayDetailTitle = reviewedProduct
+      ? getLocalizedReviewTitle(reviewedProduct, selectedEvaluation, lang, reviewsCopy.detailTitleSuffix)
+      : (lang === "zh" ? selectedEvaluation.zh.title : selectedEvaluation.en.title);
 
     return (
       <div className="max-w-6xl mx-auto space-y-8 animate-fade-in text-left">
@@ -1190,7 +1266,7 @@ export default function EvaluationsSection({
             setActiveTab?.("home");
           }}
           items={[
-            { label: lang === "zh" ? "评测中心" : "EVALUATION CENTER", onClick: () => closeEvaluationDetail("single") },
+            { label: reviewsCopy.breadcrumb, onClick: () => closeEvaluationDetail("single") },
             { label: selectedTypeLabel, onClick: () => closeEvaluationDetail(selectedEvaluation.type) },
             { label: displayDetailTitle, active: true },
           ]}
@@ -1229,16 +1305,16 @@ export default function EvaluationsSection({
 
         <section className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-8 bg-white rounded-[48px] border border-slate-100 p-8 shadow-sm">
           <div className="space-y-6">
-            <h2 className="text-2xl font-black text-slate-900">{lang === "en" ? "Evaluation Summary" : "评测摘要"}</h2>
+            <h2 className="text-2xl font-black text-slate-900">{reviewsCopy.summaryTitle}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="bg-emerald-50 rounded-[28px] p-5 border border-emerald-100">
-                <h3 className="text-xs font-black text-emerald-600 uppercase tracking-widest mb-3">Pros</h3>
+                <h3 className="text-xs font-black text-emerald-600 uppercase tracking-widest mb-3">{reviewsCopy.prosTitle}</h3>
                 <ul className="space-y-2 text-sm font-bold text-slate-700">
                   {(tEv.pros || []).slice(0, 4).map((item, index) => <li key={index}>{item}</li>)}
                 </ul>
               </div>
               <div className="bg-rose-50 rounded-[28px] p-5 border border-rose-100">
-                <h3 className="text-xs font-black text-rose-600 uppercase tracking-widest mb-3">Cons</h3>
+                <h3 className="text-xs font-black text-rose-600 uppercase tracking-widest mb-3">{reviewsCopy.consTitle}</h3>
                 <ul className="space-y-2 text-sm font-bold text-slate-700">
                   {(tEv.cons || []).slice(0, 4).map((item, index) => <li key={index}>{item}</li>)}
                 </ul>
@@ -1287,7 +1363,7 @@ export default function EvaluationsSection({
       <Breadcrumbs 
         lang={lang} 
         onHomeClick={() => setActiveTab?.("home")}
-        items={[{ label: "REVIEWS", active: true }]} 
+        items={[{ label: reviewsCopy.breadcrumb, active: true }]} 
       />
 
       {/* 🛠️ 合并版头部大 Banner & 智能选车工具引导 (Premium Integrated Parent Banner) */}
@@ -1297,32 +1373,28 @@ export default function EvaluationsSection({
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1.25fr_0.75fr] gap-8 md:gap-12 items-center">
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-orange-500/10 border border-orange-500/25 text-orange-400 text-[10px] font-black uppercase tracking-widest rounded-full shadow-inner font-mono">
-              ★ INDEPENDENT LAB TESTING & REVIEWS
+              {reviewsCopy.badge}
             </div>
 
             <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight text-white max-w-3xl">
-              {lang === "zh"
-                ? "双胞胎推车与儿童滑板车独立评测中心"
-                : "Expert Stroller Reviews, Travel Strollers & Toddler Bikes"}
+              {reviewsCopy.heroTitle}
             </h1>
 
             <div className="border-l-2 border-orange-500 pl-4">
               <p className="text-slate-300 text-sm font-medium leading-relaxed max-w-2xl">
-                {lang === "zh"
-                  ? "帮您可以更为简单、放心地挑出最适合宝宝的优质座驾！无论是轻便折叠伞车 (travel stroller)、避震越野慢跑推车 (jogging stroller)，还是平衡车与防摔儿童脚踏自行车 (toddler bike)，我们均坚持 100% 中立客观的自购样品检验，为您呈献深度 stroller reviews。"
-                  : "Our portal specializes in professional stroller reviews, helping parents find the ideal travel stroller, high-performance jogging stroller, and safe toddler bike. Every single travel stroller, rugged jogging stroller, and toddler bike model is purchased anonymously and put through strict mechanical tests. Read our direct stroller reviews below with complete biomechanical safety ratings."}
+                {reviewsCopy.heroDescription}
               </p>
             </div>
 
             {/* Keyword Pills aligned to anchors */}
             <div className="flex flex-wrap gap-2 pt-2">
               {[
-                { label: "Travel Stroller", anchor: "kids-stroller" },
-                { label: "Jogging Stroller", anchor: "kids-stroller" },
-                { label: "Balance Bike", anchor: "balance-bike" },
-                { label: "Kids Bike", anchor: "kids-bike" },
-                { label: "Kids Scooter", anchor: "kids-scooter" },
-                { label: "Kids Electric Car", anchor: "kids-electric-car" }
+                { label: reviewsCopy.keywordPills.travelStroller, anchor: "kids-stroller" },
+                { label: reviewsCopy.keywordPills.joggingStroller, anchor: "kids-stroller" },
+                { label: reviewsCopy.keywordPills.balanceBike, anchor: "balance-bike" },
+                { label: reviewsCopy.keywordPills.kidsBike, anchor: "kids-bike" },
+                { label: reviewsCopy.keywordPills.kidsScooter, anchor: "kids-scooter" },
+                { label: reviewsCopy.keywordPills.kidsElectricCar, anchor: "kids-electric-car" }
               ].map((tag, idx) => (
                 <button
                   key={idx}
@@ -1343,12 +1415,10 @@ export default function EvaluationsSection({
           <div className="bg-gradient-to-br from-orange-500 to-amber-500 rounded-[32px] p-6 sm:p-8 flex flex-col justify-between space-y-6 shadow-xl shadow-orange-500/10 border border-orange-400/25 relative z-10 md:min-h-[240px]">
             <div className="space-y-2">
               <h3 className="font-extrabold text-white text-lg tracking-tight leading-snug">
-                {lang === "zh" ? "不确定哪款车最适合您的宝宝？" : "Unsure which model fits your child best?"}
+                {reviewsCopy.smartFinderTitle}
               </h3>
               <p className="text-xs text-orange-50/90 font-semibold leading-relaxed">
-                {lang === "zh"
-                  ? "使用我们极具人气的智能匹配寻找向导（Smart Finder），一秒计算最适合您宝宝年龄与身高跨高范围的定制参数！"
-                  : "We map physical dimensions to safe geometry. Launch our interactive Smart Review Finder on the Buyer's Guide page to find ideal matches instantly!"}
+                {reviewsCopy.smartFinderDescription}
               </p>
             </div>
             <button
@@ -1361,7 +1431,7 @@ export default function EvaluationsSection({
               className="w-full py-4 bg-white hover:bg-orange-50 text-slate-950 font-black text-xs uppercase tracking-widest rounded-2xl shadow-md transition-all active:scale-95 cursor-pointer text-center shrink-0 flex items-center justify-center gap-2"
             >
               <span>🔍</span>
-              {lang === "zh" ? "测一测我的最佳推荐 ➔" : "GO TO SMART FINDER TOOL ➔"}
+              {reviewsCopy.smartFinderCta}
             </button>
           </div>
         </div>
@@ -1376,10 +1446,10 @@ export default function EvaluationsSection({
         <section id="kids-stroller" className="scroll-mt-24 space-y-8">
           <div className="border-b border-slate-100 pb-4">
             <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
-              {lang === "zh" ? "高端出行：Best Stroller 深度评测" : "Kids Stroller Reviews: Travel Stroller & Jogging Stroller Tests"}
+              {reviewsCopy.sections.strollerTitle}
             </h2>
             <p className="mt-2 text-sm text-slate-500 font-medium">
-              {lang === "zh" ? "一站式获取最新手推车横向物理测评，保障宝宝出行舒适健康。" : "Explore our latest stroller reviews to compare travel stroller models and high-speed jogging stroller variants. We evaluate travel stroller flight compactness and jogging stroller hub friction safety."}
+              {reviewsCopy.sections.strollerDesc}
             </p>
           </div>
 
@@ -1389,10 +1459,9 @@ export default function EvaluationsSection({
               const product = item.product || item.products?.[0];
               if (!product) return null;
               const dp = translateProduct(product, lang);
-              const customEvlangTitle = lang === "en" ? `${dp.brand} ${dp.name} Review` : `${dp.brand} ${dp.name} 深度安全评测报告`;
               const evLang = {
-                title: customEvlangTitle,
-                verdict: lang === "zh" ? ev.zh.verdict : ev.en.verdict
+                title: getLocalizedReviewTitle(product, ev, lang, reviewsCopy.detailTitleSuffix),
+                verdict: getLocalizedReviewVerdict(product, ev, lang)
               };
               const imageSet = resolveProductImages(product);
 
@@ -1417,7 +1486,7 @@ export default function EvaluationsSection({
                       <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Stroller Review ➔" : "查看推车深度安全评测报告 ➔"}</span>
+                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{reviewsCopy.cta.stroller}</span>
                       {ev.scores?.safety && (
                         <div className="flex items-center gap-1">
                           <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
@@ -1436,10 +1505,10 @@ export default function EvaluationsSection({
         <section id="kids-bike" className="scroll-mt-24 space-y-8">
           <div className="border-b border-slate-100 pb-4">
             <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
-              {lang === "zh" ? "经典踩踏：Toddler Bike 深度评测" : "Toddler Bike Reviews: Biomechanical & Ride Ratings"}
+              {reviewsCopy.sections.bikeTitle}
             </h2>
             <p className="mt-2 text-sm text-slate-500 font-medium">
-              {lang === "zh" ? "大童脚踏车精品测试：JOYSTAR、Cubsala-BMX 与 Glerc 等型号。" : "Our pedal-assisted toddler bike reviews detail structural configurations. Compare toddler bike models by braking parameters, chain protection, and fork geometry."}
+              {reviewsCopy.sections.bikeDesc}
             </p>
           </div>
 
@@ -1449,10 +1518,9 @@ export default function EvaluationsSection({
               const product = item.product || item.products?.[0];
               if (!product) return null;
               const dp = translateProduct(product, lang);
-              const customEvlangTitle = lang === "en" ? `${dp.brand} ${dp.name} Review` : `${dp.brand} ${dp.name} 深度安全评测报告`;
               const evLang = {
-                title: customEvlangTitle,
-                verdict: lang === "zh" ? ev.zh.verdict : ev.en.verdict
+                title: getLocalizedReviewTitle(product, ev, lang, reviewsCopy.detailTitleSuffix),
+                verdict: getLocalizedReviewVerdict(product, ev, lang)
               };
               const imageSet = resolveProductImages(product);
 
@@ -1477,7 +1545,7 @@ export default function EvaluationsSection({
                       <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Toddler Bike Audit ➔" : "查看自行车深度评测 ➔"}</span>
+                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{reviewsCopy.cta.bike}</span>
                       {ev.scores?.safety && (
                         <div className="flex items-center gap-1">
                           <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
@@ -1496,10 +1564,10 @@ export default function EvaluationsSection({
         <section id="balance-bike" className="scroll-mt-24 space-y-8">
           <div className="border-b border-slate-100 pb-4">
             <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
-              {lang === "zh" ? "幼儿学跑：Balance Ride 深度评测" : "Balance Ride Reviews: Biomechanical & Weight Ratings"}
+              {reviewsCopy.sections.balanceTitle}
             </h2>
             <p className="mt-2 text-sm text-slate-500 font-medium">
-              {lang === "zh" ? "首推幼童学跑单品：SEREED、Gamfeiny 与 Umatoll 等低重心起步测评。" : "Discover top-rated infant ride-ons. Read detailed balance reviews focusing on child low centers of gravity, frame weight, and structural steering safety limits."}
+              {reviewsCopy.sections.balanceDesc}
             </p>
           </div>
 
@@ -1509,10 +1577,9 @@ export default function EvaluationsSection({
               const product = item.product || item.products?.[0];
               if (!product) return null;
               const dp = translateProduct(product, lang);
-              const customEvlangTitle = lang === "en" ? `${dp.brand} ${dp.name} Review` : `${dp.brand} ${dp.name} 深度安全评测报告`;
               const evLang = {
-                title: customEvlangTitle,
-                verdict: lang === "zh" ? ev.zh.verdict : ev.en.verdict
+                title: getLocalizedReviewTitle(product, ev, lang, reviewsCopy.detailTitleSuffix),
+                verdict: getLocalizedReviewVerdict(product, ev, lang)
               };
               const imageSet = resolveProductImages(product);
 
@@ -1537,7 +1604,7 @@ export default function EvaluationsSection({
                       <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Balance Ride Report ➔" : "查看平衡车学术评测 ➔"}</span>
+                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{reviewsCopy.cta.balance}</span>
                       {ev.scores?.safety && (
                         <div className="flex items-center gap-1">
                           <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
@@ -1556,10 +1623,10 @@ export default function EvaluationsSection({
         <section id="kids-scooter" className="scroll-mt-24 space-y-8">
           <div className="border-b border-slate-100 pb-4">
             <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
-              {lang === "zh" ? "极速滑行：Kids Scooter 深度评测" : "Kids Scooter Reviews: Steering & Deck Strength"}
+              {reviewsCopy.sections.scooterTitle}
             </h2>
             <p className="mt-2 text-sm text-slate-500 font-medium">
-              {lang === "zh" ? "三轮重力转向摇摆及两轮滑板车评测：Gotrax、HopCycle 系列款。" : "Kick-on scooter reviews verifying lean-to-steer rebound mechanisms and PU wear-resistant flashing wheel grids."}
+              {reviewsCopy.sections.scooterDesc}
             </p>
           </div>
 
@@ -1569,10 +1636,9 @@ export default function EvaluationsSection({
               const product = item.product || item.products?.[0];
               if (!product) return null;
               const dp = translateProduct(product, lang);
-              const customEvlangTitle = lang === "en" ? `${dp.brand} ${dp.name} Review` : `${dp.brand} ${dp.name} 深度安全评测报告`;
               const evLang = {
-                title: customEvlangTitle,
-                verdict: lang === "zh" ? ev.zh.verdict : ev.en.verdict
+                title: getLocalizedReviewTitle(product, ev, lang, reviewsCopy.detailTitleSuffix),
+                verdict: getLocalizedReviewVerdict(product, ev, lang)
               };
               const imageSet = resolveProductImages(product);
 
@@ -1597,7 +1663,7 @@ export default function EvaluationsSection({
                       <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Kids Scooter Review ➔" : "查看滑板车深度性能报告 ➔"}</span>
+                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{reviewsCopy.cta.scooter}</span>
                       {ev.scores?.safety && (
                         <div className="flex items-center gap-1">
                           <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
@@ -1616,15 +1682,15 @@ export default function EvaluationsSection({
         <section id="kids-electric-car" className="scroll-mt-24 space-y-8">
           <div className="border-b border-slate-100 pb-4">
             <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
-              {lang === "zh" ? "仿真驾驶：Kids Electric Car 深度评测" : "Kids Electric Car Reviews: Safety Circuits & Battery Audits"}
+              {reviewsCopy.sections.electricTitle}
             </h2>
             <p className="mt-2 text-sm text-slate-500 font-medium">
-              {lang === "zh" ? "越野电动车、仿真赛车多轨测试：防护起步加速度与绝缘回路安全性。" : "Uncompromising ride-on reviews prioritizing electrical insulation parameters and parental wireless kill locks."}
+              {reviewsCopy.sections.electricDesc}
             </p>
           </div>
 
           {electricCarOnlyReviews.length === 0 ? (
-            <p className="text-slate-400 text-sm italic">{lang === "en" ? "No electric car evaluations currently compiled." : "暂无电动玩具车专项测评。"}</p>
+            <p className="text-slate-400 text-sm italic">{reviewsCopy.sections.noElectricData}</p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {electricCarOnlyReviews.slice(0, 4).map((item: any) => {
@@ -1632,10 +1698,9 @@ export default function EvaluationsSection({
                 const product = item.product || item.products?.[0];
                 if (!product) return null;
                 const dp = translateProduct(product, lang);
-                const customEvlangTitle = lang === "en" ? `${dp.brand} ${dp.name} Review` : `${dp.brand} ${dp.name} 深度安全评测报告`;
                 const evLang = {
-                  title: customEvlangTitle,
-                  verdict: lang === "zh" ? ev.zh.verdict : ev.en.verdict
+                  title: getLocalizedReviewTitle(product, ev, lang, reviewsCopy.detailTitleSuffix),
+                  verdict: getLocalizedReviewVerdict(product, ev, lang)
                 };
                 const imageSet = resolveProductImages(product);
 
@@ -1660,7 +1725,7 @@ export default function EvaluationsSection({
                         <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                       </div>
                       <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                        <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{lang === "en" ? "Product Review ➔" : "查看完整产品评测 ➔"}</span>
+                        <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{reviewsCopy.cta.product}</span>
                         {ev.scores?.safety && (
                           <div className="flex items-center gap-1">
                             <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
@@ -1680,23 +1745,21 @@ export default function EvaluationsSection({
       {/* 🛠️ 模块 5：独立测试方法论与国际标准认证 (Lab Rigor & Badges) */}
       <section className="bg-white border border-slate-100 rounded-[48px] p-8 sm:p-10 max-w-7xl mx-auto shadow-sm space-y-6 text-center">
         <div className="max-w-4xl mx-auto space-y-3">
-          <h2 className="text-[10px] font-black uppercase tracking-[0.2em] text-orange-500">KIDSMOBI LAB STANDARDS</h2>
-          <h3 className="text-2xl font-black text-slate-900">{lang === "zh" ? "测试方法论与客观性誓言" : "Independent Rigor & Certification Compliance"}</h3>
+          <h2 className="text-[10px] font-black uppercase tracking-[0.2em] text-orange-500">{reviewsCopy.standardsSubtitle}</h2>
+          <h3 className="text-2xl font-black text-slate-900">{reviewsCopy.standardsTitle}</h3>
           <p className="text-xs text-slate-500 font-medium leading-relaxed">
-            {lang === "zh"
-              ? "KIDSMOBI 物理安全验证完全遵守各项核心权威儿童辅具出厂与行使指标。我们坚持零赞助协议，样品直接进入滚筒颠簸疲劳机实测，不接受商业推广影响结果。"
-              : "We stand on strict compliance. Every travel stroller model, balance bike, and kids electric car is subjected to dynamic rolling stress telemetry. We receive 0% direct corporate backing, keeping our scores purely consumer-protective."}
+            {reviewsCopy.standardsDesc}
           </p>
         </div>
 
         {/* Global Compliance Cert badges map */}
         <div className="pt-4 border-t border-slate-100 flex flex-wrap justify-center items-center gap-6 sm:gap-12 opacity-40 grayscale hover:opacity-80 hover:grayscale-0 transition-all duration-500">
           {[
-            { label: "CPSC", detail: "US Consumer Protection" },
-            { label: "ISO 8098", detail: "Braking Standards" },
-            { label: "GB 14746", detail: "China Safety Line" },
-            { label: "EN 71", detail: "EU Toys Rigor" },
-            { label: "ASTM F963", detail: "Mechanical Strength" }
+            { label: "CPSC", detail: lang === "zh" ? "美国消费安全" : "US Consumer Protection" },
+            { label: "ISO 8098", detail: lang === "zh" ? "制动测试标准" : "Braking Standards" },
+            { label: "GB 14746", detail: lang === "zh" ? "中国安全基线" : "China Safety Line" },
+            { label: "EN 71", detail: lang === "zh" ? "欧盟玩具规范" : "EU Toys Rigor" },
+            { label: "ASTM F963", detail: lang === "zh" ? "结构强度规范" : "Mechanical Strength" }
           ].map((cert, index) => (
             <div key={index} className="flex flex-col items-center gap-1">
               <span className="text-sm font-black text-slate-900 tracking-wider font-display uppercase">{cert.label}</span>

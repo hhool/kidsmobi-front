@@ -20,6 +20,7 @@ import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonL
 import SeoKeywordPanel from "./common/SeoKeywordPanel";
 import Breadcrumbs from "./Breadcrumbs";
 import MatchingWizard from "./MatchingWizard";
+import { getPageCopy } from "../config/pageCopy";
 
 const KIDS_BIKE_CATEGORY_DEFAULT_IMAGE =
   "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/primary.jpg";
@@ -129,6 +130,8 @@ export default function HomeSection({
   const normalizeCategory = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, "_");
 
   const t = translations[lang];
+  const pageCopy = getPageCopy(lang);
+  const homeCopy = pageCopy.home;
   const [imageLoadState, setImageLoadState] = useState<Record<string, ImageLoadState>>({});
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
@@ -230,10 +233,10 @@ export default function HomeSection({
   const resolveHomepageCategoryLabel = (product?: Product) => {
     const searchable = normalizeCategory(`${(product as any)?.categoryId || ""} ${product?.category || ""} ${product?.name || ""}`);
     if (searchable.includes("jogger") || searchable.includes("jogging_stroller")) {
-      return lang === "zh" ? "慢跑推车" : "Jogging Stroller";
+      return homeCopy.runtimeLabels.categoryNames.joggingStroller;
     }
     if (searchable.includes("balance_bike") || (searchable.includes("balance") && !searchable.includes("tricycle"))) {
-      return lang === "zh" ? "平衡车" : "Balance Bike";
+      return homeCopy.runtimeLabels.categoryNames.balanceBike;
     }
     if (
       searchable.includes("kids_bikes") ||
@@ -241,7 +244,7 @@ export default function HomeSection({
       searchable.includes("trike") ||
       (searchable.includes("bike") && !searchable.includes("balance"))
     ) {
-      return lang === "zh" ? "儿童自行车" : "Kids Bike";
+      return homeCopy.runtimeLabels.categoryNames.kidsBike;
     }
     if (
       searchable.includes("electric_vehicles") ||
@@ -251,19 +254,19 @@ export default function HomeSection({
       searchable.includes("battery_powered") ||
       searchable.includes("ev")
     ) {
-      return lang === "zh" ? "儿童电动车" : "Kids Electric Car";
+      return homeCopy.runtimeLabels.categoryNames.kidsElectricCar;
     }
     if (searchable.includes("scooter")) {
-      return lang === "zh" ? "儿童滑板车" : "Kids Scooter";
+      return homeCopy.runtimeLabels.categoryNames.kidsScooter;
     }
     if (searchable.includes("stroller")) {
-      return lang === "zh" ? "婴儿推车" : "Stroller";
+      return homeCopy.runtimeLabels.categoryNames.stroller;
     }
-    return lang === "zh" ? "精选产品" : "Featured Product";
+    return homeCopy.runtimeLabels.categoryNames.featuredProduct;
   };
 
   const resolveHomepageProductTitle = (product?: Product) => {
-    if (!product) return lang === "zh" ? "评测中" : "Evaluating";
+    if (!product) return homeCopy.runtimeLabels.evaluating;
     const localized = translateProduct(product, lang);
     const brand = String(localized.brand || product.brand || "").trim();
     const categoryLabel = resolveHomepageCategoryLabel(product);
@@ -517,37 +520,21 @@ export default function HomeSection({
   }, [categoryTopProductMap, homeVisualProducts, seoProductCards]);
 
   const prioritizedCategoryCards = useMemo(() => {
-    const englishLabelOverrides: Record<string, string> = {
-      stroller: "Jogging Stroller",
-      balance_bike: "Balance Bike",
-      kids_bikes: "Kids Bike",
-      scooters: "Kids Scooter",
-      electric_vehicles: "4-Wheel Kids Electric Car",
-      car_seat: "Kids Car Seat",
+    const labelOverrides: Record<string, string> = {
+      stroller: homeCopy.categoryCards.strollerLabel,
+      balance_bike: homeCopy.categoryCards.balanceLabel,
+      kids_bikes: homeCopy.categoryCards.kidsBikeLabel,
+      scooters: homeCopy.categoryCards.scooterLabel,
+      electric_vehicles: homeCopy.categoryCards.electricCarLabel,
+      car_seat: homeCopy.categoryCards.carSeatLabel,
     };
-    const zhLabelOverrides: Record<string, string> = {
-      stroller: "婴儿慢跑手推车",
-      balance_bike: "儿童平衡车",
-      kids_bikes: "儿童自行车",
-      scooters: "儿童滑板车",
-      electric_vehicles: "四轮儿童电动车",
-      car_seat: "儿童安全座椅",
-    };
-    const englishDescOverrides: Record<string, string> = {
-      stroller: "Discover our top-rated jogging stroller picks, rigorously lab-tested for all-terrain suspension, secure braking, and ultimate child comfort during your runs.",
-      balance_bike: "Find the safest balance bike for your toddler. We evaluate frame weight, tire grip, and ergonomics to help them learn to ride with confidence.",
-      kids_bikes: "Compare the best 12-inch to 16-inch kids bike models. Our unbiased reviews focus on braking power, structural geometry, and pedal stability.",
-      scooters: "Explore our expertly reviewed kids scooter selection. From stable 3-wheelers to agile 2-wheelers, we test for deck strength and steering safety.",
-      electric_vehicles: "Browse premium battery-powered kids' ride-on vehicles. We test motor limit safety, speed controls, remote limits, and structural stiffness.",
-      car_seat: "Explore high-protection infant and kids car seats. We evaluate impact shock absorption, 5-point harness safety, and secure installation.",
-    };
-    const zhDescOverrides: Record<string, string> = {
-      stroller: "发现我们评分领先的慢跑婴儿车，经过全地形悬挂、安全刹车及宝宝舒适度的严格实验室测试。",
-      balance_bike: "为您的幼儿寻找最安全的平衡车。我们评估车架重量、轮胎抓地力和人体工学，帮助他们自信骑行。",
-      kids_bikes: "比较最优秀的 12 英寸至 16 英寸儿童自行车。我们的中立评测聚焦于制动力学、车架几何与脚踏稳定性。",
-      scooters: "探索我们经专业评测的儿童滑板车系列。从稳定的三轮车到灵敏的两轮车，我们测试踏板强度和转向安全设计。",
-      electric_vehicles: "评测领先的电池驱动儿童玩具车。我们对机电机理、遥控保护与减震安全性等指标进行专项验证。",
-      car_seat: "全面深度评测儿童汽车安全座椅。我们聚焦于抗侧撞缓冲吸能、防位移五点式束带系统与卡扣牢固度指标。",
+    const descOverrides: Record<string, string> = {
+      stroller: homeCopy.categoryCards.strollerDesc,
+      balance_bike: homeCopy.categoryCards.balanceDesc,
+      kids_bikes: homeCopy.categoryCards.kidsBikeDesc,
+      scooters: homeCopy.categoryCards.scooterDesc,
+      electric_vehicles: homeCopy.categoryCards.electricCarDesc,
+      car_seat: homeCopy.categoryCards.carSeatDesc,
     };
 
     const targetOrder = ["stroller", "balance_bike", "kids_bikes", "scooters", "electric_vehicles", "car_seat"];
@@ -556,12 +543,12 @@ export default function HomeSection({
       if (!entry) return null;
       return {
         ...entry,
-        label: lang === "zh" ? (zhLabelOverrides[id] || entry.zh) : (englishLabelOverrides[id] || entry.en),
-        desc: lang === "zh" ? (zhDescOverrides[id] || "") : (englishDescOverrides[id] || ""),
+        label: labelOverrides[id] || (lang === "zh" ? entry.zh : entry.en),
+        desc: descOverrides[id] || "",
         slug: `/products/${id === "scooters" ? "kids_scooters" : id}`,
       };
     }).filter((x): x is NonNullable<typeof x> => Boolean(x));
-  }, [lang]);
+  }, [homeCopy.categoryCards, lang]);
 
   const strollerProducts = useMemo(() => {
     const strollers = homeVisualProducts.filter((product) => {
@@ -654,7 +641,7 @@ export default function HomeSection({
                   )}
                   {state?.failed && (
                     <span className="absolute bottom-3 left-3 px-2 py-1 rounded-md bg-slate-900/80 text-white text-[10px] font-bold">
-                      {lang === "zh" ? "已回退占位图" : "Fallback active"}
+                      {homeCopy.runtimeLabels.fallbackActive}
                     </span>
                   )}
                 </>
@@ -692,7 +679,7 @@ export default function HomeSection({
     ];
 
     setCollectionPageJsonLd("home-list", {
-      name: lang === "zh" ? "KIDSMOBI 首页" : "KIDSMOBI Home",
+      name: homeCopy.runtimeLabels.jsonLdHomeName,
       url: canonicalUrl,
       items: homepageItems,
     });
@@ -701,48 +688,14 @@ export default function HomeSection({
     const faqSchema = {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": lang === "zh" ? "KIDSMOBI 如何评估慢跑婴儿车在全地形高速运动下的避震与制动安全性？" : "How does KIDSMOBI test jogging strollers for all-terrain high-speed suspension and braking safety?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": lang === "zh" ? "我们在测试慢跑推车时，会重点检测三个指标：一是前两圈的追踪定位与转向锁定机构（高速慢跑时必须锁定前轮以防剧烈抖动颠覆）；二是充气大橡胶轮胎与高性能避震弹簧在5厘米障碍路面上的重力加速度传导（G-Force必须限制在1.0G以内）；三是手刹与后轮双踩锁死制动的响应时间与减速率控制。" : "We focus on three critical specs when testing jogging strollers: first, the front wheel tracking lock (essential to prevent speed wobbles during high-speed runs); second, G-force telemetry across 5cm obstacles (ensuring vibration stays below 1.0G on pneumatic rubber tires); third, hand-activated deceleration brakes coupled with reliable parking locks for immediate incline arrests."
-          }
+      "mainEntity": homeCopy.faq.items.map((item) => ({
+        "@type": "Question",
+        "name": item.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.answer,
         },
-        {
-          "@type": "Question",
-          "name": lang === "zh" ? "如何为不同年龄的幼童精准选配儿童自行车以及规避不安全的刹车系统？" : "How to select the right kids bike and avoid hazardous bicycle braking systems?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": lang === "zh" ? "初学者鞍座高度应比脱鞋腿部跨高（Inseam）低2.5厘米以确保双脚平足全落地。在制动系统上，KIDSMOBI强烈反对低端童车配备的倒踩脚刹（Coaster Brakes），此类刹车缺乏线性无极阻尼极易打滑、在紧急时刻还会锁死曲柄使车辆失控侧倾。应优选专门针对儿童手掌骨化周期定制、握距≤42mm的双手短行程闸把系统。" : "Standfoot crotch inseam is the gold standard for sizing. For beginners, the minimum saddle height should be 2.5cm below their inseam for flat-foot stability. Regarding brakes, KIDSMOBI strongly discourages pedal-back Coaster Brakes due to lack of modulation and launch-angle lockups; choose specialized kids' hand levers with a short grip-reach of 42mm or less."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": lang === "zh" ? "三轮滑板车的重力倾斜转向系统真的比普通的双轮滑板车更安全吗？" : "Are 3-wheel lean-to-steer kids scooters significantly safer than traditional 2-wheelers for toddlers?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": lang === "zh" ? "是的。三轮滑板车采用的重力倾斜转向（Lean-To-Steer）不仅可以防止幼童在高速转向时发生骤急侧翻或甩飞，还能积极训练孩子脑部前庭系统的本体平衡感知。对于3岁以下刚入门的学龄前儿童，宽大低矮的踏板设计与超平稳的三角形分布三轮滑板车是安全性极高的首选，而两轮滑板车则适合平衡能力完备的学龄大童。" : "Yes. The lean-to-steer mechanism on 3-wheel scooters provides superior lateral stability, preventing high-speed high-side flips while developing early vestibular balance in toddlers. For children under 3 years old, wide-deck, low-center-of-gravity 3-wheelers are overwhelmingly safer, while agile 2-wheel models are reserved for older kids with established balancing skills."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": lang === "zh" ? "如何检测四轮电动童车的动力源安全性、限速保护与抗倾覆防摔稳定指标？" : "How does KIDSMOBI evaluate battery safety, remote overrides, and roll stability for 4-wheel kids electric cars?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": lang === "zh" ? "四轮玩具电动车的检测首重电池包的安全散热与防短路热熔断保护，规避大电流充放电自燃与电解液泄漏。其次，车辆的最高物理时速必须严格被限制在3至8公里/小时以内，且母体控制端必须配备绝对优先权的父母遥控器（一键刹停、无极变频）。此外，四轮距物理宽度与高重心重心的倾斜倾翻系数也是我们的重点审计数据。" : "Testing electric ride-ons centers first on battery pack safety (overcharge and short-circuit thermal fuses to completely prevent fire hazards). Second, velocity bounds must be constrained between 3 to 8 km/h, backed by a 2.4G parental override remote that preempts toddler inputs instantly. Lastly, a wide-track chassis geometry is audited to prevent tipping during tight maneuvers."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": lang === "zh" ? "劣质、不合规的童车和童车结构，容易对正在快速发育的儿童骨骼与前庭系统造成哪些慢性损伤？" : "How do low-quality children's bikes and ride-ons cause permanent skeletal and joint strain for a growing child?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": lang === "zh" ? "低价劣质童车为节省开模费用，常粗暴套用成人五通中轴总成。偏宽的 Q-Factor（脚踏左右偏距宽度）会强行拉开幼儿大腿骨，踩踏时膝关节被迫向内侧严重扣折（形成内八或X型腿趋势），导致髌骨关节面在发育初期的软骨阶段发生不可逆磨损。此外，实心发泡轮胎（EVA）由于没有任何物理空气微孔弹性吸收，产生的3.8G以上高频振荡波会直击大脑、前庭及未发育成熟的椎骨骨骺，干扰神经感知并阻碍发育。" : "Low-quality ride-ons often repurpose adult components, introducing dangerous mismatches. For example, excessive Q-Factors (wide pedal stance) force pediatric joints into inward-bowing (genu valgum) tracks, risking permanent cartilage wear. Additionally, solid EVA foam wheels lack pneumatic cushioning, delivering sharp 3.8G shockwaves directly up to a toddler's unossified spine and delicate inner-ear structures."
-          }
-        }
-      ]
+      }))
     };
     setJsonLd("home-faq", faqSchema);
 
@@ -750,7 +703,7 @@ export default function HomeSection({
       clearJsonLd("home-list");
       clearJsonLd("home-faq");
     };
-  }, [lang, topSelections, prioritizedCategoryCards]);
+  }, [homeCopy.faq.items, homeCopy.runtimeLabels.jsonLdHomeName, lang, topSelections, prioritizedCategoryCards]);
 
   return (
     <div id="home_layout" className="space-y-24 pb-20">
@@ -758,7 +711,7 @@ export default function HomeSection({
         <Breadcrumbs
           lang={lang}
           onHomeClick={() => setActiveTab("home")}
-          items={[{ label: lang === "zh" ? "首页概览" : "OVERVIEW", active: true }]}
+          items={[{ label: homeCopy.overviewLabel, active: true }]}
         />
       )}
 
@@ -786,15 +739,15 @@ export default function HomeSection({
         <div className="relative z-10 space-y-10 w-full">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-500/15 border border-orange-500/30 text-orange-400 text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg backdrop-blur-md">
             <ShieldCheck className="w-4 h-4 text-orange-400" />
-            OFFICIAL BBT SAFETY AUDIT
+            {homeCopy.bannerBadge}
           </div>
           
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-tight max-w-5xl mx-auto drop-shadow-md">
-            Best Kids Bikes, Scooters, Jogging Strollers & Cars
+            {homeCopy.heroTitle}
           </h1>
           
           <p className="text-slate-200 text-sm md:text-base max-w-3xl mx-auto leading-relaxed font-semibold drop-shadow-sm">
-            Welcome to BalanceBikeToddler, your trusted global review site for kids wheeled toys.
+            {homeCopy.heroSubtitle}
           </p>
 
           <div className="pt-4 pb-2">
@@ -803,16 +756,16 @@ export default function HomeSection({
               className="inline-flex items-center gap-3 px-10 py-5 bg-linear-to-r from-orange-500 via-orange-500 to-amber-500 text-white text-xs md:text-sm font-black uppercase tracking-widest rounded-full shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer group"
             >
               <Zap className="w-4 h-4 text-white fill-white animate-pulse" />
-              FIND YOUR PERFECT RIDE IN 3 STEPS
+              {homeCopy.heroCta}
             </button>
           </div>
 
           <div className="flex flex-wrap justify-center gap-4 pt-4 border-t border-white/10">
             {[
-              { id: "kids_bikes", label: "KIDS BIKE", icon: Bike },
-              { id: "balance_bike", label: "BALANCE BIKE", icon: Smile },
-              { id: "scooters", label: "KIDS SCOOTER", icon: Sparkles },
-              { id: "stroller", label: "JOGGING STROLLER", icon: Footprints },
+              { id: "kids_bikes", label: homeCopy.quickCategories.kidsBike, icon: Bike },
+              { id: "balance_bike", label: homeCopy.quickCategories.balanceBike, icon: Smile },
+              { id: "scooters", label: homeCopy.quickCategories.kidsScooter, icon: Sparkles },
+              { id: "stroller", label: homeCopy.quickCategories.joggingStroller, icon: Footprints },
             ].map((item) => (
               <button
                 key={item.id}
@@ -832,13 +785,13 @@ export default function HomeSection({
         <div className="flex justify-between items-end">
           <div className="space-y-2">
             <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">
-              {lang === "zh" ? "精选品类" : "Category Highlights"}
+              {homeCopy.categoryHighlights.eyebrow}
             </span>
             <h2 className="text-3xl font-black text-slate-900 tracking-tight">
-              Explore by Category: Find Your Perfect Kids' Mobility
+              {homeCopy.categoryHighlights.title}
             </h2>
             <p className="text-slate-500 font-medium">
-              We compare frame ergonomics and stress tolerances across stroller and kids bike parameters.
+              {homeCopy.categoryHighlights.description}
             </p>
           </div>
           <a
@@ -849,7 +802,7 @@ export default function HomeSection({
             }}
             className="text-sm font-black text-slate-400 hover:text-orange-500 transition-colors uppercase tracking-widest"
           >
-            {lang === "zh" ? "进入产品中心" : "Open Product Center"}
+            {homeCopy.categoryHighlights.openProductCenter}
           </a>
         </div>
 
@@ -889,7 +842,7 @@ export default function HomeSection({
                   );
                 })()}
                 <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-[10px] bg-white/90 text-orange-600 font-black uppercase backdrop-blur-sm border border-orange-100 shadow-sm">
-                  {lang === "zh" ? "精选" : "Featured"}
+                  {homeCopy.categoryHighlights.featuredTag}
                 </span>
               </div>
 
@@ -913,10 +866,10 @@ export default function HomeSection({
       <section id="safety_audits_anchor" className="max-w-7xl mx-auto px-6 space-y-12">
         <div className="flex justify-between items-end">
           <div className="space-y-2">
-            <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">{lang === "zh" ? "安全专项检测" : "Safety Audits Hub"}</span>
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight">Safety Audits: Double-check Before Purchasing</h2>
+            <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">{homeCopy.safetyAudits.badge}</span>
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.title}</h2>
             <p className="text-slate-500 font-medium">
-              Every kids bike, balance bike and kids scooter below has passed high-impact stress reviews and safety threshold ratings.
+              {homeCopy.safetyAudits.description}
             </p>
           </div>
           <a 
@@ -927,7 +880,7 @@ export default function HomeSection({
             }}
             className="flex items-center gap-2 text-sm font-black text-slate-400 hover:text-orange-500 transition-colors uppercase tracking-widest"
           >
-            {lang === "zh" ? "查看安全评测报告" : "View Safety Audits"} <ArrowRight className="w-4 h-4" />
+            {homeCopy.safetyAudits.viewAudits} <ArrowRight className="w-4 h-4" />
           </a>
         </div>
 
@@ -935,9 +888,9 @@ export default function HomeSection({
         <div className="space-y-6">
           <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
             <div>
-              <h3 className="text-xl font-black text-slate-900 tracking-tight">Best Jogging Stroller</h3>
+              <h3 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.joggingTitle}</h3>
               <p className="text-slate-500 text-xs font-semibold mt-1">
-                {lang === "zh" ? "精选高安全性能慢跑婴儿车，深度测评全地形悬挂避震与车胎稳定性设计。" : "Discover the safest high-performance jogging strollers, meticulously evaluated for all-terrain shock absorption and stability."}
+                {homeCopy.safetyAudits.sections.joggingDesc}
               </p>
             </div>
             <a
@@ -958,7 +911,7 @@ export default function HomeSection({
               }}
               className="text-xs font-black text-orange-500 hover:text-orange-600 hover:underline transition-colors shrink-0 uppercase tracking-widest pl-4 flex items-center gap-1.5"
             >
-              <span>{lang === "zh" ? "更多精选推荐" : "More Picks"}</span>
+                <span>{homeCopy.safetyAudits.morePicks}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </div>
@@ -971,9 +924,9 @@ export default function HomeSection({
         <div className="space-y-6 pt-6">
           <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
             <div>
-              <h3 className="text-xl font-black text-slate-900 tracking-tight">Best Balance Bike</h3>
+              <h3 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.balanceTitle}</h3>
               <p className="text-slate-500 text-xs font-semibold mt-1">
-                {lang === "zh" ? "专为幼童打造的滑行平衡车测评，聚焦轮胎防滑、防侧翻限位及脚踏高度配置。" : "Safest toddler-friendly balance bikes. We test handle grips, turning limiters, and frame weights."}
+                {homeCopy.safetyAudits.sections.balanceDesc}
               </p>
             </div>
             <a
@@ -994,7 +947,7 @@ export default function HomeSection({
               }}
               className="text-xs font-black text-orange-500 hover:text-orange-600 hover:underline transition-colors shrink-0 uppercase tracking-widest pl-4 flex items-center gap-1.5"
             >
-              <span>{lang === "zh" ? "更多精选推荐" : "More Picks"}</span>
+                <span>{homeCopy.safetyAudits.morePicks}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </div>
@@ -1007,9 +960,9 @@ export default function HomeSection({
         <div className="space-y-6 pt-6">
           <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
             <div>
-              <h3 className="text-xl font-black text-slate-900 tracking-tight">Best Kids Bike</h3>
+              <h3 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.kidsBikeTitle}</h3>
               <p className="text-slate-500 text-xs font-semibold mt-1">
-                {lang === "zh" ? "精选 12-16 英寸高安全评分儿童自行车，严苛测试制动距离与车架刚度。" : "Curated 12-16 inch kids bike models. Rigorously tested for pedal stability, frame geometry and stopping power."}
+                {homeCopy.safetyAudits.sections.kidsBikeDesc}
               </p>
             </div>
             <a
@@ -1030,7 +983,7 @@ export default function HomeSection({
               }}
               className="text-xs font-black text-orange-500 hover:text-orange-600 hover:underline transition-colors shrink-0 uppercase tracking-widest pl-4 flex items-center gap-1.5"
             >
-              <span>{lang === "zh" ? "更多精选推荐" : "More Picks"}</span>
+                <span>{homeCopy.safetyAudits.morePicks}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </div>
@@ -1043,9 +996,9 @@ export default function HomeSection({
         <div className="space-y-6 pt-6">
           <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
             <div>
-              <h3 className="text-xl font-black text-slate-900 tracking-tight">Best Kids Scooter</h3>
+              <h3 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.scooterTitle}</h3>
               <p className="text-slate-500 text-xs font-semibold mt-1">
-                {lang === "zh" ? "针对幼童与大童的防翻侧滑板车评测，重点聚焦重力转向及防空转安全垫片。" : "Robust safety evaluations on stability and lean-to-steer mechanisms. We audit deck strength and steering response."}
+                {homeCopy.safetyAudits.sections.scooterDesc}
               </p>
             </div>
             <a
@@ -1066,7 +1019,7 @@ export default function HomeSection({
               }}
               className="text-xs font-black text-orange-500 hover:text-orange-600 hover:underline transition-colors shrink-0 uppercase tracking-widest pl-4 flex items-center gap-1.5"
             >
-              <span>{lang === "zh" ? "更多精选推荐" : "More Picks"}</span>
+                <span>{homeCopy.safetyAudits.morePicks}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </div>
@@ -1079,9 +1032,9 @@ export default function HomeSection({
         <div className="space-y-6 pt-6">
           <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
             <div>
-              <h3 className="text-xl font-black text-slate-900 tracking-tight">Best Kids Electric Car</h3>
+              <h3 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.electricCarTitle}</h3>
               <p className="text-slate-500 text-xs font-semibold mt-1">
-                {lang === "zh" ? "全方位儿童电动遥控模拟舱测试，着重实测双向避震、缓启冲阻性及电池管理系统。" : "Comprehensive evaluations on interactive dual-drive simulation cabins. We audit suspension, smooth start control, and battery cell reliability."}
+                {homeCopy.safetyAudits.sections.electricCarDesc}
               </p>
             </div>
             <a
@@ -1101,7 +1054,7 @@ export default function HomeSection({
               }}
               className="text-xs font-black text-orange-500 hover:text-orange-600 hover:underline transition-colors shrink-0 uppercase tracking-widest pl-4 flex items-center gap-1.5"
             >
-              <span>{lang === "zh" ? "更多精选推荐" : "More Picks"}</span>
+                <span>{homeCopy.safetyAudits.morePicks}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </div>
@@ -1110,7 +1063,7 @@ export default function HomeSection({
               kidsElectricCarProducts.map((p, idx) => renderProductCard(p, idx + 4))
             ) : (
               <div className="col-span-full py-8 text-center text-slate-400 font-semibold text-xs border border-dashed border-slate-200 rounded-3xl">
-                {lang === "zh" ? "暂无电动车评测数据，敬请期待" : "No electric car evaluation data available yet."}
+                {homeCopy.safetyAudits.noElectricData}
               </div>
             )}
           </div>
@@ -1120,14 +1073,14 @@ export default function HomeSection({
       {/* 6. Buying Guide Quick Links (选购指南快捷入口) */}
       <section id="quick_scenarios_anchor" className="max-w-7xl mx-auto px-6 space-y-12">
           <div className="space-y-2 text-center max-w-2xl mx-auto">
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight">{lang === "zh" ? "智能选购场景" : "Quick Selection Scenarios"}</h2>
-            <p className="text-slate-500 font-medium">{lang === "zh" ? "从成长阶段出发，为您快速匹配最佳方案。" : "Find the perfect match based on your child's growth stage."}</p>
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight">{homeCopy.quickScenarios.title}</h2>
+            <p className="text-slate-500 font-medium">{homeCopy.quickScenarios.description}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { id: "newborn", label: lang === "zh" ? "新生儿(0-12月) · 出行安全" : "Newborn Mobility", desc: lang === "zh" ? "侧重减震与中轴枢纽强度" : "Focus on shock absorption" },
-              { id: "outdoor", label: lang === "zh" ? "户外郊游 · 越野专家" : "Outdoor Experts", desc: lang === "zh" ? "轮组抓地力与通过性专项评测" : "Grip and terrain testing" },
-              { id: "commute", label: lang === "zh" ? "日常通勤 · 轻便首选" : "Daily Commute", desc: lang === "zh" ? "折叠速度与整备质量极限对比" : "Weight and folding speed" },
+              { id: "newborn", label: homeCopy.quickScenarios.cards.newbornLabel, desc: homeCopy.quickScenarios.cards.newbornDesc },
+              { id: "outdoor", label: homeCopy.quickScenarios.cards.outdoorLabel, desc: homeCopy.quickScenarios.cards.outdoorDesc },
+              { id: "commute", label: homeCopy.quickScenarios.cards.commuteLabel, desc: homeCopy.quickScenarios.cards.commuteDesc },
             ].map(scene => (
               <div key={scene.id} onClick={() => setActiveTab("guides")} className="p-8 bg-white border border-slate-100 rounded-4xl hover:border-orange-500 hover:shadow-xl transition-all cursor-pointer group">
                 <h3 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors mb-2 text-base md:text-lg">{scene.label}</h3>
@@ -1140,44 +1093,23 @@ export default function HomeSection({
       {/* 7. FAQ Section (手风琴常见问题解答) */}
       <section id="faq_section_anchor" className="max-w-4xl mx-auto px-6 space-y-10 py-12">
         <div className="text-center space-y-2">
-          <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">{lang === "zh" ? "常见问题" : "FAQ"}</span>
+          <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">{homeCopy.faq.badge}</span>
           <h2 className="text-3xl font-black text-slate-900 tracking-tight">
-            {lang === "zh" ? "常见问题与解答" : "Frequently Asked Questions"}
+            {homeCopy.faq.title}
           </h2>
           <h3 className="text-slate-500 font-medium text-base">
-            {lang === "zh" ? "为您解答关于慢跑婴儿车、平衡车与儿童自行车测试标准的常见问题。" : "Answering your questions on kids mobility testing standards and safe selection guidelines."}
+            {homeCopy.faq.description}
           </h3>
         </div>
 
         <div className="space-y-4">
-          {[
-            {
-              q: lang === "zh" ? "KIDSMOBI 如何评估慢跑婴儿车在全地形高速运动下的避震与制动安全性？" : "How does KIDSMOBI test jogging strollers for all-terrain high-speed suspension and braking safety?",
-              a: lang === "zh" ? "我们在测试慢跑推车时，会重点检测三个指标：一是前两圈的追踪定位与转向锁定机构（高速慢跑时必须锁定前轮以防剧烈抖动颠覆）；二是充气大橡胶轮胎与高性能避震弹簧在5厘米障碍路面上的重力加速度传导（G-Force必须限制在1.0G以内）；三是手刹与后轮双踩锁死制动的响应时间与减速率控制。" : "We focus on three critical specs when testing jogging strollers: first, the front wheel tracking lock (essential to prevent speed wobbles during high-speed runs); second, G-force telemetry across 5cm obstacles (ensuring vibration stays below 1.0G on pneumatic rubber tires); third, hand-activated deceleration brakes coupled with reliable parking locks for immediate incline arrests."
-            },
-            {
-              q: lang === "zh" ? "如何为不同年龄的幼童精准选配儿童自行车以及规避不安全的刹车系统？" : "How to select the right kids bike and avoid hazardous bicycle braking systems?",
-              a: lang === "zh" ? "初学者鞍座高度应比脱鞋腿部跨高（Inseam）低2.5厘米以确保双脚平足全落地。在制动系统上，KIDSMOBI强烈反对低端童车配备的倒踩脚刹（Coaster Brakes），此类刹车缺乏线性无极阻尼极易打滑、在紧急时刻还会锁死曲柄使车辆失控侧倾。应优选专门针对儿童手掌骨化周期定制、握距≤42mm的双手短行程闸把系统。" : "Standfoot crotch inseam is the gold standard for sizing. For beginners, the minimum saddle height should be 2.5cm below their inseam for flat-foot stability. Regarding brakes, KIDSMOBI strongly discourages pedal-back Coaster Brakes due to lack of modulation and launch-angle lockups; choose specialized kids' hand levers with a short grip-reach of 42mm or less."
-            },
-            {
-              q: lang === "zh" ? "三轮滑板车的重力倾斜转向系统真的比普通的双轮滑板车更安全吗？" : "Are 3-wheel lean-to-steer kids scooters significantly safer than traditional 2-wheelers for toddlers?",
-              a: lang === "zh" ? "是的。三轮滑板车采用的重力倾斜转向（Lean-To-Steer）不仅可以防止幼童在高速转向时发生骤急侧翻或甩飞，还能积极训练孩子脑部前庭系统的本体平衡感知。对于3岁以下刚入门的学龄前儿童，宽大低矮的踏板设计与超平稳的三角形分布三轮滑板车是安全性极高的首选，而两轮滑板车则适合平衡能力完备的学龄大童。" : "Yes. The lean-to-steer mechanism on 3-wheel scooters provides superior lateral stability, preventing high-speed high-side flips while developing early vestibular balance in toddlers. For children under 3 years old, wide-deck, low-center-of-gravity 3-wheelers are overwhelmingly safer, while agile 2-wheel models are reserved for older kids with established balancing skills."
-            },
-            {
-              q: lang === "zh" ? "如何检测四轮电动童车的动力源安全性、限速保护与抗倾覆防摔稳定指标？" : "How does KIDSMOBI evaluate battery safety, remote overrides, and roll stability for 4-wheel kids electric cars?",
-              a: lang === "zh" ? "四轮玩具电动车的检测首重电池包的安全散热与防短路热熔断保护，规避大电流充放电自燃与电解液泄漏。其次，车辆的最高物理时速必须严格被限制在3至8公里/小时以内，且母体控制端必须配备绝对优先权的父母遥控器（一键刹停、无极变频）。此外，四轮距物理宽度与高重心重心的倾斜倾翻系数也是我们的重点审计数据。" : "Testing electric ride-ons centers first on battery pack safety (overcharge and short-circuit thermal fuses to completely prevent fire hazards). Second, velocity bounds must be constrained between 3 to 8 km/h, backed by a 2.4G parental override remote that preempts toddler inputs instantly. Lastly, a wide-track chassis geometry is audited to prevent tipping during tight maneuvers."
-            },
-            {
-              q: lang === "zh" ? "劣质、不合规的童车和童车结构，容易对正在快速发育的儿童骨骼与前庭系统造成哪些慢性损伤？" : "How do low-quality children's bikes and ride-ons cause permanent skeletal and joint strain for a growing child?",
-              a: lang === "zh" ? "低价劣质童车为节省开模费用，常粗暴套用成人五通中轴总成。偏宽的 Q-Factor（脚踏左右偏距宽度）会强行拉开幼儿大腿骨，踩踏时膝关节被迫向内侧严重扣折（形成内八或X型腿趋势），导致髌骨关节面在发育初期的软骨阶段发生不可逆磨损。此外，实心发泡轮胎（EVA）由于没有任何物理空气微孔弹性吸收，产生的3.8G以上高频振荡波会直击大脑、前庭及未发育成熟的椎骨骨骺，干扰神经感知并阻碍发育。" : "Low-quality ride-ons often repurpose adult components, introducing dangerous mismatches. For example, excessive Q-Factors (wide pedal stance) force pediatric joints into inward-bowing (genu valgum) tracks, risking permanent cartilage wear. Additionally, solid EVA foam wheels lack pneumatic cushioning, delivering sharp 3.8G shockwaves directly up to a toddler's unossified spine and delicate inner-ear structures."
-            }
-          ].map((item, idx) => (
+          {homeCopy.faq.items.map((item, idx) => (
             <div key={idx} className="border border-slate-100 bg-white rounded-3xl overflow-hidden transition-all hover:border-slate-200">
               <button
                 onClick={() => handleFaqToggle(idx)}
                 className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 focus:outline-none"
               >
-                <h3 className="font-black text-slate-800 text-sm md:text-base flex-1">{item.q}</h3>
+                <h3 className="font-black text-slate-800 text-sm md:text-base flex-1">{item.question}</h3>
                 <span className="transform transition-transform duration-300 text-slate-400">
                   {openFaqIndex === idx ? (
                     <span className="text-xl inline-block rotate-45 text-orange-500 font-bold">＋</span>
@@ -1192,7 +1124,7 @@ export default function HomeSection({
                 }`}
               >
                 <div className="p-6 text-sm text-slate-500 font-medium leading-relaxed bg-slate-50/50">
-                  {item.a}
+                  {item.answer}
                 </div>
               </div>
             </div>

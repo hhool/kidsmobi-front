@@ -2495,10 +2495,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               </div>
               <div className="text-left">
                 <div className="text-lg sm:text-xl font-display font-black tracking-tight text-slate-900 flex items-center gap-2">
-                  {isBBT ? "BalanceBikeToddler.com" : t.brandTitle}
+                  {isBBT ? (t as any).bbtBrandTitle : t.brandTitle}
                 </div>
                 <p className="hidden sm:block text-[11px] text-slate-500 font-medium tracking-normal">
-                  {isBBT ? "Your trusted global review site for kids wheeled toys" : "Independent stroller and first-bike safety research"}
+                  {isBBT ? (t as any).bbtSubTitle : t.subTitle}
                 </p>
               </div>
             </div>

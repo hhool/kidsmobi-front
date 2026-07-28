@@ -1,6 +1,7 @@
 import React from "react";
 import { ShieldCheck, Award, MessageSquare, Flame, CheckCircle, Lock, Users, Handshake, ShieldAlert } from "lucide-react";
 import Breadcrumbs from "./Breadcrumbs";
+import { getPageCopy } from "../config/pageCopy";
 
 interface AboutSectionProps {
   lang?: "zh" | "en";
@@ -8,6 +9,7 @@ interface AboutSectionProps {
 
 export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
   const isEn = lang === "en";
+  const aboutCopy = getPageCopy(lang).about;
 
   if (isEn) {
     return (
@@ -16,7 +18,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
         <Breadcrumbs 
           lang={lang} 
           onHomeClick={() => (window as any).setActiveTab?.("home")}
-          items={[{ label: "ABOUT US", active: true }]} 
+          items={[{ label: aboutCopy.breadcrumb, active: true }]} 
         />
 
         {/* Hero Banner */}
@@ -39,15 +41,15 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
           <div className="relative z-10 space-y-8 w-full max-w-4xl">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-500/15 border border-orange-500/30 text-orange-400 text-[10px] h-7 font-black uppercase tracking-widest rounded-full shadow-lg backdrop-blur-md">
               <ShieldCheck className="w-4 h-4 text-orange-400" />
-              ESTABLISHED IN 2026 · Independent Premium Platform
+              {aboutCopy.heroBadge}
             </div>
             
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight drop-shadow-md">
-              About KIDSMOBI: Your Independent Kids' Mobility Lab
+              {aboutCopy.heroTitle}
             </h1>
             
             <p className="text-slate-200 text-xs sm:text-sm md:text-base max-w-3xl mx-auto leading-relaxed font-semibold drop-shadow-sm">
-              We audit jogging stroller, balance bike, toddler bike, and kids scooter safety with independent mechanical methods to answer one simple question: Is this truly safe for your child's growth?
+              {aboutCopy.heroDesc}
             </p>
           </div>
         </section>
@@ -190,16 +192,16 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg shadow-orange-500/10">
                 <Handshake className="w-8 h-8 text-orange-500" />
             </div>
-            <h3 className="text-3xl font-black text-slate-900">Partnerships & Cooperation</h3>
+            <h3 className="text-3xl font-black text-slate-900">{aboutCopy.partnershipTitle}</h3>
             <p className="text-slate-500 text-sm font-medium max-w-xl leading-relaxed">
-                We welcome meaningful collaborations that prioritize child safety. This includes lab certification sharing, industry report syndication, and media partnerships.
+              {aboutCopy.partnershipDesc}
             </p>
             <div className="flex flex-col items-center gap-3">
                 <a
                   href="mailto:contact@balancebiketoddler.com"
                   className="px-8 py-3 bg-slate-900 text-white rounded-2xl font-black text-sm hover:scale-105 transition-all shadow-xl shadow-slate-900/10"
                 >
-                  Contact Us
+                  {aboutCopy.contactCta}
                 </a>
                 <a
                   href="mailto:contact@balancebiketoddler.com"
@@ -229,7 +231,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
     <Breadcrumbs 
       lang={lang} 
       onHomeClick={() => (window as any).setActiveTab?.("home")}
-      items={[{ label: "关于我们", active: true }]} 
+      items={[{ label: aboutCopy.breadcrumb, active: true }]} 
     />
 
       {/* Hero Banner */}
@@ -252,15 +254,15 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
         <div className="relative z-10 space-y-8 w-full max-w-4xl">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-500/15 border border-orange-500/30 text-orange-400 text-[10px] h-7 font-black uppercase tracking-widest rounded-full shadow-lg backdrop-blur-md">
             <ShieldCheck className="w-4 h-4 text-orange-400" />
-            ESTABLISHED IN 2026 · 独立第三方权威安全实验室
+            {aboutCopy.heroBadge}
           </div>
           
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight drop-shadow-md">
-            KIDSMOBI：您信赖的中立儿童出行安全实验室
+            {aboutCopy.heroTitle}
           </h2>
           
           <p className="text-slate-200 text-xs sm:text-sm md:text-base max-w-3xl mx-auto leading-relaxed font-semibold drop-shadow-sm">
-            我们100%对标全球最严苛的儿童健康力学测试体系，通过不平整颠震传导、手闸阻力、Q-Factor 膝跨跨距以及钢架结构疲劳抗压等精密实验仪，深度拆解婴儿推车、平衡滑步车、儿童自行车及滑板车的潜在设计缺陷，用独立硬核实测数据捍卫宝宝的骨骼安全与健康成长。
+            {aboutCopy.heroDesc}
           </p>
         </div>
       </section>
@@ -395,16 +397,16 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
           <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg shadow-orange-500/10">
               <Handshake className="w-8 h-8 text-orange-500" />
           </div>
-          <h3 className="text-3xl font-black text-slate-900">评测合作与媒体联动</h3>
+            <h3 className="text-3xl font-black text-slate-900">{aboutCopy.partnershipTitle}</h3>
           <p className="text-slate-500 text-sm font-medium max-w-xl leading-relaxed">
-              我们欢迎任何以“守护儿童骑行安全”为前提的共建合作。包括实验室认证互认、行业报告联合发布以及媒体专项评测。
+            {aboutCopy.partnershipDesc}
           </p>
           <div className="flex flex-col items-center gap-3">
               <a
                 href="mailto:contact@balancebiketoddler.com"
                 className="px-8 py-3 bg-slate-900 text-white rounded-2xl font-black text-sm hover:scale-105 transition-all shadow-xl shadow-slate-900/10"
               >
-                  联系我们
+                  {aboutCopy.contactCta}
               </a>
               <a
                 href="mailto:contact@balancebiketoddler.com"

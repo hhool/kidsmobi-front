@@ -19,8 +19,10 @@ export const translations = {
     // Nav & Common Headers
     topBanner: "KIDSMOBI · 全球高端童车品牌垂直导购平台 · 专注安全、工效与健康骑行",
     brandTitle: "KIDSMOBI",
+    bbtBrandTitle: "BalanceBikeToddler.com",
     versionStamp: "2026 PREMIUM",
     subTitle: "高端垂直童车评测平台",
+    bbtSubTitle: "全球儿童轮式出行评测与安全选购平台",
     navHome: "首页",
     navProducts: "产品中心",
     navEvaluations: "评测中心",
@@ -89,8 +91,10 @@ export const translations = {
     // Nav & Common Headers
     topBanner: "Global Kids Bike Testing Platform · Based on ISO 8098 Braking & Gravity Standards · 100% Self-funded & Unbiased",
     brandTitle: "KIDSMOBI",
+    bbtBrandTitle: "BalanceBikeToddler.com",
     versionStamp: "LAB VERIFIED",
     subTitle: "KIDSMOBI · Global Buyer's Decision Portal",
+    bbtSubTitle: "Your trusted global review site for kids wheeled toys",
     navHome: "Home",
     navProducts: "Products",
     navEvaluations: "Reviews",

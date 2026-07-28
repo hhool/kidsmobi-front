@@ -5,6 +5,7 @@ import { getCMSNews } from "../lib/cmsService";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
 
 import Breadcrumbs from "./Breadcrumbs";
+import { getPageCopy } from "../config/pageCopy";
 
 const NEWS_ALLOWED_CATEGORIES = new Set(["industry", "new_product", "brand_news", "science"]);
 
@@ -122,6 +123,7 @@ export default function NewsSection({
   onArticleOpen,
   onArticleClose,
 }: NewsSectionProps) {
+  const newsCopy = getPageCopy(lang).news;
   const [newsArticlesState, setNewsArticlesState] = useState<NewsArticle[]>([]);
   const [loadingNews, setLoadingNews] = useState<boolean>(false);
   const [selectedArticleState, setSelectedArticleState] = useState<any | null>(null);
@@ -252,10 +254,10 @@ export default function NewsSection({
               title: pickLocalized(n, n.zh?.title, n.en?.title, "News Update"),
               category: normalizedCategory,
               categoryLabel: getCategoryLabel(normalizedCategory, lang),
-              summary: pickLocalized(n, n.seo?.zh?.description, n.seo?.en?.description, lang === "en" ? "Kidsmobi industry updates and safety insights." : "Kidsmobi 行业动态与科普报告。"),
-              content: pickLocalized(n, n.zh?.content, n.en?.content, lang === "en" ? "Content in English is being updated. Please check back soon." : "中文内容整理中，请稍后查看。"),
-              author: lang === "en" ? "Kidsmobi Global Safety Lab" : "Kidsmobi 全球安全实验室",
-              readTime: lang === "en" ? "5 min read" : "5 分钟",
+              summary: pickLocalized(n, n.seo?.zh?.description, n.seo?.en?.description, newsCopy.fallbackSummary),
+              content: pickLocalized(n, n.zh?.content, n.en?.content, newsCopy.fallbackContent),
+              author: newsCopy.fallbackAuthor,
+              readTime: newsCopy.fallbackReadTime,
               publishDate,
               views: 4200,
             };
@@ -287,10 +289,10 @@ export default function NewsSection({
                   categoryLabel: getCategoryLabel(normalizedCategory, lang),
                   title: lang === "en" && hasCjk(titleRaw) ? "News Update" : titleRaw,
                   summary: lang === "en" && hasCjk(summaryRaw)
-                    ? "Kidsmobi industry updates and safety insights."
+                    ? newsCopy.fallbackSummary
                     : summaryRaw,
                   content: lang === "en" && hasCjk(contentRaw)
-                    ? "Content in English is being updated. Please check back soon."
+                    ? newsCopy.fallbackContent
                     : contentRaw,
                 };
               });
@@ -374,7 +376,7 @@ export default function NewsSection({
     }
     const canonicalUrl = window.location.href;
     setCollectionPageJsonLd("news-list", {
-      name: lang === "en" ? "E-Mobility News: Kids Electric Bike & Scooter Trends" : "全球童车资讯库",
+      name: newsCopy.globalNewsSeoName,
       url: canonicalUrl,
       items: pagedNews.map((article) => ({
         name: article.title,
@@ -390,7 +392,7 @@ export default function NewsSection({
       {(() => {
         const items = [
           {
-            label: lang === "zh" ? "全球资讯" : "GLOBAL NEWS",
+            label: newsCopy.breadcrumbGlobal,
             active: selectedCategory === "all" && !selectedArticleState,
             onClick: () => handleCategoryClick("all"),
           },
@@ -431,7 +433,7 @@ export default function NewsSection({
               className="flex items-center gap-2 text-xs text-orange-500 hover:text-orange-600 font-black uppercase pb-6 border-b border-slate-50 mb-6"
             >
               <ArrowLeft className="w-4 h-4" />
-              {lang === "en" ? "Back to News" : "返回资讯目录"}
+              {newsCopy.detailBack}
             </button>
 
             <div className="space-y-4">
@@ -454,13 +456,13 @@ export default function NewsSection({
                 </span>
                 <span className="flex items-center gap-1.5">
                   <Clock className="w-4 h-4 text-orange-500" />
-                  {lang === "en" ? article.readTime : `阅读约 ${article.readTime}`}
+                  {lang === "en" ? article.readTime : `${newsCopy.detailReadPrefix} ${article.readTime}`}
                 </span>
                 <span className="flex items-center gap-1.5">
                   <Eye className="w-4 h-4 text-orange-500" />
                   {lang === "en" 
-                    ? `Views: ${article.views + (likedList.includes(article.id) ? 1 : 0)}` 
-                    : `累计浏览 ${article.views + (likedList.includes(article.id) ? 1 : 0)} 次`}
+                    ? `${newsCopy.detailViewsPrefix}${article.views + (likedList.includes(article.id) ? 1 : 0)}` 
+                    : `${newsCopy.detailViewsPrefix} ${article.views + (likedList.includes(article.id) ? 1 : 0)} 次`}
                 </span>
               </div>
             </div>
@@ -468,7 +470,7 @@ export default function NewsSection({
             {/* Article Summary Quote */}
             <div className="bg-orange-50/50 p-6 rounded-3xl border border-orange-100 text-slate-700 text-sm leading-relaxed font-medium italic relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-1 h-full bg-orange-400"></div>
-                <strong>{lang === "en" ? "Summary: " : "摘要："}</strong> {article.summary}
+              <strong>{newsCopy.detailSummary}</strong> {article.summary}
             </div>
 
             {/* Article Editorial Markdown content body renderer */}
@@ -498,7 +500,7 @@ export default function NewsSection({
               <div className="flex items-center gap-2.5">
                 <span className="text-sm bg-orange-100 p-1.5 rounded-lg">🔬</span>
                 <h4 className="text-md sm:text-lg font-black text-slate-900 uppercase tracking-tight">
-                  {lang === "en" ? "KIDSMOBI Lab: Recommended Safety Guides" : "出行实验室：推荐选购安全指南"}
+                  {newsCopy.guidesTitle}
                 </h4>
               </div>
               
@@ -534,7 +536,7 @@ export default function NewsSection({
                   >
                     <div className="space-y-4 text-left">
                       <span className="text-[10px] font-black uppercase tracking-wider text-orange-500 bg-orange-50 px-2.5 py-0.5 rounded-full inline-block">
-                        {lang === "en" ? "Authoritative Guide" : "实验室首选大奖"}
+                        {newsCopy.guideBadge}
                       </span>
                       <h5 className="font-extrabold text-sm sm:text-base text-slate-900 group-hover:text-orange-500 transition-colors line-clamp-2">
                         {lang === "en" ? g.titleEn : g.titleZh}
@@ -544,7 +546,7 @@ export default function NewsSection({
                       </p>
                     </div>
                     <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-xs font-black text-slate-400 group-hover:text-orange-500 transition-colors">
-                      <span>{lang === "en" ? "Read Guide" : "阅读导购指南"}</span>
+                      <span>{newsCopy.guideRead}</span>
                       <span className="group-hover:translate-x-1 transition-transform">➔</span>
                     </div>
                   </div>
@@ -558,13 +560,13 @@ export default function NewsSection({
                 onClick={handleArticleClose}
                 className="px-6 py-3 bg-slate-50 text-slate-500 hover:text-slate-900 border border-slate-100 hover:border-slate-200 text-sm rounded-2xl font-black transition-all"
               >
-                {lang === "en" ? "Close Reading" : "关闭阅读"}
+                {newsCopy.closeReading}
               </button>
               <div className="flex gap-3">
                 <button
                   onClick={(e) => handleToggleLike(article.id, e)}
-                  aria-label={lang === "en" ? "Like article" : "点赞文章"}
-                  title={lang === "en" ? "Like article" : "点赞文章"}
+                  aria-label={newsCopy.likeAria}
+                  title={newsCopy.likeAria}
                   className={`p-3 rounded-2xl border transition-all active:scale-95 ${
                     likedList.includes(article.id)
                       ? "bg-rose-50 border-rose-100 text-rose-500"
@@ -575,8 +577,8 @@ export default function NewsSection({
                 </button>
                 <button
                   onClick={(e) => handleShare(article.title, e)}
-                  aria-label={lang === "en" ? "Share article" : "分享文章"}
-                  title={lang === "en" ? "Share article" : "分享文章"}
+                  aria-label={newsCopy.shareAria}
+                  title={newsCopy.shareAria}
                   className="p-3 bg-white border border-slate-100 text-slate-400 hover:text-orange-500 hover:border-orange-100 rounded-2xl transition-all active:scale-95"
                 >
                   <Share2 className="w-5 h-5" />
@@ -607,27 +609,25 @@ export default function NewsSection({
             <div className="relative z-10 space-y-8 w-full max-w-4xl">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-500/15 border border-orange-500/30 text-orange-400 text-[10px] h-7 font-black uppercase tracking-widest rounded-full shadow-lg backdrop-blur-md">
                 <Globe className="w-4 h-4 text-orange-400" />
-                {lang === "en" ? "GLOBAL MOBILE SAFETY RESEARCH" : "全球出行安全情报所"}
+                {newsCopy.heroBadge}
               </div>
               
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight drop-shadow-md">
-                {lang === "en" ? "E-Mobility News: Kids Electric Bike & Scooter Trends" : "全球童车动态：儿童电单车与电动滑板车资讯观察"}
+                {newsCopy.heroTitle}
               </h1>
               
               <p className="text-slate-200 text-xs sm:text-sm md:text-base max-w-3xl mx-auto leading-relaxed font-semibold drop-shadow-sm">
-                {lang === "en"
-                  ? "Track industry updates for a premium kids electric bike or a rugged electric dirt bike for kids. We also review foldable electric scooter launches and kids e-scooter safety data."
-                  : "深度追踪全球童车及推车（越野电动童车、轻量化滑步车、多档悬挂阻尼车架、折叠电动滑板车及儿童推车）行业标准，权威输出基于源头制造供应链的硬核品质指南。"}
+                {newsCopy.heroSubtitle}
               </p>
 
               {/* Categorization dynamic tabs bar strictly in ordered layout */}
               <div className="flex flex-wrap justify-center gap-3 pt-6 relative z-10">
                 {[
-                  { id: "all", labelEn: "All Articles", labelZh: "📰 全部文章", descEn: "All published stories", descZh: "查看全部已发布资讯" },
-                  { id: "new_product", labelEn: "New Launches", labelZh: "🆕 新品发布", descEn: "First looks at the latest gears", descZh: "最新上市产品的首次亮相及分析" },
-                  { id: "science", labelEn: "Science & Tips", labelZh: "🧪 科普干货", descEn: "Ergonomics and child development", descZh: "儿童骨骼发育与产品工效学科普" },
-                  { id: "brand_news", labelEn: "Brand News", labelZh: "🏷️ 品牌故事", descEn: "Stories behind major brands", descZh: "主流推车与骑乘品牌背后故事" },
-                  { id: "industry", labelEn: "Industry Trends", labelZh: "📊 行业趋势", descEn: "Market analysis and industry shifts", descZh: "全球婴童出行品类发展风向" },
+                  { id: "all", labelEn: newsCopy.categoryTabs.all, labelZh: newsCopy.categoryTabs.all, descEn: "", descZh: "" },
+                  { id: "new_product", labelEn: newsCopy.categoryTabs.newProduct, labelZh: newsCopy.categoryTabs.newProduct, descEn: "", descZh: "" },
+                  { id: "science", labelEn: newsCopy.categoryTabs.science, labelZh: newsCopy.categoryTabs.science, descEn: "", descZh: "" },
+                  { id: "brand_news", labelEn: newsCopy.categoryTabs.brandNews, labelZh: newsCopy.categoryTabs.brandNews, descEn: "", descZh: "" },
+                  { id: "industry", labelEn: newsCopy.categoryTabs.industry, labelZh: newsCopy.categoryTabs.industry, descEn: "", descZh: "" },
                 ].map((c) => (
                   <button
                     key={c.id}
@@ -655,19 +655,17 @@ export default function NewsSection({
           {filteredNews.length === 0 ? (
             <div className="p-20 text-center bg-white border border-slate-100 rounded-[40px] shadow-sm">
                 <span className="text-slate-400 font-medium">
-                  {lang === "en" ? "No matches found." : "没找到相关的资讯文章"}
+                  {newsCopy.noMatches}
                 </span>
             </div>
           ) : (
             <div className="space-y-8">
               <div className="max-w-3xl mx-auto text-center space-y-3">
                 <h2 className="text-2xl font-black text-slate-900">
-                  {lang === "en" ? "Latest Updates: Foldable Electric Scooter & Dirt Bike Launches" : "最新童车资讯与行业动态"}
+                  {newsCopy.latestTitle}
                 </h2>
                 <p className="text-sm text-slate-500 font-medium">
-                  {lang === "en"
-                    ? "Follow kids electric bike safety standards, electric dirt bike for kids launches, and foldable electric scooter commute trends."
-                    : "按行业趋势、新品发布与法规政策持续追踪真实市场变化。"}
+                  {newsCopy.latestDesc}
                 </p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left animate-fade-in">
@@ -704,7 +702,7 @@ export default function NewsSection({
                         {art.views + (likedList.includes(art.id) ? 1 : 0)}
                       </span>
                       <span className="text-orange-500 group-hover:underline font-black">
-                        {lang === "en" ? "read →" : "阅读原文 →"}
+                        {newsCopy.readMore}
                       </span>
                     </div>
                   </div>
@@ -718,7 +716,7 @@ export default function NewsSection({
                     onClick={() => onPageChange?.(Math.max(1, safePage - 1))}
                     disabled={safePage <= 1}
                     className="w-10 h-10 rounded-2xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center"
-                    aria-label={lang === "en" ? "Go to previous page" : "上一页"}
+                    aria-label={newsCopy.prevPageAria}
                   >
                     <svg aria-hidden="true" viewBox="0 0 20 20" className="w-4 h-4" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M12.5 4.5L7 10L12.5 15.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
@@ -741,7 +739,7 @@ export default function NewsSection({
                     onClick={() => onPageChange?.(Math.min(totalPages, safePage + 1))}
                     disabled={safePage >= totalPages}
                     className="w-10 h-10 rounded-2xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center"
-                    aria-label={lang === "en" ? "Go to next page" : "下一页"}
+                    aria-label={newsCopy.nextPageAria}
                   >
                     <svg aria-hidden="true" viewBox="0 0 20 20" className="w-4 h-4" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M7.5 4.5L13 10L7.5 15.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>

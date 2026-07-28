@@ -62,6 +62,96 @@ function getCategoryLabel(cat: string, lang: "zh" | "en"): string {
   }
 }
 
+function containsCjk(text: string): boolean {
+  return /[\u4e00-\u9fff]/.test(String(text || ""));
+}
+
+function countMatches(text: string, pattern: RegExp): number {
+  const matches = String(text || "").match(pattern);
+  return matches ? matches.length : 0;
+}
+
+function isEnglishHeavyForZh(text: string): boolean {
+  const value = String(text || "");
+  if (!value) return false;
+  const cjkCount = countMatches(value, /[\u4e00-\u9fff]/g);
+  const asciiLetterCount = countMatches(value, /[A-Za-z]/g);
+  if (asciiLetterCount >= 24 && cjkCount <= 4) return true;
+  if (asciiLetterCount >= 36 && cjkCount <= 8) return true;
+  return cjkCount > 0 && asciiLetterCount > cjkCount * 4;
+}
+
+function localizeGuideTermsForZh(value: string): string {
+  return String(value || "")
+    .replace(/buyer's\s*guide/gi, "选购指南")
+    .replace(/guide\s*library/gi, "指南库")
+    .replace(/cover\s*image/gi, "封面图")
+    .replace(/read\s*guide/gi, "阅读指南")
+    .replace(/beginner\s*entry/gi, "新手入门")
+    .replace(/budget\s*guide/gi, "预算指南")
+    .replace(/scenario\s*guide/gi, "场景指南")
+    .replace(/risk\s*id\s*guide/gi, "风险识别指南")
+    .replace(/maintenance/gi, "养护")
+    .replace(/jogging\s*stroller|jogger\s*stroller/gi, "慢跑推车")
+    .replace(/double\s*stroller|twin\s*stroller/gi, "双人推车")
+    .replace(/travel\s*stroller/gi, "旅行推车")
+    .replace(/stroller/gi, "推车")
+    .replace(/balance\s*bike/gi, "平衡车")
+    .replace(/kids?\s*bike|bicycle/gi, "儿童自行车")
+    .replace(/kids?\s*scooter|scooter/gi, "儿童滑板车")
+    .replace(/electric\s*car/gi, "儿童电动车")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function sanitizeGuideTextForZh(value: string, fallback: string): string {
+  const cleaned = localizeGuideTermsForZh(cleanVisibleSourceText(value || ""));
+  if (!cleaned) return fallback;
+  if (!containsCjk(cleaned)) return fallback;
+
+  // Strip long imported/marketing English fragments that often leak from marketplace copy.
+  const compact = cleaned
+    .replace(/[A-Za-z][A-Za-z0-9'&/.,;:()\-\s]{30,}/g, " ")
+    .replace(/\b(primary visual asset|imported|polyester|oxford cloth|recommended use|spf|quick release wheels)\b/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!compact) return fallback;
+  if (isEnglishHeavyForZh(compact)) return fallback;
+  return compact;
+}
+
+function sanitizeGuideTitleForZh(value: string, fallback: string): string {
+  const normalized = sanitizeGuideTextForZh(value, fallback)
+    .replace(/^[\d\W_]+/, "")
+    .trim();
+  if (!normalized) return fallback;
+  const cjkCount = countMatches(normalized, /[\u4e00-\u9fff]/g);
+  const asciiLetterCount = countMatches(normalized, /[A-Za-z]/g);
+  if (asciiLetterCount >= 16 && cjkCount <= 3) return fallback;
+  if (isEnglishHeavyForZh(normalized)) return fallback;
+  return normalized;
+}
+
+function normalizeGuideArticleForLocale(article: GuideArticle, lang: "zh" | "en"): GuideArticle {
+  if (lang === "en") return article;
+
+  const zhTitleBase = String(article.categoryLabel || "选购").trim();
+  const zhTitleFallback = zhTitleBase.includes("指南") ? zhTitleBase : `${zhTitleBase} 指南`;
+  const zhSummaryFallback = "该指南的中文摘要整理中，建议先参考当前品类的中文评测与参数说明。";
+  const zhContentFallback = "### 中文内容整理中\n\n该条目原始资料以英文为主，我们正在补充中文版本。请先参考同品类中文评测卡片与安全参数。";
+
+  return {
+    ...article,
+    title: sanitizeGuideTitleForZh(article.title, zhTitleFallback),
+    summary: sanitizeGuideTextForZh(article.summary, zhSummaryFallback),
+    content: sanitizeGuideTextForZh(article.content, zhContentFallback),
+    author: "Kidsmobi 专家组",
+    readTime: String(article.readTime || "").trim() && containsCjk(String(article.readTime || ""))
+      ? String(article.readTime)
+      : "8 分钟",
+  };
+}
+
 import { formatWeight, formatHeight } from "../lib/units";
 import Breadcrumbs from "./Breadcrumbs";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
@@ -336,9 +426,13 @@ function productGuideEvidence(product: Product) {
 }
 
 function buildGuideArticle(category: GuideCategoryId, product: Product, index: number, lang: "zh" | "en"): GuideArticle {
-  const productName = productGuideName(product);
+  const productName = lang === "zh"
+    ? sanitizeGuideTitleForZh(productGuideName(product), `${getCategoryLabel(product.category || "stroller", "zh")} 车型`)
+    : productGuideName(product);
   const categoryName = productCategoryGuideLabel(product, lang);
-  const evidence = productGuideEvidence(product);
+  const evidence = lang === "zh"
+    ? sanitizeGuideTextForZh(productGuideEvidence(product), "建议优先核对尺寸适配、可控重量与制动反馈。")
+    : productGuideEvidence(product);
   const score = Number(product.overallScore || product.safetyScore || 8).toFixed(1);
   const price = Number(product.price || 0);
   const label = GUIDE_CATEGORY_LABELS[category];
@@ -556,7 +650,7 @@ export default function GuidesSection({
             productCategory: g.taxonomy?.productCategory,
             ...(g.taxonomy?.topicOrder ? { topicOrder: Number(g.taxonomy.topicOrder || 1) } : {}),
           }));
-          setGuideArticles(mapped);
+          setGuideArticles(mapped.map((item) => normalizeGuideArticleForLocale(item, lang)));
           setLoadingGuides(false);
         } else {
           throw new Error("No CMS guides available, using server API fallback");
@@ -572,7 +666,7 @@ export default function GuidesSection({
           })
           .then((data) => {
             if (Array.isArray(data) && data.length > 0) {
-              setGuideArticles(data);
+              setGuideArticles(data.map((item: GuideArticle) => normalizeGuideArticleForLocale(item, lang)));
             }
           })
           .catch((fetchErr) => {
@@ -747,7 +841,10 @@ export default function GuidesSection({
   const filteredGuides = useMemo(() => {
     const categoryLimit = 12;
     return activeArticlesList
-      .map(art => translateGuideArticle(art, lang))
+      .map((art) => {
+        const localized = translateGuideArticle(art, lang);
+        return lang === "zh" ? normalizeGuideArticleForLocale(localized, "zh") : localized;
+      })
       .filter((art) => {
         const matchesCat = selectedCategory === "all" || art.category === selectedCategory;
         const query = searchQuery.toLowerCase().trim();
@@ -1269,7 +1366,7 @@ export default function GuidesSection({
               {/* Input 2: Height */}
               <div className="bg-slate-50 p-6 rounded-4xl border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
                 <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
-                  <span>{lang === "en" ? "3. Height" : "3. 身高 (Height)"}</span>
+                  <span>{lang === "en" ? "3. Height" : "3. 身高"}</span>
                   <span className="text-orange-500 text-sm">{formatHeight(wizardHeight, currencyData.code)}</span>
                 </label>
                 <div className="border-b border-slate-200 pb-2">
@@ -1294,7 +1391,7 @@ export default function GuidesSection({
               {/* Input 3: Inseam */}
               <div className="bg-slate-50 p-6 rounded-4xl border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
                 <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
-                  <span>{lang === "en" ? "4. Inseam" : "4. 跨高 (Inseam)"}</span>
+                  <span>{lang === "en" ? "4. Inseam" : "4. 跨高"}</span>
                   <span className="text-orange-500 text-sm">{formatHeight(wizardInseam, currencyData.code)}</span>
                 </label>
                 <div className="border-b border-slate-200 pb-2">
@@ -1315,7 +1412,7 @@ export default function GuidesSection({
               {/* Input 4: Weight */}
               <div className="bg-slate-50 p-6 rounded-4xl border border-slate-100 space-y-4 shadow-sm hover:shadow-md transition-shadow">
                 <label className="text-slate-400 font-black uppercase tracking-wider flex items-center justify-between text-[10px]">
-                  <span>{lang === "en" ? "5. Weight" : "5. 体重 (Weight)"}</span>
+                  <span>{lang === "en" ? "5. Weight" : "5. 体重"}</span>
                   <span className="text-rose-500 text-sm font-black">{formatWeight(wizardWeight, currencyData.code)}</span>
                 </label>
                 <div className="border-b border-slate-200 pb-2">

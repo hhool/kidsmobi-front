@@ -27,6 +27,7 @@ import { formatCurrencyFromUsd } from "../lib/currency";
 import SmartImage from "./common/SmartImage";
 import Breadcrumbs from "./Breadcrumbs";
 import ComparisonDashboard from "./ComparisonDashboard";
+import { getPageCopy } from "../config/pageCopy";
 
 const PLACEHOLDER_VERDICT_PATTERNS = [
   "pending editorial enrichment",
@@ -101,6 +102,8 @@ function pickDescriptionFromEvidence(product: Product): string {
 }
 
 function pickLocalizedDescription(product: Product, lang: "zh" | "en"): string {
+  const businessCopy = getPageCopy(lang).products.businessCopy;
+  const logicTokens = businessCopy.logicTokens;
   const localized = (product as Product & {
     description?: string;
     Product_Description?: string;
@@ -119,62 +122,75 @@ function pickLocalizedDescription(product: Product, lang: "zh" | "en"): string {
   const defaultDescription = String(localized.description || "").trim();
   const evidenceDescription = pickDescriptionFromEvidence(product);
 
-  const candidates = [
-    rawProductDescription,
-    isPlaceholderDescription(localizedDescription) ? "" : localizedDescription,
-    isPlaceholderDescription(defaultDescription) ? "" : defaultDescription,
-    evidenceDescription,
-  ].map((item) => compactSnippet(item));
+  const orderedCandidates = lang === "zh"
+    ? [
+        isPlaceholderDescription(localizedDescription) ? "" : localizedDescription,
+        isPlaceholderDescription(defaultDescription) ? "" : defaultDescription,
+        evidenceDescription,
+        rawProductDescription,
+      ]
+    : [
+        rawProductDescription,
+        isPlaceholderDescription(localizedDescription) ? "" : localizedDescription,
+        isPlaceholderDescription(defaultDescription) ? "" : defaultDescription,
+        evidenceDescription,
+      ];
+
+  const candidates = orderedCandidates.map((item) => compactSnippet(item));
 
   let baseDesc = candidates.find((item) => item && !isPlaceholderDescription(item) && !isCustomerReviewNarrative(item)) || "";
+  if (lang === "zh" && baseDesc && !containsCjk(baseDesc)) {
+    // In zh locale, avoid leaking long English marketplace copy when no translated description is present.
+    baseDesc = "";
+  }
 
   // Naturally integrate keywords based on category identification
   const catRaw = String(product.categoryId || product.category || "").toLowerCase();
   if (catRaw === "kids_bikes") {
     if (lang === "zh") {
-      if (!baseDesc.includes("toddler bike")) {
-        baseDesc = `这款专为幼童研发的专业儿童自行车 toddler bike 采用高强度车架及科学防摔重心设计。 ${baseDesc}`;
+      if (!baseDesc.includes(logicTokens.keywordPresence.kidsBike)) {
+        baseDesc = businessCopy.descriptionTemplates.kidsBikeZh.replace("{base}", baseDesc);
       }
     } else {
-      if (!baseDesc.toLowerCase().includes("toddler bike")) {
-        baseDesc = `This highly certified toddler bike features premium structural geometry and superb braking safety. ${baseDesc}`;
+      if (!baseDesc.toLowerCase().includes(logicTokens.keywordPresence.kidsBike)) {
+        baseDesc = businessCopy.descriptionTemplates.kidsBikeEn.replace("{base}", baseDesc);
       }
     }
   } else if (catRaw === "balance_bike" || catRaw.includes("balance")) {
     if (lang === "zh") {
-      if (!baseDesc.includes("balance bike toddler")) {
-        baseDesc = `这台专业婴儿平衡车 balance bike toddler 旨在安全锻炼儿童本体前庭系统和手腿协调力。 ${baseDesc}`;
+      if (!baseDesc.includes(logicTokens.keywordPresence.balanceBike)) {
+        baseDesc = businessCopy.descriptionTemplates.balanceBikeZh.replace("{base}", baseDesc);
       }
     } else {
-      if (!baseDesc.toLowerCase().includes("balance bike toddler")) {
-        baseDesc = `This ergonomic balance bike toddler leverages ultra-lightweight alloys for the ultimate safe learning experience. ${baseDesc}`;
+      if (!baseDesc.toLowerCase().includes(logicTokens.keywordPresence.balanceBike)) {
+        baseDesc = businessCopy.descriptionTemplates.balanceBikeEn.replace("{base}", baseDesc);
       }
     }
   } else if (catRaw === "stroller") {
     const nameLower = String(product.name || "").toLowerCase();
-    const isTwin = nameLower.includes("twin") || nameLower.includes("double") || nameLower.includes("sibling");
+    const isTwin = includesAny(nameLower, logicTokens.twinSignals);
     if (isTwin) {
       if (lang === "zh") {
-        if (!baseDesc.includes("double twin stroller")) {
-          baseDesc = `这款顶级双胞胎双人婴儿车 double twin stroller 的五点式防护设计和全地形减震系统给予两个宝宝全方位的舒适与放心。 ${baseDesc}`;
+        if (!baseDesc.includes(logicTokens.keywordPresence.twinStroller)) {
+          baseDesc = businessCopy.descriptionTemplates.twinStrollerZh.replace("{base}", baseDesc);
         }
       } else {
-        if (!baseDesc.toLowerCase().includes("double twin stroller")) {
-          baseDesc = `This high-performance double twin stroller incorporates state-of-the-art shock absorption and premium responsive seating for families with multiples. ${baseDesc}`;
+        if (!baseDesc.toLowerCase().includes(logicTokens.keywordPresence.twinStroller)) {
+          baseDesc = businessCopy.descriptionTemplates.twinStrollerEn.replace("{base}", baseDesc);
         }
       }
     }
   } else if (catRaw === "kids_scooters" || catRaw === "scooters" || catRaw.includes("scooter")) {
     const nameLower = String(product.name || "").toLowerCase();
-    const isElectric = nameLower.includes("electric") || nameLower.includes("motorized") || nameLower.includes("battery") || nameLower.includes("e-scooter") || nameLower.includes("e-bike") || String(product.id || "").toLowerCase().includes("mx350");
+    const isElectric = includesAny(nameLower, logicTokens.electricSignals) || includesAny(String(product.id || "").toLowerCase(), logicTokens.electricSignals);
     if (isElectric) {
       if (lang === "zh") {
-        if (!baseDesc.includes("kids electric scooter")) {
-          baseDesc = `作为一款专业且安全的儿童电动滑板车 kids electric scooter，它配备了母体优先遥控制动及安全限速熔断。 ${baseDesc}`;
+        if (!baseDesc.includes(logicTokens.keywordPresence.electricScooter)) {
+          baseDesc = businessCopy.descriptionTemplates.electricScooterZh.replace("{base}", baseDesc);
         }
       } else {
-        if (!baseDesc.toLowerCase().includes("kids electric scooter")) {
-          baseDesc = `Engineered as an award-winning kids electric scooter, this model ensures optimal velocity limits and dynamic brake responsiveness. ${baseDesc}`;
+        if (!baseDesc.toLowerCase().includes(logicTokens.keywordPresence.electricScooter)) {
+          baseDesc = businessCopy.descriptionTemplates.electricScooterEn.replace("{base}", baseDesc);
         }
       }
     }
@@ -188,6 +204,55 @@ function compactSnippet(value: string): string {
     .replace(/\s+/g, " ")
     .replace(/[“”]/g, '"')
     .trim();
+}
+
+function includesAny(text: string, tokens: string[]): boolean {
+  return tokens.some((token) => text.includes(token));
+}
+
+function containsCjk(text: string): boolean {
+  return /[\u4e00-\u9fff]/.test(String(text || ""));
+}
+
+function normalizeCategoryLabelForZh(label: string): string {
+  const normalized = String(label || "")
+    .trim()
+    .toLowerCase()
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ");
+
+  const map: Record<string, string> = {
+    "stroller": "婴儿推车",
+    "strollers": "婴儿推车",
+    "double stroller": "双人婴儿推车",
+    "double strollers": "双人婴儿推车",
+    "jogger stroller": "慢跑推车",
+    "jogger strollers": "慢跑推车",
+    "balance bike": "平衡车",
+    "balance bikes": "平衡车",
+    "kids bike": "儿童自行车",
+    "kids bikes": "儿童自行车",
+    "bike": "儿童自行车",
+    "bicycle": "儿童自行车",
+    "kids scooter": "儿童滑板车",
+    "kids scooters": "儿童滑板车",
+    "scooter": "儿童滑板车",
+    "scooters": "儿童滑板车",
+    "electric vehicles": "儿童电动车",
+    "electric vehicle": "儿童电动车",
+    "electric car": "儿童电动车",
+    "kids electric car": "儿童电动车",
+    "car seat": "儿童安全座椅",
+    "car seats": "儿童安全座椅",
+    "kids car seat": "儿童安全座椅",
+    "kids car seats": "儿童安全座椅",
+    "safety seat": "儿童安全座椅",
+    "tricycle": "儿童三轮车",
+    "kids tricycle": "儿童三轮车",
+    "kids tricycles": "儿童三轮车",
+  };
+
+  return map[normalized] || label;
 }
 
 function normalizeSnippetForCompare(value: string): string {
@@ -225,28 +290,31 @@ function isTitleDuplicateSnippet(value: string, product: Product): boolean {
 }
 
 function resolveGeneratedCardSummary(product: Product, lang: "zh" | "en"): string {
+  const businessCopy = getPageCopy(lang).products.businessCopy;
+  const logicTokens = businessCopy.logicTokens;
   const name = normalizeSnippetForCompare(product.name);
   const categoryId = normalizeSnippetForCompare(String((product as Product & { categoryId?: string }).categoryId || product.category || ""));
+  const hasSignal = (signals: string[]) => includesAny(name, signals) || includesAny(categoryId, signals);
 
   if (lang === "zh") {
-    if (/airplane|airline|compact|travel/.test(name)) return "适合出行场景的轻便旅行推车，强调紧凑收纳、机场携带与日常快速折叠。";
-    if (/car seat|travel system|infant/.test(name)) return "旅行系统套装，兼顾婴儿安全座椅衔接、家庭通勤与新生儿出行便利性。";
-    if (/jogger|jogging|runner/.test(name) || categoryId.includes("jogger")) return "面向户外慢跑和公园路面的三轮推车，重点关注稳定性、轮组通过性与推行控制。";
-    if (/double|twin/.test(name) || categoryId.includes("double")) return "双座推车方案，适合双胞胎或二孩家庭，重点关注座舱空间与转向稳定性。";
-    if (/balance/.test(name) || categoryId.includes("balance")) return "幼儿平衡车入门选择，帮助建立低速控车、转向协调与初期骑行信心。";
-    if (/scooter/.test(name) || categoryId.includes("scooter")) return "儿童滑板车方案，适合短途玩耍与平衡训练，重点关注转向反馈和低龄稳定性。";
-    if (/car seat/.test(name) || categoryId.includes("car seat")) return "儿童安全座椅选择，重点关注安装兼容性、侧向防护与日常乘车安全。";
-    return "基于品类参数与家庭使用场景整理的候选产品，适合进一步比较重量、价格与安全配置。";
+    if (hasSignal(logicTokens.generatedSummarySignals.travel)) return businessCopy.generatedSummary.travelZh;
+    if (hasSignal(logicTokens.generatedSummarySignals.travelSystem)) return businessCopy.generatedSummary.travelSystemZh;
+    if (hasSignal(logicTokens.generatedSummarySignals.jogger)) return businessCopy.generatedSummary.joggerZh;
+    if (hasSignal(logicTokens.generatedSummarySignals.twin)) return businessCopy.generatedSummary.twinZh;
+    if (hasSignal(logicTokens.generatedSummarySignals.balance)) return businessCopy.generatedSummary.balanceZh;
+    if (hasSignal(logicTokens.generatedSummarySignals.scooter)) return businessCopy.generatedSummary.scooterZh;
+    if (hasSignal(logicTokens.generatedSummarySignals.carSeat)) return businessCopy.generatedSummary.carSeatZh;
+    return businessCopy.generatedSummary.defaultZh;
   }
 
-  if (/airplane|airline|compact|travel/.test(name)) return "Compact travel stroller for airport trips, fold-friendly storage, and everyday lightweight handling.";
-  if (/car seat|travel system|infant/.test(name)) return "Travel system bundle pairing stroller mobility with infant car seat compatibility for daily family trips.";
-  if (/jogger|jogging|runner/.test(name) || categoryId.includes("jogger")) return "Jogging stroller option for park paths and active families, focused on stability, wheel control, and smoother pushing.";
-  if (/double|twin/.test(name) || categoryId.includes("double")) return "Twin stroller pick for twins or two-child families, balancing cabin space, steering stability, and shared outings.";
-  if (/balance/.test(name) || categoryId.includes("balance")) return "Toddler balance bike focused on early confidence, low-speed control, and first-ride coordination.";
-  if (/scooter/.test(name) || categoryId.includes("scooter")) return "Kids scooter option for short rides and balance practice, with emphasis on steering feedback and beginner stability.";
-  if (/car seat/.test(name) || categoryId.includes("car seat")) return "Child car seat option focused on installation fit, side-impact protection, and everyday passenger safety.";
-  return "Curated product candidate for comparing weight, price, safety configuration, and family-use fit.";
+  if (hasSignal(logicTokens.generatedSummarySignals.travel)) return businessCopy.generatedSummary.travelEn;
+  if (hasSignal(logicTokens.generatedSummarySignals.travelSystem)) return businessCopy.generatedSummary.travelSystemEn;
+  if (hasSignal(logicTokens.generatedSummarySignals.jogger)) return businessCopy.generatedSummary.joggerEn;
+  if (hasSignal(logicTokens.generatedSummarySignals.twin)) return businessCopy.generatedSummary.twinEn;
+  if (hasSignal(logicTokens.generatedSummarySignals.balance)) return businessCopy.generatedSummary.balanceEn;
+  if (hasSignal(logicTokens.generatedSummarySignals.scooter)) return businessCopy.generatedSummary.scooterEn;
+  if (hasSignal(logicTokens.generatedSummarySignals.carSeat)) return businessCopy.generatedSummary.carSeatEn;
+  return businessCopy.generatedSummary.defaultEn;
 }
 
 function isGenericCardSnippet(value: string): boolean {
@@ -291,6 +359,7 @@ function stripVisibleFieldLabels(value: string): string {
 }
 
 function resolveCapacityNumeric(product: Product): string {
+  const categorySignals = getPageCopy("en").products.businessCopy.logicTokens.categorySignals;
   const textToSearch = [
     product.name,
     product.description,
@@ -309,19 +378,21 @@ function resolveCapacityNumeric(product: Product): string {
   }
 
   const category = (product.category || "").toLowerCase();
-  if (category.includes("wagon") || category.includes("double")) {
+  if (includesAny(category, categorySignals.wagonOrDouble)) {
     return "150";
   }
-  if (category.includes("stroller")) {
+  if (includesAny(category, categorySignals.stroller)) {
     return "50";
   }
-  if (category.includes("bike") || category.includes("bicycle")) {
+  if (includesAny(category, [...categorySignals.bike, ...categorySignals.bicycle])) {
     return "110";
   }
   return "150";
 }
 
 function resolveCapacity(product: Product, lang: "zh" | "en"): string {
+  const capacityCopy = getPageCopy(lang).products.businessCopy.capacity;
+  const categorySignals = getPageCopy(lang).products.businessCopy.logicTokens.categorySignals;
   const textToSearch = [
     product.name,
     product.description,
@@ -333,30 +404,38 @@ function resolveCapacity(product: Product, lang: "zh" | "en"): string {
   if (matchLbs) {
     const lbs = matchLbs[1];
     const dutyStr = parseInt(lbs) >= 100 ? "H" : "S";
-    return lang === "zh" ? `${lbs} 磅 (${dutyStr})` : `${lbs}# (${dutyStr})`;
+    const template = lang === "zh" ? capacityCopy.formattedZh : capacityCopy.formattedEn;
+    return template.replace("{value}", lbs).replace("{duty}", dutyStr);
   }
   const matchKg = textToSearch.match(/(\d+)\s*(?:kg|kilograms)/);
   if (matchKg) {
     const kg = matchKg[1];
     const lbs = Math.round(parseInt(kg) * 2.2);
     const dutyStr = lbs >= 100 ? "H" : "S";
-    return lang === "zh" ? `${lbs} 磅 (${dutyStr})` : `${lbs}# (${dutyStr})`;
+    const template = lang === "zh" ? capacityCopy.formattedZh : capacityCopy.formattedEn;
+    return template.replace("{value}", String(lbs)).replace("{duty}", dutyStr);
   }
 
   const category = (product.category || "").toLowerCase();
-  if (category.includes("wagon") || category.includes("double")) {
-    return lang === "zh" ? "150 磅 (H)" : "150# (H)";
+  const formatByLocale = (value: string, duty: string) => {
+    const template = lang === "zh" ? capacityCopy.formattedZh : capacityCopy.formattedEn;
+    return template.replace("{value}", value).replace("{duty}", duty);
+  };
+  if (includesAny(category, categorySignals.wagonOrDouble)) {
+    return formatByLocale(capacityCopy.defaults.wagonDouble.value, capacityCopy.defaults.wagonDouble.duty);
   }
-  if (category.includes("stroller")) {
-    return lang === "zh" ? "50 磅 (S)" : "50# (S)";
+  if (includesAny(category, categorySignals.stroller)) {
+    return formatByLocale(capacityCopy.defaults.stroller.value, capacityCopy.defaults.stroller.duty);
   }
-  if (category.includes("bike") || category.includes("bicycle")) {
-    return lang === "zh" ? "110 磅 (H)" : "110# (H)";
+  if (includesAny(category, [...categorySignals.bike, ...categorySignals.bicycle])) {
+    return formatByLocale(capacityCopy.defaults.bike.value, capacityCopy.defaults.bike.duty);
   }
-  return lang === "zh" ? "150 磅 (H)" : "150# (H)";
+  return formatByLocale(capacityCopy.defaults.fallback.value, capacityCopy.defaults.fallback.duty);
 }
 
 function resolveKeyAudit(product: Product, lang: "zh" | "en"): string {
+  const auditCopy = getPageCopy(lang).products.businessCopy.auditLabels;
+  const logicTokens = getPageCopy(lang).products.businessCopy.logicTokens;
   const textToSearch = [
     product.name,
     product.description,
@@ -365,19 +444,19 @@ function resolveKeyAudit(product: Product, lang: "zh" | "en"): string {
 
   const category = (product.category || "").toLowerCase();
   
-  if (category.includes("car_seat") || category.includes("safety_seat")) {
-    return lang === "zh" ? "侧向防护结构认证" : "SideImpact";
+  if (includesAny(category, logicTokens.categorySignals.carSeatOrSafetySeat)) {
+    return lang === "zh" ? auditCopy.sideImpactZh : auditCopy.sideImpactEn;
   }
-  if (textToSearch.includes("suspension") || textToSearch.includes("all-terrain") || textToSearch.includes("shock")) {
-    return lang === "zh" ? "全地形避震稳定" : "AllTerrain";
+  if (includesAny(textToSearch, logicTokens.auditSignals.suspension)) {
+    return lang === "zh" ? auditCopy.allTerrainStableZh : auditCopy.allTerrainStableEn;
   }
-  if (category.includes("stroller") || category.includes("wagon")) {
-    return lang === "zh" ? "全地形安全避震" : "AllTerrain";
+  if (includesAny(category, [...logicTokens.categorySignals.stroller, ...logicTokens.categorySignals.wagonOrDouble])) {
+    return lang === "zh" ? auditCopy.allTerrainSafeZh : auditCopy.allTerrainSafeEn;
   }
-  if (category.includes("bike") || category.includes("scooter")) {
-    return lang === "zh" ? "低重心控车安全" : "LowCOG";
+  if (includesAny(category, [...logicTokens.categorySignals.bike, ...logicTokens.categorySignals.scooter])) {
+    return lang === "zh" ? auditCopy.lowCogZh : auditCopy.lowCogEn;
   }
-  return lang === "zh" ? "全地形安全避震" : "AllTerrain";
+  return lang === "zh" ? auditCopy.allTerrainSafeZh : auditCopy.allTerrainSafeEn;
 }
 
 function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
@@ -464,6 +543,8 @@ export default function ProductsSection({
   onPageChange,
   onCompareOpen
 }: ProductsSectionProps) {
+  const productsCopy = getPageCopy(lang).products;
+  const productLogicTokens = productsCopy.businessCopy.logicTokens;
   const excludedCategoryIds = new Set([
     "playard",
     "high_chair",
@@ -675,34 +756,60 @@ export default function ProductsSection({
     }
 
     if (backendCategoryNameMap[normalized]) {
-      return backendCategoryNameMap[normalized];
+      const backendLabel = backendCategoryNameMap[normalized];
+      if (lang === "en" || containsCjk(backendLabel)) {
+        return backendLabel;
+      }
     }
 
-    const fallbackMap: Record<string, string> = {
-      balance: "Balance Bike",
-      bicycle: "Pedal Bike",
-      scooter: "Kick Scooter",
-      stroller: "Kids Stroller",
-      electric_car: "Kids Electric Car",
-      tricycle: "Tricycle",
-      safety_seat: "Kids Car Seat",
-      kids_tricycles: "Kids Tricycle",
-      kids_bikes: "Kids Bike",
-      balance_bike: "Balance Bike",
-      car_seat: "Kids Car Seat",
-      electric_vehicles: "Kids Electric Car",
-      kids_scooters: "Kids Scooter",
-      scooters: "Kids Scooter",
-    };
+    const fallbackMap: Record<string, string> = lang === "zh"
+      ? {
+          balance: "平衡车",
+          balance_bike: "平衡车",
+          balance_bikes: "平衡车",
+          bicycle: "儿童自行车",
+          kids_bikes: "儿童自行车",
+          scooter: "儿童滑板车",
+          scooters: "儿童滑板车",
+          kids_scooters: "儿童滑板车",
+          stroller: "婴儿推车",
+          strollers: "婴儿推车",
+          double_stroller: "双人婴儿推车",
+          jogger_stroller: "慢跑推车",
+          electric_car: "儿童电动车",
+          electric_vehicles: "儿童电动车",
+          tricycle: "儿童三轮车",
+          kids_tricycles: "儿童三轮车",
+          safety_seat: "儿童安全座椅",
+          car_seat: "儿童安全座椅",
+          car_seats: "儿童安全座椅",
+        }
+      : {
+          balance: "Balance Bike",
+          bicycle: "Pedal Bike",
+          scooter: "Kick Scooter",
+          stroller: "Kids Stroller",
+          electric_car: "Kids Electric Car",
+          tricycle: "Tricycle",
+          safety_seat: "Kids Car Seat",
+          kids_tricycles: "Kids Tricycle",
+          kids_bikes: "Kids Bike",
+          balance_bike: "Balance Bike",
+          car_seat: "Kids Car Seat",
+          electric_vehicles: "Kids Electric Car",
+          kids_scooters: "Kids Scooter",
+          scooters: "Kids Scooter",
+        };
     if (fallbackMap[normalized]) {
       return fallbackMap[normalized];
     }
 
-    return normalized
+    const titleized = normalized
       .split("_")
       .filter(Boolean)
       .map((token) => token.charAt(0).toUpperCase() + token.slice(1))
       .join(" ");
+    return lang === "zh" ? normalizeCategoryLabelForZh(titleized) : titleized;
   };
 
   const parseAgeRangeYears = (ageRange: string): { min: number; max: number } | null => {
@@ -751,7 +858,7 @@ export default function ProductsSection({
   };
 
   const categories = useMemo(() => {
-    const allLabel = lang === "en" ? "📁 All Products" : "📁 全部产品";
+    const allLabel = productsCopy.allProductsLabel;
     const idSet = new Set<string>();
 
     for (const id of preferredVisibleCategoryIds) {
@@ -784,9 +891,11 @@ export default function ProductsSection({
 
   const getCategoryLabel = (categoryId: string, categoryCode: ProductCategory) => {
     const fromCategoryId = humanizeCategoryId(categoryId);
-    const label = fromCategoryId && fromCategoryId !== categoryId
+    const rawLabel = fromCategoryId && fromCategoryId !== categoryId
       ? fromCategoryId
       : translateCategory(categoryCode, lang);
+
+    const label = lang === "zh" ? normalizeCategoryLabelForZh(rawLabel) : rawLabel;
 
     if (lang !== "en") return label;
     const singularMap: Record<string, string> = {
@@ -812,8 +921,8 @@ export default function ProductsSection({
 
   const getCategoryPriority = (categoryId: string) => {
     const normalized = String(categoryId || "").trim().toLowerCase();
-    if (normalized.includes("stroller")) return 0;
-    if (normalized.includes("balance")) return 1;
+    if (includesAny(normalized, productLogicTokens.categorySignals.stroller)) return 0;
+    if (includesAny(normalized, productLogicTokens.categorySignals.balance)) return 1;
     return 2;
   };
 
@@ -823,14 +932,11 @@ export default function ProductsSection({
       .map((item) => String(item || "").toLowerCase())
       .join(" ");
 
-    const isStroller = normalizedCategory.includes("stroller");
-    const isBalanceBike = normalizedCategory.includes("balance");
+    const isStroller = includesAny(normalizedCategory, productLogicTokens.categorySignals.stroller);
+    const isBalanceBike = includesAny(normalizedCategory, productLogicTokens.categorySignals.balance);
 
-    const travelSignals = ["travel stroller", "lightweight stroller", "umbrella stroller", "compact stroller", "cabin", "portable", "travel", "lightweight", "umbrella", "轻便", "旅行", "便携"];
-    const heavySignals = ["jogger", "jogging", "double twin stroller", "double", "twin stroller", "twin", "双人", "慢跑"];
-
-    const hasTravelSignal = travelSignals.some((kw) => text.includes(kw));
-    const hasHeavySignal = heavySignals.some((kw) => text.includes(kw));
+    const hasTravelSignal = includesAny(text, productLogicTokens.travelSignals);
+    const hasHeavySignal = includesAny(text, productLogicTokens.heavySignals);
 
     if (isStroller && hasTravelSignal && !hasHeavySignal) return 0;
     if (isBalanceBike) return 1;
@@ -841,31 +947,28 @@ export default function ProductsSection({
 
   const isTravelStrollerCandidate = (categoryId: string, product: Product) => {
     const normalizedCategory = String(categoryId || "").trim().toLowerCase();
-    if (!normalizedCategory.includes("stroller")) {
+    if (!includesAny(normalizedCategory, productLogicTokens.categorySignals.stroller)) {
       return false;
     }
 
     const text = [product.name, product.editorVerdict, product.brand]
       .map((item) => String(item || "").toLowerCase())
       .join(" ");
-    const travelSignals = ["travel stroller", "lightweight stroller", "umbrella stroller", "compact stroller", "cabin", "portable", "travel", "lightweight", "umbrella", "轻便", "旅行", "便携"];
-    const heavySignals = ["jogger", "jogging", "double twin stroller", "double", "twin stroller", "twin", "双人", "慢跑"];
-
-    const hasTravelSignal = travelSignals.some((kw) => text.includes(kw));
-    const hasHeavySignal = heavySignals.some((kw) => text.includes(kw));
+    const hasTravelSignal = includesAny(text, productLogicTokens.travelSignals);
+    const hasHeavySignal = includesAny(text, productLogicTokens.heavySignals);
     return hasTravelSignal && !hasHeavySignal;
   };
 
   const isBalanceBikeCandidate = (categoryId: string, product: Product) => {
     const normalizedCategory = String(categoryId || "").trim().toLowerCase();
-    if (normalizedCategory.includes("balance")) {
+    if (includesAny(normalizedCategory, productLogicTokens.categorySignals.balance)) {
       return true;
     }
 
     const text = [product.name, product.editorVerdict, product.brand]
       .map((item) => String(item || "").toLowerCase())
       .join(" ");
-    return text.includes("balance bike") || text.includes("平衡车");
+    return includesAny(text, productLogicTokens.balanceSignals);
   };
 
   const rebalanceFirstPageIntentMix = (
@@ -920,20 +1023,20 @@ export default function ProductsSection({
     });
 
     const balanceToddlerPool = sortedItems.filter((item) => {
-      return item.sourceCategoryId === "balance_bike" || String(item.product.category || "").toLowerCase().includes("balance");
+      return item.sourceCategoryId === "balance_bike" || includesAny(String(item.product.category || "").toLowerCase(), productLogicTokens.categorySignals.balance);
     });
 
     const twinStrollerPool = sortedItems.filter((item) => {
-      const isStroller = item.sourceCategoryId === "stroller" || String(item.product.category || "").toLowerCase().includes("stroller");
+      const isStroller = item.sourceCategoryId === "stroller" || includesAny(String(item.product.category || "").toLowerCase(), productLogicTokens.categorySignals.stroller);
       const nameLower = item.product.name.toLowerCase();
-      const isTwin = nameLower.includes("twin") || nameLower.includes("double") || nameLower.includes("sibling");
+      const isTwin = includesAny(nameLower, productLogicTokens.twinSignals);
       return isStroller && isTwin;
     });
 
     const kidsElectricScooterPool = sortedItems.filter((item) => {
       const nameLower = item.product.name.toLowerCase();
       const isScooter = item.sourceCategoryId === "kids_scooters" || item.sourceCategoryId === "scooters";
-      const isElectric = nameLower.includes("electric") || nameLower.includes("motorized") || nameLower.includes("battery") || nameLower.includes("e-scooter") || nameLower.includes("e-bike") || item.product.id.toLowerCase().includes("mx350");
+      const isElectric = includesAny(nameLower, productLogicTokens.electricSignals) || includesAny(item.product.id.toLowerCase(), productLogicTokens.electricSignals);
       return isScooter && isElectric;
     });
 
@@ -1146,12 +1249,12 @@ export default function ProductsSection({
 
         let matchesType = true;
         if (selectedType === "twin") {
-          matchesType = p.name.toLowerCase().includes("twin") || p.name.toLowerCase().includes("double") || p.name.toLowerCase().includes("sibling");
+          matchesType = includesAny(p.name.toLowerCase(), productLogicTokens.twinSignals);
         }
 
         let matchesPower = true;
         if (selectedPower === "electric") {
-          matchesPower = p.name.toLowerCase().includes("electric") || p.name.toLowerCase().includes("motorized") || p.name.toLowerCase().includes("battery") || p.name.toLowerCase().includes("e-scooter") || p.name.toLowerCase().includes("e-bike") || p.id.toLowerCase().includes("mx350");
+          matchesPower = includesAny(p.name.toLowerCase(), productLogicTokens.electricSignals) || includesAny(p.id.toLowerCase(), productLogicTokens.electricSignals);
         }
 
         const needsCategoryFacetFilter = selectedCategory !== "all";
@@ -1264,10 +1367,10 @@ export default function ProductsSection({
   const safePage = Math.min(Math.max(1, currentPage), totalPages);
   const pagedProducts = filteredProducts.slice((safePage - 1) * pageSize, safePage * pageSize);
   const productsSeoPillTags = [
-    { label: "BALANCE BIKE TODDLER", target: "balance_bike" },
-    { label: "TWIN STROLLER", target: "stroller" },
-    { label: "TODDLER BIKE", target: "kids_bikes" },
-    { label: "KIDS ELECTRIC SCOOTER", target: "kids_scooters" },
+    { id: "balance_bike_toddler", label: productsCopy.seoPills.balanceBikeToddler, target: "balance_bike" },
+    { id: "twin_stroller", label: productsCopy.seoPills.twinStroller, target: "stroller" },
+    { id: "toddler_bike", label: productsCopy.seoPills.toddlerBike, target: "kids_bikes" },
+    { id: "kids_electric_scooter", label: productsCopy.seoPills.kidsElectricScooter, target: "kids_scooters" },
   ];
 
   // Compare toggles (allows up to 4 items!)
@@ -1297,11 +1400,7 @@ export default function ProductsSection({
 
       // 2. Max limits warning toast
       if (compareList.length >= 4) {
-        showSaveTip(
-          lang === "en" 
-            ? "Limit reached: You can compare up to 4 models. Please remove one first." 
-            : "【对比上限提醒】最多只能同时对比 4 款，请先在下方移除一个。"
-        );
+        showSaveTip(productsCopy.compareLimitTip);
         return;
       }
       newList = [...compareList, product];
@@ -1320,17 +1419,17 @@ export default function ProductsSection({
   const handleToggleSave = (product: Product, e: React.MouseEvent) => {
     e.stopPropagation();
     if (!userEmail) {
-      showSaveTip(lang === "en" ? "Log in to save products." : "请先注册/登录后收藏产品。");
+      showSaveTip(productsCopy.saveTips.loginRequired);
       return;
     }
 
     const alreadySaved = savedProducts.some(s => s.id === product.id);
     if (alreadySaved) {
       setSavedProducts(savedProducts.filter(s => s.id !== product.id));
-      showSaveTip(lang === "en" ? "Removed from saved list." : "已从收藏列表移除。");
+      showSaveTip(productsCopy.saveTips.removed);
     } else {
       setSavedProducts([...savedProducts, product]);
-      showSaveTip(lang === "en" ? "Saved. View it in your member center." : "已收藏，可在会员中心查看。");
+      showSaveTip(productsCopy.saveTips.saved);
     }
   };
 
@@ -1340,7 +1439,7 @@ export default function ProductsSection({
       {(() => {
         const items: { label: string; active: boolean; onClick?: () => void }[] = [
           {
-            label: lang === "zh" ? "产品列表" : "PRODUCTS",
+            label: productsCopy.breadcrumbsProducts,
             active: selectedCategory === "all",
             onClick: () => handleCategorySelect("all"),
           },
@@ -1365,20 +1464,16 @@ export default function ProductsSection({
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(249,115,22,0.15),transparent)]"></div>
         <div className="relative z-10 space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-orange-500/10 border border-orange-500/20 text-orange-400 text-[10px] font-black uppercase tracking-widest rounded-full shadow-inner font-mono">
-            ★ OFFICIAL MOBILITY BASELINE DATABASE
+            {productsCopy.topBadge}
           </div>
 
           <h1 className="text-xl md:text-2xl font-black tracking-tight leading-tight max-w-5xl">
-            {lang === "zh"
-              ? "专家产品中心：儿童自行车、双胞胎双人推车及儿童电动车"
-              : "Expert Product Hub: Kids' Bike, Twin Stroller & Kids Electric Scooter"}
+            {productsCopy.heroTitle}
           </h1>
 
           <div className="border-l-2 border-orange-500 pl-4 space-y-2">
             <p className="text-slate-300 text-xs md:text-sm font-semibold max-w-5xl leading-relaxed italic">
-              {lang === "zh"
-                ? "经过独立实验室物理安全检测的儿童自行车、平衡车、双胞胎双人手推车及儿童电动滑板车的科学测评数据整合模型。"
-                : "Independent lab-tested evaluations for toddler bike, balance bike, twin stroller, and kids electric scooter."}
+              {productsCopy.heroSubtitle}
             </p>
           </div>
 
@@ -1394,13 +1489,13 @@ export default function ProductsSection({
                   
                   let targetPath = `/products/${pill.target}`;
                   let searchString = "";
-                  if (pill.label === "BALANCE BIKE TODDLER") {
+                  if (pill.id === "balance_bike_toddler") {
                     searchString = "?age=toddler";
-                  } else if (pill.label === "TWIN STROLLER") {
+                  } else if (pill.id === "twin_stroller") {
                     searchString = "?type=twin";
-                  } else if (pill.label === "TODDLER BIKE") {
+                  } else if (pill.id === "toddler_bike") {
                     searchString = "?age=toddler";
-                  } else if (pill.label === "KIDS ELECTRIC SCOOTER") {
+                  } else if (pill.id === "kids_electric_scooter") {
                     searchString = "?power=electric";
                   }
 
@@ -1442,9 +1537,7 @@ export default function ProductsSection({
             {/* Search */}
             <div className="space-y-2 text-left">
               <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block">
-                {lang === "zh"
-                  ? "搜索童车和婴儿推车"
-                  : "Search Products"}
+                {productsCopy.searchLabel}
               </span>
               <div className="relative">
                 <Search className="w-4 h-4 text-slate-400 absolute left-4 top-3.5" />
@@ -1452,7 +1545,7 @@ export default function ProductsSection({
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder={lang === "en" ? "SEARCH PRODUCTS..." : "搜寻型号..."}
+                  placeholder={productsCopy.searchPlaceholder}
                   className="w-full bg-slate-50 border border-slate-150 rounded-2xl pl-10 pr-4 py-2.5 text-xs text-slate-900 font-bold placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:bg-white transition-all uppercase tracking-tight"
                 />
               </div>
@@ -1461,26 +1554,26 @@ export default function ProductsSection({
             {/* Sort */}
             <div className="space-y-2">
               <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans">
-                {lang === "zh" ? "排序条件规划" : "SORT ORDER"}
+                {productsCopy.sortLabel}
               </span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
                 className="w-full bg-slate-50 border border-slate-150 rounded-2xl px-4 py-2.5 text-[10px] text-slate-900 font-black uppercase tracking-wider focus:outline-none focus:ring-2 focus:ring-orange-500/20 cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap"
-                title={lang === "en" ? "Sort products" : "排序产品"}
-                aria-label={lang === "en" ? "Sort products" : "排序产品"}
+                title={productsCopy.sortAria}
+                aria-label={productsCopy.sortAria}
               >
-                <option value="overallScore">{lang === "en" ? "🏆 TOP RATED" : "🏆 专家综合推荐"}</option>
-                <option value="weightAsc">{lang === "en" ? "⚖️ LIGHTWEIGHT" : "⚖️ 极轻量优先"}</option>
-                <option value="priceDesc">{lang === "en" ? "💰 LUXURY FIRST" : "💰 顶级奢选"}</option>
-                <option value="priceAsc">{lang === "en" ? "💎 BEST VALUE" : "💎 卓越性价比"}</option>
+                <option value="overallScore">{productsCopy.sortOptions.topRated}</option>
+                <option value="weightAsc">{productsCopy.sortOptions.lightweight}</option>
+                <option value="priceDesc">{productsCopy.sortOptions.luxuryFirst}</option>
+                <option value="priceAsc">{productsCopy.sortOptions.bestValue}</option>
               </select>
             </div>
 
             {/* Category selection */}
             <div className="space-y-2 border-t border-slate-100 pt-4">
               <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block pl-1">
-                {lang === "zh" ? "核心品类精选" : "Categories"}
+                {productsCopy.categoriesLabel}
               </span>
               <div className="flex flex-col gap-1">
                 {categories.map((c) => (
@@ -1502,13 +1595,13 @@ export default function ProductsSection({
             {/* Advanced Filters */}
             <div className="space-y-4 border-t border-slate-100 pt-4">
               <div className="space-y-1.5">
-                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{lang === "zh" ? "适龄跨度" : "Age Bridge"}</span>
+                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.ageLabel}</span>
                 <div className="grid grid-cols-2 gap-1.5 font-sans">
                   {[
-                    { id: "all", label: lang === "zh" ? "全部" : "ALL" },
-                    { id: "baby", label: lang === "zh" ? "婴幼儿" : "0-2 Y" },
-                    { id: "toddler", label: lang === "zh" ? "小童" : "2-5 Y" },
-                    { id: "child", label: lang === "zh" ? "中大童" : "5+ Y" },
+                    { id: "all", label: productsCopy.ageOptions.all },
+                    { id: "baby", label: productsCopy.ageOptions.baby },
+                    { id: "toddler", label: productsCopy.ageOptions.toddler },
+                    { id: "child", label: productsCopy.ageOptions.child },
                   ].map(age => (
                     <button 
                       key={age.id}
@@ -1524,13 +1617,13 @@ export default function ProductsSection({
               </div>
 
               <div className="space-y-1.5">
-                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{lang === "zh" ? "预算区间" : "Price Filter"}</span>
+                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.priceLabel}</span>
                 <div className="grid grid-cols-2 gap-1.5 font-sans">
                   {[
-                    { id: "all", label: lang === "zh" ? "全部" : "ALL" },
-                    { id: "budget", label: lang === "zh" ? "大众" : "BUDGET" },
-                    { id: "mid", label: lang === "zh" ? "中端" : "MID" },
-                    { id: "premium", label: lang === "zh" ? "极致" : "PREMIUM" },
+                    { id: "all", label: productsCopy.priceOptions.all },
+                    { id: "budget", label: productsCopy.priceOptions.budget },
+                    { id: "mid", label: productsCopy.priceOptions.mid },
+                    { id: "premium", label: productsCopy.priceOptions.premium },
                   ].map(p => (
                     <button 
                       key={p.id}
@@ -1548,15 +1641,15 @@ export default function ProductsSection({
               {selectedCategory !== "all" && (
                 <div className="space-y-3 pt-2 border-t border-slate-100">
                   <div className="space-y-1">
-                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{lang === "zh" ? "品牌" : "Brand"}</span>
+                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.brandLabel}</span>
                     <select
                       value={selectedBrand}
                       onChange={(e) => setSelectedBrand(e.target.value)}
-                      title={lang === "zh" ? "选择品牌" : "Select brand"}
-                      aria-label={lang === "zh" ? "选择品牌" : "Select brand"}
+                      title={productsCopy.filterFacets.selectBrand}
+                      aria-label={productsCopy.filterFacets.selectBrand}
                       className="w-full px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
                     >
-                      <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
+                      <option value="all">{productsCopy.filterFacets.allOption}</option>
                       {categoryFilterOptions.brands.map((item) => (
                         <option key={item} value={item}>{item}</option>
                       ))}
@@ -1564,15 +1657,15 @@ export default function ProductsSection({
                   </div>
 
                   <div className="space-y-1">
-                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{lang === "zh" ? "车架材质" : "Frame"}</span>
+                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.frameLabel}</span>
                     <select
                       value={selectedFrameMaterial}
                       onChange={(e) => setSelectedFrameMaterial(e.target.value)}
-                      title={lang === "zh" ? "选择车架材质" : "Select frame material"}
-                      aria-label={lang === "zh" ? "选择车架材质" : "Select frame material"}
+                      title={productsCopy.filterFacets.selectFrame}
+                      aria-label={productsCopy.filterFacets.selectFrame}
                       className="w-full px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
                     >
-                      <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
+                      <option value="all">{productsCopy.filterFacets.allOption}</option>
                       {categoryFilterOptions.frameMaterials.map((item) => (
                         <option key={item} value={item}>{item}</option>
                       ))}
@@ -1580,15 +1673,15 @@ export default function ProductsSection({
                   </div>
 
                   <div className="space-y-1">
-                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{lang === "zh" ? "轮胎类型" : "Tire"}</span>
+                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.tireLabel}</span>
                     <select
                       value={selectedTireType}
                       onChange={(e) => setSelectedTireType(e.target.value)}
-                      title={lang === "zh" ? "选择轮胎类型" : "Select tire type"}
-                      aria-label={lang === "zh" ? "选择轮胎类型" : "Select tire type"}
+                      title={productsCopy.filterFacets.selectTire}
+                      aria-label={productsCopy.filterFacets.selectTire}
                       className="w-full px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
                     >
-                      <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
+                      <option value="all">{productsCopy.filterFacets.allOption}</option>
                       {categoryFilterOptions.tireTypes.map((item) => (
                         <option key={item} value={item}>{item}</option>
                       ))}
@@ -1596,15 +1689,15 @@ export default function ProductsSection({
                   </div>
 
                   <div className="space-y-1">
-                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{lang === "zh" ? "制动系统" : "Brake"}</span>
+                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.brakeLabel}</span>
                     <select
                       value={selectedBrakeSystem}
                       onChange={(e) => setSelectedBrakeSystem(e.target.value)}
-                      title={lang === "zh" ? "选择制动系统" : "Select braking system"}
-                      aria-label={lang === "zh" ? "选择制动系统" : "Select braking system"}
+                      title={productsCopy.filterFacets.selectBrake}
+                      aria-label={productsCopy.filterFacets.selectBrake}
                       className="w-full px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
                     >
-                      <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
+                      <option value="all">{productsCopy.filterFacets.allOption}</option>
                       {categoryFilterOptions.brakeSystems.map((item) => (
                         <option key={item} value={item}>{item}</option>
                       ))}
@@ -1612,15 +1705,15 @@ export default function ProductsSection({
                   </div>
 
                   <div className="space-y-1">
-                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{lang === "zh" ? "轮径" : "Wheel"}</span>
+                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.wheelLabel}</span>
                     <select
                       value={selectedWheelSize}
                       onChange={(e) => setSelectedWheelSize(e.target.value)}
-                      title={lang === "zh" ? "选择轮径" : "Select wheel size"}
-                      aria-label={lang === "zh" ? "选择轮径" : "Select wheel size"}
+                      title={productsCopy.filterFacets.selectWheel}
+                      aria-label={productsCopy.filterFacets.selectWheel}
                       className="w-full px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
                     >
-                      <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
+                      <option value="all">{productsCopy.filterFacets.allOption}</option>
                       {categoryFilterOptions.wheelSizes.map((item) => (
                         <option key={item} value={item}>{item}</option>
                       ))}
@@ -1628,15 +1721,15 @@ export default function ProductsSection({
                   </div>
 
                   <div className="space-y-1">
-                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{lang === "zh" ? "安全认证" : "Certification"}</span>
+                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.certificationLabel}</span>
                     <select
                       value={selectedCertification}
                       onChange={(e) => setSelectedCertification(e.target.value)}
-                      title={lang === "zh" ? "选择安全认证" : "Select certification"}
-                      aria-label={lang === "zh" ? "选择安全认证" : "Select certification"}
+                      title={productsCopy.filterFacets.selectCertification}
+                      aria-label={productsCopy.filterFacets.selectCertification}
                       className="w-full px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
                     >
-                      <option value="all">{lang === "zh" ? "全部" : "ALL"}</option>
+                      <option value="all">{productsCopy.filterFacets.allOption}</option>
                       {categoryFilterOptions.certifications.map((item) => (
                         <option key={item} value={item}>{item}</option>
                       ))}
@@ -1654,7 +1747,7 @@ export default function ProductsSection({
             <div className="p-20 text-center bg-white border border-slate-100 rounded-3xl shadow-sm">
               <span className="text-3xl block mb-3">🔍</span>
               <p className="text-slate-400 font-extrabold uppercase tracking-wide text-xs">
-                {lang === "en" ? "No matches in global database" : "全球数据库中暂无特定匹配项"}
+                {productsCopy.noMatches}
               </p>
               <button 
                 type="button"
@@ -1671,7 +1764,7 @@ export default function ProductsSection({
                 }}
                 className="mt-4 inline-flex items-center gap-2 px-6 py-2.5 bg-slate-900 text-white hover:bg-orange-500 rounded-full text-xs font-bold transition-colors cursor-pointer"
               >
-                {lang === "en" ? "Reset All Filters" : "清空全部过滤条件"}
+                {productsCopy.resetFilters}
               </button>
             </div>
           ) : (
@@ -1679,15 +1772,13 @@ export default function ProductsSection({
               <div id="expert-picks-anchor" className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left bg-gradient-to-r from-orange-50/20 via-slate-50/10 to-transparent p-6 rounded-3xl border border-slate-100">
                 <div className="space-y-1">
                   <h2 className="text-xl font-black text-slate-900 flex flex-wrap items-center gap-2">
-                    <span>{lang === "en" ? "Expert Product Picks" : "专家产品精选"}</span>
+                    <span>{productsCopy.expertPicks}</span>
                     <span className="px-2.5 py-0.5 rounded-full bg-orange-100 text-orange-600 border border-orange-200/50 text-[10px] font-black">
                       {filteredProducts.length} / {categoryBaseCount}
                     </span>
                   </h2>
                   <p className="text-[10px] text-slate-400 font-semibold max-w-xl">
-                    {lang === "en" 
-                      ? "📊 Metrics index: 🧪 Score | 📦 Capacity limits | 🛡️ Compliance certified"
-                      : "📊 物理实测：🧪 实验室综合评分 | 📦 承重性能参数 | 🛡️ 全球体系安全准入合规验证"}
+                    {productsCopy.metricsHint}
                   </p>
                 </div>
               </div>
@@ -1716,7 +1807,7 @@ export default function ProductsSection({
                 }}
                 role="button"
                 tabIndex={0}
-                aria-label={lang === "en" ? `View full metrics for ${diProduct.name}` : `查看 ${diProduct.name} 的完整参数`}
+                aria-label={`${productsCopy.productCard.viewMetricsAriaPrefix} ${diProduct.name}`}
                 className="bg-white border border-slate-100 hover:border-orange-100 rounded-[56px] p-8 flex flex-col justify-between space-y-8 hover:shadow-[0_48px_80px_-24px_rgba(249,115,22,0.12)] transition-all duration-500 group text-left cursor-pointer relative animate-fade-in overflow-hidden"
               >
                 <div className="absolute top-0 right-0 w-24 h-24 bg-orange-50 rounded-bl-[60px] opacity-0 group-hover:opacity-100 transition-opacity translate-x-4 -translate-y-4"></div>
@@ -1758,13 +1849,13 @@ export default function ProductsSection({
 
                           <div className="pt-3 border-t border-dashed border-slate-100 flex items-center justify-between text-xs font-bold text-slate-600">
                             <div className="flex items-center gap-1">
-                              <span className="shrink-0" title={lang === "zh" ? "综合评分" : "Score"}>🧪</span>
+                              <span className="shrink-0" title={productsCopy.productCard.scoreTitle}>🧪</span>
                               <span className="text-slate-900 font-extrabold bg-amber-50 border border-amber-100/50 px-2 py-0.5 rounded text-[10px]">
                                 {diProduct.overallScore ? diProduct.overallScore.toFixed(1) : "9.4"}
                               </span>
                             </div>
                             <div className="flex items-center gap-1">
-                              <span className="shrink-0" title={lang === "zh" ? "承载重量" : "Capacity"}>📦</span>
+                              <span className="shrink-0" title={productsCopy.productCard.capacityTitle}>📦</span>
                               <span className="text-slate-700 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded text-[10px] font-extrabold">
                                 {resolveCapacityNumeric(diProduct)}
                               </span>
@@ -1794,7 +1885,7 @@ export default function ProductsSection({
 
                             <div className="flex items-center justify-between text-xs font-bold">
                               <div className="flex items-center gap-1">
-                                <span title={lang === "zh" ? "承载重量" : "Capacity"}>📦</span>
+                                <span title={productsCopy.productCard.capacityTitle}>📦</span>
                                 <span className="px-2 py-0.5 rounded bg-slate-50 border border-slate-100 text-[10px] font-extrabold text-slate-700">
                                   {resolveCapacityNumeric(diProduct)}
                                 </span>
@@ -1821,10 +1912,10 @@ export default function ProductsSection({
                           onOpenAdminProductEditor(p);
                         }}
                         className="px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-[10px] font-black uppercase tracking-widest text-slate-600 hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-colors"
-                        title={lang === "en" ? "Edit in Admin" : "后台编辑"}
-                        aria-label={lang === "en" ? "Edit in Admin" : "后台编辑"}
+                        title={productsCopy.productCard.adminEditTitle}
+                        aria-label={productsCopy.productCard.adminEditTitle}
                       >
-                        {lang === "en" ? "Admin Edit" : "后台编辑"}
+                        {productsCopy.productCard.adminEditLabel}
                       </button>
                     )}
                     <button
@@ -1837,8 +1928,8 @@ export default function ProductsSection({
                             ? "bg-slate-50 border-slate-100 text-slate-300 cursor-not-allowed"
                           : "bg-white border-slate-100 text-slate-400 hover:text-orange-500 hover:border-orange-200"
                       }`}
-                      title={lang === "en" ? "Add to compare" : "加入对比"}
-                      aria-label={lang === "en" ? "Add to compare" : "加入对比"}
+                      title={productsCopy.productCard.compareAria}
+                      aria-label={productsCopy.productCard.compareAria}
                     >
                       <Scale className="w-5 h-5" />
                     </button>
@@ -1849,8 +1940,8 @@ export default function ProductsSection({
                           ? "bg-rose-500 border-rose-400 text-white shadow-xl shadow-rose-500/20"
                           : "bg-white border-slate-100 text-slate-400 hover:text-rose-500 hover:border-rose-200"
                       }`}
-                      title={lang === "en" ? "Save product" : "收藏产品"}
-                      aria-label={lang === "en" ? "Save product" : "收藏产品"}
+                      title={productsCopy.productCard.saveAria}
+                      aria-label={productsCopy.productCard.saveAria}
                     >
                       <Bookmark className="w-5 h-5 fill-current" />
                     </button>
@@ -1868,7 +1959,7 @@ export default function ProductsSection({
               onClick={() => onPageChange?.(Math.max(1, safePage - 1))}
               disabled={safePage <= 1}
               className="w-10 h-10 rounded-2xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center"
-              aria-label={lang === "en" ? "Go to previous page" : "上一页"}
+              aria-label={productsCopy.pagination.prevPageAria}
             >
               <svg aria-hidden="true" viewBox="0 0 20 20" className="w-4 h-4" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12.5 4.5L7 10L12.5 15.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
@@ -1880,7 +1971,7 @@ export default function ProductsSection({
               aria-valuemin={1}
               aria-valuemax={totalPages}
               aria-valuenow={safePage}
-              aria-label={lang === "en" ? `Page ${safePage} of ${totalPages}` : `第 ${safePage} 页，共 ${totalPages} 页`}
+              aria-label={productsCopy.pagination.pageAriaTemplate.replace("{current}", String(safePage)).replace("{total}", String(totalPages))}
             >
               <div
                 className="h-full bg-slate-900 rounded-full transition-all"
@@ -1891,7 +1982,7 @@ export default function ProductsSection({
               onClick={() => onPageChange?.(Math.min(totalPages, safePage + 1))}
               disabled={safePage >= totalPages}
               className="w-10 h-10 rounded-2xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center"
-              aria-label={lang === "en" ? "Go to next page" : "下一页"}
+              aria-label={productsCopy.pagination.nextPageAria}
             >
               <svg aria-hidden="true" viewBox="0 0 20 20" className="w-4 h-4" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7.5 4.5L13 10L7.5 15.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
@@ -1912,10 +2003,10 @@ export default function ProductsSection({
             </div>
             <div>
               <h2 className="text-2xl font-black text-slate-900 tracking-tight">
-                {lang === "zh" ? "最近浏览车款" : "Recently Viewed Product"}
+                {productsCopy.history.title}
               </h2>
               <p className="text-slate-400 text-xs font-semibold">
-                {lang === "zh" ? "您最近查看过的物理测试细节档案（保存在浏览器中）" : "Quickly retrieve strollers you investigated recently (Cached in your browser)"}
+                {productsCopy.history.subtitle}
               </p>
             </div>
           </div>
