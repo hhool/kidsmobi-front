@@ -194,10 +194,19 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             <p className="text-slate-500 text-sm font-medium max-w-xl leading-relaxed">
                 We welcome meaningful collaborations that prioritize child safety. This includes lab certification sharing, industry report syndication, and media partnerships.
             </p>
-            <div className="flex gap-4">
-                <button className="px-8 py-3 bg-slate-900 text-white rounded-2xl font-black text-sm hover:scale-105 transition-all shadow-xl shadow-slate-900/10">
-                    Contact Us
-                </button>
+            <div className="flex flex-col items-center gap-3">
+                <a
+                  href="mailto:contact@balancebiketoddler.com"
+                  className="px-8 py-3 bg-slate-900 text-white rounded-2xl font-black text-sm hover:scale-105 transition-all shadow-xl shadow-slate-900/10"
+                >
+                  Contact Us
+                </a>
+                <a
+                  href="mailto:contact@balancebiketoddler.com"
+                  className="text-sm font-semibold text-slate-700 hover:text-orange-600 underline underline-offset-4 decoration-orange-300"
+                >
+                  contact@balancebiketoddler.com
+                </a>
             </div>
         </section>
 
@@ -390,10 +399,19 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
           <p className="text-slate-500 text-sm font-medium max-w-xl leading-relaxed">
               我们欢迎任何以“守护儿童骑行安全”为前提的共建合作。包括实验室认证互认、行业报告联合发布以及媒体专项评测。
           </p>
-          <div className="flex gap-4">
-              <button className="px-8 py-3 bg-slate-900 text-white rounded-2xl font-black text-sm hover:scale-105 transition-all shadow-xl shadow-slate-900/10">
+          <div className="flex flex-col items-center gap-3">
+              <a
+                href="mailto:contact@balancebiketoddler.com"
+                className="px-8 py-3 bg-slate-900 text-white rounded-2xl font-black text-sm hover:scale-105 transition-all shadow-xl shadow-slate-900/10"
+              >
                   联系我们
-              </button>
+              </a>
+              <a
+                href="mailto:contact@balancebiketoddler.com"
+                className="text-sm font-semibold text-slate-700 hover:text-orange-600 underline underline-offset-4 decoration-orange-300"
+              >
+                contact@balancebiketoddler.com
+              </a>
           </div>
       </section>
 
