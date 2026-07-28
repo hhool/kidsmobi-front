@@ -611,13 +611,13 @@ export default function NewsSection({
               </div>
               
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight drop-shadow-md">
-                {lang === "en" ? "E-Mobility News: Kids Electric Bike & Scooter Trends" : "全球交通工具动态：儿童电单车与电动滑板车资讯观察"}
+                {lang === "en" ? "E-Mobility News: Kids Electric Bike & Scooter Trends" : "全球童车动态：儿童电单车与电动滑板车资讯观察"}
               </h1>
               
               <p className="text-slate-200 text-xs sm:text-sm md:text-base max-w-3xl mx-auto leading-relaxed font-semibold drop-shadow-sm">
                 {lang === "en"
                   ? "Track industry updates for a premium kids electric bike or a rugged electric dirt bike for kids. We also review foldable electric scooter launches and kids e-scooter safety data."
-                  : "深度追踪全球童车及推车（越野电动童车、轻量化滑步车、多档悬挂阻尼车架、折叠电动滑板车及儿童推车）行业标准，权威输出基于源头制造供应链的硬核品质指南。。"}
+                  : "深度追踪全球童车及推车（越野电动童车、轻量化滑步车、多档悬挂阻尼车架、折叠电动滑板车及儿童推车）行业标准，权威输出基于源头制造供应链的硬核品质指南。"}
               </p>
 
               {/* Categorization dynamic tabs bar strictly in ordered layout */}

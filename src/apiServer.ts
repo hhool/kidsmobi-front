@@ -3,9 +3,10 @@ import { guideArticles } from "./data/guidesData.js";
 import { newsArticles } from "./data/newsData.js";
 import { productsData } from "./data/modelsData.js";
 import { initialEvaluationsData } from "./data/evaluationsData.js";
-import type { CMSCategory, CMSProduct, CMSScenario, CMSSettings, ComplianceTag, Evaluation, Guide, HomeSlot, News, Product, ProductCategory } from "./types.js";
+import type { CMSCategory, CMSProduct, CMSScenario, CMSSettings, ComplianceTag, Evaluation, Guide, GuideTopicCategory, HomeSlot, News, Product, ProductCategory } from "./types.js";
 import { DEFAULT_SEO_CONFIGS } from "./config/defaultSeo.js";
 import dotenv from "dotenv";
+import { createHash, randomInt } from "crypto";
 
 // Load environment variables
 dotenv.config();
@@ -193,6 +194,94 @@ const D1_COLLECTIONS: D1Collection[] = [
   "settings",
 ];
 
+const AUTH_CODE_EXPIRES_SEC = 5 * 60;
+const AUTH_CODE_COOLDOWN_SEC = 60;
+const AUTH_CODE_MAX_ATTEMPTS = 6;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function normalizeEmailAddress(value: unknown): string {
+  return String(value || "").trim().toLowerCase();
+}
+
+function isValidEmailAddress(value: string): boolean {
+  return EMAIL_PATTERN.test(value);
+}
+
+function getAuthCodePepper(): string {
+  return String(process.env.AUTH_EMAIL_CODE_PEPPER || process.env.CLOUDFLARE_API_TOKEN || "").trim();
+}
+
+function hashEmailVerificationCode(email: string, code: string): string {
+  return createHash("sha256").update(`${getAuthCodePepper()}|${email}|${code}`).digest("hex");
+}
+
+function formatUtcIsoAfter(seconds: number): string {
+  return new Date(Date.now() + Math.max(0, seconds) * 1000).toISOString();
+}
+
+function secondsUntil(isoTime: string): number {
+  const ms = new Date(isoTime).getTime() - Date.now();
+  if (!Number.isFinite(ms)) return 0;
+  return Math.max(0, Math.ceil(ms / 1000));
+}
+
+function getEmailProviderConfig() {
+  const provider = String(process.env.AUTH_EMAIL_PROVIDER || "resend").trim().toLowerCase();
+  const from = String(process.env.AUTH_EMAIL_FROM || "").trim();
+  const resendApiKey = String(process.env.RESEND_API_KEY || "").trim();
+  return { provider, from, resendApiKey };
+}
+
+async function sendVerificationEmailViaProvider(toEmail: string, code: string): Promise<void> {
+  const { provider, from, resendApiKey } = getEmailProviderConfig();
+
+  if (!from) {
+    throw new Error("AUTH_EMAIL_FROM is not configured.");
+  }
+
+  const subjectPrefix = String(process.env.AUTH_EMAIL_SUBJECT_PREFIX || "KIDSMOBI").trim();
+  const subject = `[${subjectPrefix}] Your verification code`;
+  const text = `Your KIDSMOBI verification code is ${code}. It expires in 5 minutes.`;
+  const html = `
+    <div style="font-family:Arial,sans-serif;line-height:1.6;color:#111">
+      <h2 style="margin:0 0 12px">KIDSMOBI Verification Code</h2>
+      <p style="margin:0 0 10px">Use the following code to complete your registration:</p>
+      <div style="font-size:28px;font-weight:700;letter-spacing:4px;margin:8px 0 14px">${code}</div>
+      <p style="margin:0 0 8px">This code expires in 5 minutes.</p>
+      <p style="margin:0;color:#666;font-size:12px">If you did not request this code, you can ignore this email.</p>
+    </div>
+  `;
+
+  if (provider === "resend") {
+    if (!resendApiKey) {
+      throw new Error("RESEND_API_KEY is not configured.");
+    }
+
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${resendApiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from,
+        to: [toEmail],
+        subject,
+        text,
+        html,
+      }),
+    });
+
+    if (!response.ok) {
+      const details = await response.text().catch(() => "");
+      throw new Error(`Email provider error (${response.status}): ${details || response.statusText}`);
+    }
+    return;
+  }
+
+  throw new Error(`Unsupported email provider: ${provider}.`);
+}
+
 function getD1Config() {
   const accountId = (process.env.CLOUDFLARE_ACCOUNT_ID || "").trim();
   const databaseId = (process.env.CLOUDFLARE_D1_DATABASE_ID || "").trim();
@@ -244,6 +333,72 @@ async function ensureD1Schema() {
       PRIMARY KEY (collection, id)
     )`
   );
+
+  await d1Query(
+    `CREATE TABLE IF NOT EXISTS auth_email_codes (
+      email TEXT PRIMARY KEY,
+      code_hash TEXT NOT NULL,
+      expires_at TEXT NOT NULL,
+      cooldown_until TEXT NOT NULL,
+      attempts INTEGER NOT NULL DEFAULT 0,
+      updated_at TEXT NOT NULL
+    )`
+  );
+}
+
+async function getAuthCodeRow(email: string): Promise<{
+  email: string;
+  code_hash: string;
+  expires_at: string;
+  cooldown_until: string;
+  attempts: number;
+} | null> {
+  const rows = await d1Query(
+    `SELECT email, code_hash, expires_at, cooldown_until, attempts FROM auth_email_codes WHERE email = ? LIMIT 1`,
+    [email]
+  );
+  const row = rows?.[0];
+  if (!row) return null;
+  return {
+    email: String(row.email || ""),
+    code_hash: String(row.code_hash || ""),
+    expires_at: String(row.expires_at || ""),
+    cooldown_until: String(row.cooldown_until || ""),
+    attempts: Number(row.attempts || 0),
+  };
+}
+
+async function upsertAuthCodeRow(email: string, codeHash: string): Promise<void> {
+  const now = new Date().toISOString();
+  const expiresAt = formatUtcIsoAfter(AUTH_CODE_EXPIRES_SEC);
+  const cooldownUntil = formatUtcIsoAfter(AUTH_CODE_COOLDOWN_SEC);
+
+  await d1Query(
+    `INSERT INTO auth_email_codes (email, code_hash, expires_at, cooldown_until, attempts, updated_at)
+     VALUES (?, ?, ?, ?, 0, ?)
+     ON CONFLICT(email)
+     DO UPDATE SET code_hash = excluded.code_hash,
+                   expires_at = excluded.expires_at,
+                   cooldown_until = excluded.cooldown_until,
+                   attempts = 0,
+                   updated_at = excluded.updated_at`,
+    [email, codeHash, expiresAt, cooldownUntil, now]
+  );
+}
+
+async function bumpAuthCodeAttempt(email: string): Promise<void> {
+  await d1Query(
+    `UPDATE auth_email_codes
+     SET attempts = attempts + 1,
+         expires_at = CASE WHEN attempts + 1 >= ? THEN ? ELSE expires_at END,
+         updated_at = ?
+     WHERE email = ?`,
+    [AUTH_CODE_MAX_ATTEMPTS, new Date().toISOString(), new Date().toISOString(), email]
+  );
+}
+
+async function deleteAuthCodeRow(email: string): Promise<void> {
+  await d1Query(`DELETE FROM auth_email_codes WHERE email = ?`, [email]);
 }
 
 async function upsertD1CMSRecord(collectionName: D1Collection, id: string, payload: any) {
@@ -524,10 +679,10 @@ const GUIDE_TOPIC_CATEGORY_SET = new Set([
   "maintenance",
 ]);
 
-function normalizeGuideTopicCategory(rawValue: unknown): string {
+function normalizeGuideTopicCategory(rawValue: unknown): GuideTopicCategory {
   const value = String(rawValue || "").trim().toLowerCase();
   if (value === "category_spec" || value === "category_special") return "special";
-  if (GUIDE_TOPIC_CATEGORY_SET.has(value)) return value;
+  if (GUIDE_TOPIC_CATEGORY_SET.has(value)) return value as GuideTopicCategory;
   return "beginner";
 }
 
@@ -2130,6 +2285,99 @@ app.post("/api/cms/news/delete", async (req, res) => {
   } catch (error: any) {
     console.error("Failed to delete D1 news:", error);
     res.status(500).json({ error: error.message || "Failed to delete D1 news" });
+  }
+});
+
+app.post("/api/auth/send-code", async (req, res) => {
+  try {
+    if (!hasD1Config()) {
+      res.status(503).json({ error: "D1 is not configured." });
+      return;
+    }
+
+    const email = normalizeEmailAddress(req.body?.email);
+    if (!isValidEmailAddress(email)) {
+      res.status(400).json({ error: "A valid email is required." });
+      return;
+    }
+
+    await ensureD1Schema();
+    const existing = await getAuthCodeRow(email);
+    if (existing) {
+      const cooldownLeft = secondsUntil(existing.cooldown_until);
+      if (cooldownLeft > 0) {
+        res.status(429).json({
+          error: "Too many requests. Please retry later.",
+          data: { cooldownSec: cooldownLeft },
+        });
+        return;
+      }
+    }
+
+    const code = String(randomInt(100000, 1000000));
+    const codeHash = hashEmailVerificationCode(email, code);
+
+    await upsertAuthCodeRow(email, codeHash);
+    await sendVerificationEmailViaProvider(email, code);
+
+    res.json({
+      data: {
+        sent: true,
+        expiresInSec: AUTH_CODE_EXPIRES_SEC,
+        cooldownSec: AUTH_CODE_COOLDOWN_SEC,
+      },
+    });
+  } catch (error: any) {
+    console.error("Failed to send auth email code:", error);
+    res.status(500).json({ error: error.message || "Failed to send verification email." });
+  }
+});
+
+app.post("/api/auth/verify-code", async (req, res) => {
+  try {
+    if (!hasD1Config()) {
+      res.status(503).json({ error: "D1 is not configured." });
+      return;
+    }
+
+    const email = normalizeEmailAddress(req.body?.email);
+    const code = String(req.body?.code || "").trim();
+    if (!isValidEmailAddress(email) || !/^\d{6}$/.test(code)) {
+      res.status(400).json({ error: "Valid email and 6-digit code are required." });
+      return;
+    }
+
+    await ensureD1Schema();
+    const row = await getAuthCodeRow(email);
+    if (!row) {
+      res.status(400).json({ error: "Verification code is invalid or expired." });
+      return;
+    }
+
+    if (secondsUntil(row.expires_at) <= 0) {
+      await deleteAuthCodeRow(email);
+      res.status(400).json({ error: "Verification code is invalid or expired." });
+      return;
+    }
+
+    if (Number(row.attempts || 0) >= AUTH_CODE_MAX_ATTEMPTS) {
+      await deleteAuthCodeRow(email);
+      res.status(429).json({ error: "Too many attempts. Please request a new code." });
+      return;
+    }
+
+    const incomingHash = hashEmailVerificationCode(email, code);
+    if (incomingHash !== row.code_hash) {
+      await bumpAuthCodeAttempt(email);
+      res.status(400).json({ error: "Verification code is invalid or expired." });
+      return;
+    }
+
+    await deleteAuthCodeRow(email);
+    res.json({ data: { verified: true } });
+  } catch (error: any) {
+    console.error("Failed to verify auth email code:", error);
+    res.status(500).json({ error: error.message || "Failed to verify code." });
   }
 });
 
