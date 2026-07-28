@@ -32,6 +32,24 @@ import { formatWeight } from "../lib/units";
 import { FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
 import { getProductImageAlt, getProductsPageSeoTitle } from "../lib/productSeoText";
 
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const VERIFY_CODE_EXPIRE_MS = 5 * 60 * 1000;
+
+function normalizeEmail(value: string): string {
+  return String(value || "").trim().toLowerCase();
+}
+
+function isValidEmail(value: string): boolean {
+  return EMAIL_PATTERN.test(normalizeEmail(value));
+}
+
+function isStrongEnoughPassword(value: string): boolean {
+  if (value.length < 8) return false;
+  const hasLetter = /[A-Za-z]/.test(value);
+  const hasNumber = /\d/.test(value);
+  return hasLetter && hasNumber;
+}
+
 interface AuthSectionProps {
   userEmail: string;
   setUserEmail: (email: string) => void;
@@ -100,6 +118,8 @@ export default function AuthSection({
   const [generatedCode, setGeneratedCode] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [verifyCodeIssuedAt, setVerifyCodeIssuedAt] = useState<number>(0);
 
   // Simulated PDF Downloader Loading
   const [downloadingId, setDownloadingId] = useState<string | null>(null);
@@ -114,7 +134,7 @@ export default function AuthSection({
   }, [counter]);
 
   const handleSendCode = () => {
-    if (!emailInput.trim() || !emailInput.includes("@")) {
+    if (!isValidEmail(emailInput)) {
       setErrorMessage(
         isEn 
           ? "Please enter a valid international email address (e.g. Outlook/Gmail)." 
@@ -123,12 +143,19 @@ export default function AuthSection({
       return;
     }
     setErrorMessage("");
+    setSuccessMessage("");
     setCodeSent(true);
     setCounter(60);
     // Simulate a unique 6-digit numeric verification code
     const code = Math.floor(100000 + Math.random() * 900000).toString();
     setGeneratedCode(code);
+    setVerifyCodeIssuedAt(Date.now());
     getSimulatedEmailContent(code);
+    setSuccessMessage(
+      isEn
+        ? "Verification code sent. Please enter it within 5 minutes."
+        : "验证码已发送，请在 5 分钟内完成输入。"
+    );
   };
 
   const getSimulatedEmailContent = (code: string) => {
@@ -196,11 +223,12 @@ export default function AuthSection({
 
   const handleLoginSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
     setErrorMessage("");
     setSuccessMessage("");
 
-    if (!emailInput.trim() || !emailInput.includes("@")) {
-      setErrorMessage(isEn ? "The email address must contain an @ symbol." : "电子邮箱输入有误，必须包含 @ 符号。");
+    if (!isValidEmail(emailInput)) {
+      setErrorMessage(isEn ? "Please enter a valid email address." : "请输入有效的电子邮箱地址。");
       return;
     }
     if (!passwordInput) {
@@ -208,12 +236,19 @@ export default function AuthSection({
       return;
     }
 
+    const normalizedEmail = normalizeEmail(emailInput);
+
+    setIsSubmitting(true);
     try {
-      const result = await signInWithEmailAndPassword(auth, emailInput, passwordInput);
+      const result = await signInWithEmailAndPassword(auth, normalizedEmail, passwordInput);
       if (result.user) {
         await ensureUserProfileInFirestore(result.user.uid, result.user.email || "");
         setUserEmail(result.user.email || "");
         setIsRegistered(true);
+        setEmailInput(normalizedEmail);
+        setPasswordInput("");
+        setRepeatPassword("");
+        setVerifyCode("");
         setSuccessMessage(
           isEn 
             ? "🎉 Welcome back! You have successfully signed in." 
@@ -234,23 +269,26 @@ export default function AuthSection({
             : "登录失败：帐号不存在或密码输入错误。请核对，或切换至注册栏目。"
         );
       }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const handleRegisterSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
     setErrorMessage("");
     setSuccessMessage("");
 
-    if (!emailInput.includes("@")) {
-      setErrorMessage(isEn ? "The email address block must contain an @ symbol." : "电子邮箱必须包含 @ 符号。");
+    if (!isValidEmail(emailInput)) {
+      setErrorMessage(isEn ? "Please enter a valid email address." : "请输入有效的电子邮箱地址。");
       return;
     }
-    if (passwordInput.length < 8) {
+    if (!isStrongEnoughPassword(passwordInput)) {
       setErrorMessage(
         isEn 
-          ? "Under global privacy and GDPR regimes, passwords must be at least 8 characters long!" 
-          : "出于海外GDPR多重安全规则，登录密码必须不少于 8 位字符！"
+          ? "Password must be at least 8 characters and include both letters and numbers." 
+          : "密码至少 8 位，且需同时包含字母和数字。"
       );
       return;
     }
@@ -267,6 +305,22 @@ export default function AuthSection({
         isEn 
           ? "Please authenticate using the email verification code to bypass robot registrations." 
           : "请校验邮箱验证码，防止机器人恶意批量注册。"
+      );
+      return;
+    }
+    if (!/^\d{6}$/.test(verifyCode)) {
+      setErrorMessage(
+        isEn
+          ? "Verification code must be a 6-digit number."
+          : "验证码必须是 6 位数字。"
+      );
+      return;
+    }
+    if (!verifyCodeIssuedAt || Date.now() - verifyCodeIssuedAt > VERIFY_CODE_EXPIRE_MS) {
+      setErrorMessage(
+        isEn
+          ? "Verification code has expired. Please request a new code."
+          : "验证码已过期，请重新获取。"
       );
       return;
     }
@@ -287,12 +341,22 @@ export default function AuthSection({
       return;
     }
 
+    const normalizedEmail = normalizeEmail(emailInput);
+
+    setIsSubmitting(true);
     try {
-      const result = await createUserWithEmailAndPassword(auth, emailInput, passwordInput);
+      const result = await createUserWithEmailAndPassword(auth, normalizedEmail, passwordInput);
       if (result.user) {
         await ensureUserProfileInFirestore(result.user.uid, result.user.email || "");
         setUserEmail(result.user.email || "");
         setIsRegistered(true);
+        setEmailInput(normalizedEmail);
+        setPasswordInput("");
+        setRepeatPassword("");
+        setVerifyCode("");
+        setGeneratedCode("");
+        setCodeSent(false);
+        setVerifyCodeIssuedAt(0);
         setSuccessMessage(
           isEn 
             ? "Congratulations! Member profile activated. Lifetime premium free subscription privileges unlocked and synchronized." 
@@ -308,11 +372,15 @@ export default function AuthSection({
         );
       } else if (authError.code === "auth/email-already-in-use") {
         try {
-          const loginResult = await signInWithEmailAndPassword(auth, emailInput, passwordInput);
+          const loginResult = await signInWithEmailAndPassword(auth, normalizedEmail, passwordInput);
           if (loginResult.user) {
             await ensureUserProfileInFirestore(loginResult.user.uid, loginResult.user.email || "");
             setUserEmail(loginResult.user.email || "");
             setIsRegistered(true);
+            setEmailInput(normalizedEmail);
+            setPasswordInput("");
+            setRepeatPassword("");
+            setVerifyCode("");
             setSuccessMessage(
               isEn 
                 ? "🎉 Welcome back! You have successfully signed in to the member cloud." 
@@ -333,6 +401,8 @@ export default function AuthSection({
             : "注册遇到未配置完整的安全报错: " + authError.message
         );
       }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -348,6 +418,10 @@ export default function AuthSection({
     setIsRegistered(false);
     setRepeatPassword("");
     setVerifyCode("");
+    setGeneratedCode("");
+    setCodeSent(false);
+    setCounter(0);
+    setVerifyCodeIssuedAt(0);
     setIsAgreed(false);
     setSuccessMessage("");
     setErrorMessage("");
@@ -573,6 +647,9 @@ export default function AuthSection({
                 setAuthMode("login");
                 setErrorMessage("");
                 setSuccessMessage("");
+                setPasswordInput("");
+                setRepeatPassword("");
+                setVerifyCode("");
               }}
               className={`flex-1 py-2 text-center rounded-lg font-black transition-all ${
                 authMode === "login"
@@ -588,6 +665,9 @@ export default function AuthSection({
                 setAuthMode("register");
                 setErrorMessage("");
                 setSuccessMessage("");
+                setPasswordInput("");
+                setRepeatPassword("");
+                setVerifyCode("");
               }}
               className={`flex-1 py-2 text-center rounded-lg font-black transition-all ${
                 authMode === "register"
@@ -661,6 +741,7 @@ export default function AuthSection({
                   placeholder="e.g. kidbike@gmail.com"
                   value={emailInput}
                   onChange={(e) => setEmailInput(e.target.value)}
+                  autoComplete="email"
                   className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-slate-200 placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-amber-500"
                 />
                 {authMode === "register" && (
@@ -704,6 +785,8 @@ export default function AuthSection({
                 placeholder={isEn ? "Minimum 8 characters" : "密码字符不少于 8 位"}
                 value={passwordInput}
                 onChange={(e) => setPasswordInput(e.target.value)}
+                  autoComplete={authMode === "login" ? "current-password" : "new-password"}
+                  minLength={8}
                 className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-slate-200 placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-amber-500"
               />
             </div>
@@ -719,6 +802,8 @@ export default function AuthSection({
                   placeholder={isEn ? "Enter password again" : "请再次输入密码以校对一致性"}
                   value={repeatPassword}
                   onChange={(e) => setRepeatPassword(e.target.value)}
+                  autoComplete="new-password"
+                  minLength={8}
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-slate-200 placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-amber-500"
                 />
               </div>
@@ -744,11 +829,14 @@ export default function AuthSection({
 
             <button
               type="submit"
+              disabled={isSubmitting}
               className="w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-500 text-slate-950 font-black tracking-widest uppercase rounded-xl shadow-lg hover:shadow-xl active:scale-95 transition-all text-xs cursor-pointer"
             >
-              {authMode === "login" 
-                ? (isEn ? "Login Now" : "立即安全登录") 
-                : (isEn ? "Confirm Register" : "一键注册并领取会员特权")}
+              {isSubmitting
+                ? (isEn ? "Processing..." : "处理中...")
+                : authMode === "login"
+                  ? (isEn ? "Login Now" : "立即安全登录")
+                  : (isEn ? "Confirm Register" : "一键注册并领取会员特权")}
             </button>
 
           </form>
