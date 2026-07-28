@@ -26,6 +26,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../lib/firebase";
 import { ensureUserProfileInFirestore } from "../lib/firestoreService";
+import { sendAuthEmailCode, verifyAuthEmailCode } from "../lib/cmsService";
 import { translateProduct } from "../lib/translate";
 import { formatCurrencyFromUsd } from "../lib/currency";
 import { formatWeight } from "../lib/units";
@@ -33,7 +34,6 @@ import { FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
 import { getProductImageAlt, getProductsPageSeoTitle } from "../lib/productSeoText";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const VERIFY_CODE_EXPIRE_MS = 5 * 60 * 1000;
 
 function normalizeEmail(value: string): string {
   return String(value || "").trim().toLowerCase();
@@ -115,11 +115,10 @@ export default function AuthSection({
   // Simulated email code sending status
   const [codeSent, setCodeSent] = useState<boolean>(false);
   const [counter, setCounter] = useState<number>(0);
-  const [generatedCode, setGeneratedCode] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [verifyCodeIssuedAt, setVerifyCodeIssuedAt] = useState<number>(0);
+  const [isSendingCode, setIsSendingCode] = useState<boolean>(false);
 
   // Simulated PDF Downloader Loading
   const [downloadingId, setDownloadingId] = useState<string | null>(null);
@@ -133,7 +132,7 @@ export default function AuthSection({
     return () => clearTimeout(timer);
   }, [counter]);
 
-  const handleSendCode = () => {
+  const handleSendCode = async () => {
     if (!isValidEmail(emailInput)) {
       setErrorMessage(
         isEn 
@@ -144,25 +143,31 @@ export default function AuthSection({
     }
     setErrorMessage("");
     setSuccessMessage("");
-    setCodeSent(true);
-    setCounter(60);
-    // Simulate a unique 6-digit numeric verification code
-    const code = Math.floor(100000 + Math.random() * 900000).toString();
-    setGeneratedCode(code);
-    setVerifyCodeIssuedAt(Date.now());
-    getSimulatedEmailContent(code);
-    setSuccessMessage(
-      isEn
-        ? "Verification code sent. Please enter it within 5 minutes."
-        : "验证码已发送，请在 5 分钟内完成输入。"
-    );
-  };
-
-  const getSimulatedEmailContent = (code: string) => {
-    if (isEn) {
-      alert(`[Secure Simulation Gateway] KIDSMOBI has dispatched a digit verification key to [${emailInput}]:\n\n👉  ${code}  👈\n\n(Key expires in 5 minutes. Enter this number to authenticate.)`);
-    } else {
-      alert(`【模拟安全信道】KIDSMOBI 已向您的邮箱 [${emailInput}] 送出了单向哈希数字验证码：\n\n👉  ${code}  👈\n\n（验证码 5 分钟内有效，请在下方框内输入核验）`);
+    setIsSendingCode(true);
+    try {
+      const normalizedEmail = normalizeEmail(emailInput);
+      const result = await sendAuthEmailCode(normalizedEmail);
+      if (!result.sent) {
+        setErrorMessage(isEn ? "Failed to send verification code. Please try again." : "验证码发送失败，请稍后重试。");
+        return;
+      }
+      setCodeSent(true);
+      setCounter(Math.max(1, Number(result.cooldownSec || 60)));
+      setSuccessMessage(
+        isEn
+          ? "Verification code sent to your email. Please enter it within 5 minutes."
+          : "验证码已发送至邮箱，请在 5 分钟内完成输入。"
+      );
+    } catch (sendError: any) {
+      const msg = String(sendError?.message || "");
+      const tooMany = msg.includes("Too many") || msg.includes("429");
+      setErrorMessage(
+        tooMany
+          ? (isEn ? "Too many requests. Please wait a minute and retry." : "请求过于频繁，请 1 分钟后重试。")
+          : (isEn ? "Unable to send verification email. Please try again later." : "暂时无法发送验证邮件，请稍后重试。")
+      );
+    } finally {
+      setIsSendingCode(false);
     }
   };
 
@@ -316,22 +321,6 @@ export default function AuthSection({
       );
       return;
     }
-    if (!verifyCodeIssuedAt || Date.now() - verifyCodeIssuedAt > VERIFY_CODE_EXPIRE_MS) {
-      setErrorMessage(
-        isEn
-          ? "Verification code has expired. Please request a new code."
-          : "验证码已过期，请重新获取。"
-      );
-      return;
-    }
-    if (verifyCode !== generatedCode) {
-      setErrorMessage(
-        isEn 
-          ? "The code entered is incorrect. Please verify with the simulated alert prompt!" 
-          : "您输入的数字验证码错误或已失效。请校对模拟弹框给出的数字！"
-      );
-      return;
-    }
     if (!isAgreed) {
       setErrorMessage(
         isEn 
@@ -345,6 +334,16 @@ export default function AuthSection({
 
     setIsSubmitting(true);
     try {
+      const verifyResult = await verifyAuthEmailCode(normalizedEmail, verifyCode);
+      if (!verifyResult.verified) {
+        setErrorMessage(
+          isEn
+            ? "Verification code is invalid or expired. Please request a new code."
+            : "验证码无效或已过期，请重新获取后再试。"
+        );
+        return;
+      }
+
       const result = await createUserWithEmailAndPassword(auth, normalizedEmail, passwordInput);
       if (result.user) {
         await ensureUserProfileInFirestore(result.user.uid, result.user.email || "");
@@ -354,9 +353,8 @@ export default function AuthSection({
         setPasswordInput("");
         setRepeatPassword("");
         setVerifyCode("");
-        setGeneratedCode("");
         setCodeSent(false);
-        setVerifyCodeIssuedAt(0);
+        setCounter(0);
         setSuccessMessage(
           isEn 
             ? "Congratulations! Member profile activated. Lifetime premium free subscription privileges unlocked and synchronized." 
@@ -381,6 +379,8 @@ export default function AuthSection({
             setPasswordInput("");
             setRepeatPassword("");
             setVerifyCode("");
+            setCodeSent(false);
+            setCounter(0);
             setSuccessMessage(
               isEn 
                 ? "🎉 Welcome back! You have successfully signed in to the member cloud." 
@@ -418,10 +418,8 @@ export default function AuthSection({
     setIsRegistered(false);
     setRepeatPassword("");
     setVerifyCode("");
-    setGeneratedCode("");
     setCodeSent(false);
     setCounter(0);
-    setVerifyCodeIssuedAt(0);
     setIsAgreed(false);
     setSuccessMessage("");
     setErrorMessage("");
@@ -748,10 +746,14 @@ export default function AuthSection({
                   <button
                     type="button"
                     onClick={handleSendCode}
-                    disabled={counter > 0}
+                    disabled={counter > 0 || isSendingCode}
                     className="bg-amber-500 hover:bg-amber-600 disabled:bg-slate-800 text-slate-950 disabled:text-slate-500 px-3.5 rounded-xl font-bold transition shrink-0 cursor-pointer"
                   >
-                    {counter > 0 ? `${counter}s` : (isEn ? "Get Key" : "获取验证码")}
+                    {isSendingCode
+                      ? (isEn ? "Sending..." : "发送中...")
+                      : counter > 0
+                        ? `${counter}s`
+                        : (isEn ? "Get Key" : "获取验证码")}
                   </button>
                 )}
               </div>
@@ -867,6 +869,13 @@ export default function AuthSection({
         {/* Guest Local sandboxed Workspace for browsing & comparison history */}
         {((viewHistory && viewHistory.length > 0) || (compareList && compareList.length > 0)) && (
           <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-inner space-y-6 text-left">
+            {(() => {
+              const hasCompare = Boolean(compareList && compareList.length > 0);
+              const hasHistory = Boolean(viewHistory && viewHistory.length > 0);
+              const isSinglePane = Number(hasCompare) + Number(hasHistory) === 1;
+
+              return (
+                <>
             <div className="border-b border-slate-800 pb-4">
               <h3 className="text-lg font-black text-white flex items-center gap-2">
                  <span className="text-amber-500">⚡</span>
@@ -879,10 +888,10 @@ export default function AuthSection({
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className={`grid grid-cols-1 gap-8 ${isSinglePane ? "md:max-w-2xl md:mx-auto" : "md:grid-cols-2"}`}>
               {/* 1. Comparison briefcase */}
               {compareList && compareList.length > 0 && (
-                <div className="space-y-4">
+                <div className={`space-y-4 ${isSinglePane ? "w-full" : ""}`}>
                   <h4 className="text-xs font-black text-amber-500 uppercase tracking-wider flex items-center justify-between">
                      <span>{isEn ? "📊 My Local Compare Briefcase" : "📊 待对比车款"}</span>
                      <span className="text-[10px] bg-slate-850 text-slate-400 px-2.5 py-0.5 rounded-full font-mono">{compareList.length}/3</span>
@@ -928,7 +937,7 @@ export default function AuthSection({
 
               {/* 2. Recently viewed history */}
               {viewHistory && viewHistory.length > 0 && (
-                <div className="space-y-4">
+                <div className={`space-y-4 ${isSinglePane ? "w-full" : ""}`}>
                   <h4 className="text-xs font-black text-amber-500 uppercase tracking-wider flex items-center justify-between">
                      <span>{isEn ? "🕒 Recently Viewed" : "🕒 最近浏览车辆"}</span>
                      <span className="text-[10px] bg-slate-850 text-slate-400 px-2.5 py-0.5 rounded-full font-mono">{viewHistory.length}</span>
@@ -969,6 +978,9 @@ export default function AuthSection({
                 </div>
               )}
             </div>
+                </>
+              );
+            })()}
           </div>
         )}
 
