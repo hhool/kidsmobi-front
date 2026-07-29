@@ -1405,7 +1405,7 @@ export default function EvaluationsSection({
                   }}
                   className="px-3.5 py-1.5 bg-white/5 hover:bg-white/12 border border-white/10 hover:border-orange-500 text-[10px] font-extrabold text-slate-300 hover:text-orange-400 rounded-full transition-all cursor-pointer"
                 >
-                  #{tag.label}
+                  {tag.label}
                 </button>
               ))}
             </div>
