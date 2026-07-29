@@ -842,27 +842,37 @@ export default function App() {
   const newsReturnViewRef = useRef<{ path: string; scrollY: number } | null>(null);
   const guidesReturnViewRef = useRef<{ path: string; scrollY: number } | null>(null);
 
-  // Navigation Dropdown states & timer refs with elegant 1s hover delay
+  // Navigation dropdown: Products menu opens only after mouse hold > 1s.
   const [productsMenuOpen, setProductsMenuOpen] = useState(false);
 
   const productsShowTimerRef = useRef<any>(null);
   const productsHideTimerRef = useRef<any>(null);
+  const productsPressTimerRef = useRef<any>(null);
+  const productsLongPressTriggeredRef = useRef(false);
 
-  const handleProductsMouseEnter = () => {
-    if (productsHideTimerRef.current) {
-      clearTimeout(productsHideTimerRef.current);
-      productsHideTimerRef.current = null;
-    }
-    if (productsMenuOpen) return;
-    if (!productsShowTimerRef.current) {
-      productsShowTimerRef.current = setTimeout(() => {
-        setProductsMenuOpen(true);
-        productsShowTimerRef.current = null;
-      }, 150); // 150ms 快速响应
+  const clearProductsPressTimer = () => {
+    if (productsPressTimerRef.current) {
+      clearTimeout(productsPressTimerRef.current);
+      productsPressTimerRef.current = null;
     }
   };
 
+  const handleProductsMouseDown = () => {
+    clearProductsPressTimer();
+    productsLongPressTriggeredRef.current = false;
+    productsPressTimerRef.current = setTimeout(() => {
+      setProductsMenuOpen(true);
+      productsLongPressTriggeredRef.current = true;
+      productsPressTimerRef.current = null;
+    }, 1000);
+  };
+
+  const handleProductsMouseUp = () => {
+    clearProductsPressTimer();
+  };
+
   const handleProductsMouseLeave = () => {
+    clearProductsPressTimer();
     if (productsShowTimerRef.current) {
       clearTimeout(productsShowTimerRef.current);
       productsShowTimerRef.current = null;
@@ -877,6 +887,8 @@ export default function App() {
 
   const closeProductsMenuInstantly = () => {
     setProductsMenuOpen(false);
+    clearProductsPressTimer();
+    productsLongPressTriggeredRef.current = false;
     if (productsShowTimerRef.current) clearTimeout(productsShowTimerRef.current);
     if (productsHideTimerRef.current) clearTimeout(productsHideTimerRef.current);
     productsShowTimerRef.current = null;
@@ -885,6 +897,7 @@ export default function App() {
 
   useEffect(() => {
     return () => {
+      clearProductsPressTimer();
       if (productsShowTimerRef.current) clearTimeout(productsShowTimerRef.current);
       if (productsHideTimerRef.current) clearTimeout(productsHideTimerRef.current);
     };
@@ -2548,17 +2561,20 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
                 <div 
                   className="relative group"
-                  onMouseEnter={handleProductsMouseEnter}
                   onMouseLeave={handleProductsMouseLeave}
                 >
                   <button
+                    onMouseDown={handleProductsMouseDown}
+                    onMouseUp={handleProductsMouseUp}
                     onClick={() => {
                       handlePrimaryTabClick("products");
-                      setProductsMenuOpen(prev => !prev);
-                      if (productsShowTimerRef.current) clearTimeout(productsShowTimerRef.current);
-                      if (productsHideTimerRef.current) clearTimeout(productsHideTimerRef.current);
-                      productsShowTimerRef.current = null;
-                      productsHideTimerRef.current = null;
+                      // Long press opens the menu; short click keeps regular navigation.
+                      if (productsLongPressTriggeredRef.current) {
+                        productsLongPressTriggeredRef.current = false;
+                        return;
+                      }
+                      closeProductsMenuInstantly();
+                      navigateToPath("/products");
                     }}
                     className={`px-3 py-2 rounded-xl font-bold transition-all flex items-center gap-1 ${
                       activeTab === "products" || activeTab === "product_detail" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
