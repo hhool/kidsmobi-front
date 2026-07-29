@@ -217,6 +217,8 @@ export default function ProductManager({
   const [scenarios, setScenarios] = useState<CMSScenario[]>([]);
   const [backendPreviewMode, setBackendPreviewMode] = useState(false);
   const [search, setSearch] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("all");
+  const [brandFilter, setBrandFilter] = useState("all");
   const [editingProduct, setEditingProduct] = useState<CMSProduct | null>(null);
 
   useEffect(() => {
@@ -434,13 +436,18 @@ export default function ProductManager({
     }
   };
 
-  const filtered = products.filter(p => 
-    (p.zh?.name || "").toLowerCase().includes(search.toLowerCase()) || 
-    (p.en?.name || "").toLowerCase().includes(search.toLowerCase()) ||
-    (p.brand || "").toLowerCase().includes(search.toLowerCase()) ||
-    (p.id || "").toLowerCase().includes(search.toLowerCase()) ||
-    extractAsinCandidate(p.id).toLowerCase().includes(search.toLowerCase())
-  );
+  const categoryOptions = Array.from(new Set(products.map((item) => String(item.category || "").trim()).filter(Boolean))).sort();
+  const brandOptions = Array.from(new Set(products.map((item) => String(item.brand || "").trim()).filter(Boolean))).sort();
+
+  const filtered = products.filter((p) => {
+    const haystack = [p.zh?.name, p.en?.name, p.brand, p.id, extractAsinCandidate(p.id)]
+      .map((item) => String(item || "").toLowerCase())
+      .join(" ");
+    const matchesSearch = haystack.includes(search.toLowerCase());
+    const matchesCategory = categoryFilter === "all" || String(p.category || "") === categoryFilter;
+    const matchesBrand = brandFilter === "all" || String(p.brand || "") === brandFilter;
+    return matchesSearch && matchesCategory && matchesBrand;
+  });
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
@@ -475,6 +482,29 @@ export default function ProductManager({
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <select
+          value={categoryFilter}
+          onChange={(e) => setCategoryFilter(e.target.value)}
+          className="w-full bg-white border border-slate-100 rounded-3xl py-4 px-6 text-sm font-bold outline-none focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 transition-all shadow-sm"
+        >
+          <option value="all">{lang === "zh" ? "全部品类" : "All Categories"}</option>
+          {categoryOptions.map((item) => (
+            <option key={item} value={item}>{item}</option>
+          ))}
+        </select>
+        <select
+          value={brandFilter}
+          onChange={(e) => setBrandFilter(e.target.value)}
+          className="w-full bg-white border border-slate-100 rounded-3xl py-4 px-6 text-sm font-bold outline-none focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 transition-all shadow-sm"
+        >
+          <option value="all">{lang === "zh" ? "全部品牌" : "All Brands"}</option>
+          {brandOptions.map((item) => (
+            <option key={item} value={item}>{item}</option>
+          ))}
+        </select>
       </div>
 
       {/* Product List */}
@@ -553,6 +583,10 @@ function ProductEditor({ product, allProducts, scenarios, onSave, onCancel, lang
   const categories: ProductCategory[] = ["balance", "bicycle", "scooter", "stroller", "electric_car", "tricycle", "safety_seat"];
   const complianceOptions: ComplianceTag[] = ["CCC", "EN1888", "ASTM", "GS"];
 
+  const saveWithStatus = (status: CMSProduct["status"]) => {
+    onSave({ ...formData, status });
+  };
+
   const toggleCompliance = (tag: ComplianceTag) => {
     const complianceList = formData.compliance || [];
     const next = complianceList.includes(tag)
@@ -622,7 +656,24 @@ function ProductEditor({ product, allProducts, scenarios, onSave, onCancel, lang
           <div className="flex items-center gap-4">
             <button onClick={onCancel} disabled={saving} className="px-8 py-3 text-slate-400 font-black hover:text-slate-900 transition-colors disabled:opacity-50">Abort</button>
             <button 
-              onClick={() => onSave(formData)}
+              onClick={() => saveWithStatus("draft")}
+              disabled={saving}
+              className="px-8 py-3 bg-slate-100 text-slate-900 rounded-2xl font-black flex items-center gap-2 shadow-sm hover:bg-slate-200 transition-all disabled:bg-slate-200 disabled:text-slate-400 cursor-pointer"
+            >
+              {saving ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-slate-400 border-t-white rounded-full animate-spin" />
+                  <span>{lang === "zh" ? "保存中..." : "Saving..."}</span>
+                </>
+              ) : (
+                <>
+                  <Save className="w-5 h-5 text-orange-400" />
+                  <span>{lang === "zh" ? "保存草稿" : "Save Draft"}</span>
+                </>
+              )}
+            </button>
+            <button 
+              onClick={() => saveWithStatus("published")}
               disabled={saving}
               className="px-8 py-3 bg-slate-900 text-white rounded-2xl font-black flex items-center gap-2 shadow-xl shadow-slate-900/10 hover:bg-orange-500 transition-all disabled:bg-slate-200 disabled:text-slate-400 cursor-pointer"
             >
@@ -634,7 +685,7 @@ function ProductEditor({ product, allProducts, scenarios, onSave, onCancel, lang
               ) : (
                 <>
                   <Save className="w-5 h-5 text-orange-400" />
-                  <span>{lang === "zh" ? "保存并发布" : "Publish Changes"}</span>
+                  <span>{lang === "zh" ? "发布" : "Publish"}</span>
                 </>
               )}
             </button>

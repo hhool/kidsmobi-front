@@ -20,6 +20,9 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
   const [evaluations, setEvaluations] = useState<Evaluation[]>([]);
   const [products, setProducts] = useState<CMSProduct[]>([]);
   const [editingEv, setEditingEv] = useState<Evaluation | null>(null);
+  const [search, setSearch] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("all");
+  const [brandFilter, setBrandFilter] = useState("all");
 
   useEffect(() => {
     fetchData();
@@ -79,6 +82,43 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
       }
     }
   };
+
+  const resolveLinkedProduct = (ev: Evaluation) => {
+    if (ev.productId) {
+      return products.find((item) => item.id === ev.productId) || null;
+    }
+    const linkedIds = ev.productIds || [];
+    const firstLinkedId = linkedIds[0];
+    return firstLinkedId ? products.find((item) => item.id === firstLinkedId) || null : null;
+  };
+
+  const categoryOptions = Array.from(
+    new Set(products.map((item) => String(item.category || "").trim()).filter(Boolean))
+  ).sort();
+  const brandOptions = Array.from(
+    new Set(products.map((item) => String(item.brand || "").trim()).filter(Boolean))
+  ).sort();
+
+  const filteredEvaluations = evaluations.filter((ev) => {
+    const linkedProduct = resolveLinkedProduct(ev);
+    const searchTarget = [
+      ev.id,
+      ev.version,
+      ev.zh?.title,
+      ev.en?.title,
+      linkedProduct?.id,
+      linkedProduct?.brand,
+      linkedProduct?.zh?.name,
+      linkedProduct?.en?.name,
+      linkedProduct?.category,
+    ]
+      .map((item) => String(item || "").toLowerCase())
+      .join(" ");
+    const matchesSearch = searchTarget.includes(search.toLowerCase());
+    const matchesCategory = categoryFilter === "all" || String(linkedProduct?.category || "") === categoryFilter;
+    const matchesBrand = brandFilter === "all" || String(linkedProduct?.brand || "") === brandFilter;
+    return matchesSearch && matchesCategory && matchesBrand;
+  });
 
   const handleNew = () => {
     setEditingEv({
@@ -150,8 +190,41 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
         </button>
       </header>
 
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="md:col-span-1 relative">
+          <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+          <input
+            type="text"
+            placeholder={lang === "zh" ? "搜索标题、版本、产品名..." : "Search title, version or product..."}
+            className="w-full bg-white border border-slate-100 rounded-3xl py-5 pl-16 pr-8 text-sm font-bold outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all shadow-sm"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+        <select
+          value={categoryFilter}
+          onChange={(e) => setCategoryFilter(e.target.value)}
+          className="w-full bg-white border border-slate-100 rounded-3xl py-5 px-6 text-sm font-bold outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all shadow-sm"
+        >
+          <option value="all">{lang === "zh" ? "全部品类" : "All Categories"}</option>
+          {categoryOptions.map((item) => (
+            <option key={item} value={item}>{item}</option>
+          ))}
+        </select>
+        <select
+          value={brandFilter}
+          onChange={(e) => setBrandFilter(e.target.value)}
+          className="w-full bg-white border border-slate-100 rounded-3xl py-5 px-6 text-sm font-bold outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all shadow-sm"
+        >
+          <option value="all">{lang === "zh" ? "全部品牌" : "All Brands"}</option>
+          {brandOptions.map((item) => (
+            <option key={item} value={item}>{item}</option>
+          ))}
+        </select>
+      </div>
+
       <div className="grid grid-cols-1 gap-4">
-        {evaluations.map((ev) => {
+        {filteredEvaluations.map((ev) => {
           const product = products.find(p => p.id === ev.productId);
           return (
             <div key={ev.id} className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm flex items-center justify-between group hover:border-emerald-200 transition-all">
@@ -211,6 +284,10 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
   const [formData, setFormData] = useState<Evaluation>(ev);
   const [activeTab, setActiveTab] = useState<"base" | "zh" | "en">("base");
 
+  const saveWithStatus = (status: Evaluation["status"]) => {
+    onSave({ ...formData, status });
+  };
+
   return (
     <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[110] flex items-center justify-center p-8">
       <motion.div 
@@ -230,19 +307,36 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
           <div className="flex items-center gap-4">
             <button onClick={onCancel} disabled={saving} className="px-8 py-3 text-slate-400 font-black hover:text-slate-900 transition-colors disabled:opacity-50">Cancel</button>
             <button 
-              onClick={() => onSave(formData)}
+              onClick={() => saveWithStatus("draft")}
+              disabled={saving}
+              className="px-8 py-3 bg-slate-100 text-slate-900 rounded-2xl font-black flex items-center gap-2 shadow-sm hover:bg-slate-200 transition-all disabled:bg-slate-250 disabled:text-slate-400 cursor-pointer"
+            >
+              {saving ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-slate-400 border-t-white rounded-full animate-spin" />
+                  <span>{lang === "zh" ? "保存中..." : "Saving..."}</span>
+                </>
+              ) : (
+                <>
+                  <Save className="w-5 h-5" />
+                  <span>{lang === "zh" ? "保存草稿" : "Save Draft"}</span>
+                </>
+              )}
+            </button>
+            <button 
+              onClick={() => saveWithStatus("published")}
               disabled={saving}
               className="px-8 py-3 bg-emerald-500 text-white rounded-2xl font-black flex items-center gap-2 shadow-xl shadow-emerald-500/20 hover:scale-105 transition-all disabled:bg-slate-250 disabled:text-slate-400 cursor-pointer"
             >
               {saving ? (
                 <>
                   <div className="w-4 h-4 border-2 border-slate-400 border-t-white rounded-full animate-spin" />
-                  <span>{lang === "zh" ? "保存中..." : "Storing..."}</span>
+                  <span>{lang === "zh" ? "发布中..." : "Publishing..."}</span>
                 </>
               ) : (
                 <>
                   <Save className="w-5 h-5" />
-                  <span>{lang === "zh" ? "发布并存盘" : "Store Report"}</span>
+                  <span>{lang === "zh" ? "发布" : "Publish"}</span>
                 </>
               )}
             </button>
