@@ -120,6 +120,12 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
     return matchesSearch && matchesCategory && matchesBrand;
   });
 
+  const clearFilters = () => {
+    setSearch("");
+    setCategoryFilter("all");
+    setBrandFilter("all");
+  };
+
   const handleNew = () => {
     setEditingEv({
       id: `ev_${Date.now()}`,
@@ -190,37 +196,53 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
         </button>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="md:col-span-1 relative">
-          <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-          <input
-            type="text"
-            placeholder={lang === "zh" ? "搜索标题、版本、产品名..." : "Search title, version or product..."}
-            className="w-full bg-white border border-slate-100 rounded-3xl py-5 pl-16 pr-8 text-sm font-bold outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all shadow-sm"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+      <div className="bg-white border border-slate-100 rounded-[32px] p-5 shadow-sm space-y-4">
+        <div className="flex flex-col xl:flex-row xl:items-center gap-4">
+          <div className="flex-1 grid grid-cols-1 xl:grid-cols-[1.2fr_0.9fr_0.9fr] gap-4">
+            <div className="relative">
+              <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+              <input
+                type="text"
+                placeholder={lang === "zh" ? "搜索标题、版本、产品名..." : "Search title, version or product..."}
+                className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 pl-16 pr-8 text-sm font-bold outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+            <select
+              value={categoryFilter}
+              onChange={(e) => setCategoryFilter(e.target.value)}
+              className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-5 text-sm font-bold outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all"
+            >
+              <option value="all">{lang === "zh" ? "全部品类" : "All Categories"}</option>
+              {categoryOptions.map((item) => (
+                <option key={item} value={item}>{item}</option>
+              ))}
+            </select>
+            <select
+              value={brandFilter}
+              onChange={(e) => setBrandFilter(e.target.value)}
+              className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-5 text-sm font-bold outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all"
+            >
+              <option value="all">{lang === "zh" ? "全部品牌" : "All Brands"}</option>
+              {brandOptions.map((item) => (
+                <option key={item} value={item}>{item}</option>
+              ))}
+            </select>
+          </div>
+          <div className="flex items-center gap-3 shrink-0">
+            <div className="px-4 py-3 rounded-2xl bg-emerald-50 text-emerald-700 border border-emerald-100 font-black text-xs uppercase tracking-wider">
+              {filteredEvaluations.length} / {evaluations.length}
+            </div>
+            <button
+              type="button"
+              onClick={clearFilters}
+              className="px-4 py-3 rounded-2xl bg-slate-900 text-white font-black text-xs uppercase tracking-wider hover:bg-emerald-500 transition-colors"
+            >
+              {lang === "zh" ? "清空筛选" : "Reset Filters"}
+            </button>
+          </div>
         </div>
-        <select
-          value={categoryFilter}
-          onChange={(e) => setCategoryFilter(e.target.value)}
-          className="w-full bg-white border border-slate-100 rounded-3xl py-5 px-6 text-sm font-bold outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all shadow-sm"
-        >
-          <option value="all">{lang === "zh" ? "全部品类" : "All Categories"}</option>
-          {categoryOptions.map((item) => (
-            <option key={item} value={item}>{item}</option>
-          ))}
-        </select>
-        <select
-          value={brandFilter}
-          onChange={(e) => setBrandFilter(e.target.value)}
-          className="w-full bg-white border border-slate-100 rounded-3xl py-5 px-6 text-sm font-bold outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all shadow-sm"
-        >
-          <option value="all">{lang === "zh" ? "全部品牌" : "All Brands"}</option>
-          {brandOptions.map((item) => (
-            <option key={item} value={item}>{item}</option>
-          ))}
-        </select>
       </div>
 
       <div className="grid grid-cols-1 gap-4">

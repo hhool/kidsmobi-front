@@ -449,6 +449,12 @@ export default function ProductManager({
     return matchesSearch && matchesCategory && matchesBrand;
   });
 
+  const clearFilters = () => {
+    setSearch("");
+    setCategoryFilter("all");
+    setBrandFilter("all");
+  };
+
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <header className="flex items-center justify-between">
@@ -484,27 +490,43 @@ export default function ProductManager({
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <select
-          value={categoryFilter}
-          onChange={(e) => setCategoryFilter(e.target.value)}
-          className="w-full bg-white border border-slate-100 rounded-3xl py-4 px-6 text-sm font-bold outline-none focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 transition-all shadow-sm"
-        >
-          <option value="all">{lang === "zh" ? "全部品类" : "All Categories"}</option>
-          {categoryOptions.map((item) => (
-            <option key={item} value={item}>{item}</option>
-          ))}
-        </select>
-        <select
-          value={brandFilter}
-          onChange={(e) => setBrandFilter(e.target.value)}
-          className="w-full bg-white border border-slate-100 rounded-3xl py-4 px-6 text-sm font-bold outline-none focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 transition-all shadow-sm"
-        >
-          <option value="all">{lang === "zh" ? "全部品牌" : "All Brands"}</option>
-          {brandOptions.map((item) => (
-            <option key={item} value={item}>{item}</option>
-          ))}
-        </select>
+      <div className="bg-white border border-slate-100 rounded-[32px] p-5 shadow-sm space-y-4">
+        <div className="flex flex-col xl:flex-row xl:items-center gap-4">
+          <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <select
+              value={categoryFilter}
+              onChange={(e) => setCategoryFilter(e.target.value)}
+              className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-5 text-sm font-bold outline-none focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 transition-all"
+            >
+              <option value="all">{lang === "zh" ? "全部品类" : "All Categories"}</option>
+              {categoryOptions.map((item) => (
+                <option key={item} value={item}>{item}</option>
+              ))}
+            </select>
+            <select
+              value={brandFilter}
+              onChange={(e) => setBrandFilter(e.target.value)}
+              className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-5 text-sm font-bold outline-none focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 transition-all"
+            >
+              <option value="all">{lang === "zh" ? "全部品牌" : "All Brands"}</option>
+              {brandOptions.map((item) => (
+                <option key={item} value={item}>{item}</option>
+              ))}
+            </select>
+          </div>
+          <div className="flex items-center gap-3 shrink-0">
+            <div className="px-4 py-3 rounded-2xl bg-amber-50 text-amber-700 border border-amber-100 font-black text-xs uppercase tracking-wider">
+              {filtered.length} / {products.length}
+            </div>
+            <button
+              type="button"
+              onClick={clearFilters}
+              className="px-4 py-3 rounded-2xl bg-slate-900 text-white font-black text-xs uppercase tracking-wider hover:bg-orange-500 transition-colors"
+            >
+              {lang === "zh" ? "清空筛选" : "Reset Filters"}
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Product List */}
