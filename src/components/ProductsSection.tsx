@@ -717,6 +717,15 @@ export default function ProductsSection({
     onCategoryChange?.(categoryId);
   };
 
+  const scrollToExpertPicks = () => {
+    const element = document.getElementById("expert-picks-anchor");
+    if (!element) return;
+
+    window.requestAnimationFrame(() => {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  };
+
   const getProductCategoryId = (product: Product): string => {
     const raw = String((product as any)?.categoryId || product?.category || "").trim().toLowerCase();
     const normalized = categoryAliasMap[raw] || raw;
@@ -1579,7 +1588,10 @@ export default function ProductsSection({
                 {categories.map((c) => (
                   <button
                     key={c.id}
-                    onClick={() => handleCategorySelect(c.id)}
+                    onClick={() => {
+                      handleCategorySelect(c.id);
+                      scrollToExpertPicks();
+                    }}
                     className={`w-full text-left px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all border ${
                       selectedCategory === c.id
                         ? "bg-orange-500 text-white border-orange-400 shadow-md shadow-orange-500/10"
