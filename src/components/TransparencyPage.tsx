@@ -16,7 +16,7 @@ export default function TransparencyPage({ pageKey, lang = "zh" }: TransparencyP
         <div className="space-y-5 border-b border-slate-200 pb-8">
           <div className="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-orange-600">
             <ShieldCheck className="w-3.5 h-3.5" />
-            {lang === "en" ? "KIDSMOBI Transparency" : "KIDSMOBI 透明度基石"}
+            {lang === "en" ? "BalanceBikeToddler Transparency" : "BalanceBikeToddler 透明度基石"}
           </div>
           <h1 className="text-3xl sm:text-4xl font-black text-slate-950 leading-tight max-w-3xl">
             {localized.title}

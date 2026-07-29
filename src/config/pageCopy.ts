@@ -489,12 +489,12 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
         description: "为您解答关于慢跑婴儿车、平衡车与儿童自行车测试标准的常见问题。",
         items: [
           {
-            question: "KIDSMOBI 如何评估慢跑婴儿车在全地形高速运动下的避震与制动安全性？",
+            question: "BalanceBikeToddler 如何评估慢跑婴儿车在全地形高速运动下的避震与制动安全性？",
             answer: "我们在测试慢跑推车时，会重点检测三个指标：一是前两圈的追踪定位与转向锁定机构（高速慢跑时必须锁定前轮以防剧烈抖动颠覆）；二是充气大橡胶轮胎与高性能避震弹簧在5厘米障碍路面上的重力加速度传导（G-Force必须限制在1.0G以内）；三是手刹与后轮双踩锁死制动的响应时间与减速率控制。",
           },
           {
             question: "如何为不同年龄的幼童精准选配儿童自行车以及规避不安全的刹车系统？",
-            answer: "初学者鞍座高度应比脱鞋腿部跨高（Inseam）低2.5厘米以确保双脚平足全落地。在制动系统上，KIDSMOBI强烈反对低端童车配备的倒踩脚刹（Coaster Brakes），此类刹车缺乏线性无极阻尼极易打滑、在紧急时刻还会锁死曲柄使车辆失控侧倾。应优选专门针对儿童手掌骨化周期定制、握距≤42mm的双手短行程闸把系统。",
+            answer: "初学者鞍座高度应比脱鞋腿部跨高（Inseam）低2.5厘米以确保双脚平足全落地。在制动系统上，BalanceBikeToddler强烈反对低端童车配备的倒踩脚刹（Coaster Brakes），此类刹车缺乏线性无极阻尼极易打滑、在紧急时刻还会锁死曲柄使车辆失控侧倾。应优选专门针对儿童手掌骨化周期定制、握距≤42mm的双手短行程闸把系统。",
           },
           {
             question: "三轮滑板车的重力倾斜转向系统真的比普通的双轮滑板车更安全吗？",
@@ -522,7 +522,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
         },
         evaluating: "评测中",
         fallbackActive: "已回退占位图",
-        jsonLdHomeName: "KIDSMOBI 首页",
+        jsonLdHomeName: "BalanceBikeToddler 首页",
       },
     },
     products: {
@@ -710,8 +710,8 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
         product: "查看完整产品评测 ➔",
       },
       standardsTitle: "测试方法论与客观性誓言",
-      standardsSubtitle: "KIDSMOBI LAB STANDARDS",
-      standardsDesc: "KIDSMOBI 物理安全验证完全遵守各项核心权威儿童辅具出厂与行使指标。我们坚持零赞助协议，样品直接进入滚筒颠簸疲劳机实测，不接受商业推广影响结果。",
+      standardsSubtitle: "BalanceBikeToddler LAB STANDARDS",
+      standardsDesc: "BalanceBikeToddler 物理安全验证完全遵守各项核心权威儿童辅具出厂与行使指标。我们坚持零赞助协议，样品直接进入滚筒颠簸疲劳机实测，不接受商业推广影响结果。",
       radarAriaLabel: "评分雷达图",
       reviewTypes: {
         single: "🔬 单品实测",
@@ -831,9 +831,9 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
       latestDesc: "按行业趋势、新品发布与法规政策持续追踪真实市场变化。",
       readMore: "阅读原文 →",
       globalNewsSeoName: "全球童车资讯库",
-      fallbackSummary: "Kidsmobi 行业动态与科普报告。",
+      fallbackSummary: "BalanceBikeToddler 行业动态与科普报告。",
       fallbackContent: "中文内容整理中，请稍后查看。",
-      fallbackAuthor: "Kidsmobi 全球安全实验室",
+      fallbackAuthor: "BalanceBikeToddler 全球安全实验室",
       fallbackReadTime: "5 分钟",
       likeAria: "点赞文章",
       shareAria: "分享文章",
@@ -843,7 +843,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
     about: {
       breadcrumb: "关于我们",
       heroBadge: "ESTABLISHED IN 2026 · 独立第三方权威安全实验室",
-      heroTitle: "KIDSMOBI：您信赖的中立儿童出行安全实验室",
+      heroTitle: "BalanceBikeToddler：您信赖的中立儿童出行安全实验室",
       heroDesc: "我们100%对标全球最严苛的儿童健康力学测试体系，通过不平整颠震传导、手闸阻力、Q-Factor 膝跨跨距以及钢架结构疲劳抗压等精密实验仪，深度拆解婴儿推车、平衡滑步车、儿童自行车及滑板车的潜在设计缺陷，用独立硬核实测数据捍卫宝宝的骨骼安全与健康成长。",
       partnershipTitle: "评测合作与媒体联动",
       partnershipDesc: "我们欢迎任何以“守护儿童骑行安全”为前提的共建合作。包括实验室认证互认、行业报告联合发布以及媒体专项评测。",
@@ -922,19 +922,19 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
         description: "Answering your questions on kids mobility testing standards and safe selection guidelines.",
         items: [
           {
-            question: "How does KIDSMOBI test jogging strollers for all-terrain high-speed suspension and braking safety?",
+            question: "How does BalanceBikeToddler test jogging strollers for all-terrain high-speed suspension and braking safety?",
             answer: "We focus on three critical specs when testing jogging strollers: first, the front wheel tracking lock (essential to prevent speed wobbles during high-speed runs); second, G-force telemetry across 5cm obstacles (ensuring vibration stays below 1.0G on pneumatic rubber tires); third, hand-activated deceleration brakes coupled with reliable parking locks for immediate incline arrests.",
           },
           {
             question: "How to select the right kids bike and avoid hazardous bicycle braking systems?",
-            answer: "Standfoot crotch inseam is the gold standard for sizing. For beginners, the minimum saddle height should be 2.5cm below their inseam for flat-foot stability. Regarding brakes, KIDSMOBI strongly discourages pedal-back Coaster Brakes due to lack of modulation and launch-angle lockups; choose specialized kids' hand levers with a short grip-reach of 42mm or less.",
+            answer: "Standfoot crotch inseam is the gold standard for sizing. For beginners, the minimum saddle height should be 2.5cm below their inseam for flat-foot stability. Regarding brakes, BalanceBikeToddler strongly discourages pedal-back Coaster Brakes due to lack of modulation and launch-angle lockups; choose specialized kids' hand levers with a short grip-reach of 42mm or less.",
           },
           {
             question: "Are 3-wheel lean-to-steer kids scooters significantly safer than traditional 2-wheelers for toddlers?",
             answer: "Yes. The lean-to-steer mechanism on 3-wheel scooters provides superior lateral stability, preventing high-speed high-side flips while developing early vestibular balance in toddlers. For children under 3 years old, wide-deck, low-center-of-gravity 3-wheelers are overwhelmingly safer, while agile 2-wheel models are reserved for older kids with established balancing skills.",
           },
           {
-            question: "How does KIDSMOBI evaluate battery safety, remote overrides, and roll stability for 4-wheel kids electric cars?",
+            question: "How does BalanceBikeToddler evaluate battery safety, remote overrides, and roll stability for 4-wheel kids electric cars?",
             answer: "Testing electric ride-ons centers first on battery pack safety (overcharge and short-circuit thermal fuses to completely prevent fire hazards). Second, velocity bounds must be constrained between 3 to 8 km/h, backed by a 2.4G parental override remote that preempts toddler inputs instantly. Lastly, a wide-track chassis geometry is audited to prevent tipping during tight maneuvers.",
           },
           {
@@ -955,7 +955,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
         },
         evaluating: "Evaluating",
         fallbackActive: "Fallback active",
-        jsonLdHomeName: "KIDSMOBI Home",
+        jsonLdHomeName: "BalanceBikeToddler Home",
       },
     },
     products: {
@@ -1143,7 +1143,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
         product: "Product Review ➔",
       },
       standardsTitle: "Independent Rigor & Certification Compliance",
-      standardsSubtitle: "KIDSMOBI LAB STANDARDS",
+      standardsSubtitle: "BalanceBikeToddler LAB STANDARDS",
       standardsDesc: "We stand on strict compliance. Every travel stroller model, balance bike, and kids electric car is subjected to dynamic rolling stress telemetry. We receive 0% direct corporate backing, keeping our scores purely consumer-protective.",
       radarAriaLabel: "Scoring radar chart",
       reviewTypes: {
@@ -1245,7 +1245,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
       detailSummary: "Summary: ",
       detailReadPrefix: "",
       detailViewsPrefix: "Views: ",
-      guidesTitle: "KIDSMOBI Lab: Recommended Safety Guides",
+      guidesTitle: "BalanceBikeToddler Lab: Recommended Safety Guides",
       guideBadge: "Authoritative Guide",
       guideRead: "Read Guide",
       closeReading: "Close Reading",
@@ -1264,9 +1264,9 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
       latestDesc: "Follow kids electric bike safety standards, electric dirt bike for kids launches, and foldable electric scooter commute trends.",
       readMore: "read →",
       globalNewsSeoName: "E-Mobility News: Kids Electric Bike & Scooter Trends",
-      fallbackSummary: "Kidsmobi industry updates and safety insights.",
+      fallbackSummary: "BalanceBikeToddler industry updates and safety insights.",
       fallbackContent: "Content in English is being updated. Please check back soon.",
-      fallbackAuthor: "Kidsmobi Global Safety Lab",
+      fallbackAuthor: "BalanceBikeToddler Global Safety Lab",
       fallbackReadTime: "5 min read",
       likeAria: "Like article",
       shareAria: "Share article",
@@ -1276,7 +1276,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
     about: {
       breadcrumb: "ABOUT US",
       heroBadge: "ESTABLISHED IN 2026 · Independent Premium Platform",
-      heroTitle: "About KIDSMOBI: Your Independent Kids' Mobility Lab",
+      heroTitle: "About BalanceBikeToddler: Your Independent Kids' Mobility Lab",
       heroDesc: "We audit jogging stroller, balance bike, toddler bike, and kids scooter safety with independent mechanical methods to answer one simple question: Is this truly safe for your child's growth?",
       partnershipTitle: "Partnerships & Cooperation",
       partnershipDesc: "We welcome meaningful collaborations that prioritize child safety. This includes lab certification sharing, industry report syndication, and media partnerships.",

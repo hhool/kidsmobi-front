@@ -49,13 +49,13 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       navLabel: "Disclaimer",
       title: "Independent Declaration: No Brand Recharge, No Soft Scores",
       subtitle: "We do not sell rankings. We buy, measure, stress, and sometimes physically retire unsafe kids mobility products so parents can make harder decisions with cleaner evidence.",
-      intro: "KIDSMOBI exists because glossy product pages do not show wobble, brake lag, load drift, or the moment a frame starts lying under stress. This is our operating oath.",
+      intro: "BalanceBikeToddler exists because glossy product pages do not show wobble, brake lag, load drift, or the moment a frame starts lying under stress. This is our operating oath.",
       sections: [
         {
           eyebrow: "01 / Funding",
           title: "Affiliate revenue is fuel, not a steering wheel",
           body: [
-            "Some pages may contain commerce links. If a parent buys through one of those links, KIDSMOBI may receive a small commission. That money does not buy a better score, a softer headline, or a hidden editorial pass.",
+            "Some pages may contain commerce links. If a parent buys through one of those links, BalanceBikeToddler may receive a small commission. That money does not buy a better score, a softer headline, or a hidden editorial pass.",
             "Our rule is blunt: the test result moves first, the link follows later. If a product fails our safety logic, affiliate potential does not rescue it. The commission helps fund the next anonymous sample order, replacement brake cable, broken wheel fixture, and teardown session."
           ],
         },
@@ -71,7 +71,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           eyebrow: "03 / Liability boundary",
           title: "Data guidance is not a legal certificate",
           body: [
-            "KIDSMOBI score indexes, rim-size suggestions, load-ratio warnings, and shortlist recommendations are independent biomechanical and editorial assessments. They do not replace official certifications, pediatric advice, manufacturer manuals, or local safety law.",
+            "BalanceBikeToddler score indexes, rim-size suggestions, load-ratio warnings, and shortlist recommendations are independent biomechanical and editorial assessments. They do not replace official certifications, pediatric advice, manufacturer manuals, or local safety law.",
             "Parents should always inspect the final product, follow age and weight limits, use protective gear, and stop using any product that behaves differently from its manual or from common sense."
           ],
         },
@@ -87,9 +87,9 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "Use the product hub to compare the raw specs that feed our verdicts before you trust any shortlist.",
       },
       seo: {
-        title: "KIDSMOBI Independent Disclaimer & Affiliate Disclosure",
-        description: "Read KIDSMOBI's independent declaration: no paid rankings, no brand recharge, anonymous testing preference, and clear affiliate disclosure.",
-        keywords: ["KIDSMOBI disclaimer", "affiliate disclosure", "independent reviews", "kids mobility safety"],
+        title: "BalanceBikeToddler Independent Disclaimer & Affiliate Disclosure",
+        description: "Read BalanceBikeToddler's independent declaration: no paid rankings, no brand recharge, anonymous testing preference, and clear affiliate disclosure.",
+        keywords: ["BalanceBikeToddler disclaimer", "affiliate disclosure", "independent reviews", "kids mobility safety"],
       },
     },
     zh: {
@@ -97,13 +97,13 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       navLabel: "Disclaimer",
       title: "独立宣言：不接受品牌充值，不出售评分温柔乡",
       subtitle: "我们不卖排名。我们购买、测量、施压、拆解，并在必要时让不合格童车产品接受物理意义上的退场。",
-      intro: "KIDSMOBI 存在的原因很简单：商品详情页不会告诉你车架何时开始晃、刹车何时慢半拍、承重何时越过红线。这是我们的操作誓言。",
+      intro: "BalanceBikeToddler 存在的原因很简单：商品详情页不会告诉你车架何时开始晃、刹车何时慢半拍、承重何时越过红线。这是我们的操作誓言。",
       sections: [
         {
           eyebrow: "01 / 资金来源",
           title: "佣金是燃料，不是方向盘",
           body: [
-            "部分页面可能包含商业链接。家长通过这些链接购买时，KIDSMOBI 可能获得微薄佣金。但这笔钱买不到更高分数、更软标题，也买不到隐藏缺点的编辑通行证。",
+            "部分页面可能包含商业链接。家长通过这些链接购买时，BalanceBikeToddler 可能获得微薄佣金。但这笔钱买不到更高分数、更软标题，也买不到隐藏缺点的编辑通行证。",
             "我们的规则很硬：测试结果先走，链接随后。产品如果没有通过安全逻辑，佣金潜力救不了它。佣金只会继续资助下一台匿名样机、下一根备用刹车线、下一次断轮夹具和拆解测试。"
           ],
         },
@@ -119,7 +119,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           eyebrow: "03 / 责任边界",
           title: "数据建议不是法律证书",
           body: [
-            "KIDSMOBI 的评分、轮径建议、车重警示与选购结论均为独立力学评估和编辑判断，不替代官方认证、儿科医生建议、品牌说明书或当地安全法规。",
+            "BalanceBikeToddler 的评分、轮径建议、车重警示与选购结论均为独立力学评估和编辑判断，不替代官方认证、儿科医生建议、品牌说明书或当地安全法规。",
             "家长仍应检查最终到手产品，遵守年龄与体重限制，佩戴必要护具；任何产品表现与说明书或常识不一致时，都应立即停止使用。"
           ],
         },
@@ -135,9 +135,9 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "进入产品库比较喂给结论的原始参数，再决定是否信任任何推荐清单。",
       },
       seo: {
-        title: "KIDSMOBI Independent Disclaimer & Affiliate Disclosure",
-        description: "Read KIDSMOBI's independent declaration: no paid rankings, no brand recharge, anonymous testing preference, and clear affiliate disclosure.",
-        keywords: ["KIDSMOBI disclaimer", "affiliate disclosure", "independent reviews", "kids mobility safety"],
+        title: "BalanceBikeToddler Independent Disclaimer & Affiliate Disclosure",
+        description: "Read BalanceBikeToddler's independent declaration: no paid rankings, no brand recharge, anonymous testing preference, and clear affiliate disclosure.",
+        keywords: ["BalanceBikeToddler disclaimer", "affiliate disclosure", "independent reviews", "kids mobility safety"],
       },
     },
   },
@@ -148,7 +148,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       navLabel: "Testing Methodology",
       title: "Testing Methodology: The Lab Playbook Behind Every Verdict",
       subtitle: "Our score is not a vibe. It is a collision between child-fit math, mechanical stress logic, braking audits, and editorial suspicion.",
-      intro: "KIDSMOBI reviews are built for parents who want to know what happens after the lifestyle photo ends and physics starts asking questions.",
+      intro: "BalanceBikeToddler reviews are built for parents who want to know what happens after the lifestyle photo ends and physics starts asking questions.",
       sections: [
         {
           eyebrow: "01 / 30% load line",
@@ -186,8 +186,8 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "Open the product hub when you want to compare weight, price, and safety fields before reading a final score.",
       },
       seo: {
-        title: "KIDSMOBI Testing Methodology: Kids Mobility Lab Playbook",
-        description: "Explore KIDSMOBI's testing methodology: 30% weight redline, dynamic brake audits, recline checks, and frame-stability logic.",
+        title: "BalanceBikeToddler Testing Methodology: Kids Mobility Lab Playbook",
+        description: "Explore BalanceBikeToddler's testing methodology: 30% weight redline, dynamic brake audits, recline checks, and frame-stability logic.",
         keywords: ["testing methodology", "kids mobility lab", "brake audit", "stroller safety testing"],
       },
     },
@@ -196,7 +196,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       navLabel: "Testing Methodology",
       title: "实验室武功秘籍：每个结论背后的测试方法论",
       subtitle: "我们的评分不是感觉，而是儿童尺寸数学、机械应力逻辑、制动审计和编辑怀疑精神的碰撞结果。",
-      intro: "KIDSMOBI 评测写给那些想知道生活方式美图结束后，物理世界会怎样发问的家长。",
+      intro: "BalanceBikeToddler 评测写给那些想知道生活方式美图结束后，物理世界会怎样发问的家长。",
       sections: [
         {
           eyebrow: "01 / 30% 红线",
@@ -234,8 +234,8 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "想在阅读最终分数前比较重量、价格和安全字段，可先打开产品库。",
       },
       seo: {
-        title: "KIDSMOBI Testing Methodology: Kids Mobility Lab Playbook",
-        description: "Explore KIDSMOBI's testing methodology: 30% weight redline, dynamic brake audits, recline checks, and frame-stability logic.",
+        title: "BalanceBikeToddler Testing Methodology: Kids Mobility Lab Playbook",
+        description: "Explore BalanceBikeToddler's testing methodology: 30% weight redline, dynamic brake audits, recline checks, and frame-stability logic.",
         keywords: ["testing methodology", "kids mobility lab", "brake audit", "stroller safety testing"],
       },
     },
@@ -270,7 +270,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           title: "Why lab notes stay attached to reviews",
           body: [
             "Our lab notes preserve the reason a product was promoted, downgraded, or excluded. This matters when new versions appear, stock photos change, or a marketplace listing quietly rewrites its claims.",
-            "The standards matrix helps crawlers and parents understand that KIDSMOBI is not a coupon blog wearing a lab coat. The review has an evidence trail."
+            "The standards matrix helps crawlers and parents understand that BalanceBikeToddler is not a coupon blog wearing a lab coat. The review has an evidence trail."
           ],
         },
       ],
@@ -285,8 +285,8 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "Use the product hub to compare product fields before trusting any certificate badge or marketing claim.",
       },
       seo: {
-        title: "KIDSMOBI Certification Notes: CPSC, ASTM, ISO & Lab Matrix",
-        description: "See the standards KIDSMOBI references, including CPSC, ASTM F963, ISO 8098, EN 71, and editorial lab-note handling.",
+        title: "BalanceBikeToddler Certification Notes: CPSC, ASTM, ISO & Lab Matrix",
+        description: "See the standards BalanceBikeToddler references, including CPSC, ASTM F963, ISO 8098, EN 71, and editorial lab-note handling.",
         keywords: ["certification notes", "CPSC", "ASTM F963", "ISO 8098", "lab standards"],
       },
     },
@@ -318,7 +318,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           title: "为什么实验室日志要挂在评测旁边",
           body: [
             "实验室日志保留一个产品被推荐、降级或排除的原因。当新版本出现、库存图变化、平台页面悄悄改写宣传语时，这种记忆很重要。",
-            "标准矩阵帮助爬虫和家长理解：KIDSMOBI 不是穿着白大褂的优惠券博客，评测背后有证据链。"
+            "标准矩阵帮助爬虫和家长理解：BalanceBikeToddler 不是穿着白大褂的优惠券博客，评测背后有证据链。"
           ],
         },
       ],
@@ -333,8 +333,8 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "进入产品库，在相信任何认证徽章或营销话术前先比较产品字段。",
       },
       seo: {
-        title: "KIDSMOBI Certification Notes: CPSC, ASTM, ISO & Lab Matrix",
-        description: "See the standards KIDSMOBI references, including CPSC, ASTM F963, ISO 8098, EN 71, and editorial lab-note handling.",
+        title: "BalanceBikeToddler Certification Notes: CPSC, ASTM, ISO & Lab Matrix",
+        description: "See the standards BalanceBikeToddler references, including CPSC, ASTM F963, ISO 8098, EN 71, and editorial lab-note handling.",
         keywords: ["certification notes", "CPSC", "ASTM F963", "ISO 8098", "lab standards"],
       },
     },
@@ -346,7 +346,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       navLabel: "Privacy Policy",
       title: "Privacy Policy: The Parent Data Firewall",
       subtitle: "Your child's fit data is not inventory. Smart Wizard measurements stay local unless you deliberately choose account features.",
-      intro: "KIDSMOBI handles sizing data like a lab handles a volatile sample: use it for the current measurement, keep the minimum needed, and never sell it to the advertising machine.",
+      intro: "BalanceBikeToddler handles sizing data like a lab handles a volatile sample: use it for the current measurement, keep the minimum needed, and never sell it to the advertising machine.",
       sections: [
         {
           eyebrow: "01 / Smart Wizard",
@@ -368,7 +368,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           eyebrow: "03 / No ad marketplace",
           title: "We do not sell parent attention as a product",
           body: [
-            "KIDSMOBI avoids advertising trackers and does not sell personal data. We use privacy-sensitive analytics and operational logs only to keep the site stable, detect abuse, and understand which safety resources actually help families.",
+            "BalanceBikeToddler avoids advertising trackers and does not sell personal data. We use privacy-sensitive analytics and operational logs only to keep the site stable, detect abuse, and understand which safety resources actually help families.",
             "If we ever expand data use, the rule remains simple: explain it plainly, keep it proportional, and never turn a child's measurements into a growth-hacking asset."
           ],
         },
@@ -384,9 +384,9 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "Move from local sizing logic into the product hub when you are ready to compare safer candidates.",
       },
       seo: {
-        title: "KIDSMOBI Privacy Policy: Parent Data Firewall",
-        description: "KIDSMOBI privacy policy for parents: local Smart Wizard sizing, no sale of child fit data, and narrow account data use.",
-        keywords: ["privacy policy", "parent data", "Smart Wizard", "child fit data", "KIDSMOBI privacy"],
+        title: "BalanceBikeToddler Privacy Policy: Parent Data Firewall",
+        description: "BalanceBikeToddler privacy policy for parents: local Smart Wizard sizing, no sale of child fit data, and narrow account data use.",
+        keywords: ["privacy policy", "parent data", "Smart Wizard", "child fit data", "BalanceBikeToddler privacy"],
       },
     },
     zh: {
@@ -394,7 +394,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       navLabel: "Privacy Policy",
       title: "家长定心丸：儿童数据防火墙",
       subtitle: "孩子的尺寸数据不是库存。Smart Wizard 的测算默认留在本地，除非你主动选择账号功能。",
-      intro: "KIDSMOBI 处理尺寸数据的方式像实验室处理不稳定样本：只为当前测算使用，保留最少必要信息，绝不卖给广告机器。",
+      intro: "BalanceBikeToddler 处理尺寸数据的方式像实验室处理不稳定样本：只为当前测算使用，保留最少必要信息，绝不卖给广告机器。",
       sections: [
         {
           eyebrow: "01 / Smart Wizard",
@@ -416,7 +416,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           eyebrow: "03 / 无广告市场",
           title: "我们不把家长注意力卖成产品",
           body: [
-            "KIDSMOBI 避免广告追踪器，不出售个人数据。我们只使用隐私友好的分析和运行日志来保持站点稳定、识别滥用，并理解哪些安全资源真正帮助家庭。",
+            "BalanceBikeToddler 避免广告追踪器，不出售个人数据。我们只使用隐私友好的分析和运行日志来保持站点稳定、识别滥用，并理解哪些安全资源真正帮助家庭。",
             "如果未来扩展数据使用，规则仍然简单：讲清楚、保持比例、绝不把孩子尺寸变成增长黑客资产。"
           ],
         },
@@ -432,9 +432,9 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "完成本地尺寸判断后，再进入产品库比较更安全的候选产品。",
       },
       seo: {
-        title: "KIDSMOBI Privacy Policy: Parent Data Firewall",
-        description: "KIDSMOBI privacy policy for parents: local Smart Wizard sizing, no sale of child fit data, and narrow account data use.",
-        keywords: ["privacy policy", "parent data", "Smart Wizard", "child fit data", "KIDSMOBI privacy"],
+        title: "BalanceBikeToddler Privacy Policy: Parent Data Firewall",
+        description: "BalanceBikeToddler privacy policy for parents: local Smart Wizard sizing, no sale of child fit data, and narrow account data use.",
+        keywords: ["privacy policy", "parent data", "Smart Wizard", "child fit data", "BalanceBikeToddler privacy"],
       },
     },
   },

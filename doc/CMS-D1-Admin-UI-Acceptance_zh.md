@@ -15,7 +15,7 @@
 部署说明：
 
 1. 验收时请将 `VITE_CMS_API_BASE_URL` 固定到已部署的 Worker CMS API。
-2. 若需要后端资源检查，请将 `VITE_SCRAPE_API_BASE_URL` 或 `SCRAPE_KIDSMOBILE_API_BASE_URL` 固定到已部署的 Worker API。
+2. 若需要后端资源检查，请将 `VITE_SCRAPE_API_BASE_URL` 或 `SCRAPE_BalanceBikeToddlerLE_API_BASE_URL` 固定到已部署的 Worker API。
 
 ## 1. 模块可达性
 

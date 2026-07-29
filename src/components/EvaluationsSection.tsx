@@ -248,7 +248,7 @@ function cleanEnBrandText(brand: string) {
   if (lowercase.includes("razor")) return "Razor";
   if (lowercase.includes("dream on me")) return "Dream On Me";
   if (/[\u4e00-\u9fff]/.test(brand)) {
-    return brand.replace(/[\u4e00-\u9fff]/g, "").trim() || "KIDSMOBI";
+    return brand.replace(/[\u4e00-\u9fff]/g, "").trim() || "BalanceBikeToddler";
   }
   return brand;
 }

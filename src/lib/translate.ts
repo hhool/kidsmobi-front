@@ -17,8 +17,8 @@ export function getCurrencyData(countryCode: string) {
 export const translations = {
   zh: {
     // Nav & Common Headers
-    topBanner: "KIDSMOBI · 全球高端童车品牌垂直导购平台 · 专注安全、工效与健康骑行",
-    brandTitle: "KIDSMOBI",
+    topBanner: "BalanceBikeToddler · 全球高端童车品牌垂直导购平台 · 专注安全、工效与健康骑行",
+    brandTitle: "BalanceBikeToddler",
     bbtBrandTitle: "BalanceBikeToddler.com",
     versionStamp: "2026 PREMIUM",
     subTitle: "高端垂直童车评测平台",
@@ -32,7 +32,7 @@ export const translations = {
     navLanguage: "🌐 简体中文",
     closeAdvisor: "关闭顾问",
     connectAdvisor: "连线专家",
-    advisorTitle: "KIDSMOBI 高端童车安全顾问",
+    advisorTitle: "BalanceBikeToddler 高端童车安全顾问",
     advisorLoading: "正在为您进行多维度工效匹配...",
 
     // Button Labels
@@ -51,7 +51,7 @@ export const translations = {
     sloganHeading1: "高端垂直",
     sloganHeading2: "童车评测",
     sloganHeading3: "平台",
-    sloganDesc: "KIDSMOBI 致力于通过严苛的儿科医学参数、力学安全评估与智能工效匹配，在海量冗余信息中，为精英家庭选出更健康、更安全的专业座驾。拒绝平庸，只为成长。",
+    sloganDesc: "BalanceBikeToddler 致力于通过严苛的儿科医学参数、力学安全评估与智能工效匹配，在海量冗余信息中，为精英家庭选出更健康、更安全的专业座驾。拒绝平庸，只为成长。",
     btnWizard: "智能选车助手 🔬",
     btnDatabase: "品牌全系列库 📂",
     radarTitle: "物理安全雷达公示区",
@@ -90,10 +90,10 @@ export const translations = {
   en: {
     // Nav & Common Headers
     topBanner: "Global Kids Bike Testing Platform · Based on ISO 8098 Braking & Gravity Standards · 100% Self-funded & Unbiased",
-    brandTitle: "KIDSMOBI",
+    brandTitle: "BalanceBikeToddler",
     bbtBrandTitle: "BalanceBikeToddler.com",
     versionStamp: "LAB VERIFIED",
-    subTitle: "KIDSMOBI · Global Buyer's Decision Portal",
+    subTitle: "BalanceBikeToddler · Global Buyer's Decision Portal",
     bbtSubTitle: "Your trusted global review site for kids wheeled toys",
     navHome: "Home",
     navProducts: "Products",
@@ -662,7 +662,7 @@ When buying baby strollers, please decidedly avoid fabric meshes with no hard un
     news_2: {
       title: "Lightweight Kids Mobility Becomes the 2026 Family Buying Theme",
       summary: "Across strollers, balance bikes, kids bikes, and scooters, families are shifting toward products that are light, easy to store, and easier to maintain.",
-      author: "KIDSMOBI Market Desk",
+      author: "BalanceBikeToddler Market Desk",
       readTime: "4 min read",
       content: `### 2026 Industry Trend: Lighter, Easier, More Family-Friendly
 
@@ -674,7 +674,7 @@ When buying baby strollers, please decidedly avoid fabric meshes with no hard un
     #### 2. Parents now buy by scenario
     Commuting families care about fold size and carry weight. Park families care about grip and vibration. School-age families care about brake feedback and maintenance cost. Brands that explain where a product fits are easier to trust.
 
-    #### 3. KIDSMOBI view
+    #### 3. BalanceBikeToddler view
     The next durable brands will not simply shout specifications. They will explain who the product suits, which roads it fits, which budget band it occupies, and how often it needs care.`
     },
     news_3: {
@@ -728,7 +728,7 @@ Air tires ingest and dissolve up to 95% of micro-vibrations via gas deflection, 
     news_6: {
       title: "2026 Industry Trend: Families Move From Single Products to Scenario Bundles",
       summary: "Strollers, balance bikes, kids bikes, and scooters are increasingly bought as connected mobility setups for commuting, weekends, parks, and growth stages.",
-      author: "KIDSMOBI Industry Desk",
+      author: "BalanceBikeToddler Industry Desk",
       readTime: "4 min read",
       content: `### Scenario Bundles Are Reshaping Kids Mobility
 
@@ -743,7 +743,7 @@ From stroller to balance bike, then kids bike and scooter, the core skills are b
     news_7: {
       title: "After Lightweight, Repairability Becomes the Next Kids Mobility Battleground",
       summary: "Once lightweight frames become common, wheelsets, brakes, saddles, folding joints, and spare-part availability become the new brand differentiators.",
-      author: "KIDSMOBI Market Research",
+      author: "BalanceBikeToddler Market Research",
       readTime: "4 min read",
       content: `### Repairability Is Becoming a Brand Divider
 
@@ -758,7 +758,7 @@ More families want one product to survive across children and seasons. Brands th
     news_8: {
       title: "EU Labeling Trend: Age, Weight, and Surface Limits Need Clearer Kids Mobility Copy",
       summary: "European-market children’s mobility labels are moving toward clearer age, weight, surface, and maintenance guidance for families.",
-      author: "KIDSMOBI Compliance Desk",
+      author: "BalanceBikeToddler Compliance Desk",
       readTime: "5 min read",
       content: `### Label Clarity Is Becoming a Compliance Priority
 
@@ -773,7 +773,7 @@ Indoor floors, sidewalks, gravel paths, and slopes all demand different wheels, 
     news_9: {
       title: "Kids Scooter Brake Copy Draws Attention: Rear Friction Brakes Are Not All-Terrain Safety",
       summary: "Rear friction brakes work well in simple settings, but wet pavement and long slopes require clearer usage boundaries and caregiver guidance.",
-      author: "KIDSMOBI Risk Review",
+      author: "BalanceBikeToddler Risk Review",
       readTime: "4 min read",
       content: `### Scooter Brake Boundaries Need Clearer Explanation
 
@@ -788,7 +788,7 @@ For young children’s products, key risk guidance belongs on packaging, product
     news_10: {
       title: "Brand News: Woom Sharpens Its Growth-Frame Strategy Around Low Weight and Child Geometry",
       summary: "Woom keeps focusing on low weight, low standover, narrow Q-factor, and child-sized brakes as a clear brand identity around real control.",
-      author: "KIDSMOBI Brand Desk",
+      author: "BalanceBikeToddler Brand Desk",
       readTime: "4 min read",
       content: `### Woom's Brand Language Centers on Control
 
@@ -803,7 +803,7 @@ Shrinking adult bikes is no longer enough. Brands that explain children’s body
     news_11: {
       title: "Brand News: Joovy and Bumbleride Compete for Urban Stroller Families in Different Ways",
       summary: "Joovy leans into functional density for multi-child families, while Bumbleride emphasizes sustainable materials and smooth everyday pushing.",
-      author: "KIDSMOBI Brand Research",
+      author: "BalanceBikeToddler Brand Research",
       readTime: "5 min read",
       content: `### Two Stroller Brand Routes Are Splitting Apart
 
@@ -818,7 +818,7 @@ Sustainable fabrics, smooth wheels, and outdoor suitability make Bumbleride feel
     news_12: {
       title: "Science Tip: Why Low Standover Matters More Than Large Wheels for Early Riders",
       summary: "At the beginner stage, the key is not speed. Children need to stop, put both feet down, and restart with confidence.",
-      author: "KIDSMOBI Ergonomics Lab",
+      author: "BalanceBikeToddler Ergonomics Lab",
       readTime: "4 min read",
       content: `### Low Standover Determines Whether Children Dare to Start
 
@@ -833,7 +833,7 @@ Large wheels improve rollover, but they can raise height and weight. For beginne
     news_13: {
       title: "Science Tip: Scooter Steering Design Changes How Children Learn Balance",
       summary: "Lean steering and handlebar steering train different control patterns, so families should choose based on age, surface, and riding goals.",
-      author: "KIDSMOBI Motor Development Lab",
+      author: "BalanceBikeToddler Motor Development Lab",
       readTime: "4 min read",
       content: `### Steering Structure Shapes Body Learning
 

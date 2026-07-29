@@ -15,7 +15,7 @@ Validation method:
 Deployment note:
 
 1. Keep `VITE_CMS_API_BASE_URL` pinned to the deployed Worker CMS API for stable acceptance runs.
-2. Keep `VITE_SCRAPE_API_BASE_URL` or `SCRAPE_KIDSMOBILE_API_BASE_URL` pinned to the deployed Worker API for backend resource checks.
+2. Keep `VITE_SCRAPE_API_BASE_URL` or `SCRAPE_BalanceBikeToddlerLE_API_BASE_URL` pinned to the deployed Worker API for backend resource checks.
 
 ## 1. Module Reachability
 

@@ -20,86 +20,86 @@ const categorySeoDefaults: Record<ProductCategory, {
 }> = {
   stroller: {
     en: {
-      seoTitle: "Best Baby & Twin Strollers 2026 Lab-Tested Reviews - KIDSMOBI",
+      seoTitle: "Best Baby & Twin Strollers 2026 Lab-Tested Reviews - BalanceBikeToddler",
       seoDescription: "Explore our expert lab database for the safest and most reliable baby and twin strollers. Compare weight capacity, safety scores, and travel features.",
       seoKeywords: "baby stroller, twin stroller, double twin stroller, travel stroller, jogging stroller"
     },
     zh: {
-      seoTitle: "2026最佳婴儿车与双胞胎推车实验室深度评测 | KIDSMOBI",
-      seoDescription: "探索KIDSMOBI实验室数据库，获取安全高承重的单人与双胞胎折叠推车。对比避震能力、物理结构与安全性评估分值。",
-      seoKeywords: "婴儿推车, 双人推车, 折叠婴儿车, 慢跑推车, KIDSMOBI"
+      seoTitle: "2026最佳婴儿车与双胞胎推车实验室深度评测 | BalanceBikeToddler",
+      seoDescription: "探索BalanceBikeToddler实验室数据库，获取安全高承重的单人与双胞胎折叠推车。对比避震能力、物理结构与安全性评估分值。",
+      seoKeywords: "婴儿推车, 双人推车, 折叠婴儿车, 慢跑推车, BalanceBikeToddler"
     }
   },
   balance: {
     en: {
-      seoTitle: "Best Toddler Balance Bikes 2026 Lab-Tested Reviews - KIDSMOBI",
+      seoTitle: "Best Toddler Balance Bikes 2026 Lab-Tested Reviews - BalanceBikeToddler",
       seoDescription: "Explore our expert lab database for the safest toddler balance bikes. Compare weight capacity, stability scores, and features for top ride-on brands.",
       seoKeywords: "toddler balance bike, kids balance bike, 1 year old balance bike, ride-on balance bike"
     },
     zh: {
-      seoTitle: "2026最佳幼儿无脚踏平衡车实验室深度评测 | KIDSMOBI",
-      seoDescription: "探索KIDSMOBI无脚踏幼儿滑步平衡车评分矩阵。深度比较车重工效、几何结构与核心通过性指数，助您科学决策。",
-      seoKeywords: "幼儿平衡车, 儿童滑步车, 1岁平衡车, 平衡训练车, KIDSMOBI"
+      seoTitle: "2026最佳幼儿无脚踏平衡车实验室深度评测 | BalanceBikeToddler",
+      seoDescription: "探索BalanceBikeToddler无脚踏幼儿滑步平衡车评分矩阵。深度比较车重工效、几何结构与核心通过性指数，助您科学决策。",
+      seoKeywords: "幼儿平衡车, 儿童滑步车, 1岁平衡车, 平衡训练车, BalanceBikeToddler"
     }
   },
   bicycle: {
     en: {
-      seoTitle: "Best Kids Bikes & Toddler Bicycles 2026 Lab-Tested - KIDSMOBI",
+      seoTitle: "Best Kids Bikes & Toddler Bicycles 2026 Lab-Tested - BalanceBikeToddler",
       seoDescription: "Discover the safest and top-rated kids bikes for ages 2-14. Explore our lab database to compare BMX style, training wheels, and dual suspension bicycles.",
       seoKeywords: "kids bmx bike, toddler bicycle, kids bike training wheels, pedal bike for children"
     },
     zh: {
-      seoTitle: "2026最佳适龄儿童自行车与充气轮单车深度评测 | KIDSMOBI",
+      seoTitle: "2026最佳适龄儿童自行车与充气轮单车深度评测 | BalanceBikeToddler",
       seoDescription: "获取2至14岁最适合最安全的儿童自行车候选数据库。极速对比辅助轮装配、前叉避震、机械双刹等力学客观指标。",
-      seoKeywords: "儿童自行车, 幼儿单车, BMX儿童自行车, 带辅助轮自行车, KIDSMOBI"
+      seoKeywords: "儿童自行车, 幼儿单车, BMX儿童自行车, 带辅助轮自行车, BalanceBikeToddler"
     }
   },
   scooter: {
     en: {
-      seoTitle: "Best Kids Scooter & Electric Scooter 2026 Lab-Tested - KIDSMOBI",
+      seoTitle: "Best Kids Scooter & Electric Scooter 2026 Lab-Tested - BalanceBikeToddler",
       seoDescription: "Discover the safest lab-tested scooter models for kids and teens. Compare 3-wheel kick scooter, electric model, and top mobility brands.",
       seoKeywords: "kids kick scooter, foldable kids scooter, toddler 3 wheel scooter, children electric scooter"
     },
     zh: {
-      seoTitle: "2026最佳儿童滑板车与重力转向摇摆车深度评测 | KIDSMOBI",
+      seoTitle: "2026最佳儿童滑板车与重力转向摇摆车深度评测 | BalanceBikeToddler",
       seoDescription: "查找最安全的物理级别儿童/青少年滑板车列表。深度测试低重心稳定度、重力智能转向与折叠收折设计。",
-      seoKeywords: "儿童滑板车, 儿童电动滑板车, 折叠滑板车, 三轮重力转向滑板车, KIDSMOBI"
+      seoKeywords: "儿童滑板车, 儿童电动滑板车, 折叠滑板车, 三轮重力转向滑板车, BalanceBikeToddler"
     }
   },
   electric_car: {
     en: {
-      seoTitle: "Best Kids Ride-On Toys & Electric Cars 2026 Lab-Tested - KIDSMOBI",
+      seoTitle: "Best Kids Ride-On Toys & Electric Cars 2026 Lab-Tested - BalanceBikeToddler",
       seoDescription: "Explore our lab-tested reviews of 12V and 24V kids ride-on cars, UTVs, and electric motorcycles. Compare top-rated kids electric car options for battery safety.",
       seoKeywords: "kids electric car, ride on toys 12v, kids electric motorcycle, toddler electric car"
     },
     zh: {
-      seoTitle: "2026最佳儿童电动汽车与电玩骑行玩具车深度评测 | KIDSMOBI",
+      seoTitle: "2026最佳儿童电动汽车与电玩骑行玩具车深度评测 | BalanceBikeToddler",
       seoDescription: "对比12V/24V儿童电动越野车（UTV/SUV）与双马达重力骑行玩具安全性能。测试其绝缘、过载保护与遥控控制阻断。",
-      seoKeywords: "儿童电动车, 儿童玩具车, 儿童电动越野车, 电玩摩托车, KIDSMOBI"
+      seoKeywords: "儿童电动车, 儿童玩具车, 儿童电动越野车, 电玩摩托车, BalanceBikeToddler"
     }
   },
   safety_seat: {
     en: {
-      seoTitle: "Best Convertible & Toddler Car Seats 2026 Lab-Tested - KIDSMOBI",
+      seoTitle: "Best Convertible & Toddler Car Seats 2026 Lab-Tested - BalanceBikeToddler",
       seoDescription: "Find the safest convertible and booster car seats for your child. Compare lab-tested scores, weight limits, and safety features for top brands like Graco and Evenflo.",
       seoKeywords: "convertible car seat, booster car seat, infant car seat, child safety car seat"
     },
     zh: {
-      seoTitle: "2026最佳儿童汽车安全提篮与成长座椅深度评测 | KIDSMOBI",
+      seoTitle: "2026最佳儿童汽车安全提篮与成长座椅深度评测 | BalanceBikeToddler",
       seoDescription: "探求最安全的儿童汽车安全座椅（安全提篮/增高垫）。涵盖侧向撞击防护技术、ISOFIX硬接口安装兼容性等专家质检数据。",
-      seoKeywords: "安全座椅, 儿童安全提篮, 成长型安全座椅, 侧向防护座椅, KIDSMOBI"
+      seoKeywords: "安全座椅, 儿童安全提篮, 成长型安全座椅, 侧向防护座椅, BalanceBikeToddler"
     }
   },
   tricycle: {
     en: {
-      seoTitle: "Best Toddler Tricycles & Learn-to-Ride Trikes 2026 - KIDSMOBI",
+      seoTitle: "Best Toddler Tricycles & Learn-to-Ride Trikes 2026 - BalanceBikeToddler",
       seoDescription: "Compare key safety benchmarks for grow-with-me toddler tricycles and steering push trikes. Evaluate frame solidity and parenting handlebar comfort.",
       seoKeywords: "kids tricycles, toddler tricycle, steering baby trike"
     },
     zh: {
-      seoTitle: "2026最佳幼儿推行三轮脚踏车实验室评测 | KIDSMOBI",
+      seoTitle: "2026最佳幼儿推行三轮脚踏车实验室评测 | BalanceBikeToddler",
       seoDescription: "精选安全的多功能成长型幼儿三轮滑步推行车。对比结构刚性、可调节推把工效以及宝宝蹬踏动力学参数。",
-      seoKeywords: "幼儿三轮车, 成长型三轮车, 手推脚踏车, KIDSMOBI"
+      seoKeywords: "幼儿三轮车, 成长型三轮车, 手推脚踏车, BalanceBikeToddler"
     }
   }
 };
@@ -447,7 +447,7 @@ export default function CategoryManager({ lang }: { lang: "zh" | "en" }) {
 
               <Field
                 label={lang === "zh" ? "ZH SEO Keywords (逗号分隔)" : "ZH SEO Keywords (Comma separated)"}
-                placeholder="e.g. 婴儿推车, 双人推车, KIDSMOBI"
+                placeholder="e.g. 婴儿推车, 双人推车, BalanceBikeToddler"
                 value={editing.zh?.seoKeywords || ""}
                 onChange={(v) => setEditing({ ...editing, zh: { ...(editing.zh || {}), seoKeywords: v } })}
               />

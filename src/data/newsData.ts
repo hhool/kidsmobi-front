@@ -54,7 +54,7 @@ export const newsArticles: NewsArticle[] = [
 #### 2. 家长正在从“看配置”转向“看场景”
 通勤家庭关注折叠体积和可携带性，公园家庭关注抓地与减震，学龄孩子家庭关注刹车反馈和维修成本。品牌如果仍只展示夸张承重和厚重车架，会越来越难打动理性家长。
 
-#### 3. KIDSMOBI 观察
+#### 3. BalanceBikeToddler 观察
 真正有长期复购价值的品牌，会把产品讲清楚：适合什么孩子、什么路面、什么预算、什么维护频率。轻量化不是噱头，而是安全、舒适和家庭效率共同收敛后的方向。`,
     publishDate: "2026-05-15",
     readTime: "4 分钟",
@@ -157,7 +157,7 @@ Specialized闪电在此次加州海獭展（Sea Otter Classic）上公开了全�
 孩子从推车到平衡车，再到儿童自行车和滑板车，核心能力是平衡、刹车、转向和路面判断。品牌若能提供连续成长路线，更容易获得家庭长期信任。`,
     publishDate: "2026-06-18",
     readTime: "4 分钟",
-    author: "KIDSMOBI 行业观察组",
+    author: "BalanceBikeToddler 行业观察组",
     imageUrl: "https://picsum.photos/seed/news6/600/400",
     views: 2860
   },
@@ -178,7 +178,7 @@ Specialized闪电在此次加州海獭展（Sea Otter Classic）上公开了全�
 越来越多家庭希望一件产品能跨孩子、跨季节使用。品牌如果能公开配件、维护周期和适配说明，会在二手和口碑传播中获得额外优势。`,
     publishDate: "2026-06-12",
     readTime: "4 分钟",
-    author: "KIDSMOBI 市场研究组",
+    author: "BalanceBikeToddler 市场研究组",
     imageUrl: "https://picsum.photos/seed/news7/600/400",
     views: 2410
   },
@@ -199,7 +199,7 @@ Specialized闪电在此次加州海獭展（Sea Otter Classic）上公开了全�
 与其写“请注意安全”，不如写“雨后瓷砖、连续下坡、夜间无照明路段禁止独立骑行”。越具体，越能减少误用。`,
     publishDate: "2026-06-08",
     readTime: "5 分钟",
-    author: "KIDSMOBI 合规观察组",
+    author: "BalanceBikeToddler 合规观察组",
     imageUrl: "https://picsum.photos/seed/news8/600/400",
     views: 1988
   },
@@ -220,7 +220,7 @@ Specialized闪电在此次加州海獭展（Sea Otter Classic）上公开了全�
 雨后场景先降速再转向，遇下坡优先绕行；对 6 岁以下儿童，建议把“停车演练”作为固定动作，而不是临场反应。`,
     publishDate: "2026-06-02",
     readTime: "4 分钟",
-    author: "KIDSMOBI 风险识别组",
+    author: "BalanceBikeToddler 风险识别组",
     imageUrl: "https://picsum.photos/seed/news9/600/400",
     views: 1764
   },
@@ -241,7 +241,7 @@ Specialized闪电在此次加州海獭展（Sea Otter Classic）上公开了全�
 只把成人车缩小，已经很难赢得专业家长。谁能把儿童身体比例和学习曲线讲清楚，谁就更容易建立可信度。`,
     publishDate: "2026-05-30",
     readTime: "4 分钟",
-    author: "KIDSMOBI 品牌观察组",
+    author: "BalanceBikeToddler 品牌观察组",
     imageUrl: "https://picsum.photos/seed/news10/600/400",
     views: 3340
   },
@@ -262,7 +262,7 @@ Specialized闪电在此次加州海獭展（Sea Otter Classic）上公开了全�
 环保面料、顺滑轮组和户外场景适配，让 Bumbleride 更像一台长期陪伴型产品。它卖的不只是功能，也是一种低负担生活方式。`,
     publishDate: "2026-05-24",
     readTime: "5 分钟",
-    author: "KIDSMOBI 品牌研究组",
+    author: "BalanceBikeToddler 品牌研究组",
     imageUrl: "https://picsum.photos/seed/news11/600/400",
     views: 2975
   },
@@ -283,7 +283,7 @@ Specialized闪电在此次加州海獭展（Sea Otter Classic）上公开了全�
 轮径越大，通过性越好，但车身也可能更高、更重。对新手来说，合适的站立间隙和车重比例，比盲目上大一号更重要。`,
     publishDate: "2026-05-18",
     readTime: "4 分钟",
-    author: "KIDSMOBI 工效学组",
+    author: "BalanceBikeToddler 工效学组",
     imageUrl: "https://picsum.photos/seed/news12/600/400",
     views: 4210
   },
@@ -304,7 +304,7 @@ Specialized闪电在此次加州海獭展（Sea Otter Classic）上公开了全�
 车把转向响应直接，但也更容易在高速下突然偏转。适合已有平衡基础、能理解减速和避让规则的孩子。`,
     publishDate: "2026-05-12",
     readTime: "4 分钟",
-    author: "KIDSMOBI 运动发展组",
+    author: "BalanceBikeToddler 运动发展组",
     imageUrl: "https://picsum.photos/seed/news13/600/400",
     views: 3896
   },
@@ -325,7 +325,7 @@ Specialized闪电在此次加州海獭展（Sea Otter Classic）上公开了全�
 能提供分年龄限速建议、维护节奏图和场景禁用说明的品牌，咨询到下单的路径更短、退货争议更少。`,
     publishDate: "2026-06-22",
     readTime: "4 分钟",
-    author: "KIDSMOBI 出行产业组",
+    author: "BalanceBikeToddler 出行产业组",
     imageUrl: "https://picsum.photos/seed/news14/600/400",
     views: 2654
   },
@@ -346,7 +346,7 @@ Specialized闪电在此次加州海獭展（Sea Otter Classic）上公开了全�
 有门店网络的品牌在调校、小修和配件补给上响应更快，家长更愿意在同品牌完成二次升级购买。`,
     publishDate: "2026-06-20",
     readTime: "4 分钟",
-    author: "KIDSMOBI 消费研究中心",
+    author: "BalanceBikeToddler 消费研究中心",
     imageUrl: "https://picsum.photos/seed/news15/600/400",
     views: 2386
   },
@@ -367,7 +367,7 @@ Guardian 本次发布会把教育能力放在核心位置，提出“交付后 3
 当产品能力差距收敛，谁能把“买后学习”做成标准化流程，谁就更容易形成长期用户黏性。`,
     publishDate: "2026-06-16",
     readTime: "4 分钟",
-    author: "KIDSMOBI 品牌追踪组",
+    author: "BalanceBikeToddler 品牌追踪组",
     imageUrl: "https://picsum.photos/seed/news16/600/400",
     views: 3521
   },
@@ -388,7 +388,7 @@ Micro Mobility 这次没有强调极速或续航，而是围绕“接送 10 分�
 品牌新增“上学通勤三步法”：起步前检查、中途减速策略、到达后收纳顺序，让低经验家庭也能快速形成规范动作。`,
     publishDate: "2026-06-14",
     readTime: "4 分钟",
-    author: "KIDSMOBI 城市出行编辑部",
+    author: "BalanceBikeToddler 城市出行编辑部",
     imageUrl: "https://picsum.photos/seed/news17/600/400",
     views: 3278
   }

@@ -969,11 +969,11 @@ async function main() {
     id: "global",
     hero: {
       zh: {
-        title: "KIDSMOBI 运维导入版",
+        title: "BalanceBikeToddler 运维导入版",
         subtitle: `已接入 backend 数据源，导入 ${sourceCategories.length} 个品类。`,
       },
       en: {
-        title: "KIDSMOBI Ops Bootstrap",
+        title: "BalanceBikeToddler Ops Bootstrap",
         subtitle: `Connected to backend source and imported ${sourceCategories.length} categories.`,
       },
     },

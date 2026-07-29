@@ -1691,16 +1691,16 @@ export default function App() {
         const cat = selectedProduct.category;
 
         const title = lang === "zh"
-          ? `${dedupedDisplayTitle} 独家深度客观安全评测报告 | KIDSMOBI`
-          : `${dedupedDisplayTitle} Exclusive Safety Evaluation & Specs | KIDSMOBI`;
+          ? `${dedupedDisplayTitle} 独家深度客观安全评测报告 | BalanceBikeToddler`
+          : `${dedupedDisplayTitle} Exclusive Safety Evaluation & Specs | BalanceBikeToddler`;
 
         const desc = lang === "zh"
-          ? `${dedupedDisplayTitle} (${selectedProduct.ageRange})的物理材料、轮径比、刹车制动等详细性能参数，结合KIDSMOBI实验室工程师的独家拆解观点与真实优缺点分析。`
+          ? `${dedupedDisplayTitle} (${selectedProduct.ageRange})的物理材料、轮径比、刹车制动等详细性能参数，结合BalanceBikeToddler实验室工程师的独家拆解观点与真实优缺点分析。`
           : `Meticulous safety verification for the ${dedupedDisplayTitle} kids mobility. Comprehensive parameters, raw materials, pros/cons, and engineer reviews.`;
 
         const kws = lang === "zh"
-          ? [name, brand, cat, "童车数据评测", "KIDSMOBI"]
-          : [name, brand, cat, "parameters", "product evaluation", "KIDSMOBI"];
+          ? [name, brand, cat, "童车数据评测", "BalanceBikeToddler"]
+          : [name, brand, cat, "parameters", "product evaluation", "BalanceBikeToddler"];
 
         document.title = title;
         updateMetaTag("description", desc);
@@ -1766,23 +1766,23 @@ export default function App() {
 
       const title = lang === "zh"
         ? (compareList.length > 0 
-           ? `${joinedNamesZh} - 独家实验室指标参数横评 | KIDSMOBI` 
-           : "产品指标技术对比看板 | KIDSMOBI 实验室")
+           ? `${joinedNamesZh} - 独家实验室指标参数横评 | BalanceBikeToddler` 
+           : "产品指标技术对比看板 | BalanceBikeToddler 实验室")
         : (compareList.length > 0 
-           ? `Comparing ${joinedNames} - Side-by-side Lab Specs | KIDSMOBI` 
-           : "Product Technical Comparison Dashboard | KIDSMOBI Lab");
+           ? `Comparing ${joinedNames} - Side-by-side Lab Specs | BalanceBikeToddler` 
+           : "Product Technical Comparison Dashboard | BalanceBikeToddler Lab");
 
       const desc = lang === "zh"
         ? (compareList.length > 0 
            ? `一键横向对比 ${productNames.slice(0, 3).join("、")} 等多款童车的力学参数与物理规格。包含安全指数、尺寸、重量、轮组及刹车，为您提供极佳科学导购。` 
-           : "KIDSMOBI 实验室产品参数横向比对工具，支持多款车型力学参数同台竞争比对。")
+           : "BalanceBikeToddler 实验室产品参数横向比对工具，支持多款车型力学参数同台竞争比对。")
         : (compareList.length > 0
            ? `See side-by-side lab test results and physical specs for ${joinedNames}. Compare safety score, weight, price, brakes, and tires to make the best choice.`
            : "Compare technical parameters, safety ratings, frame materials, and testing scores for multiple kids mobility products.");
 
       const kws = lang === "zh"
-        ? [...compareList.map(p => `${p.name}对比`), "童车对比报告", "KIDSMOBI"]
-        : [...compareList.map(p => `${p.name} comparison`), "kids mobility compare", "KIDSMOBI"];
+        ? [...compareList.map(p => `${p.name}对比`), "童车对比报告", "BalanceBikeToddler"]
+        : [...compareList.map(p => `${p.name} comparison`), "kids mobility compare", "BalanceBikeToddler"];
 
       document.title = title;
       updateMetaTag("description", desc);
@@ -1869,7 +1869,7 @@ export default function App() {
           {
             "@context": "https://schema.org",
             "@type": "Organization",
-            name: "KIDSMOBI",
+            name: "BalanceBikeToddler",
             url: `${window.location.origin}/`,
             logo: `${window.location.origin}/favicon.ico`,
           },
@@ -1927,8 +1927,8 @@ export default function App() {
     if (seoKey === "evaluations" && activeReviewType !== "all" && !isReviewsIndexPath) {
       const selectedReview = reviewNavOptions.find((item) => item.id === activeReviewType)?.label || activeReviewType;
       titleStr = lang === "zh"
-        ? `${selectedReview} 专题评测 | KIDSMOBI Reviews`
-        : `${selectedReview} Review Reports | KIDSMOBI Evaluations`;
+        ? `${selectedReview} 专题评测 | BalanceBikeToddler Reviews`
+        : `${selectedReview} Review Reports | BalanceBikeToddler Evaluations`;
       descStr = lang === "zh"
         ? `查看 ${selectedReview} 相关实验室报告，覆盖安全、结构稳定与真实场景表现等关键评测维度。`
         : `Explore ${selectedReview} lab reports spanning safety, structural stability, and real-world usability benchmarks.`;
@@ -1945,74 +1945,74 @@ export default function App() {
       }> = {
         stroller: {
           en: {
-            title: "Best Baby & Twin Strollers 2026 Lab-Tested Reviews - KIDSMOBI",
+            title: "Best Baby & Twin Strollers 2026 Lab-Tested Reviews - BalanceBikeToddler",
             description: "Explore our expert lab database for the safest and most reliable baby and twin strollers. Compare weight capacity, safety scores, and travel features.",
             keywords: ["baby stroller", "twin stroller", "travel stroller", "jogging stroller"]
           },
           zh: {
-            title: "2026最佳婴儿车与双胞胎推车实验室深度评测 | KIDSMOBI",
-            description: "探索KIDSMOBI实验室数据库，获取安全高承重的单人与双胞胎折叠推车。对比避震能力、物理结构与安全性评估分值。",
-            keywords: ["婴儿推车", "双人推车", "折叠婴儿车", "慢跑推车", "KIDSMOBI"]
+            title: "2026最佳婴儿车与双胞胎推车实验室深度评测 | BalanceBikeToddler",
+            description: "探索BalanceBikeToddler实验室数据库，获取安全高承重的单人与双胞胎折叠推车。对比避震能力、物理结构与安全性评估分值。",
+            keywords: ["婴儿推车", "双人推车", "折叠婴儿车", "慢跑推车", "BalanceBikeToddler"]
           }
         },
         balance_bike: {
           en: {
-            title: "Best Toddler Balance Bikes 2026 Lab-Tested Reviews - KIDSMOBI",
+            title: "Best Toddler Balance Bikes 2026 Lab-Tested Reviews - BalanceBikeToddler",
             description: "Explore our expert lab database for the safest toddler balance bikes. Compare weight capacity, stability scores, and features for top ride-on brands.",
             keywords: ["toddler balance bike", "kids balance bike", "1 year old balance bike", "ride-on balance bike"]
           },
           zh: {
-            title: "2026最佳幼儿无脚踏平衡车实验室深度评测 | KIDSMOBI",
-            description: "探索KIDSMOBI无脚踏幼儿滑步平衡车评分矩阵。深度比较车重工效、几何结构与核心通过性指数，助您科学决策。",
-            keywords: ["幼儿平衡车", "儿童滑步车", "1岁平衡车", "平衡训练车", "KIDSMOBI"]
+            title: "2026最佳幼儿无脚踏平衡车实验室深度评测 | BalanceBikeToddler",
+            description: "探索BalanceBikeToddler无脚踏幼儿滑步平衡车评分矩阵。深度比较车重工效、几何结构与核心通过性指数，助您科学决策。",
+            keywords: ["幼儿平衡车", "儿童滑步车", "1岁平衡车", "平衡训练车", "BalanceBikeToddler"]
           }
         },
         kids_bikes: {
           en: {
-            title: "Best Kids Bikes & Toddler Bicycles 2026 Lab-Tested - KIDSMOBI",
+            title: "Best Kids Bikes & Toddler Bicycles 2026 Lab-Tested - BalanceBikeToddler",
             description: "Discover the safest and top-rated kids bikes for ages 2-14. Explore our lab database to compare BMX style, training wheels, and dual suspension bicycles.",
             keywords: ["kids bmx bike", "toddler bicycle", "kids bike training wheels", "pedal bike for children"]
           },
           zh: {
-            title: "2026最佳适龄儿童自行车与充气轮单车深度评测 | KIDSMOBI",
+            title: "2026最佳适龄儿童自行车与充气轮单车深度评测 | BalanceBikeToddler",
             description: "获取2至14岁最适合最安全的儿童自行车候选数据库。极速对比辅助轮装配、前叉避震、机械双刹等力学客观指标。",
-            keywords: ["儿童自行车", "幼儿单车", "BMX儿童自行车", "带辅助轮自行车", "KIDSMOBI"]
+            keywords: ["儿童自行车", "幼儿单车", "BMX儿童自行车", "带辅助轮自行车", "BalanceBikeToddler"]
           }
         },
         kids_scooters: {
           en: {
-            title: "Best Kids Scooter & Electric Scooter 2026 Lab-Tested - KIDSMOBI",
+            title: "Best Kids Scooter & Electric Scooter 2026 Lab-Tested - BalanceBikeToddler",
             description: "Discover the safest lab-tested scooter models for kids and teens. Compare 3-wheel kick scooter, electric model, and top mobility brands.",
             keywords: ["kids kick scooter", "foldable kids scooter", "toddler 3 wheel scooter", "children electric scooter"]
           },
           zh: {
-            title: "2026最佳儿童滑板车与重力转向摇摆车深度评测 | KIDSMOBI",
+            title: "2026最佳儿童滑板车与重力转向摇摆车深度评测 | BalanceBikeToddler",
             description: "查找最安全的物理级别儿童/青少年滑板车列表。深度测试低重心稳定度、重力智能转向与折叠收折设计。",
-            keywords: ["儿童滑板车", "儿童电动滑板车", "折叠滑板车", "三轮重力转向滑板车", "KIDSMOBI"]
+            keywords: ["儿童滑板车", "儿童电动滑板车", "折叠滑板车", "三轮重力转向滑板车", "BalanceBikeToddler"]
           }
         },
         electric_vehicles: {
           en: {
-            title: "Best Kids Ride-On Toys & Electric Cars 2026 Lab-Tested - KIDSMOBI",
+            title: "Best Kids Ride-On Toys & Electric Cars 2026 Lab-Tested - BalanceBikeToddler",
             description: "Explore our lab-tested reviews of 12V and 24V kids ride-on cars, UTVs, and electric motorcycles. Compare top-rated kids electric car options for battery safety.",
             keywords: ["kids electric car", "ride on toys 12v", "kids electric motorcycle", "toddler electric car"]
           },
           zh: {
-            title: "2026最佳儿童电动汽车与电玩骑行玩具车深度评测 | KIDSMOBI",
+            title: "2026最佳儿童电动汽车与电玩骑行玩具车深度评测 | BalanceBikeToddler",
             description: "对比12V/24V儿童电动越野车（UTV/SUV）与双马达重力骑行玩具安全性能。测试其绝缘、过载保护与遥控控制阻断。",
-            keywords: ["儿童电动车", "儿童玩具车", "儿童电动越野车", "电玩摩托车", "KIDSMOBI"]
+            keywords: ["儿童电动车", "儿童玩具车", "儿童电动越野车", "电玩摩托车", "BalanceBikeToddler"]
           }
         },
         car_seat: {
           en: {
-            title: "Best Convertible & Toddler Car Seats 2026 Lab-Tested - KIDSMOBI",
+            title: "Best Convertible & Toddler Car Seats 2026 Lab-Tested - BalanceBikeToddler",
             description: "Find the safest convertible and booster car seats for your child. Compare lab-tested scores, weight limits, and safety features for top brands like Graco and Evenflo.",
             keywords: ["convertible car seat", "booster car seat", "infant car seat", "child safety car seat"]
           },
           zh: {
-            title: "2026最佳儿童汽车安全提篮与成长座椅深度评测 | KIDSMOBI",
+            title: "2026最佳儿童汽车安全提篮与成长座椅深度评测 | BalanceBikeToddler",
             description: "探求最安全的儿童汽车安全座椅（安全提篮/增高垫）。涵盖侧向撞击防护技术、ISOFIX硬接口安装兼容性等专家质检数据。",
-            keywords: ["安全座椅", "儿童安全提篮", "成长型安全座椅", "侧向防护座椅", "KIDSMOBI"]
+            keywords: ["安全座椅", "儿童安全提篮", "成长型安全座椅", "侧向防护座椅", "BalanceBikeToddler"]
           }
         }
       };
@@ -2098,7 +2098,7 @@ export default function App() {
     const orgSchema = {
       "@context": "https://schema.org",
       "@type": "Organization",
-      name: "KIDSMOBI",
+      name: "BalanceBikeToddler",
       url: `${window.location.origin}/`,
       logo: `${window.location.origin}/favicon.ico`,
     };
@@ -2403,14 +2403,14 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           }
         ]);
       } else {
-        setExpertNotice("未能连上 KIDSMOBI 安全实验室专网，正在启动本地工效计算库。");
+        setExpertNotice("未能连上 BalanceBikeToddler 安全实验室专网，正在启动本地工效计算库。");
         const safeLimit = (childProfile.weight * 0.3).toFixed(1);
         setChatMessages(prev => [
           ...prev,
           {
             id: `ai_fallback_${Date.now()}`,
             role: "assistant",
-            content: `⚠️【检测到本地安全备份】连线受阻，KIDSMOBI 启动脱机算力为您解答：
+            content: `⚠️【检测到本地安全备份】连线受阻，BalanceBikeToddler 启动脱机算力为您解答：
 
 **结合宝宝特征的专属规约：**
 *   **极限配重**：车辆必须限制在 **${safeLimit} kg** 以内，请勿网购过重的大铁架车。
@@ -2813,7 +2813,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
       {/* Primary content area container */}
       <main id="primary_tab_viewport" className="flex-1 max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full relative">
-        <Suspense fallback={<div className="min-h-80 rounded-3xl border border-slate-100 bg-white/80 p-8 text-center text-sm font-bold text-slate-500 shadow-sm">Loading KIDSMOBI...</div>}>
+        <Suspense fallback={<div className="min-h-80 rounded-3xl border border-slate-100 bg-white/80 p-8 text-center text-sm font-bold text-slate-500 shadow-sm">Loading BalanceBikeToddler...</div>}>
         
         {activeTab === "home" && (
           <HomeSection 
@@ -3197,7 +3197,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
                   <span className="text-white font-black text-lg">K</span>
                 </div>
-                <span className="text-xl font-display font-black text-white tracking-tighter">KIDSMOBI</span>
+                <span className="text-xl font-display font-black text-white tracking-tighter">BalanceBikeToddler</span>
               </div>
               <p className="text-slate-500 leading-relaxed font-medium pr-4">
                 {lang === "en" 
@@ -3327,7 +3327,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               </h2>
               <div className="flex flex-wrap gap-3">
                 <a 
-                  href={`https://x.com/intent/tweet?text=${encodeURIComponent(lang === "en" ? "Check out KIDSMOBI - Premium Kids Mobility Evaluation Platform! #KidsMobility #Safety" : "推荐一个高端垂直童车评测平台 KIDSMOBI，专注安全与工效！#童车评测 #育儿")}&url=${encodeURIComponent(window.location.href)}`}
+                  href={`https://x.com/intent/tweet?text=${encodeURIComponent(lang === "en" ? "Check out BalanceBikeToddler - Premium Kids Mobility Evaluation Platform! #KidsMobility #Safety" : "推荐一个高端垂直童车评测平台 BalanceBikeToddler，专注安全与工效！#童车评测 #育儿")}&url=${encodeURIComponent(window.location.href)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl transition-all border border-slate-700 hover:border-orange-500/50"
@@ -3379,11 +3379,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               <div className="flex flex-col gap-1">
                 <span className="font-extrabold text-slate-400 block">
                   {lang === "en" 
-                    ? "© 2026 KIDSMOBI Global Safety Lab & Buyer's Decision Advisory Portal, Inc."
-                    : "© 2026 KIDSMOBI · 全球高端垂直童车评测决策平台 · 版权所有"}
+                    ? "© 2026 BalanceBikeToddler Global Safety Lab & Buyer's Decision Advisory Portal, Inc."
+                    : "© 2026 BalanceBikeToddler · 全球高端垂直童车评测决策平台 · 版权所有"}
                 </span>
                 <p className="text-[10px] text-slate-600">
-                  {lang === "en" ? "Automated 24h testing telemetry lab servers active" : "KIDSMOBI 全球安全实验室系统备案：322407969155-AIS-K2"}
+                  {lang === "en" ? "Automated 24h testing telemetry lab servers active" : "BalanceBikeToddler 全球安全实验室系统备案：322407969155-AIS-K2"}
                 </p>
                 {isAdmin && (
                   <button 
@@ -3429,7 +3429,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             <p className="max-w-2xl text-[10px] text-slate-600 leading-relaxed text-left md:text-right italic">
               {lang === "en"
                 ? "Unbiased Oath: We do not accept sponsorship insertions or marketing fees. All scores are objective biomechanical results."
-                : "独立性声明：KIDSMOBI 拒绝任何商业品牌广告植入。所有评分均基于生物力学客观公式得出。"}
+                : "独立性声明：BalanceBikeToddler 拒绝任何商业品牌广告植入。所有评分均基于生物力学客观公式得出。"}
             </p>
           </div>
 

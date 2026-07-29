@@ -138,7 +138,7 @@ interface WorkerScrapeStoreDemo {
 }
 
 function getScrapeApiBaseUrl() {
-  return (process.env.SCRAPE_KIDSMOBILE_API_BASE_URL?.trim() || DEFAULT_SCRAPE_API_BASE_URL).replace(/\/+$/, "");
+  return (process.env.SCRAPE_BalanceBikeToddlerLE_API_BASE_URL?.trim() || DEFAULT_SCRAPE_API_BASE_URL).replace(/\/+$/, "");
 }
 
 function buildWorkerUrl(pathname: string) {
@@ -239,12 +239,12 @@ async function sendVerificationEmailViaProvider(toEmail: string, code: string): 
     throw new Error("AUTH_EMAIL_FROM is not configured.");
   }
 
-  const subjectPrefix = String(process.env.AUTH_EMAIL_SUBJECT_PREFIX || "KIDSMOBI").trim();
+  const subjectPrefix = String(process.env.AUTH_EMAIL_SUBJECT_PREFIX || "BalanceBikeToddler").trim();
   const subject = `[${subjectPrefix}] Your verification code`;
-  const text = `Your KIDSMOBI verification code is ${code}. It expires in 5 minutes.`;
+  const text = `Your BalanceBikeToddler verification code is ${code}. It expires in 5 minutes.`;
   const html = `
     <div style="font-family:Arial,sans-serif;line-height:1.6;color:#111">
-      <h2 style="margin:0 0 12px">KIDSMOBI Verification Code</h2>
+      <h2 style="margin:0 0 12px">BalanceBikeToddler Verification Code</h2>
       <p style="margin:0 0 10px">Use the following code to complete your registration:</p>
       <div style="font-size:28px;font-weight:700;letter-spacing:4px;margin:8px 0 14px">${code}</div>
       <p style="margin:0 0 8px">This code expires in 5 minutes.</p>
@@ -605,11 +605,11 @@ function buildBaselineSettings(): CMSSettings {
     id: "global",
     hero: {
       zh: {
-        title: "KIDSMOBI 管理后台",
+        title: "BalanceBikeToddler 管理后台",
         subtitle: "基线初始化设置，可在 CMS 后台继续编辑",
       },
       en: {
-        title: "KIDSMOBI Admin",
+        title: "BalanceBikeToddler Admin",
         subtitle: "Baseline-initialized settings, editable in CMS",
       },
     },
@@ -1414,11 +1414,11 @@ app.get("/api/content/bundle", async (req, res) => {
       id: "global",
       hero: {
         zh: {
-          title: "KIDSMOBI Live Demo Explorer",
+          title: "BalanceBikeToddler Live Demo Explorer",
           subtitle: `Connected to ${categories.length} live categories via /api/v2/demo/scrape-store.`,
         },
         en: {
-          title: "KIDSMOBI Live Demo Explorer",
+          title: "BalanceBikeToddler Live Demo Explorer",
           subtitle: `Connected to ${categories.length} live categories via /api/v2/demo/scrape-store.`,
         },
       },

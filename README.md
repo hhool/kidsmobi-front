@@ -22,7 +22,7 @@ The app keeps the current Firestore / local-data flow by default.
 To switch the main product and evaluation load path to the scraped content bundle:
 
 1. Set `VITE_CONTENT_SOURCE=scraped` in [.env.local](.env.local)
-2. Set `SCRAPE_KIDSMOBILE_API_BASE_URL` to the upstream kidsmobi worker base URL, such as `https://kidsmobi-api-v1.seaman-player.workers.dev`
+2. Set `SCRAPE_BalanceBikeToddlerLE_API_BASE_URL` to the upstream kidsmobi worker base URL, such as `https://kidsmobi-api-v1.seaman-player.workers.dev`
 3. Restart the app so the server can aggregate the worker's `/api/v1/*` endpoints into `/api/content/bundle`
 
 If the bundle request fails or returns incomplete data, the app falls back to the existing CMS / local-data path.

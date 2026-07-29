@@ -145,7 +145,7 @@ function normalizeGuideArticleForLocale(article: GuideArticle, lang: "zh" | "en"
     title: sanitizeGuideTitleForZh(article.title, zhTitleFallback),
     summary: sanitizeGuideTextForZh(article.summary, zhSummaryFallback),
     content: sanitizeGuideTextForZh(article.content, zhContentFallback),
-    author: "Kidsmobi 专家组",
+    author: "BalanceBikeToddler 专家组",
     readTime: String(article.readTime || "").trim() && containsCjk(String(article.readTime || ""))
       ? String(article.readTime)
       : "8 分钟",
@@ -162,7 +162,7 @@ const faqData = [
     id: "faq_1",
     questionZh: "1. 童车车重到底有什么安全死线？为什么超重车辆是侧翻的罪魁祸首？",
     questionEn: "1. What is the safety threshold for kids' bike weight? Why are heavy bikes the primary cause of tipping?",
-    answerZh: `根据全球儿科力学会（Pediatric Biomechanics Council）和 KIDSMOBI 安全实验室的统一规约：
+    answerZh: `根据全球儿科力学会（Pediatric Biomechanics Council）和 BalanceBikeToddler 安全实验室的统一规约：
     
 *   **黄金车重比例限制**：一款童车的整车重量（尤指自行车）**决不可以超过儿童体重的 30%**。
 *   **侧翻致伤原理**：如果车重超出儿童自重的 40% 以上（等同于让一个成年人操控一辆重达 60-70 公斤的重型机车），在紧急转弯、重心偏移或车辆失衡跌倒时，孩子薄弱的腕关节和肱骨根本无法支撑倾倒的车重。此时重力矩瞬间偏大，倾覆动能转化为致命的剪切力，孩子无法及时“弃车跳开”，极易发生大腿、手臂折叠式压折和骨折。因此，在童车选购中，轻量化（铝合金/高聚镁合金/碳纤维车架）是绝对的第一安全红线，重钢车架应当列为回避款。`,
@@ -244,7 +244,7 @@ const faqData = [
     questionZh: "6. 新生儿推车避震和 170°-175° 纯平睡眠面有什么要害？那些大倾角推车有危险吗？",
     questionEn: "6. Why are stroller suspension and 170°-175° flat sleep surfaces critical for newborn spinal development?",
     answerZh: `*   **脊椎物理弯曲保护**：新生婴儿在 6 个月以前，其脊椎处于极度脆弱的单一后凸弧度（C字形曲线），尚无形成成人的S型生理弯曲。
-*   **175° 黄金平躺角度**：部分伞车为了节约收拢体积，只能支持 135°-145° 倾角。婴儿如果被硬性斜放其上，重力线会全部汇集在脆弱的下端骶尾骨区域，压迫未发育成熟前端的椎骨，极易引发生理性倾斜或者脊柱变形弯曲。真正符合 KIDSMOBI 规范的是 **170°-175° 的卧篮面（保留 5° 的防溢奶安全回落倾角，而非死板纯平）**，将上半身和骨盆的承接重力均匀分散至背脊全区。
+*   **175° 黄金平躺角度**：部分伞车为了节约收拢体积，只能支持 135°-145° 倾角。婴儿如果被硬性斜放其上，重力线会全部汇集在脆弱的下端骶尾骨区域，压迫未发育成熟前端的椎骨，极易引发生理性倾斜或者脊柱变形弯曲。真正符合 BalanceBikeToddler 规范的是 **170°-175° 的卧篮面（保留 5° 的防溢奶安全回落倾角，而非死板纯平）**，将上半身和骨盆的承接重力均匀分散至背脊全区。
 *   **路面震波屏障**：由于新生儿脑部组织呈“嫩豆腐状”果冻黏性自流，头颈肌肉控制力约等于零。如果推车缺少中枢弹簧或充气式有源空气避震，推过非平滑盲道或不平水泥道时产生的高频共振（震波传递超 2.2G），会由婴儿娇嫩的前庭半规管放大，造成潜在的大脑、眼底毛细剥离（即摇晃婴儿综合征伤害），物理空气避震以及 175° 睡篮是全地形推车不可妥协的核心配置。`,
     answerEn: `*   **Spinal Curvature Safeguard**: Prior to 6 months of age, a newborn's spine exhibits a singular, C-shaped convex curvature. It possesses none of the adult-like S-shaped structural curves.
 *   **The 170°-175° Lay-Flat Standard**: Cheap compact strollers often slope only to 135°-145°. Placing a newborn on such inclines channels the entire gravitational load straight into the immature coccyx and lower lumbar vertebrae. This risks skeletal deformation. A true medical-grade stroller utilizes a **170° to 175° layflat bassinet envelope (yielding a gentle 5-degree head elevation to mitigate milk reflux, rather than a perfect 180° flat surface)**, distributing spinal weight uniformly.
@@ -469,7 +469,7 @@ function buildGuideArticle(category: GuideCategoryId, product: Product, index: n
     },
     best: {
       title: `${productName} 2026 年度大奖推荐：工效学与安全实测金牌得主`,
-      summary: `深度拆解 ${productName} 的结构细节设计，揭示为何其能斩获 KIDSMOBI 2026 权威年度金牌推荐。`,
+      summary: `深度拆解 ${productName} 的结构细节设计，揭示为何其能斩获 BalanceBikeToddler 2026 权威年度金牌推荐。`,
       content: `### ${productName} 2026 年度大奖实验室测评结果\n\n#### 1. 核心大奖力学特长\n在长达 100+ 天的连续疲劳载荷冲击、轴转向形变和磨损阻抗测试里，${productName} 凭借刚性连接框架、全地形避震器极高回弹性能，在同系模型横向比对中获得了 ${score} 的综合实测评分高分表现。\n\n#### 2. 专业实测实验室证词\n${evidence || "车身整体锁扣契合度、高摩擦抓地力轮胎阻震反馈优异，完美排除了劣质多合一阵营关节松摆的物理风险。"}\n\n#### 3. 2026 年度大评测专家寄语\n作为 2026 年度我们评测桌上质感最高昂、底盘最抓地平稳的推荐系列。如果是给初试学行或骑行需求的宝宝，这款可以说是全年度让人最放心的选择。`,
     },
   };
@@ -519,7 +519,7 @@ function buildGuideArticle(category: GuideCategoryId, product: Product, index: n
     categoryLabel: lang === "en" ? label.en : label.zh,
     summary: template.summary,
     content: template.content,
-    author: lang === "en" ? "KIDSMOBI Product Guide Desk" : "KIDSMOBI 产品指南组",
+    author: lang === "en" ? "BalanceBikeToddler Product Guide Desk" : "BalanceBikeToddler 产品指南组",
     readTime: lang === "en" ? "6 min read" : "6 分钟",
     publishDate: "2026-07-09",
     productCategory: product.category,
@@ -642,7 +642,7 @@ export default function GuidesSection({
             categoryLabel: translateCategoryLabel(String(g.taxonomy?.topicCategory || g.category || "beginner")),
             summary: pickLocalized(g, g.seo?.zh?.description, g.seo?.en?.description, lang === "en" ? "Professional buying guides and safety research insights." : "专业选购指南与安全研究报告。"),
             content: pickLocalized(g, g.zh?.content, g.en?.content),
-            author: lang === "en" ? "Kidsmobi Expert Team" : "Kidsmobi 专家组",
+            author: lang === "en" ? "BalanceBikeToddler Expert Team" : "BalanceBikeToddler 专家组",
             readTime: lang === "en" ? "8 min read" : "8 分钟",
             publishDate: g.updatedAt && g.updatedAt.seconds
               ? new Date(g.updatedAt.seconds * 1000).toISOString().split("T")[0]
@@ -697,7 +697,7 @@ export default function GuidesSection({
       inLanguage: lang,
       author: {
         "@type": "Organization",
-        name: "KIDSMOBI",
+        name: "BalanceBikeToddler",
       },
       mainEntityOfPage: canonicalUrl,
       url: canonicalUrl,

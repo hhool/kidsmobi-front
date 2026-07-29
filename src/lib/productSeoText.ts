@@ -66,7 +66,7 @@ export const getProductSeoTitle = (productOrName?: Product | string | null) => {
   if (normalized.includes("glerc") && normalized.includes("rover")) return "Glerc Rover 12\" Kids Bike";
   if (normalized.includes("green mini") || (normalized.includes("green") && normalized.includes("scooter"))) return "Green Mini 3-Wheel Kids Scooter";
 
-  return compactMarketingTitle(source) || "KIDSMOBI product image";
+  return compactMarketingTitle(source) || "BalanceBikeToddler product image";
 };
 
 export const getProductImageAlt = (productOrName?: Product | string | null) => getProductSeoTitle(productOrName);

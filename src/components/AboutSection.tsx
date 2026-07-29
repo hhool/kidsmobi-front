@@ -184,7 +184,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
           <a href="/reviews" className="text-orange-500 hover:text-orange-600 font-black underline decoration-orange-200 underline-offset-4">
             kids scooter audits
           </a>
-          {" "}and independent bike reviews, where KIDSMOBI turns mechanical testing data into practical safety guidance for families.
+          {" "}and independent bike reviews, where BalanceBikeToddler turns mechanical testing data into practical safety guidance for families.
         </p>
 
         {/* Business Cooperation (PRD 4.6.4) */}
@@ -216,7 +216,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
         <section className="bg-white p-10 rounded-[40px] border border-slate-100 text-center space-y-4 shadow-sm">
           <h4 className="text-slate-400 font-black text-[10px] uppercase tracking-widest">Global Privacy & Security Notice</h4>
           <p className="text-xs text-slate-500 leading-relaxed max-w-3xl mx-auto font-medium">
-            KIDSMOBI operates under a zero-tracker, zero-advertisement rulebook. Accounts and data are fully encrypted. We never share pediatric profiles or personal data with corporate affiliates.
+            BalanceBikeToddler operates under a zero-tracker, zero-advertisement rulebook. Accounts and data are fully encrypted. We never share pediatric profiles or personal data with corporate affiliates.
           </p>
         </section>
       </div>
@@ -354,7 +354,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
           <div className="space-y-6">
               <h3 className="text-3xl font-black text-slate-900">严格的内容质控体系</h3>
               <p className="text-slate-500 font-medium leading-relaxed">
-                  KIDSMOBI 建立了一套涵盖“匿名采购、双盲实测、儿科审核”的三审机制。确保每一行技术评估结论都经得起科学推敲。
+                  BalanceBikeToddler 建立了一套涵盖“匿名采购、双盲实测、儿科审核”的三审机制。确保每一行技术评估结论都经得起科学推敲。
               </p>
               <ul className="space-y-4">
                   {[
@@ -421,7 +421,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
       <section className="bg-white p-10 rounded-[40px] border border-slate-100 text-center space-y-4 shadow-sm">
         <h4 className="text-slate-400 font-black text-[10px] uppercase tracking-widest">隐私安全与权利申明</h4>
         <p className="text-xs text-slate-500 leading-relaxed max-w-3xl mx-auto font-medium">
-          KIDSMOBI 秉承无广告、无强制收集隐私方案。我们不对读者的地理位置实施强制IP拦截，不对外分享任何个人特征或宝宝体测隐私数据。
+          BalanceBikeToddler 秉承无广告、无强制收集隐私方案。我们不对读者的地理位置实施强制IP拦截，不对外分享任何个人特征或宝宝体测隐私数据。
         </p>
       </section>
     </div>

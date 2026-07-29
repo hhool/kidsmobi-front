@@ -633,7 +633,7 @@ export default function AuthSection({
             <p className="text-xs text-slate-400 leading-relaxed">
               {isEn 
                 ? "Our lab adheres to strict zero-advertising boundaries. Account registration is purely for securing PDF data packages and custom layouts." 
-                : "KIDSMOBI 秉持 0 广告原则。无论登录或注册，仅作为解锁云端收藏、无限产品对比及高清报告下载的凭据，游客仍可无缝阅读。"}
+                : "BalanceBikeToddler 秉持 0 广告原则。无论登录或注册，仅作为解锁云端收藏、无限产品对比及高清报告下载的凭据，游客仍可无缝阅读。"}
             </p>
           </div>
 
@@ -824,7 +824,7 @@ export default function AuthSection({
                 <label htmlFor="agree_check" className="text-[11px] text-slate-400 leading-relaxed text-left cursor-pointer">
                   {isEn 
                     ? "I voluntarily accept the User Agreement and GDPR compliant Privacy rules." 
-                    : "我已阅读并同意 KIDSMOBI 发布的《会员利用协议》与《全球隐私权保护通用政策》。"}
+                    : "我已阅读并同意 BalanceBikeToddler 发布的《会员利用协议》与《全球隐私权保护通用政策》。"}
                 </label>
               </div>
             )}
