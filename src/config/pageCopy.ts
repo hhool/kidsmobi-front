@@ -1250,8 +1250,8 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
       guideRead: "Read Guide",
       closeReading: "Close Reading",
       heroBadge: "GLOBAL MOBILE SAFETY RESEARCH",
-      heroTitle: "E-Mobility News: Kids Electric Bike & Scooter Trends",
-      heroSubtitle: "Track industry updates for a premium kids electric bike or a rugged electric dirt bike for kids. We also review foldable electric scooter launches and kids e-scooter safety data.",
+      heroTitle: "Latest News, Guides & Tips for Kids Bikes & Strollers",
+      heroSubtitle: "Track industry updates for a premium kids bikes，such as  kids electric bike or a rugged electric dirt bike for kids. We also review foldable electric scooter launches and kids e-scooter safety data.",
       categoryTabs: {
         all: "All Articles",
         newProduct: "New Launches",
@@ -1263,7 +1263,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
       latestTitle: "Latest Updates: Foldable Electric Scooter & Dirt Bike Launches",
       latestDesc: "Follow kids electric bike safety standards, electric dirt bike for kids launches, and foldable electric scooter commute trends.",
       readMore: "read →",
-      globalNewsSeoName: "E-Mobility News: Kids Electric Bike & Scooter Trends",
+      globalNewsSeoName: "Latest News, Guides & Tips for Kids Bikes & Strollers",
       fallbackSummary: "BalanceBikeToddler industry updates and safety insights.",
       fallbackContent: "Content in English is being updated. Please check back soon.",
       fallbackAuthor: "BalanceBikeToddler Global Safety Lab",
@@ -1276,7 +1276,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
     about: {
       breadcrumb: "ABOUT US",
       heroBadge: "ESTABLISHED IN 2026 · Independent Premium Platform",
-      heroTitle: "About BalanceBikeToddler: Your Independent Kids' Mobility Lab",
+      heroTitle: "BalanceBikeToddler: Your Independent Kids' Mobility Lab",
       heroDesc: "We audit jogging stroller, balance bike, toddler bike, and kids scooter safety with independent mechanical methods to answer one simple question: Is this truly safe for your child's growth?",
       partnershipTitle: "Partnerships & Cooperation",
       partnershipDesc: "We welcome meaningful collaborations that prioritize child safety. This includes lab certification sharing, industry report syndication, and media partnerships.",

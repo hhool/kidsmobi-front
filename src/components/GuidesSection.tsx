@@ -1401,7 +1401,7 @@ export default function GuidesSection({
                     type="button"
                     onClick={() => setWizardCategory(cat.id)}
                     className={`py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2.5 font-black text-[11px] leading-none transition-all border cursor-pointer active:scale-95 select-none ${
-                      wizardCategory !== "all" && wizardCategory === cat.id
+                      wizardCategory === cat.id
                         ? "bg-slate-900 border-slate-900 text-white shadow-lg shadow-slate-950/15"
                         : "bg-slate-50/70 border-slate-100 hover:bg-slate-50 text-slate-500 hover:text-slate-800"
                     }`}
