@@ -49,12 +49,15 @@ function normalizeGuideTaxonomy(guide: Guide): Guide {
 
   return {
     ...guide,
+    pinned: Boolean((guide as any).pinned || (guide as any).featured),
+    featured: Boolean((guide as any).pinned || (guide as any).featured),
     category: topicCategory,
     taxonomy: {
       productCategory: fallbackProductCategory,
       hub: "all_guides",
       topicCategory: guide.taxonomy?.topicCategory || topicCategory,
       topicOrder: Number(guide.taxonomy?.topicOrder || 1),
+      pinOrder: Math.max(0, Number(guide.taxonomy?.pinOrder || 0) || 0),
       hierarchyPath:
         guide.taxonomy?.hierarchyPath && guide.taxonomy.hierarchyPath.length > 0
           ? guide.taxonomy.hierarchyPath
@@ -81,6 +84,7 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
   const [scenarios, setScenarios] = useState<CMSScenario[]>([]);
   const [editingGuide, setEditingGuide] = useState<Guide | null>(null);
   const [migratingTaxonomy, setMigratingTaxonomy] = useState(false);
+  const [autoPinning, setAutoPinning] = useState(false);
   const [topicFilter, setTopicFilter] = useState<"all" | GuideTopicCategory>("all");
 
   useEffect(() => {
@@ -182,8 +186,11 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
         hub: "all_guides",
         topicCategory: "beginner",
         topicOrder: 1,
+        pinOrder: 0,
         hierarchyPath: ["stroller", "all_guides", "beginner"],
       },
+      pinned: false,
+      featured: false,
       updatedAt: null
     }));
   };
@@ -257,6 +264,105 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
     }
   };
 
+  const saveGuideRecord = async (g: Guide) => {
+    try {
+      const saved = await saveD1CMSGuide(g);
+      if (!saved) {
+        throw new Error("D1 save failed");
+      }
+    } catch {
+      await saveCMSGuide(g);
+    }
+  };
+
+  const getGuideUpdatedAtMillis = (value: any): number => {
+    if (!value) return 0;
+    if (typeof value === "number") return Number(value);
+    if (typeof value === "string") {
+      const t = Date.parse(value);
+      return Number.isNaN(t) ? 0 : t;
+    }
+    if (value instanceof Date) return value.getTime();
+    if (typeof value === "object" && value.seconds) {
+      return Number(value.seconds || 0) * 1000;
+    }
+    return 0;
+  };
+
+  const handleAutoPinOrder = async () => {
+    if (autoPinning) return;
+    const isZh = lang === "zh";
+    const ok = window.confirm(
+      isZh
+        ? "确认自动补齐全品类 pinOrder 吗？系统将仅对“尚未配置 pinOrder>0”的品类自动挑选 1 篇指南并写入 pinOrder=1。"
+        : "Auto-fill all-category pinOrder now? This only updates categories that do not yet have any guide with pinOrder>0.",
+    );
+    if (!ok) return;
+
+    setAutoPinning(true);
+    try {
+      const normalized = guides.map(normalizeGuideTaxonomy);
+      const updates: Array<{ category: ProductCategory; guide: Guide }> = [];
+
+      for (const category of GUIDE_PRODUCT_CATEGORY_OPTIONS) {
+        const inCategory = normalized.filter((guide) => (guide.taxonomy?.productCategory || "stroller") === category);
+        if (inCategory.length === 0) continue;
+
+        const hasPinConfigured = inCategory.some((guide) => Number(guide.taxonomy?.pinOrder || 0) > 0);
+        if (hasPinConfigured) continue;
+
+        const picked = [...inCategory].sort((a, b) => {
+          const statusDiff = Number(String(b.status || "") === "published") - Number(String(a.status || "") === "published");
+          if (statusDiff !== 0) return statusDiff;
+          const topicDiff = Number(a.taxonomy?.topicOrder || 9999) - Number(b.taxonomy?.topicOrder || 9999);
+          if (topicDiff !== 0) return topicDiff;
+          const updatedDiff = getGuideUpdatedAtMillis(b.updatedAt) - getGuideUpdatedAtMillis(a.updatedAt);
+          if (updatedDiff !== 0) return updatedDiff;
+          return String(a.id || "").localeCompare(String(b.id || ""));
+        })[0];
+
+        if (!picked) continue;
+
+        const nextGuide: Guide = normalizeGuideTaxonomy({
+          ...picked,
+          pinned: true,
+          featured: true,
+          taxonomy: {
+            ...(picked.taxonomy || {}),
+            productCategory: category,
+            hub: "all_guides",
+            topicCategory: (picked.taxonomy?.topicCategory || picked.category || "beginner") as GuideTopicCategory,
+            topicOrder: Number(picked.taxonomy?.topicOrder || 1),
+            pinOrder: 1,
+            hierarchyPath: [category, "all_guides", (picked.taxonomy?.topicCategory || picked.category || "beginner") as string],
+          },
+        });
+        updates.push({ category, guide: nextGuide });
+      }
+
+      if (updates.length === 0) {
+        alert(isZh ? "无需自动补齐：所有有内容的品类都已配置 pinOrder。" : "No update needed: all populated categories already have pinOrder configured.");
+        return;
+      }
+
+      for (const item of updates) {
+        await saveGuideRecord(item.guide);
+      }
+
+      await fetchData();
+      alert(
+        isZh
+          ? `自动补齐完成：共更新 ${updates.length} 个品类（${updates.map((x) => x.category).join(", ")}）。`
+          : `Auto pinOrder completed: updated ${updates.length} categories (${updates.map((x) => x.category).join(", ")}).`,
+      );
+    } catch (e: any) {
+      console.error(e);
+      alert(e.message || String(e));
+    } finally {
+      setAutoPinning(false);
+    }
+  };
+
   const visibleGuides = useMemo(() => {
     return guides
       .map(normalizeGuideTaxonomy)
@@ -296,6 +402,17 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
         </div>
         <div className="flex items-center gap-3">
           <button
+            onClick={handleAutoPinOrder}
+            disabled={autoPinning}
+            className="flex items-center gap-2 bg-emerald-50 text-emerald-700 border border-emerald-200 px-6 py-4 rounded-3xl font-black shadow-sm hover:-translate-y-1 transition-all disabled:opacity-60"
+          >
+            <ListOrdered className="w-5 h-5 text-emerald-500" />
+            {autoPinning
+              ? (lang === "zh" ? "补齐中..." : "Auto-filling...")
+              : (lang === "zh" ? "自动补齐 pinOrder" : "Auto Fill pinOrder")}
+          </button>
+
+          <button
             onClick={handleMigrateTaxonomy}
             disabled={migratingTaxonomy}
             className="flex items-center gap-2 bg-amber-50 text-amber-700 border border-amber-200 px-6 py-4 rounded-3xl font-black shadow-sm hover:-translate-y-1 transition-all disabled:opacity-60"
@@ -330,6 +447,9 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
                 <div className="flex items-center gap-2 mb-1.5">
                   <span className="text-[10px] font-black uppercase bg-blue-100 text-blue-600 px-2.5 py-1 rounded-full">{g.taxonomy?.topicCategory || g.category}</span>
                   <span className="text-[10px] font-black uppercase bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">{g.taxonomy?.productCategory || "stroller"}</span>
+                  <span className={`text-[10px] font-black uppercase px-2.5 py-1 rounded-full ${Number(g.taxonomy?.pinOrder || 0) > 0 ? "bg-emerald-100 text-emerald-700" : "bg-slate-100 text-slate-500"}`}>
+                    {`pin:${Number(g.taxonomy?.pinOrder || 0)}`}
+                  </span>
                   <span className={`text-[10px] font-black uppercase px-2.5 py-1 rounded-full ${g.status === "published" ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-500"}`}>
                     {g.status}
                   </span>
@@ -521,6 +641,28 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
               <div className="max-w-3xl mx-auto space-y-10">
                 <section className="space-y-4 bg-white border border-slate-100 rounded-2xl p-6">
                   <h4 className="text-xs font-black uppercase tracking-widest text-slate-700">{lang === "zh" ? "跨模块关联" : "Cross-module Linkage"}</h4>
+                    <div className="flex items-center justify-between gap-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3">
+                      <div>
+                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">{lang === "zh" ? "置顶文章" : "Pinned Guide"}</p>
+                        <p className="text-xs font-bold text-slate-700 mt-1">{lang === "zh" ? "勾选后，这篇指南会优先显示在对应品类列表最前。" : "When checked, this guide will appear first in its category list."}</p>
+                      </div>
+                      <label className="inline-flex items-center gap-2 cursor-pointer select-none shrink-0">
+                        <input
+                          type="checkbox"
+                          checked={Boolean(formData.pinned || formData.featured)}
+                          onChange={(e) => {
+                            const checked = e.target.checked;
+                            setFormData((prev) => ({
+                              ...prev,
+                              pinned: checked,
+                              featured: checked,
+                            }));
+                          }}
+                          className="h-4 w-4 accent-amber-500"
+                        />
+                        <span className="text-xs font-black text-slate-700 uppercase tracking-widest">{lang === "zh" ? "置顶" : "Pinned"}</span>
+                      </label>
+                    </div>
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div className="space-y-2">
                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{lang === "zh" ? "指南产品类目" : "Guide Product Category"}</label>
@@ -606,6 +748,32 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                           }));
                         }}
                       />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{lang === "zh" ? "全品类置顶序号" : "All-Category Pin Order"}</label>
+                      <input
+                        type="number"
+                        min={0}
+                        className="w-full bg-slate-50 border border-slate-200 py-3 px-4 rounded-xl text-xs font-bold"
+                        value={Number(formData.taxonomy?.pinOrder || 0)}
+                        onChange={(e) => {
+                          const pinOrder = Math.max(0, parseInt(e.target.value, 10) || 0);
+                          setFormData((prev) => ({
+                            ...prev,
+                            taxonomy: {
+                              ...(prev.taxonomy || {}),
+                              productCategory: prev.taxonomy?.productCategory || "stroller",
+                              hub: "all_guides",
+                              topicCategory: prev.taxonomy?.topicCategory || "beginner",
+                              topicOrder: Number(prev.taxonomy?.topicOrder || 1),
+                              pinOrder,
+                              hierarchyPath: [prev.taxonomy?.productCategory || "stroller", "all_guides", prev.taxonomy?.topicCategory || "beginner"],
+                            },
+                          }));
+                        }}
+                      />
+                      <p className="text-[10px] text-slate-400 font-bold">{lang === "zh" ? "0 = 不参与全品类置顶；1/2/3... = 参与并按序号优先。" : "0 = excluded from all-category pinning; 1/2/3... = included and prioritized by order."}</p>
                     </div>
                   </div>
 

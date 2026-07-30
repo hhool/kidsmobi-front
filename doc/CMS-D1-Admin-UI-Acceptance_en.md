@@ -39,6 +39,11 @@ Product creation flow:
 
 Conclusion: client-side pre-submit validation is working as expected.
 
+Guide editor check:
+
+1. Guide editor exposes a pinned/featured control for promoting a guide within its category list.
+2. The guide list ordering respects pinned/featured state before the existing topic ordering fallback.
+
 ## 3. Runtime Observations and Anomalies
 
 Under developer quick-login mode:
@@ -59,7 +64,8 @@ Staged conclusion:
 1. UI reachability: PASS.
 2. Module navigation: PASS.
 3. Form validation guardrails: PASS.
-4. Persistent write in dev quick-login mode: NOT PASS (expected limitation, not a regression defect).
+4. Guide pinning control and ordering: PASS.
+5. Persistent write in dev quick-login mode: NOT PASS (expected limitation, not a regression defect).
 
 ## 5. Next Recommendations
 

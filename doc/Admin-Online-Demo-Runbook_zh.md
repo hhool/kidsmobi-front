@@ -40,8 +40,9 @@
 - 从 backend 资源选择封面图
 - 从 backend 资源选择关联产品
 - 可视化选择场景（Scenario Picker）
-4. 展示 scenarioIds 与 relatedProductIds 回填。
-5. 保存并发布。
+4. 切换“置顶文章”开关，展示 CMS 如何把指南优先推到对应品类列表前列。
+5. 展示 scenarioIds 与 relatedProductIds 回填。
+6. 保存并发布。
 
 ### 3. News：跨模块关联 + 场景可视化选取
 1. 进入 News。
@@ -57,6 +58,7 @@
 - 资源选择器可正常加载数据并可搜索。
 - 场景选择器卡片可多选并回填。
 - Product、Guide、News 三处均可完成保存。
+- Guide 编辑器支持“置顶文章”开关，并能随 CMS 保存。
 - Dashboard 健康检查可显示当前链路状态。
 
 ## 常见问题与处理

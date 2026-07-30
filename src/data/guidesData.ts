@@ -3,6 +3,8 @@ export interface GuideArticle {
   title: string;
   category: "beginner" | "scenario" | "budget" | "risk" | "export" | "category_spec" | "special" | "maintenance" | "best";
   categoryLabel: string;
+  pinned?: boolean;
+  pinOrder?: number;
   summary: string;
   content: string;
   author: string;
@@ -18,6 +20,7 @@ export const guideArticles: GuideArticle[] = [
     title: "婴儿推车避震与护脊选购硬核指南",
     category: "beginner",
     categoryLabel: "新手入门指南",
+    pinOrder: 1,
     summary: "科学解析婴儿骨骼负荷，教你如何通过避震连杆、高弹橡胶充气胎阻尼，捍卫宝宝娇嫩的颈椎发育。",
     content: `### 婴儿推车避震与护脊选购核心逻辑
 
@@ -84,6 +87,7 @@ export const guideArticles: GuideArticle[] = [
     title: "儿童自行车物理刹车安全：脚刹、手刹与安全制动红线",
     category: "risk",
     categoryLabel: "风险甄别指南",
+    pinOrder: 1,
     summary: "揭露美标倒蹬脚刹（Coaster Brake）在初学者学车时的力学卡死挫败陷阱，科普双手刹设计的安全红线。",
     content: `### 儿童自行车刹车制动防跌摔红线
 
@@ -128,6 +132,7 @@ export const guideArticles: GuideArticle[] = [
     title: "儿童滑板车重力转向与安全操控黄金高度测算",
     category: "beginner",
     categoryLabel: "新手入门指南",
+    pinOrder: 1,
     summary: "为什么重力感应倾斜转向（Lean-to-Steer）是幼童避免空翻、极速失控过弯的底层物理保护红线？",
     content: `### 三轮滑板车动力学的核心奥秘：重力转向
 
@@ -171,6 +176,7 @@ export const guideArticles: GuideArticle[] = [
     title: "宝宝首台滑步平衡车：从身体跨高测算座椅安全死线",
     category: "beginner",
     categoryLabel: "新手入门指南",
+    pinOrder: 1,
     summary: "平衡感知期（1.5-3岁）宝宝怎么安全接触平衡车？用人体物理脱鞋跨高（Inseam）作为座椅红线的科学换算。",
     content: `### 宝宝首辆平衡车科学起步指南：身体学红线
 
@@ -240,6 +246,7 @@ export const guideArticles: GuideArticle[] = [
     title: "儿童电动车电池与安全防爆：三项大安检与防倾覆偏载指标",
     category: "risk",
     categoryLabel: "风险甄别指南",
+    pinOrder: 1,
     summary: "拒绝购买电池铅酸液渗漏、电控开关板无防潮的廉价有源电动车，杜绝自燃与日常重心摔翻陷阱。",
     content: `### 评测：电动玩具车底盘铅酸电池与自燃排雷指南
 

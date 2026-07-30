@@ -231,6 +231,7 @@ export interface GuideTaxonomy {
   hub?: GuideHierarchyHub;
   topicCategory?: GuideTopicCategory;
   topicOrder?: number;
+  pinOrder?: number;
   hierarchyPath?: string[];
 }
 
@@ -238,6 +239,8 @@ export interface Guide {
   id: string;
   category: string;
   status: "draft" | "published" | "archived";
+  pinned?: boolean;
+  featured?: boolean;
   imageUrl: string;
   riskCards: RiskCard[];
   seo: {

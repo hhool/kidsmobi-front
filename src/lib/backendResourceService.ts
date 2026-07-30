@@ -52,7 +52,7 @@ type WorkerResource = {
   videoUrls?: string[];
 };
 
-const DEFAULT_WORKER_BASE_URL = "https://kidsmobi-api-v1.seaman-player.workers.dev";
+const DEFAULT_WORKER_BASE_URL = "https://store.balancebiketoddler.com";
 
 export function getWorkerBaseUrl() {
   const env = (import.meta as any)?.env?.VITE_SCRAPE_API_BASE_URL;

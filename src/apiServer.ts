@@ -26,7 +26,7 @@ app.get("/api/news", (req, res) => {
   res.json(newsArticles);
 });
 
-const DEFAULT_SCRAPE_API_BASE_URL = "https://kidsmobi-api-v1.seaman-player.workers.dev";
+const DEFAULT_SCRAPE_API_BASE_URL = "https://store.balancebiketoddler.com";
 
 interface WorkerCategory {
   categoryId: string;

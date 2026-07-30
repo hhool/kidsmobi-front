@@ -40,8 +40,9 @@
 - Pick cover image from backend resources
 - Pick related products from backend resources
 - Visual scenario picker
-4. Show scenarioIds and relatedProductIds fill-back.
-5. Save and publish.
+4. Toggle the pinned guide control to show how CMS can promote a guide to the top of its category list.
+5. Show scenarioIds and relatedProductIds fill-back.
+6. Save and publish.
 
 ### 3. News: cross-module linkage + visual scenario selection
 1. Open News.
@@ -57,6 +58,7 @@
 - Resource picker loads data and supports search.
 - Scenario picker supports multi-select and fill-back.
 - Product, Guide, and News editors all support save flow.
+- Guide editor exposes a pinned guide control and persists it through CMS save.
 - Dashboard health checks reflect current dependency status.
 
 ## Common Issues and Handling

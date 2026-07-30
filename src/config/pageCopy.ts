@@ -421,8 +421,8 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
     home: {
       overviewLabel: "首页概览",
       bannerBadge: "BBT 官方安全审计",
-      heroTitle: "儿童自行车、滑板车、慢跑推车与电动车精选",
-      heroSubtitle: "欢迎来到 BalanceBikeToddler，我们为儿童轮式出行装备提供值得信赖的全球评测。",
+      heroTitle: "欢迎来到 BalanceBikeToddler，我们为儿童轮式出行装备提供值得信赖的全球评测数据。",
+      heroSubtitle: "平衡车、儿童自行车、滑板车、推车&慢跑推车与儿童电动车精选,经过独立实验室物理安全检测的科学测评数据整合模型。",
       heroCta: "3 步找到最适合孩子的出行方案",
       quickCategories: {
         kidsBike: "儿童自行车",
@@ -684,7 +684,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
     reviews: {
       breadcrumb: "评测中心",
       badge: "★ 独立实验室测试与评测",
-      heroTitle: "双胞胎推车与儿童滑板车独立评测中心",
+      heroTitle: "儿童自行车，推车，滑板车，电动汽车独立评测中心",
       heroDescription: "帮您更简单、更放心地挑选最适合宝宝的优质座驾。无论是轻便折叠推车、避震越野慢跑推车，还是平衡车与儿童脚踏自行车，我们都坚持 100% 中立客观的自购样品检验，为您呈现深度评测。",
       smartFinderTitle: "不确定哪款车最适合您的宝宝？",
       smartFinderDescription: "使用我们极具人气的智能匹配向导，一秒计算最适合您宝宝年龄与身高跨高范围的定制参数！",
@@ -854,8 +854,8 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
     home: {
       overviewLabel: "OVERVIEW",
       bannerBadge: "OFFICIAL BBT SAFETY AUDIT",
-      heroTitle: "Best Kids Bikes, Scooters, Jogging Strollers & Cars",
-      heroSubtitle: "Welcome to BalanceBikeToddler, your trusted global review site for kids wheeled toys.",
+      heroTitle: "Welcome to BalanceBikeToddler, your trusted global review site for kids bike & stroller wheeled toys.",
+      heroSubtitle: "The best balance bike, kids bike, kids scooter, stroller & electric car, independently tested for safety and performance.",
       heroCta: "FIND YOUR PERFECT RIDE IN 3 STEPS",
       quickCategories: {
         kidsBike: "KIDS BIKE",
@@ -960,8 +960,8 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
     },
     products: {
       breadcrumbsProducts: "PRODUCTS",
-      heroTitle: "Expert Product Hub: Kids' Bike, Twin Stroller & Kids Electric Scooter",
-      heroSubtitle: "Independent lab-tested evaluations for toddler bike, balance bike, twin stroller, and kids electric scooter.",
+      heroTitle: "Expert Product Hub: All Kids' Bikes, Strollers & Kids Ride-On Toys",
+      heroSubtitle: "Independent lab-tested evaluations for toddler bike, balance bike, twin stroller, and electric ride-on toys evaluated for safety, durability, and fun.",
       searchLabel: "Search Products",
       searchPlaceholder: "SEARCH PRODUCTS...",
       sortLabel: "SORT ORDER",
@@ -1117,7 +1117,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
     reviews: {
       breadcrumb: "REVIEWS",
       badge: "★ INDEPENDENT LAB TESTING & REVIEWS",
-      heroTitle: "Expert Stroller Reviews, Travel Strollers & Toddler Bikes",
+      heroTitle: "Expert All Kids Bike, Stroller & Travel Stroller & Jogging Stroller and Ride-On Toy Reviews",
       heroDescription: "Our portal specializes in professional stroller reviews, helping parents find the ideal travel stroller, high-performance jogging stroller, and safe toddler bike. Every single travel stroller, rugged jogging stroller, and toddler bike model is purchased anonymously and put through strict mechanical tests. Read our direct stroller reviews below with complete biomechanical safety ratings.",
       smartFinderTitle: "Unsure which model fits your child best?",
       smartFinderDescription: "We map physical dimensions to safe geometry. Launch our interactive Smart Review Finder on the Buyer's Guide page to find ideal matches instantly!",

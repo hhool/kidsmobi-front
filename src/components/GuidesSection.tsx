@@ -293,6 +293,10 @@ function isTargetGuideProduct(product: Product) {
 }
 
 function isAllowedGuideArticle(article: GuideArticle) {
+  // Explicit CMS configuration should always win over heuristic text filters.
+  if (article.productCategory) return true;
+  if (getGuidePinOrder(article) > 0 || getGuidePinnedState(article)) return true;
+
   if (!GUIDE_ALLOWED_TOPIC_CATEGORIES.has(String(article.category || ""))) return false;
   const text = `${article.id} ${article.title} ${article.summary} ${article.content} ${article.categoryLabel}`.toLowerCase();
   return !GUIDE_DISALLOWED_CATEGORY_TERMS.some((term) => text.includes(term));
@@ -300,6 +304,18 @@ function isAllowedGuideArticle(article: GuideArticle) {
 
 function productGuideName(product: Product) {
   return getProductsPageSeoTitle(product);
+}
+
+function isBeginnersBibleArticle(article: GuideArticle): boolean {
+  const text = `${article.title || ""} ${article.summary || ""} ${article.content || ""} ${article.categoryLabel || ""}`.toLowerCase();
+  return text.includes("beginners' bible") || text.includes("beginner's bible") || text.includes("beginner bible");
+}
+
+function getGuideCategoryPriority(article: GuideArticle): number {
+  const raw = `${article.productCategory || ""} ${(article as any)?.categoryId || ""} ${article.id || ""} ${article.title || ""} ${article.summary || ""}`.toLowerCase();
+  if (raw.includes("stroller") || raw.includes("pram")) return 0;
+  if (raw.includes("balance") || raw.includes("balance-bike") || raw.includes("balance bike")) return 1;
+  return 2;
 }
 
 const LONG_TAIL_GUIDE_TITLES = [
@@ -538,6 +554,25 @@ function buildGeneratedGuideArticles(productsData: Product[], lang: "zh" | "en")
   });
 }
 
+function getGuidePinnedState(article: GuideArticle): boolean {
+  return Boolean((article as any)?.pinned || (article as any)?.featured);
+}
+
+function isGuideFeatured(article: GuideArticle): boolean {
+  return getGuidePinnedState(article);
+}
+
+function getGuidePinOrder(article: GuideArticle): number {
+  const raw = Number((article as any)?.pinOrder ?? 0);
+  if (!Number.isFinite(raw)) return 0;
+  return Math.max(0, Math.floor(raw));
+}
+
+function getGuideProductCategoryKey(article: GuideArticle): string {
+  const key = String(article.productCategory || "").trim().toLowerCase();
+  return key || "unknown";
+}
+
 interface GuidesSectionProps {
   productsData: Product[];
   onSelectProduct: (p: Product) => void;
@@ -640,6 +675,8 @@ export default function GuidesSection({
             title: pickLocalized(g, g.zh?.title, g.en?.title),
             category: normalizeGuideTopicCategory(g.taxonomy?.topicCategory || g.category),
             categoryLabel: translateCategoryLabel(String(g.taxonomy?.topicCategory || g.category || "beginner")),
+            pinned: Boolean((g as any)?.pinned || (g as any)?.featured),
+            pinOrder: Math.max(0, Number((g as any)?.taxonomy?.pinOrder || 0) || 0),
             summary: pickLocalized(g, g.seo?.zh?.description, g.seo?.en?.description, lang === "en" ? "Professional buying guides and safety research insights." : "专业选购指南与安全研究报告。"),
             content: pickLocalized(g, g.zh?.content, g.en?.content),
             author: lang === "en" ? "BalanceBikeToddler Expert Team" : "BalanceBikeToddler 专家组",
@@ -713,7 +750,7 @@ export default function GuidesSection({
   const [wizardWeight, setWizardWeight] = useState<number>(childProfile.weight || 16);
   const [wizardBudget, setWizardBudget] = useState<number>(3000);
   const [wizardScenario, setWizardScenario] = useState<string>("all");
-  const [wizardCategory, setWizardCategory] = useState<string>("stroller");
+  const [wizardCategory, setWizardCategory] = useState<string>("all");
   const [wizardPage, setWizardPage] = useState<number>(1);
   const [showWizardResults, setShowWizardResults] = useState<boolean>(false);
   const didInitWizardCategoryResetRef = useRef<boolean>(false);
@@ -736,6 +773,13 @@ export default function GuidesSection({
       }
     }
   }, []);
+
+  useEffect(() => {
+    if (wizardCategory === "all") {
+      setSelectedCategory("all");
+      setSearchQuery("");
+    }
+  }, [wizardCategory]);
 
   useEffect(() => {
     if (typeof window !== "undefined" && localStorage.getItem("autoOpenWizard") === "true") {
@@ -797,13 +841,46 @@ export default function GuidesSection({
 
   // Dynamic automatic filtering of all library articles based on Match Wizard active category selection
   const productFilteredArticles = useMemo(() => {
-    return allGuideArticles.filter((article) => {
-      return isArticleRelatedToProductCategory(article, wizardCategory);
-    });
+    if (wizardCategory === "all") {
+      // All-category pins must be driven by CMS guide records directly.
+      // This prevents heuristic text filters from dropping explicitly configured pins.
+      const cmsPinned = guideArticles.filter((article) => getGuidePinOrder(article) > 0);
+      const cmsFeatured = guideArticles.filter(isGuideFeatured);
+      const configuredSource = cmsPinned.length > 0
+        ? cmsPinned
+        : (cmsFeatured.length > 0 ? cmsFeatured : allGuideArticles.filter(isGuideFeatured));
+
+      const dedupedByProductCategory = new Map<string, GuideArticle>();
+      const sortedForPinPick = [...configuredSource].sort((a, b) => {
+        const pinDiff = getGuidePinOrder(a) - getGuidePinOrder(b);
+        if (pinDiff !== 0) return pinDiff;
+        const priorityDiff = getGuideCategoryPriority(a) - getGuideCategoryPriority(b);
+        if (priorityDiff !== 0) return priorityDiff;
+        return String(b.publishDate || "").localeCompare(String(a.publishDate || ""));
+      });
+
+      for (const article of sortedForPinPick) {
+        const categoryKey = getGuideProductCategoryKey(article);
+        if (!dedupedByProductCategory.has(categoryKey)) {
+          dedupedByProductCategory.set(categoryKey, article);
+        }
+      }
+
+      return Array.from(dedupedByProductCategory.values());
+    }
+    const beginnersBible = allGuideArticles.filter(isBeginnersBibleArticle);
+    return beginnersBible.filter((article) => isArticleRelatedToProductCategory(article, wizardCategory));
   }, [allGuideArticles, wizardCategory]);
 
   const activeArticlesList = useMemo(() => {
     return [...productFilteredArticles].sort((a, b) => {
+      const pinnedDiff = Number(getGuidePinnedState(b)) - Number(getGuidePinnedState(a));
+      if (pinnedDiff !== 0) return pinnedDiff;
+
+      if (wizardCategory === "all") {
+        const priorityDiff = getGuideCategoryPriority(a) - getGuideCategoryPriority(b);
+        if (priorityDiff !== 0) return priorityDiff;
+      }
       if (a.category !== b.category) {
         return String(a.category).localeCompare(String(b.category));
       }
@@ -811,7 +888,7 @@ export default function GuidesSection({
       if (topicOrderDiff !== 0) return topicOrderDiff;
       return String(b.publishDate || "").localeCompare(String(a.publishDate || ""));
     });
-  }, [productFilteredArticles]);
+  }, [productFilteredArticles, wizardCategory]);
 
   // Auto-reset page count when wizardCategory changes to prevent pagination bounds overflow
   useEffect(() => {
@@ -1312,6 +1389,7 @@ export default function GuidesSection({
               </span>
               <div className="grid grid-cols-2 md:grid-cols-5 gap-3.5">
                 {[
+                  { id: "all", emoji: "🌐", labelEn: "All Categories", labelZh: "全部品类" },
                   { id: "stroller", emoji: "🛒", labelEn: "Kids Stroller", labelZh: "安全伞车/手推车" },
                   { id: "bicycle", emoji: "🚴", labelEn: "Kids Bike", labelZh: "儿童自行车" },
                   { id: "scooter", emoji: "🛹", labelEn: "Kids Scooter", labelZh: "儿童滑板车" },
@@ -1323,7 +1401,7 @@ export default function GuidesSection({
                     type="button"
                     onClick={() => setWizardCategory(cat.id)}
                     className={`py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2.5 font-black text-[11px] leading-none transition-all border cursor-pointer active:scale-95 select-none ${
-                      wizardCategory === cat.id
+                      wizardCategory !== "all" && wizardCategory === cat.id
                         ? "bg-slate-900 border-slate-900 text-white shadow-lg shadow-slate-950/15"
                         : "bg-slate-50/70 border-slate-100 hover:bg-slate-50 text-slate-500 hover:text-slate-800"
                     }`}
@@ -1578,25 +1656,29 @@ export default function GuidesSection({
                   <div className="space-y-5">
                     <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 border border-orange-100 text-[10px] font-black uppercase tracking-[0.2em] text-orange-600">
                       <BookOpen className="w-4 h-4" />
-                      {lang === "en" 
-                        ? `${PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "All Products"} Guides`
+                      {lang === "en"
+                        ? (wizardCategory === "all" ? "Pinned Guides Across Categories" : `${PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "All Products"} Guides`)
                         : `${PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || "全部"} 专属选购指南`}
                     </span>
                     <h2 className="text-3xl font-black leading-tight tracking-tight">
-                      {lang === "en" 
-                        ? `Guide Library: ${PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "Ride-ons"} Buyer's Handbook`
+                      {lang === "en"
+                        ? (wizardCategory === "all"
+                            ? "Guide Library: Pinned Guides Across Categories"
+                            : `Guide Library: ${PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "Ride-ons"} Buyer's Handbook`)
                         : `指南库：针对【${PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || "全部童车"}】的科普与工效测评`}
                     </h2>
                     <p className="text-sm text-slate-600 leading-7 font-medium max-w-xl">
-                      {lang === "en" 
-                        ? `Expert guides specifically filtered for ${PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "your selected category"}. Learn sizing benchmarks, risk indicators, and maintenance habits.`
+                      {lang === "en"
+                        ? (wizardCategory === "all"
+                            ? "Pinned and featured guides are shown across categories when no product category is selected."
+                            : `Beginners' Bible articles filtered for ${PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "your selected category"}. Learn sizing benchmarks, risk indicators, and maintenance habits.`)
                         : `当前内容已根据您在上方算力面板中选择的商品品类，自动对指南库进行全量过滤，为您高能度匹配【${PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || "当前品类"}】相关的尺寸、安全与养护攻略。`}
                     </p>
                   </div>
                   <div className="grid grid-cols-3 gap-3 text-center">
                     {[
                       { value: filteredGuides.length, label: lang === "en" ? "Visible" : "当前展示" },
-                      { value: activeArticlesList.length, label: lang === "en" ? "Category Total" : "品类指南总数" },
+                      { value: activeArticlesList.length, label: lang === "en" ? (wizardCategory === "all" ? "Pinned Total" : "Category Total") : (wizardCategory === "all" ? "置顶总数" : "品类指南总数") },
                       { value: "6x5", label: lang === "en" ? "Shelves" : "分类配置" },
                     ].map((item) => (
                       <div key={item.label} className="rounded-2xl bg-white/75 border border-slate-200 px-3 py-4 shadow-sm">

@@ -26,7 +26,7 @@ function buildStaticFallbackBundle(): ContentBundle {
   };
 }
 
-const DEFAULT_SCRAPE_API_BASE_URL = "https://kidsmobi-api-v1.seaman-player.workers.dev";
+const DEFAULT_SCRAPE_API_BASE_URL = "https://store.balancebiketoddler.com";
 const CATEGORY_COMPLIANCE: Record<string, string[]> = {
   balance_bike: ["ASTM F963", "CPSC"],
   kids_bikes: ["CPSC"],
