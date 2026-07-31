@@ -2767,7 +2767,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                   type="text" 
                   value={globalSearchTerm}
                   onChange={(e) => setGlobalSearchTerm(e.target.value)}
-                  placeholder={isSearchFocused ? (lang === "zh" ? "搜索..." : "Search...") : ""}
+                  placeholder={isSearchFocused ? (lang === "zh" ? "搜索" : "Search") : ""}
                   onFocus={() => setIsSearchFocused(true)}
                   onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
                   className={`pl-10 pr-0 py-2 bg-slate-100 border-transparent transition-all duration-500 ease-out focus:bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 rounded-xl text-xs font-medium outline-none cursor-pointer focus:cursor-text focus:pr-4 ${isSearchFocused ? "w-64" : "w-10"}`}
@@ -2853,7 +2853,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
       {/* Primary content area container */}
       <main id="primary_tab_viewport" className="flex-1 max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full relative">
-        <Suspense fallback={<div className="min-h-80 rounded-3xl border border-slate-100 bg-white/80 p-8 text-center text-sm font-bold text-slate-500 shadow-sm">Loading BalanceBikeToddler...</div>}>
+        <Suspense fallback={<div className="min-h-80 rounded-3xl border border-slate-100 bg-white/80 p-8 text-center text-sm font-bold text-slate-500 shadow-sm">Loading BalanceBikeToddler</div>}>
         
         {activeTab === "home" && (
           <HomeSection 
@@ -3209,7 +3209,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               type="text"
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
-              placeholder={lang === "en" ? "Ask a question..." : "问问专家建议..."}
+              placeholder={lang === "en" ? "Ask a question" : "问问专家建议"}
               className="flex-1 bg-slate-50 border border-slate-100 rounded-2xl px-4 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all"
             />
             <button 

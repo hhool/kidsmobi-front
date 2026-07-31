@@ -330,7 +330,7 @@ function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving,
               {saving ? (
                 <>
                   <div className="w-4 h-4 border-2 border-slate-400 border-t-white rounded-full animate-spin" />
-                  <span>{lang === "zh" ? "发布中..." : "Publishing..."}</span>
+                  <span>{lang === "zh" ? "发布中" : "Publishing"}</span>
                 </>
               ) : (
                 <>

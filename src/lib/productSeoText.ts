@@ -52,7 +52,7 @@ const compactMarketingTitle = (value: string) => {
     .trim();
   const firstSegment = cleaned.split(/\s*(?:,|–|—|\|| - )\s*/)[0]?.trim() || cleaned;
   if (firstSegment.length <= 82) return firstSegment;
-  return `${firstSegment.slice(0, 79).trim()}...`;
+  return firstSegment.slice(0, 82).trim();
 };
 
 export const getProductSeoTitle = (productOrName?: Product | string | null) => {

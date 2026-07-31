@@ -149,7 +149,7 @@ export default function BackendResourcePicker({
         </div>
 
         <div className="flex-1 overflow-y-auto p-6">
-          {loading && <p className="text-sm font-bold text-slate-500">{lang === "zh" ? "加载中..." : "Loading..."}</p>}
+          {loading && <p className="text-sm font-bold text-slate-500">{lang === "zh" ? "加载中" : "Loading"}</p>}
           {error && <p className="text-sm font-bold text-red-500">{error}</p>}
 
           {!loading && !error && mode === "related" && (

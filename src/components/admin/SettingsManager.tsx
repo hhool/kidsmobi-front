@@ -373,7 +373,7 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
           {saving ? (
             <>
               <div className="w-5 h-5 border-2 border-slate-400 border-t-white rounded-full animate-spin" />
-              <span>{lang === "zh" ? "部署中..." : "Deploying..."}</span>
+              <span>{lang === "zh" ? "部署中" : "Deploying"}</span>
             </>
           ) : (
             <>
@@ -624,7 +624,7 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
                 className="w-full bg-slate-50 border border-slate-100 py-4 px-6 rounded-2xl font-bold text-slate-900 text-sm outline-none focus:ring-4 focus:ring-slate-900/5 focus:bg-white transition-all min-h-[120px] resize-none"
                 value={settings.seo?.[selectedSeoPage]?.zh?.description || ""} 
                 onChange={(e) => updateSeoValue(selectedSeoPage, "zh", "description", e.target.value)}
-                placeholder="请输入网页核心描述，利于百度谷歌等搜索引擎收录..."
+                placeholder="请输入网页核心描述，利于百度谷歌等搜索引擎收录"
               />
             </div>
           </div>
@@ -656,7 +656,7 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
                 className="w-full bg-slate-50 border border-slate-100 py-4 px-6 rounded-2xl font-bold text-slate-900 text-sm outline-none focus:ring-4 focus:ring-slate-900/5 focus:bg-white transition-all min-h-[120px] resize-none"
                 value={settings.seo?.[selectedSeoPage]?.en?.description || ""} 
                 onChange={(e) => updateSeoValue(selectedSeoPage, "en", "description", e.target.value)}
-                placeholder="Enter full English page description for global indexing..."
+                placeholder="Enter full English page description for global indexing"
               />
             </div>
           </div>

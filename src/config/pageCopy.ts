@@ -530,7 +530,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
       heroTitle: "专家产品中心：儿童自行车、双胞胎双人推车及儿童电动车",
       heroSubtitle: "经过独立实验室物理安全检测的儿童自行车、平衡车、双胞胎双人手推车及儿童电动滑板车的科学测评数据整合模型。",
       searchLabel: "搜索童车和婴儿推车",
-      searchPlaceholder: "搜寻型号...",
+      searchPlaceholder: "搜寻型号",
       sortLabel: "排序条件规划",
       sortAria: "排序产品",
       sortOptions: {
@@ -963,7 +963,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
       heroTitle: "Expert Product Hub: All Kids' Bikes, Strollers & Kids Ride-On Toys",
       heroSubtitle: "Independent lab-tested evaluations for toddler bike, balance bike, twin stroller, and electric ride-on toys evaluated for safety, durability, and fun.",
       searchLabel: "Search Products",
-      searchPlaceholder: "SEARCH PRODUCTS...",
+      searchPlaceholder: "SEARCH PRODUCTS",
       sortLabel: "SORT ORDER",
       sortAria: "Sort products",
       sortOptions: {

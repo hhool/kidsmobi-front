@@ -483,7 +483,7 @@ export default function ProductManager({
         <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-orange-500 transition-colors" />
         <input 
           type="text" 
-          placeholder={lang === "zh" ? "搜索品牌、型号或 ID..." : "Search brand, model or ID..."}
+          placeholder={lang === "zh" ? "搜索品牌、型号或 ID" : "Search brand, model or ID"}
           className="w-full bg-white border border-slate-100 rounded-3xl py-5 pl-16 pr-8 text-sm font-bold outline-none focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 transition-all shadow-sm"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -685,7 +685,7 @@ function ProductEditor({ product, allProducts, scenarios, onSave, onCancel, lang
               {saving ? (
                 <>
                   <div className="w-4 h-4 border-2 border-slate-400 border-t-white rounded-full animate-spin" />
-                  <span>{lang === "zh" ? "保存中..." : "Saving..."}</span>
+                  <span>{lang === "zh" ? "保存中" : "Saving"}</span>
                 </>
               ) : (
                 <>
@@ -702,7 +702,7 @@ function ProductEditor({ product, allProducts, scenarios, onSave, onCancel, lang
               {saving ? (
                 <>
                   <div className="w-4 h-4 border-2 border-slate-400 border-t-white rounded-full animate-spin" />
-                  <span>{lang === "zh" ? "发布中..." : "Publishing..."}</span>
+                  <span>{lang === "zh" ? "发布中" : "Publishing"}</span>
                 </>
               ) : (
                 <>

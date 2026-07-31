@@ -226,7 +226,7 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
               className="px-4 py-2 rounded-xl bg-slate-900 text-white text-xs font-black flex items-center gap-2 disabled:bg-slate-300"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${checkingHealth ? "animate-spin" : ""}`} />
-              {checkingHealth ? (lang === "zh" ? "检查中..." : "Checking...") : (lang === "zh" ? "重新检查" : "Recheck")}
+              {checkingHealth ? (lang === "zh" ? "检查中" : "Checking") : (lang === "zh" ? "重新检查" : "Recheck")}
             </button>
           </div>
         </div>
@@ -267,7 +267,7 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
                 className="text-[10px] bg-slate-900 hover:bg-slate-800 text-white px-3 py-1.5 rounded-full font-black uppercase hover:shadow-md disabled:opacity-50 flex items-center gap-1 cursor-pointer transition"
               >
                 <RefreshCw className={`w-3 h-3 ${migrating ? "animate-spin" : ""}`} />
-                {migrating ? "Migrating..." : "Seed modelsData"}
+                {migrating ? "Migrating" : "Seed modelsData"}
               </button>
               <span className="text-[10px] bg-emerald-100 text-emerald-600 px-3 py-1.5 rounded-full font-black uppercase">Active</span>
             </div>

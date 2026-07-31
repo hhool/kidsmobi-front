@@ -493,7 +493,7 @@ export default function CategoryManager({ lang }: { lang: "zh" | "en" }) {
               className="px-6 py-3 rounded-xl text-xs font-black bg-slate-900 text-white hover:bg-orange-500 transition-all flex items-center gap-2 disabled:opacity-60"
             >
               <Save className="w-4 h-4" />
-              {saving ? (lang === "zh" ? "保存中..." : "Saving...") : lang === "zh" ? "保存品类" : "Save Category"}
+              {saving ? (lang === "zh" ? "保存中" : "Saving") : lang === "zh" ? "保存品类" : "Save Category"}
             </button>
           </div>
         </div>

@@ -203,7 +203,7 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
               <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
               <input
                 type="text"
-                placeholder={lang === "zh" ? "搜索标题、版本、产品名..." : "Search title, version or product..."}
+                placeholder={lang === "zh" ? "搜索标题、版本、产品名" : "Search title, version or product"}
                 className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 pl-16 pr-8 text-sm font-bold outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
@@ -336,7 +336,7 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
               {saving ? (
                 <>
                   <div className="w-4 h-4 border-2 border-slate-400 border-t-white rounded-full animate-spin" />
-                  <span>{lang === "zh" ? "保存中..." : "Saving..."}</span>
+                  <span>{lang === "zh" ? "保存中" : "Saving"}</span>
                 </>
               ) : (
                 <>
@@ -353,7 +353,7 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
               {saving ? (
                 <>
                   <div className="w-4 h-4 border-2 border-slate-400 border-t-white rounded-full animate-spin" />
-                  <span>{lang === "zh" ? "发布中..." : "Publishing..."}</span>
+                  <span>{lang === "zh" ? "发布中" : "Publishing"}</span>
                 </>
               ) : (
                 <>

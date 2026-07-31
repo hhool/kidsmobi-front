@@ -1696,7 +1696,7 @@ export default function GuidesSection({
                       type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder={lang === "en" ? "Search product names, risk terms, sizing topics..." : "搜索产品名、风险术语、尺寸/预算/养护主题..."}
+                      placeholder={lang === "en" ? "Search product names, risk terms, sizing topics" : "搜索产品名、风险术语、尺寸/预算/养护主题"}
                       aria-label={lang === "en" ? "Search guide library" : "检索指南库"}
                       title={lang === "en" ? "Search guide library" : "检索指南库"}
                       className="w-full bg-slate-50 border border-slate-200 rounded-2xl pl-10 pr-4 py-3 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 transition-all font-bold"
@@ -1812,7 +1812,7 @@ export default function GuidesSection({
                       </div>
                       <div className="rounded-3xl bg-slate-950 text-white p-6 flex flex-col justify-between gap-8">
                         <div className="text-[11px] text-slate-300 leading-6 font-medium line-clamp-5">
-                          {pagedGuides[0].content.replace(/#+\s/g, "").slice(0, 360)}...
+                          {pagedGuides[0].content.replace(/#+\s/g, "").slice(0, 360)}
                         </div>
                         <div className="flex items-center justify-between text-xs font-black">
                           <span className="text-slate-400 flex items-center gap-2"><Briefcase className="w-4 h-4 text-orange-400" />{pagedGuides[0].author.split("-")[0].trim()}</span>

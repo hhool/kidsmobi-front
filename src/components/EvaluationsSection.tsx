@@ -415,7 +415,7 @@ function sanitizeVerdictText(raw: string) {
   if (!text) return text;
   
   // Strip off typical Amazon Bullet Point capitalized headers and marketing jargon
-  // Like "GROW IN FUN:", "VERSATILE 2-IN-1 MODE -", "EXCITING GLOWING WHEELS...", "SAFELY RIDE:"
+  // Like "GROW IN FUN:", "VERSATILE 2-IN-1 MODE -", "EXCITING GLOWING WHEELS", "SAFELY RIDE:"
   text = text
     .replace(/[【\[]\s*[A-Z]{2,20}\s*[】\]]/g, " ")
     .replace(/[【\[]\s*[A-Z]{1,20}\s+[A-Z]{1,20}\s*[】\]]/g, " ")

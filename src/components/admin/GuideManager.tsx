@@ -408,7 +408,7 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
           >
             <ListOrdered className="w-5 h-5 text-emerald-500" />
             {autoPinning
-              ? (lang === "zh" ? "补齐中..." : "Auto-filling...")
+              ? (lang === "zh" ? "补齐中" : "Auto-filling")
               : (lang === "zh" ? "自动补齐 pinOrder" : "Auto Fill pinOrder")}
           </button>
 
@@ -419,7 +419,7 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
           >
             <Save className="w-5 h-5 text-amber-500" />
             {migratingTaxonomy
-              ? (lang === "zh" ? "迁移中..." : "Migrating...")
+              ? (lang === "zh" ? "迁移中" : "Migrating")
               : (lang === "zh" ? "一键迁移 taxonomy" : "Migrate Taxonomy")}
           </button>
 
@@ -587,7 +587,7 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
               {saving ? (
                 <>
                   <div className="w-4 h-4 border-2 border-slate-400 border-t-white rounded-full animate-spin" />
-                  <span>{lang === "zh" ? "发布中..." : "Publishing..."}</span>
+                  <span>{lang === "zh" ? "发布中" : "Publishing"}</span>
                 </>
               ) : (
                 <>
@@ -773,7 +773,7 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                           }));
                         }}
                       />
-                      <p className="text-[10px] text-slate-400 font-bold">{lang === "zh" ? "0 = 不参与全品类置顶；1/2/3... = 参与并按序号优先。" : "0 = excluded from all-category pinning; 1/2/3... = included and prioritized by order."}</p>
+                      <p className="text-[10px] text-slate-400 font-bold">{lang === "zh" ? "0 = 不参与全品类置顶；1/2/3+ = 参与并按序号优先。" : "0 = excluded from all-category pinning; 1/2/3+ = included and prioritized by order."}</p>
                     </div>
                   </div>
 
@@ -804,7 +804,7 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                           e.currentTarget.value = "";
                         }}
                       >
-                        <option value="">{lang === "zh" ? "选择产品..." : "Select product..."}</option>
+                        <option value="">{lang === "zh" ? "选择产品" : "Select product"}</option>
                         {products.map((p: CMSProduct) => (
                           <option key={p.id} value={p.id}>{p.zh?.name || p.en?.name || p.id}</option>
                         ))}
@@ -841,7 +841,7 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                           e.currentTarget.value = "";
                         }}
                       >
-                        <option value="">{lang === "zh" ? "选择场景..." : "Select scenario..."}</option>
+                        <option value="">{lang === "zh" ? "选择场景" : "Select scenario"}</option>
                         {scenarios.map((s: CMSScenario) => (
                           <option key={s.id} value={s.code}>{s.zh?.name || s.en?.name || s.code}</option>
                         ))}
@@ -885,7 +885,7 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">中文正文</label>
                       <textarea 
                         className="w-full bg-white border border-slate-200 p-6 rounded-3xl font-medium text-slate-700 outline-none focus:ring-4 focus:ring-blue-500/10 min-h-[420px] shadow-sm leading-relaxed"
-                        placeholder="请输入中文指南正文..."
+                        placeholder="请输入中文指南正文"
                         value={formData.zh.content}
                         onChange={(e) => updateGuideLocale("zh", "content", e.target.value)}
                       />
@@ -925,7 +925,7 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                           <textarea className="w-full bg-slate-50 p-4 rounded-xl text-xs font-bold outline-none border border-transparent focus:bg-white focus:border-blue-500 min-h-[100px]" placeholder="Pattern of deception..." value={card.pattern} onChange={(e) => updateRiskCard(i, {...card, pattern: e.target.value})} />
                           <textarea className="w-full bg-slate-50 p-4 rounded-xl text-xs font-bold outline-none border border-transparent focus:bg-white focus:border-blue-500 min-h-[100px]" placeholder="Real-world detection method..." value={card.detection} onChange={(e) => updateRiskCard(i, {...card, detection: e.target.value})} />
                        </div>
-                       <textarea className="w-full bg-blue-50 p-4 rounded-xl text-xs font-bold font-blue-600 outline-none border border-transparent focus:bg-white focus:border-blue-500" placeholder="Expert purchase advice..." value={card.advice} onChange={(e) => updateRiskCard(i, {...card, advice: e.target.value})} />
+                       <textarea className="w-full bg-blue-50 p-4 rounded-xl text-xs font-bold font-blue-600 outline-none border border-transparent focus:bg-white focus:border-blue-500" placeholder="Expert purchase advice" value={card.advice} onChange={(e) => updateRiskCard(i, {...card, advice: e.target.value})} />
                     </div>
                   ))}
                 </div>

@@ -184,7 +184,7 @@ export default function AssetUploader({ lang = "zh", onUploaded }: { lang?: "zh"
               <label className="text-xs font-bold text-slate-500">{lang === "zh" ? "品牌名称 (全小写英文)" : "Brand Name"}</label>
               <input 
                 list="brandList" value={brandName} onChange={(e) => setBrandName(e.target.value.toLowerCase())}
-                placeholder="woom, kokua, strider..."
+                placeholder="woom, kokua, strider"
                 className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-mono text-slate-700 outline-none focus:border-orange-500"
               />
               <datalist id="brandList">
@@ -262,7 +262,7 @@ export default function AssetUploader({ lang = "zh", onUploaded }: { lang?: "zh"
             <div className="flex flex-col items-center gap-3">
               <Loader2 className="w-8 h-8 text-orange-500 animate-spin" />
               <p className="font-bold text-slate-700 text-sm">
-                {lang === "zh" ? `正在安全部署至 Cloudflare R2...` : `Deploying to Cloudflare R2...`}
+                {lang === "zh" ? `正在安全部署至 Cloudflare R2` : `Deploying to Cloudflare R2`}
               </p>
             </div>
           ) : (

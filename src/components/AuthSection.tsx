@@ -566,7 +566,7 @@ export default function AuthSection({
                           {downloadingId === p.id ? (
                             <>
                               <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                              {isEn ? "Issuing verified document..." : "正在解密签发报告..."}
+                              {isEn ? "Issuing verified document" : "正在解密签发报告"}
                             </>
                           ) : (
                             <>
@@ -750,7 +750,7 @@ export default function AuthSection({
                     className="bg-amber-500 hover:bg-amber-600 disabled:bg-slate-800 text-slate-950 disabled:text-slate-500 px-3.5 rounded-xl font-bold transition shrink-0 cursor-pointer"
                   >
                     {isSendingCode
-                      ? (isEn ? "Sending..." : "发送中...")
+                      ? (isEn ? "Sending" : "发送中")
                       : counter > 0
                         ? `${counter}s`
                         : (isEn ? "Get Key" : "获取验证码")}
@@ -835,7 +835,7 @@ export default function AuthSection({
               className="w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-500 text-slate-950 font-black tracking-widest uppercase rounded-xl shadow-lg hover:shadow-xl active:scale-95 transition-all text-xs cursor-pointer"
             >
               {isSubmitting
-                ? (isEn ? "Processing..." : "处理中...")
+                ? (isEn ? "Processing" : "处理中")
                 : authMode === "login"
                   ? (isEn ? "Login Now" : "立即安全登录")
                   : (isEn ? "Confirm Register" : "一键注册并领取会员特权")}
