@@ -656,11 +656,19 @@ async function fetchRemoteFallbackBundle(): Promise<ContentBundle> {
   const workerProductsNested = await Promise.all(
     categories.map(async (category) => {
       const limit = Math.min(12, Math.max(1, Number(category.defaultLimit || 8)));
-      const payload = await fetchWorkerJson<{ data?: WorkerProduct[] }>([
-        `/api/v2/products?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=${limit}`,
-        `/api/v1/products?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=${limit}`,
-      ]);
-      return Array.isArray(payload.data) ? payload.data : [];
+      try {
+        const payload = await fetchWorkerJson<{ data?: WorkerProduct[] }>([
+          `/api/v2/products?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=${limit}`,
+          `/api/v1/products?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=${limit}`,
+        ]);
+        return Array.isArray(payload.data) ? payload.data : [];
+      } catch (error) {
+        console.warn(
+          `Worker products unavailable for category=${category.categoryId}, skip category and continue fallback loading.`,
+          error,
+        );
+        return [];
+      }
     })
   );
 
