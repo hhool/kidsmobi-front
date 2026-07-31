@@ -281,6 +281,30 @@ const resolveProductMergeKey = (product: Product) => {
   return compositeKey || raw.toLowerCase();
 };
 
+const extractAsinToken = (value: string) => {
+  const match = String(value || "").trim().match(/[A-Z0-9]{10}/i);
+  return match ? match[0].toLowerCase() : "";
+};
+
+const matchRouteProduct = (products: Product[], routeProductId: string) => {
+  const rawRouteId = decodeURIComponent(String(routeProductId || "").trim());
+  if (!rawRouteId) return null;
+
+  const normalizedRouteId = rawRouteId.toLowerCase();
+  const routeAsin = extractAsinToken(rawRouteId);
+
+  return (
+    products.find((item) => {
+      const itemId = String(item.id || "").trim();
+      if (!itemId) return false;
+      if (itemId === rawRouteId || itemId.toLowerCase() === normalizedRouteId) return true;
+
+      const itemAsin = extractAsinToken(itemId);
+      return Boolean(routeAsin && itemAsin && routeAsin === itemAsin);
+    }) || null
+  );
+};
+
 const chooseMoreCompleteProductName = (previous: Product, incoming: Product) => {
   const previousName = String(previous.name || "").trim();
   const incomingName = String(incoming.name || "").trim();
@@ -1540,7 +1564,7 @@ export default function App() {
   useEffect(() => {
     if (productsData.length > 0) {
       if (activeProductId) {
-        const found = productsData.find(p => p.id === activeProductId);
+        const found = matchRouteProduct(productsData, activeProductId);
         if (found) {
           setSelectedProduct(found);
           setActiveTab("product_detail");

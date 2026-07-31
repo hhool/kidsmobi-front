@@ -562,15 +562,8 @@ async function fetchWorkerJson<T>(pathCandidates: string[]): Promise<T> {
 }
 
 async function fetchRemoteFallbackBundle(): Promise<ContentBundle> {
-  // On deployed static hosts, calling worker APIs from browser often triggers CORS noise
-  // and route mismatches. Use deterministic local fallback first to keep UX stable.
-  if (typeof window !== "undefined") {
-    const host = String(window.location.hostname || "").toLowerCase();
-    const isLocalHost = host === "localhost" || host === "127.0.0.1" || host === "::1";
-    if (!isLocalHost) {
-      return buildStaticFallbackBundle();
-    }
-  }
+  // Prefer live Worker API data on both local and online hosts.
+  // If API is temporarily unavailable, fall back to static modelsData.
 
   let categoriesPayload: { data?: WorkerCategory[] } | null = null;
   try {
