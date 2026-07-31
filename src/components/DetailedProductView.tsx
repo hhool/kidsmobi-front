@@ -7,7 +7,6 @@ import {
   ChevronRight, 
   Play,
   Image as ImageIcon,
-  ExternalLink,
   Maximize2
 } from "lucide-react";
 import { 
@@ -131,26 +130,6 @@ function resolveResourceDescription(resources: WorkerDetailResource[]): string {
     }
   }
   return "";
-}
-
-function resolveHighlightedFeatures(product: Product): string[] {
-  const fromFeatures = Array.isArray(product.features) ? product.features : [];
-  const fromSpecs = Object.entries((product as Product & { Product_Display_Fields?: Record<string, { value?: unknown }> }).Product_Display_Fields || {})
-    .map(([, field]) => String(field?.value || "").trim())
-    .filter(Boolean);
-
-  const seen = new Set<string>();
-  const out: string[] = [];
-  for (const value of [...fromFeatures, ...fromSpecs]) {
-    const normalized = String(value || "").replace(/\s+/g, " ").trim();
-    if (!normalized) continue;
-    const key = normalized.toLowerCase();
-    if (seen.has(key)) continue;
-    seen.add(key);
-    out.push(normalized);
-    if (out.length >= 8) break;
-  }
-  return out;
 }
 
 function resolveCuratedDetailContent(product: Product): { highlightedFeatures: string[]; productDescription: string } | null {
@@ -616,17 +595,7 @@ export default function DetailedProductView({
     };
   }, [product.id, (product as any)?.productId, (product as any)?.categoryId, product.category]);
 
-  const visibleDetailResources = detailResources
-    .filter((resource) => {
-      const url = String(resource?.resourceUrl || "").trim();
-      return Boolean(url);
-    })
-    .slice(0, 12);
-
   const curatedContent = resolveCuratedDetailContent(displayProduct);
-  const highlightedFeatures = curatedContent?.highlightedFeatures?.length
-    ? curatedContent.highlightedFeatures
-    : resolveHighlightedFeatures(displayProduct);
   const resourceDescription = resolveResourceDescription(detailResources);
   const effectiveDescriptionText = curatedContent?.productDescription || descriptionText || resourceDescription;
 
@@ -967,37 +936,6 @@ export default function DetailedProductView({
         </div>
       </div>
 
-      {visibleDetailResources.length > 0 ? (
-        <div className="bg-white border border-slate-100 rounded-[40px] p-8 shadow-sm space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-50 pb-3">
-            <h2 className="text-lg font-black text-slate-900">{lang === "en" ? "Additional Resources" : "更多参考资源"}</h2>
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">{visibleDetailResources.length}</span>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {visibleDetailResources.map((resource, index) => {
-              const resourceUrl = String(resource?.resourceUrl || "").trim();
-              const resourceType = String(resource?.resourceType || "resource").trim() || "resource";
-              const title = String(resource?.title || resource?.summary || `${lang === "en" ? "Resource" : "资源"} ${index + 1}`).trim();
-              return (
-                <a
-                  key={`${resource?.resourceId || "resource"}-${index}`}
-                  href={resourceUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 hover:border-orange-200 hover:bg-orange-50/50 transition-colors"
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">{resourceType.replace(/_/g, " ")}</span>
-                    <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
-                  </div>
-                  <p className="mt-2 text-sm font-semibold text-slate-700 leading-relaxed wrap-break-word">{title}</p>
-                </a>
-              );
-            })}
-          </div>
-        </div>
-      ) : null}
-
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
@@ -1087,20 +1025,6 @@ export default function DetailedProductView({
           <div className="space-y-8">
            {/* Verdict Box */}
            <div className="bg-orange-50 border border-orange-100 rounded-[40px] p-8 space-y-4">
-              {highlightedFeatures.length > 0 ? (
-                <div className="space-y-3 pb-4 border-b border-orange-100">
-                  <h2 className="text-xs font-black text-orange-600 uppercase tracking-widest">
-                    {lang === "en" ? "Highlighted Features" : "核心亮点"}
-                  </h2>
-                  <ul className="space-y-2">
-                    {highlightedFeatures.slice(0, 5).map((item, index) => (
-                      <li key={`${item}-${index}`} className="text-sm text-slate-700 leading-relaxed font-semibold">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
               <h2 className="text-xs font-black text-orange-600 uppercase tracking-widest flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4" />
                 {lang === "en" ? "Expert Summary" : "本站综合评价"}
