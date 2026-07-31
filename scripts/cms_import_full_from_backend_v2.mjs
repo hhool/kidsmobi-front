@@ -13,6 +13,16 @@ function parseArg(name, fallback = "") {
   return matched ? matched.slice(key.length) : fallback;
 }
 
+// Parse a comma-separated CLI argument into normalized tokens.
+function parseCsvArg(name, fallback = "") {
+  return dedupe(
+    String(parseArg(name, fallback) || "")
+      .split(",")
+      .map((item) => item.trim())
+      .filter(Boolean)
+  );
+}
+
 // Check whether a boolean CLI flag is present.
 function hasFlag(name) {
   return process.argv.includes(`--${name}`);
@@ -20,7 +30,7 @@ function hasFlag(name) {
 
 // Print command usage and option help text.
 function printHelp() {
-  console.log(`Usage: node scripts/cms_import_full_from_backend_v2.mjs [options]\n\nOptions:\n  --cmsBase=<url>        CMS API base URL (default from CMS_BASE or built-in)\n  --sourceBase=<url>     Backend source base URL (default from SOURCE_BASE or built-in)\n  --perCategory=<n>      Max products per category to import (default: 12)\n  --manifestPath=<path>  Output path for image transfer manifest\n  --dryRun               Fetch and build data only; skip all /save writes\n  --help                 Show this help\n`);
+  console.log(`Usage: node scripts/cms_import_full_from_backend_v2.mjs [options]\n\nOptions:\n  --cmsBase=<url>                    CMS API base URL (default from CMS_BASE or built-in)\n  --sourceBase=<url>                 Backend source base URL (default from SOURCE_BASE or built-in)\n  --perCategory=<n>                  Batch page size baseline per category (default: 12)\n  --strollerFamilyCategories=<csv>   Stroller-family source categories (default: stroller,double_stroller,jogger_stroller)\n  --strollerFamilyMinTotal=<n>       Minimum imported total for stroller family (default: perCategory * familyCount, e.g. 36)\n  --strollerFamilyFillTo=<n>         Backward-compatible alias of strollerFamilyMinTotal\n  --manifestPath=<path>              Output path for image transfer manifest\n  --dryRun                           Fetch and build data only; skip all /save writes\n  --help                             Show this help\n`);
 }
 
 // Return a normalized HTTP(S) URL string, or an empty string if invalid.
@@ -554,6 +564,89 @@ function buildProduct(product, resource) {
   };
 }
 
+// Build a relaxed fallback row when strict content gates drop a product.
+function buildFallbackProduct(product, resource) {
+  const score = scoreFromProduct(product || {});
+  const cover = asHttpUrl(product?.images?.cover?.url) || asHttpUrl(product?.coverImage) || "";
+  const gallery = dedupe([
+    ...(Array.isArray(product?.galleryUrls) ? product.galleryUrls : []),
+    ...((product?.images?.gallery || []).map((g) => g?.url || "")),
+  ].map(asHttpUrl));
+  const videos = dedupe([
+    ...collectVideoUrls(product),
+    ...collectVideoUrls(resource),
+  ]);
+  const summary =
+    pickPublishedDescription(product, resource) ||
+    `${String(product?.title || product?.productId || "This product").trim()} imported from backend ${String(product?.categoryId || "stroller").trim()}.`;
+  const customersSay = pickCustomersSay(product, resource);
+  const editorVerdict = customersSay || summary;
+
+  return {
+    id: product.productId,
+    name: product.title || product.productId,
+    brand: product.brand || "Unknown",
+    category: mapCategoryCode(product.categoryId),
+    wheelSize: product?.classification?.Wheel_Configuration
+      ? `${product.classification.Wheel_Configuration}-wheel`
+      : "N/A",
+    weight: Number(product?.weight?.lbs || 0),
+    material: product?.classification?.Weight_Class || product?.classification?.Stroller_Type || "Unknown",
+    brakeType: product?.classification?.Harness_Type || "Unknown",
+    tireType: product?.classification?.Wheel_Configuration
+      ? `${product.classification.Wheel_Configuration}-wheel`
+      : "Unknown",
+    price: Number(product?.price?.value || 0),
+    ageRange: mapAgeRange(product.categoryId),
+    heightRange: mapHeightRange(product.categoryId),
+    imageUrl: cover,
+    galleryUrls: gallery,
+    videoUrl: videos[0] || "",
+    videos: videos.map((url, idx) => ({
+      url,
+      title: `backend-video-${idx + 1}`,
+      source: "scraped",
+      order: idx,
+    })),
+    features: ["backend-imported", "fallback-bootstrap"],
+    scenarios: [`scene-${product.categoryId}`],
+    relatedProductIds: Array.isArray(product.relatedProductIds) ? dedupe(product.relatedProductIds) : [],
+    status: "published",
+    overallScore: score.overall,
+    safetyScore: Number(score.safety.toFixed(2)),
+    weightScore: Number(score.weightScore.toFixed(2)),
+    geometryScore: Number(score.geometry.toFixed(2)),
+    pros: [
+      `Live rating ${Number(product?.rating?.value || 0).toFixed(1)}/5`,
+      `Backend category ${product.categoryId}`,
+    ],
+    cons: ["Imported as fallback row due to sparse source fields"],
+    safetyCertification: product?.availability ? [String(product.availability)] : [],
+    customers_say: customersSay,
+    editorVerdict,
+    zh: {
+      name: product.title || product.productId,
+      description: summary,
+      customersSay,
+      brandText: product.brand || "Unknown",
+      specsText: `Category: ${product.categoryId}`,
+      pros: ["来自 backend 实时数据", "导入后可直接在 CMS 编辑"],
+      cons: ["源字段较少，建议后续人工补充"],
+      editorVerdict,
+    },
+    en: {
+      name: product.title || product.productId,
+      description: summary,
+      customersSay,
+      brandText: product.brand || "Unknown",
+      specsText: `Category: ${product.categoryId}`,
+      pros: ["backend live source", "editable in CMS after import"],
+      cons: ["sparse source fields, recommend editorial enrichment"],
+      editorVerdict,
+    },
+  };
+}
+
 // Save one row into a target CMS collection.
 async function cmsSave(cmsBase, collection, payload) {
   return fetchJson(`${cmsBase}/api/cms/${collection}/save`, {
@@ -579,6 +672,17 @@ async function main() {
   const cmsBase = (parseArg("cmsBase", process.env.CMS_BASE || CMS_BASE_DEFAULT) || CMS_BASE_DEFAULT).replace(/\/+$/, "");
   const sourceBase = (parseArg("sourceBase", process.env.SOURCE_BASE || SOURCE_BASE_DEFAULT) || SOURCE_BASE_DEFAULT).replace(/\/+$/, "");
   const perCategory = Math.max(1, Number(parseArg("perCategory", "12")) || 12);
+  const strollerFamilyCategories = parseCsvArg("strollerFamilyCategories", "stroller,double_stroller,jogger_stroller");
+  const strollerFamilyDefaultMinTotal = Math.max(perCategory, perCategory * Math.max(1, strollerFamilyCategories.length));
+  const strollerFamilyFillTo = Math.max(
+    0,
+    Number(
+      parseArg(
+        "strollerFamilyMinTotal",
+        parseArg("strollerFamilyFillTo", String(strollerFamilyDefaultMinTotal))
+      )
+    ) || strollerFamilyDefaultMinTotal
+  );
   const productPageSize = Math.min(100, perCategory);
   const resourcePageSize = 20;
   const manifestPath = parseArg("manifestPath", process.env.IMAGE_MANIFEST_PATH || "./tmp/front_image_transfer_manifest.json");
@@ -600,13 +704,27 @@ async function main() {
 
   console.log(`[import] cmsBase=${cmsBase}`);
   console.log(`[import] sourceBase=${sourceBase}`);
+  console.log(`[import] strollerFamilyCategories=${strollerFamilyCategories.join(",")}`);
+  console.log(`[import] strollerFamilyFillTo=${strollerFamilyFillTo}`);
   console.log(`[import] manifestPath=${manifestPath}`);
   console.log(`[import] dryRun=${dryRun ? "true" : "false"}`);
 
-  const health = await fetchJsonWithRetry(`${cmsBase}/api/cms/d1/health`);
-  if (!health?.data?.healthy) {
-    throw new Error("CMS D1 health check failed before import");
+  if (!dryRun) {
+    const health = await fetchJsonWithRetry(`${cmsBase}/api/cms/d1/health`);
+    if (!health?.data?.healthy) {
+      throw new Error("CMS D1 health check failed before import");
+    }
   }
+
+  const getExistingIds = async (collection) => {
+    if (dryRun) return new Set();
+    const payload = await fetchJsonWithRetry(`${cmsBase}/api/cms/${collection}`);
+    return new Set(
+      Array.isArray(payload?.data)
+        ? payload.data.map((item) => String(item?.id || "")).filter(Boolean)
+        : []
+    );
+  };
 
   const categoriesResp = await fetchJsonWithRetry(`${sourceBase}/api/v2/catalog/categories?withStats=false`);
   const sourceCategories = Array.isArray(categoriesResp?.data) ? categoriesResp.data : [];
@@ -614,12 +732,22 @@ async function main() {
     throw new Error("No source categories returned from backend");
   }
 
-  const existingCategories = await fetchJsonWithRetry(`${cmsBase}/api/cms/categories`);
-  const existingCategoryIds = new Set(
-    Array.isArray(existingCategories?.data)
-      ? existingCategories.data.map((item) => String(item?.id || "")).filter(Boolean)
-      : []
+  const sourceCategoryMap = new Map(
+    sourceCategories
+      .filter((item) => item && typeof item === "object" && item.categoryId)
+      .map((item) => [String(item.categoryId), item])
   );
+  for (const familyCategory of strollerFamilyCategories) {
+    if (sourceCategoryMap.has(familyCategory)) continue;
+    sourceCategoryMap.set(familyCategory, {
+      categoryId: familyCategory,
+      name: familyCategory,
+    });
+    console.warn(`[import] forcing stroller-family category load for missing catalog entry: ${familyCategory}`);
+  }
+  const categoriesToLoad = Array.from(sourceCategoryMap.values());
+
+  const existingCategoryIds = await getExistingIds("categories");
 
   const categoryRows = sourceCategories.map((item, idx) => ({
     id: `cat_${item.categoryId}`,
@@ -659,7 +787,7 @@ async function main() {
 
   const allProducts = [];
   const allResources = [];
-  for (const cat of sourceCategories) {
+  for (const cat of categoriesToLoad) {
     console.log(`[import] loading source data for category=${cat.categoryId} limit=${perCategory}`);
     const encodedCategory = encodeURIComponent(cat.categoryId);
     const products = await fetchAllPages(
@@ -710,25 +838,50 @@ async function main() {
   }
 
   const cmsProducts = [];
+  const skippedForQualityGate = [];
   for (const product of allProducts) {
     const normalizedId = productIdOf(product);
     if (!normalizedId) {
       importStats.invalidIdAudit.droppedFromExpandedBuild += 1;
       continue;
     }
-    const row = buildProduct({ ...product, productId: normalizedId }, resourceMap.get(normalizedId));
+    const sourceResource = resourceMap.get(normalizedId);
+    const row = buildProduct({ ...product, productId: normalizedId }, sourceResource);
     if (isInvalidId(row?.id)) {
+      skippedForQualityGate.push({ product: { ...product, productId: normalizedId }, resource: sourceResource });
       importStats.invalidIdAudit.droppedFromExpandedBuild += 1;
       continue;
     }
     cmsProducts.push(row);
   }
-  const existingProducts = await fetchJsonWithRetry(`${cmsBase}/api/cms/products`);
-  const existingProductIds = new Set(
-    Array.isArray(existingProducts?.data)
-      ? existingProducts.data.map((item) => String(item?.id || "")).filter(Boolean)
-      : []
-  );
+
+  const familySet = new Set(strollerFamilyCategories);
+  let importedFamilyCount = cmsProducts.filter((row) => {
+    const sourceCategoryId = sourceCategoryByProductId.get(String(row.id)) || "";
+    return familySet.has(sourceCategoryId);
+  }).length;
+
+  if (strollerFamilyFillTo > 0 && importedFamilyCount < strollerFamilyFillTo) {
+    const existingIds = new Set(cmsProducts.map((row) => String(row.id)));
+    let fallbackAdded = 0;
+    for (const candidate of skippedForQualityGate) {
+      if (importedFamilyCount >= strollerFamilyFillTo) break;
+      const sourceCategoryId = String(candidate?.product?.categoryId || "");
+      if (!familySet.has(sourceCategoryId)) continue;
+      const candidateId = String(candidate?.product?.productId || "").trim();
+      if (!candidateId || existingIds.has(candidateId)) continue;
+      const fallbackRow = buildFallbackProduct(candidate.product, candidate.resource);
+      if (!fallbackRow || isInvalidId(fallbackRow.id)) continue;
+      cmsProducts.push(fallbackRow);
+      existingIds.add(candidateId);
+      importedFamilyCount += 1;
+      fallbackAdded += 1;
+    }
+    if (fallbackAdded > 0) {
+      console.log(`[import] stroller-family fallback fill added=${fallbackAdded} finalCount=${importedFamilyCount} target=${strollerFamilyFillTo}`);
+    }
+  }
+  const existingProductIds = await getExistingIds("products");
   for (const row of cmsProducts) {
     if (dryRun) {
       if (existingProductIds.has(row.id)) {
@@ -800,12 +953,7 @@ async function main() {
       },
     };
   });
-  const existingScenarios = await fetchJsonWithRetry(`${cmsBase}/api/cms/scenarios`);
-  const existingScenarioIds = new Set(
-    Array.isArray(existingScenarios?.data)
-      ? existingScenarios.data.map((item) => String(item?.id || "")).filter(Boolean)
-      : []
-  );
+  const existingScenarioIds = await getExistingIds("scenarios");
   for (const row of scenarios) {
     if (dryRun) {
       if (existingScenarioIds.has(row.id)) {
@@ -867,12 +1015,7 @@ async function main() {
     })
     .filter(Boolean);
 
-  const existingEvaluations = await fetchJsonWithRetry(`${cmsBase}/api/cms/evaluations`);
-  const existingEvaluationIds = new Set(
-    Array.isArray(existingEvaluations?.data)
-      ? existingEvaluations.data.map((item) => String(item?.id || "")).filter(Boolean)
-      : []
-  );
+  const existingEvaluationIds = await getExistingIds("evaluations");
   for (const row of evaluations) {
     if (dryRun) {
       if (existingEvaluationIds.has(row.id)) {
@@ -916,12 +1059,7 @@ async function main() {
       en: { title: r.title, content: r.summary || "Imported from backend resource feed." },
     }));
 
-  const existingGuides = await fetchJsonWithRetry(`${cmsBase}/api/cms/guides`);
-  const existingGuideIds = new Set(
-    Array.isArray(existingGuides?.data)
-      ? existingGuides.data.map((item) => String(item?.id || "")).filter(Boolean)
-      : []
-  );
+  const existingGuideIds = await getExistingIds("guides");
   for (const row of guides) {
     if (dryRun) {
       if (existingGuideIds.has(row.id)) {
@@ -959,12 +1097,7 @@ async function main() {
       en: { title: r.title, content: r.summary || "Imported from backend resource feed." },
     }));
 
-  const existingNews = await fetchJsonWithRetry(`${cmsBase}/api/cms/news`);
-  const existingNewsIds = new Set(
-    Array.isArray(existingNews?.data)
-      ? existingNews.data.map((item) => String(item?.id || "")).filter(Boolean)
-      : []
-  );
+  const existingNewsIds = await getExistingIds("news");
   for (const row of news) {
     if (dryRun) {
       if (existingNewsIds.has(row.id)) {
