@@ -35,6 +35,20 @@ type WorkerDetailResource = {
   videoUrls?: string[];
 };
 
+const CURATED_PRODUCT_DETAIL_CONTENT: Record<string, { highlightedFeatures: string[]; productDescription: string }> = {
+  b07y5vqyfw: {
+    highlightedFeatures: [
+      "3 strollers in 1: Infant Car Seat Carrier, Infant Pramette, and Toddler Stroller to stroll from infant to toddler",
+      "Reversible stroller seat can face parent or the world, for just the right ride as baby grows",
+      "Toddler seat converts to an infant pramette mode, for comfortable strolls with baby",
+      "Includes the Graco SnugRide 35 Lite DLX Infant Car Seat, rear-facing for infants from 4-35 lb and up to 32\" for an easy transition from car to stroller",
+      "One-hand stroller fold for easy storage and transportation",
+    ],
+    productDescription:
+      "Discover a world of convenience for you and comfort for your child with the Graco Modes Pramette Travel System. This multi-functional set includes a Graco SnugRide 35 Infant Car Seat and a versatile stroller that converts from an Infant Car Seat Carrier to a Toddler Stroller, based on your baby's growing needs. Manufactured from sturdy and elegant polyester, this imported set makes baby's transition from car to stroller a breeze. It also includes premium features like a one-hand fold for easy storage, a reversible seat, and a removable child's tray with cup holders for ultimate convenience on every ride.",
+  },
+};
+
 const PLACEHOLDER_VERDICT_PATTERNS = [
   "pending editorial enrichment",
   "请补充评测",
@@ -137,6 +151,15 @@ function resolveHighlightedFeatures(product: Product): string[] {
     if (out.length >= 8) break;
   }
   return out;
+}
+
+function resolveCuratedDetailContent(product: Product): { highlightedFeatures: string[]; productDescription: string } | null {
+  const asin =
+    extractAsin((product as any)?.ASIN) ||
+    extractAsin((product as any)?.productId) ||
+    extractAsin(product.id);
+  if (!asin) return null;
+  return CURATED_PRODUCT_DETAIL_CONTENT[asin] || null;
 }
 
 function resolveVerdictText(product: Product, lang: "zh" | "en"): string {
@@ -600,9 +623,12 @@ export default function DetailedProductView({
     })
     .slice(0, 12);
 
-  const highlightedFeatures = resolveHighlightedFeatures(displayProduct);
+  const curatedContent = resolveCuratedDetailContent(displayProduct);
+  const highlightedFeatures = curatedContent?.highlightedFeatures?.length
+    ? curatedContent.highlightedFeatures
+    : resolveHighlightedFeatures(displayProduct);
   const resourceDescription = resolveResourceDescription(detailResources);
-  const effectiveDescriptionText = descriptionText || resourceDescription;
+  const effectiveDescriptionText = curatedContent?.productDescription || descriptionText || resourceDescription;
 
   React.useEffect(() => {
     let disposed = false;
