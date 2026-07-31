@@ -7,7 +7,6 @@ import {
   AlertTriangle, 
   ListOrdered,
   Layout,
-  Search as SearchIcon,
   Trash2
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
@@ -499,7 +498,7 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
 
 function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, saving, error }: any) {
   const [formData, setFormData] = useState<Guide>(normalizeGuideTaxonomy(guide));
-  const [activeTab, setActiveTab] = useState<"content" | "risk" | "seo">("content");
+  const [activeTab, setActiveTab] = useState<"content" | "risk">("content");
   const [pickerMode, setPickerMode] = useState<"cover" | "related" | null>(null);
   const [scenarioPickerOpen, setScenarioPickerOpen] = useState(false);
   const previewTopic = String(formData.taxonomy?.topicCategory || formData.category || "beginner").trim().toLowerCase();
@@ -604,7 +603,6 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
           <aside className="w-full sm:w-64 shrink-0 border-r border-slate-100 p-8 flex flex-col gap-2">
             <NavBtn active={activeTab === "content"} onClick={() => setActiveTab("content")} label={lang === "zh" ? "正文编辑" : "Main Content"} icon={<FileText className="w-4 h-4" />} />
             <NavBtn active={activeTab === "risk"} onClick={() => setActiveTab("risk")} label={lang === "zh" ? "风险模块" : "Risk Modules"} icon={<AlertTriangle className="w-4 h-4" />} />
-            <NavBtn active={activeTab === "seo"} onClick={() => setActiveTab("seo")} label={lang === "zh" ? "SEO 编辑" : "SEO Controller"} icon={<SearchIcon className="w-4 h-4" />} />
             
             <div className="mt-auto border-t border-slate-100 pt-8 bg-slate-50 p-3 rounded-2xl">
               <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{lang === "zh" ? "中英同屏编辑模式" : "Side-by-side bilingual mode"}</p>
@@ -932,7 +930,7 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
               </div>
             )}
 
-            {activeTab === "seo" && (
+            {activeTab === "content" && (
               <div className="max-w-6xl mx-auto space-y-12">
                  <h4 className="text-xl font-black text-slate-900 tracking-tight">{lang === "zh" ? "SEO 多语言配置" : "Search Engine Optimization Panel"}</h4>
                  <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
@@ -996,22 +994,24 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                  </div>
 
                  {/* SERP Preview */}
-                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-                   <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-4">Google SERP Simulator</span>
-                   <div className="bg-white px-8 py-10 rounded-[32px] shadow-xl border border-slate-100 flex flex-col gap-1.5 overflow-hidden">
+                 <div className="space-y-4">
+                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Google SERP Simulator</p>
+                   <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 items-stretch">
+                     <div className="bg-white px-8 py-10 rounded-[32px] shadow-xl border border-slate-100 flex flex-col gap-1.5 overflow-hidden h-full">
                       <div className="text-[12px] text-slate-500 truncate">balancebiketoddler.com › {previewBreadcrumb}</div>
                       <div className="text-[20px] text-blue-600 font-medium hover:underline cursor-pointer truncate">{formData.seo.zh.title || "中文预览标题"}</div>
                       <div className="text-[14px] text-slate-600 line-clamp-2 leading-relaxed">
                         {formData.seo.zh.description || "输入中文 Meta Description 后将在此预览。"}
                       </div>
-                   </div>
+                     </div>
 
-                   <div className="bg-white px-8 py-10 rounded-[32px] shadow-xl border border-slate-100 flex flex-col gap-1.5 overflow-hidden">
+                     <div className="bg-white px-8 py-10 rounded-[32px] shadow-xl border border-slate-100 flex flex-col gap-1.5 overflow-hidden h-full">
                       <div className="text-[12px] text-slate-500 truncate">balancebiketoddler.com › {previewBreadcrumb}</div>
                       <div className="text-[20px] text-blue-600 font-medium hover:underline cursor-pointer truncate">{formData.seo.en.title || "English preview title"}</div>
                       <div className="text-[14px] text-slate-600 line-clamp-2 leading-relaxed">
                         {formData.seo.en.description || "Compose an English meta description to preview the snippet."}
                       </div>
+                     </div>
                    </div>
                  </div>
               </div>
