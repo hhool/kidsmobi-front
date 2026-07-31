@@ -339,7 +339,7 @@ function sanitizeMarketplaceNoise(raw: string) {
 function clampText(value: string, maxLength: number) {
   const text = String(value || "").replace(/\s+/g, " ").trim();
   if (!text || text.length <= maxLength) return text;
-  return `${text.slice(0, maxLength).replace(/[\s,;:.!?-]+$/g, "")}...`;
+  return text.slice(0, maxLength).replace(/[\s,;:.!?-]+$/g, "").trim();
 }
 
 function stripBrandPrefix(text: string, brand: string) {
@@ -622,7 +622,7 @@ function cleanReviewBullet(value: unknown, fallback: string) {
     .replace(/\s+/g, " ")
     .trim();
   if (!cleaned || cleaned.length < 18) return fallback;
-  return cleaned.length > 140 ? `${cleaned.slice(0, 137).trim()}...` : cleaned;
+  return cleaned.length > 140 ? cleaned.slice(0, 140).trim() : cleaned;
 }
 
 function makeSingleEvaluation(product: Product, type: Evaluation["type"], suffix: string, zhTitle: string, enTitle: string, verdictPrefixZh = "专家摘要", verdictPrefixEn = "Expert summary"): Evaluation {
@@ -1482,8 +1482,8 @@ export default function EvaluationsSection({
                   <div className="flex flex-col justify-between flex-1 py-1">
                     <div className="space-y-2">
                        <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
-                      <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors line-clamp-2">{evLang.title}</h3>
-                      <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
+                      <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors">{evLang.title}</h3>
+                      <p className="text-[11px] text-slate-400 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
                       <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{reviewsCopy.cta.stroller}</span>
@@ -1541,8 +1541,8 @@ export default function EvaluationsSection({
                   <div className="flex flex-col justify-between flex-1 py-1">
                     <div className="space-y-2">
                        <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
-                      <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors line-clamp-2">{evLang.title}</h3>
-                      <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
+                      <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors">{evLang.title}</h3>
+                      <p className="text-[11px] text-slate-400 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
                       <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{reviewsCopy.cta.bike}</span>
@@ -1600,8 +1600,8 @@ export default function EvaluationsSection({
                   <div className="flex flex-col justify-between flex-1 py-1">
                     <div className="space-y-2">
                        <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
-                      <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors line-clamp-2">{evLang.title}</h3>
-                      <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
+                      <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors">{evLang.title}</h3>
+                      <p className="text-[11px] text-slate-400 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
                       <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{reviewsCopy.cta.balance}</span>
@@ -1659,8 +1659,8 @@ export default function EvaluationsSection({
                   <div className="flex flex-col justify-between flex-1 py-1">
                     <div className="space-y-2">
                        <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
-                      <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors line-clamp-2">{evLang.title}</h3>
-                      <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
+                      <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors">{evLang.title}</h3>
+                      <p className="text-[11px] text-slate-400 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
                       <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{reviewsCopy.cta.scooter}</span>
@@ -1721,8 +1721,8 @@ export default function EvaluationsSection({
                     <div className="flex flex-col justify-between flex-1 py-1">
                       <div className="space-y-2">
                          <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
-                        <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors line-clamp-2">{evLang.title}</h3>
-                        <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
+                        <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors">{evLang.title}</h3>
+                        <p className="text-[11px] text-slate-400 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                       </div>
                       <div className="flex justify-between items-center pt-4 border-t border-slate-50">
                         <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{reviewsCopy.cta.product}</span>

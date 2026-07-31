@@ -33,7 +33,7 @@ export const translations = {
     closeAdvisor: "关闭顾问",
     connectAdvisor: "连线专家",
     advisorTitle: "BalanceBikeToddler 高端童车安全顾问",
-    advisorLoading: "正在为您进行多维度工效匹配...",
+    advisorLoading: "正在为您进行多维度工效匹配。",
 
     // Button Labels
     viewDetails: "产品详情 →",
@@ -105,7 +105,7 @@ export const translations = {
     closeAdvisor: "Close AI Advisor",
     connectAdvisor: "Advisor",
     advisorTitle: "Physics safety & Ergonomics AI Advisor",
-    advisorLoading: "Analyzing multi-dimensional structural tolerances...",
+    advisorLoading: "Analyzing multi-dimensional structural tolerances.",
 
     // Button Labels
     viewDetails: "View Details →",
@@ -451,6 +451,8 @@ function translateSafetyCertificationToEn(certifications: string[]): string[] {
 
 function cleanVisibleProductText(value: unknown) {
   return String(value || "")
+    .replace(/…+/g, " ")
+    .replace(/\.{3,}/g, " ")
     .replace(/^editor\s+verdict\s*[:：-]\s*/i, "")
     .replace(/\s*\(\s*Features\[\d+\]\s*\)\s*/gi, " ")
     .replace(/\s*\(\s*Product\s+Feature\s*\)\s*/gi, " ")
@@ -487,7 +489,16 @@ function sanitizeVisibleProductFields(product: any) {
 
   return {
     ...product,
+    name: cleanVisibleProductText(product.name),
+    brand: cleanVisibleProductText(product.brand),
     description: cleanVisibleProductText(product.description),
+    customersSay: cleanVisibleProductText(product.customersSay),
+    customers_say: cleanVisibleProductText(product.customers_say),
+    Product_Description: cleanVisibleProductText(product.Product_Description),
+    product_description: cleanVisibleProductText(product.product_description),
+    productDescription: cleanVisibleProductText(product.productDescription),
+    specsText: cleanVisibleProductText(product.specsText),
+    features: Array.isArray(product.features) ? product.features.map(cleanVisibleProductText).filter(Boolean) : product.features,
     pros: Array.isArray(product.pros) ? product.pros.map(cleanVisibleProductText).filter(Boolean) : product.pros,
     cons: Array.isArray(product.cons) ? product.cons.map(cleanVisibleProductText).filter(Boolean) : product.cons,
     editorVerdict: cleanVisibleProductText(product.editorVerdict),

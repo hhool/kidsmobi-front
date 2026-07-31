@@ -2045,7 +2045,7 @@ export default function ProductsSection({
                     />
                   </div>
                   <div className="min-w-0">
-                    <h3 className="font-extrabold text-slate-900 group-hover:text-orange-500 transition truncate text-sm">
+                    <h3 className="font-extrabold text-slate-900 group-hover:text-orange-500 transition text-sm break-words">
                       {historySeoTitle}
                     </h3>
                     <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wide">

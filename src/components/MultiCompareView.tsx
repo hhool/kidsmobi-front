@@ -11,7 +11,7 @@ import Breadcrumbs from "./Breadcrumbs";
 function clampText(value: string, maxLength: number) {
   const text = String(value || "").replace(/\s+/g, " ").trim();
   if (!text || text.length <= maxLength) return text;
-  return `${text.slice(0, maxLength).replace(/[\s,;:.!?-]+$/g, "")}...`;
+  return text.slice(0, maxLength).replace(/[\s,;:.!?-]+$/g, "").trim();
 }
 
 function stripBrandPrefix(text: string, brand: string) {
@@ -177,11 +177,11 @@ export default function MultiCompareView({
                   </div>
                   <div className="flex justify-between text-xs border-b border-slate-200/50 pb-2">
                     <span className="text-slate-500 font-bold">{lang === "en" ? "Brakes" : "制动"}</span>
-                    <span className="font-black text-slate-900 truncate max-w-[100px]" title={pt.brakeType}>{pt.brakeType}</span>
+                    <span className="font-black text-slate-900 max-w-[140px] break-words text-right" title={pt.brakeType}>{pt.brakeType}</span>
                   </div>
                   <div className="flex justify-between text-xs border-b border-slate-200/50 pb-2">
                     <span className="text-slate-500 font-bold">{lang === "en" ? "Tires" : "轮胎"}</span>
-                    <span className="font-black text-slate-900 truncate max-w-[100px]" title={pt.tireType}>{pt.tireType}</span>
+                    <span className="font-black text-slate-900 max-w-[140px] break-words text-right" title={pt.tireType}>{pt.tireType}</span>
                   </div>
                 </div>
 
@@ -190,7 +190,7 @@ export default function MultiCompareView({
                     <h4 className="text-[10px] font-black text-emerald-500 uppercase tracking-widest flex items-center gap-1"><CheckCircle2 className="w-3 h-3"/> Pros</h4>
                     <ul className="space-y-1">
                       {pt.pros?.slice(0, 2).map((pro, i) => (
-                        <li key={i} className="text-xs font-medium text-slate-600 truncate bg-emerald-50 px-2 py-1 rounded" title={pro}>{pro}</li>
+                        <li key={i} className="text-xs font-medium text-slate-600 bg-emerald-50 px-2 py-1 rounded break-words" title={pro}>{pro}</li>
                       ))}
                     </ul>
                   </div>
@@ -198,7 +198,7 @@ export default function MultiCompareView({
                     <h4 className="text-[10px] font-black text-rose-400 uppercase tracking-widest flex items-center gap-1"><X className="w-3 h-3"/> Cons</h4>
                     <ul className="space-y-1">
                       {pt.cons?.slice(0, 2).map((con, i) => (
-                        <li key={i} className="text-xs font-medium text-slate-600 truncate bg-rose-50 px-2 py-1 rounded" title={con}>{con}</li>
+                        <li key={i} className="text-xs font-medium text-slate-600 bg-rose-50 px-2 py-1 rounded break-words" title={con}>{con}</li>
                       ))}
                     </ul>
                   </div>
