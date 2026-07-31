@@ -26,6 +26,15 @@ import { cleanVisibleSourceText } from "../lib/visibleText";
 import ProductCarousel from "./ProductCarousel";
 import Breadcrumbs from "./Breadcrumbs";
 
+type WorkerDetailResource = {
+  resourceId?: string;
+  resourceType?: string;
+  title?: string;
+  summary?: string;
+  resourceUrl?: string;
+  videoUrls?: string[];
+};
+
 const PLACEHOLDER_VERDICT_PATTERNS = [
   "pending editorial enrichment",
   "请补充评测",
@@ -86,6 +95,8 @@ function resolveDescriptionText(product: Product, lang: "zh" | "en"): string {
   for (const text of candidates) {
     const lower = text.toLowerCase();
     if (lower.includes("product description")) continue;
+    if (lower.includes("generated from remote fallback")) continue;
+    if (text.includes("由远端数据回退生成")) continue;
     if (/^rated\s+\d(?:\.\d+)?\s+out\s+of\s+5\b/i.test(text)) continue;
     if (/^backed\s+by\s+[\d,]+\s+customer\s+reviews\b/i.test(text)) continue;
     if (/^\d(?:\.\d+)?\s+\d(?:\.\d+)?\s+out\s+of\s+5\s+stars\b/i.test(text)) continue;
@@ -94,6 +105,38 @@ function resolveDescriptionText(product: Product, lang: "zh" | "en"): string {
   }
 
   return "";
+}
+
+function resolveResourceDescription(resources: WorkerDetailResource[]): string {
+  const overview = resources.find((item) => String(item?.resourceType || "").toLowerCase() === "product_overview");
+  const candidates = [overview?.summary, overview?.title];
+  for (const value of candidates) {
+    const text = String(value || "").replace(/\s+/g, " ").trim();
+    if (text.length >= 80) {
+      return text;
+    }
+  }
+  return "";
+}
+
+function resolveHighlightedFeatures(product: Product): string[] {
+  const fromFeatures = Array.isArray(product.features) ? product.features : [];
+  const fromSpecs = Object.entries((product as Product & { Product_Display_Fields?: Record<string, { value?: unknown }> }).Product_Display_Fields || {})
+    .map(([, field]) => String(field?.value || "").trim())
+    .filter(Boolean);
+
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const value of [...fromFeatures, ...fromSpecs]) {
+    const normalized = String(value || "").replace(/\s+/g, " ").trim();
+    if (!normalized) continue;
+    const key = normalized.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(normalized);
+    if (out.length >= 8) break;
+  }
+  return out;
 }
 
 function resolveVerdictText(product: Product, lang: "zh" | "en"): string {
@@ -135,6 +178,36 @@ function getVideoRenderType(url: string): "direct" | "hls" | "embed" | "none" {
 
 function isUnsupportedVideoUrl(url: string) {
   return /\.m3u8(\?|#|$)/i.test(String(url || "").trim());
+}
+
+function isLikelyVideoUrl(url: string): boolean {
+  const normalized = String(url || "").trim().toLowerCase();
+  if (!normalized) return false;
+  if (/youtube\.com|youtu\.be|vimeo\.com/.test(normalized)) return true;
+  return /\.(mp4|webm|ogg|m3u8)(\?|#|$)/.test(normalized);
+}
+
+function normalizeDetailCategoryId(product: Product): string {
+  const explicit = String((product as any)?.categoryId || "").trim();
+  if (explicit) return explicit;
+
+  switch (product.category) {
+    case "balance":
+      return "balance_bike";
+    case "bicycle":
+      return "kids_bikes";
+    case "scooter":
+      return "scooters";
+    case "electric_car":
+      return "electric_vehicles";
+    case "tricycle":
+      return "kids_tricycles";
+    case "safety_seat":
+      return "car_seat";
+    case "stroller":
+    default:
+      return "stroller";
+  }
 }
 
 function cleanVisibleFieldText(value: unknown) {
@@ -388,21 +461,47 @@ export default function DetailedProductView({
   isAdmin = false,
   onOpenAdminProductEditor,
   lang,
-  activeStandardDimension,
-  setActiveStandardDimension,
   previousTab,
   cmsSettings
 }: DetailedProductViewProps) {
   const displayProduct = translateProduct(product, lang);
   const [liveCmsVerdict, setLiveCmsVerdict] = useState<{ zh: string; en: string }>({ zh: "", en: "" });
+  const [detailResources, setDetailResources] = useState<WorkerDetailResource[]>([]);
   const verdictText = String(
     (lang === "zh" ? liveCmsVerdict.zh : liveCmsVerdict.en) || resolveVerdictText(product, lang)
   ).trim();
   const descriptionText = resolveDescriptionText(displayProduct, lang);
   const imageSet = resolveProductImages(displayProduct);
-  const videoUrl = [product.videoUrl, ...(product.videos || []).map((item) => item.url)]
-    .map((item) => String(item || "").trim())
-    .find((item) => item && !isUnsupportedVideoUrl(item)) || "";
+  const resourceVideoAssets = detailResources
+    .flatMap((resource) => {
+      const type = String(resource?.resourceType || "").toLowerCase();
+      const fromList = Array.isArray(resource?.videoUrls) ? resource.videoUrls : [];
+      const fromResourceUrl = (type.includes("video") || isLikelyVideoUrl(String(resource?.resourceUrl || ""))) && resource?.resourceUrl
+        ? [resource.resourceUrl]
+        : [];
+      const urls = [...fromList, ...fromResourceUrl]
+        .map((item) => String(item || "").trim())
+        .filter((item) => item && isLikelyVideoUrl(item) && !isUnsupportedVideoUrl(item));
+      return urls.map((url, index) => ({
+        url,
+        title: String(resource?.title || `resource-video-${index + 1}`).trim(),
+      }));
+    })
+    .filter((item, index, list) => list.findIndex((next) => next.url === item.url) === index);
+
+  const videoAssets = [
+    product.videoUrl ? { url: product.videoUrl, title: "primary-video" } : null,
+    ...((product.videos || []).map((item, index) => ({
+      url: String(item?.url || "").trim(),
+      title: String(item?.title || `video-${index + 1}`).trim(),
+    }))),
+    ...resourceVideoAssets,
+  ]
+    .filter((item): item is { url: string; title: string } => Boolean(item?.url) && isLikelyVideoUrl(item.url) && !isUnsupportedVideoUrl(item.url))
+    .filter((item, index, list) => list.findIndex((candidate) => candidate.url === item.url) === index);
+  const firstVideoUrl = videoAssets[0]?.url || "";
+  const [activeVideoUrl, setActiveVideoUrl] = useState<string>(videoAssets[0]?.url || "");
+  const videoUrl = activeVideoUrl || firstVideoUrl;
   const videoRenderType = getVideoRenderType(videoUrl);
   const hasVideo = videoRenderType !== "none";
   const hasFeatureImages = imageSet.featureUrls.length > 0;
@@ -446,6 +545,64 @@ export default function DetailedProductView({
   React.useEffect(() => {
     setActiveMediaTab("gallery");
   }, [product.id]);
+
+  React.useEffect(() => {
+    setActiveVideoUrl(firstVideoUrl);
+  }, [product.id, firstVideoUrl]);
+
+  React.useEffect(() => {
+    let disposed = false;
+
+    const loadDetailResources = async () => {
+      const categoryId = normalizeDetailCategoryId(product);
+      const productId = String((product as any)?.productId || product.id || "").trim();
+      if (!categoryId || !productId) {
+        if (!disposed) setDetailResources([]);
+        return;
+      }
+
+      try {
+        const query = new URLSearchParams({
+          categoryId,
+          productId,
+          page: "1",
+          pageSize: "60",
+        });
+        const response = await fetch(`/api/v2/resources?${query.toString()}`, {
+          headers: { Accept: "application/json" },
+        });
+        if (!response.ok) {
+          if (!disposed) setDetailResources([]);
+          return;
+        }
+        const payload = await response.json().catch(() => null);
+        const rows = Array.isArray(payload?.data) ? payload.data : [];
+        if (!disposed) {
+          setDetailResources(rows);
+        }
+      } catch {
+        if (!disposed) setDetailResources([]);
+      }
+    };
+
+    setDetailResources([]);
+    void loadDetailResources();
+
+    return () => {
+      disposed = true;
+    };
+  }, [product.id, (product as any)?.productId, (product as any)?.categoryId, product.category]);
+
+  const visibleDetailResources = detailResources
+    .filter((resource) => {
+      const url = String(resource?.resourceUrl || "").trim();
+      return Boolean(url);
+    })
+    .slice(0, 12);
+
+  const highlightedFeatures = resolveHighlightedFeatures(displayProduct);
+  const resourceDescription = resolveResourceDescription(detailResources);
+  const effectiveDescriptionText = descriptionText || resourceDescription;
 
   React.useEffect(() => {
     let disposed = false;
@@ -577,16 +734,6 @@ export default function DetailedProductView({
     { subject: "性价比", scoreA: scoresA.costEff, key: "value" }
   ];
 
-  const handleAxisLabelClick = (key: string) => {
-    setActiveStandardDimension(key);
-    setTimeout(() => {
-      const element = document.getElementById(`std-accordion-${key}`);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    }, 120);
-  };
-
   const CustomRadarTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
@@ -609,37 +756,6 @@ export default function DetailedProductView({
     }
     return null;
   };
-
-  const scoringIconMap: Record<string, string> = {
-    safety: "🛡️",
-    comfort: "🛋️",
-    portability: "🎒",
-  };
-
-  const scoringLabelMap: Record<string, { zh: string; en: string }> = {
-    safety: { zh: "Safety First", en: "Safety First" },
-    comfort: { zh: "Riding Comfort", en: "Riding Comfort" },
-    portability: { zh: "Light & Easy", en: "Light & Easy" },
-  };
-
-  const productScoringStandards = displayProduct.scoringStandards || product.scoringStandards || [];
-  const scoringStandards = productScoringStandards.length > 0
-    ? productScoringStandards.map((standard) => ({
-        key: standard.key,
-        nameZh: `${scoringIconMap[standard.key] || "•"} ${scoringLabelMap[standard.key]?.zh || standard.label}`,
-        nameEn: `${scoringIconMap[standard.key] || "•"} ${scoringLabelMap[standard.key]?.en || standard.label}`,
-        parentTip: cleanVisibleSourceText(standard.parentTip),
-        evidence: standard.evidence || [],
-      }))
-    : (cmsSettings?.scoringStandards || []).slice(0, 3).map(s => ({
-        key: s.id,
-        nameZh: s.icon + " " + s.labelZh,
-        nameEn: s.icon + " " + s.labelEn,
-        parentTip: cleanVisibleSourceText(lang === "en" ? s.descriptionEn : s.descriptionZh),
-        evidence: (displayProduct.scrapedEvidence || product.scrapedEvidence || []).slice(0, 3),
-      }));
-  const showEmptyScoringStandardsSection = Boolean(cmsSettings?.opsCenter?.featureFlags?.showEmptyScoringStandardsSection);
-  const shouldRenderScoringStandardsSection = scoringStandards.length > 0 || showEmptyScoringStandardsSection;
 
   const getCategoryLabel = (cat: string, l: "zh" | "en"): string => {
     const normalized = String(cat || "").trim().toLowerCase();
@@ -754,7 +870,7 @@ export default function DetailedProductView({
               className={`flex-1 flex items-center justify-center gap-2 py-4 text-xs font-black uppercase transition-all ${activeMediaTab === "video" ? "bg-orange-50 text-orange-600 border-b-2 border-orange-500" : "text-slate-400 hover:bg-slate-50"}`}
             >
               <Play className="w-4 h-4" />
-              {lang === "en" ? "Product Video" : "实物演示视频"}
+              {lang === "en" ? "PRODUCT VIDEO" : "实物演示视频"}
             </button>
           )}
         </div>
@@ -762,7 +878,7 @@ export default function DetailedProductView({
         <div className="p-1 min-h-[400px] bg-slate-50">
           {activeMediaTab === "gallery" ? (
             <ProductCarousel 
-              images={[imageSet.coverUrl, ...imageSet.galleryUrls].filter(Boolean)} 
+              images={imageSet.allImageUrls.filter(Boolean)} 
               lang={lang}
               productName={displayProduct.name}
             />
@@ -773,33 +889,88 @@ export default function DetailedProductView({
               productName={displayProduct.name}
             />
           ) : (
-            <div className="aspect-video w-full">
-              {hasVideo && videoRenderType === "direct" ? (
-                <video
-                  src={videoUrl}
-                  className="w-full h-full rounded-2xl bg-black"
-                  title={`${product.name} Video`}
-                  controls
-                  playsInline
-                  preload="metadata"
-                />
-              ) : hasVideo ? (
-                <iframe 
-                  src={videoUrl} 
-                  className="w-full h-full rounded-2xl"
-                  title={`${product.name} Video`}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                  allowFullScreen
-                />
-              ) : (
-                <div className="w-full h-full bg-slate-100 flex items-center justify-center rounded-2xl text-slate-400 font-medium">
-                  {lang === "en" ? "No video available" : "暂无视频"}
+            <div className="space-y-4">
+              <div className="aspect-video w-full">
+                {hasVideo && videoRenderType === "direct" ? (
+                  <video
+                    src={videoUrl}
+                    className="w-full h-full rounded-2xl bg-black"
+                    title={`${product.name} Video`}
+                    controls
+                    playsInline
+                    preload="metadata"
+                  />
+                ) : hasVideo ? (
+                  <iframe 
+                    src={videoUrl} 
+                    className="w-full h-full rounded-2xl"
+                    title={`${product.name} Video`}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowFullScreen
+                  />
+                ) : (
+                  <div className="w-full h-full bg-slate-100 flex items-center justify-center rounded-2xl text-slate-400 font-medium">
+                    {lang === "en" ? "No video available" : "暂无视频"}
+                  </div>
+                )}
+              </div>
+              {videoAssets.length > 1 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {videoAssets.map((asset, index) => {
+                    const active = asset.url === videoUrl;
+                    return (
+                      <button
+                        key={`${asset.url}-${index}`}
+                        onClick={() => setActiveVideoUrl(asset.url)}
+                        className={`rounded-2xl border px-4 py-3 text-left transition ${active ? "border-orange-500 bg-orange-50 text-orange-700" : "border-slate-200 bg-white text-slate-600 hover:border-orange-200 hover:bg-orange-50/40"}`}
+                      >
+                        <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
+                          <Play className="w-3.5 h-3.5" />
+                          {lang === "en" ? `Video ${index + 1}` : `视频 ${index + 1}`}
+                        </div>
+                        <div className="mt-1 text-xs font-semibold leading-relaxed break-words">
+                          {asset.title || (lang === "en" ? `Clip ${index + 1}` : `片段 ${index + 1}`)}
+                        </div>
+                      </button>
+                    );
+                  })}
                 </div>
-              )}
+              ) : null}
             </div>
           )}
         </div>
       </div>
+
+      {visibleDetailResources.length > 0 ? (
+        <div className="bg-white border border-slate-100 rounded-[40px] p-8 shadow-sm space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-50 pb-3">
+            <h2 className="text-lg font-black text-slate-900">{lang === "en" ? "Additional Resources" : "更多参考资源"}</h2>
+            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">{visibleDetailResources.length}</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {visibleDetailResources.map((resource, index) => {
+              const resourceUrl = String(resource?.resourceUrl || "").trim();
+              const resourceType = String(resource?.resourceType || "resource").trim() || "resource";
+              const title = String(resource?.title || resource?.summary || `${lang === "en" ? "Resource" : "资源"} ${index + 1}`).trim();
+              return (
+                <a
+                  key={`${resource?.resourceId || "resource"}-${index}`}
+                  href={resourceUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 hover:border-orange-200 hover:bg-orange-50/50 transition-colors"
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">{resourceType.replace(/_/g, " ")}</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+                  </div>
+                  <p className="mt-2 text-sm font-semibold text-slate-700 leading-relaxed wrap-break-word">{title}</p>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      ) : null}
 
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -828,8 +999,7 @@ export default function DetailedProductView({
                             x={x}
                             y={y}
                             textAnchor={textAnchor}
-                            className="cursor-pointer font-bold text-[11px] fill-slate-400 hover:fill-orange-500 transition-colors"
-                            onClick={() => handleAxisLabelClick(radarData[props.index].key)}
+                            className="font-bold text-[11px] fill-slate-400"
                           >
                             {payload.value}
                           </text>
@@ -885,62 +1055,26 @@ export default function DetailedProductView({
              </div>
           </div>
 
-          {/* Standards Accordion */}
-          {shouldRenderScoringStandardsSection && (
-            <div className="bg-white border border-slate-100 rounded-[40px] p-8 shadow-sm space-y-6">
-               <h2 className="text-xl font-black text-slate-900 border-b border-slate-50 pb-4">{lang === "en" ? "Scoring Standards & Logic" : "评分标准与算法详情"}</h2>
-               {scoringStandards.length > 0 ? (
-                 <div className="space-y-3">
-                    {scoringStandards.map((std) => {
-                      const isExpanded = activeStandardDimension === std.key;
-                      return (
-                        <div 
-                          key={std.key} 
-                          id={`std-accordion-${std.key}`}
-                          className={`rounded-3xl border transition-all ${isExpanded ? "border-orange-200 bg-orange-50/20" : "border-slate-100 bg-slate-50/50"}`}
-                        >
-                          <button 
-                            onClick={() => setActiveStandardDimension(isExpanded ? null : std.key)}
-                            className="w-full px-6 py-4 flex justify-between items-center text-left"
-                          >
-                            <span className="font-bold text-slate-700 text-sm">{lang === "en" ? std.nameEn : std.nameZh}</span>
-                            <ChevronRight className={`w-4 h-4 transition-transform ${isExpanded ? "rotate-90 text-orange-500" : "text-slate-300"}`} />
-                          </button>
-                          {isExpanded && (
-                            <div className="px-6 pb-6 space-y-4 animate-fade-in">
-                               <div className="bg-white p-4 rounded-2xl border border-orange-100 text-[11px] text-orange-800 font-bold leading-relaxed shadow-sm">
-                                {lang === "en" ? "Parent's Tip: " : "给家长的总结："}{cleanVisibleSourceText(std.parentTip)}
-                               </div>
-                              <div className="space-y-2 pl-2">
-                                {std.evidence.map((item, index) => {
-                                  const evidenceSource = cleanEvidenceSource(item.source);
-                                  return (
-                                    <div key={`${std.key}-${index}`} className="text-xs text-slate-500 leading-relaxed font-medium bg-white/70 border border-slate-100 rounded-2xl p-3">
-                                     {evidenceSource && <span className="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">{evidenceSource}</span>}
-                                     {cleanVisibleFieldText(item.text)}
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
-                 </div>
-               ) : (
-                 <div className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 text-sm text-slate-500 font-medium">
-                   {lang === "en" ? "Scoring standards are temporarily unavailable for this product." : "该产品的评分标准暂未补齐。"}
-                 </div>
-               )}
-            </div>
-          )}
         </div>
 
         {/* Technical Specs (Right Column) */}
           <div className="space-y-8">
            {/* Verdict Box */}
            <div className="bg-orange-50 border border-orange-100 rounded-[40px] p-8 space-y-4">
+              {highlightedFeatures.length > 0 ? (
+                <div className="space-y-3 pb-4 border-b border-orange-100">
+                  <h2 className="text-xs font-black text-orange-600 uppercase tracking-widest">
+                    {lang === "en" ? "Highlighted Features" : "核心亮点"}
+                  </h2>
+                  <ul className="space-y-2">
+                    {highlightedFeatures.slice(0, 5).map((item, index) => (
+                      <li key={`${item}-${index}`} className="text-sm text-slate-700 leading-relaxed font-semibold">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
               <h2 className="text-xs font-black text-orange-600 uppercase tracking-widest flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4" />
                 {lang === "en" ? "Expert Summary" : "本站综合评价"}
@@ -952,12 +1086,12 @@ export default function DetailedProductView({
               )}
            </div>
 
-           {descriptionText && (
+           {effectiveDescriptionText && (
              <div className="bg-white border border-slate-100 rounded-[32px] p-6 space-y-2 shadow-sm">
                <p className="text-xs font-black uppercase tracking-widest text-slate-500">
-                 {lang === "en" ? "Description" : "描述"}
+                 {lang === "en" ? "Product Description" : "产品描述"}
                </p>
-               <p className="text-sm text-slate-700 leading-relaxed font-semibold">{descriptionText}</p>
+               <p className="text-sm text-slate-700 leading-relaxed font-semibold">{effectiveDescriptionText}</p>
              </div>
            )}
         </div>

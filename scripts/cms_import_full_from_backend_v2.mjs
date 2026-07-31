@@ -48,6 +48,32 @@ function dedupe(items) {
   return out;
 }
 
+// Determine if a URL likely points to a playable video asset.
+function isLikelyVideoUrl(value) {
+  const text = String(value || "").trim().toLowerCase();
+  if (!text) return false;
+  if (text.includes("youtube.com") || text.includes("youtu.be") || text.includes("vimeo.com")) return true;
+  return /\.(mp4|webm|ogg|m3u8)(\?|#|$)/i.test(text);
+}
+
+// Collect video URLs from known worker/report field variants.
+function collectVideoUrls(record) {
+  if (!record || typeof record !== "object") return [];
+  const resourceType = String(record?.resourceType || "").toLowerCase();
+  const includeResourceUrl = resourceType.includes("video") || isLikelyVideoUrl(record?.resourceUrl);
+  const rows = [
+    ...(Array.isArray(record?.videoUrls) ? record.videoUrls : []),
+    ...(Array.isArray(record?.Product_Videos) ? record.Product_Videos : []),
+    ...(Array.isArray(record?.Product_Videos_MP4) ? record.Product_Videos_MP4 : []),
+    ...(Array.isArray(record?.Product_Videos_M3U8) ? record.Product_Videos_M3U8 : []),
+    ...((Array.isArray(record?.Product_Videos_Detail) ? record.Product_Videos_Detail : [])
+      .map((item) => item?.URL || item?.Video_URL || item?.url || "")),
+    record?.Video_URL || "",
+    includeResourceUrl ? record?.resourceUrl || "" : "",
+  ];
+  return dedupe(rows.map(asHttpUrl).filter(isLikelyVideoUrl));
+}
+
 // Parse a number-like value by stripping non-numeric characters.
 function parseNumber(value, fallback = 0) {
   const cleaned = String(value ?? "").replace(/[^0-9.]+/g, "");
@@ -112,10 +138,7 @@ function normalizeSimilarProduct(parent, item) {
       ...(Array.isArray(item?.Product_Image_URLs) ? item.Product_Image_URLs : []),
       ...(Array.isArray(item?.galleryUrls) ? item.galleryUrls : []),
     ].map(asHttpUrl)),
-    videoUrls: dedupe([
-      ...(Array.isArray(item?.Product_Videos) ? item.Product_Videos : []),
-      ...(Array.isArray(item?.videoUrls) ? item.videoUrls : []),
-    ].map(asHttpUrl)),
+    videoUrls: collectVideoUrls(item),
     availability: item?.availability || item?.Availability || "",
     relatedProductIds: [],
     similarImport: {
@@ -452,10 +475,9 @@ function buildProduct(product, resource) {
     ...((product?.images?.gallery || []).map((g) => g?.url || "")),
   ].map(asHttpUrl));
   const videos = dedupe([
-    ...(Array.isArray(product?.videoUrls) ? product.videoUrls : []),
-    ...(Array.isArray(resource?.videoUrls) ? resource.videoUrls : []),
-    resource?.resourceUrl || "",
-  ].map(asHttpUrl));
+    ...collectVideoUrls(product),
+    ...collectVideoUrls(resource),
+  ]);
   if (!hasProductInformation(product, resource)) {
     return null;
   }

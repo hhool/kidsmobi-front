@@ -1,4 +1,4 @@
-import type { CMSProduct, CMSSettings, Evaluation, ProductScoringStandard, ScrapedEvidenceItem } from "../types";
+import type { CMSProduct, CMSSettings, Evaluation, ProductImages, ProductScoringStandard, ScrapedEvidenceItem } from "../types";
 import { productsData as staticProductsData } from "../data/modelsData";
 
 export interface ContentBundle {
@@ -59,9 +59,21 @@ type WorkerProduct = {
   reviewCount?: number;
   customers_say?: string;
   customersSay?: string;
+  Product_Description?: string;
   Product_Specifications?: Record<string, any>;
+  Product_Display_Fields?: Record<string, any>;
+  Category_Attributes?: Record<string, any>;
   coverImage?: string;
+  productImageUrls?: string[];
   galleryUrls?: string[];
+  featureImageUrls?: string[];
+  videoUrls?: string[];
+  images?: {
+    cover?: { url?: string; source?: string; order?: number };
+    gallery?: Array<{ url?: string; source?: string; order?: number }>;
+    feature?: Array<{ url?: string; source?: string; order?: number }>;
+    all?: Array<{ url?: string; source?: string; order?: number }>;
+  };
   classification?: Record<string, string>;
   featureCards?: Array<{ featureLabel?: string; featureValue?: string }>;
   categoryAttributes?: { features?: string[]; wheelSize?: string[] };
@@ -300,6 +312,47 @@ function buildWorkerProductSpecifications(item: WorkerProduct): Record<string, a
   };
 }
 
+function normalizeWorkerImages(images: WorkerProduct["images"]): ProductImages | undefined {
+  if (!images) return undefined;
+
+  const normalizeAssetSource = (source: string | undefined): "cms" | "scraped" | "unknown" => {
+    if (source === "cms" || source === "scraped") {
+      return source;
+    }
+    return "unknown";
+  };
+
+  const normalizeAsset = (asset: { url?: string; source?: string; order?: number } | undefined) => {
+    const url = String(asset?.url || "").trim();
+    if (!url) return null;
+    return {
+      url,
+      source: normalizeAssetSource(asset?.source),
+      order: asset?.order,
+    };
+  };
+
+  const normalizeAssetList = (items: Array<{ url?: string; source?: string; order?: number }> | undefined) => {
+    return (items || []).map(normalizeAsset).filter((item): item is NonNullable<ReturnType<typeof normalizeAsset>> => Boolean(item));
+  };
+
+  const cover = normalizeAsset(images.cover);
+  const gallery = normalizeAssetList(images.gallery);
+  const feature = normalizeAssetList(images.feature);
+  const all = normalizeAssetList(images.all);
+
+  if (!cover && gallery.length === 0 && feature.length === 0 && all.length === 0) {
+    return undefined;
+  }
+
+  return {
+    cover: cover || undefined,
+    gallery,
+    feature,
+    all,
+  };
+}
+
 function normalizeCompliance(categoryId: string, classification: Record<string, string>): string[] {
   const out: string[] = [];
   const raw = String(classification.Certifications || "").trim();
@@ -386,6 +439,10 @@ function buildRuntimeFallbackScoringStandards(
 function toCMSProduct(item: WorkerProduct): CMSProduct {
   const classification = item.classification || {};
   const attrs = item.categoryAttributes;
+  const normalizedProductImageUrls = Array.isArray(item.productImageUrls) ? item.productImageUrls.filter(Boolean) : [];
+  const normalizedGalleryUrls = Array.isArray(item.galleryUrls) ? item.galleryUrls.filter(Boolean) : [];
+  const normalizedFeatureImageUrls = Array.isArray(item.featureImageUrls) ? item.featureImageUrls.filter(Boolean) : [];
+  const normalizedVideoUrls = Array.isArray(item.videoUrls) ? item.videoUrls.filter(Boolean) : [];
   const name = String(item.title || item.productId || "Unnamed Product").trim();
   const brand = String(item.brand || classification.Brand || "Unknown").trim() || "Unknown";
   const signalText = [
@@ -402,8 +459,8 @@ function toCMSProduct(item: WorkerProduct): CMSProduct {
     ? item.featureCards
         .map((feature) => String(feature?.featureLabel || feature?.featureValue || "").trim())
         .filter(Boolean)
-        .slice(0, 4)
-    : (attrs?.features || []).slice(0, 4);
+        .slice(0, 8)
+    : (attrs?.features || []).slice(0, 8);
   const scoringStandards = buildRuntimeFallbackScoringStandards(item, features, compliance);
   const updatedAt = new Date().toISOString();
   const customersSay = String(item.customers_say || item.customersSay || "").trim();
@@ -429,11 +486,21 @@ function toCMSProduct(item: WorkerProduct): CMSProduct {
     ageRange: String(classification.User_Age || "0-8 years"),
     heightRange: mapHeightRange(item.categoryId),
     compliance: compliance as CMSProduct["compliance"],
-    imageUrl: String(item.coverImage || "").trim(),
-    galleryUrls: Array.isArray(item.galleryUrls) ? item.galleryUrls.filter(Boolean).slice(0, 6) : [],
+    images: normalizeWorkerImages(item.images),
+    imageUrl: String(item.coverImage || normalizedProductImageUrls[0] || normalizedGalleryUrls[0] || "").trim(),
+    productImageUrls: normalizedProductImageUrls,
+    galleryUrls: normalizedGalleryUrls,
+    featureImageUrls: normalizedFeatureImageUrls,
+    videoUrl: normalizedVideoUrls[0] || "",
     features,
     scenarios: [item.categoryId],
     relatedProductIds: [],
+    videos: normalizedVideoUrls.map((url, idx) => ({
+      url,
+      title: `worker-video-${idx + 1}`,
+      source: "scraped" as const,
+      order: idx,
+    })),
     status: "published",
     overallScore: Math.max(6.5, Math.min(10, Number(ratingValue || 4.2) * 1.9)),
     safetyScore: Math.max(6.5, Math.min(10, Number(ratingValue || 4.2) * 1.9)),
@@ -445,7 +512,10 @@ function toCMSProduct(item: WorkerProduct): CMSProduct {
     customers_say: customersSay,
     customersSay,
     specsText: buildWorkerSpecsText(item),
+    Product_Description: item.Product_Description,
     Product_Specifications: productSpecifications,
+    Product_Display_Fields: item.Product_Display_Fields,
+    Category_Attributes: item.Category_Attributes,
     rating: item.rating,
     reviews: item.reviews,
     userRating: ratingValue,

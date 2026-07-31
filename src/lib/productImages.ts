@@ -57,6 +57,7 @@ export function resolveProductImages(product: Partial<Product> | null | undefine
   ].filter(Boolean);
 
   const galleryCandidates = dedupeUrls([
+    ...mapAssetsToUrls(images?.all),
     ...mapAssetsToUrls(images?.gallery),
     ...((product?.productImageUrls || []).map((x) => normalizeUrl(x))),
     ...((product?.galleryUrls || []).map((x) => normalizeUrl(x))),
@@ -69,7 +70,7 @@ export function resolveProductImages(product: Partial<Product> | null | undefine
 
   const coverUrl = coverCandidates[0] || galleryCandidates[0] || FALLBACK_PRODUCT_IMAGE;
   const galleryUrls = dedupeUrls(galleryCandidates.filter((url) => url !== coverUrl));
-  const allImageUrls = dedupeUrls([coverUrl, ...galleryUrls]);
+  const allImageUrls = dedupeUrls([coverUrl, ...galleryUrls, ...featureUrls]);
 
   return {
     coverUrl,
