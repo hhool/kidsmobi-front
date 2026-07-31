@@ -152,9 +152,8 @@ function pickLocalizedDescription(product: Product, lang: "zh" | "en"): string {
         baseDesc = businessCopy.descriptionTemplates.kidsBikeZh.replace("{base}", baseDesc);
       }
     } else {
-      if (!baseDesc.toLowerCase().includes(logicTokens.keywordPresence.kidsBike)) {
-        baseDesc = businessCopy.descriptionTemplates.kidsBikeEn.replace("{base}", baseDesc);
-      }
+      // Keep EN kids-bike card copy concise: show only the lead sentence and avoid appending long product titles.
+      baseDesc = businessCopy.descriptionTemplates.kidsBikeEn.replace(" {base}", "").replace("{base}", "").trim();
     }
   } else if (catRaw === "balance_bike" || catRaw.includes("balance")) {
     if (lang === "zh") {

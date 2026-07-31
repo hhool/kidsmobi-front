@@ -523,7 +523,7 @@ function toCMSProduct(item: WorkerProduct): CMSProduct {
     editorVerdict: customersSay || fallbackVerdict,
     zh: {
       name,
-      description: `${brand} ${name} 由远端数据回退生成。`,
+      description: `${brand} ${name}。`,
       customersSay,
       brandText: brand,
       specsText: buildWorkerSpecsText(item),
@@ -638,10 +638,8 @@ async function fetchRemoteFallbackBundle(): Promise<ContentBundle> {
   let categoriesPayload: { data?: WorkerCategory[] } | null = null;
   try {
     categoriesPayload = await fetchWorkerJson<{ data?: WorkerCategory[] }>([
-      "/api/v2/catalog/categories?withStats=true",
-      "/api/v1/catalog/categories?withStats=true",
-      "/api/v2/catalog/categories",
-      "/api/v1/catalog/categories",
+      "/api/v2/categories?withStats=false",
+      "/api/v2/categories",
     ]);
   } catch (error) {
     console.warn("Worker categories unavailable, using static modelsData fallback.", error);

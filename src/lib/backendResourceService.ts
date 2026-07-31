@@ -179,10 +179,8 @@ async function getWorkerResourcePayload(params?: { categoryId?: string; q?: stri
   const keyword = (params?.q || "").trim().toLowerCase();
 
   const categoriesJson = await fetchWorkerJsonWithFallbacks<{ data: WorkerCategory[] }>([
-    "/api/v2/catalog/categories?withStats=true",
-    "/api/v1/catalog/categories?withStats=true",
-    "/api/v2/catalog/categories",
-    "/api/v1/catalog/categories",
+    "/api/v2/categories?withStats=false",
+    "/api/v2/categories",
   ]);
   const allCategories = Array.isArray(categoriesJson?.data) ? categoriesJson.data : [];
 

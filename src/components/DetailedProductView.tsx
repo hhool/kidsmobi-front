@@ -258,7 +258,6 @@ function buildBasicInfoSections(product: Product, lang: "zh" | "en") {
     "Measurements",
     "Features_Specs",
     "Materials_Care",
-    "Item_Details",
     "User_Guide",
     "Additional_Details",
   ];
@@ -266,7 +265,6 @@ function buildBasicInfoSections(product: Product, lang: "zh" | "en") {
     Measurements: { zh: "尺寸与重量", en: "Measurements" },
     Features_Specs: { zh: "功能规格", en: "Features Specs" },
     Materials_Care: { zh: "材质与护理", en: "Materials & Care" },
-    Item_Details: { zh: "商品信息", en: "Item Details" },
     User_Guide: { zh: "使用指南", en: "User Guide" },
     Additional_Details: { zh: "附加信息", en: "Additional Details" },
   };
@@ -276,12 +274,16 @@ function buildBasicInfoSections(product: Product, lang: "zh" | "en") {
       const sectionValue = specs[sectionKey];
       if (!sectionValue || typeof sectionValue !== "object") return null;
 
-      const rows = Object.entries(sectionValue as Record<string, unknown>)
+      let rows = Object.entries(sectionValue as Record<string, unknown>)
         .map(([key, value]) => ({
           label: formatSpecKey(key),
           value: formatSpecValue(value),
         }))
         .filter((item) => item.value);
+
+      if (sectionKey === "Item_Details") {
+        rows = rows.filter((item) => !/^(title|标题)$/i.test(String(item.label || "").trim()));
+      }
 
       if (!rows.length) return null;
 
