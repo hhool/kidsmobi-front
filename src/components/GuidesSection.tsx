@@ -1162,6 +1162,9 @@ export default function GuidesSection({
             type="button" 
             onClick={() => {
               setWizardPage(1);
+              if (!showWizardResults && wizardCategory === "all") {
+                setWizardCategory("stroller");
+              }
               setShowWizardResults(!showWizardResults);
             }}
             className="px-6 py-3 bg-orange-500 text-white font-black text-sm rounded-2xl hover:bg-orange-600 transition shadow-lg shadow-orange-500/20 active:scale-95 flex items-center gap-2 cursor-pointer"
