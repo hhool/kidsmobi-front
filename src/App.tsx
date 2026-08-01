@@ -866,12 +866,13 @@ export default function App() {
   const newsReturnViewRef = useRef<{ path: string; scrollY: number } | null>(null);
   const guidesReturnViewRef = useRef<{ path: string; scrollY: number } | null>(null);
 
-  // Navigation dropdown: Products menu opens only after mouse hold > 1s.
+  // Navigation dropdown: Products menu opens after a long press or double-click.
   const [productsMenuOpen, setProductsMenuOpen] = useState(false);
 
   const productsShowTimerRef = useRef<any>(null);
   const productsHideTimerRef = useRef<any>(null);
   const productsPressTimerRef = useRef<any>(null);
+  const productsClickTimerRef = useRef<any>(null);
   const productsLongPressTriggeredRef = useRef(false);
 
   const clearProductsPressTimer = () => {
@@ -895,6 +896,37 @@ export default function App() {
     clearProductsPressTimer();
   };
 
+  const clearProductsClickTimer = () => {
+    if (productsClickTimerRef.current) {
+      clearTimeout(productsClickTimerRef.current);
+      productsClickTimerRef.current = null;
+    }
+  };
+
+  const handleProductsClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (productsLongPressTriggeredRef.current) {
+      productsLongPressTriggeredRef.current = false;
+      return;
+    }
+
+    clearProductsClickTimer();
+    if (event.detail > 1) return;
+
+    productsClickTimerRef.current = setTimeout(() => {
+      handlePrimaryTabClick("products");
+      closeProductsMenuInstantly();
+      navigateToPath("/products");
+      productsClickTimerRef.current = null;
+    }, 300);
+  };
+
+  const handleProductsDoubleClick = () => {
+    clearProductsClickTimer();
+    clearProductsPressTimer();
+    productsLongPressTriggeredRef.current = false;
+    setProductsMenuOpen(true);
+  };
+
   const handleProductsMouseLeave = () => {
     clearProductsPressTimer();
     if (productsShowTimerRef.current) {
@@ -912,6 +944,7 @@ export default function App() {
   const closeProductsMenuInstantly = () => {
     setProductsMenuOpen(false);
     clearProductsPressTimer();
+    clearProductsClickTimer();
     productsLongPressTriggeredRef.current = false;
     if (productsShowTimerRef.current) clearTimeout(productsShowTimerRef.current);
     if (productsHideTimerRef.current) clearTimeout(productsHideTimerRef.current);
@@ -922,6 +955,7 @@ export default function App() {
   useEffect(() => {
     return () => {
       clearProductsPressTimer();
+      clearProductsClickTimer();
       if (productsShowTimerRef.current) clearTimeout(productsShowTimerRef.current);
       if (productsHideTimerRef.current) clearTimeout(productsHideTimerRef.current);
     };
@@ -2590,16 +2624,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                   <button
                     onMouseDown={handleProductsMouseDown}
                     onMouseUp={handleProductsMouseUp}
-                    onClick={() => {
-                      handlePrimaryTabClick("products");
-                      // Long press opens the menu; short click keeps regular navigation.
-                      if (productsLongPressTriggeredRef.current) {
-                        productsLongPressTriggeredRef.current = false;
-                        return;
-                      }
-                      closeProductsMenuInstantly();
-                      navigateToPath("/products");
-                    }}
+                    onClick={handleProductsClick}
+                    onDoubleClick={handleProductsDoubleClick}
+                    aria-expanded={productsMenuOpen}
+                    aria-controls="products_dropdown_menu"
                     className={`px-3 py-2 rounded-xl font-bold transition-all flex items-center gap-1 ${
                       activeTab === "products" || activeTab === "product_detail" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
                     }`}
