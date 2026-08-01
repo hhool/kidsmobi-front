@@ -343,6 +343,21 @@ function truncateCardSnippet(value: string, maxLength: number): string {
   return text.slice(0, maxLength).trim();
 }
 
+function pickLeadSentence(value: string): string {
+  const text = compactSnippet(value);
+  if (!text) return "";
+
+  // Prefer a natural first sentence when punctuation exists.
+  const sentenceMatch = text.match(/^([\s\S]*?[。！？!?.])(?=\s|$)/);
+  if (sentenceMatch && sentenceMatch[1]) {
+    return compactSnippet(sentenceMatch[1]);
+  }
+
+  // Fallback: split long marketplace-style names at common separators.
+  const segmented = text.split(/(?:\s+\|\s+|\s+-\s+|\s*\/\s*|[，,;；])/).map((part) => compactSnippet(part)).filter(Boolean);
+  return segmented[0] || text;
+}
+
 function ensureSummarySentenceEnd(value: string): string {
   const text = compactSnippet(value);
   if (!text) return "";
@@ -459,6 +474,10 @@ function resolveKeyAudit(product: Product, lang: "zh" | "en"): string {
 }
 
 function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
+  const localizedCardSummary = compactSnippet((product as Product & {
+    zh?: { cardSummary?: string };
+    en?: { cardSummary?: string };
+  })[lang]?.cardSummary || product.cardSummary || "");
   const description = pickLocalizedDescription(product, lang);
   const customersSay = pickCustomersSay(product, lang);
   const candidates = [description, customersSay]
@@ -467,10 +486,21 @@ function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
     .map((item) => stripRepeatedBrandPrefix(item, product.brand))
     .filter((item) => item && !isRatingStatsSummary(item) && !isPlaceholderVerdict(item) && !isCustomerReviewNarrative(item) && !isGenericCardSnippet(item));
 
-  const summary = candidates[0] || resolveGeneratedCardSummary(product, lang);
+  const summary = localizedCardSummary || candidates[0] || resolveGeneratedCardSummary(product, lang);
   if (!summary) return "";
 
-  return truncateCardSnippet(summary, 480);
+  const leadSentence = pickLeadSentence(summary);
+  return truncateCardSnippet(leadSentence, 220);
+}
+
+function resolveCardTitleSlug(product: Product, lang: "zh" | "en"): string {
+  const localizedCardTitle = compactSnippet((product as Product & {
+    zh?: { cardTitle?: string };
+    en?: { cardTitle?: string };
+  })[lang]?.cardTitle || product.cardTitle || "");
+  const rawTitle = localizedCardTitle || compactSnippet(getProductsPageSeoTitle(product));
+  const leadSentence = pickLeadSentence(rawTitle);
+  return truncateCardSnippet(leadSentence, 140);
 }
 
 function resolveCardVerdict(product: Product, lang: "zh" | "en"): string {
@@ -1801,7 +1831,7 @@ export default function ProductsSection({
                   const imageSet = resolveProductImages(diProduct);
                   const cardSummary = resolveCardSummary(diProduct, lang);
                   const priceText = formatPriceDisplay(diProduct.price, currencyData, lang);
-                  const productSeoTitle = getProductsPageSeoTitle(p);
+                  const productSeoTitle = resolveCardTitleSlug(p, lang);
 
                   const isAlreadySaved = savedProducts.some(s => s.id === diProduct.id);
                   const isAlreadyCompared = compareList.some(c => c.id === diProduct.id);
@@ -2024,7 +2054,7 @@ export default function ProductsSection({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {viewHistory.slice(0, 4).map(p => {
               const dp = translateProduct(p, lang);
-              const historySeoTitle = getProductsPageSeoTitle(p);
+              const historySeoTitle = resolveCardTitleSlug(p, lang);
               const imageSet = resolveProductImages(dp);
               return (
                 <div 

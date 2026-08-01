@@ -27,6 +27,8 @@ function normalizeCMSProductForList(item: CMSProduct): CMSProduct {
     customers_say: item?.customers_say || "",
     zh: {
       name: zhName,
+      cardTitle: item?.zh?.cardTitle || "",
+      cardSummary: item?.zh?.cardSummary || "",
       description: item?.zh?.description || "",
       customersSay: item?.zh?.customersSay || item?.customers_say || "",
       brandText: item?.zh?.brandText || item.brand || "",
@@ -37,6 +39,8 @@ function normalizeCMSProductForList(item: CMSProduct): CMSProduct {
     },
     en: {
       name: enName,
+      cardTitle: item?.en?.cardTitle || "",
+      cardSummary: item?.en?.cardSummary || "",
       description: item?.en?.description || "",
       customersSay: item?.en?.customersSay || item?.customers_say || "",
       brandText: item?.en?.brandText || item.brand || "",
@@ -353,8 +357,8 @@ export default function ProductManager({
       relatedProductIds: [],
       videos: [],
       status: "draft",
-      zh: { name: "", description: "", customersSay: "", brandText: "", specsText: "", pros: [], cons: [], editorVerdict: "" },
-      en: { name: "", description: "", customersSay: "", brandText: "", specsText: "", pros: [], cons: [], editorVerdict: "" },
+      zh: { name: "", cardTitle: "", cardSummary: "", description: "", customersSay: "", brandText: "", specsText: "", pros: [], cons: [], editorVerdict: "" },
+      en: { name: "", cardTitle: "", cardSummary: "", description: "", customersSay: "", brandText: "", specsText: "", pros: [], cons: [], editorVerdict: "" },
       updatedAt: null
     });
   };
@@ -1147,6 +1151,26 @@ function LangSector({ lang, title, data, onChange }: any) {
             className="w-full bg-white border border-slate-200 py-4 px-6 rounded-2xl font-black text-slate-900 outline-none focus:border-orange-500 transition-all shadow-sm"
             value={data.name}
             onChange={(e) => onChange({...data, name: e.target.value})}
+          />
+        </div>
+
+        <div className="space-y-2">
+          <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Product Page Card Title ({lang.toUpperCase()})</label>
+          <input
+            className="w-full bg-white border border-slate-200 py-4 px-6 rounded-2xl font-black text-slate-900 outline-none focus:border-orange-500 transition-all shadow-sm"
+            value={data.cardTitle || ""}
+            placeholder={data.name || ""}
+            onChange={(e) => onChange({...data, cardTitle: e.target.value})}
+          />
+        </div>
+
+        <div className="space-y-2">
+          <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Product Page Card Summary ({lang.toUpperCase()})</label>
+          <textarea
+            className="w-full bg-white border border-slate-200 py-4 px-6 rounded-2xl font-bold text-slate-600 outline-none focus:border-orange-500 transition-all shadow-sm min-h-[80px]"
+            value={data.cardSummary || ""}
+            placeholder={data.description || ""}
+            onChange={(e) => onChange({...data, cardSummary: e.target.value})}
           />
         </div>
         

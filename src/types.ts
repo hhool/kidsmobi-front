@@ -63,6 +63,8 @@ export interface ProductImages {
 export interface Product {
   id: string;
   name: string;
+  cardTitle?: string;
+  cardSummary?: string;
   brand: string;
   category: ProductCategory;
   categoryId?: string;
@@ -114,6 +116,8 @@ export interface Product {
 export interface CMSProduct extends Product {
   zh: {
     name: string;
+    cardTitle?: string;
+    cardSummary?: string;
     description: string;
     customersSay?: string;
     brandText?: string;
@@ -128,6 +132,8 @@ export interface CMSProduct extends Product {
   };
   en: {
     name: string;
+    cardTitle?: string;
+    cardSummary?: string;
     description: string;
     customersSay?: string;
     brandText?: string;
