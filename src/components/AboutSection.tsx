@@ -44,7 +44,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
               {aboutCopy.heroBadge}
             </div>
             
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight drop-shadow-md">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-tight drop-shadow-md">
               {aboutCopy.heroTitle}
             </h1>
             
@@ -251,13 +251,13 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
           <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-emerald-500/10 rounded-full blur-[100px] animate-pulse delay-700"></div>
         </div>
 
-        <div className="relative z-10 space-y-8 w-full max-w-4xl">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-500/15 border border-orange-500/30 text-orange-400 text-[10px] h-7 font-black uppercase tracking-widest rounded-full shadow-lg backdrop-blur-md">
+        <div className="relative z-10 space-y-10 w-full">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-500/15 border border-orange-500/30 text-orange-400 text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg backdrop-blur-md">
             <ShieldCheck className="w-4 h-4 text-orange-400" />
             {aboutCopy.heroBadge}
           </div>
           
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight drop-shadow-md">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-tight drop-shadow-md">
             {aboutCopy.heroTitle}
           </h2>
           

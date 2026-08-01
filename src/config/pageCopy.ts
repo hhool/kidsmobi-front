@@ -854,7 +854,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
     home: {
       overviewLabel: "OVERVIEW",
       bannerBadge: "OFFICIAL BBT SAFETY AUDIT",
-      heroTitle: "Welcome to BalanceBikeToddler, your trusted global review site for kids bike & stroller wheeled toys.",
+      heroTitle: "BalanceBikeToddler your trusted global review site for kids bike & stroller wheeled toys.",
       heroSubtitle: "The best balance bike, kids bike, kids scooter, stroller & electric car, independently tested for safety and performance.",
       heroCta: "FIND YOUR PERFECT RIDE IN 3 STEPS",
       quickCategories: {

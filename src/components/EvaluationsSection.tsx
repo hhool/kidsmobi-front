@@ -1376,7 +1376,7 @@ export default function EvaluationsSection({
               {reviewsCopy.badge}
             </div>
 
-            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight text-white max-w-3xl">
+            <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight leading-tight text-white max-w-3xl">
               {reviewsCopy.heroTitle}
             </h1>
 
