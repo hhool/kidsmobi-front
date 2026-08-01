@@ -965,7 +965,7 @@ export default function GuidesSection({
     let recWheel = lang === "en" ? "12 in." : "12寸";
     
     if (wizardCategory === "stroller") {
-      recWheel = lang === "en" ? "Cabin-Friendly" : "折叠登机/慢跑避震";
+      recWheel = lang === "en" ? "Cabin-Friendly" : "轻便推行/舒适避震";
     } else if (wizardCategory === "electric_car") {
       recWheel = lang === "en" ? "Dual-Drive 12V/24V" : "双电有源/微冲软启";
     } else if (wizardCategory === "scooter") {
@@ -1175,8 +1175,14 @@ export default function GuidesSection({
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               
               <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500 text-lg font-black shrink-0">
-                  {matchRecommendations.recWheel.split(" ")[0] || "🔬"}
+                <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500 text-lg font-black shrink-0 overflow-hidden">
+                  {wizardCategory === "stroller"
+                    ? "🛒"
+                    : wizardCategory === "electric_car"
+                    ? "⚡"
+                    : wizardCategory === "scooter"
+                    ? "🛹"
+                    : "🚲"}
                 </div>
                 <div className="space-y-0.5">
                   <span className="text-[10px] text-slate-500 font-bold block uppercase">
@@ -1186,7 +1192,7 @@ export default function GuidesSection({
                       ? (lang === "en" ? "Drive Core Mechanics" : "电动动力核心")
                       : (lang === "en" ? "Recommended Wheel Size" : "安全推荐轮径")}
                   </span>
-                  <strong className="text-white text-xs">{matchRecommendations.recWheel}</strong>
+                  <strong className="text-white text-xs block max-w-full truncate">{matchRecommendations.recWheel}</strong>
                 </div>
               </div>
 
