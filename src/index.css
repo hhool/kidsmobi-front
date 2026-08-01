@@ -108,6 +108,35 @@
     padding-bottom: clamp(4rem, 7vw, 6rem);
   }
 
+  #primary_tab_viewport .km-page-title {
+    font-size: clamp(1.5rem, 1.25rem + 1vw, 2.25rem);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: 0;
+  }
+
+  #primary_tab_viewport .km-section-title {
+    font-size: clamp(1.25rem, 1.08rem + 0.7vw, 1.75rem);
+    font-weight: 900;
+    line-height: 1.25;
+    letter-spacing: 0;
+  }
+
+  #primary_tab_viewport .km-card-title {
+    font-size: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
+    font-weight: 800;
+    line-height: 1.35;
+    letter-spacing: 0;
+  }
+
+  #primary_tab_viewport .km-body-copy {
+    line-height: 1.75;
+  }
+
+  #primary_tab_viewport .km-heading-copy {
+    margin-top: 0.75rem;
+  }
+
   #primary_tab_viewport > * {
     animation: km-page-in 420ms ease-out both;
   }

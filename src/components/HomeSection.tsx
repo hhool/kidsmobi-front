@@ -742,11 +742,11 @@ export default function HomeSection({
             {homeCopy.bannerBadge}
           </div>
           
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-tight max-w-5xl mx-auto drop-shadow-md">
+          <h1 className="km-page-title text-white max-w-5xl mx-auto drop-shadow-md">
             {homeCopy.heroTitle}
           </h1>
           
-          <p className="text-slate-200 text-sm md:text-base max-w-3xl mx-auto leading-relaxed font-semibold drop-shadow-sm">
+          <p className="km-body-copy text-slate-200 text-sm md:text-base max-w-3xl mx-auto font-semibold drop-shadow-sm">
             {homeCopy.heroSubtitle}
           </p>
 
@@ -787,10 +787,10 @@ export default function HomeSection({
             <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">
               {homeCopy.categoryHighlights.eyebrow}
             </span>
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight">
+            <h2 className="km-section-title text-slate-900">
               {homeCopy.categoryHighlights.title}
             </h2>
-            <p className="text-slate-500 font-medium">
+            <p className="km-heading-copy km-body-copy text-slate-500 font-medium">
               {homeCopy.categoryHighlights.description}
             </p>
           </div>
@@ -848,8 +848,8 @@ export default function HomeSection({
 
               <div className="p-6 bg-white flex-1 flex flex-col gap-4">
                 <div className="space-y-2">
-                  <h3 className="text-slate-950 font-black text-lg leading-tight">{cat.label}</h3>
-                  <p className="text-xs text-slate-500 font-medium leading-relaxed">
+                  <h3 className="km-card-title text-slate-950">{cat.label}</h3>
+                  <p className="km-heading-copy km-body-copy text-xs text-slate-500 font-medium">
                     {cat.desc}
                   </p>
                 </div>
@@ -867,8 +867,8 @@ export default function HomeSection({
         <div className="flex justify-between items-end">
           <div className="space-y-2">
             <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">{homeCopy.safetyAudits.badge}</span>
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.title}</h2>
-            <p className="text-slate-500 font-medium">
+            <h2 className="km-section-title text-slate-900">{homeCopy.safetyAudits.title}</h2>
+            <p className="km-heading-copy km-body-copy text-slate-500 font-medium">
               {homeCopy.safetyAudits.description}
             </p>
           </div>
@@ -1073,8 +1073,8 @@ export default function HomeSection({
       {/* 6. Buying Guide Quick Links (选购指南快捷入口) */}
       <section id="quick_scenarios_anchor" className="max-w-7xl mx-auto px-6 space-y-12">
           <div className="space-y-2 text-center max-w-2xl mx-auto">
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight">{homeCopy.quickScenarios.title}</h2>
-            <p className="text-slate-500 font-medium">{homeCopy.quickScenarios.description}</p>
+            <h2 className="km-section-title text-slate-900">{homeCopy.quickScenarios.title}</h2>
+            <p className="km-heading-copy km-body-copy text-slate-500 font-medium">{homeCopy.quickScenarios.description}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
@@ -1083,8 +1083,8 @@ export default function HomeSection({
               { id: "commute", label: homeCopy.quickScenarios.cards.commuteLabel, desc: homeCopy.quickScenarios.cards.commuteDesc },
             ].map(scene => (
               <div key={scene.id} onClick={() => setActiveTab("guides")} className="p-8 bg-white border border-slate-100 rounded-4xl hover:border-orange-500 hover:shadow-xl transition-all cursor-pointer group">
-                <h3 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors mb-2 text-base md:text-lg">{scene.label}</h3>
-                <p className="text-xs text-slate-500 font-medium leading-relaxed">{scene.desc}</p>
+                <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">{scene.label}</h3>
+                <p className="km-heading-copy km-body-copy text-xs text-slate-500 font-medium">{scene.desc}</p>
               </div>
             ))}
           </div>
@@ -1094,7 +1094,7 @@ export default function HomeSection({
       <section id="faq_section_anchor" className="max-w-4xl mx-auto px-6 space-y-10 py-12">
         <div className="text-center space-y-2">
           <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">{homeCopy.faq.badge}</span>
-          <h2 className="text-3xl font-black text-slate-900 tracking-tight">
+          <h2 className="km-section-title text-slate-900">
             {homeCopy.faq.title}
           </h2>
           <h3 className="text-slate-500 font-medium text-base">

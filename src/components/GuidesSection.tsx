@@ -1140,11 +1140,11 @@ export default function GuidesSection({
               <span className="px-3 py-1 bg-orange-100 text-orange-600 text-[10px] font-black rounded-full uppercase tracking-widest border border-orange-200 inline-block">
                 {lang === "en" ? "Smart Wizard" : "智能选车助手"}
               </span>
-            <h1 className="text-2xl font-black text-slate-900 flex items-center gap-2">
+            <h1 className="km-page-title text-slate-900 flex items-center gap-2">
               <Calculator className="w-6 h-6 text-orange-500" />
               {lang === "en" ? "Smart Wizard: How to Choose a Baby Stroller, Scooter & First Bike" : "全品类工效学智能选车计算器"}
             </h1>
-            <p className="text-sm text-slate-500 font-medium">
+            <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium">
               {lang === "en" 
                 ? "Input your child's precise measurements below to instantly audit parameters for Kids Strollers, Kids Bikes, Kids Scooters, Balance Bikes, and Electric Cars. This biometric wizard automatically calculates the max vehicle weight limits and perfect fit geometries." 
                 : "输入宝宝的身高、跨高与体重参数，我们将通过生物力学算法，在婴儿推车、滑板车、平衡车与自行车品类中，精准匹配最安全、最省力的核心型号与轮径。"}
@@ -1585,7 +1585,7 @@ export default function GuidesSection({
                   {guide.categoryLabel}
                 </span>
 
-                <h2 className="text-3xl font-black text-slate-900 leading-tight">
+                <h2 className="km-section-title text-slate-900">
                   {guide.title}
                 </h2>
 
@@ -1661,14 +1661,14 @@ export default function GuidesSection({
                         ? (wizardCategory === "all" ? "Pinned Guides Across Categories" : `${PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "All Products"} Guides`)
                         : `${PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || "全部"} 专属选购指南`}
                     </span>
-                    <h2 className="text-3xl font-black leading-tight tracking-tight">
+                    <h2 className="km-section-title">
                       {lang === "en"
                         ? (wizardCategory === "all"
                             ? "Guide Library: Pinned Guides Across Categories"
                             : `Guide Library: ${PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "Ride-ons"} Buyer's Handbook`)
                         : `指南库：针对【${PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || "全部童车"}】的科普与工效测评`}
                     </h2>
-                    <p className="text-sm text-slate-600 leading-7 font-medium max-w-xl">
+                    <p className="km-heading-copy km-body-copy text-sm text-slate-600 font-medium max-w-xl">
                       {lang === "en"
                         ? (wizardCategory === "all"
                             ? "Pinned and featured guides are shown across categories when no product category is selected."
@@ -1804,10 +1804,10 @@ export default function GuidesSection({
                           <span className="text-slate-400">{pagedGuides[0].publishDate}</span>
                           <span className="text-slate-400 flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{pagedGuides[0].readTime}</span>
                         </div>
-                        <h3 className="font-black text-slate-950 text-lg leading-tight group-hover:text-orange-500 transition-colors">
+                        <h3 className="km-card-title text-slate-950 group-hover:text-orange-500 transition-colors">
                           {pagedGuides[0].title}
                         </h3>
-                        <p className="text-sm text-slate-500 leading-7 font-medium line-clamp-3">
+                        <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium line-clamp-3">
                           {pagedGuides[0].summary}
                         </p>
                       </div>
@@ -1840,10 +1840,10 @@ export default function GuidesSection({
                         <span className="text-slate-400 font-bold shrink-0">{guide.publishDate}</span>
                       </div>
 
-                      <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors line-clamp-3">
+                      <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors line-clamp-3">
                         {guide.title}
                       </h3>
-                      <p className="text-slate-500 text-xs line-clamp-3 leading-6 font-medium">
+                      <p className="km-heading-copy km-body-copy text-slate-500 text-xs line-clamp-3 font-medium">
                         {guide.summary}
                       </p>
                     </div>

@@ -44,11 +44,11 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
               {aboutCopy.heroBadge}
             </div>
             
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-tight drop-shadow-md">
+            <h1 className="km-page-title text-white drop-shadow-md">
               {aboutCopy.heroTitle}
             </h1>
             
-            <p className="text-slate-200 text-xs sm:text-sm md:text-base max-w-3xl mx-auto leading-relaxed font-semibold drop-shadow-sm">
+            <p className="km-body-copy text-slate-200 text-xs sm:text-sm md:text-base max-w-3xl mx-auto font-semibold drop-shadow-sm">
               {aboutCopy.heroDesc}
             </p>
           </div>
@@ -57,8 +57,8 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
         {/* The 4 Core Neutral Commitments */}
         <section className="space-y-10">
           <div className="text-center space-y-2">
-            <h2 className="text-3xl font-black text-slate-900">Our Core Commitments: Unbiased Stroller & Bike Reviews</h2>
-            <p className="text-sm text-slate-500 font-medium tracking-wide">Free from commercial sponsorships, protecting selection integrity from the source</p>
+            <h2 className="km-section-title text-slate-900">Our Core Commitments: Unbiased Stroller & Bike Reviews</h2>
+            <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium tracking-wide">Free from commercial sponsorships, protecting selection integrity from the source</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -111,8 +111,8 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
               <Award className="w-6 h-6" />
             </div>
             <div>
-              <h2 className="text-2xl font-black text-slate-900 uppercase">Evaluation Methodology: How We Test a Kids Scooter or Toddler Bike</h2>
-              <p className="text-sm text-slate-500 font-medium tracking-tight">Open sourcing our laboratory rigorous checking procedures.</p>
+              <h2 className="km-section-title text-slate-900 uppercase">Evaluation Methodology: How We Test a Kids Scooter or Toddler Bike</h2>
+              <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium tracking-tight">Open sourcing our laboratory rigorous checking procedures.</p>
             </div>
           </div>
 
@@ -139,8 +139,8 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
         {/* Content Quality Control (PRD 4.6.4) */}
         <section className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
-            <h2 className="text-3xl font-black text-slate-900">Content Quality Control</h2>
-                <p className="text-slate-500 font-medium leading-relaxed">
+            <h2 className="km-section-title text-slate-900">Content Quality Control</h2>
+              <p className="km-heading-copy km-body-copy text-slate-500 font-medium">
                     Our "Three-Phased Audit" ensures that every single sentence is verified by mechanics experts and pediatricians before publishing.
                 </p>
                 <ul className="space-y-4">
@@ -192,8 +192,8 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg shadow-orange-500/10">
                 <Handshake className="w-8 h-8 text-orange-500" />
             </div>
-            <h3 className="text-3xl font-black text-slate-900">{aboutCopy.partnershipTitle}</h3>
-            <p className="text-slate-500 text-sm font-medium max-w-xl leading-relaxed">
+            <h3 className="km-section-title text-slate-900">{aboutCopy.partnershipTitle}</h3>
+            <p className="km-heading-copy km-body-copy text-slate-500 text-sm font-medium max-w-xl">
               {aboutCopy.partnershipDesc}
             </p>
             <div className="flex flex-col items-center gap-3">
@@ -257,11 +257,11 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             {aboutCopy.heroBadge}
           </div>
           
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-tight drop-shadow-md">
+          <h2 className="km-page-title text-white drop-shadow-md">
             {aboutCopy.heroTitle}
           </h2>
           
-          <p className="text-slate-200 text-xs sm:text-sm md:text-base max-w-3xl mx-auto leading-relaxed font-semibold drop-shadow-sm">
+          <p className="km-body-copy text-slate-200 text-xs sm:text-sm md:text-base max-w-3xl mx-auto font-semibold drop-shadow-sm">
             {aboutCopy.heroDesc}
           </p>
         </div>
@@ -270,8 +270,8 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
       {/* The 4 Core Neutral Commitments */}
       <section className="space-y-10">
         <div className="text-center space-y-2">
-          <h3 className="text-3xl font-black text-slate-900">4 大极严苛中立运营原则</h3>
-          <p className="text-sm text-slate-500 font-medium tracking-wide">杜绝一切商业化侵染，用独立实测捍卫平台甄选公信力</p>
+          <h3 className="km-section-title text-slate-900">4 大极严苛中立运营原则</h3>
+          <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium tracking-wide">杜绝一切商业化侵染，用独立实测捍卫平台甄选公信力</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -324,8 +324,8 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             <Award className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="text-2xl font-black text-slate-900 uppercase">测评体系与方法论</h3>
-            <p className="text-sm text-slate-500 font-medium tracking-tight">我们如何确保实验数据的严谨性与 100% 可追溯性。</p>
+            <h3 className="km-section-title text-slate-900 uppercase">测评体系与方法论</h3>
+            <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium tracking-tight">我们如何确保实验数据的严谨性与 100% 可追溯性。</p>
           </div>
         </div>
 
@@ -352,8 +352,8 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
       {/* Content Quality Control (PRD 4.6.4) */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-              <h3 className="text-3xl font-black text-slate-900">严格的内容质控体系</h3>
-              <p className="text-slate-500 font-medium leading-relaxed">
+              <h3 className="km-section-title text-slate-900">严格的内容质控体系</h3>
+              <p className="km-heading-copy km-body-copy text-slate-500 font-medium">
                   BalanceBikeToddler 建立了一套涵盖“匿名采购、双盲实测、儿科审核”的三审机制。确保每一行技术评估结论都经得起科学推敲。
               </p>
               <ul className="space-y-4">
@@ -397,8 +397,8 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
           <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg shadow-orange-500/10">
               <Handshake className="w-8 h-8 text-orange-500" />
           </div>
-            <h3 className="text-3xl font-black text-slate-900">{aboutCopy.partnershipTitle}</h3>
-          <p className="text-slate-500 text-sm font-medium max-w-xl leading-relaxed">
+            <h3 className="km-section-title text-slate-900">{aboutCopy.partnershipTitle}</h3>
+          <p className="km-heading-copy km-body-copy text-slate-500 text-sm font-medium max-w-xl">
             {aboutCopy.partnershipDesc}
           </p>
           <div className="flex flex-col items-center gap-3">

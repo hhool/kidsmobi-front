@@ -1505,12 +1505,12 @@ export default function ProductsSection({
             {productsCopy.topBadge}
           </div>
 
-          <h1 className="text-xl md:text-2xl font-black tracking-tight leading-tight max-w-5xl">
+          <h1 className="km-page-title max-w-5xl">
             {productsCopy.heroTitle}
           </h1>
 
           <div className="border-l-2 border-orange-500 pl-4 space-y-2">
-            <p className="text-slate-300 text-xs md:text-sm font-semibold max-w-5xl leading-relaxed italic">
+            <p className="km-body-copy text-slate-300 text-xs md:text-sm font-semibold max-w-5xl italic">
               {productsCopy.heroSubtitle}
             </p>
           </div>
@@ -1812,7 +1812,7 @@ export default function ProductsSection({
             <div className="space-y-8">
               <div id="expert-picks-anchor" className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left bg-gradient-to-r from-orange-50/20 via-slate-50/10 to-transparent p-6 rounded-3xl border border-slate-100">
                 <div className="space-y-1">
-                  <h2 className="text-xl font-black text-slate-900 flex flex-wrap items-center gap-2">
+                  <h2 className="km-section-title text-slate-900 flex flex-wrap items-center gap-2">
                     <span>{productsCopy.expertPicks}</span>
                     <span className="px-2.5 py-0.5 rounded-full bg-orange-100 text-orange-600 border border-orange-200/50 text-[10px] font-black">
                       {filteredProducts.length} / {categoryBaseCount}
@@ -1874,7 +1874,7 @@ export default function ProductsSection({
                     <span className="text-slate-400 text-[10px] font-black uppercase tracking-widest">{diProduct.brand}</span>
                   </div>
 
-                  <h3 className="font-black text-slate-900 text-lg leading-tight group-hover:text-orange-500 transition-colors">
+                  <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">
                     {productSeoTitle}
                   </h3>
 
@@ -2043,10 +2043,10 @@ export default function ProductsSection({
               <span className="font-sans text-lg">🕒</span>
             </div>
             <div>
-              <h2 className="text-2xl font-black text-slate-900 tracking-tight">
+              <h2 className="km-section-title text-slate-900">
                 {productsCopy.history.title}
               </h2>
-              <p className="text-slate-400 text-xs font-semibold">
+              <p className="km-heading-copy km-body-copy text-slate-400 text-xs font-semibold">
                 {productsCopy.history.subtitle}
               </p>
             </div>

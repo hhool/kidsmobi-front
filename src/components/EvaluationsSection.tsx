@@ -1278,8 +1278,8 @@ export default function EvaluationsSection({
               <div className="inline-flex py-1 px-3 bg-white/10 rounded-full text-xs font-black tracking-widest uppercase">
                 {selectedTypeLabel}
               </div>
-              <h1 className="text-3xl md:text-5xl font-black tracking-tight leading-tight">{displayDetailTitle}</h1>
-              <p className="text-slate-300 font-medium leading-relaxed italic border-l-4 border-orange-500 pl-4">
+              <h1 className="km-page-title">{displayDetailTitle}</h1>
+              <p className="km-body-copy text-slate-300 font-medium italic border-l-4 border-orange-500 pl-4">
                 "{displayDetailVerdict}"
               </p>
             </div>
@@ -1305,7 +1305,7 @@ export default function EvaluationsSection({
 
         <section className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-8 bg-white rounded-[48px] border border-slate-100 p-8 shadow-sm">
           <div className="space-y-6">
-            <h2 className="text-2xl font-black text-slate-900">{reviewsCopy.summaryTitle}</h2>
+            <h2 className="km-section-title text-slate-900">{reviewsCopy.summaryTitle}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="bg-emerald-50 rounded-[28px] p-5 border border-emerald-100">
                 <h3 className="text-xs font-black text-emerald-600 uppercase tracking-widest mb-3">{reviewsCopy.prosTitle}</h3>
@@ -1376,12 +1376,12 @@ export default function EvaluationsSection({
               {reviewsCopy.badge}
             </div>
 
-            <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight leading-tight text-white max-w-3xl">
+            <h1 className="km-page-title text-white max-w-3xl">
               {reviewsCopy.heroTitle}
             </h1>
 
             <div className="border-l-2 border-orange-500 pl-4">
-              <p className="text-slate-300 text-sm font-medium leading-relaxed max-w-2xl">
+              <p className="km-body-copy text-slate-300 text-sm font-medium max-w-2xl">
                 {reviewsCopy.heroDescription}
               </p>
             </div>
@@ -1445,10 +1445,10 @@ export default function EvaluationsSection({
         {/* FLOOR 5: KIDS STROLLERS */}
         <section id="kids-stroller" className="scroll-mt-24 space-y-8">
           <div className="border-b border-slate-100 pb-4">
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
+            <h2 className="km-section-title text-slate-900">
               {reviewsCopy.sections.strollerTitle}
             </h2>
-            <p className="mt-2 text-sm text-slate-500 font-medium">
+            <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium">
               {reviewsCopy.sections.strollerDesc}
             </p>
           </div>
@@ -1482,8 +1482,8 @@ export default function EvaluationsSection({
                   <div className="flex flex-col justify-between flex-1 py-1">
                     <div className="space-y-2">
                        <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
-                      <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors">{evLang.title}</h3>
-                      <p className="text-[11px] text-slate-400 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
+                      <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">{evLang.title}</h3>
+                      <p className="km-heading-copy km-body-copy text-[11px] text-slate-400 font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
                       <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{reviewsCopy.cta.stroller}</span>
@@ -1504,10 +1504,10 @@ export default function EvaluationsSection({
         {/* FLOOR 3: KIDS BIKES */}
         <section id="kids-bike" className="scroll-mt-24 space-y-8">
           <div className="border-b border-slate-100 pb-4">
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
+            <h2 className="km-section-title text-slate-900">
               {reviewsCopy.sections.bikeTitle}
             </h2>
-            <p className="mt-2 text-sm text-slate-500 font-medium">
+            <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium">
               {reviewsCopy.sections.bikeDesc}
             </p>
           </div>
@@ -1541,8 +1541,8 @@ export default function EvaluationsSection({
                   <div className="flex flex-col justify-between flex-1 py-1">
                     <div className="space-y-2">
                        <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
-                      <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors">{evLang.title}</h3>
-                      <p className="text-[11px] text-slate-400 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
+                      <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">{evLang.title}</h3>
+                      <p className="km-heading-copy km-body-copy text-[11px] text-slate-400 font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
                       <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{reviewsCopy.cta.bike}</span>
@@ -1563,10 +1563,10 @@ export default function EvaluationsSection({
         {/* FLOOR 2: BALANCE BIKES */}
         <section id="balance-bike" className="scroll-mt-24 space-y-8">
           <div className="border-b border-slate-100 pb-4">
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
+            <h2 className="km-section-title text-slate-900">
               {reviewsCopy.sections.balanceTitle}
             </h2>
-            <p className="mt-2 text-sm text-slate-500 font-medium">
+            <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium">
               {reviewsCopy.sections.balanceDesc}
             </p>
           </div>
@@ -1600,8 +1600,8 @@ export default function EvaluationsSection({
                   <div className="flex flex-col justify-between flex-1 py-1">
                     <div className="space-y-2">
                        <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
-                      <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors">{evLang.title}</h3>
-                      <p className="text-[11px] text-slate-400 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
+                      <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">{evLang.title}</h3>
+                      <p className="km-heading-copy km-body-copy text-[11px] text-slate-400 font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
                       <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{reviewsCopy.cta.balance}</span>
@@ -1622,10 +1622,10 @@ export default function EvaluationsSection({
         {/* FLOOR 4: KIDS SCOOTERS */}
         <section id="kids-scooter" className="scroll-mt-24 space-y-8">
           <div className="border-b border-slate-100 pb-4">
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
+            <h2 className="km-section-title text-slate-900">
               {reviewsCopy.sections.scooterTitle}
             </h2>
-            <p className="mt-2 text-sm text-slate-500 font-medium">
+            <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium">
               {reviewsCopy.sections.scooterDesc}
             </p>
           </div>
@@ -1659,8 +1659,8 @@ export default function EvaluationsSection({
                   <div className="flex flex-col justify-between flex-1 py-1">
                     <div className="space-y-2">
                        <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
-                      <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors">{evLang.title}</h3>
-                      <p className="text-[11px] text-slate-400 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
+                      <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">{evLang.title}</h3>
+                      <p className="km-heading-copy km-body-copy text-[11px] text-slate-400 font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
                       <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{reviewsCopy.cta.scooter}</span>
@@ -1681,10 +1681,10 @@ export default function EvaluationsSection({
         {/* FLOOR 6: KIDS ELECTRIC CAR */}
         <section id="kids-electric-car" className="scroll-mt-24 space-y-8">
           <div className="border-b border-slate-100 pb-4">
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-snug">
+            <h2 className="km-section-title text-slate-900">
               {reviewsCopy.sections.electricTitle}
             </h2>
-            <p className="mt-2 text-sm text-slate-500 font-medium">
+            <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium">
               {reviewsCopy.sections.electricDesc}
             </p>
           </div>
@@ -1721,8 +1721,8 @@ export default function EvaluationsSection({
                     <div className="flex flex-col justify-between flex-1 py-1">
                       <div className="space-y-2">
                          <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
-                        <h3 className="font-black text-slate-900 text-base leading-snug group-hover:text-orange-500 transition-colors">{evLang.title}</h3>
-                        <p className="text-[11px] text-slate-400 leading-relaxed font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
+                        <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">{evLang.title}</h3>
+                        <p className="km-heading-copy km-body-copy text-[11px] text-slate-400 font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                       </div>
                       <div className="flex justify-between items-center pt-4 border-t border-slate-50">
                         <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{reviewsCopy.cta.product}</span>
@@ -1746,8 +1746,8 @@ export default function EvaluationsSection({
       <section className="bg-white border border-slate-100 rounded-[48px] p-8 sm:p-10 max-w-7xl mx-auto shadow-sm space-y-6 text-center">
         <div className="max-w-4xl mx-auto space-y-3">
           <h2 className="text-[10px] font-black uppercase tracking-[0.2em] text-orange-500">{reviewsCopy.standardsSubtitle}</h2>
-          <h3 className="text-2xl font-black text-slate-900">{reviewsCopy.standardsTitle}</h3>
-          <p className="text-xs text-slate-500 font-medium leading-relaxed">
+          <h3 className="km-section-title text-slate-900">{reviewsCopy.standardsTitle}</h3>
+          <p className="km-heading-copy km-body-copy text-xs text-slate-500 font-medium">
             {reviewsCopy.standardsDesc}
           </p>
         </div>

@@ -440,7 +440,7 @@ export default function NewsSection({
               <span className="px-3 py-1 bg-orange-100 text-orange-600 text-[10px] font-black rounded-full uppercase border border-orange-200">
                 {getCategoryLabel(article.category, lang)}
               </span>
-              <h2 className="text-3xl font-black text-slate-900 leading-tight">
+              <h2 className="km-page-title text-slate-900">
                 {article.title}
               </h2>
 
@@ -612,11 +612,11 @@ export default function NewsSection({
                 {newsCopy.heroBadge}
               </div>
               
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-tight drop-shadow-md">
+              <h1 className="km-page-title text-white drop-shadow-md">
                 {newsCopy.heroTitle}
               </h1>
               
-              <p className="text-slate-200 text-xs sm:text-sm md:text-base max-w-3xl mx-auto leading-relaxed font-semibold drop-shadow-sm">
+              <p className="km-body-copy text-slate-200 text-xs sm:text-sm md:text-base max-w-3xl mx-auto font-semibold drop-shadow-sm">
                 {newsCopy.heroSubtitle}
               </p>
 
@@ -661,10 +661,10 @@ export default function NewsSection({
           ) : (
             <div className="space-y-8">
               <div className="max-w-3xl mx-auto text-center space-y-3">
-                <h2 className="text-2xl font-black text-slate-900">
+                <h2 className="km-section-title text-slate-900">
                   {newsCopy.latestTitle}
                 </h2>
-                <p className="text-sm text-slate-500 font-medium">
+                <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium">
                   {newsCopy.latestDesc}
                 </p>
               </div>
@@ -683,10 +683,10 @@ export default function NewsSection({
                       <span className="text-slate-400 font-bold">{art.publishDate}</span>
                     </div>
 
-                    <h3 className="font-extrabold text-slate-900 text-lg leading-tight group-hover:text-orange-500 transition-colors">
+                    <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">
                       {art.title}
                     </h3>
-                    <p className="text-slate-500 text-xs line-clamp-2 leading-relaxed font-medium">
+                    <p className="km-heading-copy km-body-copy text-slate-500 text-xs line-clamp-2 font-medium">
                       {art.summary}
                     </p>
                   </div>

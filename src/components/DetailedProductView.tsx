@@ -823,7 +823,7 @@ export default function DetailedProductView({
               {displayProduct.brand}
             </span>
           </div>
-          <h1 className="text-3xl font-black text-slate-900">{displayProduct.name}</h1>
+          <h1 className="km-page-title text-slate-900">{displayProduct.name}</h1>
         </div>
         
         <div className="flex gap-3 items-center">
@@ -945,7 +945,7 @@ export default function DetailedProductView({
         <div className="lg:col-span-2 space-y-8">
           <div className="bg-white border border-slate-100 rounded-[40px] p-8 shadow-sm space-y-8">
              <div className="flex justify-between items-center border-b border-slate-50 pb-6">
-                <h2 className="text-xl font-black text-slate-900">{lang === "en" ? "Performance Analysis" : "测评效能透视"}</h2>
+                <h2 className="km-section-title text-slate-900">{lang === "en" ? "Performance Analysis" : "测评效能透视"}</h2>
                 <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">
                   {lang === "en" ? "Single Product Evidence" : "单品证据评估"}
                 </div>
@@ -1043,7 +1043,7 @@ export default function DetailedProductView({
                <p className="text-xs font-black uppercase tracking-widest text-slate-500">
                  {lang === "en" ? "Product Description" : "产品描述"}
                </p>
-               <p className="text-sm text-slate-700 leading-relaxed font-semibold">{effectiveDescriptionText}</p>
+               <p className="km-heading-copy km-body-copy text-sm text-slate-700 font-semibold">{effectiveDescriptionText}</p>
              </div>
            )}
         </div>
