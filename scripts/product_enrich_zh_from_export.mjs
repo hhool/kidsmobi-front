@@ -7,6 +7,88 @@ import { fileURLToPath } from "node:url";
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const DEFAULT_GLOSSARY = path.join(SCRIPT_DIR, "config/product_zh_glossary.v1.json");
 const TARGET_FIELDS = ["name", "cardTitle", "cardSummary", "description", "pros", "cons", "editorVerdict", "brandText", "specsText"];
+const TITLE_VERSION = "v1";
+
+const CATEGORY_ALIASES = {
+  stroller: "stroller",
+  strollers: "stroller",
+  jogger_stroller: "stroller",
+  double_stroller: "stroller",
+  balance_bike: "balance_bike",
+  balance: "balance_bike",
+  kids_bikes: "kids_bikes",
+  bicycle: "kids_bikes",
+  bike: "kids_bikes",
+  scooters: "scooters",
+  kids_scooters: "scooters",
+  scooter: "scooters",
+  electric_vehicles: "electric_vehicles",
+  electric_car: "electric_vehicles",
+  car_seat: "car_seat",
+  safety_seat: "car_seat",
+  baby_carrier: "baby_carrier",
+  high_chair: "high_chair",
+  playard: "playard",
+  kids_tricycles: "kids_tricycles",
+  tricycle: "kids_tricycles",
+  kids_push_ride_ons: "kids_push_ride_ons",
+  kids_pull_along_wagons: "kids_pull_along_wagons",
+};
+
+const CATEGORY_LABELS_EN = {
+  stroller: "Stroller",
+  balance_bike: "Balance Bike",
+  kids_bikes: "Kids Bike",
+  scooters: "Kids Scooter",
+  electric_vehicles: "Kids Electric Vehicle",
+  car_seat: "Car Seat",
+  baby_carrier: "Baby Carrier",
+  high_chair: "High Chair",
+  playard: "Playard",
+  kids_tricycles: "Kids Tricycle",
+  kids_push_ride_ons: "Push Ride-On",
+  kids_pull_along_wagons: "Pull-Along Wagon",
+  other: "Other",
+};
+
+const CATEGORY_OVERRIDE_RULES = [
+  { categoryId: "stroller", test: /(stroller|pram|buggy|pushchair|travel system|jogging stroller|cargo stroller|umbrella stroller)/i },
+  { categoryId: "car_seat", test: /(car\s*seat|infant\s*seat|booster\s*seat|convertible\s*seat|rear[- ]facing seat)/i },
+  { categoryId: "baby_carrier", test: /(baby\s*carrier|carrier|wrap|sling|hip\s*seat)/i },
+  { categoryId: "high_chair", test: /(high\s*chair|highchair|feeding\s*chair|booster\s*seat)/i },
+  { categoryId: "playard", test: /(playard|play\s*yard|pack[' ]?n\s*play|nursery\s*center|crib|bassinet|mattress\s*protector|baby\s*swing|baby\s*swings|swings?\s*for\s*infants)/i },
+  { categoryId: "kids_pull_along_wagons", test: /(wagon|pull[- ]along|pull\s*cart|pull\s*wagon)/i },
+  { categoryId: "kids_tricycles", test: /(tricycle|trike|tri[- ]cycle)/i },
+  { categoryId: "kids_bikes", test: /(pedal\s*bike|bmx|children'?s?\s*bike|kids?\s*bike|bike\s+and\s+ez-lift)/i },
+  { categoryId: "balance_bike", test: /(balance\s*bike|toddler\s*bike|push\s*handle|6\s*in\s*1|5\s*in\s*1|4\s*in\s*1)/i },
+  { categoryId: "electric_vehicles", test: /(ride[- ]on|electric|vehicle|battery|volt)/i },
+];
+
+const SUBCATEGORY_RULES = [
+  { key: "jogging_stroller", categoryId: "stroller", en: "Jogging Stroller", zh: "慢跑推车", test: /(jogging|jogger|all[- ]terrain)/i },
+  { key: "travel_stroller", categoryId: "stroller", en: "Travel Stroller", zh: "旅行推车", test: /(travel|umbrella|compact|carry[- ]on|airplane)/i },
+  { key: "double_stroller", categoryId: "stroller", en: "Double Stroller", zh: "双人推车", test: /(double|twin|duo)/i },
+  { key: "full_size_stroller", categoryId: "stroller", en: "Full-Size Stroller", zh: "全尺寸推车", test: /(full[- ]size|modular|pram|system)/i },
+  { key: "toddler_balance_bike", categoryId: "balance_bike", en: "Toddler Balance Bike", zh: "幼儿平衡车", test: /(balance\s*bike|walker|12\s*inch)/i },
+  { key: "kids_pedal_bike", categoryId: "kids_bikes", en: "Kids Pedal Bike", zh: "儿童脚踏自行车", test: /(kids?\s*bike|bicycle|pedal|bmx)/i },
+  { key: "kids_kick_scooter", categoryId: "scooters", en: "Kids Kick Scooter", zh: "儿童滑板车", test: /(scooter|kick)/i },
+  { key: "ride_on_car", categoryId: "electric_vehicles", en: "Ride-On Car", zh: "儿童骑乘车", test: /(ride[- ]on|electric|vehicle|battery|volt)/i },
+  { key: "convertible_car_seat", categoryId: "car_seat", en: "Convertible Car Seat", zh: "可转换安全座椅", test: /(convertible|infant|booster|car\s*seat)/i },
+  { key: "baby_carrier_wrap", categoryId: "baby_carrier", en: "Baby Carrier Wrap", zh: "婴儿背带", test: /(carrier|baby\s*carrier|wrap|sling|hip\s*seat)/i },
+  { key: "portable_playard", categoryId: "playard", en: "Portable Playard", zh: "便携游戏床", test: /(playard|play\s*yard|pack[' ]?n\s*play|nursery\s*center)/i },
+  { key: "convertible_high_chair", categoryId: "high_chair", en: "Convertible High Chair", zh: "可转换餐椅", test: /(high\s*chair|highchair|booster\s*seat|feeding\s*chair|2[- ]in[- ]1|3[- ]in[- ]1)/i },
+  { key: "push_ride_on", categoryId: "kids_push_ride_ons", en: "Push Ride-On", zh: "推行骑乘玩具", test: /(push\s*handle|push\s*ride[- ]on|ride[- ]on\s*toy|walker|push\s*car)/i },
+  { key: "pull_along_wagon", categoryId: "kids_pull_along_wagons", en: "Pull-Along Wagon", zh: "拖拉车", test: /(wagon|pull[- ]along|pull\s*cart|pull\s*wagon)/i },
+  { key: "kids_trike", categoryId: "kids_tricycles", en: "Kids Tricycle", zh: "儿童三轮车", test: /(tricycle|trike|tri[- ]cycle)/i },
+  { key: "kids_bike_6_in_1", categoryId: "kids_bikes", en: "Kids Bike", zh: "儿童自行车", test: /(6[- ]in[- ]1|5[- ]in[- ]1|4[- ]in[- ]1|kids?\s*bike|children'?s?\s*bike|pedal\s*bike)/i },
+  { key: "cargo_stroller", categoryId: "stroller", en: "Cargo Stroller", zh: "货运推车", test: /(cargo\s*stroller|utility\s*stroller|wagon\s*stroller)/i },
+  { key: "umbrella_stroller", categoryId: "stroller", en: "Umbrella Stroller", zh: "伞车", test: /(umbrella\s*stroller|lightweight\s*stroller)/i },
+  { key: "toy_ride_on", categoryId: "kids_push_ride_ons", en: "Toy Ride-On", zh: "骑乘玩具", test: /(wiggle\s*car|busy\s*buggy|roller\s*coaster|push\s*toy|ride[- ]on\s*toy|tractor\s*&\s*cart)/i },
+  { key: "playpen_playard", categoryId: "playard", en: "Playpen Playard", zh: "围栏游戏床", test: /(playpen|play\s*pen|baby\s*playpen|playard|play\s*yard)/i },
+  { key: "crib_playard", categoryId: "playard", en: "Crib Playard", zh: "婴儿床/游戏床", test: /(crib|bassinet|nursery\s*center|mattress\s*protector)/i },
+  { key: "sport_balance_bike", categoryId: "balance_bike", en: "Balance Bike", zh: "平衡车", test: /(strider|balance\s*bike|toddler\s*bike|push\s*handle)/i },
+  { key: "kids_cruiser_bike", categoryId: "kids_bikes", en: "Kids Cruiser Bike", zh: "儿童休闲自行车", test: /(cruiser|mountain\s*bike|retro\s*cruiser|girls?\s*bike|boys?\s*bike)/i },
+];
 
 function parseArgs(argv) {
   const args = { input: "", output: "", report: "", glossary: DEFAULT_GLOSSARY, limit: 0, force: false };
@@ -28,6 +110,13 @@ function printHelp() {
 
 function normalizeText(value) {
   return String(value || "").replace(/\s+/g, " ").trim();
+}
+
+function slug(text) {
+  return normalizeText(text)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "");
 }
 
 function containsCjk(value) {
@@ -56,12 +145,114 @@ function firstSentence(value) {
 }
 
 function categoryIdFor(product) {
+  const raw = normalizeText(product.categoryId || product.Category_Attributes?.categoryId || product.category).toLowerCase();
+  return CATEGORY_ALIASES[raw] || raw;
+}
+
+function baseCategoryIdFor(product) {
   return normalizeText(product.categoryId || product.Category_Attributes?.categoryId || product.category).toLowerCase();
 }
 
 function categoryLabel(product, glossary) {
   const categoryId = categoryIdFor(product);
   return glossary.categories[categoryId] || glossary.categories[normalizeText(product.category).toLowerCase()] || "儿童出行产品";
+}
+
+function categoryLabelEn(product) {
+  const categoryId = categoryIdFor(product);
+  return CATEGORY_LABELS_EN[categoryId] || "Kids Mobility Product";
+}
+
+function inferCategoryFromTitle(product, baseCategoryId, titleText) {
+  const title = normalizeText(titleText || "");
+  const base = normalizeText(baseCategoryId || "").toLowerCase();
+  const lower = title.toLowerCase();
+
+  const matchedOverride = CATEGORY_OVERRIDE_RULES.find((rule) => rule.test.test(lower));
+  if (matchedOverride) {
+    return matchedOverride.categoryId;
+  }
+
+  if (base === "stroller" && /stroller/i.test(title)) {
+    return "stroller";
+  }
+
+  return CATEGORY_ALIASES[base] || base || "stroller";
+}
+
+function extractScenarioCandidates(product) {
+  const scenarios = Array.isArray(product.scenarios) ? product.scenarios : [];
+  const attrScenario = Array.isArray(product.Category_Attributes?.scenario)
+    ? product.Category_Attributes.scenario
+    : [];
+  return unique([...scenarios, ...attrScenario]).map((item) => slug(item));
+}
+
+function rawTitleFor(product) {
+  return normalizeText(product.source?.rawTitle || product.en?.name || product.name || product.zh?.name);
+}
+
+function cleanTitle(rawTitle, brand) {
+  let text = normalizeText(rawTitle);
+  if (!text) return text;
+  const brandText = normalizeText(brand);
+  if (brandText) {
+    const escaped = brandText.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    text = text.replace(new RegExp(`^(?:${escaped}\\s+){2,}`, "i"), `${brandText} `).trim();
+  }
+  text = text
+    .replace(/\b(?:amazon\s+exclusive|gift(?:s)?\s+for\s+[^,;|]+|for\s+boys?\s+and\s+girls?|best\s+seller)\b/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  const first = text.split(/[,;|]/)[0].trim();
+  return first.length >= 12 ? first : text;
+}
+
+function inferSubcategory(product, categoryId, titleText, glossary) {
+  const candidates = extractScenarioCandidates(product);
+  const direct = candidates.find((item) => item && item !== "unknown");
+  if (direct) {
+    const mapped = glossary.subcategoryAliases?.[direct] || direct;
+    const cfg = glossary.subcategories?.[mapped];
+    if (cfg) return { key: mapped, zh: cfg.zh, en: cfg.en, source: "scenario" };
+  }
+
+  const scopedRules = SUBCATEGORY_RULES.filter((item) => item.categoryId === categoryId);
+  const rule = scopedRules.find((item) => item.test.test(titleText));
+  if (rule) return { key: rule.key, zh: rule.zh, en: rule.en, source: "title-rule" };
+
+  if (categoryId === "stroller" && /stroller/i.test(titleText)) {
+    return { key: "full_size_stroller", zh: "全尺寸推车", en: "Full-Size Stroller", source: "title-default" };
+  }
+
+  const fallbackKey = "other";
+  return {
+    key: fallbackKey,
+    zh: glossary.subcategories?.[fallbackKey]?.zh || "其他",
+    en: glossary.subcategories?.[fallbackKey]?.en || "Other",
+    source: "other",
+  };
+}
+
+function buildTaxonomy(product, glossary) {
+  const baseCategoryId = categoryIdFor(product);
+  const titleText = cleanTitle(rawTitleFor(product), product.brand || product.en?.brandText || product.zh?.brandText);
+  const categoryId = inferCategoryFromTitle(product, baseCategoryId, titleText);
+  const displayCategoryZh = glossary.categories[categoryId] || categoryLabel(product, glossary);
+  const displayCategoryEn = CATEGORY_LABELS_EN[categoryId] || categoryLabelEn(product);
+  const subcategory = inferSubcategory(product, categoryId, titleText, glossary);
+  const isOther = subcategory.source === "other";
+  return {
+    baseCategoryId,
+    categoryId: isOther ? "other" : categoryId,
+    subcategoryId: subcategory.key,
+    displayCategoryZh: isOther ? (glossary.categories.other || "其他") : displayCategoryZh,
+    displaySubcategoryZh: subcategory.zh,
+    displayCategoryEn: isOther ? (CATEGORY_LABELS_EN.other || "Other") : displayCategoryEn,
+    displaySubcategoryEn: subcategory.en,
+    source: subcategory.source,
+    systemUse: !isOther,
+  };
 }
 
 function isPlaceholder(value, glossary) {
@@ -123,6 +314,58 @@ function termMatches(product, glossary) {
   return unique(matches).slice(0, 5);
 }
 
+function signalFromTerm(item) {
+  const key = normalizeText(item.key) || slug(item.zh) || slug(item.en) || "feature_signal";
+  return {
+    key,
+    zh: normalizeText(item.zh) || key,
+    en: normalizeText(item.en) || normalizeText(item.zh) || key,
+    confidence: Number(item.confidence) || 0.85,
+  };
+}
+
+function buildFeatureSignals(product, glossary, cleanedTitle) {
+  const titleText = normalizeText(cleanedTitle).toLowerCase();
+  const specText = [product.specsText, product.en?.specsText, product.Product_Description, product.description]
+    .map((value) => normalizeText(value).toLowerCase())
+    .join(" ");
+  const sourceTexts = [
+    ...(Array.isArray(product.features) ? product.features : []),
+    ...(Array.isArray(product.pros) ? product.pros : []),
+    ...(Array.isArray(product.en?.pros) ? product.en.pros : []),
+  ]
+    .map((value) => normalizeText(value).toLowerCase())
+    .join(" ");
+
+  const signals = [];
+  for (const term of glossary.terms || []) {
+    const regex = new RegExp(term.pattern, "i");
+    const hitTitle = regex.test(titleText);
+    const hitSpec = regex.test(specText);
+    const hitSource = regex.test(sourceTexts);
+    if (!hitTitle && !hitSpec && !hitSource) continue;
+    const normalized = signalFromTerm(term);
+    const source = hitTitle ? "title" : hitSpec ? "spec" : "feature";
+    const confidence = hitTitle ? Math.max(0.9, normalized.confidence) : normalized.confidence;
+    signals.push({ key: normalized.key, labelZh: normalized.zh, labelEn: normalized.en, source, confidence });
+  }
+
+  return unique(signals.map((item) => `${item.key}|${item.labelZh}|${item.labelEn}|${item.source}|${item.confidence}`))
+    .map((entry) => {
+      const [key, labelZh, labelEn, source, confidence] = entry.split("|");
+      return { key, labelZh, labelEn, source, confidence: Number(confidence) };
+    })
+    .slice(0, 8);
+}
+
+function hasUsableFeatures(features) {
+  if (!Array.isArray(features) || features.length === 0) return false;
+  const cleaned = features.map((item) => normalizeText(item)).filter(Boolean);
+  if (cleaned.length === 0) return false;
+  const avgLen = cleaned.reduce((sum, item) => sum + item.length, 0) / cleaned.length;
+  return avgLen <= 56;
+}
+
 function translateSpecPart(part, glossary) {
   let text = normalizeText(part);
   for (const item of glossary.specTerms) text = text.replace(new RegExp(item.pattern, "gi"), item.zh);
@@ -170,8 +413,16 @@ function buildVerdict(product, name, features) {
 function enrichProduct(product, glossary, force) {
   const sourceZh = product.zh && typeof product.zh === "object" ? product.zh : {};
   const zh = { ...sourceZh };
+  const rawTitle = rawTitleFor(product);
+  const cleanedTitle = cleanTitle(rawTitle, product.brand || product.en?.brandText || sourceZh.brandText);
+  const taxonomy = buildTaxonomy(product, glossary);
+  const featureSignals = buildFeatureSignals(product, glossary, cleanedTitle);
+  const derivedFeaturesZh = featureSignals.map((item) => item.labelZh).filter(Boolean);
+  const derivedFeaturesEn = featureSignals.map((item) => item.labelEn).filter(Boolean);
+  const shouldReplaceFeatures = force || !hasUsableFeatures(product.features);
+
   const name = buildDisplayName(product, glossary);
-  const features = termMatches(product, glossary);
+  const features = derivedFeaturesZh.length > 0 ? derivedFeaturesZh : termMatches(product, glossary);
   const generated = {
     name,
     cardTitle: trimText(name, 56),
@@ -193,12 +444,33 @@ function enrichProduct(product, glossary, force) {
     zh[field] = generated[field];
     diffs.push({ field, before: sourceZh[field] ?? null, after: generated[field] });
   }
-  return { product: { ...product, zh }, diffs, features };
+  const enrichedProduct = {
+    ...product,
+    categoryId: taxonomy.categoryId,
+    zh,
+    taxonomy,
+    source: {
+      ...(product.source && typeof product.source === "object" ? product.source : {}),
+      rawTitle,
+      cleanedTitle,
+      titleVersion: TITLE_VERSION,
+      rawCategoryId: baseCategoryIdFor(product),
+      rawCategory: normalizeText(product.category || ""),
+    },
+    featureSignals,
+    subcategoryId: taxonomy.subcategoryId,
+  };
+
+  if (shouldReplaceFeatures && derivedFeaturesEn.length > 0) {
+    enrichedProduct.features = derivedFeaturesEn;
+  }
+
+  return { product: enrichedProduct, diffs, features, taxonomy, featureSignals, featuresReplaced: shouldReplaceFeatures && derivedFeaturesEn.length > 0 };
 }
 
 function preservationFailures(before, after) {
   const failures = [];
-  for (const key of ["id", "brand", "name", "category", "categoryId"]) {
+  for (const key of ["id", "brand", "name", "category"]) {
     if (JSON.stringify(before[key]) !== JSON.stringify(after[key])) failures.push(key);
   }
   return failures;
@@ -229,7 +501,12 @@ function duplicateCopy(products, field) {
 function qualityIssues(products, glossary) {
   const placeholderResidue = [];
   const mixedLanguageNoise = [];
+  const unknownSubcategory = [];
   for (const product of products) {
+    const subcategoryId = normalizeText(product.taxonomy?.subcategoryId || product.subcategoryId).toLowerCase();
+    if (!subcategoryId || subcategoryId.startsWith("unknown_")) {
+      unknownSubcategory.push({ id: product.id, categoryId: categoryIdFor(product), subcategoryId: subcategoryId || "missing" });
+    }
     for (const field of TARGET_FIELDS) {
       const raw = product.zh?.[field];
       const values = Array.isArray(raw) ? raw : [raw];
@@ -244,7 +521,7 @@ function qualityIssues(products, glossary) {
       }
     }
   }
-  return { placeholderResidue, mixedLanguageNoise };
+  return { placeholderResidue, mixedLanguageNoise, unknownSubcategory };
 }
 
 async function main() {
@@ -267,16 +544,41 @@ async function main() {
   const processCount = args.limit > 0 ? Math.min(args.limit, sourceProducts.length) : sourceProducts.length;
   const changes = [];
   const blocked = [];
+  let taxonomyFilledCount = 0;
+  let featureSignalProducts = 0;
+  let topFeaturesReplacedCount = 0;
+  let otherCount = 0;
   for (let index = 0; index < processCount; index += 1) {
     const before = sourceProducts[index];
     const enriched = enrichProduct(before, glossary, args.force);
     outputProducts[index] = enriched.product;
+    if (normalizeText(enriched.product.taxonomy?.categoryId) && normalizeText(enriched.product.taxonomy?.subcategoryId)) {
+      taxonomyFilledCount += 1;
+    }
+    if (enriched.product.taxonomy?.categoryId === "other" || enriched.product.taxonomy?.systemUse === false) {
+      otherCount += 1;
+    }
+    if (Array.isArray(enriched.featureSignals) && enriched.featureSignals.length > 0) {
+      featureSignalProducts += 1;
+    }
+    if (enriched.featuresReplaced) {
+      topFeaturesReplacedCount += 1;
+    }
     const preservation = preservationFailures(before, enriched.product);
     if (preservation.length) blocked.push({ id: before.id, reasons: preservation.map((key) => `source-field-changed:${key}`) });
     if (!normalizeText(enriched.product.zh?.brandText) || !normalizeText(enriched.product.zh?.name).includes(normalizeText(before.brand))) {
       blocked.push({ id: before.id, reasons: ["brand-not-preserved-in-zh-name"] });
     }
-    if (enriched.diffs.length) changes.push({ id: before.id, categoryId: categoryIdFor(before), fields: enriched.diffs, matchedTerms: enriched.features });
+    if (enriched.diffs.length) {
+      changes.push({
+        id: before.id,
+        categoryId: categoryIdFor(before),
+        taxonomy: enriched.taxonomy,
+        fields: enriched.diffs,
+        matchedTerms: enriched.features,
+        featureSignals: enriched.featureSignals,
+      });
+    }
   }
 
   const processedProducts = outputProducts.slice(0, processCount);
@@ -293,6 +595,18 @@ async function main() {
     changedProducts: changes.length,
     blockedProducts: unique(blocked.map((item) => item.id)).length,
     fieldCoverage: Object.fromEntries(TARGET_FIELDS.map((field) => [field, fieldCoverage(processedProducts, field)])),
+    taxonomyCoverage: {
+      filled: taxonomyFilledCount,
+      total: processedProducts.length,
+      percent: processedProducts.length ? Number((taxonomyFilledCount * 100 / processedProducts.length).toFixed(1)) : 0,
+    },
+    otherCount,
+    featureSignalCoverage: {
+      filled: featureSignalProducts,
+      total: processedProducts.length,
+      percent: processedProducts.length ? Number((featureSignalProducts * 100 / processedProducts.length).toFixed(1)) : 0,
+    },
+    topFeaturesReplacedCount,
     cjkNameCoverage: {
       filled: processedProducts.filter((product) => containsCjk(product.zh?.name)).length,
       total: processedProducts.length,
@@ -302,6 +616,7 @@ async function main() {
     },
     placeholderResidue: issues.placeholderResidue,
     mixedLanguageNoise: issues.mixedLanguageNoise,
+    unknownSubcategory: issues.unknownSubcategory,
     duplicateCopy: {
       cardSummary: duplicateCopy(processedProducts, "cardSummary"),
       description: duplicateCopy(processedProducts, "description"),

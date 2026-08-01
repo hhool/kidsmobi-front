@@ -22,6 +22,7 @@ import { Product, CMSSettings } from "../types";
 import { translateProduct } from "../lib/translate";
 import { resolveProductImages } from "../lib/productImages";
 import { cleanVisibleSourceText } from "../lib/visibleText";
+import { getSpecFieldLabel, normalizeSpecDisplayValue, toSpecKey } from "../lib/specLexicon";
 import ProductCarousel from "./ProductCarousel";
 import Breadcrumbs from "./Breadcrumbs";
 
@@ -221,26 +222,26 @@ function cleanVisibleFieldText(value: unknown) {
     .trim();
 }
 
-function formatSpecKey(key: string) {
-  return String(key || "")
-    .replace(/_/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .replace(/^./, (char) => char.toUpperCase());
+function formatSpecKey(key: string, lang: "zh" | "en") {
+  return getSpecFieldLabel(key, lang);
 }
 
-function formatSpecValue(value: unknown): string {
+function formatSpecValue(value: unknown, rawKey: string, lang: "zh" | "en"): string {
   if (value === null || value === undefined) return "";
   if (Array.isArray(value)) {
-    return value.map((item) => formatSpecValue(item)).filter(Boolean).join(", ");
+    return value.map((item) => formatSpecValue(item, rawKey, lang)).filter(Boolean).join(", ");
   }
   if (typeof value === "object") {
     return Object.entries(value as Record<string, unknown>)
-      .map(([key, entryValue]) => `${formatSpecKey(key)}: ${formatSpecValue(entryValue)}`)
+      .map(([key, entryValue]) => `${formatSpecKey(key, lang)}: ${formatSpecValue(entryValue, key, lang)}`)
       .filter((item) => item.trim())
       .join(" | ");
   }
-  return cleanVisibleFieldText(value);
+
+  const key = toSpecKey(rawKey);
+  const text = cleanVisibleFieldText(value);
+  if (!text) return "";
+  return normalizeSpecDisplayValue(text, key, lang);
 }
 
 function buildBasicInfoSections(product: Product, lang: "zh" | "en") {
@@ -276,8 +277,8 @@ function buildBasicInfoSections(product: Product, lang: "zh" | "en") {
 
       let rows = Object.entries(sectionValue as Record<string, unknown>)
         .map(([key, value]) => ({
-          label: formatSpecKey(key),
-          value: formatSpecValue(value),
+          label: formatSpecKey(key, lang),
+          value: formatSpecValue(value, key, lang),
         }))
         .filter((item) => item.value);
 
@@ -289,8 +290,8 @@ function buildBasicInfoSections(product: Product, lang: "zh" | "en") {
 
       return {
         key: sectionKey,
-        label: sectionLabels[sectionKey]?.zh || sectionLabels[sectionKey]?.en || formatSpecKey(sectionKey),
-        labelEn: sectionLabels[sectionKey]?.en || formatSpecKey(sectionKey),
+        label: sectionLabels[sectionKey]?.zh || sectionLabels[sectionKey]?.en || formatSpecKey(sectionKey, lang),
+        labelEn: sectionLabels[sectionKey]?.en || formatSpecKey(sectionKey, lang),
         rows,
       };
     })
@@ -315,8 +316,8 @@ function buildBasicInfoSections(product: Product, lang: "zh" | "en") {
   const fallbackRowsFromObject = (value: Record<string, unknown>) =>
     Object.entries(value)
       .map(([key, itemValue]) => ({
-        label: formatSpecKey(key),
-        value: formatSpecValue(itemValue),
+        label: formatSpecKey(key, lang),
+        value: formatSpecValue(itemValue, key, lang),
       }))
       .filter((item) => item.value);
 
@@ -332,8 +333,8 @@ function buildBasicInfoSections(product: Product, lang: "zh" | "en") {
 
   const displayFieldRows = Object.entries(richProduct.Product_Display_Fields || {})
     .map(([key, field]) => ({
-      label: formatSpecKey(key),
-      value: formatSpecValue(field?.value),
+      label: formatSpecKey(key, lang),
+      value: formatSpecValue(field?.value, key, lang),
     }))
     .filter((item) => item.value);
 
