@@ -52,7 +52,7 @@ export default function MatchingWizard({
   });
 
   const ageOptions = [
-    { id: "0-12m", zh: "0-12个月", en: "0-12 Months", desc: "新生儿/幼儿", category: "stroller" },
+    { id: "0-12m", zh: "0-12个月", en: "0-12 Months", desc: "新生儿/儿童", category: "stroller" },
     { id: "1-2y", zh: "1-2岁", en: "1-2 Years", desc: "学步/平衡启蒙", category: "balance" },
     { id: "2-4y", zh: "2-4岁", en: "2-4 Years", desc: "平衡/技巧进阶", category: "balance" },
     { id: "4y+", zh: "4岁以上", en: "4+ Years", desc: "正式骑行", category: "bicycle" }

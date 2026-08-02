@@ -48,7 +48,7 @@ export const PRODUCT_CATEGORY_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
     en: ["jogging stroller", "stroller travel stroller", "jogging stroller stroller", "kids stroller"]
   },
   balance_bikes: {
-    zh: ["平衡车", "幼儿平衡车", "适合1岁儿童的平衡车"],
+    zh: ["平衡车", "儿童平衡车", "适合1岁儿童的平衡车"],
     en: ["balance bike", "balance bike toddler", "balance bike for 1 year old"],
   },
   kids_scooters: {
@@ -64,7 +64,7 @@ export const PRODUCT_CATEGORY_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
     en: ["kids bike", "toddler bike", "kids electric bike", "electric dirt bike for kids", "kids dirt bike"],
   },
   kids_tricycles: {
-    zh: ["幼儿三轮车", "成长型三轮车"],
+    zh: ["儿童三轮车", "成长型三轮车"],
     en: ["kids tricycles", "toddler tricycle"],
   },
   electric_vehicles: {

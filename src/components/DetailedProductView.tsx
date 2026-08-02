@@ -627,12 +627,11 @@ export default function DetailedProductView({
   const [activeMediaTab, setActiveMediaTab] = useState<"gallery" | "feature" | "video">("gallery");
   const applicableAgeRange = resolveApplicableAgeRange(product, lang);
   const basicInfoSections = buildBasicInfoSections(product, displayProduct, lang, applicableAgeRange);
-
   const getBackLabel = () => {
     if (lang === "zh") {
       switch (previousTab) {
         case "products":
-          return "返回产品列表";
+          return "返回产品中心";
         case "evaluations":
           return "返回评测中心";
         case "guides":
@@ -642,7 +641,7 @@ export default function DetailedProductView({
         case "home":
           return "返回首页";
         default:
-          return "返回产品列表";
+          return "返回产品中心";
       }
     } else {
       switch (previousTab) {
@@ -912,7 +911,7 @@ export default function DetailedProductView({
       safety_seat: "Car Seat",
       car_seat: "Car Seat",
     };
-    return l === "zh" ? (mapZh[normalized] || "产品列表") : (mapEn[normalized] || "Products");
+    return l === "zh" ? (mapZh[normalized] || "产品中心") : (mapEn[normalized] || "Products");
   };
 
   return (
@@ -922,7 +921,7 @@ export default function DetailedProductView({
         onHomeClick={() => (window as any).setActiveTab?.("home")}
         items={[
           {
-            label: lang === "zh" ? "产品列表" : "PRODUCTS",
+            label: lang === "zh" ? "产品中心" : "PRODUCTS",
             active: false,
             onClick: onClose,
           },
@@ -937,7 +936,7 @@ export default function DetailedProductView({
           }
         ]}
       />
-      
+
       {/* Header with Back Button */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 bg-white border border-slate-100 rounded-[40px] p-8 shadow-sm">
         <div className="space-y-2">
@@ -973,7 +972,7 @@ export default function DetailedProductView({
       </div>
       
       {/* Media Gallery & Video Showcase */}
-      <div className="bg-white border border-slate-100 rounded-[40px] overflow-hidden shadow-sm">
+      <div id="product_media_section" className="bg-white border border-slate-100 rounded-[40px] overflow-hidden shadow-sm scroll-mt-24">
         <div className="flex border-b border-slate-100">
           <button 
             onClick={() => setActiveMediaTab("gallery")}
@@ -1073,7 +1072,7 @@ export default function DetailedProductView({
         
         {/* Radar & Evidence (Left Column) */}
         <div className="lg:col-span-2 space-y-8">
-          <div className="bg-white border border-slate-100 rounded-[40px] p-8 shadow-sm space-y-8">
+          <div id="product_analysis_section" className="bg-white border border-slate-100 rounded-[40px] p-8 shadow-sm space-y-8 scroll-mt-24">
              <div className="flex justify-between items-center border-b border-slate-50 pb-6">
                 <h2 className="km-section-title text-slate-900">{lang === "en" ? "Performance Analysis" : "测评效能透视"}</h2>
                 <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">
@@ -1117,7 +1116,7 @@ export default function DetailedProductView({
              </div>
 
              {/* Product Basic Info Section */}
-             <div className="space-y-4 pt-6 border-t border-slate-50">
+             <div id="product_basic_info_section" className="space-y-4 pt-6 border-t border-slate-50 scroll-mt-24">
                <h3 className="flex items-center gap-2 text-xs font-black text-slate-700 uppercase tracking-widest">
                  <ShieldCheck className="w-4 h-4 text-orange-500" />
                  {lang === "en" ? "Product Basic Info" : "产品基本信息"}
@@ -1158,7 +1157,7 @@ export default function DetailedProductView({
         {/* Technical Specs (Right Column) */}
           <div className="space-y-8">
            {/* Verdict Box */}
-           <div className="bg-orange-50 border border-orange-100 rounded-[40px] p-8 space-y-4">
+           <div id="product_expert_summary_section" className="bg-orange-50 border border-orange-100 rounded-[40px] p-8 space-y-4 scroll-mt-24">
               <h2 className="text-xs font-black text-orange-600 uppercase tracking-widest flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4" />
                 {lang === "en" ? "Expert Summary" : "本站综合评价"}
@@ -1171,7 +1170,7 @@ export default function DetailedProductView({
            </div>
 
            {effectiveDescriptionText && (
-             <div className="bg-white border border-slate-100 rounded-[32px] p-6 space-y-2 shadow-sm">
+             <div id="product_description_section" className="bg-white border border-slate-100 rounded-[32px] p-6 space-y-2 shadow-sm scroll-mt-24">
                <p className="text-xs font-black uppercase tracking-widest text-slate-500">
                  {lang === "en" ? "Product Description" : "产品描述"}
                </p>

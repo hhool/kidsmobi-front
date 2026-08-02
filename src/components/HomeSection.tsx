@@ -840,7 +840,21 @@ export default function HomeSection({
               }}
               className="group h-full min-h-90 bg-white border border-slate-100 rounded-[32px] overflow-hidden hover:border-orange-500/40 hover:shadow-2xl hover:shadow-orange-100/70 transition-all duration-300 flex flex-col cursor-pointer"
             >
-              <div className="relative h-52 bg-slate-50 overflow-hidden text-center">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  const topProduct = categoryTopProductMap[cat.id];
+                  if (topProduct) {
+                    onSelectProduct(topProduct);
+                    return;
+                  }
+                  onSelectCategory(cat.id);
+                }}
+                className="relative h-52 w-full bg-slate-50 overflow-hidden text-center cursor-pointer"
+                aria-label={lang === "zh" ? `${cat.label} 详情` : `${cat.label} details`}
+              >
                 {(() => {
                   const imageKey = `category-${cat.id}`;
                   const topProduct = categoryTopProductMap[cat.id];
@@ -867,7 +881,7 @@ export default function HomeSection({
                 <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-[10px] bg-white/90 text-orange-600 font-black uppercase backdrop-blur-sm border border-orange-100 shadow-sm">
                   {homeCopy.categoryHighlights.featuredTag}
                 </span>
-              </div>
+              </button>
 
               <div className="p-6 bg-white flex-1 flex flex-col gap-4">
                 <div className="space-y-2">

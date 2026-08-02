@@ -18,7 +18,7 @@ export const initialEvaluationsData: Evaluation[] = [
     imageUrl: "https://images.unsplash.com/photo-1596417601242-658249673967?auto=format&fit=crop&q=80&w=800",
     zh: {
       title: "Woom 1 对决 Kokua Jumper：高端滑步平衡车竞技与防护全方位评测",
-      verdict: "两款均属平衡车天花板级别。Woom 1 以3.0kg超轻身躯与独步群雄的安全限位、微距手刹，成为1.5-3.5岁幼儿入门不二之选；而 Kokua Jumper 凭借高分子后避震与全地形宽抓地胎，是3-5岁热衷跃台阶、飞坡竞速和户外全地形玩家的绝对运动神器。",
+      verdict: "两款均属平衡车天花板级别。Woom 1 以3.0kg超轻身躯与独步群雄的安全限位、微距手刹，成为1.5-3.5岁儿童入门不二之选；而 Kokua Jumper 凭借高分子后避震与全地形宽抓地胎，是3-5岁热衷跃台阶、飞坡竞速和户外全地形玩家的绝对运动神器。",
       pros: [
         "Woom 1 整体重量仅3.0kg，对力量薄弱的小婴儿极度友好，利于快速掌握无感控制",
         "Kokua 弹性Elastomer避震器对幼童尾椎与脊柱有着顶级的抗震缓冲性能",
@@ -71,7 +71,7 @@ export const initialEvaluationsData: Evaluation[] = [
       ],
       cons: [
         "Micro Maxi 价格几乎等于3台迪卡侬，且车把高度在快速成长下可能在5岁以后触顶",
-        "迪卡侬 Play 5 实测整车重了接近0.9kg，幼儿提拎上台阶时偶尔略感笨重"
+        "迪卡侬 Play 5 实测整车重了接近0.9kg，儿童提拎上台阶时偶尔略感笨重"
       ],
       changelog: "2026/06：初版发布。涵盖 Micro Maxi Deluxe 与迪卡侬 Play 5 双重物理路面阻力滚阻对比测试。"
     },
@@ -284,7 +284,7 @@ export const initialEvaluationsData: Evaluation[] = [
     imageUrl: "https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&q=80&w=800",
     zh: {
       title: "Britax Romer Dualfix i-Size 新生儿儿童安全座椅医学工效与脊骨深度护托测试",
-      verdict: "宝得适双面骑士是医学级婴幼儿护脊座椅领域的殿堂代表。其标志性 360 度顺滑旋转轴承中嵌入了针对新生儿娇软脊骨研发的 Ergo-Insert 人体工学内衬夹，在最大倾斜躺角状态下，经由电子模拟脊柱传感器测算，能使头颈负荷平缓消解至极限安全线以内，完美守护头颈和稚嫩胸臀骨骼发育。",
+      verdict: "宝得适双面骑士是医学级婴儿护脊座椅领域的殿堂代表。其标志性 360 度顺滑旋转轴承中嵌入了针对新生儿娇软脊骨研发的 Ergo-Insert 人体工学内衬夹，在最大倾斜躺角状态下，经由电子模拟脊柱传感器测算，能使头颈负荷平缓消解至极限安全线以内，完美守护头颈和稚嫩胸臀骨骼发育。",
       pros: [
         "专利 SICT inside 隐藏侧向防撞吸能模块极大消除外展侧翻瞬时冲击力，工效学受力传压极佳",
         "Ergo-Padding 超软竹纤维亲肤透气垫具有极佳 of premium 吸湿吸汗性能，避免闷热导致的背部湿疹或乘坐烦躁",

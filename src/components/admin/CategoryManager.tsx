@@ -37,9 +37,9 @@ const categorySeoDefaults: Record<ProductCategory, {
       seoKeywords: "toddler balance bike, kids balance bike, 1 year old balance bike, ride-on balance bike"
     },
     zh: {
-      seoTitle: "2026最佳幼儿无脚踏平衡车实验室深度评测 | BalanceBikeToddler",
-      seoDescription: "探索BalanceBikeToddler无脚踏幼儿滑步平衡车评分矩阵。深度比较车重工效、几何结构与核心通过性指数，助您科学决策。",
-      seoKeywords: "幼儿平衡车, 儿童滑步车, 1岁平衡车, 平衡训练车, BalanceBikeToddler"
+      seoTitle: "2026最佳儿童无脚踏平衡车实验室深度评测 | BalanceBikeToddler",
+      seoDescription: "探索BalanceBikeToddler无脚踏儿童滑步平衡车评分矩阵。深度比较车重工效、几何结构与核心通过性指数，助您科学决策。",
+      seoKeywords: "儿童平衡车, 儿童滑步车, 1岁平衡车, 平衡训练车, BalanceBikeToddler"
     }
   },
   bicycle: {
@@ -51,7 +51,7 @@ const categorySeoDefaults: Record<ProductCategory, {
     zh: {
       seoTitle: "2026最佳适龄儿童自行车与充气轮单车深度评测 | BalanceBikeToddler",
       seoDescription: "获取2至14岁最适合最安全的儿童自行车候选数据库。极速对比辅助轮装配、前叉避震、机械双刹等力学客观指标。",
-      seoKeywords: "儿童自行车, 幼儿单车, BMX儿童自行车, 带辅助轮自行车, BalanceBikeToddler"
+      seoKeywords: "儿童自行车, 儿童单车, BMX儿童自行车, 带辅助轮自行车, BalanceBikeToddler"
     }
   },
   scooter: {
@@ -97,9 +97,9 @@ const categorySeoDefaults: Record<ProductCategory, {
       seoKeywords: "kids tricycles, toddler tricycle, steering baby trike"
     },
     zh: {
-      seoTitle: "2026最佳幼儿推行三轮脚踏车实验室评测 | BalanceBikeToddler",
-      seoDescription: "精选安全的多功能成长型幼儿三轮滑步推行车。对比结构刚性、可调节推把工效以及宝宝蹬踏动力学参数。",
-      seoKeywords: "幼儿三轮车, 成长型三轮车, 手推脚踏车, BalanceBikeToddler"
+      seoTitle: "2026最佳儿童推行三轮脚踏车实验室评测 | BalanceBikeToddler",
+      seoDescription: "精选安全的多功能成长型儿童三轮滑步推行车。对比结构刚性、可调节推把工效以及宝宝蹬踏动力学参数。",
+      seoKeywords: "儿童三轮车, 成长型三轮车, 手推脚踏车, BalanceBikeToddler"
     }
   }
 };

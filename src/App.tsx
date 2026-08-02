@@ -874,6 +874,7 @@ export default function App() {
   const batchProductsRef = useRef<Product[]>([]);
   const newsReturnViewRef = useRef<{ path: string; scrollY: number } | null>(null);
   const guidesReturnViewRef = useRef<{ path: string; scrollY: number } | null>(null);
+  const productDetailReturnViewRef = useRef<{ path: string; scrollY: number } | null>(null);
 
   // Navigation dropdown: Products menu opens after a long press or double-click.
   const [productsMenuOpen, setProductsMenuOpen] = useState(false);
@@ -922,9 +923,7 @@ export default function App() {
     if (event.detail > 1) return;
 
     productsClickTimerRef.current = setTimeout(() => {
-      handlePrimaryTabClick("products");
-      closeProductsMenuInstantly();
-      navigateToPath("/products");
+      openProductsCenterFromTopNav();
       productsClickTimerRef.current = null;
     }, 300);
   };
@@ -1180,6 +1179,59 @@ export default function App() {
     } else {
       guidesReturnViewRef.current = null;
     }
+  };
+
+  const restoreProductDetailReturnView = (allowedPathPrefix = "/products") => {
+    const snapshot = productDetailReturnViewRef.current;
+    if (!snapshot) return false;
+
+    const parsedUrl = new URL(snapshot.path, window.location.origin);
+    const normalizedPath = normalizePathname(parsedUrl.pathname || "/");
+    const matchesProductsPath =
+      normalizedPath === allowedPathPrefix || normalizedPath.startsWith(`${allowedPathPrefix}/`);
+
+    if (!matchesProductsPath) {
+      return false;
+    }
+
+    productDetailReturnViewRef.current = null;
+    const nextUrl = `${normalizedPath}${parsedUrl.search || ""}${parsedUrl.hash || ""}`;
+    navigateToPath(nextUrl, { preserveScroll: true });
+
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        window.scrollTo({ top: snapshot.scrollY, behavior: "auto" });
+      });
+    });
+
+    return true;
+  };
+
+  const openProductsCenterFromTopNav = (options?: { scrollToExpertPicks?: boolean }) => {
+    const restored = activeTab === "product_detail" && restoreProductDetailReturnView("/products");
+    closeProductsMenuInstantly();
+    if (restored) return;
+
+    if (options?.scrollToExpertPicks) {
+      if (activeTab === "products" && activeProductCategory === "all") {
+        const element = document.getElementById("expert-picks-anchor");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+          return;
+        }
+      } else {
+        localStorage.setItem("scrollToExpertPicks", "true");
+      }
+    }
+
+    navigateToPath("/products");
+  };
+
+  const openHomeFromTopNav = () => {
+    const restored = activeTab === "product_detail" && restoreProductDetailReturnView("/");
+    closeProductsMenuInstantly();
+    if (restored) return;
+    navigateToPath("/");
   };
 
   useEffect(() => {
@@ -2106,9 +2158,9 @@ export default function App() {
             keywords: ["toddler balance bike", "kids balance bike", "1 year old balance bike", "ride-on balance bike"]
           },
           zh: {
-            title: "2026最佳幼儿无脚踏平衡车实验室深度评测 | BalanceBikeToddler",
-            description: "探索BalanceBikeToddler无脚踏幼儿滑步平衡车评分矩阵。深度比较车重工效、几何结构与核心通过性指数，助您科学决策。",
-            keywords: ["幼儿平衡车", "儿童滑步车", "1岁平衡车", "平衡训练车", "BalanceBikeToddler"]
+            title: "2026最佳儿童无脚踏平衡车实验室深度评测 | BalanceBikeToddler",
+            description: "探索BalanceBikeToddler无脚踏儿童滑步平衡车评分矩阵。深度比较车重工效、几何结构与核心通过性指数，助您科学决策。",
+            keywords: ["儿童平衡车", "儿童滑步车", "1岁平衡车", "平衡训练车", "BalanceBikeToddler"]
           }
         },
         kids_bikes: {
@@ -2120,7 +2172,7 @@ export default function App() {
           zh: {
             title: "2026最佳适龄儿童自行车与充气轮单车深度评测 | BalanceBikeToddler",
             description: "获取2至14岁最适合最安全的儿童自行车候选数据库。极速对比辅助轮装配、前叉避震、机械双刹等力学客观指标。",
-            keywords: ["儿童自行车", "幼儿单车", "BMX儿童自行车", "带辅助轮自行车", "BalanceBikeToddler"]
+            keywords: ["儿童自行车", "儿童单车", "BMX儿童自行车", "带辅助轮自行车", "BalanceBikeToddler"]
           }
         },
         kids_scooters: {
@@ -2344,6 +2396,10 @@ export default function App() {
 
   const handleSelectProduct = (product: Product | null) => {
     if (product) {
+      productDetailReturnViewRef.current = {
+        path: `${window.location.pathname}${window.location.search}${window.location.hash}`,
+        scrollY: window.scrollY,
+      };
       setPreviousTab(activeTab);
       setSelectedProduct(product);
       
@@ -2359,6 +2415,17 @@ export default function App() {
       });
     } else {
       setSelectedProduct(null);
+      const detailReturnSnapshot = productDetailReturnViewRef.current;
+      if (detailReturnSnapshot) {
+        productDetailReturnViewRef.current = null;
+        navigateToPath(detailReturnSnapshot.path, { preserveScroll: true });
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => {
+            window.scrollTo({ top: detailReturnSnapshot.scrollY, behavior: "auto" });
+          });
+        });
+        return;
+      }
       if (previousTab === "products" || previousTab === "home") {
         navigateToPath(activeProductCategory === "all" ? "/products" : `/products/${activeProductCategory}`);
       } else {
@@ -2633,7 +2700,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           
           <div className="flex w-full md:w-auto items-center justify-between">
             {/* Brand Logo and custom version stamp */}
-            <div className="flex items-center gap-3 cursor-pointer select-none shrink-0" onClick={() => navigateToTab("home")}>
+            <div className="flex items-center gap-3 cursor-pointer select-none shrink-0" onClick={openHomeFromTopNav}>
               <div className="bg-orange-500 p-2 sm:p-2.5 rounded-2xl shadow-lg shadow-orange-500/20">
                 <Baby className="w-4 h-4 sm:w-5 sm:h-5 text-white stroke-[2.5]" />
               </div>
@@ -2680,8 +2747,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               <nav className="flex items-center bg-slate-100 p-1 rounded-2xl gap-1 text-xs shrink-0 whitespace-nowrap overflow-x-auto md:overflow-visible mx-auto md:mx-0">
                 <button
                   onClick={() => {
-                    handlePrimaryTabClick("home");
-                    navigateToPath("/");
+                    openHomeFromTopNav();
                   }}
                   className={`px-3 py-2 rounded-xl font-bold transition-all ${
                     activeTab === "home" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
@@ -2721,17 +2787,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                         <div className="group/sub">
                           <button
                             onClick={() => {
-                              handlePrimaryTabClick("products");
-                              if (activeTab === "products" && activeProductCategory === "all") {
-                                const element = document.getElementById("expert-picks-anchor");
-                                if (element) {
-                                  element.scrollIntoView({ behavior: "smooth", block: "start" });
-                                }
-                              } else {
-                                localStorage.setItem("scrollToExpertPicks", "true");
-                              }
-                              navigateToPath("/products");
-                              closeProductsMenuInstantly();
+                              openProductsCenterFromTopNav({ scrollToExpertPicks: true });
                             }}
                             className="w-full text-left py-3.5 px-4 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-xl font-extrabold text-xs shadow-md shadow-orange-500/20 hover:shadow-lg hover:shadow-orange-500/35 transition-all flex items-center justify-between group/total"
                           >
@@ -3592,9 +3648,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             exit={{ opacity: 0, scale: 0.5, y: 20 }}
             onClick={scrollToTop}
             className="fixed bottom-24 right-8 z-40 p-4 bg-orange-500 text-white rounded-2xl shadow-2xl shadow-orange-500/20 border border-orange-400 hover:bg-orange-600 transition-colors focus:outline-none focus:ring-4 focus:ring-orange-500/20 active:scale-95"
-            title={lang === "en" ? "Back to Top" : "回到顶部"}
+            aria-label={lang === "zh" ? "返回顶部" : "Back to top"}
+            title={lang === "zh" ? "返回顶部" : "Back to top"}
           >
-            <ArrowUp className="w-5 h-5 stroke-3" />
+            <ArrowUp className="w-7 h-7" />
           </motion.button>
         )}
       </AnimatePresence>

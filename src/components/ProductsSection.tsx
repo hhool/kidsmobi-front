@@ -1623,7 +1623,7 @@ export default function ProductsSection({
           <Breadcrumbs
             lang={lang}
             onHomeClick={() => (window as any).setActiveTab?.("home")}
-            items={items}
+            items={items.map((item, index) => index === 0 && lang === "zh" && item.label === "产品列表" ? { ...item, label: "产品中心" } : item)}
           />
         );
       })()}

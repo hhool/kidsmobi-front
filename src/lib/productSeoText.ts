@@ -151,7 +151,7 @@ export function getProductDisplayTitle(product: Product, lang: "zh" | "en"): str
   if (isKidsBike) {
     const isToddlerBike = (resolveMinimumTargetAge(localized) ?? Number.POSITIVE_INFINITY) < 4;
     const type = isToddlerBike
-      ? (lang === "zh" ? "幼儿自行车" : "Toddler Bike")
+      ? (lang === "zh" ? "儿童自行车" : "Toddler Bike")
       : (lang === "zh" ? "儿童自行车" : "Kids Bike");
     return [brand, type].filter(Boolean).join(" ");
   }
