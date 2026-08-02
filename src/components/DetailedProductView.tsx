@@ -311,8 +311,30 @@ function formatSpecValue(value: unknown, rawKey: string, lang: "zh" | "en"): str
   return normalizeSpecDisplayValue(text, key, lang);
 }
 
-function buildBasicInfoSections(product: Product, lang: "zh" | "en", applicableAgeRange: string) {
-  const richProduct = product as Product & {
+function resolveFeatureList(product: Product, lang: "zh" | "en"): string[] {
+  const localizedProduct = product as Product & {
+    zh?: { features?: unknown[] };
+    en?: { features?: unknown[] };
+    features?: unknown[];
+  };
+
+  const candidates = lang === "zh"
+    ? [localizedProduct.zh?.features, localizedProduct.features]
+    : [localizedProduct.en?.features, localizedProduct.features];
+
+  for (const candidate of candidates) {
+    if (!Array.isArray(candidate)) continue;
+    const values = candidate.map((item) => cleanVisibleFieldText(item)).filter(Boolean);
+    if (values.length > 0) {
+      return values;
+    }
+  }
+
+  return [];
+}
+
+function buildBasicInfoSections(sourceProduct: Product, displayProduct: Product, lang: "zh" | "en", applicableAgeRange: string) {
+  const richProduct = displayProduct as Product & {
     Product_Specifications?: Record<string, unknown>;
     Category_Attributes?: Record<string, unknown>;
     Product_Display_Fields?: Record<string, { value?: unknown; source?: unknown }>;
@@ -327,23 +349,39 @@ function buildBasicInfoSections(product: Product, lang: "zh" | "en", applicableA
     "Features_Specs",
     "Materials_Care",
     "User_Guide",
-    "Additional_Details",
+    "Features",
   ];
   const sectionLabels: Record<string, { zh: string; en: string }> = {
     Measurements: { zh: "尺寸与重量", en: "Measurements" },
     Features_Specs: { zh: "功能规格", en: "Features Specs" },
     Materials_Care: { zh: "材质与护理", en: "Materials & Care" },
     User_Guide: { zh: "使用指南", en: "User Guide" },
-    Additional_Details: { zh: "附加信息", en: "Additional Details" },
+    Features: { zh: "核心亮点", en: "Top Features" },
   };
 
   const sections = sectionOrder
     .map((sectionKey) => {
+      if (sectionKey === "Features") {
+        const featureRows = resolveFeatureList(sourceProduct, lang);
+        if (featureRows.length === 0) return null;
+
+        return {
+          key: sectionKey,
+          label: sectionLabels[sectionKey]?.zh || sectionLabels[sectionKey]?.en || (lang === "zh" ? "核心亮点" : "Top Features"),
+          labelEn: sectionLabels[sectionKey]?.en || "Top Features",
+          rows: featureRows.map((value, index) => ({
+            label: lang === "zh" ? "核心亮点" : "Top Features",
+            value,
+          })),
+        };
+      }
+
       const sectionValue = specs[sectionKey];
       if (!sectionValue || typeof sectionValue !== "object") return null;
 
       let rows = Object.entries(sectionValue as Record<string, unknown>)
         .map(([key, value]) => ({
+          rawKey: key,
           label: formatSpecKey(key, lang),
           value: ["age_range", "age_range_description", "recommended_age"].includes(toSpecKey(key))
             ? applicableAgeRange
@@ -470,14 +508,14 @@ function buildBasicInfoSections(product: Product, lang: "zh" | "en", applicableA
 
   if (fallbackSections.length === 0) {
     const topLevelRows = [
-      { label: lang === "zh" ? "品牌" : "Brand", value: cleanVisibleFieldText(product.brand) },
-      { label: lang === "zh" ? "类目" : "Category", value: cleanVisibleFieldText(product.category) },
+      { label: lang === "zh" ? "品牌" : "Brand", value: cleanVisibleFieldText(displayProduct.brand) },
+      { label: lang === "zh" ? "类目" : "Category", value: cleanVisibleFieldText(displayProduct.category) },
       { label: lang === "zh" ? "适龄范围" : "Age Range", value: applicableAgeRange },
-      { label: lang === "zh" ? "重量" : "Weight", value: cleanVisibleFieldText(product.weight) },
-      { label: lang === "zh" ? "材质" : "Material", value: formatSpecValue(product.material, "material", lang) },
-      { label: lang === "zh" ? "刹车/约束" : "Brake / Restraint", value: formatSpecValue(product.brakeType, "brake", lang) },
-      { label: lang === "zh" ? "轮胎" : "Tire Type", value: formatSpecValue(product.tireType, "tire_type", lang) },
-      { label: lang === "zh" ? "合规" : "Compliance", value: cleanVisibleFieldText(product.compliance) },
+      { label: lang === "zh" ? "重量" : "Weight", value: cleanVisibleFieldText(displayProduct.weight) },
+      { label: lang === "zh" ? "材质" : "Material", value: formatSpecValue(displayProduct.material, "material", lang) },
+      { label: lang === "zh" ? "刹车/约束" : "Brake / Restraint", value: formatSpecValue(displayProduct.brakeType, "brake", lang) },
+      { label: lang === "zh" ? "轮胎" : "Tire Type", value: formatSpecValue(displayProduct.tireType, "tire_type", lang) },
+      { label: lang === "zh" ? "合规" : "Compliance", value: cleanVisibleFieldText(displayProduct.compliance) },
     ].filter((item) => item.value);
 
     if (topLevelRows.length > 0) {
@@ -492,10 +530,10 @@ function buildBasicInfoSections(product: Product, lang: "zh" | "en", applicableA
 
   if (fallbackSections.length === 0) {
     const minimalRows = [
-      { label: "Product ID", value: String(product.id || "").trim() },
-      { label: lang === "zh" ? "名称" : "Name", value: String((product as Product & { name?: string }).name || "").trim() },
-      { label: lang === "zh" ? "品牌" : "Brand", value: String(product.brand || "").trim() },
-      { label: lang === "zh" ? "类目" : "Category", value: String(product.category || "").trim() },
+      { label: "Product ID", value: String(displayProduct.id || "").trim() },
+      { label: lang === "zh" ? "名称" : "Name", value: String((displayProduct as Product & { name?: string }).name || "").trim() },
+      { label: lang === "zh" ? "品牌" : "Brand", value: String(displayProduct.brand || "").trim() },
+      { label: lang === "zh" ? "类目" : "Category", value: String(displayProduct.category || "").trim() },
     ].filter((item) => item.value);
 
     if (minimalRows.length > 0) {
@@ -588,7 +626,7 @@ export default function DetailedProductView({
   const hasFeatureImages = imageSet.featureUrls.length > 0;
   const [activeMediaTab, setActiveMediaTab] = useState<"gallery" | "feature" | "video">("gallery");
   const applicableAgeRange = resolveApplicableAgeRange(product, lang);
-  const basicInfoSections = buildBasicInfoSections(displayProduct, lang, applicableAgeRange);
+  const basicInfoSections = buildBasicInfoSections(product, displayProduct, lang, applicableAgeRange);
 
   const getBackLabel = () => {
     if (lang === "zh") {

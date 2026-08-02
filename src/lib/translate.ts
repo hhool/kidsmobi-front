@@ -538,6 +538,7 @@ export function translateProduct(p: any, lang: "zh" | "en") {
     localizedDescription && !isPlaceholderLocalizedDescription(localizedDescription)
       ? localizedDescription
       : p.description;
+  const features = localData.features || p.features || [];
   const pros = localData.pros || p.pros || [];
   const cons = localData.cons || p.cons || [];
   const editorVerdict = localData.editorVerdict || p.editorVerdict || "";
@@ -549,6 +550,7 @@ export function translateProduct(p: any, lang: "zh" | "en") {
       ...p, 
       name,
       description,
+      features,
       pros,
       cons,
       editorVerdict,
@@ -585,6 +587,7 @@ export function translateProduct(p: any, lang: "zh" | "en") {
       ...p,
       name: enOverride.name,
       description: enOverride.description || description || p.description,
+      features,
       brand: brandMap[p.brand] || brandText || p.brand,
       categoryLabel,
       material: translateMaterialToEn(p.material),
@@ -606,6 +609,7 @@ export function translateProduct(p: any, lang: "zh" | "en") {
       ...p,
       name: localData.name,
       description: localData.description || description || p.description,
+      features: localData.features || features || [],
       pros: localData.pros || pros || [],
       cons: localData.cons || cons || [],
       editorVerdict: localData.editorVerdict || editorVerdict || "",
@@ -626,6 +630,7 @@ export function translateProduct(p: any, lang: "zh" | "en") {
     ...p,
     name,
     description,
+    features,
     brand: brandMap[p.brand] || p.brand,
     categoryLabel,
     material: translateMaterialToEn(p.material),

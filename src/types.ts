@@ -119,6 +119,7 @@ export interface CMSProduct extends Product {
     cardTitle?: string;
     cardSummary?: string;
     description: string;
+    features?: string[];
     customersSay?: string;
     brandText?: string;
     specsText?: string;
@@ -135,6 +136,7 @@ export interface CMSProduct extends Product {
     cardTitle?: string;
     cardSummary?: string;
     description: string;
+    features?: string[];
     customersSay?: string;
     brandText?: string;
     specsText?: string;

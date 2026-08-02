@@ -22,6 +22,7 @@ import { deleteD1CMSProduct, getD1CMSProducts, saveD1CMSProduct } from "../../li
 function normalizeCMSProductForList(item: CMSProduct): CMSProduct {
   const zhName = item?.zh?.name || item.name || item.brand || "";
   const enName = item?.en?.name || item.name || item.brand || "";
+  const featureSet = resolveBilingualFeatures(item?.zh?.features, item?.en?.features, item?.features);
   return {
     ...item,
     customers_say: item?.customers_say || "",
@@ -30,6 +31,7 @@ function normalizeCMSProductForList(item: CMSProduct): CMSProduct {
       cardTitle: item?.zh?.cardTitle || "",
       cardSummary: item?.zh?.cardSummary || "",
       description: item?.zh?.description || "",
+      features: featureSet.zh,
       customersSay: item?.zh?.customersSay || item?.customers_say || "",
       brandText: item?.zh?.brandText || item.brand || "",
       specsText: item?.zh?.specsText || "",
@@ -42,6 +44,7 @@ function normalizeCMSProductForList(item: CMSProduct): CMSProduct {
       cardTitle: item?.en?.cardTitle || "",
       cardSummary: item?.en?.cardSummary || "",
       description: item?.en?.description || "",
+      features: featureSet.en,
       customersSay: item?.en?.customersSay || item?.customers_say || "",
       brandText: item?.en?.brandText || item.brand || "",
       specsText: item?.en?.specsText || "",
@@ -50,6 +53,46 @@ function normalizeCMSProductForList(item: CMSProduct): CMSProduct {
       editorVerdict: item?.en?.editorVerdict || "",
     },
   };
+}
+
+function normalizeStringList(items: unknown): string[] {
+  return Array.isArray(items)
+    ? items.map((item) => String(item || "").trim()).filter(Boolean)
+    : [];
+}
+
+function resolveLocalizedFeatures(localizedItems: unknown, fallbackItems: unknown): string[] {
+  const localized = normalizeStringList(localizedItems);
+  if (localized.length > 0) return localized;
+  return normalizeStringList(fallbackItems);
+}
+
+function resolveBilingualFeatures(
+  zhItems: unknown,
+  enItems: unknown,
+  topLevelItems: unknown,
+): { zh: string[]; en: string[]; topLevel: string[] } {
+  const topLevel = normalizeStringList(topLevelItems);
+  let zh = resolveLocalizedFeatures(zhItems, topLevel);
+  let en = resolveLocalizedFeatures(enItems, topLevel);
+
+  // Keep locale features in sync when only one side has authored content.
+  if (zh.length > 0 && en.length === 0) {
+    en = [...zh];
+  } else if (en.length > 0 && zh.length === 0) {
+    zh = [...en];
+  }
+
+  const canonicalTopLevel = en.length > 0 ? en : zh;
+  return { zh, en, topLevel: canonicalTopLevel };
+}
+
+function hasLegacyFeaturesCompatibilityNeed(item: CMSProduct): boolean {
+  const topLevel = normalizeStringList(item?.features);
+  if (topLevel.length === 0) return false;
+  const zh = normalizeStringList(item?.zh?.features);
+  const en = normalizeStringList(item?.en?.features);
+  return zh.length === 0 || en.length === 0;
 }
 
 function normalizeToken(value: unknown): string {
@@ -121,6 +164,8 @@ function normalizeProductImagesForSave(product: CMSProduct): CMSProduct {
 
   const normalizedVideoUrl = nextVideos[0]?.url || (product.videoUrl || "").trim();
 
+  const featureSet = resolveBilingualFeatures(product.zh?.features, product.en?.features, product.features);
+
   return {
     ...product,
     images: {
@@ -131,9 +176,17 @@ function normalizeProductImagesForSave(product: CMSProduct): CMSProduct {
     galleryUrls: imageSet.galleryUrls,
     videos: nextVideos,
     videoUrl: normalizedVideoUrl,
-    features: (product.features || []).map((f) => f.trim()).filter(Boolean),
+    features: featureSet.topLevel,
     scenarios: (product.scenarios || []).map((s) => s.trim()).filter(Boolean),
     relatedProductIds: (product.relatedProductIds || []).map((id) => id.trim()).filter(Boolean),
+    zh: {
+      ...product.zh,
+      features: featureSet.zh,
+    },
+    en: {
+      ...product.en,
+      features: featureSet.en,
+    },
   };
 }
 
@@ -187,6 +240,7 @@ function buildCMSProductFromBackendPreview(item: {
     zh: {
       name: item.title,
       description: "由后台一键初始化写入 CMS 的产品条目。",
+      features: [],
       customersSay: item.customers_say || "",
       brandText: item.brand || "Unknown",
       specsText: "Initialized from backend resources.",
@@ -197,6 +251,7 @@ function buildCMSProductFromBackendPreview(item: {
     en: {
       name: item.title,
       description: "Product entry initialized into CMS from backend resources.",
+      features: [],
       customersSay: item.customers_say || "",
       brandText: item.brand || "Unknown",
       specsText: "Initialized from backend resources.",
@@ -224,6 +279,7 @@ export default function ProductManager({
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [brandFilter, setBrandFilter] = useState("all");
   const [editingProduct, setEditingProduct] = useState<CMSProduct | null>(null);
+  const [legacyFeaturesCompatById, setLegacyFeaturesCompatById] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     fetchProducts();
@@ -265,6 +321,11 @@ export default function ProductManager({
     }
 
     if (productsData.length > 0) {
+      const compatById = productsData.reduce<Record<string, boolean>>((acc, item) => {
+        acc[item.id] = hasLegacyFeaturesCompatibilityNeed(item);
+        return acc;
+      }, {});
+      setLegacyFeaturesCompatById(compatById);
       setProducts(productsData.map((item) => normalizeCMSProductForList(item)));
       setBackendPreviewMode(false);
     } else {
@@ -301,6 +362,7 @@ export default function ProductManager({
           zh: {
             name: item.title,
             description: "CMS 空数据时自动加载的 backend 预览条目。",
+            features: [],
             customersSay: item.customers_say || "",
             brandText: item.brand || "Unknown",
             specsText: "Preview mode",
@@ -311,6 +373,7 @@ export default function ProductManager({
           en: {
             name: item.title,
             description: "Backend preview item loaded because CMS is empty.",
+            features: [],
             customersSay: item.customers_say || "",
             brandText: item.brand || "Unknown",
             specsText: "Preview mode",
@@ -320,9 +383,11 @@ export default function ProductManager({
           },
           updatedAt: null,
         }));
+        setLegacyFeaturesCompatById({});
         setProducts(fallbackProducts);
         setBackendPreviewMode(fallbackProducts.length > 0);
       } catch {
+        setLegacyFeaturesCompatById({});
         setProducts([]);
         setBackendPreviewMode(false);
       }
@@ -357,8 +422,8 @@ export default function ProductManager({
       relatedProductIds: [],
       videos: [],
       status: "draft",
-      zh: { name: "", cardTitle: "", cardSummary: "", description: "", customersSay: "", brandText: "", specsText: "", pros: [], cons: [], editorVerdict: "" },
-      en: { name: "", cardTitle: "", cardSummary: "", description: "", customersSay: "", brandText: "", specsText: "", pros: [], cons: [], editorVerdict: "" },
+      zh: { name: "", cardTitle: "", cardSummary: "", description: "", features: [], customersSay: "", brandText: "", specsText: "", pros: [], cons: [], editorVerdict: "" },
+      en: { name: "", cardTitle: "", cardSummary: "", description: "", features: [], customersSay: "", brandText: "", specsText: "", pros: [], cons: [], editorVerdict: "" },
       updatedAt: null
     });
   };
@@ -589,6 +654,7 @@ export default function ProductManager({
             product={editingProduct} 
             allProducts={products}
             scenarios={scenarios}
+            featuresCompatibilityHint={Boolean(legacyFeaturesCompatById[editingProduct.id])}
             onSave={handleSave} 
             saving={saving}
             error={saveError}
@@ -601,13 +667,64 @@ export default function ProductManager({
   );
 }
 
-function ProductEditor({ product, allProducts, scenarios, onSave, onCancel, lang, saving, error }: any) {
+function ProductEditor({ product, allProducts, scenarios, featuresCompatibilityHint, onSave, onCancel, lang, saving, error }: any) {
   const [formData, setFormData] = useState<CMSProduct>(product);
   const [activeTab, setActiveTab] = useState<"base" | "zh" | "en" | "compare">("compare");
+  const [editorLocale, setEditorLocale] = useState<"zh" | "en">("zh");
   const [pickerMode, setPickerMode] = useState<"cover" | "gallery" | "videos" | "related" | null>(null);
+
+  const tabLabels = lang === "zh"
+    ? {
+        compare: "中英对照",
+        base: "结构化数据",
+        zh: "中文档案",
+        en: "英文档案",
+      }
+    : {
+        compare: "Multi-Language Mirror",
+        base: "Structured Data",
+        zh: "ZH Profile",
+        en: "EN Profile",
+      };
 
   const categories: ProductCategory[] = ["balance", "bicycle", "scooter", "stroller", "electric_car", "tricycle", "safety_seat"];
   const complianceOptions: ComplianceTag[] = ["CCC", "EN1888", "ASTM", "GS"];
+
+  const localizedFeatureItems = editorLocale === "zh"
+    ? (formData.zh?.features || [])
+    : (formData.en?.features || []);
+
+  const localizedProfile = editorLocale === "zh" ? formData.zh : formData.en;
+
+  const setLocalizedProfile = (patch: Partial<CMSProduct["zh"]>) => {
+    if (editorLocale === "zh") {
+      setFormData({
+        ...formData,
+        zh: { ...formData.zh, ...patch },
+      });
+      return;
+    }
+
+    setFormData({
+      ...formData,
+      en: { ...formData.en, ...patch },
+    });
+  };
+
+  const setLocalizedFeatureItems = (next: string[]) => {
+    if (editorLocale === "zh") {
+      setFormData({
+        ...formData,
+        zh: { ...formData.zh, features: next },
+      });
+      return;
+    }
+
+    setFormData({
+      ...formData,
+      en: { ...formData.en, features: next },
+    });
+  };
 
   const saveWithStatus = (status: CMSProduct["status"]) => {
     onSave({ ...formData, status });
@@ -744,10 +861,10 @@ function ProductEditor({ product, allProducts, scenarios, onSave, onCancel, lang
           )}
 
           <div className="flex bg-slate-100 p-1.5 rounded-3xl mb-10 w-fit mx-auto border border-slate-200">
-            <TabBtn active={activeTab === "compare"} onClick={() => setActiveTab("compare")} label="Multi-Language Mirror" />
-            <TabBtn active={activeTab === "base"} onClick={() => setActiveTab("base")} label="Structured Data" />
-            <TabBtn active={activeTab === "zh"} onClick={() => setActiveTab("zh")} label="ZH Profile" />
-            <TabBtn active={activeTab === "en"} onClick={() => setActiveTab("en")} label="EN Profile" />
+            <TabBtn active={activeTab === "compare"} onClick={() => setActiveTab("compare")} label={tabLabels.compare} />
+            <TabBtn active={activeTab === "base"} onClick={() => setActiveTab("base")} label={tabLabels.base} />
+            <TabBtn active={activeTab === "zh"} onClick={() => setActiveTab("zh")} label={tabLabels.zh} />
+            <TabBtn active={activeTab === "en"} onClick={() => setActiveTab("en")} label={tabLabels.en} />
           </div>
 
           {activeTab === "compare" && (
@@ -807,26 +924,121 @@ function ProductEditor({ product, allProducts, scenarios, onSave, onCancel, lang
                 </div>
               </Section>
 
-              <Section title="Feature Highlights / Scenarios / Relations">
+                <Section title={lang === "zh" ? "中英内容编辑" : "Localized Content Editor"}>
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between gap-3">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                        {lang === "zh" ? "编辑语言" : "Editing Language"}
+                      </label>
+                      <div className="flex bg-slate-100 p-1 rounded-2xl border border-slate-200">
+                        <button
+                          type="button"
+                          onClick={() => setEditorLocale("zh")}
+                          className={`px-3 py-1.5 rounded-xl text-[10px] font-black uppercase transition-all ${editorLocale === "zh" ? "bg-slate-900 text-white" : "text-slate-500 hover:text-slate-700"}`}
+                        >
+                          中文
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setEditorLocale("en")}
+                          className={`px-3 py-1.5 rounded-xl text-[10px] font-black uppercase transition-all ${editorLocale === "en" ? "bg-slate-900 text-white" : "text-slate-500 hover:text-slate-700"}`}
+                        >
+                          English
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <Field
+                        label={editorLocale === "zh" ? "产品名称（中文）" : "Product Name (EN)"}
+                        value={localizedProfile?.name || ""}
+                        onChange={(v: string) => setLocalizedProfile({ name: v })}
+                      />
+                      <Field
+                        label={editorLocale === "zh" ? "产品卡片标题（中文）" : "Product Card Title (EN)"}
+                        value={localizedProfile?.cardTitle || ""}
+                        onChange={(v: string) => setLocalizedProfile({ cardTitle: v })}
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                        {editorLocale === "zh" ? "产品卡片摘要（中文）" : "Product Card Summary (EN)"}
+                      </label>
+                      <textarea
+                        className="w-full bg-slate-50 py-4 px-6 rounded-2xl font-bold text-slate-600 outline-none border border-transparent focus:border-orange-500 focus:bg-white transition-all min-h-[96px]"
+                        value={localizedProfile?.cardSummary || ""}
+                        onChange={(e) => setLocalizedProfile({ cardSummary: e.target.value })}
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                        {editorLocale === "zh" ? "产品描述（中文）" : "Product Description (EN)"}
+                      </label>
+                      <textarea
+                        className="w-full bg-slate-50 py-4 px-6 rounded-2xl font-bold text-slate-600 outline-none border border-transparent focus:border-orange-500 focus:bg-white transition-all min-h-[120px]"
+                        value={localizedProfile?.description || ""}
+                        onChange={(e) => setLocalizedProfile({ description: e.target.value })}
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                        {editorLocale === "zh" ? "专家结论（中文）" : "Expert Verdict (EN)"}
+                      </label>
+                      <textarea
+                        className="w-full bg-slate-50 py-4 px-6 rounded-2xl font-bold text-slate-600 outline-none border border-transparent focus:border-orange-500 focus:bg-white transition-all min-h-[96px]"
+                        value={localizedProfile?.editorVerdict || ""}
+                        onChange={(e) => setLocalizedProfile({ editorVerdict: e.target.value })}
+                      />
+                    </div>
+                  </div>
+                </Section>
+
+              <Section title={lang === "zh" ? "功能亮点 / 使用场景 / 关联产品" : "Feature Highlights / Scenarios / Relations"}>
+                {featuresCompatibilityHint && (
+                  <div className="mb-4 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-[11px] font-bold leading-relaxed text-amber-700">
+                    {lang === "zh"
+                      ? "兼容模式已启用：当前记录包含全局 features，保存时会同步写入中英文 features 字段，确保本地化内容可独立维护。"
+                      : "Compatibility mode enabled: this record includes top-level features, and save will synchronize localized zh/en feature fields for independent maintenance."}
+                  </div>
+                )}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between gap-3">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                        {lang === "zh" ? "功能亮点" : "Feature Highlights"}
+                      </label>
+                      <span className="text-[10px] font-black uppercase px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
+                        {editorLocale === "zh" ? "中文" : "English"}
+                      </span>
+                    </div>
+                    <TagEditor
+                      title={editorLocale === "zh" ? (lang === "zh" ? "中文功能亮点" : "ZH Features") : (lang === "zh" ? "英文功能亮点" : "EN Features")}
+                      items={localizedFeatureItems}
+                      addLabel={editorLocale === "zh" ? (lang === "zh" ? "添加中文功能" : "Add ZH Feature") : (lang === "zh" ? "添加英文功能" : "Add EN Feature")}
+                      lang={lang}
+                      onChange={setLocalizedFeatureItems}
+                    />
+                  </div>
                   <TagEditor
-                    title="Features"
-                    items={formData.features || []}
-                    addLabel="Add Feature"
-                    onChange={(next) => setFormData({ ...formData, features: next })}
-                  />
-                  <TagEditor
-                    title="Scenarios"
+                    title={lang === "zh" ? "使用场景" : "Scenarios"}
                     items={formData.scenarios || []}
-                    addLabel="Add Scenario"
+                    addLabel={lang === "zh" ? "添加场景" : "Add Scenario"}
+                    lang={lang}
                     onChange={(next) => setFormData({ ...formData, scenarios: next })}
                     options={(scenarios || []).map((item: CMSScenario) => ({
                       value: item.code,
-                      label: `${item.zh?.name || item.en?.name || item.code} / ${item.en?.name || item.zh?.name || item.code}`,
+                      label: lang === "zh"
+                        ? item.zh?.name || item.en?.name || item.code
+                        : item.en?.name || item.zh?.name || item.code,
                     }))}
                   />
                   <div className="space-y-3">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Similar Products (Manual)</label>
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                      {lang === "zh" ? "相似产品（手动关联）" : "Similar Products (Manual)"}
+                    </label>
                     <button
                       onClick={() => setPickerMode("related")}
                       className="w-full py-2.5 border border-sky-200 bg-sky-50 text-sky-700 rounded-xl text-[11px] font-black hover:bg-sky-100 transition-all"
@@ -852,7 +1064,9 @@ function ProductEditor({ product, allProducts, scenarios, onSave, onCancel, lang
                                 }}
                                 className="mt-1"
                               />
-                              <span className="text-xs font-bold text-slate-700 leading-tight">{p.zh?.name || p.en?.name || p.id}</span>
+                              <span className="text-xs font-bold text-slate-700 leading-tight">
+                                {lang === "zh" ? p.zh?.name || p.en?.name || p.id : p.en?.name || p.zh?.name || p.id}
+                              </span>
                             </label>
                           );
                         })}
@@ -1033,12 +1247,14 @@ function TagEditor({
   items,
   onChange,
   addLabel,
+  lang,
   options,
 }: {
   title: string;
   items: string[];
   onChange: (items: string[]) => void;
   addLabel: string;
+  lang: "zh" | "en";
   options?: Array<{ value: string; label: string }>;
 }) {
   return (
@@ -1046,7 +1262,9 @@ function TagEditor({
       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{title}</label>
       {options && options.length > 0 && (
         <div className="space-y-2">
-          <label className="text-[10px] font-black text-slate-300 uppercase tracking-widest">Preset Options</label>
+          <label className="text-[10px] font-black text-slate-300 uppercase tracking-widest">
+            {lang === "zh" ? "预设选项" : "Preset Options"}
+          </label>
           <select
             className="w-full bg-slate-50 py-3 px-4 rounded-xl font-bold text-xs outline-none border border-transparent focus:border-orange-500 focus:bg-white transition-all"
             value=""
@@ -1059,7 +1277,7 @@ function TagEditor({
               e.currentTarget.value = "";
             }}
           >
-            <option value="">Select preset...</option>
+            <option value="">{lang === "zh" ? "选择预设..." : "Select preset..."}</option>
             {options.map((option) => (
               <option key={option.value} value={option.value}>{option.label}</option>
             ))}
@@ -1182,6 +1400,14 @@ function LangSector({ lang, title, data, onChange }: any) {
             onChange={(e) => onChange({...data, description: e.target.value})}
           />
         </div>
+
+        <TagEditor
+          title={`Feature Highlights (${lang.toUpperCase()})`}
+          items={data.features || []}
+          addLabel={lang === "zh" ? "添加功能亮点" : "Add Feature Highlight"}
+          lang={lang}
+          onChange={(next) => onChange({ ...data, features: next })}
+        />
 
         <div className="space-y-2">
           <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Expert Summary (Short)</label>
