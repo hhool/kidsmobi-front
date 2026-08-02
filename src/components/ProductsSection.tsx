@@ -18,9 +18,10 @@ import {
 } from "lucide-react";
 import { Product, ProductCategory, CurrencyData } from "../types";
 import { translateProduct, translateCategory } from "../lib/translate";
+import { localizeMaterialDisplayValue, localizeSafetyDisplayValue } from "../lib/specLexicon";
 import { formatWeight } from "../lib/units";
 import { resolveProductImages } from "../lib/productImages";
-import { getProductImageAlt, getProductsPageSeoTitle } from "../lib/productSeoText";
+import { getProductDisplayTitle, getProductImageAlt, getProductsPageSeoTitle } from "../lib/productSeoText";
 import { getBackendPickerPayload } from "../lib/backendResourceService";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 import { formatCurrencyFromUsd } from "../lib/currency";
@@ -493,16 +494,6 @@ function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
   return truncateCardSnippet(leadSentence, 220);
 }
 
-function resolveCardTitleSlug(product: Product, lang: "zh" | "en"): string {
-  const localizedCardTitle = compactSnippet((product as Product & {
-    zh?: { cardTitle?: string };
-    en?: { cardTitle?: string };
-  })[lang]?.cardTitle || product.cardTitle || "");
-  const rawTitle = localizedCardTitle || compactSnippet(getProductsPageSeoTitle(product));
-  const leadSentence = pickLeadSentence(rawTitle);
-  return truncateCardSnippet(leadSentence, 140);
-}
-
 function resolveCardVerdict(product: Product, lang: "zh" | "en"): string {
   const verdict = String(product.editorVerdict || "").trim();
   const isVerdictPlaceholder = isPlaceholderVerdict(verdict);
@@ -603,6 +594,7 @@ export default function ProductsSection({
   const [selectedFrameMaterial, setSelectedFrameMaterial] = useState<string>("all");
   const [selectedTireType, setSelectedTireType] = useState<string>("all");
   const [selectedBrakeSystem, setSelectedBrakeSystem] = useState<string>("all");
+  const [selectedWheelCount, setSelectedWheelCount] = useState<string>("all");
   const [selectedWheelSize, setSelectedWheelSize] = useState<string>("all");
   const [selectedCertification, setSelectedCertification] = useState<string>("all");
   const [selectedType, setSelectedType] = useState<"all" | "twin">("all");
@@ -702,6 +694,7 @@ export default function ProductsSection({
     setSelectedFrameMaterial("all");
     setSelectedTireType("all");
     setSelectedBrakeSystem("all");
+    setSelectedWheelCount("all");
     setSelectedWheelSize("all");
     setSelectedCertification("all");
 
@@ -1112,14 +1105,120 @@ export default function ProductsSection({
     return text;
   };
 
+  const isValidFacetValue = (value?: string) => {
+    const normalized = String(value || "").trim().toLowerCase();
+    return normalized.length > 0 && ![
+      "n/a",
+      "na",
+      "none",
+      "null",
+      "undefined",
+      "unknown",
+      "not applicable",
+      "not available",
+      "not specified",
+      "not provided",
+      "unavailable",
+      "-",
+      "--",
+    ].includes(normalized);
+  };
+
   const normalizeFacetList = (values: Array<string | undefined>) => {
     return Array.from(
       new Set(
         values
           .map((value) => normalizeFacetValue(value))
-          .filter((value) => value && value.toLowerCase() !== "unknown")
+          .filter((value) => isValidFacetValue(value))
       )
     ).sort((a, b) => a.localeCompare(b));
+  };
+
+  const localizeMechanicalFacetValue = (value: string, facet: "tire" | "brake") => {
+    if (lang !== "zh") return value;
+
+    if (facet === "brake") {
+      return localizeSafetyDisplayValue(value, lang);
+    }
+
+    const normalized = value.trim().toLowerCase();
+    const tireMap: Record<string, string> = {
+      "eva solid": "EVA 实心胎",
+      "eva foam": "EVA 发泡胎",
+      "eva foam / flat-free": "EVA 免充气发泡胎",
+      "foam": "发泡胎",
+      "honeycomb solid": "蜂窝实心胎",
+      "pneumatic": "充气轮胎",
+      "pu": "PU 实心轮",
+      "rubber": "橡胶轮胎",
+      "solid": "实心轮胎",
+    };
+    const mappedValue = tireMap[normalized];
+    if (mappedValue) return mappedValue;
+    return localizeMaterialDisplayValue(value, lang);
+  };
+
+  const localizeFrameMaterialValue = (value: string) => {
+    return localizeMaterialDisplayValue(value, lang);
+  };
+
+  const resolveWheelCount = (value?: string) => {
+    const normalized = String(value || "").trim().toLowerCase();
+    const explicitCount = normalized.match(/^(\d+)\s*(?:-|_)?\s*(?:wheels?|轮)(?:\s*(?:count|个))?$/i);
+    if (explicitCount) return explicitCount[1];
+    if (/^[3-6]$/.test(normalized)) return normalized;
+    return null;
+  };
+
+  const toFacetStrings = (value: unknown): string[] => {
+    if (Array.isArray(value)) return value.flatMap(toFacetStrings);
+    const text = String(value || "").trim();
+    return text ? [text] : [];
+  };
+
+  const getWheelFacetValues = (product: Product): string[] => {
+    const richProduct = product as Product & {
+      Product_Specifications?: Record<string, Record<string, unknown>>;
+      Category_Attributes?: Record<string, unknown>;
+      Product_Display_Fields?: Record<string, { value?: unknown }>;
+    };
+    return Array.from(new Set([
+      ...toFacetStrings(product.wheelSize),
+      ...toFacetStrings(richProduct.Product_Specifications?.Measurements?.["Wheel Size"]),
+      ...toFacetStrings(richProduct.Product_Specifications?.Category_Attributes?.wheelSize),
+      ...toFacetStrings(richProduct.Category_Attributes?.wheelSize),
+      ...toFacetStrings(richProduct.Product_Display_Fields?.wheelSize?.value),
+    ].filter(isValidFacetValue)));
+  };
+
+  const resolveFrameMaterialClasses = (value: unknown): string[] => {
+    const text = toFacetStrings(value).join(" | ").toLowerCase();
+    if (!isValidFacetValue(text)) return [];
+
+    const classes: string[] = [];
+    if (/\balum(?:inum|inium|mum)\b|铝|鋁/.test(text)) classes.push("ALUMINUM");
+    if (/carbon[\s-]*fiber|carbon[\s-]*fibre|碳纤维|碳纖維/.test(text)) classes.push("CARBON FIBER");
+    if (/\bsteel\b|碳钢|钢|鋼/.test(text)) classes.push("STEEL");
+    if (/engineering[\s-]*plastic|\b(?:abs|hdpe|pe|pp)\b|polyethylene|polypropylene|thermoplastic|plastic|resin|工程塑料|工程塑膠|树脂|樹脂|塑料|塑膠/.test(text)) {
+      classes.push("ENGINEERING PLASTIC");
+    }
+    return classes;
+  };
+
+  const getFrameMaterialClasses = (product: Product): string[] => {
+    const richProduct = product as Product & {
+      Product_Specifications?: Record<string, Record<string, unknown>>;
+      Category_Attributes?: Record<string, unknown>;
+      Product_Display_Fields?: Record<string, { value?: unknown }>;
+    };
+    return resolveFrameMaterialClasses([
+      product.material,
+      richProduct.Product_Specifications?.Features_Specs?.["Frame Material"],
+      richProduct.Product_Specifications?.Materials_Care?.Material,
+      richProduct.Product_Specifications?.Category_Attributes?.materialClass,
+      richProduct.Category_Attributes?.materialClass,
+      richProduct.Product_Display_Fields?.frameMaterial?.value,
+    ]);
   };
 
   const matchesKidsScootersBoundary = (sourceProduct: Product, translatedProduct: Product) => {
@@ -1164,15 +1263,38 @@ export default function ProductsSection({
 
   const categoryFilterOptions = useMemo(() => {
     const brands = normalizeFacetList(selectedCategoryProducts.map((item: Product) => item.brand));
-    const frameMaterials = normalizeFacetList(selectedCategoryProducts.map((item: Product) => item.material));
+    const frameMaterials = Array.from(
+      new Set(selectedCategoryProducts.flatMap((item: Product) => getFrameMaterialClasses(item)))
+    ).sort((left, right) => ["ALUMINUM", "CARBON FIBER", "STEEL", "ENGINEERING PLASTIC"].indexOf(left) - ["ALUMINUM", "CARBON FIBER", "STEEL", "ENGINEERING PLASTIC"].indexOf(right));
     const tireTypes = normalizeFacetList(selectedCategoryProducts.map((item: Product) => item.tireType));
     const brakeSystems = normalizeFacetList(selectedCategoryProducts.map((item: Product) => item.brakeType));
-    const wheelSizes = normalizeFacetList(selectedCategoryProducts.map((item: Product) => item.wheelSize));
+    const rawWheelValues = normalizeFacetList(selectedCategoryProducts.flatMap((item: Product) => getWheelFacetValues(item)));
+    const wheelCounts = Array.from(
+      new Set(rawWheelValues.map((value) => resolveWheelCount(value)).filter((value): value is string => Boolean(value)))
+    ).sort((left, right) => Number(left) - Number(right));
+    const wheelSizes = rawWheelValues.filter((value) => resolveWheelCount(value) === null);
     const certifications = normalizeFacetList(
       selectedCategoryProducts.flatMap((item: Product) => item.compliance || [])
     );
-    return { brands, frameMaterials, tireTypes, brakeSystems, wheelSizes, certifications };
+    return { brands, frameMaterials, tireTypes, brakeSystems, wheelCounts, wheelSizes, certifications };
   }, [selectedCategoryProducts]);
+
+  const mechanicalFacetCategories = new Set([
+    "stroller",
+    "balance_bike",
+    "kids_bikes",
+    "kids_scooters",
+    "electric_vehicles",
+  ]);
+  const categoryFacetVisibility = {
+    brand: categoryFilterOptions.brands.length > 0,
+    frame: mechanicalFacetCategories.has(selectedCategory) && categoryFilterOptions.frameMaterials.length > 0,
+    tire: mechanicalFacetCategories.has(selectedCategory) && categoryFilterOptions.tireTypes.length > 0,
+    brake: mechanicalFacetCategories.has(selectedCategory) && categoryFilterOptions.brakeSystems.length > 0,
+    wheelCount: mechanicalFacetCategories.has(selectedCategory) && categoryFilterOptions.wheelCounts.length > 0,
+    wheel: mechanicalFacetCategories.has(selectedCategory) && categoryFilterOptions.wheelSizes.length > 0,
+    certification: categoryFilterOptions.certifications.length > 0,
+  };
 
   const categoryBaseCount = useMemo(() => {
     return productsData
@@ -1296,23 +1418,29 @@ export default function ProductsSection({
         }
 
         const needsCategoryFacetFilter = selectedCategory !== "all";
-        const matchesBrand = !needsCategoryFacetFilter || selectedBrand === "all" || normalizeFacetValue(p.brand) === selectedBrand;
-        const matchesFrameMaterial = !needsCategoryFacetFilter || selectedFrameMaterial === "all" || normalizeFacetValue(p.material) === selectedFrameMaterial;
-        const matchesTireType = !needsCategoryFacetFilter || selectedTireType === "all" || normalizeFacetValue(p.tireType) === selectedTireType;
-        const matchesBrakeSystem = !needsCategoryFacetFilter || selectedBrakeSystem === "all" || normalizeFacetValue(p.brakeType) === selectedBrakeSystem;
+        const matchesBrand = !needsCategoryFacetFilter || !categoryFacetVisibility.brand || selectedBrand === "all" || normalizeFacetValue(p.brand) === selectedBrand;
+        const matchesFrameMaterial = !needsCategoryFacetFilter || !categoryFacetVisibility.frame || selectedFrameMaterial === "all" || getFrameMaterialClasses(p).includes(selectedFrameMaterial);
+        const matchesTireType = !needsCategoryFacetFilter || !categoryFacetVisibility.tire || selectedTireType === "all" || normalizeFacetValue(p.tireType) === selectedTireType;
+        const matchesBrakeSystem = !needsCategoryFacetFilter || !categoryFacetVisibility.brake || selectedBrakeSystem === "all" || normalizeFacetValue(p.brakeType) === selectedBrakeSystem;
+        const wheelFacetValues = getWheelFacetValues(p);
+        const matchesWheelCount = !needsCategoryFacetFilter || !categoryFacetVisibility.wheelCount || selectedWheelCount === "all" || wheelFacetValues.some((value) => resolveWheelCount(value) === selectedWheelCount);
         let matchesWheelSize = true;
-        if (needsCategoryFacetFilter && selectedWheelSize !== "all") {
-          const valStr = normalizeFacetValue(p.wheelSize).toLowerCase();
+        if (needsCategoryFacetFilter && categoryFacetVisibility.wheel && selectedWheelSize !== "all") {
           const targetStr = selectedWheelSize.toLowerCase();
-          if (targetStr === "12" || targetStr === "12-inch" || targetStr === "12inch" || targetStr.includes("12")) {
-            matchesWheelSize = valStr.includes("12");
-          } else {
-            matchesWheelSize = valStr === targetStr || valStr.includes(targetStr);
-          }
+          matchesWheelSize = wheelFacetValues
+            .filter((value) => resolveWheelCount(value) === null)
+            .some((value) => {
+              const valStr = normalizeFacetValue(value).toLowerCase();
+              if (targetStr === "12" || targetStr === "12-inch" || targetStr === "12inch" || targetStr.includes("12")) {
+                return valStr.includes("12");
+              }
+              return valStr === targetStr || valStr.includes(targetStr);
+            });
         }
 
         const matchesCertification =
           !needsCategoryFacetFilter ||
+          !categoryFacetVisibility.certification ||
           selectedCertification === "all" ||
           (p.compliance || []).map((item: string) => normalizeFacetValue(item)).includes(selectedCertification);
 
@@ -1328,6 +1456,7 @@ export default function ProductsSection({
           matchesFrameMaterial &&
           matchesTireType &&
           matchesBrakeSystem &&
+          matchesWheelCount &&
           matchesWheelSize &&
           matchesCertification &&
           matchesScooterBoundary &&
@@ -1374,6 +1503,7 @@ export default function ProductsSection({
         selectedFrameMaterial === "all" &&
         selectedTireType === "all" &&
         selectedBrakeSystem === "all" &&
+        selectedWheelCount === "all" &&
         selectedWheelSize === "all" &&
         selectedCertification === "all";
 
@@ -1393,6 +1523,7 @@ export default function ProductsSection({
     selectedFrameMaterial,
     selectedTireType,
     selectedBrakeSystem,
+    selectedWheelCount,
     selectedWheelSize,
     selectedCertification,
     productsData,
@@ -1681,7 +1812,7 @@ export default function ProductsSection({
 
               {selectedCategory !== "all" && (
                 <div className="space-y-3 pt-2 border-t border-slate-100">
-                  <div className="space-y-1">
+                  {categoryFacetVisibility.brand && <div className="space-y-1">
                     <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.brandLabel}</span>
                     <select
                       value={selectedBrand}
@@ -1695,9 +1826,9 @@ export default function ProductsSection({
                         <option key={item} value={item}>{item}</option>
                       ))}
                     </select>
-                  </div>
+                  </div>}
 
-                  <div className="space-y-1">
+                  {categoryFacetVisibility.frame && <div className="space-y-1">
                     <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.frameLabel}</span>
                     <select
                       value={selectedFrameMaterial}
@@ -1708,12 +1839,12 @@ export default function ProductsSection({
                     >
                       <option value="all">{productsCopy.filterFacets.allOption}</option>
                       {categoryFilterOptions.frameMaterials.map((item) => (
-                        <option key={item} value={item}>{item}</option>
+                        <option key={item} value={item}>{localizeFrameMaterialValue(item)}</option>
                       ))}
                     </select>
-                  </div>
+                  </div>}
 
-                  <div className="space-y-1">
+                  {categoryFacetVisibility.tire && <div className="space-y-1">
                     <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.tireLabel}</span>
                     <select
                       value={selectedTireType}
@@ -1724,12 +1855,12 @@ export default function ProductsSection({
                     >
                       <option value="all">{productsCopy.filterFacets.allOption}</option>
                       {categoryFilterOptions.tireTypes.map((item) => (
-                        <option key={item} value={item}>{item}</option>
+                        <option key={item} value={item}>{localizeMechanicalFacetValue(item, "tire")}</option>
                       ))}
                     </select>
-                  </div>
+                  </div>}
 
-                  <div className="space-y-1">
+                  {categoryFacetVisibility.brake && <div className="space-y-1">
                     <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.brakeLabel}</span>
                     <select
                       value={selectedBrakeSystem}
@@ -1740,12 +1871,28 @@ export default function ProductsSection({
                     >
                       <option value="all">{productsCopy.filterFacets.allOption}</option>
                       {categoryFilterOptions.brakeSystems.map((item) => (
-                        <option key={item} value={item}>{item}</option>
+                        <option key={item} value={item}>{localizeMechanicalFacetValue(item, "brake")}</option>
                       ))}
                     </select>
-                  </div>
+                  </div>}
 
-                  <div className="space-y-1">
+                  {categoryFacetVisibility.wheelCount && <div className="space-y-1">
+                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.wheelCountLabel}</span>
+                    <select
+                      value={selectedWheelCount}
+                      onChange={(e) => setSelectedWheelCount(e.target.value)}
+                      title={productsCopy.filterFacets.selectWheelCount}
+                      aria-label={productsCopy.filterFacets.selectWheelCount}
+                      className="w-full px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tight border bg-white text-slate-700 border-slate-200"
+                    >
+                      <option value="all">{productsCopy.filterFacets.allOption}</option>
+                      {categoryFilterOptions.wheelCounts.map((item) => (
+                        <option key={item} value={item}>{lang === "zh" ? `${item} 轮` : `${item}-WHEEL`}</option>
+                      ))}
+                    </select>
+                  </div>}
+
+                  {categoryFacetVisibility.wheel && <div className="space-y-1">
                     <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.wheelLabel}</span>
                     <select
                       value={selectedWheelSize}
@@ -1759,9 +1906,9 @@ export default function ProductsSection({
                         <option key={item} value={item}>{item}</option>
                       ))}
                     </select>
-                  </div>
+                  </div>}
 
-                  <div className="space-y-1">
+                  {categoryFacetVisibility.certification && <div className="space-y-1">
                     <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.certificationLabel}</span>
                     <select
                       value={selectedCertification}
@@ -1775,7 +1922,7 @@ export default function ProductsSection({
                         <option key={item} value={item}>{item}</option>
                       ))}
                     </select>
-                  </div>
+                  </div>}
                 </div>
               )}
             </div>
@@ -1800,6 +1947,7 @@ export default function ProductsSection({
                   setSelectedFrameMaterial("all");
                   setSelectedTireType("all");
                   setSelectedBrakeSystem("all");
+                  setSelectedWheelCount("all");
                   setSelectedWheelSize("all");
                   setSelectedCertification("all");
                 }}
@@ -1831,7 +1979,7 @@ export default function ProductsSection({
                   const imageSet = resolveProductImages(diProduct);
                   const cardSummary = resolveCardSummary(diProduct, lang);
                   const priceText = formatPriceDisplay(diProduct.price, currencyData, lang);
-                  const productSeoTitle = resolveCardTitleSlug(p, lang);
+                  const productSeoTitle = getProductDisplayTitle(p, lang);
 
                   const isAlreadySaved = savedProducts.some(s => s.id === diProduct.id);
                   const isAlreadyCompared = compareList.some(c => c.id === diProduct.id);
@@ -2054,7 +2202,7 @@ export default function ProductsSection({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {viewHistory.slice(0, 4).map(p => {
               const dp = translateProduct(p, lang);
-              const historySeoTitle = resolveCardTitleSlug(p, lang);
+              const historySeoTitle = getProductDisplayTitle(p, lang);
               const imageSet = resolveProductImages(dp);
               return (
                 <div 

@@ -100,3 +100,85 @@ export const getProductsPageSeoTitle = (productOrName?: Product | string | null)
 
   return getProductSeoTitle(productOrName);
 };
+
+function resolveMinimumTargetAge(product: Product): number | null {
+  const sources = [compactText(product.name), compactText(product.ageRange)];
+
+  for (const source of sources) {
+    const monthMatch = source.match(/(\d+(?:\.\d+)?)\s*(?:-|–|—|to)\s*\d+(?:\.\d+)?\s*months?/i)
+      || source.match(/(?:ages?\s*)?(\d+(?:\.\d+)?)\s*months?/i);
+    if (monthMatch) return Number(monthMatch[1]) / 12;
+
+    const yearRangeMatch = source.match(/(?:ages?\s*)?(\d+(?:\.\d+)?)\s*(?:-|–|—|to)\s*\d+(?:\.\d+)?\s*(?:years?|yrs?|y\b)/i);
+    if (yearRangeMatch) return Number(yearRangeMatch[1]);
+
+    const yearMatch = source.match(/(?:ages?\s*)?(\d+(?:\.\d+)?)\s*(?:years?|yrs?|year[ -]?olds?|y\b)/i);
+    if (yearMatch) return Number(yearMatch[1]);
+  }
+
+  return null;
+}
+
+export function getProductDisplayTitle(product: Product, lang: "zh" | "en"): string {
+  const localized = product as Product & {
+    categoryId?: string;
+    zh?: { name?: string };
+    en?: { name?: string };
+  };
+  const name = [localized.name, localized.en?.name, localized.zh?.name]
+    .map((value) => compactText(value || "").toLowerCase())
+    .join(" ");
+  const category = compactText(String(localized.categoryId || localized.category)).toLowerCase();
+  const brand = compactText(localized.brand);
+  const isStroller = category === "stroller" || category === "jogger_stroller" || category === "double_stroller";
+  const isBalanceBike = category === "balance" || category === "balance_bike" || category === "balance_bikes";
+  const isScooter = category === "scooter" || category === "scooters" || category === "kids_scooters";
+  const isKidsBike = category === "bicycle" || category === "kids_bikes";
+  const isKidsElectricCar = category === "electric_car" || category === "electric_vehicles";
+  const isKidsCarSeat = category === "car_seat" || category === "car_seats" || category === "safety_seat";
+
+  if (isBalanceBike && lang === "zh") {
+    return [brand, "儿童平衡车"].filter(Boolean).join(" ");
+  }
+
+  if (isScooter) {
+    if (/\belectric\b/.test(name)) {
+      return [brand, lang === "zh" ? "儿童电动滑板车" : "Kids Electric Scooter"].filter(Boolean).join(" ");
+    }
+    return lang === "zh" ? "儿童滑板车" : "Kids Scooter";
+  }
+
+  if (isKidsBike) {
+    const isToddlerBike = (resolveMinimumTargetAge(localized) ?? Number.POSITIVE_INFINITY) < 4;
+    const type = isToddlerBike
+      ? (lang === "zh" ? "幼儿自行车" : "Toddler Bike")
+      : (lang === "zh" ? "儿童自行车" : "Kids Bike");
+    return [brand, type].filter(Boolean).join(" ");
+  }
+
+  if (isKidsElectricCar) {
+    return [brand, lang === "zh" ? "儿童电动车" : "Kids Electric Car"].filter(Boolean).join(" ");
+  }
+
+  if (isKidsCarSeat) {
+    return [brand, lang === "zh" ? "儿童安全座椅" : "Kids Car Seat"].filter(Boolean).join(" ");
+  }
+
+  if (!isStroller) return getProductsPageSeoTitle(localized);
+
+  const strollerBrand = brand.toLowerCase() === "graco" ? "Craco" : brand;
+  let type: string;
+  if (/\btravel\s+system\b/.test(name)) {
+    type = lang === "zh" ? "儿童推车套餐" : "Travel System";
+  } else if (/\b(?:jogger|jogging)\b/.test(name)) {
+    type = lang === "zh" ? "慢跑推车" : "Jogging";
+  } else if (/\bdouble\s+stroller\b/.test(name)) {
+    type = lang === "zh" ? "双人推车" : "Tandem";
+  } else if (/\blight[ -]?weight\b/.test(name)) {
+    type = lang === "zh" ? "轻便推车" : "Lightweight";
+  } else {
+    type = lang === "zh" ? "标准推车" : "Standard";
+  }
+
+  return [strollerBrand, type].filter(Boolean).join(" ");
+}

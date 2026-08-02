@@ -353,7 +353,7 @@ const productEnTranslations: Record<string, {
   }
 };
 
-function translateMaterialToEn(mat: string): string {
+export function translateMaterialToEn(mat: string): string {
   const map: Record<string, string> = {
     "航天级6061铝合金": "Aerospace-grade 6061 Aluminum",
     "高端镁合金": "Premium Magnesium Alloy",

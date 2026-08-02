@@ -21,6 +21,7 @@ import {
 import { Product, CMSSettings } from "../types";
 import { translateProduct } from "../lib/translate";
 import { resolveProductImages } from "../lib/productImages";
+import { getProductDisplayTitle } from "../lib/productSeoText";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 import { getSpecFieldLabel, normalizeSpecDisplayValue, toSpecKey } from "../lib/specLexicon";
 import ProductCarousel from "./ProductCarousel";
@@ -93,12 +94,17 @@ function resolveDescriptionText(product: Product, lang: "zh" | "en"): string {
     en?: { description?: string; customersSay?: string };
   };
 
+  const localizedCandidates = lang === "zh"
+    ? [localized.zh?.description]
+    : [
+        localized.en?.description,
+        localized.Product_Description,
+        localized.product_description,
+        localized.productDescription,
+        localized.description,
+      ];
   const candidates = [
-    localized[lang]?.description,
-    localized.Product_Description,
-    localized.product_description,
-    localized.productDescription,
-    localized.description,
+    ...localizedCandidates,
     localized[lang]?.customersSay,
     localized.customers_say,
     localized.customersSay,
@@ -108,9 +114,14 @@ function resolveDescriptionText(product: Product, lang: "zh" | "en"): string {
 
   for (const text of candidates) {
     const lower = text.toLowerCase();
+    const comparable = lower.replace(/[^a-z0-9\u4e00-\u9fff]+/g, " ").trim();
+    const comparableName = String(product.name || "").toLowerCase().replace(/[^a-z0-9\u4e00-\u9fff]+/g, " ").trim();
+    const comparableBrandName = `${String(product.brand || "").toLowerCase()} ${comparableName}`.replace(/\s+/g, " ").trim();
     if (lower.includes("product description")) continue;
     if (lower.includes("generated from remote fallback")) continue;
     if (text.includes("由远端数据回退生成")) continue;
+    if (comparable === comparableName || comparable === comparableBrandName) continue;
+    if (lang === "zh" && !/[\u4e00-\u9fff]/.test(text)) continue;
     if (/^rated\s+\d(?:\.\d+)?\s+out\s+of\s+5\b/i.test(text)) continue;
     if (/^backed\s+by\s+[\d,]+\s+customer\s+reviews\b/i.test(text)) continue;
     if (/^\d(?:\.\d+)?\s+\d(?:\.\d+)?\s+out\s+of\s+5\s+stars\b/i.test(text)) continue;
@@ -119,6 +130,62 @@ function resolveDescriptionText(product: Product, lang: "zh" | "en"): string {
   }
 
   return "";
+}
+
+function resolveApplicableAgeRange(product: Product, lang: "zh" | "en"): string {
+  const richProduct = product as Product & {
+    description?: string;
+    Product_Description?: string;
+    product_description?: string;
+    productDescription?: string;
+    en?: { description?: string };
+    Product_Specifications?: Record<string, Record<string, unknown>>;
+    Category_Attributes?: Record<string, unknown>;
+  };
+  const sources = [
+    richProduct.en?.description,
+    richProduct.Product_Description,
+    richProduct.product_description,
+    richProduct.productDescription,
+    richProduct.description,
+    product.name,
+    richProduct.Product_Specifications?.Item_Details?.["Age Range (Description)"],
+    richProduct.Product_Specifications?.Item_Details?.["Age Range Description"],
+    richProduct.Category_Attributes?.["Age Range (Description)"],
+    richProduct.Category_Attributes?.["Age Range Description"],
+  ].map((value) => String(value || "").replace(/\s+/g, " ").trim()).filter(Boolean);
+  const evidence = sources.join(" ");
+
+  const yearRange = evidence.match(/(?:ages?\s*)?(\d+(?:\.\d+)?)\s*(?:-|–|—|to)\s*(\d+(?:\.\d+)?)\s*(?:years?|yrs?|year[ -]?olds?)/i);
+  if (yearRange) {
+    return lang === "zh" ? `${yearRange[1]}-${yearRange[2]}岁` : `${yearRange[1]}-${yearRange[2]} years`;
+  }
+
+  const monthRange = evidence.match(/(?:ages?\s*)?(\d+(?:\.\d+)?)\s*(?:-|–|—|to)\s*(\d+(?:\.\d+)?)\s*months?/i);
+  if (monthRange) {
+    return lang === "zh" ? `${monthRange[1]}-${monthRange[2]}个月` : `${monthRange[1]}-${monthRange[2]} months`;
+  }
+
+  const minimumAge = evidence.match(/(?:ages?\s*)?(\d+(?:\.\d+)?)\s*(?:years?|yrs?|year[ -]?olds?)?\s*(?:and up|or older|\+)/i);
+  if (minimumAge) {
+    return lang === "zh" ? `${minimumAge[1]}岁以上` : `${minimumAge[1]}+ years`;
+  }
+
+  const maximumAgeValue = richProduct.Product_Specifications?.User_Guide?.["Maximum Age Recommendation"];
+  const maximumAge = Number(String(maximumAgeValue || "").match(/\d+(?:\.\d+)?/)?.[0]);
+  const descriptor = evidence.toLowerCase();
+  let range: [number, number] | null = null;
+  if (/\bnewborn\b/.test(descriptor)) range = [0, 1];
+  else if (/\binfants?\b/.test(descriptor)) range = [0, 2];
+  else if (/\btoddlers?\b/.test(descriptor)) range = [2, 5];
+  else if (/\bkids?\b|\bchildren\b|\bchild\b/.test(descriptor)) range = [5, 12];
+  else if (/\bteens?\b/.test(descriptor)) range = [13, Number.isFinite(maximumAge) && maximumAge >= 13 ? maximumAge : 17];
+
+  if (range) {
+    return lang === "zh" ? `${range[0]}-${range[1]}岁` : `${range[0]}-${range[1]} years`;
+  }
+
+  return normalizeSpecDisplayValue(product.ageRange, "age_range", lang);
 }
 
 function resolveResourceDescription(resources: WorkerDetailResource[]): string {
@@ -244,7 +311,7 @@ function formatSpecValue(value: unknown, rawKey: string, lang: "zh" | "en"): str
   return normalizeSpecDisplayValue(text, key, lang);
 }
 
-function buildBasicInfoSections(product: Product, lang: "zh" | "en") {
+function buildBasicInfoSections(product: Product, lang: "zh" | "en", applicableAgeRange: string) {
   const richProduct = product as Product & {
     Product_Specifications?: Record<string, unknown>;
     Category_Attributes?: Record<string, unknown>;
@@ -278,7 +345,9 @@ function buildBasicInfoSections(product: Product, lang: "zh" | "en") {
       let rows = Object.entries(sectionValue as Record<string, unknown>)
         .map(([key, value]) => ({
           label: formatSpecKey(key, lang),
-          value: formatSpecValue(value, key, lang),
+          value: ["age_range", "age_range_description", "recommended_age"].includes(toSpecKey(key))
+            ? applicableAgeRange
+            : formatSpecValue(value, key, lang),
         }))
         .filter((item) => item.value);
 
@@ -334,7 +403,9 @@ function buildBasicInfoSections(product: Product, lang: "zh" | "en") {
   const displayFieldRows = Object.entries(richProduct.Product_Display_Fields || {})
     .map(([key, field]) => ({
       label: formatSpecKey(key, lang),
-      value: formatSpecValue(field?.value, key, lang),
+      value: ["age_range", "age_range_description", "recommended_age"].includes(toSpecKey(key))
+        ? applicableAgeRange
+        : formatSpecValue(field?.value, key, lang),
     }))
     .filter((item) => item.value);
 
@@ -401,11 +472,11 @@ function buildBasicInfoSections(product: Product, lang: "zh" | "en") {
     const topLevelRows = [
       { label: lang === "zh" ? "品牌" : "Brand", value: cleanVisibleFieldText(product.brand) },
       { label: lang === "zh" ? "类目" : "Category", value: cleanVisibleFieldText(product.category) },
-      { label: lang === "zh" ? "适龄范围" : "Age Range", value: cleanVisibleFieldText(product.ageRange) },
+      { label: lang === "zh" ? "适龄范围" : "Age Range", value: applicableAgeRange },
       { label: lang === "zh" ? "重量" : "Weight", value: cleanVisibleFieldText(product.weight) },
-      { label: lang === "zh" ? "材质" : "Material", value: cleanVisibleFieldText(product.material) },
-      { label: lang === "zh" ? "刹车/约束" : "Brake / Restraint", value: cleanVisibleFieldText(product.brakeType) },
-      { label: lang === "zh" ? "轮胎" : "Tire Type", value: cleanVisibleFieldText(product.tireType) },
+      { label: lang === "zh" ? "材质" : "Material", value: formatSpecValue(product.material, "material", lang) },
+      { label: lang === "zh" ? "刹车/约束" : "Brake / Restraint", value: formatSpecValue(product.brakeType, "brake", lang) },
+      { label: lang === "zh" ? "轮胎" : "Tire Type", value: formatSpecValue(product.tireType, "tire_type", lang) },
       { label: lang === "zh" ? "合规" : "Compliance", value: cleanVisibleFieldText(product.compliance) },
     ].filter((item) => item.value);
 
@@ -470,10 +541,15 @@ export default function DetailedProductView({
   cmsSettings
 }: DetailedProductViewProps) {
   const displayProduct = translateProduct(product, lang);
-  const [liveCmsVerdict, setLiveCmsVerdict] = useState<{ zh: string; en: string }>({ zh: "", en: "" });
+  const displayTitle = getProductDisplayTitle(displayProduct, lang);
+  const [liveCmsLocalized, setLiveCmsLocalized] = useState({
+    zh: { description: "", editorVerdict: "" },
+    en: { description: "", editorVerdict: "" },
+  });
   const [detailResources, setDetailResources] = useState<WorkerDetailResource[]>([]);
+  const liveVerdict = lang === "zh" ? liveCmsLocalized.zh.editorVerdict : liveCmsLocalized.en.editorVerdict;
   const verdictText = String(
-    (lang === "zh" ? liveCmsVerdict.zh : liveCmsVerdict.en) || resolveVerdictText(product, lang)
+    (!isPlaceholderVerdict(liveVerdict) ? liveVerdict : "") || resolveVerdictText(product, lang)
   ).trim();
   const descriptionText = resolveDescriptionText(displayProduct, lang);
   const imageSet = resolveProductImages(displayProduct);
@@ -511,7 +587,8 @@ export default function DetailedProductView({
   const hasVideo = videoRenderType !== "none";
   const hasFeatureImages = imageSet.featureUrls.length > 0;
   const [activeMediaTab, setActiveMediaTab] = useState<"gallery" | "feature" | "video">("gallery");
-  const basicInfoSections = buildBasicInfoSections(displayProduct, lang);
+  const applicableAgeRange = resolveApplicableAgeRange(product, lang);
+  const basicInfoSections = buildBasicInfoSections(displayProduct, lang, applicableAgeRange);
 
   const getBackLabel = () => {
     if (lang === "zh") {
@@ -600,7 +677,12 @@ export default function DetailedProductView({
 
   const curatedContent = resolveCuratedDetailContent(displayProduct);
   const resourceDescription = resolveResourceDescription(detailResources);
-  const effectiveDescriptionText = curatedContent?.productDescription || descriptionText || resourceDescription;
+  const liveDescriptionProduct = {
+    ...product,
+    [lang]: { ...(product as any)?.[lang], description: lang === "zh" ? liveCmsLocalized.zh.description : liveCmsLocalized.en.description },
+  } as Product;
+  const liveDescriptionText = resolveDescriptionText(liveDescriptionProduct, lang);
+  const effectiveDescriptionText = liveDescriptionText || (lang === "en" ? curatedContent?.productDescription : "") || descriptionText || (lang === "en" ? resourceDescription : "");
 
   React.useEffect(() => {
     let disposed = false;
@@ -637,16 +719,25 @@ export default function DetailedProductView({
 
         if (!matched || disposed) return;
 
-        setLiveCmsVerdict({
-          zh: String(matched?.zh?.editorVerdict || "").trim(),
-          en: String(matched?.en?.editorVerdict || "").trim(),
+        setLiveCmsLocalized({
+          zh: {
+            description: String(matched?.zh?.description || "").trim(),
+            editorVerdict: String(matched?.zh?.editorVerdict || "").trim(),
+          },
+          en: {
+            description: String(matched?.en?.description || "").trim(),
+            editorVerdict: String(matched?.en?.editorVerdict || "").trim(),
+          },
         });
       } catch {
         // Ignore transient CMS fetch errors and keep local fallback text.
       }
     };
 
-    setLiveCmsVerdict({ zh: "", en: "" });
+    setLiveCmsLocalized({
+      zh: { description: "", editorVerdict: "" },
+      en: { description: "", editorVerdict: "" },
+    });
     void loadLatestCmsVerdict();
 
     return () => {
@@ -803,7 +894,7 @@ export default function DetailedProductView({
             onClick: onClose,
           },
           {
-            label: displayProduct.name,
+            label: displayTitle,
             active: true,
           }
         ]}
@@ -824,7 +915,7 @@ export default function DetailedProductView({
               {displayProduct.brand}
             </span>
           </div>
-          <h1 className="km-page-title text-slate-900">{displayProduct.name}</h1>
+          <h1 className="km-page-title text-slate-900">{displayTitle}</h1>
         </div>
         
         <div className="flex gap-3 items-center">
@@ -878,13 +969,13 @@ export default function DetailedProductView({
             <ProductCarousel 
               images={imageSet.allImageUrls.filter(Boolean)} 
               lang={lang}
-              productName={displayProduct.name}
+              productName={displayTitle}
             />
           ) : activeMediaTab === "feature" ? (
             <ProductCarousel 
               images={imageSet.featureUrls.filter(Boolean)} 
               lang={lang}
-              productName={displayProduct.name}
+              productName={displayTitle}
             />
           ) : (
             <div className="space-y-4">
@@ -893,7 +984,7 @@ export default function DetailedProductView({
                   <video
                     src={videoUrl}
                     className="w-full h-full rounded-2xl bg-black"
-                    title={`${product.name} Video`}
+                    title={`${displayTitle} Video`}
                     controls
                     playsInline
                     preload="metadata"
@@ -902,7 +993,7 @@ export default function DetailedProductView({
                   <iframe 
                     src={videoUrl} 
                     className="w-full h-full rounded-2xl"
-                    title={`${product.name} Video`}
+                    title={`${displayTitle} Video`}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                     allowFullScreen
                   />

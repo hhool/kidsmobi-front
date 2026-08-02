@@ -123,6 +123,8 @@ type PageCopy = {
       selectTire: string;
       brakeLabel: string;
       selectBrake: string;
+      wheelCountLabel: string;
+      selectWheelCount: string;
       wheelLabel: string;
       selectWheel: string;
       certificationLabel: string;
@@ -558,6 +560,8 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
         selectTire: "选择轮胎类型",
         brakeLabel: "制动系统",
         selectBrake: "选择制动系统",
+        wheelCountLabel: "轮子个数",
+        selectWheelCount: "选择轮子个数",
         wheelLabel: "轮径",
         selectWheel: "选择轮径",
         certificationLabel: "安全认证",
@@ -991,6 +995,8 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
         selectTire: "Select tire type",
         brakeLabel: "Brake",
         selectBrake: "Select braking system",
+        wheelCountLabel: "Wheel Count",
+        selectWheelCount: "Select wheel count",
         wheelLabel: "Wheel",
         selectWheel: "Select wheel size",
         certificationLabel: "Certification",

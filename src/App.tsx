@@ -35,7 +35,7 @@ import { ChildProfile, Product, ChatMessage, CMSSettings, Evaluation, CMSPageCon
 import { translations, translateProduct, translateNewsArticle, translateGuideArticle, countries, getCurrencyData } from "./lib/translate";
 import { formatWeight, formatHeight } from "./lib/units";
 import { resolveProductImages } from "./lib/productImages";
-import { getProductImageAlt, getProductsPageSeoTitle } from "./lib/productSeoText";
+import { getProductDisplayTitle, getProductImageAlt, getProductsPageSeoTitle } from "./lib/productSeoText";
 import { loadBatchProducts } from "./lib/loadBatchProducts";
 
 import SmartImage from "./components/common/SmartImage";
@@ -1758,7 +1758,7 @@ export default function App() {
       if (selectedProduct) {
         const name = selectedProduct.name;
         const brand = selectedProduct.brand;
-        const dedupedDisplayTitle = getProductsPageSeoTitle(selectedProduct);
+        const dedupedDisplayTitle = getProductDisplayTitle(selectedProduct, lang);
         const cat = selectedProduct.category;
 
         const title = lang === "zh"
@@ -1811,7 +1811,7 @@ export default function App() {
               {
                 "@type": "ListItem",
                 position: 3,
-                name: selectedProduct.name,
+                name: dedupedDisplayTitle,
                 item: canonicalUrl,
               },
             ],
@@ -1819,7 +1819,7 @@ export default function App() {
           {
             "@context": "https://schema.org",
             "@type": "Product",
-            name: selectedProduct.name,
+            name: dedupedDisplayTitle,
             brand: selectedProduct.brand,
             image: selectedProduct.imageUrl,
             url: canonicalUrl,
