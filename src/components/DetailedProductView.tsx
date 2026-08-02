@@ -1135,7 +1135,9 @@ export default function DetailedProductView({
                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                          {section.rows.map((row, index) => (
                            <div key={`${section.key}-${row.label}-${index}`} className="rounded-2xl bg-white border border-slate-100 p-3 space-y-1">
-                             <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{row.label}</p>
+                             {section.key !== "Features" && (
+                               <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{row.label}</p>
+                             )}
                              <p className="text-sm text-slate-700 font-semibold leading-relaxed break-words">{row.value}</p>
                            </div>
                          ))}

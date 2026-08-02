@@ -564,9 +564,18 @@ const safeStorageSet = (key: string, value: string): void => {
   }
 };
 
+const safeStorageRemove = (key: string): void => {
+  try {
+    window.localStorage.removeItem(key);
+  } catch {
+    // Ignore storage remove failures to avoid runtime crashes.
+  }
+};
+
 const COOKIE_CONSENT_KEY = "cookie_consent_v1";
 const COOKIE_PREFERENCES_KEY = "cookie_preferences_v1";
 type CookieConsentChoice = "all" | "essential" | "custom";
+const CMS_ENTRY_SNAPSHOT_KEY = "cms_entry_snapshot_v1";
 
 const isDevAdminBypassEnabled = (): boolean => {
   return safeStorageGet("dev_admin_bypass") === "true";
@@ -988,6 +997,55 @@ export default function App() {
     setCurrentPath(routeState.currentPath);
   };
 
+  const saveCmsEntrySnapshot = () => {
+    const path = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+    if (window.location.hash.startsWith("#cms")) {
+      return;
+    }
+    safeStorageSet(
+      CMS_ENTRY_SNAPSHOT_KEY,
+      JSON.stringify({
+        path,
+        scrollY: window.scrollY,
+        ts: Date.now(),
+      }),
+    );
+  };
+
+  const readCmsEntrySnapshot = (): { path: string; scrollY: number } | null => {
+    const raw = safeStorageGet(CMS_ENTRY_SNAPSHOT_KEY);
+    if (!raw) return null;
+    try {
+      const parsed = JSON.parse(raw) as { path?: unknown; scrollY?: unknown };
+      const path = String(parsed?.path || "").trim();
+      const scrollY = Number(parsed?.scrollY || 0);
+      if (!path || path.includes("#cms")) return null;
+      return {
+        path,
+        scrollY: Number.isFinite(scrollY) && scrollY >= 0 ? scrollY : 0,
+      };
+    } catch {
+      return null;
+    }
+  };
+
+  const clearCmsEntrySnapshot = () => {
+    safeStorageRemove(CMS_ENTRY_SNAPSHOT_KEY);
+  };
+
+  const restoreCmsEntrySnapshot = (snapshot: { path: string; scrollY: number }) => {
+    const parsedUrl = new URL(snapshot.path, window.location.origin);
+    const normalizedPath = normalizePathname(parsedUrl.pathname || "/");
+    const nextUrl = `${normalizedPath}${parsedUrl.search || ""}${parsedUrl.hash || ""}`;
+    window.history.replaceState(null, "", nextUrl);
+    syncRouteStateFromLocation();
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        window.scrollTo({ top: snapshot.scrollY, behavior: "auto" });
+      });
+    });
+  };
+
   const navigateToPath = (path: string, options?: { replace?: boolean; preserveScroll?: boolean }) => {
     const normalizedPath = normalizePathname(path);
     const shouldReplace = options?.replace ?? false;
@@ -1030,6 +1088,7 @@ export default function App() {
 
   const navigateToTab = (tabId: string) => {
     if (tabId === "admin") {
+      saveCmsEntrySnapshot();
       if (window.location.hash !== "#cms") {
         window.location.hash = "cms";
       } else {
@@ -1052,6 +1111,7 @@ export default function App() {
   };
 
   const openAdminProductEditor = (product: Product) => {
+    saveCmsEntrySnapshot();
     const productId = encodeURIComponent(String(product?.id || "").trim());
     const nextHash = productId ? `#cms?menu=products&productId=${productId}` : "#cms?menu=products";
 
@@ -1065,6 +1125,7 @@ export default function App() {
   };
 
   const openAdminGuideEditor = (guideId: string) => {
+    saveCmsEntrySnapshot();
     const safeGuideId = encodeURIComponent(String(guideId || "").trim());
     const nextHash = safeGuideId ? `#cms?menu=guides&guideId=${safeGuideId}` : "#cms?menu=guides";
 
@@ -1075,6 +1136,18 @@ export default function App() {
     }
 
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleCloseAdminPanel = () => {
+    const snapshot = readCmsEntrySnapshot();
+    clearCmsEntrySnapshot();
+
+    if (snapshot) {
+      restoreCmsEntrySnapshot(snapshot);
+      return;
+    }
+
+    navigateToPath("/products", { replace: true });
   };
 
   const rememberReturnView = (section: "news" | "guides") => {
@@ -3077,7 +3150,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
         {activeTab === "admin" && (
           <AdminPanel 
-            onClose={() => navigateToTab("home")} 
+            onClose={handleCloseAdminPanel}
             onRedirectAuth={() => navigateToTab("auth")}
             lang={lang}
             isAdmin={isAdmin}
