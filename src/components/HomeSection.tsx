@@ -265,11 +265,11 @@ export default function HomeSection({
     return homeCopy.runtimeLabels.categoryNames.featuredProduct;
   };
 
-  const resolveHomepageProductTitle = (product?: Product) => {
+  const resolveHomepageProductTitle = (product?: Product, forcedCategoryLabel?: string) => {
     if (!product) return homeCopy.runtimeLabels.evaluating;
     const localized = translateProduct(product, lang);
     const brand = String(localized.brand || product.brand || "").trim();
-    const categoryLabel = resolveHomepageCategoryLabel(product);
+    const categoryLabel = forcedCategoryLabel || resolveHomepageCategoryLabel(product);
     if (brand && categoryLabel) {
       return `${brand} ${categoryLabel}`.trim();
     }
@@ -611,23 +611,30 @@ export default function HomeSection({
 
   const kidsElectricCarProducts = useMemo(() => {
     const cars = homeVisualProducts.filter((product) => {
-      const searchable = normalizeCategory(`${product.category || ""} ${(product as any).categoryId || ""} ${product.name}`);
-      const isClassicTricycleOrBike = searchable.includes("tricycle") || searchable.includes("trike") || searchable.includes("kids_bikes") || (searchable.includes("bike") && !searchable.includes("electric"));
-      const isElectricMatched =
-        searchable.includes("electric_vehicles") ||
-        searchable.includes("electric_car") ||
-        searchable.includes("electric_vehicle") ||
-        searchable.includes("electric_toy") ||
-        searchable.includes("battery_powered") ||
-        searchable.includes("ev");
-      return isElectricMatched && !isClassicTricycleOrBike;
+      const normalizedCategoryId = normalizeCategory(String((product as any).categoryId || ""));
+      const normalizedCategory = normalizeCategory(String(product.category || ""));
+      const searchable = normalizeCategory(`${normalizedCategory} ${normalizedCategoryId} ${product.name || ""}`);
+
+      const isElectricCategory =
+        normalizedCategoryId === "electric_vehicles" ||
+        normalizedCategoryId === "electric_car" ||
+        normalizedCategory === "electric_car";
+
+      const hasScooterSignal = searchable.includes("scooter") || searchable.includes("scooters") || searchable.includes("kids_scooters");
+      const hasClassicTricycleOrBike =
+        searchable.includes("tricycle") ||
+        searchable.includes("trike") ||
+        searchable.includes("kids_bikes") ||
+        (searchable.includes("bike") && !searchable.includes("electric"));
+
+      return isElectricCategory && !hasScooterSignal && !hasClassicTricycleOrBike;
     });
     return [...cars].sort((a, b) => (b.overallScore || 0) - (a.overallScore || 0)).slice(0, 4);
   }, [homeVisualProducts]);
 
-  const renderProductCard = (p: Product, idx: number) => {
+  const renderProductCard = (p: Product, idx: number, forcedCategoryLabel?: string) => {
     const dp = translateProduct(p, lang);
-    const title = resolveHomepageProductTitle(p);
+    const title = resolveHomepageProductTitle(p, forcedCategoryLabel);
     const snapshot = resolveHomepageProductSummary(p);
     return (
        <div 
@@ -1040,7 +1047,7 @@ export default function HomeSection({
             </a>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {kidsScooterProducts.map((p, idx) => renderProductCard(p, idx + 3))}
+            {kidsScooterProducts.map((p, idx) => renderProductCard(p, idx + 3, homeCopy.runtimeLabels.categoryNames.kidsScooter))}
           </div>
         </div>
 
