@@ -570,17 +570,33 @@ export default function HomeSection({
 
   const kidsBikeProducts = useMemo(() => {
     const bikes = homeVisualProducts.filter((product) => {
-      const searchable = normalizeCategory(`${product.category || ""} ${(product as any).categoryId || ""} ${product.name}`);
-      const isBalance = searchable.includes("balance");
-      const isElectric =
+      const normalizedCategoryId = normalizeCategory(String((product as any).categoryId || ""));
+      const normalizedCategory = normalizeCategory(String(product.category || ""));
+      const searchable = normalizeCategory(`${normalizedCategory} ${normalizedCategoryId} ${product.name || ""}`);
+
+      const isKidsBikeCategory =
+        normalizedCategoryId === "kids_bikes" ||
+        normalizedCategoryId === "kids_bike" ||
+        normalizedCategory === "kids_bikes" ||
+        normalizedCategory === "bicycle";
+
+      const hasTricycleSignal = searchable.includes("tricycle") || searchable.includes("trike") || searchable.includes("kids_tricycles");
+      const hasBalanceSignal = searchable.includes("balance") || searchable.includes("balance_bike");
+      const hasElectricSignal =
         searchable.includes("electric_vehicles") ||
         searchable.includes("electric_car") ||
         searchable.includes("electric_vehicle") ||
         searchable.includes("electric_toy") ||
         searchable.includes("battery_powered") ||
         searchable.includes("ev");
-      const isBike = searchable.includes("bike") || searchable.includes("kids_bikes");
-      return isBike && !isBalance && !isElectric;
+      const hasOtherCategorySignal =
+        searchable.includes("scooter") ||
+        searchable.includes("scooters") ||
+        searchable.includes("stroller") ||
+        searchable.includes("jogger");
+
+      const hasBikeSignal = searchable.includes("kids_bikes") || searchable.includes("kids_bike") || searchable.includes("bike");
+      return (isKidsBikeCategory || hasBikeSignal) && !hasTricycleSignal && !hasBalanceSignal && !hasElectricSignal && !hasOtherCategorySignal;
     });
     return [...bikes].sort((a, b) => (b.overallScore || 0) - (a.overallScore || 0)).slice(0, 4);
   }, [homeVisualProducts]);
