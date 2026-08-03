@@ -44,7 +44,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
               {aboutCopy.heroBadge}
             </div>
             
-            <h1 className="km-page-title km-home-statement-title text-white drop-shadow-md">
+            <h1 className="km-page-title km-home-statement-title text-white max-w-5xl mx-auto drop-shadow-md">
               {aboutCopy.heroTitle}
             </h1>
             
@@ -199,7 +199,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             <div className="flex flex-col items-center gap-3">
                 <a
                   href="mailto:contact@balancebiketoddler.com"
-                  className="px-8 py-3 bg-slate-900 text-white rounded-2xl font-black text-sm hover:scale-105 transition-all shadow-xl shadow-slate-900/10"
+                  className="inline-flex items-center gap-3 px-10 py-5 bg-linear-to-r from-orange-500 via-orange-500 to-amber-500 text-white text-xs md:text-sm font-black uppercase tracking-widest rounded-full shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer"
                 >
                   {aboutCopy.contactCta}
                 </a>
@@ -257,7 +257,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             {aboutCopy.heroBadge}
           </div>
           
-          <h2 className="km-page-title text-white drop-shadow-md">
+          <h2 className="km-page-title km-home-statement-title text-white max-w-5xl mx-auto drop-shadow-md">
             {aboutCopy.heroTitle}
           </h2>
           
@@ -402,10 +402,10 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             {aboutCopy.partnershipDesc}
           </p>
           <div className="flex flex-col items-center gap-3">
-              <a
-                href="mailto:contact@balancebiketoddler.com"
-                className="px-8 py-3 bg-slate-900 text-white rounded-2xl font-black text-sm hover:scale-105 transition-all shadow-xl shadow-slate-900/10"
-              >
+                <a
+                  href="mailto:contact@balancebiketoddler.com"
+                  className="inline-flex items-center gap-3 px-10 py-5 bg-linear-to-r from-orange-500 via-orange-500 to-amber-500 text-white text-xs md:text-sm font-black uppercase tracking-widest rounded-full shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer"
+                >
                   {aboutCopy.contactCta}
               </a>
               <a

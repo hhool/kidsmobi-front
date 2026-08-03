@@ -1618,18 +1618,18 @@ export default function EvaluationsSection({
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(249,115,22,0.18),transparent)]"></div>
         
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1.25fr_0.75fr] gap-8 md:gap-12 items-center">
-          <div className="space-y-6">
+          <div className="space-y-10">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-500/15 border border-orange-500/30 text-orange-400 text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg backdrop-blur-md">
               <ShieldCheck className="w-4 h-4 text-orange-400" />
               {reviewsCopy.badge}
             </div>
 
-            <h1 className="km-page-title km-home-statement-title text-white max-w-3xl">
+            <h1 className="km-page-title km-home-statement-title text-white max-w-5xl drop-shadow-md">
               {reviewsCopy.heroTitle}
             </h1>
 
             <div className="border-l-2 border-orange-500 pl-4">
-              <p className="km-body-copy text-slate-200 text-sm md:text-base max-w-3xl font-semibold drop-shadow-sm">
+              <p className="km-body-copy text-slate-200 text-sm md:text-base max-w-3xl font-semibold drop-shadow-sm leading-relaxed">
                 {reviewsCopy.heroDescription}
               </p>
             </div>

@@ -606,22 +606,22 @@ export default function NewsSection({
               <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-emerald-500/10 rounded-full blur-[100px] animate-pulse delay-700"></div>
             </div>
 
-            <div className="relative z-10 space-y-8 w-full max-w-4xl">
+            <div className="relative z-10 space-y-10 w-full">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-500/15 border border-orange-500/30 text-orange-400 text-[10px] h-7 font-black uppercase tracking-widest rounded-full shadow-lg backdrop-blur-md">
                 <Globe className="w-4 h-4 text-orange-400" />
                 {newsCopy.heroBadge}
               </div>
               
-              <h1 className="km-page-title km-home-statement-title text-white drop-shadow-md">
+              <h1 className="km-page-title km-home-statement-title text-white max-w-5xl mx-auto drop-shadow-md">
                 {newsCopy.heroTitle}
               </h1>
               
-              <p className="km-body-copy text-slate-200 text-xs sm:text-sm md:text-base max-w-3xl mx-auto font-semibold drop-shadow-sm">
+              <p className="km-body-copy text-slate-200 text-sm md:text-base max-w-3xl mx-auto font-semibold drop-shadow-sm">
                 {newsCopy.heroSubtitle}
               </p>
 
               {/* Categorization dynamic tabs bar strictly in ordered layout */}
-              <div className="flex flex-wrap justify-center gap-3 pt-6 relative z-10">
+              <div className="flex flex-wrap justify-center gap-4 pt-4 border-t border-white/10 relative z-10">
                 {[
                   { id: "all", labelEn: newsCopy.categoryTabs.all, labelZh: newsCopy.categoryTabs.all, descEn: "", descZh: "" },
                   { id: "new_product", labelEn: newsCopy.categoryTabs.newProduct, labelZh: newsCopy.categoryTabs.newProduct, descEn: "", descZh: "" },
@@ -638,10 +638,10 @@ export default function NewsSection({
                         if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
                       }, 100);
                     }}
-                    className={`px-5 py-3 rounded-2xl text-xs font-black transition-all border outline-none cursor-pointer ${
+                    className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-[11px] font-black tracking-widest uppercase shadow-md transition-all cursor-pointer group backdrop-blur-md border outline-none ${
                       selectedCategory === c.id
-                        ? "bg-orange-500 text-white border-orange-400 shadow-lg shadow-orange-500/20 scale-105"
-                        : "bg-white/10 text-slate-200 hover:text-white border-white/15 hover:border-orange-500/30 backdrop-blur-md"
+                        ? "bg-white/20 border border-white/45 text-slate-100"
+                        : "bg-white/10 hover:bg-white/20 border border-white/25 text-slate-100 hover:border-white/45"
                     }`}
                   >
                     <span>{lang === "zh" ? c.labelZh : c.labelEn}</span>
