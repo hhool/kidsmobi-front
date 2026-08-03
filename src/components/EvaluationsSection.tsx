@@ -347,7 +347,8 @@ function stripBrandPrefix(text: string, brand: string) {
   const normalizedBrand = String(brand || "").trim();
   if (!normalizedText || !normalizedBrand) return normalizedText;
   const escapedBrand = normalizedBrand.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  return normalizedText.replace(new RegExp(`^${escapedBrand}\\s+`, "i"), "").trim();
+  const cleaned = normalizedText.replace(new RegExp(`^${escapedBrand}(?:\\s+|[-:|]+\\s*)`, "i"), "").trim();
+  return cleaned || normalizedText;
 }
 
 function compactModelSegment(name: string, lang: "zh" | "en") {
@@ -806,9 +807,9 @@ function buildGeneratedEvaluations(productsData: Product[]): Evaluation[] {
     ));
 
   const compareGroups = [
-    { products: strollerProducts.slice(0, 4), zh: "双人与慢大牌手推车横向评测", en: "Premium Stroller & Jogger Parent Compare" },
+    { products: strollerProducts.slice(0, 4), zh: "双人与慢跑手推车横向评测", en: "Premium Stroller & Jogger Parent Compare" },
     { products: balanceProducts.slice(0, 4), zh: "Balance Bike 高分车型横向评测", en: "Balance Bike Top Picks Compare" },
-    { products: bikeProducts.slice(0, 4), zh: "Kids Bike 安全与成长适配横向评测", en: "Kids Bike Parent Picks Compare" },
+    { products: bikeProducts.slice(0, 4), zh: "Kids Bike 安全与成长适配横向评测", en: "Toddler Bike Parent Picks Compare" },
     { products: scooterProducts.slice(0, 4), zh: "Kids Scooter 稳定性与便携横向评测", en: "Kids Scooter Parent Picks Compare" },
   ].filter((group) => group.products.length >= 3);
 
@@ -897,6 +898,19 @@ export default function EvaluationsSection({
   const [hoverLatest, setHoverLatest] = useState<boolean>(false);
   const [activeCompareTab, setActiveCompareTab] = useState<"stroller" | "balance" | "bike">("stroller");
 
+  const resolveProductByReference = (rawId?: string) => {
+    const normalized = String(rawId || "").trim().toLowerCase();
+    if (!normalized) return null;
+
+    return productsData.find((p) => {
+      const productId = String(p.id || "").trim().toLowerCase();
+      if (!productId) return false;
+      if (productId === normalized) return true;
+      const tail = productId.split("-").pop();
+      return tail === normalized;
+    }) || null;
+  };
+
   useEffect(() => {
     if (!selectedEvaluation) {
       clearJsonLd("evaluations-detail");
@@ -908,7 +922,7 @@ export default function EvaluationsSection({
     const isSingle = selectedEvaluation.type !== "compare" || !selectedEvaluation.productIds || selectedEvaluation.productIds.length <= 1;
 
     if (isSingle) {
-      const reviewedProduct = productsData.find((p) => p.id === selectedEvaluation.productId);
+      const reviewedProduct = resolveProductByReference(selectedEvaluation.productId);
       setJsonLd("evaluations-detail", {
         "@context": "https://schema.org",
         "@type": "Review",
@@ -968,12 +982,41 @@ export default function EvaluationsSection({
     const currentEvaluations = evaluationsData.filter((ev) => {
       if (ev.status !== "published" || generatedIds.has(ev.id)) return false;
       const ids = (ev.productIds && ev.productIds.length > 0 ? ev.productIds : [ev.productId]).filter(Boolean);
-      return ids.some((id) => {
-        const product = productsData.find((item) => item.id === id);
-        return product ? isFocusReviewProduct(product) : false;
-      });
+      return ids.some((id) => Boolean(resolveProductByReference(String(id))));
     });
-    return [...generatedEvaluations, ...currentEvaluations].map((ev) => {
+
+    const singleKeysFromCurrent = new Set<string>();
+    const compareKeysFromCurrent = new Set<string>();
+
+    for (const ev of currentEvaluations) {
+      const ids = (ev.productIds && ev.productIds.length > 0 ? ev.productIds : [ev.productId])
+        .filter(Boolean)
+        .map((id) => String(id));
+      if (ev.type === "compare" && ids.length > 1) {
+        const normalizedIds = ids
+          .map((id) => resolveProductByReference(id)?.id || id)
+          .sort();
+        compareKeysFromCurrent.add(normalizedIds.join("|"));
+      } else if (ids[0]) {
+        singleKeysFromCurrent.add(resolveProductByReference(ids[0])?.id || ids[0]);
+      }
+    }
+
+    const filteredGenerated = generatedEvaluations.filter((ev) => {
+      const ids = (ev.productIds && ev.productIds.length > 0 ? ev.productIds : [ev.productId])
+        .filter(Boolean)
+        .map((id) => String(id));
+      if (ev.type === "compare" && ids.length > 1) {
+        const normalizedIds = ids
+          .map((id) => resolveProductByReference(id)?.id || id)
+          .sort();
+        return !compareKeysFromCurrent.has(normalizedIds.join("|"));
+      }
+      const singleKey = ids[0] ? (resolveProductByReference(ids[0])?.id || ids[0]) : "";
+      return !(singleKey && singleKeysFromCurrent.has(singleKey));
+    });
+
+    return [...currentEvaluations, ...filteredGenerated].map((ev) => {
       let badge = reviewsCopy.reportBadges.report;
       if (ev.type === "compare") badge = reviewsCopy.reportBadges.comparison;
       if (ev.type === "value") badge = reviewsCopy.reportBadges.valuePick;
@@ -988,6 +1031,44 @@ export default function EvaluationsSection({
       };
     });
   }, [evaluationsData, lang, productsData, reviewsCopy.reportBadges]);
+
+  const reviewModeCopy = useMemo(() => {
+    return lang === "zh"
+      ? {
+          single: "单品评测",
+          multi: "多品横评",
+          singleHint: "聚焦 1 个产品",
+          multiHint: "同场对比 2+ 产品",
+          multiCountSuffix: "品对比",
+        }
+      : {
+          single: "Single Review",
+          multi: "Multi Compare",
+          singleHint: "Focused on 1 product",
+          multiHint: "Head-to-head across 2+ products",
+          multiCountSuffix: "products compared",
+        };
+  }, [lang]);
+
+  const isMultiEvaluation = (ev: Evaluation) => {
+    return ev.type === "compare" && (ev.productIds?.length || 0) > 1;
+  };
+
+  const getReviewModeLabel = (ev: Evaluation) => {
+    return isMultiEvaluation(ev) ? reviewModeCopy.multi : reviewModeCopy.single;
+  };
+
+  const getReviewModeMeta = (ev: Evaluation) => {
+    if (isMultiEvaluation(ev)) {
+      const count = ev.productIds?.length || 2;
+      return lang === "zh"
+        ? `${count}${reviewModeCopy.multiCountSuffix}`
+        : `${count} ${reviewModeCopy.multiCountSuffix}`;
+    }
+    return reviewModeCopy.singleHint;
+  };
+
+  const displayMode = selectedReviewType === "single" ? "single" : "compare";
 
   const filteredReviews = useMemo(() => {
     const scoped = reviewsList.filter((r: any) => {
@@ -1069,7 +1150,7 @@ export default function EvaluationsSection({
     const ids = (ev.productIds && ev.productIds.length > 0 ? ev.productIds : [ev.productId]).filter(Boolean);
     if (ids.length === 0) return 2;
     const priorities = ids
-      .map((id) => productsData.find((p) => p.id === id))
+      .map((id) => resolveProductByReference(String(id)))
       .filter(Boolean)
       .map((p) => getCategoryPriority((p as Product).category));
     return priorities.length > 0 ? Math.min(...priorities) : 2;
@@ -1090,7 +1171,7 @@ export default function EvaluationsSection({
     return prioritizedReviews.map(r => {
       const isSingle = r.reviewType !== "compare";
       if (isSingle) {
-        const product = productsData.find(p => p.id === r.evaluation.productId);
+        const product = resolveProductByReference(r.evaluation.productId);
         return {
           type: "single" as const,
           evaluation: r.evaluation,
@@ -1099,7 +1180,7 @@ export default function EvaluationsSection({
         };
       } else {
         const products = (r.evaluation.productIds || [])
-          .map(id => productsData.find(p => p.id === id))
+          .map(id => resolveProductByReference(String(id)))
           .filter(Boolean) as Product[];
         return {
           type: "multi" as const,
@@ -1122,45 +1203,20 @@ export default function EvaluationsSection({
     matcher: (value: string) => boolean,
     includeCompare = true
   ) => {
-    const seenSingleIds = new Set<string>();
-    const seenDisplayKeys = new Set<string>();
+    if (!includeCompare) return [];
 
-    const compare = includeCompare ? renderList.find((item: any) => {
+    const compareOnly = renderList.filter((item: any) => {
       if (item.type !== "multi" || !item.products || item.products.length < 2) return false;
       return item.products.every((product: any) => matcher(normalizeCategoryText(product)));
-    }) : null;
-
-    if (compare && compare.products) {
-      compare.products.forEach((p: any) => {
-        if (p && p.id) {
-          seenSingleIds.add(p.id);
-          const brandEn = cleanEnBrandText(p.brand || "").toLowerCase();
-          const nameStr = sanitizeMarketplaceNoise(p.name || "").toLowerCase();
-          const firstTwoWords = nameStr.split(/\s+/).slice(0, 2).join(" ");
-          seenDisplayKeys.add(`${brandEn}:${firstTwoWords}`);
-        }
-      });
-    }
-
-    const singles = renderList.filter((item: any) => {
-      if (item.type !== "single" || !item.product) return false;
-      const categoryText = normalizeCategoryText(item.product);
-      if (!matcher(categoryText)) return false;
-      if (seenSingleIds.has(item.product.id)) return false;
-
-      const brandEn = cleanEnBrandText(item.product.brand || "").toLowerCase();
-      const nameStr = sanitizeMarketplaceNoise(item.product.name || "").toLowerCase();
-      const firstTwoWords = nameStr.split(/\s+/).slice(0, 2).join(" ");
-      const displayKey = `${brandEn}:${firstTwoWords}`;
-
-      if (seenDisplayKeys.has(displayKey)) return false;
-
-      seenSingleIds.add(item.product.id);
-      seenDisplayKeys.add(displayKey);
-      return true;
     });
 
-    return compare ? [compare, ...singles] : singles;
+    if (compareOnly.length <= 1) return compareOnly;
+
+    return [...compareOnly].sort((a: any, b: any) => {
+      const scoreA = a?.evaluation?.scores?.safety || 0;
+      const scoreB = b?.evaluation?.scores?.safety || 0;
+      return scoreB - scoreA;
+    });
   };
 
   const doubleStrollerFloorReviews = useMemo(() => {
@@ -1214,6 +1270,102 @@ export default function EvaluationsSection({
     return buildFloorList((value) => value.includes("electric") || value.includes("car") || value.includes("vehicle"), true);
   }, [renderList]);
 
+  const cmsSingleReviews = useMemo(() => {
+    const dedupeSingles = (list: any[]) => {
+      const seenProductIds = new Set<string>();
+      const seenDisplayKeys = new Set<string>();
+      return list.filter((item: any) => {
+        const product = item?.product;
+        if (!product) return false;
+
+        const productId = String(product.id || "").trim();
+        const brandKey = cleanEnBrandText(String(product.brand || "")).toLowerCase();
+        const nameKey = sanitizeMarketplaceNoise(String(product.name || "")).toLowerCase();
+        const displayKey = `${brandKey}:${nameKey}`;
+
+        if (productId && seenProductIds.has(productId)) return false;
+        if (seenDisplayKeys.has(displayKey)) return false;
+
+        if (productId) seenProductIds.add(productId);
+        seenDisplayKeys.add(displayKey);
+        return true;
+      });
+    };
+
+    const singlePool = renderList.filter((item: any) => item.type === "single" && item.product);
+    const cmsSingles = singlePool.filter((item: any) => String(item.evaluation?.id || "").startsWith("eval-"));
+    return cmsSingles.length > 0 ? dedupeSingles(cmsSingles) : dedupeSingles(singlePool);
+  }, [renderList]);
+
+  const resolveSingleReviewGroup = (item: any) => {
+    const categoryValue = normalizeCategoryText(item.product);
+    const signalText = `${item?.evaluation?.id || ""} ${item?.evaluation?.en?.title || ""} ${item?.evaluation?.zh?.title || ""}`.toLowerCase();
+
+    const isElectric =
+      categoryValue.includes("electric") ||
+      categoryValue.includes("car") ||
+      categoryValue.includes("vehicle") ||
+      signalText.includes("electric") ||
+      signalText.includes("电动");
+    if (isElectric) return "electric";
+
+    const isBalance =
+      isBalanceLike(categoryValue) ||
+      signalText.includes("balance bike") ||
+      signalText.includes("balance_bike") ||
+      signalText.includes("平衡车");
+    if (isBalance) return "balance";
+
+    const isScooter =
+      isScooterLike(categoryValue) ||
+      signalText.includes("scooter") ||
+      signalText.includes("滑板车");
+    if (isScooter) return "scooter";
+
+    const isBike =
+      (isBikeLike(categoryValue) ||
+        signalText.includes("kids bike") ||
+        signalText.includes("bicycle") ||
+        signalText.includes("kids_bikes") ||
+        signalText.includes("自行车")) &&
+      !isBalance;
+    if (isBike) return "bike";
+
+    const isStroller =
+      isStrollerLike(categoryValue) ||
+      signalText.includes("stroller") ||
+      signalText.includes("jogger") ||
+      signalText.includes("jogging") ||
+      signalText.includes("推车") ||
+      signalText.includes("婴儿车");
+    if (isStroller) return "stroller";
+
+    return "other";
+  };
+
+  const singleStrollerReviews = useMemo(() => {
+    return cmsSingleReviews.filter((item: any) => resolveSingleReviewGroup(item) === "stroller");
+  }, [cmsSingleReviews]);
+
+  const singleBalanceReviews = useMemo(() => {
+    return cmsSingleReviews.filter((item: any) => resolveSingleReviewGroup(item) === "balance");
+  }, [cmsSingleReviews]);
+
+  const singleBikeReviews = useMemo(() => {
+    return cmsSingleReviews.filter((item: any) => resolveSingleReviewGroup(item) === "bike");
+  }, [cmsSingleReviews]);
+
+  const singleScooterReviews = useMemo(() => {
+    return cmsSingleReviews.filter((item: any) => resolveSingleReviewGroup(item) === "scooter");
+  }, [cmsSingleReviews]);
+
+  const singleOtherReviews = useMemo(() => {
+    return cmsSingleReviews.filter((item: any) => {
+      const group = resolveSingleReviewGroup(item);
+      return group === "other" || group === "electric";
+    });
+  }, [cmsSingleReviews]);
+
   const pageSize = 6;
   const totalPages = Math.max(1, Math.ceil(renderList.length / pageSize));
   const safePage = Math.min(Math.max(1, currentPage), totalPages);
@@ -1243,11 +1395,19 @@ export default function EvaluationsSection({
     (selectedEvaluation.type !== "compare" || !selectedEvaluation.productIds || selectedEvaluation.productIds.length <= 1);
 
   if (selectedEvaluation && isSelectedSingle) {
-    const reviewedProduct = productsData.find((p) => p.id === selectedEvaluation.productId || selectedEvaluation.productIds?.includes(p.id));
+    const reviewedProduct =
+      resolveProductByReference(selectedEvaluation.productId) ||
+      (selectedEvaluation.productIds || [])
+        .map((id) => resolveProductByReference(String(id)))
+        .find(Boolean) ||
+      null;
     const tEv = lang === "zh" ? selectedEvaluation.zh : selectedEvaluation.en;
     const selectedTypeLabel = getReviewTypeLabel(selectedEvaluation.type);
     const productDisplay = reviewedProduct ? translateProduct(reviewedProduct, lang) : null;
     const imageSet = reviewedProduct ? resolveProductImages(reviewedProduct) : null;
+    const detailBrandLabel = lang === "en" ? cleanEnBrandText(productDisplay?.brand || "") : String(productDisplay?.brand || "");
+    const detailProductTitleRaw = reviewedProduct ? sanitizeMarketplaceNoise(getProductsPageSeoTitle(reviewedProduct)) : sanitizeMarketplaceNoise(String(productDisplay?.name || ""));
+    const detailProductTitle = stripBrandPrefix(detailProductTitleRaw, detailBrandLabel);
 
     const displayDetailVerdict = reviewedProduct
       ? getLocalizedReviewVerdict(reviewedProduct, selectedEvaluation, lang)
@@ -1295,8 +1455,8 @@ export default function EvaluationsSection({
                   priority
                 />
                 <div className="text-center mt-4">
-                  <p className="text-[10px] uppercase font-black text-slate-400 tracking-widest">{lang === "en" ? cleanEnBrandText(productDisplay?.brand || "") : productDisplay?.brand}</p>
-                  <h2 className="font-black text-slate-900 text-xl leading-tight mt-1">{reviewedProduct ? sanitizeMarketplaceNoise(getProductsPageSeoTitle(reviewedProduct)) : sanitizeMarketplaceNoise(String(productDisplay?.name || ""))}</h2>
+                  <p className="text-[10px] uppercase font-black text-slate-400 tracking-widest">{detailBrandLabel}</p>
+                  <h2 className="font-black text-slate-900 text-xl leading-tight mt-1">{detailProductTitle}</h2>
                 </div>
               </div>
             )}
@@ -1376,7 +1536,7 @@ export default function EvaluationsSection({
               {reviewsCopy.badge}
             </div>
 
-            <h1 className="km-page-title text-white max-w-3xl">
+            <h1 className="km-page-title km-home-statement-title text-white max-w-3xl">
               {reviewsCopy.heroTitle}
             </h1>
 
@@ -1386,28 +1546,29 @@ export default function EvaluationsSection({
               </p>
             </div>
 
-            {/* Keyword Pills aligned to anchors */}
             <div className="flex flex-wrap gap-2 pt-2">
-              {[
-                { label: reviewsCopy.keywordPills.travelStroller, anchor: "kids-stroller" },
-                { label: reviewsCopy.keywordPills.joggingStroller, anchor: "kids-stroller" },
-                { label: reviewsCopy.keywordPills.balanceBike, anchor: "balance-bike" },
-                { label: reviewsCopy.keywordPills.kidsBike, anchor: "kids-bike" },
-                { label: reviewsCopy.keywordPills.kidsScooter, anchor: "kids-scooter" },
-                { label: reviewsCopy.keywordPills.kidsElectricCar, anchor: "kids-electric-car" }
-              ].map((tag, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => {
-                    const el = document.getElementById(tag.anchor);
-                    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                  }}
-                  className="px-3.5 py-1.5 bg-white/5 hover:bg-white/12 border border-white/10 hover:border-orange-500 text-[10px] font-extrabold text-slate-300 hover:text-orange-400 rounded-full transition-all cursor-pointer"
-                >
-                  {tag.label}
-                </button>
-              ))}
+              <button
+                type="button"
+                onClick={() => {
+                  handleReviewTypeSelect("single");
+                  const el = document.getElementById("single-reviews");
+                  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+                className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-black tracking-wider uppercase transition-colors ${displayMode === "single" ? "border border-emerald-300 bg-emerald-500/15 text-emerald-300" : "border border-emerald-400/40 bg-transparent text-emerald-200 hover:bg-emerald-500/10"}`}
+              >
+                {reviewModeCopy.single}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  handleReviewTypeSelect("compare");
+                  const el = document.getElementById("kids-stroller");
+                  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+                className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-black tracking-wider uppercase transition-colors ${displayMode === "compare" ? "border border-sky-300 bg-sky-500/15 text-sky-300" : "border border-sky-400/40 bg-transparent text-sky-200 hover:bg-sky-500/10"}`}
+              >
+                {reviewModeCopy.multi}
+              </button>
             </div>
           </div>
 
@@ -1443,7 +1604,7 @@ export default function EvaluationsSection({
         
         
         {/* FLOOR 5: KIDS STROLLERS */}
-        <section id="kids-stroller" className="scroll-mt-24 space-y-8">
+        <section id="kids-stroller" className={`scroll-mt-24 space-y-8 ${displayMode === "single" ? "hidden" : ""}`}>
           <div className="border-b border-slate-100 pb-4">
             <h2 className="km-section-title text-slate-900">
               {reviewsCopy.sections.strollerTitle}
@@ -1481,12 +1642,17 @@ export default function EvaluationsSection({
                   </div>
                   <div className="flex flex-col justify-between flex-1 py-1">
                     <div className="space-y-2">
-                       <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
-                      <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">{evLang.title}</h3>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black tracking-wider uppercase border ${isMultiEvaluation(ev) ? "text-sky-600 border-sky-200 bg-sky-50" : "text-emerald-600 border-emerald-200 bg-emerald-50"}`}>
+                          {getReviewModeLabel(ev)}
+                        </span>
+                      </div>
+                      <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">{stripBrandPrefix(evLang.title, String(dp.brand || "")) || evLang.title}</h3>
                       <p className="km-heading-copy km-body-copy text-[11px] text-slate-400 font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{reviewsCopy.cta.stroller}</span>
+                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{getReviewModeMeta(ev)}</span>
                       {ev.scores?.safety && (
                         <div className="flex items-center gap-1">
                           <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
@@ -1502,7 +1668,7 @@ export default function EvaluationsSection({
         </section>
 
         {/* FLOOR 3: KIDS BIKES */}
-        <section id="kids-bike" className="scroll-mt-24 space-y-8">
+        <section id="kids-bike" className={`scroll-mt-24 space-y-8 ${displayMode === "single" ? "hidden" : ""}`}>
           <div className="border-b border-slate-100 pb-4">
             <h2 className="km-section-title text-slate-900">
               {reviewsCopy.sections.bikeTitle}
@@ -1540,12 +1706,17 @@ export default function EvaluationsSection({
                   </div>
                   <div className="flex flex-col justify-between flex-1 py-1">
                     <div className="space-y-2">
-                       <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
-                      <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">{evLang.title}</h3>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black tracking-wider uppercase border ${isMultiEvaluation(ev) ? "text-sky-600 border-sky-200 bg-sky-50" : "text-emerald-600 border-emerald-200 bg-emerald-50"}`}>
+                          {getReviewModeLabel(ev)}
+                        </span>
+                      </div>
+                      <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">{stripBrandPrefix(evLang.title, String(dp.brand || "")) || evLang.title}</h3>
                       <p className="km-heading-copy km-body-copy text-[11px] text-slate-400 font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{reviewsCopy.cta.bike}</span>
+                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{getReviewModeMeta(ev)}</span>
                       {ev.scores?.safety && (
                         <div className="flex items-center gap-1">
                           <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
@@ -1561,7 +1732,7 @@ export default function EvaluationsSection({
         </section>
 
         {/* FLOOR 2: BALANCE BIKES */}
-        <section id="balance-bike" className="scroll-mt-24 space-y-8">
+        <section id="balance-bike" className={`scroll-mt-24 space-y-8 ${displayMode === "single" ? "hidden" : ""}`}>
           <div className="border-b border-slate-100 pb-4">
             <h2 className="km-section-title text-slate-900">
               {reviewsCopy.sections.balanceTitle}
@@ -1599,12 +1770,17 @@ export default function EvaluationsSection({
                   </div>
                   <div className="flex flex-col justify-between flex-1 py-1">
                     <div className="space-y-2">
-                       <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
-                      <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">{evLang.title}</h3>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black tracking-wider uppercase border ${isMultiEvaluation(ev) ? "text-sky-600 border-sky-200 bg-sky-50" : "text-emerald-600 border-emerald-200 bg-emerald-50"}`}>
+                          {getReviewModeLabel(ev)}
+                        </span>
+                      </div>
+                      <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">{stripBrandPrefix(evLang.title, String(dp.brand || "")) || evLang.title}</h3>
                       <p className="km-heading-copy km-body-copy text-[11px] text-slate-400 font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{reviewsCopy.cta.balance}</span>
+                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{getReviewModeMeta(ev)}</span>
                       {ev.scores?.safety && (
                         <div className="flex items-center gap-1">
                           <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
@@ -1620,7 +1796,7 @@ export default function EvaluationsSection({
         </section>
 
         {/* FLOOR 4: KIDS SCOOTERS */}
-        <section id="kids-scooter" className="scroll-mt-24 space-y-8">
+        <section id="kids-scooter" className={`scroll-mt-24 space-y-8 ${displayMode === "single" ? "hidden" : ""}`}>
           <div className="border-b border-slate-100 pb-4">
             <h2 className="km-section-title text-slate-900">
               {reviewsCopy.sections.scooterTitle}
@@ -1658,12 +1834,17 @@ export default function EvaluationsSection({
                   </div>
                   <div className="flex flex-col justify-between flex-1 py-1">
                     <div className="space-y-2">
-                       <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
-                      <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">{evLang.title}</h3>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black tracking-wider uppercase border ${isMultiEvaluation(ev) ? "text-sky-600 border-sky-200 bg-sky-50" : "text-emerald-600 border-emerald-200 bg-emerald-50"}`}>
+                          {getReviewModeLabel(ev)}
+                        </span>
+                      </div>
+                      <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">{stripBrandPrefix(evLang.title, String(dp.brand || "")) || evLang.title}</h3>
                       <p className="km-heading-copy km-body-copy text-[11px] text-slate-400 font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                     </div>
                     <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{reviewsCopy.cta.scooter}</span>
+                      <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{getReviewModeMeta(ev)}</span>
                       {ev.scores?.safety && (
                         <div className="flex items-center gap-1">
                           <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
@@ -1679,7 +1860,7 @@ export default function EvaluationsSection({
         </section>
 
         {/* FLOOR 6: KIDS ELECTRIC CAR */}
-        <section id="kids-electric-car" className="scroll-mt-24 space-y-8">
+        <section id="kids-electric-car" className={`scroll-mt-24 space-y-8 ${displayMode === "single" ? "hidden" : ""}`}>
           <div className="border-b border-slate-100 pb-4">
             <h2 className="km-section-title text-slate-900">
               {reviewsCopy.sections.electricTitle}
@@ -1720,12 +1901,17 @@ export default function EvaluationsSection({
                     </div>
                     <div className="flex flex-col justify-between flex-1 py-1">
                       <div className="space-y-2">
-                         <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
-                        <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">{evLang.title}</h3>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
+                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black tracking-wider uppercase border ${isMultiEvaluation(ev) ? "text-sky-600 border-sky-200 bg-sky-50" : "text-emerald-600 border-emerald-200 bg-emerald-50"}`}>
+                            {getReviewModeLabel(ev)}
+                          </span>
+                        </div>
+                        <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">{stripBrandPrefix(evLang.title, String(dp.brand || "")) || evLang.title}</h3>
                         <p className="km-heading-copy km-body-copy text-[11px] text-slate-400 font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
                       </div>
                       <div className="flex justify-between items-center pt-4 border-t border-slate-50">
-                        <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{reviewsCopy.cta.product}</span>
+                        <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{getReviewModeMeta(ev)}</span>
                         {ev.scores?.safety && (
                           <div className="flex items-center gap-1">
                             <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
@@ -1737,6 +1923,105 @@ export default function EvaluationsSection({
                   </div>
                 );
               })}
+            </div>
+          )}
+        </section>
+
+        <section id="single-reviews" className={`scroll-mt-24 space-y-12 ${displayMode === "single" ? "" : "hidden"}`}>
+
+          {cmsSingleReviews.length === 0 ? (
+            <p className="text-slate-400 text-sm italic">{lang === "zh" ? "暂无可展示的单品评测。" : "No publishable single reviews yet."}</p>
+          ) : (
+            <div className="space-y-12">
+              {[
+                { id: "single-stroller", title: reviewsCopy.sections.strollerTitle, desc: reviewsCopy.sections.strollerDesc, items: singleStrollerReviews },
+                {
+                  id: "single-bike",
+                  title: lang === "zh" ? reviewsCopy.sections.bikeTitle : "Kids Bike Reviews",
+                  desc: reviewsCopy.sections.bikeDesc,
+                  items: singleBikeReviews,
+                },
+                {
+                  id: "single-balance",
+                  title: lang === "zh" ? reviewsCopy.sections.balanceTitle : "Balance Bike Reviews",
+                  desc: reviewsCopy.sections.balanceDesc,
+                  items: singleBalanceReviews,
+                },
+                { id: "single-scooter", title: reviewsCopy.sections.scooterTitle, desc: reviewsCopy.sections.scooterDesc, items: singleScooterReviews },
+                {
+                  id: "single-other",
+                  title: lang === "zh" ? "其他品类单品评测" : "Other Category Single Reviews",
+                  desc: lang === "zh" ? "展示未归入核心五大品类的单品评测内容。" : "Single reviews outside the five primary category groups.",
+                  items: singleOtherReviews,
+                },
+              ]
+                .filter((group) => group.id !== "single-other" || group.items.length > 0)
+                .map((group) => (
+                <section key={group.id} className="space-y-8">
+                  <div className="border-b border-slate-100 pb-4">
+                    <h3 className="km-section-title text-slate-900">{group.title}</h3>
+                    <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium">{group.desc}</p>
+                  </div>
+
+                  {group.items.length === 0 ? (
+                    <p className="text-slate-400 text-sm italic">
+                      {lang === "zh" ? "当前分组暂无单品评测条目。" : "No single-review entries in this category yet."}
+                    </p>
+                  ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {group.items.slice(0, 3).map((item: any) => {
+                      const ev = item.evaluation;
+                      const product = item.product;
+                      if (!product) return null;
+                      const dp = translateProduct(product, lang);
+                      const evLang = {
+                        title: getLocalizedReviewTitle(product, ev, lang, reviewsCopy.detailTitleSuffix),
+                        verdict: getLocalizedReviewVerdict(product, ev, lang)
+                      };
+                      const imageSet = resolveProductImages(product);
+
+                      return (
+                        <div
+                          key={`single-${group.id}-${ev.id}`}
+                          onClick={() => openEvaluationDetail(ev)}
+                          className="bg-white border border-slate-100 rounded-[36px] p-6 hover:shadow-xl transition-all duration-300 flex flex-col md:flex-row gap-6 cursor-pointer group"
+                        >
+                          <div className="md:w-2/5 h-44 bg-slate-50 rounded-2xl p-4 flex items-center justify-center overflow-hidden shrink-0">
+                            <SmartImage
+                              src={imageSet.coverUrl || undefined}
+                              alt={`${dp.brand} ${dp.name} Review`}
+                              className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                              wrapperClassName="w-full h-full"
+                            />
+                          </div>
+                          <div className="flex flex-col justify-between flex-1 py-1">
+                            <div className="space-y-2">
+                              <div className="flex flex-wrap items-center gap-2">
+                                <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
+                                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black tracking-wider uppercase border text-emerald-600 border-emerald-200 bg-emerald-50">
+                                  {reviewModeCopy.single}
+                                </span>
+                              </div>
+                              <h4 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">{stripBrandPrefix(evLang.title, String(dp.brand || "")) || evLang.title}</h4>
+                              <p className="km-heading-copy km-body-copy text-[11px] text-slate-400 font-semibold">“{clampSummaryForDisplay(evLang.verdict, 180)}”</p>
+                            </div>
+                            <div className="flex justify-between items-center pt-4 border-t border-slate-50">
+                              <span className="text-[10px] text-slate-400 font-black uppercase hover:text-orange-500 transition-colors">{reviewModeCopy.singleHint}</span>
+                              {ev.scores?.safety && (
+                                <div className="flex items-center gap-1">
+                                  <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
+                                  <span className="text-[11px] font-black text-slate-800">{ev.scores.safety.toFixed(1)}</span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  )}
+                </section>
+              ))}
             </div>
           )}
         </section>

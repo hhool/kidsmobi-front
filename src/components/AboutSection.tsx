@@ -44,7 +44,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
               {aboutCopy.heroBadge}
             </div>
             
-            <h1 className="km-page-title text-white drop-shadow-md">
+            <h1 className="km-page-title km-home-statement-title text-white drop-shadow-md">
               {aboutCopy.heroTitle}
             </h1>
             

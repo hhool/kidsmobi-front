@@ -210,24 +210,34 @@ const GlobalNews: React.FC = () => {
                 type="button"
                 onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                 disabled={currentPage <= 1}
-                className="w-9 h-9 rounded-xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center cursor-pointer hover:bg-slate-50 relative"
+                className="w-10 h-10 rounded-2xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center cursor-pointer hover:bg-slate-50"
                 aria-label="Previous page"
               >
-                <svg aria-hidden="true" viewBox="0 0 20 20" className="w-4 h-4 relative" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg aria-hidden="true" viewBox="0 0 20 20" className="w-4 h-4" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12.5 4.5L7 10L12.5 15.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
-              <span className="text-xs font-bold text-slate-500">
-                Page {currentPage} of {totalPages}
-              </span>
+              <div
+                className="w-24 h-2 rounded-full bg-slate-100 overflow-hidden"
+                role="progressbar"
+                aria-valuemin={1}
+                aria-valuemax={totalPages}
+                aria-valuenow={currentPage}
+                aria-label={`Page ${currentPage} of ${totalPages}`}
+              >
+                <div
+                  className="h-full bg-slate-900 rounded-full transition-all"
+                  style={{ width: `${Math.max(8, (currentPage / totalPages) * 100)}%` }}
+                />
+              </div>
               <button
                 type="button"
                 onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                 disabled={currentPage >= totalPages}
-                className="w-9 h-9 rounded-xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center cursor-pointer hover:bg-slate-50 relative"
+                className="w-10 h-10 rounded-2xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center cursor-pointer hover:bg-slate-50"
                 aria-label="Next page"
               >
-                <svg aria-hidden="true" viewBox="0 0 20 20" className="w-4 h-4 relative" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg aria-hidden="true" viewBox="0 0 20 20" className="w-4 h-4" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M7.5 4.5L13 10L7.5 15.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>

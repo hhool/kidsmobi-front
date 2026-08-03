@@ -148,7 +148,9 @@ export default function MatchingWizard({
                 {lang === "zh" ? "智能匹配向导" : "Smart Match Wizard"}
               </h3>
               <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">
-                {lang === "zh" ? `第 ${step === "results" ? 4 : step === "age" ? 1 : step === "environment" ? 2 : 3} 步` : `Step ${step === "results" ? 4 : step === "age" ? 1 : step === "environment" ? 2 : 3}`} of 4
+                {lang === "zh"
+                  ? (step === "results" ? "阶段：匹配结果" : "阶段：需求设定")
+                  : (step === "results" ? "Phase: Match Results" : "Phase: Preference Setup")}
               </p>
             </div>
           </div>

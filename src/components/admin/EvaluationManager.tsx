@@ -306,6 +306,20 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
   const [formData, setFormData] = useState<Evaluation>(ev);
   const [activeTab, setActiveTab] = useState<"base" | "zh" | "en">("base");
 
+  const updateLocalizedReviewField = (field: "title" | "verdict" | "changelog" | "pros" | "cons", value: string | string[]) => {
+    const next = { ...formData };
+    const currentLocale = { ...((next as any)[activeTab] || {}) };
+    (next as any)[activeTab] = {
+      ...currentLocale,
+      [field]: value,
+    };
+    setFormData(next);
+  };
+
+  const localizedPros = activeTab === "zh" ? (formData.zh?.pros || []) : (formData.en?.pros || []);
+  const localizedCons = activeTab === "zh" ? (formData.zh?.cons || []) : (formData.en?.cons || []);
+  const reviewInsightLabel = lang === "zh" ? "评测室综合洞察" : "Review Lab Insight";
+
   const saveWithStatus = (status: Evaluation["status"]) => {
     onSave({ ...formData, status });
   };
@@ -510,8 +524,8 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
           {/* Main Preview/Content */}
           <div className="flex-1 p-10 bg-slate-50/30 overflow-y-auto">
             <div className="flex bg-white p-1 rounded-2xl mb-10 w-fit border border-slate-100 shadow-sm">
-               <TabBtn active={activeTab === "zh"} onClick={() => setActiveTab("zh")} label="ZH Metrics" />
-               <TabBtn active={activeTab === "en"} onClick={() => setActiveTab("en")} label="EN Metrics" />
+              <TabBtn active={activeTab === "zh"} onClick={() => setActiveTab("zh")} label={lang === "zh" ? "中文内容" : "ZH Content"} />
+              <TabBtn active={activeTab === "en"} onClick={() => setActiveTab("en")} label={lang === "zh" ? "英文内容" : "EN Content"} />
             </div>
 
             <div className="grid grid-cols-1 gap-10">
@@ -520,36 +534,39 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
               </div>
 
               <div className="bg-white p-10 rounded-[40px] border border-slate-100 shadow-sm space-y-8">
-                <Field label="Report Title" value={activeTab === "zh" ? (formData.zh?.title || "") : (formData.en?.title || "")} onChange={(v: string) => {
-                  const next = {...formData};
-                  (next as any)[activeTab] = { ...((next as any)[activeTab] || {}), title: v };
-                  setFormData(next);
-                }} />
+                <Field label={lang === "zh" ? "评测标题" : "Report Title"} value={activeTab === "zh" ? (formData.zh?.title || "") : (formData.en?.title || "")} onChange={(v: string) => updateLocalizedReviewField("title", v)} />
                 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Final Verdict</label>
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{reviewInsightLabel}</label>
                   <textarea 
                     className="w-full bg-slate-50 p-6 rounded-2xl font-bold text-sm outline-none border-2 border-transparent focus:border-emerald-500 focus:bg-white transition-all min-h-[120px]"
                     value={activeTab === "zh" ? (formData.zh?.verdict || "") : (formData.en?.verdict || "")}
-                    onChange={(e) => {
-                      const next = {...formData};
-                      (next as any)[activeTab] = { ...((next as any)[activeTab] || {}), verdict: e.target.value };
-                      setFormData(next);
-                    }}
+                    onChange={(e) => updateLocalizedReviewField("verdict", e.target.value)}
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                  <LocalizedListEditor
+                    label={lang === "zh" ? "优点 / Pros" : "Pros"}
+                    items={localizedPros}
+                    emptyHint={lang === "zh" ? "每行填写一个优点" : "One pro per line"}
+                    onChange={(items) => updateLocalizedReviewField("pros", items)}
+                  />
+                  <LocalizedListEditor
+                    label={lang === "zh" ? "不足 / Cons" : "Cons"}
+                    items={localizedCons}
+                    emptyHint={lang === "zh" ? "每行填写一个不足" : "One con per line"}
+                    onChange={(items) => updateLocalizedReviewField("cons", items)}
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest font-red-500 italic">Version Changelog (Mandatory)</label>
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest font-red-500 italic">{lang === "zh" ? "版本变更记录（必填）" : "Version Changelog (Mandatory)"}</label>
                   <input 
                     className="w-full bg-slate-50 p-6 rounded-2xl font-bold text-sm outline-none border-2 border-transparent focus:border-red-500 focus:bg-white transition-all"
-                    placeholder="Why are you updating this report?"
+                    placeholder={lang === "zh" ? "说明本次为何更新这份评测" : "Why are you updating this report?"}
                     value={activeTab === "zh" ? (formData.zh?.changelog || "") : (formData.en?.changelog || "")}
-                    onChange={(e) => {
-                      const next = {...formData};
-                      (next as any)[activeTab] = { ...((next as any)[activeTab] || {}), changelog: e.target.value };
-                      setFormData(next);
-                    }}
+                    onChange={(e) => updateLocalizedReviewField("changelog", e.target.value)}
                   />
                 </div>
               </div>
@@ -557,6 +574,20 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
           </div>
         </div>
       </motion.div>
+    </div>
+  );
+}
+
+function LocalizedListEditor({ label, items, emptyHint, onChange }: { label: string; items: string[]; emptyHint: string; onChange: (items: string[]) => void }) {
+  return (
+    <div className="space-y-2">
+      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{label}</label>
+      <textarea
+        className="w-full bg-slate-50 p-6 rounded-2xl font-bold text-sm outline-none border-2 border-transparent focus:border-emerald-500 focus:bg-white transition-all min-h-[180px]"
+        placeholder={emptyHint}
+        value={items.join("\n")}
+        onChange={(e) => onChange(e.target.value.split("\n").map((item) => item.trim()).filter(Boolean))}
+      />
     </div>
   );
 }

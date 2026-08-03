@@ -214,6 +214,17 @@ function containsCjk(text: string): boolean {
   return /[\u4e00-\u9fff]/.test(String(text || ""));
 }
 
+function stripLeadingBrandFromTitle(title: string, brand: string): string {
+  const normalizedTitle = String(title || "").trim();
+  const normalizedBrand = String(brand || "").trim();
+  if (!normalizedTitle || !normalizedBrand) return normalizedTitle;
+
+  const escapedBrand = normalizedBrand.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const leadingBrandPattern = new RegExp(`^${escapedBrand}(?:\\s+|[-:|]+\\s*)`, "i");
+  const cleaned = normalizedTitle.replace(leadingBrandPattern, "").trim();
+  return cleaned || normalizedTitle;
+}
+
 function normalizeCategoryLabelForZh(label: string): string {
   const normalized = String(label || "")
     .trim()
@@ -1636,7 +1647,7 @@ export default function ProductsSection({
             {productsCopy.topBadge}
           </div>
 
-          <h1 className="km-page-title max-w-5xl">
+          <h1 className="km-page-title km-home-statement-title max-w-5xl">
             {productsCopy.heroTitle}
           </h1>
 
@@ -1980,6 +1991,7 @@ export default function ProductsSection({
                   const cardSummary = resolveCardSummary(diProduct, lang);
                   const priceText = formatPriceDisplay(diProduct.price, currencyData, lang);
                   const productSeoTitle = getProductDisplayTitle(p, lang);
+                  const productCardTitle = stripLeadingBrandFromTitle(productSeoTitle, String(diProduct.brand || ""));
 
                   const isAlreadySaved = savedProducts.some(s => s.id === diProduct.id);
                   const isAlreadyCompared = compareList.some(c => c.id === diProduct.id);
@@ -2023,7 +2035,7 @@ export default function ProductsSection({
                   </div>
 
                   <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">
-                    {productSeoTitle}
+                    {productCardTitle}
                   </h3>
 
                   {cardSummary && (
@@ -2203,6 +2215,7 @@ export default function ProductsSection({
             {viewHistory.slice(0, 4).map(p => {
               const dp = translateProduct(p, lang);
               const historySeoTitle = getProductDisplayTitle(p, lang);
+              const historyDisplayTitle = stripLeadingBrandFromTitle(historySeoTitle, String(dp.brand || p.brand || ""));
               const imageSet = resolveProductImages(dp);
               return (
                 <div 
@@ -2223,7 +2236,7 @@ export default function ProductsSection({
                   </div>
                   <div className="min-w-0">
                     <h3 className="font-extrabold text-slate-900 group-hover:text-orange-500 transition text-sm break-words">
-                      {historySeoTitle}
+                      {historyDisplayTitle}
                     </h3>
                     <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wide">
                       {dp.brand}

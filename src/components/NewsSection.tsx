@@ -612,7 +612,7 @@ export default function NewsSection({
                 {newsCopy.heroBadge}
               </div>
               
-              <h1 className="km-page-title text-white drop-shadow-md">
+              <h1 className="km-page-title km-home-statement-title text-white drop-shadow-md">
                 {newsCopy.heroTitle}
               </h1>
               

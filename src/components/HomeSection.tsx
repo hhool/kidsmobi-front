@@ -15,7 +15,8 @@ import { Product, CurrencyData } from "../types";
 import { translations, translateProduct } from "../lib/translate";
 import { SCRAPED_CATEGORY_CATALOG } from "../config/scrapedCategoryCatalog";
 import { resolveProductImages, FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
-import { getProductImageAlt } from "../lib/productSeoText";
+import { getProductDisplayTitle, getProductImageAlt } from "../lib/productSeoText";
+import { formatCurrencyFromUsd } from "../lib/currency";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
 import SeoKeywordPanel from "./common/SeoKeywordPanel";
 import Breadcrumbs from "./Breadcrumbs";
@@ -129,7 +130,6 @@ export default function HomeSection({
 
   const normalizeCategory = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, "_");
 
-  const t = translations[lang];
   const pageCopy = getPageCopy(lang);
   const homeCopy = pageCopy.home;
   const [imageLoadState, setImageLoadState] = useState<Record<string, ImageLoadState>>({});
@@ -230,6 +230,14 @@ export default function HomeSection({
     return numeric.toFixed(2);
   };
 
+  const formatHomePrice = (product?: Product) => {
+    const price = Number(product?.price || 0);
+    if (!Number.isFinite(price) || price <= 0) {
+      return lang === "zh" ? "价格待更新" : "Price pending";
+    }
+    return formatCurrencyFromUsd(price, currencyData, lang);
+  };
+
   const resolveHomepageCategoryLabel = (product?: Product) => {
     const searchable = normalizeCategory(`${(product as any)?.categoryId || ""} ${product?.category || ""} ${product?.name || ""}`);
     if (searchable.includes("jogger") || searchable.includes("jogging_stroller")) {
@@ -282,12 +290,56 @@ export default function HomeSection({
         ? "当前正在更新该卡片样本，完成后将展示对应产品结论。"
         : "This card sample is being refreshed. Matching product findings will appear once ready.";
     }
+    const localized = translateProduct(product, lang);
+    const brand = String(localized.brand || product.brand || "").trim();
     const localizedDescription = String((product as any)?.[lang]?.description || "").trim();
     const summary = String(localizedDescription || product.description || product.editorVerdict || "").trim();
-    if (summary) return summary;
+    if (summary) return collapseRepeatedLeadingBrand(summary, brand);
     return lang === "zh"
       ? "该卡片展示当前绑定产品的核心适用场景、结构特点与日常使用表现。"
       : "This card highlights the bound product's fit, structure, and everyday ride behavior.";
+  };
+
+  const stripLeadingBrandFromTitle = (title: string, brand: string) => {
+    const normalizedTitle = String(title || "").trim();
+    const normalizedBrand = String(brand || "").trim();
+    if (!normalizedTitle || !normalizedBrand) return normalizedTitle;
+
+    const escapedBrand = normalizedBrand.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const leadingBrandPattern = new RegExp(`^${escapedBrand}(?:\\s+|[-:|]+\\s*)`, "i");
+    const cleaned = normalizedTitle.replace(leadingBrandPattern, "").trim();
+    return cleaned || normalizedTitle;
+  };
+
+  const stripLeadingTitleModifiers = (title: string) => {
+    const normalizedTitle = String(title || "").trim();
+    if (!normalizedTitle || lang !== "en") return normalizedTitle;
+
+    const explicitPrefixes = [
+      /^colorful\s+led\s+/i,
+      /^illuminated\s+/i,
+    ];
+    const withoutExplicitPrefixes = explicitPrefixes.reduce((acc, pattern) => acc.replace(pattern, ""), normalizedTitle).trim();
+
+    const coreBalancePattern = /\b(toddler\s+balance\s+bike)\b/i;
+    const coreBalanceMatch = withoutExplicitPrefixes.match(coreBalancePattern);
+    if (coreBalanceMatch) {
+      return coreBalanceMatch[1].replace(/\s+/g, " ").trim().replace(/\b\w/g, (m) => m.toUpperCase());
+    }
+
+    return withoutExplicitPrefixes;
+  };
+
+  const collapseRepeatedLeadingBrand = (text: string, brand: string) => {
+    const normalizedText = String(text || "").trim();
+    const normalizedBrand = String(brand || "").trim();
+    if (!normalizedText || !normalizedBrand) return normalizedText;
+
+    const escapedBrand = normalizedBrand.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const repeatedBrandPattern = new RegExp(`^(${escapedBrand})(?:\\s+${escapedBrand})+\\b\\s*`, "i");
+    if (!repeatedBrandPattern.test(normalizedText)) return normalizedText;
+
+    return normalizedText.replace(repeatedBrandPattern, "$1 ").trim();
   };
 
   const scrapedCategoryCards = useMemo(() => {
@@ -482,8 +534,8 @@ export default function HomeSection({
     const strollerWinner =
       categoryTopProductMap.jogger_stroller ||
       categoryTopProductMap.stroller ||
-      seoProductCards.find((card) => card.key === "infans")?.product;
-
+      seoProductCards[0]?.product ||
+      homeVisualProducts[0];
     const balanceCandidates = homeVisualProducts.filter((product) => {
       const categoryText = normalizeCategory(`${(product as any).categoryId || ""} ${product.category || ""}`);
       return categoryText.includes("balance");
@@ -627,14 +679,24 @@ export default function HomeSection({
         searchable.includes("kids_bikes") ||
         (searchable.includes("bike") && !searchable.includes("electric"));
 
-      return isElectricCategory && !hasScooterSignal && !hasClassicTricycleOrBike;
+      const hasPushRideSignal =
+        searchable.includes("push_ride") ||
+        searchable.includes("push_ride_on") ||
+        searchable.includes("push_car") ||
+        searchable.includes("push_handle") ||
+        searchable.includes("ride_on_toy_w_remote");
+
+      return isElectricCategory && !hasScooterSignal && !hasClassicTricycleOrBike && !hasPushRideSignal;
     });
     return [...cars].sort((a, b) => (b.overallScore || 0) - (a.overallScore || 0)).slice(0, 4);
   }, [homeVisualProducts]);
 
   const renderProductCard = (p: Product, idx: number, forcedCategoryLabel?: string) => {
     const dp = translateProduct(p, lang);
-    const title = resolveHomepageProductTitle(p, forcedCategoryLabel);
+    const brandLabel = String(dp.brand || p.brand || "").trim();
+    const title = getProductDisplayTitle(p, lang);
+    const dedupedTitle = stripLeadingBrandFromTitle(title, brandLabel);
+    const displayTitle = String(forcedCategoryLabel || stripLeadingTitleModifiers(dedupedTitle)).trim();
     const snapshot = resolveHomepageProductSummary(p);
     return (
        <div 
@@ -671,18 +733,19 @@ export default function HomeSection({
               );
             })()}
          </div>
-         <div className="p-6 space-y-4 flex-1 flex flex-col">
-            <div className="flex justify-between items-center">
-              <span className="text-[9px] font-black text-orange-500 uppercase tracking-widest">{dp.brand}</span>
-              {formatHomeScore(dp.overallScore) && (
-                <div className="flex items-center gap-1">
-                  <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
-                  <span className="text-xs font-black">{formatHomeScore(dp.overallScore)}</span>
-                </div>
-              )}
+         <div className="p-6 space-y-3 flex-1 flex flex-col">
+            <div className="flex items-center justify-start text-[10px] font-black uppercase tracking-widest text-slate-500">
+              <span className="inline-flex items-center gap-1 rounded-full bg-slate-50 px-2.5 py-1 text-slate-700 border border-slate-100 shrink-0">
+                <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
+                <span>{formatHomeScore(dp.overallScore) || "--"}</span>
+              </span>
             </div>
-            <h3 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors line-clamp-2 min-h-12">{title}</h3>
-            <p className="text-[10px] text-slate-500 font-medium line-clamp-3 leading-relaxed min-h-12">{snapshot}</p>
+            <h3 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors line-clamp-2 min-h-10 leading-tight">{displayTitle}</h3>
+            <div className="flex items-center justify-between gap-3 text-[10px] font-black uppercase tracking-widest text-slate-500">
+              <span className="text-orange-500 truncate">{brandLabel}</span>
+              <span className="text-right text-slate-700">{formatHomePrice(p)}</span>
+            </div>
+            <p className="text-[10px] text-slate-500 font-medium line-clamp-3 leading-relaxed min-h-9">{snapshot}</p>
          </div>
        </div>
     );
@@ -765,7 +828,7 @@ export default function HomeSection({
             {homeCopy.bannerBadge}
           </div>
           
-          <h1 className="km-page-title text-white max-w-5xl mx-auto drop-shadow-md">
+          <h1 className="km-page-title km-home-statement-title text-white max-w-5xl mx-auto drop-shadow-md">
             {homeCopy.heroTitle}
           </h1>
           
@@ -830,7 +893,13 @@ export default function HomeSection({
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {prioritizedCategoryCards.map((cat) => (
+          {prioritizedCategoryCards.map((cat) => {
+            const topProduct = categoryTopProductMap[cat.id];
+            const categoryBrandLabel = String(topProduct ? (translateProduct(topProduct, lang).brand || topProduct.brand || "") : "").trim();
+            const categoryBrandFallback = lang === "zh" ? "品牌待更新" : "Brand pending";
+            const categoryPriceLabel = formatHomePrice(topProduct);
+
+            return (
             <a
               href={cat.slug}
               key={cat.id}
@@ -845,7 +914,6 @@ export default function HomeSection({
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  const topProduct = categoryTopProductMap[cat.id];
                   if (topProduct) {
                     onSelectProduct(topProduct);
                     return;
@@ -883,10 +951,14 @@ export default function HomeSection({
                 </span>
               </button>
 
-              <div className="p-6 bg-white flex-1 flex flex-col gap-4">
-                <div className="space-y-2">
-                  <h3 className="km-card-title text-slate-950">{cat.label}</h3>
-                  <p className="km-heading-copy km-body-copy text-xs text-slate-500 font-medium">
+              <div className="p-6 space-y-3 flex-1 flex flex-col bg-white">
+                <div className="space-y-3">
+                  <h3 className="font-black text-slate-900 transition-colors line-clamp-2 min-h-10 leading-tight">{cat.label}</h3>
+                  <div className="flex items-center justify-between gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500">
+                    <span className="text-orange-500 truncate">{categoryBrandLabel || categoryBrandFallback}</span>
+                    <span className="text-right text-slate-700">{categoryPriceLabel}</span>
+                  </div>
+                  <p className="text-[10px] text-slate-500 font-medium line-clamp-3 leading-relaxed min-h-9">
                     {cat.desc}
                   </p>
                 </div>
@@ -895,7 +967,7 @@ export default function HomeSection({
                 </div>
               </div>
             </a>
-          ))}
+          );})}
         </div>
       </section>
 
@@ -953,7 +1025,7 @@ export default function HomeSection({
             </a>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {strollerProducts.map((p, idx) => renderProductCard(p, idx))}
+            {strollerProducts.map((p, idx) => renderProductCard(p, idx, homeCopy.runtimeLabels.categoryNames.joggingStroller))}
           </div>
         </div>
 

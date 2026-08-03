@@ -1140,7 +1140,7 @@ export default function GuidesSection({
               <span className="px-3 py-1 bg-orange-100 text-orange-600 text-[10px] font-black rounded-full uppercase tracking-widest border border-orange-200 inline-block">
                 {lang === "en" ? "Smart Wizard" : "智能选车助手"}
               </span>
-            <h1 className="km-page-title text-slate-900 flex items-center gap-2">
+            <h1 className="km-page-title km-home-statement-title text-slate-900 flex items-center gap-2">
               <Calculator className="w-6 h-6 text-orange-500" />
               {lang === "en" ? "Smart Wizard: How to Choose a Baby Stroller, Scooter & First Bike" : "全品类工效学智能选车计算器"}
             </h1>
@@ -1338,21 +1338,31 @@ export default function GuidesSection({
                               type="button"
                               onClick={() => setWizardPage(Math.max(1, safeWizPage - 1))}
                               disabled={safeWizPage <= 1}
-                              className="w-9 h-9 rounded-xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center cursor-pointer hover:bg-slate-50"
+                              className="w-10 h-10 rounded-2xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center cursor-pointer hover:bg-slate-50"
                               aria-label={lang === "en" ? "Previous matches" : "上一组"}
                             >
                               <svg aria-hidden="true" viewBox="0 0 20 20" className="w-4 h-4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M12.5 4.5L7 10L12.5 15.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                               </svg>
                             </button>
-                            <span className="text-xs font-bold text-slate-500">
-                              {lang === "en" ? `Page ${safeWizPage} of ${totalWizPages}` : `第 ${safeWizPage} 页，共 ${totalWizPages} 页`}
-                            </span>
+                            <div
+                              className="w-24 h-2 rounded-full bg-slate-100 overflow-hidden"
+                              role="progressbar"
+                              aria-valuemin={1}
+                              aria-valuemax={totalWizPages}
+                              aria-valuenow={safeWizPage}
+                              aria-label={lang === "en" ? `Page ${safeWizPage} of ${totalWizPages}` : `第 ${safeWizPage} 页，共 ${totalWizPages} 页`}
+                            >
+                              <div
+                                className="h-full bg-slate-900 rounded-full transition-all"
+                                style={{ width: `${Math.max(8, (safeWizPage / totalWizPages) * 100)}%` }}
+                              />
+                            </div>
                             <button
                               type="button"
                               onClick={() => setWizardPage(Math.min(totalWizPages, safeWizPage + 1))}
                               disabled={safeWizPage >= totalWizPages}
-                              className="w-9 h-9 rounded-xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center cursor-pointer hover:bg-slate-50"
+                              className="w-10 h-10 rounded-2xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center cursor-pointer hover:bg-slate-50"
                               aria-label={lang === "en" ? "Next matches" : "下一组"}
                             >
                               <svg aria-hidden="true" viewBox="0 0 20 20" className="w-4 h-4" fill="none" xmlns="http://www.w3.org/2000/svg">
