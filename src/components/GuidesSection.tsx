@@ -1716,7 +1716,7 @@ export default function GuidesSection({
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     {categories.map((c) => {
                       const Icon = c.icon || BookOpen;
                       const count = c.id === "all" ? activeArticlesList.length : guideCategoryCounts[c.id] || 0;
@@ -1727,23 +1727,23 @@ export default function GuidesSection({
                             setSelectedCategory(c.id);
                             onPageChange?.(1);
                           }}
-                          className={`text-left rounded-2xl border p-4 transition-all group ${
+                          className={`text-left rounded-3xl border px-6 py-5 transition-all group cursor-pointer active:scale-[0.98] ${
                             selectedCategory === c.id
-                              ? "bg-slate-950 text-white border-slate-950 shadow-xl shadow-slate-900/10"
-                              : "bg-white text-slate-700 border-slate-100 hover:border-orange-200 hover:bg-orange-50/40"
+                              ? "bg-linear-to-r from-orange-500 via-orange-500 to-amber-500 text-white border-orange-500 shadow-lg shadow-orange-500/30"
+                              : "bg-white text-slate-700 border-slate-200 hover:border-orange-300 hover:bg-white hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-500/15"
                           }`}
                         >
                           <div className="flex items-start justify-between gap-3">
                             <div className="flex items-start gap-3 min-w-0">
-                              <span className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${selectedCategory === c.id ? "bg-orange-500 text-white" : "bg-slate-100 text-orange-500 group-hover:bg-orange-100"}`}>
+                              <span className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 transition-all ${selectedCategory === c.id ? "bg-white/20 text-white shadow-md shadow-white/20" : "bg-orange-50 text-orange-500 group-hover:bg-orange-100 group-hover:shadow-md group-hover:shadow-orange-500/10"}`}>
                                 <Icon className="w-5 h-5" />
                               </span>
                               <span className="min-w-0">
                                 <span className="block text-sm font-black leading-tight">{c.label}</span>
-                                <span className={`block text-[11px] font-bold mt-1 leading-snug ${selectedCategory === c.id ? "text-slate-300" : "text-slate-400"}`}>{c.deck}</span>
+                                <span className={`block text-[11px] font-bold mt-1 leading-snug ${selectedCategory === c.id ? "text-white/80" : "text-slate-400"}`}>{c.deck}</span>
                               </span>
                             </div>
-                            <span className={`text-[10px] font-black rounded-full px-2 py-1 shrink-0 ${selectedCategory === c.id ? "bg-white/10 text-orange-200" : "bg-slate-50 text-slate-400"}`}>{count}</span>
+                            <span className={`text-[10px] font-black rounded-full px-2.5 py-1 shrink-0 border transition-colors ${selectedCategory === c.id ? "bg-white/15 border-white/20 text-white" : "bg-slate-50 border-slate-100 text-slate-400 group-hover:bg-orange-50 group-hover:border-orange-100"}`}>{count}</span>
                           </div>
                         </button>
                       );
@@ -1769,8 +1769,9 @@ export default function GuidesSection({
                     <button
                       type="button"
                       onClick={() => setSearchQuery("")}
-                      className="px-5 py-2.5 bg-slate-900 text-white text-xs font-black rounded-xl hover:bg-slate-800 transition shadow-md active:scale-95 cursor-pointer"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-slate-900 via-slate-900 to-slate-800 text-white text-[11px] font-black uppercase tracking-widest rounded-full hover:-translate-y-0.5 transition-all shadow-md shadow-slate-900/20 active:translate-y-0 cursor-pointer"
                     >
+                      <Search className="w-3.5 h-3.5" />
                       {lang === "en" ? "Clear Search Keyword" : "清除搜索词"}
                     </button>
                   )}
@@ -1781,8 +1782,9 @@ export default function GuidesSection({
                         setSelectedCategory("all");
                         onPageChange?.(1);
                       }}
-                      className="px-5 py-2.5 bg-orange-500 text-white text-xs font-black rounded-xl hover:bg-orange-600 transition shadow-md shadow-orange-500/10 active:scale-95 cursor-pointer"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-orange-500 via-orange-500 to-amber-500 text-white text-[11px] font-black uppercase tracking-widest rounded-full hover:-translate-y-0.5 transition-all shadow-md shadow-orange-500/20 active:translate-y-0 cursor-pointer"
                     >
+                      <Zap className="w-3.5 h-3.5 fill-white" />
                       {lang === "en" ? "Show All Category Guides" : "查看此品类全部指南"}
                     </button>
                   )}
@@ -1794,8 +1796,9 @@ export default function GuidesSection({
                         setSelectedCategory("all");
                         onPageChange?.(1);
                       }}
-                      className="px-5 py-2.5 bg-orange-500 text-white text-xs font-black rounded-xl hover:bg-orange-600 transition shadow-md shadow-orange-500/10 active:scale-95 cursor-pointer"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-orange-500 via-orange-500 to-amber-500 text-white text-[11px] font-black uppercase tracking-widest rounded-full hover:-translate-y-0.5 transition-all shadow-md shadow-orange-500/20 active:translate-y-0 cursor-pointer"
                     >
+                      <Zap className="w-3.5 h-3.5 fill-white" />
                       {lang === "en" ? "Reset to Baby Stroller Guides" : "重置并查看婴儿推车指南"}
                     </button>
                   )}
