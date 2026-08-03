@@ -1712,7 +1712,7 @@ export default function GuidesSection({
                       placeholder={lang === "en" ? "Search product names, risk terms, sizing topics" : "搜索产品名、风险术语、尺寸/预算/养护主题"}
                       aria-label={lang === "en" ? "Search guide library" : "检索指南库"}
                       title={lang === "en" ? "Search guide library" : "检索指南库"}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-2xl pl-10 pr-4 py-3 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 transition-all font-bold"
+                      className="w-full bg-white border border-slate-200 hover:border-orange-200 rounded-2xl pl-10 pr-4 py-3 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-300 transition-all font-bold shadow-sm"
                     />
                   </div>
 
@@ -1754,7 +1754,7 @@ export default function GuidesSection({
             </div>
 
             {filteredGuides.length === 0 ? (
-              <div className="p-16 text-center bg-white border border-slate-100 rounded-[40px] shadow-sm space-y-4">
+              <div className="p-16 text-center bg-gradient-to-br from-orange-50/80 to-amber-50/60 border border-orange-100 rounded-[48px] shadow-lg shadow-orange-500/10 space-y-6">
                 <p className="text-slate-400 font-medium">
                   {searchQuery 
                     ? (lang === "en" 
@@ -1881,7 +1881,7 @@ export default function GuidesSection({
                     <button
                       onClick={() => onPageChange?.(Math.max(1, safePage - 1))}
                       disabled={safePage <= 1}
-                      className="w-10 h-10 rounded-2xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center"
+                      className="w-10 h-10 rounded-2xl border border-orange-200 bg-white hover:bg-orange-50 text-orange-500 disabled:opacity-30 disabled:bg-slate-50 disabled:border-slate-200 disabled:text-slate-300 flex items-center justify-center transition-all cursor-pointer active:scale-95"
                       aria-label={lang === "en" ? "Go to previous page" : "上一页"}
                     >
                       <svg aria-hidden="true" viewBox="0 0 20 20" className="w-4 h-4" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1897,14 +1897,14 @@ export default function GuidesSection({
                       aria-label={lang === "en" ? `Page ${safePage} of ${totalPages}` : `第 ${safePage} 页，共 ${totalPages} 页`}
                     >
                       <div
-                        className="h-full bg-slate-900 rounded-full transition-all"
+                        className="h-full bg-linear-to-r from-orange-500 to-amber-500 rounded-full transition-all shadow-lg shadow-orange-500/30"
                         style={{ width: `${Math.max(8, (safePage / totalPages) * 100)}%` }}
                       />
                     </div>
                     <button
                       onClick={() => onPageChange?.(Math.min(totalPages, safePage + 1))}
                       disabled={safePage >= totalPages}
-                      className="w-10 h-10 rounded-2xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center"
+                      className="w-10 h-10 rounded-2xl border border-orange-200 bg-white hover:bg-orange-50 text-orange-500 disabled:opacity-30 disabled:bg-slate-50 disabled:border-slate-200 disabled:text-slate-300 flex items-center justify-center transition-all cursor-pointer active:scale-95"
                       aria-label={lang === "en" ? "Go to next page" : "下一页"}
                     >
                       <svg aria-hidden="true" viewBox="0 0 20 20" className="w-4 h-4" fill="none" xmlns="http://www.w3.org/2000/svg">
