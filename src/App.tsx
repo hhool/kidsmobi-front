@@ -2120,6 +2120,7 @@ export default function App() {
     }
 
     const isReviewsIndexPath = /^\/reviews(?:\/page\/\d+)?\/?$/.test(currentPath);
+    const isReviewDetailPath = /^\/reviews\/(?:single|compare|value|ranking|safety)\/[^/]+\/?$/.test(currentPath);
     if (seoKey === "evaluations" && activeReviewType !== "all" && !isReviewsIndexPath) {
       const selectedReview = reviewNavOptions.find((item) => item.id === activeReviewType)?.label || activeReviewType;
       titleStr = lang === "zh"
@@ -2127,8 +2128,13 @@ export default function App() {
         : `${selectedReview} Review Reports | BalanceBikeToddler Evaluations`;
       descStr = lang === "zh"
         ? `查看 ${selectedReview} 相关实验室报告，覆盖安全、结构稳定与真实场景表现等关键评测维度。`
-        : `Explore ${selectedReview} lab reports spanning safety, structural stability, and real-world usability benchmarks.`;
+        : `Explore ${selectedReview} reviews spanning safety, structural stability, and real-world usability benchmarks.`;
       keywordsArr = Array.from(new Set([...keywordsArr, selectedReview, ...getReviewSeoKeywords(activeReviewType, lang)]));
+    }
+
+    if (seoKey === "evaluations" && isReviewDetailPath) {
+      const requiredReviewKeywords = ["travel stroller", "toddler bike", "stroller reviews"];
+      keywordsArr = Array.from(new Set([...keywordsArr, ...requiredReviewKeywords]));
     }
 
     keywordsArr = applyPageKeywordOverride(seoKey, keywordsArr, lang, activeProductCategory);

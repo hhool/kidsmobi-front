@@ -1643,16 +1643,16 @@ export default function ProductsSection({
       <section className="relative rounded-[32px] bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 text-white overflow-hidden p-8 md:p-12 text-left max-w-7xl mx-auto shadow-xl space-y-6">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(249,115,22,0.15),transparent)]"></div>
         <div className="relative z-10 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-orange-500/10 border border-orange-500/20 text-orange-400 text-[10px] font-black uppercase tracking-widest rounded-full shadow-inner font-mono">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-500/15 border border-orange-500/30 text-orange-400 text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg backdrop-blur-md">
             {productsCopy.topBadge}
           </div>
 
-          <h1 className="km-page-title km-home-statement-title max-w-5xl">
+          <h1 className="km-page-title km-home-statement-title text-white max-w-5xl drop-shadow-md">
             {productsCopy.heroTitle}
           </h1>
 
           <div className="border-l-2 border-orange-500 pl-4 space-y-2">
-            <p className="km-body-copy text-slate-300 text-xs md:text-sm font-semibold max-w-5xl italic">
+            <p className="km-body-copy text-slate-200 text-sm md:text-base font-semibold max-w-5xl drop-shadow-sm">
               {productsCopy.heroSubtitle}
             </p>
           </div>
@@ -1691,12 +1691,12 @@ export default function ProductsSection({
                     }
                   }, 100);
                 }}
-                className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-[10px] font-black tracking-wider uppercase shadow-sm cursor-pointer group transition-all duration-300 border ${
+                className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-[11px] font-black tracking-widest uppercase shadow-md cursor-pointer group transition-all duration-300 border backdrop-blur-md ${
                   hintFlash === pill.label
-                    ? "bg-orange-500 text-white border-orange-500 scale-105"
+                    ? "bg-orange-500 text-white border-orange-300 scale-105 shadow-orange-500/25"
                     : pill.target === selectedCategory
-                      ? "border-orange-500/20 text-orange-400 bg-orange-500/5"
-                      : "bg-slate-800/40 border-slate-700/60 text-slate-300 hover:border-slate-500 hover:text-white"
+                      ? "bg-orange-500/90 text-white border-orange-300 shadow-orange-500/20"
+                      : "bg-white/10 hover:bg-white/20 border-white/25 text-slate-100 hover:border-white/45"
                 }`}
               >
                 <span>{pill.label}</span>

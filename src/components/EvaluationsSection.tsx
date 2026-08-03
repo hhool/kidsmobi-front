@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
-import { Award, Filter, ShieldCheck, Scale, CheckCircle, Flame, Star, Sparkles, BookOpen, ArrowRight } from "lucide-react";
+import { Award, Filter, ShieldCheck, Scale, CheckCircle, Flame, Star, Zap, BookOpen, ArrowRight } from "lucide-react";
 import { Product } from "../types";
 import { translateProduct } from "../lib/translate";
 import { resolveProductImages } from "../lib/productImages";
@@ -34,24 +34,51 @@ interface EvaluationsSectionProps {
 
 // Custom SVG Radar Polygon Chart
 function SafetyRadarChart({ product, evaluation, lang = "zh", isDark = false }: { product?: Product; evaluation?: Evaluation; lang: "zh" | "en", isDark?: boolean }) {
+  const deriveFallbackScores = (p?: Product) => {
+    if (!p) {
+      return {
+        safety: 8,
+        comfort: 8,
+        portability: 8,
+        features: 8,
+        valueForMoney: 8,
+      };
+    }
+    const comfort = p.category === "stroller" ? 10.0 : p.category === "scooter" ? 8.5 : p.tireType?.includes("充气") ? 9.5 : 6.0;
+    const value = p.price < 600 ? 10.0 : p.price < 2000 ? 8.5 : p.price < 4000 ? 7.0 : 5.0;
+    return {
+      safety: Number(p.safetyScore || p.overallScore || 8),
+      comfort,
+      portability: Number(p.weightScore || 8),
+      features: Number(p.geometryScore || p.overallScore || 8),
+      valueForMoney: value,
+    };
+  };
+
+  const clampScore = (value: unknown, fallback: number) => {
+    const n = Number(value);
+    if (!Number.isFinite(n) || n <= 0) return fallback;
+    return Math.max(0, Math.min(10, n));
+  };
+
   const scores = useMemo(() => {
+    const fallback = deriveFallbackScores(product);
+
     if (evaluation && evaluation.scores) {
       return [
-        { val: evaluation.scores.safety },
-        { val: evaluation.scores.comfort },
-        { val: evaluation.scores.portability },
-        { val: evaluation.scores.features },
-        { val: evaluation.scores.valueForMoney }
+        { val: clampScore(evaluation.scores.safety, fallback.safety) },
+        { val: clampScore(evaluation.scores.comfort, fallback.comfort) },
+        { val: clampScore(evaluation.scores.portability, fallback.portability) },
+        { val: clampScore(evaluation.scores.features, fallback.features) },
+        { val: clampScore(evaluation.scores.valueForMoney, fallback.valueForMoney) }
       ];
     } else if (product) {
-      const comfort = product.category === "stroller" ? 10.0 : product.category === "scooter" ? 8.5 : product.tireType?.includes("充气") ? 9.5 : 6.0;
-      const value = product.price < 600 ? 10.0 : product.price < 2000 ? 8.5 : product.price < 4000 ? 7.0 : 5.0;
       return [
-        { val: product.safetyScore },
-        { val: comfort },
-        { val: product.weightScore },
-        { val: product.geometryScore },
-        { val: value }
+        { val: clampScore(product.safetyScore, fallback.safety) },
+        { val: clampScore(fallback.comfort, 8) },
+        { val: clampScore(product.weightScore, fallback.portability) },
+        { val: clampScore(product.geometryScore, fallback.features) },
+        { val: clampScore(fallback.valueForMoney, 8) }
       ];
     }
     return [];
@@ -424,6 +451,10 @@ function sanitizeVerdictText(raw: string) {
     .replace(/\b(?:scraped|crawler|crawl|selector|xpath|dom|listing|asin)\b\s*[:=-]?\s*/gi, " ")
     .replace(/\b[A-Z][A-Z0-9\s&-]{4,18}\s*[:-：]\s*/g, " ")
     .replace(/The editorial verdict is based on structured product data rather than marketplace sales copy\.?/gi, "")
+    .replace(/^["“”']?\s*Review\s+Lab\s+Insight\s*[:：-]\s*/i, "")
+    .replace(/\bReview\s+Lab\s+Insight\b\s*[:：-]?\s*/gi, "")
+    .replace(/^["“”'\[]?\s*(?:Review\s+)?Lab\s+Report\]?\s*[:：-]\s*/i, "")
+    .replace(/\b(?:Review\s+)?Lab\s+Report\b\s*[:：-]?\s*/gi, "")
     .replace(/Review verdict:\s*/gi, "")
     .replace(/\s+/g, " ")
     .trim();
@@ -791,6 +822,21 @@ function buildGeneratedEvaluations(productsData: Product[]): Evaluation[] {
       "Review verdict"
     ));
 
+  const toddlerBikeSingles = bikeProducts
+    .filter((product) => {
+      if (seenSingleProductIds.has(product.id)) return false;
+      seenSingleProductIds.add(product.id);
+      return true;
+    })
+    .slice(0, 10)
+    .map((product, index) => makeSingleEvaluation(
+      product,
+      "single",
+      `bike_${index + 1}`,
+      "{product} 童车单品深度评测",
+      "{product} Toddler Bike Review"
+    ));
+
   const singles = verdictProducts
     .filter((product) => {
       if (seenSingleProductIds.has(product.id)) return false;
@@ -869,7 +915,7 @@ function buildGeneratedEvaluations(productsData: Product[]): Evaluation[] {
       "Safety note"
     ));
 
-  return [...commercialSingles, ...singles, ...compares, ...values, ...rankings, ...safetyTopics];
+  return [...commercialSingles, ...toddlerBikeSingles, ...singles, ...compares, ...values, ...rankings, ...safetyTopics];
 }
 
 export default function EvaluationsSection({ 
@@ -1035,20 +1081,28 @@ export default function EvaluationsSection({
   const reviewModeCopy = useMemo(() => {
     return lang === "zh"
       ? {
-          single: "单品评测",
+          single: "具体品类评测",
           multi: "多品横评",
-          singleHint: "聚焦 1 个产品",
+          singleHint: "按具体品类查看评测",
           multiHint: "同场对比 2+ 产品",
           multiCountSuffix: "品对比",
         }
       : {
-          single: "Single Review",
+          single: "Category Review",
           multi: "Multi Compare",
-          singleHint: "Focused on 1 product",
+          singleHint: "",
           multiHint: "Head-to-head across 2+ products",
           multiCountSuffix: "products compared",
         };
   }, [lang]);
+
+  const getSingleCategoryBadge = (groupId: string) => {
+    if (groupId === "single-stroller") return lang === "zh" ? "推车评测" : "Stroller Review";
+    if (groupId === "single-bike") return lang === "zh" ? "童车评测" : "Toddler Bike Review";
+    if (groupId === "single-balance") return lang === "zh" ? "平衡车评测" : "Balance Bike Review";
+    if (groupId === "single-scooter") return lang === "zh" ? "滑板车评测" : "Kids Scooter Review";
+    return reviewModeCopy.single;
+  };
 
   const isMultiEvaluation = (ev: Evaluation) => {
     return ev.type === "compare" && (ev.productIds?.length || 0) > 1;
@@ -1065,7 +1119,7 @@ export default function EvaluationsSection({
         ? `${count}${reviewModeCopy.multiCountSuffix}`
         : `${count} ${reviewModeCopy.multiCountSuffix}`;
     }
-    return reviewModeCopy.singleHint;
+    return "";
   };
 
   const displayMode = selectedReviewType === "single" ? "single" : "compare";
@@ -1294,8 +1348,25 @@ export default function EvaluationsSection({
 
     const singlePool = renderList.filter((item: any) => item.type === "single" && item.product);
     const cmsSingles = singlePool.filter((item: any) => String(item.evaluation?.id || "").startsWith("eval-"));
-    return cmsSingles.length > 0 ? dedupeSingles(cmsSingles) : dedupeSingles(singlePool);
+    if (cmsSingles.length === 0) {
+      return dedupeSingles(singlePool);
+    }
+
+    const nonCmsSingles = singlePool.filter((item: any) => !String(item.evaluation?.id || "").startsWith("eval-"));
+    return dedupeSingles([...cmsSingles, ...nonCmsSingles]);
   }, [renderList]);
+
+  const sortStrollerSingles = (list: any[]) => {
+    const priority = (item: any) => {
+      const text = `${item?.evaluation?.en?.title || ""} ${item?.evaluation?.zh?.title || ""} ${item?.product?.name || ""}`.toLowerCase();
+      if (text.includes("travel stroller")) return 0;
+      if (text.includes("jogging stroller") || text.includes("jogger")) return 1;
+      if (text.includes("stroller")) return 2;
+      return 3;
+    };
+
+    return [...list].sort((a, b) => priority(a) - priority(b));
+  };
 
   const resolveSingleReviewGroup = (item: any) => {
     const categoryValue = normalizeCategoryText(item.product);
@@ -1344,7 +1415,8 @@ export default function EvaluationsSection({
   };
 
   const singleStrollerReviews = useMemo(() => {
-    return cmsSingleReviews.filter((item: any) => resolveSingleReviewGroup(item) === "stroller");
+    const strollerOnly = cmsSingleReviews.filter((item: any) => resolveSingleReviewGroup(item) === "stroller");
+    return sortStrollerSingles(strollerOnly);
   }, [cmsSingleReviews]);
 
   const singleBalanceReviews = useMemo(() => {
@@ -1359,12 +1431,21 @@ export default function EvaluationsSection({
     return cmsSingleReviews.filter((item: any) => resolveSingleReviewGroup(item) === "scooter");
   }, [cmsSingleReviews]);
 
-  const singleOtherReviews = useMemo(() => {
-    return cmsSingleReviews.filter((item: any) => {
-      const group = resolveSingleReviewGroup(item);
-      return group === "other" || group === "electric";
-    });
-  }, [cmsSingleReviews]);
+  const getSingleCategoryLabelByEvaluation = (evaluation: Evaluation) => {
+    const matchedProduct =
+      resolveProductByReference(evaluation.productId) ||
+      (evaluation.productIds || [])
+        .map((id) => resolveProductByReference(String(id)))
+        .find(Boolean) ||
+      null;
+
+    const group = resolveSingleReviewGroup({ evaluation, product: matchedProduct });
+    if (group === "stroller") return lang === "zh" ? "推车评测" : "Stroller Review";
+    if (group === "bike") return lang === "zh" ? "童车评测" : "Toddler Bike Review";
+    if (group === "balance") return lang === "zh" ? "平衡车评测" : "Balance Bike Review";
+    if (group === "scooter") return lang === "zh" ? "滑板车评测" : "Kids Scooter Review";
+    return reviewModeCopy.single;
+  };
 
   const pageSize = 6;
   const totalPages = Math.max(1, Math.ceil(renderList.length / pageSize));
@@ -1395,6 +1476,7 @@ export default function EvaluationsSection({
     (selectedEvaluation.type !== "compare" || !selectedEvaluation.productIds || selectedEvaluation.productIds.length <= 1);
 
   if (selectedEvaluation && isSelectedSingle) {
+    const isTargetedBikeDetail = String(selectedEvaluation.id || "").startsWith("generated_single_bike_1_");
     const reviewedProduct =
       resolveProductByReference(selectedEvaluation.productId) ||
       (selectedEvaluation.productIds || [])
@@ -1402,16 +1484,21 @@ export default function EvaluationsSection({
         .find(Boolean) ||
       null;
     const tEv = lang === "zh" ? selectedEvaluation.zh : selectedEvaluation.en;
-    const selectedTypeLabel = getReviewTypeLabel(selectedEvaluation.type);
+    const selectedTypeLabel = isTargetedBikeDetail
+      ? (lang === "zh" ? "童车评测" : "Kids Bike Review")
+      : getSingleCategoryLabelByEvaluation(selectedEvaluation);
     const productDisplay = reviewedProduct ? translateProduct(reviewedProduct, lang) : null;
     const imageSet = reviewedProduct ? resolveProductImages(reviewedProduct) : null;
     const detailBrandLabel = lang === "en" ? cleanEnBrandText(productDisplay?.brand || "") : String(productDisplay?.brand || "");
     const detailProductTitleRaw = reviewedProduct ? sanitizeMarketplaceNoise(getProductsPageSeoTitle(reviewedProduct)) : sanitizeMarketplaceNoise(String(productDisplay?.name || ""));
     const detailProductTitle = stripBrandPrefix(detailProductTitleRaw, detailBrandLabel);
 
-    const displayDetailVerdict = reviewedProduct
+    const baseDetailVerdict = reviewedProduct
       ? getLocalizedReviewVerdict(reviewedProduct, selectedEvaluation, lang)
       : sanitizeVerdictText(tEv.verdict || "");
+    const displayDetailVerdict = isTargetedBikeDetail && lang === "en"
+      ? `toddler bike review: ${baseDetailVerdict}`
+      : baseDetailVerdict;
 
     const displayDetailTitle = reviewedProduct
       ? getLocalizedReviewTitle(reviewedProduct, selectedEvaluation, lang, reviewsCopy.detailTitleSuffix)
@@ -1532,7 +1619,8 @@ export default function EvaluationsSection({
         
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1.25fr_0.75fr] gap-8 md:gap-12 items-center">
           <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-orange-500/10 border border-orange-500/25 text-orange-400 text-[10px] font-black uppercase tracking-widest rounded-full shadow-inner font-mono">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-500/15 border border-orange-500/30 text-orange-400 text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg backdrop-blur-md">
+              <ShieldCheck className="w-4 h-4 text-orange-400" />
               {reviewsCopy.badge}
             </div>
 
@@ -1541,12 +1629,12 @@ export default function EvaluationsSection({
             </h1>
 
             <div className="border-l-2 border-orange-500 pl-4">
-              <p className="km-body-copy text-slate-300 text-sm font-medium max-w-2xl">
+              <p className="km-body-copy text-slate-200 text-sm md:text-base max-w-3xl font-semibold drop-shadow-sm">
                 {reviewsCopy.heroDescription}
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-2 pt-2">
+            <div className="flex flex-wrap gap-4 pt-4 border-t border-white/10">
               <button
                 type="button"
                 onClick={() => {
@@ -1554,7 +1642,7 @@ export default function EvaluationsSection({
                   const el = document.getElementById("single-reviews");
                   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
-                className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-black tracking-wider uppercase transition-colors ${displayMode === "single" ? "border border-emerald-300 bg-emerald-500/15 text-emerald-300" : "border border-emerald-400/40 bg-transparent text-emerald-200 hover:bg-emerald-500/10"}`}
+                className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-[11px] font-black tracking-widest uppercase shadow-md transition-all cursor-pointer group backdrop-blur-md ${displayMode === "single" ? "bg-white/20 border border-white/45 text-slate-100" : "bg-white/10 hover:bg-white/20 border border-white/25 text-slate-100 hover:border-white/45"}`}
               >
                 {reviewModeCopy.single}
               </button>
@@ -1565,7 +1653,7 @@ export default function EvaluationsSection({
                   const el = document.getElementById("kids-stroller");
                   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
-                className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-black tracking-wider uppercase transition-colors ${displayMode === "compare" ? "border border-sky-300 bg-sky-500/15 text-sky-300" : "border border-sky-400/40 bg-transparent text-sky-200 hover:bg-sky-500/10"}`}
+                className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-[11px] font-black tracking-widest uppercase shadow-md transition-all cursor-pointer group backdrop-blur-md ${displayMode === "compare" ? "bg-white/20 border border-white/45 text-slate-100" : "bg-white/10 hover:bg-white/20 border border-white/25 text-slate-100 hover:border-white/45"}`}
               >
                 {reviewModeCopy.multi}
               </button>
@@ -1573,12 +1661,16 @@ export default function EvaluationsSection({
           </div>
 
           {/* Right Action Block (Interactive Finder callout merged internally) */}
-          <div className="bg-gradient-to-br from-orange-500 to-amber-500 rounded-[32px] p-6 sm:p-8 flex flex-col justify-between space-y-6 shadow-xl shadow-orange-500/10 border border-orange-400/25 relative z-10 md:min-h-[240px]">
-            <div className="space-y-2">
-              <h3 className="font-extrabold text-white text-lg tracking-tight leading-snug">
+          <div className="bg-white/10 border border-white/25 rounded-[36px] p-6 sm:p-8 flex flex-col justify-between space-y-6 shadow-2xl shadow-slate-950/30 backdrop-blur-md relative z-10 md:min-h-[260px]">
+            <div className="space-y-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/15 border border-orange-500/30 text-orange-300 text-[10px] font-black uppercase tracking-widest">
+                <Zap className="w-3.5 h-3.5 text-orange-300 fill-orange-300 animate-pulse" />
+                {lang === "zh" ? "智能匹配向导" : "Smart Finder"}
+              </div>
+              <h3 className="font-extrabold text-white text-lg md:text-xl tracking-tight leading-snug drop-shadow-sm">
                 {reviewsCopy.smartFinderTitle}
               </h3>
-              <p className="text-xs text-orange-50/90 font-semibold leading-relaxed">
+              <p className="text-sm text-slate-200 font-semibold leading-relaxed">
                 {reviewsCopy.smartFinderDescription}
               </p>
             </div>
@@ -1589,9 +1681,9 @@ export default function EvaluationsSection({
                 }
                 setActiveTab?.("guides");
               }}
-              className="w-full py-4 bg-white hover:bg-orange-50 text-slate-950 font-black text-xs uppercase tracking-widest rounded-2xl shadow-md transition-all active:scale-95 cursor-pointer text-center shrink-0 flex items-center justify-center gap-2"
+              className="w-full inline-flex items-center justify-center gap-3 px-10 py-5 bg-linear-to-r from-orange-500 via-orange-500 to-amber-500 text-white text-xs md:text-sm font-black uppercase tracking-widest rounded-full shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer group"
             >
-              <span>🔍</span>
+              <Zap className="w-4 h-4 text-white fill-white animate-pulse" />
               {reviewsCopy.smartFinderCta}
             </button>
           </div>
@@ -1948,14 +2040,7 @@ export default function EvaluationsSection({
                   items: singleBalanceReviews,
                 },
                 { id: "single-scooter", title: reviewsCopy.sections.scooterTitle, desc: reviewsCopy.sections.scooterDesc, items: singleScooterReviews },
-                {
-                  id: "single-other",
-                  title: lang === "zh" ? "其他品类单品评测" : "Other Category Single Reviews",
-                  desc: lang === "zh" ? "展示未归入核心五大品类的单品评测内容。" : "Single reviews outside the five primary category groups.",
-                  items: singleOtherReviews,
-                },
               ]
-                .filter((group) => group.id !== "single-other" || group.items.length > 0)
                 .map((group) => (
                 <section key={group.id} className="space-y-8">
                   <div className="border-b border-slate-100 pb-4">
@@ -1969,7 +2054,13 @@ export default function EvaluationsSection({
                     </p>
                   ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {group.items.slice(0, 3).map((item: any) => {
+                    {(group.id === "single-stroller"
+                      ? group.items.slice(0, 6)
+                      : group.id === "single-bike"
+                        ? group.items.slice(0, 8)
+                        : group.id === "single-balance"
+                          ? group.items.slice(0, 2)
+                        : group.items.slice(0, 3)).map((item: any) => {
                       const ev = item.evaluation;
                       const product = item.product;
                       if (!product) return null;
@@ -1999,7 +2090,7 @@ export default function EvaluationsSection({
                               <div className="flex flex-wrap items-center gap-2">
                                 <span className="text-[10px] text-orange-500 font-black uppercase tracking-wider block">{dp.brand}</span>
                                 <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black tracking-wider uppercase border text-emerald-600 border-emerald-200 bg-emerald-50">
-                                  {reviewModeCopy.single}
+                                  {getSingleCategoryBadge(group.id)}
                                 </span>
                               </div>
                               <h4 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">{stripBrandPrefix(evLang.title, String(dp.brand || "")) || evLang.title}</h4>

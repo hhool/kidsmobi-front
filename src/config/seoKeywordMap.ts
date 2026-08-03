@@ -79,16 +79,16 @@ export const PRODUCT_CATEGORY_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
 
 export const REVIEW_TYPE_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
   all: {
-    zh: ["best travel stroller", "best jogging stroller", "kids dirt bike", "stroller reviews"],
-    en: ["best travel stroller", "best jogging stroller", "kids dirt bike", "stroller reviews"],
+    zh: ["travel stroller", "toddler bike", "stroller reviews", "best jogging stroller", "kids dirt bike"],
+    en: ["travel stroller", "toddler bike", "stroller reviews", "best jogging stroller", "kids dirt bike"],
   },
   single: {
-    zh: ["best travel stroller", "stroller reviews", "unbiased stroller reviews", "expert stroller review"],
-    en: ["best travel stroller", "stroller reviews", "unbiased stroller reviews", "expert stroller review"],
+    zh: ["travel stroller", "toddler bike", "stroller reviews", "unbiased stroller reviews", "expert stroller review"],
+    en: ["travel stroller", "toddler bike", "stroller reviews", "unbiased stroller reviews", "expert stroller review"],
   },
   compare: {
-    zh: ["best jogging stroller", "stroller comparison", "jogging stroller review", "stroller reviews"],
-    en: ["best jogging stroller", "stroller comparison", "jogging stroller review", "stroller reviews"],
+    zh: ["travel stroller", "toddler bike", "stroller reviews", "stroller comparison", "jogging stroller review"],
+    en: ["travel stroller", "toddler bike", "stroller reviews", "stroller comparison", "jogging stroller review"],
   },
   value: {
     zh: ["kids dirt bike", "electric kids dirt bike", "kids dirt bike safety", "off-road kids ride"],

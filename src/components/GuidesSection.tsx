@@ -523,7 +523,7 @@ function buildGuideArticle(category: GuideCategoryId, product: Product, index: n
     best: {
       title: `${productName} Gold Award Audit: Why it Won 2026 Annual Best Pick`,
       summary: `A comprehensive design evaluation explaining why ${productName} bagged our prestigious 2026 Gold Medal.`,
-      content: `### ${productName} 2026 Gold Medal Lab Report\n\n#### 1. Award-Winning Mechanics\nFollowing 100+ days of severe mechanical stress rig testing, ${productName} outperformed peer models in this category with an exceptional score of ${score}. Handbrake clearances, deck loading resilience, and fork alignment limits proved outstanding.\n\n#### 2. Lab Inspection Verdict\n${evidence || "Rigid structural linkages, progressive braking feedback, and anatomical geometry shield the child's posture and prevent joint wear."}\n\n#### 3. Annual Verdict\nUndoubtedly the safest and most satisfying purchase for parents in 2026. A fully deserved Gold Winner.`,
+      content: `### ${productName} 2026 Gold Medal Review\n\n#### 1. Award-Winning Mechanics\nFollowing 100+ days of severe mechanical stress rig testing, ${productName} outperformed peer models in this category with an exceptional score of ${score}. Handbrake clearances, deck loading resilience, and fork alignment limits proved outstanding.\n\n#### 2. Lab Inspection Verdict\n${evidence || "Rigid structural linkages, progressive braking feedback, and anatomical geometry shield the child's posture and prevent joint wear."}\n\n#### 3. Annual Verdict\nUndoubtedly the safest and most satisfying purchase for parents in 2026. A fully deserved Gold Winner.`,
     },
   };
   const template = lang === "en" ? enTemplates[category] : zhTemplates[category];

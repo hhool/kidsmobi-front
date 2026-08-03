@@ -92,10 +92,10 @@ export const getProductsPageSeoTitle = (productOrName?: Product | string | null)
   if (normalized.includes("jmmd")) return "JMMD 6-in-1 Convertible Toddler Bike";
   if (normalized.includes("kriddo")) return "KRIDDO Toddler Balance Bike";
   if (normalized.includes("sereed")) return "SEREED Toddler Balance Bike";
-  if (normalized.includes("gamfeiny")) return "Gamfeiny Illuminated Toddler Balance Bike";
+  if (normalized.includes("gamfeiny")) return "Gamfeiny Toddler Balance Bike";
   if (normalized.includes("colorful") && normalized.includes("glow") && normalized.includes("balance bike")) return "Colorful Glow Wheel Toddler Balance Bike";
-  if (normalized.includes("colorful lighting") && normalized.includes("balance bike")) return "Colorful LED Toddler Balance Bike";
-  if (normalized.includes("umatoll")) return "Umatoll Illuminated Toddler Balance Bike";
+  if (normalized.includes("colorful lighting") && normalized.includes("balance bike")) return "Toddler Balance Bike";
+  if (normalized.includes("umatoll")) return "Umatoll Toddler Balance Bike";
   if (normalized.includes("retrospec") && normalized.includes("cricket")) return "Retrospec Cricket Toddler Balance Bike";
 
   return getProductSeoTitle(productOrName);
@@ -173,7 +173,7 @@ export function getProductDisplayTitle(product: Product, lang: "zh" | "en"): str
   } else if (/\b(?:jogger|jogging)\b/.test(name)) {
     type = lang === "zh" ? "慢跑推车" : "Jogging";
   } else if (/\bdouble\s+stroller\b/.test(name)) {
-    type = lang === "zh" ? "双人推车" : "Tandem";
+    type = lang === "zh" ? "双人推车" : "double twin stroller";
   } else if (/\blight[ -]?weight\b/.test(name)) {
     type = lang === "zh" ? "轻便推车" : "Lightweight";
   } else {

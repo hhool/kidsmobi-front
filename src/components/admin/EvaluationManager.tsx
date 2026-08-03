@@ -16,6 +16,45 @@ import { getCMSEvaluations, saveCMSEvaluation, getCMSProducts, deleteCMSEvaluati
 import { Evaluation, CMSProduct, RadarScores } from "../../types";
 import { deleteD1CMSEvaluation, getD1CMSEvaluations, getD1CMSProducts, saveD1CMSEvaluation } from "../../lib/cmsD1Service";
 
+const DEFAULT_RADAR_SCORES: RadarScores = {
+  safety: 5,
+  comfort: 5,
+  portability: 5,
+  features: 5,
+  valueForMoney: 5,
+};
+
+function normalizeEvaluationRecord(ev: Partial<Evaluation> | null | undefined): Evaluation {
+  return {
+    id: String(ev?.id || `ev_${Date.now()}`),
+    type: ev?.type || "single",
+    productId: String(ev?.productId || ""),
+    productIds: Array.isArray(ev?.productIds) ? ev!.productIds!.filter(Boolean) : [],
+    status: (ev?.status || "draft") as Evaluation["status"],
+    version: String(ev?.version || "V1.0"),
+    imageUrl: String(ev?.imageUrl || ""),
+    scores: {
+      ...DEFAULT_RADAR_SCORES,
+      ...(ev?.scores || {}),
+    },
+    zh: {
+      title: String(ev?.zh?.title || ""),
+      verdict: String(ev?.zh?.verdict || ""),
+      pros: Array.isArray(ev?.zh?.pros) ? ev!.zh!.pros.filter(Boolean) : [],
+      cons: Array.isArray(ev?.zh?.cons) ? ev!.zh!.cons.filter(Boolean) : [],
+      changelog: String(ev?.zh?.changelog || ""),
+    },
+    en: {
+      title: String(ev?.en?.title || ""),
+      verdict: String(ev?.en?.verdict || ""),
+      pros: Array.isArray(ev?.en?.pros) ? ev!.en!.pros.filter(Boolean) : [],
+      cons: Array.isArray(ev?.en?.cons) ? ev!.en!.cons.filter(Boolean) : [],
+      changelog: String(ev?.en?.changelog || ""),
+    },
+    updatedAt: ev?.updatedAt || null,
+  };
+}
+
 export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
   const [evaluations, setEvaluations] = useState<Evaluation[]>([]);
   const [products, setProducts] = useState<CMSProduct[]>([]);
@@ -50,7 +89,7 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
       prods = await getCMSProducts();
     }
 
-    setEvaluations(evs);
+    setEvaluations(evs.map((item) => normalizeEvaluationRecord(item)));
     setProducts(prods);
   };
 
@@ -127,7 +166,7 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
   };
 
   const handleNew = () => {
-    setEditingEv({
+    setEditingEv(normalizeEvaluationRecord({
       id: `ev_${Date.now()}`,
       type: "single",
       productId: "",
@@ -135,11 +174,11 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
       status: "draft",
       version: "V1.0",
       imageUrl: "",
-      scores: { safety: 5, comfort: 5, portability: 5, features: 5, valueForMoney: 5 },
+      scores: DEFAULT_RADAR_SCORES,
       zh: { title: "", verdict: "", pros: [], cons: [], changelog: "首次发布实测数据" },
       en: { title: "", verdict: "", pros: [], cons: [], changelog: "Initial review publication" },
       updatedAt: null
-    });
+    }));
   };
 
   const [saving, setSaving] = useState(false);
@@ -155,12 +194,12 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
     setSaveError(null);
     try {
       try {
-        const saved = await saveD1CMSEvaluation(ev);
+        const saved = await saveD1CMSEvaluation(normalizeEvaluationRecord(ev));
         if (!saved) {
           throw new Error("D1 save failed");
         }
       } catch {
-        await saveCMSEvaluation(ev);
+        await saveCMSEvaluation(normalizeEvaluationRecord(ev));
       }
       setEditingEv(null);
       fetchData();
@@ -248,6 +287,12 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
       <div className="grid grid-cols-1 gap-4">
         {filteredEvaluations.map((ev) => {
           const product = products.find(p => p.id === ev.productId);
+          const displayTitle = lang === "zh"
+            ? (ev.zh?.title || ev.en?.title || "(No Title)")
+            : (ev.en?.title || ev.zh?.title || "(No Title)");
+          const linkedProductName = lang === "zh"
+            ? (product?.zh?.name || product?.en?.name || ev.productId)
+            : (product?.en?.name || product?.zh?.name || ev.productId);
           return (
             <div key={ev.id} className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm flex items-center justify-between group hover:border-emerald-200 transition-all">
               <div className="flex items-center gap-6">
@@ -261,17 +306,17 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
                       {ev.status}
                     </span>
                   </div>
-                  <h4 className="font-black text-slate-900">{ev.zh?.title || "(No Title)"}</h4>
-                  <p className="text-xs text-slate-400 font-bold uppercase tracking-tight mt-0.5">Linked: {product?.zh?.name || product?.en?.name || ev.productId}</p>
+                  <h4 className="font-black text-slate-900">{displayTitle}</h4>
+                  <p className="text-xs text-slate-400 font-bold uppercase tracking-tight mt-0.5">Linked: {linkedProductName}</p>
                 </div>
               </div>
             <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
               <button 
-                onClick={() => setEditingEv(ev)}
+                onClick={() => setEditingEv(normalizeEvaluationRecord(ev))}
                 className="p-4 hover:bg-slate-100 rounded-2xl text-slate-600 transition-all text-xs font-black uppercase tracking-widest flex items-center gap-1.5"
               >
                 <FileText className="w-4 h-4 text-emerald-500" />
-                Modify Report
+                {lang === "zh" ? "编辑评测" : "Modify Report"}
               </button>
               <button 
                 onClick={() => handleDelete(ev.id)}
@@ -303,22 +348,27 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
 }
 
 function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error }: any) {
-  const [formData, setFormData] = useState<Evaluation>(ev);
-  const [activeTab, setActiveTab] = useState<"base" | "zh" | "en">("base");
+  const [formData, setFormData] = useState<Evaluation>(() => normalizeEvaluationRecord(ev));
+  const [activeTab, setActiveTab] = useState<"zh" | "en">(lang === "zh" ? "zh" : "en");
+
+  useEffect(() => {
+    setFormData(normalizeEvaluationRecord(ev));
+    setActiveTab(lang === "zh" ? "zh" : "en");
+  }, [ev, lang]);
 
   const updateLocalizedReviewField = (field: "title" | "verdict" | "changelog" | "pros" | "cons", value: string | string[]) => {
     const next = { ...formData };
-    const currentLocale = { ...((next as any)[activeTab] || {}) };
-    (next as any)[activeTab] = {
+    const currentLocale = { ...next[activeTab] };
+    next[activeTab] = {
       ...currentLocale,
       [field]: value,
     };
     setFormData(next);
   };
 
-  const localizedPros = activeTab === "zh" ? (formData.zh?.pros || []) : (formData.en?.pros || []);
-  const localizedCons = activeTab === "zh" ? (formData.zh?.cons || []) : (formData.en?.cons || []);
-  const reviewInsightLabel = lang === "zh" ? "评测室综合洞察" : "Review Lab Insight";
+  const localizedPros = formData[activeTab]?.pros || [];
+  const localizedCons = formData[activeTab]?.cons || [];
+  const reviewInsightLabel = lang === "zh" ? "评测摘要" : "Review Summary";
 
   const saveWithStatus = (status: Evaluation["status"]) => {
     onSave({ ...formData, status });
@@ -534,13 +584,13 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
               </div>
 
               <div className="bg-white p-10 rounded-[40px] border border-slate-100 shadow-sm space-y-8">
-                <Field label={lang === "zh" ? "评测标题" : "Report Title"} value={activeTab === "zh" ? (formData.zh?.title || "") : (formData.en?.title || "")} onChange={(v: string) => updateLocalizedReviewField("title", v)} />
+                <Field label={lang === "zh" ? "评测标题" : "Report Title"} value={formData[activeTab]?.title || ""} onChange={(v: string) => updateLocalizedReviewField("title", v)} />
                 
                 <div className="space-y-2">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{reviewInsightLabel}</label>
                   <textarea 
                     className="w-full bg-slate-50 p-6 rounded-2xl font-bold text-sm outline-none border-2 border-transparent focus:border-emerald-500 focus:bg-white transition-all min-h-[120px]"
-                    value={activeTab === "zh" ? (formData.zh?.verdict || "") : (formData.en?.verdict || "")}
+                    value={formData[activeTab]?.verdict || ""}
                     onChange={(e) => updateLocalizedReviewField("verdict", e.target.value)}
                   />
                 </div>
@@ -565,7 +615,7 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
                   <input 
                     className="w-full bg-slate-50 p-6 rounded-2xl font-bold text-sm outline-none border-2 border-transparent focus:border-red-500 focus:bg-white transition-all"
                     placeholder={lang === "zh" ? "说明本次为何更新这份评测" : "Why are you updating this report?"}
-                    value={activeTab === "zh" ? (formData.zh?.changelog || "") : (formData.en?.changelog || "")}
+                    value={formData[activeTab]?.changelog || ""}
                     onChange={(e) => updateLocalizedReviewField("changelog", e.target.value)}
                   />
                 </div>

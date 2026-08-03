@@ -871,7 +871,7 @@ function summarizeCons(product: WorkerProduct): string[] {
   }
 
   if (cons.length === 0) {
-    cons.push("Synthetic bundle generated from API evidence; treat as a curated preview rather than a formal lab report.");
+    cons.push("Synthetic bundle generated from API evidence; treat as a curated preview rather than a formal review dossier.");
   }
 
   return cons.slice(0, 3);
