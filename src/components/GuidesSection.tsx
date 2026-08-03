@@ -1130,21 +1130,22 @@ export default function GuidesSection({
           Part 1: 智能选购匹配工效算力工具 (Interactive Match Wizard)
           ======================================================== */}
       {!selectedGuideState && (
-        <section className="bg-white border border-slate-100 rounded-[40px] p-8 sm:p-10 shadow-xl shadow-slate-200/50 text-left relative overflow-hidden">
+        <section className="bg-white border border-slate-100 rounded-[48px] p-8 sm:p-10 shadow-xl shadow-slate-200/50 text-left relative overflow-hidden">
           
           {/* Background blobs for B2C feel */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-orange-100/30 rounded-full blur-3xl -mr-32 -mt-32"></div>
 
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-b border-slate-50 pb-8 mb-8 relative z-10">
-            <div className="space-y-2 text-left">
-              <span className="px-3 py-1 bg-orange-100 text-orange-600 text-[10px] font-black rounded-full uppercase tracking-widest border border-orange-200 inline-block">
+            <div className="space-y-6 text-left">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-500/15 border border-orange-500/30 text-orange-500 text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">
+                <Zap className="w-4 h-4 text-orange-500 fill-orange-500 animate-pulse" />
                 {lang === "en" ? "Smart Wizard" : "智能选车助手"}
               </span>
-            <h1 className="km-page-title km-home-statement-title text-slate-900 flex items-center gap-2">
-              <Calculator className="w-6 h-6 text-orange-500" />
+            <h1 className="km-page-title km-home-statement-title text-slate-900 max-w-5xl flex items-center gap-2">
+              <Calculator className="w-6 h-6 text-orange-500 shrink-0" />
               {lang === "en" ? "Smart Wizard: How to Choose a Baby Stroller, Scooter & First Bike" : "全品类工效学智能选车计算器"}
             </h1>
-            <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium">
+            <p className="km-heading-copy km-body-copy text-sm md:text-base text-slate-500 font-semibold max-w-4xl leading-relaxed">
               {lang === "en" 
                 ? "Input your child's precise measurements below to instantly audit parameters for Kids Strollers, Kids Bikes, Kids Scooters, Balance Bikes, and Electric Cars. This biometric wizard automatically calculates the max vehicle weight limits and perfect fit geometries." 
                 : "输入宝宝的身高、跨高与体重参数，我们将通过生物力学算法，在婴儿推车、滑板车、平衡车与自行车品类中，精准匹配最安全、最省力的核心型号与轮径。"}
@@ -1159,11 +1160,12 @@ export default function GuidesSection({
               }
               setShowWizardResults(!showWizardResults);
             }}
-            className="px-6 py-3 bg-orange-500 text-white font-black text-sm rounded-2xl hover:bg-orange-600 transition shadow-lg shadow-orange-500/20 active:scale-95 flex items-center gap-2 cursor-pointer"
+            className="inline-flex items-center gap-3 px-10 py-5 bg-linear-to-r from-orange-500 via-orange-500 to-amber-500 text-white text-xs md:text-sm font-black uppercase tracking-widest rounded-full shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer"
           >
+            <Zap className="w-4 h-4 text-white fill-white animate-pulse" />
             {showWizardResults 
-              ? (lang === "en" ? "⚙️ Change Specs" : "⚙️ 调整参数")
-              : (lang === "en" ? "⚡ View Recommendations" : "⚡ 查看推荐好车")}
+              ? (lang === "en" ? "Change Specs" : "调整参数")
+              : (lang === "en" ? "View Recommendations" : "查看推荐好车")}
           </button>
         </div>
 
