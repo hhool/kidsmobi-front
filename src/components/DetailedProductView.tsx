@@ -706,9 +706,9 @@ function resolveStructuredScoringStandards(product: Product) {
           source: cleanEvidenceSource(item.source),
           text: cleanVisibleFieldText(item.text),
         }))
-        .filter((item) => item.text),
+        .filter((item) => isMeaningfulStructuredValue(item.text)),
     }))
-    .filter((item) => item.label || item.parentTip || item.evidence.length > 0);
+    .filter((item) => isMeaningfulStructuredValue(item.parentTip) || item.evidence.length > 0);
 }
 
 function extractDirectVideoUrls(value: unknown): string[] {
@@ -1476,19 +1476,19 @@ export default function DetailedProductView({
         {/* Technical Specs (Right Column) */}
           <div className="space-y-8">
            {/* Verdict Box */}
+           {isMeaningfulStructuredValue(verdictText) && (
            <div id="product_expert_summary_section" className="bg-orange-50 border border-orange-100 rounded-[40px] p-8 space-y-4 scroll-mt-24">
               <h2 className="text-xs font-black text-orange-600 uppercase tracking-widest flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4" />
                 {lang === "en" ? "Expert Summary" : "本站综合评价"}
               </h2>
-              {verdictText && (
-                <p className="text-sm text-slate-700 font-bold leading-relaxed italic">
-                  "{verdictText}"
-                </p>
-              )}
+              <p className="text-sm text-slate-700 font-bold leading-relaxed italic">
+                "{verdictText}"
+              </p>
            </div>
+           )}
 
-           {!structuredDescriptionText && effectiveDescriptionText && (
+           {!structuredDescriptionText && isMeaningfulStructuredValue(effectiveDescriptionText) && (
              <div id="product_description_section" className="bg-white border border-slate-100 rounded-[32px] p-6 space-y-2 shadow-sm scroll-mt-24">
                <p className="text-xs font-black uppercase tracking-widest text-slate-500">
                  {lang === "en" ? "Product Description" : "产品描述"}
