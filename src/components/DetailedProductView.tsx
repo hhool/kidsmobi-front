@@ -598,6 +598,7 @@ function isMeaningfulStructuredValue(value: unknown): boolean {
   if (typeof value === "object") return Object.values(value as Record<string, unknown>).some((item) => isMeaningfulStructuredValue(item));
   const text = String(value || "").replace(/\s+/g, " ").trim();
   if (!text) return false;
+  if (/^[-–—]+$/.test(text)) return false;
   return !/^(n\/?a|na|none|null|undefined|unknown|待补充|tbd)$/i.test(text);
 }
 
