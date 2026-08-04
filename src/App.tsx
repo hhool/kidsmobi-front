@@ -148,11 +148,41 @@ const PRODUCTS_PAGE_KEYWORDS_EN = [
   "kids electric scooter",
 ];
 
+const PRODUCTS_PAGE_KEYWORDS_ZH = [
+  "婴儿推车",
+  "儿童平衡车",
+  "儿童自行车",
+  "儿童滑板车",
+  "儿童电动车",
+  "儿童安全座椅",
+];
+
 const applyPageKeywordOverride = (seoKey: string, keywords: string[], lang: "zh" | "en", activeProductCategory = "all") => {
-  if (seoKey === "products" && lang === "en" && activeProductCategory === "all") {
-    return PRODUCTS_PAGE_KEYWORDS_EN;
+  if (seoKey === "products" && activeProductCategory === "all") {
+    return lang === "zh" ? PRODUCTS_PAGE_KEYWORDS_ZH : PRODUCTS_PAGE_KEYWORDS_EN;
   }
   return keywords;
+};
+
+const buildProductDetailKeywords = (product: Product, lang: "zh" | "en") => {
+  const categoryId = resolveProductCategoryId(product) || "all";
+  const dedupedDisplayTitle = getProductDisplayTitle(product, lang);
+  const rawName = String(product.name || "").trim();
+  const rawBrand = String(product.brand || "").trim();
+  const categoryKeywords = getProductSeoKeywords(categoryId, lang);
+  const genericKeywords = lang === "zh"
+    ? ["产品参数", "产品评测", "BalanceBikeToddler"]
+    : ["product specs", "product review", "BalanceBikeToddler"];
+
+  return Array.from(
+    new Set([
+      dedupedDisplayTitle,
+      rawName,
+      rawBrand,
+      ...categoryKeywords,
+      ...genericKeywords,
+    ].map((item) => String(item || "").trim()).filter(Boolean))
+  );
 };
 
 const PRODUCT_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
@@ -1924,9 +1954,7 @@ export default function App() {
     if (activeTab === "product_detail") {
       if (selectedProduct) {
         const name = selectedProduct.name;
-        const brand = selectedProduct.brand;
         const dedupedDisplayTitle = getProductDisplayTitle(selectedProduct, lang);
-        const cat = selectedProduct.category;
 
         const title = lang === "zh"
           ? `${dedupedDisplayTitle} 独家深度客观安全评测报告 | BalanceBikeToddler`
@@ -1936,9 +1964,7 @@ export default function App() {
           ? `${dedupedDisplayTitle} (${selectedProduct.ageRange})的物理材料、轮径比、刹车制动等详细性能参数，结合BalanceBikeToddler实验室工程师的独家拆解观点与真实优缺点分析。`
           : `Meticulous safety verification for the ${dedupedDisplayTitle} kids mobility. Comprehensive parameters, raw materials, pros/cons, and engineer reviews.`;
 
-        const kws = lang === "zh"
-          ? [name, brand, cat, "童车数据评测", "BalanceBikeToddler"]
-          : [name, brand, cat, "parameters", "product evaluation", "BalanceBikeToddler"];
+        const kws = buildProductDetailKeywords(selectedProduct, lang);
 
         document.title = title;
         updateMetaTag("description", desc);

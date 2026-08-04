@@ -43,9 +43,9 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
   },
   products: {
     zh: {
-      title: "Top Toddler Bikes, Twin Strollers & Electric Scooters | BalanceBikeToddler",
-      description: "Browse our catalog of toddler bikes, balance bike toddler models, twin strollers, and kids electric scooters. Find the safest ride-on toys for your children.",
-      keywords: ["toddler bike", "balance bike toddler", "twin stroller", "kids electric scooter"],
+      title: "童车产品库：平衡车、婴儿推车、自行车与滑板车 | BalanceBikeToddler",
+      description: "浏览 BalanceBikeToddler 产品库，按品类查看儿童平衡车、婴儿推车、儿童自行车、滑板车、电动车与安全座椅，快速筛选更安全的童车方案。",
+      keywords: ["婴儿推车", "儿童平衡车", "儿童自行车", "儿童滑板车", "儿童电动车", "儿童安全座椅"],
     },
     en: {
       title: "Top Toddler Bikes, Twin Strollers & Electric Scooters | BalanceBikeToddler",
