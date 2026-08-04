@@ -17833,7 +17833,6 @@ export const productsData: any[] = [
     ],
     "imageUrl": "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/primary.jpg",
     "galleryUrls": [
-      "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/primary.jpg",
       "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/alt_1.jpg",
       "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/alt_2.jpg",
       "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/alt_3.jpg",
@@ -17843,6 +17842,12 @@ export const productsData: any[] = [
       "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/alt_7.jpg",
       "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/alt_8.jpg",
       "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/alt_9.jpg"
+    ],
+    "featureImageUrls": [
+      "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_00.jpg",
+      "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_01.jpg",
+      "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_02.jpg",
+      "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/manufacturer_images/from_the_manufacturer/m_media-amazon_com/aplus_03.jpg"
     ],
     "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f0712878-ab2d-44e6-9ed6-a0c6eb16707c/default.jobtemplate.hls.m3u8",
     "videos": [
@@ -17973,8 +17978,8 @@ export const productsData: any[] = [
         "source": "Category_Attributes.Brake Style"
       },
       "tireType": {
-        "value": "Alloy Steel",
-        "source": "Product_Specifications.Materials_Care.Wheel Material"
+        "value": "Pneumatic",
+        "source": "From_The_Manufacturer.Comparison_Table.Air_Rubber_Tires"
       },
       "seatRecline": {
         "value": "Steel",
