@@ -590,6 +590,8 @@ type StructuredSection = {
   rows: StructuredSectionRow[];
 };
 
+const MIN_MEANINGFUL_DETAIL_TEXT_LENGTH = 12;
+
 function isMeaningfulStructuredValue(value: unknown): boolean {
   if (value === null || value === undefined) return false;
   if (Array.isArray(value)) return value.some((item) => isMeaningfulStructuredValue(item));
@@ -706,7 +708,11 @@ function resolveStructuredScoringStandards(product: Product) {
           source: cleanEvidenceSource(item.source),
           text: cleanVisibleFieldText(item.text),
         }))
-        .filter((item) => isMeaningfulStructuredValue(item.text)),
+        .filter((item) => isMeaningfulStructuredValue(item.text) && item.text.length >= MIN_MEANINGFUL_DETAIL_TEXT_LENGTH),
+    }))
+    .map((item) => ({
+      ...item,
+      parentTip: item.parentTip.length >= MIN_MEANINGFUL_DETAIL_TEXT_LENGTH ? item.parentTip : "",
     }))
     .filter((item) => isMeaningfulStructuredValue(item.parentTip) || item.evidence.length > 0);
 }
