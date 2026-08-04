@@ -864,6 +864,37 @@ export default function DetailedProductView({
   const strongestDimension = sortedRadarScores[0];
   const needsAttentionDimension = sortedRadarScores[sortedRadarScores.length - 1];
 
+  const getCategoryLabel = (cat: string, l: "zh" | "en"): string => {
+    const normalized = String(cat || "").trim().toLowerCase();
+    const mapZh: Record<string, string> = {
+      stroller: "婴儿推车",
+      balance: "平衡车",
+      balance_bike: "平衡车",
+      bicycle: "儿童自行车",
+      kids_bikes: "儿童自行车",
+      scooter: "儿童滑板车",
+      kids_scooters: "儿童滑板车",
+      electric_car: "儿童电动车",
+      electric_vehicles: "儿童电动车",
+      safety_seat: "安全座椅",
+      car_seat: "安全座椅",
+    };
+    const mapEn: Record<string, string> = {
+      stroller: "Kids Stroller",
+      balance: "Balance Bike",
+      balance_bike: "Balance Bike",
+      bicycle: "Kids Bike",
+      kids_bikes: "Kids Bike",
+      scooter: "Kids Scooter",
+      kids_scooters: "Kids Scooter",
+      electric_car: "Kids Electric Car",
+      electric_vehicles: "Kids Electric Car",
+      safety_seat: "Car Seat",
+      car_seat: "Car Seat",
+    };
+    return l === "zh" ? (mapZh[normalized] || "产品中心") : (mapEn[normalized] || "Products");
+  };
+
   const normalizePriceValue = (value: unknown) => {
     const numeric = Number(String(value ?? "").replace(/[^\d.]/g, ""));
     return Number.isFinite(numeric) && numeric > 0 ? numeric : null;
@@ -918,37 +949,6 @@ export default function DetailedProductView({
       );
     }
     return null;
-  };
-
-  const getCategoryLabel = (cat: string, l: "zh" | "en"): string => {
-    const normalized = String(cat || "").trim().toLowerCase();
-    const mapZh: Record<string, string> = {
-      stroller: "婴儿推车",
-      balance: "平衡车",
-      balance_bike: "平衡车",
-      bicycle: "儿童自行车",
-      kids_bikes: "儿童自行车",
-      scooter: "儿童滑板车",
-      kids_scooters: "儿童滑板车",
-      electric_car: "儿童电动车",
-      electric_vehicles: "儿童电动车",
-      safety_seat: "安全座椅",
-      car_seat: "安全座椅",
-    };
-    const mapEn: Record<string, string> = {
-      stroller: "Kids Stroller",
-      balance: "Balance Bike",
-      balance_bike: "Balance Bike",
-      bicycle: "Kids Bike",
-      kids_bikes: "Kids Bike",
-      scooter: "Kids Scooter",
-      kids_scooters: "Kids Scooter",
-      electric_car: "Kids Electric Car",
-      electric_vehicles: "Kids Electric Car",
-      safety_seat: "Car Seat",
-      car_seat: "Car Seat",
-    };
-    return l === "zh" ? (mapZh[normalized] || "产品中心") : (mapEn[normalized] || "Products");
   };
 
   return (
