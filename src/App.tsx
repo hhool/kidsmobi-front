@@ -1628,10 +1628,20 @@ export default function App() {
   useEffect(() => {
     let isActive = true;
 
+    const { categoryId } = getBundleFetchOptions() as { categoryId?: string };
+    const shouldLoadBatchData = (activeTab === "products" || activeTab === "product_detail") && Boolean(categoryId);
+
+    if (!shouldLoadBatchData || !categoryId) {
+      batchProductsRef.current = [];
+      return () => {
+        isActive = false;
+      };
+    }
+
     const loadBatchData = async () => {
       try {
-        console.log("Loading batch products from reports...");
-        const batchProducts = await loadBatchProducts();
+        console.log(`Loading batch products from reports for category: ${categoryId}`);
+        const batchProducts = await loadBatchProducts([categoryId]);
         if (!isActive) return;
         
         if (batchProducts && batchProducts.length > 0) {
@@ -1658,7 +1668,7 @@ export default function App() {
       isActive = false;
       clearTimeout(timer);
     };
-  }, []);
+  }, [activeTab, currentPath]);
 
   // Synchronize bookmarked products whenever productsData or login state changes
   useEffect(() => {

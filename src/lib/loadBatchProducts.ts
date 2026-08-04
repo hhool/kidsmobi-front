@@ -41,6 +41,10 @@ const REPORT_FILE_TO_CATEGORY: Record<string, string> = {
   "playard_report.json": "playard",
 };
 
+const CATEGORY_TO_REPORT_FILE: Record<string, string> = Object.fromEntries(
+  Object.entries(REPORT_FILE_TO_CATEGORY).map(([reportFile, categoryId]) => [categoryId, reportFile])
+);
+
 const REPORT_DATA_VERSION = "20260712-all-categories-detail-sync";
 const STORE_MEDIA_ORIGIN = "https://store.balancebiketoddler.com";
 const AGE_RANGE_NEEDS_SOURCE_CONFIRMATION = "Confirm from source";
@@ -708,14 +712,27 @@ export function transformReportProduct(
 }
 
 /**
- * Load all batch products from report JSON files
+ * Load batch products from report JSON files.
+ * When categoryIds are provided, only those category reports are loaded.
  */
-export async function loadBatchProducts(): Promise<Product[]> {
+export async function loadBatchProducts(categoryIds?: string[]): Promise<Product[]> {
   const products: Product[] = [];
 
   try {
-    // Load each category report
-    for (const [reportFile, categoryId] of Object.entries(REPORT_FILE_TO_CATEGORY)) {
+    const normalizedCategoryIds = Array.isArray(categoryIds)
+      ? Array.from(new Set(categoryIds.map((value) => String(value || "").trim()).filter(Boolean)))
+      : [];
+
+    const reportsToLoad = normalizedCategoryIds.length > 0
+      ? normalizedCategoryIds
+          .map((categoryId) => {
+            const reportFile = CATEGORY_TO_REPORT_FILE[categoryId];
+            return reportFile ? [reportFile, categoryId] as const : null;
+          })
+          .filter(Boolean)
+      : Object.entries(REPORT_FILE_TO_CATEGORY);
+
+    for (const [reportFile, categoryId] of reportsToLoad) {
       try {
         const response = await fetch(`/data/reports/${reportFile}?v=${REPORT_DATA_VERSION}`);
         if (!response.ok) {
