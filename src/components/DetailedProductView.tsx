@@ -1377,22 +1377,6 @@ export default function DetailedProductView({
                    </div>
                  )}
 
-                 {structuredFeatureRows.length > 0 && (
-                   <div className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4">
-                     <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
-                       <p className="text-sm font-black text-slate-800">Features</p>
-                       <span className="text-[10px] font-black px-2 py-1 rounded-full bg-white text-slate-500 border border-slate-200">{structuredFeatureRows.length}</span>
-                     </div>
-                     <div className="grid grid-cols-1 gap-3">
-                       {structuredFeatureRows.map((value, index) => (
-                         <div key={`feature-${index}`} className="rounded-2xl bg-white border border-slate-100 p-3 text-sm text-slate-700 font-semibold leading-relaxed break-words">
-                           {value}
-                         </div>
-                       ))}
-                     </div>
-                   </div>
-                 )}
-
                  {structuredDescriptionText && (
                    <div className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4">
                      <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
