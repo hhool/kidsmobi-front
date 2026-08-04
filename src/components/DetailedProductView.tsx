@@ -557,6 +557,161 @@ function cleanEvidenceSource(value: unknown) {
   return text;
 }
 
+type StructuredSectionRow = {
+  label: string;
+  value: string;
+};
+
+type StructuredSection = {
+  key: string;
+  label: string;
+  labelEn: string;
+  rows: StructuredSectionRow[];
+};
+
+function isMeaningfulStructuredValue(value: unknown): boolean {
+  if (value === null || value === undefined) return false;
+  if (Array.isArray(value)) return value.some((item) => isMeaningfulStructuredValue(item));
+  if (typeof value === "object") return Object.values(value as Record<string, unknown>).some((item) => isMeaningfulStructuredValue(item));
+  const text = String(value || "").replace(/\s+/g, " ").trim();
+  if (!text) return false;
+  return !/^(n\/?a|na|none|null|undefined|unknown|待补充|tbd)$/i.test(text);
+}
+
+function buildStructuredRows(record: Record<string, unknown>, lang: "zh" | "en", applicableAgeRange: string): StructuredSectionRow[] {
+  return Object.entries(record)
+    .map(([key, value]) => ({
+      label: formatSpecKey(key, lang),
+      value: ["age_range", "age_range_description", "recommended_age"].includes(toSpecKey(key))
+        ? applicableAgeRange
+        : formatSpecValue(value, key, lang),
+    }))
+    .filter((item) => isMeaningfulStructuredValue(item.value));
+}
+
+function resolveStructuredProductDescription(product: Product, lang: "zh" | "en"): string {
+  const localized = product as Product & {
+    zh?: { Product_Description?: string; description?: string };
+    en?: { Product_Description?: string; description?: string };
+  };
+  const candidates = lang === "zh"
+    ? [localized.zh?.Product_Description, localized.Product_Description, localized.zh?.description]
+    : [localized.en?.Product_Description, localized.Product_Description, localized.en?.description, localized.description];
+
+  const normalizedName = String(product.name || "").replace(/\s+/g, " ").trim().toLowerCase();
+
+  for (const candidate of candidates) {
+    const text = String(candidate || "").replace(/\s+/g, " ").trim();
+    if (!isMeaningfulStructuredValue(text)) continue;
+    const normalizedText = text.toLowerCase();
+    if (normalizedText === normalizedName) continue;
+    if (normalizedText.includes("generated from remote fallback")) continue;
+    return text;
+  }
+
+  return "";
+}
+
+function resolveStructuredFeatureRows(product: Product, lang: "zh" | "en"): string[] {
+  const localized = product as Product & {
+    zh?: { features?: unknown[] };
+    en?: { features?: unknown[] };
+  };
+  const featureCandidates = lang === "zh"
+    ? [localized.zh?.features, product.features]
+    : [localized.en?.features, product.features];
+
+  for (const candidate of featureCandidates) {
+    if (!Array.isArray(candidate)) continue;
+    const cleaned = Array.from(
+      new Set(
+        candidate
+          .map((item) => cleanVisibleFieldText(item))
+          .filter((item) => isMeaningfulStructuredValue(item) && !/^[\d\s.-]+$/.test(item))
+      )
+    );
+    if (cleaned.length > 0) return cleaned;
+  }
+
+  return [];
+}
+
+function buildStructuredSpecificationSections(product: Product, lang: "zh" | "en", applicableAgeRange: string): StructuredSection[] {
+  const richProduct = product as Product & {
+    Product_Specifications?: Record<string, Record<string, unknown>>;
+  };
+  const specs = richProduct.Product_Specifications || {};
+  const sectionOrder = [
+    "Measurements",
+    "Features_Specs",
+    "Materials_Care",
+    "Item_Details",
+    "User_Guide",
+    "Additional_Details",
+  ];
+  const sectionLabels: Record<string, { zh: string; en: string }> = {
+    Measurements: { zh: "Measurements", en: "Measurements" },
+    Features_Specs: { zh: "Features Specs", en: "Features Specs" },
+    Materials_Care: { zh: "Materials Care", en: "Materials Care" },
+    Item_Details: { zh: "Item Details", en: "Item Details" },
+    User_Guide: { zh: "User Guide", en: "User Guide" },
+    Additional_Details: { zh: "Additional Details", en: "Additional Details" },
+  };
+
+  return sectionOrder
+    .map((key) => {
+      const section = specs[key];
+      if (!section || typeof section !== "object") return null;
+      const rows = buildStructuredRows(section, lang, applicableAgeRange);
+      if (rows.length === 0) return null;
+      return {
+        key,
+        label: lang === "zh" ? sectionLabels[key].zh : sectionLabels[key].en,
+        labelEn: sectionLabels[key].en,
+        rows,
+      } satisfies StructuredSection;
+    })
+    .filter(Boolean) as StructuredSection[];
+}
+
+function resolveStructuredScoringStandards(product: Product) {
+  return (product.scoringStandards || [])
+    .map((standard) => ({
+      key: String(standard.key || "").trim(),
+      label: String(standard.label || "").trim(),
+      parentTip: cleanVisibleFieldText(standard.parentTip),
+      evidence: (standard.evidence || [])
+        .map((item) => ({
+          source: cleanEvidenceSource(item.source),
+          text: cleanVisibleFieldText(item.text),
+        }))
+        .filter((item) => item.text),
+    }))
+    .filter((item) => item.label || item.parentTip || item.evidence.length > 0);
+}
+
+function extractDirectVideoUrls(value: unknown): string[] {
+  if (!value) return [];
+  if (typeof value === "string") {
+    return /\.mp4(\?|#|$)/i.test(value.trim()) ? [value.trim()] : [];
+  }
+  if (Array.isArray(value)) {
+    return value.flatMap((item) => extractDirectVideoUrls(item));
+  }
+  if (typeof value === "object") {
+    const record = value as Record<string, unknown>;
+    return [
+      record.Video_URL,
+      record.videoUrl,
+      record.video_url,
+      record.url,
+      record.Local_Video_Path,
+      record.Local_Video_Paths,
+    ].flatMap((item) => extractDirectVideoUrls(item));
+  }
+  return [];
+}
+
 interface DetailedProductViewProps {
   product: Product;
   onClose: () => void;
@@ -591,6 +746,19 @@ export default function DetailedProductView({
   ).trim();
   const descriptionText = resolveDescriptionText(displayProduct, lang);
   const imageSet = resolveProductImages(displayProduct);
+  const applicableAgeRange = resolveApplicableAgeRange(product, lang);
+  const structuredDescriptionText = resolveStructuredProductDescription(displayProduct, lang);
+  const structuredFeatureRows = resolveStructuredFeatureRows(displayProduct, lang);
+  const structuredSpecSections = buildStructuredSpecificationSections(displayProduct, lang, applicableAgeRange);
+  const structuredScoringStandards = resolveStructuredScoringStandards(displayProduct);
+  const categoryAttributeRows = buildStructuredRows(
+    (((displayProduct as Product & { Category_Attributes?: Record<string, unknown> }).Category_Attributes) || {}),
+    lang,
+    applicableAgeRange
+  );
+  const weightText = Number.isFinite(Number(displayProduct.weight)) && Number(displayProduct.weight) > 0
+    ? `${Number(displayProduct.weight).toFixed(2).replace(/\.00$/, "")} kg`
+    : "";
   const resourceVideoAssets = detailResources
     .flatMap((resource) => {
       const type = String(resource?.resourceType || "").toLowerCase();
@@ -608,7 +776,18 @@ export default function DetailedProductView({
     })
     .filter((item, index, list) => list.findIndex((next) => next.url === item.url) === index);
 
+  const rawProductMp4Assets = [
+    ...extractDirectVideoUrls((product as any)?.Product_Videos_MP4),
+    ...extractDirectVideoUrls((product as any)?.Product_Videos_Detail),
+    ...extractDirectVideoUrls((displayProduct as any)?.Product_Videos_MP4),
+    ...extractDirectVideoUrls((displayProduct as any)?.Product_Videos_Detail),
+  ].map((url, index) => ({
+    url,
+    title: `mp4-video-${index + 1}`,
+  }));
+
   const videoAssets = [
+    ...rawProductMp4Assets,
     product.videoUrl ? { url: product.videoUrl, title: "primary-video" } : null,
     ...((product.videos || []).map((item, index) => ({
       url: String(item?.url || "").trim(),
@@ -616,7 +795,7 @@ export default function DetailedProductView({
     }))),
     ...resourceVideoAssets,
   ]
-    .filter((item): item is { url: string; title: string } => Boolean(item?.url) && isLikelyVideoUrl(item.url) && !isUnsupportedVideoUrl(item.url))
+    .filter((item): item is { url: string; title: string } => Boolean(item?.url) && /\.mp4(\?|#|$)/i.test(item.url))
     .filter((item, index, list) => list.findIndex((candidate) => candidate.url === item.url) === index);
   const firstVideoUrl = videoAssets[0]?.url || "";
   const [activeVideoUrl, setActiveVideoUrl] = useState<string>(videoAssets[0]?.url || "");
@@ -625,8 +804,6 @@ export default function DetailedProductView({
   const hasVideo = videoRenderType !== "none";
   const hasFeatureImages = imageSet.featureUrls.length > 0;
   const [activeMediaTab, setActiveMediaTab] = useState<"gallery" | "feature" | "video">("gallery");
-  const applicableAgeRange = resolveApplicableAgeRange(product, lang);
-  const basicInfoSections = buildBasicInfoSections(product, displayProduct, lang, applicableAgeRange);
   const getBackLabel = () => {
     if (lang === "zh") {
       switch (previousTab) {
@@ -906,24 +1083,18 @@ export default function DetailedProductView({
     return lang === "zh" ? `¥${numeric.toLocaleString("zh-CN")}` : `$${numeric.toLocaleString("en-US")}`;
   })();
 
-  const quickFacts = [
-    {
-      label: lang === "zh" ? "适龄范围" : "Age Range",
-      value: applicableAgeRange || (lang === "zh" ? "待补充" : "TBD"),
-    },
-    {
-      label: lang === "zh" ? "品类" : "Category",
-      value: getCategoryLabel(product.category || "", lang),
-    },
-    {
-      label: lang === "zh" ? "参考价格" : "Reference Price",
-      value: displayPrice,
-    },
-  ];
+  const modelOverviewRows = [
+    { label: lang === "zh" ? "品牌" : "Brand", value: cleanVisibleFieldText(displayProduct.brand) },
+    { label: lang === "zh" ? "品类" : "Category", value: getCategoryLabel((displayProduct as any).categoryId || displayProduct.category || "", lang) },
+    { label: lang === "zh" ? "重量" : "Weight", value: weightText },
+    { label: lang === "zh" ? "适龄范围" : "Age Range", value: applicableAgeRange },
+    { label: lang === "zh" ? "参考价格" : "Reference Price", value: displayPrice },
+  ].filter((item) => isMeaningfulStructuredValue(item.value));
+
+  const quickFacts = modelOverviewRows.slice(0, 4);
 
   const highlightedFeatureRows = (() => {
-    const localizedFeatures = resolveFeatureList(displayProduct, lang).slice(0, 6);
-    if (localizedFeatures.length > 0) return localizedFeatures;
+    if (structuredFeatureRows.length > 0) return structuredFeatureRows.slice(0, 6);
     if (curatedContent?.highlightedFeatures?.length) return curatedContent.highlightedFeatures.slice(0, 6);
     return [];
   })();
@@ -1228,36 +1399,114 @@ export default function DetailedProductView({
              <div id="product_basic_info_section" className="space-y-4 pt-6 border-t border-slate-50 scroll-mt-24">
                <h3 className="flex items-center gap-2 text-xs font-black text-slate-700 uppercase tracking-widest">
                  <ShieldCheck className="w-4 h-4 text-orange-500" />
-                 {lang === "en" ? "Product Basic Info" : "产品基本信息"}
+                 {lang === "en" ? "Product Data Model" : "产品数据模型"}
                </h3>
-               {basicInfoSections.length > 0 ? (
-                 <div className="space-y-4">
-                   {basicInfoSections.map((section) => (
-                     <div key={section.key} className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4">
-                       <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
-                         <div>
-                           <p className="text-sm font-black text-slate-800">{lang === "en" ? section.labelEn : section.label}</p>
-                         </div>
-                         <span className="text-[10px] font-black px-2 py-1 rounded-full bg-white text-slate-500 border border-slate-200">{section.rows.length}</span>
-                       </div>
-                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                         {section.rows.map((row, index) => (
-                           <div key={`${section.key}-${row.label}-${index}`} className="rounded-2xl bg-white border border-slate-100 p-3 space-y-1">
-                             {section.key !== "Features" && (
-                               <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{row.label}</p>
-                             )}
-                             <p className="text-sm text-slate-700 font-semibold leading-relaxed break-words">{row.value}</p>
-                           </div>
-                         ))}
-                       </div>
+               <div className="space-y-4">
+                 {modelOverviewRows.length > 0 && (
+                   <div className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4">
+                     <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
+                       <p className="text-sm font-black text-slate-800">{lang === "en" ? "Overview" : "基础字段"}</p>
+                       <span className="text-[10px] font-black px-2 py-1 rounded-full bg-white text-slate-500 border border-slate-200">{modelOverviewRows.length}</span>
                      </div>
-                   ))}
-                 </div>
-               ) : (
-                 <div className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 text-sm text-slate-500 font-medium">
-                   {lang === "en" ? "No Product_Specifications data available." : "当前暂无 Product_Specifications 结构化数据。"}
-                 </div>
-               )}
+                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                       {modelOverviewRows.map((row, index) => (
+                         <div key={`overview-${row.label}-${index}`} className="rounded-2xl bg-white border border-slate-100 p-3 space-y-1">
+                           <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{row.label}</p>
+                           <p className="text-sm text-slate-700 font-semibold leading-relaxed break-words">{row.value}</p>
+                         </div>
+                       ))}
+                     </div>
+                   </div>
+                 )}
+
+                 {structuredFeatureRows.length > 0 && (
+                   <div className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4">
+                     <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
+                       <p className="text-sm font-black text-slate-800">Features</p>
+                       <span className="text-[10px] font-black px-2 py-1 rounded-full bg-white text-slate-500 border border-slate-200">{structuredFeatureRows.length}</span>
+                     </div>
+                     <div className="grid grid-cols-1 gap-3">
+                       {structuredFeatureRows.map((value, index) => (
+                         <div key={`feature-${index}`} className="rounded-2xl bg-white border border-slate-100 p-3 text-sm text-slate-700 font-semibold leading-relaxed break-words">
+                           {value}
+                         </div>
+                       ))}
+                     </div>
+                   </div>
+                 )}
+
+                 {structuredDescriptionText && (
+                   <div className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4">
+                     <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
+                       <p className="text-sm font-black text-slate-800">Product_Description</p>
+                     </div>
+                     <div className="rounded-2xl bg-white border border-slate-100 p-3 text-sm text-slate-700 font-semibold leading-relaxed break-words">
+                       {structuredDescriptionText}
+                     </div>
+                   </div>
+                 )}
+
+                 {categoryAttributeRows.length > 0 && (
+                   <div className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4">
+                     <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
+                       <p className="text-sm font-black text-slate-800">Category_Attributes</p>
+                       <span className="text-[10px] font-black px-2 py-1 rounded-full bg-white text-slate-500 border border-slate-200">{categoryAttributeRows.length}</span>
+                     </div>
+                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                       {categoryAttributeRows.map((row, index) => (
+                         <div key={`category-attribute-${row.label}-${index}`} className="rounded-2xl bg-white border border-slate-100 p-3 space-y-1">
+                           <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{row.label}</p>
+                           <p className="text-sm text-slate-700 font-semibold leading-relaxed break-words">{row.value}</p>
+                         </div>
+                       ))}
+                     </div>
+                   </div>
+                 )}
+
+                 {structuredSpecSections.map((section) => (
+                   <div key={section.key} className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4">
+                     <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
+                       <p className="text-sm font-black text-slate-800">{section.labelEn}</p>
+                       <span className="text-[10px] font-black px-2 py-1 rounded-full bg-white text-slate-500 border border-slate-200">{section.rows.length}</span>
+                     </div>
+                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                       {section.rows.map((row, index) => (
+                         <div key={`${section.key}-${row.label}-${index}`} className="rounded-2xl bg-white border border-slate-100 p-3 space-y-1">
+                           <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{row.label}</p>
+                           <p className="text-sm text-slate-700 font-semibold leading-relaxed break-words">{row.value}</p>
+                         </div>
+                       ))}
+                     </div>
+                   </div>
+                 ))}
+
+                 {structuredScoringStandards.length > 0 && (
+                   <div className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4">
+                     <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
+                       <p className="text-sm font-black text-slate-800">scoringStandards</p>
+                       <span className="text-[10px] font-black px-2 py-1 rounded-full bg-white text-slate-500 border border-slate-200">{structuredScoringStandards.length}</span>
+                     </div>
+                     <div className="space-y-3">
+                       {structuredScoringStandards.map((standard) => (
+                         <div key={standard.key || standard.label} className="rounded-2xl bg-white border border-slate-100 p-4 space-y-3">
+                           {standard.label && <p className="text-sm font-black text-slate-800">{standard.label}</p>}
+                           {standard.parentTip && <p className="text-sm text-slate-600 font-semibold leading-relaxed">{standard.parentTip}</p>}
+                           {standard.evidence.length > 0 && (
+                             <div className="space-y-2">
+                               {standard.evidence.map((evidence, index) => (
+                                 <div key={`${standard.key}-${index}`} className="rounded-2xl border border-slate-100 bg-slate-50 px-3 py-2">
+                                   {evidence.source && <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{evidence.source}</p>}
+                                   <p className="mt-1 text-sm text-slate-700 font-medium leading-relaxed">{evidence.text}</p>
+                                 </div>
+                               ))}
+                             </div>
+                           )}
+                         </div>
+                       ))}
+                     </div>
+                   </div>
+                 )}
+               </div>
              </div>
           </div>
 
@@ -1278,7 +1527,7 @@ export default function DetailedProductView({
               )}
            </div>
 
-           {effectiveDescriptionText && (
+           {!structuredDescriptionText && effectiveDescriptionText && (
              <div id="product_description_section" className="bg-white border border-slate-100 rounded-[32px] p-6 space-y-2 shadow-sm scroll-mt-24">
                <p className="text-xs font-black uppercase tracking-widest text-slate-500">
                  {lang === "en" ? "Product Description" : "产品描述"}
