@@ -5334,7 +5334,7 @@ export const productsData: any[] = [
       "Item_Details": {
         "Brand": "Baby Trend",
         "Age Range Description": "Infant",
-        "Included Components": "1 Infant and Toddler Sit N Stand Double Twin Stroller, 1 Car Seat, and 1 convenient parent organizer",
+        "Included Components": "1 Infant and Toddler Sit N Stand Twin Stroller, 1 Car Seat, and 1 convenient parent organizer",
         "Model Number": "CS79B51A",
         "Manufacturer Warranty Description": "6 Month Limited Warranty",
         "UPC": "090014034917",
