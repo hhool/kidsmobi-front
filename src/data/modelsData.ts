@@ -17816,9 +17816,9 @@ export const productsData: any[] = [
     "categoryId": "kids_bikes",
     "wheelSize": "12 Inch",
     "weight": 9.4,
-    "material": "Carbon Fiber",
-    "brakeType": "Coaster Brake",
-    "tireType": "N/A",
+    "material": "Carbon Steel",
+    "brakeType": "Caliper, Coaster",
+    "tireType": "Pneumatic",
     "price": 94.98,
     "ageRange": "Little Kid | 2-10 Years | Ages 2-10 Years",
     "heightRange": [
@@ -17833,7 +17833,16 @@ export const productsData: any[] = [
     ],
     "imageUrl": "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/primary.jpg",
     "galleryUrls": [
-      "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/primary.jpg"
+      "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/primary.jpg",
+      "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/alt_1.jpg",
+      "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/alt_2.jpg",
+      "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/alt_3.jpg",
+      "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/alt_4.jpg",
+      "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/alt_5.jpg",
+      "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/alt_6.jpg",
+      "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/alt_7.jpg",
+      "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/alt_8.jpg",
+      "https://store.balancebiketoddler.com/kids_bikes/JOYSTAR/Rank_1_ASIN_B08Q7TMRWR_JOYSTAR%20Little%20Daisy%20Kids%20Bike%20for%20Girls%20Boys%20Ages/images/alt_9.jpg"
     ],
     "videoUrl": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/f0712878-ab2d-44e6-9ed6-a0c6eb16707c/default.jobtemplate.hls.m3u8",
     "videos": [
@@ -17857,9 +17866,11 @@ export const productsData: any[] = [
       }
     ],
     "features": [
-      "JOYSTAR Little Daisy Kids Bike for Girls Boys Ages 2-10 Years, 12 14 16 20 Inch Girls Bikes with Doll Bike Seat & Streamers,",
-      "<100",
-      "Ultra Lightweight"
+      "Dual-brake system: front caliper hand brake + rear coaster/foot brake for confident stopping power at every age.",
+      "Removable training wheels with adjustable saddle and stem height — grows with your child from ages 2 to 10.",
+      "Doll bike seat, basket, and DIY decals included; vibrant Princess design with enclosed chainguard for safe, tangle-free pedaling.",
+      "85% pre-assembled; includes front/rear reflectors, wheel reflectors, and all assembly tools for a 20-minute setup.",
+      "Carbon steel Hi-Ten frame backed by a 2-year manufacturer warranty; CPSC certified."
     ],
     "description": "Amazing Design and Color - JOYSTAR Little Daisy Princess 12 Inch girls bike is a beautiful and attractive bike with vibrant colors. The doll bike seat, lovely basket, and DIY decals make the journey even more enjoyable For Safety Riding - The front hand caliper brakes and rear coaster/foot brake provide sufficient stopping power and increased safety. The kids bike also comes with the front and rear reflectors, wheel reflectors and the enclosed chainguard Design for Kids - Removable training wheels are included. The bike includes adjustable saddle and stem height for a more comfortable fit and easy pedaling. Comes with a single speed drivetrain, making it simple for the child to maneuver the bicycle",
     "Product_Description": "Amazing Design and Color - JOYSTAR Little Daisy Princess 12 Inch girls bike is a beautiful and attractive bike with vibrant colors. The doll bike seat, lovely basket, and DIY decals make the journey even more enjoyable For Safety Riding - The front hand caliper brakes and rear coaster/foot brake provide sufficient stopping power and increased safety. The kids bike also comes with the front and rear reflectors, wheel reflectors and the enclosed chainguard Design for Kids - Removable training wheels are included. The bike includes adjustable saddle and stem height for a more comfortable fit and easy pedaling. Comes with a single speed drivetrain, making it simple for the child to maneuver the bicycle",
@@ -17975,16 +17986,16 @@ export const productsData: any[] = [
       }
     },
     "pros": [
-      "Amazing Design and Color - JOYSTAR Little Daisy Princess 12 Inch girls bike is a beautiful and attractive bike with vibrant colors. The doll bike seat, lovely basket, and DIY deca. (Features[1])",
-      "For Safety Riding - The front hand caliper brakes and rear coaster/foot brake provide sufficient stopping power and increased safety. The kids bike also comes with the front and r. (Features[2])",
-      "Design for Kids - Removable training wheels are included. The bike includes adjustable saddle and stem height for a more comfortable fit and easy pedaling. Comes with a single spe. (Features[3])",
-      "Easy to Assemble - The children bike comes with 85% Pre-assembled body and the basic assembly tools, only pump needed for tires, normally takes a novice about 20 minutes to assemb. (Features[4])"
+      "Attractive Princess design with doll bike seat, basket, and DIY decals — appearance matches product photos closely.",
+      "Dual caliper + coaster brake system provides excellent stopping power for beginner riders.",
+      "Removable training wheels and fully adjustable saddle/handlebar height accommodate multi-year use.",
+      "85% pre-assembled with all tools included; typical setup under 20 minutes."
     ],
     "cons": [
-      "For Safety Riding - The front hand caliper brakes and rear coaster/foot brake provide sufficient stopping power and increased safety. The kids bike also comes with the front and r. (Features[2])",
-      "Design for Kids - Removable training wheels are included. The bike includes adjustable saddle and stem height for a more comfortable fit and easy pedaling. Comes with a single spe. (Features[3])",
-      "Easy to Assemble - The children bike comes with 85% Pre-assembled body and the basic assembly tools, only pump needed for tires, normally takes a novice about 20 minutes to assemb. (Features[4])",
-      "weightLimit: 150 Pounds (Product_Specifications.Measurements.Maximum Weight Recommendation)"
+      "Some users find assembly instructions unclear and report training wheels becoming loose or wobbly after initial use.",
+      "Plastic components (chain guard, fender) may feel lightweight for heavier daily use.",
+      "Several buyers reported missing hardware (nuts and bolts) upon arrival — check packaging before assembly.",
+      "At 9.4 kg, bike weight is on the higher side for the smallest riders (ages 2–3)."
     ],
     "scenarios": [
       "kids_bikes"
@@ -17995,7 +18006,8 @@ export const productsData: any[] = [
     "weightScore": 8.8,
     "geometryScore": 9.6,
     "overallScore": 8.9,
-    "editorVerdict": "Amazing Design and Color - JOYSTAR Little Daisy Princess 12 Inch girls bike is a beautiful and attractive bike with vibrant colors. The doll bike seat, lovely basket, and DIY deca. For Safety Riding - The front hand caliper brakes and rear coaster/foot brake provide sufficient stopping power and increased safety. The kids bike also comes with the front and r. Design for Kids - Removable training wheels are included. The bike includes adjustable saddle and stem height for a more comfortable fit and easy pedaling. Comes with a single spe.",
+    "editorVerdict": "The JOYSTAR Little Daisy is a well-rounded first kids bike built around a charming Princess theme. Its dual-brake setup — front caliper hand brake paired with a rear coaster/foot brake — gives young riders meaningful stopping confidence. The included doll bike seat, basket, and DIY decals land well with the target age group. Removable training wheels and a height-adjustable saddle extend the bike's useful life across multiple growing stages. Assembly is straightforward at 85% pre-built, though we recommend verifying all hardware is present before starting. The carbon steel frame is CPSC certified and backed by a 2-year warranty. Primary caution: training wheels may require tightening after initial rides, and the bike's 9.4 kg weight is better suited to children at the upper end of the stated age range.",
+    "customers_say": "Customers find the bicycle's appearance positive, noting it looks identical to the product photos. The assembly and sturdiness receive mixed feedback — while some say it's easy to put together and stable, others find the process complicated and report the training wheels becoming wobbly after initial use. Quality opinions are divided: some describe it as solid, while others note the plastic parts feel cheaply made. Several buyers reported missing hardware such as nuts and bolts, so checking all components before assembly is strongly recommended.",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
