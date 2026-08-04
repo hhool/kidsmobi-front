@@ -7,6 +7,11 @@ export interface ContentBundle {
   evaluations: Evaluation[];
 }
 
+export interface FetchContentBundleOptions {
+  categoryId?: string;
+  includeAll?: boolean;
+}
+
 function buildStaticFallbackBundle(): ContentBundle {
   const staticProducts = (Array.isArray(staticProductsData) ? staticProductsData : [])
     .filter((item) => Boolean((item as any)?.id))
@@ -26,7 +31,7 @@ function buildStaticFallbackBundle(): ContentBundle {
   };
 }
 
-const DEFAULT_SCRAPE_API_BASE_URL = "https://store.balancebiketoddler.com";
+const DEFAULT_SCRAPE_API_BASE_URL = "https://kidsmobi-api-v1.seaman-player.workers.dev";
 const CATEGORY_COMPLIANCE: Record<string, string[]> = {
   balance_bike: ["ASTM F963", "CPSC"],
   kids_bikes: ["CPSC"],
@@ -631,7 +636,7 @@ async function fetchWorkerJson<T>(pathCandidates: string[]): Promise<T> {
   throw lastError || new Error("Worker request failed for all candidates");
 }
 
-async function fetchRemoteFallbackBundle(): Promise<ContentBundle> {
+async function fetchRemoteFallbackBundle(options?: FetchContentBundleOptions): Promise<ContentBundle> {
   // Prefer live Worker API data on both local and online hosts.
   // If API is temporarily unavailable, fall back to static modelsData.
 
@@ -646,13 +651,25 @@ async function fetchRemoteFallbackBundle(): Promise<ContentBundle> {
     return buildStaticFallbackBundle();
   }
 
-  const categories = (categoriesPayload?.data || []).slice(0, 12);
+  const categories = categoriesPayload?.data || [];
   if (categories.length === 0) {
     return { settings: null, products: [], evaluations: [] };
   }
 
+  const requestedCategoryId = String(options?.categoryId || "").trim();
+  const includeAll = options?.includeAll === true;
+
+  // On-demand baseline: only load one category by default.
+  const selectedCategories = requestedCategoryId
+    ? categories.filter((category) => category.categoryId === requestedCategoryId)
+    : includeAll
+      ? categories
+      : categories.slice(0, 1);
+
+  const categoriesToLoad = selectedCategories.length > 0 ? selectedCategories : categories.slice(0, 1);
+
   const workerProductsNested = await Promise.all(
-    categories.map(async (category) => {
+    categoriesToLoad.map(async (category) => {
       const limit = Math.min(12, Math.max(1, Number(category.defaultLimit || 8)));
       try {
         const payload = await fetchWorkerJson<{ data?: WorkerProduct[] }>([
@@ -693,15 +710,40 @@ function shouldUseLocalBundleEndpoint(): boolean {
   return host === "localhost" || host === "127.0.0.1";
 }
 
-export async function fetchContentBundle(): Promise<ContentBundle> {
+function getAdminAllToken() {
+  const env = (import.meta as any)?.env?.VITE_CMS_ADMIN_ALL_TOKEN;
+  if (typeof env !== "string") return "";
+  return env.trim();
+}
+
+export async function fetchContentBundle(options?: FetchContentBundleOptions): Promise<ContentBundle> {
   if (!shouldUseLocalBundleEndpoint()) {
-    return fetchRemoteFallbackBundle();
+    return fetchRemoteFallbackBundle(options);
   }
 
   try {
-    const response = await fetch("/api/content/bundle", {
+    const params = new URLSearchParams();
+    const requestedCategoryId = String(options?.categoryId || "").trim();
+    if (requestedCategoryId) {
+      params.set("categoryId", requestedCategoryId);
+    }
+    if (options?.includeAll) {
+      params.set("all", "1");
+    }
+
+    const headers: Record<string, string> = {
+      Accept: "application/json",
+    };
+    if (options?.includeAll) {
+      const token = getAdminAllToken();
+      if (token) {
+        headers["x-cms-admin-token"] = token;
+      }
+    }
+
+    const response = await fetch(`/api/content/bundle${params.toString() ? `?${params.toString()}` : ""}`, {
       headers: {
-        Accept: "application/json",
+        ...headers,
       },
     });
 
@@ -719,6 +761,6 @@ export async function fetchContentBundle(): Promise<ContentBundle> {
     };
   } catch (error) {
     console.warn("Primary /api/content/bundle fetch failed, trying remote worker fallback.", error);
-    return fetchRemoteFallbackBundle();
+    return fetchRemoteFallbackBundle(options);
   }
 }

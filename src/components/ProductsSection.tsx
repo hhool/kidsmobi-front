@@ -660,7 +660,7 @@ export default function ProductsSection({
     let mounted = true;
     (async () => {
       try {
-        const payload = await getBackendPickerPayload({ includeAll: true });
+        const payload = await getBackendPickerPayload();
         if (!mounted) return;
         const nextMap: Record<string, string> = {};
         for (const item of payload.categories || []) {

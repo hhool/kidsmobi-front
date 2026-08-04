@@ -24,6 +24,9 @@ This folder contains operational scripts for CMS bootstrap, media migration, CMS
 | `reset_cms_d1_a_scope.mjs` | Reset A-scope CMS baseline data | `npm run cms:reset:a` |
 | `sample_web_vitals.mjs` | Capture Web Vitals samples | `npm run perf:sample` |
 | `compare_web_vitals_trend.mjs` | Compare Web Vitals trend/gate | `npm run perf:trend` |
+| `m3_gray_release_preflight.mjs` | Run M3 API guardrail preflight (single-category bundle + all=1 authorization gate) and output report files | `npm run m3:preflight -- --base=https://kidsmobi.pages.dev --category=stroller` |
+| `m3_official_token_gate_check.mjs` | Run official-token strict gate check (preflight + snapshot) in one command | `CMS_ADMIN_ALL_TOKEN=<official-token> npm run m3:preflight:official -- --base=<target-host> --category=stroller` |
+| `m3_generate_decision_snapshot.mjs` | Aggregate latest M3 preflight reports and generate a GO/HOLD/NO-GO suggestion snapshot | `npm run m3:snapshot` |
 | `verify_smartimage_sizes.mjs` | Validate smart-image size outputs | `node scripts/verify_smartimage_sizes.mjs` |
 | `seedProducts.ts` | Seed product data for local workflows | `npx tsx scripts/seedProducts.ts` |
 
@@ -55,6 +58,8 @@ This folder contains operational scripts for CMS bootstrap, media migration, CMS
 - Prefer `--dryRun` before destructive or large-scale actions.
 - Transfer report output path: `./tmp/front_image_transfer_report.json`.
 - Local stage report output path: `./tmp/front_image_stage_report.json`.
+- M3 preflight strict mode: `npm run m3:preflight:strict` (for local/preview hosts where `/api/content/*` must be reachable).
+- Official-token one-command gate check: `CMS_ADMIN_ALL_TOKEN=<official-token> npm run m3:preflight:official -- --base=<target-host> --category=stroller`.
 
 ## Safe Replace Guardrail
 

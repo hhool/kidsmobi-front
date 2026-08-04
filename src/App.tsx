@@ -868,6 +868,38 @@ export default function App() {
       }
     }
   }, [currentPath]);
+
+  const getBundleFetchOptions = () => {
+    if (typeof window === "undefined") {
+      return {};
+    }
+
+    const routeState = resolveRouteState(window.location.pathname, window.location.hash);
+    const queryCategoryId = normalizeProductRouteCategory(
+      new URLSearchParams(window.location.search).get("catalog_category") || ""
+    );
+    const routeCategoryId = normalizeProductRouteCategory(routeState.activeProductCategory || "");
+    const rawCategoryId = routeCategoryId && routeCategoryId !== "all" ? routeCategoryId : queryCategoryId;
+
+    const bundleCategoryMap: Record<string, string> = {
+      kids_scooters: "scooters",
+      jogger_stroller: "stroller",
+      jogging_stroller: "stroller",
+      strollers: "stroller",
+      scooters: "scooters",
+      "kids-scooters": "scooters",
+      "kids-bikes": "kids_bikes",
+      "balance-bikes": "balance_bike",
+    };
+
+    const categoryId = bundleCategoryMap[rawCategoryId] || rawCategoryId;
+    if (!categoryId || categoryId === "all") {
+      return {};
+    }
+
+    return { categoryId };
+  };
+
   const [newsPaginationTotalPages, setNewsPaginationTotalPages] = useState<number | null>(null);
   const [guidesPaginationTotalPages, setGuidesPaginationTotalPages] = useState<number | null>(null);
   const activeTabRef = useRef<string>(initialRouteState.activeTab);
@@ -1486,7 +1518,7 @@ export default function App() {
       if (publishedProducts && publishedProducts.length > 0) {
         let nextProducts = enforcePublishedVisibility(publishedProducts);
         try {
-          const bundle = await fetchContentBundle();
+          const bundle = await fetchContentBundle(getBundleFetchOptions());
           if (!isActive) return;
           const fallbackProducts = bundle.products && bundle.products.length > 0
             ? enforcePublishedVisibility(bundle.products)
@@ -1508,7 +1540,7 @@ export default function App() {
         setProductsData(finalProducts);
       } else {
         try {
-          const bundle = await fetchContentBundle();
+          const bundle = await fetchContentBundle(getBundleFetchOptions());
           if (!isActive) return;
           if (bundle.products && bundle.products.length > 0) {
             const withBatch = applyBatchProducts(bundle.products);
@@ -1543,7 +1575,7 @@ export default function App() {
         } catch (err) {
           console.error("Failed to load CMS data:", err);
           try {
-            const bundle = await fetchContentBundle();
+            const bundle = await fetchContentBundle(getBundleFetchOptions());
             if (!isActive) return;
             if (bundle.settings) {
               setCmsSettings(bundle.settings);
@@ -1564,7 +1596,7 @@ export default function App() {
       }
 
       try {
-        const bundle = await fetchContentBundle();
+        const bundle = await fetchContentBundle(getBundleFetchOptions());
         if (!isActive) return;
 
         if (bundle.settings && bundle.products.length > 0 && bundle.evaluations.length > 0) {

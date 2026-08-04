@@ -35,6 +35,11 @@
     "perf:sample:desktop": "node scripts/sample_web_vitals.mjs --strategy=desktop",
     "perf:trend": "node scripts/compare_web_vitals_trend.mjs",
     "perf:gate": "node scripts/compare_web_vitals_trend.mjs",
+    "m3:preflight": "node scripts/m3_gray_release_preflight.mjs",
+    "m3:preflight:prod": "node scripts/m3_gray_release_preflight.mjs --base=https://kidsmobi.pages.dev --category=stroller",
+    "m3:preflight:strict": "node scripts/m3_gray_release_preflight.mjs --base=http://127.0.0.1:5173 --category=stroller --strict=1",
+    "m3:preflight:official": "node scripts/m3_official_token_gate_check.mjs",
+    "m3:snapshot": "node scripts/m3_generate_decision_snapshot.mjs",
     "seo:check": "node scripts/check-seo-assets.mjs",
     "reports:normalize:check": "node scripts/normalize_reports_quality.mjs",
     "reports:normalize": "node scripts/normalize_reports_quality.mjs --write"

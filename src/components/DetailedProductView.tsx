@@ -860,6 +860,43 @@ export default function DetailedProductView({
     { subject: "性价比", scoreA: scoresA.costEff, key: "value" }
   ];
 
+  const sortedRadarScores = [...radarData].sort((a, b) => b.scoreA - a.scoreA);
+  const strongestDimension = sortedRadarScores[0];
+  const needsAttentionDimension = sortedRadarScores[sortedRadarScores.length - 1];
+
+  const normalizePriceValue = (value: unknown) => {
+    const numeric = Number(String(value ?? "").replace(/[^\d.]/g, ""));
+    return Number.isFinite(numeric) && numeric > 0 ? numeric : null;
+  };
+
+  const displayPrice = (() => {
+    const numeric = normalizePriceValue((displayProduct as Product & { price?: unknown }).price);
+    if (!numeric) return lang === "zh" ? "待补充" : "TBD";
+    return lang === "zh" ? `¥${numeric.toLocaleString("zh-CN")}` : `$${numeric.toLocaleString("en-US")}`;
+  })();
+
+  const quickFacts = [
+    {
+      label: lang === "zh" ? "适龄范围" : "Age Range",
+      value: applicableAgeRange || (lang === "zh" ? "待补充" : "TBD"),
+    },
+    {
+      label: lang === "zh" ? "品类" : "Category",
+      value: getCategoryLabel(product.category || "", lang),
+    },
+    {
+      label: lang === "zh" ? "参考价格" : "Reference Price",
+      value: displayPrice,
+    },
+  ];
+
+  const highlightedFeatureRows = (() => {
+    const localizedFeatures = resolveFeatureList(displayProduct, lang).slice(0, 6);
+    if (localizedFeatures.length > 0) return localizedFeatures;
+    if (curatedContent?.highlightedFeatures?.length) return curatedContent.highlightedFeatures.slice(0, 6);
+    return [];
+  })();
+
   const CustomRadarTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
@@ -967,6 +1004,78 @@ export default function DetailedProductView({
           <div className="bg-slate-50 px-6 py-3 rounded-2xl border border-slate-100">
              <span className="text-[10px] text-slate-400 font-bold block uppercase mb-1">{lang === "en" ? "Overall Score" : "综合评分"}</span>
              <strong className="text-2xl font-black text-orange-500">{overallScoreDisplay}</strong>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div className="xl:col-span-2 rounded-[32px] border border-amber-100 bg-gradient-to-br from-amber-50 via-orange-50 to-white p-6 md:p-7 shadow-sm space-y-5">
+          <div className="flex items-center justify-between gap-4">
+            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-orange-600">
+              {lang === "zh" ? "核心卖点速览" : "Key Value Snapshot"}
+            </p>
+            <span className="inline-flex items-center gap-1 rounded-full border border-orange-200 bg-white px-3 py-1 text-[10px] font-black uppercase tracking-widest text-orange-600">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              {lang === "zh" ? "按需加载模式" : "On-demand Mode"}
+            </span>
+          </div>
+          {highlightedFeatureRows.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {highlightedFeatureRows.map((feature, index) => (
+                <div key={`${feature}-${index}`} className="rounded-2xl border border-orange-100/70 bg-white/90 p-4 text-sm font-semibold text-slate-700 leading-relaxed">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-orange-500 mr-2">
+                    <ChevronRight className="w-3.5 h-3.5" />
+                    {lang === "zh" ? `卖点 ${index + 1}` : `Point ${index + 1}`}
+                  </span>
+                  {feature}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-orange-100/70 bg-white/80 p-4 text-sm font-semibold text-slate-500">
+              {lang === "zh" ? "当前暂无结构化卖点，建议在 CMS 补充 Features 字段。" : "No structured highlights yet. Add Features content in CMS for richer detail pages."}
+            </div>
+          )}
+        </div>
+
+        <div className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-sm space-y-4">
+          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-500">
+            {lang === "zh" ? "快速事实" : "Quick Facts"}
+          </p>
+          <div className="space-y-3">
+            {quickFacts.map((fact) => (
+              <div key={fact.label} className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3">
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{fact.label}</p>
+                <p className="mt-1 text-sm font-bold text-slate-700">{fact.value}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="rounded-3xl border border-emerald-100 bg-emerald-50/70 px-5 py-4 flex items-center justify-between gap-4">
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-widest text-emerald-700">
+              {lang === "zh" ? "优势维度" : "Strongest Dimension"}
+            </p>
+            <p className="text-base font-black text-slate-800 mt-1">{strongestDimension.subject}</p>
+          </div>
+          <div className="inline-flex items-center gap-2 text-emerald-700">
+            <TrendingUp className="w-4 h-4" />
+            <span className="text-xl font-black">{strongestDimension.scoreA.toFixed(1)}</span>
+          </div>
+        </div>
+        <div className="rounded-3xl border border-rose-100 bg-rose-50/70 px-5 py-4 flex items-center justify-between gap-4">
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-widest text-rose-700">
+              {lang === "zh" ? "关注维度" : "Needs Attention"}
+            </p>
+            <p className="text-base font-black text-slate-800 mt-1">{needsAttentionDimension.subject}</p>
+          </div>
+          <div className="inline-flex items-center gap-2 text-rose-700">
+            <TrendingDown className="w-4 h-4" />
+            <span className="text-xl font-black">{needsAttentionDimension.scoreA.toFixed(1)}</span>
           </div>
         </div>
       </div>

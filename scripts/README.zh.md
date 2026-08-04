@@ -25,6 +25,9 @@
 | `reset_cms_d1_a_scope.mjs` | 重置 A-scope CMS 基线数据 | `npm run cms:reset:a` |
 | `sample_web_vitals.mjs` | 采集 Web Vitals 样本 | `npm run perf:sample` |
 | `compare_web_vitals_trend.mjs` | 对比 Web Vitals 趋势与阈值 | `npm run perf:trend` |
+| `m3_gray_release_preflight.mjs` | 执行 M3 API 门禁预检（默认单分类 bundle + all=1 授权校验），并产出报告文件 | `npm run m3:preflight -- --base=https://kidsmobi.pages.dev --category=stroller` |
+| `m3_official_token_gate_check.mjs` | 使用官方 token 一键执行严格门禁复核（preflight + snapshot） | `CMS_ADMIN_ALL_TOKEN=<official-token> npm run m3:preflight:official -- --base=<target-host> --category=stroller` |
+| `m3_generate_decision_snapshot.mjs` | 汇总最新 M3 预检报告并生成 GO/HOLD/NO-GO 决策快照 | `npm run m3:snapshot` |
 | `verify_smartimage_sizes.mjs` | 校验 smart-image 尺寸产物 | `node scripts/verify_smartimage_sizes.mjs` |
 | `seedProducts.ts` | 本地流程的产品种子数据脚本 | `npx tsx scripts/seedProducts.ts` |
 
@@ -59,6 +62,8 @@
 - 媒体迁移报告输出路径：`./tmp/front_image_transfer_report.json`。
 - 本地落地报告输出路径：`./tmp/front_image_stage_report.json`。
 - 产品参数批次索引路径：`./resource/assets/backend-import/<importBatchId>/batch.index.json`。
+- M3 预检支持严格模式：`npm run m3:preflight:strict`（用于本地/预发环境，要求 `/api/content/*` 路由可用）。
+- 官方 token 一键门禁复核：`CMS_ADMIN_ALL_TOKEN=<official-token> npm run m3:preflight:official -- --base=<target-host> --category=stroller`。
 
 ## 安全回写护栏
 
