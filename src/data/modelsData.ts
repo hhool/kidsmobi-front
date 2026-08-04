@@ -17992,10 +17992,8 @@ export const productsData: any[] = [
       "85% pre-assembled with all tools included; typical setup under 20 minutes."
     ],
     "cons": [
-      "Some users find assembly instructions unclear and report training wheels becoming loose or wobbly after initial use.",
-      "Plastic components (chain guard, fender) may feel lightweight for heavier daily use.",
-      "Several buyers reported missing hardware (nuts and bolts) upon arrival — check packaging before assembly.",
-      "At 9.4 kg, bike weight is on the higher side for the smallest riders (ages 2–3)."
+      "Training wheels may loosen after initial rides; verify all hardware is present before assembly as missing nuts/bolts have been reported.",
+      "At 9.4 kg, the frame leans heavy for the youngest riders (ages 2–3) in the stated range."
     ],
     "scenarios": [
       "kids_bikes"
@@ -18006,7 +18004,7 @@ export const productsData: any[] = [
     "weightScore": 8.8,
     "geometryScore": 9.6,
     "overallScore": 8.9,
-    "editorVerdict": "The JOYSTAR Little Daisy is a well-rounded first kids bike built around a charming Princess theme. Its dual-brake setup — front caliper hand brake paired with a rear coaster/foot brake — gives young riders meaningful stopping confidence. The included doll bike seat, basket, and DIY decals land well with the target age group. Removable training wheels and a height-adjustable saddle extend the bike's useful life across multiple growing stages. Assembly is straightforward at 85% pre-built, though we recommend verifying all hardware is present before starting. The carbon steel frame is CPSC certified and backed by a 2-year warranty. Primary caution: training wheels may require tightening after initial rides, and the bike's 9.4 kg weight is better suited to children at the upper end of the stated age range.",
+    "editorVerdict": "A charming dual-brake first bike for ages 2–10 with removable training wheels, adjustable fit, and CPSC-certified carbon steel frame — strong on design and beginner safety, though hardware quality control can be inconsistent upon arrival.",
     "customers_say": "Customers find the bicycle's appearance positive, noting it looks identical to the product photos. The assembly and sturdiness receive mixed feedback — while some say it's easy to put together and stable, others find the process complicated and report the training wheels becoming wobbly after initial use. Quality opinions are divided: some describe it as solid, while others note the plastic parts feel cheaply made. Several buyers reported missing hardware such as nuts and bolts, so checking all components before assembly is strongly recommended.",
     "scrapedEvidence": [
       {
