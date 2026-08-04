@@ -579,6 +579,7 @@ function toFeatureCandidates(value: string): string[] {
 }
 
 type StructuredSectionRow = {
+  rawKey: string;
   label: string;
   value: string;
 };
@@ -605,6 +606,7 @@ function isMeaningfulStructuredValue(value: unknown): boolean {
 function buildStructuredRows(record: Record<string, unknown>, lang: "zh" | "en", applicableAgeRange: string): StructuredSectionRow[] {
   return Object.entries(record)
     .map(([key, value]) => ({
+      rawKey: key,
       label: formatSpecKey(key, lang),
       value: ["age_range", "age_range_description", "recommended_age"].includes(toSpecKey(key))
         ? applicableAgeRange
@@ -789,6 +791,8 @@ export default function DetailedProductView({
     lang,
     applicableAgeRange
   );
+  const hasTopLevelCategoryValue = isMeaningfulStructuredValue(String(displayProduct.categoryId || displayProduct.category || "").trim());
+  const hasTopLevelAgeRangeValue = isMeaningfulStructuredValue(applicableAgeRange);
 
   const modelGalleryImages = Array.from(
     new Set(
@@ -1157,7 +1161,13 @@ export default function DetailedProductView({
     { label: lang === "zh" ? "参考价格" : "Reference Price", value: displayPrice },
   ].filter((item) => isMeaningfulStructuredValue(item.value));
   const visibleModelOverviewRows = modelOverviewRows.filter((row) => isMeaningfulStructuredValue(row?.value));
-  const visibleCategoryAttributeRows = categoryAttributeRows.filter((row) => isMeaningfulStructuredValue(row?.value));
+  const visibleCategoryAttributeRows = categoryAttributeRows.filter((row) => {
+    if (!isMeaningfulStructuredValue(row?.value)) return false;
+    const normalizedKey = toSpecKey(row.rawKey);
+    if (normalizedKey === "categoryid" && hasTopLevelCategoryValue) return false;
+    if (normalizedKey === "agegroup" && hasTopLevelAgeRangeValue) return false;
+    return true;
+  });
 
   const CustomRadarTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
