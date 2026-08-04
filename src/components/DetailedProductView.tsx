@@ -669,7 +669,6 @@ function buildStructuredSpecificationSections(product: Product, lang: "zh" | "en
     "Materials_Care",
     "Item_Details",
     "User_Guide",
-    "Additional_Details",
   ];
   const sectionLabels: Record<string, { zh: string; en: string }> = {
     Measurements: { zh: "Measurements", en: "Measurements" },
@@ -677,7 +676,6 @@ function buildStructuredSpecificationSections(product: Product, lang: "zh" | "en
     Materials_Care: { zh: "Materials Care", en: "Materials Care" },
     Item_Details: { zh: "Item Details", en: "Item Details" },
     User_Guide: { zh: "User Guide", en: "User Guide" },
-    Additional_Details: { zh: "Additional Details", en: "Additional Details" },
   };
 
   return sectionOrder
