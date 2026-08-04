@@ -750,6 +750,8 @@ export default function DetailedProductView({
   previousTab,
   cmsSettings
 }: DetailedProductViewProps) {
+  // Rule set v1: detail textual blocks must come from product data model fields first.
+  // This prevents runtime drift from remote overlays and keeps rendering deterministic.
   const displayProduct = translateProduct(product, lang);
   const displayTitle = getProductDisplayTitle(displayProduct, lang);
   const [liveCmsLocalized, setLiveCmsLocalized] = useState({
@@ -757,10 +759,7 @@ export default function DetailedProductView({
     en: { description: "", editorVerdict: "" },
   });
   const [detailResources, setDetailResources] = useState<WorkerDetailResource[]>([]);
-  const liveVerdict = lang === "zh" ? liveCmsLocalized.zh.editorVerdict : liveCmsLocalized.en.editorVerdict;
-  const verdictText = String(
-    (!isPlaceholderVerdict(liveVerdict) ? liveVerdict : "") || resolveVerdictText(product, lang)
-  ).trim();
+  const verdictText = resolveVerdictText(displayProduct, lang);
   const descriptionText = resolveDescriptionText(displayProduct, lang);
   const imageSet = resolveProductImages(displayProduct);
   const applicableAgeRange = resolveApplicableAgeRange(product, lang);
@@ -938,7 +937,9 @@ export default function DetailedProductView({
     [lang]: { ...(product as any)?.[lang], description: lang === "zh" ? liveCmsLocalized.zh.description : liveCmsLocalized.en.description },
   } as Product;
   const liveDescriptionText = resolveDescriptionText(liveDescriptionProduct, lang);
-  const effectiveDescriptionText = liveDescriptionText || (lang === "en" ? curatedContent?.productDescription : "") || descriptionText || (lang === "en" ? resourceDescription : "");
+  // Rule 1 confirmation: description fallback is limited to model-carried fields only.
+  // We intentionally avoid curated/resource overlays here.
+  const effectiveDescriptionText = descriptionText;
 
   React.useEffect(() => {
     let disposed = false;
