@@ -557,6 +557,26 @@ function cleanEvidenceSource(value: unknown) {
   return text;
 }
 
+function normalizeReadableText(value: unknown): string {
+  return String(value || "")
+    .replace(/\s+/g, " ")
+    .replace(/[|·]+/g, ". ")
+    .replace(/([:;,.!?])(\S)/g, "$1 $2")
+    .replace(/\s+([,.;!?])/g, "$1")
+    .replace(/^[-•\d.)\s]+/, "")
+    .trim();
+}
+
+function toFeatureCandidates(value: string): string[] {
+  const text = normalizeReadableText(value);
+  if (!text) return [];
+
+  return text
+    .split(/\s*\|\s*|\s*\n+\s*|\s*•\s*|\s*\u2022\s*|\s*(?<=\.)\s+(?=[A-Z\u4e00-\u9fff])/g)
+    .map((item) => normalizeReadableText(item))
+    .filter(Boolean);
+}
+
 type StructuredSectionRow = {
   label: string;
   value: string;
@@ -601,11 +621,12 @@ function resolveStructuredProductDescription(product: Product, lang: "zh" | "en"
   const normalizedName = String(product.name || "").replace(/\s+/g, " ").trim().toLowerCase();
 
   for (const candidate of candidates) {
-    const text = String(candidate || "").replace(/\s+/g, " ").trim();
+    const text = normalizeReadableText(candidate);
     if (!isMeaningfulStructuredValue(text)) continue;
     const normalizedText = text.toLowerCase();
     if (normalizedText === normalizedName) continue;
     if (normalizedText.includes("generated from remote fallback")) continue;
+    if (text.length < 24) continue;
     return text;
   }
 
@@ -623,11 +644,12 @@ function resolveStructuredFeatureRows(product: Product, lang: "zh" | "en"): stri
 
   for (const candidate of featureCandidates) {
     if (!Array.isArray(candidate)) continue;
+    const expanded = candidate.flatMap((item) => toFeatureCandidates(cleanVisibleFieldText(item)));
     const cleaned = Array.from(
       new Set(
-        candidate
-          .map((item) => cleanVisibleFieldText(item))
-          .filter((item) => isMeaningfulStructuredValue(item) && !/^[\d\s.-]+$/.test(item))
+        expanded
+          .map((item) => normalizeReadableText(item))
+          .filter((item) => isMeaningfulStructuredValue(item) && !/^[\d\s.-]+$/.test(item) && item.length >= 12)
       )
     );
     if (cleaned.length > 0) return cleaned;
@@ -756,6 +778,31 @@ export default function DetailedProductView({
     lang,
     applicableAgeRange
   );
+
+  const modelGalleryImages = Array.from(
+    new Set(
+      [
+        String(displayProduct.imageUrl || "").trim(),
+        ...(displayProduct.galleryUrls || []).map((item) => String(item || "").trim()),
+        ...(displayProduct.productImageUrls || []).map((item) => String(item || "").trim()),
+        ...(((displayProduct.images?.gallery || []).map((item) => String(item?.url || "").trim()))),
+        ...(((displayProduct.images?.all || []).map((item) => String(item?.url || "").trim()))),
+        String(displayProduct.images?.cover?.url || "").trim(),
+      ].filter(Boolean)
+    )
+  );
+
+  const modelFeatureImages = Array.from(
+    new Set(
+      [
+        ...(displayProduct.featureImageUrls || []).map((item) => String(item || "").trim()),
+        ...(((displayProduct.images?.feature || []).map((item) => String(item?.url || "").trim()))),
+      ].filter(Boolean)
+    )
+  );
+
+  const galleryImagesToRender = modelGalleryImages.length > 0 ? modelGalleryImages : imageSet.allImageUrls.filter(Boolean);
+  const featureImagesToRender = modelFeatureImages.length > 0 ? modelFeatureImages : imageSet.featureUrls.filter(Boolean);
   const weightText = Number.isFinite(Number(displayProduct.weight)) && Number(displayProduct.weight) > 0
     ? `${Number(displayProduct.weight).toFixed(2).replace(/\.00$/, "")} kg`
     : "";
@@ -802,7 +849,7 @@ export default function DetailedProductView({
   const videoUrl = activeVideoUrl || firstVideoUrl;
   const videoRenderType = getVideoRenderType(videoUrl);
   const hasVideo = videoRenderType !== "none";
-  const hasFeatureImages = imageSet.featureUrls.length > 0;
+  const hasFeatureImages = featureImagesToRender.length > 0;
   const [activeMediaTab, setActiveMediaTab] = useState<"gallery" | "feature" | "video">("gallery");
   const getBackLabel = () => {
     if (lang === "zh") {
@@ -1284,13 +1331,13 @@ export default function DetailedProductView({
         <div className="p-1 min-h-[400px] bg-slate-50">
           {activeMediaTab === "gallery" ? (
             <ProductCarousel 
-              images={imageSet.allImageUrls.filter(Boolean)} 
+              images={galleryImagesToRender}
               lang={lang}
               productName={displayTitle}
             />
           ) : activeMediaTab === "feature" ? (
             <ProductCarousel 
-              images={imageSet.featureUrls.filter(Boolean)} 
+              images={featureImagesToRender}
               lang={lang}
               productName={displayTitle}
             />
