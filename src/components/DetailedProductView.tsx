@@ -770,6 +770,12 @@ export default function DetailedProductView({
   const structuredDescriptionText = resolveStructuredProductDescription(displayProduct, lang);
   const structuredFeatureRows = resolveStructuredFeatureRows(displayProduct, lang);
   const structuredSpecSections = buildStructuredSpecificationSections(displayProduct, lang, applicableAgeRange);
+  const visibleStructuredSpecSections = structuredSpecSections
+    .map((section) => ({
+      ...section,
+      rows: section.rows.filter((row) => isMeaningfulStructuredValue(row?.value)),
+    }))
+    .filter((section) => section.rows.length > 0);
   const structuredScoringStandards = resolveStructuredScoringStandards(displayProduct);
   const categoryAttributeRows = buildStructuredRows(
     (((displayProduct as Product & { Category_Attributes?: Record<string, unknown> }).Category_Attributes) || {}),
@@ -1424,7 +1430,7 @@ export default function DetailedProductView({
                    </div>
                  )}
 
-                 {structuredSpecSections.map((section) => (
+                 {visibleStructuredSpecSections.map((section) => (
                    <div key={section.key} className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4">
                      <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
                        <p className="text-sm font-black text-slate-800">{section.labelEn}</p>
