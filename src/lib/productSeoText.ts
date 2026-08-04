@@ -173,7 +173,7 @@ export function getProductDisplayTitle(product: Product, lang: "zh" | "en"): str
   } else if (/\b(?:jogger|jogging)\b/.test(name)) {
     type = lang === "zh" ? "慢跑推车" : "Jogging";
   } else if (/\bdouble\s+stroller\b/.test(name)) {
-    type = lang === "zh" ? "双人推车" : "double twin stroller";
+    type = lang === "zh" ? "双人推车" : "Twin Stroller";
   } else if (/\blight[ -]?weight\b/.test(name)) {
     type = lang === "zh" ? "轻便推车" : "Lightweight";
   } else {
