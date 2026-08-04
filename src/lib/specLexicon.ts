@@ -167,7 +167,7 @@ export function normalizeSpecDisplayValue(rawValue: string, rawKey: string, lang
 
   const lower = text.toLowerCase();
   if (["n/a", "na", "none", "null", "undefined", "unknown", "not applicable", "not available"].includes(lower)) {
-    return "--";
+    return "";
   }
 
   if (lang !== "zh") {
