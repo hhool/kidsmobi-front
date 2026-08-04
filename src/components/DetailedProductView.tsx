@@ -297,7 +297,11 @@ function formatSpecValue(value: unknown, rawKey: string, lang: "zh" | "en"): str
   }
   if (typeof value === "object") {
     return Object.entries(value as Record<string, unknown>)
-      .map(([key, entryValue]) => `${formatSpecKey(key, lang)}: ${formatSpecValue(entryValue, key, lang)}`)
+      .map(([key, entryValue]) => {
+        const nestedValue = formatSpecValue(entryValue, key, lang);
+        if (!isMeaningfulStructuredValue(nestedValue)) return "";
+        return `${formatSpecKey(key, lang)}: ${nestedValue}`;
+      })
       .filter((item) => item.trim())
       .join(" | ");
   }
@@ -797,6 +801,7 @@ export default function DetailedProductView({
 
   const galleryImagesToRender = modelGalleryImages.length > 0 ? modelGalleryImages : imageSet.allImageUrls.filter(Boolean);
   const featureImagesToRender = modelFeatureImages.length > 0 ? modelFeatureImages : imageSet.featureUrls.filter(Boolean);
+  const hasGalleryImages = galleryImagesToRender.length > 0;
   const weightText = Number.isFinite(Number(displayProduct.weight)) && Number(displayProduct.weight) > 0
     ? `${Number(displayProduct.weight).toFixed(2).replace(/\.00$/, "")} kg`
     : "";
@@ -844,6 +849,12 @@ export default function DetailedProductView({
   const videoRenderType = getVideoRenderType(videoUrl);
   const hasVideo = videoRenderType !== "none";
   const hasFeatureImages = featureImagesToRender.length > 0;
+  const hasAnyMedia = hasGalleryImages || hasFeatureImages || hasVideo;
+  const availableMediaTabs: Array<"gallery" | "feature" | "video"> = [
+    ...(hasGalleryImages ? ["gallery" as const] : []),
+    ...(hasFeatureImages ? ["feature" as const] : []),
+    ...(hasVideo ? ["video" as const] : []),
+  ];
   const [activeMediaTab, setActiveMediaTab] = useState<"gallery" | "feature" | "video">("gallery");
   const getBackLabel = () => {
     if (lang === "zh") {
@@ -880,8 +891,11 @@ export default function DetailedProductView({
   };
 
   React.useEffect(() => {
-    setActiveMediaTab("gallery");
-  }, [product.id]);
+    if (!hasAnyMedia) return;
+    if (!availableMediaTabs.includes(activeMediaTab)) {
+      setActiveMediaTab(availableMediaTabs[0]);
+    }
+  }, [product.id, hasAnyMedia, activeMediaTab, availableMediaTabs]);
 
   React.useEffect(() => {
     setActiveVideoUrl(firstVideoUrl);
@@ -1211,8 +1225,10 @@ export default function DetailedProductView({
       </div>
 
       {/* Media Gallery & Video Showcase */}
+      {hasAnyMedia && (
       <div id="product_media_section" className="bg-white border border-slate-100 rounded-[40px] overflow-hidden shadow-sm scroll-mt-24">
         <div className="flex border-b border-slate-100">
+          {hasGalleryImages && (
           <button 
             onClick={() => setActiveMediaTab("gallery")}
             className={`flex-1 flex items-center justify-center gap-2 py-4 text-xs font-black uppercase transition-all ${activeMediaTab === "gallery" ? "bg-orange-50 text-orange-600 border-b-2 border-orange-500" : "text-slate-400 hover:bg-slate-50"}`}
@@ -1220,6 +1236,7 @@ export default function DetailedProductView({
             <ImageIcon className="w-4 h-4" />
             {lang === "en" ? "Image Gallery" : "产品实拍图库"}
           </button>
+          )}
           {hasFeatureImages && (
             <button 
               onClick={() => setActiveMediaTab("feature")}
@@ -1241,13 +1258,13 @@ export default function DetailedProductView({
         </div>
 
         <div className="p-1 min-h-[400px] bg-slate-50">
-          {activeMediaTab === "gallery" ? (
+          {activeMediaTab === "gallery" && hasGalleryImages ? (
             <ProductCarousel 
               images={galleryImagesToRender}
               lang={lang}
               productName={displayTitle}
             />
-          ) : activeMediaTab === "feature" ? (
+          ) : activeMediaTab === "feature" && hasFeatureImages ? (
             <ProductCarousel 
               images={featureImagesToRender}
               lang={lang}
@@ -1305,6 +1322,7 @@ export default function DetailedProductView({
           )}
         </div>
       </div>
+      )}
 
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
