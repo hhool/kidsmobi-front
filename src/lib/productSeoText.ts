@@ -171,7 +171,7 @@ export function getProductDisplayTitle(product: Product, lang: "zh" | "en"): str
   if (/\btravel\s+system\b/.test(name)) {
     type = lang === "zh" ? "儿童推车套餐" : "Travel System";
   } else if (/\b(?:jogger|jogging)\b/.test(name)) {
-    type = lang === "zh" ? "慢跑推车" : "Jogging";
+    type = lang === "zh" ? "慢跑推车" : "Jogging Stroller";
   } else if (/\bdouble\s+stroller\b/.test(name)) {
     type = lang === "zh" ? "双人推车" : "Twin Stroller";
   } else if (/\blight[ -]?weight\b/.test(name)) {
