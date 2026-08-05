@@ -655,6 +655,38 @@ export default function GuidesSection({
     }
   };
 
+  const scrollToGuidesLibraryModule = () => {
+    const anchor = document.getElementById("guides-library-anchor") || document.getElementById("guides_container");
+    if (!anchor) return;
+    window.requestAnimationFrame(() => {
+      const absoluteTop = anchor.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: Math.max(0, absoluteTop), behavior: "smooth" });
+    });
+  };
+
+  const scrollToGuidesWizardResults = () => {
+    const anchor = document.getElementById("guides-wizard-results-anchor") || document.getElementById("guides_container");
+    if (!anchor) return;
+    window.requestAnimationFrame(() => {
+      const absoluteTop = anchor.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: Math.max(0, absoluteTop), behavior: "smooth" });
+    });
+  };
+
+  const handleGuidesPageNavigate = (page: number) => {
+    localStorage.setItem("scrollToGuidesLibrary", "true");
+    onPageChange?.(page);
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("scrollToGuidesLibrary") !== "true") return;
+    localStorage.removeItem("scrollToGuidesLibrary");
+    const timer = window.setTimeout(() => {
+      scrollToGuidesLibraryModule();
+    }, 140);
+    return () => window.clearTimeout(timer);
+  }, [currentPage]);
+
   useEffect(() => {
     setLoadingGuides(true);
     // 1. Try fetching editable CMS guides from CMS API first
@@ -1171,7 +1203,7 @@ export default function GuidesSection({
 
         {showWizardResults ? (
           // Matches results display viewport
-          <div className="space-y-6 animate-fade-in text-left">
+          <div id="guides-wizard-results-anchor" className="space-y-6 animate-fade-in text-left">
             
             {/* Safety math indicators */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -1342,7 +1374,10 @@ export default function GuidesSection({
                           <div className="flex items-center justify-center gap-3 pt-4 border-t border-slate-100 relative z-30">
                             <button
                               type="button"
-                              onClick={() => setWizardPage(Math.max(1, safeWizPage - 1))}
+                              onClick={() => {
+                                setWizardPage(Math.max(1, safeWizPage - 1));
+                                window.setTimeout(() => scrollToGuidesWizardResults(), 80);
+                              }}
                               disabled={safeWizPage <= 1}
                               className="w-10 h-10 rounded-2xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center cursor-pointer hover:bg-slate-50"
                               aria-label={lang === "en" ? "Previous matches" : "上一组"}
@@ -1366,7 +1401,10 @@ export default function GuidesSection({
                             </div>
                             <button
                               type="button"
-                              onClick={() => setWizardPage(Math.min(totalWizPages, safeWizPage + 1))}
+                              onClick={() => {
+                                setWizardPage(Math.min(totalWizPages, safeWizPage + 1));
+                                window.setTimeout(() => scrollToGuidesWizardResults(), 80);
+                              }}
                               disabled={safeWizPage >= totalWizPages}
                               className="w-10 h-10 rounded-2xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center cursor-pointer hover:bg-slate-50"
                               aria-label={lang === "en" ? "Next matches" : "下一组"}
@@ -1582,7 +1620,7 @@ export default function GuidesSection({
       {/* ========================================================
           Part 2: 专家选车科普指南库 (Expert Guides Directory Library)
           ======================================================== */}
-      <section className="space-y-6">
+      <section id="guides-library-anchor" className="space-y-6">
         {selectedGuideState ? (() => {
           const guide = translateGuideArticle(selectedGuideState, lang);
           return (
@@ -1883,7 +1921,7 @@ export default function GuidesSection({
                 {totalPages > 1 && (
                   <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
                     <button
-                      onClick={() => onPageChange?.(Math.max(1, safePage - 1))}
+                      onClick={() => handleGuidesPageNavigate(Math.max(1, safePage - 1))}
                       disabled={safePage <= 1}
                       className="w-10 h-10 rounded-2xl border border-orange-200 bg-white hover:bg-orange-50 text-orange-500 disabled:opacity-30 disabled:bg-slate-50 disabled:border-slate-200 disabled:text-slate-300 flex items-center justify-center transition-all cursor-pointer active:scale-95"
                       aria-label={lang === "en" ? "Go to previous page" : "上一页"}
@@ -1906,7 +1944,7 @@ export default function GuidesSection({
                       />
                     </div>
                     <button
-                      onClick={() => onPageChange?.(Math.min(totalPages, safePage + 1))}
+                      onClick={() => handleGuidesPageNavigate(Math.min(totalPages, safePage + 1))}
                       disabled={safePage >= totalPages}
                       className="w-10 h-10 rounded-2xl border border-orange-200 bg-white hover:bg-orange-50 text-orange-500 disabled:opacity-30 disabled:bg-slate-50 disabled:border-slate-200 disabled:text-slate-300 flex items-center justify-center transition-all cursor-pointer active:scale-95"
                       aria-label={lang === "en" ? "Go to next page" : "下一页"}

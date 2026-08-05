@@ -1164,7 +1164,7 @@ export default function DetailedProductView({
       car_seat: "安全座椅",
     };
     const mapEn: Record<string, string> = {
-      stroller: "Kids Stroller",
+      stroller: "Stroller",
       balance: "Balance Bike",
       balance_bike: "Balance Bike",
       bicycle: "Kids Bike",

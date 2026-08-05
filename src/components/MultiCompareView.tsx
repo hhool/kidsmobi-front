@@ -150,8 +150,8 @@ export default function MultiCompareView({
               </button>
             </div>
           )}
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight">{tEv.title}</h1>
-          <p className="text-slate-300 font-medium leading-relaxed italic border-l-4 border-emerald-500 pl-4 text-left mx-auto max-w-2xl mt-6 pb-2">
+          <h1 className="km-page-title max-w-4xl mx-auto">{tEv.title}</h1>
+          <p className="km-body-copy text-sm sm:text-base text-slate-300 font-medium leading-relaxed italic border-l-4 border-emerald-500 pl-4 text-left mx-auto max-w-2xl mt-6 pb-2">
             "{tEv.verdict}"
           </p>
         </div>
@@ -234,20 +234,20 @@ export default function MultiCompareView({
         </div>
 
         <div className="mt-12 p-8 bg-orange-50 rounded-[32px] border border-orange-100/50 text-orange-900">
-           <h2 className="text-lg font-black mb-4 flex items-center gap-2 uppercase tracking-wide">
+           <h2 className="km-section-title text-slate-900 mb-4 flex items-center gap-2 uppercase tracking-wide">
              <Star className="w-5 h-5 text-orange-500" />
              {lang === "en" ? "Overall Comparison Insights" : "评测室综合洞察"}
            </h2>
            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
              <div>
                <h3 className="text-xs font-black text-orange-600 uppercase tracking-widest mb-3">Highlights</h3>
-               <ul className="space-y-2 list-disc list-inside opacity-90 text-sm font-medium">
+               <ul className="km-body-copy space-y-2 list-disc list-inside opacity-90 text-sm font-medium">
                  {tEv.pros.length > 0 ? tEv.pros.map((p, i) => <li key={i}>{p}</li>) : <li className="opacity-50">No data</li>}
                </ul>
              </div>
              <div>
                <h3 className="text-xs font-black text-rose-600 uppercase tracking-widest mb-3">Limitations</h3>
-               <ul className="space-y-2 list-disc list-inside opacity-90 text-sm font-medium">
+               <ul className="km-body-copy space-y-2 list-disc list-inside opacity-90 text-sm font-medium">
                  {tEv.cons.length > 0 ? tEv.cons.map((c, i) => <li key={i}>{c}</li>) : <li className="opacity-50">No data</li>}
                </ul>
              </div>

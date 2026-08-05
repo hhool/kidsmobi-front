@@ -195,6 +195,29 @@ export default function NewsSection({
     }
   };
 
+  const scrollToNewsListModule = () => {
+    const anchor = document.getElementById("latest-news-grid-anchor") || document.getElementById("news_hub");
+    if (!anchor) return;
+    window.requestAnimationFrame(() => {
+      const absoluteTop = anchor.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: Math.max(0, absoluteTop), behavior: "smooth" });
+    });
+  };
+
+  const handleNewsPageNavigate = (page: number) => {
+    localStorage.setItem("scrollToNewsList", "true");
+    onPageChange?.(page);
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("scrollToNewsList") !== "true") return;
+    localStorage.removeItem("scrollToNewsList");
+    const timer = window.setTimeout(() => {
+      scrollToNewsListModule();
+    }, 140);
+    return () => window.clearTimeout(timer);
+  }, [currentPage]);
+
   useEffect(() => {
     if (!selectedArticleState) {
       clearJsonLd("news-detail");
@@ -660,7 +683,7 @@ export default function NewsSection({
             </div>
           ) : (
             <div className="space-y-8">
-              <div className="max-w-3xl mx-auto text-center space-y-3">
+              <div id="latest-news-grid-anchor" className="max-w-3xl mx-auto text-center space-y-3">
                 <h2 className="km-section-title text-slate-900">
                   {newsCopy.latestTitle}
                 </h2>
@@ -713,7 +736,7 @@ export default function NewsSection({
               {totalPages > 1 && (
                 <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
                   <button
-                    onClick={() => onPageChange?.(Math.max(1, safePage - 1))}
+                    onClick={() => handleNewsPageNavigate(Math.max(1, safePage - 1))}
                     disabled={safePage <= 1}
                     className="w-10 h-10 rounded-2xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center"
                     aria-label={newsCopy.prevPageAria}
@@ -736,7 +759,7 @@ export default function NewsSection({
                     />
                   </div>
                   <button
-                    onClick={() => onPageChange?.(Math.min(totalPages, safePage + 1))}
+                    onClick={() => handleNewsPageNavigate(Math.min(totalPages, safePage + 1))}
                     disabled={safePage >= totalPages}
                     className="w-10 h-10 rounded-2xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center"
                     aria-label={newsCopy.nextPageAria}

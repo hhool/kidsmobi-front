@@ -1882,14 +1882,14 @@ export default function EvaluationsSection({
             <div className="space-y-5 pt-6">
               {detailScoringStandards.map((standard) => (
                 <article key={standard.key || standard.label} className="rounded-3xl border border-slate-100 bg-slate-50/70 p-6 space-y-4">
-                  {standard.label && <h3 className="text-2xl font-black text-slate-800">{standard.label}</h3>}
-                  {standard.parentTip && <p className="text-xl text-slate-600 font-semibold leading-relaxed">{standard.parentTip}</p>}
+                  {standard.label && <h3 className="text-xl sm:text-2xl font-black text-slate-800 leading-tight">{standard.label}</h3>}
+                  {standard.parentTip && <p className="km-body-copy text-sm sm:text-base text-slate-600 font-semibold leading-relaxed">{standard.parentTip}</p>}
                   {standard.evidence.length > 0 && (
                     <div className="space-y-3">
                       {standard.evidence.map((evidence, index) => (
                         <div key={`${standard.key || standard.label}-${index}`} className="rounded-2xl bg-white border border-slate-200 px-5 py-4 space-y-1">
                           {evidence.source && <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{evidence.source}</p>}
-                          <p className="text-xl text-slate-700 font-semibold leading-relaxed break-words">{evidence.text}</p>
+                          <p className="km-body-copy text-sm sm:text-base text-slate-700 font-semibold leading-relaxed break-words">{evidence.text}</p>
                         </div>
                       ))}
                     </div>

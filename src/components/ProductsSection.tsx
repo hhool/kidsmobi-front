@@ -352,7 +352,7 @@ function isGenericCardSnippet(value: string): boolean {
     "primary visual asset for",
     "来自 backend 实时数据",
     "generated from remote fallback",
-    "independently verified kids stroller or bicycle setup",
+    "independently verified stroller or bicycle setup",
     "由后台一键初始化写入 cms",
     "cms 空数据时自动加载",
     "请编辑后保存到 cms",
@@ -701,17 +701,21 @@ export default function ProductsSection({
     }
   }, [activeCategory, selectedCategory]);
 
+  const alignModuleToViewportTop = (elementId: string) => {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+    const absoluteTop = element.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: Math.max(0, absoluteTop), behavior: "smooth" });
+  };
+
   useEffect(() => {
     if (localStorage.getItem("scrollToExpertPicks") === "true") {
       localStorage.removeItem("scrollToExpertPicks");
       setTimeout(() => {
-        const element = document.getElementById("expert-picks-anchor");
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
+        alignModuleToViewportTop("expert-picks-anchor");
       }, 150);
     }
-  }, [selectedCategory]);
+  }, [selectedCategory, currentPage]);
 
   useEffect(() => {
     setSelectedBrand("all");
@@ -764,12 +768,14 @@ export default function ProductsSection({
   };
 
   const scrollToExpertPicks = () => {
-    const element = document.getElementById("expert-picks-anchor");
-    if (!element) return;
-
     window.requestAnimationFrame(() => {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      alignModuleToViewportTop("expert-picks-anchor");
     });
+  };
+
+  const handlePageNavigate = (targetPage: number) => {
+    localStorage.setItem("scrollToExpertPicks", "true");
+    onPageChange?.(targetPage);
   };
 
   const getProductCategoryId = (product: Product): string => {
@@ -791,8 +797,8 @@ export default function ProductsSection({
         car_seat: "Kids Car Seat",
         car_seats: "Kids Car Seat",
         safety_seat: "Kids Car Seat",
-        stroller: "Kids Stroller",
-        strollers: "Kids Stroller",
+        stroller: "Stroller",
+        strollers: "Stroller",
         double_stroller: "Twin Stroller",
         double_strollers: "Twin Stroller",
         jogger_stroller: "Jogging Stroller",
@@ -843,7 +849,7 @@ export default function ProductsSection({
           balance: "Balance Bike",
           bicycle: "Pedal Bike",
           scooter: "Kick Scooter",
-          stroller: "Kids Stroller",
+          stroller: "Stroller",
           electric_car: "Kids Electric Car",
           tricycle: "Tricycle",
           safety_seat: "Kids Car Seat",
@@ -1748,7 +1754,7 @@ export default function ProductsSection({
                   setTimeout(() => {
                     const element = document.getElementById("expert-picks-anchor");
                     if (element) {
-                      element.scrollIntoView({ behavior: "smooth", block: "start" });
+                      alignModuleToViewportTop("expert-picks-anchor");
                     }
                   }, 100);
                 }}
@@ -2204,7 +2210,7 @@ export default function ProductsSection({
         {totalPages > 1 && (
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <button
-              onClick={() => onPageChange?.(Math.max(1, safePage - 1))}
+              onClick={() => handlePageNavigate(Math.max(1, safePage - 1))}
               disabled={safePage <= 1}
               className="w-10 h-10 rounded-2xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center"
               aria-label={productsCopy.pagination.prevPageAria}
@@ -2227,7 +2233,7 @@ export default function ProductsSection({
               />
             </div>
             <button
-              onClick={() => onPageChange?.(Math.min(totalPages, safePage + 1))}
+              onClick={() => handlePageNavigate(Math.min(totalPages, safePage + 1))}
               disabled={safePage >= totalPages}
               className="w-10 h-10 rounded-2xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 flex items-center justify-center"
               aria-label={productsCopy.pagination.nextPageAria}

@@ -220,7 +220,7 @@ const buildProductDetailKeywords = (product: Product, lang: "zh" | "en") => {
 
 const PRODUCT_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
   { id: "all", zh: "全部品类", en: "All Categories" },
-  { id: "stroller", zh: "婴儿推车", en: "Kids Stroller" },
+  { id: "stroller", zh: "婴儿推车", en: "Stroller" },
   { id: "balance_bike", zh: "平衡车", en: "Balance Bike" },
   { id: "kids_bikes", zh: "儿童自行车", en: "Kids Bike" },
   { id: "kids_scooters", zh: "儿童滑板车", en: "Kids Scooter" },
@@ -2909,7 +2909,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                             
                             <div className="flex flex-col gap-1 pr-1">
                               {[
-                                { id: "stroller", labelZh: "🛒 婴儿手推车 (STROLLER)", labelEn: "🛒 Kids Stroller", descZh: "越野级避震与精细安全守护出行工具", descEn: "Ultra protection travel buggies & strollers" },
+                                { id: "stroller", labelZh: "🛒 婴儿手推车 (STROLLER)", labelEn: "🛒 Stroller", descZh: "越野级避震与精细安全守护出行工具", descEn: "Ultra protection travel buggies & strollers" },
                                 { id: "balance_bike", labelZh: "🚲 儿童平衡车 (BALANCE BIKE)", labelEn: "🚲 Balance Bike", descZh: "核心力与双腿平衡锻炼物理启盟车", descEn: "Ergonomic toddler's first helper bikes" },
                                 { id: "kids_bikes", labelZh: "🚴 儿童自行车 (KIDS BIKES)", labelEn: "🚴 Kids Bike", descZh: "高刚度安全防护进阶变速踩踏辅轮车", descEn: "Sturdy safety frame with training tires" },
                                 { id: "electric_vehicles", labelZh: "⚡ 儿童电动车 (KIDS ELECTRIC CAR)", labelEn: "⚡ Kids Electric Car", descZh: "多功能安全遥控双向物理仿真驾驶座舱", descEn: "Interactive dual-drive simulated cool wheels" },

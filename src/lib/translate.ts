@@ -653,7 +653,7 @@ export function translateProduct(p: any, lang: "zh" | "en") {
     pros,
     cons,
     ageRange: safeAgeRange,
-    editorVerdict: editorVerdict ? editorVerdict : "Independently verified kids stroller or bicycle setup.",
+    editorVerdict: editorVerdict ? editorVerdict : "Independently verified stroller or bicycle setup.",
     specsText: p.specsText || specsText,
   });
 }
