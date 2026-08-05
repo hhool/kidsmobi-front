@@ -1,4 +1,4 @@
-import express from "express";
+import express, { type Request } from "express";
 import { guideArticles } from "./data/guidesData.js";
 import { newsArticles } from "./data/newsData.js";
 import { productsData } from "./data/modelsData.js";
@@ -26,7 +26,7 @@ app.get("/api/news", (req, res) => {
   res.json(newsArticles);
 });
 
-const DEFAULT_SCRAPE_API_BASE_URL = "https://store.balancebiketoddler.com";
+const DEFAULT_SCRAPE_API_BASE_URL = "https://kidsmobi-api-v1.seaman-player.workers.dev";
 
 interface WorkerCategory {
   categoryId: string;
@@ -154,6 +154,38 @@ function isHttpUrl(value?: string) {
   } catch {
     return false;
   }
+}
+
+function isTruthyQueryFlag(value: unknown): boolean {
+  const normalized = String(value || "").trim().toLowerCase();
+  return normalized === "1" || normalized === "true" || normalized === "yes";
+}
+
+function getRequesterIp(req: Request): string {
+  const forwardedFor = String(req.headers["x-forwarded-for"] || "").split(",")[0].trim();
+  if (forwardedFor) return forwardedFor;
+  const realIp = String(req.headers["x-real-ip"] || "").trim();
+  if (realIp) return realIp;
+  return String(req.socket?.remoteAddress || req.ip || "unknown").trim() || "unknown";
+}
+
+function isLoopbackIp(ip: string): boolean {
+  return ip === "::1" || ip === "127.0.0.1" || ip === "::ffff:127.0.0.1";
+}
+
+function canAccessAllScope(req: Request): { allowed: boolean; reason: string } {
+  const requesterIp = getRequesterIp(req);
+  if (isLoopbackIp(requesterIp)) {
+    return { allowed: true, reason: "loopback" };
+  }
+
+  const expectedToken = String(process.env.CMS_ADMIN_ALL_TOKEN || "").trim();
+  const actualToken = String(req.header("x-cms-admin-token") || "").trim();
+  if (expectedToken && actualToken && expectedToken === actualToken) {
+    return { allowed: true, reason: "admin-token" };
+  }
+
+  return { allowed: false, reason: "not-authorized" };
 }
 
 async function fetchWorkerJson<T>(pathname: string): Promise<T> {
@@ -1356,6 +1388,21 @@ async function dedupeCategoriesByCodeInD1(): Promise<{ removed: number; remainin
 
 app.get("/api/content/bundle", async (req, res) => {
   try {
+    const requestedCategoryId = String(req.query.categoryId || "").trim();
+    const includeAllRequested = isTruthyQueryFlag(req.query.all);
+    const allScopeAccess = includeAllRequested ? canAccessAllScope(req) : { allowed: false, reason: "not-requested" };
+
+    if (includeAllRequested && !allScopeAccess.allowed) {
+      console.warn(`[audit] denied all=1 on /api/content/bundle ip=${getRequesterIp(req)} reason=${allScopeAccess.reason}`);
+      res.status(403).json({ error: "all=1 requires admin authorization" });
+      return;
+    }
+
+    const includeAll = includeAllRequested && allScopeAccess.allowed;
+    if (includeAll) {
+      console.info(`[audit] allowed all=1 on /api/content/bundle ip=${getRequesterIp(req)} reason=${allScopeAccess.reason}`);
+    }
+
     const categoriesResponse = await fetchWorkerJson<{ data: WorkerCategory[] }>("/api/v2/catalog/categories");
     const categories = Array.isArray(categoriesResponse.data) ? categoriesResponse.data : [];
 
@@ -1363,22 +1410,43 @@ app.get("/api/content/bundle", async (req, res) => {
       throw new Error("Worker categories response was empty.");
     }
 
-    const discoveryCategory = categories.find((category) => category.categoryId === "stroller")?.categoryId || categories[0].categoryId;
+    const defaultCategoryId = categories.find((category) => category.categoryId === "stroller")?.categoryId || categories[0].categoryId;
+    const selectedCategories = requestedCategoryId
+      ? categories.filter((category) => category.categoryId === requestedCategoryId)
+      : includeAll
+        ? categories
+        : categories.filter((category) => category.categoryId === defaultCategoryId);
+
+    if (selectedCategories.length === 0) {
+      throw new Error(`No categories selected for categoryId=${requestedCategoryId || "(default)"}.`);
+    }
+
+    const discoveryCategory = selectedCategories.find((category) => category.categoryId === "stroller")?.categoryId || selectedCategories[0].categoryId;
 
     const categoryPayloads = await Promise.all(
-      categories.map(async (category) => {
-        const [demoResponse, resourcesResponse] = await Promise.all([
-          fetchWorkerJson<WorkerScrapeStoreDemo>(
+      selectedCategories.map(async (category) => {
+        const resourcesPromise = fetchWorkerJson<{ data: WorkerResource[]; meta?: unknown }>(
+          `/api/v2/resources?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=${category.defaultLimit}`
+        );
+
+        let heroProducts: WorkerProduct[] = [];
+        try {
+          const demoResponse = await fetchWorkerJson<WorkerScrapeStoreDemo>(
             `/api/v2/demo/scrape-store?categoryId=${encodeURIComponent(category.categoryId)}&limit=${category.defaultLimit}`
-          ),
-          fetchWorkerJson<{ data: WorkerResource[]; meta?: unknown }>(
-            `/api/v2/resources?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=${category.defaultLimit}`
-          ),
-        ]);
+          );
+          heroProducts = Array.isArray(demoResponse.data?.heroProducts) ? demoResponse.data.heroProducts : [];
+        } catch {
+          const productsResponse = await fetchWorkerJson<{ data: WorkerProduct[] }>(
+            `/api/v2/products?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=${category.defaultLimit}`
+          );
+          heroProducts = Array.isArray(productsResponse.data) ? productsResponse.data : [];
+        }
+
+        const resourcesResponse = await resourcesPromise;
 
         return {
           category,
-          products: Array.isArray(demoResponse.data?.heroProducts) ? demoResponse.data?.heroProducts : [],
+          products: heroProducts,
           resources: Array.isArray(resourcesResponse.data) ? resourcesResponse.data : [],
         };
       })
@@ -1415,11 +1483,11 @@ app.get("/api/content/bundle", async (req, res) => {
       hero: {
         zh: {
           title: "BalanceBikeToddler Live Demo Explorer",
-          subtitle: `Connected to ${categories.length} live categories via /api/v2/demo/scrape-store.`,
+          subtitle: `Connected to ${selectedCategories.length} live categories via /api/v2/demo/scrape-store.`,
         },
         en: {
           title: "BalanceBikeToddler Live Demo Explorer",
-          subtitle: `Connected to ${categories.length} live categories via /api/v2/demo/scrape-store.`,
+          subtitle: `Connected to ${selectedCategories.length} live categories via /api/v2/demo/scrape-store.`,
         },
       },
       homeSlots: buildHomeSlots(homeProducts.length > 0 ? homeProducts : allProducts, evaluationIds),
@@ -1556,7 +1624,20 @@ async function buildAdminResourcePayload(options?: { categoryId?: string; q?: st
 
 app.get("/api/content/resources", async (req, res) => {
   try {
-    const includeAllCategories = String(req.query.all || "").toLowerCase() === "1" || String(req.query.all || "").toLowerCase() === "true";
+    const includeAllRequested = isTruthyQueryFlag(req.query.all);
+    const allScopeAccess = includeAllRequested ? canAccessAllScope(req) : { allowed: false, reason: "not-requested" };
+
+    if (includeAllRequested && !allScopeAccess.allowed) {
+      console.warn(`[audit] denied all=1 on /api/content/resources ip=${getRequesterIp(req)} reason=${allScopeAccess.reason}`);
+      res.status(403).json({ error: "all=1 requires admin authorization" });
+      return;
+    }
+
+    const includeAllCategories = includeAllRequested && allScopeAccess.allowed;
+    if (includeAllCategories) {
+      console.info(`[audit] allowed all=1 on /api/content/resources ip=${getRequesterIp(req)} reason=${allScopeAccess.reason}`);
+    }
+
     const data = await buildAdminResourcePayload({
       categoryId: typeof req.query.categoryId === "string" ? req.query.categoryId : "",
       q: typeof req.query.q === "string" ? req.query.q : "",

@@ -62,7 +62,7 @@ import {
 } from "./lib/firestoreService";
 import { checkIsAdmin, getCMSSettings, getCMSProducts, getCMSEvaluations } from "./lib/cmsService";
 import { fetchContentBundle, isScrapedContentSource } from "./lib/contentSource";
-import { DEFAULT_SEO_CONFIGS, normalizeSeoConfig } from "./config/defaultSeo";
+import { DEFAULT_SEO_CONFIGS, normalizeSeoConfig, SEO_TDK_LIMITS } from "./config/defaultSeo";
 import { getProductSeoKeywords, getReviewSeoKeywords } from "./config/seoKeywordMap";
 import { getTransparencyPageByPath, TRANSPARENCY_PAGE_PATHS, type TransparencyPageKey } from "./data/transparencyPages";
 import CookieConsentModal from "./components/CookieConsentModal";
@@ -148,11 +148,74 @@ const PRODUCTS_PAGE_KEYWORDS_EN = [
   "kids electric scooter",
 ];
 
+const PRODUCTS_PAGE_KEYWORDS_ZH = [
+  "婴儿推车",
+  "儿童平衡车",
+  "儿童自行车",
+  "儿童滑板车",
+  "儿童电动车",
+  "儿童安全座椅",
+];
+
 const applyPageKeywordOverride = (seoKey: string, keywords: string[], lang: "zh" | "en", activeProductCategory = "all") => {
-  if (seoKey === "products" && lang === "en" && activeProductCategory === "all") {
-    return PRODUCTS_PAGE_KEYWORDS_EN;
+  if (seoKey === "products" && activeProductCategory === "all") {
+    return lang === "zh" ? PRODUCTS_PAGE_KEYWORDS_ZH : PRODUCTS_PAGE_KEYWORDS_EN;
   }
   return keywords;
+};
+
+const PRODUCT_DETAIL_TITLE_LIMIT = 60;
+const PRODUCT_DETAIL_KEYWORD_TEXT_LIMIT = 100;
+
+const trimSeoText = (value: string, limit: number) => {
+  const text = String(value || "").replace(/\s+/g, " ").trim();
+  return text.length <= limit ? text : text.slice(0, limit - 1).trimEnd();
+};
+
+const fitKeywordsToLimit = (keywords: string[], totalLimit: number) => {
+  return keywords.reduce<string[]>((acc, keyword) => {
+    const trimmed = trimSeoText(keyword, SEO_TDK_LIMITS.keyword);
+    if (!trimmed) return acc;
+    const next = [...acc, trimmed].join(", ");
+    return next.length <= totalLimit ? [...acc, trimmed] : acc;
+  }, []);
+};
+
+const buildProductDetailTitle = (product: Product, lang: "zh" | "en") => {
+  const baseTitle = getProductDisplayTitle(product, lang);
+  const suffix = lang === "zh" ? "评测 | BalanceBikeToddler" : "Review | BalanceBikeToddler";
+  return trimSeoText(`${baseTitle} ${suffix}`, PRODUCT_DETAIL_TITLE_LIMIT);
+};
+
+const buildProductDetailDescription = (product: Product, lang: "zh" | "en") => {
+  const baseTitle = getProductDisplayTitle(product, lang);
+  const ageRange = String(product.ageRange || "").trim();
+  const desc = lang === "zh"
+    ? `${baseTitle}${ageRange ? `（${ageRange}）` : ""} 参数、安全表现与优缺点速览，帮助家长快速判断是否值得购买。`
+    : `Review the ${baseTitle}${ageRange ? ` for ${ageRange}` : ""} with key specs, safety notes, and pros and cons for faster buying decisions.`;
+  return trimSeoText(desc, SEO_TDK_LIMITS.description);
+};
+
+const buildProductDetailKeywords = (product: Product, lang: "zh" | "en") => {
+  const categoryId = resolveProductCategoryId(product) || "all";
+  const dedupedDisplayTitle = getProductDisplayTitle(product, lang);
+  const rawBrand = String(product.brand || "").trim();
+  const categoryKeywords = getProductSeoKeywords(categoryId, lang);
+  const genericKeywords = lang === "zh"
+    ? ["产品评测", "产品参数", "BalanceBikeToddler"]
+    : ["product review", "product specs", "BalanceBikeToddler"];
+
+  const rawCandidates = [
+    dedupedDisplayTitle,
+    dedupedDisplayTitle.toLowerCase().includes(rawBrand.toLowerCase()) ? "" : rawBrand,
+    ...categoryKeywords.slice(0, 3),
+    ...genericKeywords,
+  ]
+    .map((item) => String(item || "").trim())
+    .filter(Boolean);
+
+  const deduped = Array.from(new Set(rawCandidates));
+  return fitKeywordsToLimit(deduped, PRODUCT_DETAIL_KEYWORD_TEXT_LIMIT);
 };
 
 const PRODUCT_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
@@ -868,6 +931,38 @@ export default function App() {
       }
     }
   }, [currentPath]);
+
+  const getBundleFetchOptions = () => {
+    if (typeof window === "undefined") {
+      return {};
+    }
+
+    const routeState = resolveRouteState(window.location.pathname, window.location.hash);
+    const queryCategoryId = normalizeProductRouteCategory(
+      new URLSearchParams(window.location.search).get("catalog_category") || ""
+    );
+    const routeCategoryId = normalizeProductRouteCategory(routeState.activeProductCategory || "");
+    const rawCategoryId = routeCategoryId && routeCategoryId !== "all" ? routeCategoryId : queryCategoryId;
+
+    const bundleCategoryMap: Record<string, string> = {
+      kids_scooters: "scooters",
+      jogger_stroller: "stroller",
+      jogging_stroller: "stroller",
+      strollers: "stroller",
+      scooters: "scooters",
+      "kids-scooters": "scooters",
+      "kids-bikes": "kids_bikes",
+      "balance-bikes": "balance_bike",
+    };
+
+    const categoryId = bundleCategoryMap[rawCategoryId] || rawCategoryId;
+    if (!categoryId || categoryId === "all") {
+      return {};
+    }
+
+    return { categoryId };
+  };
+
   const [newsPaginationTotalPages, setNewsPaginationTotalPages] = useState<number | null>(null);
   const [guidesPaginationTotalPages, setGuidesPaginationTotalPages] = useState<number | null>(null);
   const activeTabRef = useRef<string>(initialRouteState.activeTab);
@@ -1486,7 +1581,7 @@ export default function App() {
       if (publishedProducts && publishedProducts.length > 0) {
         let nextProducts = enforcePublishedVisibility(publishedProducts);
         try {
-          const bundle = await fetchContentBundle();
+          const bundle = await fetchContentBundle(getBundleFetchOptions());
           if (!isActive) return;
           const fallbackProducts = bundle.products && bundle.products.length > 0
             ? enforcePublishedVisibility(bundle.products)
@@ -1508,7 +1603,7 @@ export default function App() {
         setProductsData(finalProducts);
       } else {
         try {
-          const bundle = await fetchContentBundle();
+          const bundle = await fetchContentBundle(getBundleFetchOptions());
           if (!isActive) return;
           if (bundle.products && bundle.products.length > 0) {
             const withBatch = applyBatchProducts(bundle.products);
@@ -1543,7 +1638,7 @@ export default function App() {
         } catch (err) {
           console.error("Failed to load CMS data:", err);
           try {
-            const bundle = await fetchContentBundle();
+            const bundle = await fetchContentBundle(getBundleFetchOptions());
             if (!isActive) return;
             if (bundle.settings) {
               setCmsSettings(bundle.settings);
@@ -1564,7 +1659,7 @@ export default function App() {
       }
 
       try {
-        const bundle = await fetchContentBundle();
+        const bundle = await fetchContentBundle(getBundleFetchOptions());
         if (!isActive) return;
 
         if (bundle.settings && bundle.products.length > 0 && bundle.evaluations.length > 0) {
@@ -1596,10 +1691,20 @@ export default function App() {
   useEffect(() => {
     let isActive = true;
 
+    const { categoryId } = getBundleFetchOptions() as { categoryId?: string };
+    const shouldLoadBatchData = (activeTab === "products" || activeTab === "product_detail") && Boolean(categoryId);
+
+    if (!shouldLoadBatchData || !categoryId) {
+      batchProductsRef.current = [];
+      return () => {
+        isActive = false;
+      };
+    }
+
     const loadBatchData = async () => {
       try {
-        console.log("Loading batch products from reports...");
-        const batchProducts = await loadBatchProducts();
+        console.log(`Loading batch products from reports for category: ${categoryId}`);
+        const batchProducts = await loadBatchProducts([categoryId]);
         if (!isActive) return;
         
         if (batchProducts && batchProducts.length > 0) {
@@ -1626,7 +1731,7 @@ export default function App() {
       isActive = false;
       clearTimeout(timer);
     };
-  }, []);
+  }, [activeTab, currentPath]);
 
   // Synchronize bookmarked products whenever productsData or login state changes
   useEffect(() => {
@@ -1881,22 +1986,11 @@ export default function App() {
     let seoKey = activeTab;
     if (activeTab === "product_detail") {
       if (selectedProduct) {
-        const name = selectedProduct.name;
-        const brand = selectedProduct.brand;
         const dedupedDisplayTitle = getProductDisplayTitle(selectedProduct, lang);
-        const cat = selectedProduct.category;
+        const title = buildProductDetailTitle(selectedProduct, lang);
+        const desc = buildProductDetailDescription(selectedProduct, lang);
 
-        const title = lang === "zh"
-          ? `${dedupedDisplayTitle} 独家深度客观安全评测报告 | BalanceBikeToddler`
-          : `${dedupedDisplayTitle} Exclusive Safety Evaluation & Specs | BalanceBikeToddler`;
-
-        const desc = lang === "zh"
-          ? `${dedupedDisplayTitle} (${selectedProduct.ageRange})的物理材料、轮径比、刹车制动等详细性能参数，结合BalanceBikeToddler实验室工程师的独家拆解观点与真实优缺点分析。`
-          : `Meticulous safety verification for the ${dedupedDisplayTitle} kids mobility. Comprehensive parameters, raw materials, pros/cons, and engineer reviews.`;
-
-        const kws = lang === "zh"
-          ? [name, brand, cat, "童车数据评测", "BalanceBikeToddler"]
-          : [name, brand, cat, "parameters", "product evaluation", "BalanceBikeToddler"];
+        const kws = buildProductDetailKeywords(selectedProduct, lang);
 
         document.title = title;
         updateMetaTag("description", desc);

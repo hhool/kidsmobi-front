@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { 
   ArrowLeft, 
   ShieldCheck, 
-  TrendingUp, 
-  TrendingDown, 
-  ChevronRight, 
   Play,
   Image as ImageIcon,
   Maximize2
@@ -20,7 +17,7 @@ import {
 } from "recharts";
 import { Product, CMSSettings } from "../types";
 import { translateProduct } from "../lib/translate";
-import { resolveProductImages } from "../lib/productImages";
+import { resolveProductImages, normalizeMediaUrl } from "../lib/productImages";
 import { getProductDisplayTitle } from "../lib/productSeoText";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 import { getSpecFieldLabel, normalizeSpecDisplayValue, toSpecKey } from "../lib/specLexicon";
@@ -70,6 +67,7 @@ function resolveCustomersSay(product: Product, lang: "zh" | "en"): string {
     en?: { customersSay?: string };
   })[lang]?.customersSay;
   const rawText = String(localized || product.customers_say || product.customersSay || "")
+    .replace(/^customers\s+find\s+/i, "")
     .replace(/\s+/g, " ")
     .trim();
   const lower = rawText.toLowerCase();
@@ -109,7 +107,7 @@ function resolveDescriptionText(product: Product, lang: "zh" | "en"): string {
     localized.customers_say,
     localized.customersSay,
   ]
-    .map((value) => String(value || "").replace(/\s+/g, " ").trim())
+    .map((value) => String(value || "").replace(/^customers\s+find\s+/i, "").replace(/\s+/g, " ").trim())
     .filter(Boolean);
 
   for (const text of candidates) {
@@ -300,7 +298,11 @@ function formatSpecValue(value: unknown, rawKey: string, lang: "zh" | "en"): str
   }
   if (typeof value === "object") {
     return Object.entries(value as Record<string, unknown>)
-      .map(([key, entryValue]) => `${formatSpecKey(key, lang)}: ${formatSpecValue(entryValue, key, lang)}`)
+      .map(([key, entryValue]) => {
+        const nestedValue = formatSpecValue(entryValue, key, lang);
+        if (!isMeaningfulStructuredValue(nestedValue)) return "";
+        return `${formatSpecKey(key, lang)}: ${nestedValue}`;
+      })
       .filter((item) => item.trim())
       .join(" | ");
   }
@@ -557,6 +559,224 @@ function cleanEvidenceSource(value: unknown) {
   return text;
 }
 
+function normalizeReadableText(value: unknown): string {
+  return String(value || "")
+    .replace(/\s+/g, " ")
+    .replace(/[|·]+/g, ". ")
+    .replace(/([:;,.!?])(\S)/g, "$1 $2")
+    .replace(/\s+([,.;!?])/g, "$1")
+    .replace(/^[-•\d.)\s]+/, "")
+    .trim();
+}
+
+function paragraphizeDescription(value: unknown): string[] {
+  const normalized = normalizeReadableText(value);
+  if (!normalized) return [];
+
+  // Split before shouting-style feature headers like "LONG BATTERY LIFE:".
+  const withHeaderBreaks = normalized
+    .replace(/([.!?。！？])\s+([A-Z][A-Z0-9&()/'\-\s]{4,}:)/g, "$1\n\n$2")
+    .replace(/\s+([A-Z][A-Z0-9&()/'\-\s]{4,}:)/g, "\n\n$1");
+
+  const chunks = withHeaderBreaks
+    .split(/\n{2,}/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  if (chunks.length > 1) {
+    return chunks;
+  }
+
+  const sentences = normalized
+    .split(/(?<=[.!?。！？])\s+/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  if (sentences.length <= 2) {
+    return chunks;
+  }
+
+  const grouped: string[] = [];
+  for (let i = 0; i < sentences.length; i += 2) {
+    grouped.push(sentences.slice(i, i + 2).join(" "));
+  }
+  return grouped;
+}
+
+function toFeatureCandidates(value: string): string[] {
+  const text = normalizeReadableText(value);
+  if (!text) return [];
+
+  return text
+    .split(/\s*\|\s*|\s*\n+\s*|\s*•\s*|\s*\u2022\s*|\s*(?<=\.)\s+(?=[A-Z\u4e00-\u9fff])/g)
+    .map((item) => normalizeReadableText(item))
+    .filter(Boolean);
+}
+
+type StructuredSectionRow = {
+  rawKey: string;
+  label: string;
+  value: string;
+};
+
+type StructuredSection = {
+  key: string;
+  label: string;
+  labelEn: string;
+  rows: StructuredSectionRow[];
+};
+
+const MIN_MEANINGFUL_DETAIL_TEXT_LENGTH = 12;
+
+function isMeaningfulStructuredValue(value: unknown): boolean {
+  if (value === null || value === undefined) return false;
+  if (Array.isArray(value)) return value.some((item) => isMeaningfulStructuredValue(item));
+  if (typeof value === "object") return Object.values(value as Record<string, unknown>).some((item) => isMeaningfulStructuredValue(item));
+  const text = String(value || "").replace(/\s+/g, " ").trim();
+  if (!text) return false;
+  if (/^[-–—]+$/.test(text)) return false;
+  return !/^(n\/?a|na|none|null|undefined|unknown|待补充|tbd)$/i.test(text);
+}
+
+function buildStructuredRows(record: Record<string, unknown>, lang: "zh" | "en", applicableAgeRange: string): StructuredSectionRow[] {
+  return Object.entries(record)
+    .map(([key, value]) => ({
+      rawKey: key,
+      label: formatSpecKey(key, lang),
+      value: ["age_range", "age_range_description", "recommended_age"].includes(toSpecKey(key))
+        ? applicableAgeRange
+        : formatSpecValue(value, key, lang),
+    }))
+    .filter((item) => isMeaningfulStructuredValue(item.value));
+}
+
+function resolveStructuredProductDescription(product: Product, lang: "zh" | "en"): string {
+  const localized = product as Product & {
+    zh?: { Product_Description?: string; description?: string };
+    en?: { Product_Description?: string; description?: string };
+  };
+  const candidates = lang === "zh"
+    ? [localized.zh?.Product_Description, localized.Product_Description, localized.zh?.description]
+    : [localized.en?.Product_Description, localized.Product_Description, localized.en?.description, localized.description];
+
+  const normalizedName = String(product.name || "").replace(/\s+/g, " ").trim().toLowerCase();
+
+  for (const candidate of candidates) {
+    const text = normalizeReadableText(candidate);
+    if (!isMeaningfulStructuredValue(text)) continue;
+    const normalizedText = text.toLowerCase();
+    if (normalizedText === normalizedName) continue;
+    if (normalizedText.includes("generated from remote fallback")) continue;
+    if (text.length < 24) continue;
+    return text;
+  }
+
+  return "";
+}
+
+function resolveStructuredFeatureRows(product: Product, lang: "zh" | "en"): string[] {
+  const localized = product as Product & {
+    zh?: { features?: unknown[] };
+    en?: { features?: unknown[] };
+  };
+  const featureCandidates = lang === "zh"
+    ? [localized.zh?.features, product.features]
+    : [localized.en?.features, product.features];
+
+  for (const candidate of featureCandidates) {
+    if (!Array.isArray(candidate)) continue;
+    const expanded = candidate.flatMap((item) => toFeatureCandidates(cleanVisibleFieldText(item)));
+    const cleaned = Array.from(
+      new Set(
+        expanded
+          .map((item) => normalizeReadableText(item))
+          .filter((item) => isMeaningfulStructuredValue(item) && !/^[\d\s.-]+$/.test(item) && item.length >= 12)
+      )
+    );
+    if (cleaned.length > 0) return cleaned;
+  }
+
+  return [];
+}
+
+function buildStructuredSpecificationSections(product: Product, lang: "zh" | "en", applicableAgeRange: string): StructuredSection[] {
+  const richProduct = product as Product & {
+    Product_Specifications?: Record<string, Record<string, unknown>>;
+  };
+  const specs = richProduct.Product_Specifications || {};
+  const sectionOrder = [
+    "Measurements",
+    "Features_Specs",
+    "Materials_Care",
+    "Item_Details",
+    "User_Guide",
+  ];
+  const sectionLabels: Record<string, { zh: string; en: string }> = {
+    Measurements: { zh: "Measurements", en: "Measurements" },
+    Features_Specs: { zh: "Features Specs", en: "Features Specs" },
+    Materials_Care: { zh: "Materials Care", en: "Materials Care" },
+    Item_Details: { zh: "Item Details", en: "Item Details" },
+    User_Guide: { zh: "User Guide", en: "User Guide" },
+  };
+
+  return sectionOrder
+    .map((key) => {
+      const section = specs[key];
+      if (!section || typeof section !== "object") return null;
+      const rows = buildStructuredRows(section, lang, applicableAgeRange);
+      if (rows.length === 0) return null;
+      return {
+        key,
+        label: lang === "zh" ? sectionLabels[key].zh : sectionLabels[key].en,
+        labelEn: sectionLabels[key].en,
+        rows,
+      } satisfies StructuredSection;
+    })
+    .filter(Boolean) as StructuredSection[];
+}
+
+function resolveStructuredScoringStandards(product: Product) {
+  return (product.scoringStandards || [])
+    .map((standard) => ({
+      key: String(standard.key || "").trim(),
+      label: String(standard.label || "").trim(),
+      parentTip: cleanVisibleFieldText(standard.parentTip),
+      evidence: (standard.evidence || [])
+        .map((item) => ({
+          source: cleanEvidenceSource(item.source),
+          text: cleanVisibleFieldText(item.text),
+        }))
+        .filter((item) => isMeaningfulStructuredValue(item.text) && item.text.length >= MIN_MEANINGFUL_DETAIL_TEXT_LENGTH),
+    }))
+    .map((item) => ({
+      ...item,
+      parentTip: item.parentTip.length >= MIN_MEANINGFUL_DETAIL_TEXT_LENGTH ? item.parentTip : "",
+    }))
+    .filter((item) => isMeaningfulStructuredValue(item.parentTip) || item.evidence.length > 0);
+}
+
+function extractDirectVideoUrls(value: unknown): string[] {
+  if (!value) return [];
+  if (typeof value === "string") {
+    return /\.mp4(\?|#|$)/i.test(value.trim()) ? [value.trim()] : [];
+  }
+  if (Array.isArray(value)) {
+    return value.flatMap((item) => extractDirectVideoUrls(item));
+  }
+  if (typeof value === "object") {
+    const record = value as Record<string, unknown>;
+    return [
+      record.Video_URL,
+      record.videoUrl,
+      record.video_url,
+      record.url,
+      record.Local_Video_Path,
+      record.Local_Video_Paths,
+    ].flatMap((item) => extractDirectVideoUrls(item));
+  }
+  return [];
+}
+
 interface DetailedProductViewProps {
   product: Product;
   onClose: () => void;
@@ -578,6 +798,8 @@ export default function DetailedProductView({
   previousTab,
   cmsSettings
 }: DetailedProductViewProps) {
+  // Rule set v1: detail textual blocks must come from product data model fields first.
+  // This prevents runtime drift from remote overlays and keeps rendering deterministic.
   const displayProduct = translateProduct(product, lang);
   const displayTitle = getProductDisplayTitle(displayProduct, lang);
   const [liveCmsLocalized, setLiveCmsLocalized] = useState({
@@ -585,12 +807,57 @@ export default function DetailedProductView({
     en: { description: "", editorVerdict: "" },
   });
   const [detailResources, setDetailResources] = useState<WorkerDetailResource[]>([]);
-  const liveVerdict = lang === "zh" ? liveCmsLocalized.zh.editorVerdict : liveCmsLocalized.en.editorVerdict;
-  const verdictText = String(
-    (!isPlaceholderVerdict(liveVerdict) ? liveVerdict : "") || resolveVerdictText(product, lang)
-  ).trim();
+  const verdictText = resolveVerdictText(displayProduct, lang);
   const descriptionText = resolveDescriptionText(displayProduct, lang);
   const imageSet = resolveProductImages(displayProduct);
+  const applicableAgeRange = resolveApplicableAgeRange(product, lang);
+  const structuredDescriptionText = resolveStructuredProductDescription(displayProduct, lang);
+  const structuredDescriptionParagraphs = paragraphizeDescription(structuredDescriptionText);
+  const structuredFeatureRows = resolveStructuredFeatureRows(displayProduct, lang);
+  const structuredSpecSections = buildStructuredSpecificationSections(displayProduct, lang, applicableAgeRange);
+  const visibleStructuredSpecSections = structuredSpecSections
+    .map((section) => ({
+      ...section,
+      rows: section.rows.filter((row) => isMeaningfulStructuredValue(row?.value)),
+    }))
+    .filter((section) => section.rows.length > 0);
+  const structuredScoringStandards = resolveStructuredScoringStandards(displayProduct);
+  const categoryAttributeRows = buildStructuredRows(
+    (((displayProduct as Product & { Category_Attributes?: Record<string, unknown> }).Category_Attributes) || {}),
+    lang,
+    applicableAgeRange
+  );
+  const hasTopLevelCategoryValue = isMeaningfulStructuredValue(String(displayProduct.categoryId || displayProduct.category || "").trim());
+  const hasTopLevelAgeRangeValue = isMeaningfulStructuredValue(applicableAgeRange);
+
+  const modelGalleryImages = Array.from(
+    new Set(
+      [
+        normalizeMediaUrl(displayProduct.imageUrl),
+        ...(displayProduct.galleryUrls || []).map((item) => normalizeMediaUrl(item)),
+        ...(displayProduct.productImageUrls || []).map((item) => normalizeMediaUrl(item)),
+        ...(((displayProduct.images?.gallery || []).map((item) => normalizeMediaUrl(item?.url)))),
+        ...(((displayProduct.images?.all || []).map((item) => normalizeMediaUrl(item?.url)))),
+        normalizeMediaUrl(displayProduct.images?.cover?.url),
+      ].filter(Boolean)
+    )
+  );
+
+  const modelFeatureImages = Array.from(
+    new Set(
+      [
+        ...(displayProduct.featureImageUrls || []).map((item) => normalizeMediaUrl(item)),
+        ...(((displayProduct.images?.feature || []).map((item) => normalizeMediaUrl(item?.url)))),
+      ].filter(Boolean)
+    )
+  );
+
+  const galleryImagesToRender = modelGalleryImages.length > 0 ? modelGalleryImages : imageSet.allImageUrls.filter(Boolean);
+  const featureImagesToRender = modelFeatureImages.length > 0 ? modelFeatureImages : imageSet.featureUrls.filter(Boolean);
+  const hasGalleryImages = galleryImagesToRender.length > 0;
+  const weightText = Number.isFinite(Number(displayProduct.weight)) && Number(displayProduct.weight) > 0
+    ? `${Number(displayProduct.weight).toFixed(2).replace(/\.00$/, "")} kg`
+    : "";
   const resourceVideoAssets = detailResources
     .flatMap((resource) => {
       const type = String(resource?.resourceType || "").toLowerCase();
@@ -599,7 +866,7 @@ export default function DetailedProductView({
         ? [resource.resourceUrl]
         : [];
       const urls = [...fromList, ...fromResourceUrl]
-        .map((item) => String(item || "").trim())
+        .map((item) => normalizeMediaUrl(item))
         .filter((item) => item && isLikelyVideoUrl(item) && !isUnsupportedVideoUrl(item));
       return urls.map((url, index) => ({
         url,
@@ -608,25 +875,40 @@ export default function DetailedProductView({
     })
     .filter((item, index, list) => list.findIndex((next) => next.url === item.url) === index);
 
+  const rawProductMp4Assets = [
+    ...extractDirectVideoUrls((product as any)?.Product_Videos_MP4),
+    ...extractDirectVideoUrls((product as any)?.Product_Videos_Detail),
+    ...extractDirectVideoUrls((displayProduct as any)?.Product_Videos_MP4),
+    ...extractDirectVideoUrls((displayProduct as any)?.Product_Videos_Detail),
+  ].map((url, index) => ({
+    url: normalizeMediaUrl(url),
+    title: `mp4-video-${index + 1}`,
+  })).filter((item) => Boolean(item.url));
+
   const videoAssets = [
-    product.videoUrl ? { url: product.videoUrl, title: "primary-video" } : null,
+    ...rawProductMp4Assets,
+    product.videoUrl ? { url: normalizeMediaUrl(product.videoUrl), title: "primary-video" } : null,
     ...((product.videos || []).map((item, index) => ({
-      url: String(item?.url || "").trim(),
+      url: normalizeMediaUrl(item?.url),
       title: String(item?.title || `video-${index + 1}`).trim(),
     }))),
     ...resourceVideoAssets,
   ]
-    .filter((item): item is { url: string; title: string } => Boolean(item?.url) && isLikelyVideoUrl(item.url) && !isUnsupportedVideoUrl(item.url))
+    .filter((item): item is { url: string; title: string } => Boolean(item?.url) && /\.mp4(\?|#|$)/i.test(item.url))
     .filter((item, index, list) => list.findIndex((candidate) => candidate.url === item.url) === index);
   const firstVideoUrl = videoAssets[0]?.url || "";
   const [activeVideoUrl, setActiveVideoUrl] = useState<string>(videoAssets[0]?.url || "");
   const videoUrl = activeVideoUrl || firstVideoUrl;
   const videoRenderType = getVideoRenderType(videoUrl);
   const hasVideo = videoRenderType !== "none";
-  const hasFeatureImages = imageSet.featureUrls.length > 0;
+  const hasFeatureImages = featureImagesToRender.length > 0;
+  const hasAnyMedia = hasGalleryImages || hasFeatureImages || hasVideo;
+  const availableMediaTabs: Array<"gallery" | "feature" | "video"> = [
+    ...(hasGalleryImages ? ["gallery" as const] : []),
+    ...(hasFeatureImages ? ["feature" as const] : []),
+    ...(hasVideo ? ["video" as const] : []),
+  ];
   const [activeMediaTab, setActiveMediaTab] = useState<"gallery" | "feature" | "video">("gallery");
-  const applicableAgeRange = resolveApplicableAgeRange(product, lang);
-  const basicInfoSections = buildBasicInfoSections(product, displayProduct, lang, applicableAgeRange);
   const getBackLabel = () => {
     if (lang === "zh") {
       switch (previousTab) {
@@ -662,8 +944,11 @@ export default function DetailedProductView({
   };
 
   React.useEffect(() => {
-    setActiveMediaTab("gallery");
-  }, [product.id]);
+    if (!hasAnyMedia) return;
+    if (!availableMediaTabs.includes(activeMediaTab)) {
+      setActiveMediaTab(availableMediaTabs[0]);
+    }
+  }, [product.id, hasAnyMedia, activeMediaTab, availableMediaTabs]);
 
   React.useEffect(() => {
     setActiveVideoUrl(firstVideoUrl);
@@ -719,7 +1004,10 @@ export default function DetailedProductView({
     [lang]: { ...(product as any)?.[lang], description: lang === "zh" ? liveCmsLocalized.zh.description : liveCmsLocalized.en.description },
   } as Product;
   const liveDescriptionText = resolveDescriptionText(liveDescriptionProduct, lang);
-  const effectiveDescriptionText = liveDescriptionText || (lang === "en" ? curatedContent?.productDescription : "") || descriptionText || (lang === "en" ? resourceDescription : "");
+  // Rule 1 confirmation: description fallback is limited to model-carried fields only.
+  // We intentionally avoid curated/resource overlays here.
+  const effectiveDescriptionText = descriptionText;
+  const effectiveDescriptionParagraphs = paragraphizeDescription(effectiveDescriptionText);
 
   React.useEffect(() => {
     let disposed = false;
@@ -860,29 +1148,6 @@ export default function DetailedProductView({
     { subject: "性价比", scoreA: scoresA.costEff, key: "value" }
   ];
 
-  const CustomRadarTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length) {
-      const data = payload[0].payload;
-      return (
-        <div className="bg-white border border-slate-200 p-4 rounded-2xl shadow-xl space-y-2 text-xs pointer-events-none z-50">
-          <div className="font-bold text-slate-800 border-b border-slate-50 pb-2 flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-orange-500"></div>
-            {data.subject}
-          </div>
-          <div className="space-y-1.5">
-            {payload.map((item: any, idx: number) => (
-              <div key={idx} className="flex items-center justify-between gap-8">
-                <span className="text-slate-500 font-medium">{item.name}:</span>
-                <span className={`${item.dataKey === "scoreA" ? "text-orange-600" : "text-indigo-600"} font-black text-right`}>{item.value} / 10</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      );
-    }
-    return null;
-  };
-
   const getCategoryLabel = (cat: string, l: "zh" | "en"): string => {
     const normalized = String(cat || "").trim().toLowerCase();
     const mapZh: Record<string, string> = {
@@ -912,6 +1177,56 @@ export default function DetailedProductView({
       car_seat: "Car Seat",
     };
     return l === "zh" ? (mapZh[normalized] || "产品中心") : (mapEn[normalized] || "Products");
+  };
+
+  const normalizePriceValue = (value: unknown) => {
+    const numeric = Number(String(value ?? "").replace(/[^\d.]/g, ""));
+    return Number.isFinite(numeric) && numeric > 0 ? numeric : null;
+  };
+
+  const displayPrice = (() => {
+    const numeric = normalizePriceValue((displayProduct as Product & { price?: unknown }).price);
+    if (!numeric) return lang === "zh" ? "待补充" : "TBD";
+    return lang === "zh" ? `¥${numeric.toLocaleString("zh-CN")}` : `$${numeric.toLocaleString("en-US")}`;
+  })();
+
+  const modelOverviewRows = [
+    { label: lang === "zh" ? "品牌" : "Brand", value: cleanVisibleFieldText(displayProduct.brand) },
+    { label: lang === "zh" ? "品类" : "Category", value: getCategoryLabel((displayProduct as any).categoryId || displayProduct.category || "", lang) },
+    { label: lang === "zh" ? "重量" : "Weight", value: weightText },
+    { label: lang === "zh" ? "适龄范围" : "Age Range", value: applicableAgeRange },
+    { label: lang === "zh" ? "参考价格" : "Reference Price", value: displayPrice },
+  ].filter((item) => isMeaningfulStructuredValue(item.value));
+  const visibleModelOverviewRows = modelOverviewRows.filter((row) => isMeaningfulStructuredValue(row?.value));
+  const visibleCategoryAttributeRows = categoryAttributeRows.filter((row) => {
+    if (!isMeaningfulStructuredValue(row?.value)) return false;
+    const normalizedKey = toSpecKey(row.rawKey);
+    if (normalizedKey === "categoryid" && hasTopLevelCategoryValue) return false;
+    if (normalizedKey === "agegroup" && hasTopLevelAgeRangeValue) return false;
+    return true;
+  });
+
+  const CustomRadarTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload;
+      return (
+        <div className="bg-white border border-slate-200 p-4 rounded-2xl shadow-xl space-y-2 text-xs pointer-events-none z-50">
+          <div className="font-bold text-slate-800 border-b border-slate-50 pb-2 flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-orange-500"></div>
+            {data.subject}
+          </div>
+          <div className="space-y-1.5">
+            {payload.map((item: any, idx: number) => (
+              <div key={idx} className="flex items-center justify-between gap-8">
+                <span className="text-slate-500 font-medium">{item.name}:</span>
+                <span className={`${item.dataKey === "scoreA" ? "text-orange-600" : "text-indigo-600"} font-black text-right`}>{item.value} / 10</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+    return null;
   };
 
   return (
@@ -970,10 +1285,12 @@ export default function DetailedProductView({
           </div>
         </div>
       </div>
-      
+
       {/* Media Gallery & Video Showcase */}
+      {hasAnyMedia && (
       <div id="product_media_section" className="bg-white border border-slate-100 rounded-[40px] overflow-hidden shadow-sm scroll-mt-24">
         <div className="flex border-b border-slate-100">
+          {hasGalleryImages && (
           <button 
             onClick={() => setActiveMediaTab("gallery")}
             className={`flex-1 flex items-center justify-center gap-2 py-4 text-xs font-black uppercase transition-all ${activeMediaTab === "gallery" ? "bg-orange-50 text-orange-600 border-b-2 border-orange-500" : "text-slate-400 hover:bg-slate-50"}`}
@@ -981,6 +1298,7 @@ export default function DetailedProductView({
             <ImageIcon className="w-4 h-4" />
             {lang === "en" ? "Image Gallery" : "产品实拍图库"}
           </button>
+          )}
           {hasFeatureImages && (
             <button 
               onClick={() => setActiveMediaTab("feature")}
@@ -1002,15 +1320,15 @@ export default function DetailedProductView({
         </div>
 
         <div className="p-1 min-h-[400px] bg-slate-50">
-          {activeMediaTab === "gallery" ? (
+          {activeMediaTab === "gallery" && hasGalleryImages ? (
             <ProductCarousel 
-              images={imageSet.allImageUrls.filter(Boolean)} 
+              images={galleryImagesToRender}
               lang={lang}
               productName={displayTitle}
             />
-          ) : activeMediaTab === "feature" ? (
+          ) : activeMediaTab === "feature" && hasFeatureImages ? (
             <ProductCarousel 
-              images={imageSet.featureUrls.filter(Boolean)} 
+              images={featureImagesToRender}
               lang={lang}
               productName={displayTitle}
             />
@@ -1066,6 +1384,7 @@ export default function DetailedProductView({
           )}
         </div>
       </div>
+      )}
 
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -1119,36 +1438,103 @@ export default function DetailedProductView({
              <div id="product_basic_info_section" className="space-y-4 pt-6 border-t border-slate-50 scroll-mt-24">
                <h3 className="flex items-center gap-2 text-xs font-black text-slate-700 uppercase tracking-widest">
                  <ShieldCheck className="w-4 h-4 text-orange-500" />
-                 {lang === "en" ? "Product Basic Info" : "产品基本信息"}
+                 {lang === "en" ? "Product Data Model" : "产品数据模型"}
                </h3>
-               {basicInfoSections.length > 0 ? (
-                 <div className="space-y-4">
-                   {basicInfoSections.map((section) => (
-                     <div key={section.key} className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4">
-                       <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
-                         <div>
-                           <p className="text-sm font-black text-slate-800">{lang === "en" ? section.labelEn : section.label}</p>
-                         </div>
-                         <span className="text-[10px] font-black px-2 py-1 rounded-full bg-white text-slate-500 border border-slate-200">{section.rows.length}</span>
-                       </div>
-                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                         {section.rows.map((row, index) => (
-                           <div key={`${section.key}-${row.label}-${index}`} className="rounded-2xl bg-white border border-slate-100 p-3 space-y-1">
-                             {section.key !== "Features" && (
-                               <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{row.label}</p>
-                             )}
-                             <p className="text-sm text-slate-700 font-semibold leading-relaxed break-words">{row.value}</p>
-                           </div>
-                         ))}
-                       </div>
+               <div className="space-y-4">
+                 {visibleModelOverviewRows.length > 0 && (
+                   <div className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4">
+                     <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
+                       <p className="text-sm font-black text-slate-800">{lang === "en" ? "Overview" : "基础字段"}</p>
+                       <span className="text-[10px] font-black px-2 py-1 rounded-full bg-white text-slate-500 border border-slate-200">{visibleModelOverviewRows.length}</span>
                      </div>
-                   ))}
-                 </div>
-               ) : (
-                 <div className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 text-sm text-slate-500 font-medium">
-                   {lang === "en" ? "No Product_Specifications data available." : "当前暂无 Product_Specifications 结构化数据。"}
-                 </div>
-               )}
+                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                       {visibleModelOverviewRows.map((row, index) => (
+                         <div key={`overview-${row.label}-${index}`} className="rounded-2xl bg-white border border-slate-100 p-3 space-y-1">
+                           <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{row.label}</p>
+                           <p className="text-sm text-slate-700 font-semibold leading-relaxed break-words">{row.value}</p>
+                         </div>
+                       ))}
+                     </div>
+                   </div>
+                 )}
+
+                 {structuredDescriptionText && (
+                   <div className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4">
+                     <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
+                       <p className="text-sm font-black text-slate-800">Product_Description</p>
+                     </div>
+                     <div className="rounded-2xl bg-white border border-slate-100 p-3 space-y-3 text-sm text-slate-700 font-semibold leading-relaxed break-words">
+                       {(structuredDescriptionParagraphs.length > 0 ? structuredDescriptionParagraphs : [structuredDescriptionText]).map((paragraph, index) => (
+                         <p key={`structured-description-${index}`}>{paragraph}</p>
+                       ))}
+                     </div>
+                   </div>
+                 )}
+
+                 {visibleCategoryAttributeRows.length > 0 && (
+                   <div className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4">
+                     <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
+                       <p className="text-sm font-black text-slate-800">Category_Attributes</p>
+                       <span className="text-[10px] font-black px-2 py-1 rounded-full bg-white text-slate-500 border border-slate-200">{visibleCategoryAttributeRows.length}</span>
+                     </div>
+                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                       {visibleCategoryAttributeRows.map((row, index) => (
+                         <div key={`category-attribute-${row.label}-${index}`} className="rounded-2xl bg-white border border-slate-100 p-3 space-y-1">
+                           <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{row.label}</p>
+                           <p className="text-sm text-slate-700 font-semibold leading-relaxed break-words">{row.value}</p>
+                         </div>
+                       ))}
+                     </div>
+                   </div>
+                 )}
+
+                 {visibleStructuredSpecSections.map((section) => (
+                   <div key={section.key} className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4">
+                     <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
+                       <p className="text-sm font-black text-slate-800">{section.labelEn}</p>
+                       <span className="text-[10px] font-black px-2 py-1 rounded-full bg-white text-slate-500 border border-slate-200">{section.rows.length}</span>
+                     </div>
+                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                       {section.rows.map((row, index) => (
+                         <div key={`${section.key}-${row.label}-${index}`} className="rounded-2xl bg-white border border-slate-100 p-3 space-y-1">
+                           <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{row.label}</p>
+                           <p className="text-sm text-slate-700 font-semibold leading-relaxed break-words">{row.value}</p>
+                         </div>
+                       ))}
+                     </div>
+                   </div>
+                 ))}
+
+                 {structuredScoringStandards.length > 0 && (
+                   <details className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4 group" open={false}>
+                     <summary className="list-none cursor-pointer flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
+                       <p className="text-sm font-black text-slate-800">scoringStandards</p>
+                       <span className="inline-flex items-center gap-2">
+                         <span className="text-[10px] font-black px-2 py-1 rounded-full bg-white text-slate-500 border border-slate-200">{structuredScoringStandards.length}</span>
+                         <span className="text-slate-400 text-xs font-black transition-transform group-open:rotate-180">⌄</span>
+                       </span>
+                     </summary>
+                     <div className="space-y-3 pt-3">
+                       {structuredScoringStandards.map((standard) => (
+                         <div key={standard.key || standard.label} className="rounded-2xl bg-white border border-slate-100 p-4 space-y-3">
+                           {standard.label && <p className="text-sm font-black text-slate-800">{standard.label}</p>}
+                           {standard.parentTip && <p className="text-sm text-slate-600 font-semibold leading-relaxed">{standard.parentTip}</p>}
+                           {standard.evidence.length > 0 && (
+                             <div className="space-y-2">
+                               {standard.evidence.map((evidence, index) => (
+                                 <div key={`${standard.key}-${index}`} className="rounded-2xl border border-slate-100 bg-slate-50 px-3 py-2">
+                                   {evidence.source && <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{evidence.source}</p>}
+                                   <p className="mt-1 text-sm text-slate-700 font-medium leading-relaxed">{evidence.text}</p>
+                                 </div>
+                               ))}
+                             </div>
+                           )}
+                         </div>
+                       ))}
+                     </div>
+                   </details>
+                 )}
+               </div>
              </div>
           </div>
 
@@ -1157,24 +1543,28 @@ export default function DetailedProductView({
         {/* Technical Specs (Right Column) */}
           <div className="space-y-8">
            {/* Verdict Box */}
+           {isMeaningfulStructuredValue(verdictText) && (
            <div id="product_expert_summary_section" className="bg-orange-50 border border-orange-100 rounded-[40px] p-8 space-y-4 scroll-mt-24">
               <h2 className="text-xs font-black text-orange-600 uppercase tracking-widest flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4" />
                 {lang === "en" ? "Expert Summary" : "本站综合评价"}
               </h2>
-              {verdictText && (
-                <p className="text-sm text-slate-700 font-bold leading-relaxed italic">
-                  "{verdictText}"
-                </p>
-              )}
+              <p className="text-sm text-slate-700 font-bold leading-relaxed italic">
+                "{verdictText}"
+              </p>
            </div>
+           )}
 
-           {effectiveDescriptionText && (
+           {!structuredDescriptionText && isMeaningfulStructuredValue(effectiveDescriptionText) && (
              <div id="product_description_section" className="bg-white border border-slate-100 rounded-[32px] p-6 space-y-2 shadow-sm scroll-mt-24">
                <p className="text-xs font-black uppercase tracking-widest text-slate-500">
                  {lang === "en" ? "Product Description" : "产品描述"}
                </p>
-               <p className="km-heading-copy km-body-copy text-sm text-slate-700 font-semibold">{effectiveDescriptionText}</p>
+               <div className="km-heading-copy km-body-copy text-sm text-slate-700 font-semibold space-y-3">
+                 {(effectiveDescriptionParagraphs.length > 0 ? effectiveDescriptionParagraphs : [effectiveDescriptionText]).map((paragraph, index) => (
+                   <p key={`description-${index}`}>{paragraph}</p>
+                 ))}
+               </div>
              </div>
            )}
         </div>

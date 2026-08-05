@@ -57,7 +57,25 @@ const HOME_CARD_DEFAULT_IMAGES = [
 ];
 
 function compactSnippet(value: unknown): string {
-  return String(value || "").trim().replace(/\s+/g, " ");
+  return String(value || "")
+    .replace(/^customers\s+find\s+/i, "")
+    .trim()
+    .replace(/\s+/g, " ");
+}
+
+function hasCjkCharacters(value: string): boolean {
+  return /[\u3400-\u9fff]/.test(String(value || ""));
+}
+
+function isMeaningfulCardSummary(value: string, lang: "zh" | "en"): boolean {
+  const text = compactSnippet(value);
+  if (!text) return false;
+  if (/^[\d\s.,;:!?\-_/()]+$/.test(text)) return false;
+  if (lang === "zh") {
+    if (!hasCjkCharacters(text)) return false;
+    return text.length >= 8;
+  }
+  return text.length >= 18;
 }
 
 function pickCustomersSay(product: Product, lang: "zh" | "en"): string {
@@ -82,7 +100,7 @@ function isRatingStatsSummary(value: string): boolean {
 function hasRealCustomersSay(product: Product, lang: "zh" | "en"): boolean {
   const customerSay = pickCustomersSay(product, lang);
   if (!customerSay || isRatingStatsSummary(customerSay)) return false;
-  return /^Customers find\b/i.test(customerSay);
+  return true;
 }
 
 interface HomeSectionProps {
@@ -292,11 +310,36 @@ export default function HomeSection({
     }
     const localized = translateProduct(product, lang);
     const brand = String(localized.brand || product.brand || "").trim();
-    const localizedDescription = String((product as any)?.[lang]?.description || "").trim();
-    const summary = String(localizedDescription || product.description || product.editorVerdict || "").trim();
-    if (summary) return collapseRepeatedLeadingBrand(summary, brand);
+    const localizedDescription = compactSnippet((product as any)?.[lang]?.description || "");
+    const translatedDescription = compactSnippet(localized.description || "");
+    const zhEditorVerdict = compactSnippet((product as any)?.zh?.editorVerdict || "");
+    const genericDescription = compactSnippet(product.description || "");
+    const genericVerdict = compactSnippet(product.editorVerdict || "");
+
+    const candidates = lang === "zh"
+      ? [
+          localizedDescription,
+          translatedDescription,
+          zhEditorVerdict,
+          hasCjkCharacters(genericVerdict) ? genericVerdict : "",
+          hasCjkCharacters(genericDescription) ? genericDescription : "",
+        ]
+      : [
+          localizedDescription,
+          translatedDescription,
+          genericDescription,
+          genericVerdict,
+        ];
+
+    for (const candidate of candidates) {
+      const cleaned = collapseRepeatedLeadingBrand(candidate, brand);
+      if (isMeaningfulCardSummary(cleaned, lang)) {
+        return cleaned;
+      }
+    }
+
     return lang === "zh"
-      ? "该卡片展示当前绑定产品的核心适用场景、结构特点与日常使用表现。"
+      ? "该卡片展示当前绑定产品的核心适用场景、结构特点与日常使用表现，详情可进入产品页查看。"
       : "This card highlights the bound product's fit, structure, and everyday ride behavior.";
   };
 
@@ -603,12 +646,52 @@ export default function HomeSection({
   }, [homeCopy.categoryCards, lang]);
 
   const strollerProducts = useMemo(() => {
-    const strollers = homeVisualProducts.filter((product) => {
+    const isJoggerSignaled = (product: Product) => {
+      const normalizedCategoryId = normalizeCategory((product as any).categoryId || "");
+      const normalizedCategory = normalizeCategory(product.category || "");
+      const text = [
+        product.name,
+        product.brand,
+        product.description,
+        (product as any)?.zh?.description,
+        (product as any)?.en?.description,
+      ]
+        .map((item) => String(item || "").toLowerCase())
+        .join(" ");
+
+      if (normalizedCategoryId === "jogger_stroller" || normalizedCategory === "jogger_stroller") {
+        return true;
+      }
+
+      if (normalizedCategoryId !== "stroller" && normalizedCategory !== "stroller") {
+        return false;
+      }
+
+      return /(jogger|jogging|running stroller|slow[-\s]?run|慢跑推车|越野推车)/i.test(text);
+    };
+
+    const joggerExact = homeVisualProducts.filter((product) => {
       const normalizedCategoryId = normalizeCategory((product as any).categoryId || "");
       const normalizedCategory = normalizeCategory(product.category || "");
       return normalizedCategoryId === "jogger_stroller" || normalizedCategory === "jogger_stroller";
     });
-    return [...strollers].sort((a, b) => (b.overallScore || 0) - (a.overallScore || 0)).slice(0, 4);
+
+    const joggerBySignals = homeVisualProducts.filter((product) => isJoggerSignaled(product));
+    const strollerBackfill = homeVisualProducts.filter((product) => {
+      const normalizedCategoryId = normalizeCategory((product as any).categoryId || "");
+      const normalizedCategory = normalizeCategory(product.category || "");
+      return normalizedCategoryId === "stroller" || normalizedCategory === "stroller";
+    });
+
+    const merged = Array.from(
+      new Map(
+        [...joggerExact, ...joggerBySignals, ...strollerBackfill]
+          .sort((a, b) => (b.overallScore || 0) - (a.overallScore || 0))
+          .map((product) => [product.id, product])
+      ).values()
+    );
+
+    return merged.slice(0, 4);
   }, [homeVisualProducts]);
 
   const balanceBikeProducts = useMemo(() => {

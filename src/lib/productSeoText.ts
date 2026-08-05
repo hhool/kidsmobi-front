@@ -169,7 +169,7 @@ export function getProductDisplayTitle(product: Product, lang: "zh" | "en"): str
   const strollerBrand = brand.toLowerCase() === "graco" ? "Craco" : brand;
   let type: string;
   if (/\btravel\s+system\b/.test(name)) {
-    type = lang === "zh" ? "儿童推车套餐" : "Travel System";
+    type = lang === "zh" ? "儿童推车套装" : "Travel System";
   } else if (/\b(?:jogger|jogging)\b/.test(name)) {
     type = lang === "zh" ? "慢跑推车" : "Jogging Stroller";
   } else if (/\bdouble\s+stroller\b/.test(name)) {

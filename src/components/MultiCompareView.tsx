@@ -94,7 +94,9 @@ export default function MultiCompareView({
   onHome,
   onBack,
   onReviewTypeClick,
-  onSelectProduct
+  onSelectProduct,
+  canCreateEditableCompare,
+  onCreateEditableCompare,
 }: {
   evaluation: Evaluation;
   productsData: Product[];
@@ -104,6 +106,8 @@ export default function MultiCompareView({
   onBack: () => void;
   onReviewTypeClick?: () => void;
   onSelectProduct: (p: Product) => void;
+  canCreateEditableCompare?: boolean;
+  onCreateEditableCompare?: () => void;
 }) {
   const compProducts = useMemo(() => {
     if (!evaluation.productIds) return [];
@@ -135,6 +139,17 @@ export default function MultiCompareView({
           <div className="inline-flex py-1 px-3 bg-white/10 rounded-full text-xs font-black tracking-widest uppercase">
             {evaluation.type === "ranking" ? "Top Ranking" : evaluation.type === "value" ? "Value Pick" : "Cross Comparison"}
           </div>
+          {canCreateEditableCompare && onCreateEditableCompare && (
+            <div className="flex justify-center">
+              <button
+                type="button"
+                onClick={onCreateEditableCompare}
+                className="px-4 py-2 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-200 text-[11px] font-black uppercase tracking-wider hover:bg-emerald-500/30 transition-colors"
+              >
+                {lang === "zh" ? "转为 CMS 可编辑评测" : "Create Editable CMS Review"}
+              </button>
+            </div>
+          )}
           <h1 className="text-3xl md:text-5xl font-black tracking-tight">{tEv.title}</h1>
           <p className="text-slate-300 font-medium leading-relaxed italic border-l-4 border-emerald-500 pl-4 text-left mx-auto max-w-2xl mt-6 pb-2">
             "{tEv.verdict}"

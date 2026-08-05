@@ -16,6 +16,9 @@
 | --- | --- | --- |
 | `cms_import_full_from_backend_v2.mjs` | 将 backend `/api/v2` 数据导入 CMS 各集合并生成图片转存清单 | `npm run import:cms -- --perCategory=12 --manifestPath=./tmp/front_image_transfer_manifest.json` |
 | `cms_safe_replace_from_export.mjs` | `cms_replace_from_export.mjs` 的安全包装：默认拦截空集合 replace，避免先 purge 后写入 0 条导致清空 | `npm run cms:replace:safe -- --base=https://kidsmobi-api-v1.seaman-player.workers.dev --input=../backend/env/cms-export.json --mode=replace --collections=products --apply` |
+| `cms_sync_category_report_to_cms.mjs` | 通用品类 report 同步：将 `*_report.json` 转换并 upsert 到 CMS products（默认 dry-run） | `npm run cms:sync:category-report -- --input=../backend/.deploy/worker-api-data/api-data/kids_bikes/kids_bikes_report.json --base=https://store.balancebiketoddler.com --apply` |
+| `cms_sync_all_category_reports_to_cms.mjs` | 一键同步 api-data 下所有 `*_report.json` 到 CMS（自动处理 `strollers_report.json -> stroller`） | `npm run cms:sync:all-reports -- --base=https://store.balancebiketoddler.com --apply` |
+| `cms_sync_kids_bikes_report_to_cms.mjs` | 将 backend 最新 `kids_bikes_report.json` 转换并 upsert 到 CMS products（默认 dry-run） | `npm run cms:sync:kids-bikes -- --input=../backend/.deploy/worker-api-data/api-data/kids_bikes/kids_bikes_report.json --base=https://store.balancebiketoddler.com --apply` |
 | `product_stage_specs_from_backend_v2.mjs` | 抓取 backend 产品全参数并落盘 raw/editable/publish 占位文件 | `npm run specs:stage:product:init` |
 | `media_stage_images_local.mjs` | 先把 manifest 中图片下载到本地 `front/resource/`，用于目录结构确认（支持 targetPath 重写模式） | `npm run media:stage:local` |
 | `media_transfer_images_to_r2.mjs` | 将 manifest 中的图片转存到 Cloudflare R2 | `npm run media:transfer:r2 -- --manifestPath=./tmp/front_image_transfer_manifest.json --skipExisting` |
@@ -25,6 +28,9 @@
 | `reset_cms_d1_a_scope.mjs` | 重置 A-scope CMS 基线数据 | `npm run cms:reset:a` |
 | `sample_web_vitals.mjs` | 采集 Web Vitals 样本 | `npm run perf:sample` |
 | `compare_web_vitals_trend.mjs` | 对比 Web Vitals 趋势与阈值 | `npm run perf:trend` |
+| `m3_gray_release_preflight.mjs` | 执行 M3 API 门禁预检（默认单分类 bundle + all=1 授权校验），并产出报告文件 | `npm run m3:preflight -- --base=https://kidsmobi.pages.dev --category=stroller` |
+| `m3_official_token_gate_check.mjs` | 使用官方 token 一键执行严格门禁复核（preflight + snapshot） | `CMS_ADMIN_ALL_TOKEN=<official-token> npm run m3:preflight:official -- --base=<target-host> --category=stroller` |
+| `m3_generate_decision_snapshot.mjs` | 汇总最新 M3 预检报告并生成 GO/HOLD/NO-GO 决策快照 | `npm run m3:snapshot` |
 | `verify_smartimage_sizes.mjs` | 校验 smart-image 尺寸产物 | `node scripts/verify_smartimage_sizes.mjs` |
 | `seedProducts.ts` | 本地流程的产品种子数据脚本 | `npx tsx scripts/seedProducts.ts` |
 
@@ -56,9 +62,17 @@
 
 - npm 别名发布后，尽量保持脚本文件名稳定。
 - 涉及大规模或潜在破坏性动作前，优先先跑 `--dryRun`。
+- 通用 report 同步支持两种品类指定方式：
+   - 显式传入 `--categoryId=<category>`
+   - 不传 `--categoryId` 时，自动从输入文件名 `<category>_report.json` 推断
+- 全量 report 同步支持筛选参数：
+   - `--include=kids_bikes,scooters` 仅同步指定品类
+   - `--exclude=stroller` 排除指定品类
 - 媒体迁移报告输出路径：`./tmp/front_image_transfer_report.json`。
 - 本地落地报告输出路径：`./tmp/front_image_stage_report.json`。
 - 产品参数批次索引路径：`./resource/assets/backend-import/<importBatchId>/batch.index.json`。
+- M3 预检支持严格模式：`npm run m3:preflight:strict`（用于本地/预发环境，要求 `/api/content/*` 路由可用）。
+- 官方 token 一键门禁复核：`CMS_ADMIN_ALL_TOKEN=<official-token> npm run m3:preflight:official -- --base=<target-host> --category=stroller`。
 
 ## 安全回写护栏
 

@@ -7,16 +7,13 @@ interface SeoKeywordEntry {
 
 export const PRODUCT_CATEGORY_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
   all: {
-    zh: ["婴儿车", "儿童自行车", "平衡车", "儿童滑板车", "儿童电动车", "安全座椅"],
+    zh: ["婴儿车", "儿童自行车", "平衡车", "儿童滑板车", "儿童电动车"],
     en: [
-      "balance bike",
-      "kids bike",
-      "jogging stroller",
+      "balance bike toddler",
       "toddler bike",
-      "kids scooter",
+      "twin stroller",
+      "toddler bike",
       "kids electric bike",
-      "foldable electric scooter",
-      "how to choose a baby stroller",
     ],
   },
   strollers: {
@@ -25,8 +22,7 @@ export const PRODUCT_CATEGORY_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
       "jogging stroller",
       "stroller travel stroller",
       "jogging stroller stroller",
-      "kids stroller",
-      "how to choose a baby stroller"
+      "kids stroller"
     ],
   },
   double_strollers: {

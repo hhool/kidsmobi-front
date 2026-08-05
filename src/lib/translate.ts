@@ -434,10 +434,13 @@ function translateBrakeToEn(brake: string): string {
   return map[brake] || brake;
 }
 
-function translateSafetyCertificationToEn(certifications: string[]): string[] {
+function translateSafetyCertificationToEn(certifications: unknown): string[] {
   if (!certifications) return [];
-  return certifications.map(cert => {
-    return cert
+  if (!Array.isArray(certifications)) {
+    return [String(certifications)];
+  }
+  return certifications.map((cert) => {
+    return String(cert || "")
       .replace("(美标)", "(US Standard)")
       .replace("(欧标)", "(EU Standard)")
       .replace("(国标)", "(CN Standard)")
@@ -446,18 +449,21 @@ function translateSafetyCertificationToEn(certifications: string[]): string[] {
       .replace("(中国强制玩具等效等规)", "(CN Toy Equiv.)")
       .replace("(欧盟最新i-Size高标认证)", "(EU i-Size latest)")
       .replace("(欧标顶级)", "(EU Top Standard)");
-  });
+  }).filter(Boolean);
 }
 
 function cleanVisibleProductText(value: unknown) {
-  return String(value || "")
+  const cleaned = String(value || "")
     .replace(/…+/g, " ")
     .replace(/\.{3,}/g, " ")
     .replace(/^editor\s+verdict\s*[:：-]\s*/i, "")
+    .replace(/^customers\s+find\s+/i, "")
     .replace(/\s*\(\s*Features\[\d+\]\s*\)\s*/gi, " ")
     .replace(/\s*\(\s*Product\s+Feature\s*\)\s*/gi, " ")
     .replace(/\s+/g, " ")
     .trim();
+
+  return /^[a-z]/.test(cleaned) ? cleaned.charAt(0).toUpperCase() + cleaned.slice(1) : cleaned;
 }
 
 function cleanVisibleEvidenceSource(value: unknown) {
@@ -529,6 +535,12 @@ function sanitizeVisibleProductFields(product: any) {
 
 export function translateProduct(p: any, lang: "zh" | "en") {
   const categoryLabel = translateCategory(p.category, lang);
+  const rawWheelSize = String(p?.wheelSize || "").trim();
+  const safeWheelSize = rawWheelSize === "无" ? "None" : rawWheelSize.replace("寸", " in.");
+  const safeAgeRange = String(p?.ageRange || "")
+    .replace("岁", " Years")
+    .replace("个", " ")
+    .replace("月", " Months");
   
   // Use localized data from CMS if available
   const localData = p[lang] || {};
@@ -593,11 +605,11 @@ export function translateProduct(p: any, lang: "zh" | "en") {
       material: translateMaterialToEn(p.material),
       tireType: translateTireToEn(p.tireType),
       brakeType: translateBrakeToEn(p.brakeType),
-      wheelSize: p.wheelSize === "无" ? "None" : p.wheelSize.replace("寸", " in."),
+      wheelSize: safeWheelSize,
       safetyCertification: translateSafetyCertificationToEn(p.safetyCertification),
       pros: enOverride.pros,
       cons: enOverride.cons,
-      ageRange: p.ageRange.replace("岁", " Years").replace("个", " ").replace("月", " Months"),
+      ageRange: safeAgeRange,
       editorVerdict: enOverride.editorVerdict,
       specsText: p.specsText || specsText,
     });
@@ -619,9 +631,9 @@ export function translateProduct(p: any, lang: "zh" | "en") {
       material: translateMaterialToEn(p.material),
       tireType: translateTireToEn(p.tireType),
       brakeType: translateBrakeToEn(p.brakeType),
-      wheelSize: p.wheelSize === "无" ? "None" : p.wheelSize.replace("寸", " in."),
+      wheelSize: safeWheelSize,
       safetyCertification: translateSafetyCertificationToEn(p.safetyCertification),
-      ageRange: p.ageRange.replace("岁", " Years").replace("个", " ").replace("月", " Months")
+      ageRange: safeAgeRange
     });
   }
 
@@ -636,11 +648,11 @@ export function translateProduct(p: any, lang: "zh" | "en") {
     material: translateMaterialToEn(p.material),
     tireType: translateTireToEn(p.tireType),
     brakeType: translateBrakeToEn(p.brakeType),
-    wheelSize: p.wheelSize === "无" ? "None" : p.wheelSize.replace("寸", " in."),
+    wheelSize: safeWheelSize,
     safetyCertification: translateSafetyCertificationToEn(p.safetyCertification),
     pros,
     cons,
-    ageRange: p.ageRange,
+    ageRange: safeAgeRange,
     editorVerdict: editorVerdict ? editorVerdict : "Independently verified kids stroller or bicycle setup.",
     specsText: p.specsText || specsText,
   });

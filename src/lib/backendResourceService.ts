@@ -52,7 +52,7 @@ type WorkerResource = {
   videoUrls?: string[];
 };
 
-const DEFAULT_WORKER_BASE_URL = "https://store.balancebiketoddler.com";
+const DEFAULT_WORKER_BASE_URL = "https://kidsmobi-api-v1.seaman-player.workers.dev";
 
 export function getWorkerBaseUrl() {
   const env = (import.meta as any)?.env?.VITE_SCRAPE_API_BASE_URL;
@@ -77,6 +77,12 @@ function getBackendApiBaseUrl() {
   if (typeof env !== "string") return "";
   const value = env.trim();
   return value.length > 0 ? value.replace(/\/+$/, "") : "";
+}
+
+function getAdminAllToken() {
+  const env = (import.meta as any)?.env?.VITE_CMS_ADMIN_ALL_TOKEN;
+  if (typeof env !== "string") return "";
+  return env.trim();
 }
 
 function isHttpUrl(value?: string) {
@@ -137,7 +143,7 @@ async function fetchWorkerJsonWithFallbacks<T>(paths: string[]): Promise<T> {
   throw lastError || new Error("Worker request failed for all candidates");
 }
 
-async function fetchBackendJson<T>(path: string): Promise<T> {
+async function fetchBackendJson<T>(path: string, extraHeaders?: Record<string, string>): Promise<T> {
   const base = getBackendApiBaseUrl();
   if (!base) {
     throw new Error("VITE_CMS_BACKEND_BASE_URL is not configured.");
@@ -146,6 +152,7 @@ async function fetchBackendJson<T>(path: string): Promise<T> {
   const response = await fetch(`${base}${path}`, {
     headers: {
       Accept: "application/json",
+      ...(extraHeaders || {}),
     },
   });
 
@@ -170,7 +177,14 @@ async function getBackendResourcePayload(params?: { categoryId?: string; q?: str
   if (params?.includeAll) search.set("all", "1");
   const query = search.toString();
   const path = `/api/content/resources${query ? `?${query}` : ""}`;
-  const response = await fetchBackendJson<{ data?: BackendPickerPayload }>(path);
+  const headers: Record<string, string> = {};
+  if (params?.includeAll) {
+    const token = getAdminAllToken();
+    if (token) {
+      headers["x-cms-admin-token"] = token;
+    }
+  }
+  const response = await fetchBackendJson<{ data?: BackendPickerPayload }>(path, headers);
   return response?.data || { categories: [], products: [] };
 }
 
@@ -188,18 +202,18 @@ async function getWorkerResourcePayload(params?: { categoryId?: string; q?: stri
     ? allCategories.filter((item) => item.categoryId === requestedCategory)
     : params?.includeAll
       ? allCategories
-      : allCategories.slice(0, 6);
+      : allCategories.slice(0, 1);
 
   const payloads = await Promise.all(
     categories.map(async (category) => {
       const [productsJson, resourcesJson] = await Promise.all([
         fetchWorkerJsonWithFallbacks<{ data: WorkerProduct[] }>([
-          `/api/v2/products?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=60`,
-          `/api/v1/products?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=60`,
+          `/api/v2/products?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=24`,
+          `/api/v1/products?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=24`,
         ]),
         fetchWorkerJsonWithFallbacks<{ data: WorkerResource[] }>([
-          `/api/v2/resources?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=100`,
-          `/api/v1/resources?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=100`,
+          `/api/v2/resources?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=30`,
+          `/api/v1/resources?categoryId=${encodeURIComponent(category.categoryId)}&page=1&pageSize=30`,
         ]),
       ]);
       return {
