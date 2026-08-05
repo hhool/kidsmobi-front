@@ -78,6 +78,12 @@ const OPS_COPY_KEY_LABELS: Record<typeof OPS_COPY_EDITABLE_KEYS[number], string>
   forceSync: "Force Sync Button",
 };
 
+const TDK_LIMITS = {
+  title: 60,
+  keywords: 100,
+  description: 160,
+} as const;
+
 function buildDefaultOpsCenter() {
   const fromCopy = (locale: "zh" | "en") => {
     const source = OPS_COPY[locale];
@@ -101,6 +107,12 @@ function buildDefaultOpsCenter() {
       showEmptyScoringStandardsSection: false,
     },
   };
+}
+
+function getCounterTone(length: number, limit: number) {
+  if (length > limit) return "text-red-500";
+  if (length >= Math.floor(limit * 0.9)) return "text-amber-500";
+  return "text-slate-400";
 }
 
 export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
@@ -609,6 +621,8 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
               value={settings.seo?.[selectedSeoPage]?.zh?.title || ""} 
               onChange={(v: string) => updateSeoValue(selectedSeoPage, "zh", "title", v)} 
               placeholder="请输入中文标题"
+              maxLength={TDK_LIMITS.title}
+              showCount
             />
             
             <Field 
@@ -616,15 +630,23 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
               value={settings.seo?.[selectedSeoPage]?.zh?.keywords?.join(", ") || ""} 
               onChange={(v: string) => updateSeoValue(selectedSeoPage, "zh", "keywords", v)} 
               placeholder="例如: 童车评测, 选购指南, 安全座椅"
+              maxLength={TDK_LIMITS.keywords}
+              showCount
             />
             
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Page Description (中文网页描述)</label>
+              <div className="flex items-center justify-between gap-3">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Page Description (中文网页描述)</label>
+                <span className={`text-[10px] font-black ${getCounterTone((settings.seo?.[selectedSeoPage]?.zh?.description || "").length, TDK_LIMITS.description)}`}>
+                  {(settings.seo?.[selectedSeoPage]?.zh?.description || "").length}/{TDK_LIMITS.description}
+                </span>
+              </div>
               <textarea 
                 className="w-full bg-slate-50 border border-slate-100 py-4 px-6 rounded-2xl font-bold text-slate-900 text-sm outline-none focus:ring-4 focus:ring-slate-900/5 focus:bg-white transition-all min-h-[120px] resize-none"
                 value={settings.seo?.[selectedSeoPage]?.zh?.description || ""} 
                 onChange={(e) => updateSeoValue(selectedSeoPage, "zh", "description", e.target.value)}
                 placeholder="请输入网页核心描述，利于百度谷歌等搜索引擎收录"
+                maxLength={TDK_LIMITS.description}
               />
             </div>
           </div>
@@ -641,6 +663,8 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
               value={settings.seo?.[selectedSeoPage]?.en?.title || ""} 
               onChange={(v: string) => updateSeoValue(selectedSeoPage, "en", "title", v)} 
               placeholder="Enter page browser title"
+              maxLength={TDK_LIMITS.title}
+              showCount
             />
             
             <Field 
@@ -648,15 +672,23 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
               value={settings.seo?.[selectedSeoPage]?.en?.keywords?.join(", ") || ""} 
               onChange={(v: string) => updateSeoValue(selectedSeoPage, "en", "keywords", v)} 
               placeholder="e.g. kid bicycles, safety test, ratings, kidsmobi"
+              maxLength={TDK_LIMITS.keywords}
+              showCount
             />
             
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Page Description (English Page Description)</label>
+              <div className="flex items-center justify-between gap-3">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Page Description (English Page Description)</label>
+                <span className={`text-[10px] font-black ${getCounterTone((settings.seo?.[selectedSeoPage]?.en?.description || "").length, TDK_LIMITS.description)}`}>
+                  {(settings.seo?.[selectedSeoPage]?.en?.description || "").length}/{TDK_LIMITS.description}
+                </span>
+              </div>
               <textarea 
                 className="w-full bg-slate-50 border border-slate-100 py-4 px-6 rounded-2xl font-bold text-slate-900 text-sm outline-none focus:ring-4 focus:ring-slate-900/5 focus:bg-white transition-all min-h-[120px] resize-none"
                 value={settings.seo?.[selectedSeoPage]?.en?.description || ""} 
                 onChange={(e) => updateSeoValue(selectedSeoPage, "en", "description", e.target.value)}
                 placeholder="Enter full English page description for global indexing"
+                maxLength={TDK_LIMITS.description}
               />
             </div>
           </div>
@@ -767,15 +799,26 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
   );
 }
 
-function Field({ label, value, onChange, placeholder }: any) {
+function Field({ label, value, onChange, placeholder, maxLength, showCount = false }: any) {
+  const textValue = String(value || "");
+  const hasLimit = typeof maxLength === "number" && Number.isFinite(maxLength);
+  const currentLength = textValue.length;
   return (
     <div className="space-y-2">
-      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{label}</label>
+      <div className="flex items-center justify-between gap-3">
+        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{label}</label>
+        {showCount && hasLimit && (
+          <span className={`text-[10px] font-black ${getCounterTone(currentLength, maxLength)}`}>
+            {currentLength}/{maxLength}
+          </span>
+        )}
+      </div>
       <input 
         className="w-full bg-slate-50 border border-slate-100 py-4 px-6 rounded-2xl font-bold text-slate-900 outline-none focus:ring-4 focus:ring-slate-900/5 focus:bg-white transition-all text-sm" 
         value={value} 
         onChange={(e) => onChange(e.target.value)} 
         placeholder={placeholder}
+        maxLength={hasLimit ? maxLength : undefined}
       />
     </div>
   );
