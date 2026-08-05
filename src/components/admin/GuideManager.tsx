@@ -36,6 +36,20 @@ const GUIDE_TOPIC_OPTIONS: Array<{ value: GuideTopicCategory; zh: string; en: st
   { value: "maintenance", zh: "Maintenance / 养护清单", en: "Maintenance" },
 ];
 
+const GUIDE_FILTER_OPTIONS: Array<{ value: "all" | GuideTopicCategory; zh: string; en: string }> = [
+  { value: "all", zh: "全部指南", en: "All Guides" },
+  { value: "beginner", zh: "新手入门", en: "Beginner Entry" },
+  { value: "scenario", zh: "场景指南", en: "Scenario Guide" },
+  { value: "maintenance", zh: "养护清单", en: "Maintenance" },
+];
+
+function getTopicDisplayLabel(topic: unknown, lang: "zh" | "en"): string {
+  const normalized = String(topic || "").trim().toLowerCase();
+  const option = GUIDE_TOPIC_OPTIONS.find((item) => item.value === normalized);
+  if (!option) return normalized || "beginner";
+  return lang === "zh" ? option.zh : option.en;
+}
+
 function normalizeGuideTaxonomy(guide: Guide): Guide {
   const validProductCategories = new Set<string>(GUIDE_PRODUCT_CATEGORY_OPTIONS);
   const fallbackProductCategory = validProductCategories.has(String(guide.taxonomy?.productCategory || ""))
@@ -85,6 +99,8 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
   const [migratingTaxonomy, setMigratingTaxonomy] = useState(false);
   const [autoPinning, setAutoPinning] = useState(false);
   const [topicFilter, setTopicFilter] = useState<"all" | GuideTopicCategory>("all");
+  const [selectedGuideIds, setSelectedGuideIds] = useState<string[]>([]);
+  const [deletingSelection, setDeletingSelection] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -136,6 +152,18 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
     setScenarios(scenariosData);
   };
 
+  const deleteGuideRecord = async (id: string) => {
+    try {
+      const deleted = await deleteD1CMSGuide(id);
+      if (!deleted) {
+        throw new Error("D1 delete failed");
+      }
+      return true;
+    } catch {
+      return deleteCMSGuide(id);
+    }
+  };
+
   const handleDelete = async (id: string) => {
     const isZh = lang === "zh";
     const confirmMsg = isZh 
@@ -144,16 +172,9 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
 
     if (window.confirm(confirmMsg)) {
       try {
-        let success = false;
-        try {
-          success = await deleteD1CMSGuide(id);
-          if (!success) {
-            throw new Error("D1 delete failed");
-          }
-        } catch {
-          success = await deleteCMSGuide(id);
-        }
+        const success = await deleteGuideRecord(id);
         if (success) {
+          setSelectedGuideIds((prev) => prev.filter((item) => item !== id));
           fetchData();
         } else {
           alert(isZh ? "删除失败，这通常是因为权限不足或网络异常。" : "Deletion failed. This is usually due to permission deniability or network issues.");
@@ -162,6 +183,42 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
         console.error(e);
         alert(e.message || String(e));
       }
+    }
+  };
+
+  const handleDeleteSelected = async () => {
+    if (selectedGuideIds.length === 0 || deletingSelection) return;
+    const isZh = lang === "zh";
+    const confirmMsg = isZh
+      ? `确认删除已勾选的 ${selectedGuideIds.length} 篇指南吗？此操作不可逆。`
+      : `Delete ${selectedGuideIds.length} selected guides? This action cannot be undone.`;
+    if (!window.confirm(confirmMsg)) return;
+
+    setDeletingSelection(true);
+    try {
+      let deletedCount = 0;
+      for (const id of selectedGuideIds) {
+        const success = await deleteGuideRecord(id);
+        if (success) {
+          deletedCount += 1;
+        }
+      }
+
+      if (deletedCount !== selectedGuideIds.length) {
+        alert(
+          isZh
+            ? `批量删除部分完成：成功 ${deletedCount} / ${selectedGuideIds.length}。`
+            : `Batch delete partially completed: ${deletedCount} / ${selectedGuideIds.length} removed.`,
+        );
+      }
+
+      setSelectedGuideIds([]);
+      await fetchData();
+    } catch (e: any) {
+      console.error(e);
+      alert(e.message || String(e));
+    } finally {
+      setDeletingSelection(false);
     }
   };
 
@@ -377,6 +434,30 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
       });
   }, [guides, topicFilter]);
 
+  useEffect(() => {
+    const visibleIds = new Set(visibleGuides.map((guide) => guide.id));
+    setSelectedGuideIds((prev) => prev.filter((id) => visibleIds.has(id)));
+  }, [visibleGuides]);
+
+  const allVisibleSelected = visibleGuides.length > 0 && visibleGuides.every((guide) => selectedGuideIds.includes(guide.id));
+
+  const toggleGuideSelection = (guideId: string, checked: boolean) => {
+    setSelectedGuideIds((prev) => {
+      if (checked) {
+        return prev.includes(guideId) ? prev : [...prev, guideId];
+      }
+      return prev.filter((item) => item !== guideId);
+    });
+  };
+
+  const toggleSelectAllVisible = (checked: boolean) => {
+    if (!checked) {
+      setSelectedGuideIds([]);
+      return;
+    }
+    setSelectedGuideIds(visibleGuides.map((guide) => guide.id));
+  };
+
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <header className="flex items-center justify-between">
@@ -392,14 +473,38 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
               value={topicFilter}
               onChange={(e) => setTopicFilter(e.target.value as "all" | GuideTopicCategory)}
             >
-              <option value="all">{lang === "zh" ? "全部栏目" : "All Topics"}</option>
-              {GUIDE_TOPIC_OPTIONS.map((item) => (
+              {GUIDE_FILTER_OPTIONS.map((item) => (
                 <option key={item.value} value={item.value}>{lang === "zh" ? item.zh : item.en}</option>
               ))}
             </select>
           </div>
         </div>
         <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 rounded-3xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
+            <label className="inline-flex items-center gap-2 text-[11px] font-black text-slate-600 uppercase tracking-widest cursor-pointer">
+              <input
+                type="checkbox"
+                checked={allVisibleSelected}
+                disabled={visibleGuides.length === 0}
+                onChange={(e) => toggleSelectAllVisible(e.target.checked)}
+                className="h-4 w-4 accent-slate-900"
+              />
+              <span>{lang === "zh" ? "全选当前结果" : "Select Visible"}</span>
+            </label>
+            <span className="text-[10px] font-black rounded-full px-2.5 py-1 bg-slate-100 text-slate-600">
+              {selectedGuideIds.length}
+            </span>
+            <button
+              type="button"
+              onClick={handleDeleteSelected}
+              disabled={selectedGuideIds.length === 0 || deletingSelection}
+              className="inline-flex items-center gap-2 rounded-2xl border border-red-200 bg-red-50 px-4 py-2 text-[11px] font-black text-red-600 transition-all disabled:opacity-40"
+            >
+              <Trash2 className="w-4 h-4" />
+              {deletingSelection ? (lang === "zh" ? "删除中" : "Deleting") : (lang === "zh" ? "删除已选" : "Delete Selected")}
+            </button>
+          </div>
+
           <button
             onClick={handleAutoPinOrder}
             disabled={autoPinning}
@@ -437,14 +542,23 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
 
       <div className="grid grid-cols-1 gap-4">
         {visibleGuides.map((g) => (
-          <div key={g.id} className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm flex items-center justify-between group hover:border-blue-200 transition-all">
+          <div key={g.id} className={`bg-white p-6 rounded-[32px] border shadow-sm flex items-center justify-between group transition-all ${selectedGuideIds.includes(g.id) ? "border-blue-300 ring-2 ring-blue-100" : "border-slate-100 hover:border-blue-200"}`}>
             <div className="flex items-center gap-6">
+              <label className="inline-flex items-center justify-center shrink-0 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={selectedGuideIds.includes(g.id)}
+                  onChange={(e) => toggleGuideSelection(g.id, e.target.checked)}
+                  className="h-5 w-5 accent-slate-900"
+                  aria-label={lang === "zh" ? "选择该指南" : "Select guide"}
+                />
+              </label>
               <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center">
                 <ListOrdered className="w-8 h-8 text-blue-500" />
               </div>
               <div>
                 <div className="flex items-center gap-2 mb-1.5">
-                  <span className="text-[10px] font-black uppercase bg-blue-100 text-blue-600 px-2.5 py-1 rounded-full">{g.taxonomy?.topicCategory || g.category}</span>
+                  <span className="text-[10px] font-black uppercase bg-blue-100 text-blue-600 px-2.5 py-1 rounded-full">{getTopicDisplayLabel(g.taxonomy?.topicCategory || g.category, lang)}</span>
                   <span className="text-[10px] font-black uppercase bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">{g.taxonomy?.productCategory || "stroller"}</span>
                   <span className={`text-[10px] font-black uppercase px-2.5 py-1 rounded-full ${Number(g.taxonomy?.pinOrder || 0) > 0 ? "bg-emerald-100 text-emerald-700" : "bg-slate-100 text-slate-500"}`}>
                     {`pin:${Number(g.taxonomy?.pinOrder || 0)}`}

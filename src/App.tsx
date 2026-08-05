@@ -3506,21 +3506,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             {/* Column 2: Review pathways */}
             <div className="space-y-6">
               <h2 className="text-white font-bold uppercase tracking-widest text-[10px]">
-                {lang === "en" ? "Review Categories" : "评测分类"}
+                {lang === "en" ? "Products" : "产品中心"}
               </h2>
               <ul className="space-y-3 font-medium">
-                <li>
-                  <a
-                    href={resolveSeoLink("/reviews/balance-bikes/")}
-                    className="hover:text-orange-500 transition-colors text-slate-400"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      navigateToPath("/reviews/balance-bikes");
-                    }}
-                  >
-                    {lang === "en" ? "Balance Bike Reviews" : "平衡车评测"}
-                  </a>
-                </li>
                 <li>
                   <a
                     href={resolveSeoLink("/products/kids-bikes/")}

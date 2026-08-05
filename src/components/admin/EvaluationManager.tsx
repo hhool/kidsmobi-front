@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { 
   Plus, 
   Search, 
@@ -13,8 +13,9 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { getCMSEvaluations, saveCMSEvaluation, getCMSProducts, deleteCMSEvaluation } from "../../lib/cmsService";
-import { Evaluation, CMSProduct, RadarScores } from "../../types";
+import { Evaluation, CMSProduct, Product, RadarScores } from "../../types";
 import { deleteD1CMSEvaluation, getD1CMSEvaluations, getD1CMSProducts, saveD1CMSEvaluation } from "../../lib/cmsD1Service";
+import { getFrontVisibleEvaluations } from "../EvaluationsSection";
 
 const DEFAULT_RADAR_SCORES: RadarScores = {
   safety: 5,
@@ -66,9 +67,12 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
 
   const PREFILL_STORAGE_KEY = "cms_evaluation_prefill";
 
-  const getReviewBucket = (type?: Evaluation["type"]): "single" | "multi" => {
-    if (!type || type === "single" || type === "safety") return "single";
-    return "multi";
+  const isFrontendMultiEvaluation = (evaluation: Pick<Evaluation, "type" | "productIds">): boolean => {
+    return evaluation.type === "compare" && (evaluation.productIds?.length || 0) > 1;
+  };
+
+  const getReviewBucket = (evaluation: Pick<Evaluation, "type" | "productIds">): "single" | "multi" => {
+    return isFrontendMultiEvaluation(evaluation) ? "multi" : "single";
   };
 
   useEffect(() => {
@@ -167,7 +171,57 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
     new Set(products.map((item) => String(item.brand || "").trim()).filter(Boolean))
   ).sort();
 
-  const filteredEvaluations = evaluations.filter((ev) => {
+  const resolveLinkedProducts = (ev: Evaluation): CMSProduct[] => {
+    const linkedIds = [ev.productId, ...(ev.productIds || [])].filter(Boolean);
+    return linkedIds
+      .map((id) => products.find((item) => item.id === id))
+      .filter(Boolean) as CMSProduct[];
+  };
+
+  const resolveSingleGroup = (ev: Evaluation): "stroller" | "bike" | "balance" | "scooter" | "other" => {
+    const linkedProduct = resolveLinkedProducts(ev)[0];
+    const text = `${linkedProduct?.category || ""} ${linkedProduct?.id || ""} ${ev.en?.title || ""} ${ev.zh?.title || ""}`.toLowerCase();
+
+    const isBalance = text.includes("balance") || text.includes("平衡车");
+    if (isBalance) return "balance";
+
+    const isScooter = text.includes("scooter") || text.includes("滑板车");
+    if (isScooter) return "scooter";
+
+    const isBike =
+      (text.includes("bike") || text.includes("bicycle") || text.includes("kids_bikes") || text.includes("自行车")) &&
+      !isBalance;
+    if (isBike) return "bike";
+
+    const isStroller = text.includes("stroller") || text.includes("jogger") || text.includes("推车") || text.includes("婴儿车");
+    if (isStroller) return "stroller";
+
+    return "other";
+  };
+
+  const persistedEvaluationIds = useMemo(() => new Set(evaluations.map((item) => item.id)), [evaluations]);
+
+  const frontVisibleEvaluations = useMemo(
+    () => getFrontVisibleEvaluations(evaluations, products as unknown as Product[]),
+    [evaluations, products],
+  );
+
+  const editableEvaluations = useMemo(() => {
+    const singles = frontVisibleEvaluations.filter((ev) => getReviewBucket(ev) === "single");
+    const multis = frontVisibleEvaluations.filter((ev) => getReviewBucket(ev) === "multi");
+
+    const stroller = singles.filter((ev) => resolveSingleGroup(ev) === "stroller").slice(0, 6);
+    const bike = singles.filter((ev) => resolveSingleGroup(ev) === "bike").slice(0, 8);
+    const balance = singles.filter((ev) => resolveSingleGroup(ev) === "balance").slice(0, 2);
+    const scooter = singles.filter((ev) => resolveSingleGroup(ev) === "scooter").slice(0, 3);
+
+    const selectedSingles = [...stroller, ...bike, ...balance, ...scooter]
+      .filter((ev, index, list) => list.findIndex((next) => next.id === ev.id) === index);
+
+    return [...selectedSingles, ...multis];
+  }, [frontVisibleEvaluations]);
+
+  const filteredEvaluations = editableEvaluations.filter((ev) => {
     const linkedProduct = resolveLinkedProduct(ev);
     const searchTarget = [
       ev.id,
@@ -185,9 +239,12 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
     const matchesSearch = searchTarget.includes(search.toLowerCase());
     const matchesCategory = categoryFilter === "all" || String(linkedProduct?.category || "") === categoryFilter;
     const matchesBrand = brandFilter === "all" || String(linkedProduct?.brand || "") === brandFilter;
-    const matchesType = typeFilter === "all" || getReviewBucket(ev.type) === typeFilter;
+    const matchesType = typeFilter === "all" || getReviewBucket(ev) === typeFilter;
     return matchesSearch && matchesCategory && matchesBrand && matchesType;
   });
+
+  const editableSingleCount = editableEvaluations.filter((ev) => getReviewBucket(ev) === "single").length;
+  const editableMultiCount = editableEvaluations.filter((ev) => getReviewBucket(ev) === "multi").length;
 
   const clearFilters = () => {
     setSearch("");
@@ -196,8 +253,8 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
     setTypeFilter("all");
   };
 
-  const getTypeLabel = (type: Evaluation["type"]) => {
-    const bucket = getReviewBucket(type);
+  const getTypeLabel = (evaluation: Pick<Evaluation, "type" | "productIds">) => {
+    const bucket = getReviewBucket(evaluation);
     if (bucket === "single") return lang === "zh" ? "单品评测" : "Single Review";
     return lang === "zh" ? "多品评测" : "Multi-Product Review";
   };
@@ -222,7 +279,7 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
   const [saveError, setSaveError] = useState<string | null>(null);
 
   const handleSave = async (ev: Evaluation) => {
-    const isSingleProduct = ev.type === 'single' || ev.type === 'safety';
+    const isSingleProduct = getReviewBucket(ev) === "single";
     if (isSingleProduct && !ev.productId) return alert("Please link a product first.");
     if (!isSingleProduct && (!ev.productIds || ev.productIds.length < 2)) return alert("Please select at least 2 products for a comparison evaluation.");
     if (!isSingleProduct && ev.productIds && ev.productIds.length > 4) return alert("You can only compare up to 4 products.");
@@ -230,13 +287,24 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
     setSaving(true);
     setSaveError(null);
     try {
+      const isVirtualGenerated = String(ev.id || "").startsWith("generated_") && !persistedEvaluationIds.has(ev.id);
+      const payload = normalizeEvaluationRecord(
+        isVirtualGenerated
+          ? {
+              ...ev,
+              id: `ev_${Date.now()}`,
+              status: "published",
+              version: String(ev.version || "V1.0"),
+            }
+          : ev,
+      );
       try {
-        const saved = await saveD1CMSEvaluation(normalizeEvaluationRecord(ev));
+        const saved = await saveD1CMSEvaluation(payload);
         if (!saved) {
           throw new Error("D1 save failed");
         }
       } catch {
-        await saveCMSEvaluation(normalizeEvaluationRecord(ev));
+        await saveCMSEvaluation(payload);
       }
       setEditingEv(null);
       fetchData();
@@ -317,7 +385,13 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
           </div>
           <div className="flex items-center gap-3 shrink-0">
             <div className="px-4 py-3 rounded-2xl bg-emerald-50 text-emerald-700 border border-emerald-100 font-black text-xs uppercase tracking-wider">
-              {filteredEvaluations.length} / {evaluations.length}
+              {lang === "zh" ? `后台可编辑 ${filteredEvaluations.length} / ${editableEvaluations.length}` : `Editable ${filteredEvaluations.length} / ${editableEvaluations.length}`}
+            </div>
+            <div className="px-4 py-3 rounded-2xl bg-blue-50 text-blue-700 border border-blue-100 font-black text-xs uppercase tracking-wider">
+              {lang === "zh" ? `后台可编辑 单品 ${editableSingleCount}` : `Editable Single ${editableSingleCount}`}
+            </div>
+            <div className="px-4 py-3 rounded-2xl bg-sky-50 text-sky-700 border border-sky-100 font-black text-xs uppercase tracking-wider">
+              {lang === "zh" ? `后台可编辑 多品 ${editableMultiCount}` : `Editable Multi ${editableMultiCount}`}
             </div>
             <button
               type="button"
@@ -336,6 +410,7 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
           const linkedProducts = linkedIds
             .map((id) => products.find((p) => p.id === id))
             .filter(Boolean) as CMSProduct[];
+          const isPersisted = persistedEvaluationIds.has(ev.id);
           const product = linkedProducts[0];
           const displayTitle = lang === "zh"
             ? (ev.zh?.title || ev.en?.title || "(No Title)")
@@ -356,10 +431,15 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
                 <div>
                   <div className="flex items-center gap-2 mb-1.5">
                     <span className="text-[10px] font-black uppercase bg-emerald-100 text-emerald-600 px-2.5 py-1 rounded-full">{ev.version}</span>
-                    <span className="text-[10px] font-black uppercase bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full">{getTypeLabel(ev.type)}</span>
+                    <span className="text-[10px] font-black uppercase bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full">{getTypeLabel(ev)}</span>
                     <span className={`text-[10px] font-black uppercase px-2.5 py-1 rounded-full ${ev.status === "published" ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-500"}`}>
                       {ev.status}
                     </span>
+                    {!isPersisted && (
+                      <span className="text-[10px] font-black uppercase bg-violet-100 text-violet-700 px-2.5 py-1 rounded-full">
+                        {lang === "zh" ? "前端生成" : "Generated"}
+                      </span>
+                    )}
                   </div>
                   <h4 className="font-black text-slate-900">{displayTitle}</h4>
                   <p className="text-xs text-slate-400 font-bold uppercase tracking-tight mt-0.5">Linked: {linkedProductName}</p>
@@ -374,8 +454,14 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
                 {lang === "zh" ? "编辑评测" : "Modify Report"}
               </button>
               <button 
-                onClick={() => handleDelete(ev.id)}
-                className="p-4 hover:bg-red-50 rounded-2xl text-red-400 transition-all font-bold"
+                onClick={() => {
+                  if (!isPersisted) {
+                    alert(lang === "zh" ? "该条目是前端生成评测，请先点击编辑并保存为 CMS 记录后再删除。" : "This row is generated from frontend logic. Save it into CMS first, then delete the persisted record.");
+                    return;
+                  }
+                  handleDelete(ev.id);
+                }}
+                className={`p-4 rounded-2xl transition-all font-bold ${isPersisted ? "hover:bg-red-50 text-red-400" : "bg-slate-50 text-slate-300 cursor-not-allowed"}`}
               >
                 <Trash2 className="w-4 h-4" />
               </button>
@@ -424,7 +510,7 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
   const localizedPros = formData[activeTab]?.pros || [];
   const localizedCons = formData[activeTab]?.cons || [];
   const reviewInsightLabel = lang === "zh" ? "评测摘要" : "Review Summary";
-  const isSingleProductType = !formData.type || formData.type === "single" || formData.type === "safety";
+  const isSingleProductType = !(formData.type === "compare" && (formData.productIds?.length || 0) > 1);
 
   const getDefaultInsightItems = (field: "pros" | "cons", locale: "zh" | "en") => {
     const linkedIds = (isSingleProductType
@@ -599,8 +685,8 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
                 </select>
                 <p className="text-[11px] text-slate-400 font-semibold leading-relaxed">
                   {lang === "zh"
-                    ? "类型已简化为两大类：single / safety 自动归类为“单品评测”；compare / value / ranking 自动归类为“多品评测”。"
-                    : "Type is simplified into two groups: single/safety are auto-classified as Single; compare/value/ranking are auto-classified as Multi-product."}
+                    ? "后台单品/多品口径现已与前台一致：只有 compare 且关联 2 个以上产品时，才归类为“多品评测”。"
+                    : "Admin single/multi grouping now matches the frontend: only compare reviews linked to 2+ products are grouped as Multi-product."}
                 </p>
               </div>
 

@@ -733,7 +733,7 @@ function makeCompareEvaluation(id: string, products: Product[], zhTitle: string,
   };
 }
 
-function buildGeneratedEvaluations(productsData: Product[]): Evaluation[] {
+export function buildGeneratedEvaluations(productsData: Product[]): Evaluation[] {
   const seenModelKeys = new Set<string>();
   const focusProducts: Product[] = [];
   const isStrollerCompareCandidate = (product: Product) => {
@@ -942,6 +942,81 @@ function buildGeneratedEvaluations(productsData: Product[]): Evaluation[] {
     ));
 
   return [...commercialSingles, ...toddlerBikeSingles, ...singles, ...compares, ...values, ...rankings, ...safetyTopics];
+}
+
+export function getFrontVisibleEvaluations(evaluationsData: Evaluation[], productsData: Product[]): Evaluation[] {
+  const resolveProductByReference = (rawId?: string) => {
+    const normalized = String(rawId || "").trim().toLowerCase();
+    if (!normalized) return null;
+
+    return productsData.find((p) => {
+      const productId = String(p.id || "").trim().toLowerCase();
+      if (!productId) return false;
+      if (productId === normalized) return true;
+      const tail = productId.split("-").pop();
+      return tail === normalized;
+    }) || null;
+  };
+
+  const isMultiEvaluation = (ev: Evaluation) => ev.type === "compare" && (ev.productIds?.length || 0) > 1;
+
+  const generatedEvaluations = buildGeneratedEvaluations(productsData);
+  const generatedIds = new Set(generatedEvaluations.map((evaluation) => evaluation.id));
+  const currentEvaluations = evaluationsData.filter((ev) => {
+    if (ev.status !== "published" || generatedIds.has(ev.id)) return false;
+    const ids = (ev.productIds && ev.productIds.length > 0 ? ev.productIds : [ev.productId]).filter(Boolean);
+    return ids.some((id) => Boolean(resolveProductByReference(String(id))));
+  });
+
+  const singleKeysFromCurrent = new Set<string>();
+  const compareKeysFromCurrent = new Set<string>();
+
+  for (const ev of currentEvaluations) {
+    const ids = (ev.productIds && ev.productIds.length > 0 ? ev.productIds : [ev.productId])
+      .filter(Boolean)
+      .map((id) => String(id));
+    if (ev.type === "compare" && ids.length > 1) {
+      const normalizedIds = ids
+        .map((id) => resolveProductByReference(id)?.id || id)
+        .sort();
+      compareKeysFromCurrent.add(normalizedIds.join("|"));
+    } else if (ids[0]) {
+      singleKeysFromCurrent.add(resolveProductByReference(ids[0])?.id || ids[0]);
+    }
+  }
+
+  const filteredGenerated = generatedEvaluations.filter((ev) => {
+    const ids = (ev.productIds && ev.productIds.length > 0 ? ev.productIds : [ev.productId])
+      .filter(Boolean)
+      .map((id) => String(id));
+    if (ev.type === "compare" && ids.length > 1) {
+      const normalizedIds = ids
+        .map((id) => resolveProductByReference(id)?.id || id)
+        .sort();
+      return !compareKeysFromCurrent.has(normalizedIds.join("|"));
+    }
+    const singleKey = ids[0] ? (resolveProductByReference(ids[0])?.id || ids[0]) : "";
+    return !(singleKey && singleKeysFromCurrent.has(singleKey));
+  });
+
+  const combinedEvaluations = [...currentEvaluations, ...filteredGenerated];
+  const seenRenderKeys = new Set<string>();
+
+  return combinedEvaluations.filter((ev) => {
+    const ids = (ev.productIds && ev.productIds.length > 0 ? ev.productIds : [ev.productId])
+      .filter(Boolean)
+      .map((id) => resolveProductByReference(String(id))?.id || String(id))
+      .sort();
+    const normalizedType = isMultiEvaluation(ev) ? "compare" : (ev.type || "single");
+    const zhTitle = String(ev.zh?.title || "").trim().toLowerCase();
+    const enTitle = String(ev.en?.title || "").trim().toLowerCase();
+    const key = [normalizedType, ids.join("|"), zhTitle, enTitle].join("::");
+    if (seenRenderKeys.has(key)) {
+      return false;
+    }
+    seenRenderKeys.add(key);
+    return true;
+  });
 }
 
 function buildFallbackStructuredScoringStandards(product: Product, lang: "zh" | "en") {
@@ -1256,64 +1331,9 @@ export default function EvaluationsSection({
   ];
 
   const reviewsList = useMemo(() => {
-    const generatedEvaluations = buildGeneratedEvaluations(productsData);
-    const generatedIds = new Set(generatedEvaluations.map((evaluation) => evaluation.id));
-    const currentEvaluations = evaluationsData.filter((ev) => {
-      if (ev.status !== "published" || generatedIds.has(ev.id)) return false;
-      const ids = (ev.productIds && ev.productIds.length > 0 ? ev.productIds : [ev.productId]).filter(Boolean);
-      return ids.some((id) => Boolean(resolveProductByReference(String(id))));
-    });
+    const visibleEvaluations = getFrontVisibleEvaluations(evaluationsData, productsData);
 
-    const singleKeysFromCurrent = new Set<string>();
-    const compareKeysFromCurrent = new Set<string>();
-
-    for (const ev of currentEvaluations) {
-      const ids = (ev.productIds && ev.productIds.length > 0 ? ev.productIds : [ev.productId])
-        .filter(Boolean)
-        .map((id) => String(id));
-      if (ev.type === "compare" && ids.length > 1) {
-        const normalizedIds = ids
-          .map((id) => resolveProductByReference(id)?.id || id)
-          .sort();
-        compareKeysFromCurrent.add(normalizedIds.join("|"));
-      } else if (ids[0]) {
-        singleKeysFromCurrent.add(resolveProductByReference(ids[0])?.id || ids[0]);
-      }
-    }
-
-    const filteredGenerated = generatedEvaluations.filter((ev) => {
-      const ids = (ev.productIds && ev.productIds.length > 0 ? ev.productIds : [ev.productId])
-        .filter(Boolean)
-        .map((id) => String(id));
-      if (ev.type === "compare" && ids.length > 1) {
-        const normalizedIds = ids
-          .map((id) => resolveProductByReference(id)?.id || id)
-          .sort();
-        return !compareKeysFromCurrent.has(normalizedIds.join("|"));
-      }
-      const singleKey = ids[0] ? (resolveProductByReference(ids[0])?.id || ids[0]) : "";
-      return !(singleKey && singleKeysFromCurrent.has(singleKey));
-    });
-
-    const combinedEvaluations = [...currentEvaluations, ...filteredGenerated];
-    const seenRenderKeys = new Set<string>();
-
-    return combinedEvaluations
-      .filter((ev) => {
-        const ids = (ev.productIds && ev.productIds.length > 0 ? ev.productIds : [ev.productId])
-          .filter(Boolean)
-          .map((id) => resolveProductByReference(String(id))?.id || String(id))
-          .sort();
-        const normalizedType = isMultiEvaluation(ev) ? "compare" : (ev.type || "single");
-        const zhTitle = String(ev.zh?.title || "").trim().toLowerCase();
-        const enTitle = String(ev.en?.title || "").trim().toLowerCase();
-        const key = [normalizedType, ids.join("|"), zhTitle, enTitle].join("::");
-        if (seenRenderKeys.has(key)) {
-          return false;
-        }
-        seenRenderKeys.add(key);
-        return true;
-      })
+    return visibleEvaluations
       .map((ev) => {
       let badge = reviewsCopy.reportBadges.report;
       if (ev.type === "compare") badge = reviewsCopy.reportBadges.comparison;
