@@ -62,10 +62,39 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
   const [search, setSearch] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [brandFilter, setBrandFilter] = useState("all");
+  const [typeFilter, setTypeFilter] = useState<"all" | "single" | "multi">("all");
+
+  const PREFILL_STORAGE_KEY = "cms_evaluation_prefill";
+
+  const getReviewBucket = (type?: Evaluation["type"]): "single" | "multi" => {
+    if (!type || type === "single" || type === "safety") return "single";
+    return "multi";
+  };
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (editingEv) return;
+    if (typeof window === "undefined") return;
+
+    const raw = window.localStorage.getItem(PREFILL_STORAGE_KEY);
+    if (!raw) return;
+
+    try {
+      const parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed !== "object") {
+        window.localStorage.removeItem(PREFILL_STORAGE_KEY);
+        return;
+      }
+      setEditingEv(normalizeEvaluationRecord(parsed));
+    } catch {
+      // Ignore malformed payload and clear stale cache.
+    } finally {
+      window.localStorage.removeItem(PREFILL_STORAGE_KEY);
+    }
+  }, [editingEv]);
 
   const fetchData = async () => {
     let evs: Evaluation[] = [];
@@ -156,13 +185,21 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
     const matchesSearch = searchTarget.includes(search.toLowerCase());
     const matchesCategory = categoryFilter === "all" || String(linkedProduct?.category || "") === categoryFilter;
     const matchesBrand = brandFilter === "all" || String(linkedProduct?.brand || "") === brandFilter;
-    return matchesSearch && matchesCategory && matchesBrand;
+    const matchesType = typeFilter === "all" || getReviewBucket(ev.type) === typeFilter;
+    return matchesSearch && matchesCategory && matchesBrand && matchesType;
   });
 
   const clearFilters = () => {
     setSearch("");
     setCategoryFilter("all");
     setBrandFilter("all");
+    setTypeFilter("all");
+  };
+
+  const getTypeLabel = (type: Evaluation["type"]) => {
+    const bucket = getReviewBucket(type);
+    if (bucket === "single") return lang === "zh" ? "单品评测" : "Single Review";
+    return lang === "zh" ? "多品评测" : "Multi-Product Review";
   };
 
   const handleNew = () => {
@@ -237,7 +274,7 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
 
       <div className="bg-white border border-slate-100 rounded-[32px] p-5 shadow-sm space-y-4">
         <div className="flex flex-col xl:flex-row xl:items-center gap-4">
-          <div className="flex-1 grid grid-cols-1 xl:grid-cols-[1.2fr_0.9fr_0.9fr] gap-4">
+          <div className="flex-1 grid grid-cols-1 xl:grid-cols-[1.2fr_0.9fr_0.9fr_0.9fr] gap-4">
             <div className="relative">
               <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
               <input
@@ -268,6 +305,15 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
                 <option key={item} value={item}>{item}</option>
               ))}
             </select>
+            <select
+              value={typeFilter}
+              onChange={(e) => setTypeFilter(e.target.value as any)}
+              className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-5 text-sm font-bold outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all"
+            >
+              <option value="all">{lang === "zh" ? "全部评测类型" : "All Review Types"}</option>
+              <option value="single">{lang === "zh" ? "单品评测" : "Single Review"}</option>
+              <option value="multi">{lang === "zh" ? "多品评测" : "Multi-Product Review"}</option>
+            </select>
           </div>
           <div className="flex items-center gap-3 shrink-0">
             <div className="px-4 py-3 rounded-2xl bg-emerald-50 text-emerald-700 border border-emerald-100 font-black text-xs uppercase tracking-wider">
@@ -286,13 +332,21 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
 
       <div className="grid grid-cols-1 gap-4">
         {filteredEvaluations.map((ev) => {
-          const product = products.find(p => p.id === ev.productId);
+          const linkedIds = [ev.productId, ...(ev.productIds || [])].filter(Boolean);
+          const linkedProducts = linkedIds
+            .map((id) => products.find((p) => p.id === id))
+            .filter(Boolean) as CMSProduct[];
+          const product = linkedProducts[0];
           const displayTitle = lang === "zh"
             ? (ev.zh?.title || ev.en?.title || "(No Title)")
             : (ev.en?.title || ev.zh?.title || "(No Title)");
-          const linkedProductName = lang === "zh"
-            ? (product?.zh?.name || product?.en?.name || ev.productId)
-            : (product?.en?.name || product?.zh?.name || ev.productId);
+          const linkedProductName = linkedProducts.length > 1
+            ? (lang === "zh"
+                ? `已关联 ${linkedProducts.length} 个产品`
+                : `${linkedProducts.length} linked products`)
+            : (lang === "zh"
+                ? (product?.zh?.name || product?.en?.name || ev.productId)
+                : (product?.en?.name || product?.zh?.name || ev.productId));
           return (
             <div key={ev.id} className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm flex items-center justify-between group hover:border-emerald-200 transition-all">
               <div className="flex items-center gap-6">
@@ -302,6 +356,7 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
                 <div>
                   <div className="flex items-center gap-2 mb-1.5">
                     <span className="text-[10px] font-black uppercase bg-emerald-100 text-emerald-600 px-2.5 py-1 rounded-full">{ev.version}</span>
+                    <span className="text-[10px] font-black uppercase bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full">{getTypeLabel(ev.type)}</span>
                     <span className={`text-[10px] font-black uppercase px-2.5 py-1 rounded-full ${ev.status === "published" ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-500"}`}>
                       {ev.status}
                     </span>
@@ -369,6 +424,74 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
   const localizedPros = formData[activeTab]?.pros || [];
   const localizedCons = formData[activeTab]?.cons || [];
   const reviewInsightLabel = lang === "zh" ? "评测摘要" : "Review Summary";
+  const isSingleProductType = !formData.type || formData.type === "single" || formData.type === "safety";
+
+  const getDefaultInsightItems = (field: "pros" | "cons", locale: "zh" | "en") => {
+    const linkedIds = (isSingleProductType
+      ? [formData.productId]
+      : [...(formData.productIds || []), formData.productId]
+    ).filter(Boolean);
+
+    const seen = new Set<string>();
+    const uniqueIds = linkedIds.filter((id) => {
+      if (seen.has(id)) return false;
+      seen.add(id);
+      return true;
+    });
+
+    const collected = uniqueIds
+      .map((id) => products.find((p: CMSProduct) => p.id === id))
+      .filter(Boolean)
+      .flatMap((p: CMSProduct) => {
+        const localized = (p as any)?.[locale]?.[field];
+        if (Array.isArray(localized) && localized.length > 0) return localized;
+        const fallback = (p as any)?.[field];
+        return Array.isArray(fallback) ? fallback : [];
+      })
+      .map((item: unknown) => String(item || "").trim())
+      .filter(Boolean);
+
+    if (collected.length > 0) {
+      return Array.from(new Set(collected)).slice(0, 6);
+    }
+
+    if (field === "pros") {
+      return locale === "zh"
+        ? ["默认来源为空：请从已绑定产品的核心优势中补充亮点条目。"]
+        : ["Default source is empty: add highlights based on linked products' strongest advantages."];
+    }
+    return locale === "zh"
+      ? ["默认来源为空：请从已绑定产品的已知短板中补充限制条目。"]
+      : ["Default source is empty: add limitations based on known weaknesses of linked products."];
+  };
+
+  useEffect(() => {
+    if (isSingleProductType) return;
+
+    setFormData((prev) => {
+      const next = { ...prev };
+      let changed = false;
+
+      (["zh", "en"] as const).forEach((locale) => {
+        const localeData = { ...(next[locale] || {}) };
+        const existingPros = Array.isArray(localeData.pros) ? localeData.pros : [];
+        const existingCons = Array.isArray(localeData.cons) ? localeData.cons : [];
+
+        if (existingPros.length === 0) {
+          localeData.pros = getDefaultInsightItems("pros", locale);
+          changed = true;
+        }
+        if (existingCons.length === 0) {
+          localeData.cons = getDefaultInsightItems("cons", locale);
+          changed = true;
+        }
+
+        next[locale] = localeData as any;
+      });
+
+      return changed ? next : prev;
+    });
+  }, [formData.productId, formData.productIds, isSingleProductType, products]);
 
   const saveWithStatus = (status: Evaluation["status"]) => {
     onSave({ ...formData, status });
@@ -464,24 +587,24 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
                 </label>
                 <select 
                   className="w-full bg-slate-100 py-4 px-6 rounded-2xl font-black text-sm outline-none focus:bg-white border-2 border-transparent focus:border-emerald-500 transition-all"
-                  value={formData.type || "single"}
+                  value={isSingleProductType ? "single" : "multi"}
                   onChange={(e) => {
-                    const newType = e.target.value as any;
-                    setFormData({...formData, type: newType, productIds: formData.productIds || []});
+                    const selectedBucket = e.target.value as "single" | "multi";
+                    const nextType: Evaluation["type"] = selectedBucket === "single" ? "single" : "compare";
+                    setFormData({ ...formData, type: nextType, productIds: formData.productIds || [] });
                   }}
                 >
                   <option value="single">Single Product (单品评测)</option>
-                  <option value="compare">Multi-Product Compare (多品横评)</option>
-                  <option value="value">Cost-Effectiveness (性价比评测)</option>
-                  <option value="ranking">Annual Ranking (年度排行榜评测)</option>
-                  <option value="safety">🛡️ Safety Specialist (安全专项评测)</option>
+                  <option value="multi">Multi-Product Compare (多品评测)</option>
                 </select>
+                <p className="text-[11px] text-slate-400 font-semibold leading-relaxed">
+                  {lang === "zh"
+                    ? "类型已简化为两大类：single / safety 自动归类为“单品评测”；compare / value / ranking 自动归类为“多品评测”。"
+                    : "Type is simplified into two groups: single/safety are auto-classified as Single; compare/value/ranking are auto-classified as Multi-product."}
+                </p>
               </div>
 
-              {( !formData.type || 
-                 formData.type === "single" || 
-                 formData.type === "safety"
-               ) ? (
+              {isSingleProductType ? (
                 <div className="space-y-2">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
                     <LinkIcon className="w-3 h-3" />
@@ -533,10 +656,7 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
               )}
             </div>
 
-            {( !formData.type || 
-               formData.type === "single" || 
-              formData.type === "safety"
-             ) && (
+            {isSingleProductType && (
               <div className="space-y-8">
                 <div className="flex items-center justify-between">
                   <h4 className="text-sm font-black uppercase text-slate-900 tracking-wide">5D Radar Metrics</h4>
@@ -596,18 +716,45 @@ function EvaluationEditor({ ev, products, onSave, onCancel, lang, saving, error 
                 </div>
 
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-                  <LocalizedListEditor
-                    label={lang === "zh" ? "优点 / Pros" : "Pros"}
-                    items={localizedPros}
-                    emptyHint={lang === "zh" ? "每行填写一个优点" : "One pro per line"}
-                    onChange={(items) => updateLocalizedReviewField("pros", items)}
-                  />
-                  <LocalizedListEditor
-                    label={lang === "zh" ? "不足 / Cons" : "Cons"}
-                    items={localizedCons}
-                    emptyHint={lang === "zh" ? "每行填写一个不足" : "One con per line"}
-                    onChange={(items) => updateLocalizedReviewField("cons", items)}
-                  />
+                  {isSingleProductType ? (
+                    <>
+                      <LocalizedListEditor
+                        label={lang === "zh" ? "优点 / Pros" : "Pros"}
+                        items={localizedPros}
+                        emptyHint={lang === "zh" ? "每行填写一个优点" : "One pro per line"}
+                        onChange={(items) => updateLocalizedReviewField("pros", items)}
+                      />
+                      <LocalizedListEditor
+                        label={lang === "zh" ? "不足 / Cons" : "Cons"}
+                        items={localizedCons}
+                        emptyHint={lang === "zh" ? "每行填写一个不足" : "One con per line"}
+                        onChange={(items) => updateLocalizedReviewField("cons", items)}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <ItemizedListEditor
+                        title={lang === "zh" ? "## Overall Comparison Insights\n### Highlights" : "## Overall Comparison Insights\n### Highlights"}
+                        actionLabel={lang === "zh" ? "新增亮点条目" : "Add highlight item"}
+                        emptyHint={lang === "zh" ? "请输入亮点条目" : "Enter highlight item"}
+                        sourceNote={lang === "zh" ? "默认来源：已绑定产品（当前语言）的 Pros 字段。" : "Default source: Pros fields from linked products in current language."}
+                        applyDefaultLabel={lang === "zh" ? "使用默认来源" : "Use Default Source"}
+                        defaultItems={getDefaultInsightItems("pros", activeTab)}
+                        items={localizedPros}
+                        onChange={(items) => updateLocalizedReviewField("pros", items)}
+                      />
+                      <ItemizedListEditor
+                        title={lang === "zh" ? "## Overall Comparison Insights\n### Limitations" : "## Overall Comparison Insights\n### Limitations"}
+                        actionLabel={lang === "zh" ? "新增限制条目" : "Add limitation item"}
+                        emptyHint={lang === "zh" ? "请输入限制条目" : "Enter limitation item"}
+                        sourceNote={lang === "zh" ? "默认来源：已绑定产品（当前语言）的 Cons 字段。" : "Default source: Cons fields from linked products in current language."}
+                        applyDefaultLabel={lang === "zh" ? "使用默认来源" : "Use Default Source"}
+                        defaultItems={getDefaultInsightItems("cons", activeTab)}
+                        items={localizedCons}
+                        onChange={(items) => updateLocalizedReviewField("cons", items)}
+                      />
+                    </>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -638,6 +785,97 @@ function LocalizedListEditor({ label, items, emptyHint, onChange }: { label: str
         value={items.join("\n")}
         onChange={(e) => onChange(e.target.value.split("\n").map((item) => item.trim()).filter(Boolean))}
       />
+    </div>
+  );
+}
+
+function ItemizedListEditor({
+  title,
+  actionLabel,
+  emptyHint,
+  sourceNote,
+  applyDefaultLabel,
+  defaultItems,
+  items,
+  onChange,
+}: {
+  title: string;
+  actionLabel: string;
+  emptyHint: string;
+  sourceNote: string;
+  applyDefaultLabel: string;
+  defaultItems: string[];
+  items: string[];
+  onChange: (items: string[]) => void;
+}) {
+  const safeItems = Array.isArray(items) ? items : [];
+
+  const updateItem = (index: number, value: string) => {
+    const next = [...safeItems];
+    next[index] = value;
+    onChange(next.map((item) => item.trim()).filter(Boolean));
+  };
+
+  const removeItem = (index: number) => {
+    onChange(safeItems.filter((_, idx) => idx !== index));
+  };
+
+  const addItem = () => {
+    onChange([...safeItems, ""]);
+  };
+
+  const applyDefaultItems = () => {
+    const normalized = (defaultItems || []).map((item) => String(item || "").trim()).filter(Boolean);
+    onChange(normalized);
+  };
+
+  return (
+    <div className="space-y-3 rounded-2xl border border-slate-100 p-5 bg-slate-50/60">
+      <label className="text-[11px] font-black text-slate-600 whitespace-pre-line">{title}</label>
+      <p className="text-[11px] text-slate-400 font-semibold leading-relaxed">{sourceNote}</p>
+
+      <div className="space-y-2">
+        {safeItems.length === 0 && (
+          <div className="text-xs text-slate-400 font-semibold">{emptyHint}</div>
+        )}
+
+        {safeItems.map((item, index) => (
+          <div key={index} className="flex items-start gap-2">
+            <textarea
+              className="w-full bg-white p-3 rounded-xl font-semibold text-sm outline-none border border-slate-200 focus:border-emerald-500 transition-all min-h-[72px]"
+              placeholder={emptyHint}
+              value={item}
+              onChange={(e) => updateItem(index, e.target.value)}
+            />
+            <button
+              type="button"
+              onClick={() => removeItem(index)}
+              className="mt-1 p-2 rounded-lg bg-rose-50 text-rose-500 hover:bg-rose-100 transition-colors"
+              aria-label="Remove item"
+            >
+              <Trash2 className="w-4 h-4" />
+            </button>
+          </div>
+        ))}
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          onClick={addItem}
+          className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 text-xs font-black hover:border-emerald-300 hover:text-emerald-600 transition-colors"
+        >
+          <Plus className="w-4 h-4" />
+          {actionLabel}
+        </button>
+        <button
+          type="button"
+          onClick={applyDefaultItems}
+          className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-white border border-blue-200 text-blue-700 text-xs font-black hover:border-blue-300 hover:text-blue-800 transition-colors"
+        >
+          {applyDefaultLabel}
+        </button>
+      </div>
     </div>
   );
 }

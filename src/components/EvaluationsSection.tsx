@@ -1,152 +1,139 @@
 import { useState, useMemo, useEffect } from "react";
 import { Award, Filter, ShieldCheck, Scale, CheckCircle, Flame, Star, Zap, BookOpen, ArrowRight } from "lucide-react";
-import { Product } from "../types";
+import {
+  Radar,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  ResponsiveContainer,
+  Tooltip,
+} from "recharts";
+import { Product, Evaluation } from "../types";
 import { translateProduct } from "../lib/translate";
 import { resolveProductImages } from "../lib/productImages";
 import { getProductImageAlt, getProductsPageSeoTitle } from "../lib/productSeoText";
 import SmartImage from "./common/SmartImage";
 import Breadcrumbs from "./Breadcrumbs";
 import { getPageCopy } from "../config/pageCopy";
-
 import MultiCompareView from "./MultiCompareView";
-import { Evaluation } from "../types";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 
-interface EvaluationsSectionProps {
-  evaluationsData?: Evaluation[];
-  productsData: Product[];
-  onSelectProduct: (p: Product, compareWith?: Product) => void;
-  childProfile: any;
-  cmsSettings?: any;
-  setActiveTab?: (tab: string) => void;
-  lang?: "zh" | "en";
-  initialReviewType?: string;
-  activeReviewType?: string;
-  activeEvaluationId?: string;
-  onReviewTypeChange?: (type: string) => void;
-  onEvaluationOpen?: (evaluation: Evaluation) => void;
-  onEvaluationBack?: (type: string) => void;
-  seoKeywordHints?: string[];
-  currentPage?: number;
-  onPageChange?: (page: number) => void;
-}
-
-// Custom SVG Radar Polygon Chart
 function SafetyRadarChart({ product, evaluation, lang = "zh", isDark = false }: { product?: Product; evaluation?: Evaluation; lang: "zh" | "en", isDark?: boolean }) {
-  const deriveFallbackScores = (p?: Product) => {
-    if (!p) {
-      return {
-        safety: 8,
-        comfort: 8,
-        portability: 8,
-        features: 8,
-        valueForMoney: 8,
-      };
-    }
-    const comfort = p.category === "stroller" ? 10.0 : p.category === "scooter" ? 8.5 : p.tireType?.includes("充气") ? 9.5 : 6.0;
-    const value = p.price < 600 ? 10.0 : p.price < 2000 ? 8.5 : p.price < 4000 ? 7.0 : 5.0;
-    return {
-      safety: Number(p.safetyScore || p.overallScore || 8),
-      comfort,
-      portability: Number(p.weightScore || 8),
-      features: Number(p.geometryScore || p.overallScore || 8),
-      valueForMoney: value,
-    };
-  };
-
   const clampScore = (value: unknown, fallback: number) => {
-    const n = Number(value);
-    if (!Number.isFinite(n) || n <= 0) return fallback;
-    return Math.max(0, Math.min(10, n));
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric) || numeric <= 0) return fallback;
+    return Math.max(0, Math.min(10, numeric));
   };
 
-  const scores = useMemo(() => {
-    const fallback = deriveFallbackScores(product);
+  const fallbackScores = useMemo(() => {
+    if (!product) {
+      return { safety: 7.8, comfort: 7.8, portability: 7.8, features: 7.8, valueForMoney: 7.8 };
+    }
+    const comfort = product.category === "stroller"
+      ? 9.1
+      : product.category === "scooter"
+        ? 8.3
+        : String(product.tireType || "").includes("充气")
+          ? 8.9
+          : 7.4;
+    const valueForMoney = Number(product.price || 0) < 600
+      ? 9.4
+      : Number(product.price || 0) < 2000
+        ? 8.6
+        : Number(product.price || 0) < 4000
+          ? 7.6
+          : 6.9;
+    return {
+      safety: Number(product.safetyScore || product.overallScore || 7.8),
+      comfort,
+      portability: Number(product.weightScore || 7.8),
+      features: Number(product.geometryScore || product.overallScore || 7.8),
+      valueForMoney,
+    };
+  }, [product]);
 
-    if (evaluation && evaluation.scores) {
+  const radarData = useMemo(() => {
+    const safety = clampScore(evaluation?.scores?.safety ?? product?.safetyScore, fallbackScores.safety);
+    const comfort = clampScore(evaluation?.scores?.comfort, fallbackScores.comfort);
+    const portability = clampScore(evaluation?.scores?.portability ?? product?.weightScore, fallbackScores.portability);
+    const features = clampScore(evaluation?.scores?.features ?? product?.geometryScore, fallbackScores.features);
+    const valueForMoney = clampScore(evaluation?.scores?.valueForMoney, fallbackScores.valueForMoney);
+
+    if (lang === "en") {
       return [
-        { val: clampScore(evaluation.scores.safety, fallback.safety) },
-        { val: clampScore(evaluation.scores.comfort, fallback.comfort) },
-        { val: clampScore(evaluation.scores.portability, fallback.portability) },
-        { val: clampScore(evaluation.scores.features, fallback.features) },
-        { val: clampScore(evaluation.scores.valueForMoney, fallback.valueForMoney) }
-      ];
-    } else if (product) {
-      return [
-        { val: clampScore(product.safetyScore, fallback.safety) },
-        { val: clampScore(fallback.comfort, 8) },
-        { val: clampScore(product.weightScore, fallback.portability) },
-        { val: clampScore(product.geometryScore, fallback.features) },
-        { val: clampScore(fallback.valueForMoney, 8) }
+        { subject: "Safety", scoreA: safety },
+        { subject: "Comfort", scoreA: comfort },
+        { subject: "Portability", scoreA: portability },
+        { subject: "Functionality", scoreA: features },
+        { subject: "Value", scoreA: valueForMoney },
       ];
     }
-    return [];
-  }, [product, evaluation, lang]);
 
-  const size = 180;
-  const center = size / 2;
-  const radius = center - 35;
+    return [
+      { subject: "安全性", scoreA: safety },
+      { subject: "舒适度", scoreA: comfort },
+      { subject: "便携性", scoreA: portability },
+      { subject: "功能性", scoreA: features },
+      { subject: "性价比", scoreA: valueForMoney },
+    ];
+  }, [evaluation?.scores, fallbackScores, lang, product?.geometryScore, product?.safetyScore, product?.weightScore]);
 
-  const points = useMemo(() => {
-    return scores.map((s: any, index: number) => {
-      const angle = (index * 2 * Math.PI) / 5 - Math.PI / 2;
-      const pct = s.val / 10;
-      const x = center + radius * pct * Math.cos(angle);
-      const y = center + radius * pct * Math.sin(angle);
-      return { x, y, val: s.val };
-    });
-  }, [scores, radius, center]);
-
-  const polyPath = useMemo(() => {
-    if (points.length === 0) return "";
-    return points.map((p: any) => `${p.x},${p.y}`).join(" ");
-  }, [points]);
-
-  const guidlines = useMemo(() => {
-    return [0.2, 0.4, 0.6, 0.8, 1.0].map((scale: number) => {
-      return scores.map((s: any, index: number) => {
-        const angle = (index * 2 * Math.PI) / 5 - Math.PI / 2;
-        const x = center + radius * scale * Math.cos(angle);
-        const y = center + radius * scale * Math.sin(angle);
-        return `${x},${y}`;
-      }).join(" ");
-    });
-  }, [scores, radius, center]);
+  const CustomRadarTooltip = ({ active, payload }: any) => {
+    if (!active || !payload || payload.length === 0) return null;
+    const data = payload[0].payload;
+    return (
+      <div className="bg-white border border-slate-200 p-4 rounded-2xl shadow-xl space-y-2 text-xs pointer-events-none z-50">
+        <div className="font-bold text-slate-800 border-b border-slate-50 pb-2 flex items-center gap-2">
+          <div className="w-1.5 h-1.5 rounded-full bg-orange-500"></div>
+          {data.subject}
+        </div>
+        <div className="flex items-center justify-between gap-8">
+          <span className="text-slate-500 font-medium">Score:</span>
+          <span className="text-orange-600 font-black text-right">{Number(data.scoreA).toFixed(1)} / 10</span>
+        </div>
+      </div>
+    );
+  };
 
   const radarAriaLabel = getPageCopy(lang).reviews.radarAriaLabel;
+  const seriesName = lang === "zh" ? "维度得分" : "Dimension Score";
 
   return (
-    <div className={`flex flex-col items-center p-8 rounded-[48px] border relative overflow-hidden w-full max-w-70 mx-auto transition-transform hover:scale-[1.02] duration-500 ${isDark ? "bg-slate-800/50 border-slate-700 shadow-none text-white" : "bg-white border-slate-100 shadow-xl shadow-orange-500/5"}`}>
-      <svg
-        width={size}
-        height={size}
-        className="overflow-visible select-none my-2 drop-shadow-sm"
-        role="img"
-        aria-label={radarAriaLabel}
-      >
-        {guidlines.map((p: any, i: number) => (
-          <polygon
-            key={i}
-            points={p}
-            fill="none"
-            stroke={isDark ? "#334155" : "#f8fafc"}
-            strokeWidth="1.5"
+    <div className={`h-[300px] w-full rounded-[32px] border p-4 ${isDark ? "bg-slate-800/50 border-slate-700" : "bg-white border-slate-100"}`} role="img" aria-label={radarAriaLabel}>
+      <ResponsiveContainer width="100%" height="100%">
+        <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
+          <PolarGrid stroke="#e2e8f0" />
+          <PolarAngleAxis
+            dataKey="subject"
+            tick={(props: any) => {
+              const { payload, x, y, textAnchor, ...rest } = props;
+              return (
+                <text
+                  {...rest}
+                  x={x}
+                  y={y}
+                  textAnchor={textAnchor}
+                  className={`font-bold text-[11px] ${isDark ? "fill-slate-300" : "fill-slate-400"}`}
+                >
+                  {payload.value}
+                </text>
+              );
+            }}
           />
-        ))}
-
-        <polygon
-          points={polyPath}
-          fill="rgba(249, 115, 22, 0.15)"
-          stroke="#f97316"
-          strokeWidth="3"
-          strokeLinejoin="round"
-          className="transition-all duration-700"
-        >
-           <animate attributeName="opacity" from="0" to="1" dur="1s" />
-        </polygon>
-
-      </svg>
+          <PolarRadiusAxis domain={[0, 10]} tick={false} axisLine={false} />
+          <Tooltip content={<CustomRadarTooltip />} />
+          <Radar
+            name={seriesName}
+            dataKey="scoreA"
+            stroke="#f97316"
+            fill="#f97316"
+            fillOpacity={0.2}
+            strokeWidth={3}
+          />
+        </RadarChart>
+      </ResponsiveContainer>
     </div>
   );
 }
@@ -749,6 +736,46 @@ function makeCompareEvaluation(id: string, products: Product[], zhTitle: string,
 function buildGeneratedEvaluations(productsData: Product[]): Evaluation[] {
   const seenModelKeys = new Set<string>();
   const focusProducts: Product[] = [];
+  const isStrollerCompareCandidate = (product: Product) => {
+    const categoryId = String(product.categoryId || "").toLowerCase().trim();
+    const category = String(product.category || "").toLowerCase().trim();
+    const signalText = [
+      product.brand,
+      product.name,
+      product.description,
+      product.Product_Description,
+      product.editorVerdict,
+      product.category,
+      product.categoryId,
+    ]
+      .map((item) => String(item || "").toLowerCase())
+      .join(" ");
+
+    const allowedCategoryIds = new Set(["stroller", "double_stroller", "jogger_stroller"]);
+    const hasAllowedCategory = allowedCategoryIds.has(categoryId) || category === "stroller";
+    if (!hasAllowedCategory) return false;
+
+    const hasStrollerSignal =
+      signalText.includes("stroller") ||
+      signalText.includes("jogger") ||
+      signalText.includes("jogging stroller") ||
+      signalText.includes("travel system") ||
+      signalText.includes("double stroller") ||
+      signalText.includes("twin stroller");
+
+    if (!hasStrollerSignal) return false;
+
+    const hasSeatOnlySignal =
+      signalText.includes("car seat") ||
+      signalText.includes("booster seat") ||
+      signalText.includes("infant seat") ||
+      signalText.includes("convertible car seat") ||
+      signalText.includes("safety seat") ||
+      categoryId === "car_seat" ||
+      category === "safety_seat";
+
+    return !hasSeatOnlySignal;
+  };
   
   const sortedRawFocus = productsData
     .filter((product) => product.status !== "archived" && isFocusReviewProduct(product))
@@ -774,8 +801,7 @@ function buildGeneratedEvaluations(productsData: Product[]): Evaluation[] {
     const category = String(product.category || "").toLowerCase();
     
     if (needle === "stroller") {
-      return (categoryId.includes("stroller") || category.includes("stroller") || categoryId.includes("jogger")) 
-        && !categoryId.includes("car_seat") && !category.includes("car_seat");
+      return isStrollerCompareCandidate(product);
     }
     if (needle === "balance") {
       return categoryId.includes("balance") || category.includes("balance");
@@ -918,6 +944,182 @@ function buildGeneratedEvaluations(productsData: Product[]): Evaluation[] {
   return [...commercialSingles, ...toddlerBikeSingles, ...singles, ...compares, ...values, ...rankings, ...safetyTopics];
 }
 
+function buildFallbackStructuredScoringStandards(product: Product, lang: "zh" | "en") {
+  const localized = translateProduct(product, lang);
+  const compliance = Array.isArray((product as any).safetyCertification)
+    ? (product as any).safetyCertification
+    : String((product as any).safetyCertification || "")
+        .split(/[+,/|;]/)
+        .map((item) => item.trim())
+        .filter(Boolean);
+
+  const comfortSignals = Array.isArray(localized.features)
+    ? localized.features.map((item) => String(item || "").trim()).filter(Boolean).slice(0, 2)
+    : [];
+
+  if (lang === "zh") {
+    return [
+      {
+        key: "safety",
+        label: "安全与合规",
+        parentTip: "优先确认认证信息、制动结构与整体稳定性，再判断是否适合当前年龄段。",
+        evidence: [
+          { source: "认证", text: `认证信息：${(compliance.length ? compliance : ["待补充来源验证"]).join("、")}` },
+          { source: "制动", text: `制动结构：${String((localized as any).brakeType || "待补充")}` },
+        ],
+      },
+      {
+        key: "comfort",
+        label: "舒适与操控",
+        parentTip: "重点看轮胎、座舱或把手设定，以及日常推行或骑行时的震动过滤表现。",
+        evidence: [
+          { source: "轮胎", text: `轮胎配置：${String((localized as any).tireType || "待补充")}` },
+          { source: "亮点", text: `舒适信号：${(comfortSignals.length ? comfortSignals : ["等待补充座舱与避震说明"]).join("；")}` },
+        ],
+      },
+      {
+        key: "portability",
+        label: "便携与日常使用",
+        parentTip: "通勤、收纳与搬运场景里，重量与日常维护成本通常决定长期体验。",
+        evidence: [
+          { source: "重量", text: `整车重量：${String((product as any).weight || localized.weight || "待补充")}` },
+          { source: "结论", text: String((localized as any).editorVerdict || "等待补充日常使用结论").trim() },
+        ],
+      },
+    ];
+  }
+
+  return [
+    {
+      key: "safety",
+      label: "Safety & Compliance",
+      parentTip: "Verify certifications, braking hardware, and basic chassis stability before judging fit.",
+      evidence: [
+        { source: "Compliance", text: `Compliance: ${(compliance.length ? compliance : ["Pending source verification"]).join(", ")}` },
+        { source: "Braking", text: `Brake setup: ${String((localized as any).brakeType || "Pending")}` },
+      ],
+    },
+    {
+      key: "comfort",
+      label: "Comfort & Control",
+      parentTip: "Look at tire setup, cockpit ergonomics, and whether daily ride comfort signals are actually present.",
+      evidence: [
+        { source: "Tires", text: `Tire setup: ${String((localized as any).tireType || "Pending")}` },
+        { source: "Features", text: `Comfort signals: ${(comfortSignals.length ? comfortSignals : ["Awaiting seat and suspension notes"]).join("; ")}` },
+      ],
+    },
+    {
+      key: "portability",
+      label: "Portability & Daily Use",
+      parentTip: "Weight, carrying effort, and maintenance practicality shape everyday ownership more than spec sheets do.",
+      evidence: [
+        { source: "Weight", text: `Item weight: ${String((product as any).weight || localized.weight || "Pending")}` },
+        { source: "Verdict", text: String((localized as any).editorVerdict || "Awaiting daily-use verdict").trim() },
+      ],
+    },
+  ];
+}
+
+function buildEvaluationOnlyStructuredScoringStandards(evaluation: Evaluation, lang: "zh" | "en") {
+  const verdict = sanitizeVerdictText(String((lang === "zh" ? evaluation.zh?.verdict : evaluation.en?.verdict) || ""));
+  const safetyScore = Number(evaluation.scores?.safety || 0).toFixed(1);
+  const comfortScore = Number(evaluation.scores?.comfort || 0).toFixed(1);
+  const portabilityScore = Number(evaluation.scores?.portability || 0).toFixed(1);
+  const featuresScore = Number(evaluation.scores?.features || 0).toFixed(1);
+  const valueScore = Number(evaluation.scores?.valueForMoney || 0).toFixed(1);
+
+  if (lang === "zh") {
+    return [
+      {
+        key: "safety",
+        label: "安全与稳定",
+        parentTip: "当产品明细缺失时，先依据本次评测的安全、操控与结构结论确认基本风险边界。",
+        evidence: [
+          { source: "安全得分", text: `安全维度评分：${safetyScore}/10；功能维度评分：${featuresScore}/10。` },
+          { source: "评测摘要", text: verdict || "当前评测已生成，等待补充更完整的产品证据链。" },
+        ],
+      },
+      {
+        key: "comfort",
+        label: "舒适与使用体验",
+        parentTip: "舒适度与便携性共同决定日常使用体验，尤其适合通勤和高频外出场景。",
+        evidence: [
+          { source: "舒适得分", text: `舒适维度评分：${comfortScore}/10；便携维度评分：${portabilityScore}/10。` },
+        ],
+      },
+      {
+        key: "value",
+        label: "综合价值判断",
+        parentTip: "在缺少结构化产品资料时，可先使用当前评测的综合打分作为阶段性决策参考。",
+        evidence: [
+          { source: "性价比得分", text: `性价比维度评分：${valueScore}/10。` },
+        ],
+      },
+    ];
+  }
+
+  return [
+    {
+      key: "safety",
+      label: "Safety & Stability",
+      parentTip: "When product-level details are missing, start from the evaluation's safety, control, and structural judgment.",
+      evidence: [
+        { source: "Safety score", text: `Safety: ${safetyScore}/10; Features: ${featuresScore}/10.` },
+        { source: "Review verdict", text: verdict || "This review is published while richer product evidence is still being completed." },
+      ],
+    },
+    {
+      key: "comfort",
+      label: "Comfort & Daily Use",
+      parentTip: "Comfort and portability together shape whether the product works in real daily routines.",
+      evidence: [
+        { source: "Comfort score", text: `Comfort: ${comfortScore}/10; Portability: ${portabilityScore}/10.` },
+      ],
+    },
+    {
+      key: "value",
+      label: "Overall Value",
+      parentTip: "When structured product records are incomplete, use the current evaluation scores as the interim buying baseline.",
+      evidence: [
+        { source: "Value score", text: `Value for money: ${valueScore}/10.` },
+      ],
+    },
+  ];
+}
+
+function resolveStructuredScoringStandards(product: Product | undefined, lang: "zh" | "en", evaluation?: Evaluation) {
+  if (!product) {
+    return evaluation ? buildEvaluationOnlyStructuredScoringStandards(evaluation, lang) : [];
+  }
+
+  const standards = Array.isArray((product as any).scoringStandards)
+    ? (product as any).scoringStandards
+    : [];
+
+  const normalized = standards
+    .map((standard: any) => {
+      const evidence = (Array.isArray(standard?.evidence) ? standard.evidence : [])
+        .map((item: any) => ({
+          source: cleanVisibleSourceText(item?.source),
+          text: cleanVisibleSourceText(item?.text),
+        }))
+        .filter((item: { source: string; text: string }) => item.text.length >= 10);
+
+      const parentTip = cleanVisibleSourceText(standard?.parentTip);
+      return {
+        key: String(standard?.key || "").trim(),
+        label: cleanVisibleSourceText(standard?.label),
+        parentTip,
+        evidence,
+      };
+    })
+    .filter((item: { parentTip: string; evidence: Array<{ source: string; text: string }> }) => item.parentTip.length >= 10 || item.evidence.length > 0);
+
+  return normalized.length > 0
+    ? normalized
+    : buildFallbackStructuredScoringStandards(product, lang);
+}
+
 export default function EvaluationsSection({ 
   evaluationsData = [],
   productsData, 
@@ -937,12 +1139,43 @@ export default function EvaluationsSection({
 }: EvaluationsSectionProps) {
   const reviewsCopy = getPageCopy(lang).reviews;
   const normalizeReviewType = (type?: string) => type && type !== "all" ? type : "single";
+  function isMultiEvaluation(ev: Evaluation) {
+    return ev.type === "compare" && (ev.productIds?.length || 0) > 1;
+  }
   const [selectedReviewType, setSelectedReviewType] = useState<string>(normalizeReviewType(initialReviewType));
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedEvaluation, setSelectedEvaluation] = useState<Evaluation | null>(null);
   
   const [hoverLatest, setHoverLatest] = useState<boolean>(false);
   const [activeCompareTab, setActiveCompareTab] = useState<"stroller" | "balance" | "bike">("stroller");
+
+  const queueEditableComparePrefill = (evaluation: Evaluation) => {
+    if (typeof window === "undefined") return;
+    const prefill = {
+      ...evaluation,
+      id: `eval_${Date.now()}`,
+      type: "compare" as const,
+      status: "draft" as const,
+      version: `${String(evaluation.version || "V2026.7")}-EDIT`,
+      updatedAt: null,
+      zh: {
+        title: String(evaluation.zh?.title || ""),
+        verdict: String(evaluation.zh?.verdict || ""),
+        pros: Array.isArray(evaluation.zh?.pros) ? evaluation.zh.pros : [],
+        cons: Array.isArray(evaluation.zh?.cons) ? evaluation.zh.cons : [],
+        changelog: "由自动横评转入 CMS 编辑",
+      },
+      en: {
+        title: String(evaluation.en?.title || ""),
+        verdict: String(evaluation.en?.verdict || ""),
+        pros: Array.isArray(evaluation.en?.pros) ? evaluation.en.pros : [],
+        cons: Array.isArray(evaluation.en?.cons) ? evaluation.en.cons : [],
+        changelog: "Imported from generated comparison for CMS editing",
+      },
+    };
+    window.localStorage.setItem("cms_evaluation_prefill", JSON.stringify(prefill));
+    setActiveTab?.("admin");
+  };
 
   const resolveProductByReference = (rawId?: string) => {
     const normalized = String(rawId || "").trim().toLowerCase();
@@ -1062,7 +1295,26 @@ export default function EvaluationsSection({
       return !(singleKey && singleKeysFromCurrent.has(singleKey));
     });
 
-    return [...currentEvaluations, ...filteredGenerated].map((ev) => {
+    const combinedEvaluations = [...currentEvaluations, ...filteredGenerated];
+    const seenRenderKeys = new Set<string>();
+
+    return combinedEvaluations
+      .filter((ev) => {
+        const ids = (ev.productIds && ev.productIds.length > 0 ? ev.productIds : [ev.productId])
+          .filter(Boolean)
+          .map((id) => resolveProductByReference(String(id))?.id || String(id))
+          .sort();
+        const normalizedType = isMultiEvaluation(ev) ? "compare" : (ev.type || "single");
+        const zhTitle = String(ev.zh?.title || "").trim().toLowerCase();
+        const enTitle = String(ev.en?.title || "").trim().toLowerCase();
+        const key = [normalizedType, ids.join("|"), zhTitle, enTitle].join("::");
+        if (seenRenderKeys.has(key)) {
+          return false;
+        }
+        seenRenderKeys.add(key);
+        return true;
+      })
+      .map((ev) => {
       let badge = reviewsCopy.reportBadges.report;
       if (ev.type === "compare") badge = reviewsCopy.reportBadges.comparison;
       if (ev.type === "value") badge = reviewsCopy.reportBadges.valuePick;
@@ -1081,7 +1333,7 @@ export default function EvaluationsSection({
   const reviewModeCopy = useMemo(() => {
     return lang === "zh"
       ? {
-          single: "具体品类评测",
+          single: "单品评测",
           multi: "多品横评",
           singleHint: "按具体品类查看评测",
           multiHint: "同场对比 2+ 产品",
@@ -1102,10 +1354,6 @@ export default function EvaluationsSection({
     if (groupId === "single-balance") return lang === "zh" ? "平衡车评测" : "Balance Bike Review";
     if (groupId === "single-scooter") return lang === "zh" ? "滑板车评测" : "Kids Scooter Review";
     return reviewModeCopy.single;
-  };
-
-  const isMultiEvaluation = (ev: Evaluation) => {
-    return ev.type === "compare" && (ev.productIds?.length || 0) > 1;
   };
 
   const getReviewModeLabel = (ev: Evaluation) => {
@@ -1273,6 +1521,22 @@ export default function EvaluationsSection({
     });
   };
 
+  const dedupeFloorItems = (items: any[]) => {
+    const seen = new Set<string>();
+    return items.filter((item: any) => {
+      const ev = item?.evaluation;
+      if (!ev) return false;
+      const ids = (ev.productIds && ev.productIds.length > 0 ? ev.productIds : [ev.productId])
+        .filter(Boolean)
+        .map((id: any) => resolveProductByReference(String(id))?.id || String(id))
+        .sort();
+      const key = [String(ev.type || "single"), ids.join("|"), String(ev.en?.title || "").trim().toLowerCase()].join("::");
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  };
+
   const doubleStrollerFloorReviews = useMemo(() => {
     const list = buildFloorList(isStrollerLike, true);
 
@@ -1299,9 +1563,9 @@ export default function EvaluationsSection({
     }
 
     if (combined.length > 0) {
-      return combined;
+      return dedupeFloorItems(combined);
     }
-    return list;
+    return dedupeFloorItems(list);
   }, [renderList]);
 
   const balanceBikeFloorReviews = useMemo(() => {
@@ -1503,6 +1767,7 @@ export default function EvaluationsSection({
     const displayDetailTitle = reviewedProduct
       ? getLocalizedReviewTitle(reviewedProduct, selectedEvaluation, lang, reviewsCopy.detailTitleSuffix)
       : (lang === "zh" ? selectedEvaluation.zh.title : selectedEvaluation.en.title);
+    const detailScoringStandards = resolveStructuredScoringStandards(reviewedProduct || productDisplay || undefined, lang, selectedEvaluation);
 
     return (
       <div className="max-w-6xl mx-auto space-y-8 animate-fade-in text-left">
@@ -1581,12 +1846,46 @@ export default function EvaluationsSection({
           </div>
           <SafetyRadarChart product={reviewedProduct} evaluation={selectedEvaluation} lang={lang} />
         </section>
+
+        {detailScoringStandards.length > 0 && (
+          <details className="bg-white border border-slate-100 rounded-[40px] p-8 shadow-sm group" open={true}>
+            <summary className="list-none cursor-pointer flex items-center justify-between gap-3 border-b border-slate-100 pb-4">
+              <h2 className="km-section-title text-slate-900">scoringStandards</h2>
+              <span className="inline-flex items-center gap-2">
+                <span className="text-[10px] font-black px-2 py-1 rounded-full bg-slate-50 text-slate-500 border border-slate-200">
+                  {detailScoringStandards.length}
+                </span>
+                <span className="text-slate-400 text-xs font-black transition-transform group-open:rotate-180">⌄</span>
+              </span>
+            </summary>
+
+            <div className="space-y-5 pt-6">
+              {detailScoringStandards.map((standard) => (
+                <article key={standard.key || standard.label} className="rounded-3xl border border-slate-100 bg-slate-50/70 p-6 space-y-4">
+                  {standard.label && <h3 className="text-2xl font-black text-slate-800">{standard.label}</h3>}
+                  {standard.parentTip && <p className="text-xl text-slate-600 font-semibold leading-relaxed">{standard.parentTip}</p>}
+                  {standard.evidence.length > 0 && (
+                    <div className="space-y-3">
+                      {standard.evidence.map((evidence, index) => (
+                        <div key={`${standard.key || standard.label}-${index}`} className="rounded-2xl bg-white border border-slate-200 px-5 py-4 space-y-1">
+                          {evidence.source && <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{evidence.source}</p>}
+                          <p className="text-xl text-slate-700 font-semibold leading-relaxed break-words">{evidence.text}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </article>
+              ))}
+            </div>
+          </details>
+        )}
       </div>
     );
   }
 
   if (selectedEvaluation && !isSelectedSingle) {
     const selectedTypeLabel = getReviewTypeLabel(selectedEvaluation.type);
+    const canCreateEditableCompare = String(selectedEvaluation.id || "").startsWith("generated_compare_");
     return (
       <MultiCompareView 
         evaluation={selectedEvaluation}
@@ -1600,6 +1899,8 @@ export default function EvaluationsSection({
         onBack={() => closeEvaluationDetail(selectedEvaluation.type)}
         onReviewTypeClick={() => closeEvaluationDetail(selectedEvaluation.type)}
         onSelectProduct={onSelectProduct}
+        canCreateEditableCompare={canCreateEditableCompare}
+        onCreateEditableCompare={() => queueEditableComparePrefill(selectedEvaluation)}
       />
     );
   }
