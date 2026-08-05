@@ -2,10 +2,29 @@ import type { Product, ProductImageAsset, ProductImages } from "../types";
 import type { SyntheticEvent } from "react";
 
 export const FALLBACK_PRODUCT_IMAGE =
-  "data:image/svg+xml;utf8," +
-  encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240"><rect width="320" height="240" fill="#f1f5f9"/><rect x="96" y="72" width="128" height="96" rx="10" fill="#e2e8f0"/><circle cx="128" cy="120" r="14" fill="#cbd5e1"/><path d="M154 138l20-24 28 34H118l22-26 14 16z" fill="#94a3b8"/></svg>'
-  );
+  "/images/product-placeholder.svg";
+
+const STORE_MEDIA_ORIGIN = "https://store.balancebiketoddler.com";
+
+function toStoreMediaUrl(rawPath: string): string {
+  const text = String(rawPath || "").trim().replace(/\\/g, "/");
+  if (!text) return "";
+
+  const marker = "scrape_store/";
+  const markerIndex = text.indexOf(marker);
+  const mediaPath = markerIndex >= 0
+    ? text.slice(markerIndex + marker.length)
+    : text.replace(/^\.\.\/+/, "").replace(/^\/+/, "");
+
+  if (!mediaPath) return "";
+  const encodedPath = mediaPath
+    .split("/")
+    .filter(Boolean)
+    .map((segment) => encodeURIComponent(segment))
+    .join("/");
+
+  return encodedPath ? `${STORE_MEDIA_ORIGIN}/${encodedPath}` : "";
+}
 
 function normalizeUrl(raw: unknown): string {
   if (typeof raw !== "string") {
@@ -19,7 +38,40 @@ function normalizeUrl(raw: unknown): string {
   if (lower.startsWith("about:blank") || lower.includes("external-url-removed")) {
     return "";
   }
+  if (lower.startsWith("data:image/svg+xml")) {
+    return "";
+  }
+
+  if (/^https?:\/\//i.test(normalized) || normalized.startsWith("/")) {
+    return normalized;
+  }
+
+  if (lower.includes("scrape_store/")) {
+    return toStoreMediaUrl(normalized);
+  }
+
+  if (
+    lower.startsWith("balance_bike/") ||
+    lower.startsWith("kids_bikes/") ||
+    lower.startsWith("scooters/") ||
+    lower.startsWith("stroller/") ||
+    lower.startsWith("double_stroller/") ||
+    lower.startsWith("jogger_stroller/") ||
+    lower.startsWith("electric_vehicles/") ||
+    lower.startsWith("car_seat/") ||
+    lower.startsWith("kids_tricycles/") ||
+    lower.startsWith("playard/") ||
+    lower.startsWith("high_chair/") ||
+    lower.startsWith("baby_carrier/")
+  ) {
+    return toStoreMediaUrl(normalized);
+  }
+
   return normalized;
+}
+
+export function normalizeMediaUrl(raw: unknown): string {
+  return normalizeUrl(raw);
 }
 
 function dedupeUrls(urls: string[]): string[] {

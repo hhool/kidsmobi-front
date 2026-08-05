@@ -17,7 +17,7 @@ import {
 } from "recharts";
 import { Product, CMSSettings } from "../types";
 import { translateProduct } from "../lib/translate";
-import { resolveProductImages } from "../lib/productImages";
+import { resolveProductImages, normalizeMediaUrl } from "../lib/productImages";
 import { getProductDisplayTitle } from "../lib/productSeoText";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 import { getSpecFieldLabel, normalizeSpecDisplayValue, toSpecKey } from "../lib/specLexicon";
@@ -67,6 +67,7 @@ function resolveCustomersSay(product: Product, lang: "zh" | "en"): string {
     en?: { customersSay?: string };
   })[lang]?.customersSay;
   const rawText = String(localized || product.customers_say || product.customersSay || "")
+    .replace(/^customers\s+find\s+/i, "")
     .replace(/\s+/g, " ")
     .trim();
   const lower = rawText.toLowerCase();
@@ -106,7 +107,7 @@ function resolveDescriptionText(product: Product, lang: "zh" | "en"): string {
     localized.customers_say,
     localized.customersSay,
   ]
-    .map((value) => String(value || "").replace(/\s+/g, " ").trim())
+    .map((value) => String(value || "").replace(/^customers\s+find\s+/i, "").replace(/\s+/g, " ").trim())
     .filter(Boolean);
 
   for (const text of candidates) {
@@ -568,6 +569,40 @@ function normalizeReadableText(value: unknown): string {
     .trim();
 }
 
+function paragraphizeDescription(value: unknown): string[] {
+  const normalized = normalizeReadableText(value);
+  if (!normalized) return [];
+
+  // Split before shouting-style feature headers like "LONG BATTERY LIFE:".
+  const withHeaderBreaks = normalized
+    .replace(/([.!?。！？])\s+([A-Z][A-Z0-9&()/'\-\s]{4,}:)/g, "$1\n\n$2")
+    .replace(/\s+([A-Z][A-Z0-9&()/'\-\s]{4,}:)/g, "\n\n$1");
+
+  const chunks = withHeaderBreaks
+    .split(/\n{2,}/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  if (chunks.length > 1) {
+    return chunks;
+  }
+
+  const sentences = normalized
+    .split(/(?<=[.!?。！？])\s+/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  if (sentences.length <= 2) {
+    return chunks;
+  }
+
+  const grouped: string[] = [];
+  for (let i = 0; i < sentences.length; i += 2) {
+    grouped.push(sentences.slice(i, i + 2).join(" "));
+  }
+  return grouped;
+}
+
 function toFeatureCandidates(value: string): string[] {
   const text = normalizeReadableText(value);
   if (!text) return [];
@@ -777,6 +812,7 @@ export default function DetailedProductView({
   const imageSet = resolveProductImages(displayProduct);
   const applicableAgeRange = resolveApplicableAgeRange(product, lang);
   const structuredDescriptionText = resolveStructuredProductDescription(displayProduct, lang);
+  const structuredDescriptionParagraphs = paragraphizeDescription(structuredDescriptionText);
   const structuredFeatureRows = resolveStructuredFeatureRows(displayProduct, lang);
   const structuredSpecSections = buildStructuredSpecificationSections(displayProduct, lang, applicableAgeRange);
   const visibleStructuredSpecSections = structuredSpecSections
@@ -797,12 +833,12 @@ export default function DetailedProductView({
   const modelGalleryImages = Array.from(
     new Set(
       [
-        String(displayProduct.imageUrl || "").trim(),
-        ...(displayProduct.galleryUrls || []).map((item) => String(item || "").trim()),
-        ...(displayProduct.productImageUrls || []).map((item) => String(item || "").trim()),
-        ...(((displayProduct.images?.gallery || []).map((item) => String(item?.url || "").trim()))),
-        ...(((displayProduct.images?.all || []).map((item) => String(item?.url || "").trim()))),
-        String(displayProduct.images?.cover?.url || "").trim(),
+        normalizeMediaUrl(displayProduct.imageUrl),
+        ...(displayProduct.galleryUrls || []).map((item) => normalizeMediaUrl(item)),
+        ...(displayProduct.productImageUrls || []).map((item) => normalizeMediaUrl(item)),
+        ...(((displayProduct.images?.gallery || []).map((item) => normalizeMediaUrl(item?.url)))),
+        ...(((displayProduct.images?.all || []).map((item) => normalizeMediaUrl(item?.url)))),
+        normalizeMediaUrl(displayProduct.images?.cover?.url),
       ].filter(Boolean)
     )
   );
@@ -810,8 +846,8 @@ export default function DetailedProductView({
   const modelFeatureImages = Array.from(
     new Set(
       [
-        ...(displayProduct.featureImageUrls || []).map((item) => String(item || "").trim()),
-        ...(((displayProduct.images?.feature || []).map((item) => String(item?.url || "").trim()))),
+        ...(displayProduct.featureImageUrls || []).map((item) => normalizeMediaUrl(item)),
+        ...(((displayProduct.images?.feature || []).map((item) => normalizeMediaUrl(item?.url)))),
       ].filter(Boolean)
     )
   );
@@ -830,7 +866,7 @@ export default function DetailedProductView({
         ? [resource.resourceUrl]
         : [];
       const urls = [...fromList, ...fromResourceUrl]
-        .map((item) => String(item || "").trim())
+        .map((item) => normalizeMediaUrl(item))
         .filter((item) => item && isLikelyVideoUrl(item) && !isUnsupportedVideoUrl(item));
       return urls.map((url, index) => ({
         url,
@@ -845,15 +881,15 @@ export default function DetailedProductView({
     ...extractDirectVideoUrls((displayProduct as any)?.Product_Videos_MP4),
     ...extractDirectVideoUrls((displayProduct as any)?.Product_Videos_Detail),
   ].map((url, index) => ({
-    url,
+    url: normalizeMediaUrl(url),
     title: `mp4-video-${index + 1}`,
-  }));
+  })).filter((item) => Boolean(item.url));
 
   const videoAssets = [
     ...rawProductMp4Assets,
-    product.videoUrl ? { url: product.videoUrl, title: "primary-video" } : null,
+    product.videoUrl ? { url: normalizeMediaUrl(product.videoUrl), title: "primary-video" } : null,
     ...((product.videos || []).map((item, index) => ({
-      url: String(item?.url || "").trim(),
+      url: normalizeMediaUrl(item?.url),
       title: String(item?.title || `video-${index + 1}`).trim(),
     }))),
     ...resourceVideoAssets,
@@ -971,6 +1007,7 @@ export default function DetailedProductView({
   // Rule 1 confirmation: description fallback is limited to model-carried fields only.
   // We intentionally avoid curated/resource overlays here.
   const effectiveDescriptionText = descriptionText;
+  const effectiveDescriptionParagraphs = paragraphizeDescription(effectiveDescriptionText);
 
   React.useEffect(() => {
     let disposed = false;
@@ -1426,8 +1463,10 @@ export default function DetailedProductView({
                      <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
                        <p className="text-sm font-black text-slate-800">Product_Description</p>
                      </div>
-                     <div className="rounded-2xl bg-white border border-slate-100 p-3 text-sm text-slate-700 font-semibold leading-relaxed break-words">
-                       {structuredDescriptionText}
+                     <div className="rounded-2xl bg-white border border-slate-100 p-3 space-y-3 text-sm text-slate-700 font-semibold leading-relaxed break-words">
+                       {(structuredDescriptionParagraphs.length > 0 ? structuredDescriptionParagraphs : [structuredDescriptionText]).map((paragraph, index) => (
+                         <p key={`structured-description-${index}`}>{paragraph}</p>
+                       ))}
                      </div>
                    </div>
                  )}
@@ -1467,12 +1506,15 @@ export default function DetailedProductView({
                  ))}
 
                  {structuredScoringStandards.length > 0 && (
-                   <div className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4">
-                     <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
+                   <details className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4 group" open={false}>
+                     <summary className="list-none cursor-pointer flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
                        <p className="text-sm font-black text-slate-800">scoringStandards</p>
-                       <span className="text-[10px] font-black px-2 py-1 rounded-full bg-white text-slate-500 border border-slate-200">{structuredScoringStandards.length}</span>
-                     </div>
-                     <div className="space-y-3">
+                       <span className="inline-flex items-center gap-2">
+                         <span className="text-[10px] font-black px-2 py-1 rounded-full bg-white text-slate-500 border border-slate-200">{structuredScoringStandards.length}</span>
+                         <span className="text-slate-400 text-xs font-black transition-transform group-open:rotate-180">⌄</span>
+                       </span>
+                     </summary>
+                     <div className="space-y-3 pt-3">
                        {structuredScoringStandards.map((standard) => (
                          <div key={standard.key || standard.label} className="rounded-2xl bg-white border border-slate-100 p-4 space-y-3">
                            {standard.label && <p className="text-sm font-black text-slate-800">{standard.label}</p>}
@@ -1490,7 +1532,7 @@ export default function DetailedProductView({
                          </div>
                        ))}
                      </div>
-                   </div>
+                   </details>
                  )}
                </div>
              </div>
@@ -1518,7 +1560,11 @@ export default function DetailedProductView({
                <p className="text-xs font-black uppercase tracking-widest text-slate-500">
                  {lang === "en" ? "Product Description" : "产品描述"}
                </p>
-               <p className="km-heading-copy km-body-copy text-sm text-slate-700 font-semibold">{effectiveDescriptionText}</p>
+               <div className="km-heading-copy km-body-copy text-sm text-slate-700 font-semibold space-y-3">
+                 {(effectiveDescriptionParagraphs.length > 0 ? effectiveDescriptionParagraphs : [effectiveDescriptionText]).map((paragraph, index) => (
+                   <p key={`description-${index}`}>{paragraph}</p>
+                 ))}
+               </div>
              </div>
            )}
         </div>

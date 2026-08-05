@@ -1288,46 +1288,50 @@ export default function GuidesSection({
                             const dispProduct = translateProduct(p, lang);
                             const isPerfectWeight = p.weight <= matchRecommendations.perfectWeightLimit;
                             return (
-                              <div key={dispProduct.id} className="bg-white p-6 rounded-4xl border border-slate-100 hover:border-orange-100 flex flex-col justify-between space-y-4 shadow-sm hover:shadow-xl hover:shadow-orange-500/5 transition-all group">
-                                <div className="space-y-2">
+                              <div key={dispProduct.id} className="group h-full bg-white border border-slate-100 rounded-[32px] overflow-hidden hover:border-orange-500/40 hover:shadow-2xl hover:shadow-orange-100/60 transition-all duration-300 flex flex-col">
+                                <div className="p-6 flex-1 flex flex-col gap-4">
                                   <div className="flex justify-between items-center">
-                                    <span className="bg-orange-50 text-orange-600 px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase border border-orange-100">{dispProduct.brand}</span>
+                                    <span className="bg-orange-50 text-orange-600 px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase border border-orange-100 tracking-wider">{dispProduct.brand}</span>
                                   </div>
-                                  
-                          {/* Matching layout with image resolved dynamically */}
-                          {(() => {
-                            const imgSet = resolveProductImages(p);
-                            const imgUrl = imgSet.coverUrl || FALLBACK_PRODUCT_IMAGE;
-                            return (
-                              <div className="h-32 bg-slate-50 border border-slate-100/50 rounded-2xl p-2 flex items-center justify-center overflow-hidden mb-3">
-                                <img
-                                  src={imgUrl}
-                                  alt={dispProduct.name}
-                                  className="h-full object-contain hover:scale-105 transition-transform duration-500"
-                                  onError={(e) => {
-                                    (e.target as HTMLImageElement).src = FALLBACK_PRODUCT_IMAGE;
-                                  }}
-                                />
-                              </div>
-                            );
-                          })()}
 
-                                  <div className="flex justify-between items-center">
-                                    <span className="text-slate-400 font-bold">{lang === "en" ? "Weight" : "产品自重"}</span>
-                                    <strong className={isPerfectWeight ? "text-emerald-500" : "text-orange-500"}>{formatWeight(dispProduct.weight, currencyData.code)}</strong>
-                                  </div>
-                                  <div className="flex justify-between items-center">
-                                    <span className="text-slate-400 font-bold">{lang === "en" ? "Price" : "参考售价"}</span>
-                                    <strong className="text-slate-900 font-black">{formatCurrencyFromUsd(dispProduct.price, currencyData, lang)}</strong>
+                                  {/* Matching layout with homepage-like visual container */}
+                                  {(() => {
+                                    const imgSet = resolveProductImages(p);
+                                    const imgUrl = imgSet.coverUrl || FALLBACK_PRODUCT_IMAGE;
+                                    return (
+                                      <div className="h-32 bg-slate-50 border border-slate-100/60 rounded-[22px] p-2.5 flex items-center justify-center overflow-hidden">
+                                        <img
+                                          src={imgUrl}
+                                          alt={dispProduct.name}
+                                          className="h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                                          onError={(e) => {
+                                            (e.target as HTMLImageElement).src = FALLBACK_PRODUCT_IMAGE;
+                                          }}
+                                        />
+                                      </div>
+                                    );
+                                  })()}
+
+                                  <div className="space-y-2.5">
+                                    <div className="flex justify-between items-center">
+                                      <span className="text-slate-400 font-bold text-[11px]">{lang === "en" ? "Weight" : "产品自重"}</span>
+                                      <strong className={`${isPerfectWeight ? "text-emerald-500" : "text-orange-500"} text-[13px] font-black`}>{formatWeight(dispProduct.weight, currencyData.code)}</strong>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                      <span className="text-slate-400 font-bold text-[11px]">{lang === "en" ? "Price" : "参考售价"}</span>
+                                      <strong className="text-slate-900 font-black text-[13px]">{formatCurrencyFromUsd(dispProduct.price, currencyData, lang)}</strong>
+                                    </div>
                                   </div>
                                 </div>
 
-                                <button
-                                  onClick={() => onSelectProduct(p)}
-                                  className="w-full py-2.5 bg-white border border-slate-100 hover:border-orange-200 text-slate-600 hover:text-orange-500 font-black text-[11px] uppercase rounded-2xl transition-all shadow-sm active:scale-95 cursor-pointer text-center"
-                                >
-                                  {lang === "en" ? "View Report ➔" : "查看详情 ➔"}
-                                </button>
+                                <div className="px-6 pb-6 mt-auto">
+                                  <button
+                                    onClick={() => onSelectProduct(p)}
+                                    className="w-full py-3 bg-white border border-slate-200/90 hover:border-orange-300 text-slate-600 hover:text-orange-500 font-black text-[11px] uppercase rounded-full transition-all active:scale-[0.99] cursor-pointer text-center"
+                                  >
+                                    {lang === "en" ? "View Report ➔" : "查看详情 ➔"}
+                                  </button>
+                                </div>
                               </div>
                             );
                           })}

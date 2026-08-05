@@ -66,13 +66,13 @@ function isRatingStatsSummary(value: string): boolean {
 function hasRealCustomersSay(product: Product, lang: "zh" | "en"): boolean {
   const customerSay = pickCustomersSay(product, lang);
   if (!customerSay || isRatingStatsSummary(customerSay)) return false;
-  return /^Customers find\b/i.test(customerSay);
+  return true;
 }
 
 function isCustomerReviewNarrative(value: string): boolean {
   const text = compactSnippet(value);
   if (!text) return false;
-  return /^customers find\b/i.test(text) || isRatingStatsSummary(text);
+  return !isRatingStatsSummary(text);
 }
 
 function isPlaceholderDescription(value: string): boolean {
@@ -150,20 +150,20 @@ function pickLocalizedDescription(product: Product, lang: "zh" | "en"): string {
   if (catRaw === "kids_bikes") {
     if (lang === "zh") {
       if (!baseDesc.includes(logicTokens.keywordPresence.kidsBike)) {
-        baseDesc = businessCopy.descriptionTemplates.kidsBikeZh.replace("{base}", baseDesc);
+        baseDesc = applyTemplate(businessCopy.descriptionTemplates.kidsBikeZh, { base: baseDesc }, "{base}");
       }
     } else {
       // Keep EN kids-bike card copy concise: show only the lead sentence and avoid appending long product titles.
-      baseDesc = businessCopy.descriptionTemplates.kidsBikeEn.replace(" {base}", "").replace("{base}", "").trim();
+      baseDesc = applyTemplate(businessCopy.descriptionTemplates.kidsBikeEn, { base: "" }, "").trim();
     }
   } else if (catRaw === "balance_bike" || catRaw.includes("balance")) {
     if (lang === "zh") {
       if (!baseDesc.includes(logicTokens.keywordPresence.balanceBike)) {
-        baseDesc = businessCopy.descriptionTemplates.balanceBikeZh.replace("{base}", baseDesc);
+        baseDesc = applyTemplate(businessCopy.descriptionTemplates.balanceBikeZh, { base: baseDesc }, "{base}");
       }
     } else {
       if (!baseDesc.toLowerCase().includes(logicTokens.keywordPresence.balanceBike)) {
-        baseDesc = businessCopy.descriptionTemplates.balanceBikeEn.replace("{base}", baseDesc);
+        baseDesc = applyTemplate(businessCopy.descriptionTemplates.balanceBikeEn, { base: baseDesc }, "{base}");
       }
     }
   } else if (catRaw === "stroller") {
@@ -172,11 +172,11 @@ function pickLocalizedDescription(product: Product, lang: "zh" | "en"): string {
     if (isTwin) {
       if (lang === "zh") {
         if (!baseDesc.includes(logicTokens.keywordPresence.twinStroller)) {
-          baseDesc = businessCopy.descriptionTemplates.twinStrollerZh.replace("{base}", baseDesc);
+          baseDesc = applyTemplate(businessCopy.descriptionTemplates.twinStrollerZh, { base: baseDesc }, "{base}");
         }
       } else {
         if (!baseDesc.toLowerCase().includes(logicTokens.keywordPresence.twinStroller)) {
-          baseDesc = businessCopy.descriptionTemplates.twinStrollerEn.replace("{base}", baseDesc);
+          baseDesc = applyTemplate(businessCopy.descriptionTemplates.twinStrollerEn, { base: baseDesc }, "{base}");
         }
       }
     }
@@ -186,11 +186,11 @@ function pickLocalizedDescription(product: Product, lang: "zh" | "en"): string {
     if (isElectric) {
       if (lang === "zh") {
         if (!baseDesc.includes(logicTokens.keywordPresence.electricScooter)) {
-          baseDesc = businessCopy.descriptionTemplates.electricScooterZh.replace("{base}", baseDesc);
+          baseDesc = applyTemplate(businessCopy.descriptionTemplates.electricScooterZh, { base: baseDesc }, "{base}");
         }
       } else {
         if (!baseDesc.toLowerCase().includes(logicTokens.keywordPresence.electricScooter)) {
-          baseDesc = businessCopy.descriptionTemplates.electricScooterEn.replace("{base}", baseDesc);
+          baseDesc = applyTemplate(businessCopy.descriptionTemplates.electricScooterEn, { base: baseDesc }, "{base}");
         }
       }
     }
@@ -201,9 +201,22 @@ function pickLocalizedDescription(product: Product, lang: "zh" | "en"): string {
 
 function compactSnippet(value: string): string {
   return String(value || "")
+    .replace(/^customers\s+find\s+/i, "")
     .replace(/\s+/g, " ")
     .replace(/[“”]/g, '"')
     .trim();
+}
+
+function applyTemplate(
+  templateValue: unknown,
+  replacements: Record<string, string>,
+  fallbackTemplate = ""
+): string {
+  const baseTemplate = String(templateValue || fallbackTemplate || "");
+  return Object.entries(replacements).reduce(
+    (acc, [token, replacement]) => acc.replace(new RegExp(`\\{${token}\\}`, "g"), String(replacement ?? "")),
+    baseTemplate
+  );
 }
 
 function includesAny(text: string, tokens: string[]): boolean {
@@ -431,7 +444,7 @@ function resolveCapacity(product: Product, lang: "zh" | "en"): string {
     const lbs = matchLbs[1];
     const dutyStr = parseInt(lbs) >= 100 ? "H" : "S";
     const template = lang === "zh" ? capacityCopy.formattedZh : capacityCopy.formattedEn;
-    return template.replace("{value}", lbs).replace("{duty}", dutyStr);
+    return applyTemplate(template, { value: lbs, duty: dutyStr }, "{value} ({duty})");
   }
   const matchKg = textToSearch.match(/(\d+)\s*(?:kg|kilograms)/);
   if (matchKg) {
@@ -439,13 +452,13 @@ function resolveCapacity(product: Product, lang: "zh" | "en"): string {
     const lbs = Math.round(parseInt(kg) * 2.2);
     const dutyStr = lbs >= 100 ? "H" : "S";
     const template = lang === "zh" ? capacityCopy.formattedZh : capacityCopy.formattedEn;
-    return template.replace("{value}", String(lbs)).replace("{duty}", dutyStr);
+    return applyTemplate(template, { value: String(lbs), duty: dutyStr }, "{value} ({duty})");
   }
 
   const category = (product.category || "").toLowerCase();
   const formatByLocale = (value: string, duty: string) => {
     const template = lang === "zh" ? capacityCopy.formattedZh : capacityCopy.formattedEn;
-    return template.replace("{value}", value).replace("{duty}", duty);
+    return applyTemplate(template, { value, duty }, "{value} ({duty})");
   };
   if (includesAny(category, categorySignals.wagonOrDouble)) {
     return formatByLocale(capacityCopy.defaults.wagonDouble.value, capacityCopy.defaults.wagonDouble.duty);
@@ -1145,6 +1158,54 @@ export default function ProductsSection({
     ).sort((a, b) => a.localeCompare(b));
   };
 
+  const normalizeBrandKey = (value?: string) => {
+    return String(value || "")
+      .normalize("NFKC")
+      .replace(/[\u200B-\u200D\uFEFF]/g, "")
+      .replace(/\s+/g, " ")
+      .trim()
+      .toLowerCase();
+  };
+
+  const resolveCanonicalBrand = (product: Product): string => {
+    const brandRaw = String(product.brand || "")
+      .normalize("NFKC")
+      .replace(/[\u200B-\u200D\uFEFF]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    const searchable = [
+      brandRaw,
+      product.name,
+      product.description,
+      (product as any)?.zh?.description,
+      (product as any)?.en?.description,
+    ]
+      .map((item) => String(item || "").toLowerCase())
+      .join(" ");
+
+    if (searchable.includes("baby trend")) return "Baby Trend";
+    if (/^baby$/i.test(brandRaw) && searchable.includes("trend")) return "Baby Trend";
+    if (searchable.includes("bob gear") || /^bob$/i.test(brandRaw)) return "BOB Gear";
+    if (searchable.includes("babyzen") || searchable.includes(" yoyo ")) return "Babyzen";
+    if (searchable.includes("royalbaby") || searchable.includes("优贝")) return "RoyalBaby";
+    return brandRaw;
+  };
+
+  const buildBrandFacetList = (products: Product[]) => {
+    const byKey = new Map<string, string>();
+    for (const product of products) {
+      const label = resolveCanonicalBrand(product);
+      if (!isValidFacetValue(label)) continue;
+      const key = normalizeBrandKey(label);
+      if (!key) continue;
+      if (!byKey.has(key)) {
+        byKey.set(key, label);
+      }
+    }
+    return Array.from(byKey.values()).sort((a, b) => a.localeCompare(b));
+  };
+
   const localizeMechanicalFacetValue = (value: string, facet: "tire" | "brake") => {
     if (lang !== "zh") return value;
 
@@ -1273,7 +1334,7 @@ export default function ProductsSection({
   }, [productsData, lang, selectedCategory]);
 
   const categoryFilterOptions = useMemo(() => {
-    const brands = normalizeFacetList(selectedCategoryProducts.map((item: Product) => item.brand));
+    const brands = buildBrandFacetList(selectedCategoryProducts);
     const frameMaterials = Array.from(
       new Set(selectedCategoryProducts.flatMap((item: Product) => getFrameMaterialClasses(item)))
     ).sort((left, right) => ["ALUMINUM", "CARBON FIBER", "STEEL", "ENGINEERING PLASTIC"].indexOf(left) - ["ALUMINUM", "CARBON FIBER", "STEEL", "ENGINEERING PLASTIC"].indexOf(right));
@@ -1429,7 +1490,7 @@ export default function ProductsSection({
         }
 
         const needsCategoryFacetFilter = selectedCategory !== "all";
-        const matchesBrand = !needsCategoryFacetFilter || !categoryFacetVisibility.brand || selectedBrand === "all" || normalizeFacetValue(p.brand) === selectedBrand;
+        const matchesBrand = !needsCategoryFacetFilter || !categoryFacetVisibility.brand || selectedBrand === "all" || resolveCanonicalBrand(p) === selectedBrand;
         const matchesFrameMaterial = !needsCategoryFacetFilter || !categoryFacetVisibility.frame || selectedFrameMaterial === "all" || getFrameMaterialClasses(p).includes(selectedFrameMaterial);
         const matchesTireType = !needsCategoryFacetFilter || !categoryFacetVisibility.tire || selectedTireType === "all" || normalizeFacetValue(p.tireType) === selectedTireType;
         const matchesBrakeSystem = !needsCategoryFacetFilter || !categoryFacetVisibility.brake || selectedBrakeSystem === "all" || normalizeFacetValue(p.brakeType) === selectedBrakeSystem;
@@ -2055,12 +2116,6 @@ export default function ProductsSection({
                                 {diProduct.overallScore ? diProduct.overallScore.toFixed(1) : "9.4"}
                               </span>
                             </div>
-                            <div className="flex items-center gap-1">
-                              <span className="shrink-0" title={productsCopy.productCard.capacityTitle}>📦</span>
-                              <span className="text-slate-700 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded text-[10px] font-extrabold">
-                                {resolveCapacityNumeric(diProduct)}
-                              </span>
-                            </div>
                           </div>
                         </>
                       ) : (
@@ -2084,14 +2139,6 @@ export default function ProductsSection({
                               </div>
                             </div>
 
-                            <div className="flex items-center justify-between text-xs font-bold">
-                              <div className="flex items-center gap-1">
-                                <span title={productsCopy.productCard.capacityTitle}>📦</span>
-                                <span className="px-2 py-0.5 rounded bg-slate-50 border border-slate-100 text-[10px] font-extrabold text-slate-700">
-                                  {resolveCapacityNumeric(diProduct)}
-                                </span>
-                              </div>
-                            </div>
                           </div>
                         </>
                       )}
@@ -2172,7 +2219,7 @@ export default function ProductsSection({
               aria-valuemin={1}
               aria-valuemax={totalPages}
               aria-valuenow={safePage}
-              aria-label={productsCopy.pagination.pageAriaTemplate.replace("{current}", String(safePage)).replace("{total}", String(totalPages))}
+              aria-label={applyTemplate(productsCopy.pagination.pageAriaTemplate, { current: String(safePage), total: String(totalPages) }, `Page ${safePage} of ${totalPages}`)}
             >
               <div
                 className="h-full bg-slate-900 rounded-full transition-all"
