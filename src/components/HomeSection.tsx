@@ -321,7 +321,7 @@ export default function HomeSection({
     return String(localized.name || product.name || categoryLabel).trim();
   };
 
-  const resolveHomepageProductSummary = (product?: Product) => {
+  const resolveHomepageProductSummary = (product?: Product, forcedCategoryLabel?: string) => {
     if (!product) {
       return lang === "zh"
         ? "当前正在更新该卡片样本，完成后将展示对应产品结论。"
@@ -353,8 +353,20 @@ export default function HomeSection({
     for (const candidate of candidates) {
       const cleaned = collapseRepeatedLeadingBrand(candidate, brand);
       if (isMeaningfulCardSummary(cleaned, lang)) {
+        if (forcedCategoryLabel === homeCopy.runtimeLabels.categoryNames.kidsScooter && lang === "en") {
+          const normalized = cleaned.toLowerCase();
+          if (!normalized.includes("kids electric scooter")) {
+            return `Kids electric scooter safety review: ${cleaned}`;
+          }
+        }
         return cleaned;
       }
+    }
+
+    if (forcedCategoryLabel === homeCopy.runtimeLabels.categoryNames.kidsScooter) {
+      return lang === "zh"
+        ? "这款 kids electric scooter 重点评估了踏板强度、转向响应与低速稳定性，适合家长快速完成同类车型对比。"
+        : "This kids electric scooter is audited for deck strength, steering response, and low-speed stability to support faster family comparisons.";
     }
 
     return lang === "zh"
@@ -801,11 +813,13 @@ export default function HomeSection({
     const dedupedTitle = stripLeadingBrandFromTitle(stripLeadingBrandFromTitle(title, rawBrandLabel), brandLabel);
     const normalizedProductTitle = String(stripLeadingTitleModifiers(dedupedTitle)).trim();
     const useForcedCategoryLabel = forcedCategoryLabel === homeCopy.runtimeLabels.categoryNames.joggingStroller;
+    const useElectricScooterTitle = forcedCategoryLabel === homeCopy.runtimeLabels.categoryNames.kidsScooter;
+    const electricScooterLabel = lang === "zh" ? "儿童电动滑板车" : "Kids Electric Scooter";
     const displayTitle = collapseRepeatedLeadingBrand(
-      String(`${brandLabel} ${useForcedCategoryLabel ? forcedCategoryLabel : (normalizedProductTitle || forcedCategoryLabel || "")}`).trim(),
+      String(`${brandLabel} ${useElectricScooterTitle ? electricScooterLabel : (useForcedCategoryLabel ? forcedCategoryLabel : (normalizedProductTitle || forcedCategoryLabel || ""))}`).trim(),
       brandLabel
     );
-    const snapshot = resolveHomepageProductSummary(p);
+    const snapshot = resolveHomepageProductSummary(p, forcedCategoryLabel);
     return (
        <div 
         key={p.id} 
@@ -1155,7 +1169,7 @@ export default function HomeSection({
         </div>
 
         {/* Subsection B: Best Balance Bike */}
-        <div id="safety_audits_balance_anchor" className="space-y-6 pt-6">2
+        <div id="safety_audits_balance_anchor" className="space-y-6 pt-6">
           <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
             <div>
               <h2 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.balanceTitle}</h2>

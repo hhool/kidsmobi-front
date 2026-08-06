@@ -142,10 +142,6 @@ const DEFAULT_CMS_PAGE_BLUEPRINT: Record<string, CMSPageConfig> = {
 };
 
 const PRODUCTS_PAGE_KEYWORDS_EN = [
-  "kids bikes",
-  "balance bike",
-  "twin stroller",
-  "kids electric scooter",
 ];
 
 const PRODUCTS_PAGE_KEYWORDS_ZH = [
@@ -2231,7 +2227,7 @@ export default function App() {
       keywordsArr = Array.from(new Set([...keywordsArr, ...requiredReviewKeywords]));
     }
 
-    keywordsArr = applyPageKeywordOverride(seoKey, keywordsArr, lang, activeProductCategory);
+   // keywordsArr = applyPageKeywordOverride(seoKey, keywordsArr, lang, activeProductCategory);
 
     // Categories custom TDK overrides for /products/:category
     if (seoKey === "products" && activeProductCategory !== "all") {

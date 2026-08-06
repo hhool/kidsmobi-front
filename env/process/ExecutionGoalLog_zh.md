@@ -1,2 +1,2 @@
-# 目标任务描述：提交 front 最新改动
-将 front 仓库当前 3 个已修改文件提交到当前分支，保留现有变更并生成可追溯提交记录。
+# 目标任务描述：补充 kids electric scooter FAQ
+在首页 FAQ 中新增 2 条 kids electric scooter 相关问答，重点覆盖电池安全、限速与适龄使用场景。

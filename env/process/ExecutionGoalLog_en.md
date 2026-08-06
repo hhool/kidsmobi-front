@@ -1,2 +1,2 @@
-# Goal: Commit Latest Front Changes
-Commit the current three modified files in the front repository to the active branch, preserving all edits and creating a traceable commit record.
+# Goal: Add Kids Electric Scooter FAQ
+Add two kids electric scooter FAQ entries to the home FAQ section, focusing on battery safety, speed limiting, and age-appropriate use.
