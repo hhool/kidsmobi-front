@@ -31,13 +31,13 @@ export function normalizeSeoConfig(config: SEOConfig): SEOConfig {
 export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
   home: {
     zh: {
-      title: "Balance Bike, Kids Bikes, Jogging Stroller, Kids Electric Scooter & Kids Electric Cars | BalanceBikeToddler",
-      description: "Global review site for kids wheeled toys. Find the perfect balance bike, kids bikes, jogging stroller, kids electric scooter, and kids electric cars for your family.",
+      title: "Trusted Kids Mobility Reviews | BalanceBikeToddler",
+      description: "Global review site for kids wheeled toys. Find trusted balance bike, kids bikes, jogging stroller, kids electric scooter, and kids electric cars reviews for your family.",
       keywords: ["balance bike", "kids bikes", "jogging stroller", "kids electric scooter", "kids electric cars"]
     },
     en: {
-      title: "Balance Bike, Kids Bikes, Jogging Stroller, Kids Electric Scooter & Kids Electric Cars | BalanceBikeToddler",
-      description: "Global review site for kids wheeled toys. Find the perfect balance bike, kids bikes, jogging stroller, kids electric scooter, and kids electric cars for your family.",
+      title: "Trusted Kids Mobility Reviews | BalanceBikeToddler",
+      description: "Global review site for kids wheeled toys. Find trusted balance bike, kids bikes, jogging stroller, kids electric scooter, and kids electric cars reviews for your family.",
       keywords: ["balance bike", "kids bikes", "jogging stroller", "kids electric scooter", "kids electric cars"]
     },
   },
