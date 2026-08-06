@@ -532,7 +532,7 @@ export default function NewsSection({
                   {
                     id: "g_stroller",
                     titleZh: "婴儿推车避震与护脊选购硬核指南",
-                    titleEn: "Kids Stroller Protection & Ergonomics Master Guide",
+                    titleEn: "Stroller Protection & Ergonomics Master Guide",
                     summaryZh: "科学解析婴儿骨骼负荷，教你如何通过避震连杆、高弹橡胶充气胎阻尼，捍卫宝宝娇嫩的颈椎发育。",
                     summaryEn: "Learn how modern stroller shock absorption and chassis engineering protect toddler's spine development.",
                     slug: "baby-stroller-spine-safety-guide"

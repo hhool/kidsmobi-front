@@ -22,7 +22,7 @@ export const PRODUCT_CATEGORY_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
       "jogging stroller",
       "stroller travel stroller",
       "jogging stroller stroller",
-      "kids stroller"
+      "stroller"
     ],
   },
   double_strollers: {
@@ -37,11 +37,11 @@ export const PRODUCT_CATEGORY_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
   },
   jogger_stroller: {
     zh: ["慢跑婴儿推车",   "双人慢跑婴儿推车"],
-    en: ["jogging stroller", "jogging stroller stroller", "stroller travel stroller", "kids stroller"],
+    en: ["jogging stroller", "jogging stroller stroller", "stroller travel stroller"],
   },
   kids_strollers: {
     zh: ["慢跑婴儿推车", "轻便婴儿推车", "旅行婴儿推车"],
-    en: ["jogging stroller", "stroller travel stroller", "jogging stroller stroller", "kids stroller"]
+    en: ["jogging stroller", "stroller travel stroller", "jogging stroller stroller"]
   },
   balance_bikes: {
     zh: ["平衡车", "儿童平衡车", "适合1岁儿童的平衡车"],

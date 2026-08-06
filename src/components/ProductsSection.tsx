@@ -298,6 +298,22 @@ function stripRepeatedBrandPrefix(text: string, brand: string): string {
   return next.replace(repeatedBrandPattern, "").trim();
 }
 
+function buildCardDisplayTitle(product: Product, lang: "zh" | "en"): string {
+  const localized = product as Product & {
+    zh?: { name?: string };
+    en?: { name?: string };
+  };
+  const rawName = lang === "zh"
+    ? localized.zh?.name || localized.name || localized.en?.name
+    : localized.en?.name || localized.name || localized.zh?.name;
+  const brand = compactSnippet(localized.brand || "");
+  const name = stripRepeatedBrandPrefix(String(rawName || ""), brand);
+
+  if (!brand) return name;
+  if (!name) return brand;
+  return `${brand} ${name}`.trim();
+}
+
 function isTitleDuplicateSnippet(value: string, product: Product): boolean {
   const text = normalizeSnippetForCompare(value);
   const name = normalizeSnippetForCompare(product.name);
@@ -2058,7 +2074,7 @@ export default function ProductsSection({
                   const cardSummary = resolveCardSummary(diProduct, lang);
                   const priceText = formatPriceDisplay(diProduct.price, currencyData, lang);
                   const productSeoTitle = getProductDisplayTitle(p, lang);
-                  const productCardTitle = stripLeadingBrandFromTitle(productSeoTitle, String(diProduct.brand || ""));
+                  const productCardTitle = buildCardDisplayTitle(diProduct, lang) || productSeoTitle;
 
                   const isAlreadySaved = savedProducts.some(s => s.id === diProduct.id);
                   const isAlreadyCompared = compareList.some(c => c.id === diProduct.id);
@@ -2075,7 +2091,7 @@ export default function ProductsSection({
                 }}
                 role="button"
                 tabIndex={0}
-                aria-label={`${productsCopy.productCard.viewMetricsAriaPrefix} ${diProduct.name}`}
+                aria-label={`${productsCopy.productCard.viewMetricsAriaPrefix} ${productCardTitle}`}
                 className="bg-white border border-slate-100 hover:border-orange-100 rounded-[56px] p-8 flex flex-col justify-between space-y-8 hover:shadow-[0_48px_80px_-24px_rgba(249,115,22,0.12)] transition-all duration-500 group text-left cursor-pointer relative animate-fade-in overflow-hidden"
               >
                 <div className="absolute top-0 right-0 w-24 h-24 bg-orange-50 rounded-bl-[60px] opacity-0 group-hover:opacity-100 transition-opacity translate-x-4 -translate-y-4"></div>
@@ -2268,7 +2284,7 @@ export default function ProductsSection({
             {viewHistory.slice(0, 4).map(p => {
               const dp = translateProduct(p, lang);
               const historySeoTitle = getProductDisplayTitle(p, lang);
-              const historyDisplayTitle = stripLeadingBrandFromTitle(historySeoTitle, String(dp.brand || p.brand || ""));
+              const historyDisplayTitle = buildCardDisplayTitle(dp, lang) || historySeoTitle;
               const imageSet = resolveProductImages(dp);
               return (
                 <div 

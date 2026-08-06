@@ -142,7 +142,7 @@ const DEFAULT_VERDICT_PATTERNS = [
   "pending editorial enrichment",
   "please enrich editorial content before publishing",
   "edit and save to persist into cms",
-  "independently verified kids stroller or bicycle setup",
+  "independently verified stroller or bicycle setup",
   "generated from remote fallback content source",
   "static fallback product",
   "请补充评测",

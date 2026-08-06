@@ -1,2 +1,2 @@
-# Goal: Remove Search Feature from News Module
-Remove the Quick Search button from the mega menu in App.tsx and ensure the search box is removed from GlobalNews.tsx.
+# Goal: Commit Current Front Changes
+Commit all currently modified files in the front repository to the active branch, preserving the existing edits and creating a traceable commit record.

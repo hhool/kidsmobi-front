@@ -50,7 +50,7 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
     en: {
       title: "Top Toddler Bikes, Twin Strollers & Electric Scooters | BalanceBikeToddler",
       description: "Browse our catalog of toddler bikes, balance bike toddler models, twin strollers, and kids electric scooters. Find the safest ride-on toys for your children.",
-      keywords: ["toddler bike", "balance bike toddler", "twin stroller", "kids electric scooter"],
+      keywords: ["kids bikes", "balance bike", "twin stroller", "kids electric scooter"],
     },
   },
   evaluations: {

@@ -125,7 +125,17 @@ export function getProductDisplayTitle(product: Product, lang: "zh" | "en"): str
     zh?: { name?: string };
     en?: { name?: string };
   };
-  const name = [localized.name, localized.en?.name, localized.zh?.name]
+  const text = [
+    localized.name,
+    localized.en?.name,
+    localized.zh?.name,
+    (localized as Product & { description?: string }).description,
+    (localized as Product & { zh?: { description?: string } }).zh?.description,
+    (localized as Product & { en?: { description?: string } }).en?.description,
+    (localized as Product & { editorVerdict?: string }).editorVerdict,
+    (localized as Product & { zh?: { editorVerdict?: string } }).zh?.editorVerdict,
+    (localized as Product & { en?: { editorVerdict?: string } }).en?.editorVerdict,
+  ]
     .map((value) => compactText(value || "").toLowerCase())
     .join(" ");
   const category = compactText(String(localized.categoryId || localized.category)).toLowerCase();
@@ -142,7 +152,7 @@ export function getProductDisplayTitle(product: Product, lang: "zh" | "en"): str
   }
 
   if (isScooter) {
-    if (/\belectric\b/.test(name)) {
+    if (/\belectric\b/.test(text)) {
       return [brand, lang === "zh" ? "儿童电动滑板车" : "Kids Electric Scooter"].filter(Boolean).join(" ");
     }
     return lang === "zh" ? "儿童滑板车" : "Kids Scooter";
@@ -166,18 +176,16 @@ export function getProductDisplayTitle(product: Product, lang: "zh" | "en"): str
 
   if (!isStroller) return getProductsPageSeoTitle(localized);
 
-  const strollerBrand = brand.toLowerCase() === "graco" ? "Craco" : brand;
+  const strollerBrand = brand;
   let type: string;
-  if (/\btravel\s+system\b/.test(name)) {
-    type = lang === "zh" ? "儿童推车套装" : "Travel System";
-  } else if (/\b(?:jogger|jogging)\b/.test(name)) {
+  if (/\b(?:jogger|jogging|runner)\b/.test(text)) {
     type = lang === "zh" ? "慢跑推车" : "Jogging Stroller";
-  } else if (/\bdouble\s+stroller\b/.test(name)) {
+  } else if (/\b(?:double|twin)\b/.test(text)) {
     type = lang === "zh" ? "双人推车" : "Twin Stroller";
-  } else if (/\blight[ -]?weight\b/.test(name)) {
-    type = lang === "zh" ? "轻便推车" : "Lightweight";
+  } else if (/\btravel(?:\s+system)?\b/.test(text) || /\b(?:lightweight|umbrella|compact|portable|cabin)\b/.test(text)) {
+    type = lang === "zh" ? "旅行推车" : "Travel Stroller";
   } else {
-    type = lang === "zh" ? "标准推车" : "Standard";
+    type = lang === "zh" ? "标准推车" : "Standard Stroller";
   }
 
   return [strollerBrand, type].filter(Boolean).join(" ");

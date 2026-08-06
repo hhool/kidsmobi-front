@@ -1179,7 +1179,7 @@ export default function GuidesSection({
             </h1>
             <p className="km-heading-copy km-body-copy text-sm md:text-base text-slate-500 font-semibold max-w-4xl leading-relaxed">
               {lang === "en" 
-                ? "Input your child's precise measurements below to instantly audit parameters for Kids Strollers, Kids Bikes, Kids Scooters, Balance Bikes, and Electric Cars. This biometric wizard automatically calculates the max vehicle weight limits and perfect fit geometries." 
+                ? "Input your child's precise measurements below to instantly audit parameters for Strollers, Kids Bikes, Kids Scooters, Balance Bikes, and Electric Cars. This biometric wizard automatically calculates the max vehicle weight limits and perfect fit geometries." 
                 : "输入宝宝的身高、跨高与体重参数，我们将通过生物力学算法，在婴儿推车、滑板车、平衡车与自行车品类中，精准匹配最安全、最省力的核心型号与轮径。"}
             </p>
           </div>
@@ -1445,7 +1445,7 @@ export default function GuidesSection({
               <div className="grid grid-cols-2 md:grid-cols-5 gap-3.5">
                 {[
                   { id: "all", emoji: "🌐", labelEn: "All Categories", labelZh: "全部品类" },
-                  { id: "stroller", emoji: "🛒", labelEn: "Kids Stroller", labelZh: "安全伞车/手推车" },
+                  { id: "stroller", emoji: "🛒", labelEn: "Stroller", labelZh: "安全伞车/手推车" },
                   { id: "bicycle", emoji: "🚴", labelEn: "Kids Bike", labelZh: "儿童自行车" },
                   { id: "scooter", emoji: "🛹", labelEn: "Kids Scooter", labelZh: "儿童滑板车" },
                   { id: "balance", emoji: "🚲", labelEn: "Balance Bike", labelZh: "学步滑步平衡车" },

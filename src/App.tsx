@@ -142,8 +142,8 @@ const DEFAULT_CMS_PAGE_BLUEPRINT: Record<string, CMSPageConfig> = {
 };
 
 const PRODUCTS_PAGE_KEYWORDS_EN = [
-  "toddler bike",
-  "balance bike toddler",
+  "kids bikes",
+  "balance bike",
   "twin stroller",
   "kids electric scooter",
 ];

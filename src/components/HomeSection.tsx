@@ -67,6 +67,17 @@ function hasCjkCharacters(value: string): boolean {
   return /[\u3400-\u9fff]/.test(String(value || ""));
 }
 
+function normalizeBrandLabel(value: string): string {
+  const cleaned = String(value || "").replace(/\s+/g, " ").trim();
+  if (!cleaned) return "";
+  const tokens = cleaned.split(" ");
+  const dedupedTokens = tokens.filter((token, index) => {
+    if (index === 0) return true;
+    return token.toLowerCase() !== tokens[index - 1].toLowerCase();
+  });
+  return dedupedTokens.join(" ");
+}
+
 function isMeaningfulCardSummary(value: string, lang: "zh" | "en"): boolean {
   const text = compactSnippet(value);
   if (!text) return false;
@@ -776,10 +787,16 @@ export default function HomeSection({
 
   const renderProductCard = (p: Product, idx: number, forcedCategoryLabel?: string) => {
     const dp = translateProduct(p, lang);
-    const brandLabel = String(dp.brand || p.brand || "").trim();
+    const rawBrandLabel = String(dp.brand || p.brand || "").trim();
+    const brandLabel = normalizeBrandLabel(rawBrandLabel);
     const title = getProductDisplayTitle(p, lang);
-    const dedupedTitle = stripLeadingBrandFromTitle(title, brandLabel);
-    const displayTitle = String(forcedCategoryLabel || stripLeadingTitleModifiers(dedupedTitle)).trim();
+    const dedupedTitle = stripLeadingBrandFromTitle(stripLeadingBrandFromTitle(title, rawBrandLabel), brandLabel);
+    const normalizedProductTitle = String(stripLeadingTitleModifiers(dedupedTitle)).trim();
+    const useForcedCategoryLabel = forcedCategoryLabel === homeCopy.runtimeLabels.categoryNames.joggingStroller;
+    const displayTitle = collapseRepeatedLeadingBrand(
+      String(`${brandLabel} ${useForcedCategoryLabel ? forcedCategoryLabel : (normalizedProductTitle || forcedCategoryLabel || "")}`).trim(),
+      brandLabel
+    );
     const snapshot = resolveHomepageProductSummary(p);
     return (
        <div 
@@ -824,8 +841,7 @@ export default function HomeSection({
               </span>
             </div>
             <h3 className="font-black text-slate-900 group-hover:text-orange-500 transition-colors line-clamp-2 min-h-10 leading-tight">{displayTitle}</h3>
-            <div className="flex items-center justify-between gap-3 text-[10px] font-black uppercase tracking-widest text-slate-500">
-              <span className="text-orange-500 truncate">{brandLabel}</span>
+            <div className="flex items-center justify-end gap-3 text-[10px] font-black uppercase tracking-widest text-slate-500">
               <span className="text-right text-slate-700">{formatHomePrice(p)}</span>
             </div>
             <p className="text-[10px] text-slate-500 font-medium line-clamp-3 leading-relaxed min-h-9">{snapshot}</p>
@@ -978,9 +994,28 @@ export default function HomeSection({
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {prioritizedCategoryCards.map((cat) => {
             const topProduct = categoryTopProductMap[cat.id];
-            const categoryBrandLabel = String(topProduct ? (translateProduct(topProduct, lang).brand || topProduct.brand || "") : "").trim();
+            const rawCategoryBrandLabel = String(topProduct ? (translateProduct(topProduct, lang).brand || topProduct.brand || "") : "").trim();
+            const categoryBrandLabel = normalizeBrandLabel(rawCategoryBrandLabel);
             const categoryBrandFallback = lang === "zh" ? "品牌待更新" : "Brand pending";
             const categoryPriceLabel = formatHomePrice(topProduct);
+            const categoryProductTitle = topProduct
+              ? (() => {
+                  if (cat.id === "stroller") {
+                    return collapseRepeatedLeadingBrand(
+                      String(`${categoryBrandLabel} ${homeCopy.runtimeLabels.categoryNames.joggingStroller}`).trim(),
+                      categoryBrandLabel,
+                    ) || cat.label;
+                  }
+
+                  const topTitle = getProductDisplayTitle(topProduct, lang);
+                  const topTitleWithoutBrand = stripLeadingBrandFromTitle(stripLeadingBrandFromTitle(topTitle, rawCategoryBrandLabel), categoryBrandLabel);
+                  const normalizedTopTitle = stripLeadingTitleModifiers(topTitleWithoutBrand);
+                  return collapseRepeatedLeadingBrand(
+                    String(`${categoryBrandLabel} ${normalizedTopTitle || cat.label}`).trim(),
+                    categoryBrandLabel,
+                  ) || cat.label;
+                })()
+              : cat.label;
 
             return (
             <a
@@ -1036,9 +1071,8 @@ export default function HomeSection({
 
               <div className="p-6 space-y-3 flex-1 flex flex-col bg-white">
                 <div className="space-y-3">
-                  <h3 className="font-black text-slate-900 transition-colors line-clamp-2 min-h-10 leading-tight">{cat.label}</h3>
-                  <div className="flex items-center justify-between gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500">
-                    <span className="text-orange-500 truncate">{categoryBrandLabel || categoryBrandFallback}</span>
+                  <h3 className="font-black text-slate-900 transition-colors line-clamp-2 min-h-10 leading-tight">{categoryProductTitle}</h3>
+                  <div className="flex items-center justify-end gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500">
                     <span className="text-right text-slate-700">{categoryPriceLabel}</span>
                   </div>
                   <p className="text-[10px] text-slate-500 font-medium line-clamp-3 leading-relaxed min-h-9">
@@ -1080,7 +1114,7 @@ export default function HomeSection({
         <div className="space-y-6">
           <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
             <div>
-              <h3 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.joggingTitle}</h3>
+              <h2 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.joggingTitle}</h2>
               <p className="text-slate-500 text-xs font-semibold mt-1">
                 {homeCopy.safetyAudits.sections.joggingDesc}
               </p>
@@ -1113,10 +1147,10 @@ export default function HomeSection({
         </div>
 
         {/* Subsection B: Best Balance Bike */}
-        <div className="space-y-6 pt-6">
+        <div className="space-y-6 pt-6">2
           <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
             <div>
-              <h3 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.balanceTitle}</h3>
+              <h2 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.balanceTitle}</h2>
               <p className="text-slate-500 text-xs font-semibold mt-1">
                 {homeCopy.safetyAudits.sections.balanceDesc}
               </p>
@@ -1152,7 +1186,7 @@ export default function HomeSection({
         <div className="space-y-6 pt-6">
           <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
             <div>
-              <h3 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.kidsBikeTitle}</h3>
+              <h2 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.kidsBikeTitle}</h2>
               <p className="text-slate-500 text-xs font-semibold mt-1">
                 {homeCopy.safetyAudits.sections.kidsBikeDesc}
               </p>
@@ -1188,7 +1222,7 @@ export default function HomeSection({
         <div className="space-y-6 pt-6">
           <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
             <div>
-              <h3 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.scooterTitle}</h3>
+              <h2 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.scooterTitle}</h2>
               <p className="text-slate-500 text-xs font-semibold mt-1">
                 {homeCopy.safetyAudits.sections.scooterDesc}
               </p>
@@ -1224,7 +1258,7 @@ export default function HomeSection({
         <div className="space-y-6 pt-6">
           <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
             <div>
-              <h3 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.electricCarTitle}</h3>
+              <h2 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.electricCarTitle}</h2>
               <p className="text-slate-500 text-xs font-semibold mt-1">
                 {homeCopy.safetyAudits.sections.electricCarDesc}
               </p>

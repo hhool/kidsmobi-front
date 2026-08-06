@@ -79,7 +79,7 @@ const GlobalNews: React.FC = () => {
                   {[
                     {
                       id: "g_stroller",
-                      titleEn: "Kids Stroller Protection & Ergonomics Master Guide",
+                      titleEn: "Stroller Protection & Ergonomics Master Guide",
                       summaryEn: "Learn how modern stroller shock absorption and chassis engineering protect toddler's spine development.",
                       slug: "baby-stroller-spine-safety-guide"
                     },
