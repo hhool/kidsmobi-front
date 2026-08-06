@@ -145,6 +145,14 @@ export default function HomeSection({
   isBBTTheme = false
 }: HomeSectionProps) {
 
+  const scrollToSection = (sectionId: string) => {
+    const target = document.getElementById(sectionId);
+    if (!target) return;
+
+    const top = target.getBoundingClientRect().top + window.scrollY - 96;
+    window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+  };
+
   const categoryAliasMap: Record<string, string[]> = {
     stroller: ["stroller"],
     double_stroller: ["double_stroller", "twin stroller"],
@@ -947,14 +955,14 @@ export default function HomeSection({
 
           <div className="flex flex-wrap justify-center gap-4 pt-4 border-t border-white/10">
             {[
-              { id: "kids_bikes", label: homeCopy.quickCategories.kidsBike, icon: Bike },
-              { id: "balance_bike", label: homeCopy.quickCategories.balanceBike, icon: Smile },
-              { id: "scooters", label: homeCopy.quickCategories.kidsScooter, icon: Sparkles },
-              { id: "stroller", label: homeCopy.quickCategories.joggingStroller, icon: Footprints },
+              { id: "kids_bikes", label: homeCopy.quickCategories.kidsBike, icon: Bike, targetId: "safety_audits_kids_bike_anchor" },
+              { id: "balance_bike", label: homeCopy.quickCategories.balanceBike, icon: Smile, targetId: "safety_audits_balance_anchor" },
+              { id: "scooters", label: homeCopy.quickCategories.kidsScooter, icon: Sparkles, targetId: "safety_audits_scooter_anchor" },
+              { id: "stroller", label: homeCopy.quickCategories.joggingStroller, icon: Footprints, targetId: "safety_audits_jogging_anchor" },
             ].map((item) => (
               <button
                 key={item.id}
-                onClick={() => onSelectCategory(item.id)}
+                onClick={() => scrollToSection(item.targetId)}
                 className="inline-flex items-center gap-2 px-6 py-2.5 bg-white/10 hover:bg-white/20 border border-white/25 rounded-full text-[11px] font-black tracking-widest text-slate-100 uppercase shadow-md hover:border-white/45 transition-all cursor-pointer group backdrop-blur-md"
               >
                 <item.icon className="w-4 h-4 text-orange-400 group-hover:scale-110 transition-transform" />
@@ -1111,7 +1119,7 @@ export default function HomeSection({
         </div>
 
         {/* Subsection A: Best Jogging Stroller */}
-        <div className="space-y-6">
+        <div id="safety_audits_jogging_anchor" className="space-y-6">
           <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
             <div>
               <h2 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.joggingTitle}</h2>
@@ -1147,7 +1155,7 @@ export default function HomeSection({
         </div>
 
         {/* Subsection B: Best Balance Bike */}
-        <div className="space-y-6 pt-6">2
+        <div id="safety_audits_balance_anchor" className="space-y-6 pt-6">2
           <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
             <div>
               <h2 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.balanceTitle}</h2>
@@ -1183,7 +1191,7 @@ export default function HomeSection({
         </div>
 
         {/* Subsection C: Best Kids Bike */}
-        <div className="space-y-6 pt-6">
+        <div id="safety_audits_kids_bike_anchor" className="space-y-6 pt-6">
           <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
             <div>
               <h2 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.kidsBikeTitle}</h2>
@@ -1219,7 +1227,7 @@ export default function HomeSection({
         </div>
 
         {/* Subsection D: Best Kids Scooter */}
-        <div className="space-y-6 pt-6">
+        <div id="safety_audits_scooter_anchor" className="space-y-6 pt-6">
           <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
             <div>
               <h2 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.scooterTitle}</h2>
