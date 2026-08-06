@@ -1,2 +1,2 @@
-# Goal: Add Kids Electric Scooter FAQ
-Add two kids electric scooter FAQ entries to the home FAQ section, focusing on battery safety, speed limiting, and age-appropriate use.
+# Goal: Increase Homepage Keyword Weight
+Raise the homepage density and SEO weight for balance bike, kids bikes, jogging stroller, kids electric scooter, and kids electric cars.

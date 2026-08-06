@@ -31,14 +31,14 @@ export function normalizeSeoConfig(config: SEOConfig): SEOConfig {
 export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig }> = {
   home: {
     zh: {
-      title: "Best Kids Bikes, Scooters, Jogging Strollers & Cars | BalanceBikeToddler",
-      description: "Global review site for kids wheeled toys. Find the perfect balance bike, kids scooter, kids bike, jogging stroller, and kids electric car for your family.",
-      keywords: ["balance bike", "kids scooter", "kids bike", "jogging stroller", "kids electric car"]
+      title: "Balance Bike, Kids Bikes, Jogging Stroller, Kids Electric Scooter & Kids Electric Cars | BalanceBikeToddler",
+      description: "Global review site for kids wheeled toys. Find the perfect balance bike, kids bikes, jogging stroller, kids electric scooter, and kids electric cars for your family.",
+      keywords: ["balance bike", "kids bikes", "jogging stroller", "kids electric scooter", "kids electric cars"]
     },
     en: {
-      title: "Best Kids Bikes, Scooters, Jogging Strollers & Cars | BalanceBikeToddler",
-      description: "Global review site for kids wheeled toys. Find the perfect balance bike, kids scooter, kids bike, jogging stroller, and kids electric car for your family.",
-      keywords: ["balance bike", "kids scooter", "kids bike", "jogging stroller", "kids electric car"]
+      title: "Balance Bike, Kids Bikes, Jogging Stroller, Kids Electric Scooter & Kids Electric Cars | BalanceBikeToddler",
+      description: "Global review site for kids wheeled toys. Find the perfect balance bike, kids bikes, jogging stroller, kids electric scooter, and kids electric cars for your family.",
+      keywords: ["balance bike", "kids bikes", "jogging stroller", "kids electric scooter", "kids electric cars"]
     },
   },
   products: {
