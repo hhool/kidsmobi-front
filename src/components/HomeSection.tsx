@@ -1029,6 +1029,14 @@ export default function HomeSection({
                     ) || cat.label;
                   }
 
+                  if (cat.id === "scooters") {
+                    const scooterLabel = lang === "zh" ? "儿童电动滑板车" : "Kids Electric Scooter";
+                    return collapseRepeatedLeadingBrand(
+                      String(`${categoryBrandLabel} ${scooterLabel}`).trim(),
+                      categoryBrandLabel,
+                    ) || cat.label;
+                  }
+
                   const topTitle = getProductDisplayTitle(topProduct, lang);
                   const topTitleWithoutBrand = stripLeadingBrandFromTitle(stripLeadingBrandFromTitle(topTitle, rawCategoryBrandLabel), categoryBrandLabel);
                   const normalizedTopTitle = stripLeadingTitleModifiers(topTitleWithoutBrand);

@@ -1,2 +1,2 @@
-# Goal: Reduce Homepage Keyword Stacking
-Reshape the homepage copy into more natural sentences and expand long-tail coverage for balance bike, kids bikes, jogging stroller, kids electric scooter, and kids electric cars.
+# Goal: Force Brand + Kids Electric Scooter Title
+Set the home Featured scooter card title to consistently render as "Brand + kids electric scooter".
