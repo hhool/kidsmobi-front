@@ -1103,32 +1103,26 @@ export default function ProductsSection({
       return item.sourceCategoryId === "balance_bike" || includesAny(String(item.product.category || "").toLowerCase(), productLogicTokens.categorySignals.balance);
     });
 
-    const twinStrollerPool = sortedItems.filter((item) => {
-      const isStroller = item.sourceCategoryId === "stroller" || includesAny(String(item.product.category || "").toLowerCase(), productLogicTokens.categorySignals.stroller);
-      const nameLower = item.product.name.toLowerCase();
-      const isTwin = includesAny(nameLower, productLogicTokens.twinSignals);
-      return isStroller && isTwin;
+    const strollerPool = sortedItems.filter((item) => {
+      return item.sourceCategoryId === "stroller" || includesAny(String(item.product.category || "").toLowerCase(), productLogicTokens.categorySignals.stroller);
     });
 
-    const kidsElectricScooterPool = sortedItems.filter((item) => {
-      const nameLower = item.product.name.toLowerCase();
-      const isScooter = item.sourceCategoryId === "kids_scooters" || item.sourceCategoryId === "scooters";
-      const isElectric = includesAny(nameLower, productLogicTokens.electricSignals) || includesAny(item.product.id.toLowerCase(), productLogicTokens.electricSignals);
-      return isScooter && isElectric;
+    const kidsScooterPool = sortedItems.filter((item) => {
+      return item.sourceCategoryId === "kids_scooters" || item.sourceCategoryId === "scooters";
     });
 
     const selectedToddlerBike = toddlerBikePool.slice(0, 8);
     const selectedBalance = balanceToddlerPool.slice(0, 8);
-    const selectedTwin = twinStrollerPool.slice(0, 8);
-    const selectedElectricScooter = kidsElectricScooterPool.slice(0, 8);
+    const selectedStroller = strollerPool.slice(0, 8);
+    const selectedScooter = kidsScooterPool.slice(0, 8);
 
     // Dynamic interleaved list to keep variety engaging
     let firstPage: Array<{ sourceCategoryId: string; sourceProduct: Product; product: Product }> = [];
     for (let i = 0; i < 8; i++) {
       if (selectedToddlerBike[i]) firstPage.push(selectedToddlerBike[i]);
       if (selectedBalance[i]) firstPage.push(selectedBalance[i]);
-      if (selectedTwin[i]) firstPage.push(selectedTwin[i]);
-      if (selectedElectricScooter[i]) firstPage.push(selectedElectricScooter[i]);
+      if (selectedStroller[i]) firstPage.push(selectedStroller[i]);
+      if (selectedScooter[i]) firstPage.push(selectedScooter[i]);
     }
 
     const selectedIds = new Set(firstPage.map((item) => item.product.id));
@@ -1633,7 +1627,7 @@ export default function ProductsSection({
     { id: "balance_bike_toddler", label: productsCopy.seoPills.balanceBikeToddler, target: "balance_bike" },
     { id: "twin_stroller", label: productsCopy.seoPills.twinStroller, target: "stroller" },
     { id: "toddler_bike", label: productsCopy.seoPills.toddlerBike, target: "kids_bikes" },
-    { id: "kids_electric_scooter", label: productsCopy.seoPills.kidsElectricScooter, target: "kids_scooters" },
+    { id: "kids_electric_scooter", label: productsCopy.seoPills.kidsScooter, target: "kids_scooters" },
   ];
 
   // Compare toggles (allows up to 4 items!)
@@ -1750,20 +1744,10 @@ export default function ProductsSection({
                   window.requestAnimationFrame(() => setHintFlash(pill.label));
                   window.setTimeout(() => setHintFlash((current) => (current === pill.label ? null : current)), 300);
                   
-                  let targetPath = `/products/${pill.target}`;
-                  let searchString = "";
-                  if (pill.id === "balance_bike_toddler") {
-                    searchString = "?age=toddler";
-                  } else if (pill.id === "twin_stroller") {
-                    searchString = "?type=twin";
-                  } else if (pill.id === "toddler_bike") {
-                    searchString = "?age=toddler";
-                  } else if (pill.id === "kids_electric_scooter") {
-                    searchString = "?power=electric";
-                  }
+                  const targetPath = `/products/${pill.target}`;
 
                   // Force routing transition inside SPA context
-                  window.history.pushState(null, "", `${targetPath}${searchString}`);
+                  window.history.pushState(null, "", targetPath);
                   window.dispatchEvent(new PopStateEvent("popstate"));
 
                   // Scroll smoothly to ## Expert Product Picks list

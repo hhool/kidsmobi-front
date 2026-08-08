@@ -73,7 +73,7 @@ function getCompactCompareCardName(product: Product, lang: "zh" | "en") {
 function getCompareCardCtaLabel(product: Product, lang: "zh" | "en") {
   const text = `${product.category || ""} ${product.categoryId || ""} ${product.name || ""}`.toLowerCase();
   if (lang === "en") {
-    if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return "READ STROLLER REVIEW ->";
+    if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return "READ STROLLER REVIEWS ->";
     if (text.includes("balance")) return "READ BALANCE BIKE REVIEW ->";
     if (text.includes("scooter")) return "READ SCOOTER REVIEW ->";
     if (text.includes("bike") || text.includes("bicycle")) return "READ KIDS BIKE REVIEW ->";

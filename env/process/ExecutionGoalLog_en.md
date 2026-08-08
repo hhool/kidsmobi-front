@@ -1,2 +1,2 @@
-# Goal: Force Brand + Kids Electric Scooter Title
-Set the home Featured scooter card title to consistently render as "Brand + kids electric scooter".
+# Goal: Normalize Product Hero Pill Buttons
+Set product hero pills to BALANCE BIKE, STROLLER, KIDS BIKE, and KIDS SCOOTER, and align routing/filter logic accordingly.

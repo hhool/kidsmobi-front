@@ -597,7 +597,7 @@ function getCommercialReviewTitle(product: Product, fallbackTitle: string) {
   const text = `${product.brand || ""} ${product.name || ""} ${product.description || ""} ${product.category || ""} ${product.categoryId || ""}`.toLowerCase();
   const brand = cleanEnBrandText(product.brand || "");
   if (text.includes("chicco") && text.includes("bravo")) return "Chicco Bravo Trio: Comprehensive Stroller Reviews";
-  if (text.includes("bob gear") || text.includes("jogging stroller") || text.includes("jogger")) return `${brand} Alterrain: Best Jogging Stroller Review`;
+  if (text.includes("bob gear") || text.includes("jogging stroller") || text.includes("jogger")) return `${brand} Alterrain: Best Jogging Stroller Reviews`;
   if (text.includes("travel stroller") || text.includes("coast rider") || text.includes("yoyo") || text.includes("mompush") || text.includes("passport")) return `${brand} Ultra Air: Best Travel Stroller Review`;
   if (text.includes("stroller")) return `${brand}: Comprehensive Stroller Reviews`;
   return fallbackTitle;
@@ -605,11 +605,11 @@ function getCommercialReviewTitle(product: Product, fallbackTitle: string) {
 
 function getReviewCardTitle(product: Product, fallbackTitle?: string) {
   const normalized = `${product.brand || ""} ${product.name || ""} ${product.description || ""}`.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
-  if (normalized.includes("jmmd")) return "JMMD 6-in-1 Convertible Toddler Bike Review";
-  if (normalized.includes("glerc") && normalized.includes("rover")) return "Glerc Rover 12\" Kids Bike Review";
-  if (normalized.includes("glerc") && normalized.includes("bmx")) return "Glerc BMX Style Kids Bike Review";
+  if (normalized.includes("jmmd")) return "JMMD 6-in-1 Convertible Toddler Bike Reviews";
+  if (normalized.includes("glerc") && normalized.includes("rover")) return "Glerc Rover 12\" Kids Bike Reviews";
+  if (normalized.includes("glerc") && normalized.includes("bmx")) return "Glerc BMX Style Kids Bike Reviews";
   if (normalized.includes("weize")) return "Weize Dual Suspension Kids Bike Review";
-  if (normalized.includes("glerc") && (normalized.includes("petal") || normalized.includes("princess"))) return "Glerc Petal Princess Bike Review";
+  if (normalized.includes("glerc") && (normalized.includes("petal") || normalized.includes("princess"))) return "Glerc Petal Princess Bike Reviews";
   const baseTitle = getProductsPageSeoTitle(product).replace(/\s+Review$/i, "").trim();
   return fallbackTitle || `${baseTitle} Review`;
 }
@@ -1369,10 +1369,10 @@ export default function EvaluationsSection({
   }, [lang]);
 
   const getSingleCategoryBadge = (groupId: string) => {
-    if (groupId === "single-stroller") return lang === "zh" ? "推车评测" : "Stroller Review";
-    if (groupId === "single-bike") return lang === "zh" ? "童车评测" : "Toddler Bike Review";
-    if (groupId === "single-balance") return lang === "zh" ? "平衡车评测" : "Balance Bike Review";
-    if (groupId === "single-scooter") return lang === "zh" ? "滑板车评测" : "Kids Scooter Review";
+    if (groupId === "single-stroller") return lang === "zh" ? "推车评测" : "Stroller Reviews";
+    if (groupId === "single-bike") return lang === "zh" ? "童车评测" : "Toddler Bike Reviews";
+    if (groupId === "single-balance") return lang === "zh" ? "平衡车评测" : "Balance Bike Reviews";
+    if (groupId === "single-scooter") return lang === "zh" ? "滑板车评测" : "Kids Scooter Reviews";
     return reviewModeCopy.single;
   };
 
@@ -1769,7 +1769,7 @@ export default function EvaluationsSection({
       null;
     const tEv = lang === "zh" ? selectedEvaluation.zh : selectedEvaluation.en;
     const selectedTypeLabel = isTargetedBikeDetail
-      ? (lang === "zh" ? "童车评测" : "Kids Bike Review")
+      ? (lang === "zh" ? "童车评测" : "Kids Bike Reviews")
       : getSingleCategoryLabelByEvaluation(selectedEvaluation);
     const productDisplay = reviewedProduct ? translateProduct(reviewedProduct, lang) : null;
     const imageSet = reviewedProduct ? resolveProductImages(reviewedProduct) : null;
@@ -1988,9 +1988,9 @@ export default function EvaluationsSection({
                 <Zap className="w-3.5 h-3.5 text-orange-300 fill-orange-300 animate-pulse" />
                 {lang === "zh" ? "智能匹配向导" : "Smart Finder"}
               </div>
-              <h3 className="font-extrabold text-white text-lg md:text-xl tracking-tight leading-snug drop-shadow-sm">
+              <h2 className="font-extrabold text-white text-lg md:text-xl tracking-tight leading-snug drop-shadow-sm">
                 {reviewsCopy.smartFinderTitle}
-              </h3>
+              </h2>
               <p className="text-sm text-slate-200 font-semibold leading-relaxed">
                 {reviewsCopy.smartFinderDescription}
               </p>
@@ -2048,7 +2048,7 @@ export default function EvaluationsSection({
                   <div className="md:w-2/5 h-44 bg-slate-50 rounded-2xl p-4 flex items-center justify-center overflow-hidden shrink-0">
                     <SmartImage
                       src={imageSet.coverUrl || undefined}
-                      alt={`${dp.brand} ${dp.name} Review`}
+                      alt={`${dp.brand} ${dp.name} Reviews`}
                       className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                       wrapperClassName="w-full h-full"
                     />
@@ -2112,7 +2112,7 @@ export default function EvaluationsSection({
                   <div className="md:w-2/5 h-44 bg-slate-50 rounded-2xl p-4 flex items-center justify-center overflow-hidden shrink-0">
                     <SmartImage
                       src={imageSet.coverUrl || undefined}
-                      alt={`${dp.brand} ${dp.name} Review`}
+                      alt={`${dp.brand} ${dp.name} Reviews`}
                       className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                       wrapperClassName="w-full h-full"
                     />
@@ -2176,7 +2176,7 @@ export default function EvaluationsSection({
                   <div className="md:w-2/5 h-44 bg-slate-50 rounded-2xl p-4 flex items-center justify-center overflow-hidden shrink-0">
                     <SmartImage
                       src={imageSet.coverUrl || undefined}
-                      alt={`${dp.brand} ${dp.name} Review`}
+                      alt={`${dp.brand} ${dp.name} Reviews`}
                       className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                       wrapperClassName="w-full h-full"
                     />
@@ -2240,7 +2240,7 @@ export default function EvaluationsSection({
                   <div className="md:w-2/5 h-44 bg-slate-50 rounded-2xl p-4 flex items-center justify-center overflow-hidden shrink-0">
                     <SmartImage
                       src={imageSet.coverUrl || undefined}
-                      alt={`${dp.brand} ${dp.name} Review`}
+                      alt={`${dp.brand} ${dp.name} Reviews`}
                       className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                       wrapperClassName="w-full h-full"
                     />
@@ -2307,7 +2307,7 @@ export default function EvaluationsSection({
                     <div className="md:w-2/5 h-44 bg-slate-50 rounded-2xl p-4 flex items-center justify-center overflow-hidden shrink-0">
                       <SmartImage
                         src={imageSet.coverUrl || undefined}
-                        alt={`${dp.brand} ${dp.name} Review`}
+                        alt={`${dp.brand} ${dp.name} Reviews`}
                         className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                         wrapperClassName="w-full h-full"
                       />

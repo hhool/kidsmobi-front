@@ -136,7 +136,7 @@ type PageCopy = {
       balanceBikeToddler: string;
       twinStroller: string;
       toddlerBike: string;
-      kidsElectricScooter: string;
+      kidsScooter: string;
     };
     compareLimitTip: string;
     saveTips: {
@@ -581,7 +581,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
         balanceBikeToddler: "儿童平衡车",
         twinStroller: "双人婴儿推车",
         toddlerBike: "儿童脚踏自行车",
-        kidsElectricScooter: "儿童电动滑板车",
+        kidsScooter: "儿童滑板车",
       },
       compareLimitTip: "【对比上限提醒】最多只能同时对比 4 款，请先在下方移除一个。",
       saveTips: {
@@ -1033,10 +1033,10 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
       },
       topBadge: "★ OFFICIAL MOBILITY BASELINE DATABASE",
       seoPills: {
-        balanceBikeToddler: "BALANCE BIKE TODDLER",
-        twinStroller: "TWIN STROLLER",
-        toddlerBike: "TODDLER BIKE",
-        kidsElectricScooter: "KIDS ELECTRIC SCOOTER",
+        balanceBikeToddler: "BALANCE BIKE",
+        twinStroller: "STROLLER",
+        toddlerBike: "KIDS BIKE",
+        kidsScooter: "KIDS SCOOTER",
       },
       compareLimitTip: "Limit reached: You can compare up to 4 models. Please remove one first.",
       saveTips: {
@@ -1151,7 +1151,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
     reviews: {
       breadcrumb: "REVIEWS",
       badge: "★ INDEPENDENT LAB TESTING & REVIEWS",
-      heroTitle: "Expert All Kids Bike, Stroller & Travel Stroller & Jogging Stroller and Ride-On Toy Reviews",
+      heroTitle: "Expert Kids Bike, Stroller and Ride-On Toy Reviews",
       heroDescription: "Our portal specializes in professional stroller reviews, helping parents find the ideal travel stroller, high-performance jogging stroller, and safe toddler bike. Every single travel stroller, rugged jogging stroller, and toddler bike model is purchased anonymously and put through strict mechanical tests. Read our direct stroller reviews below with complete biomechanical safety ratings.",
       smartFinderTitle: "Unsure which model fits your child best?",
       smartFinderDescription: "We map physical dimensions to safe geometry. Launch our interactive Smart Review Finder on the Buyer's Guide page to find ideal matches instantly!",
@@ -1170,11 +1170,11 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
         noElectricData: "No electric car evaluations currently compiled.",
       },
       cta: {
-        stroller: "Stroller Review ➔",
+        stroller: "Stroller Reviews ➔",
         bike: "Toddler Bike Audit ➔",
         balance: "Balance Ride Report ➔",
-        scooter: "Kids Scooter Review ➔",
-        product: "Product Review ➔",
+        scooter: "Kids Scooter Reviews ➔",
+        product: "Product Reviews ➔",
       },
       standardsTitle: "Independent Rigor & Certification Compliance",
       standardsSubtitle: "BalanceBikeToddler LAB STANDARDS",
