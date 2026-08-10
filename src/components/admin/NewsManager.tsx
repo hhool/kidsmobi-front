@@ -15,6 +15,7 @@ import { getCMSNews, saveCMSNews, deleteCMSNews, getCMSProducts, getCMSScenarios
 import { News } from "../../types";
 import { CMSProduct, CMSScenario } from "../../types";
 import { deleteD1CMSNews, getD1CMSNews, getD1CMSProducts, getD1CMSScenarios, saveD1CMSNews } from "../../lib/cmsD1Service";
+import SeoKeywordPanel from "../common/SeoKeywordPanel";
 import BackendResourcePicker from "./BackendResourcePicker";
 import ScenarioPicker from "./ScenarioPicker";
 
@@ -41,10 +42,39 @@ function normalizeNewsCategory(value: unknown): ManagedNewsCategory {
   return NEWS_CATEGORY_MAP[String(value || "").trim().toLowerCase()] || "industry";
 }
 
+function normalizeSeoKeywords(value: unknown): string[] {
+  if (Array.isArray(value)) {
+    return value.map((item) => String(item || "").trim()).filter(Boolean);
+  }
+  if (typeof value === "string") {
+    return value.split(/[,，]/).map((item) => item.trim()).filter(Boolean);
+  }
+  return [];
+}
+
+function parseKeywordInput(value: string): string[] {
+  return value.split(/[,，\n]/).map((item) => item.trim()).filter(Boolean);
+}
+
 function normalizeNewsRecord(item: News): News {
+  const seo = item.seo || {
+    zh: { title: "", description: "", keywords: [] },
+    en: { title: "", description: "", keywords: [] },
+  };
+
   return {
     ...item,
     category: normalizeNewsCategory(item.category),
+    seo: {
+      zh: {
+        ...seo.zh,
+        keywords: normalizeSeoKeywords(seo.zh?.keywords),
+      },
+      en: {
+        ...seo.en,
+        keywords: normalizeSeoKeywords(seo.en?.keywords),
+      },
+    },
   };
 }
 
@@ -554,6 +584,22 @@ function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving,
                       }}
                     />
                   </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Keywords (Comma Separated)</label>
+                    <textarea
+                      className="w-full bg-slate-50 border border-slate-100 py-4 px-6 rounded-2xl font-bold text-xs outline-none focus:bg-white focus:border-slate-900 transition-all shadow-inner min-h-[88px]"
+                      value={formData.seo[activeLang].keywords.join(", ")}
+                      onChange={(e) => {
+                        const next = { ...formData };
+                        next.seo[activeLang].keywords = parseKeywordInput(e.target.value);
+                        setFormData(next);
+                      }}
+                      placeholder={lang === "zh" ? "例如：新闻关键词、行业趋势、产品上新" : "e.g. news keywords, industry trends, product launch"}
+                    />
+                    <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">
+                      {lang === "zh" ? "建议使用英文逗号分隔，最多 10 个关键词" : "Use commas to separate keywords, up to 10 items"}
+                    </p>
+                  </div>
                 </div>
 
                 <div className="space-y-4">
@@ -564,6 +610,14 @@ function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving,
                     <div className="text-[14px] text-slate-600 line-clamp-2 leading-relaxed">
                       {formData.seo[activeLang].description || "News meta summary will appear here for audit."}
                     </div>
+                  </div>
+                  <div className="px-4 pt-1 space-y-2">
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Keyword Preview</span>
+                    <SeoKeywordPanel
+                      keywords={formData.seo[activeLang].keywords}
+                      columns="auto"
+                      align="left"
+                    />
                   </div>
                 </div>
              </div>
