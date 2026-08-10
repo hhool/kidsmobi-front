@@ -3501,9 +3501,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
             {/* Column 2: Review pathways */}
             <div className="space-y-6">
-              <h2 className="text-white font-bold uppercase tracking-widest text-[10px]">
+              <p className="text-white font-bold uppercase tracking-widest text-[10px]">
                 {lang === "en" ? "Products" : "产品中心"}
-              </h2>
+              </p>
               <ul className="space-y-3 font-medium">
                 <li>
                   <a
@@ -3519,6 +3519,30 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </li>
                 <li>
                   <a
+                    href={resolveSeoLink("/products/balance-bikes/")}
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath("/products/balance_bike");
+                    }}
+                  >
+                    {lang === "en" ? "Balance Bike Product Hub" : "平衡车产品库"}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={resolveSeoLink("/products/strollers/")}
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath("/products/stroller");
+                    }}
+                  >
+                    {lang === "en" ? "Stroller Product Hub" : "婴儿推车产品库"}
+                  </a>
+                </li>
+                <li>
+                  <a
                     href={resolveSeoLink("/products/kids-scooters/")}
                     className="hover:text-orange-500 transition-colors text-slate-400"
                     onClick={(event) => {
@@ -3527,6 +3551,30 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     }}
                   >
                     {lang === "en" ? "Kids Scooter Product Hub" : "儿童滑板车产品库"}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={resolveSeoLink("/products/electric_car/")}
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath("/products/electric_vehicles");
+                    }}
+                  >
+                    {lang === "en" ? "Kids Electric Car Product Hub" : "儿童电动车产品库"}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={resolveSeoLink("/products/safety_seat/")}
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath("/products/car_seat");
+                    }}
+                  >
+                    {lang === "en" ? "Kids Car Seat Product Hub" : "儿童安全座椅产品库"}
                   </a>
                 </li>
                 <li>
@@ -3546,9 +3594,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
             {/* Column 3: Policy & transparency */}
             <div className="space-y-6">
-              <h2 className="text-white font-bold uppercase tracking-widest text-[10px]">
+              <p className="text-white font-bold uppercase tracking-widest text-[10px]">
                 {lang === "en" ? "Transparency" : "透明度与标准"}
-              </h2>
+              </p>
               <ul className="space-y-3 font-medium">
                 <li>
                   <a
@@ -3603,9 +3651,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
             {/* Column 4: Connectivity */}
             <div className="space-y-6">
-              <h2 className="text-white font-bold uppercase tracking-widest text-[10px]">
+              <p className="text-white font-bold uppercase tracking-widest text-[10px]">
                 {lang === "en" ? "Global Network" : "社交分享"}
-              </h2>
+              </p>
               <div className="flex flex-wrap gap-3">
                 <a 
                   href={`https://x.com/intent/tweet?text=${encodeURIComponent(lang === "en" ? "Check out BalanceBikeToddler - Premium Kids Mobility Evaluation Platform! #KidsMobility #Safety" : "推荐一个高端垂直童车评测平台 BalanceBikeToddler，专注安全与工效！#童车评测 #育儿")}&url=${encodeURIComponent(window.location.href)}`}
