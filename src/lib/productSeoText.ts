@@ -119,6 +119,24 @@ function resolveMinimumTargetAge(product: Product): number | null {
   return null;
 }
 
+function resolveZhCategoryTitle(category: string, text: string): string {
+  if (category === "balance" || category === "balance_bike" || category === "balance_bikes") return "平衡车";
+  if (category === "bicycle" || category === "kids_bikes") return "儿童自行车";
+  if (category === "electric_car" || category === "electric_vehicles") return "儿童电动车";
+  if (category === "car_seat" || category === "car_seats" || category === "safety_seat") return "儿童安全座椅";
+  if (category === "tricycle") return "儿童三轮车";
+  if (category === "scooter" || category === "scooters" || category === "kids_scooters") {
+    return /\belectric\b/.test(text) ? "儿童电动滑板车" : "儿童滑板车";
+  }
+  if (category === "stroller" || category === "jogger_stroller" || category === "double_stroller") {
+    if (/\b(?:jogger|jogging|runner)\b/.test(text)) return "慢跑推车";
+    if (/\b(?:double|twin)\b/.test(text)) return "双人推车";
+    if (/\b(?:travel|compact|lightweight|umbrella|portable|cabin)\b/.test(text)) return "旅行推车";
+    return "婴儿推车";
+  }
+  return "儿童出行装备";
+}
+
 export function getProductDisplayTitle(product: Product, lang: "zh" | "en"): string {
   const localized = product as Product & {
     categoryId?: string;
@@ -174,7 +192,13 @@ export function getProductDisplayTitle(product: Product, lang: "zh" | "en"): str
     return [brand, lang === "zh" ? "儿童安全座椅" : "Kids Car Seat"].filter(Boolean).join(" ");
   }
 
-  if (!isStroller) return getProductsPageSeoTitle(localized);
+  if (!isStroller) {
+    if (lang === "zh") {
+      const zhType = resolveZhCategoryTitle(category, text);
+      return [brand, zhType].filter(Boolean).join(" ") || zhType;
+    }
+    return getProductsPageSeoTitle(localized);
+  }
 
   const strollerBrand = brand;
   let type: string;

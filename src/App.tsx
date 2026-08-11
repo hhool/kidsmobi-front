@@ -142,6 +142,12 @@ const DEFAULT_CMS_PAGE_BLUEPRINT: Record<string, CMSPageConfig> = {
 };
 
 const PRODUCTS_PAGE_KEYWORDS_EN = [
+  "jogging stroller",
+  "kids bikes",
+  "balance bike",
+  "kids electric scooter",
+  "kids electric cars",
+  "car seats",
 ];
 
 const PRODUCTS_PAGE_KEYWORDS_ZH = [
@@ -224,6 +230,16 @@ const PRODUCT_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
   { id: "car_seat", zh: "安全座椅", en: "Car Seat" },
 ];
 
+const PRIMARY_PRODUCT_CATEGORY_IDS = new Set([
+  "stroller",
+  "balance_bike",
+  "kids_bikes",
+  "kids_scooters",
+  "electric_vehicles",
+  "car_seat",
+]);
+const ADMIN_ONLY_PRODUCT_CATEGORY_IDS = new Set(["other"]);
+
 const REVIEW_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
   { id: "single", zh: "单品实测", en: "Single Test" },
   { id: "compare", zh: "多品横评", en: "Cross Compare" },
@@ -233,6 +249,10 @@ const REVIEW_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
 ];
 
 const PRODUCT_ROUTE_IDS = new Set(PRODUCT_NAV_OPTIONS.map((item) => item.id));
+const ROUTABLE_PRODUCT_ROUTE_IDS = new Set([
+  ...Array.from(PRODUCT_ROUTE_IDS.values()),
+  ...Array.from(ADMIN_ONLY_PRODUCT_CATEGORY_IDS.values()),
+]);
 const REVIEW_ROUTE_IDS = new Set(REVIEW_NAV_OPTIONS.map((item) => item.id));
 const GUIDE_ROUTE_CATEGORY_IDS = new Set([
   "all",
@@ -277,6 +297,7 @@ const PRODUCT_ROUTE_ALIASES: Record<string, string> = {
   jogging_stroller: "stroller",
   jogger: "stroller",
   jogging: "stroller",
+  others: "other",
 };
 const EXCLUDED_PRODUCT_CATEGORY_IDS = new Set([
   "playard",
@@ -323,7 +344,8 @@ const inferMisclassifiedCategoryId = (product: Product, normalizedCategoryId: st
 const resolveProductCategoryId = (product: Product) => {
   const raw = String((product as any)?.categoryId || product?.category || "").trim().toLowerCase();
   const normalized = PRODUCT_CATEGORY_ID_ALIASES[raw] || raw;
-  return inferMisclassifiedCategoryId(product, normalized);
+  const inferred = inferMisclassifiedCategoryId(product, normalized);
+  return PRIMARY_PRODUCT_CATEGORY_IDS.has(inferred) ? inferred : "other";
 };
 
 const resolveProductMergeKey = (product: Product) => {
@@ -705,7 +727,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
     const secondSegment = contentSegments[1];
     const normalizedCategory = secondSegment ? normalizeProductRouteCategory(secondSegment) : null;
     
-    if (normalizedCategory && (PRODUCT_ROUTE_IDS.has(normalizedCategory) || normalizedCategory === "all")) {
+    if (normalizedCategory && (ROUTABLE_PRODUCT_ROUTE_IDS.has(normalizedCategory) || normalizedCategory === "all")) {
       activeProductCategory = normalizedCategory;
       if (contentSegments[2]) {
         activeProductId = contentSegments[2];
@@ -952,7 +974,7 @@ export default function App() {
     };
 
     const categoryId = bundleCategoryMap[rawCategoryId] || rawCategoryId;
-    if (!categoryId || categoryId === "all") {
+    if (!categoryId || categoryId === "all" || categoryId === "other") {
       return {};
     }
 
@@ -1396,6 +1418,30 @@ export default function App() {
     id: item.id,
     label: lang === "zh" ? item.zh : item.en,
   }));
+  if (isAdmin) {
+    productNavOptions.push({
+      id: "other",
+      label: lang === "zh" ? "其他" : "Other",
+    });
+  }
+
+  const productsMegaMenuCategories = [
+    { id: "stroller", labelZh: "🛒 婴儿手推车 (STROLLER)", labelEn: "🛒 Stroller", descZh: "越野级避震与精细安全守护出行工具", descEn: "Ultra protection travel buggies & strollers" },
+    { id: "balance_bike", labelZh: "🚲 儿童平衡车 (BALANCE BIKE)", labelEn: "🚲 Balance Bike", descZh: "核心力与双腿平衡锻炼物理启盟车", descEn: "Ergonomic toddler's first helper bikes" },
+    { id: "kids_bikes", labelZh: "🚴 儿童自行车 (KIDS BIKES)", labelEn: "🚴 Kids Bike", descZh: "高刚度安全防护进阶变速踩踏辅轮车", descEn: "Sturdy safety frame with training tires" },
+    { id: "electric_vehicles", labelZh: "⚡ 儿童电动车 (KIDS ELECTRIC CAR)", labelEn: "⚡ Kids Electric Car", descZh: "多功能安全遥控双向物理仿真驾驶座舱", descEn: "Interactive dual-drive simulated cool wheels" },
+    { id: "kids_scooters", labelZh: "🛹 儿童滑板车 (KIDS SCOOTER)", labelEn: "🛹 Kids Scooter", descZh: "重力无缝双弹簧重力转向闪光滑轮", descEn: "Lean-to-steer PU dynamic flashing wheels" },
+    { id: "car_seat", labelZh: "💺 安全座椅 (KIDS CAR SEATS)", labelEn: "💺 Kids Car Seat", descZh: "深空双防侧撞顶级安全包裹守护摇篮", descEn: "Impact shock-resistant newborn protection" },
+  ];
+  if (isAdmin) {
+    productsMegaMenuCategories.push({
+      id: "other",
+      labelZh: "🧩 其他分类 (OTHER)",
+      labelEn: "🧩 Other",
+      descZh: "未归入六大品类的管理态商品池",
+      descEn: "Admin-only pool for products outside six primary categories",
+    });
+  }
   const reviewNavOptions = REVIEW_NAV_OPTIONS.map((item) => ({
     id: item.id,
     label: lang === "zh" ? item.zh : item.en,
@@ -1841,6 +1887,14 @@ export default function App() {
     }
   }, [activeProductId, productsData]);
 
+  useEffect(() => {
+    if (authLoading || isAdmin) return;
+    if (activeProductCategory !== "other") return;
+
+    // Non-admin users cannot browse the admin-only "other" category.
+    navigateToPath("/products", { replace: true, preserveScroll: true });
+  }, [authLoading, isAdmin, activeProductCategory]);
+
   // Helper inside App to update/inject dynamic meta tags
   const updateMetaTag = (name: string, content: string) => {
     let element = document.querySelector(`meta[name="${name}"]`);
@@ -2211,6 +2265,14 @@ export default function App() {
 
     const isReviewsIndexPath = /^\/reviews(?:\/page\/\d+)?\/?$/.test(currentPath);
     const isReviewDetailPath = /^\/reviews\/(?:single|compare|value|ranking|safety)\/[^/]+\/?$/.test(currentPath);
+
+    if (seoKey === "evaluations" && isReviewsIndexPath) {
+      const curated = DEFAULT_SEO_CONFIGS.evaluations[lang] || DEFAULT_SEO_CONFIGS.evaluations.en;
+      titleStr = curated.title;
+      descStr = curated.description;
+      keywordsArr = curated.keywords;
+    }
+
     if (seoKey === "evaluations" && activeReviewType !== "all" && !isReviewsIndexPath) {
       const selectedReview = reviewNavOptions.find((item) => item.id === activeReviewType)?.label || activeReviewType;
       titleStr = lang === "zh"
@@ -2223,7 +2285,9 @@ export default function App() {
     }
 
     if (seoKey === "evaluations" && isReviewDetailPath) {
-      const requiredReviewKeywords = ["travel stroller", "toddler bike", "stroller reviews"];
+      const requiredReviewKeywords = lang === "zh"
+        ? ["旅行婴儿推车", "轻便婴儿推车", "幼儿自行车", "婴儿推车评测", "慢跑婴儿推车"]
+        : ["travel stroller", "lightweight stroller", "toddler bike", "stroller reviews", "jogging stroller"];
       keywordsArr = Array.from(new Set([...keywordsArr, ...requiredReviewKeywords]));
     }
 
@@ -2237,14 +2301,14 @@ export default function App() {
       }> = {
         stroller: {
           en: {
-            title: "Best Baby & Twin Strollers 2026 Lab-Tested Reviews - BalanceBikeToddler",
-            description: "Explore our expert lab database for the safest and most reliable baby and twin strollers. Compare weight capacity, safety scores, and travel features.",
-            keywords: ["baby stroller", "twin stroller", "travel stroller", "jogging stroller"]
+            title: "Best Jogging Stroller & Travel Stroller Reviews 2026 | BalanceBikeToddler",
+            description: "Compare lab-tested jogging stroller, travel stroller, and twin stroller models with safety scores, stability metrics, and foldability insights.",
+            keywords: ["jogging stroller", "travel stroller", "lightweight stroller", "twin stroller", "baby stroller"]
           },
           zh: {
-            title: "2026最佳婴儿车与双胞胎推车实验室深度评测 | BalanceBikeToddler",
-            description: "探索BalanceBikeToddler实验室数据库，获取安全高承重的单人与双胞胎折叠推车。对比避震能力、物理结构与安全性评估分值。",
-            keywords: ["婴儿推车", "双人推车", "折叠婴儿车", "慢跑推车", "BalanceBikeToddler"]
+            title: "2026 慢跑婴儿推车与旅行推车评测 | BalanceBikeToddler",
+            description: "对照实验室数据比较慢跑婴儿推车、旅行推车与双人推车，重点查看安全评分、稳定性指标与折叠便携表现。",
+            keywords: ["慢跑婴儿推车", "旅行婴儿推车", "轻便婴儿推车", "双人婴儿推车", "婴儿推车"]
           }
         },
         balance_bike: {
@@ -2273,26 +2337,26 @@ export default function App() {
         },
         kids_scooters: {
           en: {
-            title: "Best Kids Scooter & Electric Scooter 2026 Lab-Tested - BalanceBikeToddler",
-            description: "Discover the safest lab-tested scooter models for kids and teens. Compare 3-wheel kick scooter, electric model, and top mobility brands.",
-            keywords: ["kids kick scooter", "foldable kids scooter", "toddler 3 wheel scooter", "children electric scooter"]
+            title: "Best Kids Electric Scooter & Kick Scooter Reviews 2026 | BalanceBikeToddler",
+            description: "Find lab-reviewed kids electric scooter and kick scooter options, including foldable models, 3-wheel starters, and seated configurations.",
+            keywords: ["kids electric scooter", "electric scooter for kids", "kids kick scooter", "foldable electric scooter"]
           },
           zh: {
-            title: "2026最佳儿童滑板车与重力转向摇摆车深度评测 | BalanceBikeToddler",
-            description: "查找最安全的物理级别儿童/青少年滑板车列表。深度测试低重心稳定度、重力智能转向与折叠收折设计。",
-            keywords: ["儿童滑板车", "儿童电动滑板车", "折叠滑板车", "三轮重力转向滑板车", "BalanceBikeToddler"]
+            title: "2026 儿童电动滑板车与脚踏滑板车评测 | BalanceBikeToddler",
+            description: "基于实验室测试对照儿童电动滑板车与脚踏滑板车，覆盖折叠便携、三轮入门稳定性与座椅配置等关键维度。",
+            keywords: ["儿童电动滑板车", "儿童滑板车", "可折叠电动滑板车", "三轮儿童滑板车"]
           }
         },
         electric_vehicles: {
           en: {
-            title: "Best Kids Ride-On Toys & Electric Cars 2026 Lab-Tested - BalanceBikeToddler",
-            description: "Explore our lab-tested reviews of 12V and 24V kids ride-on cars, UTVs, and electric motorcycles. Compare top-rated kids electric car options for battery safety.",
-            keywords: ["kids electric car", "ride on toys 12v", "kids electric motorcycle", "toddler electric car"]
+            title: "Best Kids Electric Cars & Ride-On Toys Reviews 2026 | BalanceBikeToddler",
+            description: "Review lab-tested kids electric cars, 12V/24V ride-on toys, and electric ride-on options with battery safety, braking control, and runtime benchmarks.",
+            keywords: ["kids electric cars", "kids electric car", "kids ride on", "ride on toys 12v"]
           },
           zh: {
-            title: "2026最佳儿童电动汽车与电玩骑行玩具车深度评测 | BalanceBikeToddler",
-            description: "对比12V/24V儿童电动越野车（UTV/SUV）与双马达重力骑行玩具安全性能。测试其绝缘、过载保护与遥控控制阻断。",
-            keywords: ["儿童电动车", "儿童玩具车", "儿童电动越野车", "电玩摩托车", "BalanceBikeToddler"]
+            title: "2026 儿童电动汽车与骑乘电动车评测 | BalanceBikeToddler",
+            description: "对照实验室报告评估儿童电动汽车与 12V/24V 骑乘电动车，重点关注电池安全、制动控制与续航稳定性。",
+            keywords: ["儿童电动汽车", "儿童电动车", "儿童骑乘电动车", "12V 儿童电动车"]
           }
         },
         car_seat: {
@@ -2498,8 +2562,8 @@ export default function App() {
       };
       setPreviousTab(activeTab);
       setSelectedProduct(product);
-      
-      const targetCategory = product.category || "all";
+
+      const targetCategory = resolveProductCategoryId(product) || "all";
       navigateToPath(`/products/${targetCategory}/${product.id}`);
       
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -2904,14 +2968,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                             </span>
                             
                             <div className="flex flex-col gap-1 pr-1">
-                              {[
-                                { id: "stroller", labelZh: "🛒 婴儿手推车 (STROLLER)", labelEn: "🛒 Stroller", descZh: "越野级避震与精细安全守护出行工具", descEn: "Ultra protection travel buggies & strollers" },
-                                { id: "balance_bike", labelZh: "🚲 儿童平衡车 (BALANCE BIKE)", labelEn: "🚲 Balance Bike", descZh: "核心力与双腿平衡锻炼物理启盟车", descEn: "Ergonomic toddler's first helper bikes" },
-                                { id: "kids_bikes", labelZh: "🚴 儿童自行车 (KIDS BIKES)", labelEn: "🚴 Kids Bike", descZh: "高刚度安全防护进阶变速踩踏辅轮车", descEn: "Sturdy safety frame with training tires" },
-                                { id: "electric_vehicles", labelZh: "⚡ 儿童电动车 (KIDS ELECTRIC CAR)", labelEn: "⚡ Kids Electric Car", descZh: "多功能安全遥控双向物理仿真驾驶座舱", descEn: "Interactive dual-drive simulated cool wheels" },
-                                { id: "kids_scooters", labelZh: "🛹 儿童滑板车 (KIDS SCOOTER)", labelEn: "🛹 Kids Scooter", descZh: "重力无缝双弹簧重力转向闪光滑轮", descEn: "Lean-to-steer PU dynamic flashing wheels" },
-                                { id: "car_seat", labelZh: "💺 安全座椅 (KIDS CAR SEATS)", labelEn: "💺 Kids Car Seat", descZh: "深空双防侧撞顶级安全包裹守护摇篮", descEn: "Impact shock-resistant newborn protection" },
-                              ].map((cat) => (
+                              {productsMegaMenuCategories.map((cat) => (
                                 <button
                                   key={cat.id}
                                   onClick={() => {
@@ -3514,7 +3571,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                       navigateToPath("/products/kids_bikes");
                     }}
                   >
-                    {lang === "en" ? "Kids Bike Product Hub" : "儿童自行车产品库"}
+                    {lang === "en" ? "Kids Bike" : "儿童自行车"}
                   </a>
                 </li>
                 <li>
@@ -3526,7 +3583,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                       navigateToPath("/products/balance_bike");
                     }}
                   >
-                    {lang === "en" ? "Balance Bike Product Hub" : "平衡车产品库"}
+                    {lang === "en" ? "Balance Bike" : "平衡车"}
                   </a>
                 </li>
                 <li>
@@ -3538,7 +3595,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                       navigateToPath("/products/stroller");
                     }}
                   >
-                    {lang === "en" ? "Stroller Product Hub" : "婴儿推车产品库"}
+                    {lang === "en" ? "Stroller" : "婴儿推车"}
                   </a>
                 </li>
                 <li>
@@ -3550,7 +3607,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                       navigateToPath("/products/kids_scooters");
                     }}
                   >
-                    {lang === "en" ? "Kids Scooter Product Hub" : "儿童滑板车产品库"}
+                    {lang === "en" ? "Kids Scooter" : "儿童滑板车"}
                   </a>
                 </li>
                 <li>
@@ -3562,7 +3619,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                       navigateToPath("/products/electric_vehicles");
                     }}
                   >
-                    {lang === "en" ? "Kids Electric Car Product Hub" : "儿童电动车产品库"}
+                    {lang === "en" ? "Kids Electric Car" : "儿童电动车"}
                   </a>
                 </li>
                 <li>
@@ -3574,7 +3631,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                       navigateToPath("/products/car_seat");
                     }}
                   >
-                    {lang === "en" ? "Kids Car Seat Product Hub" : "儿童安全座椅产品库"}
+                    {lang === "en" ? "Kids Car Seat" : "儿童安全座椅"}
                   </a>
                 </li>
                 <li>

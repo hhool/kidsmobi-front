@@ -32,8 +32,8 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
   home: {
     zh: {
       title: "Trusted Kids Mobility Reviews | BalanceBikeToddler",
-      description: "Global review site for kids wheeled toys. Find trusted balance bike, kids bikes, jogging stroller, kids electric scooter, and kids electric cars reviews for your family.",
-      keywords: ["balance bike", "kids bikes", "jogging stroller", "kids electric scooter", "kids electric cars"]
+      description: "全球儿童轮式出行评测站，提供平衡车、儿童自行车、慢跑婴儿推车、儿童电动滑板车与儿童电动汽车的可信评测。",
+      keywords: ["儿童平衡车", "儿童自行车", "慢跑婴儿推车", "儿童电动滑板车", "儿童电动汽车"]
     },
     en: {
       title: "Trusted Kids Mobility Reviews | BalanceBikeToddler",
@@ -55,21 +55,21 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
   },
   evaluations: {
     zh: {
-      title: "Expert Stroller Reviews, Travel Stroller Models & Toddler Bike Safety Tests | BalanceBikeToddler",
-      description: "探索最客观中立的 stroller reviews。深度推荐轻便折叠旅行车 (travel stroller) 榜单、高刚性儿童自行车 (toddler bike) 实测，对比结构舒适度与刹车制动力学等指标。",
-      keywords: ["travel stroller", "toddler bike", "stroller reviews", "stroller review", "toddler bicycle", "kids bike", "jogging stroller"],
+      title: "婴儿推车评测、旅行推车与幼儿自行车安全测试 | BalanceBikeToddler",
+      description: "查看客观评测报告，覆盖旅行婴儿推车、慢跑婴儿推车与幼儿自行车，重点对比结构稳定性、制动表现与实际场景安全性。",
+      keywords: ["旅行婴儿推车", "慢跑婴儿推车", "婴儿推车评测", "幼儿自行车", "儿童自行车"],
     },
     en: {
       title: "Expert Stroller Reviews, Travel Stroller Models & Toddler Bike Safety Tests | BalanceBikeToddler",
       description: "Read unbiased stroller reviews, travel stroller models, heavy-duty jogging strollers, and safety-tested toddler bike ratings. Compare travel stroller frame compliance and toddler bike geometries below.",
-      keywords: ["travel stroller", "toddler bike", "stroller reviews", "stroller review", "toddler bicycle", "kids bike", "jogging stroller"],
+      keywords: ["travel stroller", "toddler bike", "stroller reviews", "stroller reviews", "toddler bicycle", "kids bike", "jogging stroller"],
     },
   },
   guides: {
     zh: {
-      title: "How to Choose a Baby Stroller & First Balance Bikes | BalanceBikeToddler",
-      description: "Expert advice on how to choose a baby stroller and picking the right balance bike for 1 year old infants. Read our step-by-step buying guides today. ",
-      keywords: ["how to choose a baby stroller", "balance bike for 1 year old"],
+      title: "婴儿推车选购与平衡车入门指南 | BalanceBikeToddler",
+      description: "提供从零开始的选购建议，帮助家长理解婴儿推车关键参数，并为 1 岁左右幼儿选择合适的平衡车。",
+      keywords: ["如何选择婴儿推车", "1岁平衡车", "平衡车入门"],
     },
     en: {
       title: "How to Choose a Baby Stroller & First Balance Bikes | BalanceBikeToddler",
@@ -79,9 +79,9 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
   },
   news: {
     zh: {
-      title: "Kids Electric Bikes & Foldable Scooter Global News | BalanceBikeToddler",
-      description: "Get the latest global news on kids electric bike trends, electric dirt bike for kids releases, and newly launched foldable electric scooter technologies.",
-      keywords: ["kids electric bike, electric dirt bike for kids, foldable electric scooter"],
+      title: "儿童电动出行与折叠滑板车全球资讯 | BalanceBikeToddler",
+      description: "追踪儿童电动自行车、儿童越野电动车与可折叠电动滑板车的新品发布、技术趋势与行业动态。",
+      keywords: ["儿童电动自行车", "儿童越野电动车", "可折叠电动滑板车"],
     },
     en: {
       title: "Kids Electric Bikes & Foldable Scooter Global News | BalanceBikeToddler",
@@ -91,9 +91,9 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
   },
   about: {
     zh: {
-      title: "Independent Kids Bike & Stroller Safety Lab | BalanceBikeToddler",
-      description: "Learn about BalanceBikeToddler's strict evaluation methodology. We independently audit every jogging stroller, balance bike, and kids scooter to ensure ultimate child safety.",
-      keywords: ["BalanceBikeToddler", "independent safety lab", "child mobility safety", "evaluation methodology"],
+      title: "独立儿童骑行与推车安全实验室 | BalanceBikeToddler",
+      description: "了解 BalanceBikeToddler 的独立评测方法。我们持续审核慢跑婴儿推车、平衡车与儿童滑板车，帮助家庭提升出行安全。",
+      keywords: ["BalanceBikeToddler", "独立安全实验室", "儿童出行安全", "评测方法"],
     },
     en: {
       title: "Independent Kids Bike & Stroller Safety Lab | BalanceBikeToddler",

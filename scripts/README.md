@@ -29,6 +29,7 @@ This folder contains operational scripts for CMS bootstrap, media migration, CMS
 | `m3_generate_decision_snapshot.mjs` | Aggregate latest M3 preflight reports and generate a GO/HOLD/NO-GO suggestion snapshot | `npm run m3:snapshot` |
 | `verify_smartimage_sizes.mjs` | Validate smart-image size outputs | `node scripts/verify_smartimage_sizes.mjs` |
 | `seedProducts.ts` | Seed product data for local workflows | `npx tsx scripts/seedProducts.ts` |
+| `product_enrich_zh_from_export.mjs` | Batch-generate zh product copy (name/description/verdict/specs) with coverage report | `node scripts/product_enrich_zh_from_export.mjs --input=../env/cms-export.json --start=1 --count=30 --report=./tmp/zh-batch-1-report.json` |
 
 ## Recommended Execution Order (Bootstrap + Media)
 
@@ -51,6 +52,47 @@ This folder contains operational scripts for CMS bootstrap, media migration, CMS
    - `npm run media:transfer:r2:staged`
 10. Upload using rewritten staged manifest:
    - `npm run media:transfer:r2:staged:cpk`
+
+## Batch zh Enrichment (150-180 scale)
+
+Use `product_enrich_zh_from_export.mjs` in batches to avoid one-shot risk and keep review manageable.
+
+Examples:
+
+```bash
+# 1) Dry-run first 30 products, report only
+node scripts/product_enrich_zh_from_export.mjs \
+   --input=../env/cms-export.json \
+   --start=1 --count=30 \
+   --dry-run \
+   --report=./tmp/zh-batch-1-report.json
+
+# 2) Apply batch 1 (write enriched export)
+node scripts/product_enrich_zh_from_export.mjs \
+   --input=../env/cms-export.json \
+   --start=1 --count=30 \
+   --output=./tmp/cms-export.zh-batch-1.json \
+   --report=./tmp/zh-batch-1-report.json
+
+# 3) Apply batch 2 using same source range shift
+node scripts/product_enrich_zh_from_export.mjs \
+   --input=../env/cms-export.json \
+   --start=31 --count=30 \
+   --output=./tmp/cms-export.zh-batch-2.json \
+   --report=./tmp/zh-batch-2-report.json
+```
+
+New flags:
+
+- `--start=<n>`: 1-based start index for batch processing.
+- `--count=<n>`: number of products in this batch.
+- `--dry-run`: writes report only; does not write enriched export.
+- `--limit=<n>`: backward-compatible alias for `--count` when `--start=1`.
+
+Brand rule:
+
+- Brand names are preserved from source and are not translated into Chinese.
+- The script now records a brand-preservation block reason if `zh.brandText` diverges from detected source brand.
 
 ## Notes
 

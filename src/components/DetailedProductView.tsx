@@ -93,7 +93,13 @@ function resolveDescriptionText(product: Product, lang: "zh" | "en"): string {
   };
 
   const localizedCandidates = lang === "zh"
-    ? [localized.zh?.description]
+    ? [
+        localized.zh?.description,
+        localized.description,
+        localized.Product_Description,
+        localized.product_description,
+        localized.productDescription,
+      ]
     : [
         localized.en?.description,
         localized.Product_Description,
@@ -120,14 +126,79 @@ function resolveDescriptionText(product: Product, lang: "zh" | "en"): string {
     if (text.includes("由远端数据回退生成")) continue;
     if (comparable === comparableName || comparable === comparableBrandName) continue;
     if (lang === "zh" && !/[\u4e00-\u9fff]/.test(text)) continue;
+    if (lang === "zh" && isZhTextWithHeavyEnglishLeak(text)) continue;
     if (/^rated\s+\d(?:\.\d+)?\s+out\s+of\s+5\b/i.test(text)) continue;
     if (/^backed\s+by\s+[\d,]+\s+customer\s+reviews\b/i.test(text)) continue;
     if (/^\d(?:\.\d+)?\s+\d(?:\.\d+)?\s+out\s+of\s+5\s+stars\b/i.test(text)) continue;
     if (/^\(?[\d,]+\)?\s+customer\s+reviews\b/i.test(text)) continue;
-    return text;
+    return lang === "zh" ? localizeZhResidualEnglish(text) : text;
   }
 
   return "";
+}
+
+function isZhTextWithHeavyEnglishLeak(value: string): boolean {
+  const text = String(value || "").trim();
+  if (!text || !/[\u4e00-\u9fff]/.test(text)) return false;
+
+  const zhCount = (text.match(/[\u4e00-\u9fff]/g) || []).length;
+  const englishTokens = text.match(/[A-Za-z]{3,}/g) || [];
+  if (englishTokens.length < 8) return false;
+
+  // Allow short bilingual snippets, reject long zh fields dominated by English prose.
+  return englishTokens.length * 2 > Math.max(zhCount, 1);
+}
+
+function localizeZhResidualEnglish(value: string): string {
+  let text = String(value || "").trim();
+  if (!text) return "";
+
+  const replacements: Array<[RegExp, string]> = [
+    [/\btravel\s+stroller\b/gi, "旅行推车"],
+    [/\blightweight\b/gi, "轻便"],
+    [/\bultra\s+air\b/gi, "超轻"],
+    [/\bimported\b/gi, "进口"],
+    [/\bcarbon\s+fiber\b/gi, "碳纤维"],
+    [/\bone-?hand(?:ed)?\s+fold(?:ing)?\b/gi, "单手折叠"],
+    [/\bmanual\s+and\s+parent\s+control\b/gi, "手动与家长遥控双模式"],
+    [/\brealistic\s+driving\s+action\b/gi, "拟真驾驶体验"],
+    [/\bperfectly\s+sized\b/gi, "尺寸适配"],
+    [/\beasy\s+to\s+assemble\b/gi, "易于组装"],
+    [/\badjustable\s+handlebar\s+height\b/gi, "可调节车把高度"],
+    [/\bhandlebar\s+type\b/gi, "车把类型"],
+    [/\bframe\s+weight\b/gi, "车架重量"],
+    [/\bstroller\s+seat\s+weight\b/gi, "推车座椅重量"],
+    [/\bbasket\s+weight\s+capacity\s+maximum\b/gi, "置物篮最大承重"],
+    [/\bassembly\s+instructions\s+description\b/gi, "组装说明"],
+    [/\bmaximum\s+weight\s+recommendation\b/gi, "建议最大承重"],
+    [/\bspecification\s+met\b/gi, "符合标准"],
+    [/\brear\s+facing\s+maximum\s+weight\b/gi, "后向最大承重"],
+    [/\binstallation\s+type\b/gi, "安装类型"],
+    [/\bimport\s+designation\b/gi, "进口标识"],
+    [/\binstall\s+the\s+rear\b/gi, "安装后部"],
+    [/\brear\s+wheels?\b/gi, "后轮"],
+    [/\bwheels\s+onto\s+the\s+stroller\s+until\s+they\s+click\s+into\s+place\b/gi, "将后轮推入推车，直到卡扣到位"],
+    [/\bsimply\s+unfold\s+the\s+stroller\s+and\s+adjust\s+the\s+canopy\s+and\s+footrest\s+as\s+needed\b/gi, "只需展开推车，并按需调整遮阳篷和脚踏"],
+    [/\badult\s+assembly\s+required\b/gi, "需成人组装"],
+    [/\btools\s+not\s+provided\b/gi, "不含工具"],
+    [/\bno\s+tools\s+needed\b/gi, "无需工具"],
+    [/\bno\s+assembly\s+required\b/gi, "无需组装"],
+    [/\bother\s+special\s+features\s+of\s+the\s+product\b/gi, "产品其他特殊功能"],
+    [/\brecommended\s+uses\s+for\s+product\b/gi, "推荐使用场景"],
+    [/\bchildren\s+transportation\b/gi, "儿童出行"],
+    [/\brecreational\s+activities\s+for\s+kids\b/gi, "儿童休闲活动"],
+    [/\bkid'?s\s+recreational\s+riding\b/gi, "儿童休闲骑行"],
+    [/\bkids\s+recreational\s+riding\b/gi, "儿童休闲骑行"],
+    [/\bis\s+electric\b/gi, "是否电动"],
+    [/\bsafety\b/gi, "安全"],
+    [/\brating\b/gi, "评分"],
+  ];
+
+  for (const [pattern, replacement] of replacements) {
+    text = text.replace(pattern, replacement);
+  }
+
+  return text.replace(/\s+/g, " ").trim();
 }
 
 function resolveApplicableAgeRange(product: Product, lang: "zh" | "en"): string {
@@ -218,11 +289,11 @@ function resolveVerdictText(product: Product, lang: "zh" | "en"): string {
   const isVerdictPlaceholder = isPlaceholderVerdict(verdict);
 
   if (!isVerdictPlaceholder && verdict) {
-    return verdict;
+    return lang === "zh" ? localizeZhResidualEnglish(verdict) : verdict;
   }
   
   if (customersSay) {
-    return customersSay;
+    return lang === "zh" ? localizeZhResidualEnglish(customersSay) : customersSay;
   }
   
   // Return empty string - no placeholder text for SEO health
@@ -288,7 +359,8 @@ function cleanVisibleFieldText(value: unknown) {
 }
 
 function formatSpecKey(key: string, lang: "zh" | "en") {
-  return getSpecFieldLabel(key, lang);
+  const label = getSpecFieldLabel(key, lang);
+  return lang === "zh" ? localizeZhResidualEnglish(label) : label;
 }
 
 function formatSpecValue(value: unknown, rawKey: string, lang: "zh" | "en"): string {
@@ -310,7 +382,8 @@ function formatSpecValue(value: unknown, rawKey: string, lang: "zh" | "en"): str
   const key = toSpecKey(rawKey);
   const text = cleanVisibleFieldText(value);
   if (!text) return "";
-  return normalizeSpecDisplayValue(text, key, lang);
+  const normalized = normalizeSpecDisplayValue(text, key, lang);
+  return lang === "zh" ? localizeZhResidualEnglish(normalized) : normalized;
 }
 
 function resolveFeatureList(product: Product, lang: "zh" | "en"): string[] {
@@ -532,7 +605,7 @@ function buildBasicInfoSections(sourceProduct: Product, displayProduct: Product,
 
   if (fallbackSections.length === 0) {
     const minimalRows = [
-      { label: "Product ID", value: String(displayProduct.id || "").trim() },
+      { label: lang === "zh" ? "产品编号" : "Product ID", value: String(displayProduct.id || "").trim() },
       { label: lang === "zh" ? "名称" : "Name", value: String((displayProduct as Product & { name?: string }).name || "").trim() },
       { label: lang === "zh" ? "品牌" : "Brand", value: String(displayProduct.brand || "").trim() },
       { label: lang === "zh" ? "类目" : "Category", value: String(displayProduct.category || "").trim() },
@@ -656,7 +729,14 @@ function resolveStructuredProductDescription(product: Product, lang: "zh" | "en"
     en?: { Product_Description?: string; description?: string };
   };
   const candidates = lang === "zh"
-    ? [localized.zh?.Product_Description, localized.Product_Description, localized.zh?.description]
+    ? [
+        localized.zh?.Product_Description,
+        localized.zh?.description,
+        localized.Product_Description,
+        localized.description,
+        localized.product_description,
+        localized.productDescription,
+      ]
     : [localized.en?.Product_Description, localized.Product_Description, localized.en?.description, localized.description];
 
   const normalizedName = String(product.name || "").replace(/\s+/g, " ").trim().toLowerCase();
@@ -664,11 +744,13 @@ function resolveStructuredProductDescription(product: Product, lang: "zh" | "en"
   for (const candidate of candidates) {
     const text = normalizeReadableText(candidate);
     if (!isMeaningfulStructuredValue(text)) continue;
+    if (lang === "zh" && !/[\u4e00-\u9fff]/.test(text)) continue;
+    if (lang === "zh" && isZhTextWithHeavyEnglishLeak(text)) continue;
     const normalizedText = text.toLowerCase();
     if (normalizedText === normalizedName) continue;
     if (normalizedText.includes("generated from remote fallback")) continue;
     if (text.length < 24) continue;
-    return text;
+    return lang === "zh" ? localizeZhResidualEnglish(text) : text;
   }
 
   return "";
@@ -712,11 +794,11 @@ function buildStructuredSpecificationSections(product: Product, lang: "zh" | "en
     "User_Guide",
   ];
   const sectionLabels: Record<string, { zh: string; en: string }> = {
-    Measurements: { zh: "Measurements", en: "Measurements" },
-    Features_Specs: { zh: "Features Specs", en: "Features Specs" },
-    Materials_Care: { zh: "Materials Care", en: "Materials Care" },
-    Item_Details: { zh: "Item Details", en: "Item Details" },
-    User_Guide: { zh: "User Guide", en: "User Guide" },
+    Measurements: { zh: "尺寸与重量", en: "Measurements" },
+    Features_Specs: { zh: "功能规格", en: "Features Specs" },
+    Materials_Care: { zh: "材质与护理", en: "Materials Care" },
+    Item_Details: { zh: "产品细节", en: "Item Details" },
+    User_Guide: { zh: "使用指南", en: "User Guide" },
   };
 
   return sectionOrder
@@ -735,16 +817,79 @@ function buildStructuredSpecificationSections(product: Product, lang: "zh" | "en
     .filter(Boolean) as StructuredSection[];
 }
 
-function resolveStructuredScoringStandards(product: Product) {
+function localizeScoringText(rawValue: string, lang: "zh" | "en"): string {
+  const text = String(rawValue || "").trim();
+  if (!text || lang !== "zh") return text;
+
+  const replacements: Array<[RegExp, string]> = [
+    [/\bSafety\s*First\b/gi, "安全优先"],
+    [/\bSafety\b/gi, "安全"],
+    [/\bRiding\s*Comfort\b/gi, "骑行舒适"],
+    [/\bLight\s*&\s*Easy\b/gi, "轻便易用"],
+    [/\bFeature\b/gi, "舒适信号"],
+    [/Check\s+compliance\s+and\s+restraint\s+details\s+first,\s*then\s+evaluate\s+structural\s+stability\.?/gi, "优先核对合规与约束信息，再评估结构稳定性。"],
+    [/Focus\s+on\s+seat\s+support,\s*wheel\s+setup,\s*and\s+whether\s+the\s+(?:feature|舒适信号)\s+set\s+matches\s+daily\s+usage\.?/gi, "关注座椅支撑、轮组配置，以及功能组合是否匹配日常使用。"],
+    [/Focus\s*on\s*seat\s*support[^.!?。！？]*matches\s*daily\s*usage\.?/gi, "关注座椅支撑、轮组配置，以及功能组合是否匹配日常使用。"],
+    [/Focus\s+on\s+seat\s+support[^\n]*set\s+matches\s+daily\s+usage\.?/gi, "关注座椅支撑、轮组配置，以及功能组合是否匹配日常使用。"],
+    [/Focus\s+on\s+seat\s+support[\s\S]{0,120}?daily\s+usage\.?/gi, "关注座椅支撑、轮组配置，以及功能组合是否匹配日常使用。"],
+    [/Weight\s+and\s+fold\s+convenience\s+matter\s+most\s+for\s+commuting\s+and\s+travel-heavy\s+families\.?/gi, "通勤与高频出行家庭更应关注重量与折叠便利性。"],
+    [/\bCompliance\s*:/gi, "合规："],
+    [/\bHarness\s*type\s*:/gi, "安全带类型："],
+    [/\bWheel\s*size\s*:/gi, "轮径："],
+    [/\bComfort\s*signals\s*:/gi, "舒适信号："],
+    [/\bItem\s*weight\s*:/gi, "商品重量："],
+    [/\bUser\s*rating\s*baseline\s*:/gi, "用户评分基线："],
+    [/\bBuilt\s+For\s+Young\s+Riders\b/gi, "为年轻骑行者设计"],
+    [/\bDesigned\s+For\s+Beginners\b/gi, "为初学者设计"],
+    [/This\s+Bike\s+Includes\s+Training\s+Wheels\s+For\s+Balance\s+And\s+An\s+Adjustable\s+Seat\s+To\s+Grow\s+With\s+Your\s+Child\.?/gi, "该车型配备辅助轮以帮助平衡，并提供可调节座椅，适配孩子成长阶段。"],
+    [/GLOW\s+WHEEL\s*:/gi, "发光轮："],
+    [/\bGLOW\s+WHEEL\b/gi, "发光轮"],
+    [/Cool\s+Colorful\s+Lighted\s+4\s+Wheels\s+Are\s+More\s+Eye\s+Catching\s+To\s+Make\s+Babies\s+More\s+Interested;?\s*Inspires\s+Their\s+Curiosity\.?/gi, "炫彩发光四轮更吸睛，能更好吸引宝宝兴趣并激发好奇心。"],
+    [/GLOW\s*WHEEL\s*:\s*Cool\s*Colorful\s*Lighted\s*4\s*Wheels\s*Are\s*More\s*Eye\s*Catching\s*To\s*Make\s*Babies\s*More\s*Interested;?\s*Inspires\s*Their\s*Curiosity\.?\s*Bring\s*More\s*Fun\s*To\s*Your\s*Baby\.?\s*No\s*Extra\s*Energy\s*Supply\s*Required\.?/gi, "发光轮：炫彩发光四轮更吸睛，更能吸引宝宝兴趣并激发好奇心，为宝宝带来更多乐趣，无需额外供能。"],
+    [/Bring\s+More\s+Fun\s+To\s+Your\s+Baby\.?/gi, "为宝宝带来更多乐趣。"],
+    [/No\s+Extra\s+Energy\s+Supply\s+Required\.?/gi, "无需额外供能。"],
+    [/No\s*Extra\s*Energy\s*Supply\s*Required/gi, "无需额外供能"],
+    [/Cool\s*Colorful\s*Lighted\s*4\s*Wheels\s*Are\s*More\s*Eye\s*Catching\s*To\s*Make\s*Babies\s*More\s*Interested/gi, "炫彩发光四轮更吸睛，更能吸引宝宝兴趣"],
+    [/Inspires\s*Their\s*Curiosity/gi, "激发宝宝好奇心"],
+    [/\bAdjustable\s+straps\b/gi, "可调节绑带"],
+    [/\bOne-?hand(?:ed)?\s+folding\s+mechanism\b/gi, "单手折叠机构"],
+    [/\bUV-?protective\s+canopy\b/gi, "防紫外线遮阳篷"],
+    [/\bAmple\s+storage\s+space\b/gi, "充足收纳空间"],
+    [/\bSpacious\s+under-?seat\s+basket\b/gi, "宽敞座下置物篮"],
+    [/\bNo\s+organizer\b/gi, "无收纳包"],
+    [/\bNo\s+cushion\b/gi, "无坐垫"],
+    [/\bCollapsible\b/gi, "可折叠"],
+    [/Carbon\s+Fiber/gi, "碳纤维"],
+    [/\bImported\b/gi, "进口"],
+    [/GLOW\s+REAR\s+WHEEL:\s*Colorful\s+Lighted\s+Rear\s+Wheels\s+Are\s+More\s+Eye\s+Catching\s+To\s+Make\s+Babies\s+More\s+Interested;\s*Inspires\s+Their\s+Curiosity\.?\s*Bring\s+More\s+Fun\s+To\s+Your\s+Baby\.?\s*No\s+Batteries\s+Required\.?/gi, "彩色发光后轮：后轮更醒目，更能吸引宝宝兴趣，激发好奇心，带来更多玩乐体验，无需电池。"],
+    [/Colorful\s+Lighted\s+Rear\s+Wheels\s+Are\s+More\s+Eye\s+Catching\s+To\s+Make\s+Babies\s+More\s+Interested;\s*Inspires\s+Their\s+Curiosity\.?/gi, "彩色发光后轮更醒目，更能吸引宝宝兴趣并激发好奇心。"],
+    [/No\s+Batteries\s+Required\.?/gi, "无需电池。"],
+    [/\bUnknown\b/gi, "未知"],
+    [/\bWeight\b/gi, "重量"],
+    [/\bRating\b/gi, "评分"],
+    [/\bSAFETY\b/g, "安全"],
+    [/\bRATING\b/g, "评分"],
+    [/\bInch\b/gi, "英寸"],
+    [/\blbs\b/gi, "磅"],
+  ];
+
+  let localized = text;
+  for (const [pattern, replacement] of replacements) {
+    localized = localized.replace(pattern, replacement);
+  }
+  return localizeZhResidualEnglish(localized.replace(/\s+/g, " ").trim());
+}
+
+function resolveStructuredScoringStandards(product: Product, lang: "zh" | "en") {
   return (product.scoringStandards || [])
     .map((standard) => ({
       key: String(standard.key || "").trim(),
-      label: String(standard.label || "").trim(),
-      parentTip: cleanVisibleFieldText(standard.parentTip),
+      label: localizeScoringText(String(standard.label || "").trim(), lang),
+      parentTip: localizeScoringText(cleanVisibleFieldText(standard.parentTip), lang),
       evidence: (standard.evidence || [])
         .map((item) => ({
-          source: cleanEvidenceSource(item.source),
-          text: cleanVisibleFieldText(item.text),
+          source: localizeScoringText(cleanEvidenceSource(item.source), lang),
+          text: localizeScoringText(cleanVisibleFieldText(item.text), lang),
         }))
         .filter((item) => isMeaningfulStructuredValue(item.text) && item.text.length >= MIN_MEANINGFUL_DETAIL_TEXT_LENGTH),
     }))
@@ -821,7 +966,7 @@ export default function DetailedProductView({
       rows: section.rows.filter((row) => isMeaningfulStructuredValue(row?.value)),
     }))
     .filter((section) => section.rows.length > 0);
-  const structuredScoringStandards = resolveStructuredScoringStandards(displayProduct);
+  const structuredScoringStandards = resolveStructuredScoringStandards(displayProduct, lang);
   const categoryAttributeRows = buildStructuredRows(
     (((displayProduct as Product & { Category_Attributes?: Record<string, unknown> }).Category_Attributes) || {}),
     lang,
@@ -856,7 +1001,7 @@ export default function DetailedProductView({
   const featureImagesToRender = modelFeatureImages.length > 0 ? modelFeatureImages : imageSet.featureUrls.filter(Boolean);
   const hasGalleryImages = galleryImagesToRender.length > 0;
   const weightText = Number.isFinite(Number(displayProduct.weight)) && Number(displayProduct.weight) > 0
-    ? `${Number(displayProduct.weight).toFixed(2).replace(/\.00$/, "")} kg`
+    ? `${Number(displayProduct.weight).toFixed(2).replace(/\.00$/, "")} ${lang === "zh" ? "公斤" : "kg"}`
     : "";
   const resourceVideoAssets = detailResources
     .flatMap((resource) => {
@@ -1319,7 +1464,7 @@ export default function DetailedProductView({
           )}
         </div>
 
-        <div className="p-1 min-h-[400px] bg-slate-50">
+        <div className="p-1 min-h-100 bg-slate-50">
           {activeMediaTab === "gallery" && hasGalleryImages ? (
             <ProductCarousel 
               images={galleryImagesToRender}
@@ -1372,7 +1517,7 @@ export default function DetailedProductView({
                           <Play className="w-3.5 h-3.5" />
                           {lang === "en" ? `Video ${index + 1}` : `视频 ${index + 1}`}
                         </div>
-                        <div className="mt-1 text-xs font-semibold leading-relaxed break-words">
+                        <div className="mt-1 text-xs font-semibold leading-relaxed wrap-break-word">
                           {asset.title || (lang === "en" ? `Clip ${index + 1}` : `片段 ${index + 1}`)}
                         </div>
                       </button>
@@ -1399,7 +1544,7 @@ export default function DetailedProductView({
                 </div>
              </div>
 
-             <div className="h-[300px] w-full">
+             <div className="h-75 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
                     <PolarGrid stroke="#e2e8f0" />
@@ -1451,7 +1596,7 @@ export default function DetailedProductView({
                        {visibleModelOverviewRows.map((row, index) => (
                          <div key={`overview-${row.label}-${index}`} className="rounded-2xl bg-white border border-slate-100 p-3 space-y-1">
                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{row.label}</p>
-                           <p className="text-sm text-slate-700 font-semibold leading-relaxed break-words">{row.value}</p>
+                           <p className="text-sm text-slate-700 font-semibold leading-relaxed wrap-break-word">{row.value}</p>
                          </div>
                        ))}
                      </div>
@@ -1461,9 +1606,9 @@ export default function DetailedProductView({
                  {structuredDescriptionText && (
                    <div className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4">
                      <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
-                       <p className="text-sm font-black text-slate-800">Product_Description</p>
+                       <p className="text-sm font-black text-slate-800">{lang === "zh" ? "产品描述" : "Product Description"}</p>
                      </div>
-                     <div className="rounded-2xl bg-white border border-slate-100 p-3 space-y-3 text-sm text-slate-700 font-semibold leading-relaxed break-words">
+                     <div className="rounded-2xl bg-white border border-slate-100 p-3 space-y-3 text-sm text-slate-700 font-semibold leading-relaxed wrap-break-word">
                        {(structuredDescriptionParagraphs.length > 0 ? structuredDescriptionParagraphs : [structuredDescriptionText]).map((paragraph, index) => (
                          <p key={`structured-description-${index}`}>{paragraph}</p>
                        ))}
@@ -1474,14 +1619,14 @@ export default function DetailedProductView({
                  {visibleCategoryAttributeRows.length > 0 && (
                    <div className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4">
                      <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
-                       <p className="text-sm font-black text-slate-800">Category_Attributes</p>
+                       <p className="text-sm font-black text-slate-800">{lang === "zh" ? "类目属性" : "Category Attributes"}</p>
                        <span className="text-[10px] font-black px-2 py-1 rounded-full bg-white text-slate-500 border border-slate-200">{visibleCategoryAttributeRows.length}</span>
                      </div>
                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                        {visibleCategoryAttributeRows.map((row, index) => (
                          <div key={`category-attribute-${row.label}-${index}`} className="rounded-2xl bg-white border border-slate-100 p-3 space-y-1">
                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{row.label}</p>
-                           <p className="text-sm text-slate-700 font-semibold leading-relaxed break-words">{row.value}</p>
+                           <p className="text-sm text-slate-700 font-semibold leading-relaxed wrap-break-word">{row.value}</p>
                          </div>
                        ))}
                      </div>
@@ -1491,14 +1636,14 @@ export default function DetailedProductView({
                  {visibleStructuredSpecSections.map((section) => (
                    <div key={section.key} className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4">
                      <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
-                       <p className="text-sm font-black text-slate-800">{section.labelEn}</p>
+                       <p className="text-sm font-black text-slate-800">{section.label}</p>
                        <span className="text-[10px] font-black px-2 py-1 rounded-full bg-white text-slate-500 border border-slate-200">{section.rows.length}</span>
                      </div>
                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                        {section.rows.map((row, index) => (
                          <div key={`${section.key}-${row.label}-${index}`} className="rounded-2xl bg-white border border-slate-100 p-3 space-y-1">
                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{row.label}</p>
-                           <p className="text-sm text-slate-700 font-semibold leading-relaxed break-words">{row.value}</p>
+                           <p className="text-sm text-slate-700 font-semibold leading-relaxed wrap-break-word">{row.value}</p>
                          </div>
                        ))}
                      </div>
@@ -1508,7 +1653,7 @@ export default function DetailedProductView({
                  {structuredScoringStandards.length > 0 && (
                    <details className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4 space-y-4 group" open={false}>
                      <summary className="list-none cursor-pointer flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
-                       <p className="text-sm font-black text-slate-800">scoringStandards</p>
+                       <p className="text-sm font-black text-slate-800">{lang === "zh" ? "评分标准证据" : "Scoring Standards"}</p>
                        <span className="inline-flex items-center gap-2">
                          <span className="text-[10px] font-black px-2 py-1 rounded-full bg-white text-slate-500 border border-slate-200">{structuredScoringStandards.length}</span>
                          <span className="text-slate-400 text-xs font-black transition-transform group-open:rotate-180">⌄</span>
@@ -1556,7 +1701,7 @@ export default function DetailedProductView({
            )}
 
            {!structuredDescriptionText && isMeaningfulStructuredValue(effectiveDescriptionText) && (
-             <div id="product_description_section" className="bg-white border border-slate-100 rounded-[32px] p-6 space-y-2 shadow-sm scroll-mt-24">
+             <div id="product_description_section" className="bg-white border border-slate-100 rounded-4xl p-6 space-y-2 shadow-sm scroll-mt-24">
                <p className="text-xs font-black uppercase tracking-widest text-slate-500">
                  {lang === "en" ? "Product Description" : "产品描述"}
                </p>

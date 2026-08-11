@@ -43,6 +43,7 @@ const PHRASE_ZH_MAP = {
   "jogging stroller": "慢跑推车",
   "double stroller": "双人推车",
   "travel stroller": "旅行推车",
+  "lightweight stroller": "轻便推车",
   "portable": "便携",
   "lightweight": "轻量",
   "stroller": "推车",
@@ -245,6 +246,7 @@ function extractPatternPhrases(titleLower) {
     /jogging stroller/i,
     /double stroller/i,
     /travel stroller/i,
+    /lightweight stroller/i,
     /kick scooter/i,
     /ride[- ]on toy/i,
   ];

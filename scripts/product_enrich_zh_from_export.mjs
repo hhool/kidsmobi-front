@@ -66,7 +66,7 @@ const CATEGORY_OVERRIDE_RULES = [
 
 const SUBCATEGORY_RULES = [
   { key: "jogging_stroller", categoryId: "stroller", en: "Jogging Stroller", zh: "慢跑推车", test: /(jogging|jogger|all[- ]terrain)/i },
-  { key: "travel_stroller", categoryId: "stroller", en: "Travel Stroller", zh: "旅行推车", test: /(travel|umbrella|compact|carry[- ]on|airplane)/i },
+  { key: "travel_stroller", categoryId: "stroller", en: "Travel Stroller", zh: "旅行推车", test: /(travel\s*stroller|travel|umbrella|compact|carry[- ]on|airplane|lightweight\s*stroller)/i },
   { key: "double_stroller", categoryId: "stroller", en: "Double Stroller", zh: "双人推车", test: /(double|twin|duo)/i },
   { key: "full_size_stroller", categoryId: "stroller", en: "Full-Size Stroller", zh: "全尺寸推车", test: /(full[- ]size|modular|pram|system)/i },
   { key: "toddler_balance_bike", categoryId: "balance_bike", en: "Toddler Balance Bike", zh: "幼儿平衡车", test: /(balance\s*bike|walker|12\s*inch)/i },
@@ -82,7 +82,7 @@ const SUBCATEGORY_RULES = [
   { key: "kids_trike", categoryId: "kids_tricycles", en: "Kids Tricycle", zh: "儿童三轮车", test: /(tricycle|trike|tri[- ]cycle)/i },
   { key: "kids_bike_6_in_1", categoryId: "kids_bikes", en: "Kids Bike", zh: "儿童自行车", test: /(6[- ]in[- ]1|5[- ]in[- ]1|4[- ]in[- ]1|kids?\s*bike|children'?s?\s*bike|pedal\s*bike)/i },
   { key: "cargo_stroller", categoryId: "stroller", en: "Cargo Stroller", zh: "货运推车", test: /(cargo\s*stroller|utility\s*stroller|wagon\s*stroller)/i },
-  { key: "umbrella_stroller", categoryId: "stroller", en: "Umbrella Stroller", zh: "伞车", test: /(umbrella\s*stroller|lightweight\s*stroller)/i },
+  { key: "umbrella_stroller", categoryId: "stroller", en: "Umbrella Stroller", zh: "伞车", test: /(umbrella\s*stroller)/i },
   { key: "toy_ride_on", categoryId: "kids_push_ride_ons", en: "Toy Ride-On", zh: "骑乘玩具", test: /(wiggle\s*car|busy\s*buggy|roller\s*coaster|push\s*toy|ride[- ]on\s*toy|tractor\s*&\s*cart)/i },
   { key: "playpen_playard", categoryId: "playard", en: "Playpen Playard", zh: "围栏游戏床", test: /(playpen|play\s*pen|baby\s*playpen|playard|play\s*yard)/i },
   { key: "crib_playard", categoryId: "playard", en: "Crib Playard", zh: "婴儿床/游戏床", test: /(crib|bassinet|nursery\s*center|mattress\s*protector)/i },
@@ -90,14 +90,55 @@ const SUBCATEGORY_RULES = [
   { key: "kids_cruiser_bike", categoryId: "kids_bikes", en: "Kids Cruiser Bike", zh: "儿童休闲自行车", test: /(cruiser|mountain\s*bike|retro\s*cruiser|girls?\s*bike|boys?\s*bike)/i },
 ];
 
+const BRAND_TITLE_HINTS = [
+  "Baby Trend",
+  "BOB Gear",
+  "Delta Children",
+  "Mompush",
+  "Chicco",
+  "Graco",
+  "Jeep",
+  "ANPABO",
+  "Retrospec",
+  "SEREED",
+  "Umatoll",
+  "Gotrax",
+  "JMMD",
+  "KRIDDO",
+  "Gamfeiny",
+  "Infantino",
+  "Momcozy",
+  "Woom",
+  "Strider",
+  "Specialized",
+  "Decathlon",
+  "Doona",
+  "Britax",
+];
+
+const GENERIC_BRAND_VALUES = new Set(["baby", "kids", "children", "unknown", "sponsored"]);
+
 function parseArgs(argv) {
-  const args = { input: "", output: "", report: "", glossary: DEFAULT_GLOSSARY, limit: 0, force: false };
+  const args = {
+    input: "",
+    output: "",
+    report: "",
+    glossary: DEFAULT_GLOSSARY,
+    limit: 0,
+    start: 1,
+    count: 0,
+    dryRun: false,
+    force: false,
+  };
   for (const arg of argv) {
     if (arg.startsWith("--input=")) args.input = arg.slice(8);
     else if (arg.startsWith("--output=")) args.output = arg.slice(9);
     else if (arg.startsWith("--report=")) args.report = arg.slice(9);
     else if (arg.startsWith("--glossary=")) args.glossary = arg.slice(11);
     else if (arg.startsWith("--limit=")) args.limit = Math.max(0, Number(arg.slice(8)) || 0);
+    else if (arg.startsWith("--start=")) args.start = Math.max(1, Number(arg.slice(8)) || 1);
+    else if (arg.startsWith("--count=")) args.count = Math.max(0, Number(arg.slice(8)) || 0);
+    else if (arg === "--dry-run") args.dryRun = true;
     else if (arg === "--force") args.force = true;
     else if (arg === "--help" || arg === "-h") args.help = true;
   }
@@ -105,7 +146,7 @@ function parseArgs(argv) {
 }
 
 function printHelp() {
-  console.log(`Usage: node scripts/product_enrich_zh_from_export.mjs --input=<cms-export.json> [options]\n\nOptions:\n  --output=<path>      Enriched CMS export (default: tmp/<input>.zh-enriched.json)\n  --report=<path>      Review report (default: tmp/<input>.zh-report.json)\n  --glossary=<path>    Versioned glossary JSON\n  --limit=<n>          Enrich only the first n products\n  --force              Replace existing non-placeholder Chinese copy\n  --help               Show this help\n`);
+  console.log(`Usage: node scripts/product_enrich_zh_from_export.mjs --input=<cms-export.json> [options]\n\nOptions:\n  --output=<path>      Enriched CMS export (default: tmp/<input>.zh-enriched.json)\n  --report=<path>      Review report (default: tmp/<input>.zh-report.json)\n  --glossary=<path>    Versioned glossary JSON\n  --start=<n>          1-based start index for batch processing (default: 1)\n  --count=<n>          Number of products to process from --start\n  --limit=<n>          Backward-compatible alias when --start=1 (same as --count)\n  --dry-run            Do not write enriched export, only write report summary\n  --force              Replace existing non-placeholder Chinese copy\n  --help               Show this help\n`);
 }
 
 function normalizeText(value) {
@@ -208,6 +249,37 @@ function cleanTitle(rawTitle, brand) {
   return first.length >= 12 ? first : text;
 }
 
+function findBrandHintFromTitle(rawTitle) {
+  const title = normalizeText(rawTitle);
+  if (!title) return "";
+  const lower = title.toLowerCase();
+  for (const brand of BRAND_TITLE_HINTS) {
+    if (lower.includes(brand.toLowerCase())) return brand;
+  }
+  return "";
+}
+
+function resolveSourceBrand(product) {
+  const candidates = [
+    product.brand,
+    product.en?.brandText,
+    product.zh?.brandText,
+    product.Category_Attributes?.Brand,
+    product.Category_Attributes?.["Brand Name"],
+    product.Product_Specifications?.Category_Attributes?.Brand,
+    product.Product_Display_Fields?.brand?.value,
+  ].map((value) => normalizeText(value)).filter(Boolean);
+
+  let brand = candidates[0] || "";
+  const brandLower = brand.toLowerCase();
+  if (!brand || GENERIC_BRAND_VALUES.has(brandLower)) {
+    const hinted = findBrandHintFromTitle(rawTitleFor(product));
+    if (hinted) brand = hinted;
+  }
+
+  return brand || candidates.find((item) => !GENERIC_BRAND_VALUES.has(item.toLowerCase())) || "";
+}
+
 function inferSubcategory(product, categoryId, titleText, glossary) {
   const candidates = extractScenarioCandidates(product);
   const direct = candidates.find((item) => item && item !== "unknown");
@@ -293,7 +365,7 @@ function extractModel(product) {
 }
 
 function buildDisplayName(product, glossary) {
-  const brand = normalizeText(product.brand || product.en?.brandText || product.zh?.brandText);
+  const brand = resolveSourceBrand(product);
   const model = extractModel(product);
   return normalizeText(`${brand} ${model} ${categoryLabel(product, glossary)}`);
 }
@@ -414,7 +486,8 @@ function enrichProduct(product, glossary, force) {
   const sourceZh = product.zh && typeof product.zh === "object" ? product.zh : {};
   const zh = { ...sourceZh };
   const rawTitle = rawTitleFor(product);
-  const cleanedTitle = cleanTitle(rawTitle, product.brand || product.en?.brandText || sourceZh.brandText);
+  const sourceBrand = resolveSourceBrand(product);
+  const cleanedTitle = cleanTitle(rawTitle, sourceBrand || product.brand || product.en?.brandText || sourceZh.brandText);
   const taxonomy = buildTaxonomy(product, glossary);
   const featureSignals = buildFeatureSignals(product, glossary, cleanedTitle);
   const derivedFeaturesZh = featureSignals.map((item) => item.labelZh).filter(Boolean);
@@ -431,7 +504,8 @@ function enrichProduct(product, glossary, force) {
     pros: buildPros(features),
     cons: buildCons(product),
     editorVerdict: buildVerdict(product, name, features),
-    brandText: normalizeText(product.brand || product.en?.brandText || sourceZh.brandText),
+    // Preserve source brand text exactly; never translate brand names.
+    brandText: sourceBrand,
     specsText: buildSpecsText(product, glossary),
   };
   const diffs = [];
@@ -524,6 +598,23 @@ function qualityIssues(products, glossary) {
   return { placeholderResidue, mixedLanguageNoise, unknownSubcategory };
 }
 
+function coreZhCompletenessIssues(products) {
+  const missing = [];
+  for (const product of products) {
+    const zhName = normalizeText(product?.zh?.name);
+    const zhDescription = normalizeText(product?.zh?.description);
+    const zhVerdict = normalizeText(product?.zh?.editorVerdict);
+    const reasons = [];
+    if (!containsCjk(zhName)) reasons.push("missing-zh-name");
+    if (!containsCjk(zhDescription)) reasons.push("missing-zh-description");
+    if (!containsCjk(zhVerdict)) reasons.push("missing-zh-editorVerdict");
+    if (reasons.length) {
+      missing.push({ id: product.id, categoryId: categoryIdFor(product), reasons });
+    }
+  }
+  return missing;
+}
+
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   if (args.help) return printHelp();
@@ -541,14 +632,19 @@ async function main() {
   if (!Array.isArray(sourceProducts)) throw new Error("Invalid CMS export: missing data.collections.products");
 
   const outputProducts = resultExport.data.collections.products;
-  const processCount = args.limit > 0 ? Math.min(args.limit, sourceProducts.length) : sourceProducts.length;
+  const startIndex = Math.min(Math.max(0, args.start - 1), Math.max(0, sourceProducts.length - 1));
+  const requestedCount = args.count > 0 ? args.count : args.limit;
+  const processCount = requestedCount > 0
+    ? Math.min(requestedCount, Math.max(0, sourceProducts.length - startIndex))
+    : Math.max(0, sourceProducts.length - startIndex);
+  const endExclusive = Math.min(sourceProducts.length, startIndex + processCount);
   const changes = [];
   const blocked = [];
   let taxonomyFilledCount = 0;
   let featureSignalProducts = 0;
   let topFeaturesReplacedCount = 0;
   let otherCount = 0;
-  for (let index = 0; index < processCount; index += 1) {
+  for (let index = startIndex; index < endExclusive; index += 1) {
     const before = sourceProducts[index];
     const enriched = enrichProduct(before, glossary, args.force);
     outputProducts[index] = enriched.product;
@@ -566,12 +662,17 @@ async function main() {
     }
     const preservation = preservationFailures(before, enriched.product);
     if (preservation.length) blocked.push({ id: before.id, reasons: preservation.map((key) => `source-field-changed:${key}`) });
-    if (!normalizeText(enriched.product.zh?.brandText) || !normalizeText(enriched.product.zh?.name).includes(normalizeText(before.brand))) {
+    const expectedBrand = resolveSourceBrand(before);
+    if (!normalizeText(enriched.product.zh?.brandText) || (expectedBrand && normalizeText(enriched.product.zh?.brandText) !== normalizeText(expectedBrand))) {
+      blocked.push({ id: before.id, reasons: ["brand-not-preserved-in-zh-brandText"] });
+    }
+    if (expectedBrand && !normalizeText(enriched.product.zh?.name).includes(normalizeText(expectedBrand))) {
       blocked.push({ id: before.id, reasons: ["brand-not-preserved-in-zh-name"] });
     }
     if (enriched.diffs.length) {
       changes.push({
         id: before.id,
+        index,
         categoryId: categoryIdFor(before),
         taxonomy: enriched.taxonomy,
         fields: enriched.diffs,
@@ -581,8 +682,9 @@ async function main() {
     }
   }
 
-  const processedProducts = outputProducts.slice(0, processCount);
+  const processedProducts = outputProducts.slice(startIndex, endExclusive);
   const issues = qualityIssues(processedProducts, glossary);
+  const missingCoreZh = coreZhCompletenessIssues(processedProducts);
   const report = {
     schemaVersion: "product-zh-enrichment-report/v1",
     generatedAt: new Date().toISOString(),
@@ -590,8 +692,13 @@ async function main() {
     output: outputPath,
     glossaryVersion: glossary.version,
     force: args.force,
+    dryRun: args.dryRun,
     totalProducts: sourceProducts.length,
     processedProducts: processCount,
+    batchRange: {
+      start: startIndex + 1,
+      end: endExclusive,
+    },
     changedProducts: changes.length,
     blockedProducts: unique(blocked.map((item) => item.id)).length,
     fieldCoverage: Object.fromEntries(TARGET_FIELDS.map((field) => [field, fieldCoverage(processedProducts, field)])),
@@ -617,6 +724,7 @@ async function main() {
     placeholderResidue: issues.placeholderResidue,
     mixedLanguageNoise: issues.mixedLanguageNoise,
     unknownSubcategory: issues.unknownSubcategory,
+    missingCoreZh,
     duplicateCopy: {
       cardSummary: duplicateCopy(processedProducts, "cardSummary"),
       description: duplicateCopy(processedProducts, "description"),
@@ -628,12 +736,19 @@ async function main() {
 
   await fs.mkdir(path.dirname(outputPath), { recursive: true });
   await fs.mkdir(path.dirname(reportPath), { recursive: true });
-  await Promise.all([
-    fs.writeFile(outputPath, `${JSON.stringify(resultExport, null, 2)}\n`, "utf8"),
+  const writeJobs = [
     fs.writeFile(reportPath, `${JSON.stringify(report, null, 2)}\n`, "utf8"),
-  ]);
-  console.log(`[zh-enrich] processed=${processCount}/${sourceProducts.length} changed=${changes.length} blocked=${report.blockedProducts}`);
-  console.log(`[zh-enrich] output=${outputPath}`);
+  ];
+  if (!args.dryRun) {
+    writeJobs.push(fs.writeFile(outputPath, `${JSON.stringify(resultExport, null, 2)}\n`, "utf8"));
+  }
+  await Promise.all(writeJobs);
+  console.log(`[zh-enrich] processed=${processCount}/${sourceProducts.length} range=${startIndex + 1}-${endExclusive} changed=${changes.length} blocked=${report.blockedProducts}`);
+  if (!args.dryRun) {
+    console.log(`[zh-enrich] output=${outputPath}`);
+  } else {
+    console.log(`[zh-enrich] dry-run enabled, enriched export not written`);
+  }
   console.log(`[zh-enrich] report=${reportPath}`);
   if (report.blockedProducts > 0) process.exitCode = 2;
 }

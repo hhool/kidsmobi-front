@@ -165,12 +165,12 @@ export const translations = {
 export function translateCategory(cat: string, lang: "zh" | "en") {
   if (lang === "zh") {
     switch (cat) {
-      case "balance": return "滑步/平衡车";
-      case "bicycle": return "儿童脚踏自行车";
-      case "scooter": return "滑板车";
-      case "stroller": return "高景观/双向推车";
-      case "electric_car": return "电动越野车";
-      case "tricycle": return "多功能三轮车";
+      case "balance": return "平衡车";
+      case "bicycle": return "儿童自行车";
+      case "scooter": return "儿童滑板车";
+      case "stroller": return "婴儿推车";
+      case "electric_car": return "儿童电动车";
+      case "tricycle": return "儿童三轮车";
       case "safety_seat": return "儿童安全座椅";
       default: return cat;
     }
@@ -533,6 +533,73 @@ function sanitizeVisibleProductFields(product: any) {
   };
 }
 
+function hasChineseGlyph(value: unknown) {
+  return /[\u4e00-\u9fff]/.test(String(value || ""));
+}
+
+function hasMeaningfulZhText(value: unknown) {
+  const text = String(value || "").trim();
+  if (!text) return false;
+  if (isPlaceholderLocalizedDescription(text)) return false;
+  return hasChineseGlyph(text);
+}
+
+function inferZhCategoryLabel(rawCategory: unknown, signalText: string) {
+  const category = String(rawCategory || "").toLowerCase();
+  if (category === "balance" || category === "balance_bike" || category === "balance_bikes") return "平衡车";
+  if (category === "bicycle" || category === "kids_bikes") return "儿童自行车";
+  if (category === "stroller" || category === "jogger_stroller" || category === "double_stroller") {
+    if (/\b(?:double|twin)\b/.test(signalText)) return "双人推车";
+    if (/\b(?:jogger|jogging|runner)\b/.test(signalText)) return "慢跑推车";
+    if (/\b(?:travel|compact|lightweight|umbrella|portable|cabin)\b/.test(signalText)) return "旅行推车";
+    return "婴儿推车";
+  }
+  if (category === "scooter" || category === "scooters" || category === "kids_scooters") {
+    return /\belectric\b/.test(signalText) ? "儿童电动滑板车" : "儿童滑板车";
+  }
+  if (category === "electric_car" || category === "electric_vehicles") return "儿童电动车";
+  if (category === "safety_seat" || category === "car_seat" || category === "car_seats") return "儿童安全座椅";
+  if (category === "tricycle") return "儿童三轮车";
+  return "儿童出行装备";
+}
+
+function pickZhCues(signalText: string) {
+  const cues: string[] = [];
+  if (/\b(?:suspension|shock|vibration|damp)\b/.test(signalText)) cues.push("避震护脊");
+  if (/\b(?:brake|stopping|disc|v-?brake|isofix|side-impact)\b/.test(signalText)) cues.push("制动可控");
+  if (/\b(?:travel|compact|portable|lightweight|fold)\b/.test(signalText)) cues.push("便携速收");
+  if (/\b(?:jogger|jogging|all-terrain|terrain|gravel)\b/.test(signalText)) cues.push("稳行越野");
+  if (/\b(?:double|twin|sibling)\b/.test(signalText)) cues.push("双座同乘");
+  if (/\b(?:balance|coordination|learn)\b/.test(signalText)) cues.push("启蒙平衡");
+  if (/\b(?:safety|protect|secure|stable|stability)\b/.test(signalText)) cues.push("防护周全");
+  if (!cues.length) cues.push("结构稳健", "操控平顺");
+  if (cues.length === 1) cues.push("操控平顺");
+  return cues.slice(0, 2);
+}
+
+function buildZhFallbackName(brand: unknown, categoryLabel: string) {
+  const cleanBrand = cleanVisibleProductText(brand).trim();
+  return [cleanBrand, categoryLabel].filter(Boolean).join(" ") || categoryLabel;
+}
+
+function buildZhFallbackDescription(brand: unknown, categoryLabel: string, signalText: string) {
+  const [cueA, cueB] = pickZhCues(signalText);
+  const name = buildZhFallbackName(brand, categoryLabel);
+  return `${name}，${cueA}，${cueB}。`;
+}
+
+function buildZhFallbackVerdict(categoryLabel: string, signalText: string) {
+  const [cueA, cueB] = pickZhCues(signalText);
+  return `此款${categoryLabel}以${cueA}见长，兼顾${cueB}，适合日常出行。`;
+}
+
+function keepZhListOrFallback(value: unknown, fallback: string[]) {
+  if (!Array.isArray(value)) return fallback;
+  const cleaned = value.map((item) => cleanVisibleProductText(item)).filter(Boolean);
+  if (cleaned.some(hasChineseGlyph)) return cleaned;
+  return fallback;
+}
+
 export function translateProduct(p: any, lang: "zh" | "en") {
   const categoryLabel = translateCategory(p.category, lang);
   const rawWheelSize = String(p?.wheelSize || "").trim();
@@ -554,21 +621,57 @@ export function translateProduct(p: any, lang: "zh" | "en") {
   const pros = localData.pros || p.pros || [];
   const cons = localData.cons || p.cons || [];
   const editorVerdict = localData.editorVerdict || p.editorVerdict || "";
-  const brandText = localData.brandText || p.brand;
+  const sourceBrandText = cleanVisibleProductText(p.brand).trim();
+  const localizedBrandText = cleanVisibleProductText(localData.brandText || "").trim();
+  // Brand names are preserved from source and should not be translated.
+  const brandText = sourceBrandText || localizedBrandText;
   const specsText = localData.specsText || p.specsText || "";
 
   if (lang === "zh") {
+    const signalText = [
+      localData.en?.name,
+      p.en?.name,
+      p.name,
+      localData.en?.description,
+      p.en?.description,
+      p.description,
+      p.Product_Description,
+      localData.en?.editorVerdict,
+      p.en?.editorVerdict,
+      p.editorVerdict,
+      p.ageRange,
+      p.category,
+    ]
+      .map((value) => String(value || "").toLowerCase())
+      .join(" ");
+    const zhCategoryLabel = inferZhCategoryLabel(p.category, signalText);
+    const zhName = hasMeaningfulZhText(localData.name)
+      ? localData.name
+      : buildZhFallbackName(brandText, zhCategoryLabel);
+    const zhDescription = hasMeaningfulZhText(localizedDescription)
+      ? localizedDescription
+      : buildZhFallbackDescription(brandText, zhCategoryLabel, signalText);
+    const zhEditorVerdict = hasMeaningfulZhText(localData.editorVerdict)
+      ? localData.editorVerdict
+      : buildZhFallbackVerdict(zhCategoryLabel, signalText);
+    const zhFeatures = keepZhListOrFallback(localData.features || p.features, ["结构稳健", "操控顺手", "适龄匹配"]);
+    const zhPros = keepZhListOrFallback(localData.pros || p.pros, ["低速稳定", "日常易用", "维护省心"]);
+    const zhCons = keepZhListOrFallback(localData.cons || p.cons, ["请按身高体重匹配", "请在监护下使用"]);
+    const zhSpecsText = hasMeaningfulZhText(localData.specsText)
+      ? localData.specsText
+      : `${zhCategoryLabel}参数以实测为准。`;
+
     return sanitizeVisibleProductFields({ 
       ...p, 
-      name,
-      description,
-      features,
-      pros,
-      cons,
-      editorVerdict,
-      brand: brandText,
-      specsText,
-      categoryLabel 
+      name: zhName,
+      description: zhDescription,
+      features: zhFeatures,
+      pros: zhPros,
+      cons: zhCons,
+      editorVerdict: zhEditorVerdict,
+      brand: brandText || sourceBrandText || p.brand,
+      specsText: zhSpecsText,
+      categoryLabel: zhCategoryLabel,
     });
   }
 
