@@ -823,6 +823,46 @@ export function buildGeneratedEvaluations(productsData: Product[]): Evaluation[]
   const scooterProducts = byCategory("scooter");
   const strollerProducts = byCategory("stroller");
 
+  const isJoggingStrollerCandidate = (product: Product) => {
+    const categoryId = String(product.categoryId || "").toLowerCase().trim();
+    const category = String(product.category || "").toLowerCase().trim();
+    const text = [
+      product.brand,
+      product.name,
+      product.description,
+      product.Product_Description,
+      product.editorVerdict,
+      product.category,
+      product.categoryId,
+    ]
+      .map((item) => String(item || "").toLowerCase())
+      .join(" ");
+
+    const hasJoggingSignal =
+      categoryId === "jogger_stroller" ||
+      text.includes("jogging stroller") ||
+      text.includes("jogger stroller") ||
+      text.includes("jogger") ||
+      text.includes("running stroller") ||
+      text.includes("all-terrain stroller") ||
+      text.includes("all terrain stroller") ||
+      text.includes("alterrain") ||
+      text.includes("expedition") ||
+      text.includes("summit");
+
+    if (!hasJoggingSignal) return false;
+
+    const hasBlockedSignal = text.includes("wagon") || text.includes("car seat");
+
+    if (hasBlockedSignal) return false;
+
+    return category === "stroller" || categoryId.includes("stroller") || categoryId === "jogger_stroller";
+  };
+
+  const joggingPoolFromRaw = sortedRawFocus.filter(isJoggingStrollerCandidate);
+  const joggingPoolWithFallback = joggingPoolFromRaw.length > 0 ? joggingPoolFromRaw : strollerProducts.filter(isJoggingStrollerCandidate);
+  const strollerCompareProducts = joggingPoolWithFallback.slice(0, 4);
+
   const findProduct = (matcher: (text: string) => boolean) => focusProducts.find((product) => matcher(`${product.brand || ""} ${product.name || ""} ${product.description || ""} ${product.category || ""} ${product.categoryId || ""}`.toLowerCase()));
   const commercialSeeds = [
     findProduct((text) => text.includes("yoyo") || text.includes("travel stroller") || text.includes("coast rider") || text.includes("mompush")) || strollerProducts[0],
@@ -879,7 +919,7 @@ export function buildGeneratedEvaluations(productsData: Product[]): Evaluation[]
     ));
 
   const compareGroups = [
-    { products: strollerProducts.slice(0, 4), zh: "双人与慢跑手推车横向评测", en: "Premium Stroller & Jogger Parent Compare" },
+    { products: strollerCompareProducts, zh: "慢跑推车横向评测", en: "Jogging Stroller Parent Compare" },
     { products: balanceProducts.slice(0, 4), zh: "Balance Bike 高分车型横向评测", en: "Balance Bike Top Picks Compare" },
     { products: bikeProducts.slice(0, 4), zh: "Kids Bike 安全与成长适配横向评测", en: "Toddler Bike Parent Picks Compare" },
     { products: scooterProducts.slice(0, 4), zh: "Kids Scooter 稳定性与便携横向评测", en: "Kids Scooter Parent Picks Compare" },
