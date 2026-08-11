@@ -693,46 +693,48 @@ export default function HomeSection({
   }, [homeCopy.categoryCards, lang]);
 
   const strollerProducts = useMemo(() => {
-    const isJoggerSignaled = (product: Product) => {
+    const isStrictJoggingStroller = (product: Product) => {
       const normalizedCategoryId = normalizeCategory((product as any).categoryId || "");
       const normalizedCategory = normalizeCategory(product.category || "");
+
       const text = [
         product.name,
         product.brand,
         product.description,
         (product as any)?.zh?.description,
         (product as any)?.en?.description,
+        product.category,
+        (product as any).categoryId,
       ]
         .map((item) => String(item || "").toLowerCase())
         .join(" ");
 
-      if (normalizedCategoryId === "jogger_stroller" || normalizedCategory === "jogger_stroller") {
-        return true;
-      }
+      const isStrollerFamily =
+        normalizedCategoryId === "jogger_stroller" ||
+        normalizedCategory === "jogger_stroller" ||
+        normalizedCategoryId.includes("stroller") ||
+        normalizedCategory.includes("stroller");
 
-      if (normalizedCategoryId !== "stroller" && normalizedCategory !== "stroller") {
-        return false;
-      }
+      if (!isStrollerFamily) return false;
 
-      return /(jogger|jogging|running stroller|slow[-\s]?run|慢跑推车|越野推车)/i.test(text);
+      const hasJoggingSignal =
+        normalizedCategoryId === "jogger_stroller" ||
+        normalizedCategory === "jogger_stroller" ||
+        /(jogger|jogging|running stroller|all[-\s]?terrain|summit|expedition|fastaction\s+jogger|revolution\s+flex|alterrain|慢跑推车|越野推车)/i.test(text);
+
+      if (!hasJoggingSignal) return false;
+
+      const hasBlockedSignal =
+        /(ride\s*on|push\s*car|wagon|car\s*seat|tricycle|balance\s*bike|scooter|travel\s*system|compact\s*stroller|umbrella\s*stroller)/i.test(text);
+
+      return !hasBlockedSignal;
     };
 
-    const joggerExact = homeVisualProducts.filter((product) => {
-      const normalizedCategoryId = normalizeCategory((product as any).categoryId || "");
-      const normalizedCategory = normalizeCategory(product.category || "");
-      return normalizedCategoryId === "jogger_stroller" || normalizedCategory === "jogger_stroller";
-    });
-
-    const joggerBySignals = homeVisualProducts.filter((product) => isJoggerSignaled(product));
-    const strollerBackfill = homeVisualProducts.filter((product) => {
-      const normalizedCategoryId = normalizeCategory((product as any).categoryId || "");
-      const normalizedCategory = normalizeCategory(product.category || "");
-      return normalizedCategoryId === "stroller" || normalizedCategory === "stroller";
-    });
+    const strictJogging = homeVisualProducts.filter((product) => isStrictJoggingStroller(product));
 
     const merged = Array.from(
       new Map(
-        [...joggerExact, ...joggerBySignals, ...strollerBackfill]
+        [...strictJogging]
           .sort((a, b) => (b.overallScore || 0) - (a.overallScore || 0))
           .map((product) => [product.id, product])
       ).values()
@@ -1025,44 +1027,8 @@ export default function HomeSection({
           </a>
         </div>
 
-        {/* Subsection A: Best Jogging Stroller */}
-        <div id="safety_audits_jogging_anchor" className="space-y-6">
-          <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
-            <div>
-              <h2 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.joggingTitle}</h2>
-              <p className="text-slate-500 text-xs font-semibold mt-1">
-                {homeCopy.safetyAudits.sections.joggingDesc}
-              </p>
-            </div>
-            <a
-              href="/guides/best"
-              onClick={(e) => {
-                e.preventDefault();
-                localStorage.setItem("selectedCategory", "best");
-                localStorage.setItem("autoSelectWizardCategory", "stroller");
-                if ((window as any).navigateToPath) {
-                  (window as any).navigateToPath("/guides/best");
-                  // Trigger category synchronizer
-                  if (typeof (window as any).setActiveGuidesCategory === "function") {
-                    (window as any).setActiveGuidesCategory("best");
-                  }
-                } else {
-                  setActiveTab("guides");
-                }
-              }}
-              className="text-xs font-black text-orange-500 hover:text-orange-600 hover:underline transition-colors shrink-0 uppercase tracking-widest pl-4 flex items-center gap-1.5"
-            >
-                <span>{homeCopy.safetyAudits.morePicks}</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </a>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {strollerProducts.map((p, idx) => renderProductCard(p, idx, homeCopy.runtimeLabels.categoryNames.joggingStroller))}
-          </div>
-        </div>
-
-        {/* Subsection B: Best Balance Bike */}
-        <div id="safety_audits_balance_anchor" className="space-y-6 pt-6">
+        {/* Subsection A: Best Balance Bike */}
+        <div id="safety_audits_balance_anchor" className="space-y-6">
           <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
             <div>
               <h2 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.balanceTitle}</h2>
@@ -1094,6 +1060,42 @@ export default function HomeSection({
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {balanceBikeProducts.map((p, idx) => renderProductCard(p, idx + 1))}
+          </div>
+        </div>
+
+        {/* Subsection B: Best Jogging Stroller */}
+        <div id="safety_audits_jogging_anchor" className="space-y-6 pt-6">
+          <div className="flex justify-between items-center border-l-4 border-orange-500 pl-4">
+            <div>
+              <h2 className="text-xl font-black text-slate-900 tracking-tight">{homeCopy.safetyAudits.sections.joggingTitle}</h2>
+              <p className="text-slate-500 text-xs font-semibold mt-1">
+                {homeCopy.safetyAudits.sections.joggingDesc}
+              </p>
+            </div>
+            <a
+              href="/guides/best"
+              onClick={(e) => {
+                e.preventDefault();
+                localStorage.setItem("selectedCategory", "best");
+                localStorage.setItem("autoSelectWizardCategory", "stroller");
+                if ((window as any).navigateToPath) {
+                  (window as any).navigateToPath("/guides/best");
+                  // Trigger category synchronizer
+                  if (typeof (window as any).setActiveGuidesCategory === "function") {
+                    (window as any).setActiveGuidesCategory("best");
+                  }
+                } else {
+                  setActiveTab("guides");
+                }
+              }}
+              className="text-xs font-black text-orange-500 hover:text-orange-600 hover:underline transition-colors shrink-0 uppercase tracking-widest pl-4 flex items-center gap-1.5"
+            >
+                <span>{homeCopy.safetyAudits.morePicks}</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {strollerProducts.map((p, idx) => renderProductCard(p, idx, homeCopy.runtimeLabels.categoryNames.joggingStroller))}
           </div>
         </div>
 
