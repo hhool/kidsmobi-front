@@ -933,6 +933,7 @@ export default function App() {
   const [activeNewsArticleId, setActiveNewsArticleId] = useState<string>(initialRouteState.activeNewsArticleId || "");
   const [activeGuidesCategory, setActiveGuidesCategory] = useState<string>(initialRouteState.activeGuidesCategory || "all");
   const [activeGuidesArticleId, setActiveGuidesArticleId] = useState<string>(initialRouteState.activeGuidesArticleId || "");
+  const [activeGuidesSearchQuery, setActiveGuidesSearchQuery] = useState<string>("");
   const [activeProductId, setActiveProductId] = useState<string>(initialRouteState.activeProductId || "");
   const [activePageIndex, setActivePageIndex] = useState<number>(initialRouteState.activePageIndex);
   const [currentPath, setCurrentPath] = useState<string>(initialRouteState.currentPath);
@@ -3286,6 +3287,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             currentPage={activePageIndex}
             activeCategory={activeGuidesCategory}
             activeArticleId={activeGuidesArticleId}
+            activeSearchQuery={activeGuidesSearchQuery}
+            onSearchQueryChange={(query) => setActiveGuidesSearchQuery(query)}
             isAdmin={isAdmin}
             onOpenAdminGuideEditor={openAdminGuideEditor}
             onCategoryChange={(cat) => navigateToPath(cat === "all" ? "/guides" : `/guides/${cat}`, { preserveScroll: true })}

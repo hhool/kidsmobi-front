@@ -671,6 +671,8 @@ interface GuidesSectionProps {
   onCategoryChange?: (category: string) => void;
   onArticleOpen?: (category: string, articleId: string) => void;
   onArticleClose?: () => void;
+  activeSearchQuery?: string;
+  onSearchQueryChange?: (query: string) => void;
   isAdmin?: boolean;
   onOpenAdminGuideEditor?: (guideId: string) => void;
 }
@@ -690,6 +692,8 @@ export default function GuidesSection({
   onCategoryChange,
   onArticleOpen,
   onArticleClose,
+  activeSearchQuery,
+  onSearchQueryChange,
   isAdmin = false,
   onOpenAdminGuideEditor,
 }: GuidesSectionProps) {
@@ -697,7 +701,15 @@ export default function GuidesSection({
   const [loadingGuides, setLoadingGuides] = useState<boolean>(false);
   const [selectedGuideState, setSelectedGuideState] = useState<any | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [internalSearchQuery, setInternalSearchQuery] = useState<string>("");
+  const searchQuery = typeof activeSearchQuery === "string" ? activeSearchQuery : internalSearchQuery;
+  const setSearchQuery = (query: string) => {
+    if (onSearchQueryChange) {
+      onSearchQueryChange(query);
+      return;
+    }
+    setInternalSearchQuery(query);
+  };
 
   // Sync state with activeCategory
   useEffect(() => {
@@ -748,6 +760,15 @@ export default function GuidesSection({
       const absoluteTop = anchor.getBoundingClientRect().top + window.scrollY;
       window.scrollTo({ top: Math.max(0, absoluteTop), behavior: "smooth" });
     });
+  };
+
+  const rememberWizardResultsReturnState = () => {
+    if (typeof window === "undefined") return;
+    if (!showWizardResults) return;
+    localStorage.setItem("autoOpenWizard", "true");
+    if (wizardCategory && wizardCategory !== "all") {
+      localStorage.setItem("autoSelectWizardCategory", wizardCategory);
+    }
   };
 
   const handleGuidesPageNavigate = (page: number) => {
@@ -863,6 +884,7 @@ export default function GuidesSection({
   const [wizardPage, setWizardPage] = useState<number>(1);
   const [showWizardResults, setShowWizardResults] = useState<boolean>(false);
   const didInitWizardCategoryResetRef = useRef<boolean>(false);
+  const didInitWizardSearchSyncRef = useRef<boolean>(false);
   const pendingOpenWizardResultsRef = useRef<boolean>(false);
   const breadcrumbsAnchorRef = useRef<HTMLDivElement | null>(null);
 
@@ -885,6 +907,10 @@ export default function GuidesSection({
   }, []);
 
   useEffect(() => {
+    if (!didInitWizardSearchSyncRef.current) {
+      didInitWizardSearchSyncRef.current = true;
+      return;
+    }
     if (wizardCategory === "all") {
       setSelectedCategory("all");
       setSearchQuery("");
@@ -1419,8 +1445,25 @@ export default function GuidesSection({
                           {pagedMatches.map((p) => {
                             const dispProduct = translateProduct(p, lang);
                             const isPerfectWeight = p.weight <= matchRecommendations.perfectWeightLimit;
+                            const openProductDetail = () => {
+                              rememberWizardResultsReturnState();
+                              onSelectProduct(p);
+                            };
                             return (
-                              <div key={dispProduct.id} className="group h-full bg-white border border-slate-100 rounded-[32px] overflow-hidden hover:border-orange-500/40 hover:shadow-2xl hover:shadow-orange-100/60 transition-all duration-300 flex flex-col">
+                              <div
+                                key={dispProduct.id}
+                                role="button"
+                                tabIndex={0}
+                                aria-label={lang === "en" ? `Open ${dispProduct.name} details` : `打开 ${dispProduct.name} 详情`}
+                                onClick={openProductDetail}
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter" || e.key === " ") {
+                                    e.preventDefault();
+                                    openProductDetail();
+                                  }
+                                }}
+                                className="group h-full bg-white border border-slate-100 rounded-[32px] overflow-hidden hover:border-orange-500/40 hover:shadow-2xl hover:shadow-orange-100/60 transition-all duration-300 flex flex-col cursor-pointer"
+                              >
                                 <div className="p-6 flex-1 flex flex-col gap-4">
                                   <div className="flex justify-between items-center">
                                     <span className="bg-orange-50 text-orange-600 px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase border border-orange-100 tracking-wider">{dispProduct.brand}</span>
@@ -1458,7 +1501,10 @@ export default function GuidesSection({
 
                                 <div className="px-6 pb-6 mt-auto">
                                   <button
-                                    onClick={() => onSelectProduct(p)}
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      openProductDetail();
+                                    }}
                                     className="w-full py-3 bg-white border border-slate-200/90 hover:border-orange-300 text-slate-600 hover:text-orange-500 font-black text-[11px] uppercase rounded-full transition-all active:scale-[0.99] cursor-pointer text-center"
                                   >
                                     {lang === "en" ? "View Report ➔" : "查看详情 ➔"}
