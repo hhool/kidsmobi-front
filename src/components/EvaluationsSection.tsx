@@ -1527,10 +1527,21 @@ export default function EvaluationsSection({
   ) => {
     if (!includeCompare) return [];
 
+    const singleFallback = renderList
+      .filter((item: any) => item.type === "single" && item.product)
+      .filter((item: any) => matcher(normalizeCategoryText(item.product)))
+      .slice(0, 12);
+
     const compareOnly = renderList.filter((item: any) => {
       if (item.type !== "multi" || !item.products || item.products.length < 2) return false;
-      return item.products.every((product: any) => matcher(normalizeCategoryText(product)));
+      // A mixed-category comparison should still be visible on a floor
+      // if at least one linked product belongs to that floor category.
+      return item.products.some((product: any) => matcher(normalizeCategoryText(product)));
     });
+
+    if (compareOnly.length === 0) {
+      return singleFallback;
+    }
 
     if (compareOnly.length <= 1) return compareOnly;
 
@@ -1540,6 +1551,16 @@ export default function EvaluationsSection({
       return scoreB - scoreA;
     });
   };
+
+  const renderEmptyFloorNotice = () => (
+    <div className="rounded-[28px] border border-slate-100 bg-slate-50 px-6 py-8 text-center">
+      <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium">
+        {lang === "zh"
+          ? "当前分组暂无可展示评测，已在后台生成可编辑草稿后将自动展示。"
+          : "No visible reviews in this group yet. Once editable backend drafts are generated, this section will auto-populate."}
+      </p>
+    </div>
+  );
 
   const dedupeFloorItems = (items: any[]) => {
     const seen = new Set<string>();
@@ -2027,6 +2048,7 @@ export default function EvaluationsSection({
             </p>
           </div>
 
+          {(doubleStrollerFloorReviews.slice(0, 15).some((item: any) => Boolean(item?.product || item?.products?.[0]))) ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {doubleStrollerFloorReviews.slice(0, 15).map((item: any) => {
               const ev = item.evaluation;
@@ -2078,6 +2100,7 @@ export default function EvaluationsSection({
               );
             })}
           </div>
+          ) : renderEmptyFloorNotice()}
         </section>
 
         {/* FLOOR 3: KIDS BIKES */}
@@ -2091,6 +2114,7 @@ export default function EvaluationsSection({
             </p>
           </div>
 
+          {(kidsBikeOnlyReviews.slice(0, 6).some((item: any) => Boolean(item?.product || item?.products?.[0]))) ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {kidsBikeOnlyReviews.slice(0, 6).map((item: any) => {
               const ev = item.evaluation;
@@ -2142,6 +2166,7 @@ export default function EvaluationsSection({
               );
             })}
           </div>
+          ) : renderEmptyFloorNotice()}
         </section>
 
         {/* FLOOR 2: BALANCE BIKES */}
@@ -2155,6 +2180,7 @@ export default function EvaluationsSection({
             </p>
           </div>
 
+          {(balanceBikeFloorReviews.slice(0, 2).some((item: any) => Boolean(item?.product || item?.products?.[0]))) ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {balanceBikeFloorReviews.slice(0, 2).map((item: any) => {
               const ev = item.evaluation;
@@ -2206,6 +2232,7 @@ export default function EvaluationsSection({
               );
             })}
           </div>
+          ) : renderEmptyFloorNotice()}
         </section>
 
         {/* FLOOR 4: KIDS SCOOTERS */}
@@ -2219,6 +2246,7 @@ export default function EvaluationsSection({
             </p>
           </div>
 
+          {(kidsScooterOnlyReviews.slice(0, 4).some((item: any) => Boolean(item?.product || item?.products?.[0]))) ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {kidsScooterOnlyReviews.slice(0, 4).map((item: any) => {
               const ev = item.evaluation;
@@ -2270,6 +2298,7 @@ export default function EvaluationsSection({
               );
             })}
           </div>
+          ) : renderEmptyFloorNotice()}
         </section>
 
         {/* FLOOR 6: KIDS ELECTRIC CAR */}

@@ -287,14 +287,91 @@ const GUIDE_DISALLOWED_CATEGORY_TERMS = [
   "cyberquad", "mercedes g63", "doona liki"
 ];
 
+const GUIDE_CORE_PRODUCT_CATEGORY_ALIASES: Record<string, string> = {
+  stroller: "stroller",
+  strollers: "stroller",
+  jogger_stroller: "stroller",
+  jogging_stroller: "stroller",
+  balance: "balance_bike",
+  balance_bike: "balance_bike",
+  "balance-bike": "balance_bike",
+  bicycle: "kids_bikes",
+  bike: "kids_bikes",
+  kids_bike: "kids_bikes",
+  kids_bikes: "kids_bikes",
+  "kids-bike": "kids_bikes",
+  "kids-bikes": "kids_bikes",
+  scooter: "kids_scooters",
+  kids_scooter: "kids_scooters",
+  kids_scooters: "kids_scooters",
+  "kids-scooter": "kids_scooters",
+  "kids-scooters": "kids_scooters",
+  electric_car: "electric_vehicles",
+  electric_vehicle: "electric_vehicles",
+  electric_vehicles: "electric_vehicles",
+  "electric-vehicles": "electric_vehicles",
+  car_seat: "car_seat",
+  safety_seat: "car_seat",
+  "car-seat": "car_seat",
+  "safety-seat": "car_seat",
+};
+
+const GUIDE_CORE_PRODUCT_CATEGORIES = new Set([
+  "stroller",
+  "balance_bike",
+  "kids_bikes",
+  "kids_scooters",
+  "electric_vehicles",
+  "car_seat",
+]);
+
+function normalizeGuideProductCategory(value: unknown): string {
+  const normalized = String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "_");
+  return GUIDE_CORE_PRODUCT_CATEGORY_ALIASES[normalized] || normalized;
+}
+
+function isGuideCoreProductCategory(value: unknown): boolean {
+  const normalized = normalizeGuideProductCategory(value);
+  return GUIDE_CORE_PRODUCT_CATEGORIES.has(normalized);
+}
+
+function mapWizardCategoryToCoreProductCategory(value: string): string {
+  const raw = String(value || "").trim().toLowerCase();
+  if (raw === "all") return "stroller";
+  if (raw === "balance") return "balance_bike";
+  if (raw === "bicycle") return "kids_bikes";
+  if (raw === "scooter") return "kids_scooters";
+  if (raw === "electric_car") return "electric_vehicles";
+  return normalizeGuideProductCategory(raw);
+}
+
+function matchesStrictStrollerRecommendationBoundary(product: Product): boolean {
+  const text = [
+    product.name,
+    product.description,
+    product.editorVerdict,
+    product.category,
+    (product as Product & { categoryId?: string }).categoryId,
+  ]
+    .map((item) => String(item || "").toLowerCase())
+    .join(" ");
+
+  const hasStrollerSignal = /(stroller|pram|pushchair|buggy|jogger|jogging|travel\s+system|umbrella\s+stroller|double\s+stroller|twin\s+stroller|推车|婴儿车|慢跑推车|双人推车)/i.test(text);
+  const hasBlockedSignal = /(wagon|wagons|pull\s+along|ride[-\s]*on|push\s*ride\s*on|\bpush\s+car\b|playard|play\s*yard|pack\s*(?:n|and)\s*play|travel\s*crib|crib|bassinet|推行车|推骑|拖车|拉车|游戏床|婴儿床|睡床|扭扭车|wiggle\s+car)/i.test(text);
+  return hasStrollerSignal && !hasBlockedSignal;
+}
+
 function isTargetGuideProduct(product: Product) {
-  const text = `${product.category || ""} ${(product as any).categoryId || ""} ${product.name || ""} ${product.description || ""}`.toLowerCase();
-  return !text.includes("electric") && (text.includes("stroller") || text.includes("balance") || text.includes("bike") || text.includes("bicycle"));
+  const normalizedCategory = normalizeGuideProductCategory(product.category || (product as any).categoryId || "");
+  return isGuideCoreProductCategory(normalizedCategory);
 }
 
 function isAllowedGuideArticle(article: GuideArticle) {
   // Explicit CMS configuration should always win over heuristic text filters.
-  if (article.productCategory) return true;
+  if (article.productCategory) return isGuideCoreProductCategory(article.productCategory);
   if (getGuidePinOrder(article) > 0 || getGuidePinnedState(article)) return true;
 
   if (!GUIDE_ALLOWED_TOPIC_CATEGORIES.has(String(article.category || ""))) return false;
@@ -569,8 +646,8 @@ function getGuidePinOrder(article: GuideArticle): number {
 }
 
 function getGuideProductCategoryKey(article: GuideArticle): string {
-  const key = String(article.productCategory || "").trim().toLowerCase();
-  return key || "unknown";
+  const key = normalizeGuideProductCategory(article.productCategory);
+  return isGuideCoreProductCategory(key) ? key : "other";
 }
 
 interface GuidesSectionProps {
@@ -716,7 +793,7 @@ export default function GuidesSection({
             publishDate: g.updatedAt && g.updatedAt.seconds
               ? new Date(g.updatedAt.seconds * 1000).toISOString().split("T")[0]
               : "2026-06-15",
-            productCategory: g.taxonomy?.productCategory,
+            productCategory: normalizeGuideProductCategory(g.taxonomy?.productCategory),
             ...(g.taxonomy?.topicOrder ? { topicOrder: Number(g.taxonomy.topicOrder || 1) } : {}),
           }));
           setGuideArticles(mapped.map((item) => normalizeGuideArticleForLocale(item, lang)));
@@ -786,6 +863,7 @@ export default function GuidesSection({
   const [wizardPage, setWizardPage] = useState<number>(1);
   const [showWizardResults, setShowWizardResults] = useState<boolean>(false);
   const didInitWizardCategoryResetRef = useRef<boolean>(false);
+  const pendingOpenWizardResultsRef = useRef<boolean>(false);
   const breadcrumbsAnchorRef = useRef<HTMLDivElement | null>(null);
 
   const alignViewportToBreadcrumbs = () => {
@@ -811,6 +889,14 @@ export default function GuidesSection({
       setSelectedCategory("all");
       setSearchQuery("");
     }
+  }, [wizardCategory]);
+
+  useEffect(() => {
+    if (!pendingOpenWizardResultsRef.current) return;
+    if (wizardCategory === "all") return;
+    pendingOpenWizardResultsRef.current = false;
+    setWizardPage(1);
+    setShowWizardResults(true);
   }, [wizardCategory]);
 
   useEffect(() => {
@@ -993,14 +1079,16 @@ export default function GuidesSection({
 
   // Match Wizard calculation formula
   const matchRecommendations = useMemo(() => {
+    const effectiveCategory = mapWizardCategoryToCoreProductCategory(wizardCategory);
+
     // 1. Recommended Wheel Sizes or features based on selected category and child biometric specs
     let recWheel = lang === "en" ? "12 in." : "12寸";
     
-    if (wizardCategory === "stroller") {
+    if (effectiveCategory === "stroller") {
       recWheel = lang === "en" ? "Cabin-Friendly" : "轻便推行/舒适避震";
-    } else if (wizardCategory === "electric_car") {
+    } else if (effectiveCategory === "electric_vehicles") {
       recWheel = lang === "en" ? "Dual-Drive 12V/24V" : "双电有源/微冲软启";
-    } else if (wizardCategory === "scooter") {
+    } else if (effectiveCategory === "kids_scooters") {
       if (wizardAge < 3) {
         recWheel = lang === "en" ? "3-Wheel Toddler" : "三轮重力转向发光轮";
       } else {
@@ -1025,21 +1113,31 @@ export default function GuidesSection({
     let perfectWeightLimit = parseFloat((wizardWeight * 0.3).toFixed(1));
     let dangerWeightLimit = parseFloat((wizardWeight * 0.4).toFixed(1));
     
-    if (wizardCategory === "stroller") {
+    if (effectiveCategory === "stroller") {
       perfectWeightLimit = 13.5; // under 13.5 lbs (Super travel)
       dangerWeightLimit = 22.0; // above 22 lbs is jogging/heavy stroller limit
-    } else if (wizardCategory === "electric_car") {
+    } else if (effectiveCategory === "electric_vehicles") {
       perfectWeightLimit = 25.0; // under 25 lbs (Easy carry)
       dangerWeightLimit = 45.0; // over 45 lbs is heavy metal chassis
     }
 
     // 3. Recommended category
-    const recCat = wizardCategory;
+    const recCat = effectiveCategory;
+
+    // Ensure recommendations only come from categories visible on Products pages.
+    const productsVisibleInProductsPage = productsData.filter((p) => {
+      const normalizedCategory = normalizeGuideProductCategory(p.category || (p as any).categoryId || "");
+      return isGuideCoreProductCategory(normalizedCategory) && p.status === "published";
+    });
 
     // 4. Products matching math
-    const matches = productsData.filter((p) => {
+    const matches = productsVisibleInProductsPage.filter((p) => {
+      const normalizedCategory = normalizeGuideProductCategory(p.category || (p as any).categoryId || "");
       // Must match chosen category exactly
-      if (p.category !== wizardCategory) return false;
+      if (normalizedCategory !== effectiveCategory) return false;
+      if (effectiveCategory === "stroller" && !matchesStrictStrollerRecommendationBoundary(p)) {
+        return false;
+      }
       
       // Must be below budget
       const withinBudget = p.price <= wizardBudget;
@@ -1049,13 +1147,13 @@ export default function GuidesSection({
       if (p.wheelSize && p.wheelSize !== "无") {
         const sizeNum = parseInt(p.wheelSize);
         if (!isNaN(sizeNum)) {
-          if (wizardCategory === "scooter") {
+          if (effectiveCategory === "kids_scooters") {
             if (wizardAge < 3) {
               isWheelSizeMatch = sizeNum <= 10;
             } else {
               isWheelSizeMatch = sizeNum > 10 || p.wheelSize.includes("2");
             }
-          } else if (wizardCategory === "bicycle" || wizardCategory === "balance") {
+          } else if (effectiveCategory === "kids_bikes" || effectiveCategory === "balance_bike") {
             if (wizardInseam < 34) {
               isWheelSizeMatch = sizeNum <= 12;
             } else if (wizardInseam >= 34 && wizardInseam <= 40) {
@@ -1074,7 +1172,7 @@ export default function GuidesSection({
       // Specific Scenario matches
       let isScenarioMatch = true;
       if (wizardScenario === "tight") {
-        isScenarioMatch = p.weight <= perfectWeightLimit || p.category === "scooter" || p.category === "balance";
+        isScenarioMatch = p.weight <= perfectWeightLimit || normalizedCategory === "kids_scooters" || normalizedCategory === "balance_bike";
       } else if (wizardScenario === "rough") {
         isScenarioMatch = (p.tireType || "").includes("充气") || (p.tireType || "").includes("越野") || (p.tireType || "").includes("橡胶") || (p.tireType || "").includes("避震");
       }
@@ -1082,7 +1180,7 @@ export default function GuidesSection({
       // Weight safety check
       const isWeightSafe = p.weight <= dangerWeightLimit;
 
-      return withinBudget && isWeightSafe && isWheelSizeMatch && isScenarioMatch && p.status === "published";
+      return withinBudget && isWeightSafe && isWheelSizeMatch && isScenarioMatch;
     });
 
     return {
@@ -1188,7 +1286,9 @@ export default function GuidesSection({
             onClick={() => {
               setWizardPage(1);
               if (!showWizardResults && wizardCategory === "all") {
+                pendingOpenWizardResultsRef.current = true;
                 setWizardCategory("stroller");
+                return;
               }
               setShowWizardResults(!showWizardResults);
             }}
@@ -1449,7 +1549,7 @@ export default function GuidesSection({
                   { id: "bicycle", emoji: "🚴", labelEn: "Kids Bike", labelZh: "儿童自行车" },
                   { id: "scooter", emoji: "🛹", labelEn: "Kids Scooter", labelZh: "儿童滑板车" },
                   { id: "balance", emoji: "🚲", labelEn: "Balance Bike", labelZh: "学步滑步平衡车" },
-                  { id: "electric_car", emoji: "⚡", labelEn: "Electric Car", labelZh: "智能电动玩具车" },
+                  { id: "electric_car", emoji: "⚡", labelEn: "Kids electric Car", labelZh: "儿童电动车" },
                 ].map((cat) => (
                   <button
                     key={cat.id}

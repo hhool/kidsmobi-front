@@ -64,6 +64,7 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [brandFilter, setBrandFilter] = useState("all");
   const [typeFilter, setTypeFilter] = useState<"all" | "single" | "multi">("all");
+  const [generatingEditable, setGeneratingEditable] = useState(false);
 
   const PREFILL_STORAGE_KEY = "cms_evaluation_prefill";
 
@@ -275,6 +276,112 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
     }));
   };
 
+  const buildEditableEvaluationPayload = (ev: Evaluation, index: number): Evaluation => {
+    const normalized = normalizeEvaluationRecord(ev);
+    const linked = resolveLinkedProducts(normalized);
+    const primary = linked[0];
+    const zhName = String(primary?.zh?.name || primary?.en?.name || normalized.productId || `评测样本 ${index + 1}`).trim();
+    const enName = String(primary?.en?.name || primary?.zh?.name || normalized.productId || `Review Sample ${index + 1}`).trim();
+    const isMulti = getReviewBucket(normalized) === "multi";
+
+    const nextId = persistedEvaluationIds.has(normalized.id)
+      ? normalized.id
+      : `eval_auto_${Date.now()}_${index + 1}`;
+
+    const next: Evaluation = {
+      ...normalized,
+      id: nextId,
+      status: normalized.status === "published" ? "published" : "draft",
+      type: isMulti ? "compare" : "single",
+      productId: isMulti ? (normalized.productId || linked[0]?.id || "") : (normalized.productId || linked[0]?.id || ""),
+      productIds: isMulti
+        ? Array.from(new Set([...(normalized.productIds || []), normalized.productId].filter(Boolean))).slice(0, 4)
+        : [],
+      version: String(normalized.version || "V1.0"),
+      zh: {
+        ...normalized.zh,
+        title: String(normalized.zh?.title || "").trim() || (isMulti ? `${zhName} 横向评测草稿` : `${zhName} 单品评测草稿`),
+        verdict:
+          String(normalized.zh?.verdict || "").trim() ||
+          (isMulti
+            ? "该横评草稿由系统生成，请在后台补充对比维度、样本边界与最终结论。"
+            : "该单品评测草稿由系统生成，请在后台补充实测过程、风险点与最终建议。"),
+        pros: Array.isArray(normalized.zh?.pros) && normalized.zh.pros.length > 0
+          ? normalized.zh.pros
+          : ["待补充：请结合评测数据填写优势要点。"],
+        cons: Array.isArray(normalized.zh?.cons) && normalized.zh.cons.length > 0
+          ? normalized.zh.cons
+          : ["待补充：请结合评测数据填写限制与风险。"],
+        changelog: String(normalized.zh?.changelog || "").trim() || "由前端生成评测同步为后台可编辑草稿。",
+      },
+      en: {
+        ...normalized.en,
+        title: String(normalized.en?.title || "").trim() || (isMulti ? `${enName} Comparison Draft` : `${enName} Single Review Draft`),
+        verdict:
+          String(normalized.en?.verdict || "").trim() ||
+          (isMulti
+            ? "System-generated comparison draft. Please refine dimensions, sample boundaries, and final verdict in CMS."
+            : "System-generated single-review draft. Please refine testing notes, risk points, and final verdict in CMS."),
+        pros: Array.isArray(normalized.en?.pros) && normalized.en.pros.length > 0
+          ? normalized.en.pros
+          : ["Pending: add evidence-based strengths."],
+        cons: Array.isArray(normalized.en?.cons) && normalized.en.cons.length > 0
+          ? normalized.en.cons
+          : ["Pending: add evidence-based limitations and risks."],
+        changelog: String(normalized.en?.changelog || "").trim() || "Synced from frontend-generated review into editable CMS draft.",
+      },
+    };
+
+    return next;
+  };
+
+  const handleGenerateEditableDrafts = async () => {
+    if (generatingEditable) return;
+
+    const candidates = editableEvaluations.filter((ev) => !persistedEvaluationIds.has(ev.id));
+    if (candidates.length === 0) {
+      alert(lang === "zh" ? "当前没有待生成的前端评测条目。" : "No generated frontend review entries to persist.");
+      return;
+    }
+
+    const ok = window.confirm(
+      lang === "zh"
+        ? `确认生成 ${candidates.length} 条后端可编辑评测草稿吗？`
+        : `Generate ${candidates.length} backend-editable evaluation drafts now?`,
+    );
+    if (!ok) return;
+
+    setGeneratingEditable(true);
+    try {
+      let success = 0;
+      for (let i = 0; i < candidates.length; i += 1) {
+        const payload = buildEditableEvaluationPayload(candidates[i], i);
+        try {
+          const saved = await saveD1CMSEvaluation(payload);
+          if (!saved) {
+            throw new Error("D1 save failed");
+          }
+          success += 1;
+        } catch {
+          await saveCMSEvaluation(payload);
+          success += 1;
+        }
+      }
+
+      alert(
+        lang === "zh"
+          ? `已生成 ${success}/${candidates.length} 条后端可编辑评测草稿。`
+          : `Generated ${success}/${candidates.length} backend-editable evaluation drafts.`,
+      );
+      await fetchData();
+    } catch (e: any) {
+      console.error(e);
+      alert(e?.message || String(e));
+    } finally {
+      setGeneratingEditable(false);
+    }
+  };
+
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
 
@@ -399,6 +506,16 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
               className="px-4 py-3 rounded-2xl bg-slate-900 text-white font-black text-xs uppercase tracking-wider hover:bg-emerald-500 transition-colors"
             >
               {lang === "zh" ? "清空筛选" : "Reset Filters"}
+            </button>
+            <button
+              type="button"
+              onClick={handleGenerateEditableDrafts}
+              disabled={generatingEditable}
+              className="px-4 py-3 rounded-2xl bg-emerald-500 text-white font-black text-xs uppercase tracking-wider hover:bg-emerald-600 transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed"
+            >
+              {generatingEditable
+                ? (lang === "zh" ? "生成中" : "Generating")
+                : (lang === "zh" ? "生成后端草稿" : "Generate Backend Drafts")}
             </button>
           </div>
         </div>

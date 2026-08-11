@@ -1521,6 +1521,25 @@ export default function ProductsSection({
     return hasHelmetSignalMatched || hasRideOnPushCarSignal || hasWiggleCarSignal;
   };
 
+  const matchesStrollerBoundary = (sourceProduct: Product, translatedProduct: Product) => {
+    const text = [
+      sourceProduct.name,
+      sourceProduct.description,
+      sourceProduct.editorVerdict,
+      translatedProduct.name,
+      translatedProduct.description,
+      translatedProduct.editorVerdict,
+      sourceProduct.category,
+      (sourceProduct as Product & { categoryId?: string }).categoryId,
+    ]
+      .map((item) => String(item || "").toLowerCase())
+      .join(" ");
+
+    const hasStrollerSignal = /(stroller|pram|pushchair|buggy|jogger|jogging|travel\s+system|umbrella\s+stroller|double\s+stroller|twin\s+stroller|推车|婴儿车|慢跑推车|双人推车)/i.test(text);
+    const hasBlockedSignal = /(wagon|wagons|pull\s+along|ride[-\s]*on|push\s*ride\s*on|\bpush\s+car\b|playard|play\s*yard|pack\s*(?:n|and)\s*play|travel\s*crib|crib|bassinet|推行车|推骑|拖车|拉车|游戏床|婴儿床|睡床|扭扭车|wiggle\s+car)/i.test(text);
+    return hasStrollerSignal && !hasBlockedSignal;
+  };
+
   const selectedCategoryProducts = useMemo<Product[]>(() => {
     if (!selectedCategory || selectedCategory === "all") {
       return [] as Product[];
@@ -1532,6 +1551,7 @@ export default function ProductsSection({
       .filter(({ sourceCategoryId, sourceProduct, product }) => {
         if (sourceCategoryId !== selectedCategory) return false;
         if (isHelmetProduct(sourceProduct, product)) return false;
+        if (selectedCategory === "stroller" && !matchesStrollerBoundary(sourceProduct, product)) return false;
         if (selectedCategory === "electric_vehicles" && shouldExcludeFromElectricVehicles(sourceProduct, product)) {
           return false;
         }
@@ -1590,9 +1610,11 @@ export default function ProductsSection({
         const matchesCategory = selectedCategory === "all" || sourceCategoryId === selectedCategory;
         const matchesScooterBoundary =
           selectedCategory !== "kids_scooters" || matchesKidsScootersBoundary(sourceProduct, product);
+        const matchesStrollerBoundaryFilter =
+          selectedCategory !== "stroller" || matchesStrollerBoundary(sourceProduct, product);
         const matchesElectricVehiclesBoundary =
           selectedCategory !== "electric_vehicles" || !shouldExcludeFromElectricVehicles(sourceProduct, product);
-        return matchesCategory && matchesScooterBoundary && matchesElectricVehiclesBoundary;
+        return matchesCategory && matchesScooterBoundary && matchesStrollerBoundaryFilter && matchesElectricVehiclesBoundary;
       }).length;
   }, [translatedProductsData, selectedCategory, isAdmin]);
 
@@ -1729,6 +1751,8 @@ export default function ProductsSection({
 
         const matchesScooterBoundary =
           selectedCategory !== "kids_scooters" || matchesKidsScootersBoundary(sourceProduct, p);
+        const matchesStrollerBoundaryFilter =
+          selectedCategory !== "stroller" || matchesStrollerBoundary(sourceProduct, p);
         const matchesElectricVehiclesBoundary =
           selectedCategory !== "electric_vehicles" || !shouldExcludeFromElectricVehicles(sourceProduct, p);
 
@@ -1745,6 +1769,7 @@ export default function ProductsSection({
           matchesWheelSize &&
           matchesCertification &&
           matchesScooterBoundary &&
+          matchesStrollerBoundaryFilter &&
           matchesElectricVehiclesBoundary &&
           matchesType &&
           matchesPower
