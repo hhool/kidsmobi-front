@@ -207,6 +207,10 @@ function compactSnippet(value: string): string {
     .trim();
 }
 
+function toLowerSafe(value: unknown): string {
+  return String(value ?? "").toLowerCase();
+}
+
 function applyTemplate(
   templateValue: unknown,
   replacements: Record<string, string>,
@@ -1373,7 +1377,7 @@ export default function ProductsSection({
       return localizeSafetyDisplayValue(value, lang);
     }
 
-    const normalized = value.trim().toLowerCase();
+    const normalized = String(value ?? "").trim().toLowerCase();
     const tireMap: Record<string, string> = {
       "eva solid": "EVA 实心胎",
       "eva foam": "EVA 发泡胎",
@@ -1619,7 +1623,7 @@ export default function ProductsSection({
   }, [translatedProductsData, selectedCategory, isAdmin]);
 
   const getSeoHintTarget = (hint: string) => {
-    const normalized = hint.trim().toLowerCase();
+    const normalized = String(hint ?? "").trim().toLowerCase();
     const hintMap: Record<string, string> = {
       stroller: "stroller",
       strollers: "stroller",
@@ -1691,11 +1695,12 @@ export default function ProductsSection({
           return false;
         }
         const matchesCategory = selectedCategory === "all" || sourceCategoryId === selectedCategory;
-        const matchesSearch = searchQuery.trim() === "" ||
-          p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          p.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          p.material.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          (p.tireType || "").toLowerCase().includes(searchQuery.toLowerCase());
+        const normalizedQuery = searchQuery.trim().toLowerCase();
+        const matchesSearch = normalizedQuery === "" ||
+          toLowerSafe(p.name).includes(normalizedQuery) ||
+          toLowerSafe(p.brand).includes(normalizedQuery) ||
+          toLowerSafe(p.material).includes(normalizedQuery) ||
+          toLowerSafe(p.tireType).includes(normalizedQuery);
           
         let matchesAge = true;
         if (selectedAge !== "all") {
@@ -1714,12 +1719,12 @@ export default function ProductsSection({
 
         let matchesType = true;
         if (selectedType === "twin") {
-          matchesType = includesAny(p.name.toLowerCase(), productLogicTokens.twinSignals);
+          matchesType = includesAny(toLowerSafe(p.name), productLogicTokens.twinSignals);
         }
 
         let matchesPower = true;
         if (selectedPower === "electric") {
-          matchesPower = includesAny(p.name.toLowerCase(), productLogicTokens.electricSignals) || includesAny(p.id.toLowerCase(), productLogicTokens.electricSignals);
+          matchesPower = includesAny(toLowerSafe(p.name), productLogicTokens.electricSignals) || includesAny(toLowerSafe(p.id), productLogicTokens.electricSignals);
         }
 
         const needsCategoryFacetFilter = selectedCategory !== "all";

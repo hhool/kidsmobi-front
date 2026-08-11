@@ -200,7 +200,7 @@ const buildProductDetailDescription = (product: Product, lang: "zh" | "en") => {
 
 const buildProductDetailKeywords = (product: Product, lang: "zh" | "en") => {
   const categoryId = resolveProductCategoryId(product) || "all";
-  const dedupedDisplayTitle = getProductDisplayTitle(product, lang);
+  const dedupedDisplayTitle = String(getProductDisplayTitle(product, lang) || "");
   const rawBrand = String(product.brand || "").trim();
   const categoryKeywords = getProductSeoKeywords(categoryId, lang);
   const genericKeywords = lang === "zh"
