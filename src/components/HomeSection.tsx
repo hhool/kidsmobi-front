@@ -1003,138 +1003,7 @@ export default function HomeSection({
         </div>
       </section>
 
-      {/* 4. Category Launchpad (品类入口) */}
-      <section id="category_highlights_anchor" className="max-w-7xl mx-auto px-6 space-y-10">
-        <div className="flex justify-between items-end">
-          <div className="space-y-2">
-            <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">
-              {homeCopy.categoryHighlights.eyebrow}
-            </span>
-            <h2 className="km-section-title text-slate-900">
-              {homeCopy.categoryHighlights.title}
-            </h2>
-            <p className="km-heading-copy km-body-copy text-slate-500 font-medium">
-              {homeCopy.categoryHighlights.description}
-            </p>
-          </div>
-          <a
-            href="/products"
-            onClick={(e) => {
-              e.preventDefault();
-              setActiveTab("products");
-            }}
-            className="text-sm font-black text-slate-400 hover:text-orange-500 transition-colors uppercase tracking-widest"
-          >
-            {homeCopy.categoryHighlights.openProductCenter}
-          </a>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {prioritizedCategoryCards.map((cat) => {
-            const topProduct = categoryTopProductMap[cat.id];
-            const rawCategoryBrandLabel = String(topProduct ? (translateProduct(topProduct, lang).brand || topProduct.brand || "") : "").trim();
-            const categoryBrandLabel = normalizeBrandLabel(rawCategoryBrandLabel);
-            const categoryBrandFallback = lang === "zh" ? "品牌待更新" : "Brand pending";
-            const categoryPriceLabel = formatHomePrice(topProduct);
-            const categoryProductTitle = topProduct
-              ? (() => {
-                  if (cat.id === "stroller") {
-                    return collapseRepeatedLeadingBrand(
-                      String(`${categoryBrandLabel} ${homeCopy.runtimeLabels.categoryNames.joggingStroller}`).trim(),
-                      categoryBrandLabel,
-                    ) || cat.label;
-                  }
-
-                  if (cat.id === "scooters") {
-                    const scooterLabel = lang === "zh" ? "儿童电动滑板车" : "Kids Electric Scooter";
-                    return collapseRepeatedLeadingBrand(
-                      String(`${categoryBrandLabel} ${scooterLabel}`).trim(),
-                      categoryBrandLabel,
-                    ) || cat.label;
-                  }
-
-                  const topTitle = getProductDisplayTitle(topProduct, lang);
-                  const topTitleWithoutBrand = stripLeadingBrandFromTitle(stripLeadingBrandFromTitle(topTitle, rawCategoryBrandLabel), categoryBrandLabel);
-                  const normalizedTopTitle = stripLeadingTitleModifiers(topTitleWithoutBrand);
-                  return collapseRepeatedLeadingBrand(
-                    String(`${categoryBrandLabel} ${normalizedTopTitle || cat.label}`).trim(),
-                    categoryBrandLabel,
-                  ) || cat.label;
-                })()
-              : cat.label;
-
-            return (
-            <a
-              href={cat.slug}
-              key={cat.id}
-              onClick={(e) => {
-                e.preventDefault();
-                onSelectCategory(cat.id);
-              }}
-              className="group h-full min-h-90 bg-white border border-slate-100 rounded-[32px] overflow-hidden hover:border-orange-500/40 hover:shadow-2xl hover:shadow-orange-100/70 transition-all duration-300 flex flex-col cursor-pointer"
-            >
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  if (topProduct) {
-                    onSelectProduct(topProduct);
-                    return;
-                  }
-                  onSelectCategory(cat.id);
-                }}
-                className="relative h-52 w-full bg-slate-50 overflow-hidden text-center cursor-pointer"
-                aria-label={lang === "zh" ? `${cat.label} 详情` : `${cat.label} details`}
-              >
-                {(() => {
-                  const imageKey = `category-${cat.id}`;
-                  const topProduct = categoryTopProductMap[cat.id];
-                  const productCoverUrl = topProduct ? resolveProductImages(topProduct).coverUrl : "";
-                  const sourceUrl = productCoverUrl && productCoverUrl !== FALLBACK_PRODUCT_IMAGE
-                    ? productCoverUrl
-                    : (CATEGORY_DEFAULT_IMAGE_MAP[cat.id] || FALLBACK_PRODUCT_IMAGE);
-                  const state = imageLoadState[imageKey];
-                  return (
-                    <>
-                      <img
-                        src={resolveStableImageSrc(imageKey, sourceUrl)}
-                        alt={cat.label}
-                        onLoad={() => handleCardImageLoad(imageKey)}
-                        onError={() => handleCardImageError(imageKey, sourceUrl)}
-                        className="w-full h-full object-contain p-5 transition-transform duration-500 group-hover:scale-[1.08]"
-                      />
-                      {!state?.loaded && (
-                        <div className="absolute inset-0 animate-pulse bg-linear-to-r from-slate-200 via-slate-100 to-slate-200" />
-                      )}
-                    </>
-                  );
-                })()}
-                <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-[10px] bg-white/90 text-orange-600 font-black uppercase backdrop-blur-sm border border-orange-100 shadow-sm">
-                  {homeCopy.categoryHighlights.featuredTag}
-                </span>
-              </button>
-
-              <div className="p-6 space-y-3 flex-1 flex flex-col bg-white">
-                <div className="space-y-3">
-                  <h3 className="font-black text-slate-900 transition-colors line-clamp-2 min-h-10 leading-tight">{categoryProductTitle}</h3>
-                  <div className="flex items-center justify-end gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500">
-                    <span className="text-right text-slate-700">{categoryPriceLabel}</span>
-                  </div>
-                  <p className="text-[10px] text-slate-500 font-medium line-clamp-3 leading-relaxed min-h-9">
-                    {cat.desc}
-                  </p>
-                </div>
-                <div className="mt-auto flex items-center justify-end border-t border-slate-100 pt-4">
-                  <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-orange-500 group-hover:translate-x-1 transition-all" />
-                </div>
-              </div>
-            </a>
-          );})}
-        </div>
-      </section>
-
-      {/* 5. Safety Audits (双横排网格 SEO 增强版) */}
+      {/* 4. Safety Audits (双横排网格 SEO 增强版) */}
       <section id="safety_audits_anchor" className="max-w-7xl mx-auto px-6 space-y-12">
         <div className="flex justify-between items-end">
           <div className="space-y-2">
@@ -1339,6 +1208,137 @@ export default function HomeSection({
               </div>
             )}
           </div>
+        </div>
+      </section>
+
+      {/* 5. Category Launchpad (品类入口) */}
+      <section id="category_highlights_anchor" className="max-w-7xl mx-auto px-6 space-y-10">
+        <div className="flex justify-between items-end">
+          <div className="space-y-2">
+            <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">
+              {homeCopy.categoryHighlights.eyebrow}
+            </span>
+            <h2 className="km-section-title text-slate-900">
+              {homeCopy.categoryHighlights.title}
+            </h2>
+            <p className="km-heading-copy km-body-copy text-slate-500 font-medium">
+              {homeCopy.categoryHighlights.description}
+            </p>
+          </div>
+          <a
+            href="/products"
+            onClick={(e) => {
+              e.preventDefault();
+              setActiveTab("products");
+            }}
+            className="text-sm font-black text-slate-400 hover:text-orange-500 transition-colors uppercase tracking-widest"
+          >
+            {homeCopy.categoryHighlights.openProductCenter}
+          </a>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {prioritizedCategoryCards.map((cat) => {
+            const topProduct = categoryTopProductMap[cat.id];
+            const rawCategoryBrandLabel = String(topProduct ? (translateProduct(topProduct, lang).brand || topProduct.brand || "") : "").trim();
+            const categoryBrandLabel = normalizeBrandLabel(rawCategoryBrandLabel);
+            const categoryBrandFallback = lang === "zh" ? "品牌待更新" : "Brand pending";
+            const categoryPriceLabel = formatHomePrice(topProduct);
+            const categoryProductTitle = topProduct
+              ? (() => {
+                  if (cat.id === "stroller") {
+                    return collapseRepeatedLeadingBrand(
+                      String(`${categoryBrandLabel} ${homeCopy.runtimeLabels.categoryNames.joggingStroller}`).trim(),
+                      categoryBrandLabel,
+                    ) || cat.label;
+                  }
+
+                  if (cat.id === "scooters") {
+                    const scooterLabel = lang === "zh" ? "儿童电动滑板车" : "Kids Electric Scooter";
+                    return collapseRepeatedLeadingBrand(
+                      String(`${categoryBrandLabel} ${scooterLabel}`).trim(),
+                      categoryBrandLabel,
+                    ) || cat.label;
+                  }
+
+                  const topTitle = getProductDisplayTitle(topProduct, lang);
+                  const topTitleWithoutBrand = stripLeadingBrandFromTitle(stripLeadingBrandFromTitle(topTitle, rawCategoryBrandLabel), categoryBrandLabel);
+                  const normalizedTopTitle = stripLeadingTitleModifiers(topTitleWithoutBrand);
+                  return collapseRepeatedLeadingBrand(
+                    String(`${categoryBrandLabel} ${normalizedTopTitle || cat.label}`).trim(),
+                    categoryBrandLabel,
+                  ) || cat.label;
+                })()
+              : cat.label;
+
+            return (
+            <a
+              href={cat.slug}
+              key={cat.id}
+              onClick={(e) => {
+                e.preventDefault();
+                onSelectCategory(cat.id);
+              }}
+              className="group h-full min-h-90 bg-white border border-slate-100 rounded-[32px] overflow-hidden hover:border-orange-500/40 hover:shadow-2xl hover:shadow-orange-100/70 transition-all duration-300 flex flex-col cursor-pointer"
+            >
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  if (topProduct) {
+                    onSelectProduct(topProduct);
+                    return;
+                  }
+                  onSelectCategory(cat.id);
+                }}
+                className="relative h-52 w-full bg-slate-50 overflow-hidden text-center cursor-pointer"
+                aria-label={lang === "zh" ? `${cat.label} 详情` : `${cat.label} details`}
+              >
+                {(() => {
+                  const imageKey = `category-${cat.id}`;
+                  const topProduct = categoryTopProductMap[cat.id];
+                  const productCoverUrl = topProduct ? resolveProductImages(topProduct).coverUrl : "";
+                  const sourceUrl = productCoverUrl && productCoverUrl !== FALLBACK_PRODUCT_IMAGE
+                    ? productCoverUrl
+                    : (CATEGORY_DEFAULT_IMAGE_MAP[cat.id] || FALLBACK_PRODUCT_IMAGE);
+                  const state = imageLoadState[imageKey];
+                  return (
+                    <>
+                      <img
+                        src={resolveStableImageSrc(imageKey, sourceUrl)}
+                        alt={cat.label}
+                        onLoad={() => handleCardImageLoad(imageKey)}
+                        onError={() => handleCardImageError(imageKey, sourceUrl)}
+                        className="w-full h-full object-contain p-5 transition-transform duration-500 group-hover:scale-[1.08]"
+                      />
+                      {!state?.loaded && (
+                        <div className="absolute inset-0 animate-pulse bg-linear-to-r from-slate-200 via-slate-100 to-slate-200" />
+                      )}
+                    </>
+                  );
+                })()}
+                <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-[10px] bg-white/90 text-orange-600 font-black uppercase backdrop-blur-sm border border-orange-100 shadow-sm">
+                  {homeCopy.categoryHighlights.featuredTag}
+                </span>
+              </button>
+
+              <div className="p-6 space-y-3 flex-1 flex flex-col bg-white">
+                <div className="space-y-3">
+                  <h3 className="font-black text-slate-900 transition-colors line-clamp-2 min-h-10 leading-tight">{categoryProductTitle}</h3>
+                  <div className="flex items-center justify-end gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500">
+                    <span className="text-right text-slate-700">{categoryPriceLabel}</span>
+                  </div>
+                  <p className="text-[10px] text-slate-500 font-medium line-clamp-3 leading-relaxed min-h-9">
+                    {cat.desc}
+                  </p>
+                </div>
+                <div className="mt-auto flex items-center justify-end border-t border-slate-100 pt-4">
+                  <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-orange-500 group-hover:translate-x-1 transition-all" />
+                </div>
+              </div>
+            </a>
+          );})}
         </div>
       </section>
 
