@@ -223,8 +223,8 @@ export default function MatchingWizard({
           {step === "budget" && (
             <div className="space-y-6 animate-in slide-in-from-right-4 duration-300">
               <div className="space-y-1">
-                <h4 className="text-2xl font-black text-slate-900 leading-tight">{lang === "zh" ? "您的预期预算范围？" : "Your expected budget range?"}</h4>
-                <p className="text-sm text-slate-500 font-medium">{lang === "zh" ? "我们将在此范围内为您锁定实验室最高分的单品" : "We will lock in the highest lab score items in this range."}</p>
+                <h4 className="text-2xl font-black text-slate-900 leading-tight">{lang === "zh" ? "预期预算范围？" : "Your expected budget range?"}</h4>
+                <p className="text-sm text-slate-500 font-medium">{lang === "zh" ? "将在此范围内为您锁定实验室最高分的单品" : "We will lock in the highest lab score items in this range."}</p>
               </div>
               <div className="grid grid-cols-1 gap-4">
                 {budgetOptions.map(opt => (

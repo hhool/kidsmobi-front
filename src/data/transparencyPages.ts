@@ -414,9 +414,9 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         },
         {
           eyebrow: "03 / 无广告市场",
-          title: "我们不把家长注意力卖成产品",
+          title: "不把家长注意力卖成产品",
           body: [
-            "BalanceBikeToddler 避免广告追踪器，不出售个人数据。我们只使用隐私友好的分析和运行日志来保持站点稳定、识别滥用，并理解哪些安全资源真正帮助家庭。",
+            "BalanceBikeToddler 避免广告追踪器，不出售个人数据。只使用隐私友好的分析和运行日志来保持站点稳定、识别滥用，并理解哪些安全资源真正帮助家庭。",
             "如果未来扩展数据使用，规则仍然简单：讲清楚、保持比例、绝不把孩子尺寸变成增长黑客资产。"
           ],
         },

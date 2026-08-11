@@ -74,10 +74,10 @@ function getCompareCardCtaLabel(product: Product, lang: "zh" | "en") {
   const text = `${product.category || ""} ${product.categoryId || ""} ${product.name || ""}`.toLowerCase();
   if (lang === "en") {
     if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return "READ STROLLER REVIEWS ->";
-    if (text.includes("balance")) return "READ BALANCE BIKE REVIEW ->";
-    if (text.includes("scooter")) return "READ SCOOTER REVIEW ->";
-    if (text.includes("bike") || text.includes("bicycle")) return "READ KIDS BIKE REVIEW ->";
-    return "READ PRODUCT REVIEW ->";
+    if (text.includes("balance")) return "READ BALANCE BIKE REVIEWS ->";
+    if (text.includes("scooter")) return "READ SCOOTER REVIEWS ->";
+    if (text.includes("bike") || text.includes("bicycle")) return "READ KIDS BIKE REVIEWS ->";
+    return "READ PRODUCT REVIEWS ->";
   }
   if (text.includes("stroller") || text.includes("jogger") || text.includes("travel")) return "查看推车评测 ->";
   if (text.includes("balance")) return "查看平衡车评测 ->";

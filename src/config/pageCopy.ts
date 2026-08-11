@@ -423,7 +423,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
     home: {
       overviewLabel: "首页概览",
       bannerBadge: "BBT 官方安全审计",
-      heroTitle: "欢迎来到 BalanceBikeToddler，我们用真实评测帮助家长选择更适合孩子的出行装备。",
+      heroTitle: "BalanceBikeToddler，用真实评测帮助家长选择更适合孩子的出行装备。",
       heroSubtitle: "从平衡车、儿童自行车、慢跑婴儿推车、儿童电动滑板车到儿童电动汽车，这里持续更新独立实验室的安全检测、对比结果和选购建议。",
       heroCta: "3 步找到最适合孩子的出行方案",
       quickCategories: {
@@ -435,13 +435,13 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
       categoryHighlights: {
         eyebrow: "精选品类",
         title: "按成长阶段与使用场景，找到更适合孩子的出行装备",
-        description: "我们围绕平衡车、儿童自行车、慢跑婴儿推车、儿童电动滑板车与儿童电动汽车，对车架人体工学、结构耐受与家庭适配度进行对比评估。",
+        description: "围绕平衡车、儿童自行车、慢跑婴儿推车、儿童电动滑板车与儿童电动汽车，对车架人体工学、结构耐受与家庭适配度进行对比评估。",
         openProductCenter: "进入产品中心",
         featuredTag: "精选",
       },
       categoryCards: {
         strollerLabel: "慢跑手推车",
-        strollerDesc: "发现我们评分领先的慢跑婴儿推车，重点测试全地形悬挂、安全刹车及日常推行舒适度。",
+        strollerDesc: "发现评分领先的慢跑婴儿推车，重点测试全地形悬挂、安全刹车及日常推行舒适度。",
         balanceLabel: "儿童平衡车",
         balanceDesc: "为孩子寻找更安全的平衡车。我们评估车架重量、轮胎抓地力和人体工学，帮助 2-3 岁孩子自信起步。",
         kidsBikeLabel: "儿童自行车",

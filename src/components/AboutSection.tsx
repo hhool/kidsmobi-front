@@ -297,7 +297,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             {
               icon: <Award className="w-6 h-6" />,
               title: "全流程可溯源",
-              desc: "我们将实测日志、测重照片及原始数据全部长期备案，接受全国科研同行及消费者自提查验。",
+              desc: "将实测日志、测重照片及原始数据全部长期备案，接受全国科研同行及消费者自提查验。",
               tag: "FULLY TRACEABLE"
             }
           ].map((item, i) => (
@@ -325,7 +325,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
           </div>
           <div>
             <h3 className="km-section-title text-slate-900 uppercase">测评体系与方法论</h3>
-            <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium tracking-tight">我们如何确保实验数据的严谨性与 100% 可追溯性。</p>
+            <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium tracking-tight">如何确保实验数据的严谨性与 100% 可追溯性。</p>
           </div>
         </div>
 
