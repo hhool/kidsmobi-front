@@ -227,6 +227,10 @@ function containsCjk(text: string): boolean {
   return /[\u4e00-\u9fff]/.test(String(text || ""));
 }
 
+function hasHelmetSignal(text: string): boolean {
+  return /(\bhelmets?\b|头盔)/i.test(String(text || ""));
+}
+
 function stripLeadingBrandFromTitle(title: string, brand: string): string {
   const normalizedTitle = String(title || "").trim();
   const normalizedBrand = String(brand || "").trim();
@@ -298,20 +302,112 @@ function stripRepeatedBrandPrefix(text: string, brand: string): string {
   return next.replace(repeatedBrandPattern, "").trim();
 }
 
+function localizeCardTitleZh(rawTitle: string): string {
+  let text = compactSnippet(rawTitle);
+  if (!text) return "";
+
+  const replacements: Array<[RegExp, string]> = [
+    [/\ball[\s-]*terrain\b/gi, "全地形"],
+    [/\bwagon\b/gi, "拖车"],
+    [/\bremy\b/gi, "瑞米"],
+    [/\bbravo\b/gi, "博睿"],
+    [/\b3\s*-\s*in\s*-\s*1\b/gi, "三合一"],
+    [/\btrio\b/gi, "三件套"],
+    [/\btravel\s+system\b/gi, "出行系统"],
+    [/\binfant\s+car\s+seat\b/gi, "婴儿安全座椅"],
+    [/\bcar\s+seat\b/gi, "安全座椅"],
+    [/\bbalance\s+bike\b/gi, "平衡车"],
+    [/\bkids?\s+bikes?\b/gi, "儿童自行车"],
+    [/\bbikes?\b/gi, "自行车"],
+    [/\btravel\s+stroller\b/gi, "旅行推车"],
+    [/\bjogging\s+stroller\b/gi, "慢跑推车"],
+    [/\blightweight\s+stroller\b/gi, "轻便推车"],
+    [/\bstroller\b/gi, "推车"],
+    [/\bkids?\s+scooters?\b/gi, "儿童滑板车"],
+    [/\bscooters?\b/gi, "滑板车"],
+    [/\belectric\s+vehicles?\b/gi, "儿童电动车"],
+    [/\belectric\s+cars?\b/gi, "儿童电动车"],
+    [/\bcar\s+seats?\b/gi, "儿童安全座椅"],
+    [/\bsafety\s+seats?\b/gi, "儿童安全座椅"],
+    [/\btoddler\b/gi, "幼儿"],
+    [/\bdouble\s+twin\s+stroller\b/gi, "双人推车"],
+    [/\btwin\s+stroller\b/gi, "双人推车"],
+    [/\bglow\s+wheel\b/gi, "发光轮"],
+    [/\bcolorful\s+led\b/gi, "彩色灯光"],
+    [/\billuminated\b/gi, "发光"],
+  ];
+
+  for (const [pattern, replacement] of replacements) {
+    text = text.replace(pattern, replacement);
+  }
+
+  return text.replace(/\s+/g, " ").trim();
+}
+
+function removeLatinFragmentsWhenZhPresent(rawTitle: string, brand: string): string {
+  const title = compactSnippet(rawTitle);
+  if (!title) return "";
+  if (!containsCjk(title) || !/[A-Za-z]{2,}/.test(title)) return title;
+
+  const escapedBrand = compactSnippet(brand).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  let next = title;
+  if (escapedBrand) {
+    next = next.replace(new RegExp(escapedBrand, "gi"), " ");
+  }
+
+  next = next
+    .replace(/\b[A-Za-z][A-Za-z0-9'\-]{2,}\b/g, " ")
+    .replace(/\s+/g, " ")
+    .replace(/^[\s\-–—|/:,]+|[\s\-–—|/:,]+$/g, "")
+    .trim();
+
+  return containsCjk(next) ? next : title;
+}
+
+function sanitizeZhCardSummary(summary: string, brand: string): string {
+  let text = compactSnippet(summary);
+  if (!text) return "";
+
+  text = localizeCardTitleZh(text)
+    .replace(/\b([23])\s*-\s*in\s*-\s*1\b/gi, (_, n: string) => (n === "2" ? "二合一" : "三合一"))
+    .replace(/\btravel\s+system\b/gi, "出行系统")
+    .replace(/\boverhead\b/gi, "登机")
+    .replace(/\bcompact\b/gi, "紧凑")
+    .replace(/\bready\b/gi, "即用")
+    .replace(/\bez\b/gi, "易用");
+
+  // When mixed EN/ZH still remains in the leading name phrase, force a zh-leading clause.
+  const chunks = text.split(/([，,])/);
+  if (chunks.length > 0) {
+    const head = removeLatinFragmentsWhenZhPresent(chunks[0], brand);
+    if (head && containsCjk(head)) {
+      const lead = brand ? `${compactSnippet(brand)} ${head}`.trim() : head;
+      chunks[0] = lead;
+      text = chunks.join("");
+    }
+  }
+
+  return text.replace(/\s+/g, " ").trim();
+}
+
 function buildCardDisplayTitle(product: Product, lang: "zh" | "en"): string {
   const localized = product as Product & {
     zh?: { name?: string };
     en?: { name?: string };
   };
+  const zhName = String(localized.zh?.name || "").trim();
   const rawName = lang === "zh"
-    ? localized.zh?.name || localized.name || localized.en?.name
+    ? (containsCjk(zhName) ? zhName : (localized.name || localized.en?.name || zhName))
     : localized.en?.name || localized.name || localized.zh?.name;
   const brand = compactSnippet(localized.brand || "");
   const name = stripRepeatedBrandPrefix(String(rawName || ""), brand);
+  const resolvedName = lang === "zh"
+    ? removeLatinFragmentsWhenZhPresent(localizeCardTitleZh(name), brand)
+    : name;
 
-  if (!brand) return name;
-  if (!name) return brand;
-  return `${brand} ${name}`.trim();
+  if (!brand) return resolvedName;
+  if (!resolvedName) return brand;
+  return `${brand} ${resolvedName}`.trim();
 }
 
 function isTitleDuplicateSnippet(value: string, product: Product): boolean {
@@ -530,7 +626,8 @@ function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
   const summary = localizedCardSummary || candidates[0] || resolveGeneratedCardSummary(product, lang);
   if (!summary) return "";
 
-  const leadSentence = pickLeadSentence(summary);
+  const localizedSummary = lang === "zh" ? sanitizeZhCardSummary(summary, product.brand || "") : summary;
+  const leadSentence = pickLeadSentence(localizedSummary);
   return truncateCardSnippet(leadSentence, 220);
 }
 
@@ -621,6 +718,14 @@ export default function ProductsSection({
     "electric_vehicles",
     "car_seat",
   ];
+  const adminOnlyCategoryId = "other";
+  const publicCategoryIdSet = new Set(preferredVisibleCategoryIds);
+
+  const canAccessCategory = (categoryId: string) => {
+    if (!categoryId) return false;
+    if (categoryId === adminOnlyCategoryId) return isAdmin;
+    return true;
+  };
 
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory || "all");
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -656,6 +761,7 @@ export default function ProductsSection({
     tricycle: "kids_tricycles",
     electric_car: "electric_vehicles",
     safety_seat: "car_seat",
+    others: "other",
   };
 
   const inferMisclassifiedCategoryId = (product: Product, normalizedCategoryId: string) => {
@@ -713,9 +819,13 @@ export default function ProductsSection({
 
   useEffect(() => {
     if (activeCategory && activeCategory !== selectedCategory) {
-      setSelectedCategory(activeCategory);
+      if (canAccessCategory(activeCategory)) {
+        setSelectedCategory(activeCategory);
+      } else {
+        setSelectedCategory("all");
+      }
     }
-  }, [activeCategory, selectedCategory]);
+  }, [activeCategory, selectedCategory, isAdmin]);
 
   const alignModuleToViewportTop = (elementId: string) => {
     const element = document.getElementById(elementId);
@@ -779,6 +889,11 @@ export default function ProductsSection({
   }, [selectedCategory, window.location.search]);
 
   const handleCategorySelect = (categoryId: string) => {
+    if (!canAccessCategory(categoryId)) {
+      setSelectedCategory("all");
+      onCategoryChange?.("all");
+      return;
+    }
     setSelectedCategory(categoryId);
     onCategoryChange?.(categoryId);
   };
@@ -797,7 +912,8 @@ export default function ProductsSection({
   const getProductCategoryId = (product: Product): string => {
     const raw = String((product as any)?.categoryId || product?.category || "").trim().toLowerCase();
     const normalized = categoryAliasMap[raw] || raw;
-    return inferMisclassifiedCategoryId(product, normalized);
+    const inferred = inferMisclassifiedCategoryId(product, normalized);
+    return publicCategoryIdSet.has(inferred) ? inferred : adminOnlyCategoryId;
   };
 
   const humanizeCategoryId = (rawCategoryId: string): string => {
@@ -823,6 +939,7 @@ export default function ProductsSection({
         electric_car: "Kids Electric Car",
         kids_scooters: "Kids Scooter",
         scooters: "Kids Scooter",
+        other: "Other",
       };
       if (englishDisplayMap[normalized]) {
         return englishDisplayMap[normalized];
@@ -860,6 +977,7 @@ export default function ProductsSection({
           safety_seat: "儿童安全座椅",
           car_seat: "儿童安全座椅",
           car_seats: "儿童安全座椅",
+          other: "其他",
         }
       : {
           balance: "Balance Bike",
@@ -876,6 +994,7 @@ export default function ProductsSection({
           electric_vehicles: "Kids Electric Car",
           kids_scooters: "Kids Scooter",
           scooters: "Kids Scooter",
+          other: "Other",
         };
     if (fallbackMap[normalized]) {
       return fallbackMap[normalized];
@@ -953,6 +1072,9 @@ export default function ProductsSection({
 
     const preferredOrder = new Map(preferredVisibleCategoryIds.map((id, index) => [id, index]));
     const ids = Array.from(idSet.values());
+    if (isAdmin) {
+      ids.push(adminOnlyCategoryId);
+    }
     ids.sort((a, b) => {
       const orderA = preferredOrder.has(a) ? preferredOrder.get(a)! : Number.MAX_SAFE_INTEGER;
       const orderB = preferredOrder.has(b) ? preferredOrder.get(b)! : Number.MAX_SAFE_INTEGER;
@@ -960,11 +1082,29 @@ export default function ProductsSection({
       return humanizeCategoryId(a).localeCompare(humanizeCategoryId(b));
     });
 
+    const uniqueIds = Array.from(new Set(ids));
+
     return [
       { id: "all", label: allLabel },
-      ...ids.map((id) => ({ id, label: humanizeCategoryId(id) })),
+      ...uniqueIds.map((id) => ({ id, label: humanizeCategoryId(id) })),
     ];
-  }, [productsData, lang, backendCategoryNameMap]);
+  }, [productsData, lang, backendCategoryNameMap, isAdmin]);
+
+  const translatedProductsData = useMemo<Array<{ sourceCategoryId: string; sourceProduct: Product; product: Product }>>(() => {
+    return productsData.map((sourceProduct) => ({
+      sourceCategoryId: getProductCategoryId(sourceProduct),
+      sourceProduct,
+      product: translateProduct(sourceProduct, lang),
+    }));
+  }, [productsData, lang]);
+
+  const translatedById = useMemo(() => {
+    const map = new Map<string, Product>();
+    translatedProductsData.forEach(({ sourceProduct, product }) => {
+      map.set(String(sourceProduct.id || ""), product);
+    });
+    return map;
+  }, [translatedProductsData]);
 
   const getCategoryLabel = (categoryId: string, categoryCode: ProductCategory) => {
     const fromCategoryId = humanizeCategoryId(categoryId);
@@ -1336,23 +1476,70 @@ export default function ProductsSection({
     return hasRequired && !hasBlocked;
   };
 
+  const isHelmetProduct = (sourceProduct: Product, translatedProduct: Product) => {
+    const text = [
+      sourceProduct.name,
+      sourceProduct.description,
+      sourceProduct.editorVerdict,
+      translatedProduct.name,
+      translatedProduct.description,
+      translatedProduct.editorVerdict,
+      sourceProduct.brand,
+      translatedProduct.brand,
+      sourceProduct.category,
+      (sourceProduct as Product & { categoryId?: string }).categoryId,
+    ]
+      .map((item) => String(item || "").toLowerCase())
+      .join(" ");
+
+    return hasHelmetSignal(text);
+  };
+
+  const shouldExcludeFromElectricVehicles = (sourceProduct: Product, translatedProduct: Product) => {
+    const text = [
+      sourceProduct.name,
+      sourceProduct.description,
+      sourceProduct.editorVerdict,
+      translatedProduct.name,
+      translatedProduct.description,
+      translatedProduct.editorVerdict,
+      sourceProduct.brand,
+      translatedProduct.brand,
+      sourceProduct.category,
+      (sourceProduct as Product & { categoryId?: string }).categoryId,
+    ]
+      .map((item) => String(item || "").toLowerCase())
+      .join(" ");
+
+    const hasHelmetSignalMatched = hasHelmetSignal(text);
+    const hasRideOnPushCarSignal = /(ride[-\s]*on\s+push\s+car|\bpush\s+car\b|推行车|推车玩具)/i.test(text);
+    const hasWiggleCarSignal = /(\bwiggle\s+car\b|扭扭车)/i.test(text);
+    return hasHelmetSignalMatched || hasRideOnPushCarSignal || hasWiggleCarSignal;
+  };
+
   const selectedCategoryProducts = useMemo<Product[]>(() => {
     if (!selectedCategory || selectedCategory === "all") {
       return [] as Product[];
     }
-    return productsData
-      .map((item) => ({
-        categoryId: getProductCategoryId(item),
-        product: translateProduct(item, lang),
-      }))
-      .filter(({ categoryId }) => categoryId === selectedCategory)
+    if (!canAccessCategory(selectedCategory)) {
+      return [] as Product[];
+    }
+    return translatedProductsData
+      .filter(({ sourceCategoryId, sourceProduct, product }) => {
+        if (sourceCategoryId !== selectedCategory) return false;
+        if (isHelmetProduct(sourceProduct, product)) return false;
+        if (selectedCategory === "electric_vehicles" && shouldExcludeFromElectricVehicles(sourceProduct, product)) {
+          return false;
+        }
+        return true;
+      })
       .map(({ product }) => product);
-  }, [productsData, lang, selectedCategory]);
+  }, [translatedProductsData, selectedCategory, isAdmin]);
 
   const categoryFilterOptions = useMemo(() => {
     const brands = buildBrandFacetList(selectedCategoryProducts);
     const frameMaterials = Array.from(
-      new Set(selectedCategoryProducts.flatMap((item: Product) => getFrameMaterialClasses(item)))
+      new Set<string>(selectedCategoryProducts.flatMap((item: Product) => getFrameMaterialClasses(item)))
     ).sort((left, right) => ["ALUMINUM", "CARBON FIBER", "STEEL", "ENGINEERING PLASTIC"].indexOf(left) - ["ALUMINUM", "CARBON FIBER", "STEEL", "ENGINEERING PLASTIC"].indexOf(right));
     const tireTypes = normalizeFacetList(selectedCategoryProducts.map((item: Product) => item.tireType));
     const brakeSystems = normalizeFacetList(selectedCategoryProducts.map((item: Product) => item.brakeType));
@@ -1385,22 +1572,25 @@ export default function ProductsSection({
   };
 
   const categoryBaseCount = useMemo(() => {
-    return productsData
-      .map((sourceProduct) => ({
-        sourceCategoryId: getProductCategoryId(sourceProduct),
-        sourceProduct,
-        translatedProduct: translateProduct(sourceProduct, lang),
-      }))
-      .filter(({ sourceCategoryId, sourceProduct, translatedProduct }) => {
+    return translatedProductsData
+      .filter(({ sourceCategoryId, sourceProduct, product }) => {
+        if (!canAccessCategory(sourceCategoryId)) {
+          return false;
+        }
         if (excludedCategoryIds.has(sourceCategoryId)) {
+          return false;
+        }
+        if (isHelmetProduct(sourceProduct, product)) {
           return false;
         }
         const matchesCategory = selectedCategory === "all" || sourceCategoryId === selectedCategory;
         const matchesScooterBoundary =
-          selectedCategory !== "kids_scooters" || matchesKidsScootersBoundary(sourceProduct, translatedProduct);
-        return matchesCategory && matchesScooterBoundary;
+          selectedCategory !== "kids_scooters" || matchesKidsScootersBoundary(sourceProduct, product);
+        const matchesElectricVehiclesBoundary =
+          selectedCategory !== "electric_vehicles" || !shouldExcludeFromElectricVehicles(sourceProduct, product);
+        return matchesCategory && matchesScooterBoundary && matchesElectricVehiclesBoundary;
       }).length;
-  }, [productsData, lang, selectedCategory]);
+  }, [translatedProductsData, selectedCategory, isAdmin]);
 
   const getSeoHintTarget = (hint: string) => {
     const normalized = hint.trim().toLowerCase();
@@ -1463,14 +1653,15 @@ export default function ProductsSection({
 
   // Filtering and sorting math
   const filteredProducts = useMemo(() => {
-    const sortedItems = productsData
-      .map((sourceProduct) => ({
-        sourceCategoryId: getProductCategoryId(sourceProduct),
-        sourceProduct,
-        product: translateProduct(sourceProduct, lang),
-      }))
+    const sortedItems = translatedProductsData
       .filter(({ product: p, sourceCategoryId, sourceProduct }) => {
+        if (!canAccessCategory(sourceCategoryId)) {
+          return false;
+        }
         if (excludedCategoryIds.has(sourceCategoryId)) {
+          return false;
+        }
+        if (isHelmetProduct(sourceProduct, p)) {
           return false;
         }
         const matchesCategory = selectedCategory === "all" || sourceCategoryId === selectedCategory;
@@ -1534,6 +1725,8 @@ export default function ProductsSection({
 
         const matchesScooterBoundary =
           selectedCategory !== "kids_scooters" || matchesKidsScootersBoundary(sourceProduct, p);
+        const matchesElectricVehiclesBoundary =
+          selectedCategory !== "electric_vehicles" || !shouldExcludeFromElectricVehicles(sourceProduct, p);
 
         return (
           matchesCategory &&
@@ -1548,6 +1741,7 @@ export default function ProductsSection({
           matchesWheelSize &&
           matchesCertification &&
           matchesScooterBoundary &&
+          matchesElectricVehiclesBoundary &&
           matchesType &&
           matchesPower
         );
@@ -1614,9 +1808,9 @@ export default function ProductsSection({
     selectedWheelCount,
     selectedWheelSize,
     selectedCertification,
-    productsData,
-    lang,
+    translatedProductsData,
     backendCategoryNameMap,
+    isAdmin,
   ]);
 
   const pageSize = selectedCategory === "all" ? 32 : 9;
@@ -2266,7 +2460,7 @@ export default function ProductsSection({
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {viewHistory.slice(0, 4).map(p => {
-              const dp = translateProduct(p, lang);
+              const dp = translatedById.get(String(p.id || "")) || translateProduct(p, lang);
               const historySeoTitle = getProductDisplayTitle(p, lang);
               const historyDisplayTitle = buildCardDisplayTitle(dp, lang) || historySeoTitle;
               const imageSet = resolveProductImages(dp);

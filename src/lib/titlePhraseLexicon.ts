@@ -64,7 +64,7 @@ export const TITLE_PHRASE_LEXICON: TitlePhraseLexiconEntry[] = [
   { key: "storage", en: "storage", zh: "储物", count: 13, source: "word", confidence: 0.9 },
   { key: "graco", en: "graco", zh: "Graco", count: 13, source: "dictionary", confidence: 1 },
   { key: "double_stroller", en: "double stroller", zh: "双人推车", count: 12, source: "dictionary", confidence: 1 },
-  { key: "travel_system", en: "travel system", zh: "出行系统", count: 12, source: "dictionary", confidence: 1 },
+  { key: "travel_system", en: "travel system", zh: "旅行推车套装", count: 12, source: "dictionary", confidence: 1 },
   { key: "recline", en: "recline", zh: "可躺", count: 12, source: "dictionary", confidence: 1 },
   { key: "system", en: "system", zh: "系统", count: 12, source: "word", confidence: 0.9 },
   { key: "frame", en: "frame", zh: "车架", count: 12, source: "word", confidence: 0.9 },

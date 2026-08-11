@@ -425,6 +425,21 @@ export default function HomeSection({
 
   const homeEligibleProducts = useMemo(() => {
     return productsData.filter((product) => {
+      const helmetText = [
+        product.name,
+        product.brand,
+        product.description,
+        (product as any)?.zh?.description,
+        (product as any)?.en?.description,
+        (product as any)?.categoryId,
+        product.category,
+      ]
+        .map((item) => String(item || "").toLowerCase())
+        .join(" ");
+      if (/(\bhelmets?\b|头盔)/i.test(helmetText)) {
+        return false;
+      }
+
       const rawRank = String(
         (product as any).Rank || (product as any).rank || (product as any).sourceRank || ""
       )
