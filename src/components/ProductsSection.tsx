@@ -223,6 +223,13 @@ function includesAny(text: string, tokens: string[]): boolean {
   return tokens.some((token) => text.includes(token));
 }
 
+function stripEnglishArticles(text: string): string {
+  return String(text || "")
+    .replace(/\b(?:a|an|the)\b/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function containsCjk(text: string): boolean {
   return /[\u4e00-\u9fff]/.test(String(text || ""));
 }
@@ -284,7 +291,7 @@ function normalizeCategoryLabelForZh(label: string): string {
 }
 
 function normalizeSnippetForCompare(value: string): string {
-  return compactSnippet(value)
+  return stripEnglishArticles(compactSnippet(value))
     .toLowerCase()
     .replace(/&/g, " and ")
     .replace(/[^a-z0-9\u4e00-\u9fa5]+/g, " ")
@@ -303,7 +310,7 @@ function stripRepeatedBrandPrefix(text: string, brand: string): string {
 }
 
 function localizeCardTitleZh(rawTitle: string): string {
-  let text = compactSnippet(rawTitle);
+  let text = stripEnglishArticles(compactSnippet(rawTitle));
   if (!text) return "";
 
   const replacements: Array<[RegExp, string]> = [
@@ -400,10 +407,10 @@ function buildCardDisplayTitle(product: Product, lang: "zh" | "en"): string {
     ? (containsCjk(zhName) ? zhName : (localized.name || localized.en?.name || zhName))
     : localized.en?.name || localized.name || localized.zh?.name;
   const brand = compactSnippet(localized.brand || "");
-  const name = stripRepeatedBrandPrefix(String(rawName || ""), brand);
+  const name = stripEnglishArticles(stripRepeatedBrandPrefix(String(rawName || ""), brand));
   const resolvedName = lang === "zh"
     ? removeLatinFragmentsWhenZhPresent(localizeCardTitleZh(name), brand)
-    : name;
+    : stripEnglishArticles(name);
 
   if (!brand) return resolvedName;
   if (!resolvedName) return brand;
@@ -723,7 +730,7 @@ export default function ProductsSection({
 
   const canAccessCategory = (categoryId: string) => {
     if (!categoryId) return false;
-    if (categoryId === adminOnlyCategoryId) return isAdmin;
+    if (categoryId === adminOnlyCategoryId) return false;
     return true;
   };
 
@@ -1065,16 +1072,13 @@ export default function ProductsSection({
 
     for (const item of productsData) {
       const id = getProductCategoryId(item);
-      if (id && !excludedCategoryIds.has(id) && !hiddenCategoryOptionIds.has(id)) {
+      if (id && id !== adminOnlyCategoryId && !excludedCategoryIds.has(id) && !hiddenCategoryOptionIds.has(id)) {
         idSet.add(id);
       }
     }
 
     const preferredOrder = new Map(preferredVisibleCategoryIds.map((id, index) => [id, index]));
     const ids = Array.from(idSet.values());
-    if (isAdmin) {
-      ids.push(adminOnlyCategoryId);
-    }
     ids.sort((a, b) => {
       const orderA = preferredOrder.has(a) ? preferredOrder.get(a)! : Number.MAX_SAFE_INTEGER;
       const orderB = preferredOrder.has(b) ? preferredOrder.get(b)! : Number.MAX_SAFE_INTEGER;
@@ -1088,7 +1092,7 @@ export default function ProductsSection({
       { id: "all", label: allLabel },
       ...uniqueIds.map((id) => ({ id, label: humanizeCategoryId(id) })),
     ];
-  }, [productsData, lang, backendCategoryNameMap, isAdmin]);
+  }, [productsData, lang, backendCategoryNameMap]);
 
   const translatedProductsData = useMemo<Array<{ sourceCategoryId: string; sourceProduct: Product; product: Product }>>(() => {
     return productsData.map((sourceProduct) => ({

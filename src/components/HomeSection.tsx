@@ -394,14 +394,15 @@ export default function HomeSection({
       /^illuminated\s+/i,
     ];
     const withoutExplicitPrefixes = explicitPrefixes.reduce((acc, pattern) => acc.replace(pattern, ""), normalizedTitle).trim();
+    const withoutArticles = withoutExplicitPrefixes.replace(/\b(?:a|an|the)\b/gi, " ").replace(/\s+/g, " ").trim();
 
     const coreBalancePattern = /\b(toddler\s+balance\s+bike)\b/i;
-    const coreBalanceMatch = withoutExplicitPrefixes.match(coreBalancePattern);
+    const coreBalanceMatch = withoutArticles.match(coreBalancePattern);
     if (coreBalanceMatch) {
       return coreBalanceMatch[1].replace(/\s+/g, " ").trim().replace(/\b\w/g, (m) => m.toUpperCase());
     }
 
-    return withoutExplicitPrefixes;
+    return withoutArticles;
   };
 
   const collapseRepeatedLeadingBrand = (text: string, brand: string) => {

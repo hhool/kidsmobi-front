@@ -1,6 +1,7 @@
 import type { Product } from "../types";
 
-const normalizeSearchText = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+const stripEnglishArticles = (value: string) => String(value || "").replace(/\b(?:a|an|the)\b/gi, " ").replace(/\s+/g, " ").trim();
+const normalizeSearchText = (value: string) => stripEnglishArticles(value).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
 const compactText = (value: string) => String(value || "").replace(/\s+/g, " ").trim();
 
 const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -45,7 +46,7 @@ function buildDisplaySource(brand?: string | null, name?: string | null): string
 }
 
 const compactMarketingTitle = (value: string) => {
-  const cleaned = value
+  const cleaned = stripEnglishArticles(value)
     .replace(/【[^】]*】/g, " ")
     .replace(/\[[^\]]*\]/g, " ")
     .replace(/\s+/g, " ")

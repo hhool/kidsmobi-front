@@ -238,7 +238,7 @@ const PRIMARY_PRODUCT_CATEGORY_IDS = new Set([
   "electric_vehicles",
   "car_seat",
 ]);
-const ADMIN_ONLY_PRODUCT_CATEGORY_IDS = new Set(["other"]);
+const ADMIN_ONLY_PRODUCT_CATEGORY_IDS = new Set<string>();
 
 const REVIEW_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
   { id: "single", zh: "单品实测", en: "Single Test" },
@@ -1418,12 +1418,6 @@ export default function App() {
     id: item.id,
     label: lang === "zh" ? item.zh : item.en,
   }));
-  if (isAdmin) {
-    productNavOptions.push({
-      id: "other",
-      label: lang === "zh" ? "其他" : "Other",
-    });
-  }
 
   const productsMegaMenuCategories = [
     { id: "stroller", labelZh: "🛒 婴儿手推车 (STROLLER)", labelEn: "🛒 Stroller", descZh: "越野级避震与精细安全守护出行工具", descEn: "Ultra protection travel buggies & strollers" },
@@ -1433,15 +1427,6 @@ export default function App() {
     { id: "kids_scooters", labelZh: "🛹 儿童滑板车 (KIDS SCOOTER)", labelEn: "🛹 Kids Scooter", descZh: "重力无缝双弹簧重力转向闪光滑轮", descEn: "Lean-to-steer PU dynamic flashing wheels" },
     { id: "car_seat", labelZh: "💺 安全座椅 (KIDS CAR SEATS)", labelEn: "💺 Kids Car Seat", descZh: "深空双防侧撞顶级安全包裹守护摇篮", descEn: "Impact shock-resistant newborn protection" },
   ];
-  if (isAdmin) {
-    productsMegaMenuCategories.push({
-      id: "other",
-      labelZh: "🧩 其他分类 (OTHER)",
-      labelEn: "🧩 Other",
-      descZh: "未归入六大品类的管理态商品池",
-      descEn: "Admin-only pool for products outside six primary categories",
-    });
-  }
   const reviewNavOptions = REVIEW_NAV_OPTIONS.map((item) => ({
     id: item.id,
     label: lang === "zh" ? item.zh : item.en,
@@ -1888,12 +1873,12 @@ export default function App() {
   }, [activeProductId, productsData]);
 
   useEffect(() => {
-    if (authLoading || isAdmin) return;
+    if (authLoading) return;
     if (activeProductCategory !== "other") return;
 
-    // Non-admin users cannot browse the admin-only "other" category.
+    // The "other" category is hidden from frontend navigation for all users.
     navigateToPath("/products", { replace: true, preserveScroll: true });
-  }, [authLoading, isAdmin, activeProductCategory]);
+  }, [authLoading, activeProductCategory]);
 
   // Helper inside App to update/inject dynamic meta tags
   const updateMetaTag = (name: string, content: string) => {
