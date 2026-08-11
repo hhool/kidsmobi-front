@@ -318,6 +318,34 @@ const GENERIC_VALUE_ZH_PATTERNS: Array<[RegExp, string]> = [
   [/\bspacious\s+under[-\s\u2010-\u2015\u2212]?seat\s+basket\b/gi, "宽敞座下储物篮"],
 ];
 
+const UNIT_VALUE_ZH_PATTERNS: Array<[RegExp, string]> = [
+  [/(\d+(?:\.\d+)?)\s*["”]/g, "$1 英寸"],
+  [/(\d+(?:\.\d+)?)\s*(?:in|inch|inches)\b/gi, "$1 英寸"],
+  [/(\d+(?:\.\d+)?)\s*(?:ft|feet)\b/gi, "$1 英尺"],
+  [/(\d+(?:\.\d+)?)\s*(?:lb|lbs|pound|pounds)\b/gi, "$1 磅"],
+  [/(\d+(?:\.\d+)?)\s*oz\b/gi, "$1 盎司"],
+  [/(\d+(?:\.\d+)?)\s*(?:mph|mi\/h)\b/gi, "$1 英里/小时"],
+  [/(\d+(?:\.\d+)?)\s*(?:km\/h|kph)\b/gi, "$1 公里/小时"],
+  [/(\d+(?:\.\d+)?)\s*cm\b/gi, "$1 厘米"],
+  [/(\d+(?:\.\d+)?)\s*mm\b/gi, "$1 毫米"],
+  [/(\d+(?:\.\d+)?)\s*kg\b/gi, "$1 公斤"],
+  [/(\d+(?:\.\d+)?)\s*g\b/gi, "$1 克"],
+];
+
+function normalizeMeasurementUnitsForZh(rawValue: string): string {
+  let text = String(rawValue || "")
+    .replace(/[\u2010-\u2015\u2212]/g, "-")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!text) return "";
+
+  for (const [pattern, replacement] of UNIT_VALUE_ZH_PATTERNS) {
+    text = text.replace(pattern, replacement);
+  }
+
+  return text.replace(/\s+/g, " ").trim();
+}
+
 function localizeCommonToken(rawToken: string): string {
   const token = String(rawToken || "")
     .replace(/[\u2010-\u2015\u2212]/g, "-")
@@ -326,7 +354,7 @@ function localizeCommonToken(rawToken: string): string {
   if (!token) return "";
   const direct = COMMON_SPEC_VALUE_ZH[token.toLowerCase()];
   if (direct) return direct;
-  let localized = token;
+  let localized = normalizeMeasurementUnitsForZh(token);
   for (const [pattern, replacement] of GENERIC_VALUE_ZH_PATTERNS) {
     localized = localized.replace(pattern, replacement);
   }
@@ -678,10 +706,11 @@ export function normalizeSpecDisplayValue(rawValue: string, rawKey: string, lang
     return text.replace(/\binch(?:es)?\b/gi, "英寸");
   }
 
-  const fallbackTokenLocalized = localizeCommonToken(text);
+  const unitNormalized = normalizeMeasurementUnitsForZh(text);
+  const fallbackTokenLocalized = localizeCommonToken(unitNormalized);
   if (fallbackTokenLocalized && fallbackTokenLocalized !== text) {
     return fallbackTokenLocalized;
   }
 
-  return text;
+  return unitNormalized;
 }
