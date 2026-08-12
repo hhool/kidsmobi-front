@@ -423,7 +423,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
     home: {
       overviewLabel: "首页概览",
       bannerBadge: "BBT 官方安全审计",
-      heroTitle: "BalanceBikeToddler，用真实评测帮助家长选择更适合孩子的出行装备。",
+      heroTitle: "BalanceBikeToddler </br> 用真实评测帮助家长选择更适合孩子的出行装备。",
       heroSubtitle: "从平衡车、儿童自行车、慢跑婴儿推车、儿童电动滑板车到儿童电动汽车，这里持续更新独立实验室的安全检测、对比结果和选购建议。",
       heroCta: "3 步找到最适合孩子的出行方案",
       quickCategories: {

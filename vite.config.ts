@@ -19,9 +19,7 @@ export default defineConfig(() => {
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
     },
     build: {
-      // modelsData is an intentionally isolated offline fallback chunk.
-      // Keep warnings actionable for real regressions while avoiding noise from this known artifact.
-      chunkSizeWarningLimit: 1900,
+      chunkSizeWarningLimit: 1000,
       rollupOptions: {
         output: {
           manualChunks(id) {

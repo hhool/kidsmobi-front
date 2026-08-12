@@ -1,0 +1,50 @@
+{
+  "generatedAt": "2026-08-12T08:38:29.433Z",
+  "totalItems": 165,
+  "groups": [
+    {
+      "key": "baby_carrier",
+      "count": 4
+    },
+    {
+      "key": "balance_bike",
+      "count": 15
+    },
+    {
+      "key": "car_seat",
+      "count": 1
+    },
+    {
+      "key": "double_stroller",
+      "count": 10
+    },
+    {
+      "key": "electric_vehicles",
+      "count": 14
+    },
+    {
+      "key": "high_chair",
+      "count": 4
+    },
+    {
+      "key": "kids_bikes",
+      "count": 30
+    },
+    {
+      "key": "kids_scooters",
+      "count": 13
+    },
+    {
+      "key": "kids_tricycles",
+      "count": 18
+    },
+    {
+      "key": "playard",
+      "count": 4
+    },
+    {
+      "key": "stroller",
+      "count": 52
+    }
+  ]
+}
