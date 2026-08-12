@@ -1,5 +1,5 @@
 import type { CMSProduct, CMSSettings, Evaluation, ProductImages, ProductScoringStandard, ScrapedEvidenceItem } from "../types";
-import { productsData as staticProductsData } from "../data/modelsData";
+import { loadDefaultProductsData } from "./defaultProductsLoader";
 
 export interface ContentBundle {
   settings: CMSSettings | null;
@@ -12,8 +12,9 @@ export interface FetchContentBundleOptions {
   includeAll?: boolean;
 }
 
-function buildStaticFallbackBundle(): ContentBundle {
-  const staticProducts = (Array.isArray(staticProductsData) ? staticProductsData : [])
+async function buildStaticFallbackBundle(): Promise<ContentBundle> {
+  const loadedProducts = await loadDefaultProductsData();
+  const staticProducts = (Array.isArray(loadedProducts) ? loadedProducts : [])
     .filter((item) => Boolean((item as any)?.id))
     .map((item) => ({
       ...(item as any),
@@ -648,7 +649,7 @@ async function fetchRemoteFallbackBundle(options?: FetchContentBundleOptions): P
     ]);
   } catch (error) {
     console.warn("Worker categories unavailable, using static modelsData fallback.", error);
-    return buildStaticFallbackBundle();
+    return await buildStaticFallbackBundle();
   }
 
   const categories = categoriesPayload?.data || [];

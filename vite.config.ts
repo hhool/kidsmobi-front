@@ -19,10 +19,30 @@ export default defineConfig(() => {
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
     },
     build: {
-      chunkSizeWarningLimit: 1000,
+      // modelsData is an intentionally isolated offline fallback chunk.
+      // Keep warnings actionable for real regressions while avoiding noise from this known artifact.
+      chunkSizeWarningLimit: 1900,
       rollupOptions: {
         output: {
           manualChunks(id) {
+            if (id.includes('/src/config/pageCopy')) {
+              return 'copy-data';
+            }
+            if (id.includes('/src/lib/translate')) {
+              return 'i18n-data';
+            }
+            if (id.includes('/src/data/transparencyPages')) {
+              return 'transparency-data';
+            }
+            if (id.includes('/src/config/defaultSeo') || id.includes('/src/config/seoKeywordMap')) {
+              return 'seo-config';
+            }
+            if (id.includes('/src/data/guidesData')) {
+              return 'guides-data';
+            }
+            if (id.includes('/src/data/newsData')) {
+              return 'news-data';
+            }
             if (id.includes('/node_modules/react/') || id.includes('/node_modules/react-dom/')) {
               return 'react-vendor';
             }

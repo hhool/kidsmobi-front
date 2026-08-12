@@ -10,16 +10,18 @@ import {
   Download
 } from "lucide-react";
 import { getCMSProducts, getCMSEvaluations, getCMSGuides, getCMSNews, saveCMSProduct } from "../../lib/cmsService";
-import { productsData as defaultProductsData } from "../../data/modelsData";
 import { guideArticles } from "../../data/guidesData";
 import { newsArticles } from "../../data/newsData";
 import { initialEvaluationsData } from "../../data/evaluationsData";
 import { translateProduct } from "../../lib/translate";
+import { loadDefaultProductsData } from "../../lib/defaultProductsLoader";
 import { CMSProduct } from "../../types";
 
 export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
+  const [fallbackProducts, setFallbackProducts] = useState<any[]>([]);
+
   const fallbackStats = {
-    products: defaultProductsData.length,
+    products: fallbackProducts.length,
     evaluations: initialEvaluationsData.length,
     guides: guideArticles.length,
     news: newsArticles.length,
@@ -67,9 +69,26 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
   };
 
   useEffect(() => {
+    let mounted = true;
+    loadDefaultProductsData()
+      .then((items) => {
+        if (!mounted) return;
+        setFallbackProducts(items as any[]);
+      })
+      .catch(() => {
+        if (!mounted) return;
+        setFallbackProducts([]);
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
     // Avoid calling unstable upstream APIs automatically on dashboard mount.
     setStats({ ...fallbackStats });
-  }, []);
+  }, [fallbackProducts.length]);
 
   const checkIntegrations = async () => {
     setCheckingHealth(true);
@@ -138,6 +157,7 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
     const confirm = window.confirm("Are you sure you want to push modelsData into CMS? Existing records with the same ID will be overwritten.");
     if (!confirm) return;
     setMigrating(true);
+    const defaultProductsData = await loadDefaultProductsData();
     for (const p of defaultProductsData) {
       const pZh = translateProduct(p, "zh");
       const pEn = translateProduct(p, "en");

@@ -37,6 +37,7 @@ import { formatWeight, formatHeight } from "./lib/units";
 import { resolveProductImages } from "./lib/productImages";
 import { getProductDisplayTitle, getProductImageAlt, getProductsPageSeoTitle } from "./lib/productSeoText";
 import { loadBatchProducts } from "./lib/loadBatchProducts";
+import { loadDefaultProductsData } from "./lib/defaultProductsLoader";
 
 import SmartImage from "./components/common/SmartImage";
 
@@ -50,7 +51,7 @@ const AuthSection = lazy(() => import("./components/AuthSection"));
 const DetailedProductView = lazy(() => import("./components/DetailedProductView"));
 const AdminPanel = lazy(() => import("./components/AdminPanel"));
 const TransparencyPage = lazy(() => import("./components/TransparencyPage"));
-import ComparisonDashboard from "./components/ComparisonDashboard";
+const ComparisonDashboard = lazy(() => import("./components/ComparisonDashboard"));
 
 import { auth } from "./lib/firebase";
 import {
@@ -119,18 +120,6 @@ const COUNTRY_HREFLANG_MAP: Record<string, string> = {
   GB: "en-GB",
   DE: "en-DE",
 };
-
-let defaultProductsDataPromise: Promise<Product[]> | null = null;
-
-function loadDefaultProductsData() {
-  defaultProductsDataPromise ??= import("./data/modelsData").then(({ productsData }) => {
-    return productsData.map((product) => ({
-      ...product,
-      status: (String((product as any)?.status || "published").trim().toLowerCase() || "published") as "draft" | "published" | "archived",
-    }));
-  });
-  return defaultProductsDataPromise;
-}
 
 const DEFAULT_CMS_PAGE_BLUEPRINT: Record<string, CMSPageConfig> = {
   home: { pageType: "home", pageSlug: "home", pageIndex: 1, paginationPolicy: "none", indexingPolicy: "index", status: "published" },
