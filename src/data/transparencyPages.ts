@@ -1,6 +1,6 @@
 import type { SEOConfig } from "../types";
 
-export type TransparencyPageKey = "disclaimer" | "testing-methodology" | "certification" | "privacy-policy";
+export type TransparencyPageKey = "disclaimer" | "testing-methodology" | "certification" | "terms" | "privacy-policy";
 
 export type TransparencyPageSection = {
   eyebrow: string;
@@ -38,6 +38,7 @@ export const TRANSPARENCY_PAGE_PATHS: Record<TransparencyPageKey, string> = {
   disclaimer: "/transparency/disclaimer/",
   "testing-methodology": "/transparency/testing-methodology/",
   certification: "/transparency/certification-lab-notes/",
+  terms: "/transparency/terms/",
   "privacy-policy": "/transparency/privacy-policy/",
 };
 
@@ -336,6 +337,105 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         title: "BalanceBikeToddler Certification Notes: CPSC, ASTM, ISO & Lab Matrix",
         description: "See the standards BalanceBikeToddler references, including CPSC, ASTM F963, ISO 8098, EN 71, and editorial lab-note handling.",
         keywords: ["certification notes", "CPSC", "ASTM F963", "ISO 8098", "lab standards"],
+      },
+    },
+  },
+  {
+    key: "terms",
+    en: {
+      path: TRANSPARENCY_PAGE_PATHS.terms,
+      navLabel: "Terms",
+      title: "Terms of Use: Safety Guidance, Not a Substitute for Judgment",
+      subtitle: "This site provides research-backed product guidance for families, not legal, medical, or product-certification advice.",
+      intro: "BalanceBikeToddler exists to help parents compare child mobility products using clear safety logic, frictionless search, and evidence-based editorial notes. These terms explain the scope of that help and the limits of our responsibility.",
+      sections: [
+        {
+          eyebrow: "01 / Scope",
+          title: "Content is educational and decision-support oriented",
+          body: [
+            "The reviews, guides, comparison tools, and pages on BalanceBikeToddler are intended to help families evaluate product fit, risk, usability, and comparative safety. They are not legal advice, medical advice, or a formal product certification.",
+            "Parents remain responsible for verifying the exact product they purchase, following age and weight limits, checking local regulations, and supervising children during use."
+          ],
+        },
+        {
+          eyebrow: "02 / Editorial independence",
+          title: "We are not a marketing channel, and we do not sell rankings",
+          body: [
+            "BalanceBikeToddler may earn a small commission from qualifying purchases when a parent clicks a product link and buys. That does not change the underlying editorial standard, which remains based on safety evidence, testing logic, and product behavior.",
+            "We do not guarantee that any product is risk-free, universally suitable, or compliant in every jurisdiction. We do not accept payment to alter a verdict or suppress a safety concern."
+          ],
+        },
+        {
+          eyebrow: "03 / Access and data",
+          title: "We provide a service, not a guarantee of perfection",
+          body: [
+            "Site features such as saved compares, view history, Smart Wizard hints, and bookmarks may depend on browser storage and account features. We aim for utility and security, but availability can vary with browser settings, connectivity, or product updates.",
+            "If a parent relies on guidance from this site, the parent should exercise judgment, confirm current specs, and keep a healthy skepticism toward marketing claims, model revisions, and outdated listings."
+          ],
+        },
+      ],
+      primaryLink: {
+        href: "/reviews",
+        label: "Read the evidence base",
+        text: "Open the review desk to see how product verdicts are built, challenged, and traced back to real safety logic.",
+      },
+      secondaryLink: {
+        href: "/transparency/privacy-policy/",
+        label: "Review the privacy policy",
+        text: "See how measured fit data and local browser drafts are treated before you choose account features or share account-level data.",
+      },
+      seo: {
+        title: "BalanceBikeToddler Terms of Use: Safety Guidance, Not Legal or Medical Advice",
+        description: "Read BalanceBikeToddler’s terms of use: independent editorial guidance, affiliate disclosure, parent responsibility, and safety limits.",
+        keywords: ["terms of use", "BalanceBikeToddler terms", "safety guidance", "parent review policy"],
+      },
+    },
+    zh: {
+      path: TRANSPARENCY_PAGE_PATHS.terms,
+      navLabel: "Terms",
+      title: "使用条款：安全指导，不是替代判断的结论",
+      subtitle: "本网站为家庭提供研究支持型产品指导，不构成法律、医疗或正式认证建议。",
+      intro: "BalanceBikeToddler 旨在帮助家长通过清晰安全逻辑、便捷筛选和证据导向编辑说明比较童车产品。这些条款说明了我们的帮助范围和责任边界。",
+      sections: [
+        {
+          eyebrow: "01 / 范围",
+          title: "内容是教育与决策支持性质",
+          body: [
+            "本网站的评测、指南、比较工具和页面，旨在帮助家庭评估产品适配度、风险、可用性和安全比对。它们不构成法律建议、医疗建议，也不是正式产品认证。",
+            "家长仍需自行核实实际购买产品，遵守年龄和重量限制，检查当地法规，并在使用过程中对孩子进行必要监护。"
+          ],
+        },
+        {
+          eyebrow: "02 / 编辑独立性",
+          title: "我们不是营销渠道，也不出售排名",
+          body: [
+            "当家长点击并购买合格商品时，BalanceBikeToddler 可能获得少量佣金。这不会改变底层编辑标准，因为评分仍然依据安全证据、测试逻辑和产品表现。",
+            "我们不保证任何产品零风险、适用于所有人，或在每个司法辖区都完全合规。我们也不会接受支付来修改结论或压制安全问题。"
+          ],
+        },
+        {
+          eyebrow: "03 / 访问与数据",
+          title: "我们提供服务，不保证完美",
+          body: [
+            "对比列表、浏览记录、Smart Wizard 提示和收藏等功能可能依赖浏览器存储和账号功能。我们致力于实用与安全，但可用性可能受浏览器设置、网络连接或产品更新影响。",
+            "如果家长依赖本网站的指导，应自行判断并确认当前产品参数，并保持对营销话术、型号更新和过期信息的健康怀疑。"
+          ],
+        },
+      ],
+      primaryLink: {
+        href: "/reviews",
+        label: "阅读证据基础",
+        text: "打开评测中心，查看产品结论如何形成、被挑战，并如何回溯到实际的安全逻辑。",
+      },
+      secondaryLink: {
+        href: "/transparency/privacy-policy/",
+        label: "查看隐私政策",
+        text: "在选择账号功能或共享账号级数据前，先了解尺寸数据和本地草稿的处理方式。",
+      },
+      seo: {
+        title: "BalanceBikeToddler Terms of Use: Safety Guidance, Not Legal or Medical Advice",
+        description: "Read BalanceBikeToddler’s terms of use: independent editorial guidance, affiliate disclosure, parent responsibility, and safety limits.",
+        keywords: ["terms of use", "BalanceBikeToddler terms", "safety guidance", "parent review policy"],
       },
     },
   },

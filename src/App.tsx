@@ -108,6 +108,7 @@ const seoRouteMap: Record<string, string> = {
   "https://balancebiketoddler.com/transparency/disclaimer/": "/transparency/disclaimer/",
   "https://balancebiketoddler.com/transparency/testing-methodology/": "/transparency/testing-methodology/",
   "https://balancebiketoddler.com/transparency/certification-lab-notes/": "/transparency/certification-lab-notes/",
+  "https://balancebiketoddler.com/transparency/terms/": "/transparency/terms/",
   "https://balancebiketoddler.com/transparency/privacy-policy/": "/transparency/privacy-policy/",
   "https://dev.kidsmobi.pages.dev/reviews/balance-bikes/": "/reviews/balance-bikes/",
   "https://dev.kidsmobi.pages.dev/products/kids-bikes/": "/products/kids-bikes/",
@@ -115,6 +116,7 @@ const seoRouteMap: Record<string, string> = {
   "https://dev.kidsmobi.pages.dev/transparency/disclaimer/": "/transparency/disclaimer/",
   "https://dev.kidsmobi.pages.dev/transparency/testing-methodology/": "/transparency/testing-methodology/",
   "https://dev.kidsmobi.pages.dev/transparency/certification-lab-notes/": "/transparency/certification-lab-notes/",
+  "https://dev.kidsmobi.pages.dev/transparency/terms/": "/transparency/terms/",
   "https://dev.kidsmobi.pages.dev/transparency/privacy-policy/": "/transparency/privacy-policy/",
   "/reviews/balance-bikes/": "/reviews/balance-bikes/",
   "/products/kids-bikes/": "/products/kids-bikes/",
@@ -123,6 +125,7 @@ const seoRouteMap: Record<string, string> = {
   "/transparency/disclaimer/": "/transparency/disclaimer/",
   "/transparency/testing-methodology/": "/transparency/testing-methodology/",
   "/transparency/certification-lab-notes/": "/transparency/certification-lab-notes/",
+  "/transparency/terms/": "/transparency/terms/",
   "/transparency/privacy-policy/": "/transparency/privacy-policy/"
 };
 
@@ -2011,6 +2014,7 @@ export default function App() {
       url: `${origin}/`,
       logo: `${origin}/favicon.svg`,
       sameAs: [
+        "https://www.youtube.com/@kidsmobi",
         "https://www.facebook.com",
         "https://www.instagram.com",
         "https://x.com/BalanceBikeToddler"
@@ -2531,6 +2535,7 @@ export default function App() {
       url: `${window.location.origin}/`,
       logo: `${window.location.origin}/favicon.svg`,
       sameAs: [
+        "https://www.youtube.com/@kidsmobi",
         "https://www.facebook.com",
         "https://www.instagram.com",
         "https://x.com/BalanceBikeToddler",
@@ -2538,6 +2543,27 @@ export default function App() {
     };
 
     const websiteSchema = buildWebsiteSchema(canonicalOrigin, descStr);
+    const aboutSchema = seoKey === "about"
+      ? {
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          name: titleStr,
+          url: canonicalUrl,
+          description: descStr,
+          inLanguage: lang,
+          author: {
+            "@type": "Organization",
+            name: "BalanceBikeToddler Editorial Team",
+          },
+          datePublished: "2026-08-15",
+          dateModified: "2026-08-15",
+          publisher: {
+            "@type": "Organization",
+            name: "BalanceBikeToddler",
+            url: `${window.location.origin}/`,
+          },
+        }
+      : null;
 
     const breadcrumbSchema = {
       "@context": "https://schema.org",
@@ -2630,7 +2656,54 @@ export default function App() {
       inLanguage: lang,
     };
 
-    injectJsonLd([orgSchema, websiteSchema, webPageSchema, breadcrumbSchema, ...(collectionSchema ? [collectionSchema] : [])]);
+    const aboutFaqSchema = seoKey === "about"
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            {
+              "@type": "Question",
+              name: lang === "zh" ? "这页是谁写的？" : "Who wrote this page?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: lang === "zh"
+                  ? "由 BalanceBikeToddler Editorial Team 撰写，并标注发布日期与更新时间。"
+                  : "It is written by the BalanceBikeToddler Editorial Team with published and updated dates attached.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: lang === "zh" ? "这里的内容如何核实？" : "How can readers verify the content?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: lang === "zh"
+                  ? "页面提供来源链接、引用语句，以及可直接对照的审核表。"
+                  : "The page provides source links, short quotations, and a table readers can compare directly against the product page.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: lang === "zh" ? "为什么有日期和作者信息？" : "Why include dates and author information?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: lang === "zh"
+                  ? "这些字段帮助搜索系统和 AI 平台理解内容的新鲜度与责任归属。"
+                  : "Those fields help search systems and AI platforms understand freshness and accountability.",
+              },
+            },
+          ],
+        }
+      : null;
+
+    injectJsonLd([
+      orgSchema,
+      websiteSchema,
+      webPageSchema,
+      ...(aboutSchema ? [aboutSchema] : []),
+      ...(aboutFaqSchema ? [aboutFaqSchema] : []),
+      breadcrumbSchema,
+      ...(collectionSchema ? [collectionSchema] : []),
+    ]);
 
   }, [activeTab, lang, cmsSettings, selectedProduct, activeProductCategory, activeReviewType, activePageIndex, productNavOptions, reviewNavOptions, productsData, evaluationsData, currentPath, newsPaginationTotalPages, guidesPaginationTotalPages]);
 
@@ -3771,6 +3844,18 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     }}
                   >
                     {lang === "en" ? "Certification & Lab Notes" : "认证与实验室说明"}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={resolveSeoLink(TRANSPARENCY_PAGE_PATHS.terms)}
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath(TRANSPARENCY_PAGE_PATHS.terms);
+                    }}
+                  >
+                    {lang === "en" ? "Terms" : "使用条款"}
                   </a>
                 </li>
                 <li>

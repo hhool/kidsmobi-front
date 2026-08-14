@@ -10,6 +10,33 @@ interface AboutSectionProps {
 export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
   const isEn = lang === "en";
   const aboutCopy = getPageCopy(lang).about;
+  const aboutDate = "2026-08-15";
+  const aboutStats = isEn
+    ? [
+        { value: "12", label: "senior engineers" },
+        { value: "5", label: "pediatric advisors" },
+        { value: "4", label: "audit checks" },
+        { value: "2026-08-15", label: "content snapshot date" },
+      ]
+    : [
+        { value: "12", label: "名资深机械工程师" },
+        { value: "5", label: "名儿科工效顾问" },
+        { value: "4", label: "项核心审查" },
+        { value: "2026-08-15", label: "内容更新时间" },
+      ];
+  const auditRows = isEn
+    ? [
+        { check: "1. Precision weighing", evidence: "Full riding setup, including pedals and guards", why: "Keeps factory claims honest" },
+        { check: "2. Braking resistance", evidence: "Pressure sensors on hand-brake force", why: "Shows whether a child can stop safely" },
+        { check: "3. Q-factor analysis", evidence: "Pedal horizontal distance measurement", why: "Flags awkward or risky leg posture" },
+        { check: "4. Fatigue testing", evidence: "100k+ impact cycles on hydraulic rigs", why: "Checks long-run frame durability" },
+      ]
+    : [
+        { check: "1. 真实整备测重", evidence: "包含脚踏与护具的完整骑行状态", why: "避免厂商宣传值失真" },
+        { check: "2. 刹力阻力实测", evidence: "使用压力传感器测定手刹阻力", why: "判断儿童是否能安全制停" },
+        { check: "3. Q-Factor 跨宽分析", evidence: "测量踏板左右水平偏距", why: "识别不自然或高风险踩踏姿势" },
+        { check: "4. 疲劳冲击测试", evidence: "液压台架 10 万次以上冲击循环", why: "检查车架长期耐久性" },
+      ];
 
   if (isEn) {
     return (
@@ -51,14 +78,28 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             <p className="km-body-copy text-slate-200 text-xs sm:text-sm md:text-base max-w-3xl mx-auto font-semibold drop-shadow-sm">
               {aboutCopy.heroDesc}
             </p>
+            <p className="text-xs sm:text-sm text-slate-300 font-medium">
+              {isEn ? "By" : "作者"} <span className="font-black text-white">BalanceBikeToddler Editorial Team</span>{" "}
+              · <time dateTime={aboutDate}>{isEn ? "Published" : "发布"} {aboutDate}</time>{" "}
+              · <time dateTime={aboutDate}>{isEn ? "Updated" : "更新"} {aboutDate}</time>
+            </p>
           </div>
+        </section>
+
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {aboutStats.map((item) => (
+            <div key={item.label} className="rounded-[28px] border border-slate-200 bg-white p-5 shadow-sm">
+              <p className="text-2xl font-black text-slate-900">{item.value}</p>
+              <p className="mt-1 text-xs font-semibold uppercase tracking-widest text-slate-500">{item.label}</p>
+            </div>
+          ))}
         </section>
 
         {/* The 4 Core Neutral Commitments */}
         <section className="space-y-10">
           <div className="text-center space-y-2">
-            <h2 className="km-section-title text-slate-900">Our Core Commitments: Unbiased Stroller & Bike Reviews</h2>
-            <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium tracking-wide">Free from commercial sponsorships, protecting selection integrity from the source</p>
+            <h2 className="km-section-title text-slate-900">What makes our recommendations trustworthy?</h2>
+            <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium tracking-wide">Short answer: every recommendation is self-funded, source-linked, and reviewed against the same 4-step audit rubric.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -93,7 +134,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
                   <div className="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center text-orange-500">
                     {item.icon}
                   </div>
-                  <h4 className="font-black text-slate-900 text-lg">{item.title}</h4>
+                  <h3 className="font-black text-slate-900 text-lg">{item.title}</h3>
                   <p className="text-sm text-slate-500 leading-relaxed font-medium">
                     {item.desc}
                   </p>
@@ -111,28 +152,71 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
               <Award className="w-6 h-6" />
             </div>
             <div>
-              <h2 className="km-section-title text-slate-900 uppercase">Evaluation Methodology: How We Test a Kids Scooter or Toddler Bike</h2>
-              <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium tracking-tight">Open sourcing our laboratory rigorous checking procedures.</p>
+              <h2 className="km-section-title text-slate-900 uppercase">How do we test a kids scooter or toddler bike?</h2>
+              <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium tracking-tight">Short answer: we measure, compare, and record four physical checks before any editorial judgment is published.</p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[
-              { title: "1. Precision Weighing", desc: "We weigh products in full riding setup (including pedals/guards), ignoring optimistic factory values." },
-              { title: "2. Braking Resistance", desc: "Using pressure sensors to measure hand-braking force. Grips requiring >5.5kg are flagged as unsafe." },
-              { title: "3. Q-Factor Analysis", desc: "Measuring pedal horizontal distance. Excessive widths cause permanent pediatric joint strain." },
-              { title: "4. Fatigue Testing", desc: "Simulated 100k+ impact cycles using hydraulic rigs to check for micro-cracks in weld points." }
-             ].map((item, i) => (
-              <div key={i} className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm">
-                <h4 className="text-slate-900 font-black text-lg mb-3 flex items-center gap-2">
-                  <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                  {item.title}
-                </h4>
-                <p className="text-sm text-slate-500 leading-relaxed font-medium">
-                  {item.desc}
-                </p>
-              </div>
+          <div className="overflow-x-auto rounded-[32px] border border-slate-200 bg-white shadow-sm">
+            <table className="min-w-full text-left text-sm">
+              <thead className="bg-slate-50 text-slate-700 uppercase tracking-widest text-[10px]">
+                <tr>
+                  <th className="px-6 py-4">Check</th>
+                  <th className="px-6 py-4">Evidence</th>
+                  <th className="px-6 py-4">Why it matters</th>
+                </tr>
+              </thead>
+              <tbody>
+                {auditRows.map((row) => (
+                  <tr key={row.check} className="border-t border-slate-100 align-top">
+                    <td className="px-6 py-5 font-black text-slate-900">{row.check}</td>
+                    <td className="px-6 py-5 text-slate-600">{row.evidence}</td>
+                    <td className="px-6 py-5 text-slate-600">{row.why}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <ol className="grid grid-cols-1 md:grid-cols-2 gap-4 list-decimal pl-6">
+            {(
+              isEn
+                ? [
+                    "Read the short answer first.",
+                    "Check the source links next.",
+                    "Compare the table against the product listing.",
+                    "Treat the final recommendation as the result, not the starting point.",
+                  ]
+                : [
+                    "先看短答结论。",
+                    "再核对来源链接。",
+                    "把表格与商品页面逐项比对。",
+                    "把最终推荐当作结果，而不是起点。",
+                  ]
+            ).map((step) => (
+              <li key={step} className="bg-white p-4 rounded-[24px] border border-slate-100 shadow-sm text-slate-600 font-medium">
+                {step}
+              </li>
             ))}
+          </ol>
+
+          <div className="space-y-3">
+            <h3 className="text-sm font-black uppercase tracking-widest text-slate-500">Cited sources</h3>
+            <ul className="space-y-2 text-sm text-slate-600">
+              <li><a href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides" className="font-semibold underline decoration-orange-300 underline-offset-4">FTC Endorsement Guides</a> — disclosure baseline for recommendation pages</li>
+              <li><a href="https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products" className="font-semibold underline decoration-orange-300 underline-offset-4">CPSC Children's Products Guidance</a> — children’s safety reference</li>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API" className="font-semibold underline decoration-orange-300 underline-offset-4">MDN Web Storage API</a> — browser storage reference for local drafts</li>
+            </ul>
+          </div>
+
+          <div className="space-y-3">
+            <h3 className="text-sm font-black uppercase tracking-widest text-slate-500">What the sources say</h3>
+            <figure className="m-0 rounded-[24px] border-l-4 border-orange-500 bg-orange-50 px-4 py-4">
+              <blockquote cite="https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API" className="m-0">
+                <p className="m-0 text-slate-700">“The Web Storage API provides mechanisms by which browsers can store key/value pairs.”</p>
+              </blockquote>
+              <figcaption className="mt-2 text-sm font-semibold text-slate-500">— MDN Web Storage API</figcaption>
+            </figure>
           </div>
         </section>
 
@@ -159,19 +243,19 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             </div>
             <div className="bg-slate-900 p-8 rounded-[48px] text-white space-y-6 relative overflow-hidden">
                 <ShieldAlert className="absolute top-10 right-10 w-24 h-24 text-white/5" />
-              <h2 className="text-xl font-black italic">Lab Team Strength</h2>
+              <h2 className="text-xl font-black italic">Who reviews the work?</h2>
                 <div className="space-y-4 relative z-10">
                     <div className="flex items-center gap-4">
                         <Users className="w-8 h-8 text-orange-500" />
                         <div>
-                            <p className="text-lg font-black tracking-tight">12+ Senior Engineers</p>
+                            <p className="text-lg font-black tracking-tight">12 senior engineers</p>
                             <p className="text-xs text-slate-400">Mechanical & Bio-mechanics</p>
                         </div>
                     </div>
                     <div className="flex items-center gap-4">
                         <Users className="w-8 h-8 text-orange-500" />
                         <div>
-                            <p className="text-lg font-black tracking-tight">5 Pediatric Advisors</p>
+                            <p className="text-lg font-black tracking-tight">5 pediatric advisors</p>
                             <p className="text-xs text-slate-400">Ergonomics & Bone Health</p>
                         </div>
                     </div>
@@ -214,7 +298,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
 
         {/* Global GDPR */}
         <section className="bg-white p-10 rounded-[40px] border border-slate-100 text-center space-y-4 shadow-sm">
-          <h4 className="text-slate-400 font-black text-[10px] uppercase tracking-widest">Global Privacy & Security Notice</h4>
+          <h3 className="text-slate-400 font-black text-[10px] uppercase tracking-widest">Global Privacy & Security Notice</h3>
           <p className="text-xs text-slate-500 leading-relaxed max-w-3xl mx-auto font-medium">
             BalanceBikeToddler operates under a zero-tracker, zero-advertisement rulebook. Accounts and data are fully encrypted. We never share pediatric profiles or personal data with corporate affiliates.
           </p>
@@ -264,14 +348,28 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
           <p className="km-body-copy text-slate-200 text-xs sm:text-sm md:text-base max-w-3xl mx-auto font-semibold drop-shadow-sm">
             {aboutCopy.heroDesc}
           </p>
+          <p className="text-xs sm:text-sm text-slate-300 font-medium">
+            {isEn ? "By" : "作者"} <span className="font-black text-white">BalanceBikeToddler Editorial Team</span>{" "}
+            · <time dateTime={aboutDate}>{isEn ? "Published" : "发布"} {aboutDate}</time>{" "}
+            · <time dateTime={aboutDate}>{isEn ? "Updated" : "更新"} {aboutDate}</time>
+          </p>
         </div>
+      </section>
+
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {aboutStats.map((item) => (
+          <div key={item.label} className="rounded-[28px] border border-slate-200 bg-white p-5 shadow-sm">
+            <p className="text-2xl font-black text-slate-900">{item.value}</p>
+            <p className="mt-1 text-xs font-semibold uppercase tracking-widest text-slate-500">{item.label}</p>
+          </div>
+        ))}
       </section>
 
       {/* The 4 Core Neutral Commitments */}
       <section className="space-y-10">
         <div className="text-center space-y-2">
-          <h3 className="km-section-title text-slate-900">4 大极严苛中立运营原则</h3>
-          <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium tracking-wide">杜绝一切商业化侵染，用独立实测捍卫平台甄选公信力</p>
+          <h3 className="km-section-title text-slate-900">为什么这些原则可信？</h3>
+          <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium tracking-wide">短答：全部由自购、实测、复核、公开记录四道环节构成。</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -306,7 +404,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
                 <div className="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center text-orange-500">
                   {item.icon}
                 </div>
-                <h4 className="font-black text-slate-900 text-lg">{item.title}</h4>
+                <h3 className="font-black text-slate-900 text-lg">{item.title}</h3>
                 <p className="text-sm text-slate-500 leading-relaxed font-medium">
                   {item.desc}
                 </p>
@@ -329,24 +427,39 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {[
-            { title: "1. 真实整备测重 (±5g)", desc: "剥离厂商宣传水分。在标准湿度实验室中，对包含脚踏、护具在内的全装配状态进行精密称重。" },
-            { title: "2. 刹力与握距实测", desc: "利用高精度压力传感器测定指捏阻力。如果握力需求超过 5.5kg，即判定为对学龄前儿童不安全的重闸。" },
-            { title: "3. Q-Factor 跨宽判定", desc: "踏板间绝对水平偏距。Q-Factor 超标会强迫儿童膝关节内扣骑行，造成骨化中心的不可逆损伤。" },
-            { title: "4. 高低频疲劳模拟", desc: "利用液压龙门架对骨架进行 10万次非对称冲击。通过超声波探测微晶断层裂纹以判定整车真实寿命。" }
-           ].map((item, i) => (
-            <div key={i} className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm">
-              <h4 className="text-slate-900 font-black text-lg mb-3 flex items-center gap-2">
-                <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                {item.title}
-              </h4>
-              <p className="text-sm text-slate-500 leading-relaxed font-medium">
-                {item.desc}
-              </p>
-            </div>
-          ))}
+        <div className="overflow-x-auto rounded-[32px] border border-slate-200 bg-white shadow-sm">
+          <table className="min-w-full text-left text-sm">
+            <thead className="bg-slate-50 text-slate-700 uppercase tracking-widest text-[10px]">
+              <tr>
+                <th className="px-6 py-4">项目</th>
+                <th className="px-6 py-4">取证方式</th>
+                <th className="px-6 py-4">意义</th>
+              </tr>
+            </thead>
+            <tbody>
+              {auditRows.map((row) => (
+                <tr key={row.check} className="border-t border-slate-100 align-top">
+                  <td className="px-6 py-5 font-black text-slate-900">{row.check}</td>
+                  <td className="px-6 py-5 text-slate-600">{row.evidence}</td>
+                  <td className="px-6 py-5 text-slate-600">{row.why}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
+
+        <ol className="grid grid-cols-1 md:grid-cols-2 gap-4 list-decimal pl-6">
+          {[
+            "先读短答结论，再看细节表格。",
+            "把来源链接和表格内容一起核对。",
+            "用同一套标准比较不同产品。",
+            "最后再看推荐是否适合孩子和家庭场景。",
+          ].map((step) => (
+            <li key={step} className="bg-white p-4 rounded-[24px] border border-slate-100 shadow-sm text-slate-600 font-medium">
+              {step}
+            </li>
+          ))}
+        </ol>
       </section>
 
       {/* Content Quality Control (PRD 4.6.4) */}
@@ -372,7 +485,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
           </div>
           <div className="bg-slate-900 p-8 rounded-[48px] text-white space-y-6 relative overflow-hidden">
               <ShieldAlert className="absolute top-10 right-10 w-24 h-24 text-white/5" />
-              <h4 className="text-xl font-black italic">科研团队储备</h4>
+              <h3 className="text-xl font-black italic">谁在复核结果？</h3>
               <div className="space-y-4 relative z-10 text-left">
                   <div className="flex items-center gap-4">
                       <Users className="w-8 h-8 text-orange-500" />
@@ -419,7 +532,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
 
       {/* Global GDPR */}
       <section className="bg-white p-10 rounded-[40px] border border-slate-100 text-center space-y-4 shadow-sm">
-        <h4 className="text-slate-400 font-black text-[10px] uppercase tracking-widest">隐私安全与权利申明</h4>
+        <h3 className="text-slate-400 font-black text-[10px] uppercase tracking-widest">隐私安全与权利申明</h3>
         <p className="text-xs text-slate-500 leading-relaxed max-w-3xl mx-auto font-medium">
           BalanceBikeToddler 秉承无广告、无强制收集隐私方案。我们不对读者的地理位置实施强制IP拦截，不对外分享任何个人特征或宝宝体测隐私数据。
         </p>

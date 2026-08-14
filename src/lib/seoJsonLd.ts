@@ -9,6 +9,12 @@ type CollectionPageInput = {
   }>;
   description?: string;
   inLanguage?: string;
+  author?: {
+    "@type": "Organization" | "Person";
+    name: string;
+  };
+  datePublished?: string;
+  dateModified?: string;
 };
 
 export function clearJsonLd(key: string) {
@@ -35,6 +41,9 @@ export function setCollectionPageJsonLd(key: string, input: CollectionPageInput)
     url: input.url,
     description: input.description,
     inLanguage: input.inLanguage,
+    author: input.author,
+    datePublished: input.datePublished,
+    dateModified: input.dateModified,
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: input.items.length,

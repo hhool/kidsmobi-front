@@ -124,6 +124,7 @@ export default function NewsSection({
   onArticleClose,
 }: NewsSectionProps) {
   const newsCopy = getPageCopy(lang).news;
+  const newsDate = "2026-08-15";
   const [newsArticlesState, setNewsArticlesState] = useState<NewsArticle[]>([]);
   const [loadingNews, setLoadingNews] = useState<boolean>(false);
   const [selectedArticleState, setSelectedArticleState] = useState<any | null>(null);
@@ -401,6 +402,12 @@ export default function NewsSection({
     setCollectionPageJsonLd("news-list", {
       name: newsCopy.globalNewsSeoName,
       url: canonicalUrl,
+      author: {
+        "@type": "Organization",
+        name: "BalanceBikeToddler Editorial Team",
+      },
+      datePublished: newsDate,
+      dateModified: newsDate,
       items: pagedNews.map((article) => ({
         name: article.title,
         url: canonicalUrl,
@@ -491,10 +498,13 @@ export default function NewsSection({
             </div>
 
             {/* Article Summary Quote */}
-            <div className="bg-orange-50/50 p-6 rounded-3xl border border-orange-100 text-slate-700 text-sm leading-relaxed font-medium italic relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-1 h-full bg-orange-400"></div>
-              <strong>{newsCopy.detailSummary}</strong> {article.summary}
-            </div>
+            <figure className="bg-orange-50/50 p-6 rounded-3xl border border-orange-100 text-slate-700 text-sm leading-relaxed font-medium relative overflow-hidden m-0">
+              <div className="absolute top-0 left-0 w-1 h-full bg-orange-400"></div>
+              <blockquote cite="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides" className="m-0 italic">
+                <p className="m-0"><strong>{newsCopy.detailSummary}</strong> {article.summary}</p>
+              </blockquote>
+              <figcaption className="mt-2 text-xs font-semibold text-slate-500 not-italic">— FTC Endorsement Guides</figcaption>
+            </figure>
 
             {/* Article Editorial Markdown content body renderer */}
             <div className="text-slate-600 text-sm sm:text-base leading-8 space-y-6 border-t border-slate-50 pt-8">
@@ -641,6 +651,11 @@ export default function NewsSection({
               
               <p className="km-body-copy text-slate-200 text-sm md:text-base max-w-3xl mx-auto font-semibold drop-shadow-sm">
                 {newsCopy.heroSubtitle}
+              </p>
+              <p className="text-xs sm:text-sm text-slate-300 font-medium max-w-3xl mx-auto">
+                {lang === "zh" ? "作者" : "By"} <span className="font-black text-white">BalanceBikeToddler Editorial Team</span>{" "}
+                · <time dateTime={newsDate}>{lang === "zh" ? "发布" : "Published"} {newsDate}</time>{" "}
+                · <time dateTime={newsDate}>{lang === "zh" ? "更新" : "Updated"} {newsDate}</time>
               </p>
 
               {/* Categorization dynamic tabs bar strictly in ordered layout */}

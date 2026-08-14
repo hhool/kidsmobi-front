@@ -3,6 +3,14 @@
 ## About
 BalanceBikeToddler is a safety-focused kids mobility review and buying guidance site for balance bikes, kids bikes, scooters, strollers, and car seats.
 
+## Pages
+- [Home](https://balancebiketoddler.com/)
+- [Products](https://balancebiketoddler.com/products)
+- [Reviews](https://balancebiketoddler.com/reviews)
+- [Guides](https://balancebiketoddler.com/guides)
+- [News](https://balancebiketoddler.com/news)
+- [About](https://balancebiketoddler.com/about)
+
 ## Contact
 - Email: hello@balancebiketoddler.com
 - Website: https://balancebiketoddler.com/

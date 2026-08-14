@@ -697,6 +697,7 @@ export default function GuidesSection({
   isAdmin = false,
   onOpenAdminGuideEditor,
 }: GuidesSectionProps) {
+  const guidesDate = "2026-08-15";
   const [guideArticles, setGuideArticles] = useState<GuideArticle[]>(fallbackGuideArticles);
   const [loadingGuides, setLoadingGuides] = useState<boolean>(false);
   const [selectedGuideState, setSelectedGuideState] = useState<any | null>(null);
@@ -1095,6 +1096,12 @@ export default function GuidesSection({
     setCollectionPageJsonLd("guides-list", {
       name: lang === "en" ? "Buyer's Guides" : "选购指南",
       url: canonicalUrl,
+      author: {
+        "@type": "Organization",
+        name: "BalanceBikeToddler Editorial Team",
+      },
+      datePublished: guidesDate,
+      dateModified: guidesDate,
       items: pagedGuides.map((guide) => ({
         name: guide.title,
         url: canonicalUrl,
@@ -1305,6 +1312,11 @@ export default function GuidesSection({
               {lang === "en" 
                 ? "Input your child's precise measurements below to instantly audit parameters for Strollers, Kids Bikes, Kids Scooters, Balance Bikes, and Electric Cars. This biometric wizard automatically calculates the max vehicle weight limits and perfect fit geometries." 
                 : "输入宝宝的身高、跨高与体重参数，我们将通过生物力学算法，在婴儿推车、滑板车、平衡车与自行车品类中，精准匹配最安全、最省力的核心型号与轮径。"}
+            </p>
+            <p className="text-xs sm:text-sm text-slate-500 font-medium">
+              {lang === "zh" ? "作者" : "By"} <span className="font-black text-slate-900">BalanceBikeToddler Editorial Team</span>{" "}
+              · <time dateTime={guidesDate}>{lang === "zh" ? "发布" : "Published"} {guidesDate}</time>{" "}
+              · <time dateTime={guidesDate}>{lang === "zh" ? "更新" : "Updated"} {guidesDate}</time>
             </p>
           </div>
           <button 
@@ -1767,6 +1779,60 @@ export default function GuidesSection({
           Part 2: 专家选车科普指南库 (Expert Guides Directory Library)
           ======================================================== */}
       <section id="guides-library-anchor" className="space-y-6">
+        {!selectedGuideState && (
+          <section className="bg-white border border-slate-100 rounded-[32px] p-6 sm:p-8 shadow-sm space-y-6">
+            <h2 className="km-section-title text-slate-900">{lang === "en" ? "What each guide type covers" : "不同指南类型分别解决什么问题？"}</h2>
+            <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium">
+              {lang === "en"
+                ? "Short answer: each guide type narrows the question from a broad shopping goal to a specific fit, safety, or maintenance decision."
+                : "短答：每种指南都会把宽泛的选购目标，收窄到具体的尺寸、稳定性或养护决策。"}
+            </p>
+            <div className="overflow-x-auto rounded-[24px] border border-slate-200">
+              <table className="min-w-full text-left text-sm bg-white">
+                <thead className="bg-slate-50 text-slate-700 uppercase tracking-widest text-[10px]">
+                  <tr>
+                    <th className="px-5 py-3">{lang === "en" ? "Guide type" : "类型"}</th>
+                    <th className="px-5 py-3">{lang === "en" ? "What it answers" : "回答什么问题"}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    [lang === "en" ? "Beginner" : "新手入门", lang === "en" ? "First-fit sizing, safe starting range, and initial confidence." : "首购尺寸、起步安全范围、初次上手。"],
+                    [lang === "en" ? "Scenario" : "场景指南", lang === "en" ? "Which product works best at home, in parks, or on trips." : "家用、公园、旅行各场景怎么选。"],
+                    [lang === "en" ? "Maintenance" : "养护清单", lang === "en" ? "How to keep brakes, wheels, and joints working safely." : "刹车、轮胎、连接件如何保持安全。"],
+                  ].map(([type, answer]) => (
+                    <tr key={type} className="border-t border-slate-100 align-top">
+                      <td className="px-5 py-4 font-black text-slate-900">{type}</td>
+                      <td className="px-5 py-4 text-slate-600">{answer}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <ol className="grid grid-cols-1 md:grid-cols-2 gap-4 list-decimal pl-6">
+              {(
+                lang === "en"
+                  ? [
+                      "Read the short answer first.",
+                      "Check the cited sources second.",
+                      "Use the table to compare guide types.",
+                      "Open a specific guide only after the fit question is clear.",
+                    ]
+                  : [
+                      "先看短答结论。",
+                      "再核对来源链接。",
+                      "用表格比对不同指南类型。",
+                      "等适配问题明确后，再打开具体文章。",
+                    ]
+              ).map((step) => (
+                <li key={step} className="bg-slate-50 p-4 rounded-[20px] border border-slate-100 shadow-sm text-slate-600 font-medium">
+                  {step}
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
         {selectedGuideState ? (() => {
           const guide = translateGuideArticle(selectedGuideState, lang);
           return (
