@@ -74,9 +74,30 @@ const SEO_KEY_TO_PAGE_TYPE: Record<string, CMSPageConfig["pageType"]> = {
   home: "home",
   products: "products_index",
   evaluations: "reviews_index",
+  reviews: "reviews_index",
   guides: "guides_index",
   news: "news_index",
   about: "about",
+};
+
+const normalizeSeoKey = (value: string) => {
+  if (!value) return value;
+  if (value === "evaluations") return "reviews";
+  return value;
+};
+
+const getSeoAliasKeys = (value: string): string[] => {
+  const normalized = normalizeSeoKey(value);
+  const keys = new Set<string>();
+  if (normalized) keys.add(normalized);
+  if (value) keys.add(value);
+  if (normalized === "reviews") {
+    keys.add("evaluations");
+  }
+  if (value === "evaluations") {
+    keys.add("reviews");
+  }
+  return Array.from(keys).filter(Boolean);
 };
 
 const seoRouteMap: Record<string, string> = {
@@ -126,6 +147,7 @@ const COUNTRY_HREFLANG_MAP: Record<string, string> = {
 const DEFAULT_CMS_PAGE_BLUEPRINT: Record<string, CMSPageConfig> = {
   home: { pageType: "home", pageSlug: "home", pageIndex: 1, paginationPolicy: "none", indexingPolicy: "index", status: "published" },
   products: { pageType: "products_index", pageSlug: "products", pageIndex: 1, paginationPolicy: "page_path", indexingPolicy: "index", status: "published" },
+  reviews: { pageType: "reviews_index", pageSlug: "reviews", pageIndex: 1, paginationPolicy: "page_path", indexingPolicy: "index", status: "published" },
   evaluations: { pageType: "reviews_index", pageSlug: "reviews", pageIndex: 1, paginationPolicy: "page_path", indexingPolicy: "index", status: "published" },
   guides: { pageType: "guides_index", pageSlug: "guides", pageIndex: 1, paginationPolicy: "page_path", indexingPolicy: "index", status: "published" },
   news: { pageType: "news_index", pageSlug: "news", pageIndex: 1, paginationPolicy: "page_path", indexingPolicy: "index", status: "published" },
@@ -744,7 +766,7 @@ const resolveRouteState = (pathname: string, hash: string) => {
     const activeReviewType = sub && REVIEW_ROUTE_IDS.has(sub) ? sub : "single";
     const activeEvaluationId = pageSegmentIndex >= 0 ? "" : (sub && REVIEW_ROUTE_IDS.has(sub) ? segments[2] : sub) || "";
     return {
-      activeTab: "evaluations",
+      activeTab: "reviews",
       activeProductCategory: "all",
       activeReviewType,
       activeEvaluationId,
@@ -1204,6 +1226,7 @@ export default function App() {
     const tabPathMap: Record<string, string> = {
       home: "/",
       products: "/products",
+      reviews: "/reviews",
       evaluations: "/reviews",
       guides: "/guides",
       news: "/news",
@@ -2025,17 +2048,22 @@ export default function App() {
   }, [cmsSettings, currentPath]);
 
   const resolveCmsPageConfigForRoute = (seoKey: string) => {
-    const pageType = SEO_KEY_TO_PAGE_TYPE[seoKey];
+    const normalizedKey = normalizeSeoKey(seoKey);
+    const aliasKeys = new Set(getSeoAliasKeys(seoKey));
+    const pageType = SEO_KEY_TO_PAGE_TYPE[normalizedKey] || SEO_KEY_TO_PAGE_TYPE[seoKey];
     const configuredPages = Object.values(cmsSettings?.pages || {}).filter(Boolean) as CMSPageConfig[];
     const publishedPages = configuredPages.filter((item) => !item.status || item.status === "published");
     const candidatePool = publishedPages.length > 0 ? publishedPages : configuredPages;
 
     const matchedByType = candidatePool.filter((item) => item.pageType === pageType);
-    const matchedBySlug = candidatePool.filter((item) => item.pageSlug === seoKey);
+    const matchedBySlug = candidatePool.filter((item) => {
+      const pageSlug = String(item.pageSlug || "").trim().toLowerCase();
+      return Array.from(aliasKeys).some((key) => key && pageSlug === key.toLowerCase());
+    });
     const matched = [...matchedByType, ...matchedBySlug];
 
     if (matched.length === 0) {
-      return DEFAULT_CMS_PAGE_BLUEPRINT[seoKey] || DEFAULT_CMS_PAGE_BLUEPRINT.home;
+      return DEFAULT_CMS_PAGE_BLUEPRINT[normalizedKey] || DEFAULT_CMS_PAGE_BLUEPRINT[seoKey] || DEFAULT_CMS_PAGE_BLUEPRINT.home;
     }
 
     const currentIndex = Math.max(1, activePageIndex || 1);
@@ -2049,15 +2077,18 @@ export default function App() {
   };
 
   const resolveCmsRouteSeoConfig = (seoKey: string) => {
-    const pageConfig = resolveCmsPageConfigForRoute(seoKey);
-    const fallbackSeo = DEFAULT_SEO_CONFIGS[seoKey]?.[lang] || DEFAULT_SEO_CONFIGS.home[lang];
+    const normalizedKey = normalizeSeoKey(seoKey);
+    const pageConfig = resolveCmsPageConfigForRoute(normalizedKey);
+    const fallbackSeo = DEFAULT_SEO_CONFIGS[normalizedKey]?.[lang] || DEFAULT_SEO_CONFIGS[seoKey]?.[lang] || DEFAULT_SEO_CONFIGS.home[lang];
 
     const pageSeo = pageConfig?.seo?.[lang];
     if (pageSeo) {
       return { seo: pageSeo, pageConfig };
     }
 
-    const routeSeo = cmsSettings?.seo?.[seoKey]?.[lang];
+    const routeSeo = getSeoAliasKeys(seoKey)
+      .map((key) => cmsSettings?.seo?.[key]?.[lang])
+      .find(Boolean);
     if (routeSeo) {
       return { seo: routeSeo, pageConfig };
     }
@@ -2294,10 +2325,11 @@ export default function App() {
     }
 
     // Default to mapped key if valid, fallback to 'home'
-    const validKeys = ["home", "news", "products", "evaluations", "guides", "about"];
+    const validKeys = ["home", "news", "products", "reviews", "evaluations", "guides", "about"];
     if (!validKeys.includes(seoKey)) {
       seoKey = "home";
     }
+    seoKey = normalizeSeoKey(seoKey);
 
     const { seo: resolvedSEO, pageConfig } = resolveCmsRouteSeoConfig(seoKey);
     const normalizedSEO = normalizeSeoConfig(resolvedSEO);
@@ -2305,7 +2337,7 @@ export default function App() {
     let descStr = normalizedSEO.description;
     let keywordsArr = normalizedSEO.keywords;
 
-    if (activePageIndex > 1 && ["products", "evaluations", "guides", "news"].includes(seoKey)) {
+    if (activePageIndex > 1 && ["products", "reviews", "guides", "news"].includes(seoKey)) {
       titleStr = lang === "zh" ? `${titleStr} - 第 ${activePageIndex} 页` : `${titleStr} - Page ${activePageIndex}`;
       descStr = lang === "zh"
         ? `${descStr} 当前为第 ${activePageIndex} 页分页内容。`
@@ -2315,25 +2347,18 @@ export default function App() {
     const isReviewsIndexPath = /^\/reviews(?:\/page\/\d+)?\/?$/.test(currentPath);
     const isReviewDetailPath = /^\/reviews\/(?:single|compare|value|ranking|safety)\/[^/]+\/?$/.test(currentPath);
 
-    if (seoKey === "evaluations" && isReviewsIndexPath) {
-      const curated = DEFAULT_SEO_CONFIGS.evaluations[lang] || DEFAULT_SEO_CONFIGS.evaluations.en;
-      titleStr = curated.title;
-      descStr = curated.description;
-      keywordsArr = curated.keywords;
-    }
-
-    if (seoKey === "evaluations" && activeReviewType !== "all" && !isReviewsIndexPath) {
+    if (seoKey === "reviews" && activeReviewType !== "all" && !isReviewsIndexPath) {
       const selectedReview = reviewNavOptions.find((item) => item.id === activeReviewType)?.label || activeReviewType;
       titleStr = lang === "zh"
         ? `${selectedReview} 专题评测 | BalanceBikeToddler Reviews`
-        : `${selectedReview} Review Reports | BalanceBikeToddler Evaluations`;
+        : `${selectedReview} Review Reports | BalanceBikeToddler Reviews`;
       descStr = lang === "zh"
         ? `查看 ${selectedReview} 相关实验室报告，覆盖安全、结构稳定与真实场景表现等关键评测维度。`
         : `Explore ${selectedReview} reviews spanning safety, structural stability, and real-world usability benchmarks.`;
       keywordsArr = Array.from(new Set([...keywordsArr, selectedReview, ...getReviewSeoKeywords(activeReviewType, lang)]));
     }
 
-    if (seoKey === "evaluations" && isReviewDetailPath) {
+    if (seoKey === "reviews" && isReviewDetailPath) {
       const requiredReviewKeywords = lang === "zh"
         ? ["旅行婴儿推车", "轻便婴儿推车", "幼儿自行车", "婴儿推车评测", "慢跑婴儿推车"]
         : ["travel stroller", "lightweight stroller", "toddler bike", "stroller reviews", "jogging stroller"];
@@ -3063,11 +3088,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
                 <button
                   onClick={() => {
-                    handlePrimaryTabClick("evaluations");
+                    handlePrimaryTabClick("reviews");
                     navigateToPath("/reviews");
                   }}
                   className={`px-3 py-2 rounded-xl font-bold transition-all ${
-                    activeTab === "evaluations" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                    activeTab === "reviews" || activeTab === "evaluations" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
                   }`}
                 >
                   <span>{t.navEvaluations}</span>
@@ -3318,7 +3343,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           </div>
         )}
 
-        {activeTab === "evaluations" && (
+        {(activeTab === "reviews" || activeTab === "evaluations") && (
           <EvaluationsSection 
             evaluationsData={evaluationsData}
             productsData={productsData}
