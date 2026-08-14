@@ -1975,6 +1975,34 @@ export default function App() {
     }
   };
 
+  const buildWebsiteSchema = (origin: string, description: string) => ({
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "BalanceBikeToddler",
+    url: `${origin}/`,
+    description,
+    inLanguage: lang,
+    publisher: {
+      "@type": "Organization",
+      name: "BalanceBikeToddler",
+      url: `${origin}/`,
+      logo: `${origin}/favicon.svg`,
+      sameAs: [
+        "https://www.facebook.com",
+        "https://www.instagram.com",
+        "https://x.com/BalanceBikeToddler"
+      ],
+    },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${origin}/products?search={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+  });
+
   useEffect(() => {
     const canonicalOrigin =
       cmsSettings?.seoGlobal?.siteOrigin ||
@@ -2076,6 +2104,8 @@ export default function App() {
         updateSocialMeta(title, desc, selectedProduct.imageUrl || DEFAULT_OG_IMAGE_PATH, "article");
         updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
 
+        const websiteSchema = buildWebsiteSchema(canonicalOrigin, desc);
+
         injectJsonLd([
           {
             "@context": "https://schema.org",
@@ -2101,6 +2131,7 @@ export default function App() {
               },
             ],
           },
+          websiteSchema,
           {
             "@context": "https://schema.org",
             "@type": "Product",
@@ -2157,6 +2188,8 @@ export default function App() {
       const noIndex = compareList.length === 0;
       updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
 
+      const websiteSchema = buildWebsiteSchema(canonicalOrigin, desc);
+
       injectJsonLd([
         {
           "@context": "https://schema.org",
@@ -2182,6 +2215,7 @@ export default function App() {
             },
           ],
         },
+        websiteSchema,
         ...(compareList.length > 0 ? [
           {
             "@context": "https://schema.org",
@@ -2217,14 +2251,17 @@ export default function App() {
         updateMetaProperty("og:url", canonicalUrl);
         updateSocialMeta(normalizedSEO.title, normalizedSEO.description, DEFAULT_OG_IMAGE_PATH, "article");
 
+        const websiteSchema = buildWebsiteSchema(canonicalOrigin, normalizedSEO.description);
+
         injectJsonLd([
           {
             "@context": "https://schema.org",
             "@type": "Organization",
             name: "BalanceBikeToddler",
             url: `${window.location.origin}/`,
-            logo: `${window.location.origin}/favicon.ico`,
+            logo: `${window.location.origin}/favicon.svg`,
           },
+          websiteSchema,
           {
             "@context": "https://schema.org",
             "@type": "WebPage",
@@ -2467,8 +2504,15 @@ export default function App() {
       "@type": "Organization",
       name: "BalanceBikeToddler",
       url: `${window.location.origin}/`,
-      logo: `${window.location.origin}/favicon.ico`,
+      logo: `${window.location.origin}/favicon.svg`,
+      sameAs: [
+        "https://www.facebook.com",
+        "https://www.instagram.com",
+        "https://x.com/BalanceBikeToddler",
+      ],
     };
+
+    const websiteSchema = buildWebsiteSchema(canonicalOrigin, descStr);
 
     const breadcrumbSchema = {
       "@context": "https://schema.org",
@@ -2561,7 +2605,7 @@ export default function App() {
       inLanguage: lang,
     };
 
-    injectJsonLd([orgSchema, webPageSchema, breadcrumbSchema, ...(collectionSchema ? [collectionSchema] : [])]);
+    injectJsonLd([orgSchema, websiteSchema, webPageSchema, breadcrumbSchema, ...(collectionSchema ? [collectionSchema] : [])]);
 
   }, [activeTab, lang, cmsSettings, selectedProduct, activeProductCategory, activeReviewType, activePageIndex, productNavOptions, reviewNavOptions, productsData, evaluationsData, currentPath, newsPaginationTotalPages, guidesPaginationTotalPages]);
 
