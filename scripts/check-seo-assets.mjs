@@ -5,7 +5,7 @@ const root = resolve(process.cwd(), 'public');
 const robots = readFileSync(resolve(root, 'robots.txt'), 'utf8');
 const sitemap = readFileSync(resolve(root, 'sitemap.xml'), 'utf8');
 const redirects = readFileSync(resolve(root, '_redirects'), 'utf8');
-const expectedSiteBase = (process.env.SEO_SITE_BASE_URL || 'https://kidsmobi.pages.dev').replace(/\/+$/, '');
+const expectedSiteBase = (process.env.SEO_SITE_BASE_URL || 'https://balancebiketoddler.com').replace(/\/+$/, '');
 
 const required = [
   {
