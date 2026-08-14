@@ -3785,6 +3785,26 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     {lang === "en" ? "Privacy Policy" : "隐私政策 "}
                   </a>
                 </li>
+                <li>
+                  <a
+                    href="/about"
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath("/about");
+                    }}
+                  >
+                    {lang === "en" ? "About" : "关于我们"}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="mailto:hello@balancebiketoddler.com"
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                  >
+                    {lang === "en" ? "Contact" : "联系"}
+                  </a>
+                </li>
               </ul>
             </div>
 

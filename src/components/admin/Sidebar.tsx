@@ -70,8 +70,8 @@ export default function Sidebar({ activeMenu, setActiveMenu, lang, onClose }: Si
           label={lang === "zh" ? "场景管理" : "Scenarios"} 
         />
         <MenuItem 
-          active={activeMenu === "evaluations"} 
-          onClick={() => setActiveMenu("evaluations")} 
+          active={activeMenu === "reviews"} 
+          onClick={() => setActiveMenu("reviews")} 
           icon={<Star className="w-5 h-5" />} 
           label={lang === "zh" ? "评测中心" : "Reviews"} 
         />

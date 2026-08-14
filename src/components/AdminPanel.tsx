@@ -25,13 +25,20 @@ import OperationsCenter from "./admin/OperationsCenter";
 import { getD1Health } from "../lib/cmsD1Service";
 const AssetUploader = React.lazy(() => import("./admin/AssetUploader"));
 
-type AdminMenu = "dashboard" | "categories" | "scenarios" | "products" | "evaluations" | "guides" | "news" | "settings" | "assets" | "imports";
+type AdminMenu = "dashboard" | "categories" | "scenarios" | "products" | "reviews" | "guides" | "news" | "settings" | "assets" | "imports";
 
-const ADMIN_MENU_PATHS: Record<AdminMenu, string> = {
+const normalizeAdminMenu = (value: string): AdminMenu => {
+  const normalized = String(value || "").trim().toLowerCase();
+  if (normalized === "evaluations") return "reviews";
+  return normalized === "reviews" ? "reviews" : "dashboard";
+};
+
+const ADMIN_MENU_PATHS: Record<AdminMenu | "evaluations", string> = {
   dashboard: "/dashborad",
   categories: "/categories",
   scenarios: "/scenarios",
   products: "/products",
+  reviews: "/reviews",
   evaluations: "/reviews",
   guides: "/guides",
   news: "/news",
@@ -46,8 +53,8 @@ const ADMIN_PATH_TO_MENU: Record<string, AdminMenu> = {
   "/categories": "categories",
   "/scenarios": "scenarios",
   "/products": "products",
-  "/reviews": "evaluations",
-  "/evaluations": "evaluations",
+  "/reviews": "reviews",
+  "/evaluations": "reviews",
   "/guides": "guides",
   "/news": "news",
   "/settings": "settings",
@@ -60,7 +67,7 @@ const ADMIN_MENU_SET = new Set<AdminMenu>([
   "categories",
   "scenarios",
   "products",
-  "evaluations",
+  "reviews",
   "guides",
   "news",
   "settings",
@@ -77,7 +84,7 @@ const parseAdminRouteHash = (hashValue: string, pathnameValue: string): { menu: 
   const params = new URLSearchParams(query);
   const pathMenu = ADMIN_PATH_TO_MENU[String(pathnameValue || "").trim().toLowerCase()] || "dashboard";
   const rawMenu = String(params.get("menu") || pathMenu).trim().toLowerCase();
-  const menu = ADMIN_MENU_SET.has(rawMenu as AdminMenu) ? (rawMenu as AdminMenu) : "dashboard";
+  const menu = normalizeAdminMenu(rawMenu);
   const productId = String(params.get("productId") || "").trim();
   const guideId = String(params.get("guideId") || params.get("articleId") || "").trim();
 
@@ -314,7 +321,7 @@ export default function AdminPanel({
                onFocusProductHandled={() => setTargetProductId("")}
              />
            )}
-           {activeMenu === "evaluations" && <EvaluationManager lang={lang} />}
+           {activeMenu === "reviews" && <EvaluationManager lang={lang} />}
            {activeMenu === "guides" && (
              <GuideManager
                lang={lang}

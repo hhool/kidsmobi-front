@@ -834,7 +834,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
       categoryTabs: {
         all: "📰 全部文章",
         newProduct: "🆕 新品发布",
-        science: "🧪 科普干货",
+        science: "🧪 知识科普",
         brandNews: "🏷️ 品牌故事",
         industry: "📊 行业趋势",
       },

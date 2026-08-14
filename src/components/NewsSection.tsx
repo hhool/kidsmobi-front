@@ -96,7 +96,7 @@ function getCategoryLabel(cat: string, lang: "zh" | "en"): string {
       industry: "行业趋势",
       new_product: "新品发布",
       brand_news: "品牌动态",
-      science: "科普干货",
+      science: "知识科普",
       all: "全部资讯"
     };
     return labels[cat] || "最新动态";

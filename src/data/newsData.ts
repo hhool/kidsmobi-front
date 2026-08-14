@@ -186,7 +186,7 @@ Specialized闪电在此次加州海獭展（Sea Otter Classic）上公开了全�
     id: "news_8",
     title: "政策速递：欧盟拟强化儿童移动产品标签，新增坡度与路面风险提示",
     category: "science",
-    categoryLabel: "科普干货",
+    categoryLabel: "知识科普",
     summary: "新一轮草案强调“可理解风险信息”，要求品牌把适龄区间、坡度上限、湿滑路面禁行等提示放到首屏。",
     content: `### 标签规范从“写了就行”转向“看得懂、用得上”
 
@@ -207,7 +207,7 @@ Specialized闪电在此次加州海獭展（Sea Otter Classic）上公开了全�
     id: "news_9",
     title: "实验复盘：后轮摩擦刹在湿滑路面制动距离显著拉长",
     category: "science",
-    categoryLabel: "科普干货",
+    categoryLabel: "知识科普",
     summary: "在同速测试中，湿滑地面下后轮摩擦刹的平均停车距离相比干燥路面提升约 32%，低龄用户更依赖成人预判。",
     content: `### 一次可复现的场地测试告诉我们什么
 

@@ -1400,7 +1400,7 @@ export default function EvaluationsSection({
           multiCountSuffix: "品对比",
         }
       : {
-          single: "Category Review",
+          single: "Single Review",
           multi: "Multi Compare",
           singleHint: "",
           multiHint: "Head-to-head across 2+ products",

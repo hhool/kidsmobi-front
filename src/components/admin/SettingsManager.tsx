@@ -35,7 +35,7 @@ const OPS_COLLECTION_LABEL_DEFAULTS = {
     products: "Products",
     categories: "Categories",
     scenarios: "Scenarios",
-    evaluations: "Evaluations",
+    evaluations: "Reviews",
     guides: "Guides",
     news: "News",
     settings: "Settings",
@@ -589,7 +589,7 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
             { id: "home", labelZh: "首页", labelEn: "Home" },
             { id: "news", labelZh: "资讯/行业前沿", labelEn: "News" },
             { id: "products", labelZh: "参数矩阵", labelEn: "Products" },
-            { id: "evaluations", labelZh: "深度实测报告", labelEn: "Evaluations" },
+            { id: "reviews", labelZh: "深度实测报告", labelEn: "Reviews" },
             { id: "guides", labelZh: "选型指南", labelEn: "Guides" },
             { id: "about", labelZh: "关于/科研愿景", labelEn: "About" }
           ].map(p => (

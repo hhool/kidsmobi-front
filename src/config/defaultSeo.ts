@@ -62,7 +62,19 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
     en: {
       title: "Expert Stroller Reviews, Travel Stroller Models & Toddler Bike Safety Tests | BalanceBikeToddler",
       description: "Read unbiased stroller reviews, travel stroller models, heavy-duty jogging strollers, and safety-tested toddler bike ratings. Compare travel stroller frame compliance and toddler bike geometries below.",
-      keywords: ["travel stroller", "toddler bike", "stroller reviews", "stroller reviews", "toddler bicycle", "kids bike", "jogging stroller"],
+      keywords: ["travel stroller", "toddler bike", "stroller reviews"],
+    },
+  },
+  reviews: {
+    zh: {
+      title: "婴儿推车评测、旅行推车与幼儿自行车安全测试 | BalanceBikeToddler",
+      description: "查看客观评测报告，覆盖旅行婴儿推车、慢跑婴儿推车与幼儿自行车，重点对比结构稳定性、制动表现与实际场景安全性。",
+      keywords: ["旅行婴儿推车", "慢跑婴儿推车", "婴儿推车评测", "幼儿自行车", "儿童自行车"],
+    },
+    en: {
+      title: "Expert Kids Bikes & Stroller Reviews | BalanceBikeToddler",
+      description: "Read unbiased stroller reviews, travel stroller models, heavy-duty jogging strollers, and safety-tested toddler bike ratings.",
+      keywords: ["travel stroller", "toddler bike", "stroller reviews"],
     },
   },
   guides: {
@@ -103,4 +115,4 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
   },
 };
 
-export const FALLBACK_FIRST_SEO_KEYS = new Set(["home", "products", "guides", "news", "evaluations", "about"]);
+export const FALLBACK_FIRST_SEO_KEYS = new Set(["home", "products", "reviews", "guides", "news", "evaluations", "about"]);

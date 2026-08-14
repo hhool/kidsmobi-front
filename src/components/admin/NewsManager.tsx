@@ -21,7 +21,7 @@ import ScenarioPicker from "./ScenarioPicker";
 
 const NEWS_CATEGORY_OPTIONS = [
   { value: "new_product", zh: "New Launches / 新品发布", en: "New Launches", path: "/news/new_product" },
-  { value: "science", zh: "Science & Tips / 科普干货", en: "Science & Tips", path: "/news/science" },
+  { value: "science", zh: "Science & Tips / 知识科普", en: "Science & Tips", path: "/news/science" },
   { value: "brand_news", zh: "Brand News / 品牌动态", en: "Brand News", path: "/news/brand_news" },
   { value: "industry", zh: "Industry Trends / 行业趋势", en: "Industry Trends", path: "/news/industry" },
 ] as const;
