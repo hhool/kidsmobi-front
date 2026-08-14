@@ -68,6 +68,8 @@ import { getProductSeoKeywords, getReviewSeoKeywords } from "./config/seoKeyword
 import { getTransparencyPageByPath, TRANSPARENCY_PAGE_PATHS, type TransparencyPageKey } from "./data/transparencyPages";
 import CookieConsentModal from "./components/CookieConsentModal";
 
+const DEFAULT_OG_IMAGE_PATH = "/images/home/jogging-stroller-default.jpg";
+
 const SEO_KEY_TO_PAGE_TYPE: Record<string, CMSPageConfig["pageType"]> = {
   home: "home",
   products: "products_index",
@@ -1905,6 +1907,47 @@ export default function App() {
     link.setAttribute("href", href);
   };
 
+  const resolveOgImageUrl = (overrideImageUrl?: string) => {
+    const origin =
+      cmsSettings?.seoGlobal?.siteOrigin ||
+      (cmsSettings as any)?.siteOrigin ||
+      (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+      window.location.origin;
+
+    const source = String(overrideImageUrl || DEFAULT_OG_IMAGE_PATH).trim();
+    if (!source) {
+      return `${origin}${DEFAULT_OG_IMAGE_PATH}`;
+    }
+    if (/^https?:\/\//i.test(source)) {
+      return source;
+    }
+    return `${origin}${source.startsWith("/") ? source : `/${source}`}`;
+  };
+
+  const updateSocialMeta = (title: string, description: string, imageUrl?: string, type: "website" | "article" = "website") => {
+    const siteName = "BalanceBikeToddler";
+    const resolvedTitle = String(title || siteName).trim() || siteName;
+    const resolvedDescription = String(description || "").trim();
+    const resolvedImageUrl = resolveOgImageUrl(imageUrl);
+    const locale = lang === "zh" ? "zh-CN" : "en-US";
+
+    updateMetaProperty("og:site_name", siteName);
+    updateMetaProperty("og:locale", locale);
+    updateMetaProperty("og:type", type);
+    updateMetaProperty("og:title", resolvedTitle);
+    updateMetaProperty("og:description", resolvedDescription || resolvedTitle);
+    updateMetaProperty("og:image", resolvedImageUrl);
+    updateMetaProperty("og:image:secure_url", resolvedImageUrl);
+    updateMetaProperty("og:image:width", "1200");
+    updateMetaProperty("og:image:height", "630");
+    updateMetaProperty("og:image:alt", resolvedTitle);
+    updateMetaTag("twitter:card", "summary_large_image");
+    updateMetaTag("twitter:site", "@BalanceBikeToddler");
+    updateMetaTag("twitter:title", resolvedTitle);
+    updateMetaTag("twitter:description", resolvedDescription || resolvedTitle);
+    updateMetaTag("twitter:image", resolvedImageUrl);
+  };
+
   const updateHreflangLinks = (links: Array<{ hreflang: string; href: string }>) => {
     document.querySelectorAll("link[data-kidsmobi-hreflang='true']").forEach((node) => node.remove());
     links.forEach(({ hreflang, href }) => {
@@ -2030,9 +2073,7 @@ export default function App() {
         const noIndex = shouldNoIndexCurrentPath(canonicalPath, window.location.search, window.location.hostname);
         updateCanonicalLink(canonicalUrl);
         updateMetaProperty("og:url", canonicalUrl);
-        updateMetaProperty("og:type", "article");
-        updateMetaProperty("og:title", title);
-        updateMetaProperty("og:description", desc);
+        updateSocialMeta(title, desc, selectedProduct.imageUrl || DEFAULT_OG_IMAGE_PATH, "article");
         updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
 
         injectJsonLd([
@@ -2112,9 +2153,7 @@ export default function App() {
 
       updateCanonicalLink(canonicalUrl);
       updateMetaProperty("og:url", canonicalUrl);
-      updateMetaProperty("og:type", "article");
-      updateMetaProperty("og:title", title);
-      updateMetaProperty("og:description", desc);
+      updateSocialMeta(title, desc, DEFAULT_OG_IMAGE_PATH, "article");
       const noIndex = compareList.length === 0;
       updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
 
@@ -2176,9 +2215,7 @@ export default function App() {
         updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
         updateCanonicalLink(canonicalUrl);
         updateMetaProperty("og:url", canonicalUrl);
-        updateMetaProperty("og:type", "article");
-        updateMetaProperty("og:title", normalizedSEO.title);
-        updateMetaProperty("og:description", normalizedSEO.description);
+        updateSocialMeta(normalizedSEO.title, normalizedSEO.description, DEFAULT_OG_IMAGE_PATH, "article");
 
         injectJsonLd([
           {
@@ -2423,8 +2460,7 @@ export default function App() {
     updateCanonicalLink(canonicalUrl);
     updateMetaProperty("og:url", canonicalUrl);
     updateMetaProperty("og:type", "website");
-    updateMetaProperty("og:title", titleStr);
-    updateMetaProperty("og:description", descStr);
+    updateSocialMeta(titleStr, descStr, DEFAULT_OG_IMAGE_PATH);
 
     const orgSchema = {
       "@context": "https://schema.org",

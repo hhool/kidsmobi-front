@@ -423,7 +423,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
     home: {
       overviewLabel: "首页概览",
       bannerBadge: "BBT 官方安全审计",
-      heroTitle: "BalanceBikeToddler </br> 用真实评测帮助家长选择更适合孩子的出行装备。",
+      heroTitle: "BalanceBikeToddler 用真实评测帮助家长选择更适合孩子的出行装备",
       heroSubtitle: "从平衡车、儿童自行车、慢跑婴儿推车、儿童电动滑板车到儿童电动汽车，这里持续更新独立实验室的安全检测、对比结果和选购建议。",
       heroCta: "3 步找到最适合孩子的出行方案",
       quickCategories: {
@@ -829,7 +829,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
       guideRead: "阅读导购指南",
       closeReading: "关闭阅读",
       heroBadge: "全球出行安全情报所",
-      heroTitle: "全球童车动态：儿童电单车与电动滑板车资讯观察",
+      heroTitle: "全球童车动态 儿童电单车与电动滑板车资讯观察",
       heroSubtitle: "深度追踪全球童车及推车（越野电动童车、轻量化滑步车、多档悬挂阻尼车架、折叠电动滑板车及儿童推车）行业标准，权威输出基于源头制造供应链的硬核品质指南。",
       categoryTabs: {
         all: "📰 全部文章",
@@ -855,7 +855,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
     about: {
       breadcrumb: "关于我们",
       heroBadge: "ESTABLISHED IN 2026 · 独立第三方权威安全实验室",
-      heroTitle: "BalanceBikeToddler：您信赖的中立儿童出行安全实验室",
+      heroTitle: "BalanceBikeToddler 可信赖的中立儿童出行安全实验室",
       heroDesc: "我们100%对标全球最严苛的儿童健康力学测试体系，通过不平整颠震传导、手闸阻力、Q-Factor 膝跨跨距以及钢架结构疲劳抗压等精密实验仪，深度拆解婴儿推车、平衡滑步车、儿童自行车及滑板车的潜在设计缺陷，用独立硬核实测数据捍卫宝宝的骨骼安全与健康成长。",
       partnershipTitle: "评测合作与媒体联动",
       partnershipDesc: "我们欢迎任何以“守护儿童骑行安全”为前提的共建合作。包括实验室认证互认、行业报告联合发布以及媒体专项评测。",
@@ -866,7 +866,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
     home: {
       overviewLabel: "OVERVIEW",
       bannerBadge: "OFFICIAL BBT SAFETY AUDIT",
-      heroTitle: "BalanceBikeToddler: Trusted Kids Mobility Reviews for Families",
+      heroTitle: "BalanceBikeToddler Trusted Kids Mobility Reviews for Families",
       heroSubtitle: "From balance bike to kids bikes, jogging stroller, kids electric scooter, and kids electric cars, we publish independent safety testing, comparisons, and buying guidance.",
       heroCta: "FIND YOUR PERFECT RIDE IN 3 STEPS",
       quickCategories: {
@@ -1310,7 +1310,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
     about: {
       breadcrumb: "ABOUT US",
       heroBadge: "ESTABLISHED IN 2026 · Independent Premium Platform",
-      heroTitle: "BalanceBikeToddler: Your Independent Kids' Mobility Lab",
+      heroTitle: "BalanceBikeToddler Independent Kids' Mobility Lab",
       heroDesc: "We audit jogging stroller, balance bike, toddler bike, and kids scooter safety with independent mechanical methods to answer one simple question: Is this truly safe for your child's growth?",
       partnershipTitle: "Partnerships & Cooperation",
       partnershipDesc: "We welcome meaningful collaborations that prioritize child safety. This includes lab certification sharing, industry report syndication, and media partnerships.",
