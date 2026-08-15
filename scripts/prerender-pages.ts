@@ -166,12 +166,45 @@ function renderDocument(page: RoutePage, appAssets: AppAssets): string {
     <style>
       body { margin: 0; background: #f8fafc; }
       a { color: #ea580c; }
+      #app-boot-cover {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 2147483647;
+        align-items: center;
+        justify-content: center;
+        background: #f8fafc;
+        color: #0f172a;
+        font-family: Arial, sans-serif;
+      }
+      .app-js-loading #app-boot-cover { display: flex; }
+      #app-boot-spinner {
+        width: 34px;
+        height: 34px;
+        border: 3px solid #fed7aa;
+        border-top-color: #f97316;
+        border-radius: 999px;
+        animation: app-boot-spin 0.8s linear infinite;
+      }
+      @keyframes app-boot-spin { to { transform: rotate(360deg); } }
     </style>
+    <script>
+      document.documentElement.classList.add("app-js-loading");
+      window.setTimeout(function () {
+        document.documentElement.classList.remove("app-js-loading");
+      }, 8000);
+    </script>
 ${aboutJsonLd || (page.jsonLd ? `    <script type="application/ld+json">${JSON.stringify(page.jsonLd)}</script>` : "")}
 ${appAssets.headTags}
   </head>
   <body class="bg-slate-50 text-slate-950 antialiased font-sans">
     <div id="root">
+      <div id="app-boot-cover" aria-hidden="true">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+          <div id="app-boot-spinner"></div>
+          <strong style="font-size:14px;letter-spacing:0.02em;">BalanceBikeToddler</strong>
+        </div>
+      </div>
       ${renderStaticPage(page)}
     </div>
   </body>
