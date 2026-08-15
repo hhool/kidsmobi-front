@@ -652,12 +652,6 @@ export default function NewsSection({
               <p className="km-body-copy text-slate-200 text-sm md:text-base max-w-3xl mx-auto font-semibold drop-shadow-sm">
                 {newsCopy.heroSubtitle}
               </p>
-              <p className="text-xs sm:text-sm text-slate-300 font-medium max-w-3xl mx-auto">
-                {lang === "zh" ? "作者" : "By"} <span className="font-black text-white">BalanceBikeToddler Editorial Team</span>{" "}
-                · <time dateTime={newsDate}>{lang === "zh" ? "发布" : "Published"} {newsDate}</time>{" "}
-                · <time dateTime={newsDate}>{lang === "zh" ? "更新" : "Updated"} {newsDate}</time>
-              </p>
-
               {/* Categorization dynamic tabs bar strictly in ordered layout */}
               <div className="flex flex-wrap justify-center gap-4 pt-4 border-t border-white/10 relative z-10">
                 {[

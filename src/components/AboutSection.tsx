@@ -78,11 +78,6 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             <p className="km-body-copy text-slate-200 text-xs sm:text-sm md:text-base max-w-3xl mx-auto font-semibold drop-shadow-sm">
               {aboutCopy.heroDesc}
             </p>
-            <p className="text-xs sm:text-sm text-slate-300 font-medium">
-              {isEn ? "By" : "作者"} <span className="font-black text-white">BalanceBikeToddler Editorial Team</span>{" "}
-              · <time dateTime={aboutDate}>{isEn ? "Published" : "发布"} {aboutDate}</time>{" "}
-              · <time dateTime={aboutDate}>{isEn ? "Updated" : "更新"} {aboutDate}</time>
-            </p>
           </div>
         </section>
 
@@ -347,11 +342,6 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
           
           <p className="km-body-copy text-slate-200 text-xs sm:text-sm md:text-base max-w-3xl mx-auto font-semibold drop-shadow-sm">
             {aboutCopy.heroDesc}
-          </p>
-          <p className="text-xs sm:text-sm text-slate-300 font-medium">
-            {isEn ? "By" : "作者"} <span className="font-black text-white">BalanceBikeToddler Editorial Team</span>{" "}
-            · <time dateTime={aboutDate}>{isEn ? "Published" : "发布"} {aboutDate}</time>{" "}
-            · <time dateTime={aboutDate}>{isEn ? "Updated" : "更新"} {aboutDate}</time>
           </p>
         </div>
       </section>

@@ -2023,12 +2023,6 @@ export default function EvaluationsSection({
                 {reviewsCopy.heroDescription}
               </p>
             </div>
-            <p className="text-[11px] md:text-xs text-slate-300 font-semibold">
-              {lang === "zh"
-                ? "由 BalanceBikeToddler Editorial Team 发布 · 2026-08-15 更新"
-                : "By BalanceBikeToddler Editorial Team · Published 2026-08-15 · Updated 2026-08-15"}
-            </p>
-
             <div className="flex flex-wrap gap-4 pt-4 border-t border-white/10">
               <button
                 type="button"

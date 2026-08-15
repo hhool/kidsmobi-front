@@ -1313,11 +1313,6 @@ export default function GuidesSection({
                 ? "Input your child's precise measurements below to instantly audit parameters for Strollers, Kids Bikes, Kids Scooters, Balance Bikes, and Electric Cars. This biometric wizard automatically calculates the max vehicle weight limits and perfect fit geometries." 
                 : "输入宝宝的身高、跨高与体重参数，我们将通过生物力学算法，在婴儿推车、滑板车、平衡车与自行车品类中，精准匹配最安全、最省力的核心型号与轮径。"}
             </p>
-            <p className="text-xs sm:text-sm text-slate-500 font-medium">
-              {lang === "zh" ? "作者" : "By"} <span className="font-black text-slate-900">BalanceBikeToddler Editorial Team</span>{" "}
-              · <time dateTime={guidesDate}>{lang === "zh" ? "发布" : "Published"} {guidesDate}</time>{" "}
-              · <time dateTime={guidesDate}>{lang === "zh" ? "更新" : "Updated"} {guidesDate}</time>
-            </p>
           </div>
           <button 
             type="button" 
