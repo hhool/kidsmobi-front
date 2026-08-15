@@ -1,12 +1,12 @@
-/about /about.html 200
+/about /about.html 200!
 /about/ /about 301
-/news /news.html 200
+/news /news.html 200!
 /news/ /news 301
-/guides /guides.html 200
+/guides /guides.html 200!
 /guides/ /guides 301
-/reviews /reviews.html 200
+/reviews /reviews.html 200!
 /reviews/ /reviews 301
-/products /products.html 200
+/products /products.html 200!
 /products/ /products 301
 /api/* https://store.balancebiketoddler.com/api/:splat 307
 /* /index.html 200
