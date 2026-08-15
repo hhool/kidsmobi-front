@@ -1,4 +1,4 @@
-import { writeFile, mkdir, rm } from "fs/promises";
+import { readFile, writeFile, mkdir, rm } from "fs/promises";
 import path from "path";
 import { guideArticles } from "../src/data/guidesData";
 import { newsArticles } from "../src/data/newsData";
@@ -12,6 +12,10 @@ type RoutePage = {
   description: string;
   body: string;
   jsonLd?: Array<Record<string, unknown>>;
+};
+
+type AppAssets = {
+  headTags: string;
 };
 
 function escapeHtml(value: string): string {
@@ -58,7 +62,7 @@ function renderStaticPage(page: RoutePage): string {
   `;
 }
 
-function renderDocument(page: RoutePage): string {
+function renderDocument(page: RoutePage, appAssets: AppAssets): string {
   const canonical = `https://balancebiketoddler.com${page.route}`;
   const entitySameAs = [
     "https://www.youtube.com/@kidsmobi",
@@ -164,11 +168,28 @@ function renderDocument(page: RoutePage): string {
       a { color: #ea580c; }
     </style>
 ${aboutJsonLd || (page.jsonLd ? `    <script type="application/ld+json">${JSON.stringify(page.jsonLd)}</script>` : "")}
+${appAssets.headTags}
   </head>
-  <body>
-    ${renderStaticPage(page)}
+  <body class="bg-slate-50 text-slate-950 antialiased font-sans">
+    <div id="root">
+      ${renderStaticPage(page)}
+    </div>
   </body>
 </html>`;
+}
+
+function extractAppAssets(indexHtml: string): AppAssets {
+  const tags = Array.from(indexHtml.matchAll(
+    /<(?:script type="module"[^>]*\ssrc="[^"]+"[^>]*><\/script>|link rel="(?:modulepreload|stylesheet)"[^>]*>)/g,
+  )).map((match) => match[0]);
+
+  if (!tags.some((tag) => tag.startsWith("<script"))) {
+    throw new Error("Unable to locate the built application module script in dist/index.html");
+  }
+
+  return {
+    headTags: tags.map((tag) => `    ${tag}`).join("\n"),
+  };
 }
 
 function renderGuidesPage(): RoutePage {
@@ -918,9 +939,11 @@ function renderAboutPage(): RoutePage {
 }
 
 async function main() {
+  const indexHtml = await readFile(path.join(distDir, "index.html"), "utf8");
+  const appAssets = extractAppAssets(indexHtml);
   const pages = [renderProductsPage(), renderGuidesPage(), renderNewsPage(), renderReviewsPage(), renderAboutPage()];
   for (const page of pages) {
-    const html = renderDocument(page);
+    const html = renderDocument(page, appAssets);
     const routeName = page.route.replace(/^\//, "");
     if (routeName) {
       await rm(path.join(distDir, routeName), { recursive: true, force: true });

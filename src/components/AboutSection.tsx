@@ -10,19 +10,16 @@ interface AboutSectionProps {
 export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
   const isEn = lang === "en";
   const aboutCopy = getPageCopy(lang).about;
-  const aboutDate = "2026-08-15";
   const aboutStats = isEn
     ? [
         { value: "12", label: "senior engineers" },
         { value: "5", label: "pediatric advisors" },
         { value: "4", label: "audit checks" },
-        { value: "2026-08-15", label: "content snapshot date" },
       ]
     : [
         { value: "12", label: "名资深机械工程师" },
         { value: "5", label: "名儿科工效顾问" },
         { value: "4", label: "项核心审查" },
-        { value: "2026-08-15", label: "内容更新时间" },
       ];
   const auditRows = isEn
     ? [
@@ -49,7 +46,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
         />
 
         {/* Hero Banner */}
-        <section className="relative rounded-[48px] bg-slate-950 border border-slate-800 overflow-hidden p-10 sm:p-20 text-center max-w-7xl mx-auto shadow-2xl min-h-[480px] flex items-center justify-center">
+        <section className="relative rounded-[48px] bg-slate-950 border border-slate-800 overflow-hidden p-10 sm:p-20 text-center max-w-7xl mx-auto shadow-2xl min-h-[432px] flex items-center justify-center">
           {/* Ambient background with dark overlay */}
           <div className="absolute inset-0 z-0">
             <div 
@@ -81,7 +78,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
           </div>
         </section>
 
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {aboutStats.map((item) => (
             <div key={item.label} className="rounded-[28px] border border-slate-200 bg-white p-5 shadow-sm">
               <p className="text-2xl font-black text-slate-900">{item.value}</p>
@@ -314,7 +311,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
     />
 
       {/* Hero Banner */}
-      <section className="relative rounded-[48px] bg-slate-950 border border-slate-800 overflow-hidden p-10 sm:p-20 text-center max-w-7xl mx-auto shadow-2xl min-h-[480px] flex items-center justify-center">
+      <section className="relative rounded-[48px] bg-slate-950 border border-slate-800 overflow-hidden p-10 sm:p-20 text-center max-w-7xl mx-auto shadow-2xl min-h-[432px] flex items-center justify-center">
         {/* Ambient background with dark overlay */}
         <div className="absolute inset-0 z-0">
           <div 
@@ -346,7 +343,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
         </div>
       </section>
 
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {aboutStats.map((item) => (
           <div key={item.label} className="rounded-[28px] border border-slate-200 bg-white p-5 shadow-sm">
             <p className="text-2xl font-black text-slate-900">{item.value}</p>
