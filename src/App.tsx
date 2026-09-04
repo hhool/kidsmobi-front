@@ -671,11 +671,31 @@ const safeStorageRemove = (key: string): void => {
 
 const COOKIE_CONSENT_KEY = "cookie_consent_v1";
 const COOKIE_PREFERENCES_KEY = "cookie_preferences_v1";
+const GOOGLE_ANALYTICS_MEASUREMENT_ID = "G-DT1W48PVTR";
 type CookieConsentChoice = "all" | "essential" | "custom";
 const CMS_ENTRY_SNAPSHOT_KEY = "cms_entry_snapshot_v1";
 
 const isDevAdminBypassEnabled = (): boolean => {
   return safeStorageGet("dev_admin_bypass") === "true";
+};
+
+const loadGoogleAnalytics = () => {
+  if (document.querySelector(`script[data-google-analytics="${GOOGLE_ANALYTICS_MEASUREMENT_ID}"]`)) {
+    return;
+  }
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_MEASUREMENT_ID}`;
+  script.dataset.googleAnalytics = GOOGLE_ANALYTICS_MEASUREMENT_ID;
+  document.head.appendChild(script);
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function gtag(...args: unknown[]) {
+    window.dataLayer.push(args);
+  };
+  window.gtag("js", new Date());
+  window.gtag("config", GOOGLE_ANALYTICS_MEASUREMENT_ID);
 };
 
 const resolveInitialLang = (): "zh" | "en" => {
@@ -937,6 +957,20 @@ export default function App() {
     const consent = safeStorageGet(COOKIE_CONSENT_KEY);
     return consent !== "all" && consent !== "essential" && consent !== "custom";
   });
+
+  useEffect(() => {
+    const rawPreferences = safeStorageGet(COOKIE_PREFERENCES_KEY);
+    if (!rawPreferences) return;
+
+    try {
+      const preferences = JSON.parse(rawPreferences) as { analytics?: boolean };
+      if (preferences.analytics === true) {
+        loadGoogleAnalytics();
+      }
+    } catch (error) {
+      console.warn("Failed to load saved cookie preferences", error);
+    }
+  }, [showCookieConsent]);
 
   const initialRouteState = resolveRouteState(window.location.pathname, window.location.hash);
 
@@ -2996,6 +3030,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
       }),
     );
     setShowCookieConsent(false);
+    if (preferences?.analytics ?? (choice === "all")) {
+      loadGoogleAnalytics();
+    }
   };
 
   return (
