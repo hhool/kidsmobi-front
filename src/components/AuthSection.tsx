@@ -1,4 +1,4 @@
-import React, { useState, FormEvent, useEffect, useRef } from "react";
+import React, { useState, FormEvent, useEffect } from "react";
 import { 
   Mail, 
   Lock, 
@@ -18,8 +18,7 @@ import {
 } from "lucide-react";
 import { Product, CurrencyData } from "../types";
 import { 
-  getRedirectResult,
-  signInWithRedirect,
+  signInWithPopup,
   GoogleAuthProvider, 
   signOut,
   createUserWithEmailAndPassword,
@@ -120,8 +119,6 @@ export default function AuthSection({
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [isSendingCode, setIsSendingCode] = useState<boolean>(false);
-  const [isGoogleRedirecting, setIsGoogleRedirecting] = useState<boolean>(false);
-  const hasHandledGoogleRedirect = useRef(false);
 
   // Simulated PDF Downloader Loading
   const [downloadingId, setDownloadingId] = useState<string | null>(null);
@@ -134,44 +131,6 @@ export default function AuthSection({
     }
     return () => clearTimeout(timer);
   }, [counter]);
-
-  useEffect(() => {
-    if (hasHandledGoogleRedirect.current) return;
-    hasHandledGoogleRedirect.current = true;
-
-    const completeGoogleRedirect = async () => {
-      try {
-        const result = await getRedirectResult(auth);
-        if (!result?.user) return;
-
-        await ensureUserProfileInFirestore(result.user.uid, result.user.email || "");
-
-        setUserEmail(result.user.email || "");
-        setIsRegistered(true);
-        setSuccessMessage(
-          isEn
-            ? "🎉 Sign in successful! Cloud workspace and AI profile sync has activated."
-            : "🎉 登录成功！已为您同步云端收藏夹与安全顾问环境。"
-        );
-      } catch (error: any) {
-        console.error("Firebase Google redirect sign-in error:", error);
-        const rawMessage = String(error?.message || error);
-        setErrorMessage(
-          error?.code === "auth/unauthorized-domain"
-            ? (isEn
-                ? "This domain is not authorized for Google sign-in. Add it in Firebase Authentication settings."
-                : "当前域名尚未获准使用 Google 登录，请在 Firebase Authentication 设置中添加该域名。")
-            : (isEn
-                ? `Google sign-in could not be completed: ${rawMessage}`
-                : `Google 登录未能完成：${rawMessage}`)
-        );
-      } finally {
-        setIsGoogleRedirecting(false);
-      }
-    };
-
-    void completeGoogleRedirect();
-  }, [isEn, setUserEmail]);
 
   const handleSendCode = async () => {
     if (!isValidEmail(emailInput)) {
@@ -213,29 +172,48 @@ export default function AuthSection({
   };
 
   const handleGoogleSignIn = async () => {
-    if (isGoogleRedirecting) return;
-
     setErrorMessage("");
     setSuccessMessage("");
-    setIsGoogleRedirecting(true);
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
 
     try {
-      await signInWithRedirect(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      if (result.user) {
+        await ensureUserProfileInFirestore(result.user.uid, result.user.email || "");
+        setUserEmail(result.user.email || "");
+        setIsRegistered(true);
+        setSuccessMessage(
+          isEn
+            ? "🎉 Sign in successful! Cloud workspace and AI profile sync has activated."
+            : "🎉 登录成功！已为您同步云端收藏夹与安全顾问环境。"
+        );
+      }
     } catch (error: any) {
-      console.error("Firebase Google redirect start error:", error);
+      console.error("Firebase Google popup sign-in error:", error);
       const rawMessage = String(error?.message || error);
+      const lowerMessage = rawMessage.toLowerCase();
+      let message = rawMessage;
+
+      if (error?.code === "auth/unauthorized-domain") {
+        message = isEn
+          ? "This domain is not authorized for Google sign-in. Add it in Firebase Authentication > Settings > Authorized domains."
+          : "当前域名未获准使用 Google 登录，请在 Firebase Authentication > Settings > Authorized domains 中添加当前域名。";
+      } else if (
+        error?.code === "auth/popup-blocked" ||
+        error?.code === "auth/popup-closed-by-user" ||
+        error?.code === "auth/cancelled-popup-request" ||
+        lowerMessage.includes("cross-origin") ||
+        lowerMessage.includes("popup")
+      ) {
+        message = isEn
+          ? "Google sign-in was blocked by the browser. Open the site in a normal browser tab and allow popups, then retry."
+          : "浏览器拦截了 Google 登录弹窗。请在普通浏览器标签页打开本站并允许弹窗后重试。";
+      }
+
       setErrorMessage(
-        error?.code === "auth/unauthorized-domain"
-          ? (isEn
-              ? "This domain is not authorized for Google sign-in. Add it in Firebase Authentication settings."
-              : "当前域名尚未获准使用 Google 登录，请在 Firebase Authentication 设置中添加该域名。")
-          : (isEn
-              ? `Unable to open Google sign-in: ${rawMessage}`
-              : `无法进入 Google 登录：${rawMessage}`)
+        isEn ? `Google sign-in could not be completed: ${message}` : `Google 登录未能完成：${message}`
       );
-      setIsGoogleRedirecting(false);
     }
   };
 
@@ -707,8 +685,7 @@ export default function AuthSection({
             <button
               type="button"
               onClick={handleGoogleSignIn}
-              disabled={isGoogleRedirecting}
-              className="w-full py-3 bg-white hover:bg-slate-100 disabled:bg-slate-200 disabled:text-slate-500 disabled:cursor-wait text-slate-900 font-bold rounded-xl shadow-lg border border-slate-200 flex items-center justify-center gap-2.5 transition active:scale-95 disabled:active:scale-100 text-xs cursor-pointer"
+              className="w-full py-3 bg-white hover:bg-slate-100 text-slate-900 font-bold rounded-xl shadow-lg border border-slate-200 flex items-center justify-center gap-2.5 transition active:scale-95 text-xs cursor-pointer"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path
@@ -729,9 +706,7 @@ export default function AuthSection({
                 />
               </svg>
               <span>
-                {isGoogleRedirecting
-                  ? (isEn ? "Opening Google sign-in…" : "正在进入 Google 登录…")
-                  : (isEn ? "Sign in with Google Account" : "使用 Google 账号快捷安全登录")}
+                {isEn ? "Sign in with Google Account" : "使用 Google 账号快捷安全登录"}
               </span>
             </button>
 
