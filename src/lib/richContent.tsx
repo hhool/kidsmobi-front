@@ -193,11 +193,24 @@ export function renderRichContent(
       return;
     }
 
-    nodes.push(
-      <p key={ip} className={theme.p}>
-        {renderInlineMarkdown(block.replace(/\n/g, " "), `p-${ip}`)}
-      </p>,
-    );
+    // Plain paragraph: split remaining single newlines into separate paragraphs
+    // so CMS-authored line breaks render as real paragraphs (editor-consistent).
+    const paraLines = block.split("\n").map((line) => line.trim()).filter(Boolean);
+    if (paraLines.length <= 1) {
+      nodes.push(
+        <p key={ip} className={theme.p}>
+          {renderInlineMarkdown(paraLines[0] || "", `p-${ip}`)}
+        </p>,
+      );
+      return;
+    }
+    paraLines.forEach((line, li) => {
+      nodes.push(
+        <p key={`${ip}-${li}`} className={theme.p}>
+          {renderInlineMarkdown(line, `p-${ip}-${li}`)}
+        </p>,
+      );
+    });
   });
 
   return <>{nodes}</>;

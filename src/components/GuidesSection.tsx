@@ -101,7 +101,8 @@ function localizeGuideTermsForZh(value: string): string {
     .replace(/kids?\s*bike|bicycle/gi, "儿童自行车")
     .replace(/kids?\s*scooter|scooter/gi, "儿童滑板车")
     .replace(/electric\s*car/gi, "儿童电动车")
-    .replace(/\s+/g, " ")
+    .replace(/[^\S\n]+/g, " ")
+    .replace(/[ \t]+\n/g, "\n")
     .trim();
 }
 
@@ -111,10 +112,13 @@ function sanitizeGuideTextForZh(value: string, fallback: string): string {
   if (!containsCjk(cleaned)) return fallback;
 
   // Strip long imported/marketing English fragments that often leak from marketplace copy.
+  // Keep newlines intact so paragraph structure from the CMS editor survives.
   const compact = cleaned
-    .replace(/[A-Za-z][A-Za-z0-9'&/.,;:()\-\s]{30,}/g, " ")
+    .replace(/[A-Za-z][A-Za-z0-9'&/.,;:()\- \t]{30,}/g, " ")
     .replace(/\b(primary visual asset|imported|polyester|oxford cloth|recommended use|spf|quick release wheels)\b/gi, " ")
-    .replace(/\s+/g, " ")
+    .replace(/[^\S\n]+/g, " ")
+    .replace(/[ \t]+\n/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
     .trim();
   if (!compact) return fallback;
   if (isEnglishHeavyForZh(compact)) return fallback;

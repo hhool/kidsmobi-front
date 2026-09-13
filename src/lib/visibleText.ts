@@ -27,5 +27,10 @@ export function cleanVisibleSourceText(value: unknown): string {
   for (const [pattern, replacement] of SCRAPED_VISIBLE_PATTERNS) {
     text = text.replace(pattern, replacement);
   }
-  return text.replace(/\s+/g, " ").trim();
+  // Collapse spaces/tabs but PRESERVE newlines so article paragraphs survive.
+  return text
+    .replace(/[^\S\n]+/g, " ")
+    .replace(/[ \t]+\n/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
 }
