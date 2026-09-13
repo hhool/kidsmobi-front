@@ -26,6 +26,7 @@ import { convertUsdToCurrency, formatCurrencyFromUsd } from "../lib/currency";
 import { getCMSGuides } from "../lib/cmsService";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 import { resolveProductImages, FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
+import { renderRichContent } from "../lib/richContent";
 
 function translateCategoryLabel(cat: string): string {
   const labels: Record<string, string> = {
@@ -1872,24 +1873,7 @@ export default function GuidesSection({
               </div>
 
               <div className="text-slate-600 text-sm sm:text-base leading-8 space-y-6 border-t border-slate-50 pt-8">
-                {guide.content.split("\n\n").map((para: string, ip: number) => {
-                  if (para.startsWith("### ")) {
-                    return <h3 key={ip} className="text-xl font-black text-slate-900 mt-10 mb-4">{para.replace("### ", "")}</h3>;
-                  }
-                  if (para.startsWith("#### ")) {
-                    return <h4 key={ip} className="text-lg font-bold text-orange-500 mt-8 mb-4">{para.replace("#### ", "")}</h4>;
-                  }
-                  if (para.startsWith("* ") || para.startsWith("- ")) {
-                    return (
-                      <ul key={ip} className="list-disc list-inside space-y-2 text-slate-500 pl-4 bg-slate-50/50 p-4 rounded-2xl border border-slate-100">
-                        {para.split("\n").map((li, il) => (
-                          <li key={il} className="font-medium">{li.replace(/^(\* |- )/, "")}</li>
-                        ))}
-                      </ul>
-                    );
-                  }
-                  return <p key={ip} className="leading-relaxed text-justify font-medium">{para}</p>;
-                })}
+                {renderRichContent(guide.content)}
               </div>
 
               <div className="pt-10 border-t border-slate-50 flex justify-between">

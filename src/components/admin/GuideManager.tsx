@@ -15,6 +15,8 @@ import { Guide, RiskCard, CMSProduct, CMSScenario, ProductCategory, GuideTopicCa
 import { deleteD1CMSGuide, getD1CMSGuides, getD1CMSProducts, getD1CMSScenarios, saveD1CMSGuide, migrateD1CMSGuidesTaxonomy } from "../../lib/cmsD1Service";
 import BackendResourcePicker from "./BackendResourcePicker";
 import ScenarioPicker from "./ScenarioPicker";
+import RichTextEditor from "../common/RichTextEditor";
+import MediaPickerModal from "./MediaPickerModal";
 
 const GUIDE_PRODUCT_CATEGORY_OPTIONS: ProductCategory[] = [
   "stroller",
@@ -615,6 +617,7 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
   const [activeTab, setActiveTab] = useState<"content" | "risk">("content");
   const [pickerMode, setPickerMode] = useState<"cover" | "related" | null>(null);
   const [scenarioPickerOpen, setScenarioPickerOpen] = useState(false);
+  const [coverLibraryOpen, setCoverLibraryOpen] = useState(false);
   const previewTopic = String(formData.taxonomy?.topicCategory || formData.category || "beginner").trim().toLowerCase();
   const previewGuideId = String(formData.id || "").trim();
   const previewPath = previewGuideId
@@ -980,6 +983,12 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                     >
                       {lang === "zh" ? "从 backend 资源选择封面图" : "Pick Cover Image From Backend"}
                     </button>
+                    <button
+                      onClick={() => setCoverLibraryOpen(true)}
+                      className="w-full py-2.5 border border-violet-200 bg-violet-50 text-violet-700 rounded-xl text-[11px] font-black hover:bg-violet-100 transition-all"
+                    >
+                      {lang === "zh" ? "从媒体库选择封面图 / 上传" : "Pick Cover From Media Library"}
+                    </button>
                     <input
                       className="w-full bg-white border border-slate-200 py-3 px-4 rounded-xl text-xs font-bold"
                       value={formData.imageUrl || ""}
@@ -995,11 +1004,11 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                     <Field label="中文标题" value={formData.zh.title} onChange={(v: string) => updateGuideLocale("zh", "title", v)} />
                     <div className="space-y-2">
                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">中文正文</label>
-                      <textarea 
-                        className="w-full bg-white border border-slate-200 p-6 rounded-3xl font-medium text-slate-700 outline-none focus:ring-4 focus:ring-blue-500/10 min-h-[420px] shadow-sm leading-relaxed"
-                        placeholder="请输入中文指南正文"
+                      <RichTextEditor
+                        lang="zh"
+                        minHeight={420}
                         value={formData.zh.content}
-                        onChange={(e) => updateGuideLocale("zh", "content", e.target.value)}
+                        onChange={(v: string) => updateGuideLocale("zh", "content", v)}
                       />
                     </div>
                   </div>
@@ -1009,11 +1018,11 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                     <Field label="English Title" value={formData.en.title} onChange={(v: string) => updateGuideLocale("en", "title", v)} />
                     <div className="space-y-2">
                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Guide Narrative</label>
-                      <textarea 
-                        className="w-full bg-white border border-slate-200 p-6 rounded-3xl font-medium text-slate-700 outline-none focus:ring-4 focus:ring-blue-500/10 min-h-[420px] shadow-sm leading-relaxed"
-                        placeholder="Start writing scientific guide content..."
+                      <RichTextEditor
+                        lang="en"
+                        minHeight={420}
                         value={formData.en.content}
-                        onChange={(e) => updateGuideLocale("en", "content", e.target.value)}
+                        onChange={(v: string) => updateGuideLocale("en", "content", v)}
                       />
                     </div>
                   </div>
@@ -1140,6 +1149,18 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
         lang={lang}
         onClose={() => setPickerMode(null)}
         onApply={applyResourceSelection}
+      />
+
+      <MediaPickerModal
+        open={coverLibraryOpen}
+        lang={lang}
+        accept="image"
+        multiple={false}
+        onClose={() => setCoverLibraryOpen(false)}
+        onApply={(urls) => {
+          const url = urls[0];
+          if (url) setFormData((prev) => ({ ...prev, imageUrl: url }));
+        }}
       />
 
       <ScenarioPicker

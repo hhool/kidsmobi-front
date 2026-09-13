@@ -18,6 +18,7 @@ import { deleteD1CMSNews, getD1CMSNews, getD1CMSProducts, getD1CMSScenarios, sav
 import SeoKeywordPanel from "../common/SeoKeywordPanel";
 import BackendResourcePicker from "./BackendResourcePicker";
 import ScenarioPicker from "./ScenarioPicker";
+import RichTextEditor from "../common/RichTextEditor";
 
 const NEWS_CATEGORY_OPTIONS = [
   { value: "new_product", zh: "New Launches / 新品发布", en: "New Launches", path: "/news/new_product" },
@@ -545,13 +546,14 @@ function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving,
              }} />
              
              <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Detailed Content (Markdown Supported)</label>
-                <textarea 
-                  className="w-full bg-white border border-slate-200 rounded-[32px] p-8 font-medium text-slate-700 outline-none focus:ring-4 focus:ring-slate-900/5 min-h-[300px] shadow-sm leading-relaxed"
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Detailed Content (Rich Text)</label>
+                <RichTextEditor
+                  lang={lang}
+                  minHeight={360}
                   value={formData[activeLang].content}
-                  onChange={(e) => {
+                  onChange={(v: string) => {
                     const next = {...formData};
-                    next[activeLang].content = e.target.value;
+                    next[activeLang].content = v;
                     setFormData(next);
                   }}
                 />

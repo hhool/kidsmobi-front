@@ -6,6 +6,7 @@ import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonL
 
 import Breadcrumbs from "./Breadcrumbs";
 import { getPageCopy } from "../config/pageCopy";
+import { renderRichContent } from "../lib/richContent";
 
 const NEWS_ALLOWED_CATEGORIES = new Set(["industry", "new_product", "brand_news", "science"]);
 
@@ -508,24 +509,7 @@ export default function NewsSection({
 
             {/* Article Editorial Markdown content body renderer */}
             <div className="text-slate-600 text-sm sm:text-base leading-8 space-y-6 border-t border-slate-50 pt-8">
-              {article.content.split("\n\n").map((para: string, ip: number) => {
-                if (para.startsWith("### ")) {
-                  return <h3 key={ip} className="text-xl font-black text-slate-900 mt-10 mb-4">{para.replace("### ", "")}</h3>;
-                }
-                if (para.startsWith("#### ")) {
-                  return <h4 key={ip} className="text-lg font-bold text-orange-500 mt-8 mb-4">{para.replace("#### ", "")}</h4>;
-                }
-                if (para.startsWith("* ")) {
-                  return (
-                    <ul key={ip} className="list-disc list-inside space-y-2 text-slate-500 pl-4 bg-slate-50/50 p-4 rounded-2xl border border-slate-100">
-                      {para.split("\n").map((li, il) => (
-                        <li key={il} className="font-medium">{li.replace("* ", "")}</li>
-                      ))}
-                    </ul>
-                  );
-                }
-                return <p key={ip} className="leading-relaxed text-justify font-medium">{para}</p>;
-              })}
+              {renderRichContent(article.content)}
             </div>
 
             {/* BalanceBikeToddler Lab Recommended Best Picks / Safety Guides Widget */}
