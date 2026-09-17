@@ -4,6 +4,7 @@ import { NewsArticle, newsArticles as fallbackNewsArticles } from "../data/newsD
 import { getD1CMSNews } from "../lib/cmsD1Service";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
 import { buildArticleSeoDescription, buildArticleSeoTitle, buildCardExcerpt, resolveCardImage, type ArticleSeoMeta } from "../lib/articleSeo";
+import { normalizeMediaUrl } from "../lib/productImages";
 
 import Breadcrumbs from "./Breadcrumbs";
 import SocialShareButtons from "./common/SocialShareButtons";
@@ -193,7 +194,7 @@ export default function NewsSection({
         onActiveArticleMetaRef.current?.({
           title: buildArticleSeoTitle(found.title),
           description: buildArticleSeoDescription(found.summary || found.content),
-          image: found.imageUrl,
+          image: normalizeMediaUrl(resolveCardImage(found.imageUrl, found.content)) || undefined,
           canonicalPath: typeof window !== "undefined" ? window.location.pathname : "",
         });
         return;
@@ -745,7 +746,10 @@ export default function NewsSection({
                       <img
                         src={cardImage}
                         alt={art.title}
+                        width={144}
+                        height={144}
                         loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover"
                         onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                       />

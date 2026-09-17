@@ -11,6 +11,8 @@ type RoutePage = {
   title: string;
   description: string;
   body: string;
+  image?: string;
+  ogType?: "website" | "article";
   jsonLd?: Array<Record<string, unknown>>;
 };
 
@@ -25,6 +27,30 @@ function escapeHtml(value: string): string {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
+}
+
+const STORE_MEDIA_ORIGIN = "https://store.balancebiketoddler.com";
+
+/**
+ * Resolves CMS media paths ("scrape_store/..." or bare category paths) to
+ * absolute URLs on the store media host. Already-absolute URLs pass through.
+ */
+function toAbsoluteMediaUrl(raw: unknown): string {
+  const text = String(raw || "").trim().replace(/\\/g, "/");
+  if (!text) return "";
+  if (/^https?:\/\//i.test(text)) return text;
+  const marker = "scrape_store/";
+  const markerIndex = text.indexOf(marker);
+  const mediaPath = markerIndex >= 0
+    ? text.slice(markerIndex + marker.length)
+    : text.replace(/^\.\.\/+/, "").replace(/^\/+/, "");
+  if (!mediaPath) return "";
+  const encodedPath = mediaPath
+    .split("/")
+    .filter(Boolean)
+    .map((segment) => encodeURIComponent(segment))
+    .join("/");
+  return encodedPath ? `${STORE_MEDIA_ORIGIN}/${encodedPath}` : "";
 }
 
 function renderSources(items: Array<{ label: string; href: string; note: string }>): string {
@@ -148,6 +174,8 @@ function renderDocument(page: RoutePage, appAssets: AppAssets): string {
       ])}</script>
 `
     : "";
+  const ogImage = toAbsoluteMediaUrl(page.image);
+  const ogType = page.ogType === "article" ? "article" : "website";
   return `<!doctype html>
 <html lang="en">
   <head>
@@ -157,11 +185,19 @@ function renderDocument(page: RoutePage, appAssets: AppAssets): string {
     <meta name="description" content="${escapeHtml(page.description)}" />
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <meta property="og:site_name" content="BalanceBikeToddler" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="${ogType}" />
     <meta property="og:url" content="${escapeHtml(canonical)}" />
     <meta property="og:title" content="${escapeHtml(page.title)} | BalanceBikeToddler" />
     <meta property="og:description" content="${escapeHtml(page.description)}" />
-    <link rel="canonical" href="${escapeHtml(canonical)}" />
+${ogImage ? `    <meta property="og:image" content="${escapeHtml(ogImage)}" />
+    <meta property="og:image:secure_url" content="${escapeHtml(ogImage)}" />
+    <meta property="og:image:alt" content="${escapeHtml(page.title)}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bbtreviews" />
+    <meta name="twitter:title" content="${escapeHtml(page.title)} | BalanceBikeToddler" />
+    <meta name="twitter:description" content="${escapeHtml(page.description)}" />
+    <meta name="twitter:image" content="${escapeHtml(ogImage)}" />
+` : "    <meta name=\"twitter:card\" content=\"summary\" />\n"}    <link rel="canonical" href="${escapeHtml(canonical)}" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <style>
       body { margin: 0; background: #f8fafc; }
@@ -481,6 +517,7 @@ function renderGuideDetailPage(guide: CmsGuide): RoutePage | null {
   const topicLabel = topic.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
   const published = pickText(guide.publishedAt, guide.updatedAt).slice(0, 10) || "2026-08-15";
   const url = `${PUBLIC_SITE_BASE}${route}`;
+  const image = toAbsoluteMediaUrl(pickText(guide.imageUrl));
 
   const schemas: Array<Record<string, unknown>> = [
     {
@@ -510,6 +547,7 @@ function renderGuideDetailPage(guide: CmsGuide): RoutePage | null {
       datePublished: published,
       dateModified: published,
       articleSection: topicLabel,
+      ...(image ? { image: [image] } : {}),
       author: { "@type": "Organization", name: "BalanceBikeToddler Editorial Team" },
       publisher: {
         "@type": "Organization",
@@ -524,6 +562,8 @@ function renderGuideDetailPage(guide: CmsGuide): RoutePage | null {
     route,
     title,
     description: summary,
+    image: image || undefined,
+    ogType: "article",
     body: `
       <nav style="padding: 4px 0 16px; font-size: 0.86rem; color: #64748b;">
         <a href="/guides">Guides</a> › <a href="/guides/${escapeHtml(topic)}">${escapeHtml(topicLabel)}</a>
@@ -562,7 +602,7 @@ function renderNewsDetailPage(item: CmsNews): RoutePage | null {
   const channelLabel = newsCategoryLabel(item);
   const published = pickText(item.publishedAt, item.updatedAt).slice(0, 10) || "2026-08-15";
   const url = `${PUBLIC_SITE_BASE}${route}`;
-  const image = pickText(item.imageUrl);
+  const image = toAbsoluteMediaUrl(pickText(item.imageUrl));
 
   const schemas: Array<Record<string, unknown>> = [
     {
@@ -607,6 +647,8 @@ function renderNewsDetailPage(item: CmsNews): RoutePage | null {
     route,
     title,
     description: summary,
+    image: image || undefined,
+    ogType: "article",
     body: `
       <nav style="padding: 4px 0 16px; font-size: 0.86rem; color: #64748b;">
         <a href="/news">News</a> › <a href="/news/${escapeHtml(channel)}">${escapeHtml(channelLabel)}</a>

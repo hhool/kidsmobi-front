@@ -27,7 +27,7 @@ import { translateProduct, translateGuideArticle } from "../lib/translate";
 import { convertUsdToCurrency, formatCurrencyFromUsd } from "../lib/currency";
 import { getD1CMSGuides } from "../lib/cmsD1Service";
 import { cleanVisibleSourceText } from "../lib/visibleText";
-import { resolveProductImages, FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
+import { resolveProductImages, FALLBACK_PRODUCT_IMAGE, normalizeMediaUrl } from "../lib/productImages";
 import { renderRichContent } from "../lib/richContent";
 import { buildArticleSeoDescription, buildArticleSeoTitle, buildCardExcerpt, resolveCardImage, type ArticleSeoMeta } from "../lib/articleSeo";
 
@@ -1019,6 +1019,7 @@ export default function GuidesSection({
         onActiveArticleMetaRef.current?.({
           title: buildArticleSeoTitle(localized?.title || found.title),
           description: buildArticleSeoDescription(localized?.summary || found.summary || found.content),
+          image: normalizeMediaUrl(resolveCardImage(found.imageUrl, found.content)) || undefined,
           canonicalPath: typeof window !== "undefined" ? window.location.pathname : "",
         });
         return;
@@ -2177,7 +2178,10 @@ export default function GuidesSection({
                         <img
                           src={cardImage}
                           alt={guide.title}
+                          width={96}
+                          height={96}
                           loading="lazy"
+                          decoding="async"
                           className="w-full h-full object-cover"
                           onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                         />

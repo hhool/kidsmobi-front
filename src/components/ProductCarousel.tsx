@@ -47,8 +47,11 @@ function CarouselImage({ src, alt, className }: { src?: string; alt: string; cla
       src={resolvedSrc}
       alt={alt}
       className={className}
+      width={48}
+      height={48}
       referrerPolicy="no-referrer"
       loading="lazy"
+      decoding="async"
       onLoad={() => undefined}
       onError={(event) => {
         setResolvedSrc(FALLBACK_PRODUCT_IMAGE);
@@ -136,8 +139,12 @@ export default function ProductCarousel({ images, lang, productName }: ProductCa
               opacity: { duration: 0.2 }
             }}
             className="absolute max-w-full max-h-[340px] object-contain cursor-zoom-in"
+            width={800}
+            height={800}
             referrerPolicy="no-referrer"
-            loading="lazy"
+            loading={currentIndex === 0 ? "eager" : "lazy"}
+            fetchPriority={currentIndex === 0 ? "high" : "auto"}
+            decoding={currentIndex === 0 ? "sync" : "async"}
             onError={withImageFallback}
           />
         </AnimatePresence>

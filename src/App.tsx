@@ -34,7 +34,7 @@ import { ChildProfile, Product, ChatMessage, CMSSettings, Evaluation, CMSPageCon
 // Import translations
 import { translations, translateProduct, translateNewsArticle, translateGuideArticle, countries, getCurrencyData } from "./lib/translate";
 import { formatWeight, formatHeight } from "./lib/units";
-import { resolveProductImages } from "./lib/productImages";
+import { resolveProductImages, normalizeMediaUrl } from "./lib/productImages";
 import { getProductDisplayTitle, getProductImageAlt, getProductsPageSeoTitle } from "./lib/productSeoText";
 import { loadBatchProducts } from "./lib/loadBatchProducts";
 import { loadDefaultProductsData } from "./lib/defaultProductsLoader";
@@ -2176,10 +2176,59 @@ export default function App() {
         const noIndex = shouldNoIndexCurrentPath(canonicalPath, window.location.search, window.location.hostname);
         updateCanonicalLink(canonicalUrl);
         updateMetaProperty("og:url", canonicalUrl);
-        updateSocialMeta(title, desc, selectedProduct.imageUrl || DEFAULT_OG_IMAGE_PATH, "article");
         updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
 
         const websiteSchema = buildWebsiteSchema(canonicalOrigin, desc);
+
+        // Product images live on the store media host; resolve to an absolute
+        // URL so og:image / JSON-LD do not emit site-relative "scrape_store/" paths.
+        const productCoverUrl = normalizeMediaUrl(selectedProduct.imageUrl);
+
+        const productSchema: Record<string, unknown> = {
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: dedupedDisplayTitle,
+          brand: { "@type": "Brand", name: String(selectedProduct.brand || "").trim() || dedupedDisplayTitle },
+          ...(productCoverUrl ? { image: [productCoverUrl] } : {}),
+          url: canonicalUrl,
+          description: desc,
+        };
+        if (Number(selectedProduct.price) > 0) {
+          productSchema.offers = {
+            "@type": "Offer",
+            url: canonicalUrl,
+            price: Number(selectedProduct.price).toFixed(2),
+            priceCurrency: "USD",
+            itemCondition: "https://schema.org/NewCondition",
+            availability: "https://schema.org/InStock",
+          };
+        }
+        // Genuine aggregated customer ratings (display data collected per product).
+        if (Number(selectedProduct.rating?.value) > 0 && Number(selectedProduct.reviewCount) > 0) {
+          productSchema.aggregateRating = {
+            "@type": "AggregateRating",
+            ratingValue: Math.round(Number(selectedProduct.rating!.value) * 10) / 10,
+            reviewCount: Math.round(Number(selectedProduct.reviewCount)),
+            bestRating: 5,
+            worstRating: 1,
+          };
+        }
+        // Editorial review tied to the on-page Overall Score.
+        if (Number(selectedProduct.overallScore) > 0) {
+          const editorVerdict = String(selectedProduct.editorVerdict || "").trim();
+          productSchema.review = {
+            "@type": "Review",
+            author: { "@type": "Organization", name: "BalanceBikeToddler Editorial Team" },
+            url: canonicalUrl,
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: Math.round(Number(selectedProduct.overallScore) * 10) / 10,
+              bestRating: 10,
+              worstRating: 1,
+            },
+            ...(editorVerdict ? { reviewBody: editorVerdict } : {}),
+          };
+        }
 
         injectJsonLd([
           {
@@ -2207,16 +2256,14 @@ export default function App() {
             ],
           },
           websiteSchema,
-          {
-            "@context": "https://schema.org",
-            "@type": "Product",
-            name: dedupedDisplayTitle,
-            brand: selectedProduct.brand,
-            image: selectedProduct.imageUrl,
-            url: canonicalUrl,
-            description: desc,
-          },
+          productSchema,
         ]);
+        updateSocialMeta(
+          title,
+          desc,
+          productCoverUrl || DEFAULT_OG_IMAGE_PATH,
+          "article",
+        );
       }
       return;
     }
