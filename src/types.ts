@@ -251,6 +251,8 @@ export interface Guide {
   pinned?: boolean;
   featured?: boolean;
   imageUrl: string;
+  /** Editorial publish date (YYYY-MM-DD). Falls back to updatedAt when unset. */
+  publishDate?: string;
   riskCards: RiskCard[];
   seo: {
     zh: SEOConfig;
@@ -277,6 +279,8 @@ export interface News {
   category: string;
   status: "draft" | "published" | "archived";
   imageUrl: string;
+  /** Editorial publish date (YYYY-MM-DD). Falls back to updatedAt when unset. */
+  publishDate?: string;
   seo: {
     zh: SEOConfig;
     en: SEOConfig;

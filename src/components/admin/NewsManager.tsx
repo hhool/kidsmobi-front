@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { 
-  Plus, 
-  Save, 
-  Globe, 
-  Search, 
+import {
+  Plus,
+  Save,
+  Globe,
+  Search,
   MessageSquare,
   ShieldAlert,
   ArrowUpRight,
   Trash2,
-  FileText
+  FileText,
+  Calendar
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { News } from "../../types";
-import { CMSProduct, CMSScenario } from "../../types";
-import { deleteD1CMSNews, getD1CMSNews, getD1CMSProducts, getD1CMSScenarios, saveD1CMSNews } from "../../lib/cmsD1Service";
-import SeoKeywordPanel from "../common/SeoKeywordPanel";
+import { CMSProduct } from "../../types";
+import { deleteD1CMSNews, getD1CMSNews, getD1CMSProducts, saveD1CMSNews } from "../../lib/cmsD1Service";
 import BackendResourcePicker from "./BackendResourcePicker";
-import ScenarioPicker from "./ScenarioPicker";
+import MediaPickerModal from "./MediaPickerModal";
 import RichTextEditor from "../common/RichTextEditor";
 
 const NEWS_CATEGORY_OPTIONS = [
@@ -91,24 +91,22 @@ function normalizeNewsRecord(item: News): News {
 export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
   const [news, setNews] = useState<News[]>([]);
   const [products, setProducts] = useState<CMSProduct[]>([]);
-  const [scenarios, setScenarios] = useState<CMSScenario[]>([]);
   const [editingNews, setEditingNews] = useState<News | null>(null);
   const [newsFilter, setNewsFilter] = useState<"all" | ManagedNewsCategory>("all");
+  const [statusFilter, setStatusFilter] = useState<"all" | News["status"]>("all");
 
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    const [newsData, productsData, scenariosData] = await Promise.all([
+    const [newsData, productsData] = await Promise.all([
       getD1CMSNews(false),
       getD1CMSProducts(false),
-      getD1CMSScenarios(true),
     ]);
 
     setNews(newsData.map(normalizeNewsRecord));
     setProducts(productsData);
-    setScenarios(scenariosData);
   };
 
   const handleDelete = async (id: string) => {
@@ -139,6 +137,7 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
       category: "industry",
       status: "draft",
       imageUrl: "",
+      publishDate: new Date().toISOString().slice(0, 10),
       seo: {
         zh: { title: "", description: "", keywords: [] },
         en: { title: "", description: "", keywords: [] }
@@ -158,10 +157,36 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
     setSaving(true);
     setSaveError(null);
     try {
+      const hasTitle = Boolean(String(n.en?.title || "").trim() || String(n.zh?.title || "").trim());
+      const hasContent = Boolean(String(n.en?.content || "").trim() || String(n.zh?.content || "").trim());
+      if (n.status === "published" && (!hasTitle || !hasContent)) {
+        throw new Error(
+          lang === "zh"
+            ? "发布失败：标题和正文不能为空，请先补全中/英任一语言的内容再发布。"
+            : "Publish blocked: title and content are required before a story can be published.",
+        );
+      }
+
       const payload: News = {
         ...n,
         slug: String(n.slug || "").trim() || slugifyNewsTitle(n.en?.title || n.zh?.title, n.id),
       };
+
+      // Slug uniqueness: a duplicate slug would make two stories resolve to the
+      // same /news/{category}/{slug} URL and shadow each other in the router.
+      const normalizedSlug = String(payload.slug || "").toLowerCase();
+      const duplicate = news.find((item) =>
+        item.id !== payload.id &&
+        String(item.slug || slugifyNewsTitle(item.en?.title || item.zh?.title, item.id)).toLowerCase() === normalizedSlug,
+      );
+      if (duplicate) {
+        throw new Error(
+          lang === "zh"
+            ? `保存失败：URL 别名「${payload.slug}」已被《${duplicate.zh?.title || duplicate.en?.title || duplicate.id}》占用，请换一个 slug。`
+            : `Save blocked: slug "${payload.slug}" is already used by "${duplicate.en?.title || duplicate.zh?.title || duplicate.id}". Pick another slug.`,
+        );
+      }
+
       const saved = await saveD1CMSNews(normalizeNewsRecord(payload));
       if (!saved) {
         throw new Error("Cloud save failed");
@@ -190,6 +215,7 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
   const visibleNews = news
     .map(normalizeNewsRecord)
     .filter((item) => (newsFilter === "all" ? true : item.category === newsFilter))
+    .filter((item) => (statusFilter === "all" ? true : (item.status || "draft") === statusFilter))
     .sort((a, b) => String(b.updatedAt || "").localeCompare(String(a.updatedAt || "")));
 
   return (
@@ -198,18 +224,33 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
         <div>
           <h2 className="text-3xl font-black text-slate-900 tracking-tighter uppercase">{lang === "zh" ? "全球资讯" : "Global News"}</h2>
           <p className="text-slate-500 font-medium mt-1">Industry trends, launches, regulations, brand news, and science tips.</p>
-          <div className="mt-3">
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">{lang === "zh" ? "栏目筛选" : "Category Filter"}</label>
-            <select
-              className="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-700"
-              value={newsFilter}
-              onChange={(e) => setNewsFilter(e.target.value as "all" | ManagedNewsCategory)}
-            >
-              <option value="all">{lang === "zh" ? "全部文章 (/news)" : "All Articles (/news)"}</option>
-              {NEWS_CATEGORY_OPTIONS.map((item) => (
-                <option key={item.value} value={item.value}>{lang === "zh" ? item.zh : `${item.en} (${item.path})`}</option>
-              ))}
-            </select>
+          <div className="mt-3 flex flex-wrap items-end gap-3">
+            <div>
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">{lang === "zh" ? "栏目筛选" : "Category Filter"}</label>
+              <select
+                className="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-700"
+                value={newsFilter}
+                onChange={(e) => setNewsFilter(e.target.value as "all" | ManagedNewsCategory)}
+              >
+                <option value="all">{lang === "zh" ? "全部文章 (/news)" : "All Articles (/news)"}</option>
+                {NEWS_CATEGORY_OPTIONS.map((item) => (
+                  <option key={item.value} value={item.value}>{lang === "zh" ? item.zh : `${item.en} (${item.path})`}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">{lang === "zh" ? "状态筛选" : "Status Filter"}</label>
+              <select
+                className="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-700"
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value as "all" | News["status"])}
+              >
+                <option value="all">{lang === "zh" ? "全部状态" : "All Statuses"}</option>
+                <option value="draft">{lang === "zh" ? "草稿" : "Draft"}</option>
+                <option value="published">{lang === "zh" ? "已发布" : "Published"}</option>
+                <option value="archived">{lang === "zh" ? "已归档" : "Archived"}</option>
+              </select>
+            </div>
           </div>
         </div>
         <button onClick={handleNew} className="btn-primary flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-3xl font-black shadow-2xl shadow-slate-900/10 hover:-translate-y-1 transition-all">
@@ -228,8 +269,8 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
               <div>
                 <div className="flex items-center gap-2 mb-1.5">
                   <span className="text-[10px] font-black uppercase px-2.5 py-1 rounded-full bg-slate-100 text-slate-600">{normalizeNewsCategory(n.category)}</span>
-                  <span className={`text-[10px] font-black uppercase px-2.5 py-1 rounded-full ${n.status === "published" ? "bg-emerald-500 text-white" : "bg-slate-100 text-slate-500"}`}>
-                    {n.status}
+                  <span className={`text-[10px] font-black uppercase px-2.5 py-1 rounded-full ${n.status === "published" ? "bg-emerald-500 text-white" : n.status === "archived" ? "bg-amber-100 text-amber-700" : "bg-slate-100 text-slate-500"}`}>
+                    {n.status === "archived" ? (lang === "zh" ? "已归档" : "archived") : n.status}
                   </span>
                 </div>
                 <h4 className="font-black text-slate-900">
@@ -264,7 +305,6 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
           <NewsEditor 
             news={editingNews} 
             products={products}
-            scenarios={scenarios}
             onSave={handleSave} 
             saving={saving}
             error={saveError}
@@ -277,11 +317,10 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
   );
 }
 
-function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving, error }: any) {
+function NewsEditor({ news, products, onSave, onCancel, lang, saving, error }: any) {
   const [formData, setFormData] = useState<News>(normalizeNewsRecord(news));
-  const [activeLang, setActiveLang] = useState<"zh" | "en">(lang === "en" ? "en" : "zh");
   const [pickerMode, setPickerMode] = useState<"cover" | "related" | null>(null);
-  const [scenarioPickerOpen, setScenarioPickerOpen] = useState(false);
+  const [coverLibraryOpen, setCoverLibraryOpen] = useState(false);
   const previewCategory = normalizeNewsCategory(formData.category);
   const previewId = String(formData.id || "").trim();
   const previewPath = previewId
@@ -291,10 +330,6 @@ function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving,
     .replace(/^\//, "")
     .split("/")
     .join(" › ");
-
-  useEffect(() => {
-    setActiveLang(lang === "en" ? "en" : "zh");
-  }, [lang]);
 
   const applyResourceSelection = (selection: { imageUrls: string[]; videoUrls: string[]; relatedProductIds: string[] }) => {
     if (pickerMode === "cover") {
@@ -414,43 +449,6 @@ function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving,
                   ))}
                 </div>
               </div>
-
-              <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Related Scenarios</label>
-                <button
-                  onClick={() => setScenarioPickerOpen(true)}
-                  className="w-full py-2.5 border border-emerald-200 bg-emerald-50 text-emerald-700 rounded-xl text-[11px] font-black hover:bg-emerald-100 transition-all"
-                >
-                  {lang === "zh" ? "可视化选择场景" : "Visual Scenario Picker"}
-                </button>
-                <select
-                  className="w-full bg-white border border-slate-200 py-3 px-4 rounded-xl text-xs font-bold"
-                  value=""
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    if (!value) return;
-                    const next = Array.from(new Set([...(formData.scenarioIds || []), value]));
-                    setFormData({ ...formData, scenarioIds: next });
-                    e.currentTarget.value = "";
-                  }}
-                >
-                  <option value="">Select scenario...</option>
-                  {scenarios.map((s: CMSScenario) => (
-                    <option key={s.id} value={s.code}>{s.zh?.name || s.en?.name || s.code}</option>
-                  ))}
-                </select>
-                <div className="flex flex-wrap gap-2">
-                  {(formData.scenarioIds || []).map((id) => (
-                    <button
-                      key={id}
-                      onClick={() => setFormData({ ...formData, scenarioIds: (formData.scenarioIds || []).filter((item) => item !== id) })}
-                      className="px-2 py-1 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-700"
-                    >
-                      {id} ×
-                    </button>
-                  ))}
-                </div>
-              </div>
             </div>
 
             <div className="space-y-2 pt-2">
@@ -460,6 +458,12 @@ function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving,
                 className="w-full py-2.5 border border-orange-200 bg-orange-50 text-orange-700 rounded-xl text-[11px] font-black hover:bg-orange-100 transition-all"
               >
                 {lang === "zh" ? "从 backend 资源选择封面图" : "Pick Cover Image From Backend"}
+              </button>
+              <button
+                onClick={() => setCoverLibraryOpen(true)}
+                className="w-full py-2.5 border border-violet-200 bg-violet-50 text-violet-700 rounded-xl text-[11px] font-black hover:bg-violet-100 transition-all"
+              >
+                {lang === "zh" ? "从媒体库选择封面图 / 上传" : "Pick Cover From Media Library"}
               </button>
               <input
                 className="w-full bg-white border border-slate-200 py-3 px-4 rounded-xl text-xs font-bold"
@@ -493,24 +497,33 @@ function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving,
             <div className="space-y-2">
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
                 <ShieldAlert className="w-3 h-3" />
-                Persistence State
+                {lang === "zh" ? "发布状态" : "Persistence State"}
               </label>
-              <select 
+              <select
                 className="w-full bg-slate-50 py-4 px-6 rounded-2xl font-black text-xs outline-none border-2 border-transparent focus:border-slate-900 focus:bg-white transition-all shadow-sm"
                 value={formData.status}
                 onChange={(e) => setFormData({...formData, status: e.target.value as any})}
               >
-                <option value="draft">Internal Draft</option>
-                <option value="published">Live on Website</option>
+                <option value="draft">{lang === "zh" ? "草稿（前台不展示）" : "Internal Draft"}</option>
+                <option value="published">{lang === "zh" ? "已发布（前台展示）" : "Live on Website"}</option>
+                <option value="archived">{lang === "zh" ? "已归档（前台不展示）" : "Archived"}</option>
               </select>
             </div>
 
-            <div className="space-y-1">
-               <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Active Localization</label>
-               <div className="flex bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
-                  <button onClick={() => setActiveLang("zh")} className={`flex-1 py-3 rounded-xl text-[10px] font-black transition-all ${activeLang === "zh" ? "bg-white shadow-sm text-slate-900" : "text-slate-400"}`}>Chinese</button>
-                  <button onClick={() => setActiveLang("en")} className={`flex-1 py-3 rounded-xl text-[10px] font-black transition-all ${activeLang === "en" ? "bg-white shadow-sm text-slate-900" : "text-slate-400"}`}>English</button>
-               </div>
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                <Calendar className="w-3 h-3" />
+                {lang === "zh" ? "发布日期" : "Publish Date"}
+              </label>
+              <input
+                type="date"
+                className="w-full bg-slate-50 py-4 px-6 rounded-2xl font-black text-xs outline-none border-2 border-transparent focus:border-slate-900 focus:bg-white transition-all shadow-sm"
+                value={String(formData.publishDate || "").slice(0, 10)}
+                onChange={(e) => setFormData({ ...formData, publishDate: e.target.value })}
+              />
+              <p className="text-[10px] font-bold text-slate-400 mt-1">
+                {lang === "zh" ? "卡片与 sitemap 展示此日期；留空则使用最近更新时间。" : "Shown on cards and in the sitemap; falls back to the last update time."}
+              </p>
             </div>
           </section>
 
@@ -549,98 +562,76 @@ function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving,
               <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3">
                 <p className="text-xs font-bold text-amber-800">
                   {lang === "zh"
-                    ? "当前为草稿状态：前台 /news 不会展示这篇。保存前请先在上方把状态改成「已发布」。"
-                    : "This story is a draft: it will not appear on /news. Switch Persistence State to Published before saving."}
+                    ? `当前为「${formData.status === "archived" ? "已归档" : "草稿"}」状态：前台 /news 不会展示这篇。保存前请先在上方把状态改成「已发布」。`
+                    : `This story is ${formData.status === "archived" ? "archived" : "a draft"}: it will not appear on /news. Switch Persistence State to Published before saving.`}
                 </p>
               </div>
             )}
           </section>
 
-          {/* Content Section */}
+          {/* Content Section — zh/en side by side (mirrors GuideManager) */}
           <section className="space-y-8 p-10 bg-slate-50/50 border border-slate-100 rounded-[40px]">
-             <Field label="News Headline" value={formData[activeLang].title} onChange={(v: string) => {
-               const next = {...formData};
-               next[activeLang].title = v;
-               setFormData(next);
-             }} />
-             
-             <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Detailed Content (Rich Text)</label>
-                <RichTextEditor
-                  lang={lang}
-                  minHeight={360}
-                  value={formData[activeLang].content}
-                  onChange={(v: string) => {
-                    const next = {...formData};
-                    next[activeLang].content = v;
-                    setFormData(next);
-                  }}
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+              <div className="space-y-4 bg-white border border-slate-100 rounded-[28px] p-6">
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">中文内容</p>
+                <Field
+                  label="中文标题"
+                  value={formData.zh.title}
+                  onChange={(v: string) => setFormData((prev: News) => ({ ...prev, zh: { ...prev.zh, title: v } }))}
                 />
-             </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">中文正文</label>
+                  <RichTextEditor
+                    lang="zh"
+                    minHeight={360}
+                    value={formData.zh.content}
+                    onChange={(v: string) => setFormData((prev: News) => ({ ...prev, zh: { ...prev.zh, content: v } }))}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-4 bg-white border border-slate-100 rounded-[28px] p-6">
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">English Content</p>
+                <Field
+                  label="English Headline"
+                  value={formData.en.title}
+                  onChange={(v: string) => setFormData((prev: News) => ({ ...prev, en: { ...prev.en, title: v } }))}
+                />
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">English Body</label>
+                  <RichTextEditor
+                    lang="en"
+                    minHeight={360}
+                    value={formData.en.content}
+                    onChange={(v: string) => setFormData((prev: News) => ({ ...prev, en: { ...prev.en, content: v } }))}
+                  />
+                </div>
+              </div>
+            </div>
           </section>
 
-          {/* SEO Controller */}
+          {/* SEO Controller — zh/en side by side (mirrors GuideManager) */}
           <section className="space-y-8">
              <div className="flex items-center gap-3">
                <div className="w-1.5 h-6 bg-slate-900 rounded-full" />
-               <h4 className="text-sm font-black uppercase text-slate-900 tracking-wide">SEO TDK Controller</h4>
+               <h4 className="text-sm font-black uppercase text-slate-900 tracking-wide">{lang === "zh" ? "SEO 多语言配置" : "Search Engine Optimization Panel"}</h4>
              </div>
-             
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <div className="space-y-6">
-                  <Field label="Search Title (Meta Title)" value={formData.seo[activeLang].title} onChange={(v: string) => {
-                    const next = {...formData};
-                    next.seo[activeLang].title = v;
-                    setFormData(next);
-                  }} />
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Descriptions (Target 160)</label>
-                    <textarea 
-                      className="w-full bg-slate-50 border border-slate-100 py-4 px-6 rounded-2xl font-bold text-xs outline-none focus:bg-white focus:border-slate-900 transition-all shadow-inner min-h-[100px]"
-                      value={formData.seo[activeLang].description}
-                      onChange={(e) => {
-                        const next = {...formData};
-                        next.seo[activeLang].description = e.target.value;
-                        setFormData(next);
-                      }}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Keywords (Comma Separated)</label>
-                    <textarea
-                      className="w-full bg-slate-50 border border-slate-100 py-4 px-6 rounded-2xl font-bold text-xs outline-none focus:bg-white focus:border-slate-900 transition-all shadow-inner min-h-[88px]"
-                      value={formData.seo[activeLang].keywords.join(", ")}
-                      onChange={(e) => {
-                        const next = { ...formData };
-                        next.seo[activeLang].keywords = parseKeywordInput(e.target.value);
-                        setFormData(next);
-                      }}
-                      placeholder={lang === "zh" ? "例如：新闻关键词、行业趋势、产品上新" : "e.g. news keywords, industry trends, product launch"}
-                    />
-                    <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">
-                      {lang === "zh" ? "建议使用英文逗号分隔，最多 10 个关键词" : "Use commas to separate keywords, up to 10 items"}
-                    </p>
-                  </div>
-                </div>
 
-                <div className="space-y-4">
-                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-4">Google SERP Preview</span>
-                  <div className="bg-white px-8 py-10 rounded-[40px] shadow-2xl border border-slate-50 flex flex-col gap-1.5 overflow-hidden ring-1 ring-slate-100">
-                    <div className="text-[12px] text-emerald-700 truncate">balancebiketoddler.com › {previewBreadcrumb}</div>
-                    <div className="text-[20px] text-blue-800 font-medium hover:underline cursor-pointer truncate">{formData.seo[activeLang].title || "Headline Preview"}</div>
-                    <div className="text-[14px] text-slate-600 line-clamp-2 leading-relaxed">
-                      {formData.seo[activeLang].description || "News meta summary will appear here for audit."}
-                    </div>
-                  </div>
-                  <div className="px-4 pt-1 space-y-2">
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Keyword Preview</span>
-                    <SeoKeywordPanel
-                      keywords={formData.seo[activeLang].keywords}
-                      columns="auto"
-                      align="left"
-                    />
-                  </div>
-                </div>
+             <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+               <NewsSeoLocalePanel
+                 lang="zh"
+                 formData={formData}
+                 setFormData={setFormData}
+                 previewBreadcrumb={previewBreadcrumb}
+                 uiLang={lang}
+               />
+               <NewsSeoLocalePanel
+                 lang="en"
+                 formData={formData}
+                 setFormData={setFormData}
+                 previewBreadcrumb={previewBreadcrumb}
+                 uiLang={lang}
+               />
              </div>
           </section>
         </div>
@@ -654,14 +645,89 @@ function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving,
         onApply={applyResourceSelection}
       />
 
-      <ScenarioPicker
-        open={scenarioPickerOpen}
+      <MediaPickerModal
+        open={coverLibraryOpen}
         lang={lang}
-        scenarios={scenarios || []}
-        selectedCodes={formData.scenarioIds || []}
-        onClose={() => setScenarioPickerOpen(false)}
-        onApply={(scenarioCodes) => setFormData((prev) => ({ ...prev, scenarioIds: Array.from(new Set(scenarioCodes.filter(Boolean))) }))}
+        accept="image"
+        multiple={false}
+        onClose={() => setCoverLibraryOpen(false)}
+        onApply={(urls: string[]) => {
+          const url = urls[0];
+          if (url) setFormData((prev: News) => ({ ...prev, imageUrl: url }));
+        }}
       />
+    </div>
+  );
+}
+
+/** One locale (zh or en) of the news SEO panel: TDK fields + SERP preview. */
+function NewsSeoLocalePanel({ lang, formData, setFormData, previewBreadcrumb, uiLang }: {
+  lang: "zh" | "en";
+  formData: News;
+  setFormData: (updater: (prev: News) => News) => void;
+  previewBreadcrumb: string;
+  uiLang: "zh" | "en";
+}) {
+  const seo = formData.seo?.[lang] || { title: "", description: "", keywords: [] };
+  const updateSeo = (patch: Partial<{ title: string; description: string; keywords: string[] }>) => {
+    setFormData((prev) => ({
+      ...prev,
+      seo: { ...prev.seo, [lang]: { ...prev.seo?.[lang], ...patch } },
+    }));
+  };
+
+  return (
+    <div className="bg-white p-8 rounded-[32px] border border-slate-200 space-y-6">
+      <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">
+        {lang === "zh" ? "中文 SEO" : "English SEO"}
+      </p>
+      <div className="space-y-2">
+        <Field
+          label={lang === "zh" ? "中文 Meta Title（建议 60 字符内）" : "English Meta Title (Target 60 chars)"}
+          value={seo.title}
+          onChange={(v: string) => updateSeo({ title: v })}
+        />
+        <div className="flex justify-end">
+          <span className={`text-[10px] font-black ${seo.title.length > 60 ? "text-red-500" : "text-slate-400"}`}>{seo.title.length} / 60</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+          {lang === "zh" ? "中文 Meta Description（建议 160 字符内）" : "English Meta Description (Target 160 chars)"}
+        </label>
+        <textarea
+          className="w-full bg-slate-50 p-6 rounded-2xl font-bold text-xs outline-none border border-transparent focus:border-blue-500 focus:bg-white transition-all shadow-inner"
+          value={seo.description}
+          onChange={(e) => updateSeo({ description: e.target.value })}
+        />
+        <div className="flex justify-end">
+          <span className={`text-[10px] font-black ${seo.description.length > 160 ? "text-red-500" : "text-slate-400"}`}>{seo.description.length} / 160</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+          {lang === "zh" ? "中文 Keywords（逗号分隔）" : "English Keywords (comma separated)"}
+        </label>
+        <textarea
+          className="w-full bg-slate-50 p-6 rounded-2xl font-bold text-xs outline-none border border-transparent focus:border-blue-500 focus:bg-white transition-all shadow-inner min-h-[90px]"
+          value={seo.keywords.join(", ")}
+          onChange={(e) => updateSeo({ keywords: parseKeywordInput(e.target.value) })}
+          placeholder={uiLang === "zh" ? "例如：新闻关键词、行业趋势、产品上新" : "e.g. news keywords, industry trends, product launch"}
+        />
+      </div>
+
+      <div className="space-y-2">
+        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Google SERP Preview</p>
+        <div className="bg-white px-6 py-8 rounded-[24px] shadow-lg border border-slate-100 flex flex-col gap-1.5 overflow-hidden">
+          <div className="text-[12px] text-emerald-700 truncate">balancebiketoddler.com › {previewBreadcrumb}</div>
+          <div className="text-[18px] text-blue-800 font-medium hover:underline cursor-pointer truncate">{seo.title || "Headline Preview"}</div>
+          <div className="text-[13px] text-slate-600 line-clamp-2 leading-relaxed">
+            {seo.description || "News meta summary will appear here for audit."}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

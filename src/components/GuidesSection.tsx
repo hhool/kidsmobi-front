@@ -29,7 +29,7 @@ import { getD1CMSGuides } from "../lib/cmsD1Service";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 import { resolveProductImages, FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
 import { renderRichContent } from "../lib/richContent";
-import { buildArticleSeoDescription, buildArticleSeoTitle, type ArticleSeoMeta } from "../lib/articleSeo";
+import { buildArticleSeoDescription, buildArticleSeoTitle, buildCardExcerpt, resolveCardImage, type ArticleSeoMeta } from "../lib/articleSeo";
 
 function translateCategoryLabel(cat: string): string {
   const labels: Record<string, string> = {
@@ -833,7 +833,9 @@ export default function GuidesSection({
             return "2026-06-15";
           };
 
-          const mapped: GuideArticle[] = dbGuides.map((g) => ({
+          const mapped: GuideArticle[] = dbGuides.map((g) => {
+            const editorialDate = String((g as any).publishDate || "").trim();
+            return {
             id: g.id,
             slug: String((g as any)?.slug || "").trim(),
             title: pickLocalized(g, g.zh?.title, g.en?.title),
@@ -843,12 +845,14 @@ export default function GuidesSection({
             pinOrder: Math.max(0, Number((g as any)?.taxonomy?.pinOrder || 0) || 0),
             summary: pickLocalized(g, g.seo?.zh?.description, g.seo?.en?.description, lang === "en" ? "Professional buying guides and safety research insights." : "专业选购指南与安全研究报告。"),
             content: pickLocalized(g, g.zh?.content, g.en?.content),
+            imageUrl: String((g as any).imageUrl || "").trim(),
             author: lang === "en" ? "BalanceBikeToddler Expert Team" : "BalanceBikeToddler 专家组",
             readTime: lang === "en" ? "8 min read" : "8 分钟",
-            publishDate: resolvePublishDate(g.updatedAt),
+            publishDate: editorialDate ? editorialDate.slice(0, 10) : resolvePublishDate(g.updatedAt),
             productCategory: normalizeGuideProductCategory(g.taxonomy?.productCategory),
             ...(g.taxonomy?.topicOrder ? { topicOrder: Number(g.taxonomy.topicOrder || 1) } : {}),
-          }));
+          };
+          });
           setGuideArticles(mapped.map((item) => normalizeGuideArticleForLocale(item, lang)));
           setCmsSourceActive(true);
           setLoadingGuides(false);
@@ -2146,8 +2150,7 @@ export default function GuidesSection({
                         <div className="text-[11px] text-slate-300 leading-6 font-medium line-clamp-5">
                           {pagedGuides[0].content.replace(/#+\s/g, "").slice(0, 360)}
                         </div>
-                        <div className="flex items-center justify-between text-xs font-black">
-                          <span className="text-slate-400 flex items-center gap-2"><Briefcase className="w-4 h-4 text-orange-400" />{pagedGuides[0].author.split("-")[0].trim()}</span>
+                        <div className="flex items-center justify-end text-xs font-black">
                           <span className="text-orange-300 flex items-center gap-1">{lang === "en" ? "Read guide" : "阅读指南"}<ChevronRight className="w-4 h-4" /></span>
                         </div>
                       </div>
@@ -2156,40 +2159,55 @@ export default function GuidesSection({
                 )}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 text-left animate-fade-in">
-                {pagedGuides.slice(1).map((guide) => (
+                {pagedGuides.slice(1).map((guide) => {
+                  const cardImage = resolveCardImage(guide.imageUrl, guide.content);
+                  return (
                   <button
                     type="button"
                     key={guide.id}
                     onClick={() => handleArticleClick(guide)}
-                    className="bg-white border border-slate-100 hover:border-orange-200 rounded-[28px] p-6 flex flex-col justify-between min-h-[260px] cursor-pointer hover:shadow-xl hover:shadow-orange-500/5 transition-all group text-left"
+                    className="bg-white border border-slate-100 hover:border-orange-200 rounded-[28px] p-5 flex gap-4 cursor-pointer hover:shadow-xl hover:shadow-orange-500/5 transition-all group text-left"
                   >
-                    <div className="space-y-4">
-                      <div className="flex justify-between items-start gap-3 text-[10px]">
-                        <span className="bg-slate-50 text-slate-500 px-3 py-1 rounded-full font-black uppercase border border-slate-100 group-hover:bg-orange-50 group-hover:text-orange-600 group-hover:border-orange-100 transition-colors">
-                          {guide.categoryLabel}
-                        </span>
-                        <span className="text-slate-400 font-bold shrink-0">{guide.publishDate}</span>
+                    <div className="w-20 sm:w-24 shrink-0 self-stretch rounded-2xl overflow-hidden border border-slate-100 bg-orange-50 flex items-center justify-center">
+                      {cardImage ? (
+                        <img
+                          src={cardImage}
+                          alt={guide.title}
+                          loading="lazy"
+                          className="w-full h-full object-cover"
+                          onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                        />
+                      ) : (
+                        <BookOpen className="w-8 h-8 text-orange-300" />
+                      )}
+                    </div>
+
+                    <div className="flex-1 min-w-0 flex flex-col justify-between space-y-2.5">
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-start gap-2 text-[10px]">
+                          <span className="bg-slate-50 text-slate-500 px-3 py-1 rounded-full font-black uppercase border border-slate-100 group-hover:bg-orange-50 group-hover:text-orange-600 group-hover:border-orange-100 transition-colors">
+                            {guide.categoryLabel}
+                          </span>
+                          <span className="text-slate-400 font-bold shrink-0">{guide.publishDate}</span>
+                        </div>
+
+                        <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors line-clamp-2">
+                          {guide.title}
+                        </h3>
+                        <p className="km-heading-copy km-body-copy text-slate-500 text-xs line-clamp-2 font-medium">
+                          {buildCardExcerpt(guide.content, guide.summary)}
+                        </p>
                       </div>
 
-                      <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors line-clamp-3">
-                        {guide.title}
-                      </h3>
-                      <p className="km-heading-copy km-body-copy text-slate-500 text-xs line-clamp-3 font-medium">
-                        {guide.summary}
-                      </p>
-                    </div>
-
-                    <div className="flex justify-between items-center text-[10px] text-slate-400 pt-5 border-t border-slate-50 font-bold mt-6">
-                      <span className="flex items-center gap-1.5 min-w-0 truncate">
-                        <Briefcase className="w-3.5 h-3.5 text-orange-400 shrink-0" />
-                        <span className="truncate">{guide.author.split("-")[0].trim()}</span>
-                      </span>
-                      <span className="text-orange-500 font-black flex items-center gap-1 shrink-0">
-                        {lang === "en" ? "Read" : "阅读"}<ChevronRight className="w-3.5 h-3.5" />
-                      </span>
+                      <div className="flex justify-end items-center text-[10px] text-slate-400 pt-2 border-t border-slate-50 font-bold">
+                        <span className="text-orange-500 font-black flex items-center gap-1 shrink-0">
+                          {lang === "en" ? "Read" : "阅读"}<ChevronRight className="w-3.5 h-3.5" />
+                        </span>
+                      </div>
                     </div>
                   </button>
-                ))}
+                  );
+                })}
                 </div>
 
                 {totalPages > 1 && (

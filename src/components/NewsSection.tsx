@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { Search, Calendar, User, Eye, BookOpen, Clock, ArrowLeft, Heart, Share2, Globe, Zap } from "lucide-react";
+import { Search, Calendar, User, Eye, BookOpen, Clock, ArrowLeft, Heart, Share2, Globe, Zap, Newspaper } from "lucide-react";
 import { NewsArticle, newsArticles as fallbackNewsArticles } from "../data/newsData";
 import { getD1CMSNews } from "../lib/cmsD1Service";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
-import { buildArticleSeoDescription, buildArticleSeoTitle, type ArticleSeoMeta } from "../lib/articleSeo";
+import { buildArticleSeoDescription, buildArticleSeoTitle, buildCardExcerpt, resolveCardImage, type ArticleSeoMeta } from "../lib/articleSeo";
 
 import Breadcrumbs from "./Breadcrumbs";
 import { getPageCopy } from "../config/pageCopy";
@@ -310,9 +310,12 @@ export default function NewsSection({
 
           const mapped: NewsArticle[] = dbNews.map((n) => {
             const updatedMs = parseNewsTimestamp((n as any).updatedAt);
-            const publishDate = updatedMs > 0
-              ? new Date(updatedMs).toISOString().split("T")[0]
-              : "2026-06-15";
+            const editorialDate = String((n as any).publishDate || "").trim();
+            const publishDate = editorialDate
+              ? editorialDate.slice(0, 10)
+              : updatedMs > 0
+                ? new Date(updatedMs).toISOString().split("T")[0]
+                : "2026-06-15";
             const normalizedCategory = normalizeNewsCategory(String(n.category || "")) || "industry";
             return {
               id: n.id,
@@ -322,6 +325,7 @@ export default function NewsSection({
               categoryLabel: getCategoryLabel(normalizedCategory, lang),
               summary: pickLocalized(n, n.seo?.zh?.description, n.seo?.en?.description, newsCopy.fallbackSummary),
               content: pickLocalized(n, n.zh?.content, n.en?.content, newsCopy.fallbackContent),
+              imageUrl: String((n as any).imageUrl || "").trim(),
               author: newsCopy.fallbackAuthor,
               readTime: newsCopy.fallbackReadTime,
               publishDate,
@@ -726,45 +730,54 @@ export default function NewsSection({
                 </p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left animate-fade-in">
-              {pagedNews.map((art) => (
+              {pagedNews.map((art) => {
+                const cardImage = resolveCardImage((art as any).imageUrl, art.content);
+                return (
                 <div
                   key={art.id}
                   onClick={() => handleArticleClick(art)}
-                  className="bg-white border border-slate-100 hover:border-orange-100 rounded-[40px] p-8 flex flex-col justify-between space-y-6 cursor-pointer hover:shadow-2xl hover:shadow-orange-500/5 transition-all group"
+                  className="bg-white border border-slate-100 hover:border-orange-200 rounded-[28px] p-6 flex gap-5 sm:gap-6 cursor-pointer hover:shadow-xl hover:shadow-orange-500/5 transition-all group"
                 >
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center text-[10px]">
-                      <span className="bg-orange-50 text-orange-600 px-3 py-1 rounded-full font-black uppercase border border-orange-100">
-                        {getCategoryLabel(art.category, lang)}
-                      </span>
-                      <span className="text-slate-400 font-bold">{art.publishDate}</span>
-                    </div>
-
-                    <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">
-                      {art.title}
-                    </h3>
-                    <p className="km-heading-copy km-body-copy text-slate-500 text-xs line-clamp-2 font-medium">
-                      {art.summary}
-                    </p>
+                  <div className="w-28 sm:w-36 shrink-0 self-stretch rounded-2xl overflow-hidden border border-slate-100 bg-orange-50 flex items-center justify-center">
+                    {cardImage ? (
+                      <img
+                        src={cardImage}
+                        alt={art.title}
+                        loading="lazy"
+                        className="w-full h-full object-cover"
+                        onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                      />
+                    ) : (
+                      <Newspaper className="w-9 h-9 text-orange-300" />
+                    )}
                   </div>
 
-                  <div className="flex justify-between items-center text-[10px] text-slate-400 pt-4 border-t border-slate-50 font-bold">
-                    <div className="flex items-center gap-1.5">
-                      <User className="w-3.5 h-3.5 text-orange-400" />
-                      {art.author.split("-")[0].split(" ")[0]}
+                  <div className="flex-1 min-w-0 flex flex-col justify-between space-y-3">
+                    <div className="space-y-2.5">
+                      <div className="flex justify-between items-center gap-3 text-[10px]">
+                        <span className="bg-orange-50 text-orange-600 px-3 py-1 rounded-full font-black uppercase border border-orange-100">
+                          {getCategoryLabel(art.category, lang)}
+                        </span>
+                        <span className="text-slate-400 font-bold shrink-0">{art.publishDate}</span>
+                      </div>
+
+                      <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors line-clamp-2">
+                        {art.title}
+                      </h3>
+                      <p className="km-heading-copy km-body-copy text-slate-500 text-xs line-clamp-2 font-medium">
+                        {buildCardExcerpt(art.content, art.summary)}
+                      </p>
                     </div>
-                    <div className="flex items-center gap-4">
-                      <span className="flex items-center gap-1">
-                        <Eye className="w-3.5 h-3.5 text-orange-400" />
-                        {art.views + (likedList.includes(art.id) ? 1 : 0)}
-                      </span>
+
+                    <div className="flex justify-end items-center text-[10px] text-slate-400 pt-2 border-t border-slate-50 font-bold">
                       <span className="text-orange-500 group-hover:underline font-black">
                         {newsCopy.readMore}
                       </span>
                     </div>
                   </div>
                 </div>
-              ))}
+                );
+              })}
               </div>
 
               {totalPages > 1 && (

@@ -210,6 +210,7 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
       category: "beginner",
       status: "draft",
       imageUrl: "",
+      publishDate: new Date().toISOString().slice(0, 10),
       riskCards: [],
       seo: {
         zh: { title: "", description: "", keywords: [] },
@@ -282,6 +283,21 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
         ...g,
         slug: String(g.slug || "").trim() || slugifyGuideTitle(g.en?.title || g.zh?.title, g.id),
       };
+
+      // Slug uniqueness: a duplicate slug would make two guides resolve to the
+      // same /guides/{category}/{slug} URL and shadow each other in the router.
+      const normalizedSlug = String(payload.slug || "").toLowerCase();
+      const duplicate = guides.find((item) =>
+        item.id !== payload.id &&
+        String(item.slug || slugifyGuideTitle(item.en?.title || item.zh?.title, item.id)).toLowerCase() === normalizedSlug,
+      );
+      if (duplicate) {
+        throw new Error(
+          lang === "zh"
+            ? `保存失败：URL 别名「${payload.slug}」已被《${duplicate.zh?.title || duplicate.en?.title || duplicate.id}》占用，请换一个 slug。`
+            : `Save blocked: slug "${payload.slug}" is already used by "${duplicate.en?.title || duplicate.zh?.title || duplicate.id}". Pick another slug.`,
+        );
+      }
 
       const saved = await saveD1CMSGuide(payload);
       if (!saved) {
@@ -804,6 +820,18 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{lang === "zh" ? "前台地址" : "Live URL"}</label>
                       <p className="w-full bg-slate-900 text-emerald-300 rounded-xl py-3 px-4 text-xs font-mono break-all">
                         /guides/{formData.taxonomy?.topicCategory || formData.category || "beginner"}/{formData.slug || slugifyGuideTitle(formData.en?.title || formData.zh?.title, formData.id)}
+                      </p>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{lang === "zh" ? "发布日期" : "Publish Date"}</label>
+                      <input
+                        type="date"
+                        className="w-full bg-slate-50 border border-slate-200 py-3 px-4 rounded-xl text-xs font-bold"
+                        value={String(formData.publishDate || "").slice(0, 10)}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, publishDate: e.target.value }))}
+                      />
+                      <p className="text-[10px] font-medium text-slate-400">
+                        {lang === "zh" ? "卡片与 sitemap 展示此日期；留空则使用最近更新时间。" : "Shown on cards and in the sitemap; falls back to the last update time."}
                       </p>
                     </div>
                   </div>

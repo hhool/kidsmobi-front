@@ -8,6 +8,8 @@ export interface GuideArticle {
   pinOrder?: number;
   summary: string;
   content: string;
+  /** Cover image URL (optional). Cards fall back to the first body image. */
+  imageUrl?: string;
   author: string;
   readTime: string;
   publishDate: string;
