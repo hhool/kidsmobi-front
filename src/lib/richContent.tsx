@@ -9,7 +9,9 @@ import React from "react";
  *   * / -  bullet list       1.  ordered list
  *   **bold**   *italic*   [text](url)
  *   ![alt](url)              @[video](url)
- * Blocks are separated by one blank line ("\n\n").
+ * Blocks are separated by one blank line ("\n\n"), but a single newline inside a
+ * block is honoured too: consecutive "* "/"- " lines become one <ul>, consecutive
+ * "1. " lines become one <ol>, and every other line becomes its own paragraph.
  */
 
 export type RichContentTheme = {
@@ -114,6 +116,9 @@ function isMediaOnlyParagraph(text: string): { kind: "image" | "video"; alt: str
   return null;
 }
 
+const BULLET_PATTERN = /^([*•] |- |– )/;
+const ORDERED_PATTERN = /^\d+[.、)] /;
+
 export function renderRichContent(
   content: string,
   themeOverride?: Partial<RichContentTheme>,
@@ -124,93 +129,123 @@ export function renderRichContent(
 
   const blocks = source.split("\n\n");
   const nodes: React.ReactNode[] = [];
+  let key = 0;
 
-  blocks.forEach((rawBlock, ip) => {
+  blocks.forEach((rawBlock) => {
     const block = rawBlock.replace(/\s+$/, "");
     if (!block.trim()) return;
 
-    if (block.startsWith("### ")) {
-      nodes.push(
-        <h3 key={ip} className={theme.h3}>
-          {renderInlineMarkdown(block.slice(4), `h3-${ip}`)}
-        </h3>,
-      );
-      return;
-    }
-    if (block.startsWith("#### ")) {
-      nodes.push(
-        <h4 key={ip} className={theme.h4}>
-          {renderInlineMarkdown(block.slice(5), `h4-${ip}`)}
-        </h4>,
-      );
-      return;
-    }
+    // Lists are accumulated across consecutive lines so that a block mixing a
+    // numbered heading with bullet sub-lines still renders as a real <ul>/<ol>
+    // instead of leaking literal "*" / "1." markers into the paragraph text.
+    let listKind: "ul" | "ol" | null = null;
+    let listItems: string[] = [];
 
-    const lines = block.split("\n").filter((line) => line.trim().length > 0);
-    const isBullet = lines.length > 0 && lines.every((line) => /^(\* |- )/.test(line.trim()));
-    const isOrdered = lines.length > 0 && lines.every((line) => /^\d+[.、)] /.test(line.trim()));
-    if (isBullet && lines.length > 0) {
-      nodes.push(
-        <ul key={ip} className={theme.ul}>
-          {lines.map((line, il) => (
-            <li key={il} className={theme.li}>
-              {renderInlineMarkdown(line.trim().replace(/^(\* |- )/, ""), `ul-${ip}-${il}`)}
-            </li>
-          ))}
-        </ul>,
-      );
-      return;
-    }
-    if (isOrdered && lines.length > 0) {
-      nodes.push(
-        <ol key={ip} className={theme.ol}>
-          {lines.map((line, il) => (
-            <li key={il} className={theme.li}>
-              {renderInlineMarkdown(line.trim().replace(/^\d+[.、)] /, ""), `ol-${ip}-${il}`)}
-            </li>
-          ))}
-        </ol>,
-      );
-      return;
-    }
-
-    const media = isMediaOnlyParagraph(block);
-    if (media) {
-      if (media.kind === "image") {
-        nodes.push(
-          <figure key={ip} className={theme.figure}>
-            <img src={media.url} alt={media.alt} loading="lazy" className={theme.img} />
-            {media.alt ? <figcaption className={theme.figcaption}>{media.alt}</figcaption> : null}
-          </figure>,
-        );
-      } else {
-        nodes.push(
-          <figure key={ip} className={theme.figure}>
-            <video src={media.url} controls preload="metadata" className={theme.video} />
-          </figure>,
-        );
+    const flushList = () => {
+      if (!listKind || listItems.length === 0) {
+        listKind = null;
+        listItems = [];
+        return;
       }
-      return;
-    }
-
-    // Plain paragraph: split remaining single newlines into separate paragraphs
-    // so CMS-authored line breaks render as real paragraphs (editor-consistent).
-    const paraLines = block.split("\n").map((line) => line.trim()).filter(Boolean);
-    if (paraLines.length <= 1) {
+      const className = listKind === "ul" ? theme.ul : theme.ol;
+      const items = listItems;
+      const kind = listKind;
+      listKind = null;
+      listItems = [];
+      const currentKey = key++;
       nodes.push(
-        <p key={ip} className={theme.p}>
-          {renderInlineMarkdown(paraLines[0] || "", `p-${ip}`)}
-        </p>,
+        kind === "ul" ? (
+          <ul key={currentKey} className={className}>
+            {items.map((item, index) => (
+              <li key={index} className={theme.li}>
+                {renderInlineMarkdown(item, `li-${currentKey}-${index}`)}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <ol key={currentKey} className={className}>
+            {items.map((item, index) => (
+              <li key={index} className={theme.li}>
+                {renderInlineMarkdown(item, `li-${currentKey}-${index}`)}
+              </li>
+            ))}
+          </ol>
+        ),
       );
-      return;
-    }
-    paraLines.forEach((line, li) => {
+    };
+
+    block.split("\n").forEach((rawLine) => {
+      const line = rawLine.trim();
+      if (!line) return;
+
+      if (line.startsWith("### ")) {
+        flushList();
+        const currentKey = key++;
+        nodes.push(
+          <h3 key={currentKey} className={theme.h3}>
+            {renderInlineMarkdown(line.slice(4), `h3-${currentKey}`)}
+          </h3>,
+        );
+        return;
+      }
+      if (line.startsWith("#### ")) {
+        flushList();
+        const currentKey = key++;
+        nodes.push(
+          <h4 key={currentKey} className={theme.h4}>
+            {renderInlineMarkdown(line.slice(5), `h4-${currentKey}`)}
+          </h4>,
+        );
+        return;
+      }
+
+      if (BULLET_PATTERN.test(line)) {
+        if (listKind !== "ul") {
+          flushList();
+          listKind = "ul";
+        }
+        listItems.push(line.replace(BULLET_PATTERN, ""));
+        return;
+      }
+      if (ORDERED_PATTERN.test(line)) {
+        if (listKind !== "ol") {
+          flushList();
+          listKind = "ol";
+        }
+        listItems.push(line.replace(ORDERED_PATTERN, ""));
+        return;
+      }
+
+      flushList();
+
+      const media = isMediaOnlyParagraph(line);
+      const currentKey = key++;
+      if (media) {
+        if (media.kind === "image") {
+          nodes.push(
+            <figure key={currentKey} className={theme.figure}>
+              <img src={media.url} alt={media.alt} loading="lazy" className={theme.img} />
+              {media.alt ? <figcaption className={theme.figcaption}>{media.alt}</figcaption> : null}
+            </figure>,
+          );
+        } else {
+          nodes.push(
+            <figure key={currentKey} className={theme.figure}>
+              <video src={media.url} controls preload="metadata" className={theme.video} />
+            </figure>,
+          );
+        }
+        return;
+      }
+
       nodes.push(
-        <p key={`${ip}-${li}`} className={theme.p}>
-          {renderInlineMarkdown(line, `p-${ip}-${li}`)}
+        <p key={currentKey} className={theme.p}>
+          {renderInlineMarkdown(line, `p-${currentKey}`)}
         </p>,
       );
     });
+
+    flushList();
   });
 
   return <>{nodes}</>;

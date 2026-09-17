@@ -308,6 +308,7 @@ function renderGuideContentHtml(markdown: string): string {
   const lines = String(markdown || "").replace(/\r\n/g, "\n").split("\n");
   const blocks: string[] = [];
   let paragraph: string[] = [];
+  let listKind: "ul" | "ol" | null = null;
   let listItems: string[] = [];
 
   const flushParagraph = () => {
@@ -316,13 +317,20 @@ function renderGuideContentHtml(markdown: string): string {
     paragraph = [];
   };
   const flushList = () => {
-    if (!listItems.length) return;
-    blocks.push(
-      `<ul style="margin: 0 0 14px; padding-left: 1.2rem;">${listItems
-        .map((item) => `<li style="margin-bottom: 6px;">${renderInlineMarkdown(item)}</li>`)
-        .join("")}</ul>`,
-    );
+    if (!listKind || !listItems.length) {
+      listKind = null;
+      listItems = [];
+      return;
+    }
+    const tag = listKind;
+    const items = listItems;
+    listKind = null;
     listItems = [];
+    blocks.push(
+      `<${tag} style="margin: 0 0 14px; padding-left: 1.2rem;">${items
+        .map((item) => `<li style="margin-bottom: 6px;">${renderInlineMarkdown(item)}</li>`)
+        .join("")}</${tag}>`,
+    );
   };
   const flushAll = () => {
     flushParagraph();
@@ -345,10 +353,24 @@ function renderGuideContentHtml(markdown: string): string {
       );
       continue;
     }
-    const bullet = /^[-*]\s+(.*)$/.exec(line);
+    const bullet = /^[*•\-]\s+(.*)$/.exec(line);
     if (bullet) {
       flushParagraph();
+      if (listKind !== "ul") {
+        flushList();
+        listKind = "ul";
+      }
       listItems.push(bullet[1]);
+      continue;
+    }
+    const ordered = /^\d+[.、)]\s+(.*)$/.exec(line);
+    if (ordered) {
+      flushParagraph();
+      if (listKind !== "ol") {
+        flushList();
+        listKind = "ol";
+      }
+      listItems.push(ordered[1]);
       continue;
     }
     flushList();
