@@ -1455,7 +1455,10 @@ async function injectGuideRedirects(routes: string[]): Promise<void> {
     }
   }
 
-  const lines = routes.map((route) => `${route} ${route}.html 200`);
+  // `200!` (verbatim) is required: a plain `200` rewrite makes Pages run a second
+  // redirect lookup on the `.html` target, whose pretty-URL normalization bounces
+  // back to the extensionless path — producing an infinite 308 loop in production.
+  const lines = routes.map((route) => `${route} ${route}.html 200!`);
   const block = lines.length ? `${START}\n${lines.join("\n")}\n${END}\n` : "";
   const CATCH_ALL = "/* /index.html 200";
   const next = cleaned.includes(CATCH_ALL)
