@@ -225,9 +225,273 @@ function extractAppAssets(indexHtml: string): AppAssets {
   };
 }
 
-function renderGuidesPage(): RoutePage {
+/* ------------------------------------------------------------------ *
+ * CMS-driven guide content
+ *
+ * The static list pages used to be built purely from src/data/*.ts, so a
+ * guide published in the CMS never reached the crawled HTML (and neither
+ * did any link to its detail page). We now pull the published guides from
+ * the same Worker endpoint the app uses at build time. If the fetch fails
+ * the build keeps working and silently falls back to the bundled data.
+ * ------------------------------------------------------------------ */
+
+const PUBLIC_SITE_BASE = "https://balancebiketoddler.com";
+const CMS_BASE_URL = (
+  process.env.PRERENDER_CMS_BASE ||
+  process.env.CMS_API_BASE_URL ||
+  "https://store.balancebiketoddler.com"
+).replace(/\/+$/, "");
+
+type CmsGuide = {
+  id: string;
+  slug?: string;
+  status?: string;
+  category?: string;
+  imageUrl?: string;
+  pinned?: boolean;
+  featured?: boolean;
+  updatedAt?: string;
+  publishedAt?: string;
+  taxonomy?: {
+    topicCategory?: string;
+    productCategory?: string;
+    pinOrder?: number;
+  };
+  en?: { title?: string; summary?: string; content?: string };
+  zh?: { title?: string; summary?: string; content?: string };
+  seo?: { en?: { title?: string; description?: string }; zh?: { title?: string; description?: string } };
+};
+
+function cmsSlugify(input: unknown): string {
+  const base = String(input || "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+  return base || "item";
+}
+
+function guideTopicCategory(guide: CmsGuide): string {
+  const topic = String(guide.taxonomy?.topicCategory || guide.category || "").trim();
+  return topic || "beginner";
+}
+
+function guideRoutePath(guide: CmsGuide): string | null {
+  const slug = String(guide.slug || "").trim() || cmsSlugify(guide.en?.title || guide.zh?.title || guide.id);
+  const topic = guideTopicCategory(guide);
+  if (!slug) return null;
+  return `/guides/${topic}/${slug}`;
+}
+
+function pickText(...values: Array<string | undefined>): string {
+  for (const value of values) {
+    const text = String(value || "").trim();
+    if (text) return text;
+  }
+  return "";
+}
+
+function renderInlineMarkdown(value: string): string {
+  return escapeHtml(value)
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*([^*\n]+)\*/g, "<em>$1</em>")
+    .replace(
+      /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
+      '<a href="$2" rel="noopener">$1</a>',
+    );
+}
+
+/** Minimal markdown-subset renderer that mirrors the app's article formatting. */
+function renderGuideContentHtml(markdown: string): string {
+  const lines = String(markdown || "").replace(/\r\n/g, "\n").split("\n");
+  const blocks: string[] = [];
+  let paragraph: string[] = [];
+  let listItems: string[] = [];
+
+  const flushParagraph = () => {
+    if (!paragraph.length) return;
+    blocks.push(`<p style="margin: 0 0 14px;">${renderInlineMarkdown(paragraph.join(" "))}</p>`);
+    paragraph = [];
+  };
+  const flushList = () => {
+    if (!listItems.length) return;
+    blocks.push(
+      `<ul style="margin: 0 0 14px; padding-left: 1.2rem;">${listItems
+        .map((item) => `<li style="margin-bottom: 6px;">${renderInlineMarkdown(item)}</li>`)
+        .join("")}</ul>`,
+    );
+    listItems = [];
+  };
+  const flushAll = () => {
+    flushParagraph();
+    flushList();
+  };
+
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+    if (!line) {
+      flushAll();
+      continue;
+    }
+    const heading = /^(#{2,4})\s+(.*)$/.exec(line);
+    if (heading) {
+      flushAll();
+      const level = heading[1].length;
+      const size = level <= 2 ? "1.5rem" : level === 3 ? "1.22rem" : "1.06rem";
+      blocks.push(
+        `<h${level} style="margin: 22px 0 10px; font-size: ${size};">${renderInlineMarkdown(heading[2])}</h${level}>`,
+      );
+      continue;
+    }
+    const bullet = /^[-*]\s+(.*)$/.exec(line);
+    if (bullet) {
+      flushParagraph();
+      listItems.push(bullet[1]);
+      continue;
+    }
+    flushList();
+    // A single newline is a paragraph break in the app's markdown subset, so each
+    // remaining line becomes its own paragraph instead of being soft-wrapped.
+    flushParagraph();
+    paragraph.push(line);
+  }
+  flushAll();
+  return blocks.join("\n        ");
+}
+
+async function fetchPublishedGuides(): Promise<CmsGuide[]> {
+  const url = `${CMS_BASE_URL}/api/cms/guides?onlyPublished=1`;
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 15000);
+    const response = await fetch(url, {
+      headers: { Accept: "application/json" },
+      signal: controller.signal,
+    });
+    clearTimeout(timer);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const payload: unknown = await response.json();
+    const rows = Array.isArray(payload)
+      ? payload
+      : Array.isArray((payload as { data?: unknown })?.data)
+        ? ((payload as { data: unknown[] }).data as unknown[])
+        : [];
+    const guides = rows.filter((row): row is CmsGuide => Boolean(row) && typeof row === "object");
+    console.log(`[prerender] ${guides.length} published guide(s) from ${url}`);
+    return guides;
+  } catch (error) {
+    console.warn(
+      `[prerender] could not reach ${url} (${(error as Error).message}); falling back to bundled guide data.`,
+    );
+    return [];
+  }
+}
+
+function renderGuideDetailPage(guide: CmsGuide): RoutePage | null {
+  const route = guideRoutePath(guide);
+  if (!route) return null;
+
+  const title = pickText(guide.en?.title, guide.zh?.title, guide.id);
+  const summary = pickText(
+    guide.en?.summary,
+    guide.seo?.en?.description,
+    guide.zh?.summary,
+    guide.seo?.zh?.description,
+    "BalanceBikeToddler buying guide for families.",
+  );
+  const content = pickText(guide.en?.content, guide.zh?.content);
+  const topic = guideTopicCategory(guide);
+  const topicLabel = topic.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
+  const published = pickText(guide.publishedAt, guide.updatedAt).slice(0, 10) || "2026-08-15";
+  const url = `${PUBLIC_SITE_BASE}${route}`;
+
+  const schemas: Array<Record<string, unknown>> = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "BalanceBikeToddler",
+      url: `${PUBLIC_SITE_BASE}/`,
+      logo: `${PUBLIC_SITE_BASE}/favicon.svg`,
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Guides", item: `${PUBLIC_SITE_BASE}/guides` },
+        { "@type": "ListItem", position: 2, name: topicLabel, item: `${PUBLIC_SITE_BASE}/guides/${topic}` },
+        { "@type": "ListItem", position: 3, name: title, item: url },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: title,
+      description: summary,
+      url,
+      mainEntityOfPage: url,
+      inLanguage: "en",
+      datePublished: published,
+      dateModified: published,
+      articleSection: topicLabel,
+      author: { "@type": "Organization", name: "BalanceBikeToddler Editorial Team" },
+      publisher: {
+        "@type": "Organization",
+        name: "BalanceBikeToddler",
+        url: `${PUBLIC_SITE_BASE}/`,
+        logo: `${PUBLIC_SITE_BASE}/favicon.svg`,
+      },
+    },
+  ];
+
+  return {
+    route,
+    title,
+    description: summary,
+    body: `
+      <nav style="padding: 4px 0 16px; font-size: 0.86rem; color: #64748b;">
+        <a href="/guides">Guides</a> › <a href="/guides/${escapeHtml(topic)}">${escapeHtml(topicLabel)}</a>
+      </nav>
+      <section style="padding: 4px 0 18px;">
+        <p style="margin: 0 0 10px; font-size: 0.86rem; color: #475569; font-weight: 600;">
+          By <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="${escapeHtml(published)}">Published ${escapeHtml(published)}</time>
+        </p>
+        <p style="margin: 0 0 14px; font-size: 1.05rem; color: #334155;"><strong>Short answer:</strong> ${escapeHtml(summary)}</p>
+      </section>
+      <section style="padding: 6px 0; border-top: 1px solid #e2e8f0;">
+        ${renderGuideContentHtml(content) || `<p style="margin: 0;">${escapeHtml(summary)}</p>`}
+      </section>
+      <section style="padding: 22px 0 0; border-top: 1px solid #e2e8f0;">
+        <p style="margin: 0; font-size: 0.9rem; color: #475569;">Continue browsing the <a href="/guides">full guide library</a>.</p>
+      </section>
+    `,
+    jsonLd: schemas,
+  };
+}
+
+function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
   const articles = guideArticles.slice(0, 5);
   const canonical = "https://balancebiketoddler.com/guides";
+  const listedGuides: Array<{ title: string; summary: string; meta: string; url: string }> = cmsGuides.length
+    ? cmsGuides.flatMap((guide) => {
+        const route = guideRoutePath(guide);
+        if (!route) return [];
+        const topic = guideTopicCategory(guide);
+        return [{
+          title: pickText(guide.en?.title, guide.zh?.title, guide.id),
+          summary: pickText(guide.en?.summary, guide.seo?.en?.description, "BalanceBikeToddler buying guide."),
+          meta: `${topic.replace(/_/g, " ")} · ${pickText(guide.updatedAt, guide.publishedAt).slice(0, 10) || "2026-08-15"}`,
+          url: `${PUBLIC_SITE_BASE}${route}`,
+        }];
+      })
+    : articles.map((article) => ({
+        title: article.title,
+        summary: article.summary,
+        meta: `${article.categoryLabel} · ${article.readTime} · ${article.publishDate}`,
+        url: `${PUBLIC_SITE_BASE}/guides/${article.category}/${article.id}`,
+      }));
+  const usingCmsGuides = cmsGuides.length > 0;
   const entitySameAs = [
     "https://www.youtube.com/@kidsmobi",
     "https://www.facebook.com",
@@ -273,12 +537,12 @@ function renderGuidesPage(): RoutePage {
       dateModified: "2026-08-15",
       mainEntity: {
         "@type": "ItemList",
-        numberOfItems: articles.length,
-        itemListElement: articles.map((article, index) => ({
+        numberOfItems: listedGuides.length,
+        itemListElement: listedGuides.map((guide, index) => ({
           "@type": "ListItem",
           position: index + 1,
-          name: article.title,
-          url: `https://balancebiketoddler.com/guides/${article.category}/${article.id}`,
+          name: guide.title,
+          url: guide.url,
         })),
       },
     },
@@ -323,13 +587,14 @@ function renderGuidesPage(): RoutePage {
       </section>
       <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Which guide topics are most useful?</h2>
-        ${articles.map((article) => `
+        ${listedGuides.map((guide) => `
           <section style="padding: 14px 0; border-top: 1px solid #f1f5f9;">
-            <h3 style="margin: 0 0 8px; font-size: 1.05rem;">${escapeHtml(article.title)}</h3>
-            <p style="margin: 0 0 8px; color: #334155;">${escapeHtml(article.summary)}</p>
-            <p style="margin: 0; font-size: 0.88rem; color: #64748b;">${escapeHtml(article.categoryLabel)} · ${escapeHtml(article.readTime)} · ${escapeHtml(article.publishDate)}</p>
+            <h3 style="margin: 0 0 8px; font-size: 1.05rem;"><a href="${escapeHtml(new URL(guide.url).pathname)}">${escapeHtml(guide.title)}</a></h3>
+            <p style="margin: 0 0 8px; color: #334155;">${escapeHtml(guide.summary)}</p>
+            <p style="margin: 0; font-size: 0.88rem; color: #64748b;">${escapeHtml(guide.meta)}</p>
           </section>
         `).join("")}
+        ${usingCmsGuides ? `<p style="margin: 14px 0 0; font-size: 0.9rem; color: #475569;">${listedGuides.length} published guide${listedGuides.length === 1 ? "" : "s"} in the library. <a href="/guides">Browse all guides</a>.</p>` : ""}
       </section>
       <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">How do the guides answer real search queries?</h2>
@@ -971,10 +1236,72 @@ function renderAboutPage(): RoutePage {
   };
 }
 
+/**
+ * `public/_redirects` falls back to the SPA shell with `/* /index.html 200`, so a
+ * prerendered guide needs its own explicit rule to be served. Rules are exact
+ * paths only: a wildcard would turn unknown guide URLs into 404s instead of
+ * letting the client router handle them.
+ */
+async function injectGuideRedirects(routes: string[]): Promise<void> {
+  const redirectsPath = path.join(distDir, "_redirects");
+  let content: string;
+  try {
+    content = await readFile(redirectsPath, "utf8");
+  } catch {
+    return;
+  }
+
+  const START = "# --- generated: CMS guide detail pages ---";
+  const END = "# --- end generated ---";
+  let cleaned = content;
+  for (;;) {
+    const start = cleaned.indexOf(START);
+    if (start === -1) break;
+    const end = cleaned.indexOf(END, start);
+    if (end === -1) {
+      cleaned = cleaned.slice(0, start);
+      break;
+    }
+    cleaned = `${cleaned.slice(0, start)}${cleaned.slice(end + END.length)}`.replace(/\n{3,}/g, "\n\n");
+  }
+
+  const lines = routes.map((route) => `${route} ${route}.html 200`);
+  const block = lines.length ? `${START}\n${lines.join("\n")}\n${END}\n` : "";
+  const CATCH_ALL = "/* /index.html 200";
+  const next = cleaned.includes(CATCH_ALL)
+    ? cleaned.replace(CATCH_ALL, `${block}${CATCH_ALL}`)
+    : `${cleaned.replace(/\s*$/, "\n")}${block}`;
+
+  await writeFile(redirectsPath, next, "utf8");
+  if (lines.length) {
+    console.log(`[prerender] _redirects: ${lines.length} guide detail rule(s) registered.`);
+  }
+}
+
 async function main() {
   const indexHtml = await readFile(path.join(distDir, "index.html"), "utf8");
   const appAssets = extractAppAssets(indexHtml);
-  const pages = [renderProductsPage(), renderGuidesPage(), renderNewsPage(), renderReviewsPage(), renderAboutPage()];
+
+  const cmsGuides = await fetchPublishedGuides();
+  const guideDetailPages = cmsGuides
+    .map(renderGuideDetailPage)
+    .filter((page): page is RoutePage => page !== null);
+
+  // Order matters: `/guides` is written first so its cleanup step removes the
+  // whole dist/guides folder before the detail pages recreate it.
+  const pages: RoutePage[] = [
+    renderProductsPage(),
+    renderGuidesPage(cmsGuides),
+    renderNewsPage(),
+    renderReviewsPage(),
+    renderAboutPage(),
+    ...guideDetailPages,
+  ];
+
+  if (guideDetailPages.length) {
+    console.log(`[prerender] writing ${guideDetailPages.length} guide detail page(s).`);
+  }
+
   for (const page of pages) {
     const html = renderDocument(page, appAssets);
     const routeName = page.route.replace(/^\//, "");
@@ -982,18 +1309,12 @@ async function main() {
       await rm(path.join(distDir, routeName), { recursive: true, force: true });
       await rm(path.join(distDir, `${routeName}.html`), { force: true });
     }
-    const outDir = path.join(distDir);
-    await mkdir(outDir, { recursive: true });
-    if (routeName) {
-      await writeFile(path.join(distDir, `${routeName}.html`), html, "utf8");
-    } else {
-      await writeFile(path.join(distDir, "index.html"), html, "utf8");
-    }
-    if (page.route !== "/") {
-      const flatName = `${page.route.replace(/^\//, "")}.html`;
-      await writeFile(path.join(distDir, flatName), html, "utf8");
-    }
+    const outFile = routeName ? path.join(distDir, `${routeName}.html`) : path.join(distDir, "index.html");
+    await mkdir(path.dirname(outFile), { recursive: true });
+    await writeFile(outFile, html, "utf8");
   }
+
+  await injectGuideRedirects(guideDetailPages.map((page) => page.route));
 }
 
 main().catch((error) => {

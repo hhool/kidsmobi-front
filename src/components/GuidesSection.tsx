@@ -6,9 +6,11 @@ import {
   Briefcase, 
   Calendar, 
   Clock, 
+  Filter,
   Wrench, 
   Calculator, 
   Zap, 
+  X,
   CheckCircle, 
   AlertTriangle,
   Play,
@@ -1959,6 +1961,29 @@ export default function GuidesSection({
                             : `Beginners' Bible articles filtered for ${PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || "your selected category"}. Learn sizing benchmarks, risk indicators, and maintenance habits.`)
                         : `当前内容已根据您在上方算力面板中选择的商品品类，自动对指南库进行全量过滤，为您高能度匹配【${PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || "当前品类"}】相关的尺寸、安全与养护攻略。`}
                     </p>
+                    {wizardCategory !== "all" && (
+                      <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-orange-200 bg-orange-50/80 px-4 py-3">
+                        <span className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-orange-700">
+                          <Filter className="w-3.5 h-3.5" />
+                          {lang === "en"
+                            ? `Filtered: ${PRODUCT_CATEGORY_LABELS[wizardCategory]?.en || wizardCategory}`
+                            : `已按品类筛选：${PRODUCT_CATEGORY_LABELS[wizardCategory]?.zh || wizardCategory}`}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setWizardCategory("all");
+                            setSelectedCategory("all");
+                            setSearchQuery("");
+                            onPageChange?.(1);
+                          }}
+                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-white border border-orange-300 text-orange-700 text-[10px] font-black uppercase tracking-widest rounded-full hover:bg-orange-100 transition-all active:scale-[0.97] cursor-pointer"
+                        >
+                          <X className="w-3 h-3" />
+                          {lang === "en" ? "Show all categories" : "查看全部分类"}
+                        </button>
+                      </div>
+                    )}
                   </div>
                   <div className="grid grid-cols-3 gap-3 text-center">
                     {[
