@@ -353,20 +353,14 @@ export default function HomeSection({
     for (const candidate of candidates) {
       const cleaned = collapseRepeatedLeadingBrand(candidate, brand);
       if (isMeaningfulCardSummary(cleaned, lang)) {
-        if (forcedCategoryLabel === homeCopy.runtimeLabels.categoryNames.kidsScooter && lang === "en") {
-          const normalized = cleaned.toLowerCase();
-          if (!normalized.includes("kids electric scooter")) {
-            return `Kids electric scooter safety review: ${cleaned}`;
-          }
-        }
         return cleaned;
       }
     }
 
     if (forcedCategoryLabel === homeCopy.runtimeLabels.categoryNames.kidsScooter) {
       return lang === "zh"
-        ? "这款 kids electric scooter 重点评估了踏板强度、转向响应与低速稳定性，适合家长快速完成同类车型对比。"
-        : "This kids electric scooter is audited for deck strength, steering response, and low-speed stability to support faster family comparisons.";
+        ? "这款滑板车重点评估了车架强度、转向方式与低速稳定性，适合家长快速完成同类车型对比。"
+        : "This scooter is audited for deck strength, steering response, and low-speed stability to support faster family comparisons.";
     }
 
     return lang === "zh"
