@@ -9,7 +9,8 @@
 /products /products.html 200!
 /products/ /products 301
 /api/* https://store.balancebiketoddler.com/api/:splat 307
-/sitemap.xml https://store.balancebiketoddler.com/sitemap.xml 302
+# sitemap.xml is served directly on this host by a Worker route
+# (balancebiketoddler.com/sitemap.xml) — no redirect needed here.
 # Legacy guide slugs inherited from the import pipeline (renamed 2026-09-17).
 /guides/beginner/kidspullalongwagons-b0cs2zykc4overview /guides/beginner/best-balance-bike-for-1-year-old 301
 /guides/beginner/kidspullalongwagons-b0cs2zykc4image /guides/beginner/how-to-choose-the-perfect-baby-stroller 301
