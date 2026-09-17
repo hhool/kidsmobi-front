@@ -1016,16 +1016,47 @@ export default function GuidesSection({
   // Dynamic automatic filtering of all library articles based on Match Wizard active category selection
   const productFilteredArticles = useMemo(() => {
     if (wizardCategory === "all") {
-      // Full library. Pinned / featured rows are already floated to the top by the
-      // sort in activeArticlesList, so returning only pinned rows here would hide
-      // every CMS guide that has no pinOrder configured.
-      return allGuideArticles;
+      // All-category view stays a curated shelf: only pinned / featured guides.
+      // "Pinned" is driven by CMS config (pinOrder > 0 or pinned/featured flags) so
+      // heuristic text filters cannot drop an explicitly configured pin.
+      const cmsPinned = guideArticles.filter((article) => getGuidePinOrder(article) > 0);
+      const cmsFeatured = guideArticles.filter(isGuideFeatured);
+      const configuredSource = cmsPinned.length > 0
+        ? cmsPinned
+        : (cmsFeatured.length > 0 ? cmsFeatured : allGuideArticles.filter(isGuideFeatured));
+
+      const dedupedByProductCategory = new Map<string, GuideArticle>();
+      const sortedForPinPick = [...configuredSource].sort((a, b) => {
+        const pinDiff = getGuidePinOrder(a) - getGuidePinOrder(b);
+        if (pinDiff !== 0) return pinDiff;
+        const priorityDiff = getGuideCategoryPriority(a) - getGuideCategoryPriority(b);
+        if (priorityDiff !== 0) return priorityDiff;
+        return String(b.publishDate || "").localeCompare(String(a.publishDate || ""));
+      });
+
+      for (const article of sortedForPinPick) {
+        const categoryKey = getGuideProductCategoryKey(article);
+        if (!dedupedByProductCategory.has(categoryKey)) {
+          dedupedByProductCategory.set(categoryKey, article);
+        }
+      }
+
+      const curated = Array.from(dedupedByProductCategory.values());
+      // Never render an empty shelf: fall back to the full published library when
+      // nothing has been pinned yet.
+      return curated.length > 0 ? curated : allGuideArticles;
     }
+    // Show everything related to the selected product category. The "Beginners' Bible"
+    // text heuristic is only used for ordering (curated copy first) — filtering by it
+    // silently dropped real CMS guides and collapsed whole categories to a single card.
     const categoryRelated = allGuideArticles.filter((article) => isArticleRelatedToProductCategory(article, wizardCategory));
-    // Prefer the curated "Beginners' Bible" subset, but never let that text heuristic
-    // hide every real CMS guide in the category.
-    const beginnersBible = categoryRelated.filter(isBeginnersBibleArticle);
-    return beginnersBible.length > 0 ? beginnersBible : categoryRelated;
+    return [...categoryRelated].sort((a, b) => {
+      const curatedDiff = Number(isBeginnersBibleArticle(b)) - Number(isBeginnersBibleArticle(a));
+      if (curatedDiff !== 0) return curatedDiff;
+      const pinDiff = getGuidePinOrder(b) - getGuidePinOrder(a);
+      if (pinDiff !== 0) return pinDiff;
+      return String(b.publishDate || "").localeCompare(String(a.publishDate || ""));
+    });
   }, [allGuideArticles, wizardCategory]);
 
   const activeArticlesList = useMemo(() => {

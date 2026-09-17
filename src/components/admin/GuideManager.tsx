@@ -816,6 +816,15 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                       </p>
                     </div>
                   )}
+                  {formData.status === "published" && !formData.pinned && !formData.featured && (
+                    <div className="rounded-xl border border-sky-200 bg-sky-50 px-4 py-3">
+                      <p className="text-xs font-bold text-sky-800">
+                        {lang === "zh"
+                          ? "已发布但未置顶：/guides 的「全部」视图只展示置顶/精选指南。请到下方勾选「置顶文章」，否则前台仍看不到这篇。"
+                          : "Published but not pinned: the \"All Guides\" view only shows pinned/featured guides. Tick \"Pinned Guide\" below, otherwise it stays hidden."}
+                      </p>
+                    </div>
+                  )}
                 </section>
                 <section className="space-y-4 bg-white border border-slate-100 rounded-2xl p-6">
                   <h4 className="text-xs font-black uppercase tracking-widest text-slate-700">{lang === "zh" ? "跨模块关联" : "Cross-module Linkage"}</h4>
