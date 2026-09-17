@@ -29,6 +29,7 @@ import { getD1CMSGuides } from "../lib/cmsD1Service";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 import { resolveProductImages, FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
 import { renderRichContent } from "../lib/richContent";
+import { buildArticleSeoDescription, buildArticleSeoTitle, type ArticleSeoMeta } from "../lib/articleSeo";
 
 function translateCategoryLabel(cat: string): string {
   const labels: Record<string, string> = {
@@ -693,6 +694,8 @@ interface GuidesSectionProps {
   onSearchQueryChange?: (query: string) => void;
   isAdmin?: boolean;
   onOpenAdminGuideEditor?: (guideId: string) => void;
+  /** Reports the active article's SEO metadata (or null when no detail is open). */
+  onActiveArticleMeta?: (meta: ArticleSeoMeta | null) => void;
 }
 
 export default function GuidesSection({
@@ -714,6 +717,7 @@ export default function GuidesSection({
   onSearchQueryChange,
   isAdmin = false,
   onOpenAdminGuideEditor,
+  onActiveArticleMeta,
 }: GuidesSectionProps) {
   const guidesDate = "2026-08-15";
   const [guideArticles, setGuideArticles] = useState<GuideArticle[]>(fallbackGuideArticles);
@@ -993,19 +997,34 @@ export default function GuidesSection({
     });
   }, [guideArticles, generatedGuideArticles, lang, cmsSourceActive]);
 
+  // Keep the latest callback in a ref so unmount cleanup cannot go stale.
+  const onActiveArticleMetaRef = useRef(onActiveArticleMeta);
+  onActiveArticleMetaRef.current = onActiveArticleMeta;
+  useEffect(() => () => { onActiveArticleMetaRef.current?.(null); }, []);
+
   // Sync state with activeArticleId
   useEffect(() => {
     if (activeArticleId) {
       const found = allGuideArticles.find((g) => isGuideArticleRouteMatch(activeArticleId, g));
       if (found) {
         setSelectedGuideState(found);
-      } else {
-        setSelectedGuideState(null);
+        // Report article-level SEO so App's global SEO effect does not overwrite
+        // the prerendered <title>/canonical with the section-homepage values.
+        const localized = translateGuideArticle(found, lang);
+        onActiveArticleMetaRef.current?.({
+          title: buildArticleSeoTitle(localized?.title || found.title),
+          description: buildArticleSeoDescription(localized?.summary || found.summary || found.content),
+          canonicalPath: typeof window !== "undefined" ? window.location.pathname : "",
+        });
+        return;
       }
-    } else {
       setSelectedGuideState(null);
+      onActiveArticleMetaRef.current?.(null);
+      return;
     }
-  }, [activeArticleId, allGuideArticles]);
+    setSelectedGuideState(null);
+    onActiveArticleMetaRef.current?.(null);
+  }, [activeArticleId, allGuideArticles, lang]);
 
   useEffect(() => {
     if (!activeArticleId || !selectedGuideState) return;

@@ -63,6 +63,7 @@ import {
 } from "./lib/firestoreService";
 import { checkIsAdmin } from "./lib/cmsAuth";
 import { getD1CMSSettings, getD1CMSProducts, getD1CMSEvaluations } from "./lib/cmsD1Service";
+import type { ArticleSeoMeta } from "./lib/articleSeo";
 import { fetchContentBundle, isScrapedContentSource } from "./lib/contentSource";
 import { DEFAULT_SEO_CONFIGS, normalizeSeoConfig, SEO_TDK_LIMITS } from "./config/defaultSeo";
 import { getProductSeoKeywords, getReviewSeoKeywords } from "./config/seoKeywordMap";
@@ -1035,6 +1036,10 @@ export default function App() {
 
   const [newsPaginationTotalPages, setNewsPaginationTotalPages] = useState<number | null>(null);
   const [guidesPaginationTotalPages, setGuidesPaginationTotalPages] = useState<number | null>(null);
+  // Article-level SEO metadata reported by News/Guides sections while a detail
+  // view is open; used by the global SEO effect instead of section defaults.
+  const [newsArticleSeoMeta, setNewsArticleSeoMeta] = useState<ArticleSeoMeta | null>(null);
+  const [guidesArticleSeoMeta, setGuidesArticleSeoMeta] = useState<ArticleSeoMeta | null>(null);
   const activeTabRef = useRef<string>(initialRouteState.activeTab);
   const batchProductsRef = useRef<Product[]>([]);
   const newsReturnViewRef = useRef<{ path: string; scrollY: number } | null>(null);
@@ -2370,6 +2375,39 @@ export default function App() {
     }
     seoKey = normalizeSeoKey(seoKey);
 
+    // Guides/News detail view: the section reports the active article's SEO
+    // metadata once its CMS data resolves. Apply it instead of the section
+    // defaults so hydration does not overwrite the prerendered detail-page
+    // <title>/canonical with the section-homepage values.
+    const articleSeoMeta =
+      seoKey === "guides" ? guidesArticleSeoMeta
+      : seoKey === "news" ? newsArticleSeoMeta
+      : null;
+    const articleCanonicalPath = articleSeoMeta ? normalizeCanonicalPath(articleSeoMeta.canonicalPath) : "";
+    if (articleSeoMeta && articleCanonicalPath && articleCanonicalPath === normalizeCanonicalPath(currentPath)) {
+      const canonicalOrigin =
+        cmsSettings?.seoGlobal?.siteOrigin ||
+        (cmsSettings as any)?.siteOrigin ||
+        (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+        window.location.origin;
+      const canonicalUrl = `${canonicalOrigin}${articleCanonicalPath}`;
+      const noIndex = shouldNoIndexCurrentPath(articleCanonicalPath, window.location.search, window.location.hostname);
+
+      document.title = articleSeoMeta.title;
+      updateMetaTag("description", articleSeoMeta.description);
+      updateMetaTag("keywords", (articleSeoMeta.keywords || []).join(", "));
+      updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
+      updateCanonicalLink(canonicalUrl);
+      updateMetaProperty("og:url", canonicalUrl);
+      updateMetaProperty("og:type", "article");
+      updateSocialMeta(articleSeoMeta.title, articleSeoMeta.description, articleSeoMeta.image || DEFAULT_OG_IMAGE_PATH, "article");
+      // Static detail pages already carry Article + BreadcrumbList JSON-LD
+      // (without data-seo-jsonld, so injectJsonLd keeps them); only refresh the
+      // generic WebSite schema here.
+      injectJsonLd([buildWebsiteSchema(canonicalOrigin, articleSeoMeta.description)]);
+      return;
+    }
+
     const { seo: resolvedSEO, pageConfig } = resolveCmsRouteSeoConfig(seoKey);
     const normalizedSEO = normalizeSeoConfig(resolvedSEO);
     let titleStr = normalizedSEO.title;
@@ -2740,7 +2778,7 @@ export default function App() {
       ...(collectionSchema ? [collectionSchema] : []),
     ]);
 
-  }, [activeTab, lang, cmsSettings, selectedProduct, activeProductCategory, activeReviewType, activePageIndex, productNavOptions, reviewNavOptions, productsData, evaluationsData, currentPath, newsPaginationTotalPages, guidesPaginationTotalPages]);
+  }, [activeTab, lang, cmsSettings, selectedProduct, activeProductCategory, activeReviewType, activePageIndex, productNavOptions, reviewNavOptions, productsData, evaluationsData, currentPath, newsPaginationTotalPages, guidesPaginationTotalPages, newsArticleSeoMeta, guidesArticleSeoMeta]);
 
   const handleSelectProduct = (product: Product | null) => {
     if (product) {
@@ -3387,6 +3425,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               navigateToPath(page <= 1 ? newsPath : `${newsPath}/page/${page}`, { preserveScroll: true });
             }}
             onPaginationMetaChange={(meta) => setNewsPaginationTotalPages(meta.totalPages)}
+            onActiveArticleMeta={setNewsArticleSeoMeta}
           />
         )}
 
@@ -3507,6 +3546,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               navigateToPath(page <= 1 ? guidesPath : `${guidesPath}/page/${page}`, { preserveScroll: true });
             }}
             onPaginationMetaChange={(meta) => setGuidesPaginationTotalPages(meta.totalPages)}
+            onActiveArticleMeta={setGuidesArticleSeoMeta}
           />
         )}
 

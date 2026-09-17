@@ -3,6 +3,7 @@ import { Search, Calendar, User, Eye, BookOpen, Clock, ArrowLeft, Heart, Share2,
 import { NewsArticle, newsArticles as fallbackNewsArticles } from "../data/newsData";
 import { getD1CMSNews } from "../lib/cmsD1Service";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
+import { buildArticleSeoDescription, buildArticleSeoTitle, type ArticleSeoMeta } from "../lib/articleSeo";
 
 import Breadcrumbs from "./Breadcrumbs";
 import { getPageCopy } from "../config/pageCopy";
@@ -73,6 +74,8 @@ interface NewsSectionProps {
   onCategoryChange?: (category: string) => void;
   onArticleOpen?: (category: string, articleId: string) => void;
   onArticleClose?: () => void;
+  /** Reports the active article's SEO metadata (or null when no detail is open). */
+  onActiveArticleMeta?: (meta: ArticleSeoMeta | null) => void;
 }
 
 function parseNewsTimestamp(value: unknown): number {
@@ -144,6 +147,7 @@ export default function NewsSection({
   onCategoryChange,
   onArticleOpen,
   onArticleClose,
+  onActiveArticleMeta,
 }: NewsSectionProps) {
   const newsCopy = getPageCopy(lang).news;
   const newsDate = "2026-08-15";
@@ -172,18 +176,33 @@ export default function NewsSection({
     }
   }, [activeCategory]);
 
+  // Keep the latest callback in a ref so unmount cleanup cannot go stale.
+  const onActiveArticleMetaRef = useRef(onActiveArticleMeta);
+  onActiveArticleMetaRef.current = onActiveArticleMeta;
+  useEffect(() => () => { onActiveArticleMetaRef.current?.(null); }, []);
+
   // Sync state with activeArticleId prop
   useEffect(() => {
     if (activeArticleId) {
       const found = newsArticlesState.find((a) => isNewsArticleRouteMatch(activeArticleId, a));
       if (found) {
         setSelectedArticleState(found);
-      } else {
-        setSelectedArticleState(null);
+        // Report article-level SEO so App's global SEO effect does not overwrite
+        // the prerendered <title>/canonical with the section-homepage values.
+        onActiveArticleMetaRef.current?.({
+          title: buildArticleSeoTitle(found.title),
+          description: buildArticleSeoDescription(found.summary || found.content),
+          image: found.imageUrl,
+          canonicalPath: typeof window !== "undefined" ? window.location.pathname : "",
+        });
+        return;
       }
-    } else {
       setSelectedArticleState(null);
+      onActiveArticleMetaRef.current?.(null);
+      return;
     }
+    setSelectedArticleState(null);
+    onActiveArticleMetaRef.current?.(null);
   }, [activeArticleId, newsArticlesState]);
 
   useEffect(() => {
