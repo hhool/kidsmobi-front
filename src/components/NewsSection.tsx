@@ -6,6 +6,7 @@ import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonL
 import { buildArticleSeoDescription, buildArticleSeoTitle, buildCardExcerpt, resolveCardImage, type ArticleSeoMeta } from "../lib/articleSeo";
 
 import Breadcrumbs from "./Breadcrumbs";
+import SocialShareButtons from "./common/SocialShareButtons";
 import { getPageCopy } from "../config/pageCopy";
 import { renderRichContent } from "../lib/richContent";
 
@@ -637,6 +638,7 @@ export default function NewsSection({
                 >
                   <Heart className={`w-5 h-5 ${likedList.includes(article.id) ? "fill-current" : ""}`} />
                 </button>
+                <SocialShareButtons title={article.title} lang={lang} />
                 <button
                   onClick={(e) => handleShare(article.title, e)}
                   aria-label={newsCopy.shareAria}

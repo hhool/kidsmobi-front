@@ -162,6 +162,7 @@ function normalizeGuideArticleForLocale(article: GuideArticle, lang: "zh" | "en"
 
 import { formatWeight, formatHeight } from "../lib/units";
 import Breadcrumbs from "./Breadcrumbs";
+import SocialShareButtons from "./common/SocialShareButtons";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
 import { getProductsPageSeoTitle } from "../lib/productSeoText";
 
@@ -1940,21 +1941,24 @@ export default function GuidesSection({
                 {renderRichContent(guide.content)}
               </div>
 
-              <div className="pt-10 border-t border-slate-50 flex justify-between">
+              <div className="pt-10 border-t border-slate-50 flex justify-between items-center gap-4 flex-wrap">
                 <button
                   onClick={handleArticleClose}
                   className="px-6 py-3 bg-slate-50 text-slate-500 hover:text-slate-900 border border-slate-100 hover:border-slate-200 text-sm rounded-2xl font-black transition-all"
                 >
                   {lang === "en" ? "Back to Guides" : "完成阅读"}
                 </button>
-                {isAdmin && onOpenAdminGuideEditor && (
-                  <button
-                    onClick={() => onOpenAdminGuideEditor(String(selectedGuideState.id || ""))}
-                    className="px-6 py-3 bg-orange-500 text-white hover:bg-orange-600 border border-orange-400 text-sm rounded-2xl font-black transition-all"
-                  >
-                    {lang === "en" ? "Edit in CMS" : "转 CMS 编辑"}
-                  </button>
-                )}
+                <div className="flex gap-3 items-center">
+                  <SocialShareButtons title={guide.title} lang={lang} />
+                  {isAdmin && onOpenAdminGuideEditor && (
+                    <button
+                      onClick={() => onOpenAdminGuideEditor(String(selectedGuideState.id || ""))}
+                      className="px-6 py-3 bg-orange-500 text-white hover:bg-orange-600 border border-orange-400 text-sm rounded-2xl font-black transition-all"
+                    >
+                      {lang === "en" ? "Edit in CMS" : "转 CMS 编辑"}
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           );
