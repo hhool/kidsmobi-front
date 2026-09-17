@@ -138,12 +138,54 @@ function resolveZhCategoryTitle(category: string, text: string): string {
   return "儿童出行装备";
 }
 
+/**
+ * Physical power-type detection for scooters, based strictly on identity
+ * fields (product names + explicit specs). Never consults marketing copy.
+ * Returns true only for battery/motor-powered scooters.
+ */
+export function isElectricScooterProduct(product: Product, identityTextOverride?: string): boolean {
+  const identityText = identityTextOverride !== undefined
+    ? identityTextOverride
+    : [
+        product.name,
+        (product as Product & { en?: { name?: string } }).en?.name,
+        (product as Product & { zh?: { name?: string } }).zh?.name,
+        String((product as Product & { Product_Specifications?: Record<string, unknown> })?.Product_Specifications?.is_electric ?? ""),
+      ]
+        .map((value) => compactText(value || "").toLowerCase())
+        .join(" ");
+  return isElectricScooter(product, identityText);
+}
+
+function isElectricScooter(product: Product, identityText: string): boolean {
+  // Explicit spec flag wins when present.
+  const specFlag = (product as Product & { Product_Specifications?: Record<string, unknown> })?.Product_Specifications?.is_electric;
+  if (typeof specFlag === "boolean") return specFlag;
+  if (specFlag === "true" || specFlag === "1" || specFlag === 1) return true;
+  if (specFlag === "false" || specFlag === "0" || specFlag === 0) return false;
+  if (typeof specFlag === "string" && /^(yes|y|是)$/i.test(specFlag.trim())) return true;
+  if (typeof specFlag === "string" && /^(no|n|否)$/i.test(specFlag.trim())) return false;
+
+  return /\belectric\b|\be-?\s?scooter\b|\b\d{1,4}\s*(?:v|volt)s?\b|\b\d{2,4}\s*w(?:att)?s?\b/.test(identityText);
+}
+
 export function getProductDisplayTitle(product: Product, lang: "zh" | "en"): string {
   const localized = product as Product & {
     categoryId?: string;
     zh?: { name?: string };
     en?: { name?: string };
   };
+  // Identity fields only: names and explicit specs. Descriptions/verdicts are
+  // excluded here because scraped copy can mention "electric" incidentally
+  // (cross-sell text, safety notes), which used to mislabel kick scooters.
+  const identityText = [
+    localized.name,
+    localized.en?.name,
+    localized.zh?.name,
+    String((localized as Product & { Product_Specifications?: Record<string, unknown> })?.Product_Specifications?.is_electric ?? ""),
+  ]
+    .map((value) => compactText(value || "").toLowerCase())
+    .join(" ");
   const text = [
     localized.name,
     localized.en?.name,
@@ -171,7 +213,7 @@ export function getProductDisplayTitle(product: Product, lang: "zh" | "en"): str
   }
 
   if (isScooter) {
-    if (/\belectric\b/.test(text)) {
+    if (isElectricScooter(localized, identityText)) {
       return [brand, lang === "zh" ? "儿童电动滑板车" : "Kids Electric Scooter"].filter(Boolean).join(" ");
     }
     return lang === "zh" ? "儿童滑板车" : "Kids Scooter";

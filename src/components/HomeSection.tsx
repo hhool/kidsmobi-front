@@ -971,7 +971,7 @@ export default function HomeSection({
 
           <div className="pt-4 pb-2">
             <button
-              onClick={() => setActiveTab("guides")}
+              onClick={() => setIsWizardOpen(true)}
               className="inline-flex items-center gap-3 px-10 py-5 bg-linear-to-r from-orange-500 via-orange-500 to-amber-500 text-white text-xs md:text-sm font-black uppercase tracking-widest rounded-full shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer group"
             >
               <Zap className="w-4 h-4 text-white fill-white animate-pulse" />

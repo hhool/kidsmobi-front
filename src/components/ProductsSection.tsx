@@ -21,7 +21,8 @@ import { translateProduct, translateCategory } from "../lib/translate";
 import { localizeMaterialDisplayValue, localizeSafetyDisplayValue } from "../lib/specLexicon";
 import { formatWeight } from "../lib/units";
 import { resolveProductImages } from "../lib/productImages";
-import { getProductDisplayTitle, getProductImageAlt, getProductsPageSeoTitle } from "../lib/productSeoText";
+import { getProductDisplayTitle, getProductImageAlt, getProductsPageSeoTitle, isElectricScooterProduct } from "../lib/productSeoText";
+import CategoryComparisonTable from "./common/CategoryComparisonTable";
 import { getBackendPickerPayload } from "../lib/backendResourceService";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 import { formatCurrencyFromUsd } from "../lib/currency";
@@ -638,8 +639,12 @@ function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
   if (!summary) return "";
 
   const localizedSummary = lang === "zh" ? sanitizeZhCardSummary(summary, product.brand || "") : summary;
-  const leadSentence = pickLeadSentence(localizedSummary);
-  return truncateCardSnippet(leadSentence, 220);
+  // Structured editorial copy ("Best for: … Test notes: … Key takeaway: …")
+  // must survive intact; only unstructured marketplace-style text gets cut to
+  // its first sentence.
+  const isStructuredCopy = /^(best for|applicable age|适用年龄)\s*[:：]/i.test(localizedSummary);
+  const leadSentence = isStructuredCopy ? localizedSummary : pickLeadSentence(localizedSummary);
+  return truncateCardSnippet(leadSentence, 260);
 }
 
 function resolveCardVerdict(product: Product, lang: "zh" | "en"): string {
@@ -2323,10 +2328,25 @@ export default function ProductsSection({
                   </div>
 
                   <div className="flex justify-between items-center">
-                    <span className="bg-orange-50 text-orange-600 px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-orange-100">
-                      {getCategoryLabel(sourceCategoryId, diProduct.category)}
+                    <span className="flex items-center gap-1.5 flex-wrap">
+                      <span className="bg-orange-50 text-orange-600 px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-orange-100">
+                        {getCategoryLabel(sourceCategoryId, diProduct.category)}
+                      </span>
+                      {(() => {
+                        const cat = String(diProduct.categoryId || diProduct.category || "").toLowerCase();
+                        const isScooterCat = cat === "scooter" || cat === "scooters" || cat === "kids_scooters";
+                        if (!isScooterCat) return null;
+                        const electric = isElectricScooterProduct(diProduct);
+                        return (
+                          <span className={`px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest border ${electric ? "bg-amber-50 text-amber-700 border-amber-200" : "bg-slate-50 text-slate-500 border-slate-200"}`}>
+                            {electric
+                              ? (lang === "en" ? "Electric" : "电动")
+                              : (lang === "en" ? "Kick / Non-Electric" : "脚滑 / 无电")}
+                          </span>
+                        );
+                      })()}
                     </span>
-                    <span className="text-slate-400 text-[10px] font-black uppercase tracking-widest">{diProduct.brand}</span>
+                    <span className="text-slate-400 text-[10px] font-black uppercase tracking-widest shrink-0">{diProduct.brand}</span>
                   </div>
 
                   <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">
@@ -2434,6 +2454,17 @@ export default function ProductsSection({
             );
           })}
         </div>
+
+        {selectedCategory && selectedCategory !== "all" && (
+          <div className="mt-10">
+            <CategoryComparisonTable
+              products={filteredProducts.map((entry) => entry.product)}
+              lang={lang}
+              onSelectProduct={onSelectProduct}
+            />
+          </div>
+        )
+        }
 
         {totalPages > 1 && (
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">

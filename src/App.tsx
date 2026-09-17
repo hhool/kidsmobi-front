@@ -32,7 +32,7 @@ import { newsArticles } from "./data/newsData";
 import { ChildProfile, Product, ChatMessage, CMSSettings, Evaluation, CMSPageConfig } from "./types";
 
 // Import translations
-import { translations, translateProduct, translateNewsArticle, translateGuideArticle, countries, getCurrencyData } from "./lib/translate";
+import { translations, translateProduct, translateNewsArticle, translateGuideArticle, getCurrencyData } from "./lib/translate";
 import { formatWeight, formatHeight } from "./lib/units";
 import { resolveProductImages, normalizeMediaUrl } from "./lib/productImages";
 import { getProductDisplayTitle, getProductImageAlt, getProductsPageSeoTitle } from "./lib/productSeoText";
@@ -1440,7 +1440,7 @@ export default function App() {
   }, []);
 
   // Country & Currency State
-  const [countryCode, setCountryCode] = useState<string>(() => {
+  const [countryCode] = useState<string>(() => {
     const params = new URLSearchParams(window.location.search);
     const requestedCurrency = String(params.get("currency") || "").trim().toUpperCase();
     const countryFromCurrency = CURRENCY_TO_COUNTRY_CODE[requestedCurrency];
@@ -2745,12 +2745,15 @@ export default function App() {
         }));
       }
       if (seoKey === "products") {
-        return getPagedSlice(productsData, 9).map((product, index) => ({
-          "@type": "ListItem",
-          position: index + 1,
-          name: translateProduct(product, lang).name,
-          url: canonicalUrl,
-        }));
+        return getPagedSlice(productsData as Product[], 9).map((product: Product, index) => {
+          const detailCategory = resolveProductCategoryId(product) || "all";
+          return {
+            "@type": "ListItem",
+            position: index + 1,
+            name: translateProduct(product, lang).name,
+            url: `${canonicalOrigin}/products/${detailCategory}/${product.id}`,
+          };
+        });
       }
       return [] as Array<Record<string, unknown>>;
     })();
@@ -4062,11 +4065,21 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </a>
               </div>
               <div className="pt-2">
-                <div className="inline-flex items-center gap-2 px-3 py-1 bg-green-500/10 border border-green-500/20 rounded-full">
-                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                  <span className="text-[10px] text-green-500 font-bold tracking-tight">
-                    {lang === "en" ? "NODES ONLINE" : "实验室节点在线"}
-                  </span>
+                <div className="inline-flex flex-wrap items-center gap-2">
+                  {["ASTM F963", "CPSC", "EN 71"].map((cert) => (
+                    <a
+                      key={cert}
+                      href={TRANSPARENCY_PAGE_PATHS["certification-lab-notes"] || "/transparency/certification-lab-notes/"}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        navigateToPath(TRANSPARENCY_PAGE_PATHS["certification-lab-notes"] || "/transparency/certification-lab-notes/");
+                      }}
+                      className="px-3 py-1 bg-emerald-500/10 border border-emerald-500/25 rounded-full text-[10px] text-emerald-400 font-bold tracking-tight hover:bg-emerald-500/20 hover:border-emerald-400/40 transition-colors"
+                      title={lang === "en" ? `Children's product safety compliance: ${cert}` : `儿童产品安全合规：${cert}`}
+                    >
+                      {cert}
+                    </a>
+                  ))}
                 </div>
               </div>
             </div>
@@ -4081,7 +4094,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     : "© 2026 BalanceBikeToddler · 全球高端垂直童车评测决策平台 · 版权所有"}
                 </span>
                 <p className="text-[10px] text-slate-600">
-                  {lang === "en" ? "Automated 24h testing telemetry lab servers active" : "BalanceBikeToddler 全球安全实验室系统备案：322407969155-AIS-K2"}
+                  {lang === "en" ? "Independent physical testing lab — children's skeletal-safety focused evaluation" : "BalanceBikeToddler 独立实测实验室 · 儿童骨骼安全向评估"}
                 </p>
                 {isAdmin && (
                   <button 
@@ -4094,30 +4107,12 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 )}
               </div>
 
-              {/* Country & Currency Selector */}
+              {/* Currency display (auto-detected by region; no manual switching) */}
               <div className="flex flex-wrap items-center gap-3">
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-xl">
-                  <Globe className="w-3.5 h-3.5 text-slate-400" />
-                  <select 
-                    value={countryCode}
-                    onChange={(e) => setCountryCode(e.target.value)}
-                    className="bg-transparent text-slate-300 font-bold outline-none cursor-pointer hover:text-white transition-colors"
-                    title={lang === "zh" ? "选择国家与货币" : "Select country and currency"}
-                    aria-label={lang === "zh" ? "选择国家与货币" : "Select country and currency"}
-                  >
-                    {countries
-                      .filter((c) => ["US", "DE", "GB"].includes(c.code))
-                      .map((c) => (
-                        <option key={c.code} value={c.code} className="bg-slate-900">
-                          {lang === "zh" ? c.name : c.nameEn} ({c.currency})
-                        </option>
-                      ))}
-                  </select>
-                </div>
                 <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest bg-slate-800/50 px-3 py-1.5 rounded-lg border border-slate-800">
                   {lang === "zh" ? "结算货币：" : "Currency:"}{" "}
                   <span className="text-orange-500">
-                    {currencyData?.symbol} {currencyData?.currency} 
+                    {currencyData?.symbol} {currencyData?.currency}
                     {currencyData?.rate !== 1 && ` (1 USD = ${currencyData?.rate} ${currencyData?.currency})`}
                   </span>
                 </div>
