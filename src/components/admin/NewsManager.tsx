@@ -56,6 +56,16 @@ function parseKeywordInput(value: string): string[] {
   return value.split(/[,，\n]/).map((item) => item.trim()).filter(Boolean);
 }
 
+function slugifyNewsTitle(value: unknown, fallback = ""): string {
+  const slug = String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9\u4e00-\u9fa5]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+  return slug || fallback;
+}
+
 function normalizeNewsRecord(item: News): News {
   const seo = item.seo || {
     zh: { title: "", description: "", keywords: [] },
@@ -125,6 +135,7 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
   const handleNew = () => {
     setEditingNews(normalizeNewsRecord({
       id: `news_${Date.now()}`,
+      slug: "",
       category: "industry",
       status: "draft",
       imageUrl: "",
@@ -147,7 +158,11 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
     setSaving(true);
     setSaveError(null);
     try {
-      const saved = await saveD1CMSNews(normalizeNewsRecord(n));
+      const payload: News = {
+        ...n,
+        slug: String(n.slug || "").trim() || slugifyNewsTitle(n.en?.title || n.zh?.title, n.id),
+      };
+      const saved = await saveD1CMSNews(normalizeNewsRecord(payload));
       if (!saved) {
         throw new Error("Cloud save failed");
       }
@@ -472,7 +487,7 @@ function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving,
                 <option value="brand_news">Brand News</option>
                 <option value="science">Science & Tips</option>
               </select>
-              <p className="text-[10px] font-bold text-slate-400 mt-1">{`Path: /news/${normalizeNewsCategory(formData.category)}`}</p>
+              <p className="text-[10px] font-bold text-slate-400 mt-1">{`Path: /news/${normalizeNewsCategory(formData.category)}/${formData.slug || slugifyNewsTitle(formData.en?.title || formData.zh?.title, formData.id)}`}</p>
             </div>
 
             <div className="space-y-2">
@@ -497,6 +512,48 @@ function NewsEditor({ news, products, scenarios, onSave, onCancel, lang, saving,
                   <button onClick={() => setActiveLang("en")} className={`flex-1 py-3 rounded-xl text-[10px] font-black transition-all ${activeLang === "en" ? "bg-white shadow-sm text-slate-900" : "text-slate-400"}`}>English</button>
                </div>
             </div>
+          </section>
+
+          {/* Publishing & URL Section */}
+          <section className="space-y-4 p-8 bg-white border border-slate-100 rounded-[40px]">
+            <h4 className="text-xs font-black uppercase tracking-widest text-slate-700">
+              {lang === "zh" ? "发布与 URL" : "Publishing & URL"}
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                  {lang === "zh" ? "URL 别名 Slug" : "URL Slug"}
+                </label>
+                <input
+                  className="w-full bg-slate-50 border border-slate-200 py-3 px-4 rounded-xl text-xs font-bold"
+                  placeholder={slugifyNewsTitle(formData.en?.title || formData.zh?.title, formData.id)}
+                  value={formData.slug || ""}
+                  onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                />
+                <p className="text-[10px] font-medium text-slate-400">
+                  {lang === "zh"
+                    ? "留空则保存时按英文标题自动生成；已发布后请勿随意修改，会造成旧链接失效。"
+                    : "Leave empty to auto-generate from the English title. Do not change after publishing: old links will break."}
+                </p>
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                  {lang === "zh" ? "前台地址" : "Live URL"}
+                </label>
+                <p className="w-full bg-slate-900 text-emerald-300 rounded-xl py-3 px-4 text-xs font-mono break-all">
+                  /news/{normalizeNewsCategory(formData.category)}/{formData.slug || slugifyNewsTitle(formData.en?.title || formData.zh?.title, formData.id)}
+                </p>
+              </div>
+            </div>
+            {formData.status !== "published" && (
+              <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3">
+                <p className="text-xs font-bold text-amber-800">
+                  {lang === "zh"
+                    ? "当前为草稿状态：前台 /news 不会展示这篇。保存前请先在上方把状态改成「已发布」。"
+                    : "This story is a draft: it will not appear on /news. Switch Persistence State to Published before saving."}
+                </p>
+              </div>
+            )}
           </section>
 
           {/* Content Section */}

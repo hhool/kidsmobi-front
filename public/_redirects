@@ -13,4 +13,8 @@
 # Legacy guide slugs inherited from the import pipeline (renamed 2026-09-17).
 /guides/beginner/kidspullalongwagons-b0cs2zykc4overview /guides/beginner/best-balance-bike-for-1-year-old 301
 /guides/beginner/kidspullalongwagons-b0cs2zykc4image /guides/beginner/how-to-choose-the-perfect-baby-stroller 301
+# Legacy news slug inherited from the same pipeline (renamed 2026-09-17). The old
+# sitemap also advertised it under a slugified category (/news/newproduct/...),
+# which the app never resolved, so only the well-formed variant needs a rule.
+/news/new_product/kidspullalongwagons-b0cs2zykc4image /news/new_product/strider-bikes-kellys-juvenile-models 301
 /* /index.html 200

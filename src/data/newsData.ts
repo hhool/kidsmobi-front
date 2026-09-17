@@ -1,5 +1,7 @@
 export interface NewsArticle {
   id: string;
+  /** URL segment for /news/{category}/{slug}. Falls back to `id` when absent. */
+  slug?: string;
   title: string;
   category: "industry" | "new_product" | "regulation" | "brand_news" | "science";
   imageUrl?: string;

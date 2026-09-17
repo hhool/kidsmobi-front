@@ -262,6 +262,20 @@ type CmsGuide = {
   seo?: { en?: { title?: string; description?: string }; zh?: { title?: string; description?: string } };
 };
 
+type CmsNews = {
+  id: string;
+  slug?: string;
+  status?: string;
+  category?: string;
+  subtype?: string;
+  imageUrl?: string;
+  updatedAt?: string;
+  publishedAt?: string;
+  en?: { title?: string; summary?: string; content?: string };
+  zh?: { title?: string; summary?: string; content?: string };
+  seo?: { en?: { title?: string; description?: string }; zh?: { title?: string; description?: string } };
+};
+
 function cmsSlugify(input: unknown): string {
   const base = String(input || "")
     .trim()
@@ -271,6 +285,14 @@ function cmsSlugify(input: unknown): string {
     .replace(/-+/g, "-")
     .replace(/^-|-$/g, "");
   return base || "item";
+}
+
+/** Mirrors the Worker's routeSegment(): keep URL-safe values verbatim. */
+function cmsRouteSegment(input: unknown): string {
+  const raw = String(input || "").trim();
+  if (!raw) return "";
+  if (/^[A-Za-z0-9._~-]+$/.test(raw)) return raw;
+  return cmsSlugify(raw);
 }
 
 function guideTopicCategory(guide: CmsGuide): string {
@@ -283,6 +305,29 @@ function guideRoutePath(guide: CmsGuide): string | null {
   const topic = guideTopicCategory(guide);
   if (!slug) return null;
   return `/guides/${topic}/${slug}`;
+}
+
+/** Mirrors the Worker's deriveContentPath() for the news collection. */
+function newsRoutePath(item: CmsNews): string | null {
+  const channel = cmsRouteSegment(item.category || item.subtype) || "industry";
+  const slug =
+    cmsRouteSegment(item.slug) ||
+    cmsRouteSegment(item.id) ||
+    cmsSlugify(item.en?.title || item.zh?.title || item.id);
+  if (!slug) return null;
+  return `/news/${channel}/${slug}`;
+}
+
+const NEWS_CATEGORY_LABELS: Record<string, string> = {
+  industry: "Industry Trends",
+  new_product: "New Products",
+  brand_news: "Brand News",
+  science: "Science & Safety",
+};
+
+function newsCategoryLabel(item: CmsNews): string {
+  const key = String(item.category || "").trim();
+  return NEWS_CATEGORY_LABELS[key] || key.replace(/_/g, " ") || "Industry Trends";
 }
 
 function pickText(...values: Array<string | undefined>): string {
@@ -383,8 +428,8 @@ function renderGuideContentHtml(markdown: string): string {
   return blocks.join("\n        ");
 }
 
-async function fetchPublishedGuides(): Promise<CmsGuide[]> {
-  const url = `${CMS_BASE_URL}/api/cms/guides?onlyPublished=1`;
+async function fetchPublishedCollection<T>(collection: string): Promise<T[]> {
+  const url = `${CMS_BASE_URL}/api/cms/${collection}?onlyPublished=1`;
   try {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 15000);
@@ -400,15 +445,23 @@ async function fetchPublishedGuides(): Promise<CmsGuide[]> {
       : Array.isArray((payload as { data?: unknown })?.data)
         ? ((payload as { data: unknown[] }).data as unknown[])
         : [];
-    const guides = rows.filter((row): row is CmsGuide => Boolean(row) && typeof row === "object");
-    console.log(`[prerender] ${guides.length} published guide(s) from ${url}`);
-    return guides;
+    const records = rows.filter((row): row is T => Boolean(row) && typeof row === "object");
+    console.log(`[prerender] ${records.length} published ${collection} record(s) from ${url}`);
+    return records;
   } catch (error) {
     console.warn(
-      `[prerender] could not reach ${url} (${(error as Error).message}); falling back to bundled guide data.`,
+      `[prerender] could not reach ${url} (${(error as Error).message}); falling back to bundled data.`,
     );
     return [];
   }
+}
+
+async function fetchPublishedGuides(): Promise<CmsGuide[]> {
+  return fetchPublishedCollection<CmsGuide>("guides");
+}
+
+async function fetchPublishedNews(): Promise<CmsNews[]> {
+  return fetchPublishedCollection<CmsNews>("news");
 }
 
 function renderGuideDetailPage(guide: CmsGuide): RoutePage | null {
@@ -486,6 +539,89 @@ function renderGuideDetailPage(guide: CmsGuide): RoutePage | null {
       </section>
       <section style="padding: 22px 0 0; border-top: 1px solid #e2e8f0;">
         <p style="margin: 0; font-size: 0.9rem; color: #475569;">Continue browsing the <a href="/guides">full guide library</a>.</p>
+      </section>
+    `,
+    jsonLd: schemas,
+  };
+}
+
+function renderNewsDetailPage(item: CmsNews): RoutePage | null {
+  const route = newsRoutePath(item);
+  if (!route) return null;
+
+  const title = pickText(item.en?.title, item.zh?.title, item.id);
+  const summary = pickText(
+    item.en?.summary,
+    item.seo?.en?.description,
+    item.zh?.summary,
+    item.seo?.zh?.description,
+    "Latest kids mobility news from BalanceBikeToddler.",
+  );
+  const content = pickText(item.en?.content, item.zh?.content);
+  const channel = route.split("/")[2] || "industry";
+  const channelLabel = newsCategoryLabel(item);
+  const published = pickText(item.publishedAt, item.updatedAt).slice(0, 10) || "2026-08-15";
+  const url = `${PUBLIC_SITE_BASE}${route}`;
+  const image = pickText(item.imageUrl);
+
+  const schemas: Array<Record<string, unknown>> = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "BalanceBikeToddler",
+      url: `${PUBLIC_SITE_BASE}/`,
+      logo: `${PUBLIC_SITE_BASE}/favicon.svg`,
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "News", item: `${PUBLIC_SITE_BASE}/news` },
+        { "@type": "ListItem", position: 2, name: channelLabel, item: `${PUBLIC_SITE_BASE}/news/${channel}` },
+        { "@type": "ListItem", position: 3, name: title, item: url },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      headline: title,
+      description: summary,
+      url,
+      mainEntityOfPage: url,
+      inLanguage: "en",
+      datePublished: published,
+      dateModified: published,
+      articleSection: channelLabel,
+      ...(image ? { image: [image] } : {}),
+      author: { "@type": "Organization", name: "BalanceBikeToddler Editorial Team" },
+      publisher: {
+        "@type": "Organization",
+        name: "BalanceBikeToddler",
+        url: `${PUBLIC_SITE_BASE}/`,
+        logo: `${PUBLIC_SITE_BASE}/favicon.svg`,
+      },
+    },
+  ];
+
+  return {
+    route,
+    title,
+    description: summary,
+    body: `
+      <nav style="padding: 4px 0 16px; font-size: 0.86rem; color: #64748b;">
+        <a href="/news">News</a> › <a href="/news/${escapeHtml(channel)}">${escapeHtml(channelLabel)}</a>
+      </nav>
+      <section style="padding: 4px 0 18px;">
+        <p style="margin: 0 0 10px; font-size: 0.86rem; color: #475569; font-weight: 600;">
+          By <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="${escapeHtml(published)}">Published ${escapeHtml(published)}</time>
+        </p>
+        <p style="margin: 0 0 14px; font-size: 1.05rem; color: #334155;"><strong>Short answer:</strong> ${escapeHtml(summary)}</p>
+      </section>
+      <section style="padding: 6px 0; border-top: 1px solid #e2e8f0;">
+        ${renderGuideContentHtml(content) || `<p style="margin: 0;">${escapeHtml(summary)}</p>`}
+      </section>
+      <section style="padding: 22px 0 0; border-top: 1px solid #e2e8f0;">
+        <p style="margin: 0; font-size: 0.9rem; color: #475569;">Continue reading the <a href="/news">latest news</a> or browse the <a href="/guides">guide library</a>.</p>
       </section>
     `,
     jsonLd: schemas,
@@ -650,8 +786,30 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
   };
 }
 
-function renderNewsPage(): RoutePage {
+function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
   const articles = newsArticles.slice(0, 5);
+  const usingCmsNews = cmsNews.length > 0;
+  const listedNews: Array<{ title: string; summary: string; meta: string; url: string }> = usingCmsNews
+    ? cmsNews.flatMap((item) => {
+        const route = newsRoutePath(item);
+        if (!route) return [];
+        return [{
+          title: pickText(item.en?.title, item.zh?.title, item.id),
+          summary: pickText(
+            item.en?.summary,
+            item.seo?.en?.description,
+            "Latest kids mobility news from BalanceBikeToddler.",
+          ),
+          meta: `${newsCategoryLabel(item)} · ${pickText(item.publishedAt, item.updatedAt).slice(0, 10) || "2026-08-15"}`,
+          url: `${PUBLIC_SITE_BASE}${route}`,
+        }];
+      })
+    : articles.map((article) => ({
+        title: article.title,
+        summary: article.summary,
+        meta: `${article.categoryLabel} · ${article.readTime} · ${article.publishDate}`,
+        url: `${PUBLIC_SITE_BASE}/news/${article.category}/${article.id}`,
+      }));
   const canonical = "https://balancebiketoddler.com/news";
   const entitySameAs = [
     "https://www.youtube.com/@kidsmobi",
@@ -698,12 +856,12 @@ function renderNewsPage(): RoutePage {
       dateModified: "2026-08-15",
       mainEntity: {
         "@type": "ItemList",
-        numberOfItems: articles.length,
-        itemListElement: articles.map((article, index) => ({
+        numberOfItems: listedNews.length,
+        itemListElement: listedNews.map((item, index) => ({
           "@type": "ListItem",
           position: index + 1,
-          name: article.title,
-          url: `https://balancebiketoddler.com/news/${article.category}/${article.id}`,
+          name: item.title,
+          url: item.url,
         })),
       },
     },
@@ -740,7 +898,7 @@ function renderNewsPage(): RoutePage {
   ];
   return {
     route: "/news",
-    title: "What is changing in the market?",
+    title: usingCmsNews ? "Kids Bike & Stroller News and Industry Updates" : "What is changing in the market?",
     description: "Latest kids mobility news, product launches, and regulatory context with clear sources.",
     body: `
       <section style="padding: 22px 0;">
@@ -756,13 +914,14 @@ function renderNewsPage(): RoutePage {
       </section>
       <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Which stories are most citable?</h2>
-        ${articles.map((article) => `
+        ${listedNews.map((item) => `
           <section style="padding: 14px 0; border-top: 1px solid #f1f5f9;">
-            <h3 style="margin: 0 0 8px; font-size: 1.05rem;">${escapeHtml(article.title)}</h3>
-            <p style="margin: 0 0 8px; color: #334155;">${escapeHtml(article.summary)}</p>
-            <p style="margin: 0; font-size: 0.88rem; color: #64748b;">${escapeHtml(article.categoryLabel)} · ${escapeHtml(article.readTime)} · ${escapeHtml(article.publishDate)}</p>
+            <h3 style="margin: 0 0 8px; font-size: 1.05rem;"><a href="${escapeHtml(new URL(item.url).pathname)}">${escapeHtml(item.title)}</a></h3>
+            <p style="margin: 0 0 8px; color: #334155;">${escapeHtml(item.summary)}</p>
+            <p style="margin: 0; font-size: 0.88rem; color: #64748b;">${escapeHtml(item.meta)}</p>
           </section>
         `).join("")}
+        ${usingCmsNews ? `<p style="margin: 14px 0 0; font-size: 0.9rem; color: #475569;">${listedNews.length} published news ${listedNews.length === 1 ? "story" : "stories"}. <a href="/news">Browse the news hub</a>.</p>` : ""}
       </section>
       <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Which questions do these stories answer?</h2>
@@ -1264,6 +1423,11 @@ function renderAboutPage(): RoutePage {
  * paths only: a wildcard would turn unknown guide URLs into 404s instead of
  * letting the client router handle them.
  */
+/**
+ * Registers one exact 200-rewrite per prerendered detail page, immediately before
+ * the SPA catch-all. Exact rules are used deliberately: a wildcard would turn any
+ * unknown guide/news URL into a hard 404 instead of letting the SPA handle it.
+ */
 async function injectGuideRedirects(routes: string[]): Promise<void> {
   const redirectsPath = path.join(distDir, "_redirects");
   let content: string;
@@ -1273,18 +1437,22 @@ async function injectGuideRedirects(routes: string[]): Promise<void> {
     return;
   }
 
-  const START = "# --- generated: CMS guide detail pages ---";
+  const START = "# --- generated: CMS detail pages ---";
   const END = "# --- end generated ---";
+  // Older marker, kept so a rebuild replaces the previous block instead of stacking.
+  const LEGACY_STARTS = ["# --- generated: CMS guide detail pages ---"];
   let cleaned = content;
-  for (;;) {
-    const start = cleaned.indexOf(START);
-    if (start === -1) break;
-    const end = cleaned.indexOf(END, start);
-    if (end === -1) {
-      cleaned = cleaned.slice(0, start);
-      break;
+  for (const marker of [START, ...LEGACY_STARTS]) {
+    for (;;) {
+      const start = cleaned.indexOf(marker);
+      if (start === -1) break;
+      const end = cleaned.indexOf(END, start);
+      if (end === -1) {
+        cleaned = cleaned.slice(0, start);
+        break;
+      }
+      cleaned = `${cleaned.slice(0, start)}${cleaned.slice(end + END.length)}`.replace(/\n{3,}/g, "\n\n");
     }
-    cleaned = `${cleaned.slice(0, start)}${cleaned.slice(end + END.length)}`.replace(/\n{3,}/g, "\n\n");
   }
 
   const lines = routes.map((route) => `${route} ${route}.html 200`);
@@ -1296,7 +1464,7 @@ async function injectGuideRedirects(routes: string[]): Promise<void> {
 
   await writeFile(redirectsPath, next, "utf8");
   if (lines.length) {
-    console.log(`[prerender] _redirects: ${lines.length} guide detail rule(s) registered.`);
+    console.log(`[prerender] _redirects: ${lines.length} content detail rule(s) registered.`);
   }
 }
 
@@ -1304,24 +1472,30 @@ async function main() {
   const indexHtml = await readFile(path.join(distDir, "index.html"), "utf8");
   const appAssets = extractAppAssets(indexHtml);
 
-  const cmsGuides = await fetchPublishedGuides();
+  const [cmsGuides, cmsNews] = await Promise.all([fetchPublishedGuides(), fetchPublishedNews()]);
   const guideDetailPages = cmsGuides
     .map(renderGuideDetailPage)
     .filter((page): page is RoutePage => page !== null);
+  const newsDetailPages = cmsNews
+    .map(renderNewsDetailPage)
+    .filter((page): page is RoutePage => page !== null);
 
-  // Order matters: `/guides` is written first so its cleanup step removes the
-  // whole dist/guides folder before the detail pages recreate it.
+  // Order matters: an index route (`/guides`, `/news`) is written before its detail
+  // pages so the index's cleanup step can remove the whole route folder first.
   const pages: RoutePage[] = [
     renderProductsPage(),
     renderGuidesPage(cmsGuides),
-    renderNewsPage(),
+    renderNewsPage(cmsNews),
     renderReviewsPage(),
     renderAboutPage(),
     ...guideDetailPages,
+    ...newsDetailPages,
   ];
 
-  if (guideDetailPages.length) {
-    console.log(`[prerender] writing ${guideDetailPages.length} guide detail page(s).`);
+  if (guideDetailPages.length || newsDetailPages.length) {
+    console.log(
+      `[prerender] writing ${guideDetailPages.length} guide + ${newsDetailPages.length} news detail page(s).`,
+    );
   }
 
   for (const page of pages) {
@@ -1336,7 +1510,10 @@ async function main() {
     await writeFile(outFile, html, "utf8");
   }
 
-  await injectGuideRedirects(guideDetailPages.map((page) => page.route));
+  await injectGuideRedirects([
+    ...guideDetailPages.map((page) => page.route),
+    ...newsDetailPages.map((page) => page.route),
+  ]);
 }
 
 main().catch((error) => {

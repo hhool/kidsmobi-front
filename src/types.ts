@@ -272,6 +272,8 @@ export interface Guide {
 
 export interface News {
   id: string;
+  /** URL segment for /news/{category}/{slug}. Falls back to `id` when empty. */
+  slug?: string;
   category: string;
   status: "draft" | "published" | "archived";
   imageUrl: string;

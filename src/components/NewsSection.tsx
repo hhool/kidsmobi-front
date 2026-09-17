@@ -42,6 +42,27 @@ function normalizeAndFilterNews(articles: NewsArticle[]): NewsArticle[] {
     .filter((article) => NEWS_ALLOWED_CATEGORIES.has(article.category));
 }
 
+/** URL segment used for a news article: prefers the CMS slug, falls back to the id. */
+export function newsRouteKey(article: Pick<NewsArticle, "id" | "slug">): string {
+  return String(article.slug || "").trim() || String(article.id || "").trim();
+}
+
+/**
+ * The Worker builds sitemap URLs from the same slug/id, so a route segment can be
+ * either form. Older links may also carry the raw id for a record that now has a
+ * slug, so match on both instead of the id alone.
+ */
+export function isNewsArticleRouteMatch(candidate: string, article: Pick<NewsArticle, "id" | "slug">): boolean {
+  const target = decodeURIComponent(String(candidate || "").trim()).toLowerCase();
+  if (!target) return false;
+  const keys = [article.slug, article.id]
+    .map((value) => decodeURIComponent(String(value || "").trim()).toLowerCase())
+    .filter(Boolean);
+  if (keys.includes(target)) return true;
+  const squashed = (value: string) => value.replace(/[^a-z0-9]/g, "");
+  return keys.some((key) => squashed(key) === squashed(target));
+}
+
 interface NewsSectionProps {
   lang?: "zh" | "en";
   currentPage?: number;
@@ -154,7 +175,7 @@ export default function NewsSection({
   // Sync state with activeArticleId prop
   useEffect(() => {
     if (activeArticleId) {
-      const found = newsArticlesState.find((a) => a.id === activeArticleId);
+      const found = newsArticlesState.find((a) => isNewsArticleRouteMatch(activeArticleId, a));
       if (found) {
         setSelectedArticleState(found);
       } else {
@@ -183,7 +204,7 @@ export default function NewsSection({
 
   const handleArticleClick = (art: NewsArticle) => {
     if (onArticleOpen) {
-      onArticleOpen(art.category, art.id);
+      onArticleOpen(art.category, newsRouteKey(art));
     } else {
       setSelectedArticleState(art);
     }
@@ -276,6 +297,7 @@ export default function NewsSection({
             const normalizedCategory = normalizeNewsCategory(String(n.category || "")) || "industry";
             return {
               id: n.id,
+              slug: String((n as any).slug || "").trim() || undefined,
               title: pickLocalized(n, n.zh?.title, n.en?.title, "News Update"),
               category: normalizedCategory,
               categoryLabel: getCategoryLabel(normalizedCategory, lang),
