@@ -46,11 +46,11 @@ export async function requestJson<T>(path: string, init?: RequestInit): Promise<
   const requestUrl = resolveCMSApiPath(path);
   let lastError: Error | null = null;
 
-  // Only send Content-Type when a body is actually present. A GET carrying
-  // "Content-Type: application/json" is not a CORS-simple request, so the browser
-  // issues a preflight OPTIONS first. The apex domain answers /api/* with a 307 to
-  // the Worker host, and a redirected preflight is rejected by the browser, which
-  // silently broke every CMS read on the live site.
+  // Only send Content-Type when a body is actually present. A GET marked
+  // "Content-Type: application/json" stops being a CORS-simple request, which forces
+  // an extra preflight OPTIONS round trip for no benefit. (Verified against the live
+  // Worker: reads worked either way because /api/* is same-origin on the app host
+  // and only redirects to the Worker host, so this is a tidy-up, not a bug fix.)
   const hasBody = init?.body !== undefined && init?.body !== null;
 
   for (let attempt = 1; attempt <= 3; attempt += 1) {
