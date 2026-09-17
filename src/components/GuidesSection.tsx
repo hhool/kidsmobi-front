@@ -512,6 +512,17 @@ function isGuideArticleIdMatch(candidateId: string, guideId: string): boolean {
   return normalizeGuideArticleId(candidate) === normalizeGuideArticleId(current);
 }
 
+function isGuideArticleRouteMatch(candidateId: string, article: GuideArticle): boolean {
+  if (isGuideArticleIdMatch(candidateId, article.id)) return true;
+  const slug = String((article as any)?.slug || "").trim().toLowerCase();
+  if (!slug) return false;
+  return decodeURIComponent(String(candidateId || "").trim()).toLowerCase() === slug;
+}
+
+function getGuideArticleRouteId(article: GuideArticle): string {
+  return String((article as any)?.slug || "").trim() || article.id;
+}
+
 function productCategoryGuideLabel(product: Product, lang: "zh" | "en") {
   const text = `${product.category || ""} ${(product as any).categoryId || ""} ${product.name || ""}`.toLowerCase();
   if (text.includes("stroller")) return lang === "en" ? "baby stroller" : "婴儿推车";
@@ -704,6 +715,7 @@ export default function GuidesSection({
 }: GuidesSectionProps) {
   const guidesDate = "2026-08-15";
   const [guideArticles, setGuideArticles] = useState<GuideArticle[]>(fallbackGuideArticles);
+  const [cmsSourceActive, setCmsSourceActive] = useState<boolean>(false);
   const [loadingGuides, setLoadingGuides] = useState<boolean>(false);
   const [selectedGuideState, setSelectedGuideState] = useState<any | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -736,7 +748,7 @@ export default function GuidesSection({
 
   const handleArticleClick = (art: GuideArticle) => {
     if (onArticleOpen) {
-      onArticleOpen(art.category, art.id);
+      onArticleOpen(art.category, getGuideArticleRouteId(art));
     } else {
       setSelectedGuideState(art);
     }
@@ -806,8 +818,18 @@ export default function GuidesSection({
             return zh || en || fallback;
           };
 
+          const resolvePublishDate = (value: any): string => {
+            const raw = value?.seconds ? Number(value.seconds) * 1000 : Date.parse(String(value || ""));
+            if (Number.isFinite(raw) && raw > 0) {
+              const iso = new Date(raw).toISOString().split("T")[0];
+              if (iso && !iso.startsWith("1970")) return iso;
+            }
+            return "2026-06-15";
+          };
+
           const mapped: GuideArticle[] = dbGuides.map((g) => ({
             id: g.id,
+            slug: String((g as any)?.slug || "").trim(),
             title: pickLocalized(g, g.zh?.title, g.en?.title),
             category: normalizeGuideTopicCategory(g.taxonomy?.topicCategory || g.category),
             categoryLabel: translateCategoryLabel(String(g.taxonomy?.topicCategory || g.category || "beginner")),
@@ -817,13 +839,12 @@ export default function GuidesSection({
             content: pickLocalized(g, g.zh?.content, g.en?.content),
             author: lang === "en" ? "BalanceBikeToddler Expert Team" : "BalanceBikeToddler 专家组",
             readTime: lang === "en" ? "8 min read" : "8 分钟",
-            publishDate: g.updatedAt && g.updatedAt.seconds
-              ? new Date(g.updatedAt.seconds * 1000).toISOString().split("T")[0]
-              : "2026-06-15",
+            publishDate: resolvePublishDate(g.updatedAt),
             productCategory: normalizeGuideProductCategory(g.taxonomy?.productCategory),
             ...(g.taxonomy?.topicOrder ? { topicOrder: Number(g.taxonomy.topicOrder || 1) } : {}),
           }));
           setGuideArticles(mapped.map((item) => normalizeGuideArticleForLocale(item, lang)));
+          setCmsSourceActive(true);
           setLoadingGuides(false);
         } else {
           throw new Error("No CMS guides available, using server API fallback");
@@ -950,7 +971,10 @@ export default function GuidesSection({
   const allGuideArticles = useMemo(() => {
     const seen = new Set<string>();
     const scopedGuideArticles = guideArticles.filter(isAllowedGuideArticle);
-    return [...generatedGuideArticles, ...scopedGuideArticles].filter((article) => {
+    // Template articles built from product rows are a fallback only: once the CMS
+    // library has real content, stop injecting them into the public library.
+    const generated = cmsSourceActive && scopedGuideArticles.length > 0 ? [] : generatedGuideArticles;
+    return [...generated, ...scopedGuideArticles].filter((article) => {
       if (seen.has(article.id)) return false;
       seen.add(article.id);
       return true;
@@ -965,12 +989,12 @@ export default function GuidesSection({
         content: getLongTailGuideContent(index),
       };
     });
-  }, [guideArticles, generatedGuideArticles, lang]);
+  }, [guideArticles, generatedGuideArticles, lang, cmsSourceActive]);
 
   // Sync state with activeArticleId
   useEffect(() => {
     if (activeArticleId) {
-      const found = allGuideArticles.find((g) => isGuideArticleIdMatch(activeArticleId, g.id));
+      const found = allGuideArticles.find((g) => isGuideArticleRouteMatch(activeArticleId, g));
       if (found) {
         setSelectedGuideState(found);
       } else {
@@ -992,34 +1016,16 @@ export default function GuidesSection({
   // Dynamic automatic filtering of all library articles based on Match Wizard active category selection
   const productFilteredArticles = useMemo(() => {
     if (wizardCategory === "all") {
-      // All-category pins must be driven by CMS guide records directly.
-      // This prevents heuristic text filters from dropping explicitly configured pins.
-      const cmsPinned = guideArticles.filter((article) => getGuidePinOrder(article) > 0);
-      const cmsFeatured = guideArticles.filter(isGuideFeatured);
-      const configuredSource = cmsPinned.length > 0
-        ? cmsPinned
-        : (cmsFeatured.length > 0 ? cmsFeatured : allGuideArticles.filter(isGuideFeatured));
-
-      const dedupedByProductCategory = new Map<string, GuideArticle>();
-      const sortedForPinPick = [...configuredSource].sort((a, b) => {
-        const pinDiff = getGuidePinOrder(a) - getGuidePinOrder(b);
-        if (pinDiff !== 0) return pinDiff;
-        const priorityDiff = getGuideCategoryPriority(a) - getGuideCategoryPriority(b);
-        if (priorityDiff !== 0) return priorityDiff;
-        return String(b.publishDate || "").localeCompare(String(a.publishDate || ""));
-      });
-
-      for (const article of sortedForPinPick) {
-        const categoryKey = getGuideProductCategoryKey(article);
-        if (!dedupedByProductCategory.has(categoryKey)) {
-          dedupedByProductCategory.set(categoryKey, article);
-        }
-      }
-
-      return Array.from(dedupedByProductCategory.values());
+      // Full library. Pinned / featured rows are already floated to the top by the
+      // sort in activeArticlesList, so returning only pinned rows here would hide
+      // every CMS guide that has no pinOrder configured.
+      return allGuideArticles;
     }
-    const beginnersBible = allGuideArticles.filter(isBeginnersBibleArticle);
-    return beginnersBible.filter((article) => isArticleRelatedToProductCategory(article, wizardCategory));
+    const categoryRelated = allGuideArticles.filter((article) => isArticleRelatedToProductCategory(article, wizardCategory));
+    // Prefer the curated "Beginners' Bible" subset, but never let that text heuristic
+    // hide every real CMS guide in the category.
+    const beginnersBible = categoryRelated.filter(isBeginnersBibleArticle);
+    return beginnersBible.length > 0 ? beginnersBible : categoryRelated;
   }, [allGuideArticles, wizardCategory]);
 
   const activeArticlesList = useMemo(() => {
@@ -1066,7 +1072,6 @@ export default function GuidesSection({
 
   // Guide Article filters
   const filteredGuides = useMemo(() => {
-    const categoryLimit = 12;
     return activeArticlesList
       .map((art) => {
         const localized = translateGuideArticle(art, lang);
@@ -1080,8 +1085,7 @@ export default function GuidesSection({
           art.summary.toLowerCase().includes(query) ||
           art.content.toLowerCase().includes(query);
         return matchesCat && matchesSearch;
-      })
-      .slice(0, categoryLimit);
+      });
   }, [activeArticlesList, selectedCategory, searchQuery, lang]);
 
   const pageSize = 6;

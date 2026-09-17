@@ -245,6 +245,7 @@ export interface GuideTaxonomy {
 
 export interface Guide {
   id: string;
+  slug?: string;
   category: string;
   status: "draft" | "published" | "archived";
   pinned?: boolean;

@@ -9,4 +9,5 @@
 /products /products.html 200!
 /products/ /products 301
 /api/* https://store.balancebiketoddler.com/api/:splat 307
+/sitemap.xml https://store.balancebiketoddler.com/sitemap.xml 302
 /* /index.html 200

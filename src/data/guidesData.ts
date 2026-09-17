@@ -1,5 +1,6 @@
 export interface GuideArticle {
   id: string;
+  slug?: string;
   title: string;
   category: "beginner" | "scenario" | "budget" | "risk" | "export" | "category_spec" | "special" | "maintenance" | "best";
   categoryLabel: string;

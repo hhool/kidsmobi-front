@@ -51,11 +51,24 @@ function getTopicDisplayLabel(topic: unknown, lang: "zh" | "en"): string {
   return lang === "zh" ? option.zh : option.en;
 }
 
+function slugifyGuideTitle(value: unknown, fallback = ""): string {
+  const slug = String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9\u4e00-\u9fa5]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+  return slug || fallback;
+}
+
 function normalizeGuideTaxonomy(guide: Guide): Guide {
   const validProductCategories = new Set<string>(GUIDE_PRODUCT_CATEGORY_OPTIONS);
-  const fallbackProductCategory = validProductCategories.has(String(guide.taxonomy?.productCategory || ""))
-    ? (guide.taxonomy?.productCategory as ProductCategory)
-    : "stroller";
+  const rawProductCategory = String(guide.taxonomy?.productCategory || "").trim();
+  // Keep unknown legacy category codes (e.g. kids_pull_along_wagons) untouched:
+  // silently rewriting them to "stroller" would corrupt existing records on save.
+  const fallbackProductCategory = validProductCategories.has(rawProductCategory)
+    ? (rawProductCategory as ProductCategory)
+    : ((rawProductCategory || "stroller") as ProductCategory);
   const fallbackCategory = (guide.category || "beginner") as GuideTopicCategory;
   const topicCategory = GUIDE_TOPIC_OPTIONS.some((item) => item.value === fallbackCategory)
     ? fallbackCategory
@@ -100,6 +113,7 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
   const [migratingTaxonomy, setMigratingTaxonomy] = useState(false);
   const [autoPinning, setAutoPinning] = useState(false);
   const [topicFilter, setTopicFilter] = useState<"all" | GuideTopicCategory>("all");
+  const [statusFilter, setStatusFilter] = useState<"all" | Guide["status"]>("all");
   const [selectedGuideIds, setSelectedGuideIds] = useState<string[]>([]);
   const [deletingSelection, setDeletingSelection] = useState(false);
 
@@ -254,7 +268,22 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
     setSaving(true);
     setSaveError(null);
     try {
-      const saved = await saveD1CMSGuide(g);
+      const hasTitle = Boolean(String(g.en?.title || "").trim() || String(g.zh?.title || "").trim());
+      const hasContent = Boolean(String(g.en?.content || "").trim() || String(g.zh?.content || "").trim());
+      if (g.status === "published" && (!hasTitle || !hasContent)) {
+        throw new Error(
+          lang === "zh"
+            ? "发布失败：标题和正文不能为空，请先补全中/英任一语言的内容再发布。"
+            : "Publish blocked: title and content are required before a guide can be published.",
+        );
+      }
+
+      const payload: Guide = {
+        ...g,
+        slug: String(g.slug || "").trim() || slugifyGuideTitle(g.en?.title || g.zh?.title, g.id),
+      };
+
+      const saved = await saveD1CMSGuide(payload);
       if (!saved) {
         throw new Error("Cloud save failed");
       }
@@ -378,13 +407,19 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
         if (topicFilter === "all") return true;
         return (guide.taxonomy?.topicCategory || guide.category) === topicFilter;
       })
+      .filter((guide) => {
+        if (statusFilter === "all") return true;
+        return (guide.status || "draft") === statusFilter;
+      })
       .sort((a, b) => {
+        const statusDiff = Number(String(b.status || "") === "published") - Number(String(a.status || "") === "published");
+        if (statusDiff !== 0) return statusDiff;
         const topicA = Number(a.taxonomy?.topicOrder || 9999);
         const topicB = Number(b.taxonomy?.topicOrder || 9999);
         if (topicA !== topicB) return topicA - topicB;
         return String(b.updatedAt || "").localeCompare(String(a.updatedAt || ""));
       });
-  }, [guides, topicFilter]);
+  }, [guides, topicFilter, statusFilter]);
 
   useEffect(() => {
     const visibleIds = new Set(visibleGuides.map((guide) => guide.id));
@@ -416,19 +451,39 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
         <div>
           <h2 className="text-3xl font-black text-slate-900 tracking-tighter uppercase">{lang === "zh" ? "选购指南" : "Buying Guides"}</h2>
           <p className="text-slate-500 font-medium mt-1">SEOized cornerstone content for global conversion.</p>
-          <div className="mt-3">
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">
-              {lang === "zh" ? "三级栏目筛选" : "Topic Filter"}
-            </label>
-            <select
-              className="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-700"
-              value={topicFilter}
-              onChange={(e) => setTopicFilter(e.target.value as "all" | GuideTopicCategory)}
-            >
-              {GUIDE_FILTER_OPTIONS.map((item) => (
-                <option key={item.value} value={item.value}>{lang === "zh" ? item.zh : item.en}</option>
-              ))}
-            </select>
+          <div className="mt-3 flex items-end gap-3">
+            <div>
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">
+                {lang === "zh" ? "三级栏目筛选" : "Topic Filter"}
+              </label>
+              <select
+                className="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-700"
+                value={topicFilter}
+                onChange={(e) => setTopicFilter(e.target.value as "all" | GuideTopicCategory)}
+              >
+                {GUIDE_FILTER_OPTIONS.map((item) => (
+                  <option key={item.value} value={item.value}>{lang === "zh" ? item.zh : item.en}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">
+                {lang === "zh" ? "发布状态" : "Status Filter"}
+              </label>
+              <select
+                className="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-700"
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value as "all" | Guide["status"])}
+              >
+                <option value="all">{lang === "zh" ? "全部状态" : "All Status"}</option>
+                <option value="published">{lang === "zh" ? "已发布" : "Published"}</option>
+                <option value="draft">{lang === "zh" ? "草稿" : "Draft"}</option>
+                <option value="archived">{lang === "zh" ? "已归档" : "Archived"}</option>
+              </select>
+            </div>
+            <div className="pb-2 text-[11px] font-black text-slate-400 uppercase tracking-widest">
+              {visibleGuides.length} / {guides.length}
+            </div>
           </div>
         </div>
         <div className="flex items-center gap-3">
@@ -644,7 +699,29 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <button onClick={onCancel} disabled={saving} className="px-8 py-3 text-slate-400 font-black hover:text-slate-900 transition-colors disabled:opacity-50">Discard</button>
+            <div className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2">
+              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">{lang === "zh" ? "状态" : "Status"}</span>
+              <select
+                className="bg-transparent text-xs font-black uppercase tracking-widest text-slate-900 outline-none cursor-pointer"
+                value={formData.status || "draft"}
+                onChange={(e) => setFormData((prev) => ({ ...prev, status: e.target.value as Guide["status"] }))}
+              >
+                <option value="draft">{lang === "zh" ? "草稿 Draft" : "Draft"}</option>
+                <option value="published">{lang === "zh" ? "已发布 Published" : "Published"}</option>
+                <option value="archived">{lang === "zh" ? "已归档 Archived" : "Archived"}</option>
+              </select>
+            </div>
+            <button
+              onClick={() => {
+                if (window.confirm(lang === "zh" ? "放弃未保存的修改？" : "Discard unsaved changes?")) {
+                  onCancel();
+                }
+              }}
+              disabled={saving}
+              className="px-8 py-3 text-slate-400 font-black hover:text-slate-900 transition-colors disabled:opacity-50"
+            >
+              Discard
+            </button>
             <button 
               onClick={() => onSave(formData)}
               disabled={saving}
@@ -658,7 +735,11 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
               ) : (
                 <>
                   <Save className="w-5 h-5 text-blue-400" />
-                  <span>{lang === "zh" ? "保存并发布" : "Commit Guide"}</span>
+                  <span>
+                    {formData.status === "published"
+                      ? (lang === "zh" ? "保存并发布" : "Save & Publish")
+                      : (lang === "zh" ? "保存为草稿" : "Save Draft")}
+                  </span>
                 </>
               )}
             </button>
@@ -704,6 +785,38 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
 
             {activeTab === "content" && (
               <div className="max-w-3xl mx-auto space-y-10">
+                <section className="space-y-4 bg-white border border-slate-100 rounded-2xl p-6">
+                  <h4 className="text-xs font-black uppercase tracking-widest text-slate-700">{lang === "zh" ? "发布与 URL" : "Publishing & URL"}</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{lang === "zh" ? "URL 别名 Slug" : "URL Slug"}</label>
+                      <input
+                        className="w-full bg-slate-50 border border-slate-200 py-3 px-4 rounded-xl text-xs font-bold"
+                        placeholder={slugifyGuideTitle(formData.en?.title || formData.zh?.title, formData.id)}
+                        value={formData.slug || ""}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, slug: e.target.value }))}
+                      />
+                      <p className="text-[10px] font-medium text-slate-400">
+                        {lang === "zh" ? "留空则保存时按英文标题自动生成；已发布后请勿随意修改，会造成旧链接失效。" : "Leave empty to auto-generate from the English title. Do not change after publishing: old links will break."}
+                      </p>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{lang === "zh" ? "前台地址" : "Live URL"}</label>
+                      <p className="w-full bg-slate-900 text-emerald-300 rounded-xl py-3 px-4 text-xs font-mono break-all">
+                        /guides/{formData.taxonomy?.topicCategory || formData.category || "beginner"}/{formData.slug || slugifyGuideTitle(formData.en?.title || formData.zh?.title, formData.id)}
+                      </p>
+                    </div>
+                  </div>
+                  {formData.status !== "published" && (
+                    <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3">
+                      <p className="text-xs font-bold text-amber-800">
+                        {lang === "zh"
+                          ? "当前为草稿状态：前台 /guides 不会展示这篇文章。保存前请先在右上角把状态改成「已发布」。"
+                          : "This guide is a draft: it will not appear on /guides. Switch status to Published (top right) before saving."}
+                      </p>
+                    </div>
+                  )}
+                </section>
                 <section className="space-y-4 bg-white border border-slate-100 rounded-2xl p-6">
                   <h4 className="text-xs font-black uppercase tracking-widest text-slate-700">{lang === "zh" ? "跨模块关联" : "Cross-module Linkage"}</h4>
                     <div className="flex items-center justify-between gap-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3">
@@ -752,6 +865,11 @@ function GuideEditor({ guide, products, scenarios, onSave, onCancel, lang, savin
                         {GUIDE_PRODUCT_CATEGORY_OPTIONS.map((code) => (
                           <option key={code} value={code}>{code}</option>
                         ))}
+                        {!GUIDE_PRODUCT_CATEGORY_OPTIONS.includes((formData.taxonomy?.productCategory || "stroller") as ProductCategory) && (
+                          <option value={formData.taxonomy?.productCategory}>
+                            {String(formData.taxonomy?.productCategory)} (legacy)
+                          </option>
+                        )}
                       </select>
                     </div>
 
