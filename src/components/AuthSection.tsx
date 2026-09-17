@@ -26,7 +26,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../lib/firebase";
 import { ensureUserProfileInFirestore } from "../lib/firestoreService";
-import { sendAuthEmailCode, verifyAuthEmailCode } from "../lib/cmsService";
+import { sendAuthEmailCode, verifyAuthEmailCode } from "../lib/cmsAuth";
 import { translateProduct } from "../lib/translate";
 import { formatCurrencyFromUsd } from "../lib/currency";
 import { formatWeight } from "../lib/units";

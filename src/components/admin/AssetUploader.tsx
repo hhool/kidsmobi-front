@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { uploadAssetFile, deleteAssetFile } from "../../lib/upload";
-import { listAssetMetadata as listAssetCatalog } from "../../lib/firestoreAssetHelper";
+import { listAssetMetadata as listAssetCatalog } from "../../lib/assetStore";
 import { Copy, Check, UploadCloud, Image as ImageIcon, Video, Loader2, Folder, ChevronRight, Home, Trash2, FileText, Search } from "lucide-react";
 
 export default function AssetUploader({ lang = "zh", onUploaded }: { lang?: "zh" | "en", onUploaded?: (url: string, key: string) => void }) {

@@ -10,9 +10,8 @@ import {
   Trash2
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { getCMSGuides, saveCMSGuide, deleteCMSGuide, getCMSProducts, getCMSScenarios, migrateCMSGuidesTaxonomy } from "../../lib/cmsService";
 import { Guide, RiskCard, CMSProduct, CMSScenario, ProductCategory, GuideTopicCategory } from "../../types";
-import { deleteD1CMSGuide, getD1CMSGuides, getD1CMSProducts, getD1CMSScenarios, saveD1CMSGuide, migrateD1CMSGuidesTaxonomy } from "../../lib/cmsD1Service";
+import { getD1CMSGuides, getD1CMSProducts, getD1CMSScenarios, saveD1CMSGuide, deleteD1CMSGuide, migrateD1CMSGuidesTaxonomy } from "../../lib/cmsD1Service";
 import BackendResourcePicker from "./BackendResourcePicker";
 import ScenarioPicker from "./ScenarioPicker";
 import RichTextEditor from "../common/RichTextEditor";
@@ -118,36 +117,11 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
   }, [focusGuideId, guides, onFocusGuideHandled]);
 
   const fetchData = async () => {
-    let guidesData: Guide[] = [];
-    let productsData: CMSProduct[] = [];
-    let scenariosData: CMSScenario[] = [];
-
-    try {
-      guidesData = await getD1CMSGuides(false);
-    } catch {
-      guidesData = [];
-    }
-    if (guidesData.length === 0) {
-      guidesData = await getCMSGuides();
-    }
-
-    try {
-      productsData = await getD1CMSProducts(false);
-    } catch {
-      productsData = [];
-    }
-    if (productsData.length === 0) {
-      productsData = await getCMSProducts();
-    }
-
-    try {
-      scenariosData = await getD1CMSScenarios(true);
-    } catch {
-      scenariosData = [];
-    }
-    if (scenariosData.length === 0) {
-      scenariosData = await getCMSScenarios(true);
-    }
+    const [guidesData, productsData, scenariosData] = await Promise.all([
+      getD1CMSGuides(false),
+      getD1CMSProducts(false),
+      getD1CMSScenarios(true),
+    ]);
 
     setGuides(guidesData);
     setProducts(productsData);
@@ -155,15 +129,7 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
   };
 
   const deleteGuideRecord = async (id: string) => {
-    try {
-      const deleted = await deleteD1CMSGuide(id);
-      if (!deleted) {
-        throw new Error("D1 delete failed");
-      }
-      return true;
-    } catch {
-      return deleteCMSGuide(id);
-    }
+    return deleteD1CMSGuide(id);
   };
 
   const handleDelete = async (id: string) => {
@@ -268,12 +234,7 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
 
     setMigratingTaxonomy(true);
     try {
-      let result: { processed: number; updated: number } | null = null;
-      try {
-        result = await migrateD1CMSGuidesTaxonomy();
-      } catch {
-        result = await migrateCMSGuidesTaxonomy();
-      }
+      const result = await migrateD1CMSGuidesTaxonomy();
 
       alert(
         isZh
@@ -293,13 +254,9 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
     setSaving(true);
     setSaveError(null);
     try {
-      try {
-        const saved = await saveD1CMSGuide(g);
-        if (!saved) {
-          throw new Error("D1 save failed");
-        }
-      } catch {
-        await saveCMSGuide(g);
+      const saved = await saveD1CMSGuide(g);
+      if (!saved) {
+        throw new Error("Cloud save failed");
       }
       setEditingGuide(null);
       fetchData();
@@ -323,14 +280,7 @@ export default function GuideManager({ lang, focusGuideId, onFocusGuideHandled }
   };
 
   const saveGuideRecord = async (g: Guide) => {
-    try {
-      const saved = await saveD1CMSGuide(g);
-      if (!saved) {
-        throw new Error("D1 save failed");
-      }
-    } catch {
-      await saveCMSGuide(g);
-    }
+    await saveD1CMSGuide(g);
   };
 
   const getGuideUpdatedAtMillis = (value: any): number => {

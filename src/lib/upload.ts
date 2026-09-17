@@ -1,4 +1,4 @@
-import { saveAssetMetadata, deleteAssetMetadata } from "./firestoreAssetHelper";
+import { saveAssetMetadata, deleteAssetMetadata } from "./assetStore";
 
 export async function uploadAssetFile(file: File, targetKey: string) {
   // 1. Get Presigned URL (or local upload URL)
@@ -27,7 +27,7 @@ export async function uploadAssetFile(file: File, targetKey: string) {
     if (!uploadRes.ok) throw new Error("Cloud upload failed");
   }
 
-  // 3. Save metadata to Firestore
+  // 3. Save metadata to D1 (via Worker API)
   await saveAssetMetadata({
     key: targetKey,
     url: publicUrl,
@@ -49,6 +49,6 @@ export async function deleteAssetFile(key: string) {
     throw new Error("Failed to delete physical file from storage.");
   }
   
-  // 2. Delete metadata from Firestore
+  // 2. Delete metadata from D1
   await deleteAssetMetadata(key);
 }

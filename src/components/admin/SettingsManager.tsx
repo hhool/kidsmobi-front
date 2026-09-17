@@ -12,7 +12,7 @@ import {
   CheckCircle2
 } from "lucide-react";
 import { motion } from "motion/react";
-import { getCMSSettings, saveCMSSettings, getCMSProducts, getCMSEvaluations, getCMSGuides } from "../../lib/cmsService";
+import { getD1CMSSettings, saveD1CMSSettings, getD1CMSProducts, getD1CMSEvaluations, getD1CMSGuides } from "../../lib/cmsD1Service";
 import { CMSSettings, HomeSlot } from "../../types";
 import { DEFAULT_SEO_CONFIGS } from "../../config/defaultSeo";
 import { OPS_COPY } from "./operationsConfig";
@@ -126,10 +126,10 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
 
   const fetchData = async () => {
     const [s, p, e, g] = await Promise.all([
-      getCMSSettings(),
-      getCMSProducts(),
-      getCMSEvaluations(),
-      getCMSGuides()
+      getD1CMSSettings(),
+      getD1CMSProducts(),
+      getD1CMSEvaluations(),
+      getD1CMSGuides()
     ]);
     
     const defaultSeo = DEFAULT_SEO_CONFIGS;
@@ -281,7 +281,7 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
       setSaveError(null);
       setSaveSuccess(null);
       try {
-        await saveCMSSettings(settings);
+        await saveD1CMSSettings(settings);
         setSaveSuccess(lang === "zh" ? "店铺配置更新成功！已成功同步到云端 CMS。" : "Store configuration updated successfully and synced to cloud CMS.");
         setTimeout(() => setSaveSuccess(null), 4000);
       } catch (e: any) {

@@ -1,4 +1,4 @@
-import { CMSCategory, CMSProduct, CMSScenario, Evaluation, Guide, News } from "../types";
+import { CMSCategory, CMSProduct, CMSScenario, CMSSettings, Evaluation, Guide, News } from "../types";
 
 export type CMSOpsCollection =
   | "products"
@@ -42,7 +42,7 @@ function sanitizeListRows<T>(rows: unknown): T[] {
   return rows.filter((item): item is T => Boolean(item && typeof item === "object"));
 }
 
-async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
+export async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
   const requestUrl = resolveCMSApiPath(path);
   let lastError: Error | null = null;
 
@@ -244,6 +244,22 @@ export async function deleteD1CMSProduct(id: string): Promise<boolean> {
     body: JSON.stringify({ id }),
   });
   return Boolean(response?.data?.deleted);
+}
+
+export async function getD1CMSSettings(): Promise<CMSSettings | null> {
+  const response = await requestJson<{ data?: CMSSettings | CMSSettings[] | null }>("/api/cms/settings");
+  if (Array.isArray(response?.data)) {
+    return (response.data[0] as CMSSettings) || null;
+  }
+  return (response?.data as CMSSettings | null) || null;
+}
+
+export async function saveD1CMSSettings(settings: CMSSettings): Promise<boolean> {
+  const response = await requestJson<{ data?: { saved?: boolean } }>("/api/cms/settings/save", {
+    method: "POST",
+    body: JSON.stringify(settings),
+  });
+  return Boolean(response?.data?.saved);
 }
 
 export async function getD1Health(): Promise<{ configured: boolean; healthy: boolean }> {

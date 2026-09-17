@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { Search, Calendar, User, Eye, BookOpen, Clock, ArrowLeft, Heart, Share2, Globe, Zap } from "lucide-react";
 import { NewsArticle, newsArticles as fallbackNewsArticles } from "../data/newsData";
-import { getCMSNews } from "../lib/cmsService";
+import { getD1CMSNews } from "../lib/cmsD1Service";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
 
 import Breadcrumbs from "./Breadcrumbs";
@@ -248,7 +248,7 @@ export default function NewsSection({
   useEffect(() => {
     setLoadingNews(true);
     // 1. Fetch editable CMS news from current CMS API.
-    getCMSNews(true)
+    getD1CMSNews(true)
       .then((dbNews) => {
         if (dbNews && dbNews.length > 0) {
           const pickLocalized = (

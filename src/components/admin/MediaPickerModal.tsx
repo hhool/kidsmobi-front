@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { X, Search, UploadCloud, Loader2, Image as ImageIcon, FileText, Check, Copy } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { listAssetMetadata as listAssetCatalog } from "../../lib/firestoreAssetHelper";
+import { listAssetMetadata as listAssetCatalog } from "../../lib/assetStore";
 import { uploadAssetFile } from "../../lib/upload";
 
 export type MediaPickerAccept = "image" | "video" | "all";

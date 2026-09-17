@@ -61,7 +61,8 @@ import {
   removeBookmarkFromFirestore,
   saveChildProfileToFirestore,
 } from "./lib/firestoreService";
-import { checkIsAdmin, getCMSSettings, getCMSProducts, getCMSEvaluations } from "./lib/cmsService";
+import { checkIsAdmin } from "./lib/cmsAuth";
+import { getD1CMSSettings, getD1CMSProducts, getD1CMSEvaluations } from "./lib/cmsD1Service";
 import { fetchContentBundle, isScrapedContentSource } from "./lib/contentSource";
 import { DEFAULT_SEO_CONFIGS, normalizeSeoConfig, SEO_TDK_LIMITS } from "./config/defaultSeo";
 import { getProductSeoKeywords, getReviewSeoKeywords } from "./config/seoKeywordMap";
@@ -1649,13 +1650,13 @@ export default function App() {
     let isActive = true;
 
     const loadCmsData = async () => {
-      const s = await getCMSSettings();
+      const s = await getD1CMSSettings();
       if (!isActive) return;
       if (s) {
         setCmsSettings(s);
       }
 
-      const publishedProducts = await getCMSProducts(true);
+      const publishedProducts = await getD1CMSProducts(true);
       if (!isActive) return;
       if (publishedProducts && publishedProducts.length > 0) {
         let nextProducts = enforcePublishedVisibility(publishedProducts);
@@ -1705,7 +1706,7 @@ export default function App() {
         }
       }
 
-      const evs = await getCMSEvaluations(true);
+      const evs = await getD1CMSEvaluations(true);
       if (!isActive) return;
       setEvaluationsData(evs);
     };

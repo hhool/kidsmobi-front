@@ -11,7 +11,6 @@ import {
   FileText
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { getCMSNews, saveCMSNews, deleteCMSNews, getCMSProducts, getCMSScenarios } from "../../lib/cmsService";
 import { News } from "../../types";
 import { CMSProduct, CMSScenario } from "../../types";
 import { deleteD1CMSNews, getD1CMSNews, getD1CMSProducts, getD1CMSScenarios, saveD1CMSNews } from "../../lib/cmsD1Service";
@@ -91,36 +90,11 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
   }, []);
 
   const fetchData = async () => {
-    let newsData: News[] = [];
-    let productsData: CMSProduct[] = [];
-    let scenariosData: CMSScenario[] = [];
-
-    try {
-      newsData = await getD1CMSNews(false);
-    } catch {
-      newsData = [];
-    }
-    if (newsData.length === 0) {
-      newsData = await getCMSNews();
-    }
-
-    try {
-      productsData = await getD1CMSProducts(false);
-    } catch {
-      productsData = [];
-    }
-    if (productsData.length === 0) {
-      productsData = await getCMSProducts();
-    }
-
-    try {
-      scenariosData = await getD1CMSScenarios(true);
-    } catch {
-      scenariosData = [];
-    }
-    if (scenariosData.length === 0) {
-      scenariosData = await getCMSScenarios(true);
-    }
+    const [newsData, productsData, scenariosData] = await Promise.all([
+      getD1CMSNews(false),
+      getD1CMSProducts(false),
+      getD1CMSScenarios(true),
+    ]);
 
     setNews(newsData.map(normalizeNewsRecord));
     setProducts(productsData);
@@ -135,15 +109,7 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
 
     if (window.confirm(confirmMsg)) {
       try {
-        let success = false;
-        try {
-          success = await deleteD1CMSNews(id);
-          if (!success) {
-            throw new Error("D1 delete failed");
-          }
-        } catch {
-          success = await deleteCMSNews(id);
-        }
+        const success = await deleteD1CMSNews(id);
         if (success) {
           fetchData();
         } else {
@@ -181,13 +147,9 @@ export default function NewsManager({ lang }: { lang: "zh" | "en" }) {
     setSaving(true);
     setSaveError(null);
     try {
-      try {
-        const saved = await saveD1CMSNews(normalizeNewsRecord(n));
-        if (!saved) {
-          throw new Error("D1 save failed");
-        }
-      } catch {
-        await saveCMSNews(normalizeNewsRecord(n));
+      const saved = await saveD1CMSNews(normalizeNewsRecord(n));
+      if (!saved) {
+        throw new Error("Cloud save failed");
       }
       setEditingNews(null);
       fetchData();

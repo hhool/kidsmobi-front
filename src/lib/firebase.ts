@@ -1,13 +1,10 @@
 import { initializeApp } from "firebase/app";
 import { browserLocalPersistence, getAuth, setPersistence } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
 import firebaseConfig from "../../firebase-applet-config.json";
 
+// Auth-only Firebase setup. Firestore metadata (CMS content, asset catalog)
+// now lives in Cloudflare D1 behind the Worker API — see cmsD1Service.ts.
 const app = initializeApp(firebaseConfig);
-export const dbDefault = getFirestore(app);
-export const db = firebaseConfig.firestoreDatabaseId 
-  ? getFirestore(app, firebaseConfig.firestoreDatabaseId)
-  : dbDefault;
 export const auth = getAuth(app);
 
 void setPersistence(auth, browserLocalPersistence).catch((error) => {

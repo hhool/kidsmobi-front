@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Plus, Save, Trash2 } from "lucide-react";
 import { CMSScenario } from "../../types";
-import { deleteCMSScenario, getCMSScenarios, saveCMSScenario } from "../../lib/cmsService";
 import { deleteD1CMSScenario, getD1CMSScenarios, saveD1CMSScenario } from "../../lib/cmsD1Service";
 
 export default function ScenarioManager({ lang }: { lang: "zh" | "en" }) {
@@ -10,16 +9,7 @@ export default function ScenarioManager({ lang }: { lang: "zh" | "en" }) {
   const [saving, setSaving] = useState(false);
 
   async function refresh() {
-    try {
-      const data = await getD1CMSScenarios(false);
-      if (data.length > 0) {
-        setItems(data);
-        return;
-      }
-    } catch {
-      // fallback
-    }
-    const data = await getCMSScenarios(false);
+    const data = await getD1CMSScenarios(false);
     setItems(data);
   }
 
@@ -47,13 +37,9 @@ export default function ScenarioManager({ lang }: { lang: "zh" | "en" }) {
     }
     setSaving(true);
     try {
-      try {
-        const saved = await saveD1CMSScenario(editing);
-        if (!saved) {
-          throw new Error("D1 save failed");
-        }
-      } catch {
-        await saveCMSScenario(editing);
+      const saved = await saveD1CMSScenario(editing);
+      if (!saved) {
+        throw new Error("Cloud save failed");
       }
       setEditing(null);
       await refresh();
@@ -68,10 +54,11 @@ export default function ScenarioManager({ lang }: { lang: "zh" | "en" }) {
     try {
       const deleted = await deleteD1CMSScenario(id);
       if (!deleted) {
-        throw new Error("D1 delete failed");
+        throw new Error("Cloud delete failed");
       }
-    } catch {
-      await deleteCMSScenario(id);
+    } catch (error: any) {
+      alert((lang === "zh" ? "删除失败：" : "Delete failed: ") + String(error?.message || error || ""));
+      return;
     }
     if (editing?.id === id) setEditing(null);
     await refresh();

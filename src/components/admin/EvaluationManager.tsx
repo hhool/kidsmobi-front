@@ -12,7 +12,6 @@ import {
   FileText
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { getCMSEvaluations, saveCMSEvaluation, getCMSProducts, deleteCMSEvaluation } from "../../lib/cmsService";
 import { Evaluation, CMSProduct, Product, RadarScores } from "../../types";
 import { deleteD1CMSEvaluation, getD1CMSEvaluations, getD1CMSProducts, saveD1CMSEvaluation } from "../../lib/cmsD1Service";
 import { getFrontVisibleEvaluations } from "../EvaluationsSection";
@@ -102,26 +101,10 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
   }, [editingEv]);
 
   const fetchData = async () => {
-    let evs: Evaluation[] = [];
-    let prods: CMSProduct[] = [];
-
-    try {
-      evs = await getD1CMSEvaluations(false);
-    } catch {
-      evs = [];
-    }
-    if (evs.length === 0) {
-      evs = await getCMSEvaluations();
-    }
-
-    try {
-      prods = await getD1CMSProducts(false);
-    } catch {
-      prods = [];
-    }
-    if (prods.length === 0) {
-      prods = await getCMSProducts();
-    }
+    const [evs, prods] = await Promise.all([
+      getD1CMSEvaluations(false),
+      getD1CMSProducts(false),
+    ]);
 
     setEvaluations(evs.map((item) => normalizeEvaluationRecord(item)));
     setProducts(prods);
@@ -135,15 +118,7 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
 
     if (window.confirm(confirmMsg)) {
       try {
-        let success = false;
-        try {
-          success = await deleteD1CMSEvaluation(id);
-          if (!success) {
-            throw new Error("D1 delete failed");
-          }
-        } catch {
-          success = await deleteCMSEvaluation(id);
-        }
+        const success = await deleteD1CMSEvaluation(id);
         if (success) {
           fetchData();
         } else {
@@ -359,12 +334,11 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
         try {
           const saved = await saveD1CMSEvaluation(payload);
           if (!saved) {
-            throw new Error("D1 save failed");
+            throw new Error("Cloud save failed");
           }
           success += 1;
-        } catch {
-          await saveCMSEvaluation(payload);
-          success += 1;
+        } catch (saveErr) {
+          console.error("Evaluation draft save failed:", saveErr);
         }
       }
 
@@ -405,13 +379,9 @@ export default function EvaluationManager({ lang }: { lang: "zh" | "en" }) {
             }
           : ev,
       );
-      try {
-        const saved = await saveD1CMSEvaluation(payload);
-        if (!saved) {
-          throw new Error("D1 save failed");
-        }
-      } catch {
-        await saveCMSEvaluation(payload);
+      const saved = await saveD1CMSEvaluation(payload);
+      if (!saved) {
+        throw new Error("Cloud save failed");
       }
       setEditingEv(null);
       fetchData();

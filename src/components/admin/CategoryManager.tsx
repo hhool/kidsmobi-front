@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Plus, Save, Trash2 } from "lucide-react";
 import { CMSCategory, ProductCategory } from "../../types";
-import { deleteCMSCategory, getCMSCategories, saveCMSCategory } from "../../lib/cmsService";
 import { deleteD1CMSCategory, getD1CMSCategories, saveD1CMSCategory } from "../../lib/cmsD1Service";
 
 const categoryCodes: ProductCategory[] = [
@@ -134,16 +133,7 @@ export default function CategoryManager({ lang }: { lang: "zh" | "en" }) {
   const [saving, setSaving] = useState(false);
 
   async function refresh() {
-    try {
-      const data = await getD1CMSCategories(false);
-      if (data.length > 0) {
-        setItems(data);
-        return;
-      }
-    } catch {
-      // fallback to CMS API service
-    }
-    const data = await getCMSCategories(false);
+    const data = await getD1CMSCategories(false);
     setItems(data);
   }
 
@@ -233,13 +223,9 @@ export default function CategoryManager({ lang }: { lang: "zh" | "en" }) {
 
     setSaving(true);
     try {
-      try {
-        const saved = await saveD1CMSCategory(editing);
-        if (!saved) {
-          throw new Error("D1 save failed");
-        }
-      } catch {
-        await saveCMSCategory(editing);
+      const saved = await saveD1CMSCategory(editing);
+      if (!saved) {
+        throw new Error("Cloud save failed");
       }
       setEditing(null);
       await refresh();
@@ -261,10 +247,11 @@ export default function CategoryManager({ lang }: { lang: "zh" | "en" }) {
     try {
       const deleted = await deleteD1CMSCategory(id);
       if (!deleted) {
-        throw new Error("D1 delete failed");
+        throw new Error("Cloud delete failed");
       }
-    } catch {
-      await deleteCMSCategory(id);
+    } catch (error: any) {
+      alert((lang === "zh" ? "删除失败：" : "Delete failed: ") + String(error?.message || error || ""));
+      return;
     }
     if (editing?.id === id) setEditing(null);
     await refresh();

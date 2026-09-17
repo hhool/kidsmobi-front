@@ -23,7 +23,7 @@ import { GuideArticle, guideArticles as fallbackGuideArticles } from "../data/gu
 import { Product, CurrencyData } from "../types";
 import { translateProduct, translateGuideArticle } from "../lib/translate";
 import { convertUsdToCurrency, formatCurrencyFromUsd } from "../lib/currency";
-import { getCMSGuides } from "../lib/cmsService";
+import { getD1CMSGuides } from "../lib/cmsD1Service";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 import { resolveProductImages, FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
 import { renderRichContent } from "../lib/richContent";
@@ -794,7 +794,7 @@ export default function GuidesSection({
   useEffect(() => {
     setLoadingGuides(true);
     // 1. Try fetching editable CMS guides from CMS API first
-    getCMSGuides(true)
+    getD1CMSGuides(true)
       .then((dbGuides) => {
         if (dbGuides && dbGuides.length > 0) {
           const pickLocalized = (item: any, zhValue: string | undefined, enValue: string | undefined, fallback = "") => {

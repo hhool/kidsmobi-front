@@ -7,7 +7,7 @@ import {
   purgeCMSOpsCollection,
   downloadCMSOpsExport,
 } from "../../lib/cmsD1Service";
-import { getCMSSettings } from "../../lib/cmsService";
+import { getD1CMSSettings } from "../../lib/cmsD1Service";
 import {
   getOpsCollectionLabelWithOverride,
   OPS_COLLECTIONS,
@@ -61,7 +61,7 @@ export default function OperationsCenter({ lang }: Props) {
 
   const loadRemoteConfig = async () => {
     try {
-      const settings = await getCMSSettings();
+      const settings = await getD1CMSSettings();
       const candidate = (settings as any)?.opsCenter;
       if (candidate && typeof candidate === "object") {
         setRemoteConfig(candidate as OpsCenterRemoteConfig);

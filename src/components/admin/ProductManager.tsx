@@ -10,14 +10,14 @@ import {
   AlertTriangle
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { getCMSProducts, saveCMSProduct, deleteCMSProduct, getCMSScenarios, checkIsAdmin } from "../../lib/cmsService";
 import { CMSProduct, ComplianceTag, ProductCategory, CMSScenario } from "../../types";
 import { FALLBACK_PRODUCT_IMAGE, resolveProductImages } from "../../lib/productImages";
 import { validateCMSProduct } from "../../lib/productValidation";
 import SmartImage from "../common/SmartImage";
 import BackendResourcePicker from "./BackendResourcePicker";
 import { getBackendPickerPayload } from "../../lib/backendResourceService";
-import { deleteD1CMSProduct, getD1CMSProducts, saveD1CMSProduct } from "../../lib/cmsD1Service";
+import { deleteD1CMSProduct, getD1CMSProducts, getD1CMSScenarios, saveD1CMSProduct } from "../../lib/cmsD1Service";
+import { checkIsAdmin } from "../../lib/cmsAuth";
 
 function normalizeCMSProductForList(item: CMSProduct): CMSProduct {
   const zhName = item?.zh?.name || item.name || item.brand || "";
@@ -307,18 +307,10 @@ export default function ProductManager({
   }, [focusProductId, products, onFocusProductHandled]);
 
   const fetchProducts = async () => {
-    let productsData: CMSProduct[] = [];
-    const scenariosData = await getCMSScenarios(true);
-
-    try {
-      productsData = await getD1CMSProducts(false);
-    } catch {
-      productsData = [];
-    }
-
-    if (productsData.length === 0) {
-      productsData = await getCMSProducts();
-    }
+    const [productsData, scenariosData] = await Promise.all([
+      getD1CMSProducts(false),
+      getD1CMSScenarios(true),
+    ]);
 
     if (productsData.length > 0) {
       const compatById = productsData.reduce<Record<string, boolean>>((acc, item) => {
@@ -447,13 +439,9 @@ export default function ProductManager({
     setSaving(true);
     setSaveError(null);
     try {
-      try {
-        const saved = await saveD1CMSProduct(normalized);
-        if (!saved) {
-          throw new Error("D1 save failed");
-        }
-      } catch {
-        await saveCMSProduct(normalized);
+      const saved = await saveD1CMSProduct(normalized);
+      if (!saved) {
+        throw new Error("Cloud save failed");
       }
       setEditingProduct(null);
       fetchProducts();
@@ -484,15 +472,7 @@ export default function ProductManager({
     
     if (window.confirm(confirmMsg)) {
       try {
-        let success = false;
-        try {
-          success = await deleteD1CMSProduct(id);
-          if (!success) {
-            throw new Error("D1 delete failed");
-          }
-        } catch {
-          success = await deleteCMSProduct(id);
-        }
+        const success = await deleteD1CMSProduct(id);
         if (success) {
           fetchProducts();
         } else {

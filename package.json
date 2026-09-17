@@ -15,6 +15,7 @@
     "lint": "tsc --noEmit",
     "import:generate": "node scripts/generate_products_import_from_backend.mjs",
     "import:cms": "node scripts/cms_import_full_from_backend_v2.mjs",
+    "migrate:assets-to-d1": "node scripts/migrate_firestore_assets_to_d1.mjs",
     "import:cms:init": "node scripts/cms_import_full_from_backend_v2.mjs --sourceBase=https://kidsmobi-api-v1.seaman-player.workers.dev --cmsBase=https://kidsmobi-api-v1.seaman-player.workers.dev --perCategory=12 --manifestPath=./tmp/front_image_transfer_manifest.init.json",
     "import:cms:init:stage": "npm run -s import:cms:init && npm run -s media:stage:local",
     "specs:stage:product": "node scripts/product_stage_specs_from_backend_v2.mjs",

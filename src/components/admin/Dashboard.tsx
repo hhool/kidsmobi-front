@@ -9,7 +9,7 @@ import {
   Wifi,
   Download
 } from "lucide-react";
-import { getCMSProducts, getCMSEvaluations, getCMSGuides, getCMSNews, saveCMSProduct } from "../../lib/cmsService";
+import { getD1CMSProducts, getD1CMSEvaluations, getD1CMSGuides, getD1CMSNews, saveD1CMSProduct } from "../../lib/cmsD1Service";
 import { guideArticles } from "../../data/guidesData";
 import { newsArticles } from "../../data/newsData";
 import { initialEvaluationsData } from "../../data/evaluationsData";
@@ -49,10 +49,10 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
   const fetchStats = async () => {
     try {
       const [p, e, g, n] = await Promise.all([
-        getCMSProducts(),
-        getCMSEvaluations(),
-        getCMSGuides(),
-        getCMSNews(),
+        getD1CMSProducts(),
+        getD1CMSEvaluations(),
+        getD1CMSGuides(),
+        getD1CMSNews(),
       ]);
       const all = [...p, ...e, ...g, ...n];
       setStats({
@@ -110,7 +110,7 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
     next.worker = next.site;
 
     try {
-      const products = await getCMSProducts();
+      const products = await getD1CMSProducts();
       next.cms = Array.isArray(products) ? "pass" : "warn";
     } catch {
       next.cms = "warn";
@@ -185,7 +185,7 @@ export default function Dashboard({ lang }: { lang: "zh" | "en" }) {
         },
         updatedAt: new Date()
       };
-      await saveCMSProduct(cmsProd);
+      await saveD1CMSProduct(cmsProd);
     }
     setMigrating(false);
     fetchStats();
