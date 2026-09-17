@@ -2008,7 +2008,7 @@ export default function App() {
     updateMetaProperty("og:image:height", "630");
     updateMetaProperty("og:image:alt", resolvedTitle);
     updateMetaTag("twitter:card", "summary_large_image");
-    updateMetaTag("twitter:site", "@BalanceBikeToddler");
+    updateMetaTag("twitter:site", "@bbtreviews");
     updateMetaTag("twitter:title", resolvedTitle);
     updateMetaTag("twitter:description", resolvedDescription || resolvedTitle);
     updateMetaTag("twitter:image", resolvedImageUrl);
@@ -2057,7 +2057,7 @@ export default function App() {
         "https://www.youtube.com/@kidsmobi",
         "https://www.facebook.com",
         "https://www.instagram.com",
-        "https://x.com/BalanceBikeToddler"
+        "https://x.com/bbtreviews"
       ],
     },
     potentialAction: {
@@ -2611,7 +2611,7 @@ export default function App() {
         "https://www.youtube.com/@kidsmobi",
         "https://www.facebook.com",
         "https://www.instagram.com",
-        "https://x.com/BalanceBikeToddler",
+        "https://x.com/bbtreviews",
       ],
     };
 
@@ -3978,11 +3978,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               </p>
               <div className="flex flex-wrap gap-3">
                 <a 
-                  href={`https://x.com/intent/tweet?text=${encodeURIComponent(lang === "en" ? "Check out BalanceBikeToddler - Premium Kids Mobility Evaluation Platform! #KidsMobility #Safety" : "推荐一个高端垂直童车评测平台 BalanceBikeToddler，专注安全与工效！#童车评测 #育儿")}&url=${encodeURIComponent(window.location.href)}`}
+                  href="https://x.com/bbtreviews"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl transition-all border border-slate-700 hover:border-orange-500/50"
-                  title="Share on X (Twitter)"
+                  title={lang === "en" ? "Follow us on X" : "X 官方账号"}
                 >
                   <Twitter className="w-4 h-4" />
                 </a>

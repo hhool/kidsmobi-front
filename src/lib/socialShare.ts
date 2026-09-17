@@ -1,14 +1,19 @@
 export type SocialPlatform = "x" | "facebook";
 
+/** Official X account handle (set by the user; others to be supplemented after registration). */
+export const OFFICIAL_X_HANDLE = "bbtreviews";
+/** Official X profile URL used by footer/brand links. */
+export const OFFICIAL_X_URL = `https://x.com/${OFFICIAL_X_HANDLE}`;
+
 /**
  * Builds the share-intent URL for a social platform.
- * - X (twitter): post intent with url + text
+ * - X (twitter): post intent with url + text; mentions the official account by default
  * - Facebook: sharer with url only (FB reads og:title from the page)
  */
 export function buildSocialShareUrl(platform: SocialPlatform, pageUrl: string, title: string): string {
   const url = encodeURIComponent(pageUrl);
-  const text = encodeURIComponent(title);
   if (platform === "x") {
+    const text = encodeURIComponent(`${title} @${OFFICIAL_X_HANDLE}`);
     return `https://x.com/intent/post?url=${url}&text=${text}`;
   }
   return `https://www.facebook.com/sharer/sharer.php?u=${url}`;
