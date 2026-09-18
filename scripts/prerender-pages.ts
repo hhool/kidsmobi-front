@@ -174,7 +174,14 @@ function renderDocument(page: RoutePage, appAssets: AppAssets): string {
       ])}</script>
 `
     : "";
-  const ogImage = toAbsoluteMediaUrl(page.image);
+  // Default share image: the site icon (rendered as a 1200x630 PNG at
+  // /images/og-site-icon.png). Pages without a dedicated cover fall back
+  // to it so every prerendered page emits an og:image. The fallback is a
+  // static Pages asset, so it must resolve against the site base — NOT
+  // toAbsoluteMediaUrl (which points relative paths at the R2 media host).
+  const ogImage = page.image
+    ? toAbsoluteMediaUrl(page.image)
+    : `${PUBLIC_SITE_BASE}/images/og-site-icon.png`;
   const ogType = page.ogType === "article" ? "article" : "website";
   return `<!doctype html>
 <html lang="en">

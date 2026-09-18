@@ -72,7 +72,7 @@ import { getProductSeoKeywords, getReviewSeoKeywords } from "./config/seoKeyword
 import { getTransparencyPageByPath, TRANSPARENCY_PAGE_PATHS, type TransparencyPageKey } from "./data/transparencyPages";
 import CookieConsentModal from "./components/CookieConsentModal";
 
-const DEFAULT_OG_IMAGE_PATH = "/images/home/jogging-stroller-default.jpg";
+const DEFAULT_OG_IMAGE_PATH = "/images/og-site-icon.png";
 
 const SEO_KEY_TO_PAGE_TYPE: Record<string, CMSPageConfig["pageType"]> = {
   home: "home",
