@@ -649,6 +649,34 @@ export default function NewsSection({
                   <Share2 className="w-5 h-5" />
                 </button>
               </div>
+
+              {/* Related reading — cross-section internal links */}
+              <div className="flex flex-wrap items-center gap-2.5 pt-4">
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                  {lang === "zh" ? "相关阅读：" : "Related reading:"}
+                </span>
+                {([
+                  { href: "/guides/best", label: lang === "zh" ? "选购指南" : "Buying guides" },
+                  { href: "/products/kids_scooters", label: lang === "zh" ? "滑板车实测" : "Scooter tests" },
+                  { href: "/reviews/safety", label: lang === "zh" ? "安全评测中心" : "Safety audits" },
+                ] as const).map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if ((window as any).navigateToPath) {
+                        (window as any).navigateToPath(link.href);
+                      } else {
+                        window.location.href = link.href;
+                      }
+                    }}
+                    className="px-3.5 py-1.5 rounded-full border border-slate-200 bg-white text-[11px] font-bold text-slate-600 hover:text-orange-500 hover:border-orange-300 transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         );

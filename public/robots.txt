@@ -1,5 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /*?*sort=
+Disallow: /*?*price=
+Disallow: /*?*age=
+Disallow: /*?*filter=
 
 User-agent: Amazonbot
 Disallow: /

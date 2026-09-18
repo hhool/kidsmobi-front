@@ -1413,6 +1413,24 @@ export default function DetailedProductView({
             </span>
           </div>
           <h1 className="km-page-title text-slate-900">{displayTitle}</h1>
+          <p className="text-xs text-slate-500 font-medium">
+            {lang === "zh" ? "尺寸怎么选？先读 " : "Not sure about sizing? Read the "}
+            <a
+              href="/guides/best"
+              onClick={(e) => {
+                e.preventDefault();
+                if ((window as any).navigateToPath) {
+                  (window as any).navigateToPath("/guides/best");
+                } else {
+                  window.location.href = "/guides/best";
+                }
+              }}
+              className="text-orange-500 hover:text-orange-600 font-bold underline decoration-orange-200 underline-offset-2"
+            >
+              {lang === "zh" ? "内缝高与鞍座高测量指南" : "inseam & seat-height sizing guide"}
+            </a>
+            {lang === "zh" ? "，用内缝高校准座高红线。" : " to match saddle height to your child's inseam."}
+          </p>
         </div>
         
         <div className="flex gap-3 items-center">

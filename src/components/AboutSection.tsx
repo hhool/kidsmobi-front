@@ -197,17 +197,19 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             <ul className="space-y-2 text-sm text-slate-600">
               <li><a href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides" className="font-semibold underline decoration-orange-300 underline-offset-4">FTC Endorsement Guides</a> — disclosure baseline for recommendation pages</li>
               <li><a href="https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products" className="font-semibold underline decoration-orange-300 underline-offset-4">CPSC Children's Products Guidance</a> — children’s safety reference</li>
-              <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API" className="font-semibold underline decoration-orange-300 underline-offset-4">MDN Web Storage API</a> — browser storage reference for local drafts</li>
+              <li><a href="https://www.astm.org/f0923-23.html" rel="noopener noreferrer" target="_blank" className="font-semibold underline decoration-orange-300 underline-offset-4">ASTM F963-23</a> — Standard Consumer Safety Specification for Toy Safety</li>
+              <li><a href="https://www.ecfr.gov/current/title-16/chapter-II/subchapter-C/part-1512" rel="noopener noreferrer" target="_blank" className="font-semibold underline decoration-orange-300 underline-offset-4">CPSC 16 CFR Part 1512</a> — federal bicycle braking, steering & reflector requirements</li>
+              <li><a href="https://www.iso.org/standard/72958.html" rel="noopener noreferrer" target="_blank" className="font-semibold underline decoration-orange-300 underline-offset-4">ISO 8098:2023</a> — safety requirements for bicycles for young children</li>
             </ul>
           </div>
 
           <div className="space-y-3">
             <h3 className="text-sm font-black uppercase tracking-widest text-slate-500">What the sources say</h3>
             <figure className="m-0 rounded-[24px] border-l-4 border-orange-500 bg-orange-50 px-4 py-4">
-              <blockquote cite="https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API" className="m-0">
-                <p className="m-0 text-slate-700">“The Web Storage API provides mechanisms by which browsers can store key/value pairs.”</p>
+              <blockquote cite="https://www.ecfr.gov/current/title-16/chapter-II/subchapter-C/part-1512" className="m-0">
+                <p className="m-0 text-slate-700">Bicycles sold for young children in the US must meet federal requirements covering braking performance, steering systems, and retro-reflective visibility — the same physical dimensions our bench tests measure on every unit.</p>
               </blockquote>
-              <figcaption className="mt-2 text-sm font-semibold text-slate-500">— MDN Web Storage API</figcaption>
+              <figcaption className="mt-2 text-sm font-semibold text-slate-500">— Summary of CPSC 16 CFR Part 1512 (bicycles)</figcaption>
             </figure>
           </div>
         </section>

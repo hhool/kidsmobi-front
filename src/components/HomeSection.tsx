@@ -124,6 +124,8 @@ interface HomeSectionProps {
   lang?: "zh" | "en";
   currencyData: CurrencyData;
   isBBTTheme?: boolean;
+  compareList?: Product[];
+  onToggleCompare?: (p: Product) => void;
 }
 
 type ImageLoadState = {
@@ -142,7 +144,9 @@ export default function HomeSection({
   onSelectCategory,
   lang = "zh",
   currencyData,
-  isBBTTheme = false
+  isBBTTheme = false,
+  compareList,
+  onToggleCompare
 }: HomeSectionProps) {
 
   const scrollToSection = (sectionId: string) => {
@@ -173,6 +177,14 @@ export default function HomeSection({
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   const [isWizardOpen, setIsWizardOpen] = useState(false);
+
+  // Open the matching wizard on demand from global CTAs (e.g. the safety
+  // weight calculator banner) via a lightweight custom event.
+  useEffect(() => {
+    const openWizard = () => setIsWizardOpen(true);
+    window.addEventListener("bbt:open-wizard", openWizard);
+    return () => window.removeEventListener("bbt:open-wizard", openWizard);
+  }, []);
 
   // Background Carousel Slideshow for Hero Section (2 scenario-based images: stroller & balance bike)
   const bgImages = useMemo(() => [
@@ -832,13 +844,30 @@ export default function HomeSection({
       brandLabel
     );
     const snapshot = resolveHomepageProductSummary(p, forcedCategoryLabel);
+    const isCompared = Boolean(onToggleCompare && compareList?.some((c) => c.id === p.id));
     return (
-       <div 
-        key={p.id} 
+       <div
+        key={p.id}
         onClick={() => onSelectProduct(p)}
         className="group h-full min-h-90 cursor-pointer bg-white rounded-4xl border border-slate-100 overflow-hidden hover:shadow-2xl transition-all flex flex-col"
        >
          <div className="relative h-52 bg-slate-50 overflow-hidden">
+            {onToggleCompare && (
+              <button
+                onClick={(e) => { e.stopPropagation(); onToggleCompare(p); }}
+                aria-pressed={isCompared}
+                title={isCompared
+                  ? (lang === "zh" ? "移出对比" : "Remove from compare")
+                  : (lang === "zh" ? "加入对比（最多 4 款）" : "Add to compare (up to 4)")}
+                className={`absolute top-3 right-3 z-10 p-2.5 rounded-full border shadow-md transition-all cursor-pointer ${
+                  isCompared
+                    ? "bg-orange-500 border-orange-500 text-white"
+                    : "bg-white/90 border-slate-200 text-slate-500 hover:text-orange-500 hover:border-orange-300"
+                }`}
+              >
+                <Scale className="w-4 h-4" />
+              </button>
+            )}
             {(() => {
               const imageKey = `product-${p.id}`;
               const candidateCoverUrl = resolveProductImages(p).coverUrl;
@@ -1396,6 +1425,39 @@ export default function HomeSection({
                 </div>
               </div>
             </div>
+          ))}
+        </div>
+
+        {/* FAQ → hub cross-links (internal linking / weight flow) */}
+        <div className="flex flex-wrap items-center justify-center gap-2.5 pt-2">
+          <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+            {lang === "zh" ? "继续深入了解：" : "Keep exploring:"}
+          </span>
+          {([
+            { href: "/guides/best", label: lang === "zh" ? "选购指南" : "Buying guides" },
+            { href: "/reviews/safety", label: lang === "zh" ? "安全评测" : "Safety audits" },
+            { href: "/products/balance_bike", label: lang === "zh" ? "平衡车" : "Balance bikes" },
+            { href: "/products/kids_bikes", label: lang === "zh" ? "儿童自行车" : "Kids bikes" },
+            { href: "/products/kids_scooters", label: lang === "zh" ? "滑板车" : "Scooters" },
+          ] as const).map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={(e) => {
+                e.preventDefault();
+                if ((window as any).navigateToPath) {
+                  (window as any).navigateToPath(link.href);
+                } else if (link.href.startsWith("/products/")) {
+                  onSelectCategory(link.href.replace("/products/", ""));
+                  setActiveTab("products");
+                } else {
+                  setActiveTab(link.href === "/reviews/safety" ? "evaluations" : "guides");
+                }
+              }}
+              className="px-3.5 py-1.5 rounded-full border border-slate-200 bg-white text-[11px] font-bold text-slate-600 hover:text-orange-500 hover:border-orange-300 transition-colors"
+            >
+              {link.label}
+            </a>
           ))}
         </div>
       </section>

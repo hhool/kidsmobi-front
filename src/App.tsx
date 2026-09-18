@@ -40,6 +40,7 @@ import { loadBatchProducts } from "./lib/loadBatchProducts";
 import { loadDefaultProductsData } from "./lib/defaultProductsLoader";
 
 import SmartImage from "./components/common/SmartImage";
+import SafetyWeightCalculator from "./components/common/SafetyWeightCalculator";
 
 const HomeSection = lazy(() => import("./components/HomeSection"));
 const NewsSection = lazy(() => import("./components/NewsSection"));
@@ -1553,6 +1554,29 @@ export default function App() {
     }, 3000);
   };
 
+  // Homepage card compare toggle — same rules as ProductsSection (max 4,
+  // same-category only), without the section-local toast machinery.
+  const handleHomeToggleCompare = (product: Product) => {
+    const exists = compareList.find(p => p.id === product.id);
+    if (exists) {
+      setCompareList(compareList.filter(p => p.id !== product.id));
+      return;
+    }
+    if (compareList.length > 0) {
+      const baseCategory = String(compareList[0].category || (compareList[0] as any).categoryId || "");
+      const thisCategory = String(product.category || (product as any).categoryId || "");
+      if (baseCategory && thisCategory && baseCategory !== thisCategory) {
+        triggerCompareError(lang === "zh" ? "只能对比同一品类的产品" : "You can only compare products within the same category");
+        return;
+      }
+    }
+    if (compareList.length >= 4) {
+      triggerCompareError(lang === "zh" ? "最多同时对比 4 款产品" : "You can compare up to 4 products at a time");
+      return;
+    }
+    setCompareList([...compareList, product]);
+  };
+
   const [viewHistory, setViewHistory] = useState<Product[]>(() => {
     try {
       const cached = localStorage.getItem("unauth_view_history");
@@ -2904,6 +2928,7 @@ export default function App() {
 
   // Scroll to Top state
   const [showBackToTop, setShowBackToTop] = useState<boolean>(false);
+  const [showWeightCalc, setShowWeightCalc] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -3128,9 +3153,27 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
     <div id="decision_core" className="relative min-h-screen overflow-hidden bg-slate-50 text-slate-900 font-sans selection:bg-orange-200 selection:text-slate-900 flex flex-col justify-between">
       
       {/* 2026 Consumer Safe Notice banner */}
-      <div id="alert_banner" className="bg-orange-500 text-white px-4 py-2 text-center text-[12px] font-bold tracking-normal flex items-center justify-center gap-2 shadow-sm">
-        <ShieldCheck className="w-4 h-4" />
-        <span>{lang === "zh" ? "宝宝安全红线：车重请务必控制在体重的 30% 以内哦！" : "Safety Tip: Keep bike weight under 30% of your child's body weight!"}</span>
+      <div id="alert_banner" className="bg-orange-500 text-white shadow-sm">
+        <button
+          onClick={() => setShowWeightCalc((v) => !v)}
+          className="w-full px-4 py-2 text-center text-[12px] font-bold tracking-normal flex items-center justify-center gap-2 cursor-pointer hover:bg-orange-600 transition-colors"
+          aria-expanded={showWeightCalc}
+        >
+          <ShieldCheck className="w-4 h-4" />
+          <span>{lang === "zh" ? "宝宝安全红线：车重请务必控制在体重的 30% 以内哦！" : "Safety Tip: Keep bike weight under 30% of your child's body weight!"}</span>
+          <span className="text-[10px] font-black uppercase tracking-widest opacity-80">
+            {showWeightCalc ? (lang === "zh" ? "收起 ▲" : "Hide ▲") : lang === "zh" ? "算一算 ▼" : "Calculate ▼"}
+          </span>
+        </button>
+        {showWeightCalc && (
+          <SafetyWeightCalculator
+            lang={lang}
+            onOpenWizard={() => {
+              navigateToTab("home");
+              window.setTimeout(() => window.dispatchEvent(new CustomEvent("bbt:open-wizard")), 60);
+            }}
+          />
+        )}
       </div>
 
       {/* Main sticky navigation header bar (B2C Refined) */}
@@ -3455,6 +3498,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             lang={lang}
             currencyData={currencyData}
             isBBTTheme={isBBT}
+            compareList={compareList}
+            onToggleCompare={handleHomeToggleCompare}
           />
         )}
 
@@ -3661,7 +3706,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
       </main>
 
       {/* Persistent Sticky Compare Bar (Escaping CSS relative contexts to block screen translation floats) */}
-      {activeTab === "products" && compareList.length > 0 && (
+      {(activeTab === "products" || activeTab === "home") && compareList.length > 0 && (
         <div className="fixed left-1/2 bottom-6 z-[75] w-[calc(100%-2rem)] max-w-4xl -translate-x-1/2 rounded-[28px] border border-slate-200 bg-white/95 p-4 shadow-2xl shadow-slate-900/15 backdrop-blur-md">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-4 min-w-0 flex-1">
@@ -4066,18 +4111,24 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               </div>
               <div className="pt-2">
                 <div className="inline-flex flex-wrap items-center gap-2">
-                  {["ASTM F963", "CPSC", "EN 71"].map((cert) => (
+                  {([
+                    { label: "ASTM F963", href: "https://www.astm.org/f0923-23.html" },
+                    { label: "CPSC", href: "https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products" },
+                    { label: "EN 71", href: TRANSPARENCY_PAGE_PATHS["certification-lab-notes"] || "/transparency/certification-lab-notes/" },
+                  ] as const).map((cert) => (
                     <a
-                      key={cert}
-                      href={TRANSPARENCY_PAGE_PATHS["certification-lab-notes"] || "/transparency/certification-lab-notes/"}
-                      onClick={(event) => {
+                      key={cert.label}
+                      href={cert.href}
+                      target={cert.href.startsWith("http") ? "_blank" : undefined}
+                      rel={cert.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      onClick={cert.href.startsWith("http") ? undefined : (event) => {
                         event.preventDefault();
                         navigateToPath(TRANSPARENCY_PAGE_PATHS["certification-lab-notes"] || "/transparency/certification-lab-notes/");
                       }}
                       className="px-3 py-1 bg-emerald-500/10 border border-emerald-500/25 rounded-full text-[10px] text-emerald-400 font-bold tracking-tight hover:bg-emerald-500/20 hover:border-emerald-400/40 transition-colors"
-                      title={lang === "en" ? `Children's product safety compliance: ${cert}` : `儿童产品安全合规：${cert}`}
+                      title={lang === "en" ? `Children's product safety compliance: ${cert.label}` : `儿童产品安全合规：${cert.label}`}
                     >
-                      {cert}
+                      {cert.label}
                     </a>
                   ))}
                 </div>
@@ -4123,6 +4174,14 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               {lang === "en"
                 ? "Unbiased Oath: We do not accept sponsorship insertions or marketing fees. All scores are objective biomechanical results."
                 : "独立性声明：BalanceBikeToddler 拒绝任何商业品牌广告植入。所有评分均基于生物力学客观公式得出。"}
+            </p>
+          </div>
+
+          <div className="mt-6 max-w-5xl mx-auto text-center">
+            <p className="text-[10px] text-slate-500 leading-relaxed">
+              {lang === "en"
+                ? "BalanceBikeToddler is reader-supported. When you buy through links on our site, we may earn an affiliate commission at no extra cost to you. Learn more on our Transparency page."
+                : "BalanceBikeToddler 为读者支持型站点：通过本站链接购买商品时，我们可能获得联盟佣金（不增加您的购买成本）。详见透明度说明页。"}
             </p>
           </div>
 
