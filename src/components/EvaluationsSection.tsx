@@ -1332,6 +1332,16 @@ export default function EvaluationsSection({
               url: canonicalUrl,
             }
           : undefined,
+        ...(Number(reviewedProduct?.overallScore) > 0
+          ? {
+              reviewRating: {
+                "@type": "Rating",
+                ratingValue: Math.round(Number(reviewedProduct!.overallScore) * 10) / 10,
+                bestRating: 10,
+                worstRating: 1,
+              },
+            }
+          : {}),
         mainEntityOfPage: canonicalUrl,
         url: canonicalUrl,
       });

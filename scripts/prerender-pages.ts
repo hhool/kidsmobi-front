@@ -334,6 +334,15 @@ type CmsEvaluation = {
   zh?: { title?: string; verdict?: string; pros?: string[]; cons?: string[] };
 };
 
+type CmsProductLite = {
+  id: string;
+  name?: string;
+  brand?: string;
+  category?: string;
+  imageUrl?: string;
+  overallScore?: number;
+};
+
 function cmsSlugify(input: unknown): string {
   const base = String(input || "")
     .trim()
@@ -557,6 +566,10 @@ async function fetchPublishedEvaluations(): Promise<CmsEvaluation[]> {
   return fetchPublishedCollection<CmsEvaluation>("evaluations");
 }
 
+async function fetchPublishedProducts(): Promise<CmsProductLite[]> {
+  return fetchPublishedCollection<CmsProductLite>("products");
+}
+
 /**
  * Pillar->cluster matcher: score published evaluations by how many of their
  * editorial title tokens appear in the guide body. Mirrors the runtime block
@@ -773,7 +786,34 @@ function renderNewsDetailPage(item: CmsNews): RoutePage | null {
   };
 }
 
-function renderEvaluationDetailPage(item: CmsEvaluation): RoutePage | null {
+/**
+ * Resolves a CMS product for an evaluation reference. Mirrors the runtime
+ * matcher in EvaluationsSection: exact id match first, then ASIN tail match
+ * (e.g. evaluation productId "stroller-b07jr8ty2q" matches product id
+ * "stroller-b07jr8ty2q" or a tail ASIN collision).
+ */
+function resolvePrerenderProduct(
+  rawId: string | undefined,
+  productMap: Map<string, CmsProductLite>,
+): CmsProductLite | null {
+  const normalized = String(rawId || "").trim().toLowerCase();
+  if (!normalized) return null;
+  const exact = productMap.get(normalized);
+  if (exact) return exact;
+  const tail = normalized.split("-").pop();
+  if (tail) {
+    for (const product of productMap.values()) {
+      const productId = String(product.id || "").trim().toLowerCase();
+      if (productId && productId.split("-").pop() === tail) return product;
+    }
+  }
+  return null;
+}
+
+function renderEvaluationDetailPage(
+  item: CmsEvaluation,
+  productMap: Map<string, CmsProductLite> = new Map(),
+): RoutePage | null {
   if (String(item.status || "").trim() && item.status !== "published") return null;
   const route = evaluationRoutePath(item);
   if (!route) return null;
@@ -834,6 +874,33 @@ function renderEvaluationDetailPage(item: CmsEvaluation): RoutePage | null {
           author: { "@type": "Organization", name: "BalanceBikeToddler Editorial Team" },
           mainEntityOfPage: url,
           url,
+          itemReviewed: (() => {
+            const product = resolvePrerenderProduct(item.productId, productMap);
+            const productImage = product ? toAbsoluteMediaUrl(pickText(product.imageUrl)) : "";
+            const brandName = String(product?.brand || "").trim();
+            const reviewedName = String(product?.name || "").trim() || title;
+            return {
+              "@type": "Product",
+              name: reviewedName,
+              ...(brandName ? { brand: { "@type": "Brand", name: brandName } } : {}),
+              ...(productImage ? { image: [productImage] } : {}),
+              url: product
+                ? `${PUBLIC_SITE_BASE}/products/${String(product.category || "all").trim() || "all"}/${product.id}`
+                : url,
+            };
+          })(),
+          reviewRating: (() => {
+            const product = resolvePrerenderProduct(item.productId, productMap);
+            const score = Number(product?.overallScore);
+            return score > 0
+              ? {
+                  "@type": "Rating",
+                  ratingValue: Math.round(score * 10) / 10,
+                  bestRating: 10,
+                  worstRating: 1,
+                }
+              : undefined;
+          })(),
         },
   ];
 
@@ -1710,11 +1777,17 @@ async function main() {
   const indexHtml = await readFile(path.join(distDir, "index.html"), "utf8");
   const appAssets = extractAppAssets(indexHtml);
 
-  const [cmsGuides, cmsNews, cmsEvaluations] = await Promise.all([
+  const [cmsGuides, cmsNews, cmsEvaluations, cmsProducts] = await Promise.all([
     fetchPublishedGuides(),
     fetchPublishedNews(),
     fetchPublishedEvaluations(),
+    fetchPublishedProducts(),
   ]);
+  const productMap = new Map<string, CmsProductLite>();
+  for (const product of cmsProducts) {
+    const id = String(product?.id || "").trim().toLowerCase();
+    if (id) productMap.set(id, product);
+  }
   const guideDetailPages = cmsGuides
     .map((guide) => renderGuideDetailPage(guide, cmsEvaluations))
     .filter((page): page is RoutePage => page !== null);
@@ -1722,7 +1795,7 @@ async function main() {
     .map(renderNewsDetailPage)
     .filter((page): page is RoutePage => page !== null);
   const evaluationDetailPages = cmsEvaluations
-    .map(renderEvaluationDetailPage)
+    .map((item) => renderEvaluationDetailPage(item, productMap))
     .filter((page): page is RoutePage => page !== null);
 
   // Order matters: an index route (`/guides`, `/news`) is written before its detail
