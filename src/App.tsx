@@ -41,6 +41,7 @@ import { loadDefaultProductsData } from "./lib/defaultProductsLoader";
 
 import SmartImage from "./components/common/SmartImage";
 import SafetyWeightCalculator from "./components/common/SafetyWeightCalculator";
+import MatchingWizard from "./components/MatchingWizard";
 
 const HomeSection = lazy(() => import("./components/HomeSection"));
 const NewsSection = lazy(() => import("./components/NewsSection"));
@@ -2923,6 +2924,10 @@ export default function App() {
   // Scroll to Top state
   const [showBackToTop, setShowBackToTop] = useState<boolean>(false);
   const [showWeightCalc, setShowWeightCalc] = useState<boolean>(false);
+  // Match wizard opened from the "Find Matching Rides" button in the
+  // safety weight calculator — presented as an anchored panel right
+  // below the button (above the navi header) instead of a modal.
+  const [calcWizardOpen, setCalcWizardOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -3164,8 +3169,26 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             lang={lang}
             onOpenWizard={() => {
               navigateToTab("home");
-              window.setTimeout(() => window.dispatchEvent(new CustomEvent("bbt:open-wizard")), 60);
+              setCalcWizardOpen(true);
             }}
+          />
+        )}
+        {/* Anchored match wizard: renders directly below the "Find Matching
+            Rides" button and above the sticky navi header. In-flow on all
+            breakpoints, so mobile simply scrolls — no centered overlay. */}
+        {showWeightCalc && calcWizardOpen && (
+          <MatchingWizard
+            variant="anchor"
+            isOpen
+            onClose={() => setCalcWizardOpen(false)}
+            productsData={productsData}
+            onSelectProduct={(p) => {
+              setCalcWizardOpen(false);
+              setShowWeightCalc(false);
+              handleSelectProduct(p);
+            }}
+            lang={lang}
+            currencyData={currencyData}
           />
         )}
       </div>

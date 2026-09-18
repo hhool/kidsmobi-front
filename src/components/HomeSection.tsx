@@ -177,11 +177,15 @@ export default function HomeSection({
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   const [isWizardOpen, setIsWizardOpen] = useState(false);
+  const [wizardVariant, setWizardVariant] = useState<"modal" | "anchor">("modal");
 
   // Open the matching wizard on demand from global CTAs (e.g. the safety
   // weight calculator banner) via a lightweight custom event.
   useEffect(() => {
-    const openWizard = () => setIsWizardOpen(true);
+    const openWizard = () => {
+      setWizardVariant("modal");
+      setIsWizardOpen(true);
+    };
     window.addEventListener("bbt:open-wizard", openWizard);
     return () => window.removeEventListener("bbt:open-wizard", openWizard);
   }, []);
@@ -204,6 +208,17 @@ export default function HomeSection({
     if (typeof window !== "undefined") {
       window.history.pushState({ ...(window.history.state || {}), kidsmobiWizard: true }, "", window.location.href);
     }
+    setWizardVariant("modal");
+    setIsWizardOpen(true);
+  };
+
+  // Hero CTA: open the wizard as an anchored panel right below the button
+  // (above the quick navi row) instead of a centered overlay.
+  const openWizardAnchored = () => {
+    if (typeof window !== "undefined") {
+      window.history.pushState({ ...(window.history.state || {}), kidsmobiWizard: true }, "", window.location.href);
+    }
+    setWizardVariant("anchor");
     setIsWizardOpen(true);
   };
 
@@ -1000,13 +1015,31 @@ export default function HomeSection({
 
           <div className="pt-4 pb-2">
             <button
-              onClick={() => setIsWizardOpen(true)}
+              onClick={openWizardAnchored}
               className="inline-flex items-center gap-3 px-10 py-5 bg-linear-to-r from-orange-500 via-orange-500 to-amber-500 text-white text-xs md:text-sm font-black uppercase tracking-widest rounded-full shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer group"
             >
               <Zap className="w-4 h-4 text-white fill-white animate-pulse" />
               {homeCopy.heroCta}
             </button>
           </div>
+
+          {/* Anchored matching wizard: sits between the hero CTA and the
+              quick navi row. In-flow on all breakpoints, so mobile simply
+              scrolls to it instead of relying on an overlay. */}
+          {isWizardOpen && wizardVariant === "anchor" && (
+            <MatchingWizard
+              variant="anchor"
+              isOpen
+              onClose={() => setIsWizardOpen(false)}
+              productsData={productsData}
+              onSelectProduct={(p) => {
+                setIsWizardOpen(false);
+                onSelectProduct(p);
+              }}
+              lang={lang}
+              currencyData={currencyData}
+            />
+          )}
 
           <div className="flex flex-wrap justify-center gap-4 pt-4 border-t border-white/10">
             {[
@@ -1462,8 +1495,9 @@ export default function HomeSection({
         </div>
       </section>
 
-      <MatchingWizard 
-        isOpen={isWizardOpen}
+      <MatchingWizard
+        variant="modal"
+        isOpen={isWizardOpen && wizardVariant === "modal"}
         onClose={() => setIsWizardOpen(false)}
         productsData={productsData}
         onSelectProduct={(p) => {

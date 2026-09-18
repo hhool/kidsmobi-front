@@ -1,12 +1,12 @@
-import React, { useState, useMemo } from "react";
-import { 
-  Baby, 
-  Map, 
-  Wallet, 
-  X, 
-  ChevronRight, 
-  ChevronLeft, 
-  Star, 
+import React, { useState, useMemo, useEffect, useRef } from "react";
+import {
+  Baby,
+  Map,
+  Wallet,
+  X,
+  ChevronRight,
+  ChevronLeft,
+  Star,
   ShieldCheck,
   CheckCircle2,
   Sparkles
@@ -15,6 +15,7 @@ import { Product, CurrencyData } from "../types";
 import { translateProduct } from "../lib/translate";
 import { resolveProductImages } from "../lib/productImages";
 import { getProductImageAlt } from "../lib/productSeoText";
+import { formatCurrencyFromUsd } from "../lib/currency";
 import SmartImage from "./common/SmartImage";
 
 interface MatchingWizardProps {
@@ -24,6 +25,13 @@ interface MatchingWizardProps {
   onSelectProduct: (p: Product) => void;
   lang?: "zh" | "en";
   currencyData: CurrencyData;
+  /**
+   * "modal"  — centered overlay with backdrop (default).
+   * "anchor" — inline panel rendered in the page flow, e.g. directly
+   *            below the hero CTA / above the quick navi row. Falls back
+   *            to a scrollable in-flow panel on mobile (no overlay).
+   */
+  variant?: "modal" | "anchor";
 }
 
 type WizardStep = "age" | "environment" | "budget" | "results";
@@ -34,7 +42,8 @@ export default function MatchingWizard({
   productsData,
   onSelectProduct,
   lang = "zh",
-  currencyData
+  currencyData,
+  variant = "modal"
 }: MatchingWizardProps) {
   const formatWizardScore = (value: unknown) => {
     const numeric = Number(value);
@@ -126,17 +135,31 @@ export default function MatchingWizard({
     setSelections({ age: "", environment: "", budget: "" });
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      {/* Backdrop */}
-      <div 
-        className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-300" 
-        onClick={onClose}
-      />
-      
-      {/* Modal Content */}
-      <div className="relative w-full max-w-xl bg-white rounded-[48px] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-10 duration-500">
-        
+  // Close on Escape regardless of presentation variant.
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isOpen, onClose]);
+
+  // In anchored mode, gently bring the panel into view once opened
+  // (important on mobile where the panel may extend below the fold).
+  const panelRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (!isOpen || variant !== "anchor") return;
+    const timer = window.setTimeout(() => {
+      panelRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }, 80);
+    return () => window.clearTimeout(timer);
+  }, [isOpen, variant]);
+
+  if (!isOpen) return null;
+
+  const panelBody = (
+    <>
         {/* Header */}
         <div className="p-8 border-b border-slate-100 flex justify-between items-center bg-orange-50/50">
           <div className="flex items-center gap-3">
@@ -163,7 +186,7 @@ export default function MatchingWizard({
         </div>
 
         {/* Content */}
-        <div className="p-8 min-h-[400px]">
+        <div className="p-5 sm:p-8 min-h-[320px] sm:min-h-[400px] max-h-[62vh] sm:max-h-[70vh] overflow-y-auto">
           
           {step === "age" && (
             <div className="space-y-6 animate-in slide-in-from-right-4 duration-300">
@@ -263,18 +286,29 @@ export default function MatchingWizard({
                 </p>
               </div>
               
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {filteredResults.length > 0 ? (
                   filteredResults.map((p, idx) => {
                     const dp = translateProduct(p, lang);
                     const imageSet = resolveProductImages(p);
+                    const priceText = formatCurrencyFromUsd(p.price, currencyData, lang, 0);
                     return (
-                      <div 
+                      <div
                         key={p.id}
                         onClick={() => onSelectProduct(p)}
-                        className="p-4 bg-white border border-slate-100 rounded-3xl hover:border-orange-500 transition-all cursor-pointer flex items-center gap-4 group hover:shadow-xl shadow-sm"
+                        className="relative p-3.5 pl-5 sm:p-4 sm:pl-6 bg-white border border-slate-100 rounded-3xl hover:border-orange-500 transition-all cursor-pointer flex items-center gap-3 sm:gap-4 group hover:shadow-xl shadow-sm"
                       >
-                        <div className="w-20 h-20 bg-slate-50 rounded-2xl flex items-center justify-center p-4 group-hover:bg-orange-50 transition-colors">
+                        {/* Rank badge */}
+                        <div
+                          className={`absolute -top-2 -left-1.5 w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-black text-white shadow-lg shrink-0 ${
+                            idx === 0
+                              ? "bg-orange-500 shadow-orange-500/30"
+                              : "bg-slate-800 shadow-slate-800/20"
+                          }`}
+                        >
+                          #{idx + 1}
+                        </div>
+                        <div className="w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 rounded-2xl flex items-center justify-center p-3 sm:p-4 group-hover:bg-orange-50 transition-colors shrink-0">
                           <SmartImage
                             src={imageSet.coverUrl || undefined}
                             alt={getProductImageAlt(p)}
@@ -285,19 +319,23 @@ export default function MatchingWizard({
                             priority={idx < 2}
                           />
                         </div>
-                        <div className="flex-1 space-y-1">
-                          <div className="flex justify-between items-center">
-                            <span className="text-[9px] font-black text-orange-500 tracking-widest uppercase">{dp.brand}</span>
+                        <div className="flex-1 min-w-0 space-y-1">
+                          <div className="flex justify-between items-center gap-2">
+                            <span className="text-[9px] font-black text-orange-500 tracking-widest uppercase truncate">{dp.brand}</span>
                             {formatWizardScore(p.overallScore) && (
-                              <div className="flex items-center gap-1">
+                              <div className="flex items-center gap-1 shrink-0">
                                 <Star className="w-3 h-3 fill-orange-500 text-orange-500" />
                                 <span className="text-xs font-black">{formatWizardScore(p.overallScore)}</span>
                               </div>
                             )}
                           </div>
-                          <h5 className="font-black text-slate-900 leading-tight truncate">{dp.name}</h5>
-                          <p className="text-[10px] text-slate-400 font-bold uppercase truncate">{dp.categoryLabel}</p>
+                          <h5 className="font-black text-slate-900 leading-tight line-clamp-2 text-sm sm:text-base">{dp.name}</h5>
+                          <div className="flex items-center justify-between gap-2">
+                            <p className="text-[10px] text-slate-400 font-bold uppercase truncate">{dp.categoryLabel}</p>
+                            <span className="text-xs sm:text-sm font-black text-slate-900 whitespace-nowrap shrink-0">{priceText}</span>
+                          </div>
                         </div>
+                        <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-orange-500 group-hover:translate-x-0.5 transition-all shrink-0 hidden sm:block" />
                       </div>
                     );
                   })
@@ -323,9 +361,9 @@ export default function MatchingWizard({
 
         {/* Footer Navigation */}
         {step !== "results" && (
-          <div className="p-8 border-t border-slate-50 flex justify-between items-center bg-slate-50/50">
+          <div className="p-5 sm:p-8 border-t border-slate-50 flex justify-between items-center bg-slate-50/50">
             {step !== "age" ? (
-              <button 
+              <button
                 onClick={handleBack}
                 className="flex items-center gap-2 px-6 py-3 text-slate-500 font-black text-xs uppercase tracking-widest hover:text-slate-900 transition-colors"
               >
@@ -335,8 +373,8 @@ export default function MatchingWizard({
             ) : (
               <div /> // Spacer
             )}
-            
-            <button 
+
+            <button
               onClick={handleNext}
               disabled={
                 (step === "age" && !selections.age) ||
@@ -350,6 +388,32 @@ export default function MatchingWizard({
             </button>
           </div>
         )}
+    </>
+  );
+
+  if (variant === "anchor") {
+    return (
+      <div ref={panelRef} className="relative w-full max-w-xl mx-auto my-1 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        {/* Caret pointing back up to the CTA button */}
+        <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white rotate-45 border-l border-t border-slate-100 rounded-[2px]" />
+        <div className="relative bg-white rounded-[32px] sm:rounded-[48px] shadow-2xl shadow-slate-950/40 border border-slate-100 overflow-hidden">
+          {panelBody}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-300"
+        onClick={onClose}
+      />
+
+      {/* Modal Content */}
+      <div className="relative w-full max-w-xl bg-white rounded-[48px] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-10 duration-500">
+        {panelBody}
       </div>
     </div>
   );
