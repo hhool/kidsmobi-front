@@ -3,6 +3,7 @@ import path from "path";
 import { guideArticles } from "../src/data/guidesData";
 import { newsArticles } from "../src/data/newsData";
 import { initialEvaluationsData } from "../src/data/evaluationsData";
+import { TRANSPARENCY_PAGES } from "../src/data/transparencyPages";
 import { getPageCopy } from "../src/config/pageCopy";
 
 const distDir = path.resolve("dist");
@@ -1773,6 +1774,48 @@ async function injectGuideRedirects(routes: string[]): Promise<void> {
   }
 }
 
+/**
+ * Static transparency / trust pages (disclaimer, testing methodology,
+ * certification & lab notes, terms, privacy policy). Without prerendering
+ * these routes fall through to the SPA shell whose raw canonical points at
+ * the homepage — telling crawlers to ignore the real page.
+ */
+function renderTransparencyPages(): RoutePage[] {
+  return TRANSPARENCY_PAGES.map((page) => {
+    const en = page.en;
+    const sectionsHtml = en.sections
+      .map(
+        (section) => `
+      <section style="padding: 18px 0; border-top: 1px solid #e2e8f0;">
+        <p style="margin: 0 0 4px; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: #f97316; font-weight: 800;">${escapeHtml(section.eyebrow)}</p>
+        <h2 style="margin: 0 0 10px; font-size: 1.3rem;">${escapeHtml(section.title)}</h2>
+        ${section.body.map((para) => `<p style="margin: 0 0 12px;">${escapeHtml(para)}</p>`).join("")}
+      </section>`,
+      )
+      .join("");
+    const body = `
+      <section style="padding: 22px 0;">
+        <p style="margin: 0 0 6px; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: #64748b; font-weight: 800;">${escapeHtml(en.navLabel)}</p>
+        <h1 style="margin: 0 0 10px; font-size: 1.6rem;">${escapeHtml(en.title)}</h1>
+        <p style="margin: 0 0 12px; font-size: 1.02rem; color: #334155;">${escapeHtml(en.subtitle)}</p>
+        <p style="margin: 0 0 8px;">${escapeHtml(en.intro)}</p>
+      </section>
+      ${sectionsHtml}
+      <section style="padding: 18px 0 0; border-top: 1px solid #e2e8f0;">
+        <p style="margin: 0 0 8px;"><a href="${escapeHtml(en.primaryLink.href)}">${escapeHtml(en.primaryLink.text)}</a></p>
+        <p style="margin: 0;"><a href="${escapeHtml(en.secondaryLink.href)}">${escapeHtml(en.secondaryLink.text)}</a></p>
+      </section>
+    `;
+    return {
+      route: en.path,
+      title: en.seo?.title || en.title,
+      description: en.seo?.description || en.subtitle,
+      body,
+      ogType: "website" as const,
+    };
+  });
+}
+
 async function main() {
   const indexHtml = await readFile(path.join(distDir, "index.html"), "utf8");
   const appAssets = extractAppAssets(indexHtml);
@@ -1806,6 +1849,7 @@ async function main() {
     renderNewsPage(cmsNews),
     renderReviewsPage(),
     renderAboutPage(),
+    ...renderTransparencyPages(),
     ...guideDetailPages,
     ...newsDetailPages,
     ...evaluationDetailPages,
@@ -1824,7 +1868,13 @@ async function main() {
       await rm(path.join(distDir, routeName), { recursive: true, force: true });
       await rm(path.join(distDir, `${routeName}.html`), { force: true });
     }
-    const outFile = routeName ? path.join(distDir, `${routeName}.html`) : path.join(distDir, "index.html");
+    // Trailing-slash routes (transparency pages) are written as directory
+    // index.html so Cloudflare Pages serves them at the exact canonical URL.
+    const outFile = !routeName
+      ? path.join(distDir, "index.html")
+      : routeName.endsWith("/")
+        ? path.join(distDir, routeName, "index.html")
+        : path.join(distDir, `${routeName}.html`);
     await mkdir(path.dirname(outFile), { recursive: true });
     await writeFile(outFile, html, "utf8");
   }
