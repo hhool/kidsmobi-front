@@ -319,6 +319,21 @@ type CmsNews = {
   seo?: { en?: { title?: string; description?: string }; zh?: { title?: string; description?: string } };
 };
 
+type CmsEvaluation = {
+  id: string;
+  type?: string;
+  status?: string;
+  slug?: string;
+  title?: string;
+  imageUrl?: string;
+  productId?: string;
+  productIds?: string[];
+  updatedAt?: string;
+  publishedAt?: string;
+  en?: { title?: string; verdict?: string; pros?: string[]; cons?: string[] };
+  zh?: { title?: string; verdict?: string; pros?: string[]; cons?: string[] };
+};
+
 function cmsSlugify(input: unknown): string {
   const base = String(input || "")
     .trim()
@@ -367,6 +382,37 @@ const NEWS_CATEGORY_LABELS: Record<string, string> = {
   brand_news: "Brand News",
   science: "Science & Safety",
 };
+
+/**
+ * Mirrors the Worker's capSlug() and the frontend's capSlugText()
+ * (src/lib/evaluationSlug.ts): en.title -> zh.title -> record slug -> title,
+ * word-boundary capped at 60 chars. All three must stay in lockstep so the
+ * sitemap, the prerendered raw HTML and the hydrated SPA resolve the same URL.
+ */
+function cmsCapSlug(input: unknown, maxChars = 60): string {
+  const base = cmsSlugify(input);
+  if (!base || base === "item") return "";
+  if (base.length <= maxChars) return base;
+  const cut = base.slice(0, maxChars);
+  const lastDash = cut.lastIndexOf("-");
+  return lastDash > 20 ? cut.slice(0, lastDash) : cut;
+}
+
+/** Machine-generated identifier slugs that must never become a canonical URL. */
+function isMachineIdSlug(input: string): boolean {
+  return /^(ev[_-]?\d+|eval-|item)$/.test(input);
+}
+
+function evaluationRoutePath(item: CmsEvaluation): string | null {
+  const reviewType = cmsSlugify(item.type || "single") || "single";
+  const slug =
+    cmsCapSlug(item.en?.title) ||
+    cmsCapSlug(item.zh?.title) ||
+    cmsCapSlug(item.slug) ||
+    cmsCapSlug(item.title);
+  if (!slug || isMachineIdSlug(slug)) return null;
+  return `/reviews/${reviewType}/${slug}`;
+}
 
 function newsCategoryLabel(item: CmsNews): string {
   const key = String(item.category || "").trim();
@@ -505,6 +551,10 @@ async function fetchPublishedGuides(): Promise<CmsGuide[]> {
 
 async function fetchPublishedNews(): Promise<CmsNews[]> {
   return fetchPublishedCollection<CmsNews>("news");
+}
+
+async function fetchPublishedEvaluations(): Promise<CmsEvaluation[]> {
+  return fetchPublishedCollection<CmsEvaluation>("evaluations");
 }
 
 function renderGuideDetailPage(guide: CmsGuide): RoutePage | null {
@@ -671,6 +721,96 @@ function renderNewsDetailPage(item: CmsNews): RoutePage | null {
       </section>
       <section style="padding: 22px 0 0; border-top: 1px solid #e2e8f0;">
         <p style="margin: 0; font-size: 0.9rem; color: #475569;">Continue reading the <a href="/news">latest news</a> or browse the <a href="/guides">guide library</a>.</p>
+      </section>
+    `,
+    jsonLd: schemas,
+  };
+}
+
+function renderEvaluationDetailPage(item: CmsEvaluation): RoutePage | null {
+  if (String(item.status || "").trim() && item.status !== "published") return null;
+  const route = evaluationRoutePath(item);
+  if (!route) return null;
+
+  const isCompare = String(item.type || "").trim().toLowerCase() === "compare";
+  const langModel = (item.en?.title ? item.en : item.zh) || item.en || item.zh || {};
+  const title = pickText(item.en?.title, item.zh?.title, item.id);
+  const verdict = pickText(item.en?.verdict, item.zh?.verdict);
+  const pros = (langModel as { pros?: string[] }).pros || [];
+  const cons = (langModel as { cons?: string[] }).cons || [];
+  const url = `${PUBLIC_SITE_BASE}${route}`;
+  const image = toAbsoluteMediaUrl(pickText(item.imageUrl));
+  const published = pickText(item.publishedAt, item.updatedAt).slice(0, 10) || "2026-08-15";
+  const reviewTypeLabel = isCompare ? "Comparison Reviews" : "Single Reviews";
+
+  const prosHtml = pros.length
+    ? `<ul>${pros.map((pro) => `<li>${escapeHtml(String(pro))}</li>`).join("")}</ul>`
+    : "";
+  const consHtml = cons.length
+    ? `<ul>${cons.map((con) => `<li>${escapeHtml(String(con))}</li>`).join("")}</ul>`
+    : "";
+
+  const schemas: Array<Record<string, unknown>> = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "BalanceBikeToddler",
+      url: `${PUBLIC_SITE_BASE}/`,
+      logo: `${PUBLIC_SITE_BASE}/favicon.svg`,
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Reviews", item: `${PUBLIC_SITE_BASE}/reviews` },
+        { "@type": "ListItem", position: 2, name: reviewTypeLabel, item: `${PUBLIC_SITE_BASE}/reviews/${isCompare ? "compare" : "single"}` },
+        { "@type": "ListItem", position: 3, name: title, item: url },
+      ],
+    },
+    isCompare
+      ? {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: title,
+          numberOfItems: item.productIds?.length || 0,
+          mainEntityOfPage: url,
+          url,
+        }
+      : {
+          "@context": "https://schema.org",
+          "@type": "Review",
+          name: title,
+          reviewBody: verdict || title,
+          inLanguage: "en",
+          datePublished: published,
+          dateModified: pickText(item.updatedAt, item.publishedAt).slice(0, 10) || published,
+          ...(image ? { image: [image] } : {}),
+          author: { "@type": "Organization", name: "BalanceBikeToddler Editorial Team" },
+          mainEntityOfPage: url,
+          url,
+        },
+  ];
+
+  return {
+    route,
+    title,
+    description: verdict || title,
+    image: image || undefined,
+    ogType: "article",
+    body: `
+      <nav style="padding: 4px 0 16px; font-size: 0.86rem; color: #64748b;">
+        <a href="/reviews">Reviews</a> › <a href="/reviews/${isCompare ? "compare" : "single"}">${escapeHtml(reviewTypeLabel)}</a>
+      </nav>
+      <section style="padding: 4px 0 18px;">
+        <p style="margin: 0 0 10px; font-size: 0.86rem; color: #475569; font-weight: 600;">
+          By <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="${escapeHtml(published)}">Published ${escapeHtml(published)}</time>
+        </p>
+        ${verdict ? `<p style="margin: 0 0 14px; font-size: 1.05rem; color: #334155;"><strong>Verdict:</strong> ${escapeHtml(verdict)}</p>` : ""}
+      </section>
+      ${prosHtml ? `<section style="padding: 6px 0; border-top: 1px solid #e2e8f0;"><h2 style="font-size: 1.2rem; margin: 0 0 8px;">Pros</h2>${prosHtml}</section>` : ""}
+      ${consHtml ? `<section style="padding: 14px 0; border-top: 1px solid #e2e8f0;"><h2 style="font-size: 1.2rem; margin: 0 0 8px;">Cons</h2>${consHtml}</section>` : ""}
+      <section style="padding: 22px 0 0; border-top: 1px solid #e2e8f0;">
+        <p style="margin: 0; font-size: 0.9rem; color: #475569;">Browse all <a href="/reviews">review reports</a> or the <a href="/guides">guide library</a>.</p>
       </section>
     `,
     jsonLd: schemas,
@@ -1524,12 +1664,19 @@ async function main() {
   const indexHtml = await readFile(path.join(distDir, "index.html"), "utf8");
   const appAssets = extractAppAssets(indexHtml);
 
-  const [cmsGuides, cmsNews] = await Promise.all([fetchPublishedGuides(), fetchPublishedNews()]);
+  const [cmsGuides, cmsNews, cmsEvaluations] = await Promise.all([
+    fetchPublishedGuides(),
+    fetchPublishedNews(),
+    fetchPublishedEvaluations(),
+  ]);
   const guideDetailPages = cmsGuides
     .map(renderGuideDetailPage)
     .filter((page): page is RoutePage => page !== null);
   const newsDetailPages = cmsNews
     .map(renderNewsDetailPage)
+    .filter((page): page is RoutePage => page !== null);
+  const evaluationDetailPages = cmsEvaluations
+    .map(renderEvaluationDetailPage)
     .filter((page): page is RoutePage => page !== null);
 
   // Order matters: an index route (`/guides`, `/news`) is written before its detail
@@ -1542,11 +1689,12 @@ async function main() {
     renderAboutPage(),
     ...guideDetailPages,
     ...newsDetailPages,
+    ...evaluationDetailPages,
   ];
 
-  if (guideDetailPages.length || newsDetailPages.length) {
+  if (guideDetailPages.length || newsDetailPages.length || evaluationDetailPages.length) {
     console.log(
-      `[prerender] writing ${guideDetailPages.length} guide + ${newsDetailPages.length} news detail page(s).`,
+      `[prerender] writing ${guideDetailPages.length} guide + ${newsDetailPages.length} news + ${evaluationDetailPages.length} review detail page(s).`,
     );
   }
 

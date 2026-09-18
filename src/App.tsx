@@ -36,6 +36,7 @@ import { translations, translateProduct, translateNewsArticle, translateGuideArt
 import { formatWeight, formatHeight } from "./lib/units";
 import { resolveProductImages, normalizeMediaUrl } from "./lib/productImages";
 import { getProductDisplayTitle, getProductImageAlt, getProductsPageSeoTitle } from "./lib/productSeoText";
+import { evaluationSlug } from "./lib/evaluationSlug";
 import { evaluationRouteSegment } from "./lib/evaluationSlug";
 import { loadBatchProducts } from "./lib/loadBatchProducts";
 import { loadDefaultProductsData } from "./lib/defaultProductsLoader";
@@ -628,6 +629,13 @@ const buildCanonicalPathFromPageConfig = (
 
 const isSearchOrAuthPath = (path: string) => {
   return path.startsWith("/search") || path.startsWith("/auth");
+};
+
+/** First available evaluation text field (en -> zh -> flat fallback). */
+const pickEvaluationSeoText = (evaluation: Record<string, any> | null | undefined, field: "title" | "verdict"): string => {
+  const en = (evaluation?.en || {}) as Record<string, unknown>;
+  const zh = (evaluation?.zh || {}) as Record<string, unknown>;
+  return String(en[field] || zh[field] || evaluation?.[field] || "").trim();
 };
 
 const isNonProductionHostname = (hostname: string) => {
@@ -2510,6 +2518,27 @@ export default function App() {
         ? ["旅行婴儿推车", "轻便婴儿推车", "幼儿自行车", "婴儿推车评测", "慢跑婴儿推车"]
         : ["travel stroller", "lightweight stroller", "toddler bike", "stroller reviews", "jogging stroller"];
       keywordsArr = Array.from(new Set([...keywordsArr, ...requiredReviewKeywords]));
+
+      // Review detail view: override the section TDK with the evaluation's own
+      // title/verdict so hydration does not overwrite the prerendered detail
+      // <title>/description with the reviews-hub values. Match by id OR slug
+      // (same chain as the sitemap/prerender: en -> zh -> slug -> title).
+      const reviewSegment = currentPath.split("/").filter(Boolean)[2] || "";
+      if (reviewSegment) {
+        const matchedEvaluation = (evaluationsData as any[]).find((evaluation) => {
+          if (String(evaluation?.status || "published") !== "published") return false;
+          if (String(evaluation?.id) === reviewSegment) return true;
+          return evaluationSlug(evaluation) === reviewSegment;
+        });
+        if (matchedEvaluation) {
+          const evalTitle = pickEvaluationSeoText(matchedEvaluation, "title");
+          const evalVerdict = pickEvaluationSeoText(matchedEvaluation, "verdict");
+          if (evalTitle) {
+            titleStr = lang === "zh" ? `${evalTitle} | BalanceBikeToddler` : `${evalTitle} | BalanceBikeToddler Reviews`;
+            descStr = evalVerdict || descStr;
+          }
+        }
+      }
     }
 
    // keywordsArr = applyPageKeywordOverride(seoKey, keywordsArr, lang, activeProductCategory);
