@@ -36,6 +36,7 @@ import { translations, translateProduct, translateNewsArticle, translateGuideArt
 import { formatWeight, formatHeight } from "./lib/units";
 import { resolveProductImages, normalizeMediaUrl } from "./lib/productImages";
 import { getProductDisplayTitle, getProductImageAlt, getProductsPageSeoTitle } from "./lib/productSeoText";
+import { evaluationRouteSegment } from "./lib/evaluationSlug";
 import { loadBatchProducts } from "./lib/loadBatchProducts";
 import { loadDefaultProductsData } from "./lib/defaultProductsLoader";
 
@@ -3620,7 +3621,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             onReviewTypeChange={(reviewTypeId) => navigateToPath(reviewTypeId === "single" ? "/reviews" : `/reviews/${reviewTypeId}`, { preserveScroll: true })}
             onEvaluationOpen={(evaluation) => {
               const reviewType = evaluation.type && evaluation.type !== "single" ? evaluation.type : "single";
-              navigateToPath(reviewType === "single" ? `/reviews/single/${evaluation.id}` : `/reviews/${reviewType}/${evaluation.id}`);
+              // Keyword-rich slug (mirrors the worker sitemap) with raw-id fallback.
+              const segment = evaluationRouteSegment(evaluation);
+              navigateToPath(`/reviews/${reviewType}/${segment}`);
             }}
             onEvaluationBack={(reviewTypeId) => navigateToPath(reviewTypeId === "single" ? "/reviews" : `/reviews/${reviewTypeId}`, { preserveScroll: true })}
             seoKeywordHints={reviewSeoHints}

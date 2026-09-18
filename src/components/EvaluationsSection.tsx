@@ -18,6 +18,7 @@ import Breadcrumbs from "./Breadcrumbs";
 import { getPageCopy } from "../config/pageCopy";
 import MultiCompareView from "./MultiCompareView";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
+import { evaluationSlug } from "../lib/evaluationSlug";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 
 function SafetyRadarChart({ product, evaluation, lang = "zh", isDark = false }: { product?: Product; evaluation?: Evaluation; lang: "zh" | "en", isDark?: boolean }) {
@@ -1474,7 +1475,15 @@ export default function EvaluationsSection({
       }
       return;
     }
-    const matchedEvaluation = reviewsList.find((item: any) => item.evaluation.id === activeEvaluationId)?.evaluation;
+    const matchedEvaluation = reviewsList.find((item: any) => {
+      const evaluation = item.evaluation;
+      if (!evaluation) return false;
+      // Route segment may be the raw record id (legacy) or the keyword slug
+      // emitted by the sitemap / internal navigation.
+      if (evaluation.id === activeEvaluationId) return true;
+      const slug = evaluationSlug(evaluation);
+      return Boolean(slug) && slug === activeEvaluationId;
+    })?.evaluation;
     if (matchedEvaluation && selectedEvaluation?.id !== matchedEvaluation.id) {
       setSelectedEvaluation(matchedEvaluation);
       setSelectedReviewType(normalizeReviewType(matchedEvaluation.type));
