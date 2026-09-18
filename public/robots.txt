@@ -5,6 +5,7 @@ Disallow: /*?*price=
 Disallow: /*?*age=
 Disallow: /*?*filter=
 Disallow: /*?*wizard=
+Disallow: /*?*category=
 
 User-agent: Amazonbot
 Disallow: /
