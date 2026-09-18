@@ -3691,6 +3691,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             }}
             onPaginationMetaChange={(meta) => setGuidesPaginationTotalPages(meta.totalPages)}
             onActiveArticleMeta={setGuidesArticleSeoMeta}
+            reviewsData={evaluationsData as unknown as Array<Record<string, any>>}
+            onOpenReviewPath={(path) => {
+              rememberReturnView("guides");
+              navigateToPath(path);
+            }}
           />
         )}
 

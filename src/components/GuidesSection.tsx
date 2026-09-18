@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { GuideArticle, guideArticles as fallbackGuideArticles } from "../data/guidesData";
 import { Product, CurrencyData } from "../types";
+import { evaluationRouteSegment } from "../lib/evaluationSlug";
 import { translateProduct, translateGuideArticle } from "../lib/translate";
 import { convertUsdToCurrency, formatCurrencyFromUsd } from "../lib/currency";
 import { getD1CMSGuides } from "../lib/cmsD1Service";
@@ -697,6 +698,10 @@ interface GuidesSectionProps {
   onOpenAdminGuideEditor?: (guideId: string) => void;
   /** Reports the active article's SEO metadata (or null when no detail is open). */
   onActiveArticleMeta?: (meta: ArticleSeoMeta | null) => void;
+  /** Published evaluations used for pillar->cluster "related reviews" links. */
+  reviewsData?: Array<Record<string, any>>;
+  /** Called with an internal review path when a related review is clicked. */
+  onOpenReviewPath?: (path: string) => void;
 }
 
 export default function GuidesSection({
@@ -719,6 +724,8 @@ export default function GuidesSection({
   isAdmin = false,
   onOpenAdminGuideEditor,
   onActiveArticleMeta,
+  reviewsData,
+  onOpenReviewPath,
 }: GuidesSectionProps) {
   const guidesDate = "2026-08-15";
   const [guideArticles, setGuideArticles] = useState<GuideArticle[]>(fallbackGuideArticles);
@@ -1897,6 +1904,29 @@ export default function GuidesSection({
 
         {selectedGuideState ? (() => {
           const guide = translateGuideArticle(selectedGuideState, lang);
+          // Pillar->cluster links: match published evaluations whose editorial
+          // title tokens overlap the guide body. Keeps guide and review pages
+          // interlinked so crawlers see a connected topic topology.
+          const relatedReviews = (() => {
+            if (!reviewsData || !reviewsData.length) return [];
+            const text = `${guide.title} ${guide.summary} ${guide.content}`.toLowerCase();
+            const stop = new Set(["review", "reviews", "single", "compare", "with", "the", "and", "for", "best"]);
+            return reviewsData
+              .filter((e) => String(e?.status || "published") === "published")
+              .map((e) => {
+                const title = String(e?.en?.title || e?.zh?.title || e?.title || "").trim();
+                const segment = evaluationRouteSegment(e);
+                if (!title || !segment) return null;
+                const tokens = title.toLowerCase().split(/[^a-z0-9]+/).filter((t) => t.length >= 4 && !stop.has(t));
+                const score = tokens.filter((t) => text.includes(t)).length;
+                if (score < 1) return null;
+                const type = String(e?.type || "single").toLowerCase() || "single";
+                return { title, score, path: `/reviews/${type}/${segment}` };
+              })
+              .filter((x): x is { title: string; score: number; path: string } => Boolean(x))
+              .sort((a, b) => b.score - a.score)
+              .slice(0, 4);
+          })();
           return (
             // Read detail mode view container
             <div className="max-w-3xl mx-auto bg-white border border-slate-100 rounded-[40px] p-8 sm:p-12 space-y-8 shadow-2xl relative animate-fade-in text-left">
@@ -1941,6 +1971,28 @@ export default function GuidesSection({
               <div className="text-slate-600 text-sm sm:text-base leading-8 space-y-6 border-t border-slate-50 pt-8">
                 {renderRichContent(guide.content)}
               </div>
+
+              {relatedReviews.length > 0 && onOpenReviewPath && (
+                <div className="pt-8 border-t border-slate-50 space-y-3">
+                  <p className="text-xs font-black uppercase tracking-widest text-slate-400">
+                    {lang === "en" ? "Related Reviews" : "相关评测"}
+                  </p>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    {relatedReviews.map((review) => (
+                      <button
+                        key={review.path}
+                        onClick={() => onOpenReviewPath(review.path)}
+                        className="flex items-center justify-between gap-3 px-5 py-4 bg-slate-50 hover:bg-orange-50 border border-slate-100 hover:border-orange-200 rounded-2xl text-left transition-all group"
+                      >
+                        <span className="text-sm font-bold text-slate-700 group-hover:text-orange-600 leading-snug">
+                          {review.title}
+                        </span>
+                        <ChevronRight className="w-4 h-4 shrink-0 text-slate-300 group-hover:text-orange-500" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div className="pt-10 border-t border-slate-50 flex justify-between items-center gap-4 flex-wrap">
                 <button

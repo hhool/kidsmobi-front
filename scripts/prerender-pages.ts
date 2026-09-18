@@ -557,7 +557,38 @@ async function fetchPublishedEvaluations(): Promise<CmsEvaluation[]> {
   return fetchPublishedCollection<CmsEvaluation>("evaluations");
 }
 
-function renderGuideDetailPage(guide: CmsGuide): RoutePage | null {
+/**
+ * Pillar->cluster matcher: score published evaluations by how many of their
+ * editorial title tokens appear in the guide body. Mirrors the runtime block
+ * in GuidesSection so prerendered HTML and the hydrated app agree.
+ */
+function relatedEvaluationsForGuide(
+  guideText: string,
+  evaluations: CmsEvaluation[],
+  limit = 4,
+): Array<{ title: string; path: string }> {
+  const text = String(guideText || "").toLowerCase();
+  const stop = new Set(["review", "reviews", "single", "compare", "with", "the", "and", "for", "best"]);
+  return evaluations
+    .filter((e) => !e.status || e.status === "published")
+    .map((e) => {
+      const title = pickText(e.en?.title, e.zh?.title, e.title);
+      const type = cmsSlugify(e.type || "single") || "single";
+      const slug =
+        cmsCapSlug(e.en?.title) || cmsCapSlug(e.zh?.title) || cmsCapSlug(e.slug) || cmsCapSlug(e.title);
+      if (!title || !slug || isMachineIdSlug(slug)) return null;
+      const tokens = title.toLowerCase().split(/[^a-z0-9]+/).filter((t) => t.length >= 4 && !stop.has(t));
+      const score = tokens.filter((t) => text.includes(t)).length;
+      if (score < 1) return null;
+      return { title, score, path: `/reviews/${type}/${slug}` };
+    })
+    .filter((x): x is { title: string; score: number; path: string } => Boolean(x))
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(({ title, path }) => ({ title, path }));
+}
+
+function renderGuideDetailPage(guide: CmsGuide, evaluations: CmsEvaluation[] = []): RoutePage | null {
   const route = guideRoutePath(guide);
   if (!route) return null;
 
@@ -570,6 +601,20 @@ function renderGuideDetailPage(guide: CmsGuide): RoutePage | null {
     "BalanceBikeToddler buying guide for families.",
   );
   const content = pickText(guide.en?.content, guide.zh?.content);
+  const relatedReviews = relatedEvaluationsForGuide(`${title} ${summary} ${content}`, evaluations);
+  const relatedReviewsHtml = relatedReviews.length
+    ? `<section style="padding: 18px 0; border-top: 1px solid #e2e8f0;">
+        <p style="margin: 0 0 10px; font-size: 0.78rem; font-weight: 900; letter-spacing: 0.15em; text-transform: uppercase; color: #94a3b8;">Related Reviews</p>
+        <ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px;">
+          ${relatedReviews
+            .map(
+              (review) =>
+                `<li style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 12px 16px;"><a href="${escapeHtml(review.path)}" style="color: #c2410c; font-weight: 700; text-decoration: none;">${escapeHtml(review.title)}</a></li>`,
+            )
+            .join("")}
+        </ul>
+      </section>`
+    : "";
   const topic = guideTopicCategory(guide);
   const topicLabel = topic.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
   const published = pickText(guide.publishedAt, guide.updatedAt).slice(0, 10) || "2026-08-15";
@@ -634,6 +679,7 @@ function renderGuideDetailPage(guide: CmsGuide): RoutePage | null {
       <section style="padding: 6px 0; border-top: 1px solid #e2e8f0;">
         ${renderGuideContentHtml(content) || `<p style="margin: 0;">${escapeHtml(summary)}</p>`}
       </section>
+      ${relatedReviewsHtml}
       <section style="padding: 22px 0 0; border-top: 1px solid #e2e8f0;">
         <p style="margin: 0; font-size: 0.9rem; color: #475569;">Continue browsing the <a href="/guides">full guide library</a>.</p>
       </section>
@@ -1670,7 +1716,7 @@ async function main() {
     fetchPublishedEvaluations(),
   ]);
   const guideDetailPages = cmsGuides
-    .map(renderGuideDetailPage)
+    .map((guide) => renderGuideDetailPage(guide, cmsEvaluations))
     .filter((page): page is RoutePage => page !== null);
   const newsDetailPages = cmsNews
     .map(renderNewsDetailPage)
