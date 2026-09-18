@@ -4081,7 +4081,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 >
                   <Twitter className="w-4 h-4" />
                 </a>
-                <a 
+                <a
                   href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -4090,29 +4090,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 >
                   <Facebook className="w-4 h-4" />
                 </a>
-                <a 
-                  href="https://youtube.com/@kidsmobi"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl transition-all border border-slate-700 hover:border-orange-500/50"
-                  title="YouTube"
-                >
-                  <Youtube className="w-4 h-4" />
-                </a>
-                <a 
-                  href="https://tiktok.com/@kidsmobi"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl transition-all border border-slate-700 hover:border-orange-500/50"
-                  title="TikTok"
-                >
-                  <Music className="w-4 h-4" />
-                </a>
               </div>
               <div className="pt-2">
                 <div className="inline-flex flex-wrap items-center gap-2">
                   {([
-                    { label: "ASTM F963", href: "https://www.astm.org/f0923-23.html" },
+                    { label: "ASTM F963", href: "https://www.astm.org/f0963-23.html" },
                     { label: "CPSC", href: "https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products" },
                     { label: "EN 71", href: TRANSPARENCY_PAGE_PATHS["certification-lab-notes"] || "/transparency/certification-lab-notes/" },
                   ] as const).map((cert) => (

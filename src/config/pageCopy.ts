@@ -1285,7 +1285,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
       closeReading: "Close Reading",
       heroBadge: "GLOBAL MOBILE SAFETY RESEARCH",
       heroTitle: "Latest News, Guides & Tips for Kids Bikes & Strollers",
-      heroSubtitle: "Track industry updates for a premium kids bikes，such as  kids electric bike or a rugged electric dirt bike for kids. We also review foldable electric scooter launches and kids e-scooter safety data.",
+      heroSubtitle: "Independent reporting on juvenile micro-mobility standards, mechanical safety updates, and regulatory recalls across balance bikes, kick scooters, and lightweight ride-ons.",
       categoryTabs: {
         all: "All Articles",
         newProduct: "New Launches",

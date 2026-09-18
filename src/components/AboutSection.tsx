@@ -23,9 +23,9 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
       ];
   const auditRows = isEn
     ? [
-        { check: "1. Precision weighing", evidence: "Full riding setup, including pedals and guards", why: "Keeps factory claims honest" },
+        { check: "1. Precision weighing", evidence: "Full riding setup, including pedals and guards", why: "Keeps factory claims honest", href: "/guides/best" },
         { check: "2. Braking resistance", evidence: "Pressure sensors on hand-brake force", why: "Shows whether a child can stop safely" },
-        { check: "3. Q-factor analysis", evidence: "Pedal horizontal distance measurement", why: "Flags awkward or risky leg posture" },
+        { check: "3. Q-factor analysis", evidence: "Pedal horizontal distance measurement", why: "Flags awkward or risky leg posture", href: "/guides/best" },
         { check: "4. Fatigue testing", evidence: "100k+ impact cycles on hydraulic rigs", why: "Checks long-run frame durability" },
       ]
     : [
@@ -34,6 +34,27 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
         { check: "3. Q-Factor 跨宽分析", evidence: "测量踏板左右水平偏距", why: "识别不自然或高风险踩踏姿势" },
         { check: "4. 疲劳冲击测试", evidence: "液压台架 10 万次以上冲击循环", why: "检查车架长期耐久性" },
       ];
+
+  const renderCheckCell = (row: { check: string; href?: string }) => {
+    if (!row.href) return row.check;
+    return (
+      <a
+        href={row.href}
+        onClick={(e) => {
+          e.preventDefault();
+          if ((window as any).navigateToPath) {
+            (window as any).navigateToPath(row.href!);
+          } else {
+            window.location.href = row.href!;
+          }
+        }}
+        className="text-orange-600 hover:text-orange-700 underline decoration-orange-200 underline-offset-2"
+        title={isEn ? "See the in-depth measuring guide" : "查看详细测量科普"}
+      >
+        {row.check}
+      </a>
+    );
+  };
 
   if (isEn) {
     return (
@@ -161,7 +182,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
               <tbody>
                 {auditRows.map((row) => (
                   <tr key={row.check} className="border-t border-slate-100 align-top">
-                    <td className="px-6 py-5 font-black text-slate-900">{row.check}</td>
+                    <td className="px-6 py-5 font-black text-slate-900">{renderCheckCell(row)}</td>
                     <td className="px-6 py-5 text-slate-600">{row.evidence}</td>
                     <td className="px-6 py-5 text-slate-600">{row.why}</td>
                   </tr>
@@ -197,9 +218,9 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             <ul className="space-y-2 text-sm text-slate-600">
               <li><a href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides" className="font-semibold underline decoration-orange-300 underline-offset-4">FTC Endorsement Guides</a> — disclosure baseline for recommendation pages</li>
               <li><a href="https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products" className="font-semibold underline decoration-orange-300 underline-offset-4">CPSC Children's Products Guidance</a> — children’s safety reference</li>
-              <li><a href="https://www.astm.org/f0923-23.html" rel="noopener noreferrer" target="_blank" className="font-semibold underline decoration-orange-300 underline-offset-4">ASTM F963-23</a> — Standard Consumer Safety Specification for Toy Safety</li>
+              <li><a href="https://www.astm.org/f0963-23.html" rel="noopener noreferrer" target="_blank" className="font-semibold underline decoration-orange-300 underline-offset-4">ASTM F963-23</a> — Standard Consumer Safety Specification for Toy Safety</li>
               <li><a href="https://www.ecfr.gov/current/title-16/chapter-II/subchapter-C/part-1512" rel="noopener noreferrer" target="_blank" className="font-semibold underline decoration-orange-300 underline-offset-4">CPSC 16 CFR Part 1512</a> — federal bicycle braking, steering & reflector requirements</li>
-              <li><a href="https://www.iso.org/standard/72958.html" rel="noopener noreferrer" target="_blank" className="font-semibold underline decoration-orange-300 underline-offset-4">ISO 8098:2023</a> — safety requirements for bicycles for young children</li>
+              <li><a href="https://www.iso.org/standard/78085.html" rel="noopener noreferrer" target="_blank" className="font-semibold underline decoration-orange-300 underline-offset-4">ISO 8098:2023</a> — safety requirements for bicycles for young children</li>
             </ul>
           </div>
 
@@ -428,7 +449,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             <tbody>
               {auditRows.map((row) => (
                 <tr key={row.check} className="border-t border-slate-100 align-top">
-                  <td className="px-6 py-5 font-black text-slate-900">{row.check}</td>
+                  <td className="px-6 py-5 font-black text-slate-900">{renderCheckCell(row)}</td>
                   <td className="px-6 py-5 text-slate-600">{row.evidence}</td>
                   <td className="px-6 py-5 text-slate-600">{row.why}</td>
                 </tr>
