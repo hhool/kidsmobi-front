@@ -2078,9 +2078,6 @@ export default function App() {
       url: `${origin}/`,
       logo: `${origin}/favicon.svg`,
       sameAs: [
-        "https://www.youtube.com/@kidsmobi",
-        "https://www.facebook.com",
-        "https://www.instagram.com",
         "https://x.com/bbtreviews"
       ],
     },
@@ -2679,9 +2676,6 @@ export default function App() {
       url: `${window.location.origin}/`,
       logo: `${window.location.origin}/favicon.svg`,
       sameAs: [
-        "https://www.youtube.com/@kidsmobi",
-        "https://www.facebook.com",
-        "https://www.instagram.com",
         "https://x.com/bbtreviews",
       ],
     };
