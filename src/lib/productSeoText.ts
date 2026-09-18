@@ -257,3 +257,40 @@ export function getProductDisplayTitle(product: Product, lang: "zh" | "en"): str
 
   return [strollerBrand, type].filter(Boolean).join(" ");
 }
+
+/**
+ * SKU-level display title built from the product's own name, e.g.
+ * "Baby Trend Expedition Race Tec PLUS Jogger Stroller" instead of the
+ * generic "<Brand> Jogging Stroller" / "<Brand> Kids Electric Scooter"
+ * placeholders. Generic category titles repeat across cards (header
+ * cannibalization) and hide the exact model keywords real shoppers search.
+ * Falls back to the curated/generic display title when the record has no
+ * usable product name.
+ */
+export function getProductSkuTitle(product: Product, lang: "zh" | "en"): string {
+  const localized = product as Product & {
+    zh?: { name?: string };
+    en?: { name?: string };
+  };
+  const brand = compactText(localized.brand);
+  // zh keeps using the localized name only — falling back to the raw English
+  // scrape on a Chinese page is worse than the generic category title.
+  const rawName = lang === "zh"
+    ? compactText(localized.zh?.name || "")
+    : compactText(localized.en?.name || localized.name);
+  if (!rawName) {
+    return getProductDisplayTitle(product, lang);
+  }
+  // First marketing segment only: Amazon-style names append color/size/
+  // bundle tails after commas, pipes and dashes ("Razor A Kick Scooter for
+  // Kids - Lightweight, Foldable, ...") — keep "Razor A Kick Scooter for Kids".
+  let core = rawName.split(/\s*(?:[,，|]|\s+-\s+|\s+–\s+|\s+—\s+)\s*/)[0]?.trim() || rawName;
+  if (brand) {
+    // Drop a duplicated leading brand so the normalized brand is prepended once.
+    const leadingBrand = new RegExp(`^(?:${escapeRegExp(brand)}\\s+){1,3}`, "i");
+    core = core.replace(leadingBrand, "").trim() || core;
+  }
+  core = core.replace(/[®©™]/g, "").replace(/\s+/g, " ").trim();
+  const title = [brand, core].filter(Boolean).join(" ").trim();
+  return title || getProductDisplayTitle(product, lang);
+}

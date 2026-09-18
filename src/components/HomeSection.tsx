@@ -15,7 +15,7 @@ import { Product, CurrencyData } from "../types";
 import { translations, translateProduct } from "../lib/translate";
 import { SCRAPED_CATEGORY_CATALOG } from "../config/scrapedCategoryCatalog";
 import { resolveProductImages, FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
-import { getProductDisplayTitle, getProductImageAlt } from "../lib/productSeoText";
+import { getProductImageAlt, getProductSkuTitle } from "../lib/productSeoText";
 import { formatCurrencyFromUsd } from "../lib/currency";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
 import SeoKeywordPanel from "./common/SeoKeywordPanel";
@@ -339,13 +339,7 @@ export default function HomeSection({
 
   const resolveHomepageProductTitle = (product?: Product, forcedCategoryLabel?: string) => {
     if (!product) return homeCopy.runtimeLabels.evaluating;
-    const localized = translateProduct(product, lang);
-    const brand = String(localized.brand || product.brand || "").trim();
-    const categoryLabel = forcedCategoryLabel || resolveHomepageCategoryLabel(product);
-    if (brand && categoryLabel) {
-      return `${brand} ${categoryLabel}`.trim();
-    }
-    return String(localized.name || product.name || categoryLabel).trim();
+    return getProductSkuTitle(product, lang) || forcedCategoryLabel || homeCopy.runtimeLabels.evaluating;
   };
 
   const resolveHomepageProductSummary = (product?: Product, forcedCategoryLabel?: string) => {
@@ -393,37 +387,6 @@ export default function HomeSection({
     return lang === "zh"
       ? "该卡片展示当前绑定产品的核心适用场景、结构特点与日常使用表现，详情可进入产品页查看。"
       : "This card highlights the bound product's fit, structure, and everyday ride behavior.";
-  };
-
-  const stripLeadingBrandFromTitle = (title: string, brand: string) => {
-    const normalizedTitle = String(title || "").trim();
-    const normalizedBrand = String(brand || "").trim();
-    if (!normalizedTitle || !normalizedBrand) return normalizedTitle;
-
-    const escapedBrand = normalizedBrand.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const leadingBrandPattern = new RegExp(`^${escapedBrand}(?:\\s+|[-:|]+\\s*)`, "i");
-    const cleaned = normalizedTitle.replace(leadingBrandPattern, "").trim();
-    return cleaned || normalizedTitle;
-  };
-
-  const stripLeadingTitleModifiers = (title: string) => {
-    const normalizedTitle = String(title || "").trim();
-    if (!normalizedTitle || lang !== "en") return normalizedTitle;
-
-    const explicitPrefixes = [
-      /^colorful\s+led\s+/i,
-      /^illuminated\s+/i,
-    ];
-    const withoutExplicitPrefixes = explicitPrefixes.reduce((acc, pattern) => acc.replace(pattern, ""), normalizedTitle).trim();
-    const withoutArticles = withoutExplicitPrefixes.replace(/\b(?:a|an|the)\b/gi, " ").replace(/\s+/g, " ").trim();
-
-    const coreBalancePattern = /\b(toddler\s+balance\s+bike)\b/i;
-    const coreBalanceMatch = withoutArticles.match(coreBalancePattern);
-    if (coreBalanceMatch) {
-      return coreBalanceMatch[1].replace(/\s+/g, " ").trim().replace(/\b\w/g, (m) => m.toUpperCase());
-    }
-
-    return withoutArticles;
   };
 
   const collapseRepeatedLeadingBrand = (text: string, brand: string) => {
@@ -848,16 +811,14 @@ export default function HomeSection({
     const dp = translateProduct(p, lang);
     const rawBrandLabel = String(dp.brand || p.brand || "").trim();
     const brandLabel = normalizeBrandLabel(rawBrandLabel);
-    const title = getProductDisplayTitle(p, lang);
-    const dedupedTitle = stripLeadingBrandFromTitle(stripLeadingBrandFromTitle(title, rawBrandLabel), brandLabel);
-    const normalizedProductTitle = String(stripLeadingTitleModifiers(dedupedTitle)).trim();
-    const useForcedCategoryLabel = forcedCategoryLabel === homeCopy.runtimeLabels.categoryNames.joggingStroller;
-    const useElectricScooterTitle = forcedCategoryLabel === homeCopy.runtimeLabels.categoryNames.kidsScooter;
-    const electricScooterLabel = lang === "zh" ? "儿童电动滑板车" : "Kids Electric Scooter";
-    const displayTitle = collapseRepeatedLeadingBrand(
-      String(`${brandLabel} ${useElectricScooterTitle ? electricScooterLabel : (useForcedCategoryLabel ? forcedCategoryLabel : (normalizedProductTitle || forcedCategoryLabel || ""))}`).trim(),
-      brandLabel
-    );
+    // Real SKU title (brand + exact model). The previous behavior replaced the
+    // model with the section's category label, which produced three identical
+    // "Baby Trend Jogging Stroller" H3s and "Kids Electric Scooter" on a kick
+    // scooter (Razor A) — duplicate headings that read as template boilerplate
+    // to Google and kill long-tail model queries. Category label is now only
+    // the fallback for records without a usable name.
+    const title = getProductSkuTitle(p, lang);
+    const displayTitle = collapseRepeatedLeadingBrand(title, brandLabel).trim() || forcedCategoryLabel || "";
     const snapshot = resolveHomepageProductSummary(p, forcedCategoryLabel);
     const isCompared = Boolean(onToggleCompare && compareList?.some((c) => c.id === p.id));
     return (
@@ -1304,28 +1265,14 @@ export default function HomeSection({
             const categoryPriceLabel = formatHomePrice(topProduct);
             const categoryProductTitle = topProduct
               ? (() => {
-                  if (cat.id === "stroller") {
-                    return collapseRepeatedLeadingBrand(
-                      String(`${categoryBrandLabel} ${homeCopy.runtimeLabels.categoryNames.joggingStroller}`).trim(),
-                      categoryBrandLabel,
-                    ) || cat.label;
-                  }
-
-                  if (cat.id === "scooters") {
-                    const scooterLabel = lang === "zh" ? "儿童电动滑板车" : "Kids Electric Scooter";
-                    return collapseRepeatedLeadingBrand(
-                      String(`${categoryBrandLabel} ${scooterLabel}`).trim(),
-                      categoryBrandLabel,
-                    ) || cat.label;
-                  }
-
-                  const topTitle = getProductDisplayTitle(topProduct, lang);
-                  const topTitleWithoutBrand = stripLeadingBrandFromTitle(stripLeadingBrandFromTitle(topTitle, rawCategoryBrandLabel), categoryBrandLabel);
-                  const normalizedTopTitle = stripLeadingTitleModifiers(topTitleWithoutBrand);
-                  return collapseRepeatedLeadingBrand(
-                    String(`${categoryBrandLabel} ${normalizedTopTitle || cat.label}`).trim(),
+                  // Same SKU-title rule as the product cards: real brand + model
+                  // instead of the generic "Jogging Stroller" / "Kids Electric
+                  // Scooter" placeholders (header cannibalization fix).
+                  const skuTitle = collapseRepeatedLeadingBrand(
+                    getProductSkuTitle(topProduct, lang),
                     categoryBrandLabel,
-                  ) || cat.label;
+                  ).trim();
+                  return skuTitle || cat.label;
                 })()
               : cat.label;
 
