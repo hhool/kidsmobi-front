@@ -292,7 +292,7 @@ export function getProductSkuTitle(product: Product, lang: "zh" | "en"): string 
   }
   core = core.replace(/[®©™]/g, "").replace(/\s+/g, " ").trim();
   const title = [brand, core].filter(Boolean).join(" ").trim();
-  return title || getProductDisplayTitle(product, lang);
+  return shortenCardTitle(title, 90) || getProductDisplayTitle(product, lang);
 }
 
 /**
@@ -332,8 +332,16 @@ export function sanitizeScrapedSnippet(input: string): string {
  * [Brand] + [Model] + [Primary spec], cut at a natural boundary under maxChars.
  */
 export function shortenCardTitle(title: string, maxChars = 80): string {
-  const text = String(title || "").trim();
+  let text = String(title || "").trim();
+  if (!text) return text;
+
+  // Capitalise an all-lowercase brand/model lead (e.g. "cubsala 12 Inch...")
+  text = text.replace(/^([a-z][a-z0-9]*)((?:\s+\d|\s+[A-Z]|$))/, (_m, word: string, tail: string) =>
+    word.charAt(0).toUpperCase() + word.slice(1) + tail,
+  );
+
   if (text.length <= maxChars) return text;
+
   const cutPoints = [
     text.indexOf(" with "),
     text.indexOf(" for "),

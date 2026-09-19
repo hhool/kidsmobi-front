@@ -21,7 +21,7 @@ import { translateProduct, translateCategory } from "../lib/translate";
 import { localizeMaterialDisplayValue, localizeSafetyDisplayValue } from "../lib/specLexicon";
 import { formatWeight } from "../lib/units";
 import { resolveProductImages } from "../lib/productImages";
-import { getProductDisplayTitle, getProductImageAlt, getProductsPageSeoTitle, isElectricScooterProduct, sanitizeScrapedSnippet } from "../lib/productSeoText";
+import { getProductDisplayTitle, getProductImageAlt, getProductsPageSeoTitle, isElectricScooterProduct, sanitizeScrapedSnippet, shortenCardTitle } from "../lib/productSeoText";
 import CategoryComparisonTable from "./common/CategoryComparisonTable";
 import { getBackendPickerPayload } from "../lib/backendResourceService";
 import { cleanVisibleSourceText } from "../lib/visibleText";
@@ -417,9 +417,9 @@ function buildCardDisplayTitle(product: Product, lang: "zh" | "en"): string {
     ? removeLatinFragmentsWhenZhPresent(localizeCardTitleZh(name), brand)
     : stripEnglishArticles(name);
 
-  if (!brand) return resolvedName;
+  if (!brand) return shortenCardTitle(resolvedName, 90);
   if (!resolvedName) return brand;
-  return `${brand} ${resolvedName}`.trim();
+  return shortenCardTitle(`${brand} ${resolvedName}`.trim(), 90);
 }
 
 function isTitleDuplicateSnippet(value: string, product: Product): boolean {
