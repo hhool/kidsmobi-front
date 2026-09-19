@@ -5,6 +5,7 @@ import { newsArticles } from "../src/data/newsData";
 import { initialEvaluationsData } from "../src/data/evaluationsData";
 import { TRANSPARENCY_PAGES } from "../src/data/transparencyPages";
 import { getPageCopy } from "../src/config/pageCopy";
+import { shortenCardTitle } from "../src/lib/productSeoText";
 
 const distDir = path.resolve("dist");
 type RoutePage = {
@@ -15,6 +16,9 @@ type RoutePage = {
   image?: string;
   ogType?: "website" | "article";
   jsonLd?: Array<Record<string, unknown>>;
+  /** Optional canonical path override (used by alias routes that must
+   *  consolidate onto the canonical slug-form category URL). */
+  canonicalPath?: string;
 };
 
 type AppAssets = {
@@ -90,7 +94,7 @@ function renderStaticPage(page: RoutePage): string {
 }
 
 function renderDocument(page: RoutePage, appAssets: AppAssets): string {
-  const canonical = `https://balancebiketoddler.com${page.route}`;
+  const canonical = `https://balancebiketoddler.com${page.canonicalPath || page.route}`;
   const entitySameAs = [
     "https://www.youtube.com/@kidsmobi",
     "https://www.facebook.com",
@@ -1828,6 +1832,542 @@ function renderTransparencyPages(): RoutePage[] {
   });
 }
 
+/* ------------------------------------------------------------------ *
+ * CMS-driven product category + detail pages (P0-1)
+ *
+ * Before this block, only the /products hub was prerendered: every
+ * /products/<category> and /products/<category>/<id> URL fell through the
+ * `/* /index.html 200` SPA catch-all and served the homepage HTML with the
+ * homepage canonical — making all 197 product pages invisible to Google.
+ *
+ * URL canonical families (must stay in lockstep with three places:
+ *  - the SPA: PRODUCT_ROUTE_ALIASES / resolveProductCategoryId (App.tsx)
+ *  - the Worker sitemap: deriveProductDetailPath + PRODUCT_CATEGORY_SLUGS
+ *  - this prerender:
+ *     category  -> /products/<slug>/        (slug form, trailing slash,
+ *                                            directory index.html)
+ *     category  -> /products/<categoryId>   (id-form alias file whose
+ *                                            canonical points at the slug
+ *                                            form, consolidating variants)
+ *     detail    -> /products/<resolvedCategoryId>/<product.id>
+ *               (matches the SPA's own ItemList/navigateToPath URLs and the
+ *                product_detail self-canonical branch)
+ * ------------------------------------------------------------------ */
+
+type CmsProductFull = CmsProductLite & {
+  en?: {
+    name?: string;
+    cardTitle?: string;
+    cardSummary?: string;
+    description?: string;
+    editorVerdict?: string;
+    features?: string[];
+    pros?: string[];
+    cons?: string[];
+    specsText?: string;
+    customersSay?: string;
+    brandText?: string;
+  };
+  price?: number | string;
+  rating?: { value?: number } | number;
+  reviewCount?: number;
+  categoryId?: string;
+  galleryUrls?: string[];
+  updatedAt?: string;
+  Product_Display_Fields?: Record<string, { value?: string } | undefined>;
+};
+
+/** Mirrors PRODUCT_ROUTE_ALIASES in App.tsx. */
+const PRERENDER_PRODUCT_ROUTE_ALIASES: Record<string, string> = {
+  scooters: "kids_scooters",
+  scooter: "kids_scooters",
+  "kids-scooters": "kids_scooters",
+  "kids-bikes": "kids_bikes",
+  "balance-bikes": "balance_bike",
+  balance: "balance_bike",
+  "balance bike": "balance_bike",
+  bicycle: "kids_bikes",
+  tricycle: "kids_tricycles",
+  electric_car: "electric_vehicles",
+  safety_seat: "car_seat",
+  strollers: "stroller",
+  jogger_stroller: "stroller",
+  jogging_stroller: "stroller",
+  jogger: "stroller",
+  jogging: "stroller",
+  others: "other",
+};
+
+/** Mirrors PRIMARY_PRODUCT_CATEGORY_IDS in App.tsx. */
+const PRERENDER_PRIMARY_PRODUCT_CATEGORY_IDS = new Set([
+  "stroller",
+  "balance_bike",
+  "kids_bikes",
+  "kids_scooters",
+  "electric_vehicles",
+  "car_seat",
+]);
+
+/** Mirrors inferMisclassifiedCategoryId in App.tsx. */
+function prerenderInferStrollerCategory(product: CmsProductFull, normalizedCategoryId: string): string {
+  if (normalizedCategoryId !== "stroller") return normalizedCategoryId;
+  const text = [
+    product.name,
+    (product as Record<string, unknown>).title,
+    product.category,
+    product.en?.description,
+  ]
+    .map((item) => String(item || "").toLowerCase())
+    .join(" ");
+
+  const hasStrollerSignal = /(stroller|pram|pushchair|buggy|jogger|jogging|travel\s+system|umbrella\s+stroller|double\s+stroller|twin\s+stroller|推车|婴儿车|慢跑推车|双人推车)/i.test(text);
+  const hasCarSeatSignal = /(\bcar\s*seat\b|\bbooster\s*seat\b|\bconvertible\s*car\s*seat\b|\binfant\s*car\s*seat\b|安全座椅|提篮座椅)/i.test(text);
+  const hasHighChairSignal = /(\bhigh\s*chair\b|feeding\s*chair|餐椅)/i.test(text);
+  const hasPlayardSignal = /(\bplayard\b|\bplay\s*yard\b|\bpack\s*(n|and)\s*play\b|围栏床|游戏床)/i.test(text);
+  const hasCarrierSignal = /(\bbaby\s*carrier\b|carrier\s*wrap|hip\s*seat\s*carrier|\bsling\b|背带)/i.test(text);
+  const hasNurserySignal = /(\bmattress\b|\bcrib\b|\bbassinet\b|\bbaby\s*swing\b|\bswings\s*for\s*infants\b|\brocker\b|\bbouncer\b|\bsoother\b|\bplaypen\b|\bdiaper\b|\bbottle\s*warmer\b|\bbreast\s*pump\b|\bnursery\b|床垫|婴儿床|摇椅|秋千|安抚椅|尿布|奶瓶加热)/i.test(text);
+
+  if (hasCarSeatSignal && !hasStrollerSignal) return "car_seat";
+  if (hasHighChairSignal && !hasStrollerSignal) return "high_chair";
+  if (hasPlayardSignal && !hasStrollerSignal) return "playard";
+  if (hasCarrierSignal && !hasStrollerSignal) return "baby_carrier";
+  if (hasNurserySignal && !hasStrollerSignal) return "playard";
+  return normalizedCategoryId;
+}
+
+/** Mirrors resolveProductCategoryId in App.tsx. */
+function resolveProductCategoryIdFull(product: CmsProductFull): string {
+  const raw = String(product.categoryId || product.category || "").trim().toLowerCase();
+  const normalized = PRERENDER_PRODUCT_ROUTE_ALIASES[raw] || raw;
+  const inferred = prerenderInferStrollerCategory(product, normalized);
+  return PRERENDER_PRIMARY_PRODUCT_CATEGORY_IDS.has(inferred) ? inferred : "other";
+}
+
+type ProductCategoryMeta = {
+  categoryId: string;
+  slug: string;
+  label: string;
+  title: string;
+  description: string;
+};
+
+/**
+ * Canonical slug-form category pages. Slugs reuse the exact forms already
+ * emitted by the prerendered footer (HomeSection) so internal links and
+ * canonicals agree: /products/balance-bikes/ etc.
+ */
+const PRODUCT_CATEGORY_PAGES: ProductCategoryMeta[] = [
+  {
+    categoryId: "stroller",
+    slug: "strollers",
+    label: "Strollers",
+    title: "Best Jogging Stroller & Travel Stroller Reviews 2026",
+    description: "Compare lab-tested jogging stroller, travel stroller, and twin stroller models with safety scores, stability metrics, and foldability insights.",
+  },
+  {
+    categoryId: "balance_bike",
+    slug: "balance-bikes",
+    label: "Balance Bikes",
+    title: "Best Toddler Balance Bikes 2026 Lab-Tested Reviews",
+    description: "Explore our expert lab database for the safest toddler balance bikes. Compare weight capacity, stability scores, and features for top ride-on brands.",
+  },
+  {
+    categoryId: "kids_bikes",
+    slug: "kids-bikes",
+    label: "Kids Bikes",
+    title: "Best Kids Bikes & Toddler Bicycles 2026 Lab-Tested",
+    description: "Discover the safest and top-rated kids bikes for ages 2-14. Explore our lab database to compare BMX style, training wheels, and dual suspension bicycles.",
+  },
+  {
+    categoryId: "kids_scooters",
+    slug: "kids-scooters",
+    label: "Kids Scooters",
+    title: "Best Kids Electric Scooter & Kick Scooter Reviews 2026",
+    description: "Find lab-reviewed kids electric scooter and kick scooter options, including foldable models, 3-wheel starters, and seated configurations.",
+  },
+  {
+    categoryId: "electric_vehicles",
+    slug: "electric_car",
+    label: "Kids Electric Cars",
+    title: "Best Kids Electric Cars & Ride-On Toys Reviews 2026",
+    description: "Review lab-tested kids electric cars, 12V/24V ride-on toys, and electric ride-on options with battery safety, braking control, and runtime benchmarks.",
+  },
+  {
+    categoryId: "car_seat",
+    slug: "safety_seat",
+    label: "Car Seats",
+    title: "Best Convertible & Toddler Car Seats 2026 Lab-Tested",
+    description: "Find the safest convertible and booster car seats for your child. Compare lab-tested scores, weight limits, and safety features for top brands like Graco and Evenflo.",
+  },
+];
+
+const SPEC_FIELD_LABELS: Record<string, string> = {
+  recommendedAge: "Recommended age",
+  weightLimit: "Weight limit",
+  itemWeight: "Item weight",
+  frameMaterial: "Frame material",
+  dimensions: "Dimensions",
+};
+
+function productDisplayTitle(product: CmsProductFull): string {
+  const name = pickText(product.en?.name, product.name);
+  return shortenCardTitle(name, 80) || name || String(product.id || "");
+}
+
+function productDescriptionParagraphs(product: CmsProductFull): string[] {
+  const raw = String(product.en?.description || "").trim();
+  if (!raw) return [];
+  return raw
+    .split(/\n{2,}|\r\n{2,}/)
+    .map((part) => part.replace(/\s+/g, " ").trim())
+    .filter(Boolean);
+}
+
+function productRatingValue(product: CmsProductFull): number | null {
+  const rating = product.rating;
+  if (rating && typeof rating === "object" && typeof rating.value === "number") return rating.value;
+  if (typeof rating === "number") return rating;
+  return null;
+}
+
+function productPriceValue(product: CmsProductFull): string | null {
+  const price = product.price;
+  if (price === null || price === undefined || price === "") return null;
+  const num = Number(price);
+  return Number.isFinite(num) && num > 0 ? num.toFixed(2) : null;
+}
+
+function productCategoryHref(categoryId: string): string | null {
+  const meta = PRODUCT_CATEGORY_PAGES.find((item) => item.categoryId === categoryId);
+  return meta ? `/products/${meta.slug}/` : null;
+}
+
+function renderProductBreadcrumb(products: Array<{ name: string; href: string }>): string {
+  return `
+        <nav aria-label="Breadcrumb" style="margin: 0 0 18px; font-size: 0.86rem; color: #64748b;">
+          ${products
+            .map(
+              (crumb, index) =>
+                `${index > 0 ? ' <span aria-hidden="true">›</span> ' : ""}<a href="${escapeHtml(crumb.href)}" style="color: #c2410c; text-decoration: none;">${escapeHtml(crumb.name)}</a>`,
+            )
+            .join("")}
+        </nav>
+      `;
+}
+
+function renderProductDetailPage(
+  product: CmsProductFull,
+  allProducts: CmsProductFull[],
+  evaluations: CmsEvaluation[],
+): RoutePage | null {
+  const id = String(product.id || "").trim();
+  if (!id) return null;
+  const resolvedCategory = resolveProductCategoryIdFull(product);
+  const route = `/products/${resolvedCategory}/${cmsRouteSegment(id)}`;
+  const name = pickText(product.en?.name, product.name, id);
+  const displayName = productDisplayTitle(product);
+  const summary = pickText(product.en?.cardSummary);
+  const paragraphs = productDescriptionParagraphs(product);
+  const metaDescription = pickText(
+    summary,
+    paragraphs[0]?.slice(0, 170),
+    "Lab-tested review with safety score, specs, and age fit for this kids mobility product.",
+  );
+  const image = toAbsoluteMediaUrl(product.imageUrl);
+  const editorialScore = Number(product.overallScore);
+  const ratingValue = productRatingValue(product);
+  const reviewCount = Number(product.reviewCount || 0);
+  const price = productPriceValue(product);
+  const categoryHref = productCategoryHref(resolvedCategory);
+  const categoryLabel =
+    PRODUCT_CATEGORY_PAGES.find((item) => item.categoryId === resolvedCategory)?.label || "All Products";
+  const categoryBreadcrumbHref = categoryHref || "/products";
+
+  const statsChips = [
+    Number.isFinite(editorialScore) && editorialScore > 0
+      ? `<span style="background:#fff7ed;border:1px solid #fed7aa;border-radius:999px;padding:4px 12px;font-weight:800;color:#c2410c;">Editorial score ${editorialScore.toFixed(1)}/10</span>`
+      : "",
+    ratingValue
+      ? `<span style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:999px;padding:4px 12px;color:#334155;">★ ${ratingValue.toFixed(1)}/5${reviewCount ? ` · ${reviewCount.toLocaleString("en-US")} ratings` : ""}</span>`
+      : "",
+    price
+      ? `<span style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:999px;padding:4px 12px;color:#334155;">Typical price $${price}</span>`
+      : "",
+  ].filter(Boolean);
+
+  const summaryHtml = summary
+    ? `<p style="margin: 0 0 16px; font-size: 1.06rem; font-weight: 700; color: #0f172a;">${escapeHtml(summary)}</p>`
+    : "";
+  const descriptionHtml = paragraphs.length
+    ? `<section style="margin: 0 0 22px;">${paragraphs
+        .map((part) => `<p style="margin: 0 0 12px; color: #334155;">${escapeHtml(part)}</p>`)
+        .join("")}</section>`
+    : "";
+
+  const featureList = Array.isArray(product.en?.features) ? product.en!.features! : [];
+  const featuresHtml = featureList.length
+    ? `<section style="margin: 0 0 22px;">
+        <h2 style="margin: 0 0 10px; font-size: 1.2rem;">Key features</h2>
+        <ul style="margin: 0; padding-left: 1.2rem; color: #334155;">${featureList
+          .slice(0, 8)
+          .map((feature) => `<li style="margin-bottom: 6px;">${escapeHtml(String(feature))}</li>`)
+          .join("")}</ul>
+      </section>`
+    : "";
+
+  const pros = Array.isArray(product.en?.pros) ? product.en!.pros! : [];
+  const cons = Array.isArray(product.en?.cons) ? product.en!.cons! : [];
+  const prosConsHtml =
+    pros.length || cons.length
+      ? `<section style="margin: 0 0 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
+          ${
+            pros.length
+              ? `<div style="border: 1px solid #e2e8f0; border-radius: 14px; padding: 14px 16px; background: #f0fdf4;">
+                  <h2 style="margin: 0 0 8px; font-size: 1.02rem; color: #166534;">Pros</h2>
+                  <ul style="margin: 0; padding-left: 1.2rem; color: #14532d;">${pros
+                    .slice(0, 6)
+                    .map((item) => `<li style="margin-bottom: 6px;">${escapeHtml(String(item))}</li>`)
+                    .join("")}</ul>
+                </div>`
+              : ""
+          }${
+            cons.length
+              ? `<div style="border: 1px solid #e2e8f0; border-radius: 14px; padding: 14px 16px; background: #fef2f2;">
+                  <h2 style="margin: 0 0 8px; font-size: 1.02rem; color: #991b1b;">Cons</h2>
+                  <ul style="margin: 0; padding-left: 1.2rem; color: #7f1d1d;">${cons
+                    .slice(0, 6)
+                    .map((item) => `<li style="margin-bottom: 6px;">${escapeHtml(String(item))}</li>`)
+                    .join("")}</ul>
+                </div>`
+              : ""
+          }
+        </section>`
+      : "";
+
+  const verdict = pickText(product.en?.editorVerdict);
+  const verdictHtml = verdict
+    ? `<section style="margin: 0 0 22px; border-left: 4px solid #f97316; padding: 10px 16px; background: #fff7ed; border-radius: 0 12px 12px 0;">
+        <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Review Lab Insight</h2>
+        <p style="margin: 0; color: #334155;">${escapeHtml(verdict)}</p>
+      </section>`
+    : "";
+
+  const displayFields = product.Product_Display_Fields || {};
+  const specRows = Object.entries(SPEC_FIELD_LABELS)
+    .map(([key, label]) => {
+      const value = String(displayFields[key]?.value || "").trim();
+      return value ? `<tr><td style="padding: 6px 10px; border: 1px solid #e2e8f0; color: #64748b;">${escapeHtml(label)}</td><td style="padding: 6px 10px; border: 1px solid #e2e8f0;">${escapeHtml(value)}</td></tr>` : "";
+    })
+    .filter(Boolean);
+  const specsHtml = specRows.length
+    ? `<section style="margin: 0 0 22px;">
+        <h2 style="margin: 0 0 10px; font-size: 1.2rem;">Key specs</h2>
+        <table style="border-collapse: collapse; font-size: 0.92rem; max-width: 560px;">${specRows.join("")}</table>
+      </section>`
+    : "";
+
+  // Related reviews: evaluations joined to this product by id.
+  const relatedReviews = evaluations
+    .filter((evaluation) => {
+      if (evaluation.status && evaluation.status !== "published") return false;
+      const ids = [String(evaluation.productId || ""), ...(evaluation.productIds || [])];
+      return ids.some((value) => value.trim().toLowerCase() === id.toLowerCase());
+    })
+    .map((evaluation) => ({ evaluation, path: evaluationRoutePath(evaluation) }))
+    .filter((item): item is { evaluation: CmsEvaluation; path: string } => Boolean(item.path))
+    .slice(0, 4);
+  const relatedReviewsHtml = relatedReviews.length
+    ? `<section style="margin: 0 0 22px;">
+        <h2 style="margin: 0 0 10px; font-size: 1.2rem;">Related review reports</h2>
+        <ul style="margin: 0; padding-left: 1.2rem; color: #334155;">${relatedReviews
+          .map(
+            (item) =>
+              `<li style="margin-bottom: 6px;"><a href="${escapeHtml(item.path)}" style="color: #c2410c; font-weight: 700; text-decoration: none;">${escapeHtml(pickText(item.evaluation.en?.title, item.evaluation.zh?.title, item.evaluation.title))}</a></li>`,
+          )
+          .join("")}</ul>
+      </section>`
+    : "";
+
+  // Related products: same resolved category, highest editorial score first,
+  // capped at 6 — gives every detail page crawlable internal links (P1-5).
+  const relatedProducts = allProducts
+    .filter((candidate) => String(candidate.id || "") !== id && resolveProductCategoryIdFull(candidate) === resolvedCategory)
+    .sort((a, b) => Number(b.overallScore || 0) - Number(a.overallScore || 0))
+    .slice(0, 6);
+  const relatedProductsHtml = relatedProducts.length
+    ? `<section style="margin: 0 0 22px;">
+        <h2 style="margin: 0 0 10px; font-size: 1.2rem;">More ${escapeHtml(categoryLabel.toLowerCase())} from our lab</h2>
+        <ul style="margin: 0; padding-left: 1.2rem; color: #334155;">${relatedProducts
+          .map(
+            (candidate) =>
+              `<li style="margin-bottom: 6px;"><a href="${escapeHtml(`/products/${cmsRouteSegment(resolveProductCategoryIdFull(candidate))}/${cmsRouteSegment(candidate.id)}`)}" style="color: #c2410c; font-weight: 700; text-decoration: none;">${escapeHtml(productDisplayTitle(candidate))}</a></li>`,
+          )
+          .join("")}</ul>
+      </section>`
+    : "";
+
+  const backLinks = `
+        <section style="padding: 16px 0 0; border-top: 1px solid #e2e8f0;">
+          <p style="margin: 0 0 6px;"><a href="${escapeHtml(categoryBreadcrumbHref)}" style="color: #c2410c; font-weight: 700; text-decoration: none;">Browse all ${escapeHtml(categoryLabel.toLowerCase())}</a></p>
+          <p style="margin: 0;"><a href="/products" style="color: #c2410c; text-decoration: none;">All product categories</a></p>
+        </section>
+      `;
+
+  const body = `
+        ${renderProductBreadcrumb([
+          { name: "Home", href: "/" },
+          { name: "Products", href: "/products" },
+          { name: categoryLabel, href: categoryBreadcrumbHref },
+          { name: displayName, href: route },
+        ])}
+        <section style="margin: 0 0 22px; display: grid; grid-template-columns: minmax(0, 320px) 1fr; gap: 20px; align-items: start;">
+          ${image ? `<img src="${escapeHtml(image)}" alt="${escapeHtml(displayName)}" style="width: 100%; border-radius: 14px; border: 1px solid #e2e8f0;" />` : ""}
+          <div>${statsChips.length ? `<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">${statsChips.join("")}</div>` : ""}</div>
+        </section>
+        ${summaryHtml}
+        ${descriptionHtml}
+        ${featuresHtml}
+        ${prosConsHtml}
+        ${verdictHtml}
+        ${specsHtml}
+        ${relatedReviewsHtml}
+        ${relatedProductsHtml}
+        ${backLinks}
+      `;
+
+  const productJsonLd: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name,
+    url: `${PUBLIC_SITE_BASE}${route}`,
+    ...(image ? { image: [image] } : {}),
+    ...(paragraphs.length || summary ? { description: pickText(summary, paragraphs.join(" ").slice(0, 300)) } : {}),
+    brand: { "@type": "Brand", name: pickText(product.en?.brandText, product.brand, "Unknown") },
+    sku: id,
+    ...(ratingValue && reviewCount
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: Number(ratingValue.toFixed(2)),
+            bestRating: 5,
+            worstRating: 1,
+            ratingCount: reviewCount,
+          },
+        }
+      : {}),
+    ...(price
+      ? {
+          offers: {
+            "@type": "Offer",
+            price,
+            priceCurrency: "USD",
+            url: `${PUBLIC_SITE_BASE}${route}`,
+          },
+        }
+      : {}),
+  };
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${PUBLIC_SITE_BASE}/` },
+      { "@type": "ListItem", position: 2, name: "Products", item: `${PUBLIC_SITE_BASE}/products` },
+      { "@type": "ListItem", position: 3, name: categoryLabel, item: `${PUBLIC_SITE_BASE}${categoryBreadcrumbHref}` },
+      { "@type": "ListItem", position: 4, name: displayName, item: `${PUBLIC_SITE_BASE}${route}` },
+    ],
+  };
+
+  return {
+    route,
+    title: `${displayName} — Review, Specs & Safety Score`,
+    description: metaDescription,
+    body,
+    image: image || undefined,
+    jsonLd: [productJsonLd, breadcrumbJsonLd],
+  };
+}
+
+function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: CmsProductFull[]): RoutePage {
+  const route = `/products/${meta.slug}/`;
+
+  const cards = categoryProducts.slice(0, 30);
+  const cardsHtml = cards
+    .map(
+      (product) => `
+          <a href="${escapeHtml(`/products/${cmsRouteSegment(resolveProductCategoryIdFull(product))}/${cmsRouteSegment(product.id)}`)}" style="display: block; border: 1px solid #e2e8f0; border-radius: 16px; padding: 14px; text-decoration: none; color: inherit; background: #ffffff;">
+            ${
+              toAbsoluteMediaUrl(product.imageUrl)
+                ? `<img src="${escapeHtml(toAbsoluteMediaUrl(product.imageUrl))}" alt="${escapeHtml(productDisplayTitle(product))}" loading="lazy" style="width: 100%; height: 160px; object-fit: cover; border-radius: 10px; margin-bottom: 10px;" />`
+                : ""
+            }
+            <h3 style="margin: 0 0 6px; font-size: 0.98rem; color: #0f172a;">${escapeHtml(productDisplayTitle(product))}</h3>
+            <p style="margin: 0; font-size: 0.86rem; color: #64748b;">${escapeHtml(String(product.en?.cardSummary || "").slice(0, 140))}</p>
+          </a>`,
+    )
+    .join("");
+
+  const body = `
+        ${renderProductBreadcrumb([
+          { name: "Home", href: "/" },
+          { name: "Products", href: "/products" },
+          { name: meta.label, href: route },
+        ])}
+        <section style="margin: 0 0 22px;">
+          <p style="margin: 0 0 8px; color: #334155;">${escapeHtml(meta.description)} Every model below carries a BalanceBikeToddler editorial score from our lab checklist, with user ratings and typical pricing where available.</p>
+          <p style="margin: 0; color: #64748b; font-size: 0.92rem;">${categoryProducts.length} lab-tested ${escapeHtml(meta.label.toLowerCase())} · updated regularly from the live CMS.</p>
+        </section>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px;">${cardsHtml}</div>
+        <section style="padding: 16px 0 0; border-top: 1px solid #e2e8f0;">
+          <p style="margin: 0;"><a href="/products" style="color: #c2410c; text-decoration: none;">Compare every kids mobility category →</a></p>
+        </section>
+      `;
+
+  const itemListJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: meta.title,
+    numberOfItems: cards.length,
+    itemListElement: cards.slice(0, 20).map((product, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: productDisplayTitle(product),
+      url: `${PUBLIC_SITE_BASE}/products/${cmsRouteSegment(resolveProductCategoryIdFull(product))}/${cmsRouteSegment(product.id)}`,
+    })),
+  };
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${PUBLIC_SITE_BASE}/` },
+      { "@type": "ListItem", position: 2, name: "Products", item: `${PUBLIC_SITE_BASE}/products` },
+      { "@type": "ListItem", position: 3, name: meta.label, item: `${PUBLIC_SITE_BASE}${route}` },
+    ],
+  };
+
+  return {
+    route,
+    title: meta.title,
+    description: meta.description,
+    body,
+    image: toAbsoluteMediaUrl(categoryProducts[0]?.imageUrl) || undefined,
+    jsonLd: [itemListJsonLd, breadcrumbJsonLd],
+  };
+}
+
+/**
+ * Id-form alias page (e.g. /products/balance_bike): identical content to the
+ * slug-form category page, but the canonical/og:url consolidate onto the
+ * slug-form directory so both URL variants share one canonical.
+ */
+function renderProductCategoryAliasPage(meta: ProductCategoryMeta, slugPage: RoutePage): RoutePage {
+  return {
+    ...slugPage,
+    route: `/products/${meta.categoryId}`,
+    canonicalPath: slugPage.route,
+  };
+}
+
+
 async function main() {
   const indexHtml = await readFile(path.join(distDir, "index.html"), "utf8");
   const appAssets = extractAppAssets(indexHtml);
@@ -1839,9 +2379,35 @@ async function main() {
     fetchPublishedProducts(),
   ]);
   const productMap = new Map<string, CmsProductLite>();
+  const cmsProductsFull = cmsProducts as CmsProductFull[];
   for (const product of cmsProducts) {
     const id = String(product?.id || "").trim().toLowerCase();
     if (id) productMap.set(id, product);
+  }
+
+  // Product category pages (slug-form canonical + id-form alias) and the 197
+  // product detail pages. The /products hub page is rendered first in `pages`
+  // below, whose rm() clears the products/ directory before these are written.
+  const productCategoryPages: RoutePage[] = [];
+  const productCategoryAliasPages: RoutePage[] = [];
+  const productCategoryCounts: string[] = [];
+  for (const meta of PRODUCT_CATEGORY_PAGES) {
+    const categoryProducts = cmsProductsFull
+      .filter((product) => resolveProductCategoryIdFull(product) === meta.categoryId)
+      .sort((a, b) => Number(b.overallScore || 0) - Number(a.overallScore || 0));
+    if (!categoryProducts.length) continue;
+    const slugPage = renderProductCategoryPage(meta, categoryProducts);
+    productCategoryPages.push(slugPage);
+    productCategoryAliasPages.push(renderProductCategoryAliasPage(meta, slugPage));
+    productCategoryCounts.push(`${meta.slug}: ${categoryProducts.length}`);
+  }
+  const productDetailPages = cmsProductsFull
+    .map((product) => renderProductDetailPage(product, cmsProductsFull, cmsEvaluations))
+    .filter((page): page is RoutePage => page !== null);
+  if (productDetailPages.length) {
+    console.log(
+      `[prerender] products: ${productCategoryPages.length} category page(s) [${productCategoryCounts.join(", ")}] + ${productDetailPages.length} detail page(s).`,
+    );
   }
   const guideDetailPages = cmsGuides
     .map((guide) => renderGuideDetailPage(guide, cmsEvaluations))
@@ -1857,6 +2423,9 @@ async function main() {
   // pages so the index's cleanup step can remove the whole route folder first.
   const pages: RoutePage[] = [
     renderProductsPage(),
+    ...productCategoryPages,
+    ...productCategoryAliasPages,
+    ...productDetailPages,
     renderGuidesPage(cmsGuides),
     renderNewsPage(cmsNews),
     renderReviewsPage(),
