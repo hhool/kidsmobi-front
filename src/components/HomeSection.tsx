@@ -16,6 +16,7 @@ import { translations, translateProduct } from "../lib/translate";
 import { SCRAPED_CATEGORY_CATALOG } from "../config/scrapedCategoryCatalog";
 import { resolveProductImages, FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
 import { getProductImageAlt, getProductSkuTitle, sanitizeScrapedSnippet, shortenCardTitle } from "../lib/productSeoText";
+import { productCategoryPath } from "../lib/productCategoryPaths";
 import { formatCurrencyFromUsd } from "../lib/currency";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
 import SeoKeywordPanel from "./common/SeoKeywordPanel";
@@ -671,7 +672,7 @@ export default function HomeSection({
         ...entry,
         label: labelOverrides[id] || (lang === "zh" ? entry.zh : entry.en),
         desc: descOverrides[id] || "",
-        slug: `/products/${id === "scooters" ? "kids_scooters" : id}`,
+        slug: productCategoryPath(id),
       };
     }).filter((x): x is NonNullable<typeof x> => Boolean(x));
   }, [homeCopy.categoryCards, lang]);
@@ -1344,6 +1345,40 @@ export default function HomeSection({
               </div>
             </a>
           );})}
+        </div>
+      </section>
+
+      {/* 5b. Cross-Model Compare Hub links (P1-2): crawlable plain <a> to the
+          prerendered comparison reviews — keeps these high-intent pages out of
+          orphan-page status. */}
+      <section className="max-w-7xl mx-auto px-6">
+        <div className="rounded-3xl border border-slate-100 bg-white/80 p-6 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
+          <div>
+            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-orange-500">
+              {lang === "zh" ? "横评对比中心" : "Cross-Model Compare"}
+            </p>
+            <p className="text-sm text-slate-500 font-medium mt-1">
+              {lang === "zh"
+                ? "一页看懂同品类车型的实测自重、刹车形式与承重上限差异。"
+                : "See side-by-side test weights, brake types, and weight limits across each category's top picks."}
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            {[
+              { href: "/reviews/compare/balance-bike-top-picks-compare", label: lang === "zh" ? "平衡车 Top Picks 横评" : "Balance Bike Top Picks" },
+              { href: "/reviews/compare/kids-scooter-parent-picks-compare", label: lang === "zh" ? "滑板车家长之选横评" : "Kids Scooter Parent Picks" },
+              { href: "/reviews/compare/toddler-bike-parent-picks-compare", label: lang === "zh" ? "幼儿自行车横评" : "Toddler Bike Parent Picks" },
+            ].map((c) => (
+              <a
+                key={c.href}
+                href={c.href}
+                className="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-4 py-2 text-xs font-black text-orange-600 hover:bg-orange-100 transition-colors"
+              >
+                {c.label}
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 

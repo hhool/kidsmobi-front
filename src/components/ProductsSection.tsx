@@ -22,6 +22,7 @@ import { localizeMaterialDisplayValue, localizeSafetyDisplayValue } from "../lib
 import { formatWeight } from "../lib/units";
 import { resolveProductImages } from "../lib/productImages";
 import { getProductDisplayTitle, getProductImageAlt, getProductsPageSeoTitle, isElectricScooterProduct, sanitizeScrapedSnippet, shortenCardTitle } from "../lib/productSeoText";
+import { productCategoryPath } from "../lib/productCategoryPaths";
 import CategoryComparisonTable from "./common/CategoryComparisonTable";
 import { getBackendPickerPayload } from "../lib/backendResourceService";
 import { cleanVisibleSourceText } from "../lib/visibleText";
@@ -1977,7 +1978,7 @@ export default function ProductsSection({
                   window.requestAnimationFrame(() => setHintFlash(pill.label));
                   window.setTimeout(() => setHintFlash((current) => (current === pill.label ? null : current)), 300);
                   
-                  const targetPath = `/products/${pill.target}`;
+                  const targetPath = productCategoryPath(pill.target);
 
                   // Force routing transition inside SPA context
                   window.history.pushState(null, "", targetPath);

@@ -36,6 +36,7 @@ import { translations, translateProduct, translateNewsArticle, translateGuideArt
 import { formatWeight, formatHeight } from "./lib/units";
 import { resolveProductImages, normalizeMediaUrl } from "./lib/productImages";
 import { getProductDisplayTitle, getProductImageAlt, getProductsPageSeoTitle } from "./lib/productSeoText";
+import { productCategoryPath, productDetailPath, productCategoryUrlSlug } from "./lib/productCategoryPaths";
 import { evaluationSlug } from "./lib/evaluationSlug";
 import { evaluationRouteSegment } from "./lib/evaluationSlug";
 import { loadBatchProducts } from "./lib/loadBatchProducts";
@@ -279,14 +280,9 @@ const PRODUCT_ROUTE_IDS = new Set(PRODUCT_NAV_OPTIONS.map((item) => item.id));
  * slug) onto the same slug-form URL. Keep in lockstep with
  * PRODUCT_CATEGORY_PAGES in scripts/prerender-pages.ts.
  */
-const PRODUCT_CATEGORY_CANONICAL_SLUGS: Record<string, string> = {
-  stroller: "strollers",
-  balance_bike: "balance-bikes",
-  kids_bikes: "kids-bikes",
-  kids_scooters: "kids-scooters",
-  electric_vehicles: "electric_car",
-  car_seat: "safety_seat",
-};
+// Category id -> kebab-case URL slug mapping moved to
+// src/lib/productCategoryPaths.ts (productCategoryUrlSlug) — single source of
+// truth shared with prerender-pages.ts and the Worker sitemap.
 const ROUTABLE_PRODUCT_ROUTE_IDS = new Set([
   ...Array.from(PRODUCT_ROUTE_IDS.values()),
   ...Array.from(ADMIN_ONLY_PRODUCT_CATEGORY_IDS.values()),
@@ -323,6 +319,10 @@ const PRODUCT_ROUTE_ALIASES: Record<string, string> = {
   "kids-scooters": "kids_scooters",
   "kids-bikes": "kids_bikes",
   "balance-bikes": "balance_bike",
+  "electric-cars": "electric_vehicles",
+  "safety-seats": "car_seat",
+  "kids-tricycles": "kids_tricycles",
+  tricycles: "kids_tricycles",
   "sizing-buying-guide": "guides",
   balance: "balance_bike",
   "balance bike": "balance_bike",
@@ -1563,7 +1563,7 @@ export default function App() {
   const handleHomeCategorySelect = (categoryId: string) => {
     const normalizedCategoryId = normalizeProductRouteCategory(categoryId);
     safeStorageSet("scrollToExpertPicks", "true");
-    navigateToPath(normalizedCategoryId === "all" ? "/products" : `/products/${normalizedCategoryId}`);
+    navigateToPath(normalizedCategoryId === "all" ? "/products" : productCategoryPath(normalizedCategoryId));
   };
 
   // 1. Core child mechanics states
@@ -2776,7 +2776,7 @@ export default function App() {
     // with the static HTML and the sitemap.
     const productCategoryCanonicalSlug =
       seoKey === "products" && activeProductCategory !== "all"
-        ? PRODUCT_CATEGORY_CANONICAL_SLUGS[activeProductCategory]
+        ? productCategoryUrlSlug(activeProductCategory)
         : undefined;
     const canonicalPath = productCategoryCanonicalSlug
       ? `/products/${productCategoryCanonicalSlug}/`
@@ -2989,7 +2989,7 @@ export default function App() {
       setSelectedProduct(product);
 
       const targetCategory = resolveProductCategoryId(product) || "all";
-      navigateToPath(`/products/${targetCategory}/${product.id}`);
+      navigateToPath(productDetailPath(targetCategory, product.id));
       
       window.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -3012,7 +3012,7 @@ export default function App() {
         return;
       }
       if (previousTab === "products" || previousTab === "home") {
-        navigateToPath(activeProductCategory === "all" ? "/products" : `/products/${activeProductCategory}`);
+        navigateToPath(activeProductCategory === "all" ? "/products" : productCategoryPath(activeProductCategory));
       } else {
         const tabPathMap: Record<string, string> = {
           home: "/",
@@ -3450,7 +3450,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                                     } else {
                                       localStorage.setItem("scrollToExpertPicks", "true");
                                     }
-                                    navigateToPath(`/products/${cat.id}`);
+                                    navigateToPath(productCategoryPath(cat.id));
                                     closeProductsMenuInstantly();
                                   }}
                                   className="w-full text-left py-2 px-2.5 rounded-xl hover:bg-slate-50 transition-all flex items-center justify-between group/cat border border-transparent hover:border-slate-100/70 hover:shadow-[0_2px_8px_rgba(0,0,0,0.02)]"
@@ -3709,12 +3709,12 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             viewHistory={viewHistory}
             initialCategory="all"
             activeCategory={activeProductCategory}
-            onCategoryChange={(categoryId) => navigateToPath(categoryId === "all" ? "/products" : `/products/${categoryId}`, { preserveScroll: false })}
+            onCategoryChange={(categoryId) => navigateToPath(categoryId === "all" ? "/products" : productCategoryPath(categoryId), { preserveScroll: false })}
             seoKeywordHints={productSeoHints}
             currentPage={activePageIndex}
             onCompareOpen={(ids) => navigateToPath(`/compare?ids=${ids.join(",")}`)}
             onPageChange={(page) => {
-              const categoryPath = activeProductCategory === "all" ? "/products" : `/products/${activeProductCategory}`;
+              const categoryPath = activeProductCategory === "all" ? "/products" : productCategoryPath(activeProductCategory);
               navigateToPath(page <= 1 ? categoryPath : `${categoryPath}/page/${page}`, { preserveScroll: false });
             }}
           />
@@ -4271,6 +4271,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                   {([
                     { label: "ASTM F963", href: "https://www.astm.org/f0963-23.html" },
                     { label: "CPSC", href: "https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products" },
+                    { label: "ISO 8098", href: "https://www.iso.org/standard/78085.html" },
+                    { label: "GB 14746", href: TRANSPARENCY_PAGE_PATHS["certification-lab-notes"] || "/transparency/certification-lab-notes/" },
                     { label: "EN 71", href: TRANSPARENCY_PAGE_PATHS["certification-lab-notes"] || "/transparency/certification-lab-notes/" },
                   ] as const).map((cert) => (
                     <a
@@ -4282,9 +4284,13 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                         event.preventDefault();
                         navigateToPath(TRANSPARENCY_PAGE_PATHS["certification-lab-notes"] || "/transparency/certification-lab-notes/");
                       }}
-                      className="px-3 py-1 bg-emerald-500/10 border border-emerald-500/25 rounded-full text-[10px] text-emerald-400 font-bold tracking-tight hover:bg-emerald-500/20 hover:border-emerald-400/40 transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-500/10 border border-emerald-500/25 rounded-full text-[10px] text-emerald-400 font-bold tracking-tight hover:bg-emerald-500/20 hover:border-emerald-400/40 transition-colors"
                       title={lang === "en" ? `Children's product safety compliance: ${cert.label}` : `儿童产品安全合规：${cert.label}`}
                     >
+                      <svg aria-hidden="true" viewBox="0 0 12 14" className="w-3 h-3 shrink-0" fill="none">
+                        <path d="M6 1L1 3v4.2c0 2.9 2.1 5.2 5 5.8 2.9-.6 5-2.9 5-5.8V3L6 1z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
+                        <path d="M4.2 6.8l1.3 1.3 2.3-2.4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
                       {cert.label}
                     </a>
                   ))}

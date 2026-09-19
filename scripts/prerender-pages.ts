@@ -6,6 +6,7 @@ import { initialEvaluationsData } from "../src/data/evaluationsData";
 import { TRANSPARENCY_PAGES } from "../src/data/transparencyPages";
 import { getPageCopy } from "../src/config/pageCopy";
 import { shortenCardTitle } from "../src/lib/productSeoText";
+import { productDetailUrlSlug } from "../src/lib/productCategoryPaths";
 
 const distDir = path.resolve("dist");
 type RoutePage = {
@@ -1747,7 +1748,7 @@ function renderAboutPage(): RoutePage {
  * the SPA catch-all. Exact rules are used deliberately: a wildcard would turn any
  * unknown guide/news URL into a hard 404 instead of letting the SPA handle it.
  */
-async function injectGuideRedirects(routes: string[]): Promise<void> {
+async function injectGuideRedirects(routes: string[], legacyRedirects: string[]): Promise<void> {
   const redirectsPath = path.join(distDir, "_redirects");
   let content: string;
   try {
@@ -1758,19 +1759,19 @@ async function injectGuideRedirects(routes: string[]): Promise<void> {
 
   const START = "# --- generated: CMS detail pages ---";
   const END = "# --- end generated ---";
-  // Older marker, kept so a rebuild replaces the previous block instead of stacking.
-  const LEGACY_STARTS = ["# --- generated: CMS guide detail pages ---"];
+  const LEGACY_START = "# --- generated: legacy product URL family (P0-2 kebab-case 301s) ---";
+  const LEGACY_END = "# --- end legacy 301s ---";
   let cleaned = content;
-  for (const marker of [START, ...LEGACY_STARTS]) {
+  for (const [marker, endMarker] of [[START, END], [LEGACY_START, LEGACY_END]] as Array<[string, string]>) {
     for (;;) {
       const start = cleaned.indexOf(marker);
       if (start === -1) break;
-      const end = cleaned.indexOf(END, start);
+      const end = cleaned.indexOf(endMarker, start);
       if (end === -1) {
         cleaned = cleaned.slice(0, start);
         break;
       }
-      cleaned = `${cleaned.slice(0, start)}${cleaned.slice(end + END.length)}`.replace(/\n{3,}/g, "\n\n");
+      cleaned = `${cleaned.slice(0, start)}${cleaned.slice(end + endMarker.length)}`.replace(/\n{3,}/g, "\n\n");
     }
   }
 
@@ -1778,7 +1779,10 @@ async function injectGuideRedirects(routes: string[]): Promise<void> {
   // redirect lookup on the `.html` target, whose pretty-URL normalization bounces
   // back to the extensionless path — producing an infinite 308 loop in production.
   const lines = routes.map((route) => `${route} ${route}.html 200!`);
-  const block = lines.length ? `${START}\n${lines.join("\n")}\n${END}\n` : "";
+  const legacyBlock = legacyRedirects.length
+    ? `# --- generated: legacy product URL family (P0-2 kebab-case 301s) ---\n${legacyRedirects.join("\n")}\n# --- end legacy 301s ---\n`
+    : "";
+  const block = legacyBlock + (lines.length ? `${START}\n${lines.join("\n")}\n${END}\n` : "");
   const CATCH_ALL = "/* /index.html 200";
   const next = cleaned.includes(CATCH_ALL)
     ? cleaned.replace(CATCH_ALL, `${block}${CATCH_ALL}`)
@@ -1841,17 +1845,16 @@ function renderTransparencyPages(): RoutePage[] {
  * homepage canonical — making all 197 product pages invisible to Google.
  *
  * URL canonical families (must stay in lockstep with three places:
- *  - the SPA: PRODUCT_ROUTE_ALIASES / resolveProductCategoryId (App.tsx)
+ *  - the SPA: src/lib/productCategoryPaths.ts (single source of truth)
  *  - the Worker sitemap: deriveProductDetailPath + PRODUCT_CATEGORY_SLUGS
  *  - this prerender:
- *     category  -> /products/<slug>/        (slug form, trailing slash,
+ *     category  -> /products/<slug>/        (kebab-case, trailing slash,
  *                                            directory index.html)
- *     category  -> /products/<categoryId>   (id-form alias file whose
- *                                            canonical points at the slug
- *                                            form, consolidating variants)
- *     detail    -> /products/<resolvedCategoryId>/<product.id>
- *               (matches the SPA's own ItemList/navigateToPath URLs and the
+ *     detail    -> /products/<kebabDetailDir>/<product.id>
+ *               (matches the SPA's own navigateToPath URLs and the
  *                product_detail self-canonical branch)
+ *     legacy underscore/id-form URLs 301 to the kebab family via the
+ *     generated _redirects block.
  * ------------------------------------------------------------------ */
 
 type CmsProductFull = CmsProductLite & {
@@ -1952,9 +1955,10 @@ type ProductCategoryMeta = {
 };
 
 /**
- * Canonical slug-form category pages. Slugs reuse the exact forms already
- * emitted by the prerendered footer (HomeSection) so internal links and
- * canonicals agree: /products/balance-bikes/ etc.
+ * Canonical slug-form category pages. Slugs are kebab-case (P0-2) and mirror
+ * PRODUCT_CATEGORY_URL_SLUGS in src/lib/productCategoryPaths.ts: /products/
+ * balance-bikes/ etc. The kids-tricycles hub re-homes the legacy "other"
+ * bucket (tricycles + push ride-ons + wagons).
  */
 const PRODUCT_CATEGORY_PAGES: ProductCategoryMeta[] = [
   {
@@ -1987,17 +1991,26 @@ const PRODUCT_CATEGORY_PAGES: ProductCategoryMeta[] = [
   },
   {
     categoryId: "electric_vehicles",
-    slug: "electric_car",
+    slug: "electric-cars",
     label: "Kids Electric Cars",
     title: "Best Kids Electric Cars & Ride-On Toys Reviews 2026",
     description: "Review lab-tested kids electric cars, 12V/24V ride-on toys, and electric ride-on options with battery safety, braking control, and runtime benchmarks.",
   },
   {
     categoryId: "car_seat",
-    slug: "safety_seat",
+    slug: "safety-seats",
     label: "Car Seats",
     title: "Best Convertible & Toddler Car Seats 2026 Lab-Tested",
     description: "Find the safest convertible and booster car seats for your child. Compare lab-tested scores, weight limits, and safety features for top brands like Graco and Evenflo.",
+  },
+  {
+    // Legacy "other" bucket re-homed (P0-2): tricycles + push ride-ons +
+    // pull-along wagons live under one kebab-case ride-on directory.
+    categoryId: "other_tricycles",
+    slug: "kids-tricycles",
+    label: "Kids Tricycles & Ride-Ons",
+    title: "Best Kids Tricycles & Push Ride-On Toys 2026 Lab-Tested",
+    description: "Browse lab-tested kids tricycles, push ride-on cars, and pull-along wagons with stability scores, weight limits, and age-fit guidance for toddlers.",
   },
 ];
 
@@ -2042,6 +2055,26 @@ function productCategoryHref(categoryId: string): string | null {
   return meta ? `/products/${meta.slug}/` : null;
 }
 
+/** Kebab-case detail directory slug, mirroring productDetailUrlSlug (lib). */
+function productDetailSlugDir(product: CmsProductFull): string {
+  const resolved = resolveProductCategoryIdFull(product);
+  return productDetailUrlSlug(resolved, String(product.id || ""));
+}
+
+/**
+ * Compare-hub review pages (P1-2 internal linking): crawlable link from every
+ * detail page in a mapped category to its prerendered comparison review.
+ */
+const PRODUCT_COMPARE_HUB_BY_SLUG: Record<string, string> = {
+  "balance-bikes": "/reviews/compare/balance-bike-top-picks-compare",
+  "kids-scooters": "/reviews/compare/kids-scooter-parent-picks-compare",
+  "kids-bikes": "/reviews/compare/toddler-bike-parent-picks-compare",
+};
+
+function productCategoryHrefBySlug(slug: string): string {
+  return `/products/${slug}/`;
+}
+
 function renderProductBreadcrumb(products: Array<{ name: string; href: string }>): string {
   return `
         <nav aria-label="Breadcrumb" style="margin: 0 0 18px; font-size: 0.86rem; color: #64748b;">
@@ -2062,8 +2095,8 @@ function renderProductDetailPage(
 ): RoutePage | null {
   const id = String(product.id || "").trim();
   if (!id) return null;
-  const resolvedCategory = resolveProductCategoryIdFull(product);
-  const route = `/products/${resolvedCategory}/${cmsRouteSegment(id)}`;
+  const detailSlugDir = productDetailSlugDir(product);
+  const route = `/products/${detailSlugDir}/${cmsRouteSegment(id)}`;
   const name = pickText(product.en?.name, product.name, id);
   const displayName = productDisplayTitle(product);
   const summary = pickText(product.en?.cardSummary);
@@ -2078,10 +2111,10 @@ function renderProductDetailPage(
   const ratingValue = productRatingValue(product);
   const reviewCount = Number(product.reviewCount || 0);
   const price = productPriceValue(product);
-  const categoryHref = productCategoryHref(resolvedCategory);
+  const categoryHref = productCategoryHrefBySlug(detailSlugDir);
   const categoryLabel =
-    PRODUCT_CATEGORY_PAGES.find((item) => item.categoryId === resolvedCategory)?.label || "All Products";
-  const categoryBreadcrumbHref = categoryHref || "/products";
+    PRODUCT_CATEGORY_PAGES.find((item) => item.slug === detailSlugDir)?.label || "All Products";
+  const categoryBreadcrumbHref = categoryHref;
 
   const statsChips = [
     Number.isFinite(editorialScore) && editorialScore > 0
@@ -2191,7 +2224,7 @@ function renderProductDetailPage(
   // Related products: same resolved category, highest editorial score first,
   // capped at 6 — gives every detail page crawlable internal links (P1-5).
   const relatedProducts = allProducts
-    .filter((candidate) => String(candidate.id || "") !== id && resolveProductCategoryIdFull(candidate) === resolvedCategory)
+    .filter((candidate) => String(candidate.id || "") !== id && productDetailSlugDir(candidate) === detailSlugDir)
     .sort((a, b) => Number(b.overallScore || 0) - Number(a.overallScore || 0))
     .slice(0, 6);
   const relatedProductsHtml = relatedProducts.length
@@ -2200,7 +2233,7 @@ function renderProductDetailPage(
         <ul style="margin: 0; padding-left: 1.2rem; color: #334155;">${relatedProducts
           .map(
             (candidate) =>
-              `<li style="margin-bottom: 6px;"><a href="${escapeHtml(`/products/${cmsRouteSegment(resolveProductCategoryIdFull(candidate))}/${cmsRouteSegment(candidate.id)}`)}" style="color: #c2410c; font-weight: 700; text-decoration: none;">${escapeHtml(productDisplayTitle(candidate))}</a></li>`,
+              `<li style="margin-bottom: 6px;"><a href="${escapeHtml(`/products/${productDetailSlugDir(candidate)}/${cmsRouteSegment(candidate.id)}`)}" style="color: #c2410c; font-weight: 700; text-decoration: none;">${escapeHtml(productDisplayTitle(candidate))}</a></li>`,
           )
           .join("")}</ul>
       </section>`
@@ -2208,6 +2241,7 @@ function renderProductDetailPage(
 
   const backLinks = `
         <section style="padding: 16px 0 0; border-top: 1px solid #e2e8f0;">
+          ${PRODUCT_COMPARE_HUB_BY_SLUG[detailSlugDir] ? `<p style="margin: 0 0 6px;"><a href="${escapeHtml(PRODUCT_COMPARE_HUB_BY_SLUG[detailSlugDir])}" style="color: #c2410c; font-weight: 700; text-decoration: none;">Cross-model compare: see this category's top picks side by side</a></p>` : ""}
           <p style="margin: 0 0 6px;"><a href="${escapeHtml(categoryBreadcrumbHref)}" style="color: #c2410c; font-weight: 700; text-decoration: none;">Browse all ${escapeHtml(categoryLabel.toLowerCase())}</a></p>
           <p style="margin: 0;"><a href="/products" style="color: #c2410c; text-decoration: none;">All product categories</a></p>
         </section>
@@ -2294,7 +2328,7 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
   const cardsHtml = cards
     .map(
       (product) => `
-          <a href="${escapeHtml(`/products/${cmsRouteSegment(resolveProductCategoryIdFull(product))}/${cmsRouteSegment(product.id)}`)}" style="display: block; border: 1px solid #e2e8f0; border-radius: 16px; padding: 14px; text-decoration: none; color: inherit; background: #ffffff;">
+          <a href="${escapeHtml(`/products/${productDetailSlugDir(product)}/${cmsRouteSegment(product.id)}`)}" style="display: block; border: 1px solid #e2e8f0; border-radius: 16px; padding: 14px; text-decoration: none; color: inherit; background: #ffffff;">
             ${
               toAbsoluteMediaUrl(product.imageUrl)
                 ? `<img src="${escapeHtml(toAbsoluteMediaUrl(product.imageUrl))}" alt="${escapeHtml(productDisplayTitle(product))}" loading="lazy" style="width: 100%; height: 160px; object-fit: cover; border-radius: 10px; margin-bottom: 10px;" />`
@@ -2331,7 +2365,7 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
       "@type": "ListItem",
       position: index + 1,
       name: productDisplayTitle(product),
-      url: `${PUBLIC_SITE_BASE}/products/${cmsRouteSegment(resolveProductCategoryIdFull(product))}/${cmsRouteSegment(product.id)}`,
+      url: `${PUBLIC_SITE_BASE}/products/${productDetailSlugDir(product)}/${cmsRouteSegment(product.id)}`,
     })),
   };
   const breadcrumbJsonLd = {
@@ -2355,17 +2389,10 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
 }
 
 /**
- * Id-form alias page (e.g. /products/balance_bike): identical content to the
- * slug-form category page, but the canonical/og:url consolidate onto the
- * slug-form directory so both URL variants share one canonical.
+ * Id-form alias pages were removed in the P0-2 kebab-case refactor: legacy
+ * /products/<categoryId> and /products/<legacyDir>/<id> URLs now 301 to the
+ * slug-form family via the generated _redirects block below.
  */
-function renderProductCategoryAliasPage(meta: ProductCategoryMeta, slugPage: RoutePage): RoutePage {
-  return {
-    ...slugPage,
-    route: `/products/${meta.categoryId}`,
-    canonicalPath: slugPage.route,
-  };
-}
 
 
 async function main() {
@@ -2385,20 +2412,25 @@ async function main() {
     if (id) productMap.set(id, product);
   }
 
-  // Product category pages (slug-form canonical + id-form alias) and the 197
-  // product detail pages. The /products hub page is rendered first in `pages`
-  // below, whose rm() clears the products/ directory before these are written.
+  // Product category pages (kebab-case slug form, P0-2) and the 197 product
+  // detail pages. The /products hub page is rendered first in `pages` below,
+  // whose rm() clears the products/ directory before these are written.
   const productCategoryPages: RoutePage[] = [];
-  const productCategoryAliasPages: RoutePage[] = [];
   const productCategoryCounts: string[] = [];
   for (const meta of PRODUCT_CATEGORY_PAGES) {
     const categoryProducts = cmsProductsFull
-      .filter((product) => resolveProductCategoryIdFull(product) === meta.categoryId)
+      .filter((product) => {
+        const resolved = resolveProductCategoryIdFull(product);
+        if (meta.slug === "kids-tricycles") {
+          // Re-homed legacy "other" bucket: tricycles + push ride-ons + wagons.
+          return resolved === "other" && productDetailUrlSlug(resolved, String(product.id || "")) === "kids-tricycles";
+        }
+        return resolved === meta.categoryId;
+      })
       .sort((a, b) => Number(b.overallScore || 0) - Number(a.overallScore || 0));
     if (!categoryProducts.length) continue;
     const slugPage = renderProductCategoryPage(meta, categoryProducts);
     productCategoryPages.push(slugPage);
-    productCategoryAliasPages.push(renderProductCategoryAliasPage(meta, slugPage));
     productCategoryCounts.push(`${meta.slug}: ${categoryProducts.length}`);
   }
   const productDetailPages = cmsProductsFull
@@ -2424,7 +2456,6 @@ async function main() {
   const pages: RoutePage[] = [
     renderProductsPage(),
     ...productCategoryPages,
-    ...productCategoryAliasPages,
     ...productDetailPages,
     renderGuidesPage(cmsGuides),
     renderNewsPage(cmsNews),
@@ -2460,10 +2491,43 @@ async function main() {
     await writeFile(outFile, html, "utf8");
   }
 
+  // Legacy URL family 301s (P0-2): underscore/id-form category directories and
+  // the abolished /products/other/ bucket point at the kebab-case family.
+  const LEGACY_CATEGORY_301S: Array<[string, string]> = [
+    ["/products/balance_bike", "/products/balance-bikes/"],
+    ["/products/stroller", "/products/strollers/"],
+    ["/products/kids_bikes", "/products/kids-bikes/"],
+    ["/products/kids_scooters", "/products/kids-scooters/"],
+    ["/products/scooters", "/products/kids-scooters/"],
+    ["/products/electric_vehicles", "/products/electric-cars/"],
+    ["/products/electric_car", "/products/electric-cars/"],
+    ["/products/car_seat", "/products/safety-seats/"],
+    ["/products/safety_seat", "/products/safety-seats/"],
+    ["/products/kids_tricycles", "/products/kids-tricycles/"],
+    ["/products/other", "/products/"],
+  ];
+  const legacyRedirects = [
+    // Re-homed legacy "other" bucket details need per-product targets, and
+    // must precede any wildcard rule (Pages redirects match top-down).
+    ...cmsProductsFull
+      .filter((product) => resolveProductCategoryIdFull(product) === "other")
+      .map((product) => {
+        const id = cmsRouteSegment(product.id);
+        return `/products/other/${id} /products/${productDetailSlugDir(product)}/${id} 301`;
+      }),
+    ...LEGACY_CATEGORY_301S.flatMap(([from, to]) => [
+      `${from} ${to} 301`,
+      // Wildcard only where id segments map 1:1; the abolished /products/other/
+      // bucket deliberately has no fallback so unknown paths hit the SPA shell
+      // (hydrated noindex) instead of a misleading redirect.
+      ...(to === "/products/" ? [] : [`${from}/* ${to}:splat 301`]),
+    ]),
+  ];
+
   await injectGuideRedirects([
     ...guideDetailPages.map((page) => page.route),
     ...newsDetailPages.map((page) => page.route),
-  ]);
+  ], legacyRedirects);
 }
 
 main().catch((error) => {
