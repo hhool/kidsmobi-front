@@ -36,7 +36,14 @@ import { translations, translateProduct, translateNewsArticle, translateGuideArt
 import { formatWeight, formatHeight } from "./lib/units";
 import { resolveProductImages, normalizeMediaUrl } from "./lib/productImages";
 import { getProductDisplayTitle, getProductImageAlt, getProductsPageSeoTitle } from "./lib/productSeoText";
-import { productCategoryPath, productDetailPath, productCategoryUrlSlug } from "./lib/productCategoryPaths";
+import { productCategoryPath, productDetailPath, productCategoryUrlSlug, productDetailUrlSlug } from "./lib/productCategoryPaths";
+
+/** Mirrors PRODUCT_COMPARE_HUB_BY_SLUG in scripts/prerender-pages.ts (P1-2). */
+const PRODUCT_COMPARE_HUB_BY_SLUG: Record<string, string> = {
+  "balance-bikes": "/reviews/compare/balance-bike-top-picks-compare",
+  "kids-scooters": "/reviews/compare/kids-scooter-parent-picks-compare",
+  "kids-bikes": "/reviews/compare/toddler-bike-parent-picks-compare",
+};
 import { evaluationSlug } from "./lib/evaluationSlug";
 import { evaluationRouteSegment } from "./lib/evaluationSlug";
 import { loadBatchProducts } from "./lib/loadBatchProducts";
@@ -261,7 +268,10 @@ const PRIMARY_PRODUCT_CATEGORY_IDS = new Set([
   "electric_vehicles",
   "car_seat",
 ]);
-const ADMIN_ONLY_PRODUCT_CATEGORY_IDS = new Set<string>();
+// kids_tricycles owns the prerendered /products/kids-tricycles/ hub (P0-2
+// re-homed legacy "other" bucket), so its URL must resolve to the category
+// view instead of falling through to the unknown-product 404 branch.
+const ADMIN_ONLY_PRODUCT_CATEGORY_IDS = new Set<string>(["kids_tricycles"]);
 
 const REVIEW_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
   { id: "single", zh: "单品实测", en: "Single Test" },
@@ -3832,6 +3842,20 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             previousTab={previousTab}
             cmsSettings={cmsSettings}
           />
+        )}
+
+        {/* Cross-model compare back-link: mirrors the prerendered detail-page
+            footer so the internal link survives SPA hydration (P1-2). */}
+        {activeTab === "product_detail" && selectedProduct &&
+          PRODUCT_COMPARE_HUB_BY_SLUG[productDetailUrlSlug(resolveProductCategoryId(selectedProduct), selectedProduct.id)] && (
+          <div className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 pb-6 -mt-2">
+            <a
+              href={PRODUCT_COMPARE_HUB_BY_SLUG[productDetailUrlSlug(resolveProductCategoryId(selectedProduct), selectedProduct.id)]}
+              className="inline-flex items-center gap-2 text-sm font-bold text-orange-600 hover:text-orange-500 transition-colors"
+            >
+              {lang === "zh" ? "跨型号横评：查看本品类精选机型横向对比 →" : "Cross-model compare: see this category's top picks side by side →"}
+            </a>
+          </div>
         )}
 
         {activeTab === "about" && (
