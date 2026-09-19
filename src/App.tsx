@@ -2593,6 +2593,19 @@ export default function App() {
     let descStr = normalizedSEO.description;
     let keywordsArr = normalizedSEO.keywords;
 
+    // Category-hub hydration TDK: keep the kids-tricycles hub (P0-2 re-homed
+    // "other" bucket) from being overwritten with the generic products-hub
+    // copy after hydration. Must mirror PRODUCT_CATEGORY_PAGES in
+    // scripts/prerender-pages.ts.
+    if (seoKey === "products" && activeProductCategory === "kids_tricycles") {
+      titleStr = lang === "zh"
+        ? "儿童三轮车与滑行玩具 2026 实测精选 | BalanceBikeToddler"
+        : "Best Kids Tricycles & Push Ride-On Toys 2026 Lab-Tested | BalanceBikeToddler";
+      descStr = lang === "zh"
+        ? "浏览实验室实测的儿童三轮车、滑行汽车与拉货车，包含稳定性评分、承重上限与适龄建议。"
+        : "Browse lab-tested kids tricycles, push ride-on cars, and pull-along wagons with stability scores, weight limits, and age-fit guidance for toddlers.";
+    }
+
     if (activePageIndex > 1 && ["products", "reviews", "guides", "news"].includes(seoKey)) {
       titleStr = lang === "zh" ? `${titleStr} - 第 ${activePageIndex} 页` : `${titleStr} - Page ${activePageIndex}`;
       descStr = lang === "zh"
