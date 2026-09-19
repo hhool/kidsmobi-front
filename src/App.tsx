@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, FormEvent, useMemo, lazy, Suspense } from "react";
+import { useState, useEffect, useRef, FormEvent, useMemo, lazy, Suspense, type MouseEvent as ReactMouseEvent } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Baby,
@@ -1094,7 +1094,7 @@ export default function App() {
     }
   };
 
-  const handleProductsClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleProductsClick = (event: ReactMouseEvent<HTMLButtonElement>) => {
     if (productsLongPressTriggeredRef.current) {
       productsLongPressTriggeredRef.current = false;
       return;

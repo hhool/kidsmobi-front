@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
-import { Product, Evaluation } from "../types";
+import { Product, Evaluation, ChildProfile, CMSSettings } from "../types";
 import { translateProduct } from "../lib/translate";
 import { resolveProductImages } from "../lib/productImages";
 import { getProductImageAlt, getProductsPageSeoTitle } from "../lib/productSeoText";
@@ -1236,7 +1236,26 @@ function resolveStructuredScoringStandards(product: Product | undefined, lang: "
     : buildFallbackStructuredScoringStandards(product, lang);
 }
 
-export default function EvaluationsSection({ 
+export interface EvaluationsSectionProps {
+  evaluationsData?: Evaluation[];
+  productsData: Product[];
+  onSelectProduct: (product: Product | null) => void;
+  childProfile: ChildProfile;
+  cmsSettings: CMSSettings | null;
+  setActiveTab: (tabId: string) => void;
+  lang?: "zh" | "en";
+  initialReviewType?: string;
+  activeReviewType?: string;
+  activeEvaluationId?: string | null;
+  onReviewTypeChange?: (reviewTypeId: string) => void;
+  onEvaluationOpen?: (evaluation: Evaluation) => void;
+  onEvaluationBack?: (reviewTypeId: string) => void;
+  currentPage?: number;
+  onPageChange?: (page: number) => void;
+  seoKeywordHints?: string[];
+}
+
+export default function EvaluationsSection({
   evaluationsData = [],
   productsData, 
   onSelectProduct,

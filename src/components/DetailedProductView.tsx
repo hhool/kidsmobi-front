@@ -727,6 +727,8 @@ function resolveStructuredProductDescription(product: Product, lang: "zh" | "en"
   const localized = product as Product & {
     zh?: { Product_Description?: string; description?: string };
     en?: { Product_Description?: string; description?: string };
+    product_description?: string;
+    productDescription?: string;
   };
   const candidates = lang === "zh"
     ? [

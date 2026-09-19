@@ -30,7 +30,7 @@ export function loadDefaultProductsData(selectedShards?: ShardKey[]): Promise<Pr
   defaultProductsDataPromise ??= Promise.all(
     Object.values(SHARD_IMPORTERS).map((loadShard) => loadShard())
   )
-    .then((modules) => modules.flatMap((module) => (Array.isArray(module.default) ? module.default : [])))
+    .then((modules) => modules.flatMap((module) => (Array.isArray(module.default) ? (module.default as unknown[]) : [])))
     .then((products) => normalizeProducts(products))
     .catch((error) => {
       console.warn("Shard-based default products load failed, returning empty fallback.", error);
@@ -42,7 +42,7 @@ export function loadDefaultProductsData(selectedShards?: ShardKey[]): Promise<Pr
   }
 
   return Promise.all(selectedShards.map((key) => SHARD_IMPORTERS[key]()))
-    .then((modules) => modules.flatMap((module) => (Array.isArray(module.default) ? module.default : [])))
+    .then((modules) => modules.flatMap((module) => (Array.isArray(module.default) ? (module.default as unknown[]) : [])))
     .then((products) => normalizeProducts(products))
     .catch(() => defaultProductsDataPromise!);
 }
