@@ -732,7 +732,25 @@ const resolveInitialLang = (): "zh" | "en" => {
   return saved === "zh" ? "zh" : "en";
 };
 
-const resolveRouteState = (pathname: string, hash: string) => {
+type RouteState = {
+  activeTab: string;
+  activeProductCategory: string;
+  activeReviewType: string;
+  activeEvaluationId: string;
+  activeProductId: string;
+  activeGuidesCategory?: string;
+  activeGuidesArticleId?: string;
+  activeNewsCategory?: string;
+  activeNewsArticleId?: string;
+  activePageIndex: number;
+  currentPath: string;
+  // True when no SPA route matches the request path. The catch-all Cloudflare
+  // Pages redirect still serves index.html with HTTP 200, so hydrated views
+  // must self-identify with robots noindex to avoid soft-404 indexing.
+  isNotFound?: boolean;
+};
+
+const resolveRouteState = (pathname: string, hash: string): RouteState => {
   if (hash.startsWith("#cms") || hash === "#cm") {
     const queryIndex = hash.indexOf("?");
     const query = queryIndex >= 0 ? hash.slice(queryIndex + 1) : "";
@@ -947,6 +965,9 @@ const resolveRouteState = (pathname: string, hash: string) => {
     };
   }
 
+  // Unknown root segment: keep the real path so the SEO effect can emit a
+  // self-canonical + robots noindex (soft 404) instead of presenting the
+  // homepage content under a foreign URL with a homepage canonical.
   return {
     activeTab: "home",
     activeProductCategory: "all",
@@ -954,7 +975,8 @@ const resolveRouteState = (pathname: string, hash: string) => {
     activeEvaluationId: "",
     activeProductId: "",
     activePageIndex: 1,
-    currentPath: "/",
+    currentPath,
+    isNotFound: true,
   };
 };
 
@@ -1023,6 +1045,7 @@ export default function App() {
   const [activeProductId, setActiveProductId] = useState<string>(initialRouteState.activeProductId || "");
   const [activePageIndex, setActivePageIndex] = useState<number>(initialRouteState.activePageIndex);
   const [currentPath, setCurrentPath] = useState<string>(initialRouteState.currentPath);
+  const [isRouteNotFound, setIsRouteNotFound] = useState<boolean>(Boolean(initialRouteState.isNotFound));
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -1198,6 +1221,7 @@ export default function App() {
     setActiveProductId(routeState.activeProductId || "");
     setActivePageIndex(routeState.activePageIndex);
     setCurrentPath(routeState.currentPath);
+    setIsRouteNotFound(Boolean(routeState.isNotFound));
   };
 
   const saveCmsEntrySnapshot = () => {
@@ -2318,6 +2342,21 @@ export default function App() {
           productCoverUrl || DEFAULT_OG_IMAGE_PATH,
           "article",
         );
+      } else {
+        // Unknown product id under /products/<id>: self-canonical + noindex
+        // so the empty detail view is not indexed as thin/duplicate content.
+        const missingCanonicalOrigin =
+          cmsSettings?.seoGlobal?.siteOrigin ||
+          (cmsSettings as any)?.siteOrigin ||
+          (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+          window.location.origin;
+        const missingTitle = lang === "zh"
+          ? "产品未找到 (404) | BalanceBikeToddler"
+          : "Product Not Found (404) | BalanceBikeToddler";
+        document.title = missingTitle;
+        updateMetaTag("robots", "noindex,nofollow");
+        updateCanonicalLink(`${missingCanonicalOrigin}${normalizeCanonicalPath(currentPath)}`);
+        removeJsonLdScripts();
       }
       return;
     }
@@ -2909,7 +2948,7 @@ export default function App() {
       ...(collectionSchema ? [collectionSchema] : []),
     ]);
 
-  }, [activeTab, lang, cmsSettings, selectedProduct, activeProductCategory, activeReviewType, activePageIndex, productNavOptions, reviewNavOptions, productsData, evaluationsData, currentPath, newsPaginationTotalPages, guidesPaginationTotalPages, newsArticleSeoMeta, guidesArticleSeoMeta]);
+  }, [activeTab, lang, cmsSettings, selectedProduct, activeProductCategory, activeReviewType, activePageIndex, productNavOptions, reviewNavOptions, productsData, evaluationsData, currentPath, newsPaginationTotalPages, guidesPaginationTotalPages, newsArticleSeoMeta, guidesArticleSeoMeta, isRouteNotFound]);
 
   const handleSelectProduct = (product: Product | null) => {
     if (product) {
@@ -3565,8 +3604,29 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
       {/* Primary content area container */}
       <main id="primary_tab_viewport" className="flex-1 max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full relative">
         <Suspense fallback={<div className="min-h-80 rounded-3xl border border-slate-100 bg-white/80 p-8 text-center text-sm font-bold text-slate-500 shadow-sm">Loading BalanceBikeToddler</div>}>
-        
-        {activeTab === "home" && (
+
+        {isRouteNotFound && (
+          <section className="rounded-3xl border border-slate-100 bg-white/90 p-12 text-center shadow-sm">
+            <p className="text-5xl font-black tracking-tight text-orange-500">404</p>
+            <h1 className="mt-4 text-xl font-bold text-slate-900">
+              {lang === "zh" ? "页面未找到" : "Page Not Found"}
+            </h1>
+            <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-slate-500">
+              {lang === "zh"
+                ? "您访问的地址不存在或已下线。可以去首页看看最新的平衡车与童车评测。"
+                : "The address you visited does not exist or has been retired. Head back home for our latest balance bike and kids ride-on reviews."}
+            </p>
+            <button
+              type="button"
+              onClick={() => navigateToTab("home")}
+              className="mt-6 inline-flex items-center justify-center rounded-full bg-orange-500 px-6 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-orange-600"
+            >
+              {lang === "zh" ? "返回首页" : "Back to Home"}
+            </button>
+          </section>
+        )}
+
+        {activeTab === "home" && !isRouteNotFound && (
           <HomeSection 
             productsData={productsData} 
             onSelectProduct={handleSelectProduct} 
