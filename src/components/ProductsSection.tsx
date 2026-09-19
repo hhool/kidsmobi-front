@@ -21,7 +21,7 @@ import { translateProduct, translateCategory } from "../lib/translate";
 import { localizeMaterialDisplayValue, localizeSafetyDisplayValue } from "../lib/specLexicon";
 import { formatWeight } from "../lib/units";
 import { resolveProductImages } from "../lib/productImages";
-import { getProductDisplayTitle, getProductImageAlt, getProductsPageSeoTitle, isElectricScooterProduct } from "../lib/productSeoText";
+import { getProductDisplayTitle, getProductImageAlt, getProductsPageSeoTitle, isElectricScooterProduct, sanitizeScrapedSnippet } from "../lib/productSeoText";
 import CategoryComparisonTable from "./common/CategoryComparisonTable";
 import { getBackendPickerPayload } from "../lib/backendResourceService";
 import { cleanVisibleSourceText } from "../lib/visibleText";
@@ -138,7 +138,7 @@ function pickLocalizedDescription(product: Product, lang: "zh" | "en"): string {
         evidenceDescription,
       ];
 
-  const candidates = orderedCandidates.map((item) => compactSnippet(item));
+  const candidates = orderedCandidates.map((item) => compactSnippet(sanitizeScrapedSnippet(item)));
 
   let baseDesc = candidates.find((item) => item && !isPlaceholderDescription(item) && !isCustomerReviewNarrative(item)) || "";
   if (lang === "zh" && baseDesc && !containsCjk(baseDesc)) {

@@ -294,3 +294,53 @@ export function getProductSkuTitle(product: Product, lang: "zh" | "en"): string 
   const title = [brand, core].filter(Boolean).join(" ").trim();
   return title || getProductDisplayTitle(product, lang);
 }
+
+/**
+ * Cleans raw scraped copy so it never reaches a card or meta description:
+ * - glued headings ("Brake CableThe brake cable", "Easy SetupThe bike") get a space
+ * - missing space after sentence punctuation ("baby.No extra", "design,Stop")
+ * - ALL-CAPS Amazon feature prefixes ("GLOW WHEEL:", "SOFT MUSIC & CUTE ANIMAL SOUNDS:")
+ *   are converted to sentence case
+ * - known scraping typos (SAFA -> Safe, "relaxe." -> "relaxed.", truncated " gra.")
+ */
+export function sanitizeScrapedSnippet(input: string): string {
+  let text = String(input || "").trim();
+  if (!text) return text;
+
+  // Known typos first (case-sensitive word boundaries)
+  text = text.replace(/\bSAFA\b/g, "Safe").replace(/\brelaxe\./g, "relaxed.").replace(/\bcentre of gra\./g, "centre of gravity.");
+
+  // Glued headings: lowercase letter directly followed by "The " (start of a new heading sentence)
+  text = text.replace(/([a-z])(The [a-z])/g, "$1 $2");
+  // Missing space after sentence end / comma before a capitalised word
+  text = text.replace(/([a-z])\.([A-Z])/g, "$1. $2");
+  text = text.replace(/([a-z]),([A-Z][a-z])/g, "$1, $2");
+  // Missing space after a closing paren before a capital word
+  text = text.replace(/\)([A-Z][a-z])/g, ") $1");
+
+  // Sentence-case ALL-CAPS feature prefixes, e.g. "GLOW WHEEL:" -> "Glow wheel:"
+  text = text.replace(/(^|[.\s])([A-Z][A-Z&' ]{2,}):/g, (_m, lead: string, caps: string) => {
+    const cased = caps.trim().toLowerCase().replace(/(^|\s|&)\S/g, (m: string) => m.toUpperCase());
+    return `${lead}${cased}:`;
+  });
+
+  return text.replace(/\s{2,}/g, " ").trim();
+}
+
+/**
+ * Trims an over-long Amazon listing name to a card-friendly title:
+ * [Brand] + [Model] + [Primary spec], cut at a natural boundary under maxChars.
+ */
+export function shortenCardTitle(title: string, maxChars = 80): string {
+  const text = String(title || "").trim();
+  if (text.length <= maxChars) return text;
+  const cutPoints = [
+    text.indexOf(" with "),
+    text.indexOf(" for "),
+    text.indexOf(","),
+    text.indexOf(" - "),
+  ].filter((i) => i >= 15 && i <= maxChars);
+  if (cutPoints.length > 0) return text.slice(0, Math.max(...cutPoints)).trim();
+  const words = text.slice(0, maxChars).split(" ");
+  return words.slice(0, -1).join(" ").trim() || text.slice(0, maxChars).trim();
+}

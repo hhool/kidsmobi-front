@@ -656,7 +656,7 @@ export default function NewsSection({
                   {lang === "zh" ? "相关阅读：" : "Related reading:"}
                 </span>
                 {([
-                  { href: "/guides/best", label: lang === "zh" ? "选购指南" : "Buying guides" },
+                  { href: "/guides/", label: lang === "zh" ? "选购指南" : "Buying guides" },
                   { href: "/products/kids_scooters", label: lang === "zh" ? "滑板车实测" : "Scooter tests" },
                   { href: "/reviews/safety", label: lang === "zh" ? "安全评测中心" : "Safety audits" },
                 ] as const).map((link) => (

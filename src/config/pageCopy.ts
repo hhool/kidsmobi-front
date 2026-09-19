@@ -1061,7 +1061,7 @@ const PAGE_COPY: Record<Locale, PageCopy> = {
       },
       history: {
         title: "Recently Viewed Product",
-        subtitle: "Quickly retrieve strollers you investigated recently (Cached in your browser)",
+        subtitle: "Pick up where you left off (cached locally in your browser)",
       },
       businessCopy: {
         descriptionTemplates: {

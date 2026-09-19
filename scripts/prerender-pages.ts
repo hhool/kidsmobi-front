@@ -529,30 +529,42 @@ function renderGuideContentHtml(markdown: string): string {
 
 async function fetchPublishedCollection<T>(collection: string): Promise<T[]> {
   const url = `${CMS_BASE_URL}/api/cms/${collection}?onlyPublished=1`;
-  try {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 15000);
-    const response = await fetch(url, {
-      headers: { Accept: "application/json" },
-      signal: controller.signal,
-    });
-    clearTimeout(timer);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const payload: unknown = await response.json();
-    const rows = Array.isArray(payload)
-      ? payload
-      : Array.isArray((payload as { data?: unknown })?.data)
-        ? ((payload as { data: unknown[] }).data as unknown[])
-        : [];
-    const records = rows.filter((row): row is T => Boolean(row) && typeof row === "object");
-    console.log(`[prerender] ${records.length} published ${collection} record(s) from ${url}`);
-    return records;
-  } catch (error) {
-    console.warn(
-      `[prerender] could not reach ${url} (${(error as Error).message}); falling back to bundled data.`,
-    );
-    return [];
+  // Transient CMS/CDN fetch failures previously caused silent schema
+  // degradation (e.g. reviewRating dropped for every page whose product join
+  // ran against an empty map). Retry a few times before degrading.
+  const attempts = 4;
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    try {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 15000);
+      const response = await fetch(url, {
+        headers: { Accept: "application/json" },
+        signal: controller.signal,
+      });
+      clearTimeout(timer);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload: unknown = await response.json();
+      const rows = Array.isArray(payload)
+        ? payload
+        : Array.isArray((payload as { data?: unknown })?.data)
+          ? ((payload as { data: unknown[] }).data as unknown[])
+          : [];
+      const records = rows.filter((row): row is T => Boolean(row) && typeof row === "object");
+      console.log(`[prerender] ${records.length} published ${collection} record(s) from ${url}${attempt > 1 ? ` (attempt ${attempt})` : ""}`);
+      return records;
+    } catch (error) {
+      if (attempt < attempts) {
+        console.warn(`[prerender] ${collection} fetch attempt ${attempt} failed (${(error as Error).message}); retrying...`);
+        await new Promise((resolve) => setTimeout(resolve, 2000 * attempt));
+        continue;
+      }
+      console.warn(
+        `[prerender] could not reach ${url} after ${attempts} attempts (${(error as Error).message}); falling back to bundled data.`,
+      );
+      return [];
+    }
   }
+  return [];
 }
 
 async function fetchPublishedGuides(): Promise<CmsGuide[]> {

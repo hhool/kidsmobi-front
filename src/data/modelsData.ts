@@ -939,8 +939,8 @@ export const productsData: any[] = [
       "Mid-Range ($50-$100)",
       "Ultra Lightweight"
     ],
-    "description": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby.No extra energy supply required, colorful light can be emitted just by rotating the wheel SOFT MUSIC & CUTE ANIMAL SOUNDS:The balance bike has 5 built-in songs and cute animal sounds on the tail button, the music makes the baby more willing to move and feel more relaxed and happy. The combination of movement and music together promotes the development of children's perceptual ability and body coordination (appropriate decibel size will not damage the baby's hearing) SAFA & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling.No pedal and fully widened closed wheel to avoid clamping baby's feet.Low centre of gravity design,Stop when you baby land.Double triangular structure and self-balancing design to prevent tipping",
-    "Product_Description": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby.No extra energy supply required, colorful light can be emitted just by rotating the wheel SOFT MUSIC & CUTE ANIMAL SOUNDS:The balance bike has 5 built-in songs and cute animal sounds on the tail button, the music makes the baby more willing to move and feel more relaxed and happy. The combination of movement and music together promotes the development of children's perceptual ability and body coordination (appropriate decibel size will not damage the baby's hearing) SAFA & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling.No pedal and fully widened closed wheel to avoid clamping baby's feet.Low centre of gravity design,Stop when you baby land.Double triangular structure and self-balancing design to prevent tipping",
+    "description": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No extra energy supply required, colorful light can be emitted just by rotating the wheel. Soft MUSIC & CUTE ANIMAL SOUNDS:The balance bike has 5 built-in songs and cute animal sounds on the tail button, the music makes the baby more willing to move and feel more relaxed and happy. The combination of movement and music together promotes the development of children's perceptual ability and body coordination (appropriate decibel size will not damage the baby's hearing) SAFE & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling. No pedal and fully widened closed wheel to avoid clamping baby's feet. Low centre of gravity design, Stop when you baby land. Double triangular structure and self-balancing design to prevent tipping",
+    "Product_Description": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No extra energy supply required, colorful light can be emitted just by rotating the wheel. Soft MUSIC & CUTE ANIMAL SOUNDS:The balance bike has 5 built-in songs and cute animal sounds on the tail button, the music makes the baby more willing to move and feel more relaxed and happy. The combination of movement and music together promotes the development of children's perceptual ability and body coordination (appropriate decibel size will not damage the baby's hearing) SAFE & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling. No pedal and fully widened closed wheel to avoid clamping baby's feet. Low centre of gravity design, Stop when you baby land. Double triangular structure and self-balancing design to prevent tipping",
     "Product_Specifications": {
       "Measurements": {
         "Unit Count": "1.0 Count",
@@ -997,15 +997,15 @@ export const productsData: any[] = [
       }
     },
     "pros": [
-      "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby.No extra energy supply requi. (Features[1])",
-      "SOFT MUSIC & CUTE ANIMAL SOUNDS:The balance bike has 5 built-in songs and cute animal sounds on the tail button, the music makes the baby more willing to move and feel more relaxe. (Features[2])",
-      "SAFA & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling.No pedal and fully widened closed wheel to avoid clamping baby's feet.Low centre of gra. (Features[3])",
+      "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No extra energy supply requi. (Features[1])",
+      "SOFT MUSIC & CUTE ANIMAL SOUNDS:The balance bike has 5 built-in songs and cute animal sounds on the tail button, the music makes the baby more willing to move and feel more relaxed. (Features[2])",
+      "SAFE & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling. No pedal and fully widened closed wheel to avoid clamping baby's feet. Low centre of gravity. (Features[3])",
       "FIRST BABY BIKE: Designed for baby ages 12-24 months Babies can learn to go forward and back with their feet to practice toddlers' leg strength,to develop the motor skills needed. (Features[4])"
     ],
     "cons": [
-      "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby.No extra energy supply requi. (Features[1])",
-      "SAFA & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling.No pedal and fully widened closed wheel to avoid clamping baby's feet.Low centre of gra. (Features[3])",
-      "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby.No extra energy supply requi. (Product_Description)",
+      "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No extra energy supply requi. (Features[1])",
+      "SAFE & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling. No pedal and fully widened closed wheel to avoid clamping baby's feet. Low centre of gravity. (Features[3])",
+      "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No extra energy supply requi. (Product_Description)",
       "weightLimit: 30 Pounds (Product_Specifications.Measurements.Weight Capacity Maximum)"
     ],
     "scenarios": [
@@ -1017,19 +1017,19 @@ export const productsData: any[] = [
     "weightScore": 9.4,
     "geometryScore": 9.1,
     "overallScore": 9.3,
-    "editorVerdict": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby.No extra energy supply requi. SOFT MUSIC & CUTE ANIMAL SOUNDS:The balance bike has 5 built-in songs and cute animal sounds on the tail button, the music makes the baby more willing to move and feel more relaxe. SAFA & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling.No pedal and fully widened closed wheel to avoid clamping baby's feet.Low centre of gra.",
+    "editorVerdict": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No extra energy supply requi. SOFT MUSIC & CUTE ANIMAL SOUNDS:The balance bike has 5 built-in songs and cute animal sounds on the tail button, the music makes the baby more willing to move and feel more relaxed. SAFE & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling. No pedal and fully widened closed wheel to avoid clamping baby's feet. Low centre of gravity.",
     "scrapedEvidence": [
       {
         "source": "Features[1]",
-        "text": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby.No extra energy supply requi."
+        "text": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No extra energy supply requi."
       },
       {
         "source": "Features[2]",
-        "text": "SOFT MUSIC & CUTE ANIMAL SOUNDS:The balance bike has 5 built-in songs and cute animal sounds on the tail button, the music makes the baby more willing to move and feel more relaxe."
+        "text": "SOFT MUSIC & CUTE ANIMAL SOUNDS:The balance bike has 5 built-in songs and cute animal sounds on the tail button, the music makes the baby more willing to move and feel more relaxed."
       },
       {
         "source": "Features[3]",
-        "text": "SAFA & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling.No pedal and fully widened closed wheel to avoid clamping baby's feet.Low centre of gra."
+        "text": "SAFE & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling. No pedal and fully widened closed wheel to avoid clamping baby's feet. Low centre of gravity."
       },
       {
         "source": "Features[4]",
@@ -1041,7 +1041,7 @@ export const productsData: any[] = [
       },
       {
         "source": "Product_Description",
-        "text": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby.No extra energy supply requi."
+        "text": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No extra energy supply requi."
       },
       {
         "source": "Product_Videos_Detail[1].Title",
@@ -1056,15 +1056,15 @@ export const productsData: any[] = [
       {
         "key": "safety",
         "label": "Safety First",
-        "parentTip": "SAFA & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling.No pedal and fully widened closed wheel to avoid clamping baby's feet.Low centre of gra.",
+        "parentTip": "SAFE & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling. No pedal and fully widened closed wheel to avoid clamping baby's feet. Low centre of gravity.",
         "evidence": [
           {
             "source": "Features[3]",
-            "text": "SAFA & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling.No pedal and fully widened closed wheel to avoid clamping baby's feet.Low centre of gra."
+            "text": "SAFE & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling. No pedal and fully widened closed wheel to avoid clamping baby's feet. Low centre of gravity."
           },
           {
             "source": "Product_Description",
-            "text": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby.No extra energy supply requi."
+            "text": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No extra energy supply requi."
           }
         ]
       },
@@ -1075,19 +1075,19 @@ export const productsData: any[] = [
         "evidence": [
           {
             "source": "Features[1]",
-            "text": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby.No extra energy supply requi."
+            "text": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No extra energy supply requi."
           },
           {
             "source": "Features[3]",
-            "text": "SAFA & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling.No pedal and fully widened closed wheel to avoid clamping baby's feet.Low centre of gra."
+            "text": "SAFE & STABLE DESIGN: The balance bike has a 135°turning limit design to avoid side falling. No pedal and fully widened closed wheel to avoid clamping baby's feet. Low centre of gravity."
           },
           {
             "source": "Product_Description",
-            "text": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby.No extra energy supply requi."
+            "text": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No extra energy supply requi."
           },
           {
             "source": "Features[2]",
-            "text": "SOFT MUSIC & CUTE ANIMAL SOUNDS:The balance bike has 5 built-in songs and cute animal sounds on the tail button, the music makes the baby more willing to move and feel more relaxe."
+            "text": "SOFT MUSIC & CUTE ANIMAL SOUNDS:The balance bike has 5 built-in songs and cute animal sounds on the tail button, the music makes the baby more willing to move and feel more relaxed."
           }
         ]
       },
@@ -1098,7 +1098,7 @@ export const productsData: any[] = [
         "evidence": [
           {
             "source": "Features[1]",
-            "text": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby.No extra energy supply requi."
+            "text": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No extra energy supply requi."
           },
           {
             "source": "Features[5]",
@@ -1106,7 +1106,7 @@ export const productsData: any[] = [
           },
           {
             "source": "Product_Description",
-            "text": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby.No extra energy supply requi."
+            "text": "GLOW WHEEL: Cool colorful lighted 4 wheels are more eye-catching to make babies more interested, inspires their curiosity. Bring more fun to your baby. No extra energy supply requi."
           },
           {
             "source": "Product_Specifications.Measurements.Weight Capacity Maximum",

@@ -15,7 +15,7 @@ import { Product, CurrencyData } from "../types";
 import { translations, translateProduct } from "../lib/translate";
 import { SCRAPED_CATEGORY_CATALOG } from "../config/scrapedCategoryCatalog";
 import { resolveProductImages, FALLBACK_PRODUCT_IMAGE } from "../lib/productImages";
-import { getProductImageAlt, getProductSkuTitle } from "../lib/productSeoText";
+import { getProductImageAlt, getProductSkuTitle, sanitizeScrapedSnippet, shortenCardTitle } from "../lib/productSeoText";
 import { formatCurrencyFromUsd } from "../lib/currency";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
 import SeoKeywordPanel from "./common/SeoKeywordPanel";
@@ -372,7 +372,7 @@ export default function HomeSection({
         ];
 
     for (const candidate of candidates) {
-      const cleaned = collapseRepeatedLeadingBrand(candidate, brand);
+      const cleaned = collapseRepeatedLeadingBrand(sanitizeScrapedSnippet(candidate), brand);
       if (isMeaningfulCardSummary(cleaned, lang)) {
         return cleaned;
       }
@@ -818,7 +818,7 @@ export default function HomeSection({
     // to Google and kill long-tail model queries. Category label is now only
     // the fallback for records without a usable name.
     const title = getProductSkuTitle(p, lang);
-    const displayTitle = collapseRepeatedLeadingBrand(title, brandLabel).trim() || forcedCategoryLabel || "";
+    const displayTitle = shortenCardTitle(collapseRepeatedLeadingBrand(title, brandLabel).trim() || forcedCategoryLabel || "", 80);
     const snapshot = resolveHomepageProductSummary(p, forcedCategoryLabel);
     const isCompared = Boolean(onToggleCompare && compareList?.some((c) => c.id === p.id));
     return (
@@ -1054,13 +1054,13 @@ export default function HomeSection({
               </p>
             </div>
             <a
-              href="/guides/best"
+              href="/products/balance-bikes/"
               onClick={(e) => {
                 e.preventDefault();
                 localStorage.setItem("selectedCategory", "best");
                 localStorage.setItem("autoSelectWizardCategory", "balance");
                 if ((window as any).navigateToPath) {
-                  (window as any).navigateToPath("/guides/best");
+                  (window as any).navigateToPath("/products/balance-bikes/");
                   // Trigger category synchronizer
                   if (typeof (window as any).setActiveGuidesCategory === "function") {
                     (window as any).setActiveGuidesCategory("best");
@@ -1090,13 +1090,13 @@ export default function HomeSection({
               </p>
             </div>
             <a
-              href="/guides/best"
+              href="/products/strollers/"
               onClick={(e) => {
                 e.preventDefault();
                 localStorage.setItem("selectedCategory", "best");
                 localStorage.setItem("autoSelectWizardCategory", "stroller");
                 if ((window as any).navigateToPath) {
-                  (window as any).navigateToPath("/guides/best");
+                  (window as any).navigateToPath("/products/strollers/");
                   // Trigger category synchronizer
                   if (typeof (window as any).setActiveGuidesCategory === "function") {
                     (window as any).setActiveGuidesCategory("best");
@@ -1126,13 +1126,13 @@ export default function HomeSection({
               </p>
             </div>
             <a
-              href="/guides/best"
+              href="/products/kids-bikes/"
               onClick={(e) => {
                 e.preventDefault();
                 localStorage.setItem("selectedCategory", "best");
                 localStorage.setItem("autoSelectWizardCategory", "bicycle");
                 if ((window as any).navigateToPath) {
-                  (window as any).navigateToPath("/guides/best");
+                  (window as any).navigateToPath("/products/kids-bikes/");
                   // Trigger category synchronizer
                   if (typeof (window as any).setActiveGuidesCategory === "function") {
                     (window as any).setActiveGuidesCategory("best");
@@ -1162,13 +1162,13 @@ export default function HomeSection({
               </p>
             </div>
             <a
-              href="/guides/best"
+              href="/products/kids-scooters/"
               onClick={(e) => {
                 e.preventDefault();
                 localStorage.setItem("selectedCategory", "best");
                 localStorage.setItem("autoSelectWizardCategory", "scooter");
                 if ((window as any).navigateToPath) {
-                  (window as any).navigateToPath("/guides/best");
+                  (window as any).navigateToPath("/products/kids-scooters/");
                   // Trigger category synchronizer
                   if (typeof (window as any).setActiveGuidesCategory === "function") {
                     (window as any).setActiveGuidesCategory("best");
@@ -1198,13 +1198,13 @@ export default function HomeSection({
               </p>
             </div>
             <a
-              href="/guides/best"
+              href="/products/electric_car/"
               onClick={(e) => {
                 e.preventDefault();
                 localStorage.setItem("selectedCategory", "best");
                 localStorage.setItem("autoSelectWizardCategory", "electric_vehicles");
                 if ((window as any).navigateToPath) {
-                  (window as any).navigateToPath("/guides/best");
+                  (window as any).navigateToPath("/products/electric_car/");
                   if (typeof (window as any).setActiveGuidesCategory === "function") {
                     (window as any).setActiveGuidesCategory("best");
                   }
@@ -1414,7 +1414,7 @@ export default function HomeSection({
             {lang === "zh" ? "继续深入了解：" : "Keep exploring:"}
           </span>
           {([
-            { href: "/guides/best", label: lang === "zh" ? "选购指南" : "Buying guides" },
+            { href: "/guides/", label: lang === "zh" ? "选购指南" : "Buying guides" },
             { href: "/reviews/safety", label: lang === "zh" ? "安全评测" : "Safety audits" },
             { href: "/products/balance_bike", label: lang === "zh" ? "平衡车" : "Balance bikes" },
             { href: "/products/kids_bikes", label: lang === "zh" ? "儿童自行车" : "Kids bikes" },

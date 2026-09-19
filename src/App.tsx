@@ -4230,6 +4230,57 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
       </footer>
       )}
 
+      {/* Sticky comparison tray: surfaces the compare selection anywhere on
+          the site so the ⚖️ card toggle leads somewhere actionable instead of
+          leaving users to discover /compare on their own. Hidden on the
+          compare page itself and when the tray is empty. */}
+      <AnimatePresence>
+        {compareList.length > 0 && activeTab !== "compare" && (
+          <motion.div
+            initial={{ opacity: 0, y: 60 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 60 }}
+            className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[min(640px,calc(100vw-2rem))] rounded-3xl border border-slate-200 bg-white/95 shadow-2xl backdrop-blur px-5 py-3 flex items-center justify-between gap-4"
+            role="region"
+            aria-label={lang === "zh" ? "对比托盘" : "Comparison tray"}
+          >
+            <div className="flex items-center gap-3 min-w-0">
+              <span className="inline-flex items-center justify-center w-9 h-9 rounded-2xl bg-orange-500/10 text-orange-500 shrink-0">
+                <Scale className="w-4 h-4" />
+              </span>
+              <div className="min-w-0">
+                <p className="text-xs font-black text-slate-900 truncate">
+                  {lang === "zh"
+                    ? `已选 ${compareList.length} 款产品对比`
+                    : `${compareList.length} product${compareList.length > 1 ? "s" : ""} ready to compare`}
+                </p>
+                <p className="text-[10px] text-slate-500 font-medium truncate">
+                  {compareList.map((p) => p.name).join(" · ").slice(0, 70)}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                onClick={() => setCompareList([])}
+                className="px-3 py-2 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-slate-800 transition-colors"
+              >
+                {lang === "zh" ? "清空" : "Clear"}
+              </button>
+              <button
+                onClick={() => {
+                  const params = new URLSearchParams();
+                  params.set("ids", compareList.map((p) => p.id).join(","));
+                  navigateToPath(`/compare?${params.toString()}`);
+                }}
+                className="px-4 py-2 rounded-2xl bg-orange-500 text-white text-[10px] font-black uppercase tracking-widest hover:bg-orange-600 transition-colors"
+              >
+                {lang === "zh" ? "开始对比" : "Compare Now"}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Back to Top Button */}
       <AnimatePresence>
         {showBackToTop && (
