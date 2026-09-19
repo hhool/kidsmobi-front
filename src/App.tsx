@@ -2001,7 +2001,9 @@ export default function App() {
         } else {
           setSelectedProduct(null);
           if (activeTab === "product_detail") {
-            setActiveTab("products");
+            // Unknown product id: fold the URL onto /products (replace) so the
+            // hub canonical owns the request instead of an indexable soft 404.
+            navigateToPath("/products", { replace: true, preserveScroll: true });
           }
         }
       } else if (activeTab === "product_detail") {
@@ -2230,6 +2232,33 @@ export default function App() {
     const defaultRobotsIndex = String(
       cmsSettings?.seoGlobal?.defaultRobots || "index,follow,max-image-preview:large"
     ).trim() || "index,follow,max-image-preview:large";
+
+    // Soft-404 handling: the Pages catch-all serves index.html with HTTP 200
+    // for every unmatched path. Once hydrated, emit a self-canonical and a
+    // robots noindex so crawlers that execute JS drop the URL instead of
+    // treating it as a duplicate of the homepage.
+    if (isRouteNotFound) {
+      const notFoundCanonicalOrigin =
+        cmsSettings?.seoGlobal?.siteOrigin ||
+        (cmsSettings as any)?.siteOrigin ||
+        (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+        window.location.origin;
+      const notFoundTitle = lang === "zh"
+        ? "页面未找到 (404) | BalanceBikeToddler"
+        : "Page Not Found (404) | BalanceBikeToddler";
+      const notFoundDesc = lang === "zh"
+        ? "您访问的页面不存在。欢迎浏览我们的平衡车评测、选购指南与安全资讯。"
+        : "The page you requested could not be found. Browse our balance bike reviews, buying guides, and safety news instead.";
+      document.title = notFoundTitle;
+      updateMetaTag("description", notFoundDesc);
+      updateMetaTag("robots", "noindex,nofollow");
+      updateCanonicalLink(`${notFoundCanonicalOrigin}${normalizeCanonicalPath(currentPath)}`);
+      updateMetaProperty("og:title", notFoundTitle);
+      updateMetaProperty("og:description", notFoundDesc);
+      updateMetaProperty("og:type", "website");
+      removeJsonLdScripts();
+      return;
+    }
 
     // Determine active tab database key
     let seoKey = activeTab;
