@@ -37,6 +37,8 @@ import { formatWeight, formatHeight } from "./lib/units";
 import { resolveProductImages, normalizeMediaUrl } from "./lib/productImages";
 import { getProductDisplayTitle, getProductImageAlt, getProductsPageSeoTitle } from "./lib/productSeoText";
 import { productCategoryPath, productDetailPath, productCategoryUrlSlug, productDetailUrlSlug } from "./lib/productCategoryPaths";
+import { buildProductFaqsFromDisplayFields, faqPageSchema, FAQ_MIN_QUESTIONS } from "./lib/productFaq";
+import { getHubContent } from "./lib/productHubContent";
 
 /** Mirrors PRODUCT_COMPARE_HUB_BY_SLUG in scripts/prerender-pages.ts (P1-2). */
 const PRODUCT_COMPARE_HUB_BY_SLUG: Record<string, string> = {
@@ -2347,6 +2349,14 @@ export default function App() {
           };
         }
 
+        // FAQ parity with the prerendered static HTML (P1 SEO): same shared
+        // builder as DetailedProductView, so schema always matches visible DOM.
+        const productFaqs = buildProductFaqsFromDisplayFields(
+          dedupedDisplayTitle,
+          (selectedProduct as Product & { Product_Display_Fields?: Record<string, { value?: unknown }> }).Product_Display_Fields,
+          Number(selectedProduct.price) > 0 ? Number(selectedProduct.price) : null,
+        );
+
         injectJsonLd([
           {
             "@context": "https://schema.org",
@@ -2374,6 +2384,7 @@ export default function App() {
           },
           websiteSchema,
           productSchema,
+          ...(productFaqs.length >= FAQ_MIN_QUESTIONS ? [faqPageSchema(productFaqs)] : []),
         ]);
         updateSocialMeta(
           title,
@@ -2990,12 +3001,22 @@ export default function App() {
         }
       : null;
 
+    // Hub FAQ (P1 SEO): category-hub routes mirror the prerendered hub's
+    // FAQPage schema so the hydrated DOM never drops it.
+    const hubFaqSchema = seoKey === "products" && activeProductCategory !== "all"
+      ? (() => {
+          const hub = getHubContent(productCategoryUrlSlug(activeProductCategory));
+          return hub.faqs.length >= FAQ_MIN_QUESTIONS ? faqPageSchema(hub.faqs) : null;
+        })()
+      : null;
+
     injectJsonLd([
       orgSchema,
       websiteSchema,
       webPageSchema,
       ...(aboutSchema ? [aboutSchema] : []),
       ...(aboutFaqSchema ? [aboutFaqSchema] : []),
+      ...(hubFaqSchema ? [hubFaqSchema] : []),
       breadcrumbSchema,
       ...(collectionSchema ? [collectionSchema] : []),
     ]);
@@ -3715,8 +3736,37 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           />
         )}
 
+        {/* Category-hub editorial intro: mirrors the prerendered hub page
+            (src/lib/productHubContent.ts) so the hydrated DOM keeps the same
+            buying-guidance copy and FAQ the crawler first saw (P1 SEO). */}
+        {activeTab === "products" && activeProductCategory !== "all" &&
+          (() => {
+            const hub = getHubContent(productCategoryUrlSlug(activeProductCategory));
+            if (hub.intro.length === 0) return null;
+            return (
+              <div className="max-w-4xl mx-auto px-4 sm:px-6 pb-2 -mt-2 space-y-3">
+                {hub.intro.map((paragraph, index) => (
+                  <p key={`hub-intro-${index}`} className="text-sm text-slate-600 font-medium leading-relaxed">{paragraph}</p>
+                ))}
+                {hub.faqs.length >= 2 && (
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-3">
+                    <h2 className="text-sm font-black text-slate-900">
+                      {lang === "en" ? "Frequently Asked Questions" : "常见问题"}
+                    </h2>
+                    {hub.faqs.map((faq, index) => (
+                      <div key={`hub-faq-${index}`}>
+                        <h3 className="text-sm font-black text-slate-800 leading-relaxed">{faq.q}</h3>
+                        <p className="text-sm text-slate-600 font-medium leading-relaxed mt-1">{faq.a}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
+
         {activeTab === "products" && (
-          <ProductsSection 
+          <ProductsSection
             productsData={productsData}
             onSelectProduct={handleSelectProduct}
             compareList={compareList}

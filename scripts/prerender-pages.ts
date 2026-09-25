@@ -7,6 +7,8 @@ import { TRANSPARENCY_PAGES } from "../src/data/transparencyPages";
 import { getPageCopy } from "../src/config/pageCopy";
 import { shortenCardTitle } from "../src/lib/productSeoText";
 import { productDetailUrlSlug } from "../src/lib/productCategoryPaths";
+import { buildProductFaqsFromDisplayFields, faqPageSchema, FAQ_MIN_QUESTIONS, type ProductFaq } from "../src/lib/productFaq";
+import { getHubContent } from "../src/lib/productHubContent";
 
 const distDir = path.resolve("dist");
 type RoutePage = {
@@ -2199,6 +2201,21 @@ function renderProductDetailPage(
       </section>`
     : "";
 
+  // FAQ (P1 SEO): data-driven questions mirroring the hydrated DetailedProductView
+  // FAQ section, so the static HTML and rendered DOM never disagree.
+  const productFaqs = buildProductFaqsFromDisplayFields(displayName, product.Product_Display_Fields, price);
+  const faqHtml = productFaqs.length >= FAQ_MIN_QUESTIONS
+    ? `<section style="margin: 0 0 22px;">
+        <h2 style="margin: 0 0 10px; font-size: 1.2rem;">Frequently asked questions</h2>
+        ${productFaqs
+          .map(
+            (faq: ProductFaq) =>
+              `<h3 style="margin: 14px 0 4px; font-size: 1.02rem; color: #0f172a;">${escapeHtml(faq.q)}</h3><p style="margin: 0; color: #334155;">${escapeHtml(faq.a)}</p>`,
+          )
+          .join("")}
+      </section>`
+    : "";
+
   // Related reviews: evaluations joined to this product by id.
   const relatedReviews = evaluations
     .filter((evaluation) => {
@@ -2264,6 +2281,7 @@ function renderProductDetailPage(
         ${prosConsHtml}
         ${verdictHtml}
         ${specsHtml}
+        ${faqHtml}
         ${relatedReviewsHtml}
         ${relatedProductsHtml}
         ${backLinks}
@@ -2311,13 +2329,16 @@ function renderProductDetailPage(
     ],
   };
 
+  const faqJsonLd =
+    productFaqs.length >= FAQ_MIN_QUESTIONS ? faqPageSchema(productFaqs) : null;
+
   return {
     route,
     title: `${displayName} — Review, Specs & Safety Score`,
     description: metaDescription,
     body,
     image: image || undefined,
-    jsonLd: [productJsonLd, breadcrumbJsonLd],
+    jsonLd: [productJsonLd, breadcrumbJsonLd, ...(faqJsonLd ? [faqJsonLd] : [])],
   };
 }
 
@@ -2340,6 +2361,24 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
     )
     .join("");
 
+  // Hub editorial content (P1 SEO): category-level buying guidance + FAQ from
+  // the shared src/lib/productHubContent.ts, mirrored by the hydrated SPA hub.
+  const hubContent = getHubContent(meta.slug);
+  const hubIntroHtml = hubContent.intro
+    .map((paragraph) => `<p style="margin: 0 0 12px; color: #334155; line-height: 1.65;">${escapeHtml(paragraph)}</p>`)
+    .join("");
+  const hubFaqHtml = hubContent.faqs.length >= FAQ_MIN_QUESTIONS
+    ? `<section style="margin: 26px 0 0;">
+        <h2 style="margin: 0 0 10px; font-size: 1.2rem;">${escapeHtml(meta.label)} — frequently asked questions</h2>
+        ${hubContent.faqs
+          .map(
+            (faq) =>
+              `<h3 style="margin: 14px 0 4px; font-size: 1.02rem; color: #0f172a;">${escapeHtml(faq.q)}</h3><p style="margin: 0; color: #334155;">${escapeHtml(faq.a)}</p>`,
+          )
+          .join("")}
+      </section>`
+    : "";
+
   const body = `
         ${renderProductBreadcrumb([
           { name: "Home", href: "/" },
@@ -2348,9 +2387,11 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
         ])}
         <section style="margin: 0 0 22px;">
           <p style="margin: 0 0 8px; color: #334155;">${escapeHtml(meta.description)} Every model below carries a BalanceBikeToddler editorial score from our lab checklist, with user ratings and typical pricing where available.</p>
+          ${hubIntroHtml}
           <p style="margin: 0; color: #64748b; font-size: 0.92rem;">${categoryProducts.length} lab-tested ${escapeHtml(meta.label.toLowerCase())} · updated regularly from the live CMS.</p>
         </section>
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px;">${cardsHtml}</div>
+        ${hubFaqHtml}
         <section style="padding: 16px 0 0; border-top: 1px solid #e2e8f0;">
           <p style="margin: 0;"><a href="/products" style="color: #c2410c; text-decoration: none;">Compare every kids mobility category →</a></p>
         </section>
@@ -2384,7 +2425,11 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
     description: meta.description,
     body,
     image: toAbsoluteMediaUrl(categoryProducts[0]?.imageUrl) || undefined,
-    jsonLd: [itemListJsonLd, breadcrumbJsonLd],
+    jsonLd: [
+      itemListJsonLd,
+      breadcrumbJsonLd,
+      ...(hubContent.faqs.length >= FAQ_MIN_QUESTIONS ? [faqPageSchema(hubContent.faqs)] : []),
+    ],
   };
 }
 

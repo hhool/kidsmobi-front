@@ -21,6 +21,7 @@ import { resolveProductImages, normalizeMediaUrl } from "../lib/productImages";
 import { getProductDisplayTitle } from "../lib/productSeoText";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 import { getSpecFieldLabel, normalizeSpecDisplayValue, toSpecKey } from "../lib/specLexicon";
+import { buildProductFaqsFromDisplayFields } from "../lib/productFaq";
 import ProductCarousel from "./ProductCarousel";
 import Breadcrumbs from "./Breadcrumbs";
 
@@ -958,6 +959,13 @@ export default function DetailedProductView({
   const descriptionText = resolveDescriptionText(displayProduct, lang);
   const imageSet = resolveProductImages(displayProduct);
   const applicableAgeRange = resolveApplicableAgeRange(product, lang);
+  // FAQ parity with the prerendered static HTML (P1 SEO): same shared builder,
+  // same questions, so crawlers see identical content before and after hydration.
+  const productFaqs = buildProductFaqsFromDisplayFields(
+    displayTitle,
+    (product as Product & { Product_Display_Fields?: Record<string, { value?: unknown }> }).Product_Display_Fields,
+    Number(product.price) > 0 ? Number(product.price) : null,
+  );
   const structuredDescriptionText = resolveStructuredProductDescription(displayProduct, lang);
   const structuredDescriptionParagraphs = paragraphizeDescription(structuredDescriptionText);
   const structuredFeatureRows = resolveStructuredFeatureRows(displayProduct, lang);
@@ -1734,6 +1742,19 @@ export default function DetailedProductView({
            )}
         </div>
       </div>
+
+      {/* FAQ section: mirrors the prerendered static FAQ (P1 SEO parity). */}
+      {productFaqs.length >= 2 && (
+        <div id="product_faq_section" className="bg-white border border-slate-100 rounded-[40px] p-8 shadow-sm space-y-3 scroll-mt-24 mt-8">
+          <h2 className="km-section-title text-slate-900">{lang === "en" ? "Frequently Asked Questions" : "常见问题"}</h2>
+          {productFaqs.map((faq, index) => (
+            <div key={`product-faq-${index}`} className="pt-2">
+              <h3 className="text-sm font-black text-slate-800 leading-relaxed">{faq.q}</h3>
+              <p className="text-sm text-slate-600 font-medium leading-relaxed mt-1">{faq.a}</p>
+            </div>
+          ))}
+        </div>
+      )}
 
     </div>
   );
