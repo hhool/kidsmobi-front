@@ -6,7 +6,8 @@ import { initialEvaluationsData } from "../src/data/evaluationsData";
 import { TRANSPARENCY_PAGES } from "../src/data/transparencyPages";
 import { getPageCopy } from "../src/config/pageCopy";
 import { shortenCardTitle } from "../src/lib/productSeoText";
-import { productDetailUrlSlug } from "../src/lib/productCategoryPaths";
+import { productDetailUrlSlug, resolveProductDetailCategorySlug } from "../src/lib/productCategoryPaths";
+import { matchProductsForText } from "../src/lib/relatedProducts";
 import { buildProductFaqsFromDisplayFields, faqPageSchema, FAQ_MIN_QUESTIONS, type ProductFaq } from "../src/lib/productFaq";
 import { getHubContent } from "../src/lib/productHubContent";
 
@@ -538,12 +539,14 @@ async function fetchPublishedCollection<T>(collection: string): Promise<T[]> {
   const url = `${CMS_BASE_URL}/api/cms/${collection}?onlyPublished=1`;
   // Transient CMS/CDN fetch failures previously caused silent schema
   // degradation (e.g. reviewRating dropped for every page whose product join
-  // ran against an empty map). Retry a few times before degrading.
-  const attempts = 4;
+  // ran against an empty map). With 4 collections fetched per build, a ~30%
+  // per-collection failure rate made "at least one degraded" the norm —
+  // retry hard (8 attempts, capped backoff) before degrading.
+  const attempts = 8;
   for (let attempt = 1; attempt <= attempts; attempt++) {
     try {
       const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), 15000);
+      const timer = setTimeout(() => controller.abort(), 20000);
       const response = await fetch(url, {
         headers: { Accept: "application/json" },
         signal: controller.signal,
@@ -562,7 +565,7 @@ async function fetchPublishedCollection<T>(collection: string): Promise<T[]> {
     } catch (error) {
       if (attempt < attempts) {
         console.warn(`[prerender] ${collection} fetch attempt ${attempt} failed (${(error as Error).message}); retrying...`);
-        await new Promise((resolve) => setTimeout(resolve, 2000 * attempt));
+        await new Promise((resolve) => setTimeout(resolve, Math.min(2000 * attempt, 8000)));
         continue;
       }
       console.warn(
@@ -621,7 +624,48 @@ function relatedEvaluationsForGuide(
     .map(({ title, path }) => ({ title, path }));
 }
 
-function renderGuideDetailPage(guide: CmsGuide, evaluations: CmsEvaluation[] = []): RoutePage | null {
+/**
+ * Contextual product-links block shared by guide / news / evaluation detail
+ * pages. Matching is token-based against real CMS product fields via the
+ * shared relatedProducts lib (same matcher the SPA hydrates with). Renders
+ * nothing when no product genuinely matches — never pads with filler.
+ */
+function relatedProductsHtml(
+  text: string,
+  products: CmsProductLite[],
+  heading: string,
+  limit = 3,
+): string {
+  if (!products.length) return "";
+  const productsById = new Map(products.map((product) => [String(product.id || ""), product]));
+  const matched = matchProductsForText(
+    text,
+    products.map((product) => ({
+      id: String(product.id || ""),
+      name: product.name,
+      brand: product.brand,
+      category: product.category,
+      summary: (product as Record<string, unknown> & { en?: { description?: string } })?.en?.description,
+    })),
+    limit,
+  );
+  if (!matched.length) return "";
+  const items = matched
+    .map((p) => {
+      const href = `/products/${resolveProductDetailCategorySlug((productsById.get(p.id) || {}) as Record<string, unknown>)}/${p.id}`;
+      const name = escapeHtml(String(p.name || p.id).trim());
+      const brand = String(p.brand || "").trim();
+      const label = escapeHtml(brand && !name.toLowerCase().startsWith(brand.toLowerCase()) ? `${brand} ${p.name || p.id}`.trim() : String(p.name || p.id).trim());
+      return `<li style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 12px 16px;"><a href="${escapeHtml(href)}" style="color: #c2410c; font-weight: 700; text-decoration: none;">${label}</a><span style="display: block; margin-top: 4px; font-size: 0.85rem; color: #64748b;">Lab score, full specs &amp; safety checklist for the ${name}.</span></li>`;
+    })
+    .join("");
+  return `<section style="padding: 18px 0; border-top: 1px solid #e2e8f0;">
+        <p style="margin: 0 0 10px; font-size: 0.78rem; font-weight: 900; letter-spacing: 0.15em; text-transform: uppercase; color: #94a3b8;">${escapeHtml(heading)}</p>
+        <ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px;">${items}</ul>
+      </section>`;
+}
+
+function renderGuideDetailPage(guide: CmsGuide, evaluations: CmsEvaluation[] = [], products: CmsProductLite[] = []): RoutePage | null {
   const route = guideRoutePath(guide);
   if (!route) return null;
 
@@ -635,6 +679,7 @@ function renderGuideDetailPage(guide: CmsGuide, evaluations: CmsEvaluation[] = [
   );
   const content = pickText(guide.en?.content, guide.zh?.content);
   const relatedReviews = relatedEvaluationsForGuide(`${title} ${summary} ${content}`, evaluations);
+  const relatedProducts = relatedProductsHtml(`${title} ${summary} ${content}`, products, "Products Mentioned in This Guide");
   const relatedReviewsHtml = relatedReviews.length
     ? `<section style="padding: 18px 0; border-top: 1px solid #e2e8f0;">
         <p style="margin: 0 0 10px; font-size: 0.78rem; font-weight: 900; letter-spacing: 0.15em; text-transform: uppercase; color: #94a3b8;">Related Reviews</p>
@@ -713,6 +758,7 @@ function renderGuideDetailPage(guide: CmsGuide, evaluations: CmsEvaluation[] = [
         ${renderGuideContentHtml(content) || `<p style="margin: 0;">${escapeHtml(summary)}</p>`}
       </section>
       ${relatedReviewsHtml}
+      ${relatedProducts}
       <section style="padding: 22px 0 0; border-top: 1px solid #e2e8f0;">
         <p style="margin: 0; font-size: 0.9rem; color: #475569;">Continue browsing the <a href="/guides">full guide library</a>.</p>
       </section>
@@ -721,7 +767,7 @@ function renderGuideDetailPage(guide: CmsGuide, evaluations: CmsEvaluation[] = [
   };
 }
 
-function renderNewsDetailPage(item: CmsNews): RoutePage | null {
+function renderNewsDetailPage(item: CmsNews, products: CmsProductLite[] = []): RoutePage | null {
   const route = newsRoutePath(item);
   if (!route) return null;
 
@@ -798,6 +844,7 @@ function renderNewsDetailPage(item: CmsNews): RoutePage | null {
       <section style="padding: 6px 0; border-top: 1px solid #e2e8f0;">
         ${renderGuideContentHtml(content) || `<p style="margin: 0;">${escapeHtml(summary)}</p>`}
       </section>
+      ${relatedProductsHtml(`${title} ${summary} ${content}`, products, "Related Products")}
       <section style="padding: 22px 0 0; border-top: 1px solid #e2e8f0;">
         <p style="margin: 0; font-size: 0.9rem; color: #475569;">Continue reading the <a href="/news">latest news</a> or browse the <a href="/guides">guide library</a>.</p>
       </section>
@@ -905,7 +952,7 @@ function renderEvaluationDetailPage(
               ...(brandName ? { brand: { "@type": "Brand", name: brandName } } : {}),
               ...(productImage ? { image: [productImage] } : {}),
               url: product
-                ? `${PUBLIC_SITE_BASE}/products/${String(product.category || "all").trim() || "all"}/${product.id}`
+                ? `${PUBLIC_SITE_BASE}/products/${resolveProductDetailCategorySlug(product as Record<string, unknown>)}/${product.id}`
                 : url,
             };
           })(),
@@ -923,6 +970,48 @@ function renderEvaluationDetailPage(
           })(),
         },
   ];
+
+  const testedProducts = (
+    isCompare
+      ? (item.productIds || []).map((rawId) => resolvePrerenderProduct(String(rawId), productMap))
+      : [resolvePrerenderProduct(item.productId, productMap)]
+  ).filter((p): p is CmsProductLite => Boolean(p));
+  // Fallback when the evaluation's productId reference cannot be resolved:
+  // token-match the review text against the product catalog (same shared
+  // matcher the guides/news pages use) instead of emitting zero links.
+  const fallbackProducts = testedProducts.length
+    ? []
+    : matchProductsForText(
+        `${title} ${verdict}`,
+        productMap.size
+          ? Array.from(productMap.values()).map((product) => ({
+              id: String(product.id || ""),
+              name: product.name,
+              brand: product.brand,
+              category: product.category,
+            }))
+          : [],
+        isCompare ? 3 : 1,
+      );
+  const linkedProducts = testedProducts.length ? testedProducts : fallbackProducts;
+  const testedProductsHtml = linkedProducts.length
+    ? `<section style="padding: 18px 0; border-top: 1px solid #e2e8f0;">
+        <p style="margin: 0 0 10px; font-size: 0.78rem; font-weight: 900; letter-spacing: 0.15em; text-transform: uppercase; color: #94a3b8;">${isCompare ? "Products in This Comparison" : "Tested Product"}</p>
+        <ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px;">
+          ${linkedProducts
+            .map((p) => {
+              const name = String(p.name || p.id).trim();
+              const brand = String(p.brand || "").trim();
+              const label =
+                brand && !name.toLowerCase().startsWith(brand.toLowerCase())
+                  ? `${brand} ${name}`
+                  : name;
+              return `<li style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 12px 16px;"><a href="${escapeHtml(`/products/${resolveProductDetailCategorySlug(p as Record<string, unknown>)}/${p.id}`)}" style="color: #c2410c; font-weight: 700; text-decoration: none;">${escapeHtml(label)}</a><span style="display: block; margin-top: 4px; font-size: 0.85rem; color: #64748b;">Full lab review, live pricing &amp; safety score.</span></li>`;
+            })
+            .join("")}
+        </ul>
+      </section>`
+    : "";
 
   return {
     route,
@@ -942,6 +1031,7 @@ function renderEvaluationDetailPage(
       </section>
       ${prosHtml ? `<section style="padding: 6px 0; border-top: 1px solid #e2e8f0;"><h2 style="font-size: 1.2rem; margin: 0 0 8px;">Pros</h2>${prosHtml}</section>` : ""}
       ${consHtml ? `<section style="padding: 14px 0; border-top: 1px solid #e2e8f0;"><h2 style="font-size: 1.2rem; margin: 0 0 8px;">Cons</h2>${consHtml}</section>` : ""}
+      ${testedProductsHtml}
       <section style="padding: 22px 0 0; border-top: 1px solid #e2e8f0;">
         <p style="margin: 0; font-size: 0.9rem; color: #475569;">Browse all <a href="/reviews">review reports</a> or the <a href="/guides">guide library</a>.</p>
       </section>
@@ -2487,10 +2577,10 @@ async function main() {
     );
   }
   const guideDetailPages = cmsGuides
-    .map((guide) => renderGuideDetailPage(guide, cmsEvaluations))
+    .map((guide) => renderGuideDetailPage(guide, cmsEvaluations, cmsProducts))
     .filter((page): page is RoutePage => page !== null);
   const newsDetailPages = cmsNews
-    .map(renderNewsDetailPage)
+    .map((item) => renderNewsDetailPage(item, cmsProducts))
     .filter((page): page is RoutePage => page !== null);
   const evaluationDetailPages = cmsEvaluations
     .map((item) => renderEvaluationDetailPage(item, productMap))

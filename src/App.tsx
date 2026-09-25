@@ -3721,6 +3721,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             currentPage={activePageIndex}
             activeCategory={activeNewsCategory}
             activeArticleId={activeNewsArticleId}
+            productsData={productsData}
             onCategoryChange={(cat) => navigateToPath(cat === "all" ? "/news" : `/news/${cat}`, { preserveScroll: true })}
             onArticleOpen={(cat, articleId) => {
               rememberReturnView("news");

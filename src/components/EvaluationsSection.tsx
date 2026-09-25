@@ -19,6 +19,7 @@ import { getPageCopy } from "../config/pageCopy";
 import MultiCompareView from "./MultiCompareView";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
 import { evaluationSlug } from "../lib/evaluationSlug";
+import { productDetailPath } from "../lib/productCategoryPaths";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 
 function SafetyRadarChart({ product, evaluation, lang = "zh", isDark = false }: { product?: Product; evaluation?: Evaluation; lang: "zh" | "en", isDark?: boolean }) {
@@ -1960,15 +1961,27 @@ export default function EvaluationsSection({
               </div>
             </div>
             {reviewedProduct && (
-              <button
-                type="button"
-                onClick={() => onSelectProduct(reviewedProduct)}
-                className="w-full py-4 bg-slate-900 hover:bg-orange-500 text-white rounded-2xl transition-all shadow-lg flex items-center justify-center active:scale-95"
-                aria-label={getReviewCtaLabel(reviewedProduct, selectedEvaluation, lang)}
-                title={getReviewCtaLabel(reviewedProduct, selectedEvaluation, lang)}
-              >
-                <ArrowRight className="w-4 h-4" aria-hidden="true" />
-              </button>
+              <div className="space-y-2">
+                <button
+                  type="button"
+                  onClick={() => onSelectProduct(reviewedProduct)}
+                  className="w-full py-4 bg-slate-900 hover:bg-orange-500 text-white rounded-2xl transition-all shadow-lg flex items-center justify-center active:scale-95"
+                  aria-label={getReviewCtaLabel(reviewedProduct, selectedEvaluation, lang)}
+                  title={getReviewCtaLabel(reviewedProduct, selectedEvaluation, lang)}
+                >
+                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                </button>
+                <a
+                  href={`/products/${resolveProductDetailCategorySlug(reviewedProduct as unknown as Record<string, unknown>)}/${reviewedProduct.id}`}
+                  className="block text-center text-xs font-bold text-orange-600 hover:text-orange-700 underline underline-offset-2"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    onSelectProduct(reviewedProduct);
+                  }}
+                >
+                  {lang === "en" ? "Open full product page" : "查看产品完整页"}
+                </a>
+              </div>
             )}
           </div>
           <SafetyRadarChart product={reviewedProduct} evaluation={selectedEvaluation} lang={lang} />

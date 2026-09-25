@@ -2,6 +2,9 @@ import React, { useState, useEffect, useMemo, useRef } from "react";
 import { Search, Calendar, User, Eye, BookOpen, Clock, ArrowLeft, Heart, Share2, Globe, Zap, Newspaper } from "lucide-react";
 import { NewsArticle, newsArticles as fallbackNewsArticles } from "../data/newsData";
 import { getD1CMSNews } from "../lib/cmsD1Service";
+import { productDetailPath } from "../lib/productCategoryPaths";
+import { matchProductsForText } from "../lib/relatedProducts";
+import type { Product } from "../types";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
 import { buildArticleSeoDescription, buildArticleSeoTitle, buildCardExcerpt, resolveCardImage, type ArticleSeoMeta } from "../lib/articleSeo";
 import { normalizeMediaUrl } from "../lib/productImages";
@@ -76,6 +79,8 @@ interface NewsSectionProps {
   onCategoryChange?: (category: string) => void;
   onArticleOpen?: (category: string, articleId: string) => void;
   onArticleClose?: () => void;
+  /** Published products, used for token-matched "Related Products" links on detail pages. */
+  productsData?: Product[];
   /** Reports the active article's SEO metadata (or null when no detail is open). */
   onActiveArticleMeta?: (meta: ArticleSeoMeta | null) => void;
 }
@@ -149,6 +154,7 @@ export default function NewsSection({
   onCategoryChange,
   onArticleOpen,
   onArticleClose,
+  productsData = [],
   onActiveArticleMeta,
 }: NewsSectionProps) {
   const newsCopy = getPageCopy(lang).news;
@@ -558,6 +564,53 @@ export default function NewsSection({
             <div className="text-slate-600 text-sm sm:text-base leading-8 space-y-6 border-t border-slate-50 pt-8">
               {renderRichContent(article.content)}
             </div>
+
+            {(() => {
+              // Related products — token match over real CMS product fields,
+              // same matcher/limiter as the prerender script (parity).
+              const matched = matchProductsForText(
+                `${article.title || ""} ${article.summary || ""} ${article.content || ""}`.replace(/<[^>]+>/g, " "),
+                (productsData || []).map((p) => ({
+                  id: String(p.id || ""),
+                  name: p.name,
+                  brand: p.brand,
+                  category: p.category,
+                })),
+                3,
+              );
+              if (!matched.length) return null;
+              const byId = new Map((productsData || []).map((p) => [String(p.id || ""), p]));
+              return (
+                <div className="pt-8 border-t border-slate-50 space-y-3">
+                  <p className="text-xs font-black uppercase tracking-widest text-slate-400">
+                    {lang === "en" ? "Related Products" : "相关产品实测"}
+                  </p>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    {matched.map((p) => {
+                      const full = byId.get(String(p.id));
+                      const name = String(full?.name || p.name || p.id).trim();
+                      const brand = String(full?.brand || p.brand || "").trim();
+                      const label =
+                        brand && !name.toLowerCase().startsWith(brand.toLowerCase())
+                          ? `${brand} ${name}`
+                          : name;
+                      return (
+                        <a
+                          key={p.id}
+                          href={`/products/${resolveProductDetailCategorySlug((full || p) as unknown as Record<string, unknown>)}/${p.id}`}
+                          className="px-5 py-4 bg-slate-50 hover:bg-orange-50 border border-slate-100 hover:border-orange-200 rounded-2xl block transition-all"
+                        >
+                          <span className="text-sm font-bold text-slate-700 hover:text-orange-600 leading-snug">{label}</span>
+                          <span className="block mt-1 text-xs text-slate-400 font-semibold">
+                            {lang === "en" ? "Lab score, specs & safety checklist" : "实验室评分、规格与安全清单"}
+                          </span>
+                        </a>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })()}
 
             {/* BalanceBikeToddler Lab Recommended Best Picks / Safety Guides Widget */}
             <div className="mt-12 pt-10 border-t border-slate-100 space-y-6">

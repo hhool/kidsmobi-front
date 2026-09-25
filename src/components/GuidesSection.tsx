@@ -27,6 +27,8 @@ import { evaluationRouteSegment } from "../lib/evaluationSlug";
 import { translateProduct, translateGuideArticle } from "../lib/translate";
 import { convertUsdToCurrency, formatCurrencyFromUsd } from "../lib/currency";
 import { getD1CMSGuides } from "../lib/cmsD1Service";
+import { resolveProductDetailCategorySlug } from "../lib/productCategoryPaths";
+import { matchProductsForText } from "../lib/relatedProducts";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 import { resolveProductImages, FALLBACK_PRODUCT_IMAGE, normalizeMediaUrl } from "../lib/productImages";
 import { renderRichContent } from "../lib/richContent";
@@ -1993,6 +1995,53 @@ export default function GuidesSection({
                   </div>
                 </div>
               )}
+
+              {(() => {
+                // Products mentioned in this guide — token match over real CMS
+                // product fields, same matcher/limiter as the prerender script.
+                const matched = matchProductsForText(
+                  `${guide.title} ${guide.summary} ${guide.content}`,
+                  (productsData || []).map((p) => ({
+                    id: String(p.id || ""),
+                    name: p.name,
+                    brand: p.brand,
+                    category: p.category,
+                  })),
+                  3,
+                );
+                if (!matched.length) return null;
+                const byId = new Map((productsData || []).map((p) => [String(p.id || ""), p]));
+                return (
+                  <div className="pt-8 border-t border-slate-50 space-y-3">
+                    <p className="text-xs font-black uppercase tracking-widest text-slate-400">
+                      {lang === "en" ? "Products Mentioned in This Guide" : "指南中提到的产品"}
+                    </p>
+                    <div className="grid sm:grid-cols-2 gap-3">
+                      {matched.map((p) => {
+                        const full = byId.get(String(p.id));
+                        const name = String(full?.name || p.name || p.id).trim();
+                        const brand = String(full?.brand || p.brand || "").trim();
+                        const label =
+                          brand && !name.toLowerCase().startsWith(brand.toLowerCase())
+                            ? `${brand} ${name}`
+                            : name;
+                        return (
+                          <a
+                            key={p.id}
+                            href={`/products/${resolveProductDetailCategorySlug((full || p) as unknown as Record<string, unknown>)}/${p.id}`}
+                            className="px-5 py-4 bg-slate-50 hover:bg-orange-50 border border-slate-100 hover:border-orange-200 rounded-2xl block transition-all"
+                          >
+                            <span className="text-sm font-bold text-slate-700 hover:text-orange-600 leading-snug">{label}</span>
+                            <span className="block mt-1 text-xs text-slate-400 font-semibold">
+                              {lang === "en" ? "Lab score, specs & safety checklist" : "实验室评分、规格与安全清单"}
+                            </span>
+                          </a>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })()}
 
               <div className="pt-10 border-t border-slate-50 flex justify-between items-center gap-4 flex-wrap">
                 <button
