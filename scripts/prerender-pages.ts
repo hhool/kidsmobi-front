@@ -2453,21 +2453,32 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
 
   // Hub editorial content (P1 SEO): category-level buying guidance + FAQ from
   // the shared src/lib/productHubContent.ts, mirrored by the hydrated SPA hub.
+  // Placed BELOW the product cards and styled like the homepage FAQ (centered
+  // header + accordion) so the static page never shows a floating content card.
   const hubContent = getHubContent(meta.slug);
   const hubIntroHtml = hubContent.intro
-    .map((paragraph) => `<p style="margin: 0 0 12px; color: #334155; line-height: 1.65;">${escapeHtml(paragraph)}</p>`)
+    .map((paragraph) => `<p style="margin: 0 0 12px; color: #475569; font-size: 0.95rem; line-height: 1.7;">${escapeHtml(paragraph)}</p>`)
     .join("");
   const hubFaqHtml = hubContent.faqs.length >= FAQ_MIN_QUESTIONS
-    ? `<section style="margin: 26px 0 0;">
-        <h2 style="margin: 0 0 10px; font-size: 1.2rem;">${escapeHtml(meta.label)} — frequently asked questions</h2>
+    ? `<div style="display: grid; gap: 12px; margin-top: 20px;">
         ${hubContent.faqs
           .map(
             (faq) =>
-              `<h3 style="margin: 14px 0 4px; font-size: 1.02rem; color: #0f172a;">${escapeHtml(faq.q)}</h3><p style="margin: 0; color: #334155;">${escapeHtml(faq.a)}</p>`,
+              `<details style="border: 1px solid #e2e8f0; background: #ffffff; border-radius: 24px; overflow: hidden;">
+                <summary style="cursor: pointer; list-style: none; padding: 18px 22px; display: flex; align-items: center; justify-content: space-between; gap: 14px; font-weight: 900; color: #0f172a; font-size: 0.95rem;">${escapeHtml(faq.q)}<span style="color: #94a3b8; font-size: 1.2rem; line-height: 1; font-weight: 700;">＋</span></summary>
+                <div style="padding: 0 22px 18px; color: #64748b; background: #f8fafc; border-top: 1px solid #f1f5f9; font-size: 0.92rem; line-height: 1.7;">${escapeHtml(faq.a)}</div>
+              </details>`,
           )
           .join("")}
-      </section>`
+      </div>`
     : "";
+  const hubEditorialHtml = `
+        <section style="max-width: 720px; margin: 36px auto 0; padding: 0 16px;">
+          <p style="margin: 0; text-align: center; color: #ea580c; font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase;">Buying Guide</p>
+          <h2 style="margin: 8px 0 0; text-align: center; font-size: 1.45rem; color: #0f172a;">${escapeHtml(meta.label)} buying guide &amp; FAQ</h2>
+          <div style="margin-top: 16px;">${hubIntroHtml}</div>
+          ${hubFaqHtml}
+        </section>`;
 
   const body = `
         ${renderProductBreadcrumb([
@@ -2477,11 +2488,10 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
         ])}
         <section style="margin: 0 0 22px;">
           <p style="margin: 0 0 8px; color: #334155;">${escapeHtml(meta.description)} Every model below carries a BalanceBikeToddler editorial score from our lab checklist, with user ratings and typical pricing where available.</p>
-          ${hubIntroHtml}
           <p style="margin: 0; color: #64748b; font-size: 0.92rem;">${categoryProducts.length} lab-tested ${escapeHtml(meta.label.toLowerCase())} · updated regularly from the live CMS.</p>
         </section>
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px;">${cardsHtml}</div>
-        ${hubFaqHtml}
+        ${hubEditorialHtml}
         <section style="padding: 16px 0 0; border-top: 1px solid #e2e8f0;">
           <p style="margin: 0;"><a href="/products" style="color: #c2410c; text-decoration: none;">Compare every kids mobility category →</a></p>
         </section>

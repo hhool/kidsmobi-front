@@ -3737,35 +3737,6 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           />
         )}
 
-        {/* Category-hub editorial intro: mirrors the prerendered hub page
-            (src/lib/productHubContent.ts) so the hydrated DOM keeps the same
-            buying-guidance copy and FAQ the crawler first saw (P1 SEO). */}
-        {activeTab === "products" && activeProductCategory !== "all" &&
-          (() => {
-            const hub = getHubContent(productCategoryUrlSlug(activeProductCategory));
-            if (hub.intro.length === 0) return null;
-            return (
-              <div className="max-w-4xl mx-auto px-4 sm:px-6 pb-2 -mt-2 space-y-3">
-                {hub.intro.map((paragraph, index) => (
-                  <p key={`hub-intro-${index}`} className="text-sm text-slate-600 font-medium leading-relaxed">{paragraph}</p>
-                ))}
-                {hub.faqs.length >= 2 && (
-                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-3">
-                    <h2 className="text-sm font-black text-slate-900">
-                      {lang === "en" ? "Frequently Asked Questions" : "常见问题"}
-                    </h2>
-                    {hub.faqs.map((faq, index) => (
-                      <div key={`hub-faq-${index}`}>
-                        <h3 className="text-sm font-black text-slate-800 leading-relaxed">{faq.q}</h3>
-                        <p className="text-sm text-slate-600 font-medium leading-relaxed mt-1">{faq.a}</p>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            );
-          })()}
-
         {activeTab === "products" && (
           <ProductsSection
             productsData={productsData}
@@ -3793,6 +3764,63 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             }}
           />
         )}
+
+        {/* Category-hub editorial guide: mirrors the prerendered hub page
+            (src/lib/productHubContent.ts) so the hydrated DOM keeps the same
+            buying-guidance copy and FAQ the crawler first saw (P1 SEO).
+            Placed BELOW the product grid and styled like the homepage FAQ
+            (centered header + accordion) so it never interrupts browsing. */}
+        {activeTab === "products" && activeProductCategory !== "all" &&
+          (() => {
+            const hub = getHubContent(productCategoryUrlSlug(activeProductCategory));
+            if (hub.intro.length === 0) return null;
+            const slug = productCategoryUrlSlug(activeProductCategory);
+            const hubLabels: Record<string, { en: string; zh: string }> = {
+              strollers: { en: "Strollers", zh: "婴儿推车" },
+              "balance-bikes": { en: "Balance Bikes", zh: "平衡车" },
+              "kids-bikes": { en: "Kids Bikes", zh: "儿童自行车" },
+              "kids-scooters": { en: "Kids Scooters", zh: "儿童滑板车" },
+              "electric-cars": { en: "Electric Cars", zh: "电动汽车" },
+              "safety-seats": { en: "Safety Seats", zh: "安全座椅" },
+              "kids-tricycles": { en: "Tricycles & Wagons", zh: "三轮车与拖车" },
+            };
+            const label = hubLabels[slug]?.[lang] || slug;
+            return (
+              <section className="max-w-4xl mx-auto px-6 py-12 space-y-8">
+                <div className="text-center space-y-2">
+                  <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em]">
+                    {lang === "en" ? "Buying Guide" : "选购指南"}
+                  </span>
+                  <h2 className="km-section-title text-slate-900">
+                    {lang === "en" ? `${label} buying guide & FAQ` : `${label}选购指南与常见问题`}
+                  </h2>
+                </div>
+                <div className="space-y-3 text-sm text-slate-600 font-medium leading-relaxed">
+                  {hub.intro.map((paragraph, index) => (
+                    <p key={`hub-intro-${index}`}>{paragraph}</p>
+                  ))}
+                </div>
+                {hub.faqs.length >= 2 && (
+                  <div className="space-y-4">
+                    {hub.faqs.map((faq, index) => (
+                      <details
+                        key={`hub-faq-${index}`}
+                        className="group border border-slate-100 bg-white rounded-3xl overflow-hidden transition-all hover:border-slate-200"
+                      >
+                        <summary className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                          <h3 className="font-black text-slate-800 text-sm md:text-base flex-1">{faq.q}</h3>
+                          <span className="text-xl inline-block text-slate-400 group-open:rotate-45 group-open:text-orange-500 font-bold transition-transform duration-300">＋</span>
+                        </summary>
+                        <div className="p-6 text-sm text-slate-500 font-medium leading-relaxed bg-slate-50/50 border-t border-slate-50">
+                          {faq.a}
+                        </div>
+                      </details>
+                    ))}
+                  </div>
+                )}
+              </section>
+            );
+          })()}
 
         {activeTab === "compare" && (
           <div className="space-y-8 animate-fade-in text-left max-w-7xl mx-auto">

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useRef } from "react";
 import { Search, Calendar, User, Eye, BookOpen, Clock, ArrowLeft, Heart, Share2, Globe, Zap, Newspaper } from "lucide-react";
 import { NewsArticle, newsArticles as fallbackNewsArticles } from "../data/newsData";
 import { getD1CMSNews } from "../lib/cmsD1Service";
-import { productDetailPath } from "../lib/productCategoryPaths";
+import { resolveProductDetailCategorySlug } from "../lib/productCategoryPaths";
 import { matchProductsForText } from "../lib/relatedProducts";
 import type { Product } from "../types";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";

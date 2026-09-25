@@ -19,7 +19,7 @@ import { getPageCopy } from "../config/pageCopy";
 import MultiCompareView from "./MultiCompareView";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
 import { evaluationSlug } from "../lib/evaluationSlug";
-import { productDetailPath } from "../lib/productCategoryPaths";
+import { resolveProductDetailCategorySlug } from "../lib/productCategoryPaths";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 
 function SafetyRadarChart({ product, evaluation, lang = "zh", isDark = false }: { product?: Product; evaluation?: Evaluation; lang: "zh" | "en", isDark?: boolean }) {
