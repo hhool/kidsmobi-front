@@ -2550,6 +2550,27 @@ async function main() {
     fetchPublishedEvaluations(),
     fetchPublishedProducts(),
   ]);
+
+  // Deploy-safety gate: when the products collection comes back empty the
+  // whole /products/ prerender layer (7 hubs + 197 detail pages) silently
+  // disappears and every product route falls back to the SPA shell. A build
+  // like that must NOT reach production — refetch once, then hard-fail.
+  if (!cmsProducts.length) {
+    console.warn("[prerender] products collection EMPTY — refetching once before failing...");
+    const retry = await fetchPublishedProducts();
+    (cmsProducts as unknown[]).push(...retry);
+    if (!cmsProducts.length) {
+      throw new Error(
+        "[prerender] products CMS fetch returned 0 records after retries — aborting build so an SPA-only dist is never deployed.",
+      );
+    }
+  }
+  const cmsProductsFullFinal = cmsProducts as CmsProductFull[];
+  if (cmsProductsFullFinal.length < 100) {
+    console.warn(
+      `[prerender] WARNING: only ${cmsProductsFullFinal.length} products fetched (expected ~197) — output may be partial.`,
+    );
+  }
   const productMap = new Map<string, CmsProductLite>();
   const cmsProductsFull = cmsProducts as CmsProductFull[];
   for (const product of cmsProducts) {
