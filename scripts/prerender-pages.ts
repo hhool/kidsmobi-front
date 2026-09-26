@@ -1700,6 +1700,160 @@ function renderReviewsPage(): RoutePage {
   };
 }
 
+/**
+ * Static homepage. The shipped dist/index.html is a bare SPA shell whose only
+ * real <a> tags point at About / transparency footer links — crawlers landing
+ * on "/" cannot forensicise the product space or article layer from it, which
+ * is the root cause of the GSC "Discovered - currently not indexed" backlog
+ * (38 article pages + 6 of 7 product hubs). This route renders a real homepage
+ * with a site nav, the 7 product hubs, recent guides/news/reviews, and a
+ * footer so every major route is one click from "/".  R38 (2026-09-27).
+ */
+function renderHomePage(
+  cmsGuides: CmsGuide[] = [],
+  cmsNews: CmsNews[] = [],
+  cmsEvaluations: CmsEvaluation[] = [],
+): RoutePage {
+  const NAV_LINKS: Array<{ href: string; label: string }> = [
+    { href: `${PUBLIC_SITE_BASE}/products`, label: "Products" },
+    { href: `${PUBLIC_SITE_BASE}/guides`, label: "Guides" },
+    { href: `${PUBLIC_SITE_BASE}/reviews`, label: "Reviews" },
+    { href: `${PUBLIC_SITE_BASE}/news`, label: "News" },
+    { href: `${PUBLIC_SITE_BASE}/about`, label: "About" },
+    { href: `${PUBLIC_SITE_BASE}/transparency/testing-methodology/`, label: "Testing Method" },
+  ];
+  const navHtml = `<nav style="display:flex;flex-wrap:wrap;gap:18px;padding:14px 0;border-bottom:1px solid #e2e8f0;font-family:Arial,sans-serif;font-weight:700;font-size:0.95rem;">${NAV_LINKS.map((l) => `<a href="${escapeHtml(l.href)}">${escapeHtml(l.label)}</a>`).join("")}</nav>`;
+
+  const hubCards = PRODUCT_CATEGORY_PAGES.map((meta) => `
+    <section style="border:1px solid #e2e8f0;border-radius:16px;padding:16px;background:#fff;">
+      <h3 style="margin:0 0 8px;font-size:1.05rem;"><a href="${PUBLIC_SITE_BASE}/products/${meta.slug}/">${escapeHtml(meta.label)}</a></h3>
+      <p style="margin:0;font-size:0.9rem;color:#475569;line-height:1.55;">${escapeHtml(meta.description)}</p>
+    </section>`).join("");
+
+  // Recent guides (max 5)
+  const guideLinks = cmsGuides.slice(0, 5).flatMap((guide) => {
+    const route = guideRoutePath(guide);
+    if (!route) return [];
+    return [{
+      title: pickText(guide.en?.title, guide.zh?.title, guide.id),
+      url: `${PUBLIC_SITE_BASE}${route}`,
+    }];
+  });
+  // Recent news (max 5)
+  const newsLinks = cmsNews.slice(0, 5).flatMap((item) => {
+    const route = newsRoutePath(item);
+    if (!route) return [];
+    return [{
+      title: pickText(item.en?.title, item.zh?.title, item.id),
+      url: `${PUBLIC_SITE_BASE}${route}`,
+    }];
+  });
+  // Recent reviews (max 5)
+  const reviewLinks = cmsEvaluations.slice(0, 5).flatMap((item) => {
+    const route = evaluationRoutePath(item);
+    if (!route) return [];
+    return [{
+      title: pickText(item.en?.title, item.en?.verdict, item.id),
+      url: `${PUBLIC_SITE_BASE}${route}`,
+    }];
+  });
+
+  const articleColumns: Array<{ heading: string; indexHref: string; indexLabel: string; items: Array<{ title: string; url: string }> }> = [
+    { heading: "Recent Guides", indexHref: `${PUBLIC_SITE_BASE}/guides`, indexLabel: "All guides", items: guideLinks },
+    { heading: "Recent News", indexHref: `${PUBLIC_SITE_BASE}/news`, indexLabel: "All news", items: newsLinks },
+    { heading: "Recent Reviews", indexHref: `${PUBLIC_SITE_BASE}/reviews`, indexLabel: "All reviews", items: reviewLinks },
+  ];
+  const articleSection = articleColumns.map((col) => `
+    <section style="border:1px solid #e2e8f0;border-radius:16px;padding:16px;background:#fff;">
+      <h3 style="margin:0 0 10px;font-size:1.05rem;">${escapeHtml(col.heading)}</h3>
+      <ul style="margin:0 0 8px;padding-left:1.1rem;line-height:1.65;">
+        ${col.items.length
+          ? col.items.map((i) => `<li><a href="${escapeHtml(i.url)}">${escapeHtml(i.title)}</a></li>`).join("")
+          : `<li><a href="${escapeHtml(col.indexHref)}">${escapeHtml(col.indexLabel)}</a></li>`}
+      </ul>
+      <p style="margin:0;font-size:0.85rem;"><a href="${escapeHtml(col.indexHref)}">${escapeHtml(col.indexLabel)} →</a></p>
+    </section>`).join("");
+
+  const FOOTER_LINKS: Array<{ href: string; label: string }> = [
+    { href: `${PUBLIC_SITE_BASE}/products`, label: "Products" },
+    { href: `${PUBLIC_SITE_BASE}/guides`, label: "Guides" },
+    { href: `${PUBLIC_SITE_BASE}/reviews`, label: "Reviews" },
+    { href: `${PUBLIC_SITE_BASE}/news`, label: "News" },
+    { href: `${PUBLIC_SITE_BASE}/about`, label: "About" },
+    { href: `${PUBLIC_SITE_BASE}/transparency/certification-lab-notes/`, label: "Certification Lab Notes" },
+    { href: `${PUBLIC_SITE_BASE}/transparency/testing-methodology/`, label: "Testing Methodology" },
+  ];
+  const footerHtml = `<footer style="margin-top:32px;padding:20px 0;border-top:1px solid #e2e8f0;font-family:Arial,sans-serif;font-size:0.9rem;">${FOOTER_LINKS.map((l) => `<a href="${escapeHtml(l.href)}" style="margin-right:16px;">${escapeHtml(l.label)}</a>`).join("")}</footer>`;
+
+  const entitySameAs = [
+    "https://www.youtube.com/@kidsmobi",
+    "https://www.facebook.com",
+    "https://www.instagram.com",
+    "https://x.com/BalanceBikeToddler",
+  ];
+  const homeSchemas = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "BalanceBikeToddler",
+      url: "https://balancebiketoddler.com/",
+      logo: "https://balancebiketoddler.com/favicon.svg",
+      sameAs: entitySameAs,
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "BalanceBikeToddler",
+      url: "https://balancebiketoddler.com/",
+      description: "Lab-tested balance bikes, kids bikes, strollers, ride-on cars, and child safety seats with verified scores and source-backed reviews.",
+      inLanguage: "en",
+      publisher: {
+        "@type": "Organization",
+        name: "BalanceBikeToddler",
+        url: "https://balancebiketoddler.com/",
+        logo: "https://balancebiketoddler.com/favicon.svg",
+        sameAs: entitySameAs,
+      },
+    },
+  ];
+  return {
+    route: "",
+    title: "BalanceBikeToddler",
+    description: "Lab-tested balance bikes, kids bikes, strollers, ride-on cars, and child safety seats with verified scores and source-backed reviews.",
+    body: `
+      ${navHtml}
+      <section style="padding:30px 0 22px;">
+        <p style="margin:0 0 10px;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:#c2410c;font-weight:900;">BalanceBikeToddler</p>
+        <h1 style="margin:0 0 12px;font-size:clamp(2rem,4vw,3.15rem);line-height:1.12;">Lab-tested kids ride-on &amp; safety gear</h1>
+        <p style="margin:0;font-size:1.08rem;color:#334155;max-width:52rem;">Compare balance bikes, kids bikes, strollers, ride-on cars, and child safety seats with lab scores, certification context, and source-backed reviews.</p>
+      </section>
+      <section style="padding:0 0 22px;">
+        <h2 style="margin:0 0 14px;font-size:1.4rem;">Browse by category</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;">
+          ${hubCards}
+        </div>
+      </section>
+      <section style="padding:22px 0;border-top:1px solid #e2e8f0;">
+        <h2 style="margin:0 0 14px;font-size:1.4rem;">Latest articles</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;">
+          ${articleSection}
+        </div>
+      </section>
+      <section style="padding:22px 0;border-top:1px solid #e2e8f0;">
+        <h2 style="margin:0 0 10px;font-size:1.3rem;">Why parents trust BalanceBikeToddler</h2>
+        <p style="margin:0 0 10px;">Reviews cite named sources, lab measurements, and certification context so a claim can be checked against the product page.</p>
+        <ul style="margin:0;padding-left:1.2rem;line-height:1.65;">
+          <li>Precision weighing and braking resistance benchmarks.</li>
+          <li>Q-factor analysis and fatigue testing for long-run durability.</li>
+          <li>ISO 8098 and ASTM F963 reference for safety baselines.</li>
+        </ul>
+      </section>
+      ${footerHtml}
+    `,
+    jsonLd: homeSchemas,
+  };
+}
+
 function renderAboutPage(): RoutePage {
   const stats = [
     { value: "12", label: "senior engineers" },
@@ -2620,6 +2774,7 @@ async function main() {
   // Order matters: an index route (`/guides`, `/news`) is written before its detail
   // pages so the index's cleanup step can remove the whole route folder first.
   const pages: RoutePage[] = [
+    renderHomePage(cmsGuides, cmsNews, cmsEvaluations),
     renderProductsPage(),
     ...productCategoryPages,
     ...productDetailPages,
