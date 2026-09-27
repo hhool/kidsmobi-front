@@ -2589,7 +2589,11 @@ function renderProductDetailPage(
 function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: CmsProductFull[]): RoutePage {
   const route = `/products/${meta.slug}/`;
 
-  const cards = categoryProducts.slice(0, 30);
+  // Full product list (P0-2 crawlability fix): NO slice cap. A capped hub
+  // left 57/87 stroller detail pages with zero inbound internal links
+  // (sitemap-only orphans, mirroring the article-layer Discovered-not-indexed
+  // root cause). The static hub must link every detail page in its directory.
+  const cards = categoryProducts;
   const cardsHtml = cards
     .map(
       (product) => `
@@ -2656,7 +2660,7 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
     "@type": "ItemList",
     name: meta.title,
     numberOfItems: cards.length,
-    itemListElement: cards.slice(0, 20).map((product, index) => ({
+    itemListElement: cards.map((product, index) => ({
       "@type": "ListItem",
       position: index + 1,
       name: productDisplayTitle(product),
@@ -2738,15 +2742,15 @@ async function main() {
   const productCategoryPages: RoutePage[] = [];
   const productCategoryCounts: string[] = [];
   for (const meta of PRODUCT_CATEGORY_PAGES) {
+    // Directory-consistent grouping (P0-2 crawlability fix): a product belongs
+    // to the hub whose slug directory its detail page is written into. The
+    // previous `resolveProductCategoryIdFull(product) === meta.categoryId`
+    // filter leaked "other"-bucket products whose id prefix re-homes them into
+    // balance-bikes/kids-bikes dirs — detail files existed but NO hub linked
+    // them (sitemap-only orphans). Grouping by productDetailSlugDir guarantees
+    // every prerendered detail page gets an inbound link from its own hub.
     const categoryProducts = cmsProductsFull
-      .filter((product) => {
-        const resolved = resolveProductCategoryIdFull(product);
-        if (meta.slug === "kids-tricycles") {
-          // Re-homed legacy "other" bucket: tricycles + push ride-ons + wagons.
-          return resolved === "other" && productDetailUrlSlug(resolved, String(product.id || "")) === "kids-tricycles";
-        }
-        return resolved === meta.categoryId;
-      })
+      .filter((product) => productDetailSlugDir(product) === meta.slug)
       .sort((a, b) => Number(b.overallScore || 0) - Number(a.overallScore || 0));
     if (!categoryProducts.length) continue;
     const slugPage = renderProductCategoryPage(meta, categoryProducts);
