@@ -563,6 +563,33 @@ function renderGuideContentHtml(markdown: string): string {
   return blocks.join("\n        ");
 }
 
+// CMS snapshots: every successful fetch overwrites a local snapshot so a
+// later CMS outage can still build (opt-in via PRERENDER_ALLOW_STALE=1).
+// Snapshots are local-only (gitignored) — CI builds must see live data.
+const CMS_SNAPSHOT_DIR = path.resolve("scripts", "cms-snapshots");
+
+async function readCmsSnapshot<T>(collection: string): Promise<T[] | null> {
+  try {
+    const raw = await readFile(path.join(CMS_SNAPSHOT_DIR, `${collection}.json`), "utf8");
+    const rows: unknown = JSON.parse(raw);
+    if (Array.isArray(rows)) {
+      return rows.filter((row): row is T => Boolean(row) && typeof row === "object");
+    }
+  } catch {
+    // no snapshot
+  }
+  return null;
+}
+
+async function writeCmsSnapshot(collection: string, records: unknown[]): Promise<void> {
+  try {
+    await mkdir(CMS_SNAPSHOT_DIR, { recursive: true });
+    await writeFile(path.join(CMS_SNAPSHOT_DIR, `${collection}.json`), JSON.stringify(records));
+  } catch (error) {
+    console.warn(`[prerender] failed to write ${collection} snapshot: ${(error as Error).message}`);
+  }
+}
+
 async function fetchPublishedCollection<T>(collection: string): Promise<T[]> {
   const url = `${CMS_BASE_URL}/api/cms/${collection}?onlyPublished=1`;
   // Transient CMS/CDN fetch failures previously caused silent schema
@@ -589,12 +616,23 @@ async function fetchPublishedCollection<T>(collection: string): Promise<T[]> {
           : [];
       const records = rows.filter((row): row is T => Boolean(row) && typeof row === "object");
       console.log(`[prerender] ${records.length} published ${collection} record(s) from ${url}${attempt > 1 ? ` (attempt ${attempt})` : ""}`);
+      await writeCmsSnapshot(collection, records);
       return records;
     } catch (error) {
       if (attempt < attempts) {
         console.warn(`[prerender] ${collection} fetch attempt ${attempt} failed (${(error as Error).message}); retrying...`);
         await new Promise((resolve) => setTimeout(resolve, Math.min(2000 * attempt, 8000)));
         continue;
+      }
+      if (process.env.PRERENDER_ALLOW_STALE === "1") {
+        const snapshot = await readCmsSnapshot<T>(collection);
+        if (snapshot && snapshot.length > 0) {
+          console.warn(
+            `[prerender] could not reach ${url} after ${attempts} attempts (${(error as Error).message}); ` +
+              `USING STALE SNAPSHOT with ${snapshot.length} ${collection} record(s) (PRERENDER_ALLOW_STALE=1).`,
+          );
+          return snapshot;
+        }
       }
       console.warn(
         `[prerender] could not reach ${url} after ${attempts} attempts (${(error as Error).message}); falling back to bundled data.`,
