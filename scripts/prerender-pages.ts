@@ -19,6 +19,12 @@ type RoutePage = {
   image?: string;
   ogType?: "website" | "article";
   jsonLd?: Array<Record<string, unknown>>;
+  /** Full <title> override; falls back to `${title} | BalanceBikeToddler`
+   *  capped at 65 chars (Semrush title-too-long check). */
+  fullTitle?: string;
+  /** Skip the page.title <h1> that renderStaticPage emits (used when the
+   *  body has its own single <h1>, so the page keeps exactly one h1). */
+  skipTitleH1?: boolean;
   /** Optional canonical path override (used by alias routes that must
    *  consolidate onto the canonical slug-form category URL). */
   canonicalPath?: string;
@@ -83,12 +89,26 @@ function renderBulletedCards(items: Array<{ title: string; text: string; meta?: 
   `;
 }
 
+/** Word-boundary truncation for SEO text (Semrush title/description checks). */
+function capSeoText(text: string, maxChars: number): string {
+  const raw = String(text || "").trim().replace(/\s+/g, " ");
+  if (raw.length <= maxChars) return raw;
+  const cut = raw.slice(0, maxChars);
+  const sp = cut.lastIndexOf(" ");
+  return (sp > 20 ? cut.slice(0, sp) : cut).replace(/[\s,;:.–—-]+$/, "");
+}
+
+/** Cuts meta description to ≤maxChars at a word boundary. */
+function capMetaDescription(text: string, maxChars = 158): string {
+  return capSeoText(text, maxChars);
+}
+
 function renderStaticPage(page: RoutePage): string {
   return `
     <article style="max-width: 980px; margin: 0 auto; padding: 40px 20px; color: #0f172a; font-family: Arial, sans-serif; line-height: 1.7;">
       <header style="padding-bottom: 24px; border-bottom: 1px solid #e2e8f0; margin-bottom: 24px;">
         <p style="margin: 0 0 10px; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: #c2410c; font-weight: 900;">BalanceBikeToddler</p>
-        <h1 style="margin: 0 0 12px; font-size: clamp(2rem, 4vw, 3.15rem); line-height: 1.12;">${escapeHtml(page.title)}</h1>
+        ${page.skipTitleH1 ? "" : `<h1 style="margin: 0 0 12px; font-size: clamp(2rem, 4vw, 3.15rem); line-height: 1.12;">${escapeHtml(page.title)}</h1>`}
         <p style="margin: 0 0 14px; font-size: 1.08rem; color: #334155; max-width: 52rem;">${escapeHtml(page.description)}</p>
       </header>
       ${page.body}
@@ -98,6 +118,15 @@ function renderStaticPage(page: RoutePage): string {
 
 function renderDocument(page: RoutePage, appAssets: AppAssets): string {
   const canonical = `https://balancebiketoddler.com${page.canonicalPath || page.route}`;
+  // SEO title cap (Semrush): full override wins, else `${title} | brand`
+  // truncated to ≤65 chars at a word boundary, brand suffix always kept.
+  const SITE_TITLE_SUFFIX = " | BalanceBikeToddler";
+  const titleTag = page.fullTitle
+    ?? (() => {
+      const full = `${page.title}${SITE_TITLE_SUFFIX}`;
+      return full.length <= 65 ? full : `${capSeoText(page.title, 65 - SITE_TITLE_SUFFIX.length)}${SITE_TITLE_SUFFIX}`;
+    })();
+  const descTag = capMetaDescription(page.description);
   const entitySameAs = [
     "https://www.youtube.com/@kidsmobi",
     "https://www.facebook.com",
@@ -196,21 +225,21 @@ function renderDocument(page: RoutePage, appAssets: AppAssets): string {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>${escapeHtml(page.title)} | BalanceBikeToddler</title>
-    <meta name="description" content="${escapeHtml(page.description)}" />
+    <title>${escapeHtml(titleTag)}</title>
+    <meta name="description" content="${escapeHtml(descTag)}" />
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <meta property="og:site_name" content="BalanceBikeToddler" />
     <meta property="og:type" content="${ogType}" />
     <meta property="og:url" content="${escapeHtml(canonical)}" />
-    <meta property="og:title" content="${escapeHtml(page.title)} | BalanceBikeToddler" />
-    <meta property="og:description" content="${escapeHtml(page.description)}" />
+    <meta property="og:title" content="${escapeHtml(titleTag)}" />
+    <meta property="og:description" content="${escapeHtml(descTag)}" />
 ${ogImage ? `    <meta property="og:image" content="${escapeHtml(ogImage)}" />
     <meta property="og:image:secure_url" content="${escapeHtml(ogImage)}" />
     <meta property="og:image:alt" content="${escapeHtml(page.title)}" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@bbtreviews" />
-    <meta name="twitter:title" content="${escapeHtml(page.title)} | BalanceBikeToddler" />
-    <meta name="twitter:description" content="${escapeHtml(page.description)}" />
+    <meta name="twitter:title" content="${escapeHtml(titleTag)}" />
+    <meta name="twitter:description" content="${escapeHtml(descTag)}" />
     <meta name="twitter:image" content="${escapeHtml(ogImage)}" />
 ` : "    <meta name=\"twitter:card\" content=\"summary\" />\n"}    <link rel="canonical" href="${escapeHtml(canonical)}" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -1823,6 +1852,7 @@ function renderHomePage(
     route: "",
     title: "BalanceBikeToddler",
     description: "Lab-tested balance bikes, kids bikes, strollers, ride-on cars, and child safety seats with verified scores and source-backed reviews.",
+    skipTitleH1: true,
     body: `
       ${navHtml}
       <section style="padding:30px 0 22px;">
@@ -2079,8 +2109,30 @@ function renderTransparencyPages(): RoutePage[] {
       route: en.path,
       title: en.seo?.title || en.title,
       description: en.seo?.description || en.subtitle,
+      // The body already renders its own <h1> (en.title); the generic
+      // page.title h1 from renderStaticPage would create a second one.
+      skipTitleH1: true,
       body,
       ogType: "website" as const,
+      jsonLd: [
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: en.seo?.title || en.title,
+          url: `https://balancebiketoddler.com${en.path}`,
+          description: en.seo?.description || en.subtitle,
+          inLanguage: "en",
+          isPartOf: { "@type": "WebSite", name: "BalanceBikeToddler", url: "https://balancebiketoddler.com/" },
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://balancebiketoddler.com/" },
+            { "@type": "ListItem", position: 2, name: en.title, item: `https://balancebiketoddler.com${en.path}` },
+          ],
+        },
+      ],
     };
   });
 }
@@ -2350,11 +2402,28 @@ function renderProductDetailPage(
   const displayName = productDisplayTitle(product);
   const summary = pickText(product.en?.cardSummary);
   const paragraphs = productDescriptionParagraphs(product);
-  const metaDescription = pickText(
-    summary,
-    paragraphs[0]?.slice(0, 170),
-    "Lab-tested review with safety score, specs, and age fit for this kids mobility product.",
+  const metaDescription = capMetaDescription(
+    pickText(
+      summary,
+      paragraphs[0],
+      "Lab-tested review with safety score, specs, and age fit for this kids mobility product.",
+    ),
   );
+  // SEO title ≤65 chars total (Semrush title-too-long), brand suffix included
+  // by renderDocument. Amazon listing names are far too long — shorten to a
+  // 36-char word boundary, then suffix. When two products share the same
+  // truncated name, disambiguate with the ASIN so no two pages share a title.
+  const titleShort = capSeoText(shortenCardTitle(name, 36) || displayName, 36);
+  const asin = String(id.split("-").pop() || id).toUpperCase();
+  const titleCollides = allProducts.some((other) => {
+    const otherId = String(other.id || "").trim();
+    if (!otherId || otherId === id) return false;
+    const otherShort = capSeoText(shortenCardTitle(pickText(other.en?.name, other.name), 36) || "", 36);
+    return otherShort === titleShort;
+  });
+  const seoTitle = titleCollides
+    ? `${titleShort} Review: ${asin}`
+    : `${titleShort} Review`;
   const image = toAbsoluteMediaUrl(product.imageUrl);
   const editorialScore = Number(product.overallScore);
   const ratingValue = productRatingValue(product);
@@ -2581,7 +2650,8 @@ function renderProductDetailPage(
 
   return {
     route,
-    title: `${displayName} — Review, Specs & Safety Score`,
+    title: seoTitle,
+    fullTitle: seoTitle.length <= 44 ? `${seoTitle} | BalanceBikeToddler` : seoTitle,
     description: metaDescription,
     body,
     image: image || undefined,
@@ -2818,6 +2888,84 @@ async function main() {
     await mkdir(path.dirname(outFile), { recursive: true });
     await writeFile(outFile, html, "utf8");
   }
+
+  // Full sitemap.xml (R42): public/sitemap.xml was a 6-URL stub. Generate the
+  // complete URL set from the pages actually rendered, with honest lastmod
+  // values from CMS records. The API worker uses this Pages-hosted file as a
+  // zero-D1 fallback when its D1 sitemap build fails (free-tier row limits).
+  const pickLastmod = (value: unknown): string | null => {
+    const raw = pickText(value as string).trim();
+    return raw || null;
+  };
+  const modByRoute = new Map<string, string | null>();
+  let overallMax: string | null = null;
+  const trackMax = (value: string | null) => {
+    if (value && (!overallMax || value > overallMax)) overallMax = value;
+  };
+  for (const guide of cmsGuides) {
+    const route = guideRoutePath(guide);
+    if (route) modByRoute.set(route, pickLastmod(guide.updatedAt || guide.publishedAt));
+  }
+  for (const item of cmsNews) {
+    const route = newsRoutePath(item);
+    if (route) modByRoute.set(route, pickLastmod(item.updatedAt || item.publishedAt));
+  }
+  for (const item of cmsEvaluations) {
+    const route = evaluationRoutePath(item);
+    if (route) modByRoute.set(route, pickLastmod(item.updatedAt || item.publishedAt));
+  }
+  let productsMax: string | null = null;
+  let guidesMax: string | null = null;
+  let newsMax: string | null = null;
+  let evalsMax: string | null = null;
+  for (const product of cmsProductsFull) {
+    const mod = pickLastmod(product.updatedAt);
+    trackMax(mod);
+    if (mod && (!productsMax || mod > productsMax)) productsMax = mod;
+    modByRoute.set(`/products/${productDetailSlugDir(product)}/${cmsRouteSegment(product.id)}`, mod);
+  }
+  for (const mod of modByRoute.values()) {
+    if (mod?.startsWith("20")) trackMax(mod);
+  }
+  for (const guide of cmsGuides) {
+    const mod = modByRoute.get(guideRoutePath(guide) || "") || null;
+    if (mod && (!guidesMax || mod > guidesMax)) guidesMax = mod;
+  }
+  for (const item of cmsNews) {
+    const mod = modByRoute.get(newsRoutePath(item) || "") || null;
+    if (mod && (!newsMax || mod > newsMax)) newsMax = mod;
+  }
+  for (const item of cmsEvaluations) {
+    const mod = modByRoute.get(evaluationRoutePath(item) || "") || null;
+    if (mod && (!evalsMax || mod > evalsMax)) evalsMax = mod;
+  }
+  const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
+  const TRANSPARENCY_LASTMOD = "2026-08-15T00:00:00.000Z";
+  const staticModByRoute = new Map<string, string | null>([
+    ["/", overallMax],
+    ["/about", ABOUT_PAGE_LASTMOD],
+    ["/guides", guidesMax],
+    ["/news", newsMax],
+    ["/reviews", evalsMax],
+    ["/products", productsMax],
+  ]);
+  for (const meta of PRODUCT_CATEGORY_PAGES) {
+    staticModByRoute.set(`/products/${meta.slug}/`, productsMax);
+  }
+  for (const route of ["/transparency/testing-methodology/", "/transparency/certification-lab-notes/"]) {
+    staticModByRoute.set(route, TRANSPARENCY_LASTMOD);
+  }
+  const sitemapUrls = pages
+    .map((page) => {
+      const mod = modByRoute.get(page.route) ?? staticModByRoute.get(page.route) ?? null;
+      const loc = `${PUBLIC_SITE_BASE}${page.route === "" ? "/" : page.route}`;
+      const lastmodXml = mod ? `<lastmod>${escapeHtml(mod)}</lastmod>` : "";
+      return `<url><loc>${escapeHtml(loc)}</loc>${lastmodXml}</url>`;
+    })
+    .join("");
+  const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${sitemapUrls}</urlset>\n`;
+  await writeFile(path.join(distDir, "sitemap.xml"), sitemapXml, "utf8");
+  console.log(`[prerender] sitemap.xml: ${pages.length} URL(s) written.`);
 
   // Legacy URL family 301s (P0-2): underscore/id-form category directories and
   // the abolished /products/other/ bucket point at the kebab-case family.
