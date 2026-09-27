@@ -2,7 +2,6 @@ import { readFile, writeFile, mkdir, rm } from "fs/promises";
 import path from "path";
 import { guideArticles } from "../src/data/guidesData";
 import { newsArticles } from "../src/data/newsData";
-import { initialEvaluationsData } from "../src/data/evaluationsData";
 import { TRANSPARENCY_PAGES } from "../src/data/transparencyPages";
 import { getPageCopy } from "../src/config/pageCopy";
 import { shortenCardTitle } from "../src/lib/productSeoText";
@@ -1527,8 +1526,14 @@ function renderProductsPage(): RoutePage {
   };
 }
 
-function renderReviewsPage(): RoutePage {
-  const reviews = initialEvaluationsData.slice(0, 3);
+function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
+  // Crawlability fix (R41): the reviews index previously rendered a hardcoded
+  // mock slice WITHOUT any <a> links, leaving all 26 CMS evaluation detail
+  // pages without an index-page entry point. Render every published evaluation
+  // as an anchor card so the static /reviews page links the full review layer.
+  const reviews = cmsEvaluations
+    .map((item) => ({ item, route: evaluationRoutePath(item) }))
+    .filter((entry): entry is { item: CmsEvaluation; route: string } => Boolean(entry.route));
   const summary = getPageCopy("en").reviews;
   const canonical = "https://balancebiketoddler.com/reviews";
   const entitySameAs = [
@@ -1580,8 +1585,8 @@ function renderReviewsPage(): RoutePage {
         itemListElement: reviews.map((review, index) => ({
           "@type": "ListItem",
           position: index + 1,
-          name: review.en?.title || review.zh?.title || review.id,
-          url: canonical,
+          name: pickText(review.item.en?.title, review.item.zh?.title, review.item.id),
+          url: `${PUBLIC_SITE_BASE}${review.route}`,
         })),
       },
     },
@@ -1632,11 +1637,17 @@ function renderReviewsPage(): RoutePage {
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Which review snapshots matter most?</h2>
         <p style="margin: 0 0 14px;"><strong>Short answer:</strong> the snapshots with a named product, a visible score, and a direct verdict are the easiest to compare and cite.</p>
         <p style="margin: 0 0 14px;">Each card below stays tied to a specific product use case, so the page can answer both “what is it?” and “why does it matter?” in one place.</p>
-        ${renderBulletedCards(reviews.map((review) => ({
-          title: review.en?.title || review.zh?.title || review.id,
-          text: review.en?.verdict || review.zh?.verdict || "",
-          meta: `Safety ${review.scores.safety.toFixed(1)} · Comfort ${review.scores.comfort.toFixed(1)} · Value ${review.scores.valueForMoney.toFixed(1)}`,
-        })))}
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px;">
+        ${reviews
+          .map(
+            ({ item, route }) => `
+          <a href="${escapeHtml(route)}" style="display: block; border: 1px solid #e2e8f0; border-radius: 16px; padding: 14px; text-decoration: none; color: inherit; background: #ffffff;">
+            <h3 style="margin: 0 0 6px; font-size: 0.98rem; color: #0f172a;">${escapeHtml(pickText(item.en?.title, item.zh?.title, item.id))}</h3>
+            <p style="margin: 0; font-size: 0.86rem; color: #64748b;">${escapeHtml(pickText(item.en?.verdict, item.zh?.verdict).slice(0, 140))}</p>
+          </a>`,
+          )
+          .join("")}
+        </div>
       </section>
       <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">What do the scores answer first?</h2>
@@ -1678,14 +1689,6 @@ function renderReviewsPage(): RoutePage {
           <li>Every snapshot has a score and a short verdict.</li>
           <li>The server HTML includes Organization, WebSite, CollectionPage, and FAQPage schema.</li>
         </ul>
-      </section>
-      <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
-        <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Which review snapshots matter most?</h2>
-        ${renderBulletedCards(reviews.map((review) => ({
-          title: review.en?.title || review.zh?.title || review.id,
-          text: review.en?.verdict || review.zh?.verdict || "",
-          meta: `Safety ${review.scores.safety.toFixed(1)} · Comfort ${review.scores.comfort.toFixed(1)} · Value ${review.scores.valueForMoney.toFixed(1)}`,
-        })))}
       </section>
       <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Sources and citations</h2>
@@ -2784,7 +2787,7 @@ async function main() {
     ...productDetailPages,
     renderGuidesPage(cmsGuides),
     renderNewsPage(cmsNews),
-    renderReviewsPage(),
+    renderReviewsPage(cmsEvaluations),
     renderAboutPage(),
     ...renderTransparencyPages(),
     ...guideDetailPages,
