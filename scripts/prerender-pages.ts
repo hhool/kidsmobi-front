@@ -1452,6 +1452,9 @@ function renderProductsPage(cmsProductsFull: CmsProductFull[] = []): RoutePage {
     { href: "/reviews/compare/balance-bike-top-picks-compare", label: "Top Balance Bikes Compared", note: "four lab-tested balance bikes side by side" },
     { href: "/reviews/compare/toddler-bike-parent-picks-compare", label: "Toddler Bikes: Parent Picks Compared", note: "pedal bikes with training-wheel paths compared" },
     { href: "/reviews/compare/kids-scooter-parent-picks-compare", label: "Kids Scooters: Parent Picks Compared", note: "four kick scooters from first ride to school-run" },
+    { href: "/reviews/compare/electric-cars-parent-compare", label: "Kids Electric Cars Compared", note: "12V entry picks vs a 24V all-terrain two-seater" },
+    { href: "/reviews/compare/car-safety-seats-parent-compare", label: "Convertible Car Seats Compared", note: "Graco Extend2Fit vs SlimFit3 LX vs Evenflo Revolve360" },
+    { href: "/reviews/compare/kids-tricycles-parent-compare", label: "Kids Tricycles Compared", note: "push-handle starters to the Radio Flyer Red Rider" },
   ];
   const compareLinksHtml = compareReviewLinks
     .map(
@@ -2435,6 +2438,9 @@ const PRODUCT_COMPARE_HUB_BY_SLUG: Record<string, string> = {
   "kids-scooters": "/reviews/compare/kids-scooter-parent-picks-compare",
   "kids-bikes": "/reviews/compare/toddler-bike-parent-picks-compare",
   "strollers": "/reviews/compare/jogging-stroller-parent-compare",
+  "electric-cars": "/reviews/compare/electric-cars-parent-compare",
+  "safety-seats": "/reviews/compare/car-safety-seats-parent-compare",
+  "kids-tricycles": "/reviews/compare/kids-tricycles-parent-compare",
 };
 
 function productCategoryHrefBySlug(slug: string): string {
