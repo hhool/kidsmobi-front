@@ -1436,9 +1436,29 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
   };
 }
 
-function renderProductsPage(): RoutePage {
+function renderProductsPage(cmsProductsFull: CmsProductFull[] = []): RoutePage {
   const summary = getPageCopy("en").products;
   const canonical = "https://balancebiketoddler.com/products";
+  const hubCards = PRODUCT_CATEGORY_PAGES.map((meta) => {
+    const count = cmsProductsFull.filter((product) => productDetailSlugDir(product) === meta.slug).length;
+    return `
+    <section style="border:1px solid #e2e8f0;border-radius:16px;padding:16px;background:#fff;">
+      <h3 style="margin:0 0 8px;font-size:1.05rem;"><a href="/products/${meta.slug}/" style="color:#c2410c;text-decoration:none;">${escapeHtml(meta.label)}</a> <span style="font-size:0.8rem;color:#64748b;font-weight:400;">(${count} tested)</span></h3>
+      <p style="margin:0;font-size:0.9rem;color:#475569;line-height:1.55;">${escapeHtml(meta.description)}</p>
+    </section>`;
+  }).join("");
+  const compareReviewLinks: Array<{ href: string; label: string; note: string }> = [
+    { href: "/reviews/compare/jogging-stroller-parent-compare", label: "Best Jogging Strollers: 4 Models Compared", note: "Jeep Classic vs Cross-Country vs Baby Trend Expedition vs BOB Alterrain Pro" },
+    { href: "/reviews/compare/balance-bike-top-picks-compare", label: "Top Balance Bikes Compared", note: "four lab-tested balance bikes side by side" },
+    { href: "/reviews/compare/toddler-bike-parent-picks-compare", label: "Toddler Bikes: Parent Picks Compared", note: "pedal bikes with training-wheel paths compared" },
+    { href: "/reviews/compare/kids-scooter-parent-picks-compare", label: "Kids Scooters: Parent Picks Compared", note: "four kick scooters from first ride to school-run" },
+  ];
+  const compareLinksHtml = compareReviewLinks
+    .map(
+      (item) =>
+        `<li style="margin-bottom:6px;"><a href="${item.href}" style="color:#c2410c;font-weight:700;text-decoration:none;">${escapeHtml(item.label)}</a> — ${escapeHtml(item.note)}</li>`,
+    )
+    .join("");
   const entitySameAs = [
     "https://www.youtube.com/@kidsmobi",
     "https://www.facebook.com",
@@ -1484,17 +1504,12 @@ function renderProductsPage(): RoutePage {
       dateModified: "2026-08-15",
       mainEntity: {
         "@type": "ItemList",
-        numberOfItems: 4,
-        itemListElement: [
-          summary.seoPills.balanceBikeToddler,
-          summary.seoPills.twinStroller,
-          summary.seoPills.toddlerBike,
-          summary.seoPills.kidsScooter,
-        ].map((name, index) => ({
+        numberOfItems: PRODUCT_CATEGORY_PAGES.length,
+        itemListElement: PRODUCT_CATEGORY_PAGES.map((meta, index) => ({
           "@type": "ListItem",
           position: index + 1,
-          name,
-          url: canonical,
+          name: meta.label,
+          url: `https://balancebiketoddler.com/products/${meta.slug}/`,
         })),
       },
     },
@@ -1534,6 +1549,17 @@ function renderProductsPage(): RoutePage {
     title: summary.heroTitle,
     description: summary.heroSubtitle,
     body: `
+      <section style="padding: 22px 0;">
+        <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Browse every lab-tested category</h2>
+        <p style="margin: 0 0 14px;">Each category hub lists every product we have tested in that group, with scores, specs, and age-fit notes on each detail page.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;">${hubCards}</div>
+      </section>
+      <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
+        <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Lab-verified comparison reviews</h2>
+        <p style="margin: 0 0 10px;">When several products solve the same family use case, we test them side by side and publish a head-to-head verdict:</p>
+        <ul style="margin: 0; padding-left: 1.2rem; color: #334155;">${compareLinksHtml}</ul>
+        <p style="margin: 10px 0 0;"><a href="/reviews" style="color: #c2410c; font-weight: 700; text-decoration: none;">Browse all review reports →</a></p>
+      </section>
       <section style="padding: 22px 0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">What should you compare first?</h2>
         <p style="margin: 0 0 14px;"><strong>Short answer:</strong> start with size fit, braking behavior, frame weight, and whether the product matches the child's daily routine.</p>
@@ -2408,6 +2434,7 @@ const PRODUCT_COMPARE_HUB_BY_SLUG: Record<string, string> = {
   "balance-bikes": "/reviews/compare/balance-bike-top-picks-compare",
   "kids-scooters": "/reviews/compare/kids-scooter-parent-picks-compare",
   "kids-bikes": "/reviews/compare/toddler-bike-parent-picks-compare",
+  "strollers": "/reviews/compare/jogging-stroller-parent-compare",
 };
 
 function productCategoryHrefBySlug(slug: string): string {
@@ -2890,7 +2917,7 @@ async function main() {
   // pages so the index's cleanup step can remove the whole route folder first.
   const pages: RoutePage[] = [
     renderHomePage(cmsGuides, cmsNews, cmsEvaluations),
-    renderProductsPage(),
+    renderProductsPage(cmsProductsFull),
     ...productCategoryPages,
     ...productDetailPages,
     renderGuidesPage(cmsGuides),
