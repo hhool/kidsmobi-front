@@ -1286,7 +1286,7 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
             <p style="margin: 0; font-size: 0.88rem; color: #64748b;">${escapeHtml(guide.meta)}</p>
           </section>
         `).join("")}
-        ${usingCmsGuides ? `<p style="margin: 14px 0 0; font-size: 0.9rem; color: #475569;">${listedGuides.length} published guide${listedGuides.length === 1 ? "" : "s"} in the library. <a href="/guides">Browse all guides</a>.</p>` : ""}
+        ${usingCmsGuides ? `<p style="margin: 14px 0 0; font-size: 0.9rem; color: #475569;">${listedGuides.length} published guide${listedGuides.length === 1 ? "" : "s"} in the library. Browse by topic: <a href="/guides/beginner">Beginner guides</a>.</p>` : ""}
       </section>
       <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">How do the guides answer real search queries?</h2>
@@ -1455,7 +1455,7 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
             <p style="margin: 0; font-size: 0.88rem; color: #64748b;">${escapeHtml(item.meta)}</p>
           </section>
         `).join("")}
-        ${usingCmsNews ? `<p style="margin: 14px 0 0; font-size: 0.9rem; color: #475569;">${listedNews.length} published news ${listedNews.length === 1 ? "story" : "stories"}. <a href="/news">Browse the news hub</a>.</p>` : ""}
+        ${usingCmsNews ? `<p style="margin: 14px 0 0; font-size: 0.9rem; color: #475569;">${listedNews.length} published news ${listedNews.length === 1 ? "story" : "stories"}. Browse by channel: <a href="/news/brand_news">Brand news</a> · <a href="/news/industry">Industry trends</a> · <a href="/news/new_product">New products</a> · <a href="/news/science">Science &amp; safety</a>.</p>` : ""}
       </section>
       <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Which questions do these stories answer?</h2>
@@ -1800,6 +1800,7 @@ function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
           )
           .join("")}
         </div>
+        <p style="margin: 14px 0 0; font-size: 0.9rem; color: #475569;">Browse by review type: <a href="/reviews/single">Single-product reviews</a> · <a href="/reviews/compare">Side-by-side comparisons</a>.</p>
       </section>
       <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">What do the scores answer first?</h2>
@@ -1853,6 +1854,424 @@ function renderReviewsPage(cmsEvaluations: CmsEvaluation[] = []): RoutePage {
     `,
     jsonLd: reviewsSchemas,
   };
+}
+
+/**
+ * R46 — prerendered filter/list pages (R45 audit decision, plan A).
+ *
+ * /guides/<topic>, /news/<category> and /reviews/<type> were previously left
+ * to the SPA shell: their static HTML was a copy of the homepage (same title,
+ * same canonical), so every crawler fetch of these breadcrumb-linked URLs saw
+ * duplicate content. Each route now renders a real listing page with a unique
+ * title/description/copy, its own cards, and family cross-links. The route
+ * families must stay in lockstep with guideTopicCategory(), newsRoutePath()
+ * and evaluationRoutePath() above, and with the Worker's deriveContentPath().
+ */
+type FilterCard = { title: string; summary: string; meta: string; path: string };
+
+type FilterPageConfig = {
+  route: string;
+  /** Visible <h1>; the <title> tag comes from fullTitle. */
+  title: string;
+  fullTitle: string;
+  description: string;
+  introHeading: string;
+  introParagraphs: string[];
+  cards: FilterCard[];
+  emptyNote: string;
+  faqs: Array<{ q: string; a: string }>;
+  exploreLinks: Array<{ href: string; label: string }>;
+};
+
+const FILTER_PAGE_SOURCES = [
+  {
+    label: "CPSC Children's Products Guidance",
+    href: "https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Childrens-Products",
+    note: "children's product safety baseline",
+  },
+  {
+    label: "FTC Endorsement Guides",
+    href: "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides",
+    note: "disclosure expectations for recommendations",
+  },
+  { label: "ISO 8098", href: "https://www.iso.org/standard/71811.html", note: "bicycle safety standard reference" },
+];
+
+function filterCardGrid(cards: FilterCard[], emptyNote: string): string {
+  if (!cards.length) {
+    return `<p style="margin: 0; color: #475569;">${escapeHtml(emptyNote)}</p>`;
+  }
+  return `
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px;">
+          ${cards
+            .map(
+              (card) => `
+            <a href="${escapeHtml(card.path)}" style="display: block; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; text-decoration: none; color: inherit; background: #ffffff;">
+              <h3 style="margin: 0 0 8px; font-size: 1rem; color: #0f172a;">${escapeHtml(card.title)}</h3>
+              <p style="margin: 0 0 8px; font-size: 0.9rem; color: #334155;">${escapeHtml(card.summary)}</p>
+              <p style="margin: 0; font-size: 0.85rem; color: #64748b;">${escapeHtml(card.meta)}</p>
+            </a>`,
+            )
+            .join("")}
+        </div>`;
+}
+
+function filterListSchemas(
+  canonical: string,
+  name: string,
+  description: string,
+  cards: FilterCard[],
+  faqs: Array<{ q: string; a: string }>,
+): Array<Record<string, unknown>> {
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name,
+      url: canonical,
+      description,
+      inLanguage: "en",
+      author: { "@type": "Organization", name: "BalanceBikeToddler Editorial Team" },
+      datePublished: "2026-08-15",
+      dateModified: "2026-10-04",
+      mainEntity: {
+        "@type": "ItemList",
+        numberOfItems: cards.length,
+        itemListElement: cards.map((card, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: card.title,
+          url: `${PUBLIC_SITE_BASE}${card.path}`,
+        })),
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.q,
+        acceptedAnswer: { "@type": "Answer", text: faq.a },
+      })),
+    },
+  ];
+}
+
+function renderFilterListPage(config: FilterPageConfig): RoutePage {
+  const introHtml = config.introParagraphs
+    .map((paragraph) => `<p style="margin: 0 0 14px;">${escapeHtml(paragraph)}</p>`)
+    .join("");
+  return {
+    route: config.route,
+    title: config.title,
+    fullTitle: config.fullTitle,
+    description: config.description,
+    body: `
+      <section style="padding: 22px 0;">
+        <h2 style="margin: 0 0 12px; font-size: 1.5rem;">${escapeHtml(config.introHeading)}</h2>
+        ${introHtml}
+        <p style="margin: 0 0 14px; font-size: 0.88rem; color: #475569; font-weight: 600;">By <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="2026-10-04">Updated 2026-10-04</time></p>
+        ${renderSources(FILTER_PAGE_SOURCES)}
+      </section>
+      <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
+        <h2 style="margin: 0 0 14px; font-size: 1.5rem;">What is listed here?</h2>
+        ${filterCardGrid(config.cards, config.emptyNote)}
+      </section>
+      <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
+        <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Common questions</h2>
+        ${config.faqs
+          .map(
+            (faq) => `
+          <div style="padding: 10px 0; border-top: 1px solid #f1f5f9;">
+            <p style="margin: 0 0 6px; font-weight: 700;">${escapeHtml(faq.q)}</p>
+            <p style="margin: 0; color: #334155;">${escapeHtml(faq.a)}</p>
+          </div>`,
+          )
+          .join("")}
+      </section>
+      <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
+        <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Explore more</h2>
+        <ul style="margin: 0; padding-left: 1.2rem;">
+          ${config.exploreLinks
+            .map((link) => `<li style="margin-bottom: 6px;"><a href="${escapeHtml(link.href)}">${escapeHtml(link.label)}</a></li>`)
+            .join("")}
+        </ul>
+      </section>
+    `,
+    jsonLd: filterListSchemas(
+      `${PUBLIC_SITE_BASE}${config.route}`,
+      `${config.title} | BalanceBikeToddler`,
+      config.description,
+      config.cards,
+      config.faqs,
+    ),
+  };
+}
+
+function renderFilterPages(
+  cmsGuides: CmsGuide[] = [],
+  cmsNews: CmsNews[] = [],
+  cmsEvaluations: CmsEvaluation[] = [],
+): RoutePage[] {
+  const guideCards: FilterCard[] = cmsGuides.flatMap((guide) => {
+    const route = guideRoutePath(guide);
+    if (!route) return [];
+    return [
+      {
+        title: pickText(guide.en?.title, guide.zh?.title, guide.id),
+        summary: pickText(guide.en?.summary, guide.seo?.en?.description, "BalanceBikeToddler buying guide."),
+        meta: `${guideTopicCategory(guide).replace(/_/g, " ")} · ${pickText(guide.updatedAt, guide.publishedAt).slice(0, 10) || "2026-08-15"}`,
+        path: route,
+      },
+    ];
+  });
+  const reviewCardsByType = (reviewType: string): FilterCard[] =>
+    cmsEvaluations.flatMap((item) => {
+      const route = evaluationRoutePath(item);
+      if (!route || cmsSlugify(item.type || "single") !== reviewType) return [];
+      return [
+        {
+          title: pickText(item.en?.title, item.zh?.title, item.id),
+          summary: pickText(item.en?.verdict, item.zh?.verdict, "Independent review with tested scores.").slice(0, 140),
+          meta: `${reviewType} review · ${pickText(item.updatedAt, item.publishedAt).slice(0, 10) || "2026"}`,
+          path: route,
+        },
+      ];
+    });
+  const newsCardsByCategory = (category: string): FilterCard[] =>
+    cmsNews.flatMap((item) => {
+      const route = newsRoutePath(item);
+      if (!route || String(item.category || "").trim() !== category) return [];
+      return [
+        {
+          title: pickText(item.en?.title, item.zh?.title, item.id),
+          summary: pickText(item.en?.summary, item.seo?.en?.description, "Latest kids mobility news."),
+          meta: `${newsCategoryLabel(item)} · ${pickText(item.publishedAt, item.updatedAt).slice(0, 10) || "2026-08-15"}`,
+          path: route,
+        },
+      ];
+    });
+  const NEWS_CHANNEL_LINKS = [
+    { href: "/news/brand_news", label: "Brand news" },
+    { href: "/news/industry", label: "Industry trends" },
+    { href: "/news/new_product", label: "New products" },
+    { href: "/news/science", label: "Science & safety" },
+  ];
+  const configs: FilterPageConfig[] = [
+    {
+      route: "/guides/beginner",
+      title: "Beginner Guides: Start Here",
+      fullTitle: "Beginner Guides for First-Time Buyers | BalanceBikeToddler",
+      description:
+        "Start-to-finish buying guides for first-time balance bike, kids bike, and stroller shoppers: sizing, safety standards, and age fit explained.",
+      introHeading: "Where should a first-time buyer start?",
+      introParagraphs: [
+        "A first purchase usually starts with three unknowns: which size actually fits the child today, which safety claims are backed by a standard, and which features will still matter in six months. The beginner guides answer those in order, so the shortlist narrows before any product page is opened.",
+        "Each guide follows the same structure: a direct answer up front, the reasoning and measurements behind it, and a source check at the end. That keeps the advice comparable across guides instead of hiding a different method inside every article.",
+        "If you already know the category you want, jump straight to a product hub below; if you are still deciding between a balance bike, a tricycle, or a stroller, start with the sizing guide first.",
+      ],
+      cards: guideCards,
+      emptyNote: "Guides are being published — check back shortly.",
+      faqs: [
+        {
+          q: "What should a first-time buyer check first?",
+          a: "Fit comes first: seat height range against the child's inseam, then the safety standard a product claims, then the features that match the family routine.",
+        },
+        {
+          q: "Do these guides assume any prior knowledge?",
+          a: "No. Each guide explains the terms it uses and links to the standards it cites, so a first-time buyer can follow every step without extra research.",
+        },
+      ],
+      exploreLinks: [
+        { href: "/guides", label: "All guides" },
+        { href: "/reviews", label: "Review center" },
+        { href: "/products/balance-bikes/", label: "Balance bikes hub" },
+        { href: "/products/strollers/", label: "Strollers hub" },
+      ],
+    },
+    {
+      route: "/news/industry",
+      title: "Kids Mobility Industry Trends",
+      fullTitle: "Kids Mobility Industry Trends & Updates | BalanceBikeToddler",
+      description:
+        "Market trends, regulatory moves, and supply-chain shifts across the kids bike, stroller, and ride-on industry — with named sources and dates.",
+      introHeading: "What is moving in the kids mobility industry?",
+      introParagraphs: [
+        "The industry side of kids mobility moves on three tracks at once: regulation (standards revisions and recall activity), manufacturing shifts (where frames, batteries, and seats are made), and demand patterns (what parents search for season after season). Industry stories here are selected when they can change what a family should buy or avoid in the next few months.",
+        "Every entry carries a date and a category so a trend can be followed across updates instead of being a one-off headline. Where a claim comes from a company or a regulator, the source is named in the story.",
+        "For product-level consequences of a trend, the comparisons in the review center score the current field of options on one rubric, so a market shift can be read straight into a shortlist change.",
+      ],
+      cards: newsCardsByCategory("industry"),
+      emptyNote: "No industry stories yet — the channel is updated as the market moves.",
+      faqs: [
+        {
+          q: "How often is this channel updated?",
+          a: "As trends and regulatory changes land. Each story is dated, and the news hub lists every published item.",
+        },
+        {
+          q: "Are industry stories independent of brands?",
+          a: "Yes. Company-sourced claims are attributed to the company, and coverage is not placed or sponsored.",
+        },
+      ],
+      exploreLinks: [
+        { href: "/news", label: "News hub" },
+        ...NEWS_CHANNEL_LINKS.filter((link) => link.href !== "/news/industry"),
+        { href: "/reviews/compare", label: "Side-by-side comparisons" },
+      ],
+    },
+    {
+      route: "/news/new_product",
+      title: "New Product Launches",
+      fullTitle: "New Kids Bike & Stroller Launches | BalanceBikeToddler",
+      description:
+        "Fresh launches across balance bikes, kids bikes, strollers, and ride-on cars — what is new, who it fits, and how it changes the shortlist.",
+      introHeading: "Which launches are worth a look?",
+      introParagraphs: [
+        "A launch only matters if it changes the buying decision: a new size run, a materially lighter frame, a fold that finally fits a small trunk, or a price that resets a category. New-product entries here are filtered to launches with that kind of consequence, and each one states who the product fits and what it replaces.",
+        "Launch coverage is deliberately cautious on claims: spec-sheet numbers are reported as claimed until a product enters testing, and the entry links to the relevant product hub so the launch can be compared against what is already on the market.",
+        "If a launched product enters the review pipeline, the story is updated with a link to its review page so readers can follow it from announcement to verdict.",
+      ],
+      cards: newsCardsByCategory("new_product"),
+      emptyNote: "No launch stories yet — new entries appear as products ship.",
+      faqs: [
+        {
+          q: "Do you review every product you cover?",
+          a: "No. Launch coverage reports what a product claims; reviews score what testing measures. When a covered product is reviewed, the story links to the review.",
+        },
+        {
+          q: "How soon after a launch does coverage appear?",
+          a: "When launch details are public and dated. Spec-sheet claims are always labeled as claims until tested.",
+        },
+      ],
+      exploreLinks: [
+        { href: "/news", label: "News hub" },
+        ...NEWS_CHANNEL_LINKS.filter((link) => link.href !== "/news/new_product"),
+        { href: "/products", label: "Product directory" },
+      ],
+    },
+    {
+      route: "/news/brand_news",
+      title: "Brand News & Company Updates",
+      fullTitle: "Kids Mobility Brand News & Updates | BalanceBikeToddler",
+      description:
+        "Brand announcements, expansions, and recalls worth knowing from the kids mobility market — tracked with dates and primary sources.",
+      introHeading: "What are brands changing?",
+      introParagraphs: [
+        "Brand news covers the company-level decisions that eventually reach the product page: distribution changes, warranty updates, safety notices, and recalls. These are the stories a buyer should check after choosing a shortlist, because they can quietly change support quality long after a purchase.",
+        "Recall and safety notices are treated with the highest priority and link to the regulator's page where one exists. Marketing announcements are covered only when they include a factual change a buyer can verify.",
+        "Each entry is dated and categorized so a brand's track record can be scanned quickly before committing to a model.",
+      ],
+      cards: newsCardsByCategory("brand_news"),
+      emptyNote: "No brand stories yet — the channel fills as companies announce.",
+      faqs: [
+        {
+          q: "Do you cover every brand announcement?",
+          a: "No. Coverage focuses on factual changes that affect a buying or ownership decision, such as recalls, warranty updates, and distribution shifts.",
+        },
+        {
+          q: "Where do recall notices come from?",
+          a: "From regulator publications such as CPSC notices, linked directly so the primary source is always one click away.",
+        },
+      ],
+      exploreLinks: [
+        { href: "/news", label: "News hub" },
+        ...NEWS_CHANNEL_LINKS.filter((link) => link.href !== "/news/brand_news"),
+        { href: "/transparency/testing-methodology/", label: "Testing methodology" },
+      ],
+    },
+    {
+      route: "/news/science",
+      title: "Safety Science & Research",
+      fullTitle: "Child Safety Science & Research | BalanceBikeToddler",
+      description:
+        "Safety research, standards updates, and testing context for child seats, bikes, and helmets — translated into practical buying guidance.",
+      introHeading: "What does the research say?",
+      introParagraphs: [
+        "Science-channel stories translate research and standards work into buying language: what a revised bicycle or restraint standard actually changes, which injury patterns a design change addresses, and how testing conditions differ from daily use. The goal is that a parent can read one story and know whether the finding should move a product up or down a shortlist.",
+        "Sources are primary where possible — standards bodies, regulator guidance, and peer-reviewed work — and every story separates what the evidence shows from what it implies. Shop-floor claims are not treated as findings.",
+        "For how these findings feed into scoring, the testing methodology page documents the rubric each review applies.",
+      ],
+      cards: newsCardsByCategory("science"),
+      emptyNote: "No science stories yet — entries appear as standards and research move.",
+      faqs: [
+        {
+          q: "Are the studies cited peer-reviewed?",
+          a: "Where a story relies on research, the source type is stated. Standards and regulator guidance are cited directly to the issuing body.",
+        },
+        {
+          q: "How does research connect to your scores?",
+          a: "Findings inform the rubric weights — for example, what matters most for stopping control — and the methodology page explains the mapping.",
+        },
+      ],
+      exploreLinks: [
+        { href: "/news", label: "News hub" },
+        ...NEWS_CHANNEL_LINKS.filter((link) => link.href !== "/news/science"),
+        { href: "/transparency/testing-methodology/", label: "Testing methodology" },
+        { href: "/products/safety-seats/", label: "Safety seats hub" },
+      ],
+    },
+    {
+      route: "/reviews/single",
+      title: "Single-Product Reviews",
+      fullTitle: "Single-Product Reviews with Tested Scores | BalanceBikeToddler",
+      description:
+        "Every published single-product review: lab-style scores for safety, comfort, portability, features, and value, with a verdict you can trace.",
+      introHeading: "How does a single-product review work?",
+      introParagraphs: [
+        "Each single-product review scores one product on the same five axes — safety, comfort, portability, features, and value for money — so a score always means the same thing regardless of category or brand. The verdict is short and traceable: it names the use case the product fits best and the trade-off a buyer accepts.",
+        "Scores are anchored to the published rubric in the testing methodology, not to feel. Where two sizes or variants of one model exist, each variant gets its own review page so a shared name never hides a different score.",
+        "Use the cards below to open any review, or browse a category hub first if you would rather start from the product type than from a name.",
+      ],
+      cards: reviewCardsByType("single"),
+      emptyNote: "Single-product reviews are being published — check back shortly.",
+      faqs: [
+        {
+          q: "What do the five scores mean?",
+          a: "Safety covers control and stopping; comfort covers daily-use ergonomics; portability covers weight and fold; features cover what the product adds; value weighs price against the other four.",
+        },
+        {
+          q: "Why does one model sometimes have two review pages?",
+          a: "Variants can differ in weight, fold, or harness. Scoring each variant separately keeps the numbers honest instead of averaging them under one name.",
+        },
+      ],
+      exploreLinks: [
+        { href: "/reviews", label: "Review center" },
+        { href: "/reviews/compare", label: "Side-by-side comparisons" },
+        { href: "/products", label: "Product directory" },
+      ],
+    },
+    {
+      route: "/reviews/compare",
+      title: "Side-by-Side Comparisons",
+      fullTitle: "Side-by-Side Product Comparisons | BalanceBikeToddler",
+      description:
+        "Head-to-head comparisons across all seven product categories — balance bikes to safety seats — scored on the same rubric so winners are clear.",
+      introHeading: "How do the comparisons pick winners?",
+      introParagraphs: [
+        "Every comparison puts products from one category on the same rubric and names a winner per use case rather than one overall champion: the lightest for carrying, the safest for hills, the best value for a first purchase. That keeps the answer honest for families whose priorities differ.",
+        "Each comparison lists real specifications — weight, fold size, age range, and price band — next to the scores, so the numbers behind a verdict can be checked without leaving the page.",
+        "There is one comparison for each of the seven product categories, from balance bikes to child safety seats. Follow a card below, or start from a category hub if you are still choosing the product type.",
+      ],
+      cards: reviewCardsByType("compare"),
+      emptyNote: "Comparisons are being published — check back shortly.",
+      faqs: [
+        {
+          q: "Why one comparison per category?",
+          a: "Comparing across categories trades depth for breadth. One focused comparison per category lets every candidate be scored against the same alternatives.",
+        },
+        {
+          q: "How is a winner chosen?",
+          a: "By use case: each comparison names the best pick for the common family scenarios in that category instead of a single overall winner.",
+        },
+      ],
+      exploreLinks: [
+        { href: "/reviews", label: "Review center" },
+        { href: "/reviews/single", label: "Single-product reviews" },
+        { href: "/products", label: "Product directory" },
+      ],
+    },
+  ];
+  return configs.map(renderFilterListPage);
 }
 
 /**
@@ -3004,6 +3423,7 @@ async function main() {
     renderGuidesPage(cmsGuides),
     renderNewsPage(cmsNews),
     renderReviewsPage(cmsEvaluations),
+    ...renderFilterPages(cmsGuides, cmsNews, cmsEvaluations),
     renderAboutPage(),
     ...renderTransparencyPages(),
     ...guideDetailPages,
@@ -3098,6 +3518,13 @@ async function main() {
   for (const meta of PRODUCT_CATEGORY_PAGES) {
     staticModByRoute.set(`/products/${meta.slug}/`, productsMax);
   }
+  // R46 filter/list pages: dated by their source collection's latest edit.
+  staticModByRoute.set("/guides/beginner", guidesMax);
+  for (const category of ["brand_news", "industry", "new_product", "science"]) {
+    staticModByRoute.set(`/news/${category}`, newsMax);
+  }
+  staticModByRoute.set("/reviews/single", evalsMax);
+  staticModByRoute.set("/reviews/compare", evalsMax);
   for (const route of ["/transparency/testing-methodology/", "/transparency/certification-lab-notes/"]) {
     staticModByRoute.set(route, TRANSPARENCY_LASTMOD);
   }
