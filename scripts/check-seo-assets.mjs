@@ -14,9 +14,11 @@ const required = [
     detail: 'robots.txt must include User-agent, Allow and Sitemap lines',
   },
   {
-    name: 'robots-sitemap-relative',
-    ok: robots.includes('Sitemap: /sitemap.xml'),
-    detail: 'robots.txt should keep sitemap reference site-relative',
+    // Absolute sitemap URLs are valid per the sitemaps protocol and match the
+    // production setup (robots.txt is authored with the absolute URL).
+    name: 'robots-sitemap-absolute',
+    ok: robots.includes(`Sitemap: ${expectedSiteBase}/sitemap.xml`),
+    detail: `robots.txt should reference ${expectedSiteBase}/sitemap.xml`,
   },
   {
     name: 'sitemap-xml-core',
@@ -34,13 +36,11 @@ const required = [
     detail: 'sitemap.xml must not reference workers.dev domains',
   },
   {
+    // robots.txt is a static Pages asset and sitemap.xml is served by the
+    // Worker route on the apex host — neither needs a _redirects rule.
     name: 'redirects-seo-routes',
-    ok:
-      redirects.includes('/robots.txt ') &&
-      redirects.includes('/sitemap.xml ') &&
-      redirects.includes('/api/* ') &&
-      redirects.includes('/* /index.html 200'),
-    detail: '_redirects must include robots, sitemap, api passthrough and SPA fallback rules',
+    ok: redirects.includes('/api/* ') && redirects.includes('/* /index.html 200'),
+    detail: '_redirects must include api passthrough and SPA fallback rules',
   },
 ];
 
