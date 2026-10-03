@@ -8,4 +8,5 @@ coverage/
 !.env.example
 
 resource/
-tmp/scripts/cms-snapshots/
+tmp/
+scripts/cms-snapshots/

@@ -1,0 +1,8 @@
+# Security headers for every response served by Cloudflare Pages.
+# Semrush site audit flagged Strict-Transport-Security as missing on / and the
+# product hubs; HSTS is emitted here (max-age only — no includeSubDomains so the
+# media subdomain keeps its own policy).
+/*
+  Strict-Transport-Security: max-age=31536000
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin

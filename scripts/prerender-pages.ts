@@ -46,13 +46,27 @@ function escapeHtml(value: string): string {
 const STORE_MEDIA_ORIGIN = "https://store.balancebiketoddler.com";
 
 /**
+ * Characters that are illegal in a URL path but reach us verbatim in a few CMS
+ * media records (e.g. one product stores an already-absolute imageUrl whose
+ * directory name still contains literal spaces). Emitting them raw produces an
+ * invalid `src` that 404s at the media host — Semrush reports it as a broken
+ * external link. Existing %XX escapes are left untouched.
+ */
+const UNSAFE_URL_CHARS = /[\s<>"{}|\\^`[\]]/g;
+
+function encodeUnsafeUrlChars(raw: string): string {
+  return String(raw || "").replace(UNSAFE_URL_CHARS, (ch) => encodeURIComponent(ch));
+}
+
+/**
  * Resolves CMS media paths ("scrape_store/..." or bare category paths) to
- * absolute URLs on the store media host. Already-absolute URLs pass through.
+ * absolute URLs on the store media host. Already-absolute URLs pass through
+ * (after sanitising any illegal characters).
  */
 function toAbsoluteMediaUrl(raw: unknown): string {
   const text = String(raw || "").trim().replace(/\\/g, "/");
   if (!text) return "";
-  if (/^https?:\/\//i.test(text)) return text;
+  if (/^https?:\/\//i.test(text)) return encodeUnsafeUrlChars(text);
   const marker = "scrape_store/";
   const markerIndex = text.indexOf(marker);
   const mediaPath = markerIndex >= 0
@@ -112,12 +126,54 @@ function renderStaticPage(page: RoutePage): string {
         <p style="margin: 0 0 14px; font-size: 1.08rem; color: #334155; max-width: 52rem;">${escapeHtml(page.description)}</p>
       </header>
       ${page.body}
+      ${renderSiteFooter()}
     </article>
   `;
 }
 
+/**
+ * Site-wide footer injected into every prerendered page.
+ *
+ * Before this, /transparency/disclaimer, /transparency/privacy-policy and
+ * /transparency/terms had zero inbound internal links — they were listed in
+ * the sitemap but unreachable from any crawlable page (Semrush "orphan
+ * pages"). Repeating the footer on every route gives each trust page a
+ * site-wide inbound link and keeps the main sections one hop from every URL.
+ * The hydrated SPA replaces #root with its own footer, so this never renders
+ * twice for users.
+ */
+const FOOTER_SECTION_LINKS: Array<{ href: string; label: string }> = [
+  { href: "/products", label: "Products" },
+  { href: "/guides", label: "Guides" },
+  { href: "/reviews", label: "Reviews" },
+  { href: "/news", label: "News" },
+  { href: "/about", label: "About" },
+];
+const FOOTER_TRUST_LINKS: Array<{ href: string; label: string }> = [
+  { href: "/transparency/testing-methodology/", label: "Testing Methodology" },
+  { href: "/transparency/certification-lab-notes/", label: "Certification Lab Notes" },
+  { href: "/transparency/disclaimer/", label: "Editorial Disclaimer" },
+  { href: "/transparency/privacy-policy/", label: "Privacy Policy" },
+  { href: "/transparency/terms/", label: "Terms of Use" },
+];
+
+function renderSiteFooter(): string {
+  const link = (item: { href: string; label: string }) =>
+    `<a href="${escapeHtml(item.href)}" style="margin-right:14px;color:#c2410c;text-decoration:none;">${escapeHtml(item.label)}</a>`;
+  return `
+      <footer style="margin-top:34px;padding:20px 0 8px;border-top:1px solid #e2e8f0;font-family:Arial,sans-serif;font-size:0.88rem;line-height:2;">
+        <p style="margin:0 0 4px;">${FOOTER_SECTION_LINKS.map(link).join("")}</p>
+        <p style="margin:0;">${FOOTER_TRUST_LINKS.map(link).join("")}</p>
+        <p style="margin:10px 0 0;color:#64748b;">© BalanceBikeToddler — independent lab testing for kids ride-on and safety gear.</p>
+      </footer>
+  `;
+}
+
 function renderDocument(page: RoutePage, appAssets: AppAssets): string {
-  const canonical = `https://balancebiketoddler.com${page.canonicalPath || page.route}`;
+  // The homepage route is "" — emit the trailing slash so the canonical matches
+  // the sitemap entry (https://balancebiketoddler.com/) exactly.
+  const routePath = page.canonicalPath || (page.route === "" ? "/" : page.route);
+  const canonical = `https://balancebiketoddler.com${routePath}`;
   // SEO title cap (Semrush): full override wins, else `${title} | brand`
   // truncated to ≤65 chars at a word boundary, brand suffix always kept.
   const SITE_TITLE_SUFFIX = " | BalanceBikeToddler";
@@ -1873,17 +1929,6 @@ function renderHomePage(
       <p style="margin:0;font-size:0.85rem;"><a href="${escapeHtml(col.indexHref)}">${escapeHtml(col.indexLabel)} →</a></p>
     </section>`).join("");
 
-  const FOOTER_LINKS: Array<{ href: string; label: string }> = [
-    { href: `${PUBLIC_SITE_BASE}/products`, label: "Products" },
-    { href: `${PUBLIC_SITE_BASE}/guides`, label: "Guides" },
-    { href: `${PUBLIC_SITE_BASE}/reviews`, label: "Reviews" },
-    { href: `${PUBLIC_SITE_BASE}/news`, label: "News" },
-    { href: `${PUBLIC_SITE_BASE}/about`, label: "About" },
-    { href: `${PUBLIC_SITE_BASE}/transparency/certification-lab-notes/`, label: "Certification Lab Notes" },
-    { href: `${PUBLIC_SITE_BASE}/transparency/testing-methodology/`, label: "Testing Methodology" },
-  ];
-  const footerHtml = `<footer style="margin-top:32px;padding:20px 0;border-top:1px solid #e2e8f0;font-family:Arial,sans-serif;font-size:0.9rem;">${FOOTER_LINKS.map((l) => `<a href="${escapeHtml(l.href)}" style="margin-right:16px;">${escapeHtml(l.label)}</a>`).join("")}</footer>`;
-
   const entitySameAs = [
     "https://www.youtube.com/@kidsmobi",
     "https://www.facebook.com",
@@ -1917,7 +1962,10 @@ function renderHomePage(
   ];
   return {
     route: "",
-    title: "BalanceBikeToddler",
+    title: "Lab-tested kids ride-on & safety gear",
+    // Without an explicit fullTitle the homepage shipped
+    // "BalanceBikeToddler | BalanceBikeToddler" — the brand repeated twice.
+    fullTitle: "BalanceBikeToddler | Lab-Tested Kids Bike & Stroller Reviews",
     description: "Lab-tested balance bikes, kids bikes, strollers, ride-on cars, and child safety seats with verified scores and source-backed reviews.",
     skipTitleH1: true,
     body: `
@@ -1948,7 +1996,6 @@ function renderHomePage(
           <li>ISO 8098 and ASTM F963 reference for safety baselines.</li>
         </ul>
       </section>
-      ${footerHtml}
     `,
     jsonLd: homeSchemas,
   };
@@ -2473,28 +2520,56 @@ function renderProductDetailPage(
   const displayName = productDisplayTitle(product);
   const summary = pickText(product.en?.cardSummary);
   const paragraphs = productDescriptionParagraphs(product);
-  const metaDescription = capMetaDescription(
-    pickText(
-      summary,
-      paragraphs[0],
-      "Lab-tested review with safety score, specs, and age fit for this kids mobility product.",
-    ),
-  );
+  const asin = String(id.split("-").pop() || id).toUpperCase();
   // SEO title ≤65 chars total (Semrush title-too-long), brand suffix included
   // by renderDocument. Amazon listing names are far too long — shorten to a
-  // 36-char word boundary, then suffix. When two products share the same
-  // truncated name, disambiguate with the ASIN so no two pages share a title.
+  // 36-char word boundary, then suffix. Two collision sources must both be
+  // handled or two pages end up sharing a <title>/<h1>:
+  //  - another product with the same truncated name
+  //  - a CMS review page whose subject matches this product's shortened name
+  //    (e.g. "Glerc Kids Bike Review" on both the product and its review page)
   const titleShort = capSeoText(shortenCardTitle(name, 36) || displayName, 36);
-  const asin = String(id.split("-").pop() || id).toUpperCase();
-  const titleCollides = allProducts.some((other) => {
+  const baseSeoTitle = `${titleShort} Review`;
+  const reviewTitles = new Set(
+    evaluations
+      .map((item) =>
+        capSeoText(pickText(item.en?.title, item.zh?.title, item.title), 60).toLowerCase(),
+      )
+      .filter(Boolean),
+  );
+  const titleCollides =
+    reviewTitles.has(baseSeoTitle.toLowerCase()) ||
+    allProducts.some((other) => {
+      const otherId = String(other.id || "").trim();
+      if (!otherId || otherId === id) return false;
+      const otherShort = capSeoText(shortenCardTitle(pickText(other.en?.name, other.name), 36) || "", 36);
+      return otherShort === titleShort;
+    });
+  const seoTitle = titleCollides ? `${baseSeoTitle}: ${asin}` : baseSeoTitle;
+
+  const FALLBACK_DESCRIPTION =
+    "Lab-tested review with safety score, specs, and age fit for this kids mobility product.";
+  const descSource = pickText(summary, paragraphs[0], FALLBACK_DESCRIPTION);
+  const baseDescription = capMetaDescription(descSource);
+  // Two SKUs of one model (colour variants) can carry an identical cardSummary.
+  // Truncation to 158 chars then removes the only differing token (usually the
+  // price) and both pages ship the same meta description — a Semrush "duplicate
+  // meta description" warning. When that happens, lead with the model so the
+  // snippets stay unique and keyword-first.
+  const descCollides = allProducts.some((other) => {
     const otherId = String(other.id || "").trim();
     if (!otherId || otherId === id) return false;
-    const otherShort = capSeoText(shortenCardTitle(pickText(other.en?.name, other.name), 36) || "", 36);
-    return otherShort === titleShort;
+    const otherSource = pickText(
+      pickText(other.en?.cardSummary),
+      productDescriptionParagraphs(other)[0],
+      FALLBACK_DESCRIPTION,
+    );
+    return capMetaDescription(otherSource) === baseDescription;
   });
-  const seoTitle = titleCollides
-    ? `${titleShort} Review: ${asin}`
-    : `${titleShort} Review`;
+  const DESC_MODEL_PREFIX = `${titleShort} (model ${asin}) — `;
+  const metaDescription = descCollides
+    ? `${DESC_MODEL_PREFIX}${capSeoText(descSource, 158 - DESC_MODEL_PREFIX.length)}`
+    : baseDescription;
   const image = toAbsoluteMediaUrl(product.imageUrl);
   const editorialScore = Number(product.overallScore);
   const ratingValue = productRatingValue(product);

@@ -6,6 +6,18 @@ export const FALLBACK_PRODUCT_IMAGE =
 
 const STORE_MEDIA_ORIGIN = "https://store.balancebiketoddler.com";
 
+/**
+ * Characters that are illegal in a URL but reach us verbatim in a few CMS media
+ * records (an already-absolute imageUrl whose path still contains literal
+ * spaces). Leaving them raw yields an invalid <img src> that fails to load.
+ * Existing %XX escapes are preserved.
+ */
+const UNSAFE_URL_CHARS = /[\s<>"{}|\\^`[\]]/g;
+
+function encodeUnsafeUrlChars(raw: string): string {
+  return String(raw || "").replace(UNSAFE_URL_CHARS, (ch) => encodeURIComponent(ch));
+}
+
 function toStoreMediaUrl(rawPath: string): string {
   const text = String(rawPath || "").trim().replace(/\\/g, "/");
   if (!text) return "";
@@ -43,7 +55,7 @@ function normalizeUrl(raw: unknown): string {
   }
 
   if (/^https?:\/\//i.test(normalized) || normalized.startsWith("/")) {
-    return normalized;
+    return encodeUnsafeUrlChars(normalized);
   }
 
   if (lower.includes("scrape_store/")) {
