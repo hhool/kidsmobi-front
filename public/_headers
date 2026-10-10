@@ -6,3 +6,61 @@
   Strict-Transport-Security: max-age=31536000
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
+
+# ---------------------------------------------------------------------------
+# Edge caching for HTML.
+#
+# Cloudflare Pages answers every static asset with
+#   Cache-Control: public, max-age=0, must-revalidate
+# by default. The edge reads that as "do not store" and marks each request
+# cf-cache-status: DYNAMIC, so even Googlebot hits the origin every single
+# time. Measured TTFB then sits at 1.2-2.4s for a normal page and 5-9.5s for
+# the heavy hubs (/products/strollers/ alone is 113KB), and Google responds to
+# a slow origin by throttling itself. That is why 243 URLs have been stuck in
+# "Discovered - currently not indexed" with Last crawled = N/A since July:
+# they were never fetched, not fetched and rejected.
+#
+# max-age=0 keeps the browser always revalidating, so publishing news or a
+# guide and re-deploying reflects immediately; every Cloudflare Pages deploy
+# purges the edge cache anyway. s-maxage is what puts the HTML into the
+# Cloudflare cache. Cloudflare-CDN-Cache-Control is spelled out as well
+# because it unambiguously wins over the browser-facing Cache-Control when
+# the edge decides whether to store the response.
+#
+# Keep one splat per rule and keep the patterns disjoint: two rules matching
+# the same URL would join their Cache-Control values with a comma and both
+# would be lost. These seven prefixes plus the two exact root URLs cover every
+# URL in the sitemap, in both the clean form (/products/strollers/) and the
+# .html form actually served after a _redirects rewrite.
+# ---------------------------------------------------------------------------
+/
+  Cache-Control: public, max-age=0, must-revalidate, s-maxage=86400, stale-while-revalidate=604800
+  Cloudflare-CDN-Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate, s-maxage=86400, stale-while-revalidate=604800
+  Cloudflare-CDN-Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/about*
+  Cache-Control: public, max-age=0, must-revalidate, s-maxage=86400, stale-while-revalidate=604800
+  Cloudflare-CDN-Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/guides*
+  Cache-Control: public, max-age=0, must-revalidate, s-maxage=86400, stale-while-revalidate=604800
+  Cloudflare-CDN-Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/news*
+  Cache-Control: public, max-age=0, must-revalidate, s-maxage=86400, stale-while-revalidate=604800
+  Cloudflare-CDN-Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/products*
+  Cache-Control: public, max-age=0, must-revalidate, s-maxage=86400, stale-while-revalidate=604800
+  Cloudflare-CDN-Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/reviews*
+  Cache-Control: public, max-age=0, must-revalidate, s-maxage=86400, stale-while-revalidate=604800
+  Cloudflare-CDN-Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/transparency*
+  Cache-Control: public, max-age=0, must-revalidate, s-maxage=86400, stale-while-revalidate=604800
+  Cloudflare-CDN-Cache-Control: public, max-age=86400, stale-while-revalidate=604800
