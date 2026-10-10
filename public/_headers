@@ -20,47 +20,39 @@
 # "Discovered - currently not indexed" with Last crawled = N/A since July:
 # they were never fetched, not fetched and rejected.
 #
-# max-age=0 keeps the browser always revalidating, so publishing news or a
-# guide and re-deploying reflects immediately; every Cloudflare Pages deploy
-# purges the edge cache anyway. s-maxage is what puts the HTML into the
-# Cloudflare cache. Cloudflare-CDN-Cache-Control is spelled out as well
-# because it unambiguously wins over the browser-facing Cache-Control when
-# the edge decides whether to store the response.
+# Cloudflare honors our header verbatim but then appears to read only max-age
+# when deciding eligibility: max-age=0 with s-maxage=86400 (and
+# Cloudflare-CDN-Cache-Control to the same effect) stayed DYNAMIC across
+# repeated requests, while robots.txt and /assets/*, which carry Cloudflare's
+# own positive max-age, come back REVALIDATED out of the cache.
 #
-# Keep one splat per rule and keep the patterns disjoint: two rules matching
-# the same URL would join their Cache-Control values with a comma and both
-# would be lost. These seven prefixes plus the two exact root URLs cover every
-# URL in the sitemap, in both the clean form (/products/strollers/) and the
-# .html form actually served after a _redirects rewrite.
-# ---------------------------------------------------------------------------
+# So max-age carries a positive window here. Pages purges on every deploy, so
+# the edge never serves retired content; the trade is that a browser may reuse
+# a page for up to that window before revalidating. Swap this for a dashboard
+# Cache Rule (Eligible for cache + Edge TTL, Browser TTL = Respect origin) to
+# get max-age=0 back for browsers while keeping the edge. robots.txt and
+# /assets/* are not matched by these rules and keep whatever they already had.
+
 /
-  Cache-Control: public, max-age=0, must-revalidate, s-maxage=86400, stale-while-revalidate=604800
-  Cloudflare-CDN-Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+  Cache-Control: public, max-age=14400, must-revalidate
 
 /index.html
-  Cache-Control: public, max-age=0, must-revalidate, s-maxage=86400, stale-while-revalidate=604800
-  Cloudflare-CDN-Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+  Cache-Control: public, max-age=14400, must-revalidate
 
 /about*
-  Cache-Control: public, max-age=0, must-revalidate, s-maxage=86400, stale-while-revalidate=604800
-  Cloudflare-CDN-Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+  Cache-Control: public, max-age=14400, must-revalidate
 
 /guides*
-  Cache-Control: public, max-age=0, must-revalidate, s-maxage=86400, stale-while-revalidate=604800
-  Cloudflare-CDN-Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+  Cache-Control: public, max-age=14400, must-revalidate
 
 /news*
-  Cache-Control: public, max-age=0, must-revalidate, s-maxage=86400, stale-while-revalidate=604800
-  Cloudflare-CDN-Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+  Cache-Control: public, max-age=14400, must-revalidate
 
 /products*
-  Cache-Control: public, max-age=0, must-revalidate, s-maxage=86400, stale-while-revalidate=604800
-  Cloudflare-CDN-Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+  Cache-Control: public, max-age=14400, must-revalidate
 
 /reviews*
-  Cache-Control: public, max-age=0, must-revalidate, s-maxage=86400, stale-while-revalidate=604800
-  Cloudflare-CDN-Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+  Cache-Control: public, max-age=14400, must-revalidate
 
 /transparency*
-  Cache-Control: public, max-age=0, must-revalidate, s-maxage=86400, stale-while-revalidate=604800
-  Cloudflare-CDN-Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+  Cache-Control: public, max-age=14400, must-revalidate
