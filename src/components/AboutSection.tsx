@@ -12,27 +12,27 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
   const aboutCopy = getPageCopy(lang).about;
   const aboutStats = isEn
     ? [
-        { value: "12", label: "senior engineers" },
-        { value: "5", label: "pediatric advisors" },
-        { value: "4", label: "audit checks" },
+        { value: "4", label: "evidence checks" },
+        { value: "3", label: "source types" },
+        { value: "0", label: "paid placements" },
       ]
     : [
-        { value: "12", label: "名资深机械工程师" },
-        { value: "5", label: "名儿科工效顾问" },
-        { value: "4", label: "项核心审查" },
+        { value: "4", label: "项证据核查" },
+        { value: "3", label: "类数据来源" },
+        { value: "0", label: "付费植入" },
       ];
   const auditRows = isEn
     ? [
-        { check: "1. Precision weighing", evidence: "Full riding setup, including pedals and guards", why: "Keeps factory claims honest", href: "/guides/best" },
-        { check: "2. Braking resistance", evidence: "Pressure sensors on hand-brake force", why: "Shows whether a child can stop safely" },
-        { check: "3. Q-factor analysis", evidence: "Pedal horizontal distance measurement", why: "Flags awkward or risky leg posture", href: "/guides/best" },
-        { check: "4. Fatigue testing", evidence: "100k+ impact cycles on hydraulic rigs", why: "Checks long-run frame durability" },
+        { check: "1. Manufacturer weight", evidence: "Published weight for the full riding setup, including pedals and guards", why: "Makes two products comparable on the same basis", href: "/guides/best" },
+        { check: "2. Brake setup", evidence: "Published brake type, lever reach, and age rating", why: "Shows whether a child can realistically reach and modulate the brake" },
+        { check: "3. Q-factor review", evidence: "Published pedal stance figures checked against fit guidance", why: "Flags awkward or risky leg posture", href: "/guides/best" },
+        { check: "4. Durability signals", evidence: "Repeated failure themes in aggregated owner feedback and public recall notices", why: "Shows what actually fails months later" },
       ]
     : [
-        { check: "1. 真实整备测重", evidence: "包含脚踏与护具的完整骑行状态", why: "避免厂商宣传值失真" },
-        { check: "2. 刹力阻力实测", evidence: "使用压力传感器测定手刹阻力", why: "判断儿童是否能安全制停" },
-        { check: "3. Q-Factor 跨宽分析", evidence: "测量踏板左右水平偏距", why: "识别不自然或高风险踩踏姿势" },
-        { check: "4. 疲劳冲击测试", evidence: "液压台架 10 万次以上冲击循环", why: "检查车架长期耐久性" },
+        { check: "1. 厂商标称重量", evidence: "含脚踏与护具的完整骑行状态标称值", why: "让两款产品在同一口径下比较" },
+        { check: "2. 刹车配置", evidence: "厂商公布的刹车类型、把距与适用年龄", why: "判断儿童是否能安全操纵刹车" },
+        { check: "3. Q-Factor 跨宽分析", evidence: "用厂商标称值与尺寸建议对照", why: "识别不自然或高风险踩踏姿势" },
+        { check: "4. 长期耐用性信号", evidence: "用户反馈中的反复失效主题与公开的召回通报", why: "看几个月后真正会坏在哪里" },
       ];
 
   const renderCheckCell = (row: { check: string; href?: string }) => {
@@ -165,7 +165,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
               <Award className="w-6 h-6" />
             </div>
             <div>
-              <h2 className="km-section-title text-slate-900 uppercase">How do we test a kids scooter or toddler bike?</h2>
+              <h2 className="km-section-title text-slate-900 uppercase">How do we assess a kids scooter or toddler bike?</h2>
               <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium tracking-tight">Short answer: we measure, compare, and record four physical checks before any editorial judgment is published.</p>
             </div>
           </div>
@@ -263,15 +263,15 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
                     <div className="flex items-center gap-4">
                         <Users className="w-8 h-8 text-orange-500" />
                         <div>
-                            <p className="text-lg font-black tracking-tight">12 senior engineers</p>
-                            <p className="text-xs text-slate-400">Mechanical & Bio-mechanics</p>
+                            <p className="text-lg font-black tracking-tight">Every rating traced to a source</p>
+                            <p className="text-xs text-slate-400">Manufacturer specs, CPSC &amp; EU Safety Gate, owner feedback</p>
                         </div>
                     </div>
                     <div className="flex items-center gap-4">
                         <Users className="w-8 h-8 text-orange-500" />
                         <div>
-                            <p className="text-lg font-black tracking-tight">5 pediatric advisors</p>
-                            <p className="text-xs text-slate-400">Ergonomics & Bone Health</p>
+                            <p className="text-lg font-black tracking-tight">No paid placements</p>
+                            <p className="text-xs text-slate-400">No brand can buy a score or a position</p>
                         </div>
                     </div>
                 </div>

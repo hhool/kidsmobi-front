@@ -2418,18 +2418,18 @@ export default function App() {
 
       const title = lang === "zh"
         ? (compareList.length > 0 
-           ? `${joinedNamesZh} - 独家实验室指标参数横评 | BalanceBikeToddler` 
-           : "产品指标技术对比看板 | BalanceBikeToddler 实验室")
+           ? `${joinedNamesZh} - 独家指标参数横评 | BalanceBikeToddler` 
+           : "产品指标技术对比看板 | BalanceBikeToddler")
         : (compareList.length > 0 
-           ? `Comparing ${joinedNames} - Side-by-side Lab Specs | BalanceBikeToddler` 
-           : "Product Technical Comparison Dashboard | BalanceBikeToddler Lab");
+           ? `Comparing ${joinedNames} - Side-by-side Specifications | BalanceBikeToddler` 
+           : "Product Technical Comparison Dashboard | BalanceBikeToddler");
 
       const desc = lang === "zh"
         ? (compareList.length > 0 
            ? `一键横向对比 ${productNames.slice(0, 3).join("、")} 等多款童车的力学参数与物理规格。包含安全指数、尺寸、重量、轮组及刹车，为您提供极佳科学导购。` 
-           : "BalanceBikeToddler 实验室产品参数横向比对工具，支持多款车型力学参数同台竞争比对。")
+           : "BalanceBikeToddler 产品参数横向比对工具，支持多款车型力学参数同台竞争比对。")
         : (compareList.length > 0
-           ? `See side-by-side lab test results and physical specs for ${joinedNames}. Compare safety score, weight, price, brakes, and tires to make the best choice.`
+           ? `See side-by-side spec and rating comparisons for ${joinedNames}. Compare safety score, weight, price, brakes, and tires to make the best choice.`
            : "Compare technical parameters, safety ratings, frame materials, and testing scores for multiple kids mobility products.");
 
       const kws = lang === "zh"
@@ -2611,10 +2611,10 @@ export default function App() {
     if (seoKey === "products" && activeProductCategory === "kids_tricycles") {
       titleStr = lang === "zh"
         ? "儿童三轮车与滑行玩具 2026 实测精选 | BalanceBikeToddler"
-        : "Best Kids Tricycles & Push Ride-On Toys 2026 Lab-Tested | BalanceBikeToddler";
+        : "Best Kids Tricycles & Push Ride-On Toys 2026: Evidence-Based Buying Guide | BalanceBikeToddler";
       descStr = lang === "zh"
-        ? "浏览实验室实测的儿童三轮车、滑行汽车与拉货车，包含稳定性评分、承重上限与适龄建议。"
-        : "Browse lab-tested kids tricycles, push ride-on cars, and pull-along wagons with stability scores, weight limits, and age-fit guidance for toddlers.";
+        ? "浏览已覆盖的儿童三轮车、滑行汽车与拉货车，包含稳定性评分、承重上限与适龄建议。"
+        : "Browse evidence-based kids tricycles, push ride-on cars, and pull-along wagons with stability scores, weight limits, and age-fit guidance for toddlers.";
     }
 
     if (activePageIndex > 1 && ["products", "reviews", "guides", "news"].includes(seoKey)) {
@@ -2633,7 +2633,7 @@ export default function App() {
         ? `${selectedReview} 专题评测 | BalanceBikeToddler Reviews`
         : `${selectedReview} Review Reports | BalanceBikeToddler Reviews`;
       descStr = lang === "zh"
-        ? `查看 ${selectedReview} 相关实验室报告，覆盖安全、结构稳定与真实场景表现等关键评测维度。`
+        ? `查看 ${selectedReview} 相关分析数据，覆盖安全、结构稳定与真实场景表现等关键评测维度。`
         : `Explore ${selectedReview} reviews spanning safety, structural stability, and real-world usability benchmarks.`;
       keywordsArr = Array.from(new Set([...keywordsArr, selectedReview, ...getReviewSeoKeywords(activeReviewType, lang)]));
     }
@@ -2677,7 +2677,7 @@ export default function App() {
         stroller: {
           en: {
             title: "Best Jogging Stroller & Travel Stroller Reviews 2026 | BalanceBikeToddler",
-            description: "Compare lab-tested jogging stroller, travel stroller, and twin stroller models with safety scores, stability metrics, and foldability insights.",
+            description: "Compare evidence-based jogging stroller, travel stroller, and twin stroller models with safety scores, stability metrics, and foldability insights.",
             keywords: ["jogging stroller", "travel stroller", "lightweight stroller", "twin stroller", "baby stroller"]
           },
           zh: {
@@ -2688,8 +2688,8 @@ export default function App() {
         },
         balance_bike: {
           en: {
-            title: "Best Toddler Balance Bikes 2026 Lab-Tested Reviews - BalanceBikeToddler",
-            description: "Explore our expert lab database for the safest toddler balance bikes. Compare weight capacity, stability scores, and features for top ride-on brands.",
+            title: "Best Toddler Balance Bikes 2026: Evidence-Based Buying Guide - BalanceBikeToddler",
+            description: "Compare published specifications and safety records for the safest toddler balance bikes. Compare weight capacity, stability scores, and features for top ride-on brands.",
             keywords: ["toddler balance bike", "kids balance bike", "1 year old balance bike", "ride-on balance bike"]
           },
           zh: {
@@ -2700,8 +2700,8 @@ export default function App() {
         },
         kids_bikes: {
           en: {
-            title: "Best Kids Bikes & Toddler Bicycles 2026 Lab-Tested - BalanceBikeToddler",
-            description: "Discover the safest and top-rated kids bikes for ages 2-14. Explore our lab database to compare BMX style, training wheels, and dual suspension bicycles.",
+            title: "Best Kids Bikes & Toddler Bicycles 2026: Evidence-Based Buying Guide - BalanceBikeToddler",
+            description: "Discover the safest and top-rated kids bikes for ages 2-14. Explore the database to compare BMX style, training wheels, and dual suspension bicycles.",
             keywords: ["kids bmx bike", "toddler bicycle", "kids bike training wheels", "pedal bike for children"]
           },
           zh: {
@@ -2713,7 +2713,7 @@ export default function App() {
         kids_scooters: {
           en: {
             title: "Best Kids Electric Scooter & Kick Scooter Reviews 2026 | BalanceBikeToddler",
-            description: "Find lab-reviewed kids electric scooter and kick scooter options, including foldable models, 3-wheel starters, and seated configurations.",
+            description: "Find source-reviewed kids electric scooter and kick scooter options, including foldable models, 3-wheel starters, and seated configurations.",
             keywords: ["kids electric scooter", "electric scooter for kids", "kids kick scooter", "foldable electric scooter"]
           },
           zh: {
@@ -2725,7 +2725,7 @@ export default function App() {
         electric_vehicles: {
           en: {
             title: "Best Kids Electric Cars & Ride-On Toys Reviews 2026 | BalanceBikeToddler",
-            description: "Review lab-tested kids electric cars, 12V/24V ride-on toys, and electric ride-on options with battery safety, braking control, and runtime benchmarks.",
+            description: "Review evidence-based kids electric cars, 12V/24V ride-on toys, and electric ride-on options with battery safety, braking control, and runtime benchmarks.",
             keywords: ["kids electric cars", "kids electric car", "kids ride on", "ride on toys 12v"]
           },
           zh: {
@@ -2736,8 +2736,8 @@ export default function App() {
         },
         car_seat: {
           en: {
-            title: "Best Convertible & Toddler Car Seats 2026 Lab-Tested - BalanceBikeToddler",
-            description: "Find the safest convertible and booster car seats for your child. Compare lab-tested scores, weight limits, and safety features for top brands like Graco and Evenflo.",
+            title: "Best Convertible & Toddler Car Seats 2026: Evidence-Based Buying Guide - BalanceBikeToddler",
+            description: "Find the safest convertible and booster car seats for your child. Compare evidence-based scores, weight limits, and safety features for top brands like Graco and Evenflo.",
             keywords: ["convertible car seat", "booster car seat", "infant car seat", "child safety car seat"]
           },
           zh: {
@@ -3213,7 +3213,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
       });
 
       if (!res.ok) {
-        throw new Error(lang === "en" ? "Model response failed. Lab line down." : "模型响应失败，实验室专线故障。");
+        throw new Error(lang === "en" ? "Model response failed. Service unavailable." : "模型响应失败，服务暂时不可用。");
       }
 
       const data = await res.json();
@@ -3229,14 +3229,14 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
     } catch (err: any) {
       console.error(err);
       if (lang === "en") {
-        setExpertNotice("Failed to reach lab servers. Activating local offline fallback module.");
+        setExpertNotice("Failed to reach the analysis service. Activating offline fallback.");
         const safeLimit = (childProfile.weight * 0.3).toFixed(1);
         setChatMessages(prev => [
           ...prev,
           {
             id: `ai_fallback_${Date.now()}`,
             role: "assistant",
-            content: `⚠️ [Local Security Backup Engaged] Connection offline. Safety lab fallback module active:
+            content: `⚠️ [Local Backup Engaged] Connection offline. Offline fallback active:
 
 **Custom safety guidelines for your child:**
 *   **Max Dead Weight**: Vehicle must be strictly limited under **${safeLimit} kg**! Do not purchase heavy carbon steel frames.
@@ -4307,7 +4307,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                       navigateToPath(TRANSPARENCY_PAGE_PATHS.certification);
                     }}
                   >
-                    {lang === "en" ? "Certification & Lab Notes" : "认证与实验室说明"}
+                    {lang === "en" ? "Certification & Standards Notes" : "认证与标准说明"}
                   </a>
                 </li>
                 <li>
@@ -4420,11 +4420,11 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               <div className="flex flex-col gap-1">
                 <span className="font-extrabold text-slate-400 block">
                   {lang === "en" 
-                    ? "© 2026 BalanceBikeToddler Global Safety Lab & Buyer's Decision Advisory Portal, Inc."
-                    : "© 2026 BalanceBikeToddler · 全球高端垂直童车评测决策平台 · 版权所有"}
+                    ? "© 2026 BalanceBikeToddler · Kids Ride-On & Safety Buying Guide"
+                    : "© 2026 BalanceBikeToddler · 儿童骑行与安全选购研究站 · 版权所有"}
                 </span>
                 <p className="text-[10px] text-slate-600">
-                  {lang === "en" ? "Independent physical testing lab — children's skeletal-safety focused evaluation" : "BalanceBikeToddler 独立实测实验室 · 儿童骨骼安全向评估"}
+                  {lang === "en" ? "Independent analysis — every rating traced to a published source" : "BalanceBikeToddler 独立研究 · 结论可溯源至公开来源"}
                 </p>
                 {isAdmin && (
                   <button 
@@ -4451,8 +4451,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             
             <p className="max-w-2xl text-[10px] text-slate-600 leading-relaxed text-left md:text-right italic">
               {lang === "en"
-                ? "Unbiased Oath: We do not accept sponsorship insertions or marketing fees. All scores are objective biomechanical results."
-                : "独立性声明：BalanceBikeToddler 拒绝任何商业品牌广告植入。所有评分均基于生物力学客观公式得出。"}
+                ? "Unbiased Oath: We do not accept paid placement or positive coverage. Every score is built from manufacturer specifications, public safety records, and aggregated owner feedback — sources we name on the page."
+                : "独立性声明：BalanceBikeToddler 拒绝付费植入与付费好评。所有评分来自厂商标称参数、公开安全记录与用户反馈聚合，来源均已在页面标明。"}
             </p>
           </div>
 
@@ -4466,7 +4466,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
           <div className="mt-8 text-center">
             <p className="max-w-5xl mx-auto text-[9px] text-slate-750 uppercase tracking-[0.2em] opacity-30">
-              CPSC · ISO 8098 · GB 14746 · EN 71 · ASTM F963 · PHYS-DATA INTEGRITY COMPLIANT
+              CPSC · ISO 8098 · GB 14746 · EN 71 · ASTM F963 · STANDARDS REFERENCED
             </p>
           </div>
         </div>

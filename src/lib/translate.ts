@@ -838,8 +838,8 @@ Chinese casting foundries transition away from heavy weld joints into high-tensi
 #### 1. 45-Second Casting Cycles
 High tonnage hydraulic presses stamp 0.9kg aerodynamic kid bike frames with flawless mechanical density and zero hazardous welds.
 
-#### 2. Lab Testing Consensus
-Our lab stress metrics show magnesium composite frameworks withstand up to 30% higher cyclic loads compared to old steel alloys, maintaining excellent weight boundaries.`
+#### 2. What Published Data Shows
+Material datasheets commonly credit magnesium composite frameworks with higher specific strength than old steel alloys, which is why more kids frames use them.`
     },
     news_5: {
       title: "Shoring Up Children's Vestibular Health: Pneumatic Tires vs. EVA Foam Wheels",

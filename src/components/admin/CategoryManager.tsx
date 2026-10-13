@@ -19,8 +19,8 @@ const categorySeoDefaults: Record<ProductCategory, {
 }> = {
   stroller: {
     en: {
-      seoTitle: "Best Baby & Twin Strollers 2026 Lab-Tested Reviews - BalanceBikeToddler",
-      seoDescription: "Explore our expert lab database for the safest and most reliable baby and twin strollers. Compare weight capacity, safety scores, and travel features.",
+      seoTitle: "Best Baby & Twin Strollers 2026: Evidence-Based Buying Guide - BalanceBikeToddler",
+      seoDescription: "Compare published specifications and safety records for the safest and most reliable baby and twin strollers. Compare weight capacity, safety scores, and travel features.",
       seoKeywords: "baby stroller, Twin Stroller, travel stroller, jogging stroller"
     },
     zh: {
@@ -31,8 +31,8 @@ const categorySeoDefaults: Record<ProductCategory, {
   },
   balance: {
     en: {
-      seoTitle: "Best Toddler Balance Bikes 2026 Lab-Tested Reviews - BalanceBikeToddler",
-      seoDescription: "Explore our expert lab database for the safest toddler balance bikes. Compare weight capacity, stability scores, and features for top ride-on brands.",
+      seoTitle: "Best Toddler Balance Bikes 2026: Evidence-Based Buying Guide - BalanceBikeToddler",
+      seoDescription: "Compare published specifications and safety records for the safest toddler balance bikes. Compare weight capacity, stability scores, and features for top ride-on brands.",
       seoKeywords: "toddler balance bike, kids balance bike, 1 year old balance bike, ride-on balance bike"
     },
     zh: {
@@ -43,7 +43,7 @@ const categorySeoDefaults: Record<ProductCategory, {
   },
   bicycle: {
     en: {
-      seoTitle: "Best Kids Bikes & Toddler Bicycles 2026 Lab-Tested - BalanceBikeToddler",
+      seoTitle: "Best Kids Bikes & Toddler Bicycles 2026: Evidence-Based Buying Guide - BalanceBikeToddler",
       seoDescription: "Discover the safest and top-rated kids bikes for ages 2-14. Explore our lab database to compare BMX style, training wheels, and dual suspension bicycles.",
       seoKeywords: "kids bmx bike, toddler bicycle, kids bike training wheels, pedal bike for children"
     },
@@ -55,8 +55,8 @@ const categorySeoDefaults: Record<ProductCategory, {
   },
   scooter: {
     en: {
-      seoTitle: "Best Kids Scooter & Electric Scooter 2026 Lab-Tested - BalanceBikeToddler",
-      seoDescription: "Discover the safest lab-tested scooter models for kids and teens. Compare 3-wheel kick scooter, electric model, and top mobility brands.",
+      seoTitle: "Best Kids Scooter & Electric Scooter 2026: Evidence-Based Buying Guide - BalanceBikeToddler",
+      seoDescription: "Discover the safest evidence-based scooter models for kids and teens. Compare 3-wheel kick scooter, electric model, and top mobility brands.",
       seoKeywords: "kids kick scooter, foldable kids scooter, toddler 3 wheel scooter, children electric scooter"
     },
     zh: {
@@ -67,8 +67,8 @@ const categorySeoDefaults: Record<ProductCategory, {
   },
   electric_car: {
     en: {
-      seoTitle: "Best Kids Ride-On Toys & Electric Cars 2026 Lab-Tested - BalanceBikeToddler",
-      seoDescription: "Explore our lab-tested reviews of 12V and 24V kids ride-on cars, UTVs, and electric motorcycles. Compare top-rated kids electric car options for battery safety.",
+      seoTitle: "Best Kids Ride-On Toys & Electric Cars 2026: Evidence-Based Buying Guide - BalanceBikeToddler",
+      seoDescription: "Explore our evidence-based reviews of 12V and 24V kids ride-on cars, UTVs, and electric motorcycles. Compare top-rated kids electric car options for battery safety.",
       seoKeywords: "kids electric car, ride on toys 12v, kids electric motorcycle, toddler electric car"
     },
     zh: {
@@ -79,8 +79,8 @@ const categorySeoDefaults: Record<ProductCategory, {
   },
   safety_seat: {
     en: {
-      seoTitle: "Best Convertible & Toddler Car Seats 2026 Lab-Tested - BalanceBikeToddler",
-      seoDescription: "Find the safest convertible and booster car seats for your child. Compare lab-tested scores, weight limits, and safety features for top brands like Graco and Evenflo.",
+      seoTitle: "Best Convertible & Toddler Car Seats 2026: Evidence-Based Buying Guide - BalanceBikeToddler",
+      seoDescription: "Find the safest convertible and booster car seats for your child. Compare evidence-based scores, weight limits, and safety features for top brands like Graco and Evenflo.",
       seoKeywords: "convertible car seat, booster car seat, infant car seat, child safety car seat"
     },
     zh: {

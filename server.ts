@@ -830,7 +830,7 @@ function renderGenericBotFallback(requestPath: string, canonical: string): strin
     default:
       return renderBotShell({
         title: "BalanceBikeToddler | Kids bike, stroller, scooter & car seat safety reviews",
-        description: "Independent, lab-tested guidance for kids bikes, balance bikes, scooters, jogging strollers, and child safety seats.",
+        description: "Independent, evidence-based guidance for kids bikes, balance bikes, scooters, jogging strollers, and child safety seats.",
         canonical,
         bodyHtml: `
           <article>

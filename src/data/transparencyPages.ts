@@ -57,14 +57,14 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           title: "Affiliate revenue is fuel, not a steering wheel",
           body: [
             "Some pages may contain commerce links. If a parent buys through one of those links, BalanceBikeToddler may receive a small commission. That money does not buy a better score, a softer headline, or a hidden editorial pass.",
-            "Our rule is blunt: the test result moves first, the link follows later. If a product fails our safety logic, affiliate potential does not rescue it. The commission helps fund the next anonymous sample order, replacement brake cable, broken wheel fixture, and teardown session."
+            "Our rule is blunt: the evidence moves first, the link follows later. If a product fails our safety logic, affiliate potential does not rescue it. The commission funds the research work: reading specification sheets, checking recall databases, and analysing owner feedback."
           ],
         },
         {
           eyebrow: "02 / Sample policy",
           title: "We prefer anonymous purchase over brand theater",
           body: [
-            "When a product is important enough to audit, we prefer buying like a normal customer instead of accepting polished review units. Brands are not allowed to pre-approve verdicts, rewrite cons, or bury lab notes.",
+            "When a product is important enough to audit, we do not accept review units, pre-approved verdicts, or paid edits. Brands cannot rewrite our reasoning, and every ranking decision keeps the sources behind it attached to the page.",
             "If we ever use manufacturer-provided material, it is treated as source evidence, not gospel. Specs are cross-checked against category benchmarks, field logic, and the same mechanical scoring system used across the site."
           ],
         },
@@ -72,15 +72,15 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           eyebrow: "03 / Liability boundary",
           title: "Data guidance is not a legal certificate",
           body: [
-            "BalanceBikeToddler score indexes, rim-size suggestions, load-ratio warnings, and shortlist recommendations are independent biomechanical and editorial assessments. They do not replace official certifications, pediatric advice, manufacturer manuals, or local safety law.",
+            "BalanceBikeToddler score indexes, rim-size suggestions, load-ratio warnings, and shortlist recommendations are independent, evidence-based editorial assessments. They do not replace official certifications, pediatric advice, manufacturer manuals, or local safety law.",
             "Parents should always inspect the final product, follow age and weight limits, use protective gear, and stop using any product that behaves differently from its manual or from common sense."
           ],
         },
       ],
       primaryLink: {
         href: "/reviews",
-        label: "See the lab review desk",
-        text: "Trace this independence pledge into our lab-tested reviews, where every score has to survive the same editorial firewall.",
+        label: "See the review desk",
+        text: "Trace this independence pledge into our evidence-based reviews, where every score has to survive the same editorial firewall.",
       },
       secondaryLink: {
         href: "/products",
@@ -110,9 +110,9 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         },
         {
           eyebrow: "02 / 样机原则",
-          title: "我们更相信匿名购买，不相信品牌摆拍",
+          title: "我们拒绝样机置换与付费改稿",
           body: [
-            "足够重要的产品，我们优先像普通用户一样购买，而不是接受精修过的评测样机。品牌不能预审结论、改写缺点或要求删除实验室备注。",
+            "我们不接受样机置换、付费改稿或预先审稿；品牌不能预审结论、改写缺点或要求删除来源备注。",
             "如果必须引用品牌资料，我们只把它当作证据来源，而不是圣旨。参数仍要经过品类基准、场景逻辑和全站统一机械评分系统交叉检查。"
           ],
         },
@@ -127,8 +127,8 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       ],
       primaryLink: {
         href: "/reviews",
-        label: "查看实验室评测中心",
-        text: "把这份独立宣言追踪到我们的实验室评测中心，那里每个分数都必须穿过同一套编辑防火墙。",
+        label: "查看评测中心",
+        text: "把这份独立宣言追踪到我们的评测中心，那里每个分数都必须穿过同一套编辑防火墙。",
       },
       secondaryLink: {
         href: "/products",
@@ -147,13 +147,13 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
     en: {
       path: TRANSPARENCY_PAGE_PATHS["testing-methodology"],
       navLabel: "Testing Methodology",
-      title: "Testing Methodology: The Lab Playbook Behind Every Verdict",
+      title: "Evaluation Methodology: The Evidence Behind Every Verdict",
       subtitle: "Our score is not a vibe. It is a collision between child-fit math, mechanical stress logic, braking audits, and editorial suspicion.",
       intro: "BalanceBikeToddler reviews are built for parents who want to know what happens after the lifestyle photo ends and physics starts asking questions.",
       sections: [
         {
           eyebrow: "01 / 30% load line",
-          title: "The 30% body-weight redline test",
+          title: "The 30% body-weight rule",
           body: [
             "A kids mobility product that is too heavy for the child does not merely feel inconvenient; it changes recovery time, steering correction, and tip-over risk. Our sizing logic flags products that push the ride system beyond roughly 30% of the child's body weight.",
             "This rule powers stroller, balance bike, kids bike, and scooter recommendations because weight is the silent variable behind confidence, fatigue, and loss-of-control moments."
@@ -161,7 +161,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         },
         {
           eyebrow: "02 / Brake audit",
-          title: "15 km/h dynamic braking sanity check",
+          title: "Braking sanity check",
           body: [
             "For scooters, bikes, and jogging stroller scenarios, we treat braking as a system, not a marketing bullet. Lever reach, wheel grip, deck stance, frame flex, and caregiver reaction window all matter.",
             "Our editorial model penalizes vague brake claims and rewards designs that make stopping predictable for smaller hands, tired parents, and imperfect pavement."
@@ -179,7 +179,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       primaryLink: {
         href: "/reviews",
         label: "Read methodology-backed reviews",
-        text: "Use the review center to see how these tests translate into real product verdicts and category rankings.",
+        text: "Use the review center to see how these rules translate into real product verdicts and category rankings.",
       },
       secondaryLink: {
         href: "/products",
@@ -187,21 +187,21 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "Open the product hub when you want to compare weight, price, and safety fields before reading a final score.",
       },
       seo: {
-        title: "BalanceBikeToddler Testing Methodology: Kids Mobility Lab Playbook",
-        description: "Explore BalanceBikeToddler's testing methodology: 30% weight redline, dynamic brake audits, recline checks, and frame-stability logic.",
+        title: "BalanceBikeToddler Evaluation Methodology: Kids Mobility Evidence Playbook",
+        description: "Explore BalanceBikeToddler's testing methodology: the 30% weight rule, brake-setup reviews, recline checks, and frame-stability logic.",
         keywords: ["testing methodology", "kids mobility lab", "brake audit", "stroller safety testing"],
       },
     },
     zh: {
       path: TRANSPARENCY_PAGE_PATHS["testing-methodology"],
       navLabel: "Testing Methodology",
-      title: "实验室武功秘籍：每个结论背后的测试方法论",
+      title: "每个结论背后的评估方法论",
       subtitle: "我们的评分不是感觉，而是儿童尺寸数学、机械应力逻辑、制动审计和编辑怀疑精神的碰撞结果。",
       intro: "BalanceBikeToddler 评测写给那些想知道生活方式美图结束后，物理世界会怎样发问的家长。",
       sections: [
         {
           eyebrow: "01 / 30% 红线",
-          title: "体重 30% 车重红线测试",
+          title: "体重 30% 车重红线规则",
           body: [
             "对孩子来说，过重的出行产品不只是费劲，它会改变恢复时间、转向修正能力和倾覆风险。我们的尺寸逻辑会标记接近或超过孩子体重 30% 的骑乘系统。",
             "这条规则贯穿推车、平衡车、儿童自行车和滑板车推荐，因为重量是自信、疲劳和失控瞬间背后的隐形变量。"
@@ -209,7 +209,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         },
         {
           eyebrow: "02 / 制动审计",
-          title: "15km/h 动态刹车合理性检查",
+          title: "刹车系统合理性审查",
           body: [
             "对滑板车、自行车和慢跑推车场景，我们把制动视为系统，而不是广告卖点。把距、轮胎抓地、踏板站姿、车架形变和家长反应窗口都要一起看。",
             "模型会惩罚含糊的刹车宣传，奖励那些让小手、疲惫家长和非完美路面都能获得可预期制动感的设计。"
@@ -227,7 +227,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       primaryLink: {
         href: "/reviews",
         label: "阅读方法论支撑的评测",
-        text: "进入评测中心，查看这些测试如何转化为真实产品结论和品类排行。",
+        text: "进入评测中心，查看这些规则如何转化为真实产品结论和品类排行。",
       },
       secondaryLink: {
         href: "/products",
@@ -235,8 +235,8 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "想在阅读最终分数前比较重量、价格和安全字段，可先打开产品库。",
       },
       seo: {
-        title: "BalanceBikeToddler Testing Methodology: Kids Mobility Lab Playbook",
-        description: "Explore BalanceBikeToddler's testing methodology: 30% weight redline, dynamic brake audits, recline checks, and frame-stability logic.",
+        title: "BalanceBikeToddler Evaluation Methodology: Kids Mobility Evidence Playbook",
+        description: "Explore BalanceBikeToddler's testing methodology: the 30% weight rule, brake-setup reviews, recline checks, and frame-stability logic.",
         keywords: ["testing methodology", "kids mobility lab", "brake audit", "stroller safety testing"],
       },
     },
@@ -245,8 +245,8 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
     key: "certification",
     en: {
       path: TRANSPARENCY_PAGE_PATHS.certification,
-      navLabel: "Certification & Lab Notes",
-      title: "Certification & Lab Notes: The Standards Matrix We Keep on the Bench",
+      navLabel: "Certification & Standards Notes",
+      title: "Certification & Standards Notes: The Benchmarks Every Model Is Checked Against",
       subtitle: "We are not a certification body. We are a hostile reader of standards, manuals, claims, and product behavior.",
       intro: "Every product category has a safety vocabulary. We use international standards as the floor, then ask whether the product still makes sense in a real family workflow.",
       sections: [
@@ -268,9 +268,9 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         },
         {
           eyebrow: "Audit trail / Editorial memory",
-          title: "Why lab notes stay attached to reviews",
+          title: "Why source notes stay attached to reviews",
           body: [
-            "Our lab notes preserve the reason a product was promoted, downgraded, or excluded. This matters when new versions appear, stock photos change, or a marketplace listing quietly rewrites its claims.",
+            "Our source notes preserve the reason a product was promoted, downgraded, or excluded. This matters when new versions appear, stock photos change, or a marketplace listing quietly rewrites its claims.",
             "The standards matrix helps crawlers and parents understand that BalanceBikeToddler is not a coupon blog wearing a lab coat. The review has an evidence trail."
           ],
         },
@@ -293,7 +293,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
     },
     zh: {
       path: TRANSPARENCY_PAGE_PATHS.certification,
-      navLabel: "Certification & Lab Notes",
+      navLabel: "Certification & Standards Notes",
       title: "权威护身符：我们放在实验台边上的标准矩阵",
       subtitle: "我们不是认证机构。我们是标准、说明书、宣传语和产品行为的敌意阅读者。",
       intro: "每个品类都有自己的安全语法。我们把国际标准当作地板，再追问这个产品放进真实家庭流程里是否仍然合理。",
@@ -307,7 +307,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           ],
         },
         {
-          eyebrow: "实验室日志 / 证据处理",
+          eyebrow: "来源日志 / 证据处理",
           title: "来源声明是证据，不是结论",
           body: [
             "商品描述里的认证徽章值得关注，但不会自动获得信任。我们仍会把声明放回品类、可见结构、限制条件和家长真正面对的失效场景里比较。",
@@ -316,9 +316,9 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         },
         {
           eyebrow: "审计轨迹 / 编辑记忆",
-          title: "为什么实验室日志要挂在评测旁边",
+          title: "为什么来源日志要挂在评测旁边",
           body: [
-            "实验室日志保留一个产品被推荐、降级或排除的原因。当新版本出现、库存图变化、平台页面悄悄改写宣传语时，这种记忆很重要。",
+            "来源日志保留一个产品被推荐、降级或排除的原因。当新版本出现、库存图变化、平台页面悄悄改写宣传语时，这种记忆很重要。",
             "标准矩阵帮助爬虫和家长理解：BalanceBikeToddler 不是穿着白大褂的优惠券博客，评测背后有证据链。"
           ],
         },
@@ -494,7 +494,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       navLabel: "Privacy Policy",
       title: "家长定心丸：儿童数据防火墙",
       subtitle: "孩子的尺寸数据不是库存。Smart Wizard 的测算默认留在本地，除非你主动选择账号功能。",
-      intro: "BalanceBikeToddler 处理尺寸数据的方式像实验室处理不稳定样本：只为当前测算使用，保留最少必要信息，绝不卖给广告机器。",
+      intro: "BalanceBikeToddler 只在当前测算中使用尺寸数据：只为当前测算使用，保留最少必要信息，绝不卖给广告机器。",
       sections: [
         {
           eyebrow: "01 / Smart Wizard",

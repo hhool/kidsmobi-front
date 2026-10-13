@@ -202,18 +202,18 @@ const faqData = [
   },
   {
     id: "faq_3",
-    questionZh: "3. 充气橡胶轮胎与EVA发泡轮胎，在脊椎和前庭系统保护上有多大客观实测的数据差距？",
-    questionEn: "3. What is the measured impact of pneumatic rubber vs solid EVA foam tires on spinal and vestibular protection?",
-    answerZh: `在实验室的加速度计震动遥测下，在 5cm 的连续不平硬化塑料路面上进行 50m 骑行冲撞测试：
+    questionZh: "3. 充气橡胶轮胎为什么比 EVA 实心发泡轮胎更能保护脊椎与前庭？",
+    questionEn: "3. Why do pneumatic rubber tires protect a child's spine and sense of balance better than solid EVA foam tires?",
+    answerZh: `差别不在营销话术，而在轮胎有没有可压缩的空气腔：
 
-*   **EVA发泡轮胎（实心塑料胎）**：其垂直峰值瞬时冲击波（G-force）可高达 **3.8G**。由于塑料发泡不具有空气压缩渐进吸收腔，路面带来的每一下物理砸撞都被 100% 地传导回车把与曲柄，通过前庭神经直接震荡儿童娇嫩的视网膜、耳蜗内淋巴液及未闭合完整的椎骨骺，极易诱发急躁、呕吐和平衡退化。
-*   **充气橡胶轮胎**：在充有 35 PSI 胎压的条件下，测试峰值震动加速度被有效衰弱至 **0.6G - 0.9G**，相比发泡胎，**冲击吸收率大幅度优化了 75% 以上**。橡胶本身的弹性及空气隔离阻力压缩过程，充当了微秒级的物理缓冲垫。
-*   **安全黄金定律**：凡是骑行频率高、路途涉及轻微颠簸泥沙的场所，应当一律彻底淘汰实心发泡轮胎（EVA/塑料制），全面采用橡胶真空胎/气打气胎。`,
-    answerEn: `Using localized accelerometer telemetries, our lab conducted impact runs across a continuous 5cm bumpy concrete path over 50 meters:
+*   **EVA 发泡轮胎（实心胎）**：发泡体没有空气腔可以渐进压缩，路面的每一次撞击几乎原样传导到前叉、车把和座管，再传到孩子的手腕、脊椎与内耳前庭。长时间在硬路面上骑行，容易加重疲劳与抗拒情绪。
+*   **充气橡胶轮胎**：橡胶本身的弹性加上气体的压缩行程，把集中的冲击摊开在更长的时间里，明显降低传到孩子身上的峰值震动，弯道抓地也更稳定。
+*   **家长可直接执行的两件事**：一是优先选择真正可充气的橡胶胎；二是按胎壁上标注的推荐胎压定期补气——气压不足时缓冲能力会大幅下降。`,
+    answerEn: `The difference is not marketing language — it is whether the tire has an air chamber that can compress:
 
-*   **Solid EVA Foam Tires**: Measured peak vertical shocks (G-Force) registered up to **3.8G**. Due to the lack of compressible air matrices, solid EVA plastic has virtually zero kinetic collapse. Every physical collision is fully transmitted into the chassis and seat post, passing unfiltered through the spinal column to the child's delicate vestibular apparatus (inner-ear fluid chambers). 
-*   **Pneumatic Air-Elastic Rubber**: Inflated to an empirical pressure of 35 PSI, the peak impact attenuated to **0.6G - 0.9G**—representing an **unmitigated 75% shock dampening advantage** over solid foam. The high molecular elasticity of rubber combined with gas expansion distributes kinetic energy laterally on impact.
-*   **Ergonomic Recommendation**: To protect the spine, optic orbit, and vestibular system from trauma, parents must avoid cheaper, solid PVC/EVA foam tires and opt exclusively for real air-filled pneumatic rubber wheels.`
+*   **Solid EVA foam tires**: with no air chamber to compress gradually, each impact travels almost unchanged through the fork, bar, and seat post, and into the child's wrists, spine, and balance system. Over a long ride on hard pavement this adds up to fatigue and ride-refusing behaviour.
+*   **Pneumatic rubber tires**: rubber elasticity plus the air compression stroke spreads a sharp impact over a longer moment, lowering the peak shock a child actually feels, and keeping grip steadier through turns.
+*   **Two things parents can act on today**: choose genuinely air-filled rubber tires, and keep them at the pressure printed on the sidewall — an under-inflated tire loses most of its cushioning benefit.`
   },
   {
     id: "faq_4",
@@ -424,10 +424,10 @@ const LONG_TAIL_GUIDE_SUMMARIES = [
 ];
 
 const LONG_TAIL_GUIDE_CONTENT = [
-  "### Lab Method\n\nWe test stroller suspension against city-sidewalk vibration, curb transitions, and one-hand steering control. The goal is to show how to choose a baby stroller without relying on marketing claims.\n\n### Parent Decision\n\nA safe city stroller should keep the child stable, protect naps on rough pavement, and stay light enough for daily transport.",
-  "### Lab Method\n\nWe compare travel stroller weight limits, folded size, storage capacity, and braking behavior under realistic errands. This helps parents learn how to choose a baby stroller for airport, car trunk, and weekend travel use.\n\n### Parent Decision\n\nThe strongest travel pick is not the smallest model; it is the one that stays controllable when the child and cargo approach the stated limits.",
-  "### Lab Method\n\nWe measure inseam, wheel size, seat height, and vehicle weight to judge whether a balance bike for 1 year old beginners can be controlled safely.\n\n### Parent Decision\n\nThe first bike should allow flat-foot contact, calm steering, and a total weight that remains manageable during turns and falls.",
-  "### Lab Method\n\nWe apply the 30% rule to balance bike for 1 year old riders: the bike should stay well below a child's body weight so recovery from wobble is realistic.\n\n### Parent Decision\n\nA good first balance bike is a fit problem before it is a brand problem; parents should verify inseam, seat range, and carry weight first.",
+  "### Comparison Method\n\nWe compare published suspension design, wheel type, folded size, and one-hand steering specification against everyday city use: cracked sidewalks, kerb transitions, and one-arm pushing. The goal is to show how to choose a baby stroller without relying on marketing claims.\n\n### Parent Decision\n\nA safe city stroller should keep the child stable, protect naps on rough pavement, and stay light enough for daily transport.",
+  "### Comparison Method\n\nWe compare travel stroller weight limits, folded size, storage capacity, and braking behavior under realistic errands. This helps parents learn how to choose a baby stroller for airport, car trunk, and weekend travel use.\n\n### Parent Decision\n\nThe strongest travel pick is not the smallest model; it is the one that stays controllable when the child and cargo approach the stated limits.",
+  "### Comparison Method\n\nWe compare the published fit numbers - minimum seat height against inseam, wheel size, and total weight - to judge whether a balance bike for 1 year old beginners can be controlled safely.\n\n### Parent Decision\n\nThe first bike should allow flat-foot contact, calm steering, and a total weight that remains manageable during turns and falls.",
+  "### Comparison Method\n\nWe apply the 30% rule to balance bike for 1 year old riders: the bike should stay well below a child's body weight so recovery from wobble is realistic.\n\n### Parent Decision\n\nA good first balance bike is a fit problem before it is a brand problem; parents should verify inseam, seat range, and carry weight first.",
 ];
 
 function getLongTailGuideTitle(index: number) {
@@ -2390,7 +2390,7 @@ export default function GuidesSection({
                     <>
                       After checking your child's fit, compare real-world handling data in our{" "}
                       <a href="/reviews" className="text-orange-500 hover:text-orange-600 font-black underline decoration-orange-200 underline-offset-4">
-                        lab-tested jogging stroller reviews
+                        evidence-based jogging stroller reviews
                       </a>
                       . Our review desk measures braking response, frame stability, and riding comfort so parents can move from sizing advice to safer product decisions.
                     </>

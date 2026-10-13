@@ -151,7 +151,7 @@ const FOOTER_SECTION_LINKS: Array<{ href: string; label: string }> = [
 ];
 const FOOTER_TRUST_LINKS: Array<{ href: string; label: string }> = [
   { href: "/transparency/testing-methodology/", label: "Testing Methodology" },
-  { href: "/transparency/certification-lab-notes/", label: "Certification Lab Notes" },
+  { href: "/transparency/certification-lab-notes/", label: "Certification & Standards Notes" },
   { href: "/transparency/disclaimer/", label: "Editorial Disclaimer" },
   { href: "/transparency/privacy-policy/", label: "Privacy Policy" },
   { href: "/transparency/terms/", label: "Terms of Use" },
@@ -164,7 +164,7 @@ function renderSiteFooter(): string {
       <footer style="margin-top:34px;padding:20px 0 8px;border-top:1px solid #e2e8f0;font-family:Arial,sans-serif;font-size:0.88rem;line-height:2;">
         <p style="margin:0 0 4px;">${FOOTER_SECTION_LINKS.map(link).join("")}</p>
         <p style="margin:0;">${FOOTER_TRUST_LINKS.map(link).join("")}</p>
-        <p style="margin:10px 0 0;color:#64748b;">© BalanceBikeToddler — independent lab testing for kids ride-on and safety gear.</p>
+        <p style="margin:10px 0 0;color:#64748b;">© BalanceBikeToddler — evidence-based analysis of kids ride-on and safety gear.</p>
       </footer>
   `;
 }
@@ -1505,7 +1505,7 @@ function renderProductsPage(cmsProductsFull: CmsProductFull[] = []): RoutePage {
   }).join("");
   const compareReviewLinks: Array<{ href: string; label: string; note: string }> = [
     { href: "/reviews/compare/jogging-stroller-parent-compare", label: "Best Jogging Strollers: 4 Models Compared", note: "Jeep Classic vs Cross-Country vs Baby Trend Expedition vs BOB Alterrain Pro" },
-    { href: "/reviews/compare/balance-bike-top-picks-compare", label: "Top Balance Bikes Compared", note: "four lab-tested balance bikes side by side" },
+    { href: "/reviews/compare/balance-bike-top-picks-compare", label: "Top Balance Bikes Compared", note: "four evidence-based balance bikes side by side" },
     { href: "/reviews/compare/toddler-bike-parent-picks-compare", label: "Toddler Bikes: Parent Picks Compared", note: "pedal bikes with training-wheel paths compared" },
     { href: "/reviews/compare/kids-scooter-parent-picks-compare", label: "Kids Scooters: Parent Picks Compared", note: "four kick scooters from first ride to school-run" },
     { href: "/reviews/compare/electric-cars-parent-compare", label: "Kids Electric Cars Compared", note: "12V entry picks vs a 24V all-terrain two-seater" },
@@ -1609,13 +1609,13 @@ function renderProductsPage(cmsProductsFull: CmsProductFull[] = []): RoutePage {
     description: summary.heroSubtitle,
     body: `
       <section style="padding: 22px 0;">
-        <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Browse every lab-tested category</h2>
-        <p style="margin: 0 0 14px;">Each category hub lists every product we have tested in that group, with scores, specs, and age-fit notes on each detail page.</p>
+        <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Browse every evidence-based category</h2>
+        <p style="margin: 0 0 14px;">Each category hub lists every product we cover in that group, with scores, published specs, and age-fit notes on each detail page.</p>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;">${hubCards}</div>
       </section>
       <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Lab-verified comparison reviews</h2>
-        <p style="margin: 0 0 10px;">When several products solve the same family use case, we test them side by side and publish a head-to-head verdict:</p>
+        <p style="margin: 0 0 10px;">When several products solve the same family use case, we compare them side by side and publish a head-to-head verdict:</p>
         <ul style="margin: 0; padding-left: 1.2rem; color: #334155;">${compareLinksHtml}</ul>
         <p style="margin: 10px 0 0;"><a href="/reviews" style="color: #c2410c; font-weight: 700; text-decoration: none;">Browse all review reports →</a></p>
       </section>
@@ -2032,7 +2032,7 @@ function renderFilterPages(
       return [
         {
           title: pickText(item.en?.title, item.zh?.title, item.id),
-          summary: pickText(item.en?.verdict, item.zh?.verdict, "Independent review with tested scores.").slice(0, 140),
+          summary: pickText(item.en?.verdict, item.zh?.verdict, "Independent review with source-based scores.").slice(0, 140),
           meta: `${reviewType} review · ${pickText(item.updatedAt, item.publishedAt).slice(0, 10) || "2026"}`,
           path: route,
         },
@@ -2128,7 +2128,7 @@ function renderFilterPages(
       introHeading: "Which launches are worth a look?",
       introParagraphs: [
         "A launch only matters if it changes the buying decision: a new size run, a materially lighter frame, a fold that finally fits a small trunk, or a price that resets a category. New-product entries here are filtered to launches with that kind of consequence, and each one states who the product fits and what it replaces.",
-        "Launch coverage is deliberately cautious on claims: spec-sheet numbers are reported as claimed until a product enters testing, and the entry links to the relevant product hub so the launch can be compared against what is already on the market.",
+        "Launch coverage is deliberately cautious on claims: spec-sheet numbers are reported as manufacturer claims until we complete our own source-based analysis, and the entry links to the relevant product hub so the launch can be compared against what is already on the market.",
         "If a launched product enters the review pipeline, the story is updated with a link to its review page so readers can follow it from announcement to verdict.",
       ],
       cards: newsCardsByCategory("new_product"),
@@ -2136,11 +2136,11 @@ function renderFilterPages(
       faqs: [
         {
           q: "Do you review every product you cover?",
-          a: "No. Launch coverage reports what a product claims; reviews score what testing measures. When a covered product is reviewed, the story links to the review.",
+          a: "No. Launch coverage reports what a product claims; a full review adds our own source-based analysis and scoring. When a covered product has been reviewed, the story links to the review.",
         },
         {
           q: "How soon after a launch does coverage appear?",
-          a: "When launch details are public and dated. Spec-sheet claims are always labeled as claims until tested.",
+          a: "When launch details are public and dated. Spec-sheet claims are always labeled as claims until we verify them against a primary source.",
         },
       ],
       exploreLinks: [
@@ -2213,7 +2213,7 @@ function renderFilterPages(
     {
       route: "/reviews/single",
       title: "Single-Product Reviews",
-      fullTitle: "Single-Product Reviews with Tested Scores | BalanceBikeToddler",
+      fullTitle: "Single-Product Reviews with Source-Based Scores | BalanceBikeToddler",
       description:
         "Every published single-product review: lab-style scores for safety, comfort, portability, features, and value, with a verdict you can trace.",
       introHeading: "How does a single-product review work?",
@@ -2368,7 +2368,7 @@ function renderHomePage(
       "@type": "WebSite",
       name: "BalanceBikeToddler",
       url: "https://balancebiketoddler.com/",
-      description: "Lab-tested balance bikes, kids bikes, strollers, ride-on cars, and child safety seats with verified scores and source-backed reviews.",
+      description: "Evidence-based balance bikes, kids bikes, strollers, ride-on cars, and child safety seats with verified scores and source-backed reviews.",
       inLanguage: "en",
       publisher: {
         "@type": "Organization",
@@ -2381,17 +2381,17 @@ function renderHomePage(
   ];
   return {
     route: "",
-    title: "Lab-tested kids ride-on & safety gear",
+    title: "Evidence-based kids ride-on & safety gear",
     // Without an explicit fullTitle the homepage shipped
     // "BalanceBikeToddler | BalanceBikeToddler" — the brand repeated twice.
-    fullTitle: "BalanceBikeToddler | Lab-Tested Kids Bike & Stroller Reviews",
-    description: "Lab-tested balance bikes, kids bikes, strollers, ride-on cars, and child safety seats with verified scores and source-backed reviews.",
+    fullTitle: "BalanceBikeToddler | Evidence-Based Kids Bike & Stroller Analysis",
+    description: "Evidence-based balance bikes, kids bikes, strollers, ride-on cars, and child safety seats with verified scores and source-backed reviews.",
     skipTitleH1: true,
     body: `
       ${navHtml}
       <section style="padding:30px 0 22px;">
         <p style="margin:0 0 10px;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:#c2410c;font-weight:900;">BalanceBikeToddler</p>
-        <h1 style="margin:0 0 12px;font-size:clamp(2rem,4vw,3.15rem);line-height:1.12;">Lab-tested kids ride-on &amp; safety gear</h1>
+        <h1 style="margin:0 0 12px;font-size:clamp(2rem,4vw,3.15rem);line-height:1.12;">Evidence-based kids ride-on &amp; safety gear</h1>
         <p style="margin:0;font-size:1.08rem;color:#334155;max-width:52rem;">Compare balance bikes, kids bikes, strollers, ride-on cars, and child safety seats with lab scores, certification context, and source-backed reviews.</p>
       </section>
       <section style="padding:0 0 22px;">
@@ -2408,10 +2408,10 @@ function renderHomePage(
       </section>
       <section style="padding:22px 0;border-top:1px solid #e2e8f0;">
         <h2 style="margin:0 0 10px;font-size:1.3rem;">Why parents trust BalanceBikeToddler</h2>
-        <p style="margin:0 0 10px;">Reviews cite named sources, lab measurements, and certification context so a claim can be checked against the product page.</p>
+        <p style="margin:0 0 10px;">Reviews cite named sources - manufacturer specifications, public safety records, and aggregated owner feedback - so a claim can be checked against the product page.</p>
         <ul style="margin:0;padding-left:1.2rem;line-height:1.65;">
-          <li>Precision weighing and braking resistance benchmarks.</li>
-          <li>Q-factor analysis and fatigue testing for long-run durability.</li>
+          <li>Weight and brake-setup comparisons taken from published manufacturer specifications.</li>
+          <li>Durability signals drawn from long-run owner feedback and public recall notices.</li>
           <li>ISO 8098 and ASTM F963 reference for safety baselines.</li>
         </ul>
       </section>
@@ -2422,16 +2422,15 @@ function renderHomePage(
 
 function renderAboutPage(): RoutePage {
   const stats = [
-    { value: "12", label: "senior engineers" },
-    { value: "5", label: "pediatric advisors" },
-    { value: "4", label: "audit checks" },
+    { value: "4", label: "evidence checks" },
+    { value: "3", label: "source types" },
     { value: "2026-08-15", label: "updated" },
   ];
   const auditRows = [
-    { check: "1. Precision weighing", evidence: "Full riding setup, including pedals and guards", why: "Keeps factory claims honest" },
-    { check: "2. Braking resistance", evidence: "Pressure sensors on hand-brake force", why: "Shows whether a child can stop safely" },
-    { check: "3. Q-factor analysis", evidence: "Pedal horizontal distance measurement", why: "Flags awkward or risky leg posture" },
-    { check: "4. Fatigue testing", evidence: "100k+ impact cycles on hydraulic rigs", why: "Checks long-run frame durability" },
+    { check: "1. Manufacturer weight", evidence: "Published weight for the full riding setup, including pedals and guards", why: "Makes two bikes comparable on the same basis" },
+    { check: "2. Brake setup", evidence: "Published brake type, lever reach, and age rating", why: "Shows whether a child can realistically reach and modulate the brake" },
+    { check: "3. Q-factor review", evidence: "Published pedal stance figures checked against fit guidance", why: "Flags awkward or risky leg posture" },
+    { check: "4. Durability signals", evidence: "Repeated failure themes in aggregated owner feedback and public recall notices", why: "Shows what actually fails months later" },
   ];
   return {
     route: "/about",
@@ -2807,20 +2806,20 @@ const PRODUCT_CATEGORY_PAGES: ProductCategoryMeta[] = [
     slug: "strollers",
     label: "Strollers",
     title: "Best Jogging Stroller & Travel Stroller Reviews 2026",
-    description: "Compare lab-tested jogging stroller, travel stroller, and twin stroller models with safety scores, stability metrics, and foldability insights.",
+    description: "Compare evidence-based jogging stroller, travel stroller, and twin stroller models with safety scores, stability metrics, and foldability insights.",
   },
   {
     categoryId: "balance_bike",
     slug: "balance-bikes",
     label: "Balance Bikes",
-    title: "Best Toddler Balance Bikes 2026 Lab-Tested Reviews",
-    description: "Explore our expert lab database for the safest toddler balance bikes. Compare weight capacity, stability scores, and features for top ride-on brands.",
+    title: "Best Toddler Balance Bikes 2026: Evidence-Based Buying Guide",
+    description: "Compare published specifications and safety records for the safest toddler balance bikes. Compare weight capacity, stability scores, and features for top ride-on brands.",
   },
   {
     categoryId: "kids_bikes",
     slug: "kids-bikes",
     label: "Kids Bikes",
-    title: "Best Kids Bikes & Toddler Bicycles 2026 Lab-Tested",
+    title: "Best Kids Bikes & Toddler Bicycles 2026: Evidence-Based Buying Guide",
     description: "Discover the safest and top-rated kids bikes for ages 2-14. Explore our lab database to compare BMX style, training wheels, and dual suspension bicycles.",
   },
   {
@@ -2835,14 +2834,14 @@ const PRODUCT_CATEGORY_PAGES: ProductCategoryMeta[] = [
     slug: "electric-cars",
     label: "Kids Electric Cars",
     title: "Best Kids Electric Cars & Ride-On Toys Reviews 2026",
-    description: "Review lab-tested kids electric cars, 12V/24V ride-on toys, and electric ride-on options with battery safety, braking control, and runtime benchmarks.",
+    description: "Review evidence-based kids electric cars, 12V/24V ride-on toys, and electric ride-on options with battery safety, braking control, and runtime benchmarks.",
   },
   {
     categoryId: "car_seat",
     slug: "safety-seats",
     label: "Car Seats",
-    title: "Best Convertible & Toddler Car Seats 2026 Lab-Tested",
-    description: "Find the safest convertible and booster car seats for your child. Compare lab-tested scores, weight limits, and safety features for top brands like Graco and Evenflo.",
+    title: "Best Convertible & Toddler Car Seats 2026: Evidence-Based Buying Guide",
+    description: "Find the safest convertible and booster car seats for your child. Compare evidence-based scores, weight limits, and safety features for top brands like Graco and Evenflo.",
   },
   {
     // Legacy "other" bucket re-homed (P0-2): tricycles + push ride-ons +
@@ -2850,8 +2849,8 @@ const PRODUCT_CATEGORY_PAGES: ProductCategoryMeta[] = [
     categoryId: "other_tricycles",
     slug: "kids-tricycles",
     label: "Kids Tricycles & Ride-Ons",
-    title: "Best Kids Tricycles & Push Ride-On Toys 2026 Lab-Tested",
-    description: "Browse lab-tested kids tricycles, push ride-on cars, and pull-along wagons with stability scores, weight limits, and age-fit guidance for toddlers.",
+    title: "Best Kids Tricycles & Push Ride-On Toys 2026: Evidence-Based Buying Guide",
+    description: "Browse evidence-based kids tricycles, push ride-on cars, and pull-along wagons with stability scores, weight limits, and age-fit guidance for toddlers.",
   },
 ];
 
@@ -2974,7 +2973,7 @@ function renderProductDetailPage(
   const seoTitle = titleCollides ? `${baseSeoTitle}: ${asin}` : baseSeoTitle;
 
   const FALLBACK_DESCRIPTION =
-    "Lab-tested review with safety score, specs, and age fit for this kids mobility product.";
+    "Evidence-based review with safety score, specs, and age fit for this kids mobility product.";
   const descSource = pickText(summary, paragraphs[0], FALLBACK_DESCRIPTION);
   const baseDescription = capMetaDescription(descSource);
   // Two SKUs of one model (colour variants) can carry an identical cardSummary.
@@ -3291,7 +3290,7 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
         ])}
         <section style="margin: 0 0 22px;">
           <p style="margin: 0 0 8px; color: #334155;">${escapeHtml(meta.description)} Every model below carries a BalanceBikeToddler editorial score from our lab checklist, with user ratings and typical pricing where available.</p>
-          <p style="margin: 0; color: #64748b; font-size: 0.92rem;">${categoryProducts.length} lab-tested ${escapeHtml(meta.label.toLowerCase())} · updated regularly from the live CMS.</p>
+          <p style="margin: 0; color: #64748b; font-size: 0.92rem;">${categoryProducts.length} evidence-based ${escapeHtml(meta.label.toLowerCase())} · updated regularly from the live CMS.</p>
         </section>
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px;">${cardsHtml}</div>
         ${hubEditorialHtml}
@@ -3342,6 +3341,59 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
  * slug-form family via the generated _redirects block below.
  */
 
+
+/**
+ * Stage-0 honesty guard (see plan-B-execution.md).
+ *
+ * CMS records still carry legacy copy ("lab-tested", "our lab", "we have
+ * tested") describing measurement work this project never performed. The
+ * prerendered HTML is what crawlers and most visitors actually receive, so the
+ * claims are neutralised here centrally instead of waiting for every CMS row to
+ * be hand-edited.
+ */
+const UNSUPPORTED_CLAIM_REWRITES: Array<[RegExp, string]> = [
+  [/lab[\s-]?tested/gi, "evidence-based"],
+  [/lab[\s-]?reviewed/gi, "source-reviewed"],
+  [/lab[\s-]?verified/gi, "source-reviewed"],
+  [/lab[\s-]?matrix/gi, "standards matrix"],
+  [/lab[\s-]?measurements?/gi, "published specifications"],
+  [/expert lab database/gi, "specification database"],
+  [/lab database/gi, "specification database"],
+  [/lab scores/gi, "source-based scores"],
+  [/from our lab/gi, "from this category"],
+  [/we have tested/gi, "we cover"],
+  [/we test them/gi, "we compare them"],
+  [/independent physical testing lab/gi, "independent analysis"],
+  [/our lab checklist/gi, "our source checklist"],
+  [/specs our lab extracts/gi, "specs we extract"],
+  [/lab[\s-]?style/gi, "source-based"],
+  // Hyphenated forms: `/transparency/certification-lab-notes/` must stay a
+  // working URL, so nothing that sits directly after a hyphen is rewritten
+  // (see the `(?<!-)` guard in sanitizeUnsupportedClaims).
+  [/lab[- ]notes?\b(?!\/)/gi, "source notes"],
+  [/lab[- ]best[- ]case/gi, "best-case"],
+  [/lab score/gi, "source-based score"],
+  [/full lab review/gi, "full source-based review"],
+  [/lab reviews/gi, "source-based reviews"],
+  // Fallback for any remaining adjective use of the word. The lookahead keeps
+  // the legacy /transparency/certification-lab-notes/ route readable, and the
+  // "lab coat" phrase is figurative, not a measurement claim.
+  [/\blab\b(?![-/])(?! coat)/gi, "source-based"],
+];
+
+function sanitizeUnsupportedClaims(html: string): string {
+  const restoreCase = (replacement: string, matched: string): string => {
+    if (matched.length > 2 && matched === matched.toUpperCase()) return replacement.toUpperCase();
+    if (/^[A-Z]/.test(matched)) return replacement.charAt(0).toUpperCase() + replacement.slice(1);
+    return replacement;
+  };
+  // `(?<!-)` keeps every rule away from hyphenated URL slugs such as
+  // /transparency/certification-lab-notes/, which must stay clickable.
+  return UNSUPPORTED_CLAIM_REWRITES.reduce((acc, [pattern, replacement]) => {
+    const urlSafe = new RegExp(`(?<!-)${pattern.source}`, pattern.flags);
+    return acc.replace(urlSafe, (match) => restoreCase(replacement, match));
+  }, html);
+}
 
 async function main() {
   const indexHtml = await readFile(path.join(distDir, "index.html"), "utf8");
@@ -3445,7 +3497,7 @@ async function main() {
   }
 
   for (const page of pages) {
-    const html = renderDocument(page, appAssets);
+    const html = sanitizeUnsupportedClaims(renderDocument(page, appAssets));
     const routeName = page.route.replace(/^\//, "");
     if (routeName) {
       await rm(path.join(distDir, routeName), { recursive: true, force: true });
