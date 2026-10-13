@@ -53,6 +53,7 @@ import {
   weightSeo,
   weightStrings,
 } from "../src/data/balanceBikeWeight";
+import { PRUNED_PRODUCTS } from "../src/data/prunedProducts.generated";
 import { getPageCopy } from "../src/config/pageCopy";
 import { shortenCardTitle } from "../src/lib/productSeoText";
 import { productDetailUrlSlug, resolveProductDetailCategorySlug } from "../src/lib/productCategoryPaths";
@@ -61,6 +62,28 @@ import { buildProductFaqsFromDisplayFields, faqPageSchema, FAQ_MIN_QUESTIONS, ty
 import { getHubContent } from "../src/lib/productHubContent";
 
 const distDir = path.resolve("dist");
+
+/**
+ * Plan-B stage 1, limited to what the evidence supports.
+ *
+ * The 197 product detail pages were assessed for a 197 -> <=40 cut and did not
+ * qualify: nearly every record has its own copy (summary, pros/cons, verdict,
+ * review mines), the median review count is 1,227 and only 7 products sit under
+ * 50 reviews. Clustering put the catalogue at 179 genuinely distinct products.
+ * Cutting further would have meant deleting pages that carry real demand, with
+ * no Search Console data to say which ones earn traffic.
+ *
+ * So this set holds ONLY same-product duplicate listings — same category, same
+ * brand, >= 55% shingle overlap, corroborated by near-identical review counts
+ * (e.g. two JOYSTAR records at 5,165 reviews each). Each is 301'd to the listing
+ * that absorbed it, so link equity and readers both land on the surviving page.
+ * See scripts/plan_stage1_prune.mjs + doc/stage1-prune-report.json.
+ */
+const PRUNED_PRODUCT_IDS = new Set(
+  Object.entries(PRUNED_PRODUCTS.duplicateOf).map(([duplicateId]) => duplicateId.trim().toLowerCase()),
+);
+const isPrunedProduct = (id: unknown): boolean =>
+  PRUNED_PRODUCT_IDS.has(String(id || "").trim().toLowerCase());
 type RoutePage = {
   route: string;
   title: string;
@@ -4323,15 +4346,27 @@ async function main() {
       );
     }
   }
-  const cmsProductsFullFinal = cmsProducts as CmsProductFull[];
+  // Stage-1 duplicates are dropped here, at the single point every product
+  // consumer reads from. Filtering this high guarantees the hubs, detail pages,
+  // related-product links, reviews hub, sitemap and generated _redirects are all
+  // derived from one list — nothing can link to a page we no longer publish.
+  const cmsProductsVisible = (cmsProducts as CmsProductFull[]).filter(
+    (product) => !isPrunedProduct(product?.id),
+  );
+  const cmsProductsFullFinal = cmsProductsVisible;
   if (cmsProductsFullFinal.length < 100) {
     console.warn(
-      `[prerender] WARNING: only ${cmsProductsFullFinal.length} products fetched (expected ~197) — output may be partial.`,
+      `[prerender] WARNING: only ${cmsProductsFullFinal.length} products fetched (expected ~179 after stage-1 de-duplication) — output may be partial.`,
+    );
+  }
+  if (cmsProducts.length !== cmsProductsVisible.length) {
+    console.log(
+      `[prerender] stage-1: ${cmsProducts.length - cmsProductsVisible.length} duplicate product listing(s) withheld (${cmsProductsVisible.length} published).`,
     );
   }
   const productMap = new Map<string, CmsProductLite>();
-  const cmsProductsFull = cmsProducts as CmsProductFull[];
-  for (const product of cmsProducts) {
+  const cmsProductsFull = cmsProductsVisible;
+  for (const product of cmsProductsVisible) {
     const id = String(product?.id || "").trim().toLowerCase();
     if (id) productMap.set(id, product);
   }
@@ -4366,10 +4401,10 @@ async function main() {
     );
   }
   const guideDetailPages = cmsGuides
-    .map((guide) => renderGuideDetailPage(guide, cmsEvaluations, cmsProducts))
+    .map((guide) => renderGuideDetailPage(guide, cmsEvaluations, cmsProductsVisible))
     .filter((page): page is RoutePage => page !== null);
   const newsDetailPages = cmsNews
-    .map((item) => renderNewsDetailPage(item, cmsProducts))
+    .map((item) => renderNewsDetailPage(item, cmsProductsVisible))
     .filter((page): page is RoutePage => page !== null);
   const evaluationDetailPages = cmsEvaluations
     .map((item) => renderEvaluationDetailPage(item, productMap))
@@ -4521,6 +4556,26 @@ async function main() {
     ["/products/kids_tricycles", "/products/kids-tricycles/"],
     ["/products/other", "/products/"],
   ];
+  // Stage-1 duplicates: point the retired listing at the one that absorbed it,
+  // rather than at a category hub. Both records describe the same physical
+  // product, so the reader lands on the right page and the link equity follows.
+  // Resolved against the unfiltered list because these ids were just removed
+  // from cmsProductsFull above.
+  const allProductsById = new Map<string, CmsProductFull>();
+  for (const product of cmsProducts as CmsProductFull[]) {
+    const id = String(product?.id || "").trim().toLowerCase();
+    if (id) allProductsById.set(id, product);
+  }
+  const duplicateRedirects: string[] = [];
+  for (const [duplicateId, survivorId] of Object.entries(PRUNED_PRODUCTS.duplicateOf)) {
+    const from = allProductsById.get(duplicateId.trim().toLowerCase());
+    const to = allProductsById.get(String(survivorId).trim().toLowerCase());
+    if (!from || !to) continue;
+    duplicateRedirects.push(
+      `/products/${productDetailSlugDir(from)}/${cmsRouteSegment(from.id)} /products/${productDetailSlugDir(to)}/${cmsRouteSegment(to.id)} 301`,
+    );
+  }
+
   const legacyRedirects = [
     // Re-homed legacy "other" bucket details need per-product targets, and
     // must precede any wildcard rule (Pages redirects match top-down).
@@ -4530,6 +4585,7 @@ async function main() {
         const id = cmsRouteSegment(product.id);
         return `/products/other/${id} /products/${productDetailSlugDir(product)}/${id} 301`;
       }),
+    ...duplicateRedirects,
     ...LEGACY_CATEGORY_301S.flatMap(([from, to]) => [
       `${from} ${to} 301`,
       // Wildcard only where id segments map 1:1; the abolished /products/other/

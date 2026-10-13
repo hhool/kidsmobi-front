@@ -56,6 +56,7 @@
     "data:safetygate": "node scripts/fetch_safety_gate_data.mjs",
     "data:weight": "node scripts/fetch_weight_data.mjs",
     "reports:normalize:check": "node scripts/normalize_reports_quality.mjs",
+    "stage1:plan": "node scripts/plan_stage1_prune.mjs",
     "reports:normalize": "node scripts/normalize_reports_quality.mjs --write"
   },
   "dependencies": {

@@ -1,0 +1,660 @@
+{
+  "generatedAt": "2026-10-13",
+  "policy": "remove duplicate listings only — no pages are cut for thinness or demand",
+  "threshold": 0.55,
+  "requireSameBrand": true,
+  "analysed": 197,
+  "distinctProducts": 179,
+  "pagesKept": 179,
+  "pagesPruned": 18,
+  "clusterSizeHistogram": {
+    "1": 163,
+    "2": 14,
+    "3": 2
+  },
+  "clusters": [
+    {
+      "category": "stroller",
+      "brand": "Mompush",
+      "keepId": "stroller-b09jls8lsr",
+      "keepReviews": 46465563,
+      "members": [
+        {
+          "id": "stroller-b09jls8lsr",
+          "reviews": 46465563,
+          "sim": 1
+        },
+        {
+          "id": "stroller-b0f4834n6g",
+          "reviews": 559,
+          "sim": 0.676
+        }
+      ]
+    },
+    {
+      "category": "balance",
+      "brand": "Gamfeiny",
+      "keepId": "balance_bike-b0blmf98s8",
+      "keepReviews": 6086,
+      "members": [
+        {
+          "id": "balance_bike-b0blmf98s8",
+          "reviews": 6086,
+          "sim": 1
+        },
+        {
+          "id": "balance_bike-b0bkxshhnp",
+          "reviews": 6085,
+          "sim": 0.564
+        }
+      ]
+    },
+    {
+      "category": "bicycle",
+      "brand": "JOYSTAR",
+      "keepId": "kids_bikes-b07fmyddcw",
+      "keepReviews": 5165,
+      "members": [
+        {
+          "id": "kids_bikes-b07fmyddcw",
+          "reviews": 5165,
+          "sim": 1
+        },
+        {
+          "id": "kids_bikes-b083bkd8k2",
+          "reviews": 5165,
+          "sim": 1
+        }
+      ]
+    },
+    {
+      "category": "stroller",
+      "brand": "Mompush",
+      "keepId": "stroller-b093gs5723",
+      "keepReviews": 3520,
+      "members": [
+        {
+          "id": "stroller-b093gs5723",
+          "reviews": 3520,
+          "sim": 1
+        },
+        {
+          "id": "stroller-b09fl7lv9w",
+          "reviews": 3511,
+          "sim": 0.829
+        }
+      ]
+    },
+    {
+      "category": "bicycle",
+      "brand": "JOYSTAR",
+      "keepId": "kids_bikes-b07pzkllrt",
+      "keepReviews": 2889,
+      "members": [
+        {
+          "id": "kids_bikes-b07pzkllrt",
+          "reviews": 2889,
+          "sim": 1
+        },
+        {
+          "id": "kids_bikes-b085y6pv6r",
+          "reviews": 2889,
+          "sim": 0.962
+        }
+      ]
+    },
+    {
+      "category": "stroller",
+      "brand": "Dream",
+      "keepId": "stroller-b089tvhv1x",
+      "keepReviews": 2532,
+      "members": [
+        {
+          "id": "stroller-b089tvhv1x",
+          "reviews": 2532,
+          "sim": 1
+        },
+        {
+          "id": "stroller-b078t49v4t",
+          "reviews": 2532,
+          "sim": 0.964
+        }
+      ]
+    },
+    {
+      "category": "bicycle",
+      "brand": "JOYSTAR",
+      "keepId": "kids_bikes-b09kkz3rfm",
+      "keepReviews": 1977,
+      "members": [
+        {
+          "id": "kids_bikes-b09kkz3rfm",
+          "reviews": 1977,
+          "sim": 1
+        },
+        {
+          "id": "kids_bikes-b09pbr7dg9",
+          "reviews": 1964,
+          "sim": 0.887
+        }
+      ]
+    },
+    {
+      "category": "stroller",
+      "brand": "MAMAZING",
+      "keepId": "stroller-b0fcmtqk6c",
+      "keepReviews": 1895,
+      "members": [
+        {
+          "id": "stroller-b0fcmtqk6c",
+          "reviews": 1895,
+          "sim": 1
+        },
+        {
+          "id": "stroller-b0cxxdts5v",
+          "reviews": 1895,
+          "sim": 0.681
+        },
+        {
+          "id": "stroller-b0cxxrn2qs",
+          "reviews": 1890,
+          "sim": 0.78
+        }
+      ]
+    },
+    {
+      "category": "stroller",
+      "brand": "Baby",
+      "keepId": "stroller-b0fbc12f4w",
+      "keepReviews": 1177,
+      "members": [
+        {
+          "id": "stroller-b0fbc12f4w",
+          "reviews": 1177,
+          "sim": 1
+        },
+        {
+          "id": "stroller-b0bt4lcfht",
+          "reviews": 1152,
+          "sim": 0.6
+        }
+      ]
+    },
+    {
+      "category": "electric_car",
+      "brand": "First",
+      "keepId": "electric_vehicles-b0db5k3jf4",
+      "keepReviews": 948,
+      "members": [
+        {
+          "id": "electric_vehicles-b0db5k3jf4",
+          "reviews": 948,
+          "sim": 1
+        },
+        {
+          "id": "electric_vehicles-b0db4wxz36",
+          "reviews": 948,
+          "sim": 0.645
+        }
+      ]
+    },
+    {
+      "category": "bicycle",
+      "brand": "Bixike",
+      "keepId": "kids_bikes-b0c53khv7f",
+      "keepReviews": 591,
+      "members": [
+        {
+          "id": "kids_bikes-b0c53khv7f",
+          "reviews": 591,
+          "sim": 1
+        },
+        {
+          "id": "kids_bikes-b0b8mnbc5j",
+          "reviews": 591,
+          "sim": 0.771
+        }
+      ]
+    },
+    {
+      "category": "bicycle",
+      "brand": "Glerc",
+      "keepId": "kids_bikes-b0dhr7wx5m",
+      "keepReviews": 530,
+      "members": [
+        {
+          "id": "kids_bikes-b0dhr7wx5m",
+          "reviews": 530,
+          "sim": 1
+        },
+        {
+          "id": "kids_bikes-b0dzwr2qsw",
+          "reviews": 530,
+          "sim": 1
+        },
+        {
+          "id": "kids_bikes-b0dhr7xkqq",
+          "reviews": 497,
+          "sim": 0.773
+        }
+      ]
+    },
+    {
+      "category": "bicycle",
+      "brand": "vollsch",
+      "keepId": "kids_bikes-b0dcyxxl3v",
+      "keepReviews": 241,
+      "members": [
+        {
+          "id": "kids_bikes-b0dcyxxl3v",
+          "reviews": 241,
+          "sim": 1
+        },
+        {
+          "id": "kids_bikes-b0dcz11tcr",
+          "reviews": 241,
+          "sim": 1
+        }
+      ]
+    },
+    {
+      "category": "stroller",
+      "brand": "Mompush",
+      "keepId": "stroller-b0fpfz9yql",
+      "keepReviews": 182,
+      "members": [
+        {
+          "id": "stroller-b0fpfz9yql",
+          "reviews": 182,
+          "sim": 1
+        },
+        {
+          "id": "stroller-b0fpfyg1bs",
+          "reviews": 181,
+          "sim": 0.958
+        }
+      ]
+    },
+    {
+      "category": "stroller",
+      "brand": "Baby",
+      "keepId": "stroller-b0dst8wslg",
+      "keepReviews": 177,
+      "members": [
+        {
+          "id": "stroller-b0dst8wslg",
+          "reviews": 177,
+          "sim": 1
+        },
+        {
+          "id": "stroller-b0dntspns2",
+          "reviews": 176,
+          "sim": 0.789
+        }
+      ]
+    },
+    {
+      "category": "stroller",
+      "brand": "Evenflo",
+      "keepId": "stroller-b08316k3lg",
+      "keepReviews": 115,
+      "members": [
+        {
+          "id": "stroller-b08316k3lg",
+          "reviews": 115,
+          "sim": 1
+        },
+        {
+          "id": "stroller-b08316hk9p",
+          "reviews": 102,
+          "sim": 0.573
+        }
+      ]
+    }
+  ],
+  "pruned": [
+    {
+      "id": "stroller-b0f4834n6g",
+      "duplicateOf": "stroller-b09jls8lsr",
+      "category": "stroller",
+      "brand": "Mompush",
+      "name": "Mompush Lithe Double Stroller for Infant and Toddler, Lightweight Side by Side Twin Stroller, Only 25 lbs, 30-Inch Slim Fit Through Doorways, One-Step Fold, Independent Recline, UPF 50+ Canopy",
+      "reviews": 559,
+      "sim": 0.676
+    },
+    {
+      "id": "balance_bike-b0bkxshhnp",
+      "duplicateOf": "balance_bike-b0blmf98s8",
+      "category": "balance",
+      "brand": "Gamfeiny",
+      "name": "Gamfeiny Colorful Lighting Baby Balance Bike Toys for 1 Year Old Boy Girl Gifts, 10-36 Month Toddler Balance Bike, No Pedal 4",
+      "reviews": 6085,
+      "sim": 0.564
+    },
+    {
+      "id": "kids_bikes-b083bkd8k2",
+      "duplicateOf": "kids_bikes-b07fmyddcw",
+      "category": "bicycle",
+      "brand": "JOYSTAR",
+      "name": "JOYSTAR Kids Bike for Ages 2-12 Years Old Boys Girls, 12-20 Inch BMX Style Kid's Bikes with Training Wheels, Children Bicycle for Kids and Toddler, Multiple Colors",
+      "reviews": 5165,
+      "sim": 1
+    },
+    {
+      "id": "stroller-b09fl7lv9w",
+      "duplicateOf": "stroller-b093gs5723",
+      "category": "stroller",
+      "brand": "Mompush",
+      "name": "Mompush Wiz 2 in 1 Baby Stroller with Infant Pramette Mode, One Hand Fold Convertible Newborn to Toddler Stroller with Reversible Seat and Large UPF 50+ Canopy",
+      "reviews": 3511,
+      "sim": 0.829
+    },
+    {
+      "id": "kids_bikes-b085y6pv6r",
+      "duplicateOf": "kids_bikes-b07pzkllrt",
+      "category": "bicycle",
+      "brand": "JOYSTAR",
+      "name": "JOYSTAR Pluto 12 14 16 18 20 Inch Kids Bike with Light Up Training Wheels, Kids' Bicycle for Boys Girls Age 3-12 Years, Child",
+      "reviews": 2889,
+      "sim": 0.962
+    },
+    {
+      "id": "stroller-b078t49v4t",
+      "duplicateOf": "stroller-b089tvhv1x",
+      "category": "stroller",
+      "brand": "Dream",
+      "name": "Dream On Me Volgo Twin Baby Stroller, Compact Side-by-Side Double Umbrella Stroller, 5-Point Safety Harness, Adjustable Canopy, Storage Basket & Travel-Friendly Fold, Blue and Dark Grey",
+      "reviews": 2532,
+      "sim": 0.964
+    },
+    {
+      "id": "kids_bikes-b09pbr7dg9",
+      "duplicateOf": "kids_bikes-b09kkz3rfm",
+      "category": "bicycle",
+      "brand": "JOYSTAR",
+      "name": "JOYSTAR Fantasy Girls Bike for 2-12 Years Old Toddlers and Kids, 12\" 14\" 16\" 18“ 20\" Retro Style Kids Bike with Training Whee",
+      "reviews": 1964,
+      "sim": 0.887
+    },
+    {
+      "id": "stroller-b0cxxdts5v",
+      "duplicateOf": "stroller-b0fcmtqk6c",
+      "category": "stroller",
+      "brand": "MAMAZING",
+      "name": "MAMAZING Ultra Air Lightweight Baby Travel Stroller with Carbon Fiber Frame, Compact & Airplane-Friendly, One-Handed Fold, 11.6 lbs, Perfect for Toddlers, Organizer & Cushion Included, Green",
+      "reviews": 1895,
+      "sim": 0.681
+    },
+    {
+      "id": "stroller-b0cxxrn2qs",
+      "duplicateOf": "stroller-b0fcmtqk6c",
+      "category": "stroller",
+      "brand": "MAMAZING",
+      "name": "MAMAZING Ultra Air Lightweight Baby Travel Stroller with Carbon Fiber Frame, Compact & Airplane-Friendly, One-Handed Fold, 11.6 lbs, Perfect for Toddlers, Green",
+      "reviews": 1890,
+      "sim": 0.78
+    },
+    {
+      "id": "stroller-b0bt4lcfht",
+      "duplicateOf": "stroller-b0fbc12f4w",
+      "category": "stroller",
+      "brand": "Baby",
+      "name": "Baby Trend Stroller and EZ-Lift Infant Car Seat, EZ Ride Travel System, Dash Grey",
+      "reviews": 1152,
+      "sim": 0.6
+    },
+    {
+      "id": "electric_vehicles-b0db4wxz36",
+      "duplicateOf": "electric_vehicles-b0db5k3jf4",
+      "category": "electric_car",
+      "brand": "First",
+      "name": "First Ride On Ford Bronco 24V Ride on Toys for Boys & Girls, 2 Seater Kids Electric Car with Remote Control, Kids Ride on Truck with Rear Wheels Suspension, Led Lights, Safety Belt (24V, Red)",
+      "reviews": 948,
+      "sim": 0.645
+    },
+    {
+      "id": "kids_bikes-b0b8mnbc5j",
+      "duplicateOf": "kids_bikes-b0c53khv7f",
+      "category": "bicycle",
+      "brand": "Bixike",
+      "name": "Bixike Girls Bike with Basket for Toddlers and Kids Aged 3-14 Years Old, 12 14 16 18 Inch with Training Wheels & Doll Seat, 20 Inch with Kickstand & Rear Rack, Princess Style Bicycle for Gift.",
+      "reviews": 591,
+      "sim": 0.771
+    },
+    {
+      "id": "kids_bikes-b0dzwr2qsw",
+      "duplicateOf": "kids_bikes-b0dhr7wx5m",
+      "category": "bicycle",
+      "brand": "Glerc",
+      "name": "Glerc 20 24 26 Inch Kids Bike, Kids Mountain Bike for Boys and Girls Ages 6+, 21-Speed Skyline Bicycle with Front Suspension and Disc Brakes, Multiple Colors",
+      "reviews": 530,
+      "sim": 1
+    },
+    {
+      "id": "kids_bikes-b0dhr7xkqq",
+      "duplicateOf": "kids_bikes-b0dhr7wx5m",
+      "category": "bicycle",
+      "brand": "Glerc",
+      "name": "Glerc 20 24 26 Inch Kids Bike, Kids Mountain Bike for Boys and Girls Ages 6+, 21-Speed Skyline Bicycle with Front Suspension and Disc Brakes, Multiple Colors",
+      "reviews": 497,
+      "sim": 0.773
+    },
+    {
+      "id": "kids_bikes-b0dcz11tcr",
+      "duplicateOf": "kids_bikes-b0dcyxxl3v",
+      "category": "bicycle",
+      "brand": "vollsch",
+      "name": "vollsch BMX Style 12 14 16 Inch Kids Bike Training Wheels 20'' Bicycle with Kickstand for 2-14 Years Old Toddlers Boys Girls Coaster Brake Multiple Colors",
+      "reviews": 241,
+      "sim": 1
+    },
+    {
+      "id": "stroller-b0fpfyg1bs",
+      "duplicateOf": "stroller-b0fpfz9yql",
+      "category": "stroller",
+      "brand": "Mompush",
+      "name": "Mompush Nexis Carbon Travel Stroller, Ultra-Lightweight 11.5 lbs, Compact & Airplane Carry-On Approved, One-Second Auto-Fold, One-Hand Full Recline, from Birth to 50 lbs, JPMA Certified, Black",
+      "reviews": 181,
+      "sim": 0.958
+    },
+    {
+      "id": "stroller-b0dntspns2",
+      "duplicateOf": "stroller-b0dst8wslg",
+      "category": "stroller",
+      "brand": "Baby",
+      "name": "Baby Trend Journey Jogging Stroller, Stellar Grey",
+      "reviews": 176,
+      "sim": 0.789
+    },
+    {
+      "id": "stroller-b08316hk9p",
+      "duplicateOf": "stroller-b08316k3lg",
+      "category": "stroller",
+      "brand": "Evenflo",
+      "name": "Evenflo Pivot NXT Travel System with LiteMax NXT Infant Car Seat (Latte Tan)",
+      "reviews": 102,
+      "sim": 0.573
+    }
+  ],
+  "keep": [
+    "stroller-b0cx999ymh",
+    "stroller-b0d65f9ns7",
+    "stroller-b0dk4p46nf",
+    "stroller-b0fcmtqk6c",
+    "balance_bike-b0fzvlg7yq",
+    "kids_push_ride_ons-b0d8sd9wzh",
+    "kids_push_ride_ons-b001nqhn7s",
+    "kids_push_ride_ons-b08j8g3k3n",
+    "balance_bike-b0fvrv5hzb",
+    "balance_bike-b0dg8vrzbz",
+    "balance_bike-b00izxbzbm",
+    "balance_bike-b0fmnwhrmx",
+    "balance_bike-b0ccy6yrs8",
+    "balance_bike-b0b2h5333d",
+    "balance_bike-b09z65pbxp",
+    "balance_bike-b0ddq4fqhk",
+    "balance_bike-b08sgh7nkx",
+    "stroller-b00fzp3e8a",
+    "stroller-b07xv1wlsc",
+    "stroller-b01l7c47p8",
+    "stroller-b09qyx744l",
+    "stroller-b0fw9tzjyc",
+    "stroller-b0861t7z24",
+    "stroller-b0d8x9886f",
+    "stroller-b0c5463nvt",
+    "stroller-b07ygvfzfh",
+    "stroller-b09rnch612",
+    "stroller-b07jr8ty2q",
+    "stroller-b0dst8wslg",
+    "stroller-b0bytkygz3",
+    "stroller-b07bvmshtz",
+    "stroller-b0dkpd74s5",
+    "stroller-b0d6v6gmhh",
+    "stroller-b00gjixp5o",
+    "stroller-b07pjmb6gf",
+    "stroller-b07g55y3dp",
+    "stroller-b07bb5vxbw",
+    "stroller-b008u4mku6",
+    "stroller-b07kr61jvd",
+    "stroller-b09jls8lsr",
+    "stroller-b084ck55rw",
+    "stroller-b07b7qc8dv",
+    "stroller-b0fpfz9yql",
+    "stroller-b0fbc12f4w",
+    "stroller-b0f1z2yw1x",
+    "stroller-b0dxwvhc6x",
+    "stroller-b0dly3myh2",
+    "stroller-b0dlkjfk39",
+    "stroller-b0d98vgyvz",
+    "stroller-b0bsp4k34f",
+    "stroller-b0b7nl6kwn",
+    "stroller-b0b6lr3c5h",
+    "stroller-b094p2zc86",
+    "stroller-b08n7t58yy",
+    "stroller-b089tvhv1x",
+    "stroller-b07gghvl64",
+    "stroller-b07dghr789",
+    "stroller-b07b7qc71x",
+    "stroller-b00ht6ea2c",
+    "stroller-b07sdh646b",
+    "stroller-b019dhbcxe",
+    "stroller-b0c99k7sp9",
+    "stroller-b08vpvlf95",
+    "stroller-b0dc5ggjrp",
+    "stroller-b0d2lxk44t",
+    "stroller-b08k2kc6kd",
+    "stroller-b08316k3lg",
+    "stroller-b08k2yfndw",
+    "stroller-b07p1ysc18",
+    "stroller-b07y5vqyfw",
+    "playard-b07wpw1yyc",
+    "playard-b08bt16th5",
+    "playard-b07964sfw4",
+    "scooters-b08zcm11j6",
+    "scooters-b0fjfcx6fw",
+    "scooters-b0dhd74rhp",
+    "scooters-b09zy6m8xh",
+    "scooters-b0fjy2xc2d",
+    "scooters-b0dzg3qylr",
+    "scooters-b0gdfjj5wp",
+    "scooters-b07vy9q95q",
+    "scooters-b01en6ltaq",
+    "scooters-b0gwm1rct6",
+    "scooters-b0ccymv1t1",
+    "kids_tricycles-b0fh23snxm",
+    "kids_tricycles-b00tlfteuc",
+    "kids_tricycles-b0cpsg9hx7",
+    "kids_tricycles-b08m5cg126",
+    "kids_tricycles-b09b9lrbm5",
+    "kids_tricycles-b0fs8mzy71",
+    "kids_tricycles-b0b5mvckcc",
+    "kids_tricycles-b0cwltlc2f",
+    "kids_push_ride_ons-b0d8kmd5q3",
+    "kids_push_ride_ons-b07cn9t8rc",
+    "kids_push_ride_ons-b00j405vh4",
+    "kids_push_ride_ons-b007ll7j96",
+    "kids_push_ride_ons-b0d8km8m3g",
+    "kids_tricycles-b0cpscbgh4",
+    "stroller-b0dqlqvybb",
+    "stroller-b0dxp8z6j9",
+    "balance_bike-b0d2ngj164",
+    "balance_bike-b0dz4bnzdr",
+    "car_seat-b0dhlqmww7",
+    "electric_vehicles-b0dz3r72ns",
+    "electric_vehicles-b0d3lszjk2",
+    "electric_vehicles-b017hhkgie",
+    "electric_vehicles-b0db5k3jf4",
+    "electric_vehicles-b0fwkk3jxx",
+    "electric_vehicles-b0fss9pr84",
+    "electric_vehicles-b0f9ps1l56",
+    "electric_vehicles-b0dx1qq6wc",
+    "electric_vehicles-b0fgxr4x4t",
+    "electric_vehicles-b0cy5hrl3k",
+    "electric_vehicles-b0f5ghhdhc",
+    "electric_vehicles-b07yc4vcyh",
+    "electric_vehicles-b07cjv1975",
+    "electric_vehicles-b0cpb1gvgj",
+    "electric_vehicles-b0g1lf5lr3",
+    "kids_bikes-b08q7tmrwr",
+    "kids_bikes-b07fmyddcw",
+    "kids_bikes-b00d3eqb3k",
+    "kids_bikes-b07pzkllrt",
+    "kids_bikes-b0gs4qq8fy",
+    "kids_bikes-b0c2h8sfbq",
+    "kids_bikes-b0cmc155zd",
+    "kids_bikes-b0flq7r263",
+    "kids_bikes-b09kkz3rfm",
+    "kids_bikes-b0c53khv7f",
+    "kids_bikes-b0dhr7wx5m",
+    "kids_bikes-b0fxm9gv7m",
+    "kids_bikes-b0dcyxxl3v",
+    "kids_bikes-b0146f8l7i",
+    "kids_bikes-b086w6286w",
+    "kids_bikes-b0bcdbwmxm",
+    "kids_bikes-b0by8vg1fp",
+    "kids_bikes-b0dzwz2lsd",
+    "kids_bikes-b0f7xmj87q",
+    "kids_bikes-b0fcycs2f9",
+    "kids_bikes-b0fkf8nl11",
+    "kids_bikes-b0fwrb5wxt",
+    "kids_pull_along_wagons-b0djy3jh8d",
+    "kids_pull_along_wagons-b0g1zf9z63",
+    "kids_pull_along_wagons-b0fqtztc84",
+    "kids_pull_along_wagons-b08q1svprp",
+    "kids_pull_along_wagons-b084zglh27",
+    "kids_pull_along_wagons-b0c5434m8d",
+    "kids_pull_along_wagons-b0gqxf73jz",
+    "kids_pull_along_wagons-b0dxfg3954",
+    "kids_pull_along_wagons-b08vf98fss",
+    "kids_pull_along_wagons-b0ffm5p1sf",
+    "kids_pull_along_wagons-b0fcy4wm8m",
+    "kids_pull_along_wagons-b0g2yvks6m",
+    "kids_pull_along_wagons-b09gj7hvfh",
+    "kids_pull_along_wagons-b09hjtbqjf",
+    "kids_pull_along_wagons-b0c5435km9",
+    "kids_pull_along_wagons-b0clwwpdml",
+    "kids_pull_along_wagons-b0g1c38c3t",
+    "kids_push_ride_ons-b004y8tf96",
+    "kids_push_ride_ons-b01ly46wjn",
+    "kids_push_ride_ons-b008co80sa",
+    "kids_push_ride_ons-b00iowbkqo",
+    "kids_push_ride_ons-b01c967bqs",
+    "kids_push_ride_ons-b01gfzt4ak",
+    "kids_push_ride_ons-b01flacuuq",
+    "kids_push_ride_ons-b00005850h",
+    "balance_bike-b0cfdx97yd",
+    "stroller-b0fd3s7lx7",
+    "stroller-b078tbp298",
+    "stroller-b0b7mfs2w4",
+    "stroller-b093gs5723",
+    "stroller-b0fpfz8lkx",
+    "scooters-b0h29gpcfr",
+    "scooters-b0bpxrvwyk",
+    "electric_vehicles-b0fcc24zqc",
+    "balance_bike-b0cr6vkxj7",
+    "balance_bike-b0blmf98s8",
+    "kids_tricycles-b0fmy5pj7s",
+    "kids_tricycles-b0dp9nlg63",
+    "kids_bikes-b0c772bkg2"
+  ]
+}
