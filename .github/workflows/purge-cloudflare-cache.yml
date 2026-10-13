@@ -4,6 +4,10 @@ name: Purge Cloudflare Edge Cache
 # (Edge TTL = ignore_origin / 86400)。Cloudflare Pages 发布新版本时**不会**自动清掉
 # 这条 zone 缓存，不清的话边缘会继续返回旧 HTML 最长 24 小时。
 # 所以每次 push 到 main 触发 Pages 部署后，需要主动 purge 一次。
+#
+# 注意：`secrets` 上下文不能出现在 `if:` 条件里（会被 GitHub 判定为非法 workflow 直接
+# 整体失败、连 job 都不会创建）。因此改在 step 内用 shell 检查 secrets 是否存在，
+# 不存在则打印提示并跳过；存在才执行真正的 purge。
 on:
   push:
     branches:
@@ -20,17 +24,32 @@ jobs:
   purge:
     name: Purge zone cache after Pages deploy
     runs-on: ubuntu-latest
-    # 没配 secrets 时直接跳过，不打断既有 CI
-    if: ${{ secrets.CLOUDFLARE_API_TOKEN != '' && secrets.CLOUDFLARE_ZONE_ID != '' }}
 
     steps:
-      - name: ⏳ Wait for Cloudflare Pages to finish deploying
+      - name: 🔍 Check Cloudflare secrets
+        id: guard
+        env:
+          CF_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
-          SECONDS_TO_WAIT="${{ github.event.inputs.wait_seconds || '300' }}"
+          if [ -z "$CF_ZONE_ID" ] || [ -z "$CF_API_TOKEN" ]; then
+            echo "CLOUDFLARE_ZONE_ID / CLOUDFLARE_API_TOKEN 未配置，跳过 purge（CDN 缓存不会自动清理，需手动 Purge Everything）"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: ⏳ Wait for Cloudflare Pages to finish deploying
+        if: steps.guard.outputs.skip != 'true'
+        env:
+          WAIT: ${{ github.event.inputs.wait_seconds }}
+        run: |
+          SECONDS_TO_WAIT="${WAIT:-300}"
           echo "等待 ${SECONDS_TO_WAIT}s（实测 Pages 从 push 到生效约 190s）"
           sleep "$SECONDS_TO_WAIT"
 
       - name: 🧹 Purge everything
+        if: steps.guard.outputs.skip != 'true'
         env:
           CF_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
           CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -44,6 +63,7 @@ jobs:
           echo "$resp" | grep -q '"success":true' || { echo "purge 失败"; exit 1; }
 
       - name: ✅ Verify HTML is re-cached
+        if: steps.guard.outputs.skip != 'true'
         run: |
           sleep 5
           echo "第一次（应为 MISS，重新回源取新版本）:"
@@ -52,9 +72,10 @@ jobs:
           echo "第二次（应为 HIT）:"
           curl -sSI https://balancebiketoddler.com/ | grep -iE 'cf-cache-status|age' || true
 
-# 需要的 secrets（Settings → Secrets and variables → Actions）:
+# 需要的 secrets（Settings → Secrets and variables → Actions）：
 #   CLOUDFLARE_ZONE_ID   = b6c304eb872e0df0b47e9c0d6730a5e7
 #   CLOUDFLARE_API_TOKEN = 具备 Zone | Cache Purge | Edit 权限（只作用于本 zone）
 #
 # 注意：purge 必须发生在 Pages 部署**之后**。提前 purge 会让边缘重新缓存旧版本，
 # 那就等于白做（甚至更糟）。延迟 300s 是按实测 187s 的部署耗时留的余量。
+# 若未配置 secrets，本 workflow 会成功结束但跳过 purge —— 此时需到 Cloudflare 面板手动 Purge Everything。
