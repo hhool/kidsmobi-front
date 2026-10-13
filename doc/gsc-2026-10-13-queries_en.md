@@ -35,20 +35,28 @@ No page was organised by the age of the child, so that demand landed on whatever
 → This is the direct justification for Asset 7, `/balance-bike-by-age/`.
 
 **2. Coverage halves at three, and that is itself the story.**
-Counted from the manufacturer age range each listing publishes (13 of 14 publish one):
+Counted from the manufacturer age range each listing publishes (12 of 13 publish one):
 
 | Age | Listings still rated for it |
 |---|---:|
-| 18 months | 10 / 13 |
-| 2 years | 13 / 13 |
+| 18 months | 9 / 13 |
+| 2 years | 12 / 13 |
 | 2.5 years | 6 / 13 |
 | 3 years | 6 / 13 |
 | 4 years | 4 / 13 |
 
-These denominators were recounted on 2026-10-14. The figures quoted when this page first
-shipped counted 14 / 15, because every Plan-B dataset was generated before Stage-1 pruning
-and still carried the duplicate Gamfeiny listing alongside the one it was merged into.
-The generators now drop Stage-1 duplicates before any counting.
+These denominators moved twice, and both times because we stopped publishing pages rather
+than because products changed:
+
+- First recount (Stage-1 pruning): the figures when this page shipped counted 14 / 15,
+  because every Plan-B dataset was generated before Stage-1 pruning and still carried the
+  duplicate Gamfeiny listing alongside the one it was merged into.
+- Second recount (Stage-2 variant retirement): 13 / 13 became 12 / 13 when the Umatoll B402
+  girl/boy listings stopped being two pages. Same manufacturer model number, same weight,
+  same dimensions — one parent listing now.
+
+The age-coverage table published on the transparency page is derived from
+`src/data/ageData.generated.ts`, so it can no longer lag behind either stage.
 
 It does not taper — it steps down by half between two and three, and **nothing reaches past 60 months**.
 The practical reading: past roughly three years old you are buying for the remaining window, not buying to grow into.

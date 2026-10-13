@@ -1,4 +1,42 @@
 import type { SEOConfig } from "../types";
+import { AGE_DATASET } from "./ageData.generated";
+
+/**
+ * The age-coverage table made public on /transparency/search-data/.
+ *
+ * It used to be typed in by hand, and every change to the catalogue then needed
+ * a matching edit here or the number went wrong in public: Stage-1 pruning moved
+ * 14 to 13, Stage-2 variant retirement moved it again. It is derived from the
+ * same generated dataset the /balance-bike-by-age/ page renders from, so the two
+ * can no longer disagree.
+ */
+function ageCoverageRows(lang: "en" | "zh"): Array<[string, string]> {
+  const bands = AGE_DATASET.coverage.bands;
+  const listed = AGE_DATASET.catalog.balanceBikesListed;
+  const wanted = [
+    { months: 18, en: "18 months", zh: "18 个月" },
+    { months: 24, en: "2 years", zh: "2 岁" },
+    { months: 30, en: "2.5 years", zh: "2.5 岁" },
+    { months: 36, en: "3 years", zh: "3 岁" },
+    { months: 48, en: "4 years", zh: "4 岁" },
+  ];
+  const separator = lang === "zh" ? " / " : " of ";
+  return [
+    ...wanted.map((row) => {
+      const count = bands.find((band) => band.months === row.months)?.fitCount ?? 0;
+      return [lang === "zh" ? row.zh : row.en, `${count}${separator}${listed}`] as [string, string];
+    }),
+    [lang === "zh" ? "超过 60 个月" : "Beyond 60 months", `0${separator}${listed}`],
+  ];
+}
+
+/** "13 of the 14 balance bikes this site publishes give a numeric age range". */
+function ageCoverageCaption(lang: "en" | "zh"): string {
+  const { balanceBikesListed, withStatedAgeRange } = AGE_DATASET.catalog;
+  return lang === "zh"
+    ? `厂家实际公布的年龄覆盖范围——本站上架的 ${balanceBikesListed} 款平衡车中有 ${withStatedAgeRange} 款公布了数字年龄区间`
+    : `Age coverage as actually published by each manufacturer — ${withStatedAgeRange} of the ${balanceBikesListed} balance bikes this site publishes give a numeric age range`;
+}
 
 export type TransparencyPageKey =
   | "disclaimer"
@@ -595,7 +633,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         {
           value: "8.9%",
           label: "Of product pages are balance bikes",
-          note: "16 of 179 — the mismatch driving everything below",
+          note: "15 of 174 — the mismatch driving everything below",
         },
       ],
       sections: [
@@ -638,7 +676,8 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           eyebrow: "03 / Mismatch",
           title: "The domain promises balance bikes; the inventory says otherwise",
           body: [
-            "Joining the query data against our own sitemap produces the most decision-relevant number in this export. Balance-bike demand is 94.7% of impressions, but only 16 of 179 published product pages are balance bikes. Strollers are 78 pages; electric cars, tricycles, scooters and car seats add 61 more.",
+            "Joining the query data against our own sitemap produces the most decision-relevant number in this export. Balance-bike demand is 94.7% of impressions, but only 15 of the 174 product pages we publish are balance bikes. Strollers are 74 pages; electric cars, tricycles, scooters and car seats add 85 more.",
+            "Those counts fell from 179 pages on 14 October, when five colourway listings of a model we already published stopped having a page of their own and began 301-ing to it. Nothing was deleted; the duplicate pages were competing with their own sibling for the same query.",
             "This does not make those other catalogues bad products. It means a crawler meeting this domain spends most of its budget having a question answered that nobody asked.",
             "The correction we shipped removed prominence rather than content. From 30 September and again on 13 October, every category except balance bikes and kids bikes moved below a labelled subordinate divider on the product hub and the homepage, and their sitemap priority dropped to 0.4 against 0.6 for a balance-bike page. Off-domain demand is 6 impressions across 6 queries, so the data gives no reason to roll that back.",
           ],
@@ -646,9 +685,9 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
             columns: ["Signal", "Value"],
             rows: [
               ["Balance-bike share of query impressions", "94.7%"],
-              ["Product pages that are balance bikes", "16 of 179 (8.9%)"],
-              ["Product pages that are strollers", "78 of 179 (43.6%)"],
-              ["Other ride-on / nursery pages", "61"],
+              ["Product pages that are balance bikes", "15 of 174 (8.6%)"],
+              ["Product pages that are strollers", "74 of 174 (42.5%)"],
+              ["Other ride-on / nursery pages", "85"],
               ["Impressions from stroller-family queries", "6"],
             ],
           },
@@ -663,17 +702,9 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
             "One deliberate refusal: brand long tails such as baaltto, haweek and avenor balance bike total roughly 10 impressions at 1–2 each, and several are not in our catalogue at all. Building single-brand pages to chase single-impression rows is how thin affiliate sites are made, so we did not build them.",
           ],
           table: {
-            caption:
-              "Age coverage as actually published by each manufacturer — 13 of the 14 balance bikes this site publishes give a numeric age range",
+            caption: ageCoverageCaption("en"),
             columns: ["Child's age", "Models still rated for it"],
-            rows: [
-              ["18 months", "10 of 13"],
-              ["2 years", "13 of 13"],
-              ["2.5 years", "6 of 13"],
-              ["3 years", "6 of 13"],
-              ["4 years", "4 of 13"],
-              ["Beyond 60 months", "0 of 13"],
-            ],
+            rows: ageCoverageRows("en"),
           },
         },
         {
@@ -715,7 +746,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         { value: "171", label: "59 天展示量", note: "查询报告口径，约每天 1.9 次，属于噪声级" },
         { value: "0", label: "外部点击", note: "记录到的 14 次点击全部来自本站运营者自己" },
         { value: "94.7%", label: "展示量来自平衡车词", note: "171 次中 162 次，覆盖 59 个查询词" },
-        { value: "8.9%", label: "产品页是平衡车", note: "179 个中 16 个——下面所有结论都源于这个错位" },
+        { value: "8.6%", label: "产品页是平衡车", note: "174 个中 15 个——下面所有结论都源于这个错位" },
       ],
       sections: [
         {
@@ -757,7 +788,8 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           eyebrow: "03 / 错位",
           title: "域名承诺平衡车，库存说的却是另一回事",
           body: [
-            "把查询数据和我们自己的 sitemap 关联起来，就得到这份导出里最有决策价值的数字。平衡车需求占展示量 94.7%，但 179 个产品页里只有 16 个是平衡车。推车 78 个，电动车、三轮车、滑板车和安全座椅再占 61 个。",
+            "把查询数据和我们自己的 sitemap 关联起来，就得到这份导出里最有决策价值的数字。平衡车需求占展示量 94.7%，但我们发布的 174 个产品页里只有 15 个是平衡车。推车 74 个，电动车、三轮车、滑板车和安全座椅再占 85 个。",
+            "这两个数字在 10 月 14 日从 179 页降下来：五条与我们已在售型号完全相同的配色 listing 不再单独出页，改为 301 指向它。没有删除内容，只是不再让两页为同一个词互相竞争。",
             "这不代表这些产品线本身不好。它意味着：爬虫访问本域名时，大部分抓取预算被用在回答一个没人问的问题上。",
             "我们上线的修正方式是降低权重，而不是删除内容。自 9 月 30 日、并在 10 月 13 日再度调整之后，除平衡车与儿童自行车以外的所有品类在产品聚合页和首页都被移到一条明确标注的从属分隔线之下，sitemap 优先级降到 0.4（平衡车产品页为 0.6）。这些偏题需求只有 6 个词、6 次展示，数据里没有任何理由回滚这一步。",
           ],
@@ -765,9 +797,9 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
             columns: ["信号", "数值"],
             rows: [
               ["平衡车占查询展示量比例", "94.7%"],
-              ["平衡车产品页", "179 个里 16 个（8.9%）"],
-              ["推车产品页", "179 个里 78 个（43.6%）"],
-              ["其他骑乘 / 育儿产品页", "61"],
+              ["平衡车产品页", "174 个里 15 个（8.6%）"],
+              ["推车产品页", "174 个里 74 个（42.5%）"],
+              ["其他骑乘 / 育儿类页面", "85"],
               ["来自推车类词的展示量", "6"],
             ],
           },
@@ -782,16 +814,9 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
             "还有一处刻意不为：baaltto、haweek、avenor 等品牌长尾词合计约 10 次展示，每个 1–2 次，其中几个在本站目录里根本不存在。为了追逐单次展示去做单品牌页面，正是制造一堆薄内容联盟站的做法，所以我们没有做。",
           ],
           table: {
-            caption: "厂家实际公布的年龄覆盖范围——本站上架的 14 款平衡车中有 13 款公布了数字年龄区间",
+            caption: ageCoverageCaption("zh"),
             columns: ["孩子年龄", "仍在适用范围内的车型"],
-            rows: [
-              ["18 个月", "10 / 13"],
-              ["2 岁", "13 / 13"],
-              ["2.5 岁", "6 / 13"],
-              ["3 岁", "6 / 13"],
-              ["4 岁", "4 / 13"],
-              ["超过 60 个月", "0 / 13"],
-            ],
+            rows: ageCoverageRows("zh"),
           },
         },
         {

@@ -26,11 +26,11 @@ export const STABILITY_DATASET = {
     "minutesPolicy": "values such as \"Ultra Lightweight\" in the frame field are treated as a missing material, not as a real one"
   },
   "catalog": {
-    "productsScanned": 159,
+    "productsScanned": 156,
     "withTrackSpacing": 1
   },
   "coverage": {
-    "listed": 14,
+    "listed": 13,
     "withTrackSpacing": 1,
     "withTireWidth": 1,
     "withSteeringLimit": 1,
@@ -38,9 +38,9 @@ export const STABILITY_DATASET = {
     "withWheelSize": 7,
     "withWheelCount": 5,
     "withTireClass": 0,
-    "withFrameMaterial": 14,
+    "withFrameMaterial": 13,
     "withMaxLoad": 4,
-    "withStabilityClaim": 13,
+    "withStabilityClaim": 12,
     "fourWheel": 5
   },
   "balanceBikes": [
@@ -375,31 +375,6 @@ export const STABILITY_DATASET = {
       "ageText": "12-24 months",
       "productUrl": "/products/balance-bikes/balance_bike-b0cr6vkxj7",
       "quotedEvidence": null
-    },
-    {
-      "id": "balance_bike-b0fzvlg7yq",
-      "brand": "Umatoll",
-      "name": "Umatoll Colorful Lighting Baby Balance Bike Toys for 1 Year Old Girl Gifts, A…",
-      "wheelCount": null,
-      "wheelCountEvidence": null,
-      "wheelSizeIn": null,
-      "trackSpacingIn": null,
-      "tireWidthIn": null,
-      "steeringLimitDeg": null,
-      "maxLoadLb": null,
-      "hasNumericGeometry": false,
-      "tireClass": null,
-      "frameMaterial": "Aluminum Alloy",
-      "weightLb": 3.6,
-      "priceUsd": 28.99,
-      "stabilitySignals": [
-        "limited_steering"
-      ],
-      "rating": 4.8,
-      "reviewCount": 2508,
-      "ageText": "1-2 Year",
-      "productUrl": "/products/balance-bikes/balance_bike-b0fzvlg7yq",
-      "quotedEvidence": null
     }
   ],
   "publishedGeometry": [
@@ -417,7 +392,7 @@ export const STABILITY_DATASET = {
   ],
   "wheelSizeGroups": {
     "7\"": 3,
-    "not listed": 7,
+    "not listed": 6,
     "12\"": 2,
     "11\"": 2
   }

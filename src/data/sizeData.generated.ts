@@ -8,9 +8,9 @@ export const SIZING_DATASET = {
     "retrievedAt": "2026-10-13"
   },
   "totals": {
-    "balanceBikesListed": 14,
+    "balanceBikesListed": 13,
     "withWheelSize": 7,
-    "withSteeringLimit": 6
+    "withSteeringLimit": 5
   },
   "ageSpreadMonths": {
     "min": 10,
@@ -96,22 +96,6 @@ export const SIZING_DATASET = {
       "rating": 4.8,
       "reviewCount": 2508,
       "productUrl": "/products/balance-bikes/balance_bike-b0cr6vkxj7"
-    },
-    {
-      "id": "balance_bike-b0fzvlg7yq",
-      "brand": "Umatoll",
-      "name": "Umatoll Colorful Lighting Baby Balance Bike Toys for 1 Year Old Girl Gifts, Adjustable Seat, First Birthday Gifts, 12-24 Months Toddler Bike, New Pink",
-      "ageText": "Toddler",
-      "ageMinMonths": 12,
-      "ageMaxMonths": 24,
-      "wheelInches": null,
-      "weightLbs": 3.6,
-      "frameMaterial": "Aluminum Alloy",
-      "steeringLimitDeg": 135,
-      "priceUsd": 28.99,
-      "rating": 4.8,
-      "reviewCount": 2508,
-      "productUrl": "/products/balance-bikes/balance_bike-b0fzvlg7yq"
     },
     {
       "id": "balance_bike-b0dg8vrzbz",

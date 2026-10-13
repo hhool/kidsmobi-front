@@ -8,9 +8,9 @@ export const AGE_DATASET = {
     "retrievedAt": "2026-10-13"
   },
   "catalog": {
-    "productsScanned": 159,
-    "balanceBikesListed": 14,
-    "withStatedAgeRange": 13,
+    "productsScanned": 156,
+    "balanceBikesListed": 13,
+    "withStatedAgeRange": 12,
     "withoutStatedAgeRange": 1
   },
   "coverage": {
@@ -21,14 +21,13 @@ export const AGE_DATASET = {
         "months": 12,
         "label": "1 year",
         "searchLabel": "1 year",
-        "fitCount": 9,
+        "fitCount": 8,
         "fitIds": [
           "balance_bike-b0blmf98s8",
           "balance_bike-b0ccy6yrs8",
           "balance_bike-b08sgh7nkx",
           "balance_bike-b0b2h5333d",
           "balance_bike-b0cr6vkxj7",
-          "balance_bike-b0fzvlg7yq",
           "balance_bike-b0dg8vrzbz",
           "balance_bike-b0dz4bnzdr",
           "balance_bike-b0fvrv5hzb"
@@ -38,14 +37,13 @@ export const AGE_DATASET = {
         "months": 18,
         "label": "18 months",
         "searchLabel": "18 months",
-        "fitCount": 10,
+        "fitCount": 9,
         "fitIds": [
           "balance_bike-b0blmf98s8",
           "balance_bike-b0ccy6yrs8",
           "balance_bike-b08sgh7nkx",
           "balance_bike-b0b2h5333d",
           "balance_bike-b0cr6vkxj7",
-          "balance_bike-b0fzvlg7yq",
           "balance_bike-b0dg8vrzbz",
           "balance_bike-b0dz4bnzdr",
           "balance_bike-b0fvrv5hzb",
@@ -56,14 +54,13 @@ export const AGE_DATASET = {
         "months": 24,
         "label": "2 years",
         "searchLabel": "2 years",
-        "fitCount": 13,
+        "fitCount": 12,
         "fitIds": [
           "balance_bike-b0blmf98s8",
           "balance_bike-b0ccy6yrs8",
           "balance_bike-b08sgh7nkx",
           "balance_bike-b0b2h5333d",
           "balance_bike-b0cr6vkxj7",
-          "balance_bike-b0fzvlg7yq",
           "balance_bike-b0dg8vrzbz",
           "balance_bike-b0dz4bnzdr",
           "balance_bike-b0fvrv5hzb",
@@ -209,20 +206,6 @@ export const AGE_DATASET = {
       "rating": 4.8,
       "reviewCount": 2508,
       "productUrl": "/products/balance-bikes/balance_bike-b0cr6vkxj7"
-    },
-    {
-      "id": "balance_bike-b0fzvlg7yq",
-      "brand": "Umatoll",
-      "name": "Umatoll Colorful Lighting Baby Balance Bike Toys for 1 Year Old Girl Gifts, Adjustable Seat, First Birthday Gifts, 12-24 Months Toddler Bike, New Pink",
-      "ageMinMonths": 12,
-      "ageMaxMonths": 24,
-      "quotedAgeRange": "12-24 Months",
-      "wheelInches": null,
-      "weightLbs": 3.6,
-      "priceUsd": 28.99,
-      "rating": 4.8,
-      "reviewCount": 2508,
-      "productUrl": "/products/balance-bikes/balance_bike-b0fzvlg7yq"
     },
     {
       "id": "balance_bike-b0dg8vrzbz",

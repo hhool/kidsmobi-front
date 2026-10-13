@@ -23,29 +23,50 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const GENERATED_RELATIVE = "src/data/prunedProducts.generated.ts";
+const VARIANT_GENERATED_RELATIVE = "src/data/prunedVariantProducts.generated.ts";
 
-/**
- * duplicateId -> survivorId, lower-cased. Every id the site no longer publishes
- * maps to the listing that absorbed it.
- */
-export function loadPrunedMap(root = process.cwd()) {
-  const text = readFileSync(resolve(root, GENERATED_RELATIVE), "utf8");
+function loadMap(root, file, required) {
+  const path = resolve(root, file);
+  let text = "";
+  try {
+    text = readFileSync(path, "utf8");
+  } catch {
+    if (!required) return new Map();
+    throw new Error(`Cannot read ${file} — run the stage-1 planner with --write.`);
+  }
   const block = /"duplicateOf"\s*:\s*\{([\s\S]*?)\n {2}\}/.exec(text);
   if (!block) {
-    throw new Error(`No duplicateOf map found in ${GENERATED_RELATIVE} — pruning metadata missing.`);
+    if (!required) return new Map();
+    throw new Error(`No duplicateOf map found in ${file} — pruning metadata missing.`);
   }
   const map = new Map();
   for (const [, duplicateId, survivorId] of block[1].matchAll(/"([^"]+)"\s*:\s*"([^"]+)"/g)) {
     map.set(duplicateId.trim().toLowerCase(), survivorId.trim().toLowerCase());
   }
-  if (map.size === 0) throw new Error(`duplicateOf map in ${GENERATED_RELATIVE} is empty.`);
+  if (map.size === 0 && required) throw new Error(`duplicateOf map in ${file} is empty.`);
   return map;
 }
 
 /**
- * Products the site actually publishes: every Stage-1 loser whose survivor is
- * still present is dropped. A loser whose survivor is NOT in this list is kept —
- * dropping it would delete the product's only remaining record.
+ * duplicateId -> survivorId, lower-cased, across BOTH prune stages. Every id the
+ * site no longer publishes maps to the listing that absorbed it.
+ *
+ * Stage 1 removed re-listed duplicates of one record; stage 2 retires
+ * colourway listings that share a manufacturer model number. Both make the
+ * losing id unpublished, so anything counting products needs both.
+ */
+export function loadPrunedMap(root = process.cwd()) {
+  const merged = loadMap(root, GENERATED_RELATIVE, true);
+  for (const [duplicateId, survivorId] of loadMap(root, VARIANT_GENERATED_RELATIVE, false)) {
+    merged.set(duplicateId, survivorId);
+  }
+  return merged;
+}
+
+/**
+ * Products the site actually publishes: every Stage-1 and Stage-2 loser whose
+ * survivor is still present is dropped. A loser whose survivor is NOT in this
+ * list is kept — dropping it would delete the product's only remaining record.
  */
 export function dropPrunedDuplicates(products, pruneMap) {
   const present = new Set(products.map((p) => String(p?.id ?? "").trim().toLowerCase()));

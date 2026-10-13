@@ -1,0 +1,172 @@
+{
+  "generatedAt": "2026-10-13",
+  "policy": "one page per manufacturer model number — colourway/packaging variants are 301'd to the listing with the most reviews",
+  "evidence": [
+    "Product_Specifications.Item_Details['Model Number'] is the manufacturer's own identifier",
+    "name token similarity >= 0.65 against the surviving listing",
+    "same category + same brand"
+  ],
+  "minSimilarity": 0.65,
+  "publishedBefore": 179,
+  "stage1AlreadyWithheld": 18,
+  "pagesRetired": 5,
+  "pagesRemaining": 174,
+  "clusterSizeHistogram": {
+    "1": 146,
+    "2": 3,
+    "3": 1
+  },
+  "clusters": [
+    {
+      "category": "balance_bike",
+      "brand": "Umatoll",
+      "modelNumber": "B402",
+      "keepId": "balance_bike-b0cr6vkxj7",
+      "keepReviews": 2508,
+      "members": [
+        {
+          "id": "balance_bike-b0cr6vkxj7",
+          "reviews": 2508,
+          "price": 29.99,
+          "similarity": 1,
+          "name": "Umatoll Colorful Lighting Baby Balance Bike Toys for 1 Year Old Boys Gifts, Adjustable Seat Baby Walker, One Year Old Bo"
+        },
+        {
+          "id": "balance_bike-b0fzvlg7yq",
+          "reviews": 2508,
+          "price": 28.99,
+          "similarity": 0.69,
+          "name": "Umatoll Colorful Lighting Baby Balance Bike Toys for 1 Year Old Girl Gifts, Adjustable Seat, First Birthday Gifts, 12-24"
+        }
+      ]
+    },
+    {
+      "category": "stroller",
+      "brand": "Mompush",
+      "modelNumber": "T3500M",
+      "keepId": "stroller-b0b7mfs2w4",
+      "keepReviews": 1900,
+      "members": [
+        {
+          "id": "stroller-b0b7mfs2w4",
+          "reviews": 1900,
+          "price": 179.99,
+          "similarity": 1,
+          "name": "Mompush Lithe V2 Lightweight Travel Stroller Snack Tray Included, Black | Compact baby stroller, airplane-ready, one-han"
+        },
+        {
+          "id": "stroller-b0b7nl6kwn",
+          "reviews": 1863,
+          "price": 169.99,
+          "similarity": 0.857,
+          "name": "Mompush Lithe V2 Lightweight Travel Stroller, Compact Foldable Baby Stroller with Travel Bag, One-Hand Fold Stroller, Sn"
+        }
+      ]
+    },
+    {
+      "category": "stroller",
+      "brand": "MAMAZING",
+      "modelNumber": "S66",
+      "keepId": "stroller-b0fcmtqk6c",
+      "keepReviews": 1895,
+      "members": [
+        {
+          "id": "stroller-b0fcmtqk6c",
+          "reviews": 1895,
+          "price": 179.99,
+          "similarity": 1,
+          "name": "MAMAZING Ultra Air Lightweight Baby Travel Stroller with Carbon Fiber Frame, Compact & Airplane-Friendly, One-Handed Fol"
+        },
+        {
+          "id": "stroller-b0cx999ymh",
+          "reviews": 1890,
+          "price": 179.99,
+          "similarity": 0.885,
+          "name": "MAMAZING Ultra Air Lightweight Baby Travel Stroller with Carbon Fiber Frame, Compact & Airplane-Friendly, One-Handed Fol"
+        },
+        {
+          "id": "stroller-b0fd3s7lx7",
+          "reviews": 30,
+          "price": 36.99,
+          "similarity": 1,
+          "name": "Mamazing Ultra Air Lightweight Baby Travel Stroller with Carbon Fiber Frame | Compact & Airplane-Friendly, One-Handed Fo"
+        }
+      ]
+    },
+    {
+      "category": "stroller",
+      "brand": "Mompush",
+      "modelNumber": "T523",
+      "keepId": "stroller-b0fpfz9yql",
+      "keepReviews": 182,
+      "members": [
+        {
+          "id": "stroller-b0fpfz9yql",
+          "reviews": 182,
+          "price": 199.99,
+          "similarity": 1,
+          "name": "Mompush Nexis Carbon Travel Stroller, Ultra-Lightweight 11.5 lbs, Compact & Airplane Carry-On Approved, One-Second Auto-"
+        },
+        {
+          "id": "stroller-b0fpfz8lkx",
+          "reviews": 181,
+          "price": 169.99,
+          "similarity": 0.933,
+          "name": "Mompush Nexis Carbon Travel Stroller, Ultra-Lightweight 11.5 lbs, Compact & Airplane Carry-On Approved, One-Second Auto-"
+        }
+      ]
+    }
+  ],
+  "retired": [
+    {
+      "id": "balance_bike-b0fzvlg7yq",
+      "duplicateOf": "balance_bike-b0cr6vkxj7",
+      "category": "balance_bike",
+      "brand": "Umatoll",
+      "modelNumber": "B402",
+      "name": "Umatoll Colorful Lighting Baby Balance Bike Toys for 1 Year Old Girl Gifts, Adjustable Seat, First Birthday Gifts, 12-24",
+      "reviews": 2508,
+      "similarity": 0.69
+    },
+    {
+      "id": "stroller-b0b7nl6kwn",
+      "duplicateOf": "stroller-b0b7mfs2w4",
+      "category": "stroller",
+      "brand": "Mompush",
+      "modelNumber": "T3500M",
+      "name": "Mompush Lithe V2 Lightweight Travel Stroller, Compact Foldable Baby Stroller with Travel Bag, One-Hand Fold Stroller, Sn",
+      "reviews": 1863,
+      "similarity": 0.857
+    },
+    {
+      "id": "stroller-b0cx999ymh",
+      "duplicateOf": "stroller-b0fcmtqk6c",
+      "category": "stroller",
+      "brand": "MAMAZING",
+      "modelNumber": "S66",
+      "name": "MAMAZING Ultra Air Lightweight Baby Travel Stroller with Carbon Fiber Frame, Compact & Airplane-Friendly, One-Handed Fol",
+      "reviews": 1890,
+      "similarity": 0.885
+    },
+    {
+      "id": "stroller-b0fd3s7lx7",
+      "duplicateOf": "stroller-b0fcmtqk6c",
+      "category": "stroller",
+      "brand": "Mamazing",
+      "modelNumber": "S66",
+      "name": "Mamazing Ultra Air Lightweight Baby Travel Stroller with Carbon Fiber Frame | Compact & Airplane-Friendly, One-Handed Fo",
+      "reviews": 30,
+      "similarity": 1
+    },
+    {
+      "id": "stroller-b0fpfz8lkx",
+      "duplicateOf": "stroller-b0fpfz9yql",
+      "category": "stroller",
+      "brand": "Mompush",
+      "modelNumber": "T523",
+      "name": "Mompush Nexis Carbon Travel Stroller, Ultra-Lightweight 11.5 lbs, Compact & Airplane Carry-On Approved, One-Second Auto-",
+      "reviews": 181,
+      "similarity": 0.933
+    }
+  ]
+}

@@ -76,6 +76,7 @@ import {
   buildAgeDatasetSchema,
 } from "../src/data/balanceBikeAge";
 import { PRUNED_PRODUCTS } from "../src/data/prunedProducts.generated";
+import { PRUNED_VARIANT_PRODUCTS } from "../src/data/prunedVariantProducts.generated";
 import { getPageCopy } from "../src/config/pageCopy";
 import { shortenCardTitle } from "../src/lib/productSeoText";
 import { productDetailUrlSlug, resolveProductDetailCategorySlug } from "../src/lib/productCategoryPaths";
@@ -100,12 +101,26 @@ const distDir = path.resolve("dist");
  * (e.g. two JOYSTAR records at 5,165 reviews each). Each is 301'd to the listing
  * that absorbed it, so link equity and readers both land on the surviving page.
  * See scripts/plan_stage1_prune.mjs + doc/stage1-prune-report.json.
+ *
+ * STAGE 2 (scripts/plan_stage2_variants.mjs + doc/stage2-variant-report.json)
+ * retired 5 more: listings of one manufacturer MODEL NUMBER under different
+ * colourways (MAMAZING S66 three times, Mompush Lithe V2 / Nexis Carbon twice,
+ * Umatoll B402 twice). Their blurbs differ, which is why stage 1 missed them,
+ * but the manufacturer's own identifier, weight and dimensions are identical.
+ * They caused the last thing this site should publish: two pages needing an
+ * Amazon ASIN in the <title> to be told apart. Each still 301s to its survivor.
  */
 const PRUNED_PRODUCT_IDS = new Set(
   Object.entries(PRUNED_PRODUCTS.duplicateOf).map(([duplicateId]) => duplicateId.trim().toLowerCase()),
 );
-const isPrunedProduct = (id: unknown): boolean =>
-  PRUNED_PRODUCT_IDS.has(String(id || "").trim().toLowerCase());
+const PRUNED_VARIANT_IDS = new Set(
+  Object.entries(PRUNED_VARIANT_PRODUCTS.duplicateOf).map(([duplicateId]) => duplicateId.trim().toLowerCase()),
+);
+const VARIANT_SURVIVORS = PRUNED_VARIANT_PRODUCTS.duplicateOf;
+const isPrunedProduct = (id: unknown): boolean => {
+  const normalized = String(id || "").trim().toLowerCase();
+  return PRUNED_PRODUCT_IDS.has(normalized) || PRUNED_VARIANT_IDS.has(normalized);
+};
 type RoutePage = {
   route: string;
   title: string;
@@ -209,6 +224,38 @@ function capSeoText(text: string, maxChars: number): string {
   const cut = raw.slice(0, maxChars);
   const sp = cut.lastIndexOf(" ");
   return (sp > 20 ? cut.slice(0, sp) : cut).replace(/[\s,;:.–—-]+$/, "");
+}
+
+/**
+ * Words that must never be the LAST word of a truncated <title>.
+ *
+ * `capSeoText` alone is fine for meta descriptions but produces junk titles:
+ * it cut "Review Count Integrity: The Numbers We Refused to Publish" down to
+ * "…The Numbers We", and "Finding the Best Balance Bike for a 1-Year-Old" to
+ * "…for a". In a search result those read like a machine stopped mid-sentence —
+ * exactly the "auto-generated content" impression the whole site is trying to
+ * avoid. Dropping one more word costs almost no keyword coverage, so the list
+ * is deliberately narrow: conjunctions, prepositions, articles and the pronouns
+ * that only ever appear mid-clause.
+ */
+const TITLE_DANGLING_WORDS = new Set([
+  "a", "an", "the", "and", "or", "but", "nor", "as", "at", "by", "for", "from",
+  "in", "of", "on", "to", "with", "than", "then", "that", "this", "these",
+  "those", "it", "its", "is", "are", "was", "we", "our", "you", "your", "who",
+  "how", "what", "when", "where", "why", "vs", "vs.", "&", "&amp;", "|",
+]);
+
+/** Title-safe capping: word boundary, then no dangling connector word. */
+function capSeoTitle(text: string, maxChars: number): string {
+  const capped = capSeoText(text, maxChars);
+  const words = capped.split(" ");
+  if (words.length < 2) return capped;
+  const start = words.length;
+  while (words.length > 1 && TITLE_DANGLING_WORDS.has(words[words.length - 1].toLowerCase())) {
+    words.pop();
+  }
+  if (words.length === start) return capped;
+  return words.join(" ").replace(/[\s,;:.–—|&+\-]+$/, "").trim() || capped;
 }
 
 /** Cuts meta description to ≤maxChars at a word boundary. */
@@ -339,6 +386,68 @@ function clusterNavHtml(currentPath: string, heading = "Balance bike reference p
   `;
 }
 
+const SITE_TITLE_SUFFIX = " | BalanceBikeToddler";
+
+/**
+ * Amazon ASINs inside meta descriptions ("… (ASIN B07P1YSC18) is an ultra-light
+ * umbrella stroller…") come from CMS review copy. The snippet is the first
+ * sentence a parent reads, and an opaque marketplace ID there is the clearest
+ * tell that the text was harvested. The identifier stays on the page where it
+ * actually does something — it identifies the listing in the body copy.
+ */
+function stripCatalogueIds(text: string): string {
+  return String(text || "")
+    .replace(/\(?\b(?:ASIN|amazon)\s*[:#]?\s*B0[0-9A-Z]{8}\b\)?/gi, "")
+    .replace(/\(\s*B0[0-9A-Z]{8}\s*\)/gi, "")
+    .replace(/\(\s*\)/g, "")
+    .replace(/\s+([,.;:)])/g, "$1")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
+/**
+ * The <title> a page would ship with, replicating renderDocument() exactly.
+ * Needed because collision handling has to compare what would be PUBLISHED,
+ * not the untruncated source string.
+ */
+function documentTitleOf(page: RoutePage): string {
+  if (page.fullTitle) return page.fullTitle;
+  const full = `${page.title}${SITE_TITLE_SUFFIX}`;
+  return full.length <= 65 ? full : `${capSeoTitle(page.title, 65 - SITE_TITLE_SUFFIX.length)}${SITE_TITLE_SUFFIX}`;
+}
+
+/**
+ * De-duplicate CMS review titles against product detail titles.
+ *
+ * Two URLs answering one query with one <title> (this shipped for both
+ * "Evenflo Pivot NXT Travel System Review" and "Gotrax KS1 Kids Kick Scooter
+ * Review") is the cannibalisation pattern Google settles by ranking neither.
+ * The product page owns "<model> Review" — it carries the specs and the links —
+ * so the CMS review article takes a qualifier describing what it holds.
+ */
+function resolveDuplicateTitles(productPages: RoutePage[], reviewPages: RoutePage[]): number {
+  const published = new Set(productPages.map((page) => documentTitleOf(page).toLowerCase()));
+  let fixed = 0;
+  for (const page of reviewPages) {
+    const current = documentTitleOf(page);
+    if (!published.has(current.toLowerCase())) continue;
+    const base = current.endsWith(SITE_TITLE_SUFFIX)
+      ? current.slice(0, -SITE_TITLE_SUFFIX.length)
+      : current;
+    const stem = base.replace(/\s+(?:reviews?)\s*$/i, "").trim();
+    const qualifier = ": Verdict";
+    let candidate = `${stem}${qualifier}${SITE_TITLE_SUFFIX}`;
+    if (candidate.length > 65) {
+      candidate = `${capSeoTitle(stem, 65 - SITE_TITLE_SUFFIX.length - qualifier.length)}${qualifier}${SITE_TITLE_SUFFIX}`;
+    }
+    if (published.has(candidate.toLowerCase())) continue;
+    page.fullTitle = candidate;
+    published.add(candidate.toLowerCase());
+    fixed += 1;
+  }
+  return fixed;
+}
+
 function renderDocument(page: RoutePage, appAssets: AppAssets): string {
   // The homepage route is "" — emit the trailing slash so the canonical matches
   // the sitemap entry (https://balancebiketoddler.com/) exactly.
@@ -346,13 +455,17 @@ function renderDocument(page: RoutePage, appAssets: AppAssets): string {
   const canonical = `https://balancebiketoddler.com${routePath}`;
   // SEO title cap (Semrush): full override wins, else `${title} | brand`
   // truncated to ≤65 chars at a word boundary, brand suffix always kept.
-  const SITE_TITLE_SUFFIX = " | BalanceBikeToddler";
   const titleTag = page.fullTitle
     ?? (() => {
       const full = `${page.title}${SITE_TITLE_SUFFIX}`;
-      return full.length <= 65 ? full : `${capSeoText(page.title, 65 - SITE_TITLE_SUFFIX.length)}${SITE_TITLE_SUFFIX}`;
+      return full.length <= 65 ? full : `${capSeoTitle(page.title, 65 - SITE_TITLE_SUFFIX.length)}${SITE_TITLE_SUFFIX}`;
     })();
-  const descTag = capMetaDescription(page.description);
+  // The same claim scrub that runs over the body must run here first: the whole
+  // document is scrubbed again after rendering, and a rewrite that lengthens the
+  // text ("lab database" -> "specification database") otherwise pushes an
+  // already-capped snippet back over the limit.
+  const cleanDescription = sanitizeUnsupportedClaims(stripCatalogueIds(page.description));
+  const descTag = capMetaDescription(cleanDescription);
   const entitySameAs = [
     "https://www.youtube.com/@kidsmobi",
     "https://www.facebook.com",
@@ -2430,7 +2543,7 @@ function renderFilterPages(
     {
       route: "/reviews/single",
       title: "Single-Product Reviews",
-      fullTitle: "Single-Product Reviews with Source-Based Scores | BalanceBikeToddler",
+      fullTitle: "Single-Product Reviews: Source-Based Scores | BalanceBikeToddler",
       description:
         "Every published single-product review: lab-style scores for safety, comfort, portability, features, and value, with a verdict you can trace.",
       introHeading: "How does a single-product review work?",
@@ -4291,6 +4404,9 @@ type CmsProductFull = CmsProductLite & {
   galleryUrls?: string[];
   updatedAt?: string;
   Product_Display_Fields?: Record<string, { value?: string } | undefined>;
+  /** Seller-declared attributes; `Color` is the field that separates two
+   *  listings of one model ("White" vs "Mint Green"). */
+  Category_Attributes?: Record<string, string | undefined>;
 };
 
 /** Mirrors PRODUCT_ROUTE_ALIASES in App.tsx. */
@@ -4543,10 +4659,138 @@ function renderProductBreadcrumb(products: Array<{ name: string; href: string }>
       `;
 }
 
+/**
+ * Variant labels for product detail titles: product id -> human-readable
+ * difference ("Phantom", "Beige", "12 Inch").
+ *
+ * Why this must be computed catalogue-wide and once: two detail pages collide
+ * only if BOTH end up with the same <title>, so the decision needs every
+ * sibling in hand. Doing it inside the per-product renderer would also make it
+ * O(n^2) over the 36-char name shortening.
+ *
+ * The label is taken from the first word(s) at which two sibling names
+ * diverge, which is where sellers put colourways and sizes. Anything that
+ * could misrepresent the page (a half-scraped fragment, a marketing phrase) is
+ * rejected wholesale for the whole group — no label is better than a wrong
+ * label, and the caller then falls back to a model ID instead of inventing one.
+ */
+const VARIANT_LABEL_STOP_WORDS = new Set([
+  "for", "to", "from", "kids", "child", "children", "girls", "boys",
+  "baby", "toddler", "toddlers", "infant", "infants", "stroller", "bike",
+  "bikes", "bicycle", "tricycle", "toy", "toys", "seat", "review", "reviews",
+  "more", "plus", "new", "includes", "included", "pack", "set", "versus", "vs",
+]);
+const VARIANT_LABEL_MAX_CHARS = 24;
+const VARIANT_LABEL_MAX_WORDS = 4;
+
+function productTitleKeyCore(product: CmsProductFull): string {
+  const name = pickText(product.en?.name, product.name, String(product.id || ""));
+  return capSeoText(shortenCardTitle(name, 36) || productDisplayTitle(product), 36);
+}
+
+/** Shared acceptance rules for a variant label, whether it comes from the
+ *  seller's own `Color` field or from the divergence between two names. */
+function isUsableVariantLabel(value: string): boolean {
+  const candidate = String(value || "").replace(/\s+/g, " ").trim();
+  if (candidate.length < 2 || candidate.length > VARIANT_LABEL_MAX_CHARS) return false;
+  if (!/[A-Za-z]/.test(candidate)) return false;
+  if (!/^[A-Za-z0-9][A-Za-z0-9 .'&/+-]*$/.test(candidate)) return false;
+  const parts = candidate.split(" ");
+  if (parts.length > VARIANT_LABEL_MAX_WORDS) return false;
+  for (const part of parts) {
+    if (part.length < 2) return false;
+    if (VARIANT_LABEL_STOP_WORDS.has(part.toLowerCase())) return false;
+  }
+  return true;
+}
+
+/** The part of one listing's name that differs from its siblings' names. */
+function variantLabelCandidate(sourceName: string, commonWords: number): string | null {
+  const words = sourceName.split(/\s+/).filter(Boolean);
+  const rest = words.slice(commonWords).join(" ");
+  if (!rest) return null;
+  // Colourways usually sit right after a comma or in parentheses
+  // ("Expedition Jogger, Dash Black", "Infant Swing ... Use (Beige)").
+  let candidate = rest.split(/\s*(?:,|;|\||–|—|\s-\s)\s*/)[0]?.trim() || "";
+  if (!candidate) {
+    candidate = /\(([^)]{2,24})\)/.exec(rest)?.[1]?.trim() || "";
+  }
+  candidate = candidate
+    .replace(/^[-–—:•.,]+\s*/, "")
+    .replace(/[,;:.]+$/, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  return isUsableVariantLabel(candidate) ? candidate : null;
+}
+
+function buildProductVariantLabels(products: CmsProductFull[]): Map<string, string> {
+  const groups = new Map<string, CmsProductFull[]>();
+  for (const product of products) {
+    const id = String(product.id || "").trim();
+    if (!id) continue;
+    const key = productTitleKeyCore(product).toLowerCase();
+    const members = groups.get(key) || [];
+    members.push(product);
+    groups.set(key, members);
+  }
+
+  const labels = new Map<string, string>();
+  for (const [, members] of groups) {
+    if (members.length < 2) continue;
+    const candidates = members.map((member) => variantLabelFor(member, members));
+    // Partial assignment: where two listings genuinely carry no honest
+    // difference, leaving BOTH on the model-ID fallback is the correct answer —
+    // but where one does, labelling it beats leaving it stamped with an ASIN.
+    const counts = new Map<string, number>();
+    for (const candidate of candidates) {
+      if (candidate) counts.set(candidate.toLowerCase(), (counts.get(candidate.toLowerCase()) || 0) + 1);
+    }
+    for (const [index, member] of members.entries()) {
+      const candidate = candidates[index];
+      if (!candidate) continue;
+      if (counts.get(candidate.toLowerCase()) !== 1) continue;
+      // A label that is a prefix of a sibling's candidate usually means one of
+      // the two names was truncated mid-word while being collected
+      // ("Whee" / "Wheels") — that difference describes our own data quality,
+      // not the product.
+      if (candidates.some((other, otherIndex) => otherIndex !== index && other && other.toLowerCase().startsWith(candidate.toLowerCase()))) {
+        continue;
+      }
+      labels.set(String(member.id || "").trim(), candidate);
+    }
+  }
+  return labels;
+}
+
+/** Best honest discriminator for one listing: declared colour first, then the
+ *  point where its name diverges from its siblings'. */
+function variantLabelFor(member: CmsProductFull, members: CmsProductFull[]): string | null {
+  const attributes = member.Category_Attributes || {};
+  const declared = String(attributes.Color ?? attributes.Colour ?? attributes["Color Name"] ?? "").trim();
+  // Colour values carry bundle details after a comma
+  // ("Jet, No organizer & cushion") — the colour itself is the leading phrase.
+  const colorCandidates = [declared, declared.split(",")[0]?.trim() || ""];
+  for (const candidate of colorCandidates) {
+    if (isUsableVariantLabel(candidate)) return candidate.replace(/\s+/g, " ").trim();
+  }
+  const names = members.map((item) =>
+    String(pickText(item.en?.name, item.name)).replace(/[®©™]/g, "").replace(/\s+/g, " ").trim(),
+  );
+  const tokenLists = names.map((value) => value.toLowerCase().split(" "));
+  const shortest = Math.min(...tokenLists.map((tokens) => tokens.length));
+  let commonWords = 0;
+  while (commonWords < shortest && tokenLists.every((tokens) => tokens[commonWords] === tokenLists[0][commonWords])) {
+    commonWords += 1;
+  }
+  const ownName = String(pickText(member.en?.name, member.name)).replace(/[®©™]/g, "").replace(/\s+/g, " ").trim();
+  return variantLabelCandidate(ownName, commonWords);
+}
+
 function renderProductDetailPage(
   product: CmsProductFull,
   allProducts: CmsProductFull[],
   evaluations: CmsEvaluation[],
+  variantLabels: Map<string, string>,
 ): RoutePage | null {
   const id = String(product.id || "").trim();
   if (!id) return null;
@@ -4563,25 +4807,42 @@ function renderProductDetailPage(
   // handled or two pages end up sharing a <title>/<h1>:
   //  - another product with the same truncated name
   //  - a CMS review page whose subject matches this product's shortened name
-  //    (e.g. "Glerc Kids Bike Review" on both the product and its review page)
+  //    (e.g. "Glerc Kids Bike Review" on both the product and its review page) —
+  //    now settled by qualifying the review article (resolveDuplicateTitles),
+  //    so the product keeps the natural title instead of absorbing an ASIN.
   const titleShort = capSeoText(shortenCardTitle(name, 36) || displayName, 36);
   const baseSeoTitle = `${titleShort} Review`;
-  const reviewTitles = new Set(
-    evaluations
-      .map((item) =>
-        capSeoText(pickText(item.en?.title, item.zh?.title, item.title), 60).toLowerCase(),
-      )
-      .filter(Boolean),
-  );
-  const titleCollides =
-    reviewTitles.has(baseSeoTitle.toLowerCase()) ||
-    allProducts.some((other) => {
-      const otherId = String(other.id || "").trim();
-      if (!otherId || otherId === id) return false;
-      const otherShort = capSeoText(shortenCardTitle(pickText(other.en?.name, other.name), 36) || "", 36);
-      return otherShort === titleShort;
-    });
-  const seoTitle = titleCollides ? `${baseSeoTitle}: ${asin}` : baseSeoTitle;
+  // Sibling listings of one model (colourways, size runs) used to be told
+  // apart by appending the raw Amazon ASIN — "<title> Review: B0B7MFS2W4".
+  // That is legible to nobody searching, and an ID code in a SERP title is a
+  // fingerprint of machine-assembled pages. Prefer the difference the two
+  // listings' own names actually carry ("Phantom" vs "Dash Black", "Beige" vs
+  // "Black"), and only fall back to the ASIN when no human-readable difference
+  // exists. buildProductVariantLabels() already rejected any label it could not
+  // justify, so an empty string here means "no honest discriminator".
+  const variantLabel = variantLabels.get(id) || "";
+  const candidateTitle = variantLabel ? `${titleShort} Review (${variantLabel})` : baseSeoTitle;
+  const publishedTitleOf = (other: CmsProductFull): string => {
+    const otherId = String(other.id || "").trim();
+    const otherName = pickText(other.en?.name, other.name, otherId);
+    const otherShort = capSeoText(shortenCardTitle(otherName, 36) || productDisplayTitle(other), 36);
+    const otherLabel = variantLabels.get(otherId) || "";
+    return otherLabel ? `${otherShort} Review (${otherLabel})` : `${otherShort} Review`;
+  };
+  // Collision resolution is split by page type. A CMS review article that would
+  // repeat a product page's title gets qualified instead (see
+  // resolveDuplicateTitles), because the product page is where the specs,
+  // pricing and internal links live. What remains here is product-vs-product,
+  // compared case-insensitively: two titles differing only in "Mamazing" vs
+  // "MAMAZING" are the same string as far as a results page is concerned.
+  const candidate = candidateTitle.toLowerCase();
+  const titleCollides = allProducts.some((other) => {
+    const otherId = String(other.id || "").trim();
+    if (!otherId || otherId === id) return false;
+    const otherTitle = publishedTitleOf(other).toLowerCase();
+    return otherTitle === candidate || otherTitle === `${baseSeoTitle.toLowerCase()}: ${asin.toLowerCase()}`;
+  });
+  const seoTitle = titleCollides ? `${titleShort} Review: ${asin}` : candidateTitle;
 
   const FALLBACK_DESCRIPTION =
     "Evidence-based review with safety score, specs, and age fit for this kids mobility product.";
@@ -5087,9 +5348,15 @@ async function main() {
     productCategoryPages.push(slugPage);
     productCategoryCounts.push(`${meta.slug}: ${categoryProducts.length}`);
   }
+  const productVariantLabels = buildProductVariantLabels(cmsProductsFull);
   const productDetailPages = cmsProductsFull
-    .map((product) => renderProductDetailPage(product, cmsProductsFull, cmsEvaluations))
+    .map((product) => renderProductDetailPage(product, cmsProductsFull, cmsEvaluations, productVariantLabels))
     .filter((page): page is RoutePage => page !== null);
+  if (productVariantLabels.size) {
+    console.log(
+      `[prerender] product titles: ${productVariantLabels.size} listing(s) titled with a variant label instead of an ASIN.`,
+    );
+  }
   if (productDetailPages.length) {
     console.log(
       `[prerender] products: ${productCategoryPages.length} category page(s) [${productCategoryCounts.join(", ")}] + ${productDetailPages.length} detail page(s).`,
@@ -5104,6 +5371,10 @@ async function main() {
   const evaluationDetailPages = cmsEvaluations
     .map((item) => renderEvaluationDetailPage(item, productMap))
     .filter((page): page is RoutePage => page !== null);
+  const retitledReviews = resolveDuplicateTitles(productDetailPages, evaluationDetailPages);
+  if (retitledReviews) {
+    console.log(`[prerender] ${retitledReviews} CMS review page(s) retitled to stop sharing a <title> with a product page.`);
+  }
 
   // Order matters: an index route (`/guides`, `/news`) is written before its detail
   // pages so the index's cleanup step can remove the whole route folder first.
@@ -5299,7 +5570,10 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     if (id) allProductsById.set(id, product);
   }
   const duplicateRedirects: string[] = [];
-  for (const [duplicateId, survivorId] of Object.entries(PRUNED_PRODUCTS.duplicateOf)) {
+  for (const [duplicateId, survivorId] of [
+    ...Object.entries(PRUNED_PRODUCTS.duplicateOf),
+    ...Object.entries(VARIANT_SURVIVORS),
+  ]) {
     const from = allProductsById.get(duplicateId.trim().toLowerCase());
     const to = allProductsById.get(String(survivorId).trim().toLowerCase());
     if (!from || !to) continue;

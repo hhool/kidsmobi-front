@@ -62,6 +62,8 @@
     "data:age": "node scripts/fetch_age_data.mjs",
     "reports:normalize:check": "node scripts/normalize_reports_quality.mjs",
     "stage1:plan": "node scripts/plan_stage1_prune.mjs",
+    "stage2:variants": "node scripts/plan_stage2_variants.mjs",
+    "check:titles": "node scripts/check-prerender-titles.mjs",
     "reports:normalize": "node scripts/normalize_reports_quality.mjs --write"
   },
   "dependencies": {

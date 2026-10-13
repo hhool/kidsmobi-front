@@ -23,28 +23,28 @@ export const WEIGHT_DATASET = {
     "outlierPolicy": "values outside the plausible band are excluded from medians and listed publicly"
   },
   "totals": {
-    "productsScanned": 63,
-    "withWeight": 46,
-    "balanceBikesListed": 14,
-    "balanceBikesWithWeight": 13,
+    "productsScanned": 62,
+    "withWeight": 45,
+    "balanceBikesListed": 13,
+    "balanceBikesWithWeight": 12,
     "excludedSuspect": 1
   },
   "headline": {
-    "balanceBikeMedianLb": 4.6,
+    "balanceBikeMedianLb": 4.7,
     "kidsBikeMedianLb": 19.9,
-    "lighterByLb": 15.3,
-    "ratio": 4.3
+    "lighterByLb": 15.2,
+    "ratio": 4.2
   },
   "categories": [
     {
       "key": "balance_bike",
-      "listed": 14,
-      "withWeight": 13,
-      "n": 13,
-      "medianLb": 4.6,
+      "listed": 13,
+      "withWeight": 12,
+      "n": 12,
+      "medianLb": 4.7,
       "minLb": 3.3,
       "maxLb": 9,
-      "frameSpecified": 14,
+      "frameSpecified": 13,
       "brakeSpecified": 0,
       "tireSpecified": 0
     },
@@ -111,19 +111,6 @@ export const WEIGHT_DATASET = {
       "rating": 4.8,
       "reviewCount": 15783,
       "productUrl": "/products/balance-bikes/balance_bike-b08sgh7nkx"
-    },
-    {
-      "id": "balance_bike-b0fzvlg7yq",
-      "brand": "Umatoll",
-      "name": "Umatoll Colorful Lighting Baby Balance Bike Toys for 1 Year Old Gir…",
-      "weightLb": 3.6,
-      "frameMaterial": "Aluminum Alloy",
-      "wheelInches": null,
-      "priceUsd": 28.99,
-      "ageText": "1-2 Year",
-      "rating": 4.8,
-      "reviewCount": 2508,
-      "productUrl": "/products/balance-bikes/balance_bike-b0fzvlg7yq"
     },
     {
       "id": "balance_bike-b0dz4bnzdr",
@@ -267,11 +254,11 @@ export const WEIGHT_DATASET = {
     },
     {
       "material": "Aluminum Alloy",
-      "n": 3,
-      "medianLb": 3.5,
+      "n": 2,
+      "medianLb": 3.4,
       "minLb": 3.3,
-      "maxLb": 3.6,
-      "smallSample": false
+      "maxLb": 3.5,
+      "smallSample": true
     },
     {
       "material": "Composite / Plastic",
