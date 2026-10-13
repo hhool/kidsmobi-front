@@ -2550,15 +2550,17 @@ function renderAboutPage(): RoutePage {
 }
 
 /**
- * `public/_redirects` falls back to the SPA shell with `/* /index.html 200`, so a
- * prerendered guide needs its own explicit rule to be served. Rules are exact
- * paths only: a wildcard would turn unknown guide URLs into 404s instead of
- * letting the client router handle them.
- */
-/**
- * Registers one exact 200-rewrite per prerendered detail page, immediately before
- * the SPA catch-all. Exact rules are used deliberately: a wildcard would turn any
- * unknown guide/news URL into a hard 404 instead of letting the SPA handle it.
+ * Registers one exact 200-rewrite per prerendered detail page, just above the
+ * prefix-scoped SPA fallback block in `public/_redirects`.
+ *
+ * History worth keeping: this file used to end with a global
+ * `/* /index.html 200` catch-all, which answered *every* unknown path with the
+ * homepage shell and a 200 status — including inbound spam such as
+ * `/panties/*.php` inherited from a previous owner of the domain. Cloudflare
+ * Pages cannot express a 404 in `_redirects` (only 301/302/303/307/308 and 200
+ * rewrites are supported), so the fix is to keep the fallback scoped to the app
+ * route prefixes and let everything else fall through to `public/404.html`.
+ * See the comment block in `public/_redirects` before reintroducing a wildcard.
  */
 async function injectGuideRedirects(routes: string[], legacyRedirects: string[]): Promise<void> {
   const redirectsPath = path.join(distDir, "_redirects");
@@ -2595,9 +2597,14 @@ async function injectGuideRedirects(routes: string[], legacyRedirects: string[])
     ? `# --- generated: legacy product URL family (P0-2 kebab-case 301s) ---\n${legacyRedirects.join("\n")}\n# --- end legacy 301s ---\n`
     : "";
   const block = legacyBlock + (lines.length ? `${START}\n${lines.join("\n")}\n${END}\n` : "");
-  const CATCH_ALL = "/* /index.html 200";
-  const next = cleaned.includes(CATCH_ALL)
-    ? cleaned.replace(CATCH_ALL, `${block}${CATCH_ALL}`)
+  // Generated (static) rules must land above the dynamic prefix rewrites, so
+  // anchor on the marker that precedes the SPA block. The legacy wildcard line
+  // is still recognised for backwards compatibility.
+  const ANCHOR = "# --- generated: begin anchor ---";
+  const LEGACY_CATCH_ALL = "/* /index.html 200";
+  const anchor = cleaned.includes(ANCHOR) ? ANCHOR : LEGACY_CATCH_ALL;
+  const next = cleaned.includes(anchor)
+    ? cleaned.replace(anchor, `${block}${anchor}`)
     : `${cleaned.replace(/\s*$/, "\n")}${block}`;
 
   await writeFile(redirectsPath, next, "utf8");

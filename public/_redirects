@@ -18,4 +18,38 @@
 # sitemap also advertised it under a slugified category (/news/newproduct/...),
 # which the app never resolved, so only the well-formed variant needs a rule.
 /news/new_product/kidspullalongwagons-b0cs2zykc4image /news/new_product/strider-bikes-kellys-juvenile-models 301
-/* /index.html 200
+
+# scripts/prerender-pages.ts injects the generated prerendered-page rules
+# immediately above this marker. They stay above the SPA block below so exact
+# (static) matches always win over the prefix rewrites.
+# --- generated: begin anchor ---
+
+# Bare app roots with no prerendered HTML of their own. These are static
+# rewrites, so they must stay above the dynamic prefix block below.
+/compare /index.html 200!
+/auth /index.html 200!
+/search /index.html 200!
+/evaluations /index.html 200!
+/transparency /index.html 200!
+
+# SPA fallback, prefix-scoped on purpose. Do NOT replace this with
+# `/* /index.html 200`: a global catch-all serves the homepage shell with HTTP
+# 200 for every unknown path, including inbound junk such as /panties/*.php
+# left behind by whoever owned this domain before us. `_redirects` supports
+# only 301/302/303/307/308 redirects and 200 rewrites — there is no way to
+# answer with a 404 here — so unknown roots must stay unmatched and fall
+# through to public/404.html, which Pages serves with a real 404 status.
+#
+# The prefixes mirror the roots the client router actually resolves in
+# src/App.tsx (resolveRouteState); anything outside them already renders an
+# in-app "not found" view, so nothing is lost by 404ing at the edge.
+/products/* /index.html 200
+/reviews/* /index.html 200
+/evaluations/* /index.html 200
+/guides/* /index.html 200
+/news/* /index.html 200
+/transparency/* /index.html 200
+/about/* /index.html 200
+/compare/* /index.html 200
+/auth/* /index.html 200
+/search/* /index.html 200

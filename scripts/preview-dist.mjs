@@ -11,6 +11,24 @@ import path from "node:path";
 const distDir = path.resolve("dist");
 const port = Number(process.argv[2] || 4181);
 
+// Cloudflare Pages has no 404 rewrite, so unknown paths are simply left
+// unmatched and fall through to the top-level 404.html.
+const SPA_PREFIXES = [
+  "/products/",
+  "/reviews/",
+  "/evaluations/",
+  "/guides/",
+  "/news/",
+  "/transparency/",
+  "/about/",
+  "/compare/",
+  "/auth/",
+  "/search/",
+];
+
+// Bare app roots rewritten to the shell by static rules in _redirects.
+const SPA_EXACT_PATHS = ["/compare", "/auth", "/search", "/evaluations", "/transparency"];
+
 const MIME = {
   ".html": "text/html; charset=utf-8",
   ".js": "text/javascript",
@@ -76,10 +94,23 @@ const server = http.createServer(async (req, res) => {
       res.end(buf);
       return;
     }
-    // 4) SPA catch-all ("/* /index.html 200")
-    const buf = await fs.readFile(path.join(distDir, "index.html"));
-    res.writeHead(200, { "content-type": "text/html; charset=utf-8" });
-    res.end(buf);
+    // 4) prefix-scoped SPA fallback (mirrors the per-prefix rules in
+    //    public/_redirects). Anything outside those prefixes is served
+    //    dist/404.html with a real 404 status, exactly like Pages does once a
+    //    top-level 404.html exists.
+    if (
+      SPA_EXACT_PATHS.includes(pathname) ||
+      SPA_PREFIXES.some((prefix) => pathname.startsWith(prefix))
+    ) {
+      const buf = await fs.readFile(path.join(distDir, "index.html"));
+      res.writeHead(200, { "content-type": "text/html; charset=utf-8" });
+      res.end(buf);
+      return;
+    }
+
+    const notFound = await statFile(path.join(distDir, "404.html"));
+    res.writeHead(404, { "content-type": "text/html; charset=utf-8" });
+    res.end(notFound ? await fs.readFile(notFound) : "404 Not Found");
   } catch (err) {
     res.writeHead(500);
     res.end(String(err));

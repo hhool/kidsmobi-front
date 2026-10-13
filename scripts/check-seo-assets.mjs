@@ -38,9 +38,27 @@ const required = [
   {
     // robots.txt is a static Pages asset and sitemap.xml is served by the
     // Worker route on the apex host — neither needs a _redirects rule.
-    name: 'redirects-seo-routes',
-    ok: redirects.includes('/api/* ') && redirects.includes('/* /index.html 200'),
-    detail: '_redirects must include api passthrough and SPA fallback rules',
+    name: 'redirects-api-passthrough',
+    ok: redirects.includes('/api/* '),
+    detail: '_redirects must include the /api/* passthrough rule',
+  },
+  {
+    // The SPA fallback must stay scoped to the app route prefixes. A global
+    // `/* /index.html 200` answers every unknown path (including inbound spam
+    // such as /panties/*.php) with the homepage shell and a 200 status, and
+    // `_redirects` has no 404 rewrite to compensate.
+    name: 'redirects-spa-fallback-scoped',
+    ok: ['/products/*', '/reviews/*', '/guides/*', '/news/*'].every((prefix) => redirects.includes(`${prefix} /index.html 200`)),
+    detail: '_redirects must rewrite each app route prefix to /index.html with 200',
+  },
+  {
+    // Comment-only mentions must not trip this check, hence the line-based scan.
+    name: 'redirects-no-global-catchall',
+    ok: !redirects
+      .split('\n')
+      .map((line) => line.trim())
+      .some((line) => line === '/* /index.html 200'),
+    detail: '_redirects must not contain the global /* /index.html 200 catch-all',
   },
 ];
 
