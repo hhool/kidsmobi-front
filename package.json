@@ -52,6 +52,7 @@
     "m3:snapshot": "node scripts/m3_generate_decision_snapshot.mjs",
     "seo:check": "node scripts/check-seo-assets.mjs",
     "check:reviewcounts": "node scripts/check-review-counts.mjs",
+    "check:content": "node scripts/check-prerender-content.mjs",
     "data:recalls": "node scripts/fetch_recall_data.mjs",
     "data:sizing": "node scripts/fetch_size_data.mjs",
     "data:safetygate": "node scripts/fetch_safety_gate_data.mjs",
