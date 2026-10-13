@@ -67,6 +67,7 @@ const AdminPanel = lazy(() => import("./components/AdminPanel"));
 const TransparencyPage = lazy(() => import("./components/TransparencyPage"));
 const SafetyRecallRecord = lazy(() => import("./components/SafetyRecallRecord"));
 const BalanceBikeSizing = lazy(() => import("./components/BalanceBikeSizing"));
+const BalanceBikeSafety = lazy(() => import("./components/BalanceBikeSafety"));
 const ComparisonDashboard = lazy(() => import("./components/ComparisonDashboard"));
 
 import { auth } from "./lib/firebase";
@@ -94,6 +95,11 @@ import {
   SIZING_PATH,
   sizingSeo,
 } from "./data/balanceBikeSizing";
+import {
+  buildSafetyDatasetSchema,
+  SAFETY_PATH,
+  safetySeo,
+} from "./data/balanceBikeSafety";
 import CookieConsentModal from "./components/CookieConsentModal";
 
 const DEFAULT_OG_IMAGE_PATH = "/images/og-site-icon.png";
@@ -831,6 +837,20 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
   if (root === "balance-bike-size-chart") {
     return {
       activeTab: "sizing",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      activeEvaluationId: "",
+      activeProductId: "",
+      activePageIndex: 1,
+      currentPath,
+    };
+  }
+
+  // Standalone safety-standards reference (Plan-B Asset 4). Registered before the
+  // unknown-root fallback so it hydrates with its own canonical, not home's.
+  if (root === "balance-bike-safety-standards") {
+    return {
+      activeTab: "safety-standards",
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
@@ -2671,6 +2691,40 @@ export default function App() {
       return;
     }
 
+    // Safety-standards reference (Plan-B Asset 4): its own title/canonical so
+    // hydration keeps the prerendered metadata instead of the homepage block.
+    if (activeTab === "safety-standards") {
+      const safetySeoData = safetySeo[lang] || safetySeo.en;
+      const canonicalOrigin =
+        cmsSettings?.seoGlobal?.siteOrigin ||
+        (cmsSettings as any)?.siteOrigin ||
+        (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+        window.location.origin;
+      const canonicalUrl = `${canonicalOrigin}${SAFETY_PATH}`;
+      const noIndex = shouldNoIndexCurrentPath(SAFETY_PATH, window.location.search, window.location.hostname);
+
+      document.title = safetySeoData.title;
+      updateMetaTag("description", safetySeoData.description);
+      updateMetaTag("keywords", safetySeoData.keywords.join(", "));
+      updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
+      updateCanonicalLink(canonicalUrl);
+      updateMetaProperty("og:url", canonicalUrl);
+      updateSocialMeta(safetySeoData.title, safetySeoData.description, DEFAULT_OG_IMAGE_PATH, "website");
+
+      injectJsonLd([
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: safetySeoData.title,
+          url: canonicalUrl,
+          description: safetySeoData.description,
+          inLanguage: lang,
+        },
+        buildSafetyDatasetSchema(canonicalUrl),
+      ]);
+      return;
+    }
+
     // Default to mapped key if valid, fallback to 'home'
     const validKeys = ["home", "news", "products", "reviews", "evaluations", "guides", "about"];
     if (!validKeys.includes(seoKey)) {
@@ -4079,6 +4133,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           <BalanceBikeSizing lang={lang} />
         )}
 
+        {activeTab === "safety-standards" && (
+          <BalanceBikeSafety lang={lang} />
+        )}
+
         {activeTab === "auth" && (
           <AuthSection 
             userEmail={userEmail}
@@ -4489,6 +4547,18 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     }}
                   >
                     {lang === "en" ? "Size Chart" : "尺寸对照"}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={SAFETY_PATH}
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath(SAFETY_PATH);
+                    }}
+                  >
+                    {lang === "en" ? "Safety Standards" : "安全标准"}
                   </a>
                 </li>
                 <li>
