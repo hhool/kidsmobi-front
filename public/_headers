@@ -6,3 +6,15 @@
   Strict-Transport-Security: max-age=31536000
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
+
+# Cloudflare Pages caches static files for ~4h by default. That is fine for
+# hashed assets, but it made sitemap.xml serve a stale copy after every deploy
+# (measured: edge served 260 URLs while the origin had 263, hiding three new
+# pages from crawlers). Always revalidate the sitemap so new URLs are
+# discoverable as soon as a deploy lands.
+# NOTE: this rule must stay the only one that sets Cache-Control for
+# /sitemap.xml — Cloudflare merges matching rules, and a duplicated
+# Cache-Control value is comma-joined, which voids it.
+/sitemap.xml
+  Cache-Control: public, max-age=0, must-revalidate
+  Cloudflare-CDN-Cache-Control: no-cache
