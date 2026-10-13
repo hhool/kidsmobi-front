@@ -53,6 +53,7 @@
     "seo:check": "node scripts/check-seo-assets.mjs",
     "check:reviewcounts": "node scripts/check-review-counts.mjs",
     "check:content": "node scripts/check-prerender-content.mjs",
+    "check:links": "node scripts/check-internal-links.mjs",
     "data:recalls": "node scripts/fetch_recall_data.mjs",
     "data:sizing": "node scripts/fetch_size_data.mjs",
     "data:safetygate": "node scripts/fetch_safety_gate_data.mjs",
