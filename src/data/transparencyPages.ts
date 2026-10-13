@@ -942,7 +942,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "See the rest of the scoring model, and why a corrupted count mattered more than a cosmetic defect.",
       },
       seo: {
-        title: "Review Count Integrity: The Numbers We Refuse to Publish",
+        title: "Review Count Integrity: Numbers We Refused",
         description:
           "Ten catalogue listings carried review counts reaching 47 million. We suppressed them rather than estimate, set a hard credibility ceiling of 200,000, and added a build-time guard.",
         keywords: ["review count integrity", "data transparency", "structured data accuracy", "review credibility"],
@@ -1039,7 +1039,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "查看评分模型的其余部分，以及为什么一个被污染的数字比外观缺陷更严重。",
       },
       seo: {
-        title: "Review Count Integrity: The Numbers We Refuse to Publish",
+        title: "Review Count Integrity: Numbers We Refused",
         description:
           "Ten catalogue listings carried review counts reaching 47 million. We suppressed them rather than estimate, set a hard credibility ceiling of 200,000, and added a build-time guard.",
         keywords: ["review count integrity", "data transparency", "structured data accuracy", "review credibility"],
