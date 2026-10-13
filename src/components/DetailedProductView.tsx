@@ -6,6 +6,7 @@ import {
   Image as ImageIcon,
   Maximize2
 } from "lucide-react";
+import ReferenceClusterNav from "./ReferenceClusterNav";
 import { 
   Radar, 
   RadarChart, 
@@ -1755,6 +1756,11 @@ export default function DetailedProductView({
           ))}
         </div>
       )}
+
+
+      {/* Reference cluster for balance-bike products only — mirrors the
+          prerendered block so both views carry the same internal links. */}
+      {normalizeDetailCategoryId(product) === "balance_bike" && <ReferenceClusterNav lang={lang} />}
 
     </div>
   );

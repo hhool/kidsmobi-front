@@ -120,6 +120,10 @@ type RoutePage = {
   /** Skip the page.title <h1> that renderStaticPage emits (used when the
    *  body has its own single <h1>, so the page keeps exactly one h1). */
   skipTitleH1?: boolean;
+  /** Skip the lead description paragraph renderStaticPage puts under the h1.
+   *  CMS articles whose body opens with the same sentence were printing it
+   *  twice, once as the lead and again as the first paragraph. */
+  skipLeadDescription?: boolean;
   /** Optional canonical path override (used by alias routes that must
    *  consolidate onto the canonical slug-form category URL). */
   canonicalPath?: string;
@@ -218,7 +222,7 @@ function renderStaticPage(page: RoutePage): string {
       <header style="padding-bottom: 24px; border-bottom: 1px solid #e2e8f0; margin-bottom: 24px;">
         <p style="margin: 0 0 10px; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: #c2410c; font-weight: 900;">BalanceBikeToddler</p>
         ${page.skipTitleH1 ? "" : `<h1 style="margin: 0 0 12px; font-size: clamp(2rem, 4vw, 3.15rem); line-height: 1.12;">${escapeHtml(page.title)}</h1>`}
-        <p style="margin: 0 0 14px; font-size: 1.08rem; color: #334155; max-width: 52rem;">${escapeHtml(page.description)}</p>
+        ${page.skipLeadDescription ? "" : `<p style="margin: 0 0 14px; font-size: 1.08rem; color: #334155; max-width: 52rem;">${escapeHtml(page.description)}</p>`}
       </header>
       ${page.body}
       ${renderSiteFooter()}
@@ -269,6 +273,69 @@ function renderSiteFooter(): string {
         <p style="margin:0;">${FOOTER_TRUST_LINKS.map(link).join("")}</p>
         <p style="margin:10px 0 0;color:#64748b;">© BalanceBikeToddler — evidence-based analysis of kids ride-on and safety gear.</p>
       </footer>
+  `;
+}
+
+/**
+ * Contextual links inside the balance-bike reference cluster.
+ *
+ * Until now the six reference pages were reachable only from the site-wide
+ * footer, which meant no page passed contextual anchor weight into the set —
+ * and Search Console shows 94.7% of this domain's impressions come from
+ * balance-bike queries, so those pages are the ones worth connecting. The
+ * footer link stays; these are the in-content links that give the cluster
+ * shape, with anchor text matching what each page actually contains.
+ */
+type ReferenceAsset = { href: string; label: string; blurb: string };
+
+const REFERENCE_ASSETS: ReferenceAsset[] = [
+  {
+    href: SIZING_PATH,
+    label: "Balance bike size chart",
+    blurb: "Seat height, wheel diameter and inseam fit, measured per model.",
+  },
+  {
+    href: AGE_PATH,
+    label: "Which models fit at each age",
+    blurb: "Coverage counts from 18 months to 4 years, using each maker's own age range.",
+  },
+  {
+    href: STABILITY_PATH,
+    label: "Stability and track width",
+    blurb: "Wheel spacing and tip-over geometry — published by only one of the fifteen.",
+  },
+  {
+    href: WEIGHT_PATH,
+    label: "Weight and build",
+    blurb: "Bike weight against child weight, with frame and tire material.",
+  },
+  {
+    href: SAFETY_PATH,
+    label: "Safety standards reference",
+    blurb: "What EN 71, ASTM F963 and CPSC actually require of a balance bike.",
+  },
+  {
+    href: RECALL_SAFETY_PATH,
+    label: "Balance bike recall record",
+    blurb: "CPSC and EU Safety Gate alerts with dates, hazards and remedies.",
+  },
+];
+
+function clusterNavHtml(currentPath: string, heading = "Balance bike reference pages"): string {
+  const items = REFERENCE_ASSETS.filter((asset) => asset.href !== currentPath);
+  if (!items.length) return "";
+  return `
+      <section style="margin: 22px 0 0; border-top: 1px solid #e2e8f0; padding-top: 18px;">
+        <h2 style="margin: 0 0 10px; font-size: 1.2rem;">${escapeHtml(heading)}</h2>
+        <ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+          ${items
+            .map(
+              (asset) =>
+                `<li style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:12px 16px;"><a href="${escapeHtml(asset.href)}" style="color:#c2410c;font-weight:700;text-decoration:none;">${escapeHtml(asset.label)}</a><span style="display:block;margin-top:4px;font-size:0.85rem;color:#64748b;">${escapeHtml(asset.blurb)}</span></li>`,
+            )
+            .join("")}
+        </ul>
+      </section>
   `;
 }
 
@@ -682,6 +749,20 @@ function renderGuideContentHtml(markdown: string): string {
       flushAll();
       continue;
     }
+    // CMS plain-text sections ("I. Four Key Buying Factors", "1. Multi-Wheel
+    // Support & High Stability") otherwise ship as bare paragraphs, leaving the
+    // whole article without a single heading. Only lines that look exactly like
+    // a label — short, no sentence-ending punctuation — are promoted.
+    const sectionLabel = /^(?:[IVX]{1,4}|\d{1,2})\.\s+(\S.{2,88}[^\s.,;:])$/.exec(line);
+    if (sectionLabel) {
+      flushAll();
+      const level = /^[IVX]{1,4}\./.test(line) ? 2 : 3;
+      const size = level === 2 ? "1.5rem" : "1.22rem";
+      blocks.push(
+        `<h${level} style="margin: 22px 0 10px; font-size: ${size};">${renderInlineMarkdown(sectionLabel[1])}</h${level}>`,
+      );
+      continue;
+    }
     const heading = /^(#{2,4})\s+(.*)$/.exec(line);
     if (heading) {
       flushAll();
@@ -885,7 +966,7 @@ function relatedProductsHtml(
     })
     .join("");
   return `<section style="padding: 18px 0; border-top: 1px solid #e2e8f0;">
-        <p style="margin: 0 0 10px; font-size: 0.78rem; font-weight: 900; letter-spacing: 0.15em; text-transform: uppercase; color: #94a3b8;">${escapeHtml(heading)}</p>
+        <h2 style="margin: 0 0 10px; font-size: 0.95rem; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: #94a3b8;">${escapeHtml(heading)}</h2>
         <ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px;">${items}</ul>
       </section>`;
 }
@@ -903,11 +984,23 @@ function renderGuideDetailPage(guide: CmsGuide, evaluations: CmsEvaluation[] = [
     "BalanceBikeToddler buying guide for families.",
   );
   const content = pickText(guide.en?.content, guide.zh?.content);
+  // Guides without an authored summary fall back to the description chain,
+  // which for these records lands on the article's own opening paragraph —
+  // printing the same paragraph three times on one page. Drop the "Short
+  // answer" copy when it merely repeats what the body already leads with.
+  const openingParagraph = String(content || "").split(/\n\s*\n/)[0].trim();
+  const introRepeatsBody =
+    Boolean(summary) &&
+    Boolean(openingParagraph) &&
+    (openingParagraph.includes(summary) || summary.includes(openingParagraph));
+  const summaryIntroHtml = introRepeatsBody
+    ? ""
+    : `<p style="margin: 0 0 14px; font-size: 1.05rem; color: #334155;"><strong>Short answer:</strong> ${escapeHtml(summary)}</p>`;
   const relatedReviews = relatedEvaluationsForGuide(`${title} ${summary} ${content}`, evaluations);
   const relatedProducts = relatedProductsHtml(`${title} ${summary} ${content}`, products, "Products Mentioned in This Guide");
   const relatedReviewsHtml = relatedReviews.length
     ? `<section style="padding: 18px 0; border-top: 1px solid #e2e8f0;">
-        <p style="margin: 0 0 10px; font-size: 0.78rem; font-weight: 900; letter-spacing: 0.15em; text-transform: uppercase; color: #94a3b8;">Related Reviews</p>
+        <h2 style="margin: 0 0 10px; font-size: 0.95rem; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: #94a3b8;">Related Reviews</h2>
         <ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px;">
           ${relatedReviews
             .map(
@@ -967,6 +1060,7 @@ function renderGuideDetailPage(guide: CmsGuide, evaluations: CmsEvaluation[] = [
     route,
     title,
     description: summary,
+    skipLeadDescription: introRepeatsBody,
     image: image || undefined,
     ogType: "article",
     body: `
@@ -977,13 +1071,14 @@ function renderGuideDetailPage(guide: CmsGuide, evaluations: CmsEvaluation[] = [
         <p style="margin: 0 0 10px; font-size: 0.86rem; color: #475569; font-weight: 600;">
           By <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="${escapeHtml(published)}">Published ${escapeHtml(published)}</time>
         </p>
-        <p style="margin: 0 0 14px; font-size: 1.05rem; color: #334155;"><strong>Short answer:</strong> ${escapeHtml(summary)}</p>
+        ${summaryIntroHtml}
       </section>
       <section style="padding: 6px 0; border-top: 1px solid #e2e8f0;">
         ${renderGuideContentHtml(content) || `<p style="margin: 0;">${escapeHtml(summary)}</p>`}
       </section>
       ${relatedReviewsHtml}
       ${relatedProducts}
+      ${/balance[\s_-]*bike|walking bike/i.test(`${title} ${summary} ${content}`) ? clusterNavHtml("") : ""}
       <section style="padding: 22px 0 0; border-top: 1px solid #e2e8f0;">
         <p style="margin: 0; font-size: 0.9rem; color: #475569;">Continue browsing the <a href="/guides">full guide library</a>.</p>
       </section>
@@ -1050,10 +1145,19 @@ function renderNewsDetailPage(item: CmsNews, products: CmsProductLite[] = []): R
     },
   ];
 
+  // Same duplicate-intro guard as the guide template: the lead paragraph under
+  // the h1 repeats the body when the CMS article has no authored summary.
+  const newsOpeningParagraph = String(content || "").split(/\n\s*\n/)[0].trim();
+  const newsIntroRepeatsBody =
+    Boolean(summary) &&
+    Boolean(newsOpeningParagraph) &&
+    (newsOpeningParagraph.includes(summary) || summary.includes(newsOpeningParagraph));
+
   return {
     route,
     title,
     description: summary,
+    skipLeadDescription: newsIntroRepeatsBody,
     image: image || undefined,
     ogType: "article",
     body: `
@@ -1221,7 +1325,7 @@ function renderEvaluationDetailPage(
   const linkedProducts = testedProducts.length ? testedProducts : fallbackProducts;
   const testedProductsHtml = linkedProducts.length
     ? `<section style="padding: 18px 0; border-top: 1px solid #e2e8f0;">
-        <p style="margin: 0 0 10px; font-size: 0.78rem; font-weight: 900; letter-spacing: 0.15em; text-transform: uppercase; color: #94a3b8;">${isCompare ? "Products in This Comparison" : "Tested Product"}</p>
+        <h2 style="margin: 0 0 10px; font-size: 0.95rem; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: #94a3b8;">${isCompare ? "Products in This Comparison" : "Tested Product"}</h2>
         <ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px;">
           ${linkedProducts
             .map((p) => {
@@ -1257,6 +1361,7 @@ function renderEvaluationDetailPage(
       ${prosHtml ? `<section style="padding: 6px 0; border-top: 1px solid #e2e8f0;"><h2 style="font-size: 1.2rem; margin: 0 0 8px;">Pros</h2>${prosHtml}</section>` : ""}
       ${consHtml ? `<section style="padding: 14px 0; border-top: 1px solid #e2e8f0;"><h2 style="font-size: 1.2rem; margin: 0 0 8px;">Cons</h2>${consHtml}</section>` : ""}
       ${testedProductsHtml}
+      ${/balance[\s_-]*bike|walking bike/i.test(`${title} ${verdict} ${[...pros, ...cons].join(" ")}`) ? clusterNavHtml("") : ""}
       <section style="padding: 22px 0 0; border-top: 1px solid #e2e8f0;">
         <p style="margin: 0; font-size: 0.9rem; color: #475569;">Browse all <a href="/reviews">review reports</a> or the <a href="/guides">guide library</a>.</p>
       </section>
@@ -3114,7 +3219,7 @@ function renderSafetyRecallPage(): RoutePage[] {
       title: recallSeo.en.title,
       description: recallSeo.en.description,
       skipTitleH1: true,
-      body,
+      body: `${body}${clusterNavHtml(RECALL_SAFETY_PATH)}`,
       ogType: "website" as const,
       jsonLd: [
         {
@@ -3262,7 +3367,7 @@ function renderSizingPage(): RoutePage[] {
       title: sizingSeo.en.title,
       description: sizingSeo.en.description,
       skipTitleH1: true,
-      body,
+      body: `${body}${clusterNavHtml(SIZING_PATH)}`,
       ogType: "website" as const,
       jsonLd: [
         {
@@ -3422,7 +3527,7 @@ function renderSafetyPage(): RoutePage[] {
       title: safetySeo.en.title,
       description: safetySeo.en.description,
       skipTitleH1: true,
-      body,
+      body: `${body}${clusterNavHtml(SAFETY_PATH)}`,
       ogType: "website" as const,
       jsonLd: [
         {
@@ -3666,7 +3771,7 @@ function renderWeightPage(): RoutePage[] {
       title: weightSeo.en.title,
       description: weightSeo.en.description,
       skipTitleH1: true,
-      body,
+      body: `${body}${clusterNavHtml(WEIGHT_PATH)}`,
       ogType: "website" as const,
       jsonLd: [
         {
@@ -3894,7 +3999,7 @@ function renderStabilityPage(): RoutePage[] {
       title: stabilitySeo.en.title,
       description: stabilitySeo.en.description,
       skipTitleH1: true,
-      body,
+      body: `${body}${clusterNavHtml(STABILITY_PATH)}`,
       ogType: "website" as const,
       jsonLd: [
         {
@@ -4113,7 +4218,7 @@ function renderAgePage(): RoutePage[] {
       title: ageSeo.en.title,
       description: ageSeo.en.description,
       skipTitleH1: true,
-      body,
+      body: `${body}${clusterNavHtml(AGE_PATH)}`,
       ogType: "website" as const,
       jsonLd: [
         {
@@ -4652,6 +4757,11 @@ function renderProductDetailPage(
       </section>`
     : "";
 
+  // The reference pages are all balance-bike specific. Pointing 78 stroller /
+  // tricycle detail pages at a balance-bike size chart adds link noise to both
+  // sides, so only the inventory those pages actually cover links into them.
+  const referenceClusterHtml = detailSlugDir === "balance-bikes" ? clusterNavHtml("") : "";
+
   const backLinks = `
         <section style="padding: 16px 0 0; border-top: 1px solid #e2e8f0;">
           ${PRODUCT_COMPARE_HUB_BY_SLUG[detailSlugDir] ? `<p style="margin: 0 0 6px;"><a href="${escapeHtml(PRODUCT_COMPARE_HUB_BY_SLUG[detailSlugDir])}" style="color: #c2410c; font-weight: 700; text-decoration: none;">Cross-model compare: see this category's top picks side by side</a></p>` : ""}
@@ -4680,6 +4790,7 @@ function renderProductDetailPage(
         ${faqHtml}
         ${relatedReviewsHtml}
         ${relatedProductsHtml}
+        ${referenceClusterHtml}
         ${backLinks}
       `;
 
@@ -4803,6 +4914,7 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
         </section>
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px;">${cardsHtml}</div>
         ${hubEditorialHtml}
+        ${meta.slug === "balance-bikes" ? clusterNavHtml("") : ""}
         <section style="padding: 16px 0 0; border-top: 1px solid #e2e8f0;">
           <p style="margin: 0;"><a href="/products" style="color: #c2410c; text-decoration: none;">Compare every kids mobility category →</a></p>
         </section>

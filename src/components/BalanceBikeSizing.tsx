@@ -8,8 +8,10 @@ import {
   sizingDataset,
   sizingStrings,
   type SizingBike,
+  SIZING_PATH,
 } from "../data/balanceBikeSizing";
 import { credibleReviewCount } from "../lib/reviewSignal";
+import ReferenceClusterNav from "./ReferenceClusterNav";
 
 type BalanceBikeSizingProps = {
   lang?: "zh" | "en";
@@ -160,6 +162,7 @@ export function BalanceBikeSizing({ lang = "en" }: BalanceBikeSizingProps) {
           <p className="mt-2 text-sm text-slate-700 leading-7">{t.disclaimerBody}</p>
         </section>
 
+        <ReferenceClusterNav currentPath={SIZING_PATH} lang={lang} />
         <footer className="border-t border-slate-200 pt-6 text-xs text-slate-400 leading-6">
           {lang === "zh" ? "数据来源" : "Source"}: {d.source.name} ({d.source.exportFile}) ·{" "}
           {t.retrievedLabel.toLowerCase()}: {d.source.retrievedAt}

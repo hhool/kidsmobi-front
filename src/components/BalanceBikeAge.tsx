@@ -23,6 +23,7 @@ import {
 } from "../data/balanceBikeAge";
 import { credibleReviewCount } from "../lib/reviewSignal";
 import { fillTemplate } from "../data/safetyRecallRecord";
+import ReferenceClusterNav from "./ReferenceClusterNav";
 
 type BalanceBikeAgeProps = {
   lang?: "zh" | "en";
@@ -280,6 +281,7 @@ export default function BalanceBikeAge({ lang = "en" }: BalanceBikeAgeProps) {
           </ol>
         </section>
 
+        <ReferenceClusterNav currentPath={AGE_PATH} lang={lang} />
         <footer className="border-t border-slate-200 pt-6 text-xs text-slate-500 leading-6">
           {d.source.note}
           <span className="sr-only"> {AGE_PATH}</span>

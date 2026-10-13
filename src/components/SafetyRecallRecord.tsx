@@ -8,6 +8,7 @@ import {
   ShieldCheck,
   Wrench,
 } from "lucide-react";
+import ReferenceClusterNav from "./ReferenceClusterNav";
 import {
   euSinceYear,
   fillTemplate,
@@ -16,6 +17,7 @@ import {
   latestTrendRow,
   latestTrendYear,
   recallDataset,
+  RECALL_SAFETY_PATH,
   recallStrings,
   safetyGateDataset,
   topHazard,
@@ -470,6 +472,8 @@ export default function SafetyRecallRecord({ lang = "en" }: SafetyRecallRecordPr
           <h2 className="text-base font-black text-slate-950">{t.disclaimerTitle}</h2>
           <p className="mt-2 text-sm text-slate-700 leading-7">{t.disclaimerBody}</p>
         </section>
+
+        <ReferenceClusterNav currentPath={RECALL_SAFETY_PATH} lang={lang} />
       </div>
     </article>
   );

@@ -17,8 +17,10 @@ import {
   inchLabel,
   stabilityStrings,
   type StabilityStrings,
+  STABILITY_PATH,
 } from "../data/balanceBikeStability";
 import { fillTemplate } from "../data/safetyRecallRecord";
+import ReferenceClusterNav from "./ReferenceClusterNav";
 
 type BalanceBikeStabilityProps = {
   lang?: "zh" | "en";
@@ -290,6 +292,7 @@ export default function BalanceBikeStability({ lang = "en" }: BalanceBikeStabili
           </ul>
         </section>
 
+        <ReferenceClusterNav currentPath={STABILITY_PATH} lang={lang} />
         <footer className="border-t border-slate-200 pt-6 text-[11px] text-slate-400 leading-6">
           {t.sourceLabel}: {d.source.name} · {d.source.exportFile} · {d.source.retrievedAt} ·{" "}
           {d.source.note}

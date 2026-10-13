@@ -17,8 +17,10 @@ import {
   weightCategoryRows,
   weightStrings,
   type WeightStrings,
+  WEIGHT_PATH,
 } from "../data/balanceBikeWeight";
 import { fillTemplate } from "../data/safetyRecallRecord";
+import ReferenceClusterNav from "./ReferenceClusterNav";
 
 type BalanceBikeWeightProps = {
   lang?: "zh" | "en";
@@ -304,6 +306,7 @@ export function BalanceBikeWeight({ lang = "en" }: BalanceBikeWeightProps) {
             ))}
           </ul>
         </section>
+        <ReferenceClusterNav currentPath={WEIGHT_PATH} lang={lang} />
       </div>
     </article>
   );

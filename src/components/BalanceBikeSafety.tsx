@@ -17,7 +17,9 @@ import {
   safetyStrings,
   type SafetyStandard,
   type SafetyStrings,
+  SAFETY_PATH,
 } from "../data/balanceBikeSafety";
+import ReferenceClusterNav from "./ReferenceClusterNav";
 
 type BalanceBikeSafetyProps = {
   lang?: "zh" | "en";
@@ -207,6 +209,7 @@ export function BalanceBikeSafety({ lang = "en" }: BalanceBikeSafetyProps) {
           </ul>
         </section>
 
+        <ReferenceClusterNav currentPath={SAFETY_PATH} lang={lang} />
         <footer className="border-t border-slate-200 pt-6 text-xs text-slate-400 leading-6">
           {t.sourceLabel}: {safetySource.name} · {t.retrievedLabel.toLowerCase()}:{" "}
           {safetySource.retrievedAt} · {safetySource.note[l]}
