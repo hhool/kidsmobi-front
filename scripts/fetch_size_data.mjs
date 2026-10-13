@@ -8,13 +8,15 @@
 // Usage:  npm run data:sizing   (or: node scripts/fetch_size_data.mjs [export.json] [out.ts])
 import { readFileSync, writeFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
+import { publishedProducts } from "./lib/publishedProducts.mjs";
 
 const repoRoot = resolve(process.cwd());
 const exportPath = resolve(repoRoot, process.argv[2] || "doc/cms-export-1784286890682.json");
 const outPath = resolve(repoRoot, process.argv[3] || "src/data/sizeData.generated.ts");
 
 const raw = JSON.parse(readFileSync(exportPath, "utf8"));
-const products = raw?.data?.collections?.products || [];
+// Same Stage-1 prune filter as fetch_age_data.mjs — see scripts/lib/publishedProducts.mjs.
+const { products } = publishedProducts(raw?.data?.collections?.products || []);
 
 // category key -> site URL slug (mirrors src/lib/productCategoryPaths.ts)
 const CATEGORY_SLUG = {

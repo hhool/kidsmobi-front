@@ -8,9 +8,9 @@ export const AGE_DATASET = {
     "retrievedAt": "2026-10-13"
   },
   "catalog": {
-    "productsScanned": 175,
-    "balanceBikesListed": 15,
-    "withStatedAgeRange": 14,
+    "productsScanned": 159,
+    "balanceBikesListed": 14,
+    "withStatedAgeRange": 13,
     "withoutStatedAgeRange": 1
   },
   "coverage": {
@@ -21,10 +21,9 @@ export const AGE_DATASET = {
         "months": 12,
         "label": "1 year",
         "searchLabel": "1 year",
-        "fitCount": 10,
+        "fitCount": 9,
         "fitIds": [
           "balance_bike-b0blmf98s8",
-          "balance_bike-b0bkxshhnp",
           "balance_bike-b0ccy6yrs8",
           "balance_bike-b08sgh7nkx",
           "balance_bike-b0b2h5333d",
@@ -39,10 +38,9 @@ export const AGE_DATASET = {
         "months": 18,
         "label": "18 months",
         "searchLabel": "18 months",
-        "fitCount": 11,
+        "fitCount": 10,
         "fitIds": [
           "balance_bike-b0blmf98s8",
-          "balance_bike-b0bkxshhnp",
           "balance_bike-b0ccy6yrs8",
           "balance_bike-b08sgh7nkx",
           "balance_bike-b0b2h5333d",
@@ -58,10 +56,9 @@ export const AGE_DATASET = {
         "months": 24,
         "label": "2 years",
         "searchLabel": "2 years",
-        "fitCount": 14,
+        "fitCount": 13,
         "fitIds": [
           "balance_bike-b0blmf98s8",
-          "balance_bike-b0bkxshhnp",
           "balance_bike-b0ccy6yrs8",
           "balance_bike-b08sgh7nkx",
           "balance_bike-b0b2h5333d",
@@ -80,10 +77,9 @@ export const AGE_DATASET = {
         "months": 30,
         "label": "2.5 years",
         "searchLabel": "30 months",
-        "fitCount": 7,
+        "fitCount": 6,
         "fitIds": [
           "balance_bike-b0blmf98s8",
-          "balance_bike-b0bkxshhnp",
           "balance_bike-b0ccy6yrs8",
           "balance_bike-b0cfdx97yd",
           "balance_bike-b09z65pbxp",
@@ -95,10 +91,9 @@ export const AGE_DATASET = {
         "months": 36,
         "label": "3 years",
         "searchLabel": "3 years",
-        "fitCount": 7,
+        "fitCount": 6,
         "fitIds": [
           "balance_bike-b0blmf98s8",
-          "balance_bike-b0bkxshhnp",
           "balance_bike-b0ccy6yrs8",
           "balance_bike-b0cfdx97yd",
           "balance_bike-b09z65pbxp",
@@ -158,20 +153,6 @@ export const AGE_DATASET = {
       "rating": 4.8,
       "reviewCount": 6086,
       "productUrl": "/products/balance-bikes/balance_bike-b0blmf98s8"
-    },
-    {
-      "id": "balance_bike-b0bkxshhnp",
-      "brand": "Gamfeiny",
-      "name": "Gamfeiny Colorful Lighting Baby Balance Bike Toys for 1 Year Old Boy Girl Gifts, 10-36 Month Toddler Balance Bike, No Pedal 4",
-      "ageMinMonths": 10,
-      "ageMaxMonths": 36,
-      "quotedAgeRange": "10-36 Month",
-      "wheelInches": null,
-      "weightLbs": 4.6,
-      "priceUsd": 29.98,
-      "rating": 4.8,
-      "reviewCount": 6085,
-      "productUrl": "/products/balance-bikes/balance_bike-b0bkxshhnp"
     },
     {
       "id": "balance_bike-b0ccy6yrs8",

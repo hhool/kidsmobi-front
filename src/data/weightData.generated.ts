@@ -23,40 +23,40 @@ export const WEIGHT_DATASET = {
     "outlierPolicy": "values outside the plausible band are excluded from medians and listed publicly"
   },
   "totals": {
-    "productsScanned": 71,
-    "withWeight": 52,
-    "balanceBikesListed": 15,
-    "balanceBikesWithWeight": 14,
+    "productsScanned": 63,
+    "withWeight": 46,
+    "balanceBikesListed": 14,
+    "balanceBikesWithWeight": 13,
     "excludedSuspect": 1
   },
   "headline": {
     "balanceBikeMedianLb": 4.6,
-    "kidsBikeMedianLb": 18.5,
-    "lighterByLb": 13.9,
-    "ratio": 4
+    "kidsBikeMedianLb": 19.9,
+    "lighterByLb": 15.3,
+    "ratio": 4.3
   },
   "categories": [
     {
       "key": "balance_bike",
-      "listed": 15,
-      "withWeight": 14,
-      "n": 14,
+      "listed": 14,
+      "withWeight": 13,
+      "n": 13,
       "medianLb": 4.6,
       "minLb": 3.3,
       "maxLb": 9,
-      "frameSpecified": 15,
+      "frameSpecified": 14,
       "brakeSpecified": 0,
       "tireSpecified": 0
     },
     {
       "key": "kids_bikes",
-      "listed": 30,
-      "withWeight": 19,
-      "n": 19,
-      "medianLb": 18.5,
+      "listed": 23,
+      "withWeight": 14,
+      "n": 14,
+      "medianLb": 19.9,
       "minLb": 9.4,
       "maxLb": 29.6,
-      "frameSpecified": 30,
+      "frameSpecified": 23,
       "brakeSpecified": 0,
       "tireSpecified": 0
     },
@@ -150,19 +150,6 @@ export const WEIGHT_DATASET = {
       "rating": 4.7,
       "reviewCount": 5863,
       "productUrl": "/products/balance-bikes/balance_bike-b0b2h5333d"
-    },
-    {
-      "id": "balance_bike-b0bkxshhnp",
-      "brand": "Gamfeiny",
-      "name": "Gamfeiny Colorful Lighting Baby Balance Bike Toys for 1 Year Old Bo…",
-      "weightLb": 4.6,
-      "frameMaterial": "High-Carbon Steel",
-      "wheelInches": null,
-      "priceUsd": 29.98,
-      "ageText": "10-36 months",
-      "rating": 4.8,
-      "reviewCount": 6085,
-      "productUrl": "/products/balance-bikes/balance_bike-b0bkxshhnp"
     },
     {
       "id": "balance_bike-b0blmf98s8",
@@ -272,8 +259,8 @@ export const WEIGHT_DATASET = {
   "frameBreakdown": [
     {
       "material": "High-Carbon Steel",
-      "n": 9,
-      "medianLb": 4.8,
+      "n": 8,
+      "medianLb": 5.4,
       "minLb": 3.7,
       "maxLb": 9,
       "smallSample": false

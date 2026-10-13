@@ -18,13 +18,17 @@
 // Usage:  npm run data:age   (or: node scripts/fetch_age_data.mjs [export.json] [out.ts])
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { publishedProducts } from "./lib/publishedProducts.mjs";
 
 const repoRoot = resolve(process.cwd());
 const exportPath = resolve(repoRoot, process.argv[2] || "doc/cms-export-1784286890682.json");
 const outPath = resolve(repoRoot, process.argv[3] || "src/data/ageData.generated.ts");
 
 const raw = JSON.parse(readFileSync(exportPath, "utf8"));
-const products = raw?.data?.collections?.products || [];
+// Stage-1 duplicate prune: drop listings the site no longer publishes, keeping
+// the survivor that absorbed each one. Otherwise these tables list one bike
+// twice and quote a row count that includes a page nobody visits.
+const { products } = publishedProducts(raw?.data?.collections?.products || []);
 
 const CATEGORY_SLUG = {
   balance_bike: "balance-bikes",

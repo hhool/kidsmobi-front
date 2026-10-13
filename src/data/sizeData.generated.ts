@@ -8,7 +8,7 @@ export const SIZING_DATASET = {
     "retrievedAt": "2026-10-13"
   },
   "totals": {
-    "balanceBikesListed": 15,
+    "balanceBikesListed": 14,
     "withWheelSize": 7,
     "withSteeringLimit": 6
   },
@@ -32,22 +32,6 @@ export const SIZING_DATASET = {
       "rating": 4.8,
       "reviewCount": 6086,
       "productUrl": "/products/balance-bikes/balance_bike-b0blmf98s8"
-    },
-    {
-      "id": "balance_bike-b0bkxshhnp",
-      "brand": "Gamfeiny",
-      "name": "Gamfeiny Colorful Lighting Baby Balance Bike Toys for 1 Year Old Boy Girl Gifts, 10-36 Month Toddler Balance Bike, No Pedal 4",
-      "ageText": "10-36 Month",
-      "ageMinMonths": 10,
-      "ageMaxMonths": 36,
-      "wheelInches": null,
-      "weightLbs": 4.6,
-      "frameMaterial": "High-Carbon Steel",
-      "steeringLimitDeg": null,
-      "priceUsd": 29.98,
-      "rating": 4.8,
-      "reviewCount": 6085,
-      "productUrl": "/products/balance-bikes/balance_bike-b0bkxshhnp"
     },
     {
       "id": "balance_bike-b0ccy6yrs8",

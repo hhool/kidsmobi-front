@@ -9,6 +9,7 @@
 // Usage:  npm run data:weight
 //         (or: node scripts/fetch_weight_data.mjs [export.json] [out.ts])
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { publishedProducts } from "./lib/publishedProducts.mjs";
 import { dirname, resolve } from "node:path";
 
 const repoRoot = resolve(process.cwd());
@@ -87,7 +88,8 @@ function summarize(weights) {
 
 async function main() {
   const raw = JSON.parse(readFileSync(exportPath, "utf8"));
-  const products = raw?.data?.collections?.products || [];
+  // Same Stage-1 prune filter as fetch_age_data.mjs — see scripts/lib/publishedProducts.mjs.
+  const { products } = publishedProducts(raw?.data?.collections?.products || []);
   const retrievedAt = new Date().toISOString().slice(0, 10);
 
   const categories = [];
