@@ -41,6 +41,18 @@ import {
   safetySource,
   buildSafetyDatasetSchema,
 } from "../src/data/balanceBikeSafety";
+import {
+  WEIGHT_PATH,
+  WEIGHT_DATASET,
+  buildWeightDatasetSchema,
+  categoryLabels,
+  frameLabel,
+  headlineFacts,
+  lbToKg,
+  weightCategoryRows,
+  weightSeo,
+  weightStrings,
+} from "../src/data/balanceBikeWeight";
 import { getPageCopy } from "../src/config/pageCopy";
 import { shortenCardTitle } from "../src/lib/productSeoText";
 import { productDetailUrlSlug, resolveProductDetailCategorySlug } from "../src/lib/productCategoryPaths";
@@ -189,6 +201,7 @@ const FOOTER_SECTION_LINKS: Array<{ href: string; label: string }> = [
   { href: RECALL_SAFETY_PATH, label: "Recall record" },
   { href: SIZING_PATH, label: "Size chart" },
   { href: SAFETY_PATH, label: "Safety standards" },
+  { href: WEIGHT_PATH, label: "Weight & build" },
 ];
 const FOOTER_TRUST_LINKS: Array<{ href: string; label: string }> = [
   { href: "/transparency/testing-methodology/", label: "Testing Methodology" },
@@ -3322,6 +3335,250 @@ function renderSafetyPage(): RoutePage[] {
   ];
 }
 
+/**
+ * Prerendered weight & build page (Plan-B Asset 5).
+ *
+ * Derived from src/data/weightData.generated.ts, itself produced by
+ * `npm run data:weight`. Every figure is interpolated from the dataset; the
+ * brake and tire fields, which the source leaves blank, are rendered as a stated
+ * gap rather than a guess.
+ */
+function renderWeightPage(): RoutePage[] {
+  const t = weightStrings.en;
+  const l = "en" as const; // prerender always emits the English canonical page
+  const d = WEIGHT_DATASET;
+  const facts = headlineFacts();
+
+  const vars: Record<string, string | number> = {
+    scanned: d.totals.productsScanned,
+    withWeight: d.totals.withWeight,
+    bbMedian: facts?.balanceBikeMedianLb ?? "—",
+    kbMedian: facts?.kidsBikeMedianLb ?? "—",
+    lighter: facts?.lighterByLb ?? "—",
+    lighterKg: facts?.lighterByKg ?? "—",
+    ratio: facts?.ratio ?? "—",
+    n: d.totals.balanceBikesWithWeight,
+    listed: d.totals.balanceBikesListed,
+    file: d.source.exportFile,
+    date: d.source.retrievedAt,
+    min: d.method.plausibleBandLb[0],
+    max: d.method.plausibleBandLb[1],
+  };
+  const fill = (s: string) => fillTemplate(s, vars);
+
+  const categoryTable = `
+    <div style="overflow-x:auto;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
+      <table style="width:100%;min-width:620px;border-collapse:collapse;text-align:left;">
+        <thead style="background:#f8fafc;">
+          <tr style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colCategory)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colCount)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colMedian)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colRange)}</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${weightCategoryRows
+            .map(
+              (row) => `
+            <tr style="border-bottom:1px solid #f1f5f9;">
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;font-weight:700;color:#0f172a;">${escapeHtml(row.label[l])}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;">${row.withWeight}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;font-weight:700;color:#0f172a;white-space:nowrap;">${row.medianLb == null ? "&mdash;" : `${row.medianLb} lb / ${lbToKg(row.medianLb)} kg`}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;white-space:nowrap;">${row.minLb == null ? "&mdash;" : `${row.minLb}&ndash;${row.maxLb} lb`}</td>
+            </tr>`,
+            )
+            .join("")}
+        </tbody>
+      </table>
+    </div>`;
+
+  const rosterTable = `
+    <div style="overflow-x:auto;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
+      <table style="width:100%;min-width:760px;border-collapse:collapse;text-align:left;">
+        <thead style="background:#f8fafc;">
+          <tr style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colBrand)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colModel)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colWeight)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colFrame)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colWheel)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colPrice)}</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${d.balanceBikes
+            .map(
+              (b) => `
+            <tr style="border-bottom:1px solid #f1f5f9;">
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;font-weight:700;color:#0f172a;white-space:nowrap;">${escapeHtml(b.brand ?? "&mdash;")}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;max-width:20rem;"><a href="${escapeHtml(b.productUrl)}" style="color:#334155;text-decoration:none;">${escapeHtml(b.name)}</a></td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;font-weight:700;color:#0f172a;white-space:nowrap;">${b.weightLb} lb / ${lbToKg(b.weightLb)} kg</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;">${escapeHtml(b.frameMaterial ? frameLabel(b.frameMaterial)[l] : t.notListed)}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;white-space:nowrap;">${b.wheelInches ? `${b.wheelInches}&quot;` : escapeHtml(t.notListed)}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;white-space:nowrap;">${b.priceUsd ? `$${b.priceUsd}` : escapeHtml(t.notListed)}</td>
+            </tr>`,
+            )
+            .join("")}
+        </tbody>
+      </table>
+    </div>`;
+
+  const frameCards = d.frameBreakdown
+    .map(
+      (row) => `
+    <div style="border:1px solid #e2e8f0;background:#fff;border-radius:16px;padding:20px;">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:baseline;">
+        <h3 style="font-size:1rem;font-weight:900;color:#0f172a;margin:0;">${escapeHtml(frameLabel(row.material)[l])}</h3>
+        <span style="font-size:0.72rem;font-weight:700;color:#64748b;">n = ${row.n}</span>
+      </div>
+      <p style="font-size:0.85rem;color:#334155;line-height:1.7;margin:8px 0 0;">
+        <strong style="color:#0f172a;">${row.medianLb} lb (${lbToKg(row.medianLb)} kg)</strong>
+        <span style="color:#64748b;"> &middot; ${row.minLb}&ndash;${row.maxLb} lb</span>
+      </p>
+      ${row.smallSample ? `<p style="font-size:0.72rem;font-weight:700;color:#b45309;margin:8px 0 0;">${escapeHtml(t.smallSample)}</p>` : ""}
+    </div>`,
+    )
+    .join("");
+
+  const brakeSpecified = d.categories.reduce((n, c) => n + c.brakeSpecified, 0);
+  const tireSpecified = d.categories.reduce((n, c) => n + c.tireSpecified, 0);
+
+  const body = `
+    <article style="max-width:64rem;margin:0 auto;padding:32px 24px 56px;text-align:left;">
+      <div style="display:flex;flex-direction:column;gap:40px;">
+        <header style="display:flex;flex-direction:column;gap:20px;border-bottom:1px solid #e2e8f0;padding-bottom:32px;">
+          <div style="display:inline-flex;align-items:center;gap:8px;align-self:flex-start;border:1px solid #fed7aa;background:#fff7ed;padding:4px 12px;border-radius:9999px;font-size:0.6rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#ea580c;">${escapeHtml(t.eyebrow)}</div>
+          <h1 style="font-size:2rem;font-weight:900;color:#0f172a;line-height:1.15;margin:0;max-width:48rem;">${escapeHtml(t.heroTitle)}</h1>
+          <p style="font-size:1.05rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;font-weight:500;">${escapeHtml(fill(t.heroLead))}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:24px 48px;border:1px solid #e2e8f0;background:#f8fafc;border-radius:16px;padding:12px 16px;font-size:0.75rem;color:#475569;">
+            <span>${escapeHtml(t.sourceLabel)}: ${escapeHtml(d.source.name)}</span>
+            <span>${escapeHtml(d.source.retrievedAt)}</span>
+          </div>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.heroNote)}</p>
+        </header>
+
+        ${
+          facts
+            ? `<section style="display:flex;flex-direction:column;gap:16px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.headlineTitle)}</h2>
+          <div style="border:1px solid #fed7aa;background:#fff7ed;border-radius:16px;padding:20px;">
+            <p style="font-size:1rem;color:#1f2937;line-height:1.7;margin:0;font-weight:500;">${escapeHtml(fill(t.headlineBody))}</p>
+          </div>
+        </section>`
+            : ""
+        }
+
+        <section style="display:flex;flex-direction:column;gap:16px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.tableTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.tableLead)}</p>
+          ${categoryTable}
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.rosterTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(fill(t.rosterLead))}</p>
+          ${rosterTable}
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.frameTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(fillTemplate(t.frameLead, { n: d.balanceBikes.length }))}</p>
+          <div style="display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+            ${frameCards}
+          </div>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:12px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.unknownTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.unknownLead)}</p>
+          <div style="border:1px solid #fde68a;background:#fffbeb;border-radius:16px;padding:20px;">
+            <p style="font-size:0.85rem;color:#334155;line-height:1.7;margin:0 0 10px;">${escapeHtml(fillTemplate(t.unknownBrake, { specified: brakeSpecified, listed: d.totals.productsScanned }))}</p>
+            <p style="font-size:0.85rem;color:#334155;line-height:1.7;margin:0;">${escapeHtml(fillTemplate(t.unknownTire, { specified: tireSpecified, listed: d.totals.productsScanned }))}</p>
+          </div>
+        </section>
+
+        ${
+          d.excludedSuspect.length
+            ? `<section style="display:flex;flex-direction:column;gap:12px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.excludedTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(fill(t.excludedLead))}</p>
+          <ul style="margin:0;padding:20px 20px 20px 40px;border:1px solid #e2e8f0;background:#fff;border-radius:16px;font-size:0.85rem;color:#334155;line-height:1.7;">
+            ${d.excludedSuspect
+              .map(
+                (e) =>
+                  `<li style="margin-bottom:6px;"><strong style="color:#0f172a;">${escapeHtml(e.brand ?? "&mdash;")} &mdash; ${escapeHtml(categoryLabels[e.category]?.[l] ?? e.category)}</strong> &middot; ${escapeHtml(t.colWeight)}: ${escapeHtml(e.rawWeight)} &middot; ${escapeHtml(e.reason)}</li>`,
+              )
+              .join("")}
+          </ul>
+        </section>`
+            : ""
+        }
+
+        <section style="display:flex;flex-direction:column;gap:12px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.methodTitle)}</h2>
+          <ul style="margin:0;padding-left:20px;font-size:0.85rem;color:#475569;line-height:1.7;max-width:48rem;">
+            ${t.methodBody.map((line) => `<li style="margin-bottom:6px;">${escapeHtml(fill(line))}</li>`).join("")}
+          </ul>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:12px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.checkTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.checkLead)}</p>
+          <ul style="margin:0;padding-left:4px;list-style:none;font-size:0.9rem;color:#334155;line-height:1.7;">
+            ${t.checkBody
+              .map(
+                (line) =>
+                  `<li style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;"><span style="color:#059669;font-weight:800;line-height:1.6;">&#10003;</span><span>${escapeHtml(line)}</span></li>`,
+              )
+              .join("")}
+          </ul>
+        </section>
+
+        <footer style="border-top:1px solid #e2e8f0;padding-top:24px;font-size:0.7rem;color:#94a3b8;line-height:1.6;">
+          ${escapeHtml(t.sourceLabel)}: ${escapeHtml(d.source.name)} &middot; ${escapeHtml(d.source.exportFile)} &middot; ${escapeHtml(d.source.retrievedAt)} &middot; ${escapeHtml(d.source.note)}
+        </footer>
+      </div>
+    </article>
+  `;
+
+  return [
+    {
+      route: WEIGHT_PATH,
+      title: weightSeo.en.title,
+      description: weightSeo.en.description,
+      skipTitleH1: true,
+      body,
+      ogType: "website" as const,
+      jsonLd: [
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: weightSeo.en.title,
+          url: `https://balancebiketoddler.com${WEIGHT_PATH}`,
+          description: weightSeo.en.description,
+          inLanguage: "en",
+          isPartOf: { "@type": "WebSite", name: "BalanceBikeToddler", url: "https://balancebiketoddler.com/" },
+        },
+        buildWeightDatasetSchema(`https://balancebiketoddler.com${WEIGHT_PATH}`),
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://balancebiketoddler.com/" },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "How much does a balance bike weigh",
+              item: `https://balancebiketoddler.com${WEIGHT_PATH}`,
+            },
+          ],
+        },
+      ],
+    },
+  ];
+}
+
 /* ------------------------------------------------------------------ *
  * CMS-driven product category + detail pages (P0-1)
  *
@@ -4134,6 +4391,7 @@ async function main() {
     ...renderSafetyRecallPage(),
     ...renderSizingPage(),
     ...renderSafetyPage(),
+    ...renderWeightPage(),
     ...guideDetailPages,
     ...newsDetailPages,
     ...evaluationDetailPages,

@@ -68,6 +68,7 @@ const TransparencyPage = lazy(() => import("./components/TransparencyPage"));
 const SafetyRecallRecord = lazy(() => import("./components/SafetyRecallRecord"));
 const BalanceBikeSizing = lazy(() => import("./components/BalanceBikeSizing"));
 const BalanceBikeSafety = lazy(() => import("./components/BalanceBikeSafety"));
+const BalanceBikeWeight = lazy(() => import("./components/BalanceBikeWeight"));
 const ComparisonDashboard = lazy(() => import("./components/ComparisonDashboard"));
 
 import { auth } from "./lib/firebase";
@@ -100,6 +101,11 @@ import {
   SAFETY_PATH,
   safetySeo,
 } from "./data/balanceBikeSafety";
+import {
+  buildWeightDatasetSchema,
+  WEIGHT_PATH,
+  weightSeo,
+} from "./data/balanceBikeWeight";
 import CookieConsentModal from "./components/CookieConsentModal";
 
 const DEFAULT_OG_IMAGE_PATH = "/images/og-site-icon.png";
@@ -851,6 +857,20 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
   if (root === "balance-bike-safety-standards") {
     return {
       activeTab: "safety-standards",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      activeEvaluationId: "",
+      activeProductId: "",
+      activePageIndex: 1,
+      currentPath,
+    };
+  }
+
+  // Weight & build reference (Plan-B Asset 5). Registered before the
+  // unknown-root fallback so it hydrates with its own canonical, not home's.
+  if (root === "balance-bike-weight") {
+    return {
+      activeTab: "weight-build",
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
@@ -2725,6 +2745,38 @@ export default function App() {
       return;
     }
 
+    if (activeTab === "weight-build") {
+      const weightSeoData = weightSeo[lang] || weightSeo.en;
+      const canonicalOrigin =
+        cmsSettings?.seoGlobal?.siteOrigin ||
+        (cmsSettings as any)?.siteOrigin ||
+        (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+        window.location.origin;
+      const canonicalUrl = `${canonicalOrigin}${WEIGHT_PATH}`;
+      const noIndex = shouldNoIndexCurrentPath(WEIGHT_PATH, window.location.search, window.location.hostname);
+
+      document.title = weightSeoData.title;
+      updateMetaTag("description", weightSeoData.description);
+      updateMetaTag("keywords", weightSeoData.keywords.join(", "));
+      updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
+      updateCanonicalLink(canonicalUrl);
+      updateMetaProperty("og:url", canonicalUrl);
+      updateSocialMeta(weightSeoData.title, weightSeoData.description, DEFAULT_OG_IMAGE_PATH, "website");
+
+      injectJsonLd([
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: weightSeoData.title,
+          url: canonicalUrl,
+          description: weightSeoData.description,
+          inLanguage: lang,
+        },
+        buildWeightDatasetSchema(canonicalUrl),
+      ]);
+      return;
+    }
+
     // Default to mapped key if valid, fallback to 'home'
     const validKeys = ["home", "news", "products", "reviews", "evaluations", "guides", "about"];
     if (!validKeys.includes(seoKey)) {
@@ -4137,6 +4189,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           <BalanceBikeSafety lang={lang} />
         )}
 
+        {activeTab === "weight-build" && (
+          <BalanceBikeWeight lang={lang} />
+        )}
+
         {activeTab === "auth" && (
           <AuthSection 
             userEmail={userEmail}
@@ -4559,6 +4615,18 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     }}
                   >
                     {lang === "en" ? "Safety Standards" : "安全标准"}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={WEIGHT_PATH}
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath(WEIGHT_PATH);
+                    }}
+                  >
+                    {lang === "en" ? "Weight & Build" : "重量与结构"}
                   </a>
                 </li>
                 <li>
