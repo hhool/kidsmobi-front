@@ -3,6 +3,7 @@ import path from "path";
 import { guideArticles } from "../src/data/guidesData";
 import { newsArticles } from "../src/data/newsData";
 import { TRANSPARENCY_PAGES } from "../src/data/transparencyPages";
+import { credibleReviewCount, MAX_PLAUSIBLE_REVIEW_COUNT } from "../src/lib/reviewSignal";
 import {
   buildDatasetSchema,
   euSinceYear,
@@ -3103,7 +3104,7 @@ function renderSizingPage(): RoutePage[] {
           <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;white-space:nowrap;">${escapeHtml(formatSteering(b.steeringLimitDeg))}</td>
           <td style="padding:10px 12px 10px 0;font-size:0.74rem;color:#475569;max-width:140px;">${escapeHtml(b.frameMaterial || "—")}</td>
           <td style="padding:10px 12px 10px 0;font-size:0.82rem;font-weight:700;color:#0f172a;white-space:nowrap;">${escapeHtml(formatPrice(b.priceUsd))}</td>
-          <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;white-space:nowrap;">${b.rating != null ? `${b.rating.toFixed(1)} ★` : "—"}${b.reviewCount ? `<div style="font-size:0.62rem;color:#cbd5e1;">${b.reviewCount.toLocaleString("en-US")}</div>` : ""}</td>
+          <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;white-space:nowrap;">${b.rating != null ? `${b.rating.toFixed(1)} ★` : "—"}${credibleReviewCount(b.reviewCount) != null ? `<div style="font-size:0.62rem;color:#cbd5e1;">${credibleReviewCount(b.reviewCount)!.toLocaleString("en-US")}</div>` : ""}</td>
         </tr>`;
 
   const table = `
@@ -3929,6 +3930,13 @@ const PRERENDER_PRIMARY_PRODUCT_CATEGORY_IDS = new Set([
   "car_seat",
 ]);
 
+/**
+ * Listings whose published review count failed credibleReviewCount() during
+ * this run. Reported at the end of the build so the source data can be fixed
+ * at origin instead of being silently dropped forever.
+ */
+const suppressedReviewCounts: string[] = [];
+
 /** Mirrors inferMisclassifiedCategoryId in App.tsx. */
 function prerenderInferStrollerCategory(product: CmsProductFull, normalizedCategoryId: string): string {
   if (normalizedCategoryId !== "stroller") return normalizedCategoryId;
@@ -4207,7 +4215,10 @@ function renderProductDetailPage(
   const image = toAbsoluteMediaUrl(product.imageUrl);
   const editorialScore = Number(product.overallScore);
   const ratingValue = productRatingValue(product);
-  const reviewCount = Number(product.reviewCount || 0);
+  const reviewCount = credibleReviewCount(product.reviewCount);
+  if (Number(product.reviewCount) > 0 && reviewCount == null) {
+    suppressedReviewCounts.push(`${id} (${Number(product.reviewCount).toLocaleString("en-US")})`);
+  }
   const price = productPriceValue(product);
   const categoryHref = productCategoryHrefBySlug(detailSlugDir);
   const categoryLabel =
@@ -4720,6 +4731,13 @@ async function main() {
     console.log(
       `[prerender] writing ${guideDetailPages.length} guide + ${newsDetailPages.length} news + ${evaluationDetailPages.length} review detail page(s).`,
     );
+  }
+
+  if (suppressedReviewCounts.length) {
+    console.log(
+      `[prerender] hid ${suppressedReviewCounts.length} implausible review count(s) (>${MAX_PLAUSIBLE_REVIEW_COUNT.toLocaleString("en-US")}); star ratings kept, counts and aggregateRating dropped. Fix at source:`,
+    );
+    for (const entry of suppressedReviewCounts) console.log(`   - ${entry}`);
   }
 
   for (const page of pages) {

@@ -51,6 +51,7 @@
     "m3:preflight:official": "node scripts/m3_official_token_gate_check.mjs",
     "m3:snapshot": "node scripts/m3_generate_decision_snapshot.mjs",
     "seo:check": "node scripts/check-seo-assets.mjs",
+    "check:reviewcounts": "node scripts/check-review-counts.mjs",
     "data:recalls": "node scripts/fetch_recall_data.mjs",
     "data:sizing": "node scripts/fetch_size_data.mjs",
     "data:safetygate": "node scripts/fetch_safety_gate_data.mjs",

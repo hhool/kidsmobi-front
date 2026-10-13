@@ -9,6 +9,7 @@ import {
   sizingStrings,
   type SizingBike,
 } from "../data/balanceBikeSizing";
+import { credibleReviewCount } from "../lib/reviewSignal";
 
 type BalanceBikeSizingProps = {
   lang?: "zh" | "en";
@@ -51,7 +52,7 @@ function SpecRow({ bike }: { bike: SizingBike; key?: string }) {
       <td className="py-3 pr-4 whitespace-nowrap text-sm text-slate-700">
         {bike.rating != null ? `${bike.rating.toFixed(1)} ★` : "—"}
         <div className="text-[10px] font-normal text-slate-400">
-          {bike.reviewCount ? `${bike.reviewCount.toLocaleString("en-US")}` : ""}
+          {credibleReviewCount(bike.reviewCount)?.toLocaleString("en-US") ?? ""}
         </div>
       </td>
     </tr>

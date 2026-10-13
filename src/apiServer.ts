@@ -875,8 +875,11 @@ function summarizePros(product: WorkerProduct, resource?: WorkerResource): strin
   if (ratingValue) {
     pros.push(`Strong live rating: ${ratingValue.toFixed(1)}/5`);
   }
-  const reviewCount = normalizeProductReviews(product).count;
-  if (reviewCount) {
+  // A count we cannot defend must not become copy: some catalogue rows carry
+  // values around 45 million, and printing "Backed by 47,475,117 customer
+  // reviews" asserts something we cannot support.
+  const reviewCount = credibleReviewCount(normalizeProductReviews(product).count);
+  if (reviewCount != null) {
     pros.push(`Backed by ${reviewCount.toLocaleString()} customer reviews`);
   }
   if (product.resourceStats?.videos) {
@@ -2500,6 +2503,7 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
+import { credibleReviewCount } from "./lib/reviewSignal.js";
 
 // Local storage upload handling
 const getDirname = () => {

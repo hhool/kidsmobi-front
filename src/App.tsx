@@ -47,6 +47,7 @@ const PRODUCT_COMPARE_HUB_BY_SLUG: Record<string, string> = {
   "kids-bikes": "/reviews/compare/toddler-bike-parent-picks-compare",
 };
 import { evaluationSlug } from "./lib/evaluationSlug";
+import { credibleReviewCount } from "./lib/reviewSignal";
 import { evaluationRouteSegment } from "./lib/evaluationSlug";
 import { loadBatchProducts } from "./lib/loadBatchProducts";
 import { loadDefaultProductsData } from "./lib/defaultProductsLoader";
@@ -2424,12 +2425,15 @@ export default function App() {
             availability: "https://schema.org/InStock",
           };
         }
-        // Genuine aggregated customer ratings (display data collected per product).
-        if (Number(selectedProduct.rating?.value) > 0 && Number(selectedProduct.reviewCount) > 0) {
+        // Only emit aggregateRating when the count survives the plausibility
+        // gate: a fabricated-looking ratingCount is a structured-data
+        // violation and is worse than having no rich result at all.
+        const reviewCount = credibleReviewCount(selectedProduct.reviewCount);
+        if (Number(selectedProduct.rating?.value) > 0 && reviewCount != null) {
           productSchema.aggregateRating = {
             "@type": "AggregateRating",
             ratingValue: Math.round(Number(selectedProduct.rating!.value) * 10) / 10,
-            reviewCount: Math.round(Number(selectedProduct.reviewCount)),
+            reviewCount,
             bestRating: 5,
             worstRating: 1,
           };

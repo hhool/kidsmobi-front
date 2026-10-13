@@ -21,6 +21,7 @@ import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonL
 import { evaluationSlug } from "../lib/evaluationSlug";
 import { resolveProductDetailCategorySlug } from "../lib/productCategoryPaths";
 import { cleanVisibleSourceText } from "../lib/visibleText";
+import { credibleReviewCount } from "../lib/reviewSignal";
 
 function SafetyRadarChart({ product, evaluation, lang = "zh", isDark = false }: { product?: Product; evaluation?: Evaluation; lang: "zh" | "en", isDark?: boolean }) {
   const clampScore = (value: unknown, fallback: number) => {
@@ -582,7 +583,7 @@ function productValueScore(product: Product) {
   const score = Number(product.overallScore || 8);
   const price = Number(product.price || 0);
   const priceBoost = price > 0 ? Math.max(0, 3 - price / 500) : 1;
-  return score + priceBoost + Number(product.reviewCount || 0) / 100000;
+  return score + priceBoost + (credibleReviewCount(product.reviewCount) ?? 0) / 100000;
 }
 
 function getProductDisplayName(product: Product) {
