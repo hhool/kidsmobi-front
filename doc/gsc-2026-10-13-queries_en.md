@@ -1,5 +1,7 @@
 # Top queries analysis (2026-10-13 export: 68 rows / 171 impressions)
 
+Summarised publicly at <https://balancebiketoddler.com/transparency/search-data/> (2026-10-14).
+
 Source: Search Console → Performance → Web → Top queries, 2026-08-13 to 2026-10-10.
 
 ## Read this first

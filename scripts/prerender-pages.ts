@@ -256,6 +256,8 @@ const FOOTER_TRUST_LINKS: Array<{ href: string; label: string }> = [
   { href: "/transparency/disclaimer/", label: "Editorial Disclaimer" },
   { href: "/transparency/privacy-policy/", label: "Privacy Policy" },
   { href: "/transparency/terms/", label: "Terms of Use" },
+  { href: "/transparency/search-data/", label: "Search Data" },
+  { href: "/transparency/review-count-integrity/", label: "Review Count Integrity" },
 ];
 
 function renderSiteFooter(): string {
@@ -2727,10 +2729,48 @@ async function injectGuideRedirects(routes: string[], legacyRedirects: string[])
 }
 
 /**
+ * Static HTML for the small data tables some transparency pages carry.
+ *
+ * Prerendered transparency pages are fully static, so anything added to their
+ * data model has to be rendered here too — otherwise crawlers see a page with
+ * paragraphs but no figures, even though the hydrated SPA shows both.
+ */
+function renderStaticTable(table: { caption?: string; columns: string[]; rows: string[][] }): string {
+  const head = table.columns
+    .map(
+      (column) =>
+        `<th scope="col" style="text-align: left; padding: 6px 10px 6px 0; border-bottom: 2px solid #cbd5e1; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: #64748b;">${escapeHtml(column)}</th>`,
+    )
+    .join("");
+  const bodyRows = table.rows
+    .map(
+      (row) =>
+        `<tr>${row
+          .map(
+            (cell, index) =>
+              `<td style="padding: 6px 10px 6px 0; border-bottom: 1px solid #e2e8f0; vertical-align: top; font-size: 0.9rem; color: ${index === 0 ? "#1e293b" : "#475569"}; ${
+                index === 0 ? "font-weight: 600;" : ""
+              }">${escapeHtml(cell)}</td>`,
+          )
+          .join("")}</tr>`,
+    )
+    .join("");
+  return `
+        <figure style="margin: 14px 0 0; overflow-x: auto;">
+          <table style="border-collapse: collapse; width: 100%; min-width: 480px;">
+            <thead><tr>${head}</tr></thead>
+            <tbody>${bodyRows}</tbody>
+          </table>
+          ${table.caption ? `<figcaption style="margin-top: 8px; font-size: 0.78rem; color: #64748b;">${escapeHtml(table.caption)}</figcaption>` : ""}
+        </figure>`;
+}
+
+/**
  * Static transparency / trust pages (disclaimer, testing methodology,
- * certification & lab notes, terms, privacy policy). Without prerendering
- * these routes fall through to the SPA shell whose raw canonical points at
- * the homepage — telling crawlers to ignore the real page.
+ * certification & lab notes, terms, privacy policy, search data, review-count
+ * integrity). Without prerendering these routes fall through to the SPA shell
+ * whose raw canonical points at the homepage — telling crawlers to ignore the
+ * real page.
  */
 function renderTransparencyPages(): RoutePage[] {
   return TRANSPARENCY_PAGES.map((page) => {
@@ -2742,16 +2782,34 @@ function renderTransparencyPages(): RoutePage[] {
         <p style="margin: 0 0 4px; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: #f97316; font-weight: 800;">${escapeHtml(section.eyebrow)}</p>
         <h2 style="margin: 0 0 10px; font-size: 1.3rem;">${escapeHtml(section.title)}</h2>
         ${section.body.map((para) => `<p style="margin: 0 0 12px;">${escapeHtml(para)}</p>`).join("")}
+        ${section.table ? renderStaticTable(section.table) : ""}
       </section>`,
       )
       .join("");
+    const metricsHtml = en.metrics?.length
+      ? `
+      <dl style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin: 18px 0; padding: 0;">
+        ${en.metrics
+          .map(
+            (metric) => `
+        <div style="border: 1px solid #e2e8f0; background: #f8fafc; border-radius: 14px; padding: 12px 14px;">
+          <dt style="margin: 0 0 6px; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: #64748b; font-weight: 800;">${escapeHtml(metric.label)}</dt>
+          <dd style="margin: 0; font-size: 1.5rem; font-weight: 900; color: #020617; line-height: 1.1;">${escapeHtml(metric.value)}</dd>
+          <p style="margin: 6px 0 0; font-size: 0.78rem; color: #64748b; line-height: 1.5;">${escapeHtml(metric.note)}</p>
+        </div>`,
+          )
+          .join("")}
+      </dl>`
+      : "";
     const body = `
       <section style="padding: 22px 0;">
         <p style="margin: 0 0 6px; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: #64748b; font-weight: 800;">${escapeHtml(en.navLabel)}</p>
         <h1 style="margin: 0 0 10px; font-size: 1.6rem;">${escapeHtml(en.title)}</h1>
         <p style="margin: 0 0 12px; font-size: 1.02rem; color: #334155;">${escapeHtml(en.subtitle)}</p>
         <p style="margin: 0 0 8px;">${escapeHtml(en.intro)}</p>
+        ${en.measuredLine ? `<p style="margin: 0; font-family: monospace; font-size: 0.78rem; color: #94a3b8;">${escapeHtml(en.measuredLine)}</p>` : ""}
       </section>
+      ${metricsHtml}
       ${sectionsHtml}
       <section style="padding: 18px 0 0; border-top: 1px solid #e2e8f0;">
         <p style="margin: 0 0 8px;"><a href="${escapeHtml(en.primaryLink.href)}">${escapeHtml(en.primaryLink.text)}</a></p>

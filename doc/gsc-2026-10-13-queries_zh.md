@@ -1,5 +1,7 @@
 # Top queries 完整分析（2026-10-13 导出，68 行 / 171 展现）
 
+已发布为公开版本：<https://balancebiketoddler.com/transparency/search-data/>（2026-10-14 上线）。
+
 数据来源：Search Console → Performance → Web → Top queries，2026-08-13 至 2026-10-10。
 
 ## 先看可信度

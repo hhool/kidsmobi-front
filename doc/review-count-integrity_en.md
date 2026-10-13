@@ -1,5 +1,7 @@
 # Review-count data integrity: 10 listings need a source fix
 
+Public version: <https://balancebiketoddler.com/transparency/review-count-integrity/> (2026-10-14).
+
 Date: 2026-10-13　Handling commit: `pending`
 Subject: ten listings carried review counts that cannot be true (up to ~47 million). Blocked end-to-end.
 

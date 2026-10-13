@@ -1,5 +1,7 @@
 # Search Console 首份基线数据 — balancebiketoddler.com
 
+本分析的公开版本：<https://balancebiketoddler.com/transparency/search-data/>（2026-10-14 上线）。
+
 **导出文件：** `balancebiketoddler.com-Performance-on-Search-2026-10-13.zip`
 **筛选条件：** 搜索类型 = 网页，日期 = 最近 3 个月（实际数据区间 2026-08-13 → 2026-10-10）
 **分析日期：** 2026-10-13

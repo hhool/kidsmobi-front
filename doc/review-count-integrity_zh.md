@@ -1,5 +1,7 @@
 # 评论量数据完整性：10 条 listing 的源数据需要修
 
+公开版本：<https://balancebiketoddler.com/transparency/review-count-integrity/>（2026-10-14 上线）。
+
 日期：2026-10-13　处理 commit：`待提交`
 主题：部分 listing 携带不可信的评论量（最高约 4,700 万条），已在前台全链路拦截。
 

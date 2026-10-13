@@ -1,5 +1,7 @@
 # Search Console baseline — balancebiketoddler.com
 
+Public version of this analysis: <https://balancebiketoddler.com/transparency/search-data/> (published 2026-10-14).
+
 **Export:** `balancebiketoddler.com-Performance-on-Search-2026-10-13.zip`
 **Filter:** Search type = Web, Date = Last 3 months
 **Analyzed:** 2026-10-13
