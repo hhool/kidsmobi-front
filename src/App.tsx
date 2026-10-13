@@ -87,6 +87,8 @@ import { getD1CMSSettings, getD1CMSProducts, getD1CMSEvaluations } from "./lib/c
 import type { ArticleSeoMeta } from "./lib/articleSeo";
 import { fetchContentBundle, isScrapedContentSource } from "./lib/contentSource";
 import { DEFAULT_SEO_CONFIGS, normalizeSeoConfig, SEO_TDK_LIMITS } from "./config/defaultSeo";
+import { buildDocumentTitle, buildMetaDescription } from "./lib/documentTitle";
+import { sanitizeUnsupportedClaims } from "./lib/unsupportedClaims";
 import { getProductSeoKeywords, getReviewSeoKeywords } from "./config/seoKeywordMap";
 import { getTransparencyPageByPath, TRANSPARENCY_PAGE_PATHS, type TransparencyPageKey } from "./data/transparencyPages";
 import {
@@ -2634,13 +2636,21 @@ export default function App() {
         const canonicalUrl = `${canonicalOrigin}${canonicalPath}`;
         const noIndex = shouldNoIndexCurrentPath(canonicalPath, window.location.search, window.location.hostname);
 
-        document.title = normalizedSEO.title;
-        updateMetaTag("description", normalizedSEO.description);
+        // Same builder the prerender used (src/lib/documentTitle.ts): the brand
+        // suffix is part of the title here too, so a hydrated visit and a crawl
+        // of the same URL report the same name. normalizeSeoConfig() also caps
+        // at 72 by hard slice, which can cut a word in half — buildDocumentTitle
+        // caps at 65 on a word boundary and never drops the brand.
+        const pageTitle = buildDocumentTitle(normalizedSEO.title);
+        const pageDescription = buildMetaDescription(normalizedSEO.description, sanitizeUnsupportedClaims);
+
+        document.title = pageTitle;
+        updateMetaTag("description", pageDescription);
         updateMetaTag("keywords", normalizedSEO.keywords.join(", "));
         updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
         updateCanonicalLink(canonicalUrl);
         updateMetaProperty("og:url", canonicalUrl);
-        updateSocialMeta(normalizedSEO.title, normalizedSEO.description, DEFAULT_OG_IMAGE_PATH, "article");
+        updateSocialMeta(pageTitle, pageDescription, DEFAULT_OG_IMAGE_PATH, "article");
 
         const websiteSchema = buildWebsiteSchema(canonicalOrigin, normalizedSEO.description);
 
@@ -2696,19 +2706,19 @@ export default function App() {
       const canonicalUrl = `${canonicalOrigin}${RECALL_SAFETY_PATH}`;
       const noIndex = shouldNoIndexCurrentPath(RECALL_SAFETY_PATH, window.location.search, window.location.hostname);
 
-      document.title = safetySeo.title;
-      updateMetaTag("description", safetySeo.description);
+      document.title = buildDocumentTitle(safetySeo.title);
+      updateMetaTag("description", buildMetaDescription(safetySeo.description, sanitizeUnsupportedClaims));
       updateMetaTag("keywords", safetySeo.keywords.join(", "));
       updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
       updateCanonicalLink(canonicalUrl);
       updateMetaProperty("og:url", canonicalUrl);
-      updateSocialMeta(safetySeo.title, safetySeo.description, DEFAULT_OG_IMAGE_PATH, "website");
+      updateSocialMeta(buildDocumentTitle(safetySeo.title), buildMetaDescription(safetySeo.description, sanitizeUnsupportedClaims), DEFAULT_OG_IMAGE_PATH, "website");
 
       injectJsonLd([
         {
           "@context": "https://schema.org",
           "@type": "WebPage",
-          name: safetySeo.title,
+          name: buildDocumentTitle(safetySeo.title),
           url: canonicalUrl,
           description: safetySeo.description,
           inLanguage: lang,
@@ -2734,19 +2744,19 @@ export default function App() {
       const canonicalUrl = `${canonicalOrigin}${SIZING_PATH}`;
       const noIndex = shouldNoIndexCurrentPath(SIZING_PATH, window.location.search, window.location.hostname);
 
-      document.title = sizingSeoData.title;
-      updateMetaTag("description", sizingSeoData.description);
+      document.title = buildDocumentTitle(sizingSeoData.title);
+      updateMetaTag("description", buildMetaDescription(sizingSeoData.description, sanitizeUnsupportedClaims));
       updateMetaTag("keywords", sizingSeoData.keywords.join(", "));
       updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
       updateCanonicalLink(canonicalUrl);
       updateMetaProperty("og:url", canonicalUrl);
-      updateSocialMeta(sizingSeoData.title, sizingSeoData.description, DEFAULT_OG_IMAGE_PATH, "website");
+      updateSocialMeta(buildDocumentTitle(sizingSeoData.title), buildMetaDescription(sizingSeoData.description, sanitizeUnsupportedClaims), DEFAULT_OG_IMAGE_PATH, "website");
 
       injectJsonLd([
         {
           "@context": "https://schema.org",
           "@type": "WebPage",
-          name: sizingSeoData.title,
+          name: buildDocumentTitle(sizingSeoData.title),
           url: canonicalUrl,
           description: sizingSeoData.description,
           inLanguage: lang,
@@ -2768,19 +2778,19 @@ export default function App() {
       const canonicalUrl = `${canonicalOrigin}${SAFETY_PATH}`;
       const noIndex = shouldNoIndexCurrentPath(SAFETY_PATH, window.location.search, window.location.hostname);
 
-      document.title = safetySeoData.title;
-      updateMetaTag("description", safetySeoData.description);
+      document.title = buildDocumentTitle(safetySeoData.title);
+      updateMetaTag("description", buildMetaDescription(safetySeoData.description, sanitizeUnsupportedClaims));
       updateMetaTag("keywords", safetySeoData.keywords.join(", "));
       updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
       updateCanonicalLink(canonicalUrl);
       updateMetaProperty("og:url", canonicalUrl);
-      updateSocialMeta(safetySeoData.title, safetySeoData.description, DEFAULT_OG_IMAGE_PATH, "website");
+      updateSocialMeta(buildDocumentTitle(safetySeoData.title), buildMetaDescription(safetySeoData.description, sanitizeUnsupportedClaims), DEFAULT_OG_IMAGE_PATH, "website");
 
       injectJsonLd([
         {
           "@context": "https://schema.org",
           "@type": "WebPage",
-          name: safetySeoData.title,
+          name: buildDocumentTitle(safetySeoData.title),
           url: canonicalUrl,
           description: safetySeoData.description,
           inLanguage: lang,
@@ -2800,19 +2810,19 @@ export default function App() {
       const canonicalUrl = `${canonicalOrigin}${WEIGHT_PATH}`;
       const noIndex = shouldNoIndexCurrentPath(WEIGHT_PATH, window.location.search, window.location.hostname);
 
-      document.title = weightSeoData.title;
-      updateMetaTag("description", weightSeoData.description);
+      document.title = buildDocumentTitle(weightSeoData.title);
+      updateMetaTag("description", buildMetaDescription(weightSeoData.description, sanitizeUnsupportedClaims));
       updateMetaTag("keywords", weightSeoData.keywords.join(", "));
       updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
       updateCanonicalLink(canonicalUrl);
       updateMetaProperty("og:url", canonicalUrl);
-      updateSocialMeta(weightSeoData.title, weightSeoData.description, DEFAULT_OG_IMAGE_PATH, "website");
+      updateSocialMeta(buildDocumentTitle(weightSeoData.title), buildMetaDescription(weightSeoData.description, sanitizeUnsupportedClaims), DEFAULT_OG_IMAGE_PATH, "website");
 
       injectJsonLd([
         {
           "@context": "https://schema.org",
           "@type": "WebPage",
-          name: weightSeoData.title,
+          name: buildDocumentTitle(weightSeoData.title),
           url: canonicalUrl,
           description: weightSeoData.description,
           inLanguage: lang,
@@ -2832,19 +2842,19 @@ export default function App() {
       const canonicalUrl = `${canonicalOrigin}${AGE_PATH}`;
       const noIndex = shouldNoIndexCurrentPath(AGE_PATH, window.location.search, window.location.hostname);
 
-      document.title = ageSeoData.title;
-      updateMetaTag("description", ageSeoData.description);
+      document.title = buildDocumentTitle(ageSeoData.title);
+      updateMetaTag("description", buildMetaDescription(ageSeoData.description, sanitizeUnsupportedClaims));
       updateMetaTag("keywords", ageSeoData.keywords.join(", "));
       updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
       updateCanonicalLink(canonicalUrl);
       updateMetaProperty("og:url", canonicalUrl);
-      updateSocialMeta(ageSeoData.title, ageSeoData.description, DEFAULT_OG_IMAGE_PATH, "website");
+      updateSocialMeta(buildDocumentTitle(ageSeoData.title), buildMetaDescription(ageSeoData.description, sanitizeUnsupportedClaims), DEFAULT_OG_IMAGE_PATH, "website");
 
       injectJsonLd([
         {
           "@context": "https://schema.org",
           "@type": "WebPage",
-          name: ageSeoData.title,
+          name: buildDocumentTitle(ageSeoData.title),
           url: canonicalUrl,
           description: ageSeoData.description,
           inLanguage: lang,
@@ -2864,19 +2874,19 @@ export default function App() {
       const canonicalUrl = `${canonicalOrigin}${STABILITY_PATH}`;
       const noIndex = shouldNoIndexCurrentPath(STABILITY_PATH, window.location.search, window.location.hostname);
 
-      document.title = stabilitySeoData.title;
-      updateMetaTag("description", stabilitySeoData.description);
+      document.title = buildDocumentTitle(stabilitySeoData.title);
+      updateMetaTag("description", buildMetaDescription(stabilitySeoData.description, sanitizeUnsupportedClaims));
       updateMetaTag("keywords", stabilitySeoData.keywords.join(", "));
       updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
       updateCanonicalLink(canonicalUrl);
       updateMetaProperty("og:url", canonicalUrl);
-      updateSocialMeta(stabilitySeoData.title, stabilitySeoData.description, DEFAULT_OG_IMAGE_PATH, "website");
+      updateSocialMeta(buildDocumentTitle(stabilitySeoData.title), buildMetaDescription(stabilitySeoData.description, sanitizeUnsupportedClaims), DEFAULT_OG_IMAGE_PATH, "website");
 
       injectJsonLd([
         {
           "@context": "https://schema.org",
           "@type": "WebPage",
-          name: stabilitySeoData.title,
+          name: buildDocumentTitle(stabilitySeoData.title),
           url: canonicalUrl,
           description: stabilitySeoData.description,
           inLanguage: lang,

@@ -81,6 +81,16 @@ import { getPageCopy } from "../src/config/pageCopy";
 import { shortenCardTitle } from "../src/lib/productSeoText";
 import { productDetailUrlSlug, resolveProductDetailCategorySlug } from "../src/lib/productCategoryPaths";
 import { matchProductsForText } from "../src/lib/relatedProducts";
+import {
+  buildDocumentTitle,
+  buildMetaDescription,
+  capSeoText,
+  capSeoTitle,
+  DESCRIPTION_MAX_CHARS,
+  SITE_TITLE_SUFFIX,
+  TITLE_MAX_CHARS,
+} from "../src/lib/documentTitle";
+import { sanitizeUnsupportedClaims } from "../src/lib/unsupportedClaims";
 import { buildProductFaqsFromDisplayFields, faqPageSchema, FAQ_MIN_QUESTIONS, type ProductFaq } from "../src/lib/productFaq";
 import { getHubContent } from "../src/lib/productHubContent";
 
@@ -217,51 +227,6 @@ function renderBulletedCards(items: Array<{ title: string; text: string; meta?: 
   `;
 }
 
-/** Word-boundary truncation for SEO text (Semrush title/description checks). */
-function capSeoText(text: string, maxChars: number): string {
-  const raw = String(text || "").trim().replace(/\s+/g, " ");
-  if (raw.length <= maxChars) return raw;
-  const cut = raw.slice(0, maxChars);
-  const sp = cut.lastIndexOf(" ");
-  return (sp > 20 ? cut.slice(0, sp) : cut).replace(/[\s,;:.–—-]+$/, "");
-}
-
-/**
- * Words that must never be the LAST word of a truncated <title>.
- *
- * `capSeoText` alone is fine for meta descriptions but produces junk titles:
- * it cut "Review Count Integrity: The Numbers We Refused to Publish" down to
- * "…The Numbers We", and "Finding the Best Balance Bike for a 1-Year-Old" to
- * "…for a". In a search result those read like a machine stopped mid-sentence —
- * exactly the "auto-generated content" impression the whole site is trying to
- * avoid. Dropping one more word costs almost no keyword coverage, so the list
- * is deliberately narrow: conjunctions, prepositions, articles and the pronouns
- * that only ever appear mid-clause.
- */
-const TITLE_DANGLING_WORDS = new Set([
-  "a", "an", "the", "and", "or", "but", "nor", "as", "at", "by", "for", "from",
-  "in", "of", "on", "to", "with", "than", "then", "that", "this", "these",
-  "those", "it", "its", "is", "are", "was", "we", "our", "you", "your", "who",
-  "how", "what", "when", "where", "why", "vs", "vs.", "&", "&amp;", "|",
-]);
-
-/** Title-safe capping: word boundary, then no dangling connector word. */
-function capSeoTitle(text: string, maxChars: number): string {
-  const capped = capSeoText(text, maxChars);
-  const words = capped.split(" ");
-  if (words.length < 2) return capped;
-  const start = words.length;
-  while (words.length > 1 && TITLE_DANGLING_WORDS.has(words[words.length - 1].toLowerCase())) {
-    words.pop();
-  }
-  if (words.length === start) return capped;
-  return words.join(" ").replace(/[\s,;:.–—|&+\-]+$/, "").trim() || capped;
-}
-
-/** Cuts meta description to ≤maxChars at a word boundary. */
-function capMetaDescription(text: string, maxChars = 158): string {
-  return capSeoText(text, maxChars);
-}
 
 function renderStaticPage(page: RoutePage): string {
   return `
@@ -386,34 +351,13 @@ function clusterNavHtml(currentPath: string, heading = "Balance bike reference p
   `;
 }
 
-const SITE_TITLE_SUFFIX = " | BalanceBikeToddler";
-
-/**
- * Amazon ASINs inside meta descriptions ("… (ASIN B07P1YSC18) is an ultra-light
- * umbrella stroller…") come from CMS review copy. The snippet is the first
- * sentence a parent reads, and an opaque marketplace ID there is the clearest
- * tell that the text was harvested. The identifier stays on the page where it
- * actually does something — it identifies the listing in the body copy.
- */
-function stripCatalogueIds(text: string): string {
-  return String(text || "")
-    .replace(/\(?\b(?:ASIN|amazon)\s*[:#]?\s*B0[0-9A-Z]{8}\b\)?/gi, "")
-    .replace(/\(\s*B0[0-9A-Z]{8}\s*\)/gi, "")
-    .replace(/\(\s*\)/g, "")
-    .replace(/\s+([,.;:)])/g, "$1")
-    .replace(/\s{2,}/g, " ")
-    .trim();
-}
-
 /**
  * The <title> a page would ship with, replicating renderDocument() exactly.
  * Needed because collision handling has to compare what would be PUBLISHED,
  * not the untruncated source string.
  */
 function documentTitleOf(page: RoutePage): string {
-  if (page.fullTitle) return page.fullTitle;
-  const full = `${page.title}${SITE_TITLE_SUFFIX}`;
-  return full.length <= 65 ? full : `${capSeoTitle(page.title, 65 - SITE_TITLE_SUFFIX.length)}${SITE_TITLE_SUFFIX}`;
+  return buildDocumentTitle(page.title, page.fullTitle);
 }
 
 /**
@@ -436,10 +380,11 @@ function resolveDuplicateTitles(productPages: RoutePage[], reviewPages: RoutePag
       : current;
     const stem = base.replace(/\s+(?:reviews?)\s*$/i, "").trim();
     const qualifier = ": Verdict";
-    let candidate = `${stem}${qualifier}${SITE_TITLE_SUFFIX}`;
-    if (candidate.length > 65) {
-      candidate = `${capSeoTitle(stem, 65 - SITE_TITLE_SUFFIX.length - qualifier.length)}${qualifier}${SITE_TITLE_SUFFIX}`;
-    }
+    const full = `${stem}${qualifier}${SITE_TITLE_SUFFIX}`;
+    const candidate =
+      full.length <= TITLE_MAX_CHARS
+        ? full
+        : `${capSeoTitle(stem, TITLE_MAX_CHARS - SITE_TITLE_SUFFIX.length - qualifier.length)}${qualifier}${SITE_TITLE_SUFFIX}`;
     if (published.has(candidate.toLowerCase())) continue;
     page.fullTitle = candidate;
     published.add(candidate.toLowerCase());
@@ -455,17 +400,12 @@ function renderDocument(page: RoutePage, appAssets: AppAssets): string {
   const canonical = `https://balancebiketoddler.com${routePath}`;
   // SEO title cap (Semrush): full override wins, else `${title} | brand`
   // truncated to ≤65 chars at a word boundary, brand suffix always kept.
-  const titleTag = page.fullTitle
-    ?? (() => {
-      const full = `${page.title}${SITE_TITLE_SUFFIX}`;
-      return full.length <= 65 ? full : `${capSeoTitle(page.title, 65 - SITE_TITLE_SUFFIX.length)}${SITE_TITLE_SUFFIX}`;
-    })();
+  const titleTag = buildDocumentTitle(page.title, page.fullTitle);
   // The same claim scrub that runs over the body must run here first: the whole
   // document is scrubbed again after rendering, and a rewrite that lengthens the
   // text ("lab database" -> "specification database") otherwise pushes an
   // already-capped snippet back over the limit.
-  const cleanDescription = sanitizeUnsupportedClaims(stripCatalogueIds(page.description));
-  const descTag = capMetaDescription(cleanDescription);
+  const descTag = buildMetaDescription(page.description, sanitizeUnsupportedClaims);
   const entitySameAs = [
     "https://www.youtube.com/@kidsmobi",
     "https://www.facebook.com",
@@ -4847,7 +4787,7 @@ function renderProductDetailPage(
   const FALLBACK_DESCRIPTION =
     "Evidence-based review with safety score, specs, and age fit for this kids mobility product.";
   const descSource = pickText(summary, paragraphs[0], FALLBACK_DESCRIPTION);
-  const baseDescription = capMetaDescription(descSource);
+  const baseDescription = capSeoText(descSource, DESCRIPTION_MAX_CHARS);
   // Two SKUs of one model (colour variants) can carry an identical cardSummary.
   // Truncation to 158 chars then removes the only differing token (usually the
   // price) and both pages ship the same meta description — a Semrush "duplicate
@@ -4861,7 +4801,7 @@ function renderProductDetailPage(
       productDescriptionParagraphs(other)[0],
       FALLBACK_DESCRIPTION,
     );
-    return capMetaDescription(otherSource) === baseDescription;
+    return capSeoText(otherSource, DESCRIPTION_MAX_CHARS) === baseDescription;
   });
   const DESC_MODEL_PREFIX = `${titleShort} (model ${asin}) — `;
   const metaDescription = descCollides
@@ -5223,59 +5163,6 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
  * slug-form family via the generated _redirects block below.
  */
 
-
-/**
- * Stage-0 honesty guard (see plan-B-execution.md).
- *
- * CMS records still carry legacy copy ("lab-tested", "our lab", "we have
- * tested") describing measurement work this project never performed. The
- * prerendered HTML is what crawlers and most visitors actually receive, so the
- * claims are neutralised here centrally instead of waiting for every CMS row to
- * be hand-edited.
- */
-const UNSUPPORTED_CLAIM_REWRITES: Array<[RegExp, string]> = [
-  [/lab[\s-]?tested/gi, "evidence-based"],
-  [/lab[\s-]?reviewed/gi, "source-reviewed"],
-  [/lab[\s-]?verified/gi, "source-reviewed"],
-  [/lab[\s-]?matrix/gi, "standards matrix"],
-  [/lab[\s-]?measurements?/gi, "published specifications"],
-  [/expert lab database/gi, "specification database"],
-  [/lab database/gi, "specification database"],
-  [/lab scores/gi, "source-based scores"],
-  [/from our lab/gi, "from this category"],
-  [/we have tested/gi, "we cover"],
-  [/we test them/gi, "we compare them"],
-  [/independent physical testing lab/gi, "independent analysis"],
-  [/our lab checklist/gi, "our source checklist"],
-  [/specs our lab extracts/gi, "specs we extract"],
-  [/lab[\s-]?style/gi, "source-based"],
-  // Hyphenated forms: `/transparency/certification-lab-notes/` must stay a
-  // working URL, so nothing that sits directly after a hyphen is rewritten
-  // (see the `(?<!-)` guard in sanitizeUnsupportedClaims).
-  [/lab[- ]notes?\b(?!\/)/gi, "source notes"],
-  [/lab[- ]best[- ]case/gi, "best-case"],
-  [/lab score/gi, "source-based score"],
-  [/full lab review/gi, "full source-based review"],
-  [/lab reviews/gi, "source-based reviews"],
-  // Fallback for any remaining adjective use of the word. The lookahead keeps
-  // the legacy /transparency/certification-lab-notes/ route readable, and the
-  // "lab coat" phrase is figurative, not a measurement claim.
-  [/\blab\b(?![-/])(?! coat)/gi, "source-based"],
-];
-
-function sanitizeUnsupportedClaims(html: string): string {
-  const restoreCase = (replacement: string, matched: string): string => {
-    if (matched.length > 2 && matched === matched.toUpperCase()) return replacement.toUpperCase();
-    if (/^[A-Z]/.test(matched)) return replacement.charAt(0).toUpperCase() + replacement.slice(1);
-    return replacement;
-  };
-  // `(?<!-)` keeps every rule away from hyphenated URL slugs such as
-  // /transparency/certification-lab-notes/, which must stay clickable.
-  return UNSUPPORTED_CLAIM_REWRITES.reduce((acc, [pattern, replacement]) => {
-    const urlSafe = new RegExp(`(?<!-)${pattern.source}`, pattern.flags);
-    return acc.replace(urlSafe, (match) => restoreCase(replacement, match));
-  }, html);
-}
 
 async function main() {
   const indexHtml = await readFile(path.join(distDir, "index.html"), "utf8");
