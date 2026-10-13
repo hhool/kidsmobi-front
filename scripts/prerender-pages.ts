@@ -5,6 +5,7 @@ import { newsArticles } from "../src/data/newsData";
 import { TRANSPARENCY_PAGES } from "../src/data/transparencyPages";
 import {
   buildDatasetSchema,
+  euSinceYear,
   fillTemplate,
   formatCount,
   formatRecallDate,
@@ -14,6 +15,7 @@ import {
   recallDataset,
   recallSeo,
   recallStrings,
+  safetyGateDataset,
   topHazard,
 } from "../src/data/safetyRecallRecord";
 import {
@@ -2805,6 +2807,50 @@ function renderSafetyRecallPage(): RoutePage[] {
     .map((line) => `<li style="margin-bottom:6px;">${escapeHtml(line)}</li>`)
     .join("");
 
+  // --- EU Safety Gate half of the record (plan-B asset #1, EU side) ---------
+  const eu = safetyGateDataset;
+  const euVals: Record<string, string | number> = {
+    scanned: formatCount(eu.totals.alertsInDatabase),
+    since: euSinceYear ?? "",
+    bb: eu.totals.balanceBikeAlerts,
+    rideon: eu.totals.rideOnAlerts,
+    cats: formatCount(eu.totals.alertsInCategories),
+    excluded: eu.totals.excludedAccessories,
+    other: eu.rideOnAlerts.length,
+  };
+
+  const euCards = eu.balanceBikeAlerts
+    .map(
+      (a) => `
+      <div style="margin-bottom:12px;padding:16px;border:1px solid #e2e8f0;border-radius:14px;background:#fff;">
+        <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.12em;color:#64748b;">${escapeHtml(formatRecallDate(a.date))} &middot; ${escapeHtml(a.country)} &middot; ${escapeHtml(a.alertNumber)}</div>
+        <p style="margin:8px 0 2px;font-weight:800;font-size:1rem;">${escapeHtml(a.productName)}</p>
+        <p style="margin:0 0 8px;font-size:0.76rem;color:#64748b;">${escapeHtml(a.brand)}</p>
+        ${a.riskTypes.length ? `<p style="margin:0 0 8px;font-size:0.72rem;color:#ea580c;font-weight:700;">${escapeHtml(a.riskTypes.join(", "))}</p>` : ""}
+        ${a.riskDescription ? `<p style="margin:0 0 10px;font-size:0.82rem;line-height:1.7;color:#475569;">${escapeHtml(a.riskDescription)}</p>` : ""}
+        <a href="${escapeHtml(a.url)}" style="font-size:0.82rem;font-weight:800;color:#ea580c;">${escapeHtml(recallStrings.en.openAlert)} &rarr;</a>
+      </div>`,
+    )
+    .join("");
+
+  const euRows = eu.rideOnAlerts
+    .map(
+      (a) => `
+        <tr style="border-bottom:1px solid #e2e8f0;">
+          <td style="padding:8px 10px 8px 0;white-space:nowrap;font-size:0.76rem;color:#64748b;">${escapeHtml(formatRecallDate(a.date))}</td>
+          <td style="padding:8px 10px 8px 0;font-size:0.78rem;">${escapeHtml(a.country)}</td>
+          <td style="padding:8px 10px 8px 0;font-size:0.78rem;">${escapeHtml(a.brand)}</td>
+          <td style="padding:8px 10px 8px 0;font-size:0.82rem;">${escapeHtml(a.productName)}</td>
+          <td style="padding:8px 10px 8px 0;font-size:0.76rem;color:#475569;">${escapeHtml(a.riskTypes.join(", ") || "-")}</td>
+          <td style="padding:8px 0;text-align:right;white-space:nowrap;"><a href="${escapeHtml(a.url)}" style="font-size:0.74rem;font-weight:800;color:#ea580c;">${escapeHtml(recallStrings.en.openAlert)} &rarr;</a></td>
+        </tr>`,
+    )
+    .join("");
+
+  const euMethodList = recallStrings.en.euMethodBody
+    .map((line) => `<li style="margin-bottom:6px;">${escapeHtml(fillTemplate(line, euVals))}</li>`)
+    .join("");
+
   const body = `
       <section style="padding:22px 0;">
         <p style="margin:0 0 6px;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;font-weight:800;">${escapeHtml(recallStrings.en.eyebrow)}</p>
@@ -2871,6 +2917,44 @@ function renderSafetyRecallPage(): RoutePage[] {
         <h2 style="margin:0 0 8px;font-size:1.25rem;">${escapeHtml(recallStrings.en.hazardTitle)}</h2>
         <p style="margin:0 0 14px;font-size:0.88rem;color:#475569;line-height:1.8;">${escapeHtml(recallStrings.en.hazardLead)}</p>
         <ul style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;">${hazardList}</ul>
+      </section>
+
+      <section style="padding:18px 0;border-top:1px solid #e2e8f0;">
+        <h2 style="margin:0 0 8px;font-size:1.25rem;">${escapeHtml(recallStrings.en.euTitle)}</h2>
+        <p style="margin:0 0 14px;font-size:0.88rem;color:#475569;line-height:1.8;">${escapeHtml(recallStrings.en.euLead)}</p>
+        <p style="margin:0 0 16px;padding:12px 14px;background:#f8fafc;border-radius:12px;font-size:0.88rem;line-height:1.8;color:#334155;">${escapeHtml(fillTemplate(recallStrings.en.euFinding, euVals))}</p>
+
+        <h3 style="margin:0 0 6px;font-size:1rem;">${escapeHtml(fillTemplate(recallStrings.en.euBalanceTitle, { count: eu.totals.balanceBikeAlerts }))}</h3>
+        <p style="margin:0 0 12px;font-size:0.85rem;color:#475569;line-height:1.75;">${escapeHtml(recallStrings.en.euBalanceLead)}</p>
+        ${euCards}
+
+        <h3 style="margin:18px 0 6px;font-size:1rem;">${escapeHtml(fillTemplate(recallStrings.en.euTableTitle, { count: eu.rideOnAlerts.length }))}</h3>
+        <p style="margin:0 0 12px;font-size:0.85rem;color:#475569;line-height:1.75;">${escapeHtml(fillTemplate(recallStrings.en.euTableLead, { excluded: eu.totals.excludedAccessories }))}</p>
+        ${
+          eu.rideOnAlerts.length
+            ? `<div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;text-align:left;">
+            <thead>
+              <tr style="font-size:0.66rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+                <th style="padding:8px 10px 8px 0;">${escapeHtml(recallStrings.en.euColDate)}</th>
+                <th style="padding:8px 10px 8px 0;">${escapeHtml(recallStrings.en.euColCountry)}</th>
+                <th style="padding:8px 10px 8px 0;">${escapeHtml(recallStrings.en.euColBrand)}</th>
+                <th style="padding:8px 10px 8px 0;">${escapeHtml(recallStrings.en.euColProduct)}</th>
+                <th style="padding:8px 10px 8px 0;">${escapeHtml(recallStrings.en.euColRisk)}</th>
+                <th style="padding:8px 0;text-align:right;">${escapeHtml(recallStrings.en.euColAlert)}</th>
+              </tr>
+            </thead>
+            <tbody>${euRows}</tbody>
+          </table>
+        </div>`
+            : ""
+        }
+
+        <div style="margin-top:16px;padding:14px;border:1px solid #e2e8f0;border-radius:12px;background:#fff;">
+          <p style="margin:0 0 8px;font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:#64748b;font-weight:800;">${escapeHtml(recallStrings.en.euMethodTitle)}</p>
+          <ul style="margin:0 0 10px;padding-left:20px;font-size:0.8rem;line-height:1.75;color:#475569;">${euMethodList}</ul>
+          <p style="margin:0;font-size:0.78rem;color:#64748b;">${escapeHtml(recallStrings.en.euSourcesLabel)}: ${escapeHtml(eu.source.name)} &middot; ${escapeHtml(recallStrings.en.retrievedLabel)}: ${escapeHtml(eu.source.retrievedAt)}</p>
+        </div>
       </section>
 
       <section style="padding:18px 0;border-top:1px solid #e2e8f0;">

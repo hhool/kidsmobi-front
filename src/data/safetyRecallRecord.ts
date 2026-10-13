@@ -1,4 +1,5 @@
 import { RECALL_DATASET } from "./recallData.generated";
+import { SAFETY_GATE_DATASET } from "./safetyGateData.generated";
 
 /**
  * Types + narrative copy for the public safety recall record page.
@@ -61,6 +62,54 @@ export const recallDataset = RECALL_DATASET as {
   periodTrend: PeriodRow[];
 };
 
+export type SafetyGateAlert = {
+  alertNumber: string;
+  date: string;
+  country: string;
+  brand: string;
+  productName: string;
+  category: string;
+  riskTypes: string[];
+  riskDescription: string;
+  measures: string[];
+  url: string;
+};
+
+/**
+ * The EU half of the record: Safety Gate (formerly RAPEX), the European
+ * Commission's rapid alert system for dangerous non-food products. Same
+ * discipline as the CPSC side — every count shown on the page is derived from
+ * this dataset, so nothing can drift out of sync with the source it cites.
+ */
+export const safetyGateDataset = SAFETY_GATE_DATASET as {
+  source: {
+    name: string;
+    api: string;
+    publisherUrl: string;
+    retrievedAt: string;
+    note: string;
+  };
+  totals: {
+    alertsInDatabase: number;
+    alertsInCategories: number;
+    nameMatches: number;
+    excludedAccessories: number;
+    rideOnAlerts: number;
+    balanceBikeAlerts: number;
+  };
+  coverage: {
+    databaseStartYear: number | null;
+    startYear: number | null;
+    endYear: number | null;
+  };
+  balanceBikeAlerts: SafetyGateAlert[];
+  rideOnAlerts: SafetyGateAlert[];
+  riskBreakdown: Array<{ label: string; count: number }>;
+};
+
+/** Earliest year the EU database reaches back to (derived, not hand-written). */
+export const euSinceYear = safetyGateDataset.coverage.databaseStartYear;
+
 const MONTHS = [
   "January",
   "February",
@@ -102,22 +151,31 @@ export const latestBalanceNotice = recallDataset.balanceBikeNotices[0] || null;
 
 export const recallSeo = {
   en: {
-    title: "Balance Bike & Kids' Bike Recall Record: Every CPSC Notice Since 2000",
+    title: "Balance Bike & Kids' Bike Recall Record: US CPSC + EU Safety Gate",
     description:
-      "A parent-facing record of US CPSC recall notices covering balance bikes, children's bicycles and kids' helmets since 2000 — every row linked to the official notice.",
+      "A parent-facing record of US CPSC recall notices since 2000 and EU Safety Gate alerts, covering balance bikes, children's bicycles and kids' helmets — every row linked to the official source.",
     keywords: [
       "balance bike recall",
       "kids bike recall",
       "children's bicycle recall",
       "CPSC recall list",
+      "EU Safety Gate",
+      "RAPEX alert",
       "balance bike safety",
     ],
   },
   zh: {
-    title: "儿童平衡车与童车召回记录：2000 年以来 CPSC 全部通报",
+    title: "儿童平衡车与童车召回记录：美国 CPSC + 欧盟 Safety Gate",
     description:
-      "基于美国 CPSC 官方召回通报整理的儿童平衡车、童车与头盔召回记录，每一条均可回溯到官方原文。",
-    keywords: ["平衡车召回", "童车召回", "CPSC 召回名单", "儿童骑行安全"],
+      "基于美国 CPSC 召回通报（2000 年起）与欧盟 Safety Gate 警报整理的儿童平衡车、童车与头盔召回记录，每一条均可回溯到官方原文。",
+    keywords: [
+      "平衡车召回",
+      "童车召回",
+      "CPSC 召回名单",
+      "欧盟 Safety Gate",
+      "RAPEX 警报",
+      "儿童骑行安全",
+    ],
   },
 };
 
@@ -147,9 +205,26 @@ type UiStrings = {
   checkSteps: string[];
   methodTitle: string;
   methodBody: string[];
+  euTitle: string;
+  euLead: string;
+  euFinding: string;
+  euBalanceTitle: string;
+  euBalanceLead: string;
+  euTableTitle: string;
+  euTableLead: string;
+  euColDate: string;
+  euColCountry: string;
+  euColBrand: string;
+  euColProduct: string;
+  euColRisk: string;
+  euColAlert: string;
+  euMethodTitle: string;
+  euMethodBody: string[];
+  euSourcesLabel: string;
   disclaimerTitle: string;
   disclaimerBody: string;
   openNotice: string;
+  openAlert: string;
 };
 
 export const recallStrings: Record<"en" | "zh", UiStrings> = {
@@ -199,10 +274,37 @@ export const recallStrings: Record<"en" | "zh", UiStrings> = {
       "Hazard wording was read from each notice's hazard field and grouped by keyword. Groupings overlap, so percentages are not reported.",
       "Numbers change when CPSC publishes new notices. Re-running `npm run data:recalls` regenerates this page's data.",
     ],
+    euTitle: "European Union: Safety Gate alerts",
+    euLead:
+      "The EU runs its own rapid alert system for dangerous products — Safety Gate, formerly RAPEX. We searched it the same way, so the US finding can be checked against a second, independent jurisdiction.",
+    euFinding:
+      "The same pattern holds in Europe: across all {scanned} Safety Gate alerts published since {since}, only {bb} identify a balance bike, and {rideon} concern a child's ride-on vehicle in total.",
+    euBalanceTitle: "Balance bike alerts in the EU ({count})",
+    euBalanceLead:
+      "These are the only alerts in the EU system naming a balance bike — sold across Europe as a run bike, Laufrad or draisienne. Both are checks a parent can repeat by hand: gaps that can trap a foot, and small parts that can be swallowed.",
+    euTableTitle: "Other children's ride-on alerts in the EU ({count})",
+    euTableLead:
+      "Children's bicycles, tricycles and ride-on vehicles reported by national authorities across the EU/EEA, newest first. Child bike seats and other accessories were excluded ({excluded} alerts) because the child does not ride them by themselves.",
+    euColDate: "Date",
+    euColCountry: "Reported by",
+    euColBrand: "Brand",
+    euColProduct: "Product",
+    euColRisk: "Risk",
+    euColAlert: "Alert",
+    euMethodTitle: "How the EU numbers were built",
+    euMethodBody: [
+      "Every alert in the Safety Gate database ({scanned} alerts, reaching back to {since}) was searched, then narrowed to the two categories that can hold a child's ride-on product: toys and childcare articles ({cats} alerts).",
+      "Alerts were kept when the product name contains a ride-on term in any EU language — bike, bicycle, tricycle, ride-on, Laufrad, draisienne, loopfiets — because an EU alert is filed in the language of the country that reported it.",
+      "Seats, saddles and helmets were removed ({excluded} alerts): they are accessories, not vehicles a child rides. The exclusion is counted rather than hidden.",
+      "What remained splits into {bb} balance bike alerts and {other} other children's ride-on alerts.",
+      "Each row links to the official Safety Gate alert page, so every line can be checked against the Commission's own record. Re-running `npm run data:safetygate` regenerates this section.",
+    ],
+    euSourcesLabel: "EU data source",
     disclaimerTitle: "What this page does not tell you",
     disclaimerBody:
-      "This is a record of US CPSC recall notices, not a verdict on any brand, not a ranking, and not a substitute for checking your own bike. A brand appearing here more than once may simply reflect how many units it sells. EU Safety Gate alerts, retailer-only corrections and incident reports are not included.",
+      "This is a record of US CPSC recall notices and EU Safety Gate alerts, not a verdict on any brand, not a ranking, and not a substitute for checking your own bike. A brand appearing here more than once may simply reflect how many units it sells. Retailer-only corrections and incident reports are not included in either dataset.",
     openNotice: "Read the CPSC notice",
+    openAlert: "Read the Safety Gate alert",
   },
   zh: {
     eyebrow: "公共安全记录",
@@ -248,10 +350,37 @@ export const recallStrings: Record<"en" | "zh", UiStrings> = {
       "危害描述取自各通报的 hazard 字段，按关键词归类。归类相互重叠，故不计算占比。",
       "CPSC 发布新通报后数字会变化。重跑 `npm run data:recalls` 即可重新生成本页数据。",
     ],
+    euTitle: "欧盟：Safety Gate 警报",
+    euLead:
+      "欧盟有自己的危险产品快速预警系统——Safety Gate（原 RAPEX）。我们用同样的方法检索它，让美国的结论可以在第二个独立法域得到交叉验证。",
+    euFinding:
+      "欧洲呈现同样的规律：自 {since} 年以来发布的全部 {scanned} 条 Safety Gate 警报中，明确指向平衡车的只有 {bb} 条，涉及儿童骑乘车辆的合计 {rideon} 条。",
+    euBalanceTitle: "欧盟的平衡车警报（{count} 条）",
+    euBalanceLead:
+      "这是欧盟系统中仅有的点名平衡车的警报——它在欧洲被叫作 run bike、Laufrad 或 draisienne。两条都是家长可以亲手复核的问题：可能夹住脚的缝隙，以及可能被吞下的小零件。",
+    euTableTitle: "欧盟其他儿童骑乘类警报（{count} 条）",
+    euTableLead:
+      "由欧盟／欧洲经济区各国主管机关通报的儿童自行车、三轮车与骑乘玩具，按时间倒序。儿童自行车座椅等配件已剔除（{excluded} 条），因为孩子并不单独骑乘它们。",
+    euColDate: "日期",
+    euColCountry: "通报国",
+    euColBrand: "品牌",
+    euColProduct: "产品",
+    euColRisk: "风险",
+    euColAlert: "警报",
+    euMethodTitle: "欧盟数据如何构建",
+    euMethodBody: [
+      "检索 Safety Gate 数据库中的全部警报（{scanned} 条，最早回溯到 {since} 年），再收窄到可能包含儿童骑乘产品的两个分类：玩具与儿童用品（共 {cats} 条）。",
+      "保留产品名称含任意欧盟语言骑乘类词的警报——bike、bicycle、tricycle、ride-on、Laufrad、draisienne、loopfiets——因为欧盟警报以通报国语言提交。",
+      "剔除座椅、鞍座与头盔（{excluded} 条）：它们是配件，不是孩子骑乘的车辆。剔除数量如实列出而非隐藏。",
+      "剩余部分拆分为 {bb} 条平衡车警报与 {other} 条其他儿童骑乘警报。",
+      "每行都链接到官方 Safety Gate 警报页，可逐条对照欧盟委员会原始记录核验。重跑 `npm run data:safetygate` 即可重新生成本节数据。",
+    ],
+    euSourcesLabel: "欧盟数据来源",
     disclaimerTitle: "本页没有告诉你的事",
     disclaimerBody:
-      "这是美国 CPSC 召回通报的记录，不是对任何品牌的判定，不是排名，也不能替代你对自己车辆的检查。某品牌出现次数多，可能只反映其销量更大。欧盟 Safety Gate 警报、商家自行更正与事故报告均未包含在内。",
+      "这是美国 CPSC 召回通报与欧盟 Safety Gate 警报的记录，不是对任何品牌的判定，不是排名，也不能替代你对自己车辆的检查。某品牌出现次数多，可能只反映其销量更大。两份数据均未包含商家自行更正与事故报告。",
     openNotice: "查看 CPSC 原文",
+    openAlert: "查看 Safety Gate 原文",
   },
 };
 
@@ -274,20 +403,27 @@ export function formatCount(value: number): string {
 
 export function buildDatasetSchema(pageUrl: string): Record<string, unknown> {
   const { source, totals } = recallDataset;
+  const eu = safetyGateDataset;
   return {
     "@context": "https://schema.org",
     "@type": "Dataset",
-    name: `US CPSC children's bicycle, balance bike and helmet recall notices, ${source.coverageStartYear}-${latestTrendYear}`,
+    name:
+      `Balance bike and children's bicycle safety alerts, US CPSC ${source.coverageStartYear}-${latestTrendYear} ` +
+      `and EU Safety Gate ${euSinceYear ?? ""}-${eu.coverage.endYear ?? ""}`,
     description:
       `${totals.kidsBikeNotices} children's bicycle, ${totals.balanceBikeNotices} balance bike and ` +
       `${totals.kidHelmetNotices} children's helmet recall notices extracted from the US CPSC recall feed ` +
-      `(${totals.cpscNoticesRetrieved} notices reviewed), each linked to its official CPSC notice.`,
+      `(${totals.cpscNoticesRetrieved} notices reviewed), plus EU Safety Gate: ` +
+      `${eu.totals.balanceBikeAlerts} balance bike and ${eu.totals.rideOnAlerts} children's ride-on alerts ` +
+      `found across ${eu.totals.alertsInDatabase} alerts. Every row links to its official notice or alert.`,
     url: pageUrl,
     isAccessibleForFree: true,
     dateModified: source.retrievedAt,
     temporalCoverage: `${source.coverageStartYear}-01-01/..`,
     keywords: [
       "CPSC recalls",
+      "EU Safety Gate",
+      "RAPEX",
       "balance bike recalls",
       "children's bicycles",
       "product safety",
@@ -298,15 +434,31 @@ export function buildDatasetSchema(pageUrl: string): Record<string, unknown> {
       name: "BalanceBikeToddler",
       url: pageUrl.split("/safety/")[0] || "/",
     },
-    citation: {
-      "@type": "CreativeWork",
-      name: source.name,
-      url: source.publisherUrl,
-    },
-    distribution: {
-      "@type": "DataDownload",
-      encodingFormat: "application/json",
-      contentUrl: source.api,
-    },
+    citation: [
+      {
+        "@type": "CreativeWork",
+        name: source.name,
+        url: source.publisherUrl,
+      },
+      {
+        "@type": "CreativeWork",
+        name: eu.source.name,
+        url: eu.source.publisherUrl,
+      },
+    ],
+    distribution: [
+      {
+        "@type": "DataDownload",
+        name: "US CPSC recall feed",
+        encodingFormat: "application/json",
+        contentUrl: source.api,
+      },
+      {
+        "@type": "DataDownload",
+        name: "EU Safety Gate alerts",
+        encodingFormat: "application/json",
+        contentUrl: eu.source.api,
+      },
+    ],
   };
 }

@@ -53,6 +53,7 @@
     "seo:check": "node scripts/check-seo-assets.mjs",
     "data:recalls": "node scripts/fetch_recall_data.mjs",
     "data:sizing": "node scripts/fetch_size_data.mjs",
+    "data:safetygate": "node scripts/fetch_safety_gate_data.mjs",
     "reports:normalize:check": "node scripts/normalize_reports_quality.mjs",
     "reports:normalize": "node scripts/normalize_reports_quality.mjs --write"
   },
