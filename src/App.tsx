@@ -69,6 +69,7 @@ const SafetyRecallRecord = lazy(() => import("./components/SafetyRecallRecord"))
 const BalanceBikeSizing = lazy(() => import("./components/BalanceBikeSizing"));
 const BalanceBikeSafety = lazy(() => import("./components/BalanceBikeSafety"));
 const BalanceBikeWeight = lazy(() => import("./components/BalanceBikeWeight"));
+const BalanceBikeStability = lazy(() => import("./components/BalanceBikeStability"));
 const ComparisonDashboard = lazy(() => import("./components/ComparisonDashboard"));
 
 import { auth } from "./lib/firebase";
@@ -106,6 +107,11 @@ import {
   WEIGHT_PATH,
   weightSeo,
 } from "./data/balanceBikeWeight";
+import {
+  buildStabilityDatasetSchema,
+  STABILITY_PATH,
+  stabilitySeo,
+} from "./data/balanceBikeStability";
 import CookieConsentModal from "./components/CookieConsentModal";
 
 const DEFAULT_OG_IMAGE_PATH = "/images/og-site-icon.png";
@@ -871,6 +877,21 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
   if (root === "balance-bike-weight") {
     return {
       activeTab: "weight-build",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      activeEvaluationId: "",
+      activeProductId: "",
+      activePageIndex: 1,
+      currentPath,
+    };
+  }
+
+  // Stability & track width reference (Plan-B Asset 6). Answers the "stable
+  // track" queries this site actually ranks for. Registered before the
+  // unknown-root fallback so it hydrates with its own canonical, not home's.
+  if (root === "balance-bike-stability") {
+    return {
+      activeTab: "stability-track",
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
@@ -2777,6 +2798,38 @@ export default function App() {
       return;
     }
 
+    if (activeTab === "stability-track") {
+      const stabilitySeoData = stabilitySeo[lang] || stabilitySeo.en;
+      const canonicalOrigin =
+        cmsSettings?.seoGlobal?.siteOrigin ||
+        (cmsSettings as any)?.siteOrigin ||
+        (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+        window.location.origin;
+      const canonicalUrl = `${canonicalOrigin}${STABILITY_PATH}`;
+      const noIndex = shouldNoIndexCurrentPath(STABILITY_PATH, window.location.search, window.location.hostname);
+
+      document.title = stabilitySeoData.title;
+      updateMetaTag("description", stabilitySeoData.description);
+      updateMetaTag("keywords", stabilitySeoData.keywords.join(", "));
+      updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
+      updateCanonicalLink(canonicalUrl);
+      updateMetaProperty("og:url", canonicalUrl);
+      updateSocialMeta(stabilitySeoData.title, stabilitySeoData.description, DEFAULT_OG_IMAGE_PATH, "website");
+
+      injectJsonLd([
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: stabilitySeoData.title,
+          url: canonicalUrl,
+          description: stabilitySeoData.description,
+          inLanguage: lang,
+        },
+        buildStabilityDatasetSchema(canonicalUrl),
+      ]);
+      return;
+    }
+
     // Default to mapped key if valid, fallback to 'home'
     const validKeys = ["home", "news", "products", "reviews", "evaluations", "guides", "about"];
     if (!validKeys.includes(seoKey)) {
@@ -4191,6 +4244,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
         {activeTab === "weight-build" && (
           <BalanceBikeWeight lang={lang} />
+        )}
+
+        {activeTab === "stability-track" && (
+          <BalanceBikeStability lang={lang} />
         )}
 
         {activeTab === "auth" && (

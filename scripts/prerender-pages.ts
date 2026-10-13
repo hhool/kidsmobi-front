@@ -53,6 +53,16 @@ import {
   weightSeo,
   weightStrings,
 } from "../src/data/balanceBikeWeight";
+import {
+  STABILITY_PATH,
+  STABILITY_DATASET,
+  buildStabilityDatasetSchema,
+  claimRows,
+  coverageRows,
+  inchLabel,
+  stabilitySeo,
+  stabilityStrings,
+} from "../src/data/balanceBikeStability";
 import { PRUNED_PRODUCTS } from "../src/data/prunedProducts.generated";
 import { getPageCopy } from "../src/config/pageCopy";
 import { shortenCardTitle } from "../src/lib/productSeoText";
@@ -225,6 +235,7 @@ const FOOTER_SECTION_LINKS: Array<{ href: string; label: string }> = [
   { href: SIZING_PATH, label: "Size chart" },
   { href: SAFETY_PATH, label: "Safety standards" },
   { href: WEIGHT_PATH, label: "Weight & build" },
+  { href: STABILITY_PATH, label: "Stability & track width" },
 ];
 const FOOTER_TRUST_LINKS: Array<{ href: string; label: string }> = [
   { href: "/transparency/testing-methodology/", label: "Testing Methodology" },
@@ -1572,14 +1583,19 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
 function renderProductsPage(cmsProductsFull: CmsProductFull[] = []): RoutePage {
   const summary = getPageCopy("en").products;
   const canonical = "https://balancebiketoddler.com/products";
-  const hubCards = PRODUCT_CATEGORY_PAGES.map((meta) => {
-    const count = cmsProductsFull.filter((product) => productDetailSlugDir(product) === meta.slug).length;
-    return `
+  const countFor = (slug: string) =>
+    cmsProductsFull.filter((product) => productDetailSlugDir(product) === slug).length;
+  // Primary categories render full cards; the rest sit in a labelled subordinate
+  // block below the fold-equivalent divider. Same links, different prominence.
+  const hubCards = renderCategoryHubSections(
+    PRODUCT_CATEGORY_PAGES,
+    countFor,
+    (meta, count, primary) => `
     <section style="border:1px solid #e2e8f0;border-radius:16px;padding:16px;background:#fff;">
-      <h3 style="margin:0 0 8px;font-size:1.05rem;"><a href="/products/${meta.slug}/" style="color:#c2410c;text-decoration:none;">${escapeHtml(meta.label)}</a> <span style="font-size:0.8rem;color:#64748b;font-weight:400;">(${count} tested)</span></h3>
+      <h3 style="margin:0 0 8px;font-size:${primary ? "1.05rem" : "0.95rem"};"><a href="/products/${meta.slug}/" style="color:#c2410c;text-decoration:none;">${escapeHtml(meta.label)}</a> <span style="font-size:0.8rem;color:#64748b;font-weight:400;">(${count} tested)</span></h3>
       <p style="margin:0;font-size:0.9rem;color:#475569;line-height:1.55;">${escapeHtml(meta.description)}</p>
-    </section>`;
-  }).join("");
+    </section>`,
+  );
   const compareReviewLinks: Array<{ href: string; label: string; note: string }> = [
     { href: "/reviews/compare/jogging-stroller-parent-compare", label: "Best Jogging Strollers: 4 Models Compared", note: "Jeep Classic vs Cross-Country vs Baby Trend Expedition vs BOB Alterrain Pro" },
     { href: "/reviews/compare/balance-bike-top-picks-compare", label: "Top Balance Bikes Compared", note: "four evidence-based balance bikes side by side" },
@@ -1641,12 +1657,16 @@ function renderProductsPage(cmsProductsFull: CmsProductFull[] = []): RoutePage {
       mainEntity: {
         "@type": "ItemList",
         numberOfItems: PRODUCT_CATEGORY_PAGES.length,
-        itemListElement: PRODUCT_CATEGORY_PAGES.map((meta, index) => ({
-          "@type": "ListItem",
-          position: index + 1,
-          name: meta.label,
-          url: `https://balancebiketoddler.com/products/${meta.slug}/`,
-        })),
+        // Same tiering as the visible cards: primary categories are listed
+        // first so the structured data agrees with what the page renders.
+        itemListElement: [...PRODUCT_CATEGORY_PAGES]
+          .sort((a, b) => Number(isPrimaryCategorySlug(b.slug)) - Number(isPrimaryCategorySlug(a.slug)))
+          .map((meta, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: meta.label,
+            url: `https://balancebiketoddler.com/products/${meta.slug}/`,
+          })),
       },
     },
     {
@@ -2375,11 +2395,15 @@ function renderHomePage(
   ];
   const navHtml = `<nav style="display:flex;flex-wrap:wrap;gap:18px;padding:14px 0;border-bottom:1px solid #e2e8f0;font-family:Arial,sans-serif;font-weight:700;font-size:0.95rem;">${NAV_LINKS.map((l) => `<a href="${escapeHtml(l.href)}">${escapeHtml(l.label)}</a>`).join("")}</nav>`;
 
-  const hubCards = PRODUCT_CATEGORY_PAGES.map((meta) => `
+  const hubCards = renderCategoryHubSections(
+    PRODUCT_CATEGORY_PAGES,
+    () => 0,
+    (meta, _count, primary) => `
     <section style="border:1px solid #e2e8f0;border-radius:16px;padding:16px;background:#fff;">
-      <h3 style="margin:0 0 8px;font-size:1.05rem;"><a href="${PUBLIC_SITE_BASE}/products/${meta.slug}/">${escapeHtml(meta.label)}</a></h3>
+      <h3 style="margin:0 0 8px;font-size:${primary ? "1.05rem" : "0.95rem"};"><a href="${PUBLIC_SITE_BASE}/products/${meta.slug}/">${escapeHtml(meta.label)}</a></h3>
       <p style="margin:0;font-size:0.9rem;color:#475569;line-height:1.55;">${escapeHtml(meta.description)}</p>
-    </section>`).join("");
+    </section>`,
+  );
 
   // Recent guides (max 5)
   const guideLinks = cmsGuides.slice(0, 5).flatMap((guide) => {
@@ -3603,6 +3627,234 @@ function renderWeightPage(): RoutePage[] {
 }
 
 /* ------------------------------------------------------------------ *
+ * Balance bike stability & track width reference (Plan-B Asset 6)
+ *
+ * Built because the only three queries this domain ranks inside the top 20 for
+ * are asking about a "stable track" balance bike, and no seller answers them
+ * with a number. The page publishes the gap, quotes the one listing that does
+ * state its geometry, and gives four checks that measure the same thing at home.
+ * Every figure comes from src/data/stabilityData.generated.ts.
+ * ------------------------------------------------------------------ */
+function coverageBarPct(n: number, of: number): number {
+  return of > 0 ? Math.round((n / of) * 100) : 0;
+}
+
+function renderCoverageTable(rows: Array<{ label: string; n: number; of: number }>, head: string, valueHead: string): string {
+  return `
+    <div style="overflow-x:auto;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
+      <table style="width:100%;min-width:560px;border-collapse:collapse;text-align:left;">
+        <thead style="background:#f8fafc;">
+          <tr style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(head)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;white-space:nowrap;">${escapeHtml(valueHead)}</th>
+            <th style="padding:12px 0;font-weight:800;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows
+            .map((row) => {
+              const pct = coverageBarPct(row.n, row.of);
+              return `
+            <tr style="border-bottom:1px solid #f1f5f9;">
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;">${escapeHtml(row.label)}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;font-weight:700;color:#0f172a;white-space:nowrap;">${row.n} / ${row.of}</td>
+              <td style="padding:10px 0;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <div style="flex:1;min-width:120px;height:6px;border-radius:9999px;background:#f1f5f9;overflow:hidden;">
+                    <div style="height:100%;border-radius:9999px;background:#fb923c;width:${pct}%;"></div>
+                  </div>
+                  <span style="font-size:0.72rem;font-weight:700;color:#64748b;white-space:nowrap;">${pct}%</span>
+                </div>
+              </td>
+            </tr>`;
+            })
+            .join("")}
+        </tbody>
+      </table>
+    </div>`;
+}
+
+function renderStabilityPage(): RoutePage[] {
+  const t = stabilityStrings.en;
+  const d = STABILITY_DATASET;
+  const cov = d.coverage;
+
+  const vars: Record<string, string | number> = {
+    scanned: d.catalog.productsScanned,
+    listed: cov.listed,
+    withSpacing: cov.withTrackSpacing,
+    file: d.source.exportFile,
+    date: d.source.retrievedAt,
+  };
+  const fill = (s: string) => fillTemplate(s, vars);
+
+  const quote = d.publishedGeometry[0] ?? null;
+
+  const rosterTable = `
+    <div style="overflow-x:auto;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
+      <table style="width:100%;min-width:860px;border-collapse:collapse;text-align:left;">
+        <thead style="background:#f8fafc;">
+          <tr style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colBrand)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colModel)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colWheels)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colSpacing)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colWheel)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colTire)}</th>
+            <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.colFrame)}</th>
+            <th style="padding:12px 0;font-weight:800;">${escapeHtml(t.colLoad)}</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${d.balanceBikes
+            .map(
+              (b) => `
+            <tr style="border-bottom:1px solid #f1f5f9;">
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;font-weight:700;color:#0f172a;white-space:nowrap;">${escapeHtml(b.brand ?? "&mdash;")}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;max-width:300px;"><a href="${escapeHtml(b.productUrl)}" style="color:#c2410c;text-decoration:none;">${escapeHtml(b.name)}</a></td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;white-space:nowrap;">${b.wheelCount == null ? escapeHtml(t.notStated) : b.wheelCount}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;font-weight:700;color:#0f172a;white-space:nowrap;">${b.trackSpacingIn == null ? escapeHtml(t.notStated) : escapeHtml(inchLabel(b.trackSpacingIn))}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;white-space:nowrap;">${b.wheelSizeIn == null ? escapeHtml(t.notStated) : `${b.wheelSizeIn}&quot;`}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;white-space:nowrap;">${escapeHtml(b.tireClass ?? t.notStated)}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;white-space:nowrap;">${escapeHtml(b.frameMaterial ?? t.notStated)}</td>
+              <td style="padding:10px 0;font-size:0.82rem;color:#334155;white-space:nowrap;">${b.maxLoadLb == null ? escapeHtml(t.notStated) : `${b.maxLoadLb} lb`}</td>
+            </tr>`,
+            )
+            .join("")}
+        </tbody>
+      </table>
+    </div>`;
+
+  const body = `
+    <article style="max-width:64rem;margin:0 auto;padding:32px 24px 56px;text-align:left;">
+      <div style="display:flex;flex-direction:column;gap:40px;">
+        <header style="display:flex;flex-direction:column;gap:20px;border-bottom:1px solid #e2e8f0;padding-bottom:32px;">
+          <div style="display:inline-flex;align-items:center;gap:8px;align-self:flex-start;border:1px solid #fed7aa;background:#fff7ed;padding:4px 12px;border-radius:9999px;font-size:0.6rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#ea580c;">${escapeHtml(t.eyebrow)}</div>
+          <h1 style="font-size:2rem;font-weight:900;color:#0f172a;line-height:1.15;margin:0;max-width:48rem;">${escapeHtml(t.heroTitle)}</h1>
+          <p style="font-size:1.05rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;font-weight:500;">${escapeHtml(fill(t.heroLead))}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:24px 48px;border:1px solid #e2e8f0;background:#f8fafc;border-radius:16px;padding:12px 16px;font-size:0.75rem;color:#475569;">
+            <span>${escapeHtml(t.sourceLabel)}: ${escapeHtml(d.source.name)}</span>
+            <span>${escapeHtml(d.source.retrievedAt)}</span>
+            <span>${cov.listed} balance bikes &middot; ${d.catalog.productsScanned} products scanned</span>
+          </div>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.heroNote)}</p>
+        </header>
+
+        <section style="display:flex;flex-direction:column;gap:16px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.gapTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(fill(t.gapLead))}</p>
+          ${renderCoverageTable(coverageRows(t), t.coverStudio, t.coverValue)}
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.quoteTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.quoteLead)}</p>
+          ${
+            quote
+              ? `<figure style="border:1px solid #fed7aa;background:#fff7ed;border-radius:16px;padding:20px;margin:0;">
+            <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:16px;font-size:0.8rem;">
+              <strong style="color:#0f172a;">${escapeHtml(quote.brand ?? "&mdash;")}</strong>
+              <span style="color:#64748b;">${quote.wheelCount} wheels &middot; ${quote.wheelSizeIn}&quot; &middot; ${escapeHtml(t.published)} ${escapeHtml(inchLabel(quote.trackSpacingIn))}</span>
+            </div>
+            <blockquote style="margin:12px 0 0;font-size:0.9rem;color:#1f2937;line-height:1.75;font-style:italic;">&ldquo;${escapeHtml(quote.quote ?? "")}&rdquo;</blockquote>
+            <figcaption style="margin-top:12px;font-size:0.78rem;color:#64748b;">${escapeHtml(t.quoteSourceLabel)} &middot; <a href="${escapeHtml(quote.productUrl)}" style="color:#c2410c;text-decoration:none;">${escapeHtml(quote.name)}</a></figcaption>
+            <p style="margin:10px 0 0;font-size:0.8rem;color:#334155;line-height:1.6;">${escapeHtml(t.colSpacing)}: ${escapeHtml(inchLabel(quote.trackSpacingIn))} &middot; tire width ${escapeHtml(inchLabel(quote.tireWidthIn))} &middot; steering limit ${quote.steeringLimitDeg}&deg;</p>
+          </figure>`
+              : `<p style="font-size:0.85rem;color:#334155;line-height:1.7;margin:0;">${escapeHtml(t.quoteMissing)}</p>`
+          }
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.claimsTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.claimsLead)}</p>
+          ${renderCoverageTable(claimRows(t), t.coverStudio, t.coverValue)}
+          <p style="font-size:0.72rem;color:#64748b;margin:0;">${escapeHtml(t.claimed)}</p>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.rosterTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(fill(t.rosterLead))}</p>
+          ${rosterTable}
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:12px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.checkTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.checkLead)}</p>
+          <ul style="margin:0;padding-left:4px;list-style:none;font-size:0.9rem;color:#334155;line-height:1.7;">
+            ${t.checkBody
+              .map(
+                (line) =>
+                  `<li style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;"><span style="color:#059669;font-weight:800;line-height:1.6;">&#10003;</span><span>${escapeHtml(line)}</span></li>`,
+              )
+              .join("")}
+          </ul>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:12px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.caveatTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.caveatLead)}</p>
+          <div style="border:1px solid #fde68a;background:#fffbeb;border-radius:16px;padding:20px;">
+            ${t.caveatBody
+              .map(
+                (line) =>
+                  `<p style="font-size:0.85rem;color:#334155;line-height:1.7;margin:0 0 10px;">${escapeHtml(fill(line))}</p>`,
+              )
+              .join("")}
+          </div>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:12px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.methodTitle)}</h2>
+          <ul style="margin:0;padding-left:20px;font-size:0.85rem;color:#475569;line-height:1.7;max-width:48rem;">
+            ${t.methodBody.map((line) => `<li style="margin-bottom:6px;">${escapeHtml(fill(line))}</li>`).join("")}
+          </ul>
+        </section>
+
+        <footer style="border-top:1px solid #e2e8f0;padding-top:24px;font-size:0.7rem;color:#94a3b8;line-height:1.6;">
+          ${escapeHtml(t.sourceLabel)}: ${escapeHtml(d.source.name)} &middot; ${escapeHtml(d.source.exportFile)} &middot; ${escapeHtml(d.source.retrievedAt)} &middot; ${escapeHtml(d.source.note)}
+        </footer>
+      </div>
+    </article>
+  `;
+
+  return [
+    {
+      route: STABILITY_PATH,
+      title: stabilitySeo.en.title,
+      description: stabilitySeo.en.description,
+      skipTitleH1: true,
+      body,
+      ogType: "website" as const,
+      jsonLd: [
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: stabilitySeo.en.title,
+          url: `https://balancebiketoddler.com${STABILITY_PATH}`,
+          description: stabilitySeo.en.description,
+          inLanguage: "en",
+          isPartOf: { "@type": "WebSite", name: "BalanceBikeToddler", url: "https://balancebiketoddler.com/" },
+        },
+        buildStabilityDatasetSchema(`https://balancebiketoddler.com${STABILITY_PATH}`),
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://balancebiketoddler.com/" },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Balance bike stability and track width",
+              item: `https://balancebiketoddler.com${STABILITY_PATH}`,
+            },
+          ],
+        },
+      ],
+    },
+  ];
+}
+
+/* ------------------------------------------------------------------ *
  * CMS-driven product category + detail pages (P0-1)
  *
  * Before this block, only the /products hub was prerendered: every
@@ -3779,6 +4031,37 @@ const PRODUCT_CATEGORY_PAGES: ProductCategoryMeta[] = [
     description: "Browse evidence-based kids tricycles, push ride-on cars, and pull-along wagons with stability scores, weight limits, and age-fit guidance for toddlers.",
   },
 ];
+
+/**
+ * Category tiering — the domain is balancebiketoddler.com and ~95% of the
+ * search demand against it is balance-bike related (see doc/gsc-2026-10-13-analysis_zh.md),
+ * while strollers alone were 78 of 179 product pages. We are not deleting those
+ * catalogues; we are promoting what queries actually ask for and demoting the
+ * rest to a subordinate block. Nothing is unlinked, so nothing becomes an orphan.
+ */
+const PRIMARY_CATEGORY_SLUGS = new Set(["balance-bikes", "kids-bikes"]);
+
+function isPrimaryCategorySlug(slug: string): boolean {
+  return PRIMARY_CATEGORY_SLUGS.has(slug);
+}
+
+export function renderCategoryHubSections<T extends { slug: string; label: string; description?: string }>(
+  metas: T[],
+  countFor: (slug: string) => number,
+  card: (meta: T, count: number, primary: boolean) => string,
+): string {
+  const primary = metas.filter((m) => isPrimaryCategorySlug(m.slug));
+  const secondary = metas.filter((m) => !isPrimaryCategorySlug(m.slug));
+  const primaryHtml = primary.map((m) => card(m, countFor(m.slug), true)).join("");
+  if (!secondary.length) return primaryHtml;
+  const secondaryHtml = secondary.map((m) => card(m, countFor(m.slug), false)).join("");
+  const heading =
+    `<h2 style="margin:0 0 4px;font-size:0.72rem;font-weight:800;letter-spacing:0.16em;` +
+    `text-transform:uppercase;color:#94a3b8;">Other ride-on categories we also cover</h2>` +
+    `<p style="margin:0 0 12px;font-size:0.82rem;color:#64748b;line-height:1.6;">` +
+    `Secondary to this site&rsquo;s focus. Every category remains linked from this hub.</p>`;
+  return `${primaryHtml}<div style="border-top:1px solid #e2e8f0;padding-top:20px;margin-top:4px;">${heading}${secondaryHtml}</div>`;
+}
 
 const SPEC_FIELD_LABELS: Record<string, string> = {
   recommendedAge: "Recommended age",
@@ -4427,6 +4710,7 @@ async function main() {
     ...renderSizingPage(),
     ...renderSafetyPage(),
     ...renderWeightPage(),
+    ...renderStabilityPage(),
     ...guideDetailPages,
     ...newsDetailPages,
     ...evaluationDetailPages,
@@ -4506,7 +4790,33 @@ async function main() {
     const mod = modByRoute.get(evaluationRoutePath(item) || "") || null;
     if (mod && (!evalsMax || mod > evalsMax)) evalsMax = mod;
   }
-  const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
+  /**
+ * Sitemap priority, tiered to match domain intent rather than inventory size.
+ * Google treats <priority> as a weak hint at best — the real levers above are
+ * link prominence and internal link order — but it costs nothing and documents
+ * which parts of the catalogue this site actually stands behind.
+ */
+function sitemapPriority(route: string): number {
+  if (route === "" || route === "/") return 1.0;
+  const assetRoutes = [
+    SIZING_PATH,
+    SAFETY_PATH,
+    RECALL_SAFETY_PATH,
+    WEIGHT_PATH,
+    STABILITY_PATH,
+    "/products/balance-bikes/",
+  ];
+  if (assetRoutes.includes(route)) return 0.9;
+  if (route.startsWith("/balance-bike-") || route === "/products/kids-bikes/") return 0.8;
+  if (/^\/products\/[^/]+\/[^/]+$/.test(route)) {
+    // Detail pages: balance-bike ones stay above the rest, but all of them sit
+    // below their own category hub.
+    return route.startsWith("/products/balance-bikes/") ? 0.6 : 0.4;
+  }
+  return 0.6;
+}
+
+const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
   const TRANSPARENCY_LASTMOD = "2026-08-15T00:00:00.000Z";
   const staticModByRoute = new Map<string, string | null>([
     ["/", overallMax],
@@ -4534,7 +4844,8 @@ async function main() {
       const mod = modByRoute.get(page.route) ?? staticModByRoute.get(page.route) ?? null;
       const loc = `${PUBLIC_SITE_BASE}${page.route === "" ? "/" : page.route}`;
       const lastmodXml = mod ? `<lastmod>${escapeHtml(mod)}</lastmod>` : "";
-      return `<url><loc>${escapeHtml(loc)}</loc>${lastmodXml}</url>`;
+      const priorityXml = `<priority>${sitemapPriority(page.route).toFixed(1)}</priority>`;
+      return `<url><loc>${escapeHtml(loc)}</loc>${lastmodXml}${priorityXml}</url>`;
     })
     .join("");
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${sitemapUrls}</urlset>\n`;
