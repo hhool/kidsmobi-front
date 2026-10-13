@@ -621,16 +621,16 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           eyebrow: "02 / Demand",
           title: "Almost all of it is balance bikes",
           body: [
-            "68 distinct queries appeared. Grouped by theme the split is lopsided: balance-bike terms — including walking bike and balancing bicycle — account for 59 queries and 162 impressions, or 94.7% of everything we were shown. Stroller, car seat and playard terms account for 6 queries and 6 impressions.",
+            "68 distinct queries appeared. Grouped by theme the split is lopsided: balance-bike terms — including walking bike and balancing bicycle — account for 59 queries and 162 impressions, or 94.7% of everything we were shown. The remaining 6 queries and 6 impressions in that comparison are all stroller terms.",
             "The largest single row is balance bike toddler at 19 impressions, average position 55.26. Every major row sits past page five: best balance bike for toddlers at 56.91, balance bike for 2 year old at 68.36, balance bikes for 2 year olds at 72.00.",
             "Zero clicks at position 55 is not a headline problem. It is a depth problem — nothing ranked in the sixties is being read by anyone.",
           ],
           table: {
             columns: ["Theme", "Queries", "Impressions", "Share"],
             rows: [
-              ["Balance bike", "59", "162", "94.7%"],
-              ["Stroller / car seat / playard", "6", "6", "3.5%"],
-              ["Other (wagon, scooter)", "3", "3", "1.8%"],
+              ["Balance bike (includes walking bike)", "59", "162", "94.7%"],
+              ["Stroller / playard", "6", "6", "3.5%"],
+              ["Other — electric and brand-name rows", "3", "3", "1.8%"],
             ],
           },
         },
@@ -657,7 +657,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           eyebrow: "04 / Response",
           title: "Five assets, each aimed at a cluster this export proved exists",
           body: [
-            "Age was the largest single intent and had no home. 27 of 68 queries carry an explicit age — for 2 year old, 18 month old, for 2-3 year old — together 63 impressions, 37% of the total. 58% of those contain no word best, which makes this a fit question rather than a shopping-list question. The by-age page answers it from each manufacturer's own published age range and refuses to fill gaps: one KRIDDO model carries an age claim in its title but publishes no numeric spec, so it is listed separately rather than estimated.",
+            "Age was the largest single intent and had no home. 27 of 68 queries carry an explicit age — for 2 year old, 18 month old, for 2-3 year old — together 63 impressions, 37% of the total. 15 of those 27 contain no word best, which makes this a fit question rather than a shopping-list question. The by-age page answers it from each manufacturer's own published age range and refuses to fill gaps: one KRIDDO model carries an age claim in its title but publishes no numeric spec, so it is listed separately rather than estimated.",
             "The only three queries this domain has ever ranked inside the top 20 all contain the phrase stable track, at positions 10.71, 11.00 and 20.00. The stability and track-width page was built from that signal, though it shipped on the final day of the export window, so attribution for those three rows remains unconfirmed.",
             "The rest of the sequence — size chart and spec comparison, safety standards with EU Safety Gate recall data, and weight and build — targets the same 95% cluster from different angles. None has enough history inside this window to be judged by it.",
             "One deliberate refusal: brand long tails such as baaltto, haweek and avenor balance bike total roughly 10 impressions at 1–2 each, and several are not in our catalogue at all. Building single-brand pages to chase single-impression rows is how thin affiliate sites are made, so we did not build them.",
@@ -740,16 +740,16 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           eyebrow: "02 / 需求",
           title: "几乎全部是平衡车",
           body: [
-            "一共出现 68 个查询词。按主题分组后结果非常偏：平衡车类词（含 walking bike、balancing bicycle）占 59 个词、162 次展示，即全部展示量的 94.7%。推车、安全座椅和游戏床类词只有 6 个词、6 次展示。",
+            "一共出现 68 个查询词。按主题分组后结果非常偏：平衡车类词（含 walking bike、balancing bicycle）占 59 个词、162 次展示，即全部展示量的 94.7%。剩下同一口径里的 6 个词、6 次展示全部是推车类词。",
             "最大单行是 balance bike toddler，19 次展示，平均排名 55.26。所有主要词条都落在第五页之后：best balance bike for toddlers 为 56.91，balance bike for 2 year old 为 68.36，balance bikes for 2 year olds 为 72.00。",
             "排在第 55 位的零点击不是标题写得不好，而是深度问题——排在六十多名的东西，根本没有人会看到。",
           ],
           table: {
             columns: ["主题", "词数", "展示", "占比"],
             rows: [
-              ["平衡车", "59", "162", "94.7%"],
-              ["推车 / 安全座椅 / 游戏床", "6", "6", "3.5%"],
-              ["其他（拖车、滑板车）", "3", "3", "1.8%"],
+              ["平衡车（含 walking bike）", "59", "162", "94.7%"],
+              ["推车 / 游戏床", "6", "6", "3.5%"],
+              ["其他——电动与品牌行", "3", "3", "1.8%"],
             ],
           },
         },
@@ -776,7 +776,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           eyebrow: "04 / 应对",
           title: "五个数据资产，各对应一个被证明存在的聚类",
           body: [
-            "年龄是最大的单一意图，而且此前没有任何页面承接它。68 个词中有 27 个带明确年龄（for 2 year old、18 month old、for 2-3 year old），合计 63 次展示、占比 37%。其中 58% 不含 best，因此这是合不合适的问题，而不是买哪个最划算的问题。按年龄页用每个厂家自己公布的年龄区间作答，并拒绝补空：有一款 KRIDDO 的标题里写了适用年龄，却没有公布数字参数，于是被单独列出，而不是估算。",
+            "年龄是最大的单一意图，而且此前没有任何页面承接它。68 个词中有 27 个带明确年龄（for 2 year old、18 month old、for 2-3 year old），合计 63 次展示、占比 37%。这 27 个词里有 15 个不含 best，因此这是合不合适的问题，而不是买哪个最划算的问题。按年龄页用每个厂家自己公布的年龄区间作答，并拒绝补空：有一款 KRIDDO 的标题里写了适用年龄，却没有公布数字参数，于是被单独列出，而不是估算。",
             "本域名唯一进过前 20 名的三个词全部包含 stable track，排名分别为 10.71、11.00 和 20.00。稳定性与轮距页就是依据这个信号建的，只是它在导出窗口的最后一天才上线，因此这三行数据到底归给哪个页面仍未验证。",
             "其余几项——尺寸与参数对照、含欧盟 Safety Gate 召回数据的安全标准页、以及车重与结构页——从另外几个角度瞄准同一个 95% 聚类。它们在这个时间窗内的历史都不足以被它评价。",
             "还有一处刻意不为：baaltto、haweek、avenor 等品牌长尾词合计约 10 次展示，每个 1–2 次，其中几个在本站目录里根本不存在。为了追逐单次展示去做单品牌页面，正是制造一堆薄内容联盟站的做法，所以我们没有做。",
