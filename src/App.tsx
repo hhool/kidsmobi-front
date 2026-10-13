@@ -71,6 +71,7 @@ const BalanceBikeSizing = lazy(() => import("./components/BalanceBikeSizing"));
 const BalanceBikeSafety = lazy(() => import("./components/BalanceBikeSafety"));
 const BalanceBikeWeight = lazy(() => import("./components/BalanceBikeWeight"));
 const BalanceBikeStability = lazy(() => import("./components/BalanceBikeStability"));
+const BalanceBikeAge = lazy(() => import("./components/BalanceBikeAge"));
 const ComparisonDashboard = lazy(() => import("./components/ComparisonDashboard"));
 
 import { auth } from "./lib/firebase";
@@ -113,6 +114,11 @@ import {
   STABILITY_PATH,
   stabilitySeo,
 } from "./data/balanceBikeStability";
+import {
+  AGE_PATH,
+  ageSeo,
+  buildAgeDatasetSchema,
+} from "./data/balanceBikeAge";
 import CookieConsentModal from "./components/CookieConsentModal";
 
 const DEFAULT_OG_IMAGE_PATH = "/images/og-site-icon.png";
@@ -878,6 +884,20 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
   if (root === "balance-bike-weight") {
     return {
       activeTab: "weight-build",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      activeEvaluationId: "",
+      activeProductId: "",
+      activePageIndex: 1,
+      currentPath,
+    };
+  }
+
+  // Balance bike by age (Plan-B Asset 7). Age is the single largest intent
+  // cluster in Search Console, so the route gets its own canonical.
+  if (root === "balance-bike-by-age") {
+    return {
+      activeTab: "by-age",
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
@@ -2802,6 +2822,38 @@ export default function App() {
       return;
     }
 
+    if (activeTab === "by-age") {
+      const ageSeoData = ageSeo[lang] || ageSeo.en;
+      const canonicalOrigin =
+        cmsSettings?.seoGlobal?.siteOrigin ||
+        (cmsSettings as any)?.siteOrigin ||
+        (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+        window.location.origin;
+      const canonicalUrl = `${canonicalOrigin}${AGE_PATH}`;
+      const noIndex = shouldNoIndexCurrentPath(AGE_PATH, window.location.search, window.location.hostname);
+
+      document.title = ageSeoData.title;
+      updateMetaTag("description", ageSeoData.description);
+      updateMetaTag("keywords", ageSeoData.keywords.join(", "));
+      updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
+      updateCanonicalLink(canonicalUrl);
+      updateMetaProperty("og:url", canonicalUrl);
+      updateSocialMeta(ageSeoData.title, ageSeoData.description, DEFAULT_OG_IMAGE_PATH, "website");
+
+      injectJsonLd([
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: ageSeoData.title,
+          url: canonicalUrl,
+          description: ageSeoData.description,
+          inLanguage: lang,
+        },
+        buildAgeDatasetSchema(canonicalUrl),
+      ]);
+      return;
+    }
+
     if (activeTab === "stability-track") {
       const stabilitySeoData = stabilitySeo[lang] || stabilitySeo.en;
       const canonicalOrigin =
@@ -4252,6 +4304,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
         {activeTab === "stability-track" && (
           <BalanceBikeStability lang={lang} />
+        )}
+
+        {activeTab === "by-age" && (
+          <BalanceBikeAge lang={lang} />
         )}
 
         {activeTab === "auth" && (
