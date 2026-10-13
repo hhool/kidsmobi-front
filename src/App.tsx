@@ -66,6 +66,7 @@ const DetailedProductView = lazy(() => import("./components/DetailedProductView"
 const AdminPanel = lazy(() => import("./components/AdminPanel"));
 const TransparencyPage = lazy(() => import("./components/TransparencyPage"));
 const SafetyRecallRecord = lazy(() => import("./components/SafetyRecallRecord"));
+const BalanceBikeSizing = lazy(() => import("./components/BalanceBikeSizing"));
 const ComparisonDashboard = lazy(() => import("./components/ComparisonDashboard"));
 
 import { auth } from "./lib/firebase";
@@ -88,6 +89,11 @@ import {
   RECALL_SAFETY_PATH,
   recallSeo,
 } from "./data/safetyRecallRecord";
+import {
+  buildSizingDatasetSchema,
+  SIZING_PATH,
+  sizingSeo,
+} from "./data/balanceBikeSizing";
 import CookieConsentModal from "./components/CookieConsentModal";
 
 const DEFAULT_OG_IMAGE_PATH = "/images/og-site-icon.png";
@@ -811,6 +817,20 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
   if (root === "safety") {
     return {
       activeTab: "safety",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      activeEvaluationId: "",
+      activeProductId: "",
+      activePageIndex: 1,
+      currentPath,
+    };
+  }
+
+  // Standalone sizing / spec comparison page (Plan-B Asset 3). Registered before
+  // the unknown-root fallback so it hydrates with its own canonical, not home's.
+  if (root === "balance-bike-size-chart") {
+    return {
+      activeTab: "sizing",
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
@@ -2617,6 +2637,40 @@ export default function App() {
       return;
     }
 
+    // Sizing / spec comparison page (Plan-B Asset 3): its own title/canonical so
+    // hydration keeps the prerendered metadata instead of the homepage block.
+    if (activeTab === "sizing") {
+      const sizingSeoData = sizingSeo[lang] || sizingSeo.en;
+      const canonicalOrigin =
+        cmsSettings?.seoGlobal?.siteOrigin ||
+        (cmsSettings as any)?.siteOrigin ||
+        (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+        window.location.origin;
+      const canonicalUrl = `${canonicalOrigin}${SIZING_PATH}`;
+      const noIndex = shouldNoIndexCurrentPath(SIZING_PATH, window.location.search, window.location.hostname);
+
+      document.title = sizingSeoData.title;
+      updateMetaTag("description", sizingSeoData.description);
+      updateMetaTag("keywords", sizingSeoData.keywords.join(", "));
+      updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
+      updateCanonicalLink(canonicalUrl);
+      updateMetaProperty("og:url", canonicalUrl);
+      updateSocialMeta(sizingSeoData.title, sizingSeoData.description, DEFAULT_OG_IMAGE_PATH, "website");
+
+      injectJsonLd([
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: sizingSeoData.title,
+          url: canonicalUrl,
+          description: sizingSeoData.description,
+          inLanguage: lang,
+        },
+        buildSizingDatasetSchema(canonicalUrl),
+      ]);
+      return;
+    }
+
     // Default to mapped key if valid, fallback to 'home'
     const validKeys = ["home", "news", "products", "reviews", "evaluations", "guides", "about"];
     if (!validKeys.includes(seoKey)) {
@@ -4021,6 +4075,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           <SafetyRecallRecord lang={lang} />
         )}
 
+        {activeTab === "sizing" && (
+          <BalanceBikeSizing lang={lang} />
+        )}
+
         {activeTab === "auth" && (
           <AuthSection 
             userEmail={userEmail}
@@ -4419,6 +4477,18 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     }}
                   >
                     {lang === "en" ? "Recall Record" : "召回记录"}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={SIZING_PATH}
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath(SIZING_PATH);
+                    }}
+                  >
+                    {lang === "en" ? "Size Chart" : "尺寸对照"}
                   </a>
                 </li>
                 <li>
