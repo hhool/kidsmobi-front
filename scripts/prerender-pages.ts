@@ -3,6 +3,19 @@ import path from "path";
 import { guideArticles } from "../src/data/guidesData";
 import { newsArticles } from "../src/data/newsData";
 import { TRANSPARENCY_PAGES } from "../src/data/transparencyPages";
+import {
+  buildDatasetSchema,
+  fillTemplate,
+  formatCount,
+  formatRecallDate,
+  latestTrendRow,
+  latestTrendYear,
+  RECALL_SAFETY_PATH,
+  recallDataset,
+  recallSeo,
+  recallStrings,
+  topHazard,
+} from "../src/data/safetyRecallRecord";
 import { getPageCopy } from "../src/config/pageCopy";
 import { shortenCardTitle } from "../src/lib/productSeoText";
 import { productDetailUrlSlug, resolveProductDetailCategorySlug } from "../src/lib/productCategoryPaths";
@@ -148,6 +161,7 @@ const FOOTER_SECTION_LINKS: Array<{ href: string; label: string }> = [
   { href: "/reviews", label: "Reviews" },
   { href: "/news", label: "News" },
   { href: "/about", label: "About" },
+  { href: RECALL_SAFETY_PATH, label: "Recall record" },
 ];
 const FOOTER_TRUST_LINKS: Array<{ href: string; label: string }> = [
   { href: "/transparency/testing-methodology/", label: "Testing Methodology" },
@@ -2676,6 +2690,221 @@ function renderTransparencyPages(): RoutePage[] {
   });
 }
 
+/**
+ * Public safety recall record built from the US CPSC recall feed.
+ *
+ * This is the plan-B validation asset: instead of claiming test results we do
+ * not have, publish a verifiable record that every row links back to its
+ * official source. The figures come from src/data/recallData.generated.ts
+ * (`npm run data:recalls`) — nothing here is hand-written.
+ */
+function renderSafetyRecallPage(): RoutePage[] {
+  const d = recallDataset;
+  const latest = latestTrendRow;
+  const vals: Record<string, string | number> = {
+    start: d.source.coverageStartYear,
+    total: formatCount(d.totals.cpscNoticesRetrieved),
+    bb: d.totals.balanceBikeNotices,
+    bikes: latest?.kidBikeNotices ?? 0,
+    helmets: latest?.kidHelmetNotices ?? 0,
+    year: latestTrendYear,
+    hazard: topHazard ? topHazard.label.toLowerCase() : "mechanical failure",
+  };
+
+  const row = (n: (typeof d.kidBikeNotices)[number]) => `
+        <tr style="border-bottom:1px solid #e2e8f0;">
+          <td style="padding:8px 10px 8px 0;white-space:nowrap;font-size:0.78rem;color:#64748b;">${escapeHtml(formatRecallDate(n.date))}</td>
+          <td style="padding:8px 10px 8px 0;">
+            <a href="${escapeHtml(n.url)}" style="color:#0f172a;text-decoration:none;font-weight:600;">${escapeHtml(n.title)}</a>
+            <div style="font-size:0.72rem;color:#94a3b8;">${escapeHtml(n.party || n.recallNumber)}</div>
+          </td>
+          <td style="padding:8px 0;font-size:0.78rem;color:#475569;">${escapeHtml(n.hazard ? `${n.hazard.slice(0, 130)}${n.hazard.length > 130 ? "…" : ""}` : "-")}</td>
+        </tr>`;
+
+  const table = (rows: typeof d.kidBikeNotices) => `
+      <table style="width:100%;border-collapse:collapse;text-align:left;">
+        <thead>
+          <tr style="font-size:0.66rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+            <th style="padding:8px 10px 8px 0;">Date</th>
+            <th style="padding:8px 10px 8px 0;">Notice</th>
+            <th style="padding:8px 0;">Reported hazard</th>
+          </tr>
+        </thead>
+        <tbody>${rows.map(row).join("")}</tbody>
+      </table>`;
+
+  const balanceCards = d.balanceBikeNotices
+    .map(
+      (n) => `
+      <div style="margin-bottom:14px;padding:16px;border:1px solid #e2e8f0;border-radius:14px;background:#fff;">
+        <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.12em;color:#64748b;">${escapeHtml(formatRecallDate(n.date))} &middot; CPSC #${escapeHtml(n.recallNumber)}${n.units ? ` &middot; ${escapeHtml(n.units)}` : ""}</div>
+        <p style="margin:8px 0 4px;font-weight:800;font-size:1rem;">${escapeHtml(n.title)}</p>
+        ${n.party ? `<p style="margin:0 0 8px;font-size:0.76rem;color:#64748b;">${escapeHtml(n.party)}</p>` : ""}
+        <p style="margin:0 0 8px;font-size:0.88rem;line-height:1.7;">${escapeHtml(n.hazard)}</p>
+        ${n.remedy ? `<p style="margin:0 0 10px;padding:10px;background:#f8fafc;border-radius:10px;font-size:0.78rem;line-height:1.6;color:#475569;">${escapeHtml(n.remedy)}</p>` : ""}
+        <a href="${escapeHtml(n.url)}" style="font-size:0.82rem;font-weight:800;color:#ea580c;">${escapeHtml(recallStrings.en.openNotice)} &rarr;</a>
+      </div>`,
+    )
+    .join("");
+
+  const trendRows = [...d.yearlyTrend]
+    .reverse()
+    .map(
+      (r) => `
+        <tr style="border-bottom:1px solid #e2e8f0;font-size:0.8rem;">
+          <td style="padding:6px 10px 6px 0;font-weight:700;">${r.year}</td>
+          <td style="padding:6px 10px 6px 0;text-align:right;">${r.kidBikeNotices}</td>
+          <td style="padding:6px 10px 6px 0;text-align:right;">${r.kidHelmetNotices}</td>
+          <td style="padding:6px 10px 6px 0;text-align:right;color:#94a3b8;">${r.totalNotices}</td>
+          <td style="padding:6px 0;text-align:right;font-weight:700;">${r.sharePct}%</td>
+        </tr>`,
+    )
+    .join("");
+
+  const hazardList = d.hazardBreakdown
+    .map(
+      (h) =>
+        `<li style="padding:8px 12px;border:1px solid #e2e8f0;border-radius:10px;background:#fff;display:flex;justify-content:space-between;gap:12px;font-size:0.82rem;"><span>${escapeHtml(h.label)}</span><strong style="color:#ea580c;">${h.count}</strong></li>`,
+    )
+    .join("");
+
+  const steps = recallStrings.en.checkSteps
+    .map(
+      (s, i) =>
+        `<li style="margin-bottom:8px;padding:12px;border:1px solid #e2e8f0;border-radius:10px;background:#fff;font-size:0.86rem;line-height:1.7;"><strong style="color:#ea580c;">${i + 1}.</strong> ${escapeHtml(s)}</li>`,
+    )
+    .join("");
+
+  const methodList = recallStrings.en.methodBody
+    .slice(1)
+    .map((line) => `<li style="margin-bottom:6px;">${escapeHtml(line)}</li>`)
+    .join("");
+
+  const body = `
+      <section style="padding:22px 0;">
+        <p style="margin:0 0 6px;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;font-weight:800;">${escapeHtml(recallStrings.en.eyebrow)}</p>
+        <h1 style="margin:0 0 10px;font-size:1.7rem;">${escapeHtml(recallStrings.en.heroTitle)}</h1>
+        <p style="margin:0 0 12px;font-size:1rem;color:#334155;line-height:1.8;">${escapeHtml(recallStrings.en.heroLead)}</p>
+        <p style="margin:0 0 8px;padding:10px 12px;background:#f8fafc;border-radius:10px;font-size:0.8rem;color:#475569;">
+          ${escapeHtml(recallStrings.en.retrievedLabel)}: ${escapeHtml(d.source.retrievedAt)} &middot;
+          ${escapeHtml(recallStrings.en.coverageLabel)}: ${d.source.coverageStartYear}&ndash;${latestTrendYear} &middot;
+          CPSC ${formatCount(d.totals.cpscNoticesRetrieved)} &middot; kids' bikes ${d.totals.kidsBikeNotices} &middot; helmets ${d.totals.kidHelmetNotices} &middot; balance bikes ${d.totals.balanceBikeNotices}
+        </p>
+        <p style="margin:0;font-size:0.9rem;color:#475569;line-height:1.8;">${escapeHtml(recallStrings.en.heroNote)}</p>
+      </section>
+
+      <section style="padding:18px 0;border-top:1px solid #e2e8f0;">
+        <h2 style="margin:0 0 12px;font-size:1.25rem;">${escapeHtml(recallStrings.en.findingsTitle)}</h2>
+        <ol style="margin:0;padding-left:20px;">
+          ${[recallStrings.en.finding1, recallStrings.en.finding2, recallStrings.en.finding3]
+            .map(
+              (f) =>
+                `<li style="margin-bottom:10px;padding:14px;border:1px solid #e2e8f0;border-radius:12px;background:#fff;font-size:0.88rem;line-height:1.75;color:#334155;">${escapeHtml(fillTemplate(f, vals))}</li>`,
+            )
+            .join("")}
+        </ol>
+      </section>
+
+      <section style="padding:18px 0;border-top:1px solid #e2e8f0;">
+        <h2 style="margin:0 0 8px;font-size:1.25rem;">${escapeHtml(fillTemplate(recallStrings.en.balanceTitle, { count: d.totals.balanceBikeNotices }))}</h2>
+        <p style="margin:0 0 14px;font-size:0.88rem;color:#475569;line-height:1.8;">${escapeHtml(recallStrings.en.balanceLead)}</p>
+        ${balanceCards}
+      </section>
+
+      <section style="padding:18px 0;border-top:1px solid #e2e8f0;">
+        <h2 style="margin:0 0 8px;font-size:1.25rem;">${escapeHtml(fillTemplate(recallStrings.en.bikeTableTitle, { count: d.totals.kidsBikeNotices }))}</h2>
+        <p style="margin:0 0 14px;font-size:0.88rem;color:#475569;line-height:1.8;">${escapeHtml(recallStrings.en.bikeTableLead)}</p>
+        <div style="overflow-x:auto;">${table(d.kidBikeNotices)}</div>
+      </section>
+
+      <section style="padding:18px 0;border-top:1px solid #e2e8f0;">
+        <h2 style="margin:0 0 8px;font-size:1.25rem;">${escapeHtml(fillTemplate(recallStrings.en.helmetTableTitle, { count: d.totals.kidHelmetNotices }))}</h2>
+        <p style="margin:0 0 14px;font-size:0.88rem;color:#475569;line-height:1.8;">${escapeHtml(recallStrings.en.helmetTableLead)}</p>
+        <div style="overflow-x:auto;">${table(d.kidHelmetNotices)}</div>
+      </section>
+
+      <section style="padding:18px 0;border-top:1px solid #e2e8f0;">
+        <h2 style="margin:0 0 8px;font-size:1.25rem;">${escapeHtml(recallStrings.en.trendTitle)}</h2>
+        <p style="margin:0 0 14px;font-size:0.88rem;color:#475569;line-height:1.8;">${escapeHtml(recallStrings.en.trendLead)}</p>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;text-align:left;">
+            <thead>
+              <tr style="font-size:0.66rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+                <th style="padding:8px 10px 8px 0;">Year</th>
+                <th style="padding:8px 10px 8px 0;text-align:right;">Kids' bikes</th>
+                <th style="padding:8px 10px 8px 0;text-align:right;">Helmets</th>
+                <th style="padding:8px 10px 8px 0;text-align:right;">All CPSC</th>
+                <th style="padding:8px 0;text-align:right;">Share</th>
+              </tr>
+            </thead>
+            <tbody>${trendRows}</tbody>
+          </table>
+        </div>
+      </section>
+
+      <section style="padding:18px 0;border-top:1px solid #e2e8f0;">
+        <h2 style="margin:0 0 8px;font-size:1.25rem;">${escapeHtml(recallStrings.en.hazardTitle)}</h2>
+        <p style="margin:0 0 14px;font-size:0.88rem;color:#475569;line-height:1.8;">${escapeHtml(recallStrings.en.hazardLead)}</p>
+        <ul style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;">${hazardList}</ul>
+      </section>
+
+      <section style="padding:18px 0;border-top:1px solid #e2e8f0;">
+        <h2 style="margin:0 0 8px;font-size:1.25rem;">${escapeHtml(recallStrings.en.checkTitle)}</h2>
+        <p style="margin:0 0 14px;font-size:0.88rem;color:#475569;line-height:1.8;">${escapeHtml(recallStrings.en.checkLead)}</p>
+        <ol style="margin:0;padding:0;list-style:none;counter-reset:step;">${steps}</ol>
+      </section>
+
+      <section style="padding:18px 0;border-top:1px solid #e2e8f0;">
+        <h2 style="margin:0 0 8px;font-size:1.25rem;">${escapeHtml(recallStrings.en.methodTitle)}</h2>
+        <ul style="margin:0 0 10px;padding-left:20px;font-size:0.85rem;line-height:1.8;color:#475569;">
+          <li style="margin-bottom:6px;">${escapeHtml(fillTemplate(recallStrings.en.methodBody[0], { start: d.source.coverageStartYear, api: d.source.api }))}</li>
+          ${methodList}
+        </ul>
+      </section>
+
+      <section style="padding:18px 0;border-top:1px solid #e2e8f0;">
+        <h2 style="margin:0 0 8px;font-size:1.1rem;">${escapeHtml(recallStrings.en.disclaimerTitle)}</h2>
+        <p style="margin:0;font-size:0.85rem;line-height:1.8;color:#475569;">${escapeHtml(recallStrings.en.disclaimerBody)}</p>
+      </section>
+    `;
+
+  return [
+    {
+      route: RECALL_SAFETY_PATH,
+      title: recallSeo.en.title,
+      description: recallSeo.en.description,
+      skipTitleH1: true,
+      body,
+      ogType: "website" as const,
+      jsonLd: [
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: recallSeo.en.title,
+          url: `https://balancebiketoddler.com${RECALL_SAFETY_PATH}`,
+          description: recallSeo.en.description,
+          inLanguage: "en",
+          isPartOf: { "@type": "WebSite", name: "BalanceBikeToddler", url: "https://balancebiketoddler.com/" },
+        },
+        buildDatasetSchema(`https://balancebiketoddler.com${RECALL_SAFETY_PATH}`),
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://balancebiketoddler.com/" },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Balance bike recall record",
+              item: `https://balancebiketoddler.com${RECALL_SAFETY_PATH}`,
+            },
+          ],
+        },
+      ],
+    },
+  ];
+}
+
 /* ------------------------------------------------------------------ *
  * CMS-driven product category + detail pages (P0-1)
  *
@@ -3485,6 +3714,7 @@ async function main() {
     ...renderFilterPages(cmsGuides, cmsNews, cmsEvaluations),
     renderAboutPage(),
     ...renderTransparencyPages(),
+    ...renderSafetyRecallPage(),
     ...guideDetailPages,
     ...newsDetailPages,
     ...evaluationDetailPages,

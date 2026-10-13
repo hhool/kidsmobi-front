@@ -65,6 +65,7 @@ const AuthSection = lazy(() => import("./components/AuthSection"));
 const DetailedProductView = lazy(() => import("./components/DetailedProductView"));
 const AdminPanel = lazy(() => import("./components/AdminPanel"));
 const TransparencyPage = lazy(() => import("./components/TransparencyPage"));
+const SafetyRecallRecord = lazy(() => import("./components/SafetyRecallRecord"));
 const ComparisonDashboard = lazy(() => import("./components/ComparisonDashboard"));
 
 import { auth } from "./lib/firebase";
@@ -82,6 +83,11 @@ import { fetchContentBundle, isScrapedContentSource } from "./lib/contentSource"
 import { DEFAULT_SEO_CONFIGS, normalizeSeoConfig, SEO_TDK_LIMITS } from "./config/defaultSeo";
 import { getProductSeoKeywords, getReviewSeoKeywords } from "./config/seoKeywordMap";
 import { getTransparencyPageByPath, TRANSPARENCY_PAGE_PATHS, type TransparencyPageKey } from "./data/transparencyPages";
+import {
+  buildDatasetSchema,
+  RECALL_SAFETY_PATH,
+  recallSeo,
+} from "./data/safetyRecallRecord";
 import CookieConsentModal from "./components/CookieConsentModal";
 
 const DEFAULT_OG_IMAGE_PATH = "/images/og-site-icon.png";
@@ -790,6 +796,21 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
   if (transparencyPage) {
     return {
       activeTab: "transparency",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      activeEvaluationId: "",
+      activeProductId: "",
+      activePageIndex: 1,
+      currentPath,
+    };
+  }
+
+  // Public safety record built from the US CPSC recall feed. Registered before
+  // the unknown-root fallback below, otherwise the prerendered /safety/* pages
+  // hydrate into the homepage shell with a homepage canonical.
+  if (root === "safety") {
+    return {
+      activeTab: "safety",
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
@@ -2558,6 +2579,44 @@ export default function App() {
       return;
     }
 
+    // Safety recall record: its own title/canonical pair so hydration keeps the
+    // prerendered metadata instead of falling back to the homepage SEO block.
+    if (activeTab === "safety") {
+      const safetySeo = recallSeo[lang] || recallSeo.en;
+      const canonicalOrigin =
+        cmsSettings?.seoGlobal?.siteOrigin ||
+        (cmsSettings as any)?.siteOrigin ||
+        (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+        window.location.origin;
+      const canonicalUrl = `${canonicalOrigin}${RECALL_SAFETY_PATH}`;
+      const noIndex = shouldNoIndexCurrentPath(RECALL_SAFETY_PATH, window.location.search, window.location.hostname);
+
+      document.title = safetySeo.title;
+      updateMetaTag("description", safetySeo.description);
+      updateMetaTag("keywords", safetySeo.keywords.join(", "));
+      updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
+      updateCanonicalLink(canonicalUrl);
+      updateMetaProperty("og:url", canonicalUrl);
+      updateSocialMeta(safetySeo.title, safetySeo.description, DEFAULT_OG_IMAGE_PATH, "website");
+
+      injectJsonLd([
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: safetySeo.title,
+          url: canonicalUrl,
+          description: safetySeo.description,
+          inLanguage: lang,
+          about: {
+            "@type": "Thing",
+            name: "Children's bicycle and balance bike recall record",
+          },
+        },
+        buildDatasetSchema(canonicalUrl),
+      ]);
+      return;
+    }
+
     // Default to mapped key if valid, fallback to 'home'
     const validKeys = ["home", "news", "products", "reviews", "evaluations", "guides", "about"];
     if (!validKeys.includes(seoKey)) {
@@ -3958,6 +4017,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           <TransparencyPage pageKey={(getTransparencyPageByPath(currentPath)?.key || "disclaimer") as TransparencyPageKey} lang={lang} />
         )}
 
+        {activeTab === "safety" && (
+          <SafetyRecallRecord lang={lang} />
+        )}
+
         {activeTab === "auth" && (
           <AuthSection 
             userEmail={userEmail}
@@ -4344,6 +4407,18 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     }}
                   >
                     {lang === "en" ? "About" : "关于我们"}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={RECALL_SAFETY_PATH}
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath(RECALL_SAFETY_PATH);
+                    }}
+                  >
+                    {lang === "en" ? "Recall Record" : "召回记录"}
                   </a>
                 </li>
                 <li>

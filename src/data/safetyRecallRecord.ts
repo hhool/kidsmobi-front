@@ -1,0 +1,312 @@
+import { RECALL_DATASET } from "./recallData.generated";
+
+/**
+ * Types + narrative copy for the public safety recall record page.
+ *
+ * The raw figures come from src/data/recallData.generated.ts, which is produced
+ * by `npm run data:recalls`. Nothing here may hard-code a count, a date or a
+ * statistic: the page is only trustworthy while every number is derived from
+ * the same dataset that ships with it.
+ */
+
+export type RecallNotice = {
+  recallNumber: string;
+  date: string;
+  title: string;
+  url: string;
+  party: string;
+  units: string;
+  hazard: string;
+  remedy: string;
+};
+
+export type TrendRow = {
+  year: number;
+  kidBikeNotices: number;
+  kidHelmetNotices: number;
+  totalNotices: number;
+  sharePct: number;
+};
+
+export type PeriodRow = {
+  period: string;
+  kidBikeNotices: number;
+  kidHelmetNotices: number;
+  totalNotices: number;
+  sharePct: number;
+};
+
+export const RECALL_SAFETY_PATH = "/safety/balance-bike-recalls/";
+
+export const recallDataset = RECALL_DATASET as {
+  source: {
+    name: string;
+    api: string;
+    publisherUrl: string;
+    retrievedAt: string;
+    coverageStartYear: number;
+    coverageEndYear: number;
+  };
+  totals: {
+    cpscNoticesRetrieved: number;
+    kidsBikeNotices: number;
+    kidHelmetNotices: number;
+    balanceBikeNotices: number;
+  };
+  balanceBikeNotices: RecallNotice[];
+  kidBikeNotices: RecallNotice[];
+  kidHelmetNotices: RecallNotice[];
+  hazardBreakdown: Array<{ label: string; count: number }>;
+  yearlyTrend: TrendRow[];
+  periodTrend: PeriodRow[];
+};
+
+const MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+export function formatRecallDate(iso: string): string {
+  const [y, m, d] = iso.split("-");
+  const month = MONTHS[Number(m) - 1] || m;
+  return `${month} ${Number(d)}, ${y}`;
+}
+
+/** Latest calendar year present in the CPSC feed (may still be in progress). */
+export const latestTrendYear =
+  recallDataset.yearlyTrend.length > 0
+    ? recallDataset.yearlyTrend[recallDataset.yearlyTrend.length - 1].year
+    : recallDataset.source.coverageEndYear;
+
+export const latestTrendRow =
+  recallDataset.yearlyTrend.find((row) => row.year === latestTrendYear) || recallDataset.yearlyTrend[0];
+
+export const topHazard = recallDataset.hazardBreakdown[0];
+
+export const earliestBalanceNotice =
+  recallDataset.balanceBikeNotices.length > 0
+    ? recallDataset.balanceBikeNotices[recallDataset.balanceBikeNotices.length - 1]
+    : null;
+
+export const latestBalanceNotice = recallDataset.balanceBikeNotices[0] || null;
+
+export const recallSeo = {
+  en: {
+    title: "Balance Bike & Kids' Bike Recall Record: Every CPSC Notice Since 2000",
+    description:
+      "A parent-facing record of US CPSC recall notices covering balance bikes, children's bicycles and kids' helmets since 2000 — every row linked to the official notice.",
+    keywords: [
+      "balance bike recall",
+      "kids bike recall",
+      "children's bicycle recall",
+      "CPSC recall list",
+      "balance bike safety",
+    ],
+  },
+  zh: {
+    title: "儿童平衡车与童车召回记录：2000 年以来 CPSC 全部通报",
+    description:
+      "基于美国 CPSC 官方召回通报整理的儿童平衡车、童车与头盔召回记录，每一条均可回溯到官方原文。",
+    keywords: ["平衡车召回", "童车召回", "CPSC 召回名单", "儿童骑行安全"],
+  },
+};
+
+type UiStrings = {
+  eyebrow: string;
+  heroTitle: string;
+  heroLead: string;
+  heroNote: string;
+  retrievedLabel: string;
+  coverageLabel: string;
+  findingsTitle: string;
+  finding1: string;
+  finding2: string;
+  finding3: string;
+  balanceTitle: string;
+  balanceLead: string;
+  bikeTableTitle: string;
+  bikeTableLead: string;
+  helmetTableTitle: string;
+  helmetTableLead: string;
+  trendTitle: string;
+  trendLead: string;
+  hazardTitle: string;
+  hazardLead: string;
+  checkTitle: string;
+  checkLead: string;
+  checkSteps: string[];
+  methodTitle: string;
+  methodBody: string[];
+  disclaimerTitle: string;
+  disclaimerBody: string;
+  openNotice: string;
+};
+
+export const recallStrings: Record<"en" | "zh", UiStrings> = {
+  en: {
+    eyebrow: "Public safety record",
+    heroTitle: "Record: Every US CPSC Recall Involving Balance Bikes and Kids' Bikes Since 2000",
+    heroLead:
+      "We downloaded the full US Consumer Product Safety Commission recall feed and read every notice that touches children's wheeled products. Nothing on this page is an opinion or a rating — each row links straight to the CPSC notice it came from.",
+    heroNote:
+      "Recalls are one of the few safety signals that are verifiable rather than claimed. This page exists so parents can check a specific model before buying it second-hand, or before handing a bike down to a younger child.",
+    retrievedLabel: "Data retrieved",
+    coverageLabel: "Coverage",
+    findingsTitle: "What the record actually shows",
+    finding1: "Balance bikes themselves are almost never recalled. Across {total} CPSC notices published since {start}, exactly {bb} identify balance bikes.",
+    finding2: "In {year} so far there have been {bikes} children's bicycle notices but {helmets} children's helmet notices. The protective gear is recalled far more often than the bike.",
+    finding3: "Where kids' bikes are recalled, the most common theme is {hazard} — not cosmetics or paint.",
+    balanceTitle: "Every balance bike notice ({count})",
+    balanceLead:
+      "These are the only notices in the CPSC feed that identify balance bikes specifically. Read them in full: both are practical, both are fixable, and neither means the category is unsafe.",
+    bikeTableTitle: "Children's bicycle notices ({count})",
+    bikeTableLead:
+      "Every children's bicycle, tricycle and ride-on notice in the dataset, newest first. Helmets and pad sets are listed separately below so the two populations are not mixed.",
+    helmetTableTitle: "Children's helmet and pad notices ({count})",
+    helmetTableLead:
+      "Kept apart from the bikes on purpose: folding helmets into the bicycle count makes it look like bicycles are being recalled more every year, and they are not.",
+    trendTitle: "Notice volume by year",
+    trendLead:
+      "Raw counts can mislead because CPSC publishes more notices overall in some years, so the last column shows children's bicycle notices as a share of that year's total notices.",
+    hazardTitle: "What goes wrong, in CPSC's own words",
+    hazardLead:
+      "Hazard statements were grouped by keyword. A single notice can mention more than one problem, so these counts overlap and do not sum to the notice total.",
+    checkTitle: "How to check the bike you already own",
+    checkLead:
+      "Recalls only protect families who find out about them. This takes about five minutes per bike.",
+    checkSteps: [
+      "Photograph the frame: brand, model name and the production date sticker, usually under the bottom bracket or on the head tube.",
+      "Search that model name on cpsc.gov/Recalls — searching the model, not the retailer, is what catches older notices.",
+      "Register the product with the brand. Recall remedies (repair kits, replacement parts) are only sent to registered owners.",
+      "If your balance bike has air tyres, check the sidewall for the maximum PSI and keep it at or below that. A 2016 balance bike recall was caused purely by over-inflation.",
+      "Before every ride, check that the stem, handlebar and seat clamp bolts are tight — looseness there is the recurring theme across kids' bike notices.",
+    ],
+    methodTitle: "How this dataset was built",
+    methodBody: [
+      "Every notice published between January {start} and today was pulled year by year from the official SaferProducts.gov recall endpoint: {api}",
+      "Notices were kept when they describe a wheeled children's product (bicycles, tricycles, scooters, ride-ons) or a children's bicycle helmet.",
+      "Notices were split into three populations: balance bikes, children's bicycles/ride-ons, and children's helmets/pads.",
+      "Hazard wording was read from each notice's hazard field and grouped by keyword. Groupings overlap, so percentages are not reported.",
+      "Numbers change when CPSC publishes new notices. Re-running `npm run data:recalls` regenerates this page's data.",
+    ],
+    disclaimerTitle: "What this page does not tell you",
+    disclaimerBody:
+      "This is a record of US CPSC recall notices, not a verdict on any brand, not a ranking, and not a substitute for checking your own bike. A brand appearing here more than once may simply reflect how many units it sells. EU Safety Gate alerts, retailer-only corrections and incident reports are not included.",
+    openNotice: "Read the CPSC notice",
+  },
+  zh: {
+    eyebrow: "公共安全记录",
+    heroTitle: "记录：2000 年以来美国 CPSC 涉及平衡车与童车的全部召回通报",
+    heroLead:
+      "我们抓取了美国消费品安全委员会的完整召回数据，并逐条阅读了与儿童骑行产品相关的通报。本页没有任何主观评分，每一行都可点击回溯到 CPSC 官方原文。",
+    heroNote:
+      "召回是少数可验证而非自我宣称的安全信号。做这一页，是为了让家长在二手购买或把车传给更小的孩子之前，能先查这个型号是否被召回过。",
+    retrievedLabel: "数据抓取时间",
+    coverageLabel: "覆盖年份",
+    findingsTitle: "数据实际说明什么",
+    finding1: "平衡车本身几乎从不被召回：自 {start} 年以来 CPSC 共发布 {total} 条通报，其中明确针对平衡车的只有 {bb} 条。",
+    finding2: "{year} 年至今，儿童自行车通报 {bikes} 条，而儿童头盔通报 {helmets} 条——被召回更多的是护具，不是车。",
+    finding3: "童车确实被召回时，最常见的原因是{hazard}，而不是外观或漆面问题。",
+    balanceTitle: "全部平衡车通报（{count} 条）",
+    balanceLead:
+      "这是 CPSC 数据中仅有的明确指向平衡车的通报。建议完整阅读：两者都是具体问题、都可修复，并不意味着这个品类不安全。",
+    bikeTableTitle: "儿童自行车通报（{count} 条）",
+    bikeTableLead: "数据集中全部儿童自行车、三轮车与骑乘玩具通报，按时间倒序。头盔与护具单列于下，两个样本不混算。",
+    helmetTableTitle: "儿童头盔与护具通报（{count} 条）",
+    helmetTableLead:
+      "刻意与车分开统计：若把头盔并入自行车，会得出「自行车召回逐年上升」的假结论，而事实并非如此。",
+    trendTitle: "逐年通报数量",
+    trendLead:
+      "绝对数量容易误导——CPSC 某些年份整体通报量更大，因此最后一列给出儿童自行车通报占当年全部通报的比例。",
+    hazardTitle: "CPSC 原文描述的问题类型",
+    hazardLead:
+      "按关键词对危害描述归类。一条通报可能同时提到多个问题，因此这些计数相互重叠，相加不等于通报总数。",
+    checkTitle: "如何自查你手上的车",
+    checkLead: "召回只对知情的人有保护作用。每辆车大约五分钟。",
+    checkSteps: [
+      "给车架拍照：品牌、型号名与生产日期贴纸，通常在五通下方或头管处。",
+      "用型号名在 cpsc.gov/Recalls 搜索——搜型号而不是搜商家，才能命中较早的通报。",
+      "在品牌官网注册产品。补救措施（修理包、替换件）通常只寄送给已注册用户。",
+      "如果平衡车是充气胎，请看胎侧标注的最大 PSI 并保持不超限：2016 年那起平衡车召回，原因仅是充气过足。",
+      "每次骑行前检查把立、车把与座管夹螺丝是否紧固——松动是童车通报里反复出现的主题。",
+    ],
+    methodTitle: "数据集构建方式",
+    methodBody: [
+      "按年份从官方 SaferProducts.gov 召回接口逐段抓取 {start} 年 1 月至今的全部通报：{api}",
+      "保留描述儿童骑行产品（自行车、三轮车、滑板车、骑乘玩具）或儿童自行车头盔的通报。",
+      "拆分为三个样本：平衡车、儿童自行车／骑乘玩具、儿童头盔／护具。",
+      "危害描述取自各通报的 hazard 字段，按关键词归类。归类相互重叠，故不计算占比。",
+      "CPSC 发布新通报后数字会变化。重跑 `npm run data:recalls` 即可重新生成本页数据。",
+    ],
+    disclaimerTitle: "本页没有告诉你的事",
+    disclaimerBody:
+      "这是美国 CPSC 召回通报的记录，不是对任何品牌的判定，不是排名，也不能替代你对自己车辆的检查。某品牌出现次数多，可能只反映其销量更大。欧盟 Safety Gate 警报、商家自行更正与事故报告均未包含在内。",
+    openNotice: "查看 CPSC 原文",
+  },
+};
+
+/** Fill {placeholders} without letting a missing key crash the page. */
+export function fillTemplate(template: string, values: Record<string, string | number>): string {
+  return template.replace(/\{(\w+)\}/g, (match, key) =>
+    key in values ? String(values[key]) : match,
+  );
+}
+
+/**
+ * Dataset schema for the recall record. Google uses this markup to decide
+ * whether to surface a data resource in search surfaces that index datasets,
+ * and it tells crawlers the numbers are machine-readable rather than prose.
+ */
+/** en-US thousands separators, e.g. 8335 -> "8,335". */
+export function formatCount(value: number): string {
+  return value.toLocaleString("en-US");
+}
+
+export function buildDatasetSchema(pageUrl: string): Record<string, unknown> {
+  const { source, totals } = recallDataset;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    name: `US CPSC children's bicycle, balance bike and helmet recall notices, ${source.coverageStartYear}-${latestTrendYear}`,
+    description:
+      `${totals.kidsBikeNotices} children's bicycle, ${totals.balanceBikeNotices} balance bike and ` +
+      `${totals.kidHelmetNotices} children's helmet recall notices extracted from the US CPSC recall feed ` +
+      `(${totals.cpscNoticesRetrieved} notices reviewed), each linked to its official CPSC notice.`,
+    url: pageUrl,
+    isAccessibleForFree: true,
+    dateModified: source.retrievedAt,
+    temporalCoverage: `${source.coverageStartYear}-01-01/..`,
+    keywords: [
+      "CPSC recalls",
+      "balance bike recalls",
+      "children's bicycles",
+      "product safety",
+      "recall notices",
+    ],
+    creator: {
+      "@type": "Organization",
+      name: "BalanceBikeToddler",
+      url: pageUrl.split("/safety/")[0] || "/",
+    },
+    citation: {
+      "@type": "CreativeWork",
+      name: source.name,
+      url: source.publisherUrl,
+    },
+    distribution: {
+      "@type": "DataDownload",
+      encodingFormat: "application/json",
+      contentUrl: source.api,
+    },
+  };
+}

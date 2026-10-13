@@ -51,6 +51,7 @@
     "m3:preflight:official": "node scripts/m3_official_token_gate_check.mjs",
     "m3:snapshot": "node scripts/m3_generate_decision_snapshot.mjs",
     "seo:check": "node scripts/check-seo-assets.mjs",
+    "data:recalls": "node scripts/fetch_recall_data.mjs",
     "reports:normalize:check": "node scripts/normalize_reports_quality.mjs",
     "reports:normalize": "node scripts/normalize_reports_quality.mjs --write"
   },

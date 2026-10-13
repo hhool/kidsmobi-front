@@ -9,4 +9,6 @@ coverage/
 
 resource/
 tmp/
+dist_prev_s2/
+dist_prev_safety/
 scripts/cms-snapshots/
