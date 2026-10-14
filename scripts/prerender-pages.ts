@@ -98,6 +98,7 @@ import {
   TITLE_MAX_CHARS,
 } from "../src/lib/documentTitle";
 import { sanitizeUnsupportedClaims } from "../src/lib/unsupportedClaims";
+import { buildProductDetailKeywords, resolveRouteKeywords } from "../src/lib/pageKeywords";
 import { buildProductFaqsFromDisplayFields, faqPageSchema, FAQ_MIN_QUESTIONS, type ProductFaq } from "../src/lib/productFaq";
 import { getHubContent } from "../src/lib/productHubContent";
 
@@ -159,6 +160,9 @@ type RoutePage = {
   /** Optional canonical path override (used by alias routes that must
    *  consolidate onto the canonical slug-form category URL). */
   canonicalPath?: string;
+  /** The product backing a detail page — lets renderDocument compute the
+   *  detail-page keywords without re-inferring the category. */
+  product?: CmsProductFull;
 };
 
 type AppAssets = {
@@ -419,6 +423,14 @@ function renderDocument(page: RoutePage, appAssets: AppAssets): string {
   // text ("lab database" -> "specification database") otherwise pushes an
   // already-capped snippet back over the limit.
   const descTag = buildMetaDescription(page.description, sanitizeUnsupportedClaims);
+  // Keywords meta. The prerender and the hydrated SPA must publish the same set
+  // (src/lib/pageKeywords.ts is the single source), so a crawler reading the
+  // static HTML and a parent's browser tab agree. Google ignores this tag, but
+  // Bing/Yandex use it and it keeps the two render paths consistent.
+  const keywordArr = page.product
+    ? buildProductDetailKeywords(page.product, "en", String((page.product as CmsProductFull).categoryId || ""))
+    : resolveRouteKeywords(page.route, "en");
+  const keywordTag = keywordArr.join(", ");
   const entitySameAs = [
     "https://www.youtube.com/@kidsmobi",
     "https://www.facebook.com",
@@ -519,6 +531,7 @@ function renderDocument(page: RoutePage, appAssets: AppAssets): string {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>${escapeHtml(titleTag)}</title>
     <meta name="description" content="${escapeHtml(descTag)}" />
+    <meta name="keywords" content="${escapeHtml(keywordTag)}" />
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <meta property="og:site_name" content="BalanceBikeToddler" />
     <meta property="og:type" content="${ogType}" />
@@ -5149,6 +5162,7 @@ function renderProductDetailPage(
   const backLinks = `
         <section style="padding: 16px 0 0; border-top: 1px solid #e2e8f0;">
           ${PRODUCT_COMPARE_HUB_BY_SLUG[detailSlugDir] ? `<p style="margin: 0 0 6px;"><a href="${escapeHtml(PRODUCT_COMPARE_HUB_BY_SLUG[detailSlugDir])}" style="color: #c2410c; font-weight: 700; text-decoration: none;">Cross-model compare: see this category's top picks side by side</a></p>` : ""}
+          ${detailSlugDir === "balance-bikes" ? `<p style="margin: 0 0 6px;"><a href="${escapeHtml(BUYER_FEEDBACK_PATH)}" style="color: #c2410c; font-weight: 700; text-decoration: none;">What parents say about this balance bike</a></p>` : ""}
           <p style="margin: 0 0 6px;"><a href="${escapeHtml(categoryBreadcrumbHref)}" style="color: #c2410c; font-weight: 700; text-decoration: none;">Browse all ${escapeHtml(categoryLabel.toLowerCase())}</a></p>
           <p style="margin: 0;"><a href="/products" style="color: #c2410c; text-decoration: none;">All product categories</a></p>
         </section>
@@ -5230,6 +5244,7 @@ function renderProductDetailPage(
     description: metaDescription,
     body,
     image: image || undefined,
+    product,
     jsonLd: [productJsonLd, breadcrumbJsonLd, ...(faqJsonLd ? [faqJsonLd] : [])],
   };
 }

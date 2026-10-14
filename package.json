@@ -66,6 +66,7 @@
     "stage2:variants": "node scripts/plan_stage2_variants.mjs",
     "check:titles": "node scripts/check-prerender-titles.mjs",
     "check:spatitles": "npx tsx scripts/check-spa-titles.ts",
+    "check:spakeywords": "npx tsx scripts/check-spa-keywords.ts",
     "reports:normalize": "node scripts/normalize_reports_quality.mjs --write"
   },
   "dependencies": {

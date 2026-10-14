@@ -57,24 +57,24 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
     zh: {
       title: "婴儿推车评测、旅行推车与幼儿自行车安全测试 | BalanceBikeToddler",
       description: "查看客观评测报告，覆盖旅行婴儿推车、慢跑婴儿推车与幼儿自行车，重点对比结构稳定性、制动表现与实际场景安全性。",
-      keywords: ["旅行婴儿推车", "慢跑婴儿推车", "婴儿推车评测", "幼儿自行车", "儿童自行车"],
+      keywords: ["旅行婴儿推车", "慢跑婴儿推车", "婴儿推车评测", "幼儿自行车", "儿童自行车", "平衡车评测", "儿童平衡车"],
     },
     en: {
       title: "Expert Stroller Reviews, Travel Stroller Models & Toddler Bike Safety Tests | BalanceBikeToddler",
       description: "Read unbiased stroller reviews, travel stroller models, heavy-duty jogging strollers, and safety-tested toddler bike ratings. Compare travel stroller frame compliance and toddler bike geometries below.",
-      keywords: ["travel stroller", "toddler bike", "stroller reviews"],
+      keywords: ["travel stroller", "toddler bike", "stroller reviews", "balance bike reviews", "toddler balance bike"],
     },
   },
   reviews: {
     zh: {
       title: "婴儿推车评测、旅行推车与幼儿自行车安全测试 | BalanceBikeToddler",
       description: "查看客观评测报告，覆盖旅行婴儿推车、慢跑婴儿推车与幼儿自行车，重点对比结构稳定性、制动表现与实际场景安全性。",
-      keywords: ["旅行婴儿推车", "慢跑婴儿推车", "婴儿推车评测", "幼儿自行车", "儿童自行车"],
+      keywords: ["旅行婴儿推车", "慢跑婴儿推车", "婴儿推车评测", "幼儿自行车", "儿童自行车", "平衡车评测", "儿童平衡车"],
     },
     en: {
       title: "Expert Kids Bikes & Stroller Reviews | BalanceBikeToddler",
       description: "Read unbiased stroller reviews, travel stroller models, heavy-duty jogging strollers, and safety-tested toddler bike ratings.",
-      keywords: ["travel stroller", "toddler bike", "stroller reviews"],
+      keywords: ["travel stroller", "toddler bike", "stroller reviews", "balance bike reviews", "toddler balance bike"],
     },
   },
   guides: {
@@ -98,7 +98,7 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
     en: {
       title: "Kids Electric Bikes & Foldable Scooter Global News | BalanceBikeToddler",
       description: "Get the latest global news on kids electric bike trends, electric dirt bike for kids releases, and newly launched foldable electric scooter technologies.",
-      keywords: ["kids electric bike, electric dirt bike for kids, foldable electric scooter"],
+      keywords: ["kids electric bike", "electric dirt bike for kids", "foldable electric scooter"],
     },
   },
   about: {
@@ -110,7 +110,7 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
     en: {
       title: "Independent Kids Bike & Stroller Safety Lab | BalanceBikeToddler",
       description: "Learn about BalanceBikeToddler's strict evaluation methodology. We independently audit every jogging stroller, balance bike, and kids scooter to ensure ultimate child safety.",
-      keywords: ["BalanceBikeToddler", "independent safety lab", "child mobility safety", "evaluation methodology"],
+      keywords: ["BalanceBikeToddler", "independent safety testing", "child mobility safety", "evaluation methodology"],
     },
   },
 };

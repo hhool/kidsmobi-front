@@ -253,7 +253,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       seo: {
         title: "BalanceBikeToddler Evaluation Methodology: Kids Mobility Evidence Playbook",
         description: "Explore BalanceBikeToddler's testing methodology: the 30% weight rule, brake-setup reviews, recline checks, and frame-stability logic.",
-        keywords: ["testing methodology", "kids mobility lab", "brake audit", "stroller safety testing"],
+        keywords: ["testing methodology", "kids mobility testing", "brake audit", "stroller safety testing"],
       },
     },
     zh: {
@@ -301,7 +301,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       seo: {
         title: "BalanceBikeToddler Evaluation Methodology: Kids Mobility Evidence Playbook",
         description: "Explore BalanceBikeToddler's testing methodology: the 30% weight rule, brake-setup reviews, recline checks, and frame-stability logic.",
-        keywords: ["testing methodology", "kids mobility lab", "brake audit", "stroller safety testing"],
+        keywords: ["testing methodology", "kids mobility testing", "brake audit", "stroller safety testing"],
       },
     },
   },
@@ -352,7 +352,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       seo: {
         title: "BalanceBikeToddler Certification Notes: CPSC, ASTM, ISO & Lab Matrix",
         description: "See the standards BalanceBikeToddler references, including CPSC, ASTM F963, ISO 8098, EN 71, and editorial lab-note handling.",
-        keywords: ["certification notes", "CPSC", "ASTM F963", "ISO 8098", "lab standards"],
+        keywords: ["certification notes", "CPSC", "ASTM F963", "ISO 8098", "safety standards"],
       },
     },
     zh: {
@@ -400,7 +400,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       seo: {
         title: "BalanceBikeToddler Certification Notes: CPSC, ASTM, ISO & Lab Matrix",
         description: "See the standards BalanceBikeToddler references, including CPSC, ASTM F963, ISO 8098, EN 71, and editorial lab-note handling.",
-        keywords: ["certification notes", "CPSC", "ASTM F963", "ISO 8098", "lab standards"],
+        keywords: ["certification notes", "CPSC", "ASTM F963", "ISO 8098", "safety standards"],
       },
     },
   },

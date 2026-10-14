@@ -90,6 +90,7 @@ import { fetchContentBundle, isScrapedContentSource } from "./lib/contentSource"
 import { DEFAULT_SEO_CONFIGS, normalizeSeoConfig, SEO_TDK_LIMITS } from "./config/defaultSeo";
 import { buildDocumentTitle, buildMetaDescription } from "./lib/documentTitle";
 import { sanitizeUnsupportedClaims } from "./lib/unsupportedClaims";
+import { CATEGORY_TDK_MAP, buildProductDetailKeywords } from "./lib/pageKeywords";
 import { getProductSeoKeywords, getReviewSeoKeywords } from "./config/seoKeywordMap";
 import { getTransparencyPageByPath, TRANSPARENCY_PAGE_PATHS, type TransparencyPageKey } from "./data/transparencyPages";
 import {
@@ -244,20 +245,10 @@ const applyPageKeywordOverride = (seoKey: string, keywords: string[], lang: "zh"
 };
 
 const PRODUCT_DETAIL_TITLE_LIMIT = 60;
-const PRODUCT_DETAIL_KEYWORD_TEXT_LIMIT = 100;
 
 const trimSeoText = (value: string, limit: number) => {
   const text = String(value || "").replace(/\s+/g, " ").trim();
   return text.length <= limit ? text : text.slice(0, limit - 1).trimEnd();
-};
-
-const fitKeywordsToLimit = (keywords: string[], totalLimit: number) => {
-  return keywords.reduce<string[]>((acc, keyword) => {
-    const trimmed = trimSeoText(keyword, SEO_TDK_LIMITS.keyword);
-    if (!trimmed) return acc;
-    const next = [...acc, trimmed].join(", ");
-    return next.length <= totalLimit ? [...acc, trimmed] : acc;
-  }, []);
 };
 
 const buildProductDetailTitle = (product: Product, lang: "zh" | "en") => {
@@ -273,28 +264,6 @@ const buildProductDetailDescription = (product: Product, lang: "zh" | "en") => {
     ? `${baseTitle}${ageRange ? `（${ageRange}）` : ""} 参数、安全表现与优缺点速览，帮助家长快速判断是否值得购买。`
     : `Review the ${baseTitle}${ageRange ? ` for ${ageRange}` : ""} with key specs, safety notes, and pros and cons for faster buying decisions.`;
   return trimSeoText(desc, SEO_TDK_LIMITS.description);
-};
-
-const buildProductDetailKeywords = (product: Product, lang: "zh" | "en") => {
-  const categoryId = resolveProductCategoryId(product) || "all";
-  const dedupedDisplayTitle = String(getProductDisplayTitle(product, lang) || "");
-  const rawBrand = String(product.brand || "").trim();
-  const categoryKeywords = getProductSeoKeywords(categoryId, lang);
-  const genericKeywords = lang === "zh"
-    ? ["产品评测", "产品参数", "BalanceBikeToddler"]
-    : ["product review", "product specs", "BalanceBikeToddler"];
-
-  const rawCandidates = [
-    dedupedDisplayTitle,
-    dedupedDisplayTitle.toLowerCase().includes(rawBrand.toLowerCase()) ? "" : rawBrand,
-    ...categoryKeywords.slice(0, 3),
-    ...genericKeywords,
-  ]
-    .map((item) => String(item || "").trim())
-    .filter(Boolean);
-
-  const deduped = Array.from(new Set(rawCandidates));
-  return fitKeywordsToLimit(deduped, PRODUCT_DETAIL_KEYWORD_TEXT_LIMIT);
 };
 
 const PRODUCT_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
@@ -2426,7 +2395,7 @@ export default function App() {
         const title = buildProductDetailTitle(selectedProduct, lang);
         const desc = buildProductDetailDescription(selectedProduct, lang);
 
-        const kws = buildProductDetailKeywords(selectedProduct, lang);
+        const kws = buildProductDetailKeywords(selectedProduct, lang, resolveProductCategoryId(selectedProduct));
 
         document.title = title;
         updateMetaTag("description", desc);
@@ -3061,85 +3030,7 @@ export default function App() {
 
     // Categories custom TDK overrides for /products/:category
     if (seoKey === "products" && activeProductCategory !== "all") {
-      const categoryTdkMap: Record<string, {
-        en: { title: string; description: string; keywords: string[] };
-        zh: { title: string; description: string; keywords: string[] };
-      }> = {
-        stroller: {
-          en: {
-            title: "Best Jogging Stroller & Travel Stroller Reviews 2026 | BalanceBikeToddler",
-            description: "Compare evidence-based jogging stroller, travel stroller, and twin stroller models with safety scores, stability metrics, and foldability insights.",
-            keywords: ["jogging stroller", "travel stroller", "lightweight stroller", "twin stroller", "baby stroller"]
-          },
-          zh: {
-            title: "2026 慢跑婴儿推车与旅行推车评测 | BalanceBikeToddler",
-            description: "对照实验室数据比较慢跑婴儿推车、旅行推车与双人推车，重点查看安全评分、稳定性指标与折叠便携表现。",
-            keywords: ["慢跑婴儿推车", "旅行婴儿推车", "轻便婴儿推车", "双人婴儿推车", "婴儿推车"]
-          }
-        },
-        balance_bike: {
-          en: {
-            title: "Best Toddler Balance Bikes 2026: Evidence-Based Buying Guide - BalanceBikeToddler",
-            description: "Compare published specifications and safety records for the safest toddler balance bikes. Compare weight capacity, stability scores, and features for top ride-on brands.",
-            keywords: ["toddler balance bike", "kids balance bike", "1 year old balance bike", "ride-on balance bike"]
-          },
-          zh: {
-            title: "2026最佳儿童无脚踏平衡车实验室深度评测 | BalanceBikeToddler",
-            description: "探索BalanceBikeToddler无脚踏儿童滑步平衡车评分矩阵。深度比较车重工效、几何结构与核心通过性指数，助您科学决策。",
-            keywords: ["儿童平衡车", "儿童滑步车", "1岁平衡车", "平衡训练车", "BalanceBikeToddler"]
-          }
-        },
-        kids_bikes: {
-          en: {
-            title: "Best Kids Bikes & Toddler Bicycles 2026: Evidence-Based Buying Guide - BalanceBikeToddler",
-            description: "Discover the safest and top-rated kids bikes for ages 2-14. Explore the database to compare BMX style, training wheels, and dual suspension bicycles.",
-            keywords: ["kids bmx bike", "toddler bicycle", "kids bike training wheels", "pedal bike for children"]
-          },
-          zh: {
-            title: "2026最佳适龄儿童自行车与充气轮单车深度评测 | BalanceBikeToddler",
-            description: "获取2至14岁最适合最安全的儿童自行车候选数据库。极速对比辅助轮装配、前叉避震、机械双刹等力学客观指标。",
-            keywords: ["儿童自行车", "儿童单车", "BMX儿童自行车", "带辅助轮自行车", "BalanceBikeToddler"]
-          }
-        },
-        kids_scooters: {
-          en: {
-            title: "Best Kids Electric Scooter & Kick Scooter Reviews 2026 | BalanceBikeToddler",
-            description: "Find source-reviewed kids electric scooter and kick scooter options, including foldable models, 3-wheel starters, and seated configurations.",
-            keywords: ["kids electric scooter", "electric scooter for kids", "kids kick scooter", "foldable electric scooter"]
-          },
-          zh: {
-            title: "2026 儿童电动滑板车与脚踏滑板车评测 | BalanceBikeToddler",
-            description: "基于实验室测试对照儿童电动滑板车与脚踏滑板车，覆盖折叠便携、三轮入门稳定性与座椅配置等关键维度。",
-            keywords: ["儿童电动滑板车", "儿童滑板车", "可折叠电动滑板车", "三轮儿童滑板车"]
-          }
-        },
-        electric_vehicles: {
-          en: {
-            title: "Best Kids Electric Cars & Ride-On Toys Reviews 2026 | BalanceBikeToddler",
-            description: "Review evidence-based kids electric cars, 12V/24V ride-on toys, and electric ride-on options with battery safety, braking control, and runtime benchmarks.",
-            keywords: ["kids electric cars", "kids electric car", "kids ride on", "ride on toys 12v"]
-          },
-          zh: {
-            title: "2026 儿童电动汽车与骑乘电动车评测 | BalanceBikeToddler",
-            description: "对照实验室报告评估儿童电动汽车与 12V/24V 骑乘电动车，重点关注电池安全、制动控制与续航稳定性。",
-            keywords: ["儿童电动汽车", "儿童电动车", "儿童骑乘电动车", "12V 儿童电动车"]
-          }
-        },
-        car_seat: {
-          en: {
-            title: "Best Convertible & Toddler Car Seats 2026: Evidence-Based Buying Guide - BalanceBikeToddler",
-            description: "Find the safest convertible and booster car seats for your child. Compare evidence-based scores, weight limits, and safety features for top brands like Graco and Evenflo.",
-            keywords: ["convertible car seat", "booster car seat", "infant car seat", "child safety car seat"]
-          },
-          zh: {
-            title: "2026最佳儿童汽车安全提篮与成长座椅深度评测 | BalanceBikeToddler",
-            description: "探求最安全的儿童汽车安全座椅（安全提篮/增高垫）。涵盖侧向撞击防护技术、ISOFIX硬接口安装兼容性等专家质检数据。",
-            keywords: ["安全座椅", "儿童安全提篮", "成长型安全座椅", "侧向防护座椅", "BalanceBikeToddler"]
-          }
-        }
-      };
-
-      const customTdk = categoryTdkMap[activeProductCategory]?.[lang];
+      const customTdk = CATEGORY_TDK_MAP[activeProductCategory]?.[lang];
       if (customTdk) {
         titleStr = customTdk.title;
         descStr = customTdk.description;
@@ -4337,6 +4228,21 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               className="inline-flex items-center gap-2 text-sm font-bold text-orange-600 hover:text-orange-500 transition-colors"
             >
               {lang === "zh" ? "跨型号横评：查看本品类精选机型横向对比 →" : "Cross-model compare: see this category's top picks side by side →"}
+            </a>
+          </div>
+        )}
+
+        {/* What parents say (Asset ②): contextual inbound link to the buyer-feedback
+            page. Mirrors the prerendered detail-page footer so it survives SPA
+            hydration — balance-bikes only, to avoid link noise on other categories. */}
+        {activeTab === "product_detail" && selectedProduct &&
+          resolveProductCategoryId(selectedProduct) === "balance_bike" && (
+          <div className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 pb-6 -mt-2">
+            <a
+              href={BUYER_FEEDBACK_PATH}
+              className="inline-flex items-center gap-2 text-sm font-bold text-orange-600 hover:text-orange-500 transition-colors"
+            >
+              {lang === "zh" ? "家长们怎么评价这款平衡车 →" : "What parents say about this balance bike →"}
             </a>
           </div>
         )}
