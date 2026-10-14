@@ -315,6 +315,11 @@ const REFERENCE_ASSETS: ReferenceAsset[] = [
     blurb: "Seat height, wheel diameter and inseam fit, measured per model.",
   },
   {
+    href: BUYER_FEEDBACK_PATH,
+    label: "What buyers say",
+    blurb: "The buyer-sentiment summaries aggregated — what they mention, and where they hedge.",
+  },
+  {
     href: AGE_PATH,
     label: "Which models fit at each age",
     blurb: "Coverage counts from 18 months to 4 years, using each maker's own age range.",
@@ -338,11 +343,6 @@ const REFERENCE_ASSETS: ReferenceAsset[] = [
     href: RECALL_SAFETY_PATH,
     label: "Balance bike recall record",
     blurb: "CPSC and EU Safety Gate alerts with dates, hazards and remedies.",
-  },
-  {
-    href: BUYER_FEEDBACK_PATH,
-    label: "What buyers say",
-    blurb: "The buyer-sentiment summaries aggregated — what they mention, and where they hedge.",
   },
 ];
 
@@ -5567,6 +5567,7 @@ function sitemapPriority(route: string): number {
     WEIGHT_PATH,
     STABILITY_PATH,
     AGE_PATH,
+    BUYER_FEEDBACK_PATH,
     "/products/balance-bikes/",
   ];
   if (assetRoutes.includes(route)) return 0.9;

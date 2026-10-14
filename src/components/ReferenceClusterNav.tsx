@@ -26,6 +26,14 @@ export const REFERENCE_CLUSTER_ASSETS: ClusterAsset[] = [
     blurbZh: "逐款测量的座高、轮径与内缝适配数据。",
   },
   {
+    href: "/balance-bike-what-buyers-say/",
+    labelEn: "What buyers say",
+    labelZh: "买家怎么说",
+    blurbEn:
+      "The buyer-sentiment summaries aggregated — what they mention, and where they hedge.",
+    blurbZh: "买家情绪摘要的聚合——它们提到了什么，以及哪些说法打了折扣。",
+  },
+  {
     href: "/balance-bike-by-age/",
     labelEn: "Which models fit at each age",
     labelZh: "各年龄适配车型",
@@ -59,14 +67,6 @@ export const REFERENCE_CLUSTER_ASSETS: ClusterAsset[] = [
     labelZh: "平衡车召回记录",
     blurbEn: "CPSC and EU Safety Gate alerts with dates, hazards and remedies.",
     blurbZh: "CPSC 与欧盟 Safety Gate 警报，含日期、危害与处理方式。",
-  },
-  {
-    href: "/balance-bike-what-buyers-say/",
-    labelEn: "What buyers say",
-    labelZh: "买家怎么说",
-    blurbEn:
-      "The buyer-sentiment summaries aggregated — what they mention, and where they hedge.",
-    blurbZh: "买家情绪摘要的聚合——它们提到了什么，以及哪些说法打了折扣。",
   },
 ];
 
