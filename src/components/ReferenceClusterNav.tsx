@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 /**
  * Contextual navigation inside the balance-bike reference cluster.
  *
- * The six reference pages answered 94.7% of this domain's Search Console
+ * The reference pages answered 94.7% of this domain's Search Console
  * impressions, yet until now they linked to each other from nothing but the
  * site-wide footer. This block supplies the in-content links in both languages,
  * mirroring the same cluster rendered by scripts/prerender-pages.ts so the
@@ -59,6 +59,14 @@ export const REFERENCE_CLUSTER_ASSETS: ClusterAsset[] = [
     labelZh: "平衡车召回记录",
     blurbEn: "CPSC and EU Safety Gate alerts with dates, hazards and remedies.",
     blurbZh: "CPSC 与欧盟 Safety Gate 警报，含日期、危害与处理方式。",
+  },
+  {
+    href: "/balance-bike-what-buyers-say/",
+    labelEn: "What buyers say",
+    labelZh: "买家怎么说",
+    blurbEn:
+      "The buyer-sentiment summaries aggregated — what they mention, and where they hedge.",
+    blurbZh: "买家情绪摘要的聚合——它们提到了什么，以及哪些说法打了折扣。",
   },
 ];
 

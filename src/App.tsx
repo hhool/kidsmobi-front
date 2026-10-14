@@ -72,6 +72,7 @@ const BalanceBikeSafety = lazy(() => import("./components/BalanceBikeSafety"));
 const BalanceBikeWeight = lazy(() => import("./components/BalanceBikeWeight"));
 const BalanceBikeStability = lazy(() => import("./components/BalanceBikeStability"));
 const BalanceBikeAge = lazy(() => import("./components/BalanceBikeAge"));
+const BalanceBikeBuyerFeedback = lazy(() => import("./components/BalanceBikeBuyerFeedback"));
 const ComparisonDashboard = lazy(() => import("./components/ComparisonDashboard"));
 
 import { auth } from "./lib/firebase";
@@ -121,6 +122,11 @@ import {
   ageSeo,
   buildAgeDatasetSchema,
 } from "./data/balanceBikeAge";
+import {
+  BUYER_FEEDBACK_PATH,
+  buyerFeedbackSeo,
+  buildBuyerFeedbackDatasetSchema,
+} from "./data/balanceBikeBuyerFeedback";
 import CookieConsentModal from "./components/CookieConsentModal";
 
 const DEFAULT_OG_IMAGE_PATH = "/images/og-site-icon.png";
@@ -912,6 +918,21 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
   // Stability & track width reference (Plan-B Asset 6). Answers the "stable
   // track" queries this site actually ranks for. Registered before the
   // unknown-root fallback so it hydrates with its own canonical, not home's.
+  // Buyer feedback, aggregated (Plan-B Asset 2). Review-intent queries had
+  // nothing on the domain; this route answers them without pretending the
+  // catalogue holds verbatim reviews.
+  if (root === "balance-bike-what-buyers-say") {
+    return {
+      activeTab: "buyer-feedback",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      activeEvaluationId: "",
+      activeProductId: "",
+      activePageIndex: 1,
+      currentPath,
+    };
+  }
+
   if (root === "balance-bike-stability") {
     return {
       activeTab: "stability-track",
@@ -2864,6 +2885,38 @@ export default function App() {
       return;
     }
 
+    if (activeTab === "buyer-feedback") {
+      const buyerFeedbackSeoData = buyerFeedbackSeo[lang] || buyerFeedbackSeo.en;
+      const canonicalOrigin =
+        cmsSettings?.seoGlobal?.siteOrigin ||
+        (cmsSettings as any)?.siteOrigin ||
+        (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+        window.location.origin;
+      const canonicalUrl = `${canonicalOrigin}${BUYER_FEEDBACK_PATH}`;
+      const noIndex = shouldNoIndexCurrentPath(BUYER_FEEDBACK_PATH, window.location.search, window.location.hostname);
+
+      document.title = buildDocumentTitle(buyerFeedbackSeoData.title);
+      updateMetaTag("description", buildMetaDescription(buyerFeedbackSeoData.description, sanitizeUnsupportedClaims));
+      updateMetaTag("keywords", buyerFeedbackSeoData.keywords.join(", "));
+      updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
+      updateCanonicalLink(canonicalUrl);
+      updateMetaProperty("og:url", canonicalUrl);
+      updateSocialMeta(buildDocumentTitle(buyerFeedbackSeoData.title), buildMetaDescription(buyerFeedbackSeoData.description, sanitizeUnsupportedClaims), DEFAULT_OG_IMAGE_PATH, "website");
+
+      injectJsonLd([
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: buildDocumentTitle(buyerFeedbackSeoData.title),
+          url: canonicalUrl,
+          description: buyerFeedbackSeoData.description,
+          inLanguage: lang,
+        },
+        buildBuyerFeedbackDatasetSchema(canonicalUrl),
+      ]);
+      return;
+    }
+
     if (activeTab === "stability-track") {
       const stabilitySeoData = stabilitySeo[lang] || stabilitySeo.en;
       const canonicalOrigin =
@@ -4310,6 +4363,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
         {activeTab === "weight-build" && (
           <BalanceBikeWeight lang={lang} />
+        )}
+
+        {activeTab === "buyer-feedback" && (
+          <BalanceBikeBuyerFeedback lang={lang} />
         )}
 
         {activeTab === "stability-track" && (

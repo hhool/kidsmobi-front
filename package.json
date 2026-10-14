@@ -60,6 +60,7 @@
     "data:weight": "node scripts/fetch_weight_data.mjs",
     "data:stability": "node scripts/fetch_stability_data.mjs",
     "data:age": "node scripts/fetch_age_data.mjs",
+    "data:reviews": "node scripts/fetch_review_data.mjs",
     "reports:normalize:check": "node scripts/normalize_reports_quality.mjs",
     "stage1:plan": "node scripts/plan_stage1_prune.mjs",
     "stage2:variants": "node scripts/plan_stage2_variants.mjs",

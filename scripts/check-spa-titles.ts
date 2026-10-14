@@ -22,6 +22,7 @@ import { SIZING_PATH, sizingSeo } from "../src/data/balanceBikeSizing";
 import { STABILITY_PATH, stabilitySeo } from "../src/data/balanceBikeStability";
 import { WEIGHT_PATH, weightSeo } from "../src/data/balanceBikeWeight";
 import { RECALL_SAFETY_PATH, recallSeo } from "../src/data/safetyRecallRecord";
+import { BUYER_FEEDBACK_PATH, buyerFeedbackSeo } from "../src/data/balanceBikeBuyerFeedback";
 import { buildDocumentTitle, buildMetaDescription } from "../src/lib/documentTitle";
 import { sanitizeUnsupportedClaims } from "../src/lib/unsupportedClaims";
 
@@ -75,6 +76,7 @@ const expectations: Expectation[] = [
   { label: "asset stability", route: STABILITY_PATH, ...pick(en(stabilitySeo)) },
   { label: "asset weight", route: WEIGHT_PATH, ...pick(en(weightSeo)) },
   { label: "asset recalls", route: RECALL_SAFETY_PATH, ...pick(en(recallSeo)) },
+  { label: "asset buyer feedback", route: BUYER_FEEDBACK_PATH, ...pick(en(buyerFeedbackSeo)) },
 ];
 
 function pick(seo: { title: string; description: string }) {

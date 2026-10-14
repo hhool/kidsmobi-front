@@ -65,6 +65,13 @@ import {
   stabilityStrings,
 } from "../src/data/balanceBikeStability";
 import {
+  BUYER_FEEDBACK_PATH,
+  REVIEW_DATASET,
+  buildBuyerFeedbackDatasetSchema,
+  buyerFeedbackSeo,
+  buyerFeedbackStrings,
+} from "../src/data/balanceBikeBuyerFeedback";
+import {
   AGE_DATASET,
   AGE_PATH,
   ageSeo,
@@ -265,6 +272,7 @@ const FOOTER_SECTION_LINKS: Array<{ href: string; label: string }> = [
   { href: WEIGHT_PATH, label: "Weight & build" },
   { href: STABILITY_PATH, label: "Stability & track width" },
   { href: AGE_PATH, label: "Balance bike by age" },
+  { href: BUYER_FEEDBACK_PATH, label: "What buyers say" },
 ];
 const FOOTER_TRUST_LINKS: Array<{ href: string; label: string }> = [
   { href: "/transparency/testing-methodology/", label: "Testing Methodology" },
@@ -330,6 +338,11 @@ const REFERENCE_ASSETS: ReferenceAsset[] = [
     href: RECALL_SAFETY_PATH,
     label: "Balance bike recall record",
     blurb: "CPSC and EU Safety Gate alerts with dates, hazards and remedies.",
+  },
+  {
+    href: BUYER_FEEDBACK_PATH,
+    label: "What buyers say",
+    blurb: "The buyer-sentiment summaries aggregated — what they mention, and where they hedge.",
   },
 ];
 
@@ -4093,6 +4106,176 @@ function renderStabilityPage(): RoutePage[] {
  * listings still fit at each age, using the range each manufacturer publishes.
  * Every figure comes from src/data/ageData.generated.ts.
  * ------------------------------------------------------------------ */
+/**
+ * Plan-B Asset 2 — buyer feedback, aggregated.
+ *
+ * The point of this page is the thing it refuses to do. Review-intent queries
+ * ("review", "reviews of balance bikes", 8 impressions) had nothing on the
+ * domain, and the obvious move is to publish "reviews" assembled from the
+ * catalogue's marketing copy. That would be the machine-generated-content
+ * pattern the whole project is built to avoid.
+ *
+ * So this page states first that it has no verbatim reviews, then aggregates
+ * what it genuinely has: one retailer-generated sentiment summary per listing,
+ * counted by topic, with the hedges counted alongside the praise.
+ */
+function renderBuyerFeedbackPage(): RoutePage[] {
+  const t = buyerFeedbackStrings.en;
+  const d = REVIEW_DATASET;
+  const total = d.balanceBikeSummaries;
+
+  const themeRows = d.themes
+    .map(
+      (theme) => `
+            <tr style="border-bottom:1px solid #f1f5f9;">
+              <td style="padding:10px 12px 10px 0;font-size:0.85rem;font-weight:700;color:#0f172a;">${escapeHtml(theme.label)}</td>
+              <td style="padding:10px 12px 10px 0;font-size:0.85rem;font-weight:800;color:#c2410c;white-space:nowrap;">${theme.count} of ${total}</td>
+              <td style="padding:10px 0;font-size:0.82rem;color:#475569;">${escapeHtml(theme.note)}</td>
+            </tr>`,
+    )
+    .join("");
+
+  const hedgeRows = d.hedges
+    .map(
+      (hedge) => `
+            <tr style="border-bottom:1px solid #f1f5f9;">
+              <td style="padding:10px 12px 10px 0;font-size:0.85rem;font-weight:700;color:#0f172a;">${escapeHtml(hedge.label)}</td>
+              <td style="padding:10px 0;font-size:0.85rem;font-weight:800;color:#c2410c;white-space:nowrap;">${hedge.count} of ${total}</td>
+            </tr>`,
+    )
+    .join("");
+
+  const listingRows = d.listings
+    .map(
+      (listing) => `
+            <tr style="border-bottom:1px solid #f1f5f9;">
+              <td style="padding:10px 12px 10px 0;font-size:0.82rem;color:#334155;max-width:420px;">${escapeHtml(listing.name)}</td>
+              <td style="padding:10px 0;font-size:0.82rem;color:#64748b;white-space:nowrap;">${escapeHtml(listing.id)}</td>
+            </tr>`,
+    )
+    .join("");
+
+  const body = `
+    <article style="max-width:64rem;margin:0 auto;padding:32px 24px 56px;text-align:left;">
+      <div style="display:flex;flex-direction:column;gap:40px;">
+        <header style="display:flex;flex-direction:column;gap:14px;border-bottom:1px solid #e2e8f0;padding-bottom:32px;">
+          <p style="margin:0;font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;">${escapeHtml(t.eyebrow)}</p>
+          <h1 style="margin:0;font-size:clamp(1.9rem,4vw,2.6rem);line-height:1.15;color:#020617;">${escapeHtml(t.h1)}</h1>
+          <p style="margin:0;font-size:1.05rem;color:#334155;line-height:1.7;max-width:52rem;">${escapeHtml(t.lead)}</p>
+        </header>
+
+        <section style="background:#fff7ed;border:1px solid #fed7aa;border-radius:16px;padding:20px 22px;">
+          <h2 style="margin:0 0 10px;font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#c2410c;">${escapeHtml(t.provenanceTitle)}</h2>
+          <ul style="margin:0;padding-left:20px;font-size:0.88rem;color:#475569;line-height:1.75;max-width:52rem;">
+            ${t.provenanceBody.map((line) => `<li style="margin-bottom:8px;">${escapeHtml(line)}</li>`).join("")}
+          </ul>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:14px;">
+          <h2 style="margin:0;font-size:1.45rem;color:#020617;">${escapeHtml(t.themeTitle)}</h2>
+          <p style="margin:0;font-size:0.92rem;color:#475569;line-height:1.7;max-width:52rem;">${escapeHtml(t.themeIntro)}</p>
+          <div style="overflow-x:auto;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
+            <table style="width:100%;min-width:640px;border-collapse:collapse;text-align:left;">
+              <thead style="background:#f8fafc;">
+                <tr style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+                  <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.themeColTopic)}</th>
+                  <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.themeColCount)}</th>
+                  <th style="padding:12px 0;font-weight:800;">${escapeHtml(t.themeColNote)}</th>
+                </tr>
+              </thead>
+              <tbody>
+${themeRows}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:14px;">
+          <h2 style="margin:0;font-size:1.45rem;color:#020617;">${escapeHtml(t.hedgeTitle)}</h2>
+          <p style="margin:0;font-size:0.92rem;color:#475569;line-height:1.7;max-width:52rem;">${escapeHtml(t.hedgeIntro)}</p>
+          <div style="overflow-x:auto;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
+            <table style="width:100%;min-width:420px;border-collapse:collapse;text-align:left;">
+              <thead style="background:#f8fafc;">
+                <tr style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+                  <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.themeColTopic)}</th>
+                  <th style="padding:12px 0;font-weight:800;">${escapeHtml(t.themeColCount)}</th>
+                </tr>
+              </thead>
+              <tbody>
+${hedgeRows}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:14px;">
+          <h2 style="margin:0;font-size:1.45rem;color:#020617;">${escapeHtml(t.listingTitle)}</h2>
+          <div style="overflow-x:auto;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
+            <table style="width:100%;min-width:640px;border-collapse:collapse;text-align:left;">
+              <thead style="background:#f8fafc;">
+                <tr style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.14em;color:#64748b;">
+                  <th style="padding:12px 12px 12px 0;font-weight:800;">${escapeHtml(t.listingColName)}</th>
+                  <th style="padding:12px 0;font-weight:800;">${escapeHtml(t.listingColChars)}</th>
+                </tr>
+              </thead>
+              <tbody>
+${listingRows}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:12px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.methodTitle)}</h2>
+          <ul style="margin:0;padding-left:20px;font-size:0.85rem;color:#475569;line-height:1.7;max-width:52rem;">
+            ${t.methodBody.map((line) => `<li style="margin-bottom:6px;">${escapeHtml(line)}</li>`).join("")}
+          </ul>
+        </section>
+
+        <footer style="border-top:1px solid #e2e8f0;padding-top:24px;font-size:0.7rem;color:#94a3b8;line-height:1.6;">
+          ${escapeHtml(t.sourceLabel)}: ${escapeHtml(t.sourceNote)}
+        </footer>
+      </div>
+    </article>
+  `;
+
+  return [
+    {
+      route: BUYER_FEEDBACK_PATH,
+      title: buyerFeedbackSeo.en.title,
+      description: buyerFeedbackSeo.en.description,
+      skipTitleH1: true,
+      body: `${body}${clusterNavHtml(BUYER_FEEDBACK_PATH, t.clusterTitle)}`,
+      ogType: "website" as const,
+      jsonLd: [
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: buyerFeedbackSeo.en.title,
+          url: `https://balancebiketoddler.com${BUYER_FEEDBACK_PATH}`,
+          description: buyerFeedbackSeo.en.description,
+          inLanguage: "en",
+          isPartOf: { "@type": "WebSite", name: "BalanceBikeToddler", url: "https://balancebiketoddler.com/" },
+        },
+        buildBuyerFeedbackDatasetSchema(`https://balancebiketoddler.com${BUYER_FEEDBACK_PATH}`),
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://balancebiketoddler.com/" },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "What buyers say about balance bikes",
+              item: `https://balancebiketoddler.com${BUYER_FEEDBACK_PATH}`,
+            },
+          ],
+        },
+      ],
+    },
+  ];
+}
+
 function renderAgePage(): RoutePage[] {
   const t = ageStrings.en;
   const d = AGE_DATASET;
@@ -5282,6 +5465,7 @@ async function main() {
     ...renderWeightPage(),
     ...renderStabilityPage(),
     ...renderAgePage(),
+    ...renderBuyerFeedbackPage(),
     ...guideDetailPages,
     ...newsDetailPages,
     ...evaluationDetailPages,
