@@ -15,3 +15,6 @@ dist_*/
 scripts/cms-snapshots/
 # IndexNow delta snapshot (runtime artifact, do not commit)
 scripts/seo/.last-indexnow.json
+
+# Local WorkBuddy tooling data (not project source)
+.workbuddy/

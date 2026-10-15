@@ -32,6 +32,7 @@ import {
 } from "../data/balanceBikeSizing";
 import { AGE_PATH, ageSeo } from "../data/balanceBikeAge";
 import { STABILITY_PATH, stabilitySeo } from "../data/balanceBikeStability";
+import { BUDGET_PATH, budgetSeo } from "../data/balanceBikeBudget";
 import { WEIGHT_PATH, weightSeo } from "../data/balanceBikeWeight";
 import { SAFETY_PATH, safetySeo } from "../data/balanceBikeSafety";
 import { BUYER_FEEDBACK_PATH, buyerFeedbackSeo } from "../data/balanceBikeBuyerFeedback";
@@ -197,6 +198,7 @@ const ASSET_SEO_BY_PATH: Record<string, { en: { keywords: readonly string[] }; z
   [SIZING_PATH]: sizingSeo,
   [AGE_PATH]: ageSeo,
   [STABILITY_PATH]: stabilitySeo,
+  [BUDGET_PATH]: budgetSeo,
   [WEIGHT_PATH]: weightSeo,
   [SAFETY_PATH]: safetySeo,
   [BUYER_FEEDBACK_PATH]: buyerFeedbackSeo,

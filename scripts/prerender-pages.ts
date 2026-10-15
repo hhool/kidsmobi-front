@@ -82,6 +82,7 @@ import {
   bikesAt,
   buildAgeDatasetSchema,
 } from "../src/data/balanceBikeAge";
+import { BUDGET_PATH, budgetSeo, budgetStrings } from "../src/data/balanceBikeBudget";
 import { PRUNED_PRODUCTS } from "../src/data/prunedProducts.generated";
 import { PRUNED_VARIANT_PRODUCTS } from "../src/data/prunedVariantProducts.generated";
 import { getPageCopy } from "../src/config/pageCopy";
@@ -277,6 +278,7 @@ const FOOTER_SECTION_LINKS: Array<{ href: string; label: string }> = [
   { href: STABILITY_PATH, label: "Stability & track width" },
   { href: AGE_PATH, label: "Balance bike by age" },
   { href: BUYER_FEEDBACK_PATH, label: "What buyers say" },
+  { href: BUDGET_PATH, label: "Budget & value" },
 ];
 const FOOTER_TRUST_LINKS: Array<{ href: string; label: string }> = [
   { href: "/transparency/testing-methodology/", label: "Testing Methodology" },
@@ -347,6 +349,11 @@ const REFERENCE_ASSETS: ReferenceAsset[] = [
     href: RECALL_SAFETY_PATH,
     label: "Balance bike recall record",
     blurb: "CPSC and EU Safety Gate alerts with dates, hazards and remedies.",
+  },
+  {
+    href: BUDGET_PATH,
+    label: "Budget & value balance bike",
+    blurb: "What each price tier buys, the frame, tire and weight trade-offs, and the checks that separate a cheap bike worth keeping.",
   },
 ];
 
@@ -4110,6 +4117,170 @@ function renderStabilityPage(): RoutePage[] {
 }
 
 /* ------------------------------------------------------------------ *
+ * Budget & value balance bike reference (Plan-B Asset 8)
+ *
+ * Weekly keyword scan flagged "budget" / "cheap" balance-bike queries with no
+ * destination on the domain. This page answers them with honest, tier-level
+ * advice — no fabricated specs, no paid picks. No generated dataset: the budget
+ * tier is about configuration (frame material, tire type, adjustability), not
+ * hidden measurements, so the content is hand-authored.
+ * ------------------------------------------------------------------ */
+function renderBudgetPage(): RoutePage[] {
+  const t = budgetStrings.en;
+
+  const bands: Array<{ label: string; items: string[] }> = [
+    { label: t.bandLowLabel, items: t.bandLow },
+    { label: t.bandMidLabel, items: t.bandMid },
+    { label: t.bandHighLabel, items: t.bandHigh },
+  ];
+
+  const bandCards = bands
+    .map(
+      (band) => `
+        <div style="border:1px solid #e2e8f0;border-radius:16px;background:#fff;padding:20px;display:flex;flex-direction:column;gap:12px;">
+          <h3 style="margin:0;font-size:0.95rem;font-weight:900;color:#0f172a;">${escapeHtml(band.label)}</h3>
+          <ul style="margin:0;padding-left:18px;font-size:0.8rem;color:#334155;line-height:1.6;">
+            ${band.items.map((line) => `<li style="margin-bottom:8px;">${escapeHtml(line)}</li>`).join("")}
+          </ul>
+        </div>`,
+    )
+    .join("");
+
+  const numberedList = (items: string[]) =>
+    `<ol style="margin:0;padding-left:0;list-style:none;font-size:0.9rem;color:#334155;line-height:1.7;max-width:48rem;">${items
+      .map(
+        (line, i) =>
+          `<li style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;"><span style="flex:0 0 auto;width:16px;height:16px;border-radius:9999px;background:#ffedd5;color:#ea580c;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center;margin-top:2px;">${i + 1}</span><span>${escapeHtml(line)}</span></li>`,
+      )
+      .join("")}</ol>`;
+
+  const bulletList = (items: string[], color: string) =>
+    `<ul style="margin:0;padding-left:0;list-style:none;font-size:0.9rem;color:#334155;line-height:1.7;max-width:48rem;">${items
+      .map(
+        (line) =>
+          `<li style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;"><span style="color:${color};font-weight:800;line-height:1.6;">&#10003;</span><span>${escapeHtml(line)}</span></li>`,
+      )
+      .join("")}</ul>`;
+
+  const faqItems = t.faqs
+    .map(
+      (faq) => `
+        <details style="border:1px solid #e2e8f0;border-radius:16px;background:#fff;padding:16px;">
+          <summary style="cursor:pointer;font-size:0.9rem;font-weight:900;color:#0f172a;">${escapeHtml(faq.q)}</summary>
+          <p style="margin:8px 0 0;font-size:0.85rem;color:#334155;line-height:1.7;">${escapeHtml(faq.a)}</p>
+        </details>`,
+    )
+    .join("");
+
+  const body = `
+    <article style="max-width:64rem;margin:0 auto;padding:32px 24px 56px;text-align:left;">
+      <div style="display:flex;flex-direction:column;gap:40px;">
+        <header style="display:flex;flex-direction:column;gap:20px;border-bottom:1px solid #e2e8f0;padding-bottom:32px;">
+          <div style="display:inline-flex;align-items:center;gap:8px;align-self:flex-start;border:1px solid #fed7aa;background:#fff7ed;padding:4px 12px;border-radius:9999px;font-size:0.6rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#ea580c;">${escapeHtml(t.eyebrow)}</div>
+          <h1 style="font-size:2rem;font-weight:900;color:#0f172a;line-height:1.15;margin:0;max-width:48rem;">${escapeHtml(t.heroTitle)}</h1>
+          <p style="font-size:1.05rem;color:#475569;line-height:1.7;margin:0;max-width:48rem;font-weight:500;">${escapeHtml(t.heroLead)}</p>
+        </header>
+
+        <section style="display:flex;flex-direction:column;gap:16px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.introTitle)}</h2>
+          <p style="font-size:0.9rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.introLead)}</p>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.bandsTitle)}</h2>
+          <div style="display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">${bandCards}</div>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.tradeoffsTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.tradeoffsLead)}</p>
+          ${numberedList(t.tradeoffItems)}
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.checkTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.checkLead)}</p>
+          ${numberedList(t.checkItems)}
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.avoidTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.avoidLead)}</p>
+          ${bulletList(t.avoidItems, "#d97706")}
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.safetyTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.safetyLead)}</p>
+          <div style="border:1px solid #a7f3d0;background:#ecfdf5;border-radius:16px;padding:20px;">
+            <p style="font-size:0.9rem;color:#334155;line-height:1.7;margin:0;">${escapeHtml(t.safetyBody)}</p>
+          </div>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:16px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.faqTitle)}</h2>
+          <div style="display:flex;flex-direction:column;gap:12px;">${faqItems}</div>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:12px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.methodTitle)}</h2>
+          <ul style="margin:0;padding-left:20px;font-size:0.85rem;color:#475569;line-height:1.7;max-width:48rem;">
+            ${t.methodBody.map((line) => `<li style="margin-bottom:6px;">${escapeHtml(line)}</li>`).join("")}
+          </ul>
+        </section>
+
+        <section style="display:flex;flex-direction:column;gap:12px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <h2 style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin:0;">${escapeHtml(t.caveatTitle)}</h2>
+          <p style="font-size:0.85rem;color:#64748b;line-height:1.7;margin:0;max-width:48rem;">${escapeHtml(t.caveatLead)}</p>
+          <div style="border:1px solid #fde68a;background:#fffbeb;border-radius:16px;padding:20px;">
+            ${t.caveatBody.map((line) => `<p style="font-size:0.85rem;color:#334155;line-height:1.7;margin:0 0 10px;">${escapeHtml(line)}</p>`).join("")}
+          </div>
+        </section>
+
+        <footer style="border-top:1px solid #e2e8f0;padding-top:24px;font-size:0.7rem;color:#94a3b8;line-height:1.6;">
+          ${escapeHtml(t.sourceLabel)}: BalanceBikeToddler reference pages
+        </footer>
+      </div>
+    </article>
+  `;
+
+  return [
+    {
+      route: BUDGET_PATH,
+      title: budgetSeo.en.title,
+      description: budgetSeo.en.description,
+      skipTitleH1: true,
+      body: `${body}${clusterNavHtml(BUDGET_PATH)}`,
+      ogType: "website" as const,
+      jsonLd: [
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: budgetSeo.en.title,
+          url: `https://balancebiketoddler.com${BUDGET_PATH}`,
+          description: budgetSeo.en.description,
+          inLanguage: "en",
+          isPartOf: { "@type": "WebSite", name: "BalanceBikeToddler", url: "https://balancebiketoddler.com/" },
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://balancebiketoddler.com/" },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Budget balance bike",
+              item: `https://balancebiketoddler.com${BUDGET_PATH}`,
+            },
+          ],
+        },
+      ],
+    },
+  ];
+}
+
+/* ------------------------------------------------------------------ *
  * Balance bike by age reference (Plan-B Asset 7)
  *
  * Search Console: 27 of the 68 queries this domain appears for carry an
@@ -5481,6 +5652,7 @@ async function main() {
     ...renderStabilityPage(),
     ...renderAgePage(),
     ...renderBuyerFeedbackPage(),
+    ...renderBudgetPage(),
     ...guideDetailPages,
     ...newsDetailPages,
     ...evaluationDetailPages,
@@ -5583,6 +5755,7 @@ function sitemapPriority(route: string): number {
     STABILITY_PATH,
     AGE_PATH,
     BUYER_FEEDBACK_PATH,
+    BUDGET_PATH,
     "/products/balance-bikes/",
   ];
   if (assetRoutes.includes(route)) return 0.9;

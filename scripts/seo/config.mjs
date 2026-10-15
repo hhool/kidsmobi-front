@@ -27,7 +27,7 @@ export const INDEXNOW_ENDPOINTS = [
 // one baseline; it has since grown. Keep this roughly in sync with the current
 // live count so the health check only flags real regressions (large drift), not
 // normal week-to-week additions.
-export const SITEMAP_BASELINE_COUNT = 260;
+export const SITEMAP_BASELINE_COUNT = 247;
 
 // High-value balance-bike query clusters for opportunity gap analysis.
 // Derived from the GSC intent study: age is the single biggest intent; the

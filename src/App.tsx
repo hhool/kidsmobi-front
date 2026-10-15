@@ -74,6 +74,7 @@ const BalanceBikeWeight = lazy(() => import("./components/BalanceBikeWeight"));
 const BalanceBikeStability = lazy(() => import("./components/BalanceBikeStability"));
 const BalanceBikeAge = lazy(() => import("./components/BalanceBikeAge"));
 const BalanceBikeBuyerFeedback = lazy(() => import("./components/BalanceBikeBuyerFeedback"));
+const BalanceBikeBudget = lazy(() => import("./components/BalanceBikeBudget"));
 const ComparisonDashboard = lazy(() => import("./components/ComparisonDashboard"));
 
 import { auth } from "./lib/firebase";
@@ -119,6 +120,10 @@ import {
   STABILITY_PATH,
   stabilitySeo,
 } from "./data/balanceBikeStability";
+import {
+  BUDGET_PATH,
+  budgetSeo,
+} from "./data/balanceBikeBudget";
 import {
   AGE_PATH,
   ageSeo,
@@ -906,6 +911,21 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
   if (root === "balance-bike-stability") {
     return {
       activeTab: "stability-track",
+      activeProductCategory: "all",
+      activeReviewType: "all",
+      activeEvaluationId: "",
+      activeProductId: "",
+      activePageIndex: 1,
+      currentPath,
+    };
+  }
+
+  // Budget & value reference (Plan-B Asset 8). Answers the "budget" / "cheap"
+  // balance-bike queries the keyword scan found with no destination. Registered
+  // before the unknown-root fallback so it hydrates with its own canonical.
+  if (root === "balance-bike-budget") {
+    return {
+      activeTab: "budget-bike",
       activeProductCategory: "all",
       activeReviewType: "all",
       activeEvaluationId: "",
@@ -2919,6 +2939,37 @@ export default function App() {
       return;
     }
 
+    if (activeTab === "budget-bike") {
+      const budgetSeoData = budgetSeo[lang] || budgetSeo.en;
+      const canonicalOrigin =
+        cmsSettings?.seoGlobal?.siteOrigin ||
+        (cmsSettings as any)?.siteOrigin ||
+        (import.meta.env.VITE_PRIMARY_SITE_ORIGIN as string | undefined) ||
+        window.location.origin;
+      const canonicalUrl = `${canonicalOrigin}${BUDGET_PATH}`;
+      const noIndex = shouldNoIndexCurrentPath(BUDGET_PATH, window.location.search, window.location.hostname);
+
+      document.title = buildDocumentTitle(budgetSeoData.title);
+      updateMetaTag("description", buildMetaDescription(budgetSeoData.description, sanitizeUnsupportedClaims));
+      updateMetaTag("keywords", budgetSeoData.keywords.join(", "));
+      updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
+      updateCanonicalLink(canonicalUrl);
+      updateMetaProperty("og:url", canonicalUrl);
+      updateSocialMeta(buildDocumentTitle(budgetSeoData.title), buildMetaDescription(budgetSeoData.description, sanitizeUnsupportedClaims), DEFAULT_OG_IMAGE_PATH, "website");
+
+      injectJsonLd([
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: buildDocumentTitle(budgetSeoData.title),
+          url: canonicalUrl,
+          description: budgetSeoData.description,
+          inLanguage: lang,
+        },
+      ]);
+      return;
+    }
+
     // Default to mapped key if valid, fallback to 'home'
     const validKeys = ["home", "news", "products", "reviews", "evaluations", "guides", "about"];
     if (!validKeys.includes(seoKey)) {
@@ -4284,6 +4335,10 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
         {activeTab === "stability-track" && (
           <BalanceBikeStability lang={lang} />
+        )}
+
+        {activeTab === "budget-bike" && (
+          <BalanceBikeBudget lang={lang} />
         )}
 
         {activeTab === "by-age" && (

@@ -68,6 +68,13 @@ export const REFERENCE_CLUSTER_ASSETS: ClusterAsset[] = [
     blurbEn: "CPSC and EU Safety Gate alerts with dates, hazards and remedies.",
     blurbZh: "CPSC 与欧盟 Safety Gate 警报，含日期、危害与处理方式。",
   },
+  {
+    href: "/balance-bike-budget/",
+    labelEn: "Budget & value balance bike",
+    labelZh: "平价与性价比平衡车",
+    blurbEn: "What each price tier buys, the frame, tire and weight trade-offs, and the checks that separate a cheap bike worth keeping.",
+    blurbZh: "每个价位段买到什么、车架/轮胎/重量的取舍，以及区分值得买的便宜车与应跳过车的检查。",
+  },
 ];
 
 export default function ReferenceClusterNav({
