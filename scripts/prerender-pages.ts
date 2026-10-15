@@ -330,7 +330,7 @@ const REFERENCE_ASSETS: ReferenceAsset[] = [
   },
   {
     href: STABILITY_PATH,
-    label: "Stability and track width",
+    label: "Stable track balance bike",
     blurb: "Wheel spacing and tip-over geometry — published by only one of the fifteen.",
   },
   {

@@ -55,6 +55,7 @@ import { loadDefaultProductsData } from "./lib/defaultProductsLoader";
 import SmartImage from "./components/common/SmartImage";
 import SafetyWeightCalculator from "./components/common/SafetyWeightCalculator";
 import MatchingWizard from "./components/MatchingWizard";
+import ReferenceClusterNav from "./components/ReferenceClusterNav";
 
 const HomeSection = lazy(() => import("./components/HomeSection"));
 const NewsSection = lazy(() => import("./components/NewsSection"));
@@ -4100,6 +4101,12 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     ))}
                   </div>
                 )}
+                {/* Mirrors the prerendered hub's clusterNavHtml (prerender-pages.ts
+                    hub body). Without this the createRoot() hydration wipes the
+                    static HTML's in-content link from the balance-bikes hub to
+                    /balance-bike-stability/, which is the page Google currently
+                    ranks for the "stable track balance bike" queries. */}
+                {slug === "balance-bikes" && <ReferenceClusterNav lang={lang} />}
               </section>
             );
           })()}

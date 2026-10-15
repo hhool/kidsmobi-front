@@ -81,7 +81,7 @@ export interface StabilityStrings {
 export const stabilityStrings: Record<"en" | "zh", StabilityStrings> = {
   en: {
     eyebrow: "Stability & track width",
-    heroTitle: "What makes a balance bike stable — and why nobody publishes the number",
+    heroTitle: "What makes a stable track balance bike — and why nobody publishes the number",
     heroLead:
       "Parents search for a stable track balance bike. We went looking for the measurement behind that phrase across {scanned} products and {listed} balance bikes. {withSpacing} publishes an actual wheel spacing. That is the finding, and it is why this question is so badly served.",
     heroNote: "Figures come from seller listing copy, not from measurements we took.",
@@ -226,7 +226,7 @@ export const stabilityStrings: Record<"en" | "zh", StabilityStrings> = {
 
 export const stabilitySeo = {
   en: {
-    title: "Balance Bike Stability: Track Width, Wheel Count and What Sellers Publish",
+    title: "Stable Track Balance Bike: Track Width",
     description:
       `We checked every balance bike we track for the measurement behind "stable track": ` +
       `${cov.withTrackSpacing} of ${cov.listed} publishes a wheel spacing, ${cov.withTireClass} publishes a tire material, ` +

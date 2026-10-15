@@ -42,7 +42,7 @@ export const REFERENCE_CLUSTER_ASSETS: ClusterAsset[] = [
   },
   {
     href: "/balance-bike-stability/",
-    labelEn: "Stability and track width",
+    labelEn: "Stable track balance bike",
     labelZh: "稳定性与轮距",
     blurbEn: "Wheel spacing and tip-over geometry — published by only one of the fifteen.",
     blurbZh: "轮距与侧翻几何：15 款中只有 1 款公布该数据。",
