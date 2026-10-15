@@ -13,3 +13,5 @@ tmp/
 # blocked by the sandbox's delete shim), so those backups must never reach git.
 dist_*/
 scripts/cms-snapshots/
+# IndexNow delta snapshot (runtime artifact, do not commit)
+scripts/seo/.last-indexnow.json

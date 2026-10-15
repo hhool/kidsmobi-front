@@ -67,6 +67,11 @@
     "check:titles": "node scripts/check-prerender-titles.mjs",
     "check:spatitles": "npx tsx scripts/check-spa-titles.ts",
     "check:spakeywords": "npx tsx scripts/check-spa-keywords.ts",
+    "seo:indexnow": "node scripts/seo/indexnow-submit.mjs",
+    "seo:health": "node scripts/seo/site-health-check.mjs",
+    "seo:keywords": "node scripts/seo/keyword-opportunity-scan.mjs",
+    "seo:geo": "node scripts/seo/geo-ops.mjs",
+    "seo:weekly": "node scripts/seo/indexnow-submit.mjs && node scripts/seo/site-health-check.mjs && node scripts/seo/keyword-opportunity-scan.mjs && node scripts/seo/geo-ops.mjs",
     "reports:normalize": "node scripts/normalize_reports_quality.mjs --write"
   },
   "dependencies": {
