@@ -99,6 +99,8 @@ import {
   TITLE_MAX_CHARS,
 } from "../src/lib/documentTitle";
 import { sanitizeUnsupportedClaims } from "../src/lib/unsupportedClaims";
+import { resolveSectionRouteSeo } from "../src/lib/cmsSectionSeo";
+import type { CMSSettings } from "../src/types";
 import { buildProductDetailKeywords, resolveRouteKeywords } from "../src/lib/pageKeywords";
 import { buildProductFaqsFromDisplayFields, faqPageSchema, FAQ_MIN_QUESTIONS, type ProductFaq } from "../src/lib/productFaq";
 import { getHubContent } from "../src/lib/productHubContent";
@@ -983,6 +985,141 @@ async function fetchPublishedEvaluations(): Promise<CmsEvaluation[]> {
 
 async function fetchPublishedProducts(): Promise<CmsProductLite[]> {
   return fetchPublishedCollection<CmsProductLite>("products");
+}
+
+/* ------------------------------------------------------------------ *
+ * CMS settings (section-page SEO)
+ *
+ * The structural pages (home/products/reviews/guides/news/about) resolve
+ * their <title>/<meta description> from CMS settings.seo at RUNTIME (SPA),
+ * so the prerender must read the same source at build time or the static
+ * HTML and the hydrated page publish different TDK — the exact bug audited
+ * on 2026-10-15/16. Fetch live settings here (same retry policy as the
+ * collections); on outage fall back to the local snapshot when
+ * PRERENDER_ALLOW_STALE=1. `npm run data:settings` refreshes the snapshot
+ * manually. Both sides then go through resolveSectionRouteSeo() from
+ * src/lib/cmsSectionSeo.ts, so there is exactly one resolution chain.
+ * ------------------------------------------------------------------ */
+
+type CmsSettingsPayload = CMSSettings & { updatedAt?: string };
+
+/** Unwraps the API envelope ({data:[settings]}) the CMS returns. */
+function unwrapCmsSettings(payload: unknown): CmsSettingsPayload | null {
+  const candidate =
+    payload && typeof payload === "object" && Array.isArray((payload as { data?: unknown }).data)
+      ? (payload as { data: unknown[] }).data[0]
+      : (payload as { data?: unknown } | null)?.data ?? payload;
+  if (!candidate || typeof candidate !== "object") return null;
+  return candidate as CmsSettingsPayload;
+}
+
+async function readCmsSettingsSnapshot(): Promise<CmsSettingsPayload | null> {
+  try {
+    const raw = await readFile(path.join(CMS_SNAPSHOT_DIR, "settings.json"), "utf8");
+    return unwrapCmsSettings(JSON.parse(raw));
+  } catch {
+    return null;
+  }
+}
+
+async function writeCmsSettingsSnapshot(payload: unknown): Promise<void> {
+  try {
+    await mkdir(CMS_SNAPSHOT_DIR, { recursive: true });
+    await writeFile(path.join(CMS_SNAPSHOT_DIR, "settings.json"), JSON.stringify(payload));
+  } catch (error) {
+    console.warn(`[prerender] failed to write settings snapshot: ${(error as Error).message}`);
+  }
+}
+
+async function fetchCmsSettings(): Promise<CmsSettingsPayload | null> {
+  const url = `${CMS_BASE_URL}/api/cms/settings`;
+  const attempts = 8;
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    try {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 20000);
+      const response = await fetch(url, {
+        headers: { Accept: "application/json" },
+        signal: controller.signal,
+      });
+      clearTimeout(timer);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload: unknown = await response.json();
+      const settings = unwrapCmsSettings(payload);
+      if (!settings) throw new Error("settings payload empty");
+      await writeCmsSettingsSnapshot(payload);
+      const seoKeys = Object.keys(settings.seo || {});
+      console.log(
+        `[prerender] CMS settings from ${url}${attempt > 1 ? ` (attempt ${attempt})` : ""} — ` +
+          `section seo: ${seoKeys.join(", ") || "(none)"} | updatedAt: ${settings.updatedAt || "?"}`,
+      );
+      return settings;
+    } catch (error) {
+      if (attempt < attempts) {
+        console.warn(`[prerender] settings fetch attempt ${attempt} failed (${(error as Error).message}); retrying...`);
+        await new Promise((resolve) => setTimeout(resolve, Math.min(2000 * attempt, 8000)));
+        continue;
+      }
+      if (process.env.PRERENDER_ALLOW_STALE === "1") {
+        const snapshot = await readCmsSettingsSnapshot();
+        if (snapshot) {
+          console.warn(
+            `[prerender] could not reach ${url} after ${attempts} attempts (${(error as Error).message}); ` +
+              `USING STALE settings snapshot (updatedAt: ${snapshot.updatedAt || "?"}).`,
+          );
+          return snapshot;
+        }
+      }
+      console.warn(
+        `[prerender] could not reach ${url} after ${attempts} attempts (${(error as Error).message}); ` +
+          `section pages keep their bundled TDK (static HTML may drift from the hydrated SPA until the next successful build).`,
+      );
+      return null;
+    }
+  }
+  return null;
+}
+
+/**
+ * Overrides the six structural pages' fullTitle/description with the values
+ * the hydrated SPA will publish (CMS settings.seo > defaultSeo). Body copy,
+ * H1s and links are untouched — only the <title>/<meta description>/og tags
+ * and the home WebSite JSON-LD description follow the CMS.
+ */
+const CMS_SECTION_ROUTES: Array<{ route: string; seoKey: string }> = [
+  { route: "", seoKey: "home" },
+  { route: "/products", seoKey: "products" },
+  { route: "/reviews", seoKey: "reviews" },
+  { route: "/guides", seoKey: "guides" },
+  { route: "/news", seoKey: "news" },
+  { route: "/about", seoKey: "about" },
+];
+
+function applyCmsSectionSeo(pages: RoutePage[], settings: CmsSettingsPayload | null): number {
+  if (!settings) return 0;
+  let applied = 0;
+  for (const section of CMS_SECTION_ROUTES) {
+    const resolved = resolveSectionRouteSeo(settings, section.seoKey, "en");
+    const page = pages.find((candidate) => candidate.route === section.route);
+    if (!page) {
+      console.warn(`[prerender] CMS section seo: no prerendered page for route "${section.route || "/"}" — skipped.`);
+      continue;
+    }
+    page.fullTitle = resolved.title;
+    page.description = resolved.description;
+    // The home/WebSite JSON-LD description is hardcoded in renderHomePage;
+    // keep it in lockstep with the published meta description.
+    if (Array.isArray(page.jsonLd)) {
+      for (const schema of page.jsonLd) {
+        if (schema && typeof schema === "object" && (schema as { "@type"?: string })["@type"] === "WebSite") {
+          (schema as { description?: string }).description = resolved.description;
+        }
+      }
+    }
+    applied += 1;
+    console.log(`[prerender] CMS section seo: ${section.route || "/"} -> "${resolved.title}"`);
+  }
+  return applied;
 }
 
 /**
@@ -5537,11 +5674,12 @@ async function main() {
   const indexHtml = await readFile(path.join(distDir, "index.html"), "utf8");
   const appAssets = extractAppAssets(indexHtml);
 
-  const [cmsGuides, cmsNews, cmsEvaluations, cmsProducts] = await Promise.all([
+  const [cmsGuides, cmsNews, cmsEvaluations, cmsProducts, cmsSettings] = await Promise.all([
     fetchPublishedGuides(),
     fetchPublishedNews(),
     fetchPublishedEvaluations(),
     fetchPublishedProducts(),
+    fetchCmsSettings(),
   ]);
 
   // Deploy-safety gate: when the products collection comes back empty the
@@ -5661,6 +5799,15 @@ async function main() {
   if (guideDetailPages.length || newsDetailPages.length || evaluationDetailPages.length) {
     console.log(
       `[prerender] writing ${guideDetailPages.length} guide + ${newsDetailPages.length} news + ${evaluationDetailPages.length} review detail page(s).`,
+    );
+  }
+
+  // Section pages (home/products/reviews/guides/news/about) publish the
+  // CMS-resolved TDK so the static HTML matches what the hydrated SPA writes.
+  const sectionSeoApplied = applyCmsSectionSeo(pages, cmsSettings);
+  if (sectionSeoApplied) {
+    console.log(
+      `[prerender] ${sectionSeoApplied} section page(s) now publish CMS-resolved title/description (single source: src/lib/cmsSectionSeo.ts).`,
     );
   }
 

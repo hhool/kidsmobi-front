@@ -91,6 +91,12 @@ import type { ArticleSeoMeta } from "./lib/articleSeo";
 import { fetchContentBundle, isScrapedContentSource } from "./lib/contentSource";
 import { DEFAULT_SEO_CONFIGS, normalizeSeoConfig, SEO_TDK_LIMITS } from "./config/defaultSeo";
 import { buildDocumentTitle, buildMetaDescription } from "./lib/documentTitle";
+import {
+  normalizeSeoKey,
+  resolveCmsRouteSeoConfig,
+  publishSectionTitle,
+  publishSectionDescription,
+} from "./lib/cmsSectionSeo";
 import { sanitizeUnsupportedClaims } from "./lib/unsupportedClaims";
 import { CATEGORY_TDK_MAP, buildProductDetailKeywords } from "./lib/pageKeywords";
 import { getProductSeoKeywords, getReviewSeoKeywords } from "./config/seoKeywordMap";
@@ -138,36 +144,6 @@ import CookieConsentModal from "./components/CookieConsentModal";
 
 const DEFAULT_OG_IMAGE_PATH = "/images/og-site-icon.png";
 
-const SEO_KEY_TO_PAGE_TYPE: Record<string, CMSPageConfig["pageType"]> = {
-  home: "home",
-  products: "products_index",
-  evaluations: "reviews_index",
-  reviews: "reviews_index",
-  guides: "guides_index",
-  news: "news_index",
-  about: "about",
-};
-
-const normalizeSeoKey = (value: string) => {
-  if (!value) return value;
-  if (value === "evaluations") return "reviews";
-  return value;
-};
-
-const getSeoAliasKeys = (value: string): string[] => {
-  const normalized = normalizeSeoKey(value);
-  const keys = new Set<string>();
-  if (normalized) keys.add(normalized);
-  if (value) keys.add(value);
-  if (normalized === "reviews") {
-    keys.add("evaluations");
-  }
-  if (value === "evaluations") {
-    keys.add("reviews");
-  }
-  return Array.from(keys).filter(Boolean);
-};
-
 const seoRouteMap: Record<string, string> = {
   "https://balancebiketoddler.com/reviews/balance-bikes/": "/reviews/balance-bikes/",
   "https://balancebiketoddler.com/products/kids-bikes/": "/products/kids-bikes/",
@@ -213,16 +189,6 @@ const COUNTRY_HREFLANG_MAP: Record<string, string> = {
   US: "en-US",
   GB: "en-GB",
   DE: "en-DE",
-};
-
-const DEFAULT_CMS_PAGE_BLUEPRINT: Record<string, CMSPageConfig> = {
-  home: { pageType: "home", pageSlug: "home", pageIndex: 1, paginationPolicy: "none", indexingPolicy: "index", status: "published" },
-  products: { pageType: "products_index", pageSlug: "products", pageIndex: 1, paginationPolicy: "page_path", indexingPolicy: "index", status: "published" },
-  reviews: { pageType: "reviews_index", pageSlug: "reviews", pageIndex: 1, paginationPolicy: "page_path", indexingPolicy: "index", status: "published" },
-  evaluations: { pageType: "reviews_index", pageSlug: "reviews", pageIndex: 1, paginationPolicy: "page_path", indexingPolicy: "index", status: "published" },
-  guides: { pageType: "guides_index", pageSlug: "guides", pageIndex: 1, paginationPolicy: "page_path", indexingPolicy: "index", status: "published" },
-  news: { pageType: "news_index", pageSlug: "news", pageIndex: 1, paginationPolicy: "page_path", indexingPolicy: "index", status: "published" },
-  about: { pageType: "about", pageSlug: "about", pageIndex: 1, paginationPolicy: "none", indexingPolicy: "index", status: "published" },
 };
 
 const PRODUCTS_PAGE_KEYWORDS_EN = [
@@ -2319,55 +2285,6 @@ export default function App() {
     ]);
   }, [cmsSettings, currentPath]);
 
-  const resolveCmsPageConfigForRoute = (seoKey: string) => {
-    const normalizedKey = normalizeSeoKey(seoKey);
-    const aliasKeys = new Set(getSeoAliasKeys(seoKey));
-    const pageType = SEO_KEY_TO_PAGE_TYPE[normalizedKey] || SEO_KEY_TO_PAGE_TYPE[seoKey];
-    const configuredPages = Object.values(cmsSettings?.pages || {}).filter(Boolean) as CMSPageConfig[];
-    const publishedPages = configuredPages.filter((item) => !item.status || item.status === "published");
-    const candidatePool = publishedPages.length > 0 ? publishedPages : configuredPages;
-
-    const matchedByType = candidatePool.filter((item) => item.pageType === pageType);
-    const matchedBySlug = candidatePool.filter((item) => {
-      const pageSlug = String(item.pageSlug || "").trim().toLowerCase();
-      return Array.from(aliasKeys).some((key) => key && pageSlug === key.toLowerCase());
-    });
-    const matched = [...matchedByType, ...matchedBySlug];
-
-    if (matched.length === 0) {
-      return DEFAULT_CMS_PAGE_BLUEPRINT[normalizedKey] || DEFAULT_CMS_PAGE_BLUEPRINT[seoKey] || DEFAULT_CMS_PAGE_BLUEPRINT.home;
-    }
-
-    const currentIndex = Math.max(1, activePageIndex || 1);
-    const exact = matched.find((item) => Number(item.pageIndex || 1) === currentIndex);
-    if (exact) {
-      return exact;
-    }
-
-    const firstPage = matched.find((item) => Number(item.pageIndex || 1) === 1);
-    return firstPage || matched[0];
-  };
-
-  const resolveCmsRouteSeoConfig = (seoKey: string) => {
-    const normalizedKey = normalizeSeoKey(seoKey);
-    const pageConfig = resolveCmsPageConfigForRoute(normalizedKey);
-    const fallbackSeo = DEFAULT_SEO_CONFIGS[normalizedKey]?.[lang] || DEFAULT_SEO_CONFIGS[seoKey]?.[lang] || DEFAULT_SEO_CONFIGS.home[lang];
-
-    const pageSeo = pageConfig?.seo?.[lang];
-    if (pageSeo) {
-      return { seo: pageSeo, pageConfig };
-    }
-
-    const routeSeo = getSeoAliasKeys(seoKey)
-      .map((key) => cmsSettings?.seo?.[key]?.[lang])
-      .find(Boolean);
-    if (routeSeo) {
-      return { seo: routeSeo, pageConfig };
-    }
-
-    return { seo: fallbackSeo, pageConfig };
-  };
-
   // Dynamic SEO Page Meta Configuration (Title, Keywords, Description)
   useEffect(() => {
     const gscVerification = String(cmsSettings?.seoGlobal?.googleSiteVerification || "").trim();
@@ -3010,7 +2927,7 @@ export default function App() {
       return;
     }
 
-    const { seo: resolvedSEO, pageConfig } = resolveCmsRouteSeoConfig(seoKey);
+    const { seo: resolvedSEO, pageConfig } = resolveCmsRouteSeoConfig(cmsSettings, seoKey, lang);
     const normalizedSEO = normalizeSeoConfig(resolvedSEO);
     let titleStr = normalizedSEO.title;
     let descStr = normalizedSEO.description;
@@ -3135,6 +3052,13 @@ export default function App() {
 
       return null;
     };
+
+    // Publish through the exact pipeline the prerender uses for this same URL
+    // (claim scrub + shared description builder, see src/lib/cmsSectionSeo.ts)
+    // so hydration can never overwrite the static <title>/description with a
+    // different value. scripts/check-spa-titles.ts proves the two agree.
+    titleStr = publishSectionTitle(titleStr);
+    descStr = publishSectionDescription(descStr);
 
     document.title = titleStr;
     updateMetaTag("description", descStr);
