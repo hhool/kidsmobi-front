@@ -72,6 +72,25 @@ jobs:
           echo "第二次（应为 HIT）:"
           curl -sSI https://balancebiketoddler.com/ | grep -iE 'cf-cache-status|age' || true
 
+      - name: ✅ Verify sitemap freshness (clean path)
+        if: steps.guard.outputs.skip != 'true'
+        run: |
+          sleep 8
+          echo "检查 /sitemap.xml（Google 实际抓的干净路径，无 query）:"
+          code=$(curl -sS -o /dev/null -w '%{http_code}' https://balancebiketoddler.com/sitemap.xml)
+          ct=$(curl -sSI https://balancebiketoddler.com/sitemap.xml | grep -i '^content-type' | tr -d '\r')
+          body=$(curl -sS https://balancebiketoddler.com/sitemap.xml)
+          urls=$(printf '%s' "$body" | grep -o '<loc>[^<]*</loc>' | wc -l)
+          prio=$(printf '%s' "$body" | grep -c '<priority>')
+          bdg=$(printf '%s' "$body" | grep -c 'balance-bike-budget')
+          echo "  HTTP: $code | $ct"
+          echo "  URL 数: $urls | 含 <priority>: $prio | 含 balance-bike-budget: $bdg"
+          if [ "$code" = "200" ] && printf '%s' "$ct" | grep -qi 'application/xml'; then
+            echo "✅ sitemap 路由正常（200 + application/xml），Google 可正常抓取"
+          else
+            echo "::warning::sitemap 路由异常：应为 200 + application/xml，实际 '$code' / '$ct'（检查 Cloudflare Worker 是否拦截 /sitemap.xml 干净路径）"
+          fi
+
 # 需要的 secrets（Settings → Secrets and variables → Actions）：
 #   CLOUDFLARE_ZONE_ID   = b6c304eb872e0df0b47e9c0d6730a5e7
 #   CLOUDFLARE_API_TOKEN = 具备 Zone | Cache Purge | Edit 权限（只作用于本 zone）
