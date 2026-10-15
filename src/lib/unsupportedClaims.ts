@@ -38,6 +38,35 @@ const UNSUPPORTED_CLAIM_REWRITES: Array<[RegExp, string]> = [
   // the legacy /transparency/certification-lab-notes/ route readable, and the
   // "lab coat" phrase is figurative, not a measurement claim.
   [/\blab\b(?![-/])(?! coat)/gi, "source-based"],
+  // Stage-1 honesty guard, second wave (2026-10-16 data audit): the cardSummary
+  // template claimed hands-on testing ("Test notes:", "our test group",
+  // "backed by real testing", zh "实测："), one evaluation claimed a "test pool"
+  // and "independent hands-on testing", and one product description carried the
+  // manufacturer's own "We tested". Scoring is published specs + aggregated
+  // owner feedback (see /transparency/), so none of these may render. The CMS
+  // data was bulk-rewritten the same day; these rules are the backstop.
+  [/Test notes:/gi, "Spec highlights:"],
+  [/in our test(?:ing| group)/gi, "in this category"],
+  [/backed by real testing/gi, "based on published specs and owner feedback"],
+  [/in our test pool/gi, "in this comparison"],
+  [/hands-on testing/gi, "published owner feedback"],
+  [/we tested/gi, "the manufacturer tested"],
+  [/delivered up to (\d+) minutes of ride time/gi, "is rated for up to $1 minutes of ride time"],
+  // zh mirrors of the cardSummary template. The catch-all keeps a consumer
+  // instruction ("下单前必须实测孩子头围" — measure your child's head before
+  // ordering) intact via the lookbehind: that is advice to the reader, not a
+  // site testing claim. Recorded compliance data ("规格信息：ASTM F963 | CPSC")
+  // carries no 实测 and is factual spec data, so it survives untouched.
+  [/我们实测池/g, "本次对比"],
+  [/实测池/g, "对比池"],
+  [/第三方实测/g, "公开用户反馈"],
+  [/实测整备/g, "规格整备"],
+  [/实测：/g, "规格要点："],
+  [/经实测验证/g, "基于公开规格与用户反馈"],
+  [/本组测试/g, "同品类"],
+  [/测试组(?=[中里内])/g, "对比"],
+  [/实验室评测/g, "深度评测"],
+  [/(?<!必须)实测/g, "规格"],
 ];
 
 export function sanitizeUnsupportedClaims(html: string): string {
@@ -50,6 +79,11 @@ export function sanitizeUnsupportedClaims(html: string): string {
   // /transparency/certification-lab-notes/, which must stay clickable.
   return UNSUPPORTED_CLAIM_REWRITES.reduce((acc, [pattern, replacement]) => {
     const urlSafe = new RegExp(`(?<!-)${pattern.source}`, pattern.flags);
-    return acc.replace(urlSafe, (match) => restoreCase(replacement, match));
+    return acc.replace(urlSafe, (match, ...groups) => {
+      // Expand $1..$9 capture groups (used by the ride-time rule) before the
+      // case restore, so "delivered up to 120 minutes" keeps its number.
+      const expanded = replacement.replace(/\$(\d+)/g, (_full, index) => groups[Number(index) - 1] ?? "");
+      return restoreCase(expanded, match);
+    });
   }, html);
 }
