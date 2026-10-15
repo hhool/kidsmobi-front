@@ -245,7 +245,7 @@ export const budgetSeo = {
   en: {
     title: "Budget Balance Bike: Cheap Picks That Last",
     description:
-      "A budget balance bike can still teach balance. Here are the price tiers, the frame, tire and weight trade-offs, and the checks that separate a cheap bike worth keeping from one to skip.",
+      "Budget balance bikes can still teach balance. Price tiers, frame, tire and weight trade-offs, and the checks that separate a cheap bike worth keeping.",
     canonical: BUDGET_PATH,
     keywords: [
       "budget balance bike",
