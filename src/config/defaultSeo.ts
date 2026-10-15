@@ -10,7 +10,14 @@ export const SEO_TDK_LIMITS = {
 
 function trimToLimit(value: string, limit: number): string {
   const text = String(value || "").replace(/\s+/g, " ").trim();
-  return text.length <= limit ? text : text.slice(0, limit - 1).trimEnd();
+  if (text.length <= limit) return text;
+  // Word-boundary cut. A hard slice used to chop the tail mid-word
+  // ("...scored on published specificati"), which reads machine-stamped in a
+  // SERP; capSeoText in documentTitle.ts already cuts this way for titles and
+  // meta descriptions, so normalize here must not be stricter-but-dumber.
+  const cut = text.slice(0, limit);
+  const sp = cut.lastIndexOf(" ");
+  return (sp > 20 ? cut.slice(0, sp) : cut).replace(/[\s,;:.–—-]+$/, "").trimEnd();
 }
 
 export function normalizeSeoConfig(config: SEOConfig): SEOConfig {
