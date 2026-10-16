@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lighthouse 审计报告 — balancebiketoddler.com (2026-10-16)</title>
+<style>
+  :root { --ink:#1f2430; --muted:#6b7280; --bg:#f7f8fa; --card:#ffffff; --line:#e5e7eb; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Segoe UI",system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; background:var(--bg); color:var(--ink); padding:32px 20px 60px; }
+  .wrap { max-width:1080px; margin:0 auto; }
+  h1 { font-size:26px; margin-bottom:6px; }
+  .sub { color:var(--muted); font-size:13px; margin-bottom:24px; }
+  .toolbar { display:flex; gap:8px; margin-bottom:22px; }
+  .toolbar button { border:1px solid var(--line); background:var(--card); padding:6px 16px; border-radius:999px; cursor:pointer; font-size:13px; }
+  .toolbar button.active { background:#1f2430; color:#fff; border-color:#1f2430; }
+  .summary { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:28px; }
+  .scard { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px; text-align:center; }
+  .scard .num { font-size:44px; font-weight:700; line-height:1.1; }
+  .scard .lbl { font-size:13px; color:var(--muted); margin-top:4px; }
+  .gauge { width:74px; height:74px; margin:0 auto 8px; border-radius:50%; display:grid; place-items:center; }
+  .gauge span { font-size:24px; font-weight:700; }
+  table { width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--line); border-radius:12px; overflow:hidden; margin-bottom:30px; }
+  th,td { padding:10px 12px; border-bottom:1px solid var(--line); font-size:13px; text-align:left; vertical-align:top; }
+  th { background:#f0f2f5; font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.03em; color:#4b5563; }
+  tr:last-child td { border-bottom:none; }
+  .pill { display:inline-block; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:600; }
+  h2 { font-size:18px; margin:0 0 12px; }
+  .sec { margin-bottom:34px; }
+  .page-scores { display:grid; gap:14px; }
+  .ps { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px; }
+  .ps h3 { font-size:15px; margin-bottom:10px; }
+  .ps h3 a { color:inherit; text-decoration:none; }
+  .chiprow { display:flex; flex-wrap:wrap; gap:10px; }
+  .chip { display:flex; align-items:center; gap:8px; border:1px solid var(--line); border-radius:10px; padding:6px 10px; font-size:12px; }
+  .chip b { font-size:16px; }
+  .foot { color:var(--muted); font-size:12px; line-height:1.7; }
+  .zh-only:lang(zh), body[data-lang="en"] .zh-t { display:none; }
+  body[data-lang="zh"] .en-t { display:none; }
+  .zh-t::after { content:attr(data-zh); }
+  .en-t::after { content:attr(data-en); }
+</style>
+</head>
+<body data-lang="zh">
+<div class="wrap">
+  <h1>Lighthouse 审计报告 — balancebiketoddler.com</h1>
+  <div class="sub">真实 Lighthouse 13.5.0 (Chrome headless 155) · 2026-10-16 · 移动端模拟 (Slow 4G) · 总览=本地产物 3 页均值，线上首页单列参考 · 右上角切换中/EN</div>
+  <div class="toolbar">
+    <button data-l="zh" class="active">中文</button>
+    <button data-l="en">EN</button>
+  </div>
+
+  <div class="summary" id="summary"></div>
+
+  <div class="sec">
+    <h2 class="t" data-en="Per-page scores &amp; Core Web Vitals" data-zh="分页评分与核心 Web 指标">分页评分与核心 Web 指标</h2>
+    <div class="page-scores" id="pages"></div>
+  </div>
+
+  <div class="sec">
+    <h2 class="t" data-en="Failed audits (grouped, all pages)" data-zh="未通过项汇总（全部页面）">未通过项汇总（全部页面）</h2>
+    <table id="failures"><thead><tr>
+      <th class="t" data-en="Audit" data-zh="审计项">审计项</th>
+      <th class="t" data-en="Category" data-zh="类别">类别</th>
+      <th class="t" data-en="Impact" data-zh="影响值">影响值</th>
+      <th class="t" data-en="Pages" data-zh="涉及页面">涉及页面</th>
+    </tr></thead><tbody></tbody></table>
+  </div>
+
+  <p class="foot">
+    数据来源：本机 Chrome headless 运行真实 Lighthouse 13.5.0，逐页 JSON 见 front/tmp/lighthouse-2026-10-16/。<br>
+    评分口径与 PageSpeed Insights 一致：性能由 FCP/LCP/TBT/CLS/SI/TTI 加权；&lt;50 红、50–89 橙、≥90 绿。<br>
+    注：Lighthouse 实验室数据受当时网络/CPU 模拟影响，单次运行存在波动；阈值判定（如 TTFB&lt;600ms）为实验室口径，非真实用户 CrUX 数据。
+  </p>
+</div>
+<script>
+  const CATS = {"performance":{"en":"Performance","zh":"性能"},"accessibility":{"en":"Accessibility","zh":"无障碍"},"best-practices":{"en":"Best Practices","zh":"最佳实践"},"seo":{"en":"SEO","zh":"SEO"}};
+  const METRICS = {"first-contentful-paint":["FCP","首次内容绘制"],"largest-contentful-paint":["LCP","最大内容绘制"],"total-blocking-time":["TBT","总阻塞时间"],"cumulative-layout-shift":["CLS","累积布局偏移"],"speed-index":["SI","速度指数"],"interactive":["TTI","可交互时间"]};
+  const SUMMARY = {"performance":48,"accessibility":96,"best-practices":96,"seo":69};
+  const PAGES = [{"key":"home","label":"LIVE Home / 线上首页","url":"https://balancebiketoddler.com/","note":{"zh":"⚠ 直连 Cloudflare 网络抖动，LH 自带 loaded-too-slowly 警告，性能分被网络拉低，仅作参考","en":"⚠ Flaky direct route to Cloudflare; LH raised its own loaded-too-slowly warning. Perf score depressed by network, treat as reference only."}},{"key":"local-home","label":"Home (dist, local) / 首页·产物","url":"http://127.0.0.1:8901/","note":{"zh":"本地 dist 静态产物，消除网络变量；CMS API 不可达 → 运行时兜底 noindex 使 SEO 失真（线上实测 index,follow + SEO 100），Console errors 为 API 404 伪影","en":"Local dist product audit (no network variance). CMS API unreachable → runtime noindex fallback depresses SEO (live verified index,follow + SEO 100); console errors are API-404 artifacts."}},{"key":"local-hub","label":"Balance-bikes Hub (dist) / 品类页·产物","url":"http://127.0.0.1:8901/products/balance-bikes/","note":{"zh":"同上环境标注","en":"Same environment caveats as local home."}},{"key":"local-detail","label":"Product Detail (dist) / 详情页·产物","url":"http://127.0.0.1:8901/products/balance-bikes/balance_bike-b0blmf98s8","note":{"zh":"CLS 0.55 与 LCP 28s 是真实信号：详情页布局偏移与图片交付需优化","en":"CLS 0.55 and LCP 28s are genuine signals: detail-page layout shift and image delivery need work."}}];
+  const DATA = {"home":{"scores":{"performance":40,"accessibility":96,"best-practices":100,"seo":100},"metrics":{"first-contentful-paint":{"display":"6.8 s","ms":6785.879599999998},"largest-contentful-paint":{"display":"13.3 s","ms":13322.266275000002},"total-blocking-time":{"display":"21 ms","ms":21},"cumulative-layout-shift":{"display":"0.325","ms":0.3253684996658937},"speed-index":{"display":"9.6 s","ms":9562.420400109602},"interactive":{"display":"13.4 s","ms":13368.8266875}},"failures":{"cache-insight":{"title":"Use efficient cache lifetimes","display":"Est savings of 437 KiB","score":0,"cat":"performance"},"cls-culprits-insight":{"title":"Layout shift culprits","display":"","score":0,"cat":"performance"},"image-delivery-insight":{"title":"Improve image delivery","display":"Est savings of 675 KiB","score":0.5,"cat":"performance"},"lcp-breakdown-insight":{"title":"LCP breakdown","display":"","score":0,"cat":"performance"},"lcp-discovery-insight":{"title":"LCP request discovery","display":"","score":0,"cat":"performance"},"legacy-javascript-insight":{"title":"Legacy JavaScript","display":"Est savings of 10 KiB","score":0.5,"cat":"performance"},"network-dependency-tree-insight":{"title":"Network dependency tree","display":"","score":0,"cat":"performance"},"render-blocking-insight":{"title":"Render-blocking requests","display":"Est savings of 2,920 ms","score":0,"cat":"performance"},"interactive":{"title":"Time to Interactive","display":"13.4 s","score":0.11,"cat":"performance"},"layout-shifts":{"title":"Avoid large layout shifts","display":"1 layout shift found","score":0,"cat":"performance"},"color-contrast":{"title":"Background and foreground colors do not have a sufficient contrast ratio.","display":"","score":0,"cat":"accessibility"},"label-content-name-mismatch":{"title":"Elements with visible text labels do not have matching accessible names.","display":"","score":0,"cat":"accessibility"}},"vitals":{"lcpGood":false,"tbtGood":true,"clsGood":false,"fcpGood":false},"diag":{"serverResp":112,"totalByte":null,"reqCount":null,"domSize":null,"imgUnused":0}},"local-home":{"scores":{"performance":56,"accessibility":96,"best-practices":96,"seo":69},"metrics":{"first-contentful-paint":{"display":"9.4 s","ms":9392.298499999999},"largest-contentful-paint":{"display":"13.8 s","ms":13847.668249999999},"total-blocking-time":{"display":"51 ms","ms":50.5},"cumulative-layout-shift":{"display":"0.000","ms":0},"speed-index":{"display":"9.4 s","ms":9392.298499999999},"interactive":{"display":"14.0 s","ms":13995.29085}},"failures":{"cache-insight":{"title":"Use efficient cache lifetimes","display":"Est savings of 1,826 KiB","score":0.5,"cat":"performance"},"document-latency-insight":{"title":"Document request latency","display":"Est savings of 12 KiB","score":0.5,"cat":"performance"},"image-delivery-insight":{"title":"Improve image delivery","display":"Est savings of 2,722 KiB","score":0,"cat":"performance"},"lcp-discovery-insight":{"title":"LCP request discovery","display":"","score":0,"cat":"performance"},"network-dependency-tree-insight":{"title":"Network dependency tree","display":"","score":0,"cat":"performance"},"render-blocking-insight":{"title":"Render-blocking requests","display":"Est savings of 2,100 ms","score":0,"cat":"performance"},"interactive":{"title":"Time to Interactive","display":"14.0 s","score":0.1,"cat":"performance"},"max-potential-fid":{"title":"Max Potential First Input Delay","display":"130 ms","score":0.89,"cat":"performance"},"color-contrast":{"title":"Background and foreground colors do not have a sufficient contrast ratio.","display":"","score":0,"cat":"accessibility"},"label-content-name-mismatch":{"title":"Elements with visible text labels do not have matching accessible names.","display":"","score":0,"cat":"accessibility"},"errors-in-console":{"title":"Browser errors were logged to the console","display":"","score":0,"cat":"best-practices"},"valid-source-maps":{"title":"Missing source maps for large first-party JavaScript","display":"","score":0,"cat":"best-practices"},"is-crawlable":{"title":"Page is blocked from indexing","display":"","score":0,"cat":"seo"}},"vitals":{"lcpGood":false,"tbtGood":true,"clsGood":true,"fcpGood":false},"diag":{"serverResp":4,"totalByte":null,"reqCount":null,"domSize":null,"imgUnused":0}},"local-hub":{"scores":{"performance":55,"accessibility":97,"best-practices":96,"seo":69},"metrics":{"first-contentful-paint":{"display":"9.3 s","ms":9318.594},"largest-contentful-paint":{"display":"13.4 s","ms":13390.392238909079},"total-blocking-time":{"display":"131 ms","ms":131},"cumulative-layout-shift":{"display":"0.000","ms":0},"speed-index":{"display":"9.3 s","ms":9318.594},"interactive":{"display":"13.5 s","ms":13510.52917168726}},"failures":{"cache-insight":{"title":"Use efficient cache lifetimes","display":"Est savings of 826 KiB","score":0.5,"cat":"performance"},"document-latency-insight":{"title":"Document request latency","display":"Est savings of 24 KiB","score":0.5,"cat":"performance"},"image-delivery-insight":{"title":"Improve image delivery","display":"Est savings of 280 KiB","score":0.5,"cat":"performance"},"network-dependency-tree-insight":{"title":"Network dependency tree","display":"","score":0,"cat":"performance"},"render-blocking-insight":{"title":"Render-blocking requests","display":"Est savings of 2,100 ms","score":0,"cat":"performance"},"interactive":{"title":"Time to Interactive","display":"13.5 s","score":0.11,"cat":"performance"},"max-potential-fid":{"title":"Max Potential First Input Delay","display":"160 ms","score":0.81,"cat":"performance"},"color-contrast":{"title":"Background and foreground colors do not have a sufficient contrast ratio.","display":"","score":0,"cat":"accessibility"},"label-content-name-mismatch":{"title":"Elements with visible text labels do not have matching accessible names.","display":"","score":0,"cat":"accessibility"},"td-has-header":{"title":"`<td>` elements in a large `<table>` do not have table headers.","display":"","score":0,"cat":"accessibility"},"errors-in-console":{"title":"Browser errors were logged to the console","display":"","score":0,"cat":"best-practices"},"valid-source-maps":{"title":"Missing source maps for large first-party JavaScript","display":"","score":0,"cat":"best-practices"},"is-crawlable":{"title":"Page is blocked from indexing","display":"","score":0,"cat":"seo"}},"vitals":{"lcpGood":false,"tbtGood":true,"clsGood":true,"fcpGood":false},"diag":{"serverResp":6,"totalByte":null,"reqCount":null,"domSize":null,"imgUnused":0}},"local-detail":{"scores":{"performance":33,"accessibility":96,"best-practices":96,"seo":69},"metrics":{"first-contentful-paint":{"display":"9.3 s","ms":9309.7935},"largest-contentful-paint":{"display":"28.1 s","ms":28107.690249999992},"total-blocking-time":{"display":"154 ms","ms":154},"cumulative-layout-shift":{"display":"0.554","ms":0.5544971498341279},"speed-index":{"display":"9.3 s","ms":9309.7935},"interactive":{"display":"28.1 s","ms":28107.690249999992}},"failures":{"cache-insight":{"title":"Use efficient cache lifetimes","display":"Est savings of 66 KiB","score":0.5,"cat":"performance"},"cls-culprits-insight":{"title":"Layout shift culprits","display":"","score":0,"cat":"performance"},"document-latency-insight":{"title":"Document request latency","display":"Est savings of 12 KiB","score":0.5,"cat":"performance"},"image-delivery-insight":{"title":"Improve image delivery","display":"Est savings of 78 KiB","score":0.5,"cat":"performance"},"lcp-breakdown-insight":{"title":"LCP breakdown","display":"","score":0,"cat":"performance"},"lcp-discovery-insight":{"title":"LCP request discovery","display":"","score":0,"cat":"performance"},"network-dependency-tree-insight":{"title":"Network dependency tree","display":"","score":0,"cat":"performance"},"render-blocking-insight":{"title":"Render-blocking requests","display":"Est savings of 2,100 ms","score":0,"cat":"performance"},"interactive":{"title":"Time to Interactive","display":"28.1 s","score":0,"cat":"performance"},"max-potential-fid":{"title":"Max Potential First Input Delay","display":"190 ms","score":0.71,"cat":"performance"},"layout-shifts":{"title":"Avoid large layout shifts","display":"2 layout shifts found","score":0,"cat":"performance"},"color-contrast":{"title":"Background and foreground colors do not have a sufficient contrast ratio.","display":"","score":0,"cat":"accessibility"},"errors-in-console":{"title":"Browser errors were logged to the console","display":"","score":0,"cat":"best-practices"},"valid-source-maps":{"title":"Missing source maps for large first-party JavaScript","display":"","score":0,"cat":"best-practices"},"is-crawlable":{"title":"Page is blocked from indexing","display":"","score":0,"cat":"seo"}},"vitals":{"lcpGood":false,"tbtGood":true,"clsGood":false,"fcpGood":false},"diag":{"serverResp":11,"totalByte":null,"reqCount":null,"domSize":null,"imgUnused":0}}};
+  const FAILS = [{"id":"cache-insight","cat":"performance","title":"Use efficient cache lifetimes","display":"Est savings of 437 KiB","pages":["home","local-home","local-hub","local-detail"],"worst":0},{"id":"cls-culprits-insight","cat":"performance","title":"Layout shift culprits","display":"","pages":["home","local-detail"],"worst":0},{"id":"image-delivery-insight","cat":"performance","title":"Improve image delivery","display":"Est savings of 675 KiB","pages":["home","local-home","local-hub","local-detail"],"worst":0},{"id":"lcp-breakdown-insight","cat":"performance","title":"LCP breakdown","display":"","pages":["home","local-detail"],"worst":0},{"id":"lcp-discovery-insight","cat":"performance","title":"LCP request discovery","display":"","pages":["home","local-home","local-detail"],"worst":0},{"id":"network-dependency-tree-insight","cat":"performance","title":"Network dependency tree","display":"","pages":["home","local-home","local-hub","local-detail"],"worst":0},{"id":"render-blocking-insight","cat":"performance","title":"Render-blocking requests","display":"Est savings of 2,920 ms","pages":["home","local-home","local-hub","local-detail"],"worst":0},{"id":"interactive","cat":"performance","title":"Time to Interactive","display":"13.4 s","pages":["home","local-home","local-hub","local-detail"],"worst":0},{"id":"layout-shifts","cat":"performance","title":"Avoid large layout shifts","display":"1 layout shift found","pages":["home","local-detail"],"worst":0},{"id":"color-contrast","cat":"accessibility","title":"Background and foreground colors do not have a sufficient contrast ratio.","display":"","pages":["home","local-home","local-hub","local-detail"],"worst":0},{"id":"label-content-name-mismatch","cat":"accessibility","title":"Elements with visible text labels do not have matching accessible names.","display":"","pages":["home","local-home","local-hub"],"worst":0},{"id":"errors-in-console","cat":"best-practices","title":"Browser errors were logged to the console","display":"","pages":["local-home","local-hub","local-detail"],"worst":0},{"id":"valid-source-maps","cat":"best-practices","title":"Missing source maps for large first-party JavaScript","display":"","pages":["local-home","local-hub","local-detail"],"worst":0},{"id":"is-crawlable","cat":"seo","title":"Page is blocked from indexing","display":"","pages":["local-home","local-hub","local-detail"],"worst":0},{"id":"td-has-header","cat":"accessibility","title":"`<td>` elements in a large `<table>` do not have table headers.","display":"","pages":["local-hub"],"worst":0},{"id":"legacy-javascript-insight","cat":"performance","title":"Legacy JavaScript","display":"Est savings of 10 KiB","pages":["home"],"worst":0.5},{"id":"document-latency-insight","cat":"performance","title":"Document request latency","display":"Est savings of 12 KiB","pages":["local-home","local-hub","local-detail"],"worst":0.5},{"id":"max-potential-fid","cat":"performance","title":"Max Potential First Input Delay","display":"130 ms","pages":["local-home","local-hub","local-detail"],"worst":0.71}];
+
+  function gauge(score, size) {
+    const col = score >= 90 ? "#0cce6b" : score >= 50 ? "#ffa400" : "#ff4e42";
+    const r = (size/2)-6, c = 2*Math.PI*r, off = c*(1-score/100);
+    return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+      <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="${col}" stroke-width="6" opacity=".18"/>
+      <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="${col}" stroke-width="6"
+        stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${off}" transform="rotate(-90 ${size/2} ${size/2})"/>
+      <text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle" font-size="${size/3.2}" font-weight="700" fill="${col}">${score}</text>
+    </svg>`;
+  }
+
+  const lang = () => document.body.dataset.lang;
+  const T = (en, zh) => lang() === "zh" ? zh : en;
+
+  function renderSummary() {
+    document.getElementById("summary").innerHTML = Object.entries(CATS).map(([k, m]) => `
+      <div class="scard">
+        <div class="gauge">${gauge(SUMMARY[k] ?? 0, 74)}</div>
+        <div class="lbl">${T(m.en, m.zh)} <span style="color:#9ca3af">· ${T("avg of 3 local dist pages", "本地产物 3 页均值")}</span></div>
+      </div>`).join("");
+  }
+
+  function renderPages() {
+    document.getElementById("pages").innerHTML = PAGES.filter(p => DATA[p.key]).map(p => {
+      const d = DATA[p.key];
+      const chips = Object.entries(METRICS).map(([id, [en, zh]]) => {
+        const v = d.metrics[id]?.ms;
+        const GOOD = { "first-contentful-paint": 1800, "largest-contentful-paint": 2500, "total-blocking-time": 200, "cumulative-layout-shift": 0.1, "speed-index": 3400, "interactive": 3800 };
+        const good = v != null && v <= GOOD[id];
+        return `
+        <div class="chip" title="${en}"><span>${T(en, zh)}</span><b style="color:${v == null ? "#6b7280" : good ? "#0cce6b" : "#ffa400"}">${d.metrics[id]?.display ?? "—"}</b></div>`;
+      }).join("")
+        + ["performance","accessibility","best-practices","seo"].map(c => `
+        <div class="chip"><span>${T(CATS[c].en, CATS[c].zh)}</span><b style="color:${d.scores[c] >= 90 ? "#0cce6b" : d.scores[c] >= 50 ? "#ffa400" : "#ff4e42"}">${d.scores[c]}</b></div>`).join("");
+      const diag = [];
+      if (d.diag.serverResp != null) diag.push(`${T("TTFB", "TTFB")} ${d.diag.serverResp} ms`);
+      if (d.diag.totalByte != null) diag.push(`${T("Weight", "总重量")} ${(d.diag.totalByte/1024/1024).toFixed(2)} MB`);
+      if (d.diag.reqCount != null) diag.push(`${d.diag.reqCount} ${T("requests", "个请求")}`);
+      if (d.diag.domSize != null) diag.push(`DOM ${d.diag.domSize}`);
+      return `
+      <div class="ps">
+        <h3><a href="${p.url}" target="_blank" rel="noopener">${p.label}</a></h3>
+        ${p.note ? `<div style="margin:0 0 10px;font-size:12px;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:6px 10px">${T(p.note.en, p.note.zh)}</div>` : ""}
+        <div class="chiprow">${chips}</div>
+        <div style="margin-top:10px;font-size:12px;color:#6b7280">${diag.join(" · ")}</div>
+      </div>`;
+    }).join("");
+  }
+
+  function renderFails() {
+    document.querySelector("#failures tbody").innerHTML = FAILS.length ? FAILS.map(f => `
+      <tr>
+        <td><b>${f.title}</b><div style="color:#9ca3af;font-size:11px">${f.id}</div></td>
+        <td><span class="pill" style="background:#eef2ff;color:#4338ca">${T(CATS[f.cat].en, CATS[f.cat].zh)}</span></td>
+        <td>${f.display || "—"}</td>
+        <td>${f.pages.map(pg => PAGES.find(p => p.key === pg)?.label || pg).join("<br>")}</td>
+      </tr>`).join("")
+      : `<tr><td colspan="4" style="text-align:center;color:#0cce6b;font-weight:600">${T("No failed audits 🎉", "无未通过项 🎉")}</td></tr>`;
+  }
+
+  document.querySelectorAll(".toolbar button").forEach(b => b.addEventListener("click", () => {
+    document.body.dataset.lang = b.dataset.l;
+    document.querySelectorAll(".toolbar button").forEach(x => x.classList.toggle("active", x === b));
+    renderSummary(); renderPages(); renderFails();
+  }));
+
+  renderSummary(); renderPages(); renderFails();
+</script>
+</body>
+</html>
