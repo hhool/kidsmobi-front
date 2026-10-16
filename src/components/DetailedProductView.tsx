@@ -608,7 +608,13 @@ function buildBasicInfoSections(sourceProduct: Product, displayProduct: Product,
   if (fallbackSections.length === 0) {
     const minimalRows = [
       { label: lang === "zh" ? "产品编号" : "Product ID", value: String(displayProduct.id || "").trim() },
-      { label: lang === "zh" ? "名称" : "Name", value: String((displayProduct as Product & { name?: string }).name || "").trim() },
+      { label: lang === "zh" ? "名称" : "Name", value: (() => {
+        const p = displayProduct as Product & { zh?: { name?: string }; name?: string };
+        const zhName = String(p.zh?.name || "").trim();
+        // In zh mode prefer the real localized product name when it actually
+        // carries Chinese; otherwise keep the (already zh-fallback) display name.
+        return lang === "zh" && /[一-鿿]/.test(zhName) ? zhName : String(p.name || "").trim();
+      })() },
       { label: lang === "zh" ? "品牌" : "Brand", value: String(displayProduct.brand || "").trim() },
       { label: lang === "zh" ? "类目" : "Category", value: String(displayProduct.category || "").trim() },
     ].filter((item) => item.value);
