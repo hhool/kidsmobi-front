@@ -19,7 +19,7 @@ import {
 import { Product, CMSSettings } from "../types";
 import { translateProduct } from "../lib/translate";
 import { resolveProductImages, normalizeMediaUrl } from "../lib/productImages";
-import { getProductDisplayTitle } from "../lib/productSeoText";
+import { getProductDisplayTitle, getProductSkuTitle } from "../lib/productSeoText";
 import { cleanVisibleSourceText } from "../lib/visibleText";
 import { getSpecFieldLabel, normalizeSpecDisplayValue, toSpecKey } from "../lib/specLexicon";
 import { buildProductFaqsFromDisplayFields } from "../lib/productFaq";
@@ -956,7 +956,14 @@ export default function DetailedProductView({
   // Rule set v1: detail textual blocks must come from product data model fields first.
   // This prevents runtime drift from remote overlays and keeps rendering deterministic.
   const displayProduct = translateProduct(product, lang);
-  const displayTitle = getProductDisplayTitle(displayProduct, lang);
+  // Visible/product title (H1, breadcrumb, FAQ, schema name, video title):
+  // in zh mode surface the real localized product name (zh.name first segment,
+  // per the card convention); in en mode keep the generic "brand + category"
+  // title so the EN prerender and SPA stay in parity and the SEO <title>
+  // (set separately in App.tsx) remains the single source of truth.
+  const displayTitle = lang === "zh"
+    ? getProductSkuTitle(displayProduct, "zh")
+    : getProductDisplayTitle(displayProduct, "en");
   const [liveCmsLocalized, setLiveCmsLocalized] = useState({
     zh: { description: "", editorVerdict: "" },
     en: { description: "", editorVerdict: "" },
