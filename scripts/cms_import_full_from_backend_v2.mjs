@@ -317,7 +317,7 @@ async function fetchJson(url, init) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(new Error(`Request timeout after ${timeoutMs}ms`)), timeoutMs);
   const response = await fetch(url, {
-    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    headers: { Accept: "application/json", "Content-Type": "application/json", "x-cms-admin-token": process.env.CMS_ADMIN_ALL_TOKEN || "" },
     ...init,
     signal: controller.signal,
   }).finally(() => clearTimeout(timer));

@@ -46,6 +46,12 @@ export async function requestJson<T>(path: string, init?: RequestInit): Promise<
   const requestUrl = resolveCMSApiPath(path);
   let lastError: Error | null = null;
 
+  // #48: attach the admin token so the (now gated) CMS writes pass. The token
+  // comes from VITE_CMS_ADMIN_ALL_TOKEN (a public build var) — obscurity-level
+  // protection only; the proper fix is session auth (see #48 notes). Harmless on
+  // public GET reads.
+  const adminToken = String((import.meta as any)?.env?.VITE_CMS_ADMIN_ALL_TOKEN || "").trim();
+
   // Only send Content-Type when a body is actually present. A GET marked
   // "Content-Type: application/json" stops being a CORS-simple request, which forces
   // an extra preflight OPTIONS round trip for no benefit. (Verified against the live
@@ -58,6 +64,7 @@ export async function requestJson<T>(path: string, init?: RequestInit): Promise<
       headers: {
         ...(hasBody ? { "Content-Type": "application/json" } : {}),
         Accept: "application/json",
+        ...(adminToken ? { "x-cms-admin-token": adminToken } : {}),
         ...(init?.headers || {}),
       },
       ...init,

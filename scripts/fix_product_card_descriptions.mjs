@@ -55,7 +55,7 @@ async function getJson(path) {
 async function saveRecord(record) {
   const res = await fetch(`${API_BASE}/api/cms/products/save`, {
     method: "POST",
-    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    headers: { Accept: "application/json", "Content-Type": "application/json", "x-cms-admin-token": process.env.CMS_ADMIN_ALL_TOKEN || "" },
     body: JSON.stringify(record),
   });
   const text = await res.text();

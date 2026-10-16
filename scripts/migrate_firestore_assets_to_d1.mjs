@@ -59,7 +59,7 @@ function normalizeCreatedAt(value) {
 async function saveToD1(row) {
   const res = await fetch(`${target.replace(/\/+$/, "")}/api/cms/assets/save`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", "x-cms-admin-token": process.env.CMS_ADMIN_ALL_TOKEN || "" },
     body: JSON.stringify(row),
   });
   if (!res.ok) {

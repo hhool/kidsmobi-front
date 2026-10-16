@@ -188,6 +188,25 @@ function canAccessAllScope(req: Request): { allowed: boolean; reason: string } {
   return { allowed: false, reason: "not-authorized" };
 }
 
+// #48: gate every CMS mutation (POST/PUT/DELETE) and the full-DB export behind
+// admin scope. Public GET reads (products/categories/settings/ops:overview/health)
+// stay open. canAccessAllScope allows loopback (local dev) or a matching
+// x-cms-admin-token header (== env CMS_ADMIN_ALL_TOKEN). Without the env token set,
+// only loopback (dev) can write — remote admin UI / scripts must send the token.
+app.use("/api/cms", (req, res, next) => {
+  const method = String(req.method || "").toUpperCase();
+  const isMutating = method === "POST" || method === "PUT" || method === "DELETE";
+  const isExportDump = method === "GET" && String(req.originalUrl || "").includes("/api/cms/ops/export");
+  if (!isMutating && !isExportDump) return next();
+  const { allowed, reason } = canAccessAllScope(req);
+  if (!allowed) {
+    console.warn(`[audit] blocked unauthenticated CMS ${method} ${req.originalUrl} ip=${getRequesterIp(req)} reason=${reason}`);
+    res.status(403).json({ error: "Unauthorized. Admin token required for CMS writes." });
+    return;
+  }
+  next();
+});
+
 async function fetchWorkerJson<T>(pathname: string): Promise<T> {
   const response = await fetch(buildWorkerUrl(pathname), {
     headers: {

@@ -178,6 +178,7 @@ async function requestJsonWithRetry(url, body, retries, timeoutMs, label) {
         headers: {
           "content-type": "application/json",
           accept: "application/json",
+          "x-cms-admin-token": process.env.CMS_ADMIN_ALL_TOKEN || "",
         },
         body: JSON.stringify(body),
         signal: controller.signal,

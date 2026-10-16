@@ -57,6 +57,7 @@ async function requestJson(base, path, init = undefined) {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
+      "x-cms-admin-token": process.env.CMS_ADMIN_ALL_TOKEN || "",
       ...(init?.headers || {}),
     },
     ...init,
