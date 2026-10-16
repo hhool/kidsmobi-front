@@ -43,7 +43,7 @@ export function buildProductFaqs(input: ProductFaqInput): ProductFaq[] {
   if (weightLimit) {
     faqs.push({
       q: `How much weight can the ${name} support?`,
-      a: `The rated capacity is ${weightLimit}. Keep the total load (child plus any gear or accessories) under that limit — exceeding it compromises stability and braking, which is exactly what our lab checklist penalizes.`,
+      a: `The rated capacity is ${weightLimit}. Keep the total load (child plus any gear or accessories) under that limit — exceeding it compromises stability and braking, which is exactly what our scoring reflects.`,
     });
   }
   if (itemWeight) {

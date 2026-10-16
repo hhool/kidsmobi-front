@@ -101,7 +101,7 @@ import {
 import { sanitizeUnsupportedClaims } from "../src/lib/unsupportedClaims";
 import { resolveSectionRouteSeo } from "../src/lib/cmsSectionSeo";
 import type { CMSSettings } from "../src/types";
-import { buildProductDetailKeywords, resolveRouteKeywords } from "../src/lib/pageKeywords";
+import { buildProductDetailKeywords, resolveRouteKeywords, CATEGORY_TDK_MAP } from "../src/lib/pageKeywords";
 import { buildProductFaqsFromDisplayFields, faqPageSchema, FAQ_MIN_QUESTIONS, type ProductFaq } from "../src/lib/productFaq";
 import { getHubContent } from "../src/lib/productHubContent";
 
@@ -2616,7 +2616,7 @@ function renderFilterPages(
       exploreLinks: [
         { href: "/news", label: "News hub" },
         ...NEWS_CHANNEL_LINKS.filter((link) => link.href !== "/news/brand_news"),
-        { href: "/transparency/testing-methodology/", label: "Testing methodology" },
+        { href: "/transparency/testing-methodology/", label: "Methodology" },
       ],
     },
     {
@@ -2629,7 +2629,7 @@ function renderFilterPages(
       introParagraphs: [
         "Science-channel stories translate research and standards work into buying language: what a revised bicycle or restraint standard actually changes, which injury patterns a design change addresses, and how testing conditions differ from daily use. The goal is that a parent can read one story and know whether the finding should move a product up or down a shortlist.",
         "Sources are primary where possible — standards bodies, regulator guidance, and peer-reviewed work — and every story separates what the evidence shows from what it implies. Shop-floor claims are not treated as findings.",
-        "For how these findings feed into scoring, the testing methodology page documents the rubric each review applies.",
+        "For how these findings feed into scoring, the methodology page documents the rubric each review applies.",
       ],
       cards: newsCardsByCategory("science"),
       emptyNote: "No science stories yet — entries appear as standards and research move.",
@@ -2646,7 +2646,7 @@ function renderFilterPages(
       exploreLinks: [
         { href: "/news", label: "News hub" },
         ...NEWS_CHANNEL_LINKS.filter((link) => link.href !== "/news/science"),
-        { href: "/transparency/testing-methodology/", label: "Testing methodology" },
+        { href: "/transparency/testing-methodology/", label: "Methodology" },
         { href: "/products/safety-seats/", label: "Safety seats hub" },
       ],
     },
@@ -2659,7 +2659,7 @@ function renderFilterPages(
       introHeading: "How does a single-product review work?",
       introParagraphs: [
         "Each single-product review scores one product on the same five axes — safety, comfort, portability, features, and value for money — so a score always means the same thing regardless of category or brand. The verdict is short and traceable: it names the use case the product fits best and the trade-off a buyer accepts.",
-        "Scores are anchored to the published rubric in the testing methodology, not to feel. Where two sizes or variants of one model exist, each variant gets its own review page so a shared name never hides a different score.",
+        "Scores are anchored to the published rubric on the methodology page, not to feel. Where two sizes or variants of one model exist, each variant gets its own review page so a shared name never hides a different score.",
         "Use the cards below to open any review, or browse a category hub first if you would rather start from the product type than from a name.",
       ],
       cards: reviewCardsByType("single"),
@@ -4939,49 +4939,54 @@ type ProductCategoryMeta = {
  * PRODUCT_CATEGORY_URL_SLUGS in src/lib/productCategoryPaths.ts: /products/
  * balance-bikes/ etc. The kids-tricycles hub re-homes the legacy "other"
  * bucket (tricycles + push ride-ons + wagons).
+ *
+ * Title/description come from CATEGORY_TDK_MAP (src/lib/pageKeywords.ts) — the
+ * same single source the hydrated SPA reads at src/App.tsx — so the two
+ * renderers cannot drift apart again. categoryId stays prerender-internal
+ * (detail-page grouping + productCategoryHref); only the slug is public.
  */
 const PRODUCT_CATEGORY_PAGES: ProductCategoryMeta[] = [
   {
     categoryId: "stroller",
     slug: "strollers",
     label: "Strollers",
-    title: "Best Jogging Stroller & Travel Stroller Reviews 2026",
-    description: "Compare evidence-based jogging stroller, travel stroller, and twin stroller models with safety scores, stability metrics, and foldability insights.",
+    title: CATEGORY_TDK_MAP.stroller.en.title,
+    description: CATEGORY_TDK_MAP.stroller.en.description,
   },
   {
     categoryId: "balance_bike",
     slug: "balance-bikes",
     label: "Balance Bikes",
-    title: "Best Toddler Balance Bikes 2026: Evidence-Based Buying Guide",
-    description: "Compare published specifications and safety records for the safest toddler balance bikes. Compare weight capacity, stability scores, and features for top ride-on brands.",
+    title: CATEGORY_TDK_MAP.balance_bike.en.title,
+    description: CATEGORY_TDK_MAP.balance_bike.en.description,
   },
   {
     categoryId: "kids_bikes",
     slug: "kids-bikes",
     label: "Kids Bikes",
-    title: "Best Kids Bikes & Toddler Bicycles 2026: Evidence-Based Buying Guide",
-    description: "Discover the safest and top-rated kids bikes for ages 2-14. Explore our lab database to compare BMX style, training wheels, and dual suspension bicycles.",
+    title: CATEGORY_TDK_MAP.kids_bikes.en.title,
+    description: CATEGORY_TDK_MAP.kids_bikes.en.description,
   },
   {
     categoryId: "kids_scooters",
     slug: "kids-scooters",
     label: "Kids Scooters",
-    title: "Best Kids Electric Scooter & Kick Scooter Reviews 2026",
-    description: "Find lab-reviewed kids electric scooter and kick scooter options, including foldable models, 3-wheel starters, and seated configurations.",
+    title: CATEGORY_TDK_MAP.kids_scooters.en.title,
+    description: CATEGORY_TDK_MAP.kids_scooters.en.description,
   },
   {
     categoryId: "electric_vehicles",
     slug: "electric-cars",
     label: "Kids Electric Cars",
-    title: "Best Kids Electric Cars & Ride-On Toys Reviews 2026",
-    description: "Review evidence-based kids electric cars, 12V/24V ride-on toys, and electric ride-on options with battery safety, braking control, and runtime benchmarks.",
+    title: CATEGORY_TDK_MAP.electric_vehicles.en.title,
+    description: CATEGORY_TDK_MAP.electric_vehicles.en.description,
   },
   {
     categoryId: "car_seat",
     slug: "safety-seats",
     label: "Car Seats",
-    title: "Best Convertible & Toddler Car Seats 2026: Evidence-Based Buying Guide",
-    description: "Find the safest convertible and booster car seats for your child. Compare evidence-based scores, weight limits, and safety features for top brands like Graco and Evenflo.",
+    title: CATEGORY_TDK_MAP.car_seat.en.title,
+    description: CATEGORY_TDK_MAP.car_seat.en.description,
   },
   {
     // Legacy "other" bucket re-homed (P0-2): tricycles + push ride-ons +
@@ -4989,8 +4994,8 @@ const PRODUCT_CATEGORY_PAGES: ProductCategoryMeta[] = [
     categoryId: "other_tricycles",
     slug: "kids-tricycles",
     label: "Kids Tricycles & Ride-Ons",
-    title: "Best Kids Tricycles & Push Ride-On Toys 2026: Evidence-Based Buying Guide",
-    description: "Browse evidence-based kids tricycles, push ride-on cars, and pull-along wagons with stability scores, weight limits, and age-fit guidance for toddlers.",
+    title: CATEGORY_TDK_MAP.kids_tricycles.en.title,
+    description: CATEGORY_TDK_MAP.kids_tricycles.en.description,
   },
 ];
 
@@ -5616,7 +5621,7 @@ function renderProductCategoryPage(meta: ProductCategoryMeta, categoryProducts: 
           { name: meta.label, href: route },
         ])}
         <section style="margin: 0 0 22px;">
-          <p style="margin: 0 0 8px; color: #334155;">${escapeHtml(meta.description)} Every model below carries a BalanceBikeToddler editorial score from our lab checklist, with user ratings and typical pricing where available.</p>
+          <p style="margin: 0 0 8px; color: #334155;">${escapeHtml(meta.description)} Every model below carries a BalanceBikeToddler editorial score from our published-spec checklist, with user ratings and typical pricing where available.</p>
           <p style="margin: 0; color: #64748b; font-size: 0.92rem;">${categoryProducts.length} evidence-based ${escapeHtml(meta.label.toLowerCase())} · updated regularly from the live CMS.</p>
         </section>
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px;">${cardsHtml}</div>

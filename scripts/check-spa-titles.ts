@@ -37,7 +37,8 @@ import { BUYER_FEEDBACK_PATH, buyerFeedbackSeo } from "../src/data/balanceBikeBu
 import { BUDGET_PATH, budgetSeo } from "../src/data/balanceBikeBudget";
 import { buildDocumentTitle, buildMetaDescription } from "../src/lib/documentTitle";
 import { sanitizeUnsupportedClaims } from "../src/lib/unsupportedClaims";
-import { resolveSectionRouteSeo } from "../src/lib/cmsSectionSeo";
+import { resolveSectionRouteSeo, publishSectionTitle } from "../src/lib/cmsSectionSeo";
+import { CATEGORY_TDK_MAP } from "../src/lib/pageKeywords";
 import type { CMSSettings } from "../src/types";
 
 type Expectation = { label: string; route: string; title: string; description: string };
@@ -104,6 +105,45 @@ function pick(seo: { title: string; description: string }) {
     title: buildDocumentTitle(seo.title),
     description: buildMetaDescription(seo.description, sanitizeUnsupportedClaims),
   };
+}
+
+// --- Category hubs (/products/<slug>/) --------------------------------------
+// These resolve their TDK from CATEGORY_TDK_MAP in BOTH renderers (the SPA at
+// src/App.tsx, the prerender through PRODUCT_CATEGORY_PAGES which now derives
+// from the same map), so the expectation is the map value pushed through the
+// SPA's own publisher. Before 2026-10-16 the two sides kept separate
+// hand-maintained lists and every hub shipped a different <title> after
+// hydration than the one Google had indexed.
+const CATEGORY_HUB_SLUGS: Record<string, string> = {
+  stroller: "/products/strollers/",
+  balance_bike: "/products/balance-bikes/",
+  kids_bikes: "/products/kids-bikes/",
+  kids_scooters: "/products/kids-scooters/",
+  electric_vehicles: "/products/electric-cars/",
+  car_seat: "/products/safety-seats/",
+  kids_tricycles: "/products/kids-tricycles/",
+};
+
+// A new CATEGORY_TDK_MAP entry without a slug here would silently escape this
+// guard — fail loudly instead.
+const unmappedCategories = Object.keys(CATEGORY_TDK_MAP).filter((key) => !CATEGORY_HUB_SLUGS[key]);
+if (unmappedCategories.length) {
+  console.error(
+    `check:spatitles FAIL — CATEGORY_TDK_MAP has entr(ies) with no route mapping: ${unmappedCategories.join(", ")}. ` +
+      "Add them to CATEGORY_HUB_SLUGS in this guard.",
+  );
+  process.exit(1);
+}
+
+for (const [key, route] of Object.entries(CATEGORY_HUB_SLUGS)) {
+  const tdk = CATEGORY_TDK_MAP[key]?.en;
+  if (!tdk) continue;
+  expectations.push({
+    label: `category hub ${key}`,
+    route,
+    title: publishSectionTitle(tdk.title),
+    description: buildMetaDescription(tdk.description, sanitizeUnsupportedClaims),
+  });
 }
 
 // --- Section routes: recompute the SPA value from the CMS settings ----------

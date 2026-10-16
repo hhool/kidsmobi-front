@@ -66,12 +66,12 @@ const GlobalNews: React.FC = () => {
                 dangerouslySetInnerHTML={{ __html: selectedArticle.content }} 
               />
 
-              {/* BalanceBikeToddler Lab Recommended Best Picks / Safety Guides Widget */}
+              {/* Recommended Safety Guides Widget */}
               <div className="mt-12 pt-10 border-t border-slate-100 space-y-6">
                 <div className="flex items-center gap-2.5">
-                  <span className="text-sm bg-orange-100 p-1.5 rounded-lg">🔬</span>
+                  <span className="text-sm bg-orange-100 p-1.5 rounded-lg">📘</span>
                   <h4 className="text-md sm:text-lg font-black text-slate-900 uppercase tracking-tight">
-                    BalanceBikeToddler Lab: Recommended Safety Guides
+                    BalanceBikeToddler: Recommended Safety Guides
                   </h4>
                 </div>
                 

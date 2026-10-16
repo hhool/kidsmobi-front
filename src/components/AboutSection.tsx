@@ -138,7 +138,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
               {
                 icon: <Award className="w-6 h-6" />,
                 title: "Full Transparency",
-                desc: "Physical metrics, lab photos, and raw audit logs are fully filed and accessible for anyone seeking the truth.",
+                desc: "Published specifications, recall records, and aggregated owner feedback are fully filed and accessible for anyone seeking the truth.",
                 tag: "FULLY TRACEABLE"
               }
             ].map((item, i) => (
@@ -240,11 +240,11 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             <div className="space-y-6">
             <h2 className="km-section-title text-slate-900">Content Quality Control</h2>
               <p className="km-heading-copy km-body-copy text-slate-500 font-medium">
-                    Our "Three-Phased Audit" ensures that every single sentence is verified by mechanics experts and pediatricians before publishing.
+                    Our review process checks every claim against published specifications, recall records, and owner feedback before publishing.
                 </p>
                 <ul className="space-y-4">
                     {[
-                        "Standard Lab Protocols for every category",
+                        "Documented methodology for every category",
                         "24/7 Monitoring for Product Recalls",
                         "Dynamic Data Updates for new models",
                         "Cross-checking by Independent Reviewers"
@@ -324,7 +324,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
 
   return (
     <div id="about_main" className="space-y-8 animate-fade-in text-left">
-      <h1 className="sr-only">stroller 与 jogging stroller 安全实验室</h1>
+      <h1 className="sr-only">stroller 与 jogging stroller 评测与对比</h1>
       
     {/* Breadcrumbs (PRD 4.6.2) */}
     <Breadcrumbs 
@@ -379,7 +379,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
       <section className="space-y-10">
         <div className="text-center space-y-2">
           <h3 className="km-section-title text-slate-900">为什么这些原则可信？</h3>
-          <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium tracking-wide">短答：全部由自购、实测、复核、公开记录四道环节构成。</p>
+          <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium tracking-wide">短答：全部由公开规格、用户反馈、召回记录与交叉复核四个环节构成。</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -405,7 +405,7 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
             {
               icon: <Award className="w-6 h-6" />,
               title: "全流程可溯源",
-              desc: "将实测日志、测重照片及原始数据全部长期备案，接受全国科研同行及消费者自提查验。",
+              desc: "将引用的公开规格、召回记录与用户反馈样本全部长期备案，接受消费者查验。",
               tag: "FULLY TRACEABLE"
             }
           ].map((item, i) => (
@@ -477,11 +477,11 @@ export default function AboutSection({ lang = "zh" }: AboutSectionProps) {
           <div className="space-y-6">
               <h3 className="km-section-title text-slate-900">严格的内容质控体系</h3>
               <p className="km-heading-copy km-body-copy text-slate-500 font-medium">
-                  BalanceBikeToddler 建立了一套涵盖“匿名采购、双盲实测、儿科审核”的三审机制。确保每一行技术评估结论都经得起科学推敲。
+                  BalanceBikeToddler 建立了一套涵盖“公开规格核对、召回记录比对、用户反馈交叉验证”的评估机制，确保每一行结论都有公开依据。
               </p>
               <ul className="space-y-4">
                   {[
-                      "全品类标准化实测规程 (Standardized Protocol)",
+                      "全品类标准化评估规程 (Standardized Protocol)",
                       "全球范围内的童车安全召回 24h 同步机制",
                       "基于新品入库的动态数据更新策略",
                       "独立行研员与资深家长的交叉验证"

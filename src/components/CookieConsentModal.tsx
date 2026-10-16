@@ -26,7 +26,7 @@ export default function CookieConsentModal({
         <p className="text-xs sm:text-sm text-slate-600 mt-1">(Privacy and Cookie Preference Settings)</p>
 
         <p className="mt-4 text-sm text-slate-700 leading-relaxed">
-          We use encrypted local variables and essential cookies to power your experience. Accepting cookies enables personalized product bookmarking, dynamic comparison tools, and instant downloads of certified lab evaluation reports.
+          We use encrypted local variables and essential cookies to power your experience. Accepting cookies enables personalized product bookmarking, dynamic comparison tools, and PDF data sheet downloads.
         </p>
 
         <p className="mt-3 text-xs text-slate-500">

@@ -36,7 +36,7 @@ export const guideArticles: GuideArticle[] = [
 *   **物理充气大胖胎**：空气拥有最好的微振阻尼。
 *   **车轮独立多轴连杆弹簧**：单轮悬挂缓冲，化解台阶下陷沉落。
 *   **三角拱形铝镁承载底架**：将点碰撞应力散开至整车车架。`,
-    author: "安全研究所-工效专家 葛教授",
+    author: "BalanceBikeToddler 编辑部",
     readTime: "8 分钟",
     publishDate: "2026-07-20",
     productCategory: "stroller"
@@ -56,7 +56,7 @@ export const guideArticles: GuideArticle[] = [
 
 #### 2. 野外草坪露营、颠簸凹凸大沙地
 此状态下折叠伞车的超小塑料闪光PU轮将无法推动，极易卡沙陷落。必须升级为**Fox 5 或类似的四轮大充气橡胶胎**系列。`,
-    author: "母婴场景精细化测评博主 悦悦妈妈",
+    author: "BalanceBikeToddler 编辑部",
     readTime: "7 分钟",
     publishDate: "2026-07-18",
     productCategory: "stroller"
@@ -66,7 +66,7 @@ export const guideArticles: GuideArticle[] = [
     title: "婴儿手推车科学选购：避震、坐宽与骨骼力学防摔指南 (how to choose a baby stroller)",
     category: "beginner",
     categoryLabel: "新手入门指南",
-    summary: "硬核解答婴儿推车怎么选？用实验室生物力学与抗倾覆数据剖析避震、座宽与折叠锁靠背机制，保障骨骼发育。",
+    summary: "硬核解答婴儿推车怎么选？从避震、坐宽与折叠锁靠背机制等公开规格出发，帮助家长保障宝宝舒适与安全。",
     content: `### 婴儿手推车科学选购基准与多路况防颠安全红线
 
 很多新手家长在面对市场上五花八门的推车宣传时深感困惑。婴儿手推车究竟该怎么选？（How to Choose a Baby Stroller）
@@ -78,7 +78,7 @@ export const guideArticles: GuideArticle[] = [
 #### 2. 座舱姿态保护：坚硬托底防含胸驼背
 *   **背靠硬支撑钢骨（Posture 板）**：严禁购买只有薄层网套而无坚硬托底支撑的低级背板。3岁以下幼童脊髓极软，若长久缩在无定型网套座舱内会压迫气管与颈椎。
 *   **175度防呛奶平躺视角**：医学黄金平躺上限，给脊椎提供全面释压平面，拒绝过度弯折。`,
-    author: "力学质检与化学安全监督组 Marios",
+    author: "BalanceBikeToddler 编辑部",
     readTime: "8 分钟",
     publishDate: "2026-07-17",
     productCategory: "stroller"
@@ -103,7 +103,7 @@ export const guideArticles: GuideArticle[] = [
 #### 2. 双手刹（Handbrakes）黄金选购标准
 *   **V刹或高性能碟制动**：保障手指在轻压力（<10N）下，提供充足的制动夹紧合力。
 *   **指间间距缩至短弧（Micro Reach）**：刹把到车把的间距，必须专门缩短至 **3.2cm** 以下，适配嫩滑指掌。`,
-    author: "力学质检与化学安全监督组 Marios",
+    author: "BalanceBikeToddler 编辑部",
     readTime: "6 分钟",
     publishDate: "2026-07-15",
     productCategory: "bicycle"
@@ -116,14 +116,14 @@ export const guideArticles: GuideArticle[] = [
     summary: "保障幼童出行的家庭日常养护五分钟大体检，规避链条生锈卡死、龙头车把松旷摆动等硬核物理隐患。",
     content: `### 极客家长：儿童自行车家庭日常安全自检清单
 
-在我们实验室追踪的大量突发颠倒滑行外伤中，有接近 **34%** 居然是链条、车把龙头连接螺套因震动长期松脱造成的二次伤害！
+链条锈死与龙头螺套松旷是儿童自行车最常见的机械故障苗头，长期震动会放大松脱风险，建议按下面的清单定期自检。
 
 #### 1. 自行车转向龙头：抗逆转向错位测试
 *   **夹轮测试法**：在静止时，家长用双小腿把前轮死死夹住，两手用力横向转转龙头把立。如果把立龙头发生了微小的侧向偏移偏摆，而前轮胎方向纹丝不动，说明你的龙头螺套扭矩已经产生了滑旷！必须立刻使用 5mm 内六角扳手重锁！
 
 #### 2. 快拆轮毂和轮轮胎压
 *   手指用力掐捏外胎胎面。其最大压缩量不应该超过1/3（保持 **35-45 PSI** 的气压力段），少气会导致极大的踩踏阻力。`,
-    author: "安全研究所-机械维护组长 陆阳",
+    author: "BalanceBikeToddler 编辑部",
     readTime: "8 分钟",
     publishDate: "2026-07-12",
     productCategory: "bicycle"
@@ -147,7 +147,7 @@ export const guideArticles: GuideArticle[] = [
 
 #### 2. 车把黄金高度测算
 *   滑板车踏板踩到底后，长轴立管顶部的 T 形手柄把立，应该完美置于宝宝的 **胸椎底部与肚脐眼之间**。过低会导致长时含胸驮背负荷，过高则会压迫锁骨。`,
-    author: "儿科力学物理疗法导师 俞医生",
+    author: "BalanceBikeToddler 编辑部",
     readTime: "6 分钟",
     publishDate: "2026-07-09",
     productCategory: "scooter"
@@ -162,12 +162,12 @@ export const guideArticles: GuideArticle[] = [
 
 滑行不仅是锻炼，也是承重的负压考验。廉价劣质滑板车的底板大多采用**再生垃圾塑料尼龙制成**，无增韧配方缓冲颗粒。
 
-#### 1. 底板应变抗折断测试
-我们实验室在给几款无牌三轮滑板车加载 **35kg 的物理静置拉力时**，在第15秒底盘发生了清脆的开裂。锋利如断刀的撕裂缺口极易直接划破正在高速踏步的孩子小腿肌肉。
+#### 1. 底板结构与材料自查
+低价滑板车常用再生塑料底板，缺乏增韧配方，受冲击时可能直接开裂，断裂处的锐利缺口存在划伤风险。选购时认准标注了原生材料与增韧工艺的底板。
 
 #### 2. 防翻倒的轴跨要求
 优秀的儿童滑板车拥有**非常宽的两前轮外轮跨距**（大于24cm），并且底板保持极低的离地高度（不超过 4.5cm），实现低重心抓地力。若前轮轴跨过窄，在任何拐弯时极易外侧轮突然抬起，引发整体侧翻。`,
-    author: "安全工效研究所-机械维修组长 陆阳",
+    author: "BalanceBikeToddler 编辑部",
     readTime: "7 分钟",
     publishDate: "2026-07-05",
     productCategory: "scooter"
@@ -193,7 +193,7 @@ export const guideArticles: GuideArticle[] = [
 
 #### 2. 年龄段的最佳衔接段
 *   **18个月 - 3岁之间**：是内耳前庭控制力、运动眼肌学斜视矫正建立的绝对敏感黄金百日。首推 12寸 3.0kg 级轻型平衡车（如 Woom 1）。`,
-    author: "安全研究所-工效专家 葛教授",
+    author: "BalanceBikeToddler 编辑部",
     readTime: "9 分钟",
     publishDate: "2026-07-02",
     productCategory: "balance"
@@ -215,7 +215,7 @@ export const guideArticles: GuideArticle[] = [
 #### 2. 航天级铝合金 (Aluminum) & 压铸一体高聚镁 (Magnesium)
 *   **铝合金 6061**：提供顶级的结构剪切比，抗湿防腐锈，整车能轻易减到 **2.9kg - 3.5kg** 极致。
 *   **一体镁合金**：由于无任何拼焊螺栓、焊道疤痕，可制造完美曲线的空气动力学车座。极佳推荐预算充足家长采用。`,
-    author: "力学质检与化学安全监督组 Marios",
+    author: "BalanceBikeToddler 编辑部",
     readTime: "7 分钟",
     publishDate: "2026-06-25",
     productCategory: "balance"
@@ -237,7 +237,7 @@ export const guideArticles: GuideArticle[] = [
 #### 2. 底盘轴距与一键防倾覆（Anti-tip Steer Limit）
 *   **50度安全转向角扭限制**：优秀的1岁微型平衡车，其前龙头转向角度必须被限位器卡在左右 50 度范围内。如果像成人大车一样支持 360 度随意旋转，在幼童急转侧倾时龙头极易突然夹死，直接摔破娇嫩的颌面和锁骨。
 *   **车身自重黄金比 (Weight Boundaries)**：1岁幼车自重决不能超过 **2.5kg**，最好是采用超轻发泡轮或高端铝圈。`,
-    author: "安全研究所-工效专家 葛教授",
+    author: "BalanceBikeToddler 编辑部",
     readTime: "7 分钟",
     publishDate: "2026-06-23",
     productCategory: "balance"
@@ -261,7 +261,7 @@ export const guideArticles: GuideArticle[] = [
 
 #### 2. 两轴宽幅对角重心平衡（防侧翻）
 *   由于车架内一般置有较沉的电芯电池，必须要配置**全网低矮底重配置（Low-slung Layout）**，前轮轴距必须足够大，保证拐角倾斜角抵抗不超过 25 度极限斜坡翻。`,
-    author: "儿科力学物理疗法导师 俞医生",
+    author: "BalanceBikeToddler 编辑部",
     readTime: "8 分钟",
     publishDate: "2026-06-20",
     productCategory: "electric_car"
@@ -271,7 +271,7 @@ export const guideArticles: GuideArticle[] = [
     title: "有源儿童电动越野车：防侧滑抓地轮胎与软启动速度缓冲解析",
     category: "scenario",
     categoryLabel: "场景化选购指南",
-    summary: "电动越野卡车在泥砂地、平滑瓷砖和人行道上的轮胎物理摩擦抓地实测，突显“软起步（Soft Start）”对幼童颈椎保护的重要级。",
+    summary: "电动越野卡车在泥砂地、平滑瓷砖和人行道上的轮胎抓地表现对比，突显“软起步（Soft Start）”对幼童颈椎保护的重要性。",
     content: `### 双电越野电动玩具车：防摔和动力学缓起步测评
 
 很多家长常埋怨：“怎么买回来的玩具车一踩油门，宝宝在座位上直接剧烈向后仰头惨叫惊慌？”这就是严重的零机械电控防剧烈加速功能。
@@ -283,7 +283,7 @@ export const guideArticles: GuideArticle[] = [
 
 #### 2. 橡胶气压大胖胎 vs 硬塑料打滑胎
 硬质PP塑料胎面无法在抛晶砖或湿滑的大石子小区道路上产生任何剪切附着力，在发生紧急拐弯时极易发生整车疯狂侧滑、跌撞。推荐首选带**EVA高弹避震内圈、横向大排水斑槽抓地胎**。`,
-    author: "安全研究所-物理学工程师 陆阳",
+    author: "BalanceBikeToddler 编辑部",
     readTime: "7 分钟",
     publishDate: "2026-06-15",
     productCategory: "electric_car"

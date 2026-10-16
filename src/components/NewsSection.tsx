@@ -583,7 +583,7 @@ export default function NewsSection({
               return (
                 <div className="pt-8 border-t border-slate-50 space-y-3">
                   <p className="text-xs font-black uppercase tracking-widest text-slate-400">
-                    {lang === "en" ? "Related Products" : "相关产品实测"}
+                    {lang === "en" ? "Related Products" : "相关产品"}
                   </p>
                   <div className="grid sm:grid-cols-2 gap-3">
                     {matched.map((p) => {
@@ -602,7 +602,7 @@ export default function NewsSection({
                         >
                           <span className="text-sm font-bold text-slate-700 hover:text-orange-600 leading-snug">{label}</span>
                           <span className="block mt-1 text-xs text-slate-400 font-semibold">
-                            {lang === "en" ? "Lab score, specs & safety checklist" : "实验室评分、规格与安全清单"}
+                            {lang === "en" ? "Score, specs & safety checklist" : "评分、规格与安全清单"}
                           </span>
                         </a>
                       );
@@ -612,7 +612,7 @@ export default function NewsSection({
               );
             })()}
 
-            {/* BalanceBikeToddler Lab Recommended Best Picks / Safety Guides Widget */}
+            {/* Recommended Safety Guides Widget */}
             <div className="mt-12 pt-10 border-t border-slate-100 space-y-6">
               <div className="flex items-center gap-2.5">
                 <span className="text-sm bg-orange-100 p-1.5 rounded-lg">🔬</span>
@@ -710,7 +710,7 @@ export default function NewsSection({
                 </span>
                 {([
                   { href: "/guides/", label: lang === "zh" ? "选购指南" : "Buying guides" },
-                  { href: "/products/kids_scooters", label: lang === "zh" ? "滑板车实测" : "Scooter tests" },
+                  { href: "/products/kids_scooters", label: lang === "zh" ? "滑板车评测" : "Scooter reviews" },
                   { href: "/reviews/safety", label: lang === "zh" ? "安全评测中心" : "Safety audits" },
                 ] as const).map((link) => (
                   <a

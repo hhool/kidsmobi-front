@@ -232,7 +232,7 @@ function getLocalizedReviewVerdict(product: Product, evaluation: Evaluation, lan
     const enVerdict = sanitizeVerdictText(String(evaluation.en?.verdict || ""));
     if (enVerdict && !containsCjk(enVerdict) && isRealVerdict(enVerdict)) return enVerdict;
     const fallback = sanitizeVerdictText(productVerdict(product, "en"));
-    return fallback || "Detailed evaluation and lab results verified from structured product data.";
+    return fallback || "Detailed evaluation compiled from published specs, recall records, and owner feedback.";
   }
 
   const zhVerdict = sanitizeVerdictText(String(evaluation.zh?.verdict || ""));
@@ -885,7 +885,7 @@ export function buildGeneratedEvaluations(productsData: Product[]): Evaluation[]
       product,
       "single",
       `commercial_${index + 1}`,
-      "{product} 高转化实验室评测",
+      "{product} 深度评测",
       getCommercialReviewTitle(product, "{product} Stroller Reviews"),
       "评测结论",
       "Review verdict"
@@ -2567,7 +2567,7 @@ export default function EvaluationsSection({
         </section>
       </div>
 
-      {/* 🛠️ 模块 5：独立测试方法论与国际标准认证 (Lab Rigor & Badges) */}
+      {/* 🛠️ 模块 5：独立评估方法论与国际标准认证 (Standards & Badges) */}
       <section className="bg-white border border-slate-100 rounded-[48px] p-8 sm:p-10 max-w-7xl mx-auto shadow-sm space-y-6 text-center">
         <div className="max-w-4xl mx-auto space-y-3">
           <h2 className="text-[10px] font-black uppercase tracking-[0.2em] text-orange-500">{reviewsCopy.standardsSubtitle}</h2>

@@ -47,33 +47,33 @@ export const translations = {
     closeBtn: "关闭",
 
     // Home Section Texts
-    sloganBadge: "高端童车甄选标准 · 儿科医生推荐推荐准则",
+    sloganBadge: "高端童车甄选标准 · 公开规格与安全框架",
     sloganHeading1: "高端垂直",
     sloganHeading2: "童车评测",
     sloganHeading3: "平台",
-    sloganDesc: "BalanceBikeToddler 致力于通过严苛的儿科医学参数、力学安全评估与智能工效匹配，在海量冗余信息中，为精英家庭选出更健康、更安全的专业座驾。拒绝平庸，只为成长。",
+    sloganDesc: "BalanceBikeToddler 基于公开规格、安全标准框架与真实用户反馈，在海量冗余信息中，帮家庭选出更合适的童车。",
     btnWizard: "智能选车助手 🔬",
     btnDatabase: "品牌全系列库 📂",
     radarTitle: "物理安全雷达公示区",
-    radarWeight: "1. 全自研称重设备精密：",
-    radarShock: "2. 避震颠震疲劳测试：",
-    radarTraction: "3. 重载防爆抓地摩擦：",
-    radarTested: "4. 已公示第三方检测：",
-    radarTestedVal: "12 款爆品",
+    radarWeight: "1. 公开规格核对：",
+    radarShock: "2. 避震结构规格：",
+    radarTraction: "3. 轮胎与抓地规格：",
+    radarTested: "4. 公开安全认证：",
+    radarTestedVal: "12 款在售车型",
     recallTitle: "行业突发安全快讯 (Real-time Recall Alert)",
     recallDesc: "美国 CPSC 已对4款高碳钢重合金自行车发布倾斜侧翻砸碰警告。请家长计算车重比。",
     recallBtn: "查看合规报告 →",
-    goldRankings: "2026 年度物理勋章金榜 (Annual Gold Rankings)",
-    goldRankingsDesc: "历时百天连续疲劳测试，筛选出各细分品类的安全优胜标兵",
+    goldRankings: "2026 年度综合表现榜 (Annual Rankings)",
+    goldRankingsDesc: "基于公开规格与用户反馈，整理各细分品类的综合表现",
     safetyScoreLabel: "安全得分:",
-    promoTitle: "实验室主推：实测对比报告展示区",
+    promoTitle: "编辑精选：规格对比报告展示区",
     promoDesc: "深入揭露低端变形拼接车材料弊病，宣扬正向工效学设计",
-    promoItem1Tag: "实测甄别亮点",
+    promoItem1Tag: "规格甄别亮点",
     promoItem1Title: "儿童前庭颈椎安全：为什么我们坚决抵制发泡实心轮胎？",
-    promoItem1Desc: "在我们使用台式超高频颠震滚筒仪测量中，EVA实心发泡车胎的颠阻过滤率不足橡胶打气胎的 20%。多余的颤动震力将直接沿龙头骨架钻入幼童娇嫩的在耳蜗前庭系统，引发眩晕和抗拒骑车行为。",
+    promoItem1Desc: "EVA 实心发泡胎与橡胶充气胎的减震思路不同：充气胎依靠气压与胎壁变形吸收细碎震动，发泡胎则以免维护、不扎胎为卖点。请结合常骑路面、孩子年龄与厂商公布的胎型规格来选择。",
     promoItem2Tag: "选购评估要点",
     promoItem2Title: "解密拼贴式「多合一变形滑滑车」的结构性平衡隐患",
-    promoItem2Desc: "多功能拼接变形车存在着大量快速装配插销，在使用3个月后空滑公差会严重松脱，公厘偏转大于 12mm。重心设置过于迁就，过弯拐角极容易发生失稳侧翻。",
+    promoItem2Desc: "多功能拼接变形车依赖大量快速装配插销，结构件越多，长期使用后出现松旷的概率越高。建议优先选择转换结构简单、并按说明书定期检查紧固件的车型。",
 
     // Other Sections Shared
     childProfileTitle: "宝宝当前物理特征值 (Active Child Target Profile)",
@@ -89,10 +89,10 @@ export const translations = {
   },
   en: {
     // Nav & Common Headers
-    topBanner: "Global Kids Bike Testing Platform · Based on ISO 8098 Braking & Gravity Standards · 100% Self-funded & Unbiased",
+    topBanner: "Global Kids Bike Guide · Referencing ISO 8098 and published safety frameworks · 100% Self-funded & Unbiased",
     brandTitle: "BalanceBikeToddler",
     bbtBrandTitle: "BalanceBikeToddler.com",
-    versionStamp: "LAB VERIFIED",
+    versionStamp: "2026 EDITION",
     subTitle: "BalanceBikeToddler · Global Buyer's Decision Portal",
     bbtSubTitle: "Your trusted global review site for kids wheeled toys",
     navHome: "Home",
@@ -119,33 +119,33 @@ export const translations = {
     closeBtn: "Close",
 
     // Home Section Texts
-    sloganBadge: "Global Maternity Test Standards · ISO 8098 Braking Calibrated",
+    sloganBadge: "Published Standards Referenced · ISO 8098 Braking Framework",
     sloganHeading1: "Global Kids Bike",
     sloganHeading2: "Independent Review",
     sloganHeading3: "Portal",
-    sloganDesc: "Conforming to strict safety frameworks (BabyGearLab), providing hardcore multi-dimensional metrics such as brake reach, Q-factor, and frame structural fatigue. Unbiased, unsponsored testing to protect your child's spinal health and safe riding!",
+    sloganDesc: "Built on published safety frameworks, manufacturer specifications, and aggregated owner feedback — covering brake reach, Q-factor, and frame geometry. Unbiased, unsponsored guidance to protect your child's spinal health and safe riding!",
     btnWizard: "Smart Wizard 🔬",
     btnDatabase: "All Products 📂",
     radarTitle: "Safety Metrics Live",
-    radarWeight: "1. Precision Weighting Tech:",
-    radarShock: "2. Vibration Rig Fatigue Test:",
-    radarTraction: "3. Heavy-Duty Grip Traction:",
-    radarTested: "4. Verified Products Listed:",
-    radarTestedVal: "12 Top Models",
+    radarWeight: "1. Published Weight Specs:",
+    radarShock: "2. Suspension Specs:",
+    radarTraction: "3. Tire & Grip Specs:",
+    radarTested: "4. Certification Notes:",
+    radarTestedVal: "12 Listed Models",
     recallTitle: "Critical Safety Alert (Real-time Recall)",
     recallDesc: "US CPSC has issued tipping/recall warnings for heavy carbon-steel kid bikes as excessive bike-to-child weight ratio leads to severe injuries.",
     recallBtn: "View Safety Report →",
-    goldRankings: "2026 Annual Physics Gold Medal Winners",
-    goldRankingsDesc: "After 100+ days of continuous mechanical stress testing, we present winning products in each class.",
+    goldRankings: "2026 Annual Overall Picks",
+    goldRankingsDesc: "Based on published specifications and aggregated owner feedback, here are the standouts in each class.",
     safetyScoreLabel: "Safety Score:",
-    promoTitle: "Lab Exclusive: Testing & Comparative Insights",
+    promoTitle: "Editor's Desk: Spec-Based Comparative Insights",
     promoDesc: "Exposing the hidden material design flaws in cheap, multi-functional kid bikes, and championing ergonomic engineering.",
-    promoItem1Tag: "Lab Insight",
+    promoItem1Tag: "Spec Insight",
     promoItem1Title: "Spine & Senses Protection: Why We Decidedly Object to Solid EVA Foam Tires?",
-    promoItem1Desc: "In high-frequency vibration rig tests, solid EVA foam tires filtered out less than 20% of the micro-vibrations filtered by pneumatic rubber tires. Extra shock translates directly into child's neck and vestibular nerves, causing dizziness and aversion.",
+    promoItem1Desc: "Solid EVA foam tires trade vibration damping for puncture-proof convenience, while pneumatic rubber tires use air pressure and sidewall flex to absorb finer road buzz. Choose based on surface conditions, your child's age, and the tire type the manufacturer publishes.",
     promoItem2Tag: "Technical Alert",
     promoItem2Title: "Analyzing the 'All-in-One Multi-functional Scooter / Walker'",
-    promoItem2Desc: "Multi-functional transformer bikes rely on high-clearance quick-release pins. After 3 months, clearances expand over 12mm, causing loose steering, off-center weight gravity blocks, and potential tip-overs.",
+    promoItem2Desc: "Multi-functional ride-ons rely on quick-release pins and folding joints that wear with use. Prefer models with fewer structural conversions, and re-check fasteners against the manual as the product ages.",
 
     // Other Sections Shared
     childProfileTitle: "Active Child Target Profile",
@@ -249,7 +249,7 @@ const productEnTranslations: Record<string, {
   },
   bike_2: {
     name: "Specialized Riprock Coaster Wide-Tire Trail Bicycle (16\")",
-    editorVerdict: "A premium product from a world-class mountain biking brand. Outstanding weld-fatigue limits and rugged paint protection. The massive 2.3'' tires conquer sand and tree tracks with ease, but the heavy high carbon-steel frame requires strong pedaling.",
+    editorVerdict: "A premium product from a world-class mountain biking brand, with a sturdy frame and rugged paint protection. The massive 2.3'' tires handle sand and tree tracks with ease, but the heavy high carbon-steel frame requires strong pedaling.",
     pros: [
       "Massive 2.3-inch tires offer exceptional lateral traction and tipping safety.",
       "Wildly rugged framework construction with premium impact-resistant painting.",
@@ -290,7 +290,7 @@ const productEnTranslations: Record<string, {
     name: "Bugaboo Fox 5 Premium All-Terrain Ergonomic Stroller",
     editorVerdict: "The heavy tank of suspension strollers. When protecting infants under 1 year against head micro-shocks, its rigid posture tray combined with advanced spring dampening is entirely unmatched. A world-class luxury performer.",
     pros: [
-      "All-wheel mechanical suspensions and tubeless air-tires absorb up to 98% of shocks.",
+      "All-wheel mechanical suspension and tubeless air tires smooth out kerbs and rough pavement.",
       "Full-flat 175-degree rigid bassinet prevents infant spinal curvature under heavy use.",
       "Unique gravity-linked triangular wheelbase rolls through sand, mud, and gravel like butter."
     ],
@@ -314,7 +314,7 @@ const productEnTranslations: Record<string, {
   },
   elec_2: {
     name: "Poynton Smart All-Terrain Racing Karts",
-    editorVerdict: "A mini electric beast in kart style. With exceptionally low physical centers of gravity, tilt tests show a high 42% rollover margin under sharp 180-degree drift turns. Highly recommended for empty paved courts.",
+    editorVerdict: "A mini electric beast in kart style. With a low center of gravity and a wide track, it is built for stability; follow the manufacturer's age and weight limits, and ride on open paved courts.",
     pros: [
       "Parental wireless limiters allow immediate remote kill and throttle cap control.",
       "Seat sliding length extends up to 15cm, accommodating growing kids from 4 to 8Y.",
@@ -340,7 +340,7 @@ const productEnTranslations: Record<string, {
   },
   seat_1: {
     name: "Britax Advansafix i-Size ISOFIX Premium Safety Car Seat",
-    editorVerdict: "A true fortress for vehicle protection. It surpasses the stringent EU ECE R129 side-collision testing, reducing cervical pull forces by 25%. Its high-absorbent foam pads immediately disperse crash impacts.",
+    editorVerdict: "A true fortress for vehicle protection. It is certified to EU ECE R129 (i-Size), the European child restraint safety standard, with energy-absorbing foam pads.",
     pros: [
       "Exceeds ECE R129 i-Size standards, providing unmatched neck and joint defense.",
       "Patented XP-PAD chest guard and SecureGuard 4th point harness shield vulnerable hips.",
@@ -659,7 +659,7 @@ export function translateProduct(p: any, lang: "zh" | "en") {
     const zhCons = keepZhListOrFallback(localData.cons || p.cons, ["请按身高体重匹配", "请在监护下使用"]);
     const zhSpecsText = hasMeaningfulZhText(localData.specsText)
       ? localData.specsText
-      : `${zhCategoryLabel}参数以实测为准。`;
+      : `${zhCategoryLabel}参数以厂商公开规格为准。`;
 
     return sanitizeVisibleProductFields({ 
       ...p, 
@@ -775,20 +775,21 @@ export function translateNewsArticle(art: any, lang: "zh" | "en") {
 
   const db: Record<string, { title: string; summary: string; author: string; readTime: string; content: string }> = {
     news_1: {
-      title: "EU Updates EN 1888-1:2026 Stricter Rollover Safety Standard for Strollers",
-      summary: "The European Committee for Standardization has refined safety standards updates, forcing rigid posture boards and dynamic roll vibration absorption controls to protect infant vestibular health.",
-      author: "Regulatory Division - Min-Hua Wei",
+      title: "EU Stroller Standards: What EN 1888 Covers",
+      summary: "EN 1888 is the European standard family for strollers and pushchairs. Here is what its published framework asks for, in plain language.",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "5 min read",
-      content: `### EU EN 1888-1:2026 Kids Bicycle & Stroller Standard Overhaul
+      content: `### EU Stroller Standards: What EN 1888 Covers
 
-The European Union met in Brussels to formalize strict structural and posture standards:
+EN 1888 is the European standard family for wheeled child carry devices — strollers and pushchairs. It sets framework requirements for structure, restraint systems, and folding locks, and it is periodically revised.
 
-#### 1. Crucial Regulatory Upgrades
-*   **Rigid Posture Support Mandate**: Newborn lay-back carriages must provide rigid physical backing boards between 170° and 175° limit bounds to avoid spinal curves.
-*   **Active Multi-Axis Vibrations**: Secondary wheels are tested to assess micro-vibrations transmission directly into children's heads and vestibular nerves.
+#### 1. What to Look For
+*   **Backrest & Recline**: Follow the manufacturer's published recline range and backrest construction for your child's age.
+*   **Wheels & Tires**: Wheel size and tire type shape ride comfort; compare the published specs.
+*   **Folding Locks**: A clear, positive locking mechanism matters for daily use.
 
-#### 2. Strategic Advising for Parents
-When buying baby strollers, please decidedly avoid fabric meshes with no hard underlying support. Solid posture plates protect vertebrae and breathing paths.`
+#### 2. Certification
+Look for the CE mark and the standards the product page cites, and treat them as a floor — not a substitute for checking fit and condition.`
     },
     news_2: {
       title: "Lightweight Kids Mobility Becomes the 2026 Family Buying Theme",
@@ -811,7 +812,7 @@ When buying baby strollers, please decidedly avoid fabric meshes with no hard un
     news_3: {
       title: "2026 Kids Bike Global Launch: Woom Explore & Specialized Riprock Pro Carbon Release",
       summary: "Pioneering premium kids cycling brands release carbon composition frameworks and responsive micro-reach custom oil disc brakes to save toddler palms.",
-      author: "Hardware Analyst - Junjie Xiao",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "6 min read",
       content: `### High-End Child Mobility Milestones: The Carbon & Hydraulic Era
 
@@ -829,7 +830,7 @@ High modulus carbon fiber composition balance bikes crafted for racers:
     news_4: {
       title: "Global Supply Chain Report: Chinese Magnesium Alloy Die-Casting Hubs Grow Rapidly",
       summary: "Die manufacturing clusters shift from cheap OEM frames towards integrated lightweight magnesium chassis casting, winning European design acclaim.",
-      author: "Supply Chain Expert - Chen Ye",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "7 min read",
       content: `### Industrial Leaps: The Integrated Magnesium Shell Boom
 
@@ -844,17 +845,17 @@ Material datasheets commonly credit magnesium composite frameworks with higher s
     news_5: {
       title: "Shoring Up Children's Vestibular Health: Pneumatic Tires vs. EVA Foam Wheels",
       summary: "Clinical physical therapists and biomechanics specialists evaluate long-term micro-vibrations impact on developing toddler brains and cervical spines.",
-      author: "Consultant Pediatric Therapist - Dr. Zheng",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "5 min read",
       content: `### Vestibular Protection: Pneumatic Tires vs. Cheap Solid EVA Foam
 
 Cheap balance bikes often tout 'maintenance-free, puncture-safe flat-free tires.' But in pediatric medicine, EVA foam wheels represent a massive spine hazard.
 
-#### 1. Severe Micro-Vibration Impact
-EVA foam does not contract like air-filled compartments. When kids ride over pavement blind sidewalks, the solid vibrations translate directly up wrists and neck lines into vestibular nerves, causing balance fatigue, vertigo, and ride-refusing behavior.
+#### 1. Vibration Comfort
+EVA foam does not deflect the way an air-filled tire does, so more road buzz reaches the frame on rough pavement. Families who ride mostly on uneven sidewalks may notice the difference; on smooth surfaces both tire types work.
 
-#### 2. True Pneumatic Dampening Performance
-Air tires ingest and dissolve up to 95% of micro-vibrations via gas deflection, preserving delicate joints and ensuring excellent side-traction during tight turns.`
+#### 2. Pneumatic Dampening
+Air tires absorb finer road buzz through pressure and sidewall flex, and their rounder contact patch can hold better through turns. The trade-off is maintenance: they need inflation and can go flat.`
     },
     news_6: {
       title: "2026 Industry Trend: Families Move From Single Products to Scenario Bundles",
@@ -949,7 +950,7 @@ Sustainable fabrics, smooth wheels, and outdoor suitability make Bumbleride feel
     news_12: {
       title: "Science Tip: Why Low Standover Matters More Than Large Wheels for Early Riders",
       summary: "At the beginner stage, the key is not speed. Children need to stop, put both feet down, and restart with confidence.",
-      author: "BalanceBikeToddler Ergonomics Lab",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "4 min read",
       content: `### Low Standover Determines Whether Children Dare to Start
 
@@ -964,7 +965,7 @@ Large wheels improve rollover, but they can raise height and weight. For beginne
     news_13: {
       title: "Science Tip: Scooter Steering Design Changes How Children Learn Balance",
       summary: "Lean steering and handlebar steering train different control patterns, so families should choose based on age, surface, and riding goals.",
-      author: "BalanceBikeToddler Motor Development Lab",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "4 min read",
       content: `### Steering Structure Shapes Body Learning
 
@@ -1016,58 +1017,58 @@ export function translateGuideArticle(art: any, lang: "zh" | "en") {
     guide_stroller_1: {
       title: "Baby Stroller Suspension & Spinal Safety Sizing Guide",
       summary: "Understand infant skeletal loads. Learn how shock absorption link arms and high-traction pneumatic tires preserve spine health.",
-      author: "Ergonomics Lead - Prof. Ge",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "8 min read",
-      content: `### Baby Stroller Suspension & Spinal Alignment Engineering
+      content: `### Stroller Suspension & Ride Comfort
 
-Because infants have extremely tender bones, soft necks, and developing neural tissues during the first 12 months, micro-shocks from brick trails can transmit directly into their skull cavity.
+Suspension and tire choice shape how much road buzz reaches the seat. Here is how the pieces fit together.
 
-#### 1. Why Lightweight Umbrella Prams Lack Proper Vibration Isolation
-To hit under-4kg fold targets, standard umbrella strollers compromise structural suspension links. Under stone pavements, high-frequency impacts shake the seat, transferring directly into baby's spine.
+#### 1. Why Lightweight Umbrella Prams Feel Bumpier
+To hit low fold weights, umbrella strollers use smaller wheels and simpler suspension. On rough pavement that means more vibration at the seat.
 
-#### 2. The Suspension Pyramid
-*   **Pneumatic Tires**: Real air cushioning delivers micro-damping bounds.
-*   **Independent Wheel Springs**: Absorb vertical step dips and curbs.
-*   **Magnesium-Aluminum Arch Chassis**: Disperses point shock waves.`
+#### 2. The Comfort Stack
+*   **Pneumatic Tires**: Air cushions finer road buzz and suits uneven sidewalks.
+*   **Suspension Springs**: Absorb bigger impacts at kerbs and steps.
+*   **Frame Flex**: A slightly flexible frame spreads loads; a rigid one transmits them.`
     },
     guide_stroller_2: {
       title: "High-View Stroller vs. Lightweight Pram: Scenario Guide",
       summary: "Balancing heavy structural comfort against fast one-hand folding portability for suburban trains and rugged camping paths.",
-      author: "Parenting Coach - Mom Emma",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "7 min read",
       content: `### Selecting Stroller Categories by Spatial Context
 
-Many parents fall into all-in-one deluxe traps, buying heavy 20kg strollers that end up gathering dust on balconies because they are impossible to lift with one hand.
+Match the stroller to where you will actually push it.
 
 #### 1. High-density Metro & School Gate Transits
-Prioritize strollers under **5.8kg - 6.5kg** featuring a reliable **one-hand gravity fold**.
+Prioritize strollers around 5.8kg - 6.5kg with a reliable one-hand fold that survives narrow gates and elevators.
 
-#### 2. Outdoor Grass & Off-road Commutes
-Hard plastic wheels get stuck on grass. Upgrade to thick **pneumatic off-road tires** (e.g., Bugaboo Fox 5) with parent links.`
+#### 2. Outdoor Grass & Off-road
+Small hard plastic wheels sink on grass. Larger pneumatic wheels roll over uneven ground.`
     },
     guide_stroller_3: {
       title: "How to Choose a Baby Stroller: Spinal Alignment, Suspension & Safety Guide",
       summary: "Expert biomechanical guide on how to choose a baby stroller. Evaluate high-view comfort tires, ergonomic back support plates, and rollover indicators.",
-      author: "Material Risk Auditor - Marios",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "8 min read",
-      content: `### Biomechanical Guide on How to Choose a Baby Stroller for Infant Spine Safety
+      content: `### How to Choose a Baby Stroller
 
-Selecting the right pram is one of the most critical decisions for a new parent. Let's explore how to choose a baby stroller with strict biomechanical and safety standards in mind.
+Start with where and how you travel, then check the published specifications.
 
-#### 1. True Suspension Integration to Protect Fragile Vestibular Systems
-*   **Large Air-Filled or Premium Rubber Tires**: Rear wheels with a diameter &ge; 18cm possess superior dampening capabilities to absorb micro-shocks on concrete or brick sidewalks of suburban areas.
-*   **Independent Suspension Link Arms**: Ensure shock waves disperse throughout the reinforced aluminum frame, minimizing sudden micro-shakes to the infant skull cavity.
+#### 1. Ride Comfort
+*   **Tire Type**: Pneumatic tires cushion finer road buzz; foam tires trade some comfort for no-flat convenience.
+*   **Suspension**: Springs and frame flex absorb bigger impacts. Compare wheel size and suspension type in the published specs.
 
-#### 2. Deep Posture Support vs. Mesh Sagginess
-*   **Rigid Ergonomic Backing (Posture Plate)**: Strictly avoid purchasing bargain strollers which rely purely on saggy mesh backing without rigid vertical boards. Developing spines under 3 years old require flat, solid alignment to prevent postural issues.
-*   **175-Degree Lie-Flat Buffer**: The medical golden ceiling for flat lying positions to disperse weight evenly without risking fluid reflux.`
+#### 2. Seat & Recline
+*   **Back Support**: A firm, flat backrest supports newborns in lie-flat mode.
+*   **Recline Range**: Check the manufacturer's published recline angles and the recommended age for each position.`
     },
 
     // 2. Kids Bike Articles
     guide_bicycle_1: {
       title: "Kids Bicycle Braking Safety: Coaster, Handbrakes & Safety Boundaries",
-      summary: "Why coaster brakes frustrate beginner riders, and auditing kid bike brake reach limits for small hands.",
-      author: "Material Risk Auditor - Marios",
+      summary: "Why coaster brakes frustrate beginner riders, and how to judge brake reach for small hands.",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "6 min read",
       content: `### Kids Bicycle Brake Safety & Stopping Distances
 
@@ -1079,144 +1080,146 @@ Many 12-14 in. starter bikes come equipped with back-pedal coaster brakes. While
 
 #### 2. Handbrake Ergonomic Standards
 *   **V-Brake/Disc Mechanics**: Deliver high deceleration under low finger clamping forces (<10N).
-*   **Micro Reach Lever**: Frame-to-grip range should sit strictly **under 3.2cm** for small hands.`
+*   **Micro Reach Lever**: Many kids bikes publish a short lever travel for small hands; check the spec sheet.`
     },
     guide_bicycle_2: {
       title: "Kids Bicycle Stem Clamp & Chain Durability Self-Check Guide",
       summary: "5-point inspection to ensure tight stem clamps, smooth chains, and ideal cold pressure tire inflation.",
-      author: "Master Mechanic - Yang Lu",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "8 min read",
-      content: `### Pediatric Bicycle Mechanics: Routine Self-Checks
+      content: `### Kids Bike Mechanics: Routine Self-Checks
 
-Approximately **34%** of child bike injuries result from loose handle clamps or poorly maintained chain drives.
+Loose stem clamps and poorly maintained chains are among the most common mechanical problems parents can catch at home. These checks take a few minutes.
 
-#### 1. Steering Stem Torsional Slip Check
-Clamp the front wheel between your shins and twist the handlebar firmly. If the stem rotates relative to the tire, apply exact torque using a 5mm hex wrench to prevent high-speed misalignment.
+#### 1. Steering Stem Slip Check
+Clamp the front wheel between your shins and twist the handlebar firmly. If the stem rotates relative to the wheel, re-torque the stem bolts to the manufacturer's specified value.
 
-#### 2. Cold Inflation Verification
-Squeeze tires firmly. The tires should resist indentation beyond 1/3 depth, keeping around **35-45 PSI** for smooth rolling.`
+#### 2. Tire Inflation
+Check the sidewall for the recommended pressure range and keep tires inflated within it. Under-inflated tires feel sluggish and wear faster.`
     },
 
     // 3. Scooter Articles
     guide_scooter_1: {
       title: "Kids Scooter Sizing Guide: Symmetrical Gravity Steering Height",
       summary: "Why lean-to-steer gravity steering prevents over-rotation flip hazards on daily neighborhood commutes.",
-      author: "Pediatric Physical Therapist - Dr. Yu",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "6 min read",
-      content: `### Mechanical Gravity Steering in Kick Scooters
+      content: `### Steering Styles on Kids Scooters
 
-For toddlers aged 2-5, steering response and handlebar heights play a vital role in preventing fall incidents.
+Kids scooters usually steer in one of two ways, and each suits different ages and surfaces.
 
-#### 1. Standard Swivel Steering vs. Lean-to-Steer Controls
-*   **Swivel steering**: Over-correction translates into a 90-degree wheel turn on gravel, sending the child flying forwards.
-*   **Lean-to-steer**: Locks standard swivel angles. Steers through weight distribution with smooth self-centering forces.
+#### 1. Swivel Steering vs. Lean-to-Steer
+*   **Swivel steering**: The handlebar turns the wheels directly, so small inputs produce quick direction changes.
+*   **Lean-to-steer**: The child shifts weight to steer, with self-centering forces that smooth out wobbles at speed.
 
-#### 2. Ergonomic Height Benchmarks
-T-bar handle grips should sit snugly **between the child's lower rib cage and belly button** when standing on the deck.`
+#### 2. Handlebar Height
+Set the handlebar around the child's waist to lower chest when standing on the deck, and stay inside the manufacturer's adjustable range.`
     },
     guide_scooter_2: {
       title: "Tipping Hazards of Cheap Scooters: Evading Substandard Steering Gears",
-      summary: "A lab audit of brittle plastics, narrow front wheel tracks, and high-clearance joint wobbles in bargain models.",
-      author: "Master Mechanic - Yang Lu",
+      summary: "A spec-based review of brittle plastics, narrow front wheel tracks, and high-clearance joint wobbles in bargain models.",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "7 min read",
-      content: `### Unveiling Plastic Shell Material Risks in Bargain Scooters
+      content: `### What to Check on Budget Scooters
 
-Unbranded low-cost scooters rely on **recycled brittle plastics** without nylon resilience reinforcements.
+Unbranded low-cost scooters vary widely in materials and finishing. Compare the published specifications, and look at the joints, fasteners, and deck edges up close.
 
-#### 1. Deck Load Tension Tests
-In structural stress trials, low-cost plastic decks snapped cleanly under **35kg of static mass load**, exposing jagged edges.
+#### 1. Deck & Rider Weight
+Check the manufacturer's published maximum rider weight and match it against your child's current weight, with room to grow.
 
-#### 2. Stable Track Width Bounds
-Safe scooters keep a front track width **exceeding 24cm** with a low ground deck clearance under 4.5cm to hold a low center of gravity.`
+#### 2. Track Width & Deck Clearance
+A wider front track and lower deck clearance generally support stability. Compare published dimensions between models instead of relying on one number.`
     },
 
     // 4. Balance Bike Articles
     guide_balance_1: {
       title: "First Balance Bike Setup: Sizing the Ergonomic Standover Safe Dead-Line",
       summary: "How barefoot inseam measurements determine correct saddle ranges for early learning confidence.",
-      author: "Ergonomics Lead - Prof. Ge",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "9 min read",
       content: `### The Barefoot Inseam Rule for Balance Bikes
 
-Do not shop for children's riding gear by age tags. Sizing a safe first ride-on requires measuring actual leg inseams.
+Do not shop for children's riding gear by age tags alone. Sizing a first balance bike starts with measuring the child's barefoot inseam.
 
-#### 1. Why Shoe-less Inseam Controls Safety Gaps
-Both heels must rest completely flat on pavement when sitting on the saddle for the child to feel stable.
-*   **Optimal Seat Sizing**: Minimum saddle altitude should sit exactly **2.5cm below computed inseam**.
-*   This 2.5cm allows knees to bend comfortably for forward strides and lets the toddler bring the bike to a safe stop instantly.
+#### 1. Why Inseam Controls Fit
+Both heels should rest flat on the ground when the child sits on the saddle, so they can catch themselves if a ride goes sideways.
+*   **Seat Height**: A common rule of thumb is a minimum saddle height around 2-3cm below the measured inseam, so knees bend comfortably for strides.
+*   Adjust the seat as the child grows rather than buying up a size.
 
-#### 2. Developmental Milestones
-Ages 1.5 to 3 mark a precious window for vestibular system development and lower-body motor control. A 12-inch, 3.0kg bike is highly recommended.`
+#### 2. First Bike Weight
+Lighter frames are easier for toddlers to control. Compare the manufacturer's published weight against the 30%-of-body-weight guidance on our sizing page.`
     },
     guide_balance_2: {
       title: "Ultralight Balance Bikes: Materials Audit of Aluminum vs. Magnesium vs. Steel",
       summary: "Comparing total vehicle weights against a child's 30% body-weight threshold for muscle ergonomics.",
-      author: "Material Risk Auditor - Marios",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "7 min read",
-      content: `### Child Mobility Weights: Materials Comparison
+      content: `### Balance Bike Weights: Materials Comparison
 
-Physiologists state: **A child's vehicle must stay well under 30% of their body weight.**
+Total weight matters for how confidently a toddler can handle a bike. Our sizing guidance uses 30% of the child's body weight as a soft ceiling for the ride system.
 
-#### 1. Heavy Carbon Steel Cars
-Typically weigh **5.2kg - 7kg**. During falls, these heavy steel structures pin and injure the child's legs.
+#### 1. Steel Frames
+Steel frames are durable and affordable, and typically weigh more than aluminum or magnesium equivalents. Check the manufacturer's published weight for each model.
 
-#### 2. Aerospace Aluminum 6061 & Injection-Molded Magnesium
-*   **Aluminum 6061**: High strength-to-weight ratio, rust-resistant, keeping overall weights at **2.9kg - 3.5kg**.
-*   **Magnesium One-Piece castings**: Eliminates weld joints, resulting in clean, aerodynamic curves.`
+#### 2. Aluminum & Magnesium
+*   **Aluminum 6061**: A common strength-to-weight choice, rust-resistant, with published weights often in the 2.9-3.5kg range for balance bikes.
+*   **Magnesium one-piece castings**: Reduce weld joints and allow cleaner frame shapes.`
     },
     guide_balance_3: {
       title: "Scientific Checklist for First Starter Balance Bike for 1 Year Old",
       summary: "Is a baby ready to slide? Biomechanical rules of selecting a proper balance bike for 1 year old infants, including inseam and steering angles.",
-      author: "Ergonomics Lead - Prof. Ge",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "7 min read",
-      content: `### Biomechanics for Toddlers: Selecting a Balance Bike for 1 Year Old Beginning Sliders
+      content: `### Choosing a First Balance Bike for a 1-Year-Old
 
-Introducing a balance bike for 1 year old toddlers (typically during 12-18 months) is excellent for vestibular development, but highly specific safety parameters apply.
+Most children are ready to try a balance bike somewhere between 12 and 18 months, when they can walk steadily and follow simple instructions.
 
-#### 1. Crucial Rule: Ultra-Low Minimum Seat Heights
-*   **Sizing Inseam Match**: Toddlers' knees and hip joints are highly elastic. To prevent joint fatigue, seat height should sit strictly **&le; bare-foot inseam height minus 2.0 cm**.
-*   **Ideal Starter Dimensions**: Select a micro frameset which lowers seat positions down to 10-12 inches so they feel confident planting feet flat on tiles.
+#### 1. Seat Height Comes First
+*   **Inseam Match**: Set the minimum saddle height at or below the child's barefoot inseam so both feet plant flat on the ground.
+*   **Adjustable Range**: Pick a frame whose seat adjusts low enough for today and high enough for the next year.
 
-#### 2. Anti-Tip Steering Limiter
-*   **50° Steering Stop Limit**: Ensure the handlebar uses rigid physical stoppers limiting left-to-right turns within 50 degrees. 360-degree free spinning handlebars are dangerous for 1-year-olds; a sudden sharp steer will snap the front wheel sideways, causing direct facial or collarbone impacts.
-*   **Under 2.5kg Target Weight**: Toddlers under 2 years old must not maneuver bikes exceeding 30% of their mass. Keep frames under 2.5 kg using composite foam or aluminum with light wheelsets.`
+#### 2. Steering & Weight
+*   **Steering Limiter**: Many first bikes ship with a restricted steering range; follow the manufacturer's guidance on when to widen it.
+*   **Weight**: Keep the bike light relative to the child — our sizing guidance treats 30% of body weight as a soft ceiling.`
     },
 
     // 5. Electric Car Articles
     guide_electric_1: {
       title: "Kids Electric Car Battery Safety & Anti-Tip Rollover Verification",
       summary: "Preventing battery leakages, self-ignition points, and selecting wide wheelbases to block side tipping.",
-      author: "Pediatric Physical Therapist - Dr. Yu",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "8 min read",
-      content: `### Dual-Drive Electric Toy Car: Solid State Battery Safety Checklist
+      content: `### Electric Ride-On Cars: Battery & Charging Checklist
 
-Dual-drive electric cars (12V / 24V) feature high power density and chemical storage, making rigorous safety standards absolute.
+Electric ride-ons run on sealed lead-acid or lithium battery packs. Both are safe when used as the manufacturer instructs — and both need adult-supervised charging.
 
-#### 1. Fire-Safety Hazards in Bargain Electric Toy Cars
-Bargain models often use low-grade battery configurations and thin copper wiring. Sharp hits can fracture lead-acid sealings.
+#### 1. Battery & Charging
+*   Use only the charger supplied or specified by the manufacturer.
+*   Charge on a dry, hard surface away from bedding, and unplug when charging completes.
+*   Stop use and contact the seller if the pack is swollen, damaged, or smells unusual.
 
-#### 2. Rollover Prevention Gaps
-Because battery cells introduce significant weight, vehicles must present a **low-slung layout** with wide wheel tracks.`
+#### 2. Stability
+Battery packs add weight low in the vehicle. Check the manufacturer's published weight limits, age range, and maximum rider weight before buying.`
     },
     guide_electric_2: {
       title: "Dual-Drive Electric Rig: Anti-Skid Tire Traction & Smooth Soft-Start Protection",
-      summary: "Testing tire traction limits on wet paths, and how progressive acceleration protects neck vertebrae against dynamic strain.",
-      author: "Safety Engineer - Yang Lu",
+      summary: "Comparing tire traction on wet paths, and how progressive acceleration protects younger riders.",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "7 min read",
-      content: `### Dual-Drive Electric Accel Ramp Trials
+      content: `### Electric Ride-Ons: Acceleration & Tires
 
-Standard instant-on switches send peak torque to the motors immediately, snapping the toddler's head backward.
+Many electric ride-ons offer a progressive soft-start that ramps up speed instead of launching immediately. If the product page lists it, prefer it for younger riders.
 
-#### 1. Why Soft-Start Progressive Ramping Matters
-A gradual electronic ramping controller prevents whiplash strain on fragile neck vertebrae.
+#### 1. Why Soft-Start Matters
+A gradual start gives the child time to grip and brace, which matters most on the first rides.
 
-#### 2. Traction Control: Rubber vs. Plastic Tires
-Hard plastic wheels spin out on smooth tiles. Select EVA high-elastic tread tires for reliable grip and safe stopping.`
+#### 2. Tire Choice
+Hard plastic wheels suit smooth indoor floors; softer EVA or rubber treads grip better outdoors. Match the tire type to where the child will actually ride.`
     },
     guide_1: {
       title: "First Kid Bike Buyer's Bible: Age & Metric Calculation Calculator Guide",
       summary: "Understand how age, shoe-less leg inseam distance, weight, and wheel dimensions correlate to prevent joint fatigue.",
-      author: "Ergonomics Lead - Prof. Ge",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "8 min read",
       content: `### Scientific Sizing Blueprint for Toddler Riders
 
@@ -1237,49 +1240,50 @@ When picking a child's first bike, avoid relying solely on salesperson suggestio
     guide_2: {
       title: "Deciphering Multi-in-One Convertible Toy Scatters: Structural Tipping Risks",
       summary: "Scientific warning on low-price '3-in-1' scooters and balance boards. Unraveling folding lock tolerances and balance failures.",
-      author: "Material Risk Auditor - Marios",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "6 min read",
-      content: `### Risk Audit: The Engineering Traps of 'Multi-in-One' Toys
+      content: `### The Engineering Trade-Offs of 'Multi-in-One' Toys
 
-Multi-functional conversions appear economical but routinely carry severe mechanical stability flaws:
+Multi-functional conversions look economical, but each added mode means more joints, locks, and plastic tabs that can wear.
 
-#### 1. Elastic Fatigue of Multi-Axis Joints
-To accommodate multi-use states (stroller pusher, balance saddle, kick scooter), factories introduce numerous plastic joints, lock hooks, and click tabs.
-*   **Tolerance Wear**: Frequent conversions lead to sliding bolt gaps, altering frame geometry up to 12.5mm and triggering high-speed yaw.
-*   **High Center of Gravity**: Balanced bikes require narrow, rear-loaded geometry, whereas scooters require forward weight distribution. Multi-functional frames compromise both, frequently tipping over.
+#### 1. Joints and Fasteners
+*   **Tolerance Wear**: Every conversion cycle works the same fasteners. Re-check bolts and pins against the manual, and retire the product if joints no longer hold firmly.
+*   **Conflicting Geometry**: Balance bikes and scooters want different weight distribution; a frame that does both compromises each mode.
 
-#### 2. Self-Check Safety Bounds
-*   Purchase dedicated single-purpose equipment.
-*   For scooters, prefer lean-to-steer mechanisms with magnetic rebound forces, exemplified by the Swiss Micro scooter.`
+#### 2. Self-Check Before Buying
+*   Prefer dedicated single-purpose equipment when budget allows.
+*   If buying a convertible model, favour fewer conversion modes and metal-to-metal locking points over plastic click tabs.`
     },
     guide_3: {
       title: "CE, CPSC, ISO 8098: De-shrouding Global Regulatory Standard Frameworks",
       summary: "A breakdown of ASTM F963-17, EN 1888, and CPSIA heavy metal thresholds for international importers and buyers.",
-      author: "Compliance Specialist - Jane Jia",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "7 min read",
       content: `### Global Regulatory Standards for Child Mobility
 
-Decoded compliance acronyms commonly required for pediatric devices:
+Compliance acronyms commonly listed on kids' product pages, in plain language.
 
 #### 1. US Consumer Product Safety Commission (CPSC)
-*   **Coaster Brakes**: Heavily mandates coaster (pedal-back) hub brakes on 12-16 in. kid bikes.
-*   **CPSIA (Chemical Limits)**: Governs cadmium, lead, and 8P phthalate plasticizers in handlebars.
+*   **CPSC**: The US federal agency whose rules (including CPSIA chemical limits) cover children's products sold in the United States.
+*   **CPSIA**: Governs cadmium, lead, and phthalate limits in children's products, including handlebars and grips.
+*   **ASTM F963**: The US toy safety standard, covering mechanical and chemical requirements.
 
-#### 2. European Union CE Mark Directive (EN 71, EN 1888)
-*   **EN 71-1/-2/-3**: Rigorous physical durability checks. Bans small plastic pieces (<3.17cm diameter) from shearing or separating under tension.
-*   **EN 1888 (Strollers)**: The undisputed peak of multi-axis fatigue and roll-over angle testing.`
+#### 2. European Union CE Mark (EN 71, EN 1888)
+*   **EN 71-1/-2/-3**: The EU toy safety series, covering mechanical/physical properties, flammability, and chemical migration.
+*   **EN 1888**: The EU standard family for wheeled child carry devices (strollers and pushchairs).
+*   **ISO 8098**: The international standard for children's bicycles, referenced in our braking guidance.`
     },
     guide_4: {
       title: "5-Step Routine Safety Maintenance Checklist for Strollers & Bikes",
       summary: "Routine safety calibrations for handbrake clearances, hub quick-release tightness, cold pressure inflation, and correct lubrication of metal chains.",
-      author: "Master Mechanic - Yang Lu",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "9 min read",
       content: `### Routine 5-Point Structural Inspection
 
 Even the finest Woom or Bugaboo designs fail if lubrication and brake wire adjustments are neglected. Follow this 5-minute schedule every quarter:
 
 #### 1. Handbrake Clearance Adjustment (Safe Red Line)
-Squeeze the brake lever with two fingers. At 20-25mm from the handlebar grip, the V-brake pads must contact the rim completely, stopping the wheel. If the lever goes close to the grip, the wire tension is insufficient.
+Squeeze the brake lever with two fingers. The pads should contact the rim well before the lever reaches the grip; if it pulls all the way back, the cable needs adjusting.
 
 #### 2. Stem Screw Check
 Securing the vertical stem alignment. Ensure that clamp bolts remain tightly torqued to prevent sudden misalignment on downslopes.
@@ -1290,7 +1294,7 @@ Check the wheel axle clamps. Hand clamps must require significant palm pressure 
     guide_5: {
       title: "Scenario-Driven Guide: Urban Mass Transit vs. Rough Country Terrain Setups",
       summary: "Match your child's vehicle profile to subways, small lifts, or outdoor campsites to avoid closet-dust collection.",
-      author: "Parenting Coach - Mom Emma",
+      author: "BalanceBikeToddler Editorial Team",
       readTime: "7 min read",
       content: `### Choosing Based on Space & Usage Patterns
 

@@ -1359,7 +1359,7 @@ export default function HomeSection({
             </p>
             <p className="text-sm text-slate-500 font-medium mt-1">
               {lang === "zh"
-                ? "一页看懂同品类车型的实测自重、刹车形式与承重上限差异。"
+                ? "一页看懂同品类车型的公开规格自重、刹车形式与承重上限差异。"
                 : "See side-by-side test weights, brake types, and weight limits across each category's top picks."}
             </p>
           </div>

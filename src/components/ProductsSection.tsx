@@ -640,7 +640,7 @@ function resolveCardSummary(product: Product, lang: "zh" | "en"): string {
   if (!summary) return "";
 
   const localizedSummary = lang === "zh" ? sanitizeZhCardSummary(summary, product.brand || "") : summary;
-  // Structured editorial copy ("Best for: … Test notes: … Key takeaway: …")
+  // Structured editorial copy ("Best for: … Spec highlights: … Key takeaway: …")
   // must survive intact; only unstructured marketplace-style text gets cut to
   // its first sentence.
   const isStructuredCopy = /^(best for|applicable age|适用年龄)\s*[:：]/i.test(localizedSummary);

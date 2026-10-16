@@ -24,8 +24,8 @@ const categorySeoDefaults: Record<ProductCategory, {
       seoKeywords: "baby stroller, Twin Stroller, travel stroller, jogging stroller"
     },
     zh: {
-      seoTitle: "2026最佳婴儿车与双胞胎推车实验室深度评测 | BalanceBikeToddler",
-      seoDescription: "探索BalanceBikeToddler实验室数据库，获取安全高承重的单人与双胞胎折叠推车。对比避震能力、物理结构与安全性评估分值。",
+      seoTitle: "2026最佳婴儿车与双胞胎推车深度评测 | BalanceBikeToddler",
+      seoDescription: "探索BalanceBikeToddler产品数据库，获取安全高承重的单人与双胞胎折叠推车。对比避震能力、结构与承重参数。",
       seoKeywords: "婴儿推车, 双人推车, 折叠婴儿车, 慢跑推车, BalanceBikeToddler"
     }
   },
@@ -36,7 +36,7 @@ const categorySeoDefaults: Record<ProductCategory, {
       seoKeywords: "toddler balance bike, kids balance bike, 1 year old balance bike, ride-on balance bike"
     },
     zh: {
-      seoTitle: "2026最佳儿童无脚踏平衡车实验室深度评测 | BalanceBikeToddler",
+      seoTitle: "2026最佳儿童无脚踏平衡车深度评测 | BalanceBikeToddler",
       seoDescription: "探索BalanceBikeToddler无脚踏儿童滑步平衡车评分矩阵。深度比较车重工效、几何结构与核心通过性指数，助您科学决策。",
       seoKeywords: "儿童平衡车, 儿童滑步车, 1岁平衡车, 平衡训练车, BalanceBikeToddler"
     }
@@ -44,7 +44,7 @@ const categorySeoDefaults: Record<ProductCategory, {
   bicycle: {
     en: {
       seoTitle: "Best Kids Bikes & Toddler Bicycles 2026: Evidence-Based Buying Guide - BalanceBikeToddler",
-      seoDescription: "Discover the safest and top-rated kids bikes for ages 2-14. Explore our lab database to compare BMX style, training wheels, and dual suspension bicycles.",
+      seoDescription: "Discover the safest and top-rated kids bikes for ages 2-14. Explore our product database to compare BMX style, training wheels, and dual suspension bicycles.",
       seoKeywords: "kids bmx bike, toddler bicycle, kids bike training wheels, pedal bike for children"
     },
     zh: {
@@ -96,7 +96,7 @@ const categorySeoDefaults: Record<ProductCategory, {
       seoKeywords: "kids tricycles, toddler tricycle, steering baby trike"
     },
     zh: {
-      seoTitle: "2026最佳儿童推行三轮脚踏车实验室评测 | BalanceBikeToddler",
+      seoTitle: "2026最佳儿童推行三轮脚踏车评测 | BalanceBikeToddler",
       seoDescription: "精选安全的多功能成长型儿童三轮滑步推行车。对比结构刚性、可调节推把工效以及宝宝蹬踏动力学参数。",
       seoKeywords: "儿童三轮车, 成长型三轮车, 手推脚踏车, BalanceBikeToddler"
     }
@@ -396,13 +396,13 @@ export default function CategoryManager({ lang }: { lang: "zh" | "en" }) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Field
                 label="ZH SEO Title"
-                placeholder={lang === "zh" ? "留空则回退至实验室默认品类标题" : "Fallback to default category SEO title if empty"}
+                placeholder={lang === "zh" ? "留空则回退至默认品类标题" : "Fallback to default category SEO title if empty"}
                 value={editing.zh?.seoTitle || ""}
                 onChange={(v) => setEditing({ ...editing, zh: { ...(editing.zh || {}), seoTitle: v } })}
               />
               <Field
                 label="EN SEO Title"
-                placeholder={lang === "zh" ? "留空则回退至实验室默认品类标题" : "Fallback to default category SEO title if empty"}
+                placeholder={lang === "zh" ? "留空则回退至默认品类标题" : "Fallback to default category SEO title if empty"}
                 value={editing.en?.seoTitle || ""}
                 onChange={(v) => setEditing({ ...editing, en: { ...(editing.en || {}), seoTitle: v } })}
               />

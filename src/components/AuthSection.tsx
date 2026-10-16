@@ -557,12 +557,12 @@ export default function AuthSection({
                           {downloadingId === p.id ? (
                             <>
                               <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                              {isEn ? "Issuing verified document" : "正在解密签发报告"}
+                              {isEn ? "Preparing PDF" : "正在生成 PDF"}
                             </>
                           ) : (
                             <>
                               <Download className="w-3.5 h-3.5" />
-                              {isEn ? "Download certified PDF report" : "下载实验室PDF检测原件"}
+                              {isEn ? "Download PDF data sheet" : "下载 PDF 数据表"}
                             </>
                           )}
                         </button>
@@ -623,8 +623,8 @@ export default function AuthSection({
             </h3>
             <p className="text-xs text-slate-400 leading-relaxed">
               {isEn 
-                ? "Our lab adheres to strict zero-advertising boundaries. Account registration is purely for securing PDF data packages and custom layouts." 
-                : "BalanceBikeToddler 秉持 0 广告原则。无论登录或注册，仅作为解锁云端收藏、无限产品对比及高清报告下载的凭据，游客仍可无缝阅读。"}
+                ? "We follow strict zero-advertising boundaries. Account registration is purely for securing saved comparisons and custom layouts." 
+                : "BalanceBikeToddler 秉持 0 广告原则。无论登录或注册，仅作为解锁云端收藏、无限产品对比及数据表下载的凭据，游客仍可无缝阅读。"}
             </p>
           </div>
 

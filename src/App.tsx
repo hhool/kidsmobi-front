@@ -262,7 +262,7 @@ const PRIMARY_PRODUCT_CATEGORY_IDS = new Set([
 const ADMIN_ONLY_PRODUCT_CATEGORY_IDS = new Set<string>(["kids_tricycles"]);
 
 const REVIEW_NAV_OPTIONS: Array<{ id: string; zh: string; en: string }> = [
-  { id: "single", zh: "单品实测", en: "Single Test" },
+  { id: "single", zh: "单品评测", en: "Single Review" },
   { id: "compare", zh: "多品横评", en: "Cross Compare" },
   { id: "value", zh: "性价比测评", en: "Value Rank" },
   { id: "ranking", zh: "年度榜单", en: "Annual Top" },
@@ -2933,17 +2933,19 @@ export default function App() {
     let descStr = normalizedSEO.description;
     let keywordsArr = normalizedSEO.keywords;
 
-    // Category-hub hydration TDK: keep the kids-tricycles hub (P0-2 re-homed
-    // "other" bucket) from being overwritten with the generic products-hub
-    // copy after hydration. Must mirror PRODUCT_CATEGORY_PAGES in
-    // scripts/prerender-pages.ts.
-    if (seoKey === "products" && activeProductCategory === "kids_tricycles") {
-      titleStr = lang === "zh"
-        ? "儿童三轮车与滑行玩具 2026 实测精选 | BalanceBikeToddler"
-        : "Best Kids Tricycles & Push Ride-On Toys 2026: Evidence-Based Buying Guide | BalanceBikeToddler";
-      descStr = lang === "zh"
-        ? "浏览已覆盖的儿童三轮车、滑行汽车与拉货车，包含稳定性评分、承重上限与适龄建议。"
-        : "Browse evidence-based kids tricycles, push ride-on cars, and pull-along wagons with stability scores, weight limits, and age-fit guidance for toddlers.";
+    // Category-hub hydration TDK: /products/:category resolves its TDK from
+    // CATEGORY_TDK_MAP (src/lib/pageKeywords.ts) — the same single source the
+    // prerender derives PRODUCT_CATEGORY_PAGES from — so hydration cannot
+    // overwrite a hub with the generic products-hub copy. Applied BEFORE the
+    // pagination suffix below so page-2+ hubs keep their " - Page N" marker.
+    // kids_tricycles is covered by the map too (P0-2 re-homed "other" bucket).
+    if (seoKey === "products" && activeProductCategory !== "all") {
+      const customTdk = CATEGORY_TDK_MAP[activeProductCategory]?.[lang];
+      if (customTdk) {
+        titleStr = customTdk.title;
+        descStr = customTdk.description;
+        keywordsArr = customTdk.keywords;
+      }
     }
 
     if (activePageIndex > 1 && ["products", "reviews", "guides", "news"].includes(seoKey)) {
@@ -2996,16 +2998,6 @@ export default function App() {
     }
 
    // keywordsArr = applyPageKeywordOverride(seoKey, keywordsArr, lang, activeProductCategory);
-
-    // Categories custom TDK overrides for /products/:category
-    if (seoKey === "products" && activeProductCategory !== "all") {
-      const customTdk = CATEGORY_TDK_MAP[activeProductCategory]?.[lang];
-      if (customTdk) {
-        titleStr = customTdk.title;
-        descStr = customTdk.description;
-        keywordsArr = customTdk.keywords;
-      }
-    }
 
     const finalSEO = normalizeSeoConfig({ title: titleStr, description: descStr, keywords: keywordsArr });
     titleStr = finalSEO.title;
@@ -3506,7 +3498,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           }
         ]);
       } else {
-        setExpertNotice("未能连上 BalanceBikeToddler 安全实验室专网，正在启动本地工效计算库。");
+        setExpertNotice("未能连上数据服务，正在使用本地规格数据。");
         const safeLimit = (childProfile.weight * 0.3).toFixed(1);
         setChatMessages(prev => [
           ...prev,
@@ -3725,7 +3717,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                             <span className="flex items-center gap-3">
                               <span className="text-base bg-white/20 w-8 h-8 rounded-lg flex items-center justify-center backdrop-blur-sm shadow-inner">📂</span> 
                               <div className="flex flex-col text-left">
-                                <span className="font-extrabold text-[12px] text-white">{lang === "en" ? "Explore All Products" : "全系列儿童单品测试中心"}</span>
+                                <span className="font-extrabold text-[12px] text-white">{lang === "en" ? "Explore All Products" : "全系列儿童产品中心"}</span>
                                 <span className="text-[10px] text-orange-100/90 font-normal mt-0.5">{lang === "en" ? "Review center & smart category filtering" : "汇聚婴儿推车、平衡车与安全座椅综合评测"}</span>
                               </div>
                             </span>
@@ -3735,7 +3727,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                           {/* 三级菜单: Categories List */}
                           <div className="mt-4 pt-3 border-t border-slate-100 space-y-2.5">
                             <span className="text-[12px] font-black text-slate-400 block uppercase tracking-wider pl-1 font-display">
-                              {lang === "en" ? "🏆 Premium Categories" : "🏆 物理性能实测品类"}
+                              {lang === "en" ? "🏆 Premium Categories" : "🏆 品类总览"}
                             </span>
                             
                             <div className="flex flex-col gap-1 pr-1">
@@ -4481,8 +4473,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               </div>
               <p className="text-slate-500 leading-relaxed font-medium pr-4">
                 {lang === "en" 
-                  ? "Global safety benchmark lab for premium kids mobility. We turn mechanical data into parenting confidence."
-                  : "全球高端童车安全基准实验室。我们将繁琐的机械数据转化为父母的选购自信。"}
+                  ? "Global safety benchmark for premium kids mobility. We turn published specs into parenting confidence."
+                  : "全球高端童车安全基准。我们将繁琐的规格数据转化为父母的选购自信。"}
               </p>
             </div>
 
@@ -4606,7 +4598,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                       navigateToPath(TRANSPARENCY_PAGE_PATHS["testing-methodology"]);
                     }}
                   >
-                    {lang === "en" ? "Testing Methodology" : "测试方法"}
+                    {lang === "en" ? "Methodology" : "方法论"}
                   </a>
                 </li>
                 <li>

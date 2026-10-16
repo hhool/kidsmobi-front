@@ -92,7 +92,7 @@ export default function CategoryComparisonTable({ products, lang, onSelectProduc
   const en = lang === "en";
   const headers = en
     ? ["Model", "Tested Weight", "Brake", "Tire", "Seat / Size", "Score", ""]
-    : ["型号", "实测自重", "制动", "轮胎", "座高 / 尺寸", "评分", ""];
+    : ["型号", "公开规格自重", "制动", "轮胎", "座高 / 尺寸", "评分", ""];
 
   return (
     <section
@@ -154,8 +154,8 @@ export default function CategoryComparisonTable({ products, lang, onSelectProduc
       </div>
       <p className="mt-4 text-[10px] text-slate-400 font-semibold leading-relaxed">
         {en
-          ? "Weights are lab-measured; brake, tire, and seat data come from manufacturer specs — a dash means the maker did not publish it."
-          : "自重为实测值；制动、轮胎与座高信息来自厂商公开规格，\"—\" 表示厂商未公布。"}
+          ? "Weights and other specs come from manufacturer publications — a dash means the maker did not publish it."
+          : "自重等参数来自厂商公开规格，\"—\" 表示厂商未公布。"}
       </p>
     </section>
   );

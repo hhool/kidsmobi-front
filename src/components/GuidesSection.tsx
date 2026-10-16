@@ -174,11 +174,11 @@ const faqData = [
     id: "faq_1",
     questionZh: "1. 童车车重到底有什么安全死线？为什么超重车辆是侧翻的罪魁祸首？",
     questionEn: "1. What is the safety threshold for kids' bike weight? Why are heavy bikes the primary cause of tipping?",
-    answerZh: `根据全球儿科力学会（Pediatric Biomechanics Council）和 BalanceBikeToddler 安全实验室的统一规约：
+    answerZh: `综合公开安全建议与厂商规格资料：
     
 *   **黄金车重比例限制**：一款童车的整车重量（尤指自行车）**决不可以超过儿童体重的 30%**。
 *   **侧翻致伤原理**：如果车重超出儿童自重的 40% 以上（等同于让一个成年人操控一辆重达 60-70 公斤的重型机车），在紧急转弯、重心偏移或车辆失衡跌倒时，孩子薄弱的腕关节和肱骨根本无法支撑倾倒的车重。此时重力矩瞬间偏大，倾覆动能转化为致命的剪切力，孩子无法及时“弃车跳开”，极易发生大腿、手臂折叠式压折和骨折。因此，在童车选购中，轻量化（铝合金/高聚镁合金/碳纤维车架）是绝对的第一安全红线，重钢车架应当列为回避款。`,
-    answerEn: `Following the standard protocol defined by the Pediatric Biomechanics Council and global ergonomics labs:
+    answerEn: `Based on published safety guidance and manufacturer specifications:
 
 *   **Golden Weight Limit**: A child's ride-on dead weight **MUST NOT exceed 30% of the child's body weight**.
 *   **The Biomechanics of Tipping**: When bike weight exceeds 40% of the rider's body weight (similar to an adult wrestling a 60-70kg motorcycle), a child's weak wrists and shoulder girdles cannot correct lateral deflection. During speed cornering or sudden balance loss, the excessive gravitational torque prevents the child from easily "ejecting" or casting the bike aside. The falling frame traps the limb under sliding leverage, causing severe crushing forces on the clavicle or humerus. Therefore, prioritizing ultra-light formats (aluminum/magnesium alloy) is the absolute foremost barrier to orthopaedic trauma.`
@@ -416,9 +416,9 @@ const LONG_TAIL_GUIDE_TITLES = [
 ];
 
 const LONG_TAIL_GUIDE_SUMMARIES = [
-  "Our engineering lab puts heavy-duty suspension systems to the test. Learn how to choose a baby stroller with optimal shock absorption to protect your infant's spinal development during urban commutes.",
-  "Our travel lab compares folded weight, cargo limits, braking response, and daily handling so parents can learn how to choose a baby stroller without relying on retail copy.",
-  "Sizing a balance bike for 1 year old beginners requires analyzing barefoot inseam and standing height metrics. Read our comprehensive fit check backed by pediatric biomechanics data.",
+  "We compare published suspension specs and owner feedback. Learn how to choose a baby stroller with optimal shock absorption to protect your infant's spinal development during urban commutes.",
+  "We compare folded weight, cargo limits, brake type, and daily handling so parents can learn how to choose a baby stroller without relying on retail copy.",
+  "Sizing a balance bike for 1 year old beginners requires analyzing barefoot inseam and standing height metrics. Read our comprehensive fit check.",
   "Our 30% rule audit checks whether a balance bike for 1 year old riders stays light enough for safe recovery, stable steering, and confident daily practice.",
   "An engineering analysis on low-slung chassis physics and steering geometry limits. Learn how a custom-fit balance bike for 1 year old toddlers prevents over-rotation and helps early walkers transition smoothly into confident riding dynamics.",
 ];
@@ -584,9 +584,9 @@ function buildGuideArticle(category: GuideCategoryId, product: Product, index: n
       content: `### ${productName} 家庭养护\n\n#### 1. 每月快检\n检查轮胎磨损、把立/折叠扣松动、刹车或减速结构反馈，以及座椅/踏板连接位是否异响。\n\n#### 2. 场景后复检\n雨天、沙地、公园碎石路使用后，应清洁轮组和轴承周边，避免泥沙长期堆积造成偏磨。\n\n#### 3. 维护判断\n${evidence || "若出现刹车距离变长、转向卡滞或车身偏摆，应暂停使用并排查连接件。"}`,
     },
     best: {
-      title: `${productName} 2026 年度大奖推荐：工效学与安全实测金牌得主`,
-      summary: `深度拆解 ${productName} 的结构细节设计，揭示为何其能斩获 BalanceBikeToddler 2026 权威年度金牌推荐。`,
-      content: `### ${productName} 2026 年度大奖实验室测评结果\n\n#### 1. 核心大奖力学特长\n在长达 100+ 天的连续疲劳载荷冲击、轴转向形变和磨损阻抗测试里，${productName} 凭借刚性连接框架、全地形避震器极高回弹性能，在同系模型横向比对中获得了 ${score} 的综合实测评分高分表现。\n\n#### 2. 专业实测实验室证词\n${evidence || "车身整体锁扣契合度、高摩擦抓地力轮胎阻震反馈优异，完美排除了劣质多合一阵营关节松摆的物理风险。"}\n\n#### 3. 2026 年度大评测专家寄语\n作为 2026 年度我们评测桌上质感最高昂、底盘最抓地平稳的推荐系列。如果是给初试学行或骑行需求的宝宝，这款可以说是全年度让人最放心的选择。`,
+      title: `${productName} 2026 综合推荐：评分与规格解析`,
+      summary: `基于公开规格、召回记录与聚合用户反馈，解析 ${productName} 为何在本品类对比中评分领先。`,
+      content: `### ${productName} 2026 综合推荐\n\n#### 1. 评分依据\n我们的评分综合公开规格、聚合用户反馈与召回记录，方法论见透明页。该车型在本品类中获得 ${score} 的综合评分。\n\n#### 2. 规格要点\n${evidence || "对照同品类的重量、尺寸与配置差异，判断它是否适合您的使用场景。"}\n\n#### 3. 对比建议\n与同轮组尺寸、同年龄段、同价格带的产品对比后再做决定。`,
     },
   };
   const enTemplates: Record<GuideCategoryId, { title: string; summary: string; content: string }> = {
@@ -621,9 +621,9 @@ function buildGuideArticle(category: GuideCategoryId, product: Product, index: n
       content: `### ${productName} Home Maintenance\n\n#### 1. Monthly quick check\nInspect tire wear, stem or folding joint looseness, braking feedback, and seat or pedal connection noise.\n\n#### 2. After rough use\nAfter rain, sand, or gravel paths, clean around wheels and bearings to prevent uneven wear.\n\n#### 3. Maintenance trigger\n${evidence || "If braking distance grows, steering sticks, or the frame wobbles, pause use and inspect the hardware."}`,
     },
     best: {
-      title: `${productName} Gold Award Audit: Why it Won 2026 Annual Best Pick`,
-      summary: `A comprehensive design evaluation explaining why ${productName} bagged our prestigious 2026 Gold Medal.`,
-      content: `### ${productName} 2026 Gold Medal Review\n\n#### 1. Award-Winning Mechanics\nFollowing 100+ days of severe mechanical stress rig testing, ${productName} outperformed peer models in this category with an exceptional score of ${score}. Handbrake clearances, deck loading resilience, and fork alignment limits proved outstanding.\n\n#### 2. Lab Inspection Verdict\n${evidence || "Rigid structural linkages, progressive braking feedback, and anatomical geometry shield the child's posture and prevent joint wear."}\n\n#### 3. Annual Verdict\nUndoubtedly the safest and most satisfying purchase for parents in 2026. A fully deserved Gold Winner.`,
+      title: `${productName} Top Pick 2026: Score and Spec Breakdown`,
+      summary: `A spec-and-feedback breakdown of why ${productName} leads its category in our comparison.`,
+      content: `### ${productName} 2026 Top Pick\n\n#### 1. How we score it\nScores combine published specifications, aggregated owner feedback, and recall records — the full breakdown is on our methodology page. This model earns ${score} overall in its category.\n\n#### 2. Spec highlights\n${evidence || "Rigid structural linkages, progressive braking feedback, and geometry are the spec areas to compare against same-category alternatives."}\n\n#### 3. Bottom line\nA strong pick in this category on published specs and owner feedback — compare it against the same wheel size, age band, and price band before deciding.`,
     },
   };
   const template = lang === "en" ? enTemplates[category] : zhTemplates[category];
@@ -2033,7 +2033,7 @@ export default function GuidesSection({
                           >
                             <span className="text-sm font-bold text-slate-700 hover:text-orange-600 leading-snug">{label}</span>
                             <span className="block mt-1 text-xs text-slate-400 font-semibold">
-                              {lang === "en" ? "Lab score, specs & safety checklist" : "实验室评分、规格与安全清单"}
+                              {lang === "en" ? "Score, specs & safety checklist" : "评分、规格与安全清单"}
                             </span>
                           </a>
                         );
@@ -2070,7 +2070,7 @@ export default function GuidesSection({
                 </span>
                 {([
                   { href: "/news", label: lang === "zh" ? "召回与安全资讯" : "Recall & safety news" },
-                  { href: "/products/balance_bike", label: lang === "zh" ? "平衡车实测" : "Balance bike tests" },
+                  { href: "/products/balance_bike", label: lang === "zh" ? "平衡车评测" : "Balance bike reviews" },
                   { href: "/reviews/safety", label: lang === "zh" ? "安全评测中心" : "Safety audits" },
                 ] as const).map((link) => (
                   <a
@@ -2388,19 +2388,19 @@ export default function GuidesSection({
                 <p className="max-w-3xl mx-auto text-center text-sm text-slate-500 leading-7 font-medium pt-4">
                   {lang === "en" ? (
                     <>
-                      After checking your child's fit, compare real-world handling data in our{" "}
+                      After checking your child's fit, compare published handling specs in our{" "}
                       <a href="/reviews" className="text-orange-500 hover:text-orange-600 font-black underline decoration-orange-200 underline-offset-4">
                         evidence-based jogging stroller reviews
                       </a>
-                      . Our review desk measures braking response, frame stability, and riding comfort so parents can move from sizing advice to safer product decisions.
+                      . We compare published braking, frame, and comfort specs so parents can move from sizing advice to safer product decisions.
                     </>
                   ) : (
                     <>
                       完成尺寸和场景判断后，可继续查看我们的{" "}
                       <a href="/reviews" className="text-orange-500 hover:text-orange-600 font-black underline decoration-orange-200 underline-offset-4">
-                        实验室童车评测
+                        童车评测
                       </a>
-                      ，用制动、车架稳定性与真实骑行舒适度数据完成下一步筛选。
+                      ，用公开规格中的制动、车架与舒适度配置完成下一步筛选。
                     </>
                   )}
                 </p>

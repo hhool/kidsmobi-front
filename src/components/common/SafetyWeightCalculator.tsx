@@ -125,7 +125,7 @@ export default function SafetyWeightCalculator({ lang, onOpenWizard }: SafetyWei
           </button>
           <span className="text-[10px] text-slate-400 leading-relaxed">
             {isZh
-              ? "结果为通用选购参考，具体以产品实测页标注的座高调节范围为准。"
+              ? "结果为通用选购参考，具体以产品页标注的座高调节范围为准。"
               : "General guidance only — always confirm against the seat-height range on each product's test page."}
           </span>
         </div>

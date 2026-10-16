@@ -96,8 +96,8 @@ export const REVIEW_TYPE_SEO_KEYWORDS: Record<string, SeoKeywordEntry> = {
     en: ["stroller reviews", "best travel stroller", "best jogging stroller", "top stroller picks"],
   },
   safety: {
-    zh: ["儿童越野自行车安全审查", "婴儿推车安全测试", "慢跑婴儿推车稳定性", "婴儿推车评测"],
-    en: ["kids dirt bike safety audit", "stroller safety test", "best jogging stroller stability", "stroller reviews"],
+    zh: ["儿童越野自行车安全审查", "婴儿推车安全对比", "慢跑婴儿推车稳定性", "婴儿推车评测"],
+    en: ["kids dirt bike safety guide", "stroller safety comparison", "best jogging stroller stability", "stroller reviews"],
   },
 };
 

@@ -64,7 +64,7 @@ export default function ComparisonDashboard({
     { key: "brand", label: lang === "en" ? "Manufacturer" : "制造商", icon: Package },
     { key: "categoryLabel", label: lang === "en" ? "Category" : "品类", icon: Layers },
     { key: "material", label: lang === "en" ? "Frame Material" : "车架材质", icon: Settings },
-    { key: "weight", label: lang === "en" ? "Lab Weight" : "实测净重", suffix: " kg", icon: Scale },
+    { key: "weight", label: lang === "en" ? "Listed Weight" : "公开规格净重", suffix: " kg", icon: Scale },
     { key: "wheelSize", label: lang === "en" ? "Wheel Size" : "轮组尺寸", icon: CircleEqual },
     { key: "price", label: lang === "en" ? "MSRP" : "参考售价", prefix: currencyData.symbol, icon: Zap },
     { key: "brakeType", label: lang === "en" ? "Braking System" : "刹车类型", icon: ShieldCheck },
@@ -275,7 +275,7 @@ export default function ComparisonDashboard({
               {showScoresHeader && (
                 <tr className="bg-white/[0.02]">
                   <td className="p-6 text-slate-500 font-black text-[10px] uppercase tracking-[0.2em] pl-10" colSpan={compareList.length + 1}>
-                    {lang === "en" ? "Laboratory Scores" : "实验室评分概览"}
+                    {lang === "en" ? "Scores" : "评分概览"}
                   </td>
                 </tr>
               )}
@@ -334,7 +334,7 @@ export default function ComparisonDashboard({
         <div className="p-10 bg-black/20 text-center">
             <p className="text-[10px] text-slate-600 font-bold uppercase tracking-widest flex items-center justify-center gap-2">
               <ShieldCheck className="w-4 h-4 text-emerald-500" />
-              All parameters are verified by KIDS-MOBI mechanics lab ISO 8098/GB 14746 standards.
+              All parameters come from manufacturer-published specifications; scores follow our published methodology.
             </p>
         </div>
       </div>

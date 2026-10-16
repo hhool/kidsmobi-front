@@ -8,7 +8,7 @@
  * Every hub page (7 kebab-case directories) renders this intro + FAQ so the
  * hydrated DOM matches what the crawler first saw, and no hub ships thin.
  * Copy is category-level buying guidance — no invented test data, no brand
- * claims we cannot back from the lab checklist.
+ * claims we cannot back from published data.
  */
 
 export interface HubFaq {
@@ -24,7 +24,7 @@ export interface HubContent {
 export const CATEGORY_HUB_CONTENT: Record<string, HubContent> = {
   strollers: {
     intro: [
-      "A stroller is the piece of kid mobility gear you will touch every single day, so the differences that matter are the unglamorous ones: how it folds one-handed with a child on your hip, whether the handlebar height survives two caregivers of different heights, and how the suspension soaks up cracked sidewalks instead of shaking the nap out of a sleeping toddler. Our lab checklist scores every model below on those daily-use dimensions first, with styling and brand story deliberately last.",
+      "A stroller is the piece of kid mobility gear you will touch every single day, so the differences that matter are the unglamorous ones: how it folds one-handed with a child on your hip, whether the handlebar height survives two caregivers of different heights, and how the suspension soaks up cracked sidewalks instead of shaking the nap out of a sleeping toddler. Our checklist scores every model below on those daily-use dimensions first, with styling and brand story deliberately last.",
       "The right category depends on your routine. Jogging strollers earn their larger footprint with three-wheel stability and real tire suspension for park and trail pace; travel strollers win on cabin gates and trunk space when the frame folds under umbrella size; double configurations trade width or length for keeping twins or siblings in one push. Weight limits, fold dimensions, and brake style are listed on every card so you can filter by the constraints that actually bind your day.",
     ],
     faqs: [
@@ -65,7 +65,7 @@ export const CATEGORY_HUB_CONTENT: Record<string, HubContent> = {
   "kids-bikes": {
     intro: [
       "First pedal bikes fail for mechanical reasons long before kids lose interest: brakes a small hand cannot modulate, geometry that puts the rider over the bars, frames heavy enough to make every hill a defeat. Our scoring leans on the measurable side of those failures — dual hand-brake reach, standover height, crank length, and total weight — because a bike that fits is the single strongest predictor a child rides often and safely.",
-      "Age labels on kids bikes are notoriously loose, so work from two numbers instead: standover clearance (an inch or two over the top tube) and inside-leg reach to the pedals at their lowest point. From 14-inch wheels for fledgling pedal riders to 20-inch and 24-inch rigs for school-age riders, every card below lists the size-relevant specs our lab extracts, plus training-wheel compatibility where the frame supports it.",
+      "Age labels on kids bikes are notoriously loose, so work from two numbers instead: standover clearance (an inch or two over the top tube) and inside-leg reach to the pedals at their lowest point. From 14-inch wheels for fledgling pedal riders to 20-inch and 24-inch rigs for school-age riders, every card below lists the size-relevant specs we compile, plus training-wheel compatibility where the frame supports it.",
     ],
     faqs: [
       {
@@ -114,7 +114,7 @@ export const CATEGORY_HUB_CONTENT: Record<string, HubContent> = {
       },
       {
         q: "How long does a kids electric car run per charge?",
-        a: "Realistic runtime at typical usage is 40-90 minutes depending on voltage, rider weight, and how much of the session is full-throttle on grass. Treat manufacturer maximums as lab-best-case; the runtime notes on each card reflect the factors that actually drain the pack.",
+        a: "Realistic runtime at typical usage is 40-90 minutes depending on voltage, rider weight, and how much of the session is full-throttle on grass. Treat manufacturer maximums as manufacturer best-case; the runtime notes on each card reflect the factors that actually drain the pack.",
       },
       {
         q: "What safety features matter most on a ride-on car?",

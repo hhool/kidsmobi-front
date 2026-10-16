@@ -96,7 +96,14 @@ export function buildProductDetailKeywords(
 /**
  * Bespoke TDK for /products/:category hubs. Kept in this shared module so the
  * prerender and the SPA can't drift apart. Mirrors PRODUCT_CATEGORY_PAGES in
- * scripts/prerender-pages.ts.
+ * scripts/prerender-pages.ts (which now DERIVES its titles/descriptions from
+ * this map — edit here only).
+ *
+ * Titles are final <title> values INCLUDING the brand suffix and must stay
+ * <= 65 chars: buildDocumentTitle() (prerender) and publishSectionTitle()
+ * (SPA) both leave an already-suffixed title under the cap untouched, which
+ * is what keeps the two renderers byte-identical. scripts/check-spa-titles.ts
+ * recomputes the SPA value from this map and fails the build on drift.
  */
 export const CATEGORY_TDK_MAP: Record<
   string,
@@ -104,31 +111,31 @@ export const CATEGORY_TDK_MAP: Record<
 > = {
   stroller: {
     en: {
-      title: "Best Jogging Stroller & Travel Stroller Reviews 2026 | BalanceBikeToddler",
+      title: "Best Jogging Stroller & Travel Stroller | BalanceBikeToddler",
       description: "Compare evidence-based jogging stroller, travel stroller, and twin stroller models with safety scores, stability metrics, and foldability insights.",
       keywords: ["jogging stroller", "travel stroller", "lightweight stroller", "twin stroller", "baby stroller"],
     },
     zh: {
       title: "2026 慢跑婴儿推车与旅行推车评测 | BalanceBikeToddler",
-      description: "对照实验室数据比较慢跑婴儿推车、旅行推车与双人推车，重点查看安全评分、稳定性指标与折叠便携表现。",
+      description: "对照公开规格比较慢跑婴儿推车、旅行推车与双人推车，重点查看安全评分、稳定性指标与折叠便携表现。",
       keywords: ["慢跑婴儿推车", "旅行婴儿推车", "轻便婴儿推车", "双人婴儿推车", "婴儿推车"],
     },
   },
   balance_bike: {
     en: {
-      title: "Best Toddler Balance Bikes 2026: Evidence-Based Buying Guide - BalanceBikeToddler",
+      title: "Best Toddler Balance Bikes 2026 | BalanceBikeToddler",
       description: "Compare published specifications and safety records for the safest toddler balance bikes. Compare weight capacity, stability scores, and features for top ride-on brands.",
       keywords: ["toddler balance bike", "kids balance bike", "1 year old balance bike", "ride-on balance bike"],
     },
     zh: {
-      title: "2026最佳儿童无脚踏平衡车实验室深度评测 | BalanceBikeToddler",
+      title: "2026最佳儿童无脚踏平衡车深度评测 | BalanceBikeToddler",
       description: "探索BalanceBikeToddler无脚踏儿童滑步平衡车评分矩阵。深度比较车重工效、几何结构与核心通过性指数，助您科学决策。",
       keywords: ["儿童平衡车", "儿童滑步车", "1岁平衡车", "平衡训练车", "BalanceBikeToddler"],
     },
   },
   kids_bikes: {
     en: {
-      title: "Best Kids Bikes & Toddler Bicycles 2026: Evidence-Based Buying Guide - BalanceBikeToddler",
+      title: "Best Kids Bikes & Toddler Bicycles 2026 | BalanceBikeToddler",
       description: "Discover the safest and top-rated kids bikes for ages 2-14. Explore the database to compare BMX style, training wheels, and dual suspension bicycles.",
       keywords: ["kids bmx bike", "toddler bicycle", "kids bike training wheels", "pedal bike for children"],
     },
@@ -140,38 +147,54 @@ export const CATEGORY_TDK_MAP: Record<
   },
   kids_scooters: {
     en: {
-      title: "Best Kids Electric Scooter & Kick Scooter Reviews 2026 | BalanceBikeToddler",
+      title: "Best Kids Electric Scooter & Kick Scooter | BalanceBikeToddler",
       description: "Find source-reviewed kids electric scooter and kick scooter options, including foldable models, 3-wheel starters, and seated configurations.",
       keywords: ["kids electric scooter", "electric scooter for kids", "kids kick scooter", "foldable electric scooter"],
     },
     zh: {
       title: "2026 儿童电动滑板车与脚踏滑板车评测 | BalanceBikeToddler",
-      description: "基于实验室测试对照儿童电动滑板车与脚踏滑板车，覆盖折叠便携、三轮入门稳定性与座椅配置等关键维度。",
+      description: "基于公开规格对照儿童电动滑板车与脚踏滑板车，覆盖折叠便携、三轮入门稳定性与座椅配置等关键维度。",
       keywords: ["儿童电动滑板车", "儿童滑板车", "可折叠电动滑板车", "三轮儿童滑板车"],
     },
   },
   electric_vehicles: {
     en: {
-      title: "Best Kids Electric Cars & Ride-On Toys Reviews 2026 | BalanceBikeToddler",
+      title: "Best Kids Electric Cars & Ride-On Toys | BalanceBikeToddler",
       description: "Review evidence-based kids electric cars, 12V/24V ride-on toys, and electric ride-on options with battery safety, braking control, and runtime benchmarks.",
       keywords: ["kids electric cars", "kids electric car", "kids ride on", "ride on toys 12v"],
     },
     zh: {
       title: "2026 儿童电动汽车与骑乘电动车评测 | BalanceBikeToddler",
-      description: "对照实验室报告评估儿童电动汽车与 12V/24V 骑乘电动车，重点关注电池安全、制动控制与续航稳定性。",
+      description: "对照公开资料评估儿童电动汽车与 12V/24V 骑乘电动车，重点关注电池安全、制动控制与续航稳定性。",
       keywords: ["儿童电动汽车", "儿童电动车", "儿童骑乘电动车", "12V 儿童电动车"],
     },
   },
   car_seat: {
     en: {
-      title: "Best Convertible & Toddler Car Seats 2026: Evidence-Based Buying Guide - BalanceBikeToddler",
+      title: "Best Convertible & Toddler Car Seats 2026 | BalanceBikeToddler",
       description: "Find the safest convertible and booster car seats for your child. Compare evidence-based scores, weight limits, and safety features for top brands like Graco and Evenflo.",
       keywords: ["convertible car seat", "booster car seat", "infant car seat", "child safety car seat"],
     },
     zh: {
       title: "2026最佳儿童汽车安全提篮与成长座椅深度评测 | BalanceBikeToddler",
-      description: "探求最安全的儿童汽车安全座椅（安全提篮/增高垫）。涵盖侧向撞击防护技术、ISOFIX硬接口安装兼容性等专家质检数据。",
+      description: "探求最安全的儿童汽车安全座椅（安全提篮/增高垫）。对比侧向撞击防护技术、ISOFIX 硬接口安装兼容性等公开规格。",
       keywords: ["安全座椅", "儿童安全提篮", "成长型安全座椅", "侧向防护座椅", "BalanceBikeToddler"],
+    },
+  },
+  // Legacy "other" bucket re-homed (P0-2): tricycles + push ride-ons +
+  // pull-along wagons live under /products/kids-tricycles/. The SPA resolves
+  // this key for activeProductCategory === "kids_tricycles"; the prerender
+  // keeps its internal categoryId "other_tricycles" for detail-page grouping.
+  kids_tricycles: {
+    en: {
+      title: "Best Kids Tricycles & Push Ride-On Toys | BalanceBikeToddler",
+      description: "Browse evidence-based kids tricycles, push ride-on cars, and pull-along wagons with stability scores, weight limits, and age-fit guidance for toddlers.",
+      keywords: ["kids tricycle", "ride on toys", "pull along wagon", "tricycle for toddlers"],
+    },
+    zh: {
+      title: "儿童三轮车与滑行玩具 2026 精选 | BalanceBikeToddler",
+      description: "浏览已覆盖的儿童三轮车、滑行汽车与拉货车，包含稳定性评分、承重上限与适龄建议。",
+      keywords: ["儿童三轮车", "儿童骑乘玩具", "拉货车", "三轮车"],
     },
   },
 };

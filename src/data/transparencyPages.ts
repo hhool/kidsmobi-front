@@ -113,7 +113,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       path: TRANSPARENCY_PAGE_PATHS.disclaimer,
       navLabel: "Disclaimer",
       title: "Independent Declaration: No Brand Recharge, No Soft Scores",
-      subtitle: "We do not sell rankings. We buy, measure, stress, and sometimes physically retire unsafe kids mobility products so parents can make harder decisions with cleaner evidence.",
+      subtitle: "We do not sell rankings. We compare published specs, recall records, and owner feedback so parents can make harder decisions with cleaner evidence.",
       intro: "BalanceBikeToddler exists because glossy product pages do not show wobble, brake lag, load drift, or the moment a frame starts lying under stress. This is our operating oath.",
       sections: [
         {
@@ -126,7 +126,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         },
         {
           eyebrow: "02 / Sample policy",
-          title: "We prefer anonymous purchase over brand theater",
+          title: "We prefer published evidence over brand theater",
           body: [
             "When a product is important enough to audit, we do not accept review units, pre-approved verdicts, or paid edits. Brands cannot rewrite our reasoning, and every ranking decision keeps the sources behind it attached to the page.",
             "If we ever use manufacturer-provided material, it is treated as source evidence, not gospel. Specs are cross-checked against category benchmarks, field logic, and the same mechanical scoring system used across the site."
@@ -153,7 +153,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       },
       seo: {
         title: "BalanceBikeToddler Independent Disclaimer & Affiliate Disclosure",
-        description: "Read BalanceBikeToddler's independent declaration: no paid rankings, no brand recharge, anonymous testing preference, and clear affiliate disclosure.",
+        description: "Read BalanceBikeToddler's independent declaration: no paid rankings, no brand recharge, evidence-first methodology, and clear affiliate disclosure.",
         keywords: ["BalanceBikeToddler disclaimer", "affiliate disclosure", "independent reviews", "kids mobility safety"],
       },
     },
@@ -161,7 +161,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       path: TRANSPARENCY_PAGE_PATHS.disclaimer,
       navLabel: "Disclaimer",
       title: "独立宣言：不接受品牌充值，不出售评分温柔乡",
-      subtitle: "我们不卖排名。我们购买、测量、施压、拆解，并在必要时让不合格童车产品接受物理意义上的退场。",
+      subtitle: "我们不卖排名。我们对照公开规格、召回记录与用户反馈进行评估，帮助家长用更干净的证据做更难的决定。",
       intro: "BalanceBikeToddler 存在的原因很简单：商品详情页不会告诉你车架何时开始晃、刹车何时慢半拍、承重何时越过红线。这是我们的操作誓言。",
       sections: [
         {
@@ -169,7 +169,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           title: "佣金是燃料，不是方向盘",
           body: [
             "部分页面可能包含商业链接。家长通过这些链接购买时，BalanceBikeToddler 可能获得微薄佣金。但这笔钱买不到更高分数、更软标题，也买不到隐藏缺点的编辑通行证。",
-            "我们的规则很硬：测试结果先走，链接随后。产品如果没有通过安全逻辑，佣金潜力救不了它。佣金只会继续资助下一台匿名样机、下一根备用刹车线、下一次断轮夹具和拆解测试。"
+            "我们的规则很硬：证据先走，链接随后。产品如果不符合安全逻辑，佣金潜力救不了它。佣金只会继续资助下一次规格核对、召回库检查与用户反馈分析。"
           ],
         },
         {
@@ -201,7 +201,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       },
       seo: {
         title: "BalanceBikeToddler Independent Disclaimer & Affiliate Disclosure",
-        description: "Read BalanceBikeToddler's independent declaration: no paid rankings, no brand recharge, anonymous testing preference, and clear affiliate disclosure.",
+        description: "Read BalanceBikeToddler's independent declaration: no paid rankings, no brand recharge, evidence-first methodology, and clear affiliate disclosure.",
         keywords: ["BalanceBikeToddler disclaimer", "affiliate disclosure", "independent reviews", "kids mobility safety"],
       },
     },
@@ -210,7 +210,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
     key: "testing-methodology",
     en: {
       path: TRANSPARENCY_PAGE_PATHS["testing-methodology"],
-      navLabel: "Testing Methodology",
+      navLabel: "Methodology",
       title: "Evaluation Methodology: The Evidence Behind Every Verdict",
       subtitle: "Our score is not a vibe. It is a collision between child-fit math, mechanical stress logic, braking audits, and editorial suspicion.",
       intro: "BalanceBikeToddler reviews are built for parents who want to know what happens after the lifestyle photo ends and physics starts asking questions.",
@@ -252,13 +252,13 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       },
       seo: {
         title: "BalanceBikeToddler Evaluation Methodology: Kids Mobility Evidence Playbook",
-        description: "Explore BalanceBikeToddler's testing methodology: the 30% weight rule, brake-setup reviews, recline checks, and frame-stability logic.",
-        keywords: ["testing methodology", "kids mobility testing", "brake audit", "stroller safety testing"],
+        description: "Explore BalanceBikeToddler's methodology: the 30% weight rule, brake-setup reviews, recline checks, and frame-stability logic.",
+        keywords: ["methodology", "kids mobility safety", "brake review", "stroller safety"],
       },
     },
     zh: {
       path: TRANSPARENCY_PAGE_PATHS["testing-methodology"],
-      navLabel: "Testing Methodology",
+      navLabel: "Methodology",
       title: "每个结论背后的评估方法论",
       subtitle: "我们的评分不是感觉，而是儿童尺寸数学、机械应力逻辑、制动审计和编辑怀疑精神的碰撞结果。",
       intro: "BalanceBikeToddler 评测写给那些想知道生活方式美图结束后，物理世界会怎样发问的家长。",
@@ -300,8 +300,8 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       },
       seo: {
         title: "BalanceBikeToddler Evaluation Methodology: Kids Mobility Evidence Playbook",
-        description: "Explore BalanceBikeToddler's testing methodology: the 30% weight rule, brake-setup reviews, recline checks, and frame-stability logic.",
-        keywords: ["testing methodology", "kids mobility testing", "brake audit", "stroller safety testing"],
+        description: "Explore BalanceBikeToddler's methodology: the 30% weight rule, brake-setup reviews, recline checks, and frame-stability logic.",
+        keywords: ["methodology", "kids mobility safety", "brake review", "stroller safety"],
       },
     },
   },
@@ -323,7 +323,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
           ],
         },
         {
-          eyebrow: "Lab notes / Evidence handling",
+          eyebrow: "Source notes / Evidence handling",
           title: "Source claims are evidence, not verdicts",
           body: [
             "A certification badge in a product description earns attention, not automatic trust. We still compare the claim against product category, visible construction, documented limits, and the failure modes parents actually face.",
@@ -350,8 +350,8 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "Use the product hub to compare product fields before trusting any certificate badge or marketing claim.",
       },
       seo: {
-        title: "BalanceBikeToddler Certification Notes: CPSC, ASTM, ISO & Lab Matrix",
-        description: "See the standards BalanceBikeToddler references, including CPSC, ASTM F963, ISO 8098, EN 71, and editorial lab-note handling.",
+        title: "BalanceBikeToddler Certification Notes: CPSC, ASTM, ISO & Standards Matrix",
+        description: "See the standards BalanceBikeToddler references, including CPSC, ASTM F963, ISO 8098, EN 71, and editorial source-note handling.",
         keywords: ["certification notes", "CPSC", "ASTM F963", "ISO 8098", "safety standards"],
       },
     },
@@ -398,8 +398,8 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
         text: "进入产品库，在相信任何认证徽章或营销话术前先比较产品字段。",
       },
       seo: {
-        title: "BalanceBikeToddler Certification Notes: CPSC, ASTM, ISO & Lab Matrix",
-        description: "See the standards BalanceBikeToddler references, including CPSC, ASTM F963, ISO 8098, EN 71, and editorial lab-note handling.",
+        title: "BalanceBikeToddler Certification Notes: CPSC, ASTM, ISO & Standards Matrix",
+        description: "See the standards BalanceBikeToddler references, including CPSC, ASTM F963, ISO 8098, EN 71, and editorial source-note handling.",
         keywords: ["certification notes", "CPSC", "ASTM F963", "ISO 8098", "safety standards"],
       },
     },
@@ -510,7 +510,7 @@ export const TRANSPARENCY_PAGES: LocalizedTransparencyPage[] = [
       navLabel: "Privacy Policy",
       title: "Privacy Policy: The Parent Data Firewall",
       subtitle: "Your child's fit data is not inventory. Smart Wizard measurements stay local unless you deliberately choose account features.",
-      intro: "BalanceBikeToddler handles sizing data like a lab handles a volatile sample: use it for the current measurement, keep the minimum needed, and never sell it to the advertising machine.",
+      intro: "BalanceBikeToddler handles sizing data like a volatile sample: use it for the current measurement, keep the minimum needed, and never sell it to the advertising machine.",
       sections: [
         {
           eyebrow: "01 / Smart Wizard",
