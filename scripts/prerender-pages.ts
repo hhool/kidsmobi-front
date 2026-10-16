@@ -166,6 +166,10 @@ type RoutePage = {
   /** The product backing a detail page — lets renderDocument compute the
    *  detail-page keywords without re-inferring the category. */
   product?: CmsProductFull;
+  /** Emit a <link rel="preload" as="image"> for the LCP hero image in <head>
+   *  (Lighthouse lcp-discovery: the hero was discovered only when the parser
+   *  reached the <body>, delaying LCP under throttling). */
+  preloadImage?: string;
 };
 
 type AppAssets = {
@@ -556,7 +560,7 @@ ${ogImage ? `    <meta property="og:image" content="${escapeHtml(ogImage)}" />
     <meta name="twitter:description" content="${escapeHtml(descTag)}" />
     <meta name="twitter:image" content="${escapeHtml(ogImage)}" />
 ` : "    <meta name=\"twitter:card\" content=\"summary\" />\n"}    <link rel="canonical" href="${escapeHtml(canonical)}" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+${page.preloadImage ? `    <link rel="preload" as="image" href="${escapeHtml(page.preloadImage)}" fetchpriority="high" />\n` : ""}<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <style>
       body { margin: 0; background: #f8fafc; }
       a { color: #ea580c; }
@@ -5489,7 +5493,7 @@ function renderProductDetailPage(
           { name: displayName, href: route },
         ])}
         <section style="margin: 0 0 22px; display: grid; grid-template-columns: minmax(0, 320px) 1fr; gap: 20px; align-items: start;">
-          ${image ? `<img src="${escapeHtml(image)}" alt="${escapeHtml(displayName)}" style="width: 100%; border-radius: 14px; border: 1px solid #e2e8f0;" />` : ""}
+          ${image ? `<img src="${escapeHtml(image)}" alt="${escapeHtml(displayName)}" width="800" height="800" fetchpriority="high" decoding="sync" style="width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 14px; border: 1px solid #e2e8f0;" />` : ""}
           <div>${statsChips.length ? `<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">${statsChips.join("")}</div>` : ""}</div>
         </section>
         ${summaryHtml}
@@ -5557,6 +5561,7 @@ function renderProductDetailPage(
     description: metaDescription,
     body,
     image: image || undefined,
+    preloadImage: image || undefined,
     product,
     jsonLd: [productJsonLd, breadcrumbJsonLd, ...(faqJsonLd ? [faqJsonLd] : [])],
   };
