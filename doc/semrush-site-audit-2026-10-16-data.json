@@ -1,0 +1,94 @@
+{
+ "generatedAt": "2026-10-16T14:46:00.367Z",
+ "base": "https://balancebiketoddler.com",
+ "site": {
+  "robotsStatus": 200,
+  "robotsTxt": "User-agent: *\nAllow: /\nDisallow: /*?*sort=\nDisallow: /*?*price=\nDisallow: /*?*age=\nDisallow: /*?*filter=\nDisallow: /*?*wizard=\nDisallow: /*?*category=\n\nUser-agent: Amazonbot\nDisallow: /\n\nUser-agent: Applebot-Extended\nDisallow: /\n\nUser-agent: Bytespider\nDisallow: /\n\nUser-agent: CCBot\nDisallow: /\n\nUser-agent: Google-Extended\nDisallow: /\n\nUser-agent: meta-externalagent\nDisallow: /\n\nSitemap: https://balancebiketoddler.com/sitemap.xml\n",
+  "robotsHasSitemap": true,
+  "sitemapStatus": 200,
+  "sitemapXmlOk": true,
+  "sitemapUrls": 247,
+  "sitemapHasLastmod": true,
+  "sitemapContentype": "application/xml; charset=utf-8",
+  "httpRedirect": "301 -> https://balancebiketoddler.com/",
+  "wwwRedirect": "301 -> https://balancebiketoddler.com/",
+  "soft404Status": 404,
+  "homeTtfb": 286,
+  "homeEncoding": "br",
+  "homeCacheControl": "public, max-age=0, must-revalidate",
+  "homeSize": 0,
+  "sitemapRedirects": 0
+ },
+ "crawled": 247,
+ "okCount": 247,
+ "health": 100,
+ "counts": {
+  "error": 0,
+  "warning": 1,
+  "notice": 0
+ },
+ "statusDist": [
+  {
+   "k": "200",
+   "n": 247
+  },
+  {
+   "k": "301",
+   "n": 0
+  },
+  {
+   "k": "302",
+   "n": 0
+  },
+  {
+   "k": "404",
+   "n": 0
+  },
+  {
+   "k": "5xx",
+   "n": 0
+  },
+  {
+   "k": "err",
+   "n": 0
+  }
+ ],
+ "ttfb": {
+  "p50": 153,
+  "p90": 457,
+  "max": 1406
+ },
+ "weight": {
+  "p50": 21002,
+  "p90": 25236
+ },
+ "issues": [
+  {
+   "sev": "warning",
+   "code": "ttfb_slow",
+   "n": 1,
+   "pct": 0,
+   "samples": [
+    "https://balancebiketoddler.com/balance-bike-safety-standards/"
+   ]
+  }
+ ],
+ "internalLinks": {
+  "unique": 247,
+  "checked": 247,
+  "broken": [],
+  "brokenCount": 0
+ },
+ "avgLinksPerPage": 34,
+ "encodings": [
+  "br"
+ ],
+ "cacheControls": [
+  "public, max-age=0, must-revalidate"
+ ],
+ "titlesLen": {
+  "min": 43,
+  "p50": 59,
+  "max": 72
+ }
+}
