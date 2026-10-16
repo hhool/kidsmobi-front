@@ -180,6 +180,17 @@
     box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
   }
 
+  #primary_tab_viewport :is(.text-orange-500, .text-orange-600) {
+    /* WCAG 2.1 AA color-contrast (Lighthouse 2026-10-16): Tailwind v4 renders
+       orange-500 as oklch -> #ff6900 (2.88:1 on white) and orange-600 as
+       #ea580c (3.4:1), both below the 4.5:1 required for small text. Force the
+       compliant sRGB orange-700 (#c2410c = 5.2:1 on white, 4.9:1 on orange-50).
+       Dark hero surfaces use text-orange-400/-300 and are unaffected; the one
+       dark-section link using text-orange-600 is pinned to orange-400 at the
+       component level (EvaluationsSection CTA). */
+    color: #c2410c !important;
+  }
+
   #auth_container {
     max-width: 72rem !important;
   }

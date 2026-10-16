@@ -562,8 +562,19 @@ ${ogImage ? `    <meta property="og:image" content="${escapeHtml(ogImage)}" />
 ` : "    <meta name=\"twitter:card\" content=\"summary\" />\n"}    <link rel="canonical" href="${escapeHtml(canonical)}" />
 ${page.preloadImage ? `    <link rel="preload" as="image" href="${escapeHtml(page.preloadImage)}" fetchpriority="high" />\n` : ""}<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <style>
+      /* CSS cascade-layer hygiene (Lighthouse a11y 2026-10-17): an UNLAYERED
+         anchor-color rule beats every @layer rule, so it painted ALL anchors
+         #ea580c and defeated every text-* utility class on anchor elements.
+         Declare Tailwind's layer order up front (this style parses before the
+         CSS bundle), then put the anchor color in the utilities layer: it now
+         wins over preflight's anchor reset (base layer) but loses to any
+         text-* class. body stays unlayered to keep the exact current backdrop
+         over the index.css gradient. */
+      @layer theme, base, components, utilities;
       body { margin: 0; background: #f8fafc; }
-      a { color: #ea580c; }
+      @layer utilities {
+        a { color: #ea580c; }
+      }
       #app-boot-cover {
         display: none;
         position: fixed;

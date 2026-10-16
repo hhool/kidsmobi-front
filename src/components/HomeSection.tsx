@@ -1039,7 +1039,7 @@ export default function HomeSection({
               e.preventDefault();
               setActiveTab("evaluations");
             }}
-            className="flex items-center gap-2 text-sm font-black text-slate-400 hover:text-orange-500 transition-colors uppercase tracking-widest"
+            className="flex items-center gap-2 text-sm font-black text-slate-600 hover:text-orange-500 transition-colors uppercase tracking-widest"
           >
             {homeCopy.safetyAudits.viewAudits} <ArrowRight className="w-4 h-4" />
           </a>
@@ -1223,7 +1223,7 @@ export default function HomeSection({
             {kidsElectricCarProducts.length > 0 ? (
               kidsElectricCarProducts.map((p, idx) => renderProductCard(p, idx + 4))
             ) : (
-              <div className="col-span-full py-8 text-center text-slate-400 font-semibold text-xs border border-dashed border-slate-200 rounded-3xl">
+              <div className="col-span-full py-8 text-center text-slate-600 font-semibold text-xs border border-dashed border-slate-200 rounded-3xl">
                 {homeCopy.safetyAudits.noElectricData}
               </div>
             )}
@@ -1251,7 +1251,7 @@ export default function HomeSection({
               e.preventDefault();
               setActiveTab("products");
             }}
-            className="text-sm font-black text-slate-400 hover:text-orange-500 transition-colors uppercase tracking-widest"
+            className="text-sm font-black text-slate-600 hover:text-orange-500 transition-colors uppercase tracking-widest"
           >
             {homeCopy.categoryHighlights.openProductCenter}
           </a>
@@ -1299,7 +1299,7 @@ export default function HomeSection({
                   onSelectCategory(cat.id);
                 }}
                 className="relative h-52 w-full bg-slate-50 overflow-hidden text-center cursor-pointer"
-                aria-label={lang === "zh" ? `${cat.label} 详情` : `${cat.label} details`}
+                aria-label={lang === "zh" ? `${cat.label} 精选 详情` : `${cat.label} FEATURED details`}
               >
                 {(() => {
                   const imageKey = `category-${cat.id}`;
@@ -1422,11 +1422,11 @@ export default function HomeSection({
                 className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 focus:outline-none"
               >
                 <h3 className="font-black text-slate-800 text-sm md:text-base flex-1">{item.question}</h3>
-                <span className="transform transition-transform duration-300 text-slate-400">
+                <span className="transform transition-transform duration-300 text-slate-600">
                   {openFaqIndex === idx ? (
                     <span className="text-xl inline-block rotate-45 text-orange-500 font-bold">＋</span>
                   ) : (
-                    <span className="text-xl inline-block text-slate-400">＋</span>
+                    <span className="text-xl inline-block text-slate-600">＋</span>
                   )}
                 </span>
               </button>
@@ -1445,7 +1445,7 @@ export default function HomeSection({
 
         {/* FAQ → hub cross-links (internal linking / weight flow) */}
         <div className="flex flex-wrap items-center justify-center gap-2.5 pt-2">
-          <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+          <span className="text-[10px] font-black uppercase tracking-widest text-slate-600">
             {lang === "zh" ? "继续深入了解：" : "Keep exploring:"}
           </span>
           {([

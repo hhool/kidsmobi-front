@@ -1974,7 +1974,7 @@ export default function EvaluationsSection({
                 </button>
                 <a
                   href={`/products/${resolveProductDetailCategorySlug(reviewedProduct as unknown as Record<string, unknown>)}/${reviewedProduct.id}`}
-                  className="block text-center text-xs font-bold text-orange-600 hover:text-orange-700 underline underline-offset-2"
+                  className="block text-center text-xs font-bold text-orange-400 hover:text-orange-300 underline underline-offset-2"
                   onClick={(event) => {
                     event.preventDefault();
                     onSelectProduct(reviewedProduct);

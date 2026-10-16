@@ -91,8 +91,8 @@ export default function CategoryComparisonTable({ products, lang, onSelectProduc
 
   const en = lang === "en";
   const headers = en
-    ? ["Model", "Tested Weight", "Brake", "Tire", "Seat / Size", "Score", ""]
-    : ["型号", "公开规格自重", "制动", "轮胎", "座高 / 尺寸", "评分", ""];
+    ? ["Model", "Tested Weight", "Brake", "Tire", "Seat / Size", "Score", "Actions"]
+    : ["型号", "公开规格自重", "制动", "轮胎", "座高 / 尺寸", "评分", "操作"];
 
   return (
     <section
@@ -103,7 +103,7 @@ export default function CategoryComparisonTable({ products, lang, onSelectProduc
         <h2 className="text-lg md:text-xl font-black text-slate-900">
           {en ? "Side-by-Side Comparison" : "横向参数对比"}
         </h2>
-        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+        <span className="text-[10px] text-slate-600 font-bold uppercase tracking-widest">
           {en ? "Top picks by overall score" : "按综合评分排序"}
         </span>
       </div>
@@ -114,7 +114,8 @@ export default function CategoryComparisonTable({ products, lang, onSelectProduc
               {headers.map((header, index) => (
                 <th
                   key={`${header}-${index}`}
-                  className={`py-3 px-3 text-[10px] font-black uppercase tracking-widest text-slate-400 ${index === 0 ? "text-left" : "text-center"}`}
+                  scope="col"
+                  className={`py-3 px-3 text-[10px] font-black uppercase tracking-widest text-slate-600 ${index === 0 ? "text-left" : "text-center"} ${index === headers.length - 1 ? "sr-only" : ""}`}
                 >
                   {header}
                 </th>
@@ -152,7 +153,7 @@ export default function CategoryComparisonTable({ products, lang, onSelectProduc
           </tbody>
         </table>
       </div>
-      <p className="mt-4 text-[10px] text-slate-400 font-semibold leading-relaxed">
+      <p className="mt-4 text-[10px] text-slate-600 font-semibold leading-relaxed">
         {en
           ? "Weights and other specs come from manufacturer publications — a dash means the maker did not publish it."
           : "自重等参数来自厂商公开规格，\"—\" 表示厂商未公布。"}

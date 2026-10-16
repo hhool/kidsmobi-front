@@ -1467,7 +1467,7 @@ export default function DetailedProductView({
             </button>
           )}
           <div className="bg-slate-50 px-6 py-3 rounded-2xl border border-slate-100">
-             <span className="text-[10px] text-slate-400 font-bold block uppercase mb-1">{lang === "en" ? "Overall Score" : "综合评分"}</span>
+             <span className="text-[10px] text-slate-600 font-bold block uppercase mb-1">{lang === "en" ? "Overall Score" : "综合评分"}</span>
              <strong className="text-2xl font-black text-orange-500">{overallScoreDisplay}</strong>
           </div>
         </div>
@@ -1480,7 +1480,7 @@ export default function DetailedProductView({
           {hasGalleryImages && (
           <button 
             onClick={() => setActiveMediaTab("gallery")}
-            className={`flex-1 flex items-center justify-center gap-2 py-4 text-xs font-black uppercase transition-all ${activeMediaTab === "gallery" ? "bg-orange-50 text-orange-600 border-b-2 border-orange-500" : "text-slate-400 hover:bg-slate-50"}`}
+            className={`flex-1 flex items-center justify-center gap-2 py-4 text-xs font-black uppercase transition-all ${activeMediaTab === "gallery" ? "bg-orange-50 text-orange-600 border-b-2 border-orange-500" : "text-slate-600 hover:bg-slate-50"}`}
           >
             <ImageIcon className="w-4 h-4" />
             {lang === "en" ? "Image Gallery" : "产品实拍图库"}
@@ -1489,7 +1489,7 @@ export default function DetailedProductView({
           {hasFeatureImages && (
             <button 
               onClick={() => setActiveMediaTab("feature")}
-              className={`flex-1 flex items-center justify-center gap-2 py-4 text-xs font-black uppercase transition-all ${activeMediaTab === "feature" ? "bg-orange-50 text-orange-600 border-b-2 border-orange-500" : "text-slate-400 hover:bg-slate-50"}`}
+              className={`flex-1 flex items-center justify-center gap-2 py-4 text-xs font-black uppercase transition-all ${activeMediaTab === "feature" ? "bg-orange-50 text-orange-600 border-b-2 border-orange-500" : "text-slate-600 hover:bg-slate-50"}`}
             >
               <Maximize2 className="w-4 h-4" />
               {lang === "en" ? "Feature Images" : "特性图解"}
@@ -1498,7 +1498,7 @@ export default function DetailedProductView({
           {hasVideo && (
             <button 
               onClick={() => setActiveMediaTab("video")}
-              className={`flex-1 flex items-center justify-center gap-2 py-4 text-xs font-black uppercase transition-all ${activeMediaTab === "video" ? "bg-orange-50 text-orange-600 border-b-2 border-orange-500" : "text-slate-400 hover:bg-slate-50"}`}
+              className={`flex-1 flex items-center justify-center gap-2 py-4 text-xs font-black uppercase transition-all ${activeMediaTab === "video" ? "bg-orange-50 text-orange-600 border-b-2 border-orange-500" : "text-slate-600 hover:bg-slate-50"}`}
             >
               <Play className="w-4 h-4" />
               {lang === "en" ? "PRODUCT VIDEO" : "实物演示视频"}
@@ -1540,7 +1540,7 @@ export default function DetailedProductView({
                     allowFullScreen
                   />
                 ) : (
-                  <div className="w-full h-full bg-slate-100 flex items-center justify-center rounded-2xl text-slate-400 font-medium">
+                  <div className="w-full h-full bg-slate-100 flex items-center justify-center rounded-2xl text-slate-600 font-medium">
                     {lang === "en" ? "No video available" : "暂无视频"}
                   </div>
                 )}
@@ -1581,7 +1581,7 @@ export default function DetailedProductView({
           <div id="product_analysis_section" className="bg-white border border-slate-100 rounded-[40px] p-8 shadow-sm space-y-8 scroll-mt-24">
              <div className="flex justify-between items-center border-b border-slate-50 pb-6">
                 <h2 className="km-section-title text-slate-900">{lang === "en" ? "Performance Analysis" : "测评效能透视"}</h2>
-                <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                <div className="text-[10px] font-black uppercase tracking-widest text-slate-600">
                   {lang === "en" ? "Single Product Evidence" : "单品证据评估"}
                 </div>
              </div>
@@ -1637,7 +1637,7 @@ export default function DetailedProductView({
                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                        {visibleModelOverviewRows.map((row, index) => (
                          <div key={`overview-${row.label}-${index}`} className="rounded-2xl bg-white border border-slate-100 p-3 space-y-1">
-                           <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{row.label}</p>
+                           <p className="text-[10px] font-black uppercase tracking-widest text-slate-600">{row.label}</p>
                            <p className="text-sm text-slate-700 font-semibold leading-relaxed wrap-break-word">{row.value}</p>
                          </div>
                        ))}
@@ -1667,7 +1667,7 @@ export default function DetailedProductView({
                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                        {visibleCategoryAttributeRows.map((row, index) => (
                          <div key={`category-attribute-${row.label}-${index}`} className="rounded-2xl bg-white border border-slate-100 p-3 space-y-1">
-                           <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{row.label}</p>
+                           <p className="text-[10px] font-black uppercase tracking-widest text-slate-600">{row.label}</p>
                            <p className="text-sm text-slate-700 font-semibold leading-relaxed wrap-break-word">{row.value}</p>
                          </div>
                        ))}
@@ -1684,7 +1684,7 @@ export default function DetailedProductView({
                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                        {section.rows.map((row, index) => (
                          <div key={`${section.key}-${row.label}-${index}`} className="rounded-2xl bg-white border border-slate-100 p-3 space-y-1">
-                           <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{row.label}</p>
+                           <p className="text-[10px] font-black uppercase tracking-widest text-slate-600">{row.label}</p>
                            <p className="text-sm text-slate-700 font-semibold leading-relaxed wrap-break-word">{row.value}</p>
                          </div>
                        ))}
@@ -1698,7 +1698,7 @@ export default function DetailedProductView({
                        <p className="text-sm font-black text-slate-800">{lang === "zh" ? "评分标准证据" : "Scoring Standards"}</p>
                        <span className="inline-flex items-center gap-2">
                          <span className="text-[10px] font-black px-2 py-1 rounded-full bg-white text-slate-500 border border-slate-200">{structuredScoringStandards.length}</span>
-                         <span className="text-slate-400 text-xs font-black transition-transform group-open:rotate-180">⌄</span>
+                         <span className="text-slate-600 text-xs font-black transition-transform group-open:rotate-180">⌄</span>
                        </span>
                      </summary>
                      <div className="space-y-3 pt-3">
@@ -1710,7 +1710,7 @@ export default function DetailedProductView({
                              <div className="space-y-2">
                                {standard.evidence.map((evidence, index) => (
                                  <div key={`${standard.key}-${index}`} className="rounded-2xl border border-slate-100 bg-slate-50 px-3 py-2">
-                                   {evidence.source && <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{evidence.source}</p>}
+                                   {evidence.source && <p className="text-[10px] font-black uppercase tracking-widest text-slate-600">{evidence.source}</p>}
                                    <p className="mt-1 text-sm text-slate-700 font-medium leading-relaxed">{evidence.text}</p>
                                  </div>
                                ))}

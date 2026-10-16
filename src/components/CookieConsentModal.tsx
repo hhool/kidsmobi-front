@@ -30,7 +30,7 @@ export default function CookieConsentModal({
         </p>
 
         <p className="mt-3 text-xs text-slate-500">
-          Learn more in our <a className="text-orange-600 font-bold hover:underline" href="/auth">Privacy Policy</a>.
+          Learn more in our <a className="text-orange-700 font-bold hover:underline" href="/auth">Privacy Policy</a>.
         </p>
 
         {showPreferences && (
@@ -83,7 +83,7 @@ export default function CookieConsentModal({
         <div className="mt-6 flex flex-col sm:flex-row gap-2.5 sm:items-center">
           <button
             onClick={onAcceptAll}
-            className="px-5 py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-xs font-black uppercase tracking-wide"
+            className="px-5 py-2.5 rounded-xl bg-orange-700 hover:bg-orange-800 text-white text-xs font-black uppercase tracking-wide"
           >
             Accept All Cookies
           </button>

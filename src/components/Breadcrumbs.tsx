@@ -9,7 +9,7 @@ interface BreadcrumbsProps {
 
 export default function Breadcrumbs({ items, lang = "zh", onHomeClick }: BreadcrumbsProps) {
   return (
-    <nav className="flex items-center space-x-2 text-[10px] sm:text-xs font-bold text-slate-400 mb-8 overflow-x-auto whitespace-nowrap pb-2 sm:pb-0 hide-scrollbar">
+    <nav className="flex items-center space-x-2 text-[10px] sm:text-xs font-bold text-slate-600 mb-8 overflow-x-auto whitespace-nowrap pb-2 sm:pb-0 hide-scrollbar">
       <button 
         onClick={onHomeClick}
         className="flex items-center gap-1.5 hover:text-orange-500 transition-colors uppercase tracking-widest"

@@ -56,6 +56,7 @@ import SmartImage from "./components/common/SmartImage";
 import SafetyWeightCalculator from "./components/common/SafetyWeightCalculator";
 import MatchingWizard from "./components/MatchingWizard";
 import ReferenceClusterNav from "./components/ReferenceClusterNav";
+import ProductDetailSkeleton from "./components/ProductDetailSkeleton";
 
 const HomeSection = lazy(() => import("./components/HomeSection"));
 const NewsSection = lazy(() => import("./components/NewsSection"));
@@ -3673,7 +3674,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     openHomeFromTopNav();
                   }}
                   className={`px-3 py-2 rounded-xl font-bold transition-all ${
-                    activeTab === "home" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                    activeTab === "home" ? "bg-white text-orange-700 shadow-sm" : "text-slate-500 hover:text-slate-900"
                   }`}
                 >
                   <span>{t.navHome}</span>
@@ -3691,7 +3692,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     aria-expanded={productsMenuOpen}
                     aria-controls="products_dropdown_menu"
                     className={`px-3 py-2 rounded-xl font-bold transition-all flex items-center gap-1 ${
-                      activeTab === "products" || activeTab === "product_detail" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                      activeTab === "products" || activeTab === "product_detail" ? "bg-white text-orange-700 shadow-sm" : "text-slate-500 hover:text-slate-900"
                     }`}
                   >
                     <span>{t.navProducts}</span>
@@ -3775,7 +3776,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     navigateToPath("/reviews");
                   }}
                   className={`px-3 py-2 rounded-xl font-bold transition-all ${
-                    activeTab === "reviews" || activeTab === "evaluations" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                    activeTab === "reviews" || activeTab === "evaluations" ? "bg-white text-orange-700 shadow-sm" : "text-slate-500 hover:text-slate-900"
                   }`}
                 >
                   <span>{t.navEvaluations}</span>
@@ -3787,7 +3788,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     navigateToPath("/guides");
                   }}
                   className={`px-3 py-2 rounded-xl font-bold transition-all ${
-                    activeTab === "guides" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                    activeTab === "guides" ? "bg-white text-orange-700 shadow-sm" : "text-slate-500 hover:text-slate-900"
                   }`}
                 >
                   <span>{t.navGuides}</span>
@@ -3800,7 +3801,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     navigateToPath("/news/page/1");
                   }}
                   className={`px-3 py-2 rounded-xl font-bold transition-all ${
-                    activeTab === "news" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                    activeTab === "news" ? "bg-white text-orange-700 shadow-sm" : "text-slate-500 hover:text-slate-900"
                   }`}
                 >
                   <span>{t.navNews}</span>
@@ -3810,7 +3811,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 <button
                   onClick={() => handlePrimaryTabClick("about")}
                   className={`px-3 py-2 rounded-xl font-bold transition-all ${
-                    activeTab === "about" ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-900"
+                    activeTab === "about" ? "bg-white text-orange-700 shadow-sm" : "text-slate-500 hover:text-slate-900"
                   }`}
                 >
                   {t.navAbout}
@@ -3822,7 +3823,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     title={lang === "zh" ? "进入管理后台" : "Open admin"}
                     className={`px-3 py-2 rounded-xl font-bold transition-all ${
                       activeTab === "admin"
-                        ? "bg-white text-orange-500 shadow-sm"
+                        ? "bg-white text-orange-700 shadow-sm"
                         : "text-slate-500 hover:text-slate-900"
                     }`}
                   >
@@ -3926,7 +3927,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
       {/* Primary content area container */}
       <main id="primary_tab_viewport" className="flex-1 max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full relative">
-        <Suspense fallback={<div className="min-h-80 rounded-3xl border border-slate-100 bg-white/80 p-8 text-center text-sm font-bold text-slate-500 shadow-sm">Loading BalanceBikeToddler</div>}>
+        <Suspense fallback={activeTab === "product_detail" ? <ProductDetailSkeleton lang={lang} /> : <div className="min-h-80 rounded-3xl border border-slate-100 bg-white/80 p-8 text-center text-sm font-bold text-slate-500 shadow-sm">Loading BalanceBikeToddler</div>}>
 
         {isRouteNotFound && (
           <section className="rounded-3xl border border-slate-100 bg-white/90 p-12 text-center shadow-sm">
@@ -4176,6 +4177,15 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               navigateToPath(path);
             }}
           />
+        )}
+
+        {/* CLS guard (Lighthouse 2026-10-16): while CMS data is still resolving,
+            selectedProduct is null and the detail route used to render nothing,
+            collapsing <main> to its 80px padding with the footer inside the
+            first viewport. The tall skeleton reserves the layout from the first
+            paint so later content mounts below the fold. */}
+        {activeTab === "product_detail" && !selectedProduct && !isRouteNotFound && (
+          <ProductDetailSkeleton lang={lang} />
         )}
 
         {activeTab === "product_detail" && selectedProduct && (
@@ -4471,8 +4481,8 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                 </div>
                 <span className="text-xl font-display font-black text-white tracking-tighter">BalanceBikeToddler</span>
               </div>
-              <p className="text-slate-500 leading-relaxed font-medium pr-4">
-                {lang === "en" 
+              <p className="text-slate-400 leading-relaxed font-medium pr-4">
+                {lang === "en"
                   ? "Global safety benchmark for premium kids mobility. We turn published specs into parenting confidence."
                   : "全球高端童车安全基准。我们将繁琐的规格数据转化为父母的选购自信。"}
               </p>
@@ -4774,7 +4784,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     ? "© 2026 BalanceBikeToddler · Kids Ride-On & Safety Buying Guide"
                     : "© 2026 BalanceBikeToddler · 儿童骑行与安全选购研究站 · 版权所有"}
                 </span>
-                <p className="text-[10px] text-slate-600">
+                <p className="text-[10px] text-slate-400">
                   {lang === "en" ? "Independent analysis — every rating traced to a published source" : "BalanceBikeToddler 独立研究 · 结论可溯源至公开来源"}
                 </p>
                 {isAdmin && (
@@ -4790,9 +4800,9 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
 
               {/* Currency display (auto-detected by region; no manual switching) */}
               <div className="flex flex-wrap items-center gap-3">
-                <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest bg-slate-800/50 px-3 py-1.5 rounded-lg border border-slate-800">
+                <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest bg-slate-800/50 px-3 py-1.5 rounded-lg border border-slate-800">
                   {lang === "zh" ? "结算货币：" : "Currency:"}{" "}
-                  <span className="text-orange-500">
+                  <span className="text-orange-400">
                     {currencyData?.symbol} {currencyData?.currency}
                     {currencyData?.rate !== 1 && ` (1 USD = ${currencyData?.rate} ${currencyData?.currency})`}
                   </span>
@@ -4800,7 +4810,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               </div>
             </div>
             
-            <p className="max-w-2xl text-[10px] text-slate-600 leading-relaxed text-left md:text-right italic">
+            <p className="max-w-2xl text-[10px] text-slate-400 leading-relaxed text-left md:text-right italic">
               {lang === "en"
                 ? "Unbiased Oath: We do not accept paid placement or positive coverage. Every score is built from manufacturer specifications, public safety records, and aggregated owner feedback — sources we name on the page."
                 : "独立性声明：BalanceBikeToddler 拒绝付费植入与付费好评。所有评分来自厂商标称参数、公开安全记录与用户反馈聚合，来源均已在页面标明。"}
@@ -4808,7 +4818,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
           </div>
 
           <div className="mt-6 max-w-5xl mx-auto text-center">
-            <p className="text-[10px] text-slate-500 leading-relaxed">
+            <p className="text-[10px] text-slate-400 leading-relaxed">
               {lang === "en"
                 ? "BalanceBikeToddler is reader-supported. When you buy through links on our site, we may earn an affiliate commission at no extra cost to you. Learn more on our Transparency page."
                 : "BalanceBikeToddler 为读者支持型站点：通过本站链接购买商品时，我们可能获得联盟佣金（不增加您的购买成本）。详见透明度说明页。"}

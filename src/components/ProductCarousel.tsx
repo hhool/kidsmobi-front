@@ -118,7 +118,19 @@ export default function ProductCarousel({ images, lang, productName }: ProductCa
     setCurrentIndex((prev) => (prev + newDirection + images.length) % images.length);
   };
 
-  if (!images || images.length === 0) return null;
+  // Empty state still reserves the 400px carousel footprint: returning null
+  // here collapsed the detail page layout (media region 0 -> 400px) once image
+  // data resolved, pushing everything below it down and inflating CLS.
+  if (!images || images.length === 0) {
+    return (
+      <div
+        aria-hidden="true"
+        className="relative w-full h-[400px] bg-white rounded-3xl overflow-hidden"
+      >
+        <div className="h-full w-full rounded-3xl bg-slate-100 animate-pulse" />
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full h-[400px] bg-white rounded-3xl overflow-hidden group">
@@ -193,7 +205,7 @@ export default function ProductCarousel({ images, lang, productName }: ProductCa
       </div>
 
       {/* Counter */}
-      <div className="absolute top-4 right-6 text-[10px] font-black font-mono text-slate-400 bg-slate-50 px-3 py-1 rounded-full border border-slate-100">
+      <div className="absolute top-4 right-6 text-[10px] font-black font-mono text-slate-600 bg-slate-50 px-3 py-1 rounded-full border border-slate-100">
         {currentIndex + 1} / {images.length}
       </div>
     </div>

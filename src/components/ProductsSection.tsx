@@ -2017,24 +2017,24 @@ export default function ProductsSection({
           <div className="space-y-6 relative z-10">
             {/* Search */}
             <div className="space-y-2 text-left">
-              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block">
+              <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest block">
                 {productsCopy.searchLabel}
               </span>
               <div className="relative">
-                <Search className="w-4 h-4 text-slate-400 absolute left-4 top-3.5" />
+                <Search className="w-4 h-4 text-slate-600 absolute left-4 top-3.5" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={productsCopy.searchPlaceholder}
-                  className="w-full bg-slate-50 border border-slate-150 rounded-2xl pl-10 pr-4 py-2.5 text-xs text-slate-900 font-bold placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:bg-white transition-all uppercase tracking-tight"
+                  className="w-full bg-slate-50 border border-slate-150 rounded-2xl pl-10 pr-4 py-2.5 text-xs text-slate-900 font-bold placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:bg-white transition-all uppercase tracking-tight"
                 />
               </div>
             </div>
 
             {/* Sort */}
             <div className="space-y-2">
-              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-sans">
+              <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest block font-sans">
                 {productsCopy.sortLabel}
               </span>
               <select
@@ -2053,7 +2053,7 @@ export default function ProductsSection({
 
             {/* Category selection */}
             <div className="space-y-2 border-t border-slate-100 pt-4">
-              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block pl-1">
+              <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest block pl-1">
                 {productsCopy.categoriesLabel}
               </span>
               <div className="flex flex-col gap-1">
@@ -2066,7 +2066,7 @@ export default function ProductsSection({
                     }}
                     className={`w-full text-left px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all border ${
                       selectedCategory === c.id
-                        ? "bg-orange-500 text-white border-orange-400 shadow-md shadow-orange-500/10"
+                        ? "bg-orange-700 text-white border-orange-600 shadow-md shadow-orange-500/10"
                         : "bg-slate-50 text-slate-500 border-slate-100 hover:bg-slate-100 hover:text-slate-900"
                     }`}
                   >
@@ -2079,7 +2079,7 @@ export default function ProductsSection({
             {/* Advanced Filters */}
             <div className="space-y-4 border-t border-slate-100 pt-4">
               <div className="space-y-1.5">
-                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.ageLabel}</span>
+                <span className="text-[9px] font-black text-slate-600 uppercase tracking-widest block pl-1">{productsCopy.ageLabel}</span>
                 <div className="grid grid-cols-2 gap-1.5 font-sans">
                   {[
                     { id: "all", label: productsCopy.ageOptions.all },
@@ -2091,7 +2091,7 @@ export default function ProductsSection({
                       key={age.id}
                       onClick={() => setSelectedAge(age.id)}
                       className={`py-1.5 rounded-lg text-[9px] font-bold uppercase transition-all border ${
-                        selectedAge === age.id ? "bg-slate-900 text-white border-slate-900 shadow-sm" : "bg-white text-slate-400 border-slate-100 hover:border-slate-200"
+                        selectedAge === age.id ? "bg-slate-900 text-white border-slate-900 shadow-sm" : "bg-white text-slate-600 border-slate-100 hover:border-slate-200"
                       }`}
                     >
                       {age.label}
@@ -2101,7 +2101,7 @@ export default function ProductsSection({
               </div>
 
               <div className="space-y-1.5">
-                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.priceLabel}</span>
+                <span className="text-[9px] font-black text-slate-600 uppercase tracking-widest block pl-1">{productsCopy.priceLabel}</span>
                 <div className="grid grid-cols-2 gap-1.5 font-sans">
                   {[
                     { id: "all", label: productsCopy.priceOptions.all },
@@ -2113,7 +2113,7 @@ export default function ProductsSection({
                       key={p.id}
                       onClick={() => setSelectedPrice(p.id)}
                       className={`py-1.5 rounded-lg text-[9px] font-bold uppercase transition-all border ${
-                        selectedPrice === p.id ? "bg-slate-900 text-white border-slate-900 shadow-sm" : "bg-white text-slate-400 border-slate-100 hover:border-slate-200"
+                        selectedPrice === p.id ? "bg-slate-900 text-white border-slate-900 shadow-sm" : "bg-white text-slate-600 border-slate-100 hover:border-slate-200"
                       }`}
                     >
                       {p.label}
@@ -2125,7 +2125,7 @@ export default function ProductsSection({
               {selectedCategory !== "all" && (
                 <div className="space-y-3 pt-2 border-t border-slate-100">
                   {categoryFacetVisibility.brand && <div className="space-y-1">
-                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.brandLabel}</span>
+                    <span className="text-[9px] font-black text-slate-600 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.brandLabel}</span>
                     <select
                       value={selectedBrand}
                       onChange={(e) => setSelectedBrand(e.target.value)}
@@ -2141,7 +2141,7 @@ export default function ProductsSection({
                   </div>}
 
                   {categoryFacetVisibility.frame && <div className="space-y-1">
-                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.frameLabel}</span>
+                    <span className="text-[9px] font-black text-slate-600 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.frameLabel}</span>
                     <select
                       value={selectedFrameMaterial}
                       onChange={(e) => setSelectedFrameMaterial(e.target.value)}
@@ -2157,7 +2157,7 @@ export default function ProductsSection({
                   </div>}
 
                   {categoryFacetVisibility.tire && <div className="space-y-1">
-                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.tireLabel}</span>
+                    <span className="text-[9px] font-black text-slate-600 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.tireLabel}</span>
                     <select
                       value={selectedTireType}
                       onChange={(e) => setSelectedTireType(e.target.value)}
@@ -2173,7 +2173,7 @@ export default function ProductsSection({
                   </div>}
 
                   {categoryFacetVisibility.brake && <div className="space-y-1">
-                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.brakeLabel}</span>
+                    <span className="text-[9px] font-black text-slate-600 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.brakeLabel}</span>
                     <select
                       value={selectedBrakeSystem}
                       onChange={(e) => setSelectedBrakeSystem(e.target.value)}
@@ -2189,7 +2189,7 @@ export default function ProductsSection({
                   </div>}
 
                   {categoryFacetVisibility.wheelCount && <div className="space-y-1">
-                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.wheelCountLabel}</span>
+                    <span className="text-[9px] font-black text-slate-600 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.wheelCountLabel}</span>
                     <select
                       value={selectedWheelCount}
                       onChange={(e) => setSelectedWheelCount(e.target.value)}
@@ -2205,7 +2205,7 @@ export default function ProductsSection({
                   </div>}
 
                   {categoryFacetVisibility.wheel && <div className="space-y-1">
-                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.wheelLabel}</span>
+                    <span className="text-[9px] font-black text-slate-600 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.wheelLabel}</span>
                     <select
                       value={selectedWheelSize}
                       onChange={(e) => setSelectedWheelSize(e.target.value)}
@@ -2221,7 +2221,7 @@ export default function ProductsSection({
                   </div>}
 
                   {categoryFacetVisibility.certification && <div className="space-y-1">
-                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.certificationLabel}</span>
+                    <span className="text-[9px] font-black text-slate-600 uppercase tracking-widest block pl-1">{productsCopy.filterFacets.certificationLabel}</span>
                     <select
                       value={selectedCertification}
                       onChange={(e) => setSelectedCertification(e.target.value)}
@@ -2246,7 +2246,7 @@ export default function ProductsSection({
           {filteredProducts.length === 0 ? (
             <div className="p-20 text-center bg-white border border-slate-100 rounded-3xl shadow-sm">
               <span className="text-3xl block mb-3">🔍</span>
-              <p className="text-slate-400 font-extrabold uppercase tracking-wide text-xs">
+              <p className="text-slate-600 font-extrabold uppercase tracking-wide text-xs">
                 {productsCopy.noMatches}
               </p>
               <button 
@@ -2278,7 +2278,7 @@ export default function ProductsSection({
                       {filteredProducts.length} / {categoryBaseCount}
                     </span>
                   </h2>
-                  <p className="text-[10px] text-slate-400 font-semibold max-w-xl">
+                  <p className="text-[10px] text-slate-600 font-semibold max-w-xl">
                     {productsCopy.metricsHint}
                   </p>
                 </div>
@@ -2309,7 +2309,6 @@ export default function ProductsSection({
                 }}
                 role="button"
                 tabIndex={0}
-                aria-label={`${productsCopy.productCard.viewMetricsAriaPrefix} ${productCardTitle}`}
                 className="bg-white border border-slate-100 hover:border-orange-100 rounded-[56px] p-8 flex flex-col justify-between space-y-8 hover:shadow-[0_48px_80px_-24px_rgba(249,115,22,0.12)] transition-all duration-500 group text-left cursor-pointer relative animate-fade-in overflow-hidden"
               >
                 <div className="absolute top-0 right-0 w-24 h-24 bg-orange-50 rounded-bl-[60px] opacity-0 group-hover:opacity-100 transition-opacity translate-x-4 -translate-y-4"></div>
@@ -2347,7 +2346,7 @@ export default function ProductsSection({
                         );
                       })()}
                     </span>
-                    <span className="text-slate-400 text-[10px] font-black uppercase tracking-widest shrink-0">{diProduct.brand}</span>
+                    <span className="text-slate-600 text-[10px] font-black uppercase tracking-widest shrink-0">{diProduct.brand}</span>
                   </div>
 
                   <h3 className="km-card-title text-slate-900 group-hover:text-orange-500 transition-colors">
@@ -2383,7 +2382,7 @@ export default function ProductsSection({
 
                           <div className="pt-3 border-t border-dashed border-slate-100 space-y-3 text-xs text-slate-600">
                             <div className="space-y-1">
-                              <div className="flex justify-between items-center text-[10px] font-black text-slate-400">
+                              <div className="flex justify-between items-center text-[10px] font-black text-slate-600">
                                 <span>🧪 {diProduct.overallScore ? diProduct.overallScore.toFixed(1) : "9.4"}</span>
                               </div>
                               <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
@@ -2429,7 +2428,7 @@ export default function ProductsSection({
                           ? "bg-orange-500 border-orange-400 text-white shadow-xl shadow-orange-500/20"
                           : compareList.length >= 4
                             ? "bg-slate-50 border-slate-100 text-slate-300 cursor-not-allowed"
-                          : "bg-white border-slate-100 text-slate-400 hover:text-orange-500 hover:border-orange-200"
+                          : "bg-white border-slate-100 text-slate-600 hover:text-orange-500 hover:border-orange-200"
                       }`}
                       title={productsCopy.productCard.compareAria}
                       aria-label={productsCopy.productCard.compareAria}
@@ -2441,7 +2440,7 @@ export default function ProductsSection({
                       className={`p-3.5 rounded-2xl border transition-all active:scale-90 ${
                         isAlreadySaved
                           ? "bg-rose-500 border-rose-400 text-white shadow-xl shadow-rose-500/20"
-                          : "bg-white border-slate-100 text-slate-400 hover:text-rose-500 hover:border-rose-200"
+                          : "bg-white border-slate-100 text-slate-600 hover:text-rose-500 hover:border-rose-200"
                       }`}
                       title={productsCopy.productCard.saveAria}
                       aria-label={productsCopy.productCard.saveAria}
@@ -2519,7 +2518,7 @@ export default function ProductsSection({
               <h2 className="km-section-title text-slate-900">
                 {productsCopy.history.title}
               </h2>
-              <p className="km-heading-copy km-body-copy text-slate-400 text-xs font-semibold">
+              <p className="km-heading-copy km-body-copy text-slate-600 text-xs font-semibold">
                 {productsCopy.history.subtitle}
               </p>
             </div>
@@ -2551,7 +2550,7 @@ export default function ProductsSection({
                     <h3 className="font-extrabold text-slate-900 group-hover:text-orange-500 transition text-sm break-words">
                       {historyDisplayTitle}
                     </h3>
-                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wide">
+                    <p className="text-[10px] text-slate-600 font-bold uppercase tracking-wide">
                       {dp.brand}
                     </p>
                   </div>
