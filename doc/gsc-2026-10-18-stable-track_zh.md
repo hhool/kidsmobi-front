@@ -9,13 +9,13 @@
 |---|---|
 | `/balance-bike-budget/` 线上状态 | ✅ 200，`index,follow`，canonical 正确 |
 | `/balance-bike-stability/` 线上状态 | ✅ 200，`index,follow`，canonical 正确，H1 含 "stable track balance bike" |
-| 两页是否已被 Bing/Google 收录 | ⚠️ **本环境无法可靠验证**（搜索引擎查询被网络层拦截，详见 §1）——需 GSC / 正常网络 site: 确认 |
-| sitemap.xml | ✅ 200 + `application/xml` + **247 条** + 含两新页 + lastmod 新鲜（2026-10-16）——**Worker 拦截未复发**；⚠️ 无 `<priority>`（格式偏差，见 §2） |
-| `npm run seo:health` | ✅ **100/100**（14/14 通过） |
+| 两页是否已被 Bing/Google 收录 | ⚠️ Bing site: 直查（10-18 晚 WebFetch 通道补测，§1.1）：两条 URL 均「无结果」，但 Bing site: 路径过滤不可靠、不能据此判定未收录；Google 侧仍待 GSC（10-19~20） |
+| sitemap.xml | ✅ 200 + `application/xml` + **247 条** + 含两新页 + lastmod 新鲜（2026-10-16）——**Worker 拦截未复发**；✅ `<priority>` 缺失偏差已修复（代码层 backend `f2046bf`，见 §2；待 Worker 手动部署后线上生效） |
+| `npm run seo:health` | ✅ **100/100**（15/15 通过，KEY_URLS 已补 budget 页） |
 | stable-track 承载页迁移 | ⏳ 未证实。10-15 基准仍是 `/` + `/products/balance-bikes/`；无新导出，需等 GSC（滞后 2-3 天，10-19~20 复查） |
 | GSC Page indexing「Validation failed」 | ⏳ 无新截图/导出，无法确认是否转通过 |
 
-## 1. 收录核查（Bing 优先）— 环境受限，未能取得直接证据
+## 1. 收录核查（Bing 优先）— 上午环境受限，晚间接通补测（见 §1.1）
 
 本任务的预设路径（网页搜索 `site:` 两页）在当前沙箱**全部被网络层干扰**，逐条记录：
 
@@ -43,6 +43,24 @@
 
 **结论：** 可确认"可抓取、已提交、无拦截"，但"是否已被索引"无法从本环境证实。按任务预设的降级逻辑本应以 Bing site: 为准——该渠道在本环境被污染，**不作判断**。权威答案需：① GSC URL Inspection（数据滞后 2-3 天，用户 10-16 的 Request Indexing 预计 **10-19~20** 才反映）；② 用户在正常网络执行 `site:balancebiketoddler.com/balance-bike-budget/` 与 `site:balancebiketoddler.com/balance-bike-stability/`。
 
+### 1.1 补测（2026-10-18 20:30）— WebFetch 通道打通，取得 Bing 直接证据
+
+上午记录的网络层干扰只影响 curl / WebSearch；改用 WebFetch 直取 `www.bing.com/search` 当晚即通。逐条结果：
+
+| 查询 | Bing 返回 |
+|---|---|
+| `site:balancebiketoddler.com/balance-bike-budget/` | **「没有与此相关的结果」** |
+| `site:balancebiketoddler.com/balance-bike-stability/` | **「没有与此相关的结果」** |
+| `site:balancebiketoddler.com`（整站对照） | 正常返回：首页、`/about`、`/products`、`/reviews` 及若干详情页在列 |
+
+**判读（重要告诫）：**
+
+- 整站对照证明 Bing 索引里**有**本站内容；两条 site: 路径查无 ≠ 页面未收录——Bing 的 site: 路径过滤不完整是出了名的，且两页 10-15 才经 IndexNow 提交，Bing 收录滞后数周属正常。
+- 上午判词维持不变：**"可抓取、已提交、无拦截"确认；"已被索引"仍未证实**。Google 侧唯一权威渠道仍是 GSC URL Inspection（10-19~20）。
+- 任务预设的"正常网络环境 site: 复查"目标已**部分达成**（Bing 侧有了直接返回），与用户侧人工复核仍可互相印证，建议保留第 2 条。
+
+**意外发现（安全排查，已排除活体风险）：** Bing 整站结果里出现两条垃圾注入风格 URL——`/panties/fashion-models-directory.php` 与 `/spanking/hardman-cnn-models.php`（挂着本站标题与描述的 spam 页）。线上实测：www 301 → apex，apex 均返回 **404**（SPA 回退）——**站点当前未被挂马，属 Bing 历史索引残留**。建议（用户侧，可选）：在 Bing 站长工具对这两条 URL 提交移除请求加速清除；后续若发现任何 200 变体再按入侵处置。
+
 ## 2. sitemap 自检 — 新鲜度已修复，一处格式偏差
 
 抓取方式：`curl --noproxy '*' https://balancebiketoddler.com/sitemap.xml`（无 query、无 cache-buster）。
@@ -55,14 +73,14 @@
 | 含 balance-bike-budget | 是 | 是 | ✅ |
 | 含 balance-bike-stability | 是 | 是 | ✅ |
 | 非 260 条旧格式 / 非 JSON / 非 404 | — | 最新 lastmod = **2026-10-16T12:22:46.520Z**，237/247 条带 lastmod | ✅ **Worker 拦截未复发、边缘缓存不陈旧** |
-| 含 `<priority>` | 是 | **0/247 条含 priority** | ⚠️ 偏差，见下 |
+| 含 `<priority>` | 是 | 0/247（上午实测） | ✅ 已修复，见下 |
 
 **关于 `<priority>` 缺失的分析：**
 
 - 仓库的 prerender 生成器（`scripts/prerender-pages.ts`，`sitemapPriority()`）对**每条** URL 都输出 `<priority>`（资产页 0.9、balance-bike-* 0.8、平衡车详情 0.6 等）——本地 `dist/sitemap.xml`（10-17 01:58 构建）可证。
 - 线上版格式是紧凑单行、home 带 lastmod 而 dist 版 home 不带（仓库生成器 `/` 路由键名 bug），且全无 priority——**线上 sitemap 由后端 Worker 的 D1 生成器产出，不是 Pages 静态文件**。按代码注释，Worker 主生成 + Pages 文件兜底本就是设计架构（"The API worker uses this Pages-hosted file as a zero-D1 fallback"）。
 - 影响评估：**低**。Google 官方明确 `<priority>` 是弱提示，基本不影响抓取/排名；10-16 Semrush 全量爬取 247/247 OK 也证明无抓取障碍。10-15 的"旧格式"警报条件是 JSON/404/260 条——均未出现，**不需要按告警处理**。
-- 若要对齐格式（可选，属后端 Worker 仓库，不在本 front 仓库）：给 Worker 的 sitemap 生成器补 priority 分层，或让 `/sitemap.xml` 干净路径直接返回 Pages 静态文件。
+- **已修复（2026-10-18，backend commit `f2046bf`）：** 采纳"补 priority 分层"方案——Worker 生成器新增 `sitemapPriority()`，与 front `prerender-pages.ts` 的分层逐档一致（1.0 / 0.9 / 0.8 / 0.6 / 0.4），tsc 通过。Worker 为**手动部署**（`cd backend/api/worker && npx wrangler deploy`，需 `CLOUDFLARE_API_TOKEN`）；部署后线上 sitemap 与 dist 版的 priority 分布完全一致，未部署前线上仍 0 条 priority。备选方案（干净路径直接返回 Pages 静态文件）未采纳。
 
 **附带记录（非新问题）：** 10 条 URL 无 lastmod，全部是资产/透明页（budget、by-age、safety-standards、size-chart、stability、weight、what-buyers-say、recalls、review-count-integrity、search-data）。仓库生成器对这些路由同样不写 lastmod，属既成设计。
 
@@ -71,12 +89,12 @@
 `node scripts/seo/site-health-check.mjs`（即 `npm run seo:health`，沙箱出站网络正常，无需重试）：
 
 ```
-SCORE: 100/100  (pass 14, warn 0, fail 0 of 14)
+SCORE: 100/100  (pass 15, warn 0, fail 0 of 15)
 ```
 
-robots.txt（200，含 Sitemap: 与 User-agent: *）、sitemap.xml（247，delta 0）、11 个关键页元数据（含 `/balance-bike-stability/`）、llms.txt（1137B）、内链抽样 15 条 0 断裂——全部通过。与 10-16 周报一致，无回归。
+robots.txt（200，含 Sitemap: 与 User-agent: *）、sitemap.xml（247，delta 0）、12 个关键页元数据（含 `/balance-bike-stability/` 与 `/balance-bike-budget/`）、llms.txt（1137B）、内链抽样 15 条 0 断裂——全部通过。与 10-16 周报一致，无回归。
 
-小建议（本仓库内可做）：`site-health-check.mjs` 的 `KEY_URLS` 已含 `/balance-bike-stability/`，但**未含** `/balance-bike-budget/`；下轮周检前把 budget 页加进清单，让新页元数据进入每周自动监控。
+**小建议已落实（2026-10-18，front commit `595c53e`）：** `KEY_URLS` 已补入 `/balance-bike-budget/`，周检从 14 项增至 15 项，复跑 100/100——新页元数据已进入每周自动监控。
 
 ## 4. "stable track" 承载页迁移评估
 
@@ -96,7 +114,7 @@ robots.txt（200，含 Sitemap: 与 User-agent: *）、sitemap.xml（247，delta
 ## 6. 下一步建议（按优先级）
 
 1. **10-19~20**：GSC URL Inspection 分别检查 `/balance-bike-budget/` 与 `/balance-bike-stability/` 的收录状态；同时导出一份 Performance（Query contains `stable track` → PAGES）验证承载页是否开始迁移。
-2. **正常网络环境**：执行 `site:balancebiketoddler.com/balance-bike-budget/` 与 `site:balancebiketoddler.com/balance-bike-stability/`，补上本环境被阻断的 Bing 收录直接证据。
-3. **（后端，可选）** Worker sitemap 生成器补 `<priority>` 分层，或让干净路径直接返回 Pages 版 sitemap——低优先级，Google 基本忽略该字段。
-4. **（本仓库，可选）** 把 `/balance-bike-budget/` 加进 `site-health-check.mjs` 的 `KEY_URLS`。
+2. ~~**正常网络环境**：执行 `site:balancebiketoddler.com/balance-bike-budget/` 与 `site:balancebiketoddler.com/balance-bike-stability/`~~ ✅ **已补测（10-18 晚，WebFetch 通道打通，§1.1）**：两路径均「无结果」、整站在列——Bing 侧直接证据已取得，但 site: 运算符不可靠，判读见 §1.1；Google 侧仍走第 1 条。
+3. ~~**（后端，可选）** Worker sitemap 生成器补 `<priority>` 分层，或让干净路径直接返回 Pages 版 sitemap~~ ✅ **已完成（10-18，backend `f2046bf`，tsc 通过，待手动部署）**：采用「补 priority 分层」方案，与 front 分层逐档一致；部署需 `CLOUDFLARE_API_TOKEN`。另一备选未采纳。
+4. ~~**（本仓库，可选）** 把 `/balance-bike-budget/` 加进 `site-health-check.mjs` 的 `KEY_URLS`~~ ✅ **已完成（10-18，front `595c53e`）**：周检 15/15 100 分。
 5. **GSC 截图更新时**：核对「Validation failed」是否转通过；未转则重点一次或排查 redirect 变体链。

@@ -9,13 +9,13 @@
 |---|---|
 | `/balance-bike-budget/` live status | ✅ 200, `index,follow`, correct canonical |
 | `/balance-bike-stability/` live status | ✅ 200, `index,follow`, correct canonical, H1 contains "stable track balance bike" |
-| Are both pages indexed (Bing/Google) | ⚠️ **Not reliably verifiable from this environment** (search-engine queries are intercepted at the network layer — see §1). Needs GSC / a normal-network `site:` check |
-| sitemap.xml | ✅ 200 + `application/xml` + **247 URLs** + both new pages present + fresh lastmod (2026-10-16) — **no Worker interception recurrence**; ⚠️ no `<priority>` tags (format deviation, see §2) |
-| `npm run seo:health` | ✅ **100/100** (14/14 pass) |
+| Are both pages indexed (Bing/Google) | ⚠️ Bing `site:` direct queries (10-18 evening WebFetch channel, §1.1): both URLs return "no results" — but Bing's `site:` path filtering is unreliable and cannot prove non-indexing; Google side still awaits GSC (10-19~20) |
+| sitemap.xml | ✅ 200 + `application/xml` + **247 URLs** + both new pages present + fresh lastmod (2026-10-16) — **no Worker interception recurrence**; ✅ missing `<priority>` deviation fixed in code (backend `f2046bf`, see §2; goes live after the manual Worker deploy) |
+| `npm run seo:health` | ✅ **100/100** (15/15 pass; budget page added to KEY_URLS) |
 | stable-track landing-page migration | ⏳ Not confirmed. 10-15 baseline is still `/` + `/products/balance-bikes/`; no new export — must wait for GSC (2-3 day lag; recheck 10-19~20) |
 | GSC Page indexing "Validation failed" | ⏳ No new screenshot/export provided; cannot confirm whether it passed |
 
-## 1. Indexing Check (Bing first) — environment-blocked, no direct evidence obtained
+## 1. Indexing Check (Bing first) — environment-blocked in the morning; channel opened in the evening (see §1.1)
 
 The task's planned path (web-search `site:` queries for both pages) was **interfered with at the network layer** throughout this sandbox. Full log:
 
@@ -43,6 +43,24 @@ The task's planned path (web-search `site:` queries for both pages) was **interf
 
 **Conclusion:** "Crawlable, submitted, unobstructed" is confirmed; "indexed" is **not verifiable from this environment**. The task's fallback was to defer to Bing `site:` — that channel is polluted here, so **no verdict is issued** on it. Authoritative answers: ① GSC URL Inspection (2-3 day lag; the user's 10-16 Request Indexing should surface **~10-19~20**); ② user runs `site:balancebiketoddler.com/balance-bike-budget/` and `site:balancebiketoddler.com/balance-bike-stability/` on a normal network.
 
+### 1.1 Follow-up (2026-10-18 20:30) — WebFetch channel opened; direct Bing evidence obtained
+
+The morning log's network-layer interference only affected curl / WebSearch; switching to WebFetch against `www.bing.com/search` went straight through that evening. Results:
+
+| Query | Bing response |
+|---|---|
+| `site:balancebiketoddler.com/balance-bike-budget/` | **"There are no results for …"** |
+| `site:balancebiketoddler.com/balance-bike-stability/` | **"There are no results for …"** |
+| `site:balancebiketoddler.com` (whole-domain control) | Normal results: home, `/about`, `/products`, `/reviews` plus several detail pages listed |
+
+**Reading (important caveat):**
+
+- The whole-domain control proves Bing's index **does** hold this site; two empty `site:` path queries do **not** mean the pages are unindexed — Bing's `site:` path filtering is famously incomplete, and both pages were only submitted via IndexNow on 10-15, so a multi-week Bing lag is normal.
+- The morning verdict stands unchanged: **"crawlable, submitted, unobstructed" confirmed; "indexed" still unproven**. The only authoritative Google-side channel remains GSC URL Inspection (10-19~20).
+- The task's "normal-network `site:` recheck" goal is therefore **partially achieved** (Bing side now has direct responses); a user-side manual check can still serve as cross-confirmation — item 2 below is worth keeping.
+
+**Unexpected finding (security check, live risk ruled out):** the whole-domain Bing results surfaced two spam-injection-style URLs — `/panties/fashion-models-directory.php` and `/spanking/hardman-cnn-models.php` (spam pages wearing this site's title and description). Live probes: www 301 → apex, apex returns **404** (SPA fallback) on both — **the site is not currently compromised; this is stale Bing index residue**. Optional user-side action: file URL-removal requests for both in Bing Webmaster Tools to accelerate cleanup; treat any 200 variant as an intrusion and respond accordingly.
+
 ## 2. Sitemap Self-Check — freshness restored, one format deviation
 
 Fetched via `curl --noproxy '*' https://balancebiketoddler.com/sitemap.xml` (no query, no cache-buster).
@@ -55,14 +73,14 @@ Fetched via `curl --noproxy '*' https://balancebiketoddler.com/sitemap.xml` (no 
 | Contains balance-bike-budget | yes | yes | ✅ |
 | Contains balance-bike-stability | yes | yes | ✅ |
 | Not the 260-URL legacy format / not JSON / not 404 | — | Max lastmod = **2026-10-16T12:22:46.520Z**; 237/247 carry lastmod | ✅ **no Worker interception recurrence, edge cache not stale** |
-| Contains `<priority>` | yes | **0/247 entries carry priority** | ⚠️ deviation, see below |
+| Contains `<priority>` | yes | 0/247 (morning measurement) | ✅ fixed, see below |
 
 **Analysis of the missing `<priority>`:**
 
 - The repo's prerender generator (`scripts/prerender-pages.ts`, `sitemapPriority()`) emits `<priority>` for **every** URL (assets 0.9, balance-bike-* 0.8, balance-bike detail 0.6, etc.) — provable from the local `dist/sitemap.xml` (built 10-17 01:58).
 - The live sitemap is compact single-line, carries lastmod on home (the dist build does not, due to a `/` route-key quirk in the repo generator), and has no priority anywhere — **the live sitemap is produced by the backend Worker's D1 generator, not the Pages static file**. Per the code comment, Worker-primary with the Pages file as fallback is the designed architecture ("The API worker uses this Pages-hosted file as a zero-D1 fallback").
 - Impact: **low**. Google officially treats `<priority>` as a weak hint; it barely affects crawling or ranking, and Semrush's 10-16 full crawl (247/247 OK) proves no crawl obstruction. The 10-15 alert criteria (JSON / 404 / 260-URL legacy format) are all absent — **no alarm warranted**.
-- Optional alignment (backend Worker repo, not this front repo): add priority tiers to the Worker's sitemap generator, or have the clean `/sitemap.xml` path return the Pages static file.
+- **Fixed (2026-10-18, backend commit `f2046bf`):** the "add priority tiers" option was taken — the Worker generator gains `sitemapPriority()`, tier-for-tier identical to front's `prerender-pages.ts` (1.0 / 0.9 / 0.8 / 0.6 / 0.4); tsc clean. The Worker deploys **manually** (`cd backend/api/worker && npx wrangler deploy`, requires `CLOUDFLARE_API_TOKEN`); after deploy the live sitemap's priority distribution matches the dist build exactly. Until then the live sitemap still carries 0 priority tags. The alternative (serve the clean path from the Pages static file) was not adopted.
 
 **Side note (pre-existing, not new):** 10 URLs lack lastmod — all asset/transparency pages (budget, by-age, safety-standards, size-chart, stability, weight, what-buyers-say, recalls, review-count-integrity, search-data). The repo generator also omits lastmod for these routes; this is by design, not a regression.
 
@@ -71,12 +89,12 @@ Fetched via `curl --noproxy '*' https://balancebiketoddler.com/sitemap.xml` (no 
 `node scripts/seo/site-health-check.mjs` (a.k.a. `npm run seo:health`; sandbox outbound network was fine, no retry needed):
 
 ```
-SCORE: 100/100  (pass 14, warn 0, fail 0 of 14)
+SCORE: 100/100  (pass 15, warn 0, fail 0 of 15)
 ```
 
-robots.txt (200, `Sitemap:` + `User-agent: *`), sitemap.xml (247, delta 0), 11 key pages' meta (including `/balance-bike-stability/`), llms.txt (1137B), 15 sampled internal links 0 broken — all green. Consistent with the 10-16 weekly report; no regression.
+robots.txt (200, `Sitemap:` + `User-agent: *`), sitemap.xml (247, delta 0), 12 key pages' meta (now including both `/balance-bike-stability/` and `/balance-bike-budget/`), llms.txt (1137B), 15 sampled internal links 0 broken — all green. Consistent with the 10-16 weekly report; no regression.
 
-Minor suggestion (this repo): `site-health-check.mjs`'s `KEY_URLS` includes `/balance-bike-stability/` but **not** `/balance-bike-budget/`; add the budget page to the list so its meta enters weekly automated monitoring.
+**Suggestion implemented (2026-10-18, front commit `595c53e`):** `/balance-bike-budget/` was added to `KEY_URLS`; the weekly check grew from 14 to 15 items and re-ran at 100/100 — the new page's meta is now under weekly automated monitoring.
 
 ## 4. "stable track" Landing-Page Migration Assessment
 
@@ -96,7 +114,7 @@ Minor suggestion (this repo): `site-health-check.mjs`'s `KEY_URLS` includes `/ba
 ## 6. Recommended Next Steps (priority order)
 
 1. **10-19~20:** GSC URL Inspection for `/balance-bike-budget/` and `/balance-bike-stability/`; export Performance (Query contains `stable track` → PAGES) to verify whether landing pages have started migrating.
-2. **Normal network:** run `site:balancebiketoddler.com/balance-bike-budget/` and `site:balancebiketoddler.com/balance-bike-stability/` to supply the direct Bing indexing evidence this environment could not.
-3. **(Backend, optional)** Add `<priority>` tiers to the Worker's sitemap generator, or serve the clean path from the Pages sitemap — low priority; Google largely ignores the field.
-4. **(This repo, optional)** Add `/balance-bike-budget/` to `KEY_URLS` in `site-health-check.mjs`.
+2. ~~**Normal network:** run `site:balancebiketoddler.com/balance-bike-budget/` and `site:balancebiketoddler.com/balance-bike-stability/`~~ ✅ **Done via follow-up (10-18 evening, WebFetch channel opened, §1.1)**: both paths return "no results", the whole domain is listed — direct Bing-side evidence obtained, but the `site:` operator is unreliable (reading in §1.1); the Google side still rides on item 1.
+3. ~~**(Backend, optional)** Add `<priority>` tiers to the Worker's sitemap generator, or serve the clean path from the Pages sitemap~~ ✅ **Done (10-18, backend `f2046bf`; tsc clean; pending manual deploy)**: the "add priority tiers" option, tier-for-tier identical to front; deploy needs `CLOUDFLARE_API_TOKEN`. The alternative option was not adopted.
+4. ~~**(This repo, optional)** Add `/balance-bike-budget/` to `KEY_URLS` in `site-health-check.mjs`~~ ✅ **Done (10-18, front `595c53e`)**: weekly check 15/15 at 100.
 5. **When new GSC screenshots arrive:** check whether "Validation failed" flipped to passed; if not, re-trigger validation or debug the redirect-variant chains.
