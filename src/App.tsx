@@ -98,6 +98,13 @@ import {
   publishSectionTitle,
   publishSectionDescription,
 } from "./lib/cmsSectionSeo";
+import {
+  normalizePathname,
+  normalizeCanonicalPath,
+  buildCanonicalPathFromPageConfig,
+  productCategoryCanonicalPath,
+  transparencyCanonicalPath,
+} from "./lib/canonicalPath";
 import { sanitizeUnsupportedClaims } from "./lib/unsupportedClaims";
 import { CATEGORY_TDK_MAP, buildProductDetailKeywords } from "./lib/pageKeywords";
 import { getProductSeoKeywords, getReviewSeoKeywords } from "./config/seoKeywordMap";
@@ -604,42 +611,9 @@ const dedupeProductsForDisplay = (products: Product[]) => {
   return Array.from(byKey.values());
 };
 
-const normalizePathname = (pathname: string) => {
-  const cleaned = pathname.replace(/\/+$/, "");
-  return cleaned || "/";
-};
-
 const normalizeProductRouteCategory = (value: string) => {
   const normalized = String(value || "").trim().toLowerCase();
   return PRODUCT_ROUTE_ALIASES[normalized] || normalized;
-};
-
-const normalizeCanonicalPath = (path: string) => {
-  const normalized = normalizePathname(path || "/");
-  return normalized.startsWith("/") ? normalized : `/${normalized}`;
-};
-
-const buildCanonicalPathFromPageConfig = (
-  pageConfig: CMSPageConfig | undefined,
-  fallbackPath: string,
-  activePage: number,
-) => {
-  if (pageConfig?.canonicalPath) {
-    return normalizeCanonicalPath(pageConfig.canonicalPath);
-  }
-
-  const slug = String(pageConfig?.pageSlug || "").trim();
-  if (!slug || slug === "home") {
-    return normalizeCanonicalPath(fallbackPath || "/");
-  }
-
-  const normalizedSlug = slug.replace(/^\/+|\/+$/g, "");
-  const page = Math.max(1, activePage || 1);
-  if (pageConfig?.paginationPolicy === "page_path" && page > 1) {
-    return `/${normalizedSlug}/page/${page}`;
-  }
-
-  return `/${normalizedSlug}`;
 };
 
 const isSearchOrAuthPath = (path: string) => {
@@ -2556,7 +2530,11 @@ export default function App() {
       if (transparencyPage) {
         const localizedPage = transparencyPage[lang];
         const normalizedSEO = normalizeSeoConfig(localizedPage.seo);
-        const canonicalPath = normalizeCanonicalPath(localizedPage.path);
+        // Verbatim configured path: these paths carry a trailing slash that
+        // Pages 308-normalizes onto, so stripping it (normalizeCanonicalPath)
+        // pointed the hydrated canonical at a redirecting URL — the 2026-10-19
+        // "Alternate page" entry for /transparency/privacy-policy/.
+        const canonicalPath = transparencyCanonicalPath(localizedPage.path);
         const canonicalOrigin =
           cmsSettings?.seoGlobal?.siteOrigin ||
           (cmsSettings as any)?.siteOrigin ||
@@ -2928,6 +2906,32 @@ export default function App() {
       return;
     }
 
+    // Channel pages — /news/<channel>, /guides/<category>, /reviews/<type> —
+    // ship as prerendered files with their own curated title/description/
+    // keywords and a self-canonical. Running them through the section block
+    // below overwrote every one of those values with the section-homepage
+    // ones; the canonical half of that bug is what Search Console reported as
+    // "Alternate page with proper canonical tag" on 2026-10-19
+    // (/news/new_product, /news/brand_news, /transparency/privacy-policy/).
+    //
+    // When the untouched static canonical still matches this exact path, we
+    // are looking at the page that canonical was written for (hydration), so
+    // keep its prerendered TDK. Client-side navigation into a channel leaves
+    // the previous path's canonical behind, which does not match — those keep
+    // the section values as before.
+    const isReviewsSubIndexRoute = /^\/reviews\/(?:single|compare|value|ranking|safety)\/?$/.test(currentPath);
+    const isChannelRoute =
+      (seoKey === "news" && activeNewsCategory !== "all" && !activeNewsArticleId) ||
+      (seoKey === "guides" && activeGuidesCategory !== "all" && !activeGuidesArticleId) ||
+      (seoKey === "reviews" && isReviewsSubIndexRoute);
+    if (isChannelRoute) {
+      const staticCanonical = document.querySelector("link[rel='canonical']")?.getAttribute("href") || "";
+      const selfPath = normalizeCanonicalPath(currentPath);
+      if (selfPath !== "/" && staticCanonical.endsWith(selfPath)) {
+        return; // hydrated onto this page's own prerendered HTML — keep its TDK
+      }
+    }
+
     const { seo: resolvedSEO, pageConfig } = resolveCmsRouteSeoConfig(cmsSettings, seoKey, lang);
     const normalizedSEO = normalizeSeoConfig(resolvedSEO);
     let titleStr = normalizedSEO.title;
@@ -3058,14 +3062,13 @@ export default function App() {
     updateMetaTag("keywords", keywordsArr.join(", "));
     // Category pages canonicalize onto the prerendered slug-form URL
     // (/products/<slug>/) so id-form and alias variants share one canonical
-    // with the static HTML and the sitemap.
-    const productCategoryCanonicalSlug =
-      seoKey === "products" && activeProductCategory !== "all"
-        ? productCategoryUrlSlug(activeProductCategory)
-        : undefined;
-    const canonicalPath = productCategoryCanonicalSlug
-      ? `/products/${productCategoryCanonicalSlug}/`
-      : buildCanonicalPathFromPageConfig(pageConfig, currentPath, activePageIndex);
+    // with the static HTML and the sitemap. Every other route self-canonicalizes
+    // via the shared resolver (see src/lib/canonicalPath.ts) — applying the
+    // section pageSlug to deeper routes is what Search Console reported as
+    // "Alternate page with proper canonical tag" on 2026-10-19.
+    const canonicalPath =
+      (seoKey === "products" ? productCategoryCanonicalPath(activeProductCategory) : undefined) ??
+      buildCanonicalPathFromPageConfig(pageConfig, currentPath, activePageIndex);
     const totalPages = resolvePaginationTotalPages();
     const isOutOfRangePagination = totalPages !== null && activePageIndex > totalPages;
     const noIndex =
