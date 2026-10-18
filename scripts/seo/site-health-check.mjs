@@ -24,6 +24,7 @@ const KEY_URLS = [
   '/news',
   '/about',
   '/balance-bike-stability/',
+  '/balance-bike-budget/',
   '/balance-bike-what-buyers-say/',
   '/transparency/testing-methodology/',
   '/transparency/certification-lab-notes/',
