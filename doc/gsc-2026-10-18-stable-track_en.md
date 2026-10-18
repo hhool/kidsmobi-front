@@ -59,7 +59,7 @@ The morning log's network-layer interference only affected curl / WebSearch; swi
 - The morning verdict stands unchanged: **"crawlable, submitted, unobstructed" confirmed; "indexed" still unproven**. The only authoritative Google-side channel remains GSC URL Inspection (10-19~20).
 - The task's "normal-network `site:` recheck" goal is therefore **partially achieved** (Bing side now has direct responses); a user-side manual check can still serve as cross-confirmation — item 2 below is worth keeping.
 
-**Unexpected finding (security check, live risk ruled out):** the whole-domain Bing results surfaced two spam-injection-style URLs — `/panties/fashion-models-directory.php` and `/spanking/hardman-cnn-models.php` (spam pages wearing this site's title and description). Live probes: www 301 → apex, apex returns **404** (SPA fallback) on both — **the site is not currently compromised; this is stale Bing index residue**. Optional user-side action: file URL-removal requests for both in Bing Webmaster Tools to accelerate cleanup; treat any 200 variant as an intrusion and respond accordingly.
+**Unexpected finding (security check, now attributed):** the whole-domain Bing results surfaced two spam-injection-style URLs — `/panties/fashion-models-directory.php` and `/spanking/hardman-cnn-models.php` (spam pages wearing this site's title and description). Live probes: www 301 → apex, apex returns **404**. Repo forensics (full git history + working tree + dist) confirm **zero trace of these paths anywhere in the codebase**, and the 10-13 commit `970bcc3` ("answer unknown routes with a real 404 instead of the SPA shell") explicitly documents them as **spam assets inherited from the domain's previous owner** — the 10-13 switch from SPA-200 to a real 404 was made precisely because of them. **Verdict: not a compromise of this site, not introduced by any recent deploy; inherited index residue, 404-served for 5 days, Bing will deindex naturally.** Optional acceleration (user-side): file URL-removal requests in Bing Webmaster Tools.
 
 ## 2. Sitemap Self-Check — freshness restored, one format deviation
 
@@ -110,6 +110,7 @@ robots.txt (200, `Sitemap:` + `User-agent: *`), sitemap.xml (247, delta 0), 12 k
 
 - **Benign, no action:** Fig. 1 "Alternate page with proper canonical tag" = 9 pages; Fig. 2 "Page with redirect" = 4 pages — currency / www / underscore (`/products/balance_bike` → 301) / guide variants are all correctly canonicalized or 301-deduplicated; the 10-13 analysis already verified the live behavior, and duplicate rows will fade naturally.
 - **Sole open item:** Fig. 2's top line "**Validation failed (10/11→10/13)**". The user manually re-ran VALIDATE FIX on 10-16, but **no new GSC screenshot/export was attached to this task, so pass/fail could not be confirmed**. Check it when the user next provides a Page indexing screenshot; if still failing: click VALIDATE FIX once more (validation cycles typically take days), or inspect whether the 301 chains of those 4 redirect variants land on the canonical version.
+- **10-18 20:50 re-probe (GSC status still invisible; underlying behavior verified):** ① CMS rename routes (`/reviews/single/travel-stroller-reviews-whith-stability-suspension-control`, `/guides/beginner/stroller-b07y5vqyfwoverview`) both 301 to **200 canonical pages**; ② the underscore ASIN variant (`/products/balance_bike/balance_bike-b0ccy6yrs8`) 301s to the kebab canonical **200**; ③ legacy slug forms (`/products/balance-bikes/umatoll-colorful-lighting-baby-balance-bike/` and its underscore variant) 301 → **404** — that listing's current canonical form is the ASIN URL (`balance_bike-b0cr6vkxj7`, in the 247-URL sitemap, 200); the slug form is a retired previous URL scheme, so 404 is correct behavior and will fade naturally. **Site-side 301 chains are healthy; if GSC still shows failed, just re-trigger VALIDATE FIX or wait for the cycle.**
 
 ## 6. Recommended Next Steps (priority order)
 
@@ -152,3 +153,15 @@ After §7's re-check, the user supplied a CF API token; `f2046bf` was manually d
 | healthz | GET | ✅ 200 |
 
 **Conclusion: the sitemap dual source (D1 build vs Pages build) is now fully aligned on both URL set and priority tiers; §2's format deviation is closed.**
+
+## 9. Access Blockers for the Three Remaining Items (2026-10-18 20:55)
+
+The user assigned the three remaining §6 items (#1 GSC URL Inspection + Performance export, #5 Validation-failed check, Bing Webmaster Tools removal) to the agent side. Findings:
+
+| Item | Blocker | Unblock path |
+|---|---|---|
+| #1 GSC URL Inspection / Performance | No GSC connector exists (connector marketplace searched; no Google Search Console / Bing candidates); the GSC API needs OAuth or a service-account credential | ① user adds a service account as a user on the GSC property and shares the JSON key → agent wires the API (queryable anytime, automatable); ② user pastes exports/screenshots → agent analyzes; ③ user checks in the GSC UI (~2 min) |
+| #5 Validation-failed status | Same (GSC-only status) | Same. **Underlying behavior already verified by agent at 20:50 (§5); site side is clean** |
+| Bing WT removal | No connector; the Bing WT API needs an account API key | User files removals in Bing WT (~1 min); or do nothing — the URLs have 404'd for five days and are deindexing naturally |
+
+Without credentials, everything the agent side *can* do is done (Bing `site:` direct queries, spam-URL attribution, redirect-chain re-probe, sitemap/priority verification). The 10-19 09:00 indexing-check automation will run its usual Bing-side recheck.

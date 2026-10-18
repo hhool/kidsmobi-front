@@ -59,7 +59,7 @@
 - 上午判词维持不变：**"可抓取、已提交、无拦截"确认；"已被索引"仍未证实**。Google 侧唯一权威渠道仍是 GSC URL Inspection（10-19~20）。
 - 任务预设的"正常网络环境 site: 复查"目标已**部分达成**（Bing 侧有了直接返回），与用户侧人工复核仍可互相印证，建议保留第 2 条。
 
-**意外发现（安全排查，已排除活体风险）：** Bing 整站结果里出现两条垃圾注入风格 URL——`/panties/fashion-models-directory.php` 与 `/spanking/hardman-cnn-models.php`（挂着本站标题与描述的 spam 页）。线上实测：www 301 → apex，apex 均返回 **404**（SPA 回退）——**站点当前未被挂马，属 Bing 历史索引残留**。建议（用户侧，可选）：在 Bing 站长工具对这两条 URL 提交移除请求加速清除；后续若发现任何 200 变体再按入侵处置。
+**意外发现（安全排查，已定性）：** Bing 整站结果里出现两条垃圾注入风格 URL——`/panties/fashion-models-directory.php` 与 `/spanking/hardman-cnn-models.php`（挂着本站标题与描述的 spam 页）。线上实测：www 301 → apex，apex 均返回 **404**。仓库取证（git history 全库 + 工作区 + dist）确认这三处**从无这两个路径的任何痕迹**；且 10-13 commit `970bcc3`（"answer unknown routes with a real 404 instead of the SPA shell"）明确记录：**这是域名前主人留下的已收录 spam 资产**，本站 10-13 把未知路由从 SPA-200 改真 404 正是针对它们。**结论：非本站入侵、非本次部署引入，属继承自前域名 owner 的历史索引；404 已服役 5 天，Bing 会自然清退。** 可选加速（用户侧）：Bing 站长工具提交移除请求。
 
 ## 2. sitemap 自检 — 新鲜度已修复，一处格式偏差
 
@@ -110,6 +110,7 @@ robots.txt（200，含 Sitemap: 与 User-agent: *）、sitemap.xml（247，delta
 
 - **良性、无需处理：** 图1「Alternate page with proper canonical tag」= 9 页、图2「Page with redirect」= 4 页——currency / www / 下划线（`/products/balance_bike` → 301）/ guide 变体均已正确 canonical 或 301 去重，10-13 分析已实测确认行为正确，重复行会自然消退。
 - **唯一遗留关注点：** 图2顶部「**Validation failed（10/11→10/13）**」。用户已于 10-16 手动重点 VALIDATE FIX，但**本任务未附新的 GSC 截图/导出，无法确认是否已转为通过**。下次用户提供新 Page indexing 截图时核对；若仍失败：再点一次 VALIDATE FIX（validation 周期通常数天），或排查那 4 个 redirect 变体的 301 链是否最终落地规范版。
+- **10-18 20:50 复探（GSC 状态不可见，底层行为已验证）：** ① CMS 重命名路由（`/reviews/single/travel-stroller-reviews-whith-stability-suspension-control`、`/guides/beginner/stroller-b07y5vqyfwoverview`）均 301 落地 **200 规范版**；② 下划线 ASIN 变体（`/products/balance_bike/balance_bike-b0ccy6yrs8`）301 → kebab 规范版 **200**；③ 旧 slug 形态（`/products/balance-bikes/umatoll-colorful-lighting-baby-balance-bike/` 及其下划线变体）301→**404**——该 listing 的现行规范形态是 ASIN URL（`balance_bike-b0cr6vkxj7`，在 sitemap 247 内、200），slug 形态是前代 URL scheme 的退役遗留，404 属正确行为，会随 GSC 自然消退。**站点侧 301 链健康；若 GSC 仍显示 failed，只需再点一次 VALIDATE FIX 或等待周期。**
 
 ## 6. 下一步建议（按优先级）
 
@@ -152,3 +153,15 @@ robots.txt（200，含 Sitemap: 与 User-agent: *）、sitemap.xml（247，delta
 | healthz | GET | ✅ 200 |
 
 **结论：sitemap 双源（D1 构建 vs Pages 构建）自此在 URL 集合与 priority 分层上完全一致；§2 的格式偏差闭环。**
+
+## 9. 三项待办的接入障碍记录（2026-10-18 20:55）
+
+用户将 §6 剩余三项（#1 GSC URL Inspection + Performance 导出、#5 Validation failed 核对、Bing 站长工具移除）指派给 agent 侧执行。核查结论：
+
+| 待办 | 障碍 | 解锁路径 |
+|---|---|---|
+| #1 GSC URL Inspection / Performance | 无 GSC 连接器（已搜连接器市场，无 Google Search Console / Bing 相关候选）；GSC API 需 OAuth 或 service account 凭证 | ① 用户在 GSC  property 里加一个 service account 用户并提供 JSON key → agent 接 API 可随时查/可自动化；② 用户粘贴导出/截图 → agent 分析；③ 用户在 GSC  UI 自查（约 2 分钟） |
+| #5 Validation failed 状态 | 同上（GSC 专属状态） | 同上。**底层行为已由 agent 于 20:50 复探验证（见 §5），站点侧无问题** |
+| Bing 站长工具移除 | 无连接器；Bing WT API 需账号 API key | 用户在 Bing WT 提交移除（约 1 分钟）；或不处置——URL 已 404 五天，自然清退中 |
+
+无凭证情况下 agent 侧能做的已全部做完（Bing site: 直查、spam URL 定性、redirect 链复探、sitemap/priority 验证）。10-19 09:00 的索引核查 automation 会照常跑 Bing 侧复查。
