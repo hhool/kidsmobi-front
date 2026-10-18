@@ -30,7 +30,7 @@ export default function CookieConsentModal({
         </p>
 
         <p className="mt-3 text-xs text-slate-500">
-          Learn more in our <a className="text-orange-700 font-bold hover:underline" href="/auth">Privacy Policy</a>.
+          Learn more in our <a className="text-orange-700 font-bold hover:underline" href="/transparency/privacy-policy/">Privacy Policy</a>.
         </p>
 
         {showPreferences && (

@@ -10,25 +10,76 @@
  * this script mirrors both `duplicateOf` maps into a generated TS module the
  * Worker imports, keeping the two sitemap sources in lockstep.
  *
+ * It also emits PRUNED_PRODUCT_REDIRECTS (full path -> full path) and keeps a
+ * marked block of exact Worker routes in backend/api/worker/wrangler.toml in
+ * sync, so every retired listing actually 301s to its survivor. Before
+ * 2026-10-18 the maps only fed sitemap exclusion: the retired URLs 404'd
+ * (Pages had no rule, and the Worker never saw them), contradicting the
+ * stage reports' own policy ("colourway variants are 301'd to the listing
+ * with the most reviews") and leaking three weeks of sitemap discovery.
+ *
  * Run from front/ after any `stage1:plan --write` / `stage2:variants --write`:
  *   node scripts/sync_prune_map_to_worker.mjs
  */
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 
 const root = process.cwd();
 const sources = [
   {
     file: "src/data/prunedProducts.generated.ts",
+    report: "doc/stage1-prune-report.json",
+    reportKey: "pruned",
     stage: "stage-1",
   },
   {
     file: "src/data/prunedVariantProducts.generated.ts",
+    report: "doc/stage2-variant-report.json",
+    reportKey: "retired",
     stage: "stage-2",
   },
 ];
 
-const maps = sources.map(({ file, stage }) => {
+/** id-prefix -> URL slug fallback, mirroring src/lib/productCategoryPaths.ts. */
+const PREFIX_SLUGS = {
+  stroller: "strollers",
+  balance_bike: "balance-bikes",
+  kids_bikes: "kids-bikes",
+  electric_vehicles: "electric-cars",
+};
+
+/**
+ * Parses PRODUCT_CATEGORY_URL_SLUGS out of src/lib/productCategoryPaths.ts.
+ * Returns null when the file cannot be parsed so callers can fall back.
+ */
+function loadCategorySlugs() {
+  try {
+    const text = readFileSync(resolve(root, "src/lib/productCategoryPaths.ts"), "utf8");
+    const block = /PRODUCT_CATEGORY_URL_SLUGS[^{]*\{([\s\S]*?)\n\};/.exec(text);
+    if (!block) return null;
+    const map = {};
+    for (const [, k, v] of block[1].matchAll(/"([^"]+)"\s*:\s*"([^"]+)"/g)) {
+      map[k] = v;
+    }
+    return Object.keys(map).length ? map : null;
+  } catch {
+    return null;
+  }
+}
+
+function slugFor(id, category, categorySlugs) {
+  if (category && categorySlugs && categorySlugs[category]) {
+    return categorySlugs[category];
+  }
+  const prefix = id.split("-")[0];
+  if (categorySlugs && categorySlugs[prefix]) return categorySlugs[prefix];
+  if (PREFIX_SLUGS[prefix]) return PREFIX_SLUGS[prefix];
+  throw new Error(`Cannot resolve a URL slug for ${id} (category=${category || "n/a"})`);
+}
+
+const categorySlugs = loadCategorySlugs();
+
+const maps = sources.map(({ file, report, reportKey, stage }) => {
   const text = readFileSync(resolve(root, file), "utf8");
   const block = /"duplicateOf"\s*:\s*\{([\s\S]*?)\n {2}\}/.exec(text);
   if (!block) throw new Error(`No duplicateOf map found in ${file}`);
@@ -36,7 +87,26 @@ const maps = sources.map(({ file, stage }) => {
     ([, duplicateId, survivorId]) => [duplicateId.trim(), survivorId.trim()],
   );
   if (!entries.length) throw new Error(`duplicateOf map in ${file} is empty`);
-  return { stage, file, entries };
+
+  // Categories per retired id, for building the real /products/<slug>/<id> paths.
+  const categories = {};
+  const reportPath = resolve(root, report);
+  if (existsSync(reportPath)) {
+    const rows = JSON.parse(readFileSync(reportPath, "utf8"))[reportKey] || [];
+    for (const row of rows) if (row && row.id && row.category) categories[row.id] = row.category;
+  }
+  const missing = entries.filter(([id]) => !categories[id]).map(([id]) => id);
+  if (missing.length) {
+    throw new Error(
+      `No category found in ${report} for: ${missing.join(", ")} — cannot build redirect paths`,
+    );
+  }
+
+  const redirects = entries.map(([duplicateId, survivorId]) => {
+    const slug = slugFor(duplicateId, categories[duplicateId], categorySlugs);
+    return [`/products/${slug}/${duplicateId}`, `/products/${slug}/${survivorId}`];
+  });
+  return { stage, file, entries, redirects };
 });
 
 const total = maps.reduce((sum, m) => sum + m.entries.length, 0);
@@ -57,6 +127,13 @@ ${entries.map(([d, s]) => `  "${d}": "${s}",`).join("\n")}
   )
   .join("\n\n");
 
+const redirectBody = maps
+  .map(
+    ({ stage, redirects }) => `  // ${stage} (${redirects.length})
+${redirects.map(([from, to]) => `  "${from}": "${to}",`).join("\n")}`,
+  )
+  .join("\n");
+
 const outFile = resolve(root, "..", "backend", "api", "worker", "src", "prunedProducts.generated.ts");
 writeFileSync(
   outFile,
@@ -67,7 +144,49 @@ export const PRUNED_PRODUCT_ID_SET: ReadonlySet<string> = new Set([
   ...Object.keys(PRUNED_STAGE_1_DUPLICATE_OF),
   ...Object.keys(PRUNED_STAGE_2_DUPLICATE_OF),
 ]);
+
+/**
+ * Retired listing path -> survivor path (no trailing slash; the /products
+ * family is the no-slash canonical form). Merged into LEGACY_URL_REDIRECTS in
+ * index.ts and mirrored as exact Worker routes in wrangler.toml — Pages would
+ * otherwise answer the SPA shell before the Worker ever sees the request.
+ */
+export const PRUNED_PRODUCT_REDIRECTS: Record<string, string> = {
+${redirectBody}
+};
 `,
   "utf8",
 );
 console.log(`synced ${total} pruned id(s) across ${maps.length} stage(s) -> ${outFile}`);
+
+// --- keep the exact Worker routes in wrangler.toml in lockstep ---------------
+const MARKER = "# --- generated: pruned-product 301 routes (sync_prune_map_to_worker.mjs) ---";
+const tomlPath = resolve(root, "..", "backend", "api", "worker", "wrangler.toml");
+let toml = readFileSync(tomlPath, "utf8");
+const routeBlock = [
+  MARKER,
+  "# Retired duplicate listings 301 to their survivor (PRUNED_PRODUCT_REDIRECTS).",
+  "# Exact patterns keep the rest of the Pages traffic untouched.",
+  ...maps
+    .flatMap(({ redirects }) => redirects)
+    .map(
+      ([from]) => `[[routes]]
+pattern = "balancebiketoddler.com${from}"
+zone_name = "balancebiketoddler.com"`,
+    ),
+  "",
+].join("\n");
+const markerIdx = toml.indexOf(MARKER);
+if (markerIdx === -1) {
+  // First run: insert before the first [[routes]] entry so generated routes
+  // stay grouped at the top of the routes section.
+  const firstRoute = toml.indexOf("[[routes]]");
+  if (firstRoute === -1) throw new Error("wrangler.toml has no [[routes]] section");
+  toml = `${toml.slice(0, firstRoute)}${routeBlock}\n${toml.slice(firstRoute)}`;
+} else {
+  const nextMarker = toml.indexOf("\n[[routes]]", markerIdx + MARKER.length);
+  const end = nextMarker === -1 ? toml.length : nextMarker + 1;
+  toml = `${toml.slice(0, markerIdx)}${routeBlock}${toml.slice(end)}`;
+}
+writeFileSync(tomlPath, toml, "utf8");
+console.log(`updated pruned-product routes in ${tomlPath}`);
