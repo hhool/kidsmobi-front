@@ -18,3 +18,5 @@ scripts/seo/.last-indexnow.json
 
 # Local WorkBuddy tooling data (not project source)
 .workbuddy/
+# Private account registry (local-only, must never enter git history; see private/README.md)
+private/
