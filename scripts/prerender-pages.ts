@@ -6005,8 +6005,15 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     const from = allProductsById.get(duplicateId.trim().toLowerCase());
     const to = allProductsById.get(String(survivorId).trim().toLowerCase());
     if (!from || !to) continue;
+    const fromPath = `/products/${productDetailSlugDir(from)}/${cmsRouteSegment(from.id)}`;
+    const toPath = `/products/${productDetailSlugDir(to)}/${cmsRouteSegment(to.id)}`;
     duplicateRedirects.push(
-      `/products/${productDetailSlugDir(from)}/${cmsRouteSegment(from.id)} /products/${productDetailSlugDir(to)}/${cmsRouteSegment(to.id)} 301`,
+      `${fromPath} ${toPath} 301`,
+      // Trailing-slash variant: Pages matches exact paths verbatim, and a
+      // retired listing has no .html file to pretty-URL, so the slash form
+      // would 404 instead of transferring signals to the survivor. (The
+      // Worker carries the same pair of exact routes as the first layer.)
+      `${fromPath}/ ${toPath} 301`,
     );
   }
 

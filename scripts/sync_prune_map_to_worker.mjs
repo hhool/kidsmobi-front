@@ -12,11 +12,12 @@
  *
  * It also emits PRUNED_PRODUCT_REDIRECTS (full path -> full path) and keeps a
  * marked block of exact Worker routes in backend/api/worker/wrangler.toml in
- * sync, so every retired listing actually 301s to its survivor. Before
- * 2026-10-18 the maps only fed sitemap exclusion: the retired URLs 404'd
- * (Pages had no rule, and the Worker never saw them), contradicting the
- * stage reports' own policy ("colourway variants are 301'd to the listing
- * with the most reviews") and leaking three weeks of sitemap discovery.
+ * sync (no-slash + trailing-slash variants per listing), so every retired
+ * listing actually 301s to its survivor. Before 2026-10-18 the maps only fed
+ * sitemap exclusion: the retired URLs 404'd (Pages had no rule, and the Worker
+ * never saw them), contradicting the stage reports' own policy ("colourway
+ * variants are 301'd to the listing with the most reviews") and leaking three
+ * weeks of sitemap discovery.
  *
  * Run from front/ after any `stage1:plan --write` / `stage2:variants --write`:
  *   node scripts/sync_prune_map_to_worker.mjs
@@ -160,20 +161,28 @@ ${redirectBody}
 console.log(`synced ${total} pruned id(s) across ${maps.length} stage(s) -> ${outFile}`);
 
 // --- keep the exact Worker routes in wrangler.toml in lockstep ---------------
+// Every retired listing gets TWO exact routes: the no-slash canonical form and
+// the trailing-slash variant. Cloudflare route patterns do not normalise
+// trailing slashes, so a slash-form request would otherwise fall through to
+// Pages (404 for a retired listing) instead of reaching the redirect handler
+// in index.ts, which strips the slash before the map lookup.
 const MARKER = "# --- generated: pruned-product 301 routes (sync_prune_map_to_worker.mjs) ---";
+const END_MARKER = "# --- end pruned-product 301 routes ---";
 const tomlPath = resolve(root, "..", "backend", "api", "worker", "wrangler.toml");
 let toml = readFileSync(tomlPath, "utf8");
+const routeEntries = maps.flatMap(({ redirects }) =>
+  redirects.flatMap(([from]) => [from, `${from}/`]),
+);
 const routeBlock = [
   MARKER,
   "# Retired duplicate listings 301 to their survivor (PRUNED_PRODUCT_REDIRECTS).",
-  "# Exact patterns keep the rest of the Pages traffic untouched.",
-  ...maps
-    .flatMap(({ redirects }) => redirects)
-    .map(
-      ([from]) => `[[routes]]
+  "# Exact patterns (no-slash + trailing-slash) keep the rest of the Pages traffic untouched.",
+  ...routeEntries.map(
+    (from) => `[[routes]]
 pattern = "balancebiketoddler.com${from}"
 zone_name = "balancebiketoddler.com"`,
-    ),
+  ),
+  END_MARKER,
   "",
 ].join("\n");
 const markerIdx = toml.indexOf(MARKER);
@@ -184,9 +193,33 @@ if (markerIdx === -1) {
   if (firstRoute === -1) throw new Error("wrangler.toml has no [[routes]] section");
   toml = `${toml.slice(0, firstRoute)}${routeBlock}\n${toml.slice(firstRoute)}`;
 } else {
-  const nextMarker = toml.indexOf("\n[[routes]]", markerIdx + MARKER.length);
-  const end = nextMarker === -1 ? toml.length : nextMarker + 1;
-  toml = `${toml.slice(0, markerIdx)}${routeBlock}${toml.slice(end)}`;
+  // Re-run: replace the entire marked block. The END marker is mandatory:
+  // the generated block itself contains [[routes]] entries, so scanning for
+  // the next [[routes]] (the pre-2026-10-18 approach) stopped inside the block
+  // and duplicated every route on each re-run — which made `wrangler deploy`
+  // fail with Cloudflare error 10020 ("A route with the same pattern already
+  // exists"). If the end marker is missing, repair the block by hand once.
+  const endMarkerIdx = toml.indexOf(END_MARKER, markerIdx + MARKER.length);
+  if (endMarkerIdx === -1) {
+    throw new Error(
+      `wrangler.toml has the start marker but no "${END_MARKER}" — repair the generated block by hand once, then re-run`,
+    );
+  }
+  const afterEnd = endMarkerIdx + END_MARKER.length;
+  // Collapse whatever blank lines followed the old end marker down to one, so
+  // repeated runs are byte-identical instead of growing the file by a newline.
+  const tail = toml.slice(afterEnd).replace(/^\n+/, "\n");
+  toml = `${toml.slice(0, markerIdx)}${routeBlock}${tail}`;
 }
 writeFileSync(tomlPath, toml, "utf8");
-console.log(`updated pruned-product routes in ${tomlPath}`);
+
+// Guard: duplicate patterns are exactly what broke `wrangler deploy` on
+// 2026-10-18 (error 10020). Fail loudly here instead of at deploy time.
+const patterns = [...toml.matchAll(/^pattern = "([^"]+)"/gm)].map(([, pattern]) => pattern);
+const duplicates = patterns.filter((pattern, i) => patterns.indexOf(pattern) !== i);
+if (duplicates.length) {
+  throw new Error(`Duplicate route patterns in wrangler.toml: ${[...new Set(duplicates)].join(", ")}`);
+}
+console.log(
+  `updated pruned-product routes in ${tomlPath} (${routeEntries.length} generated, ${patterns.length} route(s) total)`,
+);
