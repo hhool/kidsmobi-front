@@ -30,8 +30,28 @@ const KEY_URLS = [
   '/transparency/certification-lab-notes/',
 ];
 
+// Transient network blips (local proxy resets, DNS hiccups) must not be
+// scored as site errors — run r4 (2026-10-18) dropped 100 -> 97 because a
+// single fetch failure inside the internal-links sample counted as a broken
+// link. fetchRetry retries network errors and 5xx once, then rethrows/returns
+// the last outcome; callers decide how to classify it.
+async function fetchRetry(url, options = {}, attempts = 2) {
+  let lastError;
+  for (let i = 0; i < attempts; i++) {
+    try {
+      const res = await fetch(url, options);
+      if (res.status < 500 || i === attempts - 1) return res;
+      lastError = new Error(`HTTP ${res.status}`);
+    } catch (e) {
+      lastError = e;
+    }
+    await new Promise((r) => setTimeout(r, 300 * (i + 1)));
+  }
+  throw lastError;
+}
+
 async function getText(url) {
-  const res = await fetch(url, { redirect: 'follow' });
+  const res = await fetchRetry(url, { redirect: 'follow' });
   return { res, text: await res.text() };
 }
 
@@ -110,16 +130,26 @@ async function main() {
     const { text } = await getText(SITE_BASE + '/');
     const hrefs = [...text.matchAll(/href=["'](\/[^"']*)["']/g)].map((m) => m[1]).filter((h) => !h.includes('?'));
     const sample = [...new Set(hrefs)].slice(0, 15);
+    // broken = the server answered with 4xx/5xx (a real dead link);
+    // netFailed = fetch itself kept failing after one retry (local network
+    // trouble, not evidence about the link). Only "broken" counts against
+    // the score; netFailed is reported for visibility.
     let broken = 0;
+    let netFailed = 0;
     for (const h of sample) {
       try {
-        const r = await fetch(SITE_BASE + h, { method: 'HEAD', redirect: 'follow' });
+        const r = await fetchRetry(SITE_BASE + h, { method: 'HEAD', redirect: 'follow' });
         if (r.status >= 400) broken++;
       } catch {
-        broken++;
+        netFailed++;
       }
     }
-    results.push(note(broken === 0 ? 'pass' : 'warn', 'internal-links', `sampled ${sample.length}, broken=${broken}`));
+    const systemic = sample.length > 0 && netFailed === sample.length;
+    const lvl = broken > 0 || systemic ? 'warn' : 'pass';
+    const detail =
+      `sampled ${sample.length}, broken=${broken}` +
+      (netFailed ? `, net-unresolved=${netFailed} (retried, not counted as broken)` : '');
+    results.push(note(lvl, 'internal-links', detail));
   } catch (e) {
     results.push(note('warn', 'internal-links', `could not sample: ${String(e).slice(0, 80)}`));
   }
