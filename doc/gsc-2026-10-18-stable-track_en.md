@@ -10,7 +10,7 @@
 | `/balance-bike-budget/` live status | ✅ 200, `index,follow`, correct canonical |
 | `/balance-bike-stability/` live status | ✅ 200, `index,follow`, correct canonical, H1 contains "stable track balance bike" |
 | Are both pages indexed (Bing/Google) | ⚠️ Bing `site:` direct queries (10-18 evening WebFetch channel, §1.1): both URLs return "no results" — but Bing's `site:` path filtering is unreliable and cannot prove non-indexing; Google side still awaits GSC (10-19~20) |
-| sitemap.xml | ✅ 200 + `application/xml` + **247 URLs** + both new pages present + fresh lastmod (2026-10-16) — **no Worker interception recurrence**; ✅ missing `<priority>` deviation fixed in code (backend `f2046bf`, see §2; goes live after the manual Worker deploy) |
+| sitemap.xml | ✅ 200 + `application/xml` + **247 URLs** + both new pages present + fresh lastmod (2026-10-16) — **no Worker interception recurrence**; ✅ missing `<priority>` deviation fixed, deployed, and verified (backend `f2046bf`, Worker Version `719139dc`, see §2/§8) |
 | `npm run seo:health` | ✅ **100/100** (15/15 pass; budget page added to KEY_URLS) |
 | stable-track landing-page migration | ⏳ Not confirmed. 10-15 baseline is still `/` + `/products/balance-bikes/`; no new export — must wait for GSC (2-3 day lag; recheck 10-19~20) |
 | GSC Page indexing "Validation failed" | ⏳ No new screenshot/export provided; cannot confirm whether it passed |
@@ -80,7 +80,7 @@ Fetched via `curl --noproxy '*' https://balancebiketoddler.com/sitemap.xml` (no 
 - The repo's prerender generator (`scripts/prerender-pages.ts`, `sitemapPriority()`) emits `<priority>` for **every** URL (assets 0.9, balance-bike-* 0.8, balance-bike detail 0.6, etc.) — provable from the local `dist/sitemap.xml` (built 10-17 01:58).
 - The live sitemap is compact single-line, carries lastmod on home (the dist build does not, due to a `/` route-key quirk in the repo generator), and has no priority anywhere — **the live sitemap is produced by the backend Worker's D1 generator, not the Pages static file**. Per the code comment, Worker-primary with the Pages file as fallback is the designed architecture ("The API worker uses this Pages-hosted file as a zero-D1 fallback").
 - Impact: **low**. Google officially treats `<priority>` as a weak hint; it barely affects crawling or ranking, and Semrush's 10-16 full crawl (247/247 OK) proves no crawl obstruction. The 10-15 alert criteria (JSON / 404 / 260-URL legacy format) are all absent — **no alarm warranted**.
-- **Fixed (2026-10-18, backend commit `f2046bf`):** the "add priority tiers" option was taken — the Worker generator gains `sitemapPriority()`, tier-for-tier identical to front's `prerender-pages.ts` (1.0 / 0.9 / 0.8 / 0.6 / 0.4); tsc clean. The Worker deploys **manually** (`cd backend/api/worker && npx wrangler deploy`, requires `CLOUDFLARE_API_TOKEN`); after deploy the live sitemap's priority distribution matches the dist build exactly. Until then the live sitemap still carries 0 priority tags. The alternative (serve the clean path from the Pages static file) was not adopted.
+- **Fixed, deployed, and verified (2026-10-18 20:45, backend commit `f2046bf`, Worker Version `719139dc`, details in §8):** the "add priority tiers" option was taken — the Worker generator gains `sitemapPriority()`, tier-for-tier identical to front's `prerender-pages.ts` (1.0 / 0.9 / 0.8 / 0.6 / 0.4); tsc clean, manually deployed the same evening. **Live verification:** the no-buster sitemap (the path Google actually fetches) carries `<priority>` on all 247 URLs, its URL set is identical to the dist build, the priority distribution matches across live(no-buster) / live(buster) / dist (1.0×1 / 0.9×9 / 0.8×1 / 0.6×77 / 0.4×159), and a per-URL diff shows 0 mismatches. The alternative (serve the clean path from the Pages static file) was not adopted.
 
 **Side note (pre-existing, not new):** 10 URLs lack lastmod — all asset/transparency pages (budget, by-age, safety-standards, size-chart, stability, weight, what-buyers-say, recalls, review-count-integrity, search-data). The repo generator also omits lastmod for these routes; this is by design, not a regression.
 
@@ -115,6 +115,40 @@ robots.txt (200, `Sitemap:` + `User-agent: *`), sitemap.xml (247, delta 0), 12 k
 
 1. **10-19~20:** GSC URL Inspection for `/balance-bike-budget/` and `/balance-bike-stability/`; export Performance (Query contains `stable track` → PAGES) to verify whether landing pages have started migrating.
 2. ~~**Normal network:** run `site:balancebiketoddler.com/balance-bike-budget/` and `site:balancebiketoddler.com/balance-bike-stability/`~~ ✅ **Done via follow-up (10-18 evening, WebFetch channel opened, §1.1)**: both paths return "no results", the whole domain is listed — direct Bing-side evidence obtained, but the `site:` operator is unreliable (reading in §1.1); the Google side still rides on item 1.
-3. ~~**(Backend, optional)** Add `<priority>` tiers to the Worker's sitemap generator, or serve the clean path from the Pages sitemap~~ ✅ **Done (10-18, backend `f2046bf`; tsc clean; pending manual deploy)**: the "add priority tiers" option, tier-for-tier identical to front; deploy needs `CLOUDFLARE_API_TOKEN`. The alternative option was not adopted.
+3. ~~**(Backend, optional)** Add `<priority>` tiers to the Worker's sitemap generator, or serve the clean path from the Pages sitemap~~ ✅ **Done, deployed, and verified (10-18 20:45, backend `f2046bf`, Worker `719139dc`)**: the "add priority tiers" option, tier-for-tier identical to front; all 247 live URLs now carry priority with 0 per-URL diff vs dist (§8). The alternative option was not adopted.
 4. ~~**(This repo, optional)** Add `/balance-bike-budget/` to `KEY_URLS` in `site-health-check.mjs`~~ ✅ **Done (10-18, front `595c53e`)**: weekly check 15/15 at 100.
 5. **When new GSC screenshots arrive:** check whether "Validation failed" flipped to passed; if not, re-trigger validation or debug the redirect-variant chains.
+
+## 7. Second Re-Check (2026-10-18 20:35, same-day repeat run)
+
+This run was a same-day repeat trigger; every check was re-run and the conclusions are identical to the above — no changes:
+
+| Check | Re-check result |
+|---|---|
+| WebSearch `site:` for both pages | Still off-domain balance-bike articles; `site:` operator ignored (matches the morning log) |
+| Bing `site:` for both pages (WebFetch channel) | budget: "There are no results"; stability: "No results" (Japanese-locale render, same meaning) — identical to §1.1 (20:30); still cannot prove non-indexing |
+| sitemap.xml | 200 + `application/xml; charset=utf-8` + **247 URLs** (exact `grep -o` count) + both new pages + max lastmod 2026-10-16T12:22:46.520Z → no Worker interception recurrence; at this table's writing time (20:35) live `<priority>` was still 0/247 — **changed by the 20:45 deploy, see §8** |
+| Both pages live | budget / stability both 200, `index,follow`, self-canonical, correct titles |
+| `npm run seo:health` | **100/100** (15/15, incl. both new pages' meta + 15 sampled internal links, 0 broken), ran in 40s |
+| stable-track migration | No new GSC export attached again → unconfirmed; recheck 10-19~20 stands |
+| GSC Validation failed | Still no new screenshot → cannot confirm |
+
+**Net conclusion: no site-side regressions, no new issues; every open item now rides on user-side GSC data (10-19~20).**
+
+## 8. Worker `<priority>` Fix — Deploy & Live Verification (2026-10-18 20:45, after §7)
+
+After §7's re-check, the user supplied a CF API token; `f2046bf` was manually deployed the same evening and verified:
+
+| Verification | Method | Result |
+|---|---|---|
+| Deploy | `npx wrangler deploy` (account `b40383bf…`) | ✅ Version `719139dc-26d4-459c-b3fb-7d98a6f2c474` |
+| URL count | no-buster fetch (the path Google actually uses) | ✅ 247 (matches dist) |
+| URL set | set-compare against `dist/sitemap.xml` | ✅ identical (0 diff both directions) |
+| Priority distribution | live(no-buster) / live(buster) / dist three-way | ✅ all 1.0×1 / 0.9×9 / 0.8×1 / 0.6×77 / 0.4×159 |
+| Per-URL diff | 247 loc→priority pairs | ✅ 0 mismatches |
+| Spot checks | home 1.0; budget 0.9; stability 0.9; balance-bikes hub 0.9 | ✅ all per tier |
+| #48 gate regression | POST without token | ✅ 403 `AdminTokenRequired` |
+| Public read / CORS | GET `/api/cms/settings` | ✅ 200 |
+| healthz | GET | ✅ 200 |
+
+**Conclusion: the sitemap dual source (D1 build vs Pages build) is now fully aligned on both URL set and priority tiers; §2's format deviation is closed.**

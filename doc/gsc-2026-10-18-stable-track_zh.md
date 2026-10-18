@@ -10,7 +10,7 @@
 | `/balance-bike-budget/` 线上状态 | ✅ 200，`index,follow`，canonical 正确 |
 | `/balance-bike-stability/` 线上状态 | ✅ 200，`index,follow`，canonical 正确，H1 含 "stable track balance bike" |
 | 两页是否已被 Bing/Google 收录 | ⚠️ Bing site: 直查（10-18 晚 WebFetch 通道补测，§1.1）：两条 URL 均「无结果」，但 Bing site: 路径过滤不可靠、不能据此判定未收录；Google 侧仍待 GSC（10-19~20） |
-| sitemap.xml | ✅ 200 + `application/xml` + **247 条** + 含两新页 + lastmod 新鲜（2026-10-16）——**Worker 拦截未复发**；✅ `<priority>` 缺失偏差已修复（代码层 backend `f2046bf`，见 §2；待 Worker 手动部署后线上生效） |
+| sitemap.xml | ✅ 200 + `application/xml` + **247 条** + 含两新页 + lastmod 新鲜（2026-10-16）——**Worker 拦截未复发**；✅ `<priority>` 缺失偏差已修复并部署验证（backend `f2046bf`，Worker Version `719139dc`，见 §2/§8） |
 | `npm run seo:health` | ✅ **100/100**（15/15 通过，KEY_URLS 已补 budget 页） |
 | stable-track 承载页迁移 | ⏳ 未证实。10-15 基准仍是 `/` + `/products/balance-bikes/`；无新导出，需等 GSC（滞后 2-3 天，10-19~20 复查） |
 | GSC Page indexing「Validation failed」 | ⏳ 无新截图/导出，无法确认是否转通过 |
@@ -80,7 +80,7 @@
 - 仓库的 prerender 生成器（`scripts/prerender-pages.ts`，`sitemapPriority()`）对**每条** URL 都输出 `<priority>`（资产页 0.9、balance-bike-* 0.8、平衡车详情 0.6 等）——本地 `dist/sitemap.xml`（10-17 01:58 构建）可证。
 - 线上版格式是紧凑单行、home 带 lastmod 而 dist 版 home 不带（仓库生成器 `/` 路由键名 bug），且全无 priority——**线上 sitemap 由后端 Worker 的 D1 生成器产出，不是 Pages 静态文件**。按代码注释，Worker 主生成 + Pages 文件兜底本就是设计架构（"The API worker uses this Pages-hosted file as a zero-D1 fallback"）。
 - 影响评估：**低**。Google 官方明确 `<priority>` 是弱提示，基本不影响抓取/排名；10-16 Semrush 全量爬取 247/247 OK 也证明无抓取障碍。10-15 的"旧格式"警报条件是 JSON/404/260 条——均未出现，**不需要按告警处理**。
-- **已修复（2026-10-18，backend commit `f2046bf`）：** 采纳"补 priority 分层"方案——Worker 生成器新增 `sitemapPriority()`，与 front `prerender-pages.ts` 的分层逐档一致（1.0 / 0.9 / 0.8 / 0.6 / 0.4），tsc 通过。Worker 为**手动部署**（`cd backend/api/worker && npx wrangler deploy`，需 `CLOUDFLARE_API_TOKEN`）；部署后线上 sitemap 与 dist 版的 priority 分布完全一致，未部署前线上仍 0 条 priority。备选方案（干净路径直接返回 Pages 静态文件）未采纳。
+- **已修复并部署验证（2026-10-18 20:45，backend commit `f2046bf`，Worker Version `719139dc`，详见 §8）：** 采纳"补 priority 分层"方案——Worker 生成器新增 `sitemapPriority()`，与 front `prerender-pages.ts` 的分层逐档一致（1.0 / 0.9 / 0.8 / 0.6 / 0.4），tsc 通过，当晚手动部署。**线上验证**：无 buster sitemap（Google 实际抓取路径）247 条全量带 priority、URL 集合与 dist 完全一致、priority 分布三端相同（1.0×1 / 0.9×9 / 0.8×1 / 0.6×77 / 0.4×159）、逐条比对 0 不匹配。备选方案（干净路径直接返回 Pages 静态文件）未采纳。
 
 **附带记录（非新问题）：** 10 条 URL 无 lastmod，全部是资产/透明页（budget、by-age、safety-standards、size-chart、stability、weight、what-buyers-say、recalls、review-count-integrity、search-data）。仓库生成器对这些路由同样不写 lastmod，属既成设计。
 
@@ -115,6 +115,40 @@ robots.txt（200，含 Sitemap: 与 User-agent: *）、sitemap.xml（247，delta
 
 1. **10-19~20**：GSC URL Inspection 分别检查 `/balance-bike-budget/` 与 `/balance-bike-stability/` 的收录状态；同时导出一份 Performance（Query contains `stable track` → PAGES）验证承载页是否开始迁移。
 2. ~~**正常网络环境**：执行 `site:balancebiketoddler.com/balance-bike-budget/` 与 `site:balancebiketoddler.com/balance-bike-stability/`~~ ✅ **已补测（10-18 晚，WebFetch 通道打通，§1.1）**：两路径均「无结果」、整站在列——Bing 侧直接证据已取得，但 site: 运算符不可靠，判读见 §1.1；Google 侧仍走第 1 条。
-3. ~~**（后端，可选）** Worker sitemap 生成器补 `<priority>` 分层，或让干净路径直接返回 Pages 版 sitemap~~ ✅ **已完成（10-18，backend `f2046bf`，tsc 通过，待手动部署）**：采用「补 priority 分层」方案，与 front 分层逐档一致；部署需 `CLOUDFLARE_API_TOKEN`。另一备选未采纳。
+3. ~~**（后端，可选）** Worker sitemap 生成器补 `<priority>` 分层，或让干净路径直接返回 Pages 版 sitemap~~ ✅ **已完成并部署验证（10-18 20:45，backend `f2046bf`，Worker `719139dc`）**：采用「补 priority 分层」方案，与 front 分层逐档一致；线上 247 条全量带 priority、与 dist 逐条 0 差异（§8）。另一备选未采纳。
 4. ~~**（本仓库，可选）** 把 `/balance-bike-budget/` 加进 `site-health-check.mjs` 的 `KEY_URLS`~~ ✅ **已完成（10-18，front `595c53e`）**：周检 15/15 100 分。
 5. **GSC 截图更新时**：核对「Validation failed」是否转通过；未转则重点一次或排查 redirect 变体链。
+
+## 7. 二次复检（2026-10-18 20:35，同日第二次自动核查）
+
+本轮为当日重复触发，全部核查项重跑一遍，结论与上文完全一致，无任何变化：
+
+| 核查项 | 复检结果 |
+|---|---|
+| WebSearch `site:` 两页 | 依旧返回外站平衡车文章，`site:` 运算符被忽略（与上午记录一致） |
+| Bing `site:` 两页（WebFetch 通道） | budget：「没有与此相关的结果」；stability：「結果がありません」（日文区返回，语义同为无结果）——与 §1.1（20:30）一致，仍不能据此判定未收录 |
+| sitemap.xml | 200 + `application/xml; charset=utf-8` + **247 条**（`grep -o` 精确计数）+ 含两新页 + 最新 lastmod 2026-10-16T12:22:46.520Z → Worker 拦截未复发；本表记录时（20:35）`<priority>` 线上仍 0/247，**20:45 部署后已变更，见 §8** |
+| 两页线上状态 | budget / stability 均 200、`index,follow`、canonical 自指、title 正确 |
+| `npm run seo:health` | **100/100**（15/15，含两新页元数据 + 15 条内链 0 断裂），40 秒跑完 |
+| stable-track 迁移 | 本轮仍无新 GSC 导出 → 未证实，维持 10-19~20 复查 |
+| GSC Validation failed | 仍无新截图 → 无法确认 |
+
+**净结论：站点侧无回归、无新问题；所有待办都挂在用户侧 GSC 数据上（10-19~20）。**
+
+## 8. Worker `<priority>` 修复部署与线上验证（2026-10-18 20:45，§7 之后）
+
+§7 复检完成后，用户提供 CF API token，`f2046bf` 当晚完成手动部署并验证：
+
+| 验证项 | 方法 | 结果 |
+|---|---|---|
+| 部署 | `npx wrangler deploy`（account `b40383bf…`） | ✅ Version `719139dc-26d4-459c-b3fb-7d98a6f2c474` |
+| URL 条数 | 无 buster 抓取（Google 实际路径） | ✅ 247（与 dist 一致） |
+| URL 集合 | 与 `dist/sitemap.xml` 集合比对 | ✅ 完全一致（双向 0 差异） |
+| priority 分布 | live(无buster) / live(带buster) / dist 三端对比 | ✅ 均 1.0×1 / 0.9×9 / 0.8×1 / 0.6×77 / 0.4×159 |
+| 逐条比对 | 247 条 loc→priority 对 diff | ✅ 0 不匹配 |
+| 抽样 | home 1.0；budget 0.9；stability 0.9；balance-bikes hub 0.9 | ✅ 全部符合分层 |
+| #48 门禁回归 | POST 无 token | ✅ 403 `AdminTokenRequired` |
+| 公开读 / CORS | GET `/api/cms/settings` | ✅ 200 |
+| healthz | GET | ✅ 200 |
+
+**结论：sitemap 双源（D1 构建 vs Pages 构建）自此在 URL 集合与 priority 分层上完全一致；§2 的格式偏差闭环。**
