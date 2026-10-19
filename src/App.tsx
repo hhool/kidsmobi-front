@@ -106,6 +106,7 @@ import {
   transparencyCanonicalPath,
 } from "./lib/canonicalPath";
 import { sanitizeUnsupportedClaims } from "./lib/unsupportedClaims";
+import { FOOTER_ARTICLE_LINKS } from "./lib/footerArticles";
 import { CATEGORY_TDK_MAP, buildProductDetailKeywords } from "./lib/pageKeywords";
 import { getProductSeoKeywords, getReviewSeoKeywords } from "./config/seoKeywordMap";
 import { getTransparencyPageByPath, TRANSPARENCY_PAGE_PATHS, type TransparencyPageKey } from "./data/transparencyPages";
@@ -4475,7 +4476,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
       {activeTab !== "admin" && (
       <footer id="main_footer" className="bg-slate-900 border-t border-slate-800 pt-20 pb-10 text-xs">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-16">
             {/* Column 1: Brand */}
             <div className="md:col-span-1 space-y-6">
               <div className="flex items-center gap-2">
@@ -4721,7 +4722,31 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
               </ul>
             </div>
 
-            {/* Column 4: Connectivity */}
+            {/* Column 4: Latest guides & news — the 2026-10-19 article batch.
+                Shared link list with the prerendered footer (footerArticles.ts). */}
+            <div className="space-y-6">
+              <p className="text-white font-bold uppercase tracking-widest text-[10px]">
+                {lang === "en" ? "Guides & News" : "指南与动态"}
+              </p>
+              <ul className="space-y-3 font-medium">
+                {FOOTER_ARTICLE_LINKS.map((article) => (
+                  <li key={article.path}>
+                    <a
+                      href={resolveSeoLink(article.path)}
+                      className="hover:text-orange-500 transition-colors text-slate-400"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        navigateToPath(article.path);
+                      }}
+                    >
+                      {lang === "en" ? article.en : article.zh}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Column 5: Connectivity */}
             <div className="space-y-6">
               <p className="text-white font-bold uppercase tracking-widest text-[10px]">
                 {lang === "en" ? "Global Network" : "社交分享"}

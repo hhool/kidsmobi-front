@@ -91,6 +91,7 @@ import {
   GUIDES_TOPIC_PAGES,
   GUIDES_TOPIC_PAGE_IDS,
 } from "../src/lib/guidesTopicPages";
+import { FOOTER_ARTICLE_LINKS } from "../src/lib/footerArticles";
 import { shortenCardTitle } from "../src/lib/productSeoText";
 import { productDetailUrlSlug, resolveProductDetailCategorySlug } from "../src/lib/productCategoryPaths";
 import { matchProductsForText } from "../src/lib/relatedProducts";
@@ -307,6 +308,7 @@ function renderSiteFooter(): string {
   return `
       <footer style="margin-top:34px;padding:20px 0 8px;border-top:1px solid #e2e8f0;font-family:Arial,sans-serif;font-size:0.88rem;line-height:2;">
         <p style="margin:0 0 4px;">${FOOTER_SECTION_LINKS.map(link).join("")}</p>
+        <p style="margin:0 0 4px;">${FOOTER_ARTICLE_LINKS.map((article) => link({ href: article.path, label: article.en })).join("")}</p>
         <p style="margin:0;">${FOOTER_TRUST_LINKS.map(link).join("")}</p>
         <p style="margin:10px 0 0;color:#64748b;">© BalanceBikeToddler — evidence-based analysis of kids ride-on and safety gear.</p>
       </footer>
