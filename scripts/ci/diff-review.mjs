@@ -203,6 +203,21 @@ for (const { file } of reviewable) {
   const isScript = file.startsWith("scripts/");
   const isDoc = /\.(md|mdx)$/.test(file) || file.startsWith("doc/");
 
+  // Enforcement data (a ban list, a rule table) is not published copy — the
+  // honesty-claim rule would otherwise flag its own vocabulary. Authors mark
+  // such regions with `// diff-review:skip-begin` / `// diff-review:skip-end`
+  // and every rule skips the lines between the markers. Payload copy outside
+  // the markers stays fully checked.
+  const skipLines = new Set();
+  {
+    let inSkip = false;
+    for (const { line, text } of rows) {
+      if (/diff-review:skip-begin/.test(text)) inSkip = true;
+      if (inSkip) skipLines.add(line);
+      if (/diff-review:skip-end/.test(text)) inSkip = false;
+    }
+  }
+
   // Full content of the changed file at the review head (for file-level rules).
   let content = "";
   try {
@@ -221,6 +236,7 @@ for (const { file } of reviewable) {
   }
 
   for (const { line, text } of rows) {
+    if (skipLines.has(line)) continue; // enforcement-data region — not published copy
     const hit = (rule, level, detail) => add(level, rule, file, line, detail);
 
     // R1 claims (all file types except the guard itself & docs describing them)

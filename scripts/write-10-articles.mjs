@@ -34,12 +34,17 @@ const PUBLISHED_AT = "2026-10-19T15:05:00.000Z";
 // Honesty pre-scan. Mirrors the phrases check-honesty-claims.ts guards
 // (subset sufficient for authored copy — the full guard runs on dist anyway).
 // ---------------------------------------------------------------------------
+// Enforcement data — not published copy. The diff-review honesty-claim rule
+// skips the marked region so the ban list does not flag its own vocabulary;
+// every payload string below the markers stays fully checked.
+// diff-review:skip-begin
 const FORBIDDEN_PHRASES = [
   "we tested", "hands-on testing", "in our test group", "in our testing",
   "in our test pool", "backed by real testing", "test notes", "in our checks",
   "in our group", "in our jogging stroller field",
   "实测", "实验室", "我们的测试", "我们测试了", "检测团队",
 ];
+// diff-review:skip-end
 const FORBIDDEN_MEDICAL = [
   /\btherapeutic\b/, /\btherapy\b/, /\bcures?\b/,
   /\bdiagnos(?:e|es|ed|is|tic)\b/, /\bprescrib(?:e|es|ed)\b/,
