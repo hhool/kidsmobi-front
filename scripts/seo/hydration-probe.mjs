@@ -61,31 +61,49 @@ try {
 
 const failures = [];
 for (const route of ROUTES) {
-  const page = await browser.newPage();
-  const pageErrors = [];
-  page.on('pageerror', (err) => pageErrors.push(String(err.message || err).slice(0, 200)));
+  // Each attempt uses a fresh page: retrying goto() on a page whose previous
+  // navigation timed out can raise "Navigation ... is interrupted by another
+  // navigation" (the first navigation is still in flight from Playwright's
+  // view). A genuinely broken page fails deterministically on both attempts —
+  // recovery mode / pageerror are never retried away.
+  let probe = null;
+  let res = null;
+  let pageErrors = [];
+  let navError = null;
+  for (let attempt = 1; attempt <= 2 && probe === null; attempt++) {
+    const page = await browser.newPage();
+    pageErrors = [];
+    page.on('pageerror', (err) => pageErrors.push(String(err.message || err).slice(0, 200)));
+    try {
+      res = await page.goto(base + route, { waitUntil: 'load', timeout: 45000 });
+      await page.waitForTimeout(3000); // let hydration + the SEO effect settle
+      probe = await page.evaluate(() => {
+        const body = document.body?.innerText || '';
+        return {
+          recovery: body.includes('Page Recovery Mode'),
+          h1: document.querySelector('h1')?.textContent?.slice(0, 60) || '(none)',
+        };
+      });
+    } catch (e) {
+      navError = e;
+      if (attempt === 1) console.log(`[retry] ${route} — nav failed once (${String(e.message || e).slice(0, 60)}), retrying with a fresh page`);
+    } finally {
+      await page.close();
+    }
+  }
   try {
-    const res = await page.goto(base + route, { waitUntil: 'load', timeout: 45000 });
-    await page.waitForTimeout(3000); // let hydration + the SEO effect settle
-    const probe = await page.evaluate(() => {
-      const body = document.body?.innerText || '';
-      return {
-        recovery: body.includes('Page Recovery Mode'),
-        h1: document.querySelector('h1')?.textContent?.slice(0, 60) || '(none)',
-      };
-    });
-    const bad = probe.recovery || pageErrors.length > 0 || !res || res.status() >= 400;
+    const bad = navError || probe.recovery || pageErrors.length > 0 || !res || res.status() >= 400;
     if (bad) {
-      failures.push({ route, why: probe.recovery ? 'recovery-mode' : pageErrors.length ? pageErrors[0] : `HTTP ${res?.status()}` });
-      console.log(`[FAIL] ${route} — ${failures[failures.length - 1].why}`);
+      const why = navError ? 'nav: ' + String(navError.message || navError).slice(0, 100) : probe.recovery ? 'recovery-mode' : pageErrors.length ? pageErrors[0] : `HTTP ${res?.status()}`;
+      failures.push({ route, why });
+      console.log(`[FAIL] ${route} — ${why}`);
     } else {
       console.log(`[pass] ${route} — h1: ${probe.h1}`);
     }
   } catch (e) {
-    failures.push({ route, why: 'nav: ' + String(e.message || e).slice(0, 100) });
+    failures.push({ route, why: 'eval: ' + String(e.message || e).slice(0, 100) });
     console.log(`[FAIL] ${route} — ${failures[failures.length - 1].why}`);
   }
-  await page.close();
 }
 
 await browser.close();

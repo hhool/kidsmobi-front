@@ -1,0 +1,314 @@
+name: Quality Gates
+
+# 每次代码提交/发布 + 每周定时的全维度检测体系。
+#
+# 维度总览（job 编号即执行顺序）：
+#   ① diff-review     代码审核维度：对本次 diff 做风险分级 + 规则模式审核
+#                     （诚实宣称 / UiStrings as const / canonical 绕过 / TDK 超限 /
+#                       密钥字面量 / CMS 写脚本缺 token / infra 爆炸半径）
+#   ② static-gates    快速门（无构建）：lazy default 导出（React #306 类）、
+#                      tsc 类型检查、public SEO 资产（robots/sitemap/_redirects）
+#   ③ build-gates     构建门：build + dist 守卫（内容下限 / 评论数上限 /
+#                      SPA-prerender 标题·关键词·canonical 一致 / 诚实宣称 /
+#                      内链 / prerender 标题）
+#   ④ hydration       水合探针：本地起 dist 静态服务，真实浏览器逐路由查
+#                      "Page Recovery Mode" / pageerror（curl 类守卫唯一看不见的失败类）
+#   ⑤ weekly-audit    定时维度（仅 schedule/dispatch）：线上只读审计
+#                      （站点健康分 / GEO 答案引擎就绪度 / 关键词机会扫描）
+#   ⑥ hydration-live  定时维度：直接探测生产站的水合状态
+#   ⑦ alert           定时维度：任一 job 失败 → 自动开/续 [ci-alert] issue
+#
+# 触发语义：
+#   pull_request  = 合并前门（建议仓库设置 branch protection 要求这些 check 通过）
+#   push main     = 发布后验证（Pages 在 push 时自动部署，门是事后哨兵；
+#                   失败即"坏代码已上线"，走 fix-forward + ⑦ 告警）
+#   schedule      = 每周一 09:00 (GMT+8) 全量重跑 + 线上审计
+#   dispatch      = 手动全量
+#
+# 本 workflow 不使用任何 secret（纯代码/公开只读探测），fork PR 也能跑。
+# 分钟数预算：push ≈ 4 job×~4min；schedule ≈ 10min/周。
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  schedule:
+    - cron: "0 1 * * 1" # Monday 01:00 UTC = 09:00 GMT+8
+  workflow_dispatch:
+    inputs:
+      note:
+        description: "手动触发说明（可选）"
+        required: false
+        default: "manual full gate run"
+
+concurrency:
+  group: quality-gates-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+jobs:
+  # ------------------------------------------------------------------ ① 代码审核
+  diff-review:
+    name: "① Diff review (code-review dimension)"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history for the diff base)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Resolve review range base
+        run: |
+          # PR → base 分支尖端；push → 推送前 HEAD；schedule/dispatch → 7 天前的提交
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "DIFF_BASE=${{ github.event.pull_request.base.sha }}" >> "$GITHUB_ENV"
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            echo "DIFF_BASE=${{ github.event.before }}" >> "$GITHUB_ENV"
+          else
+            echo "DIFF_BASE=$(git rev-list -1 --before='7 days ago' HEAD || true)" >> "$GITHUB_ENV"
+          fi
+          echo "head=${{ github.sha }}"
+
+      - name: Run diff review
+        run: node scripts/ci/diff-review.mjs
+
+  # ------------------------------------------------------------------ ② 快速门
+  static-gates:
+    name: "② Static gates (no build)"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: lazy default exports (React #306 class)
+        run: npm run check:lazyexports
+
+      - name: typecheck
+        run: npx tsc --noEmit
+
+      - name: public SEO assets (robots / sitemap / _redirects)
+        run: npm run seo:check
+
+  # ------------------------------------------------------------------ ③ 构建门
+  build-gates:
+    name: "③ Build + dist guards"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: Build (stale-tolerant prerender, offline-safe via cms-snapshots)
+        run: npm run build
+        env:
+          PRERENDER_ALLOW_STALE: "1"
+
+      - name: Content floor (no empty-body pages)
+        run: npm run check:content
+
+      - name: Review-count ceiling
+        run: npm run check:reviewcounts
+
+      - name: SPA vs prerender titles
+        run: npm run check:spatitles
+
+      - name: SPA vs prerender keywords
+        run: npm run check:spakeywords
+
+      - name: SPA vs prerender canonicals
+        run: npm run check:spacanonicals
+
+      - name: Honesty claims (dist + src)
+        run: npm run check:claims
+
+      - name: Internal links
+        run: npm run check:links
+
+      - name: Prerender titles
+        run: npm run check:titles
+
+      - name: Upload dist for the hydration probe
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 1
+          include-hidden-files: true
+
+  # ------------------------------------------------------------------ ④ 水合探针（本地 dist）
+  hydration:
+    name: "④ Hydration probe (browser, local dist)"
+    runs-on: ubuntu-latest
+    needs: build-gates
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: Download built dist
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Serve dist and probe every curated route
+        run: |
+          set -euo pipefail
+          npx vite preview --outDir dist --port 4173 --host 127.0.0.1 > /tmp/vite-preview.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID 2>/dev/null || true' EXIT
+          for _ in $(seq 1 30); do
+            curl -sf http://127.0.0.1:4173/ > /dev/null 2>&1 && break
+            sleep 1
+          done
+          curl -sf http://127.0.0.1:4173/ > /dev/null # hard fail if the server never came up
+          SEO_SITE_BASE_URL=http://127.0.0.1:4173 node scripts/seo/hydration-probe.mjs
+
+  # ------------------------------------------------------------------ ⑤ 每周线上审计
+  weekly-audit:
+    name: "⑤ Weekly live audit (read-only)"
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: Site health check (robots/sitemap/meta/llms/links)
+        run: |
+          set -o pipefail
+          npm run seo:health 2>&1 | tee tmp-site-health.txt
+
+      - name: GEO readiness (answer-engine crawlers, llms.txt, fact-ready pages)
+        run: |
+          set -o pipefail
+          npm run seo:geo 2>&1 | tee tmp-geo.txt
+
+      - name: Keyword opportunity scan (informational, always exits 0)
+        run: npm run seo:keywords 2>&1 | tee tmp-keywords.txt
+
+      - name: Publish reports to the run summary
+        run: |
+          {
+            echo "### Site health"
+            echo '```'
+            cat tmp-site-health.txt
+            echo '```'
+            echo "### GEO readiness"
+            echo '```'
+            cat tmp-geo.txt
+            echo '```'
+            echo "### Keyword opportunities"
+            echo '```'
+            tail -40 tmp-keywords.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload weekly reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: weekly-audit-${{ github.run_number }}
+          path: |
+            tmp-site-health.txt
+            tmp-geo.txt
+            tmp-keywords.txt
+          retention-days: 30
+
+  # ------------------------------------------------------------------ ⑥ 生产水合探针
+  hydration-live:
+    name: "⑥ Hydration probe (browser, LIVE production)"
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Probe the live site (SEO_SITE_BASE_URL defaults to production)
+        run: node scripts/seo/hydration-probe.mjs
+
+  # ------------------------------------------------------------------ ⑦ 定时失败告警
+  alert:
+    name: "⑦ Alert on scheduled failure"
+    needs: [diff-review, static-gates, build-gates, hydration, weekly-audit, hydration-live]
+    if: ${{ !cancelled() && github.event_name == 'schedule' && contains(needs.*.result, 'failure') }}
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Open / update the [ci-alert] issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const runUrl = `${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`;
+            const date = new Date().toISOString().slice(0, 10);
+            const body = [
+              `Scheduled quality-gate run on **${date}** had failing jobs.`,
+              ``,
+              `Run: ${runUrl}`,
+              ``,
+              `Usual suspects, in order:`,
+              `1. a guard regression on main (claims / canonicals / hydration / TDK),`,
+              `2. a production outage during the live audit (health score drop, hydration-live),`,
+              `3. an upstream data change (CMS) that a dist guard caught.`,
+              ``,
+              `_Auto-managed by \`.github/workflows/quality-gates.yml\` — a single open [ci-alert] issue is reused; later failures append comments._`,
+            ].join('\n');
+
+            // Best-effort label setup; the issue works with or without it.
+            let labeled = true;
+            try {
+              await github.rest.issues.getLabel({ owner, repo, name: 'ci-alert' });
+            } catch {
+              try {
+                await github.rest.issues.createLabel({ owner, repo, name: 'ci-alert', color: 'd73a4a', description: 'Automated quality-gate failure alerts' });
+              } catch (e) {
+                labeled = false;
+                core.info(`label setup skipped: ${e.message}`);
+              }
+            }
+
+            const { data: open } = await github.rest.issues.listForRepo({ owner, repo, state: 'open', per_page: 100 });
+            const existing = open.find((i) => i.title.startsWith('[ci-alert]'));
+            if (existing) {
+              await github.rest.issues.createComment({ owner, repo, issue_number: existing.number, body: `Still failing (${date}): ${runUrl}` });
+              core.info(`commented on existing issue #${existing.number}`);
+            } else {
+              const issue = await github.rest.issues.create({
+                owner, repo,
+                title: `[ci-alert] Weekly quality gates failed — ${date}`,
+                body,
+                ...(labeled ? { labels: ['ci-alert'] } : {}),
+              });
+              core.info(`created issue #${issue.data.number}`);
+            }

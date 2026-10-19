@@ -94,6 +94,32 @@ Brand rule:
 - Brand names are preserved from source and are not translated into Chinese.
 - The script now records a brand-preservation block reason if `zh.brandText` diverges from detected source brand.
 
+## Quality Gates (CI: `.github/workflows/quality-gates.yml`)
+
+每次 push/PR 与每周一 09:00 (GMT+8) 定时运行的全维度检测。7 个 job：
+
+| Job | 维度 | 内容 |
+| --- | --- | --- |
+| ① `diff-review` | 代码审核 | `scripts/ci/diff-review.mjs`：对本次 diff 风险分级 + 规则模式审核（诚实宣称 / UiStrings `as const` / canonical 绕过 / TDK 超限 / 密钥字面量 / CMS 写脚本缺 token / infra 爆炸半径）。纯 git+node，秒级，无需安装依赖 |
+| ② `static-gates` | 快速门 | `check:lazyexports`（React #306 类）、`tsc --noEmit`、`seo:check`（robots/sitemap/_redirects） |
+| ③ `build-gates` | 构建门 | build（`PRERENDER_ALLOW_STALE=1`）+ dist 守卫：`check:content` / `check:reviewcounts` / `check:spatitles` / `check:spakeywords` / `check:spacanonicals` / `check:claims` / `check:links` / `check:titles` |
+| ④ `hydration` | 水合探针 | 本地起 dist 静态服务，Playwright 逐路由查 "Page Recovery Mode" / pageerror（curl 类守卫看不见的失败类） |
+| ⑤ `weekly-audit` | 线上审计（仅定时） | `seo:health` / `seo:geo` / `seo:keywords` 只读报告，附件保留 30 天 |
+| ⑥ `hydration-live` | 生产探针（仅定时） | 直接探测生产站水合状态 |
+| ⑦ `alert` | 告警（仅定时） | 任一 job 失败 → 自动开/续 `[ci-alert]` issue |
+
+本地手动跑（与 CI 同一脚本）：
+
+```bash
+npm run check:diffreview          # 代码审核（自动选 base：origin/main → HEAD~1）
+DIFF_BASE=<ref> npm run check:diffreview   # 指定范围
+npm run check:diffreview -- --strict       # 警告也失败
+```
+
+diff-review 规则级别：`fail` = 该形态在本仓库造成过生产事故（合并阻断）；`warn` = 必须人工看一眼（默认不阻断）；`info` = 提示。报告同时写入 `$GITHUB_STEP_SUMMARY`（GitHub 运行摘要页）。
+
+分支保护建议（仓库设置 → Branches → main）：要求 status check `Quality Gates / ① Diff review`、`② Static gates`、`③ Build + dist guards`、`④ Hydration probe` 通过——这样 ①–④ 成为合并前门；push main 的同名运行为发布后验证。
+
 ## Notes
 
 - Keep script names stable after publishing npm aliases.
