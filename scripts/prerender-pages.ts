@@ -86,6 +86,11 @@ import { BUDGET_PATH, budgetSeo, budgetStrings } from "../src/data/balanceBikeBu
 import { PRUNED_PRODUCTS } from "../src/data/prunedProducts.generated";
 import { PRUNED_VARIANT_PRODUCTS } from "../src/data/prunedVariantProducts.generated";
 import { getPageCopy } from "../src/config/pageCopy";
+import {
+  GUIDES_TOPIC_EXPLORE_LINKS,
+  GUIDES_TOPIC_PAGES,
+  GUIDES_TOPIC_PAGE_IDS,
+} from "../src/lib/guidesTopicPages";
 import { shortenCardTitle } from "../src/lib/productSeoText";
 import { productDetailUrlSlug, resolveProductDetailCategorySlug } from "../src/lib/productCategoryPaths";
 import { matchProductsForText } from "../src/lib/relatedProducts";
@@ -2468,18 +2473,23 @@ function renderFilterPages(
   cmsNews: CmsNews[] = [],
   cmsEvaluations: CmsEvaluation[] = [],
 ): RoutePage[] {
-  const guideCards: FilterCard[] = cmsGuides.flatMap((guide) => {
-    const route = guideRoutePath(guide);
-    if (!route) return [];
-    return [
-      {
-        title: pickText(guide.en?.title, guide.zh?.title, guide.id),
-        summary: pickText(guide.en?.summary, guide.seo?.en?.description, "BalanceBikeToddler buying guide."),
-        meta: `${guideTopicCategory(guide).replace(/_/g, " ")} · ${pickText(guide.updatedAt, guide.publishedAt).slice(0, 10) || "2026-08-15"}`,
-        path: route,
-      },
-    ];
-  });
+  // Cards for one guides topic page. Each /guides/<topic> index lists only its
+  // own topic's articles: /guides already lists the whole library, and the
+  // per-topic pages existed to give every topic a unique listing (and a unique
+  // title/description) rather than a second copy of the library.
+  const guideCardsByTopic = (topic: string): FilterCard[] =>
+    cmsGuides.flatMap((guide) => {
+      const route = guideRoutePath(guide);
+      if (!route || guideTopicCategory(guide) !== topic) return [];
+      return [
+        {
+          title: pickText(guide.en?.title, guide.zh?.title, guide.id),
+          summary: pickText(guide.en?.summary, guide.seo?.en?.description, "BalanceBikeToddler buying guide."),
+          meta: `${topic.replace(/_/g, " ")} · ${pickText(guide.updatedAt, guide.publishedAt).slice(0, 10) || "2026-08-15"}`,
+          path: route,
+        },
+      ];
+    });
   const reviewCardsByType = (reviewType: string): FilterCard[] =>
     cmsEvaluations.flatMap((item) => {
       const route = evaluationRoutePath(item);
@@ -2513,37 +2523,21 @@ function renderFilterPages(
     { href: "/news/science", label: "Science & safety" },
   ];
   const configs: FilterPageConfig[] = [
-    {
-      route: "/guides/beginner",
-      title: "Beginner Guides: Start Here",
-      fullTitle: "Beginner Guides for First-Time Buyers | BalanceBikeToddler",
-      description:
-        "Start-to-finish buying guides for first-time balance bike, kids bike, and stroller shoppers: sizing, safety standards, and age fit explained.",
-      introHeading: "Where should a first-time buyer start?",
-      introParagraphs: [
-        "A first purchase usually starts with three unknowns: which size actually fits the child today, which safety claims are backed by a standard, and which features will still matter in six months. The beginner guides answer those in order, so the shortlist narrows before any product page is opened.",
-        "Each guide follows the same structure: a direct answer up front, the reasoning and measurements behind it, and a source check at the end. That keeps the advice comparable across guides instead of hiding a different method inside every article.",
-        "If you already know the category you want, jump straight to a product hub below; if you are still deciding between a balance bike, a tricycle, or a stroller, start with the sizing guide first.",
-      ],
-      cards: guideCards,
+    // Guides topic pages. Every value except the cards comes from
+    // GUIDES_TOPIC_PAGES (src/lib/guidesTopicPages.ts) — the same module the
+    // check:spatitles guard reads, so the two render paths cannot drift.
+    ...GUIDES_TOPIC_PAGE_IDS.map((topic) => ({
+      route: `/guides/${topic}`,
+      title: GUIDES_TOPIC_PAGES[topic].h1,
+      fullTitle: GUIDES_TOPIC_PAGES[topic].fullTitle,
+      description: GUIDES_TOPIC_PAGES[topic].description,
+      introHeading: GUIDES_TOPIC_PAGES[topic].introHeading,
+      introParagraphs: GUIDES_TOPIC_PAGES[topic].introParagraphs,
+      cards: guideCardsByTopic(topic),
       emptyNote: "Guides are being published — check back shortly.",
-      faqs: [
-        {
-          q: "What should a first-time buyer check first?",
-          a: "Fit comes first: seat height range against the child's inseam, then the safety standard a product claims, then the features that match the family routine.",
-        },
-        {
-          q: "Do these guides assume any prior knowledge?",
-          a: "No. Each guide explains the terms it uses and links to the standards it cites, so a first-time buyer can follow every step without extra research.",
-        },
-      ],
-      exploreLinks: [
-        { href: "/guides", label: "All guides" },
-        { href: "/reviews", label: "Review center" },
-        { href: "/products/balance-bikes/", label: "Balance bikes hub" },
-        { href: "/products/strollers/", label: "Strollers hub" },
-      ],
-    },
+      faqs: GUIDES_TOPIC_PAGES[topic].faqs,
+      exploreLinks: GUIDES_TOPIC_EXPLORE_LINKS[topic],
+    })),
     {
       route: "/news/industry",
       title: "Kids Mobility Industry Trends",

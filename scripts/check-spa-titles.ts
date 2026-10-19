@@ -39,6 +39,7 @@ import { buildDocumentTitle, buildMetaDescription } from "../src/lib/documentTit
 import { sanitizeUnsupportedClaims } from "../src/lib/unsupportedClaims";
 import { resolveSectionRouteSeo, publishSectionTitle } from "../src/lib/cmsSectionSeo";
 import { CATEGORY_TDK_MAP } from "../src/lib/pageKeywords";
+import { GUIDES_TOPIC_PAGES, GUIDES_TOPIC_PAGE_IDS } from "../src/lib/guidesTopicPages";
 import type { CMSSettings } from "../src/types";
 
 type Expectation = { label: string; route: string; title: string; description: string };
@@ -105,6 +106,23 @@ function pick(seo: { title: string; description: string }) {
     title: buildDocumentTitle(seo.title),
     description: buildMetaDescription(seo.description, sanitizeUnsupportedClaims),
   };
+}
+
+// --- Guides topic pages (/guides/<topic>) ----------------------------------
+// Channel routes: the prerender builds each topic index from
+// GUIDES_TOPIC_PAGES, and the hydrated SPA keeps that TDK (App.tsx returns
+// early on a channel route whose static canonical matches the current path).
+// The expectation is therefore the shared module's own value — if the two
+// render paths ever drift, this guard fails. /guides/beginner included: it
+// shipped with home keywords and no title expectation before 2026-10-19.
+for (const topic of GUIDES_TOPIC_PAGE_IDS) {
+  const page = GUIDES_TOPIC_PAGES[topic];
+  expectations.push({
+    label: `guides topic ${topic}`,
+    route: `/guides/${topic}`,
+    title: page.fullTitle,
+    description: buildMetaDescription(page.description, sanitizeUnsupportedClaims),
+  });
 }
 
 // --- Category hubs (/products/<slug>/) --------------------------------------

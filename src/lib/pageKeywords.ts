@@ -38,6 +38,7 @@ import { SAFETY_PATH, safetySeo } from "../data/balanceBikeSafety";
 import { BUYER_FEEDBACK_PATH, buyerFeedbackSeo } from "../data/balanceBikeBuyerFeedback";
 import { RECALL_SAFETY_PATH, recallSeo } from "../data/safetyRecallRecord";
 import { TRANSPARENCY_PAGES, getTransparencyPageByPath } from "../data/transparencyPages";
+import { GUIDES_TOPIC_PAGES, type GuidesTopicPageId } from "./guidesTopicPages";
 
 export type KeywordLang = "zh" | "en";
 
@@ -265,6 +266,17 @@ export function resolveRouteKeywords(
   const reviewDetailMatch = /^\/reviews\/(single|compare|value|ranking|safety)\/[^/]+\/?$/.exec(clean);
   if (reviewDetailMatch) {
     return Array.from(new Set([...defaultKeywords("reviews", lang), ...REVIEW_DETAIL_KEYWORDS[lang]]));
+  }
+
+  // Guides topic pages: /guides/<topic>. Without this branch every topic
+  // index silently published the home keywords (the unknown-route fallback) —
+  // /guides/beginner included. Values come from GUIDES_TOPIC_PAGES, the same
+  // module the prerender builds the filter pages from.
+  const guidesTopicMatch = /^\/guides\/([^/]+)\/?$/.exec(clean);
+  if (guidesTopicMatch) {
+    const topic = guidesTopicMatch[1] as GuidesTopicPageId;
+    const page = GUIDES_TOPIC_PAGES[topic];
+    if (page) return [...page.keywords[lang]];
   }
 
   // Generic index routes. `clean` carries a trailing slash (e.g. "/reviews/"),

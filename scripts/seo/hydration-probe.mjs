@@ -36,6 +36,26 @@ const ROUTES = [
   '/balance-bike-budget/',
   '/safety/balance-bike-recalls/',
   '/transparency/privacy-policy/',
+  // Guides topic indexes (2026-10-19: 5 new topic pages went live with the
+  // 10-article batch). Channel routes hydrate onto prerendered HTML and must
+  // keep their own TDK — the SPA-overwrite bug class this probe guards.
+  '/guides/beginner',
+  '/guides/budget',
+  '/guides/scenario',
+  '/guides/risk',
+  '/guides/maintenance',
+  '/guides/special',
+  // Article detail pages from the same batch.
+  '/guides/budget/balance-bike-price-tiers',
+  '/guides/beginner/balance-bike-vs-training-wheels',
+  '/guides/scenario/where-to-ride-balance-bike',
+  '/guides/risk/balance-bike-safety-checks',
+  '/guides/maintenance/balance-bike-maintenance',
+  '/guides/special/balance-bikes-extra-support',
+  '/news/science/balance-bike-research',
+  '/news/industry/ride-on-safety-standards-2026',
+  '/news/new_product/new-balance-bikes-2026',
+  '/news/brand_news/balance-bike-brand-news-october-2026',
 ];
 
 const base = process.env.SEO_SITE_BASE_URL || SITE_BASE;
