@@ -5857,7 +5857,13 @@ async function main() {
   // zero-D1 fallback when its D1 sitemap build fails (free-tier row limits).
   const pickLastmod = (value: unknown): string | null => {
     const raw = pickText(value as string).trim();
-    return raw || null;
+    if (!raw || !/^\d{4}-\d{2}-\d{2}/.test(raw)) return null;
+    // Normalize to millisecond ISO-8601 Z form, mirroring the API worker's
+    // pickRecordLastmod — D1 stores some seeded records with microsecond
+    // precision and a +00:00 offset; emitting them raw made the two sitemap
+    // builders disagree byte-for-byte on the same instant.
+    const parsed = new Date(raw);
+    return Number.isNaN(parsed.getTime()) ? null : parsed.toISOString();
   };
   const modByRoute = new Map<string, string | null>();
   let overallMax: string | null = null;
@@ -5933,6 +5939,10 @@ function sitemapPriority(route: string): number {
 const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
   const TRANSPARENCY_LASTMOD = "2026-08-15T00:00:00.000Z";
   const staticModByRoute = new Map<string, string | null>([
+    // The home page's route key is "" (see the loc rendering below), not "/" —
+    // keying it "/" left this entry dead and the homepage undated while the
+    // Worker-side build dates it with the site-wide freshest edit.
+    ["", overallMax],
     ["/", overallMax],
     ["/about", ABOUT_PAGE_LASTMOD],
     ["/guides", guidesMax],
@@ -5954,7 +5964,13 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
   }
   staticModByRoute.set("/reviews/single", evalsMax);
   staticModByRoute.set("/reviews/compare", evalsMax);
-  for (const route of ["/transparency/testing-methodology/", "/transparency/certification-lab-notes/"]) {
+  for (const route of [
+    "/transparency/testing-methodology/",
+    "/transparency/certification-lab-notes/",
+    "/transparency/disclaimer/",
+    "/transparency/privacy-policy/",
+    "/transparency/terms/",
+  ]) {
     staticModByRoute.set(route, TRANSPARENCY_LASTMOD);
   }
   const sitemapUrls = pages
