@@ -5944,7 +5944,11 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     staticModByRoute.set(`/products/${meta.slug}/`, productsMax);
   }
   // R46 filter/list pages: dated by their source collection's latest edit.
-  staticModByRoute.set("/guides/beginner", guidesMax);
+  // Topic set comes from the shared guidesTopicPages source of truth so a new
+  // topic page is dated here automatically.
+  for (const topic of GUIDES_TOPIC_PAGE_IDS) {
+    staticModByRoute.set(`/guides/${topic}`, guidesMax);
+  }
   for (const category of ["brand_news", "industry", "new_product", "science"]) {
     staticModByRoute.set(`/news/${category}`, newsMax);
   }
