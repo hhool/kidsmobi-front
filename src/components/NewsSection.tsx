@@ -524,9 +524,13 @@ export default function NewsSection({
               <span className="px-3 py-1 bg-orange-100 text-orange-600 text-[10px] font-black rounded-full uppercase border border-orange-200">
                 {getCategoryLabel(article.category, lang)}
               </span>
-              <h2 className="km-page-title text-slate-900">
+              {/* The prerendered static HTML for this route carries the
+                  article title as the page's only <h1>; the hydrated SPA must
+                  publish the same heading (the section <h1> only renders in
+                  the list view, so this stays the single h1 in detail mode). */}
+              <h1 className="km-page-title text-slate-900">
                 {article.title}
-              </h2>
+              </h1>
 
               {/* Author Metadata bar */}
               <div className="flex flex-wrap items-center gap-6 text-xs text-slate-400 font-bold">

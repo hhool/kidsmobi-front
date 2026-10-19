@@ -1945,9 +1945,14 @@ export default function GuidesSection({
                   {guide.categoryLabel}
                 </span>
 
-                <h2 className="km-section-title text-slate-900">
+                {/* The prerendered static HTML for this route carries the
+                    article title as the page's only <h1>; the hydrated SPA
+                    must publish the same heading (the list view's <h1> above
+                    is inside a !selectedGuideState block, so this stays the
+                    single h1 in detail mode). */}
+                <h1 className="km-section-title text-slate-900">
                   {guide.title}
-                </h2>
+                </h1>
 
                 <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400 font-bold">
                   <span className="flex items-center gap-1.5">
