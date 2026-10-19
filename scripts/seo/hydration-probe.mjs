@@ -56,6 +56,12 @@ const ROUTES = [
   '/news/industry/ride-on-safety-standards-2026',
   '/news/new_product/new-balance-bikes-2026',
   '/news/brand_news/balance-bike-brand-news-october-2026',
+  // 2026-10-20 footer-column batch — the four CMS guides that back the
+  // footer's Sizing & Buying Guide column.
+  '/guides/beginner/balance-bike-size-chart',
+  '/guides/beginner/balance-bike-weight',
+  '/guides/risk/balance-bike-safety-standards',
+  '/guides/risk/balance-bike-recalls',
 ];
 
 const base = process.env.SEO_SITE_BASE_URL || SITE_BASE;
