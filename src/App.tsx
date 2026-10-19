@@ -4476,7 +4476,7 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
       {activeTab !== "admin" && (
       <footer id="main_footer" className="bg-slate-900 border-t border-slate-800 pt-20 pb-10 text-xs">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-8 mb-16">
             {/* Column 1: Brand */}
             <div className="md:col-span-1 space-y-6">
               <div className="flex items-center gap-2">
@@ -4570,6 +4570,17 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     {lang === "en" ? "Kids Car Seat" : "儿童安全座椅"}
                   </a>
                 </li>
+              </ul>
+            </div>
+
+            {/* Column 3: Sizing & buying references. The /guides/ entry point
+                (moved out of the Products column) plus the four Plan-B
+                reference assets (moved out of the Transparency column). */}
+            <div className="space-y-6">
+              <p className="text-white font-bold uppercase tracking-widest text-[10px]">
+                {lang === "en" ? "Sizing & Buying Guide" : "尺寸与选购指南"}
+              </p>
+              <ul className="space-y-3 font-medium">
                 <li>
                   <a
                     href={resolveSeoLink("/guides/")}
@@ -4579,13 +4590,61 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                       navigateToPath("/guides");
                     }}
                   >
-                    {lang === "en" ? "Sizing & Buying Guide" : "尺寸与选购指南"}
+                    {lang === "en" ? "All Buying Guides" : "全部选购指南"}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={resolveSeoLink(SIZING_PATH)}
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath(SIZING_PATH);
+                    }}
+                  >
+                    {lang === "en" ? "Size Chart" : "尺寸对照"}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={resolveSeoLink(WEIGHT_PATH)}
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath(WEIGHT_PATH);
+                    }}
+                  >
+                    {lang === "en" ? "Weight & Build" : "重量与结构"}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={resolveSeoLink(SAFETY_PATH)}
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath(SAFETY_PATH);
+                    }}
+                  >
+                    {lang === "en" ? "Safety Standards" : "安全标准"}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={resolveSeoLink(RECALL_SAFETY_PATH)}
+                    className="hover:text-orange-500 transition-colors text-slate-400"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigateToPath(RECALL_SAFETY_PATH);
+                    }}
+                  >
+                    {lang === "en" ? "Recall Record" : "召回记录"}
                   </a>
                 </li>
               </ul>
             </div>
 
-            {/* Column 3: Policy & transparency */}
+            {/* Column 4: Policy & transparency */}
             <div className="space-y-6">
               <p className="text-white font-bold uppercase tracking-widest text-[10px]">
                 {lang === "en" ? "Transparency" : "透明度与标准"}
@@ -4661,54 +4720,6 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
                     }}
                   >
                     {lang === "en" ? "About" : "关于我们"}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={RECALL_SAFETY_PATH}
-                    className="hover:text-orange-500 transition-colors text-slate-400"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      navigateToPath(RECALL_SAFETY_PATH);
-                    }}
-                  >
-                    {lang === "en" ? "Recall Record" : "召回记录"}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={SIZING_PATH}
-                    className="hover:text-orange-500 transition-colors text-slate-400"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      navigateToPath(SIZING_PATH);
-                    }}
-                  >
-                    {lang === "en" ? "Size Chart" : "尺寸对照"}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={SAFETY_PATH}
-                    className="hover:text-orange-500 transition-colors text-slate-400"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      navigateToPath(SAFETY_PATH);
-                    }}
-                  >
-                    {lang === "en" ? "Safety Standards" : "安全标准"}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={WEIGHT_PATH}
-                    className="hover:text-orange-500 transition-colors text-slate-400"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      navigateToPath(WEIGHT_PATH);
-                    }}
-                  >
-                    {lang === "en" ? "Weight & Build" : "重量与结构"}
                   </a>
                 </li>
                 <li>
