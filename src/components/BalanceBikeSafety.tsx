@@ -218,3 +218,8 @@ export function BalanceBikeSafety({ lang = "en" }: BalanceBikeSafetyProps) {
     </article>
   );
 }
+
+// React.lazy in App.tsx resolves the module default export; without this line
+// the lazy chunk resolves to undefined and React throws #306 ("Element type
+// is invalid") at hydration. The named export above is kept for direct imports.
+export default BalanceBikeSafety;
