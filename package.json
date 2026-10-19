@@ -70,6 +70,7 @@
     "check:spakeywords": "npx tsx scripts/check-spa-keywords.ts",
     "check:spacanonicals": "npx tsx scripts/check-spa-canonicals.ts",
     "check:lazyexports": "node scripts/check-lazy-exports.mjs",
+    "check:hydration": "node scripts/seo/hydration-probe.mjs",
     "check:claims": "npx tsx scripts/check-honesty-claims.ts",
     "seo:indexnow": "node scripts/seo/indexnow-submit.mjs",
     "seo:health": "node scripts/seo/site-health-check.mjs",
