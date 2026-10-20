@@ -5,6 +5,9 @@
 # Guard: npm run check:redirects.
 
 /probe-a/* /index.html 200
+/probe-c/* /index.html 301
+/probe-d/* /about/ 200
+/probe-e/x /index.html 200
 /api/* https://store.balancebiketoddler.com/api/:splat 307
 
 # Retired guide/news slugs from the import pipeline (renamed 2026-09-17).
