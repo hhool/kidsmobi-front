@@ -94,6 +94,9 @@ jobs:
       - name: lazy default exports (React #306 class)
         run: npm run check:lazyexports
 
+      - name: prerender vs hydrated rich-content parity (## / lists / labels)
+        run: npm run check:richparity
+
       - name: typecheck
         run: npx tsc --noEmit
 

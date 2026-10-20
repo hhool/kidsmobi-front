@@ -115,6 +115,7 @@ import type { CMSSettings } from "../src/types";
 import { buildProductDetailKeywords, resolveRouteKeywords, CATEGORY_TDK_MAP } from "../src/lib/pageKeywords";
 import { buildProductFaqsFromDisplayFields, faqPageSchema, FAQ_MIN_QUESTIONS, type ProductFaq } from "../src/lib/productFaq";
 import { getHubContent } from "../src/lib/productHubContent";
+import { renderRichContentHtml } from "../src/lib/richContentHtml";
 
 const distDir = path.resolve("dist");
 
@@ -780,110 +781,6 @@ function pickText(...values: Array<string | undefined>): string {
   return "";
 }
 
-function renderInlineMarkdown(value: string): string {
-  return escapeHtml(value)
-    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\*([^*\n]+)\*/g, "<em>$1</em>")
-    .replace(
-      /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
-      '<a href="$2" rel="noopener">$1</a>',
-    );
-}
-
-/** Minimal markdown-subset renderer that mirrors the app's article formatting. */
-function renderGuideContentHtml(markdown: string): string {
-  const lines = String(markdown || "").replace(/\r\n/g, "\n").split("\n");
-  const blocks: string[] = [];
-  let paragraph: string[] = [];
-  let listKind: "ul" | "ol" | null = null;
-  let listItems: string[] = [];
-
-  const flushParagraph = () => {
-    if (!paragraph.length) return;
-    blocks.push(`<p style="margin: 0 0 14px;">${renderInlineMarkdown(paragraph.join(" "))}</p>`);
-    paragraph = [];
-  };
-  const flushList = () => {
-    if (!listKind || !listItems.length) {
-      listKind = null;
-      listItems = [];
-      return;
-    }
-    const tag = listKind;
-    const items = listItems;
-    listKind = null;
-    listItems = [];
-    blocks.push(
-      `<${tag} style="margin: 0 0 14px; padding-left: 1.2rem;">${items
-        .map((item) => `<li style="margin-bottom: 6px;">${renderInlineMarkdown(item)}</li>`)
-        .join("")}</${tag}>`,
-    );
-  };
-  const flushAll = () => {
-    flushParagraph();
-    flushList();
-  };
-
-  for (const rawLine of lines) {
-    const line = rawLine.trim();
-    if (!line) {
-      flushAll();
-      continue;
-    }
-    // CMS plain-text sections ("I. Four Key Buying Factors", "1. Multi-Wheel
-    // Support & High Stability") otherwise ship as bare paragraphs, leaving the
-    // whole article without a single heading. Only lines that look exactly like
-    // a label — short, no sentence-ending punctuation — are promoted.
-    const sectionLabel = /^(?:[IVX]{1,4}|\d{1,2})\.\s+(\S.{2,88}[^\s.,;:])$/.exec(line);
-    if (sectionLabel) {
-      flushAll();
-      const level = /^[IVX]{1,4}\./.test(line) ? 2 : 3;
-      const size = level === 2 ? "1.5rem" : "1.22rem";
-      blocks.push(
-        `<h${level} style="margin: 22px 0 10px; font-size: ${size};">${renderInlineMarkdown(sectionLabel[1])}</h${level}>`,
-      );
-      continue;
-    }
-    const heading = /^(#{2,4})\s+(.*)$/.exec(line);
-    if (heading) {
-      flushAll();
-      const level = heading[1].length;
-      const size = level <= 2 ? "1.5rem" : level === 3 ? "1.22rem" : "1.06rem";
-      blocks.push(
-        `<h${level} style="margin: 22px 0 10px; font-size: ${size};">${renderInlineMarkdown(heading[2])}</h${level}>`,
-      );
-      continue;
-    }
-    const bullet = /^[*•\-]\s+(.*)$/.exec(line);
-    if (bullet) {
-      flushParagraph();
-      if (listKind !== "ul") {
-        flushList();
-        listKind = "ul";
-      }
-      listItems.push(bullet[1]);
-      continue;
-    }
-    const ordered = /^\d+[.、)]\s+(.*)$/.exec(line);
-    if (ordered) {
-      flushParagraph();
-      if (listKind !== "ol") {
-        flushList();
-        listKind = "ol";
-      }
-      listItems.push(ordered[1]);
-      continue;
-    }
-    flushList();
-    // A single newline is a paragraph break in the app's markdown subset, so each
-    // remaining line becomes its own paragraph instead of being soft-wrapped.
-    flushParagraph();
-    paragraph.push(line);
-  }
-  flushAll();
-  return blocks.join("\n        ");
-}
-
 // CMS snapshots: every successful fetch overwrites a local snapshot so a
 // later CMS outage can still build (opt-in via PRERENDER_ALLOW_STALE=1).
 // Snapshots are local-only (gitignored) — CI builds must see live data.
@@ -1025,7 +922,12 @@ async function writeCmsSettingsSnapshot(payload: unknown): Promise<void> {
 }
 
 async function fetchCmsSettings(): Promise<CmsSettingsPayload | null> {
-  const url = `${CMS_BASE_URL}/api/cms/settings`;
+  // Cache-busted on purpose: the Worker's mutation-triggered edge purge does
+  // not cover the settings collection, so a plain GET can serve a copy that
+  // predates the last CMS edit for a full TTL — which is exactly how a freshly
+  // published reference-cluster list can fail to reach a build. A build must
+  // see live data, so it deliberately misses the cache here.
+  const url = `${CMS_BASE_URL}/api/cms/settings?cb=${Date.now()}`;
   const attempts = 8;
   for (let attempt = 1; attempt <= attempts; attempt++) {
     try {
@@ -1290,7 +1192,7 @@ function renderGuideDetailPage(guide: CmsGuide, evaluations: CmsEvaluation[] = [
         ${summaryIntroHtml}
       </section>
       <section style="padding: 6px 0; border-top: 1px solid #e2e8f0;">
-        ${renderGuideContentHtml(content) || `<p style="margin: 0;">${escapeHtml(summary)}</p>`}
+        ${renderRichContentHtml(content) || `<p style="margin: 0;">${escapeHtml(summary)}</p>`}
       </section>
       ${relatedReviewsHtml}
       ${relatedProducts}
@@ -1387,7 +1289,7 @@ function renderNewsDetailPage(item: CmsNews, products: CmsProductLite[] = []): R
         <p style="margin: 0 0 14px; font-size: 1.05rem; color: #334155;"><strong>Short answer:</strong> ${escapeHtml(summary)}</p>
       </section>
       <section style="padding: 6px 0; border-top: 1px solid #e2e8f0;">
-        ${renderGuideContentHtml(content) || `<p style="margin: 0;">${escapeHtml(summary)}</p>`}
+        ${renderRichContentHtml(content) || `<p style="margin: 0;">${escapeHtml(summary)}</p>`}
       </section>
       ${relatedProductsHtml(`${title} ${summary} ${content}`, products, "Related Products")}
       <section style="padding: 22px 0 0; border-top: 1px solid #e2e8f0;">

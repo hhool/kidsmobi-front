@@ -62,6 +62,11 @@ const ROUTES = [
   '/guides/beginner/balance-bike-weight',
   '/guides/risk/balance-bike-safety-standards',
   '/guides/risk/balance-bike-recalls',
+  // 2026-10-20 reference-cluster batch — the three guides that take the block
+  // to 8/8 CMS-backed cards.
+  '/guides/beginner/balance-bike-by-age',
+  '/guides/beginner/balance-bike-what-buyers-say',
+  '/guides/scenario/balance-bike-stability',
 ];
 
 const base = process.env.SEO_SITE_BASE_URL || SITE_BASE;
@@ -108,6 +113,10 @@ for (const route of ROUTES) {
         return {
           recovery: body.includes('Page Recovery Mode'),
           h1: document.querySelector('h1')?.textContent?.slice(0, 60) || '(none)',
+          // A markdown marker that survived into the hydrated DOM means the
+          // app's renderer parsed a syntax level the prerender's did (or the
+          // other way round). The static HTML looked perfect the whole time.
+          mdLeak: (body.match(/^#{2,4}\s+\S/gm) || []).slice(0, 3),
         };
       });
     } catch (e) {
@@ -118,9 +127,15 @@ for (const route of ROUTES) {
     }
   }
   try {
-    const bad = navError || probe.recovery || pageErrors.length > 0 || !res || res.status() >= 400;
-    if (bad) {
-      const why = navError ? 'nav: ' + String(navError.message || navError).slice(0, 100) : probe.recovery ? 'recovery-mode' : pageErrors.length ? pageErrors[0] : `HTTP ${res?.status()}`;
+    const short = (v) => String(v.message || v).slice(0, 100);
+    let why = null;
+    if (navError) why = `nav: ${short(navError)}`;
+    else if (probe.recovery) why = 'recovery-mode';
+    else if (probe.mdLeak?.length) why = `markdown leak: ${probe.mdLeak.join(', ')}`;
+    else if (pageErrors.length) why = pageErrors[0];
+    else if (!res || res.status() >= 400) why = `HTTP ${res?.status()}`;
+
+    if (why) {
       failures.push({ route, why });
       console.log(`[FAIL] ${route} — ${why}`);
     } else {

@@ -1,20 +1,25 @@
 import React from "react";
+import { classifyRichLine } from "./richContentBlocks";
 
 /**
  * Shared lightweight rich-content renderer.
  *
  * Storage format (produced by RichTextEditor) is the site's legacy markdown
  * subset plus inline media extensions, so old articles keep rendering:
- *   ###  H3 heading          ####  H4 heading
+ *   ##   H2 heading          ###  H3 heading      ####  H4 heading
  *   * / -  bullet list       1.  ordered list
  *   **bold**   *italic*   [text](url)
  *   ![alt](url)              @[video](url)
  * Blocks are separated by one blank line ("\n\n"), but a single newline inside a
  * block is honoured too: consecutive "* "/"- " lines become one <ul>, consecutive
  * "1. " lines become one <ol>, and every other line becomes its own paragraph.
+ *
+ * Block classification lives in src/lib/richContentBlocks.ts, shared with the
+ * prerender's HTML renderer — see the comment there for why.
  */
 
 export type RichContentTheme = {
+  h2: string;
   h3: string;
   h4: string;
   ul: string;
@@ -28,6 +33,7 @@ export type RichContentTheme = {
 };
 
 const defaultTheme: RichContentTheme = {
+  h2: "text-2xl font-black text-slate-900 mt-12 mb-5",
   h3: "text-xl font-black text-slate-900 mt-10 mb-4",
   h4: "text-lg font-bold text-orange-500 mt-8 mb-4",
   ul: "list-disc list-inside space-y-2 text-slate-500 pl-4 bg-slate-50/50 p-4 rounded-2xl border border-slate-100",
@@ -116,9 +122,6 @@ function isMediaOnlyParagraph(text: string): { kind: "image" | "video"; alt: str
   return null;
 }
 
-const BULLET_PATTERN = /^([*•] |- |– )/;
-const ORDERED_PATTERN = /^\d+[.、)] /;
-
 export function renderRichContent(
   content: string,
   themeOverride?: Partial<RichContentTheme>,
@@ -178,47 +181,53 @@ export function renderRichContent(
       const line = rawLine.trim();
       if (!line) return;
 
-      if (line.startsWith("### ")) {
+      // Shared classifier — the prerender emits the same tag for the same line.
+      const classified = classifyRichLine(line);
+      if (classified && (classified.kind === "h2" || classified.kind === "h3" || classified.kind === "h4")) {
         flushList();
         const currentKey = key++;
-        nodes.push(
-          <h3 key={currentKey} className={theme.h3}>
-            {renderInlineMarkdown(line.slice(4), `h3-${currentKey}`)}
-          </h3>,
-        );
-        return;
-      }
-      if (line.startsWith("#### ")) {
-        flushList();
-        const currentKey = key++;
-        nodes.push(
-          <h4 key={currentKey} className={theme.h4}>
-            {renderInlineMarkdown(line.slice(5), `h4-${currentKey}`)}
-          </h4>,
-        );
+        if (classified.kind === "h2") {
+          nodes.push(
+            <h2 key={currentKey} className={theme.h2}>
+              {renderInlineMarkdown(classified.text, `h2-${currentKey}`)}
+            </h2>,
+          );
+        } else if (classified.kind === "h3") {
+          nodes.push(
+            <h3 key={currentKey} className={theme.h3}>
+              {renderInlineMarkdown(classified.text, `h3-${currentKey}`)}
+            </h3>,
+          );
+        } else {
+          nodes.push(
+            <h4 key={currentKey} className={theme.h4}>
+              {renderInlineMarkdown(classified.text, `h4-${currentKey}`)}
+            </h4>,
+          );
+        }
         return;
       }
 
-      if (BULLET_PATTERN.test(line)) {
+      if (classified && classified.kind === "ul") {
         if (listKind !== "ul") {
           flushList();
           listKind = "ul";
         }
-        listItems.push(line.replace(BULLET_PATTERN, ""));
+        listItems.push(classified.text);
         return;
       }
-      if (ORDERED_PATTERN.test(line)) {
+      if (classified && classified.kind === "ol") {
         if (listKind !== "ol") {
           flushList();
           listKind = "ol";
         }
-        listItems.push(line.replace(ORDERED_PATTERN, ""));
+        listItems.push(classified.text);
         return;
       }
 
       flushList();
 
-      const media = isMediaOnlyParagraph(line);
+      const media = isMediaOnlyParagraph(classified?.text ?? line);
       const currentKey = key++;
       if (media) {
         if (media.kind === "image") {
