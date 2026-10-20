@@ -253,6 +253,10 @@ export const GUIDES_TOPIC_PAGE_IDS = Object.keys(GUIDES_TOPIC_PAGES) as GuidesTo
  *
  * Both call sites resolve the topic through this one function, so a new
  * suppression rule is added once.
+ *
+ * Note the direction: the prerendered <h1> lives inside #root and the app
+ * mounts with createRoot().render(), so React throws it away. The SPA has to
+ * re-render the topic's own h1 — it cannot simply suppress the wizard's.
  */
 export function resolveGuidesTopicPage(activeCategory: string | undefined, activeArticleId: string | undefined): GuidesTopicPage | null {
   if (activeArticleId) return null;

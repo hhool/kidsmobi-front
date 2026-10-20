@@ -1384,14 +1384,21 @@ export default function GuidesSection({
                 {lang === "en" ? "Smart Wizard" : "智能选车助手"}
               </span>
             {topicPage ? (
-              // /guides/<topic>: the prerendered HTML already publishes this
-              // page's own <h1> + lead paragraph. A second <h1> here would be
-              // the generic wizard copy — the static page would say "Fit for
-              // Riders Who Need Support" while the hydrated DOM said "Smart
-              // Wizard", i.e. two <h1>s and the wrong one first.
-              <p className="km-heading-copy km-body-copy text-sm md:text-base text-slate-500 font-semibold max-w-4xl leading-relaxed">
-                {topicPage.introHeading}
-              </p>
+              // /guides/<topic>: mirror the prerendered heading.
+              //
+              // The prerendered <h1> sits INSIDE #root, and the app mounts
+              // with createRoot().render(), so React discards it on hydration.
+              // Anything the static page publishes must therefore be rendered
+              // by the SPA too — suppressing the wizard <h1> here is not
+              // enough, it leaves the hydrated page with no <h1> at all.
+              <>
+                <h1 className="km-page-title km-home-statement-title text-slate-900 max-w-5xl">
+                  {topicPage.h1}
+                </h1>
+                <p className="km-heading-copy km-body-copy text-sm md:text-base text-slate-500 font-semibold max-w-4xl leading-relaxed">
+                  {topicPage.introHeading}
+                </p>
+              </>
             ) : (
               <>
                 <h1 className="km-page-title km-home-statement-title text-slate-900 max-w-5xl flex items-center gap-2">
