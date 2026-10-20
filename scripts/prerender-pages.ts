@@ -2378,6 +2378,53 @@ function filterCardGrid(cards: FilterCard[], emptyNote: string): string {
         </div>`;
 }
 
+// Channel pages (/guides/<topic>, /news/<channel>, /reviews/<type>) shipped
+// no breadcrumb at all: the SPA early-returns on these routes to protect the
+// prerendered TDK, and the static builder emitted none — so neither render
+// path had a trail. These mirror the category-hub convention
+// (Home > section > channel) and match the visible breadcrumb rendered by
+// renderFilterListPage. Keep in sync with the SPA's section-branch trail.
+const FILTER_SECTION_LABELS: Record<string, string> = {
+  guides: "Guides",
+  news: "News",
+  reviews: "Reviews",
+};
+
+const FILTER_CHANNEL_LABELS: Record<string, string> = {
+  beginner: "Beginner Guides",
+  scenario: "Riding Scenarios",
+  budget: "Budget Guides",
+  risk: "Safety & Risk",
+  maintenance: "Maintenance",
+  special: "Extra Support",
+  industry: "Industry News",
+  brand_news: "Brand News",
+  new_product: "New Products",
+  science: "Research & Science",
+  single: "Single Product Reviews",
+  compare: "Comparison Reviews",
+  value: "Value Reviews",
+  ranking: "Rankings",
+  safety: "Safety Reviews",
+};
+
+function filterBreadcrumbCrumbs(canonical: string): Array<{ name: string; href: string }> {
+  const pathname = new URL(canonical).pathname;
+  const segments = pathname.split("/").filter(Boolean);
+  const crumbs: Array<{ name: string; href: string }> = [{ name: "Home", href: "/" }];
+  const section = segments[0] || "";
+  const channel = segments[1] || "";
+  const sectionLabel = FILTER_SECTION_LABELS[section];
+  if (sectionLabel) {
+    crumbs.push({ name: sectionLabel, href: `/${section}` });
+  }
+  const channelLabel = FILTER_CHANNEL_LABELS[channel] || channel;
+  if (channelLabel) {
+    crumbs.push({ name: channelLabel, href: pathname });
+  }
+  return crumbs;
+}
+
 function filterListSchemas(
   canonical: string,
   name: string,
@@ -2409,6 +2456,16 @@ function filterListSchemas(
     },
     {
       "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: filterBreadcrumbCrumbs(canonical).map((crumb, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: crumb.name,
+        item: `${PUBLIC_SITE_BASE}${crumb.href}`,
+      })),
+    },
+    {
+      "@context": "https://schema.org",
       "@type": "FAQPage",
       mainEntity: faqs.map((faq) => ({
         "@type": "Question",
@@ -2429,6 +2486,7 @@ function renderFilterListPage(config: FilterPageConfig): RoutePage {
     fullTitle: config.fullTitle,
     description: config.description,
     body: `
+      ${renderProductBreadcrumb(filterBreadcrumbCrumbs(`${PUBLIC_SITE_BASE}${config.route}`))}
       <section style="padding: 22px 0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">${escapeHtml(config.introHeading)}</h2>
         ${introHtml}

@@ -2214,6 +2214,48 @@ export default function App() {
     }
   };
 
+  // BreadcrumbList hygiene for the dual renderer. Prerendered pages ship
+  // their own BreadcrumbList inside an unmarked ld+json block, which
+  // injectJsonLd deliberately keeps; a hydrated page that also injected its
+  // own trail therefore ended up with two conflicting trails for one URL —
+  // Search Console's Breadcrumbs report listed those URLs twice. Returns
+  // true when a static trail already points at canonicalUrl (hydration onto
+  // this page's own HTML: keep it and skip injection). A trail pointing
+  // anywhere else is stale (left by client-side navigation) and gets
+  // stripped, so the DOM keeps exactly one trail either way.
+  const keepStaticBreadcrumb = (canonicalUrl: string): boolean => {
+    const isTrail = (entry: unknown): boolean =>
+      Boolean(entry) && (entry as { "@type"?: string })["@type"] === "BreadcrumbList";
+    const samePage = (value: unknown): boolean => {
+      if (typeof value !== "string") return false;
+      const norm = (url: string) => url.replace(/\/+$/, "") || "/";
+      return norm(value) === norm(canonicalUrl);
+    };
+    let matched = false;
+    for (const script of [...document.querySelectorAll("script[type='application/ld+json']")]) {
+      let data: unknown;
+      try {
+        data = JSON.parse(script.textContent || "");
+      } catch {
+        continue;
+      }
+      const entries: unknown[] = Array.isArray(data) ? data : [data];
+      if (!entries.some(isTrail)) continue;
+      const trail = entries.find(isTrail) as { itemListElement?: Array<{ item?: string }> } | undefined;
+      const lastItem = trail?.itemListElement?.at(-1)?.item;
+      if (samePage(lastItem)) {
+        matched = true;
+        continue;
+      }
+      if (Array.isArray(data) && entries.length > 1) {
+        script.textContent = JSON.stringify(entries.filter((entry) => !isTrail(entry)));
+      } else {
+        script.remove();
+      }
+    }
+    return matched;
+  };
+
   const buildWebsiteSchema = (origin: string, description: string) => ({
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -2389,31 +2431,39 @@ export default function App() {
           Number(selectedProduct.price) > 0 ? Number(selectedProduct.price) : null,
         );
 
+        // The prerendered detail page already carries its own trail
+        // (Home > Products > category > product). On hydration keep that
+        // one instead of injecting a second, shorter trail — two
+        // BreadcrumbLists for one URL is what Search Console reported as
+        // duplicate breadcrumb items.
+        const productBreadcrumbSchema = {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Home",
+              item: `${window.location.origin}/`,
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Products",
+              item: `${window.location.origin}/products`,
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: dedupedDisplayTitle,
+              item: canonicalUrl,
+            },
+          ],
+        };
+        const keepStaticTrail = keepStaticBreadcrumb(canonicalUrl);
+
         injectJsonLd([
-          {
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              {
-                "@type": "ListItem",
-                position: 1,
-                name: "Home",
-                item: `${window.location.origin}/`,
-              },
-              {
-                "@type": "ListItem",
-                position: 2,
-                name: "Products",
-                item: `${window.location.origin}/products`,
-              },
-              {
-                "@type": "ListItem",
-                position: 3,
-                name: dedupedDisplayTitle,
-                item: canonicalUrl,
-              },
-            ],
-          },
+          ...(keepStaticTrail ? [] : [productBreadcrumbSchema]),
           websiteSchema,
           productSchema,
           ...(productFaqs.length >= FAQ_MIN_QUESTIONS ? [faqPageSchema(productFaqs)] : []),
@@ -2487,31 +2537,34 @@ export default function App() {
 
       const websiteSchema = buildWebsiteSchema(canonicalOrigin, desc);
 
+      const compareBreadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: `${window.location.origin}/`,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Products",
+            item: `${window.location.origin}/products`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: lang === "zh" ? "科学横向评测对比" : "Comparative Analysis",
+            item: canonicalUrl,
+          },
+        ],
+      };
+      const keepStaticTrail = keepStaticBreadcrumb(canonicalUrl);
+
       injectJsonLd([
-        {
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: "Home",
-              item: `${window.location.origin}/`,
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: "Products",
-              item: `${window.location.origin}/products`,
-            },
-            {
-              "@type": "ListItem",
-              position: 3,
-              name: lang === "zh" ? "科学横向评测对比" : "Comparative Analysis",
-              item: canonicalUrl,
-            },
-          ],
-        },
+        ...(keepStaticTrail ? [] : [compareBreadcrumbSchema]),
         websiteSchema,
         ...(compareList.length > 0 ? [
           {
@@ -2562,6 +2615,26 @@ export default function App() {
 
         const websiteSchema = buildWebsiteSchema(canonicalOrigin, normalizedSEO.description);
 
+        const transparencyBreadcrumbSchema = {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Home",
+              item: `${window.location.origin}/`,
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: localizedPage.navLabel,
+              item: canonicalUrl,
+            },
+          ],
+        };
+        const keepStaticTrail = keepStaticBreadcrumb(canonicalUrl);
+
         injectJsonLd([
           {
             "@context": "https://schema.org",
@@ -2579,24 +2652,7 @@ export default function App() {
             description: normalizedSEO.description,
             inLanguage: lang,
           },
-          {
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              {
-                "@type": "ListItem",
-                position: 1,
-                name: "Home",
-                item: `${window.location.origin}/`,
-              },
-              {
-                "@type": "ListItem",
-                position: 2,
-                name: localizedPage.navLabel,
-                item: canonicalUrl,
-              },
-            ],
-          },
+          ...(keepStaticTrail ? [] : [transparencyBreadcrumbSchema]),
         ]);
       }
       return;
@@ -2902,7 +2958,10 @@ export default function App() {
       updateSocialMeta(articleSeoMeta.title, articleSeoMeta.description, articleSeoMeta.image || DEFAULT_OG_IMAGE_PATH, "article");
       // Static detail pages already carry Article + BreadcrumbList JSON-LD
       // (without data-seo-jsonld, so injectJsonLd keeps them); only refresh the
-      // generic WebSite schema here.
+      // generic WebSite schema here. The breadcrumb call is hygiene for
+      // client-side navigation: it keeps this page's own static trail and
+      // drops a stale one left behind by the previously rendered route.
+      keepStaticBreadcrumb(canonicalUrl);
       injectJsonLd([buildWebsiteSchema(canonicalOrigin, articleSeoMeta.description)]);
       return;
     }
@@ -3265,6 +3324,11 @@ export default function App() {
         })()
       : null;
 
+    // Category hubs ship their own static trail (Home > Products > label);
+    // keep it on hydration rather than injecting a second trail keyed on the
+    // full page title. Section indexes without a static trail still get one.
+    const keepStaticTrail = keepStaticBreadcrumb(canonicalUrl);
+
     injectJsonLd([
       orgSchema,
       websiteSchema,
@@ -3272,7 +3336,7 @@ export default function App() {
       ...(aboutSchema ? [aboutSchema] : []),
       ...(aboutFaqSchema ? [aboutFaqSchema] : []),
       ...(hubFaqSchema ? [hubFaqSchema] : []),
-      breadcrumbSchema,
+      ...(keepStaticTrail ? [] : [breadcrumbSchema]),
       ...(collectionSchema ? [collectionSchema] : []),
     ]);
 
