@@ -2233,6 +2233,11 @@ export default function App() {
     };
     let matched = false;
     for (const script of [...document.querySelectorAll("script[type='application/ld+json']")]) {
+      // Only static (unmarked) blocks are ours to reconcile — the marked ones
+      // are this effect's own output from a previous run and are replaced
+      // wholesale by injectJsonLd; counting them here would make a re-run
+      // skip its own injection and lose the trail entirely.
+      if (script.getAttribute("data-seo-jsonld") === "true") continue;
       let data: unknown;
       try {
         data = JSON.parse(script.textContent || "");
