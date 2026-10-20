@@ -4,6 +4,7 @@
 # /x/ to /x before reading this file, and it rejects the "200!" suffix.
 # Guard: npm run check:redirects.
 
+/probe-a/* /index.html 200
 /api/* https://store.balancebiketoddler.com/api/:splat 307
 
 # Retired guide/news slugs from the import pipeline (renamed 2026-09-17).
@@ -12,16 +13,16 @@
 /news/new_product/kidspullalongwagons-b0cs2zykc4image /news/new_product/strider-bikes-kellys-juvenile-models 301
 
 # Bare app roots have no prerendered sibling, so the shell needs an explicit
-# rewrite. Their /* forms are covered by the SPA prefix block below.
+# rewrite. Their sub-paths are covered by the SPA prefix block below.
 /compare /index.html 200
 /auth /index.html 200
 /search /index.html 200
 /evaluations /index.html 200
 /transparency /index.html 200
 # --- generated: begin anchor ---
-# SPA fallback: keep last. Never widen this to `/* /index.html 200` — that answers
-# every unknown path (inbound spam such as /panties/*.php) with the homepage shell
-# and a 200, and Pages has no 404 rewrite to compensate.
+# SPA fallback: keep last. Never widen this to a global catch-all: that answers
+# every unknown path (inbound spam under .php suffixes included) with the homepage
+# shell and a 200, and Pages has no 404 rewrite to compensate.
 /products/* /index.html 200
 /reviews/* /index.html 200
 /evaluations/* /index.html 200
