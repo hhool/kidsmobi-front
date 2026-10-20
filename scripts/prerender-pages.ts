@@ -2943,19 +2943,29 @@ function renderAboutPage(): RoutePage {
 }
 
 /**
- * Registers one exact 200-rewrite per prerendered detail page, just above the
- * prefix-scoped SPA fallback block in `public/_redirects`.
+ * Injects the retired-URL 301 family just above the prefix-scoped SPA fallback
+ * block in `public/_redirects`.
  *
- * History worth keeping: this file used to end with a global
- * `/* /index.html 200` catch-all, which answered *every* unknown path with the
- * homepage shell and a 200 status — including inbound spam such as
- * `/panties/*.php` inherited from a previous owner of the domain. Cloudflare
- * Pages cannot express a 404 in `_redirects` (only 301/302/303/307/308 and 200
- * rewrites are supported), so the fix is to keep the fallback scoped to the app
- * route prefixes and let everything else fall through to `public/404.html`.
- * See the comment block in `public/_redirects` before reintroducing a wildcard.
+ * History worth keeping, twice over:
+ *
+ * 1. This file used to end with a global `/* /index.html 200` catch-all, which
+ *    answered *every* unknown path with the homepage shell and a 200 status —
+ *    including inbound spam such as `/panties/*.php` inherited from a previous
+ *    owner of the domain. Cloudflare Pages cannot express a 404 in `_redirects`
+ *    (only 301/302/303/307/308 and 200 rewrites are supported), so the fix
+ *    is to keep the fallback scoped to the app route prefixes and let everything
+ *    else fall through to `public/404.html`. See the comment block in
+ *    `public/_redirects` before reintroducing a wildcard.
+ *
+ * 2. The generated block used to also emit one `200!` rewrite per prerendered
+ *    detail page. Both halves were wrong: Pages resolves `/x` to `/x.html`
+ *    before it consults this file, and the build validator rejects the `!`
+ *    suffix outright ("Valid status codes are 200, 301… Got 200!"). Those 24 lines
+ *    pushed the file past Pages' rule cap, which silently truncated everything
+ *    below them — including the SPA fallback. Retired-URL 301s still need a
+ *    line, because their targets are not derivable from the incoming path.
  */
-async function injectGuideRedirects(routes: string[], legacyRedirects: string[]): Promise<void> {
+async function injectGuideRedirects(legacyRedirects: string[]): Promise<void> {
   const redirectsPath = path.join(distDir, "_redirects");
   let content: string;
   try {
@@ -2982,14 +2992,9 @@ async function injectGuideRedirects(routes: string[], legacyRedirects: string[])
     }
   }
 
-  // `200!` (verbatim) is required: a plain `200` rewrite makes Pages run a second
-  // redirect lookup on the `.html` target, whose pretty-URL normalization bounces
-  // back to the extensionless path — producing an infinite 308 loop in production.
-  const lines = routes.map((route) => `${route} ${route}.html 200!`);
-  const legacyBlock = legacyRedirects.length
+  const block = legacyRedirects.length
     ? `# --- generated: legacy product URL family (P0-2 kebab-case 301s) ---\n${legacyRedirects.join("\n")}\n# --- end legacy 301s ---\n`
     : "";
-  const block = legacyBlock + (lines.length ? `${START}\n${lines.join("\n")}\n${END}\n` : "");
   // Generated (static) rules must land above the dynamic prefix rewrites, so
   // anchor on the marker that precedes the SPA block. The legacy wildcard line
   // is still recognised for backwards compatibility.
@@ -3001,8 +3006,8 @@ async function injectGuideRedirects(routes: string[], legacyRedirects: string[])
     : `${cleaned.replace(/\s*$/, "\n")}${block}`;
 
   await writeFile(redirectsPath, next, "utf8");
-  if (lines.length) {
-    console.log(`[prerender] _redirects: ${lines.length} content detail rule(s) registered.`);
+  if (legacyRedirects.length) {
+    console.log(`[prerender] _redirects: ${legacyRedirects.length} retired-URL 301(s) registered.`);
   }
 }
 
@@ -5980,14 +5985,12 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     if (!from || !to) continue;
     const fromPath = `/products/${productDetailSlugDir(from)}/${cmsRouteSegment(from.id)}`;
     const toPath = `/products/${productDetailSlugDir(to)}/${cmsRouteSegment(to.id)}`;
-    duplicateRedirects.push(
-      `${fromPath} ${toPath} 301`,
-      // Trailing-slash variant: Pages matches exact paths verbatim, and a
-      // retired listing has no .html file to pretty-URL, so the slash form
-      // would 404 instead of transferring signals to the survivor. (The
-      // Worker carries the same pair of exact routes as the first layer.)
-      `${fromPath}/ ${toPath} 301`,
-    );
+    // No trailing-slash twin: Pages answers /x/ with a 308 to /x on its own and
+    // the no-slash rule then 301s the reader on to the survivor. The extra hop
+    // costs far less than the line does — this block has to fit inside Pages'
+    // 100-rule cap or everything below it gets dropped. The Worker still
+    // carries the exact pair as the first layer, so the common case is 1 hop.
+    duplicateRedirects.push(`${fromPath} ${toPath} 301`);
   }
 
   const legacyRedirects = [
@@ -6009,10 +6012,7 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     ]),
   ];
 
-  await injectGuideRedirects([
-    ...guideDetailPages.map((page) => page.route),
-    ...newsDetailPages.map((page) => page.route),
-  ], legacyRedirects);
+  await injectGuideRedirects(legacyRedirects);
 }
 
 main().catch((error) => {

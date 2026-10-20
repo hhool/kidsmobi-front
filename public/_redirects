@@ -1,16 +1,20 @@
-/about /about.html 200!
-/about/ /about 301
-/news /news.html 200!
-/news/ /news 301
-/guides /guides.html 200!
-/guides/ /guides 301
-/reviews /reviews.html 200!
-/reviews/ /reviews 301
-/products /products.html 200!
-/products/ /products 301
-/api/* https://store.balancebiketoddler.com/api/:splat 307
+# Cloudflare Pages caps this file at 100 static + 100 dynamic rules and silently
+# drops everything past that point — we overflowed it once and lost the whole
+# SPA fallback block (which sits last, because prefix rewrites must lose to the
+# exact rules above). Every rule here must therefore be something Pages cannot
+# already do on its own:
+#
+#   - Pages resolves a request for /x to /x.html before it consults this file,
+#     so prerendered pages need no rewrite rule (a "200!" rule is doubly dead:
+#     the build validator rejects the "!" suffix too).
+#   - Pages answers /x/ with a 308 to /x on its own, so trailing-slash rules
+#     are only worth their line when the target differs from the stripped path
+#     (i.e. a retired URL that must land on a different listing).
+#
 # sitemap.xml is served directly on this host by a Worker route
 # (balancebiketoddler.com/sitemap.xml) — no redirect needed here.
+/api/* https://store.balancebiketoddler.com/api/:splat 307
+
 # Legacy guide slugs inherited from the import pipeline (renamed 2026-09-17).
 /guides/beginner/kidspullalongwagons-b0cs2zykc4overview /guides/beginner/best-balance-bike-for-1-year-old 301
 /guides/beginner/kidspullalongwagons-b0cs2zykc4image /guides/beginner/how-to-choose-the-perfect-baby-stroller 301
@@ -19,18 +23,19 @@
 # which the app never resolved, so only the well-formed variant needs a rule.
 /news/new_product/kidspullalongwagons-b0cs2zykc4image /news/new_product/strider-bikes-kellys-juvenile-models 301
 
-# scripts/prerender-pages.ts injects the generated prerendered-page rules
-# immediately above this marker. They stay above the SPA block below so exact
-# (static) matches always win over the prefix rewrites.
-# --- generated: begin anchor ---
-
-# Bare app roots with no prerendered HTML of their own. These are static
-# rewrites, so they must stay above the dynamic prefix block below.
+# App roots with no prerendered HTML of their own. Static rewrites, so they must
+# stay above the dynamic prefix block below and above the generated block, so
+# the rule budget cannot push them out of the file.
 /compare /index.html 200!
 /auth /index.html 200!
 /search /index.html 200!
 /evaluations /index.html 200!
 /transparency /index.html 200!
+
+# scripts/prerender-pages.ts injects the retired-URL 301 family immediately
+# above this marker. They stay above the SPA block below so exact (static)
+# matches always win over the prefix rewrites.
+# --- generated: begin anchor ---
 
 # SPA fallback, prefix-scoped on purpose. Do NOT replace this with
 # `/* /index.html 200`: a global catch-all serves the homepage shell with HTTP
