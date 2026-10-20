@@ -2,17 +2,22 @@
  * Guards dist/_redirects against the failure that silently ate the SPA
  * fallback in production.
  *
- * Cloudflare Pages parses `_redirects` top-down, caps it at roughly 120 lines
- * and drops the rest *without failing the build*. The SPA fallback has to sit
- * last — prefix rewrites must lose to the exact rules above them — so any
- * overflow removes the fallback first: /compare and friends answered 404, and
- * so did every guide/news/review detail page published in the CMS after the
- * last deploy.
+ * The root cause was NOT size. It was a rule shape: Pages drops any rule whose
+ * source contains `*` and whose target is `/index.html`, without a word of
+ * warning. The SPA prefix block is written exactly that way when aimed at
+ * `/index.html`, and it has to sit last — prefix rewrites must lose to the exact
+ * rules above them — so the whole block went: /compare and friends answered
+ * 404, and so did every guide/news/review detail page published in the CMS
+ * after the last deploy. See redirects-no-index-html-target below.
  *
  * Pages also resolves a request against the static asset tree before it reads
  * this file (/x -> /x.html) and normalises trailing slashes itself (/x/ -> 308
- * -> /x), so rules that just restate those are dead weight we cannot afford.
- * And it rejects the "200!" forced-rewrite suffix outright.
+ * -> /x), so rules that just restate those are dead weight. And it rejects the
+ * "200!" forced-rewrite suffix outright.
+ *
+ * The retired-URL 301 family used to be generated into this file and was what
+ * made it grow; it lives in the Worker now (sync_redirects_to_worker.mjs), so
+ * the line budget below is alarm margin, not a real constraint.
  *
  * Long-form rationale lives in doc/redirects_en.md + doc/redirects_zh.md.
  */

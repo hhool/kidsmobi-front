@@ -1,7 +1,47 @@
 # `_redirects` — rules, limits and why the file looks like this
 
-`public/_redirects` is the source; `scripts/prerender-pages.ts` injects the
-generated retired-URL block into `dist/_redirects` at build time.
+`public/_redirects` is the source, and it is now deliberately tiny: the API
+proxy, five bare app roots, and the SPA prefix fallback. **The retired-URL 301
+family no longer lives here** — it moved to the Worker, because Pages caps this
+file and drops the overflow without failing the build, while the Worker's route
+table has no budget. See "Who owns what" below.
+
+## Who owns what
+
+| Layer | Owns | Why |
+| --- | --- | --- |
+| Worker `kidsmobi-api-v1` | every retired-URL 301: legacy category dirs (`/products/balance_bike` …), the abolished `/products/other/` bucket, pruned stage-1/2 listings, renamed guide/news/review slugs | Workers routes take precedence over Pages on the same zone, and the route table has no line budget |
+| Pages `_redirects` | `/api/*` → store host, the five bare app roots, the SPA prefix fallback | Small and static — it must stay small, because overflow is dropped in silence |
+
+The front repo still **computes** the Worker's map, so there is one source of
+truth and not two: the prerender derives it from live CMS data and publishes
+`dist/data/legacy-redirects.json` (44 exact + 10 prefix rules).
+`scripts/sync_redirects_to_worker.mjs` mirrors that file into
+`backend/api/worker/src/legacyRedirects.generated.ts` and rewrites a marked
+block of `backend/api/worker/wrangler.toml`.
+
+After any catalogue change:
+
+```
+cd front && npm run build && node scripts/sync_redirects_to_worker.mjs
+# then redeploy the Worker (needs a Cloudflare API token; nothing is stored locally)
+```
+
+The route patterns the script emits are deliberately few, because every pattern
+intercepts real traffic and the Worker answers 404 for anything it does not
+redirect:
+
+- one `<prefix>/*` per 1:1 prefix rule (also covers its trailing-slash form,
+  since `*` matches the empty string);
+- one `/products/other/*` wildcard so the bucket's per-product 301s and their
+  slash forms reach the handler;
+- one exact pattern per remaining rule that those wildcards do not cover.
+
+Unknown ids under `/products/other/` fall through to a **scoped passthrough**
+in the Worker: they have always served the SPA shell through Pages' own
+`/products/*` fallback, so the Worker fetches the shell from the Pages
+deployment host instead of answering 404. The host must not be the apex — that
+would re-enter the Worker on the same route pattern and loop.
 
 ## The bug that bit us: wildcard rules may not target `/index.html`
 
@@ -20,9 +60,9 @@ Found invalid redirect lines:
 ```
 
 The `200!` lines were indeed invalid, and they are gone. But the "100 dynamic
-rules" line is a red herring: this file has 73 rules and 21 wildcard rules,
-both far under any documented cap. Compressing the file from 184 lines / 153
-rules down to 90 / 73 changed nothing — the last ten rules were still dead.
+rules" line is a red herring: the file had 73 rules and 21 wildcard rules, both
+far under any documented cap. Compressing it from 184 lines / 153 rules down to
+90 / 73 changed nothing — the last ten rules were still dead.
 
 What isolated it was a probe battery run against the live site:
 
@@ -46,6 +86,12 @@ Because the discarded block *was* the SPA fallback, production impact was:
 
 Rewrites in this file must therefore target `/`, never `/index.html`.
 
+Worth remembering: a guard used to *enforce* the broken pattern.
+`check-seo-assets` asserted that every app route prefix rewrites to
+`/index.html`, which pinned the bug in place every time someone regenerated the
+file. A guard asserts what its author believed correct, not what the platform
+accepts — its assertions need counter-evidence from live behaviour.
+
 ## What Pages already does for free
 
 Two behaviours mean most rewrite rules were never doing anything:
@@ -67,9 +113,9 @@ rejects it as an invalid status code, which is why those rewrites never fired.
   `check:redirects` (`redirects-no-index-html-target`).
 - Never emit `200!` again — the validator rejects it.
 - Never add a rule for a path that is prerendered; the static file wins first.
-- Keep the file **under 100 lines**. Size was never the cause of the outage, but
-  the generated retired-URL block grows with the catalogue, so the cap exists to
-  stop it drifting upward unnoticed.
+- Keep the file **under 100 lines** (it is 38). Size was never the cause of the
+  outage, and the retired-URL block that made it grow has moved out — the cap
+  is now pure alarm margin.
 - The SPA prefix block (`/products/*`, `/reviews/*`, …) stays **last**. Do not
   replace it with a global catch-all: that answers every unknown path — including
   inbound spam such as `/panties/*.php` left behind by a previous owner of the
@@ -79,21 +125,6 @@ rejects it as an invalid status code, which is why those rewrites never fired.
   (`resolveRouteState`). Anything outside them already renders an in-app
   "not found" view, so nothing is lost by 404ing at the edge.
 
-## Where the retired-URL 301s come from
-
-- Stage-1/stage-2 pruned listings: `src/data/prunedProducts.generated.ts` and
-  `src/data/prunedVariantProducts.generated.ts`, mirrored into the Worker by
-  `scripts/sync_prune_map_to_worker.mjs`. They are **no longer emitted here** —
-  the Worker carries the exact pair (no-slash + trailing-slash) as the first
-  layer and has no line budget, and duplicating them is what pushed this file
-  past its budget in the first place.
-- Re-homed legacy `other`-bucket details and legacy category roots:
-  `LEGACY_CATEGORY_301S` in `scripts/prerender-pages.ts`.
-
-The Worker is the first layer for the paths it has apex `routes` for
-(`backend/api/worker/wrangler.toml`); these `_redirects` lines are the backstop for
-whenever the Worker is not in the request path.
-
 ## Debugging notes
 
 - Do **not** judge a deploy by comparing bundle hashes. The local build inlines
@@ -102,6 +133,9 @@ whenever the Worker is not in the request path.
 - To find out whether a rule fires at all, probe it: `curl -s -o /dev/null -w
   '%{http_code} %{redirect_url}' --noproxy '*' <url>`. A rewrite to `/` returns
   200; a rewrite to `/index.html` returns 308 → `/`; a dropped rule returns 404.
+- A 301 whose `Location` is an **absolute URL** came from the Worker; Pages
+  `_redirects` 301s are relative. That is the quickest way to tell which layer
+  answered.
 - Cloudflare Pages builds are not GitHub Actions jobs. The GH Actions workflow
   only runs quality gates and the cache purge; the Pages build log lives in the
   Cloudflare dashboard.
