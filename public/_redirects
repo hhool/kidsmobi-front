@@ -6,14 +6,13 @@
 #     Pages exposes the root document as "/", so that target never resolves.
 #     Rewrites must target "/" — this is what silently ate the SPA fallback.
 #   - Rules match top-down, so the SPA prefix block has to stay last.
+# Retired-URL 301s do NOT live here: Pages caps this file, so that family is
+# owned by the Worker (backend/api/worker/src/legacyRedirects.generated.ts,
+# mirrored from dist/data/legacy-redirects.json by
+# front/scripts/sync_redirects_to_worker.mjs). Keep this file tiny.
 # Guard: npm run check:redirects.
 
 /api/* https://store.balancebiketoddler.com/api/:splat 307
-
-# Retired guide/news slugs from the import pipeline (renamed 2026-09-17).
-/guides/beginner/kidspullalongwagons-b0cs2zykc4overview /guides/beginner/best-balance-bike-for-1-year-old 301
-/guides/beginner/kidspullalongwagons-b0cs2zykc4image /guides/beginner/how-to-choose-the-perfect-baby-stroller 301
-/news/new_product/kidspullalongwagons-b0cs2zykc4image /news/new_product/strider-bikes-kellys-juvenile-models 301
 
 # Bare app roots have no prerendered sibling, so the shell needs an explicit
 # rewrite. Their sub-paths are covered by the SPA prefix block below.
@@ -22,7 +21,7 @@
 /search / 200
 /evaluations / 200
 /transparency / 200
-# --- generated: begin anchor ---
+
 # SPA fallback: keep last. Never widen it to a global catch-all: that answers
 # every unknown path (inbound spam under .php suffixes included) with the
 # homepage shell and a 200, and Pages has no 404 rewrite to compensate.

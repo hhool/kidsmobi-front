@@ -2943,75 +2943,6 @@ function renderAboutPage(): RoutePage {
 }
 
 /**
- * Injects the retired-URL 301 family just above the prefix-scoped SPA fallback
- * block in `public/_redirects`.
- *
- * History worth keeping, twice over:
- *
- * 1. This file used to end with a global `/* /index.html 200` catch-all, which
- *    answered *every* unknown path with the homepage shell and a 200 status —
- *    including inbound spam such as `/panties/*.php` inherited from a previous
- *    owner of the domain. Cloudflare Pages cannot express a 404 in `_redirects`
- *    (only 301/302/303/307/308 and 200 rewrites are supported), so the fix
- *    is to keep the fallback scoped to the app route prefixes and let everything
- *    else fall through to `public/404.html`. See the comment block in
- *    `public/_redirects` before reintroducing a wildcard.
- *
- * 2. The generated block used to also emit one `200!` rewrite per prerendered
- *    detail page. Both halves were wrong: Pages resolves `/x` to `/x.html`
- *    before it consults this file, and the build validator rejects the `!`
- *    suffix outright ("Valid status codes are 200, 301… Got 200!"). Those 24 lines
- *    pushed the file past Pages' rule cap, which silently truncated everything
- *    below them — including the SPA fallback. Retired-URL 301s still need a
- *    line, because their targets are not derivable from the incoming path.
- */
-async function injectGuideRedirects(legacyRedirects: string[]): Promise<void> {
-  const redirectsPath = path.join(distDir, "_redirects");
-  let content: string;
-  try {
-    content = await readFile(redirectsPath, "utf8");
-  } catch {
-    return;
-  }
-
-  const START = "# --- generated: CMS detail pages ---";
-  const END = "# --- end generated ---";
-  const LEGACY_START = "# --- generated: legacy product URL family (P0-2 kebab-case 301s) ---";
-  const LEGACY_END = "# --- end legacy 301s ---";
-  let cleaned = content;
-  for (const [marker, endMarker] of [[START, END], [LEGACY_START, LEGACY_END]] as Array<[string, string]>) {
-    for (;;) {
-      const start = cleaned.indexOf(marker);
-      if (start === -1) break;
-      const end = cleaned.indexOf(endMarker, start);
-      if (end === -1) {
-        cleaned = cleaned.slice(0, start);
-        break;
-      }
-      cleaned = `${cleaned.slice(0, start)}${cleaned.slice(end + endMarker.length)}`.replace(/\n{3,}/g, "\n\n");
-    }
-  }
-
-  const block = legacyRedirects.length
-    ? `# --- generated: legacy product URL family (P0-2 kebab-case 301s) ---\n${legacyRedirects.join("\n")}\n# --- end legacy 301s ---\n`
-    : "";
-  // Generated (static) rules must land above the dynamic prefix rewrites, so
-  // anchor on the marker that precedes the SPA block. The legacy wildcard line
-  // is still recognised for backwards compatibility.
-  const ANCHOR = "# --- generated: begin anchor ---";
-  const LEGACY_CATCH_ALL = "/* /index.html 200";
-  const anchor = cleaned.includes(ANCHOR) ? ANCHOR : LEGACY_CATCH_ALL;
-  const next = cleaned.includes(anchor)
-    ? cleaned.replace(anchor, `${block}${anchor}`)
-    : `${cleaned.replace(/\s*$/, "\n")}${block}`;
-
-  await writeFile(redirectsPath, next, "utf8");
-  if (legacyRedirects.length) {
-    console.log(`[prerender] _redirects: ${legacyRedirects.length} retired-URL 301(s) registered.`);
-  }
-}
-
-/**
  * Static HTML for the small data tables some transparency pages carry.
  *
  * Prerendered transparency pages are fully static, so anything added to their
@@ -5952,6 +5883,13 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
 
   // Legacy URL family 301s (P0-2): underscore/id-form category directories and
   // the abolished /products/other/ bucket point at the kebab-case family.
+  //
+  // The Worker owns these rules in production — Cloudflare caps `_redirects`,
+  // the Worker's route table has no budget — but the map is still computed
+  // here, from the same CMS data, and published as dist/data/legacy-redirects.json
+  // so the two repos cannot drift. scripts/sync_redirects_to_worker.mjs mirrors
+  // it into backend/api/worker/src/legacyRedirects.generated.ts; re-run it after
+  // any catalogue change and redeploy the Worker.
   const LEGACY_CATEGORY_301S: Array<[string, string]> = [
     ["/products/balance_bike", "/products/balance-bikes/"],
     ["/products/stroller", "/products/strollers/"],
@@ -5965,30 +5903,37 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     ["/products/kids_tricycles", "/products/kids-tricycles/"],
     ["/products/other", "/products/"],
   ];
-  const legacyRedirects = [
-    // Re-homed legacy "other" bucket details need per-product targets, and
-    // must precede any wildcard rule (Pages redirects match top-down).
+  const legacyExactRedirects: Array<[string, string]> = [
+    // Re-homed legacy "other" bucket details need per-product targets.
     ...cmsProductsFull
       .filter((product) => resolveProductCategoryIdFull(product) === "other")
       .map((product) => {
         const id = cmsRouteSegment(product.id);
-        return `/products/other/${id} /products/${productDetailSlugDir(product)}/${id} 301`;
+        return [`/products/other/${id}`, `/products/${productDetailSlugDir(product)}/${id}`] as [string, string];
       }),
-    // Stage-1/stage-2 duplicate listings are deliberately absent here: the
-    // Worker already carries the exact pair (no-slash + trailing-slash) as the
-    // first layer, and its route table has no line budget. Emitting them a
-    // second time is what pushed this file past Pages' cap and silently
-    // dropped the SPA fallback below.
-    ...LEGACY_CATEGORY_301S.flatMap(([from, to]) => [
-      `${from} ${to} 301`,
-      // Wildcard only where id segments map 1:1; the abolished /products/other/
-      // bucket deliberately has no fallback so unknown paths hit the SPA shell
-      // (hydrated noindex) instead of a misleading redirect.
-      ...(to === "/products/" ? [] : [`${from}/* ${to}:splat 301`]),
-    ]),
+    ...LEGACY_CATEGORY_301S,
   ];
+  // Wildcard only where id segments map 1:1; the abolished /products/other/
+  // bucket deliberately has no fallback so unknown paths hit the SPA shell
+  // (hydrated noindex) instead of a misleading redirect.
+  const legacyPrefixRedirects = LEGACY_CATEGORY_301S.filter(([, to]) => to !== "/products/");
 
-  await injectGuideRedirects(legacyRedirects);
+  await mkdir(path.join(distDir, "data"), { recursive: true });
+  await writeFile(
+    path.join(distDir, "data", "legacy-redirects.json"),
+    `${JSON.stringify(
+      {
+        exact: Object.fromEntries(legacyExactRedirects),
+        prefix: legacyPrefixRedirects,
+      },
+      null,
+      2,
+    )}\n`,
+    "utf8",
+  );
+  console.log(
+    `[prerender] legacy-redirects.json: ${legacyExactRedirects.length} exact + ${legacyPrefixRedirects.length} prefix rule(s) (owned by the Worker).`,
+  );
 }
 
 main().catch((error) => {
