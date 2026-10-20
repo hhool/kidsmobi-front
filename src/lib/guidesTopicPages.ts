@@ -263,3 +263,17 @@ export function resolveGuidesTopicPage(activeCategory: string | undefined, activ
   const key = String(activeCategory || "all") as GuidesTopicPageId;
   return GUIDES_TOPIC_PAGES[key] ?? null;
 }
+
+/**
+ * Heading the wizard section renders on /guides (no topic, no article open).
+ *
+ * The prerendered /guides page used to print a different <h1> of its own
+ * ("What does the guide library cover?"). Since the prerendered heading lives
+ * inside #root and React replaces it at hydration, the non-JS view and the
+ * hydrated view disagreed. The SPA is what readers and Google's renderer
+ * actually see, so the prerender now mirrors it.
+ */
+export const GUIDES_WIZARD_H1: Record<"en" | "zh", string> = {
+  en: "Smart Wizard: How to Choose a Baby Stroller, Scooter & First Bike",
+  zh: "全品类工效学智能选车计算器",
+};

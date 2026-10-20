@@ -90,6 +90,7 @@ import {
   GUIDES_TOPIC_EXPLORE_LINKS,
   GUIDES_TOPIC_PAGES,
   GUIDES_TOPIC_PAGE_IDS,
+  GUIDES_WIZARD_H1,
 } from "../src/lib/guidesTopicPages";
 import { FOOTER_ARTICLE_LINKS } from "../src/lib/footerArticles";
 import {
@@ -168,6 +169,10 @@ type RoutePage = {
   /** Skip the page.title <h1> that renderStaticPage emits (used when the
    *  body has its own single <h1>, so the page keeps exactly one h1). */
   skipTitleH1?: boolean;
+  /** English <h1> override when the visible heading must differ from
+   *  page.title (page.title still drives <title> and the JSON-LD name).
+   *  See GUIDES_WIZARD_H1 in src/lib/guidesTopicPages.ts. */
+  h1En?: string;
   /** Skip the lead description paragraph renderStaticPage puts under the h1.
    *  CMS articles whose body opens with the same sentence were printing it
    *  twice, once as the lead and again as the first paragraph. */
@@ -263,7 +268,7 @@ function renderStaticPage(page: RoutePage): string {
     <article style="max-width: 980px; margin: 0 auto; padding: 40px 20px; color: #0f172a; font-family: Arial, sans-serif; line-height: 1.7;">
       <header style="padding-bottom: 24px; border-bottom: 1px solid #e2e8f0; margin-bottom: 24px;">
         <p style="margin: 0 0 10px; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: #c2410c; font-weight: 900;">BalanceBikeToddler</p>
-        ${page.skipTitleH1 ? "" : `<h1 style="margin: 0 0 12px; font-size: clamp(2rem, 4vw, 3.15rem); line-height: 1.12;">${escapeHtml(page.title)}</h1>`}
+        ${page.skipTitleH1 ? "" : `<h1 style="margin: 0 0 12px; font-size: clamp(2rem, 4vw, 3.15rem); line-height: 1.12;">${escapeHtml(page.h1En || page.title)}</h1>`}
         ${page.skipLeadDescription ? "" : `<p style="margin: 0 0 14px; font-size: 1.08rem; color: #334155; max-width: 52rem;">${escapeHtml(page.description)}</p>`}
       </header>
       ${page.body}
@@ -1590,6 +1595,9 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
   return {
     route: "/guides",
     title: "What does the guide library cover?",
+    // The visible <h1> mirrors what the SPA renders once it mounts; the SPA is
+    // what readers and Google's renderer see, so the static page follows it.
+    h1En: GUIDES_WIZARD_H1.en,
     description: "Step-by-step buying guidance for families choosing safer ride-on products.",
     body: `
       <section style="padding: 22px 0;">

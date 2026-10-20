@@ -33,7 +33,7 @@ import { cleanVisibleSourceText } from "../lib/visibleText";
 import { resolveProductImages, FALLBACK_PRODUCT_IMAGE, normalizeMediaUrl } from "../lib/productImages";
 import { renderRichContent } from "../lib/richContent";
 import { buildArticleSeoDescription, buildArticleSeoTitle, buildCardExcerpt, resolveCardImage, type ArticleSeoMeta } from "../lib/articleSeo";
-import { resolveGuidesTopicPage } from "../lib/guidesTopicPages";
+import { resolveGuidesTopicPage, GUIDES_WIZARD_H1 } from "../lib/guidesTopicPages";
 
 function translateCategoryLabel(cat: string): string {
   const labels: Record<string, string> = {
@@ -1403,7 +1403,7 @@ export default function GuidesSection({
               <>
                 <h1 className="km-page-title km-home-statement-title text-slate-900 max-w-5xl flex items-center gap-2">
                   <Calculator className="w-6 h-6 text-orange-500 shrink-0" />
-                  {lang === "en" ? "Smart Wizard: How to Choose a Baby Stroller, Scooter & First Bike" : "全品类工效学智能选车计算器"}
+                  {GUIDES_WIZARD_H1[lang]}
                 </h1>
                 <p className="km-heading-copy km-body-copy text-sm md:text-base text-slate-500 font-semibold max-w-4xl leading-relaxed">
                   {lang === "en"
