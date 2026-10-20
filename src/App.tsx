@@ -107,6 +107,7 @@ import {
 } from "./lib/canonicalPath";
 import { sanitizeUnsupportedClaims } from "./lib/unsupportedClaims";
 import { dropPrerenderedDuplicates } from "./lib/seoJsonLd";
+import { setReferenceClusterConfig } from "./lib/referenceCluster";
 import { FOOTER_ARTICLE_LINKS } from "./lib/footerArticles";
 import { CATEGORY_TDK_MAP, buildProductDetailKeywords } from "./lib/pageKeywords";
 import { getProductSeoKeywords, getReviewSeoKeywords } from "./config/seoKeywordMap";
@@ -1746,6 +1747,14 @@ export default function App() {
   const [cmsSettings, setCmsSettings] = useState<CMSSettings | null>(null);
   const [productsData, setProductsData] = useState<Product[]>([]);
   const [evaluationsData, setEvaluationsData] = useState<Evaluation[]>([]);
+
+  // Publish the CMS-arranged reference cluster to every consumer of the block
+  // (the hub, product details and the six reference pages all render it).
+  // Until settings arrive the shared module serves the built-in default list,
+  // which is the same list the prerender ships.
+  useEffect(() => {
+    setReferenceClusterConfig(cmsSettings?.referenceCluster);
+  }, [cmsSettings]);
 
   // Cache compareList and viewHistory on change and keep them fresh relative to database updates
   useEffect(() => {

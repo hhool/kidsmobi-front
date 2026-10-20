@@ -92,6 +92,11 @@ import {
   GUIDES_TOPIC_PAGE_IDS,
 } from "../src/lib/guidesTopicPages";
 import { FOOTER_ARTICLE_LINKS } from "../src/lib/footerArticles";
+import {
+  DEFAULT_REFERENCE_CLUSTER,
+  resolveReferenceCluster,
+  type ReferenceClusterCard,
+} from "../src/lib/referenceCluster";
 import { shortenCardTitle } from "../src/lib/productSeoText";
 import { productDetailUrlSlug, resolveProductDetailCategorySlug } from "../src/lib/productCategoryPaths";
 import { matchProductsForText } from "../src/lib/relatedProducts";
@@ -325,53 +330,19 @@ function renderSiteFooter(): string {
  * footer link stays; these are the in-content links that give the cluster
  * shape, with anchor text matching what each page actually contains.
  */
-type ReferenceAsset = { href: string; label: string; blurb: string };
+// The published list is configuration: the CMS arranges settings.referenceCluster
+// and this resolves it through the same module the hydrated component uses, so
+// the two render paths can never disagree. Assigned once settings land, before
+// any page is built; until then the built-in defaults are what ships.
+let referenceCluster: ReferenceClusterCard[] = DEFAULT_REFERENCE_CLUSTER;
 
-const REFERENCE_ASSETS: ReferenceAsset[] = [
-  {
-    href: SIZING_PATH,
-    label: "Balance bike size chart",
-    blurb: "Seat height, wheel diameter and inseam fit, measured per model.",
-  },
-  {
-    href: BUYER_FEEDBACK_PATH,
-    label: "What buyers say",
-    blurb: "The buyer-sentiment summaries aggregated — what they mention, and where they hedge.",
-  },
-  {
-    href: AGE_PATH,
-    label: "Which models fit at each age",
-    blurb: "Coverage counts from 18 months to 4 years, using each maker's own age range.",
-  },
-  {
-    href: STABILITY_PATH,
-    label: "Stable track balance bike",
-    blurb: "Wheel spacing and tip-over geometry — published by only one of the fifteen.",
-  },
-  {
-    href: WEIGHT_PATH,
-    label: "Weight and build",
-    blurb: "Bike weight against child weight, with frame and tire material.",
-  },
-  {
-    href: SAFETY_PATH,
-    label: "Safety standards reference",
-    blurb: "What EN 71, ASTM F963 and CPSC actually require of a balance bike.",
-  },
-  {
-    href: RECALL_SAFETY_PATH,
-    label: "Balance bike recall record",
-    blurb: "CPSC and EU Safety Gate alerts with dates, hazards and remedies.",
-  },
-  {
-    href: BUDGET_PATH,
-    label: "Budget & value balance bike",
-    blurb: "What each price tier buys, the frame, tire and weight trade-offs, and the checks that separate a cheap bike worth keeping.",
-  },
-];
+const sameClusterPath = (a: string, b: string): boolean => {
+  const norm = (value: string) => value.replace(/\/+$/, "") || "/";
+  return norm(a) === norm(b);
+};
 
 function clusterNavHtml(currentPath: string, heading = "Balance bike reference pages"): string {
-  const items = REFERENCE_ASSETS.filter((asset) => asset.href !== currentPath);
+  const items = referenceCluster.filter((card) => !sameClusterPath(card.href, currentPath));
   if (!items.length) return "";
   return `
       <section style="margin: 22px 0 0; border-top: 1px solid #e2e8f0; padding-top: 18px;">
@@ -379,8 +350,8 @@ function clusterNavHtml(currentPath: string, heading = "Balance bike reference p
         <ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
           ${items
             .map(
-              (asset) =>
-                `<li style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:12px 16px;"><a href="${escapeHtml(asset.href)}" style="color:#c2410c;font-weight:700;text-decoration:none;">${escapeHtml(asset.label)}</a><span style="display:block;margin-top:4px;font-size:0.85rem;color:#64748b;">${escapeHtml(asset.blurb)}</span></li>`,
+              (card) =>
+                `<li style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:12px 16px;"><a href="${escapeHtml(card.href)}" style="color:#c2410c;font-weight:700;text-decoration:none;">${escapeHtml(card.labelEn)}</a><span style="display:block;margin-top:4px;font-size:0.85rem;color:#64748b;">${escapeHtml(card.blurbEn)}</span></li>`,
             )
             .join("")}
         </ul>
@@ -5757,6 +5728,13 @@ async function main() {
     fetchCmsSettings(),
   ]);
 
+  // The reference-cluster block is CMS-arranged; resolve it before any page is
+  // built so the static HTML ships the same cards, in the same order, as the
+  // hydrated view (which resolves the identical settings at runtime).
+  referenceCluster = resolveReferenceCluster(
+    (cmsSettings as { referenceCluster?: unknown } | null)?.referenceCluster,
+  );
+
   // Deploy-safety gate: when the products collection comes back empty the
   // whole /products/ prerender layer (7 hubs + 197 detail pages) silently
   // disappears and every product route falls back to the SPA shell. A build
@@ -6045,6 +6023,17 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${sitemapUrls}</urlset>\n`;
   await writeFile(path.join(distDir, "sitemap.xml"), sitemapXml, "utf8");
   console.log(`[prerender] sitemap.xml: ${pages.length} URL(s) written.`);
+
+  // Publish the resolved reference-cluster list alongside the build. The
+  // content guard reads it instead of hardcoding the old asset-page set, so it
+  // keeps checking the topology that actually shipped — including any order,
+  // wording or target the CMS configured.
+  await mkdir(path.join(distDir, "data"), { recursive: true });
+  await writeFile(
+    path.join(distDir, "data", "reference-cluster.json"),
+    JSON.stringify(referenceCluster, null, 2),
+    "utf8",
+  );
 
   // Legacy URL family 301s (P0-2): underscore/id-form category directories and
   // the abolished /products/other/ bucket point at the kebab-case family.

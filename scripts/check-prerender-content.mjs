@@ -31,7 +31,11 @@ const MIN_TEXT_CHARS = 800;
  *  counts — the CMS articles lean on h3 for their numbered sections. */
 const MIN_SUBHEADINGS = 1;
 
-/** The six pages that must cross-link as one cluster (see prerender helper). */
+/**
+ * The reference pages that host the cluster block. These are fixed routes; what
+ * the block LINKS to is configuration (settings.referenceCluster), so the
+ * targets come from the manifest the prerender publishes next to the build.
+ */
 const REFERENCE_CLUSTER = [
   "/balance-bike-size-chart/",
   "/balance-bike-by-age/",
@@ -39,7 +43,19 @@ const REFERENCE_CLUSTER = [
   "/balance-bike-weight/",
   "/balance-bike-safety-standards/",
   "/safety/balance-bike-recalls/",
+  "/balance-bike-what-buyers-say/",
+  "/balance-bike-budget/",
 ];
+
+const CLUSTER_MANIFEST = join(DIST, "data", "reference-cluster.json");
+const publishedCluster = existsSync(CLUSTER_MANIFEST)
+  ? JSON.parse(readFileSync(CLUSTER_MANIFEST, "utf8"))
+      .map((card) => (card && typeof card.href === "string" ? card.href : ""))
+      .filter(Boolean)
+  : [];
+/** Built-in asset set is the fallback for a dist built before the manifest. */
+const CLUSTER_TARGETS = publishedCluster.length ? publishedCluster : REFERENCE_CLUSTER;
+const normPath = (value) => value.replace(/\/+$/, "") || "/";
 
 const MIN_CLUSTER_LINKING_PAGES = 10;
 
@@ -126,6 +142,16 @@ function fileForPath(path) {
   return candidates.find((candidate) => existsSync(candidate));
 }
 
+// Every cluster target must resolve — a card pointing at a page we do not
+// render is a dead internal link, and the CMS can repoint these at will.
+for (const target of CLUSTER_TARGETS) {
+  if (!fileForPath(target)) {
+    failures.push({ name: "cluster-target-missing", detail: `${target} is in the cluster but was not prerendered` });
+  }
+}
+
+// Each host page must link to every target except itself (a card pointing at
+// its own page is filtered out at render time, so seven links is the floor).
 for (const path of REFERENCE_CLUSTER) {
   const file = fileForPath(path);
   if (!file) {
@@ -133,7 +159,9 @@ for (const path of REFERENCE_CLUSTER) {
     continue;
   }
   const html = stripFooter(readFileSync(file, "utf8"));
-  const missing = REFERENCE_CLUSTER.filter((sibling) => sibling !== path && !html.includes(`href="${sibling}"`));
+  const missing = CLUSTER_TARGETS.filter(
+    (target) => normPath(target) !== normPath(path) && !html.includes(`href="${target}"`),
+  );
   if (missing.length) {
     failures.push({ name: "cluster-crosslink", detail: `${path} does not link to ${missing.join(", ")}` });
   }
@@ -142,9 +170,11 @@ for (const path of REFERENCE_CLUSTER) {
 // Counted outside the footer: every page carries the six reference URLs in the
 // site-wide footer already, so including it would make this check pass no
 // matter what. What matters is whether pages link to them *contextually*.
+const clusterHostFiles = new Set(REFERENCE_CLUSTER.map((path) => fileForPath(path)).filter(Boolean));
 const linking = files.filter((file) => {
-  if (REFERENCE_CLUSTER.some((path) => fileForPath(path) === file)) return false;
-  return stripFooter(readFileSync(file, "utf8")).includes('href="/balance-bike-size-chart/"');
+  if (clusterHostFiles.has(file)) return false;
+  const html = stripFooter(readFileSync(file, "utf8"));
+  return CLUSTER_TARGETS.some((target) => html.includes(`href="${target}"`));
 });
 if (linking.length < MIN_CLUSTER_LINKING_PAGES) {
   failures.push({

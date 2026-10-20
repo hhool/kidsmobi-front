@@ -16,6 +16,7 @@ import { getD1CMSSettings, saveD1CMSSettings, getD1CMSProducts, getD1CMSEvaluati
 import { CMSSettings, HomeSlot } from "../../types";
 import { DEFAULT_SEO_CONFIGS } from "../../config/defaultSeo";
 import { OPS_COPY } from "./operationsConfig";
+import { DEFAULT_REFERENCE_CLUSTER, type ReferenceClusterCard } from "../../lib/referenceCluster";
 
 const OPS_COLLECTION_KEYS = ["all", "products", "categories", "scenarios", "evaluations", "guides", "news", "settings"] as const;
 
@@ -369,6 +370,40 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
   if (!settings) return null;
 
   const opsCenterConfig = ensureOpsCenter();
+
+  // Reference cluster: an ordered list the site renders on the hub, product
+  // details and the seven reference pages. Empty means "use the built-in
+  // defaults", so the editor shows those until the first edit materialises them.
+  const referenceCards: ReferenceClusterCard[] =
+    settings.referenceCluster && settings.referenceCluster.length
+      ? (settings.referenceCluster as ReferenceClusterCard[])
+      : DEFAULT_REFERENCE_CLUSTER;
+  const writeReferenceCards = (next: ReferenceClusterCard[]) =>
+    setSettings({ ...settings, referenceCluster: next });
+  const patchReferenceCard = (index: number, patch: Partial<ReferenceClusterCard>) =>
+    writeReferenceCards(referenceCards.map((card, i) => (i === index ? { ...card, ...patch } : card)));
+  const moveReferenceCard = (index: number, delta: number) => {
+    const target = index + delta;
+    if (target < 0 || target >= referenceCards.length) return;
+    const next = [...referenceCards];
+    [next[index], next[target]] = [next[target], next[index]];
+    writeReferenceCards(next);
+  };
+  const removeReferenceCard = (index: number) =>
+    writeReferenceCards(referenceCards.filter((_, i) => i !== index));
+  const addReferenceCard = () =>
+    writeReferenceCards([
+      ...referenceCards,
+      {
+        id: `card-${Date.now()}`,
+        href: "/",
+        labelEn: "New card",
+        labelZh: "新卡片",
+        blurbEn: "",
+        blurbZh: "",
+        visible: true,
+      },
+    ]);
 
   return (
     <div className="space-y-12 animate-in fade-in duration-500 pb-16">
@@ -794,6 +829,122 @@ export default function SettingsManager({ lang }: { lang: "zh" | "en" }) {
             </button>
           </div>
         </div>
+      </section>
+
+      <section className="space-y-8 border-t border-slate-100 pt-12">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <h2 className="text-xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+              <Layout className="w-5 h-5" />
+              {lang === "zh" ? "平衡车参考页编排" : "Reference cluster layout"}
+            </h2>
+            <p className="mt-2 text-sm text-slate-500 font-medium max-w-2xl">
+              {lang === "zh"
+                ? "品类页、产品详情页与 7 个参考页底部的「参考页」区块，按这里的顺序与文案展示。用箭头调顺序，隐藏的卡片保留在清单里但不展示。链接可以指向 CMS 文章，也可以指向参考页。"
+                : "The reference-pages block on the category hub, product details and the seven reference pages follows this order and wording. Use the arrows to reorder; hidden cards stay in the list but are not published. Links may point at CMS articles or reference pages."}
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => writeReferenceCards(DEFAULT_REFERENCE_CLUSTER)}
+            className="shrink-0 rounded-xl border border-slate-200 px-4 py-2 text-xs font-black text-slate-600 hover:bg-slate-50"
+          >
+            {lang === "zh" ? "恢复默认清单" : "Restore defaults"}
+          </button>
+        </div>
+
+        <div className="space-y-4">
+          {referenceCards.map((card, index) => (
+            <div
+              key={`${card.id}-${index}`}
+              className={`rounded-2xl border p-5 space-y-4 ${
+                card.visible === false ? "border-dashed border-slate-200 bg-slate-50/60" : "border-slate-200"
+              }`}
+            >
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest">
+                  #{index + 1} · {card.id}
+                  {card.visible === false && (lang === "zh" ? " · 已隐藏" : " · hidden")}
+                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => moveReferenceCard(index, -1)}
+                    disabled={index === 0}
+                    className="rounded-lg border border-slate-200 px-3 py-1 text-xs font-black text-slate-600 disabled:opacity-30 hover:bg-slate-50"
+                  >
+                    ↑
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => moveReferenceCard(index, 1)}
+                    disabled={index === referenceCards.length - 1}
+                    className="rounded-lg border border-slate-200 px-3 py-1 text-xs font-black text-slate-600 disabled:opacity-30 hover:bg-slate-50"
+                  >
+                    ↓
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => patchReferenceCard(index, { visible: card.visible === false })}
+                    className="rounded-lg border border-slate-200 px-3 py-1 text-xs font-black text-slate-600 hover:bg-slate-50"
+                  >
+                    {card.visible === false
+                      ? lang === "zh"
+                        ? "显示"
+                        : "Show"
+                      : lang === "zh"
+                        ? "隐藏"
+                        : "Hide"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => removeReferenceCard(index)}
+                    className="rounded-lg border border-rose-200 px-3 py-1 text-xs font-black text-rose-600 hover:bg-rose-50"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+              <div className="grid gap-3 md:grid-cols-2">
+                <Field
+                  label={lang === "zh" ? "链接" : "Link"}
+                  value={card.href}
+                  onChange={(v: string) => patchReferenceCard(index, { href: v })}
+                  placeholder="/guides/beginner/balance-bike-size-chart"
+                />
+                <Field
+                  label={lang === "zh" ? "标题（英文）" : "Label (EN)"}
+                  value={card.labelEn}
+                  onChange={(v: string) => patchReferenceCard(index, { labelEn: v })}
+                />
+                <Field
+                  label={lang === "zh" ? "标题（中文）" : "Label (ZH)"}
+                  value={card.labelZh}
+                  onChange={(v: string) => patchReferenceCard(index, { labelZh: v })}
+                />
+                <Field
+                  label={lang === "zh" ? "描述（英文）" : "Blurb (EN)"}
+                  value={card.blurbEn}
+                  onChange={(v: string) => patchReferenceCard(index, { blurbEn: v })}
+                />
+                <Field
+                  label={lang === "zh" ? "描述（中文）" : "Blurb (ZH)"}
+                  value={card.blurbZh}
+                  onChange={(v: string) => patchReferenceCard(index, { blurbZh: v })}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          onClick={addReferenceCard}
+          className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-xs font-black text-white hover:bg-slate-800"
+        >
+          <Plus className="w-4 h-4" />
+          {lang === "zh" ? "新增卡片" : "Add card"}
+        </button>
       </section>
     </div>
   );

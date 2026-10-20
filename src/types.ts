@@ -357,6 +357,19 @@ export interface CMSSettings {
   pages?: {
     [key: string]: CMSPageConfig;
   };
+  /**
+   * Ordered cards for the balance-bike reference cluster block. Absent or empty
+   * means "use the built-in default list" (src/lib/referenceCluster.ts).
+   */
+  referenceCluster?: Array<{
+    id?: string;
+    href: string;
+    labelEn?: string;
+    labelZh?: string;
+    blurbEn?: string;
+    blurbZh?: string;
+    visible?: boolean;
+  }>;
   opsCenter?: {
     copy?: {
       zh?: Record<string, string>;
