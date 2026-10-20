@@ -116,6 +116,64 @@ async function main() {
     }
   }
 
+  // 3b. Nested prerender routes must serve their OWN meta, not the homepage's.
+  // A wildcard rewrite in _redirects takes precedence over Pages' static asset
+  // tree, so a stray `/products/* / 200` answers every prerendered page under
+  // that prefix with the homepage shell: HTTP 200, title and canonical both
+  // pointing at "/". Neither a status-code probe nor the hydration probe can
+  // see it (the SPA repairs the DOM after hydration), so this reads the raw
+  // HTML and compares against the homepage's signature. This is the check
+  // that was missing when 255/269 URLs shipped as homepage copies.
+  try {
+    const { text: homeText } = await getText(SITE_BASE + '/');
+    const homeTitle = (/<title>([^<]*)<\/title>/i.exec(homeText) || [])[1]?.trim() || '';
+    const homeCanon = (/rel=["']canonical["'][^>]*href=["']([^"']+)["']/i.exec(homeText) || [])[1]?.trim() || '';
+    // Nested = under an app prefix with at least one further segment, so the
+    // bare hubs (which Pages serves natively) are excluded.
+    const nested = sitemapUrls
+      .map((u) => { try { return new URL(u).pathname; } catch { return ''; } })
+      .filter((p) => /^\/(products|guides|reviews|news|transparency)\/[^/]+/.test(p));
+    // Spread the sample across prefixes so one broken prefix cannot hide
+    // behind another healthy one.
+    const byPrefix = new Map();
+    for (const p of nested) {
+      const key = p.split('/')[1];
+      if (!byPrefix.has(key)) byPrefix.set(key, []);
+      byPrefix.get(key).push(p);
+    }
+    const sample = [...byPrefix.values()].flatMap((list) => list.slice(0, 2)).slice(0, 10);
+    let shadowed = 0;
+    const offenders = [];
+    for (const p of sample) {
+      try {
+        const { res, text } = await getText(SITE_BASE + p);
+        if (!res.ok) { shadowed++; offenders.push(`${p} (HTTP ${res.status})`); continue; }
+        const title = (/<title>([^<]*)<\/title>/i.exec(text) || [])[1]?.trim() || '';
+        const canon = (/rel=["']canonical["'][^>]*href=["']([^"']+)["']/i.exec(text) || [])[1]?.trim() || '';
+        const isHome = (homeTitle && title === homeTitle) || (homeCanon && canon === homeCanon);
+        if (isHome || !canon) {
+          shadowed++;
+          offenders.push(`${p} (title="${title.slice(0, 40)}", canonical="${canon || 'missing'}")`);
+        }
+      } catch (e) {
+        offenders.push(`${p} (fetch failed: ${String(e).slice(0, 40)})`);
+      }
+    }
+    const netOnly = offenders.length > 0 && offenders.every((o) => o.includes('fetch failed'));
+    const lvl = shadowed === 0 ? 'pass' : netOnly ? 'warn' : 'fail';
+    results.push(
+      note(
+        lvl,
+        'prerender-meta-ownership',
+        shadowed === 0
+          ? `${sample.length} nested route(s) serve their own title + canonical`
+          : `${shadowed}/${sample.length} nested route(s) serve the homepage shell — a wildcard _redirects rule is shadowing the prerendered pages: ${offenders.slice(0, 4).join('; ')}`
+      )
+    );
+  } catch (e) {
+    results.push(note('warn', 'prerender-meta-ownership', `could not sample: ${String(e).slice(0, 80)}`));
+  }
+
   // 4. llms.txt
   try {
     const { res, text } = await getText(LLMS_URL);

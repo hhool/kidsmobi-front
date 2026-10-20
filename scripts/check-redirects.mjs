@@ -1,19 +1,23 @@
 /**
- * Guards dist/_redirects against the failure that silently ate the SPA
- * fallback in production.
+ * Guards dist/_redirects against the two failures that actually bit us in
+ * production — both of them silent, neither of them about size.
  *
- * The root cause was NOT size. It was a rule shape: Pages drops any rule whose
- * source contains `*` and whose target is `/index.html`, without a word of
- * warning. The SPA prefix block is written exactly that way when aimed at
- * `/index.html`, and it has to sit last — prefix rewrites must lose to the exact
- * rules above them — so the whole block went: /compare and friends answered
- * 404, and so did every guide/news/review detail page published in the CMS
- * after the last deploy. See redirects-no-index-html-target below.
+ * 1. A wildcard rule whose target is "/index.html" is dropped without a word
+ *    of warning (Pages exposes the root document as "/", so that target never
+ *    resolves). The SPA prefix block was written that way for weeks and was
+ *    dead the whole time. See redirects-no-index-html-target below.
  *
- * Pages also resolves a request against the static asset tree before it reads
- * this file (/x -> /x.html) and normalises trailing slashes itself (/x/ -> 308
- * -> /x), so rules that just restate those are dead weight. And it rejects the
- * "200!" forced-rewrite suffix outright.
+ * 2. A wildcard rule whose target is ANY static path shadows every prerendered
+ *    page under that prefix, because the rewrite takes precedence over the
+ *    static asset tree. Fixing (1) by retargeting the prefix block to "/"
+ *    therefore took the site from "fallback silently dead" straight to
+ *    "255 of 269 sitemap URLs serving the homepage shell" — title and
+ *    canonical both pointing at "/". Status-code probes could not see it
+ *    (everything still answered 200); only a raw-HTML title/canonical check
+ *    can. See redirects-no-wildcard-static-target below.
+ *
+ * Pages also rejects the "200!" forced-rewrite suffix outright, and the file
+ * is capped (~120 lines) with the overflow dropped silently.
  *
  * The retired-URL 301 family used to be generated into this file and was what
  * made it grow; it lives in the Worker now (sync_redirects_to_worker.mjs), so
@@ -66,13 +70,14 @@ for (const rule of rules) {
   }
 }
 
-// The bug that actually bit us. Pages exposes the root document as "/" and
-// normalises "/index.html" -> "/" with a 308, but a *wildcard* rule whose target
-// is "/index.html" never resolves, so Pages drops the rule without a peep — the
-// build log only ever mentioned an unrelated "100 dynamic rules" cap. The whole
-// SPA prefix block vanished this way: /compare, /auth, /search, /evaluations and
-// /transparency answered 404, and so did every guide/news/review detail page
-// published in the CMS after the last deploy.
+// The bug that actually bit us, take one. Pages exposes the root document as
+// "/" and normalises "/index.html" -> "/" with a 308, but a *wildcard* rule
+// whose target is "/index.html" never resolves, so Pages drops the rule
+// without a peep — the build log only ever mentioned an unrelated
+// "100 dynamic rules" cap. The whole SPA prefix block vanished this way:
+// /compare, /auth, /search, /evaluations and /transparency answered 404, and
+// so did every guide/news/review detail page published in the CMS after the
+// last deploy.
 for (const rule of rules) {
   if (!rule.source.includes("*")) continue;
   const target = rule.raw.split(/\s+/)[1];
@@ -80,6 +85,46 @@ for (const rule of rules) {
     failures.push({
       name: "redirects-no-index-html-target",
       detail: `line ${rule.line} (${rule.source}) targets "/index.html" — Pages drops wildcard rules with that target silently. Target "/" instead.`,
+    });
+  }
+}
+
+// The bug that actually bit us, take two — and the more dangerous one, because
+// the fix for take one walked straight into it. A wildcard rewrite takes
+// precedence over the static asset tree, so `/products/* / 200` served the
+// homepage shell for all 181 prerendered product pages (and the same for
+// guides, reviews, news and transparency): 255 of 269 sitemap URLs shipped the
+// homepage title with a homepage canonical. A wildcard simply cannot be made
+// to lose to a static file, so no wildcard rule may target a static path at
+// all. Redirects to another origin (the /api/* proxy) are fine.
+const isExternal = (target) => /^https?:\/\//i.test(target);
+for (const rule of rules) {
+  if (!rule.source.includes("*")) continue;
+  const target = rule.raw.split(/\s+/)[1];
+  if (!isExternal(target)) {
+    failures.push({
+      name: "redirects-no-wildcard-static-target",
+      detail: `line ${rule.line} (${rule.source}) targets "${target}" — a wildcard rewrite shadows every prerendered page under that prefix (Pages applies the rule before the static asset tree). Use exact rules for the few paths that have no prerendered sibling, or move the rule into the Worker.`,
+    });
+  }
+}
+
+// The five bare app roots are SPA-only routes: no prerendered sibling, no
+// static file, so they need an exact rewrite to the shell document. Without it
+// they 404. With a wildcard they would shadow their prefix — hence exact.
+const BARE_APP_ROOTS = ["/compare", "/auth", "/search", "/evaluations", "/transparency"];
+const ruleBySource = new Map(rules.map((rule) => [rule.source, rule]));
+for (const root of BARE_APP_ROOTS) {
+  const rule = ruleBySource.get(root);
+  if (!rule) {
+    failures.push({
+      name: "redirects-bare-roots-covered",
+      detail: `${root} has no rewrite rule — it is a SPA-only route with no prerendered sibling, so it answers 404. Add an exact rule targeting the shell document.`,
+    });
+  } else if (isExternal(rule.raw.split(/\s+/)[1])) {
+    failures.push({
+      name: "redirects-bare-roots-covered",
+      detail: `${root} (line ${rule.line}) redirects off-origin — it must rewrite to the shell document so the SPA can render the route.`,
     });
   }
 }
@@ -96,24 +141,12 @@ for (const rule of rules) {
   }
 }
 
-// The prefix block must be the last thing in the file, or an overflow (or a stray
-// append) silently removes it.
-const prefixRules = rules.filter((rule) => rule.source.endsWith("/*"));
-if (prefixRules.length === 0) {
-  failures.push({
-    name: "redirects-spa-fallback-present",
-    detail: "no prefix rewrite rules found — the SPA fallback is missing.",
-  });
-} else {
-  const lastPrefixLine = prefixRules[prefixRules.length - 1].line;
-  const trailingRules = rules.filter((rule) => rule.line > lastPrefixLine);
-  if (trailingRules.length > 0) {
-    failures.push({
-      name: "redirects-spa-fallback-last",
-      detail: `${trailingRules.length} rule(s) sit below the SPA prefix block (first: line ${trailingRules[0].line}) — move them above it or they will be truncated.`,
-    });
-  }
-}
+// There is deliberately no SPA prefix block any more: the wildcard→static
+// shape above is what shadowed the prerendered pages. Unknown sub-paths under
+// an app prefix answer 404, which is what the site actually did for the whole
+// period the old block was being silently dropped. A real fallback (shell for
+// CMS pages that are published but not yet built) has to live in the Worker,
+// which can ask D1 whether a path exists — see doc/redirects_en.md.
 
 if (failures.length > 0) {
   console.error(JSON.stringify({ ok: false, failed: failures }, null, 2));
@@ -127,7 +160,7 @@ console.log(
       lines: lines.length,
       budget: MAX_LINES,
       rules: rules.length,
-      prefixRules: prefixRules.length,
+      wildcardRules: rules.filter((rule) => rule.source.includes("*")).length,
     },
     null,
     2,

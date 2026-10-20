@@ -43,18 +43,38 @@ const required = [
     detail: '_redirects must include the /api/* passthrough rule',
   },
   {
-    // The SPA fallback must stay scoped to the app route prefixes. A global
-    // catch-all answers every unknown path (including inbound spam such as
-    // /panties/*.php) with the homepage shell and a 200 status, and
-    // `_redirects` has no 404 rewrite to compensate.
+    // There is no SPA prefix block any more, on purpose. A wildcard rewrite
+    // takes precedence over Pages' static asset tree, so `/products/* / 200`
+    // served the homepage shell for all 181 prerendered product pages (plus
+    // guides, reviews, news and transparency): 255 of 269 sitemap URLs shipped
+    // the homepage title with a homepage canonical. This check used to demand
+    // exactly that block — first with /index.html targets (which Pages drops
+    // silently, so the block was dead), then with "/" targets (which made it
+    // live and shadowed the prerendered pages). A guard can be the bug.
     //
-    // The targets must be "/" and NOT "/index.html": Pages exposes the root
-    // document as "/", so a wildcard rule pointing at "/index.html" never
-    // resolves and is dropped without any error. That is exactly how this
-    // whole block once went missing from production.
-    name: 'redirects-spa-fallback-scoped',
-    ok: ['/products/*', '/reviews/*', '/guides/*', '/news/*'].every((prefix) => redirects.includes(`${prefix} / 200`)),
-    detail: '_redirects must rewrite each app route prefix to / with 200 (never /index.html — Pages drops those silently)',
+    // What must hold instead: the five bare app roots — SPA-only routes with
+    // no prerendered sibling — each keep an exact rewrite to the shell
+    // document, and no wildcard rule targets a static path.
+    name: 'redirects-bare-roots-rewritten',
+    ok: ['/compare', '/auth', '/search', '/evaluations', '/transparency'].every(
+      (root) => redirects.includes(`${root} /index.html 200`) || redirects.includes(`${root} / 200`),
+    ),
+    detail: '_redirects must rewrite each bare app root (/compare /auth /search /evaluations /transparency) to the shell document with an exact rule',
+  },
+  {
+    // The other half of the same lesson: a wildcard rule must never target a
+    // static path, because the rewrite shadows every prerendered page under
+    // that prefix. Redirects to another origin (/api/*) are fine.
+    name: 'redirects-no-wildcard-static-target',
+    ok: !redirects
+      .split('\n')
+      .map((line) => line.trim())
+      .filter((line) => line && !line.startsWith('#'))
+      .some((line) => {
+        const [source, target] = line.split(/\s+/);
+        return source.includes('*') && !/^https?:\/\//i.test(target || '');
+      }),
+    detail: '_redirects must not rewrite a wildcard source to a static path — it shadows every prerendered page under that prefix',
   },
   {
     // Comment-only mentions must not trip this check, hence the line-based scan.

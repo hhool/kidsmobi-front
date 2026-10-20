@@ -1,37 +1,28 @@
 # Cloudflare Pages quirks this file has to live with (doc/redirects_en.md):
-#   - Pages resolves /x to /x.html and 308s /x/ to /x before reading this file,
-#     so rules that just restate those two behaviours never fire.
-#   - Pages rejects the "200!" suffix as an invalid status code.
-#   - A wildcard rule whose target is "/index.html" is dropped in silence.
+#   - A wildcard rewrite takes precedence over the static asset tree. A rule
+#     like `/products/* / 200` shadows EVERY prerendered page under that prefix
+#     with the homepage shell. Verified live 2026-10-21: 255 of 269 sitemap
+#     URLs were serving the homepage title and a homepage canonical, because
+#     the prefix block below used to exist. Only exact rules for paths that
+#     have no prerendered sibling are safe — Pages will not warn you.
+#   - A wildcard rule whose target is "/index.html" is dropped in silence:
 #     Pages exposes the root document as "/", so that target never resolves.
-#     Rewrites must target "/" — this is what silently ate the SPA fallback.
-#   - Rules match top-down, so the SPA prefix block has to stay last.
-# Retired-URL 301s do NOT live here: Pages caps this file, so that family is
-# owned by the Worker (backend/api/worker/src/legacyRedirects.generated.ts,
-# mirrored from dist/data/legacy-redirects.json by
-# front/scripts/sync_redirects_to_worker.mjs). Keep this file tiny.
-# Guard: npm run check:redirects.
+#   - Pages rejects the "200!" suffix as an invalid status code.
+#   - Rules match top-down, the file is capped (~120 lines), and the overflow
+#     is dropped without failing the build.
+# Retired-URL 301s do NOT live here: that family is owned by the Worker
+# (backend/api/worker/src/legacyRedirects.generated.ts, mirrored from
+# dist/data/legacy-redirects.json by front/scripts/sync_redirects_to_worker.mjs).
+# A fallback for unknown sub-paths is not expressible here at all — a wildcard
+# cannot be made to lose to a static file. Guard: npm run check:redirects.
 
 /api/* https://store.balancebiketoddler.com/api/:splat 307
 
-# Bare app roots have no prerendered sibling, so the shell needs an explicit
-# rewrite. Their sub-paths are covered by the SPA prefix block below.
-/compare / 200
-/auth / 200
-/search / 200
-/evaluations / 200
-/transparency / 200
-
-# SPA fallback: keep last. Never widen it to a global catch-all: that answers
-# every unknown path (inbound spam under .php suffixes included) with the
-# homepage shell and a 200, and Pages has no 404 rewrite to compensate.
-/products/* / 200
-/reviews/* / 200
-/evaluations/* / 200
-/guides/* / 200
-/news/* / 200
-/transparency/* / 200
-/about/* / 200
-/compare/* / 200
-/auth/* / 200
-/search/* / 200
+# Bare app roots: SPA-only routes with no prerendered sibling, so the shell
+# needs an explicit exact rewrite. Do NOT widen these to wildcards — that is
+# the shape that shadowed 255 prerendered pages (see the precedence note above).
+/compare /index.html 200
+/auth /index.html 200
+/search /index.html 200
+/evaluations /index.html 200
+/transparency /index.html 200
