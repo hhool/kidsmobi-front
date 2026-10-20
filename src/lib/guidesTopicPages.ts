@@ -237,3 +237,25 @@ export const GUIDES_TOPIC_EXPLORE_LINKS: Record<GuidesTopicPageId, Array<{ href:
 };
 
 export const GUIDES_TOPIC_PAGE_IDS = Object.keys(GUIDES_TOPIC_PAGES) as GuidesTopicPageId[];
+
+/**
+ * The topic page currently being viewed, or null.
+ *
+ * /guides/<topic> is prerendered as a full page: its own h1, an intro heading,
+ * the cards, FAQs and explore links. The SPA cannot tell that route apart from
+ * "a category filter is selected" (both are activeCategory != "all" with no
+ * article open), so anything it renders unconditionally is stacked on top of
+ * the static page. Two things were re-added on every hydration:
+ *
+ *   - the wizard section's generic <h1> ("Smart Wizard: How to Choose…") —
+ *     a second h1, and the wrong one;
+ *   - the guides-hub explainer ("What each guide type covers").
+ *
+ * Both call sites resolve the topic through this one function, so a new
+ * suppression rule is added once.
+ */
+export function resolveGuidesTopicPage(activeCategory: string | undefined, activeArticleId: string | undefined): GuidesTopicPage | null {
+  if (activeArticleId) return null;
+  const key = String(activeCategory || "all") as GuidesTopicPageId;
+  return GUIDES_TOPIC_PAGES[key] ?? null;
+}

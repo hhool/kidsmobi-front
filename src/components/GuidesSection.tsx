@@ -33,6 +33,7 @@ import { cleanVisibleSourceText } from "../lib/visibleText";
 import { resolveProductImages, FALLBACK_PRODUCT_IMAGE, normalizeMediaUrl } from "../lib/productImages";
 import { renderRichContent } from "../lib/richContent";
 import { buildArticleSeoDescription, buildArticleSeoTitle, buildCardExcerpt, resolveCardImage, type ArticleSeoMeta } from "../lib/articleSeo";
+import { resolveGuidesTopicPage } from "../lib/guidesTopicPages";
 
 function translateCategoryLabel(cat: string): string {
   const labels: Record<string, string> = {
@@ -730,6 +731,8 @@ export default function GuidesSection({
   onOpenReviewPath,
 }: GuidesSectionProps) {
   const guidesDate = "2026-08-15";
+  /** Topic index being viewed; see resolveGuidesTopicPage for what it suppresses. */
+  const topicPage = resolveGuidesTopicPage(activeCategory, activeArticleId);
   const [guideArticles, setGuideArticles] = useState<GuideArticle[]>(fallbackGuideArticles);
   const [cmsSourceActive, setCmsSourceActive] = useState<boolean>(false);
   const [loadingGuides, setLoadingGuides] = useState<boolean>(false);
@@ -1380,15 +1383,28 @@ export default function GuidesSection({
                 <Zap className="w-4 h-4 text-orange-500 fill-orange-500 animate-pulse" />
                 {lang === "en" ? "Smart Wizard" : "智能选车助手"}
               </span>
-            <h1 className="km-page-title km-home-statement-title text-slate-900 max-w-5xl flex items-center gap-2">
-              <Calculator className="w-6 h-6 text-orange-500 shrink-0" />
-              {lang === "en" ? "Smart Wizard: How to Choose a Baby Stroller, Scooter & First Bike" : "全品类工效学智能选车计算器"}
-            </h1>
-            <p className="km-heading-copy km-body-copy text-sm md:text-base text-slate-500 font-semibold max-w-4xl leading-relaxed">
-              {lang === "en" 
-                ? "Input your child's precise measurements below to instantly audit parameters for Strollers, Kids Bikes, Kids Scooters, Balance Bikes, and Electric Cars. This biometric wizard automatically calculates the max vehicle weight limits and perfect fit geometries." 
-                : "输入宝宝的身高、跨高与体重参数，我们将通过生物力学算法，在婴儿推车、滑板车、平衡车与自行车品类中，精准匹配最安全、最省力的核心型号与轮径。"}
-            </p>
+            {topicPage ? (
+              // /guides/<topic>: the prerendered HTML already publishes this
+              // page's own <h1> + lead paragraph. A second <h1> here would be
+              // the generic wizard copy — the static page would say "Fit for
+              // Riders Who Need Support" while the hydrated DOM said "Smart
+              // Wizard", i.e. two <h1>s and the wrong one first.
+              <p className="km-heading-copy km-body-copy text-sm md:text-base text-slate-500 font-semibold max-w-4xl leading-relaxed">
+                {topicPage.introHeading}
+              </p>
+            ) : (
+              <>
+                <h1 className="km-page-title km-home-statement-title text-slate-900 max-w-5xl flex items-center gap-2">
+                  <Calculator className="w-6 h-6 text-orange-500 shrink-0" />
+                  {lang === "en" ? "Smart Wizard: How to Choose a Baby Stroller, Scooter & First Bike" : "全品类工效学智能选车计算器"}
+                </h1>
+                <p className="km-heading-copy km-body-copy text-sm md:text-base text-slate-500 font-semibold max-w-4xl leading-relaxed">
+                  {lang === "en"
+                    ? "Input your child's precise measurements below to instantly audit parameters for Strollers, Kids Bikes, Kids Scooters, Balance Bikes, and Electric Cars. This biometric wizard automatically calculates the max vehicle weight limits and perfect fit geometries."
+                    : "输入宝宝的身高、跨高与体重参数，我们将通过生物力学算法，在婴儿推车、滑板车、平衡车与自行车品类中，精准匹配最安全、最省力的核心型号与轮径。"}
+                </p>
+              </>
+            )}
           </div>
           <button 
             type="button" 
@@ -1850,7 +1866,11 @@ export default function GuidesSection({
           Part 2: 专家选车科普指南库 (Expert Guides Directory Library)
           ======================================================== */}
       <section id="guides-library-anchor" className="space-y-6">
-        {!selectedGuideState && (
+        {/* A topic index's prerendered page already opens with its own intro,
+            "What is listed here?", "Common questions" and "Explore more". The
+            generic library explainer is guides-hub copy, so it is skipped on
+            those routes instead of being prefixed to the list. */}
+        {!selectedGuideState && !topicPage && (
           <section className="bg-white border border-slate-100 rounded-[32px] p-6 sm:p-8 shadow-sm space-y-6">
             <h2 className="km-section-title text-slate-900">{lang === "en" ? "What each guide type covers" : "不同指南类型分别解决什么问题？"}</h2>
             <p className="km-heading-copy km-body-copy text-sm text-slate-500 font-medium">
