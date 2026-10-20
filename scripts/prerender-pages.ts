@@ -5965,34 +5965,6 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     ["/products/kids_tricycles", "/products/kids-tricycles/"],
     ["/products/other", "/products/"],
   ];
-  // Stage-1 duplicates: point the retired listing at the one that absorbed it,
-  // rather than at a category hub. Both records describe the same physical
-  // product, so the reader lands on the right page and the link equity follows.
-  // Resolved against the unfiltered list because these ids were just removed
-  // from cmsProductsFull above.
-  const allProductsById = new Map<string, CmsProductFull>();
-  for (const product of cmsProducts as CmsProductFull[]) {
-    const id = String(product?.id || "").trim().toLowerCase();
-    if (id) allProductsById.set(id, product);
-  }
-  const duplicateRedirects: string[] = [];
-  for (const [duplicateId, survivorId] of [
-    ...Object.entries(PRUNED_PRODUCTS.duplicateOf),
-    ...Object.entries(VARIANT_SURVIVORS),
-  ]) {
-    const from = allProductsById.get(duplicateId.trim().toLowerCase());
-    const to = allProductsById.get(String(survivorId).trim().toLowerCase());
-    if (!from || !to) continue;
-    const fromPath = `/products/${productDetailSlugDir(from)}/${cmsRouteSegment(from.id)}`;
-    const toPath = `/products/${productDetailSlugDir(to)}/${cmsRouteSegment(to.id)}`;
-    // No trailing-slash twin: Pages answers /x/ with a 308 to /x on its own and
-    // the no-slash rule then 301s the reader on to the survivor. The extra hop
-    // costs far less than the line does — this block has to fit inside Pages'
-    // 100-rule cap or everything below it gets dropped. The Worker still
-    // carries the exact pair as the first layer, so the common case is 1 hop.
-    duplicateRedirects.push(`${fromPath} ${toPath} 301`);
-  }
-
   const legacyRedirects = [
     // Re-homed legacy "other" bucket details need per-product targets, and
     // must precede any wildcard rule (Pages redirects match top-down).
@@ -6002,7 +5974,11 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
         const id = cmsRouteSegment(product.id);
         return `/products/other/${id} /products/${productDetailSlugDir(product)}/${id} 301`;
       }),
-    ...duplicateRedirects,
+    // Stage-1/stage-2 duplicate listings are deliberately absent here: the
+    // Worker already carries the exact pair (no-slash + trailing-slash) as the
+    // first layer, and its route table has no line budget. Emitting them a
+    // second time is what pushed this file past Pages' cap and silently
+    // dropped the SPA fallback below.
     ...LEGACY_CATEGORY_301S.flatMap(([from, to]) => [
       `${from} ${to} 301`,
       // Wildcard only where id segments map 1:1; the abolished /products/other/

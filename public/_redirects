@@ -1,7 +1,8 @@
-# HARD LIMIT: Cloudflare Pages truncates this file at ~120 lines and drops the
-# rest without failing the build. We overflowed once and lost the SPA fallback
-# (doc/redirects_en.md). Pages resolves /x -> /x.html and 308s /x/ -> /x before
-# it reads this file, and it rejects the "200!" suffix. Guard: check:redirects.
+# Pages truncates this file at ~100 lines and drops the rest without failing the
+# build — we overflowed once and lost the SPA fallback (doc/redirects_en.md). So
+# every line has to earn its place. Pages already resolves /x to /x.html and 308s
+# /x/ to /x before reading this file, and it rejects the "200!" suffix.
+# Guard: npm run check:redirects.
 
 /api/* https://store.balancebiketoddler.com/api/:splat 307
 
@@ -10,14 +11,17 @@
 /guides/beginner/kidspullalongwagons-b0cs2zykc4image /guides/beginner/how-to-choose-the-perfect-baby-stroller 301
 /news/new_product/kidspullalongwagons-b0cs2zykc4image /news/new_product/strider-bikes-kellys-juvenile-models 301
 
-# /compare /auth /search /evaluations /transparency ship as static shells
-# (BARE_APP_ROOTS in scripts/prerender-pages.ts), so they need no rule here.
-
+# Bare app roots have no prerendered sibling, so the shell needs an explicit
+# rewrite. Their /* forms are covered by the SPA prefix block below.
+/compare /index.html 200
+/auth /index.html 200
+/search /index.html 200
+/evaluations /index.html 200
+/transparency /index.html 200
 # --- generated: begin anchor ---
-
-# SPA fallback. Keep last, and never replace with `/* /index.html 200`: that
-# answers every unknown path (inbound spam such as /panties/*.php included) with
-# the homepage shell and a 200, with no 404 rewrite to compensate.
+# SPA fallback: keep last. Never widen this to `/* /index.html 200` — that answers
+# every unknown path (inbound spam such as /panties/*.php) with the homepage shell
+# and a 200, and Pages has no 404 rewrite to compensate.
 /products/* /index.html 200
 /reviews/* /index.html 200
 /evaluations/* /index.html 200

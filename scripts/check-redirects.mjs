@@ -38,9 +38,13 @@ for (let i = 0; i < lines.length; i += 1) {
   rules.push({ line: i + 1, raw, source: raw.split(/\s+/)[0] });
 }
 
-// 120 is where Pages truncated us; 110 leaves a margin for the handful of
-// hand-written rules that are not generated from the catalogue.
-const MAX_LINES = 110;
+// We measured the truncation empirically: with 110 lines / 91 rules the last
+// working rule sat on line 93 and everything from line 100 on (the whole SPA
+// prefix block) was already gone. 92 keeps two lines of alarm before that cliff,
+// and is deliberately tight on purpose — the generated retired-URL block grows
+// with the catalogue, so this guard is what stops it from silently overflowing
+// again. If it fires, move rules into the Worker (doc/redirects_en.md).
+const MAX_LINES = 92;
 const failures = [];
 
 if (lines.length > MAX_LINES) {
