@@ -85,7 +85,7 @@ export const DEFAULT_REFERENCE_CLUSTER: ReferenceClusterCard[] = [
   },
   {
     id: "budget",
-    href: "/balance-bike-budget/",
+    href: "/guides/budget/balance-bike-price-tiers",
     labelEn: "Budget & value balance bike",
     labelZh: "平价与性价比平衡车",
     blurbEn:
