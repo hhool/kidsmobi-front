@@ -1,12 +1,15 @@
-# `_redirects` —— 规则、上限，以及文件为何长这样
+# `_redirects` —— 规则、限制，以及这个文件为什么长这样
 
 `public/_redirects` 是源文件；构建时 `scripts/prerender-pages.ts` 会把生成的
 retired-URL 区块注入 `dist/_redirects`。
 
-## 坑过我们的那个上限
+## 真正踩到的坑：通配规则不能以 `/index.html` 为目标
 
-Cloudflare Pages 自上而下解析这个文件，并静默**丢弃大约第 120 行之后的所有内容**。
-构建不会失败，只会在日志里写：
+如果一条 `_redirects` 规则的**源包含 `*`**，而**目标是 `/index.html`**，Pages 会
+把它**静默丢弃，不报任何错**。Pages 把根文档暴露为 `/` 并把 `/index.html` 用 308
+规范化到 `/`，所以这个目标永远解析不到，规则就被扔掉了。
+
+而构建日志指向了一个完全不同的方向，具有误导性：
 
 ```
 Found invalid redirect lines:
@@ -15,46 +18,77 @@ Found invalid redirect lines:
     Maximum number of dynamic rules supported is 100. Skipping remaining 63 lines of file.
 ```
 
-由于 SPA fallback 必须放在**最后**（前缀重写要让位于上方的精确规则），一旦超限，
-最先被吃掉的就是 fallback。生产环境表现为：
+`200!` 那批规则确实非法，已经删掉了。但「100 dynamic rules」这行是**障眼法**：
+当前文件只有 73 条规则、21 条通配规则，离任何公开上限都差得远。把文件从
+184 行 / 153 条压缩到 90 行 / 73 条，**一点效果都没有**——最后十条照样是死的。
 
-| 路径 | 期望 | 实际 |
+真正定位到它的是一组对着线上打的探针：
+
+| 规则 | 源 | 目标 | 状态码 | 结果 |
+| --- | --- | --- | --- | --- |
+| `/probe-a/*` | 通配 | `/index.html` | 200 | **404（被丢弃）** |
+| `/probe-c/*` | 通配 | `/index.html` | 301 | **404（被丢弃）** |
+| `/probe-h/*` | 通配 | `/about/` | 200 | 308 → `/about`（生效） |
+| `/probe-e/x` | 精确 | `/index.html` | 200 | 308 → `/`（生效） |
+
+只有「通配 `*` + `/index.html`」这个组合会失效。精确源配这个目标没问题；通配源配
+其它目标也没问题。与文件里的位置无关。
+
+被丢掉的正好就是 SPA 兜底块，因此线上影响是：
+
+| 路径 | 预期 | 实际 |
 | --- | --- | --- |
-| `/compare` `/auth` `/search` `/evaluations` `/transparency` | 200 shell | **404** |
-| 上次部署之后才在 CMS 发布的指南 / 新闻 / 评测详情页 | 200 shell | **404** |
+| `/compare`、`/auth`、`/search`、`/evaluations`、`/transparency` | 200 外壳 | **404** |
+| 上次部署之后在 CMS 发布的任何指南 / 新闻 / 评测详情页 | 200 外壳 | **404** |
 
-## Pages 已经免费替我们做的事
+所以本文件里的重写规则**必须指向 `/`，绝不能指向 `/index.html`**。
 
-有两条行为意味着大多数重写规则其实一直是空转：
+## Pages 免费帮你做的事
 
-1. **`/x` → `/x.html`。** Pages 在查阅 `_redirects` **之前**先用静态资源树解析请求。
-   每个预渲染路由都有对应的 `.html` 文件，因此为它们写的精确重写规则都是白占行数。
-2. **`/x/` → 308 → `/x`。** 尾斜杠由平台自行规范化。只有当跳转目标与去掉斜杠后的路径
-   **不同**时（例如已下架 URL 需要落到另一个 listing），尾斜杠规则才值这一行。
+以下两个行为说明大部分重写规则从来就没起过作用：
 
-还有一件 Pages **不**支持的事：**`200!` 强制重写后缀**。Pages 认为它是非法状态码，
-这也是那五条 app-root 规则从未生效的原因。
+1. **`/x` → `/x.html`。** Pages 在查阅 `_redirects` **之前**就先拿请求去匹配静态资源树。
+   每个预渲染路由都已经有 `.html` 文件，因此针对它们的精确重写规则都是白占行数。
+2. **`/x/` → 308 → `/x`。** 尾斜杠是它自己规范化的。只有当目标**不等于**去掉尾斜杠
+   后的路径时（例如必须落到另一个 listing 的 retired URL），尾斜杠重定向规则才值
+   得占一行。
 
-## 不变量
+还有一个它**不支持**的东西：**`200!` 强制重写后缀**。Pages 把它当非法状态码拒收，
+这正是那批重写规则从未生效的原因。
 
-- 文件保持在 **110 行以内**，由 `npm run check:redirects` 强制。
-- 不再输出 `200!` —— 校验器会拒绝。
-- 不为已预渲染的路径添加规则；静态文件会先命中。
-- SPA 前缀区块（`/products/*`、`/reviews/*` ……）保持**最后**。不要用
-  `/* /index.html 200` 取代它：全局兜底会把所有未知路径（包括上一个域名所有者遗留的
-  `/panties/*.php` 之类的垃圾流量）都用首页 shell 配 200 应答，而 `_redirects`
-  没有 404 重写可以补救。
-- 前缀与 `src/App.tsx` 里 `resolveRouteState` 实际解析的根保持一致；落在这些前缀之外的
-  路径本来就会渲染应用内的「未找到」视图，因此在边缘返回 404 并无损失。
+## 不变式
+
+- **绝不能让通配规则指向 `/index.html`。** 目标要写 `/`。由 `check:redirects` 的
+  `redirects-no-index-html-target` 强制。
+- 再也不要输出 `200!` —— 校验器会拒。
+- 绝不要为已预渲染的路径加规则；静态文件优先命中。
+- 文件保持在 **100 行以内**。行数从来就不是这次故障的成因，但生成的 retired-URL
+  区块会随商品目录增长，所以保留上限是为了防止它在无人注意的情况下持续膨胀。
+- SPA 前缀块（`/products/*`、`/reviews/*` 等）保持在**最后**。不要换成全局 catch-all：
+  那会让所有未知路径——包括域名前任主人遗留的 `/panties/*.php` 之类垃圾路径——
+  都返回首页外壳和 200，而 `_redirects` 没有 404 重写来兜底。
+- 前缀清单必须与客户端路由在 `src/App.tsx`（`resolveRouteState`）里解析的根保持一致。
+  清单之外的路径本来就会渲染应用内「未找到」视图，所以在边缘返回 404 不损失任何东西。
 
 ## retired-URL 301 的来源
 
-- Stage-1/stage-2 裁剪掉的 listing：`src/data/prunedProducts.generated.ts` 与
-  `src/data/prunedVariantProducts.generated.ts`，由
-  `scripts/sync_prune_map_to_worker.mjs` 镜像进 Worker。
-- 重新归类的旧 `other` 桶详情页与旧品类根：`scripts/prerender-pages.ts` 里的
-  `LEGACY_CATEGORY_301S`。
+- 阶段一 / 阶段二裁剪掉的 listing：`src/data/prunedProducts.generated.ts` 与
+  `src/data/prunedVariantProducts.generated.ts`，由 `scripts/sync_prune_map_to_worker.mjs`
+  同步进 Worker。这批**不再输出到本文件**——Worker 作为第一层已经带了精确的一对
+  （无尾斜杠 + 带尾斜杠），而且它没有行数预算；重复输出正是本文件当初超预算的原因。
+- 重新归位的 legacy `other` bucket 详情页与 legacy 类目根：
+  `scripts/prerender-pages.ts` 里的 `LEGACY_CATEGORY_301S`。
 
-Worker 以完全相同的精确路由作为第一层（apex `routes`，见
-`backend/api/worker/wrangler.toml`），因此 `_redirects` 里这些行是 Worker 不在
-请求路径上时的兜底。
+Worker 对它拥有 apex `routes` 的路径是第一层
+（`backend/api/worker/wrangler.toml`）；本文件里的这些行是 Worker 不在请求路径上时的兜底。
+
+## 调试备忘
+
+- **不要**用比对 bundle hash 来判断是否部署成功。本地构建会把 gitignore 的
+  `.env.local` 里的 `VITE_*` 内联进去，所以本地与 CI 的 hash 永远不相等。
+  改为在线上 chunk 里 grep 特征字符串。
+- 想知道某条规则到底生效没有，直接探测：`curl -s -o /dev/null -w
+  '%{http_code} %{redirect_url}' --noproxy '*' <url>`。重写到 `/` 返回 200；
+  重写到 `/index.html` 返回 308 → `/`；被丢弃的规则返回 404。
+- Cloudflare Pages 的构建不是 GitHub Actions job。GH Actions 工作流只跑质量门和
+  缓存清除；Pages 的构建日志在 Cloudflare 控制台里。

@@ -44,12 +44,17 @@ const required = [
   },
   {
     // The SPA fallback must stay scoped to the app route prefixes. A global
-    // `/* /index.html 200` answers every unknown path (including inbound spam
-    // such as /panties/*.php) with the homepage shell and a 200 status, and
+    // catch-all answers every unknown path (including inbound spam such as
+    // /panties/*.php) with the homepage shell and a 200 status, and
     // `_redirects` has no 404 rewrite to compensate.
+    //
+    // The targets must be "/" and NOT "/index.html": Pages exposes the root
+    // document as "/", so a wildcard rule pointing at "/index.html" never
+    // resolves and is dropped without any error. That is exactly how this
+    // whole block once went missing from production.
     name: 'redirects-spa-fallback-scoped',
-    ok: ['/products/*', '/reviews/*', '/guides/*', '/news/*'].every((prefix) => redirects.includes(`${prefix} /index.html 200`)),
-    detail: '_redirects must rewrite each app route prefix to /index.html with 200',
+    ok: ['/products/*', '/reviews/*', '/guides/*', '/news/*'].every((prefix) => redirects.includes(`${prefix} / 200`)),
+    detail: '_redirects must rewrite each app route prefix to / with 200 (never /index.html — Pages drops those silently)',
   },
   {
     // Comment-only mentions must not trip this check, hence the line-based scan.
@@ -57,7 +62,7 @@ const required = [
     ok: !redirects
       .split('\n')
       .map((line) => line.trim())
-      .some((line) => line === '/* /index.html 200'),
+      .some((line) => line === '/* /index.html 200' || line === '/* / 200'),
     detail: '_redirects must not contain the global /* /index.html 200 catch-all',
   },
 ];
