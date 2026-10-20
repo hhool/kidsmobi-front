@@ -29,7 +29,9 @@ export const INDEXNOW_ENDPOINTS = [
 // normal week-to-week additions.
 // 2026-10-20: synced to 266 after the 10-article batch (10 articles + 5 guides
 // topic indexes) and the 4 CMS guides backing the footer column.
-export const SITEMAP_BASELINE_COUNT = 266;
+// 2026-10-20 (later): 269 after the 3 guides that take the reference cluster
+// to 8/8 CMS-backed cards (by-age, what-buyers-say, stability).
+export const SITEMAP_BASELINE_COUNT = 269;
 
 // High-value balance-bike query clusters for opportunity gap analysis.
 // Derived from the GSC intent study: age is the single biggest intent; the
