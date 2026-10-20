@@ -1,12 +1,13 @@
-# Pages truncates this file at ~100 lines and drops the rest without failing the
-# build — we overflowed once and lost the SPA fallback (doc/redirects_en.md). So
-# every line has to earn its place. Pages already resolves /x to /x.html and 308s
-# /x/ to /x before reading this file, and it rejects the "200!" suffix.
+# Cloudflare Pages quirks this file has to live with (doc/redirects_en.md):
+#   - Pages resolves /x to /x.html and 308s /x/ to /x before reading this file,
+#     so rules that just restate those two behaviours never fire.
+#   - Pages rejects the "200!" suffix as an invalid status code.
+#   - A wildcard rule whose target is "/index.html" is dropped in silence.
+#     Pages exposes the root document as "/", so that target never resolves.
+#     Rewrites must target "/" — this is what silently ate the SPA fallback.
+#   - Rules match top-down, so the SPA prefix block has to stay last.
 # Guard: npm run check:redirects.
 
-/probe-f/* / 200
-/probe-g/* /index.html
-/probe-h/* /about/ 200
 /api/* https://store.balancebiketoddler.com/api/:splat 307
 
 # Retired guide/news slugs from the import pipeline (renamed 2026-09-17).
@@ -16,22 +17,22 @@
 
 # Bare app roots have no prerendered sibling, so the shell needs an explicit
 # rewrite. Their sub-paths are covered by the SPA prefix block below.
-/compare /index.html 200
-/auth /index.html 200
-/search /index.html 200
-/evaluations /index.html 200
-/transparency /index.html 200
+/compare / 200
+/auth / 200
+/search / 200
+/evaluations / 200
+/transparency / 200
 # --- generated: begin anchor ---
-# SPA fallback: keep last. Never widen this to a global catch-all: that answers
-# every unknown path (inbound spam under .php suffixes included) with the homepage
-# shell and a 200, and Pages has no 404 rewrite to compensate.
-/products/* /index.html 200
-/reviews/* /index.html 200
-/evaluations/* /index.html 200
-/guides/* /index.html 200
-/news/* /index.html 200
-/transparency/* /index.html 200
-/about/* /index.html 200
-/compare/* /index.html 200
-/auth/* /index.html 200
-/search/* /index.html 200
+# SPA fallback: keep last. Never widen it to a global catch-all: that answers
+# every unknown path (inbound spam under .php suffixes included) with the
+# homepage shell and a 200, and Pages has no 404 rewrite to compensate.
+/products/* / 200
+/reviews/* / 200
+/evaluations/* / 200
+/guides/* / 200
+/news/* / 200
+/transparency/* / 200
+/about/* / 200
+/compare/* / 200
+/auth/* / 200
+/search/* / 200

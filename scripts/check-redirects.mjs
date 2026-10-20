@@ -38,13 +38,10 @@ for (let i = 0; i < lines.length; i += 1) {
   rules.push({ line: i + 1, raw, source: raw.split(/\s+/)[0] });
 }
 
-// We measured the truncation empirically: with 110 lines / 91 rules the last
-// working rule sat on line 93 and everything from line 100 on (the whole SPA
-// prefix block) was already gone. 92 keeps two lines of alarm before that cliff,
-// and is deliberately tight on purpose — the generated retired-URL block grows
-// with the catalogue, so this guard is what stops it from silently overflowing
-// again. If it fires, move rules into the Worker (doc/redirects_en.md).
-const MAX_LINES = 92;
+// Hard-ish ceiling. The generated retired-URL block grows with the catalogue,
+// so without a cap this file drifts upward unnoticed. The real failure mode we
+// hit was not size, though — see redirects-no-index-html-target below.
+const MAX_LINES = 100;
 const failures = [];
 
 if (lines.length > MAX_LINES) {
@@ -60,6 +57,24 @@ for (const rule of rules) {
     failures.push({
       name: "redirects-no-forced-rewrite",
       detail: `line ${rule.line} uses "200!" — Pages rejects it as an invalid status code. Use a plain 200 rewrite or ship the page as a static file.`,
+    });
+  }
+}
+
+// The bug that actually bit us. Pages exposes the root document as "/" and
+// normalises "/index.html" -> "/" with a 308, but a *wildcard* rule whose target
+// is "/index.html" never resolves, so Pages drops the rule without a peep — the
+// build log only ever mentioned an unrelated "100 dynamic rules" cap. The whole
+// SPA prefix block vanished this way: /compare, /auth, /search, /evaluations and
+// /transparency answered 404, and so did every guide/news/review detail page
+// published in the CMS after the last deploy.
+for (const rule of rules) {
+  if (!rule.source.includes("*")) continue;
+  const target = rule.raw.split(/\s+/)[1];
+  if (target === "/index.html") {
+    failures.push({
+      name: "redirects-no-index-html-target",
+      detail: `line ${rule.line} (${rule.source}) targets "/index.html" — Pages drops wildcard rules with that target silently. Target "/" instead.`,
     });
   }
 }
