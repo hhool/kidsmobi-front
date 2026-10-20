@@ -1,53 +1,23 @@
-# Cloudflare Pages caps this file at 100 static + 100 dynamic rules and silently
-# drops everything past that point — we overflowed it once and lost the whole
-# SPA fallback block (which sits last, because prefix rewrites must lose to the
-# exact rules above). Every rule here must therefore be something Pages cannot
-# already do on its own:
-#
-#   - Pages resolves a request for /x to /x.html before it consults this file,
-#     so prerendered pages need no rewrite rule (a "200!" rule is doubly dead:
-#     the build validator rejects the "!" suffix too).
-#   - Pages answers /x/ with a 308 to /x on its own, so trailing-slash rules
-#     are only worth their line when the target differs from the stripped path
-#     (i.e. a retired URL that must land on a different listing).
-#
-# sitemap.xml is served directly on this host by a Worker route
-# (balancebiketoddler.com/sitemap.xml) — no redirect needed here.
+# HARD LIMIT: Cloudflare Pages truncates this file at ~120 lines and drops the
+# rest without failing the build. We overflowed once and lost the SPA fallback
+# (doc/redirects_en.md). Pages resolves /x -> /x.html and 308s /x/ -> /x before
+# it reads this file, and it rejects the "200!" suffix. Guard: check:redirects.
+
 /api/* https://store.balancebiketoddler.com/api/:splat 307
 
-# Legacy guide slugs inherited from the import pipeline (renamed 2026-09-17).
+# Retired guide/news slugs from the import pipeline (renamed 2026-09-17).
 /guides/beginner/kidspullalongwagons-b0cs2zykc4overview /guides/beginner/best-balance-bike-for-1-year-old 301
 /guides/beginner/kidspullalongwagons-b0cs2zykc4image /guides/beginner/how-to-choose-the-perfect-baby-stroller 301
-# Legacy news slug inherited from the same pipeline (renamed 2026-09-17). The old
-# sitemap also advertised it under a slugified category (/news/newproduct/...),
-# which the app never resolved, so only the well-formed variant needs a rule.
 /news/new_product/kidspullalongwagons-b0cs2zykc4image /news/new_product/strider-bikes-kellys-juvenile-models 301
 
-# App roots with no prerendered HTML of their own. Static rewrites, so they must
-# stay above the dynamic prefix block below and above the generated block, so
-# the rule budget cannot push them out of the file.
-/compare /index.html 200!
-/auth /index.html 200!
-/search /index.html 200!
-/evaluations /index.html 200!
-/transparency /index.html 200!
+# /compare /auth /search /evaluations /transparency ship as static shells
+# (BARE_APP_ROOTS in scripts/prerender-pages.ts), so they need no rule here.
 
-# scripts/prerender-pages.ts injects the retired-URL 301 family immediately
-# above this marker. They stay above the SPA block below so exact (static)
-# matches always win over the prefix rewrites.
 # --- generated: begin anchor ---
 
-# SPA fallback, prefix-scoped on purpose. Do NOT replace this with
-# `/* /index.html 200`: a global catch-all serves the homepage shell with HTTP
-# 200 for every unknown path, including inbound junk such as /panties/*.php
-# left behind by whoever owned this domain before us. `_redirects` supports
-# only 301/302/303/307/308 redirects and 200 rewrites — there is no way to
-# answer with a 404 here — so unknown roots must stay unmatched and fall
-# through to public/404.html, which Pages serves with a real 404 status.
-#
-# The prefixes mirror the roots the client router actually resolves in
-# src/App.tsx (resolveRouteState); anything outside them already renders an
-# in-app "not found" view, so nothing is lost by 404ing at the edge.
+# SPA fallback. Keep last, and never replace with `/* /index.html 200`: that
+# answers every unknown path (inbound spam such as /panties/*.php included) with
+# the homepage shell and a 200, with no 404 rewrite to compensate.
 /products/* /index.html 200
 /reviews/* /index.html 200
 /evaluations/* /index.html 200

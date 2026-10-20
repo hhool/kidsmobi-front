@@ -74,6 +74,7 @@
     "check:hydration": "node scripts/seo/hydration-probe.mjs",
     "check:claims": "npx tsx scripts/check-honesty-claims.ts",
     "check:richparity": "npx tsx scripts/check-rich-parity.tsx",
+    "check:redirects": "node scripts/check-redirects.mjs",
     "seo:indexnow": "node scripts/seo/indexnow-submit.mjs",
     "seo:health": "node scripts/seo/site-health-check.mjs",
     "seo:keywords": "node scripts/seo/keyword-opportunity-scan.mjs",

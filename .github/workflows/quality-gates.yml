@@ -144,6 +144,10 @@ jobs:
       - name: Prerender titles
         run: npm run check:titles
 
+      # Pages silently drops every line past ~120, and the SPA fallback is last.
+      - name: Redirect budget (dist/_redirects)
+        run: npm run check:redirects
+
       - name: Upload dist for the hydration probe
         uses: actions/upload-artifact@v4
         with:
