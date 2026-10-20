@@ -106,6 +106,7 @@ import {
   transparencyCanonicalPath,
 } from "./lib/canonicalPath";
 import { sanitizeUnsupportedClaims } from "./lib/unsupportedClaims";
+import { dropPrerenderedDuplicates } from "./lib/seoJsonLd";
 import { FOOTER_ARTICLE_LINKS } from "./lib/footerArticles";
 import { CATEGORY_TDK_MAP, buildProductDetailKeywords } from "./lib/pageKeywords";
 import { getProductSeoKeywords, getReviewSeoKeywords } from "./config/seoKeywordMap";
@@ -2205,60 +2206,18 @@ export default function App() {
 
   const injectJsonLd = (schemas: Record<string, unknown>[]) => {
     removeJsonLdScripts();
-    for (const schema of schemas) {
+    // Whatever the prerendered HTML for this URL already describes is
+    // authoritative — it is what crawlers that never run JavaScript see — so
+    // only the nodes it does not carry get emitted. dropPrerenderedDuplicates
+    // also retires blocks left stale by client-side navigation, so the DOM
+    // keeps exactly one node per @type on every page in every render order.
+    for (const schema of dropPrerenderedDuplicates(schemas)) {
       const script = document.createElement("script");
       script.type = "application/ld+json";
       script.setAttribute("data-seo-jsonld", "true");
       script.text = JSON.stringify(schema);
       document.head.appendChild(script);
     }
-  };
-
-  // BreadcrumbList hygiene for the dual renderer. Prerendered pages ship
-  // their own BreadcrumbList inside an unmarked ld+json block, which
-  // injectJsonLd deliberately keeps; a hydrated page that also injected its
-  // own trail therefore ended up with two conflicting trails for one URL —
-  // Search Console's Breadcrumbs report listed those URLs twice. Returns
-  // true when a static trail already points at canonicalUrl (hydration onto
-  // this page's own HTML: keep it and skip injection). A trail pointing
-  // anywhere else is stale (left by client-side navigation) and gets
-  // stripped, so the DOM keeps exactly one trail either way.
-  const keepStaticBreadcrumb = (canonicalUrl: string): boolean => {
-    const isTrail = (entry: unknown): boolean =>
-      Boolean(entry) && (entry as { "@type"?: string })["@type"] === "BreadcrumbList";
-    const samePage = (value: unknown): boolean => {
-      if (typeof value !== "string") return false;
-      const norm = (url: string) => url.replace(/\/+$/, "") || "/";
-      return norm(value) === norm(canonicalUrl);
-    };
-    let matched = false;
-    for (const script of [...document.querySelectorAll("script[type='application/ld+json']")]) {
-      // Only static (unmarked) blocks are ours to reconcile — the marked ones
-      // are this effect's own output from a previous run and are replaced
-      // wholesale by injectJsonLd; counting them here would make a re-run
-      // skip its own injection and lose the trail entirely.
-      if (script.getAttribute("data-seo-jsonld") === "true") continue;
-      let data: unknown;
-      try {
-        data = JSON.parse(script.textContent || "");
-      } catch {
-        continue;
-      }
-      const entries: unknown[] = Array.isArray(data) ? data : [data];
-      if (!entries.some(isTrail)) continue;
-      const trail = entries.find(isTrail) as { itemListElement?: Array<{ item?: string }> } | undefined;
-      const lastItem = trail?.itemListElement?.at(-1)?.item;
-      if (samePage(lastItem)) {
-        matched = true;
-        continue;
-      }
-      if (Array.isArray(data) && entries.length > 1) {
-        script.textContent = JSON.stringify(entries.filter((entry) => !isTrail(entry)));
-      } else {
-        script.remove();
-      }
-    }
-    return matched;
   };
 
   const buildWebsiteSchema = (origin: string, description: string) => ({
@@ -2465,10 +2424,8 @@ export default function App() {
             },
           ],
         };
-        const keepStaticTrail = keepStaticBreadcrumb(canonicalUrl);
-
         injectJsonLd([
-          ...(keepStaticTrail ? [] : [productBreadcrumbSchema]),
+          productBreadcrumbSchema,
           websiteSchema,
           productSchema,
           ...(productFaqs.length >= FAQ_MIN_QUESTIONS ? [faqPageSchema(productFaqs)] : []),
@@ -2566,10 +2523,8 @@ export default function App() {
           },
         ],
       };
-      const keepStaticTrail = keepStaticBreadcrumb(canonicalUrl);
-
       injectJsonLd([
-        ...(keepStaticTrail ? [] : [compareBreadcrumbSchema]),
+        compareBreadcrumbSchema,
         websiteSchema,
         ...(compareList.length > 0 ? [
           {
@@ -2638,8 +2593,6 @@ export default function App() {
             },
           ],
         };
-        const keepStaticTrail = keepStaticBreadcrumb(canonicalUrl);
-
         injectJsonLd([
           {
             "@context": "https://schema.org",
@@ -2657,7 +2610,7 @@ export default function App() {
             description: normalizedSEO.description,
             inLanguage: lang,
           },
-          ...(keepStaticTrail ? [] : [transparencyBreadcrumbSchema]),
+          transparencyBreadcrumbSchema,
         ]);
       }
       return;
@@ -2961,12 +2914,11 @@ export default function App() {
       updateMetaProperty("og:url", canonicalUrl);
       updateMetaProperty("og:type", "article");
       updateSocialMeta(articleSeoMeta.title, articleSeoMeta.description, articleSeoMeta.image || DEFAULT_OG_IMAGE_PATH, "article");
-      // Static detail pages already carry Article + BreadcrumbList JSON-LD
-      // (without data-seo-jsonld, so injectJsonLd keeps them); only refresh the
-      // generic WebSite schema here. The breadcrumb call is hygiene for
-      // client-side navigation: it keeps this page's own static trail and
-      // drops a stale one left behind by the previously rendered route.
-      keepStaticBreadcrumb(canonicalUrl);
+      // Static detail pages already carry Article + BreadcrumbList JSON-LD in
+      // an unmarked block that injectJsonLd keeps, so only the generic WebSite
+      // schema is emitted here. injectJsonLd's dedup pass also retires the
+      // prerendered block when it belongs to a previous route, so a
+      // client-side navigation replaces the stale trail with this page's own.
       injectJsonLd([buildWebsiteSchema(canonicalOrigin, articleSeoMeta.description)]);
       return;
     }
@@ -3329,11 +3281,10 @@ export default function App() {
         })()
       : null;
 
-    // Category hubs ship their own static trail (Home > Products > label);
-    // keep it on hydration rather than injecting a second trail keyed on the
-    // full page title. Section indexes without a static trail still get one.
-    const keepStaticTrail = keepStaticBreadcrumb(canonicalUrl);
-
+    // One node per @type on every page type: dropPrerenderedDuplicates keeps
+    // the trail a category hub ships in its static HTML (Home > Products >
+    // label) and skips the title-keyed one this effect would otherwise add,
+    // while section indexes without a static trail still get one.
     injectJsonLd([
       orgSchema,
       websiteSchema,
@@ -3341,7 +3292,7 @@ export default function App() {
       ...(aboutSchema ? [aboutSchema] : []),
       ...(aboutFaqSchema ? [aboutFaqSchema] : []),
       ...(hubFaqSchema ? [hubFaqSchema] : []),
-      ...(keepStaticTrail ? [] : [breadcrumbSchema]),
+      breadcrumbSchema,
       ...(collectionSchema ? [collectionSchema] : []),
     ]);
 
