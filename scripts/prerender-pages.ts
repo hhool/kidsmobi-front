@@ -1011,8 +1011,19 @@ function applyCmsSectionSeo(pages: RoutePage[], settings: CmsSettingsPayload | n
     // keep it in lockstep with the published meta description.
     if (Array.isArray(page.jsonLd)) {
       for (const schema of page.jsonLd) {
-        if (schema && typeof schema === "object" && (schema as { "@type"?: string })["@type"] === "WebSite") {
-          (schema as { description?: string }).description = resolved.description;
+        if (schema && typeof schema === "object") {
+          const type = (schema as { "@type"?: string })["@type"];
+          if (type === "WebSite") {
+            (schema as { description?: string }).description = resolved.description;
+          }
+          // /guides ships a CollectionPage whose name used to be hardcoded
+          // ("What does the guide library cover? | BalanceBikeToddler") and
+          // drifted from the published <title> — the 2026-10-21 stroller-title
+          // fix made that gap visible. The only CollectionPage emitter in this
+          // file is renderGuidesPage, so scoping by @type is enough.
+          if (type === "CollectionPage") {
+            (schema as { name?: string }).name = resolved.title;
+          }
         }
       }
     }

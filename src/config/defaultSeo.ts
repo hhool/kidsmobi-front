@@ -86,14 +86,19 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
   },
   guides: {
     zh: {
-      title: "婴儿推车选购与平衡车入门指南 | BalanceBikeToddler",
-      description: "提供从零开始的选购建议，帮助家长理解婴儿推车关键参数，并为 1 岁左右幼儿选择合适的平衡车。",
-      keywords: ["如何选择婴儿推车", "1岁平衡车", "平衡车入门"],
+      title: "平衡车选购指南：按年龄与预算挑选 | BalanceBikeToddler",
+      description: "从零开始的平衡车选购指南：按年龄选尺寸、对比价格档位、查看稳定性数据，帮 1 岁左右幼儿家庭做决定。",
+      keywords: ["如何选择平衡车", "1岁平衡车", "平衡车尺寸"],
     },
     en: {
-      title: "How to Choose a Baby Stroller & First Balance Bikes | BalanceBikeToddler",
-      description: "Expert advice on how to choose a baby stroller and picking the right balance bike for 1 year old infants. Read our step-by-step buying guides today. ",
-      keywords: ["how to choose a baby stroller", "balance bike for 1 year old"],
+      // The guide library is balance-bike-first (price tiers, by-age,
+      // what-buyers-say, stability). The old title led with "How to Choose a
+      // Baby Stroller & First Balance Bikes" — stroller copy for a page whose
+      // listed guides are all balance bikes, and the 65-char cap amputated the
+      // balance-bike half, leaving a pure-stroller <title> in the raw HTML.
+      title: "Balance Bike Guides: Age, Size & Budget | BalanceBikeToddler",
+      description: "Step-by-step balance bike guides: pick the right size for your child's age, compare price tiers, and check stability data before you buy.",
+      keywords: ["balance bike by age", "balance bike size guide", "balance bike price tiers", "how to choose a balance bike"],
     },
   },
   news: {
