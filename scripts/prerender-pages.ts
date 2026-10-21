@@ -12,6 +12,7 @@ import {
   formatRecallDate,
   latestTrendRow,
   latestTrendYear,
+  LEGACY_RECALL_SAFETY_PATH,
   RECALL_SAFETY_PATH,
   recallDataset,
   recallSeo,
@@ -5968,6 +5969,17 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     ["/products/kids_tricycles", "/products/kids-tricycles/"],
     ["/products/other", "/products/"],
   ];
+  // Pages that moved home rather than being retired. Exact-only by design:
+  // these must not become prefix rules, because the Worker expands a prefix
+  // entry into "from/* -> to/*" and there is no second page under any of these
+  // paths for a wildcard to catch — a prefix rule would only widen a rule that
+  // is meant to move exactly one URL.
+  const REHOMED_PAGE_301S: Array<[string, string]> = [
+    // 2026-10-22: the /safety/ level is gone; the recall record now sits with
+    // the other risk-topic pages. It is the thickest page on the site and the
+    // whole site links to it, so the old URL has to keep answering.
+    [LEGACY_RECALL_SAFETY_PATH, RECALL_SAFETY_PATH],
+  ];
   const legacyExactRedirects: Array<[string, string]> = [
     // Re-homed legacy "other" bucket details need per-product targets.
     ...cmsProductsFull
@@ -5977,6 +5989,7 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
         return [`/products/other/${id}`, `/products/${productDetailSlugDir(product)}/${id}`] as [string, string];
       }),
     ...LEGACY_CATEGORY_301S,
+    ...REHOMED_PAGE_301S,
   ];
   // Wildcard only where id segments map 1:1; the abolished /products/other/
   // bucket deliberately has no fallback so unknown paths hit the SPA shell

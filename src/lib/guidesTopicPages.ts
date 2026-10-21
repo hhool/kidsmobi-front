@@ -17,6 +17,8 @@
  * guideTopicCategory() in scripts/prerender-pages.ts.
  */
 
+import { RECALL_SAFETY_PATH } from "../data/safetyRecallRecord";
+
 export type GuidesTopicPageId = "beginner" | "scenario" | "budget" | "risk" | "special" | "maintenance";
 
 export interface GuidesTopicFaq {
@@ -219,7 +221,7 @@ export const GUIDES_TOPIC_EXPLORE_LINKS: Record<GuidesTopicPageId, Array<{ href:
   risk: [
     { href: "/guides", label: "All guides" },
     { href: "/balance-bike-safety-standards/", label: "Safety standards" },
-    { href: "/safety/balance-bike-recalls/", label: "Recall record" },
+    { href: RECALL_SAFETY_PATH, label: "Recall record" },
     { href: "/balance-bike-by-age/", label: "Balance bike by age" },
   ],
   maintenance: [

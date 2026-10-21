@@ -763,10 +763,12 @@ const resolveRouteState = (pathname: string, hash: string): RouteState => {
     };
   }
 
-  // Public safety record built from the US CPSC recall feed. Registered before
-  // the unknown-root fallback below, otherwise the prerendered /safety/* pages
-  // hydrate into the homepage shell with a homepage canonical.
-  if (root === "safety") {
+  // Public safety record built from the US CPSC recall feed. Matched before
+  // the /guides branch below and before the unknown-root fallback, otherwise it
+  // hydrates into the homepage shell with a homepage canonical.
+  // It lives at /guides/risk/... since the /safety/ level was retired
+  // (2026-10-22); RECALL_SAFETY_PATH is the single source for that route.
+  if (currentPath === RECALL_SAFETY_PATH || currentPath === `${RECALL_SAFETY_PATH}/`) {
     return {
       activeTab: "safety",
       activeProductCategory: "all",

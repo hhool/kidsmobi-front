@@ -349,7 +349,7 @@ Ask which **edition** of EN 71-1 a bike was certified to. From 2026 into 2027 th
 
 1. **Find the tracking label** on the frame or seat post: manufacturer, location, date, batch. No label, no trust.
 2. **Ask the seller for the CPC (US) or DoC (EU)** — email is fine — and check which standards and editions it cites.
-3. **Check the recall databases:** [CPSC recalls](https://www.cpsc.gov/Recalls) in the US and [EU Safety Gate](https://ec.europa.eu/safety-gate) in Europe. Our [recall record page](/safety/balance-bike-recalls/) tracks both.
+3. **Check the recall databases:** [CPSC recalls](https://www.cpsc.gov/Recalls) in the US and [EU Safety Gate](https://ec.europa.eu/safety-gate) in Europe. Our [recall record page](/guides/risk/balance-bike-recall-record) tracks both.
 4. **Look for the minimum-insertion mark** on the seat post — required, and often the first thing a cheap frame skips.
 
 ## Two common misconceptions
@@ -394,7 +394,7 @@ The [safety standards reference page](/balance-bike-safety-standards/) lays out 
 
 1. **找车架或座管上的追溯标签**：厂商、产地、日期、批次。没有标签，免谈。
 2. **邮件问卖家要 CPC（美）或 DoC（欧）**，核对引用的标准和版本。
-3. **查召回数据库：**美国查 [CPSC 召回](https://www.cpsc.gov/Recalls)，欧盟查 [EU Safety Gate](https://ec.europa.eu/safety-gate)。我们的[召回记录页](/safety/balance-bike-recalls/)汇总两边数据。
+3. **查召回数据库：**美国查 [CPSC 召回](https://www.cpsc.gov/Recalls)，欧盟查 [EU Safety Gate](https://ec.europa.eu/safety-gate)。我们的[召回记录页](/guides/risk/balance-bike-recall-record)汇总两边数据。
 4. **找座管上的最小插入深度标记**——强制项，也常是廉价车架第一个省掉的东西。
 
 ## 两个常见误解
@@ -438,7 +438,7 @@ Two official database families cover the US and EU markets, and both are free an
 - **SaferProducts.gov (US).** The public incident-report database behind CPSC recalls. Reports here often precede formal recalls — a cluster of similar reports is frequently what triggers one.
 - **EU Safety Gate.** [ec.europa.eu/safety-gate](https://ec.europa.eu/safety-gate) is the EU's rapid alert system for dangerous non-food products, covering all member states. A recall in one member state shows up here.
 
-Our [balance bike recall record](/safety/balance-bike-recalls/) compiles the EU Safety Gate feed into one filterable list, so you can check a brand or model in one place instead of reading alerts one country at a time.
+Our [balance bike recall record](/guides/risk/balance-bike-recall-record) compiles the EU Safety Gate feed into one filterable list, so you can check a brand or model in one place instead of reading alerts one country at a time.
 
 ## How to read a recall announcement
 
@@ -478,7 +478,7 @@ A recall is not a verdict on a brand. Design defects get recalled; so do manufac
 
 ## Where to go deeper
 
-The [recall record page](/safety/balance-bike-recalls/) lists recalled ride-ons with hazard and remedy fields, filterable by brand. For the standards side of safety — what rules a bike passed before it ever shipped — see the [safety standards guide](/guides/risk/balance-bike-safety-standards).`,
+The [recall record page](/guides/risk/balance-bike-recall-record) lists recalled ride-ons with hazard and remedy fields, filterable by brand. For the standards side of safety — what rules a bike passed before it ever shipped — see the [safety standards guide](/guides/risk/balance-bike-safety-standards).`,
     },
     zh: {
       title: "平衡车召回：买家应对指南",
@@ -492,7 +492,7 @@ The [recall record page](/safety/balance-bike-recalls/) lists recalled ride-ons 
 - **SaferProducts.gov（美国）。**CPSC 召回背后的公开事故报告库。这里的报告常常走在正式召回前面——相似报告的聚集，往往就是召回的触发因。
 - **EU Safety Gate。**[ec.europa.eu/safety-gate](https://ec.europa.eu/safety-gate) 是欧盟非食品类危险产品快速警报系统，覆盖所有成员国。一个成员国发生的召回会出现在这里。
 
-我们的[平衡车召回记录页](/safety/balance-bike-recalls/)把 EU Safety Gate 数据流汇总成一个可筛选列表，查品牌或型号一次到位，不用逐国读警报。
+我们的[平衡车召回记录页](/guides/risk/balance-bike-recall-record)把 EU Safety Gate 数据流汇总成一个可筛选列表，查品牌或型号一次到位，不用逐国读警报。
 
 ## 召回公告怎么读
 
@@ -532,7 +532,7 @@ The [recall record page](/safety/balance-bike-recalls/) lists recalled ride-ons 
 
 ## 延伸阅读
 
-[召回记录页](/safety/balance-bike-recalls/)按品牌筛选列出被召回的骑乘玩具及危害与补救字段。安全的标准面——车出厂前通过了什么规则——见[安全标准指南](/guides/risk/balance-bike-safety-standards)。`,
+[召回记录页](/guides/risk/balance-bike-recall-record)按品牌筛选列出被召回的骑乘玩具及危害与补救字段。安全的标准面——车出厂前通过了什么规则——见[安全标准指南](/guides/risk/balance-bike-safety-standards)。`,
     },
   },
 ];

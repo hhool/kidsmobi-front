@@ -37,7 +37,23 @@ export type PeriodRow = {
   sharePct: number;
 };
 
-export const RECALL_SAFETY_PATH = "/safety/balance-bike-recalls/";
+/**
+ * The public recall record.
+ *
+ * It used to live at /safety/balance-bike-recalls/ — a one-page level of its
+ * own, whose parent (/safety/) never existed and 404'd, leaving the site's
+ * thickest page hanging off a dead path while /guides/risk already carried the
+ * same topic. On 2026-10-22 the /safety/ level was retired and the record moved
+ * under the risk topic where the other safety pages live.
+ *
+ * No trailing slash: prerender writes slashless routes as `<route>.html`, which
+ * Cloudflare Pages serves at exactly this URL. It used to be a directory index,
+ * which is why the old path ended in "/".
+ */
+export const RECALL_SAFETY_PATH = "/guides/risk/balance-bike-recall-record";
+
+/** Retired 2026-10-22. Kept so the 301 has one source and cannot drift. */
+export const LEGACY_RECALL_SAFETY_PATH = "/safety/balance-bike-recalls/";
 
 export const recallDataset = RECALL_DATASET as {
   source: {

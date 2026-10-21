@@ -3,7 +3,7 @@
  *
  * Why this exists: plan-B asset #1 was scoped as "CPSC / Safety Gate" but the
  * first pass only shipped the US side. This fills the EU half so
- * /safety/balance-bike-recalls/ stops saying "EU Safety Gate alerts are not
+ * /guides/risk/balance-bike-recall-record stops saying "EU Safety Gate alerts are not
  * included". Every number on that page must be reproducible by re-running this
  * script, so the whole pipeline (query -> classification -> aggregates) lives
  * here.

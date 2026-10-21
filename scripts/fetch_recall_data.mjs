@@ -3,7 +3,7 @@
  *
  * Why this exists: plan-B asset #1 is a verifiable, first-party-built safety
  * record instead of claims we cannot support. Every number published on
- * /safety/balance-bike-recalls/ must be reproducible by re-running this script,
+ * /guides/risk/balance-bike-recall-record must be reproducible by re-running this script,
  * so the whole pipeline (query -> classification -> aggregates) lives here.
  *
  * Source: US Consumer Product Safety Commission, SaferProducts.gov

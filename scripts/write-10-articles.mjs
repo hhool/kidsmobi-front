@@ -448,7 +448,7 @@ The standard behind it: helmets sold for cycling in the US must comply with CPSC
 
 ## Before you buy: the recall check
 
-New or used, check the model against recall databases before the first ride. Our [balance bike recall record](/safety/balance-bike-recalls/) tracks CPSC and EU Safety Gate activity, and both databases are searchable for free. This takes two minutes and is the highest-value safety step in this entire guide.
+New or used, check the model against recall databases before the first ride. Our [balance bike recall record](/guides/risk/balance-bike-recall-record) tracks CPSC and EU Safety Gate activity, and both databases are searchable for free. This takes two minutes and is the highest-value safety step in this entire guide.
 
 ## What not to overdo
 
@@ -508,7 +508,7 @@ Balance bikes are low-speed, feet-first machines. You do not need knee pads, a s
 
 ## 购买前：查召回
 
-新车二手，首骑前都把型号对一遍召回数据库。我们的[平衡车召回记录](/safety/balance-bike-recalls/)跟踪 CPSC 与欧盟 Safety Gate 动态，两个数据库都免费可查。这一步只要两分钟，是整篇指南里性价比最高的安全动作。
+新车二手，首骑前都把型号对一遍召回数据库。我们的[平衡车召回记录](/guides/risk/balance-bike-recall-record)跟踪 CPSC 与欧盟 Safety Gate 动态，两个数据库都免费可查。这一步只要两分钟，是整篇指南里性价比最高的安全动作。
 
 ## 不要过度
 
@@ -912,7 +912,7 @@ Two practical consequences:
 
 1. Find the tracking label on the bike: manufacturer, location, date, batch.
 2. Ask the seller for the Children's Product Certificate (US) or Declaration of Conformity (EU), and check which standard edition it cites.
-3. Check the recall databases: CPSC in the US, Safety Gate in the EU. Our [balance bike recall record](/safety/balance-bike-recalls/) tracks both.
+3. Check the recall databases: CPSC in the US, Safety Gate in the EU. Our [balance bike recall record](/guides/risk/balance-bike-recall-record) tracks both.
 
 Our [safety standards reference page](/balance-bike-safety-standards/) walks through the US and EU rule sets in plain language, with the verification steps for each.`,
     },
@@ -955,7 +955,7 @@ Our [safety standards reference page](/balance-bike-safety-standards/) walks thr
 
 1. 找车上的追溯标签：厂商、地点、日期、批次。
 2. 向卖家索要儿童产品证书（美国）或符合性声明（欧盟），并核对引用的标准版本。
-3. 查召回数据库：美国 CPSC、欧盟 Safety Gate。我们的[平衡车召回记录](/safety/balance-bike-recalls/)同时跟踪两者。
+3. 查召回数据库：美国 CPSC、欧盟 Safety Gate。我们的[平衡车召回记录](/guides/risk/balance-bike-recall-record)同时跟踪两者。
 
 我们的[安全标准参考页](/balance-bike-safety-standards/)用平实语言梳理美欧规则集，并附每条的核查步骤。`,
     },

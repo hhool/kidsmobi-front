@@ -37,7 +37,7 @@ const ROUTES = [
   '/balance-bike-by-age/',
   '/balance-bike-what-buyers-say/',
   '/balance-bike-budget/',
-  '/safety/balance-bike-recalls/',
+  '/guides/risk/balance-bike-recall-record',
   '/transparency/privacy-policy/',
   // Guides topic indexes (2026-10-19: 5 new topic pages went live with the
   // 10-article batch). Channel routes hydrate onto prerendered HTML and must

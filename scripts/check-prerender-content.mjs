@@ -42,7 +42,7 @@ const REFERENCE_CLUSTER = [
   "/balance-bike-stability/",
   "/balance-bike-weight/",
   "/balance-bike-safety-standards/",
-  "/safety/balance-bike-recalls/",
+  "/guides/risk/balance-bike-recall-record",
   "/balance-bike-what-buyers-say/",
   "/balance-bike-budget/",
 ];
