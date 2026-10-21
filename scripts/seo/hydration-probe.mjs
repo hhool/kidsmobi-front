@@ -8,7 +8,10 @@
 // catches it.
 //
 // This probe loads a curated route set in a real browser and fails if any page
-// shows the recovery boundary or throws a pageerror. Playwright is imported
+// shows the recovery boundary, throws a pageerror, or publishes a
+// <meta name="keywords"> that disagrees with the prerendered HTML (blanked by
+// hydration, or resolved from a different source — both invisible to curl).
+// Playwright is imported
 // dynamically so the script degrades to a SKIP (exit 0) in environments
 // without it or without a browser — the weekly health check must not fail
 // just because Chrome is absent.
@@ -67,6 +70,9 @@ const ROUTES = [
   '/guides/beginner/balance-bike-by-age',
   '/guides/beginner/balance-bike-what-buyers-say',
   '/guides/scenario/balance-bike-stability',
+  // 2026-10-22 A2 batch — the industry article backing the /news hub keyword
+  // "electric dirt bike for kids".
+  '/news/industry/electric-dirt-bikes-for-kids',
 ];
 
 const base = process.env.SEO_SITE_BASE_URL || SITE_BASE;
@@ -91,6 +97,30 @@ try {
 }
 
 const failures = [];
+// Static-HTML reference for the keywords comparison: one shared request
+// context, plain GETs (redirects, if any, are followed to the final 200).
+const reqCtx = await browser.newContext();
+const staticKeywordsCache = new Map();
+// The prerender HTML-escapes attribute values (children&#39;s), while
+// getAttribute returns the decoded string (children's). Decode the static side
+// before comparing or every keyword containing an apostrophe "diverges".
+function decodeEntities(s) {
+  return s
+    .replace(/&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&');
+}
+async function staticKeywordsFor(route) {
+  if (staticKeywordsCache.has(route)) return staticKeywordsCache.get(route);
+  const res = await reqCtx.request.get(base + route);
+  const html = await res.text();
+  const m = html.match(/<meta\s+name="keywords"\s+content="([^"]*)"/i);
+  const kw = m ? decodeEntities(m[1]) : null;
+  staticKeywordsCache.set(route, kw);
+  return kw;
+}
 for (const route of ROUTES) {
   // Each attempt uses a fresh page: retrying goto() on a page whose previous
   // navigation timed out can raise "Navigation ... is interrupted by another
@@ -113,6 +143,10 @@ for (const route of ROUTES) {
         return {
           recovery: body.includes('Page Recovery Mode'),
           h1: document.querySelector('h1')?.textContent?.slice(0, 60) || '(none)',
+          // The hydrated keywords meta. The A1 bug blanked this (the SPA effect
+          // ran with an empty array); the A2 source split had it disagree with
+          // the prerendered value. Both are invisible to curl.
+          keywords: document.querySelector('meta[name="keywords"]')?.getAttribute('content') || null,
           // A markdown marker that survived into the hydrated DOM means the
           // app's renderer parsed a syntax level the prerender's did (or the
           // other way round). The static HTML looked perfect the whole time.
@@ -134,6 +168,14 @@ for (const route of ROUTES) {
     else if (probe.mdLeak?.length) why = `markdown leak: ${probe.mdLeak.join(', ')}`;
     else if (pageErrors.length) why = pageErrors[0];
     else if (!res || res.status() >= 400) why = `HTTP ${res?.status()}`;
+    else if (!probe.keywords) why = 'hydrated keywords blank — prerender set lost after hydration (the A1 bug)';
+    else {
+      const staticKw = await staticKeywordsFor(route);
+      if (staticKw === null) why = 'static HTML has no keywords meta — prerender stopped emitting';
+      else if (staticKw !== probe.keywords) {
+        why = `keywords diverge — static "${staticKw}" vs hydrated "${probe.keywords}"`;
+      }
+    }
 
     if (why) {
       failures.push({ route, why });
@@ -155,4 +197,4 @@ if (failures.length > 0) {
   console.log('\nA broken route ships correct static HTML but crashes the hydrated SPA.');
   process.exit(1);
 }
-console.log(`\nhydration-probe OK — ${ROUTES.length} route(s) hydrate clean (no recovery mode, no pageerror).`);
+console.log(`\nhydration-probe OK — ${ROUTES.length} route(s) hydrate clean (no recovery mode, no pageerror, keywords survive hydration).`);
