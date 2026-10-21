@@ -248,6 +248,28 @@ function toAbsoluteMediaUrl(raw: unknown): string {
   return encodedPath ? `${STORE_MEDIA_ORIGIN}/${encodedPath}` : "";
 }
 
+/**
+ * Resolves a CMS image reference to an absolute URL, respecting which origin
+ * actually holds the file.
+ *
+ * Two kinds of image live in the CMS:
+ *   - bare bucket keys ("news/x-800x450.webp") served from the media store;
+ *   - root-relative paths ("/images/news/x-800x450.webp") shipped in this
+ *     site's own public/ tree and served by Cloudflare Pages.
+ *
+ * Running the second kind through toAbsoluteMediaUrl silently rewrote it onto
+ * the store origin, where the file does not exist — a broken og:image and a
+ * blank card rather than a loud failure. Root-relative now stays on
+ * PUBLIC_SITE_BASE, which is also the origin the page itself is served from.
+ */
+function toPublicImageUrl(raw: unknown): string {
+  const text = String(raw || "").trim().replace(/\\/g, "/");
+  if (!text) return "";
+  if (/^https?:\/\//i.test(text)) return encodeUnsafeUrlChars(text);
+  if (text.startsWith("/")) return `${PUBLIC_SITE_BASE}${encodeUnsafeUrlChars(text)}`;
+  return toAbsoluteMediaUrl(text);
+}
+
 function renderSources(items: Array<{ label: string; href: string; note: string }>): string {
   return `
     <ul>
@@ -1171,7 +1193,7 @@ function renderGuideDetailPage(guide: CmsGuide, evaluations: CmsEvaluation[] = [
   const topicLabel = topic.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
   const published = pickText(guide.publishedAt, guide.updatedAt).slice(0, 10) || "2026-08-15";
   const url = `${PUBLIC_SITE_BASE}${route}`;
-  const image = toAbsoluteMediaUrl(pickText(guide.imageUrl));
+  const image = toPublicImageUrl(pickText(guide.imageUrl));
 
   const schemas: Array<Record<string, unknown>> = [
     {
@@ -1260,7 +1282,7 @@ function renderNewsDetailPage(item: CmsNews, products: CmsProductLite[] = []): R
   const channelLabel = newsCategoryLabel(item);
   const published = pickText(item.publishedAt, item.updatedAt).slice(0, 10) || "2026-08-15";
   const url = `${PUBLIC_SITE_BASE}${route}`;
-  const image = toAbsoluteMediaUrl(pickText(item.imageUrl));
+  const image = toPublicImageUrl(pickText(item.imageUrl));
 
   const schemas: Array<Record<string, unknown>> = [
     {
@@ -1320,6 +1342,9 @@ function renderNewsDetailPage(item: CmsNews, products: CmsProductLite[] = []): R
       <nav style="padding: 4px 0 16px; font-size: 0.86rem; color: #64748b;">
         <a href="/news">News</a> › <a href="/news/${escapeHtml(channel)}">${escapeHtml(channelLabel)}</a>
       </nav>
+      ${image ? `<figure style="margin: 0 0 18px;">
+        <img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" width="800" height="450" loading="eager" decoding="async" style="width: 100%; height: auto; display: block; border-radius: 18px;" />
+      </figure>` : ""}
       <section style="padding: 4px 0 18px;">
         <p style="margin: 0 0 10px; font-size: 0.86rem; color: #475569; font-weight: 600;">
           By <strong>BalanceBikeToddler Editorial Team</strong> · <time datetime="${escapeHtml(published)}">Published ${escapeHtml(published)}</time>
@@ -1377,7 +1402,7 @@ function renderEvaluationDetailPage(
   const pros = (langModel as { pros?: string[] }).pros || [];
   const cons = (langModel as { cons?: string[] }).cons || [];
   const url = `${PUBLIC_SITE_BASE}${route}`;
-  const image = toAbsoluteMediaUrl(pickText(item.imageUrl));
+  const image = toPublicImageUrl(pickText(item.imageUrl));
   const published = pickText(item.publishedAt, item.updatedAt).slice(0, 10) || "2026-08-15";
   const reviewTypeLabel = isCompare ? "Comparison Reviews" : "Single Reviews";
 
@@ -1690,7 +1715,7 @@ function renderGuidesPage(cmsGuides: CmsGuide[] = []): RoutePage {
 function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
   const articles = newsArticles.slice(0, 5);
   const usingCmsNews = cmsNews.length > 0;
-  const listedNews: Array<{ title: string; summary: string; meta: string; url: string }> = usingCmsNews
+  const listedNews: Array<{ title: string; summary: string; meta: string; url: string; cover: string }> = usingCmsNews
     ? cmsNews.flatMap((item) => {
         const route = newsRoutePath(item);
         if (!route) return [];
@@ -1703,6 +1728,7 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
           ),
           meta: `${newsCategoryLabel(item)} · ${pickText(item.publishedAt, item.updatedAt).slice(0, 10) || "2026-08-15"}`,
           url: `${PUBLIC_SITE_BASE}${route}`,
+          cover: toPublicImageUrl(pickText(item.imageUrl)),
         }];
       })
     : articles.map((article) => ({
@@ -1710,6 +1736,7 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
         summary: article.summary,
         meta: `${article.categoryLabel} · ${article.readTime} · ${article.publishDate}`,
         url: `${PUBLIC_SITE_BASE}/news/${article.category}/${article.id}`,
+        cover: "",
       }));
   const canonical = "https://balancebiketoddler.com/news";
   const entitySameAs = [
@@ -1816,10 +1843,15 @@ function renderNewsPage(cmsNews: CmsNews[] = []): RoutePage {
       <section style="padding: 22px 0; border-top: 1px solid #e2e8f0;">
         <h2 style="margin: 0 0 12px; font-size: 1.5rem;">Which stories are most citable?</h2>
         ${listedNews.map((item) => `
-          <section style="padding: 14px 0; border-top: 1px solid #f1f5f9;">
-            <h3 style="margin: 0 0 8px; font-size: 1.05rem;"><a href="${escapeHtml(new URL(item.url).pathname)}">${escapeHtml(item.title)}</a></h3>
-            <p style="margin: 0 0 8px; color: #334155;">${escapeHtml(item.summary)}</p>
-            <p style="margin: 0; font-size: 0.88rem; color: #64748b;">${escapeHtml(item.meta)}</p>
+          <section style="padding: 14px 0; border-top: 1px solid #f1f5f9; display: flex; gap: 16px; align-items: flex-start;">
+            ${item.cover ? `<a href="${escapeHtml(new URL(item.url).pathname)}" style="flex: 0 0 160px; display: block;">
+              <img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" width="160" height="90" loading="lazy" decoding="async" style="width: 160px; height: 90px; object-fit: cover; border-radius: 10px; display: block;" />
+            </a>` : ""}
+            <div style="flex: 1 1 auto; min-width: 0;">
+              <h3 style="margin: 0 0 8px; font-size: 1.05rem;"><a href="${escapeHtml(new URL(item.url).pathname)}">${escapeHtml(item.title)}</a></h3>
+              <p style="margin: 0 0 8px; color: #334155;">${escapeHtml(item.summary)}</p>
+              <p style="margin: 0; font-size: 0.88rem; color: #64748b;">${escapeHtml(item.meta)}</p>
+            </div>
           </section>
         `).join("")}
         ${usingCmsNews ? `<p style="margin: 14px 0 0; font-size: 0.9rem; color: #475569;">${listedNews.length} published news ${listedNews.length === 1 ? "story" : "stories"}. Browse by channel: <a href="/news/brand_news">Brand news</a> · <a href="/news/industry">Industry trends</a> · <a href="/news/new_product">New products</a> · <a href="/news/science">Science &amp; safety</a>.</p>` : ""}

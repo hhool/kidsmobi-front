@@ -144,6 +144,11 @@ jobs:
       - name: Prerender titles
         run: npm run check:titles
 
+      # Five of nine news stories shipped with no cover at all: text-only cards
+      # on /news and an article page with nothing above the fold.
+      - name: News cover images
+        run: npm run check:newscovers
+
       # Pages silently drops every line past ~120, and the SPA fallback is last.
       - name: Redirect budget (dist/_redirects)
         run: npm run check:redirects

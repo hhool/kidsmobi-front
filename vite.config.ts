@@ -18,6 +18,20 @@ export default defineConfig(() => {
       // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
     },
+    preview: {
+      // The SPA reads CMS content over a relative /api/cms/* path, which
+      // Cloudflare Pages proxies to the Worker in production. `vite preview`
+      // does not, so a locally served dist had no CMS at all: every article
+      // route hydrated into its no-data fallback and the hydration probe
+      // compared that against the prerendered markup and failed. Mirror the
+      // production proxy so local dist behaves like the deployed site.
+      proxy: {
+        '/api': {
+          target: process.env.CMS_API_BASE || 'https://store.balancebiketoddler.com',
+          changeOrigin: true,
+        },
+      },
+    },
     build: {
       chunkSizeWarningLimit: 1000,
       rollupOptions: {

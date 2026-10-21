@@ -560,6 +560,26 @@ export default function NewsSection({
               </div>
             </div>
 
+            {/* Cover image. Mirrors the prerendered hero in scripts/prerender-pages.ts
+                so the raw HTML a crawler reads and the DOM a parent sees carry the
+                same figure in the same position. */}
+            {(() => {
+              const cover = normalizeMediaUrl(resolveCardImage((article as any).imageUrl, article.content));
+              if (!cover) return null;
+              return (
+                <figure className="m-0">
+                  <img
+                    src={cover}
+                    alt={article.title}
+                    width={800}
+                    height={450}
+                    loading="eager"
+                    className="w-full h-auto rounded-3xl border border-slate-100 shadow-sm"
+                  />
+                </figure>
+              );
+            })()}
+
             {/* Article Summary Quote */}
             <figure className="bg-orange-50/50 p-6 rounded-3xl border border-orange-100 text-slate-700 text-sm leading-relaxed font-medium relative overflow-hidden m-0">
               <div className="absolute top-0 left-0 w-1 h-full bg-orange-400"></div>
