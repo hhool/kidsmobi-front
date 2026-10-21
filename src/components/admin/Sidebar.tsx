@@ -25,7 +25,9 @@ export default function Sidebar({ activeMenu, setActiveMenu, lang, onClose }: Si
     <aside className="w-72 bg-white border-r border-slate-200 flex flex-col h-screen sticky top-0">
       <div className="p-8 border-b border-slate-100 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-orange-500 rounded-xl flex items-center justify-center text-white font-black shadow-lg shadow-orange-500/20">K</div>
+          {/* Same brand asset as the public footer (/favicon.svg); this slot
+              held the pre-rebrand "K" letter until 2026-10-21. */}
+          <img src="/favicon.svg" alt="" width={32} height={32} className="w-8 h-8 rounded-xl shadow-lg shadow-orange-500/20" />
           <span className="font-black tracking-tighter text-slate-900">CMS 2.0</span>
         </div>
         <button

@@ -4509,9 +4509,12 @@ Would you like to compare brands like Woom, Specialized, or Decathlon, or should
             {/* Column 1: Brand */}
             <div className="md:col-span-1 space-y-6">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-black text-lg">K</span>
-                </div>
+                {/* The brand mark is /favicon.svg — the same asset the browser
+                    tab and the Organization/WebSite JSON-LD logo use. This
+                    slot held a letter "K" (the pre-rebrand KidsMobi mark)
+                    until 2026-10-21, so the footer was the only place still
+                    wearing the old brand. */}
+                <img src="/favicon.svg" alt="" width={32} height={32} className="w-8 h-8 rounded-lg" />
                 <span className="text-xl font-display font-black text-white tracking-tighter">BalanceBikeToddler</span>
               </div>
               <p className="text-slate-400 leading-relaxed font-medium pr-4">
