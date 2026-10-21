@@ -31,7 +31,9 @@ export const INDEXNOW_ENDPOINTS = [
 // topic indexes) and the 4 CMS guides backing the footer column.
 // 2026-10-20 (later): 269 after the 3 guides that take the reference cluster
 // to 8/8 CMS-backed cards (by-age, what-buyers-say, stability).
-export const SITEMAP_BASELINE_COUNT = 269;
+// 2026-10-22: 270 after the A2 news article backing the /news hub keyword
+// "electric dirt bike for kids" (news/electric-dirt-bikes-for-kids).
+export const SITEMAP_BASELINE_COUNT = 270;
 
 // High-value balance-bike query clusters for opportunity gap analysis.
 // Derived from the GSC intent study: age is the single biggest intent; the
