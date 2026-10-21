@@ -292,15 +292,26 @@ export function guidesArticleKeywords(topicSegment: string, lang: KeywordLang): 
   return page ? [...page.keywords[lang]] : [...GUIDES_TOPIC_PAGES.beginner.keywords[lang]];
 }
 
+/**
+ * Asset routes are keyed without a trailing slash. They are not all one shape:
+ * six are directory indexes ("/balance-bike-weight/") but the recall record
+ * became a file route when it moved under /guides/risk/ (2026-10-22), and a
+ * lookup done with the raw path missed it — the record fell through to the
+ * /guides/<topic>/<slug> branch and published the risk topic's keywords in the
+ * static HTML while the hydrated SPA published its own. Keying both sides the
+ * same way keeps that from depending on how a route happens to be written.
+ */
+const assetKey = (path: string): string => `/${String(path || "").replace(/^\/+|\/+$/g, "")}`;
+
 const ASSET_SEO_BY_PATH: Record<string, { en: { keywords: readonly string[] }; zh: { keywords: readonly string[] } }> = {
-  [SIZING_PATH]: sizingSeo,
-  [AGE_PATH]: ageSeo,
-  [STABILITY_PATH]: stabilitySeo,
-  [BUDGET_PATH]: budgetSeo,
-  [WEIGHT_PATH]: weightSeo,
-  [SAFETY_PATH]: safetySeo,
-  [BUYER_FEEDBACK_PATH]: buyerFeedbackSeo,
-  [RECALL_SAFETY_PATH]: recallSeo,
+  [assetKey(SIZING_PATH)]: sizingSeo,
+  [assetKey(AGE_PATH)]: ageSeo,
+  [assetKey(STABILITY_PATH)]: stabilitySeo,
+  [assetKey(BUDGET_PATH)]: budgetSeo,
+  [assetKey(WEIGHT_PATH)]: weightSeo,
+  [assetKey(SAFETY_PATH)]: safetySeo,
+  [assetKey(BUYER_FEEDBACK_PATH)]: buyerFeedbackSeo,
+  [assetKey(RECALL_SAFETY_PATH)]: recallSeo,
 };
 
 function defaultKeywords(seoKey: string, lang: KeywordLang): string[] {
@@ -320,7 +331,7 @@ export function resolveRouteKeywords(
   const clean = `/${String(routePath || "").replace(/^\/+|\/+$/g, "")}/`;
 
   // Asset pages.
-  const asset = ASSET_SEO_BY_PATH[clean];
+  const asset = ASSET_SEO_BY_PATH[assetKey(routePath)];
   if (asset) return [...asset[lang].keywords];
 
   // Transparency pages.
