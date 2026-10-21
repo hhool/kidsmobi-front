@@ -166,6 +166,14 @@ type RoutePage = {
   /** Full <title> override; falls back to `${title} | BalanceBikeToddler`
    *  capped at 65 chars (Semrush title-too-long check). */
   fullTitle?: string;
+  /** Keywords-meta override. Set by applyCmsSectionSeo() from the CMS-resolved
+   *  section TDK (pages[].seo > settings.seo[alias] > defaultSeo) — the same
+   *  chain fullTitle/description already follow — so the static HTML Google
+   *  reads and the hydrated SPA publish the identical keyword set. Before
+   *  2026-10-22 the section routes resolved keywords from defaultSeo only,
+   *  which left /products/ and /reviews/ publishing different keywords after
+   *  hydration than in the raw HTML. */
+  keywords?: string[];
   /** Skip the page.title <h1> that renderStaticPage emits (used when the
    *  body has its own single <h1>, so the page keeps exactly one h1). */
   skipTitleH1?: boolean;
@@ -424,9 +432,13 @@ function renderDocument(page: RoutePage, appAssets: AppAssets): string {
   // (src/lib/pageKeywords.ts is the single source), so a crawler reading the
   // static HTML and a parent's browser tab agree. Google ignores this tag, but
   // Bing/Yandex use it and it keeps the two render paths consistent.
-  const keywordArr = page.product
-    ? buildProductDetailKeywords(page.product, "en", String((page.product as CmsProductFull).categoryId || ""))
-    : resolveRouteKeywords(page.route, "en");
+  // Section routes carry a CMS-resolved override (page.keywords, set by
+  // applyCmsSectionSeo) so the static HTML matches the hydrated SPA exactly;
+  // every other route resolves through the shared DEFAULT-based module.
+  const keywordArr = page.keywords
+    ?? (page.product
+      ? buildProductDetailKeywords(page.product, "en", String((page.product as CmsProductFull).categoryId || ""))
+      : resolveRouteKeywords(page.route, "en"));
   const keywordTag = keywordArr.join(", ");
   const entitySameAs = [
     "https://www.youtube.com/@kidsmobi",
@@ -981,10 +993,14 @@ async function fetchCmsSettings(): Promise<CmsSettingsPayload | null> {
 }
 
 /**
- * Overrides the six structural pages' fullTitle/description with the values
- * the hydrated SPA will publish (CMS settings.seo > defaultSeo). Body copy,
- * H1s and links are untouched — only the <title>/<meta description>/og tags
- * and the home WebSite JSON-LD description follow the CMS.
+ * Overrides the six structural pages' fullTitle/description/keywords with the
+ * values the hydrated SPA will publish (CMS settings.seo > defaultSeo). Body
+ * copy, H1s and links are untouched — only the <title>/<meta description>/
+ * <meta keywords>/og tags and the home WebSite JSON-LD description follow the
+ * CMS. Keywords joined the title/description chain on 2026-10-22 (A2): the
+ * section routes used to keep the defaultSeo keyword set in the static HTML
+ * while hydration published the CMS set, so the two renderers disagreed on
+ * /products/ and /reviews/.
  */
 const CMS_SECTION_ROUTES: Array<{ route: string; seoKey: string }> = [
   { route: "", seoKey: "home" },
@@ -1007,6 +1023,12 @@ function applyCmsSectionSeo(pages: RoutePage[], settings: CmsSettingsPayload | n
     }
     page.fullTitle = resolved.title;
     page.description = resolved.description;
+    // Keywords follow the same chain (see the RoutePage.keywords doc): an empty
+    // resolved set means the CMS entry carries no keywords, so fall back to the
+    // DEFAULT-based resolver rather than emitting an empty meta tag.
+    page.keywords = resolved.keywords.length > 0
+      ? resolved.keywords
+      : resolveRouteKeywords(section.route || "/", "en");
     // The home/WebSite JSON-LD description is hardcoded in renderHomePage;
     // keep it in lockstep with the published meta description.
     if (Array.isArray(page.jsonLd)) {

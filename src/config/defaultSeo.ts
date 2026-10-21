@@ -55,9 +55,15 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
       keywords: ["婴儿推车", "儿童平衡车", "儿童自行车", "儿童滑板车", "儿童电动车", "儿童安全座椅"],
     },
     en: {
-      title: "Top Toddler Bikes, Twin Strollers & Electric Scooters | BalanceBikeToddler",
-      description: "Browse our catalog of toddler bikes, balance bike toddler models, twin strollers, and kids electric scooters. Find the safest ride-on toys for your children.",
-      keywords: ["kids bike", "balance bike", "twin stroller", "kids electric scooter"],
+      // 2026-10-22 A2: keywords reorganized to category-level terms, primary
+      // categories (balance bikes / kids bikes) leading, "twin stroller"
+      // retired — it is a sub-model word inside the stroller category, not a
+      // catalog-level one. This block is the CMS-unreachable fallback, so its
+      // title/description mirror the published CMS copy (they used to lead with
+      // "Twin Strollers & Electric Scooters" — stale since the demotion).
+      title: "Top Kids Bikes, Strollers & Scooters | BalanceBikeToddler",
+      description: "Browse our catalog of balance bikes, kids bikes, toddler bikes and kids scooters. Find the safest ride-on toys for your children.",
+      keywords: ["balance bike", "kids bike", "baby stroller", "kids scooter", "kids electric car"],
     },
   },
   evaluations: {
@@ -76,12 +82,16 @@ export const DEFAULT_SEO_CONFIGS: Record<string, { zh: SEOConfig; en: SEOConfig 
     zh: {
       title: "婴儿推车评测、旅行推车与幼儿自行车安全对比 | BalanceBikeToddler",
       description: "查看客观评测报告，覆盖旅行婴儿推车、慢跑婴儿推车与幼儿自行车，重点对比结构稳定性、制动表现与实际场景安全性。",
-      keywords: ["旅行婴儿推车", "慢跑婴儿推车", "婴儿推车评测", "幼儿自行车", "儿童自行车", "平衡车评测", "儿童平衡车"],
+      // 2026-10-22 A2 微调：按 31 篇评测的真实品类分布重排——stroller 9 / bicycle 7 /
+      // balance 4，评测意图词（"…评测"）领衔，产品型词随后。
+      keywords: ["婴儿推车评测", "平衡车评测", "旅行婴儿推车", "幼儿自行车", "儿童自行车", "慢跑婴儿推车", "儿童平衡车"],
     },
     en: {
       title: "Expert Kids Bikes & Stroller Reviews | BalanceBikeToddler",
       description: "Read unbiased stroller reviews, travel stroller models, and heavy-duty jogging strollers, with specs and scores for every shortlisted model.",
-      keywords: ["travel stroller", "toddler bike", "stroller reviews", "balance bike reviews", "toddler balance bike"],
+      // 2026-10-22 A2 微调：按评测品类分布重排（stroller 9 篇 > bicycle 7 > balance 4），
+      // 评测意图词领衔，平衡车词保持第二位（主品类战略）。
+      keywords: ["stroller reviews", "balance bike reviews", "toddler bike", "travel stroller", "toddler balance bike"],
     },
   },
   guides: {
