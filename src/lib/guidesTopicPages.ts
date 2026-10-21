@@ -239,6 +239,24 @@ export const GUIDES_TOPIC_EXPLORE_LINKS: Record<GuidesTopicPageId, Array<{ href:
 export const GUIDES_TOPIC_PAGE_IDS = Object.keys(GUIDES_TOPIC_PAGES) as GuidesTopicPageId[];
 
 /**
+ * Normalises an arbitrary topic segment (URL segment, CMS taxonomy value) to a
+ * known topic id. Mirrors the alias handling in GuidesSection's
+ * normalizeGuideTopicCategory (category_spec/category_special -> special) and
+ * falls back to "beginner" — never to the home block, which is what the
+ * unknown-route fallback in resolveRouteKeywords used to publish for every
+ * guides article detail page.
+ *
+ * Shared so the prerender (via pageKeywords.ts), the SPA's article SEO meta
+ * and the keyword guard all resolve the same topic from the same input.
+ */
+export function normalizeGuidesTopicId(raw: unknown): GuidesTopicPageId {
+  const value = String(raw || "").trim().toLowerCase();
+  if (value === "category_spec" || value === "category_special") return "special";
+  if ((GUIDES_TOPIC_PAGE_IDS as string[]).includes(value)) return value as GuidesTopicPageId;
+  return "beginner";
+}
+
+/**
  * The topic page currently being viewed, or null.
  *
  * /guides/<topic> is prerendered as a full page: its own h1, an intro heading,

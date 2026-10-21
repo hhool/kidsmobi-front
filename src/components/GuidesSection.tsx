@@ -34,6 +34,7 @@ import { resolveProductImages, FALLBACK_PRODUCT_IMAGE, normalizeMediaUrl } from 
 import { renderRichContent } from "../lib/richContent";
 import { buildArticleSeoDescription, buildArticleSeoTitle, buildCardExcerpt, resolveCardImage, type ArticleSeoMeta } from "../lib/articleSeo";
 import { resolveGuidesTopicPage, GUIDES_WIZARD_H1 } from "../lib/guidesTopicPages";
+import { guidesArticleKeywords } from "../lib/pageKeywords";
 
 function translateCategoryLabel(cat: string): string {
   const labels: Record<string, string> = {
@@ -1027,12 +1028,16 @@ export default function GuidesSection({
         setSelectedGuideState(found);
         // Report article-level SEO so App's global SEO effect does not overwrite
         // the prerendered <title>/canonical with the section-homepage values.
+        // keywords travel with it: without them App blanked the prerendered
+        // meta on hydration, and before the pageKeywords branch landed the
+        // prerender itself published the home fallback block.
         const localized = translateGuideArticle(found, lang);
         onActiveArticleMetaRef.current?.({
           title: buildArticleSeoTitle(localized?.title || found.title),
           description: buildArticleSeoDescription(localized?.summary || found.summary || found.content),
           image: normalizeMediaUrl(resolveCardImage(found.imageUrl, found.content)) || undefined,
           canonicalPath: typeof window !== "undefined" ? window.location.pathname : "",
+          keywords: guidesArticleKeywords(found.category, lang),
         });
         return;
       }

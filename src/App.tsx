@@ -2917,7 +2917,12 @@ export default function App() {
 
       document.title = articleSeoMeta.title;
       updateMetaTag("description", articleSeoMeta.description);
-      updateMetaTag("keywords", (articleSeoMeta.keywords || []).join(", "));
+      // Only overwrite when the section actually reported a set: an empty join
+      // used to blank the prerendered keywords meta on hydration (guides and
+      // news detail pages reported no keywords until 2026-10-22).
+      if (articleSeoMeta.keywords && articleSeoMeta.keywords.length > 0) {
+        updateMetaTag("keywords", articleSeoMeta.keywords.join(", "));
+      }
       updateMetaTag("robots", noIndex ? "noindex,follow,max-image-preview:large" : defaultRobotsIndex);
       updateCanonicalLink(canonicalUrl);
       updateMetaProperty("og:url", canonicalUrl);

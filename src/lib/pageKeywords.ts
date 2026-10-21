@@ -15,6 +15,15 @@
  *   - transparency pages
  *   - product detail pages  (via buildProductDetailKeywords with the product)
  *   - review detail pages  (/reviews/<type>/<id> add a fixed keyword set)
+ *   - guides article detail pages  (/guides/<topic>/<slug>)
+ *   - news channel + article detail pages  (/news/<channel>[/<slug>])
+ *   - review type hubs  (/reviews/<type>)
+ *
+ * Anything not matched here falls back to the home keyword block — which is
+ * how every guides article, news page and review-type hub silently published
+ * "jogging stroller / kids electric cars" for months. The check:spakeywords
+ * guard asserts no route other than "/" may publish the home block, so a new
+ * route family that forgets a branch fails the build instead of shipping.
  *
  * Default-route keywords come from DEFAULT_SEO_CONFIGS, the same static base
  * the prerender emits. The SPA may additionally apply CMS overrides for those
@@ -25,7 +34,7 @@
 
 import { SEO_TDK_LIMITS, DEFAULT_SEO_CONFIGS } from "../config/defaultSeo";
 import { getProductDisplayTitle } from "./productSeoText";
-import { getProductSeoKeywords } from "../config/seoKeywordMap";
+import { getProductSeoKeywords, getReviewSeoKeywords } from "../config/seoKeywordMap";
 import {
   SIZING_PATH,
   sizingSeo,
@@ -38,7 +47,11 @@ import { SAFETY_PATH, safetySeo } from "../data/balanceBikeSafety";
 import { BUYER_FEEDBACK_PATH, buyerFeedbackSeo } from "../data/balanceBikeBuyerFeedback";
 import { RECALL_SAFETY_PATH, recallSeo } from "../data/safetyRecallRecord";
 import { TRANSPARENCY_PAGES, getTransparencyPageByPath } from "../data/transparencyPages";
-import { GUIDES_TOPIC_PAGES, type GuidesTopicPageId } from "./guidesTopicPages";
+import {
+  GUIDES_TOPIC_PAGES,
+  normalizeGuidesTopicId,
+  type GuidesTopicPageId,
+} from "./guidesTopicPages";
 
 export type KeywordLang = "zh" | "en";
 
@@ -218,6 +231,67 @@ const REVIEW_DETAIL_KEYWORDS: Record<KeywordLang, string[]> = {
   zh: ["旅行婴儿推车", "轻便婴儿推车", "幼儿自行车", "婴儿推车评测", "慢跑婴儿推车"],
 };
 
+// News channels (/news/<channel> and /news/<channel>/<slug>). Canonical ids
+// mirror NEWS_ROUTE_CATEGORY_IDS in src/App.tsx; the alias map mirrors
+// NEWS_ROUTE_CATEGORY_ALIASES so a URL segment and the SPA's activeNewsCategory
+// resolve to the same set. These are deliberately fresh copy — the /news hub
+// keywords in DEFAULT_SEO_CONFIGS are still the five-category legacy block
+// (tracked separately), and articles must not inherit THOSE either.
+const NEWS_CHANNEL_KEYWORDS: Record<string, Record<KeywordLang, string[]>> = {
+  industry: {
+    en: ["balance bike industry news", "kids bike market trends", "ride-on toy industry news", "balance bike market report"],
+    zh: ["平衡车行业资讯", "儿童自行车市场趋势", "骑乘玩具行业新闻"],
+  },
+  new_product: {
+    en: ["new balance bike releases", "kids bike launches", "new ride-on toys", "balance bike new model"],
+    zh: ["平衡车新品发布", "儿童自行车新品", "新骑乘玩具"],
+  },
+  brand_news: {
+    en: ["balance bike brand news", "kids bike brand updates", "balance bike manufacturer news"],
+    zh: ["平衡车品牌动态", "儿童自行车品牌资讯"],
+  },
+  science: {
+    en: ["balance bike safety research", "kids bike safety studies", "child development research", "balance bike standards news"],
+    zh: ["平衡车安全研究", "儿童自行车安全标准", "儿童发展研究"],
+  },
+};
+
+// Union of the alias maps that exist for news categories — App.tsx's
+// NEWS_ROUTE_CATEGORY_ALIASES (routing) and NewsSection's normalizeNewsCategory
+// (article loading) — so a raw CMS category in a prerendered URL and the SPA's
+// canonical activeNewsCategory always resolve to the same set.
+const NEWS_CHANNEL_ALIASES: Record<string, string> = {
+  brand_trend: "brand_news",
+  brand_dynamics: "brand_news",
+  trends: "industry",
+  policy: "science",
+  regulation: "science",
+  regulations: "science",
+  new: "new_product",
+  launches: "new_product",
+};
+
+/** Keyword set for a news channel, resolved from a URL segment or a CMS
+ *  category value. Unknown channels fall back to the /news hub set, never to
+ *  the home block. */
+export function newsChannelKeywords(channelSegment: string, lang: KeywordLang): string[] {
+  const raw = String(channelSegment || "").trim().toLowerCase().replace(/[-\s]+/g, "_");
+  const canonical = NEWS_CHANNEL_ALIASES[raw] || raw;
+  const channel = NEWS_CHANNEL_KEYWORDS[canonical];
+  return channel ? [...channel[lang]] : defaultKeywords("news", lang);
+}
+
+/**
+ * Keyword set for a guides article detail page (/guides/<topic>/<slug>),
+ * resolved by its topic segment. Mirrors GuidesSection's topic normalisation
+ * so the prerendered meta and the hydrated one publish the same set.
+ */
+export function guidesArticleKeywords(topicSegment: string, lang: KeywordLang): string[] {
+  const topic = normalizeGuidesTopicId(topicSegment);
+  const page = GUIDES_TOPIC_PAGES[topic as GuidesTopicPageId];
+  return page ? [...page.keywords[lang]] : [...GUIDES_TOPIC_PAGES.beginner.keywords[lang]];
+}
+
 const ASSET_SEO_BY_PATH: Record<string, { en: { keywords: readonly string[] }; zh: { keywords: readonly string[] } }> = {
   [SIZING_PATH]: sizingSeo,
   [AGE_PATH]: ageSeo,
@@ -277,6 +351,35 @@ export function resolveRouteKeywords(
     const topic = guidesTopicMatch[1] as GuidesTopicPageId;
     const page = GUIDES_TOPIC_PAGES[topic];
     if (page) return [...page.keywords[lang]];
+  }
+
+  // Guides article detail pages: /guides/<topic>/<slug>. Same unknown-route
+  // fallback bug as the topic indexes had: every CMS article published the
+  // home keyword block — retired-category words ("jogging stroller", "kids
+  // electric cars") included — until this branch landed. Articles inherit
+  // their topic's set; the topic segment is normalised the same way
+  // GuidesSection normalises the CMS taxonomy value.
+  const guidesArticleMatch = /^\/guides\/([^/]+)\/([^/]+)\/?$/.exec(clean);
+  if (guidesArticleMatch) {
+    return guidesArticleKeywords(guidesArticleMatch[1], lang);
+  }
+
+  // News channel pages and article detail pages: /news/<channel>[/<slug>].
+  // The same fallback bug — both shapes published the home block. Channels
+  // resolve through the shared alias map so an aliased URL segment and the
+  // SPA's canonical activeNewsCategory land on the same set.
+  const newsChannelMatch = /^\/news\/([^/]+)(?:\/[^/]+)?\/?$/.exec(clean);
+  if (newsChannelMatch) {
+    return newsChannelKeywords(newsChannelMatch[1], lang);
+  }
+
+  // Review type hubs: /reviews/<type>. Mirrors what the SPA adds on hydration
+  // (App.tsx): the reviews-hub set plus the type's own keywords. Without this
+  // branch the prerender published the home block while hydration published
+  // something else entirely.
+  const reviewTypeMatch = /^\/reviews\/(single|compare|value|ranking|safety)\/?$/.exec(clean);
+  if (reviewTypeMatch) {
+    return Array.from(new Set([...defaultKeywords("reviews", lang), ...getReviewSeoKeywords(reviewTypeMatch[1], lang)]));
   }
 
   // Generic index routes. `clean` carries a trailing slash (e.g. "/reviews/"),

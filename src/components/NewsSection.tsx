@@ -7,6 +7,7 @@ import { matchProductsForText } from "../lib/relatedProducts";
 import type { Product } from "../types";
 import { clearJsonLd, setCollectionPageJsonLd, setJsonLd } from "../lib/seoJsonLd";
 import { buildArticleSeoDescription, buildArticleSeoTitle, buildCardExcerpt, resolveCardImage, type ArticleSeoMeta } from "../lib/articleSeo";
+import { newsChannelKeywords } from "../lib/pageKeywords";
 import { normalizeMediaUrl } from "../lib/productImages";
 
 import Breadcrumbs from "./Breadcrumbs";
@@ -197,11 +198,15 @@ export default function NewsSection({
         setSelectedArticleState(found);
         // Report article-level SEO so App's global SEO effect does not overwrite
         // the prerendered <title>/canonical with the section-homepage values.
+        // keywords travel with it: without them App blanked the prerendered
+        // meta on hydration, and the prerender itself fell back to the home
+        // block for every /news route until the pageKeywords branch landed.
         onActiveArticleMetaRef.current?.({
           title: buildArticleSeoTitle(found.title),
           description: buildArticleSeoDescription(found.summary || found.content),
           image: normalizeMediaUrl(resolveCardImage(found.imageUrl, found.content)) || undefined,
           canonicalPath: typeof window !== "undefined" ? window.location.pathname : "",
+          keywords: newsChannelKeywords(found.category, lang),
         });
         return;
       }

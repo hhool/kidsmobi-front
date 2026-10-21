@@ -16,9 +16,16 @@
  * Scope note: default-route keywords come from DEFAULT_SEO_CONFIGS — the same
  * static base the prerender emits. The SPA may layer CMS overrides on top of
  * those routes (resolveCmsRouteSeoConfig); that divergence is tolerated the
- * same way the title guard tolerates it. Article-detail (guides/<id>, news/<id>)
- * and review-type hubs are SPA-only keyword additions and are asserted for
- * presence only, not exact match.
+ * same way the title guard tolerates it. Review-type hubs are the only
+ * SPA-only keyword addition left (the review-type label) and are asserted for
+ * presence only.
+ *
+ * Regression guard: the home keyword block is the unknown-route fallback. No
+ * route except "/" may publish it — that is how every guides article, news
+ * channel/article and review-type hub silently shipped "jogging stroller /
+ * kids electric cars" for months while this guard stayed green (it recomputed
+ * expectations with the same buggy resolver). A new route family without a
+ * branch now fails the build.
  *
  * Run: npm run check:spakeywords   (after `npm run build`)
  */
@@ -110,8 +117,15 @@ function expectedKeywords(route: string): string[] {
   return resolveRouteKeywords(route, "en");
 }
 
-const ARTICLE_DETAIL = /^\/(guides|news)\/[^/]+\/?$/;
 const REVIEW_TYPE_HUB = /^\/reviews\/(single|compare|value|ranking|safety)\/?$/;
+
+// The home keyword block is the unknown-route fallback in resolveRouteKeywords.
+// Every guides article, news channel/article and review-type hub silently
+// published it for months — the guard could not see it because it recomputed
+// expectations with the same buggy resolver (same-source blind spot). These
+// routes now have real branches, so any route that still publishes the home
+// block is a regression: a new route family that forgot its branch.
+const homeKeywords = resolveRouteKeywords("/", "en");
 
 function equals(a: string[], b: string[]): boolean {
   if (a.length !== b.length) return false;
@@ -141,9 +155,19 @@ for (const route of routes) {
     mismatchedExamples.push(`${route} — EMPTY keywords meta`);
     continue;
   }
-  // Article-detail and review-type hubs get SPA-only keyword additions; assert
-  // presence only, not exact match.
-  if (ARTICLE_DETAIL.test(route) || REVIEW_TYPE_HUB.test(route)) continue;
+  // No route except the home page itself may publish the home keyword block —
+  // it is the unknown-route fallback, so seeing it means this route's family
+  // has no branch in resolveRouteKeywords (the guides/news/review bug).
+  if (route !== "/" && equals(built, homeKeywords)) {
+    missing += 1;
+    mismatchedExamples.push(`${route} — publishes the HOME fallback keyword block (unknown route in resolveRouteKeywords?)`);
+    continue;
+  }
+  // Review-type hubs still get an SPA-only keyword addition (the review-type
+  // label, App.tsx); assert presence only for them. Guides/news article detail
+  // pages used to be in this bucket too — they now resolve through the same
+  // branches on both sides, so they take the exact-match path above.
+  if (REVIEW_TYPE_HUB.test(route)) continue;
 
   const expected = expectedKeywords(route);
   if (!equals(built, expected)) {
