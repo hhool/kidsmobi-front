@@ -153,6 +153,12 @@ jobs:
       - name: Redirect budget (dist/_redirects)
         run: npm run check:redirects
 
+      # Eight URL pairs carry the same topic twice. Whole-page similarity never
+      # catches them drifting back together — the shared cluster nav dilutes it —
+      # so this discounts site chrome by document frequency first.
+      - name: Same-topic pair drift
+        run: npm run check:pairdrift
+
       - name: Upload dist for the hydration probe
         uses: actions/upload-artifact@v4
         with:
