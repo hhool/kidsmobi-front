@@ -70,21 +70,20 @@ for (const rule of rules) {
   }
 }
 
-// The bug that actually bit us, take one. Pages exposes the root document as
-// "/" and normalises "/index.html" -> "/" with a 308, but a *wildcard* rule
-// whose target is "/index.html" never resolves, so Pages drops the rule
-// without a peep — the build log only ever mentioned an unrelated
-// "100 dynamic rules" cap. The whole SPA prefix block vanished this way:
-// /compare, /auth, /search, /evaluations and /transparency answered 404, and
-// so did every guide/news/review detail page published in the CMS after the
-// last deploy.
+// The bug that actually bit us, take one — and it has two faces, both verified
+// live. Pages exposes the root document as "/" and normalises "/index.html"
+// -> "/" with a 308. A *wildcard* rule with that target never resolves, so
+// Pages drops it without a peep (the SPA prefix block was dead for weeks this
+// way). An *exact* rule with that target is NOT dropped — it fires and
+// 308-redirects to "/", silently losing the path: on 2026-10-21 the five bare
+// roots answered 308 -> / at the no-slash form and 404 at the slash form.
+// "/index.html" is therefore never a valid target for any rule shape.
 for (const rule of rules) {
-  if (!rule.source.includes("*")) continue;
   const target = rule.raw.split(/\s+/)[1];
   if (target === "/index.html") {
     failures.push({
       name: "redirects-no-index-html-target",
-      detail: `line ${rule.line} (${rule.source}) targets "/index.html" — Pages drops wildcard rules with that target silently. Target "/" instead.`,
+      detail: `line ${rule.line} (${rule.source}) targets "/index.html" — Pages normalises that target to "/": a wildcard rule is dropped silently, an exact rule 308-redirects to "/" and loses the path. Target "/" instead.`,
     });
   }
 }
@@ -110,22 +109,35 @@ for (const rule of rules) {
 }
 
 // The five bare app roots are SPA-only routes: no prerendered sibling, no
-// static file, so they need an exact rewrite to the shell document. Without it
-// they 404. With a wildcard they would shadow their prefix — hence exact.
+// static file, so they need an exact rewrite to "/" (the shell document).
+// Without it they 404. With a wildcard they would shadow their prefix — hence
+// exact. TWO rules per root: Pages matches the source exactly, so the
+// no-slash rule alone leaves the slash form 404ing (verified live 2026-10-21,
+// when the roots carried only the no-slash form). The target must be "/", not
+// "/index.html" — see redirects-no-index-html-target above; this assertion
+// used to accept either, which is how the broken shape shipped.
 const BARE_APP_ROOTS = ["/compare", "/auth", "/search", "/evaluations", "/transparency"];
 const ruleBySource = new Map(rules.map((rule) => [rule.source, rule]));
 for (const root of BARE_APP_ROOTS) {
-  const rule = ruleBySource.get(root);
-  if (!rule) {
-    failures.push({
-      name: "redirects-bare-roots-covered",
-      detail: `${root} has no rewrite rule — it is a SPA-only route with no prerendered sibling, so it answers 404. Add an exact rule targeting the shell document.`,
-    });
-  } else if (isExternal(rule.raw.split(/\s+/)[1])) {
-    failures.push({
-      name: "redirects-bare-roots-covered",
-      detail: `${root} (line ${rule.line}) redirects off-origin — it must rewrite to the shell document so the SPA can render the route.`,
-    });
+  for (const form of [root, `${root}/`]) {
+    const rule = ruleBySource.get(form);
+    const target = rule ? rule.raw.split(/\s+/)[1] : null;
+    if (!rule) {
+      failures.push({
+        name: "redirects-bare-roots-covered",
+        detail: `${form} has no rewrite rule — it is a SPA-only route with no prerendered sibling, so it answers 404. Add an exact rule: "${form} / 200".`,
+      });
+    } else if (isExternal(target)) {
+      failures.push({
+        name: "redirects-bare-roots-covered",
+        detail: `${form} (line ${rule.line}) redirects off-origin — it must rewrite to "/" so the SPA can render the route.`,
+      });
+    } else if (target !== "/") {
+      failures.push({
+        name: "redirects-bare-roots-covered",
+        detail: `${form} (line ${rule.line}) targets "${target}" — an exact rule targeting "/index.html" 308-redirects to "/" and loses the path (verified live 2026-10-21). Target "/".`,
+      });
+    }
   }
 }
 

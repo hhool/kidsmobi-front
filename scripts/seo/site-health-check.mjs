@@ -174,6 +174,37 @@ async function main() {
     results.push(note('warn', 'prerender-meta-ownership', `could not sample: ${String(e).slice(0, 80)}`));
   }
 
+  // 3c. The five bare app roots must actually be reachable. They are SPA-only
+  // routes with no prerendered sibling, served by exact "_redirects" rewrites
+  // to "/". This family broke on 2026-10-21 in a way no other check could see:
+  // the exact rules targeted "/index.html", so the no-slash form 308-redirected
+  // to "/" (path lost, SPA showed the homepage) while the slash form 404ed —
+  // an exact source matches only the form written. Probes that follow
+  // redirects saw 200 at the homepage and missed both. Fetched with
+  // redirect:'manual' so a 308 surfaces as a 308, and BOTH URL forms are
+  // asserted.
+  try {
+    const BARE_ROOTS = ['/compare', '/auth', '/search', '/evaluations', '/transparency'];
+    const broken = [];
+    for (const root of BARE_ROOTS) {
+      for (const form of [root, `${root}/`]) {
+        const res = await fetchRetry(SITE_BASE + form, { redirect: 'manual' });
+        if (res.status !== 200) broken.push(`${form} (HTTP ${res.status})`);
+      }
+    }
+    results.push(
+      note(
+        broken.length === 0 ? 'pass' : 'fail',
+        'bare-app-roots-reachable',
+        broken.length === 0
+          ? `${BARE_ROOTS.length} root(s) x 2 forms all answer 200 (exact _redirects rewrite to "/")`
+          : `${broken.length}/10 form(s) unreachable — each bare app root needs an exact rewrite to "/" in BOTH URL forms: ${broken.join('; ')}`
+      )
+    );
+  } catch (e) {
+    results.push(note('warn', 'bare-app-roots-reachable', `could not probe: ${String(e).slice(0, 80)}`));
+  }
+
   // 4. llms.txt
   try {
     const { res, text } = await getText(LLMS_URL);

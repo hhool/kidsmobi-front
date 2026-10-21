@@ -7,6 +7,14 @@
 #     have no prerendered sibling are safe — Pages will not warn you.
 #   - A wildcard rule whose target is "/index.html" is dropped in silence:
 #     Pages exposes the root document as "/", so that target never resolves.
+#   - An EXACT rule whose target is "/index.html" is NOT dropped — it fires and
+#     308-redirects to "/", silently losing the path. Verified live 2026-10-21:
+#     the five bare roots were written that way and /compare answered 308 -> /
+#     while /compare/ answered 404. "/index.html" is never a valid target;
+#     target "/" (a rewrite serves the shell at the original URL).
+#   - An exact source matches ONLY the form written: "/compare" does not cover
+#     "/compare/". Both forms need their own rule (verified live 2026-10-21 —
+#     the no-slash rule left the slash form 404ing).
 #   - Pages rejects the "200!" suffix as an invalid status code.
 #   - Rules match top-down, the file is capped (~120 lines), and the overflow
 #     is dropped without failing the build.
@@ -21,8 +29,16 @@
 # Bare app roots: SPA-only routes with no prerendered sibling, so the shell
 # needs an explicit exact rewrite. Do NOT widen these to wildcards — that is
 # the shape that shadowed 255 prerendered pages (see the precedence note above).
-/compare /index.html 200
-/auth /index.html 200
-/search /index.html 200
-/evaluations /index.html 200
-/transparency /index.html 200
+# Both URL forms get their own rule: Pages matches the source exactly, so
+# "/compare" alone leaves "/compare/" on the 404 page. Target "/", never
+# "/index.html" (see the 308 note above). Guard: npm run check:redirects.
+/compare / 200
+/compare/ / 200
+/auth / 200
+/auth/ / 200
+/search / 200
+/search/ / 200
+/evaluations / 200
+/evaluations/ / 200
+/transparency / 200
+/transparency/ / 200
