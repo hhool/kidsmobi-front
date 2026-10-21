@@ -23,8 +23,12 @@ const APPLY = args.includes("--apply");
 const API_BASE = (process.env.CMS_API_BASE || "https://store.balancebiketoddler.com").replace(/\/+$/, "");
 const TOKEN = String(process.env.CMS_ADMIN_ALL_TOKEN || "").trim();
 
-const OLD = LEGACY_RECALL_SAFETY_PATH;
-const NEW = RECALL_SAFETY_PATH;
+// Widened to `string` on purpose: both constants are exported as string
+// literals, so TypeScript narrows the comparison below to "no overlap" and
+// fails the typecheck — the guard is still worth having for when someone edits
+// one of the constants.
+const OLD: string = LEGACY_RECALL_SAFETY_PATH;
+const NEW: string = RECALL_SAFETY_PATH;
 const COLLECTIONS = ["guides", "news"];
 
 if (OLD === NEW) throw new Error("source and target paths are identical — nothing to repoint");
