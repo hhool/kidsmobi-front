@@ -23,6 +23,29 @@ Conclusion: **do not run 8 301 merges.** These are not duplicate content; they a
 
 Reference line: >0.30 is suspicious, >0.50 is substantial duplication. **All 8 pairs land between 0.02 and 0.08, max 0.079.**
 
+> ⚠️ **This number was later shown to be misleading — see 1.1b.** It strips nav/header/footer but not the `ReferenceClusterNav` block both pages render in the body. That copy is a large share of a ~1200-word article, and it dilutes genuine duplication down into the band where everything looks normal. Kept here as the record of what the decision was made on; **do not draw conclusions from it**.
+
+### 1.1b Overlap with site chrome discounted (`npm run check:pairdrift`, added 2026-10-22)
+
+Method: measure document frequency first — any 8-gram appearing on ≥20 of 271 pages is chrome by definition, not editorial overlap — then compute Jaccard over what survives.
+
+| Topic | whole-page raw | **bodyOnly** | shared 8-grams | top subhead overlap |
+|---|---|---|---|---|
+| size-chart | 0.074 | **0.000** | 0 | 0.33 |
+| weight | 0.079 | **0.002** | 3 | 0.14 |
+| by-age | 0.068 | **0.003** | 5 | 0.17 |
+| what-buyers-say | 0.067 | **0.000** | 0 | 0.29 |
+| safety-standards | 0.074 | **0.000** | 0 | 0.40 |
+| stability | 0.061 | **0.000** | 0 | **0.50** |
+| recalls | 0.022 | **0.000** | 0 | 0.30 |
+| budget | 0.068 | **0.000** | 0 | 0.38 |
+
+The handful of shared grams on weight and by-age were checked one by one: they are **product titles** (both pages list the same bike), not prose. So:
+
+- **None of the eight pairs duplicate at body level.** The original "do not merge" conclusion holds — but this is the number that actually supports it.
+- **Only what-buyers-say was ever genuinely duplicated** (identical H1 plus two count sections restating the asset page's table), and it is 0.000 after the C1 rewrite. The call that it was the one pair worth treating is confirmed by measurement.
+- Worst `subheadSim` is 0.50 — stability's "The one listing that does publish it" against "The one listing that publishes geometry": same subject, different phrasing, under the 0.6 threshold.
+
 ### 1.2 Internal links (271 HTML files in dist)
 
 | Target | Links | Nature |
