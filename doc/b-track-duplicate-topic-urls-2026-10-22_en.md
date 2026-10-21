@@ -76,8 +76,24 @@ Titles are near-synonymous. Approach:
 
 ### Tier C — what-buyers-say, pick one (1 pair)
 Both H1s identical. Choose:
-- **C1 (recommended)**: rewrite the guides piece into an action angle (e.g. "How to Read a Buyer-Sentiment Summary"), keep the asset page on the data angle — same technique as Tier B, no content lost
-- **C2**: 301 one into the other, folding unique paragraphs into the survivor first
+- **C1 (recommended, executed)**: rewrite the guides piece into an action angle (e.g. "How to Read a Buyer-Sentiment Summary"), keep the asset page on the data angle — same technique as Tier B, no content lost
+- **C2 (not taken)**: 301 one into the other, folding unique paragraphs into the survivor first
+
+**What C1 actually changed (2026-10-22)**
+
+Retitling alone would have treated the symptom. The real duplication was in the body: `What they mention` and `The three hedges` restated the asset page's count table with the same figures.
+
+1. Both count sections removed from the guide. The numbers are not lost — they stay on `/balance-bike-what-buyers-say/`, and the guide now links there instead of repeating them.
+2. New section `When a summary tells you nothing` (no summary / a reused one / unqualified praise). Its figures are catalogue-wide — 10 of 174 products carry no summary, 5 of 164 summaries are reused — while the asset page only counts the 14 balance bikes, so this is new information rather than a re-cut of existing copy.
+3. `How to read one in sixty seconds` and `What summaries cannot tell you` kept: they are the guide's actual job and have no counterpart on the asset page.
+
+| | asset page | guide |
+|---|---|---|
+| H1 | What Buyers Say About Balance Bikes: All 14 Summaries, Counted | How to Read Balance Bike Buyer Reviews |
+| body | 893 words (untouched) | 1149 → 1351 words |
+| 8-gram overlap | — | 0.079 → **0.067** |
+
+Headings are now fully disjoint apart from `Method`. The residual overlap was checked shingle by shingle: every remaining shared span comes from the `ReferenceClusterNav` block both pages render, not from body copy. 0.067 therefore needs no further work — it sits inside the 0.02–0.08 band the other seven pairs were already in.
 
 ### /safety/ hub (separate item)
 `/safety/` returns 404 live, has 0 internal links, and is absent from the sitemap (not among the 270). **Currently harmless** — nothing links to it and nothing submits it. But the site's thickest page, `/safety/balance-bike-recalls/`, sits under it, so the parent path is empty and the hierarchy is orphaned.
@@ -106,4 +122,6 @@ Three options:
 
 ## 5. One-line conclusion
 
-These 8 pairs are not duplicate content, they are intent collisions. **Do not delete pages — separate the intent.** The only pair worth merging is what-buyers-say (verbatim identical H1), and even there a rewrite is the better first move.
+These 8 pairs are not duplicate content, they are intent collisions. **Do not delete pages — separate the intent.** The only pair worth merging is what-buyers-say (verbatim identical H1), and even there a rewrite is the better first move — done under C1, and the rewrite went to the body, not just the title.
+
+> **Lesson**: fixing an H1 collision can treat the symptom. For this pair the duplication lived in two count sections of the body. The signal that found it was *are the subheads parallel* and *is the same set of figures written twice* — not word count, and not the whole-page Jaccard, which site-wide nav copy dilutes into looking normal.
