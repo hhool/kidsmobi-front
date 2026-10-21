@@ -5978,7 +5978,14 @@ const ABOUT_PAGE_LASTMOD = "2026-09-18T00:00:00.000Z";
     // 2026-10-22: the /safety/ level is gone; the recall record now sits with
     // the other risk-topic pages. It is the thickest page on the site and the
     // whole site links to it, so the old URL has to keep answering.
-    [LEGACY_RECALL_SAFETY_PATH, RECALL_SAFETY_PATH],
+    //
+    // Keyed without the trailing slash even though the retired URL was a
+    // directory index. sync_redirects_to_worker.mjs documents the whole table
+    // as no-trailing-slash, and the Worker's resolveLegacyRedirect strips the
+    // slash before lookup, so a keyed-with-slash entry can never match and the
+    // old URL 404s instead of 301ing. The slash form still reaches the Worker
+    // because the route pattern below is emitted for both shapes.
+    [LEGACY_RECALL_SAFETY_PATH.replace(/\/+$/, ""), RECALL_SAFETY_PATH],
   ];
   const legacyExactRedirects: Array<[string, string]> = [
     // Re-homed legacy "other" bucket details need per-product targets.
